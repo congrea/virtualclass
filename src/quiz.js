@@ -456,12 +456,17 @@
                     'cf': 'quiz'
                 });
                 //stop timer
-                clearInterval(CDTimer);
+                if(typeof CDTimer != 'undefined'){
+                    clearInterval(CDTimer);
+                }
+
                 document.getElementById("closeQzBt").disabled = true;
                 var msginfo = document.createElement('div');
                 msginfo.className="alert alert-info";
                 msginfo.innerHTML = virtualclass.lang.getString('QClosed');
                 resultQzLayout.insertBefore(msginfo,resultQzLayout.firstChild);
+                // Reset the attempted quiz counter after closig the quiz
+
             },
 
             /**
@@ -825,11 +830,18 @@
                     timeTakenQuiz = hours + ":" + minutes + ":" + seconds;
 
                     if (diff <= 0) {
+                        if(order != 'asc'){
+                            display.textContent = "00 : 00 : 00 ";
+                        }
+
                         // add one second so that the count down starts at the full duration
                         // example 17:00:00 not 16:59:59
                         //start = Date.now() + 1000;
                         start =0;
-                        clearInterval(CDTimer);
+                        if(typeof CDTimer != 'undefined'){
+                            clearInterval(CDTimer);
+                        }
+
                         ioAdapter.mustSend({
                             'quiz': {
                                 quizMsg: 'quizTimeEnd',
@@ -1069,6 +1081,18 @@
 
                     if (roles.hasControls()) {
                         this.createResultLayout();
+
+                        var contQzHead  = document.querySelector('#contQzHead');
+                        var QstnName  = document.querySelector('#QstnName');
+                        if(QstnName == null){
+                            var QstnName =  document.createElement('div');
+                            QstnName.id = 'QstnName';
+                            QstnName.innerHTML =  qz.name;
+                            if(contQzHead != null){
+                                contQzHead.appendChild(QstnName)
+                            }
+                        }
+
                         var qtime = parseInt(qz.timelimit);
                         if(qtime > 0) {
                             var order = 'desc';
@@ -1111,7 +1135,7 @@
                         // elem.appendChild(rightdiv);
 
                         var elstimeInnerdiv = virtualclass.view.customCreateElement('div','','col-md-4');
-                        elstimeInnerdiv.innerHTML = timeHeader + " : <span id=\"elsTime\">00:00</span>";
+                        elstimeInnerdiv.innerHTML = timeHeader + " : <span id=\"elsTime\">00:00:00</span>";
                         elem.appendChild(elstimeInnerdiv);
 
                         var btnInnerdiv = virtualclass.view.customCreateElement('button', 'closeQzBt','');
@@ -1120,8 +1144,18 @@
                         elem.appendChild(btnInnerdiv);
                         btnInnerdiv.addEventListener("click", virtualclass.quiz.closeQzBt);
 
-                        virtualclass.quiz.quizTimer(qtime, document.getElementById("elsTime"), order);
+                        var storedData = JSON.parse(localStorage.getItem('quizSt'));
+                        if(storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)){
+                            console.log("Don't run timer when quiz is closed");
+                            var elapsedTime = document.querySelector('#elsTime');
+                            localStorage.setItem('quizSt', JSON.stringify(storedData));
+                            if(elapsedTime != null){
+                                elapsedTime.innerHTML =  storedData.qtime;
+                            }
 
+                        } else {
+                            virtualclass.quiz.quizTimer(qtime, document.getElementById("elsTime"), order);
+                        }
                         var tbUl = this.createTab();
                         bodyHdCont.appendChild(tbUl);
                         //var maxMarksdiv = virtualclass.view.customCreateElement('div', 'maxMark','');
@@ -1166,7 +1200,10 @@
 
                         var modalClose = document.getElementById("modalQzClose");
                         modalClose.addEventListener("click", function () {
+                            virtualclass.quiz.usersFinishedQz = [];
+                            virtualclass.quiz.qGrade = [];
                             virtualclass.quiz.quizModalClose();
+
                         });
                     }
                 },

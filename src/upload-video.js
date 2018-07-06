@@ -540,12 +540,7 @@
                 virtualclass.vutil.sendOrder(type,  order);
             },
 
-            onNewUser: function (msg) {
-                console.log("videoUl");
-                virtualclass.videoUl.videoId = msg.videoUl.init.id;
-                virtualclass.videoUl.videoUrl = msg.videoUl.init.videoUrl;
-                virtualclass.videoUl.UI.displayVideo(msg.videoUl.init.id, msg.videoUl.init.videoUrl, msg.videoUl.startFrom);
-            },
+
 
             /*
              * message  handled at student's end
@@ -984,6 +979,18 @@
                 },
 
                 displayVideo: function (vidId, videoUrl, startFrom) {
+                    var that = this;
+                    if(virtualclass.videoUl.hasOwnProperty('displayVideoTime')){
+                        clearTimeout(virtualclass.videoUl.displayVideoTime);
+                    }
+                    virtualclass.videoUl.displayVideoTime = setTimeout(
+                        function (){
+                            that._displayVideo(vidId, videoUrl, startFrom);
+                        },300
+                    )
+                },
+
+                _displayVideo : function (vidId, videoUrl, startFrom){
                     if (typeof virtualclass.videoUl.player == 'object') {
                         if (virtualclass.videoUl.player.hasOwnProperty('dispose')) {
                             virtualclass.videoUl.player.dispose();
@@ -1110,9 +1117,7 @@
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
                         dispVideo.setAttribute('data-setup','{ techOrder: [youtube],"preload": "auto"}');
-                        setTimeout(function(){
                             player.src({type: 'video/youtube', src:videoUrl});
-                        },4000)
 
                     }else if (virtualclass.videoUl.online) {
                         dispVideo.setAttribute('data-setup', '{"preload": "auto" }');

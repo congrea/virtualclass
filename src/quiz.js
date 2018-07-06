@@ -456,7 +456,10 @@
                     'cf': 'quiz'
                 });
                 //stop timer
-                clearInterval(CDTimer);
+                if(typeof CDTimer != 'undefined'){
+                    clearInterval(CDTimer);
+                }
+
                 document.getElementById("closeQzBt").disabled = true;
                 var msginfo = document.createElement('div');
                 msginfo.className="alert alert-info";
@@ -827,11 +830,18 @@
                     timeTakenQuiz = hours + ":" + minutes + ":" + seconds;
 
                     if (diff <= 0) {
+                        if(order != 'asc'){
+                            display.textContent = "00 : 00 : 00 ";
+                        }
+
                         // add one second so that the count down starts at the full duration
                         // example 17:00:00 not 16:59:59
                         //start = Date.now() + 1000;
                         start =0;
-                        clearInterval(CDTimer);
+                        if(typeof CDTimer != 'undefined'){
+                            clearInterval(CDTimer);
+                        }
+
                         ioAdapter.mustSend({
                             'quiz': {
                                 quizMsg: 'quizTimeEnd',

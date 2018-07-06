@@ -901,9 +901,11 @@ this["JST"]["templates/popupCont.hbs"] = Handlebars.template({"compiler":[7,">= 
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"replay",{"name":"getString","hash":{},"data":data}))
     + " </button>\n    </div>\n\n    <div id=\"confirm\" class=\"popupWindow simple-box\"></div>\n\n    <div id=\"sessionEndMsgCont\" class=\"popupWindow\">\n      <span id=\"sessionEndClose\" class=\"icon-close\"></span>\n      <span id=\"sessionEndMsg\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"sessionendmsg",{"name":"getString","hash":{},"data":data}))
-    + " </span>\n    </div>\n\n    <div id=\"uploadvideourl\" class=\"popupWindow\">\n      <span id=\"endSessionclose\" class=\"icon-close\"></span>\n      <span id=\"endSessionMsg\"> "
+    + " </span>\n    </div>\n\n    <div id=\"uploadvideourl\" class=\"popupWindow urlValidation\">\n      <span id=\"vidPopupClose\" class=\"icon-close urlMszClose \"></span>\n      <span id=\"vidUrlValidateTx\" class=\"validationMsz\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"validateurlmsg",{"name":"getString","hash":{},"data":data}))
-    + " </span>\n    </div>\n    <div id=\"waitMsgCont\" class=\"popupWindow\">\n      <span id=\"waitMsg\" class=\"cgText\"> "
+    + " </span>\n    </div>\n    <div id=\"uploadppturl\" class=\"popupWindow urlValidation\">\n      <span id=\"pptPopupClose\" class=\"icon-close urlMszClose\"></span>\n      <span id=\"pptUrlValidateTx\" class=\"validationMsz\"> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"validateurlmsg",{"name":"getString","hash":{},"data":data}))
+    + " </span>\n    </div>\n\n    <div id=\"waitMsgCont\" class=\"popupWindow\">\n      <span id=\"waitMsg\" class=\"cgText\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"waitmsgconnect",{"name":"getString","hash":{},"data":data}))
     + " </span>\n    </div>\n\n    <div id=\"chromeExtMiss\" class=\"popupWindow\">\n      <span id=\"chromeExtClose\" class=\"icon-close\"></span>\n      <span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugins to share the Screen.<br />You can download the plugin\n        <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a>\n        After installing the plugin, please <a onclick=\"location.reload()\">Reload </a> the page.\n\n      </span>\n      </span>\n    </div>\n\n    <div id=\"generalMessage\" class=\"popupWindow\">\n      <span id=\"generalMessageMsg\"> </span>\n      <span id=\"generalMessageClose\"></span>\n\n    </div>\n\n\n\n  </div>\n</div>";
 },"useData":true});
@@ -1204,11 +1206,9 @@ this["JST"]["templates/videoupload/linkvideo.hbs"] = Handlebars.template({"1":fu
 this["JST"]["templates/videoupload/popup.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "\n<div id =\"videoPopup\" data-app=\"Video\" class=\"dbContainer\">\n\n<div id =\"uploadMsz\" class=\"qq-gallery\" style=\"display:none\">\n\n</div>\n\n<div id =\"congreavideoContBody\">\n\n</div>\n  <div id =\"listvideo\">\n\n  </div>\n<div id = \"congreaShareVideoUrlCont\">\n  <div id =\"uploadBtnCont\">\n    <button  type=\"button\" id=\"uploadVideo\" class=\"btn btn-default\" >\n      <span class=\" glyphicon glyphicon-upload videoupload-icon\" title =\""
+  return "<div id =\"videoPopup\" data-app=\"Video\" class=\"dbContainer\">\n  <div id =\"uploadMsz\" class=\"qq-gallery\" style=\"display:none\">\n</div>\n  <div id =\"congreavideoContBody\">\n\n  </div>\n  <div id =\"listvideo\">\n\n  </div>\n<div id = \"congreaShareVideoUrlCont\">\n  <div id =\"uploadBtnCont\">\n    <button  type=\"button\" id=\"uploadVideo\" class=\"btn btn-default\" >\n      <span class=\" glyphicon glyphicon-upload videoupload-icon\" title =\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"uploadvideo",{"name":"getString","hash":{},"data":data}))
-    + "\"></span>\n      <span class=\"videobtntxt\" title =\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"uploadvideo",{"name":"getString","hash":{},"data":data}))
-    + "\">"
+    + "\"></span>\n      <span class=\"videobtntxt\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"uploadvideo",{"name":"getString","hash":{},"data":data}))
     + "</span></button>\n  </div>\n  <div id=\"videoUrlContainer\">\n    <input id=\"videourl\" placeholder=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"enteryouryoutubeurl",{"name":"getString","hash":{},"data":data}))

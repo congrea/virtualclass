@@ -540,12 +540,7 @@
                 virtualclass.vutil.sendOrder(type,  order);
             },
 
-            onNewUser: function (msg) {
-                console.log("videoUl");
-                virtualclass.videoUl.videoId = msg.videoUl.init.id;
-                virtualclass.videoUl.videoUrl = msg.videoUl.init.videoUrl;
-                virtualclass.videoUl.UI.displayVideo(msg.videoUl.init.id, msg.videoUl.init.videoUrl, msg.videoUl.startFrom);
-            },
+
 
             /*
              * message  handled at student's end
@@ -984,6 +979,18 @@
                 },
 
                 displayVideo: function (vidId, videoUrl, startFrom) {
+                    var that = this;
+                    if(virtualclass.videoUl.hasOwnProperty('displayVideoTime')){
+                        clearTimeout(virtualclass.videoUl.displayVideoTime);
+                    }
+                    virtualclass.videoUl.displayVideoTime = setTimeout(
+                        function (){
+                            that._displayVideo(vidId, videoUrl, startFrom);
+                        },300
+                    )
+                },
+
+                _displayVideo : function (vidId, videoUrl, startFrom){
                     if (typeof virtualclass.videoUl.player == 'object') {
                         if (virtualclass.videoUl.player.hasOwnProperty('dispose')) {
                             virtualclass.videoUl.player.dispose();
@@ -1110,7 +1117,7 @@
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
                         dispVideo.setAttribute('data-setup','{ techOrder: [youtube],"preload": "auto"}');
-                        player.src({type: 'video/youtube', src:videoUrl});
+                            player.src({type: 'video/youtube', src:videoUrl});
 
                     }else if (virtualclass.videoUl.online) {
                         dispVideo.setAttribute('data-setup', '{"preload": "auto" }');
@@ -1145,7 +1152,6 @@
                                     }
 
                                 }
-
                             }
 
                        });
@@ -1359,7 +1365,7 @@
                 validateURL:function(url){
                     var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
                     if(res == null){
-                        virtualclass.popup.validateurlPopup();
+                        virtualclass.popup.validateurlPopup("video");
                         return false;
                     }
                     else
@@ -1404,7 +1410,7 @@
 
                     //TODO this need to be outside the function
                     virtualclass.videoUl.UI.inputUrl();
-                    //nirmala aws
+
 
                     // virtualclass.videoUl.UI.awsr();
                     // virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);

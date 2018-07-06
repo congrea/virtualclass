@@ -1081,6 +1081,18 @@
 
                     if (roles.hasControls()) {
                         this.createResultLayout();
+
+                        var contQzHead  = document.querySelector('#contQzHead');
+                        var QstnName  = document.querySelector('#QstnName');
+                        if(QstnName == null){
+                            var QstnName =  document.createElement('div');
+                            QstnName.id = 'QstnName';
+                            QstnName.innerHTML =  qz.name;
+                            if(contQzHead != null){
+                                contQzHead.appendChild(QstnName)
+                            }
+                        }
+
                         var qtime = parseInt(qz.timelimit);
                         if(qtime > 0) {
                             var order = 'desc';
@@ -1135,6 +1147,12 @@
                         var storedData = JSON.parse(localStorage.getItem('quizSt'));
                         if(storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)){
                             console.log("Don't run timer when quiz is closed");
+                            var elapsedTime = document.querySelector('#elsTime');
+                            localStorage.setItem('quizSt', JSON.stringify(storedData));
+                            if(elapsedTime != null){
+                                elapsedTime.innerHTML =  storedData.qtime;
+                            }
+
                         } else {
                             virtualclass.quiz.quizTimer(qtime, document.getElementById("elsTime"), order);
                         }

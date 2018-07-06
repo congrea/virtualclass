@@ -462,6 +462,8 @@
                 msginfo.className="alert alert-info";
                 msginfo.innerHTML = virtualclass.lang.getString('QClosed');
                 resultQzLayout.insertBefore(msginfo,resultQzLayout.firstChild);
+                // Reset the attempted quiz counter after closig the quiz
+
             },
 
             /**
@@ -1111,7 +1113,7 @@
                         // elem.appendChild(rightdiv);
 
                         var elstimeInnerdiv = virtualclass.view.customCreateElement('div','','col-md-4');
-                        elstimeInnerdiv.innerHTML = timeHeader + " : <span id=\"elsTime\">00:00</span>";
+                        elstimeInnerdiv.innerHTML = timeHeader + " : <span id=\"elsTime\">00:00:00</span>";
                         elem.appendChild(elstimeInnerdiv);
 
                         var btnInnerdiv = virtualclass.view.customCreateElement('button', 'closeQzBt','');
@@ -1120,8 +1122,12 @@
                         elem.appendChild(btnInnerdiv);
                         btnInnerdiv.addEventListener("click", virtualclass.quiz.closeQzBt);
 
-                        virtualclass.quiz.quizTimer(qtime, document.getElementById("elsTime"), order);
-
+                        var storedData = JSON.parse(localStorage.getItem('quizSt'));
+                        if(storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)){
+                            console.log("Don't run timer when quiz is closed");
+                        } else {
+                            virtualclass.quiz.quizTimer(qtime, document.getElementById("elsTime"), order);
+                        }
                         var tbUl = this.createTab();
                         bodyHdCont.appendChild(tbUl);
                         //var maxMarksdiv = virtualclass.view.customCreateElement('div', 'maxMark','');
@@ -1166,7 +1172,10 @@
 
                         var modalClose = document.getElementById("modalQzClose");
                         modalClose.addEventListener("click", function () {
+                            virtualclass.quiz.usersFinishedQz = [];
+                            virtualclass.quiz.qGrade = [];
                             virtualclass.quiz.quizModalClose();
+
                         });
                     }
                 },

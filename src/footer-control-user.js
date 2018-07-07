@@ -965,12 +965,19 @@
 
                     var vidbtn = document.getElementById("videoSwitch");
                     if(virtualclass.system.mediaDevices.hasWebcam && vidbtn && vidbtn.classList.contains("video")){
-                        vidbtn.classList.remove("video" , "off");
-                        vidbtn.classList.add("video" , "on");
+                        // vidbtn.classList.remove("video" , "off");
+                        // svidbtn.classList.add("video" , "on");
                         var tvideoElem = document.getElementById("rightCtlr");
                         tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
-                        virtualclass.videoHost.gObj.videoSwitch = 1;
+                        virtualclass.videoHost.gObj.videoSwitch = 0;
+                        console.log('video switch 0');
                         virtualclass.videoHost.toggleVideoMsg('enable', true);
+                        // if(vidbtn && roles.hasControls()){
+                        //    vidbtn.classList.remove("video" , "on");
+                        //    vidbtn.classList.add("video" , "off");
+                        //    var vidType = "vid";
+                        //    virtualclass.videoHost.UI.hideVideo(vidType);
+                        // }
                     }
 
                 },

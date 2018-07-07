@@ -1117,7 +1117,7 @@ this["JST"]["templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(conta
 },"useData":true});
 
 this["JST"]["templates/teacherVideo.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "    <video id=\"videoHostSource\" class=\"show\" autoplay=\"\" muted=\"muted\"></video>\n    <canvas id=\"videoHost\"></canvas>\n    <canvas id=\"videoHostSlice\"></canvas>\n";
+    return "    <video id=\"videoHostSource\" class=\"\" autoplay=\"\" muted=\"muted\"></video>\n    <canvas id=\"videoHost\"></canvas>\n    <canvas id=\"videoHostSlice\"></canvas>\n";
 },"3":function(container,depth0,helpers,partials,data) {
     return "    <div id=\"fromServer\">\n      <canvas id=\"videoParticipate\" > </canvas>\n    </div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

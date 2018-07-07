@@ -273,7 +273,7 @@ var videoHost = {
         var videoSwitch ="";
         if(roles.hasControls()){
              videoSwitch = localStorage.getItem("videoSwitch");
-            localStorage.removeItem("videoSwitch");
+             localStorage.removeItem("videoSwitch");
         }else{
             var stdVideoSwitch = JSON.parse(localStorage.getItem("stdVideoSwitch"));
             localStorage.removeItem("stdVideoSwitch");
@@ -466,7 +466,7 @@ var videoHost = {
         }
         if(virtualclass.gObj.isReadyForVideo){
             if(document.querySelector("#virtualclassCont.congrea #videoHostContainer.hide")){
-                virtualclass.videoHost.UI.displayVideo();
+                //virtualclass.videoHost.UI.displayVideo();
             }
 
         }

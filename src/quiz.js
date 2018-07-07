@@ -1075,7 +1075,7 @@
                             var timeHeader = "Time remaining" ;
                         } else {
                             var order = 'asc';
-                            timeHeader = "Elasped time";
+                            timeHeader = "Elapsed time";
                         }
 
                         /**

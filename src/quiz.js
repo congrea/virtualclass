@@ -831,7 +831,7 @@
 
                     if (diff <= 0) {
                         if(order != 'asc'){
-                            display.textContent = "00 : 00 : 00 ";
+                            display.textContent = "00:00:00 ";
                         }
 
                         // add one second so that the count down starts at the full duration
@@ -849,6 +849,9 @@
                             },
                             'cf': 'quiz'
                         });
+                        if(roles.hasControls()){
+                            document.getElementById('closeQzBt').disabled = true;
+                        }
                     }
                     //return ctime;
                 };

@@ -533,7 +533,12 @@
                         }
 
                     }
-                    system.initResize();
+                    setTimeout(
+                        function (){
+                            virtualclass.zoom.normalRender();
+                        }, 100
+                    );
+                    //system.initResize();
                 } else {
                     var prevapp = localStorage.getItem('prevApp');
                     if (prevapp != null) {

@@ -68,10 +68,15 @@
       <span id="sessionEndMsg"> {{getString 'sessionendmsg'}} </span>
     </div>
 
-    <div id="uploadvideourl" class="popupWindow">
-      <span id="endSessionclose" class="icon-close"></span>
-      <span id="endSessionMsg"> {{getString 'validateurlmsg'}} </span>
+    <div id="uploadvideourl" class="popupWindow urlValidation">
+      <span id="vidPopupClose" class="icon-close urlMszClose "></span>
+      <span id="vidUrlValidateTx" class="validationMsz"> {{getString 'validateurlmsg'}} </span>
     </div>
+    <div id="uploadppturl" class="popupWindow urlValidation">
+      <span id="pptPopupClose" class="icon-close urlMszClose"></span>
+      <span id="pptUrlValidateTx" class="validationMsz"> {{getString 'validateurlmsg'}} </span>
+    </div>
+
     {{!-- For confirm window  --}}
     <div id="waitMsgCont" class="popupWindow">
       <span id="waitMsg" class="cgText"> {{getString 'waitmsgconnect'}} </span>

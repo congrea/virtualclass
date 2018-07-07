@@ -840,7 +840,8 @@
                     virtualclass.sharePt.savePptUrl(vUrl);
                     document.getElementById("presentationurl").value = "";
                 } else {
-                    alert('Please enter a valid URL');
+                    virtualclass.popup.validateurlPopup("presentation");
+                   // alert('Please enter a valid URL');
                 }
             },
             savePptUrl:function(vUrl){

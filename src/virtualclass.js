@@ -535,7 +535,9 @@
                     }
                     setTimeout(
                         function (){
-                            virtualclass.zoom.normalRender();
+                            if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
+                                virtualclass.zoom.normalRender();
+                            }
                         }, 100
                     );
                     //system.initResize();

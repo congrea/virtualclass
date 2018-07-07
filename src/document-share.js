@@ -691,6 +691,11 @@
                                 if(docsContainer != null){
                                     docsContainer.classList.remove('noteDisplay');
                                 }
+                                virtualclass.gObj.currWb  = null;
+
+                                var virtualclassCont  = document.querySelector('#virtualclassCont');
+                                virtualclassCont.classList.remove('pdfRendering');
+
                                 //if(!Object.keys(virtualclass.dts.notes).length){
                                   //  if(!roles.hasControls()){
                                         var zoomHide = document.querySelector("#virtualclassAppLeftPanel.hideZoom");

@@ -68,9 +68,11 @@
             },
 
             enablePreCheck : true,
-            clearSession: function () {
+            clearSession: function (notSend) {
                 window.pageEnter = new Date().getTime();
-                virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
+                if(typeof notSend == 'undefined'){
+                    virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
+                }
                 if (typeof virtualclass.videoUl == 'object') {
                     if (typeof virtualclass.videoUl.player == "object") {
                         if(typeof virtualclass.videoUl.player.dispose !='undefined'){
@@ -531,7 +533,14 @@
                         }
 
                     }
-                    system.initResize();
+                    setTimeout(
+                        function (){
+                            if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
+                                virtualclass.zoom.normalRender();
+                            }
+                        }, 100
+                    );
+                    //system.initResize();
                 } else {
                     var prevapp = localStorage.getItem('prevApp');
                     if (prevapp != null) {

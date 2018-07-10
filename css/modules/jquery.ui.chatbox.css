@@ -66,13 +66,13 @@
 #virtualclassCont.congrea.student .ui-chatbox-msg {
     clear: both;
     font-size: 12px;
-    padding: 3px;
+    padding: 3px 7px;
     list-style: none;
     line-height: 18px;
 }
 
 #virtualclassCont.congrea.student .ui-chatbox-msg{
-    padding: 4px;
+    padding: 3px 7px;
 }
 
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon {
@@ -473,7 +473,6 @@
     border-top: none;
     position: relative;
     top: 0px;
-    cursor: pointer;
     border-radius: 0;
     margin-right: 0px;
     border-bottom: none;
@@ -615,6 +614,12 @@
 /*    border: none;*/
 }
 
+#virtualclassCont.congrea .ui-tabs-active .ui-widget-content.ui-chatbox-log::-webkit-scrollbar {
+    width: 6px;
+    height: 8px;
+    background-color: #d9dbdc;
+}
+
 #virtualclassCont.congrea #chat_room{
     height:calc(100vh - 390px);
     margin: 0px;
@@ -629,7 +634,7 @@
     margin: 0px;
 }
 #virtualclassCont.congrea.student .vidHide #chat_room {
-    height: calc(100vh - 178px) !important;
+    height: calc(100vh - 160px) !important;
 }
 #virtualclassCont.congrea.student #chat_room {
     height: calc(100vh - 400px) !important;
@@ -737,7 +742,7 @@
 }
 
 #virtualclassCont.congrea #congreaChatCont .icon-chatImg.chatImg{
-margin-right:10px !important;
+margin-right:6px !important;
 }
 
  #virtualclassCont.congrea a.stdRaiseHand, #virtualclassCont.congrea a.stdRaiseHand:hover{

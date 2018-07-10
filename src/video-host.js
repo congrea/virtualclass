@@ -27,6 +27,7 @@ var videoHost = {
         this.width = width;
         this.height = height;
         this.gObj.videoSwitch = 1;//nirmala
+        console.log("videoSwitch 1");
         this.gObj.stdStopSmallVid =false;
         this.domReady = false;
         this.allStdVideoOff=false;
@@ -59,7 +60,8 @@ var videoHost = {
             //this.setCanvasAttr('videoPartCan', 'videoParticipate');
             // this would be used for converting webp image to png image
             WebPDecDemo('videoParticipate');
-            virtualclass.videoHost.UI.hideVideo()
+            virtualclass.videoHost.UI.hideTeacherVideo() //hideTeacherVideo();
+
         }
 
         var rightPanel = document.querySelector('#virtualclassAppRightPanel');
@@ -68,6 +70,7 @@ var videoHost = {
             if(teacherVideo == null){
                 teacherVideo = 'show';
             }
+            var action = virtualclass.vutil.isVideoOn();
             rightPanel.classList.add(teacherVideo);
             if(roles.hasControls()){
                 var swVideo = localStorage.getItem('videoSwitch');
@@ -77,7 +80,8 @@ var videoHost = {
                     }else{
                         virtualclass.gObj.delayVid="display"
                     }
-                    virtualclass.videoHost.UI.hideVideo()
+                    //virtualclass.videoHost.UI.hideVideo()
+                    virtualclass.vutil.videoHandler(action);
                 }
 
             }else{
@@ -88,7 +92,9 @@ var videoHost = {
                     }else{
                         virtualclass.gObj.delayVid="display"
                     }
-                    virtualclass.videoHost.UI.hideVideo()
+                    //virtualclass.videoHost.UI.hideVideo()
+                    virtualclass.vutil.videoHandler(action);
+
                 }
                 console.log(swVideo);
 
@@ -134,37 +140,39 @@ var videoHost = {
         this.vidHostSlice.globalCompositeOperation = "multiply";
     },
     //nirmala
-    videoHandler: function (that) {
-        var video;
-        if (that.classList.contains("on")) {
-            that.classList.remove("on");
-            that.classList.add("off");
-            virtualclass.videoHost.gObj.videoSwitch = 0;
-            video = "off";
-            var tooltip = document.querySelector(".videoSwitchCont");
-            tooltip.dataset.title="turn video on"
-        } else {
-            that.classList.remove("off");
-            that.classList.add("on");
-            virtualclass.videoHost.gObj.videoSwitch = 1;
-            video = "on"
-            var tooltip = document.querySelector(".videoSwitchCont");
-            tooltip.dataset.title="turn video off"
-        }
-
-        ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
-
-    },
+    // videoHandler: function (that) {
+    //     var video;
+    //     if (that.classList.contains("on")) {
+    //         that.classList.remove("on");
+    //         that.classList.add("off");
+    //         virtualclass.videoHost.gObj.videoSwitch = 0;
+    //         video = "off";
+    //         var tooltip = document.querySelector(".videoSwitchCont");
+    //         tooltip.dataset.title="turn video on"
+    //     } else {
+    //         that.classList.remove("off");
+    //         that.classList.add("on");
+    //         virtualclass.videoHost.gObj.videoSwitch = 1;
+    //         console.log("videoSwitch 1");
+    //         video = "on"
+    //         var tooltip = document.querySelector(".videoSwitchCont");
+    //         tooltip.dataset.title="turn video off"
+    //     }
+    //
+    //     ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
+    //
+    // },
 
     onmessage: function (msg) {
         console.log(msg);
         if (msg.congCtr.videoSwitch == "on") {
             virtualclass.videoHost.gObj.videoSwitch = 1;
-            this.UI.displayVideo();
+            console.log("videoSwitch 1");
+            this.UI.displayTeacherVideo();
             localStorage.tvideo = 'show';
         } else if (msg.congCtr.videoSwitch == "off") {
             virtualclass.videoHost.gObj.videoSwitch = 0;
-            this.UI.hideVideo();
+            this.UI.hideTeacherVideo();
             localStorage.tvideo = 'hide';
         }
     },
@@ -275,7 +283,7 @@ var videoHost = {
         var videoSwitch ="";
         if(roles.hasControls()){
              videoSwitch = localStorage.getItem("videoSwitch");
-            localStorage.removeItem("videoSwitch");
+             localStorage.removeItem("videoSwitch");
         }else{
             var stdVideoSwitch = JSON.parse(localStorage.getItem("stdVideoSwitch"));
             localStorage.removeItem("stdVideoSwitch");
@@ -307,10 +315,13 @@ var videoHost = {
 
             }else {
                 if(!virtualclass.gObj.meetingMode){
+                    var action = virtualclass.vutil.isVideoOn();
                     if (+videoSwitch) {
-                        virtualclass.videoHost.UI.displayVideo();
+                        virtualclass.vutil.videoHandler(action);
+                        //virtualclass.videoHost.UI.displayVideo();
                     } else {
-                        virtualclass.videoHost.UI.hideVideo();
+                        virtualclass.vutil.videoHandler(action);
+                        //virtualclass.videoHost.UI.hideVideo();
                     }
                 }
 
@@ -468,7 +479,7 @@ var videoHost = {
         }
         if(virtualclass.gObj.isReadyForVideo){
             if(document.querySelector("#virtualclassCont.congrea #videoHostContainer.hide")){
-                virtualclass.videoHost.UI.displayVideo();
+                virtualclass.videoHost.UI.displayTeacherVideo();
             }
 
         }
@@ -643,26 +654,23 @@ var videoHost = {
    },
 
     UI: {
-        displayVideo: function (vidType) {
-            if(vidType != "small"){
-                var host = document.querySelector(".congrea #videoHostContainer");
-                host.classList.add("show")
-                host.classList.remove("hide");
-                var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
-                rightbar.classList.add("vidShow")
-                rightbar.classList.remove("vidHide")
-            }
-        },
-        hideVideo: function (vidType) {
-            if(vidType != "small"){
-                var host = document.querySelector(".congrea #videoHostContainer");
-                host.classList.remove("show");
-                host.classList.add("hide");
-                var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel")
-                rightbar.classList.add("vidHide")
-                rightbar.classList.remove("vidShow")
+        displayTeacherVideo: function () {
+            var host = document.querySelector(".congrea #videoHostContainer");
+            host.classList.add("show")
+            host.classList.remove("hide");
+            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel");
+            rightbar.classList.add("vidShow")
+            rightbar.classList.remove("vidHide")
 
-            }
+        },
+        hideTeacherVideo: function () {
+            var host = document.querySelector(".congrea #videoHostContainer");
+            host.classList.remove("show");
+            host.classList.add("hide");
+            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel");
+            rightbar.classList.add("vidHide")
+            rightbar.classList.remove("vidShow")
+
 
         }
 

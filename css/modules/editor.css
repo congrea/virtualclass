@@ -71,20 +71,28 @@
 
 #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
   position: fixed;
-  bottom: 0px;
+  bottom: 9px;
   right: 370px;
   width: auto;
   max-height: 44px;
-  /* padding-left: 5px; */
-  /* text-align: center; */
-  padding: 12px 8px 8px 8px;
   font-size: 13px;
   font-weight: 200;
   z-index: 2000;
+    border-radius:0;
+}
+
+#virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch {
+    padding: 17px 8px 13px 8px !important;
+    background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%) !important;
+    border-radius: 0 !important;
+} 
+
+#virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch:hover {
+    background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%) !important;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer.congtooltip:hover:after {
-    bottom:3.8em !important;
+    bottom:3.2em !important;
 }
 
 @-moz-document url-prefix() {

@@ -584,7 +584,7 @@ display: none;
     right: 2.4em;
 }
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #stickycontainer .vmchat_bar_button.congtooltip:hover:after {
-    bottom: 4.3em;
+    bottom: 3.8em;
     left: auto;
     right: 2.4em;
 }
@@ -594,7 +594,7 @@ display: none;
     right: 2.4em;
 }
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover:after {
-    bottom: 4.3em;
+    bottom: 3.8em;
     left: auto;
     right: 2.4em;
 }
@@ -604,7 +604,7 @@ display: none;
 
 #virtualclassCont.congrea .handRaise.congtooltip:hover:after {
     border-radius: 0.25em;
-    bottom: 4.6em;
+    bottom: 3.8em;
     right: 0.2em;
     left: auto;
     padding: 0.2em 0.42em;

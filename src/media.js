@@ -1512,7 +1512,10 @@
                  * Disable teacher video by default, when he/she will join first time
                  */
                 if(roles.hasControls() && localStorage.getItem('prevApp') == null){
-                    virtualclass.vutil.videoHandler();
+                    //virtualclass.vutil.videoHandler();
+
+                    var action = virtualclass.vutil.isVideoOn();
+                    virtualclass.vutil.videoHandler(action);
                 }
 
             },

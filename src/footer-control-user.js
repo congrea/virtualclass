@@ -967,17 +967,23 @@
                     if(virtualclass.system.mediaDevices.hasWebcam && vidbtn && vidbtn.classList.contains("video")){
                         // vidbtn.classList.remove("video" , "off");
                         // svidbtn.classList.add("video" , "on");
-                        var tvideoElem = document.getElementById("rightCtlr");
-                        tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
-                        virtualclass.videoHost.gObj.videoSwitch = 0;
+                        if(vidbtn.classList.contains("on") && roles.hasControls()) {
+                            var action = virtualclass.vutil.isVideoOn();
+                            virtualclass.vutil.videoHandler(action);
+                            var tvideoElem = document.getElementById("rightCtlr");
+                            tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videoon'));
+                        }else if(vidbtn.classList.contains("off") && roles.isStudent()){
+                            var action = virtualclass.vutil.isVideoOn();
+                            virtualclass.vutil.videoHandler(action);
+                            var tvideoElem = document.getElementById("rightCtlr");
+                            tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
+                        }
+
+                        // var tvideoElem = document.getElementById("rightCtlr");
+                        // tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
+
                         console.log('video switch 0');
                         virtualclass.videoHost.toggleVideoMsg('enable', true);
-                        // if(vidbtn && roles.hasControls()){
-                        //    vidbtn.classList.remove("video" , "on");
-                        //    vidbtn.classList.add("video" , "off");
-                        //    var vidType = "vid";
-                        //    virtualclass.videoHost.UI.hideVideo(vidType);
-                        // }
                     }
 
                 },

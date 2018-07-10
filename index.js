@@ -676,16 +676,17 @@ $(document).ready(function () {
                     // ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
 
                     if (roles.hasControls() && virtualclass.dts.docs.hasOwnProperty('currDoc')) {
-                        var doc = virtualclass.dts.docs.currDoc;
-                        //ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
-                        ioAdapter.mustSendUser({
-                            'dts': {
-                                slideTo: virtualclass.dts.docs.note.currNote,
-                                docn: virtualclass.dts.docs.currDoc
-                            }, 'cf': 'dts'
-                        }, virtualclass.jId);
-                        console.log('Document share send :- Complete slide');
-
+                        if(virtualclass.gObj.currWb != null){
+                            var doc = virtualclass.dts.docs.currDoc;
+                            //ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
+                            ioAdapter.mustSendUser({
+                                'dts': {
+                                    slideTo: virtualclass.dts.docs.note.currNote,
+                                    docn: virtualclass.dts.docs.currDoc
+                                }, 'cf': 'dts'
+                            }, virtualclass.jId);
+                            console.log('Document share send :- Complete slide');
+                        }
                     } else {
                         ioAdapter.mustSendUser({'dts': {init: 'studentlayout'}, 'cf': 'dts'}, virtualclass.jId);
                         console.log('Document share send :- Layout');

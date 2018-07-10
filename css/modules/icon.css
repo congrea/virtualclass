@@ -217,6 +217,7 @@
 
 #virtualclassCont .ui-memblist-usr .icon-chatImg:before {
   content: "\f075";
+  font-size:14px;
   color: #535151;
   position: relative;
   top: -1px;

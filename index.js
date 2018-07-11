@@ -1611,7 +1611,7 @@ $(document).ready(function () {
                         var appName = "ScreenShare";
                         virtualclass.makeAppReady(appName, "byclick");
                     }else{
-                        virtualclass.vutil.beforeSend({'sd': true, 'cf': 'raiseHand'});
+                        virtualclass.vutil.beforeSend({'sd': true, 'cf': 'colorIndicator'});
                     }
                 });
             }
@@ -1665,6 +1665,23 @@ $(document).ready(function () {
             this.raiseHand= function(e){
                 virtualclass.raiseHand.onMsgRec(e);
             }
+            this.colorIndicator= function(e){
+                var rMsg = e.message;
+                var uid = e.fromUser.userid;
+                if(rMsg.sd){
+                    var elem = document.getElementById(uid + 'contrstdscreenImg');
+                    if(elem != null){
+                        elem.setAttribute('data-dcolor', 'red');
+                    }
+                }else if(rMsg.ext){
+                    var elem = document.getElementById(uid + 'contrstdscreenImg');
+                    if(elem != null){
+                        elem.setAttribute('data-dcolor', 'orange');
+                    }
+                }
+            }
+
+
             this.stdVideoCtrl= function(e){
                 if(e.fromUser.userid != virtualclass.gObj.uid){
                     virtualclass.videoHost.stdVideoCtrlMsg(e);

@@ -67,24 +67,12 @@
 
             onMsgRec:function(e){
                 var rMsg = e.message;
-                var uid = e.fromUser.userid;
-                if(rMsg.sd){
-                    var elem = document.getElementById(uid + 'contrstdscreenImg');
-                    if(elem != null){
-                        elem.setAttribute('data-dcolor', 'red');
-                    }
-                }else if(rMsg.ext){
-                    var elem = document.getElementById(uid + 'contrstdscreenImg');
-                    if(elem != null){
-                        elem.setAttribute('data-dcolor', 'orange');
-                    }
-                }else{
-                    if (roles.hasControls()) {
-                        this.msgRecAtTeacher(rMsg.data);
-                    } else {
-                        this.msgRecAtStudent(rMsg.data)
-                    }
+                if (roles.hasControls()) {
+                    this.msgRecAtTeacher(rMsg.data);
+                } else {
+                    this.msgRecAtStudent(rMsg.data)
                 }
+
 
             },
             msgRecAtTeacher:function(msg){

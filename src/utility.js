@@ -458,6 +458,20 @@
 
         beforeLoad: function () {
             if(virtualclass.currApp == 'DocumentShare'){
+                if(!roles.hasControls()){
+                    var rhElem = document.querySelector("#virtualclassCont.congrea #icHr");
+                    var action = rhElem.getAttribute("data-action");
+                    if(action == "disable"){
+                        var toUser = virtualclass.vutil.whoIsTeacher();
+                        ioAdapter.sendUser({
+                            'data': {
+                                user: wbUser.id,
+                                action:action
+                            },
+                            'cf': 'raiseHand'
+                        }, toUser);
+                    }
+                }
                 io.disconnect();
             }
 
@@ -1710,8 +1724,10 @@
                         alert('Element is null');
                     }
                 })
+
             }
         },
+
         modalPopup: function (type, elemArr) {
             var upload = {};
             if(type == 'video'){
@@ -1979,7 +1995,6 @@
                 virtualclass.vutil.makeElementActive('#listnotes');
             }else if(currApp == 'Video'){
                 var dtitle = document.getElementById('dashboardnav');
-//                dtitle.setAttribute('data-title', virtualclass.lang.getString('VideodbHeading'));
                 if(document.querySelector('#'+currApp+'Dashboard') == null){
                     var elem = document.createElement("div");
                     var cont = document.querySelector('#congdashboard .modal-body')
@@ -1989,17 +2004,14 @@
 
                 var videocont= document.querySelector('#videoPopup');
                 if(videocont){
-                    videocont.parentNode.removeChild(videocont);
+                    videocont.parentNode.removeChild(videocont)
                 }
 
+                var videoDashboard = virtualclass.getTemplate('popup','videoupload');
+                var dbHtml = videoDashboard();
+                $('#VideoDashboard').append(dbHtml);
 
-               // if(!(currVideo && currVideo.init&&currVideo.init.videoUrl)){
-                    var videoDashboard = virtualclass.getTemplate('popup','videoupload');
-                    var dbHtml = videoDashboard();
-                    $('#VideoDashboard').append(dbHtml);
-                    virtualclass.videoUl.UI.popup(currVideo);
-               // }
-
+                virtualclass.videoUl.UI.popup(currVideo);
                 virtualclass.vutil.attachEventToUpload();
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');

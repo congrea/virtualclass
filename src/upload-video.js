@@ -13,6 +13,7 @@
             status: 0,
             yts:false,
             online:false,
+            listEndPause:false,
 
             /*
              * it creates the the necessary layout and containers to place
@@ -1002,6 +1003,9 @@
                     var videoCont = document.getElementById("videoPlayerCont");
                     if(videoCont){
                         videoCont.style.display = "block";
+                    }else{
+                        virtualclass.videoUl.UI.container();
+                        var videoCont = document.getElementById("videoPlayerCont");
                     }
 
                     if($('iframe#player').length){
@@ -1032,6 +1036,7 @@
                     virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
                     virtualclass.videoUl.UI.setPlayerUrl( virtualclass.videoUl.player, videoUrl, startFrom);
 
+
                 },
                 attachPlayerHandler: function (player, vidId, videoUrl) {
 
@@ -1058,9 +1063,7 @@
 
                     // player.off("ended");
                     //
-                    // player.on("ended", function (e) {
-                    //     virtualclass.videoUl.UI.onEnded(player, vidId, videoUrl);
-                    // });
+
                 },
                 // todo to modify
                 switchDisplay: function (videoCont, videoUrl) {
@@ -1093,7 +1096,7 @@
                 },
                 //n
                 createVideoElem: function (videoCont,type) {
-                    var video = '<video id="dispVideo" class="video-js" controls  preload="auto" data-setup="{}" >';
+                    var video = '<video id="dispVideo" class="video-js" autoplay controls  preload="auto" data-setup="{}" >';
                     $(videoCont).append(video);
                     var vn = document.createElement("p");
                     vn.setAttribute("class", "vjs-no-js")
@@ -1116,7 +1119,7 @@
                       /*player.reset(); */
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
-                        dispVideo.setAttribute('data-setup','{ techOrder: [youtube],"preload": "auto"}');
+                        dispVideo.setAttribute('data-setup','{ techOrder: [youtube],"preload": "auto","autoplay" :true}');
                             player.src({type: 'video/youtube', src:videoUrl});
 
                     }else if (virtualclass.videoUl.online) {
@@ -1135,9 +1138,7 @@
                            var myPlayer = this;
                            var pause = !virtualclass.videoUl.isPaused;
                            if(!virtualclass.videoUl.isPaused){
-                               setTimeout(function () {
-                                   myPlayer.play();
-                               }, 1000)
+                               myPlayer.play();
                            }else{
                                myPlayer.paused();
                            }
@@ -1245,30 +1246,20 @@
                         if(player.poster_){
                             player.poster_="";
                         }
-
-                        // findNextVideoId:function(index){
-                        //     var list = document.querySelectorAll("#listvideo .linkvideo");
-                        //     if(index <= list.length){
-                        //         return list[index].getAttribute("data-rid")
-                        //     }else{
-                        //         return false
-                        //     }
-                        //
-                        // },
-
                         if(virtualclass.videoUl.findNextVideoId(index + 1)){
                             virtualclass.videoUl.autoPlayList(index + 1,list);
                         }else{
-                             virtualclass.videoUl.isPaused=true;
-                            // player.on("play", function (e) {
-                            //     console.log("play");
-                            //     player.pause();
-                                // if (roles.hasControls()) {
-                                //     ioAdapter.mustSend({'videoUl': {"play": player.currentTime()}, 'cf': 'videoUl'});
-                                // }
-                                // virtualclass.videoUl.isPaused=false;
+                            virtualclass.videoUl.isPaused=true;
+                            var paused =virtualclass.videoUl.isPaused;
+                            virtualclass.videoUl.listEndPause =true
+                            virtualclass.videoUl.player.on("play",function(){
+                                if(virtualclass.videoUl.listEndPause){
+                                    virtualclass.videoUl.player.pause();
+                                    virtualclass.videoUl.listEndPause=false;
+                                }
 
-                           // });
+                            })
+
                         }
 
 
@@ -1408,17 +1399,12 @@
                         upload.wrapper = document.getElementById(elemArr[0]);
                         virtualclass.fineUploader.uploaderFn(upload);
 
-                    //TODO this need to be outside the function
-                    virtualclass.videoUl.UI.inputUrl();
-
-
-                    // virtualclass.videoUl.UI.awsr();
-                    // virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
+                        //TODO this need to be outside the function
+                        virtualclass.videoUl.UI.inputUrl();
                     if(!virtualclass.vutil.isBulkDataFetched() || !virtualclass.videoUl.videos.length){
                         virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
                     } else {
                         //virtualclass.videoUl.UI.awsVideoList();
-
                         virtualclass.videoUl.showVideos(virtualclass.videoUl.videos);
                         if (virtualclass.videoUl.order.length > 0) {
                             virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order); // 1
@@ -1470,7 +1456,7 @@
                     }
                     console.log(videos);
                     virtualclass.videoUl.videos = videos;
-                    virtualclass.serverData.rawData.video= videos
+                    virtualclass.serverData.rawData.video= videos;
 
                     // virtualclass.videoUl.allPages = content;
                     // var type = "video";

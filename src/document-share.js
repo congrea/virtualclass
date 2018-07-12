@@ -1525,7 +1525,7 @@
 
 
                         }else{
-                            alert('Note is null');
+                            alert('Note is not found ' + dts.slideTo);
                         }
 
 

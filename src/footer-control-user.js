@@ -965,17 +965,13 @@
 
                     var vidbtn = document.getElementById("videoSwitch");
                     if(virtualclass.system.mediaDevices.hasWebcam && vidbtn && vidbtn.classList.contains("video")){
-                        // vidbtn.classList.remove("video" , "off");
-                        // svidbtn.classList.add("video" , "on");
+                        var action = (virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off';
+                        var tvideoElem = document.getElementById("rightCtlr");
                         if(vidbtn.classList.contains("on") && roles.hasControls()) {
-                            var action = virtualclass.vutil.isVideoOn();
                             virtualclass.vutil.videoHandler(action);
-                            var tvideoElem = document.getElementById("rightCtlr");
                             tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videoon'));
                         }else if(vidbtn.classList.contains("off") && roles.isStudent()){
-                            var action = virtualclass.vutil.isVideoOn();
                             virtualclass.vutil.videoHandler(action);
-                            var tvideoElem = document.getElementById("rightCtlr");
                             tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
                         }
 

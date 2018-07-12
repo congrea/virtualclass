@@ -60,7 +60,7 @@ var videoHost = {
             //this.setCanvasAttr('videoPartCan', 'videoParticipate');
             // this would be used for converting webp image to png image
             WebPDecDemo('videoParticipate');
-            virtualclass.videoHost.UI.hideTeacherVideo() //hideTeacherVideo();
+            virtualclass.videoHost.UI.hideTeacherVideo(); //hideTeacherVideo();
 
         }
 
@@ -70,7 +70,6 @@ var videoHost = {
             if(teacherVideo == null){
                 teacherVideo = 'show';
             }
-            var action = virtualclass.vutil.isVideoOn();
             rightPanel.classList.add(teacherVideo);
             if(roles.hasControls()){
                 var swVideo = localStorage.getItem('videoSwitch');
@@ -80,8 +79,7 @@ var videoHost = {
                     }else{
                         virtualclass.gObj.delayVid="display"
                     }
-                    //virtualclass.videoHost.UI.hideVideo()
-                    virtualclass.vutil.videoHandler(action);
+                    virtualclass.videoHost.UI.hideTeacherVideo();
                 }
 
             }else{
@@ -92,8 +90,7 @@ var videoHost = {
                     }else{
                         virtualclass.gObj.delayVid="display"
                     }
-                    //virtualclass.videoHost.UI.hideVideo()
-                    virtualclass.vutil.videoHandler(action);
+                    virtualclass.videoHost.UI.hideTeacherVideo();
 
                 }
                 console.log(swVideo);
@@ -315,19 +312,12 @@ var videoHost = {
 
             }else {
                 if(!virtualclass.gObj.meetingMode){
-                    var action = virtualclass.vutil.isVideoOn();
                     if (+videoSwitch) {
-                        virtualclass.vutil.videoHandler(action);
-                        //virtualclass.videoHost.UI.displayVideo();
+                        virtualclass.videoHost.UI.displayTeacherVideo();
                     } else {
-                        virtualclass.vutil.videoHandler(action);
-                        //virtualclass.videoHost.UI.hideVideo();
+                        virtualclass.videoHost.UI.hideTeacherVideo();
                     }
                 }
-
-
-
-
             }
            // localStorage.removeItem("videoSwitch");
         }

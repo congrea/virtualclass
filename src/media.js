@@ -1519,9 +1519,7 @@
                  */
                 if(roles.hasControls() && localStorage.getItem('prevApp') == null){
                     //virtualclass.vutil.videoHandler();
-
-                    var action = virtualclass.vutil.isVideoOn();
-                    virtualclass.vutil.videoHandler(action);
+                    virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off');
                 }
 
             },

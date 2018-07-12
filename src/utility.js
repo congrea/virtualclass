@@ -2196,45 +2196,30 @@
             }
         },
 
-        videoController: function () {
-            var ctr = document.querySelector(".congrea .videoSwitchCont")
 
-          // // var elem = document.getElementById("videoSwitch");
+        selfVideoStatus : function(){
+            var svid = document.querySelector(".congrea .videoSwitchCont #videoSwitch");
+            if(svid.classList.contains("off")){
+                return "off";
+            } else if(svid.classList.contains("on")){
+                return "on";
+            }
+        },
+
+        videoController: function () {
+            var ctr = document.querySelector(".congrea .videoSwitchCont");
             if(ctr){
                 ctr.addEventListener("click", function () {
-                    virtualclass.vutil.videoHandler();
+                   virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off');
                 })
             }
 
         },
 
-        videoHandler: function () {
+        videoHandler: function (action) {
             var video;
-            var vidType="main";
             var sw = document.querySelector(".congrea .videoSwitchCont #videoSwitch")
-            if (sw.classList.contains("on")) {
-                sw.classList.remove("on");
-                sw.classList.add("off");
-               // virtualclass.videoHost.gObj.videoSwitch = 0;
-                video = "off";
-                var tooltip = document.querySelector(".videoSwitchCont");
-                tooltip.dataset.title="Video on"
-                if(roles.hasControls()){
-                    virtualclass.videoHost.gObj.videoSwitch = 0;
-                }else{
-                     virtualclass.videoHost.gObj.stdStopSmallVid = true;
-                     vidType="small";
-                }
-                var hasVideo = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a .videoWrapper")
-
-                if(hasVideo){
-                    virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
-                }else{
-                    virtualclass.gObj.delayVid="display";
-                }
-                virtualclass.videoHost.UI.hideVideo(vidType);
-
-            } else {
+            if (action == "on") {
                 sw.classList.remove("off");
                 sw.classList.add("on");
 
@@ -2243,12 +2228,11 @@
                 tooltip.dataset.title = "Video off"
                 if (roles.hasControls()) {
                     virtualclass.videoHost.gObj.videoSwitch = 1;
-
+                    console.log("videoswitch 1");
                 } else {
                     virtualclass.videoHost.gObj.stdStopSmallVid = false;
-                    vidType="small";
-
                 }
+
                 var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a span")||document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
 
                 if(hasImg){
@@ -2258,11 +2242,13 @@
                     virtualclass.gObj.delayVid="hide"
                 }
 
-                virtualclass.videoHost.UI.displayVideo(vidType)
+                if(roles.hasControls()){
+                    virtualclass.videoHost.UI.displayTeacherVideo();
+                }
 
                 var mysmallVideo =  document.querySelector('#ml' + virtualclass.gObj.uid + ' video');
                 if(mysmallVideo != null){
-                   // mysmallVideo.srcObject.getVideoTracks()[0].stop();
+                    // mysmallVideo.srcObject.getVideoTracks()[0].stop();
                     setTimeout(
                         function (){
                             mysmallVideo.srcObject =  virtualclass.gObj.video.stream;
@@ -2270,10 +2256,33 @@
                     );
 
                 }
+            } else if(action == "off"){
+                sw.classList.remove("on");
+                sw.classList.add("off");
+                // virtualclass.videoHost.gObj.videoSwitch = 0;
+                video = "off";
+                var tooltip = document.querySelector(".videoSwitchCont");
+                tooltip.dataset.title="Video on"
+                if(roles.hasControls()){
+                    virtualclass.videoHost.gObj.videoSwitch = 0;
+                }else{
+                    virtualclass.videoHost.gObj.stdStopSmallVid = true;
+                }
+                var hasVideo = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a .videoWrapper")
+
+                if(hasVideo){
+                    virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
+                }else{
+                    virtualclass.gObj.delayVid="display";
+                }
+
+                if(roles.hasControls()){
+                    virtualclass.videoHost.UI.hideTeacherVideo();
+                }
             }
 
             if(virtualclass.gObj.meetingMode){
-               virtualclass.multiVideo.disableVideo();
+                virtualclass.multiVideo.disableVideo();
             }else if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()){
                 ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
             }

@@ -1506,7 +1506,13 @@
                     cthis.stream = cthis.video.tempStream;
                     cthis.audio._manuPulateStream();
                 }
-                virtualclass.user.control.videoEnable();
+
+                var vidstatus = localStorage.getItem("allVideoAction");
+                if(vidstatus == "disable" && roles.isStudent()){
+                    virtualclass.user.control.videoDisable();
+                }else {
+                    virtualclass.user.control.videoEnable();
+                }
 
                 /**
                  * Disable teacher video by default, when he/she will join first time

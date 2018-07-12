@@ -79,6 +79,7 @@
             },
 
             updateScrollPosition : function (pos, type){
+                console.log('Update scroll type ' + type + ' ' + pos);
                 var tp = type;
                 if(typeof this.scroll[tp] == 'object' && this.scroll[tp].hasOwnProperty('b')){
                     this.scroll[tp].b = pos;
@@ -223,6 +224,7 @@
                         if(this.type == 'X'){
                             this[tp].b = studentWrapper.scrollLeft;
                         }else if(this.type == 'Y'){
+                            console.log('Scroll position Y ' + studentWrapper.scrollTop);
                             this[tp].b = studentWrapper.scrollTop;
                         }
 
@@ -356,10 +358,9 @@
                 }
             },
 
+            /** this new renderPage**/
             renderPage : function  (page, firstTime)  {
                 if(virtualclass.gObj.currWb != null){
-
-                    //virtualclass.zoom.canvasScale = canvasScale;
                     var scale = this.pdfScale;
                     if(virtualclass.zoom.canvasScale != null && virtualclass.zoom.canvasScale != ''){
                         if(virtualclass.zoom.canvasScale > 0){
@@ -387,12 +388,16 @@
                         var viewport = page.getViewport(scale);
                     }
 
-                    var context = canvas.getContext('2d');
-
                     canvas.height = viewport.height;
                     canvas.width = viewport.width + (80); // The view port provides less width(90)
+                    var pdfCanvas = canvas.nextSibling;
+                    pdfCanvas.width = canvas.width;
+                    pdfCanvas.height = canvas.height;
                     console.log('Pdf Canvas width ' + canvas.width);
                     console.log('Pdf Canvas height ' + canvas.height);
+
+                    var context = pdfCanvas.getContext('2d');
+
                     var renderContext = {
                         canvasContext: context,
                         viewport: viewport
@@ -403,10 +408,10 @@
                     page.render(renderContext).then(
                         function (){
                             console.log('PDF rendered actual 2');
-                            var url = canvas.toDataURL('image/jpeg');
-                            canvas.style.background = 'url(' + url + ')';
-                            canvas.parentNode.dataset.pdfrender = true;
-                            canvas.style.backgroundRepeat = 'no-repeat';
+                            // var url = canvas.toDataURL('image/jpeg');
+                            // canvas.style.background = 'url(' + url + ')';
+                            // canvas.parentNode.dataset.pdfrender = true;
+                            // canvas.style.backgroundRepeat = 'no-repeat';
                             that[wb] = {pdfrender : true};
 
                             if(firstTime != undefined){
@@ -429,18 +434,7 @@
                                 setTimeout(
                                     function (){
                                         io.globallock = false;
-                                        // remove class from main container
-                                       /*if(firstTime != null){
-                                         var virtualclasElem = document.querySelector('#virtualclassCont');
-                                         if(virtualclasElem != null){
-                                            virtualclasElem.classList.remove('pdfRendering');
-                                            console.log('Remove pdf rendering');
-                                         }  
-                                       } */
-                                       /* var virtualclasElem = document.querySelector('#virtualclassCont');
-                                        if(virtualclasElem != null){
-                                            virtualclasElem.classList.remove('pdfRendering');
-                                        } */
+
                                         io.onRecJson(null);
 
                                         if(virtualclass.gObj.hasOwnProperty('pdfNormalTimeout')){
@@ -451,7 +445,7 @@
                                             virtualclass.gObj.pdfNormalTimeout =  setTimeout(
                                                 function (){
                                                     console.log('pdfNormal render');
-                                                    if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
+                                                    if(document.querySelector('#canvas' + virtualclass.gObj.currWb+ '_pdf') != null){
                                                         virtualclass.zoom.normalRender();
                                                         virtualclass.gObj.firstNormalRender = true;
                                                         //virtualclass.vutil.setDefaultScroll();
@@ -496,46 +490,39 @@
                 });
             },
 
-            initWhiteboardData : function (wb, wbInitcount){
+            initWhiteboardData : function (wb){
                 /** Below condition is satisfied only if the whiteboard data is...
                  ..available in indexDB **/
                 console.log('Init whiteboard with timeout');
-
-                if(typeof wbInitcount != 'undefined' && wbInitcount > 9){ // after 4.5 seconds
-                    virtualclass.view.createErrorMsg(virtualclass.lang.getString('pdfnotrender'), 'errorContainer', 'chatWidget');
-                    wbInitcount = 0;
-                }else {
-                    if(typeof virtualclass.gObj.tempReplayObjs[wb] == 'object'){
-                        if(virtualclass.gObj.tempReplayObjs[wb].length <= 0){
-                            var that = this;
-                            setTimeout(
-                                function (){
-                                    wbInitcount = (typeof  wbInitcount == 'undefined') ? 0 : ++wbInitcount;
-                                    that.initWhiteboardData(wb, wbInitcount);
-
-                                },500
-                            );
-                        } else {
-                            console.log('Pdf test, init whiteboard ');
-                            console.log('Start whiteboard replay from local storage');
-                            virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
-                            virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
-                        }
-                    } else {
-                        virtualclass.storage.getWbData(wb, function (){
-                            if (typeof virtualclass.gObj.tempReplayObjs[wb] == 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
-                                console.log('Start whiteboard replay from local storage');
-                                virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb])
-                            }
-
-                        });
-
+                if(typeof virtualclass.gObj.tempReplayObjs[wb] == 'object'){
+                    if(virtualclass.gObj.tempReplayObjs[wb].length <= 0){
+                        var that = this;
                         setTimeout(
                             function (){
-                                virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
-                            }, 500
+                                that.initWhiteboardData(wb);
+
+                            },500
                         );
+                    } else {
+                        console.log('Pdf test, init whiteboard ');
+                        console.log('Start whiteboard replay from local storage');
+                        virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
+                        virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
                     }
+                } else {
+                    virtualclass.storage.getWbData(wb, function (){
+                        if (typeof virtualclass.gObj.tempReplayObjs[wb] == 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
+                            console.log('Start whiteboard replay from local storage');
+                            virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb])
+                        }
+
+                    });
+
+                    setTimeout(
+                        function (){
+                            virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
+                        }, 500
+                    );
                 }
             },
 

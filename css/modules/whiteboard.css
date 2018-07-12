@@ -106,3 +106,24 @@
 #virtualclassCont.congrea #virtualclassAppLeftPanel a#congrealogo.disbaleOnmousedown img{
   pointer-events: none;
 }
+
+
+#virtualclassCont.congrea .textBoxContainer {
+  z-index: 15;
+}
+
+#virtualclassCont.congrea .canvasWrapper {
+  position : relative;
+  top: 0;
+  left : 0;
+}
+
+#virtualclassCont.congrea .canvasWrapper canvas {
+  position : absolute;
+  top : 0;
+  left : 0;
+}
+
+#virtualclassCont.congrea .canvasWrapper .whiteboards{
+  z-index : 10;
+}

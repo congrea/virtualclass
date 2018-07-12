@@ -1444,17 +1444,19 @@ $(document).ready(function () {
             this.repObj = function (e) {
            //     console.log("whiteboard Incomming UID ===== " + e.message.repObj[0].uid);
 
-                if (typeof virtualclass.wb != 'object') {
+                if (typeof virtualclass.wb != 'object' && virtualclass.currApp != 'DocumentShare') {
                     virtualclass.makeAppReady(virtualclass.apps.wb);
                 }
 
-                virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
+                if(typeof virtualclass.gObj.currWb != 'undefined' ){
+                    virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
 
-                // The packets came from teacher when he/she does not has control won't be display
-                if (e.fromUser.role == 'p' || ((e.fromUser.role == 't' || (e.fromUser.role == 'e')) && !virtualclass.vutil.isPresenterExist())) {
-                    virtualclass.wb[virtualclass.gObj.currWb].utility.replayObjsByFilter(e.message.repObj);
-                } else {
-                    console.log("whiteboard -------------------------- We just lost a packet");
+                    // The packets came from teacher when he/she does not has control won't be display
+                    if (e.fromUser.role == 'p' || ((e.fromUser.role == 't' || (e.fromUser.role == 'e')) && !virtualclass.vutil.isPresenterExist())) {
+                        virtualclass.wb[virtualclass.gObj.currWb].utility.replayObjsByFilter(e.message.repObj);
+                    } else {
+                        console.log("whiteboard -------------------------- We just lost a packet");
+                    }
                 }
             };
 

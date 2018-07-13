@@ -2008,6 +2008,16 @@
     max-width : 377px;
 }
 
+@media (max-width:1100px) {
+    #virtualclassCont.congrea #errorContainer {
+        max-width:440px;
+    }
+    
+    #virtualclassCont.congrea #errorContainer {
+        right:45%;
+    }
+}
+
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
 #virtualclassCont.congrea #confirmCancelButton,
 #virtualclassCont.congrea #popupContainer #replayContainer #replayButton,
@@ -3830,7 +3840,6 @@ background-color: #d6d6d6;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.03);
 	border-radius: 10px;
 	background-color: #F5F5F5;
-    margin-top:20px !important;
 }
 
 #virtualclassCont.student #virtualclassQuiz .quizArea::-webkit-scrollbar, #virtualclassCont.congrea #listdocs::-webkit-scrollbar{
@@ -3855,4 +3864,8 @@ background-color: #d6d6d6;
 
 .pollList .miniTB a {
     text-decoration:none !important;
+}
+
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #confirm.popupWindow #confirmCancel #confirmCancelButton {
+    cursor:pointer;
 }

@@ -12554,7 +12554,7 @@
    */
 
 
-  BigPlayButton.prototype.controlText_ = 'Play Video';
+  BigPlayButton.prototype.controlText_ = 'Play video';
 
   Component.registerComponent('BigPlayButton', BigPlayButton);
 

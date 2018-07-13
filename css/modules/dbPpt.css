@@ -176,6 +176,7 @@
 
 #virtualclassCont.congrea #listppt .linkppt.links .controls.status[data-status="1"], #virtualclassCont.congrea #listppt .linkppt.links .controls.status[data-status="0"] {
   float: left;
+  width:26px;
   font-size: 0px;
   margin: -5px 1px 1px 0px;
   height: 20px;
@@ -321,7 +322,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #listppt .linkppt .controlCont div[data-status="0"]::before {
   content: "\e94d";
   font-family: 'icomoon';
-  font-size:21px;
+  font-size:18px;
 
 }
 

@@ -1685,6 +1685,7 @@ $(document).ready(function () {
                         sw.click();
                     }
                     virtualclass.videoHost.toggleVideoMsg(e.message.action);
+                    localStorage.setItem("allVideoAction" , e.message.action);
                 }
             }
             // this.stopSs= function(e){

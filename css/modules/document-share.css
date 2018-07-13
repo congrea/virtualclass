@@ -398,6 +398,18 @@
     margin-bottom : 30px;
 }
 
+@media (max-width:1300px) {
+    #virtualclassCont.congrea #listnotes .linknotes.links {
+        width:130px;
+    }
+}
+@media (min-width:768px) {
+    @media (min-width: 768px) {
+        #DocumentShareDashboard .dbContainer .dashboardview.col-sm-10 {
+            width: 78.333333%;
+            }
+        }
+
 #virtualclassCont.congrea .linkdocs[data-selected='1'] .controlCont {
     display: none;
 }

@@ -184,7 +184,7 @@
   left: 84%;
   top: 10px;
   color:#337ab7;
-  padding:8px;
+  padding:6px 12px;
   border: 1px solid #337ab7;
 }
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody button#publishQzBt:hover {
@@ -369,15 +369,20 @@ span.sch {
 
 }
 
-#virtualclassCont.congrea #slickQuiz ol.questions > li {
- 
+#virtualclassCont.congrea.student #slickQuiz .quizArea ol.questions > li:first-child {
+    margin-top:0;
 }
+
+#virtualclassCont.congrea.student #slickQuiz .quizArea ol.questions > li:last-child {
+    margin-bottom:0;
+}
+
 
 #virtualclassCont.congrea #quizModalBody #contQzBody #slickQuiz .quizArea .questions li h3, #virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody .q-area h3, .path-mod-congrea-quiz span.questext h3  {
     letter-spacing: .020em;
-font-size: 16px;
-margin: 0;
-display: inline;
+    font-size: 16px;
+    margin: 0;
+    display: inline;
 }
 
 #virtualclassCont.congrea .path-mod-congrea-quiz .navblock {

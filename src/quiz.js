@@ -831,7 +831,8 @@
 
                     if (diff <= 0) {
                         if(order != 'asc'){
-                            display.textContent = "00:00:00 ";
+                            display.textContent = "00 : 00 : 00 ";
+
                         }
 
                         // add one second so that the count down starts at the full duration
@@ -1102,7 +1103,7 @@
                             var timeHeader = "Time remaining" ;
                         } else {
                             var order = 'asc';
-                            timeHeader = "Elasped time";
+                            timeHeader = "Elapsed time";
                         }
 
                         /**

@@ -656,7 +656,6 @@
                 virtualclass.gObj.studentSSstatus.sharing = false;
                 delete virtualclass.gObj.whoIsSharing;
                 virtualclass.videoHost.gObj.stdStopSmallVid= false;
-                virtualclass.videoHost.gObj.videoSwitch = 1;
                 virtualclass.videoHost.gObj.allStdVideoOff=false;
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
@@ -848,15 +847,15 @@
                 }
                 var videoHide = document.querySelector("#virtualclassCont.congrea.teacher #virtualclassAppRightPanel");
                 if(videoHide && videoHide.classList.contains("vidHide")){
-                    videoHide.classList.remove("vidHide");
-                    videoHide.classList.add("vidShow")
+                    // videoHide.classList.remove("vidHide");
+                    // videoHide.classList.add("vidShow")
                 }
 
-                var videoHide = document.querySelector("#virtualclassCont.congrea.teacher #videoHostContainer");
-                if(videoHide){
-                    videoHide.classList.remove("hide");
-                    videoHide.classList.add("show");
-                }
+                // var videoHide = document.querySelector("#virtualclassCont.congrea.teacher #videoHostContainer");
+                // if(videoHide){
+                //     videoHide.classList.remove("hide");
+                //     videoHide.classList.add("show");
+                // }
 
                 var videOff = document.querySelector("#virtualclassCont.congrea.student");
                 if(videOff && videOff.classList.contains("videoff")){

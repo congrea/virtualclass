@@ -96,9 +96,6 @@
 }
 
 @-moz-document url-prefix() {
-  #virtualclassCont.congrea #alleditorRichContainer {
-    top: 46px;
-  }
   #virtualclassCont.congrea #audioWidget .latency.congtooltip:hover::after {
     bottom: -22px;
   }

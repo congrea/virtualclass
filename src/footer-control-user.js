@@ -965,11 +965,20 @@
 
                     var vidbtn = document.getElementById("videoSwitch");
                     if(virtualclass.system.mediaDevices.hasWebcam && vidbtn && vidbtn.classList.contains("video")){
-                        vidbtn.classList.remove("video" , "off");
-                        vidbtn.classList.add("video" , "on");
+                        var action = (virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off';
                         var tvideoElem = document.getElementById("rightCtlr");
-                        tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
-                        virtualclass.videoHost.gObj.videoSwitch = 1;
+                        if(vidbtn.classList.contains("on") && roles.hasControls()) {
+                            virtualclass.vutil.videoHandler(action);
+                            tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videoon'));
+                        }else if(vidbtn.classList.contains("off") && roles.isStudent()){
+                            virtualclass.vutil.videoHandler(action);
+                            tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
+                        }
+
+                        // var tvideoElem = document.getElementById("rightCtlr");
+                        // tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videooff'));
+
+                        console.log('video switch 0');
                         virtualclass.videoHost.toggleVideoMsg('enable', true);
                     }
 

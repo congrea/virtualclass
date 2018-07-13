@@ -831,7 +831,8 @@
 
                     if (diff <= 0) {
                         if(order != 'asc'){
-                            display.textContent = "00:00:00 ";
+                            display.textContent = "00 : 00 : 00 ";
+
                         }
 
                         // add one second so that the count down starts at the full duration
@@ -1102,7 +1103,7 @@
                             var timeHeader = "Time remaining" ;
                         } else {
                             var order = 'asc';
-                            timeHeader = "Elasped time";
+                            timeHeader = "Elapsed time";
                         }
 
                         /**
@@ -1292,27 +1293,27 @@
                         msgPage.appendChild(resPage);
 
                         var noOfQ = document.createElement('h4');
-                        noOfQ.innerHTML = "Total no of questions  <span class='nfqh'>: &nbsp;  "+data.grade.noofqus+"</span>";
+                        noOfQ.innerHTML = "<span class='col-md-4'> Total no of questions </span>  <span class='nfqh'>: &nbsp;  "+data.grade.noofqus+"</span>";
                         resPage.appendChild(noOfQ);
 
                         var tt = document.createElement('h4');
-                        tt.innerHTML = "Time taken <span class='tth'> : &nbsp;   "+data.grade.timetaken+"</span>";
+                        tt.innerHTML = " <span class='col-md-4'> Time taken </span><span class='tth'> : &nbsp;   "+data.grade.timetaken+"</span>";
                         resPage.appendChild(tt);
 
                         var mm = document.createElement('h4');
-                        mm.innerHTML = "Maximum mark <span class='mmh'>: &nbsp;  "+data.grade.maxmarks+"</span>";
+                        mm.innerHTML = " <span class='col-md-4'> Maximum mark </span><span class='mmh'>: &nbsp;  "+data.grade.maxmarks+"</span>";
                         resPage.appendChild(mm);
 
                         var ca = document.createElement('h4');
-                        ca.innerHTML = "Correct answers <span class='cah'>: &nbsp;  "+data.grade.correctans+"</span>";
+                        ca.innerHTML = "<span class='col-md-4'> Correct answers </span><span class='cah'>: &nbsp;  "+data.grade.correctans+"</span>";
                         resPage.appendChild(ca);
 
                         var qa = document.createElement('h4');
-                        qa.innerHTML = "Questions attempted <span class='qah'>: &nbsp;  "+data.grade.quesattemptd+"</span>";
+                        qa.innerHTML = " <span class='col-md-4'> Questions attempted</span> <span class='qah'>: &nbsp;  "+data.grade.quesattemptd+"</span>";
                         resPage.appendChild(qa);
 
                         var sc = document.createElement('h4');
-                        sc.innerHTML = "You Scored <span class='sch'>: &nbsp;  "+data.grade.score+"</span>";
+                        sc.innerHTML = " <span class='col-md-4'> You Scored </span> <span class='sch'>: &nbsp;  "+data.grade.score+"</span>";
                         resPage.appendChild(sc);
 
                         resPage.style.display = 'block';

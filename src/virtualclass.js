@@ -671,7 +671,7 @@
                 }
                 if(roles.hasControls()) {
                     var currVideo= Array.prototype.slice.call(arguments)[2];
-                    if (virtualclass.currApp == 'SharePresentation' || (virtualclass.currApp == 'Video')) {
+                    if (app != 'ScreenShare' && (virtualclass.currApp == 'SharePresentation' || (virtualclass.currApp == 'Video'))) {
                         virtualclass.vutil.initDashboardNav(currVideo);
                         if(virtualclass.currApp == 'Video'){
                             console.log('currApp ' + virtualclass.currApp);

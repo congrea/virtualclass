@@ -2003,16 +2003,19 @@
                 }
 
                 var videocont= document.querySelector('#videoPopup');
-                if(videocont){
-                    videocont.parentNode.removeChild(videocont)
+                if(!videocont){
+                    var videoDashboard = virtualclass.getTemplate('popup','videoupload');
+                    var dbHtml = videoDashboard();
+                    $('#VideoDashboard').append(dbHtml);
+                    var msz = document.querySelector("#videoPopup  #uploadMsz div");
+                    if(msz){
+                        msz.parentNode.removeChild(msz)
+                    }
+                    virtualclass.vutil.attachEventToUpload();
                 }
-
-                var videoDashboard = virtualclass.getTemplate('popup','videoupload');
-                var dbHtml = videoDashboard();
-                $('#VideoDashboard').append(dbHtml);
-
+                /* modal need to be created again and old one to be deleted, to remove conflict
+                 with events of drag drops */
                 virtualclass.videoUl.UI.popup(currVideo);
-                virtualclass.vutil.attachEventToUpload();
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
 
@@ -2065,14 +2068,6 @@
                 }
             }
 
-            // $('#congdashboard').modal({
-            //     backdrop: 'static',
-            //     keyboard: true,
-            //     show: true
-            // });
-
-         //   $('#congdashboard').modal();
-
             console.log('Dashboard is created for ' + virtualclass.currApp);
             if(currApp == "DocumentShare"){
                 if(typeof hidepopup == 'undefined'){
@@ -2088,10 +2083,7 @@
             }else if(currApp == "Video"){
                 if(typeof hidepopup == 'undefined'){
                     $('#congdashboard').modal();
-                  //  virtualclass.dashBoard.clickCloseButton();
                 }
-
-
             } else {
                 $('#congdashboard').modal();
             }

@@ -1262,7 +1262,6 @@
 
                         }
 
-
                     }
 
                 },
@@ -1382,6 +1381,11 @@
                     }
                 },
                 popup:function(currVideo){
+                    var dropArea = document.querySelector("#congreavideoContBody");
+                    if(dropArea){
+                        dropArea.removeChild(dropArea.lastChild);
+                    }
+
                     var elemArr = ["congreavideoContBody", "congreaShareVideoUrlCont"];
                     var upload = {};
                         if ($('#listvideo .linkvideo.playing').length > 0) {
@@ -1418,13 +1422,29 @@
                         dropMsz.setAttribute("qq-drop-area-text","Drop videos here");
                     }
                     var cont =  document.querySelector("#uploadMsz")
-                    var msz = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-list");
+                    var msz = document.querySelector("#videoPopup #congreavideoContBody .qq-upload-list-selector.qq-upload-list");
                      if(msz){
                          msz.style.display="block";
                      }
-                    var upMsz= document.createElement("div")
-                    cont.appendChild(upMsz);
+
+                    var upMsz = document.querySelector("#uploadMsz div")
+                    if(!upMsz){
+                        upMsz= document.createElement("div");
+                        cont.appendChild(upMsz);
+                    }
                     upMsz.appendChild(msz);
+                    var lists = document.querySelectorAll("#videoPopup #uploadMsz ul")
+                    // two ul not to be deleted(one is with li as a child and another recent):when we have started upload,
+                    //we change current app and after that return to video
+                    if(lists.length>2){
+                        for(var i =0; i<lists.length-1;i++){
+                            if(!lists[i].querySelector("li")){
+                                lists[i].parentNode.removeChild(lists[i]);
+                            }
+                        }
+                    }
+
+                    var msz = document.querySelector("#videoPopup #uploadMsz .qq-upload-list-selector.qq-upload-list");
 
                     var btn = $("#videoPopup .qq-upload-list-selector.qq-upload-button input");
                     var btnUpload= $("#uploadVideo");
@@ -1433,7 +1453,6 @@
                         if(msz){
                             msz.style.display="block";
                         }
-
                         btn.click();
                     })
 

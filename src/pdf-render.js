@@ -410,7 +410,7 @@
                             console.log('PDF rendered actual 2');
                             // var url = canvas.toDataURL('image/jpeg');
                             // canvas.style.background = 'url(' + url + ')';
-                            // canvas.parentNode.dataset.pdfrender = true;
+                            canvas.parentNode.dataset.pdfrender = true;
                             // canvas.style.backgroundRepeat = 'no-repeat';
                             that[wb] = {pdfrender : true};
 

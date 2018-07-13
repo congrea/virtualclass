@@ -417,14 +417,9 @@
                             if(firstTime != undefined){
                                 setTimeout(
                                     function (){
-                                        that.initWhiteboardData(virtualclass.gObj.currWb);
-                                        var virtualclasElem = document.querySelector('#virtualclassCont');
-                                        // if(virtualclasElem != null){
-                                        //     virtualclasElem.classList.remove('pdfRendering');
-                                        //     console.log('Remove pdf rendering');
-                                        // }
-
-
+                                        if(virtualclass.gObj.currWb != null ){
+                                            that.initWhiteboardData(virtualclass.gObj.currWb);
+                                        }
                                     },500
                                 );
                             }
@@ -445,12 +440,14 @@
                                             virtualclass.gObj.pdfNormalTimeout =  setTimeout(
                                                 function (){
                                                     console.log('pdfNormal render');
-                                                    if(document.querySelector('#canvas' + virtualclass.gObj.currWb+ '_pdf') != null){
-                                                        virtualclass.zoom.normalRender();
-                                                        virtualclass.gObj.firstNormalRender = true;
-                                                        //virtualclass.vutil.setDefaultScroll();
-                                                        var scrollObj = {scX : 1, scY : 1}
-                                                        virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(scrollObj);
+                                                    if(virtualclass.gObj.currWb != null){
+                                                        if(document.querySelector('#canvas' + virtualclass.gObj.currWb+ '_pdf') != null){
+                                                            virtualclass.zoom.normalRender();
+                                                            virtualclass.gObj.firstNormalRender = true;
+                                                            //virtualclass.vutil.setDefaultScroll();
+                                                            var scrollObj = {scX : 1, scY : 1}
+                                                            virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(scrollObj);
+                                                        }
                                                     }
 
                                                 }, 10 // 10 earlier

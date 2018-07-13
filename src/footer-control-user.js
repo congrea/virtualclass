@@ -982,6 +982,10 @@
                         virtualclass.videoHost.toggleVideoMsg('enable', true);
                     }
 
+                    if(roles.hasAdmin()){
+                        virtualclass.gObj.delayVid="display";
+                    }
+
                 },
 
                 makeElemEnable: function (elem) {

@@ -458,6 +458,20 @@
 
         beforeLoad: function () {
             if(virtualclass.currApp == 'DocumentShare'){
+                if(!roles.hasControls()){
+                    var rhElem = document.querySelector("#virtualclassCont.congrea #icHr");
+                    var action = rhElem.getAttribute("data-action");
+                    if(action == "disable"){
+                        var toUser = virtualclass.vutil.whoIsTeacher();
+                        ioAdapter.sendUser({
+                            'data': {
+                                user: wbUser.id,
+                                action:action
+                            },
+                            'cf': 'raiseHand'
+                        }, toUser);
+                    }
+                }
                 io.disconnect();
             }
 
@@ -1710,8 +1724,10 @@
                         alert('Element is null');
                     }
                 })
+
             }
         },
+
         modalPopup: function (type, elemArr) {
             var upload = {};
             if(type == 'video'){
@@ -1979,7 +1995,6 @@
                 virtualclass.vutil.makeElementActive('#listnotes');
             }else if(currApp == 'Video'){
                 var dtitle = document.getElementById('dashboardnav');
-//                dtitle.setAttribute('data-title', virtualclass.lang.getString('VideodbHeading'));
                 if(document.querySelector('#'+currApp+'Dashboard') == null){
                     var elem = document.createElement("div");
                     var cont = document.querySelector('#congdashboard .modal-body')
@@ -1988,19 +2003,19 @@
                 }
 
                 var videocont= document.querySelector('#videoPopup');
-                if(videocont){
-                    videocont.parentNode.removeChild(videocont);
-                }
-
-
-               // if(!(currVideo && currVideo.init&&currVideo.init.videoUrl)){
+                if(!videocont){
                     var videoDashboard = virtualclass.getTemplate('popup','videoupload');
                     var dbHtml = videoDashboard();
                     $('#VideoDashboard').append(dbHtml);
-                    virtualclass.videoUl.UI.popup(currVideo);
-               // }
-
-                virtualclass.vutil.attachEventToUpload();
+                    var msz = document.querySelector("#videoPopup  #uploadMsz div");
+                    if(msz){
+                        msz.parentNode.removeChild(msz)
+                    }
+                    virtualclass.vutil.attachEventToUpload();
+                }
+                /* modal need to be created again and old one to be deleted, to remove conflict
+                 with events of drag drops */
+                virtualclass.videoUl.UI.popup(currVideo);
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
 
@@ -2053,14 +2068,6 @@
                 }
             }
 
-            // $('#congdashboard').modal({
-            //     backdrop: 'static',
-            //     keyboard: true,
-            //     show: true
-            // });
-
-         //   $('#congdashboard').modal();
-
             console.log('Dashboard is created for ' + virtualclass.currApp);
             if(currApp == "DocumentShare"){
                 if(typeof hidepopup == 'undefined'){
@@ -2076,10 +2083,7 @@
             }else if(currApp == "Video"){
                 if(typeof hidepopup == 'undefined'){
                     $('#congdashboard').modal();
-                  //  virtualclass.dashBoard.clickCloseButton();
                 }
-
-
             } else {
                 $('#congdashboard').modal();
             }

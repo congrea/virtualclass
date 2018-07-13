@@ -2180,7 +2180,7 @@
 #virtualclassCont.congrea #congdashboard .close {
 	margin: 5px;
     display: inline-block;
-    color: #fff !important;
+    color: #fff ;
     border: 1px solid #fff;
     padding: 5px;
     font-size: 13px;
@@ -2209,7 +2209,7 @@
 	text-decoration: none;
 	text-transform: uppercase;
 	border:#70ab6b 1px solid;
-    display:none;
+	display:none;
 }
 
 #virtualclassCont.congrea #beTeacher:hover{

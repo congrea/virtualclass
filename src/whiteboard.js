@@ -73,10 +73,18 @@
                 var vcan = virtualclass.wb[id].vcan;
                 virtualclass.wb[id].canvas = vcan.create('#canvas'+id);
                 var canvasObj = vcan.main.canvas;
+                canvasObj.className += " whiteboards";
                 canvasObj.setAttribute('tabindex', '0');  //this does for set chrome
 
+                var canvasPdf = document.createElement('canvas');
+                    canvasPdf.id = 'canvas'+id+'_pdf';
+                    canvasPdf.className = 'pdfs';
+                    canvasPdf.width = canvasObj.width;
+                    canvasPdf.height = canvasObj.height;
 
-                // canvasObj.focus();
+                    canvasObj.after(canvasPdf);
+
+                    // canvasObj.focus();
 
 
                 //IMPORTANT  this is changed during the UNIT testing

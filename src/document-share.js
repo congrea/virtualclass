@@ -182,7 +182,7 @@
                     // TODO This should be improve at later, should handle at function createNoteNav
                     for(var i=0; i<this.order.length; i++){
                         this.noteStatus(this.order[i], this.allNotes[this.order[i]].status);
-                        console.log('Note status ' + this.order[i] + ' -->' + this.allNotes[this.order[i]].status);
+//                        console.log('Note status ' + this.order[i] + ' -->' + this.allNotes[this.order[i]].status);
                     }
 
                     /** Earlier it was in noteStatus() which causes the performance issue **/
@@ -1525,7 +1525,7 @@
 
 
                         }else{
-                            alert('Note is null');
+                            alert('Note is not found ' + dts.slideTo);
                         }
 
 

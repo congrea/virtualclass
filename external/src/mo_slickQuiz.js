@@ -836,7 +836,9 @@
                         // example 17:00:00 not 16:59:59
                         //start = Date.now() + 1000;
                         start =0;
-                        clearInterval(CDTimer);
+                        if(typeof CDTimer != 'undefined'){
+                            clearInterval(CDTimer);
+                        }
 /*
                         $.event.trigger({
                             type: "timeend",
@@ -937,7 +939,8 @@
                     if(!roles.hasControls()) {
                     // Send score to teacher
                     console.log('quiz submit init from ' + virtualclass.gObj.uid);
-                    var grade = (parseInt(score) * 100 ) / parseInt(quizValues.info.results);
+                    // ParseInt converts float numbers to integer
+                    var grade = (+(score) * 100 ) / +(quizValues.info.results);
                     var teacherID = virtualclass.vutil.whoIsTeacher();
                         if(virtualclass.quiz.hasOwnProperty('timeQuizComplete')){
                             clearTimeout(virtualclass.quiz.timeQuizComplete)
@@ -953,7 +956,7 @@
                                         timetaken : tt,
                                         quesattemptd: aAttempted,
                                         correctans : currectAns,
-                                        score: grade,
+                                        score: grade.toFixed(2),
                                         user: virtualclass.gObj.uid
                                     },
                                     'cf': 'quiz'

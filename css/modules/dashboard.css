@@ -349,3 +349,7 @@
   height: calc(100vh - 44px);
   border-radius: 0 !important;
 }
+
+#virtualclassCont.congrea #virtualclassAppOptionsCont #dashboardnav button.btn{
+  cursor: pointer;
+}

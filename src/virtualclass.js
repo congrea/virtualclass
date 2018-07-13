@@ -533,7 +533,14 @@
                         }
 
                     }
-                    system.initResize();
+                    setTimeout(
+                        function (){
+                            if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
+                                virtualclass.zoom.normalRender();
+                            }
+                        }, 100
+                    );
+                    //system.initResize();
                 } else {
                     var prevapp = localStorage.getItem('prevApp');
                     if (prevapp != null) {

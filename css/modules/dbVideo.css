@@ -113,7 +113,7 @@
 #virtualclassCont.congrea #listvideo .linkvideo .controlCont div[data-status="0"]::before {
   content: "\e94d";
   font-family: 'icomoon';
-  font-size:21px;
+  font-size:18px;
 
 }
 
@@ -208,6 +208,7 @@
   float: right;
   background: none;
   padding-top:8px;
+  padding-left:0 !important;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="1"],
@@ -314,7 +315,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   overflow-y: auto;
 }
 
-#virtualclassCont .uploadSuccess #listvideo {
+#virtualclassCont .uploadSuccess #listvideo, #virtualclassCont #VideoDashboard.uploading #videoPopup #listvideo {
     height: calc(100vh - 237px);
 } 
 
@@ -653,3 +654,8 @@ display: none;
   cursor:pointer!important;
 }
 
+@media (min-width:1300px) {
+    #virtualclassCont.congrea #listvideo .linkvideo.links .controlCont {
+        width:15% !important;
+    }
+}

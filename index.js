@@ -676,16 +676,17 @@ $(document).ready(function () {
                     // ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
 
                     if (roles.hasControls() && virtualclass.dts.docs.hasOwnProperty('currDoc')) {
-                        var doc = virtualclass.dts.docs.currDoc;
-                        //ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
-                        ioAdapter.mustSendUser({
-                            'dts': {
-                                slideTo: virtualclass.dts.docs.note.currNote,
-                                docn: virtualclass.dts.docs.currDoc
-                            }, 'cf': 'dts'
-                        }, virtualclass.jId);
-                        console.log('Document share send :- Complete slide');
-
+                        if(virtualclass.gObj.currWb != null){
+                            var doc = virtualclass.dts.docs.currDoc;
+                            //ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
+                            ioAdapter.mustSendUser({
+                                'dts': {
+                                    slideTo: virtualclass.dts.docs.note.currNote,
+                                    docn: virtualclass.dts.docs.currDoc
+                                }, 'cf': 'dts'
+                            }, virtualclass.jId);
+                            console.log('Document share send :- Complete slide');
+                        }
                     } else {
                         ioAdapter.mustSendUser({'dts': {init: 'studentlayout'}, 'cf': 'dts'}, virtualclass.jId);
                         console.log('Document share send :- Layout');
@@ -1443,17 +1444,19 @@ $(document).ready(function () {
             this.repObj = function (e) {
            //     console.log("whiteboard Incomming UID ===== " + e.message.repObj[0].uid);
 
-                if (typeof virtualclass.wb != 'object') {
+                if (typeof virtualclass.wb != 'object' && virtualclass.currApp != 'DocumentShare') {
                     virtualclass.makeAppReady(virtualclass.apps.wb);
                 }
 
-                virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
+                if(typeof virtualclass.gObj.currWb != 'undefined' ){
+                    virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
 
-                // The packets came from teacher when he/she does not has control won't be display
-                if (e.fromUser.role == 'p' || ((e.fromUser.role == 't' || (e.fromUser.role == 'e')) && !virtualclass.vutil.isPresenterExist())) {
-                    virtualclass.wb[virtualclass.gObj.currWb].utility.replayObjsByFilter(e.message.repObj);
-                } else {
-                    console.log("whiteboard -------------------------- We just lost a packet");
+                    // The packets came from teacher when he/she does not has control won't be display
+                    if (e.fromUser.role == 'p' || ((e.fromUser.role == 't' || (e.fromUser.role == 'e')) && !virtualclass.vutil.isPresenterExist())) {
+                        virtualclass.wb[virtualclass.gObj.currWb].utility.replayObjsByFilter(e.message.repObj);
+                    } else {
+                        console.log("whiteboard -------------------------- We just lost a packet");
+                    }
                 }
             };
 
@@ -1699,6 +1702,7 @@ $(document).ready(function () {
                         sw.click();
                     }
                     virtualclass.videoHost.toggleVideoMsg(e.message.action);
+                    localStorage.setItem("allVideoAction" , e.message.action);
                 }
             }
             // this.stopSs= function(e){

@@ -383,7 +383,7 @@
                 var wid = virtualclass.gObj.currWb;
                 var vcan = virtualclass.wb[wid].vcan
                 var canvasElement = vcan.main.canvas;
-                canvasElement.style.position = 'relative';
+             //   canvasElement.style.position = 'relative';
                 canvasElement.style.pointerEvents = "none";
             },
             makeCanvasEnable: function () {

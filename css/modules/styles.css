@@ -1149,7 +1149,7 @@
 	width : auto;
 	float: right;
 	position : relative;
-	margin-right: 5px;
+	margin-right: 8px;
 	margin-top: 17px;
 }
 
@@ -1418,9 +1418,11 @@
 	top : -1px;
 }
 
+/*
 #virtualclassCont.congrea.orginalTeacher #chat_div .controls span.enable, #virtualclassCont.congrea.teacher #chat_div .controls .icon-assignImg.enable, #virtualclassCont.congrea.orginalTeacher #chat_div .controls span{
 	margin-left: 3px;
 }
+*/
 
 #virtualclassCont.congrea .appOptions.active a span:before{
 	text-shadow: #FFF 0px 0px 5px;
@@ -2004,6 +2006,16 @@
 	text-align:center;
 	z-index : 1150;
     max-width : 377px;
+}
+
+@media (max-width:1100px) {
+    #virtualclassCont.congrea #errorContainer {
+        max-width:440px;
+    }
+    
+    #virtualclassCont.congrea #errorContainer {
+        right:45%;
+    }
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
@@ -2709,6 +2721,15 @@
     }
 }
 
+@media (max-width:1300px) {
+    .qq-gallery .qq-file-info .qq-file-name {
+    position: relative;
+    display: inline-block;
+    text-overflow: ellipsis !important;
+    width: 200px !important;
+}
+}
+
 #virtualclassCont.congrea .modal-body .qscolor {
 	background-color: #e8f4f5;
 	padding: 10px;
@@ -3336,8 +3357,7 @@
 }
 
 #virtualclassCont.congrea.teacher #resultLayoutBody #nonVotTqn .opt,
-#virtualclassCont.congrea.student #stdPollContainer #stdOptionCont .opt,
-#virtualclassCont.congrea.student #resultLayout #optnNonVotd .opt {
+#virtualclassCont.congrea.student #stdPollContainer #stdOptionCont .opt {
 	float: left;
 	margin-top: 4px;
 	margin-right: 5px;
@@ -3820,10 +3840,9 @@ background-color: #d6d6d6;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.03);
 	border-radius: 10px;
 	background-color: #F5F5F5;
-    margin-top:20px !important;
 }
 
-#virtualclassCont.student #virtualclassQuiz .quizArea::-webkit-scrollbar{
+#virtualclassCont.student #virtualclassQuiz .quizArea::-webkit-scrollbar, #virtualclassCont.congrea #listdocs::-webkit-scrollbar{
 	width: 8px;
 	height:8px;
 	background-color: #fff;
@@ -3845,4 +3864,8 @@ background-color: #d6d6d6;
 
 .pollList .miniTB a {
     text-decoration:none !important;
+}
+
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #confirm.popupWindow #confirmCancel #confirmCancelButton {
+    cursor:pointer;
 }

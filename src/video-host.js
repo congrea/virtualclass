@@ -77,7 +77,7 @@ var videoHost = {
                     if(virtualclass.connectedUsers && virtualclass.connectedUsers.length){
                         virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid );
                     }else{
-                        virtualclass.gObj.delayVid="display"
+                        virtualclass.gObj.delayVid="display";
                     }
                     virtualclass.videoHost.UI.hideTeacherVideo();
                 }
@@ -88,7 +88,7 @@ var videoHost = {
                     if(virtualclass.connectedUsers && virtualclass.connectedUsers.length){
                         virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid );
                     }else{
-                        virtualclass.gObj.delayVid="display"
+                        virtualclass.gObj.delayVid="display";
                     }
                     virtualclass.videoHost.UI.hideTeacherVideo();
 

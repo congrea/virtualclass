@@ -113,7 +113,7 @@
 #virtualclassCont.congrea #listvideo .linkvideo .controlCont div[data-status="0"]::before {
   content: "\e94d";
   font-family: 'icomoon';
-  font-size:21px;
+  font-size:18px;
 
 }
 

@@ -691,6 +691,7 @@
     letter-spacing: 0.5px;
     font-size:13px;
     text-transform: capitalize;
+    text-decoration:none;
 }
 #virtualclassCont.congrea .primary {
     border-radius: 20%;

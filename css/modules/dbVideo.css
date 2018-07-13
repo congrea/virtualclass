@@ -258,8 +258,6 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   text-align: center;
   font-size: 14px;
   vertical-align: middle;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
 }
 
 .playControllerMainCont #playControllerCont #playController #recPlay {
@@ -316,7 +314,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont .uploadSuccess #listvideo, #virtualclassCont #VideoDashboard.uploading #videoPopup #listvideo {
-    height: calc(100vh - 237px);
+    height: calc(100vh - 227px);
 } 
 
 #virtualclassCont  #videoPopup  #uploadMsz{

@@ -130,7 +130,7 @@
                         // self.toggleContent(event);
                     })
                     .appendTo(uiChatbox),
-                    uiChatboxTitle = (self.uiChatboxTitle = $('<span></span>'))
+                    uiChatboxTitle = (self.uiChatboxTitle = $('<span class="cgText"></span>'))
                     .html(title)
                     .appendTo(uiChatboxTitlebar),
                     uiChatboxTitlebarClose = (self.uiChatboxTitlebarClose = $('<a href="#"></a>'))
@@ -163,7 +163,7 @@
                     })
                     .appendTo(uiChatboxTitlebar),
                     uiChatboxTitlebarCloseText = $("<span ></span>")
-                    .addClass('ui-icon ' + 'icon-close')
+                    .addClass('ui-icon ' + 'icon-close '+'cgIcon ')
                     .text('')
                     //.text('close')
                     .appendTo(uiChatboxTitlebarClose),

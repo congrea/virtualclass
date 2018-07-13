@@ -170,8 +170,13 @@
                                 if(ul != null){
                                     ul.style.display = 'block';
                                 }
+                                var lists = document.querySelectorAll('#uploadMsz .qq-upload-list-selector.qq-upload-list');
+                                if(lists.length>1){
+                                    for(var i =1 ;i<lists.length-1;i++){
+                                        lists[i].parentNode.removeChild(lists[i])
+                                    }
+                                }
                                 virtualclass.vutil.removeChildrens('#VideoDashboard #uploadMsz .qq-upload-list-selector.qq-upload-list li');
-
                                 var dashbaord = document.querySelector('#VideoDashboard');
                             }else if (obj.cthis == 'docs'){
                                 obj.cb.call(virtualclass.dts, id, xhr, rawData);
@@ -192,6 +197,10 @@
                             if(dashbaord != null){
                                 dashbaord.classList.remove('uploading');
                             }
+
+
+
+
                         },
 
                         onError:function(){

@@ -792,6 +792,12 @@
 }
 }
 
+    @media (max-width:1300px) {
+        #virtualclassCont.congrea #listnotes .linknotes.links .controlCont {
+            left:5px;
+        }
+    }
+
 #virtualclassCont.congrea.pdfRendering .nvgt.next,
 #virtualclassCont.congrea.pdfRendering .nvgt.prev{
     pointer-events: none;
@@ -808,17 +814,16 @@
 
 #virtualclassCont.congrea.pdfRendering .docPdfLoader {
     display : block;
-    /*border: 16px solid #f3f3f3;*/
-    border: 16px solid #e2e0e0;
+    border: 8px solid #e2e0e0;
     border-radius: 50%;
-    border-top: 16px solid;
+    border-top: 8px solid;
     border-top-color: 'linear-gradient(to right, #34404c 0%, #515e69 100%)';
-    width: 80px;
-    height: 80px;
+    width: 45px;
+    height: 45px;
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin2 2s linear infinite;
     margin: 0 auto;
-    bottom: 350px;
+    bottom: 55vh;
     position: relative;
 }
 

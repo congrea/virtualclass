@@ -388,3 +388,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   opacity:.3;
   cursor:auto;
 }
+
+@-moz-document url-prefix() {
+    #virtualclassCont .dashboardview #urlcontainer #presentationurl {
+        max-height:40px;
+    }
+    
+}

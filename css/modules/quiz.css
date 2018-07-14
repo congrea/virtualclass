@@ -425,3 +425,12 @@ span.sch {
     background-color: #d9dbdc;
 }
 
+#virtualclassCont.congrea .path-mod-congrea-quiz ol.questions li.question {
+    margin:0 0 18px 0;
+}
+
+#virtualclassCont.congrea #slickQuiz .quizArea {
+    margin-top: 18px;
+    overflow: auto;
+    height: calc(100vh - 332px);
+}

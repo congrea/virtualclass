@@ -3873,3 +3873,7 @@ background-color: #d6d6d6;
 .qq-gallery .qq-upload-list li {
     margin:0 10% !important;
 }
+
+#virtualclassCont.congrea[data-currapp="ScreenShare"] #dashboardnav {
+    display:none;
+}

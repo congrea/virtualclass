@@ -544,8 +544,10 @@
                     }else {
                         /* Following is normal case where we don't need to zoom the
                            whiteboard objects, but only shows the pdf at passed canvas-scale */
-                        var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
-                        vcan.renderAll();
+                        if(virtualclass.gObj.currWb != null){
+                            var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
+                            vcan.renderAll();
+                        }
                     }
                 });
             },

@@ -623,7 +623,10 @@
             onResponseFiles : function (doc, slides, docFetch, slide, fromReload){
                 if(firstTime){
                     // this.docs.currNote = (typeof slide != 'undefined') ? slide : slides[0].id; // first id if order is not defined
-                    this.docs.currNote = (typeof slide != 'undefined') ? slide : slides[0].id;; // first id if order is not defined
+                    this.docs.currNote = (typeof slide != 'undefined') ? slide : slides[0].id; // first id if order is not defined
+
+                    console.log('Current note ' + this.docs.currNote);
+
                     // this.order = [];
                     firstTime = false;
                 }
@@ -720,6 +723,8 @@
                         var mainp = document.querySelector('#mainpnotes'+virtualclass.dts.currNote);
                         // Clicking on default doc's navigation
                         if(mainp != null){
+                            // Getting the relative document according to note
+                            virtualclass.dts.docs.currDoc = virtualclass.dts.currNote.split('_')[0];
                             mainp.click();
                         }
                     }
@@ -736,6 +741,7 @@
                     var firstElement = document.querySelector('#notesContainer .note');
                     if(firstElement != null){
                         this.docs.currNote = firstElement.dataset.slide;
+                        console.log('Current note ' + this.docs.currNote);
                         this.docs.currDoc = 'docs'+this.getDocId(firstElement.dataset.slide);
                         this.docs.note.getScreen(firstElement);
                     }
@@ -995,7 +1001,6 @@
 
                 goToDocs : function (doc){
                     var cthis = this;
-
                     return function (){
                         if(typeof virtualclass.dts.docs.note == 'object'){
                             virtualclass.vutil.updateCurrentDoc(virtualclass.dts.docs.note.currNote);
@@ -1202,7 +1207,10 @@
                             if(roles.hasControls() && typeof fromReload == 'undefined'){
                                 setTimeout(
                                     function (){
+
                                         ioAdapter.mustSend({'dts': {slideTo: noteId, docn:virtualclass.dts.docs.currDoc}, 'cf': 'dts'});
+                                        console.log('Slide to document sharing ' + noteId);
+
                                     },200
                                 );
                             }
@@ -1246,10 +1254,12 @@
                                             // by true, know the event is performed real user
                                             this.getScreen(activeSlide, true);
                                             cthis.docs.currNote = activeSlide.dataset.slide;
+                                            console.log('Current note ' + this.docs.currNote);
                                         }
                                     } else {
                                         this.getScreen(prevSlide, true);
                                         cthis.docs.currNote = prevSlide.dataset.slide;
+                                        console.log('Current note ' + this.docs.currNote);
                                     }
 
                                     /** to set the dimension of whiteboard during window is resized **/
@@ -1306,12 +1316,14 @@
                                             }else{
                                                 this.getScreen(activeSlide, true);
                                                 cthis.docs.currNote = activeSlide.dataset.slide;
+                                                console.log('Current note ' + this.docs.currNote);
                                             }
 
                                         } else {
                                             // by true, know the event is performed real user
                                             this.getScreen(nextSlide, true);
                                             cthis.docs.currNote = nextSlide.dataset.slide;
+                                            console.log('Current note ' + this.docs.currNote);
                                         }
                                     }
                                 }
@@ -1508,6 +1520,7 @@
 
                     } else if(typeof this.docs.note == 'object' && dts.docn != this.docs.num) {
                         this.docs.currNote = dts.slideTo;
+                        console.log('Current note ' + this.docs.currNote);
                         this.docs.executeScreen(dts.docn, undefined);
                         var that = this;
                         setTimeout(
@@ -1519,6 +1532,7 @@
                         var note = document.querySelector('#note' + dts.slideTo);
                         if(note != null){
                             this.docs.currNote = dts.slideTo;
+                            console.log('Current note ' + this.docs.currNote);
                             // In normal case
                             this.docs.note.getScreen(note);
                             console.log(virtualclass.gObj.currWb + ' ' + 'document share :- Normal Case');

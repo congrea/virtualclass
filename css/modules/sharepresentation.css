@@ -8,7 +8,7 @@
 
 #virtualclassSharePresentation iframe {
   border: none;
-  min-height: 95.5vh;
+  min-height: calc(100vh - 44px);
 }
 
 #virtualclassCont.congrea #virtualclassSharePresentation #urlcontainer, #virtualclassCont.congrea.student.presenter #virtualclassSharePresentation #urlcontainer {

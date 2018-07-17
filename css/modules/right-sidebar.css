@@ -155,6 +155,7 @@ body {
     font-size: 11px;
     font-family: 'icomoon';
 }
+
 .user_search {
     content: "\f0c0";
     font-size:18px;
@@ -164,7 +165,6 @@ body {
 #congreaChatCont .ui-widget-content #chat_div .ui-memblist-usr {
     height:50px;
 }
-
 #appSettingDetail label {
     margin-top:6px;
     margin-bottom:6px;
@@ -172,7 +172,6 @@ body {
     font-size:16px;
     color: #3d454c;
 }
-
 #virtualclassCont #appSettingDetail .switch {
   position: relative;
   display: inline-block;
@@ -632,4 +631,11 @@ pointer-events: none !important;
 }
 #virtualclassCont.congrea #chatWidget.deactive {
     height: 0;
+}
+
+@-moz-document url-prefix() {
+    #virtualclassCont .footerCtr input::placeholder {
+    text-align:center;
+}
+
 }

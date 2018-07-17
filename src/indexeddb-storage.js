@@ -258,15 +258,17 @@
         },
 
         completeStorage: function (playTime, data, bdata, sessionEnd) {  //storing whiteboard and screenshare
-            var t = that.db.transaction(["allData"], "readwrite");
-            if (typeof sessionEnd != 'undefined') {
-                t.objectStore("allData").add({recObjs: "", sessionEnd: true, id: 3});
-            } else {
-                if (typeof bdata == 'undefined') {
-                    t.objectStore("allData").add({recObjs: data, playTime: playTime, id: 3});
+            if(roles.hasAdmin()) {
+                var t = that.db.transaction(["allData"], "readwrite");
+                if (typeof sessionEnd != 'undefined') {
+                    t.objectStore("allData").add({recObjs: "", sessionEnd: true, id: 3});
                 } else {
-                    //console.log('data storing ' + this.totalStored);
-                    t.objectStore("allData").add({recObjs: data, playTime: playTime, id: 3, bd: bdata.type});
+                    if (typeof bdata == 'undefined') {
+                        t.objectStore("allData").add({recObjs: data, playTime: playTime, id: 3});
+                    } else {
+                        //console.log('data storing ' + this.totalStored);
+                        t.objectStore("allData").add({recObjs: data, playTime: playTime, id: 3, bd: bdata.type});
+                    }
                 }
             }
         },

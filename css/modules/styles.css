@@ -3840,7 +3840,7 @@ background-color: #d6d6d6;
 	background-color: #F5F5F5;
 }
 
-#virtualclassCont.student #virtualclassQuiz .quizArea::-webkit-scrollbar, #virtualclassCont.congrea #listdocs::-webkit-scrollbar{
+#virtualclassCont.student #virtualclassQuiz .quizArea::-webkit-scrollbar, #virtualclassCont.congrea #listdocs::-webkit-scrollbar, #virtualclassCont.congrea #rightSubContainer #appSettingDetail::-webkit-scrollbar{
 	width: 8px;
 	height:8px;
 	background-color: #fff;
@@ -3867,6 +3867,16 @@ background-color: #d6d6d6;
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #confirm.popupWindow #confirmCancel #confirmCancelButton {
     cursor:pointer;
 }
-#virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-play-control.vjs-playing{
-	display : none!important;
+
+#virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-play-control.vjs-playing {
+	display: none !important;
+
+}
+.qq-gallery .qq-upload-list li {
+    margin:0 10% !important;
+}
+
+#virtualclassCont.congrea[data-currapp="ScreenShare"] #dashboardnav {
+    display:none;
+
 }

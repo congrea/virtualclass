@@ -1921,6 +1921,16 @@
                                      if(virtualclass.dts.docs.currNote != null){
                                         virtualclass.dts.setCurrentNav(virtualclass.dts.docs.currNote);
                                      }
+
+                                     var notes = document.querySelector(".dbContainer #listnotes .linknotes");
+                                     if(notes){
+                                         var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
+                                         if(!btn){
+                                             virtualclass.vutil.showFinishBtn();
+                                         }
+                                     }else{
+                                         virtualclass.vutil.removeFinishBtn();
+                                     }
                                  }
                              }
                             // virtualclass.vutil.removeFinishBtn();

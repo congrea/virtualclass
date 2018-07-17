@@ -101,6 +101,7 @@
   right: 345px;
   height:35px;
   opacity : 0.5;
+  z-index:11;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel a#congrealogo.disbaleOnmousedown img{

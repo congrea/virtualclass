@@ -2012,6 +2012,7 @@
                         msz.parentNode.removeChild(msz)
                     }
                     virtualclass.vutil.attachEventToUpload();
+                    virtualclass.videoUl.UI.inputUrl()
                 }
                 /* modal need to be created again and old one to be deleted, to remove conflict
                  with events of drag drops */

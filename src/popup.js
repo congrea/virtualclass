@@ -154,7 +154,11 @@ var PopUp = (function (window, undefined) {
 
             var endsessionvalidateurl = document.getElementById('uploadvideourl');
             endsessionvalidateurl.dataset.displaying = 'false';
-   
+
+            var pptvalidateurl = document.getElementById('uploadppturl');
+            pptvalidateurl.dataset.displaying = 'false';
+
+
             var chatRoom = document.getElementById('chatrm');
             if(chatRoom  != null){
                 console.log('zIndex performing');
@@ -516,6 +520,8 @@ var PopUp = (function (window, undefined) {
         if(sessionEndCont.dataset.displaying == 'true'){
             this.sesseionEndWindow();
         }
+
+
     }
 
     /**

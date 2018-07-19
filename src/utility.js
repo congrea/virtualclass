@@ -2063,11 +2063,10 @@
                         document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard("SharePresentation");
                     }
                     virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
-
-                }
-                if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
-                     virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
-                     virtualclass.sharePt.retrieveOrder();
+                    if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
+                        virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
+                        virtualclass.sharePt.retrieveOrder();
+                    }
                 }
             }
             var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');

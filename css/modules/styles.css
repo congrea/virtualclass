@@ -1700,12 +1700,11 @@
 #virtualclassCont.congrea.student #informationCont ,
 #virtualclassCont.congrea #tempVideo ,
 #virtualclassCont.congrea #virtualclasswholescreenShareLocalTempVideo ,
-
 #virtualclassCont.congrea #mainContainer ,
-#virtualclassCont.congrea.student .vjs-big-play-button ,
 #virtualclassCont.congrea #virtualclassVideo .controlCont.removeCtr{
 	display : none;
 }
+
 
 #virtualclassCont.congrea #confirm.popupWindow.simple-box{
 	max-width: 350px;
@@ -2668,7 +2667,6 @@
 	right:320px;
 }
 
-#virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-play-control,
 #virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar .vjs-progress-control,
 #virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar .vjs-remaining-time,
 #virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar .vjs-autoPlay-button {
@@ -3870,10 +3868,15 @@ background-color: #d6d6d6;
     cursor:pointer;
 }
 
+#virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-play-control.vjs-playing {
+	display: none !important;
+
+}
 .qq-gallery .qq-upload-list li {
     margin:0 10% !important;
 }
 
 #virtualclassCont.congrea[data-currapp="ScreenShare"] #dashboardnav {
     display:none;
+
 }

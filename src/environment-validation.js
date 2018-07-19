@@ -436,6 +436,11 @@
                             var iosAudTrigger = document.createElement('div');
                             iosAudTrigger.innerHTML = virtualclass.lang.getString('iosAudEnable');
                             iosAudTrigger.id = "iosAudioTrigger";
+                            iosAudTrigger.style.zIndex = 5000;
+                            iosAudTrigger.style.marginLeft = "0px";
+                            iosAudTrigger.style.position = 'absolute';
+                            iosAudTrigger.style.left = '0px';
+                            iosAudTrigger.style.left = '0';
                             iosAudTrigger.addEventListener('click', function () {
                                 virtualclass.vutil.firstiOSaudioCall();
                                 this.parentNode.removeChild(this);

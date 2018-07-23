@@ -61,6 +61,8 @@ $(document).ready(function () {
 
         var previousApp = JSON.parse(localStorage.getItem('prevApp'));
 
+        virtualclass.gObj.prevApp = previousApp;
+
         if (previousApp != null) {
             virtualclass.previousApp = previousApp;
             var appIs = capitalizeFirstLetter(previousApp.name);

@@ -487,6 +487,10 @@ this["JST"]["templates/editor/messagebox.hbs"] = Handlebars.template({"compiler"
     + "</p>\n</div>";
 },"useData":true});
 
+this["JST"]["templates/joinclass.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"joinClass\"  class=\"bootstrap\">\n    <div class=\"container  \">\n      <!-- Modal -->\n      <div class=\"modal fade\" id=\"joinClassModal\" role=\"dialog\">\n        <div class=\"modal-dialog modal-lg\">\n           <div class=\"modal-content\">\n             <div class=\"modal-body\">\n                <div class=\"joinClasscontainer\">\n                  <button>Join class room </button>\n                </div>\n             </div>\n           </div>\n        </div>\n      </div>\n    </div>\n</div>";
+},"useData":true});
+
 this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -522,6 +526,7 @@ this["JST"]["templates/main.hbs"] = Handlebars.template({"1":function(container,
     var stack1;
 
   return ((stack1 = container.invokePartial(partials.precheck,depth0,{"name":"precheck","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + ((stack1 = container.invokePartial(partials.joinclass,depth0,{"name":"joinclass","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "<div id=\"virtualclassApp\" style=\"display: block;\" class=\"try-to-connect\">\n"
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.isPlay : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = container.invokePartial(partials.rightBar,depth0,{"name":"rightBar","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
@@ -907,7 +912,9 @@ this["JST"]["templates/popupCont.hbs"] = Handlebars.template({"compiler":[7,">= 
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"validateurlmsg",{"name":"getString","hash":{},"data":data}))
     + " </span>\n    </div>\n\n    <div id=\"waitMsgCont\" class=\"popupWindow\">\n      <span id=\"waitMsg\" class=\"cgText\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"waitmsgconnect",{"name":"getString","hash":{},"data":data}))
-    + " </span>\n    </div>\n\n    <div id=\"chromeExtMiss\" class=\"popupWindow\">\n      <span id=\"chromeExtClose\" class=\"icon-close\"></span>\n      <span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugins to share the Screen.<br />You can download the plugin\n        <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a>\n        After installing the plugin, please <a onclick=\"location.reload()\">Reload </a> the page.\n\n      </span>\n      </span>\n    </div>\n\n    <div id=\"generalMessage\" class=\"popupWindow\">\n      <span id=\"generalMessageMsg\"> </span>\n      <span id=\"generalMessageClose\"></span>\n\n    </div>\n\n\n\n  </div>\n</div>";
+    + " </span>\n    </div>\n\n    <div id=\"chromeExtMiss\" class=\"popupWindow\">\n      <span id=\"chromeExtClose\" class=\"icon-close\"></span>\n      <span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugins to share the Screen.<br />You can download the plugin\n        <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a>\n        After installing the plugin, please <a onclick=\"location.reload()\">Reload </a> the page.\n\n      </span>\n      </span>\n    </div>\n\n    <div id=\"generalMessage\" class=\"popupWindow\">\n      <span id=\"generalMessageMsg\"> </span>\n      <span id=\"generalMessageClose\"></span>\n\n    </div>\n    <div id=\"generalMessageButton\" class=\"popupWindow\">\n      <span class=\"button\"> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"JoinClassMsg",{"name":"getString","hash":{},"data":data}))
+    + "  </span>\n    </div>\n\n\n  </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/ppt/dashboard.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

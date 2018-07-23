@@ -153,8 +153,7 @@
                 init: function () {
                     var isEnableAudio = document.getElementById('speakerPressOnce').dataset.audioPlaying;
                     virtualclass.gObj.audMouseDown = (isEnableAudio == 'true') ? true : false;
-                    this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-                    this.resampler = new Resampler(cthis.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
+
 
                     //This part in not being used
                     this.graph = {
@@ -196,6 +195,18 @@
 
                     };
                     this.attachFunctionsToAudioWidget();// to attach functions to audio widget
+                },
+
+                initAudiocontext : function (){
+                    if(!this.hasOwnProperty('Html5Audio')){
+                        this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                        this.resampler = new Resampler(virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
+
+                        if(virtualclass.system.mediaDevices.hasMicrophone){
+                            virtualclass.gObj.video.stream = cthis.video.tempStream;
+                            virtualclass.gObj.video.audio._manuPulateStream();
+                        }
+                    }
                 },
 
                 muteButtonToogle : function (){
@@ -1502,10 +1513,10 @@
                     });
                 }
 
-                if(virtualclass.system.mediaDevices.hasMicrophone){
-                    cthis.stream = cthis.video.tempStream;
-                    cthis.audio._manuPulateStream();
-                }
+                // if(virtualclass.system.mediaDevices.hasMicrophone){
+                //     cthis.stream = cthis.video.tempStream;
+                //     cthis.audio._manuPulateStream();
+                // }
 
                 var vidstatus = localStorage.getItem("allVideoAction");
                 if(vidstatus == "disable" && roles.isStudent()){
@@ -1693,6 +1704,9 @@
 
 
             detectAudioWorklet : () => {
+                if(!roles.hasControls()){
+                    return false;
+                }
                 let context = new OfflineAudioContext(1, 1, 44100);
                 return Boolean(
                     context.audioWorklet &&

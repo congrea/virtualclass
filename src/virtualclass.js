@@ -64,6 +64,7 @@
                 defaultApp : 'Whiteboard',
                 tempQueue :{},
                 chatIconColors:{},
+                prevApp : null,
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
             },
 
@@ -301,6 +302,9 @@
                     this.colorSelector.makeThemeReady();
                 }
 
+                if(virtualclass.gObj.prevApp != null){
+                    virtualclass.vutil.initClassJoin();
+                }
             },
 
             makeReadySocket : function (){
@@ -1280,7 +1284,7 @@
                 var contPara = {'whiteboardPath' : whiteboardPath};
 
                 /** Registering the partials which have setting paramter **/
-                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting', 'appSettingDetail'];
+                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting', 'appSettingDetail', 'joinclass'];
 
                 var isControl = {hasControl : roles.hasControls()};
                 var context;

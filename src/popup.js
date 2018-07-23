@@ -463,6 +463,8 @@ var PopUp = (function (window, undefined) {
         }
     };
 
+
+
     PopUp.prototype.chromeExtMissing = function () {
         var element = document.getElementById('about-modal');
         element.dataset.currPopup = 'chromeExt';
@@ -479,8 +481,6 @@ var PopUp = (function (window, undefined) {
             });
     };
 
-
-
     PopUp.prototype.generalMsg = function (msg) {
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
@@ -493,7 +493,6 @@ var PopUp = (function (window, undefined) {
         var msgCont = document.querySelector('#generalMessageMsg');
         msgCont.innerHTML = msg;
 
-
         var generalMessageClose = document.getElementById("generalMessageClose");
 
         generalMessageClose.addEventListener('click',
@@ -502,6 +501,20 @@ var PopUp = (function (window, undefined) {
             });
     };
 
+    PopUp.prototype.generalMsgButton = function (msg) {
+        var element = document.getElementById('about-modal');
+        virtualclass.popup.open(element);
+        this.hideAllPopups();
+
+        var msgCont = document.querySelector('#generalMessageButton');
+        if(msgCont != null){
+            msgCont.style.display = 'block;';
+            var msgButton = document.querySelector('#generalMessageButton .button');
+            msgButton.addEventListener('click', function (){
+                virtualclass.popup.closeElem();
+            });
+        }
+    }
 
     PopUp.prototype.hideAllPopups = function () {
         var allPopuContainer = document.getElementsByClassName('popupWindow');

@@ -20,6 +20,13 @@ window.addEventListener('message', function (event) {
                 virtualclass.ss.onError(error);
             }
 
+            if(virtualclass.currApp == "SharePresentation" || virtualclass.currApp == "DocumentShare") {
+                var dashboardnav = document.querySelector('#dashboardnav button');
+                if (dashboardnav != null) {
+                    dashboardnav.click();
+                }
+            }
+
         } else {
             constraints = constraints || {
                     audio: false, video: {

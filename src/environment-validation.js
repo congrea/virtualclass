@@ -430,20 +430,20 @@
                 if (this.isIPad()) {
                     if (roles.isStudent()) {
                         if (bversion >= 8) {
-                            virtualclass.vutil.initDisableAudVid();
-                            virtualclass.gObj.iosIpadbAudTrue = false;
+                            //virtualclass.vutil.initDisableAudVid();
+                           //s virtualclass.gObj.iosIpadbAudTrue = false;
                             //iosIpadbAudTrue
-                            var iosAudTrigger = document.createElement('div');
-                            iosAudTrigger.innerHTML = virtualclass.lang.getString('iosAudEnable');
-                            iosAudTrigger.id = "iosAudioTrigger";
-                            iosAudTrigger.addEventListener('click', function () {
-                                virtualclass.vutil.firstiOSaudioCall();
-                                this.parentNode.removeChild(this);
+                            // var iosAudTrigger = document.createElement('div');
+                            // iosAudTrigger.innerHTML = virtualclass.lang.getString('iosAudEnable');
+                            // iosAudTrigger.id = "iosAudioTrigger";
+                            // iosAudTrigger.addEventListener('click', function () {
+                            //     virtualclass.vutil.firstiOSaudioCall();
+                            //     this.parentNode.removeChild(this);
 
-                            });
+                            // });
 
-                            var audioWrapper = document.getElementById('audioWidget');
-                            audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
+                            // var audioWrapper = document.getElementById('audioWidget');
+                            // audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
 
                         } else {
                             virtualclass.vutil.initDisableVirtualClass();

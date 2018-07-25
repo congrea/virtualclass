@@ -201,7 +201,7 @@
                     if(!this.hasOwnProperty('Html5Audio')){
                         this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
                         this.resampler = new Resampler(virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
-
+                        virtualclass.gObj.isAudioContextReady = true;
                         if(virtualclass.system.mediaDevices.hasMicrophone){
                             virtualclass.gObj.video.stream = cthis.video.tempStream;
                             virtualclass.gObj.video.audio._manuPulateStream();
@@ -994,36 +994,25 @@
                  *
                  */
                 receivedAudioProcess: function (msg) {
-                    if (virtualclass.gObj.hasOwnProperty('iosIpadbAudTrue') && virtualclass.gObj.iosIpadbAudTrue == false) {
-                        return;
+                    if (virtualclass.gObj.hasOwnProperty('isAudioContextReady')) {
+                        var dataArr = this.extractData(msg);// extract data and user id from the message received
+                        var uid = dataArr[0];
+
+                        if (typeof adSign == 'undefined') {
+                            var adSign = {};
+                        }
+
+                        if (!adSign.hasOwnProperty(uid)) {
+                            adSign[uid] = {};
+                            adSign[uid].ad = true;
+                            var user = virtualclass.user.control.updateUser(uid, 'ad', true);// creates user object, that is stored in local storage and return the object
+                            virtualclass.user.control.audioSign(user, "create");
+                        }
+
+                        virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
+                        virtualclass.gObj.video.audio.playWithFallback(uid);    
                     }
 
-                    var dataArr = this.extractData(msg);// extract data and user id from the message received
-                    var uid = dataArr[0];
-
-                    if (typeof adSign == 'undefined') {
-                        var adSign = {};
-                    }
-
-                    if (!adSign.hasOwnProperty(uid)) {
-                        adSign[uid] = {};
-                        adSign[uid].ad = true;
-                        var user = virtualclass.user.control.updateUser(uid, 'ad', true);// creates user object, that is stored in local storage and return the object
-                        virtualclass.user.control.audioSign(user, "create");
-                    }
-
-                    virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
-                    virtualclass.gObj.video.audio.playWithFallback(uid);
-
-                    // Uncomment the below code to enable audio worklet
-
-                    // if(virtualclass.gObj.video.detectAudioWorklet()){
-                    //     let packets = virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
-                    //     virtualclass.gObj.video.audio.play(uid, packets);
-                    // }else {
-                    //     virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
-                    //     virtualclass.gObj.video.audio.playWithFallback(uid);
-                    // }
                 },
                 /**
                  * To extract user id of sender and data from the receied message

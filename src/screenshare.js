@@ -362,8 +362,19 @@ var newCanvas;
                         virtualclass.ss.setCurrentApp();
                     }
 
-                }).catch(function (error) {
+                }).catch(function (error) { //cancel screen share
                     virtualclass.ss.setCurrentApp();
+
+                    if(virtualclass.currApp == "Video") {
+                        var option = document.getElementById("virtualclassVideoTool");
+                    }else if(virtualclass.currApp == "SharePresentation"){
+                        var option = document.getElementById("virtualclassSharePresentationTool");
+                    }else if(virtualclass.currApp == "DocumentShare"){
+                        var option = document.getElementById("virtualclassDocumentShareTool");
+                    }
+                    var dashboard = option.getElementsByTagName('a')[0];
+                    virtualclass.initlizer(dashboard);
+
                     if (typeof error == 'string') {
                         //PERMISSION_DENIED
                         if (error === 'PERMISSION_DENIED') {

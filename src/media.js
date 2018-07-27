@@ -53,7 +53,7 @@
     var sNode = {};
     var ac = {};
     var sNodePak = {};
-
+    // alert('index.js3');
 //        var AudioContext = AudioContext || webkitAudioContext;
     /**
      * this returns an object that contains various Properties
@@ -207,6 +207,12 @@
                             virtualclass.gObj.video.audio._manuPulateStream();
                         }
                     }
+                },
+
+                /** Iniates the script processor node to play the audio **/
+                initScriptNode : function (uid){
+                   this._playWithFallback(uid);
+                   alreadyRequested = null;
                 },
 
                 muteButtonToogle : function (){
@@ -701,20 +707,36 @@
                  * @param  audioChunks that need be played
                 */
                 playWithFallback :  function (uid)  {
-                   if(!this.hasOwnProperty('Html5Audio') && !this.Html5Audio){
-                       this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-                   }
+                    // alert('hi');
+                   // if(!this.hasOwnProperty('Html5Audio') && !this.Html5Audio){
+                   //     this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                   // }
                    var that = this;
-                   if(typeof sNode[uid] != 'object'){
+                    //alert(this.Html5Audio.audioContext.state);
+                   if(this.Html5Audio.audioContext.state === 'suspended'){
+                        if(typeof alreadyRequested == 'undefined' || alreadyRequested == null){
+                            this.Html5Audio.audioContext.resume();
+                            virtualclass.vutil.initAudioResume(uid);
+                            alreadyRequested = true;
+                        }
+                        
+                   }else {
+                        //alert('play call');
+                        this._playWithFallback(uid); 
+                   }
+                                      
+               },
+
+               _playWithFallback : function (uid){
+                     var that = this;
+                     if(typeof sNode[uid] != 'object'){
                        console.log('script processor node is created');
                        sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
                        sNodePak[uid] = 0;
                        sNode[uid].onaudioprocess = function (event){
-                           //console.log('Audio process')
                            var output = event.outputBuffer.getChannelData(0);
                            var newAud = that.getAudioChunks(uid);
                            if(typeof newAud != 'undefined'){
-                               // console.log('Audio from user ' + uid);
                                for (i = 0; i < newAud.length; i++) {
                                    output[i] = newAud[i];
                                }

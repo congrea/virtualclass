@@ -2723,6 +2723,35 @@
                     virtualclass.gObj.video.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
                 });
             }
+        },
+
+
+        initAudioResume  : function (uid){
+         
+            var joinClassModal = document.querySelector('#joinClassModal');
+            if(joinClassModal != null){
+                joinClassModal.style.display = 'block';
+            }
+            $('#joinClassModal').modal({backdrop: 'static', keyboard: false});
+
+            var mainbody = document.querySelector('#joinClassModal .modal-body');
+            var initAudio = document.createElement('div');
+
+            initAudio.id = 'initAudio';
+
+            initAudio.innerHTML = "CLICK HERE TO ENABLE AUDIO";
+            mainbody.appendChild(initAudio);
+            //alert('body append');
+            mainbody.onclick = function (){
+                virtualclass.gObj.video.audio.initScriptNode(uid);
+            }
+
+            var joinClass = document.querySelector('#joinClassModal .joinClasscontainer');
+
+            if(joinClass != null){
+                joinClass.style.display = 'none';
+            }
+
         }
     };
     window.vutil = vutil;

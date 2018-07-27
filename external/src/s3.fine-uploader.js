@@ -7899,6 +7899,8 @@
                     e.preventDefault();
                     maybeHideDropZones();
                 }
+                if(e.preventDefault) { e.preventDefault(); }//to handle  firefox rearrange drag- drop
+            
             });
             disposeSupport.attach(document, HIDE_ZONES_EVENT_NAME, maybeHideDropZones);
         }

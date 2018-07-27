@@ -1735,18 +1735,17 @@
                     var id = $('#listvideo .linkvideo.playing').attr('data-rid')
                     this.currPlaying = id;
                 }
-                upload.validation = ["avi", "flv", "wmv", "mov", "mp4", "webm", "mkv", "vob", "ogv", "ogg", "drc", "mng", "qt", "yuv", "rm", "rmvb", "asf", "amv", "m4p",
-                    "m4v", "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf", "roq", "nsv", "f4v", "f4p", "f4a", "f4b"];
+                upload.validation = [ "mp4", "avi",  "wmv", "mov", "webm", "mkv", "vob",  "mpeg"];
                 upload.cb = virtualclass.videoUl.afterUploadVideo;
                 upload.cthis = 'video';
-                upload.maxSize=500*1024*1024; //
+                upload.maxSize=512*1000*1000; //512 mb
                 //upload.requesteEndPoint = window.webapi + "&methodname=file_save&user="+virtualclass.gObj.uid;
                 upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
             } else {
-                upload.validation = ['doc', 'docx', 'txt', 'html', 'csv', 'odt', 'ott', 'pdf', 'ppt', 'pptx', 'pot', 'pps', 'xls', 'xlsx', 'xlt', 'png', 'jpg', 'gif', 'svg', 'tiff', 'rtf', 'xpm'];
+                upload.validation = ['doc', 'docx', 'txt', 'html', 'csv', 'pdf', 'ppt', 'pptx','xls', 'xlsx', 'xlt', 'png', 'jpg', 'gif', 'svg', 'tiff', 'rtf', 'xpm'];
                 upload.cb = virtualclass.dts.onAjaxResponse;
                 upload.cthis = 'docs';
-                upload.maxSize=25*1024*1024; //25MB
+                upload.maxSize=24*1000*1000; //24MB
                 // upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&user="+virtualclass.gObj.uid;
                 upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=1&user="+virtualclass.gObj.uid;
             }

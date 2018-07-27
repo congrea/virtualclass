@@ -66,6 +66,7 @@
                 chatIconColors:{},
                 prevApp : null,
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
+                requestToScriptNode : null,
             },
 
             enablePreCheck : true,
@@ -211,6 +212,7 @@
                 virtualclass.page =  page;
                 virtualclass.zoom = window.zoomWhiteboard();
                 virtualclass.network = new Network();
+                virtualclass.gesture = gesture;
 
 
                 this.serverData = serverData;
@@ -258,6 +260,7 @@
                     virtualclass.precheck.init();
                 } else {
                     virtualclass.makeReadySocket();
+                    virtualclass.gesture.initClassJoin();
                 }
                    virtualclass.gObj.precheckScrn= false;
 
@@ -300,10 +303,6 @@
                 virtualclass.colorSelector = window.colorSelector;
                 if(virtualclassSetting.theme.selectedColor){
                     this.colorSelector.makeThemeReady();
-                }
-
-                if(virtualclass.gObj.prevApp != null){
-                    virtualclass.vutil.initClassJoin();
                 }
             },
 

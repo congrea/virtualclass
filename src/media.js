@@ -145,6 +145,8 @@
                 otherSound: false,
                 audioNodes: [],
                 sdElem: 'silenceDetect',
+                snode : [], // To holds the user's id whose audio context is suspended
+
 //                  sd : false,
                 /*
                  *  Enables audio
@@ -210,9 +212,11 @@
                 },
 
                 /** Iniates the script processor node to play the audio **/
-                initScriptNode : function (uid){
-                   this._playWithFallback(uid);
-                   alreadyRequested = null;
+                initScriptNode : function (){
+                    for(var i=0; i< this.snode.length; i++){
+                        this._playWithFallback(this.snode[i]);
+                    }
+                    this.snode = [];
                 },
 
                 muteButtonToogle : function (){
@@ -707,24 +711,22 @@
                  * @param  audioChunks that need be played
                 */
                 playWithFallback :  function (uid)  {
-                    // alert('hi');
-                   // if(!this.hasOwnProperty('Html5Audio') && !this.Html5Audio){
-                   //     this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-                   // }
                    var that = this;
-                    //alert(this.Html5Audio.audioContext.state);
                    if(this.Html5Audio.audioContext.state === 'suspended'){
-                        if(typeof alreadyRequested == 'undefined' || alreadyRequested == null){
-                            this.Html5Audio.audioContext.resume();
-                            virtualclass.vutil.initAudioResume(uid);
-                            alreadyRequested = true;
-                        }
-                        
+                       /** Wait till 2 seconds and see if still it's suspended ***/
+                       setTimeout(()=> {
+                           if(that.Html5Audio.audioContext.state == 'suspended'){
+                              that.snode.push(uid);
+                              if(virtualclass.gObj.requestToScriptNode == null){
+                                  that.Html5Audio.audioContext.resume();
+                                  virtualclass.gesture.initAudioResume(uid);
+                                  virtualclass.gObj.requestToScriptNode = true;
+                              }
+                           }
+                       },2000);
                    }else {
-                        //alert('play call');
-                        this._playWithFallback(uid); 
+                        this._playWithFallback(uid);
                    }
-                                      
                },
 
                _playWithFallback : function (uid){
@@ -1715,13 +1717,14 @@
 
 
             detectAudioWorklet : () => {
-                if(!roles.hasControls()){
+                if (typeof OfflineAudioContext == 'undefined') {
                     return false;
+                }else {
+                    let context = new OfflineAudioContext(1, 1, 44100);
+                    return Boolean(
+                        context.audioWorklet &&
+                        typeof context.audioWorklet.addModule === 'function');
                 }
-                let context = new OfflineAudioContext(1, 1, 44100);
-                return Boolean(
-                    context.audioWorklet &&
-                    typeof context.audioWorklet.addModule === 'function');
             }
         }
     };

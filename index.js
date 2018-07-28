@@ -31,7 +31,7 @@ $(document).ready(function () {
         virtualclass.prvCurrUsersSame();
         
         virtualclass.gObj.mobileVchOffset = vhCheck();
-        alert(virtualclass.gObj.mobileVchOffset);
+//        alert(virtualclass.gObj.mobileVchOffset);
                 
 
 

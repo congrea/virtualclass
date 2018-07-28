@@ -94,6 +94,8 @@
                     // display quiz result page at student site
 
                     var rData = JSON.parse(localStorage.getItem('qRep'));
+                    var maxmrk = parseFloat(rData.grade.maxmarks).toFixed(2);
+                    rData.grade.maxmarks = maxmrk;
                     this.UI.displayStudentResultScreen(rData);
 
                 } else if(storedData.screen == "tchResultView") {

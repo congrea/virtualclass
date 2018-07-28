@@ -521,7 +521,10 @@
                         var action, ctrType, boolVal;
                         //TODO this should be generalise
                         if (control == 'stdscreen') {
-                            virtualclass.vutil.initDefaultApp();
+                            // if teacher share his screen
+                            if(roles.hasControls() && virtualclass.previous == "virtualclassScreenShare") {
+                                virtualclass.vutil.initDefaultApp();
+                            }
                             ctrType = 'stdscreen';
                             this.control['_' + ctrType].call(this.control, userId);
                         } else {

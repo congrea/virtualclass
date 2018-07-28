@@ -362,8 +362,19 @@ var newCanvas;
                         virtualclass.ss.setCurrentApp();
                     }
 
-                }).catch(function (error) {
+                }).catch(function (error) { //cancel screen share
                     virtualclass.ss.setCurrentApp();
+
+                    if(virtualclass.currApp == "Video") {
+                        var option = document.getElementById("virtualclassVideoTool");
+                    }else if(virtualclass.currApp == "SharePresentation"){
+                        var option = document.getElementById("virtualclassSharePresentationTool");
+                    }else if(virtualclass.currApp == "DocumentShare"){
+                        var option = document.getElementById("virtualclassDocumentShareTool");
+                    }
+                    var dashboard = option.getElementsByTagName('a')[0];
+                    virtualclass.initlizer(dashboard);
+
                     if (typeof error == 'string') {
                         //PERMISSION_DENIED
                         if (error === 'PERMISSION_DENIED') {
@@ -375,6 +386,11 @@ var newCanvas;
                             window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
                         }
                     }
+                    if (roles.hasControls()) {
+                        if (virtualclass.currApp == 'Video' || virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'DocumentShare') {
+                            virtualclass.ss.showDashboard();
+                        }
+                    }        
                 });
             } else {
                 alert(virtualclass.lang.getString('notSupportBrowser', [ffver]));
@@ -467,7 +483,6 @@ var newCanvas;
              */
             readyTostart: function (app) {
                 if (app == virtualclass.apps.ss) {
-
                     this.getScreen();
                 }
 
@@ -488,14 +503,20 @@ var newCanvas;
                     virtualclass.currApp = virtualclass.previousApp.name;
                     document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
                 }
-                if(virtualclass.currApp=='Video' || virtualclass.currApp=='SharePresentation' || virtualclass.currApp=='DocumentShare'){
-                    if(roles.hasControls()){
-                        virtualclass.vutil.initDashboardNav();
+                if (roles.hasControls()) {
+                    if (virtualclass.currApp == 'Video' || virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'DocumentShare') {
+                        virtualclass.ss.showDashboard();
                     }
                 }
-
-
                 console.log("Error " + e);
+            },
+            
+            showDashboard: function () {
+                virtualclass.vutil.initDashboardNav();
+                if (virtualclass.currApp == 'Video') {
+                    ioAdapter.mustSend({'videoUl': {init: 'destroyPlayer'}, 'cf': 'destroyPlayer'});
+                    ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
+                }
             },
             /**
              * To Get screen for Firefox and chrome,
@@ -1185,10 +1206,23 @@ var newCanvas;
             },
 
             setCurrentApp : function (){
-                if(virtualclass.hasOwnProperty('previousApp') && typeof virtualclass.previousApp == 'object'){
-                    virtualclass.currApp = virtualclass.previousApp.name;
+//                if(virtualclass.hasOwnProperty('previousApp') && typeof virtualclass.previousApp == 'object'){
+//                    virtualclass.currApp = virtualclass.previousApp.name;
+//                    document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+//                }
+
+                // virtualclass.previousApp stores the value of the app on which it was last refreshed
+                //virtualclass.previous should be used  to set current app
+                
+                if(virtualclass.hasOwnProperty('previous') && typeof virtualclass.previous != 'undefined'){
+                    virtualclass.currApp = virtualclass.previous.slice(12);
                     document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
                 }
+                
+                var app =virtualclass.previous.slice(12)
+                console.log(app);
+                console.log("previousapp "+virtualclass.previousApp.name );
+                console.log("previous "+virtualclass.previous)
             },
 
             getScale : function (baseWidth, givenWidth){

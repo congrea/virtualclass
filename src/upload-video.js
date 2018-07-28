@@ -14,6 +14,7 @@
             yts:false,
             online:false,
             listEndPause:false,
+            storageState:false,
 
             /*
              * it creates the the necessary layout and containers to place
@@ -37,12 +38,15 @@
                         this.yts=videoObj.init.yts;
                         this.online=videoObj.init.online;
                         this.isPaused= videoObj.init.isPaused;
+                        this.storageState=videoObj.init.isPaused;
 
                     }
                     if(typeof videoObj.isAutoplay !='undefined'){
                         this.autoPlayFlag= videoObj.isAutoplay;
                     }
 
+                }else{
+                    this.storageState ="none";
                 }
 
                 if (!roles.hasAdmin() || (roles.isEducator())) {
@@ -666,15 +670,21 @@
             },
 
             playVideo: function (seekVal) {
-                  // virtualclass.videoUl.player.play();
+                if(virtualclass.videoUl.player){
                     virtualclass.videoUl.player.currentTime(seekVal);
                     virtualclass.videoUl.player.play();
+                }else{
+                    console.log("player not ready")
+                }
 
             },
 
             pauseVideo: function () {
-                virtualclass.videoUl.player.pause();
-                virtualclass.videoUl.isPaused=true;
+                if(virtualclass.videoUl.player) {
+                    virtualclass.videoUl.player.pause();
+                    virtualclass.videoUl.isPaused=true;
+                }
+
             },
 
             /*
@@ -1039,31 +1049,21 @@
 
                 },
                 attachPlayerHandler: function (player, vidId, videoUrl) {
-
-
-                   // player.off("pause");
                     player.on("pause", function (e) {
                         console.log("paused");
                         if (roles.hasControls()) {
                             ioAdapter.mustSend({'videoUl': "pause", 'cf': 'videoUl'});
                         }
                         virtualclass.videoUl.isPaused=true;
-
                     });
 
-                    //player.off("play");
                     player.on("play", function (e) {
                         console.log("play");
                         if (roles.hasControls()) {
                             ioAdapter.mustSend({'videoUl': {"play": player.currentTime()}, 'cf': 'videoUl'});
                         }
                         virtualclass.videoUl.isPaused=false;
-
                     });
-
-                    // player.off("ended");
-                    //
-
                 },
                 // todo to modify
                 switchDisplay: function (videoCont, videoUrl) {
@@ -1096,7 +1096,7 @@
                 },
                 //n
                 createVideoElem: function (videoCont,type) {
-                    var video = '<video id="dispVideo" class="video-js" autoplay controls  preload="auto" data-setup="{}" >';
+                    var video = '<video id="dispVideo" class="video-js" autoplay  controls  preload="auto" data-setup="{}" >';
                     $(videoCont).append(video);
                     var vn = document.createElement("p");
                     vn.setAttribute("class", "vjs-no-js")
@@ -1119,11 +1119,11 @@
                       /*player.reset(); */
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
-                        dispVideo.setAttribute('data-setup','{ techOrder: [youtube],"preload": "auto","autoplay" :true}');
-                            player.src({type: 'video/youtube', src:videoUrl});
+                        dispVideo.setAttribute('data-setup','{ techOrder: [youtube],"preload": "auto"}');
+                        player.src({type: 'video/youtube', src:videoUrl});
 
                     }else if (virtualclass.videoUl.online) {
-                        dispVideo.setAttribute('data-setup', '{"preload": "auto" }');
+                        dispVideo.setAttribute('data-setup', '{"preload": "auto"}');
                         player.src({type: 'video/webm', src: videoUrl});
                         player.src({type: 'video/mp4', src: videoUrl});
 
@@ -1133,31 +1133,40 @@
 
                     }
 
+
                    // if (startFrom) {
                         player.ready(function(){
                            var myPlayer = this;
-                           var pause = !virtualclass.videoUl.isPaused;
-                           if(!virtualclass.videoUl.isPaused){
-                               myPlayer.play();
+                           var pause = "";
+                           if(virtualclass.videoUl.storageState== "none"){
+                               pause = virtualclass.videoUl.isPaused
                            }else{
-                               myPlayer.paused();
+                               pause = virtualclass.videoUl.storageState
+                               virtualclass.videoUl.isPaused =false
                            }
+                            if(!pause){
+                               myPlayer.play();
+                            }else{
+                               myPlayer.paused();
+                            }
 
                             if (startFrom) {
                                 myPlayer.currentTime(startFrom);
-                                if (virtualclass.videoUl.yts) {
-                                    if (pause) {
+                                    if (!pause) {
                                         setTimeout(function () {
                                             myPlayer.play();
+                                            //virtualclass.videoUl.player.muted(false);
+                                            virtualclass.videoUl.isPaused =false
+                                        },3000)
+                                    }else{
+                                        setTimeout(function () {
+                                            myPlayer.pause();
+                                            virtualclass.videoUl.isPaused =true
                                         }, 3000)
                                     }
-
-                                }
                             }
 
                        });
-
-                  //  }
                     console.log(startFrom)
 
                 },
@@ -1201,14 +1210,10 @@
 
                 },
                 onEndedHandler:function(player,vidId,videoUrl){
-
                     player.off("ended");
-
                     player.on("ended", function (e) {
                         virtualclass.videoUl.UI.onEnded(player, vidId, videoUrl);
                     });
-
-
 
                 },
 
@@ -1230,9 +1235,6 @@
 
                     }
                     console.log("ended" + vidId)
-
-
-
                     var list = document.querySelectorAll("#listvideo .linkvideo");
                     var index =0;
                     for(var i =0; i <list.length ;i++){
@@ -1253,6 +1255,7 @@
                             var paused =virtualclass.videoUl.isPaused;
                             virtualclass.videoUl.listEndPause =true
                             virtualclass.videoUl.player.on("play",function(){
+                                virtualclass.videoUl.isPaused =false
                                 if(virtualclass.videoUl.listEndPause){
                                     virtualclass.videoUl.player.pause();
                                     virtualclass.videoUl.listEndPause=false;
@@ -1392,19 +1395,16 @@
                             var id = $('#listvideo .linkvideo.playing').attr('data-rid')
                             this.currPlaying = id;
                         }
-                        upload.validation = ["avi", "flv", "wmv", "mov", "mp4", "webm", "mkv", "vob", "ogv", "ogg", "drc", "mng", "qt", "yuv", "rm", "rmvb", "asf", "amv", "m4p",
-                        "m4v", "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf", "roq", "nsv", "f4v", "f4p", "f4a", "f4b"];
-
+//                        upload.validation = ["avi", "flv", "wmv", "mov", "mp4", "webm", "mkv", "vob", "ogv", "ogg", "drc", "mng", "qt", "yuv", "rm", "rmvb", "asf", "amv", "m4p",
+//                        "m4v", "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf", "roq", "nsv", "f4v", "f4p", "f4a", "f4b"];
+                        upload.validation = [ "mp4", "avi",  "wmv", "mov", "webm", "mkv", "vob",  "mpeg"];
                         upload.cb = virtualclass.videoUl.afterUploadVideo;
                         upload.cthis = 'video';
                         upload.multiple = false;
-                        upload.maxSize=500*1024*1024; // 500 MB
+                        upload.maxSize=512*1000*1000; // 512 MB
                         upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
                         upload.wrapper = document.getElementById(elemArr[0]);
                         virtualclass.fineUploader.uploaderFn(upload);
-
-                        //TODO this need to be outside the function
-                        virtualclass.videoUl.UI.inputUrl();
                     if(!virtualclass.vutil.isBulkDataFetched() || !virtualclass.videoUl.videos.length){
                         virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
                     } else {

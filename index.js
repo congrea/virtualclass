@@ -1710,6 +1710,37 @@ $(document).ready(function () {
                     localStorage.setItem("allVideoAction" , e.message.action);
                 }
             }
+            
+            this.destroyPlayer = function (e) {
+                if (virtualclass.currApp == "Video") {
+                    if (virtualclass.hasOwnProperty('videoUl') && virtualclass.videoUl.videoUrl) {
+                        virtualclass.videoUl.videoUrl = "";
+                        virtualclass.videoUl.videoId = "";
+                        var frame = document.getElementById("dispVideo_Youtube_api"); //youtube video
+                        if (frame && frame.contentWindow) {
+                            frame.contentWindow.postMessage(
+                                    '{"event":"command","func":"pauseVideo","args":""}',
+                                    '*');
+                        }
+                        var dispVideo = document.querySelector(".congrea #dispVideo"); //uploaded video
+                        if (dispVideo) {
+                            dispVideo.style.display = "none";
+                            var video = document.querySelector(".congrea #dispVideo video");
+                            if (video) {
+                                video.setAttribute("src", '');
+                            }
+                        }
+                        $('.congrea #listvideo .playing').removeClass('playing');
+                        $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
+
+                        if(typeof virtualclass.videoUl.player == 'object'){
+                           delete(virtualclass.videoUl.player);
+                        }
+                    }
+
+                }
+
+            }
             // this.stopSs= function(e){
             //     virtualclass.ss.unShareScreen();
             // }

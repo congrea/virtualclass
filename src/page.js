@@ -405,6 +405,8 @@
                 },
 
                 handleDragStart: function (e, cthis) {
+                    
+                     e.dataTransfer.setData('text/plain',"nirmala");
                     if(cthis.type === 'video'){
                         virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                         virtualclass.vutil.makeElementActive('#listvideo');
@@ -511,6 +513,7 @@
                 },
                 handleDragEnd: function (e, cthis) {
                     cthis.rearrange();
+                    e.preventDefault();
                     this.source.classList.remove("dragElem");
                     console.log("remove dragelem");
 

@@ -21,6 +21,7 @@
                 virtualclass.recorder.initMakeAvailDownloadFile();
                 console.log("Error " + err);
             };
+            this.httpObj.withCredentials = true;
 
             this.httpObj.onabort = function (evt) {
                 console.log("Error abort " + evt);

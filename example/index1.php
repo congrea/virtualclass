@@ -42,7 +42,7 @@ function get_string($phrase) {
 }
 
 //the www path for virtualclass
-$whiteboardpath = "https://local.vidya.io/virtualclass/";
+$whiteboardpath = "https://192.168.1.169/virtualclass/";
 //$whiteboardpath = "http://local.vidya.io/virtualclass/";
 
 if (isset($_GET['themecolor'])) {
@@ -310,7 +310,10 @@ if($audactive){
 }
 ?>
 
+
+
 <script>
+    window.WeinreServerURL='http://192.168.1.169:8888/';
     virtualclassSetting = {};
     virtualclassSetting.dap = '<?php echo $dap; ?>';
     virtualclassSetting.classes = '<?php echo $classes; ?>';
@@ -321,6 +324,7 @@ if($audactive){
 
 
 </script>
+
 <?php
 // Output starts here.
 

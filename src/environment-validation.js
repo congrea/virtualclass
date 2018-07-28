@@ -430,25 +430,9 @@
                 if (this.isIPad()) {
                     if (roles.isStudent()) {
                         if (bversion >= 8) {
-                            virtualclass.vutil.initDisableAudVid();
-                            virtualclass.gObj.iosIpadbAudTrue = false;
-                            //iosIpadbAudTrue
-                            var iosAudTrigger = document.createElement('div');
-                            iosAudTrigger.innerHTML = virtualclass.lang.getString('iosAudEnable');
-                            iosAudTrigger.id = "iosAudioTrigger";
-                            iosAudTrigger.style.zIndex = 5000;
-                            iosAudTrigger.style.marginLeft = "0px";
-                            iosAudTrigger.style.position = 'absolute';
-                            iosAudTrigger.style.left = '0px';
-                            iosAudTrigger.style.left = '0';
-                            iosAudTrigger.addEventListener('click', function () {
-                                virtualclass.vutil.firstiOSaudioCall();
-                                this.parentNode.removeChild(this);
-
-                            });
-
-                            var audioWrapper = document.getElementById('audioWidget');
-                            audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
+                            console.log('do nothing');
+                                // var audioWrapper = document.getElementById('audioWidget');
+                            // audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
 
                         } else {
                             virtualclass.vutil.initDisableVirtualClass();

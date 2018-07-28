@@ -53,7 +53,7 @@
     var sNode = {};
     var ac = {};
     var sNodePak = {};
-
+    // alert('index.js3');
 //        var AudioContext = AudioContext || webkitAudioContext;
     /**
      * this returns an object that contains various Properties
@@ -145,6 +145,8 @@
                 otherSound: false,
                 audioNodes: [],
                 sdElem: 'silenceDetect',
+                snode : [], // To holds the user's id whose audio context is suspended
+
 //                  sd : false,
                 /*
                  *  Enables audio
@@ -153,8 +155,7 @@
                 init: function () {
                     var isEnableAudio = document.getElementById('speakerPressOnce').dataset.audioPlaying;
                     virtualclass.gObj.audMouseDown = (isEnableAudio == 'true') ? true : false;
-                    this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-                    this.resampler = new Resampler(cthis.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
+
 
                     //This part in not being used
                     this.graph = {
@@ -196,6 +197,26 @@
 
                     };
                     this.attachFunctionsToAudioWidget();// to attach functions to audio widget
+                },
+
+                initAudiocontext : function (){
+                    if(!this.hasOwnProperty('Html5Audio')){
+                        this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                        this.resampler = new Resampler(virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
+                        virtualclass.gObj.isAudioContextReady = true;
+                        if(virtualclass.system.mediaDevices.hasMicrophone){
+                            virtualclass.gObj.video.stream = cthis.video.tempStream;
+                            virtualclass.gObj.video.audio._manuPulateStream();
+                        }
+                    }
+                },
+
+                /** Iniates the script processor node to play the audio **/
+                initScriptNode : function (){
+                    for(var i=0; i< this.snode.length; i++){
+                        this._playWithFallback(this.snode[i]);
+                    }
+                    this.snode = [];
                 },
 
                 muteButtonToogle : function (){
@@ -690,20 +711,34 @@
                  * @param  audioChunks that need be played
                 */
                 playWithFallback :  function (uid)  {
-                   if(!this.hasOwnProperty('Html5Audio') && !this.Html5Audio){
-                       this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-                   }
                    var that = this;
-                   if(typeof sNode[uid] != 'object'){
+                   if(this.Html5Audio.audioContext.state === 'suspended'){
+                       /** Wait till 2 seconds and see if still it's suspended ***/
+                       setTimeout(()=> {
+                           if(that.Html5Audio.audioContext.state == 'suspended'){
+                              that.snode.push(uid);
+                              if(virtualclass.gObj.requestToScriptNode == null){
+                                  that.Html5Audio.audioContext.resume();
+                                  virtualclass.gesture.initAudioResume(uid);
+                                  virtualclass.gObj.requestToScriptNode = true;
+                              }
+                           }
+                       },2000);
+                   }else {
+                        this._playWithFallback(uid);
+                   }
+               },
+
+               _playWithFallback : function (uid){
+                     var that = this;
+                     if(typeof sNode[uid] != 'object'){
                        console.log('script processor node is created');
                        sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
                        sNodePak[uid] = 0;
                        sNode[uid].onaudioprocess = function (event){
-                           //console.log('Audio process')
                            var output = event.outputBuffer.getChannelData(0);
                            var newAud = that.getAudioChunks(uid);
                            if(typeof newAud != 'undefined'){
-                               // console.log('Audio from user ' + uid);
                                for (i = 0; i < newAud.length; i++) {
                                    output[i] = newAud[i];
                                }
@@ -983,36 +1018,25 @@
                  *
                  */
                 receivedAudioProcess: function (msg) {
-                    if (virtualclass.gObj.hasOwnProperty('iosIpadbAudTrue') && virtualclass.gObj.iosIpadbAudTrue == false) {
-                        return;
+                    if (virtualclass.gObj.hasOwnProperty('isAudioContextReady')) {
+                        var dataArr = this.extractData(msg);// extract data and user id from the message received
+                        var uid = dataArr[0];
+
+                        if (typeof adSign == 'undefined') {
+                            var adSign = {};
+                        }
+
+                        if (!adSign.hasOwnProperty(uid)) {
+                            adSign[uid] = {};
+                            adSign[uid].ad = true;
+                            var user = virtualclass.user.control.updateUser(uid, 'ad', true);// creates user object, that is stored in local storage and return the object
+                            virtualclass.user.control.audioSign(user, "create");
+                        }
+
+                        virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
+                        virtualclass.gObj.video.audio.playWithFallback(uid);    
                     }
 
-                    var dataArr = this.extractData(msg);// extract data and user id from the message received
-                    var uid = dataArr[0];
-
-                    if (typeof adSign == 'undefined') {
-                        var adSign = {};
-                    }
-
-                    if (!adSign.hasOwnProperty(uid)) {
-                        adSign[uid] = {};
-                        adSign[uid].ad = true;
-                        var user = virtualclass.user.control.updateUser(uid, 'ad', true);// creates user object, that is stored in local storage and return the object
-                        virtualclass.user.control.audioSign(user, "create");
-                    }
-
-                    virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
-                    virtualclass.gObj.video.audio.playWithFallback(uid);
-
-                    // Uncomment the below code to enable audio worklet
-
-                    // if(virtualclass.gObj.video.detectAudioWorklet()){
-                    //     let packets = virtualclass.gObj.video.audio.queue(dataArr[1], uid); //dataArr[1] is audio
-                    //     virtualclass.gObj.video.audio.play(uid, packets);
-                    // }else {
-                    //     virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
-                    //     virtualclass.gObj.video.audio.playWithFallback(uid);
-                    // }
                 },
                 /**
                  * To extract user id of sender and data from the receied message
@@ -1502,10 +1526,10 @@
                     });
                 }
 
-                if(virtualclass.system.mediaDevices.hasMicrophone){
-                    cthis.stream = cthis.video.tempStream;
-                    cthis.audio._manuPulateStream();
-                }
+                // if(virtualclass.system.mediaDevices.hasMicrophone){
+                //     cthis.stream = cthis.video.tempStream;
+                //     cthis.audio._manuPulateStream();
+                // }
 
                 var vidstatus = localStorage.getItem("allVideoAction");
                 if(vidstatus == "disable" && roles.isStudent()){
@@ -1693,10 +1717,14 @@
 
 
             detectAudioWorklet : () => {
-                let context = new OfflineAudioContext(1, 1, 44100);
-                return Boolean(
-                    context.audioWorklet &&
-                    typeof context.audioWorklet.addModule === 'function');
+                if (typeof OfflineAudioContext == 'undefined') {
+                    return false;
+                }else {
+                    let context = new OfflineAudioContext(1, 1, 44100);
+                    return Boolean(
+                        context.audioWorklet &&
+                        typeof context.audioWorklet.addModule === 'function');
+                }
             }
         }
     };

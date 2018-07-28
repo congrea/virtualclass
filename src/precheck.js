@@ -45,8 +45,11 @@ var precheck = {
                     virtualclassApp.style.display = 'block';
                     // localStorage.setItem('precheck', true);
                     virtualclass.videoHost._resetPrecheck();
+                    virtualclass.gObj.video.audio.initAudiocontext();
 
                 }else{
+                    virtualclass.gObj.video.audio.initAudiocontext();
+
                     virtualclass.popup.waitMsg();
                     virtualclass.makeReadySocket();
 
@@ -88,6 +91,10 @@ var precheck = {
     },
 
     _next : function (curr, cb){
+        if(curr == 'browser'){
+            virtualclass.gObj.video.audio.initAudiocontext();
+        }
+
         virtualclass.precheck.cancelRequestAnimation();
         var test = this[curr].next;
         virtualclass.precheck.currTest=test

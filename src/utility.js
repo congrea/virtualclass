@@ -2708,10 +2708,7 @@
             console.log("brightne" + brightness);
             //alert(brightness);
             return brightness
-        },
-
-
-
+        }
     };
     window.vutil = vutil;
 })(window);

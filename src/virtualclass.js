@@ -64,7 +64,9 @@
                 defaultApp : 'Whiteboard',
                 tempQueue :{},
                 chatIconColors:{},
+                prevApp : null,
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
+                requestToScriptNode : null,
             },
 
             enablePreCheck : true,
@@ -210,6 +212,7 @@
                 virtualclass.page =  page;
                 virtualclass.zoom = window.zoomWhiteboard();
                 virtualclass.network = new Network();
+                virtualclass.gesture = gesture;
 
 
                 this.serverData = serverData;
@@ -257,6 +260,7 @@
                     virtualclass.precheck.init();
                 } else {
                     virtualclass.makeReadySocket();
+                    virtualclass.gesture.initClassJoin();
                 }
                    virtualclass.gObj.precheckScrn= false;
 
@@ -300,7 +304,6 @@
                 if(virtualclassSetting.theme.selectedColor){
                     this.colorSelector.makeThemeReady();
                 }
-
             },
 
             makeReadySocket : function (){
@@ -1278,7 +1281,7 @@
                 var contPara = {'whiteboardPath' : whiteboardPath};
 
                 /** Registering the partials which have setting paramter **/
-                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting', 'appSettingDetail'];
+                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting', 'appSettingDetail', 'joinclass'];
 
                 var isControl = {hasControl : roles.hasControls()};
                 var context;

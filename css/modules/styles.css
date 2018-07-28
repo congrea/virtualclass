@@ -3913,3 +3913,20 @@ background-color: #d6d6d6;
         }
         
 }
+
+#virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog {
+    margin:20% auto;
+    width:400px !important;
+}
+#virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog .textCont {
+    font-size: 20px;
+    margin-bottom: 15px;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 1px;
+}
+#virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog button {
+    line-height: 1.784;
+    padding: 5px 18px;
+    letter-spacing: 1px;
+    border-color: #c2c2c2;
+}

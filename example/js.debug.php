@@ -14,6 +14,7 @@
 <script type="text/javascript" src ="<?php echo $whiteboardpath.'external/src/s3.fine-uploader.js'; ?>"></script>
 <script type="text/javascript" src ="<?php echo $whiteboardpath.'external/src/bootstrap-3.3.7.js'; ?>"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/vhcheck.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/iolib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>

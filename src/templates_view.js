@@ -488,7 +488,7 @@ this["JST"]["templates/editor/messagebox.hbs"] = Handlebars.template({"compiler"
 },"useData":true});
 
 this["JST"]["templates/joinclass.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"joinClass\"  class=\"bootstrap\">\n    <div class=\"container  \">\n      <!-- Modal -->\n      <div class=\"modal fade\" id=\"joinClassModal\" role=\"dialog\">\n        <div class=\"modal-dialog modal-lg\">\n           <div class=\"modal-content\">\n             <div class=\"modal-body\">\n                <div class=\"joinClasscontainer\">\n                  <button>Join class room </button>\n                </div>\n             </div>\n           </div>\n        </div>\n      </div>\n    </div>\n</div>";
+    return "<div id=\"joinClass\"  class=\"bootstrap\">\n    <div class=\"container  \">\n      <!-- Modal -->\n      <div class=\"modal fade\" id=\"joinClassModal\" role=\"dialog\">\n        <div class=\"modal-dialog modal-lg\">\n           <div class=\"modal-content\">\n             <div class=\"modal-body\">\n                <div class=\"joinClasscontainer text-center\">\n                  <div class=\"textCont\">Click here to continue</div>\n                  <button type=\"button\" class=\"btn btn-default\">Continue</button>\n                </div>\n             </div>\n           </div>\n        </div>\n      </div>\n    </div>\n</div>";
 },"useData":true});
 
 this["JST"]["templates/leftBar.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

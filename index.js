@@ -29,6 +29,11 @@ $(document).ready(function () {
 
         virtualclass.gObj.sessionClear = false;
         virtualclass.prvCurrUsersSame();
+        
+        virtualclass.gObj.mobileVchOffset = vhCheck();
+//        alert(virtualclass.gObj.mobileVchOffset);
+                
+
 
         var anypresenter = localStorage.getItem('anyp');
         if (anypresenter == null) {

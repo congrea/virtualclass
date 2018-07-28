@@ -135,4 +135,5 @@
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
+<script src="https://unpkg.com/vh-check/dist/vh-check.min.js"></script>
 

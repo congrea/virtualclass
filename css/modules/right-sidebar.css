@@ -12,8 +12,6 @@ body {
     text-align:center;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel {height: 100vh;}
-
 #virtualclassCont.congrea #appSettingCtrl :hover {
    height:55px !important;
 }
@@ -49,6 +47,10 @@ body {
 #virtualclassCont.congrea #rightSubContainer #chatWidget .chatBarTab {
     background-color: #4c5963;
     height: 44px;
+    position: fixed;
+    width: 320px;
+    bottom: 0;
+    z-index:1000;
 }
 #virtualclassCont.congrea #rightSubContainer #congreaChatMainCont {
 /*    display:none;*/

@@ -1735,18 +1735,17 @@
                     var id = $('#listvideo .linkvideo.playing').attr('data-rid')
                     this.currPlaying = id;
                 }
-                upload.validation = ["avi", "flv", "wmv", "mov", "mp4", "webm", "mkv", "vob", "ogv", "ogg", "drc", "mng", "qt", "yuv", "rm", "rmvb", "asf", "amv", "m4p",
-                    "m4v", "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf", "roq", "nsv", "f4v", "f4p", "f4a", "f4b"];
+                upload.validation = [ "mp4", "avi",  "wmv", "mov", "webm", "mkv", "vob",  "mpeg"];
                 upload.cb = virtualclass.videoUl.afterUploadVideo;
                 upload.cthis = 'video';
-                upload.maxSize=500*1024*1024; //
+                upload.maxSize=512*1000*1000; //512 mb
                 //upload.requesteEndPoint = window.webapi + "&methodname=file_save&user="+virtualclass.gObj.uid;
                 upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
             } else {
-                upload.validation = ['doc', 'docx', 'txt', 'html', 'csv', 'odt', 'ott', 'pdf', 'ppt', 'pptx', 'pot', 'pps', 'xls', 'xlsx', 'xlt', 'png', 'jpg', 'gif', 'svg', 'tiff', 'rtf', 'xpm'];
+                upload.validation = ['doc', 'docx', 'txt', 'html', 'csv', 'pdf', 'ppt', 'pptx','xls', 'xlsx', 'xlt', 'png', 'jpg', 'gif', 'svg', 'tiff', 'rtf', 'xpm'];
                 upload.cb = virtualclass.dts.onAjaxResponse;
                 upload.cthis = 'docs';
-                upload.maxSize=25*1024*1024; //25MB
+                upload.maxSize=24*1000*1000; //24MB
                 // upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&user="+virtualclass.gObj.uid;
                 upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=1&user="+virtualclass.gObj.uid;
             }
@@ -1921,6 +1920,16 @@
                                      if(virtualclass.dts.docs.currNote != null){
                                         virtualclass.dts.setCurrentNav(virtualclass.dts.docs.currNote);
                                      }
+
+                                     var notes = document.querySelector(".dbContainer #listnotes .linknotes");
+                                     if(notes){
+                                         var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
+                                         if(!btn){
+                                             virtualclass.vutil.showFinishBtn();
+                                         }
+                                     }else{
+                                         virtualclass.vutil.removeFinishBtn();
+                                     }
                                  }
                              }
                             // virtualclass.vutil.removeFinishBtn();
@@ -2012,6 +2021,7 @@
                         msz.parentNode.removeChild(msz)
                     }
                     virtualclass.vutil.attachEventToUpload();
+                    virtualclass.videoUl.UI.inputUrl()
                 }
                 /* modal need to be created again and old one to be deleted, to remove conflict
                  with events of drag drops */
@@ -2052,11 +2062,10 @@
                         document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard("SharePresentation");
                     }
                     virtualclass.sharePt.attachEvent("submitpurl", "click", virtualclass.sharePt.initNewPpt);
-
-                }
-                if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
-                     virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
-                     virtualclass.sharePt.retrieveOrder();
+                    if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
+                        virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
+                        virtualclass.sharePt.retrieveOrder();
+                    }
                 }
             }
             var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');

@@ -430,19 +430,8 @@
                 if (this.isIPad()) {
                     if (roles.isStudent()) {
                         if (bversion >= 8) {
-                            //virtualclass.vutil.initDisableAudVid();
-                           //s virtualclass.gObj.iosIpadbAudTrue = false;
-                            //iosIpadbAudTrue
-                            // var iosAudTrigger = document.createElement('div');
-                            // iosAudTrigger.innerHTML = virtualclass.lang.getString('iosAudEnable');
-                            // iosAudTrigger.id = "iosAudioTrigger";
-                            // iosAudTrigger.addEventListener('click', function () {
-                            //     virtualclass.vutil.firstiOSaudioCall();
-                            //     this.parentNode.removeChild(this);
-
-                            // });
-
-                            // var audioWrapper = document.getElementById('audioWidget');
+                            console.log('do nothing');
+                                // var audioWrapper = document.getElementById('audioWidget');
                             // audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
 
                         } else {

@@ -60,6 +60,17 @@
                 if(!mediaCont){
                     var template = virtualclass.getTemplate('appSettingMedia');
                     $("#virtualclassApp  #settingMedia").append(template());
+                    
+                    
+                    if (navigator.userAgent.indexOf("Firefox") != -1)//audio output not supported
+                    {  
+                        var audioOutput = document.querySelector(".congrea #webRtcIoContainer .aoutput")
+                        if(audioOutput){
+                            audioOutput.style.display= "none"
+                        }
+           
+                    }
+                          
                 }
 
             }

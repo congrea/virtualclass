@@ -1984,9 +1984,11 @@ var Vceditor = (function () {
                 var dialog = document.getElementById('overlay');
                 dialog.style.visibility = "hidden";
                 var src = document.getElementById(id).value;
-                if (src !== null)
-                    self.insertEntity(id, {'src': src});
-                self.vcEditorWrapper_.removeChild(dialog);
+                if (src){
+                    self.insertEntity(id, {'src': src}); 
+                  
+                }
+                 self.vcEditorWrapper_.removeChild(dialog);
             };
 
             var input = utils.elt('input', null, {
@@ -1996,7 +1998,7 @@ var Vceditor = (function () {
                 'placeholder': placeholder,
                 'autofocus': 'autofocus'
             });
-
+     
             var submit = utils.elt('a', 'Submit', {'class': 'vceditor-btn', 'id': 'submitbtn'});
             utils.on(submit, 'click', utils.stopEventAnd(cb));
 

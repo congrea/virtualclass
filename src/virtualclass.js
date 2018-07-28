@@ -921,8 +921,6 @@
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;
                     }
-
-
 //                    if (typeof this.previous != 'undefined') {
 //                        if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {
 //                            virtualclass.vutil.beforeSend({'ppt': true,init:'makeAppReady', cf: 'ppt'});

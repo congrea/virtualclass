@@ -2411,7 +2411,7 @@
 	z-index: 1104;
 }
 
-#virtualclassCont.congrea[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea[data-currapp='Video'] .modal, #virtualclassCont.congrea[data-currapp='SharePresentation'] .modal{
+#virtualclassCont.congrea #virtualclassApp[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea #virtualclassApp[data-currapp='Video'] .modal, #virtualclassCont.congrea #virtualclassApp[data-currapp='SharePresentation'] .modal{
 	width: calc(100% - 372px);
 	margin-left: 0;
 	/*background-color: rgba(0, 0, 0, 0.7);*/

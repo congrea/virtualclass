@@ -689,6 +689,7 @@
 
 
         playInt: function () {
+
             //convert [[1, 3], [3, 5]] TO [1, 3, 3, 5]
             var mainData = virtualclass.recorder.tempRecData.reduce(function (a, b) {
                 return a.concat(b);
@@ -699,6 +700,7 @@
             virtualclass.recorder.tempRecData.length = 0;
             localStorage.setItem('mySession', 'thisismyplaymode');
             virtualclass.recorder.initController();
+            virtualclass.gObj.video.audio.initAudiocontext();
 
 //                var playController = document.getElementById('playController');
 //                playController.style.display = 'block';

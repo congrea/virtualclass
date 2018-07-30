@@ -509,6 +509,12 @@
                     //add current app to main container
                     var vcContainer = document.getElementById('virtualclassCont');
                     vcContainer.dataset.currapp =  this.currApp;
+                    var vcAppContainer = document.querySelector('#virtualclassApp');
+                    if(vcAppContainer != null){
+                        if(this.currApp == 'DocumentShare' || this.currApp == 'SharePresentation' || this.currApp == 'Video'){
+                            vcAppContainer.dataset.currapp = vcContainer.dataset.currapp;
+                        }
+                    }
                 }
 
                 if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {

@@ -213,7 +213,7 @@ echo '<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/
 
 // File included if debugging on
 
-$info = 0;
+$info = 1;
 ?>
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/overrideimage.css" ?> />
 <?php

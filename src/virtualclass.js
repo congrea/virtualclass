@@ -260,7 +260,9 @@
                     virtualclass.precheck.init();
                 } else {
                     virtualclass.makeReadySocket();
-                    virtualclass.gesture.initClassJoin();
+                    if(!virtualclass.isPlayMode){
+                        virtualclass.gesture.initClassJoin();
+                    }
                 }
                    virtualclass.gObj.precheckScrn= false;
 

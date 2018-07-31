@@ -8,6 +8,7 @@ $(document).ready(function () {
     // This need to call after join the session
     window.onload  = function () {
         "use strict";
+        var initAudios = 0;
         console.log('Whiteboard init very start');
         window.earlierWidth = window.innerWidth;
         window.earlierHeight = window.innerHeight;
@@ -29,7 +30,9 @@ $(document).ready(function () {
 
         virtualclass.gObj.sessionClear = false;
         virtualclass.prvCurrUsersSame();
-
+        
+       virtualclass.gObj.mobileVchOffset = vhCheck();
+       
         var anypresenter = localStorage.getItem('anyp');
         if (anypresenter == null) {
             localStorage.setItem('anyp', wbUser.anyonepresenter)
@@ -60,6 +63,8 @@ $(document).ready(function () {
         };
 
         var previousApp = JSON.parse(localStorage.getItem('prevApp'));
+
+        virtualclass.gObj.prevApp = previousApp;
 
         if (previousApp != null) {
             virtualclass.previousApp = previousApp;
@@ -1088,6 +1093,10 @@ $(document).ready(function () {
                 case 101: // Audio
                     if (!virtualclass.gObj.video.audio.otherSound) {
                         virtualclass.gObj.audioPlayMessage = e.message;
+                        if(initAudios == 0){
+                            initAudios++;
+                        }
+
                         virtualclass.gObj.video.audio.receivedAudioProcess(e.message);
                     }
                     break;

@@ -355,6 +355,7 @@
             // TODO this should be normal
             var iOS = this.isiOSDevice();
             this.device = "desktop";
+            var addAttr = document.getElementById("virtualclassCont");
         
             if (iOS) {
                 var bname = "iOS";
@@ -373,6 +374,8 @@
             this.checkBrowserFunctions(bname, bversion);
             if ((typeof androidDevice != 'undefined' && androidDevice)) {
                 this.device = "mobTab";
+                addAttr.setAttribute("device","mobile");
+
                 if (roles.hasControls()) {
                     virtualclass.vutil.initDisableVirtualClass();
                     virtualclass.error.push(virtualclass.lang.getString('supportDesktopOnly'));
@@ -425,30 +428,14 @@
 
                 //DO : Disable Audio Controls and Cam Support for this user.
             } else if (bname == 'iOS') {
-               
+                addAttr.setAttribute("device","mobile");
                 //var iPad = /(iPad)/g.test(navigator.userAgent);
                 if (this.isIPad()) {
                     if (roles.isStudent()) {
                         if (bversion >= 8) {
-                            virtualclass.vutil.initDisableAudVid();
-                            virtualclass.gObj.iosIpadbAudTrue = false;
-                            //iosIpadbAudTrue
-                            var iosAudTrigger = document.createElement('div');
-                            iosAudTrigger.innerHTML = virtualclass.lang.getString('iosAudEnable');
-                            iosAudTrigger.id = "iosAudioTrigger";
-                            iosAudTrigger.style.zIndex = 5000;
-                            iosAudTrigger.style.marginLeft = "0px";
-                            iosAudTrigger.style.position = 'absolute';
-                            iosAudTrigger.style.left = '0px';
-                            iosAudTrigger.style.left = '0';
-                            iosAudTrigger.addEventListener('click', function () {
-                                virtualclass.vutil.firstiOSaudioCall();
-                                this.parentNode.removeChild(this);
-
-                            });
-
-                            var audioWrapper = document.getElementById('audioWidget');
-                            audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
+                            console.log('do nothing');
+                                // var audioWrapper = document.getElementById('audioWidget');
+                            // audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
 
                         } else {
                             virtualclass.vutil.initDisableVirtualClass();

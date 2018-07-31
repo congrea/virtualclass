@@ -64,7 +64,9 @@
                 defaultApp : 'Whiteboard',
                 tempQueue :{},
                 chatIconColors:{},
+                prevApp : null,
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
+                requestToScriptNode : null,
             },
 
             enablePreCheck : true,
@@ -210,6 +212,7 @@
                 virtualclass.page =  page;
                 virtualclass.zoom = window.zoomWhiteboard();
                 virtualclass.network = new Network();
+                virtualclass.gesture = gesture;
 
 
                 this.serverData = serverData;
@@ -257,6 +260,9 @@
                     virtualclass.precheck.init();
                 } else {
                     virtualclass.makeReadySocket();
+                    if(!virtualclass.isPlayMode){
+                        virtualclass.gesture.initClassJoin();
+                    }
                 }
                    virtualclass.gObj.precheckScrn= false;
 
@@ -300,7 +306,6 @@
                 if(virtualclassSetting.theme.selectedColor){
                     this.colorSelector.makeThemeReady();
                 }
-
             },
 
             makeReadySocket : function (){
@@ -504,6 +509,12 @@
                     //add current app to main container
                     var vcContainer = document.getElementById('virtualclassCont');
                     vcContainer.dataset.currapp =  this.currApp;
+                    var vcAppContainer = document.querySelector('#virtualclassApp');
+                    if(vcAppContainer != null){
+                        if(this.currApp == 'DocumentShare' || this.currApp == 'SharePresentation' || this.currApp == 'Video'){
+                            vcAppContainer.dataset.currapp = vcContainer.dataset.currapp;
+                        }
+                    }
                 }
 
                 if (typeof this.prevScreen != 'undefined' && this.prevScreen.hasOwnProperty('currentStream')) {
@@ -1278,7 +1289,7 @@
                 var contPara = {'whiteboardPath' : whiteboardPath};
 
                 /** Registering the partials which have setting paramter **/
-                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting', 'appSettingDetail'];
+                var initTemplates = ["precheck", 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting', 'appSettingDetail', 'joinclass'];
 
                 var isControl = {hasControl : roles.hasControls()};
                 var context;

@@ -310,6 +310,8 @@ if($audactive){
 }
 ?>
 
+
+
 <script>
     virtualclassSetting = {};
     virtualclassSetting.dap = '<?php echo $dap; ?>';
@@ -321,6 +323,7 @@ if($audactive){
 
 
 </script>
+
 <?php
 // Output starts here.
 

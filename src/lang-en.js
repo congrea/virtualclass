@@ -114,6 +114,7 @@
         'invalidurl' :  'Invalid URL',
         'indvprogress' : 'Current task',
         'InsertimageURL' : "Insert image URL",
+        'JoinClassMsg' : 'Join ClassRoom',
         'JoinSession' : 'Join session',
         'keymissing' :  'Your software(LMS/CMS)\'s key is is missing',
         'Line': "Line",

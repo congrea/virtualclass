@@ -4,7 +4,6 @@
 
 #virtualclassCont.teacher #virtualclassAppContainer{
   width : calc(100vw - 372px); 
-  /*margin-left : 60px;*/
 }
 
 #virtualclassCont.student #virtualclassAppContainer {
@@ -12,12 +11,11 @@
 }
 
 #virtualclassCont #virtualclassAppContainer{
-  /*height : calc(100vh - 51px);*/
   height : calc(100vh - 44px);
 }
 
 #virtualclassCont.congrea #layoutPollBody, #virtualclassCont.congrea #layoutQuizBody{
-  height : calc(100% - 48px); /* changed from 58px */
+  height : calc(100% - 48px); 
 }
 
 #virtualclassCont.congrea #virtualclassVideo, #virtualclassCont.congrea #videoPlayerCont, #virtualclassCont.congrea #dispVideo,
@@ -40,11 +38,6 @@
   height : 100%;
 }
 
-
-#virtualclassCont.congrea #virtualclassQuiz, #virtualclassCont.congrea #iframecontainer {
-/*  margin-top :2px;*/
-}
-
 #virtualclassCont.congrea #virtualclassScreenShare {
   width : 100%;
   height : 99%;
@@ -55,46 +48,17 @@
   margin-left : 53px;
 }
 
-#virtualclassCont.congrea.student #virtualclassEditorRich, #virtualclassCont.congrea.student #virtualclassEditorCode{
-/*  margin:0px 10px 0px 3px;*/
-}
-
-/*#virtualclassCont.congrea.student #virtualclassVideo {*/
-  /*margin-left: 2px;*/
-/*}*/
-
-
-#virtualclassCont.congrea.student #virtualclassQuiz{
-  /*margin-left: 4px;*/
-}
-
-
-#virtualclassCont.congrea.student #virtualclassPoll {
-  /*margin-left : 3px;*/
-  /*margin-top : 2px;*/
-}
-
-#virtualclassCont.congrea.student #virtualclassDocumentShare.virtualclass.container {
-  /*margin-left : 4px;*/
-}
-
 #virtualclassCont.congrea.student #virtualclassScreenShare{
   margin:2px 0px 0px 3px;
 }
 
-
-/*#virtualclassCont.congrea.student #virtualclassSharePresentation {*/
-  /*margin-left : 3px;*/
-/*}*/
 
 #virtualclassCont.congrea #whiteboardContainer {
   width : auto;
   height : auto;
 }
 
-
 #virtualclassCont.congrea.teacher .canvasWrapper{
-  /*height : calc(100vh - 98px);*/
   height : calc(100vh - 93px)
 }
 
@@ -110,4 +74,58 @@
 
 #virtualclassCont.congrea.teacher #virtualclassVideo,  #virtualclassCont.congrea.teacher #virtualclassSharePresentation{
   margin-left : 2px;
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px)  {
+      
+    #virtualclassCont.congrea #virtualclassAppRightPanel {
+        height: calc(100vh - var(--vh-offset));
+        }
+      
+      #virtualclassCont.congrea {
+	   height: calc(100vh - var(--vh-offset));
+      }
+      
+      #virtualclassCont.congrea #chat_div {
+          height: calc(100vh - var(--vh-offset) - 388px);
+      }
+      
+      #virtualclassCont #virtualclassAppContainer{
+        height : calc(100vh - var(--vh-offset) - 44px);
+      }
+      
+      #virtualclassCont.congrea.student .canvasWrapper{
+        height : calc(100vh - var(--vh-offset) - 44px);
+      }
+      
+      #virtualclassCont.congrea #docMsgStudent {
+          margin: calc(40vh - var(--vh-offset));
+      }
+      #iosAudioTrigger {
+          display:none;
+      }
+      
+      #virtualclassCont.congrea.student .vidHide #chat_room {
+          height: calc(100vh - var(--vh-offset) - 160px) !important;
+      }
+      
+      #virtualclassCont.congrea.student #chat_room {
+          height: calc(100vh - var(--vh-offset) - 400px) !important;
+      }
+      
+      #virtualclassCont.congrea #slickQuiz .quizArea {
+          height: calc(100vh - var(--vh-offset) - 300px);
+      }
+      
+      #virtualclassCont.congrea.student #layoutQuizBody {
+          padding-top:5px;
+          padding-bottom:5px;
+      }
+      
+      #virtualclassCont.congrea.student #layoutQuizBody #contQzBody {
+          padding:5px;
+      }
+      
 }

@@ -84,11 +84,11 @@
                             virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
                         }
                     }
-                } else if(evt.keyCode == 27){ // escape key
-                    if(typeof virtualclass.wb[id] == 'object'){
-                        virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny();
+                } else if(evt.keyCode == 27) { // escape key
+                    if ((virtualclass.currApp == "Whiteborad" || virtualclass.currApp == "DocumentShare") && typeof virtualclass.wb[id] == 'object') {
+                            virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny();
+                        }
                     }
-                }
             },
 
             removeSelectedItem: function (obj, notIncrement, notSave) {

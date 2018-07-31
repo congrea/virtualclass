@@ -355,6 +355,7 @@
             // TODO this should be normal
             var iOS = this.isiOSDevice();
             this.device = "desktop";
+            var addAttr = document.getElementById("virtualclassCont");
         
             if (iOS) {
                 var bname = "iOS";
@@ -373,6 +374,8 @@
             this.checkBrowserFunctions(bname, bversion);
             if ((typeof androidDevice != 'undefined' && androidDevice)) {
                 this.device = "mobTab";
+                addAttr.setAttribute("device","mobile");
+
                 if (roles.hasControls()) {
                     virtualclass.vutil.initDisableVirtualClass();
                     virtualclass.error.push(virtualclass.lang.getString('supportDesktopOnly'));
@@ -425,7 +428,7 @@
 
                 //DO : Disable Audio Controls and Cam Support for this user.
             } else if (bname == 'iOS') {
-               
+                addAttr.setAttribute("device","mobile");
                 //var iPad = /(iPad)/g.test(navigator.userAgent);
                 if (this.isIPad()) {
                     if (roles.isStudent()) {

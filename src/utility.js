@@ -1900,40 +1900,54 @@
                     //var virtualclassOptionsCont = document.querySelector('#virtualclassOptionsCont');
 
                     var virtualclassAppOptionsCont = document.querySelector('#virtualclassAppOptionsCont');
-
                     virtualclassAppOptionsCont.insertAdjacentHTML('beforeend', dbNavHtml);
 
                     var dashboardnav =  document.querySelector('#dashboardnav button');
-                    if(dashboardnav != null){
-                        dashboardnav.addEventListener('click', function (){
-                             if(this.classList.contains('clicked')){
-                                 virtualclass.dashBoard.close();
-                             }else {
-                                 virtualclass.vutil.initDashboard(virtualclass.currApp);
-                                 this.classList.add('clicked');
-                                 var Dtype = "close";
-                                 virtualclass.dashBoard.dashBoardClickTooltip(Dtype);
+                    if (dashboardnav != null) {
+                        dashboardnav.addEventListener('click', function () {
+                            var app = document.querySelector(".congrea #virtualclassApp");
+                            if (this.classList.contains('clicked')) {
+                                virtualclass.dashBoard.close();
+                                if (app) {
+                                    if (app.classList.contains("dashboard")) {
+                                        app.classList.remove("dashboard");
+                                    }
+                                }
 
-                                 if(virtualclass.currApp == 'DocumentShare' && virtualclass.hasOwnProperty('dts')){
-                                     virtualclass.dts.moveProgressbar();
+                            } else {
+                                if (app) {
+                                    if (!app.classList.contains("dashboard")) {
+                                        app.classList.add("dashboard");
+                                    }
+                                }
+                                
+                                virtualclass.vutil.initDashboard(virtualclass.currApp);
+                                this.classList.add('clicked');
+                                var Dtype = "close";
+                                virtualclass.dashBoard.dashBoardClickTooltip(Dtype);
 
-                                     if(virtualclass.dts.docs.currNote != null){
+                                if (virtualclass.currApp == 'DocumentShare' && virtualclass.hasOwnProperty('dts')) {
+                                    virtualclass.dts.moveProgressbar();
+
+                                    if (virtualclass.dts.docs.currNote != null) {
                                         virtualclass.dts.setCurrentNav(virtualclass.dts.docs.currNote);
-                                     }
+                                    }
 
-                                     var notes = document.querySelector(".dbContainer #listnotes .linknotes");
-                                     if(notes){
-                                         var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
-                                         if(!btn){
-                                             virtualclass.vutil.showFinishBtn();
-                                         }
-                                     }else{
-                                         virtualclass.vutil.removeFinishBtn();
-                                     }
-                                 }
-                             }
+                                    var notes = document.querySelector(".dbContainer #listnotes .linknotes");
+                                    if (notes) {
+                                        var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
+                                        if (!btn) {
+                                            virtualclass.vutil.showFinishBtn();
+                                        }
+                                    } else {
+                                        virtualclass.vutil.removeFinishBtn();
+                                    }
+
+                                }
+
+                            }
                             // virtualclass.vutil.removeFinishBtn();
-                           }
+                        }
                         );
                         if(currVideo){
                             virtualclass.vutil.readyDashboard(currVideo);
@@ -1956,13 +1970,18 @@
                     if(typeof currVideo == 'undefined'){
                         this.readyDashboard();
                     }
-                    virtualclass.vutil.removeFinishBtn();
-                    // if(!(currVideo && currVideo.init && currVideo.init.videoUrl)){
-                    //     this.readyDashboard();
-                    // }
+                    var playing = document.querySelector(".congrea #listvideo .linkvideo.playing")
+                    if(!playing){
+                        virtualclass.vutil.removeFinishBtn(); 
+                    }
+
                 } else {
                     this.readyDashboard();
-                    virtualclass.vutil.removeFinishBtn();
+                     var playing = document.querySelector(".congrea #listppt .linkppt.playing")
+                    if(!playing){
+                        virtualclass.vutil.removeFinishBtn(); 
+                    }  
+                    //virtualclass.vutil.removeFinishBtn();
                 }
 
             }
@@ -1976,6 +1995,17 @@
                 var dashboardTemp = virtualclass.getTemplate('dashboard');
                 var dbHtml = dashboardTemp({app:currApp});
                 document.querySelector('#dashboardContainer').innerHTML = dbHtml;
+            }
+            var finish  =document.querySelector(".congrea .dashboardContainer .modal-header .close")
+            if(finish){
+                finish.addEventListener("click",function(){
+                    var app = document.querySelector(".congrea #virtualclassApp");
+                    if(app.classList.contains("dashboard")){
+                        app.classList.remove("dashboard")
+                    }
+                    finish.setAttribute('data-dismiss',"modal");
+                })
+                
             }
 
             // in any other application we can handle

@@ -353,3 +353,7 @@
 #virtualclassCont.congrea #virtualclassAppOptionsCont #dashboardnav button.btn{
   cursor: pointer;
 }
+
+#virtualclassCont.congrea.teacher[data-currapp="DocumentShare"] #virtualclassApp.dashboard .zoomControler{
+   display:none;
+}

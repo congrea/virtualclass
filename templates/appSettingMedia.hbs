@@ -18,21 +18,24 @@
     {{getString 'audioInput'}}
       <div class="audio-options" >
           <select id="audioSource">
-          </select>     
+          </select> 
+          <span class="hide">No audio output</span>      
      </div>  
   </li>
   <li class="lists-cont d-flex justify-content-between align-items-center aoutput">
     {{getString 'audioOutput'}}
       <div class="audio-options" >
           <select id="audioOutput">
-          </select>     
+          </select> 
+          <span class="hide">No audio output</span>       
      </div>  
   </li>
   <li class="lists-cont clearfix justify-content-between align-items-center vinput">
     {{getString 'videoInput'}}
       <div class="audio-options" >
-          <select id="videoSource">
-          </select>     
+        <select id="videoSource">
+        </select>
+        <span class="hide">No video</span>     
      </div>
       <div id="congreaVideoSettingCont" data-setting-type="audio">
         <video id="congreaVideoSetting" playsinline autoplay muted></video>

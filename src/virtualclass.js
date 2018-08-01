@@ -513,6 +513,8 @@
                     if(vcAppContainer != null){
                         if(this.currApp == 'DocumentShare' || this.currApp == 'SharePresentation' || this.currApp == 'Video'){
                             vcAppContainer.dataset.currapp = vcContainer.dataset.currapp;
+                        }else {
+                            vcAppContainer.dataset.currapp = "";
                         }
                     }
                 }

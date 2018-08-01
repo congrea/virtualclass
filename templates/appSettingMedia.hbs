@@ -19,7 +19,7 @@
       <div class="audio-options" >
           <select id="audioSource">
           </select> 
-          <span class="hide">No audio output</span>      
+          <span class="hide">{{getString 'noain'}}</span>      
      </div>  
   </li>
   <li class="lists-cont d-flex justify-content-between align-items-center aoutput">
@@ -27,7 +27,7 @@
       <div class="audio-options" >
           <select id="audioOutput">
           </select> 
-          <span class="hide">No audio output</span>       
+          <span class="hide">{{getString 'noaout'}}</span>       
      </div>  
   </li>
   <li class="lists-cont clearfix justify-content-between align-items-center vinput">
@@ -35,7 +35,7 @@
       <div class="audio-options" >
         <select id="videoSource">
         </select>
-        <span class="hide">No video</span>     
+        <span class="hide">{{getString 'novideo'}}</span>     
      </div>
       <div id="congreaVideoSettingCont" data-setting-type="audio">
         <video id="congreaVideoSetting" playsinline autoplay muted></video>

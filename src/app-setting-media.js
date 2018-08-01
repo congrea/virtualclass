@@ -66,6 +66,31 @@
                         select.value = values[selectorIndex];
                     }
                 });
+                
+                var vs = document.querySelector("#virtualclassCont.congrea .vinput select option")
+                if(!vs){
+                    var cont = document.querySelector("#virtualclassCont.congrea .vinput div")    
+                    virtualclass.appSettingMedia.noDevice(cont)
+                }
+                var ain = document.querySelector("#virtualclassCont.congrea .ainput select option")
+                if(!ain){
+                    var cont = document.querySelector("#virtualclassCont.congrea .ainput div")  
+                    virtualclass.appSettingMedia.noDevice(cont)
+                  
+                } 
+                var aout = document.querySelector("#virtualclassCont.congrea .aoutput select option")
+                if(!aout){
+                    var cont = document.querySelector("#virtualclassCont.congrea .aoutput div")    
+                    virtualclass.appSettingMedia.noDevice(cont)
+                }  
+                
+            },
+            noDevice:function(cont){
+                cont.classList.add("disable")
+                var text = cont.querySelector('span')
+                if(text.classList.contains("hide")){
+                    text.classList.remove("hide");
+                }
             },
             // Attach audio output device to video element using device/sink ID.
 

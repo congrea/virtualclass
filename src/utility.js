@@ -2091,10 +2091,14 @@
 
             }else if(currApp == "Video"){
                 if(typeof hidepopup == 'undefined'){
-                    $('#congdashboard').modal();
+                    $('#congdashboard').modal({
+                        keyboard: false
+                    });
                 }
             } else {
-                $('#congdashboard').modal();
+                $('#congdashboard').modal({
+                    keyboard: false
+                });
             }
 
             virtualclass.dashBoard.actualCloseHandler();

@@ -81,7 +81,7 @@
                 virtualclass.wb[virtualclass.gObj.currWb].utility.t_clearallInit();
                 virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue();
                 //virtualclass.storage.clearStorageData();
-                virtualclass.storage.clearSingleTable('wbData');
+                virtualclass.storage.wbDataRemove(virtualclass.gObj.currWb);
             }
         },
 

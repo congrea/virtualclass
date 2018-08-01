@@ -1086,7 +1086,7 @@
 	font-weight : 200;
 	float: left;
 	margin-top: 4px;
-	margin-right: 2px;
+	margin-right: 4px;
 }
 
 #virtualclassCont.congrea.student #chat_div .ui-memblist-usr .controls span {
@@ -1150,7 +1150,7 @@
 	float: right;
 	position : relative;
 	margin-right: 8px;
-	margin-top: 17px;
+	margin-top: 13px;
 }
 
 #virtualclassCont.congrea #speakerPressing {
@@ -1194,7 +1194,7 @@
 
 #virtualclassCont.congrea.student .ui-widget-content .controls {
 	position : relative;
-	left : 2px;
+	left : -2px;
 }
 
 
@@ -1892,8 +1892,8 @@
 }
 
 #virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos {
-	margin-top: 7px;
-	margin-bottom: 7px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	margin-right: 5px;
 }
 
@@ -3880,12 +3880,12 @@ background-color: #d6d6d6;
     display:none;
 }
 
-/* Scrollbar For Tablets */
 
 @media only screen 
   and (min-device-width: 768px) 
     and (max-device-width: 1024px) {
 
+    /* Scrollbar For Tablets */
     ::-webkit-scrollbar{
     width: 5px;
     height:4px;
@@ -3914,6 +3914,13 @@ background-color: #d6d6d6;
         
         #virtualclassCont.congrea.student .congtooltip:hover::after {
             display:none !important;
+        }
+        
+        #virtualclassCont.congrea.student .icon-audioImg.enable:before {
+            font-size:110% !important;
+        }
+        #virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen:before {
+            font-size:110%; !important;
         }
 }
 

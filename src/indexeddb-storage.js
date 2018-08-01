@@ -203,6 +203,7 @@
         },
 
         wbDataRemove : function (key){
+
             var t = that.db.transaction(["wbData"], "readwrite");
             var objectStore = t.objectStore("wbData");
             objectStore.delete(key);

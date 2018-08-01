@@ -122,8 +122,10 @@
             gotStream: function (stream) {
                 window.stream = stream; // make stream available to console
                 virtualclass.appSettingMedia.videoElement.srcObject = stream;
-                virtualclass.appSettingMedia.mainVideoElement.srcObject = stream;
-
+                if(roles.hasAdmin()){
+                    // Element to contain teacher Video
+                    virtualclass.appSettingMedia.mainVideoElement.srcObject = stream;
+                }
                 var mysmallVideo =  document.querySelector('#ml' + virtualclass.gObj.uid + ' video');
                 if(mysmallVideo != null){
                     mysmallVideo.srcObject = stream;

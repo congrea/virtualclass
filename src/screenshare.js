@@ -1219,10 +1219,10 @@ var newCanvas;
                     document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
                 }
                 
-                var app =virtualclass.previous.slice(12)
-                console.log(app);
-                console.log("previousapp "+virtualclass.previousApp.name );
-                console.log("previous "+virtualclass.previous)
+                // var app =virtualclass.previous.slice(12)
+                // console.log(app);
+                // console.log("previousapp "+virtualclass.previousApp.name );
+                // console.log("previous "+virtualclass.previous)
             },
 
             getScale : function (baseWidth, givenWidth){

@@ -106,6 +106,10 @@
       #iosAudioTrigger {
           display:none;
       }
+      #virtualclassCont.congrea .vidHide #chat_div {
+          
+      height: calc(100vh - var(--vh-offset) - 148px);
+      }
       
       #virtualclassCont.congrea.student .vidHide #chat_room {
           height: calc(100vh - var(--vh-offset) - 160px) !important;
@@ -125,6 +129,10 @@
           height: calc(100vh - var(--vh-offset));
       }
       
+      #virtualclassCont.congrea #about-modal.rv-vanilla-modal-is-open {
+        top: 80%;
+        left: 44%;
+        }
       
       #virtualclassCont.congrea.student #layoutQuizBody {
           padding-top:5px;

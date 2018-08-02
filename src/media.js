@@ -1717,7 +1717,7 @@
 
 
             detectAudioWorklet : () => {
-                if (roles.isStudent() || typeof OfflineAudioContext == 'undefined') {
+                if (typeof OfflineAudioContext == 'undefined') {
                     return false;
                 }else {
                     let context = new OfflineAudioContext(1, 1, 44100);

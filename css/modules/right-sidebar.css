@@ -641,3 +641,13 @@ pointer-events: none !important;
 }
 
 }
+
+#virtualclassCont.congrea  #appSettingDetail .list-group .disable.audio-options:after{  
+   display:none; 
+}
+#virtualclassCont.congrea  #appSettingDetail .list-group .disable select{  
+   display:none; 
+}
+#virtualclassCont.congrea  #appSettingDetail .list-group .disable span{  
+   margin-left:20px;
+}

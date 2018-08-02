@@ -106,6 +106,10 @@
       #iosAudioTrigger {
           display:none;
       }
+      #virtualclassCont.congrea .vidHide #chat_div {
+          
+      height: calc(100vh - var(--vh-offset) - 148px);
+      }
       
       #virtualclassCont.congrea.student .vidHide #chat_room {
           height: calc(100vh - var(--vh-offset) - 160px) !important;
@@ -124,7 +128,16 @@
       #virtualclassCont.congrea.playMode #virtualclassAppRightPanel {
           height: calc(100vh - var(--vh-offset));
       }
+      #virtualclassCont.congrea.student.playMode .canvasWrapper {
+        height: calc(100vh - var(--vh-offset) - 92px);
+        }
       
+      #virtualclassCont.congrea #about-modal.rv-vanilla-modal-is-open {
+        top: 75%;
+        }
+      #virtualclassCont.congrea #virtualclassApp .playControllerMainCont {
+          overflow:hidden;
+      }
       
       #virtualclassCont.congrea.student #layoutQuizBody {
           padding-top:5px;
@@ -133,6 +146,10 @@
       
       #virtualclassCont.congrea.student #layoutQuizBody #contQzBody {
           padding:5px;
+      }
+      
+      #virtualclassCont.congrea #playController #recPlayCont #recPlay, #virtualclassCont.congrea #playController #recPauseCont #recPause, #virtualclassCont.congrea #playController #ff2Cont #ff2, #virtualclassCont.congrea #playController #ff8Cont #ff8, #virtualclassCont.congrea #playController #replayFromStart .icon-Replayfromstart {
+          margin:0;
       }
       
 }

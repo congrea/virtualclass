@@ -208,7 +208,7 @@
 
 #virtualclassCont.congrea.teacher.orginalTeacher .icon-audioImg.enable:before, #virtualclassCont.congrea.teacher .icon-audioImg.enable:before {
   content: "\f026";
-  color: #535151;
+  color: #7d7a7a;
   vertical-align: baseline;
   font-size: 120%;
   /*margin-left: 4px;*/
@@ -218,7 +218,7 @@
 #virtualclassCont .ui-memblist-usr .icon-chatImg:before {
   content: "\f075";
   font-size:14px;
-  color: #535151;
+  color: #7d7a7a;
   position: relative;
   top: -1px;
 }

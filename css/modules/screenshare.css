@@ -198,6 +198,11 @@
   color:#006400;
 }
 
+#virtualclassCont.congrea #chat_div .controls span.enable.icon-stdscreenImg[data-dcolor="nosupport"]{
+  pointer-events : none;
+  opacity : 0.5;
+}
+
 #virtualclassCont.congrea #stopScreenShare  button{
   left:0px;
   color: #fff;

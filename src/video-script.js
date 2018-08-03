@@ -41,7 +41,7 @@ function WebPDecDemo(canvasId) {
                 output.data.set(e.data.vdata);
                 context.putImageData(output, 0, 0);
                 virtualclass.gObj.isReadyForVideo = true;
-                console.log('Total length ' + e.data.tl);
+                
             }
         }
         canvas = canvas;

@@ -1687,7 +1687,7 @@ $(document).ready(function () {
                         elem.setAttribute('data-dcolor', 'red');
                     }
                 }else if(rMsg.ext){
-                    var color = 'mob' ? rMsg.hasOwnProperty('nosupport') : 'orange';
+                    var color = rMsg.hasOwnProperty('nosupport') ? 'nosupport' : 'orange';
 
                     var elem = document.getElementById(uid + 'contrstdscreenImg');
                     if(elem != null){

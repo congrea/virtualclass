@@ -34,6 +34,12 @@
 //width: 223px;
 }
 
+@-moz-document url-prefix() {
+    #virtualclassCont.congrea .ui-chatbox-log {
+        height:159px;
+    }
+}
+
 #virtualclassCont.congrea .ui-chatbox-input {
     background-color: #fff;
     border-width: 0;
@@ -777,7 +783,6 @@ margin-right:6px !important;
     display:block;
 }
 
-
 #virtualclassCont.congrea  #virtualclassAppRightPanel.chat_disabled .ui-memblist-usr.online {
     pointer-events : none;
 }
@@ -786,13 +791,9 @@ margin-right:6px !important;
     display:none!important;
 }
 
-
-
 #virtualclassCont.congrea  #memlist.disable{
     display:none!important;
 }
-
-
 
 #virtualclassCont.congrea #ta_chrm2{
   display:none;

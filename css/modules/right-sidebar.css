@@ -104,7 +104,7 @@ body {
 	height : calc(100% - 288px);
 }
 #virtualclassCont.congrea.playMode #rightSubContainer, #virtualclassCont #congreaChatMainCont {
-    height : calc(100% - 288px);
+    height : calc(100% - 240px);
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget {
     background: #4c5863 none !important;
@@ -120,9 +120,9 @@ body {
 #virtualclassCont.congrea .vidHide #rightSubContainer {
 	height : calc(100% - 48px) !important;
 }
- #virtualclassCont #congreaChatMainCont {
-
- }
+#virtualclassCont.congrea.playMode .vidHide #rightSubContainer {
+    height:100% !important;
+}
 #virtualclassCont .footerCtr {
     position: absolute;
     bottom: 49px;
@@ -642,12 +642,12 @@ pointer-events: none !important;
 
 }
 
-#virtualclassCont.congrea  #appSettingDetail .list-group .disable.audio-options:after{  
+#virtualclassCont.congrea  #appSettingDetail #webRtcIoContainer .list-group .disable.audio-options:after{  
    display:none; 
 }
-#virtualclassCont.congrea  #appSettingDetail .list-group .disable select{  
+#virtualclassCont.congrea  #appSettingDetail #webRtcIoContainer .list-group .disable select{  
    display:none; 
 }
-#virtualclassCont.congrea  #appSettingDetail .list-group .disable span{  
+#virtualclassCont.congrea  #appSettingDetail #webRtcIoContainer .list-group .disable span{  
    margin-left:20px;
 }

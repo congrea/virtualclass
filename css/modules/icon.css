@@ -727,7 +727,6 @@
 #virtualclassCont.congrea .icon-stdscreenImg.enable:before{
   content: "\e602";
   position: relative;
-  top: -1px;
   font-size: 17px;
   color: black;
   margin-right: 5px;
@@ -748,4 +747,3 @@
     color: dimgray;
     font-weight:bold;
 }
-

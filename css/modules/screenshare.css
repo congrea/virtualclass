@@ -198,7 +198,7 @@
   color:#006400;
 }
 
-#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="nosupport"]:before{
+#virtualclassCont.congrea #chat_div .controls span.enable.icon-stdscreenImg[data-dcolor="nosupport"]{
   pointer-events : none;
   opacity : 0.5;
 }

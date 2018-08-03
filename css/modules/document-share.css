@@ -654,7 +654,8 @@
     font-size : 0.88em;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
+/*    display: -webkit-box;*/
+    white-space: nowrap;
     line-height: 30px;     /* fallback */
     height:30px;
     max-height: 32px;      /* fallback */
@@ -665,6 +666,11 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     color: #444;
 }
+    @media (min-width:1400px) {
+        #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
+            max-width:150px;
+        }
+    }
 #virtualclassCont.congrea .dbContainer .linkdocs[data-selected="1"] .mainpreview {
     color: #3490de;
 }

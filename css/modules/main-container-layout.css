@@ -66,6 +66,10 @@
   height : calc(100vh - 44px);
 }
 
+#virtualclassCont.congrea.student.playMode .canvasWrapper{
+  height : calc(100vh - 92px);
+}
+
 #virtualclassCont.congrea .canvasWrapper {
   width : auto;
   overflow : auto;
@@ -99,6 +103,9 @@
       #virtualclassCont.congrea.student .canvasWrapper{
         height : calc(100vh - var(--vh-offset) - 44px);
       }
+      #virtualclassCont.congrea.student.playMode .canvasWrapper{
+        height : calc(100vh - var(--vh-offset) - 92px);
+      }
       
       #virtualclassCont.congrea #docMsgStudent {
           margin: calc(40vh - var(--vh-offset));
@@ -126,7 +133,7 @@
           height: calc(100vh - var(--vh-offset));
       }
       #virtualclassCont.congrea.playMode #virtualclassAppRightPanel {
-          height: calc(100vh - var(--vh-offset));
+          height: calc(100vh - var(--vh-offset) - 48px);
       }
       #virtualclassCont.congrea.student.playMode .canvasWrapper {
         height: calc(100vh - var(--vh-offset) - 92px);
@@ -135,9 +142,6 @@
       #virtualclassCont.congrea #about-modal.rv-vanilla-modal-is-open {
         top: 75%;
         }
-      #virtualclassCont.congrea #virtualclassApp .playControllerMainCont {
-          overflow:hidden;
-      }
       
       #virtualclassCont.congrea.student #layoutQuizBody {
           padding-top:5px;
@@ -148,8 +152,8 @@
           padding:5px;
       }
       
-      #virtualclassCont.congrea #playController #recPlayCont #recPlay, #virtualclassCont.congrea #playController #recPauseCont #recPause, #virtualclassCont.congrea #playController #ff2Cont #ff2, #virtualclassCont.congrea #playController #ff8Cont #ff8, #virtualclassCont.congrea #playController #replayFromStart .icon-Replayfromstart {
-          margin:0;
+      #virtualclassCont.congrea #slickQuiz .quizArea {
+          height: calc(100vh - var(--vh-offset) - 336px);
       }
       
 }

@@ -2451,7 +2451,7 @@
                             if (!btn) {
                                 var btn = document.createElement("button");
                                 btn.id = "closePoll";
-                                btn.className="btn btn-default"
+                                btn.className="btn btn-default col-md-2"
                                 head.appendChild(btn);
                                 btn.innerHTML = virtualclass.lang.getString('closeVoting');
                                 btn.addEventListener("click", function(){

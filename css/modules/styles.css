@@ -1089,6 +1089,11 @@
 	margin-right: 4px;
 }
 
+#virtualclassCont.congrea #chat_div .controleCont .icon-stdscreenImg {
+    margin-top:3px !important;
+}
+
+
 #virtualclassCont.congrea.student #chat_div .ui-memblist-usr .controls span {
 	margin-right: 10px;
 }
@@ -3185,7 +3190,7 @@
 }
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel{
-	height : 100vh;
+	height : calc(100vh - 48px);
 }
 
 #virtualclassCont.congrea #playControllerCont {
@@ -3500,8 +3505,11 @@
 /*}*/
 #chat_div .controleCont.ssSharing .icon-stdscreenImg.enable:before{
 	color: green;
-
 }
+
+#virtualclassCont.congrea #playController #recPlayCont #recPlay, #virtualclassCont.congrea #playController #recPauseCont #recPause, #virtualclassCont.congrea #playController #ff2Cont #ff2, #virtualclassCont.congrea #playController #ff8Cont #ff8, #virtualclassCont.congrea #playController #replayFromStart .icon-Replayfromstart {
+          margin:0;
+      }
 
 #virtualclassCont.congrea .user-details.media-body{
 	display : inline;

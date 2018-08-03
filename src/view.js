@@ -323,6 +323,9 @@
     }
     //change by nirmala
     view._windowResizeFinished = function () {
+        if(virtualclass.system.device == 'mobTab'){
+            vhCheck();
+        }
         // var height = virtualclass.vutil.calculateChatHeight();
         // if (!roles.hasControls()) {
         //

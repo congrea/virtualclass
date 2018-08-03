@@ -198,6 +198,11 @@
   color:#006400;
 }
 
+#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="nosupport"]:before{
+  pointer-events : none;
+  opacity : 0.5;
+}
+
 #virtualclassCont.congrea #stopScreenShare  button{
   left:0px;
   color: #fff;

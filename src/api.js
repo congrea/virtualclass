@@ -10,3 +10,4 @@ var api = {
 	addURL : 'https://api.congrea.net/t/addURL',
 	GetDocumentStatus : 'https://api.congrea.net/t/GetDocumentStatus',
 }
+

@@ -198,6 +198,11 @@
   color:#006400;
 }
 
+#virtualclassCont.congrea #chat_div .controls span.enable.icon-stdscreenImg[data-dcolor="nosupport"]{
+  pointer-events : none;
+  opacity : 0.5;
+}
+
 #virtualclassCont.congrea #stopScreenShare  button{
   left:0px;
   color: #fff;
@@ -209,9 +214,15 @@
   background-color: transparent;
   padding: 13.5px;
   border-right: 1px solid black;
-    -webkit-font-smoothing: antialiased;
-    letter-spacing: .1px;
-    border-radius:0px;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: .1px;
+  border-radius:0px;
+}
+
+@-moz-document url-prefix() {
+    #virtualclassCont.congrea #stopScreenShare  button, #virtualclassCont.congrea #screenController .share button {
+        bottom:-2px;
+    }
 }
 
 #virtualclassCont.congrea #stopScreenShare  button:hover {

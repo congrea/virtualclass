@@ -420,3 +420,13 @@ pointer-events:none;
     -webkit-border-radius: 7px;
     background-color: rgba(0, 0, 0, 0.15);
 }
+
+@-moz-document url-prefix() {
+    #virtualclassCont.congrea #pollModalBody .modal-body #qnTxCont textarea#q {
+        height:42px;
+    }
+    #virtualclassCont.congrea #pollModalBody .modal-body #optsTxCont textarea.opt {
+        height:40px;
+    }
+    
+}

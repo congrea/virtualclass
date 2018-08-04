@@ -527,7 +527,6 @@ var newCanvas;
             getScreen: function (callback) {
                 if (virtualclass.system.mybrowser.name == 'Chrome') {
                     if (virtualclass.gObj.hasOwnProperty('ext') && virtualclass.gObj.ext) {
-
                         window.postMessage({type: 'getScreen', id: 1}, '*');
                     } else {
                         virtualclass.vutil.beforeSend({'ext': true, 'cf': 'colorIndicator'});
@@ -544,9 +543,9 @@ var newCanvas;
                                     }
                                 }else{
                                     if(window.location.hostname == "live.congrea.net"){
-                                       virtualclass.vutil._inlineChomeExtensionStore() 
+                                       virtualclass.vutil._inlineChomeExtensionStore()
                                     }else {
-                                        /* 
+                                        /*
                                             User have to install screen share extension for chrome explicitly
                                             incase of other host than "live.congrea.net"
                                         */
@@ -1140,11 +1139,11 @@ var newCanvas;
                             if(ss){
                                 ss.addEventListener("click",function(){
                                     virtualclass.vutil.initDefaultApp();
-                                    // ioAdapter.mustSendUser({'cf' : 'stopSs'},  virtualclass.gObj.whoIsSharing);
                                     var cont = document.querySelector("#virtualclassCont.studentScreenSharing")
                                     if(cont){
                                         cont.classList.remove("studentScreenSharing");
                                     }
+                                    virtualclass.vutil.removeStudenScreenStatus();
                                 })
                             }
                         }

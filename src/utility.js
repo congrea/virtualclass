@@ -2742,7 +2742,16 @@
             console.log("brightne" + brightness);
             //alert(brightness);
             return brightness
+        },
+
+        removeStudenScreenStatus : function (){
+            var allStdscreenImg  = document.querySelectorAll('#chat_div .stdscreenImg');
+            for(var i=0; i<allStdscreenImg.length; i++){
+                allStdscreenImg[i].dataset.dcolor = "";
+
+            }
         }
+
     };
     window.vutil = vutil;
 })(window);

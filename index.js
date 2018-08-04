@@ -1607,25 +1607,26 @@ $(document).ready(function () {
             /***** Start Student Screen Sharing *****/
             /* Handle teacher request for screen sharing **/
             this.reqscreen = function(e){
-                console.log(e.message);
-                var message = virtualclass.lang.getString('stdscreenshare');
-
-                if(virtualclass.gObj.precheckScrn){
-                    virtualclass.vutil.prechkScrnShare();
-
-                }
-                virtualclass.popup.confirmInput(message,function (confirm){
-                    if(confirm){
-                        if(roles.isStudent()){
-                            virtualclass.gObj.studentSSstatus.mesharing = true;
-
-                        }
-                        var appName = "ScreenShare";
-                        virtualclass.makeAppReady(appName, "byclick");
-                    }else{
-                        virtualclass.vutil.beforeSend({'sd': true, 'cf': 'colorIndicator'});
+                if(virtualclass.system.mybrowser.name == 'Chrome' || virtualclass.system.mybrowser.name == 'Firefox'){
+                    var message = virtualclass.lang.getString('stdscreenshare');
+                    if(virtualclass.gObj.precheckScrn){
+                        virtualclass.vutil.prechkScrnShare();
                     }
-                });
+                    virtualclass.popup.confirmInput(message,function (confirm){
+                        if(confirm){
+                            if(roles.isStudent()){
+                                virtualclass.gObj.studentSSstatus.mesharing = true;
+
+                            }
+                            var appName = "ScreenShare";
+                            virtualclass.makeAppReady(appName, "byclick");
+                        }else{
+                            virtualclass.vutil.beforeSend({'sd': true, 'cf': 'colorIndicator'});
+                        }
+                    });
+                } else {
+                    virtualclass.vutil.beforeSend({'ext': true, 'cf': 'colorIndicator', 'nosupport' : true});
+                }
             }
 
             /** Knows the id of student who is screen sharing **/
@@ -1686,9 +1687,11 @@ $(document).ready(function () {
                         elem.setAttribute('data-dcolor', 'red');
                     }
                 }else if(rMsg.ext){
+                    var color = rMsg.hasOwnProperty('nosupport') ? 'nosupport' : 'orange';
+
                     var elem = document.getElementById(uid + 'contrstdscreenImg');
                     if(elem != null){
-                        elem.setAttribute('data-dcolor', 'orange');
+                        elem.setAttribute('data-dcolor', color);
                     }
                 }
             }

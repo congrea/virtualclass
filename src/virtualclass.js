@@ -683,9 +683,9 @@
                             }
                         }, 5000);
                     }
-                    if(virtualclass.videoUl.player && typeof virtualclass.videoUl.player.reset !='undefined'){
-                        virtualclass.videoUl.player.reset();
-                    }
+                    // if(virtualclass.videoUl.player && typeof virtualclass.videoUl.player.reset !='undefined'){
+                    //     virtualclass.videoUl.player.reset();
+                    // }
                 }
                 if(roles.hasControls()) {
                     var currVideo= Array.prototype.slice.call(arguments)[2];

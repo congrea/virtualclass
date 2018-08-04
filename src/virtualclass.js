@@ -473,6 +473,8 @@
             },
 
             makeAppReady: function (app, cusEvent, data) {
+              
+             
                 // var congdashboardClose = document.querySelector('#congdashboard button.close');
                 // if(congdashboardClose != null){
                 //     congdashboardClose.click();
@@ -649,7 +651,7 @@
                 // }
                 if (app != "Video" && virtualclass.hasOwnProperty('videoUl')) {
                     // to verify this
-                    virtualclass.videoUl.videoUrl ="";
+                    //virtualclass.videoUl.videoUrl ="";
                     virtualclass.videoUl.videoId ="";
                     // $('.vjs-tech').each(function(){
                     //     var el_src = $(this).attr("src");
@@ -672,15 +674,18 @@
                     }
                     $('.congrea #listvideo .playing').removeClass('playing');
                     $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
-
-                    if (typeof virtualclass.videoUl.player == 'object') {
-                        // debugger;
-                        // if(typeof virtualclass.videoUl.player.reset !='undefined'){
-                        //     virtualclass.videoUl.player.reset();
-                        // }
-                        delete( virtualclass.videoUl.player);
+                    if (!roles.hasControls()) {
+                        setTimeout(function () {
+                            if (typeof virtualclass.videoUl.player == 'object') {
+                                if (!virtualclass.videoUl.player.paused()) {
+                                    virtualclass.videoUl.player.pause();
+                                }
+                            }
+                        }, 5000);
                     }
-
+                    if(virtualclass.videoUl.player && typeof virtualclass.videoUl.player.reset !='undefined'){
+                        virtualclass.videoUl.player.reset();
+                    }
                 }
                 if(roles.hasControls()) {
                     var currVideo= Array.prototype.slice.call(arguments)[2];
@@ -703,7 +708,7 @@
                         virtualclass.vutil.removeDashboardNav();
                     }
                 }
-
+              
             },
 
 

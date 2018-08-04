@@ -14,7 +14,6 @@
             yts:false,
             online:false,
             listEndPause:false,
-            storageState:false,
 
             /*
              * it creates the the necessary layout and containers to place
@@ -38,15 +37,12 @@
                         this.yts=videoObj.init.yts;
                         this.online=videoObj.init.online;
                         this.isPaused= videoObj.init.isPaused;
-                        this.storageState=videoObj.init.isPaused;
 
                     }
                     if(typeof videoObj.isAutoplay !='undefined'){
                         this.autoPlayFlag= videoObj.isAutoplay;
                     }
 
-                }else{
-                    this.storageState ="none";
                 }
 
                 if (!roles.hasAdmin() || (roles.isEducator())) {
@@ -670,21 +666,15 @@
             },
 
             playVideo: function (seekVal) {
-                if(virtualclass.videoUl.player){
+                  // virtualclass.videoUl.player.play();
                     virtualclass.videoUl.player.currentTime(seekVal);
                     virtualclass.videoUl.player.play();
-                }else{
-                    console.log("player not ready")
-                }
 
             },
 
             pauseVideo: function () {
-                if(virtualclass.videoUl.player) {
-                    virtualclass.videoUl.player.pause();
-                    virtualclass.videoUl.isPaused=true;
-                }
-
+                virtualclass.videoUl.player.pause();
+                virtualclass.videoUl.isPaused=true;
             },
 
             /*
@@ -1049,21 +1039,31 @@
 
                 },
                 attachPlayerHandler: function (player, vidId, videoUrl) {
+
+
+                   // player.off("pause");
                     player.on("pause", function (e) {
                         console.log("paused");
                         if (roles.hasControls()) {
                             ioAdapter.mustSend({'videoUl': "pause", 'cf': 'videoUl'});
                         }
                         virtualclass.videoUl.isPaused=true;
+
                     });
 
+                    //player.off("play");
                     player.on("play", function (e) {
                         console.log("play");
                         if (roles.hasControls()) {
                             ioAdapter.mustSend({'videoUl': {"play": player.currentTime()}, 'cf': 'videoUl'});
                         }
                         virtualclass.videoUl.isPaused=false;
+
                     });
+
+                    // player.off("ended");
+                    //
+
                 },
                 // todo to modify
                 switchDisplay: function (videoCont, videoUrl) {
@@ -1096,7 +1096,7 @@
                 },
                 //n
                 createVideoElem: function (videoCont,type) {
-                    var video = '<video id="dispVideo" class="video-js" autoplay  controls  preload="auto" data-setup="{}" >';
+                    var video = '<video id="dispVideo" class="video-js" autoplay controls  preload="auto" data-setup="{}" >';
                     $(videoCont).append(video);
                     var vn = document.createElement("p");
                     vn.setAttribute("class", "vjs-no-js")
@@ -1120,10 +1120,10 @@
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
                         dispVideo.setAttribute('data-setup','{ techOrder: [youtube],"preload": "auto"}');
-                        player.src({type: 'video/youtube', src:videoUrl});
+                            player.src({type: 'video/youtube', src:videoUrl});
 
                     }else if (virtualclass.videoUl.online) {
-                        dispVideo.setAttribute('data-setup', '{"preload": "auto"}');
+                        dispVideo.setAttribute('data-setup', '{"preload": "auto" }');
                         player.src({type: 'video/webm', src: videoUrl});
                         player.src({type: 'video/mp4', src: videoUrl});
 
@@ -1133,40 +1133,31 @@
 
                     }
 
-
                    // if (startFrom) {
                         player.ready(function(){
                            var myPlayer = this;
-                           var pause = "";
-                           if(virtualclass.videoUl.storageState== "none"){
-                               pause = virtualclass.videoUl.isPaused
-                           }else{
-                               pause = virtualclass.videoUl.storageState
-                               virtualclass.videoUl.isPaused =false
-                           }
-                            if(!pause){
+                           var pause = !virtualclass.videoUl.isPaused;
+                           if(!virtualclass.videoUl.isPaused){
                                myPlayer.play();
-                            }else{
+                           }else{
                                myPlayer.paused();
-                            }
+                           }
 
                             if (startFrom) {
                                 myPlayer.currentTime(startFrom);
-                                    if (!pause) {
+                                if (virtualclass.videoUl.yts) {
+                                    if (pause) {
                                         setTimeout(function () {
                                             myPlayer.play();
-                                            //virtualclass.videoUl.player.muted(false);
-                                            virtualclass.videoUl.isPaused =false
-                                        },3000)
-                                    }else{
-                                        setTimeout(function () {
-                                            myPlayer.pause();
-                                            virtualclass.videoUl.isPaused =true
                                         }, 3000)
                                     }
+
+                                }
                             }
 
                        });
+
+                  //  }
                     console.log(startFrom)
 
                 },
@@ -1210,10 +1201,14 @@
 
                 },
                 onEndedHandler:function(player,vidId,videoUrl){
+
                     player.off("ended");
+
                     player.on("ended", function (e) {
                         virtualclass.videoUl.UI.onEnded(player, vidId, videoUrl);
                     });
+
+
 
                 },
 
@@ -1235,6 +1230,9 @@
 
                     }
                     console.log("ended" + vidId)
+
+
+
                     var list = document.querySelectorAll("#listvideo .linkvideo");
                     var index =0;
                     for(var i =0; i <list.length ;i++){
@@ -1255,7 +1253,6 @@
                             var paused =virtualclass.videoUl.isPaused;
                             virtualclass.videoUl.listEndPause =true
                             virtualclass.videoUl.player.on("play",function(){
-                                virtualclass.videoUl.isPaused =false
                                 if(virtualclass.videoUl.listEndPause){
                                     virtualclass.videoUl.player.pause();
                                     virtualclass.videoUl.listEndPause=false;
@@ -1264,6 +1261,7 @@
                             })
 
                         }
+
 
                     }
 
@@ -1384,11 +1382,11 @@
                     }
                 },
                 popup:function(currVideo){
+                     
                     var dropArea = document.querySelector("#congreavideoContBody");
                     if(dropArea){
                         dropArea.removeChild(dropArea.lastChild);
                     }
-
                     var elemArr = ["congreavideoContBody", "congreaShareVideoUrlCont"];
                     var upload = {};
                         if ($('#listvideo .linkvideo.playing').length > 0) {
@@ -1408,7 +1406,6 @@
                     if(!virtualclass.vutil.isBulkDataFetched() || !virtualclass.videoUl.videos.length){
                         virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
                     } else {
-                        //virtualclass.videoUl.UI.awsVideoList();
                         virtualclass.videoUl.showVideos(virtualclass.videoUl.videos);
                         if (virtualclass.videoUl.order.length > 0) {
                             virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order); // 1
@@ -1445,7 +1442,6 @@
                     }
 
                     var msz = document.querySelector("#videoPopup #uploadMsz .qq-upload-list-selector.qq-upload-list");
-
                     var btn = $("#videoPopup .qq-upload-list-selector.qq-upload-button input");
                     var btnUpload= $("#uploadVideo");
                     btnUpload.click(function(){

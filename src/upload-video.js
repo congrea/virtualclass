@@ -1138,7 +1138,11 @@
                            var myPlayer = this;
                            var pause = !virtualclass.videoUl.isPaused;
                            if(!virtualclass.videoUl.isPaused){
-                               myPlayer.play();
+                               if(virtualclass.system.device == 'desktop'){
+                                    myPlayer.play();
+                               }
+                               //myPlayer.play();
+
                            }else{
                                myPlayer.paused();
                            }
@@ -1148,7 +1152,10 @@
                                 if (virtualclass.videoUl.yts) {
                                     if (pause) {
                                         setTimeout(function () {
-                                            myPlayer.play();
+                                            // alert('player is ready after 3 seconds ready');
+                                           if(virtualclass.system.device == 'desktop'){
+                                                myPlayer.play();
+                                           }
                                         }, 3000)
                                     }
 

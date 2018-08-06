@@ -682,9 +682,13 @@
                                 }
                             }
                         }, 5000);
-                    }
-                    if(virtualclass.videoUl.player && typeof virtualclass.videoUl.player.reset !='undefined'){
-                        virtualclass.videoUl.player.reset();
+                    } 
+                    if (typeof virtualclass.videoUl.player == 'object') {
+                        // debugger;
+                        // if(typeof virtualclass.videoUl.player.reset !='undefined'){
+                        //     virtualclass.videoUl.player.reset();
+                        // }
+                        delete( virtualclass.videoUl.player);
                     }
                 }
                 if(roles.hasControls()) {

@@ -682,6 +682,7 @@
                                 }
                             }
                         }, 5000);
+
                     } 
                     if (typeof virtualclass.videoUl.player == 'object') {
                         // debugger;
@@ -690,6 +691,7 @@
                         // }
                         delete( virtualclass.videoUl.player);
                     }
+
                 }
                 if(roles.hasControls()) {
                     var currVideo= Array.prototype.slice.call(arguments)[2];

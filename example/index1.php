@@ -42,8 +42,10 @@ function get_string($phrase) {
 }
 
 //the www path for virtualclass
+
 $whiteboardpath = "https://local.vidya.io/virtualclass/";
 //$whiteboardpath = "http://local.vidya.io/virtualclass/";
+
 
 if (isset($_GET['themecolor'])) {
     $theme = $_GET['themecolor'];

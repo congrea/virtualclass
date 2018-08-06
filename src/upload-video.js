@@ -1220,7 +1220,7 @@
                 },
 
                 onEnded: function (player, vidId, videoUrl) {
-                    player.reset();
+                    //player.reset();
                     var dispVideo = document.querySelector("#dispVideo");
                     if(virtualclass.videoUl.yts){
                         dispVideo.setAttribute('data-setup','{ techOrder: [youtube],controls: true,}');

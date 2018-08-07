@@ -231,18 +231,16 @@ var videoHost = {
                 img.innerHTML= virtualclass.gObj.chatIconColors[userid].initial;
                 img.style.backgroundColor=virtualclass.gObj.chatIconColors[userid].bgColor ;
                 img.style.color=virtualclass.gObj.chatIconColors[userid].textColor ;
+                img.classList.add('chat-img','media-object');
+                imgCont.appendChild(img);
             }else if(virtualclass.gObj.chatIconColors[userid] && virtualclass.gObj.chatIconColors[userid].savedImg ){
-
                 var img = document.createElement('img');
                 img.setAttribute("src",virtualclass.gObj.chatIconColors[userid].savedImg );
-
+                img.classList.add('chat-img','media-object');
+                imgCont.appendChild(img);
             }else{
                 //todo to add default img
             }
-
-            img.classList.add('chat-img','media-object');
-            //img.innerHTML= virtualclass.gObj.chatIconColors[userid].initial
-            imgCont.appendChild(img);
             console.log("set User icon");
 
         }

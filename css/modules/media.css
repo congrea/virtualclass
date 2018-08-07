@@ -151,9 +151,10 @@
   font-weight: normal;
 }
 
-#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioEnaGreen:before {
+#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioEnaGreen:before{
     margin-right:3px;
 }
+
 
 #virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaOrange:before {
   content: "\ea27";
@@ -162,6 +163,10 @@
   font-style: normal;
   font-size: 112%;
   font-weight: normal;
+}
+
+#virtualclassCont.congrea.student .ui-memblist-usr .icon-audioEnaOrange:before {
+  margin-right : 7px;
 }
 
 #virtualclassCont.congrea .ui-memblist-usr .icon-audioDisImg:before {

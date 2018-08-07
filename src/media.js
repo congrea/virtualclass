@@ -204,7 +204,7 @@
                         this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
                         this.resampler = new Resampler(virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
                         virtualclass.gObj.isAudioContextReady = true;
-                        if(virtualclass.system.mediaDevices.hasMicrophone){
+                        if(virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode){
                             virtualclass.gObj.video.stream = cthis.video.tempStream;
                             virtualclass.gObj.video.audio._manuPulateStream();
                         }
@@ -939,6 +939,7 @@
                         function (){
                             if(cthis.detectAudioWorklet()) {
                                 cthis.audio.manuPulateStream();
+
                             }else {
                                 cthis.audio.manuPulateStreamWithFallback();
                             }
@@ -1717,7 +1718,7 @@
 
 
             detectAudioWorklet : () => {
-                if (typeof OfflineAudioContext == 'undefined') {
+                if (typeof OfflineAudioContext == 'undefined' || virtualclass.isPlayMode) {
                     return false;
                 }else {
                     let context = new OfflineAudioContext(1, 1, 44100);

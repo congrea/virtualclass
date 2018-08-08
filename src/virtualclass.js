@@ -905,6 +905,11 @@
                     }
                     virtualclass.zoom.init();
                     // virtualclass.pdfRender[wid].initScaleController();
+                    var activeWbTool = localStorage.getItem("activeTool");
+                    if(activeWbTool != null){
+                        document.querySelector("#"+activeWbTool).classList.add("active");
+                        virtualclass.wb[wid].prvTool = activeWbTool;
+                    }
                 },
 
                 ScreenShare : function (app){

@@ -51,8 +51,10 @@
 
     var userSource = {}; //for contain the user specific audio source
     var sNode = {};
+    var snNode;
     var ac = {};
     var sNodePak = {};
+    var snNodePak;
     // alert('index.js3');
 //        var AudioContext = AudioContext || webkitAudioContext;
     /**
@@ -729,7 +731,7 @@
                    }
                },
 
-               _playWithFallback : function (uid){
+               _playWithFallbackOld : function (uid){
                      var that = this;
                      if(typeof sNode[uid] != 'object'){
                        console.log('script processor node is created');
@@ -752,6 +754,31 @@
                        sNode[uid].connect(this.Html5Audio.audioContext.destination);
                    }
                },
+
+
+                _playWithFallback : function (uid){
+                    var that = this;
+                    if(typeof snNode != 'object'){
+                        console.log('script processor node is created');
+                        snNode = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
+                        snNodePak = 0;
+                        snNode.onaudioprocess = function (event){
+                            var output = event.outputBuffer.getChannelData(0);
+                            var newAud = that.getAllAudioChunks(uid);
+                            if(typeof newAud != 'undefined'){
+                                for (i = 0; i < newAud.length; i++) {
+                                    output[i] = newAud[i];
+                                }
+                                snNodePak = newAud[16383];
+                            }else {
+                                for (i = 0; i < output.length; i++) {
+                                    output[i] = snNodePak;
+                                }
+                            }
+                        };
+                        snNode.connect(this.Html5Audio.audioContext.destination);
+                    }
+                },
 
                 queueWithFallback : function (packets, uid) {
                     if (!this.hasOwnProperty('audioToBePlay')) {
@@ -872,6 +899,34 @@
                       }
                     }
                   },
+
+                // audioToBePlay[uid][1]16384
+
+                getAllAudioChunks: function () {
+                    var allAudio = [];
+                    var allAudioSend =  new Float32Array(16384);
+                    for(var uid in virtualclass.gObj.video.audio.audioToBePlay){
+                        var temp = this.getAudioChunks(uid);
+                        if (temp != null) {
+                            allAudio.push(temp);
+                        }
+                    }
+
+                    //TODO code optimise
+                    if (allAudio.length == 1) {
+                        return allAudio[0];
+                    } else if (allAudio.length > 1) {
+                        for (var i=0; i<allAudio.length; i++) {
+                            for (var z = 0; z < 16384; z++) {
+                                allAudioSend[z] = allAudioSend[z] + allAudio[i][z];
+                            }
+                        }
+                        for (var z = 0; z < 16384; z++) {
+                            allAudioSend[z] = allAudioSend[z]/allAudio.length;
+                        }
+                        return allAudioSend;
+                    }
+                },
 
                 //TODO this function is not being invoked
                 replay: function (inHowLong, offset) {

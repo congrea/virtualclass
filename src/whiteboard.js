@@ -367,7 +367,11 @@
                             if (virtualclass.wb[wbId].hasOwnProperty('prvToolInfo') && typeof virtualclass.wb[wbId].prvToolInfo == 'object'){
                                 var cmd = virtualclass.wb[wbId].prvToolInfo.cmd;
                             } else {
-                                var cmd = 't_triangle';
+                                if(virtualclass.wb[wbId].hasOwnProperty('prvTool')){
+                                    var cmd = virtualclass.wb[wbId].prvTool;
+                                }else {
+                                    var cmd = "t_rectangle";
+                                }
                             }
 
                             if(cmd.indexOf('_doc_') <= -1){

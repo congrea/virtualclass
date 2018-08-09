@@ -900,29 +900,59 @@
                     }
                   },
 
-                // audioToBePlay[uid][1]16384
 
-                getAllAudioChunks: function () {
+                getAllAudioChunks2 : function () {
                     var allAudio = [];
-                    var allAudioSend =  new Float32Array(16384);
+                    var allSumAudio = new Float32Array(16384);
+                    var nTemp = 0;
+
+                    // var allAudioSend =  new Float32Array(16384);
+                    for(let uid in virtualclass.audioToBePlay){
+                        let temp = this.getAudioChunks(uid);
+
+                        if (temp != null) {
+                            if(!allSumAudio.length){
+                                // add the temp value
+                                allSumAudio = temp;
+                                // update the number of temp
+                                nTemp = 1;
+                            } else {
+
+                                // else add the temp values to their corresponding index values of allSumAudio
+                                allSumAudio = allSumAudio.map(function(num,idx) {return num + temp[idx]} );
+                                nTemp++;
+                            }
+
+                        }
+                    }
+                    return (nTemp < 2) ? allAudio : allSumAudio.map(num => num/nTemp);
+                },
+
+
+
+                // audioToBePlay[uid][1]16384
+                getAllAudioChunks : function (uid) {
+                    var allAudioSend = [];
+                    var audioLen=0;
                     for(var uid in virtualclass.gObj.video.audio.audioToBePlay){
                         var temp = this.getAudioChunks(uid);
                         if (temp != null) {
-                            allAudio.push(temp);
+                            audioLen++;
+                            if (audioLen == 1) {
+                                allAudioSend = temp;
+                            } else {
+                                for (var z = 0; z < 16384; z++) {
+                                    allAudioSend[z] = allAudioSend[z] + temp[z];
+                                }
+                            }
                         }
                     }
 
-                    //TODO code optimise
-                    if (allAudio.length == 1) {
-                        return allAudio[0];
-                    } else if (allAudio.length > 1) {
-                        for (var i=0; i<allAudio.length; i++) {
-                            for (var z = 0; z < 16384; z++) {
-                                allAudioSend[z] = allAudioSend[z] + allAudio[i][z];
-                            }
-                        }
+                    if (audioLen == 1) {
+                        return allAudioSend;
+                    } else if (audioLen > 1) {
                         for (var z = 0; z < 16384; z++) {
-                            allAudioSend[z] = allAudioSend[z]/allAudio.length;
+                            allAudioSend[z] = allAudioSend[z]/audioLen;
                         }
                         return allAudioSend;
                     }
@@ -945,6 +975,7 @@
                         newSource.start(whenTime, offset);
                     }
                 },
+
                 /**
                  * Merging  the channel buffer recordings  in the form of Float32Array
                  * channel Buffer is an array of recording chunks , length of each specified by the recordingLength

@@ -2750,6 +2750,10 @@
                 allStdscreenImg[i].dataset.dcolor = "";
 
             }
+        },
+
+        insertAfter : function (newNode, afterNode){
+            afterNode.parentNode.insertBefore(newNode, afterNode.nextSibling);
         }
 
     };

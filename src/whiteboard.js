@@ -82,7 +82,8 @@
                     canvasPdf.width = canvasObj.width;
                     canvasPdf.height = canvasObj.height;
 
-                    canvasObj.after(canvasPdf);
+                    virtualclass.vutil.insertAfter(canvasPdf, canvasObj);
+                    //canvasObj.after(canvasPdf);
 
                     // canvasObj.focus();
 

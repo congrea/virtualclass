@@ -82,7 +82,7 @@ var colorSelector ={
             "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #networkStatusContainer, #virtualclassCont.congrea #audioWidget li" +
             "{border-right:"+border +" !important;}"+
             "#virtualclassCont.congrea .zoomControler,#virtualclassCont.congrea #networkStatusContainer, " +
-            "#virtualclassCont.congrea #alleditorRichContainer" +
+            "#virtualclassCont.congrea #alleditorRichContainerAnch" +
             "{border-left:"+border +" !important;}"+
             "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ," +
             "#virtualclassCont.congrea #audioWidget li,"+

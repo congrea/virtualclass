@@ -2754,6 +2754,12 @@
 
         insertAfter : function (newNode, afterNode){
             afterNode.parentNode.insertBefore(newNode, afterNode.nextSibling);
+        },
+
+        triggerMouseEvent : function (node, eventType) {
+            var clickEvent = document.createEvent ('MouseEvents');
+            clickEvent.initEvent (eventType, true, true);
+            node.dispatchEvent (clickEvent);
         }
 
     };

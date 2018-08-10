@@ -18,10 +18,16 @@ var gesture = {
         var joinClassButton = document.querySelector('#joinClassModal .joinClasscontainer button');
         if(joinClassButton != null){
             joinClassButton.addEventListener('click', function (){
-
                 virtualclassApp.style.display =  'block';
                 joinClassModal.style.display =  'none';
                 virtualclass.gObj.video.audio.initAudiocontext();
+                setTimeout(
+                    function () {
+                        if(virtualclass.currApp == 'EditorRich'){
+                            virtualclass.vutil.triggerMouseEvent(document.querySelector('.CodeMirror-scroll'), 'mousedown');
+                        }
+                    }, 1000
+                );
 
                 //virtualclass.gObj.video.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
             });

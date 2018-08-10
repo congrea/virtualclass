@@ -3128,6 +3128,7 @@ var CodeMirror = (function() {
   // Wraps a function in an operation. Returns the wrapped function.
   function operation(cm, f) {
     return function() {
+
       // hack by suman,
       // To fix the bug comes when ctrl+z after deleting the text
       // with selecting all

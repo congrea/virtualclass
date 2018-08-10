@@ -1323,7 +1323,7 @@
                                             // by true, know the event is performed real user
                                             this.getScreen(nextSlide, true);
                                             cthis.docs.currNote = nextSlide.dataset.slide;
-                                            console.log('Current note ' + this.docs.currNote);
+
                                         }
                                     }
                                 }

@@ -21,14 +21,8 @@ var gesture = {
                 virtualclassApp.style.display =  'block';
                 joinClassModal.style.display =  'none';
                 virtualclass.gObj.video.audio.initAudiocontext();
-                setTimeout(
-                    function () {
-                        if(virtualclass.currApp == 'EditorRich'){
-                            virtualclass.vutil.triggerMouseEvent(document.querySelector('.CodeMirror-scroll'), 'mousedown');
-                        }
-                    }, 1000
-                );
-
+                /* User does not to click on editor to view the written text */
+                virtualclass.vutil.triggerMouseEvent(document.querySelector('.CodeMirror-scroll'), 'mousedown');
                 //virtualclass.gObj.video.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
             });
         }

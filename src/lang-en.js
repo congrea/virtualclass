@@ -314,8 +314,8 @@
         'youTubeUrl': 'Enter YouTube video URL',
         'zoomIn':"Zoom in",
         'zoomOut':"Zoom out",
-        'noain'  :"No audio Input",
-        'noaout'  :"No audio Output",
+        'noain'  :"No audio input",
+        'noaout'  :"No audio output",
         'novideo' :"No video",
         /*For Chrome */
         'PermissionDeniedErrorExt' : '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'  +

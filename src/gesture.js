@@ -18,11 +18,11 @@ var gesture = {
         var joinClassButton = document.querySelector('#joinClassModal .joinClasscontainer button');
         if(joinClassButton != null){
             joinClassButton.addEventListener('click', function (){
-
                 virtualclassApp.style.display =  'block';
                 joinClassModal.style.display =  'none';
                 virtualclass.gObj.video.audio.initAudiocontext();
-
+                /* User does not to click on editor to view the written text */
+                virtualclass.vutil.triggerMouseEvent(document.querySelector('.CodeMirror-scroll'), 'mousedown');
                 //virtualclass.gObj.video.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
             });
         }

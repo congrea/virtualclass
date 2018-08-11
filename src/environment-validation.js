@@ -664,8 +664,11 @@
         }
 
         var edge = ua.indexOf('Edge/');
-        if (edge > 0) {
+        if (edge >= 17) {
             // IE 12 => return version number
+            // We are supporting on edge 17 or higher
+            return false;
+        }else {
             return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
         }
 
@@ -675,27 +678,30 @@
 
     // TODO this function is not being invoked
     system.mybrowser.detection = function () {
+        /**  The code is taking from
+             https://stackoverflow.com/questions/5916900/how-can-you-detect-the-version-of-a-browser/5916928
+            answered by Brandon
+        **/
 
+        var browser;
         var ua = navigator.userAgent, tem,
-            M = ua.match(/(opera|opr|OPR(?=\/))\/?\s*([\d\.]+)/i) || []; //for opera especially
-        if (M.length <= 0) {
-            M = ua.match(/(chrome|safari|firefox|trident(?=\/))\/?\s*([\d\.]+)/i) || [];
-            if (M[1] == 'Safari') {
-                var version = ua.match(/(version(?=\/))\/?\s*([\d\.]+)/i) || [];
-                M[2] = version[2];
+            M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+        if(/trident/i.test(M[1])){
+            tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+            browser = {name:'IE',version:(tem[1] || '')};
+        }
+        if(M[1]=== 'Chrome'){
+            tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+            if(tem != null) {
+                browser = {name:tem[1].replace('OPR', 'Opera'),version:tem[2]};
             }
         }
-        if (/trident/i.test(M[1])) {
-            tem = /\brv[ :]+(\d+(\.\d+)?)/g.exec(ua) || [];
-            return 'IE ' + (tem[1] || '');
+        M = M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+        if((tem = ua.match(/version\/(\d+)/i))!= null){
+            M.splice(1, 1, tem[1]);
+            browser = {name:M[0], version:M[1]};
         }
-
-        M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
-        if ((tem = ua.match(/version\/([\.\d]+)/i)) != null) {
-            M[2] = tem[1];
-        }
-        // return M.join(' ');
-        return M;
+        return [browser.name, browser.version];
     }
 
 

@@ -701,7 +701,11 @@
             M.splice(1, 1, tem[1]);
             browser = {name:M[0], version:M[1]};
         }
-        return [browser.name, browser.version];
+         if(typeof browser != 'undefined'){
+             return [browser.name, browser.version];
+         }
+         return M;
+
     }
 
 

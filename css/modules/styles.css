@@ -3955,6 +3955,12 @@ background-color: #d6d6d6;
     #virtualclassCont.congrea #videoHostSource, #virtualclassCont.congrea #webcamTempVideo {
         transform:inherit !important;
     }
+
+	#virtualclassScreenShareTool {
+		pointer-events : none;
+		opacity : 0.5;
+		display : none;
+	}
 }}
 
 

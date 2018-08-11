@@ -155,5 +155,9 @@
       #virtualclassCont.congrea #slickQuiz .quizArea {
           height: calc(100vh - var(--vh-offset) - 336px);
       }
+
+      #virtualclassCont.congrea a.vceditor-btn {
+        font-size : 11px;
+      }
       
 }

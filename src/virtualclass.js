@@ -907,8 +907,11 @@
                     // virtualclass.pdfRender[wid].initScaleController();
                     var activeWbTool = localStorage.getItem("activeTool");
                     if(activeWbTool != null){
-                        document.querySelector("#"+activeWbTool).classList.add("active");
-                        virtualclass.wb[wid].prvTool = activeWbTool;
+                        var activeWbToolElem = document.querySelector("#"+activeWbTool);
+                        if(activeWbToolElem != null){
+                            activeWbToolElem.classList.add("active");
+                            virtualclass.wb[wid].prvTool = activeWbTool;
+                        }
                     }
                 },
 

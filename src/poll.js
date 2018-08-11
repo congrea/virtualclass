@@ -651,7 +651,7 @@
                     virtualclass.poll.action(this.id, cb, index, pollType);
                 }
                 var modal = document.getElementById("editPollModal") ? document.getElementById("editPollModal") : document.getElementById("qnPopup");
-                var controls = modal.querySelectorAll(':scope .controls');
+                var controls = modal.querySelectorAll('#pollModalBody .controls');
                 for (var i = 0; i < controls.length; i++) {
                     controls[i].addEventListener("click", attachInit)
                 }
@@ -1010,7 +1010,7 @@
                 var t;
                 var poll = (pollType == "course") ? this.coursePoll[qIndex] : this.sitePoll[qIndex];
                 var optsCont = document.getElementById('optsTxCont');
-                var opts = optsCont.querySelectorAll(':scope .opt');
+                var opts = optsCont.querySelectorAll('#virtualclassCont #optsTxCont .opt');
 
                 for (var i = 0; i < opts.length; i++) {
                     temp[i] = opts[i].value;
@@ -1041,7 +1041,7 @@
                     return 0;
                 }
                 var optsCont = document.getElementById('optsTxCont');
-                var opts = optsCont.querySelectorAll(':scope .opt');
+                var opts = optsCont.querySelectorAll('#virtualclassCont #optsTxCont .opt');
 
                 for (var i = 0; i < opts.length; i++) {
                     option.push(opts[i].value);
@@ -1074,7 +1074,7 @@
             isBlank: function () {
                 var q = document.getElementById("q");
                 var optsCont = document.getElementById('optsTxCont');
-                var optionList = optsCont.querySelectorAll(':scope .opt');
+                var optionList = optsCont.querySelectorAll('#virtualclassCont #optsTxCont .opt');
                 var optCount = 0;
                 var optionBlank = 0;
                 for (var i = 0; i < optionList.length; i++) {
@@ -1103,7 +1103,7 @@
                 var pollType = type + "Poll";
                 var length = virtualclass.poll[pollType].length
                 var optsCont = document.getElementById('optsTxCont');
-                var opt = optsCont.querySelectorAll(':scope .opt');
+                var opt = optsCont.querySelectorAll('#virtualclassCont #optsTxCont .opt');
 
                 if (typeof index == 'undefined') {
                     var length = virtualclass.poll[pollType].length
@@ -1113,7 +1113,7 @@
                     var question = document.getElementById("q").value;
                     var opts = {};
                     var optsCont = document.getElementById('optsTxCont');
-                    var opt = optsCont.querySelectorAll(':scope .opt');
+                    var opt = optsCont.querySelectorAll('#virtualclassCont #optsTxCont .opt');
                     for (var i = 0; i < opt.length; i++) {
                         opts[i] = opt[i].value;
                     }
@@ -1281,7 +1281,7 @@
             },
             deleteHandler: function (item,pollType, index) {
                 var mszbox = document.getElementById("mszBoxPoll");
-                var notify = mszbox.querySelectorAll(":scope .alert")
+                var notify = mszbox.querySelectorAll("#mszBoxPoll .alert")
                 if (notify.length > 0) {
                     notify[0].parentNode.removeChild(notify[0]);
                 }
@@ -1545,7 +1545,7 @@
             saveSelected: function () {
 
                 var optsCont = document.getElementById('stdOptionCont');
-                var elem = optsCont.querySelectorAll(':scope .opt');
+                var elem = optsCont.querySelectorAll('#stdOptionCont .opt');
                 for (var i = 0; i < elem.length; i++) {
                     if (elem[i].checked) {
                         virtualclass.poll.responseId = elem[i].id;
@@ -1799,7 +1799,7 @@
                 var mszbox = document.getElementById("mszBoxPoll");
                 if (mszbox) {
                     if (mszbox.childNodes.length > 0) {
-                        var notify = mszbox.querySelectorAll(":scope .alert");
+                        var notify = mszbox.querySelectorAll("#mszBoxPoll .alert");
                         if (notify.length > 0) {
                             notify[0].parentNode.removeChild(notify[0]);
                         }
@@ -2658,7 +2658,7 @@
                 // },
                 createOption: function (qIndex, type) {
                     var optsCont = document.getElementById('optsTxCont');
-                    var elem = optsCont.querySelectorAll(':scope .opt');
+                    var elem = optsCont.querySelectorAll('#optsTxCont .opt');
                     var count = 0;
                     for (var i = 0; i < elem.length; i++) {
 

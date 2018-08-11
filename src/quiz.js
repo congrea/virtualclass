@@ -352,7 +352,7 @@
                     virtualclass.quiz.action(this.id, cb, index);
                 }
                 var modal = document.getElementById("editQuizModal") ? document.getElementById("editQuizModal") : document.getElementById("qzPopup");
-                var controls = modal.querySelectorAll(':scope .controls');
+                var controls = modal.querySelectorAll('#virtualclassCont #quizModalBody .controls');
 
                 for (var i = 0; i < controls.length; i++) {
                     controls[i].addEventListener("click", attachInit)

@@ -2757,9 +2757,11 @@
         },
 
         triggerMouseEvent : function (node, eventType) {
-            var clickEvent = document.createEvent ('MouseEvents');
-            clickEvent.initEvent (eventType, true, true);
-            node.dispatchEvent (clickEvent);
+			if(node != null){
+				var clickEvent = document.createEvent ('MouseEvents');
+				clickEvent.initEvent (eventType, true, true);
+				node.dispatchEvent (clickEvent);
+			}
         }
 
     };

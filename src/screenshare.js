@@ -557,6 +557,8 @@ var newCanvas;
                     }
                 } else if (virtualclass.system.mybrowser.name == 'Firefox') {
                     virtualclass.getSceenFirefox();
+                }else if(virtualclass.system.mybrowser.name == 'Edge') {
+                    console.log('We need to write the code here...');
                 }
             },
             /**

@@ -300,9 +300,9 @@
 
         }
 
-        console.log('Container height ' + res.height);
+        //console.log('Container height ' + res.height);
         virtualclass.vutil.setContainerWidth(res, virtualclass.currApp);
-        console.log('Window resize event ');
+        //console.log('Window resize event ');
 
         var cwb = virtualclass.gObj.currWb;
         if(typeof cwb != 'undefined' && (typeof virtualclass.wb[cwb] != 'undefined') && virtualclass.wb[cwb].hasOwnProperty('vcan')){

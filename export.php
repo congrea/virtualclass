@@ -1,7 +1,7 @@
 <?php
 	if(!empty($_POST['prvfile'])){
 		$filenum = $_POST['prvfile'];
-		$file = "uploads/user.".$filenum;
+		$file = "uploads/vc.".$filenum;
 
 		if(file_exists($file)){
 			$data = file_get_contents($file);

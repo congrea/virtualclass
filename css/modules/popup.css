@@ -182,7 +182,7 @@
 }
 #virtualclassCont.congrea #askplayMessage {
 	font-size: 14px;
-	text-align: left;
+	text-align: center	;
 	margin-top: 7px;
 	margin-bottom: 10px;
 	padding-left: 25px;
@@ -355,7 +355,7 @@
 	background-color:#515e69 !important;
 }
 .rv-vanilla-modal-body, .rv-vanilla-modal-body{
-	color:#fff !important;
+	color:#3C3C3C !important;
 }
 #virtualclassCont.congrea #popupContainer #about-modal{
 	border-width: 2px !important;

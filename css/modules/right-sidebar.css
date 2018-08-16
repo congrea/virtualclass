@@ -131,7 +131,7 @@ body {
     background: #fff;
     margin: 0;
     padding: 7px 0 7px;
-    z-index: 1000;
+    z-index: 998;
 } 
 #virtualclassCont .footerCtr input {
     padding: 7px;

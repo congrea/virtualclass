@@ -67,6 +67,7 @@
                 prevApp : null,
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
                 requestToScriptNode : null,
+                readyToCommunicate : false,
             },
 
             enablePreCheck : true,
@@ -183,8 +184,13 @@
                 virtualclass.xhrn = window.xhrn;
 
                 virtualclass.xhrn.init();
+
+                if(virtualclass.vutil.getCookie('readyToCommunicate')){
+                    virtualclass.gObj.readyToCommunicate  = true;
+                }
                 this.xhrn.getAcess(function (response){
                     if(response != 'ERROR' || response != 'Error'){
+                        virtualclass.gObj.readyToCommunicate  = true;
                         console.log('get access');
                     }
                 });

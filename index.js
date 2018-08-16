@@ -237,17 +237,30 @@ $(document).ready(function () {
         //db transaction of indexeddb is not ready on page onload, 50 ms delay
         // OR find the alternative for this
 
+        /** We start comminute with server only after access validation**/
+        var initRequestToServer = function  (){
+            if(virtualclass.gObj.readyToCommunicate){
+                virtualclass.recorder.requestDataFromServer(wbUser.vcSid, 1);
+            }else {
+                setTimeout(()=> {
+                    initRequestToServer();
+                },700)
+            }
+        }
+
         if (virtualclass.vutil.isPlayMode()) {
             setTimeout(
                 function () {
                     //earlier it was calling after requestDataFromServer
                     // because of which the popup box for replay is not displaying
                     clearEverthing();
-                    virtualclass.recorder.requestDataFromServer(wbUser.vcSid, 1);
+                    initRequestToServer();
                 },
                 500 //increase 500 ms for indexeddb which was not ready till popup was display
             );
         }
+
+
 
 
         if (virtualclass.isPrecheck != null) {

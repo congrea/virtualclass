@@ -212,7 +212,7 @@
                     if(mainContainer != null){
                         mainContainer.insertAdjacentHTML('beforeend', tempHtml);
                     }else{
-                        alert('there is no such element');
+                        console.log('there is no such element');
                     }
                     if(!roles.hasControls()){
                         var zoom = document.querySelector("#virtualclassAppLeftPanel.hideZoom");

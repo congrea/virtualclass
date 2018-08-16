@@ -3963,13 +3963,14 @@ background-color: #d6d6d6;
 	}
 }}
 
-
 #videoPlayerCont .vjs-youtube-mobile .vjs-big-play-button{
 	display : block !important;
 }
 
-
-
 #videoPlayerCont .vjs-youtube-mobile.vjs-playing  .vjs-big-play-button{
 	display : none !important;
+}
+
+#virtualclassCont.congrea #joinClass #joinClassModal{
+	z-index: 10001;
 }

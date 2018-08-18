@@ -29,5 +29,5 @@ Latest version of Google Chrome
 - [x] Responsive and zoom-in, zoom-out controls
 - [x] Performance to handle thousands of concurrent users
 - [x] Layout template engine
-- [ ] Compatibility with all major browsers and iPad
+- [x] Compatibility with all major browsers and iPad
 - [ ] Server side recording

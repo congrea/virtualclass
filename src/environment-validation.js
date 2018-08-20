@@ -438,8 +438,8 @@
                             virtualclass.error.push(virtualclass.lang.getString('ios7support'));
                         }
                     } else {
-                        virtualclass.vutil.initDisableVirtualClass();
-                        virtualclass.error.push(virtualclass.lang.getString('supportDesktop'));
+                        // virtualclass.vutil.initDisableVirtualClass();
+                        // virtualclass.error.push(virtualclass.lang.getString('supportDesktop'));
                     }
                 } else {
                     virtualclass.vutil.initDisableVirtualClass();

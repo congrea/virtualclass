@@ -3920,7 +3920,7 @@ background-color: #d6d6d6;
         background-color: #d9dbdc;
         }
         
-        #virtualclassCont.congrea.student .congtooltip:hover::after {
+        #virtualclassCont.congrea .congtooltip:hover::after {
             display:none !important;
         }
         

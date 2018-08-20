@@ -442,8 +442,8 @@
                         // virtualclass.error.push(virtualclass.lang.getString('supportDesktop'));
                     }
                 } else {
-                    virtualclass.vutil.initDisableVirtualClass();
-                    virtualclass.error.push(virtualclass.lang.getString('notSupportIphone'));
+                    // virtualclass.vutil.initDisableVirtualClass();
+                    // virtualclass.error.push(virtualclass.lang.getString('notSupportIphone'));
                 }
                 // here bversion is version of operating system
                 // we have to disable the audio compability

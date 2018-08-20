@@ -1620,7 +1620,8 @@ $(document).ready(function () {
             /***** Start Student Screen Sharing *****/
             /* Handle teacher request for screen sharing **/
             this.reqscreen = function(e){
-                if(virtualclass.system.device != 'mobTab' && virtualclass.system.mybrowser.name == 'Chrome' || virtualclass.system.mybrowser.name == 'Firefox'){
+                if(virtualclass.system.device != 'mobTab' &&
+                    (virtualclass.system.mybrowser.name == 'Chrome' || virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Edge')){
                     var message = virtualclass.lang.getString('stdscreenshare');
                     if(virtualclass.gObj.precheckScrn){
                         virtualclass.vutil.prechkScrnShare();

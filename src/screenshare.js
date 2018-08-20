@@ -558,7 +558,12 @@ var newCanvas;
                 } else if (virtualclass.system.mybrowser.name == 'Firefox') {
                     virtualclass.getSceenFirefox();
                 }else if(virtualclass.system.mybrowser.name == 'Edge') {
-                    console.log('We need to write the code here...');
+                    navigator.getDisplayMedia().then(stream => {        //teacher share his screen using edge browser
+                        virtualclass.ss._init();
+                        virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
+                    }, error => {
+                        console.log("Unable to acquire screen capture", error);
+                    });
                 }
             },
             /**

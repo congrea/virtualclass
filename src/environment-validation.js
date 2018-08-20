@@ -376,24 +376,19 @@
                 this.device = "mobTab";
                 addAttr.setAttribute("device","mobile");
 
-                if (roles.hasControls()) {
-                    virtualclass.vutil.initDisableVirtualClass();
-                    virtualclass.error.push(virtualclass.lang.getString('supportDesktopOnly'));
-                } else {
-                    if (androidDevice) {
-                        if (bname == 'Chrome') {
-                            if( bversion < 40) {
-                                virtualclass.error.push(virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion])));
-                                virtualclass.vutil.initDisableVirtualClass();
-                            } else if (bversion >= 40 &&  bversion < 67) {
-                                //     DO : Disable Audio Controls and Cam Support for this user
-                                virtualclass.vutil.initDisableAudVid();
-                            }
-
-                        } else {
-                            virtualclass.error.push(virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion])));;
+                if (androidDevice) {
+                    if (bname == 'Chrome') {
+                        if( bversion < 40) {
+                            virtualclass.error.push(virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion])));
                             virtualclass.vutil.initDisableVirtualClass();
+                        } else if (bversion >= 40 &&  bversion < 67) {
+                            //     DO : Disable Audio Controls and Cam Support for this user
+                            virtualclass.vutil.initDisableAudVid();
                         }
+
+                    } else {
+                        virtualclass.error.push(virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion])));;
+                        virtualclass.vutil.initDisableVirtualClass();
                     }
                 }
 

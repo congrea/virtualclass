@@ -59,7 +59,7 @@
 }
 
 #virtualclassCont.congrea.teacher .canvasWrapper{
-  height : calc(100vh - 93px)
+  height : calc(100vh - 93px);
 }
 
 #virtualclassCont.congrea.student .canvasWrapper{
@@ -159,5 +159,39 @@
       #virtualclassCont.congrea a.vceditor-btn {
         font-size : 11px;
       }
-      
-}
+
+
+      #virtualclassCont.congrea.teacher #virtualclassApp[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea #virtualclassApp[data-currapp='Video'] .modal, #virtualclassCont.congrea.teacher #virtualclassApp[data-currapp='SharePresentation'] .modal {
+        height: calc(100vh - var(--vh-offset) - 44px);
+      }
+
+      #virtualclassCont.congrea.teacher #dashboardContainer .modal .modal-content {
+      min-height: calc(100vh - var(--vh-offset) - 52px);
+        height:100%;
+      }
+
+      #virtualclassCont.congrea.teacher #docsListContainer {
+        height: 100%;
+      }
+
+      #virtualclassCont.congrea.teacher .dashboardview {
+        height: calc(100vh - var(--vh-offset) - 118px);
+      }
+
+      #virtualclassCont.congrea.teacher #listdocs {
+        height: calc(100vh - var(--vh-offset) - 145px);
+      }
+
+      #virtualclassCont.congrea.teacher #pptListContainer {
+        height: calc(100vh - var(--vh-offset) - 155px);
+      }
+
+      #virtualclassCont.congrea.teacher #SharePresentationDashboard #submitpurl.btn-default {
+        min-height:44px;
+      }
+
+      #virtualclassCont.congrea #dashboardnav {
+        top: 85%;
+      }
+
+  }

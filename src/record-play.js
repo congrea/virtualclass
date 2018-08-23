@@ -796,6 +796,10 @@
 
                     //Play finished here
                     if (this.items[this.objn].hasOwnProperty('sessionEnd')) {
+                        var playAct = document.querySelector("#dispVideo");
+                        if(virtualclass.videoUl && virtualclass.videoUl.player && playAct.classList.contains("vjs-playing")){
+                            virtualclass.videoUl.player.pause();
+                        }
                         virtualclass.popup.replayWindow();
                         virtualclass.popup.sendBackOtherElems();
                         document.getElementById('replayClose').addEventListener('click',
@@ -848,6 +852,11 @@
                     recButton[i].onclick = function () {
                         var ffBy = this.id.split('ff')[1];
                         that.controller.fastForward(parseInt(ffBy, 10));
+                        var pauseAct = document.querySelector("#dispVideo");
+                        if(virtualclass.videoUl && virtualclass.videoUl.player && pauseAct.classList.contains("vjs-paused")){
+                            virtualclass.videoUl.player.play();
+                        }
+
                         if(this.parentNode.id != 'replayFromStart'){
                             that.doControlActive(this)
                         }
@@ -859,13 +868,19 @@
                 recPlay.addEventListener('click', function () {
                     that.controller._play();
                     that.doControlActive(this);
+                    if(virtualclass.videoUl && virtualclass.videoUl.player){
+                        virtualclass.videoUl.player.play();
+                    }
                 });
 
                 //init pause
                 var recPause = document.getElementById('recPause');
                 recPause.addEventListener('click', function () {
                     that.controller._pause();
-                    that.doControlActive(this)
+                    that.doControlActive(this);
+                    if(virtualclass.videoUl && virtualclass.videoUl.player){
+                        virtualclass.videoUl.player.pause();
+                    }
                 });
 
                 var replayFromStart = document.getElementById('replayFromStart');

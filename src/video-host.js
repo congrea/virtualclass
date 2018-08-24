@@ -643,24 +643,26 @@ var videoHost = {
 
     UI: {
         displayTeacherVideo: function () {
-            var host = document.querySelector(".congrea #videoHostContainer");
-            host.classList.add("show")
-            host.classList.remove("hide");
-            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel");
-            rightbar.classList.add("vidShow")
-            rightbar.classList.remove("vidHide")
+            if(!virtualclass.gObj.meetingMode){
+                var host = document.querySelector(".congrea #videoHostContainer");
+                host.classList.add("show")
+                host.classList.remove("hide");
+                var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel");
+                rightbar.classList.add("vidShow")
+                rightbar.classList.remove("vidHide")
+            }
 
         },
+
         hideTeacherVideo: function () {
-            var host = document.querySelector(".congrea #videoHostContainer");
-            host.classList.remove("show");
-            host.classList.add("hide");
-            var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel");
-            rightbar.classList.add("vidHide")
-            rightbar.classList.remove("vidShow")
-
-
+            if(!virtualclass.gObj.meetingMode){
+                var host = document.querySelector(".congrea #videoHostContainer");
+                host.classList.remove("show");
+                host.classList.add("hide");
+                var rightbar = document.querySelector(".congrea #virtualclassAppRightPanel");
+                rightbar.classList.add("vidHide")
+                rightbar.classList.remove("vidShow")
+            }
         }
-
     }
 };

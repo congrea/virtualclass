@@ -129,6 +129,8 @@
         }else {
             var users = 'one';
         }
+        var virtualclassCont = document.querySelector('#virtualclassCont');
+        virtualclassCont.setAttribute('data-totalUser', users);
         videoConfrence.setAttribute('data-totalUser', users);
     },
 

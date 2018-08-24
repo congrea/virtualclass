@@ -599,6 +599,7 @@
          * reqFile = File number (starting from 1)
          **/
         requestDataFromServer: function (vcSessionId, reqFile) {
+            console.log('request file from requestDataFromServer ' + reqFile);
             this.displayWaitPopupIfNot(virtualclass.lang.getString("plswaitwhile"));
             var formData = new FormData();
             //formData.append("record_data", "true");
@@ -663,7 +664,7 @@
 
 
                     if (!e.data.alldata.rdata[e.data.alldata.rdata.length - 1].hasOwnProperty('sessionEnd')) {
-                        console.log("request file");
+                        console.log("request file " + reqFile);
                         virtualclass.recorder.requestDataFromServer(vcSessionId, reqFile);
                     } else {
                         console.log('Request file  Finished Here');

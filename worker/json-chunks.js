@@ -54,11 +54,18 @@ onmessage = function (e) {
         }
         postMessage({status: 'done'});
     } else if (e.data.hasOwnProperty('rdata') && e.data.hasOwnProperty('getData')) {
-        alldata = JSON.parse(e.data.rdata);
-        data = LZString.decompressFromEncodedURIComponent(alldata.rdata);
-        alldata.rdata = JSON.parse(data);
-        postMessage({
-            alldata: alldata
-        })
+        if(e.data.rdata != 'VCE3'){
+            alldata = JSON.parse(e.data.rdata);
+            data = LZString.decompressFromEncodedURIComponent(alldata.rdata);
+            alldata.rdata = JSON.parse(data);
+            postMessage({
+                alldata: alldata
+            })
+        }else {
+            postMessage({
+                error: 'filenotfound'
+            })
+        }
+
     }
 };

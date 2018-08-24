@@ -634,54 +634,57 @@
                 });
 
                 mvDataWorker.onmessage = function (e) {
-
                     reqFile++;
-                    var isUptoBase = virtualclass.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);
-
-                    virtualclass.recorder.ctotalStore = e.data.alldata.totalStore;
-                    virtualclass.recorder.ctotalSent = e.data.alldata.totalSent;
-
-
-                    virtualclass.pbar.renderProgressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
-
-                    if (isUptoBase && !virtualclass.recorder.alreadyAskForPlay) {
-                        if (e.data.alldata.totalSent > e.data.alldata.totalStore) {
-                            virtualclass.recorder.askToPlay("completed");
-                        } else {
-                            virtualclass.recorder.askToPlay();
-                        }
-
-                        virtualclass.recorder.alreadyAskForPlay = true;
-                        virtualclass.recorder.tempRecData.push(e.data.alldata.rdata);
-                    } else if (isUptoBase && virtualclass.recorder.playStart && virtualclass.recorder.waitServer == false) {
-                        virtualclass.recorder.init(e.data.alldata.rdata);
-                    } else {
-                        virtualclass.recorder.tempRecData.push(e.data.alldata.rdata);
-                        if (virtualclass.recorder.waitServer == true) {
-                            virtualclass.recorder.alreadyPlayed = true;
-                        }
-                    }
-
-
-                    if (!e.data.alldata.rdata[e.data.alldata.rdata.length - 1].hasOwnProperty('sessionEnd')) {
+                    if(e.data.hasOwnProperty('error')){
                         console.log("request file " + reqFile);
                         virtualclass.recorder.requestDataFromServer(vcSessionId, reqFile);
-                    } else {
-                        console.log('Request file  Finished Here');
-                        virtualclass.recorder.allFileFound = true;
+                    }else {
 
-                        if (virtualclass.recorder.waitServer == true) { //if earlier replay is interrupt
-                            virtualclass.storage.config.endSession();
-                            var mainData = virtualclass.recorder.tempRecData.reduce(function (a, b) {
-                                return a.concat(b);
-                            });
+                        var isUptoBase = virtualclass.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);
+                        virtualclass.recorder.ctotalStore = e.data.alldata.totalStore;
+                        virtualclass.recorder.ctotalSent = e.data.alldata.totalSent;
 
-                            virtualclass.recorder.objn = 0;
-                            virtualclass.recorder.init(mainData);
-                            virtualclass.recorder.play();
-                            virtualclass.recorder.waitServer = false;
-                            virtualclass.popup.closeElem();
 
+                        virtualclass.pbar.renderProgressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
+
+                        if (isUptoBase && !virtualclass.recorder.alreadyAskForPlay) {
+                            if (e.data.alldata.totalSent > e.data.alldata.totalStore) {
+                                virtualclass.recorder.askToPlay("completed");
+                            } else {
+                                virtualclass.recorder.askToPlay();
+                            }
+
+                            virtualclass.recorder.alreadyAskForPlay = true;
+                            virtualclass.recorder.tempRecData.push(e.data.alldata.rdata);
+                        } else if (isUptoBase && virtualclass.recorder.playStart && virtualclass.recorder.waitServer == false) {
+                            virtualclass.recorder.init(e.data.alldata.rdata);
+                        } else {
+                            virtualclass.recorder.tempRecData.push(e.data.alldata.rdata);
+                            if (virtualclass.recorder.waitServer == true) {
+                                virtualclass.recorder.alreadyPlayed = true;
+                            }
+                        }
+
+
+                        if (!e.data.alldata.rdata[e.data.alldata.rdata.length - 1].hasOwnProperty('sessionEnd')) {
+                            console.log("request file " + reqFile);
+                            virtualclass.recorder.requestDataFromServer(vcSessionId, reqFile);
+                        } else {
+                            console.log('Request file  Finished Here');
+                            virtualclass.recorder.allFileFound = true;
+
+                            if (virtualclass.recorder.waitServer == true) { //if earlier replay is interrupt
+                                virtualclass.storage.config.endSession();
+                                var mainData = virtualclass.recorder.tempRecData.reduce(function (a, b) {
+                                    return a.concat(b);
+                                });
+
+                                virtualclass.recorder.objn = 0;
+                                virtualclass.recorder.init(mainData);
+                                virtualclass.recorder.play();
+                                virtualclass.recorder.waitServer = false;
+                                virtualclass.popup.closeElem();
+                            }
                         }
                     }
                 }

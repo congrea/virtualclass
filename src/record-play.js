@@ -636,8 +636,9 @@
                 mvDataWorker.onmessage = function (e) {
                     reqFile++;
                     if(e.data.hasOwnProperty('error')){
+                        console.log("some error " + reqFile);
                         console.log("request file " + reqFile);
-                        virtualclass.recorder.requestDataFromServer(vcSessionId, reqFile);
+                        //virtualclass.recorder.requestDataFromServer(vcSessionId, reqFile);
                     }else {
 
                         var isUptoBase = virtualclass.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);

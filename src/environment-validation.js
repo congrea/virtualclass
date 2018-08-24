@@ -375,6 +375,7 @@
             if ((typeof androidDevice != 'undefined' && androidDevice)) {
                 this.device = "mobTab";
                 addAttr.setAttribute("device","mobile");
+                addAttr.classList.add("android");
 
                 if (androidDevice) {
                     if (bname == 'Chrome') {
@@ -425,6 +426,7 @@
                 //DO : Disable Audio Controls and Cam Support for this user.
             } else if (bname == 'iOS') {
                 addAttr.setAttribute("device","mobile");
+                addAttr.classList.add("ios");
                 //var iPad = /(iPad)/g.test(navigator.userAgent);
                 if (this.isIPad()) {
                     if (roles.isStudent()) {

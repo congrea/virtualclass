@@ -147,18 +147,19 @@
     },
 
     disableVideo : function (){
-        var videoTracks = virtualclass.multiVideo.localStream.getVideoTracks();
-        if (videoTracks.length === 0) {
-            console.log("No local video available.");
-            return;
-        }
-        console.log("Toggling video mute state.");
-        for (var i = 0; i < videoTracks.length; ++i) {
-            videoTracks[i].enabled = !videoTracks[i].enabled;
-        }
+        setTimeout(() => {
+            var videoTracks = virtualclass.multiVideo.localStream.getVideoTracks();
+            if (videoTracks.length === 0) {
+                console.log("No local video available.");
+                return;
+            }
+            console.log("Toggling video mute state.");
+            for (var i = 0; i < videoTracks.length; ++i) {
+                videoTracks[i].enabled = !videoTracks[i].enabled;
+            }
+        }, 1000);
         // this.pcClient_.sendCallstatsEvents(videoTracks[0].enabled ? "videoResume" : "videoPause");
         // trace("Video " + (videoTracks[0].enabled ? "unmuted." : "muted."));
-
     },
 
   };

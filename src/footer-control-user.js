@@ -970,7 +970,7 @@
                     if(virtualclass.system.mediaDevices.hasWebcam && vidbtn && vidbtn.classList.contains("video")){
                         var action = (virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off';
                         var tvideoElem = document.getElementById("rightCtlr");
-                        if(vidbtn.classList.contains("on") && roles.hasControls()) {
+                        if(vidbtn.classList.contains("on") && roles.hasControls() || (roles.isStudent() && virtualclass.gObj.meetingMode)) {
                             virtualclass.vutil.videoHandler(action);
                             tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videoon'));
                         }else if(vidbtn.classList.contains("off") && roles.isStudent()){

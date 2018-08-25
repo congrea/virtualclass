@@ -9,7 +9,7 @@
   height : auto;
   max-height: 345px;
   width: 320px;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 #virtualclassCont.congrea .videoWrap {
@@ -88,8 +88,9 @@
   width : 860px;
 }
 
-#virtualclassCont.congrea .selfVideo {
+#virtualclassCont.congrea.meetingmode[data-totaluser="one"] .selfVideo {
   z-index : 500;
+  width: 100%;
 }
 
 
@@ -104,4 +105,41 @@
 
 #virtualclassCont.congrea #videoMainPreview #multiVidSelected {
   width: 600px;
+}
+
+#virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li {
+    width:33.3%;
+}
+
+#virtualclassCont.congrea.meetingmode[data-totaluser="one"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="one"]  #congreaChatMainCont {
+    height: calc(100% - 308px);
+}
+
+#virtualclassCont.congrea.meetingmode[data-totaluser="one"] #chat_div {
+    height: calc(100vh - 409px);
+}
+
+#virtualclassCont.congrea.meetingmode[data-totaluser="one"] #chat_room {
+    height: calc(100vh - 411px);
+}
+
+{
+    height: calc(100vh - 403px);
+}
+
+#virtualclassCont.congrea.meetingmode[data-totaluser="two"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="two"]  #congreaChatMainCont, #virtualclassCont.congrea.meetingmode[data-totaluser="four"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="four"]  #congreaChatMainCont, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="morethanfour"]  #congreaChatMainCont {
+    height: calc(100% - 307px);
+}
+
+#virtualclassCont.congrea.meetingmode[data-totaluser="two"] #chat_div, #virtualclassCont.congrea.meetingmode[data-totaluser="four"] #chat_div, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #chat_div {
+    height: calc(100vh - 408px);
+}
+
+#virtualclassCont.congrea.meetingmode[data-totaluser="two"] #chat_room , #virtualclassCont.congrea.meetingmode[data-totaluser="four"] #chat_room, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #chat_room {
+    height: calc(100vh - 410px);
+}
+
+#virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #videosWrapper {
+    max-height:261px;
+    overflow-y:auto;
 }

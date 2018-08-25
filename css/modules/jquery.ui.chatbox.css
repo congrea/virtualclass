@@ -466,7 +466,9 @@
     cursor: pointer;
 }
 
-/*#virtualclassCont.congrea .ui-memblist-usr.mySelf .user-details .usern {margin-top: 15px;}*/
+#virtualclassCont.congrea[data-currapp="EditorRich"] .ui-memblist-usr .user-details .usern {
+   width:38%;
+}
 
 #virtualclassCont.congrea .ui-memblist-usr a span{
     font-size: 12px;

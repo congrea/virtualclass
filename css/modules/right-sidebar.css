@@ -558,7 +558,7 @@ display: none;
     top: 51px !important;
 }
 #virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
-    top: 51px !important;
+    top: 51px;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel.vidHide #audioWidget .congtooltip:hover:after {
     top: 51px !important;

@@ -123,10 +123,6 @@
     height: calc(100vh - 411px);
 }
 
-{
-    height: calc(100vh - 403px);
-}
-
 #virtualclassCont.congrea.meetingmode[data-totaluser="two"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="two"]  #congreaChatMainCont, #virtualclassCont.congrea.meetingmode[data-totaluser="four"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="four"]  #congreaChatMainCont, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="morethanfour"]  #congreaChatMainCont {
     height: calc(100% - 307px);
 }

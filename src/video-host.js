@@ -136,29 +136,7 @@ var videoHost = {
         this.vidHostSlice.globalAlpha = 0.5;
         this.vidHostSlice.globalCompositeOperation = "multiply";
     },
-    //nirmala
-    // videoHandler: function (that) {
-    //     var video;
-    //     if (that.classList.contains("on")) {
-    //         that.classList.remove("on");
-    //         that.classList.add("off");
-    //         virtualclass.videoHost.gObj.videoSwitch = 0;
-    //         video = "off";
-    //         var tooltip = document.querySelector(".videoSwitchCont");
-    //         tooltip.dataset.title="turn video on"
-    //     } else {
-    //         that.classList.remove("off");
-    //         that.classList.add("on");
-    //         virtualclass.videoHost.gObj.videoSwitch = 1;
-    //         console.log("videoSwitch 1");
-    //         video = "on"
-    //         var tooltip = document.querySelector(".videoSwitchCont");
-    //         tooltip.dataset.title="turn video off"
-    //     }
-    //
-    //     ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
-    //
-    // },
+
 
     onmessage: function (msg) {
         console.log(msg);
@@ -271,6 +249,7 @@ var videoHost = {
 
     },
 
+    
     //nirmala
     //todo *to be called only if flag  available in localstorage
     //todo to modify later
@@ -290,7 +269,6 @@ var videoHost = {
 
         if (typeof videoSwitch != 'undefined' && videoSwitch) {
             virtualclass.videoHost.gObj.videoSwitch = +videoSwitch;
-
             if (roles.hasControls()) {
                 var sw = document.getElementById("videoSwitch");
                 if (sw) {
@@ -298,13 +276,17 @@ var videoHost = {
                         if (sw.classList.contains("off")) {
                             sw.classList.add("on");
                             sw.classList.remove("off");
+                            console.log('Video controller on');
                         }
                     } else {
                         if (sw.classList.contains("on")) {
+                            console.log('Video controller off');
                             sw.classList.add("off");
                             sw.classList.remove("on");
+                            if(virtualclass.gObj.meetingMode){
+                                virtualclass.multiVideo.disableVideo();
+                            }
                         }
-
                     }
                 }
 
@@ -325,6 +307,7 @@ var videoHost = {
 
                     if (stdVideoSwitch) {
                         virtualclass.videoHost.toggleStdVideoIcon('disable');
+                        virtualclass.multiVideo.disableVideo();
                     } else {
                         virtualclass.videoHost.toggleStdVideoIcon('enable');
                     }

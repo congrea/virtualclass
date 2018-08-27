@@ -1628,11 +1628,15 @@
                 /**
                  * Disable teacher video by default, when he/she will join first time
                  */
-                if(roles.hasControls() && localStorage.getItem('prevApp') == null){
-                    //virtualclass.vutil.videoHandler();
-                    virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off');
-                }
 
+                if(localStorage.getItem('prevApp') == null){
+                    if(roles.hasControls()){
+                        //virtualclass.vutil.videoHandler();
+                        virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off');
+                    }else if(virtualclass.gObj.meetingMode){
+                        virtualclass.vutil.videoHandler('off');
+                    }
+                }
             },
 
 

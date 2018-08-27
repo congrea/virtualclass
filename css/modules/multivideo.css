@@ -139,3 +139,20 @@
     max-height:261px;
     overflow-y:auto;
 }
+
+/* When Camera is not available*/
+#virtualclassCont.congrea.meetingmode.nowebcam #virtualclassAppRightPanel #videoConfrence {
+    display:none;
+} 
+
+#virtualclassCont.congrea.meetingmode.nowebcam #rightSubContainer,  #virtualclassCont.meetingmode.nowebcam #congreaChatMainCont {
+    height: calc(100% - 48px) !important;
+}
+
+#virtualclassCont.congrea.meetingmode.nowebcam #chat_div {
+    height: calc(100vh - 148px);
+}
+
+#virtualclassCont.congrea.meetingmode.nowebcam #chat_room {
+    height: calc(100vh - 160px);
+}

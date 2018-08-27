@@ -316,7 +316,7 @@
 @media (max-height: 768px){
   #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassOptionsCont{
     position:absolute;
-    top:100px; /* Changed from 73px */
+    top:80px; /* Changed from 73px */
   }
 }
 

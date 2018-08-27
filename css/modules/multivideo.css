@@ -123,10 +123,6 @@
     height: calc(100vh - 411px);
 }
 
-{
-    height: calc(100vh - 403px);
-}
-
 #virtualclassCont.congrea.meetingmode[data-totaluser="two"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="two"]  #congreaChatMainCont, #virtualclassCont.congrea.meetingmode[data-totaluser="four"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="four"]  #congreaChatMainCont, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="morethanfour"]  #congreaChatMainCont {
     height: calc(100% - 307px);
 }
@@ -142,4 +138,21 @@
 #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #videosWrapper {
     max-height:261px;
     overflow-y:auto;
+}
+
+/* When Camera is not available*/
+#virtualclassCont.congrea.meetingmode.nowebcam #virtualclassAppRightPanel #videoConfrence {
+    display:none;
+} 
+
+#virtualclassCont.congrea.meetingmode.nowebcam #rightSubContainer,  #virtualclassCont.meetingmode.nowebcam #congreaChatMainCont {
+    height: calc(100% - 48px) !important;
+}
+
+#virtualclassCont.congrea.meetingmode.nowebcam #chat_div {
+    height: calc(100vh - 148px);
+}
+
+#virtualclassCont.congrea.meetingmode.nowebcam #chat_room {
+    height: calc(100vh - 160px);
 }

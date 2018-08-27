@@ -59,6 +59,7 @@
         virtualclass.multiVideo.localStream = virtualclass.gObj.video.video.tempStream;
 
         _localStream = virtualclass.multiVideo.localStream;
+
         console.log('multivideo, add get user media ');
         selfView =  document.querySelector('#videoConfrence .multilocalVideo');
         // selfView.src = URL.createObjectURL(virtualclass.multiVideo.localStream);
@@ -148,15 +149,21 @@
 
     disableVideo : function (){
         setTimeout(() => {
-            var videoTracks = virtualclass.multiVideo.localStream.getVideoTracks();
-            if (videoTracks.length === 0) {
-                console.log("No local video available.");
-                return;
+            if(typeof virtualclass.multiVideo.localStream != 'undefined'){
+                var videoTracks = virtualclass.multiVideo.localStream.getVideoTracks();
+                if (videoTracks.length === 0) {
+                    console.log("No local video available.");
+                    return;
+                }
+                console.log("Toggling video mute state.");
+                for (var i = 0; i < videoTracks.length; ++i) {
+                    videoTracks[i].enabled = !videoTracks[i].enabled;
+                }
+            }else {
+                console.log('localStream is undefined');
             }
-            console.log("Toggling video mute state.");
-            for (var i = 0; i < videoTracks.length; ++i) {
-                videoTracks[i].enabled = !videoTracks[i].enabled;
-            }
+
+
         }, 1000);
         // this.pcClient_.sendCallstatsEvents(videoTracks[0].enabled ? "videoResume" : "videoPause");
         // trace("Video " + (videoTracks[0].enabled ? "unmuted." : "muted."));
@@ -217,7 +224,11 @@
     apc[to] = new RTCPeerConnection(pc_config);
     apc[to].onicecandidate = handleIceCandidateAnswerWrapper(to, 'opc');
     apc[to].onaddstream = handleRemoteStreamAdded(to);
-    apc[to].addStream(_localStream);
+    if(typeof _localStream != 'undefined'){
+        apc[to].addStream(_localStream);
+    }else {
+        console.log('_localStream is not defined');
+    }
     apc[to].setRemoteDescription(new RTCSessionDescription(signal.sdp), setRemoteDescriptionSuccess, setRemoteDescriptionError);
     console.log('multivideo, addStream and setRemoteDescription for' + to);
     apc[to].createAnswer(function (desc){
@@ -277,8 +288,12 @@
     opc[juser] = new RTCPeerConnection(pc_config);
     opc[juser].onicecandidate = handleIceCandidateAnswerWrapper(juser, 'apc');
     opc[juser].onaddstream = handleRemoteStreamAdded(juser)
-    opc[juser].addStream(_localStream);
-    console.log('multivideo, Set addStream for ' + juser);
+    if(typeof _localStream != 'undefined'){
+        opc[juser].addStream(_localStream);
+        console.log('multivideo, Set addStream for ' + juser);
+    }else {
+        console.log('No _localStream  for ' + juser);
+    }
 
     function gotOfferDescription(desc) {
       opc[juser].setLocalDescription(desc);

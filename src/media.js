@@ -202,7 +202,7 @@
                 },
 
                 initAudiocontext : function (){
-                    if(!this.hasOwnProperty('Html5Audio')){
+                    if(!this.hasOwnProperty('Html5Audio') && !virtualclass.gObj.meetingMode){
                         this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
                         this.resampler = new Resampler(virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
                         virtualclass.gObj.isAudioContextReady = true;

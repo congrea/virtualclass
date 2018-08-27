@@ -612,7 +612,7 @@
   color:red;
 }
 #virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel span#videoSwitch.video.on:before {
-  content : "\e97b";
+  content : "\e987";
   font-weight : normal;
   font-size : 11px;
   color:gray;
@@ -658,7 +658,7 @@
 
 #virtualclassCont.congrea #virtualclassMultiVideoTool .icon-videoConfrence:before {
   content: "\f0c0";
-  font-size: 20px;
+  font-size: 18px;
   color: #eee !important;
   position: relative;
   top: 2px;

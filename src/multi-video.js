@@ -11,6 +11,8 @@
       this.UI.container();
       this.start();
       var videosWrapper = document.querySelector('#videosWrapper .videoCont.selfVideo');
+      videosWrapper.id = 'vid'+virtualclass.gObj.uid;
+
       videosWrapper.setAttribute('data-userid', virtualclass.gObj.uid);
       var that = this;
       userStreams[virtualclass.gObj.uid] = virtualclass.multiVideo.localStream;
@@ -25,7 +27,7 @@
       var videoSwitch = localStorage.getItem('videoSwitch')
       if(videoSwitch != null){
           if(videoSwitch == '0'){
-              virtualclass.multiVideo.disableVideo();
+              virtualclass.multiVideo.toggleVideoStatus(virtualclass.gObj.uid);
           }
       }
     },
@@ -147,17 +149,42 @@
         }
     },
 
-    disableVideo : function (){
+      toggleVideoStatus : function (uid){
         setTimeout(() => {
             if(typeof virtualclass.multiVideo.localStream != 'undefined'){
+                var videoWrapper = document.querySelector('#vid'+uid);
+
+
                 var videoTracks = virtualclass.multiVideo.localStream.getVideoTracks();
+
                 if (videoTracks.length === 0) {
                     console.log("No local video available.");
                     return;
                 }
                 console.log("Toggling video mute state.");
+                var dispClass;
                 for (var i = 0; i < videoTracks.length; ++i) {
                     videoTracks[i].enabled = !videoTracks[i].enabled;
+
+                    if(videoWrapper != null){
+                        if(!videoTracks[i].enabled){
+                            dispClass = 'vhide';
+                            videoWrapper.classList.remove('vshow');
+                        }else {
+                            dispClass = 'vshow';
+                            videoWrapper.classList.remove('vhide');
+                        }
+
+                        videoWrapper.classList.add(dispClass);
+
+                        var videoConfrence = document.querySelector('#videoConfrence');
+                        var activeVideos = document.querySelectorAll('#videosWrapper .videoCont.vshow');
+
+                        if(videoConfrence != null){
+                            videoConfrence.dataset.activeuser = 'vid_' + activeVideos.length;
+                        }
+                    }
+
                 }
             }else {
                 console.log('localStream is undefined');
@@ -169,10 +196,14 @@
         // trace("Video " + (videoTracks[0].enabled ? "unmuted." : "muted."));
     },
 
+    addClass : function (){
+
+    }
+
   };
 
-  var apc = {};
-  var opc = {};
+   apc = {};
+   opc = {};
 
   var pc;
   var pc_config = window.webrtcDetectedBrowser === 'firefox' ?
@@ -259,7 +290,7 @@
     // var mvideo = document.querySelector('#mvideo'+userid);
     virtualclass.multiVideo.removeUser(userid);
 
-    var $videoCont = $("<div class='videoCont remoteVideo' data-userid='"+userid+"' data-totaluser=''></div>");
+    var $videoCont = $("<div class='videoCont remoteVideo'  id='vid"+userid+"' data-userid='"+userid+"' data-totaluser=''></div>");
     $video = $("<video  class='videoBox' autoplay></video>");
     $video.attr({"src": window.URL.createObjectURL(stream), "autoplay": "autoplay"});
     $videoCont.append($video);
@@ -274,6 +305,8 @@
             MultiVideo.UI.displayMainVideo(this);
         }
     );
+
+    var userid
 
   }
 

@@ -284,7 +284,7 @@ var videoHost = {
                             sw.classList.add("off");
                             sw.classList.remove("on");
                             if(virtualclass.gObj.meetingMode){
-                                virtualclass.multiVideo.disableVideo();
+                                virtualclass.multiVideo.toggleVideoStatus();
                             }
                         }
                     }
@@ -307,7 +307,7 @@ var videoHost = {
 
                     if (stdVideoSwitch) {
                         virtualclass.videoHost.toggleStdVideoIcon('disable');
-                        virtualclass.multiVideo.disableVideo();
+                        virtualclass.multiVideo.toggleVideoStatus()
                     } else {
                         virtualclass.videoHost.toggleStdVideoIcon('enable');
                     }

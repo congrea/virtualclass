@@ -129,6 +129,9 @@
                 virtualclass.wb[id].canvas.bind('mousedown', virtualclass.wb[id].utility.ev_canvas);
                 virtualclass.wb[id].canvas.bind('mousemove', virtualclass.wb[id].utility.ev_canvas);
                 virtualclass.wb[id].canvas.bind('mouseup', virtualclass.wb[id].utility.ev_canvas);
+                virtualclass.wb[id].canvas.bind('touchstart', virtualclass.wb[id].utility.ev_canvas);
+                virtualclass.wb[id].canvas.bind('touchmove', virtualclass.wb[id].utility.ev_canvas);
+                virtualclass.wb[id].canvas.bind('touchend', virtualclass.wb[id].utility.ev_canvas);
             },
             /**
              * Call the function through which

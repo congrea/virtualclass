@@ -38,7 +38,32 @@
          * This function called when user selected particular tool eg:- rectangle, line and clicked over the canvas
          *
          */
-        tool.mousedown = function (ev, cobj) {
+        
+        
+        tool.mousedown= function(ev,cobj){
+            tool._mousedown(ev, cobj);
+        }
+        tool.mousemove= function(ev, mouseup){
+             tool._mousemove(ev, mouseup);
+        }
+        tool.mouseup= function(ev, cobj){
+             tool._mouseup(ev, cobj);
+        }
+        tool.touchstart= function(ev,cobj){
+            // in case we need to add some additional functionality for touch
+            tool._mousedown(ev, cobj);
+            ev.preventDefault()
+        }
+        tool.touchmove= function(ev, mouseup){
+             tool._mousemove(ev, mouseup);
+               ev.preventDefault();
+        }
+        tool.touchend= function(ev, cobj){
+            tool._mouseup(ev, cobj);
+            ev.preventDefault();
+        }
+        
+        tool._mousedown = function (ev, cobj) {
             // console.log('Whiteboard draw down');
 
             var wId = virtualclass.gObj.currWb;
@@ -119,7 +144,7 @@
          * object and stored drawn object into replayObjs array
          * @param expects mousemove event
          */
-        tool.mousemove = function (ev, mouseup) {
+        tool._mousemove = function (ev, mouseup) {
             // console.log('Whiteboard draw move');
             if (ev.detail.hasOwnProperty('cevent')) {
                 ev = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(ev);
@@ -244,7 +269,7 @@
          *  This function does finalize the object
          *  with last made object very specail
          */
-        tool.mouseup = function (ev, cobj) {
+        tool._mouseup = function (ev, cobj) {
             //console.log('Whiteboard draw up');
             if (ev.detail.hasOwnProperty('cevent')) {
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);

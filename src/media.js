@@ -1505,17 +1505,19 @@
                         if(virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS'){
                             var webcam = true;
                         }else {
+                            // 320 * 240
                             var webcam = { width : {
-                                max :  288
+                                max :  268
                             },
 
                             height : {
-                                max :  162
+                                max :  142
                             },
 
                             frameRate : {
                                 max :  6
                             }}
+                           // webcam = true;
                         }
                     }
                 }

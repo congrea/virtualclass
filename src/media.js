@@ -1497,18 +1497,26 @@
 
                 /**
                 * Reduce the resolution and video frame rate to optimization CPU resource
+                 *
                 **/
+
                 if(virtualclass.gObj.meetingMode){
                     if(webcam){
-                        var webcam = { width : {
-                            max :  288
-                        },
-                        height : {
-                            max :  162
-                        },
-                        frameRate : {
-                            max :  6
-                        }}
+                        if(virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS'){
+                            var webcam = true;
+                        }else {
+                            var webcam = { width : {
+                                max :  288
+                            },
+
+                            height : {
+                                max :  162
+                            },
+
+                            frameRate : {
+                                max :  6
+                            }}
+                        }
                     }
                 }
 

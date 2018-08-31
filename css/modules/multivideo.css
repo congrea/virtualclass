@@ -94,6 +94,8 @@
 }
 
 
+
+
 #virtualclassCont.congrea #videoMainPreview {
   position: absolute;
   left: calc(50% - 120px);
@@ -155,4 +157,13 @@
 
 #virtualclassCont.congrea.meetingmode.nowebcam #chat_room {
     height: calc(100vh - 160px);
+}
+
+
+#virtualclassCont.congrea.meetingmode[data-totaluser="one"] .vshow {
+    display : block;
+}
+
+#virtualclassCont.congrea.meetingmode[data-totaluser="one"] .vhide {
+    display : none;
 }

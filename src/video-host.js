@@ -259,14 +259,21 @@ var videoHost = {
              videoSwitch = localStorage.getItem("videoSwitch");
              localStorage.removeItem("videoSwitch");
         }else{
-            var stdVideoSwitch = JSON.parse(localStorage.getItem("stdVideoSwitch"));
+            var stdSwitch = localStorage.getItem("stdVideoSwitch");
+            var stdVideoSwitch = (stdSwitch != null && (stdSwitch != 'undefined'))  ? JSON.parse(stdSwitch) : false;
+
             localStorage.removeItem("stdVideoSwitch");
 
-            var allStdVideoOff = JSON.parse(localStorage.getItem("allStdVideoOff"));
+            let allStdvideo = localStorage.getItem("allStdVideoOff");
+
+            var allStdVideoOff = (allStdvideo != null && allStdvideo != 'undefined' ) ? JSON.parse(allStdvideo) : false;
             virtualclass.videoHost.gObj.allStdVideoOff =allStdVideoOff;
             localStorage.removeItem("stdVideoSwitch");
         }
 
+        /** TODO
+         * videoHandler at utility.js and below block should be merged
+         * **/
         if (typeof videoSwitch != 'undefined' && videoSwitch) {
             virtualclass.videoHost.gObj.videoSwitch = +videoSwitch;
             if (roles.hasControls()) {
@@ -284,7 +291,7 @@ var videoHost = {
                             sw.classList.add("off");
                             sw.classList.remove("on");
                             if(virtualclass.gObj.meetingMode){
-                                virtualclass.multiVideo.toggleVideoStatus();
+                                virtualclass.multiVideo.setVideoStatus(false);
                             }
                         }
                     }
@@ -307,7 +314,7 @@ var videoHost = {
 
                     if (stdVideoSwitch) {
                         virtualclass.videoHost.toggleStdVideoIcon('disable');
-                        virtualclass.multiVideo.toggleVideoStatus()
+                        virtualclass.multiVideo.setVideoStatus(false);
                     } else {
                         virtualclass.videoHost.toggleStdVideoIcon('enable');
                     }

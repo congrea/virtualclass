@@ -364,12 +364,15 @@
                         var tag = document.getElementById(this.id);
                         // var anchor = tag.getElementsByClassName('tooltip')[0];
                         // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                        let action;
                         if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
                             virtualclass.vutil.audioStatus(tag, "true");
+                            action = true;
                         } else {
                             virtualclass.vutil.audioStatus(tag, "false");
+                            action = false;
                         }
-                        virtualclass.multiVideo.disableAudio();
+                        virtualclass.multiVideo.setAudioStatus(action);
                     } else {
                         var that = virtualclass.gObj.video.audio;
                         if (this.id == 'speakerPressOnce') {

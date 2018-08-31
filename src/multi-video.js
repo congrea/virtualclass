@@ -21,13 +21,21 @@
       });
 
       this.updateVideoLength();
-      var tag = document.querySelector('#speakerPressOnce');
 
-      virtualclass.vutil.audioStatus(tag, "true");
-      var videoSwitch = localStorage.getItem('videoSwitch')
+       // if(virtualclass.gObj.audioEnable){
+       //     var tag = document.querySelector('#speakerPressOnce');
+       //     virtualclass.vutil.audioStatus(tag, "true");
+       // }
+
+
+
+      this.setAudioStatus(false);
+
+      var videoSwitch = localStorage.getItem('videoSwitch');
+
       if(videoSwitch != null){
           if(videoSwitch == '0'){
-              virtualclass.multiVideo.toggleVideoStatus(virtualclass.gObj.uid);
+              virtualclass.multiVideo.setVideoStatus(false);
           }
       }
     },
@@ -117,25 +125,37 @@
     onUserRemove : function (userId){
       this.removeUser(userId);
       this.updateVideoLength();
+      if(typeof apc[userId] == 'object'){
+          apc[userId].close();
+      }
+
+      if(typeof opc[userId] == 'object'){
+          opc[userId].close();
+      }
+      // delete apc[userId];
+      // delete opc[userId];
       // delete userStreams[userId];
     },
 
     updateVideoLength : function (){
         var allVideos = document.querySelectorAll('#videoConfrence .videoCont');
-        var videoConfrence = document.querySelector('#videoConfrence');
+
+        var users = 'one';
         if(allVideos.length > 4){
             var users = 'morethanfour';
         } else if(allVideos.length > 2) {
             var users = 'four';
         } else if(allVideos.length > 1)  {
             var users = 'two';
-        }else {
-            var users = 'one';
         }
+
         var virtualclassCont = document.querySelector('#virtualclassCont');
+        var videoConfrence = document.querySelector('#videoConfrence');
         virtualclassCont.setAttribute('data-totalUser', users);
         videoConfrence.setAttribute('data-totalUser', users);
     },
+
+
 
     disableAudio : function (){
         var audioTracks = virtualclass.multiVideo.localStream.getAudioTracks();
@@ -149,10 +169,24 @@
         }
     },
 
-      toggleVideoStatus : function (uid){
+      setAudioStatus : function (action){
+          var audioTracks = virtualclass.multiVideo.localStream.getAudioTracks();
+          if (audioTracks.length === 0) {
+              console.log("No local audio available.");
+              return;
+          }
+
+          for (var i = 0; i < audioTracks.length; ++i) {
+              audioTracks[i].enabled = action;
+          }
+      },
+
+
+
+      setVideoStatus : function (action){
         setTimeout(() => {
             if(typeof virtualclass.multiVideo.localStream != 'undefined'){
-                var videoWrapper = document.querySelector('#vid'+uid);
+                var videoWrapper = document.querySelector('#vid'+virtualclass.gObj.uid);
 
 
                 var videoTracks = virtualclass.multiVideo.localStream.getVideoTracks();
@@ -164,7 +198,7 @@
                 console.log("Toggling video mute state.");
                 var dispClass;
                 for (var i = 0; i < videoTracks.length; ++i) {
-                    videoTracks[i].enabled = !videoTracks[i].enabled;
+                    videoTracks[i].enabled = action;
 
                     if(videoWrapper != null){
                         if(!videoTracks[i].enabled){
@@ -255,6 +289,7 @@
     apc[to] = new RTCPeerConnection(pc_config);
     apc[to].onicecandidate = handleIceCandidateAnswerWrapper(to, 'opc');
     apc[to].onaddstream = handleRemoteStreamAdded(to);
+
     if(typeof _localStream != 'undefined'){
         apc[to].addStream(_localStream);
     }else {
@@ -285,6 +320,48 @@
     }
   }
 
+    var updateActiveUsers = function (){
+        var tusers = 0;
+        let video;
+
+        for (let uid in userStreams ){
+            video = userStreams[uid].getVideoTracks()[0];
+            var videosWrapper = document.querySelector('#vid' + uid);
+            if(video != null){
+                tusers++;
+                if(videosWrapper != null){
+                    videosWrapper.classList.add('vshow');
+                    videosWrapper.classList.remove('vhide');
+                }else {
+                    console.log('Meeting mode is null');
+                }
+
+            }else {
+                if(videosWrapper != null){
+                    videosWrapper.classList.add('vhide');
+                    videosWrapper.classList.remove('vshow');
+                }else {
+                    console.log('Meeting mode is null');
+                }
+            }
+        }
+
+        var users = 'one';
+        if(tusers > 4){
+            users = 'morethanfour';
+        } else if(tusers > 2) {
+            users = 'four';
+        } else if(tusers > 1)  {
+            users = 'two';
+        }
+
+
+        var virtualclassCont = document.querySelector('#virtualclassCont');
+        var videoConfrence = document.querySelector('#videoConfrence');
+        virtualclassCont.setAttribute('data-totalUser', users);
+        videoConfrence.setAttribute('data-totalUser', users);
+    }
+
   function addRemoteVideo(stream, userid){
     userStreams[userid] = stream;
     // var mvideo = document.querySelector('#mvideo'+userid);
@@ -306,9 +383,16 @@
         }
     );
 
-    var userid
+    if(typeof updateActiveTime != 'undefined'){
+        clearTimeout(updateActiveTime);
+    }
+        updateActiveTime = setTimeout(()=> {
+            updateActiveUsers();
+        }, 3000);
 
   }
+
+
 
   function handleRemoteStreamAdded(from) {
     return function(event) {
@@ -321,6 +405,7 @@
     opc[juser] = new RTCPeerConnection(pc_config);
     opc[juser].onicecandidate = handleIceCandidateAnswerWrapper(juser, 'apc');
     opc[juser].onaddstream = handleRemoteStreamAdded(juser)
+
     if(typeof _localStream != 'undefined'){
         opc[juser].addStream(_localStream);
         console.log('multivideo, Set addStream for ' + juser);
@@ -341,7 +426,16 @@
   }
 
   MultiVideo.onUserJoin = function (juser) {
-    _createOffer(juser);
+      /**
+       * TODO remove the setTimeout
+       *  Settimeout is done because, once all users are connected
+       *  and one of these user does page refresh,
+       *  then his/her video does not get shown at other side
+       * **/
+    setTimeout(() => {
+        _createOffer(juser);
+    },2000)
+
   }
 
   window.MultiVideo = MultiVideo;

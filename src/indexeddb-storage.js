@@ -805,11 +805,11 @@
                     }
                 }
 
-                var muteAll = document.querySelector(".congrea .slider.icon-all-audio-enable");
+                var muteAll = document.querySelector(".congrea .slider.icon-all-audio-disable");
                 if(muteAll){
-                    muteAll.className= "slider round congtooltip icon-all-audio-disable";
-                    muteAll.setAttribute('data-action','disable');
-                    muteAll.setAttribute('data-title','Mute All');
+                    muteAll.className= "slider round congtooltip icon-all-audio-enable";
+                    muteAll.setAttribute('data-action','enable');
+                    muteAll.setAttribute('data-title','Unmute all');
                 }
                 var disVideoAll = document.querySelector(".congrea .slider.icon-all-video-enable");
                 if(disVideoAll){
@@ -819,17 +819,33 @@
                 }
 
                 var audio = document.querySelector(".congrea #contrAudioAll.enable");
-                if(audio){
-                    audio.classList.remove("enable");
-                    audio.classList.add("disable");
+                var audiodis = document.querySelector(".congrea #contrAudioAll.disable");
+                // if(audio){
+                //     audio.classList.remove("enable");
+                //     audio.classList.add("disable");
+                //     var chbox = document.querySelector(".congrea #contrAudioAll input")
+                //     if(chbox){
+                //         chbox.removeAttribute("checked");
+                //     }
+                //
+                //   //  var chbox = document.querySelector(".congrea #usersMuteSwitch input");
+                //
+                // }else
+                    if(audiodis){
+                        audiodis.classList.remove("disable");
+                        audiodis.classList.add("enable");
                     var chbox = document.querySelector(".congrea #contrAudioAll input")
                     if(chbox){
                         chbox.removeAttribute("checked");
                     }
-
-                  //  var chbox = document.querySelector(".congrea #usersMuteSwitch input");
-
                 }
+                if(roles.isStudent()) {
+                    var elem = document.querySelector("#speakerPressOnce");
+                    if (elem.classList.contains("deactive")) {
+                        virtualclass.user.control.audioDisable();
+                    }
+                }
+
                 var video = document.querySelector(".congrea #contrVideoAll.enable");
                 if(video){
                     video.classList.remove("enable");

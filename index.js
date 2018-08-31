@@ -1311,6 +1311,19 @@ $(document).ready(function () {
                 }
             };
 
+            //enable all std audio
+            this.Aena = function (e){
+                virtualclass.user.control.audioWidgetEnable(true);
+                virtualclass.gObj.audioEnable = true;
+            };
+
+            // disable all std audio
+            this.Adia = function (e){
+                virtualclass.user.control.audioDisable();
+                virtualclass.gObj.audioEnable = false;
+
+            };
+
             //chat message update
             this.msg = function (e) {
                 messageUpdate(e);  //chat update

@@ -1566,23 +1566,38 @@
                 localStorage.removeItem('dvid');
                 var audioWiget = document.getElementById('audioWidget');
                 var audio = localStorage.getItem('audEnable');
-
-                if(virtualclass.system.mediaDevices.hasMicrophone){
-                    virtualclass.gObj.video.audioVisual.readyForVisual(stream);
-                    if(audio != null){
+                //var mic = localStorage.getItem('stdaudioEnable');
+                if(roles.isStudent()){
+                    if (audio != null) {
                         audio = JSON.parse(audio);
-                        if((audio.ac == 'false' || audio.ac == false)){
+                        if ((audio.ac == 'false' || audio.ac == false)) {
                             virtualclass.gObj.audioEnable = false;
                             virtualclass.user.control.audioDisable(true);
-                        }else if(audio.ac == 'true' || audio.ac == true){
+                        } else if (audio.ac == 'true' || audio.ac == true) {
                             virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
-                    } else if(typeof stream != 'undefined'){
-                        virtualclass.user.control.audioWidgetEnable(true);
+                    }else if(!virtualclass.gObj.stdaudioEnable){
+                        virtualclass.user.control.audioDisable();
                     }
-                } else {
-                    virtualclass.user.control.audioDisable();
+                }else {
+                    if (virtualclass.system.mediaDevices.hasMicrophone) {
+                        virtualclass.gObj.video.audioVisual.readyForVisual(stream);
+                        if (audio != null) {
+                            audio = JSON.parse(audio);
+                            if ((audio.ac == 'false' || audio.ac == false)) {
+                                virtualclass.gObj.audioEnable = false;
+                                virtualclass.user.control.audioDisable(true);
+                            } else if (audio.ac == 'true' || audio.ac == true) {
+                                virtualclass.gObj.audioEnable = true;
+                                virtualclass.user.control.audioWidgetEnable(true);
+                            }
+                        } else if (typeof stream != 'undefined') {
+                            virtualclass.user.control.audioWidgetEnable(true);
+                        }
+                    } else {
+                        virtualclass.user.control.audioDisable();
+                    }
                 }
 
                 var that = this;

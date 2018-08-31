@@ -311,6 +311,17 @@
     top: 551px;
     left: -5px;
   }
+    #virtualclassCont.congrea.meetingmode #dashboardnav {
+    top: 571px;
+  }
+    #virtualclassCont.congrea.meetingmode #dashboardnav .clicked i.dashboard-icon:before{
+        font-size:20px;
+    }
+
+    #virtualclassCont.meetingmode #dashboardnav .btn-primary {
+        width:44px !important;
+        height:44px !important;
+    }
 }
 
 @media (max-height: 768px){
@@ -325,15 +336,22 @@
     position:absolute;
     top: 80px;
   }
-  #virtualclassCont.congrea.teacher[data-currapp="Video"] #virtualclassAppLeftPanel #virtualclassOptionsCont,
-  #virtualclassCont.congrea.teacher[data-currapp="SharePresentation"] #virtualclassAppLeftPanel #virtualclassOptionsCont,
-  #virtualclassCont.congrea.teacher[data-currapp="DocumentShare"] #virtualclassAppLeftPanel #virtualclassOptionsCont{
+    #virtualclassCont.congrea.meetingmode #virtualclassAppLeftPanel #virtualclassOptionsCont{
     position:absolute;
-    top: 80px;
+    top: 53px;
+  }
+  #virtualclassCont.congrea.meetingmode.teacher[data-currapp="Video"] #virtualclassAppLeftPanel #virtualclassOptionsCont,
+  #virtualclassCont.congrea.meetingmode.teacher[data-currapp="SharePresentation"] #virtualclassAppLeftPanel #virtualclassOptionsCont,
+  #virtualclassCont.congrea.meetingmode.teacher[data-currapp="DocumentShare"] #virtualclassAppLeftPanel #virtualclassOptionsCont{
+    position:absolute;
+    top: 53px;
   }
   #virtualclassCont.congrea #pptuploadContainer{
     top:10px;
   }
+    #virtualclassCont.congrea.meetingmode i.dashboard-icon:before {
+        font-size:20px;
+    }
 }
 
 #virtualclassCont.congrea .currentNav .mainpreview {

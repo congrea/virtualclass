@@ -15293,7 +15293,7 @@
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       classCallCheck(this, VolumeControl);
 
-      options.vertical = options.vertical || false;
+      options.vertical = true;
 
       // Pass the vertical option down to the VolumeBar if
       // the VolumeBar is turned on.
@@ -15662,7 +15662,7 @@
 
 
     VolumePanel.prototype.createEl = function createEl() {
-      var orientationClass = 'vjs-volume-panel-horizontal';
+      var orientationClass = 'vjs-volume-panel-vertical';
 
       if (!this.options_.inline) {
         orientationClass = 'vjs-volume-panel-vertical';

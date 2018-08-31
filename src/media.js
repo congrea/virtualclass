@@ -202,7 +202,7 @@
                 },
 
                 initAudiocontext : function (){
-                    if(!this.hasOwnProperty('Html5Audio')){
+                    if(!this.hasOwnProperty('Html5Audio') && !virtualclass.gObj.meetingMode){
                         this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
                         this.resampler = new Resampler(virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
                         virtualclass.gObj.isAudioContextReady = true;
@@ -364,12 +364,15 @@
                         var tag = document.getElementById(this.id);
                         // var anchor = tag.getElementsByClassName('tooltip')[0];
                         // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                        let action;
                         if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
                             virtualclass.vutil.audioStatus(tag, "true");
+                            action = true;
                         } else {
                             virtualclass.vutil.audioStatus(tag, "false");
+                            action = false;
                         }
-                        virtualclass.multiVideo.disableAudio();
+                        virtualclass.multiVideo.setAudioStatus(action);
                     } else {
                         var that = virtualclass.gObj.video.audio;
                         if (this.id == 'speakerPressOnce') {
@@ -1494,18 +1497,26 @@
 
                 /**
                 * Reduce the resolution and video frame rate to optimization CPU resource
+                 *
                 **/
+
                 if(virtualclass.gObj.meetingMode){
                     if(webcam){
-                        var webcam = { width : {
-                            max :  288
-                        },
-                        height : {
-                            max :  162
-                        },
-                        frameRate : {
-                            max :  6
-                        }}
+                        if(virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS'){
+                            var webcam = true;
+                        }else {
+                            var webcam = { width : {
+                                max :  288
+                            },
+
+                            height : {
+                                max :  162
+                            },
+
+                            frameRate : {
+                                max :  6
+                            }}
+                        }
                     }
                 }
 

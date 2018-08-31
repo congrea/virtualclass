@@ -2329,7 +2329,8 @@
             }
 
             if(virtualclass.gObj.meetingMode){
-                virtualclass.multiVideo.disableVideo();
+                let vaction = (action == "off") ? false : true;
+                virtualclass.multiVideo.setVideoStatus(vaction);
             }else if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()){
                 ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
             }

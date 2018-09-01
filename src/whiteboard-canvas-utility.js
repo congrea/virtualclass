@@ -131,16 +131,32 @@ newScrollVal = 0;
              * returns horizontal position
              */
             pointerX: function (event) {
+                var ev = event.type.indexOf("touch") >= 0 ? 'touch' : 'mouse';
                 // console.log('Actual pointer clientX ' + event.clientX);
                 /* TODO follow the standard as framework done */
                 var docElement = document.documentElement,
-                    body = document.body || {scrollLeft: 0};
+                        body = document.body || {scrollLeft: 0};
                 // looks like in IE (<9) clientX at certain point (apparently when mouseup fires on VML element)
                 // is represented as COM object, with all the consequences, like "unknown" type and error on [[Get]]
                 // need to investigate later
-                return ((typeof event.clientX != 'unknown' ? event.clientX : 0) +
-                    (docElement.scrollLeft || body.scrollLeft) -
-                    (docElement.clientLeft || 0));
+                //todo to simplify
+                if (ev == 'mouse') {
+                    return ((typeof event.clientX != 'undefined' ? event.clientX : 0) +
+                            (docElement.scrollLeft || body.scrollLeft) -
+                            (docElement.clientLeft || 0));
+
+                } else {
+                    if (event.type = 'touchend') {
+                        return ((event.changedTouches[0] && typeof event.changedTouches[0].clientX != 'undefined' ? event.changedTouches[0].clientX : 0) +
+                                (docElement.scrollLeft || body.scrollLeft) -
+                                (docElement.clientLeft || 0));
+                    } else {
+                        return ((event.targetTouches[0] && typeof event.targetTouches[0].clientX != 'undefined' ? event.targetTouches[0].clientX : 0) +
+                                (docElement.scrollLeft || body.scrollLeft) -
+                                (docElement.clientLeft || 0));
+                    }
+
+                }
             },
             /**
              * Gets the actual vertical position
@@ -159,15 +175,25 @@ newScrollVal = 0;
             },
 
             pointerY: function (event) {
+                var ev = event.type.indexOf("touch") >= 0 ? 'touch' : 'mouse';
                 // console.log('Actual pointer clientY ' + event.clientY);
                 /*TODO follow the standard as framework done*/
                 var docElement = document.documentElement,
-                    body = document.body || {scrollTop: 0};
-                newScrollVal =  (docElement.scrollTop || body.scrollTop) - (docElement.clientTop || 0);
+                body = document.body || {scrollTop: 0};
+                newScrollVal = (docElement.scrollTop || body.scrollTop) - (docElement.clientTop || 0);
                 // if(!roles.hasControls()){
                 //     newScrollVal = 0;
                 // }
-                return (typeof event.clientY != 'unknown' ? event.clientY : 0) + newScrollVal;
+                if (ev == 'mouse') {
+                    return (typeof event.clientY != 'undefined' ? event.clientY : 0) + newScrollVal;
+                } else {
+
+                    if (event.type = 'touchend') {
+                        return (event.changedTouches[0] && typeof event.changedTouches[0].clientY != 'undefined' ? event.changedTouches[0].clientY : 0) + newScrollVal;
+                    } else {
+                        return (event.targetTouches[0] && typeof event.targetTouches[0].clientY != 'undefined' ? event.targetTouches[0].clientY : 0) + newScrollVal;
+                    }
+                }
             },
             /**
              * Returns pointer coordinates relative to canvas.

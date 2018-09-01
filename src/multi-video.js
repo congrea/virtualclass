@@ -156,19 +156,6 @@
     },
 
 
-
-    disableAudio : function (){
-        var audioTracks = virtualclass.multiVideo.localStream.getAudioTracks();
-        if (audioTracks.length === 0) {
-            console.log("No local audio available.");
-            return;
-        }
-
-        for (var i = 0; i < audioTracks.length; ++i) {
-            audioTracks[i].enabled = !audioTracks[i].enabled;
-        }
-    },
-
       setAudioStatus : function (action){
           var audioTracks = virtualclass.multiVideo.localStream.getAudioTracks();
           if (audioTracks.length === 0) {
@@ -180,8 +167,6 @@
               audioTracks[i].enabled = action;
           }
       },
-
-
 
       setVideoStatus : function (action){
         setTimeout(() => {

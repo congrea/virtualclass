@@ -334,7 +334,10 @@ var newCanvas;
                         mediaSource: 'window'
                     }
                 };
-                virtualclass.adpt = new virtualclass.adapter();
+                if(virtualclass.adpt == null){
+                    virtualclass.adpt = new virtualclass.adapter();
+                }
+
                 var navigator2 = virtualclass.adpt.init(navigator);
 
                 navigator2.mediaDevices.getUserMedia(constraints).then(function (stream) {

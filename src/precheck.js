@@ -65,14 +65,12 @@ var precheck = {
                     virtualclass.videoHost.afterSessionJoin();
                 }
 
-                // if(virtualclass.precheck.currTest== 'speaker'){
-                    var testAudio = document.getElementById('vcSpeakerCheckAudio');
-                    if(testAudio){
-                        testAudio.pause();
-                        testAudio.currentTime = 0
-                    }
+                var testAudio = document.getElementById('vcSpeakerCheckAudio');
+                if(testAudio){
+                    testAudio.pause();
+                    testAudio.currentTime = 0
+                }
 
-                // }
                 virtualclass.gObj.precheckScrn=false;
             });
         }
@@ -272,6 +270,7 @@ var precheck = {
 
             cNavigator.mediaDevices.getUserMedia(session).then(function (stream) {
                 virtualclass.precheck.mediaStream = stream;
+                virtualclass.gObj.video.audioVisual.readyForVisual(stream);
             });
         },
 

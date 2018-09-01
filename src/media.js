@@ -1560,7 +1560,8 @@
                 var audio = localStorage.getItem('audEnable');
 
                 if(virtualclass.system.mediaDevices.hasMicrophone){
-                    virtualclass.gObj.video.audioVisual.readyForVisual(stream);
+                    // virtualclass.gObj.video.audioVisual.readyForVisual(stream);
+
                     if(audio != null){
                         audio = JSON.parse(audio);
                         if((audio.ac == 'false' || audio.ac == false)){

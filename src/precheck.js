@@ -75,10 +75,10 @@ var precheck = {
                 // }
                 virtualclass.gObj.precheckScrn=false;
             });
-
         }
-
     },
+
+
 
     cancelRequestAnimation : function (){
         if(virtualclass.precheck.hasOwnProperty('reqAnimationFrame')){
@@ -260,6 +260,19 @@ var precheck = {
                 virtualclass.precheck.initHandler((preCheck+ ' #'+that.curr + 'Buttons .next'), that.curr);
 
             });
+
+            var webcam, session;
+            [webcam, session] = virtualclass.gObj.video.sessionConstraints();
+
+            if(virtualclass.adpt == null){
+                virtualclass.adpt = new virtualclass.adapter();
+            }
+
+            cNavigator = virtualclass.adpt.init(navigator);
+
+            cNavigator.mediaDevices.getUserMedia(session).then(function (stream) {
+                virtualclass.precheck.mediaStream = stream;
+            });
         },
 
         bandWidthInWords : function (speed){
@@ -365,6 +378,9 @@ var precheck = {
         curr : 'mic',
         next : 'webcam',
         perform : function (){
+
+
+
             var preCheck = "#preCheckcontainer .precheck";
             //virtualclass.precheck.updateProgressBar(this.curr);
             virtualclass.precheck.display(preCheck + '.'+this.curr);
@@ -578,13 +594,12 @@ var precheck = {
             var tempVideo = document.getElementById("webcamTempVideo");
             tempVideo.width = 320;
             tempVideo.height = 240;
-            if(typeof  cthis.video.tempStream != 'undefined'){
-                virtualclass.adpt.attachMediaStream(tempVideo,  cthis.video.tempStream);
-                tempVideo.muted = true;
-                var videoContainer = document.getElementById('webcamTempVideo');
-                if(videoContainer != null){
-                    tempVideo.play();
-                }
+
+            virtualclass.adpt.attachMediaStream(tempVideo,  virtualclass.precheck.mediaStream);
+            tempVideo.muted = true;
+            var videoContainer = document.getElementById('webcamTempVideo');
+            if(videoContainer != null) {
+                tempVideo.play();
             }
         }
     },

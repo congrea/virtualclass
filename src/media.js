@@ -79,7 +79,11 @@
             oneExecuted: false,
             videoControlId: 'videoContainer',
             videoContainerId: "videos",
-
+            CONFIG : {
+                width :  { max :  268 },
+                height : { max :  142 },
+                frameRate : { max :  6 }
+            },
 
             /**
              * Replaces image with  video
@@ -1456,6 +1460,34 @@
                 }
             },
 
+            sessionConstraints : function (){
+                var webcam = virtualclass.system.mediaDevices.hasWebcam ? true : false;
+
+                /**
+                 * Reduce the resolution and video frame rate to optimization CPU resource
+                 *
+                 **/
+
+                if(virtualclass.gObj.meetingMode && webcam){
+                    if(virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS'){
+                        var webcam = true;
+                    }else {
+                        // 320 * 240
+                        var webcam = this.CONFIG;
+                        // webcam = true;
+                    }
+                }
+
+
+                var session = {
+                    //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
+                    video: webcam,
+                    audio : virtualclass.system.mediaDevices.hasMicrophone
+                };
+
+                return [webcam, session];
+            },
+
             /**
              * It creates a mediator for getUSerMedia
              * and it prompts the user for permission to use video or audio device
@@ -1467,67 +1499,11 @@
             init: function (vbool) {
                 console.log('Video second, normal video');
                 cthis = this; //TODO there should be done work for cthis
-                //vcan.oneExecuted = true;
+
                 virtualclass.gObj.oneExecuted = true;
-                var audioOpts = {
-                    mandatory: {
-                    },
-                    optional: [
-                        {echoCancellation: true},
-                        {googEchoCancellation: true},
-                        {googEchoCancellation2: true},
-                        {googDAEchoCancellation: true},
+                var webcam, session;
 
-                        {googAutoGainControl: true},
-                        {googAutoGainControl2: true},
-
-                        {googNoiseSuppression: true},
-                        {googNoiseSuppression2: true},
-
-                        {intelligibilityEnhancer: true},
-                        {googTypingNoiseDetection: true},
-                        {googAudioMirroring: true},
-                        {googNoiseReduction: true},
-                        {VoiceActivityDetection: true}
-                    ]
-
-                };
-
-                var webcam = virtualclass.system.mediaDevices.hasWebcam ? true : false;
-
-                /**
-                * Reduce the resolution and video frame rate to optimization CPU resource
-                 *
-                **/
-
-                if(virtualclass.gObj.meetingMode){
-                    if(webcam){
-                        if(virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS'){
-                            var webcam = true;
-                        }else {
-                            // 320 * 240
-                            var webcam = { width : {
-                                max :  268
-                            },
-
-                            height : {
-                                max :  142
-                            },
-
-                            frameRate : {
-                                max :  6
-                            }}
-                           // webcam = true;
-                        }
-                    }
-                }
-
-
-                var session = {
-                    //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
-                    video: webcam,
-                    audio : virtualclass.system.mediaDevices.hasMicrophone
-                };
+                [webcam, session] = this.sessionConstraints();
 
                 cthis.video.init();
                 // cthis.audio.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
@@ -1537,7 +1513,10 @@
                 virtualclass.user.control.audioDisable();
                 virtualclass.user.control.videoDisable();
                 if (!virtualclass.vutil.isPlayMode()) {
-                    virtualclass.adpt = new virtualclass.adapter();
+                    if(virtualclass.adpt == null){
+                        virtualclass.adpt = new virtualclass.adapter();
+                    }
+
                     var cNavigator = virtualclass.adpt.init(navigator);
                     cNavigator.mediaDevices.getUserMedia(session).then(function (stream) {
                         that.handleUserMedia(stream)

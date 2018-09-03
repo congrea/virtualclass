@@ -478,6 +478,7 @@
                     virtualclass.user.control.updateUser(userId, label, true);
                 },
 
+
                 changeAttribute: function (userId, elem, elemEnable, control, label) {
                     if (elemEnable) {
                         virtualclass.user.control._enable(elem, control, userId, label);
@@ -486,8 +487,7 @@
                     }
                 },
 
-                init: function (tag, defaultAction, searchBy) {
-
+                init: function (tag, defaultAction, actSend, searchBy) {
                     if (typeof searchBy != 'undefined') {
                         searchBy = searchBy;
                     } else {
@@ -555,7 +555,9 @@
                             }
 
                             this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
-                            this.control['_' + ctrType].call(this.control, userId, action);
+                            if(actSend != 'actnotSend') {
+                                this.control['_' + ctrType].call(this.control, userId, action);
+                            }
 
                         }
                     }
@@ -956,15 +958,15 @@
                 },
 
                 resetmediaSetting : function(){ //if mute all contains enable
-                    var mutebtn = document.getElementById("contrAudioAllImg");
-                    if(mutebtn && mutebtn.classList.contains("icon-all-audio-enable")){
-                        mutebtn.classList.remove("icon-all-audio-enable");
-                        mutebtn.classList.add("icon-all-audio-disable");
-                        mutebtn.setAttribute("data-title", virtualclass.lang.getString('muteAll'));
-                        if(mutebtn.dataset.action == "enable") {
-                            mutebtn.dataset.action = "disable";
-                        }
-                    }
+                    // var mutebtn = document.getElementById("contrAudioAllImg");
+                    // if(mutebtn && mutebtn.classList.contains("icon-all-audio-enable")){
+                    //     mutebtn.classList.remove("icon-all-audio-enable");
+                    //     mutebtn.classList.add("icon-all-audio-disable");
+                    //     mutebtn.setAttribute("data-title", virtualclass.lang.getString('muteAll'));
+                    //     if(mutebtn.dataset.action == "enable") {
+                    //         mutebtn.dataset.action = "disable";
+                    //     }
+                    // }
 
                     var vidbtn = document.getElementById("videoSwitch");
                     if(virtualclass.system.mediaDevices.hasWebcam && vidbtn && vidbtn.classList.contains("video")){
@@ -1165,10 +1167,16 @@
                             if (idPartPos > 0) {
                                 var idPart = allUsersDom[i].id.substr(0, idPartPos);
                                 var elem = document.getElementById(idPart + 'Img');
-                                this.control.init.call(this, elem, action);
+                                this.control.init.call(this, elem, action , 'actnotSend');
                             }
                         }
                     }
+                }
+
+                if (action == 'enable') {
+                    virtualclass.vutil.beforeSend({'Aena': true, 'cf': 'Aena'});
+                } else {
+                    virtualclass.vutil.beforeSend({'Adia': true, 'cf': 'Adia'});
                 }
             },
             toggleAllVideo:function(action){
@@ -1191,23 +1199,23 @@
 
                 var allAudAction = localStorage.getItem('allAudAction');
 
-                if(allAudAction != null &&  allAudAction == 'disable'){
-                    spanTag.setAttribute('data-action', 'enable');
-                    spanTag.className = 'slider round icon-all-audio-enable congtooltip cgIcon';
-                    spanTag.dataset.title = virtualclass.lang.getString('unmuteAll');
-                    var input = document.querySelector(".bulkUserActions #contrAudioAll input ")
-                    input.setAttribute("checked","true");
-                    var cont = document.querySelector(".congrea #contrAudioAll");
-                    cont.classList.add("enable")
-
-                }else{
+                if(allAudAction != null &&  allAudAction == 'enable'){
                     spanTag.setAttribute('data-action', 'disable');
                     spanTag.className = 'slider round icon-all-audio-disable congtooltip cgIcon';
                     spanTag.dataset.title = virtualclass.lang.getString('muteAll');
+                    var input = document.querySelector(".bulkUserActions #contrAudioAll input ")
+                    input.setAttribute("checked","true");
+                    var cont = document.querySelector(".congrea #contrAudioAll");
+                    cont.classList.add("disable")
+
+                }else{
+                    spanTag.setAttribute('data-action', 'enable');
+                    spanTag.className = 'slider round icon-all-audio-enable congtooltip cgIcon';
+                    spanTag.dataset.title = virtualclass.lang.getString('unmuteAll');
                      var input = document.querySelector(".bulkUserActions #contrAudioAll input ")
                     input.removeAttribute("checked");
                     var cont = document.querySelector(".congrea #contrAudioAll");
-                    cont.classList.add("disable")
+                    cont.classList.add("enable")
 
                 }
                 if(virtualclass.isPlayMode){
@@ -1426,7 +1434,12 @@
                         if (uObj && userObj.hasOwnProperty('aud')) {
                             var audEnable = (userObj.aud) ? true : false;
                         } else {
-                            var audEnable = true;
+                            var elem = document.querySelector("#contrAudioAll");
+                            if(virtualclass.jId != null && elem.classList.contains("disable")){
+                                var audEnable = true;
+                            }else {
+                                var audEnable = false;       //default value for userlist mic enable or disable
+                            }
                         }
 
                         virtualclass.user.control.changeAttribute(userId, allSpans[i], audEnable, 'audio', 'aud');

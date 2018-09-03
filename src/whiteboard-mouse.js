@@ -23,24 +23,61 @@
                     var types = {
                         'mousedown': 'mousedown',
                         'mousemove': 'mousemove',
-                        'mouseup': 'mouseup'
+                        'mouseup': 'mouseup',
+                        'touchstart': 'touchstart',
+                        'touchmove': 'touchmove',
+                        'touchend': 'touchend',
                     };
 
                     for (var type in types) {
                         if (type == 'mousedown') {
-                            canvasElement.addEventListener(type, this.mousedown, false);
+                            canvasElement.addEventListener(type, this._mousedown, false);
                         } else if (type == 'mousemove') {
-                            canvasElement.addEventListener(type, this.mousemove, false);
+                            canvasElement.addEventListener(type, this._mousemove, false);
                         } else if (type == 'mouseup') {
-                            canvasElement.addEventListener(type, this.mouseup, false);
+                            canvasElement.addEventListener(type, this._mouseup, false);
+                        }else if (type == 'touchstart') {
+                            canvasElement.addEventListener(type, this._touchstart, false);
+                        } else if (type == 'touchmove') {
+                            canvasElement.addEventListener(type, this._touchmove, false);
+                        } else if (type == 'touchend') {
+                            canvasElement.addEventListener(type, this._touchend, false);
                         }
                     }
                 },
-                /**
+               
+                _mousedown: function (e, cobj) {
+                    vcan.activMouse.mousedown(e, cobj)
+
+                },
+                _mousemove: function (e) {
+                    vcan.activMouse.mousemove(e)
+                },
+                _mouseup: function (e) {
+                    vcan.activMouse.mouseup(e);
+
+                },
+                _touchstart: function (e, cobj) {
+                    vcan.activMouse.mousedown(e, cobj)
+                    // to stop mouse event
+                    e.preventDefault();
+                },
+                _touchmove: function (e) {
+                    vcan.activMouse.mousemove(e)
+                    e.preventDefault();
+                },
+                _touchend: function (e) {
+                    vcan.activMouse.mouseup(e);
+                    e.preventDefault()
+
+                },
+                
+                 /**
                  * @Class mousedown
                  * setupCurrentTransform,  setActiveObject, setZindex kind of methods are called from this funciton
                  * @param e is event object
                  */
+                
                 mousedown: function (e, cobj) {
                     var clogo = document.getElementById("congrealogo");
                     clogo.classList.add("disbaleOnmousedown");
@@ -50,8 +87,6 @@
                     if (e.detail.hasOwnProperty('cevent') && (vcan.main.action != 'create')) {
                         // console.log('Whiteboard drag start before scale x=' + (e.detail.cevent.x - vcan.main.offset.x) + ' y=' + ( e.detail.cevent.y - vcan.main.offset.y));
                         e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e); // Page refresh
-                           // e = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(e); // Page refresh
-
                         e.clientX = vcan.main.offset.x + e.detail.cevent.x;
                         e.clientY = vcan.main.offset.y + e.detail.cevent.y;
                         e.x = vcan.main.offset.x + e.detail.cevent.x;

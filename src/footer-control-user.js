@@ -487,8 +487,7 @@
                     }
                 },
 
-                init: function (tag, defaultAction, ActnotSend, searchBy) {
-                    console.log(ActnotSend);
+                init: function (tag, defaultAction, actSend, searchBy) {
                     if (typeof searchBy != 'undefined') {
                         searchBy = searchBy;
                     } else {
@@ -556,7 +555,7 @@
                             }
 
                             this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
-                            if(ActnotSend != "notSend") {
+                            if(actSend != 'actnotSend') {
                                 this.control['_' + ctrType].call(this.control, userId, action);
                             }
 
@@ -1161,7 +1160,6 @@
              */
             toggleAllAudio: function (action) {
                 var allUsersDom = document.getElementsByClassName('controleCont');
-                var ActnotSend = "notSend";
                 if (allUsersDom.length > 0) {
                     for (var i = 0; i < allUsersDom.length; i++) {
                         if (allUsersDom[i].id.indexOf('Aud') > 0) {
@@ -1169,7 +1167,7 @@
                             if (idPartPos > 0) {
                                 var idPart = allUsersDom[i].id.substr(0, idPartPos);
                                 var elem = document.getElementById(idPart + 'Img');
-                                this.control.init.call(this, elem, action , ActnotSend);
+                                this.control.init.call(this, elem, action , 'actnotSend');
                             }
                         }
                     }

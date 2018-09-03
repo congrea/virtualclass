@@ -551,14 +551,8 @@ display: none;
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .videoSwitchCont.congtooltip:hover:after {
     top:209px;
 }
-#virtualclassCont.congrea.meetingmode #virtualclassAppRightPanel #audioWidget .videoSwitchCont.congtooltip:hover:after {
-    top: 232px;
-}
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #appSettingCtrl.congtooltip:hover:after {
     top:210px;
-}
-#virtualclassCont.congrea.meetingmode #virtualclassAppRightPanel #audioWidget #appSettingCtrl.congtooltip:hover:after {
-    top: 232px;
 }
 #virtualclassCont.congrea.student.videoff #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
     top: 51px !important;
@@ -566,7 +560,10 @@ display: none;
 #virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
     top: 51px;
 }
-#virtualclassCont.congrea #virtualclassAppRightPanel.vidHide #audioWidget .congtooltip:hover:after {
+#virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
+    top: 51px;
+}
+#virtualclassCont.congrea.meetingmode.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
     top: 51px !important;
 }
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .videoSwitchCont.congtooltip:hover:after {
@@ -575,10 +572,6 @@ display: none;
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .audioTool a.congtooltip:hover:after {
     right: 233px;
     top: 209px ;
-}
-#virtualclassCont.congrea.meetingmode #virtualclassAppRightPanel #audioWidget .audioTool a.congtooltip:hover:after {
-    right: 233px;
-    top: 232px ;
 }
 #virtualclassCont.congrea .congtooltip:hover:after {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;

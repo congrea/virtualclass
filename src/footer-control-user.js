@@ -1436,7 +1436,12 @@
                         if (uObj && userObj.hasOwnProperty('aud')) {
                             var audEnable = (userObj.aud) ? true : false;
                         } else {
-                            var audEnable = false;       //default value for userlist mic enable or disable
+                            var elem = document.querySelector("#contrAudioAll");
+                            if(virtualclass.jId != null && elem.classList.contains("disable")){
+                                var audEnable = true;
+                            }else {
+                                var audEnable = false;       //default value for userlist mic enable or disable
+                            }
                         }
 
                         virtualclass.user.control.changeAttribute(userId, allSpans[i], audEnable, 'audio', 'aud');

@@ -95,6 +95,7 @@ function loadfile(imgData, canvas, context) {
 					var response = convertResponseBodyToText(http.responseBody);
 				}
 				if (type==='dec')
+                                        WebPDecDemo(canvas.id);
 					WebPDecodeAndDraw(response, canvas, context);
 			} //else alert('Cannot load file. Please, try again');
 		};

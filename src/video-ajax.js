@@ -95,7 +95,11 @@ function loadfile(imgData, canvas, context) {
 					var response = convertResponseBodyToText(http.responseBody);
 				}
 				if (type==='dec')
-					WebPDecodeAndDraw(response, canvas, context);
+                                    if(virtualclass.gObj.meetingMode){
+                                        WebPDecDemo(canvas.id);
+                                    }
+                                       // WebPDecDemo(canvas.id);
+				    WebPDecodeAndDraw(response, canvas, context);
 			} //else alert('Cannot load file. Please, try again');
 		};
 		http.send(null);

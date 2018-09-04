@@ -186,16 +186,6 @@
                     videoTracks[i].enabled = action;
 
                     if(videoWrapper != null){
-                        if(!videoTracks[i].enabled){
-                            dispClass = 'vhide';
-                            videoWrapper.classList.remove('vshow');
-                        }else {
-                            dispClass = 'vshow';
-                            videoWrapper.classList.remove('vhide');
-                        }
-
-                        videoWrapper.classList.add(dispClass);
-
                         var videoConfrence = document.querySelector('#videoConfrence');
                         var activeVideos = document.querySelectorAll('#videosWrapper .videoCont.vshow');
 

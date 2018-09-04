@@ -1330,8 +1330,12 @@
                         context.isControl= roles.hasControls();
                         context.isMettingMode= (virtualclass.gObj.meetingMode) && (roles.isStudent());
 
-                    }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools' || initTemplates[i] == 'appSettingDetail'){
+                    }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
                         context = isControl;
+
+                    }else if(initTemplates[i] == 'appSettingDetail'){
+                        context = isControl;
+                        context.allaudioEnable = virtualclass.gObj.stdaudioEnable;
                     }
                     this.makeReadyTemplate(initTemplates[i], context);
                 }

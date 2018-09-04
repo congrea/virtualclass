@@ -1312,13 +1312,17 @@ $(document).ready(function () {
             };
 
             //enable all std audio
-            this.Aena = function (e){
+            this.aEna = function (e){
                 virtualclass.user.control.audioWidgetEnable(true);
                 virtualclass.gObj.audioEnable = true;
             };
 
             // disable all std audio
-            this.Adia = function (e){
+            this.aDia = function (e){
+                var speakerPressOnce = document.querySelector('#speakerPressOnce');
+                if(speakerPressOnce.dataset.audioPlaying == true || speakerPressOnce.dataset.audioPlaying == 'true'){
+                    virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce');
+                }
                 virtualclass.user.control.audioDisable();
                 virtualclass.gObj.audioEnable = false;
 

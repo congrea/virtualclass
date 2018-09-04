@@ -1558,7 +1558,8 @@
                 localStorage.removeItem('dvid');
                 var audioWiget = document.getElementById('audioWidget');
                 var audio = localStorage.getItem('audEnable');
-                if(roles.isStudent()){
+                if(roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone){
+                    virtualclass.gObj.video.audioVisual.readyForVisual(stream);
                     if(audio != null){
                         audio = JSON.parse(audio);
                         if ((audio.ac == 'false' || audio.ac == false)) {
@@ -1570,6 +1571,9 @@
                         }
                     }else if(!virtualclass.gObj.stdaudioEnable){
                         virtualclass.user.control.audioDisable();
+                    }else if(virtualclass.gObj.stdaudioEnable){
+                        virtualclass.gObj.audioEnable = true;
+                        virtualclass.user.control.audioWidgetEnable(true);
                     }
                 }else {
                     if (virtualclass.system.mediaDevices.hasMicrophone) {

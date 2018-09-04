@@ -14,7 +14,11 @@
 
         <label class="switch">
           <input type="checkbox" >
-          <span class="slider round icon-all-audio-disable congtooltip" id ="contrAudioAllImg" ></span>
+          {{#if allaudioEnable}}
+          <span class="slider round icon-all-audio-enable congtooltip" id ="contrAudioAllImg" ></span>
+            {{else}}
+              <span class="slider round icon-all-audio-disable congtooltip" id ="contrAudioAllImg" ></span>
+            {{/if}}
         </label>
 
       </li>

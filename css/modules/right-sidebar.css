@@ -557,6 +557,10 @@ display: none;
 #virtualclassCont.congrea.student.videoff #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
     top: 51px !important;
 }
+#virtualclassCont.congrea #virtualclassAppRightPanel.vidHide #audioWidget .congtooltip:hover:after { 
+    top: 51px !important; 
+}
+
 #virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
     top: 51px;
 }

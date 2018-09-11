@@ -1741,8 +1741,10 @@ $(document).ready(function () {
                         console.log("do nothing");
                     }else if(sw.classList.contains("on")  &&  e.message.action == "enable") {
                         console.log("do nothing");
-                    }else{
-                        sw.click();
+                    }else if(sw.classList.contains("on")  &&  e.message.action == "disable"){
+                        //sw.click();
+                        //when user enable his video teacher disable his video.
+                        virtualclass.vutil.videoHandler("off");
                     }
                     virtualclass.videoHost.toggleVideoMsg(e.message.action);
                     localStorage.setItem("allVideoAction" , e.message.action);

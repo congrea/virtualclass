@@ -323,7 +323,11 @@ var videoHost = {
             if(virtualclass.videoHost.gObj.allStdVideoOff || ! virtualclass.system.mediaDevices.hasWebcam){
                 virtualclass.videoHost.toggleVideoMsg('disable');
             }else{
-                virtualclass.videoHost.toggleVideoMsg('enable');
+                if(virtualclass.gObj.videoEnable) {
+                    virtualclass.videoHost.toggleVideoMsg('enable');
+                }else{
+                    virtualclass.videoHost.toggleStdVideoIcon('disable');
+                }
             }
 
         }

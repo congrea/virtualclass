@@ -90,7 +90,7 @@
         'EHTMLPresentUrl' : 'Enter HTML5 presentation URL',
         'enable':"Enable",
         'enablehistory' : '"Browser history" should be enabled during the session.',
-        'enableVideoAll':"Enable all video",
+        'enableAllVideo':"Enable all video",
         'enteryouryoutubeurl' : "Enter YouTube/online video URL",
         'etDisabledA':'Can’t edit, poll attempted',
         'etDisabledCr':'Can be edited by creator of the poll',
@@ -317,6 +317,8 @@
         'noain'  :"No audio input",
         'noaout'  :"No audio output",
         'novideo' :"No video",
+        'enableAllAudio' : "Unmute All",
+        'disableAllAudio' : "Mute All",
         /*For Chrome */
         'PermissionDeniedErrorExt' : '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'  +
         'Go to camera icon on top right of the screen <br /> ' +

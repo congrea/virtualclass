@@ -68,7 +68,8 @@
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
                 requestToScriptNode : null,
                 readyToCommunicate : false,
-                stdaudioEnable : false,
+                stdaudioEnable : true,
+                stdvideoEnable : true,
             },
 
             enablePreCheck : true,
@@ -1330,12 +1331,8 @@
                         context.isControl= roles.hasControls();
                         context.isMettingMode= (virtualclass.gObj.meetingMode) && (roles.isStudent());
 
-                    }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools'){
+                    }else if(initTemplates[i] == 'teacherVideo' || initTemplates[i] == 'appTools' || initTemplates[i] == 'appSettingDetail'){
                         context = isControl;
-
-                    }else if(initTemplates[i] == 'appSettingDetail'){
-                        context = isControl;
-                        context.allaudioEnable = virtualclass.gObj.stdaudioEnable;
                     }
                     this.makeReadyTemplate(initTemplates[i], context);
                 }

@@ -2266,6 +2266,8 @@
         videoHandler: function (action) {
             var video;
             var sw = document.querySelector(".congrea .videoSwitchCont #videoSwitch")
+            // Action on means video is On or off means video is off
+
             if (action == "on") {
                 sw.classList.remove("off");
                 sw.classList.add("on");

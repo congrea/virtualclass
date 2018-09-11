@@ -1,22 +1,16 @@
 this["JST"] = this["JST"] || {};
 
 this["JST"]["templates/appSettingDetail.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
   return "  <div class=\"bulkUserActions app-setting-rbs\">\n    <div class=\"setting-heading\">\n        <label class=\"bulk\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"bulkUserActions",{"name":"getString","hash":{},"data":data}))
     + "</label>\n    </div>\n    <ul class=\"list-group\">\n\n      <li class=\"lists-cont d-flex justify-content-between align-items-center\" id =\"contrAudioAll\">\n          <div class=\"appSettingIcons\" id=\"usersMuteSwitch\"></div>\n        "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"muteAllAudio",{"name":"getString","hash":{},"data":data}))
-    + "\n\n\n        <label class=\"switch\">\n          <input type=\"checkbox\" >\n"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.allaudioEnable : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data})) != null ? stack1 : "")
-    + "        </label>\n\n      </li>\n\n      <li class=\"lists-cont d-flex justify-content-between align-items-center\" id =\"contrVideoAll\">\n        <div class=\"appSettingIcons\" id=\"usersVideoSwitch\"></div>\n        "
+    + "\n\n        <label class=\"switch\">\n          <input type=\"checkbox\" >\n          <span class=\"slider round icon-all-audio-enable congtooltip\" id =\"contrAudioAllImg\" ></span>\n        </label>\n      </li>\n\n      <li class=\"lists-cont d-flex justify-content-between align-items-center\" id =\"contrVideoAll\">\n        <div class=\"appSettingIcons\" id=\"usersVideoSwitch\"></div>\n        "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"disableAllVideo",{"name":"getString","hash":{},"data":data}))
     + "\n        <label class=\"switch video_toggle\">\n          <input type=\"checkbox\">\n          <span class=\"slider round icon-all-video-enable congtooltip\" id =\"contrVideoAllImg\" ></span>\n        </label>\n      </li>\n   </ul>\n    </div> \n    \n\n";
-},"2":function(container,depth0,helpers,partials,data) {
-    return "          <span class=\"slider round icon-all-audio-enable congtooltip\" id =\"contrAudioAllImg\" ></span>\n";
-},"4":function(container,depth0,helpers,partials,data) {
-    return "              <span class=\"slider round icon-all-audio-disable congtooltip\" id =\"contrAudioAllImg\" ></span>\n";
-},"6":function(container,depth0,helpers,partials,data) {
+},"3":function(container,depth0,helpers,partials,data) {
     return "      <div class=\"uiMuteAll\">\n        <a id=\"contrAudioAll\">\n            <span class=\"cgIcon\"id=\"contrAudioAllImg\" data-action=\"disable\"\n                  class=\"icon-all-audio-disable cgIcon\"\n                  data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"muteAll",{"name":"getString","hash":{},"data":data}))
     + "\">\n            </span>\n        </a>\n      </div>\n";
@@ -34,7 +28,7 @@ this["JST"]["templates/appSettingDetail.hbs"] = Handlebars.template({"1":functio
     + "\" id=\"precheckTest\">\n                <span class=\"precheck cgIcon\"  id=\"precheckSetting\" >"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"precheckStart",{"name":"getString","hash":{},"data":data}))
     + "</span>\n              </div>\n        </div></span>\n            </li>\n        </ul>\n    \n  </div>  \n    \n  <div id=\"settingAudioVideo\" style=\"display:none;\">\n"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "  </div>\n\n  \n   <div id=\"settingMedia\" class=\"app-settings-rbs\">\n    <div id=\"webRtcIo\" class=\"io\" data-suggestion=\"\" >\n<!--\n      <a id=\"ancIo\">\n        <span id=\"wbRcio\" class=\"rtc  congtooltip\"  data-title=\"webrtc io\" >settingMedia </span>\n      </a>\n-->\n    </div>\n  </div>\n  \n</div>\n";
 },"useData":true});
 

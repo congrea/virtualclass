@@ -1629,10 +1629,24 @@
                 // }
 
                 var vidstatus = localStorage.getItem("allVideoAction");
-                if(vidstatus == "disable" && roles.isStudent()){
+                if(vidstatus != null && vidstatus == "disable" && roles.isStudent()){
                     virtualclass.user.control.videoDisable();
                 }else {
-                    virtualclass.user.control.videoEnable();
+                    if(roles.isStudent() && !virtualclass.gObj.stdvideoEnable){
+                        virtualclass.vutil.videoHandler("off");
+                        virtualclass.videoHost.toggleVideoMsg('disable');
+                    }else {
+                        virtualclass.user.control.videoEnable();
+                        if(roles.isStudent()) {
+                            // after refresh video disable when user enable his video etc.
+                            virtualclass.vutil.videoHandler("off");
+                        }
+                    }
+
+                    var videoAction = localStorage.getItem("allVideoAction");
+                    if(videoAction != null && videoAction == "enable"){
+                        virtualclass.user.control.videoEnable();
+                    }
                 }
 
                 /**

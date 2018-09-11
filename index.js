@@ -1311,6 +1311,23 @@ $(document).ready(function () {
                 }
             };
 
+            //enable all std audio
+            this.aEna = function (e){
+                virtualclass.user.control.audioWidgetEnable(true);
+                virtualclass.gObj.audioEnable = true;
+            };
+
+            // disable all std audio
+            this.aDia = function (e){
+                var speakerPressOnce = document.querySelector('#speakerPressOnce');
+                if(speakerPressOnce.dataset.audioPlaying == true || speakerPressOnce.dataset.audioPlaying == 'true'){
+                    virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce');
+                }
+                virtualclass.user.control.audioDisable();
+                virtualclass.gObj.audioEnable = false;
+
+            };
+
             //chat message update
             this.msg = function (e) {
                 messageUpdate(e);  //chat update
@@ -1724,8 +1741,10 @@ $(document).ready(function () {
                         console.log("do nothing");
                     }else if(sw.classList.contains("on")  &&  e.message.action == "enable") {
                         console.log("do nothing");
-                    }else{
-                        sw.click();
+                    }else if(sw.classList.contains("on")  &&  e.message.action == "disable"){
+                        //sw.click();
+                        //when user enable his video teacher disable his video.
+                        virtualclass.vutil.videoHandler("off");
                     }
                     virtualclass.videoHost.toggleVideoMsg(e.message.action);
                     localStorage.setItem("allVideoAction" , e.message.action);

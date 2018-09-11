@@ -1558,24 +1558,41 @@
                 localStorage.removeItem('dvid');
                 var audioWiget = document.getElementById('audioWidget');
                 var audio = localStorage.getItem('audEnable');
-
-                if(virtualclass.system.mediaDevices.hasMicrophone){
-                    // virtualclass.gObj.video.audioVisual.readyForVisual(stream);
-
+                if(roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone){
+                    virtualclass.gObj.video.audioVisual.readyForVisual(stream);
                     if(audio != null){
                         audio = JSON.parse(audio);
-                        if((audio.ac == 'false' || audio.ac == false)){
+                        if ((audio.ac == 'false' || audio.ac == false)) {
                             virtualclass.gObj.audioEnable = false;
                             virtualclass.user.control.audioDisable(true);
-                        }else if(audio.ac == 'true' || audio.ac == true){
+                        } else if (audio.ac == 'true' || audio.ac == true) {
                             virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
-                    } else if(typeof stream != 'undefined'){
+                    }else if(!virtualclass.gObj.stdaudioEnable){
+                        virtualclass.user.control.audioDisable();
+                    }else if(virtualclass.gObj.stdaudioEnable){
+                        virtualclass.gObj.audioEnable = true;
                         virtualclass.user.control.audioWidgetEnable(true);
                     }
-                } else {
-                    virtualclass.user.control.audioDisable();
+                }else {
+                    if (virtualclass.system.mediaDevices.hasMicrophone) {
+                        virtualclass.gObj.video.audioVisual.readyForVisual(stream);
+                        if (audio != null) {
+                            audio = JSON.parse(audio);
+                            if ((audio.ac == 'false' || audio.ac == false)) {
+                                virtualclass.gObj.audioEnable = false;
+                                virtualclass.user.control.audioDisable(true);
+                            } else if (audio.ac == 'true' || audio.ac == true) {
+                                virtualclass.gObj.audioEnable = true;
+                                virtualclass.user.control.audioWidgetEnable(true);
+                            }
+                        } else if (typeof stream != 'undefined') {
+                            virtualclass.user.control.audioWidgetEnable(true);
+                        }
+                    } else {
+                        virtualclass.user.control.audioDisable();
+                    }
                 }
 
                 var that = this;
@@ -1612,10 +1629,24 @@
                 // }
 
                 var vidstatus = localStorage.getItem("allVideoAction");
-                if(vidstatus == "disable" && roles.isStudent()){
+                if(vidstatus != null && vidstatus == "disable" && roles.isStudent()){
                     virtualclass.user.control.videoDisable();
                 }else {
-                    virtualclass.user.control.videoEnable();
+                    if(roles.isStudent() && !virtualclass.gObj.stdvideoEnable){
+                        virtualclass.vutil.videoHandler("off");
+                        virtualclass.videoHost.toggleVideoMsg('disable');
+                    }else {
+                        virtualclass.user.control.videoEnable();
+                        if(roles.isStudent()) {
+                            // after refresh video disable when user enable his video etc.
+                            virtualclass.vutil.videoHandler("off");
+                        }
+                    }
+
+                    var videoAction = localStorage.getItem("allVideoAction");
+                    if(videoAction != null && videoAction == "enable"){
+                        virtualclass.user.control.videoEnable();
+                    }
                 }
 
                 /**

@@ -271,6 +271,28 @@ $(document).ready(function () {
         }
 
         $(document).on("user_logout", function (e) {
+            console.log('user_logout');
+            if (isAnyOnePresenter() && !isTeacherExistWhenRemoveUser(virtualclass.connectedUsers)) {
+                if (virtualclass.gObj.uRole != 't' && virtualclass.gObj.uRole != 'e') {
+                    virtualclass.vutil.createBecomeTeacherWidget();
+                }
+            }
+
+
+            if(!roles.hasControls()) {
+                if(!virtualclass.gObj.hasOwnProperty('whoIsTeacher')){
+                    virtualclass.gObj.whoIsTeacher = virtualclass.vutil.whoIsTeacher();
+                }
+                // if teacher is log out
+                if (virtualclass.gObj.whoIsTeacher == e.fromUser) {
+                    var vcCont = document.querySelector("#virtualclassCont.congrea");
+                    if (vcCont && vcCont.classList.contains('tr_available')) {
+                        vcCont.classList.remove("tr_available");
+                    }
+                }
+            }
+
+
             //virtualclass.gObj.video.video.removeUser(e.fromUser.userid);
             virtualclass.gObj.video.video.removeUser(e.fromUser);
             // TODO this should be update accordiing to new user
@@ -324,28 +346,6 @@ $(document).ready(function () {
             }
             return false;
         }
-
-        $(document).on("member_removed", function (e) {
-            console.dir('member_removed ' + e.message.userid);
-            // virtualclass.connectedUsers = e.message;
-            // // critical removign this can be critical
-
-            if (isAnyOnePresenter() && !isTeacherExistWhenRemoveUser(e.message)) {
-                if (virtualclass.gObj.uRole != 't' && virtualclass.gObj.uRole != 'e') {
-                    virtualclass.vutil.createBecomeTeacherWidget();
-                }
-            }
-
-            if(!roles.hasControls()) {
-                if (e.message.role =='t') {
-                    var vcCont = document.querySelector("#virtualclassCont.congrea");
-                    if (vcCont) {
-                        vcCont.classList.remove("tr_available");
-                    }
-                }
-            }
-
-        });
 
         $(document).on("error", function (e) {
 

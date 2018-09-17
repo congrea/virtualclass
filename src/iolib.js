@@ -528,13 +528,6 @@ var io = {
                     toUser : virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
                 });
                 break;
-            case "leftroom":
-                console.log('Case:- leftroom');
-                $.event.trigger({
-                    type: "member_removed",
-                    message: receivemsg.user
-                });
-                break;
             case "Unauthenticated":
                 console.log('Case:- unauthenticated');
                 $.event.trigger({

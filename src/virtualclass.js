@@ -11,6 +11,25 @@
             studentSSstatus = {sharing:false, mesharing: false, shareToAll : false};
         }
 
+        var studentAudioEnable = true;
+        var studentVideoEnable = true;
+
+        if(virtualclassSetting.hasOwnProperty('studentAuidioHidden')&&
+            virtualclassSetting.studentAuidioHidden == '' || virtualclassSetting.studentAuidioHidden == '1'
+        ){
+
+            studentAudioEnable = false;
+        }
+
+        if(virtualclassSetting.hasOwnProperty('studentVideoHidden')&&
+            virtualclassSetting.studentVideoHidden == '' || virtualclassSetting.studentVideoHidden == '1'
+        ){
+            studentVideoEnable = false;
+        }
+
+
+
+
         return {
             isPlayMode :playMode,
             /* TODO, editorCode should be removed in proper way,
@@ -68,8 +87,8 @@
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
                 requestToScriptNode : null,
                 readyToCommunicate : false,
-                stdaudioEnable : virtualclassSetting.studentAuidioHidden,
-                stdvideoEnable : virtualclassSetting.studentVideoHidden,
+                stdaudioEnable : studentAudioEnable,
+                stdvideoEnable : studentVideoEnable
             },
 
             enablePreCheck : true,

@@ -1695,27 +1695,31 @@
              * @param string userid
              */
             _handleUserMedia: function (userid) {
-                var userMainDiv = document.getElementById(userid);
-                var stream = cthis.video.tempStream;
+                if(typeof cthis != 'undefined' ){
+                    var stream = cthis.video.tempStream;
 
-                if (typeof stream != 'undefined') {
-                    if(virtualclass.system.mediaDevices.hasWebcam) {
-                        var vidContainer = cthis.video.createVideoElement();
-                        virtualclass.gObj.video.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
+                    if (typeof stream != 'undefined') {
+                        if(virtualclass.system.mediaDevices.hasWebcam) {
+                            var vidContainer = cthis.video.createVideoElement();
+                            virtualclass.gObj.video.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
 
-                        cthis.video.insertTempVideo(vidContainer);
-                        cthis.video.tempVideoInit();
-                        cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
-                        virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
-                        cthis.video.myVideo.muted = true;
-                        cthis.stream = cthis.video.tempStream;
-                        cthis.video.myVideo.onloadedmetadata = function () {
-                            cthis.video.startToStream();
-                            //virtualclass.precheck.webcam.createVideo();
+                            cthis.video.insertTempVideo(vidContainer);
+                            cthis.video.tempVideoInit();
+                            cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+                            virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
+                            cthis.video.myVideo.muted = true;
+                            cthis.stream = cthis.video.tempStream;
+                            cthis.video.myVideo.onloadedmetadata = function () {
+                                cthis.video.startToStream();
+                                //virtualclass.precheck.webcam.createVideo();
+                            }
                         }
                     }
+                }else {
+                    console.log('Media: it seems media is not ready');
                 }
-                userMedia = true;
+
+
             },
             /**
              * Increasing chat container's height as number of users is increased

@@ -68,8 +68,8 @@
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
                 requestToScriptNode : null,
                 readyToCommunicate : false,
-                stdaudioEnable : true,
-                stdvideoEnable : true,
+                stdaudioEnable : virtualclassSetting.studentAuidioHidden,
+                stdvideoEnable : virtualclassSetting.studentVideoHidden,
             },
 
             enablePreCheck : true,

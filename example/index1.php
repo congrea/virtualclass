@@ -77,12 +77,12 @@ if (isset($_GET['id'])) {
     Setting $audio_hidden/$video_hidden to 1, student does not able click to enable/video the audio
  **/
 
-$audio_hidden = 1;
+$audio_hidden = 0;
 if (isset($_GET['audio_hidden'])) {
      $audio_hidden = $_GET['$audio_hidden'];
 }
 
-$video_hidden = 1;
+$video_hidden = 0;
 if (isset($_GET['video_hidden'])) {
      $video_hidden = $_GET['$video_hidden'];
 }

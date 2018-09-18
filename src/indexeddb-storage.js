@@ -639,7 +639,7 @@
                 }
 
                 // virtualclass.raiseHand.disableRaiseHand();
-                virtualclass.gObj.audioEnable = virtualclass.gObj.stdaudioEnable;
+                virtualclass.gObj.audioEnable = (roles.hasControls()) ? true : virtualclass.gObj.stdaudioEnable;
                 virtualclass.storage.config.sessionEndFlag =true;
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 var precheck = localStorage.getItem('precheck');

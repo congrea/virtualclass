@@ -74,15 +74,15 @@ if (isset($_GET['id'])) {
 }
 
 /** for Teacher it's always true and for student we can choose according to our requirement
-    Setting $audio_hidden/$video_hidden to false, student does not able click to enable/video the audio
+    Setting $audio_hidden/$video_hidden to 1, student does not able click to enable/video the audio
  **/
 
-$audio_hidden = true;
+$audio_hidden = 0;
 if (isset($_GET['audio_hidden'])) {
      $audio_hidden = $_GET['$audio_hidden'];
 }
 
-$video_hidden = true;
+$video_hidden = 0;
 if (isset($_GET['video_hidden'])) {
      $video_hidden = $_GET['$video_hidden'];
 }

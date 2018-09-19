@@ -14,21 +14,13 @@
         var studentAudioEnable = true;
         var studentVideoEnable = true;
 
-        if(virtualclassSetting.hasOwnProperty('studentAuidioHidden')&&
-            virtualclassSetting.studentAuidioHidden == '' || virtualclassSetting.studentAuidioHidden == '1'
-        ){
-
+        if(virtualclassSetting.hasOwnProperty('studentAudio') && virtualclassSetting.studentAudio == '' || virtualclassSetting.studentAudio == '0'){
             studentAudioEnable = false;
         }
 
-        if(virtualclassSetting.hasOwnProperty('studentVideoHidden')&&
-            virtualclassSetting.studentVideoHidden == '' || virtualclassSetting.studentVideoHidden == '1'
-        ){
+        if(virtualclassSetting.hasOwnProperty('studentVideo') && virtualclassSetting.studentVideo == '' || virtualclassSetting.studentVideo == '0'){
             studentVideoEnable = false;
         }
-
-
-
 
         return {
             isPlayMode :playMode,

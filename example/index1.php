@@ -1,6 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+// Chrome extension for desktop sharing.
+<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
+
+<style>
+     @font-face {
+              font-family: 'icomoon';
+              src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?-jjdyd0');
+              src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'),
+              url('https://cdn.congrea.net/resources/fonts/icomoon.woff?-jjdyd0') format('woff'),
+              url('https://cdn.congrea.net/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'),
+              url('https://cdn.congrea.net/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+              font-weight: normal;
+              font-style: normal;
+          }
+
+    .CodeMirror { height: auto; }
+    .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
+
+    .CodeMirror { height: auto; }*/
+    .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
+
+    /* this should be apply for only core virtualclassm, not with any other software */
+
+    html, body {
+        margin : 0;
+        padding : 0;
+    }
+</style>
+
 <?php
 /**
  * Prints a particular instance of congrea
@@ -28,8 +57,6 @@ function get_string($phrase) {
 //the www path for virtualclass
 $whiteboardpath = "https://local.vidya.io/virtualclass/";
 
-define('SCRIPT_ROOT', $whiteboardpath);
-
 $cont_class = 'congrea ';
 
 /** This disables Poll and Quiz, if Congrea is not served from CMS/LMS **/
@@ -46,19 +73,8 @@ if (isset($_POST['fromcms'])) {
 
 $cont_class .= $fromcmsclass;
 
-
 //congrea color set default and use can select congrea color as per need
-
 $selected_color = isset($_POST['color']) ? $_POST['color'] : "#021317";
-
-$anyonepresenter = 0;
-
-/* Enable if it will be used in future
-if (isset($_GET['anyonepresenter'])) {
-    if ($_GET['anyonepresenter'] == '0' || $_GET['anyonepresenter'] == '1') {
-        $anyonepresenter = $_GET['anyonepresenter'];
-    }
-} */
 
 $isplay = false;
 if (isset($_GET['play']) && ($_GET['play'] == 'true')) {
@@ -77,14 +93,14 @@ if (isset($_GET['id'])) {
     Setting $audio_hidden/$video_hidden to 1, student does not able click to enable/video the audio
  **/
 
-$audio_hidden = 0;
-if (isset($_GET['audio_hidden'])) {
-     $audio_hidden = $_GET['$audio_hidden'];
+$stdAudio = 0;
+if (isset($_GET['stdAudio'])) {
+     $stdAudio = $_GET['$stdAudio'];
 }
 
-$video_hidden = 0;
-if (isset($_GET['video_hidden'])) {
-     $video_hidden = $_GET['$video_hidden'];
+$stdVideo = 0;
+if (isset($_GET['stdVideo'])) {
+     $stdVideo = $_GET['$stdVideo'];
 }
 
 if (isset($_GET['role'])) {
@@ -109,50 +125,11 @@ $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 
 $lname = isset($_GET['lname']) ? $_GET['lname'] : ' ';
 
-
-// Chrome extension for desktop sharing.
-echo '<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">';
-
 // Set 1 to add source file else 0 to min file
 $info = 1;
 $audio_disabled_completely = true;
 $cmid = 5;
 ?>
-
-<style>
-/*
-    @font-face {
-        font-family: 'icomoon';
-        src:url('/virtualclass/resources/fonts/icomoon.eot?-jjdyd0');
-        src:url('/virtualclass//resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'), url('/virtualclass/resources/fonts/icomoon.woff?-jjdyd0') format('woff'), url('/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'), url('/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
-        font-weight: normal;
-        font-style: normal;
-    } */
-
-        @font-face {
-                font-family: 'icomoon';
-                src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?-jjdyd0');
-                src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'),
-                url('https://cdn.congrea.net/resources/fonts/icomoon.woff?-jjdyd0') format('woff'),
-                url('https://cdn.congrea.net/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'),
-                url('https://cdn.congrea.net/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
-                font-weight: normal;
-                font-style: normal;
-            }
-    
-    .CodeMirror { height: auto; }
-    .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
-
-    .CodeMirror { height: auto; }*/
-    .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
-
-    /* this should be apply for only core virtualclassm, not with any other software */
-
-    html, body {
-        margin : 0;
-        padding : 0;
-    }
-</style>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/overrideimage.css" ?> />
 <?php
@@ -216,8 +193,8 @@ if($info) {
     virtualclassSetting = {};
     virtualclassSetting.classes = "audioTool deactive";
     virtualclassSetting.audio_tooltip = '<?php echo get_string('audioEnable','congrea'); ?>';
-    virtualclassSetting.studentAuidioHidden = '<?php echo $audio_hidden; ?>';
-    virtualclassSetting.studentVideoHidden = '<?php echo $video_hidden; ?>';
+    virtualclassSetting.studentAudio = '<?php echo $stdAudio; ?>';
+    virtualclassSetting.studentVideo = '<?php echo $stdVideo; ?>';
     virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
     virtualclassSetting.theme={};
 	virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
@@ -235,7 +212,7 @@ if($info) {
     wbUser.name =  '<?php echo $uname; ?>';
     wbUser.from_cms =  '<?php echo $from_cms; ?>';
     wbUser.meetingMode =  '<?php echo $meetingmode; ?>';
-    wbUser.anyonepresenter =  '<?php echo $anyonepresenter ?>';
+    wbUser.anyonepresenter =  '0';
     window.whiteboardPath =  '<?php echo $whiteboardpath; ?>';
     window.importfilepath = "<?php echo $whiteboardpath . "impport.php" ?>";
     window.exportfilepath = "<?php echo $whiteboardpath . "export.php" ?>";

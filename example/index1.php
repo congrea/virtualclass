@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-// Chrome extension for desktop sharing.
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
 
 <style>

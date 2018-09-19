@@ -215,9 +215,19 @@
    opc = {};
 
   var pc;
-  var pc_config = window.webrtcDetectedBrowser === 'firefox' ?
-    {'iceServers': [{'url': 'stun:23.21.150.121'}]} : // number IP
-    {'iceServers': [{'url': 'stun:stun.l.google.com:19302'}]};
+  // var pc_config = window.webrtcDetectedBrowser === 'firefox' ?
+  //   {'iceServers': [{'url': 'stun:23.21.150.121'}]} : // number IP
+  //   {'iceServers': [{'url': 'stun:stun.l.google.com:19302'}]};
+
+    var pc_config = {
+        iceServers: [
+            { urls: ['stun:turn.congrea.net']},
+            {   urls: "turn:turn.congrea.net",
+                username: wbUser.auth_user,
+                credential: wbUser.auth_pass
+            }
+        ]
+    }
 
   var pc_constraints = {
     'optional': [

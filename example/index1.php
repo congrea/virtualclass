@@ -102,12 +102,13 @@ if (isset($_GET['stdVideo'])) {
      $stdVideo = $_GET['$stdVideo'];
 }
 
-if (isset($_GET['role'])) {
-    $cont_class .= ( $_GET['role'] == 't' && !$isplay) ? "teacher orginalTeacher " : 'student ';
-    $r = $_GET['role'];
+if (isset($_GET['role']) && $_GET['role'] == 't' && !$isplay) {
+	$cont_class .= 'teacher orginalTeacher ';
+	$r = $_GET['role'];
+	
 } else {
     $r = 's';
-    $cont_class .= 'student';
+    $cont_class .= 'student ';
 }
 
 //meeting mode or normal mode

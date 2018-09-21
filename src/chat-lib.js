@@ -1,9 +1,5 @@
 /* function library*/
 
-// this should be removed
-//counter = 0;
-//idList = new Array();
-//virtualclass.chat.chatroombox = null;
 
 var myChatBoxOpen = false;
 
@@ -13,27 +9,8 @@ var myDivResult = "";
 
 var checkChatDisabled = false;
 function displayChatUserList(users){
+    var tmpmyDivResult;
     for(var i=0; i<users.length; i++){
-        // to move
-        // if(( users[i].userid) ==   virtualclass.vutil.whoIsTeacher()){
-        //     if(i !=0){
-        //         var usr = users[i] ;
-        //         users.splice(i, 1);
-        //         users.unshift(usr);
-        //
-        //     }
-        //
-        // }
-
-        // if(users[i].img =="noimage") {
-        //     if (typeof virtualclass.gObj.chatIconColors[users[i].userid] == 'undefined') {
-        //         debugger;
-        //         groupChatImgColor(users[i].name, users[i].userid)
-        //     }
-        // }else{
-        //     virtualclass.gObj.chatIconColors[users[i].userid]= false;
-        //     virtualclass.gObj.storedImg[users[i].userid]=users[i].img
-        // }
         if (typeof virtualclass.gObj.chatIconColors[users[i].userid] == 'undefined') {
             groupChatImgColor(users[i].name, users[i].userid)
         }
@@ -44,32 +21,29 @@ function displayChatUserList(users){
         }
 
         if (document.getElementById('video' + users[i].userid) == null) {
-            myDivResult = $("#chat_div").memberlist("option").userSent(users[i]);
-        //    virtualclass.gObj.video.addUserRole(myDivResult, users[i].role);
+            tmpmyDivResult = $("#chat_div").memberlist("option").userSent(users[i]);
         }
+        myDivResult = myDivResult + tmpmyDivResult;
+    }
 
-        if(typeof chat_div == 'undefined'){
-            chat_div = document.querySelector('#chat_div');
-        }
+    if(typeof chat_div == 'undefined'){
+        chat_div = document.querySelector('#chat_div');
+    }
 
-        /**
-         * In case of already existing user, myDivResult contains boolean value
-         */
-        if(typeof myDivResult != 'boolean'){
-            if(chat_div.innerHTML == ""){
-                chat_div.innerHTML =  myDivResult;
+    if(chat_div.innerHTML == ""){
+        chat_div.innerHTML =  myDivResult;
+    } else {
+        chat_div.insertAdjacentHTML('beforeend', myDivResult);
+    }
+    myDivResult = "";
 
-            } else {
-                chat_div.insertAdjacentHTML('beforeend', myDivResult);
-
-            }
-            myDivResult = "";
-            // to verify
-            if((virtualclass.gObj.uid != users[i].userid) && (virtualclass.gObj.uid == virtualclass.vutil.whoIsTeacher())){
+    // to verify
+    if (virtualclass.gObj.uid == virtualclass.vutil.whoIsTeacher()) {
+        for(var i=0; i<users.length; i++) {
+            if (virtualclass.gObj.uid != users[i].userid) {
                 virtualclass.user.initControlHandler(users[i].userid);
             }
         }
-
     }
 
 }
@@ -134,17 +108,9 @@ function memberUpdate(e, addType) {
         }
         updateOnlineUserText();
     } else {
-        var userlist = e.message;
-        if (userlist.length > 0) {
-            var count = userlist.length - 1;
-            virtualclass.gObj.totalUser = [];
-            for (var i = 0; i < userlist.length; i++) {
-                virtualclass.gObj.totalUser.push(userlist[i].userid);
-            }
-            virtualclass.gObj.totalUser.sort();
-        }
-
-        if (userlist.length > 0) {
+        var userlist = virtualclass.gObj.memberlistpending;
+        virtualclass.gObj.memberlistpending = [];
+         if (userlist.length > 0) {
             virtualclass.chat._showChatUserList(userlist)
 
             if ((virtualclass.jId == virtualclass.gObj.uid)) {
@@ -153,13 +119,6 @@ function memberUpdate(e, addType) {
                 virtualclass.gObj.video.dispAllVideo("chat_div");
                 console.log('chat box is opened');
             }
-
-            // $( '#chat_div .ui-memblist-usr:not(.mySelf)').remove();
-
-            var myDivResult = "";
-            var divContainer = document.createElement('div');
-            divContainer.id = "tempCont";
-
 
             displayChatUserList(userlist);
 
@@ -179,10 +138,10 @@ function memberUpdate(e, addType) {
                 }
 
             }
-
-            if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()) {
-                virtualclass.raiseHand.moveUpInList();
-            }
+            //
+            // if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()) {
+            //     virtualclass.raiseHand.moveUpInList();
+            // }
 
         } else {
             /* when there is one user and left the chat
@@ -675,4 +634,3 @@ function getInitials (string) {
     }
     return initials;
 }
-

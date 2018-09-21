@@ -523,11 +523,39 @@ $(document).ready(function () {
         }
 
         var memberUpdateWithDelay_timer;
+        virtualclass.gObj.memberlistpending =[];
 
         function memberUpdateWithDelay(e, f) {
-            setTimeout(function (){
-                memberUpdate(e,f);
-            },0) // 3000
+            if(f ==  'removed') {
+                /** Removing the disconnected user from queue(memberlistpending) and DOM **/
+                var index = virtualclass.gObj.memberlistpending.findIndex(x => x.userid == e.removeUser);
+                if (index > -1) {
+                    virtualclass.gObj.memberlistpending.splice(index, 1);
+                } else {
+                    setTimeout(function (){
+                        memberUpdate(e,f);
+                    },0)
+                }
+            } else {
+                /** Making the user list queue (memberlistpending) here, on every user join **/
+                var userlist = e.message;
+                for(var i=0; i<userlist.length; i++) {
+                    virtualclass.gObj.memberlistpending.push(userlist[i])
+                }
+            }
+
+            /**
+             * This ensures memberUpdate would be invoked and memberUpdateDelayTimer(setTimeout) would be set only
+             * after every 1500 miliseconds, which means the setimeout would not be set on every user joined
+             * **/
+            if (virtualclass.gObj.memberlistpending.length > 0) {
+                if (!virtualclass.gObj.hasOwnProperty("memberUpdateDelayTimer")) {
+                    virtualclass.gObj.memberUpdateDelayTimer = setTimeout(function () {
+                        memberUpdate(null, 'added');
+                        delete virtualclass.gObj.memberUpdateDelayTimer;
+                    }, 1500)
+                }
+            }
         }
 
         /**
@@ -839,7 +867,9 @@ $(document).ready(function () {
                 virtualclass.vutil.setDefaultScroll();
             }
 
-            virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
+            // virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
+            virtualclass.gObj.mySetTime = 2000;
+
             // console.log('Member add :- join user id ' + virtualclass.joinUser.userid + ' with ' + virtualclass.joinUser.role);
             if ((selfJoin(virtualclass.jId) && veryFirstJoin) && virtualclass.joinUser.role == 't') {
                 if (virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)) {
@@ -893,14 +923,14 @@ $(document).ready(function () {
                 }
             }
 
-            setTimeout(function () {
-                if (virtualclass.gObj.hasOwnProperty('doEndSession') && selfJoin(virtualclass.jId) && virtualclass.joinUser.role == 't') {
-                    overrideRoleTeacher();
-                    //virtualclass.storage.config.endSession();
-                    //localStorage.setItem('uRole', 't');
-                    //delete virtualclass.gObj['doEndSession'];
-                }
-            }, virtualclass.gObj.mySetTime + 200);
+            // setTimeout(function () {
+            //     if (virtualclass.gObj.hasOwnProperty('doEndSession') && selfJoin(virtualclass.jId) && virtualclass.joinUser.role == 't') {
+            //         overrideRoleTeacher();
+            //         //virtualclass.storage.config.endSession();
+            //         //localStorage.setItem('uRole', 't');
+            //         //delete virtualclass.gObj['doEndSession'];
+            //     }
+            // }, virtualclass.gObj.mySetTime + 200);
 
 
             (function (jId){

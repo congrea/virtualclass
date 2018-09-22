@@ -23,18 +23,26 @@ function displayChatUserList(users){
         if (document.getElementById('video' + users[i].userid) == null) {
             tmpmyDivResult = $("#chat_div").memberlist("option").userSent(users[i]);
         }
-        myDivResult = myDivResult + tmpmyDivResult;
+
+        // tmpmyDivResult = true, means user div is created already
+        if(typeof tmpmyDivResult != 'boolean'){
+            myDivResult = myDivResult + tmpmyDivResult;
+        }
     }
 
     if(typeof chat_div == 'undefined'){
         chat_div = document.querySelector('#chat_div');
     }
 
-    if(chat_div.innerHTML == ""){
-        chat_div.innerHTML =  myDivResult;
-    } else {
-        chat_div.insertAdjacentHTML('beforeend', myDivResult);
+    if( myDivResult != null && myDivResult != '' && typeof myDivResult != 'boolean'){
+        if(chat_div.innerHTML == ""){
+            chat_div.innerHTML =  myDivResult;
+        } else {
+            chat_div.insertAdjacentHTML('beforeend', myDivResult);
+        }
     }
+
+
     myDivResult = "";
 
     // to verify
@@ -45,7 +53,6 @@ function displayChatUserList(users){
             }
         }
     }
-
 }
 
 function displayChatOfflineUserList (users){

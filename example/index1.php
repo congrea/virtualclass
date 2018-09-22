@@ -43,7 +43,7 @@ function get_string($phrase) {
 
 //the www path for virtualclass
 
-$whiteboardpath = "https://192.168.1.117/virtualclass/";
+$whiteboardpath = "https://local.vidya.io/virtualclass/";
 //$whiteboardpath = "http://local.vidya.io/virtualclass/";
 
 

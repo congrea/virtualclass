@@ -6613,7 +6613,7 @@
   display: none !important;
 }
 .bootstrap .show {
-  display: block !important;
+  /* display: block !important; */
 }
 .bootstrap .invisible {
   visibility: hidden;

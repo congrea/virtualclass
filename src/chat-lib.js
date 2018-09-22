@@ -180,7 +180,7 @@ function memberUpdate(e, addType) {
 
             }
 
-            if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()) {
+            if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher() && (virtualclass.jId == virtualclass.gObj.uid )) {
                 virtualclass.raiseHand.moveUpInList();
             }
 

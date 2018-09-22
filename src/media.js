@@ -1468,15 +1468,32 @@
                  *
                  **/
 
-                if(virtualclass.gObj.meetingMode && webcam){
-                    if(virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS'){
+//                if(virtualclass.gObj.meetingMode && webcam){
+//                    if(virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS'){
+//                        var webcam = true;
+//                    }else {
+//                        // 320 * 240
+//                        var webcam = this.CONFIG;
+//                        // webcam = true;
+//                    }
+//                }
+//                
+                if (virtualclass.gObj.meetingMode && webcam) {
+                    if (virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS' ||
+                            virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Safari') {
                         var webcam = true;
-                    }else {
-                        // 320 * 240
-                        var webcam = this.CONFIG;
+                    } else {
+                        var webcam = {
+                            width: {max: 268},
+                            height: {max: 142},
+                            frameRate: {max: 6}
+                        };
                         // webcam = true;
                     }
                 }
+                
+                
+                
 
 
                 var session = {

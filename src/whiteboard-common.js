@@ -47,6 +47,22 @@
                 }
             }
         },
+        initNav:function(wIds){
+            this.indexNav = new  pageIndexNav("WB")
+            this.indexNav.init();
+            
+            
+            
+            
+            
+            for(var i =0 ; i<wIds.length ;i++){
+                virtualclass.wbCommon.indexNav.createWbIndex(wIds[i])
+                
+                
+                
+            }
+     
+        },
 
 
         /**
@@ -92,7 +108,7 @@
                 if(!this.whiteboardExist(wid)){
                     virtualclass.vutil.createWhiteBoard(wid);
                 }
-                
+                virtualclass.wbCommon.indexNav.createWbIndex(virtualclass.gObj.wbCount);
                 virtualclass.vutil.beforeSend({'cf': 'cwb', wbCount : virtualclass.gObj.wbCount});
                 
             } else {
@@ -104,7 +120,10 @@
                 virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : wid});
             }
             
+            
             this.setCurrSlideNumber(wid);
+            virtualclass.wbCommon.indexNav.addActiveClass(wid)
+            virtualclass.wbCommon.indexNav.UI.pageNavHandler("right");
             this.displaySlide(wid);
             virtualclass.gObj.currWb = wid;
         },
@@ -136,7 +155,9 @@
             } else {
                 alert('Elemennt is NULL');
             }
-             this.setCurrSlideNumber(wid);
+            this.setCurrSlideNumber(wid);
+            virtualclass.wbCommon.indexNav.addActiveClass(wid)
+            virtualclass.wbCommon.indexNav.UI.pageNavHandler("left");
            
         },
         

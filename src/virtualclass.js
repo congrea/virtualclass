@@ -219,6 +219,8 @@
                 virtualclass.zoom = window.zoomWhiteboard();
                 virtualclass.network = new Network();
                 virtualclass.gesture = gesture;
+                virtualclass.pageIndexNav=window.pageIndexNav
+                
 
 
                 this.serverData = serverData;
@@ -597,6 +599,9 @@
                              wIds = JSON.parse(wIds);
                              if(wIds != null && wIds.length > 0 ){
                                 virtualclass.wbCommon.readyElements(wIds);
+                                virtualclass.wbCommon.initNav(wIds);
+      
+                              
                                 //virtualclass.gObj.currSlide = prevapp.wbcs;
 
                                 //virtualclass.wbCommon.currentWhiteboard('_doc_0_'+virtualclass.gObj.currSlide);
@@ -910,6 +915,7 @@
                         alert('id is undefined');
                     }
                     virtualclass.zoom.init();
+                   // virtualclass.wbCommon.indexNav.init();
                     // virtualclass.pdfRender[wid].initScaleController();
                     var activeWbTool = localStorage.getItem("activeTool");
                     if(activeWbTool != null){
@@ -919,6 +925,13 @@
                             virtualclass.wb[wid].prvTool = activeWbTool;
                         }
                     }
+                    
+                    if(typeof virtualclass.wb.indexNav == 'undefined'){
+                        virtualclass.wb.indexNav  = new virtualclass.pageIndexNav("WB");
+                    }
+                   // virtualclass.wb.indexNav.init();
+                    
+                    
                 },
 
                 ScreenShare : function (app){

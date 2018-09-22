@@ -270,58 +270,7 @@ $(document).ready(function () {
             virtualclass.videoHost.afterSessionJoin();
         }
 
-        $(document).on("user_logout", function (e) {
-            console.log('user_logout');
-            if (isAnyOnePresenter() && !isTeacherExistWhenRemoveUser(virtualclass.connectedUsers)) {
-                if (virtualclass.gObj.uRole != 't' && virtualclass.gObj.uRole != 'e') {
-                    virtualclass.vutil.createBecomeTeacherWidget();
-                }
-            }
 
-
-            if(!roles.hasControls()) {
-                if(!virtualclass.gObj.hasOwnProperty('whoIsTeacher')){
-                    virtualclass.gObj.whoIsTeacher = virtualclass.vutil.whoIsTeacher();
-                }
-                // if teacher is log out
-                if (virtualclass.gObj.whoIsTeacher == e.fromUser) {
-                    var vcCont = document.querySelector("#virtualclassCont.congrea");
-                    if (vcCont && vcCont.classList.contains('tr_available')) {
-                        vcCont.classList.remove("tr_available");
-                    }
-                }
-            }
-
-
-            //virtualclass.gObj.video.video.removeUser(e.fromUser.userid);
-            virtualclass.gObj.video.video.removeUser(e.fromUser);
-            // TODO this should be update accordiing to new user
-
-            if(virtualclass.chat.isTechSupportExist(e.fromUser)){
-                virtualclass.chat.disableTechSupport(e.fromUser);
-            }
-
-            if ((e.fromUser.role == 't' || e.fromUser.role == 'e') && (roles.isStudent() || roles.isPresenter())) {
-                localStorage.setItem('oTDisconn', true);
-                disableEditor('editorRich');
-                disableEditor('editorCode');
-            }
-
-            var removeUser = e.fromUser;
-            var userPos = getPosition(virtualclass.connectedUsers, removeUser);
-            if(userPos !== -1){
-                virtualclass.connectedUsers.splice(userPos, 1);
-            }
-            var e = {removeUser : removeUser};
-
-            memberUpdateWithDelay(e, 'removed')
-
-            if(virtualclass.gObj.meetingMode){
-                virtualclass.multiVideo.onUserRemove(removeUser);
-            }
-
-
-        });
 
         var disableEditor = function (editor) {
             if (typeof virtualclass.hasOwnProperty(editor) && typeof virtualclass[editor] == 'object') {
@@ -347,26 +296,6 @@ $(document).ready(function () {
             return false;
         }
 
-        $(document).on("error", function (e) {
-
-            if (virtualclass.gObj.displayError) {
-                virtualclass.view.removeElement('serverErrorCont');
-
-                if (typeof e.message.stack != 'undefined') {
-                    virtualclass.view.displayServerError('serverErrorCont', e.message.stack);
-                } else {
-                    console.log('Error message ' + e.message.stack + ' could not display');
-                }
-
-                if (typeof e.message !== 'object') {
-                    display_error(e.message.stack);
-                }
-            } else {
-                if (typeof e.message !== 'object') {
-                    console.log(e.message.stack);
-                }
-            }
-        });
 
         var removeAppsDom = function () {
             // remove whiteboard tool wrapper
@@ -523,11 +452,39 @@ $(document).ready(function () {
         }
 
         var memberUpdateWithDelay_timer;
+        virtualclass.gObj.memberlistpending =[];
 
         function memberUpdateWithDelay(e, f) {
-            setTimeout(function (){
-                memberUpdate(e,f);
-            },0) // 3000
+            if(f ==  'removed') {
+                /** Removing the disconnected user from queue(memberlistpending) and DOM **/
+                var index = virtualclass.gObj.memberlistpending.findIndex(x => x.userid == e.removeUser);
+                if (index > -1) {
+                    virtualclass.gObj.memberlistpending.splice(index, 1);
+                } else {
+                    setTimeout(function (){
+                        memberUpdate(e,f);
+                    },0)
+                }
+            } else {
+                /** Making the user list queue (memberlistpending) here, on every user join **/
+                var userlist = e.message;
+                for(var i=0; i<userlist.length; i++) {
+                    virtualclass.gObj.memberlistpending.push(userlist[i])
+                }
+            }
+
+            /**
+             * This ensures memberUpdate would be invoked and memberUpdateDelayTimer(setTimeout) would be set only
+             * after every 1500 miliseconds, which means the setimeout would not be set on every user joined
+             * **/
+            if (virtualclass.gObj.memberlistpending.length > 0) {
+                if (!virtualclass.gObj.hasOwnProperty("memberUpdateDelayTimer")) {
+                    virtualclass.gObj.memberUpdateDelayTimer = setTimeout(function () {
+                        memberUpdate(null, 'added');
+                        delete virtualclass.gObj.memberUpdateDelayTimer;
+                    }, 1500)
+                }
+            }
         }
 
         /**
@@ -792,250 +749,12 @@ $(document).ready(function () {
             return index;
         }
 
-
-
-
-        $(document).on("member_added", function (e) {
-
-            var sType;
-
-            if(typeof virtualclass.connectedUsers == 'undefined'){
-                virtualclass.connectedUsers = [];
-            }
-
-            if(e.hasOwnProperty('user')){
-                var joinUserObj = e.message;
-                virtualclass.jId = joinUserObj.userid;
-
-                var upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
-                if(upos != -1){
-                    virtualclass.connectedUsers.splice(upos, 1);
-                }
-                virtualclass.connectedUsers.push(joinUserObj);
-                // Get the new joiner user id and object
-                virtualclass.joinUser = joinUserObj;
-            }else if(e.hasOwnProperty('users')){
-                virtualclass.jId = e.joinUser;
-                virtualclass.connectedUsers = e.message;
-                virtualclass.joinUser = getJoinUser(virtualclass.connectedUsers, virtualclass.jId);
-            }else {
-                console.log('User packet is not receving');
-            }
-            console.log('member_added ' + virtualclass.joinUser.userid);
-
-            // if(typeof virtualclass.gObj.chatIconColors[virtualclass.joinUser.userid] == 'undefined'){
-            //     groupChatImgColor(virtualclass.joinUser.name, virtualclass.joinUser.userid)
-            // }
-
-            // set the default value related about video quality, internet latency and frame rate
-            if (virtualclass.jId == virtualclass.gObj.uid) {
-                // var speed = roles.hasAdmin() ? 1 :  0;
-                if (typeof virtualclass.videoHost.gObj.MYSPEED == 'undefined') {
-                    var speed = 1;
-                } else {
-                    var speed = virtualclass.videoHost.gObj.MYSPEED;
-                }
-                virtualclass.videoHost.setDefaultValue(speed);
-                virtualclass.vutil.setDefaultScroll();
-            }
-
-            virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
-            // console.log('Member add :- join user id ' + virtualclass.joinUser.userid + ' with ' + virtualclass.joinUser.role);
-            if ((selfJoin(virtualclass.jId) && veryFirstJoin) && virtualclass.joinUser.role == 't') {
-                if (virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)) {
-                    veryFirstJoin = false;
-                    overrideOperation('s');
-                    console.log('Member add :- Join As Student');
-                } else if (veryFirstJoin && virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId)) {
-                    //overrideOperation('e');
-
-                    var presenterId = virtualclass.vutil.getPresenterId();
-                    if (presenterId) {
-                        ioAdapter.sendUser({
-                            'cf': 'rpr' // remove presenter role
-                        }, presenterId);
-
-                        overrideRoleTeacher();
-
-                    } else {
-                        console.log('There some problem on joining as');
-                    }
-
-                } else {
-
-                    /* Clouser is used to retain the joined userid on SetTimeout */
-                    (function(jId){
-                        setTimeout(function () {
-                            joinAsTeacher(jId)
-                            var wid = virtualclass.gObj.currWb;
-                            if(virtualclass.pdfRender[wid] != null){
-                                virtualclass.pdfRender[wid].sendScroll(); // when user Join as teacher
-                            }
-                        }, virtualclass.gObj.mySetTime);
-                    }(virtualclass.jId));
-
-                }
-                // If user try to join as Presenter OR Educator
-            } else if (((selfJoin(virtualclass.jId) && veryFirstJoin))
-                && (virtualclass.joinUser.role == 'p'
-                && (virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId))
-                || (virtualclass.joinUser.role == 'e' &&
-                (virtualclass.vutil.isEducatorAlreadyExist(virtualclass.jId) || virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId))))) {
-                veryFirstJoin = false;
-                overrideOperation('s');
-                console.log('Member add :- join as student. Earlier was educator OR teacher');
-            } else {
-                // this will be the usual case:-
-                defaultOperation(e, sType);
-                if (isAnyOnePresenter() && selfJoin(virtualclass.jId) && !virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId) &&
-                    (virtualclass.joinUser.role == 's' || virtualclass.joinUser.role == 'p')) {
-                    virtualclass.vutil.createBecomeTeacherWidget();
-                }
-            }
-
-            setTimeout(function () {
-                if (virtualclass.gObj.hasOwnProperty('doEndSession') && selfJoin(virtualclass.jId) && virtualclass.joinUser.role == 't') {
-                    overrideRoleTeacher();
-                    //virtualclass.storage.config.endSession();
-                    //localStorage.setItem('uRole', 't');
-                    //delete virtualclass.gObj['doEndSession'];
-                }
-            }, virtualclass.gObj.mySetTime + 200);
-
-
-            (function (jId){
-                setTimeout(function (){
-                    initOverrideRoleTeacher(jId);
-                }, virtualclass.gObj.mySetTime + 200)
-            }(virtualclass.jId));
-
-
-            if (isAnyOnePresenter() && (virtualclass.joinUser.role == 't' || virtualclass.joinUser.role == 'e') && virtualclass.jId != virtualclass.gObj.uid) {
-                virtualclass.vutil.removeBecomeTeacherWidget();
-
-            }
-            if (roles.hasControls()) {
-                virtualclass.poll.updateUsersOnPoll();
-            }
-
-            if (typeof virtualclass.quiz != 'undefined') {
-                if ((virtualclass.quiz.uniqueUsers.indexOf(virtualclass.jId) < 0)) {
-                    virtualclass.quiz.uniqueUsers.push(virtualclass.jId);
-
-                    for (var i in io.uniquesids) {
-
-                        if (virtualclass.quiz.uniqueUsers.indexOf(i) < 0) {
-                            virtualclass.quiz.uniqueUsers.push(i);
-                        }
-                    }
-                }
-            }
-            if (virtualclass.joinUser.role == 's' && virtualclass.gObj.has_ts_capability){
-                ioAdapter.mustSend({'uid': virtualclass.gObj.uid, ac:true, 'cf': 'tsr'});
-            }
-
-            if(virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.meetingMode ){
-                virtualclass.multiVideo.onUserJoin(virtualclass.jId);
-            }
-
-            if(!roles.hasControls()) {
-                if (e.message[0].role == 't' || ((virtualclass.gObj.uid == virtualclass.jId)&& virtualclass.vutil.whoIsTeacher())) {
-                    var vcCont = document.querySelector("#virtualclassCont.congrea");
-                    if (!vcCont.classList.contains('tr_available')) {
-                        vcCont.classList.add("tr_available");
-                    }
-                }
-            }
-
-
-        });
-
         var overrideRoleTeacher = function () {
             console.log('Member add:- End session override teacher');
             virtualclass.storage.config.endSession();
             localStorage.setItem('uRole', 't');
             delete virtualclass.gObj['doEndSession'];
         }
-
-        $(document).on("Text_Limit_Exeed", function (e) {
-            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Text_Limit_Exeed'), 'errorContainer', 'chatWidget', {className : 'Text_Limit_Exeed'});
-        });
-
-        $(document).on("Binary_Limit_Exeed", function (e) {
-            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Binary_Limit_Exeed'), 'errorContainer', 'chatWidget', {className : 'Binary_Limit_Exeed'});
-        });
-
-        $(document).on("Unauthenticated", function (e) {
-            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Unauthenticated'), 'errorContainer', 'chatWidget', {className : 'Unauthenticated'});
-            virtualclass.vutil.stopConnection();
-        });
-
-        $(document).on("Multiple_login", function (e) {
-            //virtualclass.chat.removedPrvLoggedInDetail();
-            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Multiple_login'), 'errorContainer', 'chatWidget', {className : 'Multiple_login'});
-            virtualclass.vutil.stopConnection();
-        });
-
-        $(document).on("Max_rooms", function (e) {
-            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Max_rooms'), 'errorContainer', 'chatWidget', {className : 'Max_rooms'});
-        });
-
-        $(document).on("Max_users", function (e) {
-            virtualclass.view.createErrorMsg(virtualclass.lang.getString('Max_users'), 'errorContainer', 'chatWidget', {className : 'Max_users'});
-        });
-
-        $(document).on("PONG", function (e) {
-            virtualclass.network.latency = e.timeStamp - e.message;
-            virtualclass.network.initToPing(1000);
-        });
-
-        $(document).on("authentication_failed", function (e) {
-            virtualclass.chat.removeCookieUserInfo(e);
-        });
-
-        $(document).on("connectionclose", function (e) {
-            if (virtualclass.hasOwnProperty('recorder') && virtualclass.recorder.startUpload) {
-                console.log("During the upload process there would not any other popup box.");
-            } else {
-                if (virtualclass.recorder.smallData && virtualclass.recorder.hasOwnProperty('rdlength') && virtualclass.recorder.rdlength < 100000) {
-                    console.log('Do not show the waiting popupbox if there small chunks of data');
-                } else {
-                    virtualclass.popup.waitMsg();
-                }
-            }
-            virtualclass.chat.makeUserListEmpty();
-
-        });
-
-        $(document).on("connectionopen", function (e) {
-            virtualclass.gObj.invalidlogin = false;
-            var setTimeReady = 6000;
-            // There will take more time to connect socket when teacher will
-            // Come from become Teacher
-            if (virtualclass.gObj.hasOwnProperty('doEndSession')) {
-                console.log('From Become Teacher');
-                setTimeReady = 10000;
-            }
-            setTimeout(
-                function () {
-
-                    if (!virtualclass.vutil.sesionEndMsgBoxIsExisting() && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !(virtualclass.recorder.startUpload)) {
-                        virtualclass.popup.closePopup();
-                        virtualclass.vutil.setDefaultScroll();
-                        var popupContainer = document.getElementById('popupContainer');
-                        if (popupContainer != null) {
-                            popupContainer.style.display = 'none';
-                        }
-
-                        console.log('Popup box Close All');
-                    } else {
-                        console.log('Popup box Could not close');
-                    }
-                }, setTimeReady // Wait for everything is to be ready
-
-            );
-        });
-
 
         function processImage(msg, vtype) {
             var data_pack = new Uint8ClampedArray(msg);
@@ -1050,100 +769,6 @@ $(document).ready(function () {
 
             virtualclass.videoHost.drawReceivedImage(b64encoded, imgType, {x: 0, y: 0});
         }
-
-        /**
-         * Relieve all binary packets here
-         */
-        $(document).on("binrec", function (e) {
-            // TODO here should be eith unit8clampped array or unit8array
-            var data_pack = new Uint8Array(e.message);
-            switch (data_pack[0]) {
-                case 102:
-                case 103:
-                case 104:
-                case 202:
-                case 203:
-                case 204:
-                    var stype = 'ss';
-                    var sTool = 'ScreenShare';
-                    if(roles.hasControls()){
-                        virtualclass.gObj.studentSSstatus.mesharing = true;
-                        var virtualclassCont = document.querySelector('#virtualclassCont');
-                        if(virtualclassCont != ''){
-                            virtualclassCont.classList.add('studentScreenSharing');
-                        }
-
-                    }
-                    if (!virtualclass.hasOwnProperty('studentScreen')) {
-                        virtualclass.studentScreen = new studentScreen();
-                    }
-
-                     if(virtualclass.gObj.precheckScrn){
-                         virtualclass.vutil. prechkScrnShare();
-                     }
-
-                    // The binary data is coming on teacher when user download the session
-                    // which actually should not, workaround for now
-
-                    if (!roles.hasControls() || virtualclass.gObj.studentSSstatus.mesharing) {
-                        virtualclass.studentScreen.ssProcess(data_pack, e.message, stype, sTool);
-                    }
-
-                    if(virtualclass.gObj.studentSSstatus.sharing && roles.isStudent()){
-                        var elem = document.getElementById("virtualclassScreenShareLocal");
-                         if(virtualclass.gObj.studentSSstatus.shareToAll){
-                             if(elem != null){
-                                 elem.style.display = 'block';
-                             }
-                         }else{
-                             if(elem != null){
-                                 elem.style.display = 'none';
-                             }
-                         }
-                    }
-
-                    break;
-                case 101: // Audio
-                    if (!virtualclass.gObj.video.audio.otherSound) {
-                        virtualclass.gObj.audioPlayMessage = e.message;
-                        if(initAudios == 0){
-                            initAudios++;
-                        }
-
-                        virtualclass.gObj.video.audio.receivedAudioProcess(e.message);
-                    }
-                    break;
-                case 11:  // user video image
-                    virtualclass.gObj.video.video.process(e.message);
-                    break;
-                case 21 : // teacher big video
-                    processImage(e.message, data_pack[1]);
-            }
-        });
-
-        /**
-         * On every new message from IOLib/Server
-         */
-        $(document).on("newmessage", function (e) {
-            var recMsg = e.message, key;
-
-            //critical, wrapping with if condition can be crtical,j validate proper if condition is not violating anything
-
-            // if (typeof virtualclass.wb == 'object') {
-            //     if ((typeof virtualclass.wb[virtualclass.gObj.currWb] == 'object') && virtualclass.wb[virtualclass.gObj.currWb].hasOwnProperty('vcan')) {
-            //         virtualclass.wb[virtualclass.gObj.currWb].gObj.myrepObj = virtualclass.wb[virtualclass.gObj.currWb].vcan.getStates('replayObjs');
-            //     }
-            // }
-
-            if (recMsg.hasOwnProperty('cf')) {
-                if (typeof receiveFunctions[recMsg.cf] == 'function') {
-                    receiveFunctions[recMsg.cf](e);
-                    return;
-                } else {
-                    console.log('CF ' + recMsg.cf + ' is not a function of receiveFunctions');
-                }
-            }
-        });
 
         function clearEverthing() {
             localStorage.removeItem('editorRich');
@@ -1589,7 +1214,7 @@ $(document).ready(function () {
             }
 
             this.mem_add = function (e){
-                $.event.trigger({
+                virtualclass.ioEventApi.member_added({
                     type: "member_added",
                     newJoinUser: e.message.user,
                     cmadd : true
@@ -1789,5 +1414,382 @@ $(document).ready(function () {
         };
 
         // TODO this shoudl be remove, after precheck feature is enabled
+
+         var ioEventApi = {
+            member_added : function (e){
+                var sType;
+
+                if(typeof virtualclass.connectedUsers == 'undefined'){
+                    virtualclass.connectedUsers = [];
+                }
+
+                if(e.hasOwnProperty('user')){
+                    var joinUserObj = e.message;
+                    virtualclass.jId = joinUserObj.userid;
+
+                    var upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
+                    if(upos != -1){
+                        virtualclass.connectedUsers.splice(upos, 1);
+                    }
+                    virtualclass.connectedUsers.push(joinUserObj);
+                    // Get the new joiner user id and object
+                    virtualclass.joinUser = joinUserObj;
+                }else if(e.hasOwnProperty('users')){
+                    virtualclass.jId = e.joinUser;
+                    virtualclass.connectedUsers = e.message;
+                    virtualclass.joinUser = getJoinUser(virtualclass.connectedUsers, virtualclass.jId);
+                }else {
+                    console.log('User packet is not receving');
+                }
+                console.log('member_added ' + virtualclass.joinUser.userid);
+
+                // if(typeof virtualclass.gObj.chatIconColors[virtualclass.joinUser.userid] == 'undefined'){
+                //     groupChatImgColor(virtualclass.joinUser.name, virtualclass.joinUser.userid)
+                // }
+
+                // set the default value related about video quality, internet latency and frame rate
+                if (virtualclass.jId == virtualclass.gObj.uid) {
+                    // var speed = roles.hasAdmin() ? 1 :  0;
+                    if (typeof virtualclass.videoHost.gObj.MYSPEED == 'undefined') {
+                        var speed = 1;
+                    } else {
+                        var speed = virtualclass.videoHost.gObj.MYSPEED;
+                    }
+                    virtualclass.videoHost.setDefaultValue(speed);
+                    virtualclass.vutil.setDefaultScroll();
+                }
+
+                // virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
+                virtualclass.gObj.mySetTime = 2000;
+
+                // console.log('Member add :- join user id ' + virtualclass.joinUser.userid + ' with ' + virtualclass.joinUser.role);
+                if ((selfJoin(virtualclass.jId) && veryFirstJoin) && virtualclass.joinUser.role == 't') {
+                    if (virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId)) {
+                        veryFirstJoin = false;
+                        overrideOperation('s');
+                        console.log('Member add :- Join As Student');
+                    } else if (veryFirstJoin && virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId)) {
+                        //overrideOperation('e');
+
+                        var presenterId = virtualclass.vutil.getPresenterId();
+                        if (presenterId) {
+                            ioAdapter.sendUser({
+                                'cf': 'rpr' // remove presenter role
+                            }, presenterId);
+
+                            overrideRoleTeacher();
+
+                        } else {
+                            console.log('There some problem on joining as');
+                        }
+
+                    } else {
+
+                        /* Clouser is used to retain the joined userid on SetTimeout */
+                        (function(jId){
+                            setTimeout(function () {
+                                joinAsTeacher(jId)
+                                var wid = virtualclass.gObj.currWb;
+                                if(virtualclass.pdfRender[wid] != null){
+                                    virtualclass.pdfRender[wid].sendScroll(); // when user Join as teacher
+                                }
+                            }, virtualclass.gObj.mySetTime);
+                        }(virtualclass.jId));
+
+                    }
+                    // If user try to join as Presenter OR Educator
+                } else if (((selfJoin(virtualclass.jId) && veryFirstJoin))
+                    && (virtualclass.joinUser.role == 'p'
+                    && (virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId))
+                    || (virtualclass.joinUser.role == 'e' &&
+                    (virtualclass.vutil.isEducatorAlreadyExist(virtualclass.jId) || virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId))))) {
+                    veryFirstJoin = false;
+                    overrideOperation('s');
+                    console.log('Member add :- join as student. Earlier was educator OR teacher');
+                } else {
+                    // this will be the usual case:-
+                    defaultOperation(e, sType);
+                    if (isAnyOnePresenter() && selfJoin(virtualclass.jId) && !virtualclass.vutil.isTeacherAlreadyExist(virtualclass.jId) &&
+                        (virtualclass.joinUser.role == 's' || virtualclass.joinUser.role == 'p')) {
+                        virtualclass.vutil.createBecomeTeacherWidget();
+                    }
+                }
+
+
+
+                (function (jId){
+                    setTimeout(function (){
+                        initOverrideRoleTeacher(jId);
+                    }, virtualclass.gObj.mySetTime + 200)
+                }(virtualclass.jId));
+
+
+                if (isAnyOnePresenter() && (virtualclass.joinUser.role == 't' || virtualclass.joinUser.role == 'e') && virtualclass.jId != virtualclass.gObj.uid) {
+                    virtualclass.vutil.removeBecomeTeacherWidget();
+
+                }
+                if (roles.hasControls()) {
+                    virtualclass.poll.updateUsersOnPoll();
+                }
+
+                if (typeof virtualclass.quiz != 'undefined') {
+                    if ((virtualclass.quiz.uniqueUsers.indexOf(virtualclass.jId) < 0)) {
+                        virtualclass.quiz.uniqueUsers.push(virtualclass.jId);
+
+                        for (var i in io.uniquesids) {
+
+                            if (virtualclass.quiz.uniqueUsers.indexOf(i) < 0) {
+                                virtualclass.quiz.uniqueUsers.push(i);
+                            }
+                        }
+                    }
+                }
+                if (virtualclass.joinUser.role == 's' && virtualclass.gObj.has_ts_capability){
+                    ioAdapter.mustSend({'uid': virtualclass.gObj.uid, ac:true, 'cf': 'tsr'});
+                }
+
+                if(virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.meetingMode ){
+                    virtualclass.multiVideo.onUserJoin(virtualclass.jId);
+                }
+
+                if(!roles.hasControls()) {
+                    if (e.message[0].role == 't' || ((virtualclass.gObj.uid == virtualclass.jId)&& virtualclass.vutil.whoIsTeacher())) {
+                        var vcCont = document.querySelector("#virtualclassCont.congrea");
+                        if (!vcCont.classList.contains('tr_available')) {
+                            vcCont.classList.add("tr_available");
+                        }
+                    }
+                }
+            },
+
+            newmessage : function (e){
+                var recMsg = e.message, key;
+                if (recMsg.hasOwnProperty('cf')) {
+                    if (typeof receiveFunctions[recMsg.cf] == 'function') {
+                        receiveFunctions[recMsg.cf](e);
+                        return;
+                    } else {
+                        console.log('CF ' + recMsg.cf + ' is not a function of receiveFunctions');
+                    }
+                }
+            },
+
+            user_logout : function (e){
+                console.log('user_logout');
+                if (isAnyOnePresenter() && !isTeacherExistWhenRemoveUser(virtualclass.connectedUsers)) {
+                    if (virtualclass.gObj.uRole != 't' && virtualclass.gObj.uRole != 'e') {
+                        virtualclass.vutil.createBecomeTeacherWidget();
+                    }
+                }
+
+
+                if(!roles.hasControls()) {
+                    if(!virtualclass.gObj.hasOwnProperty('whoIsTeacher')){
+                        virtualclass.gObj.whoIsTeacher = virtualclass.vutil.whoIsTeacher();
+                    }
+                    // if teacher is log out
+                    if (virtualclass.gObj.whoIsTeacher == e.fromUser) {
+                        var vcCont = document.querySelector("#virtualclassCont.congrea");
+                        if (vcCont && vcCont.classList.contains('tr_available')) {
+                            vcCont.classList.remove("tr_available");
+                        }
+                    }
+                }
+
+
+                //virtualclass.gObj.video.video.removeUser(e.fromUser.userid);
+                virtualclass.gObj.video.video.removeUser(e.fromUser);
+                // TODO this should be update accordiing to new user
+
+                if(virtualclass.chat.isTechSupportExist(e.fromUser)){
+                    virtualclass.chat.disableTechSupport(e.fromUser);
+                }
+
+                if ((e.fromUser.role == 't' || e.fromUser.role == 'e') && (roles.isStudent() || roles.isPresenter())) {
+                    localStorage.setItem('oTDisconn', true);
+                    disableEditor('editorRich');
+                    disableEditor('editorCode');
+                }
+
+                var removeUser = e.fromUser;
+                var userPos = getPosition(virtualclass.connectedUsers, removeUser);
+                if(userPos !== -1){
+                    virtualclass.connectedUsers.splice(userPos, 1);
+                }
+                var e = {removeUser : removeUser};
+
+                memberUpdateWithDelay(e, 'removed')
+
+                if(virtualclass.gObj.meetingMode){
+                    virtualclass.multiVideo.onUserRemove(removeUser);
+                }
+            },
+            error : function (e){
+                if (virtualclass.gObj.displayError) {
+                    virtualclass.view.removeElement('serverErrorCont');
+
+                    if (typeof e.message.stack != 'undefined') {
+                        virtualclass.view.displayServerError('serverErrorCont', e.message.stack);
+                    } else {
+                        console.log('Error message ' + e.message.stack + ' could not display');
+                    }
+
+                    if (typeof e.message !== 'object') {
+                        display_error(e.message.stack);
+                    }
+                } else {
+                    if (typeof e.message !== 'object') {
+                        console.log(e.message.stack);
+                    }
+                }
+            },
+
+            Text_Limit_Exeed : function (e){
+                virtualclass.view.createErrorMsg(virtualclass.lang.getString('Text_Limit_Exeed'), 'errorContainer', 'chatWidget', {className : 'Text_Limit_Exeed'});
+            },
+
+            Binary_Limit_Exeed : function (e){
+                virtualclass.view.createErrorMsg(virtualclass.lang.getString('Binary_Limit_Exeed'), 'errorContainer', 'chatWidget', {className : 'Binary_Limit_Exeed'});
+            },
+
+            Unauthenticated : function (e){
+                virtualclass.view.createErrorMsg(virtualclass.lang.getString('Unauthenticated'), 'errorContainer', 'chatWidget', {className : 'Unauthenticated'});
+                virtualclass.vutil.stopConnection();
+            },
+
+            Multiple_login : function (e){
+                virtualclass.view.createErrorMsg(virtualclass.lang.getString('Multiple_login'), 'errorContainer', 'chatWidget', {className : 'Multiple_login'});
+                virtualclass.vutil.stopConnection();
+            },
+
+            Max_rooms : function (e){
+                virtualclass.view.createErrorMsg(virtualclass.lang.getString('Max_rooms'), 'errorContainer', 'chatWidget', {className : 'Max_rooms'});
+            },
+
+            Max_users : function (e){
+                virtualclass.view.createErrorMsg(virtualclass.lang.getString('Max_users'), 'errorContainer', 'chatWidget', {className : 'Max_users'});
+            },
+
+            PONG : function (e){
+                virtualclass.network.latency = e.timeStamp - e.message;
+                virtualclass.network.initToPing(1000);
+            },
+
+            authentication_failed : function (e){
+                virtualclass.chat.removeCookieUserInfo(e);
+            },
+
+            connectionclose : function (e){
+                if (virtualclass.hasOwnProperty('recorder') && virtualclass.recorder.startUpload) {
+                    console.log("During the upload process there would not any other popup box.");
+                } else {
+                    if (virtualclass.recorder.smallData && virtualclass.recorder.hasOwnProperty('rdlength') && virtualclass.recorder.rdlength < 100000) {
+                        console.log('Do not show the waiting popupbox if there small chunks of data');
+                    } else {
+                        virtualclass.popup.waitMsg();
+                    }
+                }
+                virtualclass.chat.makeUserListEmpty();
+            },
+
+            connectionopen : function (e){
+                virtualclass.gObj.invalidlogin = false;
+                var setTimeReady = 6000;
+                // There will take more time to connect socket when teacher will
+                // Come from become Teacher
+                if (virtualclass.gObj.hasOwnProperty('doEndSession')) {
+                    console.log('From Become Teacher');
+                    setTimeReady = 10000;
+                }
+                setTimeout(
+                    function () {
+
+                        if (!virtualclass.vutil.sesionEndMsgBoxIsExisting() && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !(virtualclass.recorder.startUpload)) {
+                            virtualclass.popup.closePopup();
+                            virtualclass.vutil.setDefaultScroll();
+                            var popupContainer = document.getElementById('popupContainer');
+                            if (popupContainer != null) {
+                                popupContainer.style.display = 'none';
+                            }
+
+                            console.log('Popup box Close All');
+                        } else {
+                            console.log('Popup box Could not close');
+                        }
+                    }, setTimeReady // Wait for everything is to be ready
+
+                );
+            },
+            binrec : function (e){
+                // TODO here should be eith unit8clampped array or unit8array
+                var data_pack = new Uint8Array(e.message);
+                switch (data_pack[0]) {
+                    case 102:
+                    case 103:
+                    case 104:
+                    case 202:
+                    case 203:
+                    case 204:
+                        var stype = 'ss';
+                        var sTool = 'ScreenShare';
+                        if(roles.hasControls()){
+                            virtualclass.gObj.studentSSstatus.mesharing = true;
+                            var virtualclassCont = document.querySelector('#virtualclassCont');
+                            if(virtualclassCont != ''){
+                                virtualclassCont.classList.add('studentScreenSharing');
+                            }
+
+                        }
+                        if (!virtualclass.hasOwnProperty('studentScreen')) {
+                            virtualclass.studentScreen = new studentScreen();
+                        }
+
+                        if(virtualclass.gObj.precheckScrn){
+                            virtualclass.vutil. prechkScrnShare();
+                        }
+
+                        // The binary data is coming on teacher when user download the session
+                        // which actually should not, workaround for now
+
+                        if (!roles.hasControls() || virtualclass.gObj.studentSSstatus.mesharing) {
+                            virtualclass.studentScreen.ssProcess(data_pack, e.message, stype, sTool);
+                        }
+
+                        if(virtualclass.gObj.studentSSstatus.sharing && roles.isStudent()){
+                            var elem = document.getElementById("virtualclassScreenShareLocal");
+                            if(virtualclass.gObj.studentSSstatus.shareToAll){
+                                if(elem != null){
+                                    elem.style.display = 'block';
+                                }
+                            }else{
+                                if(elem != null){
+                                    elem.style.display = 'none';
+                                }
+                            }
+                        }
+
+                        break;
+                    case 101: // Audio
+                        if (!virtualclass.gObj.video.audio.otherSound) {
+                            virtualclass.gObj.audioPlayMessage = e.message;
+                            if(initAudios == 0){
+                                initAudios++;
+                            }
+
+                            virtualclass.gObj.video.audio.receivedAudioProcess(e.message);
+                        }
+                        break;
+                    case 11:  // user video image
+                        virtualclass.gObj.video.video.process(e.message);
+                        break;
+                    case 21 : // teacher big video
+                        processImage(e.message, data_pack[1]);
+                }
+            },
+
+        };
+
+        virtualclass.ioEventApi = ioEventApi;
+
     }
 });

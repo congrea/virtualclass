@@ -1427,26 +1427,7 @@
             return false;
         },
 
-        /**
-         * This time would be set for delay when user(student) does try for teacher.
-         * The time is set according to it's position
-         * @param connectedUsers
-         * @returns {number}
-         */
-
-
-        getMySetTime : function(connectedUsers){
-            for(var i=0; i<connectedUsers.length; i++){
-                if(connectedUsers[i].userid == virtualclass.gObj.uid){
-                    return (((i+1) * 180 ) + 2000);
-
-                }
-            }
-            return 2300;
-        },
-
-
-        /**
+         /**
          * The widget for requset the Teacher Role
          */
         createBecomeTeacherWidget : function(){

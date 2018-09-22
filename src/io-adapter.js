@@ -30,12 +30,10 @@ var ioAdapter = {
      it would drop last msg and preserve latest message.
      */
     sendWithDelayAndDrop: function (msg, msgarg, sendFunction, uniqueIdentifier, delay) {
-        if (msg == null) {
+        if (msg == null || sendFunction == null) {
             return;
         }
-        if (sendFunction == null) {
-            return;
-        }
+
         if (uniqueIdentifier == null) {
             uniqueIdentifier = 0;
         }
@@ -44,13 +42,14 @@ var ioAdapter = {
         }
 
         if (this.sendWithDelayIdentifier.hasOwnProperty(uniqueIdentifier) && ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]) {
-            console.log ("Cancelling send " + sendFunction + " message " + JSON.stringify(msg));
+            // console.log ("Cancelling send " + sendFunction + " message " + JSON.stringify(msg));
+            console.log ("Cancelling send " + sendFunction + " message " + msg.cf);
             clearTimeout(ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]);
             ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
         }
 
         ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] =  setTimeout (function () {
-            console.log ("Sending With Delay " + sendFunction + " message " + JSON.stringify(msg));
+            console.log ("Sending With Delay " + sendFunction + " message " + msg.cf);
             ioAdapter[sendFunction](msg);
             ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
         },delay)

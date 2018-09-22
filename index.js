@@ -566,16 +566,7 @@ $(document).ready(function () {
                         }
                     }
 
-                    if (virtualclass.currApp === 'Yts') {
-                        if (typeof virtualclass.yts.player == 'object') {
-                            ioAdapter.mustSendUser({
-                                'yts': {
-                                    'init': virtualclass.yts.videoId,
-                                    startFrom: virtualclass.yts.player.getCurrentTime()
-                                }, 'cf': 'yts'
-                            }, virtualclass.jId);
-                        }
-                    } else if (virtualclass.currApp === 'SharePresentation') {
+                     if (virtualclass.currApp === 'SharePresentation') {
                         if (typeof virtualclass.sharePt == 'object') {
                             ioAdapter.mustSendUser({
                                 'ppt': {
@@ -609,30 +600,11 @@ $(document).ready(function () {
             // Greet new student with info, When other user join
             if (roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId) {
                 // Greet new student with info
-                if (typeof virtualclass.wb == 'object' && virtualclass.currApp == 'Whiteboard') {
-                    //if(typeof virtualclass.wb == 'object'){
-                    var objs = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs;
-                    if (objs.length > 0) {
-                        virtualclass.vutil.beforeSend({'repObj': objs, 'cf': 'repObj'});
-                    } else {
-                        console.log('Could not send the whiteboar data');
-                    }
-                }
-
+                virtualclass.vutil.sendCurrAppOnUserJoin();
+                
                 if (virtualclass.currApp === 'ScreenShare') {
                     sType = 'ss';
-                } else if (virtualclass.currApp === 'Yts') {
-                    if (typeof virtualclass.yts.player == 'object') {
-                        ioAdapter.mustSendUser({
-                            'yts': {
-                                'init': virtualclass.yts.videoId,
-                                startFrom: virtualclass.yts.player.getCurrentTime()
-                            }, 'cf': 'yts'
-                        }, virtualclass.jId);
-                    } else {
-                        ioAdapter.mustSendUser({'yts': {'init': 'studentlayout'}, 'cf': 'yts'}, virtualclass.jId);
-                    }
-                } else if (virtualclass.currApp === 'SharePresentation') {
+                }  else if (virtualclass.currApp === 'SharePresentation') {
                     console.log("sharePPt");
                     //debugger;
                     if (typeof virtualclass.sharePt == 'object') {
@@ -676,6 +648,7 @@ $(document).ready(function () {
                         ioAdapter.mustSendUser({'videoUl': {'init' : 'studentlayout'}, 'cf': 'videoUl'}, virtualclass.jId);
                     }
                 }
+
                 if (typeof sType !== 'undefined' && sType !== null) {
                     initShareScreen(sType, 6000); //There might need some time to executing missed packets
                 }
@@ -853,6 +826,7 @@ $(document).ready(function () {
                 // Lets Editor be the ready
                 setTimeout(
                     function () {
+
                         virtualclass.vutil.setReadModeWhenTeacherIsConn('editorRich');
                         virtualclass.vutil.setReadModeWhenTeacherIsConn('editorCode');
                     }, 2000

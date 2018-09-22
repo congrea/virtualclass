@@ -2752,8 +2752,19 @@
             function escape(s) { return s.replace(/([.*+?\^${}()|\[\]\/\\])/g, '\\$1'); };
             var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
             return match ? match[1] : null;
-        }
+        },
 
+        sendCurrAppOnUserJoin : function (){
+            if (typeof virtualclass.wb == 'object' && virtualclass.currApp == 'Whiteboard') {
+                var objs = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs;
+                if (objs.length > 0) {
+                    ioAdapter.sendWithDelayAndDrop ({'repObj': objs, 'cf': 'repObj'}, null, 'mustSend', 'repObj', 1500);
+                    // virtualclass.vutil.beforeSend({'repObj': objs, 'cf': 'repObj'});
+                } else {
+                    console.log('Could not send the whiteboard data');
+                }
+            }
+        }
     };
     window.vutil = vutil;
 })(window);

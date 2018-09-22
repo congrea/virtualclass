@@ -6,14 +6,6 @@
  * @copyright  2014 Pinky Sharma  {@link http://vidyamantra.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-// var timeSec = 0;
-// var totalSendata = 0;
-// setInterval(
-//     function (){
-//         timeSec++;
-//     }, 1000
-// );
 var io = {
     cfg: {},
     sock: null,
@@ -464,11 +456,18 @@ var io = {
                 /* identifying new user from list*/
                 var newuser = null;
                 if (io.uniquesids != null) {
-                    $.each(receivemsg.clientids, function(i, v) {
+
+                    // $.each(receivemsg.clientids, function(i, v) {
+                    //     if (io.uniquesids[i] == undefined) {
+                    //         newuser = i;
+                    //     }
+                    // });
+
+                    for(let i in receivemsg.clientids){
                         if (io.uniquesids[i] == undefined) {
                             newuser = i;
                         }
-                    });
+                    }
                 }
                 io.uniquesids = receivemsg.clientids;
                 //update users

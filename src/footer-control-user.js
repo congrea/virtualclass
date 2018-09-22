@@ -386,6 +386,9 @@
                 },
 
                 onmessage: function (e) {
+                    if(!e.message.hasOwnProperty('toUser')){
+                        e.message.toUser = virtualclass.gObj.uid;
+                    }
                     this['received_' + e.message.control](e.message);
                 },
 
@@ -1079,10 +1082,16 @@
                                 if (idPartPos > 0) {
                                     var idPart = allUsersDom[i].id.substr(0, idPartPos);
                                     var elem = document.getElementById(idPart + 'Img');
-                                    this.control.init.call(this, elem, action);
+                                    this.control.init.call(this, elem, action, undefined, 'actnotSend');
                                 }
                             }
                         }
+                    }
+
+                    if (action == 'enable') {
+                        virtualclass.vutil.beforeSend({'status': true, control: 'editorRich', 'cf': 'control'});
+                    } else {
+                        virtualclass.vutil.beforeSend({'status': false, control: 'editorRich', 'cf': 'control'});
                     }
                 },
 
@@ -1474,11 +1483,12 @@
                         if(virtualclass.gObj.studentSSstatus.hasOwnProperty('whoIsSharing')){
                             virtualclass.vutil.initssSharing(virtualclass.gObj.whoIsSharing);
                         }
-                    }else if(allSpans[i].className.indexOf('editorRich') > -1){
+                    }else if(allSpans[i].className.indexOf('editorRich') > -1 && virtualclass.currApp == "EditorRich"){
+                        var elem = document.querySelector("#alleditorRichContainerAnch");
                         if (uObj && userObj.hasOwnProperty('editorRich')) {
                             var edEnable = (userObj.editorRich) ? true : false;
                         } else {
-                            var edEnable = false;
+                           var edEnable = false;
                         }
                         virtualclass.user.control.changeAttribute(userId, allSpans[i], edEnable, 'editorRich', 'editorRich');
                     }else if(allSpans[i].className.indexOf('editorCode') > -1){

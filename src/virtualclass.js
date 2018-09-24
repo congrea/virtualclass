@@ -591,8 +591,10 @@
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
 
                         prevapp = JSON.parse(prevapp);
-
-
+                         if(wIds != null && wIds.length > 0 ){
+                            virtualclass.wbCommon.initNav(virtualclass.gObj.wIds);
+                         }
+                        virtualclass.wbCommon.initNav(virtualclass.gObj.wIds);
                         //if(!virtualclass.gObj.wbRearrang && prevapp != null && prevapp.hasOwnProperty('wbcs')){
                         if(!virtualclass.gObj.wbRearrang && prevapp != null && localStorage.getItem('currSlide') != null){
                              var wIds = localStorage.getItem('wIds');
@@ -1115,9 +1117,12 @@
                 DocumentShare: function(app, customEvent, docsObj) {
                     if(!virtualclass.hasOwnProperty('dts') || virtualclass.dts == null){
                         virtualclass.dts  = window.documentShare();
+                        
                     }else{
                         virtualclass.dts.firstRequest = false;
                     }
+                      //virtualclass.dts.indexNav = new  pageIndexNav("WB")
+                       //virtualclass.dts.indexNav.init();
 
                     //if(!virtualclass.dts.docs.hasOwnProperty('currDoc')){
                     //      if(typeof docsObj != 'undefined'){
@@ -1190,6 +1195,14 @@
                         if(virtualclass.gObj.currWb != null && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] != 'undefined' &&
                             virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].hasOwnProperty('page')
                             && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
+                                if(virtualclass.dts.order){
+                                    if(typeof virtualclass.dts.indexNav =='undefined' ){
+                                        virtualclass.dts.indexNav = new virtualclass.pageIndexNav("documentShare");
+                                       
+                                    }
+                                    virtualclass.dts.indexNav.createIndex();  
+                                   
+                                }
                                 virtualclass.zoom.normalRender();
                         }
                     }

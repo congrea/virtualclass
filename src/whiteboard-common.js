@@ -51,18 +51,10 @@
             this.indexNav = new  pageIndexNav("WB")
             this.indexNav.init();
             
-            
-            
-            
-            
             for(var i =0 ; i<wIds.length ;i++){
                 virtualclass.wbCommon.indexNav.createWbIndex(wIds[i])
-                
-                
-                
             }
-     
-        },
+       },
 
 
         /**

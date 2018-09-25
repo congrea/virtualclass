@@ -1210,9 +1210,8 @@
                             virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].hasOwnProperty('page')
                             && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
                                 if(virtualclass.dts.order){
-                                    if(typeof virtualclass.dts.indexNav =='undefined' ){
+                                    if(typeof virtualclass.dts.indexNav =='undefined'){
                                         virtualclass.dts.indexNav = new virtualclass.pageIndexNav("documentShare");
-                                       
                                     }
                                     virtualclass.dts.indexNav.createIndex();  
                                    

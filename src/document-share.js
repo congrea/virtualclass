@@ -1109,7 +1109,7 @@
                            virtualclass.dts.docs.note.currentSlide(note);
                         }
                         virtualclass.dts.indexNav.addActiveClass()
-                        virtualclass.dts.indexNav.UI.indexNavClass()
+                        virtualclass.dts.indexNav.UI.setClassPrevNext()
                         
                     }
                 },
@@ -1342,7 +1342,7 @@
                                         
                                       
 //                                       virtualclass.dts.indexNav.addActiveClass()
-//                                       virtualclass.dts.indexNav.UI.indexNavClass();
+//                                       virtualclass.dts.indexNav.UI.setClassPrevNext();
 //                                       virtualclass.dts.indexNav.UI.pageNavHandler("left");
                                      
                                     }
@@ -1419,7 +1419,7 @@
                                             
 //      
 //                                            virtualclass.dts.indexNav.addActiveClass()
-//                                            virtualclass.dts.indexNav.UI.indexNavClass();
+//                                            virtualclass.dts.indexNav.UI.setClassPrevNext();
 //                                            virtualclass.dts.indexNav.UI.pageNavHandler("right");
 
                                         }

@@ -134,7 +134,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-setting-media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/network.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/gesture.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/documentNavigation.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page-navigation.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

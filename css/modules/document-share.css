@@ -875,91 +875,101 @@
     /*cursor: pointer;*/
 /*}*/
 
-#virtualclassCont.congrea #docShareNav{
-    position: fixed;
-    left: 10px;
-    bottom: 8px;
-    z-index: 1231313;
-    width: 100%;
-}
-
 #virtualclassCont.congrea .noteIndex{
-    margin-left: 20px;
-    color: white;
+   margin-left: 20px;
+   color: white;
+   font-size: 15px;
+   cursor: pointer;
 }
 
 #virtualclassCont.congrea .pageNav{
-    color:white;
-    bottom: 4px;
-    position: relative;
+   color:white;
 }
 
 #virtualclassCont.congrea #dcPaging{
-    margin-left: 60px;
-    position: fixed;
-    bottom: 9px;
-    width: 90%;
+   margin-left: 30px;
+   margin-right: 50px;
+   max-width: 435px;
+   display:inline-block;
+   bottom: 2px;
+   position: relative;
 }
-
-}
-
 
 #virtualclassCont.congrea #rightNavPage{
-    position: relative;
-    left: 33%;
-    bottom: 5px;
+   cursor:pointer;
 }
 
 #virtualclassCont.congrea #leftNavPage{
-    position: fixed;
-    bottom: 10px;
+   cursor:pointer;
 }
 .noteIndex.hid{
-    display:none;
+   display:none;
 }
 .noteIndex.shw{
-    display: inline-block;
+   display: inline-block;
 }
 
 #virtualclassCont.congrea .pageNav.disable{
-    pointer-events:none;
-    opacity :.3
+   pointer-events:none;
+   opacity :.3
 }
 #virtualclassCont.congrea .pageNav.enable{
-    pointer-events:visible;
-    opacity :1
+   pointer-events:visible;
+   opacity :1
 }
 
 #virtualclassCont.congrea #dcPaging .active{
-    color:red ;
-    border:solid white 1px;
+   border:solid white 1px;
+   padding: 4px 7px;
+   border-radius: 20px;
+   font-size:14px;
 }
 
 #virtualclassCont.congrea .noteIndex.hid.right.active{
-    display:inline-block;
-    
+   display:inline-block;
+   
 }
 #virtualclassCont.congrea .noteIndex.hid.left.active{
-    display:inline-block;
-    
+   display:inline-block;
+   
 }
 #virtualclassCont.congrea  .noteIndex[status ="0"]{
-    pointer-event :none;
-    opacity :.3
+   pointer-event :none;
+   opacity :.3
 }
 #virtualclassCont.congrea  .noteIndex[status ="1"]{
-    pointer-event :visible;
-    opacity :1
+   pointer-event :visible;
+   opacity :1
 }
 
 #virtualclassCont.congrea #docShareNav{
-    display:none
+   display:none
 }
 
 #virtualclassCont.congrea #docShareNav{
-    display:none
+   display:none
 }
 
 #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav,#virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher #docShareNav{
-    display:block;
+   display:block;
+   position: fixed;
+   bottom: 7px;
+   left: 20px;
+   z-index: 1005;
+}
+
+#virtualclassCont.congrea #docShareNav #leftNavPage:before {
+   content: "\e98e";
+   font-family: 'icomoon';
+}
+
+#virtualclassCont.congrea #docShareNav #rightNavPage:before {
+   content: "\e992";
+   font-family: 'icomoon';
+}
+
+@media (max-width:1349px) {
+   #virtualclassCont.congrea #dcPaging {
+       max-width:320px;
+   }
 }

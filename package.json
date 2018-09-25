@@ -1,6 +1,6 @@
 {
   "name": "virtualclass",
-  "title": "minifycss",
+  "title": "minify_resource",
   "version": "1.0.0",
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -9,8 +9,9 @@
     "grunt-contrib-nodeunit": "~0.4.1",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "~0.5.0",
-    "grunt-contrib-watch": "^v2.0.0",
-    "grunt-contrib-cssmin": "^2.2.1"
+    "grunt-contrib-watch": "~1.1.0",
+    "grunt-contrib-cssmin": "~2.2.1",
+    "grunt-htmlcompressor": "~0.1.10"
   },
 
   "description": "",
@@ -27,12 +28,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nirmala10/virtualclass.git"
+    "url": "https://github.com/vidyamantra/virtualclass.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nirmala10/virtualclass/issues"
+    "url": "https://github.com/vidyamantra/virtualclass/issues"
   },
-  "homepage": "https://github.com/nirmala10/virtualclass"
+  "homepage": "https://github.com/vidyamantra/virtualclass"
 }

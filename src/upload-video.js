@@ -958,7 +958,7 @@
                     if (!videoCont) {
                         var control = roles.hasAdmin() ? true : false;
                         var data = {"control": control};
-                        var template = JST['templates/videoupload/videoupload.hbs'];
+                        var template = JST[virtualclass.gObj.tempPrefix+'/videoupload/videoupload.hbs'];
                         // $('#virtualclassAppLeftPanel').append(template(data));
                         virtualclass.vutil.insertAppLayout(template(data));
 
@@ -1391,7 +1391,7 @@
                 popup:function(currVideo){
                      
                     var dropArea = document.querySelector("#congreavideoContBody");
-                    if(dropArea){
+                    if(dropArea && dropArea.lastChild != null){
                         dropArea.removeChild(dropArea.lastChild);
                     }
                     var elemArr = ["congreavideoContBody", "congreaShareVideoUrlCont"];

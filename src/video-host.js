@@ -203,7 +203,7 @@ var videoHost = {
 
         var imgCont = document.querySelector("#ml"+userid+" .user-details a")
         var imgElem = document.querySelector("#ml"+userid+" .user-details a span") || document.querySelector("#ml"+userid+" .user-details a img");
-        if(!imgElem){
+        if(!imgElem && imgCont != null){
             if(virtualclass.gObj.chatIconColors[userid] && !virtualclass.gObj.chatIconColors[userid].savedImg ){
                 var img = document.createElement('span');
                 img.innerHTML= virtualclass.gObj.chatIconColors[userid].initial;
@@ -220,7 +220,8 @@ var videoHost = {
                 //todo to add default img
             }
             console.log("set User icon");
-
+        }else{
+            console.log("Image container is null");
         }
     },
     removeUserIcon:function(userid){

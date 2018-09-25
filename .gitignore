@@ -7,3 +7,4 @@ uploads/*
 css/theme/black.css.map
 css/theme/gray.css.map
 example/play.php
+dest_temp/*

@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         //},
 
         cssmin: {
-            
+
             css_b: {
                 src: ["css/modules/styles.css", "css/modules/popup.css", "css/modules/vceditor.css", "css/modules/document-share.css", "css/modules/editor.css",
                     "css/modules/icon.css", "css/modules/media.css", "css/modules/poll.css", "css/modules/quiz.css", "css/modules/screenshare.css",
@@ -44,14 +44,30 @@ module.exports = function(grunt) {
 
         handlebars: {
             all: {
-              files: {
+                files: {
 
-                // converting all .hbs(handlerbar template file ) into all.js file
-                // you can change the directory according to your requirement
-                "src/templates_view.js": ["templates/**/*.hbs"]
-              }
+                    // converting all .hbs(handlerbar template file ) into all.js file
+                    // you can change the directory according to your requirement
+                    "src/templates_view.js": ["dest_temp/templates/**/*.hbs"]
+                }
             }
-          },
+        },
+
+        htmlcompressor: {
+            compile: {
+                expand: true,
+                src   : ["templates/**/*.hbs"],
+                dest  : 'dest_temp/',
+                options: {
+                    type                   : 'html',
+                    preserveServerScript   : true,
+                    // removeQuotes           : true,  //Remove unneeded quotes
+                    removeIntertagSpaces   : true
+                    // removeSurroundingSpaces: 'min'
+
+                }
+            }
+        },
 
         sass: {
             dev: {
@@ -61,31 +77,35 @@ module.exports = function(grunt) {
 
         },
 
-          watch: {
+        watch: {
             /** the grunt is waching if any changes in .hbs files
              *  if so there will be peform the task hanldebars which does precompile (.hbs to .js)
              *  **/
             templates : {
-              files: ["templates/**/*.hbs"],
-              tasks: ['handlebars']
+                files: ["trim_templates/templates/**/*.hbs"],
+                tasks: ['handlebars']
             },
-              css: {
-                  files: '**/*.scss',
-                  tasks: ['sass']
-              },
+            css: {
+                files: '**/*.scss',
+                tasks: ['sass']
+            },
             tasks: ['handlebars','sass']
-          }
-
-
+        }
     });
 
-  grunt.loadNpmTasks('grunt-contrib-watch');
-
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-handlebars');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.registerTask('default', ['handlebars']);
-  grunt.registerTask('mincss', ['cssmin']);
-
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-htmlcompressor');
+    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-handlebars');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.registerTask('default', ['htmlcompressor', 'task_handlebars']);
+    grunt.registerTask('mincss', ['cssmin']);
+    grunt.registerTask("task_handlebars", "create handle bar", function () {
+        var done = this.async();
+        setTimeout(function () {
+            grunt.task.run("handlebars");
+            done();
+        }, 2000);
+    });
 };

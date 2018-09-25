@@ -80,7 +80,8 @@
                 requestToScriptNode : null,
                 readyToCommunicate : false,
                 stdaudioEnable : studentAudioEnable,
-                stdvideoEnable : studentVideoEnable
+                stdvideoEnable : studentVideoEnable,
+                tempPrefix : 'dest_temp/templates'
             },
 
             enablePreCheck : true,
@@ -1416,7 +1417,7 @@
             },
 
             makeReadyTemplate : function (tempname, context){
-                var template = JST['templates/'+tempname+'.hbs'];
+                var template = JST[virtualclass.gObj.tempPrefix + '/'+ tempname+'.hbs'];
                 Handlebars.registerPartial(tempname, template(context));
             },
 
@@ -1427,9 +1428,9 @@
              */
             getTemplate : function (name, submodule){
                 if(typeof submodule == 'undefined'){
-                    var template = JST['templates/'+name+'.hbs'];
+                    var template = JST[virtualclass.gObj.tempPrefix + '/' + name+'.hbs'];
                 } else {
-                    var template = JST['templates/'+submodule+'/'+name+'.hbs'];
+                    var template = JST[virtualclass.gObj.tempPrefix + '/' + submodule + '/'+name+'.hbs'];
                 }
                 return template;
             }

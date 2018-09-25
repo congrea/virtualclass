@@ -61,7 +61,7 @@
             return (navigator.getUserMedia) ? true : false;
         },
         /*
-         * Test for indexed db support
+         * Test for showned db support
          * 
          */
         isIndexedDbSupport: function () {
@@ -142,8 +142,25 @@
 
             }
             var height = resolution.height - (offset.y);
+            
+            if(virtualclass.currApp =="DocumentShare"){
+
+                
+              
+             }
+             
+            
+            
+            
             return {'width': (width), 'height': (height)};
         },
+        
+        
+        
+        
+        
+        
+        
         /*
          * setting dimension of the application
          */

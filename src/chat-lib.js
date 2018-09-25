@@ -145,10 +145,12 @@ function memberUpdate(e, addType) {
                 }
 
             }
+
             //
             // if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()) {
             //     virtualclass.raiseHand.moveUpInList();
             // }
+
 
         } else {
             /* when there is one user and left the chat

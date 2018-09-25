@@ -512,6 +512,8 @@
 
                 },
                 handleDragEnd: function (e, cthis) {
+                    
+                    virtualclass.dts.indexNav.oldOrder = virtualclass.dts.order
                     cthis.rearrange();
                     e.preventDefault();
                     this.source.classList.remove("dragElem");

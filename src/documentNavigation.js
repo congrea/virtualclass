@@ -64,6 +64,7 @@
 
             }
        
+        //var curr = virtualclass.dts.docs.currNote;
             if (virtualclass.currApp == "DocumentShare") {
                 var curr = virtualclass.dts.docs.currNote;
                 var index = document.querySelector(".congrea #dcPaging #index" + curr);
@@ -71,6 +72,10 @@
                     index.classList.add("active");
                 }
             }
+            
+            
+           
+
         } else {
 
             var nodes = document.querySelector(".noteIndex.shw");
@@ -342,27 +347,15 @@
 
         },
         indexNavClass: function () {
-            var currNodeId ,currElem;
-            if (virtualclass.currApp == "Whiteboard"){
-                currNodeId = virtualclass.dts.docs.currNote;
-                currElem = document.querySelector('#documentScreen #note' + currNodeId);
-            }else{
-                currNodeId = virtualclass.gObj.currWb;
-                currElem = document.querySelector('#index' + currNodeId);
-            }
-         
-            
-           
+
+            var currNodeId = virtualclass.dts.docs.currNote;
+            var currElem = document.querySelector('#documentScreen #note' + currNodeId);
             if (currElem != null) {
                 var prevSlide = currElem.previousElementSibling;
                 var nxtSlide = currElem.nextElementSibling;
 
 
             }
-            
-        
-            
-            
             var na = document.querySelector("#leftNavPage");
             if (na) {
                 if (prevSlide) {
@@ -445,6 +438,7 @@
                     nr.classList.add("enable")
                 nr.classList.remove("disable")
 
+
             } else {
               
                 var currNodeId = virtualclass.dts.docs.currNote;
@@ -456,10 +450,6 @@
 
 
                 }
-
-
-
-
             }
             
         }

@@ -21,6 +21,7 @@
             init: function(docsObj) {
                  this.firstRequest = false;
                 firstTime = true;
+                this.indexNav = new virtualclass.pageIndexNav("documentShare");
 
                 if(virtualclass.gObj.hasOwnProperty('dstAll') &&  typeof virtualclass.gObj.dstAll == 'string'){
                     this.storageRawData = null;
@@ -115,6 +116,9 @@
                         }
                     }
                 }
+                
+
+              
 
             },
 
@@ -191,8 +195,14 @@
                 }
             },
 
-            createNoteLayout : function (allNotes, currDoc){
+            createNoteLayout : function (notes, currDoc){
                 var mainContainer, tempCont, objTemp, template, tempHtml;
+                var allNotes=[]
+                for(var i =0 ; i <notes.length; i++){
+                    if(!notes[i].hasOwnProperty("deletedn")){
+                       allNotes.push(notes[i])
+                    }
+                }
                 if(allNotes.length > 0){
                     var pageContainer = document.querySelector('#screen-docs .pageContainer');
                     //this.UI.createSlides(pageContainer, allNotes);
@@ -341,6 +351,7 @@
                 }else{
                     this.allNotes = this.fetchAllNotes();
                 }
+            
 
                 // if(this.documents != null){
                 //     this.allNotes = this.documents;
@@ -559,6 +570,16 @@
                 if(this.order.length <= 0){
                     firstTime = true;
                 }
+                this.indexNav.createIndex()
+                
+//                  for(var i=0; i<this.order.length; i++){
+//                    if(typeof this.notes[this.order[i]] != 'object'){
+//
+//                     this.indexNav.createThumbnail(this.order[i],i)
+//                
+//                    }
+//                }
+                
             },
 
             _removePageUI : function (noteId, typeDoc){
@@ -674,6 +695,7 @@
                         virtualclass.dts.docs.currNote = 0;
                         virtualclass.dts.docs.currDoc = undefined;
                         virtualclass.gObj.currWb = null;
+                        //virtualclass.dts.indexNav.removeNav();
                     }
 
                     if(!virtualclass.dts.docSelected()){
@@ -903,7 +925,12 @@
             },
 
             createNoteNav : function (fromReload){
-                // need to get all images from here
+                if(this.order){
+                    this.indexNav.init(); 
+                }
+           
+                var curr = virtualclass.dts.docs.currNote;
+                var order ='';
                 for(var i=0; i<this.order.length; i++){
                     if(typeof this.notes[this.order[i]] != 'object'){
 
@@ -916,14 +943,57 @@
                         this.notes[this.order[i]].init(this.order[i], 'note_'+ this.allNotes[this.order[i]].lc_content_id + '_' + this.order[i]);
                         if(typeof fromReload == 'undefined'){
                             this.noteStatus(this.order[i], status);
-                        }
+                        } 
                     }
+                    this.indexNav.createThumbnail(this.order[i],i,status)
+                
                 }
+               
+   
+                this.storeInDocs(this.allNotes);
+                this.indexNav.shownPage(this.indexNav.width)
+                this.indexNav.addActiveClass()
                 var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
                 if(!btn){
                     virtualclass.vutil.showFinishBtn();
                 }
-                this.storeInDocs(this.allNotes);
+                
+                
+//                var index = document.querySelector(".congrea #dcPaging #index" + curr);
+//                if (index && !index.classList.contains('active')) {
+//                    index.classList.add("active");
+//                }
+            },
+
+            addNoteHidClass:function(sn,i,n){
+          
+                if (i > n) {
+                    sn.classList.add("hid", "right");
+                } else {
+                    sn.classList.add("shw");
+                }           
+            },
+            
+
+            calcInitialWidth:function(){
+//                if ($(window).width() <= 320) {
+//                    return $('meta[name=viewport]').attr('content', 'user-scalable=yes, initial-scale=0.63, maximum-scale=1.3, width=480');
+//                } else if ($(window).width() <= 480) {
+//                    return $('meta[name=viewport]').attr('content', 'user-scalable=yes, initial-scale=0.89, maximum-scale=1.3, width=480');
+//                } else if ($(window).width() <= 768) {
+//                    return $('meta[name=viewport]').attr('content', 'user-scalable=yes, initial-scale=0.8, maximum-scale=1.3, width=920');
+//                } else if ($(window).width() <= 1024) {
+//                    return $('meta[name=viewport]').attr('content', 'user-scalable=yes, initial-scale=0.85, maximum-scale=1.3, width=920');
+//                }
+                
+                
+                
+            },
+
+            
+            indexHandler:function(order){
+                // virtualclass.page.prototype.createPageNavAttachEvent(order)
+                 virtualclass.dts.docs.goToNavs(order)
             },
 
             createNoteNavAlt : function (fromReload){
@@ -952,11 +1022,15 @@
                 var linknote = document.querySelector("#linknotes" + note);
                 if(linknote != null){
                     linknote.parentNode.removeChild(linknote);
+                   
                 }
 
                 if(typeof this.notes[note] == 'object'){
                     delete this.notes[note];
                 }
+                
+                
+                
             },
 
             docs : {
@@ -1027,18 +1101,17 @@
                         var element = document.querySelector("#linknotes" + note);
                         if(element != null){
                             if((+element.dataset.status) == 1){
-                                cthis.currNote = note;
-                                cthis.note.currentSlide(note);
+                                virtualclass.dts.docs.currNote = note;
+                                virtualclass.dts.docs.note.currentSlide(note);
                             }
                         } else {
-                            cthis.currNote = note;
-                            cthis.note.currentSlide(note);
+                            virtualclass.dts.docs.currNote = note;
+                           virtualclass.dts.docs.note.currentSlide(note);
                         }
-
-
+                        virtualclass.dts.indexNav.addActiveClass()
+                        virtualclass.dts.indexNav.UI.setClassPrevNext()
+                        
                     }
-
-
                 },
 
                 studentExecuteScreen : function (data){
@@ -1254,12 +1327,24 @@
                                             // by true, know the event is performed real user
                                             this.getScreen(activeSlide, true);
                                             cthis.docs.currNote = activeSlide.dataset.slide;
-                                            console.log('Current note ' + this.docs.currNote);
+                                            console.log('Current note ' + virtualclass.dts.docs.currNote);
                                         }
                                     } else {
+                                     
                                         this.getScreen(prevSlide, true);
                                         cthis.docs.currNote = prevSlide.dataset.slide;
-                                        console.log('Current note ' + this.docs.currNote);
+                                        console.log('Current note ' + virtualclass.dts.docs.currNote);
+                                     
+                                          
+                                       
+                                        
+                                        
+                                        
+                                      
+//                                       virtualclass.dts.indexNav.addActiveClass()
+//                                       virtualclass.dts.indexNav.UI.setClassPrevNext();
+//                                       virtualclass.dts.indexNav.UI.pageNavHandler("left");
+                                     
                                     }
 
                                     /** to set the dimension of whiteboard during window is resized **/
@@ -1267,10 +1352,14 @@
                                     if(typeof currWb == 'object'){
                                         system.setAppDimension(null, 'resize');
                                     }
+                                    
+                                       virtualclass.dts.indexNav.movePageIndex("left")
 
                                 }else{
                                     alert('There is no previous element');
                                 }
+                              
+                               
                             }
                         },
 
@@ -1316,20 +1405,35 @@
                                             }else{
                                                 this.getScreen(activeSlide, true);
                                                 cthis.docs.currNote = activeSlide.dataset.slide;
-                                                console.log('Current note ' + this.docs.currNote);
+                                                console.log('Current note ' + virtualclass.dts.docs.currNote);
+                                               
                                             }
 
                                         } else {
-                                            // by true, know the event is performed real user
+                                           
                                             this.getScreen(nextSlide, true);
                                             cthis.docs.currNote = nextSlide.dataset.slide;
+                                          
+                                              
+                                           
+                                            
+//      
+//                                            virtualclass.dts.indexNav.addActiveClass()
+//                                            virtualclass.dts.indexNav.UI.setClassPrevNext();
+//                                            virtualclass.dts.indexNav.UI.pageNavHandler("right");
 
                                         }
                                     }
+                                  
                                 }
+                                  virtualclass.dts.indexNav.movePageIndex("right")
+                         
                             }else {
                                 alert('There is no page');
                             }
+                             
+                            
+                            
                         },
 
                         isSlideAvailable : function (slidId, lastElement){
@@ -1633,7 +1737,6 @@
                     allThumbist[j].innerHTML = j+1;
                 }
             },
-
             reArrangeElements : function (order){
                 var container = document.getElementById('notesContainer'),
                     tmpdiv = document.createElement('div');
@@ -1650,8 +1753,15 @@
                     tmpdiv.appendChild(document.getElementById('note' + order[i]));
                 }
                 container.parentNode.replaceChild(tmpdiv, container);
+                
+                
                 // organize list
                 this.reaArrangeThumbCount();
+                var paging = document.querySelectorAll("#dcPaging .noteIndex");
+                if(paging.length >0){
+                    this.indexNav.rearrangeIndex(order)//new
+                }
+            
             },
 
             _delete : function (id){
@@ -1723,6 +1833,7 @@
                if(!noteExit){
                   this._delete(doc); 
                }
+                this.indexNav.createIndex();
                
             },
 

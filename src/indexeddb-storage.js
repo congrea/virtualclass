@@ -639,7 +639,7 @@
                 }
 
                 // virtualclass.raiseHand.disableRaiseHand();
-                virtualclass.gObj.audioEnable =true;
+                virtualclass.gObj.audioEnable = (roles.hasControls()) ? true : virtualclass.gObj.stdaudioEnable;
                 virtualclass.storage.config.sessionEndFlag =true;
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 var precheck = localStorage.getItem('precheck');
@@ -805,45 +805,6 @@
                     }
                 }
 
-                var muteAll = document.querySelector(".congrea .slider.icon-all-audio-enable");
-                if(muteAll){
-                    muteAll.className= "slider round congtooltip icon-all-audio-disable";
-                    muteAll.setAttribute('data-action','disable');
-                    muteAll.setAttribute('data-title','Mute All');
-                }
-                var disVideoAll = document.querySelector(".congrea .slider.icon-all-video-enable");
-                if(disVideoAll){
-                    disVideoAll.className= "slider round congtooltip icon-all-video-disable";
-                    disVideoAll.setAttribute('data-action','disable');
-                    disVideoAll.setAttribute('data-title','Disable Video');
-                }
-
-                var audio = document.querySelector(".congrea #contrAudioAll.enable");
-                if(audio){
-                    audio.classList.remove("enable");
-                    audio.classList.add("disable");
-                    var chbox = document.querySelector(".congrea #contrAudioAll input")
-                    if(chbox){
-                        chbox.removeAttribute("checked");
-                    }
-
-                  //  var chbox = document.querySelector(".congrea #usersMuteSwitch input");
-
-                }
-                var video = document.querySelector(".congrea #contrVideoAll.enable");
-                if(video){
-                    video.classList.remove("enable");
-                    video.classList.add("disable")
-                    var chbox = document.querySelector(".congrea #contrVideoAll input")
-                    if(chbox){
-                        chbox.removeAttribute("checked");
-                    }
-
-                }
-                if(!roles.hasControls() && virtualclass.system.mediaDevices.hasWebcam){
-                    virtualclass.videoHost.toggleVideoMsg('enable');
-                }
-
                 var chatHighlight = document.querySelector("#virtualclassCont.congrea .vmchat_room_bt.ui-state-highlight");
                 if(chatHighlight){
                     chatHighlight.classList.remove('ui-state-highlight');
@@ -853,12 +814,6 @@
                     // videoHide.classList.remove("vidHide");
                     // videoHide.classList.add("vidShow")
                 }
-
-                // var videoHide = document.querySelector("#virtualclassCont.congrea.teacher #videoHostContainer");
-                // if(videoHide){
-                //     videoHide.classList.remove("hide");
-                //     videoHide.classList.add("show");
-                // }
 
                 var videOff = document.querySelector("#virtualclassCont.congrea.student");
                 if(videOff && videOff.classList.contains("videoff")){

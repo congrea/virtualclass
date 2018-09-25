@@ -812,6 +812,6 @@ margin-right:6px !important;
 #virtualclassCont.congrea #chat_div {
     height: calc(100vh - 388px);
 }
-#virtualclassCont.congrea .vidHide #chat_div {
+#virtualclassCont.congrea .vidHide #chat_div, #virtualclassCont.congrea.nowebcam #chat_div {
     height: calc(100vh - 148px);
 }

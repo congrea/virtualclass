@@ -1427,26 +1427,7 @@
             return false;
         },
 
-        /**
-         * This time would be set for delay when user(student) does try for teacher.
-         * The time is set according to it's position
-         * @param connectedUsers
-         * @returns {number}
-         */
-
-
-        getMySetTime : function(connectedUsers){
-            for(var i=0; i<connectedUsers.length; i++){
-                if(connectedUsers[i].userid == virtualclass.gObj.uid){
-                    return (((i+1) * 180 ) + 2000);
-
-                }
-            }
-            return 2300;
-        },
-
-
-        /**
+         /**
          * The widget for requset the Teacher Role
          */
         createBecomeTeacherWidget : function(){
@@ -2266,6 +2247,8 @@
         videoHandler: function (action) {
             var video;
             var sw = document.querySelector(".congrea .videoSwitchCont #videoSwitch")
+            // Action on means video is On or off means video is off
+
             if (action == "on") {
                 sw.classList.remove("off");
                 sw.classList.add("on");
@@ -2769,8 +2752,19 @@
             function escape(s) { return s.replace(/([.*+?\^${}()|\[\]\/\\])/g, '\\$1'); };
             var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
             return match ? match[1] : null;
-        }
+        },
 
+        sendCurrAppOnUserJoin : function (){
+            if (typeof virtualclass.wb == 'object' && virtualclass.currApp == 'Whiteboard') {
+                var objs = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs;
+                if (objs.length > 0) {
+                    ioAdapter.sendWithDelayAndDrop ({'repObj': objs, 'cf': 'repObj'}, null, 'mustSend', 'repObj', 1500);
+                    // virtualclass.vutil.beforeSend({'repObj': objs, 'cf': 'repObj'});
+                } else {
+                    console.log('Could not send the whiteboard data');
+                }
+            }
+        }
     };
     window.vutil = vutil;
 })(window);

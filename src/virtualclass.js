@@ -11,6 +11,17 @@
             studentSSstatus = {sharing:false, mesharing: false, shareToAll : false};
         }
 
+        var studentAudioEnable = true;
+        var studentVideoEnable = true;
+
+        if(virtualclassSetting.hasOwnProperty('studentAudio') && virtualclassSetting.studentAudio == '' || virtualclassSetting.studentAudio == '0'){
+            studentAudioEnable = false;
+        }
+
+        if(virtualclassSetting.hasOwnProperty('studentVideo') && virtualclassSetting.studentVideo == '' || virtualclassSetting.studentVideo == '0'){
+            studentVideoEnable = false;
+        }
+
         return {
             isPlayMode :playMode,
             /* TODO, editorCode should be removed in proper way,
@@ -68,6 +79,9 @@
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
                 requestToScriptNode : null,
                 readyToCommunicate : false,
+                stdaudioEnable : studentAudioEnable,
+                stdvideoEnable : studentVideoEnable,
+                tempPrefix : 'dest_temp/templates'
             },
 
             enablePreCheck : true,
@@ -1429,7 +1443,7 @@
             },
 
             makeReadyTemplate : function (tempname, context){
-                var template = JST['templates/'+tempname+'.hbs'];
+                var template = JST[virtualclass.gObj.tempPrefix + '/'+ tempname+'.hbs'];
                 Handlebars.registerPartial(tempname, template(context));
             },
 
@@ -1440,9 +1454,9 @@
              */
             getTemplate : function (name, submodule){
                 if(typeof submodule == 'undefined'){
-                    var template = JST['templates/'+name+'.hbs'];
+                    var template = JST[virtualclass.gObj.tempPrefix + '/' + name+'.hbs'];
                 } else {
-                    var template = JST['templates/'+submodule+'/'+name+'.hbs'];
+                    var template = JST[virtualclass.gObj.tempPrefix + '/' + submodule + '/'+name+'.hbs'];
                 }
                 return template;
             }

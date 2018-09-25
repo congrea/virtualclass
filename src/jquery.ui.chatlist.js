@@ -192,8 +192,8 @@
             self._position(self.options.offset);
             self.options.boxManager.init(self);
             if (roles.hasAdmin()) {
-                virtualclass.user.UIaudioAll('congFooterCtr', 'uiMuteAll');
-                virtualclass.user.UIvideoAll('congFooterCtr', 'uiMuteAll');
+                virtualclass.user.mediaSliderUI('audio');
+                virtualclass.user.mediaSliderUI('video');
             }
         },
         _setOption: function (option, value) {

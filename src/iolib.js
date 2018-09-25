@@ -6,14 +6,6 @@
  * @copyright  2014 Pinky Sharma  {@link http://vidyamantra.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-// var timeSec = 0;
-// var totalSendata = 0;
-// setInterval(
-//     function (){
-//         timeSec++;
-//     }, 1000
-// );
 var io = {
     cfg: {},
     sock: null,
@@ -52,7 +44,7 @@ var io = {
             this.readyToSend = false;
             console.log("Connected to " + scope.cfg.rid);
 
-            $.event.trigger({
+            virtualclass.ioEventApi.connectionopen({
                 type: "connectionopen"
             });
             //authenticate user
@@ -110,7 +102,7 @@ var io = {
         this.sock.onerror = function(e) {
             scope.error = e;
             console.log('Error:' + e);
-            $.event.trigger({
+            virtualclass.ioEventApi.error({
                 type: "error",
                 message: e
             });
@@ -119,7 +111,7 @@ var io = {
         this.sock.onclose = function(e) {
             console.log('Connection Closed');
 
-            $.event.trigger({
+            virtualclass.ioEventApi.connectionclose({
                 type: "connectionclose",
                 message: e.reason
             });
@@ -384,7 +376,7 @@ var io = {
               data_pack = data_pack.subarray(2);
               var msg = (data_pack[0] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
 
-              $.event.trigger({
+                virtualclass.ioEventApi.binrec({
                   type: "binrec",
                   message: msg.buffer
               });
@@ -421,7 +413,7 @@ var io = {
                   msg1[1] = 0;
                   msg1.set(msg, 2);
                   ioStorage.dataBinaryStore(msg1);
-                $.event.trigger({
+                  virtualclass.ioEventApi.binrec({
                     type: "binrec",
                     message: msg.buffer
                 });
@@ -429,13 +421,8 @@ var io = {
               }
             }
         }
-        //} catch (e) {
-        //    console.log("Error catched   : " + e);
-        //    $.event.trigger({
-        //        type: "error",
-        //        message: e
-        //    });
-        //}
+
+
     },
 
     // Check if websocket is ready to send
@@ -469,11 +456,18 @@ var io = {
                 /* identifying new user from list*/
                 var newuser = null;
                 if (io.uniquesids != null) {
-                    $.each(receivemsg.clientids, function(i, v) {
+
+                    // $.each(receivemsg.clientids, function(i, v) {
+                    //     if (io.uniquesids[i] == undefined) {
+                    //         newuser = i;
+                    //     }
+                    // });
+
+                    for(let i in receivemsg.clientids){
                         if (io.uniquesids[i] == undefined) {
                             newuser = i;
                         }
-                    });
+                    }
                 }
                 io.uniquesids = receivemsg.clientids;
                 //update users
@@ -492,23 +486,33 @@ var io = {
                     msg.user = true;
                 }
 
-                $.event.trigger(msg);
+                //$.event.trigger(msg);
+                virtualclass.ioEventApi.member_added(msg);
                 break;
             case "broadcastToAll":
             case "broadcast":
-                //return;
-                //   console.log('broad cast');
                 if (receivemsg !== null) {
                     if (receivemsg.userto != undefined) {
                         userto = receivemsg.userto;
                     }
-                    $.event.trigger({
+
+                    // $.event.trigger({
+                    //     type: "newmessage",
+                    //     message: receivemsg.m,
+                    //     fromUser: receivemsg.user,
+                    //     //   toUser: userto
+                    //     toUser:  virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
+                    // });
+
+                    virtualclass.ioEventApi.newmessage({
                         type: "newmessage",
                         message: receivemsg.m,
                         fromUser: receivemsg.user,
                         //   toUser: userto
                         toUser:  virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
                     });
+
+
 
                 }
                 break;
@@ -520,37 +524,40 @@ var io = {
                 if (io.uniquesids != null) {
                     delete io.uniquesids[receivemsg.user.userid];
                 }
-                $.event.trigger({
+                // $.event.trigger({
+                //     type: "user_logout",
+                //     fromUser: receivemsg.user,
+                //     message: 'offline',
+                //     // toUser: userto
+                //     toUser : virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
+                // });
+
+                virtualclass.ioEventApi.user_logout({
                     type: "user_logout",
                     fromUser: receivemsg.user,
                     message: 'offline',
                     // toUser: userto
                     toUser : virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
                 });
-                break;
-            case "leftroom":
-                console.log('Case:- leftroom');
-                $.event.trigger({
-                    type: "member_removed",
-                    message: receivemsg.user
-                });
+
+
                 break;
             case "Unauthenticated":
                 console.log('Case:- unauthenticated');
-                $.event.trigger({
+                virtualclass.ioEventApi.authentication_failed({
                     type: "authentication_failed",
                     message: 'Authentication failed'
                 });
                 break;
             case "Multiple_login":
                 console.log('Case:- Multiple_login');
-                $.event.trigger({
+                virtualclass.ioEventApi.Multiple_login({
                     type: "Multiple_login"
                 });
                 break;
             case "PONG":
                 // console.log('Case:- PONG');
-                $.event.trigger({
+                virtualclass.ioEventApi.PONG({
                     type: "PONG",
                     message: receivemsg.m
                 });
@@ -558,41 +565,35 @@ var io = {
 
             case "Text_Limit_Exeed":
                 // console.log('Case:- PONG');
-                $.event.trigger({
+                virtualclass.ioEventApi.Text_Limit_Exeed({
                     type: "Text_Limit_Exeed"
                 });
                 break;
 
             case "Binary_Limit_Exeed":
                 // console.log('Case:- PONG');
-                $.event.trigger({
+                virtualclass.ioEventApi.Binary_Limit_Exeed({
                     type: "Binary_Limit_Exeed"
                 });
                 break;
 
             case "Max_rooms":
                 // console.log('Case:- PONG');
-                $.event.trigger({
+                virtualclass.ioEventApi.Max_rooms({
                     type: "Max_rooms"
                 });
                 break;
 
             case "Max_users":
                 // console.log('Case:- PONG');
-                $.event.trigger({
-                    type: "Max_rooms"
+                virtualclass.ioEventApi.Max_users({
+                    type: "Max_users"
                 });
                 break;
 
 
         }
-        //} catch (e) {
-        //    console.log("Error catched   : " + e);
-        //    $.event.trigger({
-        //        type: "error",
-        //        message: e
-        //    });
-        //}
+
     },
     disconnect: function() {
         this.sock.onclose = function() {

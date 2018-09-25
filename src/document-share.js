@@ -1882,6 +1882,8 @@
                 this.docStatus(id);
             },
 
+            /** TODO, check if following function is using **/
+
             docStatus : function (id, status){
                 var note = document.querySelector("#linkdocs" + id + ' .controls.status');
                 if(note != null ){

@@ -874,3 +874,92 @@
     /*pointer-events : visible;*/
     /*cursor: pointer;*/
 /*}*/
+
+#virtualclassCont.congrea #docShareNav{
+    position: fixed;
+    left: 10px;
+    bottom: 8px;
+    z-index: 1231313;
+    width: 100%;
+}
+
+#virtualclassCont.congrea .noteIndex{
+    margin-left: 20px;
+    color: white;
+}
+
+#virtualclassCont.congrea .pageNav{
+    color:white;
+    bottom: 4px;
+    position: relative;
+}
+
+#virtualclassCont.congrea #dcPaging{
+    margin-left: 60px;
+    position: fixed;
+    bottom: 9px;
+    width: 90%;
+}
+
+}
+
+
+#virtualclassCont.congrea #rightNavPage{
+    position: relative;
+    left: 33%;
+    bottom: 5px;
+}
+
+#virtualclassCont.congrea #leftNavPage{
+    position: fixed;
+    bottom: 10px;
+}
+.noteIndex.hid{
+    display:none;
+}
+.noteIndex.shw{
+    display: inline-block;
+}
+
+#virtualclassCont.congrea .pageNav.disable{
+    pointer-events:none;
+    opacity :.3
+}
+#virtualclassCont.congrea .pageNav.enable{
+    pointer-events:visible;
+    opacity :1
+}
+
+#virtualclassCont.congrea #dcPaging .active{
+    color:red ;
+    border:solid white 1px;
+}
+
+#virtualclassCont.congrea .noteIndex.hid.right.active{
+    display:inline-block;
+    
+}
+#virtualclassCont.congrea .noteIndex.hid.left.active{
+    display:inline-block;
+    
+}
+#virtualclassCont.congrea  .noteIndex[status ="0"]{
+    pointer-event :none;
+    opacity :.3
+}
+#virtualclassCont.congrea  .noteIndex[status ="1"]{
+    pointer-event :visible;
+    opacity :1
+}
+
+#virtualclassCont.congrea #docShareNav{
+    display:none
+}
+
+#virtualclassCont.congrea #docShareNav{
+    display:none
+}
+
+#virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav,#virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher #docShareNav{
+    display:block;
+}

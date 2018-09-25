@@ -695,6 +695,7 @@
                         virtualclass.dts.docs.currNote = 0;
                         virtualclass.dts.docs.currDoc = undefined;
                         virtualclass.gObj.currWb = null;
+                        //virtualclass.dts.indexNav.removeNav();
                     }
 
                     if(!virtualclass.dts.docSelected()){
@@ -1756,7 +1757,11 @@
                 
                 // organize list
                 this.reaArrangeThumbCount();
-                this.indexNav.rearrangeIndex(order)//new
+                var paging = document.querySelectorAll("#dcPaging .noteIndex");
+                if(paging.length >0){
+                    this.indexNav.rearrangeIndex(order)//new
+                }
+            
             },
 
             _delete : function (id){

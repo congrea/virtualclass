@@ -219,11 +219,7 @@
         sn.onclick = function () {
             virtualclass.wbCommon.setCurrSlideNumber(wid);
             virtualclass.wbCommon.indexNav.addActiveClass(wid)
-            setTimeout(
-                function (){
-                    virtualclass.wbCommon.displaySlide(wid);
-                }, 2000 
-            );
+            virtualclass.wbCommon.displaySlide(wid);
             virtualclass.gObj.currWb = wid;
         }
     }

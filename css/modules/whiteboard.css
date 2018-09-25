@@ -128,3 +128,9 @@
 #virtualclassCont.congrea .canvasWrapper .whiteboards{
   z-index : 10;
 }
+
+
+#virtualclassCont.congrea.teacher.orginalTeacher[data-currapp="Whiteboard"] #docShareNav {
+  display : none; /** this hide is temporary **/
+  pointer-events: none;
+}

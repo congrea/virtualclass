@@ -297,16 +297,9 @@
 
 
             left.addEventListener("click", function () {
-
-//                var index = document.querySelector(".congrea #dcPaging .noteIndex.active");
-//                if (index) {
-//                    index.classList.remove("active");
-//
-//                }
                 if (virtualclass.currApp == "Whiteboard") {
                     document.querySelector("#virtualclassWhiteboard .prev").click();
-                   
-
+                  
                 } else {
                     document.getElementById("docsprev").click()
                     that.navigatorMode();
@@ -317,15 +310,9 @@
 
             })
             right.addEventListener("click", function () {
-
-//                var index = document.querySelector(".congrea #dcPaging .noteIndex.active");
-//                if (index) {
-//                    index.classList.remove("active");
-//
-//                }
-
                 if (virtualclass.currApp == "Whiteboard") {
-                    if (document.querySelector(".noteIndex.shw.active").nextSibling != null) {
+                    var elem= document.querySelector(".noteIndex.shw.active")
+                    if (elem && elem.nextSibling != null) {
                         document.querySelector("#virtualclassWhiteboard .next").click();
                         var num = virtualclass.gObj.currWb.split("_doc_0")[1]
                         if (num > this.shownPages) {
@@ -336,8 +323,6 @@
                         alert("next page not available")
                         //that.navigatorMode();
                     }
-                  
-
                 } else {
                     document.getElementById("docsnext").click()
                     that.navigatorMode();

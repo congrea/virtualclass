@@ -686,6 +686,8 @@
                 }
 
                 window.virtualclass.wb[id].init(id);
+               
+             
 
                 virtualclass.wb[id].utility.makeCanvasDisable();
                 virtualclass.wb[id].utility.toolWrapperDisable();
@@ -695,6 +697,12 @@
                    //     virtualclass.wb[id].utility.createWhiteboardMessage()
                     }
                 }
+                if (!roles.hasControls()) {
+                    if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
+                        virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
+                    }
+                }
+                
             },
 
             removeWhiteboardMessage : function (){

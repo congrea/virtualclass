@@ -973,3 +973,21 @@
        max-width:320px;
    }
 }
+
+#virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav,#virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav{
+    display :block;
+    position: fixed;
+    bottom: 7px;
+    left: 20px;
+    z-index: 1005;
+}
+
+.congrea #stdPageNo{
+    color:white;
+}
+.congrea #totalPages{
+    color: red;
+    border: solid red 1px;
+    border-radius: 29px;
+    padding: 5px;
+}

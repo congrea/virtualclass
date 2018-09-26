@@ -697,7 +697,7 @@
                    //     virtualclass.wb[id].utility.createWhiteboardMessage()
                     }
                 }
-                if (!roles.hasControls()) {
+                if (!roles.hasControls() && virtualclass.currApp == "Whiteboard") {
                     if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
                         virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
                     }

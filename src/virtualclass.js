@@ -628,11 +628,11 @@
                                 virtualclass.wbCommon.reArrangeElements(wIds);
                                 virtualclass.gObj.wbRearrang = true;
                                 virtualclass.gObj.wIds = wIds;
-                                if (!roles.hasControls()) {
-                                    if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
-                                        virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
-                                    }
-                                }
+//                                if (!roles.hasControls()) {
+//                                    if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
+//                                        virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
+//                                    }
+//                                }
                                  
                              }
                             //virtualclass.gObj.currWb = '_doc_0_'+virtualclass.gObj.currSlide;

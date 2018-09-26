@@ -33,6 +33,14 @@
         }
         this.shownPage(this.width);
         this.addActiveClass();
+        this.setTotalPages(virtualclass.dts.order.length);
+    }
+    pageIndexNav.prototype.setTotalPages = function(length){
+        var cont = document.querySelector("#docShareNav #totalPages");
+        if(cont){
+            cont.innerHTML =length;
+        }
+            
     }
     
     /** Todo, rename function adjustPageNavigation **/
@@ -368,11 +376,14 @@
                     
                 }             
             }
+            var cont = document.querySelector("#totalPages");
+            if (!cont) {
                 var total = document.createElement('span')
-                total.id = "totalPages"
-                total.className = "pages"
+                total.id = "totalPages";
+                total.className = "pages";
                 dc.appendChild(total);
-          
+
+            }  
         },
         
         /** Set enable/disable class for previous or next button when required*/

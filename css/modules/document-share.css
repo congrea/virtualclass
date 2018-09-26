@@ -982,6 +982,12 @@
     z-index: 1005;
 }
 
-#stdPageNo{
+.congrea #stdPageNo{
     color:white;
+}
+.congrea #totalPages{
+    color: red;
+    border: solid red 1px;
+    border-radius: 29px;
+    padding: 5px;
 }

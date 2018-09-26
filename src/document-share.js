@@ -973,7 +973,7 @@
                 if(!btn){
                     virtualclass.vutil.showFinishBtn();
                 }
-                
+                this.indexNav.setTotalPages(virtualclass.dts.order.length);
                 
 //                var index = document.querySelector(".congrea #dcPaging #index" + curr);
 //                if (index && !index.classList.contains('active')) {

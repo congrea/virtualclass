@@ -128,7 +128,7 @@
             this.displaySlide(wid);
             virtualclass.gObj.currWb = wid;
         },
-        
+
         setCurrSlideNumber : function (wid){
            var idn = wid.split('_');
             if(idn.length > 0){
@@ -144,29 +144,33 @@
         prev: function () {
             this.hideElement();
             var wid = this.whiteboardWrapperExist('prev');
+
+            this.readyCurrentWhiteboard(wid);
+            this.setCurrSlideNumber(wid);
+            virtualclass.wbCommon.indexNav.addActiveClass(wid)
+            virtualclass.wbCommon.indexNav.UI.pageNavHandler("left");
+        },
+
+        readyCurrentWhiteboard : function (wid){
             if (wid != null) {
                 if(!this.whiteboardExist(wid)){
                     virtualclass.vutil.createWhiteBoard(wid);
-                     this.displaySlide(wid);
-                      virtualclass.gObj.currWb = wid;
+                    this.displaySlide(wid);
+                    virtualclass.gObj.currWb = wid;
 
-                 }else {
-                         this.displaySlide(wid);
-                        virtualclass.gObj.currWb = wid;
+                }else {
+                    this.displaySlide(wid);
+                    virtualclass.gObj.currWb = wid;
 
-                 }
+                }
                 virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : virtualclass.gObj.currWb});
-            
+
                 console.log('whiteboard slide send=' + virtualclass.gObj.currWb);
             } else {
                 alert('Elemennt is NULL');
             }
-            this.setCurrSlideNumber(wid);
-            virtualclass.wbCommon.indexNav.addActiveClass(wid)
-            virtualclass.wbCommon.indexNav.UI.pageNavHandler("left");
-           
         },
-        
+
         whiteboardExist : function (wid){
             return (document.querySelector("#canvas" + wid) != null);
         },

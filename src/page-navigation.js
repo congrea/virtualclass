@@ -221,7 +221,8 @@
         sn.onclick = function () {
             virtualclass.wbCommon.setCurrSlideNumber(wid);
             virtualclass.wbCommon.indexNav.addActiveClass(wid)
-            virtualclass.wbCommon.displaySlide(wid);
+            virtualclass.wbCommon.readyCurrentWhiteboard(wid);
+            // virtualclass.wbCommon.displaySlide(wid);
             virtualclass.gObj.currWb = wid;
         }
     }

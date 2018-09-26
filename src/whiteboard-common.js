@@ -48,12 +48,14 @@
             }
         },
         initNav:function(wIds){
-            this.indexNav = new  pageIndexNav("WB")
+            this.indexNav = new pageIndexNav("WB")
             this.indexNav.init();
-            
-            for(var i =0 ; i<wIds.length ;i++){
-                virtualclass.wbCommon.indexNav.createWbIndex(wIds[i])
+            if (roles.hasControls()) {
+                for (var i = 0; i < wIds.length; i++) {
+                    virtualclass.wbCommon.indexNav.createWbIndex(wIds[i])
+                }
             }
+           
        },
 
 
@@ -69,6 +71,13 @@
                 virtualclass.gObj.currWb = wid;
             }
             this.identifyFirstNote(wid);
+            if (!roles.hasControls()) {
+                if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
+                    virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
+                }
+            }
+            
+           
         },
 
         hideElement : function (){
@@ -124,6 +133,11 @@
            var idn = wid.split('_');
             if(idn.length > 0){
                virtualclass.gObj.currSlide = idn[idn.length-1];
+                if (!roles.hasControls()) {
+                    if(typeof virtualclass.wbCommon.indexNav !== 'undefined'){
+                        virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
+                    }
+                }
             } 
         },
 

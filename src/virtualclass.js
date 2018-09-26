@@ -1175,6 +1175,10 @@
 
                     //  By doing below, There will be problem on replaying or executing the all packets for new user
                     var cthis = virtualclass;
+                    
+                    if (typeof virtualclass.dts.indexNav == 'undefined') {
+                        virtualclass.dts.indexNav = new virtualclass.pageIndexNav("documentShare");
+                    }
 
                     if(!virtualclass.gObj.hasOwnProperty('docs')){
                         dstData = setTimeout(
@@ -1213,7 +1217,10 @@
                                     if(typeof virtualclass.dts.indexNav =='undefined'){
                                         virtualclass.dts.indexNav = new virtualclass.pageIndexNav("documentShare");
                                     }
-                                    virtualclass.dts.indexNav.createIndex();  
+                                    if(roles.hasControls()){
+                                         virtualclass.dts.indexNav.createIndex();  
+                                    }
+                                   
                                    
                                 }
                                 virtualclass.zoom.normalRender();

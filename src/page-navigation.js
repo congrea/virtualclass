@@ -289,8 +289,9 @@
     pageIndexNav.prototype.UI = {
         container: function () {
             /** TODO Use handlebars**/
+            var dc = document.getElementById("docShareNav");
             if (roles.hasControls()) {
-                var dc = document.getElementById("docShareNav");
+             
                 var i = 0;
                 while (dc.firstChild) {
                     dc.removeChild(dc.firstChild);
@@ -312,6 +313,7 @@
                 right.className = "pageNav"
                 // right.innerHTML = "right"
                 cont.appendChild(right);
+                
                 var that = this;
 
                 /** create the descriptive function here**/
@@ -366,6 +368,10 @@
                     
                 }             
             }
+                var total = document.createElement('span')
+                total.id = "totalPages"
+                total.className = "pages"
+                dc.appendChild(total);
           
         },
         

@@ -29,24 +29,38 @@ $secret = '8ww4umRbFIcTu92cJhrExXWNNAG7FDuN91RDoJO3s1XWa09UiBzPyvDl6ksLXXz6'; */
 /*$licensekey = 'noqOqApeSflBnQn9VSibPQ19CHFxRjLuEWdzojnHVMrVNlRa';
 $secret = 'iS3pXEWVgclNdEd2QezeJpwJDyGYn8LF0O5Ys1UJefxrUKtKZ3YJsvs6494rhP6i'; */
 
+/*
+$licensekey = 'noqOqApeSflBnQn9VSibPQ19CHFxRjLuEWdzojnHVMrVNlRa';
+$secret = 'iS3pXEWVgclNdEd2QezeJpwJDyGYn8LF0O5Ys1UJefxrUKtKZ3YJsvs6494rhP6i';
+*/
 
-$licensekey = 'SR71Fv0dhKie3BuhPWFFTUy2QABCWkHL3E0qfMky8I582qGX';
-$secret = 'wrbjepJzdXpByeqZEIyAkseCGPayMKAibMBpckYphn1QCrPgaoRuR66yVh7I1H0c';
+
+/*testing server **/
+/*
+$licensekey = 'i8d1T08fAcvAZGTvJmj8hIFWQY5jSY851CTUn7DoyCkjJnvD';
+$secret = 'VsrArG07d6oKqINC4dnYEhn6lhDm3BNY3ezvVzC9G0T7JGKNT7Myo9EKri7uTUtX';
+*/
+
+$licensekey = 'U8ZhqgxOuaQrmOfdtDVBpcKO0ZpuNdM85CYl6Mb41CLGnY3F';
+$secret = 'IABs5pZVa98OHuhYvXe6wh1CjB0YKIjsjVUolTkv3tjLXBKtyYA5fBIydJwXrQqK';
 
 
 /*
 $licensekey = 'noqOqApeSflBnQn9VSibPQ19CHFxRjLuEWdzojnHVMrVNlRa';
-$secret = 'iS3pXEWVgclNdEd2QezeJpwJDyGYn8LF0O5Ys1UJefxrUKtKZ3YJsvs6494rhP6i'; */
-
+$secret = 'iS3pXEWVgclNdEd2QezeJpwJDyGYn8LF0O5Ys1UJefxrUKtKZ3YJsvs6494rhP6i';
+*/
 
 
 $r = isset($_GET['role'] ) ? $_GET['role'] : 's';
 
+
 $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'role' => $r, 'room' => $room);
 
 $post_data = json_encode($post_data);
+
 //echo $post_data;
 $rid = my_curl_request("https://api.congrea.net/backend/auth", $post_data, $licensekey, $secret);
+
  // var_dump( $rid);exit;
 
 

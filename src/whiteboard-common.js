@@ -48,15 +48,20 @@
             }
         },
         initNav:function(wIds){
-            this.indexNav = new pageIndexNav("WB")
+            if (typeof this.indexNav == 'undefined') {
+                this.indexNav = new pageIndexNav("WB")
+            }
+
             this.indexNav.init();
             if (roles.hasControls()) {
                 for (var i = 0; i < wIds.length; i++) {
                     virtualclass.wbCommon.indexNav.createWbIndex(wIds[i])
                 }
             }
-           
-       },
+            // virtualclass.gObj.wbCount = wIds.length;
+            virtualclass.wbCommon.indexNav.setTotalPages(wIds.length);
+
+        },
 
 
         /**
@@ -245,6 +250,21 @@
                 node = allContainers[i];
                 node.parentNode.removeChild(node);
             }
+        },
+
+        clearNavigation : function (){
+            var dc = document.getElementById("dcPaging");
+            while (dc.firstChild) {
+                dc.removeChild(dc.firstChild);
+            }
+
+            virtualclass.wbCommon.indexNav.createWbIndex(0)
+            // delete virtualclass.wbCommon.indexNav;
+            //
+            // if(virtualclass.hasOwnProperty('dts')){
+            //     delete virtualclass.dts.indexNav;
+            // }
+
         }
     }
     window.wbCommon = wbCommon;

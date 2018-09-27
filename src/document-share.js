@@ -570,7 +570,13 @@
                 if(this.order.length <= 0){
                     firstTime = true;
                 }
-                this.indexNav.createIndex()
+                if(roles.hasControls()){
+                    this.indexNav.createIndex()
+                }
+                
+                
+                
+            
                 
 //                  for(var i=0; i<this.order.length; i++){
 //                    if(typeof this.notes[this.order[i]] != 'object'){
@@ -597,12 +603,16 @@
                     delete virtualclass.wb['_doc_' + noteId +'_'+noteId];
                 }
                 this.removeNoteNav(noteId);
-
-                // if(roles.hasControls() && typeof (typeDoc != 'undefined' && typeDoc == 'hosts')){
-                //     this.selectFirstNote();
-                // }
-
                 this.reaArrangeThumbCount();
+                if(!roles.hasControls()){
+                    var curr = document.querySelector("#notesContainer .note.current")
+                    if (curr) {
+                        var id = curr.id.split("note")[1]
+                        virtualclass.dts.indexNav.studentPagination(id);
+                    }
+                          
+                }
+                
             },
 
             addPages : function (slides){
@@ -945,19 +955,25 @@
                             this.noteStatus(this.order[i], status);
                         } 
                     }
-                    this.indexNav.createThumbnail(this.order[i],i,status)
+                    if(roles.hasControls()){
+                        this.indexNav.createThumbnail(this.order[i],i,status)
+                    }
+                
                 
                 }
                
    
                 this.storeInDocs(this.allNotes);
-                this.indexNav.shownPage(this.indexNav.width)
-                this.indexNav.addActiveClass()
+                if(roles.hasControls()){
+                    this.indexNav.shownPage(this.indexNav.width)
+                    this.indexNav.addActiveClass()
+                }
+              
                 var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
                 if(!btn){
                     virtualclass.vutil.showFinishBtn();
                 }
-                
+                this.indexNav.setTotalPages(virtualclass.dts.order.length);
                 
 //                var index = document.querySelector(".congrea #dcPaging #index" + curr);
 //                if (index && !index.classList.contains('active')) {
@@ -1306,6 +1322,10 @@
                                 note.classList.add('current');
                             }
                             virtualclass.vutil.addNoteClass();
+                            if(!roles.hasControls()){
+                                var id = note.id.split("note")[1]
+                                virtualclass.dts.indexNav.studentPagination(id);
+                            }
 
                         },
 
@@ -1675,6 +1695,9 @@
                     this.docStatus(dts.doc, dts.docSt);
                 }else if (dts.hasOwnProperty('order_recived')){
                     this.afterRequestOrder(dts.order_recived);
+                }else if (dts.hasOwnProperty('norder')){
+                    this.order =dts.norder;
+                    virtualclass.dts.indexNav.studentPagination(this.docs.currNote);
                 }
 
                 if(!dts.hasOwnProperty('dres')){
@@ -1724,6 +1747,8 @@
                 this.reArrangeElements(order);
                 if(roles.hasAdmin()){
                     this.sendOrder(this.order);
+                    ioAdapter.mustSend({'dts': {norder: this.order}, 'cf': 'dts'});
+                    
                 }
             },
 
@@ -1833,7 +1858,10 @@
                if(!noteExit){
                   this._delete(doc); 
                }
-                this.indexNav.createIndex();
+               if(roles.hasControls()){
+                    this.indexNav.createIndex(); 
+               }
+   
                
             },
 

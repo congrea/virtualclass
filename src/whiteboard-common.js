@@ -48,15 +48,23 @@
             }
         },
         initNav:function(wIds){
-            this.indexNav = new pageIndexNav("WB")
+            if (typeof this.indexNav == 'undefined') {
+                this.indexNav = new pageIndexNav("WB")
+            }
+
             this.indexNav.init();
             if (roles.hasControls()) {
                 for (var i = 0; i < wIds.length; i++) {
                     virtualclass.wbCommon.indexNav.createWbIndex(wIds[i])
                 }
+            }else {
+                virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
             }
-           
-       },
+
+            // virtualclass.gObj.wbCount = wIds.length;
+            virtualclass.wbCommon.indexNav.setTotalPages(wIds.length);
+
+        },
 
 
         /**
@@ -244,6 +252,23 @@
             for (var i=0; i<allContainers.length; i++){
                 node = allContainers[i];
                 node.parentNode.removeChild(node);
+            }
+        },
+
+        clearNavigation : function (){
+            var dc = document.getElementById("dcPaging");
+            while (dc.firstChild) {
+                dc.removeChild(dc.firstChild);
+            }
+
+            if(roles.hasControls()){
+                virtualclass.wbCommon.indexNav.createWbIndex(0);
+            }else {
+
+                var pageNo = document.createElement('span')
+                pageNo.id = "stdPageNo";
+                dc.appendChild(pageNo);
+                virtualclass.wbCommon.indexNav.studentWBPagination(0);
             }
         }
     }

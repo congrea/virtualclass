@@ -216,10 +216,11 @@
         var sn = document.createElement("span");
         sn.id = "index" + id;
         sn.className = "noteIndex";
-        sn.setAttribute("title", id + 1)
-        sn.innerHTML = sn.getAttribute("title");
+        var pageNum = id + 1;
+        sn.setAttribute("title", pageNum)
+        sn.innerHTML = pageNum;
         this.subCont.appendChild(sn);
-        
+        this.setTotalPages(pageNum);
         sn.className  = (id > this.shownPages) ? "noteIndex hid right" : "noteIndex shw";
         
         if (virtualclass.gObj.currWb == wid) {
@@ -271,25 +272,34 @@
         virtualclass.dts.indexNav.UI.pageNavHandler(direction);
 
     }
-    
+
+    /** For document sharing **/
     pageIndexNav.prototype.studentPagination = function(id){
-    
         if(virtualclass.dts.order){
             var index = virtualclass.dts.order.indexOf(id); 
             var cont = document.querySelector(".congrea  #stdPageNo")
             if(cont){
-                cont.innerHTML= index +1 
-               // alert(index+1);
+                cont.innerHTML= index +1
             }
+            var that = this;
+            setTimeout(()=> {
+                    that.setTotalPages((virtualclass.dts.order.length));
+            }, 100);
         }
         
     }
+
+    /** For document Whiteboard **/
     pageIndexNav.prototype.studentWBPagination= function(index){
       
         var cont = document.querySelector(".congrea  #stdPageNo")
         if (cont) {
-            cont.innerHTML = parseInt(index) +1  ;
-            // alert(index+1);
+            cont.innerHTML = parseInt(index) +1;
+            var that = this;
+            setTimeout(()=> {
+                that.setTotalPages((virtualclass.gObj.wbCount+1));
+            }, 100);
+
         }      
     }
     

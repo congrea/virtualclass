@@ -726,6 +726,9 @@
 
                     //virtualclass.previrtualclass = "virtualclassEditorRichTool";
                 }
+
+
+
                 if(typeof virtualclass.yts == 'object'){
                     clearInterval(virtualclass.yts.tsc); // Clear If youTube seekChange interval is exist
                 }
@@ -845,6 +848,9 @@
                 if(roles.hasAdmin()){
                     virtualclass.serverData.fetchAllData();
                 }
+                virtualclass.gObj.wIds = [0];
+                virtualclass.gObj.wbCount = 0;
+                virtualclass.wbCommon.clearNavigation();
             }
         },
 

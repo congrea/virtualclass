@@ -34,7 +34,7 @@ function displayChatUserList(users){
         chat_div = document.querySelector('#chat_div');
     }
 
-    if( myDivResult != null && myDivResult != '' && typeof myDivResult != 'boolean'){
+    if(myDivResult != null && myDivResult != undefined && myDivResult != '' && typeof myDivResult != 'boolean'){
         if(chat_div.innerHTML == ""){
             chat_div.innerHTML =  myDivResult;
         } else {

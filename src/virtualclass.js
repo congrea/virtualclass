@@ -163,6 +163,7 @@
                 this.multiVideo = window.MultiVideo;
                 this.vutil.isChromeExtension();
                 this.wbCommon = window.wbCommon;
+                this.pageNavigation = window.pageIndexNav;
 
                 // this.pdfRender = window.pdfRender();
 
@@ -605,9 +606,9 @@
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
 
                         prevapp = JSON.parse(prevapp);
-                         if(wIds != null && wIds.length > 0 ){
-                            virtualclass.wbCommon.initNav(virtualclass.gObj.wIds);
-                         }
+                         // if(wIds != null && wIds.length > 0 ){
+                         //    virtualclass.wbCommon.initNav(virtualclass.gObj.wIds);
+                         // }
                         virtualclass.wbCommon.initNav(virtualclass.gObj.wIds);
                         //if(!virtualclass.gObj.wbRearrang && prevapp != null && prevapp.hasOwnProperty('wbcs')){
                         if(!virtualclass.gObj.wbRearrang && prevapp != null && localStorage.getItem('currSlide') != null){
@@ -1225,6 +1226,8 @@
                                     }
                                     if(roles.hasControls()){
                                          virtualclass.dts.indexNav.createIndex();  
+                                    }else {
+                                        virtualclass.dts.indexNav.studentPagination(virtualclass.dts.docs.currNote);
                                     }
                                    
                                    

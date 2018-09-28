@@ -22,29 +22,33 @@
 
         this.subCont = document.querySelector('#virtualclassCont.congrea #dcPaging')
         this.width = res.width;
-        this.shownPages = this.countShownPage(this.width);
+        this.shownPages = this.countNumberOfNavigation(this.width);
     }
     
     /* create the pagination */
     pageIndexNav.prototype.createIndex = function () {
         this.init();
         for (var i = 0; i < virtualclass.dts.order.length; i++) {
-             this.createThumbnail(virtualclass.dts.order[i], i)
+             this.createDocNavigationNumber(virtualclass.dts.order[i], i)
         }
         this.shownPage(this.width);
         this.addActiveClass();
         this.setTotalPages(virtualclass.dts.order.length);
     }
+
     pageIndexNav.prototype.setTotalPages = function(length){
         var cont = document.querySelector("#docShareNav #totalPages");
         if(cont){
             cont.innerHTML =length;
         }
-            
     }
-    
-    /** Todo, rename function adjustPageNavigation **/
-    pageIndexNav.prototype.adjustIndexDisplay=  function (currIndex, dir) {
+
+    /**
+     * This function adjust navigation, like if you click on previous
+     * and next button, we need to hide and dislay page number,
+     * So, it adjusts page navigation
+     */
+    pageIndexNav.prototype.adjustPageNavigation=  function (currIndex, dir) {
         if (dir == "right") {
             var nodes = document.querySelectorAll(".noteIndex.shw");
             if (nodes.length) {
@@ -115,16 +119,16 @@
                 }
             }
         }
-
     }
-    /** TODO, NAME change removeNavigation **/
+
     pageIndexNav.prototype.removeNav = function(){
         var dc = document.getElementById("docShareNav");
         while (dc.firstChild) {
             dc.removeChild(dc.firstChild);
         }     
     }
-    
+
+    /** Add active class for current active Note**/
     pageIndexNav.prototype.addActiveClass = function (wbCurr) {
         if(virtualclass.currApp =="Whiteboard"){
            var num = wbCurr.split("doc_0_")[1];
@@ -151,15 +155,13 @@
                 currIndex = lActive.title;
                 dir = "left"
             }
-         
-            this.adjustIndexDisplay(parseInt(currIndex), dir);
-
+         this.adjustPageNavigation(parseInt(currIndex), dir);
         }
     }
     
     
-    /** Re-arrange the navigation **/
-    pageIndexNav.prototype.rearrangeIndex = function (order) {
+    /** Re-arrange the Page Navigation **/
+    pageIndexNav.prototype.rearrangePageNavigation = function (order) {
         var container = document.getElementById('dcPaging');
         if (container) {
             var tmpdiv = document.createElement('div');
@@ -195,52 +197,10 @@
 
     }
     
-    /** createDocNavigationNumber **/
-    pageIndexNav.prototype.createThumbnail = function (order, i) {
-        var sn = document.createElement("span");
-        sn.id = "index" + order;
-        sn.className = "noteIndex";
-        sn.setAttribute("title", i + 1)
-        sn.innerHTML = sn.getAttribute("title");
-        this.subCont.appendChild(sn);
-        if (virtualclass.dts.docs.currNote == order) {
-            sn.classList.add("active")
-        }
-        this.index =i+1;
-        sn.onclick = virtualclass.dts.docs.goToNavs(order);
-    }
-    
-    /** createWbNavigationNumber **/
-    pageIndexNav.prototype.createWbIndex = function (id) {
-        var wid = "_doc_0_" + id;
-        var sn = document.createElement("span");
-        sn.id = "index" + id;
-        sn.className = "noteIndex";
-        var pageNum = id + 1;
-        sn.setAttribute("title", pageNum)
-        sn.innerHTML = pageNum;
-        this.subCont.appendChild(sn);
-        this.setTotalPages(pageNum);
-        sn.className  = (id > this.shownPages) ? "noteIndex hid right" : "noteIndex shw";
-        
-        if (virtualclass.gObj.currWb == wid) {
-            virtualclass.wbCommon.indexNav.addActiveClass(wid)
-        }
-
-        sn.onclick = function () {
-            virtualclass.wbCommon.setCurrSlideNumber(wid);
-            virtualclass.wbCommon.indexNav.addActiveClass(wid)
-            virtualclass.wbCommon.readyCurrentWhiteboard(wid);
-            // virtualclass.wbCommon.displaySlide(wid);
-            virtualclass.gObj.currWb = wid;
-        }
-    }
-    
     /** setNavigationDisplay **/
-        
     pageIndexNav.prototype.shownPage = function (width) {
         var pages = document.querySelectorAll(".noteIndex");
-        var n = this.countShownPage(width);
+        var n = this.countNumberOfNavigation(width);
         for (var i = 0; i < pages.length; i++) {
             if (i > n) {
                 pages[i].className = "noteIndex hid right"
@@ -249,11 +209,11 @@
             }
         }
     }
+
     /** 
      * Display the number of navigation based on Width 
-     * countNumberOfNavigation
      * */
-    pageIndexNav.prototype.countShownPage = function (width) {
+    pageIndexNav.prototype.countNumberOfNavigation = function (width) {
         if (width >= 1200) {
             return 10;
         } else if (width >= 700) {
@@ -273,11 +233,55 @@
 
     }
 
-    /** For document sharing **/
-    pageIndexNav.prototype.studentPagination = function(id){
+
+    /** Create navigation for teacher on document sharing **/
+    pageIndexNav.prototype.createDocNavigationNumber = function (order, i) {
+        var sn = document.createElement("span");
+        sn.id = "index" + order;
+        sn.className = "noteIndex";
+        var pageNum = i + 1;
+        sn.setAttribute("title", pageNum);
+        sn.innerHTML = pageNum;
+        this.subCont.appendChild(sn);
+        if (virtualclass.dts.docs.currNote == order) {
+            sn.classList.add("active")
+        }
+        this.index = pageNum;
+        sn.onclick = virtualclass.dts.docs.goToNavs(order);
+    }
+
+
+    /** Create navigation for teacher  on  Whiteboard **/
+    pageIndexNav.prototype.createWbNavigationNumber = function (id) {
+        var wid = "_doc_0_" + id;
+        var sn = document.createElement("span");
+        sn.id = "index" + id;
+        sn.className = "noteIndex";
+        var pageNum = id + 1;
+        sn.setAttribute("title", pageNum)
+        sn.innerHTML = pageNum;
+        this.subCont.appendChild(sn);
+        this.setTotalPages(pageNum);
+        sn.className  = (id > this.shownPages) ? "noteIndex hid right" : "noteIndex shw";
+
+        if (virtualclass.gObj.currWb == wid) {
+            virtualclass.wbCommon.indexNav.addActiveClass(wid)
+        }
+
+        sn.onclick = function () {
+            virtualclass.wbCommon.setCurrSlideNumber(wid);
+            virtualclass.wbCommon.indexNav.addActiveClass(wid)
+            virtualclass.wbCommon.readyCurrentWhiteboard(wid);
+            // virtualclass.wbCommon.displaySlide(wid);
+            virtualclass.gObj.currWb = wid;
+        }
+    }
+
+    /** Navigation for student on Document Sharing **/
+    pageIndexNav.prototype.studentDocNavigation = function(id){
         if(virtualclass.dts.order){
             var index = virtualclass.dts.order.indexOf(id); 
-            var cont = document.querySelector(".congrea  #stdPageNo")
+            var cont = document.getElementById("stdPageNo");
             if(cont){
                 cont.innerHTML= index +1
             }
@@ -286,13 +290,11 @@
                     that.setTotalPages((virtualclass.dts.order.length));
             }, 100);
         }
-        
     }
 
-    /** For document Whiteboard **/
+    /** Navigation for student on Whiteboard Sharing **/
     pageIndexNav.prototype.studentWBPagination= function(index){
-      
-        var cont = document.querySelector(".congrea  #stdPageNo")
+        var cont = document.getElementById("stdPageNo")
         if (cont) {
             cont.innerHTML = parseInt(index) +1;
             var that = this;
@@ -302,8 +304,8 @@
 
         }      
     }
-    
-    
+
+    /**Create navigation*/
     pageIndexNav.prototype.UI = {
         container: function () {
             /** TODO Use handlebars**/
@@ -481,11 +483,8 @@
 
                 }
             }
-            
         }
-
     }
-
     window.pageIndexNav = pageIndexNav;
 
 })(window, document)

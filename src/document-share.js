@@ -573,19 +573,6 @@
                 if(roles.hasControls()){
                     this.indexNav.createIndex()
                 }
-                
-                
-                
-            
-                
-//                  for(var i=0; i<this.order.length; i++){
-//                    if(typeof this.notes[this.order[i]] != 'object'){
-//
-//                     this.indexNav.createThumbnail(this.order[i],i)
-//                
-//                    }
-//                }
-                
             },
 
             _removePageUI : function (noteId, typeDoc){
@@ -608,7 +595,7 @@
                     var curr = document.querySelector("#notesContainer .note.current")
                     if (curr) {
                         var id = curr.id.split("note")[1]
-                        virtualclass.dts.indexNav.studentPagination(id);
+                        virtualclass.dts.indexNav.studentDocNavigation(id);
                     }
                           
                 }
@@ -956,7 +943,7 @@
                         } 
                     }
                     if(roles.hasControls()){
-                        this.indexNav.createThumbnail(this.order[i],i,status)
+                        this.indexNav.createDocNavigationNumber(this.order[i],i,status)
                     }
                 
                 
@@ -1324,7 +1311,7 @@
                             virtualclass.vutil.addNoteClass();
                             if(!roles.hasControls()){
                                 var id = note.id.split("note")[1]
-                                virtualclass.dts.indexNav.studentPagination(id);
+                                virtualclass.dts.indexNav.studentDocNavigation(id);
                             }
 
                         },
@@ -1697,7 +1684,7 @@
                     this.afterRequestOrder(dts.order_recived);
                 }else if (dts.hasOwnProperty('norder')){
                     this.order =dts.norder;
-                    virtualclass.dts.indexNav.studentPagination(this.docs.currNote);
+                    virtualclass.dts.indexNav.studentDocNavigation(this.docs.currNote);
                 }
 
                 if(!dts.hasOwnProperty('dres')){
@@ -1784,7 +1771,7 @@
                 this.reaArrangeThumbCount();
                 var paging = document.querySelectorAll("#dcPaging .noteIndex");
                 if(paging.length >0){
-                    this.indexNav.rearrangeIndex(order)//new
+                    this.indexNav.rearrangePageNavigation(order)//new
                 }
             
             },

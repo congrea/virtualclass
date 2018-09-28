@@ -55,7 +55,7 @@
             this.indexNav.init();
             if (roles.hasControls()) {
                 for (var i = 0; i < wIds.length; i++) {
-                    virtualclass.wbCommon.indexNav.createWbIndex(wIds[i])
+                    virtualclass.wbCommon.indexNav.createWbNavigationNumber(wIds[i])
                 }
             }else {
                 virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
@@ -117,7 +117,7 @@
                 if(!this.whiteboardExist(wid)){
                     virtualclass.vutil.createWhiteBoard(wid);
                 }
-                virtualclass.wbCommon.indexNav.createWbIndex(virtualclass.gObj.wbCount);
+                virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.wbCount);
                 virtualclass.vutil.beforeSend({'cf': 'cwb', wbCount : virtualclass.gObj.wbCount});
                 
             } else {
@@ -262,7 +262,7 @@
             }
 
             if(roles.hasControls()){
-                virtualclass.wbCommon.indexNav.createWbIndex(0);
+                virtualclass.wbCommon.indexNav.createWbNavigationNumber(0);
             }else {
 
                 var pageNo = document.createElement('span')

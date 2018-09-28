@@ -526,7 +526,7 @@ this["JST"]["dest_temp/templates/leftBar.hbs"] = Handlebars.template({"1":functi
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " <div id=\"virtualclassAppContainer\"><div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\" style=\"display:none;\"><div class=\"whiteboardContainer\"></div> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " </div></div><a id=\"congrealogo\" href=\"https://www.congrea.com\" target=\"_blank\"><img src=\"https://cdn.congrea.net/resources/images/congrea_logo.svg\"></a></div>";
+    + " </div></div><a id=\"congrealogo\" href=\"https://www.congrea.com\" target=\"_blank\"><img src=\"https://cdn.congrea.net/resources/images/congrea_logo.svg\"></a><div id=\"docShareNav\"></div></div>";
 },"usePartial":true,"useData":true});
 
 this["JST"]["dest_temp/templates/main.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -1087,7 +1087,7 @@ this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler
     + ((stack1 = container.invokePartial(partials.appSettingDetail,depth0,{"name":"appSettingDetail","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " <div id=\"chatWidget\"><div id=\"congreaChatMainCont\"><div id=\"congreaChatCont\"></div><div class=\"footerCtr\" id=\"congFooterCtr\"><div class=\"vmchat_search\" id=\"congchatBarInput\"><input type=\"text\" id=\"congreaUserSearch\" class=\"search\" placeholder=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Searchuser",{"name":"getString","hash":{},"data":data}))
-    + "\"></div></div></div><div id=\"stickycontainer\"><div id=\"docShareNav\"></div></div></div></div></div>";
+    + "\"></div></div></div><div id=\"stickycontainer\"></div></div></div></div>";
 },"usePartial":true,"useData":true});
 
 this["JST"]["dest_temp/templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

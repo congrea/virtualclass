@@ -1029,3 +1029,14 @@
 #virtualclass .congrea #totalPages {
     left: -50px !important;
 }
+
+
+#virtualclassCont.congrea[data-currapp = 'DocumentShare'] .showZoom #docShareNav,
+#virtualclassCont.congrea[data-currapp = 'Whiteboard'] .showZoom #docShareNav {
+    display : block;
+}
+
+
+#virtualclassCont.congrea[data-currapp = 'DocumentShare'] .hideZoom #docShareNav {
+    display : none;
+}

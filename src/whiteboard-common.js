@@ -57,7 +57,10 @@
                 for (var i = 0; i < wIds.length; i++) {
                     virtualclass.wbCommon.indexNav.createWbIndex(wIds[i])
                 }
+            }else {
+                virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
             }
+
             // virtualclass.gObj.wbCount = wIds.length;
             virtualclass.wbCommon.indexNav.setTotalPages(wIds.length);
 
@@ -258,13 +261,15 @@
                 dc.removeChild(dc.firstChild);
             }
 
-            virtualclass.wbCommon.indexNav.createWbIndex(0)
-            // delete virtualclass.wbCommon.indexNav;
-            //
-            // if(virtualclass.hasOwnProperty('dts')){
-            //     delete virtualclass.dts.indexNav;
-            // }
+            if(roles.hasControls()){
+                virtualclass.wbCommon.indexNav.createWbIndex(0);
+            }else {
 
+                var pageNo = document.createElement('span')
+                pageNo.id = "stdPageNo";
+                dc.appendChild(pageNo);
+                virtualclass.wbCommon.indexNav.studentWBPagination(0);
+            }
         }
     }
     window.wbCommon = wbCommon;

@@ -31,7 +31,14 @@ $(document).ready(function () {
         virtualclass.gObj.sessionClear = false;
         virtualclass.prvCurrUsersSame();
         
-       virtualclass.gObj.mobileVchOffset = vhCheck();
+        virtualclass.gObj.mobileVchOffset = vhCheck();
+        var wIds = localStorage.getItem('wIds');
+
+        if(wIds != null){
+            wIds = JSON.parse(wIds);
+            virtualclass.gObj.wids = wIds;
+            virtualclass.gObj.wbCount = wIds.length - 1;
+        }
        
         var anypresenter = localStorage.getItem('anyp');
         if (anypresenter == null) {
@@ -66,6 +73,8 @@ $(document).ready(function () {
 
         virtualclass.gObj.prevApp = previousApp;
 
+
+
         if (previousApp != null) {
             virtualclass.previousApp = previousApp;
             var appIs = capitalizeFirstLetter(previousApp.name);
@@ -84,8 +93,9 @@ $(document).ready(function () {
                     videoObj.fromReload = true;
                 }
             }else if(previousApp.name == 'Whiteboard'){
-                virtualclass.gObj.wbCount = previousApp.wbn;
-
+                if(wIds == null){
+                    virtualclass.gObj.wbCount = previousApp.wbn;
+                }
                 // if(previousApp.hasOwnProperty('wbcs')){
                 //     virtualclass.gObj.currSlide = previousApp.wbcs;
                 // }

@@ -272,9 +272,9 @@
         virtualclass.dts.indexNav.UI.pageNavHandler(direction);
 
     }
-    
+
+    /** For document sharing **/
     pageIndexNav.prototype.studentPagination = function(id){
-    
         if(virtualclass.dts.order){
             var index = virtualclass.dts.order.indexOf(id); 
             var cont = document.querySelector(".congrea  #stdPageNo")
@@ -283,11 +283,13 @@
             }
             var that = this;
             setTimeout(()=> {
-                    that.setTotalPages((virtualclass.dts.order.length+1));
-            }, 500);
+                    that.setTotalPages((virtualclass.dts.order.length));
+            }, 100);
         }
         
     }
+
+    /** For document Whiteboard **/
     pageIndexNav.prototype.studentWBPagination= function(index){
       
         var cont = document.querySelector(".congrea  #stdPageNo")
@@ -296,7 +298,7 @@
             var that = this;
             setTimeout(()=> {
                 that.setTotalPages((virtualclass.gObj.wbCount+1));
-            }, 500);
+            }, 100);
 
         }      
     }

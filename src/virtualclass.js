@@ -1226,6 +1226,8 @@
                                     }
                                     if(roles.hasControls()){
                                          virtualclass.dts.indexNav.createIndex();  
+                                    }else {
+                                        virtualclass.dts.indexNav.studentPagination(virtualclass.dts.docs.currNote);
                                     }
                                    
                                    

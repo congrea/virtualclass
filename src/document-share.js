@@ -1341,17 +1341,7 @@
                                         this.getScreen(prevSlide, true);
                                         cthis.docs.currNote = prevSlide.dataset.slide;
                                         console.log('Current note ' + virtualclass.dts.docs.currNote);
-                                     
-                                          
-                                       
-                                        
-                                        
-                                        
-                                      
-//                                       virtualclass.dts.indexNav.addActiveClass()
-//                                       virtualclass.dts.indexNav.UI.setClassPrevNext();
-//                                       virtualclass.dts.indexNav.UI.pageNavHandler("left");
-                                     
+
                                     }
 
                                     /** to set the dimension of whiteboard during window is resized **/
@@ -1363,10 +1353,8 @@
                                        virtualclass.dts.indexNav.movePageIndex("left")
 
                                 }else{
-                                    alert('There is no previous element');
+                                    virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'disable', 'enable');
                                 }
-                              
-                               
                             }
                         },
 

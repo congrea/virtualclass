@@ -25,7 +25,7 @@ function displayChatUserList(users){
         }
 
         // tmpmyDivResult = true, means user div is created already
-        if(typeof tmpmyDivResult != 'boolean'){
+        if(typeof tmpmyDivResult != 'boolean' && typeof tmpmyDivResult != undefined && tmpmyDivResult != undefined ){
             myDivResult = myDivResult + tmpmyDivResult;
         }
     }

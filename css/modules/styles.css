@@ -3980,3 +3980,7 @@ background-color: #d6d6d6;
 		display:none !important;
 	}
 }
+
+#virtualclassCont.congrea #joinClass #joinClassModal .joinClasscontainer button.btn:focus {
+	outline: none;
+}

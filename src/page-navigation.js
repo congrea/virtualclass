@@ -343,11 +343,13 @@
                         if (elem && elem.previousSibling != null) {
                             document.querySelector("#virtualclassWhiteboard .prev").click();
                         } else {
-                            alert("No previous page")
+                            // that.disableLastNavigation();
+                            that.setArrowStatus('leftNavPage', 'disable');
                         }
                     } else {
                         document.getElementById("docsprev").click()
-                        that.disableLastNavigation();
+                        //that.disableLastNavigation();
+                        that.setArrowStatus('leftNavPage', 'disable');
                     }
 
                 })
@@ -364,12 +366,13 @@
                                 shw.className = "noteIndex hid left";
                             }
                         } else {
-                            alert("next page not available")
-                            //that.navigatorMode();
+                            // that.disableLastNavigation();
+                            that.setArrowStatus('rightNavPage', 'disable');
+
                         }
                     } else {
                         document.getElementById("docsnext").click()
-                        that.disableLastNavigation();
+                        that.setArrowStatus('rightNavPage', 'disable');
                     }
 
                 })
@@ -406,29 +409,14 @@
                 var prevSlide = currElem.previousElementSibling;
                 var nxtSlide = currElem.nextElementSibling;
             }
-            var na = document.querySelector("#leftNavPage");
-            if (na) {
-                if (prevSlide) {
-                    na.classList.add("enable")
-                    na.classList.remove("disable")
-
-                } else {
-                    
-                    na.classList.add("disable")
-                    na.classList.remove("enable")
-                }
+            var lna = document.querySelector("#leftNavPage");
+            if (lna) {
+                (prevSlide) ? this.setArrowStatus('leftNavPage', 'enable') :   this.setArrowStatus('leftNavPage', 'disable');
             }
 
             var na = document.querySelector("#rightNavPage");
             if (na) {
-                if (nxtSlide) {
-                    na.classList.add("enable")
-                    na.classList.remove("disable")
-
-                } else {
-                    na.classList.add("disable")
-                    na.classList.remove("enable")
-                }
+                (nxtSlide) ? this.setArrowStatus('rightNavPage', 'enable') :   this.setArrowStatus('rightNavPage', 'disable');
             }
 
         },
@@ -468,21 +456,25 @@
             }
         },
 
-        disableLastNavigation: function () {
-            var nr = document.querySelector("#rightNavPage");
+        setArrowStatus : function (element, action) {
+            var removeClass = (action == 'disable') ? 'enable' : 'disable';
+
+            var nr = document.getElementById(element);
             if (virtualclass.currApp == "Whiteboard") {
-                    nr.classList.add("enable")
-                    nr.classList.remove("disable")
+                    nr.classList.add(action);
+                    nr.classList.remove(removeClass);
             } else {
-              
                 var currNodeId = virtualclass.dts.docs.currNote;
                 var lastElement = virtualclass.dts.order[virtualclass.dts.order.length - 1];
                 if (currNodeId == lastElement) {
-                        nr.classList.add("enable")
-                        nr.classList.remove("disable")
-
+                    this._setArrowStatusDocs(nr, action, removeClass);
                 }
             }
+        },
+
+        _setArrowStatusDocs : function (nl, action, removeClass){
+            nr.classList.add(action);
+            nr.classList.remove(removeClass);
         }
     }
     window.pageIndexNav = pageIndexNav;

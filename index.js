@@ -393,9 +393,17 @@ $(document).ready(function () {
             }
 
             io.disconnect();
-
             virtualclass.vutil.overrideRoles(role);
-            io.init(virtualclass.uInfo);
+            /**If we invoke io.init() without time(1500 miliseconds), then
+             * teacher received both events member_joined and member_removed
+             * at same time, only time difference is 2 or 3 miliseconds,
+             * the sequence of event is incorrect member_added and user_logout ,
+             * After delay some time, event sequence is correct user_logout and member_added,
+             * **/
+
+            setTimeout(() => {
+                io.init(virtualclass.uInfo);
+            }, 1500);
         }
 
         /**
@@ -481,6 +489,7 @@ $(document).ready(function () {
                 for(var i=0; i<userlist.length; i++) {
                     virtualclass.gObj.memberlistpending.push(userlist[i])
                 }
+                console.log('member list pending(memberlistpending) udpate ');
             }
 
             /**

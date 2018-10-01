@@ -451,24 +451,23 @@ var io = {
         var userto = '';
         switch (receivemsg.type) {
             case "joinroom":
-                console.log("New user join room " + receivemsg.users);
+                if(receivemsg.hasOwnProperty('users')){
+                    console.log("New user join room " + receivemsg.users.length);
+                }else {
+                    console.log("New user join room " + receivemsg.user.length);
+                }
+
                 this.readyToSend = true;
                 /* identifying new user from list*/
                 var newuser = null;
                 if (io.uniquesids != null) {
-
-                    // $.each(receivemsg.clientids, function(i, v) {
-                    //     if (io.uniquesids[i] == undefined) {
-                    //         newuser = i;
-                    //     }
-                    // });
-
                     for(let i in receivemsg.clientids){
                         if (io.uniquesids[i] == undefined) {
                             newuser = i;
                         }
                     }
                 }
+
                 io.uniquesids = receivemsg.clientids;
                 //update users
                 var msg = {

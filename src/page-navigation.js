@@ -160,9 +160,9 @@
         
         if(virtualclass.currApp == 'Whiteboard'){
             this.index = (+curr)+1;   
-         }else {
-             this.index = (currIndex != null) ? currIndex : index.title;   
-         }
+        }else {
+             this.index = (currIndex != null) ? currIndex : (index != null && typeof index != 'undefined' ) ? index.title : 1;
+        }
         
         var teacherCurrPage = document.getElementById('teacherCurrPage');
         

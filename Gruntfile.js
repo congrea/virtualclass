@@ -82,7 +82,7 @@ module.exports = function(grunt) {
              *  if so there will be peform the task hanldebars which does precompile (.hbs to .js)
              *  **/
             templates : {
-                files: ["trim_templates/templates/**/*.hbs"],
+                files: ["dest_templates/templates/**/*.hbs"],
                 tasks: ['handlebars']
             },
             css: {
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.registerTask('default', ['htmlcompressor', 'task_handlebars']);
     grunt.registerTask('mincss', ['cssmin']);
-    grunt.registerTask("task_handlebars", "create handle bar", "mincss", function () {
+    grunt.registerTask("task_handlebars", "create handle bar", function () {
         var done = this.async();
         setTimeout(function () {
             grunt.task.run("handlebars");

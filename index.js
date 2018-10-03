@@ -400,10 +400,7 @@ $(document).ready(function () {
              * the sequence of event is incorrect member_added and user_logout ,
              * After delay some time, event sequence is correct user_logout and member_added,
              * **/
-
-            setTimeout(() => {
-                io.init(virtualclass.uInfo);
-            }, 1500);
+            io.init(virtualclass.uInfo);
         }
 
         /**

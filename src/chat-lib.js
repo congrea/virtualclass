@@ -117,6 +117,7 @@ function memberUpdate(e, addType) {
     } else {
         var userlist = virtualclass.gObj.memberlistpending;
         virtualclass.gObj.memberlistpending = [];
+        console.log('member list pending(memberlistpending) empty ');
          if (userlist.length > 0) {
             virtualclass.chat._showChatUserList(userlist)
 
@@ -146,7 +147,7 @@ function memberUpdate(e, addType) {
 
             }
 
-            //
+            // TODO, this should enabled
             // if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()) {
             //     virtualclass.raiseHand.moveUpInList();
             // }
@@ -156,9 +157,12 @@ function memberUpdate(e, addType) {
             /* when there is one user and left the chat
              remove userlist box
              */
+
             if ($('div#memlist').length) {
+                console.log('member remove memlist ' + $('div#memlist').length + ' addType=' + addType);
                 $("div#memlist").remove();
             }
+
         }
 
         if (( roles.hasAdmin() && virtualclass.jId == virtualclass.gObj.uid)) {

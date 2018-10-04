@@ -830,6 +830,9 @@
                             if(document.querySelector('#DocumentShareDashboard .qq-gallery')== null){
                                 virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
                             }
+                            /** Initialize close handler of document's dailogue box, if it's not,
+                             *  then there is a problem when user click on document dashboard after page refreshing on whiteboard */
+                            virtualclass.vutil.modalCloseHandler();
                         }
                     }
                 },

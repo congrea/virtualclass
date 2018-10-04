@@ -39,7 +39,7 @@
     pageIndexNav.prototype.setTotalPages = function(length){
         var cont = document.querySelector("#docShareNav #totalPages");
         if(cont){
-            cont.innerHTML =length;
+            cont.innerHTML = "<span id='teacherCurrPage' >"+this.index+"</span> of " + length + " pages";
         }
     }
 
@@ -157,6 +157,19 @@
             }
          this.adjustPageNavigation(parseInt(currIndex), dir);
         }
+        
+        if(virtualclass.currApp == 'Whiteboard'){
+            this.index = (+curr)+1;   
+        }else {
+             this.index = (currIndex != null) ? currIndex : (index != null && typeof index != 'undefined' ) ? index.title : 1;
+        }
+        
+        var teacherCurrPage = document.getElementById('teacherCurrPage');
+        
+        if(teacherCurrPage != null){
+            teacherCurrPage.innerHTML = this.index;
+        }
+        
     }
     
     
@@ -396,7 +409,7 @@
                 var total = document.createElement('span')
                 total.id = "totalPages";
                 total.className = "pages";
-                dc.appendChild(total);
+                dc.insertBefore(total,left);
 
             }  
         },

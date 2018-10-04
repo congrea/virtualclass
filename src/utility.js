@@ -1968,15 +1968,7 @@
             }
         },
 
-        readyDashboard : function (currVideo){
-            console.log('Ready Dashboard');
-            var currApp = virtualclass.currApp;
-            // virtualclass.vutil.initDashboard(virtualclass.currApp);
-            if(document.querySelector('#congdashboard') ==  null){
-                var dashboardTemp = virtualclass.getTemplate('dashboard');
-                var dbHtml = dashboardTemp({app:currApp});
-                document.querySelector('#dashboardContainer').innerHTML = dbHtml;
-            }
+        modalCloseHandler : function (){
             var finish  =document.querySelector(".congrea .dashboardContainer .modal-header .close")
             if(finish){
                 finish.addEventListener("click",function(){
@@ -1986,8 +1978,21 @@
                     }
                     finish.setAttribute('data-dismiss',"modal");
                 })
-                
+
             }
+        },
+
+        readyDashboard : function (currVideo){
+            console.log('Ready Dashboard');
+            var currApp = virtualclass.currApp;
+
+            if(document.querySelector('#congdashboard') ==  null){
+                var dashboardTemp = virtualclass.getTemplate('dashboard');
+                var dbHtml = dashboardTemp({app:currApp});
+                document.querySelector('#dashboardContainer').innerHTML = dbHtml;
+            }
+
+            this.modalCloseHandler();
 
             // in any other application we can handle
             // dashoard content in own style

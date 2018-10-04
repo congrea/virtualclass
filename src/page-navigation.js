@@ -32,7 +32,7 @@
              this.createDocNavigationNumber(virtualclass.dts.order[i], i)
         }
         this.shownPage(this.width);
-        this.addActiveClass();
+        this.addActiveNavigation();
         this.setTotalPages(virtualclass.dts.order.length);
     }
 
@@ -128,6 +128,32 @@
         }     
     }
 
+    pageIndexNav.prototype.addActiveNavigation = function (wbCurr){
+        this.addActiveClass(wbCurr);
+
+        var rightNavPage = document.querySelector('#rightNavPage.disable');
+        if(rightNavPage != null && this.UI.isNodeAvailable('.noteIndex.shw.active', 'next')){
+
+            if(virtualclass.currApp == 'Whiteboard'){
+                this.UI.setArrowStatus('rightNavPage', 'enable');
+            }else {
+                virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'enable', 'disable');
+            }
+
+        }
+
+
+        var leftNavPage = document.querySelector('#leftNavPage.disable');
+        if(leftNavPage != null && this.UI.isNodeAvailable('.noteIndex.shw.active', 'prev')){
+            if(virtualclass.currApp == 'Whiteboard'){
+                this.UI.setArrowStatus('leftNavPage', 'enable');
+            }else {
+                virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'enable', 'disable');
+            }
+        }
+    }
+
+
     /** Add active class for current active Note**/
     pageIndexNav.prototype.addActiveClass = function (wbCurr) {
         if(virtualclass.currApp =="Whiteboard"){
@@ -161,7 +187,7 @@
         if(virtualclass.currApp == 'Whiteboard'){
             this.index = (+curr)+1;   
         }else {
-             this.index = (currIndex != null) ? currIndex : (index != null && typeof index != 'undefined' ) ? index.title : 1;
+            this.index = (currIndex != null) ? currIndex : (index != null && typeof index != 'undefined' ) ? index.title : 1;
         }
         
         var teacherCurrPage = document.getElementById('teacherCurrPage');
@@ -206,7 +232,7 @@
         }
 
         this.UI.setClassPrevNext();
-        this.addActiveClass();
+        this.addActiveNavigation();
 
     }
     
@@ -240,7 +266,7 @@
 
     /* setClasses*/
     pageIndexNav.prototype.movePageIndex = function (direction) {
-        virtualclass.dts.indexNav.addActiveClass()
+        virtualclass.dts.indexNav.addActiveNavigation()
         virtualclass.dts.indexNav.UI.setClassPrevNext();
         virtualclass.dts.indexNav.UI.pageNavHandler(direction);
 
@@ -278,12 +304,12 @@
         sn.className  = (id > this.shownPages) ? "noteIndex hid right" : "noteIndex shw";
 
         if (virtualclass.gObj.currWb == wid) {
-            virtualclass.wbCommon.indexNav.addActiveClass(wid)
+            virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
         }
 
         sn.onclick = function () {
             virtualclass.wbCommon.setCurrSlideNumber(wid);
-            virtualclass.wbCommon.indexNav.addActiveClass(wid)
+            virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
             virtualclass.wbCommon.readyCurrentWhiteboard(wid);
             // virtualclass.wbCommon.displaySlide(wid);
             virtualclass.gObj.currWb = wid;
@@ -317,6 +343,8 @@
 
         }      
     }
+
+
 
     /**Create navigation*/
     pageIndexNav.prototype.UI = {
@@ -352,8 +380,7 @@
                 /** create the descriptive function here**/
                 left.addEventListener("click", function () {
                     if (virtualclass.currApp == "Whiteboard") {
-                        var elem = document.querySelector(".noteIndex.shw.active")
-                        if (elem && elem.previousSibling != null) {
+                        if (that.isNodeAvailable(".noteIndex.shw.active", 'prev')) {
                             document.querySelector("#virtualclassWhiteboard .prev").click();
                         } else {
                             // that.disableLastNavigation();
@@ -364,14 +391,13 @@
                         //that.disableLastNavigation();
                         that.setArrowStatus('leftNavPage', 'disable');
                     }
-
                 })
+
 
                 right.addEventListener("click", function () {
                     /** create the descriptive function here**/
                     if (virtualclass.currApp == "Whiteboard") {
-                        var elem = document.querySelector(".noteIndex.shw.active")
-                        if (elem && elem.nextSibling != null) {
+                        if (that.isNodeAvailable(".noteIndex.shw.active", 'next')) {
                             document.querySelector("#virtualclassWhiteboard .next").click();
                             var num = virtualclass.gObj.currWb.split("_doc_0")[1]
                             if (num > this.shownPages) {
@@ -485,9 +511,15 @@
             }
         },
 
-        _setArrowStatusDocs : function (nl, action, removeClass){
+        _setArrowStatusDocs : function (nr, action, removeClass){
             nr.classList.add(action);
             nr.classList.remove(removeClass);
+        },
+
+        isNodeAvailable : function (selector, whichNode){
+            var nodeType =  (whichNode == 'next') ? 'nextSibling' : 'previousSibling';
+            var elem = document.querySelector(selector);
+            return elem && elem[nodeType] != null;
         }
     }
     window.pageIndexNav = pageIndexNav;

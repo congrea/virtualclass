@@ -57,6 +57,7 @@
                 for (var i = 0; i < wIds.length; i++) {
                     virtualclass.wbCommon.indexNav.createWbNavigationNumber(wIds[i])
                 }
+                virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb);
             }else {
                 virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
             }

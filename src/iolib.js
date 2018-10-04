@@ -494,7 +494,9 @@ var io = {
                 }
 
                 //$.event.trigger(msg);
-                virtualclass.ioEventApi.member_added(msg);
+
+                // virtualclass.ioEventApi.member_added(msg);
+                virtualclass.ioEventApi.readyto_member_add(msg);
                 break;
             case "broadcastToAll":
             case "broadcast":
@@ -525,11 +527,15 @@ var io = {
                 break;
             case "userleft":
                 console.log('Case:- userleft');
+
                 if (receivemsg.userto != undefined) {
                     userto = receivemsg.userto;
                 }
                 if (io.uniquesids != null) {
-                    delete io.uniquesids[receivemsg.user.userid];
+                    for(let uid in receivemsg.action){
+                        delete io.uniquesids[uid];
+                    }
+                    // delete io.uniquesids[receivemsg.user.userid];
                 }
                 // $.event.trigger({
                 //     type: "user_logout",
@@ -539,14 +545,8 @@ var io = {
                 //     toUser : virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
                 // });
 
-                virtualclass.ioEventApi.user_logout({
-                    type: "user_logout",
-                    fromUser: receivemsg.user,
-                    message: 'offline',
-                    // toUser: userto
-                    toUser : virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
-                });
 
+                virtualclass.ioEventApi.readyto_user_logout(receivemsg);
 
                 break;
             case "Unauthenticated":

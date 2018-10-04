@@ -1400,14 +1400,36 @@ $(document).ready(function () {
         // TODO this shoudl be remove, after precheck feature is enabled
 
          var ioEventApi = {
+            readyto_member_add : function (e){
+                if(typeof e.joinUser == 'object' ){
+                    var te = {};
+                    var i = 0;
+
+                    for(let key in e.joinUser){
+                        if(wbUser.id != key){
+                            console.log('Don t join');
+                            te.joingUser = {key : key }
+                            te.message = e.message[i];
+                            te.newuser = e.newuser;
+                            te.type = e.type;
+                            te.user =  e.user;
+                            i++;
+                            this.member_added(te);
+                        }
+                    }
+                } else {
+                    this.member_added(e);
+                }
+            },
+
             member_added : function (e){
                 var sType;
-
                 if(typeof virtualclass.connectedUsers == 'undefined'){
                     virtualclass.connectedUsers = [];
                 }
 
                 if(e.hasOwnProperty('user')){
+                    console.log('suman member joined');
                     var joinUserObj = e.message;
                     virtualclass.jId = joinUserObj.userid;
 
@@ -1562,7 +1584,16 @@ $(document).ready(function () {
                 }
             },
 
+            readyto_user_logout : function (msg){
+                var e = {};
+                for(var uid in msg.action){
+                    e = {type : "user_logout", fromUser : uid,  message : 'offline'};
+                    virtualclass.ioEventApi.user_logout(e);
+                }
+            },
+
             user_logout : function (e){
+
                 console.log('user_logout');
                 if (isAnyOnePresenter() && !isTeacherExistWhenRemoveUser(virtualclass.connectedUsers)) {
                     if (virtualclass.gObj.uRole != 't' && virtualclass.gObj.uRole != 'e') {

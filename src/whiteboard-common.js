@@ -131,7 +131,7 @@
             
             
             this.setCurrSlideNumber(wid);
-            virtualclass.wbCommon.indexNav.addActiveClass(wid)
+            virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
             virtualclass.wbCommon.indexNav.UI.pageNavHandler("right");
             this.displaySlide(wid);
             virtualclass.gObj.currWb = wid;
@@ -155,7 +155,7 @@
 
             this.readyCurrentWhiteboard(wid);
             this.setCurrSlideNumber(wid);
-            virtualclass.wbCommon.indexNav.addActiveClass(wid)
+            virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
             virtualclass.wbCommon.indexNav.UI.pageNavHandler("left");
         },
 

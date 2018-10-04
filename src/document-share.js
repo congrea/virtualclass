@@ -956,7 +956,7 @@
                 this.storeInDocs(this.allNotes);
                 if(roles.hasControls()){
                     this.indexNav.shownPage(this.indexNav.width)
-                    this.indexNav.addActiveClass()
+                    this.indexNav.addActiveNavigation()
                 }
               
                 var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
@@ -1114,7 +1114,7 @@
                             virtualclass.dts.docs.currNote = note;
                            virtualclass.dts.docs.note.currentSlide(note);
                         }
-                        virtualclass.dts.indexNav.addActiveClass()
+                        virtualclass.dts.indexNav.addActiveNavigation()
                         virtualclass.dts.indexNav.UI.setClassPrevNext()
                         
                     }
@@ -1332,7 +1332,11 @@
                                     if((+prevSlide.dataset.status) == 0){
                                         var activeSlide = this.getActiveSlide(cthis, currNodeId, 'prev');
                                         if(!activeSlide){
-                                            alert('There is no page');
+                                            // alert('There is no page');
+                                            //virtualclass.dts.indexNav.UI.setArrowStatus('leftNavPage', 'disable');
+
+                                            virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'disable', 'enable');
+
                                         }else{
                                             // by true, know the event is performed real user
                                             this.getScreen(activeSlide, true);
@@ -1416,7 +1420,7 @@
                                            
                                             
 //      
-//                                            virtualclass.dts.indexNav.addActiveClass()
+//                                            virtualclass.dts.indexNav.addActiveNavigation()
 //                                            virtualclass.dts.indexNav.UI.setClassPrevNext();
 //                                            virtualclass.dts.indexNav.UI.pageNavHandler("right");
 
@@ -1427,7 +1431,8 @@
                                   virtualclass.dts.indexNav.movePageIndex("right")
                          
                             }else {
-                                alert('There is no page');
+                                // alert('There is no page');
+                                virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'disable', 'enable');
                             }
                              
                             

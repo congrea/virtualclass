@@ -132,23 +132,39 @@
         this.addActiveClass(wbCurr);
 
         var rightNavPage = document.querySelector('#rightNavPage.disable');
-        if(rightNavPage != null && this.UI.isNodeAvailable('.noteIndex.shw.active', 'next')){
-
-            if(virtualclass.currApp == 'Whiteboard'){
-                this.UI.setArrowStatus('rightNavPage', 'enable');
-            }else {
-                virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'enable', 'disable');
+        var isNextNode =  this.UI.isNodeAvailable('.noteIndex.shw.active', 'next');
+        if(isNextNode){
+            if(rightNavPage != null){
+                if(virtualclass.currApp == 'Whiteboard'){
+                    this.UI.setArrowStatus('rightNavPage', 'enable');
+                }else {
+                    virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'enable', 'disable');
+                }
             }
-
+        }else {
+            if(virtualclass.currApp == 'Whiteboard'){
+                this.UI.setArrowStatus('rightNavPage', 'disable');
+            }else {
+                virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'disable', 'enable');
+            }
         }
 
 
         var leftNavPage = document.querySelector('#leftNavPage.disable');
-        if(leftNavPage != null && this.UI.isNodeAvailable('.noteIndex.shw.active', 'prev')){
+        var isPrevNode =  this.UI.isNodeAvailable('.noteIndex.shw.active', 'prev')
+        if(isPrevNode){
+            if(leftNavPage != null){
+                if(virtualclass.currApp == 'Whiteboard'){
+                    this.UI.setArrowStatus('leftNavPage', 'enable');
+                }else {
+                    virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'enable', 'disable');
+                }
+            }
+        }else {
             if(virtualclass.currApp == 'Whiteboard'){
-                this.UI.setArrowStatus('leftNavPage', 'enable');
+                this.UI.setArrowStatus('leftNavPage', 'disable');
             }else {
-                virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'enable', 'disable');
+                virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'disable', 'enable');
             }
         }
     }

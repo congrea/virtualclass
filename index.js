@@ -1414,7 +1414,7 @@ $(document).ready(function () {
                     for(let key in e.joinUser){
                         if(wbUser.id != key){
                             console.log('Don t join');
-                            te.joingUser = {key : key }
+                            te.joinUser = {key : key }
                             te.message = e.message[i];
                             te.newuser = e.newuser;
                             te.type = e.type;

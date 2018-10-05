@@ -285,7 +285,7 @@
                 } else {
                     virtualclass.makeReadySocket();
                     if(!virtualclass.isPlayMode){
-                        virtualclass.gesture.initClassJoin();
+                         virtualclass.gesture.initClassJoin();
                     }
                 }
                    virtualclass.gObj.precheckScrn= false;
@@ -618,6 +618,8 @@
                              if(wIds != null && wIds.length > 0 ){
                                 virtualclass.wbCommon.readyElements(wIds);
                                 virtualclass.wbCommon.initNav(wIds);
+
+
       
                               
                                 //virtualclass.gObj.currSlide = prevapp.wbcs;

@@ -63,6 +63,14 @@ var io = {
                 if (cleanJson) {
                   var msg = JSON.parse(cleanJson); //msg.user is from user/*
                     if (msg.type == "broadcastToAll" && msg.hasOwnProperty('user')) {
+                        if(typeof virtualclass.gObj.allUserObj[msg.user.userid] == 'undefined'){
+                            virtualclass.gObj.allUserObj[msg.user.userid] = {};
+                            virtualclass.gObj.allUserObj[msg.user.userid].userid = msg.user.userid;
+                            virtualclass.gObj.allUserObj[msg.user.userid].lname = ' ';
+                            virtualclass.gObj.allUserObj[msg.user.userid].name = 'student';
+                            virtualclass.gObj.allUserObj[msg.user.userid].role = 's';
+                        }
+
                         if(virtualclass.gObj.allUserObj[msg.user.userid].userid == msg.user.userid){
                             msg.user.lname = virtualclass.gObj.allUserObj[msg.user.userid].lname;
                             msg.user.name = virtualclass.gObj.allUserObj[msg.user.userid].name;

@@ -81,7 +81,8 @@
                 readyToCommunicate : false,
                 stdaudioEnable : studentAudioEnable,
                 stdvideoEnable : studentVideoEnable,
-                tempPrefix : 'dest_temp/templates'
+                tempPrefix : 'dest_temp/templates',
+                allUserObj : {}
             },
 
             enablePreCheck : true,

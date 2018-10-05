@@ -1443,12 +1443,16 @@ $(document).ready(function () {
                     if(upos != -1){
                         virtualclass.connectedUsers.splice(upos, 1);
                     }
+                    virtualclass.gObj.allUserObj[virtualclass.jId] = joinUserObj;
                     virtualclass.connectedUsers.push(joinUserObj);
                     // Get the new joiner user id and object
                     virtualclass.joinUser = joinUserObj;
                 }else if(e.hasOwnProperty('users')){
                     virtualclass.jId = e.joinUser;
                     virtualclass.connectedUsers = e.message;
+                    for(var i = 0; i<virtualclass.connectedUsers.length; i++) {
+                        virtualclass.gObj.allUserObj[virtualclass.connectedUsers[i].userid] = virtualclass.connectedUsers[i];
+                    }
                     virtualclass.joinUser = getJoinUser(virtualclass.connectedUsers, virtualclass.jId);
                 }else {
                     console.log('User packet is not receving');
@@ -1633,6 +1637,7 @@ $(document).ready(function () {
                 }
 
                 var removeUser = e.fromUser;
+                delete virtualclass.gObj.allUserObj[removeUser];
                 var userPos = getPosition(virtualclass.connectedUsers, removeUser);
                 if(userPos !== -1){
                     virtualclass.connectedUsers.splice(userPos, 1);

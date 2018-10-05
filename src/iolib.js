@@ -62,6 +62,21 @@ var io = {
                 var cleanJson = io.cleanRecJson(e.data);
                 if (cleanJson) {
                   var msg = JSON.parse(cleanJson); //msg.user is from user/*
+                    if (msg.type == "broadcastToAll" && msg.hasOwnProperty('user')) {
+                        if(typeof virtualclass.gObj.allUserObj[msg.user.userid] == 'undefined'){
+                            virtualclass.gObj.allUserObj[msg.user.userid] = {};
+                            virtualclass.gObj.allUserObj[msg.user.userid].userid = msg.user.userid;
+                            virtualclass.gObj.allUserObj[msg.user.userid].lname = ' ';
+                            virtualclass.gObj.allUserObj[msg.user.userid].name = 'student';
+                            virtualclass.gObj.allUserObj[msg.user.userid].role = 's';
+                        }
+
+                        if(virtualclass.gObj.allUserObj[msg.user.userid].userid == msg.user.userid){
+                            msg.user.lname = virtualclass.gObj.allUserObj[msg.user.userid].lname;
+                            msg.user.name = virtualclass.gObj.allUserObj[msg.user.userid].name;
+                            msg.user.role = virtualclass.gObj.allUserObj[msg.user.userid].role;
+                        }
+                    }
                   this.recjsnMsgQueue = '';
 
                   if (msg.hasOwnProperty('m')) {
@@ -195,8 +210,8 @@ var io = {
         }
 
         // earlier the below information sent by server
-        var userObj = { name : wbUser.name, lname : wbUser.lname, role:wbUser.role, userid : wbUser.id};
-
+        //var userObj = { name : wbUser.name, lname : wbUser.lname, role:wbUser.role, userid : wbUser.id};
+        var userObj = {userid : wbUser.id};
         switch (obj.cfun) {
             case "broadcastToAll":
                 if (typeof obj.arg.touser == "undefined") {

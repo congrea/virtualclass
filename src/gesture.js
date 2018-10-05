@@ -15,17 +15,35 @@ var gesture = {
             virtualclassApp.style.display =  'none';
         }
 
-        var joinClassButton = document.querySelector('#joinClassModal .joinClasscontainer button');
-        if(joinClassButton != null){
-            joinClassButton.addEventListener('click', function (){
-                virtualclassApp.style.display =  'block';
-                joinClassModal.style.display =  'none';
-                virtualclass.gObj.video.audio.initAudiocontext();
-                /* User does not to click on editor to view the written text */
-                virtualclass.vutil.triggerMouseEvent(document.querySelector('.CodeMirror-scroll'), 'mousedown');
-                //virtualclass.gObj.video.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
+        if(joinClassModal){
+            joinClassModal.addEventListener('click', function (){
+                joinClassButton.focus();
             });
         }
+
+        var joinClassButton = document.querySelector('#joinClassModal .joinClasscontainer button');
+        joinClassButton.focus();
+        if(joinClassButton != null){
+            joinClassButton.addEventListener('click', function (){
+                virtualclass.gesture.clickToContinue();
+            });
+
+            joinClassButton.addEventListener('keydown', function (event){
+                event.preventDefault();
+                if(event.keyCode == 13) {
+                    virtualclass.gesture.clickToContinue();
+                }
+            });
+        }
+    },
+
+    clickToContinue : function(){
+        virtualclassApp.style.display = 'block';
+        joinClassModal.style.display = 'none';
+        virtualclass.gObj.video.audio.initAudiocontext();
+        /* User does not to click on editor to view the written text */
+        virtualclass.vutil.triggerMouseEvent(document.querySelector('.CodeMirror-scroll'), 'mousedown');
+        //virtualclass.gObj.video.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
     },
 
 

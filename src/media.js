@@ -1049,24 +1049,26 @@
                     if(typeof audioNode != 'undefined'){
                         audioNode.disconnect();
                     }
-                    cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath+'worker/audio-processor.js').then(() => {
-                        let audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
+                    if(typeof stream != 'undefined' && stream != null) {
+                        cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath + 'worker/audio-processor.js').then(() => {
+                            let audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
 
-                        filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
-                        filter.type = "lowpass";
-                        filter.frequency.value = 2000;
+                            filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
+                            filter.type = "lowpass";
+                            filter.frequency.value = 2000;
 
-                        audioInput.connect(filter);
+                            audioInput.connect(filter);
 
-                        audioNode = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'audio-processor');
-                        filter.connect(audioNode);
-                        audioNode.connect(cthis.audio.Html5Audio.audioContext.destination);
+                            audioNode = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'audio-processor');
+                            filter.connect(audioNode);
+                            audioNode.connect(cthis.audio.Html5Audio.audioContext.destination);
 
-                        audioNode.port.onmessage = function (event){
-                            var audio = event.data.audio;
-                            cthis.audio.recorderProcess(audio);
-                        }
-                    });
+                            audioNode.port.onmessage = function (event) {
+                                var audio = event.data.audio;
+                                cthis.audio.recorderProcess(audio);
+                            }
+                        });
+                    }
                 },
 
                 /**

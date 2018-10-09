@@ -173,7 +173,7 @@
 
             removeZoomController : function (){
                 var zoomControler = document.querySelector('#virtualclassApp .zoomControler');
-                if(zoomControler != null){
+                if(zoomControler != null && virtualclass.gObj.studentSSstatus.mesharing){
                     zoomControler.parentNode.removeChild(zoomControler);
                 }
             }

@@ -81,7 +81,8 @@
                 readyToCommunicate : false,
                 stdaudioEnable : studentAudioEnable,
                 stdvideoEnable : studentVideoEnable,
-                tempPrefix : 'dest_temp/templates'
+                tempPrefix : 'dest_temp/templates',
+                allUserObj : {}
             },
 
             enablePreCheck : true,
@@ -514,10 +515,9 @@
                      this.currApp = tempApp;
                 }
                 console.log('Current App init ' + this.currApp);
-                if (app != virtualclass.apps.ss) {
-                    if (virtualclass.hasOwnProperty('previrtualclass') && roles.hasControls()) {
-                        virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
-                    }
+                if ((roles.hasControls() && virtualclass.hasOwnProperty('previrtualclass'))
+                    && (app != virtualclass.apps.ss  || (virtualclass.gObj.studentSSstatus.mesharing && virtualclass.apps.ss == 'ScreenShare'))) {
+                    virtualclass.vutil.makeActiveApp("virtualclass" + app, virtualclass.previrtualclass);
                 }
 
                 //hiding editor controllers from footer

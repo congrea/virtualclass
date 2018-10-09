@@ -815,3 +815,7 @@ margin-right:6px !important;
 #virtualclassCont.congrea .vidHide #chat_div, #virtualclassCont.congrea.nowebcam #chat_div {
     height: calc(100vh - 148px);
 }
+
+#virtualclassCont.congrea.teacher #chatroom_bt2 .inner_bt #chatroom_text {
+    margin-left:7px;
+}

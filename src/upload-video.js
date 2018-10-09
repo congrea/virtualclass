@@ -1249,6 +1249,7 @@
                        }
                     }
 
+
                     if (virtualclass.videoUl.autoPlayFlag) {
                         if(player.poster_){
                             player.poster_="";
@@ -1256,22 +1257,25 @@
                         if(virtualclass.videoUl.findNextVideoId(index + 1)){
                             virtualclass.videoUl.autoPlayList(index + 1,list);
                         }else{
-                            virtualclass.videoUl.isPaused=true;
-                            var paused =virtualclass.videoUl.isPaused;
-                            virtualclass.videoUl.listEndPause =true
-                            virtualclass.videoUl.player.on("play",function(){
-                                if(virtualclass.videoUl.listEndPause){
-                                    virtualclass.videoUl.player.pause();
-                                    virtualclass.videoUl.listEndPause=false;
-                                }
-
-                            })
-
+                            virtualclass.videoUl.UI.autoVideoPause();
                         }
-
-
+                    }else{
+                        virtualclass.videoUl.UI.autoVideoPause();
                     }
 
+                },
+
+                autoVideoPause: function(){
+                    virtualclass.videoUl.isPaused = true;
+                    var paused = virtualclass.videoUl.isPaused;
+                    virtualclass.videoUl.listEndPause = true
+                    virtualclass.videoUl.player.on("play",function(){
+                        if(virtualclass.videoUl.listEndPause){
+                            virtualclass.videoUl.player.pause();
+                            virtualclass.videoUl.listEndPause=false;
+                        }
+
+                    })
                 },
 
 

@@ -23,20 +23,10 @@
                     this.url = note.pdf;
                 }else {
                     this.url = whiteboardPath + 'resources/sample.pdf';
-                    //this.url = 'https://cdn.congrea.net/resources/sample.pdf';
-                    // this.url = 'https://media.congrea.net/yJaR3lEhER3470dI88CMD5s0eCUJRINc2lcjKCu2/12323/0b5b11ce-7204-4771-a997-a0fb3f9ccc7d/pdf/001.pdf';
                 }
 
                 this.canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
 
-                // TODO, this shoud be ENABLE suman
-                /*
-                var canvasScale = localStorage.getItem('wbcScale');
-                if(canvasScale != null){
-                    // virtualclass.zoom.canvasScale = canvasScale;
-                    virtualclass.zoom.canvasScale = canvasScale;
-                    this.firstTime = false;
-                } */
 
                 this.canvas = canvas;
                 var that = this;
@@ -52,27 +42,27 @@
                     clearTimeout(virtualclass.gObj.getDocumentTimeout);
                 }
 
+                var that = this;
                 virtualclass.gObj.getDocumentTimeout = setTimeout(
                     function (){
-                        console.log('PDF render initiate 1');
-                        PDFJS.workerSrc = whiteboardPath + "build/src/pdf.worker.min.js";
-                        PDFJS.getDocument(doc).then(function (pdf) {
-                            if (virtualclass.gObj.myworker == null) {
-                                virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS
-                            }
-                            that.displayPage(pdf, 1, function (){
-                                //console.log('Pdf share : put in main children');
-                                },
-                                true);
-                            // that.displayPage(pdf, 1, true);
-                            that.shownPdf = pdf;
-                        });
+                            that.wbId = currNote;
+                            console.log('PDF render initiate 1');
 
-                        if(!roles.hasControls()){
-                            that.topPosY = 0;
-                            that.leftPosX = 0;
-                        }
-                        that.scrollEvent();
+                            PDFJS.workerSrc = whiteboardPath + "build/src/pdf.worker.min.js";
+                            PDFJS.getDocument(doc).then(function (pdf) {
+
+                                if (virtualclass.gObj.myworker == null) {
+                                    virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS
+                                }
+                                that.displayPage(pdf, 1, function (){},true);
+                                that.shownPdf = pdf;
+                            });
+
+                            if(!roles.hasControls()){
+                                that.topPosY = 0;
+                                that.leftPosX = 0;
+                            }
+                            that.scrollEvent();
 
                     },1000
                 );
@@ -89,7 +79,7 @@
                 }
             },
 
-            // for teacher
+            // For Teacher
             scrollEvent : function (){
                 // document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
                 var elem = this.canvasWrapper;
@@ -118,15 +108,6 @@
                 topPosY = elem.scrollTop;
                 leftPosX = elem.scrollLeft;
 
-                //var sendData = null;
-
-                // if(topPosY > 0){
-                //     // sendData = that._scrollTop(leftPosX, topPosY, elem, 'X');
-                //     var tempData = this._scroll(leftPosX, topPosY, elem, 'Y');
-                //     if(tempData != null){
-                //         sendData  = tempData;
-                //     }
-                // }
 
                 if(topPosY > 0){
                     this._scroll(leftPosX, topPosY, elem, 'Y');
@@ -136,20 +117,6 @@
                     this._scroll(leftPosX, topPosY, elem, 'X')
                 }
 
-
-                // if(leftPosX > 0){
-                //     var resX = this._scroll(leftPosX, topPosY, elem, 'X');
-                //     if(sendData != null){
-                //         // Merging the object resX with sendData
-                //         if(resX != null){
-                //             sendData = Object.assign(sendData, resX);
-                //         }
-                //     }
-                // }
-
-                // if(sendData != null){
-                //     this.currentScroll = sendData;
-                // }
 
                 if(!roles.hasControls()){
                     virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition({scX : leftPosX, scY : topPosY});
@@ -370,10 +337,19 @@
                         }
                     }
 
-                    var wb = virtualclass.gObj.currWb;
+                    /** Handle the problem when it coems, after
+                     *  First go the whiteboard draw something
+                     *  Go the document share and share some document
+                     *  and again go the whiteboard
+                     *  Now let join new user, at new user, there will be loaded whitebaord with shared document
+                     * **/
+                    if(virtualclass.currApp == 'Whiteboard' && this.wbId != null && virtualclass.gObj.currWb != this.wbId){
+                        var wb = '_doc_'+this.wbId+'_'+this.wbId;
+                    }else {
+                        var wb = virtualclass.gObj.currWb;
+                    }
 
-                    // var canvas = document.getElementById('canvas'+wb);
-                    //  var canvas = this.canvas;
+
                     var canvas = virtualclass.wb[wb].vcan.main.canvas;
 
                     if(this.firstTime){
@@ -456,7 +432,7 @@
                                         virtualclass.vutil.removeClass('virtualclassCont', 'resizeWindow');
                                     },10
                                 );
-                                // virtualclass.zoom.normalRender();
+
                             } else {
                                 console.log("We should have a PDF here");
                             }
@@ -476,14 +452,8 @@
                     if(typeof firstTime != 'undefined'){
                         that.renderPage(page, firstTime);
                     } else {
-                        that.renderPage(page);
+                        that.renderPage(page, null);
                     }
-
-                    // if(typeof firstTime != 'undefined'){
-                    //     var wb = virtualclass.gObj.currWb;
-                    //     that.initWhiteboardData(wb);
-                    // }
-
                 });
             },
 

@@ -82,7 +82,8 @@
                 stdaudioEnable : studentAudioEnable,
                 stdvideoEnable : studentVideoEnable,
                 tempPrefix : 'dest_temp/templates',
-                allUserObj : {}
+                allUserObj : {},
+                docPdfFirstTime : false
             },
 
             enablePreCheck : true,

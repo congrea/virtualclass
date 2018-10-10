@@ -418,7 +418,14 @@
                                                     console.log('pdfNormal render');
                                                     if(virtualclass.gObj.currWb != null){
                                                         if(document.querySelector('#canvas' + virtualclass.gObj.currWb+ '_pdf') != null){
-                                                            virtualclass.zoom.normalRender();
+                                                            /*Always run first document with fit to screen*/
+                                                            if(virtualclass.currApp == 'DocumentShare' && !virtualclass.gObj.docPdfFirstTime){
+                                                                virtualclass.gObj.docPdfFirstTime = true;
+                                                                virtualclass.zoom.zoomAction('fitToScreen');
+                                                            }else {
+                                                                virtualclass.zoom.normalRender();
+                                                            }
+
                                                             virtualclass.gObj.firstNormalRender = true;
                                                             //virtualclass.vutil.setDefaultScroll();
                                                             var scrollObj = {scX : 1, scY : 1}

@@ -9,11 +9,11 @@
             pdfScale : 1,
             url : "",
             init : function (canvas, currNote){
-                console.log('PDF render init');
+                // console.log('PDF render init');
                 var virtualclasElem = document.querySelector('#virtualclassCont');
                 if(virtualclasElem != null){
                     virtualclasElem.classList.add('pdfRendering');
-                    console.log('Add pdf rendering');
+                    // console.log('Add pdf rendering');
                 }
 
                 io.globallock = false;
@@ -46,11 +46,10 @@
                 virtualclass.gObj.getDocumentTimeout = setTimeout(
                     function (){
                             that.wbId = currNote;
-                            console.log('PDF render initiate 1');
-
+                            console.log('-----------START----------');
+                            console.log('PDF render request to pdf.js 1');
                             PDFJS.workerSrc = whiteboardPath + "build/src/pdf.worker.min.js";
                             PDFJS.getDocument(doc).then(function (pdf) {
-
                                 if (virtualclass.gObj.myworker == null) {
                                     virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS
                                 }
@@ -191,7 +190,7 @@
                         if(this.type == 'X'){
                             this[tp].b = studentWrapper.scrollLeft;
                         }else if(this.type == 'Y'){
-                            console.log('Scroll position Y ' + studentWrapper.scrollTop);
+                            // console.log('Scroll position Y ' + studentWrapper.scrollTop);
                             this[tp].b = studentWrapper.scrollTop;
                         }
 
@@ -295,7 +294,7 @@
                 virtualclass.vutil.setDefaultScroll();
                 // var cursor  = {cf : "sc", pr : true, scY : 0, scX:0};
                 // virtualclass.vutil.beforeSend(cursor);
-                console.log('Send scroll to everyone ');
+                // console.log('Send scroll to everyone ');
             },
 
             // Send current scroll to particular user.
@@ -369,8 +368,8 @@
                     var pdfCanvas = canvas.nextSibling;
                     pdfCanvas.width = canvas.width;
                     pdfCanvas.height = canvas.height;
-                    console.log('Pdf Canvas width ' + canvas.width);
-                    console.log('Pdf Canvas height ' + canvas.height);
+                    // console.log('Pdf Canvas width ' + canvas.width);
+                    // console.log('Pdf Canvas height ' + canvas.height);
 
                     var context = pdfCanvas.getContext('2d');
 
@@ -380,10 +379,12 @@
                     };
 
                     var that = this;
-
+                    console.log('PDF render initiate to display pdf on canvas 3');
                     page.render(renderContext).then(
                         function (){
-                            console.log('PDF rendered actual 2');
+                            console.log('PDF render DONE 4');
+                            console.log('-----------END----------');
+                            // console.log('PDF rendered actual 2');
                             // var url = canvas.toDataURL('image/jpeg');
                             // canvas.style.background = 'url(' + url + ')';
                             canvas.parentNode.dataset.pdfrender = true;
@@ -415,17 +416,11 @@
                                         if(!virtualclass.gObj.firstNormalRender){
                                             virtualclass.gObj.pdfNormalTimeout =  setTimeout(
                                                 function (){
-                                                    console.log('pdfNormal render');
+                                                    // console.log('pdfNormal render');
                                                     if(virtualclass.gObj.currWb != null){
                                                         if(document.querySelector('#canvas' + virtualclass.gObj.currWb+ '_pdf') != null){
                                                             /*Always run first document with fit to screen*/
-                                                            if(virtualclass.currApp == 'DocumentShare' && !virtualclass.gObj.docPdfFirstTime){
-                                                                virtualclass.gObj.docPdfFirstTime = true;
-                                                                virtualclass.zoom.zoomAction('fitToScreen');
-                                                            }else {
-                                                                virtualclass.zoom.normalRender();
-                                                            }
-
+                                                            virtualclass.zoom.normalRender();
                                                             virtualclass.gObj.firstNormalRender = true;
                                                             //virtualclass.vutil.setDefaultScroll();
                                                             var scrollObj = {scX : 1, scY : 1}
@@ -450,11 +445,11 @@
 
             // displayPage : function (pdf, num, firstTime) {
             displayPage : function (pdf, num, cb, firstTime) {
-
                 displayCb = cb;
                 var that = this;
+                console.log('PDF render Page-Request to pdf.js 2');
                 pdf.getPage(num).then(function getPage(page) {
-                    console.log('PDF is being rendered first time');
+                    // console.log('PDF is being rendered first time');
                     that.page = page
                     if(typeof firstTime != 'undefined'){
                         that.renderPage(page, firstTime);
@@ -464,10 +459,17 @@
                 });
             },
 
+            fitToScreenIfNeed : function (){
+                if(virtualclass.currApp == 'DocumentShare' && !virtualclass.gObj.docPdfFirstTime){
+                    virtualclass.gObj.docPdfFirstTime = true;
+                    virtualclass.zoom.zoomAction('fitToScreen');
+                }
+            },
+
             initWhiteboardData : function (wb){
                 /** Below condition is satisfied only if the whiteboard data is...
                  ..available in indexDB **/
-                console.log('Init whiteboard with timeout');
+                // console.log('Init whiteboard with timeout');
                 if(typeof virtualclass.gObj.tempReplayObjs[wb] == 'object'){
                     if(virtualclass.gObj.tempReplayObjs[wb].length <= 0){
                         var that = this;
@@ -482,6 +484,8 @@
                         console.log('Start whiteboard replay from local storage');
                         virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
                         virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
+                        this.fitToScreenIfNeed();
+
                     }
                 } else {
                     virtualclass.storage.getWbData(wb, function (){
@@ -491,10 +495,12 @@
                         }
 
                     });
+                    var that = this;
 
                     setTimeout(
                         function (){
                             virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
+                            that.fitToScreenIfNeed();
                         }, 500
                     );
                 }

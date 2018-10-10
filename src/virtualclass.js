@@ -515,6 +515,10 @@
                 if(tempApp != 'ScreenShare'){
                      this.currApp = tempApp;
                 }
+
+                if(app != 'DocumentShare'){
+                    virtualclass.gObj.docPdfFirstTime = false;
+                }
                 console.log('Current App init ' + this.currApp);
                 if ((roles.hasControls() && virtualclass.hasOwnProperty('previrtualclass'))
                     && (app != virtualclass.apps.ss  || (virtualclass.gObj.studentSSstatus.mesharing && virtualclass.apps.ss == 'ScreenShare'))) {
@@ -579,7 +583,7 @@
                             }
                         }, 100
                     );
-                    //system.initResize();
+                    system.initResize();
                 } else {
                     var prevapp = localStorage.getItem('prevApp');
                     if (prevapp != null) {
@@ -1235,7 +1239,7 @@
                                    
                                    
                                 }
-                                virtualclass.zoom.normalRender();
+                                //virtualclass.zoom.normalRender();
                         }
                     }
 

@@ -617,6 +617,19 @@
         },
 
         initResize : function (){
+            if(virtualclass.gObj.hasOwnProperty('initResize')){
+                clearTimeout(virtualclass.gObj.initResize);
+            }
+
+            virtualclass.gObj.initResize = setTimeout(() => {
+                virtualclass.vutil.addClass('virtualclassCont', 'resizeWindow');
+                system.setAppDimension(null, 'resize');
+                virtualclass.view.window.resize();
+            }, 500);
+
+        },
+
+        _initResize : function (){
             virtualclass.vutil.addClass('virtualclassCont', 'resizeWindow');
             system.setAppDimension(null, 'resize');
             virtualclass.view.window.resize();

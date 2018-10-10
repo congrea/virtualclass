@@ -1077,23 +1077,27 @@
                  * It's a fallback method in case of not supporting Audio worklet
                  **/
                 manuPulateStreamWithFallback : function () {
-                    var stream = cthis.stream;
+                    if(typeof cthis.stream != 'undefined' && cthis.stream !=  null){
+                        var stream = cthis.stream;
 
-                    var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
-                    cthis.audio.bufferSize = 16384;
-                    // grec is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
-                    // https://code.google.com/p/chromium/issues/detail?id=360378
-                    // cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
-                    grec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
-                    grec.onaudioprocess = cthis.audio.recorderProcessFallback.bind(cthis.audio);
+                        var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
+                        cthis.audio.bufferSize = 16384;
+                        // grec is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
+                        // https://code.google.com/p/chromium/issues/detail?id=360378
+                        // cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
+                        grec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
+                        grec.onaudioprocess = cthis.audio.recorderProcessFallback.bind(cthis.audio);
 
-                    filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
-                    filter.type = "lowpass";
-                    filter.frequency.value = 2000;
+                        filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
+                        filter.type = "lowpass";
+                        filter.frequency.value = 2000;
 
-                    audioInput.connect(filter);
-                    filter.connect(grec);
-                    grec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                        audioInput.connect(filter);
+                        filter.connect(grec);
+                        grec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                    }else {
+                        console.log("No stream is found");
+                    }
                 },
 
                 /**

@@ -2,7 +2,8 @@
     function zoomWhiteboard() {
         return {
             init : function (){
-                if(document.querySelector(' .zoomControler') ==  null){
+
+                if(document.querySelector('.zoomControler') ==  null){
                     var parent = document.querySelector("#virtualclassAppLeftPanel");
                     if(parent != null){
                         //if(roles.hasControls()){
@@ -170,6 +171,7 @@
                     }
                 }
             },
+
 
             removeZoomController : function (){
                 var zoomControler = document.querySelector('#virtualclassApp .zoomControler');

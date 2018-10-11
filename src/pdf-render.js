@@ -46,7 +46,7 @@
                 virtualclass.gObj.getDocumentTimeout = setTimeout(
                     function (){
                             that.wbId = currNote;
-                            console.log('-----------START----------');
+                            console.log('-----------START ' +virtualclass.currApp+'----------');
                             console.log('PDF render request to pdf.js 1');
                             PDFJS.workerSrc = whiteboardPath + "build/src/pdf.worker.min.js";
                             PDFJS.getDocument(doc).then(function (pdf) {
@@ -384,9 +384,7 @@
                         function (){
                             console.log('PDF render DONE 4');
                             console.log('-----------END----------');
-                            // console.log('PDF rendered actual 2');
-                            // var url = canvas.toDataURL('image/jpeg');
-                            // canvas.style.background = 'url(' + url + ')';
+                            
                             canvas.parentNode.dataset.pdfrender = true;
                             // canvas.style.backgroundRepeat = 'no-repeat';
                             that[wb] = {pdfrender : true};
@@ -446,10 +444,35 @@
             // displayPage : function (pdf, num, firstTime) {
             displayPage : function (pdf, num, cb, firstTime) {
                 displayCb = cb;
+
+
+
+                // pdf.getPage(num).then(function getPage(page) {
+                //     // console.log('PDF is being rendered first time');
+                //     that.page = page
+                //     if(typeof firstTime != 'undefined'){
+                //         that.renderPage(page, firstTime);
+                //     } else {
+                //         that.renderPage(page, null);
+                //     }
+                // });
+                var that = this;
+                if(virtualclass.gObj.hasOwnProperty('displayPageTimeout')){
+                    clearTimeout(virtualclass.gObj.displayPageTimeout);
+                }
+
+                virtualclass.gObj.displayPageTimeout = setTimeout(() => {
+                    that._displayPage(pdf, num, cb, firstTime);
+                }, 1000);
+
+            },
+
+            _displayPage : function (pdf, num, cb, firstTime){
                 var that = this;
                 console.log('PDF render Page-Request to pdf.js 2');
                 pdf.getPage(num).then(function getPage(page) {
                     // console.log('PDF is being rendered first time');
+
                     that.page = page
                     if(typeof firstTime != 'undefined'){
                         that.renderPage(page, firstTime);

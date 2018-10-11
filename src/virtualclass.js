@@ -576,6 +576,7 @@
                         }
 
                     }
+
                     setTimeout(
                         function (){
                             if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
@@ -583,7 +584,7 @@
                             }
                         }, 100
                     );
-                    system.initResize();
+                    //system.initResize();
                 } else {
                     var prevapp = localStorage.getItem('prevApp');
                     if (prevapp != null) {
@@ -649,7 +650,7 @@
                     //    virtualclass.gObj.currWb = '_doc_'+virtualclass.gObj.currSlide+'_'+virtualclass.gObj.currSlide;
 
                        virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
-                        system.initResize();
+                       // system.initResize();
                     } else {
                         var currVideo= Array.prototype.slice.call(arguments)[2];
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
@@ -763,7 +764,7 @@
             appInitiator : {
                 Whiteboard : function (app, cusEvent, id, container){
                     if(virtualclass.currApp == 'Whiteboard' &&  virtualclass.previous != 'virtualclassWhiteboard'){
-                        virtualclass.view.window.resize(id);
+                        // virtualclass.view.window.resize(id);
                     }
 
                     if (typeof this.ss == 'object') {

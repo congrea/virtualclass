@@ -38,9 +38,9 @@
                         setTimeout(
                             function (){
                                 console.log('whiteboard zoom normal render');
-                                virtualclass.zoom.normalRender();
+                                // virtualclass.zoom.normalRender();
                                 // system.setAppDimension(null, 'resize');
-                                // virtualclass.view.window.resize();
+                                 virtualclass.view.window.resize();
                             },500
                         );
                     }

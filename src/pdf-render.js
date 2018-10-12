@@ -384,7 +384,7 @@
                         function (){
                             console.log('PDF render DONE 4');
                             console.log('-----------END----------');
-                            
+
                             canvas.parentNode.dataset.pdfrender = true;
                             // canvas.style.backgroundRepeat = 'no-repeat';
                             that[wb] = {pdfrender : true};
@@ -456,14 +456,11 @@
                 //         that.renderPage(page, null);
                 //     }
                 // });
-                var that = this;
-                if(virtualclass.gObj.hasOwnProperty('displayPageTimeout')){
-                    clearTimeout(virtualclass.gObj.displayPageTimeout);
-                }
 
-                virtualclass.gObj.displayPageTimeout = setTimeout(() => {
-                    that._displayPage(pdf, num, cb, firstTime);
-                }, 1000);
+
+               // that._displayPage(pdf, num, cb, firstTime)
+                this._displayPage(pdf, num, cb, firstTime);
+
 
             },
 

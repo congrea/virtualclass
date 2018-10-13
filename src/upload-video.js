@@ -1469,14 +1469,17 @@
                     }
 
                     var msz = document.querySelector("#videoPopup #uploadMsz .qq-upload-list-selector.qq-upload-list");
-                    var btn = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-button input");
                     var btnUpload= document.querySelector("#uploadVideo");
                     btnUpload.addEventListener('click',function(){
+                        var btn = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-button input");
                         var msz = document.querySelector("#uploadMsz");
                         if(msz){
                             msz.style.display="block";
                         }
-                        btn.click();       
+                        if(btn){
+                           btn.click();  
+                        }
+                              
                     })
 
                 },

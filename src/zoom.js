@@ -126,6 +126,9 @@
             fitToScreen : function (){
                 var wid = virtualclass.gObj.currWb;
                 if(typeof virtualclass.pdfRender[wid] != 'undefined'){
+                    console.log('--Pdf render start----------');
+                    console.log('Pdf render fit to screen');
+                    console.log('--Pdf render----------');
                     var page = virtualclass.pdfRender[wid].page;
                     var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
 
@@ -160,6 +163,9 @@
             },
 
             normalRender : function (){
+                console.log('--Pdf Render Start ' + virtualclass.currApp +' ------------');
+                console.log('Pdf render normal view');
+                console.log('--Pdf render------------');
                 var wid = virtualclass.gObj.currWb;
                 if(typeof virtualclass.pdfRender[wid].shownPdf == 'object'){
                     if(virtualclass.zoom.canvasScale != null){

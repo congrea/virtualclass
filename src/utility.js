@@ -1615,6 +1615,7 @@
          * @param element expect the element to which calculate the height
          * @returns {number} return height
          */
+        //removejquery
         getVisibleHeightElem : function(element) {
             var $el = $(element),
                 scrollTop = $(window).scrollTop(),
@@ -1712,8 +1713,9 @@
         modalPopup: function (type, elemArr) {
             var upload = {};
             if(type == 'video'){
-                if ($('#listvideo .linkvideo.playing').length > 0) {
-                    var id = $('#listvideo .linkvideo.playing').attr('data-rid')
+                var currPlayed = document.querySelector("#listvideo .playing")
+                if (currPlayed) {
+                    var id = currPlayed.getAttribute('data-rid')
                     this.currPlaying = id;
                 }
                 upload.validation = [ "mp4", "avi",  "wmv", "mov", "webm", "mkv", "vob",  "mpeg"];
@@ -1809,13 +1811,13 @@
             });
         },
 
-
+        //removejquery
         setChatContHeight : function (height){
              return;
             $('#chatWidget').height(height);
             this.setChatHeight(height);
         },
-
+        //removejquery
         setChatHeight : function (height){
             return;
             var height = height - 40;
@@ -2031,7 +2033,9 @@
                 if(!videocont){
                     var videoDashboard = virtualclass.getTemplate('popup','videoupload');
                     var dbHtml = videoDashboard();
-                    $('#VideoDashboard').append(dbHtml);
+                    var videodb = document.querySelector('#VideoDashboard');
+                    videodb.insertAdjacentHTML('beforeend',dbHtml)
+                    //$('#VideoDashboard').append(dbHtml);
                     var msz = document.querySelector("#videoPopup  #uploadMsz div");
                     if(msz){
                         msz.parentNode.removeChild(msz)
@@ -2660,7 +2664,9 @@
         // }
 
         insertAppLayout : (html) => {
-            $('#virtualclassAppContainer').append(html);
+            var appContainer = document.querySelector('#virtualclassAppContainer')
+            appContainer.insertAdjacentHTML('beforeend',html)
+            //$('#virtualclassAppContainer').append(html);
         },
         prechkScrnShare:function(){
             if(localStorage.getItem('precheck')){

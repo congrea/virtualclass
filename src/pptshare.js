@@ -1368,7 +1368,9 @@
                     }
 
                     var template=virtualclass.getTemplate("pptiframe","ppt");
-                    $('#virtualclassSharePresentation').append(template)
+                    var pptCont = document.querySelector("#virtualclassSharePresentation");
+                    pptCont.insertAdjacentHTML('beforeend',template)
+                    //$('#virtualclassSharePresentation').append(template)
                 },
 
 
@@ -1384,7 +1386,8 @@
                     }
 
                     var template=virtualclass.getTemplate("mszdisplay","ppt");
-                    $('#virtualclassSharePresentation').append(template())
+                    var pptCont = document.querySelector("#virtualclassSharePresentation");
+                    pptCont.insertAdjacentHTML('beforeend',template())
                 },
 
                 removeIframe : function (){

@@ -59,8 +59,9 @@
                 var mediaCont = document.querySelector(".congrea #webRtcIoContainer");
                 if(!mediaCont){
                     var template = virtualclass.getTemplate('appSettingMedia');
-                    $("#virtualclassApp  #settingMedia").append(template());
-                    
+                   // $("#virtualclassApp  #settingMedia").append(template());
+                    var settingCont = document.querySelector("#virtualclassApp  #settingMedia")
+                    settingCont .insertAdjacentHTML('beforeend', template());
                     
                     if (navigator.userAgent.indexOf("Firefox") != -1)//audio output not supported
                     {  

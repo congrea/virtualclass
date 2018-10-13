@@ -1007,10 +1007,14 @@
                         virtualclass.videoUl.UI.container();
                         var videoCont = document.getElementById("videoPlayerCont");
                     }
-
-                    if($('iframe#player').length){
-                        $('iframe#player').remove();
+                    var ply = document.querySelector('iframe#player')
+                    if(ply){
+                        ply.remove()
                     }
+
+//                    if($('iframe#player').length){
+//                        $('iframe#player').remove();
+//                    }
                     virtualclass.videoUl.UI.switchDisplay(videoCont, videoUrl);
                     virtualclass.videoUl.UI.videojsPlayer(videoUrl, vidId, startFrom);
                 },
@@ -1097,7 +1101,8 @@
                 //n
                 createVideoElem: function (videoCont,type) {
                     var video = '<video id="dispVideo" class="video-js" autoplay controls  preload="auto" data-setup="{}" >';
-                    $(videoCont).append(video);
+                    videoCont.insertAdjacentHTML('beforeend',video)
+                   // $(videoCont).append(video);
                     var vn = document.createElement("p");
                     vn.setAttribute("class", "vjs-no-js")
                     var videoElem = document.getElementById("dispVideo");
@@ -1291,8 +1296,17 @@
                         var input = document.querySelector(".congrea #videourl");
                         var isURL =  virtualclass.videoUl.UI.validateURL(input.value);
                         if(isURL){
-                            $('.congrea #listvideo .playing').removeClass('playing');
-                            $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
+                            var playing = document.querySelector(' #listvideo .playing');
+                            if (playing) {
+                                playing.classList.remove("playing");
+                            }
+                            var ctr = document.querySelector(' #listvideo .removeCtr');
+                            if (ctr) {
+                                ctr.classList.remove("removeCtr")
+                            }
+                          
+//                            $('.congrea #listvideo .playing').removeClass('playing');
+//                            $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
                             // slice(1, -1) is used to remove first and last character
                             var id  = virtualclass.vutil.createHashString(input.value)+virtualclass.vutil.randomString(32).slice(1, -1);
 
@@ -1400,8 +1414,10 @@
                     }
                     var elemArr = ["congreavideoContBody", "congreaShareVideoUrlCont"];
                     var upload = {};
-                        if ($('#listvideo .linkvideo.playing').length > 0) {
-                            var id = $('#listvideo .linkvideo.playing').attr('data-rid')
+                        var currPlayed = document.querySelector('#listvideo .playing')
+                        if (currPlayed) {
+                            //var currPlayed = document.querySelector('#listvideo .playing')
+                            var id = currPlayed.getAttribute('data-rid')
                             this.currPlaying = id;
                         }
 //                        upload.validation = ["avi", "flv", "wmv", "mov", "mp4", "webm", "mkv", "vob", "ogv", "ogg", "drc", "mng", "qt", "yuv", "rm", "rmvb", "asf", "amv", "m4p",
@@ -1453,14 +1469,14 @@
                     }
 
                     var msz = document.querySelector("#videoPopup #uploadMsz .qq-upload-list-selector.qq-upload-list");
-                    var btn = $("#videoPopup .qq-upload-list-selector.qq-upload-button input");
-                    var btnUpload= $("#uploadVideo");
-                    btnUpload.click(function(){
+                    var btn = document.querySelector("#videoPopup .qq-upload-list-selector.qq-upload-button input");
+                    var btnUpload= document.querySelector("#uploadVideo");
+                    btnUpload.addEventListener('click',function(){
                         var msz = document.querySelector("#uploadMsz");
                         if(msz){
                             msz.style.display="block";
                         }
-                        btn.click();
+                        btn.click();       
                     })
 
                 },

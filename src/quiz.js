@@ -289,7 +289,7 @@
                 // to change this to
                 var cont = document.getElementById("bootstrapQzCont");
                 virtualclass.quiz.UI.generateModal("editQuizModal", cont);
-
+                //removejQuery
                 $('#editQuizModal').modal({
                     backdrop: 'static',
                     keyboard: false
@@ -329,6 +329,7 @@
                 virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_get_quizdata", function (data) {
                     if(scope.isJson(data)) {
                         scope.quizJSON = data;
+                        //removejQuery
                         $('#slickQuiz').slickQuiz({
                             json: scope.quizJSON,
                             questionPerPage : quizDetail.questionsperpage,
@@ -491,6 +492,7 @@
                 var body = virtualclass.view.customCreateElement('div','contQzBody','modal-body');
                 cont.appendChild(body);
                 this.UI.modalContentUI();
+                //removejQuery
                 $('#slickQuiz').slickQuiz(quiz);
             },
 

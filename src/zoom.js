@@ -163,7 +163,7 @@
             },
 
             normalRender : function (){
-                console.log('--Pdf render start------------');
+                console.log('--Pdf Render Start ' + virtualclass.currApp +' ------------');
                 console.log('Pdf render normal view');
                 console.log('--Pdf render------------');
                 var wid = virtualclass.gObj.currWb;

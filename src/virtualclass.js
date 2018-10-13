@@ -250,6 +250,7 @@
                     vcContainer.classList.add(virtualclass.vutil.getClassName(virtualclass.gObj.uRole));
                 }
 
+
                 if (typeof videoObj == 'undefined' || videoObj == null) {
                     this.makeAppReady(app, "byclick");
                 } else {
@@ -580,6 +581,7 @@
                     setTimeout(
                         function (){
                             if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
+
                                 virtualclass.zoom.normalRender();
                             }
                         }, 100
@@ -727,10 +729,6 @@
 
                     } 
                     if (typeof virtualclass.videoUl.player == 'object') {
-                        // debugger;
-                        // if(typeof virtualclass.videoUl.player.reset !='undefined'){
-                        //     virtualclass.videoUl.player.reset();
-                        // }
                         delete( virtualclass.videoUl.player);
                     }
 
@@ -1274,6 +1272,7 @@
                     if(allAppOptions[i].id != 'virtualclassEditorCodeTool'){
                         var that = this;
                         clickedAnchor = anchTag;
+
                         anchTag.onclick = function () {
                             that.initlizer(this);
                         };

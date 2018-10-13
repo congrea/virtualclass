@@ -40,7 +40,8 @@
                                 console.log('whiteboard zoom normal render');
                                 // virtualclass.zoom.normalRender();
                                 // system.setAppDimension(null, 'resize');
-                                 virtualclass.view.window.resize();
+                                //  virtualclass.view.window.resize();
+                                 virtualclass.zoom.normalRender();
                             },500
                         );
                     }
@@ -270,6 +271,17 @@
                 pageNo.id = "stdPageNo";
                 dc.appendChild(pageNo);
                 virtualclass.wbCommon.indexNav.studentWBPagination(0);
+            }
+        },
+
+        deleteWhiteboard : function (wbId){
+            delete virtualclass.wb[wbId];
+            delete virtualclass.pdfRender[wbId];
+            if(virtualclass.currApp == 'Whiteboard'){
+                var containerWb_doc = document.querySelector('#containerWb' + wbId);
+                if(containerWb_doc != null){
+                    containerWb_doc.parentNode.removeChild(containerWb_doc);
+                }
             }
         }
     }

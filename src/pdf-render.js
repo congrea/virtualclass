@@ -43,8 +43,16 @@
                 }
 
                 var that = this;
+                var prvApp = virtualclass.currApp;
+                var prvWhiteboard = virtualclass.gObj.currWb;
+
                 virtualclass.gObj.getDocumentTimeout = setTimeout(
                     function (){
+                        /** Avoids the PDF which would be different for current app
+                         * to reproduce the problem without condition, page refresh on docuemnt share
+                         * without load pdf click on whiteboard and again on document share and finally on whiteboard,
+                         * */
+                        if(prvApp == virtualclass.currApp){
                             that.wbId = currNote;
                             console.log('-----------START ' +virtualclass.currApp+'----------');
                             console.log('PDF render request to pdf.js 1');
@@ -62,7 +70,12 @@
                                 that.leftPosX = 0;
                             }
                             that.scrollEvent();
-
+                        }else {
+                            if(virtualclass.currApp == 'DocumentShare'){
+                                virtualclasElem.classList.remove('pdfRendering');
+                                virtualclass.wbCommon.deleteWhiteboard(prvWhiteboard);
+                            }
+                        }
                     },1000
                 );
             },

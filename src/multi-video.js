@@ -361,7 +361,7 @@
     userStreams[userid] = stream;
     // var mvideo = document.querySelector('#mvideo'+userid);
     virtualclass.multiVideo.removeUser(userid);
-
+    //remove jquery
     var $videoCont = $("<div class='videoCont remoteVideo'  id='vid"+userid+"' data-userid='"+userid+"' data-totaluser=''></div>");
     $video = $("<video  class='videoBox' autoplay></video>");
     $video.attr({"src": window.URL.createObjectURL(stream), "autoplay": "autoplay"});

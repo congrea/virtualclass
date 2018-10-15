@@ -593,6 +593,15 @@
                     if (curr) {
                         var id = curr.id.split("note")[1]
                         virtualclass.dts.indexNav.studentDocNavigation(id);
+                    }else{
+                        var cont = document.getElementById("stdPageNo");
+                        if (cont) {
+                            cont.innerHTML = 0
+                        }
+                        setTimeout(() => {
+                            virtualclass.dts.indexNav.setTotalPages((virtualclass.dts.order.length));
+                        }, 100);
+                        
                     }
                           
                 }

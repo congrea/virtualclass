@@ -1368,8 +1368,10 @@
                     }
 
                     var template=virtualclass.getTemplate("pptiframe","ppt");
+                    
+                    
                     var pptCont = document.querySelector("#virtualclassSharePresentation");
-                    pptCont.insertAdjacentHTML('beforeend',template)
+                    pptCont.insertAdjacentHTML('beforeend',template())
                     //$('#virtualclassSharePresentation').append(template)
                 },
 

@@ -1385,8 +1385,17 @@ $(document).ready(function () {
                                 video.setAttribute("src", '');
                             }
                         }
-                        $('.congrea #listvideo .playing').removeClass('playing');
-                        $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
+                        var currPlayed = document.querySelector('#listvideo .playing');
+                        if(currPlayed){
+                            currPlayed.classList.remove('playing')
+                        }
+                        var currCont = document.querySelector("#listvideo .removeCtr");
+                        if(currCont){
+                            currCont.classList.remove('removeCtr');
+                        }
+                        
+//                        $('.congrea #listvideo .playing').removeClass('playing');
+//                        $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
 
                         if(typeof virtualclass.videoUl.player == 'object'){
                            delete(virtualclass.videoUl.player);

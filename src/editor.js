@@ -134,8 +134,9 @@
 
                     var editortemplate = virtualclass.getTemplate('edenableall', 'editor');
                     var editorhtml = editortemplate({'type1':editorType});
-                    $('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body').append(editorhtml);
-
+                   // $('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body').append(editorhtml);
+                    var editor = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body')
+                    editor.insertAdjacentHTML('beforeend',editorhtml);
                     var editorControllerAnch = document.getElementById(containerId + 'Anch');
                     var editorModestatus = localStorage.getItem(editorType+'mode');
                     if(editorModestatus !== null){

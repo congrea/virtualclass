@@ -54,7 +54,9 @@
             if(docNav){
                 var elem = this.UI.createPageNavLink2.call(this, docNav);
                 var template=virtualclass.getTemplate("linkvideo","videoupload");
-                $(docNav).append(template(elem));
+                //$(docNav).append(template(elem));
+                docNav.insertAdjacentHTML('beforeend',template(elem));
+                
                 var label = document.getElementById(this.type + "Title" + this.rid);
                 label.innerHTML = this.title;
                 label.dataset.title = this.title;
@@ -88,7 +90,8 @@
             if(pptNav){
                 var elem = this.UI.createPageNavLink2.call(this, pptNav);
                 var template=virtualclass.getTemplate("linkPpt","ppt");
-                $(pptNav).append(template(elem));
+               // $(pptNav).append(template(elem));
+                pptNav.insertAdjacentHTML('beforeend',template(elem));
                 var label = document.getElementById(this.type + "Title" + this.rid);
                 label.innerHTML = this.title;
                 label.dataset.title = this.title;
@@ -312,11 +315,12 @@
             if (cthis.type == "video") {
                 elem.type = "video";
                 var template=virtualclass.getTemplate("linkvideo","videoupload");
-                $(docNav).append(template(elem))
+               // $(docNav).append(template(elem))
+                docNav.insertAdjacentHTML('beforeend',template(elem));
 
             } else {
                 var template = JST['templates/linkdoc.hbs'];
-                $(docNav).append(template(elem));
+                 docNav.insertAdjacentHTML('beforeend',template(elem));
 
             }
 
@@ -333,8 +337,8 @@
                 // var obj = {"doc": cthis, "cd": virtualclass.dts.docs.currDoc, "cn" : virtualclass.dts.docs.currNote};
                 var obj = {hasControls: roles.hasControls(), "cd": virtualclass.dts.docs.currDoc};
                 var template = JST['templates/docMain.hbs'];
-                $('#documentScreen').append(template(obj));
-
+                var docScreen = document.querySelector('#documentScreen')
+                docScreen.insertAdjacentHTML('beforeend',template(obj));
             }
             var pageScreenContainer = document.querySelector("#screen" + cthis.id + "   .pageContainer")
             return pageScreenContainer;
@@ -669,7 +673,7 @@
                             //
                             // });
 
-
+                            //remove jquery
                             $(document).on('click', function(e) {
                                  if ( e.target.id !="temp"+cthis.rid && e.target.id !="editVideoTitle"+cthis.rid ) {
                                      rmTxtBox();

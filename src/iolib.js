@@ -62,7 +62,8 @@ var io = {
                 var cleanJson = io.cleanRecJson(e.data);
                 if (cleanJson) {
                   var msg = JSON.parse(cleanJson); //msg.user is from user/*
-                    if (msg.type == "broadcastToAll" && msg.hasOwnProperty('user')) {
+                    if (!msg.hasOwnProperty('type') && msg.hasOwnProperty('user')) {
+                        msg.type = "broadcastToAll";
                         if(typeof virtualclass.gObj.allUserObj[msg.user.userid] == 'undefined'){
                             virtualclass.gObj.allUserObj[msg.user.userid] = {};
                             virtualclass.gObj.allUserObj[msg.user.userid].userid = msg.user.userid;
@@ -216,14 +217,14 @@ var io = {
             case "broadcastToAll":
                 if (typeof obj.arg.touser == "undefined") {
                     var sobj = {
-                        type: 'broadcastToAll',
+                        //type: 'broadcastToAll',
                         user: userObj,
                         m: obj.arg.msg
                     };
                     var jobj = 'F-BR-{"0'+JSON.stringify(sobj);
                 } else {
                     var sobj = {
-                        type: 'broadcastToAll',
+                        //type: 'broadcastToAll',
                         //user: virtualclass.gObj.uid,
                         user: userObj,
                         m: obj.arg.msg,

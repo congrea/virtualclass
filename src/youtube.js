@@ -97,7 +97,9 @@
                     }
 
                 }
-                $('#videoPlayerCont').css({"display": "none"});
+                var vidCont = document.querySelector('#videoPlayerCont');
+                vidCont.style.display = "none"
+          
             },
             /**
              * this function is called  when we leave  the video player's page

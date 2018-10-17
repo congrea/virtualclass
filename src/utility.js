@@ -1566,29 +1566,34 @@
         },
 
         createDummyUser : function () {
-            var usersLength = 15;
-            var users = [];
-            var i=1;
+            var usersLength = 5000;
+            var msg;
+            var i = 0;
+            var userId = 31;
             var createUser = setInterval(
                 function () {
                     if (i > usersLength) {
                         clearInterval(createUser);
                         return;
                     }
-                    var user = {
-                        img: "https://local.vidya.io/virtualclass/resources/images/quality-support.png",
-                        name: "suman" + i,
-                        userid: 3 + i,
-                        role: 's'
+
+                    userId += i;
+                    msg = {
+                        joinUser: {key: userId},
+                        message: [{
+                            lname: " ",
+                            name: "User"+userId,
+                            role: "s",
+                            userid: userId
+                        }],
+                        newuser: null,
+                        type: "member_added",
+                        user: true,
                     }
-
-                    users.push(user);
-
-                    var e = {message : users}
                     i++;
-                    memberUpdate(e,  'added');
-                    virtualclass.gObj.video.updateVideoContHeight();
-                }, 1000
+                    virtualclass.ioEventApi.readyto_member_add(msg);
+
+                }, 2
             );
         },
 
@@ -1615,6 +1620,7 @@
          * @param element expect the element to which calculate the height
          * @returns {number} return height
          */
+        //removejquery
         getVisibleHeightElem : function(element) {
             var $el = $(element),
                 scrollTop = $(window).scrollTop(),
@@ -1712,8 +1718,9 @@
         modalPopup: function (type, elemArr) {
             var upload = {};
             if(type == 'video'){
-                if ($('#listvideo .linkvideo.playing').length > 0) {
-                    var id = $('#listvideo .linkvideo.playing').attr('data-rid')
+                var currPlayed = document.querySelector("#listvideo .playing")
+                if (currPlayed) {
+                    var id = currPlayed.getAttribute('data-rid')
                     this.currPlaying = id;
                 }
                 upload.validation = [ "mp4", "avi",  "wmv", "mov", "webm", "mkv", "vob",  "mpeg"];
@@ -1809,13 +1816,13 @@
             });
         },
 
-
+        //removejquery
         setChatContHeight : function (height){
              return;
             $('#chatWidget').height(height);
             this.setChatHeight(height);
         },
-
+        //removejquery
         setChatHeight : function (height){
             return;
             var height = height - 40;
@@ -2031,7 +2038,9 @@
                 if(!videocont){
                     var videoDashboard = virtualclass.getTemplate('popup','videoupload');
                     var dbHtml = videoDashboard();
-                    $('#VideoDashboard').append(dbHtml);
+                    var videodb = document.querySelector('#VideoDashboard');
+                    videodb.insertAdjacentHTML('beforeend',dbHtml)
+                    //$('#VideoDashboard').append(dbHtml);
                     var msz = document.querySelector("#videoPopup  #uploadMsz div");
                     if(msz){
                         msz.parentNode.removeChild(msz)
@@ -2660,7 +2669,9 @@
         // }
 
         insertAppLayout : (html) => {
-            $('#virtualclassAppContainer').append(html);
+            var appContainer = document.querySelector('#virtualclassAppContainer')
+            appContainer.insertAdjacentHTML('beforeend',html)
+            //$('#virtualclassAppContainer').append(html);
         },
         prechkScrnShare:function(){
             if(localStorage.getItem('precheck')){

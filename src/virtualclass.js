@@ -716,8 +716,16 @@
                             video.setAttribute("src",'');
                         }
                     }
-                    $('.congrea #listvideo .playing').removeClass('playing');
-                    $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
+                    var currPlaying = document.querySelector("#listvideo .playing")
+                    if(currPlaying){
+                        currPlaying.classList.remove('playing')
+                    }
+                    var currCtr = document.querySelector("#listvideo .removeCtr")
+                    if(currCtr){
+                        currCtr.classList.remove('removeCtr')
+                    }
+//                    $('.congrea #listvideo .playing').removeClass('playing');
+//                    $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
                     if (!roles.hasControls()) {
                         setTimeout(function () {
                             if (typeof virtualclass.videoUl.player == 'object') {

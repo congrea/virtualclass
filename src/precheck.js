@@ -2,6 +2,7 @@ var precheck = {
     currTest:"",
     init : function (){
         // $("#myModal").modal();
+        //remove jquery
         $('#myModal').modal({backdrop: 'static', keyboard: false});
 
         this.totalTest = ['browser', 'bandWidth', 'webcam', 'speaker', 'mic'];

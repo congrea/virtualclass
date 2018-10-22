@@ -2670,8 +2670,8 @@
 
         insertAppLayout : (html) => {
             var appContainer = document.querySelector('#virtualclassAppContainer')
-            appContainer.insertAdjacentHTML('beforeend',html)
-            //$('#virtualclassAppContainer').append(html);
+            //appContainer.insertAdjacentHTML('beforeend',html)
+            $('#virtualclassAppContainer').append(html);
         },
         prechkScrnShare:function(){
             if(localStorage.getItem('precheck')){

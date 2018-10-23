@@ -1566,29 +1566,34 @@
         },
 
         createDummyUser : function () {
-            var usersLength = 15;
-            var users = [];
-            var i=1;
+            var usersLength = 5000;
+            var msg;
+            var i = 0;
+            var userId = 31;
             var createUser = setInterval(
                 function () {
                     if (i > usersLength) {
                         clearInterval(createUser);
                         return;
                     }
-                    var user = {
-                        img: "https://local.vidya.io/virtualclass/resources/images/quality-support.png",
-                        name: "suman" + i,
-                        userid: 3 + i,
-                        role: 's'
+
+                    userId += i;
+                    msg = {
+                        joinUser: {key: userId},
+                        message: [{
+                            lname: " ",
+                            name: "User"+userId,
+                            role: "s",
+                            userid: userId
+                        }],
+                        newuser: null,
+                        type: "member_added",
+                        user: true,
                     }
-
-                    users.push(user);
-
-                    var e = {message : users}
                     i++;
-                    memberUpdate(e,  'added');
-                    virtualclass.gObj.video.updateVideoContHeight();
-                }, 1000
+                    virtualclass.ioEventApi.readyto_member_add(msg);
+
+                }, 2
             );
         },
 
@@ -2665,8 +2670,8 @@
 
         insertAppLayout : (html) => {
             var appContainer = document.querySelector('#virtualclassAppContainer')
-            appContainer.insertAdjacentHTML('beforeend',html)
-            //$('#virtualclassAppContainer').append(html);
+            //appContainer.insertAdjacentHTML('beforeend',html)
+            $('#virtualclassAppContainer').append(html);
         },
         prechkScrnShare:function(){
             if(localStorage.getItem('precheck')){

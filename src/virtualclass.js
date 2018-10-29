@@ -769,9 +769,9 @@
             // Helper functions for making the app is ready
             appInitiator : {
                 Whiteboard : function (app, cusEvent, id, container){
-                    if(virtualclass.currApp == 'Whiteboard' &&  virtualclass.previous != 'virtualclassWhiteboard'){
-                        // virtualclass.view.window.resize(id);
-                    }
+                    // if(virtualclass.currApp == 'Whiteboard' &&  virtualclass.previous != 'virtualclassWhiteboard'){
+                    //     // virtualclass.view.window.resize(id);
+                    // }
 
                     if (typeof this.ss == 'object') {
                         this.ss.prevStream = false;

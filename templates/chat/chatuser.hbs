@@ -5,13 +5,13 @@
         <img class="media-object" src="{{peer.chatIconColors.savedImg}}">
       </a>
     {{else}}
-      <a href="#{{peer.userid}}" class="chat-user-icon pull-left">
-        <span class="chat-img media-object " style="background-color:{{peer.chatIconColors.bgColor}};color:{{peer.chatIconColors.textColor}}">{{peer.chatIconColors.initial}}</span>
+      <a href="#{{peer.userid}}" class="chat-user-icon pull-left" data-event='ub'>
+        <span data-event='ub' class="chat-img media-object " style="background-color:{{peer.chatIconColors.bgColor}};color:{{peer.chatIconColors.textColor}}">{{peer.chatIconColors.initial}}</span>
       </a>
 
     {{/if}}
     <div class="usern">
-    <a href="#{{peer.userid}}" title="{{peer.name}}  {{ peer.lname}}" class="media-heading">{{peer.name}} {{ peer.lname}}</a>
+    <a href="#{{peer.userid}}" title="{{peer.name}} {{ peer.lname}}" data-event='ub' class="media-heading">{{peer.name}} {{ peer.lname}}</a>
     </div>
 
   </div>
@@ -23,33 +23,33 @@
                <span id="{{peer.userid}}contrAssignImg" data-assign-disable="false" class="icon-assignImg enable assignImg contImg"></span></a>
            </div>
           <div id="{{peer.userid}}contRaiseH" class="controleCont controllerRaiseH disabled">
-            <a id="{{peer.userid}}contRaiseAnch" class="congtooltip" data-title="{{getString 'disabled'}}">
-              <span id="{{peer.userid}}contrRaiseHandImg" data-raisehand-disable="true" class="icon-RaiseHandImg RaiseHandImg contImg"></span></a>
+            <a id="{{peer.userid}}contRaiseAnch" class="congtooltip" data-title="{{getString 'disabled'}}" data-event="rh">
+              <span id="{{peer.userid}}contrRaiseHandImg" data-raisehand-disable="true" class="icon-RaiseHandImg RaiseHandImg contImg" data-event="rh"></span></a>
           </div>
           <div class="controleCont" id="{{peer.userid}}contrstdscreenCont">
-            <a class="congtooltip"  data-title="{{getString 'requestScreenShare'}}" id="{{peer.userid}}contrstdscreenAnch">
-              <span class="icon-stdscreenImg enable stdscreenImg contImg" data-chat-disable="false" id="{{peer.userid}}contrstdscreenImg"></span></a>
+            <a class="congtooltip"  data-title="{{getString 'requestScreenShare'}}" id="{{peer.userid}}contrstdscreenAnch" data-event="rs">
+              <span class="icon-stdscreenImg enable stdscreenImg contImg" data-chat-disable="false" id="{{peer.userid}}contrstdscreenImg" data-event="rs"></span></a>
           </div>
 
 
         {{/if}}
         <div class="controleCont" id="{{peer.userid}}contrAudCont">
-          <a class="congtooltip" data-title="{{getString 'audioEnable'}}" id="{{peer.userid}}contrAudAnch">
-            <span class="icon-audioImg enable audioImg contImg" data-audio-disable="false" id="{{peer.userid}}contrAudImg"></span></a>
+          <a class="congtooltip" data-title="{{getString 'audioEnable'}}" id="{{peer.userid}}contrAudAnch" data-event="ac">
+            <span class="icon-audioImg enable audioImg contImg" data-audio-disable="false" id="{{peer.userid}}contrAudImg" data-event="ac"></span></a>
         </div>
         <div class="controleCont userChat" id="{{peer.userid}}contrChatCont">
-          <a class="congtooltip" data-title="{{getString 'chatEnable'}}" id="{{peer.userid}}contrChatAnch">
-            <span class="icon-chatImg enable chatImg contImg" data-chat-disable="false" id="{{peer.userid}}contrChatImg"></span></a>
+          <a class="congtooltip" data-title="{{getString 'chatEnable'}}" id="{{peer.userid}}contrChatAnch" data-event="ch">
+            <span class="icon-chatImg enable chatImg contImg" data-chat-disable="false" id="{{peer.userid}}contrChatImg" data-event="ch"></span></a>
         </div>
 
       {{#if peer.isTeacher}}
         <div class="controleCont controllereditorRich" id="{{peer.userid}}contreditorRichCont">
-          <a class="congtooltip" data-title="{{getString 'writemode'}}" id="{{peer.userid}}contreditorRichAnch">
-            <span class="icon-editorRichImg block editorRichImg contImg" data-editorrich-disable="true" id="{{peer.userid}}contreditorRichImg"></span></a>
+          <a class="congtooltip" data-title="{{getString 'writemode'}}" id="{{peer.userid}}contreditorRichAnch" data-event="er">
+            <span class="icon-editorRichImg block editorRichImg contImg" data-editorrich-disable="true" id="{{peer.userid}}contreditorRichImg" data-event="er"></span></a>
         </div>
         <div class="controleCont controllereditorCode" id="{{peer.userid}}contreditorCodeCont" style="display: none;">
           <a class="congtooltip" data-title="{{getString 'writemode'}}" id="{{peer.userid}}contreditorCodeAnch">
-            <span class="icon-editorCodeImg block editorCodeImg contImg" data-editorcode-disable="true" id="{{peer.userid}}contreditorCodeImg"></span></a>
+            <span class="icon-editorCodeImg block editorCodeImg contImg" data-editorcode-disable="true" id="{{peer.userid}}contreditorCodeImg" data-event="er"></span></a>
         </div>
       {{/if}}
     </div>

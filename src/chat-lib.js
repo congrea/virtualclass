@@ -34,11 +34,17 @@ function displayChatUserList(users){
         chat_div = document.querySelector('#chat_div');
     }
 
+    /**
+     * We need to put the sub_chat div inside the chat_div, because after attaching the event with chat_div(shadow dom),
+     * If we click on anchor tag inside the shadow dom, then it does not return current clicked tag(shadow dom)
+     * but it returns shadow dom
+      * **/
     if(myDivResult != null && myDivResult != undefined && myDivResult != '' && typeof myDivResult != 'boolean'){
-        if(chat_div.innerHTML == ""){
-            chat_div.innerHTML =  myDivResult;
+        if(chat_div.shadowRoot.innerHTML == " " || chat_div.shadowRoot.innerHTML == ""){
+            chat_div.shadowRoot.innerHTML =  "<link rel='stylesheet' type='text/css' href='"+whiteboardPath+"css/modules/chat-container.css'> <div id='subchat' >" +  myDivResult + "</div>";
         } else {
-            chat_div.insertAdjacentHTML('beforeend', myDivResult);
+            chat_div.shadowRoot.querySelector('#subchat').insertAdjacentHTML('beforeend', myDivResult);
+
         }
     }
 
@@ -109,7 +115,9 @@ function updateOnlineUserText (){
 function memberUpdate(e, addType) {
   // TODO e.message now does not contain complete list of users. Function needs to be updated.
     if(addType ==  'removed'){
-        var userUI = document.querySelector('#ml'+e.removeUser);
+
+        // shadow dom
+        var userUI = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#ml'+e.removeUser);
         if(userUI != null){
             userUI.parentNode.removeChild(userUI);
         }
@@ -138,7 +146,7 @@ function memberUpdate(e, addType) {
                         virtualclass.gObj.video._handleUserMedia(virtualclass.gObj.uid);
                     }
 
-                    var userDiv = document.getElementById("ml" + virtualclass.gObj.uid);
+                    var userDiv = chatContainerEvent.elementFromShadowDom("#ml" + virtualclass.gObj.uid);
                     if (userDiv != null) {
                         userDiv.classList.add("mySelf");
                     }

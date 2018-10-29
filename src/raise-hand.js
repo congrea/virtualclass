@@ -32,7 +32,13 @@
             },
 
             disableRaiseHand:function(userid){
-                var controlContainer = document.getElementById(userid + 'contRaiseH');
+                // var controlContainer = document.getElementById(userid + 'contRaiseH');
+                var controlContainer = chatContainerEvent.elementFromShadowDom('#ml' + userid + ' .controllerRaiseH');
+
+                var controlContainer = chatContainerEvent.elementFromShadowDom('#ml' + userid + ' .controllerRaiseH');
+                var anch = controlContainer.querySelector('a.congtooltip');
+                var cont = anch.querySelector('.RaiseHandImg');
+
                 ioAdapter.mustSendUser({
                     'data': {
 
@@ -42,8 +48,8 @@
                 }, userid);
                 controlContainer.classList.remove("enabled");
                 controlContainer.classList.add("disabled");
-                document.getElementById(userid + "contrRaiseHandImg").setAttribute('data-raisehand-disable', true)
-                document.getElementById(userid+ "contRaiseAnch").setAttribute('data-title', "disabled")
+                cont.setAttribute('data-raisehand-disable', true)
+                anch.setAttribute('data-title', "disabled")
                 controlContainer.style.pointerEvents = "none";
                 virtualclass.user.control.updateUser(userid, 'raiseHand',false);
                 virtualclass.raiseHand.moveDownInList(userid)
@@ -78,9 +84,13 @@
             msgRecAtTeacher:function(msg){
                 console.log("raiseStd"+msg.action);
                 var userid= msg.user
-                var controlContainer = document.getElementById(userid+ 'contRaiseH');
-                var anch = document.getElementById(userid + 'contRaiseAnch');
-                var cont = document.getElementById(userid + 'contrRaiseHandImg');
+
+                // var controlContainer = document.getElementById(userid+ 'contRaiseH');
+                // var anch = document.getElementById(userid + 'contRaiseAnch');
+                // var cont = document.getElementById(userid + 'contrRaiseHandImg');
+                var controlContainer = chatContainerEvent.elementFromShadowDom('#ml' + userid + ' .controllerRaiseH');
+                var anch = controlContainer.querySelector('a.congtooltip');
+                var cont = anch.querySelector('.RaiseHandImg');
 
 
                 if(msg.action=="enable"){
@@ -153,9 +163,15 @@
             },
 
             _enableRaiseHand:function(count,userid){
-                var controlContainer = document.getElementById(userid + 'contRaiseH');
-                var anch = document.getElementById(userid + 'contRaiseAnch');
-                var cont = document.getElementById(userid + 'contrRaiseHandImg');
+                // var controlContainer = document.getElementById(userid + 'contRaiseH');
+                // var anch = document.getElementById(userid + 'contRaiseAnch');
+                // var cont = document.getElementById(userid + 'contrRaiseHandImg');
+
+                var controlContainer = chatContainerEvent.elementFromShadowDom('#ml' + userid + ' .controllerRaiseH');
+                var anch = controlContainer.querySelector('a.congtooltip');
+                var cont = anch.querySelector('.RaiseHandImg');
+
+
 
                 virtualclass.user.control.updateUser(userid, 'raiseHand', true);
                 controlContainer.classList.remove("disabled");

@@ -616,6 +616,7 @@
     overflow-y: auto;
     position: relative;
     padding-top: 51px;
+
 }
 
 #virtualclassCont.congrea .ui-widget-content{
@@ -785,9 +786,9 @@ margin-right:6px !important;
     display:block;
 }
 
-#virtualclassCont.congrea  #virtualclassAppRightPanel.chat_disabled .ui-memblist-usr.online {
-    pointer-events : none;
-}
+/*#virtualclassCont.congrea  #virtualclassAppRightPanel.chat_disabled .ui-memblist-usr.online {*/
+    /*pointer-events : none;*/
+/*}*/
 
 #virtualclassCont.congrea #chatrm.disable{
     display:none!important;

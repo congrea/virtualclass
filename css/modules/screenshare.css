@@ -181,27 +181,27 @@
     float:left;
 }
 
-#virtualclassCont.congrea.studentScreenSharing[data-currapp='ScreenShare'] #congreaChatCont span.icon-stdscreenImg{
-  pointer-events: none;
-  opacity: 0.5;
-}
+/*#virtualclassCont.congrea.studentScreenSharing[data-currapp='ScreenShare'] #congreaChatCont span.icon-stdscreenImg{*/
+  /*pointer-events: none;*/
+  /*opacity: 0.5;*/
+/*}*/
 
-#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="red"]:before{
-  color:#FF0000;
-}
+/*#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="red"]:before{*/
+  /*color:#FF0000;*/
+/*}*/
 
-#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="orange"]:before{
-  color:#FF8C00;
-}
+/*#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="orange"]:before{*/
+  /*color:#FF8C00;*/
+/*}*/
 
-#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="green"]:before{
-  color:#006400;
-}
+/*#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="green"]:before{*/
+  /*color:#006400;*/
+/*}*/
 
-#virtualclassCont.congrea #chat_div .controls span.enable.icon-stdscreenImg[data-dcolor="nosupport"]{
-  pointer-events : none;
-  opacity : 0.5;
-}
+/*#virtualclassCont.congrea #chat_div .controls span.enable.icon-stdscreenImg[data-dcolor="nosupport"]{*/
+  /*pointer-events : none;*/
+  /*opacity : 0.5;*/
+/*}*/
 
 #virtualclassCont.congrea #stopScreenShare  button{
   left:0px;

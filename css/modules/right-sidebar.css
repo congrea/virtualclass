@@ -164,9 +164,9 @@ body {
     font-family:'icomoon';
     color:grey;
 }
-#congreaChatCont .ui-widget-content #chat_div .ui-memblist-usr {
-    height:50px;
-}
+/*#congreaChatCont .ui-widget-content #chat_div .ui-memblist-usr {*/
+    /*height:50px;*/
+/*}*/
 #appSettingDetail label {
     margin-top:6px;
     margin-bottom:6px;
@@ -667,6 +667,6 @@ pointer-events: none !important;
     z-index:100;
 }
 
-#virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioImg, #virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioDisImg {
-    margin-top:3px;
-}
+/*#virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioImg, #virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioDisImg {*/
+    /*margin-top:3px;*/
+/*}*/

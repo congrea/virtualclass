@@ -160,21 +160,38 @@
   left: 4px;
 }
 
-#virtualclassCont.congrea #speakerPressOnce #speakerPressonceAnch span#speakerPressonceLabel:before {
-  content: "Off";
-  position: absolute;
-  top: -6px;
+/*#virtualclassCont.congrea #speakerPressOnce #speakerPressonceAnch span#speakerPressonceLabel:before {*/
+  /*content: "Off";*/
+  /*position: absolute;*/
+  /*top: -6px;*/
+  /*font-weight: normal;*/
+  /*font-size: 11px;*/
+  /*left: 13px; !* changed from 18px *!*/
+/*}*/
+
+/*#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber::before {*/
+  /*content: "\e907";*/
+  /*font-family: 'icomoon';*/
+  /*font-size: 22px;*/
+  /*padding-top: 0px;*/
+  /*color: #fff;*/
+/*}*/
+
+
+#virtualclassCont.congrea .ui-memblist-usr .icon-audioDisImg:before {
+  content: "\f026";
+  color: #7d7a7a;
+  font-size: 112%;
+  margin-right:7px;
   font-weight: normal;
-  font-size: 11px;
-  left: 13px; /* changed from 18px */
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber::before {
-  content: "\e907";
-  font-family: 'icomoon';
-  font-size: 22px;
-  padding-top: 0px;
-  color: #fff;
+#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioDisImg:before {
+  content: "\ea2a";
+  color: #7d7a7a;
+  font-size: 120%;
+  font-weight: normal;
+  margin-right:1px;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videLatency::before {
@@ -223,18 +240,18 @@
   top: -1px;
 }
 
-#virtualclassCont .icon-chatImg.enable:before {
-  color: #94b532;
-  font-size: 14px;
-  position: relative;
-  top: -1px;
-}
+/*#virtualclassCont .icon-chatImg.enable:before {*/
+  /*color: #94b532;*/
+  /*font-size: 14px;*/
+  /*position: relative;*/
+  /*top: -1px;*/
+/*}*/
 
-#virtualclassCont.congrea .icon-editorRichImg:before {
-  content: "\e605";
-  font-size: 15px;
-  color: #535151;
-}
+/*#virtualclassCont.congrea .icon-editorRichImg:before {*/
+  /*content: "\e605";*/
+  /*font-size: 15px;*/
+  /*color: #535151;*/
+/*}*/
 
 /*bottom bar*/
 
@@ -724,20 +741,20 @@
 }
 
 
-#virtualclassCont.congrea .icon-stdscreenImg.enable:before{
-  content: "\e602";
-  position: relative;
-  font-size: 17px;
-  color: black;
-  margin-right: 5px;
-}
+/*#virtualclassCont.congrea .icon-stdscreenImg.enable:before{*/
+  /*content: "\e602";*/
+  /*position: relative;*/
+  /*font-size: 17px;*/
+  /*color: black;*/
+  /*margin-right: 5px;*/
+/*}*/
 
-#virtualclassCont.congrea .icon-raisehand:before {
-  content: "\e962";
-  font-size: 16px;
-  display:none;
+/*#virtualclassCont.congrea .icon-raisehand:before {*/
+  /*content: "\e962";*/
+  /*font-size: 16px;*/
+  /*display:none;*/
 
-}
+/*}*/
 
 #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip:before {
    content: "\e986";

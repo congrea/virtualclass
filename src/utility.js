@@ -1984,6 +1984,9 @@
                         app.classList.remove("dashboard")
                     }
                     finish.setAttribute('data-dismiss',"modal");
+                      
+                    var db = document.querySelector('#congdashboard');
+                    db.className = "modal fade"
                 })
 
             }
@@ -2105,7 +2108,12 @@
             console.log('Dashboard is created for ' + virtualclass.currApp);
             if(currApp == "DocumentShare"){
                 if(typeof hidepopup == 'undefined'){
-                    $('#congdashboard').modal();
+                    //$('#congdashboard').modal();
+                    
+                    var db = document.querySelector('#congdashboard');
+                    if(db){
+                        db.className = "modal in";
+                    }
                     virtualclass.dashBoard.clickCloseButton();
                 }
 
@@ -2116,14 +2124,22 @@
 
             }else if(currApp == "Video"){
                 if(typeof hidepopup == 'undefined'){
-                    $('#congdashboard').modal({
-                        keyboard: false
-                    });
+//                    $('#congdashboard').modal({
+//                        keyboard: false
+//                    });
+                     var db = document.querySelector('#congdashboard');
+                    if(db){
+                        db.className = "modal in";
+                    }  
                 }
             } else {
-                $('#congdashboard').modal({
-                    keyboard: false
-                });
+//                $('#congdashboard').modal({
+//                    keyboard: false
+//                });
+                var db = document.querySelector('#congdashboard');
+                if (db) {
+                    db.className = "modal in";
+                }  
             }
 
             virtualclass.dashBoard.actualCloseHandler();

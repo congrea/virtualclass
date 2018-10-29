@@ -755,7 +755,7 @@ this["JST"]["dest_temp/templates/poll/previewPopup.hbs"] = Handlebars.template({
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div class=\"popover-content\"><div id=\"popupCont\" class=\"pollPreview\"><div><div id=\"qnTxCont\" class=\"row previewTxCont\"><label>"
+  return "<div class=\"popover-content hide\"><div id=\"popupCont\" class=\"pollPreview\"><div><div id=\"qnTxCont\" class=\"row previewTxCont\"><label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
     + " :</label><div class=\"viewQn\">"
     + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.questiontext : stack1), depth0))
@@ -1025,7 +1025,7 @@ this["JST"]["dest_temp/templates/ppt/pptiframe.hbs"] = Handlebars.template({"com
 this["JST"]["dest_temp/templates/precheck.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression, alias4="function";
 
-  return "<div id=\"virtualclassPreCheck\" class=\"bootstrap\"><div id=\"preCheckcontainer\"><div class=\"container \"><div class=\"modal fade\" id=\"myModal\" role=\"dialog\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\"><div class=\"modal-body\"><div id=\"precheckSkip\" class=\"button clearfix\"><span class=\"skip\"></span></div><div id=\"preCheckProgress\"><ul class=\"progressbar\" id=\"congProgressbar\"><li class=\"screen1 browser active\"></li><li class=\"screen2 bandwidth\"></li><li class=\"screen5 speaker\"></li><li class=\"screen4 mic\"></li><li class=\"screen3 webcam\"></li></ul></div><div id=\"vcBrowserCheck\" class=\"precheck browser\"><div class=\"testName\"> "
+  return "<div id=\"virtualclassPreCheck\" class=\"bootstrap\"><div id=\"preCheckcontainer\"><div class=\"container \"><div class=\"modal in\" id=\"myModal\" role=\"dialog\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\"><div class=\"modal-body\"><div id=\"precheckSkip\" class=\"button clearfix\"><span class=\"skip\"></span></div><div id=\"preCheckProgress\"><ul class=\"progressbar\" id=\"congProgressbar\"><li class=\"screen1 browser active\"></li><li class=\"screen2 bandwidth\"></li><li class=\"screen5 speaker\"></li><li class=\"screen4 mic\"></li><li class=\"screen3 webcam\"></li></ul></div><div id=\"vcBrowserCheck\" class=\"precheck browser\"><div class=\"testName\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"testingbrowser",{"name":"getString","hash":{},"data":data}))
     + " </div><div class=\"result\"></div><div id=\"browserButtons\" class=\"button clearfix\"><button type=\"button\" class=\"next btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))

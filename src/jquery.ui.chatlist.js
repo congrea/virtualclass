@@ -38,7 +38,7 @@
 
                     var self = this;
                     var box = self.elem.uiChatboxLog;
-                    var userAlready = document.getElementById("ml" + peer.userid);
+                    var userAlready = chatContainerEvent.elementFromShadowDom("#ml" + peer.userid);
                     if (userAlready != null ) {
                         // console.log('double created ' + peer.userid);
                         // if(userAlready.classList.contains('offline')){
@@ -139,54 +139,98 @@
                         box.scrollTop(box.scrollHeight);
                     });
 
-            $(document).on("click", '#chat_div .ui-memblist-usr .user-details a', function (event) {
-                var str = $(this);
-                var ahref = str.attr('href');
-                if (typeof ahref != 'undefined') {
-                    var id = ahref.replace('#', '');
-                    if(str.parent('.usern').length > 0){
-                       var name = str.html();
-                    } else {
-                        var name = str.siblings('.usern').find('a').html();
-                    }
 
-                    // var name = str.siblings('.user-details').find('.usern span').html();
 
-                    if ($.inArray(id, virtualclass.chat.idList) == -1) {
-//                        counter++;
-                        //idList.push(id);
-                        virtualclass.chat.counter++;
-                        virtualclass.chat.idList.push(id);
-                        if(!virtualclass.chat.vmstorage.hasOwnProperty(id)){
-                            virtualclass.chat.vmstorage[id] = [];
-                            virtualclass.chat.vmstorage[id].push({userid: id, name: name});
-                        }
-                    }
-
-                    chatboxManager.addBox(id,
-                        {
-                            dest: "dest" + virtualclass.chat.counter, // not used in demo
-                            title: "box" + virtualclass.chat.counter,
-                            first_name: name,
-                            type: "privateChat"
-                            //you can add your own options too
-                        });
-
-                    chatboxManager.init({
-                        user: {'name': name},
-                        messageSent: function (id, user, msg) {
-                            $("#" + id).chatbox("option", "boxManager").addMsg(user.name, msg);
-                        }
-                    });
-
-                    if(virtualclass.chat.vmstorage.hasOwnProperty(id)){
-                        displayUserSinglePvtChatHistory(id)
-                    }
-
-                    id = null;
-                    name = null;
-                }
-            });
+            // function init_chatBox (cthis) {
+            //     var str = $(cthis);
+            //     var ahref = str.attr('href');
+            //     if (typeof ahref != 'undefined') {
+            //         var id = ahref.replace('#', '');
+            //         if(str.parent('.usern').length > 0){
+            //             var name = str.html();
+            //         } else {
+            //             var name = str.siblings('.usern').find('a').html();
+            //         }
+            //
+            //         if ($.inArray(id, virtualclass.chat.idList) == -1) {
+            //             virtualclass.chat.counter++;
+            //             virtualclass.chat.idList.push(id);
+            //             if(!virtualclass.chat.vmstorage.hasOwnProperty(id)){
+            //                 virtualclass.chat.vmstorage[id] = [];
+            //                 virtualclass.chat.vmstorage[id].push({userid: id, name: name});
+            //             }
+            //         }
+            //
+            //         chatboxManager.addBox(id,
+            //             {
+            //                 dest: "dest" + virtualclass.chat.counter, // not used in demo
+            //                 title: "box" + virtualclass.chat.counter,
+            //                 first_name: name,
+            //                 type: "privateChat"
+            //                 //you can add your own options too
+            //             });
+            //
+            //         chatboxManager.init({
+            //             user: {'name': name},
+            //             messageSent: function (id, user, msg) {
+            //                 $("#" + id).chatbox("option", "boxManager").addMsg(user.name, msg);
+            //             }
+            //         });
+            //
+            //         if(virtualclass.chat.vmstorage.hasOwnProperty(id)){
+            //             displayUserSinglePvtChatHistory(id)
+            //         }
+            //
+            //         id = null;
+            //         name = null;
+            //     }
+            // }
+            //
+            // $(document).on("click", '#chat_div .ui-memblist-usr .user-details a', function (event) {
+            //     var str = $(this);
+            //     var ahref = str.attr('href');
+            //     if (typeof ahref != 'undefined') {
+            //         var id = ahref.replace('#', '');
+            //         if(str.parent('.usern').length > 0){
+            //            var name = str.html();
+            //         } else {
+            //             var name = str.siblings('.usern').find('a').html();
+            //         }
+            //
+            //         if ($.inArray(id, virtualclass.chat.idList) == -1) {
+            //             virtualclass.chat.counter++;
+            //             virtualclass.chat.idList.push(id);
+            //             if(!virtualclass.chat.vmstorage.hasOwnProperty(id)){
+            //                 virtualclass.chat.vmstorage[id] = [];
+            //                 virtualclass.chat.vmstorage[id].push({userid: id, name: name});
+            //             }
+            //         }
+            //
+            //         chatboxManager.addBox(id,
+            //             {
+            //                 dest: "dest" + virtualclass.chat.counter, // not used in demo
+            //                 title: "box" + virtualclass.chat.counter,
+            //                 first_name: name,
+            //                 type: "privateChat"
+            //                 //you can add your own options too
+            //             });
+            //
+            //         chatboxManager.init({
+            //             user: {'name': name},
+            //             messageSent: function (id, user, msg) {
+            //                 $("#" + id).chatbox("option", "boxManager").addMsg(user.name, msg);
+            //             }
+            //         });
+            //
+            //         if(virtualclass.chat.vmstorage.hasOwnProperty(id)){
+            //             displayUserSinglePvtChatHistory(id)
+            //         }
+            //
+            //         id = null;
+            //         name = null;
+            //     }
+            //
+            // });
 
             self._setWidth(self.options.width);
             self._position(self.options.offset);

@@ -498,6 +498,16 @@ $(document).ready(function () {
                     virtualclass.gObj.memberUpdateDelayTimer = setTimeout(function () {
                         memberUpdate(null, 'added');
                         delete virtualclass.gObj.memberUpdateDelayTimer;
+                        if(!virtualclass.gObj.hasOwnProperty('addEventToChatDiv')){
+                            var testChatDiv = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#subchat');
+                            testChatDiv.addEventListener('click', function (element){
+                                var targetElem = element.srcElement;
+                                chatContainerEvent.onEvent(targetElem, chatboxManager);
+
+                            });
+                            virtualclass.gObj.addEventToChatDiv = true;
+                        }
+
                     }, 1500)
                 }
             }
@@ -1328,14 +1338,16 @@ $(document).ready(function () {
                 var rMsg = e.message;
                 var uid = e.fromUser.userid;
                 if(rMsg.sd){
-                    var elem = document.getElementById(uid + 'contrstdscreenImg');
+                    var elem = chatContainerEvent.elementFromShadowDom('#ml'+uid + ' .icon-stdscreenImg');
                     if(elem != null){
                         elem.setAttribute('data-dcolor', 'red');
+
                     }
                 }else if(rMsg.ext){
                     var color = rMsg.hasOwnProperty('nosupport') ? 'nosupport' : 'orange';
 
-                    var elem = document.getElementById(uid + 'contrstdscreenImg');
+
+                    var elem = chatContainerEvent.elementFromShadowDom('#ml'+uid + ' .icon-stdscreenImg');
                     if(elem != null){
                         elem.setAttribute('data-dcolor', color);
                     }
@@ -1826,5 +1838,7 @@ $(document).ready(function () {
 
         virtualclass.ioEventApi = ioEventApi;
 
+        virtualclass.gObj.testChatDiv = document.querySelector('#chat_div');
+        virtualclass.gObj.testChatDiv.attachShadow({  mode: 'open' });
     }
 });

@@ -209,6 +209,14 @@
                             return userDiv;
                         }
                     });
+
+
+                    // var testChatDiv = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#subchat');
+                    // testChatDiv.addEventListener('click', function (element){
+                    //     var targetElem = element.srcElement;
+                    //     chatContainerEvent.onEvent(targetElem, chatboxManager);
+                    //
+                    // });
                 },
 
                 history: function () {
@@ -351,7 +359,8 @@
                     if(techSupport != null){
                         return ((+techSupport.dataset.tsid) == (+uid))
                     }
-                }
+                },
+
             }
         };
         window.Chat = Chat;

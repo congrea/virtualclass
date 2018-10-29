@@ -205,6 +205,7 @@
                             controller.className += ' controller' + controls[i];
 
                             controlCont.appendChild(controller);
+                            alert('Suman bogati');
 
                             if (virtualclass.currApp != virtualclass.vutil.capitalizeFirstLetter(controls[i])) {
                                 controller.style.display = 'none';
@@ -1100,10 +1101,11 @@
                  * @param editor editor type
                  * @param action show or hidden
                  */
-                toggleDisplayEditorController: function (editor, action) {
-                    editor = virtualclass.vutil.smallizeFirstLetter(editor);
+                 toggleDisplayEditorController: function (editor, action) {
+                    var editor = virtualclass.vutil.smallizeFirstLetter(editor);
 
-                    var allEditorController = document.getElementsByClassName('controller' + editor);
+                    // var allEditorController = document.getElementsByClassName('controller' + editor);
+                    var allEditorController = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.controller' + editor);
                     for (var i = 0; i < allEditorController.length; i++) {
                         allEditorController[i].style.display = action;
                     }
@@ -1396,7 +1398,7 @@
             },
 
             changeRoleOnFooter : function (id, role){
-                var footerDiv = document.getElementById("ml" + id);
+                var footerDiv = chatContainerEvent.elementFromShadowDom("#ml" + id);
                 footerDiv.dataset.role = role;
             },
 
@@ -1404,7 +1406,10 @@
                 var orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
                 // Assign event handler
                 var that = this;
-                var allSpans = document.querySelectorAll('#ml' + userId +  ' .contImg');
+
+                // shadow dom
+
+                var allSpans = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('#ml' + userId +  ' .contImg');
 
                 var uObj = false;
                 var userObj = localStorage.getItem('virtualclass' + userId);
@@ -1424,17 +1429,19 @@
                 }
 
                 for(var i=0; i<allSpans.length; i++){
-                    (
-                        function (i){
 
-                            allSpans[i].addEventListener('click',
-                                function (){
-                                    that.control.init.call(that, allSpans[i]);
-                                }
-                            );
+                    // (
+                    //     function (i){
+                    //
+                    //         allSpans[i].addEventListener('click',
+                    //             function (){
+                    //                 that.control.init.call(that, allSpans[i]);
+                    //             }
+                    //         );
+                    //
+                    //     }
+                    // )(i);
 
-                        }
-                    )(i);
 
                     if(allSpans[i].className.indexOf('chat') > -1){
                         if (uObj && userObj.hasOwnProperty('chat')) {

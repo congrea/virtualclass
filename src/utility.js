@@ -1168,7 +1168,7 @@
                 //create assing button only to student
                 if (!roles.hasAdmin()) {
                     virtualclass.vutil.removeSessionTool();   //
-                    var divContainer = document.getElementById("ml" + fromUserId);
+                    var divContainer = chatContainerEvent.elementFromShadowDom("#ml" + fromUserId);
                     var controls = ['assign'];
 
                     var controlCont = document.getElementById(fromUserId + "ControlContainer");
@@ -1565,8 +1565,13 @@
             }
         },
 
-        createDummyUser : function () {
-            var usersLength = 5000;
+        createDummyUser : function (usersLength) {
+            if(usersLength){
+                usersLength = usersLength;
+            }else {
+                var usersLength = 5000;
+            }
+
             var msg;
             var i = 0;
             var userId = 31;
@@ -1593,7 +1598,7 @@
                     i++;
                     virtualclass.ioEventApi.readyto_member_add(msg);
 
-                }, 2
+                }, 1
             );
         },
 
@@ -2293,10 +2298,11 @@
                     virtualclass.videoHost.gObj.stdStopSmallVid = false;
                 }
 
-                var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a span")||document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
+               // var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a span")||document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
+
+                var hasImg = chatContainerEvent.elementFromShadowDom("#ml"+virtualclass.gObj.uid+" .user-details a span") || chatContainerEvent.elementFromShadowDom("#ml"+virtualclass.gObj.uid+" .user-details a img");
 
                 if(hasImg){
-
                     virtualclass.videoHost.removeUserIcon(virtualclass.gObj.uid );
                 }else{
                     virtualclass.gObj.delayVid="hide"
@@ -2328,7 +2334,7 @@
                 }else{
                     virtualclass.videoHost.gObj.stdStopSmallVid = true;
                 }
-                var hasVideo = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a .videoWrapper")
+                var hasVideo =  chatContainerEvent.elementFromShadowDom("#ml"+virtualclass.gObj.uid+" .user-details a .videoWrapper")
 
                 if(hasVideo){
                     virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
@@ -2639,7 +2645,8 @@
         /** Indicates the sign who(student) is screen sharing **/
         initssSharing : (uid) => {
             virtualclass.gObj.whoIsSharing = uid;
-            var elem = document.getElementById(uid + 'contrstdscreenImg');
+            // var elem = document.getElementById(uid + 'contrstdscreenImg');
+            var elem = chatContainerEvent.elementFromShadowDom('#ml'+uid + ' .icon-stdscreenImg');
             if(elem != null){
                 elem.setAttribute('data-dcolor', 'green');
             }
@@ -2761,10 +2768,10 @@
         },
 
         removeStudenScreenStatus : function (){
-            var allStdscreenImg  = document.querySelectorAll('#chat_div .stdscreenImg');
+
+            var allStdscreenImg  = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.stdscreenImg');
             for(var i=0; i<allStdscreenImg.length; i++){
                 allStdscreenImg[i].dataset.dcolor = "";
-
             }
         },
 

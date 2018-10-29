@@ -1,0 +1,518 @@
+/** styles.css START here **/
+.ui-memblist-usr.teacher {
+    padding-top : 0;
+    background-color: #28353914;
+}
+
+.ui-memblist-usr.student, .ui-memblist-usr, .ui-memblist-usr.teacher{
+    padding-left : 4px;
+}
+
+div.ui-memblist-usr video {
+    width : 50px;
+    height : 38px;
+    margin : 0;
+    outline : 1px solid #5A5757;
+    margin-left : 2px;
+}
+
+
+div.ui-memblist-usr .userVideos {
+    width: 50px;
+    height: 38px;
+    margin-top : 6px;
+    outline : 1px solid #5A5757;
+}
+
+#graphCanvas {
+    top : -5px !important;
+}
+
+.ui-memblist-usr:first-child {
+    margin-top : 0;
+    margin-bottom: 0px;
+}
+
+
+div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
+    border : #3c4953 solid 1px;
+    border-radius: 20%;
+    outline : none;
+    margin: 5px 3px 5px 3px;
+}
+
+
+/*** 1153 start **/
+
+.controls {
+    width : auto;
+    float: right;
+    /*position : relative;*/
+    margin-right: 8px;
+    margin-top: 13px;
+}
+
+
+/** 1153 end */
+.congtooltip {
+    position : relative;
+}
+
+.congtooltip:hover:after {
+    background : #fff;
+    border : #ccc solid 1px;
+    border-radius : 0.25em;
+    bottom : 2.6em;
+    content : attr(data-title);
+    display : block;
+    /*	right:0px;*/
+    padding : 0.2em 0.5em;
+    position : absolute;
+    white-space : nowrap;
+    z-index : 100;
+    color : #000;
+    /*box-shadow : 0px 0px 1px #a4a4a4;*/
+    font-size : 12px;
+    font-weight : normal !important;
+}
+
+:host-context(#virtualclassCont.student) .controleCont{
+    pointer-events :none;
+    margin-left : -7px;
+}
+
+.controls .controleCont a.congtooltip:hover:after {
+    bottom : -11px;
+    left : auto;
+    right: -8px;
+}
+
+.ui-memblist-usr a.congtooltip[data-title="Disable Writing"]:hover:after,
+#virtualclassCont.congrea .ui-memblist-usr a.congtooltip[data-title="Enable Writing"]:hover:after{
+    bottom: -30px;
+    left: -40px !important;
+}
+
+.ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls a.congtooltip:hover:after {
+    bottom: 10px;
+    left: -2px;
+    font-size: 11px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+
+/** 3857 **/
+
+div.ui-memblist-usr .user-details  span.media-object {
+    display : block;
+    text-align: center;
+    padding-top: 11px;
+    margin-top: 6px;
+    font-size: 14px;
+    opacity: .8;
+    border: solid 1px transparent;
+    border-radius: 20%;
+    width: 50px;
+    height: 30px;
+    margin: 5px 5px 5px 2px;
+    object-fit: cover;
+}
+
+/** 3857 **/
+
+/** This is culprit CSS **/
+
+/*.ui-memblist-usr span {*/
+/*font-weight : normal;*/
+/*position:relative;*/
+/*}*/
+
+
+.selfClear:after,  .ui-memblist-usr:after{
+    content : ".";
+    display : block;
+    height : 0;
+    clear : both;
+    visibility : hidden;
+}
+
+
+.ui-memblist-usr .controls span {
+    font-size: 13px;
+    font-weight : 200;
+    float: left;
+    margin-top: 3px;
+    margin-right: 4px;
+}
+
+.controleCont .icon-stdscreenImg {
+    margin-top:3px !important;
+}
+
+
+:host-context(#virtualclassCont.student) .ui-memblist-usr .controls span {
+    margin-right: 10px;
+}
+
+.controleCont,  .controleCont {
+    float : left;
+    text-align: center;
+}
+
+.ui-memblist-usr a.congtooltip:hover:after {
+    bottom : 1.5em;
+}
+
+:host-context(#virtualclassCont.congrea.orginalTeacher) .controls span.enable,
+:host-context(#virtualclassCont.congrea.orginalTeacher) .controls span.block,
+:host-context(#virtualclassCont.congrea.orginalTeacher) .controls a,
+:host-context(#virtualclassCont.congrea.teacher) .controls .icon-assignImg.enable
+{
+    cursor : pointer;
+}
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0){
+    .ui-memblist-usr a.congtooltip:hover:after {
+        bottom:-34px;
+        left:0em;
+    }
+    .ui-memblist-usr a.congtooltip[data-title="Enable Writing"]:hover:after{
+        left:-3em;
+    }
+    .ui-memblist-usr a.congtooltip[data-title="Disable Writing"]:hover:after{
+        left:-3em;
+    }
+    .ui-memblist-usr a.congtooltip[data-title="Click to chat"]:hover:after{
+        bottom: 0px;
+        left: 12em;
+    }
+
+    .ui-memblist-usr a.congtooltip[data-title="Enable Writing"]:hover:after{
+        left:-20px;
+    }
+}
+
+
+.usern.media-heading {
+    margin-bottom :0;
+}
+
+
+.controleCont.ssSharing .icon-stdscreenImg.enable:before{
+    color: green;
+}
+
+
+.controleCont{
+    float : left;
+    text-align: center;
+}
+
+#tempVideo {
+    display : none;
+}
+
+/** styles.css END here **/
+
+
+/*** ICON START HERE, icon.css ***/
+.ui-memblist-usr .icon-chatImg:before {
+    font-family: 'icomoon';
+    content: "\f075";
+    font-size:14px;
+    color: #7d7a7a;
+    position: relative;
+    top: -1px;
+}
+
+
+.block.editorRichImg {
+    opacity : 0.5;
+}
+.icon-editorRichImg:before {
+    font-family: 'icomoon';
+    content: "\e605";
+    font-size: 15px;
+    color: #535151;
+}
+
+
+.icon-chatImg.enable:before {
+    font-family: 'icomoon';
+    content : "\f075";
+    color: #34b532;
+    font-size: 14px;
+    position: relative;
+    top: -1px;
+}
+
+.icon-editorRichImg:before {
+    content: "\e605";
+    font-size: 15px;
+    color: #535151;
+}
+
+
+:host-context(#virtualclassCont.congrea.teacher) .icon-audioImg.enable:before {
+    font-family: 'icomoon';
+    content: "\f026";
+    color: #7d7a7a;
+    vertical-align: baseline;
+    font-size: 118%;
+    font-weight: normal;
+}
+
+
+.icon-chatImg.enable:before {
+    color: #94b532;
+    font-size: 14px;
+    top: -1px;
+}
+
+/** Meadia.css start 136**/
+:host-context(#virtualclassCont.student) .icon-audioImg.enable:before {
+    font-family: 'icomoon';
+    content: "\f026";
+    color: #7d7a7a;
+    padding-right: 0px;
+    margin-right: 7px;
+    font-size: 120%;
+}
+
+.ui-memblist-usr .icon-audioEnaGreen:before {
+    font-family: 'icomoon';
+    content: "\ea27";
+    color: #94b532;
+    font-variant: normal;
+    font-style: normal;
+    font-size: 118%;
+    margin-right:7px;
+    font-weight: normal;
+}
+
+:host-context(#virtualclassCont.teacher) .ui-memblist-usr .icon-audioEnaGreen:before{
+    margin-right:3px;
+}
+
+
+.ui-memblist-usr .icon-audioEnaOrange:before {
+    font-family: 'icomoon';
+    content: "\ea27";
+    color: #e55e0d;
+    font-variant: normal;
+    font-style: normal;
+    font-size: 112%;
+    font-weight: normal;
+}
+
+:host-context(#virtualclassCont.student) .ui-memblist-usr .icon-audioEnaOrange:before {
+    margin-right : 7px;
+}
+
+
+.ui-memblist-usr .icon-audioDisImg:before {
+    font-family: 'icomoon';
+    content: "\f026";
+    color: #7d7a7a;
+    font-size: 112%;
+    margin-right:7px;
+    font-weight: normal;
+}
+
+:host-context(#virtualclassCont.teacher) .ui-memblist-usr .icon-audioDisImg:before {
+    font-family: 'icomoon';
+    content: "\ea2a";
+    color: #7d7a7a;
+    font-size: 118%;
+    font-weight: normal;
+    margin-right:1px;
+}
+/** Media.css end **/
+
+
+.icon-stdscreenImg.enable:before{
+    font-family: 'icomoon';
+    content: "\e602";
+    font-size: 17px;
+    color: black;
+    margin-right: 5px;
+}
+
+.icon-raisehand:before {
+    font-family: 'icomoon';
+    content: "\e962";
+    font-size: 16px;
+    display:none;
+}
+
+.ui-memblist-usr  .controllerRaiseH.disabled span{
+    color: rgb(61, 74, 85);
+}
+.ui-memblist-usr  .controllerRaiseH.enabled span{
+    color:green !important;
+    opacity:1;
+}
+
+
+.controllereditorRich {
+    display : none;
+}
+
+:host-context(.studentScreenSharing[data-currapp='ScreenShare']) #congreaChatCont span.icon-stdscreenImg {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.icon-stdscreenImg[data-dcolor="red"]:before{
+    color:#FF0000;
+}
+
+.icon-stdscreenImg[data-dcolor="orange"]:before{
+    color:#FF8C00;
+}
+
+.icon-stdscreenImg[data-dcolor="green"]:before{
+    color:#006400;
+}
+
+
+.controls span.enable.icon-stdscreenImg[data-dcolor="nosupport"]{
+    pointer-events : none;
+    opacity : 0.5;
+}
+
+.controllerRaiseH .icon-RaiseHandImg:before {
+    font-family: 'icomoon';
+    content: "\e962";
+}
+
+.controleCont.controllerRaiseH.disabled{
+    pointer-events: none;
+    display:none;
+}
+.controllerRaiseH{
+    margin-right: 8px;
+}
+
+
+/*** ICON END HERE ***/
+
+/*** jquery.ui.chatbox. start HERE ***/
+
+.ui-memblist-usr
+{
+    clear: both;
+}
+
+.user-details .usern .media-heading{
+    color:#3585d5;
+    letter-spacing: 0.5px;
+}
+
+.ui-memblist-usr .user-details .usern {
+    width: 40%;
+    float: left;
+    font-size: 14px;
+    text-transform: capitalize;
+    margin:16px 6px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 16px;
+    max-height: 32px;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    cursor: pointer;
+}
+/*TODO*/
+:host-context(#virtualclassCont[data-currapp="EditorRich"]) .ui-memblist-usr .user-details .usern {
+    width:38%;
+}
+
+.ui-memblist-usr a span{
+    font-size: 12px;
+    text-transform: capitalize;
+}
+
+
+:host-context(#virtualclassCont[data-currapp="Whiteboard"]) {
+    right: -1px !important;
+}
+
+
+:host-context(#virtualclassCont[data-currapp="Yts"]){
+    right: -1px !important;
+}
+
+.usern span {
+    margin-left : 6px;
+}
+
+.ui-memblist-usr.online {
+    pointer-events : visible;
+    color : red;
+}
+
+:host-context(.chat_disabled) .ui-memblist-usr.online{
+    pointer-events : none;
+}
+
+.ui-memblist-usr.offline {
+    opacity: .6;
+    border-bottom: 1px solid #ddd;
+
+}
+.ui-memblist-usr.mySelf{
+    pointer-events : none !important;
+    position: absolute;
+    top: 0;
+    width:98%;
+    background-image: linear-gradient(120deg, #fff 0%, #d1e8f6 100%);
+    /*    background-image: linear-gradient(135deg, #f5f7fa 0%, #f0ededfa 100%); */
+}
+
+.text {
+    color: #464646;
+    letter-spacing: 0.5px;
+    word-break: break-word;
+}
+
+.chat-img.pull-left{
+    margin-top:5px;
+}
+
+.icon-chatImg.chatImg{
+    margin-right:6px !important;
+}
+
+/*** jquery.ui.chatbox. END HERE ***/
+
+
+/** right-sidebar.css start **/
+
+.ui-memblist-usr {
+    height:50px;
+}
+
+
+.controleCont .icon-audioImg, .controleCont .icon-audioDisImg {
+    margin-top:3px;
+}
+
+/** right-sidebar.css end **/
+
+.user-details a span {
+    float : left;
+
+}
+
+.user-details a {
+    text-decoration : none;
+}
+
+.user-details a.hasVideo {
+    float :left;
+}

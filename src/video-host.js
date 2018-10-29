@@ -191,18 +191,15 @@ var videoHost = {
     },
 
     setUserIcon:function(userid){
-        var isVideo = document.querySelector("#ml"+userid+" .user-details a .videoWrapper");
+        var isVideo = chatContainerEvent.elementFromShadowDom("#ml"+userid+" .user-details a .videoWrapper");
         if(isVideo){
             isVideo.parentNode.removeChild(isVideo);
         }
-        // var imgTag = document.querySelector("#ml"+userid+" .user-details a img");
-        // if(imgTag){
-        //     imgTag.parentNode.removeChild(imgTag);
-        // }
 
 
-        var imgCont = document.querySelector("#ml"+userid+" .user-details a")
-        var imgElem = document.querySelector("#ml"+userid+" .user-details a span") || document.querySelector("#ml"+userid+" .user-details a img");
+
+        var imgCont = chatContainerEvent.elementFromShadowDom("#ml"+userid+" .user-details a")
+        var imgElem = chatContainerEvent.elementFromShadowDom("#ml"+userid+" .user-details a span") || chatContainerEvent.elementFromShadowDom("#ml"+userid+" .user-details a img");
         if(!imgElem && imgCont != null){
             if(virtualclass.gObj.chatIconColors[userid] && !virtualclass.gObj.chatIconColors[userid].savedImg ){
                 var img = document.createElement('span');
@@ -230,12 +227,12 @@ var videoHost = {
              var vidContainer = cthis.video.createVideoElement();
 
              virtualclass.gObj.video.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
-              var canvas = document.querySelector("#virtualclassCont #chat_div #ml"+virtualclass.gObj.uid +" #tempVideo");
+              var canvas = chatContainerEvent.elementFromShadowDom("#ml"+virtualclass.gObj.uid +" #tempVideo");
               if(!canvas){
                   cthis.video.insertTempVideo(vidContainer);
                   cthis.video.tempVideoInit();
               }
-             cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+             cthis.video.myVideo = chatContainerEvent.elementFromShadowDom("#video" + virtualclass.gObj.uid);
              cthis.video.myVideo.muted = true;
              virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.video.tempStream);
              // cthis.video.myVideo.muted = true;

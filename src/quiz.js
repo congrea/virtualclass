@@ -94,8 +94,6 @@
                     // display quiz result page at student site
 
                     var rData = JSON.parse(localStorage.getItem('qRep'));
-                    var maxmrk = parseFloat(rData.grade.maxmarks).toFixed(2);
-                    rData.grade.maxmarks = maxmrk;
                     this.UI.displayStudentResultScreen(rData);
 
                 } else if(storedData.screen == "tchResultView") {
@@ -109,9 +107,9 @@
                                 var quizDetial = JSON.parse(data['qDetail']);
                                 /* On page refesh, we don't have to reset the time limit,
                                  * if we do this, the quiz without timer would be closed on page refresh
-                                  * */
+                                 * */
                                 //if (storedData.hasOwnProperty('qtime')) {
-                                    // quizDetial.timelimit = that.convertTimeToSec(storedData.qtime);
+                                // quizDetial.timelimit = that.convertTimeToSec(storedData.qtime);
                                 //}
                                 that.quizJSON = data['qData'];
                                 that.openQuizPopup(that.quizJSON, quizDetial.id);
@@ -289,7 +287,7 @@
                 // to change this to
                 var cont = document.getElementById("bootstrapQzCont");
                 virtualclass.quiz.UI.generateModal("editQuizModal", cont);
-                //removejQuery
+
                 $('#editQuizModal').modal({
                     backdrop: 'static',
                     keyboard: false
@@ -329,7 +327,6 @@
                 virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_get_quizdata", function (data) {
                     if(scope.isJson(data)) {
                         scope.quizJSON = data;
-                        //removejQuery
                         $('#slickQuiz').slickQuiz({
                             json: scope.quizJSON,
                             questionPerPage : quizDetail.questionsperpage,
@@ -353,7 +350,7 @@
                     virtualclass.quiz.action(this.id, cb, index);
                 }
                 var modal = document.getElementById("editQuizModal") ? document.getElementById("editQuizModal") : document.getElementById("qzPopup");
-                var controls = modal.querySelectorAll('#virtualclassCont #quizModalBody .controls');
+                var controls = modal.querySelectorAll(':scope .controls');
 
                 for (var i = 0; i < controls.length; i++) {
                     controls[i].addEventListener("click", attachInit)
@@ -492,7 +489,6 @@
                 var body = virtualclass.view.customCreateElement('div','contQzBody','modal-body');
                 cont.appendChild(body);
                 this.UI.modalContentUI();
-                //removejQuery
                 $('#slickQuiz').slickQuiz(quiz);
             },
 
@@ -554,7 +550,7 @@
                     if (document.querySelector('#timeText') != null) {
                         document.querySelector('#timeText').textContent = "Quiz has been closed";
                     }
-                   var resPage = document.querySelector("#slickQuiz .quizResults");
+                    var resPage = document.querySelector("#slickQuiz .quizResults");
                     if(resPage && resPage.style.display != 'block') {
                         // click submit button of student screen
                         var arr = document.querySelectorAll('#slickQuiz .nextQuestion');

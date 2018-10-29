@@ -54,7 +54,7 @@ function get_string($phrase) {
 }
 
 //the www path for virtualclass
-$whiteboardpath = "https://local.vidya.io/virtualclass/";
+$whiteboardpath = "https://192.168.1.117/virtualclass/";
 
 $cont_class = 'congrea ';
 
@@ -126,7 +126,7 @@ $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 $lname = isset($_GET['lname']) ? $_GET['lname'] : ' ';
 
 // Set 1 to add source file else 0 to min file
-$info = 0;
+$info = 1;
 $audio_disabled_completely = true;
 $cmid = 5;
 ?>
@@ -244,5 +244,6 @@ if ($info) {
 </head>
 <body>
     <div id="virtualclassCont" class="<?php echo $cont_class; ?>"> </div>
+    <div id="chat_div"></div>
 </body>
 </html>

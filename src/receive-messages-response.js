@@ -38,7 +38,7 @@
                 //create assing button only to student
                 if (!roles.hasAdmin()) {
                     virtualclass.vutil.removeSessionTool();   //
-                    var divContainer = document.getElementById("ml" + fromUserId);
+                    var divContainer = chatContainerEvent.elementFromShadowDom("#ml" + fromUserId);
                     var controls = ['assign'];
 
                     var controlCont = document.getElementById(fromUserId + "ControlContainer");

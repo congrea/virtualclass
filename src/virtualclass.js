@@ -333,7 +333,7 @@
                 if(virtualclassSetting.theme.selectedColor){
                     this.colorSelector.makeThemeReady();
                 }
-                this.modal.init();
+                //this.modal.init();
             },
 
             makeReadySocket : function (){

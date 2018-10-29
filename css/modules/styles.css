@@ -3987,20 +3987,20 @@ background-color: #d6d6d6;
 #virtualclassCont.congrea #joinClass #joinClassModal .joinClasscontainer button.btn:focus {
 	outline: none;
 }
-.congrea #virtualclassPoll .modal.in{
+.congrea.teacher #virtualclassPoll .modal.in{
     display:block!important;
 }
 .congrea #preCheckcontainer .container .modal.in{
     display:block!important;
 }
-.congrea #congdashboard.modal.in{
+.congrea.teacher #congdashboard.modal.in{
     display:block!important;
 }
 
 
 /* The actual popup */
 
-.congrea .pollList .popover-content {
+.congrea.teacher .pollList .popover-content {
     /* visibility: hidden; */
     width: 30%;
     background-color: #eee;

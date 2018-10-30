@@ -151,7 +151,7 @@
             moveDownInList:function(userid){
                 // var ctrEn = document.querySelectorAll("#virtualclassCont.congrea .controllerRaiseH.enabled")
                 var ctrEn = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll(".controllerRaiseH.enabled");
-                var userLink = document.getElementById(userid +"contRaiseH");
+                var userLink = virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userid +"contRaiseH");
                 if(ctrEn.length >0) {
                     userLink.closest('.ui-memblist-usr').parentNode.insertBefore(userLink.closest('.ui-memblist-usr'),ctrEn[ctrEn.length-1].closest('.ui-memblist-usr').nextSibling);
                 }

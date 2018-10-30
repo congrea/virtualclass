@@ -48,7 +48,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
     width : auto;
     float: right;
     /*position : relative;*/
-    margin-right: 8px;
+    margin-right: 7px;
     margin-top: 13px;
 }
 
@@ -394,6 +394,10 @@ div.ui-memblist-usr .user-details  span.media-object {
 }
 .controllerRaiseH{
     margin-right: 8px;
+}
+
+:host-context(#virtualclassCont.congrea.teacher[data-currapp="EditorRich"]) .controllereditorRich {
+    display:block;
 }
 
 

@@ -1075,14 +1075,19 @@
                  */
                 toggleAllEditorController: function (edType, action) {
                     edType = virtualclass.vutil.smallizeFirstLetter(edType);
-                    var allUsersDom = document.getElementsByClassName('controleCont');
+
+                    var allUsersDom = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.controleCont');
+                    // var allUsersDom = document.getElementsByClassName('controleCont');
+
+                    // var allUsersDom = document.getElementsByClassName('controleCont');
                     if (allUsersDom.length > 0) {
                         for (var i = 0; i < allUsersDom.length; i++) {
                             if (allUsersDom[i].id.indexOf(edType) > 0) {
                                 var idPartPos = allUsersDom[i].id.indexOf('Cont');
                                 if (idPartPos > 0) {
                                     var idPart = allUsersDom[i].id.substr(0, idPartPos);
-                                    var elem = document.getElementById(idPart + 'Img');
+                                    // var elem = document.getElementById(idPart + 'Img');
+                                    var elem = virtualclass.gObj.testChatDiv.shadowRoot.getElementById(idPart + 'Img');
                                     this.control.init.call(this, elem, action, undefined, 'actnotSend');
                                 }
                             }

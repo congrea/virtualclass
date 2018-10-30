@@ -1105,10 +1105,14 @@
                     var editor = virtualclass.vutil.smallizeFirstLetter(editor);
 
                     // var allEditorController = document.getElementsByClassName('controller' + editor);
-                    var allEditorController = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.controller' + editor);
-                    for (var i = 0; i < allEditorController.length; i++) {
-                        allEditorController[i].style.display = action;
+                    if(virtualclass.gObj.hasOwnProperty('testChatDiv')){
+                        var allEditorController = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.controller' + editor);
+                        for (var i = 0; i < allEditorController.length; i++) {
+                            allEditorController[i].style.display = action;
+                        }
                     }
+
+
                 },
 
                 //TODO this function name should be convert into updateControlAtLocalStorage
@@ -1227,14 +1231,16 @@
              * @param action expect either enable/disable
              */
             toggleAllAudio: function (action) {
-                var allUsersDom = document.getElementsByClassName('controleCont');
+                var allUsersDom = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.controleCont')
+                // var allUsersDom = document.getElementsByClassName('controleCont');
                 if (allUsersDom.length > 0) {
                     for (var i = 0; i < allUsersDom.length; i++) {
                         if (allUsersDom[i].id.indexOf('Aud') > 0) {
                             var idPartPos = allUsersDom[i].id.indexOf('Cont');
                             if (idPartPos > 0) {
                                 var idPart = allUsersDom[i].id.substr(0, idPartPos);
-                                var elem = document.getElementById(idPart + 'Img');
+                                var elem = virtualclass.gObj.testChatDiv.shadowRoot.getElementById(idPart + 'Img');
+                                // var elem = document.getElementById(idPart + 'Img');
                                 this.control.init.call(this, elem, action , undefined, 'actnotSend');
                             }
                         }

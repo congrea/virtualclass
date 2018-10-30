@@ -55,7 +55,7 @@
                      if(! settingD.classList.contains('deactive')){
                          settingD.classList.add("deactive");
                      }
-
+                     $('#chatroom_bt2').removeClass('ui-state-highlight');
                     virtualclass.chat.chatWindow="common";
                     if ($("ul#chat_room").length == 0) {
                         var d = document.createElement('ul');

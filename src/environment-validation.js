@@ -601,7 +601,9 @@
         },
 
         initResize : function (){
-            delete virtualclass.gObj.measureDimension;
+            if(virtualclass.gObj.hasOwnProperty('measureDimension')){
+                delete virtualclass.gObj.measureDimension;
+            }
 
             if(virtualclass.gObj.hasOwnProperty('initResize')){
                 clearTimeout(virtualclass.gObj.initResize);

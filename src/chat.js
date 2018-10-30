@@ -319,13 +319,16 @@
                     $('div#memlist').removeClass("enable");
                 },
                 removeChatHighLight: function (id) {
-                    var chatCont = document.getElementById(id);
-                    if (chatCont != null) {
-                        var hElements = chatCont.getElementsByClassName("ui-state-highlight");
-                        for (var i = 0; i < hElements.length; i++) {
-                            hElements[i].classList.remove('ui-state-highlight');
+                    // var chatCont = document.getElementById(id);
+                    // var chatRoot = virtualclass.gObj.testChatDiv.shadowRoot.
+                    // if (chatCont != null) {
+                        if(virtualclass.gObj.hasOwnProperty('testChatDiv')){
+                            var hElements = virtualclass.gObj.testChatDiv.shadowRoot.getElementsByClassName("ui-state-highlight");
+                            for (var i = 0; i < hElements.length; i++) {
+                                hElements[i].classList.remove('ui-state-highlight');
+                            }
                         }
-                    }
+                    //}
                 },
                 openChatBox: function () {
                     var memlistBox = document.querySelector('#memlist');

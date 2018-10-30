@@ -617,14 +617,14 @@
             },
 
             endSession: function (onlyStoredData) {
-                var currApp = document.querySelector('virtualclass' + virtualclass.currApp);
+                var currApp = document.querySelector('#virtualclass' + virtualclass.currApp);
                 if(currApp != null){
                     currApp.style.display = 'none';
                 }
 
                 virtualclass.gObj.video.audio.muteButtonToogle();
                 //Remove all chat user list
-                var chatUsers  = document.querySelectorAll('#chat_div .ui-memblist-usr');
+                var chatUsers  = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.ui-memblist-usr');
 
                 if(chatUsers != null && chatUsers.length > 0){
                     for(let i=0; i<chatUsers.length; i++){
@@ -808,7 +808,8 @@
                     }
                 }
 
-                var chatHighlight = document.querySelector("#virtualclassCont.congrea .vmchat_room_bt.ui-state-highlight");
+                // var chatHighlight = document.querySelector("#virtualclassCont.congrea .vmchat_room_bt.ui-state-highlight");
+                var chatHighlight = chatContainerEvent.elementFromShadowDom(".vmchat_room_bt.ui-state-highlight");
                 if(chatHighlight){
                     chatHighlight.classList.remove('ui-state-highlight');
                 }

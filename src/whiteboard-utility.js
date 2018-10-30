@@ -975,7 +975,6 @@
             },
 
             makeActiveTool: function (byReload) {
-                return;
                 var wid = virtualclass.gObj.currWb;
                 var tag = document.getElementById(byReload);
                 var classes;

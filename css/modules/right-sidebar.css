@@ -730,9 +730,9 @@ pointer-events: none !important;
 }
 
 
-#virtualclassCont.edge[data-currapp="Whiteboard"] {
-    right: -1px !important;
-}
+/*#virtualclassCont.edge[data-currapp="Whiteboard"] {*/
+    /*right: -1px !important;*/
+/*}*/
 
 
 #virtualclassCont.edge[data-currapp="Yts"]{

@@ -670,3 +670,78 @@ pointer-events: none !important;
 /*#virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioImg, #virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioDisImg {*/
     /*margin-top:3px;*/
 /*}*/
+
+
+/** CSS for chat div container start for EDGE browser  **/
+#virtualclassCont.edge.student .controleCont{
+    pointer-events :none;
+    margin-left : -7px;
+}
+
+#virtualclassCont.edge.student .ui-memblist-usr .controls span {
+    margin-right: 10px;
+}
+
+
+#virtualclassCont.edge.orginalTeacher .controls span.enable,
+#virtualclassCont.edge.orginalTeacher .controls span.block,
+#virtualclassCont.edge.orginalTeacher .controls a,
+#virtualclassCont.edge.teacher .controls .icon-assignImg.enable{
+    cursor : pointer;
+}
+
+.icon-chatImg.enable:before {
+    color: #94b532;
+    font-size: 14px;
+    top: -1px;
+}
+
+#virtualclassCont.edge.teacher .ui-memblist-usr .icon-audioEnaGreen:before{
+    margin-right:3px;
+}
+
+#virtualclassCont.edge.student .ui-memblist-usr .icon-audioEnaOrange:before {
+    margin-right : 7px;
+}
+
+#virtualclassCont.edge.teacher .ui-memblist-usr .icon-audioDisImg:before {
+    font-family: 'icomoon';
+    content: "\ea2a";
+    color: #7d7a7a;
+    font-size: 118%;
+    font-weight: normal;
+    margin-right:1px;
+}
+
+
+
+.studentScreenSharing[data-currapp='ScreenShare'] #congreaChatCont span.icon-stdscreenImg {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
+#virtualclassCont.edge.congrea.teacher[data-currapp="EditorRich"] .controllereditorRich {
+    display:block;
+}
+
+#virtualclassCont.edge[data-currapp="EditorRich"] .ui-memblist-usr .user-details .usern {
+    width:38%;
+}
+
+
+#virtualclassCont.edge[data-currapp="Whiteboard"] {
+    right: -1px !important;
+}
+
+
+#virtualclassCont.edge[data-currapp="Yts"]{
+    right: -1px !important;
+}
+
+
+#virtualclassCont.edge .chat_disabled .ui-memblist-usr.online{
+    pointer-events : none;
+}
+
+/** CSS for chat div container end for EDGE browser  **/

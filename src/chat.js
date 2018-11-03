@@ -323,7 +323,7 @@
                     // var chatRoot = virtualclass.gObj.testChatDiv.shadowRoot.
                     // if (chatCont != null) {
                         if(virtualclass.gObj.hasOwnProperty('testChatDiv')){
-                            var hElements = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll(".ui-state-highlight");
+                            var hElements = chatContainerEvent.elementFromShadowDom('.ui-state-highlight', 'all');
                             for (var i = 0; i < hElements.length; i++) {
                                 hElements[i].classList.remove('ui-state-highlight');
                             }

@@ -1076,7 +1076,7 @@
                 toggleAllEditorController: function (edType, action) {
                     edType = virtualclass.vutil.smallizeFirstLetter(edType);
 
-                    var allUsersDom = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.controleCont');
+                    var allUsersDom = chatContainerEvent.elementFromShadowDom('.controleCont', 'all');
                     // var allUsersDom = document.getElementsByClassName('controleCont');
 
                     // var allUsersDom = document.getElementsByClassName('controleCont');
@@ -1087,7 +1087,7 @@
                                 if (idPartPos > 0) {
                                     var idPart = allUsersDom[i].id.substr(0, idPartPos);
                                     // var elem = document.getElementById(idPart + 'Img');
-                                    var elem = virtualclass.gObj.testChatDiv.shadowRoot.getElementById(idPart + 'Img');
+                                    var elem = chatContainerEvent.elementFromShadowDom(idPart + 'Img', null, true);
                                     this.control.init.call(this, elem, action, undefined, 'actnotSend');
                                 }
                             }
@@ -1111,7 +1111,7 @@
 
                     // var allEditorController = document.getElementsByClassName('controller' + editor);
                     if(virtualclass.gObj.hasOwnProperty('testChatDiv')){
-                        var allEditorController = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.controller' + editor);
+                        var allEditorController = chatContainerEvent.elementFromShadowDom('.controller' + editor, 'all');
                         for (var i = 0; i < allEditorController.length; i++) {
                             allEditorController[i].style.display = action;
                         }
@@ -1236,7 +1236,7 @@
              * @param action expect either enable/disable
              */
             toggleAllAudio: function (action) {
-                var allUsersDom = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.controleCont')
+                var allUsersDom = chatContainerEvent.elementFromShadowDom('.controleCont', 'all')
                 // var allUsersDom = document.getElementsByClassName('controleCont');
                 if (allUsersDom.length > 0) {
                     for (var i = 0; i < allUsersDom.length; i++) {
@@ -1244,7 +1244,7 @@
                             var idPartPos = allUsersDom[i].id.indexOf('Cont');
                             if (idPartPos > 0) {
                                 var idPart = allUsersDom[i].id.substr(0, idPartPos);
-                                var elem = virtualclass.gObj.testChatDiv.shadowRoot.getElementById(idPart + 'Img');
+                                var elem = chatContainerEvent.elementFromShadowDom(idPart + 'Img', null, true);
                                 // var elem = document.getElementById(idPart + 'Img');
                                 this.control.init.call(this, elem, action , undefined, 'actnotSend');
                             }
@@ -1420,7 +1420,7 @@
 
                 // shadow dom
 
-                var allSpans = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('#ml' + userId +  ' .contImg');
+                var allSpans = chatContainerEvent.elementFromShadowDom('#ml' + userId +  ' .contImg', 'all');
 
                 var uObj = false;
                 var userObj = localStorage.getItem('virtualclass' + userId);

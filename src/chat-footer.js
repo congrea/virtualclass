@@ -193,7 +193,7 @@
             }
             function _searchUser(arr, search) {
                 arr.forEach(function (obj, index) {
-                    var userElem = virtualclass.gObj.testChatDiv.shadowRoot.getElementById("ml"+obj['id']);
+                    var userElem = chatContainerEvent.elementFromShadowDom("ml"+obj['id'], null, true);
                     if (obj['name'].indexOf(search) != -1) {
                         userElem.style.visibility = 'visible';
                         //$('#ml' + obj['id']).show();

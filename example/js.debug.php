@@ -137,6 +137,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page-navigation.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/webcomponents-bundle.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-container-event.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
 

@@ -81,7 +81,7 @@ var chatContainerEvent = {
     elementFromShadowDom : function (selector, numOfElems, idStartFromNumber){
         var chat_div = virtualclass.gObj.testChatDiv.shadowRoot;
         if(typeof numOfElems != 'undefined' && numOfElems == 'all'){
-            return document.querySelectorAll(selector);
+            return chat_div.querySelectorAll(selector);
         } else if(typeof idStartFromNumber != 'undefined'){
             return chat_div.getElementById(selector);
         } else {

@@ -185,6 +185,14 @@ $(document).ready(function () {
         }
 
 
+        if(virtualclass.system.mybrowser.name == 'Edge'){
+            var virtualclassContainer = document.getElementById('virtualclassCont');
+            if(virtualclassContainer != null){
+                virtualclassContainer.classList.add('edge');
+            }
+        }
+
+
         var alreadyInit = false;
 
         //TODO this both setinterval functions should be merged into one\
@@ -499,15 +507,15 @@ $(document).ready(function () {
                         memberUpdate(null, 'added');
                         delete virtualclass.gObj.memberUpdateDelayTimer;
                         if(!virtualclass.gObj.hasOwnProperty('addEventToChatDiv')){
-                            var testChatDiv = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#subchat');
-                            testChatDiv.addEventListener('click', function (element){
+                            var chatDiv = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#subchat');
+                            chatDiv.addEventListener('click', function (element){
                                 var targetElem = element.srcElement;
                                 chatContainerEvent.onEvent(targetElem, chatboxManager);
 
                             });
                             virtualclass.gObj.addEventToChatDiv = true;
-                        }
 
+                        }
                     }, 1500)
                 }
             }

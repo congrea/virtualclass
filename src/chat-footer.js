@@ -193,10 +193,13 @@
             }
             function _searchUser(arr, search) {
                 arr.forEach(function (obj, index) {
+                    var userElem = chatContainerEvent.elementFromShadowDom("ml"+obj['id'], null, true);
                     if (obj['name'].indexOf(search) != -1) {
-                        $('#ml' + obj['id']).show();
+                        userElem.style.visibility = 'visible';
+                        //$('#ml' + obj['id']).show();
                     } else {
-                        $('#ml' + obj['id']).hide();
+                        //$('#ml' + obj['id']).hide();
+                        userElem.style.visibility = 'hidden';
                     }
 
                 })

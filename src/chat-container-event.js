@@ -78,8 +78,14 @@ var chatContainerEvent = {
         }
     },
 
-    elementFromShadowDom : function (selector){
-        var rootDom = virtualclass.gObj.testChatDiv.shadowRoot;
-        return rootDom.querySelector(selector);
+    elementFromShadowDom : function (selector, numOfElems, idStartFromNumber){
+        var chat_div = virtualclass.gObj.testChatDiv.shadowRoot;
+        if(typeof numOfElems != 'undefined' && numOfElems == 'all'){
+            return chat_div.querySelectorAll(selector);
+        } else if(typeof idStartFromNumber != 'undefined'){
+            return chat_div.getElementById(selector);
+        } else {
+            return chat_div.querySelector(selector);
+        }
     }
 }

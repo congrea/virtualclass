@@ -2768,8 +2768,7 @@
         },
 
         removeStudenScreenStatus : function (){
-
-            var allStdscreenImg  = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.stdscreenImg');
+            var allStdscreenImg  = chatContainerEvent.elementFromShadowDom('.stdscreenImg', 'all');
             for(var i=0; i<allStdscreenImg.length; i++){
                 allStdscreenImg[i].dataset.dcolor = "";
             }

@@ -48,7 +48,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
     width : auto;
     float: right;
     /*position : relative;*/
-    margin-right: 8px;
+    margin-right: 7px;
     margin-top: 13px;
 }
 
@@ -113,10 +113,11 @@ div.ui-memblist-usr .user-details  span.media-object {
     opacity: .8;
     border: solid 1px transparent;
     border-radius: 20%;
-    width: 50px;
-    height: 30px;
+    width : 50px;
+    height : auto;
     margin: 5px 5px 5px 2px;
     object-fit: cover;
+    padding : 10px 0px;
 }
 
 /** 3857 **/
@@ -172,6 +173,12 @@ div.ui-memblist-usr .user-details  span.media-object {
     cursor : pointer;
 }
 
+/*#virtualclassCont.congrea.orginalTeacher .controls span.enable,*/
+/*#virtualclassCont.congrea.orginalTeacher .controls span.block,*/
+/*#virtualclassCont.congrea.orginalTeacher .controls a,*/
+/*#virtualclassCont.congrea.teacher .controls .icon-assignImg.enable*/
+/*{    cursor : pointer;*/
+/*}*/
 
 @media screen and (-webkit-min-device-pixel-ratio:0){
     .ui-memblist-usr a.congtooltip:hover:after {
@@ -394,6 +401,10 @@ div.ui-memblist-usr .user-details  span.media-object {
 }
 .controllerRaiseH{
     margin-right: 8px;
+}
+
+:host-context(#virtualclassCont.congrea.teacher[data-currapp="EditorRich"]) .controllereditorRich {
+    display:block;
 }
 
 

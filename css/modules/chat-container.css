@@ -1,10 +1,10 @@
 /** styles.css START here **/
-.ui-memblist-usr.teacher {
+.ui-memblist-usr#subchat.teacher {
     padding-top : 0;
     background-color: #28353914;
 }
 
-.ui-memblist-usr.student, .ui-memblist-usr, .ui-memblist-usr.teacher{
+.ui-memblist-usr#subchat.student, .ui-memblist-usr, .ui-memblist-usr#subchat.teacher{
     padding-left : 4px;
 }
 
@@ -130,7 +130,7 @@ div.ui-memblist-usr .user-details  span.media-object {
     font-weight : 200;
     float: left;
     margin-top: 3px;
-    margin-right: 4px;
+    margin-right: 3px;
 }
 
 .controleCont .icon-stdscreenImg {
@@ -272,7 +272,7 @@ div.ui-memblist-usr .user-details  span.media-object {
     content: "\e602";
     font-size: 17px;
     color: black;
-    margin-right: 10px;
+    margin-right: 7px;
     /*position: relative;*/
     /*top: 1px;*/
 }
@@ -372,7 +372,6 @@ div.ui-memblist-usr .user-details  span.media-object {
 
 .ui-memblist-usr.online {
     pointer-events : visible;
-    color : red;
 }
 
 .ui-memblist-usr.offline {
@@ -432,35 +431,39 @@ div.ui-memblist-usr .user-details  span.media-object {
     float :left;
 }
 
-.student .controleCont{
+#subchat.student .controleCont{
     pointer-events :none;
     margin-left : -7px;
 }
 
-.student .ui-memblist-usr .controls span {
+#subchat.student .ui-memblist-usr .controls span {
     margin-right: 10px;
 }
 
-.teacher .controls span.enable,
-.teacher .controls span.block,
-.teacher .controls a,
-.teacher .controls .icon-assignImg.enable
+#subchat.teacher .controls span.enable,
+#subchat.teacher .controls span.block,
+#subchat.teacher .controls a,
+#subchat.teacher .controls .icon-assignImg.enable
 {
     cursor : pointer;
     pointer-events :visible;
 }
 
-.teacher .icon-audioImg.enable:before {
+#subchat.teacher .icon-audioImg.enable:before {
     font-family: 'icomoon';
     content: "\f026";
     color: #7d7a7a;
     vertical-align: baseline;
     font-size: 118%;
     font-weight: normal;
+    margin-right : 2px;
+    position : relative;
+    top : -1px;
+    /*left : 2px;*/
 }
 
 
-.student .icon-audioImg.enable:before {
+#subchat.student .icon-audioImg.enable:before {
     font-family: 'icomoon';
     content: "\f026";
     color: #7d7a7a;
@@ -472,27 +475,26 @@ div.ui-memblist-usr .user-details  span.media-object {
     left : 2px;
 }
 
-
-.teacher .ui-memblist-usr .icon-audioEnaGreen:before{
+#subchat.teacher .ui-memblist-usr .icon-audioEnaGreen:before{
     margin-right:3px;
 }
 
-.student .ui-memblist-usr .icon-audioEnaOrange:before {
+#subchat.student .ui-memblist-usr .icon-audioEnaOrange:before {
     margin-right : 7px;
 }
 
 
-.teacher .ui-memblist-usr .icon-audioDisImg:before {
+#subchat.teacher .ui-memblist-usr .icon-audioDisImg:before {
     font-family: 'icomoon';
     content: "\ea2a";
     color: #7d7a7a;
-    font-size: 120%;
+    font-size: 118%;
     font-weight: normal;
     /*margin-right:1px;*/
-    margin-right:7px;
+    margin-right:2px;
     position : relative;
     top : -1px;
-    left : 2px;
+    /*left : 2px;*/
 }
 
 /** After :host-context is supported in all browser, we don't need to put current app on chat_div element **/
@@ -506,7 +508,7 @@ div.ui-memblist-usr .user-details  span.media-object {
     pointer-events : none;
 }
 
-:host([data-currapp="EditorRich"] .teacher) .controllereditorRich {
+:host([data-currapp="EditorRich"] #subchat.teacher) .controllereditorRich {
     display:block;
 }
 
@@ -519,5 +521,11 @@ div.ui-memblist-usr .user-details  span.media-object {
 }
 
 :host([data-currapp="EditorRich"]) .icon-chatImg.chatImg{
-    margin-right:14px !important;
+    margin-right:7px !important;
 }
+
+/*:host(#subchat.student) #subchat.student .controls span{*/
+    /*pointer-events :none;*/
+/*}*/
+
+

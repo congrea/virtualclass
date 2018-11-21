@@ -508,7 +508,7 @@ div.ui-memblist-usr .user-details  span.media-object {
     pointer-events : none;
 }
 
-:host([data-currapp="EditorRich"] #subchat.teacher) .controllereditorRich {
+:host([data-currapp="EditorRich"])  #subchat.teacher .controllereditorRich {
     display:block;
 }
 

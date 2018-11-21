@@ -52,6 +52,7 @@
                     if(chatEnable != null){
                         if (chatEnable == "false") {
                             document.querySelector('#chatWidget').classList.add('chat_disabled');
+                            document.querySelector('#chat_div').classList.add('chat_disabled');
                             document.querySelector('#chatWidget').classList.remove('chat_enabled');
                         }
                     }

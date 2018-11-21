@@ -843,6 +843,7 @@
                     localStorage.setItem('chatEnable', "false");
                     var chat_div  = document.querySelector('#virtualclassAppRightPanel');
                     chat_div.classList.add('chat_disabled');
+                    document.querySelector('#chat_div').classList.add('chat_disabled');
                     chat_div.classList.remove('chat_enabled');
 
                     var allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
@@ -877,7 +878,8 @@
                 allChatEnable: function () {
                     localStorage.setItem('chatEnable', "true");
                     var chat_div  = document.querySelector('#virtualclassAppRightPanel');
-                    chat_div.classList.remove('chat_disabled');
+                    chat_div.classList.remove('chat_disabled')
+                    document.querySelector('#chat_div').classList.remove('chat_disabled');;
                     chat_div.classList.add('chat_enabled');
 
                     var chatInput = document.querySelector("#virtualclassCont.congrea #ta_chrm2");

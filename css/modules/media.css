@@ -133,57 +133,57 @@
   font-size: 40px;
 }
 
-#virtualclassCont.congrea.student .icon-audioImg.enable:before {
-  content: "\f026";
-  color: #7d7a7a;
-  padding-right: 0px;
-  margin-right: 7px;
-  font-size: 120%;
-}
+/*#virtualclassCont.congrea.student .icon-audioImg.enable:before {*/
+  /*content: "\f026";*/
+  /*color: #7d7a7a;*/
+  /*padding-right: 0px;*/
+  /*margin-right: 7px;*/
+  /*font-size: 120%;*/
+/*}*/
 
-#virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen:before {
-  content: "\ea27";
-  color: #94b532;
-  font-variant: normal;
-  font-style: normal;
-  font-size: 118%;
-  margin-right:7px;
-  font-weight: normal;
-}
+/*#virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen:before {*/
+  /*content: "\ea27";*/
+  /*color: #94b532;*/
+  /*font-variant: normal;*/
+  /*font-style: normal;*/
+  /*font-size: 118%;*/
+  /*margin-right:7px;*/
+  /*font-weight: normal;*/
+/*}*/
 
-#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioEnaGreen:before{
-    margin-right:3px;
-}
+/*#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioEnaGreen:before{*/
+    /*margin-right:3px;*/
+/*}*/
 
 
-#virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaOrange:before {
-  content: "\ea27";
-  color: #e55e0d;
-  font-variant: normal;
-  font-style: normal;
-  font-size: 112%;
-  font-weight: normal;
-}
+/*#virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaOrange:before {*/
+  /*content: "\ea27";*/
+  /*color: #e55e0d;*/
+  /*font-variant: normal;*/
+  /*font-style: normal;*/
+  /*font-size: 112%;*/
+  /*font-weight: normal;*/
+/*}*/
 
-#virtualclassCont.congrea.student .ui-memblist-usr .icon-audioEnaOrange:before {
-  margin-right : 7px;
-}
+/*#virtualclassCont.congrea.student .ui-memblist-usr .icon-audioEnaOrange:before {*/
+  /*margin-right : 7px;*/
+/*}*/
 
-#virtualclassCont.congrea .ui-memblist-usr .icon-audioDisImg:before {
-  content: "\f026";
-  color: #7d7a7a;
-  font-size: 112%;
-  margin-right:7px;
-  font-weight: normal;
-}
+/*#virtualclassCont.congrea .ui-memblist-usr .icon-audioDisImg:before {*/
+  /*content: "\f026";*/
+  /*color: #7d7a7a;*/
+  /*font-size: 112%;*/
+  /*margin-right:7px;*/
+  /*font-weight: normal;*/
+/*}*/
 
-#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioDisImg:before {
-  content: "\ea2a";
-  color: #7d7a7a;
-  font-size: 120%;
-  font-weight: normal;
-  margin-right:1px;
-}
+/*#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioDisImg:before {*/
+  /*content: "\ea2a";*/
+  /*color: #7d7a7a;*/
+  /*font-size: 120%;*/
+  /*font-weight: normal;*/
+  /*margin-right:1px;*/
+/*}*/
 
 
 #virtualclassCont.congrea #alwaysPress .audioTool a {

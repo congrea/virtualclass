@@ -129,38 +129,22 @@
          * @param resolution : an object containing inner width and inner height of window
          */
         measureResoultion: function (resolution) {
-
-            var element = document.getElementById('virtualclassCont');
-            var offset = virtualclass.vutil.getElementOffset(element);
-            var offsetLeft = offset.x;
-            if (resolution.width < 1024) {
-                var width = 1024 - (offsetLeft + 10);
-            } else {
-                // Suman latest
-                // shrink width
-                var width = resolution.width - (offsetLeft + 350);
-
+            if(!virtualclass.gObj.hasOwnProperty('measureDimension')){
+                var element = document.getElementById('virtualclassCont');
+                var offset = virtualclass.vutil.getElementOffset(element);
+                var offsetLeft = offset.x;
+                if (resolution.width < 1024) {
+                    var width = 1024 - (offsetLeft + 10);
+                } else {
+                    var width = resolution.width - (offsetLeft + 350);
+                }
+                var height = resolution.height - (offset.y);
+                virtualclass.gObj.measureDimension =  {'width': width, 'height': height};
             }
-            var height = resolution.height - (offset.y);
-            
-            if(virtualclass.currApp =="DocumentShare"){
-
-                
-              
-             }
-             
-            
-            
-            
-            return {'width': (width), 'height': (height)};
+            return virtualclass.gObj.measureDimension;
         },
-        
-        
-        
-        
-        
-        
-        
+
+
         /*
          * setting dimension of the application
          */
@@ -617,6 +601,10 @@
         },
 
         initResize : function (){
+            if(virtualclass.gObj.hasOwnProperty('measureDimension')){
+                delete virtualclass.gObj.measureDimension;
+            }
+
             if(virtualclass.gObj.hasOwnProperty('initResize')){
                 clearTimeout(virtualclass.gObj.initResize);
             }

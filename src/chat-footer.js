@@ -24,14 +24,25 @@
                 title = options.title || "No Title";
                 var control= roles.hasAdmin();
                 var template=virtualclass.getTemplate("stickycont","chat");
-                $("#stickycontainer").append(template({"control":control}));
-                 $('#chatroom_bt2 .inner_bt').click(function () {
-                    $('#chatroom_bt2').addClass('active');
-                    $('#user_list').removeClass('active');
+                 $("#stickycontainer").append(template({"control":control}));
+                 var chatroom_bt2 = document.getElementById('chatroom_bt2');
+                 var user_list = document.getElementById('user_list');
+                 var setting = document.querySelector("#appSettingCtrl");
+                 var settingD = document.querySelector("#virtualclassCont.congrea #appSettingDetail");
+                 var chat = document.querySelector("#virtualclassCont.congrea #chatWidget");
 
-                     var setting = document.querySelector("#appSettingCtrl");
-                     var settingD = document.querySelector("#virtualclassCont.congrea #appSettingDetail");
-                     var chat = document.querySelector("#virtualclassCont.congrea #chatWidget");
+
+                 $('#chatroom_bt2 .inner_bt').click(function () {
+                    var vmchat_room_bt = document.querySelector('#chatwidget .vmchat_room_bt');
+                    chatroom_bt2.classList.add('active');
+                    user_list.classList.remove('active');
+
+                    // $('#chatroom_bt2').addClass('active');
+                    // $('#user_list').removeClass('active');
+
+                     // var setting = document.querySelector("#appSettingCtrl");
+                     // var settingD = document.querySelector("#virtualclassCont.congrea #appSettingDetail");
+                     // var chat = document.querySelector("#virtualclassCont.congrea #chatWidget");
                      if(setting.classList.contains('settingActive')){
                          setting.classList.remove('settingActive');
                          setting.classList.add("chatActive");
@@ -41,13 +52,10 @@
                          chat.classList.add("active");
                      }
                      settingD.classList.remove("active");
-                     settingD.classList.remove("active");
                      if(! settingD.classList.contains('deactive')){
                          settingD.classList.add("deactive");
                      }
-
-                     // $('#congreaSupport').removeClass("active")
-                    $('#chatroom_bt2').removeClass('ui-state-highlight');
+                     $('#chatroom_bt2').removeClass('ui-state-highlight');
                     virtualclass.chat.chatWindow="common";
                     if ($("ul#chat_room").length == 0) {
                         var d = document.createElement('ul');
@@ -72,17 +80,16 @@
                                 }
                             }
                         }
-
-                        $('#chatwidget .vmchat_room_bt').attr('data-title', virtualclass.lang.getString('commonChat'));
-
+                        // TODO this need to be enable
+                        // document.querySelector('#chatwidget .vmchat_room_bt').dataSet.dataTitle = virtualclass.lang.getString('commonChat');
                     }
 
-                     var chatbox = document.querySelector("#virtualclassCont.congrea #ta_chrm2");
+                     var chatbox = document.getElementById("ta_chrm2");
                      if (chatbox) {
                          chatbox.style.display = "block";
                      }
 
-                    var memlist = document.querySelector("#virtualclassCont.congrea #memlist");
+                    var memlist = document.getElementById("memlist");
                     if (memlist) {
                         memlist.classList.remove("enable");
                         if(!memlist.classList.contains("disable")){
@@ -91,12 +98,12 @@
                     }
 
 
-                     var searchbox = document.querySelector('.congrea .vmchat_search #congreaUserSearch');
+                     var searchbox = document.getElementById('congreaUserSearch');
                      if (searchbox) {
                          searchbox.style.display = "none";
                      }
 
-                     var chatroom = document.querySelector("#virtualclassCont.congrea #chatrm");
+                     var chatroom = document.getElementById("chatrm");
                      if(chatroom ){
                          if(!chatroom.classList.contains("enable")){
                              chatroom.classList.add("enable");
@@ -106,12 +113,14 @@
                  });
 
                 $('#user_list').click(function () {
-                    $('#chatroom_bt2').removeClass('active');
+                    // $('#chatroom_bt2').removeClass('active');
+                    chatroom_bt2.classList.remove('active');
                     // $('#congreaSupport').removeClass('active');
-                    $('#user_list').addClass('active');
-                    var setting = document.querySelector("#appSettingCtrl");
-                    var chat = document.querySelector("#virtualclassCont.congrea #chatWidget");
-                    var settingD = document.querySelector("#virtualclassCont.congrea #appSettingDetail");
+                    //$('#user_list').addClass('active');
+                    user_list.classList.add('active');
+                    var setting = document.getElementById("appSettingCtrl");
+                    var chat = document.getElementById("chatWidget");
+                    var settingD = document.getElementById("appSettingDetail");
                     if(setting.classList.contains('settingActive')){
                         setting.classList.remove('settingActive');
                         setting.classList.add("chatActive");
@@ -128,11 +137,9 @@
                         settingD.classList.add("deactive");
                     }
 
-//                $('#chatrm').addClass("hide").removeClass('show');
-//                $('#memlist').addClass('show').removeClass('hide');
                     virtualclass.chat.chatWindow="private";
                     this.classList.add("active");
-                    var chatroom = document.querySelector("#virtualclassCont.congrea #chatrm");
+                    var chatroom = document.getElementById("chatrm");
                     if (chatroom) {
                         chatroom.classList.remove("enable");
                         if(!chatroom.classList.contains("disable")){
@@ -141,17 +148,17 @@
                     }
 
 
-                    var chatbox = document.querySelector("#virtualclassCont.congrea #ta_chrm2");
+                    var chatbox = document.getElementById("ta_chrm2");
                     if (chatbox) {
                         chatbox.style.display = "none";
                     }
 
-                    var searchbox = document.querySelector('.congrea .vmchat_search #congreaUserSearch');
+                    var searchbox = document.getElementById('congreaUserSearch');
                     if (searchbox) {
                         searchbox.style.display = "block";
                     }
 
-                    var memlist = document.querySelector("#virtualclassCont.congrea #memlist");
+                    var memlist = document.getElementById("memlist");
                     if (memlist) {
                         memlist.classList.remove("disable")
                         if(!memlist.classList.contains("enable")){
@@ -160,55 +167,6 @@
                     }
 
                 }),
-
-            // $(document).on("click", '#congreaSupport', function (event) {
-            //     $('#chatroom_bt2').removeClass('active');
-            //     $('#user_list').removeClass('active');
-            //     $('#congreaSupport').addClass("active")
-            //     virtualclass.chat.chatWindow="support";
-            //     // support  id to be dynamic
-            //     var str = $(this);
-            //     var ahref = str.attr('href');
-            //     var name = virtualclass.lang.getString('techsupport');
-            //     var id = $(this).attr("data-tsid")
-            //    // var id = "7";
-            //     if ($.inArray(id, virtualclass.chat.idList) == -1) {
-            //         virtualclass.chat.counter++;
-            //         virtualclass.chat.idList.push(id);
-            //         virtualclass.chat.vmstorage[id] = [];
-            //         virtualclass.chat.vmstorage[id].push({userid: id, name: name});
-            //     }
-            //
-            //     chatboxManager.addBox(id,
-            //         {
-            //             dest: "dest" + virtualclass.chat.counter, // not used in demo
-            //             title: "box" + virtualclass.chat.counter,
-            //             first_name: name,
-            //             class: "support",
-            //             //you can add your own options too
-            //         });
-            //
-            //     chatboxManager.init({
-            //         user: {'name': name},
-            //         messageSent: function (id, user, msg) {
-            //             $("#" + id).chatbox("option", "boxManager").addMsg(user.name, msg);
-            //         }
-            //     });
-            //     id = null;
-            //     name = null;
-            //     var height = virtualclass.vutil.calculateChatHeight();
-            //     if (!roles.hasControls()) {
-            //
-            //         if (!virtualclass.videoHost.gObj.videoSwitch) {
-            //             height = height + 230;
-            //             $('#chat_div').height(height);
-            //         }
-            //
-            //     }
-            //
-            //     virtualclass.vutil.setChatContHeight();
-            //
-            // });
 
             $('#congreaUserSearch').keyup(function () {
                 var text = this.value;
@@ -235,10 +193,13 @@
             }
             function _searchUser(arr, search) {
                 arr.forEach(function (obj, index) {
+                    var userElem = chatContainerEvent.elementFromShadowDom("ml"+obj['id'], null, true);
                     if (obj['name'].indexOf(search) != -1) {
-                        $('#ml' + obj['id']).show();
+                        userElem.style.visibility = 'visible';
+                        //$('#ml' + obj['id']).show();
                     } else {
-                        $('#ml' + obj['id']).hide();
+                        //$('#ml' + obj['id']).hide();
+                        userElem.style.visibility = 'hidden';
                     }
 
                 })
@@ -261,7 +222,6 @@
     });
 
 }(jQuery));
-
 
 (function ($) {
     $.fn.clickToggle = function (func1, func2) {

@@ -205,6 +205,7 @@
                             controller.className += ' controller' + controls[i];
 
                             controlCont.appendChild(controller);
+                            alert('Suman bogati');
 
                             if (virtualclass.currApp != virtualclass.vutil.capitalizeFirstLetter(controls[i])) {
                                 controller.style.display = 'none';
@@ -842,6 +843,7 @@
                     localStorage.setItem('chatEnable', "false");
                     var chat_div  = document.querySelector('#virtualclassAppRightPanel');
                     chat_div.classList.add('chat_disabled');
+                    document.querySelector('#chat_div').classList.add('chat_disabled');
                     chat_div.classList.remove('chat_enabled');
 
                     var allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
@@ -876,7 +878,8 @@
                 allChatEnable: function () {
                     localStorage.setItem('chatEnable', "true");
                     var chat_div  = document.querySelector('#virtualclassAppRightPanel');
-                    chat_div.classList.remove('chat_disabled');
+                    chat_div.classList.remove('chat_disabled')
+                    document.querySelector('#chat_div').classList.remove('chat_disabled');;
                     chat_div.classList.add('chat_enabled');
 
                     var chatInput = document.querySelector("#virtualclassCont.congrea #ta_chrm2");
@@ -1074,14 +1077,19 @@
                  */
                 toggleAllEditorController: function (edType, action) {
                     edType = virtualclass.vutil.smallizeFirstLetter(edType);
-                    var allUsersDom = document.getElementsByClassName('controleCont');
+
+                    var allUsersDom = chatContainerEvent.elementFromShadowDom('.controleCont', 'all');
+                    // var allUsersDom = document.getElementsByClassName('controleCont');
+
+                    // var allUsersDom = document.getElementsByClassName('controleCont');
                     if (allUsersDom.length > 0) {
                         for (var i = 0; i < allUsersDom.length; i++) {
                             if (allUsersDom[i].id.indexOf(edType) > 0) {
                                 var idPartPos = allUsersDom[i].id.indexOf('Cont');
                                 if (idPartPos > 0) {
                                     var idPart = allUsersDom[i].id.substr(0, idPartPos);
-                                    var elem = document.getElementById(idPart + 'Img');
+                                    // var elem = document.getElementById(idPart + 'Img');
+                                    var elem = chatContainerEvent.elementFromShadowDom(idPart + 'Img', null, true);
                                     this.control.init.call(this, elem, action, undefined, 'actnotSend');
                                 }
                             }
@@ -1100,13 +1108,18 @@
                  * @param editor editor type
                  * @param action show or hidden
                  */
-                toggleDisplayEditorController: function (editor, action) {
-                    editor = virtualclass.vutil.smallizeFirstLetter(editor);
+                 toggleDisplayEditorController: function (editor, action) {
+                    var editor = virtualclass.vutil.smallizeFirstLetter(editor);
 
-                    var allEditorController = document.getElementsByClassName('controller' + editor);
-                    for (var i = 0; i < allEditorController.length; i++) {
-                        allEditorController[i].style.display = action;
+                    // var allEditorController = document.getElementsByClassName('controller' + editor);
+                    if(virtualclass.gObj.hasOwnProperty('testChatDiv')){
+                        var allEditorController = chatContainerEvent.elementFromShadowDom('.controller' + editor, 'all');
+                        for (var i = 0; i < allEditorController.length; i++) {
+                            allEditorController[i].style.display = action;
+                        }
                     }
+
+
                 },
 
                 //TODO this function name should be convert into updateControlAtLocalStorage
@@ -1225,14 +1238,16 @@
              * @param action expect either enable/disable
              */
             toggleAllAudio: function (action) {
-                var allUsersDom = document.getElementsByClassName('controleCont');
+                var allUsersDom = chatContainerEvent.elementFromShadowDom('.controleCont', 'all')
+                // var allUsersDom = document.getElementsByClassName('controleCont');
                 if (allUsersDom.length > 0) {
                     for (var i = 0; i < allUsersDom.length; i++) {
                         if (allUsersDom[i].id.indexOf('Aud') > 0) {
                             var idPartPos = allUsersDom[i].id.indexOf('Cont');
                             if (idPartPos > 0) {
                                 var idPart = allUsersDom[i].id.substr(0, idPartPos);
-                                var elem = document.getElementById(idPart + 'Img');
+                                var elem = chatContainerEvent.elementFromShadowDom(idPart + 'Img', null, true);
+                                // var elem = document.getElementById(idPart + 'Img');
                                 this.control.init.call(this, elem, action , undefined, 'actnotSend');
                             }
                         }
@@ -1396,7 +1411,7 @@
             },
 
             changeRoleOnFooter : function (id, role){
-                var footerDiv = document.getElementById("ml" + id);
+                var footerDiv = chatContainerEvent.elementFromShadowDom("#ml" + id);
                 footerDiv.dataset.role = role;
             },
 
@@ -1404,7 +1419,10 @@
                 var orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
                 // Assign event handler
                 var that = this;
-                var allSpans = document.querySelectorAll('#ml' + userId +  ' .contImg');
+
+                // shadow dom
+
+                var allSpans = chatContainerEvent.elementFromShadowDom('#ml' + userId +  ' .contImg', 'all');
 
                 var uObj = false;
                 var userObj = localStorage.getItem('virtualclass' + userId);
@@ -1424,17 +1442,19 @@
                 }
 
                 for(var i=0; i<allSpans.length; i++){
-                    (
-                        function (i){
 
-                            allSpans[i].addEventListener('click',
-                                function (){
-                                    that.control.init.call(that, allSpans[i]);
-                                }
-                            );
+                    // (
+                    //     function (i){
+                    //
+                    //         allSpans[i].addEventListener('click',
+                    //             function (){
+                    //                 that.control.init.call(that, allSpans[i]);
+                    //             }
+                    //         );
+                    //
+                    //     }
+                    // )(i);
 
-                        }
-                    )(i);
 
                     if(allSpans[i].className.indexOf('chat') > -1){
                         if (uObj && userObj.hasOwnProperty('chat')) {

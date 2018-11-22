@@ -185,6 +185,14 @@ $(document).ready(function () {
         }
 
 
+        if(virtualclass.system.mybrowser.name == 'Edge'){
+            var virtualclassContainer = document.getElementById('virtualclassCont');
+            if(virtualclassContainer != null){
+                virtualclassContainer.classList.add('edge');
+            }
+        }
+
+
         var alreadyInit = false;
 
         //TODO this both setinterval functions should be merged into one\
@@ -498,6 +506,16 @@ $(document).ready(function () {
                     virtualclass.gObj.memberUpdateDelayTimer = setTimeout(function () {
                         memberUpdate(null, 'added');
                         delete virtualclass.gObj.memberUpdateDelayTimer;
+                        if(!virtualclass.gObj.hasOwnProperty('addEventToChatDiv')){
+                            var chatDiv = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#subchat');
+                            chatDiv.addEventListener('click', function (element){
+                                var targetElem = element.srcElement;
+                                chatContainerEvent.onEvent(targetElem, chatboxManager);
+
+                            });
+                            virtualclass.gObj.addEventToChatDiv = true;
+
+                        }
                     }, 1500)
                 }
             }
@@ -884,6 +902,7 @@ $(document).ready(function () {
                     virtualclass.vutil.beforeSend({'enc': true, 'cf': 'enc', ouser: e.message.toUser});
                 }
                 document.querySelector('#chatWidget').classList.remove('chat_disabled');
+                document.querySelector('#chat_div').classList.remove('chat_disabled');
 
             };
 
@@ -1328,14 +1347,16 @@ $(document).ready(function () {
                 var rMsg = e.message;
                 var uid = e.fromUser.userid;
                 if(rMsg.sd){
-                    var elem = document.getElementById(uid + 'contrstdscreenImg');
+                    var elem = chatContainerEvent.elementFromShadowDom('#ml'+uid + ' .icon-stdscreenImg');
                     if(elem != null){
                         elem.setAttribute('data-dcolor', 'red');
+
                     }
                 }else if(rMsg.ext){
                     var color = rMsg.hasOwnProperty('nosupport') ? 'nosupport' : 'orange';
 
-                    var elem = document.getElementById(uid + 'contrstdscreenImg');
+
+                    var elem = chatContainerEvent.elementFromShadowDom('#ml'+uid + ' .icon-stdscreenImg');
                     if(elem != null){
                         elem.setAttribute('data-dcolor', color);
                     }
@@ -1772,9 +1793,11 @@ $(document).ready(function () {
                             var virtualclassCont = document.querySelector('#virtualclassCont');
                             if(virtualclassCont != ''){
                                 virtualclassCont.classList.add('studentScreenSharing');
+                                /** Remove following statement after fully support of SHADOW DOM **/
+                                document.querySelector('#chat_div').classList.add('studentScreenSharing');
                             }
-
                         }
+
                         if (!virtualclass.hasOwnProperty('studentScreen')) {
                             virtualclass.studentScreen = new studentScreen();
                         }
@@ -1826,5 +1849,7 @@ $(document).ready(function () {
 
         virtualclass.ioEventApi = ioEventApi;
 
+        virtualclass.gObj.testChatDiv = document.querySelector('#chat_div');
+        virtualclass.gObj.testChatDiv.attachShadow({  mode: 'open' });
     }
 });

@@ -92,8 +92,8 @@
              */
             util: {
                 imageReplaceWithVideo: function (id, vidCont) {
-                    var chatUser = document.getElementById("ml" + id);
-                    if (virtualclass.vutil.elemHasAnyClass("ml" + id)) {
+                    var chatUser = chatContainerEvent.elementFromShadowDom("#ml" + id);
+                    if (chatContainerEvent.elementFromShadowDom("#ml" + id)) {
                         chatUser.classList.remove('userImg');
                     }
 
@@ -1350,10 +1350,9 @@
                 },
 
                 drawReceivedImage : function(imgData, imgType, d, uid) {
-                    this.remoteVid = document.getElementById("video" + uid);
+                    this.remoteVid = chatContainerEvent.elementFromShadowDom("#video" + uid);
                     if(this.remoteVid != null){
                         this.remoteVidCont = this.remoteVid.getContext('2d');
-
                         if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
                             var img = new Image();
                             var that = this;
@@ -1362,7 +1361,6 @@
                             };
                             img.src = imgData;
                         } else {
-
                             loadfile(imgData, this.remoteVid, this.videoPartCont); // for browsers that do not support webp
                         }
                     }
@@ -1436,7 +1434,8 @@
                 },
                 // To initalize canvas element to video and to create it's 2d context
                 tempVideoInit: function () {
-                    cthis.video.tempVid = document.getElementById('tempVideo');
+                    //cthis.video.tempVid = document.getElementById('tempVideo');
+                    cthis.video.tempVid = chatContainerEvent.elementFromShadowDom("#tempVideo");
                     cthis.video.tempVid.width = cthis.video.width;
                     cthis.video.tempVid.height = cthis.video.height;
                     cthis.video.tempVidCont = cthis.video.tempVid.getContext('2d');
@@ -1632,7 +1631,7 @@
 
                 cthis.video.tempStream = stream;
                 cthis.audio.init();
-                var userDiv = document.getElementById("ml" + virtualclass.gObj.uid);
+                var userDiv = chatContainerEvent.elementFromShadowDom("#ml" + virtualclass.gObj.uid);
                 if (userDiv != null) {
                     var vidTag = userDiv.getElementsByTagName('video');
                     if (vidTag != null) {
@@ -1728,7 +1727,8 @@
 
                             cthis.video.insertTempVideo(vidContainer);
                             cthis.video.tempVideoInit();
-                            cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+                            // cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+                            cthis.video.myVideo = chatContainerEvent.elementFromShadowDom("#video" + virtualclass.gObj.uid);
                             virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
                             cthis.video.myVideo.muted = true;
                             cthis.stream = cthis.video.tempStream;
@@ -1802,7 +1802,7 @@
              *TODO this function is not being invoked
              */
             existVideoContainer: function (user) {
-                var allVideos = document.getElementsByClassName('userVideos');
+                var allVideos = chatContainerEvent.elementFromShadowDom('.userVideos', 'all')
                 for (var i = 0; i < allVideos.length; i++) {
                     if (allVideos[i].id == "video" + user.id) {
                         return true;

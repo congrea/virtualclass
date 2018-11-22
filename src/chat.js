@@ -52,6 +52,7 @@
                     if(chatEnable != null){
                         if (chatEnable == "false") {
                             document.querySelector('#chatWidget').classList.add('chat_disabled');
+                            document.querySelector('#chat_div').classList.add('chat_disabled');
                             document.querySelector('#chatWidget').classList.remove('chat_enabled');
                         }
                     }
@@ -209,6 +210,14 @@
                             return userDiv;
                         }
                     });
+
+
+                    // var testChatDiv = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#subchat');
+                    // testChatDiv.addEventListener('click', function (element){
+                    //     var targetElem = element.srcElement;
+                    //     chatContainerEvent.onEvent(targetElem, chatboxManager);
+                    //
+                    // });
                 },
 
                 history: function () {
@@ -311,13 +320,16 @@
                     $('div#memlist').removeClass("enable");
                 },
                 removeChatHighLight: function (id) {
-                    var chatCont = document.getElementById(id);
-                    if (chatCont != null) {
-                        var hElements = chatCont.getElementsByClassName("ui-state-highlight");
-                        for (var i = 0; i < hElements.length; i++) {
-                            hElements[i].classList.remove('ui-state-highlight');
+                    // var chatCont = document.getElementById(id);
+                    // var chatRoot = virtualclass.gObj.testChatDiv.shadowRoot.
+                    // if (chatCont != null) {
+                        if(virtualclass.gObj.hasOwnProperty('testChatDiv')){
+                            var hElements = chatContainerEvent.elementFromShadowDom('.ui-state-highlight', 'all');
+                            for (var i = 0; i < hElements.length; i++) {
+                                hElements[i].classList.remove('ui-state-highlight');
+                            }
                         }
-                    }
+                    //}
                 },
                 openChatBox: function () {
                     var memlistBox = document.querySelector('#memlist');
@@ -351,7 +363,8 @@
                     if(techSupport != null){
                         return ((+techSupport.dataset.tsid) == (+uid))
                     }
-                }
+                },
+
             }
         };
         window.Chat = Chat;

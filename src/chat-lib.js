@@ -40,11 +40,12 @@ function displayChatUserList(users){
      * but it returns shadow dom
       * **/
     if(myDivResult != null && myDivResult != undefined && myDivResult != '' && typeof myDivResult != 'boolean'){
+
         if(chat_div.shadowRoot.innerHTML == " " || chat_div.shadowRoot.innerHTML == ""){
-            chat_div.shadowRoot.innerHTML =  "<link rel='stylesheet' type='text/css' href='"+whiteboardPath+"css/modules/chat-container.css'> <div id='subchat' >" +  myDivResult + "</div>";
+            var userRole = roles.hasControls() ? 'teacher' : 'student';
+            chat_div.shadowRoot.innerHTML =  "<link rel='stylesheet' type='text/css' href='"+whiteboardPath+"css/modules/chat-container.css'> <div id='subchat' class='"+userRole+"'>" +  myDivResult + "</div>";
         } else {
             chat_div.shadowRoot.querySelector('#subchat').insertAdjacentHTML('beforeend', myDivResult);
-
         }
     }
 

@@ -902,6 +902,7 @@ $(document).ready(function () {
                     virtualclass.vutil.beforeSend({'enc': true, 'cf': 'enc', ouser: e.message.toUser});
                 }
                 document.querySelector('#chatWidget').classList.remove('chat_disabled');
+                document.querySelector('#chat_div').classList.remove('chat_disabled');
 
             };
 
@@ -1792,9 +1793,11 @@ $(document).ready(function () {
                             var virtualclassCont = document.querySelector('#virtualclassCont');
                             if(virtualclassCont != ''){
                                 virtualclassCont.classList.add('studentScreenSharing');
+                                /** Remove following statement after fully support of SHADOW DOM **/
+                                document.querySelector('#chat_div').classList.add('studentScreenSharing');
                             }
-
                         }
+
                         if (!virtualclass.hasOwnProperty('studentScreen')) {
                             virtualclass.studentScreen = new studentScreen();
                         }

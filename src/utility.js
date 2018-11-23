@@ -2745,6 +2745,7 @@
             var virtualclassCont = document.querySelector('#virtualclassCont');
             if(virtualclassCont != ''){
                 virtualclassCont.classList.remove('studentScreenSharing');
+                document.querySelector('#chat_div').classList.remove('studentScreenSharing');
             }
         },
         
@@ -2801,6 +2802,14 @@
                 } else {
                     console.log('Could not send the whiteboard data');
                 }
+            }
+        },
+
+        setCurrApp : function (container, app){
+            container.dataset.currapp = app;
+            var chat_div = document.getElementById('chat_div');
+            if(chat_div != null){
+                chat_div.dataset.currapp = app;
             }
         }
     };

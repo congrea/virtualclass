@@ -333,7 +333,11 @@
                 if(virtualclassSetting.theme.selectedColor){
                     this.colorSelector.makeThemeReady();
                 }
-                //this.modal.init();
+
+                var virtualclassCont = document.getElementById('virtualclassCont');
+                if(virtualclassCont != null){
+                    virtualclassCont.classList.add(virtualclass.system.mybrowser.name);
+                }
             },
 
             makeReadySocket : function (){
@@ -541,11 +545,13 @@
                     this.dispvirtualclassLayout(app);
                     //add current app to main container
                     var vcContainer = document.getElementById('virtualclassCont');
-                    vcContainer.dataset.currapp =  this.currApp;
+                    // vcContainer.dataset.currapp =  this.currApp;
+                    virtualclass.vutil.setCurrApp(vcContainer, this.currApp);
                     var vcAppContainer = document.querySelector('#virtualclassApp');
                     if(vcAppContainer != null){
                         if(this.currApp == 'DocumentShare' || this.currApp == 'SharePresentation' || this.currApp == 'Video'){
-                            vcAppContainer.dataset.currapp = vcContainer.dataset.currapp;
+                            virtualclass.vutil.setCurrApp(vcAppContainer, vcContainer.dataset.currapp);
+                           // vcAppContainer.dataset.currapp = vcContainer.dataset.currapp;
                         }else {
                             vcAppContainer.dataset.currapp = "";
                         }

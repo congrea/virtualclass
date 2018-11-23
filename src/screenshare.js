@@ -442,7 +442,8 @@ var newCanvas;
                 virtualclass.currApp = virtualclass.apps.ss;
                 //add current app to main container
                 var vcContainer = document.getElementById('virtualclassCont');
-                vcContainer.dataset.currapp =  virtualclass.currApp;
+                //vcContainer.dataset.currapp =  virtualclass.currApp;
+                virtualclass.vutil.setCurrApp(vcContainer, virtualclass.currApp);
 
                 if (virtualclass.previous != config.id) {
                     document.getElementById(virtualclass.previous).style.display = 'none';
@@ -500,11 +501,13 @@ var newCanvas;
                 if(virtualclass.previous){
                     var previous =virtualclass.previous
                     virtualclass.currApp =  previous.split('virtualclass')[1];
-                    document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+                    // document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+                    virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
 
                 } else if(virtualclass.hasOwnProperty('previousApp') && typeof virtualclass.previousApp == 'object'){
                     virtualclass.currApp = virtualclass.previousApp.name;
-                    document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+                    // document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+                    virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
                 }
                 if (roles.hasControls()) {
                     if (virtualclass.currApp == 'Video' || virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'DocumentShare') {
@@ -1152,6 +1155,7 @@ var newCanvas;
                                     var cont = document.querySelector("#virtualclassCont.studentScreenSharing")
                                     if(cont){
                                         cont.classList.remove("studentScreenSharing");
+                                        document.querySelector('#chat_div').classList.remove('studentScreenSharing');
                                     }
                                     virtualclass.vutil.removeStudenScreenStatus();
                                 })
@@ -1225,7 +1229,8 @@ var newCanvas;
                 
                 if(virtualclass.hasOwnProperty('previous') && typeof virtualclass.previous != 'undefined'){
                     virtualclass.currApp = virtualclass.previous.slice(12);
-                    document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+                    // document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
+                    virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
                 }
                 
                 // var app =virtualclass.previous.slice(12)

@@ -92,6 +92,7 @@
                 obj.lockRotation = false;
                 obj.MIN_SCALE_LIMIT = 0.1;
                 obj.borderOpacityWhenMoving = 0.4;
+                obj.color = virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
 
                 if (!obj.hasOwnProperty('theta')) {
                     obj.theta = 0;

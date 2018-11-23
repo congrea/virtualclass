@@ -135,11 +135,13 @@
                     textNode.id = divNode.id + 'textarea';
                     textNode.className = 'whiteBoardTextBox';
 
+
                     textNode.rows = 8;
                     textNode.cols = 41;
                     if (obj.text != undefined && obj.text != '') {
                         textNode.value = obj.text;
                     }
+
 
                     divNode.appendChild(textNode);
 
@@ -206,6 +208,9 @@
              * @returns nothing
              */
             finalizeText: function (ctx, txtWrapper, prvModObj, mtext) {
+                if(this.prvCurrTransform.color != undefined) {
+                    virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = this.prvCurrTransform.color;
+                }
                 var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                 var prvNode = document.getElementById(txtWrapper.id);
                 var userText = "";
@@ -223,6 +228,7 @@
 
                 var fontSize = 20;
                 ctx.font = fontSize + 'px Times New Roman';
+                ctx.fillStyle = this.prvCurrTransform.color;
                 var maxWidth = 0;
                 var tempUserTextArr = userText.split(/\r?\n/);
                 maxWidth = ctx.measureText(tempUserTextArr[0]).width;

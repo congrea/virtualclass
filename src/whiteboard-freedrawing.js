@@ -38,13 +38,13 @@
                     if (obj.borderColor == undefined) {
                         this.freeDrawingColor = "#000000";
                     } else {
-                        this.freeDrawingColor = obj.borderColor;
+                        this.freeDrawingColor = (virtualclass.wb[virtualclass.gObj.currWb].activeToolColor != undefined) ? virtualclass.wb[virtualclass.gObj.currWb].activeToolColor : "#000000";
                     }
 
                     if (obj.lineWidth != undefined) {
-                        this.freeDrawingLineWidth = obj.lineWidth * virtualclass.zoom.canvasScale;
+                        this.freeDrawingLineWidth = 2 * virtualclass.zoom.canvasScale;
                     } else {
-                        this.freeDrawingLineWidth =  3 * virtualclass.zoom.canvasScale;
+                        this.freeDrawingLineWidth = 2 * virtualclass.zoom.canvasScale;
                     }
 
                     //IMPORTANT:- this have done during the unit testing

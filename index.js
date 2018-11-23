@@ -1084,6 +1084,7 @@ $(document).ready(function () {
                 if (typeof virtualclass.wb != 'object') {
                     virtualclass.makeAppReady(virtualclass.apps.wb);
                 }
+                delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
                 virtualclass.wb[virtualclass.gObj.currWb].response.clearAll(e.fromUser.userid, wbUser.id, e.message, virtualclass.wb[virtualclass.gObj.currWb].oTeacher);
             };
 

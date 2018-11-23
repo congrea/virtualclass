@@ -852,6 +852,7 @@
                 virtualclass.gObj.wIds = [0];
                 virtualclass.gObj.wbCount = 0;
                 virtualclass.wbCommon.clearNavigation();
+                delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
             }
         },
 

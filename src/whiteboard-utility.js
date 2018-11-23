@@ -1032,6 +1032,9 @@
                 var wid = virtualclass.gObj.currWb;
                 for(var i=0; i < repObjs.length; i++){
                     virtualclass.wb[wid].bridge.makeQueue(repObjs[i]);
+                    if(repObjs[i].hasOwnProperty("color")){
+                        virtualclass.wb[wid].activeToolColor = repObjs[i].color;
+                    }
                     if (repObjs[i].uid  ==  virtualclass.wb[wid].gObj.displayedObjId + 1) {
                         virtualclass.wb[wid].uid = repObjs[i].uid;
                         this.executeWhiteboardData(repObjs[i]);

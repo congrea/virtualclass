@@ -954,13 +954,18 @@
                     virtualclass.zoom.init();
                    // virtualclass.wbCommon.indexNav.init();
                     // virtualclass.pdfRender[wid].initScaleController();
+
                     var activeWbTool = localStorage.getItem("activeTool");
-                    if(activeWbTool != null){
-                        var activeWbToolElem = document.querySelector("#"+activeWbTool);
-                        if(activeWbToolElem != null){
-                            activeWbToolElem.classList.add("active");
+                    if(virtualclass.wbCommon.whiteboardWrapperExist('prev') == null) {
+                    if(activeWbTool != null) {
+                        var activeWbToolElem = document.querySelector("#" + activeWbTool);
+                        var selectTool = activeWbToolElem.querySelector("span");
+                        if (activeWbToolElem != null) {
+                            //activeWbToolElem.classList.add("active");
+                            selectTool.click();
                             virtualclass.wb[wid].prvTool = activeWbTool;
                         }
+                      }
                     }
                     
                     if(typeof virtualclass.wb.indexNav == 'undefined'){

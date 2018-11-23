@@ -214,63 +214,80 @@
              * @param expects the mouse down event.
              */
             objInit: function (evt) {
-                if(typeof virtualclass.wb[virtualclass.gObj.currWb] != 'undefined' && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != '' &&
-                    typeof virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != 'undefined' && this.parentNode.id.indexOf('t_text') < 0){
-                    // virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
-                    //virtualclass.vutil.removeAllTextWrapper();
-                    var allTextWrapper = document.querySelectorAll('.canvasWrapper .textBoxContainer');
-                    if(allTextWrapper.length > 0){
-                        virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
-                    }
-                }
-
-
                 var wbId = virtualclass.vutil.getWhiteboardId(this.parentNode);
-                var vcan = virtualclass.wb[wbId].vcan;
-
-                if (roles.hasControls()) {
-                    if (this.parentNode.id != 't_clearall'+wbId) {
-                        //call back function should be used as second parameter
-                        // for action on reposnse of user, cancel, okay
-                        //virtualclass.wb[id].utility.makeActiveTool();
-
-                        virtualclass.wb[wbId].utility.makeActiveTool(this.parentNode.id);
-                    }
-                }
-
                 var anchorNode = this;
+                var tool = "t_color" + wbId;
+                if(tool == anchorNode.parentNode.id){
+                    virtualclass.wb[wbId].activeColor(wbId);
+                }else {
+                    if (typeof virtualclass.wb[virtualclass.gObj.currWb] != 'undefined' && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != '' &&
+                        typeof virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != 'undefined' && this.parentNode.id.indexOf('t_text') < 0) {
+                        // virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
+                        //virtualclass.vutil.removeAllTextWrapper();
+                        var allTextWrapper = document.querySelectorAll('.canvasWrapper .textBoxContainer');
+                        if (allTextWrapper.length > 0) {
+                            virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
+                        }
+                    }
 
-                /**important **/
-                if (anchorNode.parentNode.id == 't_replay'+wbId) {
-                    virtualclass.wb[wbId].utility.clearAll(false);
-                    virtualclass.vutil.beforeSend({'replayAll': true, 'cf': replayAll});
-                } else {
-                    virtualclass.wb[wbId].toolInit(anchorNode.parentNode.id, wbId);
-                }
+                    var vcan = virtualclass.wb[wbId].vcan;
 
-                if (anchorNode.parentNode.id != 't_replay'+wbId && anchorNode.parentNode.id != 't_clearall'+wbId
-                    && anchorNode.parentNode.id != 't_reclaim'+wbId && anchorNode.parentNode.id != 't_assign'+wbId) {
-                    var currTime = new Date().getTime();
-                    virtualclass.wb[wbId].lt = anchorNode.parentNode.id;
-                    // fetching command t_triangle from  t_traingle_doc_1_1
-                    var cmd = anchorNode.parentNode.id.split(/_doc_*/)[0];
-                    var obj = {'cmd': cmd, mt: currTime};
-                    virtualclass.wb[wbId].uid++;
-                    obj.uid = virtualclass.wb[wbId].uid;
-                    vcan.main.replayObjs.push(obj);
-                    //recorder.items.push(obj);
+                    if (roles.hasControls()) {
+                        if (this.parentNode.id != 't_clearall' + wbId) {
+                            //call back function should be used as second parameter
+                            // for action on reposnse of user, cancel, okay
+                            //virtualclass.wb[id].utility.makeActiveTool();
 
-                    virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+                            virtualclass.wb[wbId].utility.makeActiveTool(this.parentNode.id);
+                        }
+                    }
+
+                    /**important **/
+                    if (anchorNode.parentNode.id == 't_replay' + wbId) {
+                        virtualclass.wb[wbId].utility.clearAll(false);
+                        virtualclass.vutil.beforeSend({'replayAll': true, 'cf': replayAll});
+                    } else {
+                        virtualclass.wb[wbId].toolInit(anchorNode.parentNode.id, wbId);
+                    }
+
+                    if (anchorNode.parentNode.id != 't_replay' + wbId && anchorNode.parentNode.id != 't_clearall' + wbId
+                        && anchorNode.parentNode.id != 't_reclaim' + wbId && anchorNode.parentNode.id != 't_assign' + wbId) {
+                        var currTime = new Date().getTime();
+                        virtualclass.wb[wbId].lt = anchorNode.parentNode.id;
+                        // fetching command t_triangle from  t_traingle_doc_1_1
+                        var cmd = anchorNode.parentNode.id.split(/_doc_*/)[0];
+                        var obj = {'cmd': cmd, mt: currTime};
+                        virtualclass.wb[wbId].uid++;
+                        obj.uid = virtualclass.wb[wbId].uid;
+                        vcan.main.replayObjs.push(obj);
+                        //recorder.items.push(obj);
+
+                        virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
 //                        virtualclass.storage.wholeStore(obj);
 
 
-                    virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'}); //after optimized
-                }
-                if (this.parentNode.id != 't_clearall'+wbId) {
-                    virtualclass.wb[wbId].prvTool = this.parentNode.id;
-                    virtualclass.wb[wbId].prvToolInfo = obj;
+                        virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'}); //after optimized
+                    }
+                    if (this.parentNode.id != 't_clearall' + wbId) {
+                        virtualclass.wb[wbId].prvTool = this.parentNode.id;
+                        virtualclass.wb[wbId].prvToolInfo = obj;
+                    }
                 }
             },
+
+            activeColor : function(wid){
+                var vcan = virtualclass.wb[wid].vcan;
+                var currTime = new Date().getTime();
+
+                var aColor = document.querySelector("#option"+wid).value;
+                virtualclass.wb[wid].activeToolColor = aColor;
+                var obj = {'color' : aColor ,mt : currTime};
+                virtualclass.wb[wid].uid++;
+                obj.uid = virtualclass.wb[wid].uid;
+                vcan.main.replayObjs.push(obj);
+                virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+                virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
+                },
 
             /**
              *
@@ -356,6 +373,7 @@
                             if (!confirm) {
                                 return true;
                             }
+                            delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
                             console.log('Whiteboard clear init ' + wbId);
                             virtualclass.wb[wbId].utility.t_clearallInit();
                             virtualclass.wb[wbId].utility.makeDefaultValue(cmd);

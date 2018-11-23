@@ -113,7 +113,6 @@
             if (wid == null) {
                 virtualclass.gObj.wbCount++;
                 virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
-                
                 wid = '_doc_0' + '_' + virtualclass.gObj.wbCount;
 
                 if(!this.whiteboardExist(wid)){
@@ -130,8 +129,7 @@
                 }
                 virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : wid});
             }
-            
-            
+
             this.setCurrSlideNumber(wid);
             virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
             virtualclass.wbCommon.indexNav.UI.pageNavHandler("right");
@@ -154,7 +152,6 @@
         prev: function () {
             this.hideElement();
             var wid = this.whiteboardWrapperExist('prev');
-
             this.readyCurrentWhiteboard(wid);
             this.setCurrSlideNumber(wid);
             virtualclass.wbCommon.indexNav.addActiveNavigation(wid)

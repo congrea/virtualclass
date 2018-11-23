@@ -72,7 +72,7 @@
 
                     ctx.lineTo(x, y);
                     ctx.fillStyle = (obj.fillColor != undefined) ? obj.fillColor : " ";
-
+                    ctx.strokeStyle = obj.color;
                     ctx.closePath();
                     ctx.stroke();
                     // todo this should be enable

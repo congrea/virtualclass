@@ -58,6 +58,7 @@
                     if (obj.lineColor != undefined) {
                         ctx.strokeStyle = obj.lineColor;
                     }
+                    ctx.strokeStyle = obj.color;
                     ctx.closePath();
                     ctx.stroke();
                 }

@@ -155,9 +155,10 @@
                         //these code run when user is trying to create particular object.
                     } else if (vcan.main.action == 'create') {
                         if (e.detail.hasOwnProperty('cevent')) {
-                            if(virtualclass.wb[virtualclass.gObj.currWb].tool.cmd == "t_text"+ virtualclass.gObj.currWb){
-                                e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e);
+                            if(e.detail.hasOwnProperty('foundText')){
+                                 e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e);
                             }
+                            
                             e.clientX = e.detail.cevent.x + (virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.x);
                             e.clientY = e.detail.cevent.y + (virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.y);
 
@@ -178,7 +179,11 @@
 
                         if (foundTarget && foundTarget.type == 'text' && virtualclass.wb[virtualclass.gObj.currWb].tool.cmd == "t_text" + virtualclass.gObj.currWb) {
                             foundTarget.setupCurrentTransform(e);
+                            /*if(roles.hasControls()){
+                                virtualclass.vutil.beforeSend({'wb': virtualclass.gObj.currWb, 'cf': 'foundText'});
+                            } */
                         }
+                        // delete virtualclass.wb[virtualclass.gObj.currWb].obj.editable;
                     }
 
                 },

@@ -83,6 +83,10 @@
                                 eventObj.detail.cevent.scx = currObj.scx;
                             }
                         }
+
+                        if(currObj.hasOwnProperty('foundText')){
+                            eventObj.detail.foundText = true;
+                        }
                         var eventConstruct = new CustomEvent(event, eventObj); //this is not supported for ie9 and older ie browsers
 
                         vcan.main.canvas.dispatchEvent(eventConstruct);

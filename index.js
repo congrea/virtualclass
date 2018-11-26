@@ -1427,12 +1427,6 @@ $(document).ready(function () {
 
             }
 
-            this.foundText = function (e){
-                if(e.message.hasOwnProperty('wb')){
-                  var readyTextObj = virtualclass.wb[e.message.wb].gOb;
-                  virtualclass.wb[e.message.wb].obj.editable =  true;
-                }
-            }
             // this.stopSs= function(e){
             //     virtualclass.ss.unShareScreen();
             // }

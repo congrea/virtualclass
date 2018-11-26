@@ -113,11 +113,11 @@
                         if (wb.utility.clickOutSidebox(wb.obj.drawTextObj.textWriteMode)) {
                              var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                              if (vcan.main.currentTransform != undefined && vcan.main.currentTransform != '') {
+                                 /** 'foundtext' is passed to notify that teacher clicks on text to edit on whiteboard **/
                                 vcan.optimize.calculatePackets(currTime, 'd', tool.startPosX, tool.startPosY, 'foundtext');    
                              }else {
                                  vcan.optimize.calculatePackets(currTime, 'd', tool.startPosX, tool.startPosY);    
                              }
-                            
                         }
                     } else {
                         wb.obj.drawTextObj.muser = true;

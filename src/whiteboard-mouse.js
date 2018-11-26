@@ -155,6 +155,10 @@
                         //these code run when user is trying to create particular object.
                     } else if (vcan.main.action == 'create') {
                         if (e.detail.hasOwnProperty('cevent')) {
+                            /** If user click on text to edit, we need to map the position according to
+                             *  current scale so we called putScrollWithCevent, foundText represents teacher clicks on text. We don't need
+                             *  to map the position when user creates the new text
+                             * **/
                             if(e.detail.hasOwnProperty('foundText')){
                                  e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e);
                             }
@@ -171,19 +175,15 @@
 
                         }
 
-                        console.log('main offset X ' + virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.x);
-                        console.log('main offset Y ' + virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.y);
-                        console.dir(e);
+                        // console.log('main offset X ' + virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.x);
+                        // console.log('main offset Y ' + virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.y);
+                        // console.dir(e);
 
                         var foundTarget = vcan.events().findTarget(e);
 
                         if (foundTarget && foundTarget.type == 'text' && virtualclass.wb[virtualclass.gObj.currWb].tool.cmd == "t_text" + virtualclass.gObj.currWb) {
                             foundTarget.setupCurrentTransform(e);
-                            /*if(roles.hasControls()){
-                                virtualclass.vutil.beforeSend({'wb': virtualclass.gObj.currWb, 'cf': 'foundText'});
-                            } */
                         }
-                        // delete virtualclass.wb[virtualclass.gObj.currWb].obj.editable;
                     }
 
                 },

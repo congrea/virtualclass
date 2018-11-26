@@ -1426,6 +1426,7 @@ $(document).ready(function () {
                 }
 
             }
+
             // this.stopSs= function(e){
             //     virtualclass.ss.unShareScreen();
             // }

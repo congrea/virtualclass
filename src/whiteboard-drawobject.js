@@ -111,8 +111,13 @@
                     wb.obj.drawTextObj.muser = false;
                     if (!ev.detail.hasOwnProperty('cevent') && wb.tool.cmd != 't_clearall'+wId) { //creating for other browser
                         if (wb.utility.clickOutSidebox(wb.obj.drawTextObj.textWriteMode)) {
-
-                            vcan.optimize.calculatePackets(currTime, 'd', tool.startPosX, tool.startPosY);
+                             var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
+                             if (vcan.main.currentTransform != undefined && vcan.main.currentTransform != '') {
+                                 /** 'foundtext' is passed to notify that teacher clicks on text to edit on whiteboard **/
+                                vcan.optimize.calculatePackets(currTime, 'd', tool.startPosX, tool.startPosY, 'foundtext');    
+                             }else {
+                                 vcan.optimize.calculatePackets(currTime, 'd', tool.startPosX, tool.startPosY);    
+                             }
                         }
                     } else {
                         wb.obj.drawTextObj.muser = true;

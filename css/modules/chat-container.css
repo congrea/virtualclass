@@ -99,7 +99,7 @@ div.ui-memblist-usr video, div.ui-memblist-usr .userVideos {
 
 /** 3857 **/
 
-div.ui-memblist-usr .user-details  span.media-object {
+div.ui-memblist-usr .user-details  .media-object {
     display : block;
     text-align: center;
     padding-top: 11px;
@@ -115,6 +115,11 @@ div.ui-memblist-usr .user-details  span.media-object {
     padding : 10px 0px;
 }
 
+div.ui-memblist-usr .user-details  img.media-object{
+    width: 52px;
+    height: 38px;
+    padding: 0;
+}
 /** 3857 **/
 
 .selfClear:after,  .ui-memblist-usr:after{
@@ -418,7 +423,7 @@ div.ui-memblist-usr .user-details  span.media-object {
 
 /** right-sidebar.css end **/
 
-.user-details a span {
+.user-details a span, .user-details a .media-object {
     float : left;
 
 }

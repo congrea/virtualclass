@@ -319,7 +319,7 @@
         'novideo' :"No video",
         'enableAllAudio' : "Unmute All",
         'disableAllAudio' : "Mute All",
-        'colorSelector' : "color",
+        'colorSelector' : "Color",
         /*For Chrome */
         'PermissionDeniedErrorExt' : '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'  +
         'Go to camera icon on top right of the screen <br /> ' +

@@ -77,6 +77,8 @@ var io = {
                             msg.user.name = virtualclass.gObj.allUserObj[msg.user.userid].name;
                             msg.user.role = virtualclass.gObj.allUserObj[msg.user.userid].role;
                         }
+                    }else{
+                        console.log("Nothing to do");
                     }
                   this.recjsnMsgQueue = '';
 

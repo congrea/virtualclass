@@ -218,7 +218,11 @@
                 var anchorNode = this;
                 var tool = "t_color" + wbId;
                 if(tool == anchorNode.parentNode.id){
-                    virtualclass.wb[wbId].activeColor(wbId);
+                    var elm = document.querySelector('#colorPicker'+wbId);
+                    elm.addEventListener('change', function (ev){
+                        var color = "#" + ev.currentTarget.value;
+                        virtualclass.wb[wbId].activeColor(wbId, color);
+                    })
                 }else {
                     if (typeof virtualclass.wb[virtualclass.gObj.currWb] != 'undefined' && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != '' &&
                         typeof virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != 'undefined' && this.parentNode.id.indexOf('t_text') < 0) {
@@ -275,13 +279,12 @@
                 }
             },
 
-            activeColor : function(wid){
+
+            activeColor : function(wid, color){
                 var vcan = virtualclass.wb[wid].vcan;
                 var currTime = new Date().getTime();
-
-                var aColor = document.querySelector("#option"+wid).value;
-                virtualclass.wb[wid].activeToolColor = aColor;
-                var obj = {'color' : aColor ,mt : currTime};
+                virtualclass.wb[wid].activeToolColor = color;
+                var obj = {'color' : color ,mt : currTime};
                 virtualclass.wb[wid].uid++;
                 obj.uid = virtualclass.wb[wid].uid;
                 vcan.main.replayObjs.push(obj);

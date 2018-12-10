@@ -166,6 +166,7 @@
                 this.vutil.isChromeExtension();
                 this.wbCommon = window.wbCommon;
                 this.pageNavigation = window.pageIndexNav;
+                this.jscolor = window.jscolor;
 
                 // this.pdfRender = window.pdfRender();
 
@@ -653,6 +654,7 @@
 
                        virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
                        // system.initResize();
+                        virtualclass.jscolor.register();
                     } else {
                         var currVideo= Array.prototype.slice.call(arguments)[2];
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
@@ -956,24 +958,21 @@
                     // virtualclass.pdfRender[wid].initScaleController();
 
                     var activeWbTool = localStorage.getItem("activeTool");
-                    if(virtualclass.wbCommon.whiteboardWrapperExist('prev') == null) {
                     if(activeWbTool != null) {
                         var activeWbToolElem = document.querySelector("#" + activeWbTool);
-                        var selectTool = activeWbToolElem.querySelector("span");
                         if (activeWbToolElem != null) {
-                            //activeWbToolElem.classList.add("active");
-                            selectTool.click();
+                            activeWbToolElem.classList.add("active");
                             virtualclass.wb[wid].prvTool = activeWbTool;
                         }
-                      }
                     }
-                    
+
+
                     if(typeof virtualclass.wb.indexNav == 'undefined'){
                         virtualclass.wb.indexNav  = new virtualclass.pageIndexNav("WB");
                     }
                    // virtualclass.wb.indexNav.init();
-                    
-                    
+
+
                 },
 
                 ScreenShare : function (app){

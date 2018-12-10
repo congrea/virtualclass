@@ -108,6 +108,7 @@
         },
 
         next: function () {
+            virtualclass.jscolor.register();
             this.hideElement();
             var wid = this.whiteboardWrapperExist('next');
             if (wid == null) {
@@ -150,6 +151,7 @@
         },
 
         prev: function () {
+            virtualclass.jscolor.register();
             this.hideElement();
             var wid = this.whiteboardWrapperExist('prev');
             this.readyCurrentWhiteboard(wid);

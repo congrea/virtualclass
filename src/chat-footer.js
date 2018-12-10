@@ -195,11 +195,11 @@
                 arr.forEach(function (obj, index) {
                     var userElem = chatContainerEvent.elementFromShadowDom("ml"+obj['id'], null, true);
                     if (obj['name'].indexOf(search) != -1) {
-                        userElem.style.display = 'block';
+                        userElem.style.visibility = 'visible';
                         //$('#ml' + obj['id']).show();
                     } else {
                         //$('#ml' + obj['id']).hide();
-                        userElem.style.display = 'none';
+                        userElem.style.visibility = 'hidden';
                     }
 
                 })

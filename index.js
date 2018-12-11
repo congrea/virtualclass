@@ -1680,6 +1680,11 @@ $(document).ready(function () {
                 if(virtualclass.gObj.meetingMode){
                     virtualclass.multiVideo.onUserRemove(removeUser);
                 }
+
+                /** Update users in user list until total user is more than 500 **/
+                if(virtualclass.connectedUsers.length < virtualclass.gObj.userToBeDisplay){
+                    virtualclass.gObj.insertUser = true;
+                }
             },
             error : function (e){
                 if (virtualclass.gObj.displayError) {

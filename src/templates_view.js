@@ -884,7 +884,7 @@ this["JST"]["dest_temp/templates/poll/setting-modal.hbs"] = Handlebars.template(
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"second",{"name":"getString","hash":{},"data":data}))
     + "</option></select></span></label></div><div id=\"showRt\" class=\"form-group\"><label id=\"labelCk\" class=\"custom-control custom-checkbox \"><input type=\"checkbox\" id=\"pollCkbox\" class=\"custom-control-input \" checked=\"checked\"><span id=\"labelCk\" class=\"custom-control-description pollLabel\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Showresulttostudents",{"name":"getString","hash":{},"data":data}))
-    + "</span></label></div></div></div><div id=\"contFooter\" class=\"modal-footer\"><div id=\"settingBtn\"><button id=\"cacelSetting\" class=\"btn btn-default\" data-dismiss=\"modal\">"
+    + "</span></label></div></div></div><div id=\"contFooter\" class=\"modal-footer\"><div id=\"settingBtn\"><button id=\"cancelSetting\" class=\"btn btn-default\" data-dismiss=\"modal\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"cancel",{"name":"getString","hash":{},"data":data}))
     + "</button><button id=\"publish\" class=\"btn btn-default\" disable=\"true\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Publish",{"name":"getString","hash":{},"data":data}))

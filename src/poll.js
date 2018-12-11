@@ -616,6 +616,9 @@
                 var attachInit = function () {
                     console.log(this.id);
                     virtualclass.poll.action(this.id, cb, index, pollType);
+                    if(this.id =='etSave'||this.id =='goBack'||this.id =='cacelSetting'){
+                        virtualclass.modal.removeModal();
+                    }
                 }
                 var modal = document.getElementById("editPollModal") ? document.getElementById("editPollModal") : document.getElementById("qnPopup");
                 var controls = modal.querySelectorAll('#pollModalBody .controls');
@@ -926,9 +929,7 @@
                         return 0;
                     }
                 }
-                if (!setting) {
-                    virtualclass.poll.hideModal(qIndex);
-                }
+             
                 return 1;
             },
             closePoll: function (pollType) {
@@ -1116,6 +1117,7 @@
             },
             pollCancel: function () {
                 virtualclass.popup.closeElem();
+                virtualclass.modal.closeModalHandler('editPollModal');
 
             },
             reset: function () {
@@ -1204,8 +1206,8 @@
                         type="course";
                     }
                 }
-                virtualclass.modal.closeModalHandler('editPollModal');
                 virtualclass.poll.pollPreview(type);
+                virtualclass.modal.closeModalHandler('editPollModal');
             },
             pollPreview: function (pollType) {
                 var cont = document.getElementById("contFooter");
@@ -1859,7 +1861,7 @@
 
                 var template=virtualclass.getTemplate("qnOptions","poll");
                 var nonVoted = document.querySelector("#resultLayoutBody #optnNonVotd");
-                nonVoted.append('beforeend',template({"poll": poll}));
+                nonVoted.insertAdjacentHTML('beforeend',template({"poll": poll}));
             },
             showQn: function (qnCont) {
                 if (roles.hasControls()) {
@@ -1904,6 +1906,12 @@
                     virtualclass.poll.saveSetting(pollType, next);
 
                 });
+                (document.getElementById("cancelSetting")).addEventListener("click", function () {
+                    virtualclass.modal.removeModal('editPollModal');
+                 
+                });
+                  virtualclass.modal.closeModalHandler('editPollModal');
+                
             },
             saveSetting: function (pollType, next) {
                 if (document.getElementById('radioBtn2')) {

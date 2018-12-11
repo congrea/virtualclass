@@ -458,4 +458,7 @@ pointer-events:none;
     outline: 0;
 }
 
+.congrea.teacher .pollList td.qnText.col-sm-8 {
+   position:relative !important;
+}
 

@@ -12,7 +12,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/youtube.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/videojs-contrib-hls.js"></script>
 <script type="text/javascript" src ="<?php echo $whiteboardpath.'external/src/s3.fine-uploader.js'; ?>"></script>
-<script type="text/javascript" src ="<?php echo $whiteboardpath.'external/src/bootstrap-3.3.7.js'; ?>"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/vhcheck.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/shadow-dom.js"></script>
@@ -137,5 +136,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page-navigation.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modal.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-container-event.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

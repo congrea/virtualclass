@@ -166,6 +166,7 @@
                 this.vutil.isChromeExtension();
                 this.wbCommon = window.wbCommon;
                 this.pageNavigation = window.pageIndexNav;
+                this.modal = window.modal;
 
                 // this.pdfRender = window.pdfRender();
 
@@ -332,6 +333,7 @@
                 if(virtualclassSetting.theme.selectedColor){
                     this.colorSelector.makeThemeReady();
                 }
+
                 var virtualclassCont = document.getElementById('virtualclassCont');
                 if(virtualclassCont != null){
                     virtualclassCont.classList.add(virtualclass.system.mybrowser.name);

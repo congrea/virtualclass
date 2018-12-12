@@ -1277,6 +1277,16 @@
             }
             return 0;
         },
+
+        getMySelf: function() {
+            if (virtualclass.hasOwnProperty('connectedUsers')) {
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if (virtualclass.connectedUsers[i].userid == virtualclass.gObj.uid) {
+                        return virtualclass.connectedUsers[i];
+                    }
+                }
+            }
+        },
         enablePresentatorEditors: function(touser) {
             var msg = {toUser: touser, status: true};
 

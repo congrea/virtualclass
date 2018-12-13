@@ -89,6 +89,7 @@
                     }else if(firstTime && roles.isStudent()) {
                         this.rawToProperData(this.storageRawData, 'fromStorage');
                     }
+                    virtualclass.modal.hideModal();
                 } else {
                     // Check if there is already docs in local storage
                     var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));

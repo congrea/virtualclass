@@ -287,14 +287,16 @@
                 // to change this to
                 var cont = document.getElementById("bootstrapQzCont");
                 virtualclass.quiz.UI.generateModal("editQuizModal", cont);
+                var quizModal = document.querySelector('#editQuizModal');
+                quizModal.className='modal in';
 
-                $('#editQuizModal').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                });
-                $('#editQuizModal').modal({
-                    show: true
-                });
+//                $('#editQuizModal').modal({
+//                    backdrop: 'static',
+//                    keyboard: false
+//                });
+//                $('#editQuizModal').modal({
+//                    show: true
+//                });
 
                 //virtualclass.quiz.quizPreview(item);
             },

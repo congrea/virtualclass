@@ -301,7 +301,7 @@
                         vol > (minthreshold * 2) || // Current max volume
                         thdiff <= 4 ) { // We are not ready for this algo
                         this.audioSend(send, audStatus);
-                        audioWasSent = 3;
+                        audioWasSent = 6;
                         // console.log('SEND Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
                     } else if (audioWasSent > 0) {
                         this.audioSend(send, audStatus);  // Continue sending Audio for next X samples
@@ -742,7 +742,7 @@
                      var that = this;
                      if(typeof sNode[uid] != 'object'){
                        console.log('script processor node is created');
-                       sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
+                       sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(4096, 1, 1);
                        sNodePak[uid] = 0;
                        sNode[uid].onaudioprocess = function (event){
                            var output = event.outputBuffer.getChannelData(0);
@@ -751,7 +751,7 @@
                                for (i = 0; i < newAud.length; i++) {
                                    output[i] = newAud[i];
                                }
-                               sNodePak[uid] = newAud[16383];
+                               sNodePak[uid] = newAud[4095];
                            }else {
                                for (i = 0; i < output.length; i++) {
                                    output[i] = sNodePak[uid];
@@ -767,7 +767,7 @@
                     var that = this;
                     if(typeof snNode != 'object'){
                         console.log('script processor node is created');
-                        snNode = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
+                        snNode = this.Html5Audio.audioContext.createScriptProcessor(4096, 1, 1);
                         snNodePak = 0;
                         snNode.onaudioprocess = function (event){
                             var output = event.outputBuffer.getChannelData(0);
@@ -776,7 +776,7 @@
                                 for (i = 0; i < newAud.length; i++) {
                                     output[i] = newAud[i];
                                 }
-                                snNodePak = newAud[16383];
+                                snNodePak = newAud[4095];
                             }else {
                                 for (i = 0; i < output.length; i++) {
                                     output[i] = snNodePak;
@@ -842,8 +842,8 @@
                     /** Picking up an audio chunk and giving
                      * to Audio Queue, to handle 44.1khz and 48khz
                      */
-                    while (allAudioArr[uid].length >= 16384) {
-                        var arrChunk =  allAudioArr[uid].splice(0, 16384);
+                    while (allAudioArr[uid].length >= 4096) {
+                        var arrChunk =  allAudioArr[uid].splice(0, 4096);
                         this.audioToBePlay[uid].push(new Float32Array(arrChunk));
                         ac[uid]++;
                     }
@@ -887,15 +887,15 @@
                  * @param label
                  */
                 getAudioChunks: function (uid) {
-                  console.log("Audo queue " + Math.round(this.audioToBePlay[uid].length/3) + " seconds");
+                  // console.log("Audo queue " + Math.round(this.audioToBePlay[uid].length) + " packets");
                     if(this.audioToBePlay != null){
-                      if (this.audioToBePlay[uid].length >= 9) { // 3 seconds
-                        while (this.audioToBePlay[uid].length >= 3) { // 1 second
+                      if (this.audioToBePlay[uid].length >= 9) { // 835.918371 ms
+                        while (this.audioToBePlay[uid].length >= 3) { // 278.639457 ms
                           virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                         }
                         this.aChunksPlay[uid] = true;
                         return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                      } else if(this.audioToBePlay[uid].length >= 2) { // .7 second
+                      } else if(this.audioToBePlay[uid].length >= 2) { // 185.759638 ms
                         this.aChunksPlay[uid] = true;
                         return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
                       } else if (this.audioToBePlay[uid].length > 0 && this.aChunksPlay[uid] == true) {
@@ -910,10 +910,10 @@
 
                 getAllAudioChunks2 : function () {
                     var allAudio = [];
-                    var allSumAudio = new Float32Array(16384);
+                    var allSumAudio = new Float32Array(4096);
                     var nTemp = 0;
 
-                    // var allAudioSend =  new Float32Array(16384);
+                    // var allAudioSend =  new Float32Array(4096);
                     for(let uid in virtualclass.audioToBePlay){
                         let temp = this.getAudioChunks(uid);
 
@@ -937,7 +937,7 @@
 
 
 
-                // audioToBePlay[uid][1]16384
+                // audioToBePlay[uid][1]4096
                 getAllAudioChunks : function (uid) {
                     var allAudioSend = [];
                     var audioLen=0;
@@ -948,7 +948,7 @@
                             if (audioLen == 1) {
                                 allAudioSend = temp;
                             } else {
-                                for (var z = 0; z < 16384; z++) {
+                                for (var z = 0; z < 4096; z++) {
                                     allAudioSend[z] = allAudioSend[z] + temp[z];
                                 }
                             }
@@ -958,7 +958,7 @@
                     if (audioLen == 1) {
                         return allAudioSend;
                     } else if (audioLen > 1) {
-                        for (var z = 0; z < 16384; z++) {
+                        for (var z = 0; z < 4096; z++) {
                             allAudioSend[z] = allAudioSend[z]/audioLen;
                         }
                         return allAudioSend;
@@ -1019,7 +1019,7 @@
                             Eight: true
                         });
                         this.audioNodes.push(new Float32Array(samples));
-                        this.recordingLength += 16384;
+                        this.recordingLength += 4096;
                     }
                     if (typeof audioRep != 'undefined') {
                         audioRep();
@@ -1081,7 +1081,7 @@
                         var stream = cthis.stream;
 
                         var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
-                        cthis.audio.bufferSize = 16384;
+                        cthis.audio.bufferSize = 4096;
                         // grec is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
                         // https://code.google.com/p/chromium/issues/detail?id=360378
                         // cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
@@ -1134,7 +1134,7 @@
                         }
 
                         virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
-                        virtualclass.gObj.video.audio.playWithFallback(uid);    
+                        virtualclass.gObj.video.audio.playWithFallback(uid);
                     }
 
                 },
@@ -1482,7 +1482,7 @@
 //                        // webcam = true;
 //                    }
 //                }
-//                
+//
                 if (virtualclass.gObj.meetingMode && webcam) {
                     if (virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS' ||
                             virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Safari') {
@@ -1496,9 +1496,9 @@
                         // webcam = true;
                     }
                 }
-                
-                
-                
+
+
+
 
 
                 var session = {

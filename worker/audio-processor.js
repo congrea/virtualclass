@@ -6,7 +6,7 @@
 class AudioProcessor extends AudioWorkletProcessor {
     constructor() {
 	    super();
-        this.audios = new Float32Array(16384);
+        this.audios = new Float32Array(4096);
         this.position = 0;
     }
 
@@ -18,9 +18,9 @@ class AudioProcessor extends AudioWorkletProcessor {
         let input = inputs[0][0];
         this.audios.set(input, this.position);
 		this.position += input.length;
-		if(this.position >= 16384){
+		if(this.position >= 4096){
 			this.port.postMessage({audio : this.audios});
-			this.audios = new Float32Array(16384);
+			this.audios = new Float32Array(4096);
 			this.position =  0;
 		}
 		return true;

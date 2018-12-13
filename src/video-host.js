@@ -247,7 +247,7 @@ var videoHost = {
 
     },
 
-    
+
     //nirmala
     //todo *to be called only if flag  available in localstorage
     //todo to modify later
@@ -480,7 +480,7 @@ var videoHost = {
                          }
                     }
                 }
-            }, myVideoDelay = ((16382/sampleRate)*1000*3)
+            }, myVideoDelay = ((4096/sampleRate)*1000*3)
         );
     },
     onError: function (err) {

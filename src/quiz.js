@@ -265,6 +265,10 @@
             publishQuiz: function (item, index) {
                 this.openQuizPopup(item, index);
                 this.quizPreview(item);
+                var quizModal = document.querySelector('#editQuizModal');
+                quizModal.className='modal in';
+                quizModal.style.display="block";
+            
             },
 
             /**
@@ -287,8 +291,7 @@
                 // to change this to
                 var cont = document.getElementById("bootstrapQzCont");
                 virtualclass.quiz.UI.generateModal("editQuizModal", cont);
-                var quizModal = document.querySelector('#editQuizModal');
-                quizModal.className='modal in';
+             
 
 //                $('#editQuizModal').modal({
 //                    backdrop: 'static',
@@ -1353,6 +1356,13 @@
 
                     var body = virtualclass.view.customCreateElement('div','contQzBody','modal-body');
                     content.appendChild(body);
+                    
+                    var close = document.querySelector('#editQuizModal #contQzHead .close ');
+                    close.addEventListener('click',function(){
+                        modal.style.display="none";
+                        modal.className='modal fade'
+                    })
+                    
                 },
 
                 modalContentUI: function () {

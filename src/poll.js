@@ -616,6 +616,9 @@
                 var attachInit = function () {
                     console.log(this.id);
                     virtualclass.poll.action(this.id, cb, index, pollType);
+                    if(this.id =='goBack'||this.id =='cacelSetting'){
+                        virtualclass.modal.removeModal();
+                    }
                 }
                 var modal = document.getElementById("editPollModal") ? document.getElementById("editPollModal") : document.getElementById("qnPopup");
                 var controls = modal.querySelectorAll('#pollModalBody .controls');
@@ -885,7 +888,7 @@
             },
             //******************
             popupFn: function (id, index, pollType) {
-                virtualclass.poll[id].call(this.poll, index, pollType);
+                virtualclass.poll[id].call(this.poll, index, pollType,id);
             },
             next: function (index, pollType) {
                 virtualclass.poll.pollSetting(pollType, index);
@@ -897,8 +900,8 @@
             // course poll and site poll
 
             //cmid  later
-            etSave: function (qIndex, pollType, setting) {
-
+            etSave: function (qIndex, pollType,id) {
+               
                 var flag = virtualclass.poll.isBlank();
                 if (!flag) {
                     return 0;
@@ -926,8 +929,8 @@
                         return 0;
                     }
                 }
-                if (!setting) {
-                    virtualclass.poll.hideModal(qIndex);
+                if(id == 'etSave'){
+                    virtualclass.modal.removeModal();
                 }
                 return 1;
             },
@@ -1116,6 +1119,7 @@
             },
             pollCancel: function () {
                 virtualclass.popup.closeElem();
+                virtualclass.modal.closeModalHandler('editPollModal');
 
             },
             reset: function () {
@@ -1204,8 +1208,8 @@
                         type="course";
                     }
                 }
-                virtualclass.modal.closeModalHandler('editPollModal');
                 virtualclass.poll.pollPreview(type);
+                virtualclass.modal.closeModalHandler('editPollModal');
             },
             pollPreview: function (pollType) {
                 var cont = document.getElementById("contFooter");
@@ -1859,7 +1863,7 @@
 
                 var template=virtualclass.getTemplate("qnOptions","poll");
                 var nonVoted = document.querySelector("#resultLayoutBody #optnNonVotd");
-                nonVoted.append('beforeend',template({"poll": poll}));
+                nonVoted.insertAdjacentHTML('beforeend',template({"poll": poll}));
             },
             showQn: function (qnCont) {
                 if (roles.hasControls()) {
@@ -1904,6 +1908,12 @@
                     virtualclass.poll.saveSetting(pollType, next);
 
                 });
+                (document.getElementById("cancelSetting")).addEventListener("click", function () {
+                    virtualclass.modal.removeModal('editPollModal');
+                 
+                });
+                  virtualclass.modal.closeModalHandler('editPollModal');
+                
             },
             saveSetting: function (pollType, next) {
                 if (document.getElementById('radioBtn2')) {

@@ -195,17 +195,15 @@
                 arr.forEach(function (obj, index) {
                     var userElem = chatContainerEvent.elementFromShadowDom("ml"+obj['id'], null, true);
                     if (obj['name'].indexOf(search) != -1) {
-                        userElem.style.visibility = 'visible';
+                        userElem.style.display = 'block';
                         //$('#ml' + obj['id']).show();
                     } else {
                         //$('#ml' + obj['id']).hide();
-                        userElem.style.visibility = 'hidden';
+                        userElem.style.display= 'none';
                     }
 
                 })
-
             }
-
             self._setWidth(self.options.width);
             self.init(self);
         },

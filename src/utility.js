@@ -1984,7 +1984,10 @@
                     if(!playing){
                         virtualclass.vutil.removeFinishBtn(); 
                     }  
-                    //virtualclass.vutil.removeFinishBtn();
+                    var sharing = document.querySelector(".congrea .pptSharing");
+                    if (sharing) {
+                        virtualclass.modal.hideModal();
+                    }
                 }
 
             }
@@ -2000,8 +2003,7 @@
                     }
                     finish.setAttribute('data-dismiss',"modal");
                       
-                    var db = document.querySelector('#congdashboard');
-                    db.className = "modal fade"
+                    virtualclass.modal.hideModal()
                 })
 
             }
@@ -2124,11 +2126,7 @@
             if(currApp == "DocumentShare"){
                 if(typeof hidepopup == 'undefined'){
                     //$('#congdashboard').modal();
-                    
-                    var db = document.querySelector('#congdashboard');
-                    if(db){
-                        db.className = "modal in";
-                    }
+                    virtualclass.modal.showModal()
                     virtualclass.dashBoard.clickCloseButton();
                 }
 
@@ -2142,19 +2140,10 @@
 //                    $('#congdashboard').modal({
 //                        keyboard: false
 //                    });
-                     var db = document.querySelector('#congdashboard');
-                    if(db){
-                        db.className = "modal in";
-                    }  
+                virtualclass.modal.showModal() ;
                 }
             } else {
-//                $('#congdashboard').modal({
-//                    keyboard: false
-//                });
-                var db = document.querySelector('#congdashboard');
-                if (db) {
-                    db.className = "modal in";
-                }  
+                virtualclass.modal.showModal();
             }
 
             virtualclass.dashBoard.actualCloseHandler();

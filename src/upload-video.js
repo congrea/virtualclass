@@ -95,6 +95,7 @@
 
                     if (typeof startFrom != 'undefined' ) {
                         this.fromReload(this.videoId, this.videoUrl, startFrom);
+                         
                     } else {
                         ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
                     }
@@ -1012,11 +1013,9 @@
                         ply.remove()
                     }
 
-//                    if($('iframe#player').length){
-//                        $('iframe#player').remove();
-//                    }
                     virtualclass.videoUl.UI.switchDisplay(videoCont, videoUrl);
                     virtualclass.videoUl.UI.videojsPlayer(videoUrl, vidId, startFrom);
+                    virtualclass.modal.hideModal();
                 },
 
                 videojsPlayer: function (videoUrl, vidId, startFrom) {

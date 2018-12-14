@@ -755,11 +755,11 @@ this["JST"]["dest_temp/templates/poll/previewPopup.hbs"] = Handlebars.template({
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div class=\"popover-content hide\"><div id=\"popupCont\" class=\"pollPreview\"><div><div id=\"qnTxCont\" class=\"row previewTxCont\"><label>"
+  return "<div class=\"popover-content hide\"><div id=\"popupCont\" class=\"pollPreview\"><div><div id=\"qnTxCont\" class=\"previewTxCont\"><label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
     + " :</label><div class=\"viewQn\">"
     + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.questiontext : stack1), depth0))
-    + "</div></div><div id=\"optsTxCont\" class=\"row previewTxCont\"><label>"
+    + "</div></div><div id=\"optsTxCont\" class=\"previewTxCont\"><label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Options",{"name":"getString","hash":{},"data":data}))
     + " :</label> "
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -884,7 +884,7 @@ this["JST"]["dest_temp/templates/poll/setting-modal.hbs"] = Handlebars.template(
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"second",{"name":"getString","hash":{},"data":data}))
     + "</option></select></span></label></div><div id=\"showRt\" class=\"form-group\"><label id=\"labelCk\" class=\"custom-control custom-checkbox \"><input type=\"checkbox\" id=\"pollCkbox\" class=\"custom-control-input \" checked=\"checked\"><span id=\"labelCk\" class=\"custom-control-description pollLabel\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Showresulttostudents",{"name":"getString","hash":{},"data":data}))
-    + "</span></label></div></div></div><div id=\"contFooter\" class=\"modal-footer\"><div id=\"settingBtn\"><button id=\"cacelSetting\" class=\"btn btn-default\" data-dismiss=\"modal\">"
+    + "</span></label></div></div></div><div id=\"contFooter\" class=\"modal-footer\"><div id=\"settingBtn\"><button id=\"cancelSetting\" class=\"btn btn-default\" data-dismiss=\"modal\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"cancel",{"name":"getString","hash":{},"data":data}))
     + "</button><button id=\"publish\" class=\"btn btn-default\" disable=\"true\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Publish",{"name":"getString","hash":{},"data":data}))

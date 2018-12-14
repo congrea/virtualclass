@@ -22,6 +22,18 @@
                         });
                     }     
                 },
+                hideModal:function(){
+                    var db = document.querySelector('#congdashboard');
+                    if (db) {
+                        db.className = "modal fade";
+                    }
+                },
+                showModal:function(){
+                    var db = document.querySelector('#congdashboard');
+                    if(db){
+                        db.className = "modal in";
+                    }      
+                },
              
                 attachpopupHandler:function(pollType,index,preview){
                     var cont = document.querySelector('#qnText' + pollType + index);

@@ -616,7 +616,7 @@
                 var attachInit = function () {
                     console.log(this.id);
                     virtualclass.poll.action(this.id, cb, index, pollType);
-                    if(this.id =='etSave'||this.id =='goBack'||this.id =='cacelSetting'){
+                    if(this.id =='goBack'||this.id =='cacelSetting'){
                         virtualclass.modal.removeModal();
                     }
                 }
@@ -888,7 +888,7 @@
             },
             //******************
             popupFn: function (id, index, pollType) {
-                virtualclass.poll[id].call(this.poll, index, pollType);
+                virtualclass.poll[id].call(this.poll, index, pollType,id);
             },
             next: function (index, pollType) {
                 virtualclass.poll.pollSetting(pollType, index);
@@ -900,8 +900,8 @@
             // course poll and site poll
 
             //cmid  later
-            etSave: function (qIndex, pollType, setting) {
-
+            etSave: function (qIndex, pollType,id) {
+               
                 var flag = virtualclass.poll.isBlank();
                 if (!flag) {
                     return 0;
@@ -929,7 +929,9 @@
                         return 0;
                     }
                 }
-             
+                if(id == 'etSave'){
+                    virtualclass.modal.removeModal();
+                }
                 return 1;
             },
             closePoll: function (pollType) {

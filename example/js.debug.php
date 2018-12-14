@@ -15,6 +15,7 @@
 <script type="text/javascript" src ="<?php echo $whiteboardpath.'external/src/bootstrap-3.3.7.js'; ?>"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/vhcheck.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jscolor.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/iolib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
@@ -140,5 +141,4 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-container-event.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/jscolor.js"></script>
 

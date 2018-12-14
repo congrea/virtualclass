@@ -218,7 +218,7 @@
                 var anchorNode = this;
                 var tool = "t_color" + wbId;
                 if(tool == anchorNode.parentNode.id){
-                    var elm = document.querySelector('#colorPicker'+wbId);
+                    var elm = document.querySelector("#t_color" + wbId + " input");
                     elm.addEventListener('change', function (ev){
                         var color = "#" + ev.currentTarget.value;
                         virtualclass.wb[wbId].activeColor(wbId, color);

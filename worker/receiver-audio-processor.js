@@ -9,10 +9,6 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
         this.audioToPlay = [];
 				this.aChunksPlay = false;
         this.lastAudioTone = 0;
-        this.allAudioArr = [];
-				this.b0 = 0;
-				this.b1 = 0;
-				this.b2 = 0;
         var that = this;
 
 		this.port.onmessage = (msg) => {
@@ -24,16 +20,8 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
      * Making single Queue Audio
      */
     queue (samples) {
-        // Avoid tick sound and average out signal
-        for(let i=0; i<samples.length; i++){
-					  this.b0 = this.b1;
-					  this.b1 = this.b2;
-					  this.b2 = samples[i];
-					  samples[i] = (this.b0 + this.b1 + this.b2) / 3; // Comment this line to turn it off
-            this.allAudioArr.push(samples[i]);
-        }
-        while (this.allAudioArr.length >= 128) {
-            let arrChunk =  this.allAudioArr.splice(0, 128);
+        while (samples.length >= 128) {
+            let arrChunk =  samples.splice(0, 128);
             this.audioToPlay.push(new Float32Array(arrChunk));
         }
 	}
@@ -43,15 +31,13 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
      * @returns {*} the audio packet with length of 128
      */
     getAudioChunks () {
-      if (this.audioToPlay.length >= (1152)) { // 3 seconds
-          // if audio length is more than 3 seconds, truncate it to 1 second
-		      while (this.audioToPlay.length >= (384)) { // 1 second
+			if (this.audioToPlay.length >= (288)) { // 835.918371 ms
+		      while (this.audioToPlay.length >= (96)) { // 278.639457 ms
             this.audioToPlay.shift();
 		      }
 					this.aChunksPlay = true;
 		      return this.audioToPlay.shift();
-      } else if(this.audioToPlay.length >= 256) { // .7 second
-          // Start playing once we have queue of at least 0.7 seconds
+      } else if(this.audioToPlay.length >= 64) { // 185.759638 ms
 					this.aChunksPlay = true;
 	        return this.audioToPlay.shift();
       } else if (this.audioToPlay.length > 0 && this.aChunksPlay == true) {
@@ -69,7 +55,7 @@ class ReceiverAudioProcessor extends AudioWorkletProcessor {
      */
     process(inputs, outputs) {
         var input = this.getAudioChunks();
-        if(input !== null){
+        if(input != null){
             outputs[0][0].set(input, 0);
             this.lastAudioTone = input[127];
         } else {

@@ -281,15 +281,17 @@
 
 
             activeColor : function(wid, color){
-                var vcan = virtualclass.wb[wid].vcan;
-                var currTime = new Date().getTime();
-                virtualclass.wb[wid].activeToolColor = color;
-                var obj = {'color' : color ,mt : currTime};
-                virtualclass.wb[wid].uid++;
-                obj.uid = virtualclass.wb[wid].uid;
-                vcan.main.replayObjs.push(obj);
-                virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
-                virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
+                if(typeof color !== "undefined") {
+                    var vcan = virtualclass.wb[wid].vcan;
+                    var currTime = new Date().getTime();
+                    virtualclass.wb[wid].activeToolColor = color;
+                    var obj = {'color': color, mt: currTime};
+                    virtualclass.wb[wid].uid++;
+                    obj.uid = virtualclass.wb[wid].uid;
+                    vcan.main.replayObjs.push(obj);
+                    virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+                    virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
+                }
                 },
 
             /**
@@ -376,7 +378,6 @@
                             if (!confirm) {
                                 return true;
                             }
-                            delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
                             console.log('Whiteboard clear init ' + wbId);
                             virtualclass.wb[wbId].utility.t_clearallInit();
                             virtualclass.wb[wbId].utility.makeDefaultValue(cmd);
@@ -398,6 +399,9 @@
                             if(cmd.indexOf('_doc_') <= -1){
                                 cmd += virtualclass.gObj.currWb;
                             }
+
+                            var color = virtualclass.wb[wbId].activeToolColor;
+                            virtualclass.wb[wbId].activeColor(wbId, color);
 
                             var anch = document.getElementById(cmd).getElementsByTagName('a')[0];
                             if(anch != null){

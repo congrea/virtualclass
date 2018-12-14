@@ -1034,6 +1034,10 @@
                     virtualclass.wb[wid].bridge.makeQueue(repObjs[i]);
                     if(repObjs[i].hasOwnProperty("color")){
                         virtualclass.wb[wid].activeToolColor = repObjs[i].color;
+                        if(roles.hasControls()) {
+                            document.querySelector("#t_color" + wid + " input").value = virtualclass.wb[wid].activeToolColor.slice(1);
+                            document.querySelector("#t_color" + wid + " input").style.backgroundColor = virtualclass.wb[wid].activeToolColor;
+                        }
                     }
                     if (repObjs[i].uid  ==  virtualclass.wb[wid].gObj.displayedObjId + 1) {
                         virtualclass.wb[wid].uid = repObjs[i].uid;
@@ -1070,6 +1074,10 @@
 
             findPacketInQueue : function (playedObj){
                 var wid = virtualclass.gObj.currWb;
+                if(playedObj.hasOwnProperty("color")){
+                    virtualclass.wb[wid].activeToolColor = playedObj.color;
+                }
+                
                 if(virtualclass.wb[wid].gObj.queue.hasOwnProperty(playedObj.uid + 1)){
                     return virtualclass.wb[wid].gObj.queue[playedObj.uid + 1];
                 } else {

@@ -654,7 +654,6 @@
 
                        virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
                        // system.initResize();
-                        virtualclass.jscolor.register();
                     } else {
                         var currVideo= Array.prototype.slice.call(arguments)[2];
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
@@ -966,13 +965,14 @@
                         }
                     }
 
+                    if(roles.hasControls()){
+                        virtualclass.jscolor.register();
+                    }
 
                     if(typeof virtualclass.wb.indexNav == 'undefined'){
                         virtualclass.wb.indexNav  = new virtualclass.pageIndexNav("WB");
                     }
                    // virtualclass.wb.indexNav.init();
-
-
                 },
 
                 ScreenShare : function (app){

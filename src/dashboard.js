@@ -21,6 +21,7 @@ var dashBoard = {
             if(navButton != null){
                 navButton.classList.remove('clicked');
             }
+            virtualclass.modal.hideModal();
             // closeButton.classList.remove('clicked');
         }
     },

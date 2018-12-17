@@ -1277,6 +1277,16 @@
             }
             return 0;
         },
+
+        getMySelf: function() {
+            if (virtualclass.hasOwnProperty('connectedUsers')) {
+                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                    if (virtualclass.connectedUsers[i].userid == virtualclass.gObj.uid) {
+                        return virtualclass.connectedUsers[i];
+                    }
+                }
+            }
+        },
         enablePresentatorEditors: function(touser) {
             var msg = {toUser: touser, status: true};
 
@@ -1974,7 +1984,10 @@
                     if(!playing){
                         virtualclass.vutil.removeFinishBtn(); 
                     }  
-                    //virtualclass.vutil.removeFinishBtn();
+                    var sharing = document.querySelector(".congrea .pptSharing");
+                    if (sharing) {
+                        virtualclass.modal.hideModal();
+                    }
                 }
 
             }
@@ -1989,6 +2002,8 @@
                         app.classList.remove("dashboard")
                     }
                     finish.setAttribute('data-dismiss',"modal");
+                      
+                    virtualclass.modal.hideModal()
                 })
 
             }
@@ -2110,7 +2125,8 @@
             console.log('Dashboard is created for ' + virtualclass.currApp);
             if(currApp == "DocumentShare"){
                 if(typeof hidepopup == 'undefined'){
-                    $('#congdashboard').modal();
+                    //$('#congdashboard').modal();
+                    virtualclass.modal.showModal()
                     virtualclass.dashBoard.clickCloseButton();
                 }
 
@@ -2121,14 +2137,13 @@
 
             }else if(currApp == "Video"){
                 if(typeof hidepopup == 'undefined'){
-                    $('#congdashboard').modal({
-                        keyboard: false
-                    });
+//                    $('#congdashboard').modal({
+//                        keyboard: false
+//                    });
+                virtualclass.modal.showModal() ;
                 }
             } else {
-                $('#congdashboard').modal({
-                    keyboard: false
-                });
+                virtualclass.modal.showModal();
             }
 
             virtualclass.dashBoard.actualCloseHandler();
@@ -2729,6 +2744,7 @@
             var virtualclassCont = document.querySelector('#virtualclassCont');
             if(virtualclassCont != ''){
                 virtualclassCont.classList.remove('studentScreenSharing');
+                document.querySelector('#chat_div').classList.remove('studentScreenSharing');
             }
         },
         
@@ -2752,8 +2768,7 @@
         },
 
         removeStudenScreenStatus : function (){
-
-            var allStdscreenImg  = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.stdscreenImg');
+            var allStdscreenImg  = chatContainerEvent.elementFromShadowDom('.stdscreenImg', 'all');
             for(var i=0; i<allStdscreenImg.length; i++){
                 allStdscreenImg[i].dataset.dcolor = "";
             }
@@ -2786,6 +2801,14 @@
                 } else {
                     console.log('Could not send the whiteboard data');
                 }
+            }
+        },
+
+        setCurrApp : function (container, app){
+            container.dataset.currapp = app;
+            var chat_div = document.getElementById('chat_div');
+            if(chat_div != null){
+                chat_div.dataset.currapp = app;
             }
         }
     };

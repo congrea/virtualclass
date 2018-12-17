@@ -63,16 +63,16 @@
                 }
             },
 
-            calculatePackets: function (time, ac, x, y) {
+            calculatePackets: function (time, ac, x, y, foundText) {
 
                 var x = x / virtualclass.zoom.canvasScale;
                 var y = y / virtualclass.zoom.canvasScale;
 
                 var wId = virtualclass.gObj.currWb;
                 var obj = vcan.makeStackObj(time, ac, x, y);
-
-
-
+                if(typeof foundText != 'undefined'){
+                    obj.foundText = true;
+                }
                 virtualclass.wb[wId].uid++;
                 obj.uid = virtualclass.wb[wId].uid;
                 vcan.main.replayObjs.push(obj);

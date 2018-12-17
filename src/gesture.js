@@ -8,7 +8,9 @@ var gesture = {
         if(joinClassModal != null){
             joinClassModal.style.display = 'block';
         }
-        $('#joinClassModal').modal({backdrop: 'static', keyboard: false});
+       //$('#joinClassModal').modal({backdrop: 'static', keyboard: false});
+        var joinClass = document.querySelector('#joinClassModal');
+        joinClass.className= "modal in";
 
         var virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
         if(virtualclassApp != null ){

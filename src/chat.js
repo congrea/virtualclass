@@ -52,6 +52,7 @@
                     if(chatEnable != null){
                         if (chatEnable == "false") {
                             document.querySelector('#chatWidget').classList.add('chat_disabled');
+                            document.querySelector('#chat_div').classList.add('chat_disabled');
                             document.querySelector('#chatWidget').classList.remove('chat_enabled');
                         }
                     }
@@ -323,7 +324,7 @@
                     // var chatRoot = virtualclass.gObj.testChatDiv.shadowRoot.
                     // if (chatCont != null) {
                         if(virtualclass.gObj.hasOwnProperty('testChatDiv')){
-                            var hElements = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll(".ui-state-highlight");
+                            var hElements = chatContainerEvent.elementFromShadowDom('.ui-state-highlight', 'all');
                             for (var i = 0; i < hElements.length; i++) {
                                 hElements[i].classList.remove('ui-state-highlight');
                             }

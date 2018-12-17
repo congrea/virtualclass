@@ -1802,7 +1802,7 @@
              *TODO this function is not being invoked
              */
             existVideoContainer: function (user) {
-                var allVideos = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.userVideos')
+                var allVideos = chatContainerEvent.elementFromShadowDom('.userVideos', 'all')
                 for (var i = 0; i < allVideos.length; i++) {
                     if (allVideos[i].id == "video" + user.id) {
                         return true;

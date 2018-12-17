@@ -6,59 +6,86 @@ var myChatBoxOpen = false;
 var chatResults = [];
 //TODO, displayChatUserList and displayChatOfflineUserList should be merged into one function
 var myDivResult = "";
-
 var checkChatDisabled = false;
-function displayChatUserList(users){
-    var tmpmyDivResult;
-    for(var i=0; i<users.length; i++){
-        if (typeof virtualclass.gObj.chatIconColors[users[i].userid] == 'undefined') {
-            groupChatImgColor(users[i].name, users[i].userid)
-        }
-        if(users[i].img =="noimage") {
-            virtualclass.gObj.chatIconColors[users[i].userid].savedImg=false
-        }else{
-            virtualclass.gObj.chatIconColors[users[i].userid].savedImg= users[i].img;
-        }
 
-        if (document.getElementById('video' + users[i].userid) == null) {
-            tmpmyDivResult = $("#chat_div").memberlist("option").userSent(users[i]);
-        }
 
-        // tmpmyDivResult = true, means user div is created already
-        if(typeof tmpmyDivResult != 'boolean' && typeof tmpmyDivResult != undefined && tmpmyDivResult != undefined ){
-            myDivResult = myDivResult + tmpmyDivResult;
-        }
+function displayChatUserList(totUsers){
+    if(!virtualclass.gObj.hasOwnProperty('insertUser')){
+        virtualclass.gObj.insertUser = true;
+        virtualclass.gObj.userToBeDisplay = 500;
     }
 
-    if(typeof chat_div == 'undefined'){
-        chat_div = document.querySelector('#chat_div');
-    }
+    let users = totUsers;
 
-    /**
-     * We need to put the sub_chat div inside the chat_div, because after attaching the event with chat_div(shadow dom),
-     * If we click on anchor tag inside the shadow dom, then it does not return current clicked tag(shadow dom)
-     * but it returns shadow dom
-      * **/
-    if(myDivResult != null && myDivResult != undefined && myDivResult != '' && typeof myDivResult != 'boolean'){
-        if(chat_div.shadowRoot.innerHTML == " " || chat_div.shadowRoot.innerHTML == ""){
-            chat_div.shadowRoot.innerHTML =  "<link rel='stylesheet' type='text/css' href='"+whiteboardPath+"css/modules/chat-container.css'> <div id='subchat' >" +  myDivResult + "</div>";
-        } else {
-            chat_div.shadowRoot.querySelector('#subchat').insertAdjacentHTML('beforeend', myDivResult);
-
+    if(virtualclass.gObj.insertUser){
+        /**
+         * Below 'first if block' is  to restrict the update users in list after execeeding 500 users
+         ****/
+        if(virtualclass.jId == virtualclass.gObj.uid && virtualclass.gObj.userToBeDisplay < totUsers.length) {
+            var tusers = [];
+            tusers.push(virtualclass.vutil.getMySelf()); // User list can not skip myself
+            for (let i = 0; i < virtualclass.gObj.userToBeDisplay; i++) {
+                if(totUsers[i].userid != virtualclass.gObj.uid){
+                    tusers.push(totUsers[i]);
+                }
+            }
+            users = tusers;
         }
-    }
+
+        for(var i=0; i<users.length; i++){
+            if (typeof virtualclass.gObj.chatIconColors[users[i].userid] == 'undefined') {
+                groupChatImgColor(users[i].name, users[i].userid)
+            }
+            if(users[i].img =="noimage") {
+                virtualclass.gObj.chatIconColors[users[i].userid].savedImg=false
+            }else{
+                virtualclass.gObj.chatIconColors[users[i].userid].savedImg= users[i].img;
+            }
+
+            if (document.getElementById('video' + users[i].userid) == null) {
+                tmpmyDivResult = $("#chat_div").memberlist("option").userSent(users[i]);
+            }
+
+            // tmpmyDivResult = true, means user div is created already
+            if(typeof tmpmyDivResult != 'boolean' && typeof tmpmyDivResult != undefined && tmpmyDivResult != undefined ){
+                myDivResult = myDivResult + tmpmyDivResult;
+            }
+        }
+
+        if(typeof chat_div == 'undefined'){
+            chat_div = document.querySelector('#chat_div');
+        }
+
+        /**
+         * We need to put the sub_chat div inside the chat_div, because after attaching the event with chat_div(shadow dom),
+         * If we click on anchor tag inside the shadow dom, then it does not return current clicked tag(shadow dom)
+         * but it returns shadow dom
+         * **/
+        if(myDivResult != null && myDivResult != undefined && myDivResult != '' && typeof myDivResult != 'boolean'){
+
+            if(chat_div.shadowRoot.innerHTML == " " || chat_div.shadowRoot.innerHTML == ""){
+                var userRole = roles.hasControls() ? 'teacher' : 'student';
+                chat_div.shadowRoot.innerHTML =  "<link rel='stylesheet' type='text/css' href='"+whiteboardPath+"css/modules/chat-container.css'> <div id='subchat' class='"+userRole+"'>" +  myDivResult + "</div>";
+            } else {
+                chat_div.shadowRoot.querySelector('#subchat').insertAdjacentHTML('beforeend', myDivResult);
+            }
+        }
 
 
-    myDivResult = "";
+        myDivResult = "";
 
-    // to verify
-    if (virtualclass.gObj.uid == virtualclass.vutil.whoIsTeacher()) {
-        for(var i=0; i<users.length; i++) {
-            if (virtualclass.gObj.uid != users[i].userid) {
-                virtualclass.user.initControlHandler(users[i].userid);
+        // to verify
+        if (virtualclass.gObj.uid == virtualclass.vutil.whoIsTeacher()) {
+            for(var i=0; i<users.length; i++) {
+                if (virtualclass.gObj.uid != users[i].userid) {
+                    virtualclass.user.initControlHandler(users[i].userid);
+                }
             }
         }
     }
+
+    virtualclass.gObj.insertUser = (virtualclass.connectedUsers.length >= virtualclass.gObj.userToBeDisplay) ? false : true;
+
 }
 
 function displayChatOfflineUserList (users){
@@ -113,7 +140,7 @@ function updateOnlineUserText (){
 }
 
 function memberUpdate(e, addType) {
-  // TODO e.message now does not contain complete list of users. Function needs to be updated.
+    // TODO e.message now does not contain complete list of users. Function needs to be updated.
     if(addType ==  'removed'){
 
         // shadow dom
@@ -126,7 +153,7 @@ function memberUpdate(e, addType) {
         var userlist = virtualclass.gObj.memberlistpending;
         virtualclass.gObj.memberlistpending = [];
         console.log('member list pending(memberlistpending) empty ');
-         if (userlist.length > 0) {
+        if (userlist.length > 0) {
             virtualclass.chat._showChatUserList(userlist)
 
             if ((virtualclass.jId == virtualclass.gObj.uid)) {
@@ -155,6 +182,7 @@ function memberUpdate(e, addType) {
 
             }
 
+            virtualclass.raiseHand.moveUpInList();
             // TODO, this should enabled
             // if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()) {
             //     virtualclass.raiseHand.moveUpInList();
@@ -336,13 +364,13 @@ function messageUpdate(e) {
             var chatBox = document.querySelector('#cb' + from.userid);
             if(chatBox == null){
                 chatboxManager.addBox(from.userid,
-                {
-                    dest: "dest" + virtualclass.chat.counter, // not used in demo
-                    title: "box" + virtualclass.chat.counter,
-                    first_name: from.name,
-                    last_name: from.lname
-                    //you can add your own options too
-                });
+                    {
+                        dest: "dest" + virtualclass.chat.counter, // not used in demo
+                        title: "box" + virtualclass.chat.counter,
+                        first_name: from.name,
+                        last_name: from.lname
+                        //you can add your own options too
+                    });
 
                 if(virtualclass.chat.vmstorage.hasOwnProperty(from.userid) && virtualclass.chat.vmstorage[from.userid].length > 1){
                     displayUserSinglePvtChatHistory(from.userid);

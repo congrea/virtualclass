@@ -167,6 +167,8 @@
                 this.wbCommon = window.wbCommon;
                 this.pageNavigation = window.pageIndexNav;
                 this.jscolor = window.jscolor;
+                this.modal = window.modal;
+
 
                 // this.pdfRender = window.pdfRender();
 
@@ -332,6 +334,11 @@
                 virtualclass.colorSelector = window.colorSelector;
                 if(virtualclassSetting.theme.selectedColor){
                     this.colorSelector.makeThemeReady();
+                }
+
+                var virtualclassCont = document.getElementById('virtualclassCont');
+                if(virtualclassCont != null){
+                    virtualclassCont.classList.add(virtualclass.system.mybrowser.name);
                 }
             },
 
@@ -540,11 +547,13 @@
                     this.dispvirtualclassLayout(app);
                     //add current app to main container
                     var vcContainer = document.getElementById('virtualclassCont');
-                    vcContainer.dataset.currapp =  this.currApp;
+                    // vcContainer.dataset.currapp =  this.currApp;
+                    virtualclass.vutil.setCurrApp(vcContainer, this.currApp);
                     var vcAppContainer = document.querySelector('#virtualclassApp');
                     if(vcAppContainer != null){
                         if(this.currApp == 'DocumentShare' || this.currApp == 'SharePresentation' || this.currApp == 'Video'){
-                            vcAppContainer.dataset.currapp = vcContainer.dataset.currapp;
+                            virtualclass.vutil.setCurrApp(vcAppContainer, vcContainer.dataset.currapp);
+                           // vcAppContainer.dataset.currapp = vcContainer.dataset.currapp;
                         }else {
                             vcAppContainer.dataset.currapp = "";
                         }

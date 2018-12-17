@@ -22,7 +22,8 @@ newScrollVal = 0;
 
                 var offset = vcan.utility.getElementOffset(canvasEl);
                 // If offset is 0 then we have to give default offset
-                if(offset.x == 0 ){
+                // if(roles.hasControls() && offset.x == 0){
+                if(roles.hasControls() && offset.x == 0){
                     offset.x = 53;
                     offset.y = 48;
                 }

@@ -81,7 +81,7 @@
                 mousedown: function (e, cobj) {
                     var clogo = document.getElementById("congrealogo");
                     clogo.classList.add("disbaleOnmousedown");
-                    var newpointer = vcan.utility.getReltivePoint(e);
+                    // var newpointer = vcan.utility.getReltivePoint(e);
                    // console.log('Whiteboard drag start x=' + newpointer.x + ' y=' + newpointer.y);
 
                     if (e.detail.hasOwnProperty('cevent') && (vcan.main.action != 'create')) {
@@ -155,6 +155,14 @@
                         //these code run when user is trying to create particular object.
                     } else if (vcan.main.action == 'create') {
                         if (e.detail.hasOwnProperty('cevent')) {
+                            /** If user click on text to edit, we need to map the position according to
+                             *  current scale so we called putScrollWithCevent, foundText represents teacher clicks on text. We don't need
+                             *  to map the position when user creates the new text
+                             * **/
+                            if(e.detail.hasOwnProperty('foundText')){
+                                 e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e);
+                            }
+                            
                             e.clientX = e.detail.cevent.x + (virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.x);
                             e.clientY = e.detail.cevent.y + (virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.y);
 
@@ -164,7 +172,12 @@
                             e.pageY = e.detail.cevent.y + (virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.y);
                             e.currX = e.detail.cevent.x;
                             e.currY = e.detail.cevent.y;
+
                         }
+
+                        // console.log('main offset X ' + virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.x);
+                        // console.log('main offset Y ' + virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.y);
+                        // console.dir(e);
 
                         var foundTarget = vcan.events().findTarget(e);
 
@@ -181,7 +194,7 @@
                  */
 
                 mousemove: function (e) {
-                    var newpointer = vcan.utility.getReltivePoint(e);
+                    // var newpointer = vcan.utility.getReltivePoint(e);
 
                     if (e.detail.hasOwnProperty('cevent')) {
                         if(vcan.main.action == 'move'){

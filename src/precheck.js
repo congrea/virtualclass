@@ -3,7 +3,12 @@ var precheck = {
     init : function (){
         // $("#myModal").modal();
         //remove jquery
-        $('#myModal').modal({backdrop: 'static', keyboard: false});
+        //$('#myModal').modal({backdrop: 'static', keyboard: false});
+        
+        var modal = document.querySelector('#myModal');
+        if(modal){
+            modal.className ="modal in"
+        }
 
         this.totalTest = ['browser', 'bandWidth', 'webcam', 'speaker', 'mic'];
          this.currTest="browser";

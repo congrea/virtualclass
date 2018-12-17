@@ -30,7 +30,13 @@ function WebPDecDemo(canvasId) {
         if (!!window.Worker) {
             webpToPng.onmessage = function (e){
 
-                var canvas = document.querySelector('#' + e.data.canid);
+				if(e.data.canid == 'videoParticipate'){
+					// Teacher's big video which is outside of the Shadow Dom
+                    var canvas = document.querySelector('#' + e.data.canid);
+				}else {
+                    var canvas = chatContainerEvent.elementFromShadowDom('#' + e.data.canid);
+				}
+
                 var context = canvas.getContext('2d');
                 var output = context.createImageData(canvas.width, canvas.height);
 
@@ -46,8 +52,6 @@ function WebPDecDemo(canvasId) {
         }
         canvas = canvas;
 	}
-
-
 
 	function drawBitmap(bitmap,WebPImage) {
 		// (re)draw image, when size change

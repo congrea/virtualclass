@@ -624,7 +624,7 @@
 
                 virtualclass.gObj.video.audio.muteButtonToogle();
                 //Remove all chat user list
-                var chatUsers  = virtualclass.gObj.testChatDiv.shadowRoot.querySelectorAll('.ui-memblist-usr');
+                var chatUsers  = chatContainerEvent.elementFromShadowDom('.ui-memblist-usr', 'all');
 
                 if(chatUsers != null && chatUsers.length > 0){
                     for(let i=0; i<chatUsers.length; i++){

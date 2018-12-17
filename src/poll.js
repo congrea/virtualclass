@@ -1251,7 +1251,11 @@
                 btn.setAttribute("data-dismiss", "alert")
                 btn.innerHTML = "&times";
                 elem.appendChild(btn);
-
+                
+                btn.addEventListener('click',function(){
+                    elem.parentNode.removeChild(elem);
+                })
+                
             },
             askConfirm: function (opted, pollType, index) {
 

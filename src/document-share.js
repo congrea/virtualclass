@@ -89,7 +89,8 @@
                     }else if(firstTime && roles.isStudent()) {
                         this.rawToProperData(this.storageRawData, 'fromStorage');
                     }
-                    virtualclass.modal.hideModal();
+             
+                   
                 } else {
                     // Check if there is already docs in local storage
                     var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
@@ -116,6 +117,13 @@
                             // this.firstRequest = true;
                         }
                     }
+
+                    
+                }
+                if (virtualclass.dts.noteExist()) {
+                    virtualclass.modal.hideModal();
+                } else {
+                    virtualclass.modal.showModal();
                 }
 
             },
@@ -2118,6 +2126,12 @@
                 btn.setAttribute("data-dismiss", "alert")
                 btn.innerHTML = "&times";
                 elem.appendChild(btn);
+                btn.addEventListener('click',function(){
+                    this.parentNode.remove();
+                    
+                })
+                
+                
             },
 
 

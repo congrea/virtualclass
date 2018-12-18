@@ -1049,6 +1049,10 @@
                 return 1;
             },
             saveNdPublish: function (index, type) {
+                var flag = virtualclass.poll.isBlank();
+                if (!flag) {
+                    return 0;
+                }
                 var pollType = type + "Poll";
                 var length = virtualclass.poll[pollType].length
                 var optsCont = document.getElementById('optsTxCont');

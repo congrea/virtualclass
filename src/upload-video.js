@@ -295,6 +295,7 @@
                     if(popup){
                         popup.classList.remove("uploadSuccess");
                     }
+                    elem.parentNode.removeChild(elem);
 
                 })
                 elem.appendChild(btn);

@@ -107,7 +107,7 @@
                         this.createAllEditorController();
 
                         //TODO Check if it is required to send to all
-                        //TODO Check if it is possible avoid going through iolib
+                        //TODO Check if it is possible avoid going through workerIO
 
                     }
 
@@ -374,7 +374,7 @@
                     if (e.fromUser.userid != virtualclass.gObj.uid) {
                         if (typeof this.vcAdapter != 'object' || this.vcAdapter.operations.length == 0) {
                             //TODO Check if it is required to send to all
-                            //TODO Check if it is possible avoid going through iolib
+                            //TODO Check if it is possible avoid going through workerIO
                             ioAdapter.mustSendAll({'eddata': 'noDataForEditor', cf: 'eddata'});
                             return;
                         }

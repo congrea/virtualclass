@@ -387,7 +387,7 @@
                         io.disconnect();
                         setTimeout(
                             function(){
-                                if(io.sock.readyState != 1){
+                                if(!io.webSocketConnected()){
                                     // wait and see if there application is connected by io
                                     // if not connect, connect it
                                     io.wsconnect();

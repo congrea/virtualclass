@@ -57,11 +57,8 @@ var ioAdapter = {
     },
 
     mustSend: function (msg) {
-
-        //debugger;
         "use strict";
         this.serial++;
-//        console.log('s.n ' + this.serial);
         msg.serial = this.serial;
         this.adapterMustData[this.serial] = {type: 'broadcast', m: msg};
         this.send(msg);
@@ -134,6 +131,5 @@ var ioAdapter = {
     sendBinary: function (msg) {
         "use strict";
         io.sendBinary(msg);
-        // ioStorage.dataBinaryStore(msg)
     }
 };

@@ -888,7 +888,7 @@
                 var wid = virtualclass.gObj.currWb;
                 if (msg.hasOwnProperty('createArrow')) {
                     var jobj = JSON.stringify(msg);
-                    virtualclass.wb[wid].vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 300);
+                    virtualclass.wb[wid].vcan.optimize.sendPacketWithOptimization(jobj, 300);
                 } else {
                     if (msg.hasOwnProperty('repObj')) {
                         if (typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined') {
@@ -903,7 +903,7 @@
                     var jobj = JSON.stringify(msg);
 
                   //  virtualclass.wb[virtualclass.gObj.currWb].sentPackets = virtualclass.wb[virtualclass.gObj.currWb].sentPackets + jobj.length;
-                    if (io.sock.readyState == 1) {
+                    if (io.webSocketConnected()) {
 
                         typeof toUser == 'undefined' ? ioAdapter.mustSend(msg) : ioAdapter.mustSendUser(msg, toUser);
 

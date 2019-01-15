@@ -40,6 +40,7 @@ var gesture = {
     clickToContinue : function(){
         virtualclassApp.style.display = 'block';
         joinClassModal.style.display = 'none';
+       // virtualclass.gObj.video.audioVisual.init();
         virtualclass.gObj.video.audio.initAudiocontext();
         /* User does not to click on editor to view the written text */
         virtualclass.vutil.triggerMouseEvent(document.querySelector('.CodeMirror-scroll'), 'mousedown');

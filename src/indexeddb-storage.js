@@ -747,13 +747,13 @@
                 virtualclass.recorder.storeDone = 0;
 
                 virtualclass.chat.removeChatHighLight('chatrm');
-
                 virtualclass.setPrvUser(); // Set Previous User
 
-                if (io.sock) {
-                    io.sock.close();
-                }
+                workerIO.postMessage({'cmd' : 'sessionEndClose'});
 
+                // if (io.sock) {
+                //     io.sock.close();
+                // }
 
                 if(precheck != null ){
                     localStorage.setItem('precheck', JSON.parse(precheck));

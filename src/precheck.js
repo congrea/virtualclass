@@ -1,23 +1,11 @@
 var precheck = {
     currTest:"",
+    playTestAudio : false,
     init : function (){
-        // $("#myModal").modal();
-        //remove jquery
-        $('#myModal').modal({backdrop: 'static', keyboard: false});
-
-        this.totalTest = ['browser', 'bandWidth', 'webcam', 'speaker', 'mic'];
+         $('#myModal').modal({backdrop: 'static', keyboard: false});
+         this.totalTest = ['browser', 'bandWidth', 'webcam', 'speaker', 'mic'];
          this.currTest="browser";
-        //virtualclass.error.push("something wrong happend");
 
-        //this.totalTest = [
-        //{curr :'browser', next : 'bandWidth'},
-        //{curr :'bandWidth', next:'speaker'},
-        //{curr :'speaker', next: 'mic'},
-        //{curr :'mic', next : 'webcam'},
-        //{curr :'webcam', next : null}
-        //]
-
-        //var that = this;
 
         var preCheckContainer = document.querySelector('#virtualclassCont #preCheckcontainer');
         if(preCheckContainer != null ){
@@ -31,14 +19,10 @@ var precheck = {
         var that = this;
         that.wholeSytemCheck();
 
-        //setTimeout(
-        //    function (){
-        //        that.wholeSytemCheck();
-        //    }, 10000
-        //);
         var skip =   document.querySelector('#preCheckcontainer .skip');
         if(skip){
             skip.addEventListener('click', function () {
+                micTesting.destroyAudio();
                 if(localStorage.getItem('precheck')){
                     var virtualclassPreCheck = document.getElementById('preCheckcontainer');
                     virtualclassPreCheck.style.display = 'none';
@@ -77,8 +61,6 @@ var precheck = {
         }
     },
 
-
-
     cancelRequestAnimation : function (){
         if(virtualclass.precheck.hasOwnProperty('reqAnimationFrame')){
             cancelAnimationFrame(virtualclass.precheck.reqAnimationFrame);
@@ -90,17 +72,20 @@ var precheck = {
     },
 
     _next : function (curr, cb){
+        console.log('Clicked next');
         if(curr == 'browser'){
             virtualclass.gObj.video.audio.initAudiocontext();
         }
-
         virtualclass.precheck.cancelRequestAnimation();
+        micTesting.destroyAudio();
+
         var test = this[curr].next;
         virtualclass.precheck.currTest=test
         virtualclass.precheck.updateProgressBar(test);
         if((!this[test].hasOwnProperty('alreadyDone') || this[test].hasOwnProperty('alreadyDone') && test == 'bandwidth')){
             // Only perform the test if it's not already done
             this[test].perform();
+
         }else {
             // if already done just show the text
             virtualclass.precheck.display('#preCheckcontainer .precheck.'+test);
@@ -109,6 +94,7 @@ var precheck = {
                 this[test]._play(); //play the audio while next buttong is clicked
             }else if (test == 'mic'){
                 this[test].visualize();
+                micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
             }
         }
 
@@ -122,6 +108,7 @@ var precheck = {
 
     _prev : function (curr, cb){
         virtualclass.precheck.cancelRequestAnimation();
+        micTesting.destroyAudio();
         var test = this[curr].prev;
         virtualclass.precheck.hide('#preCheckcontainer .precheck.'+curr);
         virtualclass.precheck.display('#preCheckcontainer .precheck.'+test);
@@ -132,6 +119,7 @@ var precheck = {
         if(test == 'speaker'){
             this[test]._play(); //play the audio while previous button is clicked
         } else if (test == 'mic'){
+            micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
             this[test].visualize();
         }
 
@@ -157,22 +145,22 @@ var precheck = {
     },
 
     initHandler : function (selector, currSec, cb){
-        var that = this;
         var nextButton = document.querySelector(selector);
         if(nextButton != null){
-            nextButton.addEventListener('click', function (){
-                //alert(this.className);
+            nextButton.removeEventListener('click', this.triggerInitHandler);
+            nextButton.addEventListener('click', this.triggerInitHandler.bind(nextButton, selector, currSec, cb));
+        }
+    },
 
-                if(this.classList.contains('next')){
-                    virtualclass.precheck._next(currSec);
-                }else if(this.classList.contains('prev')){
-                    virtualclass.precheck._prev(currSec);
-                }
+    triggerInitHandler (selector, currSec, cb){
+        if(this.classList.contains('next')){
+            virtualclass.precheck._next(currSec);
+        }else if(this.classList.contains('prev')){
+            virtualclass.precheck._prev(currSec);
+        }
 
-                if(typeof cb != 'undefined'){
-                    cb();
-                }
-            });
+        if(typeof cb != 'undefined'){
+            cb();
         }
     },
 
@@ -195,22 +183,11 @@ var precheck = {
             }
 
 
-            // if(virtualclass.system.mybrowser.name != 'Chrome'){
-            //     var msg =  virtualclass.lang.getString('notsupportbrowser', [virtualclass.system.mybrowser.name]);
-            // }else {
-            //     var msg =  virtualclass.lang.getString('congreainchrome');
-            // }
             var msg =  virtualclass.lang.getString('congreainchrome');
 
             virtualclass.precheck.createMessage(msgSelector, msg, 'information');
 
-            //var nextButton =  document.querySelector(preCheck+ this.curr + 'Next .next');
-
             virtualclass.precheck.initHandler((preCheck+ ' #'+this.curr + 'Buttons .next'), this.curr);
-
-           // document.querySelector(preCheck + ' .progress').innerHTML = virtualclass.lang.getString(this.curr + 'testcomp');
-            //preCheck.innerHTML = virtualclass.lang.getString(this.curr + 'testcomplete');
-
 
         }
     },
@@ -226,11 +203,6 @@ var precheck = {
             virtualclass.precheck.display('#preCheckcontainer .precheck.'+this.curr);
             var that = this;
 
-            //virtualclass.precheck._perform(4000, that.curr); // till the development is going on
-
-            //virtualclass.precheck.initHandler((preCheck+ ' #'+that.curr + 'Buttons .prev'), that.curr);
-            //virtualclass.precheck.initHandler((preCheck+ ' #'+that.curr + 'Buttons .next'), that.curr);
-            //return;
 
             // inspired from
             // http://stackoverflow.com/questions/5529718/how-to-detect-internet-speed-in-javascript
@@ -271,8 +243,10 @@ var precheck = {
 
             cNavigator.mediaDevices.getUserMedia(session).then(function (stream) {
                 virtualclass.precheck.mediaStream = stream;
+                virtualclass.gObj.video.audioVisual.init();
                 virtualclass.gObj.video.audioVisual.readyForVisual(stream);
             });
+
         },
 
         bandWidthInWords : function (speed){
@@ -357,17 +331,21 @@ var precheck = {
                 testAudio.loop = true;
                 testAudio.play();
 
-            virtualclass.precheck.initHandler((preCheck+ ' #'+this.curr + 'Buttons .prev'), this.curr, function (){
-                // stop the audio
-                testAudio.pause();
-                testAudio.currentTime = 0
-            });
+                if(!this.playTestAudio){
+                    virtualclass.precheck.initHandler((preCheck+ ' #'+this.curr + 'Buttons .prev'), this.curr, function (){
+                        // stop the audio
+                        testAudio.pause();
+                        testAudio.currentTime = 0
+                    });
 
-            virtualclass.precheck.initHandler((preCheck+ ' #'+this.curr + 'Buttons .next'), this.curr, function (){
-                // stop the audio
-                testAudio.pause();
-                testAudio.currentTime = 0
-            });
+                    virtualclass.precheck.initHandler((preCheck+ ' #'+this.curr + 'Buttons .next'), this.curr, function (){
+                        // stop the audio
+                        testAudio.pause();
+                        testAudio.currentTime = 0
+                    });
+                    this.playTestAudio = true;
+                }
+
 
             virtualclass.precheck.cancelRequestAnimation();
         }
@@ -378,115 +356,78 @@ var precheck = {
         curr : 'mic',
         next : 'webcam',
         perform : function (){
-
-
-
             var preCheck = "#preCheckcontainer .precheck";
             //virtualclass.precheck.updateProgressBar(this.curr);
             virtualclass.precheck.display(preCheck + '.'+this.curr);
             this.visualize();
-            // var joinSession = document.getElementById('joinSession');
-
 
             var selectorId = preCheck+'.'+this.curr;
-            //virtualclass.precheck.initHandler((preCheck+ ' #joinSession .prev'), this.curr);
-
-            //var joinSession = document.querySelector('#joinSession .next');
-            //if(joinSession != null){
-            //    joinSession.addEventListener('click', function (){
-            //        virtualclass.popup.waitMsg();
-            //        virtualclass.makeReadySocket();
-            //
-            //        var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-            //        virtualclassPreCheck.style.display = 'none';
-            //
-            //        var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-            //        virtualclassPreCheck.style.display = 'none';
-            //
-            //        var virtualclassApp = document.getElementById('virtualclassApp');
-            //            virtualclassApp.style.display = 'block';
-            //        localStorage.setItem('precheck', true);
-            //
-            //
-            //    });
-            //}
 
             var micLable =  document.createElement('div');
             micLable.innerHTML = virtualclass.lang.getString('mictesting');
             document.querySelector(selectorId + ' .result').appendChild(micLable);
+            micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
+
         },
 
         visualize : function (){
-            var canvas = document.querySelector('.visualizer');
-            var canvasCtx = canvas.getContext("2d");
+            if(virtualclass.system.mediaDevices.hasMicrophone){
 
-            var intendedWidth = 60;
-            canvas.setAttribute('width',intendedWidth);
-            canvas.setAttribute('height',200);
+                var canvas = document.querySelector('.visualizer');
+                var canvasCtx = canvas.getContext("2d");
 
-            WIDTH = canvas.width;
-            HEIGHT = canvas.height;
+                var intendedWidth = 60;
+                canvas.setAttribute('width',intendedWidth);
+                canvas.setAttribute('height',200);
 
-            virtualclass.gObj.video.audioVisual.analyser.fftSize = 256;
-            var bufferLength = virtualclass.gObj.video.audioVisual.analyser.frequencyBinCount;
-            console.log(bufferLength);
-            var dataArray = new Uint8Array(bufferLength);
+                WIDTH = canvas.width;
+                HEIGHT = canvas.height;
 
-            canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+                virtualclass.gObj.video.audioVisual.analyser.fftSize = 256;
+                var bufferLength = virtualclass.gObj.video.audioVisual.analyser.frequencyBinCount;
+                console.log(bufferLength);
+                var dataArray = new Uint8Array(bufferLength);
 
-            function draw() {
+                canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
-                virtualclass.precheck.reqAnimationFrame = requestAnimationFrame(draw);
+                function draw() {
 
-                /*
-                 setTimeout(function (){
-                 draw();
-                 }, 40); */
+                    virtualclass.precheck.reqAnimationFrame = requestAnimationFrame(draw);
 
-                virtualclass.gObj.video.audioVisual.analyser.getByteFrequencyData(dataArray);
+                    /*
+                     setTimeout(function (){
+                     draw();
+                     }, 40); */
 
-                canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-                canvasCtx.fillRect(0, 0, WIDTH, HEIGHT + 100);
+                    virtualclass.gObj.video.audioVisual.analyser.getByteFrequencyData(dataArray);
 
-                var barWidth = (WIDTH / bufferLength) * 2.5;
-                var barHeight;
-                var x = 0;
-                var soundBarWidth = 100;
-                for(var i = 0; i < bufferLength; i++) {
-                    barHeight = dataArray[i];
-                    //canvasCtx.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
-                    canvasCtx.fillStyle = 'rgb(0, 128, 0)';
+                    canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+                    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT + 100);
 
-                    canvasCtx.fillRect(x,barHeight,soundBarWidth,barHeight);
+                    var barWidth = (WIDTH / bufferLength) * 2.5;
+                    var barHeight;
+                    var x = 0;
+                    var soundBarWidth = 100;
+                    for(var i = 0; i < bufferLength; i++) {
+                        barHeight = dataArray[i];
+                        //canvasCtx.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
+                        canvasCtx.fillStyle = 'rgb(0, 128, 0)';
 
-                    // x += barWidth + 1;
-                    // x = 1; // for single line
-                    x =  1;
-                }
-            };
+                        canvasCtx.fillRect(x,barHeight,soundBarWidth,barHeight);
 
+                        // x += barWidth + 1;
+                        // x = 1; // for single line
+                        x =  1;
+                    }
+                };
 
+                draw();
 
-            draw();
-
-            // roate the canvas, TODO imrprove the way to present audio visualization
-
-            document.getElementById("audioVisualaizer").style.transform = "rotate(-90deg)";
-
+                document.getElementById("audioVisualaizer").style.transform = "rotate(-90deg)";
+            }
             virtualclass.precheck.initHandler(('#preCheckcontainer .precheck #'+this.curr + 'Buttons .prev'), this.curr);
             virtualclass.precheck.initHandler(('#preCheckcontainer .precheck #'+this.curr + 'Buttons .next'), this.curr);
-
-
-            //if(virtualclass.system.mybrowser.name == 'Chrome'){
-            //    document.getElementById("audioVisualaizer").style.WebkitTransform = "rotate(90deg)";
-            //}else if (virtualclass.system.mybrowser.name == 'Firefox'){
-            //    document.getElementById("audioVisualaizer").style.MozTransform = "rotate(90deg)";
-            //}
-
-            //document.getElementById("audioVisualaizer").style.WebkitTransform = "rotate(90deg)";
-
         }
-
     },
 
 
@@ -498,7 +439,6 @@ var precheck = {
 
 
         perform : function (){
-
             var preCheck = "#preCheckcontainer .precheck";
 
             var selectorId = '#preCheckcontainer .precheck.'+this.curr;
@@ -547,14 +487,7 @@ var precheck = {
                 tempVideo.className = 'novideo';
             }
 
-            //virtualclass.precheck.initHandler(('#preCheckcontainer .precheck #'+this.curr + 'Buttons .prev'), this.curr);
-
-//            virtualclass.precheck.initHandler((preCheck+ ' #joinSession .prev'), this.curr);
             virtualclass.precheck.initHandler((preCheck+ ' #joinSession .prev'), this.curr);
-
-
-//            virtualclass.precheck.initHandler((preCheck+ ' #joinSession' + ' .prev'), this.curr);
-
 
 
             var joinSession = document.querySelector('#joinSession .next');
@@ -574,20 +507,9 @@ var precheck = {
                     localStorage.setItem('precheck', true);
 
                     virtualclass.videoHost.afterSessionJoin();
-
-                    //setTimeout(
-                    //    function (){
-                    //        //virtualclass.gObj.afterJoinSession();
-                    //        virtualclass.videoHost.afterSessionJoin();
-                    //
-                    //    }, 2000
-                    //);
-
                 });
             }
 
-
-            //virtualclass.precheck._perform(4000, this.curr)
         },
 
         createVideo : function (){
@@ -616,7 +538,6 @@ var precheck = {
             virtualclassPreCheck.parentNode.removeChild(virtualclassPreCheck);
         }
     },
-
 
     updateProgressBar : function(screen) {
         var currElement = document.querySelector("#progressbarScreen ." + screen);

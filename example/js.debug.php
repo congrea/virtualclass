@@ -16,7 +16,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/vhcheck.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/shadow-dom.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/iolib.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-storage.js"></script>
@@ -136,6 +136,8 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/gesture.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page-navigation.js"></script>
 
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-container-event.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/mic-testing.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

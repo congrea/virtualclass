@@ -3987,3 +3987,7 @@ background-color: #d6d6d6;
 #virtualclassCont.congrea #joinClass #joinClassModal .joinClasscontainer button.btn:focus {
 	outline: none;
 }
+
+#virtualclassCont.congrea #DocumentShareDashboard #docsListContainer #listdocs .controls.delete {
+	margin-top:0;
+}

@@ -850,7 +850,7 @@
             // when we are in replay mode we don't need send the object to other user
             if (msg.hasOwnProperty('createArrow')) {
                 var jobj = JSON.stringify(msg);
-                virtualclass.wb[wbId].vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 300);
+                virtualclass.wb[wbId].vcan.optimize.sendPacketWithOptimization(jobj, 300);
             } else {
                 if (msg.hasOwnProperty('repObj')) { // For Whiteboard
                     if (typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined') {
@@ -2614,7 +2614,8 @@
 
         stopConnection : function (){
             if(io.webSocketConnected()){
-                io.sock.close();
+                // io.sock.close();
+                io.disconnect();
             }
             virtualclass.gObj.invalidlogin = true;
         },
@@ -2795,6 +2796,15 @@
             if(chat_div != null){
                 chat_div.dataset.currapp = app;
             }
+        },
+
+        selfJoin : function (jId) {
+            if(jId == virtualclass.gObj.uid){
+                // The speed needs to send only when self joining
+                ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
+                return true;
+            }
+            return false;
         }
     };
     window.vutil = vutil;

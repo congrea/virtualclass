@@ -6,8 +6,6 @@
  */
 
 var BASE64_MARKER = ';base64,';
-
-
 var videoHost = {
     gObj: {},
 
@@ -480,7 +478,7 @@ var videoHost = {
                          }
                     }
                 }
-            }, myVideoDelay = ((4096/sampleRate)*1000*3)
+            }, 260 //((4096/sampleRate)*1000*3)
         );
     },
     onError: function (err) {
@@ -588,6 +586,7 @@ var videoHost = {
         var skip =   document.querySelector('#preCheckcontainer .skip');
         if(skip){
             skip.addEventListener('click', function () {
+                micTesting.destroyAudio();
                 var virtualclassPreCheck = document.getElementById('preCheckcontainer');
                 virtualclassPreCheck.style.display = 'none';
                 var virtualclassApp = document.getElementById('virtualclassApp');

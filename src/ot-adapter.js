@@ -304,7 +304,7 @@ otAdapter = function () {
         if (typeof sendall == 'undefined' || sendall == false || sendall == null) {
             ioAdapter.mustSend(msg);
         } else {
-            //TODO Check if it is possible avoid going through iolib
+            //TODO Check if it is possible avoid going through workerIO
             setTimeout( function() { // We want to slow down OT to reduce frequency of msgs
               ioAdapter.mustSendAll(msg);
             }, 300);

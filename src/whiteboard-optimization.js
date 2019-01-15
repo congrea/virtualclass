@@ -8,11 +8,12 @@
         var vcan = virtualclass.wb[id].vcan;
 
         var optimize = {
-            sendPacketWithOptimization: function (jobj, readyState, time) {
+            sendPacketWithOptimization: function (jobj, time) {
                 var wId = virtualclass.gObj.currWb;
                 if (typeof this.lastarrowtime == 'undefined') {
                     this.lastarrowtime = new Date().getTime();
-                    if (readyState == 1) {
+                    // if (readyState == 1) {
+                    if(io.webSocketConnected()){
                         virtualclass.vutil.beforeSend(JSON.parse(jobj));
                     }
 
@@ -20,7 +21,8 @@
                 }
                 this.presentarrowtime = new Date().getTime();
                 if ((this.presentarrowtime - this.lastarrowtime) >= time) {
-                    if (readyState == 1) {
+                    // if (readyState == 1) {
+                    if(io.webSocketConnected()){
                         //virutalclass.vutil.beforeSend(JSON.parse(jobj));
                         var msg = JSON.parse(jobj);
 

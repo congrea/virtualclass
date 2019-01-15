@@ -83,7 +83,8 @@
                 stdvideoEnable : studentVideoEnable,
                 tempPrefix : 'dest_temp/templates',
                 allUserObj : {},
-                docPdfFirstTime : false
+                docPdfFirstTime : false,
+                sendAudioStatus : false
             },
 
             enablePreCheck : true,
@@ -275,7 +276,7 @@
 
                 this.gObj.video = new window.virtualclass.media();
 
-                this.gObj.video.audioVisual.init();
+              //  this.gObj.video.audioVisual.init();
 
                 var precheck = localStorage.getItem('precheck');
                 if(precheck != null){
@@ -296,13 +297,6 @@
                 if(!virtualclass.gObj.meetingMode){
                     virtualclass.videoHost.init(320 , 240);
                     //virtualclass.networkStatus();
-                } else {
-                    // virtualclass.multiVideo.init();
-
-                    // virtualclass.user.control.audioDisable()
-                    // if(roles.hasAdmin()){
-                    //     virtualclass.user.control.videoDisable()
-                    // }
                 }
 
                 virtualclass.vutil.videoController();
@@ -336,6 +330,9 @@
                 if(virtualclassCont != null){
                     virtualclassCont.classList.add(virtualclass.system.mybrowser.name);
                 }
+
+
+
             },
 
             makeReadySocket : function (){
@@ -356,7 +353,9 @@
 
             initSocketConn: function () {
                 if (this.system.webSocket) {
-                    io.init(virtualclass.uInfo);
+                    // io.ioInit({'msg' : virtualclass.uInfo, cmd : 'init'});
+                      //ioInit.sendToWorker({'msg' : virtualclass.uInfo, cmd : 'init'});
+                     io.init(virtualclass.uInfo);
                     window.userdata = virtualclass.uInfo;
                 }
             },
@@ -1329,8 +1328,9 @@
 
                                     virtualclass.recorder.smallData = true;
 
-                                    io.sock.close();
+                                    // io.sock.close();
 
+                                    workerIO.postMessage({'cmd' : 'sessionEndClose'});
                                     virtualclass.recorder.startUploadProcess();
                                 }, 300
                             );

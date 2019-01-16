@@ -55,7 +55,7 @@ function get_string($phrase) {
 
 //the www path for virtualclass
 
-$whiteboardpath = "https://local.vidya.io/virtualclass/";
+$whiteboardpath = "https://192.168.1.117/virtualclass/";
 
 $cont_class = 'congrea ';
 

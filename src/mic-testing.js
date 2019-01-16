@@ -11,10 +11,10 @@ var micTesting = {
             // var bufferSize = 16384;
 
             if(virtualclass.gObj.video.audioVisual.hasOwnProperty('audioCtx')){
-                var audioInput = virtualclass.gObj.video.audioVisual.audioCtx.createMediaStreamSource(stream);
+                this.audioInput = virtualclass.gObj.video.audioVisual.audioCtx.createMediaStreamSource(stream);
                 this.grec = virtualclass.gObj.video.audioVisual.audioCtx.createScriptProcessor(this.bufferSize, 1, 1);
                 this.grec.onaudioprocess = this.recorderProcessFallback.bind(this);
-                audioInput.connect(this.grec);
+                this.audioInput.connect(this.grec);
                 this.grec.connect(virtualclass.gObj.video.audioVisual.audioCtx.destination);
             }else {
                 console.log("No audio ");
@@ -44,18 +44,21 @@ var micTesting = {
         var that = this;
         if(!this.snNode){
             // console.log('script processor node is created');
-            this.snNode = virtualclass.gObj.video.audioVisual.audioCtx.createScriptProcessor(16384, 1, 1);
-            var snNodePak = 0;
-            this.snNode.onaudioprocess = function (event){
-                var output = event.outputBuffer.getChannelData(0);
-                var newAud = that.getAudioChunks();
-                if(newAud != null){
-                    for (i = 0; i < newAud.length; i++) {
-                        output[i] = newAud[i];
+
+                this.snNode = virtualclass.gObj.video.audioVisual.audioCtx.createScriptProcessor(16384, 1, 1);
+                var snNodePak = 0;
+                this.snNode.onaudioprocess = function (event){
+                    var output = event.outputBuffer.getChannelData(0);
+                    var newAud = that.getAudioChunks();
+                    if(newAud != null){
+                        for (i = 0; i < newAud.length; i++) {
+                            output[i] = newAud[i];
+                        }
                     }
-                }
-            };
-            this.snNode.connect(virtualclass.gObj.video.audioVisual.audioCtx.destination);
+                };
+                this.snNode.connect(virtualclass.gObj.video.audioVisual.audioCtx.destination);
+
+
         }
     },
 
@@ -66,7 +69,7 @@ var micTesting = {
                 this.audioToBePlay.shift();
             }
             this.aChunksPlay = true;
-            //return this.audioToBePlay.shift();
+            return this.audioToBePlay.shift();
         } else if(this.audioToBePlay.length >= 2) { // 743.03 miliseconds
             this.aChunksPlay = true;
             return this.audioToBePlay.shift();
@@ -74,14 +77,17 @@ var micTesting = {
     },
 
     destroyAudio (){
-        // console.log('DESTROY AUDIO');
         if(this.snNode){
-            this.snNode.disconnect(virtualclass.gObj.video.audioVisual.audioCtx);
-            this.grec.disconnect(virtualclass.gObj.video.audioVisual.audioCtx);
-            delete virtualclass.gObj.video.audioVisual.audioCtx;
+            this.snNode.disconnect(virtualclass.gObj.video.audioVisual.audioCtx.destination);
+            this.grec.disconnect(virtualclass.gObj.video.audioVisual.audioCtx.destination);
+            virtualclass.gObj.video.audioVisual.audioCtx.close();
+            /** Re-initialize auidio context and parameters for audio graph **/
+            virtualclass.gObj.video.audioVisual.init();
+            virtualclass.gObj.video.audioVisual.readyForVisual(virtualclass.precheck.mediaStream);
             delete this.snNode;
             this.snNode = false;
             delete this.grec;
         }
+
     }
 }

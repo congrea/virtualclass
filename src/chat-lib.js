@@ -74,7 +74,7 @@ function displayChatOfflineUserList (users){
             if (users[i].userid != virtualclass.gObj.uid) {
                 if (document.getElementById('video' + users[i].userid) == null) {
                     myDivResult = $("#chat_div").memberlist("option").userSent(users[i]);
-                    virtualclass.gObj.video.addUserRole(myDivResult, users[i].role);
+                    virtualclass.media.addUserRole(myDivResult, users[i].role);
                     divContainer.appendChild(myDivResult);
                 }
             }
@@ -133,7 +133,7 @@ function memberUpdate(e, addType) {
             if ((virtualclass.jId == virtualclass.gObj.uid)) {
                 // openChatBox
                 virtualclass.chat.openChatBox();
-                virtualclass.gObj.video.dispAllVideo("chat_div");
+                virtualclass.media.dispAllVideo("chat_div");
                 console.log('chat box is opened');
             }
 
@@ -144,7 +144,7 @@ function memberUpdate(e, addType) {
                     var vidTag = document.getElementById('video' + virtualclass.gObj.uid);
                     if (!virtualclass.gObj.hasOwnProperty('audIntDisable')   && !virtualclass.gObj.hasOwnProperty('vidIntDisable') && vidTag == null) {
                         console.log('Media _handleUserMedia');
-                        virtualclass.gObj.video._handleUserMedia(virtualclass.gObj.uid);
+                        virtualclass.media._handleUserMedia(virtualclass.gObj.uid);
                     }
 
                     var userDiv = chatContainerEvent.elementFromShadowDom("#ml" + virtualclass.gObj.uid);

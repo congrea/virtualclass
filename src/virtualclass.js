@@ -56,7 +56,8 @@
                 editorInitDone: 0,
                 resize : false,
                 has_ts_capability : (wbUser.ts == 1 || wbUser.ts == true) ? true : false,
-                meetingMode : +(wbUser.meetingMode),
+                // meetingMode : +(wbUser.meetingMode),
+                meetingMode : 0,
                 chromeExt : false,
                 pdfdebugg : true, //To draw scroll for debugging process
                 wbInitHandle : false,
@@ -84,7 +85,8 @@
                 tempPrefix : 'dest_temp/templates',
                 allUserObj : {},
                 docPdfFirstTime : false,
-                sendAudioStatus : false
+                sendAudioStatus : false,
+                audioRecWorkerReady : false
             },
 
             enablePreCheck : true,
@@ -153,7 +155,7 @@
                 // this.lang.getString = window.getString;
                 // this.lang.message = window.message;
                 this.vutil = window.vutil;
-                this.media = window.media
+                // this.media = window.media
                 this.sharePt= window.sharePt;
                 this.fineUploader= window.fineUploader;
                 this.system = window.system;
@@ -274,7 +276,7 @@
                 //To teacher
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
 
-                this.gObj.video = new window.virtualclass.media();
+                this.media = new window.media();
 
               //  this.gObj.video.audioVisual.init();
 

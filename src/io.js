@@ -238,7 +238,7 @@ var io = {
                 if(receivemsg.hasOwnProperty('users')){
                     console.log("New user join room " + receivemsg.users.length);
                 }else {
-                    console.log("New user join room " + receivemsg.user.length);
+                    console.log("No users");
                 }
 
                 this.readyToSend = true;
@@ -478,11 +478,11 @@ var ioInit = {
                 }, 5000);
                 break;
             case 'initAudioWorklet':
-                if(virtualclass.gObj.hasOwnProperty('isAudioContextReady')){
-                    if(virtualclass.gObj.video.detectAudioWorklet()){
-                        virtualclass.gObj.video.audio.initPlay();
+                if(virtualclass.gObj.hasOwnProperty('isAudioContextReady') && !virtualclass.gObj.audioRecWorkerReady){
+                    if(virtualclass.media.detectAudioWorklet()){
+                        virtualclass.media.audio.initPlay();
                     }else {
-                        virtualclass.gObj.video.audio.initPlayWithFallback();
+                        virtualclass.media.audio.initPlayWithFallback();
                     }
                 }
 

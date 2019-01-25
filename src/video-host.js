@@ -98,7 +98,7 @@ var videoHost = {
     },
 
     renderSelfVideo : function (stream){
-        if(typeof virtualclass.gObj.video.tempStream == 'undefined'){
+        if(typeof virtualclass.media.tempStream == 'undefined'){
             console.log('Media attached stream');
             this.getMediaStream(stream);
         }
@@ -224,7 +224,7 @@ var videoHost = {
          if(virtualclass.gObj.uid == userid){// for self
              var vidContainer = cthis.video.createVideoElement();
 
-             virtualclass.gObj.video.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
+             virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
               var canvas = chatContainerEvent.elementFromShadowDom("#ml"+virtualclass.gObj.uid +" #tempVideo");
               if(!canvas){
                   cthis.video.insertTempVideo(vidContainer);
@@ -373,11 +373,16 @@ var videoHost = {
 
         this.imageSlices = this.getImageSlices(resA, resB);
         var that = this;
-        setInterval(
+
+        if(videoHost.gObj.hasOwnProperty('shareVideoInterval')){
+            clearInterval(videoHost.gObj.shareVideoInterval);
+        }
+
+        videoHost.gObj.shareVideoInterval =  setInterval(
             function () {
                 if (that.gObj.videoSwitch) {
                     if (io.webSocketConnected()&& virtualclass.system.mediaDevices.hasWebcam){
-                      that._shareVideo(that, resA, resB);
+                       that._shareVideo(that, resA, resB);
                     }
                 }
             },
@@ -408,7 +413,6 @@ var videoHost = {
             that.sendInBinary(sendimage, vidType);
             // ioAdapter.send({'videoSlice' : sendimage, 'des' : d, 'cf' : 'teacherVideo'});
         }
-
 
     },
     sendInBinary: function (sendimage, vidType) {
@@ -448,8 +452,8 @@ var videoHost = {
         // for synch the audio and video
         var that = this;
 
-        if(typeof virtualclass.gObj.video.audio.Html5Audio != 'undefined'){
-               sampleRate = virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate;
+        if(typeof virtualclass.media.audio.Html5Audio != 'undefined'){
+               sampleRate = virtualclass.media.audio.Html5Audio.audioContext.sampleRate;
         }else {
             if(typeof sampleRate == 'undefined'){
                 sampleRate = new (window.AudioContext || window.webkitAudioContext)().sampleRate;
@@ -572,21 +576,22 @@ var videoHost = {
             btn.innerHTML = virtualclass.lang.getString('prechkcmplt');
         }
 
-        var precheck = document.querySelector('#joinSession .precheckComplete');
-        precheck.addEventListener('click', function () {
-            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-            virtualclassPreCheck.style.display = 'none';
+        // var precheck = document.querySelector('#joinSession .precheckComplete');
+        // precheck.addEventListener('click', function () {
+        //     var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+        //     virtualclassPreCheck.style.display = 'none';
+        //
+        //     var virtualclassApp = document.getElementById('virtualclassApp');
+        //     virtualclassApp.style.display = 'block';
+        //     // localStorage.setItem('precheck', true);
+        //     virtualclass.videoHost._resetPrecheck();
+        //
+        // });
 
-            var virtualclassApp = document.getElementById('virtualclassApp');
-            virtualclassApp.style.display = 'block';
-            // localStorage.setItem('precheck', true);
-            virtualclass.videoHost._resetPrecheck();
-
-        });
         var skip =   document.querySelector('#preCheckcontainer .skip');
         if(skip){
             skip.addEventListener('click', function () {
-                micTesting.destroyAudio();
+                micTesting.makeAudioEmpty();
                 var virtualclassPreCheck = document.getElementById('preCheckcontainer');
                 virtualclassPreCheck.style.display = 'none';
                 var virtualclassApp = document.getElementById('virtualclassApp');
@@ -620,15 +625,16 @@ var videoHost = {
 
             if (virtualclass.precheck.totalTest) {
                 virtualclass.precheck.totalTest.forEach(function (elem) {
-                    if (elem.hasOwnProperty('alreadyDone')) {
-                        elem.removeAttribute('alreayDone');
+                    if (typeof virtualclass.precheck[elem] != 'undefined' && virtualclass.precheck[elem].hasOwnProperty('alreadyDone')) {
+                        if(elem == 'mic'){
+                            delete virtualclass.precheck[elem].alreadyDone;
+                        }
 
                     }
                 })
 
             }
-
-    }
+        }
 
    },
 

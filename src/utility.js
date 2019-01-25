@@ -452,7 +452,7 @@
             if (virtualclass.gObj.hasOwnProperty('audioPlayMessage')) {
                 //virtualclass.gObj.iosTabAudTrue = true;
                 virtualclass.gObj.iosIpadbAudTrue = true;
-                virtualclass.gObj.video.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
+                virtualclass.media.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
             }
         },
 
@@ -510,7 +510,7 @@
             //critical, this can be critical
 
             if (!virtualclass.gObj.hasOwnProperty('audIntDisable')) {
-                virtualclass.gObj.video.audio.studentNotSpeak();
+                virtualclass.media.audio.studentNotSpeak();
             }
 
             virtualclass.vutil.clickOutSideCanvas();
@@ -813,8 +813,8 @@
             if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
                 setTimeout(
                     function (){
-                        virtualclass.gObj.video.init();
-                        virtualclass.gObj.video.isInitiator = true;
+                        virtualclass.media.init();
+                        virtualclass.media.isInitiator = true;
                     },500 // Let be ready every thing
                 );
             }
@@ -2263,7 +2263,7 @@
 
         },
 
-        videoHandler: function (action) {
+        videoHandler: function (action, notSend) {
             var video;
             var sw = document.querySelector(".congrea .videoSwitchCont #videoSwitch")
             // Action on means video is On or off means video is off
@@ -2301,7 +2301,7 @@
                     // mysmallVideo.srcObject.getVideoTracks()[0].stop();
                     setTimeout(
                         function (){
-                            mysmallVideo.srcObject =  virtualclass.gObj.video.stream;
+                            mysmallVideo.srcObject =  virtualclass.media.stream;
                         }, 100
                     );
 
@@ -2331,15 +2331,18 @@
                 }
             }
 
-            if(virtualclass.gObj.meetingMode){
-                let vaction = (action == "off") ? false : true;
-                virtualclass.multiVideo.setVideoStatus(vaction);
-            }else if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()){
-                ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
-            }
+            if(typeof notSend == 'undefined'){
+                if(virtualclass.gObj.meetingMode){
+                    let vaction = (action == "off") ? false : true;
+                    virtualclass.multiVideo.setVideoStatus(vaction);
+                }else if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()){
 
-            if(!roles.hasControls()){
-                ioAdapter.mustSend({'stdVideoCtr': {videoSwitch:  virtualclass.videoHost.gObj.stdStopSmallVid}, 'cf': 'stdVideoCtrl'});
+                    ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
+                }
+
+                if(!roles.hasControls()){
+                    ioAdapter.mustSend({'stdVideoCtr': {videoSwitch:  virtualclass.videoHost.gObj.stdStopSmallVid}, 'cf': 'stdVideoCtrl'});
+                }
             }
         },
 

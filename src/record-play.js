@@ -705,7 +705,7 @@
             virtualclass.recorder.tempRecData.length = 0;
             localStorage.setItem('mySession', 'thisismyplaymode');
             virtualclass.recorder.initController();
-            virtualclass.gObj.video.audio.initAudiocontext();
+            virtualclass.media.audio.initAudiocontext();
 
 //                var playController = document.getElementById('playController');
 //                playController.style.display = 'block';

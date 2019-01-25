@@ -1,3 +1,5 @@
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave-mic.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/handlebars-v4.0.8.js"></script>
@@ -140,4 +142,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-container-event.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/mic-testing.js"></script>
+
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
+

@@ -139,7 +139,7 @@
 
             if (objType == 'freeDrawing' && wb.obj.freeDrawObj.freesvg == true) {
                 wb.obj.freeDrawObj.drawStart(ev);
-                console.log('free drawing start x=' +  ev.currX + ' drawing y=' + ev.currY);
+                // console.log('free drawing start x=' +  ev.currX + ' drawing y=' + ev.currY);
             }
         };
 
@@ -183,7 +183,7 @@
                             var evy = ev.currY / virtualclass.zoom.canvasScale;
                             var obj = vcan.makeStackObj(currTime, 'm', evx, evy);
                               // console.log('whiteboard create, move position x =' + ev.currX + ' y = ' + ev.currY);
-                            console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
+                            // console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
 
 
                             dataChunk.push(obj);
@@ -195,7 +195,7 @@
                                         wb.uid++;
                                         dataChunk[i].uid = wb.uid;
                                         vcan.main.replayObjs.push(dataChunk[i]);
-                                        console.log('free drawing move x=' +  dataChunk[i].x + ' drawing y=' + dataChunk[i].y);
+                                        // console.log('free drawing move x=' +  dataChunk[i].x + ' drawing y=' + dataChunk[i].y);
                                     }
 
                                     virtualclass.vutil.beforeSend({'repObj': dataChunk, 'cf': 'repObj'});

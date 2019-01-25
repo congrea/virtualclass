@@ -1058,3 +1058,5 @@
         left : 5px;
     }
 }
+
+#DocumentShareDashboard #docsListContainer #listdocs .controls.delete { margin-top:0;}

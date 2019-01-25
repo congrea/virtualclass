@@ -1,13 +1,28 @@
 var precheck = {
     currTest:"",
     playTestAudio : false,
+    webcam : null,
+    session : null,
+    cNavigator : null,
+    handlers  : [],
+    videoAction : false,
     init : function (){
-         $('#myModal').modal({backdrop: 'static', keyboard: false});
-         this.totalTest = ['browser', 'bandWidth', 'webcam', 'speaker', 'mic'];
-         this.currTest="browser";
 
+        if(roles.hasControls()){
+            this.videoAction = virtualclass.videoHost.gObj.videoSwitch;
+        }else {
+            if(virtualclass.videoHost.gObj.hasOwnProperty('stdStopSmallVid')){
+                this.videoAction = (virtualclass.videoHost.gObj.stdStopSmallVid) ? false : true; // false means video off
+            }else {
+                this.videoAction = false;
+            }
+        }
 
+        $('#myModal').modal({backdrop: 'static', keyboard: false});
+        this.totalTest = ['browser', 'bandWidth', 'webcam', 'speaker', 'mic'];
+        this.currTest="browser";
         var preCheckContainer = document.querySelector('#virtualclassCont #preCheckcontainer');
+
         if(preCheckContainer != null ){
             preCheckContainer.style.display =  'block';
         }
@@ -16,68 +31,75 @@ var precheck = {
         if(virtualclassApp != null ){
             virtualclassApp.style.display =  'none';
         }
-        var that = this;
-        that.wholeSytemCheck();
 
+        this.startToCheckWholeSytem();
+        console.log('Precheck init skip');
         var skip =   document.querySelector('#preCheckcontainer .skip');
+
         if(skip){
-            skip.addEventListener('click', function () {
-                micTesting.destroyAudio();
-                if(localStorage.getItem('precheck')){
-                    var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-                    virtualclassPreCheck.style.display = 'none';
-                    var virtualclassApp = document.getElementById('virtualclassApp');
-                    virtualclassApp.style.display = 'block';
-                    // localStorage.setItem('precheck', true);
-                    virtualclass.videoHost._resetPrecheck();
-                    virtualclass.gObj.video.audio.initAudiocontext();
-
-                }else{
-                    virtualclass.gObj.video.audio.initAudiocontext();
-
-                    virtualclass.popup.waitMsg();
-                    virtualclass.makeReadySocket();
-
-                    var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-                    virtualclassPreCheck.style.display = 'none';
-
-                    var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-                    virtualclassPreCheck.style.display = 'none';
-
-                    var virtualclassApp = document.getElementById('virtualclassApp');
-                    virtualclassApp.style.display = 'block';
-                    localStorage.setItem('precheck', true);
-                    virtualclass.videoHost.afterSessionJoin();
-                }
-
-                var testAudio = document.getElementById('vcSpeakerCheckAudio');
-                if(testAudio){
-                    testAudio.pause();
-                    testAudio.currentTime = 0
-                }
-
-                virtualclass.gObj.precheckScrn=false;
-            });
+            skip.removeEventListener('click', this.initSkip);
+            skip.addEventListener('click', this.initSkip);
         }
     },
 
-    cancelRequestAnimation : function (){
-        if(virtualclass.precheck.hasOwnProperty('reqAnimationFrame')){
-            cancelAnimationFrame(virtualclass.precheck.reqAnimationFrame);
+    initSkip () {
+        console.log('Skip clicked');
+        micTesting.makeAudioEmpty();
+        if(localStorage.getItem('precheck')){
+            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+            virtualclassPreCheck.style.display = 'none';
+            var virtualclassApp = document.getElementById('virtualclassApp');
+            virtualclassApp.style.display = 'block';
+            // virtualclass.videoHost._resetPrecheck();
+            // virtualclass.media.audio.initAudiocontext();
+        }else{
+            // virtualclass.media.audio.initAudiocontext();
+            virtualclass.popup.waitMsg();
+            virtualclass.makeReadySocket();
+
+            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+            virtualclassPreCheck.style.display = 'none';
+
+
+            var virtualclassApp = document.getElementById('virtualclassApp');
+            virtualclassApp.style.display = 'block';
+            localStorage.setItem('precheck', true);
+            virtualclass.videoHost.afterSessionJoin();
+        }
+
+        // virtualclass.media.audio.initAudiocontext();
+
+
+
+        var testAudio = document.getElementById('vcSpeakerCheckAudio');
+        if(testAudio){
+            testAudio.pause();
+            testAudio.currentTime = 0
+        }
+
+        virtualclass.gObj.precheckScrn=false;
+        virtualclass.precheck.afterComplete();
+
+    },
+
+    cancelAudioGraph : function (){
+        if(this.graph != null && this.graph != undefined){
+            this.graph.microphone.stop()
         }
     },
 
-    wholeSytemCheck : function () {
+    startToCheckWholeSytem : function () {
         this[this.totalTest[0]].perform();
     },
 
     _next : function (curr, cb){
         console.log('Clicked next');
+
         if(curr == 'browser'){
-            virtualclass.gObj.video.audio.initAudiocontext();
+            virtualclass.media.audio.initAudiocontext();
         }
-        virtualclass.precheck.cancelRequestAnimation();
-        micTesting.destroyAudio();
+        virtualclass.precheck.cancelAudioGraph();
+        micTesting.makeAudioEmpty();
 
         var test = this[curr].next;
         virtualclass.precheck.currTest=test
@@ -85,16 +107,16 @@ var precheck = {
         if((!this[test].hasOwnProperty('alreadyDone') || this[test].hasOwnProperty('alreadyDone') && test == 'bandwidth')){
             // Only perform the test if it's not already done
             this[test].perform();
-
-        }else {
-            // if already done just show the text
+        } else {
             virtualclass.precheck.display('#preCheckcontainer .precheck.'+test);
-
             if(test == 'speaker'){
                 this[test]._play(); //play the audio while next buttong is clicked
             }else if (test == 'mic'){
-                this[test].visualize();
-                micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
+                // this[test].visualize();
+                this[test].audioOperation();
+            }else if(test == 'webcam'){
+                virtualclass.precheck.webcam.initHandler();
+                virtualclass.precheck.webcam.createVideo();
             }
         }
 
@@ -105,10 +127,9 @@ var precheck = {
         this[test].alreadyDone = true;
     },
 
-
     _prev : function (curr, cb){
-        virtualclass.precheck.cancelRequestAnimation();
-        micTesting.destroyAudio();
+        virtualclass.precheck.cancelAudioGraph();
+        micTesting.makeAudioEmpty();
         var test = this[curr].prev;
         virtualclass.precheck.hide('#preCheckcontainer .precheck.'+curr);
         virtualclass.precheck.display('#preCheckcontainer .precheck.'+test);
@@ -119,8 +140,17 @@ var precheck = {
         if(test == 'speaker'){
             this[test]._play(); //play the audio while previous button is clicked
         } else if (test == 'mic'){
-            micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
-            this[test].visualize();
+
+            // virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(virtualclass.precheck.session).then(function (stream) {
+            //     virtualclass.precheck.mediaStream = stream;
+            //     micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
+            // });
+
+            // this[test].visualize();
+            micTesting.playAudio = true;
+            this[test].audioOperation();
+        }else if(test == 'webcam'){
+            virtualclass.precheck.webcam.initHandler();
         }
 
         if(typeof cb != 'undefined'){
@@ -141,27 +171,40 @@ var precheck = {
         divErr.className = msgType;
         divErr.innerHTML = msg;
         document.querySelector(selector).appendChild(divErr);
-
     },
 
     initHandler : function (selector, currSec, cb){
+        console.log('initHandler next/prev');
         var nextButton = document.querySelector(selector);
+
         if(nextButton != null){
-            nextButton.removeEventListener('click', this.triggerInitHandler);
-            nextButton.addEventListener('click', this.triggerInitHandler.bind(nextButton, selector, currSec, cb));
+            var handler = this.triggerInitHandler.bind(nextButton, selector, currSec, cb);
+            nextButton.addEventListener('click', handler);
+            this.handlers.push({id : selector, 'handler' : handler});
         }
     },
+
+    removeAllListener () {
+        for(var i=0; i<this.handlers.length; i++){
+            document.querySelector(this.handlers[i].id).removeEventListener('click', this.handlers[i].handler);
+        }
+        this.handlers = [];
+    },
+
 
     triggerInitHandler (selector, currSec, cb){
         if(this.classList.contains('next')){
             virtualclass.precheck._next(currSec);
+            console.log('Trigger handle Next');
         }else if(this.classList.contains('prev')){
             virtualclass.precheck._prev(currSec);
+            console.log('Trigger handle previous');
         }
 
-        if(typeof cb != 'undefined'){
+        if(typeof cb != 'undefined' && cb != null){
             cb();
         }
+
     },
 
     browser : {
@@ -171,7 +214,6 @@ var precheck = {
         // TODO This should be simplyfied with isSystemCompatible() function at isSystemCompatible()
 
         perform : function (){
-            // virtualclass.precheck.updateProgressBar(this.curr);
             var preCheck = "#preCheckcontainer .precheck";
 
             virtualclass.precheck.display(preCheck +  '.'+this.curr);
@@ -182,13 +224,9 @@ var precheck = {
                 virtualclass.precheck.createMessage(msgSelector, errorMsg, 'error');
             }
 
-
             var msg =  virtualclass.lang.getString('congreainchrome');
-
             virtualclass.precheck.createMessage(msgSelector, msg, 'information');
-
             virtualclass.precheck.initHandler((preCheck+ ' #'+this.curr + 'Buttons .next'), this.curr);
-
         }
     },
 
@@ -198,25 +236,20 @@ var precheck = {
         next :  'speaker',
         perform : function (){
             var preCheck = "#preCheckcontainer .precheck";
-
-            // virtualclass.precheck.updateProgressBar(this.curr);
             virtualclass.precheck.display('#preCheckcontainer .precheck.'+this.curr);
             var that = this;
 
-
-            // inspired from
-            // http://stackoverflow.com/questions/5529718/how-to-detect-internet-speed-in-javascript
+            /** Inspired from, http://stackoverflow.com/questions/5529718/how-to-detect-internet-speed-in-javascript **/
 
             var msgSelector = '#preCheckcontainer .precheck.'+this.curr+' .result';
-             // this.imageAddr = window.whiteboardPath + "images/bandwidth-check.jpeg";
-                this.imageAddr = "https://dl.congrea.com/bandwidth.jpg";
-            //this.imageAddr = 'https://raw.githubusercontent.com/sumanbogati/html_css/master/bandwidth-check.jpeg';
+            this.imageAddr = "https://dl.congrea.com/bandwidth.jpg";
+
             this.downloadSize = 1000000; // bytes
 
+            /** TODO,  Remove below that **/
 
             var that = this;
             this.measureConnectionSpeed(function (speedKbps){
-
                 document.querySelector(msgSelector).innerHTML = "";
                 var bandWidthText = that.bandWidthInWords(speedKbps);
                 msgSelector.innerHTML = "";
@@ -225,26 +258,21 @@ var precheck = {
 
                 virtualclass.precheck.createMessage(msgSelector, bandWidthMsg, 'information');
 
-                //document.querySelector(preCheck + '.'+that.curr+' .progress').innerHTML = virtualclass.lang.getString(that.curr + 'testcomp');
-
                 virtualclass.precheck.initHandler((preCheck+ ' #'+that.curr + 'Buttons .prev'), that.curr);
                 virtualclass.precheck.initHandler((preCheck+ ' #'+that.curr + 'Buttons .next'), that.curr);
-
             });
 
-            var webcam, session;
-            [webcam, session] = virtualclass.gObj.video.sessionConstraints();
+            var mediaDetails = virtualclass.media.sessionConstraints();
+            virtualclass.precheck.session = mediaDetails[1];
 
             if(virtualclass.adpt == null){
                 virtualclass.adpt = new virtualclass.adapter();
             }
 
-            cNavigator = virtualclass.adpt.init(navigator);
-
-            cNavigator.mediaDevices.getUserMedia(session).then(function (stream) {
+            virtualclass.precheck.cNavigator = virtualclass.adpt.init(navigator);
+            virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(virtualclass.precheck.session).then(function (stream) {
+                console.log('GEtting stream');
                 virtualclass.precheck.mediaStream = stream;
-                virtualclass.gObj.video.audioVisual.init();
-                virtualclass.gObj.video.audioVisual.readyForVisual(stream);
             });
 
         },
@@ -266,13 +294,13 @@ var precheck = {
             return bandwidthText;
         },
 
-
         measureConnectionSpeed : function (cb) {
             var download = new Image();
             var that = this;
             download.onload = function () {
                 that.endTime = (new Date()).getTime();
                 var speedKbps = that.calculateSpeed();
+                console.log('Download speed is occurred');
                 cb(speedKbps);
             }
 
@@ -291,7 +319,6 @@ var precheck = {
             var bitsLoaded = this.downloadSize * 8;
             var speedBps = (bitsLoaded / duration).toFixed(2);
             var speedKbps = (speedBps / 1024).toFixed(2);
-            //var speedMbps = (speedKbps / 1024).toFixed(2);
             return Math.round(speedKbps);
         }
 
@@ -302,21 +329,12 @@ var precheck = {
         curr :  'speaker',
         next :  'mic',
         perform : function (){
-
-            // virtualclass.precheck.updateProgressBar(this.curr);
-
-            var speakerLable =  document.createElement('div');
+           var speakerLable =  document.createElement('div');
             speakerLable.innerHTML = virtualclass.lang.getString('speakerTest');
             var selectorId = '#preCheckcontainer .precheck.'+this.curr;
             document.querySelector(selectorId + ' .result').appendChild(speakerLable);
-
             this._play();
-
-            // audio.onended = function (){
-                //virtualclass.precheck._perform(1000, that.curr);
-            // }
         },
-
 
         _play : function (){
             var preCheck = "#preCheckcontainer .precheck";
@@ -324,30 +342,24 @@ var precheck = {
 
             var audioSrc =  document.querySelector('#vcSpeakerCheckAudio source');
             var testAudio = document.getElementById('vcSpeakerCheckAudio');
-                // if(!audioSrc.hasOwnProperty('src')){
-                //     audioSrc.src = "https://cdn.congrea.net/resources/audio/audio_music.mp3";
-                // }
+            testAudio.loop = true;
+            testAudio.play();
 
-                testAudio.loop = true;
-                testAudio.play();
+            if(!this.playTestAudio){
+                virtualclass.precheck.initHandler((preCheck+ ' #'+this.curr + 'Buttons .prev'), this.curr, function (){
+                    // stop the audio
+                    testAudio.pause();
+                    testAudio.currentTime = 0
+                });
 
-                if(!this.playTestAudio){
-                    virtualclass.precheck.initHandler((preCheck+ ' #'+this.curr + 'Buttons .prev'), this.curr, function (){
-                        // stop the audio
-                        testAudio.pause();
-                        testAudio.currentTime = 0
-                    });
-
-                    virtualclass.precheck.initHandler((preCheck+ ' #'+this.curr + 'Buttons .next'), this.curr, function (){
-                        // stop the audio
-                        testAudio.pause();
-                        testAudio.currentTime = 0
-                    });
-                    this.playTestAudio = true;
-                }
-
-
-            virtualclass.precheck.cancelRequestAnimation();
+                virtualclass.precheck.initHandler((preCheck+ ' #'+this.curr + 'Buttons .next'), this.curr, function (){
+                    // stop the audio
+                    testAudio.pause();
+                    testAudio.currentTime = 0
+                });
+                this.playTestAudio = true;
+            }
+            virtualclass.precheck.cancelAudioGraph();
         }
     },
 
@@ -355,92 +367,104 @@ var precheck = {
         prev : 'speaker',
         curr : 'mic',
         next : 'webcam',
+        graphProcessor : null,
+        graph: null,
         perform : function (){
+
+            micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
+
             var preCheck = "#preCheckcontainer .precheck";
+
             //virtualclass.precheck.updateProgressBar(this.curr);
             virtualclass.precheck.display(preCheck + '.'+this.curr);
             this.visualize();
 
-            var selectorId = preCheck+'.'+this.curr;
+            if(document.querySelector("#micTest") == null){
+                var micLable =  document.createElement('div');
+                micLable.id = "micTest";
+                micLable.innerHTML = virtualclass.lang.getString('mictesting');
 
-            var micLable =  document.createElement('div');
-            micLable.innerHTML = virtualclass.lang.getString('mictesting');
-            document.querySelector(selectorId + ' .result').appendChild(micLable);
-            micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
+                var selectorId = preCheck+'.'+this.curr;
+                document.querySelector(selectorId + ' .result').appendChild(micLable);
+            }
+
+            if (virtualclass.system.mybrowser.name == 'safari' || virtualclass.system.mybrowser.name == 'iOS') {
+                // Safari 11 or newer automatically suspends new AudioContext's that aren't
+                // created in response to a user-gesture, like a click or tap, so create one
+                // here (inc. the script processor)
+
+                var AudioContext = window.AudioContext || window.webkitAudioContext;
+                this.graphContext = new AudioContext();
+                this.graphProcessor = this.graphContext.createScriptProcessor(1024, 1, 1);
+            }
+
+            this.initAudioGraph();
+
+            // this.graph.microphone.start();
+        },
+
+        initAudioGraph(){
+            if(this.hasOwnProperty('graph') && this.graph != null){
+                var waveElem = document.querySelector('#audioGraph wave');
+                if(waveElem != null){
+                    waveElem.parentNode.removeChild(waveElem);
+                }
+            }
+
+            this.graph = WaveSurfer.create({
+                container: '#audioGraph',
+                waveColor: 'green',
+                interact: false,
+                cursorWidth: 0,
+                audioContext: this.graphContext || null,
+                audioScriptProcessor: this.graphProcessor || null,
+                plugins: [WaveSurfer.microphone.create()],
+                height : 50,
+                maxCanvasWidth : 500
+            });
+
+            this.graph.microphone.on('deviceReady', function() {
+                console.info('Device ready!');
+            });
+
+            this.graph.microphone.on('deviceError', function(code) {
+                console.warn('Device error: ' + code);
+            });
+        },
+
+        audioOperation (){
+            micTesting.playAudio = true;
+            /**
+             * For safari, we need to get the new stream every time after
+             * destroying the audio processor node
+             */
+            // virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(virtualclass.precheck.session).then(function (stream) {
+            //     virtualclass.precheck.mediaStream = stream;
+            //     micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
+            // });
+
+            this.visualize();
 
         },
 
-        visualize : function (){
-            if(virtualclass.system.mediaDevices.hasMicrophone){
-
-                var canvas = document.querySelector('.visualizer');
-                var canvasCtx = canvas.getContext("2d");
-
-                var intendedWidth = 60;
-                canvas.setAttribute('width',intendedWidth);
-                canvas.setAttribute('height',200);
-
-                WIDTH = canvas.width;
-                HEIGHT = canvas.height;
-
-                virtualclass.gObj.video.audioVisual.analyser.fftSize = 256;
-                var bufferLength = virtualclass.gObj.video.audioVisual.analyser.frequencyBinCount;
-                console.log(bufferLength);
-                var dataArray = new Uint8Array(bufferLength);
-
-                canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
-
-                function draw() {
-
-                    virtualclass.precheck.reqAnimationFrame = requestAnimationFrame(draw);
-
-                    /*
-                     setTimeout(function (){
-                     draw();
-                     }, 40); */
-
-                    virtualclass.gObj.video.audioVisual.analyser.getByteFrequencyData(dataArray);
-
-                    canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-                    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT + 100);
-
-                    var barWidth = (WIDTH / bufferLength) * 2.5;
-                    var barHeight;
-                    var x = 0;
-                    var soundBarWidth = 100;
-                    for(var i = 0; i < bufferLength; i++) {
-                        barHeight = dataArray[i];
-                        //canvasCtx.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
-                        canvasCtx.fillStyle = 'rgb(0, 128, 0)';
-
-                        canvasCtx.fillRect(x,barHeight,soundBarWidth,barHeight);
-
-                        // x += barWidth + 1;
-                        // x = 1; // for single line
-                        x =  1;
-                    }
-                };
-
-                draw();
-
-                document.getElementById("audioVisualaizer").style.transform = "rotate(-90deg)";
+        visualize (){
+            if(this.graph != null && this.graph != undefined){
+                // this.graph.microphone.start()
             }
             virtualclass.precheck.initHandler(('#preCheckcontainer .precheck #'+this.curr + 'Buttons .prev'), this.curr);
             virtualclass.precheck.initHandler(('#preCheckcontainer .precheck #'+this.curr + 'Buttons .next'), this.curr);
-        }
+        },
+
     },
 
 
     webcam : {
-        // testCode,
         test : {1:'noWebCam', 2:'nopermission', 3: 'webcambuys'},
         prev : 'mic',
         curr : 'webcam',
 
-
         perform : function (){
             var preCheck = "#preCheckcontainer .precheck";
-
             var selectorId = '#preCheckcontainer .precheck.'+this.curr;
 
             var videoLable =  document.createElement('div');
@@ -487,46 +511,113 @@ var precheck = {
                 tempVideo.className = 'novideo';
             }
 
-            virtualclass.precheck.initHandler((preCheck+ ' #joinSession .prev'), this.curr);
+            this.initHandler();
 
+            // virtualclass.precheck.initHandler((preCheck+ ' #joinSession .prev'), this.curr);
+            //
+            // var joinSession = document.querySelector('#joinSession .next');
+            // if(joinSession != null){
+            //     joinSession.removeEventListener('click', this.joinSession.bind(this));
+            //     joinSession.addEventListener('click', this.joinSession.bind(this));
+            //     // joinSession.addEventListener('click', function (){
+            //     //     virtualclass.popup.waitMsg();
+            //     //     virtualclass.makeReadySocket();
+            //     //
+            //     //     var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+            //     //     virtualclassPreCheck.style.display = 'none';
+            //     //
+            //     //     var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+            //     //     virtualclassPreCheck.style.display = 'none';
+            //     //
+            //     //     var virtualclassApp = document.getElementById('virtualclassApp');
+            //     //     virtualclassApp.style.display = 'block';
+            //     //     localStorage.setItem('precheck', true);
+            //     //
+            //     //     virtualclass.videoHost.afterSessionJoin();
+            //     //
+            //     //     virtualclass.precheck.afterComplete();
+            //     //
+            //     //     // virtualclass.videoHost._resetPrecheck();
+            //     //     // micTesting.destroyAudioNode();
+            //     //     // virtualclass.precheck.removeAllListener();
+            //     // });
+            // }else {
+            //     var precheck = document.querySelector('#joinSession .precheckComplete');
+            //     if(precheck != null){
+            //         precheck.removeEventListener('click', this.initHidePrecheck.bind(this));
+            //         precheck.addEventListener('click', this.initHidePrecheck.bind(this));
+            //     }
+            //
+            // }
+        },
+
+        initHandler () {
+            var preCheck ="#preCheckcontainer .precheck"
+            virtualclass.precheck.initHandler((preCheck+ ' #joinSession .prev'), this.curr);
 
             var joinSession = document.querySelector('#joinSession .next');
             if(joinSession != null){
-                joinSession.addEventListener('click', function (){
-                    virtualclass.popup.waitMsg();
-                    virtualclass.makeReadySocket();
+                joinSession.removeEventListener('click', this.joinSession.bind(this));
+                joinSession.addEventListener('click', this.joinSession.bind(this));
 
-                    var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-                    virtualclassPreCheck.style.display = 'none';
+            }else {
+                var precheck = document.querySelector('#joinSession .precheckComplete');
+                if(precheck != null){
+                    precheck.removeEventListener('click', this.initHidePrecheck.bind(this));
+                    precheck.addEventListener('click', this.initHidePrecheck.bind(this));
+                }
 
-                    var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-                    virtualclassPreCheck.style.display = 'none';
-
-                    var virtualclassApp = document.getElementById('virtualclassApp');
-                    virtualclassApp.style.display = 'block';
-                    localStorage.setItem('precheck', true);
-
-                    virtualclass.videoHost.afterSessionJoin();
-                });
             }
+        },
+
+        initHidePrecheck () {
+            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+            virtualclassPreCheck.style.display = 'none';
+
+            var virtualclassApp = document.getElementById('virtualclassApp');
+            virtualclassApp.style.display = 'block';
+            // localStorage.setItem('precheck', true);
+            virtualclass.videoHost._resetPrecheck();
+            virtualclass.precheck.afterComplete();
+        },
+
+        joinSession () {
+            virtualclass.popup.waitMsg();
+            virtualclass.makeReadySocket();
+
+            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+            virtualclassPreCheck.style.display = 'none';
+
+            var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+            virtualclassPreCheck.style.display = 'none';
+
+            var virtualclassApp = document.getElementById('virtualclassApp');
+            virtualclassApp.style.display = 'block';
+            localStorage.setItem('precheck', true);
+
+            virtualclass.videoHost.afterSessionJoin();
+            virtualclass.precheck.afterComplete();
+
+            // virtualclass.videoHost._resetPrecheck();
+            // micTesting.destroyAudioNode();
+            // virtualclass.precheck.removeAllListener();
+
 
         },
 
         createVideo : function (){
-            var tempVideo = document.getElementById("webcamTempVideo");
-            tempVideo.width = 320;
-            tempVideo.height = 240;
+            if(virtualclass.system.mediaDevices.hasWebcam && typeof virtualclass.precheck.mediaStream != 'undefined'){
+                var tempVideo = document.getElementById("webcamTempVideo");
+                tempVideo.width = 320;
+                tempVideo.height = 240;
 
-            virtualclass.adpt.attachMediaStream(tempVideo,  virtualclass.precheck.mediaStream);
-            tempVideo.muted = true;
-            var videoContainer = document.getElementById('webcamTempVideo');
-            if(videoContainer != null) {
+                virtualclass.adpt.attachMediaStream(tempVideo,  virtualclass.precheck.mediaStream);
+                tempVideo.muted = true;
                 tempVideo.play();
             }
+
         }
     },
-
-
 
     startSession : function (){
         var virtualclassApp = document.getElementById('virtualclassApp');
@@ -555,6 +646,68 @@ var precheck = {
                 break;
             }
         }
+    },
+
+    afterComplete () {
+        if(virtualclass.precheck.hasOwnProperty('mediaStream') && virtualclass.precheck.mediaStream != null){
+            let track = virtualclass.precheck.mediaStream.getTracks()[0];  // if only one media track
+            track.stop();
+            // var precheckWebcam = document.getElementById("webcamTempVideo");
+            // precheckWebcam.pause();
+            // precheckWebcam.src="";
+        }
+        virtualclass.videoHost._resetPrecheck();
+        micTesting.destroyAudioNode();
+        virtualclass.precheck.removeAllListener();
+        virtualclass.media.isInitiator = false;
+        if(typeof workletAudioSend != 'undefined'){
+            workletAudioSend.disconnect();
+        } else if(virtualclass.gObj.audioPlayerNode != null){
+            virtualclass.gObj.audioPlayerNode.disconnect(virtualclass.media.audio.Html5Audio.audioContext.destination);
+            virtualclass.gObj.audioPlayerNode = null;
+        }
+
+        if(typeof virtualclass.media.audioCreatorNode != 'undefined' && virtualclass.media.audioCreatorNode != null){
+            virtualclass.media.audioCreatorNode.disconnect(virtualclass.media.audio.Html5Audio.audioContext.destination);
+            virtualclass.media.audioCreatorNode = null;
+        }
+
+        /** Need for safari for iOS ***/
+        if((virtualclass.system.mybrowser.name == 'iOS' || virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Safari' ) && virtualclass.media.audio.hasOwnProperty('Html5Audio') &&
+            virtualclass.media.audio.Html5Audio.hasOwnProperty('audioContext') &&
+            virtualclass.media.audio.Html5Audio.audioContext != null ){
+                virtualclass.media.audio.Html5Audio.audioContext.close();
+        }
+
+
+        if(virtualclass.media.audio.hasOwnProperty('Html5Audio')){
+            delete virtualclass.media.audio.Html5Audio;
+        }
+
+        console.log('Fetching media stream');
+
+        // var videoSwitch = document.querySelector('#videoSwitch');
+        //
+        // if(videoSwitch != null && videoSwitch.classList.contains('on')){
+        //     var videoAction = 'on';
+        // }else {
+        //     var videoAction = 'off';
+        // }
+        var that = this;
+
+        virtualclass.media.init((gotStream) => {
+            if(gotStream == 'success'){
+                virtualclass.media.audio.initAudiocontext();
+                /** Set video status after precheck **/
+                var videoAction = that.videoAction ? 'on' : 'off';
+                virtualclass.vutil.videoHandler(videoAction, 'notSendStatus');
+            }else {
+                console.log('Something wrong with stream');
+            }
+        }, 'fromPrecheck');
+
+        virtualclass.precheck.speaker.playTestAudio = false;
     }
+
 }
 

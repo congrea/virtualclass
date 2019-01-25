@@ -622,7 +622,7 @@
                     currApp.style.display = 'none';
                 }
 
-                virtualclass.gObj.video.audio.muteButtonToogle();
+                virtualclass.media.audio.muteButtonToogle();
                 //Remove all chat user list
                 var chatUsers  = chatContainerEvent.elementFromShadowDom('.ui-memblist-usr', 'all');
 

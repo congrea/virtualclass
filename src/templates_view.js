@@ -1057,7 +1057,7 @@ this["JST"]["dest_temp/templates/precheck.hbs"] = Handlebars.template({"compiler
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))
     + "</button></div></div><div id=\"vcMicCheck\" class=\"precheck mic\"><div class=\"testName\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"testingmichrophone",{"name":"getString","hash":{},"data":data}))
-    + "</div><div id=\"audioVisualaizerCont\"><canvas id=\"audioVisualaizer\" class=\"visualizer\" width=\"60\"></canvas></div><div class=\"result\"></div><div id=\"micButtons\" class=\"button clearfix\"><button type=\"button\" class=\"prev btn btn-default\">"
+    + "</div><div id=\"audioVisualaizerCont\"><div id=\"audioGraph\"></div></div><div class=\"result\"></div><div id=\"micButtons\" class=\"button clearfix\"><button type=\"button\" class=\"prev btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Prev",{"name":"getString","hash":{},"data":data}))
     + "</button><button type=\"button\" class=\"next btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))

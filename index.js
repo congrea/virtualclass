@@ -567,17 +567,17 @@ $(document).ready(function () {
 
             memberUpdateWithDelay(e, 'added');
 
-            // virtualclass.gObj.video.updateVideoContHeight();
+            // virtualclass.media.updateVideoContHeight();
 
             //  TODO this should be enable after remove the bewlow testing code
-            //  virtualclass.gObj.video.updateVideoContHeight();
+            //  virtualclass.media.updateVideoContHeight();
             // virtualclass.vutil.createDummyUser();
 
             // iMPORTANT this is for testing purpose only
             /* setTimeout(
              function (){
              // virtualclass.vutil.createDummyUser();
-             //virtualclass.gObj.video.updateVideoContHeight();
+             //virtualclass.media.updateVideoContHeight();
              },2000
              ); */
 
@@ -914,7 +914,7 @@ $(document).ready(function () {
                 virtualclass.gObj.audioEnable = false;
                 var speakerPressOnce = document.querySelector('#speakerPressOnce');
                 if(speakerPressOnce.dataset.audioPlaying == true || speakerPressOnce.dataset.audioPlaying == 'true'){
-                    virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce');
+                    virtualclass.media.audio.clickOnceSpeaker('speakerPressOnce');
                 }
 
                 if (e.message.toUser == virtualclass.gObj.uid) {
@@ -936,7 +936,7 @@ $(document).ready(function () {
             this.aDia = function (e){
                 var speakerPressOnce = document.querySelector('#speakerPressOnce');
                 if(speakerPressOnce.dataset.audioPlaying == true || speakerPressOnce.dataset.audioPlaying == 'true'){
-                    virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce');
+                    virtualclass.media.audio.clickOnceSpeaker('speakerPressOnce');
                 }
                 virtualclass.user.control.audioDisable();
                 virtualclass.gObj.audioEnable = false;
@@ -994,13 +994,13 @@ $(document).ready(function () {
 
             //notfound
             this.videoSlice = function (e) {
-                virtualclass.gObj.video.playVideo(e.message.videoSlice);
+                virtualclass.media.playVideo(e.message.videoSlice);
             };
 
             //screen share by image
             this.videoByImage = function (e) {
-                if (!virtualclass.gObj.video.existVideoContainer(e.message.videoByImage)) {
-                    virtualclass.gObj.video.video.createElement(e.message.videoByImage);
+                if (!virtualclass.media.existVideoContainer(e.message.videoByImage)) {
+                    virtualclass.media.video.createElement(e.message.videoByImage);
                 }
             };
 
@@ -1642,8 +1642,8 @@ $(document).ready(function () {
                 }
 
 
-                //virtualclass.gObj.video.video.removeUser(e.fromUser.userid);
-                virtualclass.gObj.video.video.removeUser(e.fromUser);
+                //virtualclass.media.video.removeUser(e.fromUser.userid);
+                virtualclass.media.video.removeUser(e.fromUser);
                 // TODO this should be update accordiing to new user
 
                 if(virtualclass.chat.isTechSupportExist(e.fromUser)){
@@ -1818,7 +1818,7 @@ $(document).ready(function () {
 
                         break;
                     case 11:  // user video image
-                        virtualclass.gObj.video.video.process(e.message);
+                        virtualclass.media.video.process(e.message);
                         break;
                     case 21 : // teacher big video
                         processImage(e.message, data_pack[1]);

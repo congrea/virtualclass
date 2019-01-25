@@ -793,8 +793,8 @@
 
                     // var alwaysPressElem = document.getElementById('speakerPressing');
                     if (virtualclass.gObj.hasOwnProperty('video')) {
-                        virtualclass.gObj.video.audio.studentNotSpeak();
-                        virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
+                        virtualclass.media.audio.studentNotSpeak();
+                        virtualclass.media.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
                     }
 
                     virtualclass.vutil.addClass('virtualclassCont', 'nowebcam')

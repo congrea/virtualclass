@@ -72,7 +72,7 @@
                         // virtualclass.chat.showChatListUsers();
                         // virtualclass.chat.setChatDisplay();
                         updateOnlineUserText();
-                        // virtualclass.gObj.video.updateVideoContHeight();
+                        // virtualclass.media.updateVideoContHeight();
                     });
                 },
                 setChatDisplay: function () {

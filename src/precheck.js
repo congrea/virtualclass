@@ -1,8 +1,7 @@
 var precheck = {
     currTest:"",
     playTestAudio : false,
-    webcam : null,
-    session : null,
+     session : null,
     cNavigator : null,
     handlers  : [],
     videoAction : false,

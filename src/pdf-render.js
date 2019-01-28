@@ -416,6 +416,7 @@
                             if (typeof that.shownPdf == "object") {
                                 setTimeout(
                                     function (){
+                                        // Tha shoul
                                         io.globallock = false;
 
                                         io.onRecJson(null);
@@ -722,6 +723,10 @@
             isBiggerCanvasWidth : function (canvas){
                 var canvasWrapper = canvas.parentNode;
             },
+
+            /**
+             *
+             * **/
 
             calculateScaleAtFirst : function (page, canvas){
               //  var viewport = page.getViewport((+(canvas.parentNode.offsetWidth)-100) / page.getViewport(1.0).width);

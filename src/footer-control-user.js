@@ -422,12 +422,13 @@
                 },
 
                 disable: function (toUser, control, contIdPart, label) {
-                    var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
+                    var selector = '.'+ control + 'Control'+toUser + ' ' + ' .contImg';
+                    var elem = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(selector);
+                    // var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
                     if (elem == null) {
                         return;
                     }
                     virtualclass.user.control._disable(elem, control, toUser, label);
-
                 },
 
 
@@ -462,7 +463,10 @@
 
 
                 enable: function (toUser, control, contIdPart, label) {
-                    var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
+                    // var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
+                    var selector = '.'+ control + 'Control'+toUser +  ' .contImg';
+                    var elem = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(selector);
+
                     if (elem == null) {
                         console.log("Element is Null");
                         return;
@@ -789,8 +793,8 @@
 
                     // var alwaysPressElem = document.getElementById('speakerPressing');
                     if (virtualclass.gObj.hasOwnProperty('video')) {
-                        virtualclass.gObj.video.audio.studentNotSpeak();
-                        virtualclass.gObj.video.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
+                        virtualclass.media.audio.studentNotSpeak();
+                        virtualclass.media.audio.clickOnceSpeaker('speakerPressOnce', "alwaysDisable");
                     }
 
                     virtualclass.vutil.addClass('virtualclassCont', 'nowebcam')
@@ -1124,7 +1128,6 @@
 
                 //TODO this function name should be convert into updateControlAtLocalStorage
                 updateUser: function (uid, key, val) {
-
                     //var userId =  localStorage.getItem(uid);
                     var userId = localStorage.getItem('virtualclass' + uid);
                     var uObj = {};
@@ -1179,7 +1182,7 @@
                 },
 
                 iconAttrManupulate: function (uid, classToBeAdd) {
-                    var audioImg = document.getElementById(uid + 'contrAudImg');
+                    var audioImg = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#ml' + uid + ' .audioImg');
                     if (audioImg != null) {
                         for (var i = 0; i < audioImg.classList.length; i++) {
                             if (audioImg.classList[i].substring(0, 5) == 'icon-') {

@@ -473,10 +473,10 @@
 
                 // TODO this should be done by proepr way
                 // it has to be done in function
-                virtualclass.gObj.video.audio.bufferSize = 0;
-                virtualclass.gObj.video.audio.encMode = "alaw";
-                virtualclass.gObj.video.audio.rec = '';
-                virtualclass.gObj.video.audio.audioNodes = [];
+                virtualclass.media.audio.bufferSize = 0;
+                virtualclass.media.audio.encMode = "alaw";
+                virtualclass.media.audio.rec = '';
+                virtualclass.media.audio.audioNodes = [];
 
                 var vcan =  virtualclass.wb[wid].vcan;
 
@@ -488,7 +488,7 @@
                     vcan.main.currentTransform = "";
                 }
 
-                virtualclass.gObj.video.audio.updateInfo();
+                virtualclass.media.audio.updateInfo();
             },
 
             clearCurrentTool: function () {
@@ -888,7 +888,7 @@
                 var wid = virtualclass.gObj.currWb;
                 if (msg.hasOwnProperty('createArrow')) {
                     var jobj = JSON.stringify(msg);
-                    virtualclass.wb[wid].vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 300);
+                    virtualclass.wb[wid].vcan.optimize.sendPacketWithOptimization(jobj, 300);
                 } else {
                     if (msg.hasOwnProperty('repObj')) {
                         if (typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined') {
@@ -903,7 +903,7 @@
                     var jobj = JSON.stringify(msg);
 
                   //  virtualclass.wb[virtualclass.gObj.currWb].sentPackets = virtualclass.wb[virtualclass.gObj.currWb].sentPackets + jobj.length;
-                    if (io.sock.readyState == 1) {
+                    if (io.webSocketConnected()) {
 
                         typeof toUser == 'undefined' ? ioAdapter.mustSend(msg) : ioAdapter.mustSendUser(msg, toUser);
 
@@ -1052,7 +1052,7 @@
 
             executeWhiteboardData  :  function (objToDisplay){
                 var wid = virtualclass.gObj.currWb;
-                console.log('Whiteboard executed uid ' + objToDisplay.uid);
+                // console.log('Whiteboard executed uid ' + objToDisplay.uid);
                 virtualclass.wb[wid].gObj.replayObjs.push(objToDisplay);
                 virtualclass.wb[wid].response.replayObj([objToDisplay]);
                 this.checkNextQueue(objToDisplay);

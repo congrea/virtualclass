@@ -622,7 +622,7 @@
                     currApp.style.display = 'none';
                 }
 
-                virtualclass.gObj.video.audio.muteButtonToogle();
+                virtualclass.media.audio.muteButtonToogle();
                 //Remove all chat user list
                 var chatUsers  = chatContainerEvent.elementFromShadowDom('.ui-memblist-usr', 'all');
 
@@ -747,13 +747,13 @@
                 virtualclass.recorder.storeDone = 0;
 
                 virtualclass.chat.removeChatHighLight('chatrm');
-
                 virtualclass.setPrvUser(); // Set Previous User
 
-                if (io.sock) {
-                    io.sock.close();
-                }
+                workerIO.postMessage({'cmd' : 'sessionEndClose'});
 
+                // if (io.sock) {
+                //     io.sock.close();
+                // }
 
                 if(precheck != null ){
                     localStorage.setItem('precheck', JSON.parse(precheck));

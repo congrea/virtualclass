@@ -1,8 +1,6 @@
 /** This file is used to get the gesture from student to run audio on mobile devices ***/
 
 var gesture = {
-
-
     initClassJoin : function (){
         var joinClassModal = document.querySelector('#joinClassModal');
         if(joinClassModal != null){
@@ -40,12 +38,17 @@ var gesture = {
     },
 
     clickToContinue : function(){
+        var virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
+        var joinClassModal = document.querySelector('#joinClassModal');
+
         virtualclassApp.style.display = 'block';
         joinClassModal.style.display = 'none';
-        virtualclass.gObj.video.audio.initAudiocontext();
+       // virtualclass.media.audioVisual.init();
+        virtualclass.media.audio.initAudiocontext();
+
         /* User does not to click on editor to view the written text */
         virtualclass.vutil.triggerMouseEvent(document.querySelector('.CodeMirror-scroll'), 'mousedown');
-        //virtualclass.gObj.video.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
+        //virtualclass.media.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
     },
 
 
@@ -65,7 +68,7 @@ var gesture = {
         mainbody.appendChild(initAudio);
 
         mainbody.onclick = function (){
-            virtualclass.gObj.video.audio.initScriptNode(uid);
+            virtualclass.media.audio.initScriptNode(uid);
             joinClassModal.style.display = 'none';
             virtualclass.gObj.requestToScriptNode = null;
         }

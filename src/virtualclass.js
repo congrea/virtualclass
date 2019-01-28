@@ -56,7 +56,8 @@
                 editorInitDone: 0,
                 resize : false,
                 has_ts_capability : (wbUser.ts == 1 || wbUser.ts == true) ? true : false,
-                meetingMode : +(wbUser.meetingMode),
+                // meetingMode : +(wbUser.meetingMode),
+                meetingMode : 0,
                 chromeExt : false,
                 pdfdebugg : true, //To draw scroll for debugging process
                 wbInitHandle : false,
@@ -83,7 +84,9 @@
                 stdvideoEnable : studentVideoEnable,
                 tempPrefix : 'dest_temp/templates',
                 allUserObj : {},
-                docPdfFirstTime : false
+                docPdfFirstTime : false,
+                sendAudioStatus : false,
+                audioRecWorkerReady : false
             },
 
             enablePreCheck : true,
@@ -152,7 +155,7 @@
                 // this.lang.getString = window.getString;
                 // this.lang.message = window.message;
                 this.vutil = window.vutil;
-                this.media = window.media
+                // this.media = window.media
                 this.sharePt= window.sharePt;
                 this.fineUploader= window.fineUploader;
                 this.system = window.system;
@@ -274,9 +277,9 @@
                 //To teacher
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
 
-                this.gObj.video = new window.virtualclass.media();
+                this.media = new window.media();
 
-                this.gObj.video.audioVisual.init();
+              //  this.gObj.video.audioVisual.init();
 
                 var precheck = localStorage.getItem('precheck');
                 if(precheck != null){
@@ -297,13 +300,6 @@
                 if(!virtualclass.gObj.meetingMode){
                     virtualclass.videoHost.init(320 , 240);
                     //virtualclass.networkStatus();
-                } else {
-                    // virtualclass.multiVideo.init();
-
-                    // virtualclass.user.control.audioDisable()
-                    // if(roles.hasAdmin()){
-                    //     virtualclass.user.control.videoDisable()
-                    // }
                 }
 
                 virtualclass.vutil.videoController();
@@ -338,6 +334,9 @@
                 if(virtualclassCont != null){
                     virtualclassCont.classList.add(virtualclass.system.mybrowser.name);
                 }
+
+
+
             },
 
             makeReadySocket : function (){
@@ -358,7 +357,9 @@
 
             initSocketConn: function () {
                 if (this.system.webSocket) {
-                    io.init(virtualclass.uInfo);
+                    // io.ioInit({'msg' : virtualclass.uInfo, cmd : 'init'});
+                      //ioInit.sendToWorker({'msg' : virtualclass.uInfo, cmd : 'init'});
+                     io.init(virtualclass.uInfo);
                     window.userdata = virtualclass.uInfo;
                 }
             },
@@ -1331,8 +1332,9 @@
 
                                     virtualclass.recorder.smallData = true;
 
-                                    io.sock.close();
+                                    // io.sock.close();
 
+                                    workerIO.postMessage({'cmd' : 'sessionEndClose'});
                                     virtualclass.recorder.startUploadProcess();
                                 }, 300
                             );

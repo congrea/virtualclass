@@ -33,21 +33,21 @@
 
 
         {{/if}}
-        <div class="controleCont" id="{{peer.userid}}contrAudCont">
+        <div class="controleCont audioControl{{peer.userid}}" id="{{peer.userid}}contrAudCont">
           <a class="congtooltip" data-title="{{getString 'audioEnable'}}" id="{{peer.userid}}contrAudAnch" data-event="ac">
             <span class="icon-audioImg enable audioImg contImg" data-audio-disable="false" id="{{peer.userid}}contrAudImg" data-event="ac"></span></a>
         </div>
-        <div class="controleCont userChat" id="{{peer.userid}}contrChatCont">
+        <div class="controleCont userChat chatControl{{peer.userid}}" id="{{peer.userid}}contrChatCont chatUser{{peer.userid}}">
           <a class="congtooltip" data-title="{{getString 'chatEnable'}}" id="{{peer.userid}}contrChatAnch" data-event="ch">
             <span class="icon-chatImg enable chatImg contImg" data-chat-disable="false" id="{{peer.userid}}contrChatImg" data-event="ch"></span></a>
         </div>
 
       {{#if peer.isTeacher}}
-        <div class="controleCont controllereditorRich" id="{{peer.userid}}contreditorRichCont">
+        <div class="controleCont controllereditorRich editorRich{{peer.userid}}" id="{{peer.userid}}contreditorRichCont">
           <a class="congtooltip" data-title="{{getString 'writemode'}}" id="{{peer.userid}}contreditorRichAnch" data-event="er">
             <span class="icon-editorRichImg block editorRichImg contImg" data-editorrich-disable="true" id="{{peer.userid}}contreditorRichImg" data-event="er"></span></a>
         </div>
-        <div class="controleCont controllereditorCode" id="{{peer.userid}}contreditorCodeCont" style="display: none;">
+        <div class="controleCont controllereditorCode editorCode{{peer.userid}}"  id="{{peer.userid}}contreditorCodeCont" style="display: none;">
           <a class="congtooltip" data-title="{{getString 'writemode'}}" id="{{peer.userid}}contreditorCodeAnch">
             <span class="icon-editorCodeImg block editorCodeImg contImg" data-editorcode-disable="true" id="{{peer.userid}}contreditorCodeImg" data-event="er"></span></a>
         </div>

@@ -1005,7 +1005,8 @@
     /*max-height: calc(100vh - 120px);*/
 }
 
-#virtualclassCont.congrea #virtualclassPreCheck.bootstrap canvas {margin: -44px 0 -40px 44%;}
+/*#virtualclassCont.congrea #virtualclassPreCheck.bootstrap canvas {margin: -44px 0 -40px 44%;}*/
+
 @media (max-width: 620px) {
 	#virtualclassCont.congrea canvas {margin-left: 38%; max-width: 78px;}
 }
@@ -3987,6 +3988,7 @@ background-color: #d6d6d6;
 #virtualclassCont.congrea #joinClass #joinClassModal .joinClasscontainer button.btn:focus {
 	outline: none;
 }
+
 .congrea.teacher #virtualclassPoll .modal.in{
     display:block!important;
 }
@@ -3999,8 +4001,6 @@ background-color: #d6d6d6;
 
 
 /* The actual popup */
-
-
 .congrea.teacher .pollList .popover-content {
    /* visibility: hidden; */
    width: 30%;
@@ -4043,4 +4043,18 @@ background-color: #d6d6d6;
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
+}
+
+
+#virtualclassCont.congrea #DocumentShareDashboard #docsListContainer #listdocs .controls.delete {
+	margin-top:0;
+}
+
+#virtualclassCont.congrea #waveForm {
+	width : 100%;
+}
+
+#virtualclassCont.congrea #audioVisualaizerCont {
+	width : 50%;
+	margin : auto;
 }

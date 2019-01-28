@@ -160,7 +160,6 @@
              */
 
             fromLocalStorage: function(state) {
-
                 if ( document.getElementById("iframecontainer") == null) {
                     this.UI.createIframe();
                 }
@@ -739,23 +738,27 @@
              * @param receivemsg received message from the sender containg the url of the slide
              */
             setSlideUrl: function(receivemsg) {
-                virtualclass.sharePt.studentPpt = 0;
-                console.log('PPT:- invoke setSlideUrl');
-                this.viewFlag = 0;
-                this.autoSlideFlag = 0
-                this.autoSlideTime = 0;
-                var iframe = document.getElementById('pptiframe');
-                if (iframe != null) {
-                    iframe.parentNode.removeChild(iframe);
+                if(receivemsg.pptMsg != null && receivemsg.pptMsg != ''){
+                    virtualclass.sharePt.studentPpt = 0;
+                    console.log('PPT:- invoke setSlideUrl');
+                    this.viewFlag = 0;
+                    this.autoSlideFlag = 0
+                    this.autoSlideTime = 0;
+                    var iframe = document.getElementById('pptiframe');
+                    if (iframe != null) {
+                        iframe.parentNode.removeChild(iframe);
+                    }
+                    console.log("create iframe from setslide url")
+                    this.UI.createIframe();
+                    var elem = document.getElementById("iframecontainer");
+                    elem.style.display = "block";
+                    var iframe = document.getElementById('pptiframe');
+
+                    iframe.setAttribute("src", (receivemsg.pptMsg.search("postMessage") < 0) ? receivemsg.pptMsg + "?postMessage=true&postMessageEvents=true" : receivemsg.pptMsg);
+                    console.log("test url is set");
+                    this.pptUrl = receivemsg.pptMsg;
                 }
-                console.log("create iframe from setslide url")
-                this.UI.createIframe();
-                var elem = document.getElementById("iframecontainer");
-                elem.style.display = "block";
-                var iframe = document.getElementById('pptiframe');
-                iframe.setAttribute("src", (receivemsg.pptMsg.search("postMessage") < 0) ? receivemsg.pptMsg + "?postMessage=true&postMessageEvents=true" : receivemsg.pptMsg);
-                console.log("test url is set");
-                this.pptUrl = receivemsg.pptMsg;
+
                 virtualclass.sharePt.localStoragFlag=0;
                 virtualclass.sharePt.startFromFlag=0
             },

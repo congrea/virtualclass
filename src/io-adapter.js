@@ -130,6 +130,12 @@ var ioAdapter = {
 
     sendBinary: function (msg) {
         "use strict";
-        io.sendBinary(msg);
+       io.sendBinary(msg);
+    },
+
+    setSession: function (sesson) {
+        "use strict";
+        var cfun = 'session';
+        io.send(session, cfun);
     }
 };

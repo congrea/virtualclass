@@ -498,7 +498,7 @@
 }
 
 #virtualclassCont.congrea .congtooltip:hover:after {
-	background : #fff;
+	background : #ccc;
 	border : #ccc solid 1px;
 	border-radius : 0.25em;
 	bottom : 2.6em;
@@ -2144,9 +2144,9 @@
 #virtualclassCont.congrea .ui-widget-header .icon-user:before {
 	color:#fff;
 }
-#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool:first-child a:hover, #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool.active:first-child a {
-    border-bottom-left-radius: 6px;
-}
+/*#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool:first-child a:hover, #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool.active:first-child a {*/
+    /*border-bottom-left-radius: 6px;*/
+/*}*/
 
 #virtualclassCont.congrea #popupContainer #about-modal{
 	border: #e2e2e2 solid 3px;
@@ -2248,7 +2248,6 @@
 
 
 #virtualclassCont.congrea #preCheckcontainer #joinSession {
-	cursor : pointer;
 	text-align : right;
 	color : blue;
 
@@ -2279,10 +2278,10 @@
 }
 
 #virtualclassCont.congrea #preCheckcontainer #joinSession {
-	cursor : pointer;
 	text-align : right;
 	color : blue;
 }
+
 #virtualclassCont.congrea #preCheckcontainer .modal {
 	background-color: #555558;
 }
@@ -4049,4 +4048,8 @@ background-color: #d6d6d6;
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
+}
+
+#virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="freeDrawing"] a {
+	border-bottom-left-radius: 5px;
 }

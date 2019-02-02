@@ -208,9 +208,6 @@
              * @returns nothing
              */
             finalizeText: function (ctx, txtWrapper, prvModObj, mtext) {
-                if(this.prvCurrTransform.color != undefined) {
-                    virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = this.prvCurrTransform.color;
-                }
                 var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                 var prvNode = document.getElementById(txtWrapper.id);
                 var userText = "";
@@ -231,11 +228,11 @@
                 ctx.fillStyle = this.prvCurrTransform.color;
                 var maxWidth = 0;
                 var tempUserTextArr = userText.split(/\r?\n/);
-                maxWidth = ctx.measureText(tempUserTextArr[0]).width;
+                maxWidth = ctx.measureText(tempUserTextArr[0]).width + 20;
                 //var extHeight = 15; //TODO this should be changed according to font size by selected user
-                var extHeight = 13;
+                var extHeight = 15;
                 for (var i = 1; i < tempUserTextArr.length; i++) {
-                    extHeight += 13;
+                    extHeight += 15;
                     var tempMaxWidth = ctx.measureText(tempUserTextArr[i]).width;
                     if (tempMaxWidth > maxWidth) {
                         maxWidth = tempMaxWidth;

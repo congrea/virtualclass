@@ -209,6 +209,26 @@
                 vcan.canvasWrapperId = cmdToolsWrapper.id;
             },
 
+            initActiveElement(selector, tool) {
+                var elem = document.querySelector(selector);
+                elem.addEventListener('click', (ev) => {
+                    this.activeElement(ev, tool);
+                });
+            },
+
+            activeElement (ev, tool){
+                var prevSelectedTool = document.querySelector("#t_"+tool.type + virtualclass.gObj.currWb + " .selected");
+                if(prevSelectedTool != null) {
+                    prevSelectedTool.classList.remove("selected");
+                }
+
+                var currElementValue = ev.target.dataset[tool.prop];
+                if(currElementValue != null) {
+                    ev.target.classList.add("selected");
+                    virtualclass.wb[virtualclass.gObj.currWb].changeToolProperty(tool.type, currElementValue);
+                }
+            },
+
             /**
              * this does call the initializer function for particular object
              * @param expects the mouse down event.
@@ -216,14 +236,89 @@
             objInit: function (evt) {
                 var wbId = virtualclass.vutil.getWhiteboardId(this.parentNode);
                 var anchorNode = this;
-                var tool = "t_color" + wbId;
-                if(tool == anchorNode.parentNode.id){
-                    var elm = document.querySelector("#t_color" + wbId + " input");
-                    elm.addEventListener('change', function (ev){
-                        var color = "#" + ev.currentTarget.value;
-                        virtualclass.wb[wbId].activeColor(wbId, color);
-                    })
-                }else {
+                //var colorPicker = document.querySelector("#colorList"+wbId);
+                var toolId = anchorNode.parentNode.id;
+
+                if(evt.currentTarget.classList.contains("icon-shapes")){
+                    var shapesElem = document.querySelector("#shapes"+wbId);
+                    if(shapesElem.classList.contains("open")){
+                       shapesElem.classList.remove("open");
+                       shapesElem.classList.add("close");
+                    }else{
+                       if(shapesElem.classList.contains("close")){
+                          shapesElem.classList.remove("close");
+                       }
+                       shapesElem.classList.add("open");
+                    }
+                    return;
+                }
+
+                if(anchorNode.parentNode.id == "t_color" + wbId){
+                    virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+
+                    virtualclass.wb[wbId].closeElem(document.querySelector("#t_strk"+wbId+" .strkSizeList"));
+
+                    virtualclass.wb[wbId].closeElem(document.querySelector("#t_font"+wbId+" .fontSizeList"));
+
+                    virtualclass.wb[wbId].toggleDisplay(toolId, wbId);
+
+                    // colorPicker.addEventListener('click', function(ev){
+                    //
+                    //     var attr = ev.currentTarget.parentNode.dataset.tool;
+                    //     var prevSelectedColor = document.querySelector("#colorList" + wbId + " .selected");
+                    //     if(prevSelectedColor != null) {
+                    //        prevSelectedColor.classList.remove("selected");
+                    //     }
+                    //     var color = ev.target.bgColor;
+                    //     if(color != ""){
+                    //        ev.target.classList.add("selected");
+                    //        virtualclass.wb[wbId].changeToolProperty(attr, color);
+                    //     }
+                    // });
+
+
+                    virtualclass.wb[wbId].initActiveElement("#colorList"+wbId,  {type : 'color', prop: 'color'});
+                    // colorPicker.addEventListener('click', this.activeElement);
+
+                }else if(anchorNode.parentNode.id == "t_strk" + wbId){
+
+                         virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+                         virtualclass.wb[wbId].toggleDisplay(toolId, wbId);
+
+                         // document.querySelector("#t_strk"+wbId+" ul").addEventListener('click', function(ev){
+                         //
+                         //    var attr = ev.currentTarget.parentNode.dataset.tool;
+                         //    var strkSize = ev.target.dataset.stroke;
+                         //    var prevSelectedstrk = document.querySelector("#t_strk"+wbId+" .selected");
+                         //    if(prevSelectedstrk != null) {
+                         //        prevSelectedstrk.classList.remove("selected");
+                         //    }
+                         //    ev.target.classList.add("selected");
+                         //    virtualclass.wb[wbId].changeToolProperty(attr, strkSize);
+                         // })
+                         virtualclass.wb[wbId].initActiveElement("#t_strk"+wbId+" ul", {type : 'strk', prop: 'stroke'} );
+
+                }else if(anchorNode.parentNode.id == "t_font" + wbId){
+
+                         virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+                         virtualclass.wb[wbId].toggleDisplay(toolId, wbId);
+
+                         virtualclass.wb[wbId].initActiveElement("#t_font"+wbId+" ul", {type : 'font', prop: 'font'} );
+
+
+
+                    // document.querySelector("#t_font"+wbId+" ul").addEventListener('click', function(ev){
+                         //
+                         //    var attr = ev.currentTarget.parentNode.dataset.tool;
+                         //    var txtFont = ev.target.dataset.font;
+                         //    var prevSelectedfont = document.querySelector("#t_font"+wbId+" .selected");
+                         //    if(prevSelectedfont != null) {
+                         //       prevSelectedfont.classList.remove("selected");
+                         //    }
+                         //    ev.target.classList.add("selected");
+                         //    virtualclass.wb[wbId].changeToolProperty(attr, txtFont);
+                         // })
+                } else {
                     if (typeof virtualclass.wb[virtualclass.gObj.currWb] != 'undefined' && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != '' &&
                         typeof virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != 'undefined' && this.parentNode.id.indexOf('t_text') < 0) {
                         // virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
@@ -254,6 +349,20 @@
                         virtualclass.wb[wbId].toolInit(anchorNode.parentNode.id, wbId);
                     }
 
+                    //var currentShapeTool = document.querySelector("#tool_wrapper"+wbId);
+                    if(anchorNode.parentNode.id == "t_rectangle"+wbId || anchorNode.parentNode.id == "t_line"+wbId
+                        || anchorNode.parentNode.id == "t_oval"+wbId  || anchorNode.parentNode.id == "t_triangle"+wbId)
+                    {
+                       document.querySelector("#tool_wrapper"+wbId).dataset.currtool = anchorNode.parentNode.dataset.tool;
+                    }else {
+                       delete document.querySelector("#tool_wrapper"+wbId).dataset.currtool;
+                       virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+                       virtualclass.wb[wbId].closeElem(document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList"));
+                       virtualclass.wb[wbId].closeElem(document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList"));
+                       virtualclass.wb[wbId].closeElem(document.querySelector("#colorList" + virtualclass.gObj.currWb));
+                    }
+
+
                     if (anchorNode.parentNode.id != 't_replay' + wbId && anchorNode.parentNode.id != 't_clearall' + wbId
                         && anchorNode.parentNode.id != 't_reclaim' + wbId && anchorNode.parentNode.id != 't_assign' + wbId) {
                         var currTime = new Date().getTime();
@@ -267,8 +376,7 @@
                         //recorder.items.push(obj);
 
                         virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
-//                        virtualclass.storage.wholeStore(obj);
-
+                        //virtualclass.storage.wholeStore(obj);
 
                         virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'}); //after optimized
                     }
@@ -276,23 +384,85 @@
                         virtualclass.wb[wbId].prvTool = this.parentNode.id;
                         virtualclass.wb[wbId].prvToolInfo = obj;
                     }
+
+
+                    var fontTool = document.querySelector("#t_font"+wbId);
+                    var strkTool = document.querySelector("#t_strk"+wbId);
+                    if(anchorNode.parentNode.id == "t_text" + wbId){
+                       if(fontTool.classList.contains("hide")){
+                          fontTool.classList.remove("hide");
+                          fontTool.classList.add("show");
+                       }
+                          strkTool.classList.add("hide");
+                    }else{
+                        if(strkTool.classList.contains("hide")){
+                           strkTool.classList.remove("hide");
+                           strkTool.classList.add("show");
+                        }
+                           fontTool.classList.add("hide");
+                    }
                 }
             },
 
+            toggleDisplay : function(toolId, wbId){
+                var  colorPicker = document.querySelector("#colorList"+wbId);
+                if(toolId == "t_color"+wbId){
+                    if(colorPicker.classList.contains("open")){
+                       colorPicker.classList.remove("open");
+                       colorPicker.classList.add("close");
+                    }else{
+                       if(colorPicker.classList.contains("close")){
+                          colorPicker.classList.remove("close");
+                       }
+                          colorPicker.classList.add("open");
+                    }
+                }else if(toolId == "t_strk"+wbId || toolId == "t_font"+wbId){
+                        virtualclass.wb[wbId].closeElem(colorPicker);
 
-            activeColor : function(wid, color){
-                if(typeof color !== "undefined") {
-                    var vcan = virtualclass.wb[wid].vcan;
-                    var currTime = new Date().getTime();
-                    virtualclass.wb[wid].activeToolColor = color;
-                    var obj = {'color': color, mt: currTime};
-                    virtualclass.wb[wid].uid++;
-                    obj.uid = virtualclass.wb[wid].uid;
-                    vcan.main.replayObjs.push(obj);
-                    virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
-                    virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
+                        var selectSize = (toolId == "t_strk"+wbId) ? document.querySelector("#" + toolId + " .strkSizeList") : document.querySelector("#" + toolId+ " .fontSizeList");
+                        if(selectSize.classList.contains("open")){
+                           selectSize.classList.remove("open");
+                           selectSize.classList.add("close");
+                        }else{
+                            if(selectSize.classList.contains("close")){
+                               selectSize.classList.remove("close");
+                            }
+                               selectSize.classList.add("open");
+                        }
                 }
-                },
+            },
+
+            changeToolProperty : function(attr, value){
+                var currTime = new Date().getTime();
+                if(attr == "color") {
+                    var selectElem = document.querySelector("#colorList"+virtualclass.gObj.currWb+ " .selected").id;
+                    virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = value;
+                    document.querySelector("#t_color"+ virtualclass.gObj.currWb +" .disActiveColor").style.backgroundColor = virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+                    var obj = {'color': value,'elem' : selectElem, mt: currTime};
+                }else if(attr == "strk"){
+                    var selectElem = document.querySelector("#t_strk"+virtualclass.gObj.currWb+ " .selected").id;
+                    virtualclass.wb[virtualclass.gObj.currWb].currStrkSize = value;
+                    var obj = {'strkSize': value,'elem':selectElem, mt: currTime};
+                }else if(attr == "font"){
+                    var selectElem = document.querySelector("#t_font"+virtualclass.gObj.currWb+ " .selected").id;
+                    virtualclass.wb[virtualclass.gObj.currWb].textFontSize = value;
+                    var obj = {'fontSize': value,'elem':selectElem, mt: currTime};
+                }
+
+                var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
+                virtualclass.wb[virtualclass.gObj.currWb].uid++;
+                obj.uid = virtualclass.wb[virtualclass.gObj.currWb].uid;
+                vcan.main.replayObjs.push(obj);
+                virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
+                virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
+            },
+
+            closeElem : function(elem){
+                if(elem.classList.contains("open")){
+                   elem.classList.remove("open");
+                   elem.classList.add("close");
+                }
+            },
 
             /**
              *
@@ -381,32 +551,71 @@
                             console.log('Whiteboard clear init ' + wbId);
                             virtualclass.wb[wbId].utility.t_clearallInit();
                             virtualclass.wb[wbId].utility.makeDefaultValue(cmd);
-                            virtualclass.storage.wbDataRemove(wbId)
+                            virtualclass.storage.wbDataRemove(wbId);
                             //virtualclass.storage.clearSingleTable('wbData');
 
                             virtualclass.vutil.beforeSend({'clearAll': true, 'cf': 'clearAll'});
 
-                            if (virtualclass.wb[wbId].hasOwnProperty('prvToolInfo') && typeof virtualclass.wb[wbId].prvToolInfo == 'object'){
-                                var cmd = virtualclass.wb[wbId].prvToolInfo.cmd;
-                            } else {
-                                if(virtualclass.wb[wbId].hasOwnProperty('prvTool')){
-                                    var cmd = virtualclass.wb[wbId].prvTool;
-                                }else {
-                                    var cmd = "t_rectangle";
+                            // if (virtualclass.wb[wbId].hasOwnProperty('prvToolInfo') && typeof virtualclass.wb[wbId].prvToolInfo == 'object'){
+                            //     var cmd = virtualclass.wb[wbId].prvToolInfo.cmd;
+                            // } else {
+                            //     if(virtualclass.wb[wbId].hasOwnProperty('prvTool')){
+                            //         var cmd = virtualclass.wb[wbId].prvTool;
+                            //     }else {
+                            //         var cmd = "t_rectangle";
+                            //     }
+                            // }
+                            //
+                            // if(cmd.indexOf('_doc_') <= -1){
+                            //     cmd += virtualclass.gObj.currWb;
+                            // }
+
+                            if(roles.hasControls()) {
+                                virtualclass.wb[wbId].currStrkSize = virtualclass.gObj.defalutStrk;
+                                virtualclass.wb[wbId].textFontSize = virtualclass.gObj.defalutFont;
+                                virtualclass.wb[wbId].activeToolColor = virtualclass.gObj.defaultcolor;
+                                document.querySelector("#t_color"+ wbId +" .disActiveColor").style.backgroundColor = virtualclass.wb[wbId].activeToolColor;
+
+                                // var removeCurrtool = document.querySelector("#tool_wrapper"+wbId);
+                                // delete removeCurrtool.dataset.currtool;
+                                delete document.querySelector("#tool_wrapper"+wbId).dataset.currtool;
+
+                                var strk = document.querySelector("#t_strk"+wbId);
+                                if(strk != null){
+                                    strk.classList.remove("show");
                                 }
+
+                                var font = document.querySelector("#t_font"+wbId);
+                                if(font != null) {
+                                    font.classList.remove("show");
+                                }
+
+                                var removeColor = document.querySelector("#colorList"+virtualclass.gObj.currWb+ " .selected");
+                                if(removeColor != null){
+                                   removeColor.classList.remove("selected");
+                                }
+
+                                var removeSelectedStrk = document.querySelector("#t_strk"+virtualclass.gObj.currWb+ " .selected");
+                                if(removeSelectedStrk != null){
+                                   removeSelectedStrk.classList.remove("selected");
+                                   var selectDefaultStrk = document.querySelector(".strkSizeList #item-1");
+                                   selectDefaultStrk.classList.add("selected");
+                                }
+
+                                var removeSelectedFont = document.querySelector("#t_font"+virtualclass.gObj.currWb+ " .selected");
+                                if(removeSelectedFont != null){
+                                   removeSelectedFont.classList.remove("selected");
+                                   var selectDefaultFont = document.querySelector(".fontSizeList #item-1");
+                                   selectDefaultFont.classList.add("selected");
+                                }
+
+                                localStorage.removeItem("activeTool");
                             }
 
-                            if(cmd.indexOf('_doc_') <= -1){
-                                cmd += virtualclass.gObj.currWb;
-                            }
-
-                            var color = virtualclass.wb[wbId].activeToolColor;
-                            virtualclass.wb[wbId].activeColor(wbId, color);
-
-                            var anch = document.getElementById(cmd).getElementsByTagName('a')[0];
-                            if(anch != null){
-                                anch.click();
-                            }
+                            // var anch = document.getElementById(cmd).getElementsByTagName('a')[0];
+                            // if(anch != null){
+                            //     anch.click();
+                            // }
                         }
                     );
 

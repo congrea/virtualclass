@@ -92,7 +92,9 @@
                 obj.lockRotation = false;
                 obj.MIN_SCALE_LIMIT = 0.1;
                 obj.borderOpacityWhenMoving = 0.4;
-                obj.color = virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+                obj.color = (virtualclass.wb[virtualclass.gObj.currWb].activeToolColor == undefined) ? virtualclass.gObj.defaultcolor : virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+                obj.stroke = (virtualclass.wb[virtualclass.gObj.currWb].currStrkSize == undefined) ? virtualclass.gObj.defalutStrk : virtualclass.wb[virtualclass.gObj.currWb].currStrkSize;
+                obj.fontSize = (virtualclass.wb[virtualclass.gObj.currWb].textFontSize == undefined) ? virtualclass.gObj.defalutFont : virtualclass.wb[virtualclass.gObj.currWb].textFontSize;
 
                 if (!obj.hasOwnProperty('theta')) {
                     obj.theta = 0;

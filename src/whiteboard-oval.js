@@ -52,7 +52,7 @@
                     var endingPoint = 2 * Math.PI;
                     var counterClockWise = false;
 
-                    ctx.lineWidth = obj.lineWidth;
+                    ctx.lineWidth = obj.stroke;
 
                     //this is handling for into linux for firefox
                     var rNumber = obj.ry / obj.rx;

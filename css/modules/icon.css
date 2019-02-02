@@ -764,3 +764,12 @@
     color: dimgray;
     font-weight:bold;
 }
+
+#virtualclassCont.congrea .icon-color:before{
+  content: "\e254";
+  font-size: 19px;
+}
+
+#virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:before {
+  content : "\e994";
+}

@@ -83,7 +83,11 @@
                 stdvideoEnable : studentVideoEnable,
                 tempPrefix : 'dest_temp/templates',
                 allUserObj : {},
-                docPdfFirstTime : false
+                docPdfFirstTime : false,
+                defalutStrk : "1",
+                defalutFont : "25",
+                defalutFntOptn : "1",
+                defaultcolor : "#0000ff",
             },
 
             enablePreCheck : true,
@@ -974,8 +978,44 @@
                         }
                     }
 
-                    if(roles.hasControls()){
-                        virtualclass.jscolor.register();
+                    if(roles.hasControls()) {
+                        var fontTool = document.querySelector("#t_font"+virtualclass.gObj.currWb);
+                        var strkTool = document.querySelector("#t_strk"+virtualclass.gObj.currWb);
+                        if(virtualclass.wb[virtualclass.gObj.currWb].prvTool == "t_text"+virtualclass.gObj.currWb){
+                            if(fontTool.classList.contains("hide")){
+                                fontTool.classList.remove("hide");
+                                fontTool.classList.add("show");
+                            }
+                            strkTool.classList.add("hide");
+                        }else{
+                            fontTool.classList.add("hide");
+                        }
+
+                    window.addEventListener("mouseup", function (ev) {
+                        if (ev.target.dataset.hasOwnProperty("stroke") || ev.target.dataset.hasOwnProperty("font")) {
+                            var sizeDropDown = (ev.target.dataset.hasOwnProperty("stroke")) ? document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList") : document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList");
+                            virtualclass.wb[virtualclass.gObj.currWb].closeElem(sizeDropDown);
+
+                        }else if(ev.target.classList.contains("icon-color") || ev.target.classList.contains("selected") || ev.target.classList.contains("congtooltip")) {
+                               virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes"+virtualclass.gObj.currWb));
+
+                        }else if(ev.target.classList.contains("icon-rectangle") || ev.target.classList.contains("icon-line")
+                                 || ev.target.classList.contains("icon-oval")|| ev.target.classList.contains("icon-triangle")){
+                                 virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes"+virtualclass.gObj.currWb));
+
+                        }else {
+                                 virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList"));
+
+                                 virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList"));
+
+                                 virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#colorList" + virtualclass.gObj.currWb));
+
+                            if(!ev.target.classList.contains("icon-shapes")){
+                               virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+                            }
+
+                            }
+                        });
                     }
 
                     if(typeof virtualclass.wb.indexNav == 'undefined'){

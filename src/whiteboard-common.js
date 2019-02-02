@@ -108,7 +108,6 @@
         },
 
         next: function () {
-            virtualclass.jscolor.register();
             this.hideElement();
             var wid = this.whiteboardWrapperExist('next');
             if (wid == null) {
@@ -135,7 +134,9 @@
             virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
             virtualclass.wbCommon.indexNav.UI.pageNavHandler("right");
             this.displaySlide(wid);
+
             virtualclass.gObj.currWb = wid;
+
         },
 
         setCurrSlideNumber : function (wid){
@@ -151,13 +152,16 @@
         },
 
         prev: function () {
-            virtualclass.jscolor.register();
             this.hideElement();
             var wid = this.whiteboardWrapperExist('prev');
             this.readyCurrentWhiteboard(wid);
             this.setCurrSlideNumber(wid);
             virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
             virtualclass.wbCommon.indexNav.UI.pageNavHandler("left");
+            var prvsTool = document.querySelector("#"+virtualclass.wb[wid].prvTool);
+            if(prvsTool != null && !prvsTool.classList.contains("active")){
+               prvsTool.classList.add("active");
+            }
         },
 
         readyCurrentWhiteboard : function (wid){
@@ -166,11 +170,9 @@
                     virtualclass.vutil.createWhiteBoard(wid);
                     this.displaySlide(wid);
                     virtualclass.gObj.currWb = wid;
-
                 }else {
                     this.displaySlide(wid);
                     virtualclass.gObj.currWb = wid;
-
                 }
                 virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : virtualclass.gObj.currWb});
 

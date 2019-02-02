@@ -1058,3 +1058,10 @@
         left : 5px;
     }
 }
+
+#virtualclassCont[data-currapp="DocumentShare"] .canvasWrapper .whiteboards {
+    z-index: auto !important;
+}
+#virtualclassCont[data-currapp="DocumentShare"] #docScreenContainer .canvasWrapper .pdfs {
+    z-index:-1;
+}

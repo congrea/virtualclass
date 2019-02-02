@@ -75,6 +75,7 @@
 
                     //right vertical line in case of rtl
                     ctx.lineTo(widthBy2, heightBy2);
+                    ctx.lineWidth = obj.stroke;
                     ctx.strokeStyle = obj.color;
                     ctx.closePath();
 

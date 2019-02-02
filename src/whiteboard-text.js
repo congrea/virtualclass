@@ -38,8 +38,8 @@
                  * @param obj would be drawn
                  */
                 draw: function (ctx, obj, noTransform) {
-
-                    ctx.font = obj.font;
+                    var fontSize = obj.fontSize;
+                    ctx.font = fontSize + "px Times New Roman";
                     ctx.fillStyle = obj.color;
                     var textLines = obj.text.split(/\r?\n/);
                     //obj.height = obj.fontSize * obj.textLines.length * obj.lineHeight;

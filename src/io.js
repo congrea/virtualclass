@@ -197,9 +197,11 @@ var io = {
             // this.onRecBinary(e)
             workerIO.postMessage({'cmd' : 'onRecBinary', msg : e.data});
         } else {
-            var msg = JSON.parse(e.data);
-            this.onRecSave(msg, e.data);
-            io.onRecJson(msg, e.data);
+            ioInit.onmessage({data : {cmd : 'receivedJson', msg:e.data}});
+
+            // var msg = JSON.parse(e.data);
+            // this.onRecSave(msg, e.data);
+            // io.onRecJson(msg, e.data);
         }
     },
 
@@ -285,7 +287,7 @@ var io = {
                         type: "newmessage",
                         message: receivemsg.m,
                         fromUser: receivemsg.user,
-                        //   toUser: userto
+                        // toUser is user on which the action to be performed
                         toUser:  virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
                     });
                 }

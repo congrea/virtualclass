@@ -3,6 +3,9 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+
+    allUserInformation = [];
+
     var binData;
     var e = {};
     var reqFile = 1;
@@ -69,17 +72,24 @@
                     var tempData = data;
 
                     //TODO, this should be adjust at below loop
+                    // var firstData = '"{"userid":"13","sid":"5joTe10AM2","rid":"wss://c1861206087.sg1.congrea.net","authuser":"d0b9ef10e91747111299","authpass":"25d3c4270bfd82d1d423","userobj":{"userid":"450","name":"raj ","lname":"","img":"noimage","role":"t"},"room":"450"}"';
+                    //
+                    // this.items.push({playTime : 58, recObjs : firstData});
+
                     for (var m = 0; m < tempData.length; m++) {
                         this.items.push(tempData[m]);
                     }
 
                     for (k = 0; k < tempData.length; k++) {
-                        if (tempData[k].hasOwnProperty('bd')) {
-                            if (tempData[k].bd == 'a') {
-                                binData = virtualclass.dtCon.base64DecToArrInt(tempData[k].recObjs);
-                            } else if (tempData[k].bd == 'c') {
-                                binData = virtualclass.dtCon.base64DecToArrclm(tempData[k].recObjs);
-                            }
+                        if (tempData[k].type == 'B') {
+                            // if (tempData[k].bd == 'a') {
+                            //     binData = virtualclass.dtCon.base64DecToArrInt(tempData[k].recObjs);
+                            // } else if (tempData[k].bd == 'c') {
+                            //     binData = virtualclass.dtCon.base64DecToArrclm(tempData[k].recObjs);
+                            // }
+
+                            binData = virtualclass.dtCon.base64DecToArrInt(tempData[k].recObjs);
+
                             this.items[i].recObjs = binData;
                             for (var j = 0; j < binData.length; j++) {
                                 this.items[i].recObjs[j] = binData[j];
@@ -91,6 +101,8 @@
                     if (!this.hasOwnProperty('prvNum')) {
                         that.play();
                     }
+
+
                     this.prvNum = i;
                 }
             }
@@ -621,7 +633,32 @@
             //virtualclass.xhr.send("record_data=true&prvfile="+reqFile+"&user="+virtualclass.gObj.uid, 'export.php', function
             virtualclass.xhr.send(formData, exportfilepath, function
                     (data) {
-                    virtualclass.recorder.sendToWorker(data, vcSessionId);
+                    var playTime, refrenceTime, chunksData, time, data;
+                    var allRecordigns =  data.split(/(?:\r\n|\r|\n)/g);
+
+                    for(var i=0; i<allRecordigns.length; i++){
+
+                         var metaData = allRecordigns[i].substring(0, 21);
+                         var data =  allRecordigns[i].substring(22, allRecordigns.length)
+                         // chunksData = allRecordigns[i].split(' ');
+
+                         var [time, type] = metaData.split(' ');
+                         time = Math.trunc(time / 1000000);
+
+                         /** TODO this should be removed **/
+                         if(time < 0 ){ time = 0; }
+
+                         // var singleData = {playTime : 1, 'recObjs' : data}
+
+                         playTime = (i == 0 ) ?  60: (time - refrenceTime );
+
+                         virtualclass.recorder.tempRecData.push({playTime : playTime, 'recObjs' : data, type :type});
+                         refrenceTime = time;
+                    }
+
+                    virtualclass.recorder.playTime = 60;
+                    virtualclass.recorder.askToPlay();
+                    // virtualclass.recorder.sendToWorker(data, vcSessionId);
                 }
             );
         },
@@ -694,11 +731,13 @@
 
 
         playInt: function () {
-
             //convert [[1, 3], [3, 5]] TO [1, 3, 3, 5]
-            var mainData = virtualclass.recorder.tempRecData.reduce(function (a, b) {
-                return a.concat(b);
-            });
+
+            // var mainData = virtualclass.recorder.tempRecData.reduce(function (a, b) {
+            //     return a.concat(b);
+            // });
+
+            var mainData = virtualclass.recorder.tempRecData;
             virtualclass.popup.closeElem();
             virtualclass.recorder.init(mainData);
             virtualclass.recorder.playStart = true;
@@ -825,6 +864,7 @@
                     ev.data = that.items[that.objn].recObjs;
                     try {
                         io.onRecMessage(that.convertInto(ev));
+
                     } catch (e) {
                         console.log('PLAY ERROR ' + e.errorCode);
                     }

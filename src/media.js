@@ -8,6 +8,14 @@
  */
 
 (function (window) {
+
+    var audioToBePlay = {};
+    var aChunksPlay = {};
+    var allAudioArr = {};
+    var luid;
+    var allAudioSend = [];
+    var audioLen=0;
+
     function breakintobytes(val, l) {
         var numstring = val.toString();
         for (var i = numstring.length; i < l; i++) {
@@ -43,20 +51,19 @@
     var preAudioSamp = 0;
     var preAvg = 0;
     var curAvg = 0;
-    var minthreshold = 65535;
-    var maxthreshold = 0;
     var audiotime = 0;
+    var workerAudioSendOnmessage = false;
+    var workerAudioRecOnmessage = false;
 
-    var allAudioArr = {};
+    // var allAudioArr = {};
 
     var userSource = {}; //for contain the user specific audio source
     var sNode = {};
-    var snNode;
+
     var ac = {};
     var sNodePak = {};
     var snNodePak;
-    // alert('index.js3');
-//        var AudioContext = AudioContext || webkitAudioContext;
+
     /**
      * this returns an object that contains various Properties
      * to facilitate the capturing , saving, transmitting and
@@ -85,6 +92,10 @@
                 frameRate : { max :  6 }
             },
 
+            audioPlayerNode : null,
+            audioCreatorNode : null,
+
+
             /**
              * Replaces image with  video
              * @param id Id of the user
@@ -99,11 +110,19 @@
 
                     if(chatUser != null){
                         var childTag = chatUser.getElementsByTagName('a')[0];
-                        var imgTag = childTag.getElementsByTagName('span')[0] ||  childTag.getElementsByTagName('img')[0];;
+                        var imgTag = childTag.getElementsByTagName('span')[0] ||  childTag.getElementsByTagName('img')[0];
                         if(!childTag.classList.contains("hasVideo")){
                             childTag.className += ' hasVideo';
                         }
-                        childTag.replaceChild(vidCont, imgTag);
+                        var videoWrapper = childTag.querySelector('.videoWrapper');
+                        if(imgTag == null && imgTag == undefined && videoWrapper != null){
+                            childTag.removeChild(videoWrapper);
+                            childTag.appendChild(vidCont);
+
+                        }else{
+                            childTag.replaceChild(vidCont, imgTag);
+                        }
+
                     } else {
                         console.log('chatUser is Null');
                     }
@@ -152,6 +171,8 @@
                 audioNodes: [],
                 sdElem: 'silenceDetect',
                 snode : [], // To holds the user's id whose audio context is suspended
+                workletAudioRec: false,
+                aChunksPlay : false,
 
 //                  sd : false,
                 /*
@@ -186,33 +207,21 @@
                             context.closePath();
                             context.stroke();
                         }
-
-                        // canvasForVideo: function () {
-                        //     var videoParent = cthis.video.myVideo.parentNode;
-                        //     var graphCanvas = document.createElement("canvas");
-                        //     graphCanvas.width = this.width + 3;
-                        //     graphCanvas.height = this.height;
-                        //
-                        //     graphCanvas.id = "graphCanvas";
-                        //     videoParent.style.position = "relative";
-                        //     graphCanvas.style.position = "absolute";
-                        //     graphCanvas.style.left = 0;
-                        //     graphCanvas.style.top = -7;
-                        //     videoParent.appendChild(graphCanvas);
-                        // }
-
                     };
-                    this.attachFunctionsToAudioWidget();// to attach functions to audio widget
+                    this.attachFunctionsToAudioWidget(); // to attach functions to audio widget
                 },
 
                 initAudiocontext : function (){
                     if(!this.hasOwnProperty('Html5Audio') && !virtualclass.gObj.meetingMode){
                         this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-                        this.resampler = new Resampler(virtualclass.gObj.video.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
+                        if(virtualclass.media.audio.Html5Audio.audioContext == null){
+                            alert('audio context is null');
+                        }
+                        this.resampler = new Resampler(virtualclass.media.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
                         virtualclass.gObj.isAudioContextReady = true;
                         if(virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode){
-                            virtualclass.gObj.video.stream = cthis.video.tempStream;
-                            virtualclass.gObj.video.audio._manuPulateStream();
+                            virtualclass.media.stream = cthis.video.tempStream;
+                            virtualclass.media.audio._manuPulateStream();
                         }
                     }
                 },
@@ -240,7 +249,7 @@
 
                  */
                 audioSend: function (msg, adStatus) {
-                    if (virtualclass.gObj.audMouseDown && io.sock.readyState == 1) {
+                    if (virtualclass.gObj.audMouseDown && io.webSocketConnected()) {
                         var uid = virtualclass.vutil.breakintobytes(virtualclass.gObj.uid, 8);
                         var scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
                         var sendmsg = new Int8Array(msg.length + scode.length);
@@ -248,72 +257,10 @@
                         sendmsg.set(msg, scode.length); // First element is status code (101)
                         ioAdapter.sendBinary(sendmsg);
 
-                        virtualclass.gObj.video.audio.setAudioStatus(adStatus);
+                        virtualclass.media.audio.setAudioStatus(adStatus);
                     } else {
-                        virtualclass.gObj.video.audio.setAudioStatus("stop");
+                        virtualclass.media.audio.setAudioStatus("stop");
                     }
-                },
-                // if there is silece then audio will not be transmitted
-                silenceDetection: function (send, leftSix) {
-                    var audStatus;
-                    var vol = 0;
-                    var sum = 0;
-                    var rate = 0;
-                    var a;
-                    for (i = 0; i < leftSix.length; i++) {
-//                            var a = Math.abs(leftSix[i]); // a should not be declared here
-                        a = Math.abs(leftSix[i]); // a should not be declared here
-                        if (vol < a) {
-                            vol = a;
-                        } // Vol is maximum volume in signal packet
-                        sum = sum + a;
-                    }
-
-                    curAvg = sum / leftSix.length;
-                    rate = Math.abs(curAvg ^ 2 - preAvg ^ 2);
-                    preAvg = curAvg;
-
-                    if (rate < 5) {
-                        minthreshold = vol;
-                    } // If rate is close to zero, it is likely to be noise.
-                    if (minthreshold > vol) {
-                        minthreshold = vol;
-                    } // Minimum volume in historical signal
-                    if (maxthreshold < vol) {
-                        maxthreshold = vol;
-                    } // Maximum volume in historical signal
-                    if (minthreshold * 20 < maxthreshold) {
-                        minthreshold = minthreshold * 5;
-                    } // In case minimum sound (silance) is too low compared to speaking sound.
-                    if (maxthreshold / 20 > minthreshold) {
-                        maxthreshold = maxthreshold / 5;
-                    } // In case Max volume (speaking sound) is too high compared with silance.
-                    if (thdiff > 10) {
-                        maxthreshold = maxthreshold*0.8;
-                    } // Keep algo sensitive
-                    var thdiff = maxthreshold / minthreshold;
-                    var th = vol / minthreshold;
-
-                    audStatus = "sending";
-                    if ( thdiff >= 20 || // historical max minus min
-                        th > 2 || // Difference between current volume and minimum
-                        rate > minthreshold || rate > 25 || // Change in signal strength
-                        vol > (minthreshold * 2) || // Current max volume
-                        thdiff <= 4 ) { // We are not ready for this algo
-                        this.audioSend(send, audStatus);
-                        audioWasSent = 3;
-                        // console.log('SEND Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
-                    } else if (audioWasSent > 0) {
-                        this.audioSend(send, audStatus);  // Continue sending Audio for next X samples
-                        audioWasSent--;
-                    } else if (thdiff < 2) { // We are not ready, send all samples
-                        this.audioSend(send, audStatus);
-                    } else {
-                        // console.log('NOT Current '+vol+' Min '+minthreshold+' Max '+maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
-                        this.setAudioStatus("notSending");
-                        ioAdapter.send({cf:'na'});
-                    }
-                    return send;
                 },
 
                 /**
@@ -378,7 +325,7 @@
                         }
                         virtualclass.multiVideo.setAudioStatus(action);
                     } else {
-                        var that = virtualclass.gObj.video.audio;
+                        var that = virtualclass.media.audio;
                         if (this.id == 'speakerPressOnce') {
                             that.clickOnceSpeaker(this.id);
                         } else if (this.id == 'audioTest') {
@@ -518,13 +465,13 @@
                 // there should not pass whole elem but id
                 //varible button is not being used
                 studentSpeak: function (elem) {
-
                     if (typeof elem != 'undefined') {
                         var button = document.getElementById(elem.id + "Button");
                         elem.classList.remove('deactive');
                         elem.classList.add('active');
                     }
                     virtualclass.gObj.audMouseDown = true;
+                    workerAudioSend.postMessage({'cmd' : 'audioMouseDown', msg : {adMouseDown : virtualclass.gObj.audMouseDown}});
                     virtualclass.vutil.beforeSend({'sad': true, 'cf': 'sad'});
                 },
                 /**
@@ -543,7 +490,8 @@
                         tag.setAttribute('data-audio-playing', "false");
                         tag.className = "audioTool deactive";
                         virtualclass.gObj.audMouseDown = false;
-                        virtualclass.gObj.video.audio.setAudioStatus("stop");
+                        workerAudioSend.postMessage({'cmd' : 'audioMouseDown', msg : {audMouseDown : virtualclass.gObj.audMouseDown}});
+                        virtualclass.media.audio.setAudioStatus("stop");
                         virtualclass.vutil.beforeSend({'sad': false, 'cf': 'sad'}, null, true);
                     }
                 },
@@ -573,14 +521,14 @@
                 /**
                  * Resamples the audio and silence detection, and broadcast audio
                  */
-               recorderProcess: function (left) {
+                recorderProcess: function (left) {
                     var currTime = new Date().getTime();
                     if (!repMode) {
                         if (!this.recordAudio) {
                             this.recordingLength += this.bufferSize;
                         }
 
-                        if (virtualclass.gObj.audMouseDown && (io.sock.readyState == 1)) {
+                        if (virtualclass.gObj.audMouseDown && (io.webSocketConnected())) {
                             // var left = e.inputBuffer.getChannelData(0);
                             var samples = this.resampler.resampler(left);
                             var leftSix = convertFloat32ToInt16(samples);
@@ -596,20 +544,7 @@
                  * it's fallback method in case of not supporting audio worklet
                  */
                 recorderProcessFallback : function (e) {
-                    var currTime = new Date().getTime();
-                    if (!repMode) {
-                        if (!this.recordAudio) {
-                            this.recordingLength += this.bufferSize;
-                        }
-
-                        if (virtualclass.gObj.audMouseDown && (io.sock.readyState == 1)) {
-                            var left = e.inputBuffer.getChannelData(0);
-                            var samples = this.resampler.resampler(left);
-                            var leftSix = convertFloat32ToInt16(samples);
-                            var send = this.audioInLocalStorage(leftSix);
-                            this.silenceDetection(send, leftSix);
-                        }
-                    }
+                    workerAudioSend.postMessage({'cmd' : 'rawAudio', msg :  e.inputBuffer.getChannelData(0)});
                 },
 
                 /**
@@ -651,7 +586,6 @@
                     setTimeout(
                         function () {
                             console.log("testing");
-
                             audioTestElem.classList.remove("audioIsTesting");
                             that.otherSound = false;
                         }, ((totTestTime * 2) + 1000  )
@@ -686,9 +620,87 @@
                         recordingLength += clip.length;
                     }
                     samples = this.mergeBuffers(this.myaudioNodes, recordingLength);
-                    (typeof testAudio != 'undefined') ? virtualclass.gObj.video.audio.play(samples, uid, testAudio) : virtualclass.gObj.video.audio.play(samples, uid);
+                    (typeof testAudio != 'undefined') ? virtualclass.media.audio.play(samples, uid, testAudio) : virtualclass.media.audio.play(samples, uid);
                 },
 
+                initPlayWithFallback (){
+                    if(!this.hasOwnProperty('Html5Audio') && !this.Html5Audio){
+                        this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                    }
+
+                    if(!workerAudioRecOnmessage){
+
+                        var audioReadyChannel = new MessageChannel();
+                        workerIO.postMessage({
+                            cmd : "workerAudioRec",
+                        },[ audioReadyChannel.port1 ]);
+
+                        // Setup the connection: Port 2 is for worker 2
+                        workerAudioRec.postMessage({
+                            cmd : "workerIO",
+                            sampleRate : this.Html5Audio.audioContext.sampleRate,
+                        },[ audioReadyChannel.port2 ]);
+
+                        workerAudioRec.postMessage({'cmd' : 'audioWorklet', msg : false});
+                        workerAudioRec.onmessage = function (e){
+
+                            switch (e.data.cmd){
+                                case "noAudioWorklet" :
+                                    virtualclass.media.audio.queueWithFalback(e.data.msg.data, e.data.msg.uid);
+                                    virtualclass.media.audio.playWithFallback(e.data.msg.uid);
+                                    break;
+                                default :
+                                    console.log('do nothing');
+                            }
+                        }
+                        workerAudioRecOnmessage = true;
+                        // virtualclass.gObj.workerAudio = true;
+                        virtualclass.gObj.audioRecWorkerReady = true;
+                    }
+                },
+
+                initPlay: function () {
+                    if(!this.hasOwnProperty('Html5Audio') && !this.Html5Audio){
+                        this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
+                    }
+
+                    if(typeof workletAudioRec != 'object'){
+                        cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath+'worker/worklet-audio-rec.js').then(() => {
+                            // Setup the connection: Port 1 is for worker 1
+                            if(typeof initchannel == 'undefined'){
+
+                                workletAudioRec = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-rec');
+                                workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination)
+
+                                var audioReadyChannel = new MessageChannel();
+                                workerIO.postMessage({
+                                    cmd : "workerAudioRec",
+                                },[ audioReadyChannel.port1 ]);
+
+                                // Setup the connection: Port 2 is for worker 2
+                                workerAudioRec.postMessage({
+                                    cmd : "workerIO",
+                                    sampleRate : cthis.audio.Html5Audio.audioContext.sampleRate,
+                                },[ audioReadyChannel.port2 ]);
+
+                                var audoPlaychannel = new MessageChannel();
+
+                                workerAudioRec.postMessage({
+                                    cmd : "workletAudioRec",
+                                },[ audoPlaychannel.port1 ]);
+
+                                // Setup the connection: Port 2 is for worker 2
+                                workletAudioRec.port.postMessage({
+                                    cmd : "workerAudioRec",
+                                },[ audoPlaychannel.port2 ]);
+                                workerAudioRec.postMessage({'cmd' : 'audioWorklet', msg : true});
+                                initchannel = true;
+                                virtualclass.gObj.audioRecWorkerReady = true;
+                            }
+                            // virtualclass.gObj.workerAudio = true;
+                        });
+                    }
+                },
 
                 /**
                  * This function plays the audio with using audio worklet
@@ -696,274 +708,143 @@
                  * @param  audioChunks that need be played
                  */
 
-                play: function (uid, audioChunks) {
-                    if(!this.hasOwnProperty('Html5Audio') && !this.Html5Audio){
-                        this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-                    }
-
-                    if(typeof sNode[uid] != 'object'){
-                        cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath+'worker/receiver-audio-processor.js').then(() => {
-                            sNode[uid] = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'receiver-audio-processor');
-                            sNode[uid].connect(cthis.audio.Html5Audio.audioContext.destination);
-
-                       });
-                    } else {
-                        sNode[uid].port.postMessage({audio : audioChunks})
-                    }
-
-               },
 
                 /**
                  * This function plays the audio with using Script Processor Node which is deprecated,
                  * it's a fallback method in case of audio worklet is not supported.
                  * @param  uid is User Id
                  * @param  audioChunks that need be played
-                */
+                 */
                 playWithFallback :  function (uid)  {
-                   var that = this;
-                   if(this.Html5Audio.audioContext.state === 'suspended'){
-                       /** Wait till 2 seconds and see if still it's suspended ***/
-                       setTimeout(()=> {
-                           if(that.Html5Audio.audioContext.state == 'suspended'){
-                              that.snode.push(uid);
-                              if(virtualclass.gObj.requestToScriptNode == null){
-                                  that.Html5Audio.audioContext.resume();
-                                  virtualclass.gesture.initAudioResume(uid);
-                                  virtualclass.gObj.requestToScriptNode = true;
-                              }
-                           }
-                       },2000);
-                   }else {
-                        this._playWithFallback(uid);
-                   }
-               },
-
-               _playWithFallbackOld : function (uid){
-                     var that = this;
-                     if(typeof sNode[uid] != 'object'){
-                       console.log('script processor node is created');
-                       sNode[uid] = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
-                       sNodePak[uid] = 0;
-                       sNode[uid].onaudioprocess = function (event){
-                           var output = event.outputBuffer.getChannelData(0);
-                           var newAud = that.getAudioChunks(uid);
-                           if(typeof newAud != 'undefined'){
-                               for (i = 0; i < newAud.length; i++) {
-                                   output[i] = newAud[i];
-                               }
-                               sNodePak[uid] = newAud[16383];
-                           }else {
-                               for (i = 0; i < output.length; i++) {
-                                   output[i] = sNodePak[uid];
-                               }
-                           }
-                       };
-                       sNode[uid].connect(this.Html5Audio.audioContext.destination);
-                   }
-               },
-
-
-                _playWithFallback : function (uid){
                     var that = this;
-                    if(typeof snNode != 'object'){
+                    if(this.Html5Audio.audioContext.state === 'suspended'){
+                        /** Wait till 2 seconds and see if still it's suspended ***/
+                        setTimeout(()=> {
+                            if(that.Html5Audio.audioContext.state == 'suspended'){
+                                that.snode.push(uid);
+                                if(virtualclass.gObj.requestToScriptNode == null){
+                                    that.Html5Audio.audioContext.resume();
+                                    virtualclass.gesture.initAudioResume(uid);
+                                    virtualclass.gObj.requestToScriptNode = true;
+                                }
+                            }
+                        },2000);
+                    }else {
+                        this._playWithFallback();
+                    }
+                },
+
+                _playWithFallback : function (){
+                    var that = this;
+                    //if(typeof virtualclass.media.audioPlayerNode != 'object'){
+                    if(virtualclass.media.audioPlayerNode == null){
                         console.log('script processor node is created');
-                        snNode = this.Html5Audio.audioContext.createScriptProcessor(16384, 1, 1);
+                        virtualclass.media.audioPlayerNode = this.Html5Audio.audioContext.createScriptProcessor(4096, 1, 1);
                         snNodePak = 0;
-                        snNode.onaudioprocess = function (event){
+                        virtualclass.media.audioPlayerNode.onaudioprocess = function (event){
                             var output = event.outputBuffer.getChannelData(0);
-                            var newAud = that.getAllAudioChunks(uid);
-                            if(typeof newAud != 'undefined'){
+                            // var newAud = that.getAudioChunks();
+                            var newAud = that.getMergedAudio();
+                            if(newAud != null){
                                 for (i = 0; i < newAud.length; i++) {
                                     output[i] = newAud[i];
                                 }
-                                snNodePak = newAud[16383];
+                                snNodePak = newAud[4095];
                             }else {
                                 for (i = 0; i < output.length; i++) {
                                     output[i] = snNodePak;
                                 }
                             }
                         };
-                        snNode.connect(this.Html5Audio.audioContext.destination);
+                        virtualclass.media.audioPlayerNode.connect(this.Html5Audio.audioContext.destination);
                     }
                 },
 
-                queueWithFallback : function (packets, uid) {
-                    if (!this.hasOwnProperty('audioToBePlay')) {
-                        this.audioToBePlay = {};
-                    }
-                    if (!this.hasOwnProperty('aChunksPlay')) {
-                        this.aChunksPlay = {};
-                    }
-                    if (!this.audioToBePlay.hasOwnProperty(uid)) {
-                        this.audioToBePlay[uid] = [];
+                queueWithFalback (packets, uid) {
+                    if(audioToBePlay[uid] == null){
+                        audioToBePlay[uid] = [];
                     }
 
-                    var samples = G711.decode(packets, {
-                        alaw: this.encMode == "alaw" ? true : false,
-                        floating_point: true,
-                        Eight: true
-                    });
-
-                    /** On absence of Webcam but Headphone,
-                     The Audio context should be generated on Student side by following code */
-
-                    if(typeof this.resamplerdecode != 'object'){
-                        this.resamplerdecode  = {};
-                    }
-
-                    if(typeof this.resamplerdecode[uid] != 'object'){
-                        if(typeof this.Html5Audio != 'object'){
-                            this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-                        }
-
-                        if(typeof this.resamplerdecode[uid] != "object"){
-                            this.resamplerdecode[uid] =  new Resampler(8000, this.Html5Audio.audioContext.sampleRate, 1, 32768);
-                        }
-                    }
-
-                    var samples = this.resamplerdecode[uid].resampler(samples);
-                    // this.audioToBePlay[uid].push(new Float32Array(samples));
-
-                    if(typeof allAudioArr[uid] == 'undefined'){
+                    if(allAudioArr[uid] == null){
                         allAudioArr[uid] = [];
                     }
 
-                    /**
-                     * Making single Queue Audio for specific user
-                     */
-                    for(var i=0; i<samples.length; i++){
-                        allAudioArr[uid].push(samples[i]);
+                    for(let i=0; i<packets.length; i++){
+                        allAudioArr[uid].push(packets[i]);
                     }
 
-                    if(typeof ac[uid] == 'undefined'){
-                        ac[uid] = 0;
+                    while (allAudioArr[uid].length >= 4096) {
+                        let arrChunk =  allAudioArr[uid].splice(0, 4096);
+                        audioToBePlay[uid].push(new Float32Array(arrChunk));
                     }
-
-                    /** Picking up an audio chunk and giving
-                     * to Audio Queue, to handle 44.1khz and 48khz
-                     */
-                    while (allAudioArr[uid].length >= 16384) {
-                        var arrChunk =  allAudioArr[uid].splice(0, 16384);
-                        this.audioToBePlay[uid].push(new Float32Array(arrChunk));
-                        ac[uid]++;
-                    }
-
-                },
-
-                queue: function (packets, uid) {
-                   var samples = G711.decode(packets, {
-                        alaw: this.encMode == "alaw" ? true : false,
-                        floating_point: true,
-                        Eight: true
-                    });
-
-                    /** On absence of Webcam but Headphone,
-                     The Audio context should be generated on Student side by following code */
-
-                    if(typeof this.resamplerdecode != 'object'){
-                        this.resamplerdecode  = {};
-                    }
-
-                    if(typeof this.resamplerdecode[uid] != 'object'){
-                        if(typeof this.Html5Audio != 'object'){
-                            this.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-                        }
-
-                        if(typeof this.resamplerdecode[uid] != "object"){
-                            this.resamplerdecode[uid] =  new Resampler(8000, this.Html5Audio.audioContext.sampleRate, 1, 32768);
-                        }
-                    }
-
-                    var samples = this.resamplerdecode[uid].resampler(samples);
-                    return samples;
                 },
 
 
-                /**
-                 * Audio associated with the user id is played
-                 * if length of audio is between 1 and 7
-                 * the the audio is played
-                 * @param  uid user id
-                 * @param label
-                 */
-                getAudioChunks: function (uid) {
-                  console.log("Audo queue " + Math.round(this.audioToBePlay[uid].length/3) + " seconds");
-                    if(this.audioToBePlay != null){
-                      if (this.audioToBePlay[uid].length >= 9) { // 3 seconds
-                        while (this.audioToBePlay[uid].length >= 3) { // 1 second
-                          virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                        }
-                        this.aChunksPlay[uid] = true;
-                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                      } else if(this.audioToBePlay[uid].length >= 2) { // .7 second
-                        this.aChunksPlay[uid] = true;
-                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                      } else if (this.audioToBePlay[uid].length > 0 && this.aChunksPlay[uid] == true) {
-                        this.aChunksPlay[uid] = true;
-                        return virtualclass.gObj.video.audio.audioToBePlay[uid].shift();
-                      } else {
-                        this.aChunksPlay[uid] = false;
-                      }
-                    }
-                  },
-
-
-                getAllAudioChunks2 : function () {
-                    var allAudio = [];
-                    var allSumAudio = new Float32Array(16384);
-                    var nTemp = 0;
-
-                    // var allAudioSend =  new Float32Array(16384);
-                    for(let uid in virtualclass.audioToBePlay){
-                        let temp = this.getAudioChunks(uid);
-
-                        if (temp != null) {
-                            if(!allSumAudio.length){
-                                // add the temp value
-                                allSumAudio = temp;
-                                // update the number of temp
-                                nTemp = 1;
-                            } else {
-
-                                // else add the temp values to their corresponding index values of allSumAudio
-                                allSumAudio = allSumAudio.map(function(num,idx) {return num + temp[idx]} );
-                                nTemp++;
-                            }
-
-                        }
-                    }
-                    return (nTemp < 2) ? allAudio : allSumAudio.map(num => num/nTemp);
-                },
-
-
-
-                // audioToBePlay[uid][1]16384
-                getAllAudioChunks : function (uid) {
-                    var allAudioSend = [];
-                    var audioLen=0;
-                    for(var uid in virtualclass.gObj.video.audio.audioToBePlay){
-                        var temp = this.getAudioChunks(uid);
+                /** Return Merged audio which received from different sources **/
+                getMergedAudio : function() {
+                    // console.log('AUDIO' + allAudioArr[158].length);
+                    allAudioSend = [];
+                    audioLen=0;
+                    for(luid in audioToBePlay){
+                        let temp = this.getAudioChunks(luid);
                         if (temp != null) {
                             audioLen++;
-                            if (audioLen == 1) {
-                                allAudioSend = temp;
+                            if (audioLen === 1) {
+                                // allAudioSend = temp;
+                                for (let z = 0; z < 4096; z++) {
+                                    allAudioSend[z] = temp[z];
+                                }
                             } else {
-                                for (var z = 0; z < 16384; z++) {
+                                for (let z = 0; z < 4096; z++) {
                                     allAudioSend[z] = allAudioSend[z] + temp[z];
                                 }
                             }
                         }
                     }
 
-                    if (audioLen == 1) {
+                    if (audioLen === 1) {
                         return allAudioSend;
                     } else if (audioLen > 1) {
-                        for (var z = 0; z < 16384; z++) {
+                        for (let z = 0; z < 4096; z++) {
                             allAudioSend[z] = allAudioSend[z]/audioLen;
                         }
                         return allAudioSend;
                     }
                 },
+
+
+                /**
+                 * Remove audios from queue if it's long
+                 * @returns {*} the audio packet with length of 128
+                 */
+                getAudioChunks (uid) {
+                    if(audioToBePlay !== null){
+                        if (audioToBePlay[uid].length >= 9) { // 835.918371 ms
+                            while (audioToBePlay[uid].length >= 3) { // 278.639457 ms
+                                audioToBePlay[uid].shift();
+                            }
+                            aChunksPlay[uid] = true;
+                            return audioToBePlay[uid].shift();
+                        } else if(audioToBePlay[uid].length >= 2) { // 185.759638 ms
+                            aChunksPlay[uid] = true;
+                            return audioToBePlay[uid].shift();
+                        } else if (audioToBePlay[uid].length > 0 && aChunksPlay[uid] === true) {
+                            aChunksPlay[uid] = true;
+                            return audioToBePlay[uid].shift();
+                        } else {
+                            aChunksPlay[uid] = false;
+                            if (audioToBePlay[uid].length === 0) {
+                                delete audioToBePlay[uid];
+                            }
+                        }
+                    }
+                },
+
+                /*
+                 * Remove audios from queue if it's long
+                 * @returns {*} the audio packet with length of 128
+                 */
+
 
                 //TODO this function is not being invoked
                 replay: function (inHowLong, offset) {
@@ -1019,7 +900,7 @@
                             Eight: true
                         });
                         this.audioNodes.push(new Float32Array(samples));
-                        this.recordingLength += 16384;
+                        this.recordingLength += 4096;
                     }
                     if (typeof audioRep != 'undefined') {
                         audioRep();
@@ -1027,7 +908,7 @@
                 },
 
                 _manuPulateStream : function (){
-                    var cthis = virtualclass.gObj.video;
+                    var cthis = virtualclass.media;
                     setTimeout(
                         function (){
                             if(cthis.detectAudioWorklet()) {
@@ -1040,32 +921,77 @@
                     );
                 },
 
+
                 /***
                  * It connects the stream received from Mic/GetUserMedia to audio context,
                  * and getting the audio chunks from audio worklet
                  **/
                 manuPulateStream: function () {
                     var stream = cthis.stream;
-                    if(typeof audioNode != 'undefined'){
-                        audioNode.disconnect();
+                    if(typeof workletAudioSend != 'undefined'){
+                        workletAudioSend.disconnect();
                     }
                     if(typeof stream != 'undefined' && stream != null) {
-                        cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath + 'worker/audio-processor.js').then(() => {
+                        cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath + 'worker/worklet-audio-send.js').then(() => {
                             let audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
 
                             filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
                             filter.type = "lowpass";
                             filter.frequency.value = 2000;
-
                             audioInput.connect(filter);
 
-                            audioNode = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'audio-processor');
-                            filter.connect(audioNode);
-                            audioNode.connect(cthis.audio.Html5Audio.audioContext.destination);
+                            workletAudioSend = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-send');
+                            filter.connect(workletAudioSend);
+                            workletAudioSend.connect(cthis.audio.Html5Audio.audioContext.destination);
 
-                            audioNode.port.onmessage = function (event) {
-                                var audio = event.data.audio;
-                                cthis.audio.recorderProcess(audio);
+                            var IOAudioSendWorker = new MessageChannel();
+
+                            workerAudioSend.postMessage({
+                                cmd : "workerIO",
+                                sampleRate : this.Html5Audio.audioContext.sampleRate,
+                                uid : virtualclass.gObj.uid
+                            },[ IOAudioSendWorker.port1 ]);
+
+                            // Setup the connection: Port 2 is for worker 2
+                            workerIO.postMessage({
+                                cmd : "workerAudioSend"
+                            },[ IOAudioSendWorker.port2]);
+
+
+                            var workerWorkletAudioSend = new MessageChannel();
+
+                            workerAudioSend.postMessage({
+                                cmd : "audioWorkletSend",
+                                msg : {repMode: repMode},
+                            },[ workerWorkletAudioSend.port1 ]);
+
+                            // Setup the connection: Port 2 is for worker 2
+                            workletAudioSend.port.postMessage({
+                                cmd : "workerAudioSend",
+                            },[ workerWorkletAudioSend.port2 ]);
+
+                            if(!workerAudioSendOnmessage){
+                                workerAudioSend.onmessage = function (e){
+                                    if(e.data.hasOwnProperty('cmd')){
+                                        if(e.data.cmd == 'adStatus'){
+                                            virtualclass.media.audio.setAudioStatus(e.data.msg);
+                                            if(!virtualclass.gObj.sendAudioStatus && e.data.msg == 'sending'){
+                                                ioAdapter.send({cf:'ya'}); // yes audio
+                                                virtualclass.gObj.sendAudioStatus = true
+                                            }
+
+                                        }else if(e.data.cmd == 'ioAdapterSend'){
+                                            if(e.data.msg.cf == 'na'){ // yes audio
+                                                virtualclass.gObj.sendAudioStatus = false;
+                                            }else {
+                                                virtualclass.gObj.sendAudioStatus = true;
+                                            }
+                                            ioAdapter.send(e.data.msg);
+                                        }
+                                    }
+                                }
+
+                                workerAudioSendOnmessage = true;
                             }
                         });
                     }
@@ -1081,20 +1007,35 @@
                         var stream = cthis.stream;
 
                         var audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
-                        cthis.audio.bufferSize = 16384;
-                        // grec is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
+                        cthis.audio.bufferSize = 4096;
+                        // virtualclass.media.audioCreatorNode is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
                         // https://code.google.com/p/chromium/issues/detail?id=360378
-                        // cthis.audio.rec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
-                        grec = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
-                        grec.onaudioprocess = cthis.audio.recorderProcessFallback.bind(cthis.audio);
+
+                        virtualclass.media.audioCreatorNode = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
+                        virtualclass.media.audioCreatorNode.onaudioprocess = cthis.audio.recorderProcessFallback.bind(cthis.audio);
 
                         filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
                         filter.type = "lowpass";
                         filter.frequency.value = 2000;
 
                         audioInput.connect(filter);
-                        filter.connect(grec);
-                        grec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                        filter.connect(virtualclass.media.audioCreatorNode);
+                        virtualclass.media.audioCreatorNode.connect(cthis.audio.Html5Audio.audioContext.destination);
+
+
+                        let IOAudioSendWorker = new MessageChannel();
+
+                        workerAudioSend.postMessage({
+                            cmd : "workerIO",
+                            uid : virtualclass.gObj.uid,
+                            sampleRate : cthis.audio.Html5Audio.audioContext.sampleRate
+                        },[ IOAudioSendWorker.port1 ]);
+
+                        // Setup the connection: Port 2 is for worker 2
+                        workerIO.postMessage({
+                            cmd : "workerAudioSend"
+                        },[ IOAudioSendWorker.port2]);
+
                     }else {
                         console.log("No stream is found");
                     }
@@ -1111,33 +1052,8 @@
                     this.recordAudio = false;
                     repMode = false;
                 },
-                /**
-                 * Recives the audio message from the sender
-                 * And  Plays the received audio
-                 * @param  msg Audio message received from the sender
-                 *
-                 */
-                receivedAudioProcess: function (msg) {
-                    if (virtualclass.gObj.hasOwnProperty('isAudioContextReady')) {
-                        var dataArr = this.extractData(msg);// extract data and user id from the message received
-                        var uid = dataArr[0];
 
-                        if (typeof adSign == 'undefined') {
-                            var adSign = {};
-                        }
 
-                        if (!adSign.hasOwnProperty(uid)) {
-                            adSign[uid] = {};
-                            adSign[uid].ad = true;
-                            var user = virtualclass.user.control.updateUser(uid, 'ad', true);// creates user object, that is stored in local storage and return the object
-                            virtualclass.user.control.audioSign(user, "create");
-                        }
-
-                        virtualclass.gObj.video.audio.queueWithFallback(dataArr[1], uid); //dataArr[1] is audio
-                        virtualclass.gObj.video.audio.playWithFallback(uid);    
-                    }
-
-                },
                 /**
                  * To extract user id of sender and data from the receied message
                  * @param  msg recevied message from online users
@@ -1212,7 +1128,7 @@
                     var videoCont = this.videoCont;
                     videoSubWrapper.appendChild(video);
                     videoCont = videoWrapper;
-                    virtualclass.gObj.video.util.imageReplaceWithVideo(user.id, videoCont);
+                    virtualclass.media.util.imageReplaceWithVideo(user.id, videoCont);
                 },
                 // TODO This function is not being invoked
                 updateHightInSideBar: function (videoHeight) {
@@ -1238,15 +1154,15 @@
                         id: virtualclass.gObj.uid
                     };
                     if(io.webSocketConnected()) {
-                       virtualclass.vutil.beforeSend({videoByImage: user, 'cf': 'videoByImage'}, null, true);
+                        virtualclass.vutil.beforeSend({videoByImage: user, 'cf': 'videoByImage'}, null, true);
                         ioAdapter.sendBinary(sendimage);
                     }
 
                 },
 
                 send: function () {
-                    if (virtualclass.gObj.video.hasOwnProperty('smallVid')) {
-                        clearInterval(virtualclass.gObj.video.smallVid);
+                    if (virtualclass.media.hasOwnProperty('smallVid')) {
+                        clearInterval(virtualclass.media.smallVid);
                     }
                     var cvideo = this;
                     var frame;
@@ -1288,7 +1204,7 @@
                             sendmsg.set(sendimage, scode.length);
                             that.sendInBinary(sendmsg);
                         }
-                        clearInterval(virtualclass.gObj.video.smallVid);
+                        clearInterval(virtualclass.media.smallVid);
 
                         var d = randomTime + (virtualclass.connectedUsers.length * 2500);
                         if (totalMembers != virtualclass.connectedUsers.length) {
@@ -1304,14 +1220,14 @@
                                 p  = 0;
                             }
                             var md = p * td;
-                            virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, (d + md));
+                            virtualclass.media.smallVid = setInterval(sendSmallVideo, (d + md));
                         } else {
-                            virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, d);
+                            virtualclass.media.smallVid = setInterval(sendSmallVideo, d);
                         }
                     }
 
 
-                    virtualclass.gObj.video.smallVid = setInterval(sendSmallVideo, randomTime);
+                    virtualclass.media.smallVid = setInterval(sendSmallVideo, randomTime);
                     // Breaking user id into bytes
                     function breakintobytes2(val, l) {
                         var numstring = val.toString();
@@ -1460,8 +1376,8 @@
                     }
 
 
-                    // virtualclass.gObj.video.video.playWithoutSlice(uid, recmsg, imgType);
-                    virtualclass.gObj.video.video.drawReceivedImage(b64encoded, imgType, {x:0, y:0}, uid);
+                    // virtualclass.media.video.playWithoutSlice(uid, recmsg, imgType);
+                    virtualclass.media.video.drawReceivedImage(b64encoded, imgType, {x:0, y:0}, uid);
                 }
             },
 
@@ -1473,19 +1389,9 @@
                  *
                  **/
 
-//                if(virtualclass.gObj.meetingMode && webcam){
-//                    if(virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS'){
-//                        var webcam = true;
-//                    }else {
-//                        // 320 * 240
-//                        var webcam = this.CONFIG;
-//                        // webcam = true;
-//                    }
-//                }
-//                
                 if (virtualclass.gObj.meetingMode && webcam) {
                     if (virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS' ||
-                            virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Safari') {
+                        virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Safari') {
                         var webcam = true;
                     } else {
                         var webcam = {
@@ -1496,10 +1402,6 @@
                         // webcam = true;
                     }
                 }
-                
-                
-                
-
 
                 var session = {
                     //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
@@ -1518,7 +1420,8 @@
             /* TODO @param vbool :no use of parameter vbool */
 
 
-            init: function (vbool) {
+            init: function (cb) {
+
                 console.log('Video second, normal video');
                 cthis = this; //TODO there should be done work for cthis
 
@@ -1532,18 +1435,35 @@
                 // cthis.audio.resampler = new Resampler(cthis.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
                 var that  = this;
                 // Default we disable audio and video
+
                 virtualclass.user.control.audioDisable();
                 virtualclass.user.control.videoDisable();
+
                 if (!virtualclass.vutil.isPlayMode()) {
                     if(virtualclass.adpt == null){
                         virtualclass.adpt = new virtualclass.adapter();
                     }
 
+                    if(virtualclass.media.video.tempStream != null){
+                        // var tracks = virtualclass.media.video.tempStream.getTracks()[0];  // if only one media track
+                        // track.stop();
+                        var tracks = virtualclass.media.video.tempStream.getTracks();  // if only one media track
+                        for(let i = 0; i<tracks.length; i++){
+                            tracks[i].stop();
+                        }
+                    }
+
+
                     var cNavigator = virtualclass.adpt.init(navigator);
                     cNavigator.mediaDevices.getUserMedia(session).then(function (stream) {
                         that.handleUserMedia(stream)
+
                         if(virtualclass.gObj.meetingMode){
                             virtualclass.multiVideo.init();
+                        }
+
+                        if(typeof cb != 'undefined'){
+                            cb('success');
                         }
 
                     }).catch(function (e) {
@@ -1565,7 +1485,6 @@
                     //virtualclass.videoHost.UI.hideVideo();
 
                 }
-
             },
 
 
@@ -1581,7 +1500,7 @@
                 var audioWiget = document.getElementById('audioWidget');
                 var audio = localStorage.getItem('audEnable');
                 if(roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone){
-                    virtualclass.gObj.video.audioVisual.readyForVisual(stream);
+                    // virtualclass.media.audioVisual.readyForVisual(stream);
                     if(audio != null){
                         audio = JSON.parse(audio);
                         if ((audio.ac == 'false' || audio.ac == false)) {
@@ -1599,7 +1518,7 @@
                     }
                 }else {
                     if (virtualclass.system.mediaDevices.hasMicrophone) {
-                        virtualclass.gObj.video.audioVisual.readyForVisual(stream);
+                        // virtualclass.media.audioVisual.readyForVisual(stream);
                         if (audio != null) {
                             audio = JSON.parse(audio);
                             if ((audio.ac == 'false' || audio.ac == false)) {
@@ -1622,11 +1541,11 @@
                 if (typeof mediaStreamTrack != "undefined") {
                     mediaStreamTrack.onended = function () {//for Chrome.
                         virtualclass.system.mediaDevices.webcamErr.push('webcambusy');
-                        // virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
+                        // virtualclass.media.audio.removeAudioFromLocalStorage();
                     }
                 }  else {
                     virtualclass.system.mediaDevices.webcamErr.push('nopermission');
-                    //virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
+                    //virtualclass.media.audio.removeAudioFromLocalStorage();
                 }
 
                 cthis.video.tempStream = stream;
@@ -1644,11 +1563,6 @@
                         virtualclass.videoHost.renderSelfVideo(stream); // Teacher video
                     });
                 }
-
-                // if(virtualclass.system.mediaDevices.hasMicrophone){
-                //     cthis.stream = cthis.video.tempStream;
-                //     cthis.audio._manuPulateStream();
-                // }
 
                 var vidstatus = localStorage.getItem("allVideoAction");
                 if(vidstatus != null && vidstatus == "disable" && roles.isStudent()){
@@ -1675,7 +1589,7 @@
                  * Disable teacher video by default, when he/she will join first time
                  */
 
-                if(localStorage.getItem('prevApp') == null){
+                if(localStorage.getItem('prevApp') == null ){
                     if(roles.hasControls()){
                         //virtualclass.vutil.videoHandler();
                         virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off');
@@ -1723,7 +1637,7 @@
                     if (typeof stream != 'undefined') {
                         if(virtualclass.system.mediaDevices.hasWebcam) {
                             var vidContainer = cthis.video.createVideoElement();
-                            virtualclass.gObj.video.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
+                            virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
 
                             cthis.video.insertTempVideo(vidContainer);
                             cthis.video.tempVideoInit();
@@ -1775,8 +1689,8 @@
             },
             // Closeing the video
             close: function () {
-                if (virtualclass.gObj.video.hasOwnProperty('smallVid')) {
-                    clearInterval(virtualclass.gObj.video.smallVid);
+                if (virtualclass.media.hasOwnProperty('smallVid')) {
+                    clearInterval(virtualclass.media.smallVid);
                 }
             },
             /**
@@ -1821,9 +1735,9 @@
                 var errorMsg = (typeof error == 'object') ? virtualclass.lang.getString(error.name) : virtualclass.lang.getString(error);
 
                 if (errorMsg == null) {
-                  virtualclass.view.createErrorMsg(error, 'errorContainer', 'chatWidget');
+                    virtualclass.view.createErrorMsg(error, 'errorContainer', 'chatWidget');
                 } else {
-                  virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
+                    virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
                 }
 
                 virtualclass.user.control.mediaWidgetDisable('vd');
@@ -1854,9 +1768,8 @@
                 }
 
                 virtualclass.system.mediaDevices.webcamErr.push(errorCode);
-                //virtualclass.gObj.video.audio.removeAudioFromLocalStorage();
+                //virtualclass.media.audio.removeAudioFromLocalStorage();
             },
-
 
             detectAudioWorklet : () => {
                 if (typeof OfflineAudioContext == 'undefined' || virtualclass.isPlayMode) {

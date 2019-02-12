@@ -54,6 +54,7 @@ function get_string($phrase) {
 }
 
 //the www path for virtualclass
+
 $whiteboardpath = "https://local.vidya.io/virtualclass/";
 
 $cont_class = 'congrea ';
@@ -105,7 +106,7 @@ if (isset($_GET['stdVideo'])) {
 if (isset($_GET['role']) && $_GET['role'] == 't' && !$isplay) {
 	$cont_class .= 'teacher orginalTeacher ';
 	$r = $_GET['role'];
-	
+
 } else {
     $r = 's';
     $cont_class .= 'student ';
@@ -126,7 +127,7 @@ $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 $lname = isset($_GET['lname']) ? $_GET['lname'] : ' ';
 
 // Set 1 to add source file else 0 to min file
-$info = 1;
+$info = 0;
 $audio_disabled_completely = true;
 $cmid = 5;
 ?>
@@ -224,8 +225,12 @@ if($info) {
         var mvDataWorker = new Worker("<?php echo $whiteboardpath."worker/json-chunks.js" ?>");
         var dtConWorker = new Worker("<?php echo $whiteboardpath."worker/storage-array-base64-converter.js" ?>");
         var webpToPng = new Worker("<?php echo $whiteboardpath."worker/webptopng.js" ?>");
+        var workerAudioRec = new Worker("<?php echo $whiteboardpath."worker/worker-audio-rec.js" ?>");
+        var workerIO = new Worker("<?php echo $whiteboardpath."worker/worker-io.js" ?>");
+        var workerAudioSend = new Worker("<?php echo $whiteboardpath."worker/worker-audio-send.js" ?>");
 
     }
+
 </script>
 
 <?php

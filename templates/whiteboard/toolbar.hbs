@@ -4,12 +4,12 @@
     <a href="#" data-title="{{getString 'Freehand'}}" class="congtooltip"> <span class="icon-freeDrawing cgIcon"></span></a>
   </div>
 
-  <div id="tool_wrapper{{cn}}" class="shapesToolbox">
-    <div class="shapes_icon">
-      <a class="icon-shapes cgIcon"></a>
+  <div id="tool_wrapper{{cn}}" class="shapesToolbox" data-currTool="shapes">
+    <div id="shapeIcon{{cn}}" class="shapes_icon">
+      <a href="#" data-title="{{getString 'Shapes'}}" class="congtooltip"><span class="icon-shapes cgIcon"></span></a>
     </div>
 
-    <div id="shapes{{cn}}" class="shapesTool" >
+    <div id="shapes{{cn}}" class="shapesTool">
       <div id="t_rectangle{{cn}}" class="tool" data-tool="rectangle">
         <a href="#" data-title="{{getString 'Rectangle'}}" class="congtooltip"><span class="icon-rectangle cgIcon"></span></a>
       </div>

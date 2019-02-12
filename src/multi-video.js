@@ -39,7 +39,7 @@
 
 
 
-      this.setAudioStatus(false);
+      // this.setAudioStatus(false);
 
       var videoSwitch = localStorage.getItem('videoSwitch');
 
@@ -76,7 +76,7 @@
    start: function() {
         console.log('Video First, multivideo');
 
-        virtualclass.multiVideo.localStream = virtualclass.gObj.video.video.tempStream;
+        virtualclass.multiVideo.localStream = virtualclass.media.video.tempStream;
 
         _localStream = virtualclass.multiVideo.localStream;
 

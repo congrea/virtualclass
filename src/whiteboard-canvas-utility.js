@@ -10,7 +10,7 @@ newScrollVal = 0;
 
         vcan.utility = {
             /**
-             * Calculates canvas element offset relative to the document
+             * sCalculates canvas element offset relative to the document
              * @param cid is canvas's id
              * @return {offset} calculated value value
              */

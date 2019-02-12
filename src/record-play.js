@@ -387,7 +387,7 @@
                         io.disconnect();
                         setTimeout(
                             function(){
-                                if(io.sock.readyState != 1){
+                                if(!io.webSocketConnected()){
                                     // wait and see if there application is connected by io
                                     // if not connect, connect it
                                     io.wsconnect();
@@ -705,7 +705,7 @@
             virtualclass.recorder.tempRecData.length = 0;
             localStorage.setItem('mySession', 'thisismyplaymode');
             virtualclass.recorder.initController();
-            virtualclass.gObj.video.audio.initAudiocontext();
+            virtualclass.media.audio.initAudiocontext();
 
 //                var playController = document.getElementById('playController');
 //                playController.style.display = 'block';

@@ -1065,3 +1065,5 @@
 #virtualclassCont[data-currapp="DocumentShare"] #docScreenContainer .canvasWrapper .pdfs {
     z-index:-1;
 }
+
+#DocumentShareDashboard #docsListContainer #listdocs .controls.delete { margin-top:0;}

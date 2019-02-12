@@ -56,7 +56,8 @@
                 editorInitDone: 0,
                 resize : false,
                 has_ts_capability : (wbUser.ts == 1 || wbUser.ts == true) ? true : false,
-                meetingMode : +(wbUser.meetingMode),
+                // meetingMode : +(wbUser.meetingMode),
+                meetingMode : 0,
                 chromeExt : false,
                 pdfdebugg : true, //To draw scroll for debugging process
                 wbInitHandle : false,
@@ -88,6 +89,8 @@
                 defalutFont : "25",
                 defalutFntOptn : "1",
                 defaultcolor : "#0000ff",
+                sendAudioStatus : false,
+                audioRecWorkerReady : false
             },
 
             enablePreCheck : true,
@@ -156,7 +159,7 @@
                 // this.lang.getString = window.getString;
                 // this.lang.message = window.message;
                 this.vutil = window.vutil;
-                this.media = window.media
+                // this.media = window.media
                 this.sharePt= window.sharePt;
                 this.fineUploader= window.fineUploader;
                 this.system = window.system;
@@ -280,9 +283,9 @@
                 //To teacher
                 virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
 
-                this.gObj.video = new window.virtualclass.media();
+                this.media = new window.media();
 
-                this.gObj.video.audioVisual.init();
+              //  this.gObj.video.audioVisual.init();
 
                 var precheck = localStorage.getItem('precheck');
                 if(precheck != null){
@@ -303,13 +306,6 @@
                 if(!virtualclass.gObj.meetingMode){
                     virtualclass.videoHost.init(320 , 240);
                     //virtualclass.networkStatus();
-                } else {
-                    // virtualclass.multiVideo.init();
-
-                    // virtualclass.user.control.audioDisable()
-                    // if(roles.hasAdmin()){
-                    //     virtualclass.user.control.videoDisable()
-                    // }
                 }
 
                 virtualclass.vutil.videoController();
@@ -344,6 +340,9 @@
                 if(virtualclassCont != null){
                     virtualclassCont.classList.add(virtualclass.system.mybrowser.name);
                 }
+
+
+
             },
 
             makeReadySocket : function (){
@@ -364,7 +363,9 @@
 
             initSocketConn: function () {
                 if (this.system.webSocket) {
-                    io.init(virtualclass.uInfo);
+                    // io.ioInit({'msg' : virtualclass.uInfo, cmd : 'init'});
+                      //ioInit.sendToWorker({'msg' : virtualclass.uInfo, cmd : 'init'});
+                     io.init(virtualclass.uInfo);
                     window.userdata = virtualclass.uInfo;
                 }
             },
@@ -971,51 +972,39 @@
 
                     var activeWbTool = localStorage.getItem("activeTool");
                     if(activeWbTool != null) {
-                        var activeWbToolElem = document.querySelector("#" + activeWbTool);
-                        if (activeWbToolElem != null) {
-                            activeWbToolElem.classList.add("active");
-                            virtualclass.wb[wid].prvTool = activeWbTool;
-                        }
+                       var activeWbToolElem = document.querySelector("#" + activeWbTool);
+                       if (activeWbToolElem != null) {
+                           activeWbToolElem.classList.add("active");
+                           virtualclass.wb[wid].prvTool = activeWbTool;
+                       }
                     }
 
                     if(roles.hasControls()) {
-                        var fontTool = document.querySelector("#t_font"+virtualclass.gObj.currWb);
-                        var strkTool = document.querySelector("#t_strk"+virtualclass.gObj.currWb);
-                        if(virtualclass.wb[virtualclass.gObj.currWb].prvTool == "t_text"+virtualclass.gObj.currWb){
-                            if(fontTool.classList.contains("hide")){
-                                fontTool.classList.remove("hide");
-                                fontTool.classList.add("show");
-                            }
-                            strkTool.classList.add("hide");
-                        }else{
-                            fontTool.classList.add("hide");
-                        }
-
                     window.addEventListener("mouseup", function (ev) {
-                        if (ev.target.dataset.hasOwnProperty("stroke") || ev.target.dataset.hasOwnProperty("font")) {
-                            var sizeDropDown = (ev.target.dataset.hasOwnProperty("stroke")) ? document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList") : document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList");
-                            virtualclass.wb[virtualclass.gObj.currWb].closeElem(sizeDropDown);
+                        var currApp = document.querySelector("#virtualclassCont").dataset.currapp;
+                        if(currApp != null && (currApp == 'Whiteboard' || currApp == 'DocumentShare')){
+                            if(ev.target.dataset.hasOwnProperty("stroke") || ev.target.dataset.hasOwnProperty("font")) {
+                               var sizeDropDown = (ev.target.dataset.hasOwnProperty("stroke")) ? document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList") : document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList");
+                               virtualclass.wb[virtualclass.gObj.currWb].closeElem(sizeDropDown);
 
-                        }else if(ev.target.classList.contains("icon-color") || ev.target.classList.contains("selected") || ev.target.classList.contains("congtooltip")) {
-                               virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes"+virtualclass.gObj.currWb));
+                            }else if(ev.target.classList.contains("icon-color") || ev.target.classList.contains("selected") || ev.target.classList.contains("congtooltip")) {
+                                     virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes"+virtualclass.gObj.currWb));
 
-                        }else if(ev.target.classList.contains("icon-rectangle") || ev.target.classList.contains("icon-line")
-                                 || ev.target.classList.contains("icon-oval")|| ev.target.classList.contains("icon-triangle")){
-                                 virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes"+virtualclass.gObj.currWb));
+                            }else if(ev.target.classList.contains("icon-rectangle") || ev.target.classList.contains("icon-line")
+                                     || ev.target.classList.contains("icon-oval")|| ev.target.classList.contains("icon-triangle")){
+                                     virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes"+virtualclass.gObj.currWb));
 
-                        }else {
+                            }else{
                                  virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList"));
-
                                  virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList"));
-
                                  virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#colorList" + virtualclass.gObj.currWb));
 
-                            if(!ev.target.classList.contains("icon-shapes")){
-                               virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+                                 if(!ev.target.classList.contains("icon-shapes")){
+                                    virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+                                 }
                             }
-
-                            }
-                        });
+                        }
+                    });
                     }
 
                     if(typeof virtualclass.wb.indexNav == 'undefined'){
@@ -1376,8 +1365,9 @@
 
                                     virtualclass.recorder.smallData = true;
 
-                                    io.sock.close();
+                                    // io.sock.close();
 
+                                    workerIO.postMessage({'cmd' : 'sessionEndClose'});
                                     virtualclass.recorder.startUploadProcess();
                                 }, 300
                             );

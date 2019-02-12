@@ -1,3 +1,5 @@
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave-mic.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/handlebars-v4.0.8.js"></script>
@@ -11,13 +13,12 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/video.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/youtube.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/videojs-contrib-hls.js"></script>
-<script type="text/javascript" src ="<?php echo $whiteboardpath.'external/src/s3.fine-uploader.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath.'external/src/s3.fine-uploader.js'; ?>"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/vhcheck.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jscolor.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/shadow-dom.js"></script>
 
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/iolib.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-storage.js"></script>
@@ -73,7 +74,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/popup.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/storage-array-base64-converter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/progressbar.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-server.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-utils.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-rich-toolbar.js"></script>
@@ -113,32 +113,26 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/congrea-uploader.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/document-share.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/quiz.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/doNotesMain.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/multi-video.js"></script>
-
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/zoom.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pdf-render.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-common.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/server-data.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/api.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/raise-hand.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/color-selector.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chroma.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-setting-media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/network.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/gesture.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page-navigation.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modal.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-container-event.js"></script>
-
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/mic-testing.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
+

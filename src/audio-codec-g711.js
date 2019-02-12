@@ -3,7 +3,7 @@
  * Copyright(c) 2011 João Martins <madjackoo@gmail.com>
  * MIT Licensed
  */
-(function (exports) {
+//(function (exports) {
     "use strict";
     var G711 = {};
     G711.BIAS = 0x84;
@@ -143,6 +143,6 @@
     /**
      * Library version.
      */
-    exports.G711 = G711;
-    exports.version = '0.0.2';
-}(typeof(exports) !== "undefined" ? module.exports : window));
+    // exports.G711 = G711;
+    // exports.version = '0.0.2';
+//}(typeof(exports) !== "undefined" ? module.exports : window));

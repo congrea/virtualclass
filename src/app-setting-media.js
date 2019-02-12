@@ -131,8 +131,8 @@
                     mysmallVideo.srcObject = stream;
                 }
 
-                virtualclass.gObj.video.stream = stream;
-                virtualclass.gObj.video.audio._manuPulateStream();
+                virtualclass.media.stream = stream;
+                virtualclass.media.audio._manuPulateStream();
 
                 return navigator.mediaDevices.enumerateDevices();
             },

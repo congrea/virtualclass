@@ -5,6 +5,8 @@
 (function (window, document) {
     var io = window.io;
     var i = 0;
+
+    var allTools = {};
     /**
      * This is the main object which has properties and methods
      * Through this properties and methods all the front stuff is happening
@@ -211,9 +213,30 @@
 
             initActiveElement(selector, tool) {
                 var elem = document.querySelector(selector);
-                elem.addEventListener('click', (ev) => {
-                    this.activeElement(ev, tool);
-                });
+                // elem.addEventListener('click', (ev) => {
+                //     this.activeElement(ev, tool);
+                // });
+
+                if(typeof allTools[virtualclass.gObj.currWb] == 'undefined'){
+                    allTools[virtualclass.gObj.currWb] = {};
+                }
+                if(typeof allTools[virtualclass.gObj.currWb][tool.type] == 'undefined'){
+                    elem.addEventListener('click', this.activeElementHandler.bind(this, tool));
+                    allTools[virtualclass.gObj.currWb][tool.type] = true;
+                }
+
+                //elem.removeEventListener('click', bindHandler);
+                // if(typeof ColorinitHandler === 'undefined'){
+                //     var bindHandler = this.activeElementHandler.bind(this, tool);
+                //     elem.addEventListener('click', bindHandler);
+                //     ColorinitHandler = true;
+                // }
+
+            },
+
+            activeElementHandler (tool, ev){
+                console.log('many times clicked');
+                this.activeElement(ev, tool);
             },
 
             activeElement (ev, tool){
@@ -236,10 +259,8 @@
             objInit: function (evt) {
                 var wbId = virtualclass.vutil.getWhiteboardId(this.parentNode);
                 var anchorNode = this;
-                //var colorPicker = document.querySelector("#colorList"+wbId);
-                var toolId = anchorNode.parentNode.id;
 
-                if(evt.currentTarget.classList.contains("icon-shapes")){
+                if(evt.target.classList.contains("icon-shapes")|| evt.target.parentNode.classList.contains("shapes_icon")){
                     var shapesElem = document.querySelector("#shapes"+wbId);
                     if(shapesElem.classList.contains("open")){
                        shapesElem.classList.remove("open");
@@ -255,69 +276,24 @@
 
                 if(anchorNode.parentNode.id == "t_color" + wbId){
                     virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
-
                     virtualclass.wb[wbId].closeElem(document.querySelector("#t_strk"+wbId+" .strkSizeList"));
-
                     virtualclass.wb[wbId].closeElem(document.querySelector("#t_font"+wbId+" .fontSizeList"));
 
-                    virtualclass.wb[wbId].toggleDisplay(toolId, wbId);
-
-                    // colorPicker.addEventListener('click', function(ev){
-                    //
-                    //     var attr = ev.currentTarget.parentNode.dataset.tool;
-                    //     var prevSelectedColor = document.querySelector("#colorList" + wbId + " .selected");
-                    //     if(prevSelectedColor != null) {
-                    //        prevSelectedColor.classList.remove("selected");
-                    //     }
-                    //     var color = ev.target.bgColor;
-                    //     if(color != ""){
-                    //        ev.target.classList.add("selected");
-                    //        virtualclass.wb[wbId].changeToolProperty(attr, color);
-                    //     }
-                    // });
-
-
+                    virtualclass.wb[wbId].toggleDisplay(anchorNode.parentNode.id, wbId);
                     virtualclass.wb[wbId].initActiveElement("#colorList"+wbId,  {type : 'color', prop: 'color'});
-                    // colorPicker.addEventListener('click', this.activeElement);
 
                 }else if(anchorNode.parentNode.id == "t_strk" + wbId){
 
-                         virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
-                         virtualclass.wb[wbId].toggleDisplay(toolId, wbId);
-
-                         // document.querySelector("#t_strk"+wbId+" ul").addEventListener('click', function(ev){
-                         //
-                         //    var attr = ev.currentTarget.parentNode.dataset.tool;
-                         //    var strkSize = ev.target.dataset.stroke;
-                         //    var prevSelectedstrk = document.querySelector("#t_strk"+wbId+" .selected");
-                         //    if(prevSelectedstrk != null) {
-                         //        prevSelectedstrk.classList.remove("selected");
-                         //    }
-                         //    ev.target.classList.add("selected");
-                         //    virtualclass.wb[wbId].changeToolProperty(attr, strkSize);
-                         // })
-                         virtualclass.wb[wbId].initActiveElement("#t_strk"+wbId+" ul", {type : 'strk', prop: 'stroke'} );
+                    virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+                    virtualclass.wb[wbId].toggleDisplay(anchorNode.parentNode.id, wbId);
+                    virtualclass.wb[wbId].initActiveElement("#t_strk"+wbId+" ul", {type : 'strk', prop: 'stroke'} );
 
                 }else if(anchorNode.parentNode.id == "t_font" + wbId){
 
-                         virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
-                         virtualclass.wb[wbId].toggleDisplay(toolId, wbId);
+                    virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+                    virtualclass.wb[wbId].toggleDisplay(anchorNode.parentNode.id, wbId);
+                    virtualclass.wb[wbId].initActiveElement("#t_font"+wbId+" ul", {type : 'font', prop: 'font'} );
 
-                         virtualclass.wb[wbId].initActiveElement("#t_font"+wbId+" ul", {type : 'font', prop: 'font'} );
-
-
-
-                    // document.querySelector("#t_font"+wbId+" ul").addEventListener('click', function(ev){
-                         //
-                         //    var attr = ev.currentTarget.parentNode.dataset.tool;
-                         //    var txtFont = ev.target.dataset.font;
-                         //    var prevSelectedfont = document.querySelector("#t_font"+wbId+" .selected");
-                         //    if(prevSelectedfont != null) {
-                         //       prevSelectedfont.classList.remove("selected");
-                         //    }
-                         //    ev.target.classList.add("selected");
-                         //    virtualclass.wb[wbId].changeToolProperty(attr, txtFont);
-                         // })
                 } else {
                     if (typeof virtualclass.wb[virtualclass.gObj.currWb] != 'undefined' && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != '' &&
                         typeof virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != 'undefined' && this.parentNode.id.indexOf('t_text') < 0) {
@@ -349,13 +325,15 @@
                         virtualclass.wb[wbId].toolInit(anchorNode.parentNode.id, wbId);
                     }
 
-                    //var currentShapeTool = document.querySelector("#tool_wrapper"+wbId);
                     if(anchorNode.parentNode.id == "t_rectangle"+wbId || anchorNode.parentNode.id == "t_line"+wbId
                         || anchorNode.parentNode.id == "t_oval"+wbId  || anchorNode.parentNode.id == "t_triangle"+wbId)
                     {
+                       var toolName = anchorNode.parentNode.id.slice(2, anchorNode.parentNode.id.split(/_doc_*/)[0].length);
                        document.querySelector("#tool_wrapper"+wbId).dataset.currtool = anchorNode.parentNode.dataset.tool;
+                       document.querySelector("#shapeIcon"+wbId+ " a").dataset.title = toolName.charAt(0).toUpperCase()+ toolName.slice(1);
                     }else {
-                       delete document.querySelector("#tool_wrapper"+wbId).dataset.currtool;
+                       document.querySelector("#tool_wrapper"+wbId).dataset.currtool = "shapes";
+                       document.querySelector("#shapeIcon"+wbId+ " a").dataset.title = "Shapes"
                        virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
                        virtualclass.wb[wbId].closeElem(document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList"));
                        virtualclass.wb[wbId].closeElem(document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList"));
@@ -395,17 +373,17 @@
                        }
                           strkTool.classList.add("hide");
                     }else{
-                        if(strkTool.classList.contains("hide")){
-                           strkTool.classList.remove("hide");
-                           strkTool.classList.add("show");
-                        }
-                           fontTool.classList.add("hide");
+                       if(strkTool.classList.contains("hide")){
+                          strkTool.classList.remove("hide");
+                          strkTool.classList.add("show");
+                       }
+                          fontTool.classList.add("hide");
                     }
                 }
             },
 
             toggleDisplay : function(toolId, wbId){
-                var  colorPicker = document.querySelector("#colorList"+wbId);
+                var colorPicker = document.querySelector("#colorList"+wbId);
                 if(toolId == "t_color"+wbId){
                     if(colorPicker.classList.contains("open")){
                        colorPicker.classList.remove("open");
@@ -417,18 +395,17 @@
                           colorPicker.classList.add("open");
                     }
                 }else if(toolId == "t_strk"+wbId || toolId == "t_font"+wbId){
-                        virtualclass.wb[wbId].closeElem(colorPicker);
-
-                        var selectSize = (toolId == "t_strk"+wbId) ? document.querySelector("#" + toolId + " .strkSizeList") : document.querySelector("#" + toolId+ " .fontSizeList");
-                        if(selectSize.classList.contains("open")){
-                           selectSize.classList.remove("open");
-                           selectSize.classList.add("close");
-                        }else{
-                            if(selectSize.classList.contains("close")){
-                               selectSize.classList.remove("close");
-                            }
-                               selectSize.classList.add("open");
-                        }
+                    virtualclass.wb[wbId].closeElem(colorPicker);
+                    var selectSize = (toolId == "t_strk"+wbId) ? document.querySelector("#" + toolId + " .strkSizeList") : document.querySelector("#" + toolId+ " .fontSizeList");
+                    if(selectSize.classList.contains("open")){
+                       selectSize.classList.remove("open");
+                       selectSize.classList.add("close");
+                    }else{
+                       if(selectSize.classList.contains("close")){
+                          selectSize.classList.remove("close");
+                       }
+                          selectSize.classList.add("open");
+                    }
                 }
             },
 
@@ -576,18 +553,24 @@
                                 virtualclass.wb[wbId].activeToolColor = virtualclass.gObj.defaultcolor;
                                 document.querySelector("#t_color"+ wbId +" .disActiveColor").style.backgroundColor = virtualclass.wb[wbId].activeToolColor;
 
-                                // var removeCurrtool = document.querySelector("#tool_wrapper"+wbId);
-                                // delete removeCurrtool.dataset.currtool;
-                                delete document.querySelector("#tool_wrapper"+wbId).dataset.currtool;
+                                var removeCurrtool = document.querySelector("#tool_wrapper"+wbId).dataset.currtool;
+                                if(removeCurrtool == "triangle" || removeCurrtool == "line" || removeCurrtool == "oval" || removeCurrtool == "rectangle"){
+                                   delete document.querySelector("#tool_wrapper"+wbId).dataset.currtool;
+                                }
+
+                                var tool = document.querySelector("#shapeIcon"+wbId+ " a").dataset.title;
+                                if(tool == "triangle" || tool == "line" || tool == "oval" || tool == "rectangle"){
+                                   tool = "Shapes";
+                                }
 
                                 var strk = document.querySelector("#t_strk"+wbId);
                                 if(strk != null){
-                                    strk.classList.remove("show");
+                                   strk.classList.remove("show");
                                 }
 
                                 var font = document.querySelector("#t_font"+wbId);
                                 if(font != null) {
-                                    font.classList.remove("show");
+                                   font.classList.remove("show");
                                 }
 
                                 var removeColor = document.querySelector("#colorList"+virtualclass.gObj.currWb+ " .selected");

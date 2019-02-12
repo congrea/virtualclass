@@ -197,6 +197,10 @@
 
                 virtualclass.vutil.removeAllTextWrapper();
 
+                virtualclass.wb[virtualclass.gObj.currWb].currStrkSize = virtualclass.gObj.defalutStrk;
+                virtualclass.wb[virtualclass.gObj.currWb].textFontSize = virtualclass.gObj.defalutFont;
+                virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = virtualclass.gObj.defaultcolor;
+
             },
             /**
              * By this function there would de-activating all the objects
@@ -476,10 +480,10 @@
 
                 // TODO this should be done by proepr way
                 // it has to be done in function
-                virtualclass.gObj.video.audio.bufferSize = 0;
-                virtualclass.gObj.video.audio.encMode = "alaw";
-                virtualclass.gObj.video.audio.rec = '';
-                virtualclass.gObj.video.audio.audioNodes = [];
+                virtualclass.media.audio.bufferSize = 0;
+                virtualclass.media.audio.encMode = "alaw";
+                virtualclass.media.audio.rec = '';
+                virtualclass.media.audio.audioNodes = [];
 
                 var vcan =  virtualclass.wb[wid].vcan;
 
@@ -491,7 +495,7 @@
                     vcan.main.currentTransform = "";
                 }
 
-                virtualclass.gObj.video.audio.updateInfo();
+                virtualclass.media.audio.updateInfo();
             },
 
             clearCurrentTool: function () {
@@ -891,7 +895,7 @@
                 var wid = virtualclass.gObj.currWb;
                 if (msg.hasOwnProperty('createArrow')) {
                     var jobj = JSON.stringify(msg);
-                    virtualclass.wb[wid].vcan.optimize.sendPacketWithOptimization(jobj, io.sock.readyState, 300);
+                    virtualclass.wb[wid].vcan.optimize.sendPacketWithOptimization(jobj, 300);
                 } else {
                     if (msg.hasOwnProperty('repObj')) {
                         if (typeof (msg.repObj[msg.repObj.length - 1]) == 'undefined') {
@@ -906,7 +910,7 @@
                     var jobj = JSON.stringify(msg);
 
                   //  virtualclass.wb[virtualclass.gObj.currWb].sentPackets = virtualclass.wb[virtualclass.gObj.currWb].sentPackets + jobj.length;
-                    if (io.sock.readyState == 1) {
+                    if (io.webSocketConnected()) {
 
                         typeof toUser == 'undefined' ? ioAdapter.mustSend(msg) : ioAdapter.mustSendUser(msg, toUser);
 
@@ -1037,45 +1041,66 @@
                     virtualclass.wb[wid].bridge.makeQueue(repObjs[i]);
 
                     if(repObjs[i].hasOwnProperty("cmd")) {
-                       if(roles.hasControls()) {
-                          var tool = repObjs[i].cmd.slice(2, repObjs[i].cmd.length);
-                          var currentShapeTool = document.querySelector("#" + "tool_wrapper" + wid);
-                          currentShapeTool.dataset.currtool = tool;
-                       }
+                        if(roles.hasControls()) {
+                           var tool = repObjs[i].cmd.slice(2, repObjs[i].cmd.length);
+                           var currentShapeTool = document.querySelector("#" + "tool_wrapper" + wid);
+                           if(tool == "triangle" || tool == "line" || tool == "oval" || tool == "rectangle"){
+                              document.querySelector("#shapeIcon"+wid+ " a").dataset.title = tool.charAt(0).toUpperCase() + tool.slice(1);
+                              currentShapeTool.dataset.currtool = tool;
+                           }else{
+                              document.querySelector("#shapeIcon"+wid+ " a").dataset.title = "Shapes";
+                              currentShapeTool.dataset.currtool = "shapes";
+                           }
+                        }
                     }else if(repObjs[i].hasOwnProperty("color")){
-                             virtualclass.wb[wid].activeToolColor = repObjs[i].color;
-                             if(roles.hasControls()){
-                                document.querySelector("#t_color"+ wid +" .disActiveColor").style.backgroundColor = virtualclass.wb[wid].activeToolColor;
-                                virtualclass.wb[wid].utility.selectElem("#colorList"+ wid, repObjs[i].elem);
-                             }
+                           virtualclass.wb[wid].activeToolColor = repObjs[i].color;
+                           if(roles.hasControls()){
+                              document.querySelector("#t_color"+ wid +" .disActiveColor").style.backgroundColor = virtualclass.wb[wid].activeToolColor;
+                              virtualclass.wb[wid].utility.selectElem("#colorList"+ wid, repObjs[i].elem);
+                           }
                     }else if(repObjs[i].hasOwnProperty("strkSize")){
-                             virtualclass.wb[wid].currStrkSize = repObjs[i].strkSize;
-                             if(roles.hasControls()){
-                                document.querySelector("#t_strk" + wid + " ul").dataset.stroke = virtualclass.wb[wid].currStrkSize;
-                                virtualclass.wb[wid].utility.selectElem("#t_strk"+ wid, repObjs[i].elem);
-                             }
+                           virtualclass.wb[wid].currStrkSize = repObjs[i].strkSize;
+                           if(roles.hasControls()){
+                              document.querySelector("#t_strk" + wid + " ul").dataset.stroke = virtualclass.wb[wid].currStrkSize;
+                              virtualclass.wb[wid].utility.selectElem("#t_strk"+ wid, repObjs[i].elem);
+                           }
                     }else if(repObjs[i].hasOwnProperty("fontSize")){
-                             virtualclass.wb[wid].textFontSize = repObjs[i].fontSize;
-                             if(roles.hasControls()){
-                                document.querySelector("#t_font" + wid + " ul").dataset.font = virtualclass.wb[wid].textFontSize;
-                                virtualclass.wb[wid].utility.selectElem("#t_font"+ wid, repObjs[i].elem);
-                             }
+                           virtualclass.wb[wid].textFontSize = repObjs[i].fontSize;
+                           if(roles.hasControls()){
+                              document.querySelector("#t_font" + wid + " ul").dataset.font = virtualclass.wb[wid].textFontSize;
+                              virtualclass.wb[wid].utility.selectElem("#t_font"+ wid, repObjs[i].elem);
+                           }
                     }
 
                     if (repObjs[i].uid  ==  virtualclass.wb[wid].gObj.displayedObjId + 1) {
                         virtualclass.wb[wid].uid = repObjs[i].uid;
                         this.executeWhiteboardData(repObjs[i]);
                         if(typeof fromBrowser != 'undefined'){
-                            virtualclass.wb[wid].gObj.rcvdPackId = virtualclass.wb[wid].uid;
+                           virtualclass.wb[wid].gObj.rcvdPackId = virtualclass.wb[wid].uid;
                         }
                     }
                 }
                // console.log('Whiteboard Stored ID ' + virtualclass.wb[wid].gObj.replayObjs[virtualclass.wb[wid].gObj.replayObjs.length-1].uid);
                 if(virtualclass.wb[wid].gObj.replayObjs.length > 0){
                     // console.log('Whiteboard saving storage ' + repObjs[repObjs.length-1].uid);
-                    virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
+                   virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
                 }
               //  virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
+                if(roles.hasControls()) {
+                    var fontTool = document.querySelector("#t_font" + wid);
+                    var strkTool = document.querySelector("#t_strk" + wid);
+                    if (virtualclass.wb[wid].tool.cmd == "t_text" + wid) {
+                        if (fontTool.classList.contains("hide")) {
+                            fontTool.classList.remove("hide");
+                            fontTool.classList.add("show");
+                        }
+                        strkTool.classList.add("hide");
+                    } else {
+                        if (!fontTool.classList.contains("hide")) {
+                            fontTool.classList.add("hide");
+                        }
+                    }
+                }
             },
 
             selectElem : function(selector,value){
@@ -1083,13 +1108,15 @@
                 if(Elem != null) {
                    Elem.classList.remove('selected');
                 }
-                   var selectedItem = document.querySelector(selector+ " #"+value);
+                var selectedItem = document.querySelector(selector+ " #"+value);
+                if(selectedItem != null){
                    selectedItem.classList.add("selected");
+                }
             },
 
             executeWhiteboardData  :  function (objToDisplay){
                 var wid = virtualclass.gObj.currWb;
-                console.log('Whiteboard executed uid ' + objToDisplay.uid);
+                // console.log('Whiteboard executed uid ' + objToDisplay.uid);
                 virtualclass.wb[wid].gObj.replayObjs.push(objToDisplay);
                 virtualclass.wb[wid].response.replayObj([objToDisplay]);
                 this.checkNextQueue(objToDisplay);
@@ -1105,13 +1132,17 @@
             findPacketInQueue : function (playedObj){
                 var wid = virtualclass.gObj.currWb;
                 if(playedObj.hasOwnProperty("color")){
-                    virtualclass.wb[wid].activeToolColor = playedObj.color;
+                   virtualclass.wb[wid].activeToolColor = playedObj.color;
+                }else if(playedObj.hasOwnProperty("strkSize")){
+                   virtualclass.wb[wid].currStrkSize = playedObj.strkSize;
+                }else if(playedObj.hasOwnProperty("fontSize")){
+                   virtualclass.wb[wid].textFontSize = playedObj.fontSize;
                 }
                 
                 if(virtualclass.wb[wid].gObj.queue.hasOwnProperty(playedObj.uid + 1)){
-                    return virtualclass.wb[wid].gObj.queue[playedObj.uid + 1];
+                  return virtualclass.wb[wid].gObj.queue[playedObj.uid + 1];
                 } else {
-                    //console.log("Whiteboard Packet is " + (playedObj.uid + 1) +  " is not found in queue");
+                  //console.log("Whiteboard Packet is " + (playedObj.uid + 1) +  " is not found in queue");
                 }
 
                 return false;

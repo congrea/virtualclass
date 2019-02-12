@@ -188,6 +188,11 @@
   cursor: pointer;
 }
 
+#virtualclassCont.congrea .shapesToolbox .shapes_icon .congtooltip:hover::after {
+  bottom:-30px;
+  left:0px;
+}
+
 #virtualclassCont.congrea .shapesToolbox a {color: #fff;}
 #virtualclassCont.congrea .shapesToolbox a:hover {color: #00A0BA;}
 
@@ -212,21 +217,30 @@
   left:2px;
 }
 
-#virtualclassCont.congrea .shapesToolbox .shapes_icon .icon-shapes.cgIcon {
-  padding: 13px 13px 14px 14px;
+/*#virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon .icon-shapes.cgIcon {*/
+  /*padding: 13px 13px 14px 14px;*/
+/*}*/
+
+#virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a.congtooltip:hover::after {
+  bottom:-30px;
+  left:0;
+}
+
+#virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a {
+  padding: 11px 13px 12px 14px;
   border-left: 0.01em solid #021317!important;
 }
 
-#virtualclassCont.congrea .shapesToolbox .shapes_icon .icon-shapes.cgIcon:before {
-  font-size: 21px;
-}
+/*#virtualclassCont.congrea .shapesToolbox .shapes_icon .icon-shapes.cgIcon:before {*/
+  /*font-size: 21px;*/
+/*}*/
 
 #virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="line"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="rectangle"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="triangle"] .shapes_icon .icon-shapes.cgIcon:before{
   font-size:23px;
 }
 
-#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon .icon-shapes.cgIcon, .shapesToolbox[data-currtool="line"] .shapes_icon .icon-shapes.cgIcon, .shapesToolbox[data-currtool="rectangle"] .shapes_icon .icon-shapes.cgIcon, .shapesToolbox[data-currtool="triangle"] .shapes_icon .icon-shapes.cgIcon {
-  padding: 12px 12.5px 13px 13.5px;
+#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon a, .shapesToolbox[data-currtool="line"] .shapes_icon a, .shapesToolbox[data-currtool="rectangle"] .shapes_icon a, .shapesToolbox[data-currtool="triangle"] .shapes_icon a {
+  padding: 10px 12.5px 11px 13.6px !important;
 }
 
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:after {
@@ -342,6 +356,7 @@
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .shapesTool.open,
 #virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .shapesTool.open{
   display: block !important;
+  z-index:inherit;
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper table.close,

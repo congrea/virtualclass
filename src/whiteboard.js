@@ -6,7 +6,6 @@
     var io = window.io;
     var i = 0;
 
-    var allTools = {};
     /**
      * This is the main object which has properties and methods
      * Through this properties and methods all the front stuff is happening
@@ -213,29 +212,17 @@
 
             initActiveElement(selector, tool) {
                 var elem = document.querySelector(selector);
-                // elem.addEventListener('click', (ev) => {
-                //     this.activeElement(ev, tool);
-                // });
-
-                if(typeof allTools[virtualclass.gObj.currWb] == 'undefined'){
-                    allTools[virtualclass.gObj.currWb] = {};
+                if(typeof virtualclass.gObj.wbTool[virtualclass.gObj.currWb] == 'undefined'){
+                    virtualclass.gObj.wbTool[virtualclass.gObj.currWb] = {};
                 }
-                if(typeof allTools[virtualclass.gObj.currWb][tool.type] == 'undefined'){
+                if(typeof virtualclass.gObj.wbTool[virtualclass.gObj.currWb][tool.type] == 'undefined'){
                     elem.addEventListener('click', this.activeElementHandler.bind(this, tool));
-                    allTools[virtualclass.gObj.currWb][tool.type] = true;
+                    virtualclass.gObj.wbTool[virtualclass.gObj.currWb][tool.type] = true;
                 }
-
-                //elem.removeEventListener('click', bindHandler);
-                // if(typeof ColorinitHandler === 'undefined'){
-                //     var bindHandler = this.activeElementHandler.bind(this, tool);
-                //     elem.addEventListener('click', bindHandler);
-                //     ColorinitHandler = true;
-                // }
-
             },
 
             activeElementHandler (tool, ev){
-                console.log('many times clicked');
+                // console.log('many times clicked');
                 this.activeElement(ev, tool);
             },
 
@@ -548,6 +535,7 @@
                             // }
 
                             if(roles.hasControls()) {
+                                delete virtualclass.gObj.wbTool[virtualclass.gObj.currWb];
                                 virtualclass.wb[wbId].currStrkSize = virtualclass.gObj.defalutStrk;
                                 virtualclass.wb[wbId].textFontSize = virtualclass.gObj.defalutFont;
                                 virtualclass.wb[wbId].activeToolColor = virtualclass.gObj.defaultcolor;

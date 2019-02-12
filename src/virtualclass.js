@@ -90,7 +90,8 @@
                 defalutFntOptn : "1",
                 defaultcolor : "#0000ff",
                 sendAudioStatus : false,
-                audioRecWorkerReady : false
+                audioRecWorkerReady : false,
+                wbTool : {}
             },
 
             enablePreCheck : true,

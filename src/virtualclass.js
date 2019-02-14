@@ -985,8 +985,8 @@
                         var currApp = document.querySelector("#virtualclassCont").dataset.currapp;
                         if(currApp != null && (currApp == 'Whiteboard' || currApp == 'DocumentShare')){
                             if(ev.target.dataset.hasOwnProperty("stroke") || ev.target.dataset.hasOwnProperty("font")) {
-                               var sizeDropDown = (ev.target.dataset.hasOwnProperty("stroke")) ? document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList") : document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList");
-                               virtualclass.wb[virtualclass.gObj.currWb].closeElem(sizeDropDown);
+                               var dropDown = (ev.target.dataset.hasOwnProperty("stroke")) ? document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList") : document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList");
+                               virtualclass.wb[virtualclass.gObj.currWb].closeElem(dropDown);
 
                             }else if(ev.target.classList.contains("icon-color") || ev.target.classList.contains("selected") || ev.target.classList.contains("congtooltip")) {
                                      virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes"+virtualclass.gObj.currWb));
@@ -996,12 +996,22 @@
                                      virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes"+virtualclass.gObj.currWb));
 
                             }else{
-                                 virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList"));
-                                 virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList"));
-                                 virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#colorList" + virtualclass.gObj.currWb));
+                                 var stroke = document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList");
+                                 var font = document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList");
+                                 var colorList =  document.querySelector("#colorList" + virtualclass.gObj.currWb);
+                                 if(stroke != null && stroke.classList.contains("open") && !document.querySelector("#virtualclassApp").classList.contains("dashboard")) {
+                                    virtualclass.wb[virtualclass.gObj.currWb].closeElem(stroke);
+                                 }else if(font != null && font.classList.contains("open") && !document.querySelector("#virtualclassApp").classList.contains("dashboard")) {
+                                    virtualclass.wb[virtualclass.gObj.currWb].closeElem(font);
+                                 }else if(colorList != null && colorList.classList.contains("open") && !document.querySelector("#virtualclassApp").classList.contains("dashboard")) {
+                                    virtualclass.wb[virtualclass.gObj.currWb].closeElem(colorList);
+                                 }
 
-                                 if(!ev.target.classList.contains("icon-shapes")){
-                                    virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+                                 if(!ev.target.classList.contains("icon-shapes") && !document.querySelector("#virtualclassApp").classList.contains("dashboard")){
+                                     var shapes = document.querySelector("#shapes" + virtualclass.gObj.currWb);
+                                     if(shapes != null && shapes.classList.contains("open")) {
+                                         virtualclass.wb[virtualclass.gObj.currWb].closeElem(shapes);
+                                     }
                                  }
                             }
                         }

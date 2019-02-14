@@ -472,6 +472,7 @@
         margin-right: 0px;
         padding: 0px 2px;
         border-radius: 3px;
+        cursor:pointer;
     }
 
     #virtualclassCont.congrea .whiteboard .prev {

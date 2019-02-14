@@ -498,7 +498,7 @@
 }
 
 #virtualclassCont.congrea .congtooltip:hover:after {
-	background : #ccc;
+	background : #fff;
 	border : #ccc solid 1px;
 	border-radius : 0.25em;
 	bottom : 2.6em;

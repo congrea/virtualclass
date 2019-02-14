@@ -1269,10 +1269,6 @@ this["JST"]["dest_temp/templates/videoupload/videoupload.hbs"] = Handlebars.temp
     + " <div id=\"videoPlayerCont\"></div></div>";
 },"useData":true});
 
-this["JST"]["dest_temp/templates/whiteboard/color.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<table class=\"table\" style=\"width:200px\"><tbody><tr><td bgcolor=\"#FF0000\"></td><td bgcolor=\"#ff3333\"></td><td bgcolor=\"#ff8000\"></td><td bgcolor=\"#40ff00\"></td><td bgcolor=\"#00ffff\"></td><td bgcolor=\"#0040ff\"></td><td bgcolor=\"#ff00ff\"></td><td bgcolor=\"#00ffbf\"></td></tr></tbody></table>";
-},"useData":true});
-
 this["JST"]["dest_temp/templates/whiteboard/main.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 

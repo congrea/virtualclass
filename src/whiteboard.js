@@ -533,9 +533,9 @@
                             // if(cmd.indexOf('_doc_') <= -1){
                             //     cmd += virtualclass.gObj.currWb;
                             // }
-
+                            delete virtualclass.gObj.wbTool[virtualclass.gObj.currWb];
                             if(roles.hasControls()) {
-                                delete virtualclass.gObj.wbTool[virtualclass.gObj.currWb];
+
                                 virtualclass.wb[wbId].currStrkSize = virtualclass.gObj.defalutStrk;
                                 virtualclass.wb[wbId].textFontSize = virtualclass.gObj.defalutFont;
                                 virtualclass.wb[wbId].activeToolColor = virtualclass.gObj.defaultcolor;

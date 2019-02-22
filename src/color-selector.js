@@ -77,6 +77,10 @@ var colorSelector ={
         var css =
             "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions, #virtualclassCont.congrea #audioWidget" +
             "{border-top:"+border +" !important;}"+
+            "#virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapesTool .tool a"+
+            "{border-bottom:"+border +" !important;}"+
+            "#virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapes_icon a"+
+            "{border-left: 0.01em solid "+allbg.fcolor +"!important;}"+
             // "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool" +
             // "{border:0 !important;}"+
             "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #networkStatusContainer, #virtualclassCont.congrea #audioWidget li" +
@@ -100,7 +104,9 @@ var colorSelector ={
             // "#virtualclassCont.congrea .btn.btn-default ,"+
             "#virtualclassCont.congrea .zoomControler ,"+
             "#virtualclassCont.congrea .btn-default "+
-            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;}"
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important;}"+
+            "#virtualclassCont.congrea .shapesToolbox"+
+            "{border-right: 0.01em solid "+allbg.fcolor +"!important;}"
 
         this.addCss(css);
 
@@ -130,9 +136,15 @@ var colorSelector ={
             "#virtualclassCont.congrea #navigator, " +
             "#virtualclassCont.congrea #layoutQuiz .navbar, " +
             "#virtualclassCont.congrea .commandToolsWrapper, " +
+            "#virtualclassCont.congrea .commandToolsWrapper .shapesToolbox .shapesTool,"+
+            "#virtualclassCont.congrea .commandToolsWrapper ul.strkSizeList li:hover,"+
+            "#virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool ul.strkSizeList li.selected,"+
+            "#virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool ul.fontSizeList span.selected,"+
             "#virtualclassCont.congrea #playButton, " +
             "#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText" +
-            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)} "+
+            "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important} "+
+
+
 
             "#virtualclassCont.congrea #virtualclassOptionsCont:first-child " +
             "{background-image: linear-gradient(to right, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%)} "+
@@ -146,6 +158,7 @@ var colorSelector ={
             "{color:"+frontColor+"!important}"+
             "#virtualclassCont.congrea #virtualclassOptionsCont .appOptions:hover, " +
             "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover, " +
+            "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool ul.fontSizeList span:hover,"+
             "#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, " +
             "#virtualclassCont.congrea #alleditorRichContainer:hover, " +
             "#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover" +
@@ -161,11 +174,28 @@ var colorSelector ={
              "#virtualclassCont.congrea .active .cgIcon:before" +
             "{color:"+active.frontColor +"!important}"+
 
-
             "#virtualclassCont.congrea .commandToolsWrapper .tool:hover .cgIcon:before" +
             "{color:"+hover.frontColor +"!important}"+
 
             "#virtualclassCont.congrea .cgIcon:before" +
+            "{color:"+frontColor+"!important}"+
+
+            "#virtualclassCont.congrea #docShareNav #totalPages"+
+            "{color:"+frontColor+"!important}"+
+
+            "#virtualclassCont.congrea #dcPaging .noteIndex"+
+            "{color:"+frontColor+"!important}"+
+
+            "#virtualclassCont.congrea #docShareNav .pageNav"+
+            "{color:"+frontColor+"!important}"+
+
+            "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a"+
+            "{color:"+frontColor+"!important}"+
+
+            "#virtualclassCont.congrea .shapesToolbox a"+
+            "{color:"+frontColor+"!important}"+
+
+            "#virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:after"+
             "{color:"+frontColor+"!important}"+
 
             "#virtualclassCont.congrea .cgText" +
@@ -181,7 +211,6 @@ var colorSelector ={
             "#virtualclassCont.congrea .btn-default "+
             "{background-image: linear-gradient(to bottom, "+allbg.fcolor+" 0%,"+allbg.scolor+" 100%) !important } "+
 
-
             "#virtualclassCont.congrea #congdashboard .modal-header .close" +
             "{opacity :1;}"+
 
@@ -190,12 +219,10 @@ var colorSelector ={
             "#virtualclassCont.congrea .precheck .btn-default "+
             "{color :"+frontColor +"!important} "+
 
-
             "#virtualclassCont.congrea .vjs-control-bar .vjs-autoPlay-button " +
             "{background:none !important ;}"+
             "#virtualclassCont.congrea .vjs-control-bar .vjs-button " +
             "{background:none !important ; border:none !important ;color:white!important}" +
-
 
             "#virtualclassCont.congrea  .zoomControler div:hover"+
             "{background-image: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
@@ -226,7 +253,11 @@ var colorSelector ={
             "#virtualclassCont.congrea #stopScreenShare button:hover "+
             "{background-image: linear-gradient(to bottom, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important;color:"+frontColor +"!important}"+
             "#virtualclassCont.congrea  #playController button"+
-            "{background-image:none !important;color:"+frontColor+"!important; border-right: 1px solid "+allbg.fcolor+"!important}" ;
+            "{background-image:none !important;color:"+frontColor+"!important; border-right: 1px solid "+allbg.fcolor+"!important}"+
+            "#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox.active"+
+            "{background-image: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%);} "+
+            "#virtualclassCont.congrea #dcPaging .noteIndex.active"+
+            "{border : 1px solid"+allbg.fcolor+"!important}";
             this.addCss(css);
 
     },
@@ -235,6 +266,7 @@ var colorSelector ={
     makeThemeReadyEditor:function(frontColor,allbg,active,hover){
 
         var css="#virtualclassCont.congrea a.vceditor-btn" +
+            "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool ul.fontSizeList span.selected,"+
             "{background-color: "+active.fcolor+"} " +
 
             "#virtualclassCont.congrea a.vceditor-btn" +

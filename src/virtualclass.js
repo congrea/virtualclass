@@ -85,8 +85,13 @@
                 tempPrefix : 'dest_temp/templates',
                 allUserObj : {},
                 docPdfFirstTime : false,
+                defalutStrk : "1",
+                defalutFont : "25",
+                defalutFntOptn : "1",
+                defaultcolor : "#0000ff",
                 sendAudioStatus : false,
-                audioRecWorkerReady : false
+                audioRecWorkerReady : false,
+                wbTool : {}
             },
 
             enablePreCheck : true,
@@ -169,7 +174,9 @@
                 this.vutil.isChromeExtension();
                 this.wbCommon = window.wbCommon;
                 this.pageNavigation = window.pageIndexNav;
+                this.jscolor = window.jscolor;
                 this.modal = window.modal;
+
 
                 // this.pdfRender = window.pdfRender();
 
@@ -963,21 +970,58 @@
                     virtualclass.zoom.init();
                    // virtualclass.wbCommon.indexNav.init();
                     // virtualclass.pdfRender[wid].initScaleController();
+
                     var activeWbTool = localStorage.getItem("activeTool");
-                    if(activeWbTool != null){
-                        var activeWbToolElem = document.querySelector("#"+activeWbTool);
-                        if(activeWbToolElem != null){
-                            activeWbToolElem.classList.add("active");
-                            virtualclass.wb[wid].prvTool = activeWbTool;
-                        }
+                    if(activeWbTool != null) {
+                       var activeWbToolElem = document.querySelector("#" + activeWbTool);
+                       if (activeWbToolElem != null) {
+                           activeWbToolElem.classList.add("active");
+                           virtualclass.wb[wid].prvTool = activeWbTool;
+                       }
                     }
-                    
+
+                    if(roles.hasControls()) {
+                    window.addEventListener("mouseup", function (ev) {
+                        var currApp = document.querySelector("#virtualclassCont").dataset.currapp;
+                        if(currApp != null && (currApp == 'Whiteboard' || currApp == 'DocumentShare')){
+                            if(ev.target.dataset.hasOwnProperty("stroke") || ev.target.dataset.hasOwnProperty("font")) {
+                               var dropDown = (ev.target.dataset.hasOwnProperty("stroke")) ? document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList") : document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList");
+                               virtualclass.wb[virtualclass.gObj.currWb].closeElem(dropDown);
+
+                            }else if(ev.target.classList.contains("icon-color") || ev.target.classList.contains("selected") || ev.target.classList.contains("congtooltip")) {
+                                     virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes"+virtualclass.gObj.currWb));
+
+                            }else if(ev.target.classList.contains("icon-rectangle") || ev.target.classList.contains("icon-line")
+                                     || ev.target.classList.contains("icon-oval")|| ev.target.classList.contains("icon-triangle")){
+                                     virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector("#shapes"+virtualclass.gObj.currWb));
+
+                            }else{
+                                 var stroke = document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList");
+                                 var font = document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList");
+                                 var colorList =  document.querySelector("#colorList" + virtualclass.gObj.currWb);
+                                 if(stroke != null && stroke.classList.contains("open") && !document.querySelector("#virtualclassApp").classList.contains("dashboard")) {
+                                    virtualclass.wb[virtualclass.gObj.currWb].closeElem(stroke);
+                                 }else if(font != null && font.classList.contains("open") && !document.querySelector("#virtualclassApp").classList.contains("dashboard")) {
+                                    virtualclass.wb[virtualclass.gObj.currWb].closeElem(font);
+                                 }else if(colorList != null && colorList.classList.contains("open") && !document.querySelector("#virtualclassApp").classList.contains("dashboard")) {
+                                    virtualclass.wb[virtualclass.gObj.currWb].closeElem(colorList);
+                                 }
+
+                                 if(!ev.target.classList.contains("icon-shapes") && !document.querySelector("#virtualclassApp").classList.contains("dashboard")){
+                                     var shapes = document.querySelector("#shapes" + virtualclass.gObj.currWb);
+                                     if(shapes != null && shapes.classList.contains("open")) {
+                                         virtualclass.wb[virtualclass.gObj.currWb].closeElem(shapes);
+                                     }
+                                 }
+                            }
+                        }
+                    });
+                    }
+
                     if(typeof virtualclass.wb.indexNav == 'undefined'){
                         virtualclass.wb.indexNav  = new virtualclass.pageIndexNav("WB");
                     }
                    // virtualclass.wb.indexNav.init();
-                    
-                    
                 },
 
                 ScreenShare : function (app){

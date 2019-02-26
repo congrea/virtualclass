@@ -189,6 +189,9 @@ var colorSelector ={
             "#virtualclassCont.congrea #docShareNav .pageNav"+
             "{color:"+frontColor+"!important}"+
 
+            "#virtualclassCont.congrea #docShareNav #dcPaging #stdPageNo"+
+            "{color:"+frontColor+"!important}"+
+
             "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a"+
             "{color:"+frontColor+"!important}"+
 
@@ -257,7 +260,7 @@ var colorSelector ={
             "#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox.active"+
             "{background-image: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%);} "+
             "#virtualclassCont.congrea #dcPaging .noteIndex.active"+
-            "{border : 1px solid"+allbg.fcolor+"!important}";
+            "{border : 1px solid"+frontColor+"!important}";
             this.addCss(css);
 
     },

@@ -580,6 +580,9 @@
                                    selectDefaultFont.classList.add("selected");
                                 }
 
+                                var shapesElem = document.querySelector("#tool_wrapper"+virtualclass.gObj.currWb +".shapesToolbox");
+                                shapesElem.classList.remove("active");
+
                                 localStorage.removeItem("activeTool");
                             }
 

@@ -173,8 +173,8 @@
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer table tr td.selected:after,
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer table tr td.selected:after{
-  content: "\f00c";
-  color:#000;
+  content: "\e996";
+  color:#fff;
   font-family: "icomoon";
   font-size: 15px;
 }
@@ -236,11 +236,15 @@
 /*}*/
 
 #virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="line"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="rectangle"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="triangle"] .shapes_icon .icon-shapes.cgIcon:before{
-  font-size:23px;
+  font-size:24px;
+}
+
+#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon a span::after , #virtualclassCont.congrea .shapesToolbox[data-currtool="line"] .shapes_icon a span::after , #virtualclassCont.congrea .shapesToolbox[data-currtool="rectangle"] .shapes_icon a span::after , #virtualclassCont.congrea .shapesToolbox[data-currtool="triangle"] .shapes_icon a span::after{
+    margin-left:-2px;
 }
 
 #virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon a, .shapesToolbox[data-currtool="line"] .shapes_icon a, .shapesToolbox[data-currtool="rectangle"] .shapes_icon a, .shapesToolbox[data-currtool="triangle"] .shapes_icon a {
-  padding: 10px 12.5px 11px 13.6px !important;
+  padding: 10px 13px 11px 14px !important;
 }
 
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:after {
@@ -293,7 +297,7 @@
   color: white;
   background-color: white;
   position: absolute;
-  top: 32px;
+  top: 31px;
   right: 18px;
   border: .5px solid #55575a;
 }
@@ -444,7 +448,7 @@
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="color"] a {
-  padding: 6px 21px 17px 21px !important;
+  padding: 5px 21px 18px 21px !important;
 }
 
 /* CSS for Firefox only */
@@ -452,7 +456,12 @@
   #virtualclassCont.congrea .shapesToolbox .shapesTool {
     width:212px;
   }
+    
   .shapesToolbox .shapes_icon .icon-shapes.cgIcon {
     border-left:none !important;
   }
+    
+    #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a{
+        border-left:none !important;
+    }
 }

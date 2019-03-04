@@ -13,7 +13,6 @@
     "grunt-contrib-cssmin": "~2.2.1",
     "grunt-htmlcompressor": "~0.1.10"
   },
-
   "description": "",
   "main": "index.js",
   "directories": {

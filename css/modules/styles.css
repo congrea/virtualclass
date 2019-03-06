@@ -4001,33 +4001,34 @@ background-color: #d6d6d6;
 
 /* The actual popup */
 .congrea.teacher .pollList .popover-content {
-   /* visibility: hidden; */
-   width: 30%;
-   background-color: #eee;
-   text-align: left;
-   border-radius: 6px;
-   position: absolute;
-   z-index: 1;
-   left:400px;
-   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-   font-size: 14px;
-   line-height: 1.42857143;
-   text-decoration: none;
-   text-shadow: none;
-   text-transform: none;
-   letter-spacing: normal;
-   word-break: normal;
-   word-spacing: normal;
-   word-wrap: normal;
-   white-space: normal;
-   background-color: #fff;
-   -webkit-background-clip: padding-box;
-   background-clip: padding-box;
-   border: 1px solid rgba(0,0,0,.2);
-   border-radius: 6px;
-   -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-   box-shadow: 0 5px 10px rgba(0,0,0,.2);
-   line-break: auto;
+  /* visibility: hidden; */
+  width: 70%;
+  background-color: #eee;
+  text-align: left;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  left:200px;
+  top:20px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  white-space: normal;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  line-break: auto;
 
 }
 #virtualclassCont.congrea .popover-content .viewOpt .opt {

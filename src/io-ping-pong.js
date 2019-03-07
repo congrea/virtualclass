@@ -8,6 +8,7 @@ var ioPingPong = {
             var msg = {ping: 'ping', cf: 'pong', session: session};
             ioAdapter.sendWithDelayAndDrop (msg, null, 'mustSend', 'pingAll', 3000);
             console.log('PING BROADCAST');
+            ioAdapter.setSession(session);
         }
     },
     pong: function (e) {

@@ -116,6 +116,10 @@ var io = {
                 var jobj = 'F-SPE-{"'+obj.arg.msg;
                 break;
 
+            case "session":
+                var jobj =  'F-SS-{"'+obj.arg.msg;
+                break;
+
             default:
                 var jobj = JSON.stringify(obj);
         }

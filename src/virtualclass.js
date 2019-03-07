@@ -777,6 +777,14 @@
                     }else {
                         virtualclass.vutil.removeDashboardNav();
                     }
+                       
+                    if(virtualclass.currApp != 'SharePresentation'){
+                        var playing = document.querySelector("#listppt .playing")
+                        if(playing){
+                            playing.classList.remove('playing');
+                        }
+                    }
+                    
                 }
               
             },

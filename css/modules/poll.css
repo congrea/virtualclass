@@ -461,4 +461,6 @@ pointer-events:none;
 .congrea.teacher .pollList td.qnText.col-sm-8 {
    position:relative !important;
 }
-
+#virtualclassCont.congrea.student #optnNonVotd {
+  display:none;
+}

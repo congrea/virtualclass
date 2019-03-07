@@ -2145,9 +2145,9 @@
 #virtualclassCont.congrea .ui-widget-header .icon-user:before {
 	color:#fff;
 }
-#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool:first-child a:hover, #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool.active:first-child a {
-    border-bottom-left-radius: 6px;
-}
+/*#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool:first-child a:hover, #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool.active:first-child a {*/
+    /*border-bottom-left-radius: 6px;*/
+/*}*/
 
 #virtualclassCont.congrea #popupContainer #about-modal{
 	border: #e2e2e2 solid 3px;
@@ -2249,7 +2249,6 @@
 
 
 #virtualclassCont.congrea #preCheckcontainer #joinSession {
-	cursor : pointer;
 	text-align : right;
 	color : blue;
 
@@ -2280,10 +2279,10 @@
 }
 
 #virtualclassCont.congrea #preCheckcontainer #joinSession {
-	cursor : pointer;
 	text-align : right;
 	color : blue;
 }
+
 #virtualclassCont.congrea #preCheckcontainer .modal {
 	background-color: #555558;
 }
@@ -3989,6 +3988,67 @@ background-color: #d6d6d6;
 	outline: none;
 }
 
+.congrea.teacher #virtualclassPoll .modal.in{
+    display:block!important;
+}
+.congrea #preCheckcontainer .container .modal.in{
+    display:block!important;
+}
+.congrea.teacher #congdashboard.modal.in{
+    display:block!important;
+}
+
+
+/* The actual popup */
+.congrea.teacher .pollList .popover-content {
+  /* visibility: hidden; */
+  width: 70%;
+  background-color: #eee;
+  text-align: left;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  left:200px;
+  top:20px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  white-space: normal;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  line-break: auto;
+
+}
+#virtualclassCont.congrea .popover-content .viewOpt .opt {
+   display: block;
+}
+/* Popup arrow */
+.congrea .pollList .popover-content::after {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+#virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="freeDrawing"] a {
+	border-bottom-left-radius: 5px;
+}
+
 #virtualclassCont.congrea #DocumentShareDashboard #docsListContainer #listdocs .controls.delete {
 	margin-top:0;
 }
@@ -4001,4 +4061,3 @@ background-color: #d6d6d6;
 	width : 50%;
 	margin : auto;
 }
-

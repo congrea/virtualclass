@@ -54,8 +54,14 @@ float:right;}
     padding: 5px 6px;
 }
 
-#virtualclassCont.congrea #virtualclassPreCheck.bootstrap .next.btn {float: right;}
-#virtualclassCont.congrea #virtualclassPreCheck.bootstrap .prev.btn {margin-right: 10px; float: left;}
+#virtualclassCont.congrea #virtualclassPreCheck.bootstrap .next.btn {
+    float: right;
+    cursor: pointer;
+}
+#virtualclassCont.congrea #virtualclassPreCheck.bootstrap .prev.btn {
+    margin-right: 10px; float: left;
+    cursor: pointer;
+}
 
 @media (min-width: 768px) {
     #virtualclassCont.congrea .bootstrap .modal-dialog {

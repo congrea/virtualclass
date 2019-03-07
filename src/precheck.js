@@ -7,6 +7,17 @@ var precheck = {
     videoAction : false,
     init : function (){
 
+        // $("#myModal").modal();
+        //remove jquery
+        //$('#myModal').modal({backdrop: 'static', keyboard: false});
+        
+        var modal = document.querySelector('#myModal');
+        if(modal){
+            modal.className ="modal in"
+        }
+
+
+
         if(roles.hasControls()){
             this.videoAction = virtualclass.videoHost.gObj.videoSwitch;
         }else {
@@ -17,9 +28,10 @@ var precheck = {
             }
         }
 
-        $('#myModal').modal({backdrop: 'static', keyboard: false});
+        //$('#myModal').modal({backdrop: 'static', keyboard: false});
         this.totalTest = ['browser', 'bandWidth', 'webcam', 'speaker', 'mic'];
         this.currTest="browser";
+
         var preCheckContainer = document.querySelector('#virtualclassCont #preCheckcontainer');
 
         if(preCheckContainer != null ){

@@ -54,10 +54,11 @@
 
                     ctx.moveTo(sx, sy);
                     ctx.lineTo(ex, ey);
-                    ctx.lineWidth = obj.lineWidth;
+                    ctx.lineWidth = obj.stroke;
                     if (obj.lineColor != undefined) {
                         ctx.strokeStyle = obj.lineColor;
                     }
+                    ctx.strokeStyle = obj.color;
                     ctx.closePath();
                     ctx.stroke();
                 }

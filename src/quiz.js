@@ -265,6 +265,10 @@
             publishQuiz: function (item, index) {
                 this.openQuizPopup(item, index);
                 this.quizPreview(item);
+                var quizModal = document.querySelector('#editQuizModal');
+                quizModal.className='modal in';
+                quizModal.style.display="block";
+            
             },
 
             /**
@@ -287,14 +291,15 @@
                 // to change this to
                 var cont = document.getElementById("bootstrapQzCont");
                 virtualclass.quiz.UI.generateModal("editQuizModal", cont);
+             
 
-                $('#editQuizModal').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                });
-                $('#editQuizModal').modal({
-                    show: true
-                });
+//                $('#editQuizModal').modal({
+//                    backdrop: 'static',
+//                    keyboard: false
+//                });
+//                $('#editQuizModal').modal({
+//                    show: true
+//                });
 
                 //virtualclass.quiz.quizPreview(item);
             },
@@ -740,7 +745,7 @@
                 var qzOverviewPage = this.attemptProgressReport();
                 tOvDiv.appendChild(qzOverviewPage);
                 tcDiv.appendChild(tOvDiv);
-
+              
                 var tGrDiv = virtualclass.view.customCreateElement('div', 'gdRpt');
                 tGrDiv.className = "tab-pane fade";
                 var tGdRpPage = this.UI.gradeReportLayout();
@@ -1064,7 +1069,7 @@
                     li1a.innerHTML = "Questions overview";
                     tbLi1.appendChild(li1a);
                     tbUl.appendChild(tbLi1);
-
+          
                     var tbLi2 = document.createElement("li");
                     var li2a = document.createElement("a");
                     li2a.setAttribute('data-toggle', "tab");
@@ -1072,6 +1077,28 @@
                     li2a.innerHTML = virtualclass.lang.getString('Greport');
                     tbLi2.appendChild(li2a);
                     tbUl.appendChild(tbLi2);
+                    tbLi2.addEventListener('click',function(){
+                        tbLi2.classList.toggle('active') ;
+                        tbLi1.classList.toggle('active') ;
+                        if(tbLi2.classList.contains('active')){
+                           var rpt = document.querySelector('#gdRpt')
+                           rpt.className= 'tab-pane fade in active';
+                           var qz = document.querySelector('#qzOverv')
+                           qz.className= 'tab-pane fade';
+                           
+                       }
+                    })
+                             
+                    tbLi1.addEventListener('click',function(){
+                       tbLi1.classList.toggle('active') ;
+                       tbLi2.classList.toggle('active') ;
+                       if(tbLi1.classList.contains('active')){
+                           var qz = document.querySelector('#qzOverv')
+                           qz.className= 'tab-pane fade in active';
+                           var rpt = document.querySelector('#gdRpt')
+                           rpt.className= 'tab-pane fade';
+                        }
+                    })
                     return tbUl;
                 },
 
@@ -1351,6 +1378,13 @@
 
                     var body = virtualclass.view.customCreateElement('div','contQzBody','modal-body');
                     content.appendChild(body);
+                    
+                    var close = document.querySelector('#editQuizModal #contQzHead .close ');
+                    close.addEventListener('click',function(){
+                        modal.style.display="none";
+                        modal.className='modal fade'
+                    })
+                    
                 },
 
                 modalContentUI: function () {

@@ -272,7 +272,7 @@
 }
 
 #virtualclassCont.congrea .bootstrap .modal-content, #virtualclassCont.congrea #congdashboard.modal{
-  box-shadow : none !important;
+  /* box-shadow : none !important; */
 }
 
 

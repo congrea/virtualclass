@@ -765,11 +765,11 @@ this["JST"]["dest_temp/templates/poll/previewPopup.hbs"] = Handlebars.template({
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div class=\"popover-content\"><div id=\"popupCont\" class=\"pollPreview\"><div><div id=\"qnTxCont\" class=\"row previewTxCont\"><label>"
+  return "<div class=\"popover-content hide\"><div id=\"popupCont\" class=\"pollPreview\"><div><div id=\"qnTxCont\" class=\"previewTxCont\"><label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
     + " :</label><div class=\"viewQn\">"
     + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.questiontext : stack1), depth0))
-    + "</div></div><div id=\"optsTxCont\" class=\"row previewTxCont\"><label>"
+    + "</div></div><div id=\"optsTxCont\" class=\"previewTxCont\"><label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Options",{"name":"getString","hash":{},"data":data}))
     + " :</label> "
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -894,7 +894,7 @@ this["JST"]["dest_temp/templates/poll/setting-modal.hbs"] = Handlebars.template(
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"second",{"name":"getString","hash":{},"data":data}))
     + "</option></select></span></label></div><div id=\"showRt\" class=\"form-group\"><label id=\"labelCk\" class=\"custom-control custom-checkbox \"><input type=\"checkbox\" id=\"pollCkbox\" class=\"custom-control-input \" checked=\"checked\"><span id=\"labelCk\" class=\"custom-control-description pollLabel\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Showresulttostudents",{"name":"getString","hash":{},"data":data}))
-    + "</span></label></div></div></div><div id=\"contFooter\" class=\"modal-footer\"><div id=\"settingBtn\"><button id=\"cacelSetting\" class=\"btn btn-default\" data-dismiss=\"modal\">"
+    + "</span></label></div></div></div><div id=\"contFooter\" class=\"modal-footer\"><div id=\"settingBtn\"><button id=\"cancelSetting\" class=\"btn btn-default\" data-dismiss=\"modal\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"cancel",{"name":"getString","hash":{},"data":data}))
     + "</button><button id=\"publish\" class=\"btn btn-default\" disable=\"true\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Publish",{"name":"getString","hash":{},"data":data}))
@@ -1035,7 +1035,7 @@ this["JST"]["dest_temp/templates/ppt/pptiframe.hbs"] = Handlebars.template({"com
 this["JST"]["dest_temp/templates/precheck.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression, alias4="function";
 
-  return "<div id=\"virtualclassPreCheck\" class=\"bootstrap\"><div id=\"preCheckcontainer\"><div class=\"container \"><div class=\"modal fade\" id=\"myModal\" role=\"dialog\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\"><div class=\"modal-body\"><div id=\"precheckSkip\" class=\"button clearfix\"><span class=\"skip\"></span></div><div id=\"preCheckProgress\"><ul class=\"progressbar\" id=\"congProgressbar\"><li class=\"screen1 browser active\"></li><li class=\"screen2 bandwidth\"></li><li class=\"screen5 speaker\"></li><li class=\"screen4 mic\"></li><li class=\"screen3 webcam\"></li></ul></div><div id=\"vcBrowserCheck\" class=\"precheck browser\"><div class=\"testName\"> "
+  return "<div id=\"virtualclassPreCheck\" class=\"bootstrap\"><div id=\"preCheckcontainer\"><div class=\"container \"><div class=\"modal in\" id=\"myModal\" role=\"dialog\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\"><div class=\"modal-body\"><div id=\"precheckSkip\" class=\"button clearfix\"><span class=\"skip\"></span></div><div id=\"preCheckProgress\"><ul class=\"progressbar\" id=\"congProgressbar\"><li class=\"screen1 browser active\"></li><li class=\"screen2 bandwidth\"></li><li class=\"screen5 speaker\"></li><li class=\"screen4 mic\"></li><li class=\"screen3 webcam\"></li></ul></div><div id=\"vcBrowserCheck\" class=\"precheck browser\"><div class=\"testName\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"testingbrowser",{"name":"getString","hash":{},"data":data}))
     + " </div><div class=\"result\"></div><div id=\"browserButtons\" class=\"button clearfix\"><button type=\"button\" class=\"next btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))
@@ -1300,7 +1300,19 @@ this["JST"]["dest_temp/templates/whiteboard/toolbar.hbs"] = Handlebars.template(
 
   return "<div id=\"commandToolsWrapper"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"commandToolsWrapper\"><div id=\"t_rectangle"
+    + "\" class=\"commandToolsWrapper\"><div id=\"t_freeDrawing"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool\" data-tool=\"freeDrawing\"><a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Freehand",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\"><span class=\"icon-freeDrawing cgIcon\"></span></a></div><div id=\"tool_wrapper"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"shapesToolbox\" data-currTool=\"shapes\"><div id=\"shapeIcon"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"shapes_icon\"><a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Shapes",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\"><span class=\"icon-shapes cgIcon\"></span></a></div><div id=\"shapes"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"shapesTool\"><div id=\"t_rectangle"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"tool\" data-tool=\"rectangle\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Rectangle",{"name":"getString","hash":{},"data":data}))
@@ -1308,11 +1320,7 @@ this["JST"]["dest_temp/templates/whiteboard/toolbar.hbs"] = Handlebars.template(
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"tool\" data-tool=\"line\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Line",{"name":"getString","hash":{},"data":data}))
-    + "\" class=\"congtooltip\"><span class=\"icon-line cgIcon\"></span></a></div><div id=\"t_freeDrawing"
-    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"freeDrawing\"><a href=\"#\" data-title=\""
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Freehand",{"name":"getString","hash":{},"data":data}))
-    + "\" class=\"congtooltip\"><span class=\"icon-freeDrawing cgIcon\"></span></a></div><div id=\"t_oval"
+    + "\" class=\"congtooltip\"><span class=\"icon-line cgIcon\"></span></a></div><div id=\"t_oval"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"tool\" data-tool=\"oval\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Oval",{"name":"getString","hash":{},"data":data}))
@@ -1320,11 +1328,185 @@ this["JST"]["dest_temp/templates/whiteboard/toolbar.hbs"] = Handlebars.template(
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"tool\" data-tool=\"triangle\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Triangle",{"name":"getString","hash":{},"data":data}))
-    + "\" class=\"congtooltip\"><span class=\"icon-triangle cgIcon\"></span></a></div><div id=\"t_text"
+    + "\" class=\"congtooltip\"><span class=\"icon-triangle cgIcon\"></span></a></div></div></div><div id=\"t_text"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"tool\" data-tool=\"text\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Text",{"name":"getString","hash":{},"data":data}))
-    + "\" class=\"congtooltip\"><span class=\"icon-text cgIcon\"></span></a></div><div id=\"t_activeall"
+    + "\" class=\"congtooltip\"><span class=\"icon-text cgIcon\"></span></a></div><div id=\"t_strk"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool\" data-tool=\"stroke\"><a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"strk",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\">Size ▾</a><ul class=\"strkSizeList\"><li id=\"item-1\" data-stroke=\"1\" class=\"selected\"><span style=\"height: 1px;\"></span></li><li id=\"item-2\" data-stroke=\"3\"><span style=\"height: 2px;\"></span></li><li id=\"item-3\" data-stroke=\"5\"><span style=\"height: 3px;\"></span></li><li id=\"item-4\" data-stroke=\"7\"><span style=\"height: 4px;\"></span></li><li id=\"item-5\" data-stroke=\"9\"><span style=\"height: 6px;\"></span></li></ul></div><div id=\"t_font"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool hide\" data-tool=\"font\"><a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"font",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\">Size ▾</a><ul class=\"fontSizeList\"><span id=\"item-1\" data-font=\"25\" style=\"font-size:15px; line-height:15px;\" class=\"selected\">25</span><span id=\"item-2\" data-font=\"30\" style=\"font-size:20px; line-height:20px;\">30</span><span id=\"item-3\" data-font=\"35\" style=\"font-size:25px; line-height:23px;\">35</span><span id=\"item-4\" data-font=\"40\" style=\"font-size:28px; line-height:25px;\">40</span><span id=\"item-5\" data-font=\"45\" style=\"font-size:33px; line-height:25px;\">45</span></ul></div><div id=\"t_color"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"tool\" data-tool=\"color\"><a href=\"#\" data-title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"colorSelector",{"name":"getString","hash":{},"data":data}))
+    + "\" class=\"congtooltip\"><span class=\"icon-color cgIcon\"></span><span class=\"disActiveColor\"></span></a><table id=\"colorList"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" class=\"table\"><tbody><tr><td id=\"cell-1\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"black",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#000000\" bgcolor=\"#000000\"></td><td id=\"cell-2\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-gray-4",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#434343\" bgcolor=\"#434343\"></td><td id=\"cell-3\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-gray-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#666666\" bgcolor=\"#666666\"></td><td id=\"cell-4\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-gray-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#999999\" bgcolor=\"#999999\"></td><td id=\"cell-5\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-gray-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#b7b7b7\" bgcolor=\"#b7b7b7\"></td><td id=\"cell-6\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"gray",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#cccccc\" bgcolor=\"#cccccc\"></td><td id=\"cell-7\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-gray-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#d9d9d9\" bgcolor=\"#d9d9d9\"></td><td id=\"cell-8\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-gray-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#efefef\" bgcolor=\"#efefef\"></td><td id=\"cell-9\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-gray-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#f3f3f3\" bgcolor=\"#f3f3f3\"></td><td id=\"cell-10\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"white",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#ffffff\" bgcolor=\"#ffffff\"></td></tr><tr style=\"height:5px\"></tr><tr><td id=\"cell-11\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"red-berry",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#980000\" bgcolor=\"#980000\"></td><td id=\"cell-12\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"red",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#ff0000\" bgcolor=\"#ff0000\"></td><td id=\"cell-13\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"yellow",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#FF9900\" bgcolor=\"#FF9900\"></td><td id=\"cell-14\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"orange",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#ffff00\" bgcolor=\"#ffff00\"></td><td id=\"cell-15\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"green",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#00ff00\" bgcolor=\"#00ff00\"></td><td id=\"cell-16\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"cyan",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#00ffff\" bgcolor=\"#00ffff\"></td><td id=\"cell-17\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"cornflower-blue",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#4a86e8\" bgcolor=\"#4a86e8\"></td><td id=\"cell-18\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"blue",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#0000ff\" bgcolor=\"#0000ff\"></td><td id=\"cell-19\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"purple",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#9900ff\" bgcolor=\"#9900ff\"></td><td id=\"cell-20\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"magenta",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#ff00ff\" bgcolor=\"#ff00ff\"></td></tr><tr style=\"height:5px\"></tr><tr><td id=\"cell-21\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-berry-3",{"name":"getString","hash":{},"data":data}))
+    + "\"data-color=\"#e6b8af\" bgcolor=\"#e6b8af\"></td><td id=\"cell-22\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#f4cccc\" bgcolor=\"#f4cccc\"></td><td id=\"cell-23\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-orange-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#fce5cd\" bgcolor=\"#fce5cd\"></td><td id=\"cell-24\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-yellow-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#fff2cc\" bgcolor=\"#fff2cc\"></td><td id=\"cell-25\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-green-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#d9ead3\" bgcolor=\"#d9ead3\"></td><td id=\"cell-26\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cyan-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#d0e0e3\" bgcolor=\"#d0e0e3\"></td><td id=\"cell-27\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cornflower-blue-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#c9daf8\" bgcolor=\"#c9daf8\"></td><td id=\"cell-28\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-blue-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#cfe2f3\" bgcolor=\"#cfe2f3\"></td><td id=\"cell-29\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-purple-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#d9d2e9\" bgcolor=\"#d9d2e9\"></td><td id=\"cell-30\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-magenta-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#ead1dc\" bgcolor=\"#ead1dc\"></td></tr><tr><td id=\"cell-31\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-berry-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#dd7e6b\" bgcolor=\"#dd7e6b\"></td><td id=\"cell-32\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#ea9999\" bgcolor=\"#ea9999\"></td><td id=\"cell-33\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-orange-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#f9cb9c\" bgcolor=\"#f9cb9c\"></td><td id=\"cell-34\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-yellow-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#ffe599\" bgcolor=\"#ffe599\"></td><td id=\"cell-35\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-green-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#b6d7a8\" bgcolor=\"#b6d7a8\"></td><td id=\"cell-36\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cyan-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#a2c4c9\" bgcolor=\"#a2c4c9\"></td><td id=\"cell-37\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cornflower-blue-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#a4c2f4\" bgcolor=\"#a4c2f4\"></td><td id=\"cell-38\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-blue-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#9fc5e8\" bgcolor=\"#9fc5e8\"></td><td id=\"cell-39\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-purple-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#a0a7d6\" bgcolor=\"#a0a7d6\"></td><td id=\"cell-40\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-magenta-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#d5a6bd\" bgcolor=\"#d5a6bd\"></td></tr><tr><td id=\"cell-41\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-berry-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#cc4125\" bgcolor=\"#cc4125\"></td><td id=\"cell-42\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#e06666\" bgcolor=\"#e06666\"></td><td id=\"cell-43\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-orange-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#f6b26b\" bgcolor=\"#f6b26b\"></td><td id=\"cell-44\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-yellow-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#ffd966\" bgcolor=\"#ffd966\"></td><td id=\"cell-45\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-green-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#93c47d\" bgcolor=\"#93c47d\"></td><td id=\"cell-46\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cyan-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#76a5af\" bgcolor=\"#76a5af\"></td><td id=\"cell-47\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cornflower-blue-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#6d9eeb\" bgcolor=\"#6d9eeb\"></td><td id=\"cell-48\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-blue-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#6fa8dc\" bgcolor=\"#6fa8dc\"></td><td id=\"cell-49\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-purple-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#8e7cc3\" bgcolor=\"#8e7cc3\"></td><td id=\"cell-50\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-magenta-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#c27ba0\" bgcolor=\"#c27ba0\"></td></tr><tr><td id=\"cell-51\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-berry-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#a61c00\" bgcolor=\"#a61c00\"></td><td id=\"cell-52\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#cc0000\" bgcolor=\"#cc0000\"></td><td id=\"cell-53\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-orange-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#e69138\" bgcolor=\"#e69138\"></td><td id=\"cell-54\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-yellow-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#f1c232\" bgcolor=\"#f1c232\"></td><td id=\"cell-55\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-green-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#6aa84f\" bgcolor=\"#6aa84f\"></td><td id=\"cell-56\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cyan-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#45818e\" bgcolor=\"#45818e\"></td><td id=\"cell-57\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cornflower-blue-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#3c78d8\" bgcolor=\"#3c78d8\"></td><td id=\"cell-58\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-blue-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#3d85c6\" bgcolor=\"#3d85c6\"></td><td id=\"cell-59\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-purple-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#674ea7\" bgcolor=\"#674ea7\"></td><td id=\"cell-60\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-magenta-1",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#a64d79\" bgcolor=\"#a64d79\"></td></tr><tr><td id=\"cell-61\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-berry-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#85200c\" bgcolor=\"#85200c\"></td><td id=\"cell-62\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#990000\" bgcolor=\"#990000\"></td><td id=\"cell-63\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-orange-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#b45f06\" bgcolor=\"#b45f06\"></td><td id=\"cell-64\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-yellow-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#bf9000\" bgcolor=\"#bf9000\"></td><td id=\"cell-65\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-green-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#38761d\" bgcolor=\"#38761d\"></td><td id=\"cell-66\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cyan-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#134f5c\" bgcolor=\"#134f5c\"></td><td id=\"cell-67\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cornflower-blue-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#1155cc\" bgcolor=\"#1155cc\"></td><td id=\"cell-68\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-blue-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#0b5394\" bgcolor=\"#0b5394\"></td><td id=\"cell-69\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-purple-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#351c75\" bgcolor=\"#351c75\"></td><td id=\"cell-70\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-magenta-2",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#741b47\" bgcolor=\"#741b47\"></td></tr><tr><td id=\"cell-71\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-berry-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#5b0f00\" bgcolor=\"#5b0f00\"></td><td id=\"cell-72\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#660000\" bgcolor=\"#660000\"></td><td id=\"cell-73\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-orange-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#783f04\" bgcolor=\"#783f04\"></td><td id=\"cell-74\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-yellow-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#7f6000\" bgcolor=\"#7f6000\"></td><td id=\"cell-75\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-green-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#274e13\" bgcolor=\"#274e13\"></td><td id=\"cell-76\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cyan-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#0c343d\" bgcolor=\"#0c343d\"></td><td id=\"cell-77\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cornflower-blue-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#1c4587\" bgcolor=\"#1c4587\"></td><td id=\"cell-78\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-blue-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#073763\" bgcolor=\"#073763\"></td><td id=\"cell-79\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-purple-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#20124d\" bgcolor=\"#20124d\"></td><td id=\"cell-80\" title=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-magenta-3",{"name":"getString","hash":{},"data":data}))
+    + "\" data-color=\"#4c1130\" bgcolor=\"#4c1130\"></td></tr></tbody></table></div><div id=\"t_activeall"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"tool\" data-tool=\"activeAll\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ActiveAll",{"name":"getString","hash":{},"data":data}))

@@ -460,8 +460,4 @@
   .shapesToolbox .shapes_icon .icon-shapes.cgIcon {
     border-left:none !important;
   }
-    
-    #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a{
-        border-left:none !important;
-    }
 }

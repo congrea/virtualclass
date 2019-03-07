@@ -4002,13 +4002,14 @@ background-color: #d6d6d6;
 /* The actual popup */
 .congrea.teacher .pollList .popover-content {
    /* visibility: hidden; */
-   width: 30%;
+   width: 80%;
    background-color: #eee;
    text-align: left;
    border-radius: 6px;
    position: absolute;
    z-index: 1;
-   left:400px;
+   bottom:-50%;
+   left:40%;
    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
    font-size: 14px;
    line-height: 1.42857143;

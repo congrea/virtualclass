@@ -148,6 +148,10 @@
   margin-top: -2px;
 }
 
+#virtualclassCont.congrea .miniTB .publishCont {
+    margin-top:-2px;
+}
+
 #virtualclassCont.congrea .miniTB .editCont {
   margin-top : -1px;
 }
@@ -252,6 +256,8 @@ color:black;
 }
 #virtualclassCont.congrea.teacher #virtualclassPoll .vcPollCont .viewOpt{
   padding-left:22px;
+  padding-right:22px;
+  display:inline-block;
 }
 
 #virtualclassCont.congrea.student #virtualclassPoll #resultNote label{
@@ -299,7 +305,6 @@ pointer-events:none;
   color: #34404c;
   letter-spacing: .01em;
   padding: 2px;
-
 }
 
 #virtualclassCont.congrea.student  #virtualclassPoll #stdContHead .stdHeader {
@@ -460,6 +465,31 @@ pointer-events:none;
 
 .congrea.teacher .pollList td.qnText.col-sm-8 {
    position:relative !important;
+}
+
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:first-child td.qnText .popover-content {
+    top:10%;
+    bottom:auto;
+}
+
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:last-child td.qnText .popover-content {
+    bottom:10%;
+}
+
+.congrea.teacher .pollList td.qnText.col-sm-8:hover {
+    background-color:#efefef;
+    cursor:pointer;
+}
+
+@media (max-width:1100px) {
+    .congrea.teacher .pollList .popover-content {
+        max-height:200px;
+        overflow:auto;
+    }
+    .congrea.teacher .pollList .popover-content::-webkit-scrollbar {
+        width:5px !important;
+    }
+        
 }
 #virtualclassCont.congrea.student #optnNonVotd {
   display:none;

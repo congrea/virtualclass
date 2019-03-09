@@ -47,6 +47,7 @@
             pdfRender : {},
             clearGlobalLock : '',
             gObj: {
+                next : {}, //prefetch next pdf
                 uid: window.wbUser.id,
                 uRole: window.wbUser.role,
                 uName: window.wbUser.name,

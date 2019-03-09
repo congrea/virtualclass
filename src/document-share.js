@@ -1414,6 +1414,11 @@
                                 var currElem = document.querySelector('#documentScreen #note' + currNodeId);
                                 if(currElem  != null){
                                     nextSlide = currElem.nextElementSibling;
+                                    /* if(nextSlide.nextElementSibling != null){
+                                        var preFetchSlide =  nextSlide.nextElementSibling.dataset.slide;
+                                         virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
+
+                                    }  */
                                     if(nextSlide != null){
                                         if((+nextSlide.dataset.status) == 0){
                                             var activeSlide = this.getActiveSlide(cthis, currNodeId, 'next');
@@ -1490,6 +1495,13 @@
                          * Create the screen with Whiteboard and Current slide
                          */
                         getScreen : function(note, userClicked) {
+                            if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
+                              if(note.nextElementSibling != null){
+                                 var preFetchSlide =  note.nextElementSibling.dataset.slide;
+                                 virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
+                                } 
+                            }
+                          
                             this.currSlide = note.dataset.slide;
                             this.currNote = note.dataset.slide;
                             virtualclass.dts.currDoc = this.doc;

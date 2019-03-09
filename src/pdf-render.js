@@ -8,7 +8,101 @@
             canvas : null,
             pdfScale : 1,
             url : "",
+            xhr : new CommonXHR(),
             init : function (canvas, currNote){
+                
+                // console.log('PDF render init');
+                var virtualclasElem = document.querySelector('#virtualclassCont');
+                if(virtualclasElem != null){
+                    virtualclasElem.classList.add('pdfRendering');
+                    // console.log('Add pdf rendering');
+                }
+
+                io.globallock = false;
+                virtualclass.gObj.firstNormalRender = false;
+                if(typeof currNote != 'undefined'){
+                    var note = virtualclass.dts.getNote(currNote);
+                    this.url = note.pdf;
+                }else {
+                    this.url = whiteboardPath + 'resources/sample.pdf';
+                } 
+                
+                this.loadPdf(this.url, canvas, currNote);
+                
+            },
+            
+            prefechPdf (noteId) {
+                var note = virtualclass.dts.getNote(noteId);
+                this.xhr.send(note.pdf, this.afterPdfPrefetch.bind(this, noteId), 'arraybuffer');
+            },
+            
+            afterPdfPrefetch (noteId, data) {
+                virtualclass.gObj.next = {};
+                virtualclass.gObj.next[noteId] = data ;
+            },
+            
+            loadPdf (url, canvas, currNote){
+                // If there is already prefetched data
+                if(virtualclass.gObj.next.hasOwnProperty(currNote)){
+                    this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
+                }else {
+                    this.xhr.send(url, this.afterPdfLoad.bind(this, canvas, currNote), 'arraybuffer');
+                }
+            },
+            
+            afterPdfLoad (canvas, currNote, data){
+                this.canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
+                this.canvas = canvas;
+                var doc = data;
+
+                if(virtualclass.gObj.hasOwnProperty('getDocumentTimeout')){
+                    clearTimeout(virtualclass.gObj.getDocumentTimeout);
+                }
+
+                var that = this;
+                var prvApp = virtualclass.currApp;  
+                var prvWhiteboard = virtualclass.gObj.currWb;
+
+                virtualclass.gObj.getDocumentTimeout = setTimeout(
+                    function (){
+                        /** Avoids the PDF which would be different for current app
+                         * to reproduce the problem without condition, page refresh on docuemnt share
+                         * without load pdf click on whiteboard and again on document share and finally on whiteboard,
+                         * */
+                        if(prvApp == virtualclass.currApp){
+                            if(typeof currNote == 'undefined'){
+                                that.wbId = virtualclass.gObj.currWb;
+                            }else {
+                                 that.wbId = currNote;
+                            }
+                           
+                            console.log('-----------START ' +virtualclass.currApp+'----------');
+                            console.log('PDF render request to pdf.js 1');
+                            PDFJS.workerSrc = whiteboardPath + "build/src/pdf.worker.min.js";
+                            PDFJS.getDocument(doc).then(function (pdf) {
+                                if (virtualclass.gObj.myworker == null) {
+                                    virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS
+                                }
+                                that.displayPage(pdf, 1, function (){},true);
+                                that.shownPdf = pdf;
+                            });
+
+                            if(!roles.hasControls()){
+                                that.topPosY = 0;
+                                that.leftPosX = 0;
+                            }
+                            that.scrollEvent();
+                        }else {
+                            if(virtualclass.currApp == 'DocumentShare'){
+                                virtualclasElem.classList.remove('pdfRendering');
+                                virtualclass.wbCommon.deleteWhiteboard(prvWhiteboard);
+                            }
+                        }
+                    },1000
+                )
+            },
+            
+            init2 : function (canvas, currNote){
                 // console.log('PDF render init');
                 var virtualclasElem = document.querySelector('#virtualclassCont');
                 if(virtualclasElem != null){
@@ -30,6 +124,8 @@
 
                 this.canvas = canvas;
                 var that = this;
+                
+                
                 var doc = {};
                 doc.url = this.url;
                 doc.withCredentials = true;
@@ -79,6 +175,7 @@
                     },1000
                 );
             },
+            
 
             updateScrollPosition : function (pos, type){
                 console.log('Update scroll type ' + type + ' ' + pos);

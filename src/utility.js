@@ -2490,7 +2490,7 @@
         setDefaultScroll : function (){
             if(roles.hasControls() && virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
                 var wb = virtualclass.gObj.currWb;
-                if(wb != null){
+                if(wb != null && virtualclass.pdfRender[wb].canvasWrapper != null){
                     // Defualt scroll trigger
                     virtualclass.pdfRender[wb].canvasWrapper.scrollTop = 1;
                 }

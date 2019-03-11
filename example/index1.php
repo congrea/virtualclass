@@ -127,7 +127,7 @@ $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 $lname = isset($_GET['lname']) ? $_GET['lname'] : ' ';
 
 // Set 1 to add source file else 0 to min file
-$info = 0;
+$info = 1;
 $audio_disabled_completely = true;
 $cmid = 5;
 ?>
@@ -234,6 +234,8 @@ if($info) {
 </script>
 
 <?php
+
+
 if ($info) {
     include('js.debug.php');
 } else {

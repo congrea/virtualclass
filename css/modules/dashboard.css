@@ -5,8 +5,6 @@
 
 #virtualclassCont #dashboardContainer .modal .modal-content {
   overflow-y: hidden;
-  /*height: 85%;*/
-  /*max-height: 85%;*/
   padding : 0;
 }
 #virtualclassCont #dashboardContainer .modal .modal-header {
@@ -272,7 +270,7 @@
 }
 
 #virtualclassCont.congrea .bootstrap .modal-content, #virtualclassCont.congrea #congdashboard.modal{
-  /* box-shadow : none !important; */
+   box-shadow : none !important; 
 }
 
 
@@ -288,14 +286,6 @@
   border-radius: 50%;
   width: 48px !important;
 }
-
-/*@media(min-height:768px){*/
-/*#virtualclassCont.congrea  #dashboardnav{*/
-/*position: absolute;*/
-/*top: 650px;*/
-/*left: -5px;*/
-/*}*/
-/*}*/
 
 @media (max-height: 768px){
   #virtualclassCont.congrea #dashboardnav {
@@ -360,10 +350,9 @@
 }
 
 #virtualclassCont #dashboardContainer .modal .modal-content {
-  /*height: 87%;*/
+  border: 1px solid rgba(0, 0, 0, 0.1);
   max-height:none;
   padding : 0;
-  /*height: calc(100vh - 48px);*/
   height: calc(100vh - 44px);
   border-radius: 0 !important;
 }

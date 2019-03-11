@@ -457,6 +457,18 @@
     width:212px;
   }
     
+  #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a {
+    padding: 12.5px 13px 11.5px 14px;
+  } 
+    
+  #virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapes_icon a {
+      border-left:none !important;
+    }
+    
+  #virtualclassCont.congrea #virtualclassOptionsCont, .congtooltip {
+    line-height:19px;
+  }
+    
   .shapesToolbox .shapes_icon .icon-shapes.cgIcon {
     border-left:none !important;
   }

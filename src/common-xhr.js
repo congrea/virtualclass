@@ -40,6 +40,5 @@ CommonXHR.prototype.send = function (url, cb, responseType){
     this.httpObj.setRequestHeader('x-congrea-room', wbUser.room);
 
     this.httpObj.withCredentials = true;
-
-    this.httpObj.send();  
+    this.httpObj.send();
 }

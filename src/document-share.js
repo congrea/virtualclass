@@ -1414,11 +1414,6 @@
                                 var currElem = document.querySelector('#documentScreen #note' + currNodeId);
                                 if(currElem  != null){
                                     nextSlide = currElem.nextElementSibling;
-                                    /* if(nextSlide.nextElementSibling != null){
-                                        var preFetchSlide =  nextSlide.nextElementSibling.dataset.slide;
-                                         virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
-
-                                    }  */
                                     if(nextSlide != null){
                                         if((+nextSlide.dataset.status) == 0){
                                             var activeSlide = this.getActiveSlide(cthis, currNodeId, 'next');
@@ -1432,18 +1427,8 @@
                                             }
 
                                         } else {
-                                           
                                             this.getScreen(nextSlide, true);
                                             cthis.docs.currNote = nextSlide.dataset.slide;
-                                          
-                                              
-                                           
-                                            
-//      
-//                                            virtualclass.dts.indexNav.addActiveNavigation()
-//                                            virtualclass.dts.indexNav.UI.setClassPrevNext();
-//                                            virtualclass.dts.indexNav.UI.pageNavHandler("right");
-
                                         }
                                     }
                                   
@@ -1454,9 +1439,6 @@
                                 // alert('There is no page');
                                 virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'disable', 'enable');
                             }
-                             
-                            
-                            
                         },
 
                         isSlideAvailable : function (slidId, lastElement){
@@ -1495,12 +1477,12 @@
                          * Create the screen with Whiteboard and Current slide
                          */
                         getScreen : function(note, userClicked) {
-                            if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
-                              if(note.nextElementSibling != null){
-                                 var preFetchSlide =  note.nextElementSibling.dataset.slide;
-                                 virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
-                                } 
-                            }
+                            // if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
+                            //   if(note.nextElementSibling != null){
+                            //      var preFetchSlide =  note.nextElementSibling.dataset.slide;
+                            //      virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
+                            //     }
+                            // }
                           
                             this.currSlide = note.dataset.slide;
                             this.currNote = note.dataset.slide;

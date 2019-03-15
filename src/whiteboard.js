@@ -569,14 +569,14 @@
                                 var removeSelectedStrk = document.querySelector("#t_strk"+virtualclass.gObj.currWb+ " .selected");
                                 if(removeSelectedStrk != null){
                                    removeSelectedStrk.classList.remove("selected");
-                                   var selectDefaultStrk = document.querySelector(".strkSizeList #item-1");
+                                   var selectDefaultStrk = document.querySelector(".strkSizeList #strk-1"+wbId);
                                    selectDefaultStrk.classList.add("selected");
                                 }
 
                                 var removeSelectedFont = document.querySelector("#t_font"+virtualclass.gObj.currWb+ " .selected");
                                 if(removeSelectedFont != null){
                                    removeSelectedFont.classList.remove("selected");
-                                   var selectDefaultFont = document.querySelector(".fontSizeList #item-1");
+                                   var selectDefaultFont = document.querySelector(".fontSizeList #font-1"+wbId);
                                    selectDefaultFont.classList.add("selected");
                                 }
 

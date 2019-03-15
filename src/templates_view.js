@@ -1336,175 +1336,355 @@ this["JST"]["dest_temp/templates/whiteboard/toolbar.hbs"] = Handlebars.template(
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"tool\" data-tool=\"stroke\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"strk",{"name":"getString","hash":{},"data":data}))
-    + "\" class=\"congtooltip\">Size ▾</a><ul class=\"strkSizeList\"><li id=\"item-1\" data-stroke=\"1\" class=\"selected\"><span style=\"height: 1px;\"></span></li><li id=\"item-2\" data-stroke=\"3\"><span style=\"height: 2px;\"></span></li><li id=\"item-3\" data-stroke=\"5\"><span style=\"height: 3px;\"></span></li><li id=\"item-4\" data-stroke=\"7\"><span style=\"height: 4px;\"></span></li><li id=\"item-5\" data-stroke=\"9\"><span style=\"height: 6px;\"></span></li></ul></div><div id=\"t_font"
+    + "\" class=\"congtooltip\">Size ▾</a><ul class=\"strkSizeList\"><li id=\"strk-1"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" data-stroke=\"1\" class=\"selected\"><span style=\"height: 1px;\"></span></li><li id=\"strk-2"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" data-stroke=\"3\"><span style=\"height: 2px;\"></span></li><li id=\"strk-3"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" data-stroke=\"5\"><span style=\"height: 3px;\"></span></li><li id=\"strk-4"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" data-stroke=\"7\"><span style=\"height: 4px;\"></span></li><li id=\"strk-5"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" data-stroke=\"9\"><span style=\"height: 6px;\"></span></li></ul></div><div id=\"t_font"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"tool hide\" data-tool=\"font\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"font",{"name":"getString","hash":{},"data":data}))
-    + "\" class=\"congtooltip\">Size ▾</a><ul class=\"fontSizeList\"><span id=\"item-1\" data-font=\"25\" style=\"font-size:15px; line-height:15px;\" class=\"selected\">25</span><span id=\"item-2\" data-font=\"30\" style=\"font-size:20px; line-height:20px;\">30</span><span id=\"item-3\" data-font=\"35\" style=\"font-size:25px; line-height:23px;\">35</span><span id=\"item-4\" data-font=\"40\" style=\"font-size:28px; line-height:25px;\">40</span><span id=\"item-5\" data-font=\"45\" style=\"font-size:33px; line-height:25px;\">45</span></ul></div><div id=\"t_color"
+    + "\" class=\"congtooltip\">Size ▾</a><ul class=\"fontSizeList\"><span id=\"font-1"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" data-font=\"25\" style=\"font-size:15px; line-height:15px;\" class=\"selected\">25</span><span id=\"font-2"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" data-font=\"30\" style=\"font-size:20px; line-height:20px;\">30</span><span id=\"font-3"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" data-font=\"35\" style=\"font-size:25px; line-height:23px;\">35</span><span id=\"font-4"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" data-font=\"40\" style=\"font-size:28px; line-height:25px;\">40</span><span id=\"font-5"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" data-font=\"45\" style=\"font-size:33px; line-height:25px;\">45</span></ul></div><div id=\"t_color"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"tool\" data-tool=\"color\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"colorSelector",{"name":"getString","hash":{},"data":data}))
     + "\" class=\"congtooltip\"><span class=\"icon-color cgIcon\"></span><span class=\"disActiveColor\"></span></a><table id=\"colorList"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"table\"><tbody><tr><td id=\"cell-1\" title=\""
+    + "\" class=\"table\"><tbody><tr><td id=\"cell-1"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"black",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#000000\" bgcolor=\"#000000\"></td><td id=\"cell-2\" title=\""
+    + "\" data-color=\"#000000\" bgcolor=\"#000000\"></td><td id=\"cell-2"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-gray-4",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#434343\" bgcolor=\"#434343\"></td><td id=\"cell-3\" title=\""
+    + "\" data-color=\"#434343\" bgcolor=\"#434343\"></td><td id=\"cell-3"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-gray-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#666666\" bgcolor=\"#666666\"></td><td id=\"cell-4\" title=\""
+    + "\" data-color=\"#666666\" bgcolor=\"#666666\"></td><td id=\"cell-4"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-gray-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#999999\" bgcolor=\"#999999\"></td><td id=\"cell-5\" title=\""
+    + "\" data-color=\"#999999\" bgcolor=\"#999999\"></td><td id=\"cell-5"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-gray-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#b7b7b7\" bgcolor=\"#b7b7b7\"></td><td id=\"cell-6\" title=\""
+    + "\" data-color=\"#b7b7b7\" bgcolor=\"#b7b7b7\"></td><td id=\"cell-6"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"gray",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#cccccc\" bgcolor=\"#cccccc\"></td><td id=\"cell-7\" title=\""
+    + "\" data-color=\"#cccccc\" bgcolor=\"#cccccc\"></td><td id=\"cell-7"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-gray-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#d9d9d9\" bgcolor=\"#d9d9d9\"></td><td id=\"cell-8\" title=\""
+    + "\" data-color=\"#d9d9d9\" bgcolor=\"#d9d9d9\"></td><td id=\"cell-8"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-gray-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#efefef\" bgcolor=\"#efefef\"></td><td id=\"cell-9\" title=\""
+    + "\" data-color=\"#efefef\" bgcolor=\"#efefef\"></td><td id=\"cell-9"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-gray-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#f3f3f3\" bgcolor=\"#f3f3f3\"></td><td id=\"cell-10\" title=\""
+    + "\" data-color=\"#f3f3f3\" bgcolor=\"#f3f3f3\"></td><td id=\"cell-10"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"white",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#ffffff\" bgcolor=\"#ffffff\"></td></tr><tr style=\"height:5px\"></tr><tr><td id=\"cell-11\" title=\""
+    + "\" data-color=\"#ffffff\" bgcolor=\"#ffffff\"></td></tr><tr style=\"height:5px\"></tr><tr><td id=\"cell-11"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"red-berry",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#980000\" bgcolor=\"#980000\"></td><td id=\"cell-12\" title=\""
+    + "\" data-color=\"#980000\" bgcolor=\"#980000\"></td><td id=\"cell-12"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"red",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#ff0000\" bgcolor=\"#ff0000\"></td><td id=\"cell-13\" title=\""
+    + "\" data-color=\"#ff0000\" bgcolor=\"#ff0000\"></td><td id=\"cell-13"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"yellow",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#FF9900\" bgcolor=\"#FF9900\"></td><td id=\"cell-14\" title=\""
+    + "\" data-color=\"#FF9900\" bgcolor=\"#FF9900\"></td><td id=\"cell-14"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"orange",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#ffff00\" bgcolor=\"#ffff00\"></td><td id=\"cell-15\" title=\""
+    + "\" data-color=\"#ffff00\" bgcolor=\"#ffff00\"></td><td id=\"cell-15"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"green",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#00ff00\" bgcolor=\"#00ff00\"></td><td id=\"cell-16\" title=\""
+    + "\" data-color=\"#00ff00\" bgcolor=\"#00ff00\"></td><td id=\"cell-16"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"cyan",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#00ffff\" bgcolor=\"#00ffff\"></td><td id=\"cell-17\" title=\""
+    + "\" data-color=\"#00ffff\" bgcolor=\"#00ffff\"></td><td id=\"cell-17"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"cornflower-blue",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#4a86e8\" bgcolor=\"#4a86e8\"></td><td id=\"cell-18\" title=\""
+    + "\" data-color=\"#4a86e8\" bgcolor=\"#4a86e8\"></td><td id=\"cell-18"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"blue",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#0000ff\" bgcolor=\"#0000ff\"></td><td id=\"cell-19\" title=\""
+    + "\" data-color=\"#0000ff\" bgcolor=\"#0000ff\"></td><td id=\"cell-19"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"purple",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#9900ff\" bgcolor=\"#9900ff\"></td><td id=\"cell-20\" title=\""
+    + "\" data-color=\"#9900ff\" bgcolor=\"#9900ff\"></td><td id=\"cell-20"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"magenta",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#ff00ff\" bgcolor=\"#ff00ff\"></td></tr><tr style=\"height:5px\"></tr><tr><td id=\"cell-21\" title=\""
+    + "\" data-color=\"#ff00ff\" bgcolor=\"#ff00ff\"></td></tr><tr style=\"height:5px\"></tr><tr><td id=\"cell-21"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-berry-3",{"name":"getString","hash":{},"data":data}))
-    + "\"data-color=\"#e6b8af\" bgcolor=\"#e6b8af\"></td><td id=\"cell-22\" title=\""
+    + "\"data-color=\"#e6b8af\" bgcolor=\"#e6b8af\"></td><td id=\"cell-22"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#f4cccc\" bgcolor=\"#f4cccc\"></td><td id=\"cell-23\" title=\""
+    + "\" data-color=\"#f4cccc\" bgcolor=\"#f4cccc\"></td><td id=\"cell-23"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-orange-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#fce5cd\" bgcolor=\"#fce5cd\"></td><td id=\"cell-24\" title=\""
+    + "\" data-color=\"#fce5cd\" bgcolor=\"#fce5cd\"></td><td id=\"cell-24"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-yellow-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#fff2cc\" bgcolor=\"#fff2cc\"></td><td id=\"cell-25\" title=\""
+    + "\" data-color=\"#fff2cc\" bgcolor=\"#fff2cc\"></td><td id=\"cell-25"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-green-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#d9ead3\" bgcolor=\"#d9ead3\"></td><td id=\"cell-26\" title=\""
+    + "\" data-color=\"#d9ead3\" bgcolor=\"#d9ead3\"></td><td id=\"cell-26"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cyan-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#d0e0e3\" bgcolor=\"#d0e0e3\"></td><td id=\"cell-27\" title=\""
+    + "\" data-color=\"#d0e0e3\" bgcolor=\"#d0e0e3\"></td><td id=\"cell-27"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cornflower-blue-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#c9daf8\" bgcolor=\"#c9daf8\"></td><td id=\"cell-28\" title=\""
+    + "\" data-color=\"#c9daf8\" bgcolor=\"#c9daf8\"></td><td id=\"cell-28"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-blue-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#cfe2f3\" bgcolor=\"#cfe2f3\"></td><td id=\"cell-29\" title=\""
+    + "\" data-color=\"#cfe2f3\" bgcolor=\"#cfe2f3\"></td><td id=\"cell-29"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-purple-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#d9d2e9\" bgcolor=\"#d9d2e9\"></td><td id=\"cell-30\" title=\""
+    + "\" data-color=\"#d9d2e9\" bgcolor=\"#d9d2e9\"></td><td id=\"cell-30"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-magenta-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#ead1dc\" bgcolor=\"#ead1dc\"></td></tr><tr><td id=\"cell-31\" title=\""
+    + "\" data-color=\"#ead1dc\" bgcolor=\"#ead1dc\"></td></tr><tr><td id=\"cell-31"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-berry-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#dd7e6b\" bgcolor=\"#dd7e6b\"></td><td id=\"cell-32\" title=\""
+    + "\" data-color=\"#dd7e6b\" bgcolor=\"#dd7e6b\"></td><td id=\"cell-32"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#ea9999\" bgcolor=\"#ea9999\"></td><td id=\"cell-33\" title=\""
+    + "\" data-color=\"#ea9999\" bgcolor=\"#ea9999\"></td><td id=\"cell-33"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-orange-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#f9cb9c\" bgcolor=\"#f9cb9c\"></td><td id=\"cell-34\" title=\""
+    + "\" data-color=\"#f9cb9c\" bgcolor=\"#f9cb9c\"></td><td id=\"cell-34"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-yellow-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#ffe599\" bgcolor=\"#ffe599\"></td><td id=\"cell-35\" title=\""
+    + "\" data-color=\"#ffe599\" bgcolor=\"#ffe599\"></td><td id=\"cell-35"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-green-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#b6d7a8\" bgcolor=\"#b6d7a8\"></td><td id=\"cell-36\" title=\""
+    + "\" data-color=\"#b6d7a8\" bgcolor=\"#b6d7a8\"></td><td id=\"cell-36"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cyan-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#a2c4c9\" bgcolor=\"#a2c4c9\"></td><td id=\"cell-37\" title=\""
+    + "\" data-color=\"#a2c4c9\" bgcolor=\"#a2c4c9\"></td><td id=\"cell-37"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cornflower-blue-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#a4c2f4\" bgcolor=\"#a4c2f4\"></td><td id=\"cell-38\" title=\""
+    + "\" data-color=\"#a4c2f4\" bgcolor=\"#a4c2f4\"></td><td id=\"cell-38"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-blue-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#9fc5e8\" bgcolor=\"#9fc5e8\"></td><td id=\"cell-39\" title=\""
+    + "\" data-color=\"#9fc5e8\" bgcolor=\"#9fc5e8\"></td><td id=\"cell-39"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-purple-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#a0a7d6\" bgcolor=\"#a0a7d6\"></td><td id=\"cell-40\" title=\""
+    + "\" data-color=\"#a0a7d6\" bgcolor=\"#a0a7d6\"></td><td id=\"cell-40"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-magenta-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#d5a6bd\" bgcolor=\"#d5a6bd\"></td></tr><tr><td id=\"cell-41\" title=\""
+    + "\" data-color=\"#d5a6bd\" bgcolor=\"#d5a6bd\"></td></tr><tr><td id=\"cell-41"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-berry-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#cc4125\" bgcolor=\"#cc4125\"></td><td id=\"cell-42\" title=\""
+    + "\" data-color=\"#cc4125\" bgcolor=\"#cc4125\"></td><td id=\"cell-42"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-red-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#e06666\" bgcolor=\"#e06666\"></td><td id=\"cell-43\" title=\""
+    + "\" data-color=\"#e06666\" bgcolor=\"#e06666\"></td><td id=\"cell-43"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-orange-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#f6b26b\" bgcolor=\"#f6b26b\"></td><td id=\"cell-44\" title=\""
+    + "\" data-color=\"#f6b26b\" bgcolor=\"#f6b26b\"></td><td id=\"cell-44"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-yellow-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#ffd966\" bgcolor=\"#ffd966\"></td><td id=\"cell-45\" title=\""
+    + "\" data-color=\"#ffd966\" bgcolor=\"#ffd966\"></td><td id=\"cell-45"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-green-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#93c47d\" bgcolor=\"#93c47d\"></td><td id=\"cell-46\" title=\""
+    + "\" data-color=\"#93c47d\" bgcolor=\"#93c47d\"></td><td id=\"cell-46"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cyan-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#76a5af\" bgcolor=\"#76a5af\"></td><td id=\"cell-47\" title=\""
+    + "\" data-color=\"#76a5af\" bgcolor=\"#76a5af\"></td><td id=\"cell-47"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-cornflower-blue-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#6d9eeb\" bgcolor=\"#6d9eeb\"></td><td id=\"cell-48\" title=\""
+    + "\" data-color=\"#6d9eeb\" bgcolor=\"#6d9eeb\"></td><td id=\"cell-48"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-blue-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#6fa8dc\" bgcolor=\"#6fa8dc\"></td><td id=\"cell-49\" title=\""
+    + "\" data-color=\"#6fa8dc\" bgcolor=\"#6fa8dc\"></td><td id=\"cell-49"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-purple-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#8e7cc3\" bgcolor=\"#8e7cc3\"></td><td id=\"cell-50\" title=\""
+    + "\" data-color=\"#8e7cc3\" bgcolor=\"#8e7cc3\"></td><td id=\"cell-50"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"light-magenta-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#c27ba0\" bgcolor=\"#c27ba0\"></td></tr><tr><td id=\"cell-51\" title=\""
+    + "\" data-color=\"#c27ba0\" bgcolor=\"#c27ba0\"></td></tr><tr><td id=\"cell-51"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-berry-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#a61c00\" bgcolor=\"#a61c00\"></td><td id=\"cell-52\" title=\""
+    + "\" data-color=\"#a61c00\" bgcolor=\"#a61c00\"></td><td id=\"cell-52"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#cc0000\" bgcolor=\"#cc0000\"></td><td id=\"cell-53\" title=\""
+    + "\" data-color=\"#cc0000\" bgcolor=\"#cc0000\"></td><td id=\"cell-53"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-orange-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#e69138\" bgcolor=\"#e69138\"></td><td id=\"cell-54\" title=\""
+    + "\" data-color=\"#e69138\" bgcolor=\"#e69138\"></td><td id=\"cell-54"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-yellow-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#f1c232\" bgcolor=\"#f1c232\"></td><td id=\"cell-55\" title=\""
+    + "\" data-color=\"#f1c232\" bgcolor=\"#f1c232\"></td><td id=\"cell-55"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-green-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#6aa84f\" bgcolor=\"#6aa84f\"></td><td id=\"cell-56\" title=\""
+    + "\" data-color=\"#6aa84f\" bgcolor=\"#6aa84f\"></td><td id=\"cell-56"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cyan-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#45818e\" bgcolor=\"#45818e\"></td><td id=\"cell-57\" title=\""
+    + "\" data-color=\"#45818e\" bgcolor=\"#45818e\"></td><td id=\"cell-57"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cornflower-blue-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#3c78d8\" bgcolor=\"#3c78d8\"></td><td id=\"cell-58\" title=\""
+    + "\" data-color=\"#3c78d8\" bgcolor=\"#3c78d8\"></td><td id=\"cell-58"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-blue-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#3d85c6\" bgcolor=\"#3d85c6\"></td><td id=\"cell-59\" title=\""
+    + "\" data-color=\"#3d85c6\" bgcolor=\"#3d85c6\"></td><td id=\"cell-59"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-purple-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#674ea7\" bgcolor=\"#674ea7\"></td><td id=\"cell-60\" title=\""
+    + "\" data-color=\"#674ea7\" bgcolor=\"#674ea7\"></td><td id=\"cell-60"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-magenta-1",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#a64d79\" bgcolor=\"#a64d79\"></td></tr><tr><td id=\"cell-61\" title=\""
+    + "\" data-color=\"#a64d79\" bgcolor=\"#a64d79\"></td></tr><tr><td id=\"cell-61"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-berry-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#85200c\" bgcolor=\"#85200c\"></td><td id=\"cell-62\" title=\""
+    + "\" data-color=\"#85200c\" bgcolor=\"#85200c\"></td><td id=\"cell-62"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#990000\" bgcolor=\"#990000\"></td><td id=\"cell-63\" title=\""
+    + "\" data-color=\"#990000\" bgcolor=\"#990000\"></td><td id=\"cell-63"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-orange-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#b45f06\" bgcolor=\"#b45f06\"></td><td id=\"cell-64\" title=\""
+    + "\" data-color=\"#b45f06\" bgcolor=\"#b45f06\"></td><td id=\"cell-64"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-yellow-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#bf9000\" bgcolor=\"#bf9000\"></td><td id=\"cell-65\" title=\""
+    + "\" data-color=\"#bf9000\" bgcolor=\"#bf9000\"></td><td id=\"cell-65"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-green-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#38761d\" bgcolor=\"#38761d\"></td><td id=\"cell-66\" title=\""
+    + "\" data-color=\"#38761d\" bgcolor=\"#38761d\"></td><td id=\"cell-66"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cyan-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#134f5c\" bgcolor=\"#134f5c\"></td><td id=\"cell-67\" title=\""
+    + "\" data-color=\"#134f5c\" bgcolor=\"#134f5c\"></td><td id=\"cell-67"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cornflower-blue-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#1155cc\" bgcolor=\"#1155cc\"></td><td id=\"cell-68\" title=\""
+    + "\" data-color=\"#1155cc\" bgcolor=\"#1155cc\"></td><td id=\"cell-68"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-blue-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#0b5394\" bgcolor=\"#0b5394\"></td><td id=\"cell-69\" title=\""
+    + "\" data-color=\"#0b5394\" bgcolor=\"#0b5394\"></td><td id=\"cell-69"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-purple-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#351c75\" bgcolor=\"#351c75\"></td><td id=\"cell-70\" title=\""
+    + "\" data-color=\"#351c75\" bgcolor=\"#351c75\"></td><td id=\"cell-70"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-magenta-2",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#741b47\" bgcolor=\"#741b47\"></td></tr><tr><td id=\"cell-71\" title=\""
+    + "\" data-color=\"#741b47\" bgcolor=\"#741b47\"></td></tr><tr><td id=\"cell-71"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-berry-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#5b0f00\" bgcolor=\"#5b0f00\"></td><td id=\"cell-72\" title=\""
+    + "\" data-color=\"#5b0f00\" bgcolor=\"#5b0f00\"></td><td id=\"cell-72"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-red-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#660000\" bgcolor=\"#660000\"></td><td id=\"cell-73\" title=\""
+    + "\" data-color=\"#660000\" bgcolor=\"#660000\"></td><td id=\"cell-73"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-orange-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#783f04\" bgcolor=\"#783f04\"></td><td id=\"cell-74\" title=\""
+    + "\" data-color=\"#783f04\" bgcolor=\"#783f04\"></td><td id=\"cell-74"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-yellow-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#7f6000\" bgcolor=\"#7f6000\"></td><td id=\"cell-75\" title=\""
+    + "\" data-color=\"#7f6000\" bgcolor=\"#7f6000\"></td><td id=\"cell-75"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-green-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#274e13\" bgcolor=\"#274e13\"></td><td id=\"cell-76\" title=\""
+    + "\" data-color=\"#274e13\" bgcolor=\"#274e13\"></td><td id=\"cell-76"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cyan-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#0c343d\" bgcolor=\"#0c343d\"></td><td id=\"cell-77\" title=\""
+    + "\" data-color=\"#0c343d\" bgcolor=\"#0c343d\"></td><td id=\"cell-77"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-cornflower-blue-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#1c4587\" bgcolor=\"#1c4587\"></td><td id=\"cell-78\" title=\""
+    + "\" data-color=\"#1c4587\" bgcolor=\"#1c4587\"></td><td id=\"cell-78"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-blue-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#073763\" bgcolor=\"#073763\"></td><td id=\"cell-79\" title=\""
+    + "\" data-color=\"#073763\" bgcolor=\"#073763\"></td><td id=\"cell-79"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-purple-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#20124d\" bgcolor=\"#20124d\"></td><td id=\"cell-80\" title=\""
+    + "\" data-color=\"#20124d\" bgcolor=\"#20124d\"></td><td id=\"cell-80"
+    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
+    + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-magenta-3",{"name":"getString","hash":{},"data":data}))
     + "\" data-color=\"#4c1130\" bgcolor=\"#4c1130\"></td></tr></tbody></table></div><div id=\"t_activeall"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))

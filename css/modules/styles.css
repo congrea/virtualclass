@@ -3019,20 +3019,22 @@
 
 #virtualclassCont.congrea #popupContainer .popupWindow.urlValidation {
 	width: 248px;
-	height: 60px;
+/*	height: 60px;*/
 	text-align: center;
 	/* margin-top: 13px; */
-	padding: 17px;
-	margin: 10px;
+	padding: 18px;
+	margin: 6px;
 	/* margin-bottom: -28px; */
-	color: #6a8a13;
-	border: 1px solid #ddd ;
-	border-radius: 5px;
+	color: #721c24;
+	border: 1px solid #ce1313;
+    border-radius: 5px;
+    background-color: #f8d7da;
+    border-color: #a01120;
 }
 
 #virtualclassCont.congrea #popupContainer .urlValidation .urlMszClose{
-	top: 8px;
-	right: 8px;
+	top: 1px;
+	right: 3px;
 	position: absolute;
 	cursor: pointer;
 	/* color: black; */

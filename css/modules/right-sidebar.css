@@ -563,7 +563,7 @@ display: none;
 }
 
 /*#virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after ,*/
-#virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget #appSettingCtrl.congtooltip:hover:after{
+#virtualclassCont.congrea.teacher.nowebcam #virtualclassAppRightPanel #audioWidget #appSettingCtrl.congtooltip:hover:after{
     top: 51px;
 }
 #virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {

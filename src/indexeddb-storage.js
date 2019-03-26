@@ -664,6 +664,7 @@
                 delete virtualclass.gObj.whoIsSharing;
                 virtualclass.videoHost.gObj.stdStopSmallVid= false;
                 virtualclass.videoHost.gObj.allStdVideoOff=false;
+                virtualclass.gObj.wbTool = {};
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
 
@@ -858,6 +859,7 @@
                 virtualclass.gObj.wIds = [0];
                 virtualclass.gObj.wbCount = 0;
                 virtualclass.wbCommon.clearNavigation();
+                delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
             }
         },
 

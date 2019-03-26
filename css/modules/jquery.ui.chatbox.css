@@ -31,7 +31,6 @@
     border-width: 0;
     height: 170px;
     overflow-y: auto;
-//width: 223px;
 }
 
 @-moz-document url-prefix() {
@@ -819,4 +818,7 @@ margin-right:6px !important;
 
 #virtualclassCont.congrea.teacher #chatroom_bt2 .inner_bt #chatroom_text {
     margin-left:7px;
+}
+#virtualclassCont.congrea .user-details.media-body a:hover {
+    text-decoration: none;
 }

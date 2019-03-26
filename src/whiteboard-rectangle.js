@@ -61,6 +61,12 @@
                     ctx.moveTo(x, y);
                     ctx.stroke();
 
+                    ctx.strokeStyle = obj.color;
+                    ctx.stroke();
+
+                    ctx.lineWidth = obj.stroke;
+                    ctx.stroke();
+
                     ctx.lineTo(x + w, y);
                     ctx.stroke();
 
@@ -71,8 +77,9 @@
                     ctx.stroke();
 
                     ctx.lineTo(x, y);
-                    ctx.fillStyle = (obj.fillColor != undefined) ? obj.fillColor : " ";
+                    ctx.stroke();
 
+                    ctx.fillStyle = (obj.fillColor != undefined) ? obj.fillColor : " ";
                     ctx.closePath();
                     ctx.stroke();
                     // todo this should be enable

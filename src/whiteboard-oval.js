@@ -52,7 +52,7 @@
                     var endingPoint = 2 * Math.PI;
                     var counterClockWise = false;
 
-                    ctx.lineWidth = obj.lineWidth;
+                    ctx.lineWidth = obj.stroke;
 
                     //this is handling for into linux for firefox
                     var rNumber = obj.ry / obj.rx;
@@ -63,6 +63,7 @@
 
                     ctx.transform(1, 0, 0, rNumber, 0, 0);
                     ctx.arc(noTransform ? obj.x : 0, noTransform ? obj.y : 0, obj.rx, 0, endingPoint, counterClockWise);
+                    ctx.strokeStyle = obj.color;
                     ctx.closePath();
                     if (obj.fillStyle != undefined) {
                         ctx.fillStyle = obj.fillStyle;

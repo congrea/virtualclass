@@ -697,8 +697,8 @@
 #virtualclassCont.congrea #popupContainer .urlValidation  .icon-close:before {
   content: "\f00d";
   font-size: 12px;
-  color: #6a8e0b;
-  border: #bcd2aa 1px solid;
+  color: #a0111f;
+  border: #a0111f 1px solid;
   border-radius: 50%;
   padding: 3px 5px;
   background-color: #f9f9f9;
@@ -763,4 +763,16 @@
     font-size: 15px;
     color: dimgray;
     font-weight:bold;
+}
+
+#virtualclassCont.congrea .icon-color:before{
+  content: "\e254";
+  font-size: 19px;
+}
+
+#virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:before {
+  content : "\e994";
+}
+#virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon .icon-shapes.cgIcon:before {
+  font-size:21px;
 }

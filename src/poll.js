@@ -814,6 +814,13 @@
                     link3.classList.add("disabled");
 
                 }
+                var poll = pollType == 'course' ? virtualclass.poll.coursePoll : virtualclass.poll.sitePoll;
+                if (index == poll.length - 1 || index == poll.length - 2 || index == poll.length - 3) {
+                    var link1 = document.querySelector("#contQn" + pollType + index)
+                    link1.classList.add('lastNode');
+                }
+                
+                
                 this.attachEvent("publishQn" + pollType + index, "click", this.publishHandler, item, pollType, index);
                 this.previewOnHover(item,pollType,index);
 
@@ -1461,6 +1468,9 @@
                         } else {
                             msg = virtualclass.lang.getString('votesuccessPbt');
                         }
+                        var mszbox = document.querySelector(".congrea.student #mszBoxPoll");
+                        mszbox.style.display ="block"
+                        
                         virtualclass.poll.showMsg("mszBoxPoll", msg, "alert-success");
                         virtualclass.poll.sendResponse();
 

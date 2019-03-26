@@ -244,6 +244,8 @@ if($info) {
 </script>
 
 <?php
+
+
 if ($info) {
     include('js.debug.php');
 } else {

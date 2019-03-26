@@ -82,7 +82,7 @@
                     var clogo = document.getElementById("congrealogo");
                     clogo.classList.add("disbaleOnmousedown");
                     // var newpointer = vcan.utility.getReltivePoint(e);
-                   // console.log('Whiteboard drag start x=' + newpointer.x + ' y=' + newpointer.y);
+                   //console.log('Whiteboard position drag start x=' + e.offsetX + ' y=' + e.offsetY);
 
                     if (e.detail.hasOwnProperty('cevent') && (vcan.main.action != 'create')) {
                         // console.log('Whiteboard drag start before scale x=' + (e.detail.cevent.x - vcan.main.offset.x) + ' y=' + ( e.detail.cevent.y - vcan.main.offset.y));

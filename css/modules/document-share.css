@@ -472,6 +472,7 @@
         margin-right: 0px;
         padding: 0px 2px;
         border-radius: 3px;
+        cursor:pointer;
     }
 
     #virtualclassCont.congrea .whiteboard .prev {
@@ -1040,7 +1041,7 @@
 @media(max-width:1150px) {
     
     .congrea #totalPages {
-        font-size:13px;
+        font-size:14px;
         margin-right:10px;
     }
     #virtualclassCont.congrea #dcPaging {
@@ -1057,6 +1058,13 @@
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher #docShareNav {
         left : 5px;
     }
+}
+
+#virtualclassCont[data-currapp="DocumentShare"] .canvasWrapper .whiteboards {
+    z-index: auto !important;
+}
+#virtualclassCont[data-currapp="DocumentShare"] #docScreenContainer .canvasWrapper .pdfs {
+    z-index:-1;
 }
 
 #DocumentShareDashboard #docsListContainer #listdocs .controls.delete { margin-top:0;}

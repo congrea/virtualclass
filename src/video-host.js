@@ -183,7 +183,7 @@ var videoHost = {
          else{
              sw.setAttribute("data-action","enable")
              sw.className ="video off";
-             swCont.setAttribute("data-title","Video On");
+             swCont.setAttribute("data-title","Video on");
 
          }
     },

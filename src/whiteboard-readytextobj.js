@@ -135,11 +135,13 @@
                     textNode.id = divNode.id + 'textarea';
                     textNode.className = 'whiteBoardTextBox';
 
+
                     textNode.rows = 8;
                     textNode.cols = 41;
                     if (obj.text != undefined && obj.text != '') {
                         textNode.value = obj.text;
                     }
+
 
                     divNode.appendChild(textNode);
 
@@ -223,13 +225,14 @@
 
                 var fontSize = 20;
                 ctx.font = fontSize + 'px Times New Roman';
+                ctx.fillStyle = this.prvCurrTransform.color;
                 var maxWidth = 0;
                 var tempUserTextArr = userText.split(/\r?\n/);
-                maxWidth = ctx.measureText(tempUserTextArr[0]).width;
+                maxWidth = ctx.measureText(tempUserTextArr[0]).width + 20;
                 //var extHeight = 15; //TODO this should be changed according to font size by selected user
-                var extHeight = 13;
+                var extHeight = 15;
                 for (var i = 1; i < tempUserTextArr.length; i++) {
-                    extHeight += 13;
+                    extHeight += 15;
                     var tempMaxWidth = ctx.measureText(tempUserTextArr[i]).width;
                     if (tempMaxWidth > maxWidth) {
                         maxWidth = tempMaxWidth;

@@ -2190,9 +2190,9 @@
 #virtualclassCont.congrea .ui-widget-header .icon-user:before {
 	color:#fff;
 }
-#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool:first-child a:hover, #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool.active:first-child a {
-    border-bottom-left-radius: 6px;
-}
+/*#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool:first-child a:hover, #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool.active:first-child a {*/
+    /*border-bottom-left-radius: 6px;*/
+/*}*/
 
 #virtualclassCont.congrea #popupContainer #about-modal{
 	border: #e2e2e2 solid 3px;
@@ -2294,7 +2294,6 @@
 
 
 #virtualclassCont.congrea #preCheckcontainer #joinSession {
-	cursor : pointer;
 	text-align : right;
 	color : blue;
 
@@ -2325,10 +2324,10 @@
 }
 
 #virtualclassCont.congrea #preCheckcontainer #joinSession {
-	cursor : pointer;
 	text-align : right;
 	color : blue;
 }
+
 #virtualclassCont.congrea #preCheckcontainer .modal {
 	background-color: #555558;
 }
@@ -3065,20 +3064,22 @@
 
 #virtualclassCont.congrea #popupContainer .popupWindow.urlValidation {
 	width: 248px;
-	height: 60px;
+/*	height: 60px;*/
 	text-align: center;
 	/* margin-top: 13px; */
-	padding: 17px;
-	margin: 10px;
+	padding: 18px;
+	margin: 6px;
 	/* margin-bottom: -28px; */
-	color: #6a8a13;
-	border: 1px solid #ddd ;
-	border-radius: 5px;
+	color: #721c24;
+	border: 1px solid #ce1313;
+    border-radius: 5px;
+    background-color: #f8d7da;
+    border-color: #a01120;
 }
 
 #virtualclassCont.congrea #popupContainer .urlValidation .urlMszClose{
-	top: 8px;
-	right: 8px;
+	top: 1px;
+	right: 3px;
 	position: absolute;
 	cursor: pointer;
 	/* color: black; */
@@ -4048,13 +4049,14 @@ background-color: #d6d6d6;
 /* The actual popup */
 .congrea.teacher .pollList .popover-content {
    /* visibility: hidden; */
-   width: 30%;
+   width: 80%;
    background-color: #eee;
    text-align: left;
    border-radius: 6px;
    position: absolute;
    z-index: 1;
-   left:400px;
+   bottom:-50%;
+   left:40%;
    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
    font-size: 14px;
    line-height: 1.42857143;
@@ -4090,6 +4092,9 @@ background-color: #d6d6d6;
     border-color: #555 transparent transparent transparent;
 }
 
+#virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="freeDrawing"] a {
+	border-bottom-left-radius: 5px;
+}
 
 #virtualclassCont.congrea #DocumentShareDashboard #docsListContainer #listdocs .controls.delete {
 	margin-top:0;

@@ -1206,26 +1206,27 @@
                         }
                         clearInterval(virtualclass.media.smallVid);
 
-                        var d = randomTime + (virtualclass.connectedUsers.length * 2500);
-                        if (totalMembers != virtualclass.connectedUsers.length) {
-                            totalMembers = virtualclass.connectedUsers.length;
-                            var p = -1;
-                            for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
-                                if (virtualclass.connectedUsers[0].userid == virtualclass.gObj.uid) {
-                                    p = i;
+                        if(virtualclass.hasOwnProperty('connectedUser')){
+                            var d = randomTime + (virtualclass.connectedUsers.length * 2500);
+                            if (totalMembers != virtualclass.connectedUsers.length) {
+                                totalMembers = virtualclass.connectedUsers.length;
+                                var p = -1;
+                                for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                                    if (virtualclass.connectedUsers[0].userid == virtualclass.gObj.uid) {
+                                        p = i;
+                                    }
                                 }
+                                var td = d / totalMembers;
+                                if(p < 0){
+                                    p  = 0;
+                                }
+                                var md = p * td;
+                                virtualclass.media.smallVid = setInterval(sendSmallVideo, (d + md));
+                            } else {
+                                virtualclass.media.smallVid = setInterval(sendSmallVideo, d);
                             }
-                            var td = d / totalMembers;
-                            if(p < 0){
-                                p  = 0;
-                            }
-                            var md = p * td;
-                            virtualclass.media.smallVid = setInterval(sendSmallVideo, (d + md));
-                        } else {
-                            virtualclass.media.smallVid = setInterval(sendSmallVideo, d);
                         }
                     }
-
 
                     virtualclass.media.smallVid = setInterval(sendSmallVideo, randomTime);
                     // Breaking user id into bytes

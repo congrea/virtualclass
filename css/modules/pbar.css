@@ -92,6 +92,18 @@
   text-decoration: none;
 }
 
+
+#virtualclassCont.congrea #playProgress{
+  pointer-events: visible;
+  /*cursor: pointer;*/
+}
+
+#virtualclassCont.congrea #downloadProgressBar, #virtualclassCont.congrea #playProgressBar{
+  cursor: pointer;
+  pointer-events: visible;
+}
+
+
 @media all and (min-width: 800px) {
   #virtualclassCont.congrea  .checkout-bar li.active:after {
     -webkit-animation: myanimation 3s 0;

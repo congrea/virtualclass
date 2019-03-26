@@ -366,7 +366,8 @@ var PopUp = (function (window, undefined) {
         confirm.appendChild(confirmCancelDiv);
 
     }
-        PopUp.prototype.pollPopUp= function(cb,label){
+
+    PopUp.prototype.pollPopUp= function(cb,label){
 
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
@@ -533,8 +534,17 @@ var PopUp = (function (window, undefined) {
         if(sessionEndCont.dataset.displaying == 'true'){
             this.sesseionEndWindow();
         }
+    }
 
+    PopUp.prototype.loadingWindow = function () {
+        var element = document.getElementById('about-modal');
+        virtualclass.popup.open(element);
+        this.hideAllPopups();
 
+        var loadingWindow = document.querySelector('#loadingWindowCont');
+        if(loadingWindow != null){
+            loadingWindow.style.display = 'block';
+        }
     }
 
     /**

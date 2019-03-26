@@ -95,13 +95,28 @@
 
                     if (typeof startFrom != 'undefined' ) {
                         this.fromReload(this.videoId, this.videoUrl, startFrom);
-                         
                     } else {
                         ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
                     }
                 }
+                // if(!virtualclass.isPlayMode){
+                //     this.startsync();
+                // }
 
             },
+
+            isPlayerReady (){
+                return (virtualclass.videoUl.hasOwnProperty('player') && typeof virtualclass.videoUl.player == 'object');
+            },
+
+            // startsync () {
+            //     virtualclass.vutil.clearSyncTimeInterval();
+            //     virtualclass.videoUl.syncTimeInterval = setInterval(() => {
+            //         if(virtualclass.videoUl.videoUrl != null && virtualclass.videoUl.videoUrl != "" && virtualclass.videoUl.player != null){
+            //             ioAdapter.sync({time : virtualclass.videoUl.player.currentTime(), 'app': 'video', 'cf': 'sync'});
+            //         }
+            //     }, 1000);
+            // },
 
 
             createPageModule:function(){
@@ -110,9 +125,7 @@
                         var idPostfix = vidObj.id;
                         virtualclass.videoUl.pages[idPostfix] = new virtualclass.page('videoList', 'video', 'virtualclassVideo', 'videoUl', vidObj.status);
                     });
-
                 }
-
             },
 
             reArrangeElements: function (order) {
@@ -180,7 +193,6 @@
              * saves current list and current order in localstorage on reload
 
              */
-
             saveVideosInLocalStr: function () {
                 var order = virtualclass.videoUl.order;
                 console.log(order)
@@ -668,15 +680,18 @@
             },
 
             playVideo: function (seekVal) {
-                  // virtualclass.videoUl.player.play();
+                if(virtualclass.videoUl.isPlayerReady()){
                     virtualclass.videoUl.player.currentTime(seekVal);
                     virtualclass.videoUl.player.play();
-
+                }
             },
 
             pauseVideo: function () {
-                virtualclass.videoUl.player.pause();
-                virtualclass.videoUl.isPaused=true;
+                // todo pass paused time to students
+                if(virtualclass.videoUl.isPlayerReady()){
+                    virtualclass.videoUl.player.pause();
+                    virtualclass.videoUl.isPaused=true;
+                }
             },
 
             /*
@@ -1043,8 +1058,6 @@
 
                 },
                 attachPlayerHandler: function (player, vidId, videoUrl) {
-
-
                    // player.off("pause");
                     player.on("pause", function (e) {
                         console.log("paused");
@@ -1064,7 +1077,6 @@
                         virtualclass.videoUl.isPaused=false;
 
                     });
-
                     // player.off("ended");
                     //
 

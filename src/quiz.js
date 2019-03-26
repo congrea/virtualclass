@@ -23,7 +23,7 @@
 
                 virtualclass.previrtualclass = 'virtualclass' + "Quiz";
                 virtualclass.previous = 'virtualclass' + "Quiz";
-                var urlquery = getUrlVars(exportfilepath);
+                var urlquery = virtualclass.vutil.getUrlVars(exportfilepath);
                 this.cmid = urlquery.cmid;
 
                 if (!roles.hasAdmin() || (roles.isEducator())) {
@@ -451,6 +451,7 @@
              * @return
              */
             closeQzBt: function() {
+                console.log('-------CLOSE QUIZ--------');
                 var qzid = virtualclass.quiz.qzid;
                 var data = { qzid: qzid };
                 ioAdapter.mustSend({
@@ -463,6 +464,7 @@
                 //stop timer
                 if(typeof CDTimer != 'undefined'){
                     clearInterval(CDTimer);
+                    console.log('Clear quiz interval');
                 }
 
                 document.getElementById("closeQzBt").disabled = true;
@@ -846,6 +848,7 @@
                         start =0;
                         if(typeof CDTimer != 'undefined'){
                             clearInterval(CDTimer);
+                            console.log('Clear quiz interval');
                         }
 
                         ioAdapter.mustSend({

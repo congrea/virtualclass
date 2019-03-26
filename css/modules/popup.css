@@ -121,10 +121,10 @@
 	border-radius:4px 4px 0 0;
 }
 #virtualclassCont.congrea #progress, #virtualclassCont.congrea #indProgress,#virtualclassCont.congrea #downloadProgress {
-	width:100%;
-	height:15px;
-	border:1px solid #000;
-	overflow:hidden;
+	/*width:100%;*/
+	/*height:15px;*/
+	/*border:1px solid #000;*/
+	/*overflow:hidden;*/
 }
 /*#virtualclassCont.congrea .progressBar {*/
 	/*width:0;*/
@@ -159,14 +159,14 @@
 /*Hasan css start*/
 
 
-#virtualclassCont.congrea #downloadProgress {
-	background-color: #f5f5f5;
-	border-radius: 4px;
-	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-	box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-	height: 16px;
-	border:none;
-}
+/*#virtualclassCont.congrea #downloadProgress {*/
+	/*background-color: #f5f5f5;*/
+	/*border-radius: 4px;*/
+	/*-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);*/
+	/*box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);*/
+	/*height: 16px;*/
+	/*border:none;*/
+/*}*/
 /* modify this  in  moodle css  ***    */
 #virtualclassCont.congrea .progressBar {
     background-color: #56b349;
@@ -177,9 +177,9 @@
 	height: 20px;
 	border:none;
 }
-#virtualclassCont.congrea #playProgressBar.progressBar {
-    height:5px;
-}
+/*#virtualclassCont.congrea #playProgressBar.progressBar {*/
+    /*height:5px;*/
+/*}*/
 #virtualclassCont.congrea #askplayMessage {
 	font-size: 14px;
 	text-align: center	;
@@ -248,7 +248,7 @@
 	font-size: 13px;
 	margin-bottom: 7px;
 }
-#virtualclassCont.congrea #progress, #virtualclassCont.congrea #indProgress, #virtualclassCont.congrea #downloadProgress {
+#virtualclassCont.congrea #progress, #virtualclassCont.congrea #indProgress {
 	height: 20px;
 	border:none;
 }
@@ -287,17 +287,19 @@
 	margin-left: 20px;
 	margin-right: 20px;
 }
-#virtualclassCont.congrea #downloadProgress {
-	margin-left: 20px;
-	margin-right: 20px;
-}
+
+/*#virtualclassCont.congrea #downloadProgress {*/
+	/*margin-left: 20px;*/
+	/*margin-right: 20px;*/
+/*}*/
+
 #virtualclassCont.congrea #downloadPcCont #downloadPrgressLabel {
 	padding: 15px 0px 9px 3px;
 }
-#virtualclassCont.congrea #downloadPcCont #downloadProgress {
-	width: 90%;
-	margin-bottom: 15px;
-}
+/*#virtualclassCont.congrea #downloadPcCont #downloadProgress {*/
+	/*width: 90%;*/
+	/*margin-bottom: 15px;*/
+/*}*/
 
 
 #virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-title{
@@ -365,9 +367,9 @@
 	border-radius: 13px !important;
 } 
 
-#virtualclassCont.congrea #downloadProgress{
-	background-color: #eee;
-}
+/*#virtualclassCont.congrea #downloadProgress{*/
+	/*background-color: #eee;*/
+/*}*/
 /*#virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorCodeContainer:hover{*/
 	/*background-image: none;*/
 /*}*/

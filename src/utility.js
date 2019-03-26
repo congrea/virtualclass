@@ -1803,33 +1803,33 @@
             return saveButton;
         },
 
-        initTechSupportUi : function (){
-            var virtualclassApp = document.querySelector('#virtualclassApp');
-            if(virtualclassApp != null){
-                if(!virtualclass.isPlayMode){
-                    var saveButton = this.createSaveButton();
-                }
-                var that = this;
-                saveButton.addEventListener('click', function (){
-                    that.intiRecoringByTechSupport();
-                });
-                if(saveButton != null){
-                    virtualclassApp.appendChild(saveButton);
-                }
-            }
-        },
-
-        intiRecoringByTechSupport : function (){
-            virtualclass.popup.confirmInput(virtualclass.lang.getString('savesessionTechSupport'), function (confirm) {
-                if (confirm) {
-                    ioStorage.completeStorage(undefined, undefined, 'sessionend');
-                    setTimeout(function () {
-                            virtualclass.recorder.startUploadProcess();
-                        }, 300
-                    );
-                }
-            });
-        },
+        // initTechSupportUi : function (){
+        //     var virtualclassApp = document.querySelector('#virtualclassApp');
+        //     if(virtualclassApp != null){
+        //         if(!virtualclass.isPlayMode){
+        //             var saveButton = this.createSaveButton();
+        //         }
+        //         var that = this;
+        //         saveButton.addEventListener('click', function (){
+        //             that.intiRecoringByTechSupport();
+        //         });
+        //         if(saveButton != null){
+        //             virtualclassApp.appendChild(saveButton);
+        //         }
+        //     }
+        // },
+        //
+        // intiRecoringByTechSupport : function (){
+        //     virtualclass.popup.confirmInput(virtualclass.lang.getString('savesessionTechSupport'), function (confirm) {
+        //         if (confirm) {
+        //             ioStorage.completeStorage(undefined, undefined, 'sessionend');
+        //             setTimeout(function () {
+        //                     virtualclass.recorder.startUploadProcess();
+        //                 }, 300
+        //             );
+        //         }
+        //     });
+        // },
 
         //removejquery
         setChatContHeight : function (height){
@@ -2377,7 +2377,7 @@
                 if (event.data.type == 'yes') {
                     virtualclass.gObj.chromeExt = true;
                 }
-                console.log('Chrome Extension:- is available');
+                // console.log('Chrome Extension:- is available');
             });
 
         },
@@ -2823,7 +2823,46 @@
                 return true;
             }
             return false;
+        },
+
+        getUrlVars (url) {
+            var vars = [], hash;
+            var hashes = url.slice(url.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        },
+
+        clearSyncTimeInterval () {
+            if(virtualclass.videoUl.hasOwnProperty('syncTimeInterval')){
+                clearInterval(virtualclass.videoUl.syncTimeInterval);
+            }
+
+        },
+
+        pageVisible () {
+            var stateKey, eventKey, keys = {
+                hidden: "visibilitychange",
+                webkitHidden: "webkitvisibilitychange",
+                mozHidden: "mozvisibilitychange",
+                msHidden: "msvisibilitychange"
+            };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function(c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
         }
+
     };
     window.vutil = vutil;
 })(window);

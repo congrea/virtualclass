@@ -8,6 +8,8 @@ var ioPingPong = {
             var msg = {ping: 'ping', cf: 'pong', session: session};
             ioAdapter.sendWithDelayAndDrop (msg, null, 'mustSend', 'pingAll', 3000);
             console.log('PING BROADCAST');
+            // ioAdapter.setSession(session);
+            ioAdapter.setSessionToServer(session);
         }
     },
     pong: function (e) {
@@ -34,6 +36,7 @@ var ioPingPong = {
             // If new session trying to be create from new teacher become eduactor
             if(virtualclass.gObj.hasOwnProperty('doEndSession')){
                 virtualclass.storage.config.endSession();
+                console.log('==== session, end session');
             }
             session = this.setSession();
         }
@@ -41,8 +44,8 @@ var ioPingPong = {
     },
     setSession: function () {
         "use strict";
-        var session = randomString(32);
-        console.log('My session is created by setSession');
+        var session = virtualclass.vutil.randomString(32);
+        console.log('==== session, My session is created by setSession');
         localStorage.setItem('mySession', session);
         return session;
     },
@@ -56,6 +59,7 @@ var ioPingPong = {
                 this.sessionDestroy(session, e);
             }
         } else {
+            console.log('==== session, start session');
             console.log('My session is created');
             localStorage.setItem('mySession', session);
         }
@@ -66,6 +70,7 @@ var ioPingPong = {
     sessionDestroy : function (session, e) {
         // TODO Finish Session and start gracefully
         if (!virtualclass.isPlayMode) {
+            console.log('==== session, start session');
             var uid = e.fromUser.userid;
             localStorage.removeItem('mySession');
             virtualclass.storage.config.endSession();
@@ -73,6 +78,7 @@ var ioPingPong = {
             ioMissingPackets.validateAllVariables(uid);
             console.log('REFRESH SESSION');
         } else {
+            console.log('==== session, end session');
             console.log('My session is created');
             localStorage.setItem('mySession', 'thisismyplaymode');
         }

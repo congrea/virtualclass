@@ -1526,6 +1526,7 @@
 }
 
 
+/*
 #virtualclassCont.congrea #playProgress {
 	background-color: #676666;
 	float: left;
@@ -1534,6 +1535,50 @@
 	text-align: center;
 	width: 350px;
 	height: 5px;
+} */
+
+#virtualclassCont.congrea #playProgress {
+	width : 350px;
+	float: left;
+	margin-left: 18px;
+	margin-top: 21.5px;
+	text-align: center;
+	/*height: 10px;*/
+}
+
+#virtualclassCont.congrea #downloadProgress {
+	background-color: #efe9e9;
+	float: left;
+	/*margin-left: 18px;*/
+	/*margin-top: 21.5px;*/
+	text-align: center;
+	width: 350px;
+	height: 5px;
+	margin-top : -5px;
+}
+
+
+#virtualclassCont.congrea #downloadProgressValue {
+	font-size : 10px;
+	margin-top : 6px;
+}
+
+
+/*#virtualclassCont.congrea #downloadProgress{*/
+	/*background-color: #eee;*/
+/*}*/
+
+
+#virtualclassCont.congrea #downloadProgressBar {
+	background-color: #868383;
+	width : 0%;
+	height : 5px;
+}
+
+#virtualclassCont.congrea #playProgressBar.progressBar {
+	height:5px;
+	z-index: 13;
+	position : relative;
 }
 
 #virtualclassCont.congrea.playMode .ui-memblist-usr {
@@ -4058,3 +4103,37 @@ background-color: #d6d6d6;
 	width : 50%;
 	margin : auto;
 }
+
+#virtualclassCont.congrea #loadingWindowCont {
+	width : 350px;
+	height : 100px;
+	padding : 10px;
+}
+
+#virtualclassCont.congrea #loadingWindowCont p {
+	margin-left: 10px;
+	font-size: 15px;
+}
+
+#virtualclassCont.congrea #loadingWindowCont img {
+	margin-left: 40%;
+	width: 40px;
+	margin-top: 14px;
+}
+
+#virtualclassCont.congrea #timeInHover{
+	display: none;
+
+	background: #011701;
+
+	height: 17px;
+	font-size: 13px;
+	padding: 4px 5px 3px 5px;
+	float: left;
+	margin: 0px;
+	margin-top : -28px;
+	z-index : 20;
+	border-radius : 5px;
+}
+
+

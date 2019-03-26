@@ -14,18 +14,6 @@
     var tarr = [];
     var dataStore = false;
     var dataAllStore = false;
-    //  var totalDataStored = localStorage.getItem('totalStored');
-    function initToServer(cb) {
-        if (typeof cb == 'function') {
-            virtualclass.recorder.sendDataToServer();
-            setTimeout(
-                function () {
-                    virtualclass.recorder.xhrsenddata();
-                }, 100
-            );
-            cb.apply(virtualclass.recorder);
-        }
-    }
 
     var storage = {
         //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
@@ -167,7 +155,7 @@
                                 // Session is clear after 3 hour continous session
                                 //////////////////////1sec-1min--1hr--3hr/////////
                                 //if (totalTime > (1000 * 60 * 60 * 3) || result.room != wbUser.room) {
-                                if (totalTime > (1000 * 60 * 2) || result.room != wbUser.room) {
+                                if (totalTime > (1000 * 60 * 60 * 3) || result.room != wbUser.room) {
                                     that.config.endSession();
                                 }
                             }
@@ -204,7 +192,7 @@
         },
 
         wbDataRemove : function (key){
-
+            console.log('Whiteboard data remove');
             var t = that.db.transaction(["wbData"], "readwrite");
             var objectStore = t.objectStore("wbData");
             objectStore.delete(key);
@@ -276,12 +264,12 @@
         },
 
         // chunkStorage : function (value, row, trow, cn, d){
-        chunkStorage: function (dobj) {
-            console.log('Chunk Storage');
-            var t = that.db.transaction(["chunkData"], "readwrite");
-            dobj.id = 4;
-            t.objectStore("chunkData").add(dobj);
-        },
+        // chunkStorage: function (dobj) {
+        //     console.log('Chunk Storage');
+        //     var t = that.db.transaction(["chunkData"], "readwrite");
+        //     dobj.id = 4;
+        //     t.objectStore("chunkData").add(dobj);
+        // },
 
         wholeStore: function (playTime, obj, type) {  //storing whiteboard and screenshare
             obj.peTime = window.pageEnter;
@@ -475,7 +463,11 @@
                                 sessionEnd: true
                             });
                             console.log('Start Upload Process');
-                            initToServer(cb);
+
+
+
+                             // initToServer(cb)
+
                             return;
                         } else {
                             if (cursor.value.hasOwnProperty('bd')) {
@@ -598,7 +590,7 @@
 
             createNewSession: function () {
                 //debugger;
-                virtualclass.recorder.sessionKey = randomString(11);
+                // virtualclass.recorder.sessionKey = randomString(11);
                 //virtualclass.editorRich.init(0, [], "", "");
                 if(roles.hasAdmin()){
                     ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
@@ -618,6 +610,17 @@
             },
 
             endSession: function (onlyStoredData) {
+                delete virtualclass.connectedUsers;
+                if(typeof virtualclass.videoUl  == 'object' && virtualclass.videoUl.hasOwnProperty('player')
+                && typeof virtualclass.videoUl.player == 'object'
+                ){
+                    virtualclass.videoUl.destroyPlayer();
+                }
+
+                if(typeof CDTimer != 'undefined'){
+                    clearInterval(CDTimer);
+                }
+
                 var currApp = document.querySelector('#virtualclass' + virtualclass.currApp);
                 if(currApp != null){
                     currApp.style.display = 'none';
@@ -636,7 +639,7 @@
                 }
 
                 if(virtualclass.gObj.precheckScrn){
-                    virtualclass.vutil. prechkScrnShare();
+                    virtualclass.vutil.prechkScrnShare();
                 }
 
                 // virtualclass.raiseHand.disableRaiseHand();
@@ -678,6 +681,7 @@
 
                 if (!onlyStoredData) {
                     if (typeof virtualclass.wb == 'object') {
+                        alert('Clear all whiteboard');
                         virtualclass.wb[virtualclass.gObj.currWb].utility.t_clearallInit();
                         virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue();
                         if(typeof virtualclass.wb[virtualclass.gObj.currWb].replay == 'object'){
@@ -692,10 +696,11 @@
                 }
 
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
-                if (!virtualclass.hasOwnProperty('notPLayed')) {
-                    //debugger;
-                    virtualclass.storage.clearStorageData();
-                }
+                 virtualclass.storage.clearStorageData();
+
+                // if (!virtualclass.hasOwnProperty('notPLayed')) {
+                //     virtualclass.storage.clearStorageData();
+                // }
 
                 virtualclass.wbCommon.removeAllContainers();
                 virtualclass.gObj.wbCount = 0;
@@ -794,7 +799,6 @@
                             var icon = document.querySelector(".congrea .handRaise #icHr");
                             icon.setAttribute('data-action','enable')
                             virtualclass.raiseHand.stdRhEnable="enabled";
-
                         }
 
                     }else{
@@ -814,11 +818,12 @@
                 if(chatHighlight){
                     chatHighlight.classList.remove('ui-state-highlight');
                 }
-                var videoHide = document.querySelector("#virtualclassCont.congrea.teacher #virtualclassAppRightPanel");
-                if(videoHide && videoHide.classList.contains("vidHide")){
+
+                //   var videoHide = document.querySelector("#virtualclassCont.congrea.teacher #virtualclassAppRightPanel");
+                //   if(videoHide && videoHide.classList.contains("vidHide")){
                     // videoHide.classList.remove("vidHide");
                     // videoHide.classList.add("vidShow")
-                }
+                //}
 
                 var videOff = document.querySelector("#virtualclassCont.congrea.student");
                 if(videOff && videOff.classList.contains("videoff")){

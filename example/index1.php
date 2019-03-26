@@ -21,7 +21,7 @@
     .CodeMirror { height: auto; }*/
     .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
 
-    /* this should be apply for only core virtualclassm, not with any other software */
+    /* this should be apply for only core virtualclass, not with any other software */
 
     html, body {
         margin : 0;
@@ -55,7 +55,7 @@ function get_string($phrase) {
 
 //the www path for virtualclass
 
-$whiteboardpath = "https://local.vidya.io/virtualclass/";
+$whiteboardpath = "https://192.168.1.117/virtualclass/";
 
 $cont_class = 'congrea ';
 
@@ -80,6 +80,12 @@ $isplay = false;
 if (isset($_GET['play']) && ($_GET['play'] == 'true')) {
     $isplay = true;
     $cont_class .= "playMode ";
+}
+
+if (isset($_GET['session'])) {
+    $session = $_GET['session'];
+} else {
+    $session = 'nosession';
 }
 
 $uid = 100;
@@ -121,6 +127,9 @@ if (isset($_GET['meetingmode'])) {
     $meetingmode = 0;
     $cont_class .= 'normalmode ';
 }
+
+
+
 
 $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 
@@ -197,9 +206,10 @@ if($info) {
     virtualclassSetting.studentAudio = '<?php echo $stdAudio; ?>';
     virtualclassSetting.studentVideo = '<?php echo $stdVideo; ?>';
     virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
+
     virtualclassSetting.theme={};
 	virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
-
+    wbUser.session = '<?php echo $session; ?>';
     wbUser.virtualclassPlay = '<?php echo $isplay; ?>';
     wbUser.vcSid = '<?php echo "1"; ?>';
     wbUser.imageurl =  '';

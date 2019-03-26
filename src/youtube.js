@@ -416,7 +416,7 @@
 
                     if ((this.player.getPlayerState() != PLState) && this.player.getPlayerState() != 3) {
 
-                        this.ytOnSeek(this.player.getCurrentTime()); // For synch with user's video when pause/play video by teacher
+                        this.ytOnSeek(this.player.getCurrentTime()); // For sync with user's video when pause/play video by teacher
 
                         this.ytOnChange(this.player.getPlayerState());
                         PLState = this.player.getPlayerState();

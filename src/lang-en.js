@@ -257,7 +257,7 @@
         'Spoll' : 'Site poll',
         'ssBtn':"Stop sharing",
         'ssStop':"Stop screen sharing",
-        'startnewsession': "This session has not been saved. Do you really want to end this session?",
+        'startnewsession': "Do you really want to end this session?",
         'status' : 'Status',
         'stdPublish' : 'stdPublish',
         'stdscreenshare' : 'Do you want to share your screen ?',

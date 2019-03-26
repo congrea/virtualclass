@@ -258,10 +258,14 @@ $(document).ready(function () {
         /** We start comminute with server only after access validation**/
         var initRequestToServer = function  (){
             if(virtualclass.gObj.readyToCommunicate){
-                virtualclass.recorder.requestDataFromServer(wbUser.vcSid, 1);
+                // if(virtualclass.recorder.totalRecordingFiles.length > 0){
+                //     virtualclass.recorder.requestDataFromServer(virtualclass.recorder.totalRecordingFiles.shift().S);
+                // }
+                // virtualclass.recorder.requestDataFromServer(wbUser.vcSid, 1);
             }else {
                 setTimeout(()=> {
                     initRequestToServer();
+                    // virtualclass.recorder.requestListOfFiles();
                 },700)
             }
         }
@@ -272,6 +276,7 @@ $(document).ready(function () {
                     //earlier it was calling after requestDataFromServer
                     // because of which the popup box for replay is not displaying
                     clearEverthing();
+
                     initRequestToServer();
                 },
                 500 //increase 500 ms for indexeddb which was not ready till popup was display
@@ -1415,6 +1420,9 @@ $(document).ready(function () {
 
             }
 
+            this.sync = function  (){
+                console.log('nothing for sync ');
+            }
             // this.stopSs= function(e){
             //     virtualclass.ss.unShareScreen();
             // }
@@ -1837,6 +1845,7 @@ $(document).ready(function () {
                     }
                 }
             }
+
         };
 
         virtualclass.ioEventApi = ioEventApi;

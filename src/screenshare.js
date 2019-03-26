@@ -106,8 +106,11 @@ var newCanvas;
                     // Slice Image
                     case 103:
                     case 203:
-                        // Send to worker
-                        this.drawImageThroughWorker(data_pack);
+                        /* Send to worker only if the screen layout is Ready already */
+                        if(typeof virtualclass.ss == 'object'){
+                            this.drawImageThroughWorker(data_pack);
+                        }
+
                         break;
                     // Full Image with Resize
                     case 104:
@@ -134,6 +137,7 @@ var newCanvas;
              */
             // TODO name of parameter d should be changed ,It also contains the property named d
             initStudentScreen: function (imgData, d, stype, stool) {
+
                 app = stype;
                 var screenCont = document.getElementById('virtualclass' +  virtualclass.apps.ss);
 
@@ -359,8 +363,8 @@ var newCanvas;
                                 }
                                 lastTime = stream.currentTime;
                             }, 500);
-                         }
-                        } else {
+                        }
+                    } else {
                         console.log('Set previous app as current app if teacher reclaim role during screen share');
                         virtualclass.ss.setCurrentApp();
                     }
@@ -411,7 +415,6 @@ var newCanvas;
 
              */
             init: function (screen) {
-
                 this.type = screen.type;
                 this.ssByClick = true;
                 this.manualStop = false;
@@ -438,6 +441,7 @@ var newCanvas;
              */
             _init: function () {
 
+                console.log('Init screen');
                 this.currApp = this.tempCurrApp;
                 virtualclass.currApp = virtualclass.apps.ss;
                 //add current app to main container
@@ -473,14 +477,14 @@ var newCanvas;
                     }
 
                     this.html.UI.call(this, virtualclass.gObj.uRole);
-
-
                     if (((roles.hasControls() && !virtualclass.recorder.recImgPlay) && !virtualclass.gObj.studentSSstatus.mesharing) ||
                         roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing){
                         virtualclass.vutil.initLocCanvasCont(this.localTemp + "Video");
                     }
                 }
+
             },
+
             /**
              * This function gets  screen reloaded with the url
              * @param app it stores the string screenshare
@@ -537,32 +541,8 @@ var newCanvas;
                     } else {
                         virtualclass.vutil.beforeSend({'ext': true, 'cf': 'colorIndicator'});
                         var url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
-
                         virtualclass.popup.chromeExtMissing();
 
-                        // chrome.webstore.install(url, function () {
-                        //         window.location.reload();
-                        //     }, function (error){
-                        //         if(virtualclass.gObj.chromeExt){
-                        //             if(location.protocol != 'https:'){
-                        //                 var errorMsg = virtualclass.lang.getString('httpsmissing');
-                        //                 virtualclass.popup.generalMsg(errorMsg);
-                        //             } else {
-                        //                 virtualclass.popup.chromeExtMissing();
-                        //             }
-                        //         }else{
-                        //             if(window.location.hostname == "live.congrea.net"){
-                        //                virtualclass.vutil._inlineChomeExtensionStore()
-                        //             }else {
-                        //                 /*
-                        //                     User have to install screen share extension for chrome explicitly
-                        //                     incase of other host than "live.congrea.net"
-                        //                 */
-                        //                 virtualclass.popup.chromeExtMissing();
-                        //             }
-                        //         }
-                        //     }
-                        // );
                     }
                 } else if (virtualclass.system.mybrowser.name == 'Firefox') {
                     virtualclass.getSceenFirefox();
@@ -618,6 +598,7 @@ var newCanvas;
                 }
                 virtualclass.zoom.removeZoomController();
                 virtualclass.ss = '';
+
             },
 
             /**
@@ -928,8 +909,7 @@ var newCanvas;
                  * setting the interval for function send screen
                  */
                 function sendResizeWindow() {
-                    console.log('RESIZE');
-
+                    console.log('RESIZE screen share');
                     if(roles.hasControls() || virtualclass.gObj.studentSSstatus.mesharing){
                         prvVWidth = that.video.offsetWidth;
                         prvVHeight = that.video.offsetHeight;
@@ -938,6 +918,7 @@ var newCanvas;
                         var createdImg = getDataFullScreenResize(that.type);
                         virtualclass.vutil.informIamSharing();
                         ioAdapter.sendBinary(createdImg);
+
                         calcBandwidth(createdImg.length / 128); // In Kbps
                         changeonresize = 0;
                         clearInterval(virtualclass.clear);
@@ -1106,7 +1087,9 @@ var newCanvas;
                         var mainConthtml = main(roleControl);
 
                         // $('#virtualclassAppLeftPanel').append(mainConthtml);
+
                         virtualclass.vutil.insertAppLayout(mainConthtml);
+
                         if(roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing){
                             var ss = document.querySelector('#virtualclassCont  #stopScreenShare');
                             if(ss){

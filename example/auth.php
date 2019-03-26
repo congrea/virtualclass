@@ -38,7 +38,7 @@ $post_data = json_encode($post_data);
 //echo $post_data;
 $rid = my_curl_request("https://api.congrea.net/backend/auth", $post_data, $licensekey, $secret);
 
- // var_dump( $rid);exit;
+
 
 
 if (!$rid = json_decode($rid)) {

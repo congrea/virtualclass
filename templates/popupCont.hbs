@@ -38,10 +38,12 @@
         <div id="downloadPcCont">
           <div id="downloadSessionText" class="cgText">{{getString 'downloadsession'}}</div>
           <div id="downloadPrgressLabel" class="cgText"> {{getString 'overallprogress'}} </div>
-          <div id="downloadProgress">
-            <div id="downloadProgressBar" class="progressBar"></div>
-            <div id="downloadProgressValue" class="progressValue"> 0% </div>
-          </div>
+
+          <!--<div id="downloadProgress">-->
+            <!--<div id="downloadProgressBar" class="progressBar"></div>-->
+            <!--<div id="downloadProgressValue" class="progressValue"> 0% </div>-->
+          <!--</div>-->
+
         </div>
 
         <div id="askPlay">
@@ -82,6 +84,12 @@
       <span id="waitMsg" class="cgText"> {{getString 'waitmsgconnect'}} </span>
     </div>
 
+    <div id="loadingWindowCont" class="popupWindow">
+      <img src="../images/loading.gif" />
+      <p id="loadingWindow" > Please wait, Application is buffering session </p>
+
+    </div>
+
     <div id="chromeExtMiss" class="popupWindow">
       <span id="chromeExtClose" class="icon-close"></span>
       <span id="chromeExtMissMsg"> Congrea needs 'Desktop Selector' pugins to share the Screen.<br />You can download the plugin
@@ -98,9 +106,8 @@
 
     </div>
     <div id="generalMessageButton" class="popupWindow">
-      <span class="button"> {{getString 'JoinClassMsg'}}  </span>
+      <span class="button"> {{getString 'JoinClassMsg'}}  </span> <br />
+
     </div>
-
-
   </div>
 </div>

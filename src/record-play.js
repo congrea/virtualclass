@@ -3,6 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+    "use strict";
     const TIME_TO_REQUEST = 3 * 60 * 1000; // every request would be performeed in given milisecond
     const RECORDING_TIME = 15 * 60 * 1000; // If elapsed time goes beyond the
     function XHR  (){
@@ -87,6 +88,8 @@
         lastRecordings : 0,
         firstTimeRequest : true,
         alreadyRequested : {},
+        binarySyncMsg : null,
+        msg: null,
         init: function () {
             if(!this.attachSeekHandler){
                 var downloadProgressBar = document.querySelector('#downloadProgressBar');
@@ -280,8 +283,8 @@
         },
 
         calculateNextTime (currentTime, nextPacket) {
-            metaData = nextPacket.substring(0, 21);
-            data =  nextPacket.substring(22, nextPacket.length)
+            var metaData = nextPacket.substring(0, 21);
+            var data =  nextPacket.substring(22, nextPacket.length);
             var [time, type] = metaData.split(' ');
             time = Math.trunc(time / 1000000);
             return Math.trunc((time - currentTime));
@@ -471,45 +474,42 @@
             }
 
             this.controller._pause();
-            var syncMsg = null;
-            var binarySyncMsg = null;
-            var syncPoll = null;
             // var binarySyncUnshareMsg = null;
             while (this.masterIndex <= index.master){
                 subLength = (this.masterIndex != index.master) ? this.masterRecordings[this.masterIndex].length : index.sub;
                 for(let j =  this.subRecordingIndex; j < subLength; j++ ){
                     try {
                         if(this.subRecordings[this.subRecordingIndex].type != 'B'){
-                           var msg =  io.cleanRecJson(this.subRecordings[this.subRecordingIndex].recObjs);
-                            if(msg.indexOf('"m":{"unshareScreen"') > -1){
-                                binarySyncMsg = null;
-                            }else if(msg.indexOf('},"m":{"poll":{"pollMsg":"stdPublish",') > -1){
+                           this.msg =  io.cleanRecJson(this.subRecordings[this.subRecordingIndex].recObjs);
+                            if(this.msg.indexOf('"m":{"unshareScreen"') > -1){
+                                this.binarySyncMsg = null;
+                            }else if(this.msg.indexOf('},"m":{"poll":{"pollMsg":"stdPublish",') > -1){
                                 // syncMsg =  {app : 'Poll', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}}
                                 virtualclass.poll.recordStartTime = {app : 'Poll', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}}
-                            }  else if (msg.indexOf('"m":{"videoUl":{"content_path"') > -1){
+                            }  else if (this.msg.indexOf('"m":{"videoUl":{"content_path"') > -1){
                                 virtualclass.videoUl.videoStartTime = {app : 'Video', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}}
                                 console.log('Capture video');
-                            }else if(msg.indexOf('"m":{"quiz":{"quizMsg":"stdPublish"') > -1){
+                            }else if(this.msg.indexOf('"m":{"quiz":{"quizMsg":"stdPublish"') > -1){
                                 console.log('Capture Quiz');
                                 virtualclass.quiz.quizStartTime = {app : 'Quiz', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}};
                             }
 
-                            io.onRecMessage(this.convertInto({data : msg}));
-                            console.log('Execute sync packet', msg);
+                            io.onRecMessage(this.convertInto({data : this.msg}));
+                            console.log('Execute sync packet', this.msg);
                         } else { // Binary
-                            let msg = this.subRecordings[this.subRecordingIndex].recObjs;
+                            this.msg = this.subRecordings[this.subRecordingIndex].recObjs;
 
-                            if(msg[0] == 104 || msg[0] == 204 || msg[0] == 102 || msg[0] == 202){ // Full Image of screen share
-                                if (msg[1] == 0 || msg[1] == 1) { // Either first packet or full packet
-                                    binarySyncMsg = {data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}};
+                            if(this.msg[0] == 104 || this.msg[0] == 204 || this.msg[0] == 102 || this.msg[0] == 202){ // Full Image of screen share
+                                if (this.msg[1] == 0 || this.msg[1] == 1) { // Either first packet or full packet
+                                    this.binarySyncMsg = {data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}};
                                 }
                             }
 
                             if (virtualclass.currApp == 'ScreenShare') {
-                                if(msg[0] == 104 || msg[0] == 204 || msg[0] == 103 || msg[0] == 203 || msg[0] == 102 || msg[0] == 202){
-                                    // console.log('Screen type', msg[0] + ' masterIndex ' + this.masterIndex + ' secondaryIndex ' + this.subRecordingIndex);
-                                    io.onRecMessage(this.convertInto({data : msg}));
-                                    binarySyncMsg = null;
+                                if(this.msg[0] == 104 || this.msg[0] == 204 || this.msg[0] == 103 || this.msg[0] == 203 || this.msg[0] == 102 || this.msg[0] == 202){
+                                    // console.log('Screen type', this.msg[0] + ' masterIndex ' + this.masterIndex + ' secondaryIndex ' + this.subRecordingIndex);
+                                    io.onRecMessage(this.convertInto({data : this.msg}));
+                                    this.binarySyncMsg = null;
                                 }
                             }
                         }
@@ -526,9 +526,10 @@
                 if(this.masterIndex == index.master && index.sub == this.subRecordingIndex){
                     this.triggerPlayProgress();
                     console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
-                    if(binarySyncMsg){
-                        // this.handleSyncPacket (syncMsg, binarySyncMsg);
-                        this.handleSyncPacket (binarySyncMsg);
+                    if(this.binarySyncMsg){
+                        // this.handleSyncPacket (syncMsg, this.binarySyncMsg);
+                        this.handleSyncPacket ();
+                        this.binarySyncMsg = null;
                     }
                     this.handleSyncStringPacket();
 
@@ -590,12 +591,12 @@
             virtualclass.poll.showTimer(virtualclass.poll.newTimer);
         },
 
-        handleSyncPacket (binarySyncMsg) {
-            if (binarySyncMsg){
-                // if(binarySyncMsg != null && syncMsg.app == 'ss' && !binarySyncMsg.hasOwnProperty('unshareScreen')){
+        handleSyncPacket () {
+            if (this.binarySyncMsg){
+                // if(this.binarySyncMsg != null && syncMsg.app == 'ss' && !this.binarySyncMsg.hasOwnProperty('unshareScreen')){
                 console.log('Get full screen share');
-                let startSubIndex = binarySyncMsg.data.subIndex;
-                let startMindex = binarySyncMsg.data.masterIndex;
+                let startSubIndex = this.binarySyncMsg.data.subIndex;
+                let startMindex = this.binarySyncMsg.data.masterIndex;
 
                 while(startMindex <= this.masterIndex){
                     console.log('Start from master index ' + startMindex + ' from Subindex ' + startSubIndex);
@@ -609,15 +610,15 @@
                     }
                     let j;
                     for(j =  startSubIndex; j <= subLength; j++ ){
-                        let msg = subRecordings[j] ;
+                        this.msg = subRecordings[j] ;
                         try {
-                            if(msg != null && msg.type == 'B'){
-                                msg = msg.recObjs;
-                                if(msg[0] == 104 || msg[0] == 204 || msg[0] == 103 || msg[0] == 203 || msg[0] == 102 || msg[0] == 202){
-                                    io.onRecMessage(this.convertInto({data : msg}));
+                            if(this.msg != null && this.msg.type == 'B'){
+                                this.msg = this.msg.recObjs;
+                                if(this.msg[0] == 104 || this.msg[0] == 204 || this.msg[0] == 103 || this.msg[0] == 203 || this.msg[0] == 102 || this.msg[0] == 202){
+                                    io.onRecMessage(this.convertInto({data : this.msg}));
                                 }
                             }else {
-                                console.log('Either msg is null or string');
+                                console.log('Either this.msg is null or string');
                             }
 
                         } catch (e) {

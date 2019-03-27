@@ -11,17 +11,23 @@ var newCanvas;
     "use strict";
 
     var changeonresize, resizecalled, prvWidth, prvHeight, prvVWidth, prvVHeight, app, dim;
+    var canvasCont, newCanvas, newCtx, imageData;
+
     function callback(error) {
         virtualclass.vutil.initInstallChromeExt(error);
     }
 
     var renderImage = function (imageData){
-        var canvasCont = document.querySelector('#virtualclassScreenShareLocal');
-        var newCanvas = document.querySelector('#virtualclassScreenShareLocalVideoNew');
+        if (canvasCont == null){
+            canvasCont = document.querySelector('#virtualclassScreenShareLocal');
+        }
+
         if(newCanvas == null){
-            var newCanvas = document.createElement('canvas');
+            newCanvas = document.createElement('canvas');
             newCanvas.id = "virtualclassScreenShareLocalVideoNew";
-            canvasCont.appendChild(newCanvas)}
+            canvasCont.appendChild(newCanvas);
+            newCanvas = document.querySelector('#virtualclassScreenShareLocalVideoNew');
+        }
 
         newCanvas.width = imageData.width;
         newCanvas.height = imageData.height;
@@ -31,7 +37,10 @@ var newCanvas;
             virtualclass.studentScreen.base.height = newCanvas.height;
         }
 
-        var newCtx = document.querySelector('#virtualclassScreenShareLocalVideoNew').getContext('2d');
+        if (newCtx == null) {
+            newCtx = document.querySelector('#virtualclassScreenShareLocalVideoNew').getContext('2d');
+        }
+
         newCtx.putImageData(imageData, 0, 0);
         virtualclass.ss.localCont.save();
 
@@ -45,7 +54,7 @@ var newCanvas;
             console.log('Screen type width ' + newCanvas.width);
             console.log('Screen type height ' + newCanvas.height);
         }
-    }
+    };
 
     if (!!window.Worker) {
         sdworker.onmessage = function (e) {
@@ -54,7 +63,7 @@ var newCanvas;
                 // var imageData = e.data.globalImageData;
                 // var imgData = virtualclass.ss.scaleImageData(e.data.globalImageData, scale, virtualclass.ss.localCont);
 
-                var imageData = e.data.globalImageData;
+                imageData = e.data.globalImageData;
                 if(e.data.hasOwnProperty('stype')){
                     virtualclass.studentScreen.scale = 1;
                     virtualclass.studentScreen.base.width = 0;

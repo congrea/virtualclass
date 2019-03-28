@@ -60,9 +60,6 @@ var newCanvas;
         sdworker.onmessage = function (e) {
             if (e.data.dtype == "drgb") {
                 globalImageData = e.data.globalImageData;
-                // var imageData = e.data.globalImageData;
-                // var imgData = virtualclass.ss.scaleImageData(e.data.globalImageData, scale, virtualclass.ss.localCont);
-
                 imageData = e.data.globalImageData;
                 if(e.data.hasOwnProperty('stype')){
                     virtualclass.studentScreen.scale = 1;

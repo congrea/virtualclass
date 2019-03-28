@@ -6,6 +6,7 @@
     "use strict";
     const TIME_TO_REQUEST = 3 * 60 * 1000; // every request would be performeed in given milisecond
     const RECORDING_TIME = 15 * 60 * 1000; // If elapsed time goes beyond the
+
     function XHR  (){
         console.log('Define XHR class');
     }
@@ -74,7 +75,7 @@
         uploadInProcess : false,
         totalRecordingFiles : [],
         totalPlayTimeInMin : 0,
-        totalTimeInMilSeconds : 0,
+        totalTimeInMiliSeconds : 0,
         subRecordings : null,
         attachSeekHandler : false,
         rawDataQueue : {},
@@ -90,6 +91,7 @@
         alreadyRequested : {},
         binarySyncMsg : null,
         msg: null,
+        orginalTimes : [], // Todo, this and it's related variables and functions should be removed
         init: function () {
             if(!this.attachSeekHandler){
                 var downloadProgressBar = document.querySelector('#downloadProgressBar');
@@ -182,12 +184,12 @@
         playProgressBar: function (playTime) {
             console.log('total play time ' + playTime + ' elapsed time2 ' + playTime);
             if (playTime > 0) {
-                virtualclass.pbar.renderProgressBar(this.totalTimeInMin * 60 * 1000 , playTime, 'playProgressBar', undefined);
+                virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , playTime, 'playProgressBar', undefined);
 
                 var time = this.convertIntoReadable(playTime);
                 document.getElementById('tillRepTime').innerHTML = time.m + ' : ' + time.s;
                 if (!this.alreadyCalcTotTime) {
-                    var ttime = this.convertIntoReadable(this.totalTimeInMin * 60 * 1000);
+                    var ttime = this.convertIntoReadable(this.totalTimeInMiliSeconds);
                     document.getElementById('totalRepTime').innerHTML = ttime.m + ' : ' + ttime.s;
                     this.alreadyCalcTotTime = true;
                 }
@@ -293,33 +295,31 @@
 
         insertPacketInto (chunk, miliSeconds) {
             let totalSeconds = Math.trunc(miliSeconds/1000);
-            if(!isNaN(totalSeconds) && totalSeconds > 1){
+            if(!isNaN(totalSeconds) && totalSeconds > 1 ){
                 var data = {playTime : 1000, 'recObjs' : '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ', type :'J'};
                 for(let s = 0; s<totalSeconds; s++){
                     chunk.push(data);
                 }
-                this.totalTimeInMilSeconds += miliSeconds;
-            }else {
-                //this.totalTimeInMilSeconds += this.tempPlayTime;
             }
             return chunk;
         },
+
         makeRecordingQueue(file, rawData) {
             console.log('File formatting ' + file);
             var data, metaData;
             var chunk = [];
             var nextMinus = null;
+            var tempChunk = [];
             var allRecordigns =  rawData.trim().split(/(?:\r\n|\r|\n)/g); // Getting recordings line by line
 
             for(var i=0; i<allRecordigns.length; i++){
-
                 if(allRecordigns[i] != null && allRecordigns[i] != ''){
                     this.totalElements++
                     metaData = allRecordigns[i].substring(0, 21);
                     data =  allRecordigns[i].substring(22, allRecordigns[i].length)
                     var [time, type] = metaData.split(' ');
+                    this.tempTime = time;
                     time = Math.trunc(time / 1000000); /** Converting time, from macro to mili seconds **/
-
                     if(this.refrenceTime != null){
                         if(nextMinus){
                             this.tempPlayTime = (time - this.refrenceTime ) - nextMinus;
@@ -329,10 +329,15 @@
                         }
                     }
 
+                    if(this.hasOwnProperty('tempRefrenceTime')){
+                        tempChunk.push(Math.trunc((this.tempTime - this.tempRefrenceTime) / 1000000));
+                    }else {
+                        tempChunk.push(150);
+                    }
+
                     if(data  != null && data != ''){
                         if(this.lastFileTime && i === 0){
                             let prvTotalMiliSeconds =  Math.trunc((time - this.lastFileTime));
-                            console.log('Previous mili seconds ' + prvTotalMiliSeconds);
                             chunk = this.insertPacketInto(chunk, prvTotalMiliSeconds);
                             this.tempPlayTime = (prvTotalMiliSeconds > 1000) ? prvTotalMiliSeconds % 1000 : prvTotalMiliSeconds;
                         }
@@ -345,22 +350,24 @@
 
                         if(typeof allRecordigns[i+1] != 'undefined') {
                             let nextMiliSeconds = this.calculateNextTime(time, allRecordigns[i + 1]);
-                            chunk = this.insertPacketInto(chunk, nextMiliSeconds);
+                            chunk = this.insertPacketInto(chunk, nextMiliSeconds, true);
                             if(nextMiliSeconds > 1000){
                                 nextMinus = (Math.trunc(nextMiliSeconds/1000) * 1000);
-                                this.totalTimeInMilSeconds += nextMiliSeconds % 1000;
-                            } else {
-                                // console.log('total time less than one seconds' + this.tempPlayTime);
-                                this.totalTimeInMilSeconds += this.tempPlayTime;
+                                /** Saves packets between 1001 to 1999,
+                                 *  the fake packet is not generating inside the insertPacketInto(); * **/
+                                if(nextMiliSeconds < 2000){
+                                    var data = {playTime : 1000, 'recObjs' : '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ', type :'J'};
+                                    chunk.push(data);
+                                }
                             }
                         }
                         this.refrenceTime = time;
+                        this.tempRefrenceTime = this.tempTime
                     }
                 }
-
             }
 
-            console.log('totalTime in seconds ' + (this.totalTimeInMilSeconds / 1000));
+            console.log('totalTime in seconds ' + (this.totalTimeInMiliSeconds / 1000));
             var binData;
             for (var k = 0; k < chunk.length; k++) {
                 if (chunk[k].type == 'B') {
@@ -370,6 +377,8 @@
             }
 
             this.masterRecordings.push(chunk);
+            this.orginalTimes.push(tempChunk);
+
             if(this.currentMin > 3 && this.masterRecordings.length > 0 ) { // Starts playing after 5 mins of download
                 if (!this.playStart) {
                     this.playStart = true;
@@ -414,7 +423,7 @@
             if (currentMin > this.currentMin) {
                 this.currentMin = currentMin;
             }
-            virtualclass.pbar.renderProgressBar(virtualclass.recorder.totalTimeInMin, virtualclass.recorder.currentMin, 'downloadProgressBar', 'downloadProgressValue');
+            virtualclass.pbar.renderProgressBar(virtualclass.recorder.totalTimeInMiliSeconds/1000/60, virtualclass.recorder.currentMin, 'downloadProgressBar', 'downloadProgressValue');
             this.finishRequestDataFromServer(singleFileTime);
 
             if (virtualclass.recorder.playStart && !virtualclass.recorder.waitServer) {
@@ -640,7 +649,7 @@
         },
 
         getSeekPoint (seekPointPercent) {
-            let seekVal = Math.trunc((this.totalTimeInMilSeconds * seekPointPercent ) / 100);
+            let seekVal = Math.trunc((this.totalTimeInMiliSeconds * seekPointPercent ) / 100);
 
             /** Todo THIS should be optimize, don't use nested loop **/
             var totalTimeMil = 0;
@@ -1019,16 +1028,6 @@
                         this.requestDataFromServer(NextfileName);
                     }
 
-                    // if(this.firstTimeRequest){
-                    //     if(this.sessionStartTime < RECORDING_TIME){
-                    //         this.triggerDownloader();
-                    //     }
-                    //     this.firstTimeRequest = false;
-                    // } else {
-                    //     this.tryNumberOfTimes = 0;
-                    //     this.triggerDownloader();
-                    // }
-
                     if(this.sessionStartTime < RECORDING_TIME){
                         this.triggerDownloader();
                     }
@@ -1047,14 +1046,14 @@
         },
 
         calculateTotalPlayTime (){
-            // var firstTime = this.getTimeFromFile(virtualclass.recorder.totalRecordingFiles[0].S);
-            var firstTime = (+(virtualclass.recorder.totalRecordingFiles[0].split("-")[0]) / 1000000000); // converting nano to seconds
-            var lastTime =  this.getTimeFromFile(virtualclass.recorder.totalRecordingFiles[virtualclass.recorder.totalRecordingFiles.length-1]);
-            console.log('Total time in miliseconds ' + (lastTime - firstTime) * 1000);
-            this.totalTimeInMin = (lastTime - firstTime) / 60 ;
+            var firstTime = Math.trunc(+(virtualclass.recorder.totalRecordingFiles[0].split("-")[0]) / 1000000); // converting nano to seconds
+            var lastTime = Math.trunc(+(virtualclass.recorder.totalRecordingFiles[virtualclass.recorder.totalRecordingFiles.length-1].split("-")[1].split(".")[0]) / 1000000);
+            // converting nano to seconds
 
-            this.lastTimeInSeconds = lastTime;
-            this.firstTimeInSeconds = firstTime;
+            this.totalTimeInMiliSeconds = (lastTime - firstTime);
+
+            this.lastTimeInSeconds = Math.trunc(lastTime / 1000);
+            this.firstTimeInSeconds = Math.trunc(firstTime / 1000);
         },
 
         getTimeFromFile (file) {
@@ -1087,6 +1086,22 @@
             return totalTimeInMiliSeconds;
         },
 
+        getTempTotalTimeInMilSeconds (master, subIndex) {
+            var mi  = 0;
+            var totalTimeInMiliSeconds = 0;
+            while(mi <= master){
+                for(let i = 0; i< this.orginalTimes[mi].length; i++){
+                    totalTimeInMiliSeconds += this.orginalTimes[mi][i];
+                    if((master == mi) && (subIndex == i)){
+                        break;
+                    }
+                }
+                mi++;
+            }
+
+            return totalTimeInMiliSeconds;
+        },
+
         getTotalElementLength () {
             var totalLength = 0;
             for (let i=0; i<virtualclass.recorder.masterRecordings.length; i++){
@@ -1096,7 +1111,6 @@
         },
 
         displayTimeInHover (ev){
-
             console.log('Mouse movement with timer section');
             if(ev.currentTarget.id == 'playProgressBar'){
                 var totalWidth = ev.currentTarget.parentNode.offsetWidth;
@@ -1107,7 +1121,7 @@
             var clickedPosition =  ev.offsetX;
             let seekValueInPer = (clickedPosition / totalWidth) * 100;
 
-            var totalMiliSeconds = (seekValueInPer * this.totalTimeInMilSeconds) / 100;
+            var totalMiliSeconds = (seekValueInPer * this.totalTimeInMiliSeconds) / 100;
 
             var time = this.convertIntoReadable(totalMiliSeconds);
 

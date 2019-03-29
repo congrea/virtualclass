@@ -245,9 +245,7 @@ var colorSelector ={
             "{color :"+frontColor +"!important} "+
             " #virtualclassCont.congrea #virtualclassOptionsCont .appOptions "+
             "{border : 1px solid"+allbg.fcolor +"!important} "+
-            "#virtualclassCont.congrea  #playController .controlActive"+
             "{background-image: linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important ;color:"+frontColor+"!important} "+
-            "#virtualclassCont.congrea  #playController #recPlay"+
             "{border-left: 1px solid "+allbg.fcolor+"!important}" +
             "#virtualclassCont.congrea #screenController .share button,"+
             "#virtualclassCont.congrea #stopScreenShare button"+

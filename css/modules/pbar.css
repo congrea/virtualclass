@@ -95,7 +95,8 @@
 
 #virtualclassCont.congrea #playProgress{
   pointer-events: visible;
-  /*cursor: pointer;*/
+  position: absolute;
+  top: -14px;
 }
 
 #virtualclassCont.congrea #downloadProgressBar, #virtualclassCont.congrea #playProgressBar{

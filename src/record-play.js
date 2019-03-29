@@ -111,7 +111,7 @@
                 var virtualclassApp = document.querySelector('#virtualclassCont');
                 virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
 
-                var playProgressCont = document.querySelector('#playProgress');
+                var playProgressCont = document.querySelector('#virtualclassCont');
 
                 if(playProgressCont != null){
                     playProgressCont.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
@@ -901,10 +901,10 @@
                     }
                 });
 
-                var replayFromStart = document.getElementById('replayFromStart');
-                replayFromStart.addEventListener('click', function () {
-                    that.replayFromStart();
-                });
+                // var replayFromStart = document.getElementById('replayFromStart');
+                // replayFromStart.addEventListener('click', function () {
+                //     that.replayFromStart();
+                // });
             }
         },
 

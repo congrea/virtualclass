@@ -1003,8 +1003,8 @@
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
         display: block;
         position: fixed;
-        bottom: 11px;
-        left: 20px;
+        bottom: 12px;
+        right: 613px;
         z-index: 1005;
     }
 
@@ -1021,7 +1021,7 @@
     font-size: 14px;
     position: relative;
     top: -1px;
-    margin-right:20px;
+    margin-right:10px;
 }
 
 #virtualclass .congrea #totalPages {

@@ -92,20 +92,31 @@
         binarySyncMsg : null,
         msg: null,
         orginalTimes : [], // Todo, this and it's related variables and functions should be removed
+        startSeek : false,
         init: function () {
             if(!this.attachSeekHandler){
                 var downloadProgressBar = document.querySelector('#downloadProgressBar');
                 downloadProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
-                downloadProgressBar.addEventListener('mousemove', this.displayTimeInHover.bind(this));
+                downloadProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
 
                 var playProgressBar = document.querySelector('#playProgressBar');
-                playProgressBar.addEventListener('mousemove', this.displayTimeInHover.bind(this));
+                playProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
+
                 playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
                 this.attachSeekHandler = true;
 
                 downloadProgressBar.addEventListener('mouseleave',  this.removeHandler.bind(this, downloadProgressBar));
                 playProgressBar.addEventListener('mouseleave',  this.removeHandler.bind(this, playProgressBar));
 
+                var virtualclassApp = document.querySelector('#virtualclassCont');
+                virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
+
+                var playProgressCont = document.querySelector('#playProgress');
+
+                if(playProgressCont != null){
+                    playProgressCont.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
+                    playProgressCont.addEventListener('mouseup',  this.finalSeek.bind(this));
+                }
                 virtualclass.pageVisible(this.handlPageActiveness.bind(this));
             }
 
@@ -126,6 +137,7 @@
                 this.controller._pause();
             }
         },
+
 
         removeHandler (element) {
             element.removeEventListener('mousedown', this.seekHandler.bind(this));
@@ -156,6 +168,7 @@
             // this.getPlayTotTime = false;
             this.controller.ff = 1;
             this.masterRecordings = tempMasterRecordings;
+            this.playTimePreviousSeconds = 0;
            // this.playProgressBar(this.playTime, 0);
             this.playProgressBar(this.playTime);
             delete this.prvNum;
@@ -182,7 +195,7 @@
         },
 
         playProgressBar: function (playTime) {
-            console.log('total play time ' + playTime + ' elapsed time2 ' + playTime);
+            // console.log('total play time ' + playTime + ' elapsed time2 ' + playTime);
             if (playTime > 0) {
                 virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , playTime, 'playProgressBar', undefined);
 
@@ -452,19 +465,29 @@
             }
         },
 
+        playProgressOutput (ev){
+            console.log('Offset ', ev.offsetX);
+        },
+
         seekHandler (ev){
-            console.log('Seek Handler');
-            var clickedPosition =  ev.offsetX;
+            if(!this.startSeek){
+                this.startSeek = true;
+                console.log('Seek Handler');
 
-            if(ev.currentTarget.id == 'playProgressBar'){
-                var totalWidth = ev.currentTarget.parentNode.offsetWidth;
+                var clickedPosition =  ev.offsetX;
+                if(ev.currentTarget.id == 'playProgressBar'){
+                    var totalWidth = ev.currentTarget.parentNode.offsetWidth;
+                }else {
+                    var totalWidth = ev.currentTarget.offsetWidth;
+                }
+                let seekValueInPer = (clickedPosition / totalWidth) * 100;
+
+                this.seekValueInPercentage = seekValueInPer;
+
+                console.log("====Seek start");
             }else {
-                var totalWidth = ev.currentTarget.offsetWidth;
+                console.log('Earlier seek start is not end yet.');
             }
-
-            let seekValueInPer = (clickedPosition / totalWidth) * 100;
-            this.seek(seekValueInPer);
-            this.controller._play();
         },
 
         seek (seekPointPercent) {
@@ -712,7 +735,7 @@
                 try {
                     if(this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"cf":"sync"') < 0 ){
                         // console.log('Execute real packet', this.subRecordings[this.subRecordingIndex].recObjs);
-                        console.log("==== ElapsedTime playtime ", this.playTime + ' index='+this.masterIndex + ' subindex'+ this.subRecordingIndex);
+                        // console.log("==== ElapsedTime playtime ", this.playTime + ' index='+this.masterIndex + ' subindex'+ this.subRecordingIndex);
                         io.onRecMessage(this.convertInto({data : this.subRecordings[this.subRecordingIndex].recObjs}));
                         if(virtualclass.currApp == 'Poll' &&
                             this.subRecordings[this.subRecordingIndex].recObjs.indexOf('},"m":{"poll":{"pollMsg":"stdPublish",') > -1){
@@ -790,7 +813,7 @@
 
         collectElapsedPlayTime () {
             this.elapsedPlayTime += this.subRecordings[this.subRecordingIndex].playTime;
-            console.log("==== elapsedPlayTime ",this.elapsedPlayTime);
+            // console.log("==== elapsedPlayTime ",this.elapsedPlayTime);
         },
 
         triggerPlayProgress () {
@@ -1104,27 +1127,73 @@
             return totalLength;
         },
 
-        displayTimeInHover (ev){
-            console.log('Mouse movement with timer section');
+        seekWithMouseMove  (ev) {
+            if(this.startSeek){
+                if(!ev.target.classList.contains('circle')){
+                    console.log("====Seek move ", ev.offsetX + ' element=' + ev.path[0].id);
+                    this.controller._pause();
+                    var seekValueInPercentage = this.getSeekValueInPercentage(ev);
+                    this.setPlayProgressTime(seekValueInPercentage);
+                    this.seekValueInPercentage = seekValueInPercentage;
+
+                    var seekTimeInMilseconds = (this.seekTimeWithMove.m * 60 * 1000) + this.seekTimeWithMove.s * 1000;
+                    virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , seekTimeInMilseconds, 'playProgressBar', undefined);
+                    document.querySelector('#tillRepTime').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
+                    this.displayTimeInHover(ev, seekValueInPercentage);
+                }
+            }
+        },
+
+        getSeekValueInPercentage (ev) {
             if(ev.currentTarget.id == 'playProgressBar'){
                 var totalWidth = ev.currentTarget.parentNode.offsetWidth;
             }else {
                 var totalWidth = ev.currentTarget.offsetWidth;
             }
-
             var clickedPosition =  ev.offsetX;
             let seekValueInPer = (clickedPosition / totalWidth) * 100;
+            return seekValueInPer;
+        },
 
-            var totalMiliSeconds = (seekValueInPer * this.totalTimeInMiliSeconds) / 100;
+        handlerDisplayTime (ev) {
+            if(ev.target.classList.contains('circle') && this.hasOwnProperty('prviousEvent')){
+                ev =  this.prviousEvent;
+            }else {
+                this.prviousEvent = ev;
+            }
+            var seekValueInPercentage = this.getSeekValueInPercentage(ev);
+            this.displayTimeInHover(ev, seekValueInPercentage);
+        },
 
-            var time = this.convertIntoReadable(totalMiliSeconds);
+        displayTimeInHover (ev, seekValueInPer){
+            this.setPlayProgressTime(seekValueInPer);
 
             var timeInHover = document.getElementById('timeInHover');
             timeInHover.style.display = 'block';
-            timeInHover.style.marginLeft = clickedPosition + 'px';
-            document.getElementById('timeInHover').innerHTML = time.m + ':' + time.s;
+            timeInHover.style.marginLeft =  ev.offsetX + 'px';
 
-        }
+            document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
+        },
+
+        setPlayProgressTime (seekValueInPer) {
+            var totalMiliSeconds = (seekValueInPer * this.totalTimeInMiliSeconds) / 100;
+            var time = this.convertIntoReadable(totalMiliSeconds);
+            this.seekTimeWithMove = time;
+        },
+
+        finalSeek (ev){
+            if(this.startSeek && this.hasOwnProperty('seekValueInPercentage')){
+                console.log("====Seek up " + this.seekValueInPercentage);
+                this.seek(this.seekValueInPercentage);
+                this.controller._play()
+                document.getElementById('timeInHover').style.display = 'none'
+            }
+
+            console.log(ev.offsetX);
+            delete this.seekValueInPercentage;
+            this.startSeek = false;
+        },
+
     };
     window.recorder = recorder;
 })(window);

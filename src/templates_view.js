@@ -1083,7 +1083,7 @@ this["JST"]["dest_temp/templates/recordingControl.hbs"] = Handlebars.template({"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"FF8",{"name":"getString","hash":{},"data":data}))
     + "\"></button></div><div id=\"replayFromStart\"><button class=\"ff icon-Replayfromstart congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Replay",{"name":"getString","hash":{},"data":data}))
-    + "\"></button></div><div id=\"playProgress\"><div id=\"playProgressBar\" class=\"progressBar\" style=\"width: 0%;\"></div><div id=\"downloadProgress\"><div id=\"downloadProgressBar\" class=\"progressBar\"></div><div id=\"downloadProgressValue\" class=\"progressValue\"></div></div><div id=\"timeInHover\">0</div></div><div id=\"repTimeCont\"><span id=\"tillRepTime\">00:00</span> / <span id=\"totalRepTime\">00:00</span></div></div></div></div>";
+    + "\"></button></div><div id=\"playProgress\"><div id=\"playProgressBar\" class=\"progressBar\" style=\"width: 0%;\"><div id=\"playCircle\" class=\"circle\"></div></div><div id=\"downloadProgress\"><div id=\"downloadProgressBar\" class=\"progressBar\"></div><div id=\"downloadProgressValue\" class=\"progressValue\"></div></div><div id=\"timeInHover\">0</div></div><div id=\"repTimeCont\"><span id=\"tillRepTime\">00:00</span> / <span id=\"totalRepTime\">00:00</span></div></div></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

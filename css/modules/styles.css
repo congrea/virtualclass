@@ -1541,9 +1541,8 @@
 	width : 350px;
 	float: left;
 	margin-left: 18px;
-	margin-top: 21.5px;
 	text-align: center;
-	/*height: 10px;*/
+	height: 50px;
 }
 
 #virtualclassCont.congrea #downloadProgress {
@@ -1554,7 +1553,7 @@
 	text-align: center;
 	width: 350px;
 	height: 5px;
-	margin-top : -5px;
+	margin-top : 18px;
 }
 
 
@@ -1579,7 +1578,20 @@
 	height:5px;
 	z-index: 13;
 	position : relative;
+	top : 23px;
+
 }
+
+#virtualclassCont.congrea #playProgressBar .circle{
+	margin-left : 97%;
+	width: 13px;
+	height: 13px;
+	border-radius: 35px;
+	background: #56b349;
+	position: relative;
+	top: -4px
+}
+
 
 #virtualclassCont.congrea.playMode .ui-memblist-usr {
 	pointer-events : none;
@@ -4140,5 +4152,3 @@ background-color: #d6d6d6;
 	z-index : 20;
 	border-radius : 5px;
 }
-
-

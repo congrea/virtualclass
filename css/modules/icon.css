@@ -419,7 +419,7 @@
 }
 #virtualclassCont.congrea .icon-play:before{
   content : "\f04b";
-  font-size: 14px;
+  font-size: 18px;
   -webkit-font-smoothing: antialiased;
 }
 #virtualclassCont.congrea #replayContainer #replayButton , #virtualclassCont.congrea #replayContainer #replayButton.icon-repeat:before {

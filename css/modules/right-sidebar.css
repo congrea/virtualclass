@@ -133,6 +133,9 @@ body {
     padding: 7px 0 7px;
     z-index: 1000;
 } 
+#virtualclassCont.playMode.student .footerCtr {
+    bottom:52px;
+}
 #virtualclassCont .footerCtr input {
     padding: 7px;
     width: 90%;

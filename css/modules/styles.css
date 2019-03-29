@@ -1257,11 +1257,6 @@
     line-height:1 !important;
 }
 
-#playControllerCont #playController div#recPlayCont, #playControllerCont #playController div#recPauseCont, #playControllerCont #playController div#ff2Cont, #playControllerCont #playController div#ff8Cont, #playControllerCont #playController div#replayFromStart {
-    width:70px;
-    height:48px;
-    text-align:center;
-}
 #virtualclassCont.congrea #virtualclassSessionEndTool.active a span {
 	color : #fff !important;
 }
@@ -1538,12 +1533,8 @@
 } */
 
 #virtualclassCont.congrea #playProgress {
-	width : 350px;
 	float: left;
-	margin-left: 18px;
-	margin-top: 21.5px;
 	text-align: center;
-	/*height: 10px;*/
 }
 
 #virtualclassCont.congrea #downloadProgress {
@@ -1552,7 +1543,7 @@
 	/*margin-left: 18px;*/
 	/*margin-top: 21.5px;*/
 	text-align: center;
-	width: 350px;
+	width: 100vw;
 	height: 5px;
 	margin-top : -5px;
 }
@@ -1572,13 +1563,14 @@
 #virtualclassCont.congrea #downloadProgressBar {
 	background-color: #868383;
 	width : 0%;
-	height : 5px;
+	height : 7px;
 }
 
 #virtualclassCont.congrea #playProgressBar.progressBar {
-	height:5px;
+	height: 7px;
 	z-index: 13;
 	position : relative;
+    top:2px;
 }
 
 #virtualclassCont.congrea.playMode .ui-memblist-usr {
@@ -1634,22 +1626,21 @@
 #virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:last-child, .vceditor-btn-group > .vceditor-btn:first-child{
 	border-radius: 3px !important;
 }
-#virtualclassCont.congrea #playController{
-	margin: 0 auto;
-	position: relative;
-	width: 874px;
+
+#virtualclassCont.congrea #virtualclassApp .playControllerMainCont {
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    height:44px;
 }
 
 #virtualclassCont.congrea #playController #repTimeCont{
 	margin-right: 0;
 	float: left;
-	border-left: #ddd 1px solid;
-	padding-left: 15px;
 	color: #fff;
 	font-size: 14px;
     margin-top: 15px;
-    margin-left:18px;
-    max-width:120px;
+    margin-left:20px;
 }
 
 #virtualclassCont.congrea #playController #recPlayCont #recPlay, #virtualclassCont.congrea #playController #recPauseCont #recPause, #virtualclassCont.congrea #playController #ff2Cont #ff2, #virtualclassCont.congrea #playController #ff8Cont #ff8, #virtualclassCont.congrea #playController #replayFromStart .icon-Replayfromstart {
@@ -1795,14 +1786,7 @@
 	clear: both;
 }
 
-#virtualclassCont.congrea div#playControllerCont{
-	margin: 0 auto;
-	width: 874px;
-}
-#virtualclassCont.congrea div#playControllerCont{
-	min-height:48px;
-        
-}
+
 #virtualclassCont.congrea div.playControllerMainCont {
     background: linear-gradient(to bottom, #112126 0%, #34404c 100%) !important;
 }
@@ -1878,8 +1862,8 @@
 }
 
 #virtualclassCont.congrea #playController .controlActive{
-	pointer-events:  none;
-    background-image: radial-gradient(ellipse at center, #000000 0%,#000 100%) !important;
+/*	pointer-events:  none;*/
+/*    background-image: radial-gradient(ellipse at center, #000000 0%,#000 100%) !important;*/
 }
 
 
@@ -3182,6 +3166,10 @@
     border-right: none;
 }
 
+#virtualclassCont.congrea.meetingmode.student .zoomControler {
+    right:320px;
+}
+
 #virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer{
 	display : none;
 }
@@ -3242,7 +3230,7 @@
 }
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel{
-	height : calc(100vh - 48px);
+	height : 100%;
 }
 
 #virtualclassCont.congrea #playControllerCont {
@@ -3343,9 +3331,11 @@
 	/*color:#fff !important;*/
 }
 
+/*
 #virtualclassCont.congrea.playMode .zoomControler{
 	display: none;
 }
+*/
 
 #virtualclassCont.congrea #chat_room{
 	padding:0px;

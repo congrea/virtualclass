@@ -95,12 +95,12 @@
         init: function () {
             if(!this.attachSeekHandler){
                 var downloadProgressBar = document.querySelector('#downloadProgressBar');
-                downloadProgressBar.addEventListener('click', this.seekHandler.bind(this));
+                downloadProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
                 downloadProgressBar.addEventListener('mousemove', this.displayTimeInHover.bind(this));
 
                 var playProgressBar = document.querySelector('#playProgressBar');
                 playProgressBar.addEventListener('mousemove', this.displayTimeInHover.bind(this));
-                playProgressBar.addEventListener('click', this.seekHandler.bind(this));
+                playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
                 this.attachSeekHandler = true;
 
                 downloadProgressBar.addEventListener('mouseleave',  this.removeHandler.bind(this, downloadProgressBar));
@@ -128,7 +128,7 @@
         },
 
         removeHandler (element) {
-            element.removeEventListener('click', this.seekHandler.bind(this));
+            element.removeEventListener('mousedown', this.seekHandler.bind(this));
             document.getElementById('timeInHover').style.display = 'none';
         },
 
@@ -289,13 +289,13 @@
             var data =  nextPacket.substring(22, nextPacket.length);
             var [time, type] = metaData.split(' ');
             time = Math.trunc(time / 1000000);
-            return Math.trunc((time - currentTime));
+            return ((time - currentTime));
 
         },
 
         insertPacketInto (chunk, miliSeconds) {
             let totalSeconds = Math.trunc(miliSeconds/1000);
-            if(!isNaN(totalSeconds) && totalSeconds > 1 ){
+            if(!isNaN(totalSeconds) && totalSeconds >= 1 ){
                 var data = {playTime : 1000, 'recObjs' : '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ', type :'J'};
                 for(let s = 0; s<totalSeconds; s++){
                     chunk.push(data);
@@ -351,14 +351,8 @@
                         if(typeof allRecordigns[i+1] != 'undefined') {
                             let nextMiliSeconds = this.calculateNextTime(time, allRecordigns[i + 1]);
                             chunk = this.insertPacketInto(chunk, nextMiliSeconds, true);
-                            if(nextMiliSeconds > 1000){
+                            if(nextMiliSeconds >= 1000){
                                 nextMinus = (Math.trunc(nextMiliSeconds/1000) * 1000);
-                                /** Saves packets between 1001 to 1999,
-                                 *  the fake packet is not generating inside the insertPacketInto(); * **/
-                                if(nextMiliSeconds < 2000){
-                                    var data = {playTime : 1000, 'recObjs' : '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ', type :'J'};
-                                    chunk.push(data);
-                                }
                             }
                         }
                         this.refrenceTime = time;
@@ -751,7 +745,7 @@
         },
 
         askAgainToPlay () {
-            if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('sEnd') < 0) {
+            if (this.subRecordings && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('sEnd') < 0) {
                 var e = {data:this.subRecordings[this.subRecordingIndex].recObjs};
                 // e.data = this.subRecordings[this.subRecordingIndex].recObjs;
                 io.onRecMessage(this.convertInto(e));

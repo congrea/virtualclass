@@ -734,10 +734,9 @@ pointer-events: none !important;
     width:38%;
 }
 
-
-/*#virtualclassCont.edge[data-currapp="Whiteboard"] {*/
-    /*right: -1px !important;*/
-/*}*/
+#virtualclassCont #ta_chrm2 {
+    pointer-events: none;
+}
 
 
 #virtualclassCont.edge[data-currapp="Yts"]{
@@ -748,5 +747,3 @@ pointer-events: none !important;
 #virtualclassCont.edge .chat_disabled .ui-memblist-usr.online{
     pointer-events : none;
 }
-
-/** CSS for chat div container end for EDGE browser  **/

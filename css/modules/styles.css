@@ -4161,3 +4161,7 @@ background-color: #d6d6d6;
 	z-index  : 0;
 }
 
+/*#virtualclassCont.playMode .ui-memblist-usr.online {*/
+	/*pointer-events:  none;*/
+/*}*/
+

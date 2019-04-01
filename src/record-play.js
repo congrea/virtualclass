@@ -472,7 +472,7 @@
         },
 
         seekHandler (ev){
-
+            this.pauseBeforeSeek = this.controller.pause;
             if(!this.startSeek){
                 this.startSeek = true;
                 var virtualclassCont = document.querySelector('#virtualclassCont');
@@ -1192,7 +1192,7 @@
             if(this.startSeek && this.hasOwnProperty('seekValueInPercentage')){
                 console.log("====Seek up " + this.seekValueInPercentage);
                 this.seek(this.seekValueInPercentage);
-                this.controller._play()
+                (this.pauseBeforeSeek) ? this.controller._pause() : this.controller._play();
                 document.getElementById('timeInHover').style.display = 'none'
             }
 

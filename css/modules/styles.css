@@ -4127,6 +4127,14 @@ background-color: #d6d6d6;
 	margin-top: 14px;
 }
 
+#virtualclassCont.congrea #loadingWindowCont .askToPlay{
+	display : none;
+}
+
+#virtualclassCont.congrea #loadingWindowCont.askToPlayCont {
+	cursor : pointer;
+}
+
 #virtualclassCont.congrea #timeInHover{
 	display: none;
 	background: #011701;

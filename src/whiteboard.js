@@ -128,6 +128,7 @@
                     virtualclass.view.disappearBox('Canvas');
                     virtualclass.view.disappearBox('drawArea');
                 });
+
                 virtualclass.wb[id].utility.crateCanvasDrawMesssage(id);
             },
 

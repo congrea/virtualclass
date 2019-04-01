@@ -93,6 +93,7 @@
         msg: null,
         orginalTimes : [], // Todo, this and it's related variables and functions should be removed
         startSeek : false,
+        initPlay : false,
         init: function () {
             if(!this.attachSeekHandler){
                 var downloadProgressBar = document.querySelector('#downloadProgressBar');
@@ -389,17 +390,32 @@
             this.orginalTimes.push(tempChunk);
 
             if(this.currentMin > 3 && this.masterRecordings.length > 0 ) { // Starts playing after 5 mins of download
-                if (!this.playStart) {
-                    this.playStart = true;
-                    this.playInt();
-                    virtualclass.popup.closeElem();
-                } else if (this.hasOwnProperty('isPausedByNotPresent')) {
-                    delete this.isPausedByNotPresent;
-                    this.subRecordingIndex = 0;
-                    this.subRecordings = this.masterRecordings[this.masterIndex];
-                    this.controller._play()
-                    virtualclass.popup.closeElem();
+                if(this.playStart){
+                    this.startToPlay();
+                }else {
+                    this.askToPlay();
                 }
+            }
+        },
+
+        handleStartToPlay (ev) {
+            virtualclass.gesture.clickToContinue();
+            console.log('===== Start to play');
+            this.startToPlay();
+            ev.currentTarget.classList.remove('askToPlayCont');
+        },
+
+        startToPlay (){
+            if (!this.playStart) {
+                this.playStart = true;
+                this.playInt();
+                virtualclass.popup.closeElem();
+            } else if (this.hasOwnProperty('isPausedByNotPresent')) {
+                delete this.isPausedByNotPresent;
+                this.subRecordingIndex = 0;
+                this.subRecordings = this.masterRecordings[this.masterIndex];
+                this.controller._play()
+                virtualclass.popup.closeElem();
             }
         },
 
@@ -416,7 +432,7 @@
             if(this.isDownloadedAllRecordings(singleFileTime)){
                 virtualclass.recorder.allFileFound = true;
                 if(!virtualclass.recorder.alreadyAskForPlay){
-                    virtualclass.recorder.askToPlay("completed");
+                    // virtualclass.recorder.askToPlay("completed");
                 } else {
                     var askToPlayMsg = document.getElementById('askplayMessage');
                     if(askToPlayMsg != null){
@@ -451,20 +467,19 @@
          },
 
 
-        /**
-         * If packet is ready(40% for now) then ask to user for play.
-         * @param downloadFinish is expecting the lable for finishing the download session
-         */
-        askToPlay: function (downloadFinish) {
-            document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString(typeof downloadFinish != 'undefined' ? 'playsessionmsg' : 'askplayMessage');
-            document.getElementById('askPlay').style.display = 'block';
+        askToPlay: function () {
+            var loadingWindow = document.querySelector('#loadingWindowCont .loading');
+            loadingWindow.style.display = 'none';
 
-            var playButton = document.getElementById("playButton");
-            if (playButton != null) {
-                console.log('attach event listener');
-                playButton.style.display = 'block';
-                playButton.addEventListener('click', this.playInt.bind(this));
-            }
+            var askToPlay = document.querySelector('#loadingWindowCont .askToPlay');
+            askToPlay.style.display = 'block';
+
+            var loadingWindowCont = document.querySelector('#loadingWindowCont');
+
+            console.log('===== Attach handle start to play');
+            loadingWindowCont.addEventListener('click', this.handleStartToPlay.bind(this));
+
+            loadingWindowCont.classList.add('askToPlayCont');
         },
 
         playProgressOutput (ev){
@@ -1065,7 +1080,7 @@
         },
 
         requestListOfFiles () {
-            virtualclass.popup.loadingWindow();
+             virtualclass.popup.loadingWindow();
             virtualclass.xhrn.sendData({session : virtualclass.recorder.session}, virtualclass.api.recordingFiles, this.afterDownloadingList.bind(this));
         },
 

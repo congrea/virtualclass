@@ -4149,7 +4149,8 @@ background-color: #d6d6d6;
 #virtualclassCont.recordSeeking #congrealogo,
 #virtualclassCont.recordSeeking .footerCtr,
 #virtualclassCont.recordSeeking #virtualclassAppRightPanel,
-#virtualclassCont.recordSeeking #stickycontainer
+#virtualclassCont.recordSeeking #stickycontainer,
+#virtualclassCont.recordSeeking #docShareNav
 {
 	pointer-events : none;
 	user-select : none;

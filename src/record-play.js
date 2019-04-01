@@ -721,7 +721,7 @@
                 this.playTimePreviousSeconds = 0;
                 this.reserveTime = 0;
                 var recPlayCont = document.getElementById("recPlay");
-                this.doControlActive(recPlayCont);
+                this.doControlActive(recPauseCont);
             }
 
             if (typeof this.playTimeout != 'undefined' &&  this.playTimeout != "") {
@@ -887,26 +887,50 @@
                         }
                     };
                 }
+                
+                
 
                 //init play
-                var recPlay = document.getElementById('recPlay');
-                recPlay.addEventListener('click', function () {
-                    that.controller._play();
+//                var recPlay = document.getElementById('recPlay');
+//                recPlay.addEventListener('click', function () {
+//                    that.controller._play();
+//                    that.doControlActive(this);
+//                    if(virtualclass.videoUl && virtualclass.videoUl.player){
+//                        virtualclass.videoUl.player.play();
+//                    }
+//                });
+                
+                var recPause = document.getElementById('recPause');
+                recPause.addEventListener('click', function () {
+                    if (recPause.parentNode.classList.contains('recordingPlay')) {
+                        that.controller._pause();
+                        that.doControlActive(this);
+                        if(virtualclass.videoUl && virtualclass.videoUl.player){
+                        virtualclass.videoUl.player.pause();
+                    }
+//                        recPause.parentNode.className = "recButton2";
+                        recPause.parentNode.classList.remove("recordingPlay");
+                    }
+                    else {
+                        that.controller._play();
                     that.doControlActive(this);
                     if(virtualclass.videoUl && virtualclass.videoUl.player){
                         virtualclass.videoUl.player.play();
                     }
+                        recPause.parentNode.classList.add("recordingPlay");
+                    }
+                    
                 });
 
                 //init pause
-                var recPause = document.getElementById('recPause');
-                recPause.addEventListener('click', function () {
-                    that.controller._pause();
-                    that.doControlActive(this);
-                    if(virtualclass.videoUl && virtualclass.videoUl.player){
-                        virtualclass.videoUl.player.pause();
-                    }
-                });
+//                var recPause = document.getElementById('recPause');
+//                recPause.addEventListener('click', function () {
+//                    that.controller._pause();
+//                    that.doControlActive(this);
+//                    if(virtualclass.videoUl && virtualclass.videoUl.player){
+//                        virtualclass.videoUl.player.pause();
+//                    }
+//                });
 
                 // var replayFromStart = document.getElementById('replayFromStart');
                 // replayFromStart.addEventListener('click', function () {

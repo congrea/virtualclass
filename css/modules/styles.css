@@ -1561,6 +1561,7 @@
 	background-color: #868383;
 	width : 0%;
 	height : 7px;
+	cursor : pointer;
 }
 
 #virtualclassCont.congrea #playProgressBar.progressBar {
@@ -1578,7 +1579,8 @@
 	border-radius: 35px;
 	background: #56b349;
 	position: relative;
-	top: -4px
+	top: -4px;
+	pointer-events  :none;
 }
 
 
@@ -4127,15 +4129,34 @@ background-color: #d6d6d6;
 
 #virtualclassCont.congrea #timeInHover{
 	display: none;
-
 	background: #011701;
-
 	height: 17px;
 	font-size: 13px;
 	padding: 4px 5px 3px 5px;
 	float: left;
 	margin: 0px;
 	margin-top : -28px;
-	z-index : 20;
 	border-radius : 5px;
+	pointer-events : none;
+	user-select : none;
+	z-index: 5000;
 }
+
+
+#virtualclassCont.recordSeeking #playControllerCont,
+#virtualclassCont.congrea.startSeek #docShareNav,
+#virtualclassCont.recordSeeking .zoomControler,
+#virtualclassCont.recordSeeking #congrealogo,
+#virtualclassCont.recordSeeking .footerCtr,
+#virtualclassCont.recordSeeking #virtualclassAppRightPanel,
+#virtualclassCont.recordSeeking #stickycontainer
+{
+	pointer-events : none;
+	user-select : none;
+
+}
+
+#virtualclassCont.congrea.recordSeeking .footerCtr {
+	z-index  : 0;
+}
+

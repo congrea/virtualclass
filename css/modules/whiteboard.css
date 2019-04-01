@@ -104,6 +104,10 @@
   z-index:11;
 }
 
+#virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
+  bottom: 58px;
+}
+
 #virtualclassCont.congrea #virtualclassAppLeftPanel a#congrealogo.disbaleOnmousedown img{
   pointer-events: none;
 }

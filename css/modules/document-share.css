@@ -1004,8 +1004,12 @@
         display: block;
         position: fixed;
         bottom: 12px;
-        right: 560px;
+        right: 608px;
         z-index: 1005;
+    }
+
+    #virtualclassCont.congrea.playMode[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea.playMode[data-currapp = 'Whiteboard'].student #docShareNav {
+        right:560px;
     }
 
     .congrea #stdPageNo {

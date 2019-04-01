@@ -142,6 +142,8 @@
         removeHandler (element) {
             element.removeEventListener('mousedown', this.seekHandler.bind(this));
             document.getElementById('timeInHover').style.display = 'none';
+            var virtualclassCont = document.querySelector('#virtualclassCont');
+            virtualclassCont.classList.remove('recordSeeking');
         },
 
         replayFromStart: function () {
@@ -470,8 +472,13 @@
         },
 
         seekHandler (ev){
+
             if(!this.startSeek){
                 this.startSeek = true;
+                var virtualclassCont = document.querySelector('#virtualclassCont');
+                if(virtualclassCont != null){
+                    virtualclassCont.classList.add('recordSeeking');
+                }
                 console.log('Seek Handler');
 
                 var clickedPosition =  ev.offsetX;
@@ -1129,18 +1136,16 @@
 
         seekWithMouseMove  (ev) {
             if(this.startSeek){
-                if(!ev.target.classList.contains('circle')){
-                    console.log("====Seek move ", ev.offsetX + ' element=' + ev.path[0].id);
-                    this.controller._pause();
-                    var seekValueInPercentage = this.getSeekValueInPercentage(ev);
-                    this.setPlayProgressTime(seekValueInPercentage);
-                    this.seekValueInPercentage = seekValueInPercentage;
+                console.log("====Seek move ", ev.offsetX + ' element=' + ev.path[0].id);
+                this.controller._pause();
+                var seekValueInPercentage = this.getSeekValueInPercentage(ev);
+                this.setPlayProgressTime(seekValueInPercentage);
+                this.seekValueInPercentage = seekValueInPercentage;
 
-                    var seekTimeInMilseconds = (this.seekTimeWithMove.m * 60 * 1000) + this.seekTimeWithMove.s * 1000;
-                    virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , seekTimeInMilseconds, 'playProgressBar', undefined);
-                    document.querySelector('#tillRepTime').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
-                    this.displayTimeInHover(ev, seekValueInPercentage);
-                }
+                var seekTimeInMilseconds = (this.seekTimeWithMove.m * 60 * 1000) + this.seekTimeWithMove.s * 1000;
+                virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , seekTimeInMilseconds, 'playProgressBar', undefined);
+                document.querySelector('#tillRepTime').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
+                this.displayTimeInHover(ev, seekValueInPercentage);
             }
         },
 
@@ -1156,16 +1161,14 @@
         },
 
         handlerDisplayTime (ev) {
-            if(ev.target.classList.contains('circle') && this.hasOwnProperty('prviousEvent')){
-                ev =  this.prviousEvent;
-            }else {
-                this.prviousEvent = ev;
-            }
             var seekValueInPercentage = this.getSeekValueInPercentage(ev);
             this.displayTimeInHover(ev, seekValueInPercentage);
         },
 
         displayTimeInHover (ev, seekValueInPer){
+
+            console.log('Event current target id' + ev.currentTarget.id);
+
             this.setPlayProgressTime(seekValueInPer);
 
             var timeInHover = document.getElementById('timeInHover');
@@ -1173,6 +1176,10 @@
             timeInHover.style.marginLeft =  ev.offsetX + 'px';
 
             document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
+
+            var virtualclassCont = document.querySelector('#virtualclassCont');
+            virtualclassCont.classList.add('recordSeeking');
+
         },
 
         setPlayProgressTime (seekValueInPer) {
@@ -1188,6 +1195,10 @@
                 this.controller._play()
                 document.getElementById('timeInHover').style.display = 'none'
             }
+
+            var virtualclassCont = document.querySelector('#virtualclassCont');
+            virtualclassCont.classList.remove('recordSeeking');
+
 
             console.log(ev.offsetX);
             delete this.seekValueInPercentage;

@@ -65,7 +65,11 @@ function displayChatUserList(totUsers){
 
             if(chat_div.shadowRoot.innerHTML == " " || chat_div.shadowRoot.innerHTML == ""){
                 var userRole = roles.hasControls() ? 'teacher' : 'student';
-                chat_div.shadowRoot.innerHTML =  "<link rel='stylesheet' type='text/css' href='"+whiteboardPath+"css/modules/chat-container.css'> <div id='subchat' class='"+userRole+"'>" +  myDivResult + "</div>";
+                if(virtualclass.isPlayMode){
+                    chat_div.shadowRoot.innerHTML =  "<link rel='stylesheet' type='text/css' href='"+whiteboardPath+"css/modules/chat-container.css'> <div id='subchat' class='playMode "+userRole+"'>" +  myDivResult + "</div>";
+                }else {
+                    chat_div.shadowRoot.innerHTML =  "<link rel='stylesheet' type='text/css' href='"+whiteboardPath+"css/modules/chat-container.css'> <div id='subchat' class='"+userRole+"'>" +  myDivResult + "</div>";
+                }
             } else {
                 chat_div.shadowRoot.querySelector('#subchat').insertAdjacentHTML('beforeend', myDivResult);
             }

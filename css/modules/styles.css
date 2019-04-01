@@ -4127,6 +4127,14 @@ background-color: #d6d6d6;
 	margin-top: 14px;
 }
 
+#virtualclassCont.congrea #loadingWindowCont .askToPlay{
+	display : none;
+}
+
+#virtualclassCont.congrea #loadingWindowCont.askToPlayCont {
+	cursor : pointer;
+}
+
 #virtualclassCont.congrea #timeInHover{
 	display: none;
 	background: #011701;
@@ -4149,7 +4157,8 @@ background-color: #d6d6d6;
 #virtualclassCont.recordSeeking #congrealogo,
 #virtualclassCont.recordSeeking .footerCtr,
 #virtualclassCont.recordSeeking #virtualclassAppRightPanel,
-#virtualclassCont.recordSeeking #stickycontainer
+#virtualclassCont.recordSeeking #stickycontainer,
+#virtualclassCont.recordSeeking #docShareNav
 {
 	pointer-events : none;
 	user-select : none;
@@ -4159,4 +4168,8 @@ background-color: #d6d6d6;
 #virtualclassCont.congrea.recordSeeking .footerCtr {
 	z-index  : 0;
 }
+
+/*#virtualclassCont.playMode .ui-memblist-usr.online {*/
+	/*pointer-events:  none;*/
+/*}*/
 

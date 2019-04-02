@@ -362,7 +362,7 @@
 	border-width: 2px !important;
 }
 
-#virtualclassCont.congrea.playMode #popupContainer #about-modal {
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #about-modal {
     background-color: transparent;
     border: none;
     box-shadow: none;

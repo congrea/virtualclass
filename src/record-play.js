@@ -403,6 +403,8 @@
             console.log('===== Start to play');
             this.startToPlay();
             ev.currentTarget.classList.remove('askToPlayCont');
+              var ContinueBtn = document.querySelector(".rv-vanilla-modal-overlay.is-shown");
+            ContinueBtn.removeEventListener('click', this.handleStartToPlay.bind(this));
         },
 
         startToPlay (){
@@ -475,11 +477,12 @@
             askToPlay.style.display = 'block';
 
             var loadingWindowCont = document.querySelector('#loadingWindowCont');
-            var ContinueBtn = document.querySelector("#loadingWindowCont .askToPlay span");
-
-            console.log('===== Attach handle start to play');
+            var ContinueBtn = document.querySelector(".rv-vanilla-modal-overlay.is-shown");
             ContinueBtn.addEventListener('click', this.handleStartToPlay.bind(this));
-
+            
+            var playPopup = document.getElementById("popupContainer");
+            playPopup.classList.add("playPopup");
+            
             ContinueBtn.classList.add('askToPlayCont');
         },
 
@@ -1176,7 +1179,6 @@
 
         seekWithMouseMove  (ev) {
             if(this.startSeek){
-                console.log("====Seek move ", ev.offsetX + ' element=' + ev.path[0].id);
                 this.controller._pause();
                 var seekValueInPercentage = this.getSeekValueInPercentage(ev);
                 this.setPlayProgressTime(seekValueInPercentage);

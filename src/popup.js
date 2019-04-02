@@ -127,6 +127,8 @@ var PopUp = (function (window, undefined) {
     };
 
     PopUp.prototype.closeElem = function () {
+        var mainModelCont = document.getElementById("popupContainer");
+        mainModelCont.classList.remove("playPopup");
         console.log('close popup');
         if (virtualclass.recorder.waitServer == false) {
             var virtualclassToolCont = document.getElementById('virtualclassOptionsCont');

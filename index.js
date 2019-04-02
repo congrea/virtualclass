@@ -1463,7 +1463,7 @@ $(document).ready(function () {
                 }
 
                 if(e.hasOwnProperty('user')){
-                    console.log('suman member joined');
+
                     var joinUserObj = e.message;
                     virtualclass.jId = joinUserObj.userid;
 
@@ -1473,7 +1473,8 @@ $(document).ready(function () {
                     }
                     virtualclass.gObj.allUserObj[virtualclass.jId] = joinUserObj;
                     virtualclass.connectedUsers.push(joinUserObj);
-                    // Get the new joiner user id and object
+
+                    // Get the new joinecr user id and object
                     virtualclass.joinUser = joinUserObj;
                 }else if(e.hasOwnProperty('users')){
                     virtualclass.jId = e.joinUser;
@@ -1482,6 +1483,7 @@ $(document).ready(function () {
                         virtualclass.gObj.allUserObj[virtualclass.connectedUsers[i].userid] = virtualclass.connectedUsers[i];
                     }
                     virtualclass.joinUser = this.getJoinUser(virtualclass.connectedUsers, virtualclass.jId);
+
                 }else {
                     console.log('User packet is not receving');
                 }

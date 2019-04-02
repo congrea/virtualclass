@@ -1206,7 +1206,7 @@
                         }
                         clearInterval(virtualclass.media.smallVid);
 
-                        if(virtualclass.hasOwnProperty('connectedUser')){
+                        if(virtualclass.hasOwnProperty('connectedUsers')){
                             var d = randomTime + (virtualclass.connectedUsers.length * 2500);
                             if (totalMembers != virtualclass.connectedUsers.length) {
                                 totalMembers = virtualclass.connectedUsers.length;

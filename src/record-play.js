@@ -721,6 +721,11 @@
                     /** wait till next file is downloaded**/
                     this.controller._pause();
                     virtualclass.popup.loadingWindow();
+                    var loading =  document.querySelector('#loadingWindowCont .loading');
+                    loading.style.display = 'block';
+
+                    var askToPlay =  document.querySelector('#loadingWindowCont .askToPlay');
+                    askToPlay.style.display = 'none';
                     this.isPausedByNotPresent = true;
                 }
             }else {

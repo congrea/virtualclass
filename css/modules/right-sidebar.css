@@ -735,7 +735,7 @@ pointer-events: none !important;
 }
 
 #virtualclassCont #ta_chrm2 {
-    pointer-events: none;
+/*    pointer-events: none;*/
 }
 
 

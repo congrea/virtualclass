@@ -157,8 +157,11 @@ var newCanvas;
                     if (virtualclass.currApp != "ScreenShare") {
                         virtualclass.vutil.hidePrevIcon(app);
                     }
+
                     virtualclass.currApp = stool;
 
+                    var vcContainer = document.getElementById('virtualclassCont');
+                    virtualclass.vutil.setCurrApp(vcContainer, virtualclass.currApp);
                 }
 
                 if (d.hasOwnProperty('d')) {
@@ -450,10 +453,11 @@ var newCanvas;
                 console.log('Init screen');
                 this.currApp = this.tempCurrApp;
                 virtualclass.currApp = virtualclass.apps.ss;
+                
                 //add current app to main container
                 var vcContainer = document.getElementById('virtualclassCont');
-                //vcContainer.dataset.currapp =  virtualclass.currApp;
                 virtualclass.vutil.setCurrApp(vcContainer, virtualclass.currApp);
+
 
                 if (virtualclass.previous != config.id) {
                     document.getElementById(virtualclass.previous).style.display = 'none';
@@ -511,12 +515,10 @@ var newCanvas;
                 if(virtualclass.previous){
                     var previous =virtualclass.previous
                     virtualclass.currApp =  previous.split('virtualclass')[1];
-                    // document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
                     virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
 
                 } else if(virtualclass.hasOwnProperty('previousApp') && typeof virtualclass.previousApp == 'object'){
                     virtualclass.currApp = virtualclass.previousApp.name;
-                    // document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
                     virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
                 }
                 if (roles.hasControls()) {
@@ -1211,24 +1213,10 @@ var newCanvas;
             },
 
             setCurrentApp : function (){
-//                if(virtualclass.hasOwnProperty('previousApp') && typeof virtualclass.previousApp == 'object'){
-//                    virtualclass.currApp = virtualclass.previousApp.name;
-//                    document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
-//                }
-
-                // virtualclass.previousApp stores the value of the app on which it was last refreshed
-                //virtualclass.previous should be used  to set current app
-                
                 if(virtualclass.hasOwnProperty('previous') && typeof virtualclass.previous != 'undefined'){
                     virtualclass.currApp = virtualclass.previous.slice(12);
-                    // document.getElementById('virtualclassCont').dataset.currapp = virtualclass.currApp;
                     virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
                 }
-                
-                // var app =virtualclass.previous.slice(12)
-                // console.log(app);
-                // console.log("previousapp "+virtualclass.previousApp.name );
-                // console.log("previous "+virtualclass.previous)
             },
 
             getScale : function (baseWidth, givenWidth){

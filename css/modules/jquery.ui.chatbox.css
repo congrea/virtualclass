@@ -640,6 +640,7 @@
 #virtualclassCont.congrea.teacher .vidHide #chat_room {
     height: calc(100vh - 160px);
     margin: 0px;
+    pointer-events: none;
 }
 #virtualclassCont.congrea.student .vidHide #chat_room {
     height: calc(100vh - 160px) !important;

@@ -611,6 +611,14 @@
 
             endSession: function (onlyStoredData) {
                 delete virtualclass.connectedUsers;
+                if(virtualclass.gObj.hasOwnProperty("memberUpdateDelayTimer")){
+                    clearTimeout(virtualclass.gObj.memberUpdateDelayTimer);
+                    virtualclass.gObj.memberlistpending.length  = 0;
+                    delete virtualclass.gObj.memberUpdateDelayTimer;
+                }
+
+                $('#chatroom_bt2').removeClass('ui-state-highlight');
+
                 if(typeof virtualclass.videoUl  == 'object' && virtualclass.videoUl.hasOwnProperty('player')
                 && typeof virtualclass.videoUl.player == 'object'
                 ){

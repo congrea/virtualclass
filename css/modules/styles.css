@@ -1650,7 +1650,7 @@
 	float: left;
 	color: #fff;
 	font-size: 14px;
-    margin-top: 15px;
+    margin-top: 14px;
     margin-left:20px;
 }
 
@@ -3177,7 +3177,7 @@
     border-right: none;
 }
 
-#virtualclassCont.congrea.meetingmode.student .zoomControler {
+#virtualclassCont.congrea.playMode.student .zoomControler {
     right:320px;
 }
 
@@ -4116,6 +4116,11 @@ background-color: #d6d6d6;
 	padding : 10px;
 }
 
+#virtualclassCont.congrea #popupContainer.playPopup #loadingWindowCont {
+    width:auto;
+    height:auto;
+}
+
 #virtualclassCont.congrea #loadingWindowCont p {
 	margin-left: 10px;
 	font-size: 15px;
@@ -4124,12 +4129,32 @@ background-color: #d6d6d6;
 #virtualclassCont.congrea #loadingWindowCont img {
 	margin-left: 40%;
 	width: 40px;
-	margin-top: 14px;
+	margin-top: 0px;
 }
 
 #virtualclassCont.congrea #loadingWindowCont .askToPlay{
 	display : none;
 }
+
+
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont {
+    display: block;
+    position: fixed;
+    left: 45%;
+    bottom: 55%;
+}
+  
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay {
+    padding: 20px 24px;
+    color:#fff;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align:center;
+    border-radius:100%;
+    background-color: rgba(0,0,0,.8);
+    pointer-events: none;
+}
+
 
 #virtualclassCont.congrea #loadingWindowCont.askToPlayCont {
 	cursor : pointer;
@@ -4146,8 +4171,11 @@ background-color: #d6d6d6;
 	margin-top : -28px;
 	border-radius : 5px;
 	pointer-events : none;
-	user-select : none;
 	z-index: 5000;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }
 
 
@@ -4162,6 +4190,10 @@ background-color: #d6d6d6;
 {
 	pointer-events : none;
 	user-select : none;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 
 }
 

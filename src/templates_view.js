@@ -940,7 +940,7 @@ this["JST"]["dest_temp/templates/popupCont.hbs"] = Handlebars.template({"compile
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"validateurlmsg",{"name":"getString","hash":{},"data":data}))
     + " </span></div>  <div id=\"waitMsgCont\" class=\"popupWindow\"><span id=\"waitMsg\" class=\"cgText\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"waitmsgconnect",{"name":"getString","hash":{},"data":data}))
-    + " </span></div><div id=\"loadingWindowCont\" class=\"popupWindow\"><div class=\"loading\"><img src=\"../images/loading.gif\"/><p id=\"loadingWindow\"> Please wait, Application is buffering session </p></div><div class=\"askToPlay\"> Click To Play Session </div></div><div id=\"chromeExtMiss\" class=\"popupWindow\"><span id=\"chromeExtClose\" class=\"icon-close\"></span><span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugins to share the Screen.<br/>You can download the plugin <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a> After installing the plugin, please <a onclick=\"location.reload()\">reload </a> the page. </span></span></div><div id=\"generalMessage\" class=\"popupWindow\"><span id=\"generalMessageMsg\"></span><span id=\"generalMessageClose\"></span></div><div id=\"generalMessageButton\" class=\"popupWindow\"><span class=\"button\"> "
+    + " </span></div><div id=\"loadingWindowCont\" class=\"popupWindow\"><div class=\"loading\"><img src=\"../images/loading.gif\"/><p id=\"loadingWindow\"> Please wait, Application is buffering session </p></div><div class=\"askToPlay\"><span class=\"icon-play btn\"></span></div></div><div id=\"chromeExtMiss\" class=\"popupWindow\"><span id=\"chromeExtClose\" class=\"icon-close\"></span><span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugins to share the Screen.<br/>You can download the plugin <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a> After installing the plugin, please <a onclick=\"location.reload()\">reload </a> the page. </span></div><div id=\"generalMessage\" class=\"popupWindow\"><span id=\"generalMessageMsg\"></span><span id=\"generalMessageClose\"></span></div><div id=\"generalMessageButton\" class=\"popupWindow\"><span class=\"button\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"JoinClassMsg",{"name":"getString","hash":{},"data":data}))
     + " </span><br/></div></div></div>";
 },"useData":true});
@@ -1071,12 +1071,8 @@ this["JST"]["dest_temp/templates/precheck.hbs"] = Handlebars.template({"compiler
 },"useData":true});
 
 this["JST"]["dest_temp/templates/recordingControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return "<div class=\"playControllerMainCont\"><div id=\"playControllerCont\"><div id=\"playController\"><div id=\"recPlayCont\" class=\"recButton\"><button id=\"recPlay\" class=\"icon-play congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Play",{"name":"getString","hash":{},"data":data}))
-    + "\"></button></div><div id=\"recPauseCont\" class=\"recButton \"><button id=\"recPause\" class=\"icon-pause congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Pause",{"name":"getString","hash":{},"data":data}))
+    return "<div class=\"playControllerMainCont\"><div id=\"playControllerCont\"><div id=\"playController\"><div id=\"recPauseCont\" class=\"recButton recordingPlay\"><button id=\"recPause\" class=\"icon-pause congtooltip\" data-title=\""
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Pause",{"name":"getString","hash":{},"data":data}))
     + "\"></button></div><div id=\"playProgress\"><div id=\"playProgressBar\" class=\"progressBar\" style=\"width: 0%;\"><div id=\"playCircle\" class=\"circle\"></div></div><div id=\"downloadProgress\"><div id=\"downloadProgressBar\" class=\"progressBar\"></div><div id=\"downloadProgressValue\" class=\"progressValue\"></div></div><div id=\"timeInHover\">0</div></div><div id=\"repTimeCont\"><span id=\"tillRepTime\">00:00</span> / <span id=\"totalRepTime\">00:00</span></div></div></div></div>";
 },"useData":true});
 

@@ -403,6 +403,8 @@
             console.log('===== Start to play');
             this.startToPlay();
             ev.currentTarget.classList.remove('askToPlayCont');
+              var ContinueBtn = document.querySelector(".rv-vanilla-modal-overlay.is-shown");
+            ContinueBtn.removeEventListener('click', this.handleStartToPlay.bind(this));
         },
 
         startToPlay (){
@@ -475,11 +477,13 @@
             askToPlay.style.display = 'block';
 
             var loadingWindowCont = document.querySelector('#loadingWindowCont');
-
-            console.log('===== Attach handle start to play');
-            loadingWindowCont.addEventListener('click', this.handleStartToPlay.bind(this));
-
-            loadingWindowCont.classList.add('askToPlayCont');
+            var ContinueBtn = document.querySelector(".rv-vanilla-modal-overlay.is-shown");
+            ContinueBtn.addEventListener('click', this.handleStartToPlay.bind(this));
+            
+            var playPopup = document.getElementById("popupContainer");
+            playPopup.classList.add("playPopup");
+            
+            ContinueBtn.classList.add('askToPlayCont');
         },
 
         playProgressOutput (ev){
@@ -741,7 +745,7 @@
                 this.playTimePreviousSeconds = 0;
                 this.reserveTime = 0;
                 var recPlayCont = document.getElementById("recPlay");
-                this.doControlActive(recPlayCont);
+                this.doControlActive(recPauseCont);
             }
 
             if (typeof this.playTimeout != 'undefined' &&  this.playTimeout != "") {
@@ -907,26 +911,50 @@
                         }
                     };
                 }
+                
+                
 
                 //init play
-                var recPlay = document.getElementById('recPlay');
-                recPlay.addEventListener('click', function () {
-                    that.controller._play();
+//                var recPlay = document.getElementById('recPlay');
+//                recPlay.addEventListener('click', function () {
+//                    that.controller._play();
+//                    that.doControlActive(this);
+//                    if(virtualclass.videoUl && virtualclass.videoUl.player){
+//                        virtualclass.videoUl.player.play();
+//                    }
+//                });
+                
+                var recPause = document.getElementById('recPause');
+                recPause.addEventListener('click', function () {
+                    if (recPause.parentNode.classList.contains('recordingPlay')) {
+                        that.controller._pause();
+                        that.doControlActive(this);
+                        if(virtualclass.videoUl && virtualclass.videoUl.player){
+                        virtualclass.videoUl.player.pause();
+                    }
+//                        recPause.parentNode.className = "recButton2";
+                        recPause.parentNode.classList.remove("recordingPlay");
+                    }
+                    else {
+                        that.controller._play();
                     that.doControlActive(this);
                     if(virtualclass.videoUl && virtualclass.videoUl.player){
                         virtualclass.videoUl.player.play();
                     }
+                        recPause.parentNode.classList.add("recordingPlay");
+                    }
+                    
                 });
 
                 //init pause
-                var recPause = document.getElementById('recPause');
-                recPause.addEventListener('click', function () {
-                    that.controller._pause();
-                    that.doControlActive(this);
-                    if(virtualclass.videoUl && virtualclass.videoUl.player){
-                        virtualclass.videoUl.player.pause();
-                    }
-                });
+//                var recPause = document.getElementById('recPause');
+//                recPause.addEventListener('click', function () {
+//                    that.controller._pause();
+//                    that.doControlActive(this);
+//                    if(virtualclass.videoUl && virtualclass.videoUl.player){
+//                        virtualclass.videoUl.player.pause();
+//                    }
+//                });
 
                 // var replayFromStart = document.getElementById('replayFromStart');
                 // replayFromStart.addEventListener('click', function () {
@@ -1156,7 +1184,6 @@
 
         seekWithMouseMove  (ev) {
             if(this.startSeek){
-                console.log("====Seek move ", ev.offsetX + ' element=' + ev.path[0].id);
                 this.controller._pause();
                 var seekValueInPercentage = this.getSeekValueInPercentage(ev);
                 this.setPlayProgressTime(seekValueInPercentage);

@@ -422,6 +422,26 @@
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
 }
+
+#virtualclassCont.congrea.playMode #recPauseCont.recButton .icon-pause:before{
+  content : "\f04b";
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#virtualclassCont.congrea.playMode #loadingWindowCont .askToPlay .icon-play:before {
+  content : "\f04b";
+  font-size: 26px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#virtualclassCont.congrea.playMode #recPauseCont.recButton.recordingPlay .icon-pause:before{
+  content : "\f04c";
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+
 #virtualclassCont.congrea #replayContainer #replayButton , #virtualclassCont.congrea #replayContainer #replayButton.icon-repeat:before {
   font-size: 13px;
 }

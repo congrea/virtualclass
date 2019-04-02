@@ -260,13 +260,12 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   vertical-align: middle;
 }
 
-.playControllerMainCont #playControllerCont #playController #recPlay {
-    padding:13px 28.5px;
+.playControllerMainCont #playControllerCont #playController #recPauseCont.recordingPlay #recPause {
+    padding:14px 28.5px;
 }
 
 .playControllerMainCont #playControllerCont #playController #recPause {
-    padding:15px 27.5px;
-    border-right: 1px solid black ;
+    padding: 13.5px 30px;
 }
 /*#virtualclassCont .dashboardview #urlcontainer #presentationurl{*/
 /*height: 46px;  width:300px;*/

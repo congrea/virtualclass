@@ -734,8 +734,8 @@ pointer-events: none !important;
     width:38%;
 }
 
-#virtualclassCont #ta_chrm2 {
-/*    pointer-events: none;*/
+#virtualclassCont.playMode #ta_chrm2 {
+   pointer-events: none;
 }
 
 

@@ -617,6 +617,7 @@
                     delete virtualclass.gObj.memberUpdateDelayTimer;
                 }
 
+                $('#chatroom_bt2').removeClass('ui-state-highlight');
 
                 if(typeof virtualclass.videoUl  == 'object' && virtualclass.videoUl.hasOwnProperty('player')
                 && typeof virtualclass.videoUl.player == 'object'

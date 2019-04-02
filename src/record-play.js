@@ -475,11 +475,12 @@
             askToPlay.style.display = 'block';
 
             var loadingWindowCont = document.querySelector('#loadingWindowCont');
+            var ContinueBtn = document.querySelector("#loadingWindowCont .askToPlay span");
 
             console.log('===== Attach handle start to play');
-            loadingWindowCont.addEventListener('click', this.handleStartToPlay.bind(this));
+            ContinueBtn.addEventListener('click', this.handleStartToPlay.bind(this));
 
-            loadingWindowCont.classList.add('askToPlayCont');
+            ContinueBtn.classList.add('askToPlayCont');
         },
 
         playProgressOutput (ev){

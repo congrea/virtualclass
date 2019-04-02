@@ -425,7 +425,13 @@
 
 #virtualclassCont.congrea.playMode #recPauseCont.recButton .icon-pause:before{
   content : "\f04b";
-  font-size: 16px;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#virtualclassCont.congrea.playMode #loadingWindowCont .askToPlay .icon-play:before {
+  content : "\f04b";
+  font-size: 26px;
   -webkit-font-smoothing: antialiased;
 }
 

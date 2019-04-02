@@ -1650,7 +1650,7 @@
 	float: left;
 	color: #fff;
 	font-size: 14px;
-    margin-top: 15px;
+    margin-top: 14px;
     margin-left:20px;
 }
 
@@ -3177,7 +3177,7 @@
     border-right: none;
 }
 
-#virtualclassCont.congrea.meetingmode.student .zoomControler {
+#virtualclassCont.congrea.playMode.student .zoomControler {
     right:320px;
 }
 
@@ -4110,11 +4110,6 @@ background-color: #d6d6d6;
 	margin : auto;
 }
 
-#virtualclassCont.congrea #loadingWindowCont {
-	width : 350px;
-	height : 100px;
-	padding : 10px;
-}
 
 #virtualclassCont.congrea #loadingWindowCont p {
 	margin-left: 10px;
@@ -4124,12 +4119,32 @@ background-color: #d6d6d6;
 #virtualclassCont.congrea #loadingWindowCont img {
 	margin-left: 40%;
 	width: 40px;
-	margin-top: 14px;
+	margin-top: 0px;
 }
 
 #virtualclassCont.congrea #loadingWindowCont .askToPlay{
 	display : none;
 }
+
+
+#virtualclassCont.congrea.playMode #loadingWindowCont .askToPlay .textCont {
+    font-size: 18px;
+    margin-bottom: 20px;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 1px;
+    text-align:center;
+}
+  
+#virtualclassCont.congrea.playMode #loadingWindowCont .askToPlay {
+    padding: 24px 28px;
+    color:#fff;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align:center;
+    border-radius:100%;
+    background-color: rgba(0,0,0,.8);
+}
+
 
 #virtualclassCont.congrea #loadingWindowCont.askToPlayCont {
 	cursor : pointer;

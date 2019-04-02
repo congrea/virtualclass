@@ -362,6 +362,12 @@
 	border-width: 2px !important;
 }
 
+#virtualclassCont.congrea.playMode #popupContainer #about-modal {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
 #virtualclassCont.congrea #about-modal #recordPlay .rv-vanilla-modal-body, #virtualclassCont.congrea .rv-vanilla-modal, #virtualclassCont.congrea #confirm.popupWindow.simple-box{
 	border-radius: 13px !important;
 } 

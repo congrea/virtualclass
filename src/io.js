@@ -285,8 +285,6 @@ var io = {
                     virtualclass.ioEventApi.readyto_member_add(msg);
                 }
 
-                // virtualclass.ioEventApi.readyto_member_add(msg);
-
                 break;
             case "broadcastToAll":
             case "broadcast":

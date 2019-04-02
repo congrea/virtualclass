@@ -2810,6 +2810,7 @@
 
         setCurrApp : function (container, app){
             container.dataset.currapp = app;
+            console.log('Data set curr app ' + app);
             var chat_div = document.getElementById('chat_div');
             if(chat_div != null){
                 chat_div.dataset.currapp = app;

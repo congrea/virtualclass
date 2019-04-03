@@ -4246,3 +4246,8 @@ background-color: #d6d6d6;
 	/*pointer-events:  none;*/
 /*}*/
 
+
+
+.rv-vanilla-modal-overlay.is-shown.askToPlayCont, #popupContainer.playPopup #loadingWindowCont{
+	cursor : pointer;
+}

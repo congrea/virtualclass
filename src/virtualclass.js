@@ -747,13 +747,17 @@
 //                    $('.congrea #listvideo .playing').removeClass('playing');
 //                    $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
                     if (!roles.hasControls()) {
-                        setTimeout(function () {
+                        if(virtualclass.gObj.hasOwnProperty('videoPauseTime')){
+                            clearTimeout(virtualclass.gObj.videoPauseTime);
+                        }
+                        virtualclass.gObj.videoPauseTime = setTimeout(function () {
                             if (typeof virtualclass.videoUl.player == 'object') {
                                 if (!virtualclass.videoUl.player.paused()) {
+                                    console.log('==== Video is paused')
                                     virtualclass.videoUl.player.pause();
                                 }
                             }
-                        }, 5000);
+                        }, 2000);
 
                     } 
                     if (typeof virtualclass.videoUl.player == 'object') {

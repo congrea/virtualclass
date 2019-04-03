@@ -1246,7 +1246,7 @@
 
             var timeInHover = document.getElementById('timeInHover');
             timeInHover.style.display = 'block';
-            timeInHover.style.marginLeft =  ev.offsetX + 'px';
+            timeInHover.style.marginLeft =  ev.offsetX - 25 + 'px';
 
             document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
 

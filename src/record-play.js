@@ -1248,15 +1248,27 @@
 
         displayTimeInHover (ev, seekValueInPer){
 
+          //  console.log('Event current target id' + ev.currentTarget.id);
+
             this.setPlayProgressTime(seekValueInPer);
 
             var timeInHover = document.getElementById('timeInHover');
             timeInHover.style.display = 'block';
+            let offset;
             if(ev.offsetX < 20)  {
-                timeInHover.style.marginLeft =  '3px';
-            }else if((window.innerWidth - ev.offsetX) > 30){
-                timeInHover.style.marginLeft =  ev.offsetX - 25 + 'px';
+                offset =  3;
+            }else if((window.innerWidth - ev.offsetX) < 5) {
+                offset =  ev.offsetX - 65;
+            } else if((window.innerWidth - ev.offsetX) < 30){
+                offset =  ev.offsetX - 60;
+            } else if((window.innerWidth - ev.offsetX) < 40){
+                offset =  ev.offsetX - 35;
+            }else {
+
+                offset =  ev.offsetX - 25;
             }
+
+            timeInHover.style.marginLeft =  offset + 'px';
 
             document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
 

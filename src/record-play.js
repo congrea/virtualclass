@@ -206,10 +206,10 @@
                 virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , playTime, 'playProgressBar', undefined);
 
                 var time = this.convertIntoReadable(playTime);
-                document.getElementById('tillRepTime').innerHTML = time.m + ' : ' + time.s;
+                document.getElementById('tillRepTime').innerHTML = time.m + ':' + time.s;
                 if (!this.alreadyCalcTotTime) {
                     var ttime = this.convertIntoReadable(this.totalTimeInMiliSeconds);
-                    document.getElementById('totalRepTime').innerHTML = ttime.m + ' : ' + ttime.s;
+                    document.getElementById('totalRepTime').innerHTML = ttime.m + ':' + ttime.s;
                     this.alreadyCalcTotTime = true;
                 }
             } else {
@@ -221,6 +221,12 @@
             ms = ms/1000;
             var seconds = Math.floor(ms % 60);
             var minutes = Math.floor(ms / 60);
+            if(minutes < 10){
+                minutes = '0' +  minutes;
+            }
+            if(seconds < 10){
+                seconds = '0' +  seconds;
+            }
             return {s: seconds, m: minutes};
         },
 
@@ -1242,13 +1248,15 @@
 
         displayTimeInHover (ev, seekValueInPer){
 
-            console.log('Event current target id' + ev.currentTarget.id);
-
             this.setPlayProgressTime(seekValueInPer);
 
             var timeInHover = document.getElementById('timeInHover');
             timeInHover.style.display = 'block';
-            timeInHover.style.marginLeft =  ev.offsetX - 25 + 'px';
+            if(ev.offsetX < 20)  {
+                timeInHover.style.marginLeft =  '3px';
+            }else if((window.innerWidth - ev.offsetX) > 30){
+                timeInHover.style.marginLeft =  ev.offsetX - 25 + 'px';
+            }
 
             document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
 

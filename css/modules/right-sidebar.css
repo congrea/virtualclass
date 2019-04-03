@@ -52,6 +52,11 @@ body {
     bottom: 0;
     z-index:1000;
 }
+
+#virtualclassCont.congrea.playMode #rightSubContainer #chatWidget .chatBarTab {
+    z-index:0;
+}
+
 #virtualclassCont.congrea #rightSubContainer #congreaChatMainCont {
 /*    display:none;*/
     height : calc(100% - 44px);
@@ -134,7 +139,7 @@ body {
     z-index: 1000;
 } 
 #virtualclassCont.playMode.student .footerCtr {
-    bottom:52px;
+    bottom:55px;
 }
 #virtualclassCont .footerCtr input {
     padding: 7px;

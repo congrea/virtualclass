@@ -1852,6 +1852,10 @@
 	text-align: center;
 }
 
+#virtualclassCont.congrea.playMode #popupContainer #replayContainer.popupWindow #replayButton {
+    cursor:pointer;
+}
+
 #virtualclassCont.congrea #popupContainer #replayContainer.popupWindow #replayMessage , #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #askPlay #playButton , #virtualclassCont.congrea #popupContainer #replayContainer.popupWindow {
 	font-size: 14px;
 }
@@ -4145,17 +4149,52 @@ background-color: #d6d6d6;
 }
   
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay {
+/*
     padding: 20px 24px;
     color:#fff;
     border-radius: 4px;
     cursor: pointer;
     text-align:center;
     border-radius:100%;
-    background-color: rgba(0,0,0,.8);
-    /*pointer-events: none;*/
+    background-color: rgba(0,0,0,.6);
+*/
+    box-sizing: border-box;
+	display:block;
+	width:80px;
+	height:80px;
+	padding-top: 14px;
+	padding-left: 8px;
+	line-height: 20px;
+	border: 3px solid #fff;
+	border-radius: 50%;
+	color:#f5f5f5;
+	text-align:center;
+	text-decoration:none;
+	background-color: rgba(0,0,0,0.5);
+	font-size:20px;
+	font-weight:bold;
+	transition: all 0.3s ease;
+    position: relative;
+    cursor:pointer;
 }
 
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay span {
+    position: absolute;
+    top: 23px;
+    left: 28px;
+}
 
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay:hover {
+/*
+    transform: scale(1.20);
+    background-color: rgba(0,0,0,.4);
+    transition: all .2s ease-in-out;
+*/
+    background-color: rgba(0,0,0,0.6);
+    box-shadow: 0px 0px 10px rgb(232, 232, 220);
+    text-shadow: 0px 0px 10px rgb(232, 232, 225);
+}
+    
 #virtualclassCont.congrea #loadingWindowCont.askToPlayCont {
 	cursor : pointer;
 }
@@ -4163,12 +4202,13 @@ background-color: #d6d6d6;
 #virtualclassCont.congrea #timeInHover{
 	display: none;
 	background: #011701;
-	height: 17px;
+	height: 18px;
+    line-height:19px;
 	font-size: 13px;
-	padding: 4px 5px 3px 5px;
+	padding: 6px 8px 6px 8px;
 	float: left;
 	margin: 0px;
-	margin-top : -28px;
+	margin-top : -38px;
 	border-radius : 5px;
 	pointer-events : none;
 	z-index: 5000;
@@ -4176,6 +4216,7 @@ background-color: #d6d6d6;
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
+    overflow-y: hidden;
 }
 
 

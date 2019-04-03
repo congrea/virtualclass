@@ -133,12 +133,15 @@
 
         handlPageActiveness (){
             if(virtualclass.pageVisible()){
-                this.controller._play();
+                if(!this.earlierPause){
+                    this.controller._play();
+                    delete this.earlierPause;
+                }
             }else {
+                this.earlierPause = this.controller.pause;
                 this.controller._pause();
             }
         },
-
 
         removeHandler (element) {
             element.removeEventListener('mousedown', this.seekHandler.bind(this));
@@ -957,17 +960,16 @@
                         that.controller._pause();
                         that.doControlActive(this);
                         virtualclass.recorder.triggerPauseVideo();
-
-//                        recPause.parentNode.className = "recButton2";
                         recPause.parentNode.classList.remove("recordingPlay");
-                    }
-                    else {
+                        recPause.dataset.title = 'play';
+                    } else {
                         that.controller._play();
-                    that.doControlActive(this);
-                    if(virtualclass.videoUl && virtualclass.videoUl.player){
-                        virtualclass.videoUl.player.play();
-                    }
+                        that.doControlActive(this);
+                        if(virtualclass.videoUl && virtualclass.videoUl.player){
+                            virtualclass.videoUl.player.play();
+                        }
                         recPause.parentNode.classList.add("recordingPlay");
+                        recPause.dataset.title = 'pause';
                     }
                     
                 });

@@ -680,6 +680,7 @@
             },
 
             playVideo: function (seekVal) {
+                console.log('====Video play');
                 if(virtualclass.videoUl.isPlayerReady()){
                     virtualclass.videoUl.player.currentTime(seekVal);
                     virtualclass.videoUl.player.play();
@@ -688,6 +689,7 @@
 
             pauseVideo: function () {
                 // todo pass paused time to students
+                console.log('====Video pause');
                 if(virtualclass.videoUl.isPlayerReady()){
                     virtualclass.videoUl.player.pause();
                     virtualclass.videoUl.isPaused=true;
@@ -1288,6 +1290,7 @@
                     virtualclass.videoUl.listEndPause = true
                     virtualclass.videoUl.player.on("play",function(){
                         if(virtualclass.videoUl.listEndPause){
+                            console.log('==== Video is paused');
                             virtualclass.videoUl.player.pause();
                             virtualclass.videoUl.listEndPause=false;
                         }

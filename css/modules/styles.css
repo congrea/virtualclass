@@ -4152,7 +4152,7 @@ background-color: #d6d6d6;
     text-align:center;
     border-radius:100%;
     background-color: rgba(0,0,0,.8);
-    pointer-events: none;
+    /*pointer-events: none;*/
 }
 
 
@@ -4205,3 +4205,8 @@ background-color: #d6d6d6;
 	/*pointer-events:  none;*/
 /*}*/
 
+
+
+.rv-vanilla-modal-overlay.is-shown.askToPlayCont, #popupContainer.playPopup #loadingWindowCont{
+	cursor : pointer;
+}

@@ -393,18 +393,24 @@
                 if(this.playStart){
                     this.startToPlay();
                 }else {
-                    this.askToPlay();
+                    if(!this.alreadyAskForPlay){
+                        this.alreadyAskForPlay = true;
+                        this.askToPlay();
+                    }
+
                 }
             }
         },
 
         handleStartToPlay (ev) {
+            var ContinueBtn = document.querySelector(".rv-vanilla-modal-overlay.is-shown");
+            if(ContinueBtn != null){
+                ContinueBtn.removeEventListener('click', this.handleStartToPlay.bind(this));
+            }
             virtualclass.gesture.clickToContinue();
             console.log('===== Start to play');
             this.startToPlay();
             ev.currentTarget.classList.remove('askToPlayCont');
-              var ContinueBtn = document.querySelector(".rv-vanilla-modal-overlay.is-shown");
-            ContinueBtn.removeEventListener('click', this.handleStartToPlay.bind(this));
         },
 
         startToPlay (){
@@ -479,7 +485,12 @@
             var loadingWindowCont = document.querySelector('#loadingWindowCont');
             var ContinueBtn = document.querySelector(".rv-vanilla-modal-overlay.is-shown");
             ContinueBtn.addEventListener('click', this.handleStartToPlay.bind(this));
-            
+
+            var loadingAskToPlay = document.querySelector('#loadingWindowCont .askToPlay');
+            if(loadingAskToPlay != null){
+                loadingAskToPlay.addEventListener('click', this.handleStartToPlay.bind(this));
+            }
+
             var playPopup = document.getElementById("popupContainer");
             playPopup.classList.add("playPopup");
             
@@ -615,6 +626,7 @@
                 var videoStartTime = this.getTotalTimeInMilSeconds(virtualclass.videoUl.videoStartTime.data.masterIndex, virtualclass.videoUl.videoStartTime.data.subIndex) ;
                 var videoElapsedtime = this.elapsedPlayTime - videoStartTime;
                 virtualclass.videoUl.playVideo(videoElapsedtime/1000);
+
                 console.log('Captured video play from ', (videoElapsedtime/1000));
             }else if(virtualclass.currApp == 'Quiz' && typeof virtualclass.quiz == 'object'){
                 // virtualclass.quiz.plugin.method.completeQuiz({callback: virtualclass.quiz.plugin.config.animationCallbacks.completeQuiz});
@@ -798,6 +810,23 @@
             );
         },
 
+        triggerPauseVideo (){
+            var playAct = document.querySelector("#dispVideo");
+            if(virtualclass.videoUl && virtualclass.videoUl.player){
+                console.log('VIDEO IS PAUSED');
+                virtualclass.videoUl.player.pause();
+            }
+        },
+
+
+        triggerPlayVideo (){
+            var playAct = document.querySelector("#dispVideo");
+            if(virtualclass.videoUl && virtualclass.videoUl.player){
+                console.log('VIDEO IS Played');
+                virtualclass.videoUl.player.play();
+            }
+        },
+
         askAgainToPlay () {
             if (this.subRecordings && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('sEnd') < 0) {
                 var e = {data:this.subRecordings[this.subRecordingIndex].recObjs};
@@ -813,10 +842,7 @@
             } else {
                 //Play finished here
                 if (virtualclass.recorder.allFileFound) {
-                    var playAct = document.querySelector("#dispVideo");
-                    if(virtualclass.videoUl && virtualclass.videoUl.player && playAct.classList.contains("vjs-playing")){
-                        virtualclass.videoUl.player.pause();
-                    }
+                    this.triggerPauseVideo();
                     virtualclass.popup.replayWindow();
                     virtualclass.popup.sendBackOtherElems();
                     document.getElementById('replayClose').addEventListener('click',
@@ -830,6 +856,7 @@
                 }
             }
         },
+
 
         /** TODO, this should handle in proper way **/
         getCurrentPacket (){
@@ -929,9 +956,8 @@
                     if (recPause.parentNode.classList.contains('recordingPlay')) {
                         that.controller._pause();
                         that.doControlActive(this);
-                        if(virtualclass.videoUl && virtualclass.videoUl.player){
-                        virtualclass.videoUl.player.pause();
-                    }
+                        virtualclass.recorder.triggerPauseVideo();
+
 //                        recPause.parentNode.className = "recButton2";
                         recPause.parentNode.classList.remove("recordingPlay");
                     }
@@ -979,12 +1005,12 @@
                 this.ff = 1;
                 this.pause = false;
                 virtualclass.recorder.play();
-                console.log('====== video play');
+                console.log('====== Recording play');
             },
 
             _pause: function () {
                 this.pause = true;
-                console.log('====== video play');
+                console.log('====== Recording pause');
             },
 
             fastForward: function (by) {
@@ -1239,7 +1265,17 @@
             if(this.startSeek && this.hasOwnProperty('seekValueInPercentage')){
                 console.log("====Seek up " + this.seekValueInPercentage);
                 this.seek(this.seekValueInPercentage);
-                (this.pauseBeforeSeek) ? this.controller._pause() : this.controller._play();
+                if(this.pauseBeforeSeek){
+                    this.controller._pause();
+                    this.triggerPauseVideo();
+                }else {
+                     this.controller._play();
+                     setTimeout( () => {
+                         this.triggerPlayVideo();
+                         // Synchronize the time with the time at virtualclass.js which is pausing the video by virtualclass.videoUl.player.pause()
+                     }, 2005)
+
+                }
                 document.getElementById('timeInHover').style.display = 'none'
             }
 

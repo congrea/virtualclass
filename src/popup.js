@@ -128,7 +128,8 @@ var PopUp = (function (window, undefined) {
 
     PopUp.prototype.closeElem = function () {
         var mainModelCont = document.getElementById("popupContainer");
-        mainModelCont.classList.remove("playPopup");
+        mainModelCont.classList.remove("playPopup", "loading");
+        
         console.log('close popup');
         if (virtualclass.recorder.waitServer == false) {
             var virtualclassToolCont = document.getElementById('virtualclassOptionsCont');
@@ -546,6 +547,7 @@ var PopUp = (function (window, undefined) {
         var loadingWindow = document.querySelector('#loadingWindowCont');
         if(loadingWindow != null){
             loadingWindow.style.display = 'block';
+            element.parentNode.classList.add('loading');
         }
     }
 

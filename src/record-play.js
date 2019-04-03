@@ -133,12 +133,15 @@
 
         handlPageActiveness (){
             if(virtualclass.pageVisible()){
-                this.controller._play();
+                if(!this.earlierPause){
+                    this.controller._play();
+                    delete this.earlierPause;
+                }
             }else {
+                this.earlierPause = this.controller.pause;
                 this.controller._pause();
             }
         },
-
 
         removeHandler (element) {
             element.removeEventListener('mousedown', this.seekHandler.bind(this));
@@ -203,10 +206,10 @@
                 virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , playTime, 'playProgressBar', undefined);
 
                 var time = this.convertIntoReadable(playTime);
-                document.getElementById('tillRepTime').innerHTML = time.m + ' : ' + time.s;
+                document.getElementById('tillRepTime').innerHTML = time.m + ':' + time.s;
                 if (!this.alreadyCalcTotTime) {
                     var ttime = this.convertIntoReadable(this.totalTimeInMiliSeconds);
-                    document.getElementById('totalRepTime').innerHTML = ttime.m + ' : ' + ttime.s;
+                    document.getElementById('totalRepTime').innerHTML = ttime.m + ':' + ttime.s;
                     this.alreadyCalcTotTime = true;
                 }
             } else {
@@ -218,6 +221,12 @@
             ms = ms/1000;
             var seconds = Math.floor(ms % 60);
             var minutes = Math.floor(ms / 60);
+            if(minutes < 10){
+                minutes = '0' +  minutes;
+            }
+            if(seconds < 10){
+                seconds = '0' +  seconds;
+            }
             return {s: seconds, m: minutes};
         },
 
@@ -957,17 +966,16 @@
                         that.controller._pause();
                         that.doControlActive(this);
                         virtualclass.recorder.triggerPauseVideo();
-
-//                        recPause.parentNode.className = "recButton2";
                         recPause.parentNode.classList.remove("recordingPlay");
-                    }
-                    else {
+                        recPause.dataset.title = 'play';
+                    } else {
                         that.controller._play();
-                    that.doControlActive(this);
-                    if(virtualclass.videoUl && virtualclass.videoUl.player){
-                        virtualclass.videoUl.player.play();
-                    }
+                        that.doControlActive(this);
+                        if(virtualclass.videoUl && virtualclass.videoUl.player){
+                            virtualclass.videoUl.player.play();
+                        }
                         recPause.parentNode.classList.add("recordingPlay");
+                        recPause.dataset.title = 'pause';
                     }
                     
                 });
@@ -1240,13 +1248,27 @@
 
         displayTimeInHover (ev, seekValueInPer){
 
-            console.log('Event current target id' + ev.currentTarget.id);
+          //  console.log('Event current target id' + ev.currentTarget.id);
 
             this.setPlayProgressTime(seekValueInPer);
 
             var timeInHover = document.getElementById('timeInHover');
             timeInHover.style.display = 'block';
-            timeInHover.style.marginLeft =  ev.offsetX - 25 + 'px';
+            let offset;
+            if(ev.offsetX < 20)  {
+                offset =  3;
+            }else if((window.innerWidth - ev.offsetX) < 5) {
+                offset =  ev.offsetX - 65;
+            } else if((window.innerWidth - ev.offsetX) < 30){
+                offset =  ev.offsetX - 60;
+            } else if((window.innerWidth - ev.offsetX) < 40){
+                offset =  ev.offsetX - 35;
+            }else {
+
+                offset =  ev.offsetX - 25;
+            }
+
+            timeInHover.style.marginLeft =  offset + 'px';
 
             document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
 

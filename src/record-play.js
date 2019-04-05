@@ -486,10 +486,10 @@
 
         askToPlay: function () {
             var loadingWindow = document.querySelector('#loadingWindowCont .loading');
-            loadingWindow.style.display = 'none';
+//            loadingWindow.style.display = 'none';
 
             var askToPlay = document.querySelector('#loadingWindowCont .askToPlay');
-            askToPlay.style.display = 'block';
+//            askToPlay.style.display = 'block';
 
             var loadingWindowCont = document.querySelector('#loadingWindowCont');
             var ContinueBtn = document.querySelector(".rv-vanilla-modal-overlay.is-shown");

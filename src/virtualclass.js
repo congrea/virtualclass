@@ -750,14 +750,22 @@
                         if(virtualclass.gObj.hasOwnProperty('videoPauseTime')){
                             clearTimeout(virtualclass.gObj.videoPauseTime);
                         }
-                        virtualclass.gObj.videoPauseTime = setTimeout(function () {
-                            if (typeof virtualclass.videoUl.player == 'object') {
-                                if (!virtualclass.videoUl.player.paused()) {
-                                    console.log('==== Video is paused')
-                                    virtualclass.videoUl.player.pause();
-                                }
+
+                        if (typeof virtualclass.videoUl.player == 'object') {
+                            if (!virtualclass.videoUl.player.paused()) {
+                                console.log('==== Video is paused')
+                                virtualclass.videoUl.player.pause();
                             }
-                        }, 4000);
+                        }
+
+                        // virtualclass.gObj.videoPauseTime = setTimeout(function () {
+                        //     if (typeof virtualclass.videoUl.player == 'object') {
+                        //         if (!virtualclass.videoUl.player.paused()) {
+                        //             console.log('==== Video is paused')
+                        //             virtualclass.videoUl.player.pause();
+                        //         }
+                        //     }
+                        // }, 4000); // 4000
 
                     } 
                     if (typeof virtualclass.videoUl.player == 'object') {

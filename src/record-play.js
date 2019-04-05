@@ -828,8 +828,7 @@
 
 
         triggerPlayVideo (){
-            var playAct = document.querySelector("#dispVideo");
-            if(virtualclass.videoUl && virtualclass.videoUl.player){
+            if(virtualclass.currApp == 'Video' && virtualclass.videoUl && virtualclass.videoUl.player){
                 console.log('VIDEO IS Played');
                 virtualclass.videoUl.player.play();
             }
@@ -1289,11 +1288,7 @@
                     this.triggerPauseVideo();
                 }else {
                      this.controller._play();
-                     setTimeout( () => {
-                         this.triggerPlayVideo();
-                         // Synchronize the time with the time at virtualclass.js which is pausing the video by virtualclass.videoUl.player.pause()
-                     }, 4005)
-
+                     this.triggerPlayVideo();
                 }
                 document.getElementById('timeInHover').style.display = 'none'
             }

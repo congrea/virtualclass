@@ -14,6 +14,7 @@
             yts:false,
             online:false,
             listEndPause:false,
+            attachPlayer : false,
 
             /*
              * it creates the the necessary layout and containers to place
@@ -680,8 +681,8 @@
             },
 
             playVideo: function (seekVal) {
-                console.log('====Video play');
                 if(virtualclass.videoUl.isPlayerReady()){
+                    console.log('====Video play');
                     virtualclass.videoUl.player.currentTime(seekVal);
                     virtualclass.videoUl.player.play();
                 }
@@ -689,8 +690,8 @@
 
             pauseVideo: function () {
                 // todo pass paused time to students
-                console.log('====Video pause');
                 if(virtualclass.videoUl.isPlayerReady()){
+                    console.log('====Video pause');
                     virtualclass.videoUl.player.pause();
                     virtualclass.videoUl.isPaused=true;
                 }
@@ -1005,7 +1006,9 @@
                     }
                     virtualclass.videoUl.displayVideoTime = setTimeout(
                         function (){
-                            that._displayVideo(vidId, videoUrl, startFrom);
+                            if(virtualclass.currApp == 'Video'){
+                                that._displayVideo(vidId, videoUrl, startFrom);
+                            }
                         },300
                     )
                 },
@@ -1060,28 +1063,25 @@
 
                 },
                 attachPlayerHandler: function (player, vidId, videoUrl) {
-                   // player.off("pause");
-                    player.on("pause", function (e) {
-                        console.log("paused");
-                        if (roles.hasControls()) {
-                            ioAdapter.mustSend({'videoUl': "pause", 'cf': 'videoUl'});
-                        }
-                        virtualclass.videoUl.isPaused=true;
+                    if(!this.attachPlayer){
+                        this.attachPlayer = true;
+                        console.log('Attach video player');
+                        player.on("pause", function (e) {
+                            console.log("paused");
+                            if (roles.hasControls()) {
+                                ioAdapter.mustSend({'videoUl': "pause", 'cf': 'videoUl'});
+                            }
+                            virtualclass.videoUl.isPaused=true;
+                        });
 
-                    });
-
-                    //player.off("play");
-                    player.on("play", function (e) {
-                        console.log("play");
-                        if (roles.hasControls()) {
-                            ioAdapter.mustSend({'videoUl': {"play": player.currentTime()}, 'cf': 'videoUl'});
-                        }
-                        virtualclass.videoUl.isPaused=false;
-
-                    });
-                    // player.off("ended");
-                    //
-
+                        player.on("play", function (e) {
+                            console.log("play");
+                            if (roles.hasControls()) {
+                                ioAdapter.mustSend({'videoUl': {"play": player.currentTime()}, 'cf': 'videoUl'});
+                            }
+                            virtualclass.videoUl.isPaused=false;
+                        });
+                    }
                 },
                 // todo to modify
                 switchDisplay: function (videoCont, videoUrl) {
@@ -1131,6 +1131,7 @@
                 },
 
                 setPlayerUrl: function (player, videoUrl, startFrom) {
+                    console.log("==== VIDEO set url " + videoUrl);
                     if(player.poster_){
                         player.poster_="";
                     }

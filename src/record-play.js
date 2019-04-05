@@ -96,28 +96,28 @@
         initPlay : false,
         init: function () {
             if(!this.attachSeekHandler){
-                var downloadProgressBar = document.querySelector('#downloadProgressBar');
-                downloadProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
-                downloadProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
-
-                var playProgressBar = document.querySelector('#playProgressBar');
-                playProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
-
-                playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
                 this.attachSeekHandler = true;
-
-                downloadProgressBar.addEventListener('mouseleave',  this.removeHandler.bind(this, downloadProgressBar));
-                playProgressBar.addEventListener('mouseleave',  this.removeHandler.bind(this, playProgressBar));
-
                 var virtualclassApp = document.querySelector('#virtualclassCont');
+                var downloadProgressBar = document.querySelector('#downloadProgressBar');
+                var playProgressBar = document.querySelector('#playProgressBar');
+
+                downloadProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
+                playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
+                virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
                 virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
 
-                var playProgressCont = document.querySelector('#virtualclassCont');
+                /** For iPad **/
+                downloadProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
+                playProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
+                virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
+                virtualclassApp.addEventListener('touchend',  this.finalSeek.bind(this));
 
-                if(playProgressCont != null){
-                    playProgressCont.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
-                    playProgressCont.addEventListener('mouseup',  this.finalSeek.bind(this));
-                }
+                downloadProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
+                playProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
+
+                downloadProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, downloadProgressBar));
+                playProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, playProgressBar));
+
                 virtualclass.pageVisible(this.handlPageActiveness.bind(this));
             }
 
@@ -518,7 +518,6 @@
                 if(virtualclassCont != null){
                     virtualclassCont.classList.add('recordSeeking');
                 }
-                console.log('Seek Handler');
 
                 var clickedPosition =  ev.offsetX;
                 if(ev.currentTarget.id == 'playProgressBar'){
@@ -1271,10 +1270,8 @@
             timeInHover.style.marginLeft =  offset + 'px';
 
             document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
-
             var virtualclassCont = document.querySelector('#virtualclassCont');
             virtualclassCont.classList.add('recordSeeking');
-
         },
 
         setPlayProgressTime (seekValueInPer) {
@@ -1295,7 +1292,7 @@
                      setTimeout( () => {
                          this.triggerPlayVideo();
                          // Synchronize the time with the time at virtualclass.js which is pausing the video by virtualclass.videoUl.player.pause()
-                     }, 2005)
+                     }, 4005)
 
                 }
                 document.getElementById('timeInHover').style.display = 'none'
@@ -1308,6 +1305,11 @@
             console.log(ev.offsetX);
             delete this.seekValueInPercentage;
             this.startSeek = false;
+
+            var congrealogo = document.getElementById('congrealogo');
+            if(congrealogo != null){
+                congrealogo.classList.remove('disbaleOnmousedown');
+            }
         },
 
     };

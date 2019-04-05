@@ -757,7 +757,7 @@
                                     virtualclass.videoUl.player.pause();
                                 }
                             }
-                        }, 2000);
+                        }, 4000);
 
                     } 
                     if (typeof virtualclass.videoUl.player == 'object') {

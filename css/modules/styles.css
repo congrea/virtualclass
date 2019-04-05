@@ -1541,8 +1541,8 @@
 	background-color: #efe9e9;
 	float: left;
 	text-align: center;
-	width: 100vw;
 	height: 5px;
+    width: 100vw;
 }
 
 
@@ -4131,8 +4131,7 @@ background-color: #d6d6d6;
 }
 
 #virtualclassCont.congrea #loadingWindowCont img {
-	margin-left: 40%;
-	width: 40px;
+	width: 80px;
 	margin-top: 0px;
 }
 
@@ -4140,24 +4139,30 @@ background-color: #d6d6d6;
 	display : none;
 }
 
+.loader-icon {
+    border: 5px solid #f3f3f3;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+    border-top: 5px solid #555;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
 
-#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont {
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont, #virtualclassCont.congrea.playMode #popupContainer.loading #loadingWindowCont  {
     display: block;
     position: fixed;
     left: 45%;
     bottom: 55%;
 }
+
+#virtualclassCont.congrea.playMode #popupContainer.loading #loadingWindowCont .loading {
+    top: 32px;
+    left:20px;
+    position: absolute;
+}
   
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay {
-/*
-    padding: 20px 24px;
-    color:#fff;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align:center;
-    border-radius:100%;
-    background-color: rgba(0,0,0,.6);
-*/
     box-sizing: border-box;
 	display:block;
 	width:80px;
@@ -4176,6 +4181,16 @@ background-color: #d6d6d6;
 	transition: all 0.3s ease;
     position: relative;
     cursor:pointer;
+}
+
+
+#virtualclassCont.congrea.playMode #popupContainer.loading.playPopup #loadingWindowCont .askToPlay, #virtualclassCont.congrea.playMode #popupContainer.loading #loadingWindowCont .loading{
+    display:block;
+} 
+
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .loading, #virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .askToPlay,
+#virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .loading{
+    display:none;
 }
 
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay span {

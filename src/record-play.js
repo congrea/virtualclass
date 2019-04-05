@@ -1292,7 +1292,7 @@
                      setTimeout( () => {
                          this.triggerPlayVideo();
                          // Synchronize the time with the time at virtualclass.js which is pausing the video by virtualclass.videoUl.player.pause()
-                     }, 2005)
+                     }, 4005)
 
                 }
                 document.getElementById('timeInHover').style.display = 'none'

@@ -115,7 +115,9 @@
                 downloadProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
                 playProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
 
-                
+                downloadProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, downloadProgressBar));
+                playProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, playProgressBar));
+
                 virtualclass.pageVisible(this.handlPageActiveness.bind(this));
             }
 
@@ -516,7 +518,6 @@
                 if(virtualclassCont != null){
                     virtualclassCont.classList.add('recordSeeking');
                 }
-                console.log('Seek Handler');
 
                 var clickedPosition =  ev.offsetX;
                 if(ev.currentTarget.id == 'playProgressBar'){
@@ -1269,10 +1270,8 @@
             timeInHover.style.marginLeft =  offset + 'px';
 
             document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
-
             var virtualclassCont = document.querySelector('#virtualclassCont');
             virtualclassCont.classList.add('recordSeeking');
-
         },
 
         setPlayProgressTime (seekValueInPer) {
@@ -1306,6 +1305,11 @@
             console.log(ev.offsetX);
             delete this.seekValueInPercentage;
             this.startSeek = false;
+
+            var congrealogo = document.getElementById('congrealogo');
+            if(congrealogo != null){
+                congrealogo.classList.remove('disbaleOnmousedown');
+            }
         },
 
     };

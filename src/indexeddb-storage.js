@@ -610,6 +610,7 @@
             },
 
             endSession: function (onlyStoredData) {
+
                 delete virtualclass.connectedUsers;
                 if(virtualclass.gObj.hasOwnProperty("memberUpdateDelayTimer")){
                     clearTimeout(virtualclass.gObj.memberUpdateDelayTimer);
@@ -619,6 +620,11 @@
 
                 virtualclass.poll.pollState = {};
                 virtualclass.poll.dataRec = {};
+
+                var congrealogo = document.getElementById('congrealogo');
+                if(congrealogo != null){
+                    congrealogo.classList.remove('disbaleOnmousedown');
+                }
 
                 $('#chatroom_bt2').removeClass('ui-state-highlight');
 

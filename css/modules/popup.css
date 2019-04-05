@@ -175,6 +175,7 @@
 	/*transition: width .6s ease;*/
 	height: 20px;
 	border:none;
+    transition: all 0.5s ease;
 }
 /*#virtualclassCont.congrea #playProgressBar.progressBar {*/
     /*height:5px;*/
@@ -362,7 +363,7 @@
 	border-width: 2px !important;
 }
 
-#virtualclassCont.congrea.playMode #popupContainer.playPopup #about-modal {
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #about-modal, #virtualclassCont.congrea.playMode #popupContainer.loading #about-modal {
     background-color: transparent;
     border: none;
     box-shadow: none;

@@ -620,6 +620,10 @@ display: none;
     right: 2em;
 }
 
+#virtualclassCont.congrea.student.playMode #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea.student.playMode #virtualclassAppRightPanel #stickycontainer .vmchat_bar_button.congtooltip:hover:after {
+    display:none;
+}
+
 #virtualclassCont.congrea .handRaise.congtooltip:hover:after {
     border-radius: 0.25em;
     bottom: 3.8em;

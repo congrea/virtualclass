@@ -632,10 +632,15 @@
             }else if(virtualclass.currApp == 'Video' && typeof virtualclass.videoUl == 'object' &&
                 virtualclass.videoUl.hasOwnProperty('videoStartTime')){
                 var videoStartTime = this.getTotalTimeInMilSeconds(virtualclass.videoUl.videoStartTime.data.masterIndex, virtualclass.videoUl.videoStartTime.data.subIndex) ;
-                var videoElapsedtime = this.elapsedPlayTime - videoStartTime;
-                virtualclass.videoUl.playVideo(videoElapsedtime/1000);
+                var videoElapsedtime = (this.elapsedPlayTime - videoStartTime);
+                var videoSeekTime = (this.elapsedPlayTime - videoStartTime) / 1000;
 
-                console.log('Captured video play from ', (videoElapsedtime/1000));
+                if(typeof virtualclass.videoUl.player == 'object'){
+                    virtualclass.videoUl.playVideo(videoSeekTime);
+                }else {
+                    console.log('====Video init to play start');
+                    virtualclass.videoUl.startTime = videoSeekTime;
+                }
             }else if(virtualclass.currApp == 'Quiz' && typeof virtualclass.quiz == 'object'){
                 // virtualclass.quiz.plugin.method.completeQuiz({callback: virtualclass.quiz.plugin.config.animationCallbacks.completeQuiz});
 

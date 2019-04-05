@@ -1009,6 +1009,7 @@
                             if(virtualclass.currApp == 'Video'){
                                 that._displayVideo(vidId, videoUrl, startFrom);
                             }
+
                         },300
                     )
                 },
@@ -1131,7 +1132,11 @@
                 },
 
                 setPlayerUrl: function (player, videoUrl, startFrom) {
-                    console.log("==== VIDEO set url " + videoUrl);
+                    console.log('====Video init to play start');
+                    if(startFrom == undefined && virtualclass.videoUl.startTime){
+                        startFrom = virtualclass.videoUl.startTime;
+                    }
+
                     if(player.poster_){
                         player.poster_="";
                     }

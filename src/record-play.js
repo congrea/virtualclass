@@ -103,8 +103,12 @@
 
                 downloadProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
                 playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
+
                 virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
                 virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
+
+                virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
+                virtualclassApp.addEventListener('touchend',  this.finalSeek.bind(this));
 
                 /** For iPad and mobile **/
                 downloadProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
@@ -1268,9 +1272,6 @@
         },
 
         displayTimeInHover (ev, seekValueInPer){
-
-          //  console.log('Event current target id' + ev.currentTarget.id);
-
             this.setPlayProgressTime(seekValueInPer);
 
             var timeInHover = document.getElementById('timeInHover');
@@ -1290,7 +1291,7 @@
 
             timeInHover.style.marginLeft =  offset + 'px';
 
-            document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
+            document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.m  + ':' + this.seekTimeWithMove.s;
             var virtualclassCont = document.querySelector('#virtualclassCont');
             virtualclassCont.classList.add('recordSeeking');
         },

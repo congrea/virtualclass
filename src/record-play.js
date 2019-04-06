@@ -106,7 +106,7 @@
                 virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
                 virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
 
-                /** For iPad **/
+                /** For iPad and mobile **/
                 downloadProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
                 playProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
                 virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
@@ -510,7 +510,22 @@
             console.log('Offset ', ev.offsetX);
         },
 
+        getOffset (e){
+            if(e.type == 'touchend'){
+                e = this.lastEvent
+            } else {
+                e.offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
+                e.offsetY = e.touches[0].pageY - e.touches[0].target.offsetTop;
+            }
+            this.lastEvent = e;
+            return e;
+        },
+
         seekHandler (ev){
+            if(!ev.offsetX ){
+                ev = this.getOffset(ev);
+            }
+
             this.pauseBeforeSeek = this.controller.pause;
             if(!this.startSeek){
                 this.startSeek = true;
@@ -1220,6 +1235,9 @@
         },
 
         seekWithMouseMove  (ev) {
+            if(!ev.offsetX){
+                ev = this.getOffset(ev);
+            }
             if(this.startSeek){
                 this.controller._pause();
                 var seekValueInPercentage = this.getSeekValueInPercentage(ev);
@@ -1267,7 +1285,6 @@
             } else if((window.innerWidth - ev.offsetX) < 40){
                 offset =  ev.offsetX - 35;
             }else {
-
                 offset =  ev.offsetX - 25;
             }
 
@@ -1285,6 +1302,9 @@
         },
 
         finalSeek (ev){
+            if(!ev.offsetX){
+                ev = this.getOffset(ev);
+            }
             if(this.startSeek && this.hasOwnProperty('seekValueInPercentage')){
                 console.log("====Seek up " + this.seekValueInPercentage);
                 this.seek(this.seekValueInPercentage);

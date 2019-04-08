@@ -629,7 +629,8 @@
                 $('#chatroom_bt2').removeClass('ui-state-highlight');
 
                 if(typeof virtualclass.videoUl  == 'object' && virtualclass.videoUl.hasOwnProperty('player')
-                && typeof virtualclass.videoUl.player == 'object'
+                && typeof virtualclass.videoUl.player == 'object' && virtualclass.videoUl.player.player_ != null
+
                 ){
                     virtualclass.videoUl.destroyPlayer();
                 }

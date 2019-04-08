@@ -677,7 +677,6 @@
 
             destroyPlayer: function () {
                 virtualclass.videoUl.player.dispose();
-
             },
 
             playVideo: function (seekVal) {

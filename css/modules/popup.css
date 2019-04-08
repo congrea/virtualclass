@@ -175,7 +175,6 @@
 	/*transition: width .6s ease;*/
 	height: 20px;
 	border:none;
-    transition: all 0.5s ease;
 }
 /*#virtualclassCont.congrea #playProgressBar.progressBar {*/
     /*height:5px;*/

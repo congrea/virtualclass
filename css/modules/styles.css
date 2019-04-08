@@ -1535,6 +1535,7 @@
 #virtualclassCont.congrea #playProgress {
 	float: left;
 	text-align: center;
+	pointer-events: none;
 }
 
 #virtualclassCont.congrea #downloadProgress {
@@ -4267,3 +4268,4 @@ background-color: #d6d6d6;
 .rv-vanilla-modal-overlay.is-shown.askToPlayCont, #popupContainer.playPopup #loadingWindowCont{
 	cursor : pointer;
 }
+

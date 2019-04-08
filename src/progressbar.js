@@ -35,7 +35,7 @@ var progressBar = {
     },
 
     renderProgressBar: function (totalVal, portion, pbar, pval) {
-         console.log('===== totalVal ==== ' + totalVal + '; portion' + portion);
+         // console.log('===== totalVal ==== ' + totalVal + '; portion' + portion);
 
         if (portion > totalVal) {
             portion = totalVal;
@@ -48,11 +48,6 @@ var progressBar = {
         if (pbarElem != null) {
             pbarElem.style.width = totalProgress + '%';
         }
-
-        // var pvalElem = document.getElementById(pval);
-        // if (pvalElem != null) {
-        //     pvalElem.innerHTML = totalProgress + '%';
-        // }
 
         if (pval >= 100) {
             var closeButton = document.getElementById('recordingClose');

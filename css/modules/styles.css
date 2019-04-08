@@ -3266,11 +3266,12 @@
   cursor: pointer;
   color: #fff;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  border-right:1px solid rgba(254,254,254,0.2) ;
+/*  border-right:1px solid rgba(254,254,254,0.2) ;*/
     float:left;
 }
 #virtualclassCont.congrea .zoomControler  div.reloadNote {
     padding:12.5px 18px;
+    border-right: none;
 } 
 
 #virtualclassCont.congrea .zoomControler  div:nth-child(3){
@@ -3663,7 +3664,7 @@ span#usertab_text {
 	display: inline-block;
 	position: relative;
 	line-height: 14px;
-	bottom: 12px;
+/*	bottom: 12px;*/
 }
 #virtualclassCont.congrea .vjs-volume-control.vjs-control.vjs-volume-horizontal{
 	position:relative;

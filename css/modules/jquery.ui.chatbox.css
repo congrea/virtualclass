@@ -25,6 +25,7 @@
 #virtualclassCont.congrea #congreaChatCont .ui-chatbox-content {
     border-width: 0;
     width: 315px;
+    pointer-events: none;
 }
 
 #virtualclassCont.congrea .ui-chatbox-log {
@@ -733,9 +734,11 @@
     height:38px;
 /*    line-height:27px; udit*/
 }
+/*
 #virtualclassCont.congrea.student .vmchat_room_bt.ui-state-highlight{
     height: 50px;
 }
+*/
 
 #virtualclassCont.congrea.teacher #audioWidget a#rightCtlr:hover {
 /*    height: 40px; comment*/

@@ -209,10 +209,11 @@
                 virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , playTime, 'playProgressBar', undefined);
 
                 var time = this.convertIntoReadable(playTime);
-                document.getElementById('tillRepTime').innerHTML = time.m + ':' + time.s;
+                document.getElementById('tillRepTime').innerHTML =  time.h + ':'  + time.m + ':' + time.s;
                 if (!this.alreadyCalcTotTime) {
                     var ttime = this.convertIntoReadable(this.totalTimeInMiliSeconds);
-                    document.getElementById('totalRepTime').innerHTML = ttime.m + ':' + ttime.s;
+
+                    document.getElementById('totalRepTime').innerHTML = ttime.h + ':'  + ttime.m + ':' + ttime.s;
                     this.alreadyCalcTotTime = true;
                 }
             } else {
@@ -222,18 +223,28 @@
 
         convertIntoReadable: function (ms) {
             ms = ms/1000;
+            var hour = 0;
             var seconds = Math.floor(ms % 60);
             var minutes = Math.floor(ms / 60);
-            var hour = null;
+
+            if(minutes >= 60){
+                hour = Math.floor(minutes / 60);
+                minutes = minutes % 60;
+            }
+
+            if(hour < 10){
+                hour = '0' +  hour;
+            }
 
             if(minutes < 10){
                 minutes = '0' +  minutes;
             }
+
             if(seconds < 10){
                 seconds = '0' +  seconds;
             }
 
-            return {s: seconds, m: minutes};
+            return {h : hour, m: minutes, s: seconds};
         },
 
         displayWaitPopupIfNot: function () {
@@ -1262,7 +1273,7 @@
                 this.setPlayProgressTime(this.seekValueInPercentage);
                 var seekTimeInMilseconds = (this.seekTimeWithMove.m * 60 * 1000) + this.seekTimeWithMove.s * 1000;
                 virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , seekTimeInMilseconds, 'playProgressBar', undefined);
-                document.querySelector('#tillRepTime').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
+                document.querySelector('#tillRepTime').innerHTML = this.seekTimeWithMove.h + ':' +  this.seekTimeWithMove.m  + ':' + this.seekTimeWithMove.s;
                 this.displayTimeInHover(ev, this.seekValueInPercentage);
             }
         },
@@ -1299,7 +1310,7 @@
 
             timeInHover.style.marginLeft =  offset + 'px';
 
-            document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.m  + ':' + this.seekTimeWithMove.s;
+            document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.h + ':' + this.seekTimeWithMove.m  + ':' + this.seekTimeWithMove.s;
             var virtualclassCont = document.querySelector('#virtualclassCont');
             virtualclassCont.classList.add('recordSeeking');
         },

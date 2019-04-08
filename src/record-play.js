@@ -131,7 +131,6 @@
                 this.subRecordings = this.masterRecordings[this.masterIndex];
                 this.play();
                 this.prvNum = this.masterIndex;
-                // virtualclass.popup.loadingWindow();
             }
         },
 
@@ -170,7 +169,7 @@
             this.waitServer = false;
             this.waitPopup = false;
 
-            this.alreadyAskForPlay = false;
+            // this.alreadyAskForPlay = false;
             this.playStart = false;
             this.error = 0;
             // this.mkDownloadLink = "";
@@ -225,12 +224,15 @@
             ms = ms/1000;
             var seconds = Math.floor(ms % 60);
             var minutes = Math.floor(ms / 60);
+            var hour = null;
+
             if(minutes < 10){
                 minutes = '0' +  minutes;
             }
             if(seconds < 10){
                 seconds = '0' +  seconds;
             }
+
             return {s: seconds, m: minutes};
         },
 
@@ -277,9 +279,9 @@
 
                 }
                 virtualclass.recorder.rawDataQueue[file] = {file: file, data : data};
-                this.UIdownloadProgress(file);
                 this.formatRecording(file)
                 this.alreadyRequested[file] = true;
+                // this.UIdownloadProgress(file);
             }
         },
 
@@ -413,6 +415,7 @@
 
                 }
             }
+            this.UIdownloadProgress(file);
         },
 
         handleStartToPlay (ev) {
@@ -469,7 +472,10 @@
             if (currentMin > this.currentMin) {
                 this.currentMin = currentMin;
             }
-            virtualclass.pbar.renderProgressBar(virtualclass.recorder.totalTimeInMiliSeconds/1000/60, virtualclass.recorder.currentMin, 'downloadProgressBar', 'downloadProgressValue');
+
+            let totalMin = virtualclass.recorder.totalTimeInMiliSeconds/1000/60;
+            this.downloadInPercentage = ((this.currentMin * 100) /  totalMin);
+            virtualclass.pbar.renderProgressBar(totalMin, this.currentMin, 'downloadProgressBar', 'downloadProgressValue');
             this.finishRequestDataFromServer(singleFileTime);
 
             if (virtualclass.recorder.playStart && !virtualclass.recorder.waitServer) {
@@ -538,17 +544,13 @@
                     virtualclassCont.classList.add('recordSeeking');
                 }
 
-                var clickedPosition =  ev.offsetX;
-                if(ev.currentTarget.id == 'playProgressBar'){
-                    var totalWidth = ev.currentTarget.parentNode.offsetWidth;
-                }else {
-                    var totalWidth = ev.currentTarget.offsetWidth;
-                }
-                let seekValueInPer = (clickedPosition / totalWidth) * 100;
+                let clickedPosition =  ev.offsetX;
+                let containerWidth = document.getElementById('playProgress').offsetWidth;
+                let seekValueInPer = (clickedPosition / containerWidth) * 100;
 
                 this.seekValueInPercentage = seekValueInPer;
 
-                console.log("====Seek start");
+                console.log("====Seek start " + this.seekValueInPercentage + ' ev current target=' + ev.currentTarget.id);
             }else {
                 console.log('Earlier seek start is not end yet.');
             }
@@ -578,14 +580,14 @@
                                 virtualclass.poll.recordStartTime = {app : 'Poll', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}}
                             }  else if (this.msg.indexOf('"m":{"videoUl":{"content_path"') > -1){
                                 virtualclass.videoUl.videoStartTime = {app : 'Video', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}}
-                                console.log('Capture video');
+                                // console.log('Capture video');
                             }else if(this.msg.indexOf('"m":{"quiz":{"quizMsg":"stdPublish"') > -1){
-                                console.log('Capture Quiz');
+                                // console.log('Capture Quiz');
                                 virtualclass.quiz.quizStartTime = {app : 'Quiz', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}};
                             }
 
                             io.onRecMessage(this.convertInto({data : this.msg}));
-                            console.log('Execute sync packet', this.msg);
+                            // console.log('Execute sync packet', this.msg);
                         } else { // Binary
                             this.msg = this.subRecordings[this.subRecordingIndex].recObjs;
 
@@ -605,7 +607,7 @@
                         }
                         this.collectElapsedPlayTime();
                     } catch (e) {
-                        console.log('PLAY ERROR ' + e.errorCode);
+                        // console.log('PLAY ERROR ' + e.errorCode);
                     }
                     this.subRecordingIndex++;
                 }
@@ -614,8 +616,12 @@
 
                 /* When seek point is found exit the while loop**/
                 if(this.masterIndex == index.master && index.sub == this.subRecordingIndex){
+
+                    console.log('Seek index ' + this.subRecordings[this.subRecordingIndex])
+
+                    console.log('Seek index i = ' + index.master +  ' j=' + index.sub);
                     this.triggerPlayProgress();
-                    console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
+                    // console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
                     if(this.binarySyncMsg){
                         // this.handleSyncPacket (syncMsg, this.binarySyncMsg);
                         this.handleSyncPacket ();
@@ -623,7 +629,7 @@
                     }
                     this.handleSyncStringPacket();
 
-                    console.log('Total till play time in milisecondds ' + this.elapsedPlayTime + ' execute indexes master ' + this.masterIndex + ' sub' + this.subRecordingIndex);
+                    // console.log('Total till play time in milisecondds ' + this.elapsedPlayTime + ' execute indexes master ' + this.masterIndex + ' sub' + this.subRecordingIndex);
                     break;
                 } else {
                     this.subRecordingIndex = 0;
@@ -736,8 +742,8 @@
         },
 
         getSeekPoint (seekPointPercent) {
-            let seekVal = Math.trunc((this.totalTimeInMiliSeconds * seekPointPercent ) / 100);
-
+            var seekVal = Math.trunc((this.totalTimeInMiliSeconds * seekPointPercent ) / 100);
+            console.log('Seek index ' + seekVal);
             /** Todo THIS should be optimize, don't use nested loop **/
             var totalTimeMil = 0;
             for (var i=0; i<this.masterRecordings.length; i++){
@@ -745,6 +751,7 @@
                     totalTimeMil += this.masterRecordings[i][j].playTime;
                     if(totalTimeMil == seekVal){
                         return {master :  i, sub : j};
+                        console.log('Seek index i = ' + i +  ' j=' + j + ' totalTime=' + totalTimeMil);
                     }else if (totalTimeMil >= seekVal){
                         if (j > 0) {
                             j--;
@@ -752,6 +759,7 @@
                             i--;
                             j = (this.masterRecordings[i].length - 1);
                         }
+                        console.log('Seek index i = ' + i +  ' j=' + j + ' totalTime=' + totalTimeMil);
                         return {master :  i, sub : j};
                     }
                 }
@@ -1239,30 +1247,30 @@
         },
 
         seekWithMouseMove  (ev) {
-            if(!ev.offsetX){
+            if(ev.offsetX == undefined){
                 ev = this.getOffset(ev);
             }
+
             if(this.startSeek){
                 this.controller._pause();
                 var seekValueInPercentage = this.getSeekValueInPercentage(ev);
-                this.setPlayProgressTime(seekValueInPercentage);
                 this.seekValueInPercentage = seekValueInPercentage;
-
+                if(this.downloadInPercentage < this.seekValueInPercentage){
+                    //this.seekValueInPercentage = Math.trunc(this.downloadInPercentage) - 1;
+                    this.seekValueInPercentage = Math.trunc(this.downloadInPercentage);
+                }
+                this.setPlayProgressTime(this.seekValueInPercentage);
                 var seekTimeInMilseconds = (this.seekTimeWithMove.m * 60 * 1000) + this.seekTimeWithMove.s * 1000;
                 virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , seekTimeInMilseconds, 'playProgressBar', undefined);
                 document.querySelector('#tillRepTime').innerHTML =  this.seekTimeWithMove.m  + ' : ' + this.seekTimeWithMove.s;
-                this.displayTimeInHover(ev, seekValueInPercentage);
+                this.displayTimeInHover(ev, this.seekValueInPercentage);
             }
         },
 
         getSeekValueInPercentage (ev) {
-            if(ev.currentTarget.id == 'playProgressBar'){
-                var totalWidth = ev.currentTarget.parentNode.offsetWidth;
-            }else {
-                var totalWidth = ev.currentTarget.offsetWidth;
-            }
+            let containerWidth = document.getElementById('playProgress').offsetWidth;
             var clickedPosition =  ev.offsetX;
-            let seekValueInPer = (clickedPosition / totalWidth) * 100;
+            let seekValueInPer = (clickedPosition / containerWidth) * 100;
             return seekValueInPer;
         },
 
@@ -1308,7 +1316,12 @@
             }
             if(this.startSeek && this.hasOwnProperty('seekValueInPercentage')){
                 console.log("====Seek up " + this.seekValueInPercentage);
+                if(this.downloadInPercentage < this.seekValueInPercentage){
+                    this.seekValueInPercentage = Math.trunc(this.downloadInPercentage);
+                }
+
                 this.seek(this.seekValueInPercentage);
+
                 if(this.pauseBeforeSeek){
                     this.controller._pause();
                     this.triggerPauseVideo();

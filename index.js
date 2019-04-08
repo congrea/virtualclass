@@ -1421,7 +1421,7 @@ $(document).ready(function () {
             }
 
             this.sync = function  (){
-                console.log('nothing for sync ');
+                // console.log('nothing for sync ');
             }
             // this.stopSs= function(e){
             //     virtualclass.ss.unShareScreen();

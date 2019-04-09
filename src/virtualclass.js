@@ -751,23 +751,12 @@
                             clearTimeout(virtualclass.gObj.videoPauseTime);
                         }
 
-                        if (typeof virtualclass.videoUl.player == 'object') {
-                            if (!virtualclass.videoUl.player.paused()) {
-                                console.log('==== Video is paused')
-                                virtualclass.videoUl.player.pause();
-                            }
+                        if (typeof virtualclass.videoUl.player == 'object' && virtualclass.videoUl.player.player_ != null
+                            && virtualclass.videoUl.player.paused()) {
+                            console.log('==== Video is paused')
+                            virtualclass.videoUl.player.pause();
                         }
-
-                        // virtualclass.gObj.videoPauseTime = setTimeout(function () {
-                        //     if (typeof virtualclass.videoUl.player == 'object') {
-                        //         if (!virtualclass.videoUl.player.paused()) {
-                        //             console.log('==== Video is paused')
-                        //             virtualclass.videoUl.player.pause();
-                        //         }
-                        //     }
-                        // }, 4000); // 4000
-
-                    } 
+                    }
                     if (typeof virtualclass.videoUl.player == 'object') {
                         delete( virtualclass.videoUl.player);
                     }

@@ -25,7 +25,7 @@
 #virtualclassCont.congrea #congreaChatCont .ui-chatbox-content {
     border-width: 0;
     width: 315px;
-    pointer-events: none;
+/*    pointer-events: none;*/
 }
 
 #virtualclassCont.congrea .ui-chatbox-log {
@@ -645,7 +645,7 @@
 #virtualclassCont.congrea.teacher .vidHide #chat_room {
     height: calc(100vh - 160px);
     margin: 0px;
-    pointer-events: none;
+/*    pointer-events: none;*/
 }
 #virtualclassCont.congrea.student .vidHide #chat_room {
     height: calc(100vh - 160px) !important;

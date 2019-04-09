@@ -556,7 +556,7 @@
                 }
 
                 let clickedPosition =  ev.offsetX;
-                let containerWidth = document.getElementById('playProgress').offsetWidth;
+                let containerWidth = this.getCustomWidth();
                 let seekValueInPer = (clickedPosition / containerWidth) * 100;
 
                 this.seekValueInPercentage = seekValueInPer;
@@ -565,6 +565,11 @@
             }else {
                 console.log('Earlier seek start is not end yet.');
             }
+        },
+
+        getCustomWidth () {
+            var widthPlayProgress = document.getElementById('downloadProgress').clientWidth - 1; // 1 is given to handle long session
+            return widthPlayProgress;
         },
 
         seek (seekPointPercent) {
@@ -1288,7 +1293,7 @@
         },
 
         getSeekValueInPercentage (ev) {
-            let containerWidth = document.getElementById('playProgress').offsetWidth;
+            let containerWidth = this.getCustomWidth();
             var clickedPosition =  ev.offsetX;
             let seekValueInPer = (clickedPosition / containerWidth) * 100;
             return seekValueInPer;
@@ -1296,14 +1301,12 @@
 
         handlerDisplayTime (ev) {
             var seekValueInPercentage = this.getSeekValueInPercentage(ev);
+            console.log('Seek value time in percentage ' + seekValueInPercentage);
             this.displayTimeInHover(ev, seekValueInPercentage);
         },
 
         displayTimeInHover (ev, seekValueInPer){
             this.setPlayProgressTime(seekValueInPer);
-
-            var timeInHover = document.getElementById('timeInHover');
-            timeInHover.style.display = 'block';
             let offset;
             if(ev.offsetX < 20)  {
                 offset =  3;
@@ -1316,6 +1319,9 @@
             }else {
                 offset =  ev.offsetX - 25;
             }
+
+            var timeInHover = document.getElementById('timeInHover');
+            timeInHover.style.display = 'block';
 
             timeInHover.style.marginLeft =  offset + 'px';
 

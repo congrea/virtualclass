@@ -675,7 +675,14 @@
                     virtualclass.videoUl.playVideo(videoSeekTime);
                 }else {
                     console.log('====Video init to play start');
+                    if(this.pauseBeforeSeek){
+                        virtualclass.videoUl.isPaused = true;
+                    }else {
+                        virtualclass.videoUl.isPaused = false;
+                    }
                     virtualclass.videoUl.startTime = videoSeekTime;
+
+
                 }
             }else if(virtualclass.currApp == 'Quiz' && typeof virtualclass.quiz == 'object'){
                 // virtualclass.quiz.plugin.method.completeQuiz({callback: virtualclass.quiz.plugin.config.animationCallbacks.completeQuiz});
@@ -866,6 +873,7 @@
             if(virtualclass.videoUl && virtualclass.videoUl.player){
                 console.log('VIDEO IS PAUSED');
                 virtualclass.videoUl.player.pause();
+                virtualclass.videoUl.isPaused  = true;
             }
         },
 
@@ -874,6 +882,7 @@
             if(virtualclass.currApp == 'Video' && virtualclass.videoUl && virtualclass.videoUl.player){
                 console.log('VIDEO IS Played');
                 virtualclass.videoUl.player.play();
+                virtualclass.videoUl.isPaused  = false;
             }
         },
 
@@ -1334,11 +1343,13 @@
                 this.seek(this.seekValueInPercentage);
 
                 if(this.pauseBeforeSeek){
+                    console.log("=== Video pause ");
                     this.controller._pause();
                     this.triggerPauseVideo();
                 }else {
-                     this.controller._play();
-                     this.triggerPlayVideo();
+                    console.log("=== Video play ");
+                    this.controller._play();
+                    this.triggerPlayVideo();
                 }
                 document.getElementById('timeInHover').style.display = 'none'
             }

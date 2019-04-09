@@ -1154,41 +1154,28 @@
                     } else{
                         dispVideo.setAttribute('data-setup','{"preload": "auto"}');
                         player.src({type: "application/x-mpegURL", "withCredentials":true,src: videoUrl});
-
                     }
 
-                   // if (startFrom) {
-                        player.ready(function(){
-                           var myPlayer = this;
-                           var pause = !virtualclass.videoUl.isPaused;
-                           if(!virtualclass.videoUl.isPaused){
-                               if(virtualclass.system.device == 'desktop'){
-                                    myPlayer.play();
-                               }
-                               //myPlayer.play();
 
-                           }else{
-                               myPlayer.paused();
-                           }
-
+                    player.ready(function(){
+                        var myPlayer = this;
+                        /** When video is loaded **/
+                        myPlayer.on("loadedmetadata", function(){
+                            if(virtualclass.videoUl.isPaused){
+                                myPlayer.pause();
+                            }else if(virtualclass.system.device == 'desktop'){
+                                myPlayer.play();
+                            }
                             if (startFrom) {
                                 myPlayer.currentTime(startFrom);
-                                if (virtualclass.videoUl.yts) {
-                                    if (pause) {
-                                        setTimeout(function () {
-                                            // alert('player is ready after 3 seconds ready');
-                                           if(virtualclass.system.device == 'desktop'){
-                                                myPlayer.play();
-                                           }
-                                        }, 3000)
-                                    }
-
+                                if (virtualclass.videoUl.yts && !virtualclass.videoUl.isPaused && virtualclass.system.device == 'desktop') {
+                                    myPlayer.play();
                                 }
                             }
+                        });
 
-                       });
+                   });
 
-                  //  }
                     console.log(startFrom)
 
                 },

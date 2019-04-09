@@ -133,10 +133,10 @@
           height: calc(100vh - var(--vh-offset));
       }
       #virtualclassCont.congrea.playMode #virtualclassAppRightPanel {
-          height: calc(100vh - var(--vh-offset) - 48px);
+          height: calc(100vh - var(--vh-offset));
       }
       #virtualclassCont.congrea.student.playMode .canvasWrapper {
-        height: calc(100vh - var(--vh-offset) - 92px);
+        height: calc(100vh - var(--vh-offset) - 48px);
         }
       
       #virtualclassCont.congrea #about-modal.rv-vanilla-modal-is-open {

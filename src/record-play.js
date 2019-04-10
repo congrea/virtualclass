@@ -415,6 +415,8 @@
             this.masterRecordings.push(chunk);
             this.orginalTimes.push(tempChunk);
 
+            this.UIdownloadProgress(file);
+
             if(this.currentMin > 3 && this.masterRecordings.length > 0 ) { // Starts playing after 5 mins of download
                 if(this.playStart){
                     this.startToPlay();
@@ -426,7 +428,7 @@
 
                 }
             }
-            this.UIdownloadProgress(file);
+
         },
 
         handleStartToPlay (ev) {
@@ -543,11 +545,12 @@
         },
 
         seekHandler (ev){
-            if(!ev.offsetX ){
+            if(ev.offsetX == undefined){
                 ev = this.getOffset(ev);
             }
 
             this.pauseBeforeSeek = this.controller.pause;
+
             if(!this.startSeek){
                 this.startSeek = true;
                 var virtualclassCont = document.querySelector('#virtualclassCont');
@@ -582,6 +585,8 @@
             }
 
             this.controller._pause();
+         //   this.initRecPause();
+
             // var binarySyncUnshareMsg = null;
             while (this.masterIndex <= index.master){
                 subLength = (this.masterIndex != index.master) ? this.masterRecordings[this.masterIndex].length : index.sub;
@@ -1002,54 +1007,38 @@
                         }
                     };
                 }
-                
-                
 
-                //init play
-//                var recPlay = document.getElementById('recPlay');
-//                recPlay.addEventListener('click', function () {
-//                    that.controller._play();
-//                    that.doControlActive(this);
-//                    if(virtualclass.videoUl && virtualclass.videoUl.player){
-//                        virtualclass.videoUl.player.play();
-//                    }
-//                });
-                
+                var that = this;
                 var recPause = document.getElementById('recPause');
                 recPause.addEventListener('click', function () {
                     if (recPause.parentNode.classList.contains('recordingPlay')) {
-                        that.controller._pause();
-                        that.doControlActive(this);
-                        virtualclass.recorder.triggerPauseVideo();
-                        recPause.parentNode.classList.remove("recordingPlay");
-                        recPause.dataset.title = 'Play';
+                        that.initRecPause();
                     } else {
-                        that.controller._play();
-                        that.doControlActive(this);
-                        if(virtualclass.videoUl && virtualclass.videoUl.player){
-                            virtualclass.videoUl.player.play();
-                        }
-                        recPause.parentNode.classList.add("recordingPlay");
-                        recPause.dataset.title = 'Pause';
+                        that.initRecPlay();
                     }
-                    
                 });
-
-                //init pause
-//                var recPause = document.getElementById('recPause');
-//                recPause.addEventListener('click', function () {
-//                    that.controller._pause();
-//                    that.doControlActive(this);
-//                    if(virtualclass.videoUl && virtualclass.videoUl.player){
-//                        virtualclass.videoUl.player.pause();
-//                    }
-//                });
-
-                // var replayFromStart = document.getElementById('replayFromStart');
-                // replayFromStart.addEventListener('click', function () {
-                //     that.replayFromStart();
-                // });
             }
+        },
+
+
+        initRecPause (){
+            var recPause = document.getElementById('recPause');
+            this.controller._pause();
+            this.doControlActive(recPause);
+            virtualclass.recorder.triggerPauseVideo();
+            recPause.parentNode.classList.remove("recordingPlay");
+            recPause.dataset.title = 'Play';
+        },
+
+        initRecPlay (){
+            var recPause = document.getElementById('recPause');
+            this.controller._play();
+            this.doControlActive(recPause);
+            if(virtualclass.videoUl && virtualclass.videoUl.player){
+                virtualclass.videoUl.player.play();
+            }
+            recPause.parentNode.classList.add("recordingPlay");
+            recPause.dataset.title = 'Pause';
         },
 
         doControlActive: function (elem) {

@@ -4270,3 +4270,12 @@ background-color: #d6d6d6;
 #virtualclassCont.recordSeeking .whiteboardContainer .canvasWrapper {
 	z-index : 0;
 }
+
+#virtualclassCont.congrea.playMode.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-fullscreen-control {
+	pointer-events : none;
+}
+
+#virtualclassCont.congrea.playMode.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-fullscreen-control,
+#virtualclassCont.congrea.playMode .vjs-play-control{
+	pointer-events : none;
+}

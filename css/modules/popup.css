@@ -169,8 +169,6 @@
 /* modify this  in  moodle css  ***    */
 #virtualclassCont.congrea .progressBar {
     background-color: #56b349;
-	box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
-	-webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
 	/*-webkit-transition: width .6s ease;*/
 	/*transition: width .6s ease;*/
 	height: 20px;

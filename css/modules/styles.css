@@ -1663,10 +1663,11 @@
     border-radius:0px;
 }
 
-#virtualclassCont.congrea #playController #recPlayCont #recPlay.congtooltip:hover:after, #virtualclassCont.congrea #playController #recPauseCont #recPause.congtooltip:hover:after,  #virtualclassCont.congrea #playController #ff2Cont #ff2.congtooltip:hover:after, #virtualclassCont.congrea #playController #ff8Cont #ff8.congtooltip:hover:after {
-	bottom:-1.9em !important;
-    right:0em !important;
-    padding:.3em .4em;
+#virtualclassCont.congrea #playController #recPlayCont #recPlay.congtooltip:hover:after, #virtualclassCont.congrea #playController #recPauseCont #recPause.congtooltip:hover:after {
+	bottom: 56px !important;
+    right: 10px !important;
+    padding: .4em .8em;
+    letter-spacing: 1px;
 }
 #virtualclassCont.congrea #playController #replayFromStart .congtooltip:hover:after {
     bottom:-1.9em !important;
@@ -4225,7 +4226,7 @@ background-color: #d6d6d6;
 	padding: 6px 8px 6px 8px;
 	float: left;
 	margin: 0px;
-	margin-top : -38px;
+	margin-top : -41px;
 	border-radius : 5px;
 	pointer-events : none;
 	z-index: 5000;

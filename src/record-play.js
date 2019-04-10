@@ -1022,7 +1022,7 @@
                         that.doControlActive(this);
                         virtualclass.recorder.triggerPauseVideo();
                         recPause.parentNode.classList.remove("recordingPlay");
-                        recPause.dataset.title = 'play';
+                        recPause.dataset.title = 'Play';
                     } else {
                         that.controller._play();
                         that.doControlActive(this);
@@ -1030,7 +1030,7 @@
                             virtualclass.videoUl.player.play();
                         }
                         recPause.parentNode.classList.add("recordingPlay");
-                        recPause.dataset.title = 'pause';
+                        recPause.dataset.title = 'Pause';
                     }
                     
                 });

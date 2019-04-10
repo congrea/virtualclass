@@ -165,7 +165,7 @@
         'optselectd' : 'OPTION SELECTED',
         'Oval': "Oval",
         'overallprogress' : 'Overall progress',
-        'Pause': "pause",
+        'Pause': "Pause",
         'pclosetag' : '<span>Are you sure to close this poll?  </span>',
         'pclose' : 'Are you sure to close voting?',
         'Pclosed' : 'Poll closed',

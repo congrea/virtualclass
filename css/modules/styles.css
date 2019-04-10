@@ -1574,7 +1574,7 @@
 }
 
 #virtualclassCont.congrea #playProgressBar .circle{
-	margin-left : calc(100% - 4px);
+	margin-left : calc(100% - 8px);
 	width: 13px;
 	height: 13px;
 	border-radius: 35px;

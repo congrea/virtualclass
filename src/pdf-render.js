@@ -46,6 +46,7 @@
 
 
             loadPdf (url, canvas, currNote){
+                console.log('====PDF, Init1 load ' + virtualclass.gObj.currWb)
                 if(virtualclass.gObj.hasOwnProperty('getDocumentTimeout')){
                     clearTimeout(virtualclass.gObj.getDocumentTimeout);
                 }
@@ -64,7 +65,7 @@
             },
 
             _loadPdf  (url, canvas, currNote){
-                // If there is already prefetched data
+                console.log('====PDF, Init2 load ' + virtualclass.gObj.currWb);
                 if(virtualclass.gObj.next.hasOwnProperty(currNote)){
                     this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
                 } else {
@@ -81,10 +82,12 @@
             },
             
             afterPdfLoad (canvas, currNote, data){
+                console.log('====PDF, After PDF load' + virtualclass.gObj.currWb);
                 this.canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
                 this.canvas = canvas;
                 var doc = {};
                 doc.data = data;
+                // doc.currwb = virtualclass.gObj.currWb;
                 if (virtualclass.gObj.myworker != null) {
                     doc.worker = virtualclass.gObj.myworker;
                 }
@@ -114,6 +117,7 @@
                         }
                         that.displayPage(pdf, 1, function (){},true);
                         that.shownPdf = pdf;
+                        // console.log('====PDF, placed at shown PDF '  + doc.currwb);
                     });
 
                     if(!roles.hasControls()){
@@ -406,7 +410,7 @@
                      *  Now let join new user, at new user, there will be loaded whitebaord with shared document
                      * **/
                     if(virtualclass.currApp == 'Whiteboard' && this.wbId != null && virtualclass.gObj.currWb != this.wbId){
-                        var wb = '_doc_'+this.wbId+'_'+this.wbId;
+                        var wb = (this.wbId.indexOf('_doc_') > -1) ? this.wbId : '_doc_'+this.wbId+'_'+this.wbId;
                     }else {
                         var wb = virtualclass.gObj.currWb;
                     }
@@ -445,12 +449,17 @@
                     console.log('PDF render initiate to display pdf on canvas 3');
                     page.render(renderContext).then(
                         function (){
+
                             console.log('PDF render DONE 4');
                             console.log('-----------END----------');
 
                             canvas.parentNode.dataset.pdfrender = true;
                             // canvas.style.backgroundRepeat = 'no-repeat';
                             that[wb] = {pdfrender : true};
+
+                           // virtualclass.dts[virtualclass.gObj.currWb].showZoom();
+
+                            virtualclass.vutil.showZoom();
 
                             if(firstTime != undefined){
                                 setTimeout(
@@ -693,6 +702,8 @@
 
 
             _fitToScreen : function (canvas, canvasWidth, canvasHeight){
+                console.log('==== Current whiteboard id ' + virtualclass.gObj.currWb);
+
                 virtualclass.vutil.setHeight(virtualclass.gObj.currWb, canvas, canvasHeight);
                 virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, canvasWidth);
 

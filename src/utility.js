@@ -2862,8 +2862,15 @@
                 if (c) document.addEventListener(eventKey, c);
                 return !document[stateKey];
             }
-        }
+        },
 
+        showZoom () {
+            var zoom = document.querySelector("#virtualclassAppLeftPanel.hideZoom");
+            if(zoom){
+                zoom.classList.remove("hideZoom");
+                zoom.classList.add("showZoom");
+            }
+        }
     };
     window.vutil = vutil;
 })(window);

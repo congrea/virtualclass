@@ -545,7 +545,7 @@
         },
 
         seekHandler (ev){
-            if(!ev.offsetX ){
+            if(ev.offsetX == undefined){
                 ev = this.getOffset(ev);
             }
 

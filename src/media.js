@@ -1773,7 +1773,7 @@
             },
 
             detectAudioWorklet : () => {
-                if (typeof OfflineAudioContext == 'undefined' || virtualclass.isPlayMode) {
+                if (typeof OfflineAudioContext == 'undefined') {
                     return false;
                 }else {
                     let context = new OfflineAudioContext(1, 1, 44100);

@@ -1580,7 +1580,7 @@
 	border-radius: 35px;
 	background: #56b349;
 	position: relative;
-	top: -4px;
+	top: -3px;
 	pointer-events  :none;
 }
 
@@ -4264,9 +4264,15 @@ background-color: #d6d6d6;
 	/*pointer-events:  none;*/
 /*}*/
 
-
-
 .rv-vanilla-modal-overlay.is-shown.askToPlayCont, #popupContainer.playPopup #loadingWindowCont{
 	cursor : pointer;
 }
 
+@media only screen 
+  and (min-device-width: 768px) 
+    and (max-device-width: 1024px) {
+         #virtualclassCont.congrea #virtualclassApp .playControllerMainCont {
+          bottom:-1px !important;
+          z-index:10000 !important;
+      }
+}

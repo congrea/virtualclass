@@ -1574,7 +1574,7 @@
 }
 
 #virtualclassCont.congrea #playProgressBar .circle{
-	margin-left : calc(100% - 4px);
+	margin-left : calc(100% - 8px);
 	width: 13px;
 	height: 13px;
 	border-radius: 35px;
@@ -4263,9 +4263,10 @@ background-color: #d6d6d6;
 	/*pointer-events:  none;*/
 /*}*/
 
-
-
 .rv-vanilla-modal-overlay.is-shown.askToPlayCont, #popupContainer.playPopup #loadingWindowCont{
 	cursor : pointer;
 }
 
+#virtualclassCont.recordSeeking .whiteboardContainer .canvasWrapper {
+	z-index : 0;
+}

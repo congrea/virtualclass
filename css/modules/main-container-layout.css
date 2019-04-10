@@ -160,7 +160,6 @@
         font-size : 11px;
       }
 
-
       #virtualclassCont.congrea.teacher #virtualclassApp[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea #virtualclassApp[data-currapp='Video'] .modal, #virtualclassCont.congrea.teacher #virtualclassApp[data-currapp='SharePresentation'] .modal {
         height: calc(100vh - var(--vh-offset) - 44px);
       }

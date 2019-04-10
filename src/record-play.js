@@ -1024,7 +1024,7 @@
         initRecPause (){
             var recPause = document.getElementById('recPause');
             this.controller._pause();
-            this.doControlActive(this);
+            this.doControlActive(recPause);
             virtualclass.recorder.triggerPauseVideo();
             recPause.parentNode.classList.remove("recordingPlay");
             recPause.dataset.title = 'play';
@@ -1033,7 +1033,7 @@
         initRecPlay (){
             var recPause = document.getElementById('recPause');
             this.controller._play();
-            this.doControlActive(this);
+            this.doControlActive(recPause);
             if(virtualclass.videoUl && virtualclass.videoUl.player){
                 virtualclass.videoUl.player.play();
             }

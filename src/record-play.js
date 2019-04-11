@@ -1027,7 +1027,7 @@
             this.doControlActive(recPause);
             virtualclass.recorder.triggerPauseVideo();
             recPause.parentNode.classList.remove("recordingPlay");
-            recPause.dataset.title = 'play';
+            recPause.dataset.title = 'Play';
         },
 
         initRecPlay (){
@@ -1038,7 +1038,7 @@
                 virtualclass.videoUl.player.play();
             }
             recPause.parentNode.classList.add("recordingPlay");
-            recPause.dataset.title = 'pause';
+            recPause.dataset.title = 'Pause';
         },
 
         doControlActive: function (elem) {

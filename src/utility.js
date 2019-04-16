@@ -168,6 +168,7 @@
                 console.log(appCont + ' is not found ');
             }
         },
+        
         setScreenInnerTagsWidth: function(currAppId) {
             var sId = currAppId;
             var screenShare = document.getElementById(sId);
@@ -363,7 +364,20 @@
                 }
             }
         },
-
+         
+        Fullscreen: function() {
+            var elem = document.getElementById("virtualclassCont");
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+        },
+        
         // TODO
         /***
          * Add class at body according to role

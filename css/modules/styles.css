@@ -2359,6 +2359,7 @@
 	float: none;
 	width: auto;
 	overflow: hidden;
+	/* background-color:#fff; */
 }
 #virtualclassCont.congrea.playMode #virtualclassAppLeftPanel {
     float:left;
@@ -4287,4 +4288,18 @@ background-color: #d6d6d6;
 #virtualclassCont.congrea.playMode.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-fullscreen-control,
 #virtualclassCont.congrea.playMode .vjs-play-control{
 	pointer-events : none;
+}
+
+#virtualclassCont.congrea #fullScreenButton{
+	position: fixed;
+    bottom: 6px;
+    right: 608px;
+    color: #fff;
+    z-index: 1000;
+}
+
+/* For FullScreen */
+
+#virtualclassCont.congrea:fullscreen {
+	background-color:#fff;
 }

@@ -80,7 +80,7 @@
         attachSeekHandler : false,
         rawDataQueue : {},
         xhr : [],
-        session : wbUser.session,
+        session:null,
         elapsedPlayTime: 0,
         prevFile : null,
         refrenceTime : null,
@@ -1191,7 +1191,8 @@
         },
 
         requestListOfFiles () {
-             virtualclass.popup.loadingWindow();
+            this.session = wbUser.session
+            virtualclass.popup.loadingWindow();
             virtualclass.xhrn.sendData({session : virtualclass.recorder.session}, virtualclass.api.recordingFiles, this.afterDownloadingList.bind(this));
         },
 

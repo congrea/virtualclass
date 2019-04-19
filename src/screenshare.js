@@ -884,7 +884,7 @@ var newCanvas;
                 function sendScreen() {
                     clearInterval(virtualclass.clear);
                     if (typeof prvVWidth != 'undefined' && typeof prvVHeight != 'undefined') {
-                        if (prvVWidth != that.video.offsetWidth || prvVHeight != that.video.offsetHeight) {
+                        if (that.video.offsetWidth  > 10  && prvVWidth != that.video.offsetWidth || prvVHeight != that.video.offsetHeight && that.video.offsetHeight > 10 ) {
                             changeonresize = 1;
                         }
                     } else {

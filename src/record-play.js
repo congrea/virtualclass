@@ -937,8 +937,9 @@
                 }
             );
             document.getElementById('replayButton').addEventListener('click', function () {
-                virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
                 virtualclass.recorder.controller.pause = false;
+                virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
+
             });
         },
 

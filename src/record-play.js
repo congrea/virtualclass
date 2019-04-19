@@ -417,7 +417,7 @@
 
             this.UIdownloadProgress(file);
 
-            if(this.currentMin > 3 && this.masterRecordings.length > 0 ) { // Starts playing after 5 mins of download
+            if((this.currentMin > 3  || this.lastFile == file ) && this.masterRecordings.length > 0 ) { // Starts playing after 5 mins of download
                 if(this.playStart){
                     this.startToPlay();
                 }else {
@@ -428,7 +428,6 @@
 
                 }
             }
-
         },
 
         handleStartToPlay (ev) {
@@ -1166,6 +1165,8 @@
                 } else {
                     delete this.alreadyCalcTotTime;
                     this.totalRecordingFiles = this.sortingFiles(listOfFiles);
+                    this.lastFile = this.totalRecordingFiles[this.totalRecordingFiles.length - 1];
+
                     this.orginalListOfFiles = this.setOrginalListOfFiles(this.totalRecordingFiles);
 
                     this.calculateTotalPlayTime();

@@ -2045,7 +2045,7 @@
 	box-shadow : none;
 	border-radius: 0 0 0 5px;
 }
-.canvasWrapper {
+.canvasCont {
     clear:both;
 }
 #virtualclassCont.congrea.educator .commandToolsWrapper {border: 1px solid #515e69;}

@@ -656,6 +656,9 @@
                 if(virtualclass.vutil.isNumeric(canvasScale)){
                     localStorage.setItem('wbcScale', canvasScale);
                 };
+                if(virtualclass.zoom.hasOwnProperty('canvasDimension')){
+                    localStorage.setItem('canvasDimension', JSON.stringify(virtualclass.zoom.canvasDimension)); 
+                }
             }
 
             // not storing the YouTube status on student's storage

@@ -803,7 +803,8 @@
                 }else {
                     /** wait till next file is downloaded**/
                     this.controller._pause();
-                    virtualclass.popup.loadingWindow();
+                    // virtualclass.popup.loadingWindow();
+                    this.initReplayWindow();
                     var loading =  document.querySelector('#loadingWindowCont .loading');
                     loading.style.display = 'block';
 
@@ -910,19 +911,35 @@
             } else {
                 //Play finished here
                 if (virtualclass.recorder.allFileFound) {
-                    this.triggerPauseVideo();
-                    virtualclass.popup.replayWindow();
-                    virtualclass.popup.sendBackOtherElems();
-                    document.getElementById('replayClose').addEventListener('click',
-                        function () {
-                            window.close(); //handle to moodle way
-                        }
-                    );
-                    document.getElementById('replayButton').addEventListener('click', function () {
-                        virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
-                    });
+                    this.initReplayWindow()
+                    // this.triggerPauseVideo();
+                    // virtualclass.popup.replayWindow();
+                    // virtualclass.popup.sendBackOtherElems();
+                    // document.getElementById('replayClose').addEventListener('click',
+                    //     function () {
+                    //         window.close(); //handle to moodle way
+                    //     }
+                    // );
+                    // document.getElementById('replayButton').addEventListener('click', function () {
+                    //     virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
+                    // });
                 }
             }
+        },
+
+        initReplayWindow  (){
+            this.triggerPauseVideo();
+            virtualclass.popup.replayWindow();
+            virtualclass.popup.sendBackOtherElems();
+            document.getElementById('replayClose').addEventListener('click',
+                function () {
+                    window.close(); //handle to moodle way
+                }
+            );
+            document.getElementById('replayButton').addEventListener('click', function () {
+                virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
+                virtualclass.recorder.controller.pause = false;
+            });
         },
 
 

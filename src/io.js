@@ -279,12 +279,13 @@ var io = {
                     msg.user = true;
                 }
 
+
+
                 if((!virtualclass.vutil.isPlayMode() ||
                     receivemsg.hasOwnProperty('clientids') && !virtualclass.hasOwnProperty('connectedUsers') || // When self joined the room
                     virtualclass.hasOwnProperty('connectedUsers') && !receivemsg.hasOwnProperty('clientids'))){ // When other join the room
                     virtualclass.ioEventApi.readyto_member_add(msg);
                 }
-
                 break;
             case "broadcastToAll":
             case "broadcast":
@@ -303,13 +304,13 @@ var io = {
                 }
                 break;
             case "userleft":
-                console.log('Case:- userleft');
 
                 if (receivemsg.userto != undefined) {
                     userto = receivemsg.userto;
                 }
                 if (io.uniquesids != null) {
                     for(let uid in receivemsg.action){
+                        console.log('===== JOIN user left call ' + uid);
                         delete io.uniquesids[uid];
                     }
                 }

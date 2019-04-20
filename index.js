@@ -484,22 +484,46 @@ $(document).ready(function () {
         var memberUpdateWithDelay_timer;
         virtualclass.gObj.memberlistpending =[];
 
+        function isAlreadyInPendingList (user){
+            if(virtualclass.gObj.memberlistpending.length > 0){
+                var index = virtualclass.gObj.memberlistpending.findIndex(function (userObj){
+                        return userObj.userid == user.userid
+                });
+                return (index > -1);
+            }
+        }
+
         function memberUpdateWithDelay(e, f) {
             if(f ==  'removed') {
                 /** Removing the disconnected user from queue(memberlistpending) and DOM **/
                 var index = virtualclass.gObj.memberlistpending.findIndex(x => x.userid == e.removeUser);
                 if (index > -1) {
                     virtualclass.gObj.memberlistpending.splice(index, 1);
+                    console.log("===== JOIN user left call");
                 } else {
                     setTimeout(function (){
+                        console.log("===== JOIN user left call");
                         memberUpdate(e,f);
                     },0)
                 }
             } else {
                 /** Making the user list queue (memberlistpending) here, on every user join **/
+
                 var userlist = e.message;
-                for(var i=0; i<userlist.length; i++) {
-                    virtualclass.gObj.memberlistpending.push(userlist[i])
+                if(virtualclass.isPlayMode){
+                    /**
+                     * When user sought recording, there would displayed multiple instances of same user on chat list
+                     * It avoids to add the same users on memberlistpending array and same way on chat list,
+                     * **/
+                    for(var i=0; i<userlist.length; i++) {
+                        if(!isAlreadyInPendingList(userlist[i])){
+                            virtualclass.gObj.memberlistpending.push(userlist[i])
+                        }
+                    }
+                }else {
+                    for(var i=0; i<userlist.length; i++) {
+                        virtualclass.gObj.memberlistpending.push(userlist[i])
+                    }
                 }
                 console.log('member list pending(memberlistpending) udpate ');
             }
@@ -1457,15 +1481,19 @@ $(document).ready(function () {
             },
 
             member_added : function (e){
+                // console.log('===== JOIN user ' + e.message.length);
+                // console.log('===== JOIN user ' + e.message);
                 var sType;
                 if(typeof virtualclass.connectedUsers == 'undefined'){
                     virtualclass.connectedUsers = [];
                 }
-
+                // console.log('===== JOIN user member_added call ');
                 if(e.hasOwnProperty('user')){
-
                     var joinUserObj = e.message;
                     virtualclass.jId = joinUserObj.userid;
+
+                    console.log('===== JOIN users ' + virtualclass.jId);
+
 
                     var upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
                     if(upos != -1){
@@ -1476,8 +1504,11 @@ $(document).ready(function () {
 
                     // Get the new joinecr user id and object
                     virtualclass.joinUser = joinUserObj;
+
                 }else if(e.hasOwnProperty('users')){
+
                     virtualclass.jId = e.joinUser;
+                    console.log('===== JOIN users ' + virtualclass.jId);
                     virtualclass.connectedUsers = e.message;
                     for(var i = 0; i<virtualclass.connectedUsers.length; i++) {
                         virtualclass.gObj.allUserObj[virtualclass.connectedUsers[i].userid] = virtualclass.connectedUsers[i];

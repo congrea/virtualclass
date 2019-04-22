@@ -82,6 +82,11 @@ if (isset($_GET['play']) && ($_GET['play'] == 'true')) {
     $cont_class .= "playMode ";
 }
 
+$saverecording = false;
+if (isset($_GET['recording']) && ($_GET['recording'] == 'true')) {
+    $saverecording = true;
+}
+
 if (isset($_GET['session'])) {
     $session = $_GET['session'];
 } else {
@@ -211,6 +216,7 @@ if($info) {
 	virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
     wbUser.session = '<?php echo $session; ?>';
     wbUser.virtualclassPlay = '<?php echo $isplay; ?>';
+    wbUser.saveRecording = '<?php echo $saverecording; ?>';
     wbUser.vcSid = '<?php echo "1"; ?>';
     wbUser.imageurl =  '';
     wbUser.id =  '<?php echo $uid; ?>';

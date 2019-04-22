@@ -105,7 +105,10 @@
                 playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
 
                 virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
-                virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
+
+                // virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
+
+                window.addEventListener('mouseup', this.finalSeek.bind(this));
 
                 virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
                 virtualclassApp.addEventListener('touchend',  this.finalSeek.bind(this));
@@ -1310,7 +1313,7 @@
 
         handlerDisplayTime (ev) {
             var seekValueInPercentage = this.getSeekValueInPercentage(ev);
-            console.log('Seek value time in percentage ' + seekValueInPercentage);
+            // console.log('Seek value time in percentage ' + seekValueInPercentage);
             this.displayTimeInHover(ev, seekValueInPercentage);
         },
 
@@ -1381,6 +1384,7 @@
             if(congrealogo != null){
                 congrealogo.classList.remove('disbaleOnmousedown');
             }
+
         },
 
     };

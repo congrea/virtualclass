@@ -119,7 +119,7 @@
 
             init: function (urole, app, videoObj) {
                 var wbUser = window.wbUser;
-                this.saveRecording = wbUser.saveRecording;
+                this.saveRecording = +(wbUser.saveRecording);
                 virtualclass.uInfo = {
                     'userid': wbUser.id,
                     'sid': wbUser.sid,

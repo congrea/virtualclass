@@ -1370,6 +1370,7 @@
                                 localStorage.setItem('uRole', 't');
                             }
                             localStorage.clear();
+                            window.close();
                         }
                     )
                 } else {

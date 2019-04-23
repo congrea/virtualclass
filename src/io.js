@@ -25,6 +25,7 @@ var io = {
     init: function(cfg) {
         this.cfg = cfg;
         "use strict";
+        console.log("==== io init ");
         ioInit.sendToWorker({cmd:'init', msg : cfg});
     },
 
@@ -479,7 +480,7 @@ var ioInit = {
                 setTimeout(function() {
                     // For prevent to send any packet to other during save session
                     // and download session
-                    if (!virtualclass.gObj.hasOwnProperty('saveSession') &&
+                    if (!virtualclass.gObj.hasOwnProperty('endSession') &&
                         !virtualclass.gObj.hasOwnProperty('downloadProgress') &&
                         !virtualclass.recorder.uploadInProcess &&
                         !(virtualclass.gObj.hasOwnProperty('invalidlogin') && virtualclass.gObj.invalidlogin)) {

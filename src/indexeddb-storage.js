@@ -610,7 +610,6 @@
             },
 
             endSession: function (onlyStoredData) {
-
                 delete virtualclass.connectedUsers;
                 if(virtualclass.gObj.hasOwnProperty("memberUpdateDelayTimer")){
                     clearTimeout(virtualclass.gObj.memberUpdateDelayTimer);
@@ -690,10 +689,6 @@
                     delete virtualclass.recorder.startUpload;
                 }
 
-                //var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
-                //recordFinishedMessageBox.style.display = 'none';
-
-
                 if(virtualclass.gObj.hasOwnProperty('downloadProgress')){
                     delete virtualclass.gObj.downloadProgress;
                 }
@@ -715,11 +710,8 @@
                 }
 
                 virtualclass.vutil.removeClass('audioWidget', "fixed");
-                 virtualclass.storage.clearStorageData();
+                virtualclass.storage.clearStorageData();
 
-                // if (!virtualclass.hasOwnProperty('notPLayed')) {
-                //     virtualclass.storage.clearStorageData();
-                // }
 
                 virtualclass.wbCommon.removeAllContainers();
                 virtualclass.gObj.wbCount = 0;
@@ -748,8 +740,6 @@
                     // For remove the active tool
                     var sessionEndTool = document.getElementById('virtualclassSessionEndTool');
                     sessionEndTool.className = virtualclass.vutil.removeClassFromElement('virtualclassSessionEndTool', 'active');
-
-                    //virtualclass.previrtualclass = "virtualclassEditorRichTool";
                 }
 
 

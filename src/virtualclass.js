@@ -96,7 +96,7 @@
             },
 
             enablePreCheck : true,
-            clearSession: function (notSend) {
+            clearSession: function () {
                 window.pageEnter = new Date().getTime();
                 if(typeof notSend == 'undefined'){
                     virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
@@ -110,7 +110,6 @@
                 }
                 virtualclass.storage.config.endSession();
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
-
                     virtualclass.prevScreen.unShareScreen();
                 }
 
@@ -1366,9 +1365,11 @@
                             }
 
                             virtualclass.clearSession();
+                            virtualclass.gObj.endSession = true;
                             if(virtualclass.gObj.hasOwnProperty('beTeacher') && roles.isTeacher()){
                                 localStorage.setItem('uRole', 't');
                             }
+                            localStorage.clear();
                         }
                     )
                 } else {

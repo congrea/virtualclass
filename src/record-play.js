@@ -787,7 +787,12 @@
                             j--;
                         } else {
                             i--;
-                            j = (this.masterRecordings[i].length - 1);
+                            if(i >= 0){
+                                j = (this.masterRecordings[i].length - 1);
+                            }else {
+                                j = 0;
+                            }
+
                         }
                         console.log('Seek index i = ' + i +  ' j=' + j + ' totalTime=' + totalTimeMil);
                         return {master :  i, sub : j};
@@ -1357,8 +1362,10 @@
                 if(this.downloadInPercentage < this.seekValueInPercentage){
                     this.seekValueInPercentage = Math.trunc(this.downloadInPercentage);
                 }
+                if(this.seekValueInPercentage > 0){
+                    this.seek(this.seekValueInPercentage);
+                }
 
-                this.seek(this.seekValueInPercentage);
 
                 if(this.pauseBeforeSeek){
                     console.log("=== Video pause ");

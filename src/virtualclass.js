@@ -1401,13 +1401,13 @@
                 return (previous == 'virtualclassWholeScreenShare' && appName == virtualclass.apps.yt) ? true : false;
             },
 
-            prvCurrUsersSame: function () {
+            handleCurrentUserWithPrevious: function () {
                 var prvUser = localStorage.getItem('prvUser');
                 if (prvUser == null) {
                     virtualclass.setPrvUser();
                 } else {
                     prvUser = JSON.parse(prvUser);
-                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room) {
+                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role) {
                         virtualclass.gObj.sessionClear = true;
                         virtualclass.setPrvUser();
                         if (roles.hasControls()) {
@@ -1419,7 +1419,7 @@
 
             setPrvUser: function () {
                 localStorage.clear();
-                var prvUser = {id: wbUser.id, room: wbUser.room};
+                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role};
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
             },
 

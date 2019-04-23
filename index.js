@@ -29,7 +29,7 @@ $(document).ready(function () {
         // var appIs = "Whiteboard";
 
         virtualclass.gObj.sessionClear = false;
-        virtualclass.prvCurrUsersSame();
+        virtualclass.handleCurrentUserWithPrevious();
 
         virtualclass.gObj.mobileVchOffset = vhCheck();
         var wIds = localStorage.getItem('wIds');

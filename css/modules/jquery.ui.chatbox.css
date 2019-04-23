@@ -634,9 +634,9 @@
     margin: 0px;
 }
 
-#virtualclassCont.congrea.playMode #chat_room {
-    pointer-events: none;
-}
+/*#virtualclassCont.congrea.playMode #chat_room {*/
+    /*pointer-events: none;*/
+/*}*/
 
 #virtualclassCont.congrea.teacher.nowebcam #chat_room{
     height:calc(100vh - 153px);

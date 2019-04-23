@@ -231,11 +231,8 @@
                         console.log('there is no such element');
                     }
                     if(!roles.hasControls()){
-                        var zoom = document.querySelector("#virtualclassAppLeftPanel.hideZoom");
-                        if(zoom){
-                            zoom.classList.remove("hideZoom");
-                            zoom.classList.add("showZoom");
-                        }
+                        virtualclass.vutil.showZoom();
+
                     }
                 }
             },

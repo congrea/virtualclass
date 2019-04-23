@@ -926,7 +926,7 @@ this["JST"]["dest_temp/templates/popupCont.hbs"] = Handlebars.template({"compile
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"downloadsession",{"name":"getString","hash":{},"data":data}))
     + "</div><div id=\"downloadPrgressLabel\" class=\"cgText\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"overallprogress",{"name":"getString","hash":{},"data":data}))
-    + " </div><div id=\"downloadProgress\"><div id=\"downloadProgressBar\" class=\"progressBar\"></div><div id=\"downloadProgressValue\" class=\"progressValue\"> 0% </div></div></div><div id=\"askPlay\"><div id=\"askplayMessage\"></div><button id=\"playButton\" class=\"icon-play cgText\">"
+    + " </div></div><div id=\"askPlay\"><div id=\"askplayMessage\"></div><button id=\"playButton\" class=\"icon-play cgText\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"play",{"name":"getString","hash":{},"data":data}))
     + "</button></div></div></div>  <div id=\"replayContainer\" class=\"popupWindow\"><p id=\"replayMessage\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"replay_message",{"name":"getString","hash":{},"data":data}))
@@ -940,9 +940,9 @@ this["JST"]["dest_temp/templates/popupCont.hbs"] = Handlebars.template({"compile
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"validateurlmsg",{"name":"getString","hash":{},"data":data}))
     + " </span></div>  <div id=\"waitMsgCont\" class=\"popupWindow\"><span id=\"waitMsg\" class=\"cgText\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"waitmsgconnect",{"name":"getString","hash":{},"data":data}))
-    + " </span></div><div id=\"chromeExtMiss\" class=\"popupWindow\"><span id=\"chromeExtClose\" class=\"icon-close\"></span><span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugins to share the Screen.<br/>You can download the plugin <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a> After installing the plugin, please <a onclick=\"location.reload()\">reload </a> the page. </span></span></div><div id=\"generalMessage\" class=\"popupWindow\"><span id=\"generalMessageMsg\"></span><span id=\"generalMessageClose\"></span></div><div id=\"generalMessageButton\" class=\"popupWindow\"><span class=\"button\"> "
+    + " </span></div><div id=\"loadingWindowCont\" class=\"popupWindow\"><div class=\"loading\"><div class=\"loader-icon\"></div></div><div class=\"askToPlay\"><span class=\"icon-play btn\"></span></div></div><div id=\"chromeExtMiss\" class=\"popupWindow\"><span id=\"chromeExtClose\" class=\"icon-close\"></span><span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugins to share the Screen.<br/>You can download the plugin <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a> After installing the plugin, please <a onclick=\"location.reload()\">reload </a> the page. </span></div><div id=\"generalMessage\" class=\"popupWindow\"><span id=\"generalMessageMsg\"></span><span id=\"generalMessageClose\"></span></div><div id=\"generalMessageButton\" class=\"popupWindow\"><span class=\"button\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"JoinClassMsg",{"name":"getString","hash":{},"data":data}))
-    + " </span></div></div></div>";
+    + " </span><br/></div></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/ppt/dashboard.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1071,19 +1071,9 @@ this["JST"]["dest_temp/templates/precheck.hbs"] = Handlebars.template({"compiler
 },"useData":true});
 
 this["JST"]["dest_temp/templates/recordingControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return "<div class=\"playControllerMainCont\"><div id=\"playControllerCont\"><div id=\"playController\"><div id=\"recPlayCont\" class=\"recButton\"><button id=\"recPlay\" class=\"icon-play congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Play",{"name":"getString","hash":{},"data":data}))
-    + "\"></button></div><div id=\"recPauseCont\" class=\"recButton \"><button id=\"recPause\" class=\"icon-pause congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Pause",{"name":"getString","hash":{},"data":data}))
-    + "\"></button></div><div id=\"ff2Cont\" class=\"recButton\"><button id=\"ff2\" class=\"ff icon-forward congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"FF2",{"name":"getString","hash":{},"data":data}))
-    + "\"></button></div><div id=\"ff8Cont\" class=\"recButton\"><button id=\"ff8\" class=\"ff icon-fast-forward congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"FF8",{"name":"getString","hash":{},"data":data}))
-    + "\"></button></div><div id=\"replayFromStart\"><button class=\"ff icon-Replayfromstart congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Replay",{"name":"getString","hash":{},"data":data}))
-    + "\"></button></div><div id=\"playProgress\"><div id=\"playProgressBar\" class=\"progressBar\" style=\"width: 0%;\"></div></div><div id=\"repTimeCont\"><span id=\"tillRepTime\">00:00</span> / <span id=\"totalRepTime\">00:00</span></div></div></div></div>";
+    return "<div class=\"playControllerMainCont\"><div id=\"playControllerCont\"><div id=\"playController\"><div id=\"playProgress\"><div id=\"playProgressBar\" class=\"progressBar\" style=\"width: 0%;\"><div id=\"playCircle\" class=\"circle\"></div></div><div id=\"downloadProgress\"><div id=\"downloadProgressBar\" class=\"progressBar\"></div><div id=\"downloadProgressValue\" class=\"progressValue\"></div></div><div id=\"timeInHover\">0</div></div><div id=\"recPauseCont\" class=\"recButton recordingPlay\"><button id=\"recPause\" class=\"icon-pause congtooltip\" data-title=\""
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Pause",{"name":"getString","hash":{},"data":data}))
+    + "\"></button></div><div id=\"repTimeCont\"><span id=\"tillRepTime\">00:00:00</span> / <span id=\"totalRepTime\">00:00:00</span></div></div></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

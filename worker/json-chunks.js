@@ -66,6 +66,5 @@ onmessage = function (e) {
                 error: 'filenotfound'
             })
         }
-
     }
 };

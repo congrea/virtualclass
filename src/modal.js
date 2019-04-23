@@ -6,6 +6,20 @@
 (function(window){
     var modal = ()=>{
             return {
+                show : function(elem) {
+                    var elem = document.querySelector(elem);
+                    if (elem != null) {
+                        elem.classList.add("in")
+                    }
+                },
+
+                hide : function (){
+                    var elem = document.querySelector(elem);
+                    if (elem != null) {
+                        elem.classList.add("fade")
+                    }
+                },
+
                 removeModal:function(){
                     var modal = document.querySelector("#editPollModal");
                     if(modal){

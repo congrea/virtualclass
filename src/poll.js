@@ -39,7 +39,7 @@
                 this.pollState = {};
                 virtualclass.previrtualclass = 'virtualclass' + "Poll";
                 virtualclass.previous = 'virtualclass' + "Poll";
-                var urlquery = getUrlVars(exportfilepath);
+                var urlquery = virtualclass.vutil.getUrlVars(exportfilepath);
                 this.cmid = urlquery.cmid;
                 if (this.timer) {
                     clearInterval(this.timer);
@@ -266,6 +266,7 @@
                     this.reloadStdPublish(storedData);
 
 
+
                 } else if (storedData["currScreen"] == "teacherPublish") {
                     this.loadTeacherScrn(storedData);
 
@@ -303,6 +304,7 @@
             },
             //
             reloadStdPublish: function (storedData) {
+
                 this.dataRec = storedData.data.stdPoll;
                 this.dataRec.newTime = storedData.data.timer;
                 this.stdPublish();
@@ -489,7 +491,6 @@
                     var min = storedData.data.newTime.min;
                     var sec = storedData.data.newTime.sec;
                     this.elapsedTimer(min, sec);
-
                 }
 
                 var modalClose = document.getElementById("modalClose");
@@ -775,7 +776,6 @@
                 }
             },
             forEachPoll: function (item, index, pollType,isAdmin) {
-
                 var pollQn = {};
                 pollQn.questiontext = item.questiontext;
                 pollQn.creator = item.creatorname;
@@ -1520,6 +1520,9 @@
                 }
             },
             elapsedTimer: function (minut, second) {
+                if(virtualclass.poll.hasOwnProperty('timer')){
+                    clearInterval(virtualclass.poll.timer);
+                }
                 var label = document.getElementById("timerLabel")
                 if (label) {
                     label.innerHTML = virtualclass.lang.getString('ETime');
@@ -1537,9 +1540,14 @@
                 if (!roles.hasControls()) {
                     var head = document.getElementById("stdContHead");
                     if (head) {
-                        var elem = document.createElement("div");
-                        elem.id = "timerCont";
-                        head.appendChild(elem);
+                        elem = document.querySelector('#timerCont');
+                        if(elem == null){
+                            elem = document.createElement("div");
+                            elem.id = "timerCont";
+                            head.appendChild(elem);
+                        }
+
+
                     }
                     // to verify
                     min = virtualclass.poll.dataRec.newTime.min;
@@ -1552,7 +1560,7 @@
                 }
 
                 var handler = function () {
-                    console.log("timer" + virtualclass.poll.timer)
+                    // console.log("timer" + virtualclass.poll.timer)
                     if (elem) {
                         sec++;
                         if (sec == 60) {
@@ -1576,7 +1584,9 @@
                 virtualclass.poll.timer = setInterval(handler, 1000);
 
             },
+
             showTimer: function (rTime, diff) {
+
                 if (virtualclass.poll.timer) {
                     clearInterval(virtualclass.poll.timer);
                 }
@@ -1618,12 +1628,12 @@
 
                 }
 
+                /** TODO, hanlder says please take me out from here **/
+
                 var handler = function () {
                     if (elem) {
                         virtualclass.poll.newUserTime.min = min;
                         virtualclass.poll.newUserTime.sec = sec;
-
-
                         elem.innerHTML = (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "0" + sec : sec);
                         console.log("testtimer" + virtualclass.poll.timer);
 
@@ -1645,13 +1655,15 @@
                         //temp
                         clearInterval(virtualclass.poll.timer);
                     }
+
+                    // if(roles.hasAdmin()){
+                    //     ioAdapter.sync({time : {min : min, sec : sec}, 'app': 'poll', 'cf': 'sync'});
+                    // }
                 }
                 if (min || sec) {
                     handler();
                     virtualclass.poll.timer = setInterval(handler, 1000);
-
                 }
-
             },
             timerExpired: function () {
 
@@ -1998,6 +2010,7 @@
                         'poll': {
                             pollMsg: 'stdPublish',
                             data: data
+
                         },
                         'cf': 'poll'
                     });

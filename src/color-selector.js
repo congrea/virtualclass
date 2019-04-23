@@ -83,9 +83,9 @@ var colorSelector ={
             "{border-left: 0.01em solid "+allbg.fcolor +"!important;}"+
             // "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool" +
             // "{border:0 !important;}"+
-            "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #networkStatusContainer, #virtualclassCont.congrea #audioWidget li" +
+            "#virtualclassCont.congrea #audioWidget li" +
             "{border-right:"+border +" !important;}"+
-            "#virtualclassCont.congrea .zoomControler,#virtualclassCont.congrea #networkStatusContainer, " +
+            "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #virtualclassAppRightPanel #chatWidget .chatBarTab, #virtualclassCont.congrea #audioWidget .audioTool, #virtualclassCont.congrea #networkStatusContainer, " +
             "#virtualclassCont.congrea #alleditorRichContainerAnch" +
             "{border-left:"+border +" !important;}"+
             "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ," +
@@ -245,9 +245,7 @@ var colorSelector ={
             "{color :"+frontColor +"!important} "+
             " #virtualclassCont.congrea #virtualclassOptionsCont .appOptions "+
             "{border : 1px solid"+allbg.fcolor +"!important} "+
-            "#virtualclassCont.congrea  #playController .controlActive"+
             "{background-image: linear-gradient(to bottom, "+active.fcolor+" 0%,"+active.scolor+" 100%) !important ;color:"+frontColor+"!important} "+
-            "#virtualclassCont.congrea  #playController #recPlay"+
             "{border-left: 1px solid "+allbg.fcolor+"!important}" +
             "#virtualclassCont.congrea #screenController .share button,"+
             "#virtualclassCont.congrea #stopScreenShare button"+

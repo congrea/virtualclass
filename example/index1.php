@@ -21,7 +21,7 @@
     .CodeMirror { height: auto; }*/
     .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
 
-    /* this should be apply for only core virtualclassm, not with any other software */
+    /* this should be apply for only core virtualclass, not with any other software */
 
     html, body {
         margin : 0;
@@ -82,6 +82,17 @@ if (isset($_GET['play']) && ($_GET['play'] == 'true')) {
     $cont_class .= "playMode ";
 }
 
+$saverecording = false;
+if (isset($_GET['recording']) && ($_GET['recording'] == 'true' || $_GET['recording'] == '1')) {
+    $saverecording = true;
+}
+
+if (isset($_GET['session'])) {
+    $session = $_GET['session'];
+} else {
+    $session = 'nosession';
+}
+
 $uid = 100;
 $sid = 100;
 if (isset($_GET['id'])) {
@@ -121,6 +132,9 @@ if (isset($_GET['meetingmode'])) {
     $meetingmode = 0;
     $cont_class .= 'normalmode ';
 }
+
+
+
 
 $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 
@@ -197,10 +211,12 @@ if($info) {
     virtualclassSetting.studentAudio = '<?php echo $stdAudio; ?>';
     virtualclassSetting.studentVideo = '<?php echo $stdVideo; ?>';
     virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
+
     virtualclassSetting.theme={};
 	virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
-
+    wbUser.session = '<?php echo $session; ?>';
     wbUser.virtualclassPlay = '<?php echo $isplay; ?>';
+    wbUser.saveRecording = '<?php echo $saverecording; ?>';
     wbUser.vcSid = '<?php echo "1"; ?>';
     wbUser.imageurl =  '';
     wbUser.id =  '<?php echo $uid; ?>';

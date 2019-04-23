@@ -1,7 +1,7 @@
 <?php
 	if(!empty($_POST['prvfile'])){
 		$filenum = $_POST['prvfile'];
-		$file = "uploads/vc.".$filenum;
+		$file = "uploads/suman.csv";
 
 		if(file_exists($file)){
 			$data = file_get_contents($file);

@@ -18,7 +18,7 @@
 
             this.httpObj.onerror = function (err) {
                 //TODO Add msg to user
-                virtualclass.recorder.initMakeAvailDownloadFile();
+                // virtualclass.recorder.initMakeAvailDownloadFile();
                 console.log("Error " + err);
             };
             this.httpObj.withCredentials = true;
@@ -70,6 +70,12 @@
             this.cb = cb;
             this.httpObj.open("POST", file, true);
             this.httpObj.send(data);
+        },
+
+        loadData : function (url, cb){
+            this.cb = cb;
+            this.httpObj.open("GET", url, true);
+            this.httpObj.send();
         }
     };
     window.xhr = xhr;

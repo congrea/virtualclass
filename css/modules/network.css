@@ -6,7 +6,7 @@
     height:44px;
     float: right;
     border-left: 1px solid rgba(254,254,254,0.2) !important;
-    border-right: 1px solid rgba(254,254,254,0.2) !important;
+/*    border-right: 1px solid rgba(254,254,254,0.2) !important;*/
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed {

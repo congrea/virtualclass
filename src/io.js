@@ -25,6 +25,7 @@ var io = {
     init: function(cfg) {
         this.cfg = cfg;
         "use strict";
+        console.log("==== io init ");
         ioInit.sendToWorker({cmd:'init', msg : cfg});
     },
 
@@ -201,9 +202,12 @@ var io = {
             // this.onRecBinary(e)
             workerIO.postMessage({'cmd' : 'onRecBinary', msg : e.data});
         } else {
-            var msg = JSON.parse(e.data);
-            this.onRecSave(msg, e.data);
-            io.onRecJson(msg, e.data);
+            // console.log("==== ElapsedTime playtime REC : ", e.data);
+            ioInit.onmessage({data : {cmd : 'receivedJson', msg:e.data}});
+
+            // var msg = JSON.parse(e.data);
+            // this.onRecSave(msg, e.data);
+            // io.onRecJson(msg, e.data);
         }
     },
 
@@ -276,7 +280,13 @@ var io = {
                     msg.user = true;
                 }
 
-                virtualclass.ioEventApi.readyto_member_add(msg);
+
+
+                if((!virtualclass.vutil.isPlayMode() ||
+                    receivemsg.hasOwnProperty('clientids') && !virtualclass.hasOwnProperty('connectedUsers') || // When self joined the room
+                    virtualclass.hasOwnProperty('connectedUsers') && !receivemsg.hasOwnProperty('clientids'))){ // When other join the room
+                    virtualclass.ioEventApi.readyto_member_add(msg);
+                }
                 break;
             case "broadcastToAll":
             case "broadcast":
@@ -289,19 +299,19 @@ var io = {
                         type: "newmessage",
                         message: receivemsg.m,
                         fromUser: receivemsg.user,
-                        //   toUser: userto
+                        // toUser is user on which the action to be performed
                         toUser:  virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
                     });
                 }
                 break;
             case "userleft":
-                console.log('Case:- userleft');
 
                 if (receivemsg.userto != undefined) {
                     userto = receivemsg.userto;
                 }
                 if (io.uniquesids != null) {
                     for(let uid in receivemsg.action){
+                        console.log('===== JOIN user left call ' + uid);
                         delete io.uniquesids[uid];
                     }
                 }
@@ -429,8 +439,8 @@ var ioInit = {
                         } else if (msg.m.hasOwnProperty('userMissedpackets')) {
                             ioMissingPackets.userFillExecutedStore(msg);
                         } else {
-                            //return; // for temporary
-                        //    workerIO.postMessage({cmd : "saveJson", msg :  {msg:msg, cj : cleanJson}});
+                            // return; // for temporary
+                            // workerIO.postMessage({cmd : "saveJson", msg :  {msg:msg, cj : cleanJson}});
                             io.onRecSave(msg, cleanJson);
                             io.onRecJson(msg);
                         }
@@ -470,7 +480,7 @@ var ioInit = {
                 setTimeout(function() {
                     // For prevent to send any packet to other during save session
                     // and download session
-                    if (!virtualclass.gObj.hasOwnProperty('saveSession') &&
+                    if (!virtualclass.gObj.hasOwnProperty('endSession') &&
                         !virtualclass.gObj.hasOwnProperty('downloadProgress') &&
                         !virtualclass.recorder.uploadInProcess &&
                         !(virtualclass.gObj.hasOwnProperty('invalidlogin') && virtualclass.gObj.invalidlogin)) {
@@ -494,12 +504,12 @@ var ioInit = {
 
             case 'stBinary': // storage binary
                 ioStorage.dataBinaryStore(e.data.msg);
-                if(e.data.hasOwnProperty('triggerBinRec')){
+                 if(e.data.hasOwnProperty('triggerBinRec')){
                     virtualclass.ioEventApi.binrec({
                         type: "binrec",
                         message: e.data.msg.buffer
                     });
-                }
+                 }
                 break;
 
             case 'notaudio': // storage binary

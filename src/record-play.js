@@ -3,159 +3,188 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-    var binData;
-    var e = {};
-    var reqFile = 1;
+    "use strict";
+    const TIME_TO_REQUEST = 3 * 60 * 1000; // every request would be performeed in given milisecond
+    const RECORDING_TIME = 15 * 60 * 1000; // If elapsed time goes beyond the
 
-    //this should be include intto recorder function
-
-    var sentFile = 0;
-    var chunkNum = 1;
-
-    function destroyClickedElementForFirefox(event) {
-        document.body.removeChild(event.target);
+    function XHR  (){
+        console.log('Define XHR class');
     }
-    var errorCodes = ['VCE4', 'VCE5', 'VCE6', 'invalidcmid', 'cmidmissing', 'nomdlroot', 'usermissing', 'cnmissing', 'sesseionkeymissing', 'recorddatamissing', 'keymissing', "invalidurl", 'VCE2'];
-    var fromFille = 0;
+
+    XHR.prototype.init = function () {
+        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+            this.httpObj = new XMLHttpRequest();
+        } else {
+            this.httpObj = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        this.onReadStateChange();
+
+        this.httpObj.onerror = function (err) {
+            console.log("Error " + err);
+            this.cb("ERROR");
+        };
+
+        this.httpObj.withCredentials = true;
+
+        this.httpObj.onabort = function (evt) {
+            console.log("Error abort " + evt);
+        }
+
+        return this.httpObj;
+    };
+
+    XHR.prototype.onReadStateChange = function () {
+        var that = this;
+        this.httpObj.onreadystatechange = function () {
+            if (that.httpObj.readyState == 4 && typeof that.cb != 'undefined') {
+                that.httpObj.status == 200 ? that.cb(that.httpObj.responseText) : that.cb("ERROR");
+            }
+        }
+    }
+
+    XHR.prototype.send = function (){
+        this.cb = cb;
+        this.httpObj.open("POST", file, true);
+        this.httpObj.send(data);
+    }
+
+    XHR.prototype.loadData = function (url, cb){
+        this.cb = cb;
+        this.httpObj.open("GET", url, true);
+        this.httpObj.send();
+    }
+
     var recorder = {
+        playTime : 150,
+        tempPlayTime : 150,
         items: [],
-        recImgPlay: false,
         objn: 0,
         playTimeout: "",
-        totalSent: 0,
-        fileQueue: [],
-        rnum: 1,
-        storeDone: 0,
-        emn: 0,
         allFileFound: false,
+        playTimePreviousSeconds: 0,
         waitServer: false,
         waitPopup: false,
-        tempRecData: [],
+        masterRecordings: [],
         alreadyAskForPlay: false,
         playStart: false,
         error: 0,
-        mkDownloadLink: "",
-        tillPlayTime: 0,
-        getPlayTotTime: false,
-        /* improtfilepath : 'import.php' */
+        currentMin: 0,
         importfilepath: window.importfilepath,
-        /* exportfilepath:'export.php', */
         exportfilepath: window.exportfilepath,
-        sessionKey: randomString(11),
-        alreadyDownload : false,
-        smallData : false,
         uploadInProcess : false,
-        init: function (data) {
-            //localStorage.removeItem('recObjs');
-            if(typeof virtualclass.wb == 'object' ){
-                var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
+        totalRecordingFiles : [],
+        totalPlayTimeInMin : 0,
+        totalTimeInMiliSeconds : 0,
+        subRecordings : null,
+        attachSeekHandler : false,
+        rawDataQueue : {},
+        xhr : [],
+        session:null,
+        elapsedPlayTime: 0,
+        prevFile : null,
+        refrenceTime : null,
+        totalElements : 0,
+        lastFileTime : null,
+        lastRecordings : 0,
+        firstTimeRequest : true,
+        alreadyRequested : {},
+        binarySyncMsg : null,
+        msg: null,
+        orginalTimes : [], // Todo, this and it's related variables and functions should be removed
+        startSeek : false,
+        initPlay : false,
+        init: function () {
+            if(!this.attachSeekHandler){
+                this.attachSeekHandler = true;
+                var virtualclassApp = document.querySelector('#virtualclassCont');
+                var downloadProgressBar = document.querySelector('#downloadProgressBar');
+                var playProgressBar = document.querySelector('#playProgressBar');
+
+                downloadProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
+                playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
+
+                virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
+
+                // virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
+
+                window.addEventListener('mouseup', this.finalSeek.bind(this));
+
+                virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
+                virtualclassApp.addEventListener('touchend',  this.finalSeek.bind(this));
+
+                /** For iPad and mobile **/
+                downloadProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
+                playProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
+                virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
+                virtualclassApp.addEventListener('touchend',  this.finalSeek.bind(this));
+
+                downloadProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
+                playProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
+
+                downloadProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, downloadProgressBar));
+                playProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, playProgressBar));
+
+                virtualclass.pageVisible(this.handlPageActiveness.bind(this));
             }
-            if (typeof myfunc != 'undefined') {
-                this.objs = vcan.getStates('replayObjs');
-            } else {
-                var that = this;
-                if (data == 'fromplay') {
-                    virtualclass.storage.getAllObjs(["allData"], function () {
-                        that.play();
-                    });
 
-                } else {
-                    if (!this.hasOwnProperty('prvNum')) {
-                        var i = 0;
-                    } else {
-                        i = this.prvNum;
-                    }
-
-                    var tempData = data;
-
-                    //TODO, this should be adjust at below loop
-                    for (var m = 0; m < tempData.length; m++) {
-                        this.items.push(tempData[m]);
-                    }
-
-                    for (k = 0; k < tempData.length; k++) {
-                        if (tempData[k].hasOwnProperty('bd')) {
-                            if (tempData[k].bd == 'a') {
-                                binData = virtualclass.dtCon.base64DecToArrInt(tempData[k].recObjs);
-                            } else if (tempData[k].bd == 'c') {
-                                binData = virtualclass.dtCon.base64DecToArrclm(tempData[k].recObjs);
-                            }
-                            this.items[i].recObjs = binData;
-                            for (var j = 0; j < binData.length; j++) {
-                                this.items[i].recObjs[j] = binData[j];
-                            }
-                        }
-                        i++;
-                    }
-
-                    if (!this.hasOwnProperty('prvNum')) {
-                        that.play();
-                    }
-                    this.prvNum = i;
-                }
+            if (!this.hasOwnProperty('prvNum')) {
+                this.subRecordingIndex = 0;
+                this.masterIndex = 0;
+                this.subRecordings = this.masterRecordings[this.masterIndex];
+                this.play();
+                this.prvNum = this.masterIndex;
             }
         },
-        
-        initMakeAvailDownloadFile : function (){
-            virtualclass.gObj.downloadProgress = true;
-            virtualclass.recorder.dataCame = setTimeout(
-                function (){
-                    if(virtualclass.recorder.hasOwnProperty('recordDone')){
-                        if(!virtualclass.recorder.alreadyDownload){
-                           console.log('Recorder:- From Interval');
-                           virtualclass.recorder.makeAvailDownloadFile();
-                        }
 
-                        // clearInterval(virtualclass.recorder.dataCame);
-                        // There was calling fequenlty event after clear the interval, because of which there is trying make file for
-                        // download
-
-                        clearTimeout(virtualclass.recorder.dataCame);
-                    }
+        handlPageActiveness (){
+            if(virtualclass.pageVisible()){
+                if(!this.earlierPause){
+                    this.controller._play();
+                    delete this.earlierPause;
                 }
+            }else {
+                this.earlierPause = this.controller.pause;
+                this.controller._pause();
+            }
+        },
 
-            ,1500);
+        removeHandler (element) {
+            element.removeEventListener('mousedown', this.seekHandler.bind(this));
+            document.getElementById('timeInHover').style.display = 'none';
+            var virtualclassCont = document.querySelector('#virtualclassCont');
+            virtualclassCont.classList.remove('recordSeeking');
         },
 
         replayFromStart: function () {
-            var tempItems = [];
-            tempItems = this.items;
+            console.log("Replay from start");
+            this.playTime = 150;
+            this.tempPlayTime = this.playTime;
+            var tempMasterRecordings = this.masterRecordings;
             virtualclass.storage.config.endSession();
             virtualclass.popup.closeElem();
 
             // For disable the common chant on every replay from start
             disCommonChatInput();
 
-            this.recImgPlay = false;
-            this.objn = 0;
+            // this.recImgPlay = false;
             this.playTimeout = "";
-            this.totalSent = 0;
-            this.fileQueue = [];
-            this.rnum = 1;
-            this.storeDone = 0;
-            this.emn = 0;
-            //76this.allFileFound= false;
             this.waitServer = false;
             this.waitPopup = false;
-            this.tempRecData = [];
-            this.alreadyAskForPlay = false;
+
+            // this.alreadyAskForPlay = false;
             this.playStart = false;
             this.error = 0;
-            this.mkDownloadLink = "";
-            this.tillPlayTime = 0;
-            this.getPlayTotTime = false;
+            // this.mkDownloadLink = "";
+            this.elapsedPlayTime = 0;
+            // this.getPlayTotTime = false;
             this.controller.ff = 1;
-            this.items = tempItems;
-            this.playProgressBar();
-            this.play();
-
-        },
-
-        startUploadProcess: function () {
-            virtualclass.recorder.startUpload = true;
-            virtualclass.recorder.uploadInProcess=true;
-            virtualclass.recorder.exportData(function () {});
-            virtualclass.popup.sendBackOtherElems();
+            this.masterRecordings = tempMasterRecordings;
+            this.playTimePreviousSeconds = 0;
+           // this.playProgressBar(this.playTime, 0);
+            this.playProgressBar(this.playTime);
+            delete this.prvNum;
+            this.init();
         },
 
         exportData: function (cb) {
@@ -177,674 +206,810 @@
             return e;
         },
 
-        clearPopups: function () {
-            virtualclass.popup.closeElem();
-            virtualclass.pbar.renderProgressBar(0, 0, 'progressBar', 'progressValue');
-            virtualclass.storage.config.endSession();
-        },
+        playProgressBar: function (playTime) {
+            // console.log('total play time ' + playTime + ' elapsed time2 ' + playTime);
+            if (playTime > 0) {
+                virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , playTime, 'playProgressBar', undefined);
 
-        playProgressBar: function () {
-            //CONVERT [{pt : 560}, {pt : 160}] TO 720
-            if (!this.getPlayTotTime) {
-                this.totPlayTime = this.items.reduce(function (a, b) { // a = previous value, b = current value
-                    if (b.hasOwnProperty('playTime')) {
-                        return {playTime: a.playTime + b.playTime};  //at each iteration of reduce there is need to expect paramter as object
-                    } else {
-                        return a.playTime;
-                    }
-                });
-                this.getPlayTotTime = true;
-            }
+                var time = this.convertIntoReadable(playTime);
+                document.getElementById('tillRepTime').innerHTML =  time.h + ':'  + time.m + ':' + time.s;
+                if (!this.alreadyCalcTotTime) {
+                    var ttime = this.convertIntoReadable(this.totalTimeInMiliSeconds);
 
-
-            if (this.tillPlayTime > 0) {
-                if (this.tillPlayTime > this.totPlayTime) {
-                    this.tillPlayTime = this.totPlayTime;
-                }
-
-                virtualclass.pbar.renderProgressBar(this.totPlayTime, this.tillPlayTime, 'playProgressBar', undefined);
-
-                var time = this.convertIntoReadable(this.tillPlayTime);
-                document.getElementById('tillRepTime').innerHTML = time.m + ' : ' + time.s;
-
-                if (typeof alreadyCalcTotTime == 'undefined') {
-                    var ttime = this.convertIntoReadable(this.totPlayTime);
-                    document.getElementById('totalRepTime').innerHTML = ttime.m + ' : ' + ttime.s;
-                    alreadyCalcTotTime = true;
+                    document.getElementById('totalRepTime').innerHTML = ttime.h + ':'  + ttime.m + ':' + ttime.s;
+                    this.alreadyCalcTotTime = true;
                 }
             } else {
-                virtualclass.pbar.renderProgressBar(this.totPlayTime, 0, 'playProgressBar', undefined);
+                virtualclass.pbar.renderProgressBar((this.lastTimeInSeconds * 1000), 0, 'playProgressBar', undefined);
             }
         },
 
         convertIntoReadable: function (ms) {
-            var x = ms / 1000;
-            var seconds = Math.floor(x % 60);
-            var minutes = Math.floor(x / 60);
-            return {s: seconds, m: minutes};
-        },
+            ms = ms/1000;
+            var hour = 0;
+            var seconds = Math.floor(ms % 60);
+            var minutes = Math.floor(ms / 60);
 
-        xhrsenddata: function (rnum, err, cb) {
-            if (typeof err != 'undefined') {
-                virtualclass.recorder.error = 1;
+            if(minutes >= 60){
+                hour = Math.floor(minutes / 60);
+                minutes = minutes % 60;
             }
 
-            if (typeof cb != 'undefined') {
-                virtualclass.recorder.mkDownloadLink = cb; // mkDownloadLink should be localize
+            if(hour < 10){
+                hour = '0' +  hour;
             }
 
-            //this is not happend but in any case
-            if (virtualclass.recorder.storeDone == 1) {
-                return;
+            if(minutes < 10){
+                minutes = '0' +  minutes;
             }
 
-            if (typeof earlierTimeout != 'undefined') {
-                clearTimeout(earlierTimeout);
+            if(seconds < 10){
+                seconds = '0' +  seconds;
             }
 
-            if ((typeof rnum == 'undefined') || rnum == '') {
-                var rnum = 'first';
-            }
-
-            
-            virtualclass.recorder.rnum = rnum;
-            
-            virtualclass.storage.getrowData(['chunkData'], function (dObj, frow) {
-                if(chunkNum == 1 && dObj.hasOwnProperty('rdata')){
-                    virtualclass.recorder.rdlength = dObj.rdata.length;
-                }
-                
-                if ((typeof dObj == 'string' || typeof dObj == 'undefined')) {
-                    earlierTimeout = setTimeout(
-                        function () {
-                            virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
-                        },
-                        1000
-                    );
-                } else {
-                    // this has been performed when all files are stored
-                    if ((dObj.hasOwnProperty('status')) && (dObj.status == 'done')) {
-                        console.log("should invoked download function on ");
-                        virtualclass.recorder.storeDone = 1;
-                        console.log('From here actuall recorder finished');
-                        if (typeof virtualclass.recorder.mkDownloadLink != 'undefined' && ((virtualclass.recorder.mkDownloadLink != ""))) {
-                            virtualclass.recorder.mkDownloadLink();
-                        } else {
-
-                            var recordSetTimeout = 1000;
-                            setTimeout(
-                                function () {
-                                    virtualclass.recorder.afterRecording();
-                                },
-                                recordSetTimeout
-                            );
-                        }
-                        return;
-                    }
-
-                    if (typeof frow != 'undefined') {
-                        virtualclass.recorder.rnum = frow;
-                    }
-
-                    if (virtualclass.recorder.error == 1) {
-                        if (virtualclass.recorder.storeDone == 0) {
-                            virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum, 'error');
-                            virtualclass.recorder.rnum++;
-                        }
-                    } else {
-                        var formData = new FormData();
-                        formData.append("record_data", JSON.stringify(dObj));
-                        formData.append("user", virtualclass.gObj.uid);
-                        formData.append("cn", chunkNum);
-                        formData.append('sesseionkey', virtualclass.recorder.sessionKey);
-
-                        ////TODO: display progress after file save
-                        //virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
-
-                        virtualclass.recorder.items = []; //empty on each chunk sent
-                        if(roles.isStudent() && virtualclass.gObj.has_ts_capability){
-                            //this fake path is for let technical support download the file
-                            var importfilepath = "https://local.vidya.io/fake.php";  
-                        } else {
-                            var importfilepath = this.importfilepath;
-                        } 
-                        
-                        virtualclass.xhr.send(formData, importfilepath, function (msg) { //TODO Handle more situations
-                            //TODO: display progress after file save
-                            //Recording is finished //upload finished
-                            if (msg === "done") {
-                                virtualclass.pbar.renderProgressBar(dObj.totalStore, dObj.totalSent, 'progressBar', 'progressValue');
-                                virtualclass.recorder.rnum++;
-                                chunkNum++;
-                                virtualclass.recorder.xhrsenddata(virtualclass.recorder.rnum);
-                            } else if (msg === "ERROR") {
-                                //TODO Show msg to user
-                                //virtualclass.recorder.tryForReTransmit();
-                                virtualclass.recorder.initMakeAvailDownloadFile();
-                            } else {
-                                //TODO Show msg to user
-                                //create function & pass error msg as param
-                               if(errorCodes.indexOf(msg) >= 0){
-                                   var totProgressCont = document.querySelector('#totProgressCont');
-                                   var errorCont = document.querySelector('#totProgressCont .recordingError');
-
-                                   if(errorCont == null){
-                                       var divCreated = "<div class='recordingError'>"+virtualclass.lang.getString(msg)+"</div>";
-                                       totProgressCont.insertAdjacentHTML('afterbegin', divCreated);
-                                   }else {
-                                       errorCont.innerHTML = virtualclass.lang.getString(msg);
-                                   }
-
-                                   if(roles.hasAdmin()){
-                                       virtualclass.recorder.initMakeAvailDownloadFile();
-                                   }
-                               } else {
-                                  console.log("Error message not found");
-                               }
-                            }
-                        });
-                    }
-                }
-            }, virtualclass.recorder.rnum);
-
-        },
-
-        uploadFinishedBox : function (){
-            var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
-            recordFinishedMessageBox.style.display = 'block';
-            this.initRecordFinishEvent('recordingClose');
-            //this.initRecordFinishEvent('recordingCloseButton');
-        },
-
-        initRecordFinishEvent : function (id){
-           var recordingHeaderCont = document.getElementById('recordingHeader');
-            //recordingHeaderCont.innerHTML = virtualclass.lang.getString('uploadsessionfinish'); // reset the value for upload message for next time
-            recordingHeaderCont.innerHTML = ''; // reset the value for upload message for next time
-            //recordingHeaderCont.classList.add('removeHeader');
-            recordingHeaderCont.parentNode.classList.add('removeHeader');
-
-            // For clear session If user does refresh page without click on close button
-            virtualclass.recorder.doSessionClear = true;
-            var recordingCloseElem = document.getElementById(id);
-            recordingCloseElem.addEventListener('click', function (){
-                    virtualclass.recorder.uploadInProcess = false;
-                setTimeout(
-                    function (){
-                        delete virtualclass.recorder.doSessionClear;
-                        var recordingContainer = document.getElementById('progressContainer');
-                        recordingContainer.style.display = 'block';
-
-                        var recordFinishedMessageBox = document.getElementById('recordFinishedMessageBox');
-                        recordFinishedMessageBox.style.display = 'none';
-                        recordingHeaderCont.innerHTML = virtualclass.lang.getString('uploadsession') //Set default message
-
-                        //recordingHeaderCont.classList.remove('removeHeader');
-                        recordingHeaderCont.parentNode.classList.remove('removeHeader');
-
-                        virtualclass.recorder.startNewSessionAfterFinish();
-                        console.log('Socket ' + io.sock.readyState);
-                        virtualclass.popup.closePopup(); // Does not need popup, it says application is trying to connect
-                        io.disconnect();
-                        setTimeout(
-                            function(){
-                                if(!io.webSocketConnected()){
-                                    // wait and see if there application is connected by io
-                                    // if not connect, connect it
-                                    io.wsconnect();
-                                }
-                            }, 1500
-                        );
-
-                    }, 300
-                );
-            });
-        },
-
-        startNewSessionAfterFinish : function (){
-            var recordingContainer = document.getElementById('recordingContainer');
-            recordingContainer.classList.add('recordingFinished');
-
-            console.log('Record :- after recording');
-            notSend = "nosend";
-            virtualclass.clearSession(notSend);
-
-            virtualclass.pbar.renderProgressBar(0, 0, 'progressBar', 'progressValue');
-            virtualclass.pbar.renderProgressBar(0, 0, 'indProgressBar', 'indProgressValue');
-            recordingContainer.classList.remove('recordingFinished');
-        },
-
-        afterRecording: function () {
-            chunkNum = 1;
-            virtualclass.recorder.rdlength  = 0;
-            var progressBarContainer = document.getElementById('progressContainer');
-            progressBarContainer.style.display = 'none';
-            virtualclass.recorder.uploadFinishedBox();
-
-        },
-
-
-        makeAvailDownloadFile: function () {
-            console.log('Recorder:- DOWNLLOAD MESSAGE');
-            // var pbar = document.getElementById('recordingContainer');
-            var pbar = document.getElementById('recordingContainer')
-            var elemDisp = window.getComputedStyle(pbar).display;
-            if(elemDisp == 'none' || elemDisp != 'block'){
-                // if there is another popup, we displays the download popup
-                // this happens when user is disconnected
-                // and try to reconnect, we do display the popup for download session
-                // set timeout set because there is multiple tries for connection which is a problem
-
-                setTimeout(
-                    function (){
-                        virtualclass.popup.openProgressBar();
-                        io.disconnect();
-                    }, 3000
-                );
-            }
-
-
-            var downloadLinkCont = document.getElementById('downloadFileCont');
-            if(downloadLinkCont == null){
-                downloadLinkCont = document.createElement('div');
-                downloadLinkCont.id = "downloadFileCont";
-            }
-
-
-            var downloadMsg = document.createElement('div');
-            downloadMsg.id = "errormsessage";
-            downloadMsg.innerHTML = virtualclass.lang.getString('msgForDownloadStart');
-
-            var progressContainer = document.getElementById('progressContainer');
-            progressContainer.style.display = 'none';
-
-            downloadLinkCont.appendChild(downloadMsg);
-            var pbar2 = document.querySelector('#recordingContainer .rv-vanilla-modal-body');
-            pbar2.appendChild(downloadLinkCont);
-
-            this.alreadyDownload = true;
-            var that = this;
-            
-            virtualclass.storage.getAllDataForDownload(['chunkData'], function (data) {
-                // diconnecting with others for prevent to send any unknown packets.
-                virtualclass.gObj.saveSession = true;
-                var downloadButton = document.createElement('button');
-                downloadButton.id = 'downloadButton';
-                downloadButton.className = 'cgText';
-                downloadButton.innerHTML = virtualclass.lang.getString('downloadFile');
-
-
-                var downloadLink = document.createElement('a');
-                downloadLink.id = "dlink";
-                downloadLink.href = "";
-                downloadLink.download = "session.vcp";
-                downloadLink.innerHTML = virtualclass.lang.getString('download');
-                if(roles.isStudent() && virtualclass.gObj.has_ts_capability){
-                     downloadMsg.innerHTML = virtualclass.lang.getString('filetsaveTS');
-                } else {
-                    downloadMsg.innerHTML = virtualclass.lang.getString('filenotsave');
-                }
-                
-                
-                downloadLinkCont.appendChild(downloadButton);
-                var recordingHeaderCont = document.getElementById('recordingHeader');
-                recordingHeaderCont.innerHTML = virtualclass.lang.getString('downloadFile');
-
-                var textFileAsBlob = new Blob([data], {type: "application/virtualclass"});
-                if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
-                    virtualclass.prevScreen.unShareScreen();
-                }
-
-                downloadButton.addEventListener('click', function () {
-                    //virtualclass.clearSession();
-                    if (window.webkitURL != null) {
-                        // Chrome allows the link to be clicked
-                        // without actually adding it to the DOM.
-                        downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-                    } else {
-                        // Firefox requires the link to be added to the DOM
-                        // before it can be clicked.
-                        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-                        downloadLink.onclick = destroyClickedElementForFirefox;
-                        document.body.appendChild(downloadLink);
-                    }
-                    downloadLink.click();
-
-
-                    recordingHeaderCont = document.getElementById('recordingHeader');
-                    recordingHeaderCont.innerHTML = virtualclass.lang.getString('uploadsession'); // reset the value for upload message for next time
-                    downloadLinkCont.parentNode.removeChild(downloadLinkCont);
-                    progressContainer.style.display = 'block';
-                    if(virtualclass.recorder.hasOwnProperty('dataCame')){
-                        clearTimeout(virtualclass.recorder.dataCame);
-                    }
-                    
-                    delete virtualclass.gObj.saveSession;
-                    
-                    if(!virtualclass.gObj.has_ts_capability){
-                        virtualclass.clearSession();
-                        io.disconnect(); // there was not completely disconnected
-                        io.init(virtualclass.uInfo); // During the download session we don't try for new socket connection but here.
-                    }else {
-                        that.alreadyDownload = false;
-                        if(virtualclass.recorder.hasOwnProperty('startUpload')){
-                            delete virtualclass.recorder.startUpload;
-                        }
-
-                        if(virtualclass.gObj.hasOwnProperty('downloadProgress')){
-                            delete virtualclass.gObj.downloadProgress;
-                        }
-                        virtualclass.recorder.storeDone = 0;
-                        virtualclass.popup.closeElem();
-                    }
-
-                    virtualclass.popup.closePopup();
-                });
-            });
-        },
-
-        sendDataToServer: function () {
-            var that = this;
-
-            var t = virtualclass.storage.db.transaction(["chunkData"], "readwrite");
-            var objectStore = t.objectStore("chunkData");
-            objectStore.clear();
-
-            virtualclass.popup.waitBlockAction('none');
-
-            if (!!window.Worker) {
-                mvDataWorker.postMessage({
-                    rdata: virtualclass.recorder.items,
-                    //  totalStored: virtualclass.storage.totalStore,
-                    makeChunk: true
-                });
-
-                // Every time the data is sending, the function
-                // is declaring as expression which is not good
-                mvDataWorker.onmessage = function (e) {
-                    if(e.data.hasOwnProperty('done_problem')){
-                        console.log('done problem');
-                        // TODO this should be removed
-                    }else if(e.data.hasOwnProperty('status')){
-                        if(e.data.status == 'done'){
-                            console.log('Recorder:- done');
-                            delete virtualclass.recorder.startUpload;
-
-                            virtualclass.recorder.recordDone = true;
-                        }
-                    }
-                    virtualclass.storage.chunkStorage(e.data);
-                }
-            }
+            return {h : hour, m: minutes, s: seconds};
         },
 
         displayWaitPopupIfNot: function () {
             if (this.waitPopup == false) {
                 virtualclass.popup.sendBackOtherElems();
-
                 var recordingContainer = document.getElementById("recordingContainer");
                 recordingContainer.style.display = "none";
-
                 virtualclass.popup.waitBlockAction('block');
-
                 virtualclass.pbar.renderProgressBar(0, 0, 'downloadProgressBar', 'downloadProgressValue');
-
                 virtualclass.popup.waitBlock();
-
                 this.waitPopup = true;
             }
         },
 
-        /**
-         * vcSessionId =  recording session id
-         * reqFile = File number (starting from 1)
-         **/
-        requestDataFromServer: function (vcSessionId, reqFile) {
-            console.log('request file from requestDataFromServer ' + reqFile);
-            this.displayWaitPopupIfNot(virtualclass.lang.getString("plswaitwhile"));
-            var formData = new FormData();
-            //formData.append("record_data", "true");
-            formData.append("prvfile", reqFile);
-            formData.append("fileBundelId", vcSessionId);
-            //formData.append("user", virtualclass.gObj.uid);
+        requestDataFromServer: function (file) {
+            if(this.isFileVcp(file)){
+                if(!this.alreadyRequested[file]){
+                    console.log('requested file ' + file);
+                    // this.displayWaitPopupIfNot(virtualclass.lang.getString("plswaitwhile"));
 
-            /* Course moudle id is required by Moodle 
-             * for validation and security. In export file path
-             * cmid is attached as query string. Here we extract
-             * name & value of query string and passed to moodle
-             * play_recording file
-             */
-            var urlquery = getUrlVars(exportfilepath);
-            if(urlquery.hasOwnProperty('cmid')){
-                formData.append("id", urlquery.cmid);
-            }
+                    var fileUrl = "https://recording.congrea.net/" + wbUser.lkey+ '/' + wbUser.room+ '/' + virtualclass.recorder.session+'/' + file;
+                    virtualclass.recorder.xhr[file] =  new XHR();
+                    virtualclass.recorder.xhr[file].init();
+                    virtualclass.recorder.xhr[file].loadData(fileUrl, this.afterDownloading.bind(this, file));
 
-            //virtualclass.xhr.send("record_data=true&prvfile="+reqFile+"&user="+virtualclass.gObj.uid, 'export.php', function
-            virtualclass.xhr.send(formData, exportfilepath, function
-                    (data) {
-                    virtualclass.recorder.sendToWorker(data, vcSessionId);
-                }
-            );
-        },
-
-        sendToWorker: function (encodeData, vcSessionId) {
-            if (!!window.Worker) {
-                mvDataWorker.postMessage({
-                    rdata: encodeData,
-                    getData: true
-                });
-
-                mvDataWorker.onmessage = function (e) {
-                    reqFile++;
-                    if(e.data.hasOwnProperty('error')){
-                        console.log("some error " + reqFile);
-                        console.log("request file " + reqFile);
-                        //virtualclass.recorder.requestDataFromServer(vcSessionId, reqFile);
-                    }else {
-
-                        var isUptoBase = virtualclass.recorder.isUptoBaseValue(e.data.alldata.totalSent, e.data.alldata.totalStore, 30);
-                        virtualclass.recorder.ctotalStore = e.data.alldata.totalStore;
-                        virtualclass.recorder.ctotalSent = e.data.alldata.totalSent;
-
-
-                        virtualclass.pbar.renderProgressBar(e.data.alldata.totalStore, e.data.alldata.totalSent, 'downloadProgressBar', 'downloadProgressValue');
-
-                        if (isUptoBase && !virtualclass.recorder.alreadyAskForPlay) {
-                            if (e.data.alldata.totalSent > e.data.alldata.totalStore) {
-                                virtualclass.recorder.askToPlay("completed");
-                            } else {
-                                virtualclass.recorder.askToPlay();
-                            }
-
-                            virtualclass.recorder.alreadyAskForPlay = true;
-                            virtualclass.recorder.tempRecData.push(e.data.alldata.rdata);
-                        } else if (isUptoBase && virtualclass.recorder.playStart && virtualclass.recorder.waitServer == false) {
-                            virtualclass.recorder.init(e.data.alldata.rdata);
-                        } else {
-                            virtualclass.recorder.tempRecData.push(e.data.alldata.rdata);
-                            if (virtualclass.recorder.waitServer == true) {
-                                virtualclass.recorder.alreadyPlayed = true;
-                            }
-                        }
-
-
-                        if (!e.data.alldata.rdata[e.data.alldata.rdata.length - 1].hasOwnProperty('sessionEnd')) {
-                            console.log("request file " + reqFile);
-                            virtualclass.recorder.requestDataFromServer(vcSessionId, reqFile);
-                        } else {
-                            console.log('Request file  Finished Here');
-                            virtualclass.recorder.allFileFound = true;
-
-                            if (virtualclass.recorder.waitServer == true) { //if earlier replay is interrupt
-                                virtualclass.storage.config.endSession();
-                                var mainData = virtualclass.recorder.tempRecData.reduce(function (a, b) {
-                                    return a.concat(b);
-                                });
-
-                                virtualclass.recorder.objn = 0;
-                                virtualclass.recorder.init(mainData);
-                                virtualclass.recorder.play();
-                                virtualclass.recorder.waitServer = false;
-                                virtualclass.popup.closeElem();
-                            }
-                        }
+                }else {
+                    console.log('Already requested file ' + file);
+                    if (virtualclass.recorder.totalRecordingFiles.length > 0){
+                        var NextfileName = virtualclass.recorder.totalRecordingFiles.shift(); // Call Next
+                        virtualclass.recorder.requestDataFromServer(NextfileName);
                     }
                 }
             }
         },
 
+        afterDownloading (file, data) {
+            if(data == 'ERROR'){
+                setTimeout( ()=> { virtualclass.recorder.requestDataFromServer(file); }, 500);
+            } else {
+                if (virtualclass.recorder.totalRecordingFiles.length > 0){
+                    var NextfileName = virtualclass.recorder.totalRecordingFiles.shift(); // Call Next
+                    virtualclass.recorder.requestDataFromServer(NextfileName);
+
+                }
+                virtualclass.recorder.rawDataQueue[file] = {file: file, data : data};
+                this.formatRecording(file)
+                this.alreadyRequested[file] = true;
+                // this.UIdownloadProgress(file);
+            }
+        },
+
+        isFirstPacket (file){
+            var fileObj = virtualclass.recorder.orginalListOfFiles[file];
+            return (fileObj != null && fileObj.index == 0);
+        },
+
+        isPacketInSerial (file) {
+            if(this.prevFile != null){
+              return (this.orginalListOfFiles[this.prevFile].next === file || this.orginalListOfFiles[this.prevFile].next === 'end');
+            }
+        },
+
+        formatRecording (file){
+            if(this.isFirstPacket(file) || this.isPacketInSerial(file) && Object.keys(this.rawDataQueue).length > 0){
+                let recording = this.rawDataQueue[file];
+                if(recording != null){
+                    this.makeRecordingQueue(recording.file, recording.data);
+                    delete this.rawDataQueue[recording.file];
+                    this.prevFile = recording.file;
+                    var nextFile = this.orginalListOfFiles[recording.file].next;
+                    if(nextFile !== 'end' ){
+                        this.formatRecording(nextFile);
+                    }
+                }
+            }
+        },
+
+        isFileVcp (file) {
+            return file != null  && file.match(/^.*\.(vcp)$/) != null;
+        },
+
+        calculateNextTime (currentTime, nextPacket) {
+            var metaData = nextPacket.substring(0, 21);
+            var data =  nextPacket.substring(22, nextPacket.length);
+            var [time, type] = metaData.split(' ');
+            time = Math.trunc(time / 1000000);
+            return ((time - currentTime));
+
+        },
+
+        insertPacketInto (chunk, miliSeconds) {
+            let totalSeconds = Math.trunc(miliSeconds/1000);
+            if(!isNaN(totalSeconds) && totalSeconds >= 1 ){
+                var data = {playTime : 1000, 'recObjs' : '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ', type :'J'};
+                for(let s = 0; s<totalSeconds; s++){
+                    chunk.push(data);
+                }
+            }
+            return chunk;
+        },
+
+        makeRecordingQueue(file, rawData) {
+            console.log('File formatting ' + file);
+            var data, metaData;
+            var chunk = [];
+            var nextMinus = null;
+            var tempChunk = [];
+            var allRecordigns =  rawData.trim().split(/(?:\r\n|\r|\n)/g); // Getting recordings line by line
+
+            for(var i=0; i<allRecordigns.length; i++){
+                if(allRecordigns[i] != null && allRecordigns[i] != ''){
+                    this.totalElements++
+                    metaData = allRecordigns[i].substring(0, 21);
+                    data =  allRecordigns[i].substring(22, allRecordigns[i].length)
+                    var [time, type] = metaData.split(' ');
+                    this.tempTime = time;
+                    time = Math.trunc(time / 1000000); /** Converting time, from macro to mili seconds **/
+                    if(this.refrenceTime != null){
+                        if(nextMinus){
+                            this.tempPlayTime = (time - this.refrenceTime ) - nextMinus;
+                            nextMinus = null;
+                        }else {
+                            this.tempPlayTime = (time - this.refrenceTime );
+                        }
+                    }
+
+                    if(this.hasOwnProperty('tempRefrenceTime')){
+                        tempChunk.push(Math.trunc((this.tempTime - this.tempRefrenceTime) / 1000000));
+                    }else {
+                        tempChunk.push(150);
+                    }
+
+                    if(data  != null && data != ''){
+                        if(this.lastFileTime && i === 0){
+                            let prvTotalMiliSeconds =  Math.trunc((time - this.lastFileTime));
+                            chunk = this.insertPacketInto(chunk, prvTotalMiliSeconds);
+                            this.tempPlayTime = (prvTotalMiliSeconds > 1000) ? prvTotalMiliSeconds % 1000 : prvTotalMiliSeconds;
+                        }
+
+                        if(i === (allRecordigns.length - 1)){
+                            this.lastFileTime = time;
+                        }
+
+                        chunk.push({playTime : this.tempPlayTime, 'recObjs' : data, type :type});
+
+                        if(typeof allRecordigns[i+1] != 'undefined') {
+                            let nextMiliSeconds = this.calculateNextTime(time, allRecordigns[i + 1]);
+                            chunk = this.insertPacketInto(chunk, nextMiliSeconds, true);
+                            if(nextMiliSeconds >= 1000){
+                                nextMinus = (Math.trunc(nextMiliSeconds/1000) * 1000);
+                            }
+                        }
+                        this.refrenceTime = time;
+                        this.tempRefrenceTime = this.tempTime
+                    }
+                }
+            }
+
+            console.log('totalTime in seconds ' + (this.totalTimeInMiliSeconds / 1000));
+            var binData;
+            for (var k = 0; k < chunk.length; k++) {
+                if (chunk[k].type == 'B') {
+                    binData = virtualclass.dtCon.base64DecToArr(chunk[k].recObjs);
+                    chunk[k].recObjs = binData;
+                }
+            }
+
+            this.masterRecordings.push(chunk);
+            this.orginalTimes.push(tempChunk);
+
+            this.UIdownloadProgress(file);
+
+            if((this.currentMin > 3  || this.lastFile == file ) && this.masterRecordings.length > 0 ) { // Starts playing after 5 mins of download
+                if(this.playStart){
+                    this.startToPlay();
+                }else {
+                    if(!this.alreadyAskForPlay){
+                        this.alreadyAskForPlay = true;
+                        this.askToPlay();
+                    }
+
+                }
+            }
+        },
+
+        handleStartToPlay (ev) {
+            var ContinueBtn = document.querySelector(".rv-vanilla-modal-overlay.is-shown");
+            if(ContinueBtn != null){
+                ContinueBtn.removeEventListener('click', this.handleStartToPlay.bind(this));
+            }
+            virtualclass.gesture.clickToContinue();
+            console.log('===== Start to play');
+            this.startToPlay();
+            ev.currentTarget.classList.remove('askToPlayCont');
+        },
+
+        startToPlay (){
+            if (!this.playStart) {
+                this.playStart = true;
+                this.playInt();
+                virtualclass.popup.closeElem();
+            } else if (this.hasOwnProperty('isPausedByNotPresent')) {
+                delete this.isPausedByNotPresent;
+                this.subRecordingIndex = 0;
+                this.subRecordings = this.masterRecordings[this.masterIndex];
+                this.controller._play()
+                virtualclass.popup.closeElem();
+            }
+        },
+
+        isDownloadedAllRecordings (singleFileTime) {
+            if(this.sessionStartTime > RECORDING_TIME){
+                return (singleFileTime >= virtualclass.recorder.lastTimeInSeconds)
+            }else {
+                return false;
+            }
+
+        },
+
+        finishRequestDataFromServer (singleFileTime) {
+            if(this.isDownloadedAllRecordings(singleFileTime)){
+                virtualclass.recorder.allFileFound = true;
+                if(!virtualclass.recorder.alreadyAskForPlay){
+                    // virtualclass.recorder.askToPlay("completed");
+                } else {
+                    var askToPlayMsg = document.getElementById('askplayMessage');
+                    if(askToPlayMsg != null){
+                        askToPlayMsg.innerHTML = virtualclass.lang.getString('playsessionmsg');
+                    }
+                }
+            }
+        },
+
+        UIdownloadProgress (file) {
+            var singleFileTime = virtualclass.recorder.getTimeFromFile(file); // Getting time stamp 112021210
+            var currentMin = ( singleFileTime - this.firstTimeInSeconds) / 60;
+            if (currentMin > this.currentMin) {
+                this.currentMin = currentMin;
+            }
+
+            let totalMin = virtualclass.recorder.totalTimeInMiliSeconds/1000/60;
+            this.downloadInPercentage = ((this.currentMin * 100) /  totalMin);
+            virtualclass.pbar.renderProgressBar(totalMin, this.currentMin, 'downloadProgressBar', 'downloadProgressValue');
+            this.finishRequestDataFromServer(singleFileTime);
+
+            if (virtualclass.recorder.playStart && !virtualclass.recorder.waitServer) {
+                virtualclass.recorder.init();
+            }
+        },
 
         playInt: function () {
-
-            //convert [[1, 3], [3, 5]] TO [1, 3, 3, 5]
-            var mainData = virtualclass.recorder.tempRecData.reduce(function (a, b) {
-                return a.concat(b);
-            });
+            console.log('=====Play init recording=====');
             virtualclass.popup.closeElem();
-            virtualclass.recorder.init(mainData);
-            virtualclass.recorder.playStart = true;
-            virtualclass.recorder.tempRecData.length = 0;
+            virtualclass.recorder.init(virtualclass.recorder.masterRecordings);
+            // virtualclass.recorder.playStart = true;
             localStorage.setItem('mySession', 'thisismyplaymode');
             virtualclass.recorder.initController();
             virtualclass.media.audio.initAudiocontext();
+         },
 
-//                var playController = document.getElementById('playController');
-//                playController.style.display = 'block';
+
+        askToPlay: function () {
+            var loadingWindow = document.querySelector('#loadingWindowCont .loading');
+//            loadingWindow.style.display = 'none';
+
+            var askToPlay = document.querySelector('#loadingWindowCont .askToPlay');
+//            askToPlay.style.display = 'block';
+
+            var loadingWindowCont = document.querySelector('#loadingWindowCont');
+            var ContinueBtn = document.querySelector(".rv-vanilla-modal-overlay.is-shown");
+            ContinueBtn.addEventListener('click', this.handleStartToPlay.bind(this));
+
+            var loadingAskToPlay = document.querySelector('#loadingWindowCont .askToPlay');
+            if(loadingAskToPlay != null){
+                loadingAskToPlay.addEventListener('click', this.handleStartToPlay.bind(this));
+            }
+
+            var playPopup = document.getElementById("popupContainer");
+            playPopup.classList.add("playPopup");
+            
+            ContinueBtn.classList.add('askToPlayCont');
         },
 
+        playProgressOutput (ev){
+            console.log('Offset ', ev.offsetX);
+        },
 
-        /**
-         * If packet is ready(40% for now) then ask to user for play.
-         * @param downloadFinish is expecting the lable for finishing the download session
-         */
-        askToPlay: function (downloadFinish) {
-            if (typeof downloadFinish != 'undefined') {
-                document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
-
+        getOffset (e){
+            if(e.type == 'touchend'){
+                e = this.lastEvent
             } else {
+                e.offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
+                e.offsetY = e.touches[0].pageY - e.touches[0].target.offsetTop;
+            }
+            this.lastEvent = e;
+            return e;
+        },
 
-                document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('askplayMessage');
+        seekHandler (ev){
+            if(ev.offsetX == undefined){
+                ev = this.getOffset(ev);
             }
 
-            var askPlayCont = document.getElementById('askPlay');
-            askPlayCont.style.display = 'block';
+            this.pauseBeforeSeek = this.controller.pause;
 
-            var that = this;
-            var playButton = document.getElementById("playButton");
-            if (playButton != null) {
-                playButton.style.display = 'block';
-                playButton.addEventListener('click', that.playInt);
+            if(!this.startSeek){
+                this.startSeek = true;
+                var virtualclassCont = document.querySelector('#virtualclassCont');
+                if(virtualclassCont != null){
+                    virtualclassCont.classList.add('recordSeeking');
+                }
+
+                let clickedPosition =  ev.offsetX;
+                let containerWidth = this.getCustomWidth();
+                let seekValueInPer = (clickedPosition / containerWidth) * 100;
+
+                this.seekValueInPercentage = seekValueInPer;
+
+                console.log("====Seek start " + this.seekValueInPercentage + ' ev current target=' + ev.currentTarget.id);
+            }else {
+                console.log('Earlier seek start is not end yet.');
             }
         },
 
-        isUptoBaseValue: function (totalRecevied, totalPack, base) {
-            if (totalRecevied >= (totalPack * base) / 100) {
-                return true;
-            }
-            return false;
+        getCustomWidth () {
+            var widthPlayProgress = document.getElementById('downloadProgress').clientWidth - 1; // 1 is given to handle long session
+            return widthPlayProgress;
         },
+
+        seek (seekPointPercent) {
+            let index = this.getSeekPoint(seekPointPercent);
+            // console.log('Total till play, Index val master index ' + index.master + ' sub index' + index.sub + ' in percent' + seekPointPercent);
+            let subLength;
+
+            if((index.master < this.masterIndex) || (index.master == this.masterIndex && index.sub < this.subRecordingIndex) ){
+                this.replayFromStart();
+            }
+
+            this.controller._pause();
+         //   this.initRecPause();
+
+            // var binarySyncUnshareMsg = null;
+            while (this.masterIndex <= index.master){
+                subLength = (this.masterIndex != index.master) ? this.masterRecordings[this.masterIndex].length : index.sub;
+                for(let j =  this.subRecordingIndex; j < subLength; j++ ){
+                    try {
+                        if(this.subRecordings[this.subRecordingIndex].type != 'B'){
+                           this.msg =  io.cleanRecJson(this.subRecordings[this.subRecordingIndex].recObjs);
+                            if(this.msg.indexOf('"m":{"unshareScreen"') > -1){
+                                this.binarySyncMsg = null;
+                            }else if(this.msg.indexOf('},"m":{"poll":{"pollMsg":"stdPublish",') > -1){
+                                // syncMsg =  {app : 'Poll', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}}
+                                virtualclass.poll.recordStartTime = {app : 'Poll', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}}
+                            }  else if (this.msg.indexOf('"m":{"videoUl":{"content_path"') > -1){
+                                virtualclass.videoUl.videoStartTime = {app : 'Video', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}}
+                                // console.log('Capture video');
+                            }else if(this.msg.indexOf('"m":{"quiz":{"quizMsg":"stdPublish"') > -1){
+                                // console.log('Capture Quiz');
+                                virtualclass.quiz.quizStartTime = {app : 'Quiz', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}};
+                            }
+
+                            io.onRecMessage(this.convertInto({data : this.msg}));
+                            // console.log('Execute sync packet', this.msg);
+                        } else { // Binary
+                            this.msg = this.subRecordings[this.subRecordingIndex].recObjs;
+
+                            if(this.msg[0] == 104 || this.msg[0] == 204 || this.msg[0] == 102 || this.msg[0] == 202){ // Full Image of screen share
+                                if (this.msg[1] == 0 || this.msg[1] == 1) { // Either first packet or full packet
+                                    this.binarySyncMsg = {data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}};
+                                }
+                            }
+
+                            if (virtualclass.currApp == 'ScreenShare') {
+                                if(this.msg[0] == 104 || this.msg[0] == 204 || this.msg[0] == 103 || this.msg[0] == 203 || this.msg[0] == 102 || this.msg[0] == 202){
+                                    // console.log('Screen type', this.msg[0] + ' masterIndex ' + this.masterIndex + ' secondaryIndex ' + this.subRecordingIndex);
+                                    io.onRecMessage(this.convertInto({data : this.msg}));
+                                    this.binarySyncMsg = null;
+                                }
+                            }
+                        }
+                        this.collectElapsedPlayTime();
+                    } catch (e) {
+                        // console.log('PLAY ERROR ' + e.errorCode);
+                    }
+                    this.subRecordingIndex++;
+                }
+
+                this.elapsedRecTime = this.elapsedTime = this.elapsedPlayTime;
+
+                /* When seek point is found exit the while loop**/
+                if(this.masterIndex == index.master && index.sub == this.subRecordingIndex){
+
+                    console.log('Seek index ' + this.subRecordings[this.subRecordingIndex])
+
+                    console.log('Seek index i = ' + index.master +  ' j=' + index.sub);
+                    this.triggerPlayProgress();
+                    // console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
+                    if(this.binarySyncMsg){
+                        // this.handleSyncPacket (syncMsg, this.binarySyncMsg);
+                        this.handleSyncPacket ();
+                        this.binarySyncMsg = null;
+                    }
+                    this.handleSyncStringPacket();
+
+                    // console.log('Total till play time in milisecondds ' + this.elapsedPlayTime + ' execute indexes master ' + this.masterIndex + ' sub' + this.subRecordingIndex);
+                    break;
+                } else {
+                    this.subRecordingIndex = 0;
+                    this.masterIndex++;
+                    this.subRecordings = this.masterRecordings[this.masterIndex];
+                }
+            }
+            console.log('seek is finished');
+        },
+
+        handleSyncStringPacket () {
+            if(virtualclass.currApp == 'Poll' && typeof virtualclass.poll.pollState.data == 'object' && virtualclass.poll.hasOwnProperty('recordStartTime')){
+                var pollStartTime = this.getTotalTimeInMilSeconds(virtualclass.poll.recordStartTime.data.masterIndex, virtualclass.poll.recordStartTime.data.subIndex) ;
+                if(virtualclass.poll.dataRec.setting.timer){ // showTimer() for remaining time
+                    var pollData = virtualclass.poll.pollState;
+                    this.pollUpdateTime(pollStartTime, pollData);
+                }else {
+                    var pollElapsedtime = this.elapsedPlayTime - pollStartTime;
+                    var timer = this.convertIntoReadable(pollElapsedtime);
+                    virtualclass.poll.dataRec.newTime.min = timer.m;
+                    virtualclass.poll.dataRec.newTime.sec = timer.s;
+                    virtualclass.poll.elapsedTimer();
+                    // for elapsed timer
+                }
+            }else if(virtualclass.currApp == 'Video' && typeof virtualclass.videoUl == 'object' &&
+                virtualclass.videoUl.hasOwnProperty('videoStartTime')){
+                var videoStartTime = this.getTotalTimeInMilSeconds(virtualclass.videoUl.videoStartTime.data.masterIndex, virtualclass.videoUl.videoStartTime.data.subIndex) ;
+                var videoElapsedtime = (this.elapsedPlayTime - videoStartTime);
+                var videoSeekTime = (this.elapsedPlayTime - videoStartTime) / 1000;
+
+                if(typeof virtualclass.videoUl.player == 'object'){
+                    virtualclass.videoUl.playVideo(videoSeekTime);
+                }else {
+                    console.log('====Video init to play start');
+                    if(this.pauseBeforeSeek){
+                        virtualclass.videoUl.isPaused = true;
+                    }else {
+                        virtualclass.videoUl.isPaused = false;
+                    }
+                    virtualclass.videoUl.startTime = videoSeekTime;
+
+
+                }
+            }else if(virtualclass.currApp == 'Quiz' && typeof virtualclass.quiz == 'object'){
+                // virtualclass.quiz.plugin.method.completeQuiz({callback: virtualclass.quiz.plugin.config.animationCallbacks.completeQuiz});
+
+                var timeDisplayInto  = document.querySelector('#qztime');
+                var quizStartTime = this.getTotalTimeInMilSeconds(virtualclass.quiz.quizStartTime.data.masterIndex, virtualclass.quiz.quizStartTime.data.subIndex);
+                if(+(virtualclass.quiz.plugin.config.quizTime) > 0){
+                    var quizTimeInMiliSeconds = virtualclass.quiz.plugin.config.quizTime * 1000;
+                    var quizElapsedTime = (quizTimeInMiliSeconds - (this.elapsedPlayTime - quizStartTime));
+                    virtualclass.quiz.plugin.method.startTimer(quizElapsedTime/1000, timeDisplayInto, 'desc', 'vmQuiz');
+                } else {
+                    var quizElapsedTime = (this.elapsedPlayTime - quizStartTime) / 1000;
+                    virtualclass.quiz.plugin.method.startTimer(quizElapsedTime, timeDisplayInto, 'asc', 'vmQuiz');
+                }
+            }
+        },
+
+        pollUpdateTime (pollStartTime, pollData){
+            var minMiliseconds = pollData.data.stdPoll.newTime.min * 60 * 1000;
+            var secMiliseconds = pollData.data.stdPoll.newTime.sec * 1000;
+            var totalMiniSeconds = (minMiliseconds + secMiliseconds);
+            var toSeekTime = (totalMiniSeconds - (this.elapsedPlayTime - pollStartTime));
+            var timer = this.convertIntoReadable(toSeekTime);
+            virtualclass.poll.newTimer.sec = timer.s;
+            virtualclass.poll.newTimer.min = timer.m;
+            virtualclass.poll.showTimer(virtualclass.poll.newTimer);
+        },
+
+        handleSyncPacket () {
+            if (this.binarySyncMsg){
+                // if(this.binarySyncMsg != null && syncMsg.app == 'ss' && !this.binarySyncMsg.hasOwnProperty('unshareScreen')){
+                console.log('Get full screen share');
+                let startSubIndex = this.binarySyncMsg.data.subIndex;
+                let startMindex = this.binarySyncMsg.data.masterIndex;
+
+                while(startMindex <= this.masterIndex){
+                    console.log('Start from master index ' + startMindex + ' from Subindex ' + startSubIndex);
+                    let subRecordings =  this.masterRecordings[startMindex];
+                    let subLength =  null;
+
+                    if(this.masterIndex != startMindex){
+                        subLength =  this.masterRecordings[this.masterIndex].length;
+                    } else {
+                        subLength =  this.subRecordingIndex;
+                    }
+                    let j;
+                    for(j =  startSubIndex; j <= subLength; j++ ){
+                        this.msg = subRecordings[j] ;
+                        try {
+                            if(this.msg != null && this.msg.type == 'B'){
+                                this.msg = this.msg.recObjs;
+                                if(this.msg[0] == 104 || this.msg[0] == 204 || this.msg[0] == 103 || this.msg[0] == 203 || this.msg[0] == 102 || this.msg[0] == 202){
+                                    io.onRecMessage(this.convertInto({data : this.msg}));
+                                }
+                            }else {
+                                console.log('Either this.msg is null or string');
+                            }
+
+                        } catch (e) {
+                            console.log('PLAY ERROR ' + e.errorCode);
+                        }
+                    }
+
+                    if (this.masterIndex == startMindex && j == this.subRecordingIndex ){
+                        break; //exit from main loop
+                    } else {
+                        startMindex++
+                        startSubIndex = 0;
+                    }
+                }
+                console.log('===== Elapsed time 2 ==== ' + this.elapsedPlayTime);
+                this.playProgressBar(this.elapsedPlayTime);
+                // }
+            }
+        },
+
+        getSeekPoint (seekPointPercent) {
+            var seekVal = Math.trunc((this.totalTimeInMiliSeconds * seekPointPercent ) / 100);
+            console.log('Seek index ' + seekVal);
+            /** Todo THIS should be optimize, don't use nested loop **/
+            var totalTimeMil = 0;
+            for (var i=0; i<this.masterRecordings.length; i++){
+                for (var j=0; j<this.masterRecordings[i].length; j++){
+                    totalTimeMil += this.masterRecordings[i][j].playTime;
+                    if(totalTimeMil == seekVal){
+                        return {master :  i, sub : j};
+                        console.log('Seek index i = ' + i +  ' j=' + j + ' totalTime=' + totalTimeMil);
+                    }else if (totalTimeMil >= seekVal){
+                        if (j > 0) {
+                            j--;
+                        } else {
+                            i--;
+                            if(i >= 0){
+                                j = (this.masterRecordings[i].length - 1);
+                            }else {
+                                j = 0;
+                            }
+
+                        }
+                        console.log('Seek index i = ' + i +  ' j=' + j + ' totalTime=' + totalTimeMil);
+                        return {master :  i, sub : j};
+                    }
+                }
+            }
+        },
+
 
         play: function () {
-            if (this.objn == 0) {
-                var recPlayCont = document.getElementById("recPlay");
-                //recPlayCont.classList.add("controlActive");
-                this.doControlActive(recPlayCont);
-            }
+            if (this.controller.pause) { return;}
+            this.config();
+            if(this.isPlayFinished()){
+                if(this.allFileFound){
+                    this.askAgainToPlay();
+                }else {
+                    /** wait till next file is downloaded**/
+                    this.controller._pause();
+                    // virtualclass.popup.loadingWindow();
+                    this.initReplayWindow();
+                    var loading =  document.querySelector('#loadingWindowCont .loading');
+                    loading.style.display = 'block';
 
-            var that = this;
-
-            if (this.controller.pause) {
-                return;
-            }
-
-            if (typeof that.playTimeout != 'undefined' || that.playTimeout != "") {
-                clearTimeout(that.playTimeout);
-            }
-            if (!this.hasOwnProperty('playTime')) {
-
-                this.playTime = this.items[0].playTime;
-                if(this.playTime > 3000){
-                    this.playTime = 3000;
+                    var askToPlay =  document.querySelector('#loadingWindowCont .askToPlay');
+                    askToPlay.style.display = 'none';
+                    this.isPausedByNotPresent = true;
                 }
-                e.data = JSON.parse(this.items[this.objn].recObjs);
-                io.cfg = e.data;
-
-                //virtualclass.gObj.uRole = io.cfg.userobj.role;
-
-                virtualclass.gObj.uRole = 's'; //if teacher sets there would ask for choose screen share
-                // TODO this need to find why this below line are using
-                // TODO validate also After disabled, all recording are working properly
-
-                //virtualclass.gObj.uName = io.cfg.userobj.name;
-                //virtualclass.gObj.uid = io.cfg.userobj.userid;
-
-
-            }
-
-            if ((typeof this.items[this.objn + 1] == 'undefined') || (this.items[this.objn].hasOwnProperty('sessionEnd'))) {
-//                if(this.items[this.objn].hasOwnProperty('sessionEnd')){
-                if (!this.items[this.objn].hasOwnProperty('sessionEnd')) {
-                    e.data = this.items[this.objn].recObjs;
-                    io.onRecMessage(that.convertInto(e));
-                }
-
-                if (virtualclass.recorder.allFileFound == false) {
-                    //waiting for server response
-                    virtualclass.recorder.waitServer = true;
-                    virtualclass.recorder.waitPopup = false;
-                    this.displayWaitPopupIfNot();
-                    if (virtualclass.recorder.hasOwnProperty('ctotalStore') || virtualclass.recorder.hasOwnProperty('ctotalSent')) {
-//                            virtualclass.recorder.ctotalStore = e.data.alldata.totalStore;
-//                            virtualclass.recorder.ctotalSent = e.data.alldata.totalStore
-                        virtualclass.pbar.renderProgressBar(virtualclass.recorder.ctotalStore, virtualclass.recorder.ctotalSent, 'downloadProgressBar', 'downloadProgressValue');
-                    }
-                } else {
-
-                    //Play finished here
-                    if (this.items[this.objn].hasOwnProperty('sessionEnd')) {
-                        var playAct = document.querySelector("#dispVideo");
-                        if(virtualclass.videoUl && virtualclass.videoUl.player && playAct.classList.contains("vjs-playing")){
-                            virtualclass.videoUl.player.pause();
-                        }
-                        virtualclass.popup.replayWindow();
-                        virtualclass.popup.sendBackOtherElems();
-                        document.getElementById('replayClose').addEventListener('click',
-                            function () {
-                                window.close(); //handle to moodle way
-                            }
-                        );
-                        document.getElementById('replayButton').addEventListener('click', function () {
-                            virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
-                        });
-                    }
-                }
-
-                //return;
-            } else {
-                that.playTimeout = setTimeout(function () {
-                    var ev = {};
-                    ev.data = that.items[that.objn].recObjs;
-                    try {
-                        io.onRecMessage(that.convertInto(ev));
-                    } catch (e) {
-                        console.log('PLAY ERROR ' + e.errorCode);
-                    }
-                    that.objn++;
-                    that.play.call(that);
-
-                    if (typeof that.items[that.objn] == 'object') {
-                        that.playTime = that.items[that.objn].playTime / that.controller.ff;
-                        that.tillPlayTime += (that.playTime * that.controller.ff);
-
-                        if ((that.allFileFound) && typeof that.items[that.objn + 1] == 'object') {
-                            that.playProgressBar();
-                            virtualclass.popup.sendBackOtherElems();
-                        }
-                    }
-                    // && that.totPlayTime > 0
-
-                }, that.playTime);
+            }else {
+                this.executePacketToPlay();
             }
         },
+
+        config () {
+            if (this.masterIndex == 0 && this.subRecordingIndex == 0) {
+                this.startTime = performance.now();
+                this.elapsedTime = 0;
+                this.elapsedRecTime = 0;
+                this.playTimePreviousSeconds = 0;
+                this.reserveTime = 0;
+                var recPlayCont = document.getElementById("recPlay");
+                this.doControlActive(recPauseCont);
+            }
+
+            if (typeof this.playTimeout != 'undefined' &&  this.playTimeout != "") {
+                clearTimeout(this.playTimeout);
+            }
+
+            if (!this.hasOwnProperty('playTime')) {
+                this.subRecordings = this.masterRecordings[this.masterIndex];
+                io.cfg = JSON.parse(this.subRecordings[this.subRecordingIndex].recObjs);
+                virtualclass.gObj.uRole = 's'; //if teacher sets there would ask for choose screen share
+            }
+        },
+
+        executePacketToPlay() {
+            this.calcPlayTime();
+            this.playTimeout = setTimeout(()=> {
+                this.triggerPlayProgress();
+                try {
+                    if(this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"cf":"sync"') < 0 ){
+                        // console.log('Execute real packet', this.subRecordings[this.subRecordingIndex].recObjs);
+                        // console.log("==== ElapsedTime playtime ", this.playTime + ' index='+this.masterIndex + ' subindex'+ this.subRecordingIndex);
+                        io.onRecMessage(this.convertInto({data : this.subRecordings[this.subRecordingIndex].recObjs}));
+                        if(virtualclass.currApp == 'Poll' &&
+                            this.subRecordings[this.subRecordingIndex].recObjs.indexOf('},"m":{"poll":{"pollMsg":"stdPublish",') > -1){
+                            virtualclass.poll.recordStartTime = {app : 'Poll', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}}
+                        }else if(virtualclass.currApp == 'Video' &&
+                            this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"videoUl":{"content_path"') > -1){
+                            virtualclass.videoUl.videoStartTime = {app : 'Video', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}}
+                            console.log('Capture video');
+                        } else if(virtualclass.currApp == 'Quiz' &&
+                            this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"quiz":{"quizMsg":"stdPublish",') > -1){
+                            virtualclass.quiz.quizStartTime = {app : 'Quiz', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}};
+                        }
+                    }
+                } catch (e) {
+                    console.log('PLAY ERROR ' + e.errorCode);
+                }
+                this.calcPlayTimeNext();
+                this.play();
+            }, this.playTime);
+        } ,
+
+
+        isPlayFinished (){
+            return ((typeof this.masterRecordings[this.masterIndex]  == 'undefined') &&
+                (typeof this.subRecordings == 'undefined' || typeof this.subRecordings[this.subRecordingIndex]  == 'undefined')  ||
+                ((typeof this.subRecordings != 'undefined' && typeof this.subRecordings[this.subRecordingIndex]  != 'undefined') &&
+                    this.subRecordings[this.subRecordingIndex].type == 'J' &&
+                 this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"sEnd"') > -1)
+            );
+        },
+
+        triggerPauseVideo (){
+            var playAct = document.querySelector("#dispVideo");
+            if(virtualclass.videoUl && virtualclass.videoUl.player){
+                console.log('VIDEO IS PAUSED');
+                virtualclass.videoUl.player.pause();
+                virtualclass.videoUl.isPaused  = true;
+            }
+        },
+
+
+        triggerPlayVideo (){
+            if(virtualclass.currApp == 'Video' && virtualclass.videoUl && virtualclass.videoUl.player){
+                console.log('VIDEO IS Played');
+                virtualclass.videoUl.player.play();
+                virtualclass.videoUl.isPaused  = false;
+            }
+        },
+
+        askAgainToPlay () {
+            if (this.subRecordings && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('sEnd') < 0) {
+                var e = {data:this.subRecordings[this.subRecordingIndex].recObjs};
+                // e.data = this.subRecordings[this.subRecordingIndex].recObjs;
+                io.onRecMessage(this.convertInto(e));
+            }
+
+            if (!virtualclass.recorder.allFileFound) {
+                virtualclass.recorder.waitServer = true;
+                virtualclass.recorder.waitPopup = false;
+                this.displayWaitPopupIfNot();
+
+            } else {
+                //Play finished here
+                if (virtualclass.recorder.allFileFound) {
+                    this.initReplayWindow()
+                    // this.triggerPauseVideo();
+                    // virtualclass.popup.replayWindow();
+                    // virtualclass.popup.sendBackOtherElems();
+                    // document.getElementById('replayClose').addEventListener('click',
+                    //     function () {
+                    //         window.close(); //handle to moodle way
+                    //     }
+                    // );
+                    // document.getElementById('replayButton').addEventListener('click', function () {
+                    //     virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
+                    // });
+                }
+            }
+        },
+
+        initReplayWindow  (){
+            this.triggerPauseVideo();
+            virtualclass.popup.replayWindow();
+            virtualclass.popup.sendBackOtherElems();
+            document.getElementById('replayClose').addEventListener('click',
+                function () {
+                    window.close(); //handle to moodle way
+                }
+            );
+            document.getElementById('replayButton').addEventListener('click', function () {
+                virtualclass.recorder.controller.pause = false;
+                virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
+
+            });
+        },
+
+
+        /** TODO, this should handle in proper way **/
+        getCurrentPacket (){
+            let currrentPacket = 0;
+            if(this.masterIndex > 0){
+                for(let i=0; i< this.masterIndex; i++){
+                    currrentPacket += this.masterRecordings[i].length;
+                }
+            }
+            return (currrentPacket + this.subRecordingIndex);
+        },
+
+        collectElapsedPlayTime () {
+            this.elapsedPlayTime += this.subRecordings[this.subRecordingIndex].playTime;
+            // console.log("==== elapsedPlayTime ",this.elapsedPlayTime);
+        },
+
+        triggerPlayProgress () {
+            this.collectElapsedPlayTime();
+            if(this.masterIndex == 0 && this.subRecordingIndex == 0){
+                this.playProgressBar(this.elapsedPlayTime);
+            } else {
+                this.playTimeNowSeconds = Math.round(this.elapsedPlayTime / 1000);
+                if (this.playTimeNowSeconds > this.playTimePreviousSeconds) {
+                   // this.playProgressBar(this.elapsedPlayTime, this.getCurrentPacket());
+                    this.playProgressBar(this.elapsedPlayTime);
+                    virtualclass.popup.sendBackOtherElems();
+                    this.playTimePreviousSeconds = this.playTimeNowSeconds;
+                }
+            }
+        },
+
+        calcPlayTime() {
+            if (typeof this.subRecordings[this.subRecordingIndex] == 'object') {
+                this.playTimePak = this.subRecordings[this.subRecordingIndex].playTime / this.controller.ff;
+            }
+
+            this.timeNow = performance.now();
+            this.diffTime = this.timeNow - this.startTime;
+            this.startTime = this.timeNow;
+            this.elapsedTime += this.diffTime;
+            this.playTime = Math.round(this.playTimePak - (this.elapsedTime - this.elapsedRecTime));
+            this.elapsedRecTime += this.playTimePak;
+
+            if (this.playTime < 0) {
+                this.playTime = 0;
+            }
+        },
+
+        calcPlayTimeNext() {
+            if((this.subRecordingIndex+1) == this.subRecordings.length){
+                this.masterIndex++;
+                this.subRecordings =  this.masterRecordings[this.masterIndex];
+                this.subRecordingIndex =  0 ;
+            }else {
+                this.subRecordingIndex++;
+            }
+        },
+
 
         initController: function () {
             var playControllerCont = document.getElementById('playControllerCont');
@@ -868,31 +1033,37 @@
                     };
                 }
 
-                //init play
-                var recPlay = document.getElementById('recPlay');
-                recPlay.addEventListener('click', function () {
-                    that.controller._play();
-                    that.doControlActive(this);
-                    if(virtualclass.videoUl && virtualclass.videoUl.player){
-                        virtualclass.videoUl.player.play();
-                    }
-                });
-
-                //init pause
+                var that = this;
                 var recPause = document.getElementById('recPause');
                 recPause.addEventListener('click', function () {
-                    that.controller._pause();
-                    that.doControlActive(this);
-                    if(virtualclass.videoUl && virtualclass.videoUl.player){
-                        virtualclass.videoUl.player.pause();
+                    if (recPause.parentNode.classList.contains('recordingPlay')) {
+                        that.initRecPause();
+                    } else {
+                        that.initRecPlay();
                     }
                 });
-
-                var replayFromStart = document.getElementById('replayFromStart');
-                replayFromStart.addEventListener('click', function () {
-                    that.replayFromStart();
-                });
             }
+        },
+
+
+        initRecPause (){
+            var recPause = document.getElementById('recPause');
+            this.controller._pause();
+            this.doControlActive(recPause);
+            virtualclass.recorder.triggerPauseVideo();
+            recPause.parentNode.classList.remove("recordingPlay");
+            recPause.dataset.title = 'Play';
+        },
+
+        initRecPlay (){
+            var recPause = document.getElementById('recPause');
+            this.controller._play();
+            this.doControlActive(recPause);
+            if(virtualclass.videoUl && virtualclass.videoUl.player){
+                virtualclass.videoUl.player.play();
+            }
+            recPause.parentNode.classList.add("recordingPlay");
+            recPause.dataset.title = 'Pause';
         },
 
         doControlActive: function (elem) {
@@ -907,49 +1078,322 @@
             pause: false,
             ff: 1,
             _play: function () {
+                virtualclass.recorder.startTime = performance.now();
                 this.ff = 1;
                 this.pause = false;
                 virtualclass.recorder.play();
+                console.log('====== Recording play');
             },
 
             _pause: function () {
-                if (this.puase) {
-                    //  alert('This is in already pause mode.');
-                } else {
-                    this.pause = true;
-                }
+                this.pause = true;
+                console.log('====== Recording pause');
             },
 
             fastForward: function (by) {
                 this.ff = by;
                 this.pause = false;
                 virtualclass.recorder.play();
+            }
+        },
+
+        sendData: function (data, url, cb) {
+            this.cb = cb;
+            var params =  JSON.stringify(data);
+            this.httpObj.open('POST', url);
+
+            this.httpObj.setRequestHeader('x-api-key', wbUser.lkey);
+
+            this.httpObj.setRequestHeader('x-congrea-authuser', wbUser.auth_user);
+            this.httpObj.setRequestHeader('x-congrea-authpass', wbUser.auth_pass);
+
+            this.httpObj.setRequestHeader('x-congrea-room', wbUser.room);
+            this.httpObj.setRequestHeader('Content-Type', 'application/json');
+            this.httpObj.withCredentials = false;
+            this.httpObj.send(params);
+        },
+
+
+        sortingFiles (list) {
+            function compare(a,b) {
+                if (a < b)
+                    return -1;
+                if (a > b)
+                    return 1;
+                return 0;
+            }
+            return list.sort(compare);
+        },
+
+        setOrginalListOfFiles (list) {
+            var data = {};
+            for(let i=0; i<list.length; i++){
+                if((list[i + 1] != null)){
+                    data[list[i]] = {index : i, next : list[i+1]};
+                }else {
+
+                    data[list[i]] = {index : i, next : 'end'};
+
+                }
+                // data[list[i]] = (list[i + 1] != null) ? {index : i, next : list[i+1]} : {index : i, next : 'end'};
 
             }
-        }
+            return data;
+        },
+
+        triggerDownloader (){
+            console.log('Init trigger time to request 1');
+            this.tryNumberOfTimes = 1;
+            if(this.hasOwnProperty('triggerDownloaderTime')){
+                clearInterval(this.triggerDownloaderTime);
+            }
+            if(this.hasOwnProperty('startTimeCounter')){
+                clearInterval(this.startTimeCounter);
+            }
+
+            let timerCounter = 0;
+            this.startTimeCounter = setInterval(() => {
+                timerCounter++;
+                console.log('=====Timer ===' + timerCounter);
+            }, 1000);
+
+            this.triggerDownloaderTime = setInterval(() => {
+                console.log('Init trigger time to request 2');
+                if(this.tryNumberOfTimes > 3){
+                    virtualclass.recorder.allFileFound = true;
+                    clearInterval(this.triggerDownloaderTime.triggerDownloaderTime);
+                    if(this.isPlayFinished()){
+                        this.askAgainToPlay();
+                    }
+
+                } else {
+                    virtualclass.xhrn.sendData({session : this.session}, virtualclass.api.recordingFiles, this.afterDownloadingList.bind(this));
+                }
+
+               console.log('Time to request ' + TIME_TO_REQUEST);
+
+            }, TIME_TO_REQUEST); // 3 is now, but that could be 5 minute
+        },
+
+        afterDownloadingList (data) {
+            var rawData = JSON.parse(data);
+            if(rawData != null && rawData.hasOwnProperty('Item')){
+                var sessionStart  =  +(rawData.Item.time.N);
+                var currentTime = new Date().getTime();
+                this.sessionStartTime = (currentTime - sessionStart);
+
+                /** Removing element, if there in any **/
+                let listOfFiles = [...new Set(rawData.Item.list.L.map(item => item.S))];
+                var tempListOfFilesLength = listOfFiles.length;
+
+                if(this.lastRecordings && (listOfFiles.length == this.lastRecordings)){
+                    this.tryNumberOfTimes = (!this.tryNumberOfTimes ) ? 1 : ++this.tryNumberOfTimes;
+                } else {
+                    delete this.alreadyCalcTotTime;
+                    this.totalRecordingFiles = this.sortingFiles(listOfFiles);
+                    this.lastFile = this.totalRecordingFiles[this.totalRecordingFiles.length - 1];
+
+                    this.orginalListOfFiles = this.setOrginalListOfFiles(this.totalRecordingFiles);
+
+                    this.calculateTotalPlayTime();
+
+                    var fileName = this.totalRecordingFiles.shift();
+                    this.requestDataFromServer(fileName);
+
+                    if(this.totalRecordingFiles.length > 0){
+                        var NextfileName = this.totalRecordingFiles.shift(); // Call Next
+                        this.requestDataFromServer(NextfileName);
+                    }
+
+                    if(this.sessionStartTime < RECORDING_TIME){
+                        this.triggerDownloader();
+                    }
+
+                }
+                this.lastRecordings = tempListOfFilesLength;
+            } else {
+                this.tryNumberOfTimes = (!this.tryNumberOfTimes ) ? 1 : ++this.tryNumberOfTimes;
+                this.triggerDownloader();
+            }
+        },
+
+        requestListOfFiles () {
+            this.session = wbUser.session
+            virtualclass.popup.loadingWindow();
+            virtualclass.xhrn.sendData({session : virtualclass.recorder.session}, virtualclass.api.recordingFiles, this.afterDownloadingList.bind(this));
+        },
+
+        calculateTotalPlayTime (){
+            var firstTime = Math.trunc(+(virtualclass.recorder.totalRecordingFiles[0].split("-")[0]) / 1000000); // converting nano to seconds
+            var lastTime = Math.trunc(+(virtualclass.recorder.totalRecordingFiles[virtualclass.recorder.totalRecordingFiles.length-1].split("-")[1].split(".")[0]) / 1000000);
+            // converting nano to seconds
+
+            this.totalTimeInMiliSeconds = (lastTime - firstTime);
+
+            this.lastTimeInSeconds = Math.trunc(lastTime / 1000);
+            this.firstTimeInSeconds = Math.trunc(firstTime / 1000);
+        },
+
+        getTimeFromFile (file) {
+            return (+(file.split("-")[1].split(".")[0]) / 1000000000); // Converting nanoseconds to miliseconds
+        },
+
+        totalPlayTime () {
+            var totalTimeInSec = 0;
+            for(var i=0; i<virtualclass.recorder.masterRecordings.length; i++){
+                for(var j=0; j<virtualclass.recorder.masterRecordings[i].length; j++){
+                    totalTimeInSec += virtualclass.recorder.masterRecordings[i][j].playTime;
+                }
+            }
+            return totalTimeInSec/1000;
+        },
+
+        getTotalTimeInMilSeconds (master, subIndex) {
+            var mi  = 0;
+            var totalTimeInMiliSeconds = 0;
+            while(mi <= master){
+                for(let i = 0; i< virtualclass.recorder.masterRecordings[mi].length; i++){
+                    totalTimeInMiliSeconds += virtualclass.recorder.masterRecordings[mi][i].playTime;
+                    if((master == mi) && (subIndex == i)){
+                        break;
+                    }
+                }
+                mi++;
+            }
+
+            return totalTimeInMiliSeconds;
+        },
+
+        getTempTotalTimeInMilSeconds (master, subIndex) {
+            var mi  = 0;
+            var totalTimeInMiliSeconds = 0;
+            while(mi <= master){
+                for(let i = 0; i< this.orginalTimes[mi].length; i++){
+                    totalTimeInMiliSeconds += this.orginalTimes[mi][i];
+                    if((master == mi) && (subIndex == i)){
+                        break;
+                    }
+                }
+                mi++;
+            }
+
+            return totalTimeInMiliSeconds;
+        },
+
+        getTotalElementLength () {
+            var totalLength = 0;
+            for (let i=0; i<virtualclass.recorder.masterRecordings.length; i++){
+                totalLength += virtualclass.recorder.masterRecordings[i].length;
+            }
+            return totalLength;
+        },
+
+        seekWithMouseMove  (ev) {
+            if(ev.offsetX == undefined){
+                ev = this.getOffset(ev);
+            }
+
+            if(this.startSeek){
+                this.controller._pause();
+                var seekValueInPercentage = this.getSeekValueInPercentage(ev);
+                this.seekValueInPercentage = seekValueInPercentage;
+                if(this.downloadInPercentage < this.seekValueInPercentage){
+                    //this.seekValueInPercentage = Math.trunc(this.downloadInPercentage) - 1;
+                    this.seekValueInPercentage = Math.trunc(this.downloadInPercentage);
+                }
+                this.setPlayProgressTime(this.seekValueInPercentage);
+                var seekTimeInMilseconds = (this.seekTimeWithMove.m * 60 * 1000) + this.seekTimeWithMove.s * 1000;
+                virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds , seekTimeInMilseconds, 'playProgressBar', undefined);
+                document.querySelector('#tillRepTime').innerHTML = this.seekTimeWithMove.h + ':' +  this.seekTimeWithMove.m  + ':' + this.seekTimeWithMove.s;
+                this.displayTimeInHover(ev, this.seekValueInPercentage);
+            }
+        },
+
+        getSeekValueInPercentage (ev) {
+            let containerWidth = this.getCustomWidth();
+            var clickedPosition =  ev.offsetX;
+            let seekValueInPer = (clickedPosition / containerWidth) * 100;
+            return seekValueInPer;
+        },
+
+        handlerDisplayTime (ev) {
+            var seekValueInPercentage = this.getSeekValueInPercentage(ev);
+            // console.log('Seek value time in percentage ' + seekValueInPercentage);
+            this.displayTimeInHover(ev, seekValueInPercentage);
+        },
+
+        displayTimeInHover (ev, seekValueInPer){
+            this.setPlayProgressTime(seekValueInPer);
+            let offset;
+            if(ev.offsetX < 20)  {
+                offset =  3;
+            }else if((window.innerWidth - ev.offsetX) < 5) {
+                offset =  ev.offsetX - 65;
+            } else if((window.innerWidth - ev.offsetX) < 30){
+                offset =  ev.offsetX - 60;
+            } else if((window.innerWidth - ev.offsetX) < 40){
+                offset =  ev.offsetX - 35;
+            }else {
+                offset =  ev.offsetX - 25;
+            }
+
+            var timeInHover = document.getElementById('timeInHover');
+            timeInHover.style.display = 'block';
+
+            timeInHover.style.marginLeft =  offset + 'px';
+
+            document.getElementById('timeInHover').innerHTML =  this.seekTimeWithMove.h + ':' + this.seekTimeWithMove.m  + ':' + this.seekTimeWithMove.s;
+            var virtualclassCont = document.querySelector('#virtualclassCont');
+            virtualclassCont.classList.add('recordSeeking');
+        },
+
+        setPlayProgressTime (seekValueInPer) {
+            var totalMiliSeconds = (seekValueInPer * this.totalTimeInMiliSeconds) / 100;
+            var time = this.convertIntoReadable(totalMiliSeconds);
+            this.seekTimeWithMove = time;
+        },
+
+        finalSeek (ev){
+            if(!ev.offsetX){
+                ev = this.getOffset(ev);
+            }
+            if(this.startSeek && this.hasOwnProperty('seekValueInPercentage')){
+                console.log("====Seek up " + this.seekValueInPercentage);
+                if(this.downloadInPercentage < this.seekValueInPercentage){
+                    this.seekValueInPercentage = Math.trunc(this.downloadInPercentage);
+                }
+                if(this.seekValueInPercentage > 0){
+                    this.seek(this.seekValueInPercentage);
+                }
+
+
+                if(this.pauseBeforeSeek){
+                    console.log("=== Video pause ");
+                    this.controller._pause();
+                    this.triggerPauseVideo();
+                }else {
+                    console.log("=== Video play ");
+                    this.controller._play();
+                    this.triggerPlayVideo();
+                }
+                document.getElementById('timeInHover').style.display = 'none'
+            }
+
+            var virtualclassCont = document.querySelector('#virtualclassCont');
+            virtualclassCont.classList.remove('recordSeeking');
+
+
+            console.log(ev.offsetX);
+            delete this.seekValueInPercentage;
+            this.startSeek = false;
+
+            var congrealogo = document.getElementById('congrealogo');
+            if(congrealogo != null){
+                congrealogo.classList.remove('disbaleOnmousedown');
+            }
+
+        },
+
     };
     window.recorder = recorder;
 })(window);
-
-/** todo use from virtualclass.utility **/
-function randomString(length) {
-    var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var result = '';
-    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
-    return result;
-}
-
-//function to extract query string 
-// from given URL with name and value
-
-function getUrlVars(url) {
-    var vars = [], hash;
-    var hashes = url.slice(url.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
-    {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
-    }
-    return vars;
-}

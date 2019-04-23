@@ -52,6 +52,11 @@ body {
     bottom: 0;
     z-index:1000;
 }
+
+#virtualclassCont.congrea.playMode #rightSubContainer #chatWidget .chatBarTab {
+    z-index:0;
+}
+
 #virtualclassCont.congrea #rightSubContainer #congreaChatMainCont {
 /*    display:none;*/
     height : calc(100% - 44px);
@@ -133,6 +138,9 @@ body {
     padding: 7px 0 7px;
     z-index: 1000;
 } 
+#virtualclassCont.playMode.student .footerCtr {
+    bottom:55px;
+}
 #virtualclassCont .footerCtr input {
     padding: 7px;
     width: 90%;
@@ -563,7 +571,7 @@ display: none;
 }
 
 /*#virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after ,*/
-#virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget #appSettingCtrl.congtooltip:hover:after{
+#virtualclassCont.congrea.teacher.nowebcam #virtualclassAppRightPanel #audioWidget #appSettingCtrl.congtooltip:hover:after{
     top: 51px;
 }
 #virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover:after {
@@ -610,6 +618,10 @@ display: none;
 }
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea.student #virtualclassAppRightPanel #stickycontainer .vmchat_bar_button.congtooltip:hover:after {
     right: 2em;
+}
+
+#virtualclassCont.congrea.student.playMode #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover:after, #virtualclassCont.congrea.student.playMode #virtualclassAppRightPanel #stickycontainer .vmchat_bar_button.congtooltip:hover:after {
+    display:none;
 }
 
 #virtualclassCont.congrea .handRaise.congtooltip:hover:after {
@@ -731,10 +743,9 @@ pointer-events: none !important;
     width:38%;
 }
 
-
-/*#virtualclassCont.edge[data-currapp="Whiteboard"] {*/
-    /*right: -1px !important;*/
-/*}*/
+#virtualclassCont.playMode #ta_chrm2 {
+   pointer-events: none;
+}
 
 
 #virtualclassCont.edge[data-currapp="Yts"]{
@@ -745,5 +756,3 @@ pointer-events: none !important;
 #virtualclassCont.edge .chat_disabled .ui-memblist-usr.online{
     pointer-events : none;
 }
-
-/** CSS for chat div container end for EDGE browser  **/

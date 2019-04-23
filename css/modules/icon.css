@@ -419,9 +419,29 @@
 }
 #virtualclassCont.congrea .icon-play:before{
   content : "\f04b";
-  font-size: 14px;
+  font-size: 18px;
   -webkit-font-smoothing: antialiased;
 }
+
+#virtualclassCont.congrea.playMode #recPauseCont.recButton .icon-pause:before{
+  content : "\f04b";
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#virtualclassCont.congrea.playMode #loadingWindowCont .askToPlay .icon-play:before {
+  content : "\f04b";
+  font-size: 26px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#virtualclassCont.congrea.playMode #recPauseCont.recButton.recordingPlay .icon-pause:before{
+  content : "\f04c";
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+
 #virtualclassCont.congrea #replayContainer #replayButton , #virtualclassCont.congrea #replayContainer #replayButton.icon-repeat:before {
   font-size: 13px;
 }
@@ -697,8 +717,8 @@
 #virtualclassCont.congrea #popupContainer .urlValidation  .icon-close:before {
   content: "\f00d";
   font-size: 12px;
-  color: #6a8e0b;
-  border: #bcd2aa 1px solid;
+  color: #a0111f;
+  border: #a0111f 1px solid;
   border-radius: 50%;
   padding: 3px 5px;
   background-color: #f9f9f9;

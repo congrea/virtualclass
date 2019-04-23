@@ -63,6 +63,11 @@ var ioMissingPackets = {
     checkMissing: function (msg) {
         "use strict";
         //debugger;
+        if(virtualclass.isPlayMode){
+            io.onRecJson(msg);
+            return;
+        }
+
         var uid = msg.user.userid;
         this.validateAllVariables(uid);
 
@@ -79,6 +84,8 @@ var ioMissingPackets = {
                 } else {
                     localStorage.setItem('mySession', 'thisismyplaymode');
                 }
+
+                alert('Start session gracefully');
                 return;
             }
         }

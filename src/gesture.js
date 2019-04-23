@@ -54,10 +54,14 @@ var gesture = {
 
     initAudioResume  : function (uid){
         var joinClassModal = document.querySelector('#joinClassModal');
+
         if(joinClassModal != null){
             joinClassModal.style.display = 'block';
         }
-        $('#joinClassModal').modal({backdrop: 'static', keyboard: false});
+
+        virtualclass.modal.show('#joinClassModal');
+
+        // $('#joinClassModal').modal({backdrop: 'static', keyboard: false});
 
         var mainbody = document.querySelector('#joinClassModal .modal-body');
         var initAudio = document.createElement('div');

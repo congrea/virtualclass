@@ -987,6 +987,9 @@
         left: 20px;
         z-index: 1005;
     }
+    #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav{
+        display: none;
+    }
 
     #virtualclassCont.congrea #docShareNav #leftNavPage:before {
         content: "\e98e";
@@ -1003,9 +1006,16 @@
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
         display: block;
         position: fixed;
-        bottom: 11px;
-        left: 20px;
+        bottom: 12px;
+        right: 608px;
         z-index: 1005;
+    }
+    #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav{
+        display: none;
+    }
+
+    #virtualclassCont.congrea.playMode[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea.playMode[data-currapp = 'Whiteboard'].student #docShareNav {
+        right:560px;
     }
 
     .congrea #stdPageNo {
@@ -1021,7 +1031,7 @@
     font-size: 14px;
     position: relative;
     top: -1px;
-    margin-right:20px;
+    margin-right:10px;
 }
 
 #virtualclass .congrea #totalPages {

@@ -133,9 +133,15 @@ var ioAdapter = {
        io.sendBinary(msg);
     },
 
-    setSession: function (session) {
+    setSessionToServer: function (session) {
+        console.log('Set session to server');
         "use strict";
         var cfun = 'session';
         io.send(session, cfun);
+    },
+
+    sync (msg){
+        var cfun = 'broadcastToAll'; // BroadcastToALl (Do not send to self)
+        io.send(msg, cfun, null);
     }
 };

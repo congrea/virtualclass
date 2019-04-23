@@ -7,7 +7,6 @@ var progressBar = {
     prvVal: '',
     currVal: '',
 
-
     /***
         After each  progress of XHR, there would check difference
         between current and previous value. Will provide the download link
@@ -36,25 +35,18 @@ var progressBar = {
     },
 
     renderProgressBar: function (totalVal, portion, pbar, pval) {
+         // console.log('===== totalVal ==== ' + totalVal + '; portion' + portion);
+
         if (portion > totalVal) {
             portion = totalVal;
             document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
         }
 
-        if (totalVal == 0 && portion == 0) {
-            var totalProgress = 0;
-        } else {
-            var totalProgress = Math.round((portion * 100) / totalVal);
-        }
+        var totalProgress = (totalVal == 0 && portion == 0) ? 0 : Math.round((portion * 100) / totalVal);
 
         var pbarElem = document.getElementById(pbar);
         if (pbarElem != null) {
             pbarElem.style.width = totalProgress + '%';
-        }
-
-        var pvalElem = document.getElementById(pval);
-        if (pvalElem != null) {
-            pvalElem.innerHTML = totalProgress + '%';
         }
 
         if (pval >= 100) {
@@ -62,8 +54,8 @@ var progressBar = {
             recordingClose.style.display = 'block';
             closeButton.addEventListener('click', function () {
                 virtualclass.popup.closeElem();
-
             });
         }
     }
+
 };

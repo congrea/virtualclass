@@ -630,37 +630,10 @@
     window.addEventListener('resize',
         function () {
             system.initResize();
-
-            // system.setAppDimension(null, 'resize');
-            // virtualclass.view.window.resize();
-
-            // if (window.earlierWidth != window.innerWidth) {
-            //      system.setAppDimension(null, 'resize');
-            //      virtualclass.view.window.resize();
-            // }
-
-            // if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
-            //     window.earlierWidth = window.innerWidth;
-            // }
         }
-
     );
 
-    // window.addEventListener('resize',
-    //     function () {
-    //         if (window.earlierWidth != window.innerWidth) {
-    //             system.setAppDimension();
-    //         }
-    //     }
-    // );
 
-    // window.addEventListener('resize',
-    //     function () {
-    //         if (window.earlierWidth != window.innerWidth) {
-    //             virtualclass.view.window.resize();
-    //         }
-    //     }
-    // );
     // TODO this function is not being invoked
     system.mybrowser.detectIE = function () {
         var ua = window.navigator.userAgent;

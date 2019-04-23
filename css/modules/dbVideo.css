@@ -260,29 +260,13 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   vertical-align: middle;
 }
 
-.playControllerMainCont #playControllerCont #playController #recPlay {
-    padding:17px 28.5px;
-    border-left: 1px solid black ;
-    border-right: 1px solid black ;
+.playControllerMainCont #playControllerCont #playController #recPauseCont.recordingPlay #recPause {
+    padding:14px 28.5px;
 }
 
 .playControllerMainCont #playControllerCont #playController #recPause {
-    padding:17px 27.5px;
-    border-right: 1px solid black ;
+    padding: 13.5px 30px;
 }
-.playControllerMainCont #playControllerCont #playController #ff8{
-    padding:16.5px 27px;
-    border-right:1px solid black ;
-}
-.playControllerMainCont #playControllerCont #playController #ff2{
-    padding:16.5px 27.5px;
-    border-right:1px solid black ;
-}
-.playControllerMainCont #playControllerCont #playController .icon-Replayfromstart {
-    padding:0 8px;
-    box-shadow:none;
-}
-
 /*#virtualclassCont .dashboardview #urlcontainer #presentationurl{*/
 /*height: 46px;  width:300px;*/
 /*font-size: 14px;*/

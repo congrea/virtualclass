@@ -3,7 +3,7 @@
  * @module Processing of Screen Sharing related stuff
  */
 
-var globalImageData = {}, imgData;
+var globalImageData = {}, imgData, sendTimeout;
 function decodeRGB(encodeDataArr, cwidth, cheight) {
   globalImageData = new ImageData(cwidth, cheight);
   var myLoop = encodeDataArr.length * 4;
@@ -76,10 +76,15 @@ function process_data_pack (data_pack) {
     putImageDataCache(x, y, w, h, imgData);
     s = l + 7 + 1;
   }
-  postMessage({
-    globalImageData : globalImageData,
-    dtype : 'drgb'
-  });
+    if(sendTimeout){
+        clearTimeout(sendTimeout);
+    }
+    sendTimeout = setTimeout(() => {
+        postMessage({
+            globalImageData : globalImageData,
+            dtype : 'drgb'
+        });
+    },100);
 }
 
 /**

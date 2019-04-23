@@ -104,6 +104,10 @@
   z-index:11;
 }
 
+#virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
+  bottom: 58px;
+}
+
 #virtualclassCont.congrea #virtualclassAppLeftPanel a#congrealogo.disbaleOnmousedown img{
   pointer-events: none;
 }
@@ -227,7 +231,7 @@
 }
 
 #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a {
-  padding: 12px 13px 11px 14px;
+  padding: 12px 12px 11px 15px;
   border-left: 0.01em solid #021317!important;
 }
 

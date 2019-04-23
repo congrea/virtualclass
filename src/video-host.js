@@ -388,7 +388,7 @@ var videoHost = {
             },
         120);
     },
-    //nirmala
+
     _shareVideo: function (that, resA, resB) {
         for (that.sl = 0; that.sl < (resA * resB); that.sl++) {
             that.vidHostCon.drawImage(that.videoHostSrc, 0, 0, that.width, that.height);
@@ -449,7 +449,7 @@ var videoHost = {
         }
 
         // 371 audio latency of buffered audio
-        // for synch the audio and video
+        // for sync the audio and video
         var that = this;
 
         if(typeof virtualclass.media.audio.Html5Audio != 'undefined'){

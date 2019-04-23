@@ -429,7 +429,9 @@
                 }else {
                     var quizPublishTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(plugin.config.ptm);
                     var currentTime = new Date().getTime();
-                    var lT = (plugin.config.quizTime - ((currentTime -  quizPublishTime) / 1000 )); // left timing for quiz
+                    if(!virtualclass.vutil.isPlayMode()){
+                        var lT = (plugin.config.quizTime - ((currentTime -  quizPublishTime) / 1000 )); // left timing for quiz
+                    }
                 }
 
                 if (plugin.config.quizTime && plugin.config.quizTime > 0) {
@@ -801,6 +803,10 @@
             },
             //Countdown timer
             startTimer: function(duration, display , order, elem) {
+                if(typeof CDTimer != 'undefined'){
+                    clearInterval(CDTimer);
+                    console.log('Clear quiz interval');
+                }
                 // order asc or desc
                 order = typeof order !== 'undefined' ? order : 'desc';
                 var start = Date.now(),
@@ -810,6 +816,11 @@
                     seconds;
 
                 function timer() {
+                    if(!display && typeof CDTimer != 'undefined'){
+                        clearInterval(CDTimer);
+                        return;
+                    }
+
                     // get the number of seconds that have elapsed since
                     // startTimer() was called
                     if(order == 'asc'){
@@ -837,6 +848,7 @@
                         //start = Date.now() + 1000;
                         start =0;
                         if(typeof CDTimer != 'undefined'){
+                            console.log('Clear quiz interval');
                             clearInterval(CDTimer);
                         }
 /*
@@ -899,6 +911,7 @@
 
                     console.log('quiz data complete quiz');
                     clearInterval(CDTimer);
+                    console.log('Clear quiz interval');
 
                     // If response messaging is set to show upon quiz completion, show it now
                     if (plugin.config.completionResponseMessaging) {
@@ -1160,6 +1173,7 @@
             if (undefined === $(this).data('slickQuiz')) {
                 var plugin = new $.slickQuiz(this, options);
                 $(this).data('slickQuiz', plugin);
+                virtualclass.quiz.plugin = plugin;
             }
         });
     };

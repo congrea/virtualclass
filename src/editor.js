@@ -294,9 +294,9 @@
             },
 
             /**
-             * Make editor either enable or disable with optional synch message box
+             * Make editor either enable or disable with optional sync message box
              * @param mode mode expect either editor is enable or disbale
-             * @param notcreateBox indates iether synch message would created or not
+             * @param notcreateBox indates iether sync message would created or not
              */
             readOnlyMode: function (mode, notcreateBox) {
                 if (typeof this.cm == 'object') {

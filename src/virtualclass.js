@@ -96,7 +96,7 @@
             },
 
             enablePreCheck : true,
-            clearSession: function (notSend) {
+            clearSession: function () {
                 window.pageEnter = new Date().getTime();
                 if(typeof notSend == 'undefined'){
                     virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
@@ -110,7 +110,6 @@
                 }
                 virtualclass.storage.config.endSession();
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
-
                     virtualclass.prevScreen.unShareScreen();
                 }
 
@@ -119,6 +118,7 @@
 
             init: function (urole, app, videoObj) {
                 var wbUser = window.wbUser;
+                this.saveRecording = +(wbUser.saveRecording);
                 virtualclass.uInfo = {
                     'userid': wbUser.id,
                     'sid': wbUser.sid,
@@ -180,6 +180,9 @@
 
 
                 // this.pdfRender = window.pdfRender();
+                if(this.currApp != 'Quiz' && typeof CDTimer != 'undefined'){
+                    clearInterval(CDTimer);
+                }
 
                 if(this.system.isIndexedDbSupport()){
                     this.storage.init(function () {
@@ -221,6 +224,10 @@
                     if(response != 'ERROR' || response != 'Error'){
                         virtualclass.gObj.readyToCommunicate  = true;
                         console.log('get access');
+                        if(virtualclass.vutil.isPlayMode()){
+                            virtualclass.recorder.requestListOfFiles();
+                        }
+
                     }
                 });
 
@@ -274,6 +281,7 @@
                 this.system.check();
                 this.vutil.isSystemCompatible(); //this should be at environment-validation.js file
                 this.system.mediaDevices.getMediaDeviceInfo();
+                this.pageVisible = virtualclass.vutil.pageVisible();
 
 
                 if (app == virtualclass.apps.ss) {
@@ -312,9 +320,9 @@
 
                 virtualclass.vutil.videoController();
 
-                if(virtualclass.gObj.has_ts_capability && !virtualclass.vutil.isPlayMode()){
-                    virtualclass.vutil.initTechSupportUi();
-                }
+                // if(virtualclass.gObj.has_ts_capability && !virtualclass.vutil.isPlayMode()){
+                //     virtualclass.vutil.initTechSupportUi();
+                // }
                 //nirmala
                 var precheck = document.getElementById("precheckSetting");
                 precheck.addEventListener("click",function(){
@@ -342,8 +350,6 @@
                 if(virtualclassCont != null){
                     virtualclassCont.classList.add(virtualclass.system.mybrowser.name);
                 }
-
-
 
             },
 
@@ -552,15 +558,12 @@
                 //if not screen share
                 if (app != virtualclass.apps.ss) {
                     this.dispvirtualclassLayout(app);
-                    //add current app to main container
                     var vcContainer = document.getElementById('virtualclassCont');
-                    // vcContainer.dataset.currapp =  this.currApp;
                     virtualclass.vutil.setCurrApp(vcContainer, this.currApp);
                     var vcAppContainer = document.querySelector('#virtualclassApp');
                     if(vcAppContainer != null){
                         if(this.currApp == 'DocumentShare' || this.currApp == 'SharePresentation' || this.currApp == 'Video'){
                             virtualclass.vutil.setCurrApp(vcAppContainer, vcContainer.dataset.currapp);
-                           // vcAppContainer.dataset.currapp = vcContainer.dataset.currapp;
                         }else {
                             vcAppContainer.dataset.currapp = "";
                         }
@@ -744,15 +747,16 @@
 //                    $('.congrea #listvideo .playing').removeClass('playing');
 //                    $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
                     if (!roles.hasControls()) {
-                        setTimeout(function () {
-                            if (typeof virtualclass.videoUl.player == 'object') {
-                                if (!virtualclass.videoUl.player.paused()) {
-                                    virtualclass.videoUl.player.pause();
-                                }
-                            }
-                        }, 5000);
+                        if(virtualclass.gObj.hasOwnProperty('videoPauseTime')){
+                            clearTimeout(virtualclass.gObj.videoPauseTime);
+                        }
 
-                    } 
+                        if (typeof virtualclass.videoUl.player == 'object' && virtualclass.videoUl.player.player_ != null
+                            && virtualclass.videoUl.player.paused()) {
+                            console.log('==== Video is paused')
+                            virtualclass.videoUl.player.pause();
+                        }
+                    }
                     if (typeof virtualclass.videoUl.player == 'object') {
                         delete( virtualclass.videoUl.player);
                     }
@@ -1353,48 +1357,22 @@
             initlizer: function (elem) {
                 var appName = elem.parentNode.id.split("virtualclass")[1];
                 if (appName == 'SessionEndTool') {
-                    virtualclass.popup.confirmInput(virtualclass.lang.getString('savesession'), function (confirm) {
-                        if (!confirm) {
-                            virtualclass.popup.confirmInput(virtualclass.lang.getString('startnewsession'),
-                                function (confirm) {
-                                    if (!confirm) {
-                                        console.log('Not start new session');
-                                        return;
-                                    }
+                    virtualclass.popup.confirmInput(virtualclass.lang.getString('startnewsession'),
+                        function (confirm) {
+                            if (!confirm) {
+                                console.log('Not start new session');
+                                return;
+                            }
 
-                                    virtualclass.clearSession();
-                                    if(virtualclass.gObj.hasOwnProperty('beTeacher')){
-                                        if(roles.isTeacher()){
-                                            localStorage.setItem('uRole', 't');
-                                        }
-                                    }
-
-                                }
-                            )
-                        } else {
-                            ioStorage.completeStorage(undefined, undefined, 'sessionend');
-                            setTimeout(function () {
-                                    virtualclass.enablePreCheck = false; // to hanlde popup on session end
-                                    if(virtualclass.recorder.hasOwnProperty('recordDone')){
-                                        console.log('deleete recordDone');
-                                        delete virtualclass.recorder.recordDone;
-                                    }
-                                    virtualclass.recorder.alreadyDownload = false;
-                                    virtualclass.getContent = true;
-                                    virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}); //before close, clear student virtualclass data
-
-                                    virtualclass.recorder.smallData = true;
-
-                                    // io.sock.close();
-
-                                    workerIO.postMessage({'cmd' : 'sessionEndClose'});
-                                    virtualclass.recorder.startUploadProcess();
-                                }, 300
-                            );
+                            virtualclass.clearSession();
+                            virtualclass.gObj.endSession = true;
+                            if(virtualclass.gObj.hasOwnProperty('beTeacher') && roles.isTeacher()){
+                                localStorage.setItem('uRole', 't');
+                            }
+                            localStorage.clear();
+                            window.close();
                         }
-                    });
-
-
+                    )
                 } else {
                     //alert(virtualclass.currApp);
                     appName = appName.substring(0, appName.indexOf("Tool"));

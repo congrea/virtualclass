@@ -83,7 +83,7 @@ if (isset($_GET['play']) && ($_GET['play'] == 'true')) {
 }
 
 $saverecording = false;
-if (isset($_GET['recording']) && ($_GET['recording'] == 'true')) {
+if (isset($_GET['recording']) && ($_GET['recording'] == 'true' || $_GET['recording'] == '1')) {
     $saverecording = true;
 }
 

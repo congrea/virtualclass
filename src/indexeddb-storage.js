@@ -989,7 +989,9 @@
                     this.clearSingleTable(this.tables[i]);
                 }
             }
-
+            if(virtualclass.gObj.hasOwnProperty('sessionEndResolve')){
+               virtualclass.gObj.sessionEndResolve();
+            }
         },
 
         // Get quiz data, store in array based on

@@ -1363,14 +1363,23 @@
                                 console.log('Not start new session');
                                 return;
                             }
-
-                            virtualclass.clearSession();
+                            
                             virtualclass.gObj.endSession = true;
                             if(virtualclass.gObj.hasOwnProperty('beTeacher') && roles.isTeacher()){
                                 localStorage.setItem('uRole', 't');
                             }
                             localStorage.clear();
-                            window.close();
+                            var allFinish  = new Promise(function (resolve, reject){
+                                virtualclass.gObj.sessionEndResolve = resolve;
+                                virtualclass.clearSession();
+                            });
+
+                            allFinish.then(function (){
+                                delete virtualclass.gObj.sessionEndResolve;
+                                window.close();
+                            }, function (error){
+                                console.log("ERRROR " + error);
+                            });
                         }
                     )
                 } else {

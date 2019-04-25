@@ -492,8 +492,6 @@
             }
             console.log('screen-detail init');
 
-
-
             //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
             localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
             localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));

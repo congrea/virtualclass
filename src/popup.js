@@ -266,10 +266,9 @@ var PopUp = (function (window, undefined) {
         var sessionEndClose = document.getElementById("sessionEndClose");
         sessionEndClose.addEventListener('click',
             function () {
-                //virtualclass.popup.closeElem();
-                //window.location.reload();
                 virtualclass.popup.closeElem();
-            });
+                window.close();
+        });
     };
 
     PopUp.prototype.validateurlPopup = function(type) {

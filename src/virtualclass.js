@@ -178,20 +178,15 @@
                 this.jscolor = window.jscolor;
                 this.modal = window.modal;
 
+                if(this.system.isIndexedDbSupport()){
+                    this.storage.init();
+                }else {
+                    console.log('Indexeddb does not support');
+                }
 
                 // this.pdfRender = window.pdfRender();
                 if(this.currApp != 'Quiz' && typeof CDTimer != 'undefined'){
                     clearInterval(CDTimer);
-                }
-
-                if(this.system.isIndexedDbSupport()){
-                    this.storage.init(function () {
-                        if (!virtualclass.vutil.isPlayMode()) {
-                            ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
-                        }
-                    });
-                }else {
-                    console.log('Indexeddb does not support');
                 }
 
                 virtualclass.modernizr = Modernizr;
@@ -1369,6 +1364,7 @@
                                 localStorage.setItem('uRole', 't');
                             }
                             localStorage.clear();
+
                             var allFinish  = new Promise(function (resolve, reject){
                                 virtualclass.gObj.sessionEndResolve = resolve;
                                 virtualclass.clearSession();
@@ -1376,7 +1372,8 @@
 
                             allFinish.then(function (){
                                 delete virtualclass.gObj.sessionEndResolve;
-                                window.close();
+                                virtualclass.popup.sesseionEndWindow();
+
                             }, function (error){
                                 console.log("ERRROR " + error);
                             });

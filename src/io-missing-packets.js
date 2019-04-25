@@ -99,7 +99,6 @@ var ioMissingPackets = {
                 this.executedSerial[uid] = msg.m.serial;
                 this.executedStore[uid][msg.m.serial] = msg;
                 ioStorage.dataExecutedStoreAll(msg, uid + '_' + msg.m.serial);
-                this.onRecSave(msg);
                 io.onRecJson(msg);
             } else if (msg.m.serial > (this.executedSerial[uid] + 1)) {
                 //debugger;
@@ -137,7 +136,6 @@ var ioMissingPackets = {
                 // Everything is good and in order
                 console.log('UID ' + uid + ' Object with userSerial ' + msg.m.userSerial);
                 this.executedUserSerial[uid] = msg.m.userSerial;
-                this.onRecSave(msg);
                 io.onRecJson(msg);
                 this.executedUserStore[uid][msg.m.userSerial] = msg;
                 ioStorage.dataExecutedStoreAll(msg, uid + '_' + msg.m.userSerial);
@@ -305,7 +303,6 @@ var ioMissingPackets = {
                 if (typeof msg.m.data[i].m.serial != 'undefined' && msg.m.data[i].m.serial != null) {
                     this.executedSerial[uid] = msg.m.data[i].m.serial;
                     ioStorage.dataExecutedStoreAll(msg.m.data[i], uid + '_' + msg.m.data[i].m.serial);
-                    this.onRecSave(msg.m.data[i]);
                     msg.m.data[i].user = msg.user;
                     this.executedStore[uid][msg.m.data[i].m.serial] = msg.m.data[i];
 
@@ -331,7 +328,6 @@ var ioMissingPackets = {
                 if(typeof this.executedStore[uid][ex] != 'undefined'){
                     this.executedSerial[uid] = ex;
 
-                    this.onRecSave(this.executedStore[uid][ex]);
                     console.log('UID ' + uid + ' Object with Serial ' + this.executedStore[uid][ex].m.serial);
                     ioStorage.dataExecutedStoreAll(this.executedStore[uid][ex], uid + '_' + this.executedStore[uid][ex].m.serial);
                     io.onRecJson(this.executedStore[uid][ex]);
@@ -364,7 +360,7 @@ var ioMissingPackets = {
 
                     this.executedSerial[uid] = msg.m.data[i].m.serial;
                     ioStorage.dataExecutedStoreAll(msg.m.data[i], uid + '_' + msg.m.data[i].m.serial);
-                    this.onRecSave(msg.m.data[i]);
+
                     msg.m.data[i].user = msg.user;
                     this.executedStore[uid][msg.m.data[i].m.serial] = msg.m.data[i];
                     try {
@@ -391,8 +387,6 @@ var ioMissingPackets = {
 
                 if(typeof this.executedStore[uid][ex] != 'undefined'){
                     this.executedSerial[uid] = ex;
-
-                    this.onRecSave(this.executedStore[uid][ex]);
                     console.log('UID ' + uid + ' Object with Serial ' + this.executedStore[uid][ex].m.serial);
                     ioStorage.dataExecutedStoreAll(this.executedStore[uid][ex], uid + '_' + this.executedStore[uid][ex].m.serial);
                     io.onRecJson(this.executedStore[uid][ex]);
@@ -437,7 +431,6 @@ var ioMissingPackets = {
                 if (typeof msg.m.data[i].m.userSerial != 'undefined' && msg.m.data[i].m.userSerial != null) {
                     this.executedUserSerial[uid] = msg.m.data[i].m.userSerial;
                     ioStorage.dataExecutedUserStoreAll(msg.m.data[i], uid + '_' + msg.m.data[i].m.userSerial, msg.m.data[i].m.userSerial);
-                    this.onRecSave(msg.m.data[i]);
                     msg.m.data[i].user = msg.user;
                     msg.m.data[i].userto =  msg.userto;
 
@@ -460,7 +453,6 @@ var ioMissingPackets = {
         while (ex = this.aheadUserPackets[uid].pop()) {
             if (typeof ex != 'undefined' && ex != null) {
                 this.executedUserSerial[uid] = ex;
-                this.onRecSave(this.executedUserStore[uid][ex]);
                 console.log('UID ' + uid + ' Object with Serial ' + this.executedUserStore[uid][ex].m.userSerial);
                 io.onRecJson(this.executedUserStore[uid][ex]);
                 //TODO Add proper Store
@@ -473,11 +465,4 @@ var ioMissingPackets = {
         ioMissingPackets.missUserRequestFlag = 0;
         virtualclass.vutil.initCommonSortingChat();
     },
-
-    //save for recording process
-    onRecSave: function (msg) {
-        var edata = JSON.stringify(msg);
-        io.onRecSave(msg, edata);
-    }
-
 };

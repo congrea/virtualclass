@@ -492,11 +492,7 @@
             }
             console.log('screen-detail init');
 
-            if (typeof virtualclass.storage.wholeStoreData != 'undefined') {
-                var obj = JSON.parse(virtualclass.storage.wholeStoreData);
-                obj.beforeRefresh = true;
-                virtualclass.storage.wholeStore(obj, "put");
-            }
+
 
             //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
             localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
@@ -1803,35 +1799,7 @@
             return saveButton;
         },
 
-        // initTechSupportUi : function (){
-        //     var virtualclassApp = document.querySelector('#virtualclassApp');
-        //     if(virtualclassApp != null){
-        //         if(!virtualclass.isPlayMode){
-        //             var saveButton = this.createSaveButton();
-        //         }
-        //         var that = this;
-        //         saveButton.addEventListener('click', function (){
-        //             that.intiRecoringByTechSupport();
-        //         });
-        //         if(saveButton != null){
-        //             virtualclassApp.appendChild(saveButton);
-        //         }
-        //     }
-        // },
-        //
-        // intiRecoringByTechSupport : function (){
-        //     virtualclass.popup.confirmInput(virtualclass.lang.getString('savesessionTechSupport'), function (confirm) {
-        //         if (confirm) {
-        //             ioStorage.completeStorage(undefined, undefined, 'sessionend');
-        //             setTimeout(function () {
-        //                     virtualclass.recorder.startUploadProcess();
-        //                 }, 300
-        //             );
-        //         }
-        //     });
-        // },
 
-        //removejquery
         setChatContHeight : function (height){
              return;
             $('#chatWidget').height(height);

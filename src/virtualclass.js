@@ -1373,7 +1373,6 @@
                             allFinish.then(function (){
                                 delete virtualclass.gObj.sessionEndResolve;
                                 virtualclass.popup.sesseionEndWindow();
-
                             }, function (error){
                                 console.log("ERRROR " + error);
                             });

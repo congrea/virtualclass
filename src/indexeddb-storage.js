@@ -836,12 +836,15 @@
             }
         },
 
-        clearSingleTable : function (table){
+        clearSingleTable : function (table, lastTable){
             var t = this.db.transaction(table, "readwrite");
             if (typeof t != 'undefined') {
                 var objectStore = t.objectStore(table);
                 objectStore.clear();
                 console.log('Cleared IDDB Table ' + table);
+                if(typeof lastTable != 'undefined'){
+                    lastTable();
+                }
             } else {
                 console.log('There is no table '+ table + ' at IDDB.');
             }
@@ -872,11 +875,19 @@
             ioMissingPackets.aheadUserPackets =  [];
             ioMissingPackets.missUserRequestFlag =  0;
 
+
             for(var i=0; i<this.tables.length; i++){
-                this.clearSingleTable(this.tables[i]);
+                if(i+1 == this.tables.length){
+                    this.clearSingleTable(this.tables[i], this.clearLastTable);
+                } else {
+                    this.clearSingleTable(this.tables[i]);
+                }
             }
+        },
+
+        clearLastTable(){
             if(virtualclass.gObj.hasOwnProperty('sessionEndResolve')){
-               virtualclass.gObj.sessionEndResolve();
+                virtualclass.gObj.sessionEndResolve();
             }
         },
 

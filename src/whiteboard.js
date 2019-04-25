@@ -342,7 +342,7 @@
                         //recorder.items.push(obj);
 
                         virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
-                        //virtualclass.storage.wholeStore(obj);
+
 
                         virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'}); //after optimized
                     }

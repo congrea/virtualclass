@@ -211,12 +211,6 @@ var io = {
         }
     },
 
-    onRecSave: function(msg, edata) {
-        if (!msg.hasOwnProperty('userto') || (msg.hasOwnProperty('userto') && msg.m.hasOwnProperty('eddata'))) {
-            ioStorage.completeStorage(edata);
-        }
-    },
-
     // Check if websocket is ready to send
     webSocketConnected: function (){
         return (io.stockReadyState ==  1 && this.readyToSend == true)
@@ -441,12 +435,11 @@ var ioInit = {
                         } else {
                             // return; // for temporary
                             // workerIO.postMessage({cmd : "saveJson", msg :  {msg:msg, cj : cleanJson}});
-                            io.onRecSave(msg, cleanJson);
+
                             io.onRecJson(msg);
                         }
                     } else {
                         //return; // for temporary
-                        io.onRecSave(msg, cleanJson);
                         io.onRecJson(msg);
                       //  workerIO.postMessage({cmd : "saveJson", msg : {msg:msg, cj : cleanJson}});
                     }
@@ -503,7 +496,6 @@ var ioInit = {
             break;
 
             case 'stBinary': // storage binary
-                ioStorage.dataBinaryStore(e.data.msg);
                  if(e.data.hasOwnProperty('triggerBinRec')){
                     virtualclass.ioEventApi.binrec({
                         type: "binrec",
@@ -530,7 +522,6 @@ var ioInit = {
                 msg1[0] = msg[0];
                 msg1[1] = 0;
                 msg1.set(msg, 2);
-                ioStorage.dataBinaryStore(msg1);
                 virtualclass.ioEventApi.binrec({
                     type: "binrec",
                     message: msg.buffer

@@ -760,6 +760,11 @@
                         btn.style.display = "table";
                     } else {
                         btn.style.display = "none";
+                         if(roles.hasControls){
+                             var siteHead= document.getElementById("sitethead");
+                             siteHead.classList.add("header");
+                             
+                         }
                     }
 
                     var elem = document.getElementById("newPollBtncourse");
@@ -768,6 +773,10 @@
                     }
 
                 } else {
+                     if(roles.hasControls){
+                             var siteHead= document.getElementById("sitethead");
+                             siteHead.classList.remove("header");
+                     }
                     btn.style.display = "table";
                     var elem = document.getElementById("newPollBtnsite");
                     if (elem) {

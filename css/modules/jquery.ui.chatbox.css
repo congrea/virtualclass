@@ -499,7 +499,8 @@
 #virtualclassCont.congrea.playMode #chat_div{
     padding-top:0px;
 }
-#virtualclassCont.congrea.playMode.student .ui-chatroom{
+virtualclassCont.congrea.playMode.student .ui-chatroom {
+    overflow-y: auto;
     z-index: 0 !important;
 }
 
@@ -637,6 +638,11 @@
 /*#virtualclassCont.congrea.playMode #chat_room {*/
     /*pointer-events: none;*/
 /*}*/
+#virtualclassCont.congrea.playMode #chat_room {
+    width: 302px;
+    overflow: hidden;
+    pointer-events: none;
+}
 
 #virtualclassCont.congrea.teacher.nowebcam #chat_room{
     height:calc(100vh - 153px);

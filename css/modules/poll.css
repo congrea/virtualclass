@@ -362,6 +362,10 @@ pointer-events:none;
     display: table;
     z-index:8;
 }
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList .header {
+    position: fixed;
+    top: 66px;
+}
 
 #virtualclassCont.congrea #addMoreCont #addMoreOption{
   color : #757272;
@@ -470,10 +474,12 @@ pointer-events:none;
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:first-child td.qnText .popover-content {
     top:10%;
     bottom:auto;
+    overflow: auto;
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:last-child td.qnText .popover-content {
     bottom:10%;
+    overflow: auto;
 }
 
 .congrea.teacher .pollList td.qnText.col-sm-8:hover {

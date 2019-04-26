@@ -1424,7 +1424,8 @@
 
             setPrvUser: function () {
                 localStorage.clear();
-                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : virtualclass.saveRecording};
+                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : wbUser.saveRecording};
+                console.log('previosu user');
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
             },
 

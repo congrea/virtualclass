@@ -28,10 +28,16 @@
 /*    pointer-events: none;*/
 }
 
-#virtualclassCont.congrea.playMode #congreaChatCont .ui-chatbox-content {
+#virtualclassCont.congrea.playMode .vidHide #congreaChatCont .ui-chatbox-content {
     
     overflow-y :auto;
     height: calc(100vh - 118px) !important;
+    
+}
+#virtualclassCont.congrea.playMode .vidShow #congreaChatCont .ui-chatbox-content {
+    
+    overflow-y :auto;
+    height: calc(100vh - 350px) !important;
     
 }
 

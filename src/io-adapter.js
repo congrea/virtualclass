@@ -133,10 +133,14 @@ var ioAdapter = {
     },
 
     setSessionToServer: function (session) {
-        console.log('Set session to server');
-        "use strict";
-        var cfun = 'session';
-        io.send(session, cfun);
+        if (virtualclass.saveRecording) {
+            let obj = {
+                cfun: 'session',
+                arg: {'msg': session}
+            };
+            io.realSend(obj);
+        }
+        io.sessionSet = true;
     },
 
     sync (msg){

@@ -178,20 +178,15 @@
                 this.jscolor = window.jscolor;
                 this.modal = window.modal;
 
+                if(this.system.isIndexedDbSupport()){
+                    this.storage.init();
+                }else {
+                    console.log('Indexeddb does not support');
+                }
 
                 // this.pdfRender = window.pdfRender();
                 if(this.currApp != 'Quiz' && typeof CDTimer != 'undefined'){
                     clearInterval(CDTimer);
-                }
-
-                if(this.system.isIndexedDbSupport()){
-                    this.storage.init(function () {
-                        if (!virtualclass.vutil.isPlayMode()) {
-                            ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
-                        }
-                    });
-                }else {
-                    console.log('Indexeddb does not support');
                 }
 
                 virtualclass.modernizr = Modernizr;
@@ -1363,14 +1358,24 @@
                                 console.log('Not start new session');
                                 return;
                             }
-
-                            virtualclass.clearSession();
+                            
                             virtualclass.gObj.endSession = true;
                             if(virtualclass.gObj.hasOwnProperty('beTeacher') && roles.isTeacher()){
                                 localStorage.setItem('uRole', 't');
                             }
                             localStorage.clear();
-                            window.close();
+
+                            var allFinish  = new Promise(function (resolve, reject){
+                                virtualclass.gObj.sessionEndResolve = resolve;
+                                virtualclass.clearSession();
+                            });
+
+                            allFinish.then(function (){
+                                delete virtualclass.gObj.sessionEndResolve;
+                                virtualclass.popup.sesseionEndWindow();
+                            }, function (error){
+                                console.log("ERRROR " + error);
+                            });
                         }
                     )
                 } else {
@@ -1407,7 +1412,7 @@
                     virtualclass.setPrvUser();
                 } else {
                     prvUser = JSON.parse(prvUser);
-                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role) {
+                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != wbUser.saveRecording) {
                         virtualclass.gObj.sessionClear = true;
                         virtualclass.setPrvUser();
                         if (roles.hasControls()) {
@@ -1419,7 +1424,8 @@
 
             setPrvUser: function () {
                 localStorage.clear();
-                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role};
+                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : wbUser.saveRecording};
+                console.log('previosu user');
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
             },
 

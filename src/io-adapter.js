@@ -70,7 +70,6 @@ var ioAdapter = {
         var cfun = 'broadcastToAll'; // BroadcastToALl (Do not send to self)
         //console.log('Packet sending');
         io.send(msg, cfun, null);
-        ioStorage.sendStore(msg, cfun);
     },
 
     mustSendAll: function (msg) {

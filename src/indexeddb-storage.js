@@ -17,13 +17,12 @@
 
     var storage = {
         //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
-        dbVersion: 6,
+        dbVersion: 7,
         sessionEndFlag:false,
-        init: function (firstDataStore) {
+        init: function () {
 
             /***
              * Which table, what doing
-             *  allData => For Store all the data of virtualclass for play session at later.
              executedStoreAll => To store the executed data of users till now
              dataAdapterAll => To store the must data of all user.
              dataUserAdapterAll =>  To Store the must data of all user on particular user
@@ -34,11 +33,12 @@
              ending the session for that particular room)
              executedUserStoreAll => for store the missed packet of according to user.
              */
+
             this.reclaim = roles.isEducator();
             that = this;
             //TODO these are not using because audio and video is not using
 
-            this.tables = ["wbData", "allData", "chunkData",  "config", "dataAdapterAll", "dataUserAdapterAll",  "executedStoreAll",   "executedUserStoreAll", "dstdata","pollStorage","quizData", "dstall"];
+            this.tables = ["wbData", "chunkData",  "config", "dataAdapterAll", "dataUserAdapterAll",  "executedStoreAll",   "executedUserStoreAll", "dstdata","pollStorage","quizData", "dstall"];
 
             //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
 
@@ -71,10 +71,6 @@
                     thisDb.createObjectStore("wbData", {keyPath: 'did'});
                 }
 
-                if (!thisDb.objectStoreNames.contains("allData")) {
-
-                    thisDb.createObjectStore("allData", {autoIncrement: true});
-                }
 
                 if (!thisDb.objectStoreNames.contains("config")) {
                     thisDb.createObjectStore("config", {keyPath: 'timeStamp', autoIncrement: true});
@@ -159,14 +155,12 @@
                                     that.config.endSession();
                                 }
                             }
-                        },
-                        'allData'
+                        }
                     );
                 }
                 that.db.onerror = function (event) {
                     console.dir(event.target);
                 };
-                firstDataStore();
             };
         },
 
@@ -247,47 +241,6 @@
             }
         },
 
-        completeStorage: function (playTime, data, bdata, sessionEnd) {  //storing whiteboard and screenshare
-            if(roles.hasAdmin()) {
-                var t = that.db.transaction(["allData"], "readwrite");
-                if (typeof sessionEnd != 'undefined') {
-                    t.objectStore("allData").add({recObjs: "", sessionEnd: true, id: 3});
-                } else {
-                    if (typeof bdata == 'undefined') {
-                        t.objectStore("allData").add({recObjs: data, playTime: playTime, id: 3});
-                    } else {
-                        //console.log('data storing ' + this.totalStored);
-                        t.objectStore("allData").add({recObjs: data, playTime: playTime, id: 3, bd: bdata.type});
-                    }
-                }
-            }
-        },
-
-        // chunkStorage : function (value, row, trow, cn, d){
-        // chunkStorage: function (dobj) {
-        //     console.log('Chunk Storage');
-        //     var t = that.db.transaction(["chunkData"], "readwrite");
-        //     dobj.id = 4;
-        //     t.objectStore("chunkData").add(dobj);
-        // },
-
-        wholeStore: function (playTime, obj, type) {  //storing whiteboard and screenshare
-            obj.peTime = window.pageEnter;
-            var data = JSON.stringify(obj);
-            var currTime = new Date().getTime();
-
-            if (typeof this.prevTime != 'undefined' && currTime == this.prevTime) {
-                currTime = currTime + 1;
-            }
-            var t = that.db.transaction(["allData"], "readwrite");
-            if (typeof type == 'undefined') {
-                t.objectStore("allData").add({recObjs: data, timeStamp: currTime, id: 3});
-            } else {
-                t.objectStore("allData").put({recObjs: data, timeStamp: this.prevTime, id: 3});
-            }
-            this.wholeStoreData = data;
-            this.prevTime = currTime;
-        },
         quizStorage: function(quizkey, data){
             var t = that.db.transaction(["quizData"], "readwrite");
             var objectStore = t.objectStore("quizData");
@@ -303,16 +256,13 @@
             objectStore.openCursor().onsuccess = that.handleResult;
         },
 
-        getAllObjs: function (tables, callback, exludeTable, row) {
+        getAllObjs: function (tables, callback, row) {
             var cb = typeof callback != 'undefined' ? callback : "";
             for (var i = 0; i < tables.length; i++) {
                 var transaction = that.db.transaction(tables[i], "readonly");
                 var objectStore = transaction.objectStore(tables[i]);
 
                 objectStore.openCursor().onsuccess = (function (val, cb) {
-                    if (tables[val] == exludeTable) {
-                        return;
-                    }
                     return function (event) {
                         if (typeof cb == 'function') {
                             if (typeof row != 'undefined') {
@@ -449,46 +399,6 @@
             }
         },
 
-        allData: {
-            chunk: 0,
-            handleResult: function (event, cb) {
-                //virtualclass.recorder.item = [];
-                var cursor = event.target.result;
-                if (cursor) {
-                    if (cursor.value.hasOwnProperty('recObjs')) {
-                        if (cursor.value.hasOwnProperty('sessionEnd')) {
-                            virtualclass.recorder.items.push({
-                                playTime: cursor.value.playTime,
-                                recObjs: cursor.value.recObjs,
-                                sessionEnd: true
-                            });
-                            console.log('Start Upload Process');
-
-
-
-                             // initToServer(cb)
-
-                            return;
-                        } else {
-                            if (cursor.value.hasOwnProperty('bd')) {
-                                virtualclass.recorder.items.push({
-                                    playTime: cursor.value.playTime,
-                                    recObjs: cursor.value.recObjs,
-                                    bd: cursor.value.bd
-                                });
-                            } else {
-                                virtualclass.recorder.items.push({
-                                    playTime: cursor.value.playTime,
-                                    recObjs: cursor.value.recObjs
-                                });
-                            }
-                        }
-                    }
-                    cursor.continue();
-                }
-            }
-        },
-
         dataAdapterAll: {
             handleResult: function (event, cb) {
                 var cursor = event.target.result;
@@ -589,13 +499,6 @@
             },
 
             createNewSession: function () {
-                //debugger;
-                // virtualclass.recorder.sessionKey = randomString(11);
-                //virtualclass.editorRich.init(0, [], "", "");
-                if(roles.hasAdmin()){
-                    ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
-                }
-
                 virtualclass.makeAppReady(virtualclass.gObj.defaultApp);
 
                 var currTime = new Date().getTime();
@@ -766,10 +669,6 @@
 
                 workerIO.postMessage({'cmd' : 'sessionEndClose'});
 
-                // if (io.sock) {
-                //     io.sock.close();
-                // }
-
                 if(precheck != null ){
                     localStorage.setItem('precheck', JSON.parse(precheck));
                 }
@@ -828,12 +727,6 @@
                     chatHighlight.classList.remove('ui-state-highlight');
                 }
 
-                //   var videoHide = document.querySelector("#virtualclassCont.congrea.teacher #virtualclassAppRightPanel");
-                //   if(videoHide && videoHide.classList.contains("vidHide")){
-                    // videoHide.classList.remove("vidHide");
-                    // videoHide.classList.add("vidShow")
-                //}
-
                 var videOff = document.querySelector("#virtualclassCont.congrea.student");
                 if(videOff && videOff.classList.contains("videoff")){
                     videOff.classList.remove("videoff")
@@ -889,7 +782,6 @@
         // Store for document sharing data
         dstdata : {
             handleResult : function(event){
-
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('alldocs')) {
@@ -944,12 +836,15 @@
             }
         },
 
-        clearSingleTable : function (table){
+        clearSingleTable : function (table, lastTable){
             var t = this.db.transaction(table, "readwrite");
             if (typeof t != 'undefined') {
                 var objectStore = t.objectStore(table);
                 objectStore.clear();
                 console.log('Cleared IDDB Table ' + table);
+                if(typeof lastTable != 'undefined'){
+                    lastTable();
+                }
             } else {
                 console.log('There is no table '+ table + ' at IDDB.');
             }
@@ -980,16 +875,20 @@
             ioMissingPackets.aheadUserPackets =  [];
             ioMissingPackets.missUserRequestFlag =  0;
 
+
             for(var i=0; i<this.tables.length; i++){
-                if (this.tables[i] == 'allData') {
-                    if (!virtualclass.vutil.isPlayMode()) {
-                        this.clearSingleTable(this.tables[i]);
-                    }
+                if(i+1 == this.tables.length){
+                    this.clearSingleTable(this.tables[i], this.clearLastTable);
                 } else {
                     this.clearSingleTable(this.tables[i]);
                 }
             }
+        },
 
+        clearLastTable(){
+            if(virtualclass.gObj.hasOwnProperty('sessionEndResolve')){
+                virtualclass.gObj.sessionEndResolve();
+            }
         },
 
         // Get quiz data, store in array based on

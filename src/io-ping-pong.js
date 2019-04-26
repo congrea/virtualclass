@@ -8,9 +8,11 @@ var ioPingPong = {
             var msg = {ping: 'ping', cf: 'pong', session: session};
             ioAdapter.sendWithDelayAndDrop (msg, null, 'mustSend', 'pingAll', 3000);
             console.log('PING BROADCAST');
-            if(e.hasOwnProperty('users') && virtualclass.saveRecording){
+            if(e.hasOwnProperty('users')){
                 ioAdapter.setSessionToServer(session);
             }
+        } else if (e.type == 'member_added' && e.hasOwnProperty('users')) {
+            io.sessionSet = true;
         }
     },
     pong: function (e) {
@@ -24,7 +26,6 @@ var ioPingPong = {
             console.log('PONG BROADCAST from ' + e.fromUser.userid);
             this.verifySession(e);
         }
-
     },
     pongAck: function (e) {
         "use strict";

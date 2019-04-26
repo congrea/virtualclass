@@ -22,6 +22,7 @@ var io = {
     recjsnMsgQueue: null,
     stockReadyState : false,
     workerIOOnmessage : false,
+    sessionSet: false,
     init: function(cfg) {
         this.cfg = cfg;
         "use strict";
@@ -47,7 +48,7 @@ var io = {
 
         var jobj;
 
-        if (this.webSocketConnected()) { // If Socket is ready
+        if (this.webSocketConnected() && io.sessionSet) { // If Socket is ready
             if (io.packetQueue.length > 0) {
                 for (var i = 0; i < io.packetQueue.length; i++) {
                     var tmp_jobj = JSON.parse(io.packetQueue[i]);

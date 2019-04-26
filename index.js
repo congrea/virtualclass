@@ -981,8 +981,7 @@ $(document).ready(function () {
             this.sEnd = function (e) {
                 virtualclass.storage.config.endSession();
                 virtualclass.popup.sesseionEndWindow();
-
-                //location.reload();
+                virtualclass.gObj.endSession = true;
             };
 
             //whiteboard ready

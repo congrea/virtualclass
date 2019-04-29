@@ -670,7 +670,13 @@
                             if(typeof initchannel == 'undefined'){
 
                                 workletAudioRec = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-rec');
-                                workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination)
+                                cthis.audio.Html5Audio.MediaStreamDest = cthis.audio.Html5Audio.audioContext.createMediaStreamDestination();
+                                workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
+
+                                if (virtualclass.system.mybrowser.name == 'Chrome'){
+                                    console.log("==== Chrome after change");
+                                    cthis.audio.bug_687574_callLocalPeers();
+                                }
 
                                 var audioReadyChannel = new MessageChannel();
                                 workerIO.postMessage({
@@ -1068,8 +1074,109 @@
                 removeAudioFromLocalStorage : function (){
                     console.log('Remove audio from local storage');
                     localStorage.removeItem('audEnable');
-                }
+                },
 
+                bug_687574_callLocalPeers : async function () {
+                    let lc1, lc2;
+                    lc1 = new RTCPeerConnection();
+                    lc1.count = 0;
+                    lc1.addEventListener('icecandidate', e => onIceCandidate(lc1, e));
+                    lc1.addEventListener('connectionstatechange', e => onconnectionstatechange(lc1, e));
+
+                    lc2 = new RTCPeerConnection();
+                    lc2.count = 0;
+                    lc2.addEventListener('icecandidate', e => onIceCandidate(lc2, e));
+                    lc2.addEventListener('connectionstatechange', e => onconnectionstatechange(lc2, e));
+                    lc2.addEventListener('track', gotRemoteStream);
+
+                    cthis.audio.Html5Audio.MediaStreamDest.stream.getTracks().forEach(track => lc1.addTrack(track, cthis.audio.Html5Audio.MediaStreamDest.stream));
+
+                    function onconnectionstatechange(pc, event) {
+                        if (event.currentTarget.connectionState === "connected") {
+                            try { // TODO Dirty try hack
+                                workletAudioRec.disconnect(cthis.audio.Html5Audio.audioContext.destination);
+                                workletAudioRec.connect(cthis.audio.Html5Audio.MediaStreamDest);
+                            } catch (e) {}
+                        } else if(event.currentTarget.connectionState === "disconnected") {
+                            lc1.close();
+                            lc2.close();
+                            lc1 = null;
+                            lc2 = null;
+                            try {
+                                workletAudioRec.disconnect(cthis.audio.Html5Audio.MediaStreamDest);
+                                workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                            } catch (e) {}
+                            cthis.audio.bug_687574_callLocalPeers();
+                        }
+                    }
+
+                    try {
+                        const offer = await lc1.createOffer();
+                        await onCreateOfferSuccess(offer);
+                    } catch (e) {
+                        onError();
+                    }
+
+                    function gotRemoteStream(e) {
+                        let audio = document.createElement('audio');
+                        audio.srcObject = e.streams[0];
+                        audio.autoplay = true;
+                    }
+
+                    async function onCreateOfferSuccess(desc) {
+                        try {
+                            await lc1.setLocalDescription(desc);
+                            await lc2.setRemoteDescription(desc);
+                        } catch (e) {
+                            onError();
+                        }
+                        try {
+                            const answer = await lc2.createAnswer();
+                            await onCreateAnswerSuccess(answer);
+                        } catch (e) {
+                            onError();
+                        }
+                    }
+
+                    async function onCreateAnswerSuccess(desc) {
+                        try {
+                            await lc2.setLocalDescription(desc);
+                            await lc1.setRemoteDescription(desc);
+                        } catch (e) {
+                            onError();
+                        }
+                    }
+
+                    async function onIceCandidate(pc, event) {
+                        if (event.candidate) {
+                            if (event.candidate.type === "host") { // We only want to connect over LAN
+                                try {
+                                    await (getOtherPc(pc).addIceCandidate(event.candidate));
+                                } catch (e) {
+                                    onError();
+                                }
+                            }
+                        }
+                    }
+
+                    function getOtherPc(pc) {
+                        return (pc === lc1) ? lc2 : lc1;
+                    }
+
+                    function onError() {
+                        // Peer connection failed, fallback to standard
+                        try {
+                            workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                            lc1.close();
+                            lc2.close();
+                            lc1 = null;
+                            lc2 = null;
+                        } catch (e) {
+                            lc1 = null;
+                            lc2 = null;
+                        }
+                    }
+                }
             },
             /**
              * video property contains all the properties and methods necessary for the manipulation

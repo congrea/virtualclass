@@ -91,7 +91,7 @@
     /*width: 90%;*/
 /*}*/
 
-#virtualclassCont.congrea .pages .links[data-status='0'] {
+#virtualclassCont.congrea .pages .links[data-status='0'] .pptTitle {
     opacity: 0.5;
 }
 
@@ -652,9 +652,9 @@
         color: #606060;
     }
 
-    #virtualclassCont.congrea #listnotes .linknotes.links[data-status="0"] .controls.delete::before {
+    /* #virtualclassCont.congrea #listnotes .linknotes.links[data-status="0"] .controls.delete::before {
         display: none;
-    }
+    } */
 
     #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
         font-size: 0.88em;

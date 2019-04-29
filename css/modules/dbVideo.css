@@ -554,7 +554,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 
-#virtualclassCont.congrea #listvideo .linkvideo.playDisable {
+#virtualclassCont.congrea #listvideo .linkvideo.playDisable .videoTitleCont {
   opacity:0.3;
 
 }

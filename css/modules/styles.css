@@ -3795,6 +3795,8 @@ opacity: 1;
 }
 #virtualclassCont.congrea  #dashboardContainer .modal-header button.enable {
 	display: block;
+	position: absolute;
+    right: 10px;
 }
 #virtualclassCont.congrea.pdfRendering .zoomControler{
 	pointer-events: none;

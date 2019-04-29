@@ -31,8 +31,6 @@
                             if(commonChatTab.classList.contains("active")){
                                 commonChatTab.classList.remove('active');
                             }
-                            virtualclass.appSetting.rtcIo();
-                            virtualclass.appSettingMedia.init();
 
                         }else{
                             toggle.classList.add('chatActive');
@@ -52,26 +50,6 @@
                             }
                         }
                     });
-                }
-
-            },
-            rtcIo:function(){
-                var mediaCont = document.querySelector(".congrea #webRtcIoContainer");
-                if(!mediaCont){
-                    var template = virtualclass.getTemplate('appSettingMedia');
-                   // $("#virtualclassApp  #settingMedia").append(template());
-                    var settingCont = document.querySelector("#virtualclassApp  #settingMedia")
-                    settingCont .insertAdjacentHTML('beforeend', template());
-                    
-                    if (navigator.userAgent.indexOf("Firefox") != -1)//audio output not supported
-                    {  
-                        var audioOutput = document.querySelector(".congrea #webRtcIoContainer .aoutput")
-                        if(audioOutput){
-                            audioOutput.style.display= "none"
-                        }
-           
-                    }
-                          
                 }
 
             }

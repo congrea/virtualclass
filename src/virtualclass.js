@@ -356,6 +356,11 @@
                         fullScreenBtn.addEventListener('click' , virtualclass.vutil.Fullscreen);
                     }
 
+                var fullScreenExitBtn = document.getElementById("fullScreenExitButton");
+                    if(fullScreenExitBtn != null) {
+                        fullScreenExitBtn.addEventListener('click' , virtualclass.vutil.closeFullscreen);
+                    }
+
             },
 
             makeReadySocket : function (){

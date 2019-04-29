@@ -376,7 +376,23 @@
             } else if (elem.msRequestFullscreen) { /* IE/Edge */
                 elem.msRequestFullscreen();
             }
+            document.querySelector("#fullScreenButton").style.display = "none";
+            document.querySelector("#fullScreenExitButton").style.display = "block";
         },
+
+        closeFullscreen: function () {
+            if (document.exitFullscreen) {
+              document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+              document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+              document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+              document.msExitFullscreen();
+            }
+            document.querySelector("#fullScreenButton").style.display = "block";
+            document.querySelector("#fullScreenExitButton").style.display = "none";
+          },
         
         // TODO
         /***

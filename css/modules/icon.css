@@ -743,7 +743,7 @@
 }
 
 #virtualclassCont.congrea .icon-fitScreen:before{
-  content: "\e95e";
+  content: "\e9b0";
   font-size: 22px;
      font-weight: 100;
     font-variant: normal;
@@ -793,6 +793,21 @@
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:before {
   content : "\e994";
 }
+
 #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon .icon-shapes.cgIcon:before {
   font-size:21px;
+}
+
+#virtualclassCont.congrea #fullScreenButton span .icon-fullScreen:before {
+  content: "\e95e";
+    font-weight: normal;
+    font-family: 'icomoon';
+    font-size: 22px;
+}
+
+#virtualclassCont.congrea #fullScreenExitButton span .icon-exitScreen:before {
+  content: "\e997";
+    font-weight: normal;
+    font-family: 'icomoon';
+    font-size: 20px;
 }

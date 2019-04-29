@@ -25,14 +25,14 @@
                         }
                     }
                 }
-                var reload = document.querySelector("#virtualclassAppLeftPanel .zoomControler .reloadNote span");
-                 if(reload){
-                     if(virtualclass.currApp =="Whiteboard"){
-                        reload.setAttribute("data-title","Reload whiteboard")
-                     }else{
-                        reload.setAttribute("data-title", virtualclass.lang.getString('reloadDoc'))
-                     }                                                   
-                 }
+                // var reload = document.querySelector("#virtualclassAppLeftPanel .zoomControler .reloadNote span");
+                //  if(reload){
+                //      if(virtualclass.currApp =="Whiteboard"){
+                //         reload.setAttribute("data-title","Reload whiteboard")
+                //      }else{
+                //         reload.setAttribute("data-title", virtualclass.lang.getString('reloadDoc'))
+                //      }                                                   
+                //  }
             },
 
             _initScaleController : function (){
@@ -57,10 +57,10 @@
                     that.zoomAction('fitToScreen');
                 });
 
-                var reload = elem.querySelector('.reloadNote');
-                reload.addEventListener('click', function (){
-                    that.zoomAction('reload');
-                });
+                // var reload = elem.querySelector('.reloadNote');
+                // reload.addEventListener('click', function (){
+                //     that.zoomAction('reload');
+                // });
 
             },
 

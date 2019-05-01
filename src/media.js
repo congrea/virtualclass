@@ -533,7 +533,7 @@
                             // var left = e.inputBuffer.getChannelData(0);
                             var samples = this.resampler.resampler(left);
                             var leftSix = convertFloat32ToInt16(samples);
-                            var send = this.audioInLocalStorage(leftSix);
+                            var send = this.encodeAudio(leftSix);
                             this.silenceDetection(send, leftSix);
                         }
 
@@ -554,7 +554,7 @@
                  *@return encoded  G711 encoded data
                  */
                 //TODO function name should reflect the action
-                audioInLocalStorage: function (leftSix) {
+                encodeAudio: function (leftSix) {
                     var encoded = G711.encode(leftSix, {
                         alaw: this.encMode == "alaw" ? true : false
                     });
@@ -996,6 +996,16 @@
                                                 virtualclass.gObj.sendAudioStatus = true;
                                             }
                                             ioAdapter.send(e.data.msg);
+                                        }else if(e.data.cmd == 'muteAudio'){
+                                            if(!this.hasOwnProperty('speakerPressOnce')){
+                                                this.speakerPressOnce = document.querySelector('#speakerPressOnce');
+                                            }
+
+                                            if(this.speakerPressOnce != null && !this.speakerPressOnce.classList.contains('audioMute')){
+                                                this.speakerPressOnce.classList.add('audioMute');
+                                            }
+                                        }else if(e.data.cmd == 'unMuteAudio' && this.hasOwnProperty('speakerPressOnce') && this.speakerPressOnce.classList.contains('audioMute')){
+                                            this.speakerPressOnce.classList.remove('audioMute');
                                         }
                                     }
                                 }
@@ -1265,9 +1275,6 @@
                  * interval depends on the number of users
                  */
                 //TODO function defined in function they can be separately defined
-
-
-
                 sendInBinary: function (sendimage) {
                     var user = {
                         name: virtualclass.gObj.uName,

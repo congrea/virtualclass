@@ -633,9 +633,14 @@
                 virtualclass.user.control.allChatEnable(); // Enabble all chat if disabled
                 virtualclass.user.control.resetmediaSetting();
 
-                if(!virtualclass.gObj.meetingMode && roles.isStudent()){
+                if(!virtualclass.gObj.meetingMode && roles.isStudent()){ // #973
                     var teacherVid = document.getElementById("videoHostContainer");
-                    teacherVid.style.display = "block";
+                    teacherVid.style.display = "none";
+
+                    var leftPanel = document.getElementById("virtualclassAppRightPanel");
+                    if(leftPanel.classList.contains("vidShow")){
+                       leftPanel.classList.remove("vidShow");
+                    }
                 }
 
 

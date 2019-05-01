@@ -510,7 +510,7 @@ div.ui-memblist-usr .user-details  img.media-object{
 /** After :host-context is supported in all browser, we don't need to put current app on chat_div element **/
 
 :host(.studentScreenSharing[data-currapp='ScreenShare']) span.icon-stdscreenImg {
-    pointer-events: none;
+    pointer-events: none !important;
     opacity: 0.5;
 }
 

@@ -979,6 +979,14 @@ $(document).ready(function () {
 
             //session end
             this.sEnd = function (e) {
+                // #967
+                var joinClass = document.querySelector('#joinClassModal');
+                joinClass.style.display = "none";
+
+                var virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
+                if(virtualclassApp != null ){
+                    virtualclassApp.style.display =  'block';
+                }
                 virtualclass.storage.config.endSession();
                 virtualclass.popup.sesseionEndWindow();
                 virtualclass.gObj.endSession = true;

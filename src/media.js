@@ -209,6 +209,7 @@
                         }
                     };
                     this.attachFunctionsToAudioWidget(); // to attach functions to audio widget
+
                 },
 
                 initAudiocontext : function (){
@@ -532,7 +533,7 @@
                             // var left = e.inputBuffer.getChannelData(0);
                             var samples = this.resampler.resampler(left);
                             var leftSix = convertFloat32ToInt16(samples);
-                            var send = this.audioInLocalStorage(leftSix);
+                            var send = this.encodeAudio(leftSix);
                             this.silenceDetection(send, leftSix);
                         }
 
@@ -553,7 +554,7 @@
                  *@return encoded  G711 encoded data
                  */
                 //TODO function name should reflect the action
-                audioInLocalStorage: function (leftSix) {
+                encodeAudio: function (leftSix) {
                     var encoded = G711.encode(leftSix, {
                         alaw: this.encMode == "alaw" ? true : false
                     });
@@ -704,7 +705,7 @@
                                 virtualclass.gObj.audioRecWorkerReady = true;
                             }
                             // virtualclass.gObj.workerAudio = true;
-                        });
+                        })
                     }
                 },
 
@@ -938,7 +939,9 @@
                         workletAudioSend.disconnect();
                     }
                     if(typeof stream != 'undefined' && stream != null) {
+                        console.log('Audio worklet init add module');
                         cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath + 'worker/worklet-audio-send.js').then(() => {
+
                             let audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
 
                             filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
@@ -993,12 +996,28 @@
                                                 virtualclass.gObj.sendAudioStatus = true;
                                             }
                                             ioAdapter.send(e.data.msg);
+                                        }else if(e.data.cmd == 'muteAudio'){
+                                            if(!this.hasOwnProperty('speakerPressOnce')){
+                                                this.speakerPressOnce = document.querySelector('#speakerPressOnce');
+                                            }
+
+                                            if(this.speakerPressOnce != null && !this.speakerPressOnce.classList.contains('audioMute')){
+                                                this.speakerPressOnce.classList.add('audioMute');
+                                            }
+                                        }else if(e.data.cmd == 'unMuteAudio' && this.hasOwnProperty('speakerPressOnce') && this.speakerPressOnce.classList.contains('audioMute')){
+                                            this.speakerPressOnce.classList.remove('audioMute');
                                         }
                                     }
                                 }
 
                                 workerAudioSendOnmessage = true;
                             }
+
+                            console.log('Audio worklet ready audio worklet module');
+                        }).catch(e => {
+                            console.log('Audio worklet error' + e);
+                            console.error(e);
+                            console.trace();
                         });
                     }
                 },
@@ -1094,10 +1113,12 @@
                     function onconnectionstatechange(pc, event) {
                         if (event.currentTarget.connectionState === "connected") {
                             try { // TODO Dirty try hack
+                                console.log('PEER connected webrtc');
                                 workletAudioRec.disconnect(cthis.audio.Html5Audio.audioContext.destination);
                                 workletAudioRec.connect(cthis.audio.Html5Audio.MediaStreamDest);
                             } catch (e) {}
                         } else if(event.currentTarget.connectionState === "disconnected") {
+                            console.log('PEER disconnected');
                             lc1.close();
                             lc2.close();
                             lc1 = null;
@@ -1105,6 +1126,7 @@
                             try {
                                 workletAudioRec.disconnect(cthis.audio.Html5Audio.MediaStreamDest);
                                 workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                                console.log('PEER connected normal audio api');
                             } catch (e) {}
                             cthis.audio.bug_687574_callLocalPeers();
                         }
@@ -1165,6 +1187,7 @@
 
                     function onError() {
                         // Peer connection failed, fallback to standard
+                        console.log('PEER fallback');
                         try {
                             workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
                             lc1.close();
@@ -1252,9 +1275,6 @@
                  * interval depends on the number of users
                  */
                 //TODO function defined in function they can be separately defined
-
-
-
                 sendInBinary: function (sendimage) {
                     var user = {
                         name: virtualclass.gObj.uName,
@@ -1529,13 +1549,16 @@
 
 
             init: function (cb) {
-
                 console.log('Video second, normal video');
                 cthis = this; //TODO there should be done work for cthis
-
                 virtualclass.gObj.oneExecuted = true;
-                var webcam, session;
 
+                if(virtualclass.gesture.classJoin){
+                    virtualclass.gesture.attachHandler();
+                    delete virtualclass.gesture.classJoin;
+                }
+
+                var webcam, session;
                 [webcam, session] = this.sessionConstraints();
 
                 cthis.video.init();

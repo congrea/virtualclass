@@ -102,9 +102,11 @@ var workerAudioSend = {
         } // Keep algo sensitive
         var thdiff = this.maxthreshold / this.minthreshold;
         var th = vol / this.minthreshold;
-
         audStatus = "sending";
-        if ( thdiff >= 20 || // historical max minus min
+
+        if (vol == 0) {
+            postMessage({cmd : 'muteAudio'});
+        } else if ( thdiff >= 20 || // historical max minus min
             th > 2 || // Difference between current volume and minimum
             rate > this.minthreshold || rate > 25 || // Change in signal strength
             vol > (this.minthreshold * 2) || // Current max volume
@@ -120,6 +122,10 @@ var workerAudioSend = {
         } else {
             postMessage({cmd : 'adStatus', msg : 'notSending'});
             postMessage({cmd : 'ioAdapterSend', msg : {cf:'na'}});
+        }
+
+        if (vol !== 0){
+            postMessage({cmd : 'unMuteAudio'});
         }
         return send;
     },

@@ -479,7 +479,6 @@ var ioInit = {
                         !virtualclass.recorder.uploadInProcess &&
                         !(virtualclass.gObj.hasOwnProperty('invalidlogin') && virtualclass.gObj.invalidlogin)) {
                         // scope.wsconnect();
-
                         workerIO.postMessage({cmd : 'wsconnect'});
 
                     }

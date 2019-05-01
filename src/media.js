@@ -209,6 +209,7 @@
                         }
                     };
                     this.attachFunctionsToAudioWidget(); // to attach functions to audio widget
+
                 },
 
                 initAudiocontext : function (){
@@ -704,7 +705,7 @@
                                 virtualclass.gObj.audioRecWorkerReady = true;
                             }
                             // virtualclass.gObj.workerAudio = true;
-                        });
+                        })
                     }
                 },
 
@@ -938,7 +939,9 @@
                         workletAudioSend.disconnect();
                     }
                     if(typeof stream != 'undefined' && stream != null) {
+                        console.log('Audio worklet init add module');
                         cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath + 'worker/worklet-audio-send.js').then(() => {
+
                             let audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
 
                             filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
@@ -999,6 +1002,12 @@
 
                                 workerAudioSendOnmessage = true;
                             }
+
+                            console.log('Audio worklet ready audio worklet module');
+                        }).catch(e => {
+                            console.log('Audio worklet error' + e);
+                            console.error(e);
+                            console.trace();
                         });
                     }
                 },
@@ -1094,10 +1103,12 @@
                     function onconnectionstatechange(pc, event) {
                         if (event.currentTarget.connectionState === "connected") {
                             try { // TODO Dirty try hack
+                                console.log('PEER connected webrtc');
                                 workletAudioRec.disconnect(cthis.audio.Html5Audio.audioContext.destination);
                                 workletAudioRec.connect(cthis.audio.Html5Audio.MediaStreamDest);
                             } catch (e) {}
                         } else if(event.currentTarget.connectionState === "disconnected") {
+                            console.log('PEER disconnected');
                             lc1.close();
                             lc2.close();
                             lc1 = null;
@@ -1105,6 +1116,7 @@
                             try {
                                 workletAudioRec.disconnect(cthis.audio.Html5Audio.MediaStreamDest);
                                 workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                                console.log('PEER connected normal audio api');
                             } catch (e) {}
                             cthis.audio.bug_687574_callLocalPeers();
                         }
@@ -1165,6 +1177,7 @@
 
                     function onError() {
                         // Peer connection failed, fallback to standard
+                        console.log('PEER fallback');
                         try {
                             workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
                             lc1.close();
@@ -1529,13 +1542,16 @@
 
 
             init: function (cb) {
-
                 console.log('Video second, normal video');
                 cthis = this; //TODO there should be done work for cthis
-
                 virtualclass.gObj.oneExecuted = true;
-                var webcam, session;
 
+                if(virtualclass.gesture.classJoin){
+                    virtualclass.gesture.attachHandler();
+                    delete virtualclass.gesture.classJoin;
+                }
+
+                var webcam, session;
                 [webcam, session] = this.sessionConstraints();
 
                 cthis.video.init();

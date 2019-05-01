@@ -34,7 +34,7 @@ let workerIO = {
 
     wsconnect () {
         "use strict";
-        console.log('init for socket connect');
+        console.log('member_added init for socket connect');
         workerIO.wsuri = this.cfg.rid;
 
         if(typeof WebSocket != 'undefined'){
@@ -49,7 +49,7 @@ let workerIO = {
 
         this.sock.onopen = function() {
             this.readyToSend = false;
-            console.log("Connected to " + scope.cfg.rid);
+            console.log("member_added Connected to " + scope.cfg.rid);
             scope.userauthenticate();
             // user join chat room
             scope.addclient();

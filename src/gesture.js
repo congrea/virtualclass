@@ -14,13 +14,16 @@ var gesture = {
         if(virtualclassApp != null ){
             virtualclassApp.style.display =  'none';
         }
-
+        var joinClassButton = document.querySelector('#joinClassModal .joinClasscontainer button');
         if(joinClassModal){
             joinClassModal.addEventListener('click', function (){
                 joinClassButton.focus();
             });
         }
+        this.classJoin = true;
+    },
 
+    attachHandler (){
         var joinClassButton = document.querySelector('#joinClassModal .joinClasscontainer button');
         joinClassButton.focus();
         if(joinClassButton != null){

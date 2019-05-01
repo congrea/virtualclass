@@ -104,7 +104,10 @@ var workerAudioSend = {
         var th = vol / this.minthreshold;
 
         audStatus = "sending";
-        if ( thdiff >= 20 || // historical max minus min
+        if (vol == 0) {
+            // TODO take action for muted microphone
+            console.log('Audio is mute with 0');
+        } else if ( thdiff >= 20 || // historical max minus min
             th > 2 || // Difference between current volume and minimum
             rate > this.minthreshold || rate > 25 || // Change in signal strength
             vol > (this.minthreshold * 2) || // Current max volume

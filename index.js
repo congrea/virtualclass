@@ -1525,11 +1525,6 @@ $(document).ready(function () {
                 }else {
                     console.log('User packet is not receving');
                 }
-                console.log('member_added ' + virtualclass.joinUser.userid);
-
-                // if(typeof virtualclass.gObj.chatIconColors[virtualclass.joinUser.userid] == 'undefined'){
-                //     groupChatImgColor(virtualclass.joinUser.name, virtualclass.joinUser.userid)
-                // }
 
                 // set the default value related about video quality, internet latency and frame rate
                 if (virtualclass.jId == virtualclass.gObj.uid) {
@@ -1667,7 +1662,6 @@ $(document).ready(function () {
             },
 
             user_logout : function (e){
-
                 console.log('user_logout');
                 if (isAnyOnePresenter() && !isTeacherExistWhenRemoveUser(virtualclass.connectedUsers)) {
                     if (virtualclass.gObj.uRole != 't' && virtualclass.gObj.uRole != 'e') {

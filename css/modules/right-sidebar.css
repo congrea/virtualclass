@@ -594,7 +594,8 @@ display: none;
     bottom: 3.8em !important;
     right: 2.2em !important;
     left: auto !important;
-        padding: .3em .8em;
+    padding: .3em .8em;
+    pointer-events: none;
 }
  #virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .vmchat_bar_button.congtooltip:hover:after {
     bottom: 4.72em;

@@ -154,6 +154,32 @@
                 }
             },
 
+            workerAudioSendOnmessage (){
+                workerAudioSend.onmessage = function (e){
+                    if(e.data.hasOwnProperty('cmd')){
+                        if(e.data.cmd == 'adStatus'){
+                            virtualclass.media.audio.setAudioStatus(e.data.msg);
+                            if(!virtualclass.gObj.sendAudioStatus && e.data.msg == 'sending'){
+                                ioAdapter.send({cf:'ya'}); // yes audio
+                                virtualclass.gObj.sendAudioStatus = true
+                            }
+
+                        }else if(e.data.cmd == 'ioAdapterSend'){
+                            if(e.data.msg.cf == 'na'){ // yes audio
+                                virtualclass.gObj.sendAudioStatus = false;
+                            }else {
+                                virtualclass.gObj.sendAudioStatus = true;
+                            }
+                            ioAdapter.send(e.data.msg);
+                        }else if(e.data.cmd == 'muteAudio'){
+                            cthis.audio.notifiyMuteAudio();
+                        }else if(e.data.cmd == 'unMuteAudio'){
+                            cthis.audio.notifiyUnmuteAudio();
+                        }
+                    }
+                }
+            },
+
 
             /**
              * This property contains various property and methods to capture,save and tranmit
@@ -173,7 +199,7 @@
                 snode : [], // To holds the user's id whose audio context is suspended
                 workletAudioRec: false,
                 aChunksPlay : false,
-
+                audioContextReady : false,
 //                  sd : false,
                 /*
                  *  Enables audio
@@ -220,9 +246,11 @@
                         }
                         this.resampler = new Resampler(virtualclass.media.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
                         virtualclass.gObj.isAudioContextReady = true;
-                        if(virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode){
+                        this.audioContextReady = true;
+
+                        if(virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode && cthis.video.tempStream != null){
                             virtualclass.media.stream = cthis.video.tempStream;
-                            virtualclass.media.audio._manuPulateStream();
+                            virtualclass.media.audio._maniPulateStream();
                         }
                     }
                 },
@@ -233,6 +261,34 @@
                         this._playWithFallback(this.snode[i]);
                     }
                     this.snode = [];
+                },
+
+                attachAudioStopHandler (stream){
+                    audioTrack = stream.getAudioTracks()[0];
+                    audioTrack.onended = this.notifiyMuteAudio; // TODO, re initate media stream
+                    audioTrack.onmute  = this.notifiyMuteAudio;
+                    audioTrack.onunmute  = this.notifiyUnmuteAudio;
+
+                },
+
+
+                notifiyMuteAudio  (){
+                    // console.log('==== notify Mute Audio');
+                    if(!this.hasOwnProperty('speakerPressOnce')){
+                        this.speakerPressOnce = document.querySelector('#speakerPressOnce');
+                    }
+
+                    if(this.speakerPressOnce != null && !this.speakerPressOnce.classList.contains('audioMute')){
+                        this.speakerPressOnce.classList.add('audioMute');
+                    }
+                },
+
+
+                notifiyUnmuteAudio  (){
+                    // console.log('==== notify unmute audio');
+                    if(this.hasOwnProperty('speakerPressOnce') && this.speakerPressOnce != null && this.speakerPressOnce.classList.contains('audioMute')){
+                        this.speakerPressOnce.classList.remove('audioMute');
+                    }
                 },
 
                 muteButtonToogle : function (){
@@ -914,15 +970,16 @@
                     }
                 },
 
-                _manuPulateStream : function (){
+                _maniPulateStream : function (){
+                    console.log("Manipulate stream");
+                    this.triggermaniPulateStream = true;
                     var cthis = virtualclass.media;
                     setTimeout(
                         function (){
                             if(cthis.detectAudioWorklet()) {
-                                cthis.audio.manuPulateStream();
-
+                                cthis.audio.maniPulateStream();
                             }else {
-                                cthis.audio.manuPulateStreamWithFallback();
+                                cthis.audio.maniPulateStreamWithFallback();
                             }
                         }, 1000
                     );
@@ -933,7 +990,7 @@
                  * It connects the stream received from Mic/GetUserMedia to audio context,
                  * and getting the audio chunks from audio worklet
                  **/
-                manuPulateStream: function () {
+                maniPulateStream: function () {
                     var stream = cthis.stream;
                     if(typeof workletAudioSend != 'undefined'){
                         workletAudioSend.disconnect();
@@ -979,40 +1036,7 @@
                                 cmd : "workerAudioSend",
                             },[ workerWorkletAudioSend.port2 ]);
 
-                            if(!workerAudioSendOnmessage){
-                                workerAudioSend.onmessage = function (e){
-                                    if(e.data.hasOwnProperty('cmd')){
-                                        if(e.data.cmd == 'adStatus'){
-                                            virtualclass.media.audio.setAudioStatus(e.data.msg);
-                                            if(!virtualclass.gObj.sendAudioStatus && e.data.msg == 'sending'){
-                                                ioAdapter.send({cf:'ya'}); // yes audio
-                                                virtualclass.gObj.sendAudioStatus = true
-                                            }
-
-                                        }else if(e.data.cmd == 'ioAdapterSend'){
-                                            if(e.data.msg.cf == 'na'){ // yes audio
-                                                virtualclass.gObj.sendAudioStatus = false;
-                                            }else {
-                                                virtualclass.gObj.sendAudioStatus = true;
-                                            }
-                                            ioAdapter.send(e.data.msg);
-                                        }else if(e.data.cmd == 'muteAudio'){
-                                            if(!this.hasOwnProperty('speakerPressOnce')){
-                                                this.speakerPressOnce = document.querySelector('#speakerPressOnce');
-                                            }
-
-                                            if(this.speakerPressOnce != null && !this.speakerPressOnce.classList.contains('audioMute')){
-                                                this.speakerPressOnce.classList.add('audioMute');
-                                            }
-                                        }else if(e.data.cmd == 'unMuteAudio' && this.hasOwnProperty('speakerPressOnce') && this.speakerPressOnce.classList.contains('audioMute')){
-                                            this.speakerPressOnce.classList.remove('audioMute');
-                                        }
-                                    }
-                                }
-
-                                workerAudioSendOnmessage = true;
-                            }
-
+                            cthis.workerAudioSendOnmessage();
                             console.log('Audio worklet ready audio worklet module');
                         }).catch(e => {
                             console.log('Audio worklet error' + e);
@@ -1027,7 +1051,7 @@
                  * and getting the audio chunks from script processor node.
                  * It's a fallback method in case of not supporting Audio worklet
                  **/
-                manuPulateStreamWithFallback : function () {
+                maniPulateStreamWithFallback : function () {
                     if(typeof cthis.stream != 'undefined' && cthis.stream !=  null){
                         var stream = cthis.stream;
 
@@ -1060,6 +1084,8 @@
                         workerIO.postMessage({
                             cmd : "workerAudioSend"
                         },[ IOAudioSendWorker.port2]);
+
+                        cthis.workerAudioSendOnmessage();
 
                     }else {
                         console.log("No stream is found");
@@ -1534,7 +1560,7 @@
                 var session = {
                     //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
                     video: webcam,
-                    audio : virtualclass.system.mediaDevices.hasMicrophone
+                    audio : virtualclass.system.mediaDevices.hasMicrophone // todo, add audio constraints
                 };
 
                 return [webcam, session];
@@ -1676,11 +1702,11 @@
                     }
                 }  else {
                     virtualclass.system.mediaDevices.webcamErr.push('nopermission');
-                    //virtualclass.media.audio.removeAudioFromLocalStorage();
                 }
 
                 cthis.video.tempStream = stream;
                 cthis.audio.init();
+                cthis.audio.attachAudioStopHandler(stream);
                 var userDiv = chatContainerEvent.elementFromShadowDom("#ml" + virtualclass.gObj.uid);
                 if (userDiv != null) {
                     var vidTag = userDiv.getElementsByTagName('video');
@@ -1727,6 +1753,11 @@
                     }else if(virtualclass.gObj.meetingMode){
                         virtualclass.vutil.videoHandler('off');
                     }
+                }
+
+                if(cthis.audio.audioContextReady && !cthis.audio.hasOwnProperty('triggermaniPulateStream')){
+                    cthis.stream = cthis.video.tempStream;
+                    cthis.audio._maniPulateStream();
                 }
             },
 

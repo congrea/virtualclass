@@ -618,7 +618,12 @@
                     this.usersFinishedQz.push(msg.quiz.user);
                     var ct = this.usersFinishedQz.length;
 
-                    var name = fromUser.name + ' ' + fromUser.lname;
+                    if(!typeof fromUser.lname == "undefined"){
+                        var name = fromUser.name + ' ' + fromUser.lname;
+                    }else{
+                        var name = fromUser.name;
+                    }
+
                     this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
 
                     this.qGrade.push({

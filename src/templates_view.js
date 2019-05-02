@@ -699,7 +699,7 @@ this["JST"]["dest_temp/templates/poll/pollmain.hbs"] = Handlebars.template({"1":
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"PQuestions",{"name":"getString","hash":{},"data":data}))
     + "<i class=\"icon-help\"></i></th><th class=\"creatorHeader col-sm-2\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Creator",{"name":"getString","hash":{},"data":data}))
-    + "<i class=\"icon-creator\"></i></th></tr></thead></table></div><div class=\"table-responsive\" id=\"listQnContsite\" style=\"display: none;\"><table class=\"pollList table table-bordered table-striped\"><thead id=\"sitethead\"><tr class=\" headerContainer\" id=\"headerContainersite\"><th class=\"controlsHeader col-sm-2\">"
+    + "<i class=\"icon-creator\"></i></th></tr></thead></table></div><div class=\"table-responsive\" id=\"listQnContsite\" style=\"display: none;\"><table class=\"pollList table table-bordered table-striped\"><thead><tr class=\" headerContainer\" id=\"headerContainersite\"><th class=\"controlsHeader col-sm-2\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Controls",{"name":"getString","hash":{},"data":data}))
     + "<i class=\"icon-setting\"></i></th><th class=\"qnTextHeader col-sm-8\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"PQuestions",{"name":"getString","hash":{},"data":data}))

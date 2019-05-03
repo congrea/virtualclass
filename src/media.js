@@ -268,10 +268,10 @@
                     audioTrack.onended = this.notifiyMuteAudio; // TODO, re initate media stream
                     audioTrack.onmute  = this.notifiyMuteAudio;
                     audioTrack.onunmute  = this.notifiyUnmuteAudio;
-
                 },
 
                 notifiyMuteAudio(){
+                    this.notifyAudioMute = true;
                     if(virtualclass.gObj.audMouseDown){
                         if (virtualclass.gObj.mutedomop){
                             if (!virtualclass.gObj.hasOwnProperty('mutedomopto') || virtualclass.gObj.mutedomopto === null) {
@@ -286,6 +286,7 @@
                 },
 
                 notifiyUnmuteAudio(){
+                    this.notifyAudioMute = false;
                     virtualclass.gObj.mutedomop = true;
                     if (virtualclass.gObj.hasOwnProperty('mutedomopto')) {
                         clearTimeout(virtualclass.gObj.mutedomopto);
@@ -534,15 +535,26 @@
                         tag.className = "audioTool deactive";
                     }
                 },
+
+                initProcessorEvent () {
+                    if(virtualclass.gObj.hasOwnProperty('initProcessorTime')){
+                        clearInterval(virtualclass.gObj.initProcessorTime);
+                    }
+                    virtualclass.gObj.initProcessorTime = setInterval( () => {
+                        if(cthis.audio.notifyAudioMute){
+                            cthis.audio.notifiyMuteAudio();
+                        }
+                    }, 2000);
+                },
+
                 /**
                  * Audio tool element 'Push to talk' is active
                  * User speaks on mouse press down
                  * @param elem audio tool element
                  */
-                // TODO
-                // there should not pass whole elem but id
-                //varible button is not being used
                 studentSpeak: function (elem) {
+                    this.notifyAudioMute = true;
+                    this.initProcessorEvent();
                     if (typeof elem != 'undefined') {
                         var button = document.getElementById(elem.id + "Button");
                         elem.classList.remove('deactive');
@@ -1028,6 +1040,10 @@
                             audioInput.connect(filter);
 
                             workletAudioSend = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-send');
+
+                            workletAudioSend.onprocessorerror = function (e){
+                                cthis.audio.notifiyMuteAudio();
+                            }
                             filter.connect(workletAudioSend);
                             workletAudioSend.connect(cthis.audio.Html5Audio.audioContext.destination);
 
@@ -1060,9 +1076,7 @@
                             cthis.workerAudioSendOnmessage();
                             console.log('Audio worklet ready audio worklet module');
                         }).catch(e => {
-                            console.log('Audio worklet error' + e);
-                            console.error(e);
-                            console.trace();
+                            cthis.audio.notifiyMuteAudio();
                         });
                     }
                 },

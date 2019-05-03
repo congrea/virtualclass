@@ -168,7 +168,6 @@ var workerAudioSend = {
                 this.audMouseDown = e.data.msg.adMouseDown;
                 break;
 
-            /* When audio data is generated from main thread without audio worklet*/
             case 'rawAudio':
                 this.recorderProcess(e.data.msg);
                 break;

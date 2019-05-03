@@ -416,7 +416,9 @@
                     list: this.list,
                     totalUsers: storedData.data.totalUsers,
                     users: this.uniqueUsers,
-                    pollType: pollType
+                    pollType: pollType,
+                    qId:storedData.data.qId
+
                 };
 
 

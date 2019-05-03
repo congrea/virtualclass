@@ -645,7 +645,7 @@
                                 //virtualclass.gObj.currSlide = prevapp.wbcs;
 
                                 //virtualclass.wbCommon.currentWhiteboard('_doc_0_'+virtualclass.gObj.currSlide);
-                                 if(virtualclass.gObj.hasOwnProperty('currSlide') && wIds.indexOf(virtualclass.gObj.currSlide) == -1){
+                                 if(virtualclass.gObj.hasOwnProperty('currSlide') && wIds.indexOf(Number(virtualclass.gObj.currSlide)) == -1){
                                      console.log('wids, From virtualclass ');
                                      wIds.push(virtualclass.gObj.currSlide);
                                  }

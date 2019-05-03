@@ -271,9 +271,37 @@
 
                 },
 
+                notifiyMuteAudio(){
+                    if(virtualclass.gObj.audMouseDown){
+                        if (virtualclass.gObj.mutedomop){
+                            if (!virtualclass.gObj.hasOwnProperty('mutedomopto') || virtualclass.gObj.mutedomopto === null) {
+                                virtualclass.gObj.mutedomopto = setTimeout(() => {
+                                    cthis.audio.notifiyMuteAudioDom();
+                                },2000)
+                            }
+                        } else {
+                            cthis.audio.notifiyMuteAudioDom();
+                        }
+                    }
+                },
 
-                notifiyMuteAudio  (){
-                    // console.log('==== notify Mute Audio');
+                notifiyUnmuteAudio(){
+                    virtualclass.gObj.mutedomop = true;
+                    if (virtualclass.gObj.hasOwnProperty('mutedomopto')) {
+                        clearTimeout(virtualclass.gObj.mutedomopto);
+                        virtualclass.gObj.mutedomopto = null;
+                    }
+                    cthis.audio.notifiyUnmuteAudioDom();
+                },
+
+                notifiyUnmuteAudioDom(){
+                    // console.log('==== notify unmute audio');
+                    if(this.hasOwnProperty('speakerPressOnce') && this.speakerPressOnce != null && this.speakerPressOnce.classList.contains('audioMute')){
+                        this.speakerPressOnce.classList.remove('audioMute');
+                    }
+                },
+
+                notifiyMuteAudioDom(){
                     if(!this.hasOwnProperty('speakerPressOnce')){
                         this.speakerPressOnce = document.querySelector('#speakerPressOnce');
                     }
@@ -283,13 +311,6 @@
                     }
                 },
 
-
-                notifiyUnmuteAudio  (){
-                    // console.log('==== notify unmute audio');
-                    if(this.hasOwnProperty('speakerPressOnce') && this.speakerPressOnce != null && this.speakerPressOnce.classList.contains('audioMute')){
-                        this.speakerPressOnce.classList.remove('audioMute');
-                    }
-                },
 
                 muteButtonToogle : function (){
                     var speakerPressOnce = document.querySelector('#speakerPressOnce');

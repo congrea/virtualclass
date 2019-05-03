@@ -70,6 +70,8 @@ var workerAudioSend = {
         var audStatus, a;
         var vol = sum = rate = 0;
 
+
+
         for (i = 0; i < leftSix.length; i++) {
             a = Math.abs(leftSix[i]); // a should not be declared here
             if (vol < a) {
@@ -104,9 +106,11 @@ var workerAudioSend = {
         var th = vol / this.minthreshold;
         audStatus = "sending";
 
-        if (vol == 0) {
-            postMessage({cmd : 'muteAudio'});
-        } else if ( thdiff >= 20 || // historical max minus min
+        if (vol !== 0) {
+            postMessage({cmd : 'unMuteAudio'});
+        }
+        // thediff is infinity when 1/0
+        if (isFinite(thdiff)  && thdiff >= 20 || // historical max minus min
             th > 2 || // Difference between current volume and minimum
             rate > this.minthreshold || rate > 25 || // Change in signal strength
             vol > (this.minthreshold * 2) || // Current max volume
@@ -122,11 +126,11 @@ var workerAudioSend = {
         } else {
             postMessage({cmd : 'adStatus', msg : 'notSending'});
             postMessage({cmd : 'ioAdapterSend', msg : {cf:'na'}});
+            if (vol === 0) {
+                postMessage({cmd: 'muteAudio'});
+            }
         }
 
-        if (vol !== 0){
-            postMessage({cmd : 'unMuteAudio'});
-        }
         return send;
     },
 

@@ -1592,10 +1592,21 @@
                     }
                 }
 
+                if(virtualclass.system.mediaDevices.hasMicrophone){
+                    var audioConstraint = {
+                        echoCancellation: true,
+                        autoGainControl:  true,
+                        channelCount:  1,
+                        noiseSuppression:  true
+                    }
+                }else {
+                    var audioConstraint = false;
+                }
+
                 var session = {
                     //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
                     video: webcam,
-                    audio : virtualclass.system.mediaDevices.hasMicrophone // todo, add audio constraints
+                    audio : audioConstraint
                 };
 
                 return [webcam, session];

@@ -770,7 +770,7 @@
                             }
                         }
 
-                    } else if(virtualclass.currApp == 'DocumentShare'){
+                    } else if(virtualclass.currApp == 'DocumentShare'|| virtualclass.currApp == 'SharePresentation' ){
                         // this.checkDsTable();
                     }else {
                         virtualclass.vutil.removeDashboardNav();

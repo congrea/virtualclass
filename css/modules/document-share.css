@@ -1078,3 +1078,10 @@
 }
 
 #DocumentShareDashboard #docsListContainer #listdocs .controls.delete { margin-top:0;}
+
+#docShareNav.hide{
+    display:none!important;
+}
+#docShareNav.show{
+    display:block!important;
+}

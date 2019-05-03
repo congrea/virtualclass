@@ -40,6 +40,14 @@
         var cont = document.querySelector("#docShareNav #totalPages");
         if(cont){
             cont.innerHTML = "<span id='teacherCurrPage' >"+this.index+"</span> of " + length + " pages";
+            if (!length ) {
+                var nav = document.querySelector("#docShareNav");
+                nav.classList.add('hide');
+                nav.classList.remove('show');
+            } else {
+                nav.classList.add('show');
+                nav.classList.remove('hide');
+            }     
         }
     }
 
@@ -207,11 +215,17 @@
             if (!virtualclass.dts.order.length) {
                 this.index = 0
             }
+            var nav = document.querySelector("#docShareNav");
+            if (!this.index ) {
+                nav.classList.add('hide');
+                nav.classList.remove('show');
+            } else {
+                nav.classList.add('show');
+                nav.classList.remove('hide');
+            }       
         }
      
-        
         var teacherCurrPage = document.getElementById('teacherCurrPage');
-        
         if(teacherCurrPage != null){
             teacherCurrPage.innerHTML = this.index;
         }
@@ -339,7 +353,15 @@
     /** Navigation for student on Document Sharing **/
     pageIndexNav.prototype.studentDocNavigation = function(id){
         if(virtualclass.dts.order){
-            var index = virtualclass.dts.order.indexOf(id); 
+            var index = virtualclass.dts.order.indexOf(id);
+            var nav = document.querySelector("#docShareNav");
+            if(index  == -1){
+                nav.classList.add('hide'); 
+                nav.classList.remove('show');
+            }else{
+                nav.classList.add('show');
+                nav.classList.remove('hide'); 
+            }
             var cont = document.getElementById("stdPageNo");
             if(cont){
                 cont.innerHTML= index +1

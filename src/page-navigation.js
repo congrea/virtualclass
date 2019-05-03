@@ -289,13 +289,13 @@
      * */
     pageIndexNav.prototype.countNumberOfNavigation = function (width) {
         if (width >= 1200) {
-            return 10;
+            return 8;
         } else if (width >= 700) {
-            return 7;
-        } else if (width >= 500) {
             return 5;
+        } else if (width >= 500) {
+            return 4;
         } else {
-            return 3;
+            return 2;
         }
     }
 

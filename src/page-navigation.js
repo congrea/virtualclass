@@ -40,14 +40,15 @@
         var cont = document.querySelector("#docShareNav #totalPages");
         if(cont){
             cont.innerHTML = "<span id='teacherCurrPage' >"+this.index+"</span> of " + length + " pages";
+            var nav = document.querySelector("#docShareNav");
             if (!length ) {
-                var nav = document.querySelector("#docShareNav");
                 nav.classList.add('hide');
                 nav.classList.remove('show');
             } else {
                 nav.classList.add('show');
                 nav.classList.remove('hide');
-            }     
+            }
+                 
         }
     }
 

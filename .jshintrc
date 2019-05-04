@@ -1,0 +1,45 @@
+{
+    // JSHint Default Configuration File (as on JSHint website)
+    // See http://jshint.com/docs/ for more details
+
+    "maxerr"        : 200,       // {int} Maximum error before stopping
+
+    // Enforcing
+    "curly"         : true,     // true: Require {} for every new block or scope
+    "undef"         : true,     // true: Require all non-global variables to be declared (prevents global leaks)
+    "strict"        : true,     // true: Requires all functions run in ES5 Strict Mode
+
+    // Relaxing
+    "asi"           : false,     // true: Tolerate Automatic Semicolon Insertion (no semicolons)
+    "boss"          : false,     // true: Tolerate assignments where comparisons would be expected
+    "debug"         : false,     // true: Allow debugger statements e.g. browser breakpoints.
+    "esversion"     : 6,         // {int} Specify the ECMAScript version to which the code must adhere.
+    "evil"          : false,     // true: Tolerate use of `eval` and `new Function()`
+    "expr"          : false,     // true: Tolerate `ExpressionStatement` as Programs
+    "funcscope"     : false,     // true: Tolerate defining variables inside control statements
+    "globalstrict"  : false,     // true: Allow global "use strict" (also enables 'strict')
+    "iterator"      : false,     // true: Tolerate using the `__iterator__` property
+    "lastsemic"     : false,     // true: Tolerate omitting a semicolon for the last statement of a 1-line block
+    "laxbreak"      : false,     // true: Tolerate possibly unsafe line breakings
+    "laxcomma"      : false,     // true: Tolerate comma-first style coding
+    "loopfunc"      : false,     // true: Tolerate functions being defined in loops
+    "multistr"      : false,     // true: Tolerate multi-line strings
+    "noyield"       : false,     // true: Tolerate generator functions with no yield statement in them.
+    "notypeof"      : false,     // true: Tolerate invalid typeof operator values
+    "proto"         : false,     // true: Tolerate using the `__proto__` property
+    "scripturl"     : false,     // true: Tolerate script-targeted URLs
+    "shadow"        : false,     // true: Allows re-define variables later in code e.g. `var x=1; x=2;`
+    "sub"           : false,     // true: Tolerate using `[]` notation when it can still be expressed in dot notation
+    "supernew"      : false,     // true: Tolerate `new function () { ... };` and `new Object;`
+    "validthis"     : false,     // true: Tolerate using this in a non-constructor function
+
+    // Environments
+    "browser"       : true,     // Web Browser (window, document, etc)
+    "jquery"        : true,    // jQuery
+    "devel"         : true,     // Development/debugging (alert, confirm, etc)
+    "typed"         : true,    // Globals for typed array constructions
+    "worker"        : true,    // Web Workers
+
+    // Custom Globals
+    "globals"       : {}        // additional predefined global variables
+}

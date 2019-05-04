@@ -1,10 +1,11 @@
 var precheck = {
     currTest:"",
     playTestAudio : false,
-     session : null,
+    session : null,
     cNavigator : null,
     handlers  : [],
     videoAction : false,
+    donePrecheck : false,
     init : function (){
 
         // $("#myModal").modal();
@@ -52,10 +53,10 @@ var precheck = {
             skip.addEventListener('click', this.initSkip);
         }
 
-        this.precheck = true;
+        virtualclass.precheck.donePrecheck = true;
 
         if(workerAudioSend != null){
-            workerAudioSend.postMessage({'cmd' : 'precheck', msg : {precheck : this.precheck}});
+            workerAudioSend.postMessage({'cmd' : 'precheck', msg : {precheck : virtualclass.precheck.donePrecheck}});
         }
     },
 
@@ -675,9 +676,9 @@ var precheck = {
 
         virtualclass.precheck.speaker.playTestAudio = false;
 
-        this.precheck = false;
+        virtualclass.precheck.donePrecheck = false;
         if(workerAudioSend != null){
-            workerAudioSend.postMessage({'cmd' : 'precheck', msg : {precheck : this.precheck}});
+            workerAudioSend.postMessage({'cmd' : 'precheck', msg : {precheck : virtualclass.precheck.donePrecheck}});
         }
 
     }

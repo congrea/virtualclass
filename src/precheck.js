@@ -51,6 +51,12 @@ var precheck = {
             skip.removeEventListener('click', this.initSkip);
             skip.addEventListener('click', this.initSkip);
         }
+
+        this.precheck = true;
+
+        if(workerAudioSend != null){
+            workerAudioSend.postMessage({'cmd' : 'precheck', msg : {precheck : this.precheck}});
+        }
     },
 
     initSkip () {
@@ -524,42 +530,6 @@ var precheck = {
 
             this.initHandler();
 
-            // virtualclass.precheck.initHandler((preCheck+ ' #joinSession .prev'), this.curr);
-            //
-            // var joinSession = document.querySelector('#joinSession .next');
-            // if(joinSession != null){
-            //     joinSession.removeEventListener('click', this.joinSession.bind(this));
-            //     joinSession.addEventListener('click', this.joinSession.bind(this));
-            //     // joinSession.addEventListener('click', function (){
-            //     //     virtualclass.popup.waitMsg();
-            //     //     virtualclass.makeReadySocket();
-            //     //
-            //     //     var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-            //     //     virtualclassPreCheck.style.display = 'none';
-            //     //
-            //     //     var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-            //     //     virtualclassPreCheck.style.display = 'none';
-            //     //
-            //     //     var virtualclassApp = document.getElementById('virtualclassApp');
-            //     //     virtualclassApp.style.display = 'block';
-            //     //     localStorage.setItem('precheck', true);
-            //     //
-            //     //     virtualclass.videoHost.afterSessionJoin();
-            //     //
-            //     //     virtualclass.precheck.afterComplete();
-            //     //
-            //     //     // virtualclass.videoHost._resetPrecheck();
-            //     //     // micTesting.destroyAudioNode();
-            //     //     // virtualclass.precheck.removeAllListener();
-            //     // });
-            // }else {
-            //     var precheck = document.querySelector('#joinSession .precheckComplete');
-            //     if(precheck != null){
-            //         precheck.removeEventListener('click', this.initHidePrecheck.bind(this));
-            //         precheck.addEventListener('click', this.initHidePrecheck.bind(this));
-            //     }
-            //
-            // }
         },
 
         initHandler () {
@@ -609,11 +579,6 @@ var precheck = {
             virtualclass.videoHost.afterSessionJoin();
             virtualclass.precheck.afterComplete();
 
-            // virtualclass.videoHost._resetPrecheck();
-            // micTesting.destroyAudioNode();
-            // virtualclass.precheck.removeAllListener();
-
-
         },
 
         createVideo : function (){
@@ -660,12 +625,10 @@ var precheck = {
     },
 
     afterComplete () {
+
         if(virtualclass.precheck.hasOwnProperty('mediaStream') && virtualclass.precheck.mediaStream != null){
             let track = virtualclass.precheck.mediaStream.getTracks()[0];  // if only one media track
             track.stop();
-            // var precheckWebcam = document.getElementById("webcamTempVideo");
-            // precheckWebcam.pause();
-            // precheckWebcam.src="";
         }
         virtualclass.videoHost._resetPrecheck();
         micTesting.destroyAudioNode();
@@ -697,13 +660,6 @@ var precheck = {
 
         console.log('Fetching media stream');
 
-        // var videoSwitch = document.querySelector('#videoSwitch');
-        //
-        // if(videoSwitch != null && videoSwitch.classList.contains('on')){
-        //     var videoAction = 'on';
-        // }else {
-        //     var videoAction = 'off';
-        // }
         var that = this;
 
         virtualclass.media.init((gotStream) => {
@@ -718,6 +674,12 @@ var precheck = {
         }, 'fromPrecheck');
 
         virtualclass.precheck.speaker.playTestAudio = false;
+
+        this.precheck = false;
+        if(workerAudioSend != null){
+            workerAudioSend.postMessage({'cmd' : 'precheck', msg : {precheck : this.precheck}});
+        }
+
     }
 
 }

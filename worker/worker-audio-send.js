@@ -13,6 +13,7 @@ var workerAudioSend = {
     workerIO : null,
     gObjUid : null,
     audMouseDown : false,
+    precheck : false,
     repMode : false,
     minthreshold : 65535,
     audioWasSent : 0,
@@ -53,7 +54,7 @@ var workerAudioSend = {
     },
 
     audioSend (msg, adStatus) {
-        if (this.audMouseDown) {
+        if (this.audMouseDown && !this.precheck) {
             var uid = this.breakintobytes(this.gObjUid, 8);
             var scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
             var sendmsg = new Int8Array(msg.length + scode.length);
@@ -135,7 +136,7 @@ var workerAudioSend = {
     },
 
     recorderProcess (left) {
-        if (!this.repMode && this.audMouseDown) {
+        if (!this.repMode && this.audMouseDown && !this.precheck)  {
             // var left = e.inputBuffer.getChannelData(0);
             var samples = this.resampler.resampler(left);
             var leftSix = this.convertFloat32ToInt16(samples);
@@ -166,6 +167,10 @@ var workerAudioSend = {
 
             case 'audioMouseDown':
                 this.audMouseDown = e.data.msg.adMouseDown;
+                break;
+
+            case 'precheck':
+                this.precheck = e.data.msg.precheck;
                 break;
 
             case 'rawAudio':

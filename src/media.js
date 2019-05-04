@@ -265,9 +265,11 @@
 
                 attachAudioStopHandler (stream){
                     audioTrack = stream.getAudioTracks()[0];
-                    audioTrack.onended = this.notifiyMuteAudio; // TODO, re initate media stream
-                    audioTrack.onmute  = this.notifiyMuteAudio;
-                    audioTrack.onunmute  = this.notifiyUnmuteAudio;
+                    if(audioTrack != null){
+                        audioTrack.onended = this.notifiyMuteAudio; // TODO, re initate media stream
+                        audioTrack.onmute  = this.notifiyMuteAudio;
+                        audioTrack.onunmute  = this.notifiyUnmuteAudio;
+                    }
                 },
 
                 notifiyMuteAudio(){
@@ -812,36 +814,42 @@
                  * @param  audioChunks that need be played
                  */
                 playWithFallback :  function (uid)  {
-                    var that = this;
                     if(this.Html5Audio.audioContext.state === 'suspended'){
                         /** Wait till 2 seconds and see if still it's suspended ***/
-                        setTimeout(()=> {
-                            if(that.Html5Audio.audioContext.state == 'suspended'){
-                                that.snode.push(uid);
-                                if(virtualclass.gObj.requestToScriptNode == null){
-                                    that.Html5Audio.audioContext.resume();
+                        if(this.hasOwnProperty('audioSuspendTime')){
+                            clearTimeout(this.audioSuspendTime);
+                        }
+
+                        this.audioSuspendTime = setTimeout(()=> {
+                            if(this.Html5Audio.audioContext.state === 'suspended'){
+                                this.snode.push(uid);
+                                if(virtualclass.gObj.requestToScriptNode === null){
+                                    this.Html5Audio.audioContext.resume();
                                     virtualclass.gesture.initAudioResume(uid);
                                     virtualclass.gObj.requestToScriptNode = true;
                                 }
                             }
-                        },2000);
-                    }else {
+                        }, 2000);
+
+                    } else {
                         this._playWithFallback();
                     }
                 },
 
                 _playWithFallback : function (){
                     var that = this;
-                    //if(typeof virtualclass.media.audioPlayerNode != 'object'){
-                    if(virtualclass.media.audioPlayerNode == null){
+                    if(virtualclass.media.audioPlayerNode === null || virtualclass.media.audioPlayerNode.context.state === 'closed'){
                         console.log('script processor node is created');
+                        if(virtualclass.media.audioPlayerNode !== null){
+                            virtualclass.media.audioPlayerNode.disconnect();
+                        }
+
                         virtualclass.media.audioPlayerNode = this.Html5Audio.audioContext.createScriptProcessor(4096, 1, 1);
                         snNodePak = 0;
                         virtualclass.media.audioPlayerNode.onaudioprocess = function (event){
                             var output = event.outputBuffer.getChannelData(0);
-                            // var newAud = that.getAudioChunks();
                             var newAud = that.getMergedAudio();
-                            if(newAud != null){
+                            if(newAud !== null &&  newAud !== undefined){
                                 for (i = 0; i < newAud.length; i++) {
                                     output[i] = newAud[i];
                                 }
@@ -1603,6 +1611,8 @@
                     var audioConstraint = false;
                 }
 
+
+
                 var session = {
                     //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
                     video: webcam,
@@ -1753,6 +1763,7 @@
                 cthis.video.tempStream = stream;
                 cthis.audio.init();
                 cthis.audio.attachAudioStopHandler(stream);
+
                 var userDiv = chatContainerEvent.elementFromShadowDom("#ml" + virtualclass.gObj.uid);
                 if (userDiv != null) {
                     var vidTag = userDiv.getElementsByTagName('video');
@@ -1976,6 +1987,8 @@
                 }
 
                 virtualclass.system.mediaDevices.webcamErr.push(errorCode);
+
+                cthis.audio.notifiyMuteAudio();
                 //virtualclass.media.audio.removeAudioFromLocalStorage();
             },
 

@@ -34,7 +34,7 @@
                 self.trigger(eventName);
             }));
             return btn;
-        }
+        };
 
         RichTextToolbar.prototype.makeElement_ = function () {
             var self = this;
@@ -60,7 +60,7 @@
 
             var toolbarWrapper = utils.elt('div', toolbarOptions, {'class': 'vceditor-toolbar-wrapper'});
             var toolbar = utils.elt('div', null, {'class': 'vceditor-toolbar'});
-            toolbar.appendChild(toolbarWrapper)
+            toolbar.appendChild(toolbarWrapper);
 
             return toolbar;
         };

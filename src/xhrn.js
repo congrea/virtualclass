@@ -3,6 +3,7 @@
  * @author(Current)  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+    "use strict";
     var xhrn = {
         init: function () {
             if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -42,7 +43,7 @@
 
         sendData: function (data, url, cb) {
             this.cb = cb;
-            var params =  JSON.stringify(data);
+            var params = JSON.stringify(data);
             this.httpObj.open('POST', url);
 
             this.httpObj.setRequestHeader('x-api-key', wbUser.lkey);
@@ -56,7 +57,7 @@
             this.httpObj.send(params);
         },
 
-        getAcess : function (cb){
+        getAcess: function (cb) {
             this.cb = cb;
             // 'https://api.congrea.net/data/access';
             var url = virtualclass.api.access;

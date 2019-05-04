@@ -8,6 +8,7 @@ function Resampler(fromSampleRate, toSampleRate, channels, outputBufferSize, noR
     this.noReturn = !!noReturn;
     this.initialize();
 }
+
 Resampler.prototype.initialize = function () {
     "use strict";
     //Perform some checks:
@@ -16,8 +17,7 @@ Resampler.prototype.initialize = function () {
             //Setup a resampler bypass:
             this.resampler = this.bypassResampler;		//Resampler just returns what was passed through.
             this.ratioWeight = 1;
-        }
-        else {
+        } else {
             if (this.fromSampleRate < this.toSampleRate) {
                 /*
                  Use generic linear interpolation if upsampling,
@@ -26,8 +26,7 @@ Resampler.prototype.initialize = function () {
                  */
                 this.compileLinearInterpolationFunction();
                 this.lastWeight = 1;
-            }
-            else {
+            } else {
                 /*
                  Custom resampler I wrote that doesn't skip samples
                  like standard linear interpolation in high downsampling.
@@ -40,8 +39,7 @@ Resampler.prototype.initialize = function () {
             this.ratioWeight = this.fromSampleRate / this.toSampleRate;
             this.initializeBuffers();
         }
-    }
-    else {
+    } else {
         throw(new Error("Invalid settings specified for the resampler."));
     }
 };
@@ -171,8 +169,7 @@ Resampler.prototype.bypassResampler = function (buffer) {
         //Set the buffer passed as our own, as we don't need to resample it:
         this.outputBuffer = buffer;
         return buffer.length;
-    }
-    else {
+    } else {
         //Just return the buffer passsed:
         return buffer;
     }
@@ -182,19 +179,16 @@ Resampler.prototype.bufferSlice = function (sliceAmount) {
     if (this.noReturn) {
         //If we're going to access the properties directly from this object:
         return sliceAmount;
-    }
-    else {
+    } else {
         //Typed array and normal array buffer section referencing:
         try {
             return this.outputBuffer.subarray(0, sliceAmount);
-        }
-        catch (error) {
+        } catch (error) {
             try {
                 //Regular array pass:
                 this.outputBuffer.length = sliceAmount;
                 return this.outputBuffer;
-            }
-            catch (error) {
+            } catch (error) {
                 //Nightly Firefox 4 used to have the subarray function named as slice:
                 return this.outputBuffer.slice(0, sliceAmount);
             }
@@ -207,8 +201,7 @@ Resampler.prototype.initializeBuffers = function () {
     try {
         this.outputBuffer = new Float32Array(this.outputBufferSize);
         this.lastOutput = new Float32Array(this.channels);
-    }
-    catch (error) {
+    } catch (error) {
         this.outputBuffer = [];
         this.lastOutput = [];
     }

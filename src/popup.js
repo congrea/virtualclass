@@ -5,8 +5,9 @@
  */
 // RvVanillaModal
 var PopUp = (function (window, undefined) {
-    var confirmbox = false;
     'use strict';
+    var confirmbox = false;
+
     /**
      * Modal constructor.
      * @constructor
@@ -129,7 +130,7 @@ var PopUp = (function (window, undefined) {
     PopUp.prototype.closeElem = function () {
         var mainModelCont = document.getElementById("popupContainer");
         mainModelCont.classList.remove("playPopup", "loading");
-        
+
         console.log('close popup');
         if (virtualclass.recorder.waitServer == false) {
             var virtualclassToolCont = document.getElementById('virtualclassOptionsCont');
@@ -163,13 +164,13 @@ var PopUp = (function (window, undefined) {
 
 
             var chatRoom = document.getElementById('chatrm');
-            if(chatRoom  != null){
+            if (chatRoom != null) {
                 console.log('zIndex performing');
                 chatRoom.style.zIndex = 1;
             }
 
             // remove connecting class
-            var networkStatusContainer  = document.querySelector('#networkStatusContainer');
+            var networkStatusContainer = document.querySelector('#networkStatusContainer');
             networkStatusContainer.classList.remove('connecting-room');
             var connt = document.querySelector('#virtualclassApp');
             connt.classList.remove('try-to-connect');
@@ -186,7 +187,7 @@ var PopUp = (function (window, undefined) {
             var recordPlay = document.getElementById('recordPlay');
             recordPlay.style.display = 'block';
             virtualclass.popup.replayWindowAction('none');
-        }
+        };
 
     PopUp.prototype.waitBlockAction = function (action) {
         var wait = document.getElementById("recordPlay");
@@ -215,10 +216,10 @@ var PopUp = (function (window, undefined) {
 
         var chatrm = document.getElementById('chatrm');
         if (chatrm != null) {
-            if(!virtualclass.isPlayMode){
+            if (!virtualclass.isPlayMode) {
                 chatrm.style.zIndex = 0;
             }
-            
+
         }
 
         var audioWidget = document.getElementById('audioWidget');
@@ -238,7 +239,7 @@ var PopUp = (function (window, undefined) {
     };
 
 
-    PopUp.prototype.openProgressBar = function (nfile){
+    PopUp.prototype.openProgressBar = function (nfile) {
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
 
@@ -268,21 +269,21 @@ var PopUp = (function (window, undefined) {
             function () {
                 virtualclass.popup.closeElem();
                 window.close();
-        });
+            });
     };
 
-    PopUp.prototype.validateurlPopup = function(type) {
+    PopUp.prototype.validateurlPopup = function (type) {
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
         this.hideAllPopups();
         var mszPopup, popupClose;
-        if(type == "video"){
-            mszPopup = document.querySelector("#virtualclassCont.congrea #popupContainer #uploadvideourl")
-            popupClose =  document.querySelector("#virtualclassCont.congrea #popupContainer #vidPopupClose");
-        }else if(type == "presentation"){
+        if (type == "video") {
+            mszPopup = document.querySelector("#virtualclassCont.congrea #popupContainer #uploadvideourl");
+            popupClose = document.querySelector("#virtualclassCont.congrea #popupContainer #vidPopupClose");
+        } else if (type == "presentation") {
             mszPopup = document.querySelector("#virtualclassCont.congrea #popupContainer #uploadppturl");
             popupClose = document.querySelector("#virtualclassCont.congrea #popupContainer #pptPopupClose");
-        }else{
+        } else {
             console.log("popup works for video and presentation");
         }
         mszPopup.style.display = 'block';
@@ -296,19 +297,19 @@ var PopUp = (function (window, undefined) {
     PopUp.prototype.replayWindowAction = function (action) {
         var replayContainer = document.getElementById("replayContainer");
         replayContainer.style.display = action;
-    }
+    };
 
     PopUp.prototype.progressBarAction = function (action) {
 
         var recordingContainer = document.getElementById("recordingContainer");
         recordingContainer.style.display = action;
-    }
+    };
 
     /**
      * For confirm dialouge box,
      * @param message expects the message
      */
-    PopUp.prototype.confirmInput = function (message, cb, label,type,index,id) {
+    PopUp.prototype.confirmInput = function (message, cb, label, type, index, id) {
 
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
@@ -336,10 +337,10 @@ var PopUp = (function (window, undefined) {
 
         confirm.appendChild(confirmMessage);
         var that = this;
-        
+
         var attachConfirmInit = function () {
-            that.confirmInit(this.id, cb, label,type,index,id);
-        }
+            that.confirmInit(this.id, cb, label, type, index, id);
+        };
         var confirmOkDiv = document.createElement('div');
         confirmOkDiv.id = 'confirmOk';
         confirmOkDiv.className = 'confirmButton confirmChild';
@@ -358,7 +359,7 @@ var PopUp = (function (window, undefined) {
         var confirmCancelDiv = document.createElement('div');
         confirmCancelDiv.id = 'confirmCancel';
         confirmCancelDiv.className = 'confirmButton confirmChild';
-        confirmCancelDiv.addEventListener('click', attachConfirmInit)
+        confirmCancelDiv.addEventListener('click', attachConfirmInit);
 
         var confirmCancelButton = document.createElement('button');
         confirmCancelButton.id = 'confirmCancelButton';
@@ -367,9 +368,9 @@ var PopUp = (function (window, undefined) {
         confirmCancelDiv.appendChild(confirmCancelButton);
         confirm.appendChild(confirmCancelDiv);
 
-    }
+    };
 
-    PopUp.prototype.pollPopUp= function(cb,label){
+    PopUp.prototype.pollPopUp = function (cb, label) {
 
         var element = document.getElementById('about-modal');
         virtualclass.popup.open(element);
@@ -386,90 +387,88 @@ var PopUp = (function (window, undefined) {
         var attachConfirmInit = function () {
             console.log(this.id);
             that.action(this.id, cb, label);
-        }
-      
+        };
+
         var elem = document.getElementById("pollCancel");
-        if(elem==null) {
+        if (elem == null) {
 
-        var confirmCancelDiv = document.createElement('div');
-        confirmCancelDiv.id = 'pollCancel';
-        confirmCancelDiv.className = 'cancelBtn';
-        confirmCancelDiv.addEventListener('click', attachConfirmInit);
+            var confirmCancelDiv = document.createElement('div');
+            confirmCancelDiv.id = 'pollCancel';
+            confirmCancelDiv.className = 'cancelBtn';
+            confirmCancelDiv.addEventListener('click', attachConfirmInit);
 
-        var confirmCancelButton = document.createElement('button');
-        confirmCancelButton.id = 'confirmCancelButton';
-        confirmCancelButton.className = 'icon-close';
-  
-        //confirmCancelButton.innerHTML = "Cancel";
+            var confirmCancelButton = document.createElement('button');
+            confirmCancelButton.id = 'confirmCancelButton';
+            confirmCancelButton.className = 'icon-close';
 
-        confirmCancelButton.innerHTML = virtualclass.lang.getString('pollCancel');
+            //confirmCancelButton.innerHTML = "Cancel";
+
+            confirmCancelButton.innerHTML = virtualclass.lang.getString('pollCancel');
 
 
-        confirmCancelDiv.appendChild(confirmCancelButton);
-        confirm.appendChild(confirmCancelDiv);
-    
-      
-    }
-        
+            confirmCancelDiv.appendChild(confirmCancelButton);
+            confirm.appendChild(confirmCancelDiv);
+
+
+        }
+
         var reset = document.getElementById("resetPoll");
-        reset.addEventListener('click',attachConfirmInit);
-        
+        reset.addEventListener('click', attachConfirmInit);
+
         var addOpt = document.getElementById("addMoreOption");
-        addOpt.addEventListener('click',attachConfirmInit);
-        
+        addOpt.addEventListener('click', attachConfirmInit);
+
         var save = document.getElementById("etSave");
-        save.addEventListener('click',attachConfirmInit);
-        var publish= document.getElementById("saveNpublish");
-        publish.addEventListener('click',attachConfirmInit);  
-        
-         
-    }
-    
-    PopUp.prototype.action = function (userInput, cb,label,type,index,id) {
+        save.addEventListener('click', attachConfirmInit);
+        var publish = document.getElementById("saveNpublish");
+        publish.addEventListener('click', attachConfirmInit);
+
+
+    };
+
+    PopUp.prototype.action = function (userInput, cb, label, type, index, id) {
 
         cb(userInput);
 
-    }
+    };
 
-    PopUp.prototype.confirmInit = function (userInput, cb, label,type,index,id) {
+    PopUp.prototype.confirmInit = function (userInput, cb, label, type, index, id) {
         virtualclass.popup.closeElem();
         var confirm = (userInput == 'confirmOk') ? virtualclass.popup.confirmOk() : virtualclass.popup.confirmCancel();
-        cb(confirm, label,type,index,id);
-    }
+        cb(confirm, label, type, index, id);
+    };
 
     PopUp.prototype.confirmCancel = function () {
         return false;
-    }
+    };
 
     PopUp.prototype.confirmOk = function () {
         return true;
-    }
+    };
 
 
-
-    PopUp.prototype.waitMsg = function (pageLoad){
+    PopUp.prototype.waitMsg = function (pageLoad) {
         var time = 0;
-        if(typeof pageLoad != 'undefined'){
+        if (typeof pageLoad != 'undefined') {
             time = 1300;
         }
         setTimeout(() => {
             virtualclass.network.netWorkElementIsReady();
         }, time);
 
-        if(typeof virtualclass.vutil == 'undefined' || !virtualclass.vutil.sesionEndMsgBoxIsExisting()){
+        if (typeof virtualclass.vutil == 'undefined' || !virtualclass.vutil.sesionEndMsgBoxIsExisting()) {
             this.hideAllPopups();
         }
 
         return;
-        if(typeof virtualclass.vutil == 'undefined' || !virtualclass.vutil.sesionEndMsgBoxIsExisting()){
+        if (typeof virtualclass.vutil == 'undefined' || !virtualclass.vutil.sesionEndMsgBoxIsExisting()) {
             var element = document.getElementById('about-modal');
             virtualclass.popup.open(element);
             this.hideAllPopups();
             document.getElementById('waitMsgCont').style.display = 'block';
-            var networkStatusContainer  = document.querySelector('#networkStatusContainer');
+            var networkStatusContainer = document.querySelector('#networkStatusContainer');
         }
     };
-
 
 
     PopUp.prototype.chromeExtMissing = function () {
@@ -514,29 +513,29 @@ var PopUp = (function (window, undefined) {
         this.hideAllPopups();
 
         var msgCont = document.querySelector('#generalMessageButton');
-        if(msgCont != null){
+        if (msgCont != null) {
             msgCont.style.display = 'block;';
             var msgButton = document.querySelector('#generalMessageButton .button');
-            msgButton.addEventListener('click', function (){
+            msgButton.addEventListener('click', function () {
                 virtualclass.popup.closeElem();
             });
         }
-    }
+    };
 
     PopUp.prototype.hideAllPopups = function () {
         var allPopuContainer = document.getElementsByClassName('popupWindow');
         for (var i = 0; i < allPopuContainer.length; i++) {
             allPopuContainer[i].style.display = 'none';
         }
-    }
+    };
 
     PopUp.prototype.closePopup = function () {
         virtualclass.popup.closeElem();
         var sessionEndCont = document.getElementById('sessionEndMsgCont');
-        if(sessionEndCont.dataset.displaying == 'true'){
+        if (sessionEndCont.dataset.displaying == 'true') {
             this.sesseionEndWindow();
         }
-    }
+    };
 
     PopUp.prototype.loadingWindow = function () {
         var element = document.getElementById('about-modal');
@@ -544,11 +543,11 @@ var PopUp = (function (window, undefined) {
         this.hideAllPopups();
 
         var loadingWindow = document.querySelector('#loadingWindowCont');
-        if(loadingWindow != null){
+        if (loadingWindow != null) {
             loadingWindow.style.display = 'block';
             element.parentNode.classList.add('loading');
         }
-    }
+    };
 
     /**
      * @private: short version of querySelectorAll

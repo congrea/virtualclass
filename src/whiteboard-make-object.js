@@ -3,6 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+    "use strict";
 //        virtualclass.wb = window.virtualclass.wb;
 
     /**

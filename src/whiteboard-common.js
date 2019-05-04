@@ -3,6 +3,7 @@
  */
 
 (function (window) {
+    "use strict";
     var wbCommon = {
         initNavHandler: function () {
             var that = this;
@@ -12,13 +13,13 @@
                     //that.next();
                     virtualclass.vutil.navWhiteboard(that, that.next);
 
-                    if(wbCommon.hasOwnProperty('setNextWhiteboardTime')){
+                    if (wbCommon.hasOwnProperty('setNextWhiteboardTime')) {
                         clearTimeout(wbCommon.setNextWhiteboardTime);
                     }
 
-                    if(virtualclass.currApp == 'Whiteboard'){
+                    if (virtualclass.currApp == 'Whiteboard') {
                         wbCommon.setNextWhiteboardTime = setTimeout(
-                            function (){
+                            function () {
                                 /** We can not run zoomControlerFitToScreen as we need to retain canvas scale **/
                                 virtualclass.zoom.normalRender();
                             }, 500
@@ -33,22 +34,22 @@
                     virtualclass.vutil.navWhiteboard(that, that.prev);
                     /** to set the dimension of whiteboard during window is resized **/
                     var currWb = virtualclass.wb[virtualclass.gObj.currWb];
-                    if(typeof currWb == 'object'){
+                    if (typeof currWb == 'object') {
                         /* To handle the dimension of whiteboard on previous click, */
                         setTimeout(
-                            function (){
+                            function () {
                                 console.log('whiteboard zoom normal render');
                                 // virtualclass.zoom.normalRender();
                                 // system.setAppDimension(null, 'resize');
                                 //  virtualclass.view.window.resize();
-                                 virtualclass.zoom.normalRender();
-                            },500
+                                virtualclass.zoom.normalRender();
+                            }, 500
                         );
                     }
                 }
             }
         },
-        initNav:function(wIds){
+        initNav: function (wIds) {
             if (typeof this.indexNav == 'undefined') {
                 this.indexNav = new pageIndexNav("WB")
             }
@@ -59,7 +60,7 @@
                     virtualclass.wbCommon.indexNav.createWbNavigationNumber(wIds[i])
                 }
                 virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb);
-            }else {
+            } else {
                 virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
             }
 
@@ -86,21 +87,21 @@
                     virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
                 }
             }
-            
-           
+
+
         },
 
-        hideElement : function (){
+        hideElement: function () {
             var prevElem = document.querySelector('#virtualclassWhiteboard.whiteboard .current');
             if (prevElem != null) {
                 console.log('Whiteboard slide remove');
                 prevElem.classList.remove('current');
             }
         },
-        currentWhiteboard : function (wid){
+        currentWhiteboard: function (wid) {
             var whiteboard = document.querySelector('#canvas' + wid);
-            if(whiteboard == null){
-                 this.hideElement();
+            if (whiteboard == null) {
+                this.hideElement();
                 virtualclass.vutil.createWhiteBoard(wid);
                 this.displaySlide(wid);
                 virtualclass.gObj.currWb = wid;
@@ -115,23 +116,23 @@
                 virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
                 wid = '_doc_0' + '_' + virtualclass.gObj.wbCount;
 
-                if(!this.whiteboardExist(wid)){
+                if (!this.whiteboardExist(wid)) {
                     virtualclass.vutil.createWhiteBoard(wid);
                 }
                 virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.wbCount);
-                virtualclass.vutil.beforeSend({'cf': 'cwb', wbCount : virtualclass.gObj.wbCount});
-                
+                virtualclass.vutil.beforeSend({'cf': 'cwb', wbCount: virtualclass.gObj.wbCount});
+
             } else {
-                if(!this.whiteboardExist(wid)){
+                if (!this.whiteboardExist(wid)) {
                     virtualclass.vutil.createWhiteBoard(wid);
-                }else {
-                   //virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : wid});
+                } else {
+                    //virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : wid});
                 }
-                virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : wid});
+                virtualclass.vutil.beforeSend({'cf': 'cwb', diswb: true, wid: wid});
             }
 
             this.setCurrSlideNumber(wid);
-            virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
+            virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
             virtualclass.wbCommon.indexNav.UI.pageNavHandler("right");
             this.displaySlide(wid);
 
@@ -139,16 +140,16 @@
 
         },
 
-        setCurrSlideNumber : function (wid){
-           var idn = wid.split('_');
-            if(idn.length > 0){
-               virtualclass.gObj.currSlide = idn[idn.length-1];
+        setCurrSlideNumber: function (wid) {
+            var idn = wid.split('_');
+            if (idn.length > 0) {
+                virtualclass.gObj.currSlide = idn[idn.length - 1];
                 if (!roles.hasControls()) {
-                    if(typeof virtualclass.wbCommon.indexNav !== 'undefined'){
+                    if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
                         virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
                     }
                 }
-            } 
+            }
         },
 
         prev: function () {
@@ -156,25 +157,25 @@
             var wid = this.whiteboardWrapperExist('prev');
             this.readyCurrentWhiteboard(wid);
             this.setCurrSlideNumber(wid);
-            virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
+            virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
             virtualclass.wbCommon.indexNav.UI.pageNavHandler("left");
-            var prvsTool = document.querySelector("#"+virtualclass.wb[wid].prvTool);
-            if(prvsTool != null && !prvsTool.classList.contains("active")){
-               prvsTool.classList.add("active");
+            var prvsTool = document.querySelector("#" + virtualclass.wb[wid].prvTool);
+            if (prvsTool != null && !prvsTool.classList.contains("active")) {
+                prvsTool.classList.add("active");
             }
         },
 
-        readyCurrentWhiteboard : function (wid){
+        readyCurrentWhiteboard: function (wid) {
             if (wid != null) {
-                if(!this.whiteboardExist(wid)){
+                if (!this.whiteboardExist(wid)) {
                     virtualclass.vutil.createWhiteBoard(wid);
                     this.displaySlide(wid);
                     virtualclass.gObj.currWb = wid;
-                }else {
+                } else {
                     this.displaySlide(wid);
                     virtualclass.gObj.currWb = wid;
                 }
-                virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : virtualclass.gObj.currWb});
+                virtualclass.vutil.beforeSend({'cf': 'cwb', diswb: true, wid: virtualclass.gObj.currWb});
 
                 console.log('whiteboard slide send=' + virtualclass.gObj.currWb);
             } else {
@@ -182,10 +183,10 @@
             }
         },
 
-        whiteboardExist : function (wid){
+        whiteboardExist: function (wid) {
             return (document.querySelector("#canvas" + wid) != null);
         },
-        
+
 
         whiteboardWrapperExist: function (elemtype) {
             var currWhiteboard = virtualclass.gObj.currWb;
@@ -205,33 +206,33 @@
             }
         },
 
-        readyElements : function (wids){
+        readyElements: function (wids) {
             var whiteboardWrapper = document.querySelector('#virtualclassWhiteboard .whiteboardContainer');
             var note;
-            for(var i=0; i< wids.length; i++){
-                var wId = "_doc_0_"+wids[i];
-                note  = document.querySelector('#note'+wId);
-                if(note == null){
+            for (var i = 0; i < wids.length; i++) {
+                var wId = "_doc_0_" + wids[i];
+                note = document.querySelector('#note' + wId);
+                if (note == null) {
                     var myDiv = document.createElement('div');
-                    myDiv.id = 'note'+wId;
-                    myDiv.dataset.wbId =wId;
+                    myDiv.id = 'note' + wId;
+                    myDiv.dataset.wbId = wId;
                     myDiv.className = "canvasContainer";
                     whiteboardWrapper.appendChild(myDiv);
                 }
             }
-            
+
             // this.reArrangeElements(wids)
         },
-         /** this is only for whitebaord not for docs **/
-         reArrangeElements : function (order){
+        /** this is only for whitebaord not for docs **/
+        reArrangeElements: function (order) {
             var container = document.querySelector('#virtualclassWhiteboard .whiteboardContainer');
             var tmpdiv = document.createElement('div');
-                tmpdiv.className  = "whiteboardContainer";
+            tmpdiv.className = "whiteboardContainer";
             var id, dnode;
             for (var i = 0; i < order.length; i++) {
-                id = 'note_doc_0_'+order[i];
+                id = 'note_doc_0_' + order[i];
                 dnode = document.getElementById(id);
-                if(tmpdiv != null && dnode != null){
+                if (tmpdiv != null && dnode != null) {
                     tmpdiv.appendChild(dnode);
                 } else {
                     console.log("Error temp div is null " + tmpdiv);
@@ -240,51 +241,51 @@
             container.parentNode.replaceChild(tmpdiv, container);
         },
 
-        identifyFirstNote : function (wid){
+        identifyFirstNote: function (wid) {
             var elem = document.querySelector('#virtualclassWhiteboard');
-            if(wid == '_doc_0_0'){
+            if (wid == '_doc_0_0') {
                 elem.classList.add('firstNote');
-            }else {
+            } else {
                 elem.classList.remove('firstNote');
             }
         },
 
-        removeAllContainers : function (){
+        removeAllContainers: function () {
             var allContainers = document.querySelectorAll('#virtualclassWhiteboard .whiteboardContainer .canvasContainer');
             var node;
-            for (var i=0; i<allContainers.length; i++){
+            for (var i = 0; i < allContainers.length; i++) {
                 node = allContainers[i];
                 node.parentNode.removeChild(node);
             }
         },
 
-        clearNavigation : function (){
+        clearNavigation: function () {
             var dc = document.getElementById("dcPaging");
             while (dc.firstChild) {
                 dc.removeChild(dc.firstChild);
             }
 
-            if(roles.hasControls()){
+            if (roles.hasControls()) {
                 virtualclass.wbCommon.indexNav.createWbNavigationNumber(0);
-            }else {
+            } else {
 
-                var pageNo = document.createElement('span')
+                var pageNo = document.createElement('span');
                 pageNo.id = "stdPageNo";
                 dc.appendChild(pageNo);
                 virtualclass.wbCommon.indexNav.studentWBPagination(0);
             }
         },
 
-        deleteWhiteboard : function (wbId){
+        deleteWhiteboard: function (wbId) {
             delete virtualclass.wb[wbId];
             delete virtualclass.pdfRender[wbId];
-            if(virtualclass.currApp == 'Whiteboard'){
+            if (virtualclass.currApp == 'Whiteboard') {
                 var containerWb_doc = document.querySelector('#containerWb' + wbId);
-                if(containerWb_doc != null){
+                if (containerWb_doc != null) {
                     containerWb_doc.parentNode.removeChild(containerWb_doc);
                 }
             }
         }
-    }
+    };
     window.wbCommon = wbCommon;
 })(window);

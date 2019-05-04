@@ -7,6 +7,7 @@
  * 
  */
 window.addEventListener('message', function (event) {
+    "use strict";
     if (event.origin != window.location.origin) {
         return;
     }
@@ -16,11 +17,11 @@ window.addEventListener('message', function (event) {
         if (event.data.sourceId === '') { // user canceled
             var error = new Error('NavigatorUserMediaError');
             error.name = 'PERMISSION_DENIED';
-            if(virtualclass.hasOwnProperty('ss')){
+            if (virtualclass.hasOwnProperty('ss')) {
                 virtualclass.ss.onError(error);
             }
 
-            if(virtualclass.currApp == "SharePresentation" || virtualclass.currApp == "DocumentShare") {
+            if (virtualclass.currApp == "SharePresentation" || virtualclass.currApp == "DocumentShare") {
                 var dashboardnav = document.querySelector('#dashboardnav button');
                 if (dashboardnav != null) {
                     dashboardnav.click();
@@ -29,37 +30,37 @@ window.addEventListener('message', function (event) {
 
         } else {
             constraints = constraints || {
-                    audio: false, video: {
-                        mandatory: {
-                            chromeMediaSource: 'desktop',
-                            chromeMediaSourceId: event.data.sourceId,
-                            maxWidth: 1440,
-                            maxHeight: 9999
-                        },
+                audio: false, video: {
+                    mandatory: {
+                        chromeMediaSource: 'desktop',
+                        chromeMediaSourceId: event.data.sourceId,
+                        maxWidth: 1440,
+                        maxHeight: 9999
+                    },
 
-                        optional: [
-                            {maxFrameRate: 3},
-                            {googLeakyBucket: true},
-                            {googTemporalLayeredScreencast: true}
-                        ]
-                    }
-                };
+                    optional: [
+                        {maxFrameRate: 3},
+                        {googLeakyBucket: true},
+                        {googTemporalLayeredScreencast: true}
+                    ]
+                }
+            };
 
             virtualclass.adpt = new virtualclass.adapter();
             navigator2 = virtualclass.adpt.init(navigator);
             navigator2.getUserMedia(constraints, function (stream) {
                 virtualclass.ss._init();
                 //if(roles.hasControls()){
-                    virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
-               // }
+                virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
+                // }
             }, function (e) {
                 virtualclass.ss.onError.call(virtualclass.ss, e);
             });
             //the stream we can get here with initalizeRecorder()
         }
         var elem = document.querySelector("#virtualclassScreenShareLocalSmall");
-        if(elem){
-            elem.style.display="block";
+        if (elem) {
+            elem.style.display = "block";
         }
 
 

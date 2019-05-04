@@ -3,8 +3,9 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-   // var vcan = window.vcan;
-    function Triangle(id){
+    "use strict";
+    // var vcan = window.vcan;
+    function Triangle(id) {
         var vcan = virtualclass.wb[id].vcan;
 
         /**
@@ -89,5 +90,6 @@
         }
 
     }
-    window.Triangle =  Triangle;
+
+    window.Triangle = Triangle;
 })(window);

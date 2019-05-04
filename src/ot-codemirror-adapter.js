@@ -108,10 +108,10 @@
                     .compose(operation);
 
                 inverse = inverse.compose(new TextOperation()
-                        .retain(fromIndex)
-                        ['delete'](change.text.length)
-                        .insert(change.removed, change.removedAttributes)
-                        .retain(restLength)
+                    .retain(fromIndex)
+                    ['delete'](change.text.length)
+                    .insert(change.removed, change.removedAttributes)
+                    .retain(restLength)
                 );
 
                 docEndLength += change.removed.length - change.text.length;
@@ -204,7 +204,7 @@
 
         RichTextCodeMirrorAdapter.prototype.onCursorActivity = function () {
             this.trigger('cursorActivity');
-        }
+        };
 
         RichTextCodeMirrorAdapter.prototype.onFocus = function () {
             this.trigger('focus');

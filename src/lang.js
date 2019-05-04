@@ -4,6 +4,7 @@
  */
 
 (function (window) {
+    "use strict";
     /**
      * @words expect array
      *

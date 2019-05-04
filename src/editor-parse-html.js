@@ -126,9 +126,9 @@
 
         // Fix IE8.
         var Node = Node || {
-                ELEMENT_NODE: 1,
-                TEXT_NODE: 3
-            };
+            ELEMENT_NODE: 1,
+            TEXT_NODE: 3
+        };
 
         function parseNode(node, state, output) {
             // Give entity manager first crack at it.
@@ -291,8 +291,7 @@
                         var allowedValues = ['px', 'pt', '%', 'em', 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large', 'smaller', 'larger'];
                         if (vceditor.utils.stringEndsWith(val, allowedValues)) {
                             size = val;
-                        }
-                        else if (parseInt(val)) {
+                        } else if (parseInt(val)) {
                             size = parseInt(val) + 'px';
                         }
                         if (size) {

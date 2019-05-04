@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 (function (window) {
+    "use strict";
     var dirtyCorner = {
         decodeRGB: function (encodeDataArr, ctx, canvas) {
             var imageData = ctx.createImageData(canvas.width, canvas.height); // TODO - Create empty Array

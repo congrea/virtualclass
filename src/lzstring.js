@@ -53,8 +53,8 @@ var LZString = {
     compressToUTF16: function (input) {
         if (input == null) return "";
         return LZString._compress(input, 15, function (a) {
-                return String.fromCharCode(a + 32);
-            }) + " ";
+            return String.fromCharCode(a + 32);
+        }) + " ";
     },
 
     decompressFromUTF16: function (compressed) {
@@ -334,8 +334,7 @@ var LZString = {
             if (context_data_position == bitsPerChar - 1) {
                 context_data.push(getCharFromInt(context_data_val));
                 break;
-            }
-            else context_data_position++;
+            } else context_data_position++;
         }
         return context_data.join('');
     },

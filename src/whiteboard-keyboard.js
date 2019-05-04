@@ -3,6 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+    "use strict";
     var keyBoard = {
         prvTool: "",
         skey: false,

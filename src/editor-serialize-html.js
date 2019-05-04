@@ -154,8 +154,7 @@
                     } else if (attr === ATTR.BACKGROUND_COLOR) {
                         start = 'span style="background-color: ' + value + '"';
                         end = 'span';
-                    }
-                    else {
+                    } else {
                         utils.log(false, "Encountered unknown attribute while rendering html: " + attr);
                     }
                     if (start) prefix += '<' + start + '>';

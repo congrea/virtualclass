@@ -9,8 +9,8 @@
  *
  */
 (function (window) {
+    'use strict';
     TextOperation = (function () {
-        'use strict';
         //var TextOp = vceditor.TextOp;
         //var utils = vceditor.utils;
 
@@ -170,13 +170,13 @@
             // map: build a new array by applying a function to every element in an old
             // array.
             var map = Array.prototype.map || function (fn) {
-                    var arr = this;
-                    var newArr = [];
-                    for (var i = 0, l = arr.length; i < l; i++) {
-                        newArr[i] = fn(arr[i]);
-                    }
-                    return newArr;
-                };
+                var arr = this;
+                var newArr = [];
+                for (var i = 0, l = arr.length; i < l; i++) {
+                    newArr[i] = fn(arr[i]);
+                }
+                return newArr;
+            };
             return map.call(this.ops, function (op) {
                 if (op.isRetain()) {
                     return "retain " + op.chars;

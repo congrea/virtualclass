@@ -6,6 +6,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+    "use strict";
     var alData = 0;
     var adData = [];
     var wbDataArr = [];
@@ -18,7 +19,7 @@
     var storage = {
         //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
         dbVersion: 7,
-        sessionEndFlag:false,
+        sessionEndFlag: false,
         init: function () {
 
             /***
@@ -38,7 +39,7 @@
             that = this;
             //TODO these are not using because audio and video is not using
 
-            this.tables = ["wbData", "chunkData",  "config", "dataAdapterAll", "dataUserAdapterAll",  "executedStoreAll",   "executedUserStoreAll", "dstdata","pollStorage","quizData", "dstall"];
+            this.tables = ["wbData", "chunkData", "config", "dataAdapterAll", "dataUserAdapterAll", "executedStoreAll", "executedUserStoreAll", "dstdata", "pollStorage", "quizData", "dstall"];
 
             //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
 
@@ -49,7 +50,7 @@
                 console.log("Error opening db");
                 console.dir(e);
 
-                if(e.target.error.name == 'InvalidStateError'){
+                if (e.target.error.name == 'InvalidStateError') {
                     // http://stackoverflow.com/questions/14082932/invalid-state-error-in-firefox-for-indexed-db
                     alert(virtualclass.lang.getString('enablehistory'));
                 }
@@ -101,7 +102,7 @@
                 }
 
                 if (!thisDb.objectStoreNames.contains("pollStorage")) {
-                    thisDb.createObjectStore("pollStorage", {keyPath: 'timeStamp',autoIncrement: true});
+                    thisDb.createObjectStore("pollStorage", {keyPath: 'timeStamp', autoIncrement: true});
                 }
 
                 if (!thisDb.objectStoreNames.contains("quizData")) {
@@ -135,8 +136,8 @@
                 } else {
 
                     var pos = that.tables.indexOf('wbData');
-                    if(pos > -1 ){
-                        var tables = that.tables.slice(pos+1);
+                    if (pos > -1) {
+                        var tables = that.tables.slice(pos + 1);
                     } else {
                         var tables = that.tables;
                     }
@@ -166,26 +167,26 @@
 
         store: function (data) {
             //console.log("whiteboard data store");
-             var t = that.db.transaction(["wbData"], "readwrite");
-             var objectStore = t.objectStore("wbData");
-             objectStore.put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
+            var t = that.db.transaction(["wbData"], "readwrite");
+            var objectStore = t.objectStore("wbData");
+            objectStore.put({repObjs: data, did: virtualclass.gObj.currWb, id: 1});
             return false;
         },
 
         //related poll
-        pollStore:function(store){
-            setTimeout(function(){
+        pollStore: function (store) {
+            setTimeout(function () {
                 var t = that.db.transaction(["pollStorage"], "readwrite");
                 var objectStore = t.objectStore("pollStorage");
-                console.log('poll result data length' + JSON.parse(store).length );
-                t.objectStore("pollStorage").add({pollResult:store, currTime:new Date().getTime(), id: 1});
+                console.log('poll result data length' + JSON.parse(store).length);
+                t.objectStore("pollStorage").add({pollResult: store, currTime: new Date().getTime(), id: 1});
                 return false;
 
-            },500)
+            }, 500)
 
         },
 
-        wbDataRemove : function (key){
+        wbDataRemove: function (key) {
             console.log('Whiteboard data remove');
             var t = that.db.transaction(["wbData"], "readwrite");
             var objectStore = t.objectStore("wbData");
@@ -197,7 +198,7 @@
             var objectStore = t.objectStore("executedStoreAll");
             t.objectStore("executedStoreAll").put({executedData: data, id: 6, serialKey: serialKey}); // Using add can cause errors
 
-            t.onerror = function ( e ) {
+            t.onerror = function (e) {
                 // prevent Firefox from throwing a ConstraintError and aborting (hard)
                 e.preventDefault();
             }
@@ -208,7 +209,7 @@
             var objectStore = t.objectStore("dataAdapterAll");
             t.objectStore("dataAdapterAll").put({adaptData: data, id: 5, serialKey: serialKey}); // Using add can cause errors
 
-            t.onerror = function ( e ) {
+            t.onerror = function (e) {
                 // prevent Firefox from throwing a ConstraintError and aborting (hard)
                 e.preventDefault();
             }
@@ -223,7 +224,7 @@
             // hack for firefox
             // problem https://bugzilla.mozilla.org/show_bug.cgi?id=872873
             // solution https://github.com/aaronpowell/db.js/issues/98
-            t.onerror = function ( e ) {
+            t.onerror = function (e) {
                 // prevent Firefox from throwing a ConstraintError and aborting (hard)
                 e.preventDefault();
             }
@@ -235,13 +236,13 @@
             var objectStore = t.objectStore("executedUserStoreAll");
             t.objectStore("executedUserStoreAll").put({executedUserData: data, id: 8, serialKey: serialKey}); // Using add can cause errors
 
-            t.onerror = function ( e ) {
+            t.onerror = function (e) {
                 // prevent Firefox from throwing a ConstraintError and aborting (hard)
                 e.preventDefault();
             }
         },
 
-        quizStorage: function(quizkey, data){
+        quizStorage: function (quizkey, data) {
             var t = that.db.transaction(["quizData"], "readwrite");
             var objectStore = t.objectStore("quizData");
             //objectStore.clear();
@@ -269,7 +270,7 @@
                                 that[tables[val]].handleResult(event, cb, row);
                             } else {
                                 //console.log('table name ' + tables[val]);
-                                if (tables[val] != 'chunkData' && tables[val] != 'quizData'&& tables[val] != 'pollStorage') {
+                                if (tables[val] != 'chunkData' && tables[val] != 'quizData' && tables[val] != 'pollStorage') {
                                     that[tables[val]].handleResult(event, cb);
                                 }
                             }
@@ -297,7 +298,7 @@
                     wholeData.push(cursor.value);
                     cursor.continue();
                 } else {
-                    if(wholeData.length > 0){
+                    if (wholeData.length > 0) {
                         cb(JSON.stringify(wholeData));
                     } else {
                         console.log('No data fetched from indexedDb');
@@ -317,14 +318,14 @@
             } catch (err) {
 
                 setTimeout(
-                    function (){
+                    function () {
                         that.getAllDataOfPoll(table, cb);
                     }, 500
                 );
 
             }
 
-            if(dbDefined){
+            if (dbDefined) {
                 var wholeData = [];
                 var t = that.db.transaction(["pollStorage"], "readwrite");
                 var objectStore = t.objectStore("pollStorage");
@@ -334,7 +335,7 @@
                         wholeData.push(cursor.value);
                         cursor.continue();
                     } else {
-                        if(wholeData.length > 0){
+                        if (wholeData.length > 0) {
                             cb(wholeData);
                         } else {
                             console.log('No data fetched from indexedDb');
@@ -514,9 +515,9 @@
 
             endSession: function (onlyStoredData) {
                 delete virtualclass.connectedUsers;
-                if(virtualclass.gObj.hasOwnProperty("memberUpdateDelayTimer")){
+                if (virtualclass.gObj.hasOwnProperty("memberUpdateDelayTimer")) {
                     clearTimeout(virtualclass.gObj.memberUpdateDelayTimer);
-                    virtualclass.gObj.memberlistpending.length  = 0;
+                    virtualclass.gObj.memberlistpending.length = 0;
                     delete virtualclass.gObj.memberUpdateDelayTimer;
                 }
 
@@ -524,47 +525,47 @@
                 virtualclass.poll.dataRec = {};
 
                 var congrealogo = document.getElementById('congrealogo');
-                if(congrealogo != null){
+                if (congrealogo != null) {
                     congrealogo.classList.remove('disbaleOnmousedown');
                 }
 
                 $('#chatroom_bt2').removeClass('ui-state-highlight');
 
-                if(typeof virtualclass.videoUl  == 'object' && virtualclass.videoUl.hasOwnProperty('player')
-                && typeof virtualclass.videoUl.player == 'object' && virtualclass.videoUl.player.player_ != null
+                if (typeof virtualclass.videoUl == 'object' && virtualclass.videoUl.hasOwnProperty('player')
+                    && typeof virtualclass.videoUl.player == 'object' && virtualclass.videoUl.player.player_ != null
 
-                ){
+                ) {
                     virtualclass.videoUl.destroyPlayer();
                 }
 
-                if(typeof CDTimer != 'undefined'){
+                if (typeof CDTimer != 'undefined') {
                     clearInterval(CDTimer);
                 }
 
                 var currApp = document.querySelector('#virtualclass' + virtualclass.currApp);
-                if(currApp != null){
+                if (currApp != null) {
                     currApp.style.display = 'none';
                 }
 
                 virtualclass.media.audio.muteButtonToogle();
                 //Remove all chat user list
-                var chatUsers  = chatContainerEvent.elementFromShadowDom('.ui-memblist-usr', 'all');
+                var chatUsers = chatContainerEvent.elementFromShadowDom('.ui-memblist-usr', 'all');
 
-                if(chatUsers != null && chatUsers.length > 0){
-                    for(let i=0; i<chatUsers.length; i++){
-                        if(chatUsers[i] != null){
+                if (chatUsers != null && chatUsers.length > 0) {
+                    for (let i = 0; i < chatUsers.length; i++) {
+                        if (chatUsers[i] != null) {
                             chatUsers[i].parentNode.removeChild(chatUsers[i]);
                         }
                     }
                 }
 
-                if(virtualclass.gObj.precheckScrn){
+                if (virtualclass.gObj.precheckScrn) {
                     virtualclass.vutil.prechkScrnShare();
                 }
 
                 // virtualclass.raiseHand.disableRaiseHand();
                 virtualclass.gObj.audioEnable = (roles.hasControls()) ? true : virtualclass.gObj.stdaudioEnable;
-                virtualclass.storage.config.sessionEndFlag =true;
+                virtualclass.storage.config.sessionEndFlag = true;
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 var precheck = localStorage.getItem('precheck');
                 localStorage.clear();
@@ -582,17 +583,17 @@
                 virtualclass.gObj.studentSSstatus.shareToAll = false;
                 virtualclass.gObj.studentSSstatus.sharing = false;
                 delete virtualclass.gObj.whoIsSharing;
-                virtualclass.videoHost.gObj.stdStopSmallVid= false;
-                virtualclass.videoHost.gObj.allStdVideoOff=false;
+                virtualclass.videoHost.gObj.stdStopSmallVid = false;
+                virtualclass.videoHost.gObj.allStdVideoOff = false;
                 virtualclass.gObj.wbTool = {};
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
 
-                if(virtualclass.recorder.hasOwnProperty('startUpload')){
+                if (virtualclass.recorder.hasOwnProperty('startUpload')) {
                     delete virtualclass.recorder.startUpload;
                 }
 
-                if(virtualclass.gObj.hasOwnProperty('downloadProgress')){
+                if (virtualclass.gObj.hasOwnProperty('downloadProgress')) {
                     delete virtualclass.gObj.downloadProgress;
                 }
 
@@ -601,7 +602,7 @@
                         alert('Clear all whiteboard');
                         virtualclass.wb[virtualclass.gObj.currWb].utility.t_clearallInit();
                         virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue();
-                        if(typeof virtualclass.wb[virtualclass.gObj.currWb].replay == 'object'){
+                        if (typeof virtualclass.wb[virtualclass.gObj.currWb].replay == 'object') {
                             virtualclass.wb[virtualclass.gObj.currWb].replay.rendering = false;
                         }
                     }
@@ -624,34 +625,33 @@
                 virtualclass.currApp = virtualclass.gObj.defaultApp; // default app
 
                 // hasMicrophone is true if audio is avaialble on hardware but the audio/video is disabled by user
-                if(!virtualclass.gObj.hasOwnProperty('disableCamByUser')) {
+                if (!virtualclass.gObj.hasOwnProperty('disableCamByUser')) {
                     virtualclass.user.control.audioWidgetEnable(true)
-                }else {
+                } else {
                     virtualclass.user.control.audioDisable() // Enable the audio if disabled
                 }
 
                 virtualclass.user.control.allChatEnable(); // Enabble all chat if disabled
                 virtualclass.user.control.resetmediaSetting();
 
-                if(!virtualclass.gObj.meetingMode && roles.isStudent()){
+                if (!virtualclass.gObj.meetingMode && roles.isStudent()) {
                     var teacherVid = document.getElementById("videoHostContainer");
                     teacherVid.style.display = "block";
                 }
 
 
-                if(roles.hasAdmin()){
+                if (roles.hasAdmin()) {
                     // For remove the active tool
                     var sessionEndTool = document.getElementById('virtualclassSessionEndTool');
                     sessionEndTool.className = virtualclass.vutil.removeClassFromElement('virtualclassSessionEndTool', 'active');
                 }
 
 
-
-                if(typeof virtualclass.yts == 'object'){
+                if (typeof virtualclass.yts == 'object') {
                     clearInterval(virtualclass.yts.tsc); // Clear If youTube seekChange interval is exist
                 }
 
-                if(typeof virtualclass.sharePt == 'object') {
+                if (typeof virtualclass.sharePt == 'object') {
                     virtualclass.sharePt.UI.removeIframe();
                 }
 
@@ -667,15 +667,15 @@
                 virtualclass.chat.removeChatHighLight('chatrm');
                 virtualclass.setPrvUser(); // Set Previous User
 
-                workerIO.postMessage({'cmd' : 'sessionEndClose'});
+                workerIO.postMessage({'cmd': 'sessionEndClose'});
 
-                if(precheck != null ){
+                if (precheck != null) {
                     localStorage.setItem('precheck', JSON.parse(precheck));
                 }
 
                 // The new session is trying to open
                 // overriding educator role (new teacher become educator) at where already has presenter
-                if(newEducator != null){
+                if (newEducator != null) {
                     console.log('Editor mode enable');
                     localStorage.setItem('editorRich', true);
                     localStorage.setItem('editorCode', true);
@@ -688,73 +688,73 @@
                 //virtualclass.gObj.uRole // update the role at
                 that.config.createNewSession();
                 console.log('New role after clear ' + virtualclass.gObj.uRole);
-                if(!virtualclass.enablePreCheck){
+                if (!virtualclass.enablePreCheck) {
                     // Only popup the message, if the precheck is not enabled
                     virtualclass.popup.waitMsg();
                 }
 
-                if(typeof virtualclass.dts == 'object' && virtualclass.dts != null){
+                if (typeof virtualclass.dts == 'object' && virtualclass.dts != null) {
                     virtualclass.dts.destroyDts();
                 }
 
-                if(typeof virtualclass.raiseHand == 'object' && virtualclass.raiseHand != null){
-                    if(!roles.hasControls()){
+                if (typeof virtualclass.raiseHand == 'object' && virtualclass.raiseHand != null) {
+                    if (!roles.hasControls()) {
                         var rh = document.querySelector(".congrea .handRaise.disable");
-                        if(rh){
+                        if (rh) {
                             rh.classList.remove('disable');
                             rh.classList.add('enable');
-                            rh.setAttribute('data-title',virtualclass.lang.getString("RaiseHandStdEnabled"));
+                            rh.setAttribute('data-title', virtualclass.lang.getString("RaiseHandStdEnabled"));
                             var icon = document.querySelector(".congrea .handRaise #icHr");
-                            icon.setAttribute('data-action','enable')
-                            virtualclass.raiseHand.stdRhEnable="enabled";
+                            icon.setAttribute('data-action', 'enable');
+                            virtualclass.raiseHand.stdRhEnable = "enabled";
                         }
 
-                    }else{
-                        virtualclass.raiseHand.rhCount=0
-                        virtualclass.raiseHand.rhCountR=0
+                    } else {
+                        virtualclass.raiseHand.rhCount = 0;
+                        virtualclass.raiseHand.rhCountR = 0;
                         var handBt = document.querySelector(".congrea .vmchat_bar_button .hand_bt.highlight");
-                        if(handBt){
+                        if (handBt) {
                             handBt.classList.remove('highlight');
                         }
                         var text = document.querySelector(".congrea .vmchat_bar_button .hand_bt #notifyText");
-                        text.innerHTML="";
+                        text.innerHTML = "";
                     }
                 }
 
                 // var chatHighlight = document.querySelector("#virtualclassCont.congrea .vmchat_room_bt.ui-state-highlight");
                 var chatHighlight = chatContainerEvent.elementFromShadowDom(".vmchat_room_bt.ui-state-highlight");
-                if(chatHighlight){
+                if (chatHighlight) {
                     chatHighlight.classList.remove('ui-state-highlight');
                 }
 
                 var videOff = document.querySelector("#virtualclassCont.congrea.student");
-                if(videOff && videOff.classList.contains("videoff")){
+                if (videOff && videOff.classList.contains("videoff")) {
                     videOff.classList.remove("videoff")
                 }
                 var userList = document.querySelector("#virtualclassCont #memlist");
-                var chatrm = document.querySelector("#virtualclassCont #chatrm")
+                var chatrm = document.querySelector("#virtualclassCont #chatrm");
 
                 var listTab = document.querySelector("#user_list");
                 var chatroomTab = document.querySelector("#chatroom_bt2");
 
 
-                if(userList && !userList.classList.contains("enable")){
+                if (userList && !userList.classList.contains("enable")) {
                     userList.classList.add("enable");
-                    userList.classList.remove("disable")
-                    if(chatrm){
+                    userList.classList.remove("disable");
+                    if (chatrm) {
                         chatrm.classList.add("disable");
                         chatrm.classList.remove("enable")
                     }
                 }
 
 
-                if(!listTab.classList.contains("active")){
+                if (!listTab.classList.contains("active")) {
                     listTab.classList.add("active")
                 }
                 chatroomTab.classList.remove("active");
 
-                virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};
-                if(roles.hasAdmin()){
+                virtualclass.serverData.rawData = {video: [], ppt: [], docs: []};
+                if (roles.hasAdmin()) {
                     virtualclass.serverData.fetchAllData();
                 }
                 virtualclass.gObj.wIds = [0];
@@ -770,7 +770,7 @@
             }
         },
 
-        dstStore : function (data){
+        dstStore: function (data) {
             var t = that.db.transaction(["dstdata"], "readwrite");
             var objectStore = t.objectStore("dstdata");
             objectStore.clear();
@@ -780,8 +780,8 @@
         },
 
         // Store for document sharing data
-        dstdata : {
-            handleResult : function(event){
+        dstdata: {
+            handleResult: function (event) {
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cursor.value.hasOwnProperty('alldocs')) {
@@ -793,7 +793,7 @@
                     }
                     cursor.continue();
                 } else {
-                    if(!dataStore){
+                    if (!dataStore) {
                         console.log('document share store init');
                         virtualclass.gObj.docs = 'init';
                     }
@@ -801,7 +801,7 @@
             }
         },
 
-        dstAllStore : function (data){
+        dstAllStore: function (data) {
             var data = JSON.stringify(data);
             var t = that.db.transaction(["dstall"], "readwrite");
             var objectStore = t.objectStore("dstall");
@@ -809,13 +809,18 @@
 
 
             var allNotes = JSON.stringify(virtualclass.dts.allNotes);
-            t.objectStore("dstall").add({dstalldocs: data, allNotes : allNotes, timeStamp: new Date().getTime(), id: 10});
+            t.objectStore("dstall").add({
+                dstalldocs: data,
+                allNotes: allNotes,
+                timeStamp: new Date().getTime(),
+                id: 10
+            });
         },
 
 
         // Store for document sharing data
-        dstall : {
-            handleResult : function(event){
+        dstall: {
+            handleResult: function (event) {
                 //alert('document share init');
                 var cursor = event.target.result;
                 if (cursor) {
@@ -828,7 +833,7 @@
                     }
                     cursor.continue();
                 } else {
-                    if(!dataAllStore){
+                    if (!dataAllStore) {
                         console.log('document share store init');
                         virtualclass.gObj.dstAll = 'init';
                     }
@@ -836,25 +841,25 @@
             }
         },
 
-        clearSingleTable : function (table, lastTable){
+        clearSingleTable: function (table, lastTable) {
             var t = this.db.transaction(table, "readwrite");
             if (typeof t != 'undefined') {
                 var objectStore = t.objectStore(table);
                 objectStore.clear();
                 console.log('Cleared IDDB Table ' + table);
-                if(typeof lastTable != 'undefined'){
+                if (typeof lastTable != 'undefined') {
                     lastTable();
                 }
             } else {
-                console.log('There is no table '+ table + ' at IDDB.');
+                console.log('There is no table ' + table + ' at IDDB.');
             }
             // if we clear the indexed db then we need to
             // that docs to be init
-            if(table == 'dstdata'){
+            if (table == 'dstdata') {
                 virtualclass.gObj.docs = 'init';
             }
 
-            if(table == 'dstall'){
+            if (table == 'dstall') {
                 virtualclass.gObj.dstall = 'init';
             }
         },
@@ -864,20 +869,20 @@
             ioAdapter.serial = -1;
             ioAdapter.userSerial = [];
             ioAdapter.userAdapterMustData = [];
-            ioMissingPackets.executedStore =  [];
+            ioMissingPackets.executedStore = [];
             ioMissingPackets.executedSerial = {};
-            ioMissingPackets.missRequest =  [];
-            ioMissingPackets.aheadPackets =  [];
-            ioMissingPackets.missRequestFlag =  0;
-            ioMissingPackets.executedUserStore =  [];
-            ioMissingPackets.executedUserSerial =  {};
-            ioMissingPackets.missUserRequest =  [];
-            ioMissingPackets.aheadUserPackets =  [];
-            ioMissingPackets.missUserRequestFlag =  0;
+            ioMissingPackets.missRequest = [];
+            ioMissingPackets.aheadPackets = [];
+            ioMissingPackets.missRequestFlag = 0;
+            ioMissingPackets.executedUserStore = [];
+            ioMissingPackets.executedUserSerial = {};
+            ioMissingPackets.missUserRequest = [];
+            ioMissingPackets.aheadUserPackets = [];
+            ioMissingPackets.missUserRequestFlag = 0;
 
 
-            for(var i=0; i<this.tables.length; i++){
-                if(i+1 == this.tables.length){
+            for (var i = 0; i < this.tables.length; i++) {
+                if (i + 1 == this.tables.length) {
                     this.clearSingleTable(this.tables[i], this.clearLastTable);
                 } else {
                     this.clearSingleTable(this.tables[i]);
@@ -885,27 +890,27 @@
             }
         },
 
-        clearLastTable(){
-            if(virtualclass.gObj.hasOwnProperty('sessionEndResolve')){
+        clearLastTable() {
+            if (virtualclass.gObj.hasOwnProperty('sessionEndResolve')) {
                 virtualclass.gObj.sessionEndResolve();
             }
         },
 
         // Get quiz data, store in array based on
         // key and then return array of object
-        getQuizData : function (cb){
+        getQuizData: function (cb) {
             var dbDefined = false;
             try {
                 that.db.transaction(["quizData"], "readonly");
                 dbDefined = true;
             } catch (err) {
                 setTimeout(
-                    function (){
+                    function () {
                         that.getQuizData(cb);
                     }, 500
                 );
             }
-            if(dbDefined){
+            if (dbDefined) {
                 var t = that.db.transaction(["quizData"], "readonly");
                 var objectStore = t.objectStore("quizData");
                 var dataArr = [];
@@ -931,27 +936,27 @@
         },
 
         // get whiteboard data accoring to whieboard id
-        getWbData : function (wbId, cb){
+        getWbData: function (wbId, cb) {
             var dbDefined = false;
             try {
                 that.db.transaction(["wbData"], "readwrite");
                 dbDefined = true;
             } catch (err) {
                 setTimeout(
-                    function (){
+                    function () {
                         that.getWbData(wbId, cb);
                     }, 500
                 );
             }
 
-            if(dbDefined){
+            if (dbDefined) {
                 console.log('GET DATA FROM LOCAL STORAGE');
                 var t = that.db.transaction(["wbData"], "readwrite");
                 //tx = db.transaction("MyObjectStore", "readwrite");
                 var row = t.objectStore("wbData");
                 var wb = row.get(wbId);
-                wb.onsuccess = function (e){
-                    if(typeof wb.result != 'undefined'){
+                wb.onsuccess = function (e) {
+                    if (typeof wb.result != 'undefined') {
                         console.log('Whiteboard start store from local storage ' + wbId);
                         virtualclass.gObj.tempReplayObjs[wbId] = [];
                         virtualclass.gObj.tempReplayObjs[wbId] = JSON.parse(wb.result.repObjs);

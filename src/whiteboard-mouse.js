@@ -3,8 +3,8 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-
-    function Mouse(id){
+    "use strict";
+    function Mouse(id) {
         var vcan = virtualclass.wb[id].vcan;
         vcan.mouse = function () {
             return {
@@ -36,7 +36,7 @@
                             canvasElement.addEventListener(type, this._mousemove, false);
                         } else if (type == 'mouseup') {
                             canvasElement.addEventListener(type, this._mouseup, false);
-                        }else if (type == 'touchstart') {
+                        } else if (type == 'touchstart') {
                             canvasElement.addEventListener(type, this._touchstart, false);
                         } else if (type == 'touchmove') {
                             canvasElement.addEventListener(type, this._touchmove, false);
@@ -45,7 +45,7 @@
                         }
                     }
                 },
-               
+
                 _mousedown: function (e, cobj) {
                     vcan.activMouse.mousedown(e, cobj)
 
@@ -58,12 +58,12 @@
 
                 },
                 _touchstart: function (e, cobj) {
-                    vcan.activMouse.mousedown(e, cobj)
+                    vcan.activMouse.mousedown(e, cobj);
                     // to stop mouse event
                     e.preventDefault();
                 },
                 _touchmove: function (e) {
-                    vcan.activMouse.mousemove(e)
+                    vcan.activMouse.mousemove(e);
                     e.preventDefault();
                 },
                 _touchend: function (e) {
@@ -71,18 +71,18 @@
                     e.preventDefault()
 
                 },
-                
-                 /**
+
+                /**
                  * @Class mousedown
                  * setupCurrentTransform,  setActiveObject, setZindex kind of methods are called from this funciton
                  * @param e is event object
                  */
-                
+
                 mousedown: function (e, cobj) {
                     var clogo = document.getElementById("congrealogo");
                     clogo.classList.add("disbaleOnmousedown");
                     // var newpointer = vcan.utility.getReltivePoint(e);
-                   //console.log('Whiteboard position drag start x=' + e.offsetX + ' y=' + e.offsetY);
+                    //console.log('Whiteboard position drag start x=' + e.offsetX + ' y=' + e.offsetY);
 
                     if (e.detail.hasOwnProperty('cevent') && (vcan.main.action != 'create')) {
                         // console.log('Whiteboard drag start before scale x=' + (e.detail.cevent.x - vcan.main.offset.x) + ' y=' + ( e.detail.cevent.y - vcan.main.offset.y));
@@ -130,7 +130,7 @@
                         }
 
                         if (!e.detail.hasOwnProperty('cevent')) {
-                            if(roles.hasControls()){
+                            if (roles.hasControls()) {
                                 e = vcan.utility.updateCordinate(e);
                             }
                             var currTime = new Date().getTime();
@@ -159,10 +159,10 @@
                              *  current scale so we called putScrollWithCevent, foundText represents teacher clicks on text. We don't need
                              *  to map the position when user creates the new text
                              * **/
-                            if(e.detail.hasOwnProperty('foundText')){
-                                 e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e);
+                            if (e.detail.hasOwnProperty('foundText')) {
+                                e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e);
                             }
-                            
+
                             e.clientX = e.detail.cevent.x + (virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.x);
                             e.clientY = e.detail.cevent.y + (virtualclass.wb[virtualclass.gObj.currWb].vcan.main.offset.y);
 
@@ -197,9 +197,9 @@
                     // var newpointer = vcan.utility.getReltivePoint(e);
 
                     if (e.detail.hasOwnProperty('cevent')) {
-                        if(vcan.main.action == 'move'){
-                             e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e);
-                           // e = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(e);
+                        if (vcan.main.action == 'move') {
+                            e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e);
+                            // e = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(e);
                         }
 
                         e.clientX = vcan.main.offset.x + e.detail.cevent.x;
@@ -225,7 +225,7 @@
 
                             //this.moveChunk.push(obj.currentTransform.target);
                         } else {
-                                // var pointer = vcan.utility.actualPointer(e),
+                            // var pointer = vcan.utility.actualPointer(e),
                             var pointer = vcan.utility.actualPointer(e),
 
                                 x = pointer.x,
@@ -277,9 +277,9 @@
                                          * below block of code is handle to delete the object for multi user
                                          */
 
-                                            //this.moveChunk = vcan.utility.setMoveChunk(this.moveChunk, currAdTime);
-                                            //can be critical if there is used
-                                            //vcan.main.starter_obj_id = obj.currentTransform.target.id;
+                                        //this.moveChunk = vcan.utility.setMoveChunk(this.moveChunk, currAdTime);
+                                        //can be critical if there is used
+                                        //vcan.main.starter_obj_id = obj.currentTransform.target.id;
                                         obj.currentTransform.target.downObj = false;
 
                                     }
@@ -288,7 +288,7 @@
                                     if (!e.detail.hasOwnProperty('cevent')) {
                                         vcan.optimize.doOptiMize(e);
                                     }
-                                   // console.log('Whiteboard drag move x=' + (e.clientX ) + ' y=' + (e.clientY));
+                                    // console.log('Whiteboard drag move x=' + (e.clientX ) + ' y=' + (e.clientY));
 
                                     tempTarget.setActive(true);
                                     tempTarget.setCoords();
@@ -360,12 +360,12 @@
                         // every time(either the action in scale or drag mode) there would be checked that if the object is existing
                         //  which have to be deleted duplicate object
                         if (vcan.main.dragMode == true || vcan.main.scaleMode == true) {
-                            if(roles.hasControls()){
-                               e = vcan.utility.updateCordinate(e);
+                            if (roles.hasControls()) {
+                                e = vcan.utility.updateCordinate(e);
                             }
 
                             var currTime = new Date().getTime();
-                            if (!e.detail.hasOwnProperty('cevent') || (e.detail.hasOwnProperty('cevent') &&  e.detail.hasOwnProperty('broadCast'))) {
+                            if (!e.detail.hasOwnProperty('cevent') || (e.detail.hasOwnProperty('cevent') && e.detail.hasOwnProperty('broadCast'))) {
                                 vcan.optimize.calculatePackets(currTime, 'u', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
                             }
 
@@ -380,7 +380,7 @@
                             }
                         } else {
 
-                            if (!e.detail.hasOwnProperty('cevent') &&  e.detail.hasOwnProperty('cevent') &&  e.detail.hasOwnProperty('broadCast')) {
+                            if (!e.detail.hasOwnProperty('cevent') && e.detail.hasOwnProperty('cevent') && e.detail.hasOwnProperty('broadCast')) {
                                 vcan.optimize.calculatePackets(currTime, 'u', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
                             }
                         }

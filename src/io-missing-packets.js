@@ -1,14 +1,14 @@
 var ioMissingPackets = {
     // Variables for broadcast messages
     executedStore: [], // It contains all executed data by current user (at receiver side), used by ahead packets
-    executedSerial: (localStorage.getItem('executedSerial') != null) ? JSON.parse(localStorage.getItem('executedSerial'))  : {},
+    executedSerial: (localStorage.getItem('executedSerial') != null) ? JSON.parse(localStorage.getItem('executedSerial')) : {},
     missRequest: [], // Status for Request for missed packets
     aheadPackets: [],
     missRequestFlag: 0, // Flag to show status of Miss Packet request
 
     // Variables for individual messages (usersend)
     executedUserStore: [],
-    executedUserSerial: (localStorage.getItem('executedUserSerial') != null) ? JSON.parse(localStorage.getItem('executedUserSerial'))  : {},
+    executedUserSerial: (localStorage.getItem('executedUserSerial') != null) ? JSON.parse(localStorage.getItem('executedUserSerial')) : {},
 
     missUserRequest: [], // Status for Request for missed packets
     aheadUserPackets: [],
@@ -63,7 +63,7 @@ var ioMissingPackets = {
     checkMissing: function (msg) {
         "use strict";
         //debugger;
-        if(virtualclass.isPlayMode){
+        if (virtualclass.isPlayMode) {
             io.onRecJson(msg);
             return;
         }
@@ -72,9 +72,9 @@ var ioMissingPackets = {
         this.validateAllVariables(uid);
 
         // we would think about sesion clear only when the request would come from teacher
-        if(msg.user.role == 't' && msg.m.hasOwnProperty('ping') && msg.m.hasOwnProperty('session')){
+        if (msg.user.role == 't' && msg.m.hasOwnProperty('ping') && msg.m.hasOwnProperty('session')) {
             var mySession = localStorage.getItem('mySession');
-            if(mySession != null && msg.m.session != mySession){
+            if (mySession != null && msg.m.session != mySession) {
                 // TODO Finish Session and start gracefully
                 if (!virtualclass.isPlayMode) {
                     localStorage.removeItem('mySession');
@@ -325,7 +325,7 @@ var ioMissingPackets = {
         while (ex = this.aheadPackets[uid].pop()) {
             if (typeof ex != 'undefined' && ex != null) {
 
-                if(typeof this.executedStore[uid][ex] != 'undefined'){
+                if (typeof this.executedStore[uid][ex] != 'undefined') {
                     this.executedSerial[uid] = ex;
 
                     console.log('UID ' + uid + ' Object with Serial ' + this.executedStore[uid][ex].m.serial);
@@ -385,7 +385,7 @@ var ioMissingPackets = {
         while (ex = this.aheadPackets[uid].pop()) {
             if (typeof ex != 'undefined' && ex != null) {
 
-                if(typeof this.executedStore[uid][ex] != 'undefined'){
+                if (typeof this.executedStore[uid][ex] != 'undefined') {
                     this.executedSerial[uid] = ex;
                     console.log('UID ' + uid + ' Object with Serial ' + this.executedStore[uid][ex].m.serial);
                     ioStorage.dataExecutedStoreAll(this.executedStore[uid][ex], uid + '_' + this.executedStore[uid][ex].m.serial);
@@ -418,7 +418,7 @@ var ioMissingPackets = {
 
         //console.log('received packet');
         if (msg.m.data.length > 0) {
-           // console.log('UID ' + uid + ' received user packet from ' + msg.m.data[0].m.userSerial + ' to ' + msg.m.data[msg.m.data.length - 1].m.userSerial);
+            // console.log('UID ' + uid + ' received user packet from ' + msg.m.data[0].m.userSerial + ' to ' + msg.m.data[msg.m.data.length - 1].m.userSerial);
         } else {
             console.log('UID ' + uid + ' empty user data object');
         }
@@ -432,7 +432,7 @@ var ioMissingPackets = {
                     this.executedUserSerial[uid] = msg.m.data[i].m.userSerial;
                     ioStorage.dataExecutedUserStoreAll(msg.m.data[i], uid + '_' + msg.m.data[i].m.userSerial, msg.m.data[i].m.userSerial);
                     msg.m.data[i].user = msg.user;
-                    msg.m.data[i].userto =  msg.userto;
+                    msg.m.data[i].userto = msg.userto;
 
                     try {
                         console.log('UID ' + uid + ' Object with user Serial ' + msg.m.data[i].m.userSerial);

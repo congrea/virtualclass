@@ -4,8 +4,8 @@
  */
 newScrollVal = 0;
 (function (window) {
-
-    function vcanUtility (id){
+    "use strict";
+    function vcanUtility(id) {
         var vcan = virtualclass.wb[id].vcan;
 
         vcan.utility = {
@@ -23,12 +23,12 @@ newScrollVal = 0;
                 var offset = vcan.utility.getElementOffset(canvasEl);
                 // If offset is 0 then we have to give default offset
                 // if(roles.hasControls() && offset.x == 0){
-                if(roles.hasControls() && offset.x == 0){
+                if (roles.hasControls() && offset.x == 0) {
                     offset.x = 53;
                     offset.y = 48;
                 }
                 vcanMain.offset = offset;
-              //    vcanMain.offset.x = 0;
+                //    vcanMain.offset.x = 0;
                 return offset;
             },
             /**
@@ -65,12 +65,10 @@ newScrollVal = 0;
                     for (var prop in property) {
                         vcan.utility.setVal(obj, prop, property[prop]);
                     }
-                }
-                else {
+                } else {
                     if (property === 'angle') {
                         vcan.utility.setAngle(obj, value);
-                    }
-                    else {
+                    } else {
                         obj[property] = value;
                     }
                 }
@@ -110,20 +108,20 @@ newScrollVal = 0;
                 // virtualclass.topPosY defines the scroll position from top side
                 var posY = 0;
                 var posX = 0;
-                if(virtualclass.gObj.currWb != null){
-                    if(typeof virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY == 'undefined'){
-                        var posY =  0;
-                    }else {
-                        var posY =  virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY;
+                if (virtualclass.gObj.currWb != null) {
+                    if (typeof virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY == 'undefined') {
+                        var posY = 0;
+                    } else {
+                        var posY = virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY;
                     }
 
-                    if(typeof virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX == 'undefined'){
-                        var posX =  0;
-                    }else {
-                        var posX =  virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX;
+                    if (typeof virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX == 'undefined') {
+                        var posX = 0;
+                    } else {
+                        var posX = virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX;
                     }
-               }
-                return {x: vcan.utility.pointerX(event)+posX, y: vcan.utility.pointerY(event) + posY};
+                }
+                return {x: vcan.utility.pointerX(event) + posX, y: vcan.utility.pointerY(event) + posY};
             },
             /**
              * Gets the actual horizontal position
@@ -136,25 +134,25 @@ newScrollVal = 0;
                 // console.log('Actual pointer clientX ' + event.clientX);
                 /* TODO follow the standard as framework done */
                 var docElement = document.documentElement,
-                        body = document.body || {scrollLeft: 0};
+                    body = document.body || {scrollLeft: 0};
                 // looks like in IE (<9) clientX at certain point (apparently when mouseup fires on VML element)
                 // is represented as COM object, with all the consequences, like "unknown" type and error on [[Get]]
                 // need to investigate later
                 //todo to simplify
                 if (ev == 'mouse') {
                     return ((typeof event.clientX != 'undefined' ? event.clientX : 0) +
-                            (docElement.scrollLeft || body.scrollLeft) -
-                            (docElement.clientLeft || 0));
+                        (docElement.scrollLeft || body.scrollLeft) -
+                        (docElement.clientLeft || 0));
 
                 } else {
                     if (event.type = 'touchend') {
                         return ((event.changedTouches[0] && typeof event.changedTouches[0].clientX != 'undefined' ? event.changedTouches[0].clientX : 0) +
-                                (docElement.scrollLeft || body.scrollLeft) -
-                                (docElement.clientLeft || 0));
+                            (docElement.scrollLeft || body.scrollLeft) -
+                            (docElement.clientLeft || 0));
                     } else {
                         return ((event.targetTouches[0] && typeof event.targetTouches[0].clientX != 'undefined' ? event.targetTouches[0].clientX : 0) +
-                                (docElement.scrollLeft || body.scrollLeft) -
-                                (docElement.clientLeft || 0));
+                            (docElement.scrollLeft || body.scrollLeft) -
+                            (docElement.clientLeft || 0));
                     }
 
                 }
@@ -180,7 +178,7 @@ newScrollVal = 0;
                 // console.log('Actual pointer clientY ' + event.clientY);
                 /*TODO follow the standard as framework done*/
                 var docElement = document.documentElement,
-                body = document.body || {scrollTop: 0};
+                    body = document.body || {scrollTop: 0};
                 newScrollVal = (docElement.scrollTop || body.scrollTop) - (docElement.clientTop || 0);
                 // if(!roles.hasControls()){
                 //     newScrollVal = 0;
@@ -208,7 +206,7 @@ newScrollVal = 0;
                 var pointer = vcan.utility.actualPointer(e);
                 // console.log('whiteboard canvas offset x = ' + (pointer.x - offset.x) + ' y =' + (pointer.y - offset.y));
                 return {
-                    x: (pointer.x  - offset.x ),
+                    x: (pointer.x - offset.x),
                     y: (pointer.y - offset.y)
                 };
             },
@@ -276,8 +274,7 @@ newScrollVal = 0;
                     var corner = target.findTargetCorner(e);
                     if (!corner) {
                         s.cursor = vcanMain.hoverCursor;
-                    }
-                    else {
+                    } else {
                         if (corner in vcanMain.cursorMap) {
                             s.cursor = vcanMain.cursorMap[corner];
                         } else if (corner === 'mtr' && target.hasRotatingPoint) {
@@ -300,15 +297,15 @@ newScrollVal = 0;
                 return vcan.main.children;
             },
 
-            isCeventExist : function (event){
-                if(event.hasOwnProperty('detail')){
+            isCeventExist: function (event) {
+                if (event.hasOwnProperty('detail')) {
                     return event.hasOwnProperty('cevent');
                 } else {
                     return false;
                 }
             },
 
-            updateCordinate : function (e){
+            updateCordinate: function (e) {
                 var pointer = vcan.utility.actualPointer(e);
                 var customEve = {};
                 customEve.detail = {}; // that should be elimanted
@@ -317,6 +314,7 @@ newScrollVal = 0;
                 return customEve;
             }
         }
-  }
+    }
+
     window.vcanUtility = vcanUtility;
 })(window);

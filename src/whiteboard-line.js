@@ -3,7 +3,9 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+    "use strict";
     var vcan = window.vcan;
+
     /**
      * @Class defined class for line
      *  methods initilized for creating line object
@@ -11,7 +13,7 @@
      */
 
 
-    function Line (id) {
+    function Line(id) {
         var vcan = virtualclass.wb[id].vcan;
 
         vcan.line = function () {

@@ -1,8 +1,9 @@
-function CommonXHR (){
+function CommonXHR() {
+    "use strict";
     this.init();
 }
 
-CommonXHR.prototype.init = function (){
+CommonXHR.prototype.init = function () {
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         this.httpObj = new XMLHttpRequest();
     } else {
@@ -10,9 +11,9 @@ CommonXHR.prototype.init = function (){
     }
 
     this.onReadStateChange();
-}
+};
 
-CommonXHR.prototype.onReadStateChange = function (){
+CommonXHR.prototype.onReadStateChange = function () {
     var that = this;
     this.httpObj.onreadystatechange = function () {
         if (that.httpObj.readyState == 4) {
@@ -26,9 +27,9 @@ CommonXHR.prototype.onReadStateChange = function (){
             }
         }
     }
-}
+};
 
-CommonXHR.prototype.send = function (url, cb, responseType){
+CommonXHR.prototype.send = function (url, cb, responseType) {
     console.log('Common URL ' + url);
     this.cb = cb;
     this.httpObj.open("GET", url, true);
@@ -41,4 +42,4 @@ CommonXHR.prototype.send = function (url, cb, responseType){
 
     this.httpObj.withCredentials = true;
     this.httpObj.send();
-}
+};

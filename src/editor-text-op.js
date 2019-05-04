@@ -55,9 +55,9 @@
 
         TextOp.prototype.equals = function (other) {
             return (this.type === other.type &&
-            this.text === other.text &&
-            this.chars === other.chars &&
-            this.attributesEqual(other.attributes));
+                this.text === other.text &&
+                this.chars === other.chars &&
+                this.attributesEqual(other.attributes));
         };
 
         TextOp.prototype.attributesEqual = function (otherAttributes) {

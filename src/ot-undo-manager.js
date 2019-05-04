@@ -11,7 +11,6 @@
 (function (window) {
     "use strict";
     var UndoManager = (function () {
-        'use strict';
 
         var NORMAL_STATE = 'normal';
         var UNDOING_STATE = 'undoing';

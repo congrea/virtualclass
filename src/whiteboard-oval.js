@@ -3,6 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+    "use strict";
     var vcan = window.vcan;
 
     /**
@@ -10,7 +11,7 @@
      *  methods initilized for creating oval object
      *  the arc() function used to create the oval object
      */
-    function Oval(id){
+    function Oval(id) {
         var vcan = virtualclass.wb[id].vcan;
         vcan.oval = function () {
             return {

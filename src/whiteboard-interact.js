@@ -4,7 +4,7 @@
  */
 
 (function (window) {
-
+    "use strict";
     //var vcan = window.vcan;
     /**
      * TODO this object has some methods
@@ -12,7 +12,7 @@
      * created object eg:- drag, rotate.
      */
 
-    function Interact (id){
+    function Interact(id) {
         var vcan = virtualclass.wb[id].vcan;
 
         vcan.interact = {
@@ -24,9 +24,9 @@
              */
             rotateObject: function (x, y) {
                 var t = vcan.main.currentTransform,
-                //TODO we should get the offset through this o = this._offset;
+                    //TODO we should get the offset through this o = this._offset;
 
-                // o = calcOffset(vcan.main.canvas.id)
+                    // o = calcOffset(vcan.main.canvas.id)
                     o = vcan.main.offset;
                 if (t.target.lockRotation) {
                     return;
@@ -57,11 +57,9 @@
                 if (!by) {
                     target.lockScalingX || vcan.utility.setVal(target, 'scaleX', t.scaleX * curLen / lastLen);
                     target.lockScalingY || vcan.utility.setVal(target, 'scaleY', t.scaleY * curLen / lastLen);
-                }
-                else if (by === 'x' && !target.lockUniScaling) {
+                } else if (by === 'x' && !target.lockUniScaling) {
                     target.lockScalingX || vcan.utility.setVal(target, 'scaleX', t.scaleX * curLen / lastLen);
-                }
-                else if (by === 'y' && !target.lockUniScaling) {
+                } else if (by === 'y' && !target.lockUniScaling) {
                     target.lockScalingY || vcan.utility.setVal(target, 'scaleY', t.scaleY * curLen / lastLen);
                 }
             },
@@ -80,6 +78,7 @@
             }
         }
     }
+
     window.Interact = Interact;
 
 })(window);

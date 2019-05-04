@@ -3,14 +3,14 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-
+    "use strict";
     /**
      * @Class defined rectangle for rectangle
      *  methods initilized for creating rectangle object
      *  in future there can be more properties than one
      */
 
-    function Rectangle (id){
+    function Rectangle(id) {
         var vcan = virtualclass.wb[id].vcan;
         //var vcan = virtualclass.wb[id];
         vcan.rectangle = function () {

@@ -3,13 +3,14 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+    "use strict";
     // var vcan = window.vcan;
     /**
      * @Class defined text for drawing text
      *  methods initilized for creating line object
      *  in future there can be more properties than now
      */
-    function Text(id){
+    function Text(id) {
         var vcan = virtualclass.wb[id].vcan;
 
         vcan.text = function () {

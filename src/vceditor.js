@@ -8,6 +8,7 @@
  */
 
 var Vceditor = (function () {
+    "use strict";
     var vceditor = vceditor || {};
     vceditor.utils = window.utils;
 
@@ -119,7 +120,7 @@ var Vceditor = (function () {
         EntityManager.prototype.updateElement = function (entity, element) {
             var type = entity.type;
             var info = entity.info;
-            if (this.entities_[type] && typeof(this.entities_[type].update) != 'undefined') {
+            if (this.entities_[type] && typeof (this.entities_[type].update) != 'undefined') {
                 this.entities_[type].update(info, element);
             }
         };
@@ -170,7 +171,7 @@ var Vceditor = (function () {
     /**
      * Object to represent an Entity.
      */
-        //T5
+    //T5
     vceditor.Entity = (function () {
         var ATTR = vceditor.AttributeConstants;
         var SENTINEL = ATTR.ENTITY_SENTINEL;
@@ -643,11 +644,11 @@ var Vceditor = (function () {
                                 var dynStyle = DynamicStyleAttributes[attr];
                                 var css = (typeof dynStyle === 'function') ?
                                     dynStyle(val) :
-                                dynStyle + ": " + val;
+                                    dynStyle + ": " + val;
 
                                 var selector = (attr == ATTR.LINE_INDENT) ?
-                                'pre.' + className :
-                                '.' + className;
+                                    'pre.' + className :
+                                    '.' + className;
 
                                 this.addStyleWithCSS_(selector + ' { ' + css + ' }');
                             }
@@ -845,7 +846,8 @@ var Vceditor = (function () {
 
             for (var i = 0; i < changes.length; i++) {
                 var change = changes[i];
-                var start = change.start, end = change.end, text = change.text, removed = change.removed, origin = change.origin;
+                var start = change.start, end = change.end, text = change.text, removed = change.removed,
+                    origin = change.origin;
 
                 // When text with multiple sets of attributes on it is removed, we need to split it into separate remove changes.
                 if (removed.length > 0) {
@@ -918,13 +920,13 @@ var Vceditor = (function () {
                     }
                     if (posLe(change.to, pos)) {
                         return indexFromPos({
-                                line: pos.line + change.text.length - 1 - (change.to.line - change.from.line),
-                                ch: (change.to.line < pos.line) ?
-                                    pos.ch :
-                                    (change.text.length <= 1) ?
+                            line: pos.line + change.text.length - 1 - (change.to.line - change.from.line),
+                            ch: (change.to.line < pos.line) ?
+                                pos.ch :
+                                (change.text.length <= 1) ?
                                     pos.ch - (change.to.ch - change.from.ch) + sumLengths(change.text) :
                                     pos.ch - change.to.ch + last(change.text).length
-                            }) + sumLengths(change.removed) - sumLengths(change.text);
+                        }) + sumLengths(change.removed) - sumLengths(change.text);
                     }
                     if (change.from.line === pos.line) {
                         return indexFromPos(change.from) + pos.ch - change.from.ch;
@@ -1583,7 +1585,7 @@ var Vceditor = (function () {
         }
 
         return inserts;
-    }
+    };
 
 
     var vceditor = vceditor || {};
@@ -1984,11 +1986,11 @@ var Vceditor = (function () {
                 var dialog = document.getElementById('overlay');
                 dialog.style.visibility = "hidden";
                 var src = document.getElementById(id).value;
-                if (src){
-                    self.insertEntity(id, {'src': src}); 
-                  
+                if (src) {
+                    self.insertEntity(id, {'src': src});
+
                 }
-                 self.vcEditorWrapper_.removeChild(dialog);
+                self.vcEditorWrapper_.removeChild(dialog);
             };
 
             var input = utils.elt('input', null, {
@@ -1998,7 +2000,7 @@ var Vceditor = (function () {
                 'placeholder': placeholder,
                 'autofocus': 'autofocus'
             });
-     
+
             var submit = utils.elt('a', 'Submit', {'class': 'vceditor-btn', 'id': 'submitbtn'});
             utils.on(submit, 'click', utils.stopEventAnd(cb));
 
@@ -2161,7 +2163,7 @@ var Vceditor = (function () {
 
     vceditor.Vceditor.getvcEditor = function () {
         return vceditor;
-    }
+    };
 
     return vceditor.Vceditor;
 })();

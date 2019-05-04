@@ -4,6 +4,7 @@
  */
 
 (function (window) {
+    "use strict";
     //var vcan = window.vcan;
 
     /**
@@ -13,7 +14,7 @@
      *  TODO this function should be improvement
      */
 
-    function Events (id){
+    function Events(id) {
         var vcan = virtualclass.wb[id].vcan;
         vcan.events = function () {
             return {
@@ -46,8 +47,8 @@
             }
         }
     }
- window.Events= Events;
 
+    window.Events = Events;
 
 
 })(window);

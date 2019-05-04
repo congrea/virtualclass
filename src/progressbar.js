@@ -8,12 +8,12 @@ var progressBar = {
     currVal: '',
 
     /***
-        After each  progress of XHR, there would check difference
-        between current and previous value. Will provide the download link
-        if found the differences, Otherwise initialize function  progressInit()
-        for trigger it after five minute.
+     After each  progress of XHR, there would check difference
+     between current and previous value. Will provide the download link
+     if found the differences, Otherwise initialize function  progressInit()
+     for trigger it after five minute.
 
-   */
+     */
 
     progressInit: function () {
         var that = this;
@@ -35,7 +35,7 @@ var progressBar = {
     },
 
     renderProgressBar: function (totalVal, portion, pbar, pval) {
-         // console.log('===== totalVal ==== ' + totalVal + '; portion' + portion);
+        // console.log('===== totalVal ==== ' + totalVal + '; portion' + portion);
 
         if (portion > totalVal) {
             portion = totalVal;

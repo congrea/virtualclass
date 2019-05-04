@@ -22,24 +22,24 @@ var LZString = function () {
                 case 2:
                     return r + "==";
                 case 3:
-                    return r + "="
+                    return r + "=";
             }
         }, decompressFromBase64: function (r) {
             return null == r ? "" : "" == r ? null : i._decompress(r.length, 32, function (e) {
-                return o(n, r.charAt(e))
+                return o(n, r.charAt(e));
             })
         }, compressToUTF16: function (o) {
             return null == o ? "" : i._compress(o, 15, function (o) {
-                return r(o + 32)
+                return r(o + 32);
             }) + " "
         }, decompressFromUTF16: function (o) {
             return null == o ? "" : "" == o ? null : i._decompress(o.length, 16384, function (r) {
-                return o.charCodeAt(r) - 32
+                return o.charCodeAt(r) - 32;
             })
         }, compressToUint8Array: function (o) {
             for (var r = i.compress(o), n = new Uint8Array(2 * r.length), e = 0, t = r.length; t > e; e++) {
                 var s = r.charCodeAt(e);
-                n[2 * e] = s >>> 8, n[2 * e + 1] = s % 256
+                n[2 * e] = s >>> 8, n[2 * e + 1] = s % 256;
             }
             return n
         }, decompressFromUint8Array: function (o) {
@@ -48,18 +48,18 @@ var LZString = function () {
             var s = [];
             return n.forEach(function (o) {
                 s.push(r(o))
-            }), i.decompress(s.join(""))
+            }), i.decompress(s.join(""));
         }, compressToEncodedURIComponent: function (o) {
             return null == o ? "" : i._compress(o, 6, function (o) {
-                return e.charAt(o)
+                return e.charAt(o);
             })
         }, decompressFromEncodedURIComponent: function (r) {
             return null == r ? "" : "" == r ? null : (r = r.replace(/ /g, "+"), i._decompress(r.length, 32, function (n) {
-                return o(e, r.charAt(n))
+                return o(e, r.charAt(n));
             }))
         }, compress: function (o) {
             return i._compress(o, 16, function (o) {
-                return r(o)
+                return r(o);
             })
         }, _compress: function (o, r, n) {
             if (null == o)return "";
@@ -73,9 +73,9 @@ var LZString = function () {
                         for (t = 1, e = 0; h > e; e++)m = m << 1 | t, v == r - 1 ? (v = 0, d.push(n(m)), m = 0) : v++, t = 0;
                         for (t = a.charCodeAt(0), e = 0; 16 > e; e++)m = m << 1 | 1 & t, v == r - 1 ? (v = 0, d.push(n(m)), m = 0) : v++, t >>= 1
                     }
-                    l--, 0 == l && (l = Math.pow(2, h), h++), delete p[a]
+                    l--, 0 == l && (l = Math.pow(2, h), h++), delete p[a];
                 } else for (t = s[a], e = 0; h > e; e++)m = m << 1 | 1 & t, v == r - 1 ? (v = 0, d.push(n(m)), m = 0) : v++, t >>= 1;
-                l--, 0 == l && (l = Math.pow(2, h), h++), s[c] = f++, a = String(u)
+                l--, 0 == l && (l = Math.pow(2, h), h++), s[c] = f++, a = String(u);
             }
             if ("" !== a) {
                 if (Object.prototype.hasOwnProperty.call(p, a)) {
@@ -98,10 +98,10 @@ var LZString = function () {
                 }
                 v++
             }
-            return d.join("")
+            return d.join("");
         }, decompress: function (o) {
             return null == o ? "" : "" == o ? null : i._decompress(o.length, 32768, function (r) {
-                return o.charCodeAt(r)
+                return o.charCodeAt(r);
             })
         }, _decompress: function (o, n, e) {
             var t, i, s, p, u, c, a, l, f = [], h = 4, d = 4, m = 3, v = "", w = [], g = {
@@ -142,12 +142,12 @@ var LZString = function () {
                     if (l !== d)return null;
                     v = s + s[0]
                 }
-                w.push(v), f[d++] = s + v[0], h--, s = v, 0 == h && (h = Math.pow(2, m), m++)
+                w.push(v), f[d++] = s + v[0], h--, s = v, 0 == h && (h = Math.pow(2, m), m++);
             }
         }
     };
-    return i
+    return i;
 }();
 "function" == typeof define && define.amd ? define(function () {
-    return LZString
+    return LZString;
 }) : "undefined" != typeof module && null != module && (module.exports = LZString);

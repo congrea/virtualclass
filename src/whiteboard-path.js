@@ -2,9 +2,8 @@
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */(function (window) {
-
-
-    function Path(id){
+    "use strict";
+    function Path(id) {
         var vcan = virtualclass.wb[id].vcan;
         /**
          * This class is used for create the path for each co-ordinate which is drawn by user
@@ -165,8 +164,7 @@
 
                     if (this.overlayFill) {
                         ctx.fillStyle = this.overlayFill;
-                    }
-                    else if (this.fill) {
+                    } else if (this.fill) {
                         ctx.fillStyle = this.fill;
                     }
 
@@ -293,14 +291,14 @@
                         x = isLowerCase
                             ? previousX + this.utility.getX(item)
                             : item[0] === 'V'
-                            ? previousX
-                            : this.utility.getX(item);
+                                ? previousX
+                                : this.utility.getX(item);
 
                         y = isLowerCase
                             ? previousY + this.utility.getY(item)
                             : item[0] === 'H'
-                            ? previousY
-                            : this.utility.getY(item);
+                                ? previousY
+                                : this.utility.getY(item);
 
                         var val = parseInt(x, 10);
                         if (!isNaN(val)) {
@@ -374,5 +372,6 @@
             };
         }
     }
+
     window.Path = Path;
 })(window);

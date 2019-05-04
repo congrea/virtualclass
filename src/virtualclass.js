@@ -334,8 +334,6 @@
                 this.appSetting= window.appSetting;
                 this.appSetting.init();
 
-                this.appSettingMedia= window. appSettingMedia;
-
                 virtualclass.colorSelector = window.colorSelector;
                 if(virtualclassSetting.theme.selectedColor){
                     this.colorSelector.makeThemeReady();

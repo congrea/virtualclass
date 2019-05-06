@@ -154,6 +154,32 @@
                 }
             },
 
+            workerAudioSendOnmessage (){
+                workerAudioSend.onmessage = function (e){
+                    if(e.data.hasOwnProperty('cmd')){
+                        if(e.data.cmd == 'adStatus'){
+                            virtualclass.media.audio.setAudioStatus(e.data.msg);
+                            if(!virtualclass.gObj.sendAudioStatus && e.data.msg == 'sending'){
+                                ioAdapter.send({cf:'ya'}); // yes audio
+                                virtualclass.gObj.sendAudioStatus = true
+                            }
+
+                        }else if(e.data.cmd == 'ioAdapterSend'){
+                            if(e.data.msg.cf == 'na'){ // yes audio
+                                virtualclass.gObj.sendAudioStatus = false;
+                            }else {
+                                virtualclass.gObj.sendAudioStatus = true;
+                            }
+                            ioAdapter.send(e.data.msg);
+                        }else if(e.data.cmd == 'muteAudio'){
+                            cthis.audio.notifiyMuteAudio();
+                        }else if(e.data.cmd == 'unMuteAudio'){
+                            cthis.audio.notifiyUnmuteAudio();
+                        }
+                    }
+                }
+            },
+
 
             /**
              * This property contains various property and methods to capture,save and tranmit
@@ -173,7 +199,7 @@
                 snode : [], // To holds the user's id whose audio context is suspended
                 workletAudioRec: false,
                 aChunksPlay : false,
-
+                audioContextReady : false,
 //                  sd : false,
                 /*
                  *  Enables audio
@@ -209,6 +235,7 @@
                         }
                     };
                     this.attachFunctionsToAudioWidget(); // to attach functions to audio widget
+
                 },
 
                 initAudiocontext : function (){
@@ -219,9 +246,11 @@
                         }
                         this.resampler = new Resampler(virtualclass.media.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
                         virtualclass.gObj.isAudioContextReady = true;
-                        if(virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode){
+                        this.audioContextReady = true;
+
+                        if(virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode && cthis.video.tempStream != null){
                             virtualclass.media.stream = cthis.video.tempStream;
-                            virtualclass.media.audio._manuPulateStream();
+                            virtualclass.media.audio._maniPulateStream();
                         }
                     }
                 },
@@ -233,6 +262,58 @@
                     }
                     this.snode = [];
                 },
+
+                attachAudioStopHandler (stream){
+                    audioTrack = stream.getAudioTracks()[0];
+                    if(audioTrack != null){
+                        audioTrack.onended = this.notifiyMuteAudio; // TODO, re initate media stream
+                        audioTrack.onmute  = this.notifiyMuteAudio;
+                        audioTrack.onunmute  = this.notifiyUnmuteAudio;
+                    }
+                },
+
+                notifiyMuteAudio(){
+                    this.notifyAudioMute = true;
+                    if(virtualclass.gObj.audMouseDown){
+                        if (virtualclass.gObj.mutedomop){
+                            if (!virtualclass.gObj.hasOwnProperty('mutedomopto') || virtualclass.gObj.mutedomopto === null) {
+                                virtualclass.gObj.mutedomopto = setTimeout(() => {
+                                    cthis.audio.notifiyMuteAudioDom();
+                                },2000)
+                            }
+                        } else {
+                            cthis.audio.notifiyMuteAudioDom();
+                        }
+                    }
+                },
+
+                notifiyUnmuteAudio(){
+                    this.notifyAudioMute = false;
+                    virtualclass.gObj.mutedomop = true;
+                    if (virtualclass.gObj.hasOwnProperty('mutedomopto')) {
+                        clearTimeout(virtualclass.gObj.mutedomopto);
+                        virtualclass.gObj.mutedomopto = null;
+                    }
+                    cthis.audio.notifiyUnmuteAudioDom();
+                },
+
+                notifiyUnmuteAudioDom(){
+                    // console.log('==== notify unmute audio');
+                    if(this.hasOwnProperty('speakerPressOnce') && this.speakerPressOnce != null && this.speakerPressOnce.classList.contains('audioMute')){
+                        this.speakerPressOnce.classList.remove('audioMute');
+                    }
+                },
+
+                notifiyMuteAudioDom(){
+                    if(!this.hasOwnProperty('speakerPressOnce')){
+                        this.speakerPressOnce = document.querySelector('#speakerPressOnce');
+                    }
+
+                    if(this.speakerPressOnce != null && !this.speakerPressOnce.classList.contains('audioMute')){
+                        this.speakerPressOnce.classList.add('audioMute');
+                    }
+                },
+
 
                 muteButtonToogle : function (){
                     var speakerPressOnce = document.querySelector('#speakerPressOnce');
@@ -456,15 +537,26 @@
                         tag.className = "audioTool deactive";
                     }
                 },
+
+                initProcessorEvent () {
+                    if(virtualclass.gObj.hasOwnProperty('initProcessorTime')){
+                        clearInterval(virtualclass.gObj.initProcessorTime);
+                    }
+                    virtualclass.gObj.initProcessorTime = setInterval( () => {
+                        if(cthis.audio.notifyAudioMute){
+                            cthis.audio.notifiyMuteAudio();
+                        }
+                    }, 2000);
+                },
+
                 /**
                  * Audio tool element 'Push to talk' is active
                  * User speaks on mouse press down
                  * @param elem audio tool element
                  */
-                // TODO
-                // there should not pass whole elem but id
-                //varible button is not being used
                 studentSpeak: function (elem) {
+                    this.notifyAudioMute = true;
+                    this.initProcessorEvent();
                     if (typeof elem != 'undefined') {
                         var button = document.getElementById(elem.id + "Button");
                         elem.classList.remove('deactive');
@@ -532,7 +624,7 @@
                             // var left = e.inputBuffer.getChannelData(0);
                             var samples = this.resampler.resampler(left);
                             var leftSix = convertFloat32ToInt16(samples);
-                            var send = this.audioInLocalStorage(leftSix);
+                            var send = this.encodeAudio(leftSix);
                             this.silenceDetection(send, leftSix);
                         }
 
@@ -553,7 +645,7 @@
                  *@return encoded  G711 encoded data
                  */
                 //TODO function name should reflect the action
-                audioInLocalStorage: function (leftSix) {
+                encodeAudio: function (leftSix) {
                     var encoded = G711.encode(leftSix, {
                         alaw: this.encMode == "alaw" ? true : false
                     });
@@ -670,7 +762,13 @@
                             if(typeof initchannel == 'undefined'){
 
                                 workletAudioRec = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-rec');
-                                workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination)
+                                cthis.audio.Html5Audio.MediaStreamDest = cthis.audio.Html5Audio.audioContext.createMediaStreamDestination();
+                                workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
+
+                                if (virtualclass.system.mybrowser.name == 'Chrome'){
+                                    console.log("==== Chrome after change");
+                                    cthis.audio.bug_687574_callLocalPeers();
+                                }
 
                                 var audioReadyChannel = new MessageChannel();
                                 workerIO.postMessage({
@@ -698,7 +796,7 @@
                                 virtualclass.gObj.audioRecWorkerReady = true;
                             }
                             // virtualclass.gObj.workerAudio = true;
-                        });
+                        })
                     }
                 },
 
@@ -716,36 +814,42 @@
                  * @param  audioChunks that need be played
                  */
                 playWithFallback :  function (uid)  {
-                    var that = this;
                     if(this.Html5Audio.audioContext.state === 'suspended'){
                         /** Wait till 2 seconds and see if still it's suspended ***/
-                        setTimeout(()=> {
-                            if(that.Html5Audio.audioContext.state == 'suspended'){
-                                that.snode.push(uid);
-                                if(virtualclass.gObj.requestToScriptNode == null){
-                                    that.Html5Audio.audioContext.resume();
+                        if(this.hasOwnProperty('audioSuspendTime')){
+                            clearTimeout(this.audioSuspendTime);
+                        }
+
+                        this.audioSuspendTime = setTimeout(()=> {
+                            if(this.Html5Audio.audioContext.state === 'suspended'){
+                                this.snode.push(uid);
+                                if(virtualclass.gObj.requestToScriptNode === null){
+                                    this.Html5Audio.audioContext.resume();
                                     virtualclass.gesture.initAudioResume(uid);
                                     virtualclass.gObj.requestToScriptNode = true;
                                 }
                             }
-                        },2000);
-                    }else {
+                        }, 2000);
+
+                    } else {
                         this._playWithFallback();
                     }
                 },
 
                 _playWithFallback : function (){
                     var that = this;
-                    //if(typeof virtualclass.media.audioPlayerNode != 'object'){
-                    if(virtualclass.media.audioPlayerNode == null){
+                    if(virtualclass.media.audioPlayerNode === null || virtualclass.media.audioPlayerNode.context.state === 'closed'){
                         console.log('script processor node is created');
+                        if(virtualclass.media.audioPlayerNode !== null){
+                            virtualclass.media.audioPlayerNode.disconnect();
+                        }
+
                         virtualclass.media.audioPlayerNode = this.Html5Audio.audioContext.createScriptProcessor(4096, 1, 1);
                         snNodePak = 0;
                         virtualclass.media.audioPlayerNode.onaudioprocess = function (event){
                             var output = event.outputBuffer.getChannelData(0);
-                            // var newAud = that.getAudioChunks();
                             var newAud = that.getMergedAudio();
-                            if(newAud != null){
+                            if(newAud !== null &&  newAud !== undefined){
                                 for (i = 0; i < newAud.length; i++) {
                                     output[i] = newAud[i];
                                 }
@@ -907,15 +1011,16 @@
                     }
                 },
 
-                _manuPulateStream : function (){
+                _maniPulateStream : function (){
+                    console.log("Manipulate stream");
+                    this.triggermaniPulateStream = true;
                     var cthis = virtualclass.media;
                     setTimeout(
                         function (){
                             if(cthis.detectAudioWorklet()) {
-                                cthis.audio.manuPulateStream();
-
+                                cthis.audio.maniPulateStream();
                             }else {
-                                cthis.audio.manuPulateStreamWithFallback();
+                                cthis.audio.maniPulateStreamWithFallback();
                             }
                         }, 1000
                     );
@@ -926,13 +1031,15 @@
                  * It connects the stream received from Mic/GetUserMedia to audio context,
                  * and getting the audio chunks from audio worklet
                  **/
-                manuPulateStream: function () {
+                maniPulateStream: function () {
                     var stream = cthis.stream;
                     if(typeof workletAudioSend != 'undefined'){
                         workletAudioSend.disconnect();
                     }
                     if(typeof stream != 'undefined' && stream != null) {
+                        console.log('Audio worklet init add module');
                         cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath + 'worker/worklet-audio-send.js').then(() => {
+
                             let audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
 
                             filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
@@ -941,6 +1048,10 @@
                             audioInput.connect(filter);
 
                             workletAudioSend = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-send');
+
+                            workletAudioSend.onprocessorerror = function (e){
+                                cthis.audio.notifiyMuteAudio();
+                            }
                             filter.connect(workletAudioSend);
                             workletAudioSend.connect(cthis.audio.Html5Audio.audioContext.destination);
 
@@ -970,29 +1081,10 @@
                                 cmd : "workerAudioSend",
                             },[ workerWorkletAudioSend.port2 ]);
 
-                            if(!workerAudioSendOnmessage){
-                                workerAudioSend.onmessage = function (e){
-                                    if(e.data.hasOwnProperty('cmd')){
-                                        if(e.data.cmd == 'adStatus'){
-                                            virtualclass.media.audio.setAudioStatus(e.data.msg);
-                                            if(!virtualclass.gObj.sendAudioStatus && e.data.msg == 'sending'){
-                                                ioAdapter.send({cf:'ya'}); // yes audio
-                                                virtualclass.gObj.sendAudioStatus = true
-                                            }
-
-                                        }else if(e.data.cmd == 'ioAdapterSend'){
-                                            if(e.data.msg.cf == 'na'){ // yes audio
-                                                virtualclass.gObj.sendAudioStatus = false;
-                                            }else {
-                                                virtualclass.gObj.sendAudioStatus = true;
-                                            }
-                                            ioAdapter.send(e.data.msg);
-                                        }
-                                    }
-                                }
-
-                                workerAudioSendOnmessage = true;
-                            }
+                            cthis.workerAudioSendOnmessage();
+                            console.log('Audio worklet ready audio worklet module');
+                        }).catch(e => {
+                            cthis.audio.notifiyMuteAudio();
                         });
                     }
                 },
@@ -1002,7 +1094,7 @@
                  * and getting the audio chunks from script processor node.
                  * It's a fallback method in case of not supporting Audio worklet
                  **/
-                manuPulateStreamWithFallback : function () {
+                maniPulateStreamWithFallback : function () {
                     if(typeof cthis.stream != 'undefined' && cthis.stream !=  null){
                         var stream = cthis.stream;
 
@@ -1036,6 +1128,8 @@
                             cmd : "workerAudioSend"
                         },[ IOAudioSendWorker.port2]);
 
+                        cthis.workerAudioSendOnmessage();
+
                     }else {
                         console.log("No stream is found");
                     }
@@ -1068,8 +1162,113 @@
                 removeAudioFromLocalStorage : function (){
                     console.log('Remove audio from local storage');
                     localStorage.removeItem('audEnable');
-                }
+                },
 
+                bug_687574_callLocalPeers : async function () {
+                    let lc1, lc2;
+                    lc1 = new RTCPeerConnection();
+                    lc1.count = 0;
+                    lc1.addEventListener('icecandidate', e => onIceCandidate(lc1, e));
+                    lc1.addEventListener('connectionstatechange', e => onconnectionstatechange(lc1, e));
+
+                    lc2 = new RTCPeerConnection();
+                    lc2.count = 0;
+                    lc2.addEventListener('icecandidate', e => onIceCandidate(lc2, e));
+                    lc2.addEventListener('connectionstatechange', e => onconnectionstatechange(lc2, e));
+                    lc2.addEventListener('track', gotRemoteStream);
+
+                    cthis.audio.Html5Audio.MediaStreamDest.stream.getTracks().forEach(track => lc1.addTrack(track, cthis.audio.Html5Audio.MediaStreamDest.stream));
+
+                    function onconnectionstatechange(pc, event) {
+                        if (event.currentTarget.connectionState === "connected") {
+                            try { // TODO Dirty try hack
+                                console.log('PEER connected webrtc');
+                                workletAudioRec.disconnect(cthis.audio.Html5Audio.audioContext.destination);
+                                workletAudioRec.connect(cthis.audio.Html5Audio.MediaStreamDest);
+                            } catch (e) {}
+                        } else if(event.currentTarget.connectionState === "disconnected") {
+                            console.log('PEER disconnected');
+                            lc1.close();
+                            lc2.close();
+                            lc1 = null;
+                            lc2 = null;
+                            try {
+                                workletAudioRec.disconnect(cthis.audio.Html5Audio.MediaStreamDest);
+                                workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                                console.log('PEER connected normal audio api');
+                            } catch (e) {}
+                            cthis.audio.bug_687574_callLocalPeers();
+                        }
+                    }
+
+                    try {
+                        const offer = await lc1.createOffer();
+                        await onCreateOfferSuccess(offer);
+                    } catch (e) {
+                        onError();
+                    }
+
+                    function gotRemoteStream(e) {
+                        let audio = document.createElement('audio');
+                        audio.srcObject = e.streams[0];
+                        audio.autoplay = true;
+                    }
+
+                    async function onCreateOfferSuccess(desc) {
+                        try {
+                            await lc1.setLocalDescription(desc);
+                            await lc2.setRemoteDescription(desc);
+                        } catch (e) {
+                            onError();
+                        }
+                        try {
+                            const answer = await lc2.createAnswer();
+                            await onCreateAnswerSuccess(answer);
+                        } catch (e) {
+                            onError();
+                        }
+                    }
+
+                    async function onCreateAnswerSuccess(desc) {
+                        try {
+                            await lc2.setLocalDescription(desc);
+                            await lc1.setRemoteDescription(desc);
+                        } catch (e) {
+                            onError();
+                        }
+                    }
+
+                    async function onIceCandidate(pc, event) {
+                        if (event.candidate) {
+                            if (event.candidate.type === "host") { // We only want to connect over LAN
+                                try {
+                                    await (getOtherPc(pc).addIceCandidate(event.candidate));
+                                } catch (e) {
+                                    onError();
+                                }
+                            }
+                        }
+                    }
+
+                    function getOtherPc(pc) {
+                        return (pc === lc1) ? lc2 : lc1;
+                    }
+
+                    function onError() {
+                        // Peer connection failed, fallback to standard
+                        console.log('PEER fallback');
+                        try {
+                            workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                            lc1.close();
+                            lc2.close();
+                            lc1 = null;
+                            lc2 = null;
+                        } catch (e) {
+                            lc1 = null;
+                            lc2 = null;
+                        }
+                    }
+                }
             },
             /**
              * video property contains all the properties and methods necessary for the manipulation
@@ -1145,9 +1344,6 @@
                  * interval depends on the number of users
                  */
                 //TODO function defined in function they can be separately defined
-
-
-
                 sendInBinary: function (sendimage) {
                     var user = {
                         name: virtualclass.gObj.uName,
@@ -1404,10 +1600,23 @@
                     }
                 }
 
+                if(virtualclass.system.mediaDevices.hasMicrophone){
+                    var audioConstraint = {
+                        echoCancellation: true,
+                        autoGainControl:  true,
+                        channelCount:  1,
+                        noiseSuppression:  true
+                    }
+                }else {
+                    var audioConstraint = false;
+                }
+
+
+
                 var session = {
                     //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
                     video: webcam,
-                    audio : virtualclass.system.mediaDevices.hasMicrophone
+                    audio : audioConstraint
                 };
 
                 return [webcam, session];
@@ -1422,13 +1631,16 @@
 
 
             init: function (cb) {
-
                 console.log('Video second, normal video');
                 cthis = this; //TODO there should be done work for cthis
-
                 virtualclass.gObj.oneExecuted = true;
-                var webcam, session;
 
+                if(virtualclass.gesture.classJoin){
+                    virtualclass.gesture.attachHandler();
+                    delete virtualclass.gesture.classJoin;
+                }
+
+                var webcam, session;
                 [webcam, session] = this.sessionConstraints();
 
                 cthis.video.init();
@@ -1546,11 +1758,12 @@
                     }
                 }  else {
                     virtualclass.system.mediaDevices.webcamErr.push('nopermission');
-                    //virtualclass.media.audio.removeAudioFromLocalStorage();
                 }
 
                 cthis.video.tempStream = stream;
                 cthis.audio.init();
+                cthis.audio.attachAudioStopHandler(stream);
+
                 var userDiv = chatContainerEvent.elementFromShadowDom("#ml" + virtualclass.gObj.uid);
                 if (userDiv != null) {
                     var vidTag = userDiv.getElementsByTagName('video');
@@ -1597,6 +1810,11 @@
                     }else if(virtualclass.gObj.meetingMode){
                         virtualclass.vutil.videoHandler('off');
                     }
+                }
+
+                if(cthis.audio.audioContextReady && !cthis.audio.hasOwnProperty('triggermaniPulateStream')){
+                    cthis.stream = cthis.video.tempStream;
+                    cthis.audio._maniPulateStream();
                 }
             },
 
@@ -1769,6 +1987,8 @@
                 }
 
                 virtualclass.system.mediaDevices.webcamErr.push(errorCode);
+
+                cthis.audio.notifiyMuteAudio();
                 //virtualclass.media.audio.removeAudioFromLocalStorage();
             },
 

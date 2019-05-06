@@ -205,7 +205,7 @@
                             controller.className += ' controller' + controls[i];
 
                             controlCont.appendChild(controller);
-                            alert('Suman bogati');
+                            
 
                             if (virtualclass.currApp != virtualclass.vutil.capitalizeFirstLetter(controls[i])) {
                                 controller.style.display = 'none';

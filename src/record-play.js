@@ -80,7 +80,7 @@
         attachSeekHandler : false,
         rawDataQueue : {},
         xhr : [],
-        session : wbUser.session,
+        session:null,
         elapsedPlayTime: 0,
         prevFile : null,
         refrenceTime : null,
@@ -105,7 +105,10 @@
                 playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
 
                 virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
-                virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
+
+                // virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
+
+                window.addEventListener('mouseup', this.finalSeek.bind(this));
 
                 virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
                 virtualclassApp.addEventListener('touchend',  this.finalSeek.bind(this));
@@ -417,7 +420,7 @@
 
             this.UIdownloadProgress(file);
 
-            if(this.currentMin > 3 && this.masterRecordings.length > 0 ) { // Starts playing after 5 mins of download
+            if((this.currentMin > 3  || this.lastFile == file ) && this.masterRecordings.length > 0 ) { // Starts playing after 5 mins of download
                 if(this.playStart){
                     this.startToPlay();
                 }else {
@@ -428,7 +431,6 @@
 
                 }
             }
-
         },
 
         handleStartToPlay (ev) {
@@ -785,7 +787,12 @@
                             j--;
                         } else {
                             i--;
-                            j = (this.masterRecordings[i].length - 1);
+                            if(i >= 0){
+                                j = (this.masterRecordings[i].length - 1);
+                            }else {
+                                j = 0;
+                            }
+
                         }
                         console.log('Seek index i = ' + i +  ' j=' + j + ' totalTime=' + totalTimeMil);
                         return {master :  i, sub : j};
@@ -804,7 +811,8 @@
                 }else {
                     /** wait till next file is downloaded**/
                     this.controller._pause();
-                    virtualclass.popup.loadingWindow();
+                    // virtualclass.popup.loadingWindow();
+                    this.initReplayWindow();
                     var loading =  document.querySelector('#loadingWindowCont .loading');
                     loading.style.display = 'block';
 
@@ -911,19 +919,36 @@
             } else {
                 //Play finished here
                 if (virtualclass.recorder.allFileFound) {
-                    this.triggerPauseVideo();
-                    virtualclass.popup.replayWindow();
-                    virtualclass.popup.sendBackOtherElems();
-                    document.getElementById('replayClose').addEventListener('click',
-                        function () {
-                            window.close(); //handle to moodle way
-                        }
-                    );
-                    document.getElementById('replayButton').addEventListener('click', function () {
-                        virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
-                    });
+                    this.initReplayWindow()
+                    // this.triggerPauseVideo();
+                    // virtualclass.popup.replayWindow();
+                    // virtualclass.popup.sendBackOtherElems();
+                    // document.getElementById('replayClose').addEventListener('click',
+                    //     function () {
+                    //         window.close(); //handle to moodle way
+                    //     }
+                    // );
+                    // document.getElementById('replayButton').addEventListener('click', function () {
+                    //     virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
+                    // });
                 }
             }
+        },
+
+        initReplayWindow  (){
+            this.triggerPauseVideo();
+            virtualclass.popup.replayWindow();
+            virtualclass.popup.sendBackOtherElems();
+            document.getElementById('replayClose').addEventListener('click',
+                function () {
+                    window.close(); //handle to moodle way
+                }
+            );
+            document.getElementById('replayButton').addEventListener('click', function () {
+                virtualclass.recorder.controller.pause = false;
+                virtualclass.recorder.replayFromStart.call(virtualclass.recorder);
+
+            });
         },
 
 
@@ -1166,6 +1191,8 @@
                 } else {
                     delete this.alreadyCalcTotTime;
                     this.totalRecordingFiles = this.sortingFiles(listOfFiles);
+                    this.lastFile = this.totalRecordingFiles[this.totalRecordingFiles.length - 1];
+
                     this.orginalListOfFiles = this.setOrginalListOfFiles(this.totalRecordingFiles);
 
                     this.calculateTotalPlayTime();
@@ -1191,7 +1218,8 @@
         },
 
         requestListOfFiles () {
-             virtualclass.popup.loadingWindow();
+            this.session = wbUser.session
+            virtualclass.popup.loadingWindow();
             virtualclass.xhrn.sendData({session : virtualclass.recorder.session}, virtualclass.api.recordingFiles, this.afterDownloadingList.bind(this));
         },
 
@@ -1290,7 +1318,7 @@
 
         handlerDisplayTime (ev) {
             var seekValueInPercentage = this.getSeekValueInPercentage(ev);
-            console.log('Seek value time in percentage ' + seekValueInPercentage);
+            // console.log('Seek value time in percentage ' + seekValueInPercentage);
             this.displayTimeInHover(ev, seekValueInPercentage);
         },
 
@@ -1334,8 +1362,10 @@
                 if(this.downloadInPercentage < this.seekValueInPercentage){
                     this.seekValueInPercentage = Math.trunc(this.downloadInPercentage);
                 }
+                if(this.seekValueInPercentage > 0){
+                    this.seek(this.seekValueInPercentage);
+                }
 
-                this.seek(this.seekValueInPercentage);
 
                 if(this.pauseBeforeSeek){
                     console.log("=== Video pause ");
@@ -1361,6 +1391,7 @@
             if(congrealogo != null){
                 congrealogo.classList.remove('disbaleOnmousedown');
             }
+
         },
 
     };

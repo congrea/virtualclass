@@ -62,11 +62,13 @@ var newCanvas;
                 globalImageData = e.data.globalImageData;
                 imageData = e.data.globalImageData;
                 if(e.data.hasOwnProperty('stype')){
-                    virtualclass.studentScreen.scale = 1;
                     virtualclass.studentScreen.base.width = 0;
                     virtualclass.studentScreen.setDimension();
                     renderImage(imageData);
-                    virtualclass.studentScreen.fitToScreen();
+                    if(e.data.stype == 'full' && virtualclass.studentScreen.scale == 1){
+                        virtualclass.studentScreen.scale = 1;
+                        virtualclass.studentScreen.fitToScreen();
+                    }
                 }else {
                     renderImage(imageData, 'full');
                 }
@@ -230,7 +232,6 @@ var newCanvas;
             zoomIn : function (){
               virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * this.SCALE_FACTOR;
               virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * this.SCALE_FACTOR;
-
               this.scale = this.scale * this.SCALE_FACTOR;
               renderImage(globalImageData);
 
@@ -755,6 +756,8 @@ var newCanvas;
                 var tempObj, encodedData, stringData, d, matched, imgData;
                 var resA = Math.round(this.localtempCanvas.height / 12);
                 var resB = Math.round(this.localtempCanvas.width / 12);
+                var prvResA = resA;
+                var prvResB = resB;
                 var that = this;
                 var uniqcount = 0;
                 var uniqmax = (resA * resB) / 5;
@@ -921,8 +924,17 @@ var newCanvas;
                     if(roles.hasControls() || virtualclass.gObj.studentSSstatus.mesharing){
                         prvVWidth = that.video.offsetWidth;
                         prvVHeight = that.video.offsetHeight;
-                        resA = Math.round(that.localtempCanvas.height / 12);
-                        resB = Math.round(that.localtempCanvas.width / 12);
+                        if(that.localtempCanvas.width > 5 && that.localtempCanvas.height > 5){
+                            resA = Math.round(that.localtempCanvas.height / 12);
+                            resB = Math.round(that.localtempCanvas.width / 12);
+                            prvResA = resA;
+                            prvResB = resB;
+                        }else {
+                            /** Uses previous resolution if dimension of localtempCanvas is less than 5 **/
+                            resA = prvResA;
+                            resB = prvResB;
+                        }
+
                         var createdImg = getDataFullScreenResize(that.type);
                         virtualclass.vutil.informIamSharing();
                         ioAdapter.sendBinary(createdImg);

@@ -6,11 +6,11 @@
 <style>
      @font-face {
               font-family: 'icomoon';
-              src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?-jjdyd0');
-              src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'),
-              url('https://cdn.congrea.net/resources/fonts/icomoon.woff?-jjdyd0') format('woff'),
-              url('https://cdn.congrea.net/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'),
-              url('https://cdn.congrea.net/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+              src:url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.eot?-jjdyd0');
+              src:url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'),
+              url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.woff?-jjdyd0') format('woff'),
+              url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'),
+              url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
               font-weight: normal;
               font-style: normal;
           }
@@ -80,6 +80,11 @@ $isplay = false;
 if (isset($_GET['play']) && ($_GET['play'] == 'true')) {
     $isplay = true;
     $cont_class .= "playMode ";
+}
+
+$saverecording = false;
+if (isset($_GET['recording']) && ($_GET['recording'] == 'true' || $_GET['recording'] == '1')) {
+    $saverecording = true;
 }
 
 if (isset($_GET['session'])) {
@@ -211,6 +216,7 @@ if($info) {
 	virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
     wbUser.session = '<?php echo $session; ?>';
     wbUser.virtualclassPlay = '<?php echo $isplay; ?>';
+    wbUser.saveRecording = '<?php echo $saverecording; ?>';
     wbUser.vcSid = '<?php echo "1"; ?>';
     wbUser.imageurl =  '';
     wbUser.id =  '<?php echo $uid; ?>';

@@ -96,7 +96,7 @@
             },
 
             enablePreCheck : true,
-            clearSession: function (notSend) {
+            clearSession: function () {
                 window.pageEnter = new Date().getTime();
                 if(typeof notSend == 'undefined'){
                     virtualclass.vutil.beforeSend({sEnd: true, 'cf': 'sEnd'}, null, true);
@@ -110,7 +110,6 @@
                 }
                 virtualclass.storage.config.endSession();
                 if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
-
                     virtualclass.prevScreen.unShareScreen();
                 }
 
@@ -119,6 +118,7 @@
 
             init: function (urole, app, videoObj) {
                 var wbUser = window.wbUser;
+                this.saveRecording = +(wbUser.saveRecording);
                 virtualclass.uInfo = {
                     'userid': wbUser.id,
                     'sid': wbUser.sid,
@@ -178,20 +178,15 @@
                 this.jscolor = window.jscolor;
                 this.modal = window.modal;
 
+                if(this.system.isIndexedDbSupport()){
+                    this.storage.init();
+                }else {
+                    console.log('Indexeddb does not support');
+                }
 
                 // this.pdfRender = window.pdfRender();
                 if(this.currApp != 'Quiz' && typeof CDTimer != 'undefined'){
                     clearInterval(CDTimer);
-                }
-
-                if(this.system.isIndexedDbSupport()){
-                    this.storage.init(function () {
-                        if (!virtualclass.vutil.isPlayMode()) {
-                            ioStorage.completeStorage(JSON.stringify(virtualclass.uInfo));
-                        }
-                    });
-                }else {
-                    console.log('Indexeddb does not support');
                 }
 
                 virtualclass.modernizr = Modernizr;
@@ -338,8 +333,6 @@
 
                 this.appSetting= window.appSetting;
                 this.appSetting.init();
-
-                this.appSettingMedia= window. appSettingMedia;
 
                 virtualclass.colorSelector = window.colorSelector;
                 if(virtualclassSetting.theme.selectedColor){
@@ -1373,11 +1366,24 @@
                                 console.log('Not start new session');
                                 return;
                             }
-
-                            virtualclass.clearSession();
+                            
+                            virtualclass.gObj.endSession = true;
                             if(virtualclass.gObj.hasOwnProperty('beTeacher') && roles.isTeacher()){
                                 localStorage.setItem('uRole', 't');
                             }
+                            localStorage.clear();
+
+                            var allFinish  = new Promise(function (resolve, reject){
+                                virtualclass.gObj.sessionEndResolve = resolve;
+                                virtualclass.clearSession();
+                            });
+
+                            allFinish.then(function (){
+                                delete virtualclass.gObj.sessionEndResolve;
+                                virtualclass.popup.sesseionEndWindow();
+                            }, function (error){
+                                console.log("ERRROR " + error);
+                            });
                         }
                     )
                 } else {
@@ -1408,13 +1414,13 @@
                 return (previous == 'virtualclassWholeScreenShare' && appName == virtualclass.apps.yt) ? true : false;
             },
 
-            prvCurrUsersSame: function () {
+            handleCurrentUserWithPrevious: function () {
                 var prvUser = localStorage.getItem('prvUser');
                 if (prvUser == null) {
                     virtualclass.setPrvUser();
                 } else {
                     prvUser = JSON.parse(prvUser);
-                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room) {
+                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != wbUser.saveRecording) {
                         virtualclass.gObj.sessionClear = true;
                         virtualclass.setPrvUser();
                         if (roles.hasControls()) {
@@ -1426,7 +1432,8 @@
 
             setPrvUser: function () {
                 localStorage.clear();
-                var prvUser = {id: wbUser.id, room: wbUser.room};
+                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : wbUser.saveRecording};
+                console.log('previosu user');
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
             },
 

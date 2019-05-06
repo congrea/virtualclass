@@ -30,4 +30,5 @@ Latest version of Google Chrome
 - [x] Performance to handle thousands of concurrent users
 - [x] Layout template engine
 - [x] Compatibility with all major browsers and iPad
-- [ ] Server side recording
+- [X] Server side recording
+- [ ] Advanced Configurable Reports

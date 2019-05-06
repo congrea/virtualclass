@@ -28,10 +28,27 @@
 /*    pointer-events: none;*/
 }
 
+#virtualclassCont.congrea.playMode .vidHide #congreaChatCont .ui-chatbox-content {
+    
+    overflow-y :auto;
+    height: calc(100vh - 118px) !important;
+    
+}
+#virtualclassCont.congrea.playMode .vidShow #congreaChatCont .ui-chatbox-content {
+    
+    overflow-y :auto;
+    height: calc(100vh - 350px) !important;
+    
+}
+
 #virtualclassCont.congrea .ui-chatbox-log {
     border-width: 0;
     height: 170px;
     overflow-y: auto;
+}
+
+#virtualclassCont.congrea.playMode .ui-chatbox-log {
+    overflow:unset;
 }
 
 @-moz-document url-prefix() {
@@ -499,7 +516,8 @@
 #virtualclassCont.congrea.playMode #chat_div{
     padding-top:0px;
 }
-#virtualclassCont.congrea.playMode.student .ui-chatroom{
+virtualclassCont.congrea.playMode.student .ui-chatroom {
+    overflow-y: auto;
     z-index: 0 !important;
 }
 
@@ -634,7 +652,11 @@
     margin: 0px;
 }
 
+/*#virtualclassCont.congrea.playMode #chat_room {*/
+    /*pointer-events: none;*/
+/*}*/
 #virtualclassCont.congrea.playMode #chat_room {
+    width: 302px;
     pointer-events: none;
 }
 

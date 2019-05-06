@@ -18,16 +18,21 @@
                             this.canvasScale = canvasScale;
                             console.log('Canvas pdf scale ' + this.canvasScale);
                         }
+
+                        var canvasDimension = localStorage.getItem('canvasDimension');
+                        if(canvasDimension != null){
+                            virtualclass.zoom.canvasDimension = JSON.parse(canvasDimension);
+                        }
                     }
                 }
-                var reload = document.querySelector("#virtualclassAppLeftPanel .zoomControler .reloadNote span");
-                 if(reload){
-                     if(virtualclass.currApp =="Whiteboard"){
-                        reload.setAttribute("data-title","Reload whiteboard")
-                     }else{
-                        reload.setAttribute("data-title", virtualclass.lang.getString('reloadDoc'))
-                     }                                                   
-                 }
+                // var reload = document.querySelector("#virtualclassAppLeftPanel .zoomControler .reloadNote span");
+                //  if(reload){
+                //      if(virtualclass.currApp =="Whiteboard"){
+                //         reload.setAttribute("data-title","Reload whiteboard")
+                //      }else{
+                //         reload.setAttribute("data-title", virtualclass.lang.getString('reloadDoc'))
+                //      }                                                   
+                //  }
             },
 
             _initScaleController : function (){
@@ -37,11 +42,13 @@
                 var that = this;
                 var zoomIn = elem.querySelector('.zoomIn');
                 zoomIn.addEventListener('click', function (){
+                    virtualclass.zoom.tempPrvCanvasScale =  virtualclass.zoom.canvasScale;
                     that.zoomAction('zoomIn');
                 });
 
                 var zoomOut = elem.querySelector('.zoomOut');
                 zoomOut.addEventListener('click', function (){
+                    virtualclass.zoom.tempPrvCanvasScale =  virtualclass.zoom.canvasScale;
                     that.zoomAction('zoomOut');
                 });
 
@@ -50,10 +57,10 @@
                     that.zoomAction('fitToScreen');
                 });
 
-                var reload = elem.querySelector('.reloadNote');
-                reload.addEventListener('click', function (){
-                    that.zoomAction('reload');
-                });
+                // var reload = elem.querySelector('.reloadNote');
+                // reload.addEventListener('click', function (){
+                //     that.zoomAction('reload');
+                // });
 
             },
 
@@ -83,6 +90,8 @@
                     var wrapperWidth = canvas.parentNode.offsetWidth;
 
                     this.prvCanvasScale = this.canvasScale;
+
+                
                    // alert('canvas scale');
                     this.canvasScale = this.canvasScale * SCALE_FACTOR;
 
@@ -96,6 +105,11 @@
                     }else {
                         virtualclass.pdfRender[wid]._zoom.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
                     }
+                    if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
+                        zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width * SCALE_FACTOR;
+                        zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height *  SCALE_FACTOR;
+                    }
+
                 }
             },
 
@@ -109,7 +123,7 @@
                 var wrapperWidth = canvas.parentNode.offsetWidth;
 
                 this.prvCanvasScale = this.canvasScale;
-
+                
                 this.canvasScale = this.canvasScale / SCALE_FACTOR;
                 console.log('Canvas pdf scale ' + this.canvasScale);
 
@@ -121,9 +135,28 @@
                 }
 
                 virtualclass.pdfRender[wid]._zoomOut.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
+
+                if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
+                    zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width / SCALE_FACTOR;
+                    zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height / SCALE_FACTOR;
+                }
+                
+            },
+
+            getReduceValueForCanvas (){
+                var canvas = document.querySelector("#canvas" + virtualclass.gObj.currWb);
+                if(canvas != null && canvas.parentNode != null){
+                    // 382 = rightside bar + scroll + left app bar
+                    // 372 = rightside bar + left app bar
+                    return (canvas.parentNode.scrollHeight > canvas.parentNode.clientHeight) ? 382 : 372
+                }
             },
 
             fitToScreen : function (){
+                delete earrlierCanvasWidth;
+                virtualclass.gObj.fitToScreen = true;
+                delete virtualclass.zoom.tempPrvCanvasScale;
+
                 var wid = virtualclass.gObj.currWb;
                 if(typeof virtualclass.pdfRender[wid] != 'undefined'){
                     console.log('--Pdf render start----------');
@@ -131,11 +164,7 @@
                     console.log('--Pdf render----------');
                     var page = virtualclass.pdfRender[wid].page;
                     var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
-
-                    // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width) + 50;
-
-                   // var wrapperWidth = canvas.parentNode.offsetWidth;
-                    // 380 = right side bar (320) + left bar (60)
+            
 
                     var virtualclassCont = document.querySelector('#virtualclassCont');
                     if(virtualclassCont != null){
@@ -144,13 +173,13 @@
                         var containerWidth = window.innerWidth;
                     }
 
-                    var wrapperWidth = (containerWidth - 380);
+                    var wrapperWidth = (containerWidth - this.getReduceValueForCanvas());
 
                     try {
-                        var viewport = page.getViewport((+(wrapperWidth)-100) / page.getViewport(1.0).width);
+                        var viewport = page.getViewport((+(wrapperWidth)) / page.getViewport(1.0).width);
                         this.prvCanvasScale = this.canvasScale;
-                        // alert('canvas scale 2');
                         this.canvasScale = viewport.scale;
+                        
                         console.log('Canvas pdf scale ' + this.canvasScale);
                         virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
                     }catch (error){
@@ -167,6 +196,7 @@
                 console.log('Pdf render normal view');
                 console.log('--Pdf render------------');
                 var wid = virtualclass.gObj.currWb;
+                delete virtualclass.zoom.tempPrvCanvasScale;
                 if(typeof virtualclass.pdfRender[wid].shownPdf == 'object'){
                     if(virtualclass.zoom.canvasScale != null){
                         virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / SCALE_FACTOR;

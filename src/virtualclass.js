@@ -344,6 +344,16 @@
                     virtualclassCont.classList.add(virtualclass.system.mybrowser.name);
                 }
 
+                var fullScreenBtn = document.getElementById("fullScreenButton"); 
+                    if(fullScreenBtn != null){
+                        fullScreenBtn.addEventListener('click' , virtualclass.vutil.Fullscreen);
+                    }
+
+                var fullScreenExitBtn = document.getElementById("fullScreenExitButton");
+                    if(fullScreenExitBtn != null) {
+                        fullScreenExitBtn.addEventListener('click' , virtualclass.vutil.closeFullscreen);
+                    }
+
             },
 
             makeReadySocket : function (){
@@ -1023,7 +1033,7 @@
                         }
                     });
                     }
-
+                    
                     if(typeof virtualclass.wb.indexNav == 'undefined'){
                         virtualclass.wb.indexNav  = new virtualclass.pageIndexNav("WB");
                     }
@@ -1541,5 +1551,7 @@
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
     }
+
+    
 
 })(window);

@@ -91,7 +91,11 @@
     /*width: 90%;*/
 /*}*/
 
-#virtualclassCont.congrea .pages .links[data-status='0'] {
+#virtualclassCont.congrea .pages .links[data-status='0'] img {
+    opacity:.5;
+}
+
+#virtualclassCont.congrea .pages .links[data-status='0'] .pptTitle {
     opacity: 0.5;
 }
 
@@ -605,6 +609,7 @@
 
     #virtualclassCont.congrea #listnotes .linknotes.links .controls.delete {
         float: right;
+        cursor: pointer;
         font-size: 0px;
         height: 14px;
         width: 13px;
@@ -652,9 +657,9 @@
         color: #606060;
     }
 
-    #virtualclassCont.congrea #listnotes .linknotes.links[data-status="0"] .controls.delete::before {
+    /* #virtualclassCont.congrea #listnotes .linknotes.links[data-status="0"] .controls.delete::before {
         display: none;
-    }
+    } */
 
     #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
         font-size: 0.88em;
@@ -877,7 +882,6 @@
     }
 
     #virtualclassCont.congrea #listnotes .linknotes.links[data-status='0'] .controlCont:hover {
-        pointer-events: none;
         cursor: default;
     }
 
@@ -1007,7 +1011,7 @@
         display: block;
         position: fixed;
         bottom: 12px;
-        right: 608px;
+        right: 661px;
         z-index: 1005;
     }
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav{

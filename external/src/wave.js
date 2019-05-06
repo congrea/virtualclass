@@ -305,8 +305,8 @@ function (_util$Observer) {
       if (this.params.fillParent || this.params.scrollParent) {
         this.style(this.wrapper, {
           width: '100%',
-          overflowX: this.params.hideScrollbar ? 'hidden' : 'auto',
-          overflowY: 'hidden'
+          // overflowX: this.params.hideScrollbar ? 'hidden' : 'auto',
+          // overflowY: 'hidden'
         });
       }
 

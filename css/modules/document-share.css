@@ -91,6 +91,10 @@
     /*width: 90%;*/
 /*}*/
 
+#virtualclassCont.congrea .pages .links[data-status='0'] img {
+    opacity:.5;
+}
+
 #virtualclassCont.congrea .pages .links[data-status='0'] .pptTitle {
     opacity: 0.5;
 }
@@ -605,6 +609,7 @@
 
     #virtualclassCont.congrea #listnotes .linknotes.links .controls.delete {
         float: right;
+        cursor: pointer;
         font-size: 0px;
         height: 14px;
         width: 13px;
@@ -877,7 +882,6 @@
     }
 
     #virtualclassCont.congrea #listnotes .linknotes.links[data-status='0'] .controlCont:hover {
-        pointer-events: none;
         cursor: default;
     }
 

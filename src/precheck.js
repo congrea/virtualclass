@@ -619,8 +619,14 @@ var precheck = {
         createVideo : function (){
             if(virtualclass.system.mediaDevices.hasWebcam && typeof virtualclass.precheck.mediaStream != 'undefined'){
                 var tempVideo = document.getElementById("webcamTempVideo");
-                tempVideo.width = 320;
-                tempVideo.height = 240;
+                if(virtualclass.system.device == "mobTab") {
+                    tempVideo.width = 320;
+                    tempVideo.height = 100;
+                } 
+                else {
+                    tempVideo.width = 320;
+                    tempVideo.height = 240;
+                }
 
                 virtualclass.adpt.attachMediaStream(tempVideo,  virtualclass.precheck.mediaStream);
                 tempVideo.muted = true;

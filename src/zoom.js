@@ -153,7 +153,7 @@
             },
 
             fitToScreen : function (){
-                delete earrlierCanvasWidth;
+                earrlierCanvasWidth = undefined;
                 virtualclass.gObj.fitToScreen = true;
                 delete virtualclass.zoom.tempPrvCanvasScale;
 

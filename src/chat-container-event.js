@@ -15,16 +15,15 @@ var chatContainerEvent = {
         var str = $(cthis);
         var ahref;
         var id;
-        if(cthis.className == "videoSubWrapper"){
-             ahref = str[0].id;
-             id = ahref.replace('user', '');
+        if(cthis.className == "videoSubWrapper" || cthis.classList == "userVideos"){
+            ahref = str[0].id;
+            id = ahref.replace('user', '');
         }else{
-             ahref = str.attr('href');
-             id = ahref.replace('#', '');
+            ahref = str.attr('href');
+            id = ahref.replace('#', '');
         }
 
         if (typeof ahref != 'undefined') {
-
             if(str.parent('.usern').length > 0){
                 var name = str.html();
             } else {
@@ -68,7 +67,7 @@ var chatContainerEvent = {
 
     onEvent : function (targetElem, chatboxManager){
         var event = this.getEvent(targetElem);
-        if(targetElem.classList == "userVideos" || event == 'init_chatBox'){
+        if(targetElem.classList == "userVideos" || targetElem.classList == "videoSubWrapper" ||event == 'init_chatBox'){
             if(targetElem.classList.contains('media-heading')){
                 targetElem = targetElem.parentNode.previousElementSibling;
             }else {

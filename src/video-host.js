@@ -204,6 +204,7 @@ var videoHost = {
                 img.innerHTML= virtualclass.gObj.chatIconColors[userid].initial;
                 img.style.backgroundColor=virtualclass.gObj.chatIconColors[userid].bgColor ;
                 img.style.color=virtualclass.gObj.chatIconColors[userid].textColor ;
+                img.dataset.event = "ub";
                 img.classList.add('chat-img','media-object');
                 imgCont.appendChild(img);
             }else if(virtualclass.gObj.chatIconColors[userid] && virtualclass.gObj.chatIconColors[userid].savedImg ){

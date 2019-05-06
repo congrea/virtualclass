@@ -409,14 +409,6 @@
                         var that = virtualclass.media.audio;
                         if (this.id === 'speakerPressOnce') {
                             that.clickOnceSpeaker(this.id);
-                        } else if (this.id === 'audioTest') {
-                            var self = this;
-                            virtualclass.popup.confirmInput(virtualclass.lang.getString('audioTest'), function (confirm) {
-                                if (confirm) {
-                                    that.testInit(self.id);
-                                }
-
-                            });
                         } else if (this.id === 'silenceDetect') {
                             var a = this.getElementsByTagName('a')[0];
                             if (that.sd) {
@@ -455,7 +447,6 @@
                                         if (pressOnceLabel.classList.length <= 0) {
                                             pressOnceLabel.removeAttribute('class');
                                         }
-
 
                                         var controller = pressOnceLabel.getElementsByTagName('i')[0];
                                         if (controller != null) {
@@ -651,38 +642,7 @@
                     });
                     return encoded;
                 },
-                /**
-                 * To play recorded sound in audio testing after 5000ms of recording
-                 * recoding is stored in an array audioForTest
-                 * and to set the time out of audio testing
-                 * @param id Id of the audio tool
-                 *
-                 */
-                testInit: function (id) {
-                    var audioTestElem = document.getElementById(id);
-                    audioTestElem.classList.add("audioIsTesting");
-                    this.studentNotSpeak();
-                    virtualclass.gObj.audioForTest = [];
-                    this.storeAudio = true;
-                    var that = this;
-                    that.otherSound = true;
-                    if (that.hasOwnProperty('testAudio')) {
-                        clearTimeout(that.testAudio);
-                    }
-                    var totTestTime = 5000;
-                    that.testAudio = setTimeout(function () {
-                        var pta = true;
-                        that.playRecordedAudio(virtualclass.gObj.audioForTest, virtualclass.gObj.uid, pta);
-                    }, totTestTime);
 
-                    setTimeout(
-                        function () {
-                            console.log("testing");
-                            audioTestElem.classList.remove("audioIsTesting");
-                            that.otherSound = false;
-                        }, ((totTestTime * 2) + 1000  )
-                    )
-                },
                 /**
                  * pushing the encoded samples in audioForTest array
                  * setting the uid to false
@@ -695,24 +655,6 @@
                     });
                     virtualclass.gObj.audioForTest.push(encoded);
                     virtualclass.gObj[virtualclass.gObj.uid] = false;
-                },
-                /**
-                 * it playes the recoded audio
-                 * @param encChuncks encoded channel buffer recordings
-                 * @param  uid user id
-                 * @param testAudio  boolean value
-                 */
-                playRecordedAudio: function (encChuncks, uid, testAudio) {
-                    var samples, clip;
-                    this.myaudioNodes = [];
-                    var recordingLength = 0;
-                    for (var i = 0; i < encChuncks.length; i++) {
-                        clip = encChuncks[i];
-                        this.myaudioNodes.push(clip);
-                        recordingLength += clip.length;
-                    }
-                    samples = this.mergeBuffers(this.myaudioNodes, recordingLength);
-                    (typeof testAudio != 'undefined') ? virtualclass.media.audio.play(samples, uid, testAudio) : virtualclass.media.audio.play(samples, uid);
                 },
 
                 initPlayWithFallback (){
@@ -944,72 +886,6 @@
                     }
                 },
 
-                /*
-                 * Remove audios from queue if it's long
-                 * @returns {*} the audio packet with length of 128
-                 */
-
-
-                //TODO this function is not being invoked
-                replay: function (inHowLong, offset) {
-                    repMode = true;
-                    var samples, whenTime, newBuffer, newSource, totArr8;
-                    if (this.audioNodes.length > 0) {
-                        samples = this.mergeBuffers(this.audioNodes);
-                        whenTime = this.Html5Audio.audioContext.currentTime + inHowLong;
-                        newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 7800);
-                        newBuffer.getChannelData(0).set(samples);
-
-                        newSource = this.Html5Audio.audioContext.createBufferSource();
-                        newSource.buffer = newBuffer;
-
-                        newSource.connect(this.Html5Audio.audioContext.destination);
-                        newSource.start(whenTime, offset);
-                    }
-                },
-
-                /**
-                 * Merging  the channel buffer recordings  in the form of Float32Array
-                 * channel Buffer is an array of recording chunks , length of each specified by the recordingLength
-                 * @param  channelBuffer buffer of recodings
-                 * @param  recordingLength length of each recording
-                 * @returns {Float32Array} result A merged array of channel buffer recording chunks
-                 */
-                mergeBuffers: function (channelBuffer, recordingLength) {
-                    var result = new Float32Array(recordingLength);
-                    var checklength = 0;
-                    var offset = 0;
-                    var lng = channelBuffer.length;
-                    for (var i = 0; i < lng; i++) {
-                        var buffer = channelBuffer[i];
-                        // console.log("bf Length " + buffer.length);
-                        checklength += buffer.length;
-                        result.set(buffer, offset);
-                        offset += buffer.length;
-                    }
-                    //console.log (checklength + '   ' + recordingLength);
-                    return result;
-                },
-
-                // TODO to verify
-                assignFromLocal: function (arrStream, audioRep) {
-                    this.init();
-                    for (var i = 0; i < arrStream.length; i++) {
-                        var rec1 = LZString.decompressFromBase64(arrStream[i]);
-                        var clip = this.str2ab(rec1);
-
-                        samples = G711.decode(clip, {
-                            alaw: this.encMode === "alaw" ? true : false,
-                            floating_point: true,
-                            Eight: true
-                        });
-                        this.audioNodes.push(new Float32Array(samples));
-                        this.recordingLength += 4096;
-                    }
-                    if (typeof audioRep != 'undefined') {
-                        audioRep();
-                    }
-                },
 
                 _maniPulateStream : function (){
                     console.log("Manipulate stream");

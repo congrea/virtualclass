@@ -103,7 +103,8 @@
 #virtualclassCont.congrea #congdashboard.modal .modal-header{
   padding : 6px;
   border-bottom-left-radius: 5px;
-    border:none !important;
+  border:none !important;
+  position:relative;
 }
 
 
@@ -554,7 +555,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 
-#virtualclassCont.congrea #listvideo .linkvideo.playDisable {
+#virtualclassCont.congrea #listvideo .linkvideo.playDisable .videoTitleCont {
   opacity:0.3;
 
 }

@@ -1415,7 +1415,7 @@
                                         if((+nextSlide.dataset.status) == 0){
                                             var activeSlide = this.getActiveSlide(cthis, currNodeId, 'next');
                                             if(!activeSlide){
-                                                alert('Thre is no page');
+                                                alert('There is no page');
                                             }else{
                                                 this.getScreen(activeSlide, true);
                                                 cthis.docs.currNote = activeSlide.dataset.slide;

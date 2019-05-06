@@ -577,18 +577,6 @@ var videoHost = {
             btn.innerHTML = virtualclass.lang.getString('prechkcmplt');
         }
 
-        // var precheck = document.querySelector('#joinSession .precheckComplete');
-        // precheck.addEventListener('click', function () {
-        //     var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-        //     virtualclassPreCheck.style.display = 'none';
-        //
-        //     var virtualclassApp = document.getElementById('virtualclassApp');
-        //     virtualclassApp.style.display = 'block';
-        //     // localStorage.setItem('precheck', true);
-        //     virtualclass.videoHost._resetPrecheck();
-        //
-        // });
-
         var skip =   document.querySelector('#preCheckcontainer .skip');
         if(skip){
             skip.addEventListener('click', function () {

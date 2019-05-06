@@ -286,6 +286,8 @@ span.sch {
 
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal .nav .active a {
     font-weight:bold;
+    background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%) !important;
+    color:#fff;
 }
 
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody .nav > li > a:hover,

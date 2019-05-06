@@ -13,6 +13,7 @@ var workerAudioSend = {
     workerIO : null,
     gObjUid : null,
     audMouseDown : false,
+    precheck : false,
     repMode : false,
     minthreshold : 65535,
     audioWasSent : 0,
@@ -53,7 +54,7 @@ var workerAudioSend = {
     },
 
     audioSend (msg, adStatus) {
-        if (this.audMouseDown) {
+        if (this.audMouseDown && !this.precheck) {
             var uid = this.breakintobytes(this.gObjUid, 8);
             var scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
             var sendmsg = new Int8Array(msg.length + scode.length);
@@ -69,6 +70,8 @@ var workerAudioSend = {
     silenceDetection (send, leftSix) {
         var audStatus, a;
         var vol = sum = rate = 0;
+
+
 
         for (i = 0; i < leftSix.length; i++) {
             a = Math.abs(leftSix[i]); // a should not be declared here
@@ -102,12 +105,14 @@ var workerAudioSend = {
         } // Keep algo sensitive
         var thdiff = this.maxthreshold / this.minthreshold;
         var th = vol / this.minthreshold;
-
         audStatus = "sending";
-        if (vol == 0) {
-            // TODO take action for muted microphone
-            console.log('Audio is mute with 0');
-        } else if ( thdiff >= 20 || // historical max minus min
+
+
+        if (vol !== 0) {
+            postMessage({cmd : 'unMuteAudio'});
+        }
+        // thediff is infinity when 1/0
+        if (isFinite(thdiff)  && thdiff >= 20 || // historical max minus min
             th > 2 || // Difference between current volume and minimum
             rate > this.minthreshold || rate > 25 || // Change in signal strength
             vol > (this.minthreshold * 2) || // Current max volume
@@ -123,12 +128,16 @@ var workerAudioSend = {
         } else {
             postMessage({cmd : 'adStatus', msg : 'notSending'});
             postMessage({cmd : 'ioAdapterSend', msg : {cf:'na'}});
+            if (vol === 0) {
+                postMessage({cmd: 'muteAudio'});
+            }
         }
+
         return send;
     },
 
     recorderProcess (left) {
-        if (!this.repMode && this.audMouseDown) {
+        if (!this.repMode && this.audMouseDown && !this.precheck)  {
             // var left = e.inputBuffer.getChannelData(0);
             var samples = this.resampler.resampler(left);
             var leftSix = this.convertFloat32ToInt16(samples);
@@ -161,7 +170,10 @@ var workerAudioSend = {
                 this.audMouseDown = e.data.msg.adMouseDown;
                 break;
 
-            /* When audio data is generated from main thread without audio worklet*/
+            case 'precheck':
+                this.precheck = e.data.msg.precheck;
+                break;
+
             case 'rawAudio':
                 this.recorderProcess(e.data.msg);
                 break;

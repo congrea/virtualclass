@@ -37,6 +37,7 @@
         'chatEnable': "Disable chat",
         'Chatroom' : 'Chatroom',
         'ClearAll': "Clear all",
+        'clickheretoplay' : 'Click Here To Play',
         'clicktoplay' : 'Play',
         'chatDisable' : "Enable chat",
         'chFireBrowsersIssue': 'Your browser {virtualclass1} {virtualclass2} needs updation, Congrea support Chrome 40+ and Firefox 35+.',

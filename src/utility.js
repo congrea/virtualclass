@@ -168,6 +168,7 @@
                 console.log(appCont + ' is not found ');
             }
         },
+        
         setScreenInnerTagsWidth: function(currAppId) {
             var sId = currAppId;
             var screenShare = document.getElementById(sId);
@@ -363,7 +364,36 @@
                 }
             }
         },
+         
+        Fullscreen: function() {
+            var elem = document.getElementById("virtualclassCont");
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+            document.querySelector("#fullScreenButton").style.display = "none";
+            document.querySelector("#fullScreenExitButton").style.display = "block";
+        },
 
+        closeFullscreen: function () {
+            if (document.exitFullscreen) {
+              document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+              document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+              document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+              document.msExitFullscreen();
+            }
+            document.querySelector("#fullScreenButton").style.display = "block";
+            document.querySelector("#fullScreenExitButton").style.display = "none";
+          },
+        
         // TODO
         /***
          * Add class at body according to role
@@ -636,6 +666,9 @@
                 if(virtualclass.vutil.isNumeric(canvasScale)){
                     localStorage.setItem('wbcScale', canvasScale);
                 };
+                if(virtualclass.zoom.hasOwnProperty('canvasDimension')){
+                    localStorage.setItem('canvasDimension', JSON.stringify(virtualclass.zoom.canvasDimension)); 
+                }
             }
 
             // not storing the YouTube status on student's storage

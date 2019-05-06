@@ -157,23 +157,23 @@
             workerAudioSendOnmessage (){
                 workerAudioSend.onmessage = function (e){
                     if(e.data.hasOwnProperty('cmd')){
-                        if(e.data.cmd == 'adStatus'){
+                        if(e.data.cmd === 'adStatus'){
                             virtualclass.media.audio.setAudioStatus(e.data.msg);
                             if(!virtualclass.gObj.sendAudioStatus && e.data.msg == 'sending'){
                                 ioAdapter.send({cf:'ya'}); // yes audio
                                 virtualclass.gObj.sendAudioStatus = true
                             }
 
-                        }else if(e.data.cmd == 'ioAdapterSend'){
-                            if(e.data.msg.cf == 'na'){ // yes audio
+                        }else if(e.data.cmd === 'ioAdapterSend'){
+                            if(e.data.msg.cf === 'na'){ // yes audio
                                 virtualclass.gObj.sendAudioStatus = false;
                             }else {
                                 virtualclass.gObj.sendAudioStatus = true;
                             }
                             ioAdapter.send(e.data.msg);
-                        }else if(e.data.cmd == 'muteAudio'){
+                        }else if(e.data.cmd === 'muteAudio'){
                             cthis.audio.notifiyMuteAudio();
-                        }else if(e.data.cmd == 'unMuteAudio'){
+                        }else if(e.data.cmd === 'unMuteAudio'){
                             cthis.audio.notifiyUnmuteAudio();
                         }
                     }
@@ -376,12 +376,12 @@
                     var that = this;
                     for (var i = 0; i < allAudTools.length; i++) {
                         //allAudTools[i].addEventListener('click', function (){ that.audioToolInit.call(that,  allAudTools[i])});
-                        if (allAudTools[i].id == 'speakerPressOnce') {
+                        if (allAudTools[i].id === 'speakerPressOnce') {
                             //allAudTools[i].setAttribute('data-audio-playing', "false");
-                        } else if (allAudTools[i].id == 'speakerPressing') {
+                        } else if (allAudTools[i].id === 'speakerPressing') {
                             this.attachSpeakToStudent(allAudTools[i].id);
                         }
-                        if (allAudTools[i].id != 'speakerPressing') {
+                        if (allAudTools[i].id !== 'speakerPressing') {
                             allAudTools[i].addEventListener('click', that.audioToolInit);
                         }
                     }
@@ -407,9 +407,9 @@
                         virtualclass.multiVideo.setAudioStatus(action);
                     } else {
                         var that = virtualclass.media.audio;
-                        if (this.id == 'speakerPressOnce') {
+                        if (this.id === 'speakerPressOnce') {
                             that.clickOnceSpeaker(this.id);
-                        } else if (this.id == 'audioTest') {
+                        } else if (this.id === 'audioTest') {
                             var self = this;
                             virtualclass.popup.confirmInput(virtualclass.lang.getString('audioTest'), function (confirm) {
                                 if (confirm) {
@@ -417,7 +417,7 @@
                                 }
 
                             });
-                        } else if (this.id == 'silenceDetect') {
+                        } else if (this.id === 'silenceDetect') {
                             var a = this.getElementsByTagName('a')[0];
                             if (that.sd) {
                                 that.sd = false;
@@ -519,7 +519,7 @@
                     var anchor = tag.getElementsByClassName('congtooltip')[0];
                     // var anchor = tag.getElementsByClassName('tooltip')[0];
                     // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
-                    if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                    if (tag.getAttribute('data-audio-playing') === 'false' && typeof alwaysDisable == 'undefined') {
                         //this.studentSpeak(alwaysPressElem);
                         this.studentSpeak();
 
@@ -647,7 +647,7 @@
                 //TODO function name should reflect the action
                 encodeAudio: function (leftSix) {
                     var encoded = G711.encode(leftSix, {
-                        alaw: this.encMode == "alaw" ? true : false
+                        alaw: this.encMode === "alaw" ? true : false
                     });
                     return encoded;
                 },
@@ -691,7 +691,7 @@
                  */
                 audioForTesting: function (leftSix) {
                     var encoded = G711.encode(leftSix, {
-                        alaw: this.encMode == "alaw" ? true : false
+                        alaw: this.encMode === "alaw" ? true : false
                     });
                     virtualclass.gObj.audioForTest.push(encoded);
                     virtualclass.gObj[virtualclass.gObj.uid] = false;
@@ -765,7 +765,7 @@
                                 cthis.audio.Html5Audio.MediaStreamDest = cthis.audio.Html5Audio.audioContext.createMediaStreamDestination();
                                 workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
 
-                                if (virtualclass.system.mybrowser.name == 'Chrome'){
+                                if (virtualclass.system.mybrowser.name === 'Chrome'){
                                     console.log("==== Chrome after change");
                                     cthis.audio.bug_687574_callLocalPeers();
                                 }
@@ -999,7 +999,7 @@
                         var clip = this.str2ab(rec1);
 
                         samples = G711.decode(clip, {
-                            alaw: this.encMode == "alaw" ? true : false,
+                            alaw: this.encMode === "alaw" ? true : false,
                             floating_point: true,
                             Eight: true
                         });
@@ -1466,7 +1466,7 @@
                     this.remoteVid = chatContainerEvent.elementFromShadowDom("#video" + uid);
                     if(this.remoteVid != null){
                         this.remoteVidCont = this.remoteVid.getContext('2d');
-                        if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
+                        if (virtualclass.system.webpSupport || (imgType === "jpeg")) {
                             var img = new Image();
                             var that = this;
                             img.onload = function (){
@@ -1564,7 +1564,7 @@
                     var data_pack = new Uint8ClampedArray(msg);
                     var uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
                     var recmsg = data_pack.subarray(6, data_pack.length);
-                    if(data_pack[5] == 1){
+                    if(data_pack[5] === 1){
                         var b64encoded = "data:image/webp;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg));
                         var imgType = "webp";
                     }else {
@@ -1587,8 +1587,8 @@
                  **/
 
                 if (virtualclass.gObj.meetingMode && webcam) {
-                    if (virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS' ||
-                        virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Safari') {
+                    if (virtualclass.system.device === 'mobTab' && virtualclass.system.mybrowser.name === 'iOS' ||
+                        virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'Safari') {
                         var webcam = true;
                     } else {
                         var webcam = {
@@ -1716,10 +1716,10 @@
                     // virtualclass.media.audioVisual.readyForVisual(stream);
                     if(audio != null){
                         audio = JSON.parse(audio);
-                        if ((audio.ac == 'false' || audio.ac == false)) {
+                        if ((audio.ac === 'false' || audio.ac === false)) {
                             virtualclass.gObj.audioEnable = false;
                             virtualclass.user.control.audioDisable(true);
-                        } else if (audio.ac == 'true' || audio.ac == true) {
+                        } else if (audio.ac === 'true' || audio.ac === true) {
                             virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
@@ -1734,10 +1734,10 @@
                         // virtualclass.media.audioVisual.readyForVisual(stream);
                         if (audio != null) {
                             audio = JSON.parse(audio);
-                            if ((audio.ac == 'false' || audio.ac == false)) {
+                            if ((audio.ac === 'false' || audio.ac === false)) {
                                 virtualclass.gObj.audioEnable = false;
                                 virtualclass.user.control.audioDisable(true);
-                            } else if (audio.ac == 'true' || audio.ac == true) {
+                            } else if (audio.ac === 'true' || audio.ac === true) {
                                 virtualclass.gObj.audioEnable = true;
                                 virtualclass.user.control.audioWidgetEnable(true);
                             }
@@ -1779,7 +1779,7 @@
                 }
 
                 var vidstatus = localStorage.getItem("allVideoAction");
-                if(vidstatus != null && vidstatus == "disable" && roles.isStudent()){
+                if(vidstatus != null && vidstatus === "disable" && roles.isStudent()){
                     virtualclass.user.control.videoDisable();
                 }else {
                     if(roles.isStudent() && !virtualclass.gObj.stdvideoEnable){
@@ -1794,7 +1794,7 @@
                     }
 
                     var videoAction = localStorage.getItem("allVideoAction");
-                    if(videoAction != null && videoAction == "enable"){
+                    if(videoAction != null && videoAction === "enable"){
                         virtualclass.user.control.videoEnable();
                     }
                 }
@@ -1806,7 +1806,7 @@
                 if(localStorage.getItem('prevApp') == null ){
                     if(roles.hasControls()){
                         //virtualclass.vutil.videoHandler();
-                        virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off');
+                        virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off' ) ? 'on' : 'off');
                     }else if(virtualclass.gObj.meetingMode){
                         virtualclass.vutil.videoHandler('off');
                     }
@@ -1831,13 +1831,13 @@
                 // var userDiv = document.getElementById("ml" + id);
                 userDiv.dataset.role = role
                 if(typeof role !='undefined'){
-                    var userType = (role == 's') ? 'student' : 'teacher';
+                    var userType = (role === 's') ? 'student' : 'teacher';
                     userDiv.classList.add(userType);
                 }else{
                     userDiv.classList.add("student");
                 }
 
-                if(virtualclass.gObj.uRole == 't' && userType == 'student'){
+                if(virtualclass.gObj.uRole === 't' && userType === 'student'){
                     document.getElementById('virtualclassCont').classList.remove('student');
                 }
             },
@@ -1937,7 +1937,7 @@
             existVideoContainer: function (user) {
                 var allVideos = chatContainerEvent.elementFromShadowDom('.userVideos', 'all')
                 for (var i = 0; i < allVideos.length; i++) {
-                    if (allVideos[i].id == "video" + user.id) {
+                    if (allVideos[i].id === "video" + user.id) {
                         return true;
                     }
                 }

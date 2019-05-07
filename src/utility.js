@@ -376,8 +376,6 @@
             } else if (elem.msRequestFullscreen) { /* IE/Edge */
                 elem.msRequestFullscreen();
             }
-            document.querySelector("#fullScreenButton").style.display = "none";
-            document.querySelector("#fullScreenExitButton").style.display = "block";
         },
 
         closeFullscreen: function () {
@@ -390,8 +388,6 @@
             } else if (document.msExitFullscreen) {
               document.msExitFullscreen();
             }
-            document.querySelector("#fullScreenButton").style.display = "block";
-            document.querySelector("#fullScreenExitButton").style.display = "none";
           },
         
         // TODO

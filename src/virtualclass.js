@@ -92,7 +92,8 @@
                 defaultcolor : "#0000ff",
                 sendAudioStatus : false,
                 audioRecWorkerReady : false,
-                wbTool : {}
+                wbTool : {},
+                fullScreenMode : false
             },
 
             enablePreCheck : true,
@@ -353,6 +354,20 @@
                     if(fullScreenExitBtn != null) {
                         fullScreenExitBtn.addEventListener('click' , virtualclass.vutil.closeFullscreen);
                     }
+
+                document.onfullscreenchange = function ( event ) { 
+                    if(!virtualclass.gObj.fullScreenMode) { 
+                        document.querySelector("#fullScreenButton").style.display = "none";
+                        document.querySelector("#fullScreenExitButton").style.display = "block";
+                        virtualclass.gObj.fullScreenMode = true;
+                        
+                    }
+                    else {
+                        document.querySelector("#fullScreenButton").style.display = "block";
+                        document.querySelector("#fullScreenExitButton").style.display = "none";
+                        virtualclass.gObj.fullScreenMode = false;
+                    }
+                }
 
             },
 

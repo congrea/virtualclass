@@ -71,7 +71,6 @@
                         }else {
                             cthis[fnName].call(cthis);
                         }
-
                     },200
                 );
             },

@@ -422,7 +422,7 @@
                             console.log("==== canvas width dimension " + virtualclass.zoom.canvasDimension.width);
                         canvas.width = virtualclass.zoom.canvasDimension.width;
                     } else if(canvas.offsetWidth == 0 && document.querySelector('#virtualclassApp').style.display == "none"){
-                        canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas();
+                        canvas.width = window.innerWidth - 382;
                         console.log("==== canvas width click to continue");
                     }
 
@@ -502,8 +502,7 @@
                                                     // console.log('pdf normal render');
                                                     if(virtualclass.gObj.currWb != null){
                                                         if(document.querySelector('#canvas' + virtualclass.gObj.currWb+ '_pdf') != null){
-                                                            console.log('Suman doc normal render done');
-                                                            /* Always run first document with fit to screen*/
+                                                            /* Always run first document with Normal render*/
                                                             virtualclass.zoom.normalRender();
                                                             virtualclass.gObj.firstNormalRender = true;
                                                         }
@@ -711,7 +710,8 @@
 
                         objects[i].setCoords();
                         virtualclass.wb[wid].scale = tempScaleX;
-                        console.log("===whiteboard scale" + objects[i].scaleX);
+                        console.log("==== Whiteboard position x" + objects[i].x + ' position y' + objects[i].y);
+
                     }
                     vcan.renderAll();
                 }

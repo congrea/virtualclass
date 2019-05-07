@@ -1,5 +1,7 @@
 (function (window) {
+    "use strict"
     function zoomWhiteboard() {
+        var zoomScaleWidth, zoomScaleHeight;
         return {
             init : function (){
 
@@ -25,14 +27,6 @@
                         }
                     }
                 }
-                // var reload = document.querySelector("#virtualclassAppLeftPanel .zoomControler .reloadNote span");
-                //  if(reload){
-                //      if(virtualclass.currApp =="Whiteboard"){
-                //         reload.setAttribute("data-title","Reload whiteboard")
-                //      }else{
-                //         reload.setAttribute("data-title", virtualclass.lang.getString('reloadDoc'))
-                //      }                                                   
-                //  }
             },
 
             _initScaleController : function (){
@@ -42,13 +36,13 @@
                 var that = this;
                 var zoomIn = elem.querySelector('.zoomIn');
                 zoomIn.addEventListener('click', function (){
-                    virtualclass.zoom.tempPrvCanvasScale =  virtualclass.zoom.canvasScale;
+                    virtualclass.zoom.performZoom = true;
                     that.zoomAction('zoomIn');
                 });
 
                 var zoomOut = elem.querySelector('.zoomOut');
                 zoomOut.addEventListener('click', function (){
-                    virtualclass.zoom.tempPrvCanvasScale =  virtualclass.zoom.canvasScale;
+                    virtualclass.zoom.performZoom = true;
                     that.zoomAction('zoomOut');
                 });
 
@@ -153,9 +147,8 @@
             },
 
             fitToScreen : function (){
-                earrlierCanvasWidth = undefined;
                 virtualclass.gObj.fitToScreen = true;
-                delete virtualclass.zoom.tempPrvCanvasScale;
+                delete virtualclass.zoom.performZoom;
 
                 var wid = virtualclass.gObj.currWb;
                 if(typeof virtualclass.pdfRender[wid] != 'undefined'){
@@ -196,7 +189,7 @@
                 console.log('Pdf render normal view');
                 console.log('--Pdf render------------');
                 var wid = virtualclass.gObj.currWb;
-                delete virtualclass.zoom.tempPrvCanvasScale;
+                delete virtualclass.zoom.performZoom;
                 if(typeof virtualclass.pdfRender[wid].shownPdf == 'object'){
                     if(virtualclass.zoom.canvasScale != null){
                         virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / SCALE_FACTOR;

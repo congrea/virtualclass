@@ -11,10 +11,6 @@
             xhr : new CommonXHR(),
             xhrNext : new CommonXHR(),
             init : function (canvas, currNote){
-
-                console.log('Suman doc requested');
-                
-                // console.log('PDF render init');
                 var virtualclasElem = document.querySelector('#virtualclassCont');
                 // if(virtualclasElem != null){
                 //    // virtualclasElem.classList.add('pdfRendering');
@@ -29,9 +25,9 @@
                 }else {
                     this.url = whiteboardPath + 'resources/sample.pdf';
                 } 
-                
+
                 this.loadPdf(this.url, canvas, currNote);
-                
+
             },
             
             prefechPdf (noteId) {
@@ -403,85 +399,55 @@
                             console.log('Why negative value');
                         }
                     }
-            
-                    /** Handle the problem when it coems, after
-                        *  First go the whiteboard draw something
-                        *  Go the document share and share some document
-                        *  and again go the whiteboard
-                        *  Now let join new user, at new user, there will be loaded whitebaord with shared document
-                        * **/
+
                     if(virtualclass.currApp == 'Whiteboard' && this.wbId != null && virtualclass.gObj.currWb != this.wbId){
                         var wb = (this.wbId.indexOf('_doc_') > -1) ? this.wbId : '_doc_'+this.wbId+'_'+this.wbId;
                     }else {
                         var wb = virtualclass.gObj.currWb;
                     }
             
-            
                     var canvas = virtualclass.wb[wb].vcan.main.canvas;
-            
-                    if(canvas.offsetWidth == 0 && document.querySelector('#virtualclassApp').style.display == "none"){
-                        if(virtualclass.zoom.canvasScale ==  null  || virtualclass.zoom.canvasScale == undefined){
-                            canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas(); 
-                            canvas.height = window.innerHeight - 93;
-                        }else if(virtualclass.zoom.hasOwnProperty('canvasDimension')){
-                            canvas.width = virtualclass.zoom.canvasDimension.width; 
-                            canvas.height = virtualclass.zoom.canvasDimension.height;  
-                        }
-                    } else if(virtualclass.zoom.hasOwnProperty('tempPrvCanvasScale')){
-                        canvas.width = (canvas.width / virtualclass.zoom.tempPrvCanvasScale ) * scale; 
-                        canvas.height = (canvas.height / virtualclass.zoom.tempPrvCanvasScale ) * scale;
-                        console.log("====Canvas width " + canvas.width)
-                        console.log("====Canvas height " + canvas.height)
+                    var viewport;
+
+                    if(virtualclass.gObj.hasOwnProperty('fitToScreen')){
+                        canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas();
+                        delete virtualclass.gObj.fitToScreen;
+                        console.log("==== canvas width fit to screen");
+                    } else if(virtualclass.zoom.hasOwnProperty('performZoom')){
+                        var beforeChange = canvas.width;
+                        canvas.width = (canvas.width / virtualclass.zoom.prvCanvasScale ) * scale;
+                        console.log("==== canvas width zoom "  + canvas.width + ' before change '+ beforeChange+' scale ' + scale + ' perform zoom ' + virtualclass.zoom.performZoom);
+                        delete virtualclass.zoom.performZoom;
+                    } else if(virtualclass.zoom.hasOwnProperty('canvasDimension')){
+                            console.log("==== canvas width dimension " + virtualclass.zoom.canvasDimension.width);
+                        canvas.width = virtualclass.zoom.canvasDimension.width;
+                    } else if(canvas.offsetWidth == 0 && document.querySelector('#virtualclassApp').style.display == "none"){
+                        canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas();
+                        console.log("==== canvas width click to continue");
                     }
-            
+
                     if(this.firstTime){
-                        var viewport = this.calculateScaleAtFirst(page, canvas);
-                        console.log("====Scale" + viewport.scale);
+                        this.firstTime = false;
                         virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
                         if(virtualclass.zoom.canvasScale == null){
+                            viewport = page.getViewport(canvas.width / page.getViewport(1.0).width);
                             virtualclass.zoom.canvasScale =  viewport.scale;
-                            console.log("====Scale" + viewport.scale);
                         }else {
-                            var viewport = page.getViewport(scale);
-                            
+                            viewport = page.getViewport(scale);
                         }
-                    } else  {
-                        if(virtualclass.gObj.hasOwnProperty('fitTooScreen')){
-                           console.log('Fit to  screen, do nothing')
-                            canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas(); 
-                            canvas.height = window.innerHeight - 93;
-                            console.log("====Canvas width " + canvas.width)
-                            console.log("====Canvas height " + canvas.height)
-                            // var viewport = page.getViewport(canvas.width / page.getViewport(1.0).width);
-                            // virtualclass.zoom.canvasScale =  viewport.scale;
-                            delete virtualclass.gObj.fitTooScreen;
-                             console.log("Fit to screen whiteboard");
-                        }else {
-                            if(typeof earrlierCanvasWidth != 'undefined'){
-                                canvas.width   = earrlierCanvasWidth;
-                                canvas.height  = earrlierCanvasHeight;
-                                console.log("====Canvas width " + canvas.width);
-                                console.log("====Canvas height " + canvas.height)
-                            }
-                
-                            if(virtualclass.zoom.tempPrvCanvasScale != undefined ){
-                                canvas.width = (canvas.width / virtualclass.zoom.tempPrvCanvasScale ) * scale; 
-                                console.log("====Canvas width " + canvas.width)
-                                console.log("====Canvas height " + canvas.height)
-                            }
-                            var viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
-                            canvas.height  = viewport.height;
-                            earrlierCanvasWidth = canvas.width;
+                    } else if(virtualclass.gObj.hasOwnProperty('fitToScreen')){
+                        viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
 
-                            console.log("====Canvas width " + canvas.width)
-                            console.log("====Canvas height " + canvas.height)
-                            earrlierCanvasHeight = viewport.height;
-                        }
+                    } else {
+                        viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
                     }
-                    
+
+                    canvas.height  = viewport.height;
+
                     var pdfCanvas = canvas.nextSibling;
                     pdfCanvas.width = canvas.width;
                     pdfCanvas.height = canvas.height;
+
                     virtualclass.zoom.canvasDimension = {};
                     virtualclass.zoom.canvasDimension.width =  canvas.width;
                     virtualclass.zoom.canvasDimension.height =  canvas.height;
@@ -638,8 +604,8 @@
 
             _zoom : function (canvas, canvasWidth, canvasHeight, normalZoom){
 
-                virtualclass.vutil.setHeight(virtualclass.gObj.currWb, canvas, canvasHeight);
-                virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, canvasWidth);
+                // virtualclass.vutil.setHeight(virtualclass.gObj.currWb, canvas, canvasHeight);
+                // virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, canvasWidth);
 
                 var wrapper = canvas.parentNode;
                 var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
@@ -711,8 +677,8 @@
 
 
             _zoomOut : function (canvas, actualWidth, actualHeight, normalZoom){
-                virtualclass.vutil.setHeight(virtualclass.gObj.currWb, canvas, actualHeight);
-                virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, actualWidth);
+                // virtualclass.vutil.setHeight(virtualclass.gObj.currWb, canvas, actualHeight);
+                // virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, actualWidth);
                 var that = this;
 
                 this.displayPage(this.shownPdf,  1, function (){

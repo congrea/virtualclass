@@ -355,9 +355,7 @@
             // Send default scroll to all.
             sendScroll : function (){
                 virtualclass.vutil.setDefaultScroll();
-                // var cursor  = {cf : "sc", pr : true, scY : 0, scX:0};
-                // virtualclass.vutil.beforeSend(cursor);
-                // console.log('Send scroll to everyone ');
+
             },
 
             // Send current scroll to particular user.
@@ -408,16 +406,24 @@
             
                     var canvas = virtualclass.wb[wb].vcan.main.canvas;
                     var viewport;
+                    if(!virtualclass.zoom.hasOwnProperty('performZoom')){
+                        delete virtualclass.gObj.canvasWidthAfterZoom;
+                    }
 
                     if(virtualclass.gObj.hasOwnProperty('fitToScreen')){
                         canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas();
                         delete virtualclass.gObj.fitToScreen;
                         console.log("==== canvas width fit to screen");
                     } else if(virtualclass.zoom.hasOwnProperty('performZoom')){
-                        var beforeChange = canvas.width;
-                        canvas.width = (canvas.width / virtualclass.zoom.prvCanvasScale ) * scale;
-                        console.log("==== canvas width zoom "  + canvas.width + ' before change '+ beforeChange+' scale ' + scale + ' perform zoom ' + virtualclass.zoom.performZoom);
+                        if(virtualclass.gObj.hasOwnProperty('canvasWidthAfterZoom')){
+                            virtualclass.gObj.canvasWidthAfterZoom = (virtualclass.gObj.canvasWidthAfterZoom / virtualclass.zoom.prvCanvasScale ) * scale; // todo integer is loosing precision
+                        } else {
+                            virtualclass.gObj.canvasWidthAfterZoom = (canvas.width / virtualclass.zoom.prvCanvasScale ) * scale; // todo integer is loosing precision
+                        }
+                        canvas.width = Math.ceil(virtualclass.gObj.canvasWidthAfterZoom);
+                        console.log("==== canvas width zoom "  + canvas.width + ' scale ' + scale + ' perform zoom ' + virtualclass.zoom.performZoom);
                         delete virtualclass.zoom.performZoom;
+
                     } else if(virtualclass.zoom.hasOwnProperty('canvasDimension')){
                             console.log("==== canvas width dimension " + virtualclass.zoom.canvasDimension.width);
                         canvas.width = virtualclass.zoom.canvasDimension.width;
@@ -523,27 +529,9 @@
                 }
             },
 
-            // displayPage : function (pdf, num, firstTime) {
             displayPage : function (pdf, num, cb, firstTime) {
                 displayCb = cb;
-
-
-
-                // pdf.getPage(num).then(function getPage(page) {
-                //     // console.log('PDF is being rendered first time');
-                //     that.page = page
-                //     if(typeof firstTime != 'undefined'){
-                //         that.renderPage(page, firstTime);
-                //     } else {
-                //         that.renderPage(page, null);
-                //     }
-                // });
-
-
-               // that._displayPage(pdf, num, cb, firstTime)
                 this._displayPage(pdf, num, cb, firstTime);
-
-
             },
 
             _displayPage : function (pdf, num, cb, firstTime){

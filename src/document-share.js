@@ -1504,7 +1504,8 @@
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);
                             } else {
                                 // If there is a zoom, that needs to apply at in next/previous screen,
-                                virtualclass.zoom.normalRender();
+                                // virtualclass.zoom.normalRender();
+                                virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
                             }
 
                                 virtualclass.vutil.updateCurrentDoc(this.currNote);

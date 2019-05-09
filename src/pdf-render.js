@@ -385,8 +385,6 @@
                 }
             },
 
-
-            
             renderPage : function  (page, firstTime)  {
                 if(virtualclass.gObj.currWb != null){
                     var scale = this.pdfScale;

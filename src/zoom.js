@@ -140,38 +140,6 @@
                 
             },
 
-            adjustScreenOnDifferentPdfWidthOld (){
-                let newPdfWidth = virtualclass.pdfRender[virtualclass.gObj.currWb].page.getViewport(1).width;
-                console.log("==== Pdf render new width " + newPdfWidth);
-                if(virtualclass.zoom.hasOwnProperty('fitToScreenWidth') && newPdfWidth !== virtualclass.zoom.fitToScreenWidth &&
-                    virtualclass.zoom.prvWhiteboard !== virtualclass.gObj.currWb
-                ){
-                    console.log("==== Fit to screen");
-                    virtualclass.zoom.fitToScreen();
-                }else {
-                    virtualclass.zoom.normalRender();
-                }
-            },
-
-            adjustScreenOnDifferentPdfWidth3 (){
-                let page = virtualclass.pdfRender[virtualclass.gObj.currWb].page;
-                let newPdfWidth = page.getViewport(1).width;
-                if(virtualclass.zoom.hasOwnProperty('prevPdfWidth') && newPdfWidth !== virtualclass.zoom.prevPdfWidth){
-                    if(virtualclass.zoom.hasOwnProperty('fitToScreenWidth')){
-                        virtualclass.zoom.fitToScreen();
-                    }else {
-                        virtualclass.zoom.canvasScale = (virtualclass.zoom.canvasScale / virtualclass.zoom.prevPdfWidth) * newPdfWidth;
-                        let viewport = page.getViewport(virtualclass.zoom.canvasScale);
-                        virtualclass.zoom.canvasDimension.width =   viewport.width;
-                        virtualclass.zoom.canvasDimension.height =  viewport.height
-                        virtualclass.zoom.normalRender();
-                    }
-                }else {
-                    virtualclass.zoom.normalRender();
-                }
-                virtualclass.zoom.prevPdfWidth = newPdfWidth;
-            },
-
             adjustScreenOnDifferentPdfWidth (){
                 let page = virtualclass.pdfRender[virtualclass.gObj.currWb].page;
                 let newPdfWidth = page.getViewport(1).width;
@@ -180,13 +148,16 @@
                     let viewport = page.getViewport(virtualclass.zoom.canvasScale);
                     virtualclass.zoom.canvasDimension.width =   viewport.width;
                     virtualclass.zoom.canvasDimension.height =  viewport.height
-                    virtualclass.zoom.normalRender();
+                    if(virtualclass.zoom.hasOwnProperty('fitToScreenWidth')){
+                        virtualclass.zoom.fitToScreen();
+                    }else {
+                        virtualclass.zoom.normalRender();
+                    }
                 }else {
                     virtualclass.zoom.normalRender();
                 }
                 virtualclass.zoom.prevPdfWidth = newPdfWidth;
             },
-
 
             getReduceValueForCanvas (){
                 var canvas = document.querySelector("#canvas" + virtualclass.gObj.currWb);
@@ -200,7 +171,6 @@
             fitToScreen : function (){
                 virtualclass.gObj.fitToScreen = true;
                 delete virtualclass.zoom.performZoom;
-
                 var wid = virtualclass.gObj.currWb;
                 if(typeof virtualclass.pdfRender[wid] != 'undefined'){
                     console.log('--Pdf render start----------');

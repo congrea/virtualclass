@@ -951,6 +951,7 @@
                 var row = t.objectStore("wbData");
                 var wb = row.get(wbId);
                 wb.onsuccess = function (e){
+                    console.log('===== init whiteboard ');
                     if(typeof wb.result != 'undefined'){
                         console.log('Whiteboard start store from local storage ' + wbId);
                         virtualclass.gObj.tempReplayObjs[wbId] = [];

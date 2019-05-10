@@ -64,19 +64,11 @@
 
 
             zoomAction : function (fnName){
-                var cthis = this;
-                if(virtualclass.gObj.hasOwnProperty('zoomActionTime')){
-                   clearTimeout(virtualclass.gObj.zoomActionTime);
+                if(virtualclass.currApp === 'ScreenShare'){
+                    virtualclass.studentScreen[fnName].call(virtualclass.studentScreen);
+                } else {
+                    this[fnName].call(this);
                 }
-                virtualclass.gObj.zoomActionTime = setTimeout(
-                    function (){
-                        if(virtualclass.currApp == 'ScreenShare'){
-                            virtualclass.studentScreen[fnName].call(virtualclass.studentScreen);
-                        }else {
-                            cthis[fnName].call(cthis);
-                        }
-                    },200
-                );
             },
 
             zoomIn : function (normalZoom){
@@ -140,6 +132,22 @@
                 
             },
 
+            adjustScreenOnDifferentPdfWidthRender (page){
+                let newPdfWidth = page.getViewport(1).width;
+                if(virtualclass.zoom.hasOwnProperty('prevPdfWidth') && newPdfWidth !== virtualclass.zoom.prevPdfWidth){
+                    virtualclass.zoom.canvasScale = (virtualclass.zoom.canvasScale / virtualclass.zoom.prevPdfWidth) * newPdfWidth;
+                    let viewport = page.getViewport(virtualclass.zoom.canvasScale);
+                    virtualclass.zoom.canvasDimension.width =   viewport.width;
+                    virtualclass.zoom.canvasDimension.height =  viewport.height;
+                    if(virtualclass.zoom.hasOwnProperty('fitToScreenWidth')){
+                        virtualclass.zoom.fitToScreen();
+                    } else {
+                        virtualclass.zoom.normalRender();
+                    }
+                }
+                virtualclass.zoom.prevPdfWidth = newPdfWidth;
+            },
+
             adjustScreenOnDifferentPdfWidth (){
                 let page = virtualclass.pdfRender[virtualclass.gObj.currWb].page;
                 let newPdfWidth = page.getViewport(1).width;
@@ -147,7 +155,7 @@
                     virtualclass.zoom.canvasScale = (virtualclass.zoom.canvasScale / virtualclass.zoom.prevPdfWidth) * newPdfWidth;
                     let viewport = page.getViewport(virtualclass.zoom.canvasScale);
                     virtualclass.zoom.canvasDimension.width =   viewport.width;
-                    virtualclass.zoom.canvasDimension.height =  viewport.height
+                    virtualclass.zoom.canvasDimension.height =  viewport.height;
                     if(virtualclass.zoom.hasOwnProperty('fitToScreenWidth')){
                         virtualclass.zoom.fitToScreen();
                     }else {

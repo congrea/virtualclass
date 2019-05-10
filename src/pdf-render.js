@@ -41,12 +41,13 @@
             },
 
 
-            loadPdf (url, canvas, currNote){
-                console.log('====PDF, Init1 load ' + virtualclass.gObj.currWb)
+            async loadPdf (url, canvas, currNote){
+                console.log('====PDF, Init1 load ',  virtualclass.gObj.currWb, url);
                 if(virtualclass.gObj.hasOwnProperty('getDocumentTimeout')){
                     clearTimeout(virtualclass.gObj.getDocumentTimeout);
                 }
                 if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer == false) {
+                    console.log('====PDF, Init1 load final',  url);
                     this._loadPdf(url, canvas, currNote);
                     virtualclass.gObj.getDocumentTimer = true;
                     virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
@@ -54,18 +55,19 @@
                     },1000);
                 } else {
                     virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
+                        console.log('====PDF, Init1 load final',  url);
                         this._loadPdf(url, canvas, currNote);
                         virtualclass.gObj.getDocumentTimer = false;
                     },1000);
                 }
             },
 
-            _loadPdf  (url, canvas, currNote){
+            async _loadPdf  (url, canvas, currNote){
                 console.log('====PDF, Init2 load ' + virtualclass.gObj.currWb);
                 if(virtualclass.gObj.next.hasOwnProperty(currNote)){
-                    this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
+                    await this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
                 } else {
-                    this.xhr.send(url, this.afterPdfLoad.bind(this, canvas, currNote), 'arraybuffer');
+                    this.xhr.send(url, await this.afterPdfLoad.bind(this, canvas, currNote), 'arraybuffer');
                 }
 
                 if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
@@ -77,7 +79,7 @@
                 }
             },
             
-            afterPdfLoad (canvas, currNote, data){
+            async afterPdfLoad (canvas, currNote, data){
                 console.log('====PDF, After PDF load' + virtualclass.gObj.currWb);
                 this.canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
                 this.canvas = canvas;
@@ -114,13 +116,12 @@
                         that.displayPage(pdf, 1, function (){},true);
                         that.shownPdf = pdf;
                         // console.log('====PDF, placed at shown PDF '  + doc.currwb);
+                        if(!roles.hasControls()){
+                            that.topPosY = 0;
+                            that.leftPosX = 0;
+                        }
+                        that.scrollEvent();
                     });
-
-                    if(!roles.hasControls()){
-                        that.topPosY = 0;
-                        that.leftPosX = 0;
-                    }
-                    that.scrollEvent();
                 }else {
                     if(virtualclass.currApp == 'DocumentShare'){
                         // virtualclasElem.classList.remove('pdfRendering');
@@ -385,7 +386,8 @@
                 }
             },
 
-            renderPage : function  (page, firstTime)  {
+            renderPage : async function  (page, firstTime)  {
+                console.log("#### render page");
                 if(virtualclass.gObj.currWb != null){
                     var scale = this.pdfScale;
                     if(virtualclass.zoom.canvasScale != null && virtualclass.zoom.canvasScale != ''){
@@ -481,44 +483,31 @@
                             virtualclass.vutil.showZoom();
             
                             if(firstTime != undefined){
-                                setTimeout(
-                                    function (){
-                                        if(virtualclass.gObj.currWb != null ){
-                                            that.initWhiteboardData(virtualclass.gObj.currWb);
-                                        }
-                                    },500
-                                );
+                                if(virtualclass.gObj.currWb != null ){
+                                    that.initWhiteboardData(virtualclass.gObj.currWb);
+                                }
                             }
             
                             displayCb();
                             if (typeof that.shownPdf == "object") {
-                                setTimeout(
-                                    function (){
-                                        io.globallock = false;
-                                        io.onRecJson(null);
-            
-                                        if(virtualclass.gObj.hasOwnProperty('pdfNormalTimeout')){
-                                            clearTimeout(virtualclass.gObj.pdfNormalTimeout);
+                                io.globallock = false;
+                                io.onRecJson(null);
+
+                                if(virtualclass.gObj.hasOwnProperty('pdfNormalTimeout')){
+                                    clearTimeout(virtualclass.gObj.pdfNormalTimeout);
+                                }
+
+                                if(!virtualclass.gObj.firstNormalRender){
+                                    if(virtualclass.gObj.currWb != null){
+                                        if(document.querySelector('#canvas' + virtualclass.gObj.currWb+ '_pdf') != null){
+                                            /* Always run first document with Normal render*/
+                                            virtualclass.zoom.adjustScreenOnDifferentPdfWidthRender(page);
+                                            virtualclass.gObj.firstNormalRender = true;
                                         }
-            
-                                        if(!virtualclass.gObj.firstNormalRender){
-                                            virtualclass.gObj.pdfNormalTimeout =  setTimeout(
-                                                function (){
-                                                    // console.log('pdf normal render');
-                                                    if(virtualclass.gObj.currWb != null){
-                                                        if(document.querySelector('#canvas' + virtualclass.gObj.currWb+ '_pdf') != null){
-                                                            /* Always run first document with Normal render*/
-                                                            virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
-                                                            virtualclass.gObj.firstNormalRender = true;
-                                                        }
-                                                    }
-                                                }, 1000
-                                            );
-            
-                                        }
-                                        virtualclass.vutil.removeClass('virtualclassCont', 'resizeWindow');
-                                    },10
-                                );
+                                    }
+
+                                }
+                                virtualclass.vutil.removeClass('virtualclassCont', 'resizeWindow');
             
                             } else {
                                 console.log("We should have a PDF here");
@@ -533,19 +522,15 @@
                 this._displayPage(pdf, num, cb, firstTime);
             },
 
-            _displayPage : function (pdf, num, cb, firstTime){
-                var that = this;
-                console.log('PDF render Page-Request to pdf.js 2');
-                pdf.getPage(num).then(function getPage(page) {
-                    // console.log('PDF is being rendered first time');
-
-                    that.page = page
-                    if(typeof firstTime != 'undefined'){
-                        that.renderPage(page, firstTime);
-                    } else {
-                        that.renderPage(page, null);
-                    }
-                });
+            _displayPage : async function (pdf, num, cb, firstTime){
+                let page = await pdf.getPage(num);
+                virtualclass.pdfRender[virtualclass.gObj.currWb].page = page;
+                console.log("==== to be display ", virtualclass.pdfRender[virtualclass.gObj.currWb].page, virtualclass.gObj.currWb);
+                if(typeof firstTime !== 'undefined'){
+                    await this.renderPage(page, firstTime);
+                } else {
+                    await this.renderPage(page, null);
+                }
             },
 
             fitToScreenIfNeed : function (){
@@ -556,18 +541,19 @@
             },
 
             initWhiteboardData : function (wb){
+
+                var whiteboardPromise  = new Promise();
+
+                var whiteboardPromise  = new Promise(function (resolve, reject){
+                    virtualclass.pdfRender[virtualclass.gObj.currWb].whiteboardPromise = resolve;
+                });
+
                 /** Below condition is satisfied only if the whiteboard data is...
                  ..available in indexDB **/
                 // console.log('Init whiteboard with timeout');
                 if(typeof virtualclass.gObj.tempReplayObjs[wb] == 'object'){
                     if(virtualclass.gObj.tempReplayObjs[wb].length <= 0){
-                        var that = this;
-                        setTimeout(
-                            function (){
-                                that.initWhiteboardData(wb);
-
-                            },500
-                        );
+                        this.initWhiteboardData(wb);
                     } else {
                         console.log('Pdf test, init whiteboard ');
                         console.log('Start whiteboard replay from local storage');
@@ -584,7 +570,6 @@
                         }
 
                     });
-                    var that = this;
                 }
             },
 
@@ -595,10 +580,6 @@
 
                 var wrapper = canvas.parentNode;
                 var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
-
-                if(canvasWidth > wrapperWidth){
-                    wrapper.classList.add('scrollX');
-                }
 
                 var that = this;
                 this.displayPage(this.shownPdf,  1, function (){
@@ -614,6 +595,9 @@
                             var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                             vcan.renderAll();
                         }
+                    }
+                    if(canvasWidth > wrapperWidth){
+                        wrapper.classList.add('scrollX');
                     }
                 });
             },
@@ -756,18 +740,13 @@
                     for(wid in virtualclass.pdfRender){
                         that.fitToScreenWhiteboardObjects(wid);
                     }
+
+                    if(canvasWidth > wrapperWidth && ((canvasWidth - wrapperWidth) > 55)){
+                        wrapper.classList.add('scrollX');
+                    } else {
+                        wrapper.classList.remove('scrollX');
+                    }
                 });
-                setTimeout(
-                    function (){
-                        if(canvasWidth > wrapperWidth && ((canvasWidth - wrapperWidth) > 55)){
-                            wrapper.classList.add('scrollX');
-                        }else {
-                            wrapper.classList.remove('scrollX');
-                        }
-                    },500
-                );
-
-
             },
 
             fitToScreenWhiteboardObjects : function (wid){

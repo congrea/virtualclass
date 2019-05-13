@@ -2598,19 +2598,25 @@
             if(virtualclass.vutil.isTextWrapperExist()){
                 virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
             }
-            if(virtualclass.gObj.hasOwnProperty('wbNav')){
-                clearTimeout(virtualclass.gObj.wbNav);
+            // if(virtualclass.gObj.hasOwnProperty('wbNav')){
+            //     clearTimeout(virtualclass.gObj.wbNav);
+            // }
+            if(typeof dthis != 'undefined'){
+                func.call(cthis, dthis);
+            } else {
+                func.call(cthis);
             }
-            virtualclass.gObj.wbNav = setTimeout(
-                function (){
-                    if(typeof dthis != 'undefined'){
-                        func.call(cthis, dthis);
-                    }else {
-                        func.call(cthis);
-                    }
-                    console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
-                }, virtualclass.gObj.wbNavtime
-            )
+            console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
+            // virtualclass.gObj.wbNav = setTimeout(
+            //     function (){
+            //         if(typeof dthis != 'undefined'){
+            //             func.call(cthis, dthis);
+            //         }else {
+            //             func.call(cthis);
+            //         }
+            //         console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
+            //     }, virtualclass.gObj.wbNavtime
+            // )
         },
 
         removeAllTextWrapper : function (){

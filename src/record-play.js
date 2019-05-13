@@ -103,11 +103,7 @@
 
                 downloadProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
                 playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
-
                 virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
-
-                // virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
-
                 window.addEventListener('mouseup', this.finalSeek.bind(this));
 
                 virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));

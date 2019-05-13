@@ -46,13 +46,9 @@
                     /**
                      * Storing again into indexedDb when page is being refreshed
                      */
-                    setTimeout(
-                        function (){
-                            if(roles.hasControls()){
-                                virtualclass.storage.dstAllStore(virtualclass.gObj.dstAll);
-                            }
-                        },0
-                    );
+                    if(roles.hasControls()){
+                        virtualclass.storage.dstAllStore(virtualclass.gObj.dstAll);
+                    }
                 }
 
                 if(virtualclass.gObj.hasOwnProperty('docs') &&  typeof virtualclass.gObj.docs == 'string'){
@@ -298,13 +294,8 @@
                         that.firstRequest = true;
                     });
                 }else {
-                    // TODO, this should be called without setTimeout
-                    setTimeout(
-                        function (){
-                            ioAdapter.mustSend({'dts': {fallDocs: virtualclass.serverData.rawData.docs}, 'cf': 'dts'});
-                            that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-                        }, 0
-                    );
+                    ioAdapter.mustSend({'dts': {fallDocs: virtualclass.serverData.rawData.docs}, 'cf': 'dts'});
+                    that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
                 }
             },
 
@@ -604,10 +595,7 @@
                         if (cont) {
                             cont.innerHTML = 0
                         }
-                        setTimeout(() => {
-                            virtualclass.dts.indexNav.setTotalPages((virtualclass.dts.order.length));
-                        }, 100);
-                        
+                        virtualclass.dts.indexNav.setTotalPages((virtualclass.dts.order.length));
                     }
                           
                 }
@@ -1296,14 +1284,8 @@
                              * while teacher select/click the document tab subsequently
                              **/
                             if(roles.hasControls() && typeof fromReload == 'undefined'){
-                                setTimeout(
-                                    function (){
-
-                                        ioAdapter.mustSend({'dts': {slideTo: noteId, docn:virtualclass.dts.docs.currDoc}, 'cf': 'dts'});
-                                        console.log('Slide to document sharing ' + noteId);
-
-                                    },200
-                                );
+                                ioAdapter.mustSend({'dts': {slideTo: noteId, docn:virtualclass.dts.docs.currDoc}, 'cf': 'dts'});
+                                console.log('Slide to document sharing ' + noteId);
                             }
                         },
 
@@ -1504,34 +1486,31 @@
                                 virtualclass.dts.docs.createWhiteboard(this.currNote);
                             } else {
                                 // If there is a zoom, that needs to apply at in next/previous screen,
-                                virtualclass.zoom.normalRender();
+                                // virtualclass.zoom.normalRender();
+                                virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
                             }
 
                                 virtualclass.vutil.updateCurrentDoc(this.currNote);
                             virtualclass.dts.updateLinkNotes(this.currNote);
 
-                            setTimeout(
-                                function (){
-                                    var isFirstNote = virtualclass.dts.isFirstNote(note.id);
-                                    var isLastNote = virtualclass.dts.isLastNote(note.id);
+                            var isFirstNote = virtualclass.dts.isFirstNote(note.id);
+                            var isLastNote = virtualclass.dts.isLastNote(note.id);
 
-                                    var notesContainer = document.querySelector('#screen-docs .pageContainer');
+                            var notesContainer = document.querySelector('#screen-docs .pageContainer');
 
-                                    if(isFirstNote && isLastNote){
-                                        notesContainer.classList.add('firstNote');
-                                        notesContainer.classList.add('lastNote');
-                                    }else if(isFirstNote){
-                                        notesContainer.classList.remove('lastNote');
-                                        notesContainer.classList.add('firstNote');
-                                    } else if(isLastNote){
-                                        notesContainer.classList.remove('firstNote');
-                                        notesContainer.classList.add('lastNote');
-                                    }else {
-                                        notesContainer.classList.remove('firstNote');
-                                        notesContainer.classList.remove('lastNote');
-                                    }
-                                },0
-                            );
+                            if(isFirstNote && isLastNote){
+                                notesContainer.classList.add('firstNote');
+                                notesContainer.classList.add('lastNote');
+                            }else if(isFirstNote){
+                                notesContainer.classList.remove('lastNote');
+                                notesContainer.classList.add('firstNote');
+                            } else if(isLastNote){
+                                notesContainer.classList.remove('firstNote');
+                                notesContainer.classList.add('lastNote');
+                            }else {
+                                notesContainer.classList.remove('firstNote');
+                                notesContainer.classList.remove('lastNote');
+                            }
                         },
                         /**
                          * this expects the the whiteboard related to slide
@@ -1635,12 +1614,7 @@
                         this.docs.currNote = dts.slideTo;
                         console.log('Current note ' + this.docs.currNote);
                         this.docs.executeScreen(dts.docn, undefined);
-                        var that = this;
-                        setTimeout(
-                            function (){
-                                that.docs.note.currentSlide(dts.slideTo);
-                            },500
-                        );
+                        this.docs.note.currentSlide(dts.slideTo);
                     } else {
                         var note = document.querySelector('#note' + dts.slideTo);
                         if(note != null){
@@ -1649,8 +1623,6 @@
                             // In normal case
                             this.docs.note.getScreen(note);
                             console.log(virtualclass.gObj.currWb + ' ' + 'document share :- Normal Case');
-
-
                         }else{
                             alert('Note is not found ' + dts.slideTo);
                         }

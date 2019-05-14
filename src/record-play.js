@@ -183,16 +183,6 @@
             this.init();
         },
 
-        exportData: function (cb) {
-            virtualclass.popup.openProgressBar();
-            virtualclass.recorder.items = [];
-            virtualclass.storage.getAllObjs(["allData"], function () {
-                if (typeof cb == 'function') {
-                    cb();
-                }
-            });
-        },
-
         // If binary, return buffer else return original value
         convertInto: function (e) {
             if (typeof e.data == 'string') {

@@ -540,36 +540,11 @@
                 }
             },
 
-            initWhiteboardData : function (wb){
-
-                var whiteboardPromise  = new Promise();
-
-                var whiteboardPromise  = new Promise(function (resolve, reject){
-                    virtualclass.pdfRender[virtualclass.gObj.currWb].whiteboardPromise = resolve;
-                });
-
-                /** Below condition is satisfied only if the whiteboard data is...
-                 ..available in indexDB **/
-                // console.log('Init whiteboard with timeout');
-                if(typeof virtualclass.gObj.tempReplayObjs[wb] == 'object'){
-                    if(virtualclass.gObj.tempReplayObjs[wb].length <= 0){
-                        this.initWhiteboardData(wb);
-                    } else {
-                        console.log('Pdf test, init whiteboard ');
-                        console.log('Start whiteboard replay from local storage');
-                        virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
-                        // virtualclass.vutil.removeClass('virtualclassCont', 'pdfRendering');
-                       // this.fitToScreenIfNeed();
-
-                    }
-                } else {
-                    virtualclass.storage.getWbData(wb, function (){
-                        if (typeof virtualclass.gObj.tempReplayObjs[wb] == 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
-                            console.log('Start whiteboard replay from local storage');
-                            virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb])
-                        }
-
-                    });
+            initWhiteboardData : async function (wb){
+                await virtualclass.storage.getWbData(wb);
+                if (typeof virtualclass.gObj.tempReplayObjs[wb] === 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
+                    console.log('Start whiteboard replay from local storage');
+                    virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb])
                 }
             },
 

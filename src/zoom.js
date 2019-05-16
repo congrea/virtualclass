@@ -1,7 +1,7 @@
 (function (window) {
     "use strict"
     function zoomWhiteboard() {
-        var zoomScaleWidth, zoomScaleHeight;
+        // var zoomScaleWidth, zoomScaleHeight;
         return {
             init : function (){
 
@@ -15,11 +15,11 @@
                             this._initScaleController();
                         //}
 
-                        var canvasScale = localStorage.getItem('wbcScale');
-                        if(canvasScale != null){
-                            this.canvasScale = canvasScale;
-                            console.log('Canvas pdf scale ' + this.canvasScale);
-                        }
+                        // var canvasScale = localStorage.getItem('wbcScale');
+                        // if(canvasScale != null){
+                        //     this.canvasScale = canvasScale;
+                        //     console.log('Canvas pdf scale ' + this.canvasScale);
+                        // }
 
                         var canvasDimension = localStorage.getItem('canvasDimension');
                         if(canvasDimension != null){
@@ -67,6 +67,7 @@
                 if(virtualclass.currApp === 'ScreenShare'){
                     virtualclass.studentScreen[fnName].call(virtualclass.studentScreen);
                 } else {
+                    virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale = this.canvasScale;
                     this[fnName].call(this);
                 }
             },
@@ -78,26 +79,30 @@
                     // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
                     var wrapperWidth = canvas.parentNode.offsetWidth;
 
-                    this.prvCanvasScale = this.canvasScale;
 
-                
-                   // alert('canvas scale');
-                    this.canvasScale = this.canvasScale * SCALE_FACTOR;
 
-                    console.log('Canvas pdf scale ' + this.canvasScale);
+                    // this.canvasScale = this.canvasScale * SCALE_FACTOR;
 
-                    var actualWidth = virtualclass.vutil.getWidth(canvas) * SCALE_FACTOR;
-                    var actualHeight = virtualclass.vutil.getHeight(canvas) * SCALE_FACTOR;
+                    // console.log('Canvas pdf scale ' + this.canvasScale);
+
+                    // var actualWidth = virtualclass.vutil.getWidth(canvas) * SCALE_FACTOR;
+                    // var actualHeight = virtualclass.vutil.getHeight(canvas) * SCALE_FACTOR;
+
+                    var actualWidth =  virtualclass.zoom.canvasDimension.width *  SCALE_FACTOR;
+                    var actualHeight = virtualclass.zoom.canvasDimension.height * SCALE_FACTOR;
+
+                    virtualclass.zoom.canvasDimension.width = actualWidth;
+                    virtualclass.zoom.canvasDimension.height = actualHeight;
 
                     if(typeof normalZoom != 'undefined'){
                         virtualclass.pdfRender[wid]._zoom.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight, normalZoom);
                     }else {
                         virtualclass.pdfRender[wid]._zoom.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
                     }
-                    if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
-                        zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width * SCALE_FACTOR;
-                        zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height *  SCALE_FACTOR;
-                    }
+                    // if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
+                    //     zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width * SCALE_FACTOR;
+                    //     zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height *  SCALE_FACTOR;
+                    // }
 
                 }
             },
@@ -111,13 +116,17 @@
                 // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
                 var wrapperWidth = canvas.parentNode.offsetWidth;
 
-                this.prvCanvasScale = this.canvasScale;
                 
-                this.canvasScale = this.canvasScale / SCALE_FACTOR;
+                // this.canvasScale = this.canvasScale / SCALE_FACTOR;
                 console.log('Canvas pdf scale ' + this.canvasScale);
 
-                var actualWidth  = virtualclass.vutil.getWidth(canvas) * (1 / SCALE_FACTOR);
-                var actualHeight = virtualclass.vutil.getHeight(canvas) * (1 / SCALE_FACTOR);
+
+                var actualWidth =  virtualclass.zoom.canvasDimension.width * (1 / SCALE_FACTOR);
+                var actualHeight = virtualclass.zoom.canvasDimension.height * (1 / SCALE_FACTOR);
+
+                virtualclass.zoom.canvasDimension.width = actualWidth;
+                virtualclass.zoom.canvasDimension.height = actualHeight;
+
 
                 if(actualWidth <= wrapperWidth){
                     wrapper.classList.remove('scrollX');
@@ -125,42 +134,29 @@
 
                 virtualclass.pdfRender[wid]._zoomOut.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
 
-                if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
-                    zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width / SCALE_FACTOR;
-                    zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height / SCALE_FACTOR;
-                }
-                
+                // if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
+                //     zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width / SCALE_FACTOR;
+                //     zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height / SCALE_FACTOR;
+                // }
+                //
             },
 
-            adjustScreenOnDifferentPdfWidthRender (page){
-                let newPdfWidth = page.getViewport(1).width;
-                if(virtualclass.zoom.hasOwnProperty('prevPdfWidth') && newPdfWidth !== virtualclass.zoom.prevPdfWidth){
-                    virtualclass.zoom.canvasScale = (virtualclass.zoom.canvasScale / virtualclass.zoom.prevPdfWidth) * newPdfWidth;
-                    let viewport = page.getViewport(virtualclass.zoom.canvasScale);
-                    virtualclass.zoom.canvasDimension.width =   viewport.width;
-                    virtualclass.zoom.canvasDimension.height =  viewport.height;
-                    if(virtualclass.zoom.hasOwnProperty('fitToScreenWidth')){
-                        virtualclass.zoom.fitToScreen();
-                    } else {
-                        virtualclass.zoom.normalRender();
-                    }
-                }
-                virtualclass.zoom.prevPdfWidth = newPdfWidth;
-            },
+            adjustScreenOnDifferentPdfWidth (page, fitToScreenWidth){
+                page = page || virtualclass.pdfRender[virtualclass.gObj.currWb].page;
+                let viewPort = page.getViewport(1);
+                let newPdfWidth = viewPort.width;
+                let newPdfHeight = viewPort.height;
 
-            adjustScreenOnDifferentPdfWidth (){
-                let page = virtualclass.pdfRender[virtualclass.gObj.currWb].page;
-                let newPdfWidth = page.getViewport(1).width;
                 if(virtualclass.zoom.hasOwnProperty('prevPdfWidth') && newPdfWidth !== virtualclass.zoom.prevPdfWidth){
-                    virtualclass.zoom.canvasScale = (virtualclass.zoom.canvasScale / virtualclass.zoom.prevPdfWidth) * newPdfWidth;
-                    let viewport = page.getViewport(virtualclass.zoom.canvasScale);
-                    virtualclass.zoom.canvasDimension.width =   viewport.width;
-                    virtualclass.zoom.canvasDimension.height =  viewport.height;
+                    virtualclass.zoom.canvasDimension.width =   virtualclass.zoom.canvasScale * newPdfWidth ;
+                    virtualclass.zoom.canvasDimension.height =  virtualclass.zoom.canvasScale * newPdfHeight;
                     if(virtualclass.zoom.hasOwnProperty('fitToScreenWidth')){
                         virtualclass.zoom.fitToScreen();
                     }else {
                         virtualclass.zoom.normalRender();
                     }
+                }else if(fitToScreenWidth != null) {
+                    virtualclass.zoom.fitToScreen();
                 }else {
                     virtualclass.zoom.normalRender();
                 }
@@ -201,12 +197,12 @@
                         virtualclass.zoom.fitToScreenWidth = tempviewport.width;
                         virtualclass.zoom.prvWhiteboard = virtualclass.gObj.currWb;
 
+
                         var viewport = page.getViewport((+(wrapperWidth)) / page.getViewport(1.0).width);
-                        this.prvCanvasScale = this.canvasScale;
-                        this.canvasScale = viewport.scale;
+                        // this.canvasScale = viewport.scale;
                         console.log('==== PDF width => ' + viewport.width + ' PDF height => ' + viewport.height +  ' scale => ' + viewport.scale);
-                        console.log('==== PDF temp width => ' + tempviewport.width + ' PDF height => ' + tempviewport.height +  ' scale => ' + tempviewport.scale);
-                        console.log('Canvas pdf scale ' + this.canvasScale);
+                        console.log('==== PDF temp width => ' + tempviewport.width + ' PDF height => ' + tempviewport.height +  ' scale => ' + tempviewport.scale + ", after scale=" +this.canvasScale);
+                        // console.log('Canvas pdf scale ' + this.canvasScale);
                         virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
                     }catch (error){
                         console.log('Error ' + error);
@@ -218,7 +214,7 @@
                 virtualclass.zoom.normalRender();
             },
 
-            normalRender : function (){
+            normalRender : function (zoomWhiteboard){
                 console.log('--Pdf Render Start ' + virtualclass.currApp +' ------------');
                 console.log('Pdf render normal view');
                 console.log('--Pdf render------------');
@@ -226,9 +222,18 @@
                 delete virtualclass.zoom.performZoom;
                 if(typeof virtualclass.pdfRender[wid].shownPdf == 'object'){
                     if(virtualclass.zoom.canvasScale != null){
-                        virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / SCALE_FACTOR;
+                        // virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / SCALE_FACTOR;
+                        virtualclass.zoom.canvasDimension.width =  virtualclass.zoom.canvasDimension.width / SCALE_FACTOR;
+                        virtualclass.zoom.canvasDimension.height =   virtualclass.zoom.canvasDimension.height / SCALE_FACTOR;
                         console.log('Canvas pdf scale ' + this.canvasScale);
-                        virtualclass.zoom.zoomIn('normalRender');
+                        // if(zoomWhiteboard == null){
+                        //     virtualclass.zoom.zoomIn('normalRender');
+                        // }else {
+                        //     virtualclass.zoom.zoomIn();
+                        // }
+                        virtualclass.zoom.zoomIn('normalRender')
+
+
                     } else {
                         console.log('canvasScale is not defined yet.');
                     }

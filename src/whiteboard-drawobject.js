@@ -65,6 +65,9 @@
         
         tool._mousedown = function (ev, cobj) {
             // console.log('Whiteboard draw down');
+            // ev.currX =  ev.currX / virtualclass.zoom.canvasScale;
+            // ev.currY =  ev.currY / virtualclass.zoom.canvasScale;
+
 
             var wId = virtualclass.gObj.currWb;
             var ct = new Date().getTime();
@@ -151,6 +154,9 @@
          */
         tool._mousemove = function (ev, mouseup) {
             // console.log('Whiteboard draw move');
+            // ev.currX = ev.currX / virtualclass.zoom.canvasScale;
+            // ev.currY = ev.currY / virtualclass.zoom.canvasScale;
+
             if (ev.detail.hasOwnProperty('cevent')) {
                 ev = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(ev);
                 ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);

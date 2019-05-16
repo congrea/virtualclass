@@ -1417,6 +1417,7 @@
                             }else {
                                 // alert('There is no page');
                                 virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'disable', 'enable');
+                                virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
                             }
                         },
 
@@ -1487,7 +1488,9 @@
                             } else {
                                 // If there is a zoom, that needs to apply at in next/previous screen,
                                 // virtualclass.zoom.normalRender();
-                                virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
+                               // virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
+
+                                virtualclass.zoom.zoomAction('fitToScreen');
                             }
 
                                 virtualclass.vutil.updateCurrentDoc(this.currNote);

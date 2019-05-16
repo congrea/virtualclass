@@ -391,8 +391,10 @@
                     delete virtualclass.gObj.memberUpdateDelayTimer;
                 }
 
-                virtualclass.poll.pollState = {};
-                virtualclass.poll.dataRec = {};
+                if(virtualclass.hasOwnProperty('poll') && virtualclass.poll !== ''){
+                    virtualclass.poll.pollState = {};
+                    virtualclass.poll.dataRec = {};
+                }
 
                 var congrealogo = document.getElementById('congrealogo');
                 if(congrealogo != null){
@@ -417,7 +419,10 @@
                     currApp.style.display = 'none';
                 }
 
-                virtualclass.media.audio.muteButtonToogle();
+                if(virtualclass.hasOwnProperty('media')){
+                    virtualclass.media.audio.muteButtonToogle();
+                }
+
                 //Remove all chat user list
                 var chatUsers  = chatContainerEvent.elementFromShadowDom('.ui-memblist-usr', 'all');
 

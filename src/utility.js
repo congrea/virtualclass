@@ -664,8 +664,8 @@
                 var canvasScale = (+virtualclass.zoom.canvasScale);
                 console.log('Canvas pdf scale ' + canvasScale);
                 if(virtualclass.vutil.isNumeric(canvasScale)){
-                    localStorage.setItem('wbcScale', canvasScale);
-                };
+                 //   localStorage.setItem('wbcScale', canvasScale);
+                }
                 if(virtualclass.zoom.hasOwnProperty('canvasDimension')){
                     localStorage.setItem('canvasDimension', JSON.stringify(virtualclass.zoom.canvasDimension)); 
                 }
@@ -2208,6 +2208,10 @@
                     }else {
                         virtualclass.vutil.initDashboard(currApp, hidepopup);
                     }
+                }else {
+                    // virtualclass.zoom.zoomAction('fitToScreen');
+                    // virtualclass.pdfRender[virtualclass.gObj.currWb].fitWhiteboardAtScale(virtualclass.gObj.currWb);
+                    // virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale = virtualclass.zoom.canvasScale;
                 }
             }else if(currApp == 'Video'){
                 if(typeof hidepopup ==  'undefined'){

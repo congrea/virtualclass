@@ -407,25 +407,31 @@
                     var canvas = virtualclass.wb[wb].vcan.main.canvas;
                     var viewport;
 
-                    if(!virtualclass.zoom.hasOwnProperty('performZoom')){
-                        delete virtualclass.gObj.canvasWidthAfterZoom;
-                    }
+                    // if(!virtualclass.zoom.hasOwnProperty('performZoom')){
+                    //     delete virtualclass.gObj.canvasWidthAfterZoom;
+                    // }
+
 
                     if(virtualclass.gObj.hasOwnProperty('fitToScreen')){
                         canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas();
                         console.log("==== a canvas width fit to screen");
                     } else if(virtualclass.zoom.hasOwnProperty('performZoom')){
-                        if(virtualclass.gObj.hasOwnProperty('canvasWidthAfterZoom')){
-                            virtualclass.gObj.canvasWidthAfterZoom = (virtualclass.gObj.canvasWidthAfterZoom / virtualclass.zoom.prvCanvasScale ) * scale; // todo integer is loosing precision
-                        } else {
-                            virtualclass.gObj.canvasWidthAfterZoom = (canvas.width / virtualclass.zoom.prvCanvasScale ) * scale; // todo integer is loosing precision
-                        }
-                        canvas.width = Math.ceil(virtualclass.gObj.canvasWidthAfterZoom);
-                        console.log("==== a canvas width zoom "  + canvas.width + ' scale ' + scale + ' perform zoom ' + virtualclass.zoom.performZoom);
+                        // let orginalWidth = page.getViewport(1.0).width;
+                        // if(virtualclass.gObj.hasOwnProperty('canvasWidthAfterZoom')){
+                        //     //virtualclass.gObj.canvasWidthAfterZoom = (virtualclass.gObj.canvasWidthAfterZoom / virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale ) * scale;
+                        //     virtualclass.gObj.canvasWidthAfterZoom = orginalWidth * scale;
+                        // } else {
+                        //     // virtualclass.gObj.canvasWidthAfterZoom = (canvas.width / virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale ) * scale;
+                        //
+                        //     virtualclass.gObj.canvasWidthAfterZoom = orginalWidth * scale;
+                        // }
+                        //canvas.width = Math.ceil(page.getViewport(1.0).width * virtualclass.zoom.canvasScale);
+                        // console.log("==== a canvas width zoom "  + canvas.width + ' scale ' + scale + ' perform zoom ' + virtualclass.zoom.performZoom);
+                        canvas.width = virtualclass.zoom.canvasDimension.width;
                         delete virtualclass.zoom.performZoom;
 
                     } else if(virtualclass.zoom.hasOwnProperty('canvasDimension')){
-                        console.log("==== a canvas width dimension " + virtualclass.zoom.canvasDimension.width);
+                        console.log("==== a canvas width dimension " + virtualclass.zoom.canvasDimension.width + ' scale=' + virtualclass.zoom.canvasScale);
                         canvas.width = virtualclass.zoom.canvasDimension.width;
                     } else if(canvas.offsetWidth === 0 && document.querySelector('#virtualclassApp').style.display === "none"){
                         canvas.width = window.innerWidth - 382;
@@ -434,7 +440,8 @@
 
                     if(this.firstTime){
                         this.firstTime = false;
-                        virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
+                        console.log("## WHITEBOARD Canvas = ", virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale, " ID ", virtualclass.gObj.currWb);
+                        virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale = virtualclass.zoom.canvasScale;
                         if(virtualclass.zoom.canvasScale == null){
                             viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
                             virtualclass.zoom.canvasScale =  viewport.scale;
@@ -446,6 +453,8 @@
                     } else {
                         viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
                     }
+
+                    virtualclass.zoom.canvasScale =  viewport.scale;
 
                     canvas.height  = viewport.height;
 
@@ -501,7 +510,8 @@
                                     if(virtualclass.gObj.currWb != null){
                                         if(document.querySelector('#canvas' + virtualclass.gObj.currWb+ '_pdf') != null){
                                             /* Always run first document with Normal render*/
-                                            virtualclass.zoom.adjustScreenOnDifferentPdfWidthRender(page);
+                                            // virtualclass.zoom.adjustScreenOnDifferentPdfWidthRender(page);
+                                            virtualclass.zoom.adjustScreenOnDifferentPdfWidth(page, true);
                                             virtualclass.gObj.firstNormalRender = true;
                                         }
                                     }
@@ -549,9 +559,8 @@
             },
 
             _zoom : function (canvas, canvasWidth, canvasHeight, normalZoom){
-
-                // virtualclass.vutil.setHeight(virtualclass.gObj.currWb, canvas, canvasHeight);
-                // virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, canvasWidth);
+                virtualclass.vutil.setHeight(virtualclass.gObj.currWb, canvas, canvasHeight);
+                virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, canvasWidth);
 
                 var wrapper = canvas.parentNode;
                 var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(wrapper.style.width);
@@ -560,15 +569,19 @@
                 this.displayPage(this.shownPdf,  1, function (){
                     if(typeof normalZoom === 'undefined' ){
                         console.log('Zooming whiteboard');
-                        for(let wid in virtualclass.pdfRender){
-                            that.zoomwhiteboardObjects(wid);
-                        }
+                        // for(let wid in virtualclass.pdfRender){
+                        //     that.zoomwhiteboardObjects(wid);
+                        // }
+
+                        that.zoomwhiteboardObjects(virtualclass.gObj.currWb);
                     }else {
+
                         /* Following is normal case where we don't need to zoom the
                            whiteboard objects, but only shows the pdf at passed canvas-scale */
                         if(virtualclass.gObj.currWb != null){
                             var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                             vcan.renderAll();
+                            //that.displayNormalWhiteboards(virtualclass.gObj.currWb);
                         }
                     }
                     if(canvasWidth > wrapperWidth){
@@ -577,127 +590,116 @@
                 });
             },
 
+
+            fitWhiteboardAtScale (wId) {
+                //console.log("## WHITEBOARD SCALE CALLED", wId);
+                if(typeof virtualclass.wb[wId] === 'object'){
+                    let vcan = virtualclass.wb[wId].vcan;
+                    let objects = vcan.main.children;
+                    if(objects.length > 0){
+                        for (let i in objects) {
+                            let scaleX = objects[i].scaleX;
+                            let scaleY = objects[i].scaleY;
+
+                            let left = objects[i].x;
+                            let top = objects[i].y;
+
+                            let orginalX = left / objects[i].scaleX;
+                            let orginalY = top / objects[i].scaleY;
+
+                            let tempScaleX = (( scaleX / virtualclass.wb[wId].prvCanvasScale ) * virtualclass.zoom.canvasScale);
+                            let tempScaleY = (( scaleY / virtualclass.wb[wId].prvCanvasScale ) * virtualclass.zoom.canvasScale);
+
+                            let tempLeft = tempScaleX * orginalX;
+                            let tempTop = tempScaleY * orginalY;
+
+                            objects[i].scaleX = tempScaleX;
+                            objects[i].scaleY = tempScaleY;
+
+                            objects[i].x = tempLeft;
+                            objects[i].y = tempTop;
+
+                            objects[i].setCoords();
+                            console.log("## WHITEBOARD scaleX", objects[i].scaleX)
+                        }
+
+
+                    }
+                    vcan.renderAll();
+                }
+            },
+
+            displayNormalWhiteboards (wId) {
+                //console.log("## WHITEBOARD SCALE CALLED", wId);
+                if(typeof virtualclass.wb[wId] === 'object'){
+                    let vcan = virtualclass.wb[wId].vcan;
+
+                    let page = virtualclass.pdfRender[virtualclass.gObj.currWb].page;
+
+                    let canvasOrginalWidth = page.getViewport(1).width;
+
+                    let currCanvasWidth = vcan.main.canvas.width;
+                    let currCanvasHeight = vcan.main.canvas.height;
+                    let scale = currCanvasWidth / canvasOrginalWidth;
+                    let objects = vcan.main.children;
+
+                    if(objects.length > 0){
+                        for (let i in objects) {
+                            let scaleX = objects[i].scaleX;
+                            let scaleY = objects[i].scaleY;
+
+                            let left = objects[i].x;
+                            let top = objects[i].y;
+
+                            let orginalX = left / objects[i].scaleX;
+                            let orginalY = top / objects[i].scaleY;
+
+                            let tempScaleX = scale;
+                            let tempScaleY = scale;
+
+                            let tempLeft = tempScaleX * orginalX;
+                            let tempTop = tempScaleY * orginalY;
+
+                            objects[i].scaleX = tempScaleX;
+                            objects[i].scaleY = tempScaleY;
+
+                            objects[i].x = tempLeft;
+                            objects[i].y = tempTop;
+
+                            objects[i].setCoords();
+                            console.log("## WHITEBOARD scaleX", objects[i].scaleX)
+                        }
+                    }
+                    vcan.renderAll();
+                }
+            },
+
             zoomwhiteboardObjects : function (wId){
-                if(typeof virtualclass.wb[wId] == 'object'){
-                    var vcan = virtualclass.wb[wId].vcan;
-                    var objects = vcan.main.children;
-
-                    if(objects.length == 0){
-                        // if( virtualclass.wb[wId].scale != null){
-                        //     virtualclass.wb[wId].scale *=   SCALE_FACTOR;
-                        // }else {
-                        //     virtualclass.wb[wId].scale = 1 * SCALE_FACTOR;
-                        //
-                        // }
-                    } else {
-                        for (var i in objects) {
-                            var scaleX = objects[i].scaleX;
-                            var scaleY = objects[i].scaleY;
-
-                            var left = objects[i].x;
-                            var top = objects[i].y;
-
-                            var tempScaleX = scaleX * SCALE_FACTOR;
-                            var tempScaleY = scaleY * SCALE_FACTOR;
-
-                            var tempLeft = left * SCALE_FACTOR;
-                            var tempTop = top * SCALE_FACTOR;
-
-                            objects[i].scaleX = tempScaleX;
-                            objects[i].scaleY = tempScaleY;
-
-                            objects[i].x = tempLeft;
-                            objects[i].y = tempTop;
-
-                           // virtualclass.wb[wId].scale = tempScaleX;
-                            //virtualclass.wb[virtualclass.gObj.currWb].scale = 1;
-
-                            objects[i].setCoords();
-                            console.log("===whiteboard scale" + objects[i].scaleX);
-                        }
-                    }
-                    vcan.renderAll();
-                }
-            },
-
-
-
-            zoomwhiteboardObjectsCustomScale : function (wId){
-                if(typeof virtualclass.wb[wId] == 'object'){
-                    var vcan = virtualclass.wb[wId].vcan;
-                    var objects = vcan.main.children;
-
-                    if(objects.length != 0){
-                        for (var i in objects) {
-                            var scaleX = objects[i].scaleX;
-                            var scaleY = objects[i].scaleY;
-
-                            var left = objects[i].x;
-                            var top = objects[i].y;
-
-                            var tempScaleX = scaleX * virtualclass.zoom.canvasScale;
-                            var tempScaleY = scaleY * virtualclass.zoom.canvasScale;
-
-                            var tempLeft = left * virtualclass.zoom.canvasScale;
-                            var tempTop = top * virtualclass.zoom.canvasScale;
-
-                            objects[i].scaleX = tempScaleX;
-                            objects[i].scaleY = tempScaleY;
-
-                            objects[i].x = tempLeft;
-                            objects[i].y = tempTop;
-
-                            objects[i].setCoords();
-                            console.log("===whiteboard scale" + objects[i].scaleX);
-                        }
-                    }
-                    vcan.renderAll();
-                }
-            },
-
-
-
-            _zoomOut : function (canvas, actualWidth, actualHeight, normalZoom){
-                // virtualclass.vutil.setHeight(virtualclass.gObj.currWb, canvas, actualHeight);
-                // virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, actualWidth);
-                var that = this;
-
-                this.displayPage(this.shownPdf,  1, function (){
-                    for(wid in virtualclass.pdfRender){
-                        that.zoomOutWhiteboardObjects(wid);
-                    }
-                });
+                this.fitWhiteboardAtScale(wId);
             },
 
             zoomOutWhiteboardObjects : function (wid){
-                if(typeof virtualclass.wb[wid] == 'object'){
-                    var vcan = virtualclass.wb[wid].vcan;
-                    var objects = vcan.main.children;
-                    for (var i in objects) {
-                        var scaleX = objects[i].scaleX;
-                        var scaleY = objects[i].scaleY;
-                        var left = objects[i].x;
-                        var top = objects[i].y;
-
-                        var tempScaleX = scaleX * (1 / SCALE_FACTOR);
-                        var tempScaleY = scaleY * (1 / SCALE_FACTOR);
-                        var tempLeft = left * (1 / SCALE_FACTOR);
-
-                        var tempTop = top * (1 / SCALE_FACTOR);
-
-                        objects[i].scaleX = tempScaleX;
-                        objects[i].scaleY = tempScaleY;
-                        objects[i].x = tempLeft;
-                        objects[i].y = tempTop;
-
-                        objects[i].setCoords();
-                        virtualclass.wb[wid].scale = tempScaleX;
-                        console.log("==== Whiteboard position x" + objects[i].x + ' position y' + objects[i].y);
-
-                    }
-                    vcan.renderAll();
-                }
+                this.fitWhiteboardAtScale(wid);
             },
+
+            fitToScreenWhiteboardObjects : function (wid){
+                this.fitWhiteboardAtScale(wid);
+            },
+
+            _zoomOut : function (canvas, actualWidth, actualHeight, normalZoom){
+                virtualclass.vutil.setHeight(virtualclass.gObj.currWb, canvas, actualHeight);
+                virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, actualWidth);
+                var that = this;
+                this.displayPage(this.shownPdf,  1, function (){
+                     that.zoomOutWhiteboardObjects(virtualclass.gObj.currWb);
+
+                    // for(wid in virtualclass.pdfRender){
+                    //     that.zoomOutWhiteboardObjects(wid);
+                    // }
+                });
+            },
+
+
 
 
             _fitToScreen : function (canvas, canvasWidth, canvasHeight){
@@ -712,9 +714,11 @@
 
                 var that = this;
                 this.displayPage(this.shownPdf,  1, function (){
-                    for(wid in virtualclass.pdfRender){
-                        that.fitToScreenWhiteboardObjects(wid);
-                    }
+                    // for(wid in virtualclass.pdfRender){
+                    //     that.fitToScreenWhiteboardObjects(wid);
+                    // }
+
+                   that.zoomOutWhiteboardObjects(virtualclass.gObj.currWb);
 
                     if(canvasWidth > wrapperWidth && ((canvasWidth - wrapperWidth) > 55)){
                         wrapper.classList.add('scrollX');
@@ -724,44 +728,6 @@
                 });
             },
 
-            fitToScreenWhiteboardObjects : function (wid){
-                if(typeof virtualclass.wb[wid] == 'object'){
-                    var vcan = virtualclass.wb[wid].vcan;
-                    var objects = vcan.main.children;
-                    if(objects.length > 0){
-                        
-                        for (var i in objects) {
-                            var scaleX = objects[i].scaleX;
-                            var scaleY = objects[i].scaleY;
-
-                            var scaleFactor = ((virtualclass.zoom.canvasScale * 1)/(virtualclass.zoom.prvCanvasScale * 1));
-                            //  console.log('Fit-to-screen, sc('+virtualclass.zoom.canvasScale+' * 1) / psc('+virtualclass.prvCanvasScale+' * 1) = ' + scaleFactor);
-
-                            var left = objects[i].x;
-                            var top = objects[i].y;
-
-                            // if (scaleFactor >= 1) {
-                            var tempLeft = left  * (scaleFactor );
-                            var tempTop = top  * (scaleFactor );
-
-                            objects[i].scaleX = scaleX * (scaleFactor );
-                            objects[i].scaleY = scaleY * (scaleFactor);
-
-                            objects[i].x = tempLeft;
-                            objects[i].y = tempTop;
-
-                            objects[i].setCoords();
-                            virtualclass.wb[wid].scale = scaleX;
-                        }
-
-                        console.log("Fit to screen whiteboard shapes")
-                    }
-
-                    vcan.renderAll();
-                }else {
-                    console.log('Whiteboard missing');
-                }
-            },
 
             isBiggerCanvasHeight : function (canvaS){
                 var canvasWrapper = canvas.parentNode;

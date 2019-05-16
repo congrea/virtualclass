@@ -522,7 +522,7 @@
                 }
             },
 
-            makeAppReady: function (app, cusEvent, data) {
+            makeAppReady: async function (app, cusEvent, data) {
               
              
                 // var congdashboardClose = document.querySelector('#congdashboard button.close');
@@ -601,13 +601,7 @@
 
                     }
 
-                    // setTimeout(
-                    //     function (){
-                    //         if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
-                    //             virtualclass.zoom.normalRender();
-                    //         }
-                    //     }, 100
-                    // );
+                    // virtualclass.zoom.zoomAction('fitToScreen');
                 } else {
                     var prevapp = localStorage.getItem('prevApp');
                     if (prevapp != null) {
@@ -667,6 +661,8 @@
 //                                }
                                  
                              }
+
+
                             //virtualclass.gObj.currWb = '_doc_0_'+virtualclass.gObj.currSlide;
                         }
 
@@ -674,6 +670,8 @@
 
                        virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
                        // system.initResize();
+
+                        // virtualclass.zoom.zoomAction('fitToScreen');
                     } else {
                         var currVideo= Array.prototype.slice.call(arguments)[2];
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));

@@ -141,7 +141,7 @@
                 //
             },
 
-            adjustScreenOnDifferentPdfWidth (page, fitToScreenWidth){
+            adjustScreenOnDifferentPdfWidth (page){
                 page = page || virtualclass.pdfRender[virtualclass.gObj.currWb].page;
                 let viewPort = page.getViewport(1);
                 let newPdfWidth = viewPort.width;
@@ -155,9 +155,7 @@
                     }else {
                         virtualclass.zoom.normalRender();
                     }
-                }else if(fitToScreenWidth != null) {
-                    virtualclass.zoom.fitToScreen();
-                }else {
+                } else {
                     virtualclass.zoom.normalRender();
                 }
                 virtualclass.zoom.prevPdfWidth = newPdfWidth;

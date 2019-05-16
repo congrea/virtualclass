@@ -511,7 +511,7 @@
                                         if(document.querySelector('#canvas' + virtualclass.gObj.currWb+ '_pdf') != null){
                                             /* Always run first document with Normal render*/
                                             // virtualclass.zoom.adjustScreenOnDifferentPdfWidthRender(page);
-                                            virtualclass.zoom.adjustScreenOnDifferentPdfWidth(page, true);
+                                            virtualclass.zoom.adjustScreenOnDifferentPdfWidth(page);
                                             virtualclass.gObj.firstNormalRender = true;
                                         }
                                     }

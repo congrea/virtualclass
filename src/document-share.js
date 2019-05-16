@@ -1488,12 +1488,12 @@
                             } else {
                                 // If there is a zoom, that needs to apply at in next/previous screen,
                                 // virtualclass.zoom.normalRender();
-                               // virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
+                                virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
 
-                                virtualclass.zoom.zoomAction('fitToScreen');
+                                //virtualclass.zoom.zoomAction('fitToScreen');
                             }
 
-                                virtualclass.vutil.updateCurrentDoc(this.currNote);
+                            virtualclass.vutil.updateCurrentDoc(this.currNote);
                             virtualclass.dts.updateLinkNotes(this.currNote);
 
                             var isFirstNote = virtualclass.dts.isFirstNote(note.id);

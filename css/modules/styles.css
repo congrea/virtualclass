@@ -2893,7 +2893,7 @@
 	font-size : 15px;
 }
 
-@media (min-width: 768px){
+@media (min-width: 368px){
 	#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel{
 		float:none !important;
         height:45px !important;
@@ -2994,7 +2994,7 @@
 	}
 }
 
-@media (min-width: 768px) {
+@media (min-width: 368px) {
 	#preCheckcontainer .modal-content{
 		max-height:555px !important;
 	}

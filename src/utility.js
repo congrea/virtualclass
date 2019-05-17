@@ -376,11 +376,11 @@
             } else if (elem.msRequestFullscreen) { /* IE/Edge */
                 elem.msRequestFullscreen();
             }
-            document.querySelector("#fullScreenButton").style.display = "none";
-            document.querySelector("#fullScreenExitButton").style.display = "block";
+            elem.classList.add("fullScreenMode");
         },
 
         closeFullscreen: function () {
+            var elem = document.getElementById("virtualclassCont");
             if (document.exitFullscreen) {
               document.exitFullscreen();
             } else if (document.mozCancelFullScreen) {
@@ -390,8 +390,7 @@
             } else if (document.msExitFullscreen) {
               document.msExitFullscreen();
             }
-            document.querySelector("#fullScreenButton").style.display = "block";
-            document.querySelector("#fullScreenExitButton").style.display = "none";
+            elem.classList.remove("fullScreenMode");
           },
         
         // TODO

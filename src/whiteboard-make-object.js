@@ -15,6 +15,11 @@
      *  returns the object wrapped along with the properties
      */
     var makeobj = function (startPosX, startPosY, endPosX, endPosY, objType) {
+        // startPosX = startPosX / virtualclass.zoom.canvasScale;
+        // startPosY = startPosY / virtualclass.zoom.canvasScale;
+        // endPosX = endPosX / virtualclass.zoom.canvasScale;
+        // endPosY = endPosY / virtualclass.zoom.canvasScale;
+
         //TODO this should be deleted after check properly there is no use of obj.mp object.
         var obj = {mp: {}};
         obj.mp.x = endPosX;

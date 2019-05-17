@@ -6,7 +6,7 @@ $(document).ready(function () {
     // for calculate the
     // Internet Speed, Frame Rate and Internet Latency
     // This need to call after join the session
-    window.onload  = function () {
+    window.onload  = async function () {
         "use strict";
         var initAudios = 0;
         console.log('Whiteboard init very start');
@@ -178,10 +178,10 @@ $(document).ready(function () {
         if (!virtualclass.isPlayMode && localStorage.getItem('mySession') === 'thisismyplaymode') {
             console.log('DELETE PlayMode Data');
             localStorage.clear();
-            virtualclass.init(wbUser.role, appIs, videoObj);
+            await virtualclass.init(wbUser.role, appIs, videoObj);
             virtualclass.storage.config.endSession();
         } else {
-            virtualclass.init(wbUser.role, appIs, videoObj);
+            await virtualclass.init(wbUser.role, appIs, videoObj);
         }
 
 

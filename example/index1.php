@@ -248,6 +248,14 @@ if($info) {
     }
 
 </script>
+<script>
+var virtualclassIDBOpen, virtualclassIDBDelete;
+</script>
+<script type="module">
+     import {openDB, deleteDB} from 'https://unpkg.com/idb?module';
+     virtualclassIDBOpen = openDB;
+     virtualclassIDBDelete = deleteDB;
+</script>
 
 <?php
 

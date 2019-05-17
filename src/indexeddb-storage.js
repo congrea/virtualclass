@@ -1,25 +1,20 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-// This file is part of Vidyamantra - http:www.vidyamantra.com/
-// This file is part of Vidyamantra - http:www.vidyamantra.com/
-// This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-    var alData = 0;
-    var adData = [];
-    var wbDataArr = [];
+    "use strict";
     var that;
-    var prArr = [];
-    var tarr = [];
     var dataStore = false;
     var dataAllStore = false;
+    var storeFirstObj = false;
+    var mc = false;
 
     var storage = {
         //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
-        dbVersion: 7,
+        version: 7,
         sessionEndFlag:false,
-        init: function () {
+        init: async function () {
 
             /***
              * Which table, what doing
@@ -43,404 +38,282 @@
             //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
 
             //  Try and Catch not supporting here
-            var openRequest = window.indexedDB.open("vidya_apps", that.dbVersion);
 
-            openRequest.onerror = function (e) {
-                console.log("Error opening db");
-                console.dir(e);
+            this.db = await virtualclassIDBOpen("vidya_apps", that.dbVersion, {
+                upgrade(db, oldVersion, newVersion, transaction) {
+                   that.onupgradeneeded(db)
+                },
 
-                if(e.target.error.name == 'InvalidStateError'){
-                    // http://stackoverflow.com/questions/14082932/invalid-state-error-in-firefox-for-indexed-db
-                    alert(virtualclass.lang.getString('enablehistory'));
+                blocked() {
+                    // …
+                },
+
+                blocking() {
+                    // …
                 }
+            });
 
-                var request = indexedDB.deleteDatabase('vidya_apps');
-                request.onsuccess = function () {
-                    that.init();
-                };
-
-            };
-
-            openRequest.onupgradeneeded = function (e) {
-                //alert("by this there should create");
-                var thisDb = e.target.result;
-                var objectStore;
-
-                // TODO this should be simplyfy
-                if (!thisDb.objectStoreNames.contains("wbData")) {
-                    thisDb.createObjectStore("wbData", {keyPath: 'did'});
-                }
-
-
-                if (!thisDb.objectStoreNames.contains("config")) {
-                    thisDb.createObjectStore("config", {keyPath: 'timeStamp', autoIncrement: true});
-                }
-
-                if (!thisDb.objectStoreNames.contains("chunkData")) {
-                    thisDb.createObjectStore("chunkData", {autoIncrement: true});
-                }
-
-                if (!thisDb.objectStoreNames.contains("dataAdapterAll")) {
-                    thisDb.createObjectStore("dataAdapterAll", {keyPath: 'serialKey'});
-                }
-
-                if (!thisDb.objectStoreNames.contains("dataUserAdapterAll")) {
-                    thisDb.createObjectStore("dataUserAdapterAll", {keyPath: 'serialKey'});
-                }
-
-                if (!thisDb.objectStoreNames.contains("executedStoreAll")) {
-                    thisDb.createObjectStore("executedStoreAll", {keyPath: 'serialKey'});
-                }
-
-                if (!thisDb.objectStoreNames.contains("executedUserStoreAll")) {
-                    thisDb.createObjectStore("executedUserStoreAll", {keyPath: 'serialKey'});
-                }
-
-                if (!thisDb.objectStoreNames.contains("dstdata")) {
-                    thisDb.createObjectStore("dstdata", {keyPath: 'timeStamp', autoIncrement: true});
-                }
-
-                if (!thisDb.objectStoreNames.contains("pollStorage")) {
-                    thisDb.createObjectStore("pollStorage", {keyPath: 'timeStamp',autoIncrement: true});
-                }
-
-                if (!thisDb.objectStoreNames.contains("quizData")) {
-                    thisDb.createObjectStore("quizData", {keyPath: 'quizkey'});
-                }
-
-                if (!thisDb.objectStoreNames.contains("dstall")) {
-                    thisDb.createObjectStore("dstall", {keyPath: 'timeStamp', autoIncrement: true});
-                }
-            };
-
-            openRequest.onsuccess = function (e) {
-                that.db = e.target.result;
-                for (var i = 0; i < that.tables.length; i++) {
-                    try {
-                        that.db.transaction([that.tables[i]], "readwrite");
-                    } catch (err) {
-                        var request = indexedDB.deleteDatabase('vidya_apps');
-                        request.onsuccess = function () {
-                            that.init();
-                        };
-                        return;
-                        //that.table.create(that.db, that.tables[i]);
-                    }
-                }
-
-                var currTime = new Date().getTime();
-                //meet condition when current and previous user are different
-                if (virtualclass.gObj.sessionClear) {
-                    that.config.endSession(true);
-                } else {
-
-                    var pos = that.tables.indexOf('wbData');
-                    if(pos > -1 ){
-                        var tables = that.tables.slice(pos+1);
-                    } else {
-                        var tables = that.tables;
-                    }
-
-                    that.getAllObjs(tables, function (result) {
-                            if (typeof result == 'undefined') {
-                                that.config.createNewSession();
-                            } else {
-                                var roomCreatedTime = result.createdDate;
-                                var baseDate = new Date().getTime();
-                                var totalTime = baseDate - roomCreatedTime;
-                                // Session is clear after 3 hour continous session
-                                //////////////////////1sec-1min--1hr--3hr/////////
-                                //if (totalTime > (1000 * 60 * 60 * 3) || result.room != wbUser.room) {
-                                if (totalTime > (1000 * 60 * 60 * 3) || result.room != wbUser.room) {
-                                    that.config.endSession();
-                                }
-                            }
-                        }
-                    );
-                }
-                that.db.onerror = function (event) {
-                    console.dir(event.target);
-                };
-            };
+            if(typeof this.db.objectStoreNames === 'object' && this.db.objectStoreNames != null){
+                await this.onsuccess();
+            } else {
+                this.init();
+            }
         },
+
+        onupgradeneeded : function (db) {
+            var thisDb = db;
+            if (!thisDb.objectStoreNames.contains("wbData")) {
+                thisDb.createObjectStore("wbData", {keyPath: 'did'});
+            }
+
+
+            if (!thisDb.objectStoreNames.contains("config")) {
+                thisDb.createObjectStore("config", {keyPath: 'timeStamp', autoIncrement: true});
+            }
+
+            if (!thisDb.objectStoreNames.contains("chunkData")) {
+                thisDb.createObjectStore("chunkData", {autoIncrement: true});
+            }
+
+            if (!thisDb.objectStoreNames.contains("dataAdapterAll")) {
+                thisDb.createObjectStore("dataAdapterAll", {keyPath: 'serialKey'});
+            }
+
+            if (!thisDb.objectStoreNames.contains("dataUserAdapterAll")) {
+                thisDb.createObjectStore("dataUserAdapterAll", {keyPath: 'serialKey'});
+            }
+
+            if (!thisDb.objectStoreNames.contains("executedStoreAll")) {
+                thisDb.createObjectStore("executedStoreAll", {keyPath: 'serialKey'});
+            }
+
+            if (!thisDb.objectStoreNames.contains("executedUserStoreAll")) {
+                thisDb.createObjectStore("executedUserStoreAll", {keyPath: 'serialKey'});
+            }
+
+            if (!thisDb.objectStoreNames.contains("dstdata")) {
+                thisDb.createObjectStore("dstdata", {keyPath: 'timeStamp', autoIncrement: true});
+            }
+
+            if (!thisDb.objectStoreNames.contains("pollStorage")) {
+                thisDb.createObjectStore("pollStorage", {keyPath: 'timeStamp',autoIncrement: true});
+            }
+
+            if (!thisDb.objectStoreNames.contains("quizData")) {
+                thisDb.createObjectStore("quizData", {keyPath: 'quizkey'});
+            }
+
+            if (!thisDb.objectStoreNames.contains("dstall")) {
+                thisDb.createObjectStore("dstall", {keyPath: 'timeStamp', autoIncrement: true});
+            }
+        },
+
+        onsuccess : async function () {
+            if (virtualclass.gObj.sessionClear) {
+                this.config.endSession(true);
+            } else {
+                var pos = this.tables.indexOf('wbData');
+
+                if(pos > -1 ){
+                    var tables = this.tables.slice(pos+1);
+                } else {
+                    var tables = this.tables;
+                }
+
+                await this.getAllObjs(tables, function (result) {
+                    if (typeof result == 'undefined') {
+                        that.config.createNewSession();
+                    } else {
+                        var roomCreatedTime = result.createdDate;
+                        var baseDate = new Date().getTime();
+                        var totalTime = baseDate - roomCreatedTime;
+                        // Session is clear after 3 hour continous session
+                        //////////////////////1sec-1min--1hr--3hr/////////
+                        //if (totalTime > (1000 * 60 * 60 * 3) || result.room != wbUser.room) {
+                        if (totalTime > (1000 * 60 * 60 * 3) || result.room != wbUser.room) {
+                            that.config.endSession();
+                        }
+                    }
+                });
+            }
+
+            /** TODO, error handling **/
+            // that.db.onerror = function (event) {
+            //     console.dir(event.target);
+            // };
+        },
+
 
         store: function (data) {
             //console.log("whiteboard data store");
-             var t = that.db.transaction(["wbData"], "readwrite");
-             var objectStore = t.objectStore("wbData");
-             objectStore.put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
-            return false;
+            const tx = that.db.transaction('wbData', 'readwrite');
+            tx.store.put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
+            tx.done.then(() => {console.log('success')}, () => {console.log('failure')});
         },
 
-        //related poll
-        pollStore:function(store){
-            setTimeout(function(){
-                var t = that.db.transaction(["pollStorage"], "readwrite");
-                var objectStore = t.objectStore("pollStorage");
-                console.log('poll result data length' + JSON.parse(store).length );
-                t.objectStore("pollStorage").add({pollResult:store, currTime:new Date().getTime(), id: 1});
-                return false;
 
-            },500)
-
+        pollStore: function(store){
+            const tx = that.db.transaction('pollStorage', 'readwrite');
+            tx.store.add({pollResult:store, currTime:new Date().getTime(), id: 1});
+            tx.done.then(() => {console.log('success')}, () => {console.log('failure')});
         },
 
         wbDataRemove : function (key){
             console.log('Whiteboard data remove');
-            var t = that.db.transaction(["wbData"], "readwrite");
-            var objectStore = t.objectStore("wbData");
-            objectStore.delete(key);
+            var tx = that.db.transaction(["wbData"], "readwrite");
+            tx.store.delete(key);
         },
 
-        dataExecutedStoreAll: function (data, serialKey) {
-            var t = that.db.transaction(["executedStoreAll"], "readwrite");
-            var objectStore = t.objectStore("executedStoreAll");
-            t.objectStore("executedStoreAll").put({executedData: data, id: 6, serialKey: serialKey}); // Using add can cause errors
+        dataExecutedStoreAll: async function (data, serialKey) {
+            const tx = that.db.transaction('executedStoreAll', 'readwrite');
+            tx.store.put({executedData: data, id: 6, serialKey: serialKey});
+            tx.done.then(() => {console.log('success')}, () => {console.log('failure')});
 
-            t.onerror = function ( e ) {
-                // prevent Firefox from throwing a ConstraintError and aborting (hard)
-                e.preventDefault();
-            }
+            /** TODO, this should be enable **/
+
+            // t.onerror = function ( e ) {
+            //     // prevent Firefox from throwing a ConstraintError and aborting (hard)
+            //     e.preventDefault();
+            // }
         },
 
         dataAdapterAllStore: function (data, serialKey) {
-            var t = that.db.transaction(["dataAdapterAll"], "readwrite");
-            var objectStore = t.objectStore("dataAdapterAll");
-            t.objectStore("dataAdapterAll").put({adaptData: data, id: 5, serialKey: serialKey}); // Using add can cause errors
-
-            t.onerror = function ( e ) {
-                // prevent Firefox from throwing a ConstraintError and aborting (hard)
-                e.preventDefault();
-            }
+            const tx = that.db.transaction('dataAdapterAll', 'readwrite');
+            tx.store.put({adaptData: data, id: 5, serialKey: serialKey});
+            tx.done.then(() => {console.log('success')}, () => {console.log('failure')});
+            /** TODO, this should be enable **/
+            // t.onerror = function ( e ) {
+            //     // prevent Firefox from throwing a ConstraintError and aborting (hard)
+            //     e.preventDefault();
+            // }
         },
 
         dataUserAdapterAllStore: function (data, serialKey) {
-            //TODO FIX this function
-            var t = that.db.transaction(["dataUserAdapterAll"], "readwrite");
-            var objectStore = t.objectStore("dataUserAdapterAll");
-            t.objectStore("dataUserAdapterAll").put({adaptUserData: data, id: 7, serialKey: serialKey}); // Using add can cause errors
+            const tx = that.db.transaction('dataUserAdapterAll', 'readwrite');
+            tx.store.put({adaptUserData: data, id: 7, serialKey: serialKey});
+            tx.done.then(() => {console.log('success')}, () => {console.log('failure')})
 
             // hack for firefox
             // problem https://bugzilla.mozilla.org/show_bug.cgi?id=872873
             // solution https://github.com/aaronpowell/db.js/issues/98
-            t.onerror = function ( e ) {
-                // prevent Firefox from throwing a ConstraintError and aborting (hard)
-                e.preventDefault();
-            }
+            // TODO, this should be enable
+            // t.onerror = function ( e ) {
+            //     // prevent Firefox from throwing a ConstraintError and aborting (hard)
+            //     e.preventDefault();
+            // }
         },
 
 
-        dataExecutedUserStoreAll: function (data, serialKey) {
-            var t = that.db.transaction(["executedUserStoreAll"], "readwrite");
-            var objectStore = t.objectStore("executedUserStoreAll");
-            t.objectStore("executedUserStoreAll").put({executedUserData: data, id: 8, serialKey: serialKey}); // Using add can cause errors
+        dataExecutedUserStoreAll:  function (data, serialKey) {
+            const tx = that.db.transaction('executedUserStoreAll', 'readwrite');
+            tx.store.put({executedUserData: data, id: 8, serialKey: serialKey});
+            tx.done.then(() => {console.log('success')}, () => {console.log('failure')})
 
-            t.onerror = function ( e ) {
-                // prevent Firefox from throwing a ConstraintError and aborting (hard)
-                e.preventDefault();
-            }
+            // t.onerror = function ( e ) {
+            //     // prevent Firefox from throwing a ConstraintError and aborting (hard)
+            //     e.preventDefault();
+            // }
         },
 
         quizStorage: function(quizkey, data){
-            var t = that.db.transaction(["quizData"], "readwrite");
-            var objectStore = t.objectStore("quizData");
-            //objectStore.clear();
-
-            t.objectStore("quizData").put({qzData: data, quizkey: quizkey});
+            const tx = that.db.transaction('quizData', 'readwrite');
+            tx.store.put({qzData: data, quizkey: quizkey});
+            tx.done.then(() => {console.log('success')}, () => {console.log('failure')})
         },
 
-        displayData: function () {
-            var transaction = that.db.transaction(["virtualclass"], "readonly");
-            var objectStore = transaction.objectStore("virtualclass");
-
-            objectStore.openCursor().onsuccess = that.handleResult;
-        },
-
-        getAllObjs: function (tables, callback, row) {
-            var cb = typeof callback != 'undefined' ? callback : "";
-            for (var i = 0; i < tables.length; i++) {
-                var transaction = that.db.transaction(tables[i], "readonly");
-                var objectStore = transaction.objectStore(tables[i]);
-
-                objectStore.openCursor().onsuccess = (function (val, cb) {
-                    return function (event) {
-                        if (typeof cb == 'function') {
-                            if (typeof row != 'undefined') {
-                                that[tables[val]].handleResult(event, cb, row);
-                            } else {
-                                //console.log('table name ' + tables[val]);
-                                if (tables[val] != 'chunkData' && tables[val] != 'quizData'&& tables[val] != 'pollStorage') {
-                                    that[tables[val]].handleResult(event, cb);
-                                }
-                            }
-                        } else {
-                            if (typeof row != 'undefined') {
-                                that[tables[val]].handleResult(event, undefined, row);
-                            } else {
-                                that[tables[val]].handleResult(event);
-                            }
-                        }
+        getAllObjs: async function (tables, callback) {
+            let cb = typeof callback !== 'undefined' ? callback : "";
+            for (let i = 0; i < tables.length; i++) {
+                let cursor = await this.db.transaction(tables[i]).store.openCursor();
+                if (typeof cb === 'function') {
+                    if (tables[i] !== 'chunkData' && tables[i] !== 'quizData' && tables[i] !== 'pollStorage') {
+                       await this[tables[i]].handleResult(cursor, cb);
                     }
-                })(i, cb);
-            }
-        },
-
-        getAllDataForDownload: function (table, cb) {
-
-            var wholeData = [];
-            var transaction = that.db.transaction(table, "readonly");
-            var objectStore = transaction.objectStore(table[0]);
-
-            objectStore.openCursor().onsuccess = function (event) {
-                var cursor = event.target.result;
-                if (cursor) {
-                    wholeData.push(cursor.value);
-                    cursor.continue();
                 } else {
-                    if(wholeData.length > 0){
-                        cb(JSON.stringify(wholeData));
-                    } else {
-                        console.log('No data fetched from indexedDb');
-                    }
-
+                    await this[tables[i]].handleResult(cursor);
                 }
-
-            }
-        },
-        // related poll
-        getAllDataOfPoll: function (table, cb) {
-
-            var dbDefined = false;
-            try {
-                that.db.transaction(["pollStorage"], "readwrite");
-                dbDefined = true;
-            } catch (err) {
-
-                setTimeout(
-                    function (){
-                        that.getAllDataOfPoll(table, cb);
-                    }, 500
-                );
-
-            }
-
-            if(dbDefined){
-                var wholeData = [];
-                var t = that.db.transaction(["pollStorage"], "readwrite");
-                var objectStore = t.objectStore("pollStorage");
-                objectStore.openCursor().onsuccess = function (event) {
-                    var cursor = event.target.result;
-                    if (cursor) {
-                        wholeData.push(cursor.value);
-                        cursor.continue();
-                    } else {
-                        if(wholeData.length > 0){
-                            cb(wholeData);
-                        } else {
-                            console.log('No data fetched from indexedDb');
-                        }
-
-                    }
-
-                }
-
             }
         },
 
-        getrowData: function (table, cb, row) {
-            var transaction = that.db.transaction(table, "readonly");
-            var objectStore = transaction.objectStore(table[0]);
+        getAllDataOfPoll: async function (table, cb) {
+            var wholeData = [];
+            let cursor = await that.db.transaction('pollStorage').store.openCursor();
 
-            if (typeof row == 'string' && row == 'first') {
-                objectStore.openCursor().onsuccess = function (event) {
-                    var cursor = event.target.result;
-                    if (cursor) {
-                        cb(cursor.value, cursor.key);
-                        return;
-                    }
-                    cb("No Such Row");
-                }
+            while (cursor) {
+                console.log(cursor.key, cursor.value);
+                wholeData.push(cursor.value);
+                cursor = await cursor.continue();
+            }
+
+            if(wholeData.length > 0){
+                cb(wholeData);
             } else {
-                //that[table].handleResult(event, cb);
-                var request = objectStore.get(row);
-
-                request.onerror = function (event) {
-                    return "No Such Row";
-                };
-                request.onsuccess = function (event) {
-                    // Do something with the request.result!
-                    cb(request.result);
-                };
+                console.log('No data fetched from indexedDb');
             }
         },
 
         wbData: {
-            handleResult: function (event, cb) {
-                var cursor = event.target.result;
-                if (cursor) {
+            handleResult : async function (cursor) {
+                while (cursor) {
                     if (cursor.value.hasOwnProperty('repObjs')) {
-                        if (typeof virtualclass.wb == 'object') {
+                        if (typeof virtualclass.wb === 'object') {
                             console.log('Total Whiteboard Length ' + JSON.parse(cursor.value.repObjs).length + ' From indexeddb');
                             virtualclass.wb[virtualclass.gObj.currWb].utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
-
                         } else {
                             virtualclass.gObj.tempReplayObjs['_doc_0_0'] = JSON.parse(cursor.value.repObjs);
                         }
-                        //
-                        // virtualclass.gObj.tempReplayObjs['_doc_0_1'] = JSON.parse(cursor.value.repObjs);
                         storeFirstObj = true;
                     }
-                    cursor.continue();
-                } else {
-                    if (typeof storeFirstObj == 'undefined' && virtualclass.currApp == 'Whiteboard') {
-                        virtualclass.wb[virtualclass.gObj.currWb].utility.makeUserAvailable(); //at very first
-                    }
+
+                    cursor = await cursor.continue();
+                }
+
+                if (!storeFirstObj && virtualclass.currApp === 'Whiteboard') {
+                    virtualclass.wb[virtualclass.gObj.currWb].utility.makeUserAvailable(); //at very first
                 }
             }
         },
 
+
         dataAdapterAll: {
-            handleResult: function (event, cb) {
-                var cursor = event.target.result;
-                if (cursor) {
+            handleResult : async function (cursor) {
+                while (cursor) {
                     if (cursor.value.hasOwnProperty('adaptData')) {
-                        var data = JSON.parse(cursor.value.adaptData);
+                        let data = JSON.parse(cursor.value.adaptData);
                         if (parseInt(cursor.value.serialKey) > ioAdapter.serial) {
                             ioAdapter.serial = parseInt(cursor.value.serialKey);
                         }
                         //debugger;
                         ioAdapter.adapterMustData[ioAdapter.serial] = data;
                     }
-                    cursor.continue();
+                    cursor = await cursor.continue();
                 }
             }
         },
 
-
         dataUserAdapterAll: {
-            handleResult: function (event, cb) {
-                var cursor = event.target.result;
-                if (cursor) {
+            handleResult : async function (cursor) {
+                while (cursor) {
                     if (cursor.value.hasOwnProperty('adaptUserData')) {
-                        var data = JSON.parse(cursor.value.adaptUserData);
-                        var usKey = cursor.value.serialKey.split('_'),
+                        let data = JSON.parse(cursor.value.adaptUserData);
+                        let usKey = cursor.value.serialKey.split('_'),
                             uid = parseInt(usKey[0]), serial = parseInt(usKey[1]);
                         ioAdapter.validateAllVariables(uid);
                         if (serial > ioAdapter.userSerial[uid]) {
                             ioAdapter.userSerial[uid] = serial;
                         }
-                        //debugger;
+
                         ioAdapter.userAdapterMustData[uid][serial] = data;
                     }
-                    cursor.continue();
+                    cursor = await cursor.continue();
                 }
             }
         },
 
+
         executedStoreAll: {
-            handleResult: function (event, cb) {
-                var cursor = event.target.result;
-                if (cursor) {
+            handleResult : async function (cursor) {
+                while (cursor) {
                     if (cursor.value.hasOwnProperty('executedData')) {
                         var data = JSON.parse(cursor.value.executedData);
                         //ioMissingPackets.executedSerial = cursor.value.serialKey;
@@ -450,15 +323,15 @@
                         ioMissingPackets.executedStore[uid][serial] = data;
                         //console.log('till now executed ' + cursor.value.serialKey);
                     }
-                    cursor.continue();
+                    cursor = await cursor.continue();
                 }
             }
         },
 
+
         executedUserStoreAll: {
-            handleResult: function (event, cb) {
-                var cursor = event.target.result;
-                if (cursor) {
+            handleResult : async function (cursor) {
+                while (cursor) {
                     if (cursor.value.hasOwnProperty('executedUserData')) {
                         var data = JSON.parse(cursor.value.executedUserData);
 
@@ -470,37 +343,35 @@
 
                         ioMissingPackets.executedUserStore[uid][serial] = data;
 
-                        //console.log('till now executed ' + cursor.value.serialKey);
                     }
-                    cursor.continue();
+                    cursor = await cursor.continue();
                 }
             }
         },
 
-
         config: {
-            handleResult: function (event, cb) {
-                var cursor = event.target.result;
-                if (cursor) {
-                    if (cursor.value.hasOwnProperty('myconfig')) {
-                        var config = JSON.parse(cursor.value.myconfig);
-                        if (typeof cb != 'undefined') {
-                            //TODO mc should be store into object
-                            mc = true;
-                            cb(config);
+            handleResult: async function (cursor, cb) {
+                while (cursor) {
+                    if (cursor) {
+                        if (cursor.value.hasOwnProperty('myconfig')) {
+                            var config = JSON.parse(cursor.value.myconfig);
+                            if (typeof cb != 'undefined') {
+                                //TODO mc should be store into object
+                                mc = true;
+                                cb(config);
+                            }
                         }
-                    }
-                    cursor.continue();
-                } else {
-                    if (typeof cb != 'undefined' && typeof mc == 'undefined') {
-                        cb();
+                        cursor = await cursor.continue();
+                    } else {
+                        if (typeof cb != 'undefined' && !mc) {
+                            cb();
+                        }
                     }
                 }
             },
 
-            createNewSession: function () {
+           createNewSession: function () {
                 virtualclass.makeAppReady(virtualclass.gObj.defaultApp);
-
                 var currTime = new Date().getTime();
                 if (typeof that.db != 'undefined') {
                     var t = that.db.transaction(["config"], "readwrite");
@@ -520,8 +391,10 @@
                     delete virtualclass.gObj.memberUpdateDelayTimer;
                 }
 
-                virtualclass.poll.pollState = {};
-                virtualclass.poll.dataRec = {};
+                if(virtualclass.hasOwnProperty('poll') && virtualclass.poll !== ''){
+                    virtualclass.poll.pollState = {};
+                    virtualclass.poll.dataRec = {};
+                }
 
                 var congrealogo = document.getElementById('congrealogo');
                 if(congrealogo != null){
@@ -546,7 +419,10 @@
                     currApp.style.display = 'none';
                 }
 
-                virtualclass.media.audio.muteButtonToogle();
+                if(virtualclass.hasOwnProperty('media')){
+                    virtualclass.media.audio.muteButtonToogle();
+                }
+
                 //Remove all chat user list
                 var chatUsers  = chatContainerEvent.elementFromShadowDom('.ui-memblist-usr', 'all');
 
@@ -764,61 +640,39 @@
             }
         },
 
-        shapesData: {
-            handleResult: function () {
-                virtualclass.recorder.items.push(JSON.parse(cursor.value.recObjs));
-            }
-        },
-
-        dstStore : function (data){
-            var t = that.db.transaction(["dstdata"], "readwrite");
-            var objectStore = t.objectStore("dstdata");
-            objectStore.clear();
-
-            // localStorage.setItem('repObjs', data); Enable for debugging
-            t.objectStore("dstdata").add({alldocs: data, timeStamp: new Date().getTime(), id: 9});
-        },
-
         // Store for document sharing data
-        dstdata : {
-            handleResult : function(event){
-                var cursor = event.target.result;
-                if (cursor) {
+        dstdata: {
+            handleResult : async function (cursor) {
+                while (cursor) {
                     if (cursor.value.hasOwnProperty('alldocs')) {
                         console.log('document share store');
                         dataStore = true;
                         virtualclass.gObj.docs = JSON.parse(cursor.value.alldocs);
                         // virtualclass.gObj.docs = 'init';
 
-                    }
-                    cursor.continue();
-                } else {
-                    if(!dataStore){
-                        console.log('document share store init');
-                        virtualclass.gObj.docs = 'init';
-                    }
+                        }
+                    cursor = await cursor.continue();
+                }
+
+                if(!dataStore){
+                    virtualclass.gObj.docs = 'init';
+                    console.log("==== Docs init ");
                 }
             }
         },
 
         dstAllStore : function (data){
-            var data = JSON.stringify(data);
-            var t = that.db.transaction(["dstall"], "readwrite");
-            var objectStore = t.objectStore("dstall");
-            objectStore.clear();
+            const tx = this.db.transaction('dstall', 'readwrite');
+            tx.store.clear();
 
-
-            var allNotes = JSON.stringify(virtualclass.dts.allNotes);
-            t.objectStore("dstall").add({dstalldocs: data, allNotes : allNotes, timeStamp: new Date().getTime(), id: 10});
+            let allNotes = JSON.stringify(virtualclass.dts.allNotes);
+            tx.store.add({dstalldocs: JSON.stringify(data), allNotes : allNotes, timeStamp: new Date().getTime(), id: 10});
+            tx.done.then(() => {console.log('success')}, () => {console.log('failure')});
         },
 
-
-        // Store for document sharing data
-        dstall : {
-            handleResult : function(event){
-                //alert('document share init');
-                var cursor = event.target.result;
-                if (cursor) {
+        dstall:  {
+            handleResult : async function (cursor) {
+                while (cursor) {
                     if (cursor.value.hasOwnProperty('dstalldocs')) {
                         console.log('document share store');
                         dataAllStore = true;
@@ -826,32 +680,29 @@
                         virtualclass.gObj.dstAll = JSON.parse(cursor.value.dstalldocs);
                         virtualclass.gObj.dstAllNotes = JSON.parse(cursor.value.allNotes);
                     }
-                    cursor.continue();
-                } else {
-                    if(!dataAllStore){
-                        console.log('document share store init');
-                        virtualclass.gObj.dstAll = 'init';
-                    }
+                    cursor = await cursor.continue();
+                }
+
+                if(!dataAllStore){
+                    console.log('document share store init');
+                    virtualclass.gObj.dstAll = 'init';
                 }
             }
         },
 
         clearSingleTable : function (table, lastTable){
-            var t = this.db.transaction(table, "readwrite");
-            if (typeof t != 'undefined') {
-                var objectStore = t.objectStore(table);
-                objectStore.clear();
-                console.log('Cleared IDDB Table ' + table);
-                if(typeof lastTable != 'undefined'){
-                    lastTable();
-                }
-            } else {
-                console.log('There is no table '+ table + ' at IDDB.');
+            const tx = this.db.transaction(table, 'readwrite');
+            tx.store.clear();
+
+            if(typeof lastTable !== 'undefined'){
+                lastTable();
             }
+
             // if we clear the indexed db then we need to
             // that docs to be init
             if(table == 'dstdata'){
                 virtualclass.gObj.docs = 'init';
+                console.log("==== Docs init ");
             }
 
             if(table == 'dstall'){
@@ -893,74 +744,37 @@
 
         // Get quiz data, store in array based on
         // key and then return array of object
-        getQuizData : function (cb){
-            var dbDefined = false;
-            try {
-                that.db.transaction(["quizData"], "readonly");
-                dbDefined = true;
-            } catch (err) {
-                setTimeout(
-                    function (){
-                        that.getQuizData(cb);
-                    }, 500
-                );
+        getQuizData : async function (){
+            var dataArr = [];
+            let cursor = await this.db.transaction('quizData').store.openCursor();
+            while (cursor) {
+                var qdata = cursor.value;
+                dataArr[cursor.value.quizkey] = cursor.value.qzData;
+                cursor = await cursor.continue();
             }
-            if(dbDefined){
-                var t = that.db.transaction(["quizData"], "readonly");
-                var objectStore = t.objectStore("quizData");
-                var dataArr = [];
 
-                objectStore.openCursor().onsuccess = function (event) {
-                    var cursor = event.target.result;
-                    if (cursor) {
-                        var qdata = cursor.value;
-                        dataArr[cursor.value.quizkey] = cursor.value.qzData;
-                        cursor.continue();
-                    } else {
-                        cb(dataArr);
-                    }
-                }
-            }
+            cb(dataArr);
         },
 
         // Clear all data from given table
         clearTableData: function (table) {
-            var t = that.db.transaction([table], "readwrite");
-            var objectStore = t.objectStore(table);
-            objectStore.clear();
+            const tx = this.db.transaction(table, 'readwrite');
+            tx.store.clear();
         },
 
         // get whiteboard data accoring to whieboard id
-        getWbData : function (wbId, cb){
-            var dbDefined = false;
-            try {
-                that.db.transaction(["wbData"], "readwrite");
-                dbDefined = true;
-            } catch (err) {
-                setTimeout(
-                    function (){
-                        that.getWbData(wbId, cb);
-                    }, 500
-                );
-            }
 
-            if(dbDefined){
-                console.log('GET DATA FROM LOCAL STORAGE');
-                var t = that.db.transaction(["wbData"], "readwrite");
-                //tx = db.transaction("MyObjectStore", "readwrite");
-                var row = t.objectStore("wbData");
-                var wb = row.get(wbId);
-                wb.onsuccess = function (e){
-                    console.log('===== init whiteboard ');
-                    if(typeof wb.result != 'undefined'){
-                        console.log('Whiteboard start store from local storage ' + wbId);
-                        virtualclass.gObj.tempReplayObjs[wbId] = [];
-                        virtualclass.gObj.tempReplayObjs[wbId] = JSON.parse(wb.result.repObjs);
-                        cb();
-                    } else {
-                        virtualclass.gObj.tempReplayObjs[wbId] = 'nodata';
-                    }
-                }
+        getWbData : async function (wbId){
+            let tx = await this.db.transaction('wbData', 'readwrite');
+            let store = tx.objectStore('wbData');
+            let wb = await store.get(wbId);
+
+            if(typeof wb !== 'undefined'){
+                console.log('Whiteboard start store from local storage ' + wbId);
+                virtualclass.gObj.tempReplayObjs[wbId] = [];
+                virtualclass.gObj.tempReplayObjs[wbId] = JSON.parse(wb.repObjs);
+            } else {
+                virtualclass.gObj.tempReplayObjs[wbId] = 'nodata';
             }
         }
     };

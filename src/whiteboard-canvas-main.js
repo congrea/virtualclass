@@ -23,9 +23,9 @@
                     }
                     var vcanvas = vcan.main.canvas;
                     var ctx = vcanvas.getContext('2d');
-
+                    // obj.coreObj.scaleX = virtualclass.zoom.canvasScale;
+                    // obj.coreObj.scaleY = virtualclass.zoom.canvasScale;
                     vcan.render(ctx, obj.coreObj);
-
                 }
             },
             /**

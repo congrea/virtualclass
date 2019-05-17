@@ -637,7 +637,7 @@ display: none;
 
 /* Responsive */
 
-@media (min-width: 768px){
+@media (min-width: 368px){
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
     height: 48px !important;
     }

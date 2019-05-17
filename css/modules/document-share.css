@@ -407,10 +407,9 @@
         width:130px;
     }
 }
-@media (min-width:768px) {
-    @media (min-width: 768px) {
-        #DocumentShareDashboard .dbContainer .dashboardview.col-sm-10 {
-            width: 78.333333%;
+@media (min-width: 768px) {
+    #DocumentShareDashboard .dbContainer .dashboardview.col-sm-10 {
+        width: 78.333333%;
         }
     }
 

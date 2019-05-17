@@ -14,10 +14,8 @@ $(document).ready(function () {
         window.earlierHeight = window.innerHeight;
         window.wbUser = wbUser;
         window.pageEnter = new Date().getTime();
-
-        var virtualclassIDBOpen = await import('./src/idb.js?module');
         var virtualclass = new window.virtualclass();
-        virtualclass.virtualclassIDBOpen = virtualclassIDBOpen.openDB;
+        virtualclass.virtualclassIDBOpen = window.virtualclassOpenDB;
 
         window.virtualclass = virtualclass; //Need virtualclass object in each file
 

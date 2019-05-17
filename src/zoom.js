@@ -67,7 +67,7 @@
                 if(virtualclass.currApp === 'ScreenShare'){
                     virtualclass.studentScreen[fnName].call(virtualclass.studentScreen);
                 } else {
-                    virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale = this.canvasScale;
+                    virtualclass.zoom.prvCanvasScale = this.canvasScale;
                     this[fnName].call(this);
                 }
             },

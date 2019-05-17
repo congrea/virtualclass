@@ -440,8 +440,8 @@
 
                     if(this.firstTime){
                         this.firstTime = false;
-                        console.log("## WHITEBOARD Canvas = ", virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale, " ID ", virtualclass.gObj.currWb);
-                        virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale = virtualclass.zoom.canvasScale;
+                        console.log("## WHITEBOARD Canvas = ", virtualclass.zoom.prvCanvasScale, " ID ", virtualclass.gObj.currWb);
+                        virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
                         if(virtualclass.zoom.canvasScale == null){
                             viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
                             virtualclass.zoom.canvasScale =  viewport.scale;
@@ -569,11 +569,9 @@
                 this.displayPage(this.shownPdf,  1, function (){
                     if(typeof normalZoom === 'undefined' ){
                         console.log('Zooming whiteboard');
-                        // for(let wid in virtualclass.pdfRender){
-                        //     that.zoomwhiteboardObjects(wid);
-                        // }
-
-                        that.zoomwhiteboardObjects(virtualclass.gObj.currWb);
+                        for(let wid in virtualclass.pdfRender){
+                            that.zoomwhiteboardObjects(wid);
+                        }
                     }else {
 
                         /* Following is normal case where we don't need to zoom the
@@ -607,8 +605,8 @@
                             let orginalX = left / objects[i].scaleX;
                             let orginalY = top / objects[i].scaleY;
 
-                            let tempScaleX = (( scaleX / virtualclass.wb[wId].prvCanvasScale ) * virtualclass.zoom.canvasScale);
-                            let tempScaleY = (( scaleY / virtualclass.wb[wId].prvCanvasScale ) * virtualclass.zoom.canvasScale);
+                            let tempScaleX = (( scaleX / virtualclass.zoom.prvCanvasScale ) * virtualclass.zoom.canvasScale);
+                            let tempScaleY = (( scaleY / virtualclass.zoom.prvCanvasScale ) * virtualclass.zoom.canvasScale);
 
                             let tempLeft = tempScaleX * orginalX;
                             let tempTop = tempScaleY * orginalY;
@@ -629,50 +627,6 @@
                 }
             },
 
-            displayNormalWhiteboards (wId) {
-                //console.log("## WHITEBOARD SCALE CALLED", wId);
-                if(typeof virtualclass.wb[wId] === 'object'){
-                    let vcan = virtualclass.wb[wId].vcan;
-
-                    let page = virtualclass.pdfRender[virtualclass.gObj.currWb].page;
-
-                    let canvasOrginalWidth = page.getViewport(1).width;
-
-                    let currCanvasWidth = vcan.main.canvas.width;
-                    let currCanvasHeight = vcan.main.canvas.height;
-                    let scale = currCanvasWidth / canvasOrginalWidth;
-                    let objects = vcan.main.children;
-
-                    if(objects.length > 0){
-                        for (let i in objects) {
-                            let scaleX = objects[i].scaleX;
-                            let scaleY = objects[i].scaleY;
-
-                            let left = objects[i].x;
-                            let top = objects[i].y;
-
-                            let orginalX = left / objects[i].scaleX;
-                            let orginalY = top / objects[i].scaleY;
-
-                            let tempScaleX = scale;
-                            let tempScaleY = scale;
-
-                            let tempLeft = tempScaleX * orginalX;
-                            let tempTop = tempScaleY * orginalY;
-
-                            objects[i].scaleX = tempScaleX;
-                            objects[i].scaleY = tempScaleY;
-
-                            objects[i].x = tempLeft;
-                            objects[i].y = tempTop;
-
-                            objects[i].setCoords();
-                            console.log("## WHITEBOARD scaleX", objects[i].scaleX)
-                        }
-                    }
-                    vcan.renderAll();
-                }
-            },
 
             zoomwhiteboardObjects : function (wId){
                 this.fitWhiteboardAtScale(wId);
@@ -691,11 +645,10 @@
                 virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, actualWidth);
                 var that = this;
                 this.displayPage(this.shownPdf,  1, function (){
-                     that.zoomOutWhiteboardObjects(virtualclass.gObj.currWb);
-
-                    // for(wid in virtualclass.pdfRender){
-                    //     that.zoomOutWhiteboardObjects(wid);
-                    // }
+                    // that.zoomOutWhiteboardObjects(virtualclass.gObj.currWb);
+                    for(wid in virtualclass.pdfRender){
+                        that.zoomOutWhiteboardObjects(wid);
+                    }
                 });
             },
 
@@ -714,11 +667,11 @@
 
                 var that = this;
                 this.displayPage(this.shownPdf,  1, function (){
-                    // for(wid in virtualclass.pdfRender){
-                    //     that.fitToScreenWhiteboardObjects(wid);
-                    // }
+                    for(wid in virtualclass.pdfRender){
+                            that.fitToScreenWhiteboardObjects(wid);
+                    }
 
-                   that.zoomOutWhiteboardObjects(virtualclass.gObj.currWb);
+                    //that.zoomOutWhiteboardObjects(virtualclass.gObj.currWb);
 
                     if(canvasWidth > wrapperWidth && ((canvasWidth - wrapperWidth) > 55)){
                         wrapper.classList.add('scrollX');

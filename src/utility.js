@@ -376,9 +376,11 @@
             } else if (elem.msRequestFullscreen) { /* IE/Edge */
                 elem.msRequestFullscreen();
             }
+            elem.classList.add("fullScreenMode");
         },
 
         closeFullscreen: function () {
+            var elem = document.getElementById("virtualclassCont");
             if (document.exitFullscreen) {
               document.exitFullscreen();
             } else if (document.mozCancelFullScreen) {
@@ -388,6 +390,7 @@
             } else if (document.msExitFullscreen) {
               document.msExitFullscreen();
             }
+            elem.classList.remove("fullScreenMode");
           },
         
         // TODO

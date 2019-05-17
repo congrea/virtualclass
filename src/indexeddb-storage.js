@@ -39,17 +39,9 @@
 
             //  Try and Catch not supporting here
 
-            this.db = await virtualclassIDBOpen("vidya_apps", that.dbVersion, {
+            this.db = await virtualclass.virtualclassIDBOpen("vidya_apps", that.dbVersion, {
                 upgrade(db, oldVersion, newVersion, transaction) {
                    that.onupgradeneeded(db)
-                },
-
-                blocked() {
-                    // …
-                },
-
-                blocking() {
-                    // …
                 }
             });
 

@@ -1,5 +1,6 @@
 (function (window) {
-    window.virtualclass = function () {
+    window.virtualclass =  function () {
+
         // canvasScale = 1; //global
         SCALE_FACTOR = 1.02;//global 18/05/2015
         var dstData = null;

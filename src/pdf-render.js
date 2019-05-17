@@ -62,21 +62,21 @@
                 }
             },
 
-            async _loadPdf  (url, canvas, currNote){
+            _loadPdf  (url, canvas, currNote){
                 console.log('====PDF, Init2 load ' + virtualclass.gObj.currWb);
                 if(virtualclass.gObj.next.hasOwnProperty(currNote)){
-                    await this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
+                     this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
                 } else {
-                    this.xhr.send(url, await this.afterPdfLoad.bind(this, canvas, currNote), 'arraybuffer');
+                    this.xhr.send(url, this.afterPdfLoad.bind(this, canvas, currNote), 'arraybuffer');
                 }
 
-                if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
-                    var note = document.querySelector('#note'+currNote);
-                    if(note != null && note.nextElementSibling != null){
-                        var preFetchSlide =  note.nextElementSibling.dataset.slide;
-                        virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
-                    }
-                }
+                // if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
+                //     var note = document.querySelector('#note'+currNote);
+                //     if(note != null && note.nextElementSibling != null){
+                //         var preFetchSlide =  note.nextElementSibling.dataset.slide;
+                //         virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
+                //     }
+                // }
             },
             
             async afterPdfLoad (canvas, currNote, data){
@@ -126,6 +126,14 @@
                     if(virtualclass.currApp == 'DocumentShare'){
                         // virtualclasElem.classList.remove('pdfRendering');
                         virtualclass.wbCommon.deleteWhiteboard(prvWhiteboard);
+                    }
+                }
+
+                if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
+                    var note = document.querySelector('#note'+currNote);
+                    if(note != null && note.nextElementSibling != null){
+                        var preFetchSlide =  note.nextElementSibling.dataset.slide;
+                        virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
                     }
                 }
 

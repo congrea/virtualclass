@@ -14,9 +14,13 @@ $(document).ready(function () {
         window.earlierHeight = window.innerHeight;
         window.wbUser = wbUser;
         window.pageEnter = new Date().getTime();
+
+        var virtualclassIDBOpen = await import('./src/idb.js?module');
         var virtualclass = new window.virtualclass();
+        virtualclass.virtualclassIDBOpen = virtualclassIDBOpen.openDB;
 
         window.virtualclass = virtualclass; //Need virtualclass object in each file
+
         virtualclass.gObj.displayError = 1;
         virtualclass.lang = {};
         virtualclass.lang.getString = window.getString;

@@ -702,8 +702,6 @@
 
                         if(roles.hasControls() && app == 'Video'){
                             if ("virtualclass" + app != virtualclass.previous) {
-
-
                                 var dashboardnav = document.querySelector('#dashboardnav button');
                                 if (dashboardnav != null) {
                                     dashboardnav.setAttribute("data-currapp","Video")
@@ -988,6 +986,7 @@
                             }
                         }
 
+                        console.log("==== previous set " + this.wbConfig.id);
                         this.previous = this.wbConfig.id;
 
                     }else{
@@ -1223,9 +1222,8 @@
                         }
                     }
 
-
-
-                    virtualclass.previous = virtualclass.dtsConfig.id;
+                   virtualclass.previous = virtualclass.dtsConfig.id;
+                   console.log("==== previous " + virtualclass.previous);
                 },
 
                 DocumentShare: function(app, customEvent, docsObj) {

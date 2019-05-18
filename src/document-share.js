@@ -1173,6 +1173,7 @@
                 },
 
                 displayScreen : function (screen, slide){
+                    console.log("==== prev display screen");
                     if(typeof slide != 'undefined'){
                         this.curr(screen, slide);
                     } else {
@@ -1185,7 +1186,7 @@
                  * Create whitebaord/annoation tool for each slide/note
                  * @param slide expects the slide
                  */
-                createWhiteboard : function (slide){
+                createWhiteboard : async function (slide){
                     var cthis = virtualclass.dts;
                     var wbid = '_doc_'+slide+'_'+slide;
 
@@ -1218,11 +1219,12 @@
                     var elem = document.querySelector(query);
                     if(elem != null){
                         elem.insertBefore(whiteboard, elem.firstChild);
-                        virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
+                        await virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
                     } else {
                         console.log("Element is null");
 
                     }
+                    console.log("==== previous set ", virtualclass.dtsConfig.id)
                     virtualclass.previous = virtualclass.dtsConfig.id;
                 },
 

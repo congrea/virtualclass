@@ -176,8 +176,6 @@
                 var wid = virtualclass.gObj.currWb;
                 if(typeof virtualclass.pdfRender[wid] != 'undefined'){
                     console.log('--Pdf render start----------');
-                    console.log('Pdf render fit to screen');
-                    console.log('--Pdf render----------');
                     var page = virtualclass.pdfRender[wid].page;
                     var canvas = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.canvas;
             
@@ -196,10 +194,8 @@
                         virtualclass.zoom.prvWhiteboard = virtualclass.gObj.currWb;
 
                         var viewport = page.getViewport((+(wrapperWidth)) / page.getViewport(1.0).width);
-                        // this.canvasScale = viewport.scale;
                         console.log('==== PDF width => ' + viewport.width + ' PDF height => ' + viewport.height +  ' scale => ' + viewport.scale);
                         console.log('==== PDF temp width => ' + tempviewport.width + ' PDF height => ' + tempviewport.height +  ' scale => ' + tempviewport.scale + ", after scale=" +this.canvasScale);
-                        // console.log('Canvas pdf scale ' + this.canvasScale);
                         virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
                     }catch (error){
                         console.log('Error ' + error);

@@ -165,11 +165,11 @@
 
                 var that =  this;
                 elem.onscroll = function (){
-                    that.onScroll(elem);
+                     that.onScroll(elem);
                 }
             },
 
-            onScroll : function (elem, defaultCall){
+            onScroll : function (elem, resetScroll){
                 var topPosY = elem.scrollTop;
                 var leftPosX = elem.scrollLeft;
 
@@ -180,11 +180,11 @@
                 leftPosX = elem.scrollLeft;
 
 
-                if(topPosY > 0){
+                if(topPosY > 0 || typeof resetScroll !== 'undefined'){
                     this._scroll(leftPosX, topPosY, elem, 'Y');
                 }
 
-                if(leftPosX > 0){
+                if(leftPosX > 0 || typeof resetScroll !== 'undefined' ){
                     this._scroll(leftPosX, topPosY, elem, 'X')
                 }
 
@@ -198,6 +198,8 @@
                 if(roles.hasControls()){
                     this.topPosY = topPosY;
                     this.leftPosX = leftPosX;
+                    console.log("==== top position y " + this.topPosY);
+                    console.log("==== top position x" + this.topPosX);
                     return this.scrollPosition(elem, type);
                 } else {
                     if(type == 'Y'){
@@ -445,17 +447,13 @@
                         }else {
                             viewport = page.getViewport(scale);
                         }
-                    } else if(virtualclass.gObj.hasOwnProperty('fitToScreen')){
-                        viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
-                    } else {
+                    }  else {
                         viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
                     }
 
                     virtualclass.zoom.canvasScale =  viewport.scale;
 
                     canvas.height  = viewport.height;
-
-                    delete virtualclass.gObj.fitToScreen;
 
                     var pdfCanvas = canvas.nextSibling;
                     pdfCanvas.width = canvas.width;
@@ -464,6 +462,15 @@
                     virtualclass.zoom.canvasDimension = {};
                     virtualclass.zoom.canvasDimension.width =  canvas.width;
                     virtualclass.zoom.canvasDimension.height =  canvas.height;
+
+                    if(virtualclass.gObj.hasOwnProperty('fitToScreen')){
+                        let canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
+                        if(canvasWrapper != null && canvasWrapper.scrollHeight <= canvasWrapper.clientHeight){
+                            virtualclass.pdfRender[virtualclass.gObj.currWb].onScroll(canvasWrapper, true);
+                        }
+                    }
+
+                    delete virtualclass.gObj.fitToScreen;
             
                     var context = pdfCanvas.getContext('2d');
             

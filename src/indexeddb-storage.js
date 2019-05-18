@@ -436,10 +436,11 @@
                 var newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
                 var precheck = localStorage.getItem('precheck');
                 localStorage.clear();
-                delete virtualclass.chat.vmstorage;
-                virtualclass.chat.vmstorage = {};
-
-
+                if(virtualclass.chat != null){
+                    delete virtualclass.chat.vmstorage;
+                    virtualclass.chat.vmstorage = {};
+                    virtualclass.chat.removeChatHighLight('chatrm');
+                }
                 virtualclass.recorder.items = [];
                 virtualclass.recorder.totalSent = 0;
                 virtualclass.gObj.tempReplayObjs.length = 0;
@@ -450,8 +451,12 @@
                 virtualclass.gObj.studentSSstatus.shareToAll = false;
                 virtualclass.gObj.studentSSstatus.sharing = false;
                 delete virtualclass.gObj.whoIsSharing;
-                virtualclass.videoHost.gObj.stdStopSmallVid= false;
-                virtualclass.videoHost.gObj.allStdVideoOff=false;
+                if(virtualclass.videoHost != null){
+                    virtualclass.videoHost.gObj.stdStopSmallVid= false;
+                    virtualclass.videoHost.gObj.allStdVideoOff=false;
+                }
+
+
                 virtualclass.gObj.wbTool = {};
 
                 //virtualclass.recorder.rnum = 1; // set file to 1
@@ -532,7 +537,7 @@
                 virtualclass.getContent = false;
                 virtualclass.recorder.storeDone = 0;
 
-                virtualclass.chat.removeChatHighLight('chatrm');
+
                 virtualclass.setPrvUser(); // Set Previous User
 
                 workerIO.postMessage({'cmd' : 'sessionEndClose'});
@@ -615,16 +620,20 @@
                     }
                 }
 
-
-                if(!listTab.classList.contains("active")){
-                    listTab.classList.add("active")
+                if(chatroomTab != null){
+                    if(!listTab.classList.contains("active")){
+                        listTab.classList.add("active")
+                    }
+                    chatroomTab.classList.remove("active");
                 }
-                chatroomTab.classList.remove("active");
 
-                virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};
-                if(roles.hasAdmin()){
-                    virtualclass.serverData.fetchAllData();
+                if(virtualclass.serverData != null){
+                    virtualclass.serverData.rawData = {video:[], ppt:[], docs:[]};
+                    if(roles.hasAdmin()){
+                        virtualclass.serverData.fetchAllData();
+                    }
                 }
+
                 virtualclass.gObj.wIds = [0];
                 virtualclass.gObj.wbCount = 0;
                 virtualclass.wbCommon.clearNavigation();

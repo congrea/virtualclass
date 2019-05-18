@@ -166,7 +166,7 @@
                 if(canvas != null && canvas.parentNode != null){
                     // 382 = rightside bar + scroll + left app bar
                     // 372 = rightside bar + left app bar
-                    return (canvas.parentNode.scrollHeight > canvas.parentNode.clientHeight) ? 382 : 372
+                    return (canvas.parentNode.scrollHeight > canvas.parentNode.clientHeight) ? 382 : 372;
                 }
             },
 
@@ -194,7 +194,6 @@
                         var tempviewport =  page.getViewport(1);
                         virtualclass.zoom.fitToScreenWidth = tempviewport.width;
                         virtualclass.zoom.prvWhiteboard = virtualclass.gObj.currWb;
-
 
                         var viewport = page.getViewport((+(wrapperWidth)) / page.getViewport(1.0).width);
                         // this.canvasScale = viewport.scale;

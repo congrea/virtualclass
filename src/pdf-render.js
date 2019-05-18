@@ -415,26 +415,11 @@
                     var canvas = virtualclass.wb[wb].vcan.main.canvas;
                     var viewport;
 
-                    // if(!virtualclass.zoom.hasOwnProperty('performZoom')){
-                    //     delete virtualclass.gObj.canvasWidthAfterZoom;
-                    // }
-
 
                     if(virtualclass.gObj.hasOwnProperty('fitToScreen')){
                         canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas();
                         console.log("==== a canvas width fit to screen");
                     } else if(virtualclass.zoom.hasOwnProperty('performZoom')){
-                        // let orginalWidth = page.getViewport(1.0).width;
-                        // if(virtualclass.gObj.hasOwnProperty('canvasWidthAfterZoom')){
-                        //     //virtualclass.gObj.canvasWidthAfterZoom = (virtualclass.gObj.canvasWidthAfterZoom / virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale ) * scale;
-                        //     virtualclass.gObj.canvasWidthAfterZoom = orginalWidth * scale;
-                        // } else {
-                        //     // virtualclass.gObj.canvasWidthAfterZoom = (canvas.width / virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale ) * scale;
-                        //
-                        //     virtualclass.gObj.canvasWidthAfterZoom = orginalWidth * scale;
-                        // }
-                        //canvas.width = Math.ceil(page.getViewport(1.0).width * virtualclass.zoom.canvasScale);
-                        // console.log("==== a canvas width zoom "  + canvas.width + ' scale ' + scale + ' perform zoom ' + virtualclass.zoom.performZoom);
                         canvas.width = virtualclass.zoom.canvasDimension.width;
                         delete virtualclass.zoom.performZoom;
 
@@ -444,6 +429,10 @@
                     } else if(canvas.offsetWidth === 0 && document.querySelector('#virtualclassApp').style.display === "none"){
                         canvas.width = window.innerWidth - 382;
                         console.log("==== a canvas width click to continue");
+                    }
+
+                    if(!roles.hasControls()){
+                        canvas.width += 50; // add left bar's width on canvas width for student
                     }
 
                     if(this.firstTime){

@@ -35,9 +35,11 @@
                     }else {
                         this.storageRawData = (typeof virtualclass.gObj.dstAll == 'object') ? virtualclass.gObj.dstAll : null;
                     }
+                    
+                    if (virtualclass.gObj.dstAllNotes != null) {
+                        this.allNotes = virtualclass.gObj.dstAllNotes;
+                    }
 
-
-                    this.allNotes = virtualclass.gObj.dstAllNotes;
                     if(roles.isStudent()){
                         virtualclass.serverData.rawData.docs = this.storageRawData;
                     }

@@ -199,7 +199,7 @@
                     this.topPosY = topPosY;
                     this.leftPosX = leftPosX;
                     console.log("==== top position y " + this.topPosY);
-                    console.log("==== top position x" + this.topPosX);
+                    console.log("==== top position x" + this.leftPosX);
                     return this.scrollPosition(elem, type);
                 } else {
                     if(type == 'Y'){
@@ -465,8 +465,10 @@
 
                     if(virtualclass.gObj.hasOwnProperty('fitToScreen')){
                         let canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
-                        if(canvasWrapper != null && canvasWrapper.scrollHeight <= canvasWrapper.clientHeight){
-                            virtualclass.pdfRender[virtualclass.gObj.currWb].onScroll(canvasWrapper, true);
+                        if(canvasWrapper != null){
+                            if((canvasWrapper.scrollHeight <= canvasWrapper.clientHeight) || (canvasWrapper.scrollWidth <= canvasWrapper.clientWidth)){
+                                virtualclass.pdfRender[virtualclass.gObj.currWb].onScroll(canvasWrapper, true);
+                            }
                         }
                     }
 

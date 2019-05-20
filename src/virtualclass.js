@@ -119,6 +119,8 @@
             },
 
             init: async function (urole, app, videoObj) {
+                let vcContainer = document.getElementById('virtualclassCont');
+                vcContainer.classList.add('loading');
                 var wbUser = window.wbUser;
                 this.saveRecording = +(wbUser.saveRecording);
                 virtualclass.uInfo = {
@@ -262,10 +264,8 @@
                 }
                 if (localStorage.uRole != null) {
                     virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
-                    var vcContainer = document.getElementById('virtualclassCont');
                     vcContainer.classList.add(virtualclass.vutil.getClassName(virtualclass.gObj.uRole));
                 }
-
 
                 if (typeof videoObj == 'undefined' || videoObj == null) {
                     this.makeAppReady(app, "byclick");
@@ -307,7 +307,11 @@
                          virtualclass.gesture.initClassJoin();
                     }
                 }
-                   virtualclass.gObj.precheckScrn= false;
+
+                vcContainer.classList.remove('loading');
+
+                virtualclass.gObj.precheckScrn= false;
+
 
                 // For initialize the Teacher Video
                 if(!virtualclass.gObj.meetingMode){

@@ -433,7 +433,7 @@
                         console.log("==== a canvas width click to continue");
                     }
 
-                    if(!roles.hasControls()){
+                    if(!roles.hasControls() && (!virtualclass.zoom.hasOwnProperty('canvasDimension'))){
                         canvas.width += 50; // add left bar's width on canvas width for student
                     }
 

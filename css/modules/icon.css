@@ -815,12 +815,12 @@
   content: "\e95e";
     font-weight: normal;
     font-family: 'icomoon';
-    font-size: 22px;
+    font-size: 20px;
 }
 
 #virtualclassCont.congrea #fullScreenExitButton span .icon-exitScreen:before {
   content: "\e99b";
     font-weight: normal;
     font-family: 'icomoon';
-    font-size: 20px;
+    font-size: 18px;
 }

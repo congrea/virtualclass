@@ -106,7 +106,7 @@ float:right;}
             margin:0 auto 15px auto;
         }
         #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
-            right:600px !important;
+            right:610px !important;
         }
         #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
             z-index:1001;

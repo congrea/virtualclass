@@ -174,7 +174,9 @@
         dataAdapterAllStore: function (data, serialKey) {
             const tx = that.db.transaction('dataAdapterAll', 'readwrite');
             tx.store.put({adaptData: data, id: 5, serialKey: serialKey});
-            tx.done.then(() => {console.log('success')}, () => {console.log('failure')});
+            tx.done.then(() => {
+                //console.log('success')
+            }, () => {console.log('failure')});
             /** TODO, this should be enable **/
             // t.onerror = function ( e ) {
             //     // prevent Firefox from throwing a ConstraintError and aborting (hard)

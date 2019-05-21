@@ -928,6 +928,7 @@
 
     #virtualclassCont.congrea #leftNavPage {
         cursor: pointer;
+        margin-left: 15px;
     }
 
     .noteIndex.hid {
@@ -1010,7 +1011,7 @@
         display: block;
         position: fixed;
         bottom: 12px;
-        right: 661px;
+        right: 626px;
         z-index: 1005;
     }
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav{

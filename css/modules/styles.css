@@ -4313,10 +4313,6 @@ background-color: #d6d6d6;
 }
 
 #virtualclassCont.congrea #fullScreenExitButton {
-	padding : 11px 18px 9px 18px;
-}
-
-#virtualclassCont.congrea #fullScreenExitButton {
 	display:none;
 }
 

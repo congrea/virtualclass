@@ -837,7 +837,9 @@
                     if(typeof this.pdfRender[wid] != 'object'){
                         this.pdfRender[wid] = window.pdfRender();
                     }else if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
+                        // TODO, USE adjustScreenOnDifferentPdfWidth instead of normalRender
                         virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
+                        // virtualclass.zoom.normalRender();
                     }
                     if(roles.isStudent() && virtualclass.currApp == 'Whiteboard'){
                          virtualclass.wbCommon.setCurrSlideNumber(id);

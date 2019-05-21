@@ -142,6 +142,15 @@
             },
 
             adjustScreenOnDifferentPdfWidth (page){
+                if(this.hasOwnProperty('adjustScreenOnDifferentPdfWidthTime')){
+                    clearTimeout(this.adjustScreenOnDifferentPdfWidthTime);
+                }
+                this.adjustScreenOnDifferentPdfWidthTime = setTimeout(() => {
+                    this._adjustScreenOnDifferentPdfWidth(); // To control the reverse document
+                }, 400);
+            },
+
+            _adjustScreenOnDifferentPdfWidth (page) {
                 page = page || virtualclass.pdfRender[virtualclass.gObj.currWb].page;
                 if(page != null){
                     let viewPort = page.getViewport(1);

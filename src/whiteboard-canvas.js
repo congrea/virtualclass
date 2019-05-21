@@ -87,18 +87,19 @@
              * TODO this function should contain into the object
              * suman solve
              */
-            transform: function (ctx, obj) {
+            transform: function (ctx, obj, noScale) {
                 ctx.translate(obj.x, obj.y);
                 ctx.rotate(obj.theta);
                 // ctx.scale(
                 //     1 * (obj.flipX ? -1 : 1),
                 //     1 * (obj.flipY ? -1 : 1)
                 // );
-
-                ctx.scale(
-                    obj.scaleX * (obj.flipX ? -1 : 1),
-                    obj.scaleY * (obj.flipY ? -1 : 1)
-                );
+                if (!noScale) {
+                    ctx.scale(
+                        obj.scaleX * (obj.flipX ? -1 : 1),
+                        obj.scaleY * (obj.flipY ? -1 : 1)
+                    );
+                }
             },
             /**
              * get the states of property of vcan.main
@@ -141,6 +142,7 @@
              *
              */
             renderAll: function (ctx) {
+
                 // console.log('Whiteboard :- Render All');
                 if (typeof ctx != 'object') {
                     var ctx = vcan.main.canvas.getContext('2d');
@@ -257,7 +259,7 @@
          * @param obj all operation operated over this object
          * @param noTransform is undefined value
          */
-        vcan.render = function (ctx, obj, noTransform) {
+        vcan.render = function (ctx, obj, noTransform, noScale) {
             ctx.beginPath(); //this added just now 25/9/13
             ctx.save();
             if (ctx.lineWidth !== undefined) {
@@ -265,8 +267,9 @@
             } else {
                 ctx.lineWidth = 2;
             }
+
             if (!noTransform) {
-                vcan.transform(ctx, obj);
+                vcan.transform(ctx, obj, noScale);
             }
             if (obj.borderColor != undefined) {
                 ctx.strokeStyle = obj.borderColor;

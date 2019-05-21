@@ -1072,7 +1072,7 @@
     color: #fff;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
-	width: 160px;
+	width: 185px;
 }
 
 /*#virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos {*/
@@ -2045,7 +2045,7 @@
 	box-shadow : none;
 	border-radius: 0 0 0 5px;
 }
-.canvasWrapper {
+.canvasCont {
     clear:both;
 }
 #virtualclassCont.congrea.educator .commandToolsWrapper {border: 1px solid #515e69;}
@@ -2359,6 +2359,7 @@
 	float: none;
 	width: auto;
 	overflow: hidden;
+	/* background-color:#fff; */
 }
 #virtualclassCont.congrea.playMode #virtualclassAppLeftPanel {
     float:left;
@@ -2892,7 +2893,7 @@
 	font-size : 15px;
 }
 
-@media (min-width: 768px){
+@media (min-width: 368px){
 	#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel{
 		float:none !important;
         height:45px !important;
@@ -2993,7 +2994,7 @@
 	}
 }
 
-@media (min-width: 768px) {
+@media (min-width: 368px) {
 	#preCheckcontainer .modal-content{
 		max-height:555px !important;
 	}
@@ -3176,7 +3177,7 @@
 	bottom:0;
 	text-align: right;
 	float: right;
-	right: 369px;
+	right: 426px;
 	z-index: 1000;
 	overflow: hidden;
     border-bottom: none;
@@ -3262,7 +3263,7 @@
   font-size: 22px;
   margin: 0;
   display: inline-block;
-  padding: 11px 18px;
+  padding: 10px 18px 12px 18px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -3794,6 +3795,8 @@ opacity: 1;
 }
 #virtualclassCont.congrea  #dashboardContainer .modal-header button.enable {
 	display: block;
+	position: absolute;
+    right: 10px;
 }
 #virtualclassCont.congrea.pdfRendering .zoomControler{
 	pointer-events: none;
@@ -4287,4 +4290,46 @@ background-color: #d6d6d6;
 #virtualclassCont.congrea.playMode.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-fullscreen-control,
 #virtualclassCont.congrea.playMode .vjs-play-control{
 	pointer-events : none;
+}
+
+#virtualclassCont.congrea #fullScreenButton, #virtualclassCont.congrea #fullScreenExitButton{
+	position: fixed;
+    bottom: 0px;
+    right: 370px;
+    color: #fff;
+	z-index: 1000;
+	font-size: 22px;
+    margin: 0;
+    display: inline-block;
+	padding: 11px 18px 9px 18px;
+    text-align: center;
+    vertical-align: middle;
+	cursor: pointer;
+	border-left: 0.05em solid #021317 !important;
+}
+
+#virtualclassCont.congrea #fullScreenExitButton {
+	padding: 12px 18px 10px 18px;
+}
+
+#virtualclassCont.congrea #fullScreenExitButton {
+	display:none;
+}
+
+#virtualclassCont.congrea #fullScreenButton:hover, #virtualclassCont.congrea #fullScreenExitButton:hover {
+	background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%) !important;
+}
+
+/* For FullScreen */
+
+#virtualclassCont.congrea:fullscreen {
+	background-color:#fff;
+}
+
+#virtualclassCont.congrea #fullScreenButton span.congtooltip:hover:after, #virtualclassCont.congrea #fullScreenExitButton span.congtooltip:hover:after{
+	bottom : 3.2em !important;
+}
+
+#virtualclassCont.loading {
+	display:none;
 }

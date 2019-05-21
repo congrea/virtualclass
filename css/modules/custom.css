@@ -68,9 +68,47 @@ float:right;}
         width: 600px;
         margin: 30px auto;
     }
-    #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 8% auto;}
+    #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 6% auto;}
+}
+
+@media (max-width: 1400px) {
+    #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 4% auto;}
 }
 
 @media (min-width: 992px) {
     #virtualclassCont.congrea .bootstrap .modal-lg {width: 900px;}
 }
+
+/*  ===== FOR MOBILES ====== */
+
+@media only screen 
+  and ( min-device-width: 768px) 
+    and ( max-device-width: 1024px) {
+        #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {
+            position: absolute;
+            top: 40%;
+            left: 9%;
+            transform: translateY(-50%);
+        }
+        #virtualclassCont.congrea #virtualclassPreCheck .testName {
+            margin-bottom:0;
+        }
+        #virtualclassCont.congrea #preCheckcontainer .progressbar {
+            margin: 0;
+        }
+        #virtualclassCont.congrea #preCheckcontainer .progressbar li {
+            margin-bottom:15px;
+        }
+        #virtualclassCont.congrea #preCheckcontainer .screen1.browser::before{
+            font-size:32px;
+        }
+        #virtualclassCont.congrea #preCheckcontainer .progressbar li:before {
+            margin:0 auto 15px auto;
+        }
+        #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
+            right:600px !important;
+        }
+        #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
+            z-index:1001;
+        }
+    }

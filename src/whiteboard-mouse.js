@@ -17,6 +17,7 @@
                  * eg: mousedown, mouseup
                  */
                 bindHandlers: function () {
+                    console.log("Whiteboard ");
                     canvasElement = vcan.main.canvas;
                     //TODO the types should be store into main/core funtion
                     // the place of this object should not be here

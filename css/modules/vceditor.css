@@ -61,6 +61,7 @@
 #virtualclassCont.congrea .vceditor-richtext .CodeMirror {
   font-family: Verdana, sans-serif;
   font-size: 14px;
+  /* overflow-y:auto; */
 }
 
 #virtualclassCont.congrea .vceditor-spacer {

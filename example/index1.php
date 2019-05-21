@@ -125,23 +125,16 @@ if (isset($_GET['role']) && $_GET['role'] == 't' && !$isplay) {
 
 //meeting mode or normal mode
 //class add when meetingmode or normalmode
-if (isset($_GET['meetingmode'])) {
-    $meetingmode = $_GET['meetingmode'];
-    $cont_class .= 'meetingmode ';
-} else {
-    $meetingmode = 0;
-    $cont_class .= 'normalmode ';
-}
 
-
-
+$meetingmode = 0;
+$cont_class .= 'normalmode ';
 
 $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 
 $lname = isset($_GET['lname']) ? $_GET['lname'] : ' ';
 
 // Set 1 to add source file else 0 to min file
-$info = 1;
+$info = 0;
 $audio_disabled_completely = true;
 $cmid = 5;
 ?>
@@ -247,6 +240,14 @@ if($info) {
 
     }
 
+</script>
+<script>
+var virtualclassIDBOpen, virtualclassIDBDelete;
+</script>
+<script type="module">
+     import {openDB, deleteDB} from 'https://unpkg.com/idb?module';
+     virtualclassIDBOpen = openDB;
+     virtualclassIDBDelete = deleteDB;
 </script>
 
 <?php

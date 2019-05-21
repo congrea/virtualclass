@@ -168,6 +168,7 @@
                 console.log(appCont + ' is not found ');
             }
         },
+        
         setScreenInnerTagsWidth: function(currAppId) {
             var sId = currAppId;
             var screenShare = document.getElementById(sId);
@@ -337,7 +338,10 @@
         clearAllChat: function() {
             localStorage.removeItem(virtualclass.gObj.uid); //remove chat about user
             localStorage.clear('chatroom'); //all
-            virtualclass.chat.idList.length = 0;
+            if(virtualclass.chat != null){
+                virtualclass.chat.idList.length = 0;
+            }
+
             clearAllChatBox();
 
             var allChat = document.getElementById("chatWidget").getElementsByClassName('ui-chatbox-msg');
@@ -363,7 +367,35 @@
                 }
             }
         },
+         
+        Fullscreen: function() {
+            var elem = document.getElementById("virtualclassCont");
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+            elem.classList.add("fullScreenMode");
+        },
 
+        closeFullscreen: function () {
+            var elem = document.getElementById("virtualclassCont");
+            if (document.exitFullscreen) {
+              document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+              document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+              document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+              document.msExitFullscreen();
+            }
+            elem.classList.remove("fullScreenMode");
+          },
+        
         // TODO
         /***
          * Add class at body according to role
@@ -634,8 +666,11 @@
                 var canvasScale = (+virtualclass.zoom.canvasScale);
                 console.log('Canvas pdf scale ' + canvasScale);
                 if(virtualclass.vutil.isNumeric(canvasScale)){
-                    localStorage.setItem('wbcScale', canvasScale);
-                };
+                 //   localStorage.setItem('wbcScale', canvasScale);
+                }
+                if(virtualclass.zoom.hasOwnProperty('canvasDimension')){
+                    localStorage.setItem('canvasDimension', JSON.stringify(virtualclass.zoom.canvasDimension)); 
+                }
             }
 
             // not storing the YouTube status on student's storage
@@ -2175,6 +2210,10 @@
                     }else {
                         virtualclass.vutil.initDashboard(currApp, hidepopup);
                     }
+                }else {
+                    // virtualclass.zoom.zoomAction('fitToScreen');
+                    // virtualclass.pdfRender[virtualclass.gObj.currWb].fitWhiteboardAtScale(virtualclass.gObj.currWb);
+                    // virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale = virtualclass.zoom.canvasScale;
                 }
             }else if(currApp == 'Video'){
                 if(typeof hidepopup ==  'undefined'){
@@ -2463,9 +2502,9 @@
             }
         },
 
-        createWhiteBoard : function (wId){
+        createWhiteBoard : async function (wId){
             var args = ['Whiteboard', 'byclick', wId];
-            virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
+            await virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
             var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
             virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
         },
@@ -2569,19 +2608,25 @@
             if(virtualclass.vutil.isTextWrapperExist()){
                 virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
             }
-            if(virtualclass.gObj.hasOwnProperty('wbNav')){
-                clearTimeout(virtualclass.gObj.wbNav);
+            // if(virtualclass.gObj.hasOwnProperty('wbNav')){
+            //     clearTimeout(virtualclass.gObj.wbNav);
+            // }
+            if(typeof dthis != 'undefined'){
+                func.call(cthis, dthis);
+            } else {
+                func.call(cthis);
             }
-            virtualclass.gObj.wbNav = setTimeout(
-                function (){
-                    if(typeof dthis != 'undefined'){
-                        func.call(cthis, dthis);
-                    }else {
-                        func.call(cthis);
-                    }
-                    console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
-                }, virtualclass.gObj.wbNavtime
-            )
+            console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
+            // virtualclass.gObj.wbNav = setTimeout(
+            //     function (){
+            //         if(typeof dthis != 'undefined'){
+            //             func.call(cthis, dthis);
+            //         }else {
+            //             func.call(cthis);
+            //         }
+            //         console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
+            //     }, virtualclass.gObj.wbNavtime
+            // )
         },
 
         removeAllTextWrapper : function (){

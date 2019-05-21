@@ -587,6 +587,9 @@ display: none;
     right: 233px;
     top: 209px ;
 }
+#virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel #audioWidget .audioTool a.congtooltip:hover:after {
+    top: 51px ;
+}
 #virtualclassCont.congrea .congtooltip:hover:after {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
@@ -594,7 +597,7 @@ display: none;
     bottom: 3.8em !important;
     right: 2.2em !important;
     left: auto !important;
-        padding: .3em .8em;
+    padding: .3em .8em;
 }
  #virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .vmchat_bar_button.congtooltip:hover:after {
     bottom: 4.72em;
@@ -634,7 +637,7 @@ display: none;
 
 /* Responsive */
 
-@media (min-width: 768px){
+@media (min-width: 368px){
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
     height: 48px !important;
     }

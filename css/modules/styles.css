@@ -2911,7 +2911,7 @@
 	font-size : 15px;
 }
 
-@media (min-width: 768px){
+@media (min-width: 368px){
 	#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel{
 		float:none !important;
         height:45px !important;
@@ -3012,7 +3012,7 @@
 	}
 }
 
-@media (min-width: 768px) {
+@media (min-width: 368px) {
 	#preCheckcontainer .modal-content{
 		max-height:555px !important;
 	}
@@ -3281,7 +3281,7 @@
   font-size: 22px;
   margin: 0;
   display: inline-block;
-  padding: 11px 18px;
+  padding: 10px 18px 12px 18px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -4332,7 +4332,7 @@ background-color: #d6d6d6;
 	font-size: 22px;
     margin: 0;
     display: inline-block;
-	padding: 10px 18px 8px 18px;
+	padding: 11px 18px 9px 18px;
     text-align: center;
     vertical-align: middle;
 	cursor: pointer;
@@ -4340,7 +4340,7 @@ background-color: #d6d6d6;
 }
 
 #virtualclassCont.congrea #fullScreenExitButton {
-	padding : 11px 18px 9px 18px;
+	padding: 12px 18px 10px 18px;
 }
 
 #virtualclassCont.congrea #fullScreenExitButton {
@@ -4361,5 +4361,6 @@ background-color: #d6d6d6;
 	bottom : 3.2em !important;
 }
 
-
- 
+#virtualclassCont.loading {
+	display:none;
+}

@@ -298,7 +298,7 @@
 @media (max-height: 700px){
   #virtualclassCont.congrea #dashboardnav {
     position: absolute;
-    top: 551px;
+    top: 82%;
     left: -5px;
   }
     #virtualclassCont.congrea.meetingmode #dashboardnav {

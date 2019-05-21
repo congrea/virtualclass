@@ -338,7 +338,10 @@
         clearAllChat: function() {
             localStorage.removeItem(virtualclass.gObj.uid); //remove chat about user
             localStorage.clear('chatroom'); //all
-            virtualclass.chat.idList.length = 0;
+            if(virtualclass.chat != null){
+                virtualclass.chat.idList.length = 0;
+            }
+
             clearAllChatBox();
 
             var allChat = document.getElementById("chatWidget").getElementsByClassName('ui-chatbox-msg');
@@ -376,11 +379,11 @@
             } else if (elem.msRequestFullscreen) { /* IE/Edge */
                 elem.msRequestFullscreen();
             }
-            document.querySelector("#fullScreenButton").style.display = "none";
-            document.querySelector("#fullScreenExitButton").style.display = "block";
+            elem.classList.add("fullScreenMode");
         },
 
         closeFullscreen: function () {
+            var elem = document.getElementById("virtualclassCont");
             if (document.exitFullscreen) {
               document.exitFullscreen();
             } else if (document.mozCancelFullScreen) {
@@ -390,8 +393,7 @@
             } else if (document.msExitFullscreen) {
               document.msExitFullscreen();
             }
-            document.querySelector("#fullScreenButton").style.display = "block";
-            document.querySelector("#fullScreenExitButton").style.display = "none";
+            elem.classList.remove("fullScreenMode");
           },
         
         // TODO
@@ -664,8 +666,8 @@
                 var canvasScale = (+virtualclass.zoom.canvasScale);
                 console.log('Canvas pdf scale ' + canvasScale);
                 if(virtualclass.vutil.isNumeric(canvasScale)){
-                    localStorage.setItem('wbcScale', canvasScale);
-                };
+                 //   localStorage.setItem('wbcScale', canvasScale);
+                }
                 if(virtualclass.zoom.hasOwnProperty('canvasDimension')){
                     localStorage.setItem('canvasDimension', JSON.stringify(virtualclass.zoom.canvasDimension)); 
                 }
@@ -2208,6 +2210,10 @@
                     }else {
                         virtualclass.vutil.initDashboard(currApp, hidepopup);
                     }
+                }else {
+                    // virtualclass.zoom.zoomAction('fitToScreen');
+                    // virtualclass.pdfRender[virtualclass.gObj.currWb].fitWhiteboardAtScale(virtualclass.gObj.currWb);
+                    // virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale = virtualclass.zoom.canvasScale;
                 }
             }else if(currApp == 'Video'){
                 if(typeof hidepopup ==  'undefined'){
@@ -2496,9 +2502,9 @@
             }
         },
 
-        createWhiteBoard : function (wId){
+        createWhiteBoard : async function (wId){
             var args = ['Whiteboard', 'byclick', wId];
-            virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
+            await virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
             var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
             virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
         },
@@ -2602,19 +2608,25 @@
             if(virtualclass.vutil.isTextWrapperExist()){
                 virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
             }
-            if(virtualclass.gObj.hasOwnProperty('wbNav')){
-                clearTimeout(virtualclass.gObj.wbNav);
+            // if(virtualclass.gObj.hasOwnProperty('wbNav')){
+            //     clearTimeout(virtualclass.gObj.wbNav);
+            // }
+            if(typeof dthis != 'undefined'){
+                func.call(cthis, dthis);
+            } else {
+                func.call(cthis);
             }
-            virtualclass.gObj.wbNav = setTimeout(
-                function (){
-                    if(typeof dthis != 'undefined'){
-                        func.call(cthis, dthis);
-                    }else {
-                        func.call(cthis);
-                    }
-                    console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
-                }, virtualclass.gObj.wbNavtime
-            )
+            console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
+            // virtualclass.gObj.wbNav = setTimeout(
+            //     function (){
+            //         if(typeof dthis != 'undefined'){
+            //             func.call(cthis, dthis);
+            //         }else {
+            //             func.call(cthis);
+            //         }
+            //         console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
+            //     }, virtualclass.gObj.wbNavtime
+            // )
         },
 
         removeAllTextWrapper : function (){

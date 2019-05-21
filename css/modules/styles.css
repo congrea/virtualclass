@@ -4301,11 +4301,15 @@ background-color: #d6d6d6;
 	font-size: 22px;
     margin: 0;
     display: inline-block;
-	padding: 10px 18px 8px 18px;
+	padding: 11px 18px 9px 18px;
     text-align: center;
     vertical-align: middle;
 	cursor: pointer;
 	border-left: 0.05em solid #021317 !important;
+}
+
+#virtualclassCont.congrea #fullScreenExitButton {
+	padding: 12px 18px 10px 18px;
 }
 
 #virtualclassCont.congrea #fullScreenExitButton {
@@ -4328,4 +4332,8 @@ background-color: #d6d6d6;
 
 #virtualclassCont.congrea #fullScreenButton span.congtooltip:hover:after, #virtualclassCont.congrea #fullScreenExitButton span.congtooltip:hover:after{
 	bottom : 3.2em !important;
+}
+
+#virtualclassCont.loading {
+	display:none;
 }

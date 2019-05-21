@@ -68,6 +68,7 @@ var PopUp = (function (window, undefined) {
      */
     PopUp.prototype.close = function (targetElement) {
         targetElement.classList.remove(this.settings.showModalClassName);
+        document.getElementById('popupContainer').style.display = 'none';
 
         if (this.settings.showOverlay) {
             this.overlayElement.classList.remove('is-shown');

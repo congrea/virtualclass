@@ -507,12 +507,12 @@
 #replayContainer #replayClose.icon-close:before, #sessionEndMsgCont #sessionEndClose.icon-close:before,
 #virtualclassCont.congrea #chromeExtClose.icon-close:before {
   content: "\f00d";
-  font-size: 12px;
+  font-size: 18px;
   color: #6a8e0b;
   border: #bcd2aa 1px solid;
   border-radius: 50%;
-  padding: 3px 5px;
-  background-color: #f9f9f9;
+  padding: 3px 4px 4px 5px;
+  background-color: #ffffff;
 }
 
 .icon-minus:before {
@@ -729,11 +729,11 @@
 
 #virtualclassCont.congrea #popupContainer .urlValidation  .icon-close:before {
   content: "\f00d";
-  font-size: 12px;
+  font-size: 15px;
   color: #a0111f;
   border: #a0111f 1px solid;
   border-radius: 50%;
-  padding: 3px 5px;
+  padding: 4px 5px 5px 6px;
   background-color: #f9f9f9;
 }
 

@@ -66,14 +66,14 @@ float:right;}
 @media (min-width: 768px) {
     #virtualclassCont.congrea .bootstrap .modal-dialog {
         width: 600px;
-        margin: 30px auto;
+        /* margin: 30px auto; */
     }
-    #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 6% auto;}
-}
+    /* #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 6% auto;}
+} */
 
 @media (max-width: 1400px) {
-    #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 4% auto;}
-}
+    /* #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 4% auto;}
+} */
 
 @media (min-width: 992px) {
     #virtualclassCont.congrea .bootstrap .modal-lg {width: 900px;}
@@ -84,12 +84,12 @@ float:right;}
 @media only screen 
   and ( min-device-width: 768px) 
     and ( max-device-width: 1024px) {
-        #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {
+        /* #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {
             position: absolute;
             top: 40%;
             left: 9%;
             transform: translateY(-50%);
-        }
+        } */
         #virtualclassCont.congrea #virtualclassPreCheck .testName {
             margin-bottom:0;
         }

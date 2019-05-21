@@ -125,16 +125,9 @@ if (isset($_GET['role']) && $_GET['role'] == 't' && !$isplay) {
 
 //meeting mode or normal mode
 //class add when meetingmode or normalmode
-if (isset($_GET['meetingmode'])) {
-    $meetingmode = $_GET['meetingmode'];
-    $cont_class .= 'meetingmode ';
-} else {
-    $meetingmode = 0;
-    $cont_class .= 'normalmode ';
-}
 
-
-
+$meetingmode = 0;
+$cont_class .= 'normalmode ';
 
 $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 

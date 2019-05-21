@@ -338,7 +338,10 @@
         clearAllChat: function() {
             localStorage.removeItem(virtualclass.gObj.uid); //remove chat about user
             localStorage.clear('chatroom'); //all
-            virtualclass.chat.idList.length = 0;
+            if(virtualclass.chat != null){
+                virtualclass.chat.idList.length = 0;
+            }
+
             clearAllChatBox();
 
             var allChat = document.getElementById("chatWidget").getElementsByClassName('ui-chatbox-msg');

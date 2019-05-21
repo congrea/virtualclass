@@ -837,7 +837,7 @@
                     if(typeof this.pdfRender[wid] != 'object'){
                         this.pdfRender[wid] = window.pdfRender();
                     }else if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
-                        virtualclass.zoom.normalRender();
+                        virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
                     }
                     if(roles.isStudent() && virtualclass.currApp == 'Whiteboard'){
                          virtualclass.wbCommon.setCurrSlideNumber(id);
@@ -1267,6 +1267,9 @@
                             if(dashboardnav != null) {
                                 dashboardnav.click();
                             }
+                        }else {
+                            console.log("===== DOCUMENT EXIST");
+                            virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
                         }
 
                         if(dstData != null){

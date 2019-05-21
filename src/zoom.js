@@ -143,22 +143,26 @@
 
             adjustScreenOnDifferentPdfWidth (page){
                 page = page || virtualclass.pdfRender[virtualclass.gObj.currWb].page;
-                let viewPort = page.getViewport(1);
-                let newPdfWidth = viewPort.width;
-                let newPdfHeight = viewPort.height;
+                if(page != null){
+                    let viewPort = page.getViewport(1);
+                    let newPdfWidth = viewPort.width;
+                    let newPdfHeight = viewPort.height;
 
-                if(virtualclass.zoom.hasOwnProperty('prevPdfWidth') && newPdfWidth !== virtualclass.zoom.prevPdfWidth){
-                    virtualclass.zoom.canvasDimension.width =   virtualclass.zoom.canvasScale * newPdfWidth ;
-                    virtualclass.zoom.canvasDimension.height =  virtualclass.zoom.canvasScale * newPdfHeight;
-                    if(virtualclass.zoom.hasOwnProperty('fitToScreenWidth')){
-                        virtualclass.zoom.fitToScreen();
-                    }else {
+                    if(virtualclass.zoom.hasOwnProperty('prevPdfWidth') && newPdfWidth !== virtualclass.zoom.prevPdfWidth){
+                        virtualclass.zoom.canvasDimension.width =   virtualclass.zoom.canvasScale * newPdfWidth ;
+                        virtualclass.zoom.canvasDimension.height =  virtualclass.zoom.canvasScale * newPdfHeight;
+                        if(virtualclass.zoom.hasOwnProperty('fitToScreenWidth')){
+                            virtualclass.zoom.fitToScreen();
+                        }else {
+                            virtualclass.zoom.normalRender();
+                        }
+                    } else {
                         virtualclass.zoom.normalRender();
                     }
-                } else {
-                    virtualclass.zoom.normalRender();
+                    virtualclass.zoom.prevPdfWidth = newPdfWidth;
+                }else {
+                    console.log("Page is null");
                 }
-                virtualclass.zoom.prevPdfWidth = newPdfWidth;
             },
 
             getReduceValueForCanvas (){

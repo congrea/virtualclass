@@ -140,7 +140,9 @@
             //console.log("whiteboard data store");
             const tx = that.db.transaction('wbData', 'readwrite');
             tx.store.put({repObjs: data, did : virtualclass.gObj.currWb, id: 1});
-            tx.done.then(() => {console.log('success')}, () => {console.log('failure')});
+            tx.done.then(() => {
+                //console.log('success')
+            }, () => {console.log('failure')});
         },
 
 
@@ -480,8 +482,9 @@
                     }
 
                     virtualclass.vutil.clearAllChat();
-                    virtualclass.editorRich.removeEditorData();
-                    virtualclass.editorCode.removeEditorData();
+                    if(virtualclass.editorRich != null){
+                        virtualclass.editorRich.removeEditorData();
+                    }
                     virtualclass.pdfRender = {}
                 }
 

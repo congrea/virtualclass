@@ -421,6 +421,9 @@
                     if(virtualclass.gObj.hasOwnProperty('fitToScreen')){
                         canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas();
                         console.log("==== a canvas width fit to screen");
+                        if(!roles.hasControls()){
+                            canvas.width += 50; // add left bar's width on canvas width for student
+                        }
                     } else if(virtualclass.zoom.hasOwnProperty('performZoom')){
                         canvas.width = virtualclass.zoom.canvasDimension.width;
                         delete virtualclass.zoom.performZoom;
@@ -433,17 +436,14 @@
                         console.log("==== a canvas width click to continue");
                     }
 
-                    if(!roles.hasControls() && (!virtualclass.zoom.hasOwnProperty('canvasDimension'))){
-                        canvas.width += 50; // add left bar's width on canvas width for student
-                    }
+
 
                     if(this.firstTime){
                         this.firstTime = false;
                         console.log("## WHITEBOARD Canvas = ", virtualclass.zoom.prvCanvasScale, " ID ", virtualclass.gObj.currWb);
-                        virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
                         if(virtualclass.zoom.canvasScale == null){
                             viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
-                            virtualclass.zoom.canvasScale =  viewport.scale;
+                            // virtualclass.zoom.canvasScale =  viewport.scale;
                         }else {
                             viewport = page.getViewport(scale);
                         }
@@ -451,6 +451,7 @@
                         viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
                     }
 
+                    virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
                     virtualclass.zoom.canvasScale =  viewport.scale;
 
                     canvas.height  = viewport.height;

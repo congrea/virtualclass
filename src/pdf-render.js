@@ -42,12 +42,12 @@
 
 
             async loadPdf (url, canvas, currNote){
-                console.log('====PDF, Init1 load ',  virtualclass.gObj.currWb, url);
+                // console.log('====PDF, Init1 load ',  virtualclass.gObj.currWb, url);
                 if(virtualclass.gObj.hasOwnProperty('getDocumentTimeout')){
                     clearTimeout(virtualclass.gObj.getDocumentTimeout);
                 }
                 if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer == false) {
-                    console.log('====PDF, Init1 load final',  url);
+
                     this._loadPdf(url, canvas, currNote);
                     virtualclass.gObj.getDocumentTimer = true;
                     virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
@@ -55,7 +55,7 @@
                     },1000);
                 } else {
                     virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
-                        console.log('====PDF, Init1 load final',  url);
+                        // console.log('====PDF, Init1 load final',  url);
                         this._loadPdf(url, canvas, currNote);
                         virtualclass.gObj.getDocumentTimer = false;
                     },1000);
@@ -63,7 +63,7 @@
             },
 
             _loadPdf  (url, canvas, currNote){
-                console.log('====PDF, Init2 load ' + virtualclass.gObj.currWb);
+                // console.log('====PDF, Init2 load ' + virtualclass.gObj.currWb);
                 if(virtualclass.gObj.next.hasOwnProperty(currNote)){
                      this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
                 } else {
@@ -80,7 +80,7 @@
             },
             
             async afterPdfLoad (canvas, currNote, data){
-                console.log('====PDF, After PDF load' + virtualclass.gObj.currWb);
+                // console.log('====PDF, After PDF load' + virtualclass.gObj.currWb);
                 this.canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
                 this.canvas = canvas;
                 var doc = {};
@@ -140,7 +140,7 @@
             },
 
             updateScrollPosition : function (pos, type){
-                console.log('Update scroll type ' + type + ' ' + pos);
+                // console.log('Update scroll type ' + type + ' ' + pos);
                 var tp = type;
                 if(typeof this.scroll[tp] == 'object' && this.scroll[tp].hasOwnProperty('b')){
                     this.scroll[tp].b = pos;
@@ -198,8 +198,8 @@
                 if(roles.hasControls()){
                     this.topPosY = topPosY;
                     this.leftPosX = leftPosX;
-                    console.log("==== top position y " + this.topPosY);
-                    console.log("==== top position x" + this.leftPosX);
+                    // console.log("==== top position y " + this.topPosY);
+                    // console.log("==== top position x" + this.leftPosX);
                     return this.scrollPosition(elem, type);
                 } else {
                     if(type == 'Y'){
@@ -625,10 +625,8 @@
                             objects[i].y = tempTop;
 
                             objects[i].setCoords();
-                            console.log("## WHITEBOARD scaleX", objects[i].scaleX)
+                            // console.log("## WHITEBOARD scaleX", objects[i].scaleX)
                         }
-
-
                     }
                     vcan.renderAll();
                 }

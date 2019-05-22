@@ -3201,7 +3201,7 @@
 }
 
 #virtualclassCont.congrea.playMode.student .zoomControler {
-    right:320px;
+    right:370px;
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer{
@@ -4335,6 +4335,10 @@ background-color: #d6d6d6;
     vertical-align: middle;
 	cursor: pointer;
 	border-left: 0.05em solid #021317 !important;
+}
+
+#virtualclassCont.congrea.playMode #fullScreenButton, #virtualclassCont.congrea.playMode #fullScreenExitButton {
+	right:320px;
 }
 
 #virtualclassCont.congrea #fullScreenExitButton {

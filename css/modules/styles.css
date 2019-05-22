@@ -3978,9 +3978,7 @@ background-color: #d6d6d6;
 }
 
 
-@media only screen 
-  and (min-device-width: 768px) 
-    and (max-device-width: 1024px) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 
     /* Scrollbar For Tablets */
     ::-webkit-scrollbar{
@@ -4039,7 +4037,7 @@ background-color: #d6d6d6;
 }
 
 /* For Safari Browser */
-@media not all and (min-resolution:.001dpcm) { @media {
+@media not all and (min-resolution:.001dpcm) { 
 
     #virtualclassCont.congrea #videoHostSource, #virtualclassCont.congrea #webcamTempVideo {
         transform:inherit !important;
@@ -4050,7 +4048,7 @@ background-color: #d6d6d6;
 		opacity : 0.5;
 		display : none;
 	}
-}}
+}
 
 #videoPlayerCont .vjs-youtube-mobile .vjs-big-play-button{
 	display : block !important;

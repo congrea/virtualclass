@@ -1829,7 +1829,7 @@
 	color: #6a8a13;
 	background-color: #fff;
 	border: #ddd 1px solid;
-	margin-top: 10px;
+	/* margin-top: 10px; */
 	border-radius: 5px;
 	clear: both;
 	padding: 20px;
@@ -1940,9 +1940,7 @@
 }
 
 
-#virtualclassCont.congrea #sessionEndMsgCont.popupWindow{
-	margin: 10px;
-}
+
 
 
 #virtualclassCont.congrea #sessionEndMsgCont #sessionEndClose.icon-close, #virtualclassCont.congrea #chromeExtClose.icon-close{
@@ -3088,7 +3086,7 @@
 	text-align: center;
 	/* margin-top: 13px; */
 	padding: 18px;
-	margin: 6px;
+	/* margin: 6px; */
 	/* margin-bottom: -28px; */
 	color: #721c24;
 	border: 1px solid #ce1313;

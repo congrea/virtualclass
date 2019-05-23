@@ -134,9 +134,39 @@ $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 $lname = isset($_GET['lname']) ? $_GET['lname'] : ' ';
 
 // Set 1 to add source file else 0 to min file
-$info = 0;
+$info = 1;
 $audio_disabled_completely = true;
 $cmid = 5;
+
+/* Show status button on ui */
+/*
+$enable_recording  = 1;
+$allow_presenter_av = 1;
+$show= 1;
+*/
+
+/* Show status icon only ***/
+
+/*
+$enable_recording  = 1;
+$allow_presenter_av = 0;
+$show= 1; */
+
+/* Hide the status icon for presenter**/
+
+/*  $enable_recording  = 1;
+    $allow_presenter_av = 1;
+    $show= 0; */
+
+
+$enable_recording  = 1;
+$allow_presenter_av = 1;
+
+/* show the status icon for student**/
+$disable_attendee_av = 0;
+$allow_attendee_av = 1;
+$show = 1;
+
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/overrideimage.css" ?> />
@@ -209,7 +239,6 @@ if($info) {
 	virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
     wbUser.session = '<?php echo $session; ?>';
     wbUser.virtualclassPlay = '<?php echo $isplay; ?>';
-    wbUser.saveRecording = '<?php echo $saverecording; ?>';
     wbUser.vcSid = '<?php echo "1"; ?>';
     wbUser.imageurl =  '';
     wbUser.id =  '<?php echo $uid; ?>';
@@ -228,6 +257,16 @@ if($info) {
     window.exportfilepath = "<?php echo $whiteboardpath . "export.php" ?>";
     window.webapi = "<?php echo $whiteboardpath ."webapi.php?cmid=".$cmid; ?>";
     window.congCourse =  "<?php echo $cmid ?>";
+
+    wbUser.recordSettings = {};
+    wbUser.recordSettings.enableRecording =  "<?php echo $enable_recording; ?>";
+    wbUser.recordSettings.allowPresenterAV =  "<?php echo $allow_presenter_av; ?>";
+    wbUser.recordSettings.show =  "<?php echo $show; ?>";
+    wbUser.recordSettings.show =  "<?php echo $show; ?>";
+    wbUser.recordSettings.disableAttendeeAV =  "<?php echo $disable_attendee_av; ?>";
+    wbUser.recordSettings.allowAttendeeAV =  "<?php echo $allow_attendee_av; ?>";
+
+
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboardpath."worker/screenworker.js" ?>");
         var sdworker = new Worker("<?php echo $whiteboardpath."worker/screendecode.js" ?>");
@@ -258,6 +297,7 @@ if ($info) {
 } else {
     include('js.php');
 }
+
 ?>
 
 <!-- Fine Uploader JS file

@@ -24,8 +24,8 @@ $authusername = substr(str_shuffle(MD5(microtime())), 0, 20);
 $authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
 
 
-$licensekey = 'i8d1T08fAcvAZGTvJmj8hIFWQY5jSY851CTUn7DoyCkjJnvD';
-$secret = 'VsrArG07d6oKqINC4dnYEhn6lhDm3BNY3ezvVzC9G0T7JGKNT7Myo9EKri7uTUtX';
+$licensekey = 'VUkRDJ7L9tSW530tOPwl6pApWVpXEU3LqoR3jgup2dHkPDgr';
+$secret = 'ThNhegjCVvzm70VPurec6mfy4eQ7FsZEi1TqpyR3gbJy0OJWtfJ44hKLVMbhbreS';
 
 
 $r = isset($_GET['role'] ) ? $_GET['role'] : 's';
@@ -35,7 +35,7 @@ $post_data = array('authuser'=> $authusername,'authpass' => $authpassword, 'role
 
 $post_data = json_encode($post_data);
 
-//echo $post_data;
+
 $rid = my_curl_request("https://api.congrea.net/backend/auth", $post_data, $licensekey, $secret);
 
 

@@ -4350,6 +4350,19 @@ background-color: #d6d6d6;
 	z-index: 1000;
 	padding:12px 20px;
 	border-right: 0.01em solid #021317!important;
+	cursor:pointer;
+}
+
+#virtualclassCont #virtualclassAppLeftPanel #recording.statusonly {
+	cursor:default;
+}
+
+#virtualclassCont #virtualclassAppLeftPanel #recording.show:hover {
+	background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%);
+}
+
+#virtualclassCont #virtualclassAppLeftPanel #recording.statusonly:hover{
+	background-image:none;
 }
 
 #virtualclassCont #virtualclassAppLeftPanel #recording[data-recording="on"] span.showStatus {
@@ -4393,10 +4406,10 @@ background-color: #d6d6d6;
 		box-shadow: 0px 0px 5px 0px rgba(196, 2, 2, 0.4);
 	}
 	65%{
-		box-shadow: 0px 0px 5px 13px rgba(173,0,0,.4);
+		box-shadow: 0px 0px 5px 10px rgba(173,0,0,.4);
 	}
 	70%{
-		box-shadow: 0px 0px 5px 13px rgba(173,0,0,0);
+		box-shadow: 0px 0px 5px 10px rgba(173,0,0,0);
 	}
 }
 #virtualclassCont .recordingStatus {

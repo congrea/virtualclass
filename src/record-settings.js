@@ -1,34 +1,58 @@
+let sessionSetting  = {
+    enableRecording : true,
+
+    recAllowpresentorAVcontrol : false,
+    recShowPresentorRecordingStatus : true,
+
+    recDisableAttendeeAV : false,
+    recallowattendeeAVcontrol : true,
+
+    showAttendeeRecordingStatus : false,
+    trimRecordings : false
+}
+
+
 let recordSettings = {
     enableRecording : false,
-    allowPresenterAV : false,
+    allowpresentorAVcontrol : false,
     disableAttendeeAV : false,
-    allowAttendeeAV : false,
+    allowattendeeAVcontrol : false,
     audioVideo : true,
-    show : false,
-    init () {
-         this.enableRecording   =  +(wbUser.recordSettings.enableRecording);
+    statusOnly : false,
+    trimRecordings : false,
 
+    init () {
+         this.enablerecording   =  sessionSetting.enableRecording;
          if(roles.hasControls()){
-             this.allowPresenterAV  =  +(wbUser.recordSettings.allowPresenterAV);
+             this.trimRecordings  = false;
+             this.allowpresentorAVcontrol  =  sessionSetting.recAllowpresentorAVcontrol;
+             this.showPresentorRecordingStatus = sessionSetting.recShowPresentorRecordingStatus;
          }else {
-             this.disableAttendeeAV =  +(wbUser.recordSettings.disableAttendeeAV);
-             this.allowAttendeeAV =    +(wbUser.recordSettings.allowAttendeeAV);
-             this.show =    +(wbUser.recordSettings.show);
+             this.disableAttendeeAV =  sessionSetting.disableAttendeeAV;
+             this.allowattendeeAVcontrol = sessionSetting.recallowattendeeAVcontrol;
+             this.showAttendeeRecordingStatus = sessionSetting.showAttendeeRecordingStatus;
          }
 
          this.showStatus = this.showStatus();
-         let recording = document.getElementById('recording');
+         this.showButton();
+    },
 
-         if(this.showStatus){
-             recording.classList.remove('hide');
-             recording.classList.add('show');
-             recording.dataset.recording = "on";
-             this.attachHandler(recording);
+    showButton () {
+        let recording = document.getElementById('recording');
 
-         } else {
-             recording.classList.remove('show');
-             recording.classList.add('hide');
-         }
+        if(this.showStatus){
+            recording.classList.remove('hide');
+            recording.classList.add('show');
+            recording.dataset.recording = "on";
+            if(!this.statusOnly){
+                this.attachHandler(recording);
+            }else {
+                recording.classList.add('statusonly');
+            }
+        } else {
+            recording.classList.remove('show');
+            recording.classList.add('hide');
+        }
     },
 
     attachHandler (recording) {
@@ -65,18 +89,30 @@ let recordSettings = {
 
     showStatus (){
         if(roles.hasControls()){
-            return (this.enableRecording && this.allowPresenterAV);
+            if(this.enablerecording && this.allowpresentorAVcontrol){
+                return true;
+            }else if(this.enablerecording && !this.allowpresentorAVcontrol && this.showPresentorRecordingStatus){
+                this.statusOnly = true;
+                return true
+            }
+            return false;
         } else {
-            return (!this.disableAttendeeAV && this.allowAttendeeAV && this.show);
+            if(!this.disableAttendeeAV && this.allowattendeeAVcontrol){
+                return true;
+            }else if(!this.disableAttendeeAV && this.showAttendeeRecordingStatus){
+                this.statusOnly = true;
+                return true;
+            }
+            return false;
         }
     },
 
     isRecordingOn () {
         if(roles.hasControls()){
-            return (this.enableRecording && this.allowPresenterAV && this.audioVideo);
+            return (this.enablerecording && this.allowpresentorAVcontrol && this.audioVideo);
         } else {
             if(!this.disableAttendeeAV){
-                if(this.allowAttendeeAV ){
+                if(this.allowattendeeAVcontrol ){
                     return this.audioVideo;
                 }
                return true;

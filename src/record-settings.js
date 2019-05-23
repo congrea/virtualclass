@@ -70,10 +70,14 @@ let recordSettings = {
         this.audioVideo = setting;
 
         if(this.audioVideo){
-            recButton.innerHTML = "Rec";
+            recButton.innerHTML = "Recording";
             recElem.dataset.recording = "on";
         }else {
-            recButton.innerHTML = "Rec";
+            if(this.trimRecordings){
+                recButton.innerHTML = "Start Recording";
+            }else{
+                recButton.innerHTML = "Recording";
+            }
             recElem.dataset.recording = "off";
         }
         ioAdapter.setRecording();

@@ -1,12 +1,12 @@
 let sessionSetting  = {
     enableRecording : true,
 
-    recAllowpresentorAVcontrol : false,
+    recAllowpresentorAVcontrol : true,
     recShowPresentorRecordingStatus : true,
 
     recDisableAttendeeAV : false,
-    recallowattendeeAVcontrol : true,
 
+    recallowattendeeAVcontrol : true,
     showAttendeeRecordingStatus : true,
     trimRecordings : false
 }
@@ -28,7 +28,7 @@ let recordSettings = {
              this.trimRecordings  = false;
              this.allowpresentorAVcontrol  =  sessionSetting.recAllowpresentorAVcontrol;
              this.showPresentorRecordingStatus = (this.allowpresentorAVcontrol) ? true :  sessionSetting.recShowPresentorRecordingStatus;
-
+             this.trimRecordings =  sessionSetting.trimRecordings;
          }else {
              this.disableAttendeeAV =  sessionSetting.disableAttendeeAV;
              this.allowattendeeAVcontrol = sessionSetting.recallowattendeeAVcontrol;
@@ -49,6 +49,9 @@ let recordSettings = {
                 this.attachHandler(recording);
             }else {
                 recording.classList.add('statusonly');
+            }
+            if(this.trimRecordings){
+                recording.classList.add('trimRecording');
             }
         } else {
             recording.classList.remove('show');
@@ -88,7 +91,7 @@ let recordSettings = {
             }
 
             if(roles.hasControls()){
-                ioAdapter.mustSendUser({ac : recordSetting, 'cf': 'recs'});
+                ioAdapter.mustSend({ac : recordSetting, 'cf': 'recs'});
             }
 
         } else {
@@ -106,9 +109,10 @@ let recordSettings = {
             }
             return false;
         } else {
-            if(!this.disableAttendeeAV && this.allowattendeeAVcontrol && this.showAttendeeRecordingStatus){
+
+            if(this.enablerecording && !this.disableAttendeeAV && this.allowattendeeAVcontrol && this.showAttendeeRecordingStatus){
                 return true;
-            }else if(!this.disableAttendeeAV && !this.allowpresentorAVcontrol && this.showAttendeeRecordingStatus){
+            }else if(this.enablerecording && !this.disableAttendeeAV && !this.allowpresentorAVcontrol && this.showAttendeeRecordingStatus){
                 this.statusOnly = true;
                 return true;
             }

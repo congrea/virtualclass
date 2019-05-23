@@ -4017,9 +4017,10 @@ background-color: #d6d6d6;
             font-size:110% !important;
         }
         #virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen:before {
-            font-size:110%; !important;
+            font-size:110%;
         }
-}
+
+	}
 
 #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog {
     margin:20% auto;

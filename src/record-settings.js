@@ -1,7 +1,7 @@
 let sessionSetting  = {
     enableRecording : true,
 
-    recAllowpresentorAVcontrol : true,
+    recAllowpresentorAVcontrol : false,
     recShowPresentorRecordingStatus : true,
 
     recDisableAttendeeAV : false,
@@ -27,11 +27,12 @@ let recordSettings = {
          if(roles.hasControls()){
              this.trimRecordings  = false;
              this.allowpresentorAVcontrol  =  sessionSetting.recAllowpresentorAVcontrol;
-             this.showPresentorRecordingStatus = sessionSetting.recShowPresentorRecordingStatus;
+             this.showPresentorRecordingStatus = (this.allowpresentorAVcontrol) ? true :  sessionSetting.recShowPresentorRecordingStatus;
+
          }else {
              this.disableAttendeeAV =  sessionSetting.disableAttendeeAV;
              this.allowattendeeAVcontrol = sessionSetting.recallowattendeeAVcontrol;
-             this.showAttendeeRecordingStatus = sessionSetting.showAttendeeRecordingStatus;
+             this.showAttendeeRecordingStatus = (this.allowattendeeAVcontrol) ? true :  sessionSetting.showAttendeeRecordingStatus;
          }
 
          this.showStatus = this.showStatus();

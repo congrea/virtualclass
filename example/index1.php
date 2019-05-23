@@ -160,7 +160,8 @@ $show= 1; */
 
 
 $enable_recording  = 1;
-$allow_presenter_av = 1;
+$allow_presenter_av = 0;
+$show= 1;
 
 /* show the status icon for student**/
 $disable_attendee_av = 0;
@@ -261,7 +262,6 @@ if($info) {
     wbUser.recordSettings = {};
     wbUser.recordSettings.enableRecording =  "<?php echo $enable_recording; ?>";
     wbUser.recordSettings.allowPresenterAV =  "<?php echo $allow_presenter_av; ?>";
-    wbUser.recordSettings.show =  "<?php echo $show; ?>";
     wbUser.recordSettings.show =  "<?php echo $show; ?>";
     wbUser.recordSettings.disableAttendeeAV =  "<?php echo $disable_attendee_av; ?>";
     wbUser.recordSettings.allowAttendeeAV =  "<?php echo $allow_attendee_av; ?>";

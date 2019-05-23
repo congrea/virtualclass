@@ -158,11 +158,11 @@ $show= 1; */
     $allow_presenter_av = 1;
     $show= 0; */
 
-/* show the status icon for student**/
 
 $enable_recording  = 1;
 $allow_presenter_av = 1;
 
+/* show the status icon for student**/
 $disable_attendee_av = 0;
 $allow_attendee_av = 1;
 $show = 1;

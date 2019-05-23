@@ -122,7 +122,7 @@
                 let vcContainer = document.getElementById('virtualclassCont');
                 vcContainer.classList.add('loading');
                 var wbUser = window.wbUser;
-                this.saveRecording = +(wbUser.saveRecording);
+             //   this.saveRecording = +(wbUser.recordSettings.enableRecording);
                 virtualclass.uInfo = {
                     'userid': wbUser.id,
                     'sid': wbUser.sid,
@@ -254,9 +254,9 @@
                 virtualclass.zoom = window.zoomWhiteboard();
                 virtualclass.network = new Network();
                 virtualclass.gesture = gesture;
-                virtualclass.pageIndexNav=window.pageIndexNav
-                
-
+                virtualclass.pageIndexNav=window.pageIndexNav;
+                virtualclass.recordSettings = recordSettings;
+                virtualclass.recordSettings.init();
 
                 this.serverData = serverData;
                 if(roles.hasControls()){
@@ -1397,7 +1397,7 @@
                     virtualclass.setPrvUser();
                 } else {
                     prvUser = JSON.parse(prvUser);
-                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != wbUser.saveRecording) {
+                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != wbUser.recordSettings.enableRecording) {
                         virtualclass.gObj.sessionClear = true;
                         virtualclass.setPrvUser();
                         if (roles.hasControls()) {
@@ -1409,7 +1409,7 @@
 
             setPrvUser: function () {
                 localStorage.clear();
-                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : wbUser.saveRecording};
+                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : wbUser.recordSettings.enableRecording};
                 console.log('previosu user');
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
             },
@@ -1500,7 +1500,6 @@
                 var mainHtml = mainTemplate(mainCont);
 
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
-
 
             },
 

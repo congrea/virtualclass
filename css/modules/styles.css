@@ -4367,3 +4367,49 @@ background-color: #d6d6d6;
 #virtualclassCont.loading {
 	display:none;
 }
+
+
+#virtualclassCont #recording.hide {
+	display : none;
+}
+
+#virtualclassCont #recording {
+	position: fixed;
+	bottom: 4px;
+	left: 10px;
+	z-index: 1000;
+}
+
+#virtualclassCont .rec{
+	animation-name: pulse;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	color:#fff;
+}
+
+@keyframes pulse{
+	0%{
+		box-shadow: 0px 0px 5px 0px rgba(173,0,0,.3);
+	}
+	65%{
+		box-shadow: 0px 0px 5px 13px rgba(173,0,0,.3);
+	}
+	90%{
+		box-shadow: 0px 0px 5px 13px rgba(173,0,0,0);
+	}
+}
+#virtualclassCont .recordingStatus {
+	width: 35px;
+	height: 35px;
+	font-size: 0;
+	background-color: red;
+	border: 0;
+	border-radius: 35px;
+	margin: 18px;
+	outline: none;
+}
+
+#virtualclassCont #recording {
+	color : #ffffff;
+}

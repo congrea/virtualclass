@@ -118,7 +118,7 @@ var io = {
                 var jobj = 'F-SPE-{"'+obj.arg.msg;
                 break;
 
-            case "session":
+            case "recording":
                 var jobj =  'F-SS-{"'+obj.arg.msg;
                 break;
 

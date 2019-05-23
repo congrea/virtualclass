@@ -1448,11 +1448,12 @@ $(document).ready(function () {
             this.sync = function  (){
                 // console.log('nothing for sync ');
             }
-            // this.stopSs= function(e){
-            //     virtualclass.ss.unShareScreen();
-            // }
-            //
 
+            /** Record setting **/
+
+            this.recs = function (e){
+                recordSettings.onMessage(e);
+            }
         };
 
         // TODO this shoudl be remove, after precheck feature is enabled

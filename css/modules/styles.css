@@ -1479,10 +1479,11 @@
 }
 
 #virtualclassCont.congrea #errorContainer {
-	position: fixed;
-	bottom: 11%;
-	right: 50%;
-	color : rgba(131, 14, 14, 0.93);
+	position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%);
+	
 	z-index : 10
 }
 
@@ -1767,7 +1768,7 @@
 
 
 #virtualclassCont.congrea #confirm.popupWindow.simple-box{
-	max-width: 350px;
+	max-width: 450px;
 	background-color: #fff;
 	text-align: center;
 
@@ -1788,11 +1789,22 @@
 }
 
 #virtualclassCont.congrea #popupContainer , #virtualclassCont.congrea #confirm.popupWindow.simple-box {
-	padding: 30px;
+	/* padding: 30px; */
+}
+#virtualclassCont.congrea #popupContainer {
+	display: block;
+    position: absolute;
+    height: 100%;
+    top: 0%;
+    /* z-index:100001; */
+    width: 100%;
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk, #virtualclassCont.congrea #confirm.popupWindow #confirmCancel{
 	display: inline-block;
+	position: relative;
+    left: 5px;
+
 }
 
 #virtualclassCont.congrea #confirmCancelButton:after{
@@ -1850,7 +1862,7 @@
 }
 
 #virtualclassCont.congrea #popupContainer #replayContainer.popupWindow{
-	padding: 30px;
+	padding: 15px;
 	text-align: center;
 }
 
@@ -2061,7 +2073,8 @@
 	border-radius:5px;
 	text-align:center;
 	z-index : 1150;
-    max-width : 377px;
+	max-width : 377px;
+	color : rgba(131, 14, 14, 0.93);
 }
 
 @media (max-width:1100px) {
@@ -2070,7 +2083,7 @@
     }
     
     #virtualclassCont.congrea #errorContainer {
-        right:45%;
+       bottom: 15%;
     }
 }
 
@@ -2455,6 +2468,11 @@
 
 #virtualclassCont.congrea .bootstrap .modal-dialog{
 	width: 800px !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+	transform: translate(-50%,-50%);
+	margin: 0 !important;
 }
 
 #virtualclassCont.congrea .modal{
@@ -3080,8 +3098,8 @@
 }
 
 #virtualclassCont.congrea #popupContainer .urlValidation .urlMszClose{
-	top: 1px;
-	right: 3px;
+	top: -10px;
+	right: -10px;
 	position: absolute;
 	cursor: pointer;
 	/* color: black; */
@@ -3336,8 +3354,9 @@
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck #myModal{
-   width:100%;
-   margin-left: 0px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
 }
 #virtualclassCont.congrea #alleditorRichContainer [data-action="enable"],
 #virtualclassCont.congrea #alleditorRichContainer [data-action="disable"],
@@ -3791,6 +3810,7 @@ opacity: 1;
 }
 
 #virtualclassCont.congrea  #dashboardContainer .modal-header button {
+
 	display:none;
 }
 #virtualclassCont.congrea  #dashboardContainer .modal-header button.enable {
@@ -3798,6 +3818,16 @@ opacity: 1;
 	position: absolute;
     right: 10px;
 }
+/* #virtualclassCont.congrea  #dashboardContainer .in .modal-header button{
+	 display: none; 
+}
+
+#virtualclassCont.congrea  #dashboardContainer .fade .modal-header button {
+	
+	display: block;
+	position: absolute;
+    right: 10px;
+} */
 #virtualclassCont.congrea.pdfRendering .zoomControler{
 	pointer-events: none;
 }
@@ -3950,9 +3980,7 @@ background-color: #d6d6d6;
 }
 
 
-@media only screen 
-  and (min-device-width: 768px) 
-    and (max-device-width: 1024px) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 
     /* Scrollbar For Tablets */
     ::-webkit-scrollbar{
@@ -3989,9 +4017,10 @@ background-color: #d6d6d6;
             font-size:110% !important;
         }
         #virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen:before {
-            font-size:110%; !important;
+            font-size:110%;
         }
-}
+
+	}
 
 #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog {
     margin:20% auto;
@@ -4011,7 +4040,7 @@ background-color: #d6d6d6;
 }
 
 /* For Safari Browser */
-@media not all and (min-resolution:.001dpcm) { @media {
+@media not all and (min-resolution:.001dpcm) { 
 
     #virtualclassCont.congrea #videoHostSource, #virtualclassCont.congrea #webcamTempVideo {
         transform:inherit !important;
@@ -4022,7 +4051,7 @@ background-color: #d6d6d6;
 		opacity : 0.5;
 		display : none;
 	}
-}}
+}
 
 #videoPlayerCont .vjs-youtube-mobile .vjs-big-play-button{
 	display : block !important;
@@ -4152,7 +4181,8 @@ background-color: #d6d6d6;
     border-top: 5px solid #555;
     border-radius: 50%;
     width: 50px;
-    height: 50px;
+	height: 50px;
+	margin: 22px auto;
 }
 
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont, #virtualclassCont.congrea.playMode #popupContainer.loading #loadingWindowCont  {
@@ -4444,4 +4474,8 @@ background-color: #d6d6d6;
 
 #virtualclassCont #recording {
 	color : #ffffff;
+}
+
+#virtualclassCont #recording.statusonly {
+	pointerl-events : none;
 }

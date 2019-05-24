@@ -190,9 +190,7 @@
       height: calc(100vh - 48px);
     }
 
-    #virtualclassCont.congrea #about-modal.rv-vanilla-modal-is-open {
-      top: 75%;
-    }
+    
 
     #virtualclassCont.congrea.student #layoutQuizBody {
       padding-top:5px;

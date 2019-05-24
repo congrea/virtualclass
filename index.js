@@ -1452,7 +1452,7 @@ $(document).ready(function () {
             /** Record setting **/
 
             this.recs = function (e){
-                recordSettings.onMessage(e);
+                recordSettings.onMessage(e.message);
             }
         };
 

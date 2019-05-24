@@ -37,6 +37,19 @@ let recordSettings = {
 
          this.showStatus = this.showStatus();
          this.showButton();
+         this.overrideSettingFromLocalStorage();
+    },
+
+    overrideSettingFromLocalStorage () {
+        let setting = localStorage.getItem('recsetting');
+        if(setting !== null && setting !== undefined){
+            setting  = JSON.parse(setting);
+            if(roles.hasControls() || setting.statusonly !== true){
+                this.updateSettingAV(false);
+            }else {
+                this.onMessage({ac : false});
+            }
+        }
     },
 
     showButton () {
@@ -45,7 +58,7 @@ let recordSettings = {
             recording.classList.remove('hide');
             recording.classList.add('show');
             recording.dataset.recording = "on";
-                if(!this.statusOnly){
+            if(!this.statusOnly){
                 this.attachHandler(recording);
             }else {
                 recording.classList.add('statusonly');
@@ -73,6 +86,7 @@ let recordSettings = {
             recButton.innerHTML = "Recording";
             recElem.dataset.recording = "on";
             recElem.setAttribute('data-title','Click here to stop a/v in recording');
+            localStorage.removeItem('recsetting');
         }else {
             if(this.trimRecordings){
                 recButton.innerHTML = "Start Recording";
@@ -85,6 +99,8 @@ let recordSettings = {
                 }
             }
             recElem.dataset.recording = "off";
+
+            localStorage.setItem('recsetting', JSON.stringify({statusonly: this.statusOnly, rec : recElem.dataset.recording}));
         }
         ioAdapter.setRecording();
     },
@@ -92,7 +108,7 @@ let recordSettings = {
     recordingButtonAction (elem) {
         if(!elem.classList.contains('statusonly')){
             let recordSetting;
-            if(elem.dataset.recording == 'off'){
+            if(elem.dataset.recording === 'off'){
                 recordSetting = true;
                 this.updateSettingAV(recordSetting);
             } else {
@@ -103,7 +119,6 @@ let recordSettings = {
             if(roles.hasControls()){
                 ioAdapter.mustSend({ac : recordSetting, 'cf': 'recs'});
             }
-
         } else {
             console.log(" Do nothing");
         }
@@ -145,32 +160,27 @@ let recordSettings = {
     },
 
     sendYesOrNo (){
-        if(this.isRecordingOn()){
-            return "Yes";
-        }else {
-            return "No";
-        }
+        return (this.isRecordingOn() ? "Yes" : "No");
     },
 
     setStatusOnElement () {
         let recording = document.querySelector("#recording");
         if(this.allowattendeeAVcontrolByTeacher){
             recording.classList.add('statusonly');
-            this.statusonly = true;
+            this.statusOnly = true;
         }else {
             recording.classList.remove('statusonly');
-            this.statusonly = false;
+            this.statusOnly = false;
         }
     },
 
-    onMessage (e) {
-        if(e.message.ac == false){
+    onMessage (message) {
+        if(message.ac == false){
             this.allowattendeeAVcontrolByTeacher = true;
         }else {
             this.allowattendeeAVcontrolByTeacher = false;
         }
-
         this.setStatusOnElement();
-        this.updateSettingAV(e.message.ac);
+        this.updateSettingAV(message.ac);
     }
 };

@@ -8,7 +8,7 @@ let sessionSetting  = {
 
     recallowattendeeAVcontrol : true,
     showAttendeeRecordingStatus : true,
-    trimRecordings : false
+    trimRecordings : true
 }
 
 
@@ -23,7 +23,7 @@ let recordSettings = {
     allowattendeeAVcontrolByTeacher : false,
 
     init () {
-         this.enablerecording   =  sessionSetting.enableRecording;
+         this.enableRecording   =  sessionSetting.enableRecording;
          if(roles.hasControls()){
              this.trimRecordings  = false;
              this.allowpresentorAVcontrol  =  sessionSetting.recAllowpresentorAVcontrol;
@@ -96,7 +96,9 @@ let recordSettings = {
 
             localStorage.setItem('recsetting', JSON.stringify({statusonly: this.statusOnly, rec : recElem.dataset.recording}));
         }
+
         ioAdapter.setRecording();
+
     },
 
     recordingButtonAction (elem) {
@@ -120,18 +122,18 @@ let recordSettings = {
 
     showStatus (){
         if(roles.hasControls()){
-            if(this.enablerecording && this.allowpresentorAVcontrol && this.showPresentorRecordingStatus){
+            if(this.enableRecording && this.allowpresentorAVcontrol && this.showPresentorRecordingStatus){
                 return true;
-            }else if(this.enablerecording && !this.allowpresentorAVcontrol && this.showPresentorRecordingStatus){
+            }else if(this.enableRecording && !this.allowpresentorAVcontrol && this.showPresentorRecordingStatus){
                 this.statusOnly = true;
                 return true
             }
             return false;
         } else {
 
-            if(this.enablerecording && !this.disableAttendeeAV && this.allowattendeeAVcontrol && this.showAttendeeRecordingStatus){
+            if(this.enableRecording && !this.disableAttendeeAV && this.allowattendeeAVcontrol && this.showAttendeeRecordingStatus){
                 return true;
-            }else if(this.enablerecording && !this.disableAttendeeAV && !this.allowpresentorAVcontrol && this.showAttendeeRecordingStatus){
+            }else if(this.enableRecording && !this.disableAttendeeAV && !this.allowpresentorAVcontrol && this.showAttendeeRecordingStatus){
                 this.statusOnly = true;
                 return true;
             }
@@ -141,7 +143,7 @@ let recordSettings = {
 
     isRecordingOn () {
         if(roles.hasControls()){
-            return (this.enablerecording && this.allowpresentorAVcontrol && this.audioVideo);
+            return (this.enableRecording && this.allowpresentorAVcontrol && this.audioVideo);
         } else {
             if(!this.disableAttendeeAV){
                 if(this.allowattendeeAVcontrol ){
@@ -154,7 +156,7 @@ let recordSettings = {
     },
 
     sendYesOrNo (){
-        return (this.isRecordingOn() ? "Yes" : "No");
+        return (this.isRecordingOn() ? "yes" : "no");
     },
 
     setStatusOnElement () {

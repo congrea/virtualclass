@@ -4447,3 +4447,8 @@ background-color: #d6d6d6;
 #virtualclassCont #recording.statusonly {
 	pointerl-events : none;
 }
+
+
+#virtualclassCont.playMode #recording {
+	display : none;
+}

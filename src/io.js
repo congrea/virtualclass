@@ -239,6 +239,7 @@ var io = {
         switch (receivemsg.type) {
             case "joinroom":
                 if(receivemsg.hasOwnProperty('users')){
+                    ioAdapter.setRecording();
                     console.log("New user join room " + receivemsg.users.length);
                 }else {
                     console.log("No users");

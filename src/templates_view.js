@@ -102,6 +102,14 @@ this["JST"]["dest_temp/templates/audioWidget.hbs"] = Handlebars.template({"compi
     + "\"><a id=\"appSettingCtrlAnchor\"><span class=\"setting-btn cgIcon\"></span></a></li></ul></div>";
 },"useData":true});
 
+this["JST"]["dest_temp/templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\"><div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\"><div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\" style=\"height: 389px; width: 320px; max-height: 429px;\"></div></div></div><div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\" style=\"width: 304px; left: 6px; display: none; z-index: 1;\"><div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\"><ul id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></ul></div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/chat/chatMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\"><div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\"></div></div><div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\" style=\"width: 304px; left: 6px; display: none; z-index: 1;\"><div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\"><ul id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></ul></div></div>";
+},"useData":true});
+
 this["JST"]["dest_temp/templates/chat/chatbox.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
@@ -516,7 +524,7 @@ this["JST"]["dest_temp/templates/leftBar.hbs"] = Handlebars.template({"1":functi
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " <div id=\"virtualclassAppContainer\"><div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\" style=\"display:none;\"><div class=\"whiteboardContainer\"></div> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " </div></div><a id=\"congrealogo\" href=\"https://www.congrea.com\" target=\"_blank\"><img src=\"https://cdn.congrea.net/resources/images/congrea_logo.svg\"></a><div id=\"docShareNav\"></div><div id=\"recording\" class=\"hide\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Rec</span></div></div></div>";
+    + " </div></div><a id=\"congrealogo\" href=\"https://www.congrea.com\" target=\"_blank\"><img src=\"https://cdn.congrea.net/resources/images/congrea_logo.svg\"></a><div id=\"docShareNav\"></div><div id=\"recording\" class=\"hide\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Recording</span></div></div></div>";
 },"usePartial":true,"useData":true});
 
 this["JST"]["dest_temp/templates/main.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

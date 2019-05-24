@@ -4443,3 +4443,7 @@ background-color: #d6d6d6;
 #virtualclassCont #recording {
 	color : #ffffff;
 }
+
+#virtualclassCont #recording.statusonly {
+	pointerl-events : none;
+}

@@ -72,11 +72,17 @@ let recordSettings = {
         if(this.audioVideo){
             recButton.innerHTML = "Recording";
             recElem.dataset.recording = "on";
+            recElem.setAttribute('data-title','Click here to stop a/v in recording');
         }else {
             if(this.trimRecordings){
                 recButton.innerHTML = "Start Recording";
             }else{
                 recButton.innerHTML = "Recording";
+                if(this.allowattendeeAVcontrolByTeacher){
+                    recElem.setAttribute('data-title','Your a/v is controlled by the teacher');
+                }else{
+                    recElem.setAttribute('data-title','Click here to start a/v in recording');
+                }
             }
             recElem.dataset.recording = "off";
         }

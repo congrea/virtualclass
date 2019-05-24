@@ -4374,13 +4374,18 @@ background-color: #d6d6d6;
 }
 
 #virtualclassCont #virtualclassAppLeftPanel #recording {
+	color:#fff;
 	position: fixed;
 	left:0;
 	bottom: 0px;
 	z-index: 1000;
-	padding:13px 20px;
+	padding:12px 20px;
 	border-right: 0.01em solid #021317!important;
 	cursor:pointer;
+}
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel #recording.congtooltip:hover:after {
+	bottom:48px;
 }
 
 #virtualclassCont #virtualclassAppLeftPanel #recording.statusonly {
@@ -4397,6 +4402,7 @@ background-color: #d6d6d6;
 
 #virtualclassCont #virtualclassAppLeftPanel #recording[data-recording="on"] span.showStatus {
 	float:left;
+	margin-top:1px;
 	width: 16px;
     height: 16px;
     font-size: 0;
@@ -4412,6 +4418,7 @@ background-color: #d6d6d6;
 
 #virtualclassCont #virtualclassAppLeftPanel #recording[data-recording="off"] span.showStatus {
 	float:left;
+	margin-top:1px;
 	width: 16px;
     height: 16px;
     font-size: 0;
@@ -4427,6 +4434,7 @@ background-color: #d6d6d6;
 
 #virtualclassCont #virtualclassAppLeftPanel #recording[data-recording="off"].trimRecording span.showStatus {
 	float:left;
+	margin-top:1px;
 	width: 16px;
     height: 16px;
     font-size: 0;
@@ -4473,7 +4481,7 @@ background-color: #d6d6d6;
 	}
 }
 
-#virtualclassCont .recordingStatus {
+#virtualclassCont #virtualclassAppLeftPanel.recordingStatus {
 	width: 35px;
 	height: 35px;
 	font-size: 0;
@@ -4484,8 +4492,8 @@ background-color: #d6d6d6;
 	outline: none;
 }
 
-#virtualclassCont #recording {
-	color : #ffffff;
+#virtualclassCont.playMode #virtualclassAppLeftPanel #recording {
+	display:none;
 }
 
 #virtualclassCont #recording.statusonly {

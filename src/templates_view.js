@@ -32,6 +32,26 @@ this["JST"]["dest_temp/templates/appSettingDetail.hbs"] = Handlebars.template({"
     + " </div><div id=\"settingMedia\" class=\"app-settings-rbs\"><div id=\"webRtcIo\" class=\"io\" data-suggestion=\"\"></div></div></div>";
 },"useData":true});
 
+this["JST"]["dest_temp/templates/appSettingMedia.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<div id=\"webRtcIoContainer\" class=\"rtcIo\"><div class=\"setting-heading\"><label>"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"media",{"name":"getString","hash":{},"data":data}))
+    + "</label></div><ul class=\"list-group\"><li class=\"lists-cont d-flex justify-content-between align-items-center ainput\"> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"audioInput",{"name":"getString","hash":{},"data":data}))
+    + " <div class=\"audio-options\"><select id=\"audioSource\"></select><span class=\"hide\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"noain",{"name":"getString","hash":{},"data":data}))
+    + "</span></div></li><li class=\"lists-cont d-flex justify-content-between align-items-center aoutput\"> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"audioOutput",{"name":"getString","hash":{},"data":data}))
+    + " <div class=\"audio-options\"><select id=\"audioOutput\"></select><span class=\"hide\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"noaout",{"name":"getString","hash":{},"data":data}))
+    + "</span></div></li><li class=\"lists-cont clearfix justify-content-between align-items-center vinput\"> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"videoInput",{"name":"getString","hash":{},"data":data}))
+    + " <div class=\"audio-options\"><select id=\"videoSource\"></select><span class=\"hide\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"novideo",{"name":"getString","hash":{},"data":data}))
+    + "</span></div><div id=\"congreaVideoSettingCont\" data-setting-type=\"audio\"><video id=\"congreaVideoSetting\" playsinline autoplay muted></video></div></li></ul></div>";
+},"useData":true});
+
 this["JST"]["dest_temp/templates/appTools.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
@@ -130,14 +150,6 @@ this["JST"]["dest_temp/templates/chat/chatbox.hbs"] = Handlebars.template({"comp
     + "\" class=\"ui-widget-content ui-chatbox-log\"></div><div class=\"ui-widget-content ui-chatbox-input\" id=\"yui_3_17_2_1_1496992871757_59\"><textarea class=\"ui-widget-content ui-chatbox-input-box\" id=\"ta"
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" style=\"width: 219px;\"></textarea></div></div></div></li>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\"><div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\"><div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\" style=\"height: 389px; width: 320px; max-height: 429px;\"></div></div></div><div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\" style=\"width: 304px; left: 6px; display: none; z-index: 1;\"><div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\"><ul id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></ul></div></div>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/chat/chatMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\"><div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\"></div></div><div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\" style=\"width: 304px; left: 6px; display: none; z-index: 1;\"><div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\"><ul id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></ul></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -628,6 +640,30 @@ this["JST"]["dest_temp/templates/poll/optioninput.hbs"] = Handlebars.template({"
     + " </div>";
 },"useData":true});
 
+this["JST"]["dest_temp/templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return " <div><input class=\"opt\" name=\"option\" value=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\" type=\"radio\" id=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\"><span>"
+    + alias4(container.lambda(depth0, depth0))
+    + "</span></div> ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<div id=\"stdPollContainer\" class=\"container\"><div id=\"stdContHead\" class=\"panel\"><div class=\"stdHeader\"><label id=\"pollHead\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"pollHead",{"name":"getString","hash":{},"data":data}))
+    + "</label></div><label id=\"timerLabel\"></label><div id=\"timerCont\"></div></div><div id=\"stdContBody\" class=\"panel\"><label>"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
+    + " :<span id=\"stdQnCont\">"
+    + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
+    + "</span></label><div id=\"stdOptionCont\"> "
+    + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " </div></div><div id=\"stdContFooter\"><input id=\"btnVote\" type=\"button\" class=\"btn btn-primary\" value=\"Vote\"></div></div>";
+},"useData":true});
+
 this["JST"]["dest_temp/templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
@@ -692,30 +728,6 @@ this["JST"]["dest_temp/templates/poll/pollresultlist.hbs"] = Handlebars.template
     + "</th><th>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"optselectd",{"name":"getString","hash":{},"data":data}))
     + "</th></tr></thead><tbody id=\"resultList\"></tbody></table>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return " <div><input class=\"opt\" name=\"option\" value=\""
-    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
-    + "\" type=\"radio\" id=\""
-    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
-    + "\"><span>"
-    + alias4(container.lambda(depth0, depth0))
-    + "</span></div> ";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return "<div id=\"stdPollContainer\" class=\"container\"><div id=\"stdContHead\" class=\"panel\"><div class=\"stdHeader\"><label id=\"pollHead\">"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"pollHead",{"name":"getString","hash":{},"data":data}))
-    + "</label></div><label id=\"timerLabel\"></label><div id=\"timerCont\"></div></div><div id=\"stdContBody\" class=\"panel\"><label>"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
-    + " :<span id=\"stdQnCont\">"
-    + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
-    + "</span></label><div id=\"stdOptionCont\"> "
-    + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " </div></div><div id=\"stdContFooter\"><input id=\"btnVote\" type=\"button\" class=\"btn btn-primary\" value=\"Vote\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/poll/preview-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

@@ -4389,7 +4389,7 @@ background-color: #d6d6d6;
     border: 0;
     border-radius: 35px;
 	outline: none;
-	animation-name: pulse;
+	animation-name: pulse-off;
 	animation-duration: 1.5s;
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
@@ -4409,9 +4409,28 @@ background-color: #d6d6d6;
 		box-shadow: 0px 0px 5px 10px rgba(173,0,0,.4);
 	}
 	70%{
+		box-shadow: 0px 0px 5px 10px rgba(173,0,0,.3);
+	}
+	100%{
 		box-shadow: 0px 0px 5px 10px rgba(173,0,0,0);
 	}
 }
+
+@keyframes pulse-off{
+	0%{
+		box-shadow: 0px 0px 5px 0px rgba(168, 110, 1, 0.4);
+	}
+	65%{
+		box-shadow: 0px 0px 5px 10px rgba(136, 88, 0, 0.4);
+	}
+	70%{
+		box-shadow: 0px 0px 5px 10px rgba(136, 88, 0, 0.3);
+	}
+	100%{
+		box-shadow: 0px 0px 5px 10px rgba(150, 98, 1, 0);
+	}
+}
+
 #virtualclassCont .recordingStatus {
 	width: 35px;
 	height: 35px;

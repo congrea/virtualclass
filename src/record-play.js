@@ -94,6 +94,8 @@
         orginalTimes : [], // Todo, this and it's related variables and functions should be removed
         startSeek : false,
         initPlay : false,
+        trimRecording : false,
+        enableTrim : true,
         init: function () {
             if(!this.attachSeekHandler){
                 this.attachSeekHandler = true;
@@ -326,9 +328,16 @@
 
         insertPacketInto (chunk, miliSeconds) {
             let totalSeconds = Math.trunc(miliSeconds/1000);
+            let playTime = 0;
             if(!isNaN(totalSeconds) && totalSeconds >= 1 ){
-                var data = {playTime : 1000, 'recObjs' : '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ', type :'J'};
+                if(!this.trimRecording){
+                    playTime = 1000;
+                }
+
+                var data = {playTime : playTime, 'recObjs' : '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ', type :'J'};
+
                 for(let s = 0; s<totalSeconds; s++){
+                    this.totalTimeInMiliSeconds += playTime;
                     chunk.push(data);
                 }
             }
@@ -377,7 +386,26 @@
                             this.lastFileTime = time;
                         }
 
-                        chunk.push({playTime : this.tempPlayTime, 'recObjs' : data, type :type});
+                        // chunk.push({playTime : this.tempPlayTime, 'recObjs' : data, type :type});
+
+                        if(this.trimRecording){
+                            chunk.push({playTime : 0, 'recObjs' : data, type :type});
+                            console.log("==== TRIM ")
+                        } else {
+                            if(this.enableTrim && data.indexOf('{"ac":false,"cf":"recs"') > -1){
+                                this.trimRecording = true;
+                                chunk.push({playTime : 0, 'recObjs' : data, type :type});
+                                console.log("==== TRIM ")
+                            } else {
+                                chunk.push({playTime : this.tempPlayTime, 'recObjs' : data, type :type});
+                            }
+                        }
+
+                        this.totalTimeInMiliSeconds +=  chunk[chunk.length - 1].playTime;
+
+                        if(this.enableTrim && data.indexOf('{"ac":true,"cf":"recs"') > -1){
+                            this.trimRecording = false;
+                        }
 
                         if(typeof allRecordigns[i+1] != 'undefined') {
                             let nextMiliSeconds = this.calculateNextTime(time, allRecordigns[i + 1]);
@@ -457,7 +485,6 @@
             }else {
                 return false;
             }
-
         },
 
         finishRequestDataFromServer (singleFileTime) {
@@ -582,9 +609,11 @@
         },
 
         selfSeek () {
+            console.log('Start self seek');
+            this.selfStartSeek = true
             this._seek();
             this.triggerSynchPacket();
-            console.log('seek is finished');
+
             this.controller._play();
         },
 
@@ -615,7 +644,8 @@
         _seek (index) {
             this.controller._pause();
             let subLength;
-            while (index ? this.masterIndex <= index.master : !this.seekFinished()){
+           // while (index ? this.masterIndex <= index.master : !this.seekFinished()){
+            while (true){
             // while (true){
                 if(index != null){
                     subLength = (this.masterIndex != index.master) ? this.masterRecordings[this.masterIndex].length : index.sub;
@@ -664,7 +694,7 @@
                         // console.log('PLAY ERROR ' + e.errorCode);
                     }
 
-                    if(this.seekFinished()){
+                    if(this.enableTrim && this.selfStartSeek && this.seekFinished()){
                         this.selfSeekFinished = true;
                         break;
                     }
@@ -896,7 +926,7 @@
                         } else if(virtualclass.currApp == 'Quiz' &&
                             this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"quiz":{"quizMsg":"stdPublish",') > -1){
                             virtualclass.quiz.quizStartTime = {app : 'Quiz', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}};
-                        }else if (this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":false,"cf":"recs"') > -1){
+                        }else if (this.enableTrim && this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":false,"cf":"recs"') > -1){
                             virtualclass.recorder.selfSeek();
                         }
                     }
@@ -1260,7 +1290,7 @@
             var lastTime = Math.trunc(+(virtualclass.recorder.totalRecordingFiles[virtualclass.recorder.totalRecordingFiles.length-1].split("-")[1].split(".")[0]) / 1000000);
             // converting nano to seconds
 
-            this.totalTimeInMiliSeconds = (lastTime - firstTime);
+            // this.totalTimeInMiliSeconds = (lastTime - firstTime);
 
             this.lastTimeInSeconds = Math.trunc(lastTime / 1000);
             this.firstTimeInSeconds = Math.trunc(firstTime / 1000);

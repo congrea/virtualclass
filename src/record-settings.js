@@ -13,7 +13,7 @@ let sessionSetting  = {
 
 
 let recordSettings = {
-    enableRecording : false,
+    enableRecording : true,
     allowpresentorAVcontrol : false,
     disableAttendeeAV : false,
     allowattendeeAVcontrol : false,

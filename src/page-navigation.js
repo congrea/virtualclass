@@ -272,7 +272,7 @@
     pageIndexNav.prototype.rearrangePageNavigation = function (order) {
         var container = document.getElementById('dcPaging');
         if (container) {
-            var tmpdiv = document.createElement('ul');
+            var tmpdiv = document.createElement('div');
             tmpdiv.id = "dcPaging";
             if (tmpdiv !=null) {
                 var old = [];

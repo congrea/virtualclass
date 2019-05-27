@@ -629,6 +629,7 @@
             }
 
             localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
+            localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
 
             if(virtualclass.zoom.canvasScale != null){
                 var canvasScale = (+virtualclass.zoom.canvasScale);
@@ -657,6 +658,7 @@
             }
 
             localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
+            localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
 
             if(!roles.hasControls()){
                 var elem =  document.querySelector("#virtualclassCont.congrea #congHr.disable");
@@ -679,7 +681,7 @@
 
             }
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
-
+            this.saveWbOrder();
             if(virtualclass.currApp != 'DocumentShare'){
                 io.disconnect();
             }
@@ -2463,8 +2465,8 @@
             }
         },
 
-        createWhiteBoard : function (wId){
-            var args = ['Whiteboard', 'byclick', wId];
+        createWhiteBoard : function (wId,ci){
+            var args = ['Whiteboard', 'byclick', wId,ci];
             virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
             var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
             virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
@@ -2499,7 +2501,12 @@
             var url = virtualclass.api.UpdateRoomMetaData
             virtualclass.xhrn.sendData(data, url,cb);
         },
-
+        saveWbOrder: function (order) {
+            if (order) {
+                console.log("nirmala" +order)
+                localStorage.setItem("wbOrder", JSON.stringify(virtualclass.wbCommon.order))
+            }
+        },
         requestOrder : function (type, cb){
             var url = virtualclass.api.GetRoomMetaData;
             var cthis = this;

@@ -67,6 +67,7 @@
                 wIds : [0],
                 wbRearrang : false,
                 currSlide : (localStorage.getItem('currSlide') != null) ? localStorage.getItem('currSlide') : 0,
+                currIndex : (localStorage.getItem('currIndex') != null) ? localStorage.getItem('currIndex') : 0,
                 uploadingFiles : [],
                 docOrder : {},
                 fetchedData : false,
@@ -638,6 +639,7 @@
                              if(wIds != null && wIds.length > 0 ){
                                 virtualclass.wbCommon.readyElements(wIds);
                                 virtualclass.wbCommon.initNav(wIds);
+                              
 
 
       
@@ -652,11 +654,18 @@
                                 virtualclass.wbCommon.reArrangeElements(wIds);
                                 virtualclass.gObj.wbRearrang = true;
                                 virtualclass.gObj.wIds = wIds;
+                                if(roles.hasControls()){
+                                    virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order)
+                                    virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb)
+                                }
+
 //                                if (!roles.hasControls()) {
 //                                    if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
 //                                        virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
 //                                    }
 //                                }
+
+                    
                                  
                              }
                             //virtualclass.gObj.currWb = '_doc_0_'+virtualclass.gObj.currSlide;
@@ -790,7 +799,7 @@
 
             // Helper functions for making the app is ready
             appInitiator : {
-                Whiteboard : function (app, cusEvent, id, container){
+                Whiteboard : function (app, cusEvent, id, ci){
                     // if(virtualclass.currApp == 'Whiteboard' &&  virtualclass.previous != 'virtualclassWhiteboard'){
                     //     // virtualclass.view.window.resize(id);
                     // }
@@ -1214,6 +1223,7 @@
                         
                     }else{
                         virtualclass.dts.firstRequest = false;
+                        virtualclass.dts.indexNav.init()
                     }
                       //virtualclass.dts.indexNav = new  pageIndexNav("WB")
                        //virtualclass.dts.indexNav.init();

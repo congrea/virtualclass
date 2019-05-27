@@ -896,7 +896,6 @@
     /*}*/
     #virtualclassCont.congrea .noteIndex {
         margin-left: 20px;
-        color: white;
         font-size: 14px;
         cursor: pointer;
     }
@@ -927,9 +926,6 @@
         cursor: pointer;
     }
 
-    .noteIndex.hid {
-        display: none;
-    }
 
     .noteIndex.shw {
         display: inline-block;
@@ -1084,4 +1080,31 @@
 }
 #docShareNav.show{
     display:block!important;
+}
+
+#virtualclassWhiteboard .nvgt{
+    display:none!important;
+}
+
+#virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #stdPageNo{
+  
+}
+#virtualclassCont.congrea[data-currapp = 'Whiteboard']  #addNewPage span{
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    border: solid black 1px; 
+    
+}
+#virtualclassCont.congrea .noteIndex, #virtualclassCont.congrea  .pageNav {
+   color:white; 
+    
+}
+#virtualclassCont.congrea #ancCont,  #virtualclassCont.congrea #pageAnc{
+    display:inline;
+}
+
+#virtualclassCont.congrea .icon-newPage, 
+#virtualclassCont.congrea  #pageAnc{
+    color:white;
 }

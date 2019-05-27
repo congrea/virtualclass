@@ -183,8 +183,8 @@ var colorSelector ={
             "#virtualclassCont.congrea #docShareNav #totalPages"+
             "{color:"+frontColor+"!important}"+
 
-            "#virtualclassCont.congrea #dcPaging .noteIndex"+
-            "{color:"+frontColor+"!important}"+
+//            "#virtualclassCont.congrea #dcPaging .noteIndex"+
+//            "{color:"+frontColor+"!important}"+
 
             "#virtualclassCont.congrea #docShareNav .pageNav"+
             "{color:"+frontColor+"!important}"+
@@ -256,10 +256,8 @@ var colorSelector ={
             "#virtualclassCont.congrea  #playController button"+
             "{background-image:none !important;color:"+frontColor+"!important; border-right: 1px solid "+allbg.fcolor+"!important}"+
             "#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox.active"+
-            "{background-image: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%);} "+
-            "#virtualclassCont.congrea #dcPaging .noteIndex.active"+
-            "{border : 1px solid"+frontColor+"!important}";
-            this.addCss(css);
+            "{background-image: radial-gradient(ellipse at center, "+active.fcolor+" 0%,"+active.scolor+" 100%);} ";
+             this.addCss(css);
 
     },
 
@@ -384,8 +382,6 @@ var colorSelector ={
             "#virtualclassCont.congrea #virtualclassPoll .modal button.close ," +
             "#virtualclassCont.congrea  .alert .close " +
             "{background-image: none !important ;background-color:none !important}";
-
-        ;
 
         this.addCss(css);
     },

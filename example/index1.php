@@ -266,7 +266,6 @@ if($info) {
     wbUser.recordSettings.disableAttendeeAV =  "<?php echo $disable_attendee_av; ?>";
     wbUser.recordSettings.allowAttendeeAV =  "<?php echo $allow_attendee_av; ?>";
 
-
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboardpath."worker/screenworker.js" ?>");
         var sdworker = new Worker("<?php echo $whiteboardpath."worker/screendecode.js" ?>");

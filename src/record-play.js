@@ -401,7 +401,14 @@
                 }
             }
 
+            if(this.masterRecordings.length === 0){
+                let joinMsg = JSON.parse(chunk[0].recObjs);
+                joinMsg.clientids  = joinMsg.action;
+                chunk[0].recObjs = JSON.stringify(joinMsg);
+            }
+
             this.masterRecordings.push(chunk);
+
             this.orginalTimes.push(tempChunk);
 
             this.UIdownloadProgress(file);
@@ -573,8 +580,6 @@
             }
 
             this.controller._pause();
-         //   this.initRecPause();
-
             // var binarySyncUnshareMsg = null;
             while (this.masterIndex <= index.master){
                 subLength = (this.masterIndex != index.master) ? this.masterRecordings[this.masterIndex].length : index.sub;
@@ -633,7 +638,7 @@
                     // console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
                     if(this.binarySyncMsg){
                         // this.handleSyncPacket (syncMsg, this.binarySyncMsg);
-                        this.handleSyncPacket ();
+                        this.handleSyncPacket();
                         this.binarySyncMsg = null;
                     }
                     this.handleSyncStringPacket();

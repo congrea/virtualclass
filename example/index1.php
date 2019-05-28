@@ -125,16 +125,9 @@ if (isset($_GET['role']) && $_GET['role'] == 't' && !$isplay) {
 
 //meeting mode or normal mode
 //class add when meetingmode or normalmode
-if (isset($_GET['meetingmode'])) {
-    $meetingmode = $_GET['meetingmode'];
-    $cont_class .= 'meetingmode ';
-} else {
-    $meetingmode = 0;
-    $cont_class .= 'normalmode ';
-}
 
-
-
+$meetingmode = 0;
+$cont_class .= 'normalmode ';
 
 $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 
@@ -144,6 +137,37 @@ $lname = isset($_GET['lname']) ? $_GET['lname'] : ' ';
 $info = 1;
 $audio_disabled_completely = true;
 $cmid = 5;
+
+/* Show status button on ui */
+/*
+$enable_recording  = 1;
+$allow_presenter_av = 1;
+$show= 1;
+*/
+
+/* Show status icon only ***/
+
+/*
+$enable_recording  = 1;
+$allow_presenter_av = 0;
+$show= 1; */
+
+/* Hide the status icon for presenter**/
+
+/*  $enable_recording  = 1;
+    $allow_presenter_av = 1;
+    $show= 0; */
+
+
+$enable_recording  = 1;
+$allow_presenter_av = 0;
+$show= 1;
+
+/* show the status icon for student**/
+$disable_attendee_av = 0;
+$allow_attendee_av = 1;
+$show = 1;
+
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/overrideimage.css" ?> />
@@ -216,7 +240,6 @@ if($info) {
 	virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
     wbUser.session = '<?php echo $session; ?>';
     wbUser.virtualclassPlay = '<?php echo $isplay; ?>';
-    wbUser.saveRecording = '<?php echo $saverecording; ?>';
     wbUser.vcSid = '<?php echo "1"; ?>';
     wbUser.imageurl =  '';
     wbUser.id =  '<?php echo $uid; ?>';
@@ -235,6 +258,14 @@ if($info) {
     window.exportfilepath = "<?php echo $whiteboardpath . "export.php" ?>";
     window.webapi = "<?php echo $whiteboardpath ."webapi.php?cmid=".$cmid; ?>";
     window.congCourse =  "<?php echo $cmid ?>";
+
+    wbUser.recordSettings = {};
+    wbUser.recordSettings.enableRecording =  "<?php echo $enable_recording; ?>";
+    wbUser.recordSettings.allowPresenterAV =  "<?php echo $allow_presenter_av; ?>";
+    wbUser.recordSettings.show =  "<?php echo $show; ?>";
+    wbUser.recordSettings.disableAttendeeAV =  "<?php echo $disable_attendee_av; ?>";
+    wbUser.recordSettings.allowAttendeeAV =  "<?php echo $allow_attendee_av; ?>";
+
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboardpath."worker/screenworker.js" ?>");
         var sdworker = new Worker("<?php echo $whiteboardpath."worker/screendecode.js" ?>");
@@ -248,6 +279,14 @@ if($info) {
     }
 
 </script>
+<script>
+var virtualclassIDBOpen, virtualclassIDBDelete;
+</script>
+<script type="module">
+     import {openDB, deleteDB} from 'https://unpkg.com/idb?module';
+     virtualclassIDBOpen = openDB;
+     virtualclassIDBDelete = deleteDB;
+</script>
 
 <?php
 
@@ -257,6 +296,7 @@ if ($info) {
 } else {
     include('js.php');
 }
+
 ?>
 
 <!-- Fine Uploader JS file

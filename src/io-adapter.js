@@ -132,13 +132,15 @@ var ioAdapter = {
        io.sendBinary(msg);
     },
 
-    setSessionToServer: function (session) {
-        if (virtualclass.saveRecording) {
+    setRecording (){
+        if (virtualclass.recordSettings.enableRecording) {
+            var sendData = virtualclass.recordSettings.sendYesOrNo();
             let obj = {
-                cfun: 'session',
-                arg: {'msg': session}
+                cfun: 'recording',
+                arg: {'msg': sendData}
             };
             io.realSend(obj);
+            console.log('==== Send Recording a/v ' + sendData);
         }
         io.sessionSet = true;
     },

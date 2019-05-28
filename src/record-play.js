@@ -94,6 +94,8 @@
         orginalTimes : [], // Todo, this and it's related variables and functions should be removed
         startSeek : false,
         initPlay : false,
+        trimRecording : false,
+        enableTrim : true,
         init: function () {
             if(!this.attachSeekHandler){
                 this.attachSeekHandler = true;
@@ -103,11 +105,7 @@
 
                 downloadProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
                 playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
-
                 virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
-
-                // virtualclassApp.addEventListener('mouseup',  this.finalSeek.bind(this));
-
                 window.addEventListener('mouseup', this.finalSeek.bind(this));
 
                 virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
@@ -185,16 +183,6 @@
             this.playProgressBar(this.playTime);
             delete this.prvNum;
             this.init();
-        },
-
-        exportData: function (cb) {
-            virtualclass.popup.openProgressBar();
-            virtualclass.recorder.items = [];
-            virtualclass.storage.getAllObjs(["allData"], function () {
-                if (typeof cb == 'function') {
-                    cb();
-                }
-            });
         },
 
         // If binary, return buffer else return original value
@@ -340,9 +328,16 @@
 
         insertPacketInto (chunk, miliSeconds) {
             let totalSeconds = Math.trunc(miliSeconds/1000);
+            let playTime = 0;
             if(!isNaN(totalSeconds) && totalSeconds >= 1 ){
-                var data = {playTime : 1000, 'recObjs' : '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ', type :'J'};
+                if(!this.trimRecording){
+                    playTime = 1000;
+                }
+
+                var data = {playTime : playTime, 'recObjs' : '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ', type :'J'};
+
                 for(let s = 0; s<totalSeconds; s++){
+                    this.totalTimeInMiliSeconds += playTime;
                     chunk.push(data);
                 }
             }
@@ -391,7 +386,26 @@
                             this.lastFileTime = time;
                         }
 
-                        chunk.push({playTime : this.tempPlayTime, 'recObjs' : data, type :type});
+                        // chunk.push({playTime : this.tempPlayTime, 'recObjs' : data, type :type});
+
+                        if(this.trimRecording){
+                            chunk.push({playTime : 0, 'recObjs' : data, type :type});
+                            console.log("==== TRIM ")
+                        } else {
+                            if(this.enableTrim && data.indexOf('{"ac":false,"cf":"recs"') > -1){
+                                this.trimRecording = true;
+                                chunk.push({playTime : 0, 'recObjs' : data, type :type});
+                                console.log("==== TRIM ")
+                            } else {
+                                chunk.push({playTime : this.tempPlayTime, 'recObjs' : data, type :type});
+                            }
+                        }
+
+                        this.totalTimeInMiliSeconds +=  chunk[chunk.length - 1].playTime;
+
+                        if(this.enableTrim && data.indexOf('{"ac":true,"cf":"recs"') > -1){
+                            this.trimRecording = false;
+                        }
 
                         if(typeof allRecordigns[i+1] != 'undefined') {
                             let nextMiliSeconds = this.calculateNextTime(time, allRecordigns[i + 1]);
@@ -415,7 +429,14 @@
                 }
             }
 
+            if(this.masterRecordings.length === 0){
+                let joinMsg = JSON.parse(chunk[0].recObjs);
+                joinMsg.clientids  = joinMsg.action;
+                chunk[0].recObjs = JSON.stringify(joinMsg);
+            }
+
             this.masterRecordings.push(chunk);
+
             this.orginalTimes.push(tempChunk);
 
             this.UIdownloadProgress(file);
@@ -464,7 +485,6 @@
             }else {
                 return false;
             }
-
         },
 
         finishRequestDataFromServer (singleFileTime) {
@@ -580,22 +600,63 @@
         seek (seekPointPercent) {
             let index = this.getSeekPoint(seekPointPercent);
             // console.log('Total till play, Index val master index ' + index.master + ' sub index' + index.sub + ' in percent' + seekPointPercent);
-            let subLength;
-
             if((index.master < this.masterIndex) || (index.master == this.masterIndex && index.sub < this.subRecordingIndex) ){
                 this.replayFromStart();
             }
+            this._seek(index);
+            console.log('seek is finished');
+            this.triggerSynchPacket();
+        },
 
+        selfSeek () {
+            console.log('Start self seek');
+            this.selfStartSeek = true
+            this._seek();
+            this.triggerSynchPacket();
+
+            this.controller._play();
+        },
+
+        triggerSynchPacket (){
+            this.triggerPlayProgress();
+            // console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
+            if(this.binarySyncMsg){
+                // this.handleSyncPacket (syncMsg, this.binarySyncMsg);
+                this.handleSyncPacket();
+                this.binarySyncMsg = null;
+            }
+            this.handleSyncStringPacket();
+        },
+
+        seekFinished(index){
+            // if(index != null){
+            //     return (this.masterIndex <= index.master);
+            // } else {
+            //     return (this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":true,"cf":"recs"') > -1);
+            // }
+
+            if(index == undefined && this.masterRecordings[this.masterIndex][this.subRecordingIndex] != undefined){
+                return (this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":true,"cf":"recs"') > -1);
+            }
+
+        },
+
+        _seek (index) {
             this.controller._pause();
-         //   this.initRecPause();
+            let subLength;
+           // while (index ? this.masterIndex <= index.master : !this.seekFinished()){
+            while (true){
+            // while (true){
+                if(index != null){
+                    subLength = (this.masterIndex != index.master) ? this.masterRecordings[this.masterIndex].length : index.sub;
+                }else {
+                    subLength = this.masterRecordings[this.masterIndex].length;
+                }
 
-            // var binarySyncUnshareMsg = null;
-            while (this.masterIndex <= index.master){
-                subLength = (this.masterIndex != index.master) ? this.masterRecordings[this.masterIndex].length : index.sub;
                 for(let j =  this.subRecordingIndex; j < subLength; j++ ){
                     try {
                         if(this.subRecordings[this.subRecordingIndex].type != 'B'){
-                           this.msg =  io.cleanRecJson(this.subRecordings[this.subRecordingIndex].recObjs);
+                            this.msg =  io.cleanRecJson(this.subRecordings[this.subRecordingIndex].recObjs);
                             if(this.msg.indexOf('"m":{"unshareScreen"') > -1){
                                 this.binarySyncMsg = null;
                             }else if(this.msg.indexOf('},"m":{"poll":{"pollMsg":"stdPublish",') > -1){
@@ -610,7 +671,7 @@
                             }
 
                             io.onRecMessage(this.convertInto({data : this.msg}));
-                            // console.log('Execute sync packet', this.msg);
+
                         } else { // Binary
                             this.msg = this.subRecordings[this.subRecordingIndex].recObjs;
 
@@ -632,27 +693,27 @@
                     } catch (e) {
                         // console.log('PLAY ERROR ' + e.errorCode);
                     }
+
+                    if(this.enableTrim && this.selfStartSeek && this.seekFinished()){
+                        this.selfSeekFinished = true;
+                        break;
+                    }
                     this.subRecordingIndex++;
                 }
 
                 this.elapsedRecTime = this.elapsedTime = this.elapsedPlayTime;
 
                 /* When seek point is found exit the while loop**/
-                if(this.masterIndex == index.master && index.sub == this.subRecordingIndex){
 
-                    console.log('Seek index ' + this.subRecordings[this.subRecordingIndex])
-
-                    console.log('Seek index i = ' + index.master +  ' j=' + index.sub);
-                    this.triggerPlayProgress();
-                    // console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
-                    if(this.binarySyncMsg){
-                        // this.handleSyncPacket (syncMsg, this.binarySyncMsg);
-                        this.handleSyncPacket ();
-                        this.binarySyncMsg = null;
-                    }
-                    this.handleSyncStringPacket();
-
-                    // console.log('Total till play time in milisecondds ' + this.elapsedPlayTime + ' execute indexes master ' + this.masterIndex + ' sub' + this.subRecordingIndex);
+                if((index != undefined && this.masterIndex === index.master && index.sub === this.subRecordingIndex) || this.selfSeekFinished){
+                    // this.triggerPlayProgress();
+                    // // console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
+                    // if(this.binarySyncMsg){
+                    //     // this.handleSyncPacket (syncMsg, this.binarySyncMsg);
+                    //     this.handleSyncPacket();
+                    //     this.binarySyncMsg = null;
+                    // }
+                    // this.handleSyncStringPacket();
                     break;
                 } else {
                     this.subRecordingIndex = 0;
@@ -660,7 +721,6 @@
                     this.subRecordings = this.masterRecordings[this.masterIndex];
                 }
             }
-            console.log('seek is finished');
         },
 
         handleSyncStringPacket () {
@@ -866,6 +926,8 @@
                         } else if(virtualclass.currApp == 'Quiz' &&
                             this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"quiz":{"quizMsg":"stdPublish",') > -1){
                             virtualclass.quiz.quizStartTime = {app : 'Quiz', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}};
+                        }else if (this.enableTrim && this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":false,"cf":"recs"') > -1){
+                            virtualclass.recorder.selfSeek();
                         }
                     }
                 } catch (e) {
@@ -1228,7 +1290,7 @@
             var lastTime = Math.trunc(+(virtualclass.recorder.totalRecordingFiles[virtualclass.recorder.totalRecordingFiles.length-1].split("-")[1].split(".")[0]) / 1000000);
             // converting nano to seconds
 
-            this.totalTimeInMiliSeconds = (lastTime - firstTime);
+            // this.totalTimeInMiliSeconds = (lastTime - firstTime);
 
             this.lastTimeInSeconds = Math.trunc(lastTime / 1000);
             this.firstTimeInSeconds = Math.trunc(firstTime / 1000);
@@ -1391,9 +1453,10 @@
             if(congrealogo != null){
                 congrealogo.classList.remove('disbaleOnmousedown');
             }
-
         },
-
     };
+
+
+
     window.recorder = recorder;
 })(window);

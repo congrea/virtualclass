@@ -6,7 +6,7 @@ $(document).ready(function () {
     // for calculate the
     // Internet Speed, Frame Rate and Internet Latency
     // This need to call after join the session
-    window.onload  = function () {
+    window.onload  = async function () {
         "use strict";
         var initAudios = 0;
         console.log('Whiteboard init very start');
@@ -15,8 +15,10 @@ $(document).ready(function () {
         window.wbUser = wbUser;
         window.pageEnter = new Date().getTime();
         var virtualclass = new window.virtualclass();
+        virtualclass.virtualclassIDBOpen = window.virtualclassOpenDB;
 
         window.virtualclass = virtualclass; //Need virtualclass object in each file
+
         virtualclass.gObj.displayError = 1;
         virtualclass.lang = {};
         virtualclass.lang.getString = window.getString;
@@ -178,10 +180,10 @@ $(document).ready(function () {
         if (!virtualclass.isPlayMode && localStorage.getItem('mySession') === 'thisismyplaymode') {
             console.log('DELETE PlayMode Data');
             localStorage.clear();
-            virtualclass.init(wbUser.role, appIs, videoObj);
+            await virtualclass.init(wbUser.role, appIs, videoObj);
             virtualclass.storage.config.endSession();
         } else {
-            virtualclass.init(wbUser.role, appIs, videoObj);
+            await virtualclass.init(wbUser.role, appIs, videoObj);
         }
 
 
@@ -1469,11 +1471,14 @@ $(document).ready(function () {
             this.sync = function  (){
                 // console.log('nothing for sync ');
             }
-            // this.stopSs= function(e){
-            //     virtualclass.ss.unShareScreen();
-            // }
-            //
 
+            /** Record setting **/
+
+            this.recs = function (e){
+                if(!virtualclass.isPlayMode){
+                    recordSettings.onMessage(e.message);
+                }
+            }
         };
 
         // TODO this shoudl be remove, after precheck feature is enabled

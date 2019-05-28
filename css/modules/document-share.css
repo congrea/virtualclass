@@ -407,10 +407,9 @@
         width:130px;
     }
 }
-@media (min-width:768px) {
-    @media (min-width: 768px) {
-        #DocumentShareDashboard .dbContainer .dashboardview.col-sm-10 {
-            width: 78.333333%;
+@media (min-width: 768px) {
+    #DocumentShareDashboard .dbContainer .dashboardview.col-sm-10 {
+        width: 78.333333%;
         }
     }
 
@@ -929,6 +928,7 @@
 
     #virtualclassCont.congrea #leftNavPage {
         cursor: pointer;
+        margin-left: 15px;
     }
 
     .noteIndex.hid {
@@ -988,7 +988,7 @@
         display: block;
         position: fixed;
         bottom: 9px;
-        left: 20px;
+        right : 50%;
         z-index: 1005;
     }
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav{
@@ -1011,7 +1011,7 @@
         display: block;
         position: fixed;
         bottom: 12px;
-        right: 661px;
+        right: 626px;
         z-index: 1005;
     }
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav{
@@ -1027,7 +1027,7 @@
         font-size:14px;
     }
 
-}
+
 
 .congrea #totalPages {
     color: #fff;

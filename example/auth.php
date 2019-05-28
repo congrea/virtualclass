@@ -31,7 +31,7 @@ $secret = 'ThNhegjCVvzm70VPurec6mfy4eQ7FsZEi1TqpyR3gbJy0OJWtfJ44hKLVMbhbreS';
 $r = isset($_GET['role'] ) ? $_GET['role'] : 's';
 
 
-$post_data = array('authuser'=> $authusername, 'authpass' => $authpassword, 'role' => $r, 'room' => $room, 'recording' => true);
+$post_data = array('authuser'=> $authusername, 'authpass' => $authpassword, 'role' => $r, 'room' => $room);
 
 $post_data = json_encode($post_data);
 

@@ -8,7 +8,7 @@ let sessionSetting  = {
 
     recallowattendeeAVcontrol : true,
     showAttendeeRecordingStatus : true,
-    trimRecordings : true
+    trimRecordings :true
 }
 
 
@@ -25,15 +25,15 @@ let recordSettings = {
     init () {
          this.enableRecording   =  sessionSetting.enableRecording;
          if(roles.hasControls()){
-             this.trimRecordings  = false;
              this.allowpresentorAVcontrol  =  sessionSetting.recAllowpresentorAVcontrol;
              this.showPresentorRecordingStatus = (this.allowpresentorAVcontrol) ? true :  sessionSetting.recShowPresentorRecordingStatus;
-             this.trimRecordings =  sessionSetting.trimRecordings;
          }else {
              this.disableAttendeeAV =  sessionSetting.disableAttendeeAV;
              this.allowattendeeAVcontrol = sessionSetting.recallowattendeeAVcontrol;
              this.showAttendeeRecordingStatus = (this.allowattendeeAVcontrol) ? true :  sessionSetting.showAttendeeRecordingStatus;
          }
+
+         this.trimRecordings =  sessionSetting.trimRecordings;
 
          this.showStatus = this.showStatus();
          this.showButton();
@@ -87,7 +87,7 @@ let recordSettings = {
             recElem.dataset.recording = "on";
             localStorage.removeItem('recsetting');
         }else {
-            if(this.trimRecordings){
+            if(roles.hasControls() && this.trimRecordings){
                 recButton.innerHTML = "Start Recording";
             }else{
                 recButton.innerHTML = "Recording";

@@ -66,6 +66,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/screenshare-dirtycorner.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/utility.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/screenshare.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/record-settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/record-play.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/indexeddb-storage.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/footer-control-user.js"></script>
@@ -135,5 +136,4 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/mic-testing.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/common-xhr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/idb.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/record-settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>

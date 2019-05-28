@@ -763,8 +763,8 @@
                     } else {
                         btn.style.display = "none";
                          if(roles.hasControls){
-                             var siteHead= document.getElementById("sitethead");
-                             siteHead.classList.add("header");
+                             var siteHead= document.getElementById("listQnContsite");
+                             siteHead.classList.add("teacherTableHeader");
                              
                          }
                     }
@@ -776,8 +776,8 @@
 
                 } else {
                      if(roles.hasControls){
-                             var siteHead= document.getElementById("sitethead");
-                             siteHead.classList.remove("header");
+                             var siteHead= document.getElementById("listQnContsite");
+                             siteHead.classList.remove("teacherTableHeader");
                      }
                     btn.style.display = "table";
                     var elem = document.getElementById("newPollBtnsite");

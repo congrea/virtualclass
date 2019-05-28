@@ -1,5 +1,6 @@
 (function (window) {
-    window.virtualclass = function () {
+    window.virtualclass =  function () {
+
         // canvasScale = 1; //global
         SCALE_FACTOR = 1.02;//global 18/05/2015
         var dstData = null;
@@ -93,7 +94,8 @@
                 defaultcolor : "#0000ff",
                 sendAudioStatus : false,
                 audioRecWorkerReady : false,
-                wbTool : {}
+                wbTool : {},
+                fullScreenMode : false
             },
 
             enablePreCheck : true,
@@ -117,9 +119,11 @@
                 virtualclass.previrtualclass = "virtualclass" + virtualclass.gObj.defaultApp;
             },
 
-            init: function (urole, app, videoObj) {
+            init: async function (urole, app, videoObj) {
+                let vcContainer = document.getElementById('virtualclassCont');
+                vcContainer.classList.add('loading');
                 var wbUser = window.wbUser;
-                this.saveRecording = +(wbUser.saveRecording);
+             //   this.saveRecording = +(wbUser.recordSettings.enableRecording);
                 virtualclass.uInfo = {
                     'userid': wbUser.id,
                     'sid': wbUser.sid,
@@ -180,7 +184,7 @@
                 this.modal = window.modal;
 
                 if(this.system.isIndexedDbSupport()){
-                    this.storage.init();
+                    await this.storage.init();
                 }else {
                     console.log('Indexeddb does not support');
                 }
@@ -251,9 +255,9 @@
                 virtualclass.zoom = window.zoomWhiteboard();
                 virtualclass.network = new Network();
                 virtualclass.gesture = gesture;
-                virtualclass.pageIndexNav=window.pageIndexNav
-                
-
+                virtualclass.pageIndexNav=window.pageIndexNav;
+                virtualclass.recordSettings = recordSettings;
+                virtualclass.recordSettings.init();
 
                 this.serverData = serverData;
                 if(roles.hasControls()){
@@ -261,10 +265,8 @@
                 }
                 if (localStorage.uRole != null) {
                     virtualclass.gObj.uRole = localStorage.uRole; //this done only for whiteboard in _init()
-                    var vcContainer = document.getElementById('virtualclassCont');
                     vcContainer.classList.add(virtualclass.vutil.getClassName(virtualclass.gObj.uRole));
                 }
-
 
                 if (typeof videoObj == 'undefined' || videoObj == null) {
                     this.makeAppReady(app, "byclick");
@@ -306,7 +308,11 @@
                          virtualclass.gesture.initClassJoin();
                     }
                 }
-                   virtualclass.gObj.precheckScrn= false;
+
+                vcContainer.classList.remove('loading');
+
+                virtualclass.gObj.precheckScrn= false;
+
 
                 // For initialize the Teacher Video
                 if(!virtualclass.gObj.meetingMode){
@@ -343,6 +349,30 @@
                 var virtualclassCont = document.getElementById('virtualclassCont');
                 if(virtualclassCont != null){
                     virtualclassCont.classList.add(virtualclass.system.mybrowser.name);
+                }
+
+                var fullScreenBtn = document.getElementById("fullScreenButton"); 
+                    if(fullScreenBtn != null){
+                        fullScreenBtn.addEventListener('click' , virtualclass.vutil.Fullscreen);
+                    }
+
+                var fullScreenExitBtn = document.getElementById("fullScreenExitButton");
+                    if(fullScreenExitBtn != null) {
+                        fullScreenExitBtn.addEventListener('click' , virtualclass.vutil.closeFullscreen);
+                    }
+
+                document.onfullscreenchange = function ( event ) { 
+                    if(!virtualclass.gObj.fullScreenMode) { 
+                        document.querySelector("#fullScreenButton").style.display = "none";
+                        document.querySelector("#fullScreenExitButton").style.display = "block";
+                        virtualclass.gObj.fullScreenMode = true;
+                        
+                    }
+                    else {
+                        document.querySelector("#fullScreenButton").style.display = "block";
+                        document.querySelector("#fullScreenExitButton").style.display = "none";
+                        virtualclass.gObj.fullScreenMode = false;
+                    }
                 }
 
             },
@@ -513,7 +543,7 @@
                 }
             },
 
-            makeAppReady: function (app, cusEvent, data) {
+            makeAppReady: async function (app, cusEvent, data) {
               
              
                 // var congdashboardClose = document.querySelector('#congdashboard button.close');
@@ -592,15 +622,7 @@
 
                     }
 
-                    setTimeout(
-                        function (){
-                            if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
-
-                                virtualclass.zoom.normalRender();
-                            }
-                        }, 100
-                    );
-                    //system.initResize();
+                    // virtualclass.zoom.zoomAction('fitToScreen');
                 } else {
                     var prevapp = localStorage.getItem('prevApp');
                     if (prevapp != null) {
@@ -668,6 +690,8 @@
                     
                                  
                              }
+
+
                             //virtualclass.gObj.currWb = '_doc_0_'+virtualclass.gObj.currSlide;
                         }
 
@@ -675,6 +699,8 @@
 
                        virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
                        // system.initResize();
+
+                        // virtualclass.zoom.zoomAction('fitToScreen');
                     } else {
                         var currVideo= Array.prototype.slice.call(arguments)[2];
                         this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
@@ -689,8 +715,6 @@
 
                         if(roles.hasControls() && app == 'Video'){
                             if ("virtualclass" + app != virtualclass.previous) {
-
-
                                 var dashboardnav = document.querySelector('#dashboardnav button');
                                 if (dashboardnav != null) {
                                     dashboardnav.setAttribute("data-currapp","Video")
@@ -799,7 +823,8 @@
 
             // Helper functions for making the app is ready
             appInitiator : {
-                Whiteboard : function (app, cusEvent, id, ci){
+
+                Whiteboard : async function (app, cusEvent, id, container){
                     // if(virtualclass.currApp == 'Whiteboard' &&  virtualclass.previous != 'virtualclassWhiteboard'){
                     //     // virtualclass.view.window.resize(id);
                     // }
@@ -822,7 +847,9 @@
                     if(typeof this.pdfRender[wid] != 'object'){
                         this.pdfRender[wid] = window.pdfRender();
                     }else if(virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
-                        virtualclass.zoom.normalRender();
+                        // TODO, USE adjustScreenOnDifferentPdfWidth instead of normalRender
+                        virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
+                        // virtualclass.zoom.normalRender();
                     }
                     if(roles.isStudent() && virtualclass.currApp == 'Whiteboard'){
                          virtualclass.wbCommon.setCurrSlideNumber(id);
@@ -950,9 +977,7 @@
 
                                 // Only need to  serve on after page refresh
                                 var that = this;
-                                virtualclass.storage.getWbData(id, function (){
-                                    console.log('The data has been received from local storage');
-                                });
+                                await virtualclass.storage.getWbData(id);
                             }else{
                                 alert('whiteboard container is null');
                             }
@@ -972,11 +997,12 @@
                         //offset problem have to think about this
                         if (document.getElementById('canvas'+id) != null) {
                             vcan.utility.canvasCalcOffset(vcan.main.canid);
-                            if (this.gObj.tempReplayObjs[id].length == 0) {
+                            if (this.gObj.tempReplayObjs[id].length === 0 || this.gObj.tempReplayObjs[id] === "nodata") {
                                 virtualclass.wb[id].utility.makeCanvasEnable();
                             }
                         }
 
+                        console.log("==== previous set " + this.wbConfig.id);
                         this.previous = this.wbConfig.id;
 
                     }else{
@@ -1032,7 +1058,7 @@
                         }
                     });
                     }
-
+                    
                     if(typeof virtualclass.wb.indexNav == 'undefined'){
                         virtualclass.wb.indexNav  = new virtualclass.pageIndexNav("WB");
                     }
@@ -1212,40 +1238,17 @@
                         }
                     }
 
-
-
-                    virtualclass.previous = virtualclass.dtsConfig.id;
+                   virtualclass.previous = virtualclass.dtsConfig.id;
+                   console.log("==== previous " + virtualclass.previous);
                 },
 
                 DocumentShare: function(app, customEvent, docsObj) {
                     if(!virtualclass.hasOwnProperty('dts') || virtualclass.dts == null){
                         virtualclass.dts  = window.documentShare();
-                        
                     }else{
                         virtualclass.dts.firstRequest = false;
                         virtualclass.dts.indexNav.init()
                     }
-                      //virtualclass.dts.indexNav = new  pageIndexNav("WB")
-                       //virtualclass.dts.indexNav.init();
-
-                    //if(!virtualclass.dts.docs.hasOwnProperty('currDoc')){
-                    //      if(typeof docsObj != 'undefined'){
-                    //           virtualclass.dts.init(docsObj);
-                    //      } else {
-                    //          virtualclass.dts.init();
-                    //      }
-                    //}else {
-                    //    // send the initialize for the user layout
-                    //    if(roles.hasControls()){
-                    //        ioAdapter.mustSend({'dts': {init: 'studentlayout'}, 'cf': 'dts'});
-                    //        console.log('doc share current' );
-                    //        virtualclass.dts.sendCurrentDoc();
-                    //        virtualclass.dts.sendCurrentSlide();
-                    //    }
-                    //}
-
-                    //virtualclass.dts.init();
-                    //this.previous = virtualclass.dtsConfig.id;
 
                     var args = [];
 
@@ -1261,39 +1264,25 @@
                         args.push(docsObj);
                     }
 
-                    //  virtualclass.appInitiator.makeReadyDsShare.apply(virtualclass.appInitiator, args);
-
-                    //  By doing below, There will be problem on replaying or executing the all packets for new user
-                    var cthis = virtualclass;
-                    
                     if (typeof virtualclass.dts.indexNav == 'undefined') {
                         virtualclass.dts.indexNav = new virtualclass.pageIndexNav("documentShare");
                     }
 
-                    if(!virtualclass.gObj.hasOwnProperty('docs')){
-                        dstData = setTimeout(
-                            function (){
-                                /*  Handles alerting element is null
-                                    If user comes to session after 2 hour,
-                                    and the application was Document share when he left the session
-                                 */
-                                if(virtualclass.currApp == 'DocumentShare'){
-                                    cthis.appInitiator.DocumentShare.apply(cthis.appInitiator, args);
-                                }
-                            },100
-                        )
-                    } else {
-                        // IndexDb is not initialise
-                        // misspacket on new user does not work
-                        cthis.appInitiator.makeReadyDsShare.apply(cthis.appInitiator, args);
+
+                    if(virtualclass.gObj.hasOwnProperty('docs')){
+
+                        virtualclass.appInitiator.makeReadyDsShare.apply(virtualclass.appInitiator, args);
                         virtualclass.vutil.initDashboardNav();
 
-                        /** This condition is satisfied when user page refresh without selecting any docs **/
+
                         if(!virtualclass.dts.firstRequest && !virtualclass.dts.noteExist()){
                             var dashboardnav =  document.querySelector('#dashboardnav button');
                             if(dashboardnav != null) {
                                 dashboardnav.click();
                             }
+                        }else {
+                            console.log("===== DOCUMENT EXIST");
+                            virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
                         }
 
                         if(dstData != null){
@@ -1303,19 +1292,18 @@
                         if(virtualclass.gObj.currWb != null && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] != 'undefined' &&
                             virtualclass.currApp == 'DocumentShare' && virtualclass.pdfRender[virtualclass.gObj.currWb].hasOwnProperty('page')
                             && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null){
-                                if(virtualclass.dts.order){
-                                    if(typeof virtualclass.dts.indexNav =='undefined'){
-                                        virtualclass.dts.indexNav = new virtualclass.pageIndexNav("documentShare");
-                                    }
-                                    if(roles.hasControls()){
-                                         virtualclass.dts.indexNav.createIndex();  
-                                    }else {
-                                        virtualclass.dts.indexNav.studentDocNavigation(virtualclass.dts.docs.currNote);
-                                    }
-                                   
-                                   
+                            if(virtualclass.dts.order){
+                                if(typeof virtualclass.dts.indexNav =='undefined'){
+                                    virtualclass.dts.indexNav = new virtualclass.pageIndexNav("documentShare");
                                 }
-                                //virtualclass.zoom.normalRender();
+                                if(roles.hasControls()){
+                                    virtualclass.dts.indexNav.createIndex();
+                                }else {
+                                    virtualclass.dts.indexNav.studentDocNavigation(virtualclass.dts.docs.currNote);
+                                }
+
+
+                            }
                         }
                     }
 
@@ -1420,7 +1408,7 @@
                     virtualclass.setPrvUser();
                 } else {
                     prvUser = JSON.parse(prvUser);
-                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != wbUser.saveRecording) {
+                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != wbUser.recordSettings.enableRecording) {
                         virtualclass.gObj.sessionClear = true;
                         virtualclass.setPrvUser();
                         if (roles.hasControls()) {
@@ -1432,7 +1420,7 @@
 
             setPrvUser: function () {
                 localStorage.clear();
-                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : wbUser.saveRecording};
+                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : wbUser.recordSettings.enableRecording};
                 console.log('previosu user');
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
             },
@@ -1524,7 +1512,6 @@
 
                 mainContainer.insertAdjacentHTML('afterbegin', mainHtml);
 
-
             },
 
             makeReadyTemplate : function (tempname, context){
@@ -1551,5 +1538,7 @@
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
     }
+
+    
 
 })(window);

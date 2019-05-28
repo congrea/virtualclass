@@ -103,7 +103,8 @@
 #virtualclassCont.congrea #congdashboard.modal .modal-header{
   padding : 6px;
   border-bottom-left-radius: 5px;
-    border:none !important;
+  border:none !important;
+  position:relative;
 }
 
 
@@ -243,7 +244,7 @@
 
 #virtualclassCont #listvideo .linkvideo:hover {
   /*border: 1px solid #ccc;*/
-  box-shadow: 0 0 6px  #e3e3e3;;
+/*  box-shadow: 0 0 6px  #e3e3e3;;*/
 }
 
 #virtualclassCont #listvideo .controlCont:hover {
@@ -538,7 +539,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   /*-moz-transform:scale(1.008);*/
   /*-ms-transform:scale(.9);*/
   /*-o-transform:scale(.9);*/
-  transform:scale(1.0005);
+/*  transform:scale(1.0005);*/
 }
 #virtualclassCont.congrea #listvideo .linkvideo {
   -webkit-transition:all 0.5s ease-out;
@@ -554,7 +555,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 
-#virtualclassCont.congrea #listvideo .linkvideo.playDisable {
+#virtualclassCont.congrea #listvideo .linkvideo.playDisable .videoTitleCont {
   opacity:0.3;
 
 }

@@ -4441,7 +4441,7 @@
     background-image: none;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 368px) {
   .bootstrap .navbar-nav {
     float: left;
     margin: 0;

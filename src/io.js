@@ -118,7 +118,7 @@ var io = {
                 var jobj = 'F-SPE-{"'+obj.arg.msg;
                 break;
 
-            case "session":
+            case "recording":
                 var jobj =  'F-SS-{"'+obj.arg.msg;
                 break;
 
@@ -239,6 +239,7 @@ var io = {
         switch (receivemsg.type) {
             case "joinroom":
                 if(receivemsg.hasOwnProperty('users')){
+                    ioAdapter.setRecording();
                     console.log("New user join room " + receivemsg.users.length);
                 }else {
                     console.log("No users");

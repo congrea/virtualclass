@@ -3,13 +3,12 @@ var ioPingPong = {
     ping: function (e) {
         "use strict";
         // When a new member is added, greet him with both broadcast and individual msg
-        if (e.type == 'member_added' && roles.hasAdmin()) {
-            var session = this.sessionName();
-            var msg = {ping: 'ping', cf: 'pong', session: session};
-            ioAdapter.sendWithDelayAndDrop (msg, null, 'mustSend', 'pingAll', 3000);
-            console.log('PING BROADCAST');
-            if(e.hasOwnProperty('users')){
-                ioAdapter.setSessionToServer(session);
+        if (e.type == 'member_added' && e.hasOwnProperty('users')) {
+            if(roles.hasAdmin()){
+                var session = this.sessionName();
+                var msg = {ping: 'ping', cf: 'pong', session: session};
+                ioAdapter.sendWithDelayAndDrop (msg, null, 'mustSend', 'pingAll', 3000);
+                console.log('PING BROADCAST');
             }
         } else if (e.type == 'member_added' && e.hasOwnProperty('users')) {
             io.sessionSet = true;

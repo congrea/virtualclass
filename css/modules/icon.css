@@ -310,6 +310,19 @@
     font-size: 20px;
     font-family: 'icomoon';
     color:#06cc08 !important;
+    z-index: -1;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .audioMute:before{
+    content: "\e997";
+    font-weight: normal;
+    font-size: 16px;
+    font-family: 'icomoon';
+    color: #de2626;
+    position: absolute;
+    top: 4px;
+    left: 53px;
+    z-index: 88888888888888;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #speakerPressingbtnIcon.silenceDetect[data-silence-detect="notSending"]:before {
@@ -494,12 +507,12 @@
 #replayContainer #replayClose.icon-close:before, #sessionEndMsgCont #sessionEndClose.icon-close:before,
 #virtualclassCont.congrea #chromeExtClose.icon-close:before {
   content: "\f00d";
-  font-size: 12px;
+  font-size: 18px;
   color: #6a8e0b;
   border: #bcd2aa 1px solid;
   border-radius: 50%;
-  padding: 3px 5px;
-  background-color: #f9f9f9;
+  padding: 3px 4px 4px 5px;
+  background-color: #ffffff;
 }
 
 .icon-minus:before {
@@ -716,11 +729,11 @@
 
 #virtualclassCont.congrea #popupContainer .urlValidation  .icon-close:before {
   content: "\f00d";
-  font-size: 12px;
+  font-size: 15px;
   color: #a0111f;
   border: #a0111f 1px solid;
   border-radius: 50%;
-  padding: 3px 5px;
+  padding: 4px 5px 5px 6px;
   background-color: #f9f9f9;
 }
 
@@ -743,7 +756,7 @@
 }
 
 #virtualclassCont.congrea .icon-fitScreen:before{
-  content: "\e95e";
+  content: "\e999";
   font-size: 22px;
      font-weight: 100;
     font-variant: normal;
@@ -793,6 +806,21 @@
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:before {
   content : "\e994";
 }
+
 #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon .icon-shapes.cgIcon:before {
   font-size:21px;
+}
+
+#virtualclassCont.congrea #fullScreenButton span .icon-fullScreen:before {
+  content: "\e95e";
+    font-weight: normal;
+    font-family: 'icomoon';
+    font-size: 20px;
+}
+
+#virtualclassCont.congrea #fullScreenExitButton span .icon-exitScreen:before {
+  content: "\e99b";
+    font-weight: normal;
+    font-family: 'icomoon';
+    font-size: 18px;
 }

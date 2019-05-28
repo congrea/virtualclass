@@ -72,7 +72,7 @@
 #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
   position: fixed;
   bottom: 9px;
-  right: 370px;
+  right: 429px;
   width: auto;
   max-height: 44px;
   font-size: 13px;
@@ -82,7 +82,7 @@
 }
 
 #virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch {
-    padding: 17px 8px 13px 8px !important;
+    padding: 17px 12px 13px 12px !important;
     background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%) !important;
     border-radius: 0 !important;
 } 

@@ -154,6 +154,32 @@
                 }
             },
 
+            workerAudioSendOnmessage (){
+                workerAudioSend.onmessage = function (e){
+                    if(e.data.hasOwnProperty('cmd')){
+                        if(e.data.cmd === 'adStatus'){
+                            virtualclass.media.audio.setAudioStatus(e.data.msg);
+                            if(!virtualclass.gObj.sendAudioStatus && e.data.msg == 'sending'){
+                                ioAdapter.send({cf:'ya'}); // yes audio
+                                virtualclass.gObj.sendAudioStatus = true
+                            }
+
+                        }else if(e.data.cmd === 'ioAdapterSend'){
+                            if(e.data.msg.cf === 'na'){ // yes audio
+                                virtualclass.gObj.sendAudioStatus = false;
+                            }else {
+                                virtualclass.gObj.sendAudioStatus = true;
+                            }
+                            ioAdapter.send(e.data.msg);
+                        }else if(e.data.cmd === 'muteAudio'){
+                            cthis.audio.notifiyMuteAudio();
+                        }else if(e.data.cmd === 'unMuteAudio'){
+                            cthis.audio.notifiyUnmuteAudio();
+                        }
+                    }
+                }
+            },
+
 
             /**
              * This property contains various property and methods to capture,save and tranmit
@@ -173,7 +199,7 @@
                 snode : [], // To holds the user's id whose audio context is suspended
                 workletAudioRec: false,
                 aChunksPlay : false,
-
+                audioContextReady : false,
 //                  sd : false,
                 /*
                  *  Enables audio
@@ -220,9 +246,11 @@
                         }
                         this.resampler = new Resampler(virtualclass.media.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
                         virtualclass.gObj.isAudioContextReady = true;
-                        if(virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode){
+                        this.audioContextReady = true;
+
+                        if(virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode && cthis.video.tempStream != null){
                             virtualclass.media.stream = cthis.video.tempStream;
-                            virtualclass.media.audio._manuPulateStream();
+                            virtualclass.media.audio._maniPulateStream();
                         }
                     }
                 },
@@ -234,6 +262,58 @@
                     }
                     this.snode = [];
                 },
+
+                attachAudioStopHandler (stream){
+                    audioTrack = stream.getAudioTracks()[0];
+                    if(audioTrack != null){
+                        audioTrack.onended = this.notifiyMuteAudio; // TODO, re initate media stream
+                        audioTrack.onmute  = this.notifiyMuteAudio;
+                        audioTrack.onunmute  = this.notifiyUnmuteAudio;
+                    }
+                },
+
+                notifiyMuteAudio(){
+                    this.notifyAudioMute = true;
+                    if(virtualclass.gObj.audMouseDown){
+                        if (virtualclass.gObj.mutedomop){
+                            if (!virtualclass.gObj.hasOwnProperty('mutedomopto') || virtualclass.gObj.mutedomopto === null) {
+                                virtualclass.gObj.mutedomopto = setTimeout(() => {
+                                    cthis.audio.notifiyMuteAudioDom();
+                                },2000)
+                            }
+                        } else {
+                            cthis.audio.notifiyMuteAudioDom();
+                        }
+                    }
+                },
+
+                notifiyUnmuteAudio(){
+                    this.notifyAudioMute = false;
+                    virtualclass.gObj.mutedomop = true;
+                    if (virtualclass.gObj.hasOwnProperty('mutedomopto')) {
+                        clearTimeout(virtualclass.gObj.mutedomopto);
+                        virtualclass.gObj.mutedomopto = null;
+                    }
+                    cthis.audio.notifiyUnmuteAudioDom();
+                },
+
+                notifiyUnmuteAudioDom(){
+                    // console.log('==== notify unmute audio');
+                    if(this.hasOwnProperty('speakerPressOnce') && this.speakerPressOnce != null && this.speakerPressOnce.classList.contains('audioMute')){
+                        this.speakerPressOnce.classList.remove('audioMute');
+                    }
+                },
+
+                notifiyMuteAudioDom(){
+                    if(!this.hasOwnProperty('speakerPressOnce')){
+                        this.speakerPressOnce = document.querySelector('#speakerPressOnce');
+                    }
+
+                    if(this.speakerPressOnce != null && !this.speakerPressOnce.classList.contains('audioMute')){
+                        this.speakerPressOnce.classList.add('audioMute');
+                    }
+                },
+
 
                 muteButtonToogle : function (){
                     var speakerPressOnce = document.querySelector('#speakerPressOnce');
@@ -296,12 +376,12 @@
                     var that = this;
                     for (var i = 0; i < allAudTools.length; i++) {
                         //allAudTools[i].addEventListener('click', function (){ that.audioToolInit.call(that,  allAudTools[i])});
-                        if (allAudTools[i].id == 'speakerPressOnce') {
+                        if (allAudTools[i].id === 'speakerPressOnce') {
                             //allAudTools[i].setAttribute('data-audio-playing', "false");
-                        } else if (allAudTools[i].id == 'speakerPressing') {
+                        } else if (allAudTools[i].id === 'speakerPressing') {
                             this.attachSpeakToStudent(allAudTools[i].id);
                         }
-                        if (allAudTools[i].id != 'speakerPressing') {
+                        if (allAudTools[i].id !== 'speakerPressing') {
                             allAudTools[i].addEventListener('click', that.audioToolInit);
                         }
                     }
@@ -327,17 +407,9 @@
                         virtualclass.multiVideo.setAudioStatus(action);
                     } else {
                         var that = virtualclass.media.audio;
-                        if (this.id == 'speakerPressOnce') {
+                        if (this.id === 'speakerPressOnce') {
                             that.clickOnceSpeaker(this.id);
-                        } else if (this.id == 'audioTest') {
-                            var self = this;
-                            virtualclass.popup.confirmInput(virtualclass.lang.getString('audioTest'), function (confirm) {
-                                if (confirm) {
-                                    that.testInit(self.id);
-                                }
-
-                            });
-                        } else if (this.id == 'silenceDetect') {
+                        } else if (this.id === 'silenceDetect') {
                             var a = this.getElementsByTagName('a')[0];
                             if (that.sd) {
                                 that.sd = false;
@@ -375,7 +447,6 @@
                                         if (pressOnceLabel.classList.length <= 0) {
                                             pressOnceLabel.removeAttribute('class');
                                         }
-
 
                                         var controller = pressOnceLabel.getElementsByTagName('i')[0];
                                         if (controller != null) {
@@ -439,7 +510,7 @@
                     var anchor = tag.getElementsByClassName('congtooltip')[0];
                     // var anchor = tag.getElementsByClassName('tooltip')[0];
                     // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
-                    if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
+                    if (tag.getAttribute('data-audio-playing') === 'false' && typeof alwaysDisable == 'undefined') {
                         //this.studentSpeak(alwaysPressElem);
                         this.studentSpeak();
 
@@ -457,15 +528,26 @@
                         tag.className = "audioTool deactive";
                     }
                 },
+
+                initProcessorEvent () {
+                    if(virtualclass.gObj.hasOwnProperty('initProcessorTime')){
+                        clearInterval(virtualclass.gObj.initProcessorTime);
+                    }
+                    virtualclass.gObj.initProcessorTime = setInterval( () => {
+                        if(cthis.audio.notifyAudioMute){
+                            cthis.audio.notifiyMuteAudio();
+                        }
+                    }, 2000);
+                },
+
                 /**
                  * Audio tool element 'Push to talk' is active
                  * User speaks on mouse press down
                  * @param elem audio tool element
                  */
-                // TODO
-                // there should not pass whole elem but id
-                //varible button is not being used
                 studentSpeak: function (elem) {
+                    this.notifyAudioMute = true;
+                    this.initProcessorEvent();
                     if (typeof elem != 'undefined') {
                         var button = document.getElementById(elem.id + "Button");
                         elem.classList.remove('deactive');
@@ -533,7 +615,7 @@
                             // var left = e.inputBuffer.getChannelData(0);
                             var samples = this.resampler.resampler(left);
                             var leftSix = convertFloat32ToInt16(samples);
-                            var send = this.audioInLocalStorage(leftSix);
+                            var send = this.encodeAudio(leftSix);
                             this.silenceDetection(send, leftSix);
                         }
 
@@ -554,44 +636,13 @@
                  *@return encoded  G711 encoded data
                  */
                 //TODO function name should reflect the action
-                audioInLocalStorage: function (leftSix) {
+                encodeAudio: function (leftSix) {
                     var encoded = G711.encode(leftSix, {
-                        alaw: this.encMode == "alaw" ? true : false
+                        alaw: this.encMode === "alaw" ? true : false
                     });
                     return encoded;
                 },
-                /**
-                 * To play recorded sound in audio testing after 5000ms of recording
-                 * recoding is stored in an array audioForTest
-                 * and to set the time out of audio testing
-                 * @param id Id of the audio tool
-                 *
-                 */
-                testInit: function (id) {
-                    var audioTestElem = document.getElementById(id);
-                    audioTestElem.classList.add("audioIsTesting");
-                    this.studentNotSpeak();
-                    virtualclass.gObj.audioForTest = [];
-                    this.storeAudio = true;
-                    var that = this;
-                    that.otherSound = true;
-                    if (that.hasOwnProperty('testAudio')) {
-                        clearTimeout(that.testAudio);
-                    }
-                    var totTestTime = 5000;
-                    that.testAudio = setTimeout(function () {
-                        var pta = true;
-                        that.playRecordedAudio(virtualclass.gObj.audioForTest, virtualclass.gObj.uid, pta);
-                    }, totTestTime);
 
-                    setTimeout(
-                        function () {
-                            console.log("testing");
-                            audioTestElem.classList.remove("audioIsTesting");
-                            that.otherSound = false;
-                        }, ((totTestTime * 2) + 1000  )
-                    )
-                },
                 /**
                  * pushing the encoded samples in audioForTest array
                  * setting the uid to false
@@ -600,28 +651,10 @@
                  */
                 audioForTesting: function (leftSix) {
                     var encoded = G711.encode(leftSix, {
-                        alaw: this.encMode == "alaw" ? true : false
+                        alaw: this.encMode === "alaw" ? true : false
                     });
                     virtualclass.gObj.audioForTest.push(encoded);
                     virtualclass.gObj[virtualclass.gObj.uid] = false;
-                },
-                /**
-                 * it playes the recoded audio
-                 * @param encChuncks encoded channel buffer recordings
-                 * @param  uid user id
-                 * @param testAudio  boolean value
-                 */
-                playRecordedAudio: function (encChuncks, uid, testAudio) {
-                    var samples, clip;
-                    this.myaudioNodes = [];
-                    var recordingLength = 0;
-                    for (var i = 0; i < encChuncks.length; i++) {
-                        clip = encChuncks[i];
-                        this.myaudioNodes.push(clip);
-                        recordingLength += clip.length;
-                    }
-                    samples = this.mergeBuffers(this.myaudioNodes, recordingLength);
-                    (typeof testAudio != 'undefined') ? virtualclass.media.audio.play(samples, uid, testAudio) : virtualclass.media.audio.play(samples, uid);
                 },
 
                 initPlayWithFallback (){
@@ -674,7 +707,7 @@
                                 cthis.audio.Html5Audio.MediaStreamDest = cthis.audio.Html5Audio.audioContext.createMediaStreamDestination();
                                 workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
 
-                                if (virtualclass.system.mybrowser.name == 'Chrome'){
+                                if (virtualclass.system.mybrowser.name === 'Chrome'){
                                     console.log("==== Chrome after change");
                                     cthis.audio.bug_687574_callLocalPeers();
                                 }
@@ -723,36 +756,42 @@
                  * @param  audioChunks that need be played
                  */
                 playWithFallback :  function (uid)  {
-                    var that = this;
                     if(this.Html5Audio.audioContext.state === 'suspended'){
                         /** Wait till 2 seconds and see if still it's suspended ***/
-                        setTimeout(()=> {
-                            if(that.Html5Audio.audioContext.state == 'suspended'){
-                                that.snode.push(uid);
-                                if(virtualclass.gObj.requestToScriptNode == null){
-                                    that.Html5Audio.audioContext.resume();
+                        if(this.hasOwnProperty('audioSuspendTime')){
+                            clearTimeout(this.audioSuspendTime);
+                        }
+
+                        this.audioSuspendTime = setTimeout(()=> {
+                            if(this.Html5Audio.audioContext.state === 'suspended'){
+                                this.snode.push(uid);
+                                if(virtualclass.gObj.requestToScriptNode === null){
+                                    this.Html5Audio.audioContext.resume();
                                     virtualclass.gesture.initAudioResume(uid);
                                     virtualclass.gObj.requestToScriptNode = true;
                                 }
                             }
-                        },2000);
-                    }else {
+                        }, 2000);
+
+                    } else {
                         this._playWithFallback();
                     }
                 },
 
                 _playWithFallback : function (){
                     var that = this;
-                    //if(typeof virtualclass.media.audioPlayerNode != 'object'){
-                    if(virtualclass.media.audioPlayerNode == null){
+                    if(virtualclass.media.audioPlayerNode === null || virtualclass.media.audioPlayerNode.context.state === 'closed'){
                         console.log('script processor node is created');
+                        if(virtualclass.media.audioPlayerNode !== null){
+                            virtualclass.media.audioPlayerNode.disconnect();
+                        }
+
                         virtualclass.media.audioPlayerNode = this.Html5Audio.audioContext.createScriptProcessor(4096, 1, 1);
                         snNodePak = 0;
                         virtualclass.media.audioPlayerNode.onaudioprocess = function (event){
                             var output = event.outputBuffer.getChannelData(0);
-                            // var newAud = that.getAudioChunks();
                             var newAud = that.getMergedAudio();
-                            if(newAud != null){
+                            if(newAud !== null &&  newAud !== undefined){
                                 for (i = 0; i < newAud.length; i++) {
                                     output[i] = newAud[i];
                                 }
@@ -847,82 +886,17 @@
                     }
                 },
 
-                /*
-                 * Remove audios from queue if it's long
-                 * @returns {*} the audio packet with length of 128
-                 */
 
-
-                //TODO this function is not being invoked
-                replay: function (inHowLong, offset) {
-                    repMode = true;
-                    var samples, whenTime, newBuffer, newSource, totArr8;
-                    if (this.audioNodes.length > 0) {
-                        samples = this.mergeBuffers(this.audioNodes);
-                        whenTime = this.Html5Audio.audioContext.currentTime + inHowLong;
-                        newBuffer = this.Html5Audio.audioContext.createBuffer(1, samples.length, 7800);
-                        newBuffer.getChannelData(0).set(samples);
-
-                        newSource = this.Html5Audio.audioContext.createBufferSource();
-                        newSource.buffer = newBuffer;
-
-                        newSource.connect(this.Html5Audio.audioContext.destination);
-                        newSource.start(whenTime, offset);
-                    }
-                },
-
-                /**
-                 * Merging  the channel buffer recordings  in the form of Float32Array
-                 * channel Buffer is an array of recording chunks , length of each specified by the recordingLength
-                 * @param  channelBuffer buffer of recodings
-                 * @param  recordingLength length of each recording
-                 * @returns {Float32Array} result A merged array of channel buffer recording chunks
-                 */
-                mergeBuffers: function (channelBuffer, recordingLength) {
-                    var result = new Float32Array(recordingLength);
-                    var checklength = 0;
-                    var offset = 0;
-                    var lng = channelBuffer.length;
-                    for (var i = 0; i < lng; i++) {
-                        var buffer = channelBuffer[i];
-                        // console.log("bf Length " + buffer.length);
-                        checklength += buffer.length;
-                        result.set(buffer, offset);
-                        offset += buffer.length;
-                    }
-                    //console.log (checklength + '   ' + recordingLength);
-                    return result;
-                },
-
-                // TODO to verify
-                assignFromLocal: function (arrStream, audioRep) {
-                    this.init();
-                    for (var i = 0; i < arrStream.length; i++) {
-                        var rec1 = LZString.decompressFromBase64(arrStream[i]);
-                        var clip = this.str2ab(rec1);
-
-                        samples = G711.decode(clip, {
-                            alaw: this.encMode == "alaw" ? true : false,
-                            floating_point: true,
-                            Eight: true
-                        });
-                        this.audioNodes.push(new Float32Array(samples));
-                        this.recordingLength += 4096;
-                    }
-                    if (typeof audioRep != 'undefined') {
-                        audioRep();
-                    }
-                },
-
-                _manuPulateStream : function (){
+                _maniPulateStream : function (){
+                    console.log("Manipulate stream");
+                    this.triggermaniPulateStream = true;
                     var cthis = virtualclass.media;
                     setTimeout(
                         function (){
                             if(cthis.detectAudioWorklet()) {
-                                cthis.audio.manuPulateStream();
-
+                                cthis.audio.maniPulateStream();
                             }else {
-                                cthis.audio.manuPulateStreamWithFallback();
+                                cthis.audio.maniPulateStreamWithFallback();
                             }
                         }, 1000
                     );
@@ -933,7 +907,7 @@
                  * It connects the stream received from Mic/GetUserMedia to audio context,
                  * and getting the audio chunks from audio worklet
                  **/
-                manuPulateStream: function () {
+                maniPulateStream: function () {
                     var stream = cthis.stream;
                     if(typeof workletAudioSend != 'undefined'){
                         workletAudioSend.disconnect();
@@ -950,6 +924,10 @@
                             audioInput.connect(filter);
 
                             workletAudioSend = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-send');
+
+                            workletAudioSend.onprocessorerror = function (e){
+                                cthis.audio.notifiyMuteAudio();
+                            }
                             filter.connect(workletAudioSend);
                             workletAudioSend.connect(cthis.audio.Html5Audio.audioContext.destination);
 
@@ -979,35 +957,10 @@
                                 cmd : "workerAudioSend",
                             },[ workerWorkletAudioSend.port2 ]);
 
-                            if(!workerAudioSendOnmessage){
-                                workerAudioSend.onmessage = function (e){
-                                    if(e.data.hasOwnProperty('cmd')){
-                                        if(e.data.cmd == 'adStatus'){
-                                            virtualclass.media.audio.setAudioStatus(e.data.msg);
-                                            if(!virtualclass.gObj.sendAudioStatus && e.data.msg == 'sending'){
-                                                ioAdapter.send({cf:'ya'}); // yes audio
-                                                virtualclass.gObj.sendAudioStatus = true
-                                            }
-
-                                        }else if(e.data.cmd == 'ioAdapterSend'){
-                                            if(e.data.msg.cf == 'na'){ // yes audio
-                                                virtualclass.gObj.sendAudioStatus = false;
-                                            }else {
-                                                virtualclass.gObj.sendAudioStatus = true;
-                                            }
-                                            ioAdapter.send(e.data.msg);
-                                        }
-                                    }
-                                }
-
-                                workerAudioSendOnmessage = true;
-                            }
-
+                            cthis.workerAudioSendOnmessage();
                             console.log('Audio worklet ready audio worklet module');
                         }).catch(e => {
-                            console.log('Audio worklet error' + e);
-                            console.error(e);
-                            console.trace();
+                            cthis.audio.notifiyMuteAudio();
                         });
                     }
                 },
@@ -1017,7 +970,7 @@
                  * and getting the audio chunks from script processor node.
                  * It's a fallback method in case of not supporting Audio worklet
                  **/
-                manuPulateStreamWithFallback : function () {
+                maniPulateStreamWithFallback : function () {
                     if(typeof cthis.stream != 'undefined' && cthis.stream !=  null){
                         var stream = cthis.stream;
 
@@ -1050,6 +1003,8 @@
                         workerIO.postMessage({
                             cmd : "workerAudioSend"
                         },[ IOAudioSendWorker.port2]);
+
+                        cthis.workerAudioSendOnmessage();
 
                     }else {
                         console.log("No stream is found");
@@ -1265,9 +1220,6 @@
                  * interval depends on the number of users
                  */
                 //TODO function defined in function they can be separately defined
-
-
-
                 sendInBinary: function (sendimage) {
                     var user = {
                         name: virtualclass.gObj.uName,
@@ -1390,7 +1342,7 @@
                     this.remoteVid = chatContainerEvent.elementFromShadowDom("#video" + uid);
                     if(this.remoteVid != null){
                         this.remoteVidCont = this.remoteVid.getContext('2d');
-                        if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
+                        if (virtualclass.system.webpSupport || (imgType === "jpeg")) {
                             var img = new Image();
                             var that = this;
                             img.onload = function (){
@@ -1488,7 +1440,7 @@
                     var data_pack = new Uint8ClampedArray(msg);
                     var uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
                     var recmsg = data_pack.subarray(6, data_pack.length);
-                    if(data_pack[5] == 1){
+                    if(data_pack[5] === 1){
                         var b64encoded = "data:image/webp;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg));
                         var imgType = "webp";
                     }else {
@@ -1511,8 +1463,8 @@
                  **/
 
                 if (virtualclass.gObj.meetingMode && webcam) {
-                    if (virtualclass.system.device == 'mobTab' && virtualclass.system.mybrowser.name == 'iOS' ||
-                        virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Safari') {
+                    if (virtualclass.system.device === 'mobTab' && virtualclass.system.mybrowser.name === 'iOS' ||
+                        virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'Safari') {
                         var webcam = true;
                     } else {
                         var webcam = {
@@ -1524,10 +1476,23 @@
                     }
                 }
 
+                if(virtualclass.system.mediaDevices.hasMicrophone){
+                    var audioConstraint = {
+                        echoCancellation: true,
+                        autoGainControl:  true,
+                        channelCount:  1,
+                        noiseSuppression:  true
+                    }
+                }else {
+                    var audioConstraint = false;
+                }
+
+
+
                 var session = {
                     //audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
                     video: webcam,
-                    audio : virtualclass.system.mediaDevices.hasMicrophone
+                    audio : audioConstraint
                 };
 
                 return [webcam, session];
@@ -1627,10 +1592,10 @@
                     // virtualclass.media.audioVisual.readyForVisual(stream);
                     if(audio != null){
                         audio = JSON.parse(audio);
-                        if ((audio.ac == 'false' || audio.ac == false)) {
+                        if ((audio.ac === 'false' || audio.ac === false)) {
                             virtualclass.gObj.audioEnable = false;
                             virtualclass.user.control.audioDisable(true);
-                        } else if (audio.ac == 'true' || audio.ac == true) {
+                        } else if (audio.ac === 'true' || audio.ac === true) {
                             virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
@@ -1645,10 +1610,10 @@
                         // virtualclass.media.audioVisual.readyForVisual(stream);
                         if (audio != null) {
                             audio = JSON.parse(audio);
-                            if ((audio.ac == 'false' || audio.ac == false)) {
+                            if ((audio.ac === 'false' || audio.ac === false)) {
                                 virtualclass.gObj.audioEnable = false;
                                 virtualclass.user.control.audioDisable(true);
-                            } else if (audio.ac == 'true' || audio.ac == true) {
+                            } else if (audio.ac === 'true' || audio.ac === true) {
                                 virtualclass.gObj.audioEnable = true;
                                 virtualclass.user.control.audioWidgetEnable(true);
                             }
@@ -1669,11 +1634,12 @@
                     }
                 }  else {
                     virtualclass.system.mediaDevices.webcamErr.push('nopermission');
-                    //virtualclass.media.audio.removeAudioFromLocalStorage();
                 }
 
                 cthis.video.tempStream = stream;
                 cthis.audio.init();
+                cthis.audio.attachAudioStopHandler(stream);
+
                 var userDiv = chatContainerEvent.elementFromShadowDom("#ml" + virtualclass.gObj.uid);
                 if (userDiv != null) {
                     var vidTag = userDiv.getElementsByTagName('video');
@@ -1689,7 +1655,7 @@
                 }
 
                 var vidstatus = localStorage.getItem("allVideoAction");
-                if(vidstatus != null && vidstatus == "disable" && roles.isStudent()){
+                if(vidstatus != null && vidstatus === "disable" && roles.isStudent()){
                     virtualclass.user.control.videoDisable();
                 }else {
                     if(roles.isStudent() && !virtualclass.gObj.stdvideoEnable){
@@ -1704,7 +1670,7 @@
                     }
 
                     var videoAction = localStorage.getItem("allVideoAction");
-                    if(videoAction != null && videoAction == "enable"){
+                    if(videoAction != null && videoAction === "enable"){
                         virtualclass.user.control.videoEnable();
                     }
                 }
@@ -1716,10 +1682,15 @@
                 if(localStorage.getItem('prevApp') == null ){
                     if(roles.hasControls()){
                         //virtualclass.vutil.videoHandler();
-                        virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off');
+                        virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off' ) ? 'on' : 'off');
                     }else if(virtualclass.gObj.meetingMode){
                         virtualclass.vutil.videoHandler('off');
                     }
+                }
+
+                if(cthis.audio.audioContextReady && !cthis.audio.hasOwnProperty('triggermaniPulateStream')){
+                    cthis.stream = cthis.video.tempStream;
+                    cthis.audio._maniPulateStream();
                 }
             },
 
@@ -1736,13 +1707,13 @@
                 // var userDiv = document.getElementById("ml" + id);
                 userDiv.dataset.role = role
                 if(typeof role !='undefined'){
-                    var userType = (role == 's') ? 'student' : 'teacher';
+                    var userType = (role === 's') ? 'student' : 'teacher';
                     userDiv.classList.add(userType);
                 }else{
                     userDiv.classList.add("student");
                 }
 
-                if(virtualclass.gObj.uRole == 't' && userType == 'student'){
+                if(virtualclass.gObj.uRole === 't' && userType === 'student'){
                     document.getElementById('virtualclassCont').classList.remove('student');
                 }
             },
@@ -1842,7 +1813,7 @@
             existVideoContainer: function (user) {
                 var allVideos = chatContainerEvent.elementFromShadowDom('.userVideos', 'all')
                 for (var i = 0; i < allVideos.length; i++) {
-                    if (allVideos[i].id == "video" + user.id) {
+                    if (allVideos[i].id === "video" + user.id) {
                         return true;
                     }
                 }
@@ -1892,6 +1863,8 @@
                 }
 
                 virtualclass.system.mediaDevices.webcamErr.push(errorCode);
+
+                cthis.audio.notifiyMuteAudio();
                 //virtualclass.media.audio.removeAudioFromLocalStorage();
             },
 

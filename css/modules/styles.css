@@ -1072,7 +1072,7 @@
     color: #fff;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
-	width: 160px;
+	width: 185px;
 }
 
 /*#virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos {*/
@@ -1479,10 +1479,11 @@
 }
 
 #virtualclassCont.congrea #errorContainer {
-	position: fixed;
-	bottom: 11%;
-	right: 50%;
-	color : rgba(131, 14, 14, 0.93);
+	position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%);
+	
 	z-index : 10
 }
 
@@ -1767,7 +1768,7 @@
 
 
 #virtualclassCont.congrea #confirm.popupWindow.simple-box{
-	max-width: 350px;
+	max-width: 450px;
 	background-color: #fff;
 	text-align: center;
 
@@ -1788,11 +1789,22 @@
 }
 
 #virtualclassCont.congrea #popupContainer , #virtualclassCont.congrea #confirm.popupWindow.simple-box {
-	padding: 30px;
+	/* padding: 30px; */
+}
+#virtualclassCont.congrea #popupContainer {
+	display: block;
+    position: absolute;
+    height: 100%;
+    top: 0%;
+    /* z-index:100001; */
+    width: 100%;
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk, #virtualclassCont.congrea #confirm.popupWindow #confirmCancel{
 	display: inline-block;
+	position: relative;
+    left: 5px;
+
 }
 
 #virtualclassCont.congrea #confirmCancelButton:after{
@@ -1850,7 +1862,7 @@
 }
 
 #virtualclassCont.congrea #popupContainer #replayContainer.popupWindow{
-	padding: 30px;
+	padding: 15px;
 	text-align: center;
 }
 
@@ -2045,7 +2057,7 @@
 	box-shadow : none;
 	border-radius: 0 0 0 5px;
 }
-.canvasWrapper {
+.canvasCont {
     clear:both;
 }
 #virtualclassCont.congrea.educator .commandToolsWrapper {border: 1px solid #515e69;}
@@ -2061,7 +2073,8 @@
 	border-radius:5px;
 	text-align:center;
 	z-index : 1150;
-    max-width : 377px;
+	max-width : 377px;
+	color : rgba(131, 14, 14, 0.93);
 }
 
 @media (max-width:1100px) {
@@ -2070,7 +2083,7 @@
     }
     
     #virtualclassCont.congrea #errorContainer {
-        right:45%;
+       bottom: 15%;
     }
 }
 
@@ -2359,6 +2372,7 @@
 	float: none;
 	width: auto;
 	overflow: hidden;
+	/* background-color:#fff; */
 }
 #virtualclassCont.congrea.playMode #virtualclassAppLeftPanel {
     float:left;
@@ -2454,6 +2468,11 @@
 
 #virtualclassCont.congrea .bootstrap .modal-dialog{
 	width: 800px !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+	transform: translate(-50%,-50%);
+	margin: 0 !important;
 }
 
 #virtualclassCont.congrea .modal{
@@ -2892,7 +2911,7 @@
 	font-size : 15px;
 }
 
-@media (min-width: 768px){
+@media (min-width: 368px){
 	#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel{
 		float:none !important;
         height:45px !important;
@@ -2993,7 +3012,7 @@
 	}
 }
 
-@media (min-width: 768px) {
+@media (min-width: 368px) {
 	#preCheckcontainer .modal-content{
 		max-height:555px !important;
 	}
@@ -3079,8 +3098,8 @@
 }
 
 #virtualclassCont.congrea #popupContainer .urlValidation .urlMszClose{
-	top: 1px;
-	right: 3px;
+	top: -10px;
+	right: -10px;
 	position: absolute;
 	cursor: pointer;
 	/* color: black; */
@@ -3176,7 +3195,7 @@
 	bottom:0;
 	text-align: right;
 	float: right;
-	right: 369px;
+	right: 426px;
 	z-index: 1000;
 	overflow: hidden;
     border-bottom: none;
@@ -3184,7 +3203,7 @@
 }
 
 #virtualclassCont.congrea.playMode.student .zoomControler {
-    right:320px;
+    right:370px;
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboard .whiteboardContainer .canvasContainer{
@@ -3262,7 +3281,7 @@
   font-size: 22px;
   margin: 0;
   display: inline-block;
-  padding: 11px 18px;
+  padding: 10px 18px 12px 18px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -3335,8 +3354,9 @@
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck #myModal{
-   width:100%;
-   margin-left: 0px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
 }
 #virtualclassCont.congrea #alleditorRichContainer [data-action="enable"],
 #virtualclassCont.congrea #alleditorRichContainer [data-action="disable"],
@@ -3790,11 +3810,24 @@ opacity: 1;
 }
 
 #virtualclassCont.congrea  #dashboardContainer .modal-header button {
+
 	display:none;
 }
 #virtualclassCont.congrea  #dashboardContainer .modal-header button.enable {
 	display: block;
+	position: absolute;
+    right: 10px;
 }
+/* #virtualclassCont.congrea  #dashboardContainer .in .modal-header button{
+	 display: none; 
+}
+
+#virtualclassCont.congrea  #dashboardContainer .fade .modal-header button {
+	
+	display: block;
+	position: absolute;
+    right: 10px;
+} */
 #virtualclassCont.congrea.pdfRendering .zoomControler{
 	pointer-events: none;
 }
@@ -3947,9 +3980,7 @@ background-color: #d6d6d6;
 }
 
 
-@media only screen 
-  and (min-device-width: 768px) 
-    and (max-device-width: 1024px) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 
     /* Scrollbar For Tablets */
     ::-webkit-scrollbar{
@@ -3986,9 +4017,10 @@ background-color: #d6d6d6;
             font-size:110% !important;
         }
         #virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen:before {
-            font-size:110%; !important;
+            font-size:110%;
         }
-}
+
+	}
 
 #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog {
     margin:20% auto;
@@ -4008,7 +4040,7 @@ background-color: #d6d6d6;
 }
 
 /* For Safari Browser */
-@media not all and (min-resolution:.001dpcm) { @media {
+@media not all and (min-resolution:.001dpcm) { 
 
     #virtualclassCont.congrea #videoHostSource, #virtualclassCont.congrea #webcamTempVideo {
         transform:inherit !important;
@@ -4019,7 +4051,7 @@ background-color: #d6d6d6;
 		opacity : 0.5;
 		display : none;
 	}
-}}
+}
 
 #videoPlayerCont .vjs-youtube-mobile .vjs-big-play-button{
 	display : block !important;
@@ -4149,7 +4181,8 @@ background-color: #d6d6d6;
     border-top: 5px solid #555;
     border-radius: 50%;
     width: 50px;
-    height: 50px;
+	height: 50px;
+	margin: 22px auto;
 }
 
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont, #virtualclassCont.congrea.playMode #popupContainer.loading #loadingWindowCont  {
@@ -4287,4 +4320,135 @@ background-color: #d6d6d6;
 #virtualclassCont.congrea.playMode.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-fullscreen-control,
 #virtualclassCont.congrea.playMode .vjs-play-control{
 	pointer-events : none;
+}
+
+#virtualclassCont.congrea #fullScreenButton, #virtualclassCont.congrea #fullScreenExitButton{
+	position: fixed;
+    bottom: 0px;
+    right: 370px;
+    color: #fff;
+	z-index: 1000;
+	font-size: 22px;
+    margin: 0;
+    display: inline-block;
+	padding: 11px 18px 9px 18px;
+    text-align: center;
+    vertical-align: middle;
+	cursor: pointer;
+	border-left: 0.05em solid #021317 !important;
+}
+
+#virtualclassCont.congrea.playMode #fullScreenButton, #virtualclassCont.congrea.playMode #fullScreenExitButton {
+	right:320px;
+}
+
+#virtualclassCont.congrea #fullScreenExitButton {
+	padding: 12px 18px 10px 18px;
+}
+
+#virtualclassCont.congrea #fullScreenExitButton {
+	display:none;
+}
+
+#virtualclassCont.congrea #fullScreenButton:hover, #virtualclassCont.congrea #fullScreenExitButton:hover {
+	background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%) !important;
+}
+
+/* For FullScreen */
+
+#virtualclassCont.congrea:fullscreen {
+	background-color:#fff;
+}
+
+#virtualclassCont.congrea #fullScreenButton span.congtooltip:hover:after, #virtualclassCont.congrea #fullScreenExitButton span.congtooltip:hover:after{
+	bottom : 3.2em !important;
+}
+
+#virtualclassCont.loading {
+	display:none;
+}
+
+
+#virtualclassCont #recording.hide {
+	display : none;
+}
+
+#virtualclassCont #virtualclassAppLeftPanel #recording {
+	position: fixed;
+	left:0;
+	bottom: 0px;
+	z-index: 1000;
+	padding:12px 20px;
+	border-right: 0.01em solid #021317!important;
+}
+
+#virtualclassCont #virtualclassAppLeftPanel #recording[data-recording="on"] span.showStatus {
+	float:left;
+	width: 18px;
+    height: 18px;
+    font-size: 0;
+    background-color: red;
+    border: 0;
+    border-radius: 35px;
+    outline: none;
+	animation-name: pulse;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+#virtualclassCont #virtualclassAppLeftPanel #recording[data-recording="off"] span.showStatus {
+	float:left;
+	width: 18px;
+    height: 18px;
+    font-size: 0;
+    background-color: orange;
+    border: 0;
+    border-radius: 35px;
+	outline: none;
+	animation-name: pulse;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+#virtualclassCont #virtualclassAppLeftPanel #recording span.recordingText {
+	margin-left: 14px;
+	line-height: 20px;
+	letter-spacing:1.5px;
+}
+
+@keyframes pulse{
+	0%{
+		box-shadow: 0px 0px 5px 0px rgba(196, 2, 2, 0.4);
+	}
+	65%{
+		box-shadow: 0px 0px 5px 13px rgba(173,0,0,.4);
+	}
+	70%{
+		box-shadow: 0px 0px 5px 13px rgba(173,0,0,0);
+	}
+}
+#virtualclassCont .recordingStatus {
+	width: 35px;
+	height: 35px;
+	font-size: 0;
+	background-color: red;
+	border: 0;
+	border-radius: 35px;
+	margin: 18px;
+	outline: none;
+}
+
+#virtualclassCont #recording {
+	color : #ffffff;
+}
+
+#virtualclassCont #recording.statusonly {
+	pointerl-events : none;
+}
+
+
+#virtualclassCont.playMode #recording {
+	display : none;
 }

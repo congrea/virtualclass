@@ -91,7 +91,11 @@
     /*width: 90%;*/
 /*}*/
 
-#virtualclassCont.congrea .pages .links[data-status='0'] {
+#virtualclassCont.congrea .pages .links[data-status='0'] img {
+    opacity:.5;
+}
+
+#virtualclassCont.congrea .pages .links[data-status='0'] .pptTitle {
     opacity: 0.5;
 }
 
@@ -403,10 +407,9 @@
         width:130px;
     }
 }
-@media (min-width:768px) {
-    @media (min-width: 768px) {
-        #DocumentShareDashboard .dbContainer .dashboardview.col-sm-10 {
-            width: 78.333333%;
+@media (min-width: 768px) {
+    #DocumentShareDashboard .dbContainer .dashboardview.col-sm-10 {
+        width: 78.333333%;
         }
     }
 
@@ -605,6 +608,7 @@
 
     #virtualclassCont.congrea #listnotes .linknotes.links .controls.delete {
         float: right;
+        cursor: pointer;
         font-size: 0px;
         height: 14px;
         width: 13px;
@@ -652,9 +656,9 @@
         color: #606060;
     }
 
-    #virtualclassCont.congrea #listnotes .linknotes.links[data-status="0"] .controls.delete::before {
+    /* #virtualclassCont.congrea #listnotes .linknotes.links[data-status="0"] .controls.delete::before {
         display: none;
-    }
+    } */
 
     #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
         font-size: 0.88em;
@@ -877,7 +881,6 @@
     }
 
     #virtualclassCont.congrea #listnotes .linknotes.links[data-status='0'] .controlCont:hover {
-        pointer-events: none;
         cursor: default;
     }
 
@@ -924,6 +927,7 @@
 
     #virtualclassCont.congrea #leftNavPage {
         cursor: pointer;
+        margin-left: 15px;
     }
 
 
@@ -980,7 +984,7 @@
         display: block;
         position: fixed;
         bottom: 9px;
-        left: 20px;
+        right : 50%;
         z-index: 1005;
     }
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav{
@@ -1003,7 +1007,7 @@
         display: block;
         position: fixed;
         bottom: 12px;
-        right: 608px;
+        right: 626px;
         z-index: 1005;
     }
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav{
@@ -1019,7 +1023,7 @@
         font-size:14px;
     }
 
-}
+
 
 .congrea #totalPages {
     color: #fff;

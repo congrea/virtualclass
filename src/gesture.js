@@ -2,6 +2,7 @@
 
 var gesture = {
     initClassJoin : function (){
+        
         var joinClassModal = document.querySelector('#joinClassModal');
         if(joinClassModal != null){
             joinClassModal.style.display = 'block';
@@ -58,31 +59,29 @@ var gesture = {
     initAudioResume  : function (uid){
         var joinClassModal = document.querySelector('#joinClassModal');
 
-        if(joinClassModal != null){
+        if(joinClassModal !== null){
             joinClassModal.style.display = 'block';
         }
 
         virtualclass.modal.show('#joinClassModal');
+        if(document.getElementById('initAudio') === null){
+            var mainbody = document.querySelector('#joinClassModal .modal-body');
+            var initAudio = document.createElement('div');
+            initAudio.id = 'initAudio';
+            initAudio.innerHTML = virtualclass.lang.getString('clickheretoplay');
+            mainbody.appendChild(initAudio);
 
-        // $('#joinClassModal').modal({backdrop: 'static', keyboard: false});
+            mainbody.onclick = function (){
+                virtualclass.media.audio.initScriptNode(uid);
+                joinClassModal.style.display = 'none';
+                virtualclass.gObj.requestToScriptNode = null;
+            }
 
-        var mainbody = document.querySelector('#joinClassModal .modal-body');
-        var initAudio = document.createElement('div');
-
-        initAudio.id = 'initAudio';
-
-        initAudio.innerHTML = "CLICK HERE TO ENABLE AUDIO";
-        mainbody.appendChild(initAudio);
-
-        mainbody.onclick = function (){
-            virtualclass.media.audio.initScriptNode(uid);
-            joinClassModal.style.display = 'none';
-            virtualclass.gObj.requestToScriptNode = null;
         }
 
-        var joinClass = document.querySelector('#joinClassModal .joinClasscontainer');
 
-        if(joinClass != null){
+        var joinClass = document.querySelector('#joinClassModal .joinClasscontainer');
+        if(joinClass !== null){
             joinClass.style.display = 'none';
         }
 

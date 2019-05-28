@@ -4,7 +4,7 @@ Virtual Class
 ## Introduction
 It is a tool to facilitate real time interaction between users. Build of education, it is designed primarily for virtual classrooms.
 
-Presenter would be able to share her audio/video, screen, documents & other media with all users in real time. All of this is browser based and we aim to have an native compatibility with all major browsers on both desktops and tablets.
+Presenter would be able to share their audio/video, screen, documents & other media with all users in real time. All of this is browser based and we aim to have an native compatibility with all major browsers on both desktops and tablets.
 
 ## License : GPLv3
 
@@ -30,4 +30,5 @@ Latest version of Google Chrome
 - [x] Performance to handle thousands of concurrent users
 - [x] Layout template engine
 - [x] Compatibility with all major browsers and iPad
-- [ ] Server side recording
+- [X] Server side recording
+- [ ] Advanced Configurable Reports

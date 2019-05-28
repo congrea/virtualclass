@@ -85,7 +85,7 @@ var ioMissingPackets = {
                     localStorage.setItem('mySession', 'thisismyplaymode');
                 }
 
-                alert('Start session gracefully');
+                console.log('Start session gracefully');
                 return;
             }
         }

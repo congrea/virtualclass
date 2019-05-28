@@ -16,10 +16,12 @@
 
         if(virtualclassSetting.hasOwnProperty('studentAudio') && virtualclassSetting.studentAudio == '' || virtualclassSetting.studentAudio == '0'){
             studentAudioEnable = false;
+            virtualclass.gObj.defaultSessionSetting.disableattendeeav = studentAudioEnable;
         }
 
         if(virtualclassSetting.hasOwnProperty('studentVideo') && virtualclassSetting.studentVideo == '' || virtualclassSetting.studentVideo == '0'){
             studentVideoEnable = false;
+            virtualclass.gObj.defaultSessionSetting.disablestudentvd = studentVideoEnable;
         }
 
         return {
@@ -92,7 +94,25 @@
                 defaultcolor : "#0000ff",
                 sendAudioStatus : false,
                 audioRecWorkerReady : false,
-                wbTool : {}
+                wbTool : {},
+                defaultSessionSetting : {
+                    "allowoverride": null,
+                    "disableattendeeav": studentAudioEnable,
+                    "disableattendeepc": null,
+                    "disableattendeegc": null,
+                    "disablestudentvd": studentVideoEnable,
+                    "disableraisehand": null,
+                    "disableuserlist": null,
+                    "x8": null,
+                    "enablerecording": null,
+                    "recallowpresentoravcontrol": null,
+                    "recshowpresentorrecordingstatus": null,
+                    "recdisablestudentav": null,
+                    "recallowstudentavcontrol": null,
+                    "recshowstudentrecordingstatus": null,
+                    "rectrimrecordings": null,
+                    "x16": null
+                }
             },
 
             enablePreCheck : true,
@@ -175,8 +195,8 @@
                 this.vutil.isChromeExtension();
                 this.wbCommon = window.wbCommon;
                 this.pageNavigation = window.pageIndexNav;
-                this.jscolor = window.jscolor;
                 this.modal = window.modal;
+                this.edsettings = window.edsettings;
 
                 if(this.system.isIndexedDbSupport()){
                     this.storage.init();

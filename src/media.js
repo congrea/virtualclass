@@ -1591,18 +1591,22 @@
                 var audio = localStorage.getItem('audEnable');
                 if(roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone){
                     // virtualclass.media.audioVisual.readyForVisual(stream);
-                    if(audio != null){
-                        audio = JSON.parse(audio);
-                        if ((audio.ac === 'false' || audio.ac === false)) {
+                    var str = (!localStorage.getItem("overridesettings")) ? localStorage.getItem("stdsettings") : localStorage.getItem("overridesettings");
+                    if(str !== null) {
+                       var settings = virtualclass.edsettings.onLoadSettings(str);
+                    }
+                    if(str != null){
+                        //audio = JSON.parse(audio);
+                        if ((settings.disableattendeeav === false)) {
                             virtualclass.gObj.audioEnable = false;
                             virtualclass.user.control.audioDisable(true);
-                        } else if (audio.ac === 'true' || audio.ac === true) {
+                        } else if (settings.disableattendeeav === true) {
                             virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
-                    }else if(!virtualclass.gObj.stdaudioEnable){
+                    }else if(virtualclass.gObj.defaultSessionSetting.disableattendeeav !== true){
                         virtualclass.user.control.audioDisable();
-                    }else if(virtualclass.gObj.stdaudioEnable){
+                    }else if(virtualclass.gObj.defaultSessionSetting.disableattendeeav === true){
                         virtualclass.gObj.audioEnable = true;
                         virtualclass.user.control.audioWidgetEnable(true);
                     }
@@ -1659,6 +1663,7 @@
                 if(vidstatus != null && vidstatus === "disable" && roles.isStudent()){
                     virtualclass.user.control.videoDisable();
                 }else {
+                    //!virtualclass.gObj.stdvideoEnable
                     if(roles.isStudent() && !virtualclass.gObj.stdvideoEnable){
                         virtualclass.vutil.videoHandler("off");
                         virtualclass.videoHost.toggleVideoMsg('disable');

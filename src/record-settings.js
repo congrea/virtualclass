@@ -89,14 +89,10 @@ let recordSettings = {
             localStorage.removeItem('recsetting');
         }else {
             if(roles.hasControls() && this.trimRecordings){
-                recButton.innerHTML = "Start Recording";
+                // recButton.innerHTML = "Start Recording";
+                recElem.setAttribute('data-title','Recording Stopped');
             }else{
-                recButton.innerHTML = "Recording";
-                if(this.allowattendeeAVcontrolByTeacher){
-                    recElem.setAttribute('data-title','Your a/v is controlled by the teacher');
-                }else{
-                    recElem.setAttribute('data-title','Recording Stopped');
-                }
+                recElem.setAttribute('data-title','Recording Stopped');
             }
             recElem.dataset.recording = "off";
 

@@ -4432,7 +4432,7 @@ background-color: #d6d6d6;
 	animation-timing-function: linear;
 }
 
-#virtualclassCont #virtualclassAppLeftPanel #recording[data-recording="off"].trimRecording span.showStatus {
+/* #virtualclassCont #virtualclassAppLeftPanel #recording[data-recording="off"].trimRecording span.showStatus {
 	float:left;
 	margin-top:1px;
 	width: 16px;
@@ -4443,7 +4443,7 @@ background-color: #d6d6d6;
     border-radius: 35px;
 	outline: none;
 	animation-name:none;
-}
+} */
 
 #virtualclassCont #virtualclassAppLeftPanel #recording span.recordingText {
 	margin-left: 14px;

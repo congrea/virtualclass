@@ -259,13 +259,6 @@ if($info) {
     window.webapi = "<?php echo $whiteboardpath ."webapi.php?cmid=".$cmid; ?>";
     window.congCourse =  "<?php echo $cmid ?>";
 
-    wbUser.recordSettings = {};
-    wbUser.recordSettings.enableRecording =  "<?php echo $enable_recording; ?>";
-    wbUser.recordSettings.allowPresenterAV =  "<?php echo $allow_presenter_av; ?>";
-    wbUser.recordSettings.show =  "<?php echo $show; ?>";
-    wbUser.recordSettings.disableAttendeeAV =  "<?php echo $disable_attendee_av; ?>";
-    wbUser.recordSettings.allowAttendeeAV =  "<?php echo $allow_attendee_av; ?>";
-
     if (!!window.Worker) {
         var sworker = new Worker("<?php echo $whiteboardpath."worker/screenworker.js" ?>");
         var sdworker = new Worker("<?php echo $whiteboardpath."worker/screendecode.js" ?>");

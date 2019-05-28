@@ -334,12 +334,6 @@
                 this.raiseHand= window.raiseHand;
                 this.raiseHand.init();
 
-                // this.rtcIo= window.rtcIo;
-                // this.rtcIo.init();
-
-                this.appSetting= window.appSetting;
-                this.appSetting.init();
-
                 virtualclass.colorSelector = window.colorSelector;
                 if(virtualclassSetting.theme.selectedColor){
                     this.colorSelector.makeThemeReady();
@@ -1397,7 +1391,7 @@
                     virtualclass.setPrvUser();
                 } else {
                     prvUser = JSON.parse(prvUser);
-                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != wbUser.recordSettings.enableRecording) {
+                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != sessionSetting.enableRecording) {
                         virtualclass.gObj.sessionClear = true;
                         virtualclass.setPrvUser();
                         if (roles.hasControls()) {
@@ -1409,7 +1403,7 @@
 
             setPrvUser: function () {
                 localStorage.clear();
-                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : wbUser.recordSettings.enableRecording};
+                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : sessionSetting.enableRecording};
                 console.log('previosu user');
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
             },

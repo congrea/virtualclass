@@ -434,6 +434,9 @@
                     } else if(canvas.offsetWidth === 0 && document.querySelector('#virtualclassApp').style.display === "none"){
                         canvas.width = window.innerWidth - 382;
                         console.log("==== a canvas width click to continue");
+                    }else if(virtualclass.isPlayMode){
+                        canvas.width = window.innerWidth - 382;
+                        console.log("==== a canvas width");
                     }
 
 

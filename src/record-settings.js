@@ -1,5 +1,5 @@
 let sessionSetting  = {
-    enableRecording : false,
+    enableRecording : true,
 
     recAllowpresentorAVcontrol : true,
     recShowPresentorRecordingStatus : true,
@@ -87,6 +87,9 @@ let recordSettings = {
             virtualclassCont.dataset.recording = "on";
             recElem.setAttribute('data-title','Recording Started');
             localStorage.removeItem('recsetting');
+            if(virtualclass.currApp === 'ScreenShare' && virtualclass.ss != null){
+                virtualclass.ss.initShareScreen('ss', 500);
+            }
         }else {
             if(roles.hasControls() && this.trimRecordings){
                 // recButton.innerHTML = "Start Recording";
@@ -100,6 +103,9 @@ let recordSettings = {
         }
 
         ioAdapter.setRecording();
+
+
+
 
     },
 

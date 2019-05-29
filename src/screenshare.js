@@ -1235,6 +1235,26 @@ var newCanvas;
                 console.log('Screen type base width ' + baseWidth);
                  var newScale = givenWidth / baseWidth;
                  return newScale;
+            },
+
+
+            initShareScreen (sType, setTime){
+                if (typeof virtualclass.getDataFullScreen == 'function') {
+                    if(virtualclass.gObj.hasOwnProperty('sendScreen')){
+                        clearTimeout(virtualclass.gObj.sendScreen);
+                    }
+
+                    virtualclass.gObj.sendScreen = setTimeout(
+                        function (){
+                            sType = virtualclass.getDataFullScreen(sType);
+                            var createdImg = virtualclass.getDataFullScreen('ss');
+                            ioAdapter.sendBinary(createdImg);
+                            virtualclass.vutil.informIamSharing();
+                            sType = null;
+                            console.log('Send full-screen image');
+                        },setTime
+                    );
+                }
             }
         }
     };

@@ -85,15 +85,17 @@ let recordSettings = {
         if(this.audioVideo){
             recButton.innerHTML = "Recording";
             recElem.dataset.recording = "on";
+            recElem.setAttribute('data-title','Recording Started');
             localStorage.removeItem('recsetting');
             if(virtualclass.currApp === 'ScreenShare' && virtualclass.ss != null){
                 virtualclass.ss.initShareScreen('ss', 500);
             }
         }else {
             if(roles.hasControls() && this.trimRecordings){
-                recButton.innerHTML = "Start Recording";
+                // recButton.innerHTML = "Start Recording";
+                recElem.setAttribute('data-title','Recording Stopped');
             }else{
-                recButton.innerHTML = "Recording";
+                recElem.setAttribute('data-title','Recording Stopped');
             }
             recElem.dataset.recording = "off";
 

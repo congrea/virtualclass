@@ -1069,9 +1069,6 @@
     #virtualclassCont.congrea #dcPaging .active {
         font-size:12px;
     }
-    #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher #docShareNav {
-        left : 5px;
-    }
 }
 
 #virtualclassCont[data-currapp="DocumentShare"] .canvasWrapper .whiteboards {

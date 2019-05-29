@@ -987,10 +987,18 @@
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher #docShareNav {
         display: block;
         position: fixed;
-        bottom: 9px;
-        right : 50%;
+        bottom: 10px;
+        left: 10px;
         z-index: 1005;
     }
+
+    #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher[data-recording="off"] #docShareNav,
+    #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher[data-recording="on"] #docShareNav, 
+    #virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher[data-recording="off"] #docShareNav,
+    #virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher[data-recording="on"] #docShareNav{
+        left:164px;
+    }
+
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav{
         display: none;
     }
@@ -1007,13 +1015,20 @@
         font-size:14px;
     }
 
-    #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
+    #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav,
+    #virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
         display: block;
         position: fixed;
         bottom: 12px;
-        right: 626px;
+        left:15px;
         z-index: 1005;
     }
+
+    #virtualclassCont.congrea.student[data-recording="off"] #docShareNav,
+    #virtualclassCont.congrea.student[data-recording="on"] #docShareNav {
+        left:167px;
+    }
+
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav{
         display: none;
     }

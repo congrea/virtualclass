@@ -57,7 +57,7 @@ let recordSettings = {
         if(this.showStatus){
             recording.classList.remove('hide');
             recording.classList.add('show');
-            recording.dataset.recording = "on";
+            virtualclassCont.dataset.recording = "on";
             if(!this.statusOnly){
                 this.attachHandler(recording);
             }else {
@@ -84,7 +84,7 @@ let recordSettings = {
 
         if(this.audioVideo){
             recButton.innerHTML = "Recording";
-            recElem.dataset.recording = "on";
+            virtualclassCont.dataset.recording = "on";
             recElem.setAttribute('data-title','Recording Started');
             localStorage.removeItem('recsetting');
         }else {
@@ -94,9 +94,9 @@ let recordSettings = {
             }else{
                 recElem.setAttribute('data-title','Recording Stopped');
             }
-            recElem.dataset.recording = "off";
+            virtualclassCont.dataset.recording = "off";
 
-            localStorage.setItem('recsetting', JSON.stringify({statusonly: this.statusOnly, rec : recElem.dataset.recording}));
+            localStorage.setItem('recsetting', JSON.stringify({statusonly: this.statusOnly, rec : virtualclassCont.dataset.recording}));
         }
 
         ioAdapter.setRecording();
@@ -106,7 +106,7 @@ let recordSettings = {
     recordingButtonAction (elem) {
         if(!elem.classList.contains('statusonly')){
             let recordSetting;
-            if(elem.dataset.recording === 'off'){
+            if(virtualclassCont.dataset.recording === 'off'){
                 recordSetting = true;
                 this.updateSettingAV(recordSetting);
             } else {

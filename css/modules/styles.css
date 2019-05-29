@@ -4374,18 +4374,37 @@ background-color: #d6d6d6;
 }
 
 #virtualclassCont #virtualclassAppLeftPanel #recording {
+	color:#fff;
 	position: fixed;
 	left:0;
 	bottom: 0px;
 	z-index: 1000;
 	padding:12px 20px;
 	border-right: 0.01em solid #021317!important;
+	cursor:pointer;
+}
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel #recording.congtooltip:hover:after {
+	bottom:48px;
+}
+
+#virtualclassCont #virtualclassAppLeftPanel #recording.statusonly {
+	cursor:default;
+}
+
+#virtualclassCont #virtualclassAppLeftPanel #recording.show:hover {
+	background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%);
+}
+
+#virtualclassCont #virtualclassAppLeftPanel #recording.statusonly:hover{
+	background-image:none;
 }
 
 #virtualclassCont #virtualclassAppLeftPanel #recording[data-recording="on"] span.showStatus {
 	float:left;
-	width: 18px;
-    height: 18px;
+	margin-top:1px;
+	width: 16px;
+    height: 16px;
     font-size: 0;
     background-color: red;
     border: 0;
@@ -4399,23 +4418,37 @@ background-color: #d6d6d6;
 
 #virtualclassCont #virtualclassAppLeftPanel #recording[data-recording="off"] span.showStatus {
 	float:left;
-	width: 18px;
-    height: 18px;
+	margin-top:1px;
+	width: 16px;
+    height: 16px;
     font-size: 0;
     background-color: orange;
     border: 0;
     border-radius: 35px;
 	outline: none;
-	animation-name: pulse;
+	animation-name: pulse-off;
 	animation-duration: 1.5s;
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
 }
 
+/* #virtualclassCont #virtualclassAppLeftPanel #recording[data-recording="off"].trimRecording span.showStatus {
+	float:left;
+	margin-top:1px;
+	width: 16px;
+    height: 16px;
+    font-size: 0;
+    background-color: #fff;
+    border: 0;
+    border-radius: 35px;
+	outline: none;
+	animation-name:none;
+} */
+
 #virtualclassCont #virtualclassAppLeftPanel #recording span.recordingText {
 	margin-left: 14px;
-	line-height: 20px;
-	letter-spacing:1.5px;
+	line-height: 18px;
+	font-size:15px;
 }
 
 @keyframes pulse{
@@ -4423,13 +4456,32 @@ background-color: #d6d6d6;
 		box-shadow: 0px 0px 5px 0px rgba(196, 2, 2, 0.4);
 	}
 	65%{
-		box-shadow: 0px 0px 5px 13px rgba(173,0,0,.4);
+		box-shadow: 0px 0px 5px 10px rgba(173,0,0,.4);
 	}
 	70%{
-		box-shadow: 0px 0px 5px 13px rgba(173,0,0,0);
+		box-shadow: 0px 0px 5px 10px rgba(173,0,0,.3);
+	}
+	100%{
+		box-shadow: 0px 0px 5px 10px rgba(173,0,0,0);
 	}
 }
-#virtualclassCont .recordingStatus {
+
+@keyframes pulse-off{
+	0%{
+		box-shadow: 0px 0px 5px 0px rgba(122, 80, 1, 0.4);
+	}
+	65%{
+		box-shadow: 0px 0px 5px 10px rgba(136, 88, 0, 0.4);
+	}
+	70%{
+		box-shadow: 0px 0px 5px 10px rgba(136, 88, 0, 0.3);
+	}
+	100%{
+		box-shadow: 0px 0px 5px 10px rgba(150, 98, 1, 0);
+	}
+}
+
+#virtualclassCont #virtualclassAppLeftPanel.recordingStatus {
 	width: 35px;
 	height: 35px;
 	font-size: 0;
@@ -4440,8 +4492,8 @@ background-color: #d6d6d6;
 	outline: none;
 }
 
-#virtualclassCont #recording {
-	color : #ffffff;
+#virtualclassCont.playMode #virtualclassAppLeftPanel #recording {
+	display:none;
 }
 
 #virtualclassCont #recording.statusonly {

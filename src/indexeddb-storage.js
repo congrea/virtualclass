@@ -102,8 +102,10 @@
 
         onsuccess : async function () {
             if (virtualclass.gObj.sessionClear) {
+                console.log("==== session clear endsession after room change");
                 this.config.endSession(true);
             } else {
+
                 var pos = this.tables.indexOf('wbData');
 
                 if(pos > -1 ){
@@ -121,8 +123,9 @@
                         var totalTime = baseDate - roomCreatedTime;
                         // Session is clear after 3 hour continous session
                         //////////////////////1sec-1min--1hr--3hr/////////
-                        //if (totalTime > (1000 * 60 * 60 * 3) || result.room != wbUser.room) {
                         if (totalTime > (1000 * 60 * 60 * 3) || result.room != wbUser.room) {
+                       // if (totalTime > (1000 * 6) || result.room != wbUser.room) {
+                            console.log("==== session clear endsession after date expire");
                             that.config.endSession();
                         }
                     }
@@ -347,22 +350,20 @@
 
         config: {
             handleResult: async function (cursor, cb) {
-                while (cursor) {
-                    if (cursor) {
-                        if (cursor.value.hasOwnProperty('myconfig')) {
-                            var config = JSON.parse(cursor.value.myconfig);
-                            if (typeof cb != 'undefined') {
-                                //TODO mc should be store into object
-                                mc = true;
-                                cb(config);
+                if(cursor != null){
+                    while (cursor) {
+                        if (cursor) {
+                            if (cursor.value.hasOwnProperty('myconfig')) {
+                                var config = JSON.parse(cursor.value.myconfig);
+                                if (typeof cb != 'undefined') {
+                                    cb(config);
+                                }
                             }
-                        }
-                        cursor = await cursor.continue();
-                    } else {
-                        if (typeof cb != 'undefined' && !mc) {
-                            cb();
+                            cursor = await cursor.continue();
                         }
                     }
+                } else if (typeof cb != 'undefined') {
+                    cb();
                 }
             },
 

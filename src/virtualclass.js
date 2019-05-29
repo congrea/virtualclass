@@ -181,7 +181,8 @@
                 this.pageNavigation = window.pageIndexNav;
                 this.jscolor = window.jscolor;
                 this.modal = window.modal;
-
+                this.zoom = window.zoomWhiteboard();
+                virtualclass.pageIndexNav=window.pageIndexNav;
                 if(this.system.isIndexedDbSupport()){
                     await this.storage.init();
                 }else {
@@ -251,10 +252,11 @@
                 virtualclass.videoHost = window.videoHost;
                 virtualclass.precheck  = window.precheck;
                 virtualclass.page =  page;
-                virtualclass.zoom = window.zoomWhiteboard();
+               // virtualclass.zoom = window.zoomWhiteboard();
+                console.log("==== session clear zoom object ready ");
                 virtualclass.network = new Network();
                 virtualclass.gesture = gesture;
-                virtualclass.pageIndexNav=window.pageIndexNav;
+              /*  virtualclass.pageIndexNav=window.pageIndexNav; */
                 virtualclass.recordSettings = recordSettings;
                 virtualclass.recordSettings.init();
 
@@ -543,8 +545,6 @@
             },
 
             makeAppReady: async function (app, cusEvent, data) {
-              
-             
                 // var congdashboardClose = document.querySelector('#congdashboard button.close');
                 // if(congdashboardClose != null){
                 //     congdashboardClose.click();
@@ -968,6 +968,7 @@
                                 // Only need to  serve on after page refresh
                                 var that = this;
                                 await virtualclass.storage.getWbData(id);
+//                                console.log("==== SESSION CLEAR");
                             }else{
                                 alert('whiteboard container is null');
                             }
@@ -998,6 +999,7 @@
                     }else{
                         alert('id is undefined');
                     }
+                    console.log("==== SESSION CLEAR");
                     virtualclass.zoom.init();
                    // virtualclass.wbCommon.indexNav.init();
                     // virtualclass.pdfRender[wid].initScaleController();

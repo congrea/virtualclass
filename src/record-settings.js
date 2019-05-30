@@ -8,7 +8,7 @@ let sessionSetting  = {
 
     recallowattendeeAVcontrol : true,
     showAttendeeRecordingStatus : true,
-    trimRecordings :true
+    trimRecordings : true
 }
 
 

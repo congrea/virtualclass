@@ -137,7 +137,7 @@ var ioAdapter = {
     },
 
     setRecording (){
-        if (virtualclass.recordSettings.enableRecording) {
+        if (!virtualclass.isPlayMode && virtualclass.recordSettings.enableRecording) {
             var sendData = virtualclass.recordSettings.sendYesOrNo();
             let obj = {
                 cfun: 'recording',
@@ -161,10 +161,8 @@ var ioAdapter = {
         let serverSession = localStorage.getItem('serverSession');
         if(serverSession == null){
             localStorage.setItem('serverSession', session);
-        }else {
-            if(serverSession != session){
-                this.setSession(serverSession);
-            }
+        }else if(!virtualclass.isPlayMode && serverSession != session){
+            this.setSession(serverSession);
         }
     },
 

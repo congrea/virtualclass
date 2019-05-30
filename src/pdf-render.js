@@ -674,19 +674,24 @@
                 var wrapperWidth = wrapper.offsetWidth;
 
                 var that = this;
-                this.displayPage(this.shownPdf,  1, function (){
-                    for(wid in virtualclass.pdfRender){
+
+                if(this.shownPdf !== " "){
+                    this.displayPage(this.shownPdf,  1, function (){
+                        for(wid in virtualclass.pdfRender){
                             that.fitToScreenWhiteboardObjects(wid);
-                    }
+                        }
 
-                    //that.zoomOutWhiteboardObjects(virtualclass.gObj.currWb);
+                        //that.zoomOutWhiteboardObjects(virtualclass.gObj.currWb);
 
-                    if(canvasWidth > wrapperWidth && ((canvasWidth - wrapperWidth) > 55)){
-                        wrapper.classList.add('scrollX');
-                    } else {
-                        wrapper.classList.remove('scrollX');
-                    }
-                });
+                        if(canvasWidth > wrapperWidth && ((canvasWidth - wrapperWidth) > 55)){
+                            wrapper.classList.add('scrollX');
+                        } else {
+                            wrapper.classList.remove('scrollX');
+                        }
+                    });
+                }else {
+                    console.log("ERROR : shown pdf is not available");
+                }
             },
 
 

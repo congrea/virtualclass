@@ -1668,9 +1668,9 @@
                     virtualclass.dts.indexNav.studentDocNavigation(this.docs.currNote);
                 }
 
-                if(!dts.hasOwnProperty('dres')){
-                    virtualclass.vutil.resizeWindowIfBigger();
-                }
+                // if(!dts.hasOwnProperty('dres')){
+                //     virtualclass.vutil.resizeWindowIfBigger();
+                // }
             },
 
             sendCurrentSlide : function (){

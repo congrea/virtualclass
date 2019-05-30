@@ -44,9 +44,9 @@
         var cont = document.querySelector("#docShareNav #totalPages");
         if(cont){
             if(roles.hasControls()){
-                cont.innerHTML = " / " +length;
+                cont.innerHTML = " of " +length;
             }else{
-                cont.innerHTML = " / " +length + " Pages";
+                cont.innerHTML = " of " +length + " Pages";
             }
            
             var nav = document.querySelector("#docShareNav");
@@ -462,11 +462,15 @@
                 //left.innerHTML = "left"
                 cont.appendChild(left);
                 
-   
                 
                 var elem = document.createElement('span')
                 elem.classList.add("navArrow");
                 elem.innerHTML ="";
+                cont.appendChild(elem);
+
+                var elem = document.createElement('span');
+                elem.classList.add("pageHead");
+                elem.innerHTML = "Page";
                 cont.appendChild(elem);
                 
                 var elem = document.createElement('div')
@@ -499,7 +503,8 @@
 
                     var add = document.createElement('span')
                     addCont.appendChild(add);
-                    add.className = "icon-newPage" // to be removed
+                    add.className = "icon-newPage congtooltip" // to be removed
+                    add.setAttribute('data-title','Add New Page');
                     //add.innerHTML="new"
                     add.addEventListener('click', function () {
                         virtualclass.wbCommon.indexNav.newWbpage(this.type)

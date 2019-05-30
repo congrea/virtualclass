@@ -96,6 +96,7 @@
         initPlay : false,
         isTrimRecording : false,
         enableTrim : sessionSetting.trimRecordings,
+        joinRoomRecevied : false,
         init: function () {
             if(!this.attachSeekHandler){
                 this.attachSeekHandler = true;
@@ -379,6 +380,13 @@
                     }
 
                     if(data  != null && data != ''){
+                        if(!this.joinRoomRecevied &&  data.indexOf('"type":"joinroom"')  > -1 ){
+                            this.joinRoomRecevied = true;
+                            let joinMsg = JSON.parse(data);
+                            joinMsg.clientids  = data.action;
+                            data = JSON.stringify(joinMsg);
+                        }
+
                         if(this.lastFileTime && i === 0){
                             let prvTotalMiliSeconds =  Math.trunc((time - this.lastFileTime));
                             chunk = this.insertPacketInto(chunk, prvTotalMiliSeconds);
@@ -430,12 +438,6 @@
                     binData = virtualclass.dtCon.base64DecToArr(chunk[k].recObjs);
                     chunk[k].recObjs = binData;
                 }
-            }
-
-            if(this.masterRecordings.length === 0){
-                let joinMsg = JSON.parse(chunk[0].recObjs);
-                joinMsg.clientids  = joinMsg.action;
-                chunk[0].recObjs = JSON.stringify(joinMsg);
             }
 
             this.masterRecordings.push(chunk);

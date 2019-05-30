@@ -716,33 +716,19 @@ $(document).ready(function () {
                 }
 
                 if (typeof sType !== 'undefined' && sType !== null) {
-                    initShareScreen(sType, 6000); //There might need some time to executing missed packets
+                    triggerInitShareScreen(sType, 6000); //There might need some time to executing missed packets
                 }
             }else if (roles.isStudent() && virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.studentSSstatus.mesharing) {
                 sType = 'ss';
                 //There might need some time to executing missed packets
-                initShareScreen(sType, 6000);
+                triggerInitShareScreen(sType, 6000);
             }
         }
 
-        function initShareScreen (sType, setTime){
-            //TODO this should be into function
+        function triggerInitShareScreen (sType, setTime){
             if (typeof virtualclass.getDataFullScreen == 'function') {
-                if(virtualclass.gObj.hasOwnProperty('sendScreen')){
-                    clearTimeout(virtualclass.gObj.sendScreen);
-                }
-                virtualclass.gObj.sendScreen = setTimeout(
-                    function (){
-                        sType = virtualclass.getDataFullScreen(sType);
-                        var createdImg = virtualclass.getDataFullScreen('ss');
-                        ioAdapter.sendBinary(createdImg);
-                        virtualclass.vutil.informIamSharing();
-                        sType = null;
-                        console.log('Send full-screen image');
-                    },setTime
-                );
+                virtualclass.ss.initShareScreen(sType, setTime);
             }
-
         }
 
         function isAnyOnePresenter() {

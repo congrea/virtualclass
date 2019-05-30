@@ -132,6 +132,10 @@ var ioAdapter = {
        io.sendBinary(msg);
     },
 
+    makeSessionReady () {
+        io.sessionSet = true;
+    },
+
     setRecording (){
         if (virtualclass.recordSettings.enableRecording) {
             var sendData = virtualclass.recordSettings.sendYesOrNo();
@@ -142,7 +146,26 @@ var ioAdapter = {
             io.realSend(obj);
             console.log('==== Send Recording a/v ' + sendData);
         }
-        io.sessionSet = true;
+    },
+
+    setSession (session){ // Recording Session
+        let obj = {
+            cfun: 'session',
+            arg: {'msg': session} // My session
+        };
+        io.realSend(obj);
+        console.log('==== Send Session serverSession ' + session);
+    },
+
+    initSetSession (session) {
+        let serverSession = localStorage.getItem('serverSession');
+        if(serverSession == null){
+            localStorage.setItem('serverSession', session);
+        }else {
+            if(serverSession != session){
+                this.setSession(serverSession);
+            }
+        }
     },
 
     sync (msg){

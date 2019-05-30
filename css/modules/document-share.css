@@ -914,6 +914,7 @@
         display: inline-block;
         bottom: 1px;
         position: relative;
+        display:none;
     }
     
      #virtualclassCont.congrea.student #dcPaging {
@@ -923,11 +924,13 @@
 
     #virtualclassCont.congrea #rightNavPage {
         cursor: pointer;
+        display:none;
     }
 
     #virtualclassCont.congrea #leftNavPage {
         cursor: pointer;
         margin-left: 15px;
+        display:none;
     }
 
 

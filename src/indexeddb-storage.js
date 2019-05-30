@@ -131,6 +131,7 @@
                     }
                 });
             }
+            console.log("==== Member add, config is ready");
 
             /** TODO, error handling **/
             // that.db.onerror = function (event) {

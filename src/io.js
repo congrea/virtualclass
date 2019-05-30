@@ -118,8 +118,12 @@ var io = {
                 var jobj = 'F-SPE-{"'+obj.arg.msg;
                 break;
 
-            case "recording":
+            case "session":
                 var jobj =  'F-SS-{"'+obj.arg.msg;
+                break;
+
+            case "recording":
+                var jobj =  'F-SR-{"'+obj.arg.msg;
                 break;
 
             default:
@@ -238,9 +242,10 @@ var io = {
         var userto = '';
         switch (receivemsg.type) {
             case "joinroom":
-                if(receivemsg.hasOwnProperty('users')){
+                if(receivemsg.hasOwnProperty('users')){ // When self web socket is connected
                     ioAdapter.setRecording();
-                    console.log("New user join room " + receivemsg.users.length);
+                    ioAdapter.makeSessionReady();
+                    console.log("==== Member add, join room");
                 }else {
                     console.log("No users");
                 }
@@ -364,6 +369,12 @@ var io = {
                 });
                 break;
 
+            case "setSession":
+                console.log("==== packet recieved json", receivemsg.session);
+                if(roles.hasControls()){
+                    ioAdapter.initSetSession(receivemsg.session);
+                }
+                break;
 
         }
 

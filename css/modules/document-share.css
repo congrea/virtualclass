@@ -988,7 +988,7 @@
         position: fixed;
         bottom: 0px;      
         right: 428px;
-        padding:13px 18px 12px 34px;
+        padding:13.5px 18px 12.5px 34px;
         z-index:1005;
     }
 
@@ -1086,9 +1086,6 @@
     display:block!important;
 }
 
-#virtualclassWhiteboard .nvgt{
-    display:none!important;
-}
 
 #virtualclassCont.congrea .noteIndex, #virtualclassCont.congrea .pageNav {
    color:white; 

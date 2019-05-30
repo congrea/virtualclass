@@ -516,7 +516,20 @@
                 // right.innerHTML = "right"
                 cont.appendChild(right);
                 var that = this;
-
+                
+                cont.addEventListener("mouseover",function(){
+            
+                    subCont.classList.add("open");
+                    subCont.classList.remove("close")
+                    
+                    
+                })
+                cont.addEventListener("mouseout",function(){
+          
+                    subCont.classList.add("close");
+                    subCont.classList.remove("open")
+               })
+                
                 /** create the descriptive function here**/
                 left.addEventListener("click", function () {
                     if (virtualclass.currApp == "Whiteboard") {
@@ -576,7 +589,7 @@
                     var total = document.createElement('span')
                     total.id = "totalPages";
                     total.className = "pages";
-                    dc.appendChild(total);
+                    subCont.appendChild(total);
                 }
             }
          

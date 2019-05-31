@@ -890,6 +890,12 @@ $(document).ready(function () {
                 return true;
             };
 
+            this.settings = function (e){
+                if(e.message.hasOwnProperty("Hex")) {
+                   virtualclass.settings.onMessage(e.message.Hex, e.message.toUser);
+                }
+            };
+
             //enable chat
             this.enc = function (e) {
                 if (e.message.hasOwnProperty('ouser')) {
@@ -918,45 +924,45 @@ $(document).ready(function () {
 
             //enable audio
             this.ena = function (e) {
-                if (e.message.toUser == virtualclass.gObj.uid) {
-                    virtualclass.user.control.audioWidgetEnable(true);
-                    virtualclass.gObj.audioEnable = true;
-                } else {
-                    virtualclass.user.control.enable(e.message.toUser, 'audio', 'Aud', 'aud');
-                }
+                // if (e.message.toUser == virtualclass.gObj.uid) {
+                //     virtualclass.user.control.audioWidgetEnable(true);
+                //     virtualclass.gObj.audioEnable = true;
+                // } else {
+                //     virtualclass.user.control.enable(e.message.toUser, 'audio', 'Aud', 'aud');
+                // }
             };
 
             //disable audio
             this.dia = function (e) {
-                virtualclass.gObj.audioEnable = false;
-                var speakerPressOnce = document.querySelector('#speakerPressOnce');
-                if(speakerPressOnce.dataset.audioPlaying == true || speakerPressOnce.dataset.audioPlaying == 'true'){
-                    virtualclass.media.audio.clickOnceSpeaker('speakerPressOnce');
-                }
-
-                if (e.message.toUser == virtualclass.gObj.uid) {
-                    // virtualclass.user.control.mediaWidgetDisable();
-                    virtualclass.user.control.audioDisable();
-                    virtualclass.gObj.audioEnable = false;
-                } else {
-                    virtualclass.user.control.disable(e.message.toUser, 'audio', 'Aud', 'aud');
-                }
+                // virtualclass.gObj.audioEnable = false;
+                // var speakerPressOnce = document.querySelector('#speakerPressOnce');
+                // if(speakerPressOnce.dataset.audioPlaying == true || speakerPressOnce.dataset.audioPlaying == 'true'){
+                //     virtualclass.media.audio.clickOnceSpeaker('speakerPressOnce');
+                // }
+                //
+                // if (e.message.toUser == virtualclass.gObj.uid) {
+                //     // virtualclass.user.control.mediaWidgetDisable();
+                //     virtualclass.user.control.audioDisable();
+                //     virtualclass.gObj.audioEnable = false;
+                // } else {
+                //     virtualclass.user.control.disable(e.message.toUser, 'audio', 'Aud', 'aud');
+                // }
             };
 
             //enable all std audio
             this.aEna = function (e){
-                virtualclass.user.control.audioWidgetEnable(true);
-                virtualclass.gObj.audioEnable = true;
+                //virtualclass.user.control.audioWidgetEnable(true);
+                //virtualclass.gObj.audioEnable = true;
             };
 
             // disable all std audio
             this.aDia = function (e){
-                var speakerPressOnce = document.querySelector('#speakerPressOnce');
-                if(speakerPressOnce.dataset.audioPlaying == true || speakerPressOnce.dataset.audioPlaying == 'true'){
-                    virtualclass.media.audio.clickOnceSpeaker('speakerPressOnce');
-                }
-                virtualclass.user.control.audioDisable();
-                virtualclass.gObj.audioEnable = false;
+                //var speakerPressOnce = document.querySelector('#speakerPressOnce');
+                //if(speakerPressOnce.dataset.audioPlaying == true || speakerPressOnce.dataset.audioPlaying == 'true'){
+               //     virtualclass.media.audio.clickOnceSpeaker('speakerPressOnce');
+               // }
+                //virtualclass.user.control.audioDisable();
+                //virtualclass.gObj.audioEnable = false;
 
             };
 
@@ -967,6 +973,14 @@ $(document).ready(function () {
 
             //session end
             this.sEnd = function (e) {
+                // #967
+                var joinClass = document.querySelector('#joinClassModal');
+                joinClass.style.display = "none";
+
+                var virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
+                if(virtualclassApp != null ){
+                    virtualclassApp.style.display =  'block';
+                }
                 virtualclass.storage.config.endSession();
                 virtualclass.popup.sesseionEndWindow();
                 virtualclass.gObj.endSession = true;
@@ -1375,20 +1389,20 @@ $(document).ready(function () {
             }
 
             this.toggleVideo=function(e){
-                if(e.fromUser.userid != virtualclass.gObj.uid){
-                    var sw = document.querySelector(".videoSwitchCont #videoSwitch");
-                    if(sw.classList.contains("off") &&  e.message.action == "disable"){
-                        console.log("do nothing");
-                    }else if(sw.classList.contains("on")  &&  e.message.action == "enable") {
-                        console.log("do nothing");
-                    }else if(sw.classList.contains("on")  &&  e.message.action == "disable"){
-                        //sw.click();
-                        //when user enable his video teacher disable his video.
-                        virtualclass.vutil.videoHandler("off");
-                    }
-                    virtualclass.videoHost.toggleVideoMsg(e.message.action);
-                    localStorage.setItem("allVideoAction" , e.message.action);
-                }
+                // if(e.fromUser.userid != virtualclass.gObj.uid){
+                //     var sw = document.querySelector(".videoSwitchCont #videoSwitch");
+                //     if(sw.classList.contains("off") &&  e.message.action == "disable"){
+                //         console.log("do nothing");
+                //     }else if(sw.classList.contains("on")  &&  e.message.action == "enable") {
+                //         console.log("do nothing");
+                //     }else if(sw.classList.contains("on")  &&  e.message.action == "disable"){
+                //         //sw.click();
+                //         //when user enable his video teacher disable his video.
+                //         virtualclass.vutil.videoHandler("off");
+                //     }
+                //     virtualclass.videoHost.toggleVideoMsg(e.message.action);
+                //     localStorage.setItem("allVideoAction" , e.message.action);
+                // }
             }
 
             this.destroyPlayer = function (e) {
@@ -1499,6 +1513,7 @@ $(document).ready(function () {
 
                     virtualclass.jId = e.joinUser;
                     console.log('===== JOIN users ' + virtualclass.jId);
+
                     virtualclass.connectedUsers = e.message;
                     for(var i = 0; i<virtualclass.connectedUsers.length; i++) {
                         virtualclass.gObj.allUserObj[virtualclass.connectedUsers[i].userid] = virtualclass.connectedUsers[i];

@@ -12,17 +12,6 @@
             studentSSstatus = {sharing:false, mesharing: false, shareToAll : false};
         }
 
-        var studentAudioEnable = true;
-        var studentVideoEnable = true;
-
-        if(virtualclassSetting.hasOwnProperty('studentAudio') && virtualclassSetting.studentAudio == '' || virtualclassSetting.studentAudio == '0'){
-            studentAudioEnable = false;
-        }
-
-        if(virtualclassSetting.hasOwnProperty('studentVideo') && virtualclassSetting.studentVideo == '' || virtualclassSetting.studentVideo == '0'){
-            studentVideoEnable = false;
-        }
-
         return {
             isPlayMode :playMode,
             /* TODO, editorCode should be removed in proper way,
@@ -82,8 +71,6 @@
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
                 requestToScriptNode : null,
                 readyToCommunicate : false,
-                stdaudioEnable : studentAudioEnable,
-                stdvideoEnable : studentVideoEnable,
                 tempPrefix : 'dest_temp/templates',
                 allUserObj : {},
                 docPdfFirstTime : false,
@@ -179,8 +166,11 @@
                 this.vutil.isChromeExtension();
                 this.wbCommon = window.wbCommon;
                 this.pageNavigation = window.pageIndexNav;
-                this.jscolor = window.jscolor;
                 this.modal = window.modal;
+                this.settings = window.settings;
+
+                virtualclass.settings.init();
+
                 this.zoom = window.zoomWhiteboard();
                 virtualclass.pageIndexNav=window.pageIndexNav;
                 if(this.system.isIndexedDbSupport()){
@@ -375,6 +365,8 @@
                         virtualclass.gObj.fullScreenMode = false;
                     }
                 }
+
+                
 
             },
 

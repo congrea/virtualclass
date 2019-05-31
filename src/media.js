@@ -707,6 +707,7 @@
                                 cthis.audio.Html5Audio.MediaStreamDest = cthis.audio.Html5Audio.audioContext.createMediaStreamDestination();
                                 workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
 
+
                                 if (virtualclass.system.mybrowser.name === 'Chrome'){
                                     console.log("==== Chrome after change");
                                     cthis.audio.bug_687574_callLocalPeers();
@@ -1590,21 +1591,38 @@
                 var audio = localStorage.getItem('audEnable');
                 if(roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone){
                     // virtualclass.media.audioVisual.readyForVisual(stream);
-                    if(audio != null){
-                        audio = JSON.parse(audio);
-                        if ((audio.ac === 'false' || audio.ac === false)) {
+                    //var str = localStorage.getItem("settings");
+                    //var settings = (str !== null) ? virtualclass.settings.onLoadSettings(str) : virtualclass.settings.onLoadSettings(virtualclassSetting.settings);
+
+                        //audio = JSON.parse(audio);
+
+                    if ((virtualclass.settings.info.disableStudentAudio === false)) {
+                        virtualclass.gObj.audioEnable = false;
+                        virtualclass.user.control.audioDisable(true);
+                    } else if (virtualclass.settings.info.disableStudentAudio === true) {
+                        virtualclass.gObj.audioEnable = true;
+                        virtualclass.user.control.audioWidgetEnable(true);
+                    }else if(virtualclass.settings.info.disableStudentAudio !== true) {
+                        virtualclass.user.control.audioDisable();
+                    }
+
+                    /*/
+                    if(str != null){
+                        //audio = JSON.parse(audio);
+                        if ((virtualclass.settings.info..disableStudentAudio === false)) {
                             virtualclass.gObj.audioEnable = false;
                             virtualclass.user.control.audioDisable(true);
-                        } else if (audio.ac === 'true' || audio.ac === true) {
+                        } else if (settings..disableStudentAudio === true) {
                             virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
-                    }else if(!virtualclass.gObj.stdaudioEnable){
+                    }else if(settings..disableStudentAudio !== true){
                         virtualclass.user.control.audioDisable();
-                    }else if(virtualclass.gObj.stdaudioEnable){
+                    }else if(settings..disableStudentAudio === true){
                         virtualclass.gObj.audioEnable = true;
                         virtualclass.user.control.audioWidgetEnable(true);
-                    }
+                    } */
+
                 }else {
                     if (virtualclass.system.mediaDevices.hasMicrophone) {
                         // virtualclass.media.audioVisual.readyForVisual(stream);
@@ -1654,11 +1672,12 @@
                     });
                 }
 
-                var vidstatus = localStorage.getItem("allVideoAction");
-                if(vidstatus != null && vidstatus === "disable" && roles.isStudent()){
+                //var vidstatus = localStorage.getItem("allVideoAction");
+                if(virtualclass.settings.info.disableStudentVideo === false && roles.isStudent()){
                     virtualclass.user.control.videoDisable();
                 }else {
-                    if(roles.isStudent() && !virtualclass.gObj.stdvideoEnable){
+                    //!virtualclass.gObj.stdvideoEnable
+                    if(roles.isStudent() && virtualclass.settings.info.disableStudentVideo !== true){
                         virtualclass.vutil.videoHandler("off");
                         virtualclass.videoHost.toggleVideoMsg('disable');
                     }else {
@@ -1669,8 +1688,8 @@
                         }
                     }
 
-                    var videoAction = localStorage.getItem("allVideoAction");
-                    if(videoAction != null && videoAction === "enable"){
+                    //var videoAction = localStorage.getItem("allVideoAction");
+                    if(virtualclass.settings.info.disableStudentVideo === true){
                         virtualclass.user.control.videoEnable();
                     }
                 }

@@ -135,5 +135,8 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-container-event.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/mic-testing.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/common-xhr.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/idb.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/record-settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
+

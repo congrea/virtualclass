@@ -1038,7 +1038,7 @@
         margin-right:13px;
     }
 
-    #virtualclassCont.congrea.student #totalPages {
+    #virtualclassCont.congrea.student #totalPages, #virtualclassCont.congrea[data-currapp = 'DocumentShare'] #totalPages {
         margin-right:0;
     }
 

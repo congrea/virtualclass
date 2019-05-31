@@ -515,7 +515,12 @@
 
                 if(!virtualclass.gObj.meetingMode && roles.isStudent()){
                     var teacherVid = document.getElementById("videoHostContainer");
-                    teacherVid.style.display = "block";
+                    teacherVid.style.display = "none";
+
+                    var leftPanel = document.getElementById("virtualclassAppRightPanel");
+                    if(leftPanel.classList.contains("vidShow")){
+                       leftPanel.classList.remove("vidShow");
+                    }
                 }
 
 

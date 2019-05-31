@@ -354,6 +354,10 @@ span.sch {
   display:none;
 }
 
+#virtualclassCont.congrea.teacher #layoutQuiz #mszBoxQuiz.show {
+  display: block;
+}
+
 #virtualclassCont.congrea.teacher #layoutQuiz #mszBoxQuiz.show{
   border: 1px solid #c8ddb8;
   border-radius: 5px;

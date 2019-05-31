@@ -570,7 +570,7 @@
 
                             this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
                             if(actSend == undefined) {
-                                this.control['_' + ctrType].call(this.control, userId, action);
+                               this.control['_' + ctrType].call(this.control, userId, action);
                             }
 
                         }
@@ -692,9 +692,11 @@
                 _chat: function (userId, action) {
                     if (action == 'enable') {
                         virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf': 'enc'}, userId);
+                       // virtualclass.settings.applySettings(true, "disableattendeepc", userId);
                     } else {
                         var user = virtualclass.user.control.updateUser(userId, 'chat', false);
                         virtualclass.vutil.beforeSend({'dic': true, toUser: userId, 'cf' : 'dic'}, userId);
+                        //virtualclass.settings.applySettings(false, "disableattendeepc", userId);
                     }
                 },
 
@@ -745,10 +747,14 @@
 
                 _audio: function (userId, action) {
                     if (action == 'enable') {
-                        virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
+                        //virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
+                        virtualclass.settings.applySettings(true, "disableStudentAudio", userId);
                     } else {
-                        virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
+                        //virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
+                        virtualclass.settings.applySettings(false, "disableStudentAudio", userId);
                     }
+
+
                 },
                 _RaiseHand:function(userId,action){
                     // to disable only ..
@@ -1024,6 +1030,8 @@
 
                         }
 
+
+
                         this.mediaSliderSetting('audio');
                         this.mediaSliderSetting('video');
 
@@ -1263,11 +1271,11 @@
                     }
                 }
 
-                if (action == 'enable') {
-                    virtualclass.vutil.beforeSend({'aEna': true, 'cf': 'aEna'});
-                } else {
-                    virtualclass.vutil.beforeSend({'aDia': true, 'cf': 'aDia'});
-                }
+                // if (action == 'enable') {
+                //     virtualclass.vutil.beforeSend({'aEna': true, 'cf': 'aEna'});
+                // } else {
+                //     virtualclass.vutil.beforeSend({'aDia': true, 'cf': 'aDia'});
+                // }
             },
             toggleAllVideo:function(action){
                 ioAdapter.mustSend({'action': action,  'cf': 'toggleVideo'});
@@ -1280,7 +1288,14 @@
             mediaSliderUI : function(type){
                 var lable =  (type == 'audio') ? 'Audio' : 'Video';
                 var spanTag= document.querySelector(".bulkUserActions #contr"+lable+"AllImg");
-                var getMediaAction = (type == 'audio') ? localStorage.getItem('allAudAction') : localStorage.getItem('allVideoAction');
+                var settings = virtualclass.settings.info;
+                //var settings = localStorage.getItem("settings");
+                //if(getSettings !== null) {
+               // var applyedSettings = virtualclass.settings.onLoadSettings(getSettings);
+                var getMediaAction = virtualclass.user.defaultSettings(type, settings);
+               // }
+
+                // var getMediaAction = (type == 'audio') ? localStorage.getItem('allAudAction') : localStorage.getItem('allVideoAction');
                 var localAction = (getMediaAction == 'enable') ? 'disable' : 'enable';
                 if(getMediaAction != null){
                     spanTag.setAttribute('data-action', localAction);
@@ -1291,8 +1306,10 @@
                     var cont = document.querySelector(".congrea #contr"+lable+"All");
                     cont.classList.add(localAction)
                 }else{
-                    var defaultMediaSetting =  (type == 'audio') ? virtualclass.gObj.stdaudioEnable : virtualclass.gObj.stdvideoEnable;
-                    var allAction = { action : defaultMediaSetting ? 'enable' : 'disable', enable :'disable', disable : 'enable'};
+                    //var defaultMediaSetting =  (type == 'audio') ? virtualclass.gObj.stdaudioEnable : virtualclass.gObj.stdvideoEnable;
+                    //
+                    // var defaultMediaSetting = virtualclass.user.defaultSettings(type, settings);
+                    var allAction = { action : getMediaAction ? 'enable' : 'disable', enable :'disable', disable : 'enable'};
                     var spanTag= document.querySelector(".bulkUserActions #contr"+lable+"AllImg");
                     spanTag.setAttribute('data-action', allAction[allAction.action]);
                     spanTag.className = 'slider round icon-all-'+type+'-'+allAction[allAction.action]+' congtooltip cgIcon';
@@ -1311,20 +1328,37 @@
                     spanTag.addEventListener('click', function (){
                         if(type == "audio"){
                             var actionToPerform = that.toogleAudioIcon();
+                            var actAudio = (actionToPerform == "enable") ? true :false;
+                            virtualclass.settings.applySettings(actAudio, "disableStudentAudio");
+
                             if(typeof actionToPerform != 'undefined'){
-                                localStorage.setItem('allAudAction', actionToPerform);
-                                that.toggleAllAudio.call(virtualclass.user, actionToPerform);
+                               localStorage.setItem('allAudAction', actionToPerform);
+                               that.toggleAllAudio.call(virtualclass.user, actionToPerform);
                             }
                         }else{
                             var actionToPerform = that.toggleVideoIcon();
+                            var actVideo = (actionToPerform == "enable") ? true :false;
+                            virtualclass.settings.applySettings(actVideo, "disableStudentVideo");
                             if(typeof actionToPerform != 'undefined'){
-                                localStorage.setItem('allVideoAction', actionToPerform);
-                                that.toggleAllVideo(actionToPerform);
+                               localStorage.setItem('allVideoAction', actionToPerform);
+                               that.toggleAllVideo(actionToPerform);
                             }
                         }
 
                     });
                 }
+            },
+
+            defaultSettings :  function(type, obj){
+                let actionAV, value;
+                // TODO, review this code
+                for(let propname in obj) {
+                    value = obj[propname];
+                    if (type === "audio" && propname === "disableStudentAudio" || type === "video" && propname === "disableStudentVideo") {
+                         actionAV = (value === true) ? "enable" : "disable";
+                    }
+                }
+                return actionAV;
             },
 
             chatBoxesSwitch: function () {
@@ -1364,14 +1398,12 @@
 
             },
 
-
             toogleAudioIcon : function (){
                 var audioController = document.querySelector(".bulkUserActions #contrAudioAllImg");
                 if (audioController != null) {
                     actionToPerform = audioController.dataset.action;
 
                     if (audioController.dataset.action == 'enable') {
-
                         audioController.dataset.action = 'disable';
                         //audioController.innerHTML = "Dis Aud All";
 
@@ -1496,7 +1528,7 @@
                             if(allSpans[i].dataset.audioDisable == 'false'){
                                 var allAudAction = localStorage.getItem('allAudAction');
                                 if(allAudAction != null && allAudAction == 'disable'){
-                                    allSpans[i].click();
+                                    //allSpans[i].click();
                                 }
                             }
                         }

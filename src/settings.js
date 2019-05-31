@@ -343,7 +343,7 @@
                     this.allowpresentorAVcontrol  =  virtualclass.settings.info.recAllowpresentorAVcontrol;
                     this.showPresentorRecordingStatus = (virtualclass.settings.info.allowpresentorAVcontrol) ? true :  virtualclass.settings.info.recShowPresentorRecordingStatus;
                 }else {
-                    this.disableAttendeeAV =  virtualclass.settings.info.disableAttendeeAV;
+                    this.disableAttendeeAV =  virtualclass.settings.info.recDisableAttendeeAV;
                     this.allowattendeeAVcontrol =  virtualclass.settings.info.recallowattendeeAVcontrol;
                     this.showAttendeeRecordingStatus = (virtualclass.settings.info.allowattendeeAVcontrol) ? true :  virtualclass.settings.info.showAttendeeRecordingStatus;
                 }

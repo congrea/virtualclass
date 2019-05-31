@@ -13,7 +13,7 @@ let sessionSetting  = {
 
 
 let recordSettings = {
-    enableRecording : true,
+    enableRecording : false,
     allowpresentorAVcontrol : false,
     disableAttendeeAV : false,
     allowattendeeAVcontrol : false,
@@ -25,15 +25,15 @@ let recordSettings = {
     init () {
          this.enableRecording   =  sessionSetting.enableRecording;
          if(roles.hasControls()){
-             this.trimRecordings  = false;
              this.allowpresentorAVcontrol  =  sessionSetting.recAllowpresentorAVcontrol;
              this.showPresentorRecordingStatus = (this.allowpresentorAVcontrol) ? true :  sessionSetting.recShowPresentorRecordingStatus;
-             this.trimRecordings =  sessionSetting.trimRecordings;
          }else {
              this.disableAttendeeAV =  sessionSetting.disableAttendeeAV;
              this.allowattendeeAVcontrol = sessionSetting.recallowattendeeAVcontrol;
              this.showAttendeeRecordingStatus = (this.allowattendeeAVcontrol) ? true :  sessionSetting.showAttendeeRecordingStatus;
          }
+
+         this.trimRecordings =  sessionSetting.trimRecordings;
 
          this.showStatus = this.showStatus();
          this.showButton();
@@ -57,7 +57,7 @@ let recordSettings = {
         if(this.showStatus){
             recording.classList.remove('hide');
             recording.classList.add('show');
-            recording.dataset.recording = "on";
+            virtualclassCont.dataset.recording = "on";
             if(!this.statusOnly){
                 this.attachHandler(recording);
             }else {
@@ -84,27 +84,35 @@ let recordSettings = {
 
         if(this.audioVideo){
             recButton.innerHTML = "Recording";
-            recElem.dataset.recording = "on";
+            virtualclassCont.dataset.recording = "on";
+            recElem.setAttribute('data-title','Recording Started');
             localStorage.removeItem('recsetting');
-        }else {
-            if(this.trimRecordings){
-                recButton.innerHTML = "Start Recording";
-            }else{
-                recButton.innerHTML = "Recording";
+            if(virtualclass.currApp === 'ScreenShare' && virtualclass.ss != null){
+                virtualclass.ss.initShareScreen('ss', 500);
             }
-            recElem.dataset.recording = "off";
+        }else {
+            if(roles.hasControls() && this.trimRecordings){
+                // recButton.innerHTML = "Start Recording";
+                recElem.setAttribute('data-title','Recording Stopped');
+            }else{
+                recElem.setAttribute('data-title','Recording Stopped');
+            }
+            virtualclassCont.dataset.recording = "off";
 
-            localStorage.setItem('recsetting', JSON.stringify({statusonly: this.statusOnly, rec : recElem.dataset.recording}));
+            localStorage.setItem('recsetting', JSON.stringify({statusonly: this.statusOnly, rec : virtualclassCont.dataset.recording}));
         }
 
         ioAdapter.setRecording();
+
+
+
 
     },
 
     recordingButtonAction (elem) {
         if(!elem.classList.contains('statusonly')){
             let recordSetting;
-            if(elem.dataset.recording === 'off'){
+            if(virtualclassCont.dataset.recording === 'off'){
                 recordSetting = true;
                 this.updateSettingAV(recordSetting);
             } else {

@@ -420,6 +420,7 @@
 #virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch span{
 	position: relative;
 	top: -2px;
+	margin-left:5px;
 
 }
 #virtualclassCont.congrea #speakerPressingAnch #speakerPressingtext{

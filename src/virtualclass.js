@@ -171,7 +171,8 @@
 
                 virtualclass.settings.init();
 
-
+                this.zoom = window.zoomWhiteboard();
+                virtualclass.pageIndexNav=window.pageIndexNav;
                 if(this.system.isIndexedDbSupport()){
                     await this.storage.init();
                 }else {
@@ -241,10 +242,11 @@
                 virtualclass.videoHost = window.videoHost;
                 virtualclass.precheck  = window.precheck;
                 virtualclass.page =  page;
-                virtualclass.zoom = window.zoomWhiteboard();
+               // virtualclass.zoom = window.zoomWhiteboard();
+                console.log("==== session clear zoom object ready ");
                 virtualclass.network = new Network();
                 virtualclass.gesture = gesture;
-                virtualclass.pageIndexNav=window.pageIndexNav;
+              /*  virtualclass.pageIndexNav=window.pageIndexNav; */
                 virtualclass.recordSettings = recordSettings;
                 virtualclass.recordSettings.init();
 
@@ -535,8 +537,6 @@
             },
 
             makeAppReady: async function (app, cusEvent, data) {
-              
-             
                 // var congdashboardClose = document.querySelector('#congdashboard button.close');
                 // if(congdashboardClose != null){
                 //     congdashboardClose.click();
@@ -960,6 +960,7 @@
                                 // Only need to  serve on after page refresh
                                 var that = this;
                                 await virtualclass.storage.getWbData(id);
+//                                console.log("==== SESSION CLEAR");
                             }else{
                                 alert('whiteboard container is null');
                             }
@@ -990,6 +991,7 @@
                     }else{
                         alert('id is undefined');
                     }
+                    console.log("==== SESSION CLEAR");
                     virtualclass.zoom.init();
                    // virtualclass.wbCommon.indexNav.init();
                     // virtualclass.pdfRender[wid].initScaleController();
@@ -1389,7 +1391,7 @@
                     virtualclass.setPrvUser();
                 } else {
                     prvUser = JSON.parse(prvUser);
-                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != wbUser.recordSettings.enableRecording) {
+                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != sessionSetting.enableRecording) {
                         virtualclass.gObj.sessionClear = true;
                         virtualclass.setPrvUser();
                         if (roles.hasControls()) {
@@ -1401,7 +1403,7 @@
 
             setPrvUser: function () {
                 localStorage.clear();
-                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : wbUser.recordSettings.enableRecording};
+                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : sessionSetting.enableRecording};
                 console.log('previosu user');
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
             },

@@ -94,8 +94,9 @@
         orginalTimes : [], // Todo, this and it's related variables and functions should be removed
         startSeek : false,
         initPlay : false,
-        trimRecording : false,
-        enableTrim : true,
+        isTrimRecording : false,
+        enableTrim : sessionSetting.trimRecordings,
+        joinRoomRecevied : false,
         init: function () {
             if(!this.attachSeekHandler){
                 this.attachSeekHandler = true;
@@ -202,14 +203,17 @@
                 var time = this.convertIntoReadable(playTime);
                 document.getElementById('tillRepTime').innerHTML =  time.h + ':'  + time.m + ':' + time.s;
                 if (!this.alreadyCalcTotTime) {
-                    var ttime = this.convertIntoReadable(this.totalTimeInMiliSeconds);
-
-                    document.getElementById('totalRepTime').innerHTML = ttime.h + ':'  + ttime.m + ':' + ttime.s;
+                    this.updateTotalTime();
                     this.alreadyCalcTotTime = true;
                 }
             } else {
                 virtualclass.pbar.renderProgressBar((this.lastTimeInSeconds * 1000), 0, 'playProgressBar', undefined);
             }
+        },
+
+        updateTotalTime () {
+            var ttime = this.convertIntoReadable(this.totalTimeInMiliSeconds);
+            document.getElementById('totalRepTime').innerHTML = ttime.h + ':'  + ttime.m + ':' + ttime.s;
         },
 
         convertIntoReadable: function (ms) {
@@ -330,7 +334,7 @@
             let totalSeconds = Math.trunc(miliSeconds/1000);
             let playTime = 0;
             if(!isNaN(totalSeconds) && totalSeconds >= 1 ){
-                if(!this.trimRecording){
+                if(!this.isTrimRecording){
                     playTime = 1000;
                 }
 
@@ -376,6 +380,13 @@
                     }
 
                     if(data  != null && data != ''){
+                        if(!this.joinRoomRecevied &&  data.indexOf('"type":"joinroom"')  > -1 ){
+                            this.joinRoomRecevied = true;
+                            let joinMsg = JSON.parse(data);
+                            joinMsg.clientids  = data.action;
+                            data = JSON.stringify(joinMsg);
+                        }
+
                         if(this.lastFileTime && i === 0){
                             let prvTotalMiliSeconds =  Math.trunc((time - this.lastFileTime));
                             chunk = this.insertPacketInto(chunk, prvTotalMiliSeconds);
@@ -388,12 +399,12 @@
 
                         // chunk.push({playTime : this.tempPlayTime, 'recObjs' : data, type :type});
 
-                        if(this.trimRecording){
+                        if(this.isTrimRecording){
                             chunk.push({playTime : 0, 'recObjs' : data, type :type});
                             console.log("==== TRIM ")
                         } else {
                             if(this.enableTrim && data.indexOf('{"ac":false,"cf":"recs"') > -1){
-                                this.trimRecording = true;
+                                this.isTrimRecording = true;
                                 chunk.push({playTime : 0, 'recObjs' : data, type :type});
                                 console.log("==== TRIM ")
                             } else {
@@ -404,7 +415,7 @@
                         this.totalTimeInMiliSeconds +=  chunk[chunk.length - 1].playTime;
 
                         if(this.enableTrim && data.indexOf('{"ac":true,"cf":"recs"') > -1){
-                            this.trimRecording = false;
+                            this.isTrimRecording = false;
                         }
 
                         if(typeof allRecordigns[i+1] != 'undefined') {
@@ -429,12 +440,6 @@
                 }
             }
 
-            if(this.masterRecordings.length === 0){
-                let joinMsg = JSON.parse(chunk[0].recObjs);
-                joinMsg.clientids  = joinMsg.action;
-                chunk[0].recObjs = JSON.stringify(joinMsg);
-            }
-
             this.masterRecordings.push(chunk);
 
             this.orginalTimes.push(tempChunk);
@@ -444,12 +449,12 @@
             if((this.currentMin > 3  || this.lastFile == file ) && this.masterRecordings.length > 0 ) { // Starts playing after 5 mins of download
                 if(this.playStart){
                     this.startToPlay();
-                }else {
+                    this.updateTotalTime();
+                } else {
                     if(!this.alreadyAskForPlay){
                         this.alreadyAskForPlay = true;
                         this.askToPlay();
                     }
-
                 }
             }
         },
@@ -629,16 +634,9 @@
         },
 
         seekFinished(index){
-            // if(index != null){
-            //     return (this.masterIndex <= index.master);
-            // } else {
-            //     return (this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":true,"cf":"recs"') > -1);
-            // }
-
             if(index == undefined && this.masterRecordings[this.masterIndex][this.subRecordingIndex] != undefined){
                 return (this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":true,"cf":"recs"') > -1);
             }
-
         },
 
         _seek (index) {
@@ -706,14 +704,6 @@
                 /* When seek point is found exit the while loop**/
 
                 if((index != undefined && this.masterIndex === index.master && index.sub === this.subRecordingIndex) || this.selfSeekFinished){
-                    // this.triggerPlayProgress();
-                    // // console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
-                    // if(this.binarySyncMsg){
-                    //     // this.handleSyncPacket (syncMsg, this.binarySyncMsg);
-                    //     this.handleSyncPacket();
-                    //     this.binarySyncMsg = null;
-                    // }
-                    // this.handleSyncStringPacket();
                     break;
                 } else {
                     this.subRecordingIndex = 0;

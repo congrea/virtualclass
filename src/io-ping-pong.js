@@ -3,7 +3,7 @@ var ioPingPong = {
     ping: function (e) {
         "use strict";
         // When a new member is added, greet him with both broadcast and individual msg
-        if (e.type == 'member_added' && e.hasOwnProperty('users')) {
+        if (e.type == 'member_added') {
             if(roles.hasAdmin()){
                 var session = this.sessionName();
                 var msg = {ping: 'ping', cf: 'pong', session: session};

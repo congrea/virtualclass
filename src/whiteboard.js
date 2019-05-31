@@ -258,6 +258,8 @@
                           shapesElem.classList.remove("close");
                        }
                        shapesElem.classList.add("open");
+                       virtualclass.wb[wbId].closeElem(document.querySelector("#t_strk"+wbId+" .strkSizeList"));
+                       virtualclass.wb[wbId].closeElem(document.querySelector("#t_font"+wbId+" .fontSizeList"));
                     }
                     return;
                 }

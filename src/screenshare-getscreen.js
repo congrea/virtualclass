@@ -27,6 +27,10 @@ window.addEventListener('message', function (event) {
                 }
             }
 
+            if(roles.hasControls()){   // #943
+                virtualclass.vutil.initDefaultApp();
+            }
+
         } else {
             constraints = constraints || {
                     audio: false, video: {

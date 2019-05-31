@@ -230,10 +230,9 @@ if($info) {
 
 <script type="text/javascript">
     virtualclassSetting = {};
+    virtualclassSetting.settings = "4800";
     virtualclassSetting.classes = "audioTool deactive";
     virtualclassSetting.audio_tooltip = '<?php echo get_string('audioEnable','congrea'); ?>';
-    virtualclassSetting.studentAudio = '<?php echo $stdAudio; ?>';
-    virtualclassSetting.studentVideo = '<?php echo $stdVideo; ?>';
     virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
 
     virtualclassSetting.theme={};

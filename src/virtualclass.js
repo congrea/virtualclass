@@ -12,17 +12,6 @@
             studentSSstatus = {sharing:false, mesharing: false, shareToAll : false};
         }
 
-        var studentAudioEnable = true;
-        var studentVideoEnable = true;
-
-        if(virtualclassSetting.hasOwnProperty('studentAudio') && virtualclassSetting.studentAudio == '' || virtualclassSetting.studentAudio == '0'){
-            studentAudioEnable = false;
-        }
-
-        if(virtualclassSetting.hasOwnProperty('studentVideo') && virtualclassSetting.studentVideo == '' || virtualclassSetting.studentVideo == '0'){
-            studentVideoEnable = false;
-        }
-
         return {
             isPlayMode :playMode,
             /* TODO, editorCode should be removed in proper way,
@@ -82,8 +71,6 @@
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
                 requestToScriptNode : null,
                 readyToCommunicate : false,
-                stdaudioEnable : studentAudioEnable,
-                stdvideoEnable : studentVideoEnable,
                 tempPrefix : 'dest_temp/templates',
                 allUserObj : {},
                 docPdfFirstTime : false,
@@ -122,7 +109,7 @@
                 let vcContainer = document.getElementById('virtualclassCont');
                 vcContainer.classList.add('loading');
                 var wbUser = window.wbUser;
-             //   this.saveRecording = +(wbUser.recordSettings.enableRecording);
+             //   this.saveRecording = +(wbUser.recording.enableRecording);
                 virtualclass.uInfo = {
                     'userid': wbUser.id,
                     'sid': wbUser.sid,
@@ -179,8 +166,10 @@
                 this.vutil.isChromeExtension();
                 this.wbCommon = window.wbCommon;
                 this.pageNavigation = window.pageIndexNav;
-                this.jscolor = window.jscolor;
                 this.modal = window.modal;
+                // this.settings = window.settings;
+                // virtualclass.settings.init();
+
                 this.zoom = window.zoomWhiteboard();
                 virtualclass.pageIndexNav=window.pageIndexNav;
                 if(this.system.isIndexedDbSupport()){
@@ -256,9 +245,10 @@
                 console.log("==== session clear zoom object ready ");
                 virtualclass.network = new Network();
                 virtualclass.gesture = gesture;
-              /*  virtualclass.pageIndexNav=window.pageIndexNav; */
-                virtualclass.recordSettings = recordSettings;
-                virtualclass.recordSettings.init();
+                /*  virtualclass.pageIndexNav=window.pageIndexNav; */
+
+                // virtualclass.settings.recording = recordSettings;
+                // virtualclass.settings.recording.init();
 
                 this.serverData = serverData;
                 if(roles.hasControls()){
@@ -375,6 +365,8 @@
                         virtualclass.gObj.fullScreenMode = false;
                     }
                 }
+
+                
 
             },
 
@@ -1399,7 +1391,7 @@
                     virtualclass.setPrvUser();
                 } else {
                     prvUser = JSON.parse(prvUser);
-                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != sessionSetting.enableRecording) {
+                    if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role !=  prvUser.role || prvUser.recording != virtualclass.settings.recording.enableRecording) {
                         virtualclass.gObj.sessionClear = true;
                         virtualclass.setPrvUser();
                         if (roles.hasControls()) {
@@ -1411,7 +1403,7 @@
 
             setPrvUser: function () {
                 localStorage.clear();
-                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : sessionSetting.enableRecording};
+                var prvUser = {id: wbUser.id, room: wbUser.room, role : wbUser.role, recording : virtualclass.settings.recording.enableRecording};
                 console.log('previosu user');
                 localStorage.setItem('prvUser', JSON.stringify(prvUser));
             },

@@ -107,6 +107,7 @@ var workerAudioSend = {
         var th = vol / this.minthreshold;
         audStatus = "sending";
 
+
         if (vol !== 0) {
             postMessage({cmd : 'unMuteAudio'});
         }

@@ -431,15 +431,14 @@
                     } else if(virtualclass.zoom.hasOwnProperty('canvasDimension')){
                         console.log("==== a canvas width dimension " + virtualclass.zoom.canvasDimension.width + ' scale=' + virtualclass.zoom.canvasScale);
                         canvas.width = virtualclass.zoom.canvasDimension.width;
-                    } else if(canvas.offsetWidth === 0 && document.querySelector('#virtualclassApp').style.display === "none"){
+                    // } else if(canvas.offsetWidth === 0 && document.querySelector('#virtualclassApp').style.display === "none"){
+                    } else if(canvas.offsetWidth === 0){
                         canvas.width = window.innerWidth - 382;
                         console.log("==== a canvas width click to continue");
                     }else if(virtualclass.isPlayMode){
                         canvas.width = window.innerWidth - 382;
                         console.log("==== a canvas width");
                     }
-
-
 
                     if(this.firstTime){
                         this.firstTime = false;
@@ -466,6 +465,7 @@
                     virtualclass.zoom.canvasDimension = {};
                     virtualclass.zoom.canvasDimension.width =  canvas.width;
                     virtualclass.zoom.canvasDimension.height =  canvas.height;
+                    console.log("==== canvas dimension ", virtualclass.zoom.canvasDimension.width);
 
                     if(virtualclass.gObj.hasOwnProperty('fitToScreen')){
                         let canvasWrapper = document.querySelector('#canvasWrapper'+virtualclass.gObj.currWb);
@@ -674,19 +674,24 @@
                 var wrapperWidth = wrapper.offsetWidth;
 
                 var that = this;
-                this.displayPage(this.shownPdf,  1, function (){
-                    for(wid in virtualclass.pdfRender){
+
+                if(this.shownPdf !== " "){
+                    this.displayPage(this.shownPdf,  1, function (){
+                        for(wid in virtualclass.pdfRender){
                             that.fitToScreenWhiteboardObjects(wid);
-                    }
+                        }
 
-                    //that.zoomOutWhiteboardObjects(virtualclass.gObj.currWb);
+                        //that.zoomOutWhiteboardObjects(virtualclass.gObj.currWb);
 
-                    if(canvasWidth > wrapperWidth && ((canvasWidth - wrapperWidth) > 55)){
-                        wrapper.classList.add('scrollX');
-                    } else {
-                        wrapper.classList.remove('scrollX');
-                    }
-                });
+                        if(canvasWidth > wrapperWidth && ((canvasWidth - wrapperWidth) > 55)){
+                            wrapper.classList.add('scrollX');
+                        } else {
+                            wrapper.classList.remove('scrollX');
+                        }
+                    });
+                }else {
+                    console.log("ERROR : shown pdf is not available");
+                }
             },
 
 

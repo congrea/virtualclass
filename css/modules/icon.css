@@ -831,14 +831,3 @@
     font-family: 'icomoon';
     font-size: 13px;
 }
-
-#virtualclassCont.congrea .pageHead:before {
-  content: "\e99f";
-  font-weight: normal;
-  font-family: 'icomoon';
-  margin-right:10px;
-  font-size: 17px;
-  position: absolute;
-  left: -28px;
-  top: -1px;
-}

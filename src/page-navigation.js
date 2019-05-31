@@ -504,7 +504,7 @@
                     var add = document.createElement('span')
                     addCont.appendChild(add);
                     add.className = "icon-newPage congtooltip" // to be removed
-                    add.setAttribute('data-title','Add New Page');
+                    add.setAttribute('data-title',virtualclass.lang.getString('newPage'));
                     //add.innerHTML="new"
                     add.addEventListener('click', function () {
                         virtualclass.wbCommon.indexNav.newWbpage(this.type)

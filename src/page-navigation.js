@@ -46,7 +46,7 @@
             if(roles.hasControls()){
                 cont.innerHTML = " of " +length;
             }else{
-                cont.innerHTML = " of " +length + " Pages";
+                cont.innerHTML = " of " +length;
             }
            
             var nav = document.querySelector("#docShareNav");
@@ -578,6 +578,10 @@
                 var cont = document.querySelector(".congrea #docShareNav");
                 var paging = document.querySelector(".congrea #stdPageNo")
                 if(!paging){
+                    var elem = document.createElement('span');
+                elem.classList.add("pageHead");
+                elem.innerHTML = "Page";
+                cont.appendChild(elem);
                     var subCont = document.createElement('div')
                     subCont.id = "dcPaging";
                     cont.appendChild(subCont);

@@ -912,9 +912,6 @@
         margin-right: 40px;
         max-width: 435px;
         display: inline-block;
-        bottom: 1px;
-        position: relative;
-        display:none;
     }
     
      #virtualclassCont.congrea.student #dcPaging {
@@ -988,7 +985,7 @@
         position: fixed;
         bottom: 0px;      
         right: 428px;
-        padding:13.5px 18px 12.5px 34px;
+        padding:12.5px 18px 13.5px 34px;
         z-index:1005;
     }
 
@@ -1012,18 +1009,18 @@
     #virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
         display: block;
         position: fixed;
-        bottom: 12px;
-        left:15px;
+        bottom: 0px;
+        right: 428px;
+        padding: 12.5px 18px 13.5px 34px;
         z-index: 1005;
-    }
-
-    #virtualclassCont.congrea.student[data-recording="off"] #docShareNav,
-    #virtualclassCont.congrea.student[data-recording="on"] #docShareNav {
-        left:167px;
     }
 
     #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav{
         display: none;
+    }
+
+    #virtualclassCont.congrea.teacher #dcPaging {
+        display:none;
     }
 
     #virtualclassCont.congrea.playMode[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea.playMode[data-currapp = 'Whiteboard'].student #docShareNav {
@@ -1035,21 +1032,25 @@
         font-size:14px;
     }
 
-.congrea #totalPages {
-    color: #fff;
-    font-size: 14px;
-    margin-right:10px;
-}
+    .congrea #totalPages {
+        color: #fff;
+        font-size: 14px;
+        margin-right:13px;
+    }
 
-#virtualclassCont.congrea[data-currapp = 'DocumentShare'] .showZoom #docShareNav,
-#virtualclassCont.congrea[data-currapp = 'Whiteboard'] .showZoom #docShareNav {
-    display : block;
-}
+    #virtualclassCont.congrea.student #totalPages {
+        margin-right:0;
+    }
+
+    #virtualclassCont.congrea[data-currapp = 'DocumentShare'] .showZoom #docShareNav,
+    #virtualclassCont.congrea[data-currapp = 'Whiteboard'] .showZoom #docShareNav {
+        display : block;
+    }
 
 
-#virtualclassCont.congrea.student #teacherCurrPage {
-    display:none;
-}
+    #virtualclassCont.congrea.student #teacherCurrPage {
+        display:none;
+    }
 
 @media(max-width:1150px) {
     
@@ -1116,5 +1117,5 @@
 #virtualclassCont.congrea .icon-newPage:after {
     left: -43px;
     padding: 6px !important;
-    bottom: 32px !important;
+    bottom: 31px !important;
 }

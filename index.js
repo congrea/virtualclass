@@ -906,7 +906,7 @@ $(document).ready(function () {
 
             this.settings = function (e){
                 if(e.message.hasOwnProperty("Hex")) {
-                   virtualclass.edsettings.applySettings(e.message.Hex, e.message.toUser);
+                   virtualclass.settings.onMessage(e.message.Hex, e.message.toUser);
                 }
             };
 

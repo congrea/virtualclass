@@ -2,13 +2,13 @@
 
 (function (window) {
     "use strict";
-    var edsettings = {
-        sessionSettings : { //All settings object
+    var settings = {
+        info : { //All settings object
             "allowoverride": null,
-            "disablestudentau": null,
+            "disableStudentAudio": null,
             "disableattendeepc": null,
             "disableattendeegc": null,
-            "disablestudentvd": null,
+            "disableStudentVideo": null,
             "disableraisehand": null,
             "disableuserlist": null,
             "x8": null,
@@ -23,23 +23,30 @@
         },
 
         individualSettings : {},
+        userObj : {},
 
-        init : function (obj) {   //default settings applyed from here
-            for (let propname in obj) {
-                if (virtualclass.edsettings.sessionSettings.hasOwnProperty(propname)) {
-                    virtualclass.edsettings.sessionSettings[propname] = obj[propname];
+
+        init : function () { //default settings applyed from here
+            let settings = localStorage.getItem("settings");
+            if (!settings) {
+                settings = virtualclassSetting.settings;
+            }
+            settings = virtualclass.settings.onLoadSettings(settings);
+            for (let propname in settings) {
+                if (virtualclass.settings.info.hasOwnProperty(propname)) {
+                    virtualclass.settings.info[propname] = settings[propname];
                 }
             }
         },
-        userObj : {},
+
         //settings object values assign to array for get a hax code
         settingsToHex : function (s) {
             var localSettings = [];
             localSettings[0] = +s.allowoverride;
-            localSettings[1] = +s.disablestudentau;
+            localSettings[1] = +s.disableStudentAudio;
             localSettings[2] = +s.disableattendeepc;
             localSettings[3] = +s.disableattendeegc;
-            localSettings[4] = +s.disablestudentvd;
+            localSettings[4] = +s.disableStudentVideo;
             localSettings[5] = +s.disableraisehand;
             localSettings[6] = +s.disableuserlist;
             localSettings[7] = +s.x8;
@@ -51,22 +58,22 @@
             localSettings[13] = +s.recshowstudentrecordingstatus;
             localSettings[14] = +s.rectrimrecordings;
             localSettings[15] = +s.x16;
-            return virtualclass.edsettings.binaryToHex(localSettings.join(""));
+            return virtualclass.settings.binaryToHex(localSettings.join(""));
         },
 
         //return data into true, false
         //student side
         parseSettings : function (s) {
-            var settings = {};
-            var localSettings = virtualclass.edsettings.hexToBinary(s);
+            let settings = {};
+            var localSettings = virtualclass.settings.hexToBinary(s);
             if (localSettings) {
                 localSettings = localSettings.split("");
             }
             settings.allowoverride = !!+localSettings[0];
-            settings.disablestudentau = !!+localSettings[1];
+            settings.disableStudentAudio = !!+localSettings[1];
             settings.disableattendeepc = !!+localSettings[2];
             settings.disableattendeegc = !!+localSettings[3];
-            settings.disablestudentvd = !!+localSettings[4];
+            settings.disableStudentVideo = !!+localSettings[4];
             settings.disableraisehand = !!+localSettings[5];
             settings.disableuserlist = !!+localSettings[6];
             settings.x8 = !!+localSettings[7];
@@ -143,37 +150,51 @@
         },
 
         //Object's properties value true or false into binary
-        changeSettings : function (value, settingName, userId) {
-            // TODO check role
+        applySettings : function (value, settingName, userId) {
+            let obj = {};
+            obj[settingName] = value;
+            this._applySettings(obj, userId);
+        },
+
+        _applySettings (obj, userId) {
             if(roles.hasControls()) {
-               if ((value === true || value === false) && virtualclass.edsettings.sessionSettings.hasOwnProperty(settingName)) {
-                   if(typeof userId === "undefined") {
-                      localStorage.removeItem("userSettings");
-                      var setting = (!localStorage.getItem("settings")) ? virtualclass.edsettings.sessionSettings : virtualclass.edsettings.onLoadSettings(localStorage.getItem("settings"));
-                      setting[settingName] = value;
-                      var str = virtualclass.edsettings.settingsToHex(setting);
-                      virtualclass.edsettings.stdSettings(str, userId);
-                      localStorage.setItem("settings", str);
-                   } else {
-                       var individualSetting = (!localStorage.getItem("settings")) ? virtualclass.edsettings.sessionSettings : virtualclass.edsettings.onLoadSettings(localStorage.getItem("settings"));
-                       for(let propname in individualSetting){
-                           virtualclass.edsettings.individualSettings[propname] = individualSetting[propname];
-                       }
-                       virtualclass.edsettings.individualSettings[settingName] = value;
-                       var spSettings = virtualclass.edsettings.settingsToHex(virtualclass.edsettings.individualSettings);
-                       virtualclass.edsettings.userObj[userId]= spSettings;
-                       localStorage.setItem("individualUserSetting" , JSON.stringify(virtualclass.edsettings.userObj));
-                       virtualclass.edsettings.stdSettings(spSettings, userId);
-                   }
-                   return true;
-               } else {
-                   return false;
-               }
+                let settingName = Object.keys(obj)[0];
+                let value = obj[settingName];
+                if ((value === true || value === false) && virtualclass.settings.info.hasOwnProperty(settingName)) {
+                    if(typeof userId === "undefined") {
+                        localStorage.removeItem("userSettings");
+                        var setting = (!localStorage.getItem("settings")) ? virtualclass.settings.info : virtualclass.settings.onLoadSettings(localStorage.getItem("settings"));
+                        setting[settingName] = value;
+                        var str = virtualclass.settings.settingsToHex(setting);
+                        virtualclass.settings.send(str, userId);
+                        localStorage.setItem("settings", str);
+                    } else {
+                        var individualSetting = (!localStorage.getItem("settings")) ? virtualclass.settings.info : virtualclass.settings.onLoadSettings(localStorage.getItem("settings"));
+                        for(let propname in individualSetting){
+                            virtualclass.settings.individualSettings[propname] = individualSetting[propname];
+                        }
+                        virtualclass.settings.individualSettings[settingName] = value;
+                        var spSettings = virtualclass.settings.settingsToHex(virtualclass.settings.individualSettings);
+                        virtualclass.settings.userObj[userId]= spSettings;
+                        localStorage.setItem("individualUserSetting" , JSON.stringify(virtualclass.settings.userObj));
+                        virtualclass.settings.send(spSettings, userId);
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
+            }else {
+                let settings = virtualclass.settings.settingsToHex(obj);
+                localStorage.setItem("settings", settings);
+                for (let propname in obj) {
+                    virtualclass.settings.info[propname] = obj[propname];
+                    virtualclass.settings[propname](obj[propname]);
+                }
             }
         },
 
         //Message send to student
-        stdSettings : function (value, userId) {
+        send : function (value, userId) {
             if(roles.hasControls()) {
                if (typeof userId !== "undefined") {
                    virtualclass.vutil.beforeSend({"cf": "settings", "Hex": value, "toUser": userId}, userId);
@@ -184,32 +205,20 @@
         },
 
         //Apply settings on student side
-        applySettings : function (str, userId) {
+        onMessage : function (str) {
             if(roles.isStudent()) {
-               let settings = virtualclass.edsettings.parseSettings(str);
-               virtualclass.edsettings.allSettings(settings, userId);
-            }
-        },
-
-        //Action on student side using object's each properties (audio,video enable/disable)
-        allSettings : function (obj, userId) {
-            if(roles.isStudent()) {
-               let settings = virtualclass.edsettings.settingsToHex(obj);
-               localStorage.setItem("settings", settings);
-               for (let propname in obj) {
-                   virtualclass.edsettings.sessionSettings[propname] = obj[propname];
-                   virtualclass.edsettings[propname](obj[propname]);
-               }
+               let settings = virtualclass.settings.parseSettings(str);
+               this._applySettings(settings);
             }
         },
 
         onLoadSettings : function (str){
-             let hextosettings = virtualclass.edsettings.parseSettings(str);
+             let hextosettings = virtualclass.settings.parseSettings(str);
              return hextosettings;
         },
 
         //Mute or Unmute all student audio or particular student mute or unmute
-        disablestudentau : function (value) {
+        disableStudentAudio : function (value) {
             if(roles.isStudent()) {
                if (value === true) {
                    virtualclass.user.control.audioWidgetEnable(true);
@@ -238,7 +247,7 @@
         },
 
         //All student video enable, disable
-        disablestudentvd: function (value) {
+        disableStudentVideo: function (value) {
             if(roles.isStudent()) {
                 let action;
                 let sw = document.querySelector(".videoSwitchCont #videoSwitch");
@@ -299,5 +308,5 @@
             console.log("TO DO");
         }
     };
-    window.edsettings = edsettings;
+    window.settings = settings;
 })(window);

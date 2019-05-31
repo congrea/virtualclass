@@ -686,11 +686,11 @@
                 _chat: function (userId, action) {
                     if (action == 'enable') {
                         virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf': 'enc'}, userId);
-                       // virtualclass.edsettings.changeSettings(true, "disableattendeepc", userId);
+                       // virtualclass.settings.applySettings(true, "disableattendeepc", userId);
                     } else {
                         var user = virtualclass.user.control.updateUser(userId, 'chat', false);
                         virtualclass.vutil.beforeSend({'dic': true, toUser: userId, 'cf' : 'dic'}, userId);
-                        //virtualclass.edsettings.changeSettings(false, "disableattendeepc", userId);
+                        //virtualclass.settings.applySettings(false, "disableattendeepc", userId);
                     }
                 },
 
@@ -742,10 +742,10 @@
                 _audio: function (userId, action) {
                     if (action == 'enable') {
                         //virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
-                        virtualclass.edsettings.changeSettings(true, "disablestudentau", userId);
+                        virtualclass.settings.applySettings(true, "disableStudentAudio", userId);
                     } else {
                         //virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
-                        virtualclass.edsettings.changeSettings(false, "disablestudentau", userId);
+                        virtualclass.settings.applySettings(false, "disableStudentAudio", userId);
                     }
 
 
@@ -1282,11 +1282,12 @@
             mediaSliderUI : function(type){
                 var lable =  (type == 'audio') ? 'Audio' : 'Video';
                 var spanTag= document.querySelector(".bulkUserActions #contr"+lable+"AllImg");
-                var getSettings = localStorage.getItem("settings");
-                if(getSettings !== null) {
-                var applyedSettings = virtualclass.edsettings.onLoadSettings(getSettings);
-                var getMediaAction = virtualclass.user.defaultSettings(type, applyedSettings);
-                }
+                var settings = virtualclass.settings.info;
+                //var settings = localStorage.getItem("settings");
+                //if(getSettings !== null) {
+               // var applyedSettings = virtualclass.settings.onLoadSettings(getSettings);
+                var getMediaAction = virtualclass.user.defaultSettings(type, settings);
+               // }
 
                 // var getMediaAction = (type == 'audio') ? localStorage.getItem('allAudAction') : localStorage.getItem('allVideoAction');
                 var localAction = (getMediaAction == 'enable') ? 'disable' : 'enable';
@@ -1299,11 +1300,10 @@
                     var cont = document.querySelector(".congrea #contr"+lable+"All");
                     cont.classList.add(localAction)
                 }else{
-
                     //var defaultMediaSetting =  (type == 'audio') ? virtualclass.gObj.stdaudioEnable : virtualclass.gObj.stdvideoEnable;
-                    var settings = virtualclass.edsettings.onLoadSettings(virtualclassSetting.settings);
-                    var defaultMediaSetting = virtualclass.user.defaultSettings(type, settings);
-                    var allAction = { action : defaultMediaSetting ? 'enable' : 'disable', enable :'disable', disable : 'enable'};
+                    //
+                    // var defaultMediaSetting = virtualclass.user.defaultSettings(type, settings);
+                    var allAction = { action : getMediaAction ? 'enable' : 'disable', enable :'disable', disable : 'enable'};
                     var spanTag= document.querySelector(".bulkUserActions #contr"+lable+"AllImg");
                     spanTag.setAttribute('data-action', allAction[allAction.action]);
                     spanTag.className = 'slider round icon-all-'+type+'-'+allAction[allAction.action]+' congtooltip cgIcon';
@@ -1323,7 +1323,7 @@
                         if(type == "audio"){
                             var actionToPerform = that.toogleAudioIcon();
                             var actAudio = (actionToPerform == "enable") ? true :false;
-                            virtualclass.edsettings.changeSettings(actAudio, "disablestudentau");
+                            virtualclass.settings.applySettings(actAudio, "disableStudentAudio");
 
                             if(typeof actionToPerform != 'undefined'){
                                localStorage.setItem('allAudAction', actionToPerform);
@@ -1332,7 +1332,7 @@
                         }else{
                             var actionToPerform = that.toggleVideoIcon();
                             var actVideo = (actionToPerform == "enable") ? true :false;
-                            virtualclass.edsettings.changeSettings(actVideo, "disablestudentvd");
+                            virtualclass.settings.applySettings(actVideo, "disableStudentVideo");
                             if(typeof actionToPerform != 'undefined'){
                                localStorage.setItem('allVideoAction', actionToPerform);
                                that.toggleAllVideo(actionToPerform);
@@ -1344,14 +1344,15 @@
             },
 
             defaultSettings :  function(type, obj){
+                let actionAV, value;
+                // TODO, review this code
                 for(let propname in obj) {
-                    let value = obj[propname];
-                    if (type === "audio" && propname === "disablestudentau" || type === "video" && propname === "disablestudentvd") {
-                        let actionAV = (value === true) ? "enable" : "disable";
-                        var getMediaAction = actionAV;
+                    value = obj[propname];
+                    if (type === "audio" && propname === "disableStudentAudio" || type === "video" && propname === "disableStudentVideo") {
+                         actionAV = (value === true) ? "enable" : "disable";
                     }
                 }
-                return getMediaAction;
+                return actionAV;
             },
 
             chatBoxesSwitch: function () {

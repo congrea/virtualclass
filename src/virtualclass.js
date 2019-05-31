@@ -71,8 +71,6 @@
                 myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
                 requestToScriptNode : null,
                 readyToCommunicate : false,
-                stdaudioEnable : studentAudioEnable,
-                stdvideoEnable : studentVideoEnable,
                 tempPrefix : 'dest_temp/templates',
                 allUserObj : {},
                 docPdfFirstTime : false,
@@ -169,13 +167,10 @@
                 this.wbCommon = window.wbCommon;
                 this.pageNavigation = window.pageIndexNav;
                 this.modal = window.modal;
-                this.edsettings = window.edsettings;
+                this.settings = window.settings;
 
-                var userSettings = localStorage.getItem("settings");
-                if (!userSettings) {
-                    let settings = virtualclass.edsettings.onLoadSettings(virtualclassSetting.settings);
-                    virtualclass.edsettings.init(settings);
-                }
+                virtualclass.settings.init();
+
 
                 if(this.system.isIndexedDbSupport()){
                     await this.storage.init();

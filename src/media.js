@@ -1591,24 +1591,38 @@
                 var audio = localStorage.getItem('audEnable');
                 if(roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone){
                     // virtualclass.media.audioVisual.readyForVisual(stream);
-                    var str = localStorage.getItem("settings");
-                    var settings = (str !== null) ? virtualclass.edsettings.onLoadSettings(str) : virtualclass.edsettings.onLoadSettings(virtualclassSetting.settings);
+                    //var str = localStorage.getItem("settings");
+                    //var settings = (str !== null) ? virtualclass.settings.onLoadSettings(str) : virtualclass.settings.onLoadSettings(virtualclassSetting.settings);
 
+                        //audio = JSON.parse(audio);
+
+                    if ((virtualclass.settings.info.disableStudentAudio === false)) {
+                        virtualclass.gObj.audioEnable = false;
+                        virtualclass.user.control.audioDisable(true);
+                    } else if (virtualclass.settings.info.disableStudentAudio === true) {
+                        virtualclass.gObj.audioEnable = true;
+                        virtualclass.user.control.audioWidgetEnable(true);
+                    }else if(virtualclass.settings.info.disableStudentAudio !== true) {
+                        virtualclass.user.control.audioDisable();
+                    }
+
+                    /*/
                     if(str != null){
                         //audio = JSON.parse(audio);
-                        if ((settings.disablestudentau === false)) {
+                        if ((virtualclass.settings.info..disableStudentAudio === false)) {
                             virtualclass.gObj.audioEnable = false;
                             virtualclass.user.control.audioDisable(true);
-                        } else if (settings.disablestudentau === true) {
+                        } else if (settings..disableStudentAudio === true) {
                             virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
-                    }else if(settings.disablestudentau !== true){
+                    }else if(settings..disableStudentAudio !== true){
                         virtualclass.user.control.audioDisable();
-                    }else if(settings.disablestudentau === true){
+                    }else if(settings..disableStudentAudio === true){
                         virtualclass.gObj.audioEnable = true;
                         virtualclass.user.control.audioWidgetEnable(true);
-                    }
+                    } */
+
                 }else {
                     if (virtualclass.system.mediaDevices.hasMicrophone) {
                         // virtualclass.media.audioVisual.readyForVisual(stream);
@@ -1659,11 +1673,11 @@
                 }
 
                 //var vidstatus = localStorage.getItem("allVideoAction");
-                if(str != null && settings.disablestudentvd === false && roles.isStudent()){
+                if(virtualclass.settings.info.disableStudentVideo === false && roles.isStudent()){
                     virtualclass.user.control.videoDisable();
                 }else {
                     //!virtualclass.gObj.stdvideoEnable
-                    if(roles.isStudent() && settings.disablestudentvd !== true){
+                    if(roles.isStudent() && virtualclass.settings.info.disableStudentVideo !== true){
                         virtualclass.vutil.videoHandler("off");
                         virtualclass.videoHost.toggleVideoMsg('disable');
                     }else {
@@ -1675,7 +1689,7 @@
                     }
 
                     //var videoAction = localStorage.getItem("allVideoAction");
-                    if(str != null && settings.disablestudentvd === true){
+                    if(virtualclass.settings.info.disableStudentVideo === true){
                         virtualclass.user.control.videoEnable();
                     }
                 }

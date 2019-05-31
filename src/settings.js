@@ -15,10 +15,10 @@
     var settings = {
         info : { //All settings object
             allowoverride: null,
-            disableStudentAudio: null,
+            disableAttendeeAudio: null,
             disableattendeepc: null,
             disableattendeegc: null,
-            disableStudentVideo: null,
+            disableAttendeeVideo: null,
             disableraisehand: null,
             disableuserlist: null,
             x8: null,

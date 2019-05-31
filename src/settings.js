@@ -1,5 +1,3 @@
-//console.log(settingsToHex(parseSettings("FF0F")));
-
 (function (window) {
     "use strict";
     let sessionSetting  = {
@@ -9,7 +7,6 @@
         recShowPresentorRecordingStatus : true,
 
         recDisableAttendeeAV : false,
-
         recallowattendeeAVcontrol : true,
         showAttendeeRecordingStatus : true,
         trimRecordings : true
@@ -17,22 +14,25 @@
 
     var settings = {
         info : { //All settings object
-            "allowoverride": null,
-            "disableStudentAudio": null,
-            "disableattendeepc": null,
-            "disableattendeegc": null,
-            "disableStudentVideo": null,
-            "disableraisehand": null,
-            "disableuserlist": null,
-            "x8": null,
-            "enablerecording": null,
-            "recallowpresentoravcontrol": null,
-            "recshowpresentorrecordingstatus": null,
-            "recdisablestudentav": null,
-            "recallowstudentavcontrol": null,
-            "recshowstudentrecordingstatus": null,
-            "rectrimrecordings": null,
-            "x16": null
+            allowoverride: null,
+            disableStudentAudio: null,
+            disableattendeepc: null,
+            disableattendeegc: null,
+            disableStudentVideo: null,
+            disableraisehand: null,
+            disableuserlist: null,
+            x8: null,
+            x16: null,
+
+            enableRecording : null,
+
+            recAllowpresentorAVcontrol :  null,
+            recShowPresentorRecordingStatus :  null,
+
+            recDisableAttendeeAV :  null,
+            recallowattendeeAVcontrol :  null,
+            showAttendeeRecordingStatus :  null,
+            trimRecordings :  null
         },
 
         individualSettings : {},
@@ -43,6 +43,7 @@
                 settings = virtualclassSetting.settings;
             }
             settings = virtualclass.settings.onLoadSettings(settings);
+
             for (let propname in settings) {
                 if (virtualclass.settings.info.hasOwnProperty(propname)) {
                     virtualclass.settings.info[propname] = settings[propname];
@@ -56,20 +57,20 @@
         settingsToHex : function (s) {
             var localSettings = [];
             localSettings[0] = +s.allowoverride;
-            localSettings[1] = +s.disableStudentAudio;
-            localSettings[2] = +s.disableattendeepc;
-            localSettings[3] = +s.disableattendeegc;
-            localSettings[4] = +s.disableStudentVideo;
-            localSettings[5] = +s.disableraisehand;
-            localSettings[6] = +s.disableuserlist;
-            localSettings[7] = +s.x8;
-            localSettings[8] = +s.enablerecording;
-            localSettings[9] = +s.recallowpresentoravcontrol;
-            localSettings[10] = +s.recshowpresentorrecordingstatus;
-            localSettings[11] = +s.recdisablestudentav;
-            localSettings[12] = +s.recallowstudentavcontrol;
-            localSettings[13] = +s.recshowstudentrecordingstatus;
-            localSettings[14] = +s.rectrimrecordings;
+            localSettings[1] = +s.disableAttendeeAudio;
+            localSettings[2] = +s.disableAttendeeVideo;
+            localSettings[3] = +s.disableAttendeePc;
+            localSettings[4] = +s.disableAttendeeGc;
+            localSettings[5] = +s.disableRaiseHand;
+            localSettings[6] = +s.disableUserList;
+            localSettings[7] = +s.enableRecording;
+            localSettings[8] = +s.recAllowpresentorAVcontrol;
+            localSettings[9] = +s.recShowPresentorRecordingStatus;
+            localSettings[10] = +s.recDisableAttendeeAV;
+            localSettings[11] = +s.recallowattendeeAVcontrol;
+            localSettings[12] = +s.showAttendeeRecordingStatus;
+            localSettings[13] = +s.trimRecordings;
+            localSettings[14] = +s.x8;
             localSettings[15] = +s.x16;
             return virtualclass.settings.binaryToHex(localSettings.join(""));
         },
@@ -83,21 +84,22 @@
                 localSettings = localSettings.split("");
             }
             settings.allowoverride = !!+localSettings[0];
-            settings.disableStudentAudio = !!+localSettings[1];
-            settings.disableattendeepc = !!+localSettings[2];
-            settings.disableattendeegc = !!+localSettings[3];
-            settings.disableStudentVideo = !!+localSettings[4];
-            settings.disableraisehand = !!+localSettings[5];
-            settings.disableuserlist = !!+localSettings[6];
-            settings.x8 = !!+localSettings[7];
-            settings.enablerecording = !!+localSettings[8];
-            settings.recallowpresentoravcontrol = !!+localSettings[9];
-            settings.recshowpresentorrecordingstatus = !!+localSettings[10];
-            settings.recdisablestudentav = !!+localSettings[11];
-            settings.recallowstudentavcontrol = !!+localSettings[12];
-            settings.recshowstudentrecordingstatus = !!+localSettings[13];
-            settings.rectrimrecordings = !!+localSettings[14];
+            settings.disableAttendeeAudio = !!+localSettings[1];
+            settings.disableAttendeeVideo = !!+localSettings[2];
+            settings.disableAttendeePc = !!+localSettings[3];
+            settings.disableAttendeeGc = !!+localSettings[4];
+            settings.disableRaiseHand = !!+localSettings[5];
+            settings.disableUserList = !!+localSettings[6];
+            settings.enableRecording = !!+localSettings[7];
+            settings.recAllowpresentorAVcontrol = !!+localSettings[8];
+            settings.recShowPresentorRecordingStatus = !!+localSettings[9];
+            settings.recDisableAttendeeAV = !!+localSettings[10];
+            settings.recallowattendeeAVcontrol = !!+localSettings[11];
+            settings.showAttendeeRecordingStatus = !!+localSettings[12];
+            settings.trimRecordings = !!+localSettings[13];
+            settings.x8 = !!+localSettings[14];
             settings.x16 = !!+localSettings[15];
+
             return settings;
         },
 
@@ -218,10 +220,14 @@
         },
 
         //Apply settings on student side
-        onMessage : function (str) {
-            if(roles.isStudent()) {
-               let settings = virtualclass.settings.parseSettings(str);
-               this._applySettings(settings);
+        onMessage : function (msg) {
+            if(typeof msg === 'string'){
+                if(roles.isStudent()) {
+                    let settings = virtualclass.settings.parseSettings(msg);
+                    this._applySettings(settings);
+                }
+            }else{
+                this.recording.triggerSetting(msg);
             }
         },
 
@@ -289,31 +295,31 @@
             console.log("TO DO");
         },
 
-        enablerecording: function () {
+        enableRecording: function () {
             console.log("TO DO");
         },
 
-        recallowpresentoravcontrol: function () {
+        recAllowpresentorAVcontrol: function () {
             console.log("TO DO");
         },
 
-        recshowpresentorrecordingstatus: function () {
+        recShowPresentorRecordingStatus: function () {
             console.log("TO DO");
         },
 
-        recdisablestudentav: function () {
+        recDisableAttendeeAV: function () {
             console.log("TO DO");
         },
 
-        recallowstudentavcontrol: function () {
+        recallowattendeeAVcontrol: function () {
             console.log("TO DO");
         },
 
-        recshowstudentrecordingstatus: function () {
+        showAttendeeRecordingStatus: function () {
             console.log("TO DO");
         },
 
-        rectrimrecordings: function () {
+        trimRecordings: function () {
             console.log("TO DO");
         },
 
@@ -332,17 +338,17 @@
             allowattendeeAVcontrolByTeacher : false,
 
             init () {
-                this.enableRecording   =  sessionSetting.enableRecording;
+                this.enableRecording   =  virtualclass.settings.info.enableRecording;
                 if(roles.hasControls()){
-                    this.allowpresentorAVcontrol  =  sessionSetting.recAllowpresentorAVcontrol;
-                    this.showPresentorRecordingStatus = (this.allowpresentorAVcontrol) ? true :  sessionSetting.recShowPresentorRecordingStatus;
+                    this.allowpresentorAVcontrol  =  virtualclass.settings.info.recAllowpresentorAVcontrol;
+                    this.showPresentorRecordingStatus = (virtualclass.settings.info.allowpresentorAVcontrol) ? true :  virtualclass.settings.info.recShowPresentorRecordingStatus;
                 }else {
-                    this.disableAttendeeAV =  sessionSetting.disableAttendeeAV;
-                    this.allowattendeeAVcontrol = sessionSetting.recallowattendeeAVcontrol;
-                    this.showAttendeeRecordingStatus = (this.allowattendeeAVcontrol) ? true :  sessionSetting.showAttendeeRecordingStatus;
+                    this.disableAttendeeAV =  virtualclass.settings.info.disableAttendeeAV;
+                    this.allowattendeeAVcontrol =  virtualclass.settings.info.recallowattendeeAVcontrol;
+                    this.showAttendeeRecordingStatus = (virtualclass.settings.info.allowattendeeAVcontrol) ? true :  virtualclass.settings.info.showAttendeeRecordingStatus;
                 }
 
-                this.trimRecordings =  sessionSetting.trimRecordings;
+                this.trimRecordings =  this.trimRecordings;
 
                 this.showStatus = this.showStatus();
                 this.showButton();
@@ -356,7 +362,7 @@
                     if(roles.hasControls() || setting.statusonly !== true){
                         this.updateSettingAV(false);
                     }else {
-                        this.onMessage({ac : false});
+                        virtualclass.settings.onMessage({ac : false});
                     }
                 }
             },
@@ -482,7 +488,7 @@
                 }
             },
 
-            onMessage (message) {
+            triggerSetting (message) {
                 if(message.ac == false){
                     this.allowattendeeAVcontrolByTeacher = true;
                 }else {

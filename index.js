@@ -894,7 +894,7 @@ $(document).ready(function () {
 
             this.settings = function (e){
                 if(e.message.hasOwnProperty("Hex")) {
-                   virtualclass.settings.onMessage(e.message.Hex, e.message.toUser);
+                   virtualclass.settings.onMessage(e.message.Hex);
                 }
             };
 
@@ -1454,7 +1454,7 @@ $(document).ready(function () {
             /** Record setting **/
             this.recs = function (e){
                 if(!virtualclass.isPlayMode){
-                    virtualclass.settings.recording.onMessage(e.message);
+                    virtualclass.settings.onMessage(e.message);
                 }
             }
         };

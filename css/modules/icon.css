@@ -819,8 +819,26 @@
 }
 
 #virtualclassCont.congrea #fullScreenExitButton span .icon-exitScreen:before {
-  content: "\e99b";
+    content: "\e99b";
     font-weight: normal;
     font-family: 'icomoon';
     font-size: 18px;
+}
+
+#virtualclassCont.congrea[data-currapp = 'Whiteboard'] #addNewPage span:before {
+    content: "\e99e";
+    font-weight: normal;
+    font-family: 'icomoon';
+    font-size: 13px;
+}
+
+#virtualclassCont.congrea .pageHead:before {
+  content: "\e99f";
+  font-weight: normal;
+  font-family: 'icomoon';
+  margin-right:10px;
+  font-size: 17px;
+  position: absolute;
+  left: -28px;
+  top: -1px;
 }

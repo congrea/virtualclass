@@ -31,6 +31,8 @@ $(document).ready(function () {
         // var appIs = "Whiteboard";
 
         virtualclass.gObj.sessionClear = false;
+        virtualclass.settings = window.settings;
+        virtualclass.settings.init();
         virtualclass.handleCurrentUserWithPrevious();
 
         virtualclass.gObj.mobileVchOffset = vhCheck();
@@ -1450,10 +1452,9 @@ $(document).ready(function () {
             }
 
             /** Record setting **/
-
             this.recs = function (e){
                 if(!virtualclass.isPlayMode){
-                    recordSettings.onMessage(e.message);
+                    virtualclass.settings.recording.onMessage(e.message);
                 }
             }
         };

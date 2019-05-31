@@ -95,7 +95,7 @@
         startSeek : false,
         initPlay : false,
         isTrimRecording : false,
-        enableTrim : sessionSetting.trimRecordings,
+        enableTrim : 1,
         joinRoomRecevied : false,
         init: function () {
             if(!this.attachSeekHandler){

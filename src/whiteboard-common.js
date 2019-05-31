@@ -173,7 +173,11 @@
             
             virtualclass.gObj.wbCount++;
             var widn = this.whiteboardWrapperExist('next');
-            virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
+            if(virtualclass.gObj.hasOwnProperty('currSlide') && virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1){
+                                     console.log('wids, From virtualclass ');
+                virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);                     
+            }
+            
             var wid = '_doc_0' + '_' + virtualclass.gObj.wbCount;
             //this.order(virtualclass.gObj.wbCount)
             var currIndex = this.order.indexOf(i)

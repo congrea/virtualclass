@@ -1283,7 +1283,10 @@ $(document).ready(function () {
                     virtualclass.vutil.resizeWindowIfBigger();
                 }else if(e.message.hasOwnProperty('wbCount')){
                     virtualclass.gObj.wbCount = e.message.wbCount;
-                    virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
+                    if(virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1){
+                        virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);  
+                    }
+                
                 }
             }
 

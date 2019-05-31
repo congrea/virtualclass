@@ -239,13 +239,6 @@ $(document).ready(function () {
             }
         }
 
-        //if(roles.hasControls()){
-           var userSettings = localStorage.getItem("settings");
-           if (!userSettings) {
-               virtualclass.edsettings.init(virtualclass.gObj.defaultSessionSetting);
-            }
-       // }
-
         //TODO : this should be in proper place
         var encMode = "alaw";
         setTimeout(
@@ -912,10 +905,8 @@ $(document).ready(function () {
             };
 
             this.settings = function (e){
-                console.log(e);
                 if(e.message.hasOwnProperty("Hex")) {
                    virtualclass.edsettings.applySettings(e.message.Hex, e.message.toUser);
-
                 }
             };
 

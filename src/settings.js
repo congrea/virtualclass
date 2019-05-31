@@ -5,7 +5,7 @@
     var edsettings = {
         sessionSettings : { //All settings object
             "allowoverride": null,
-            "disableattendeeav": null,
+            "disablestudentau": null,
             "disableattendeepc": null,
             "disableattendeegc": null,
             "disablestudentvd": null,
@@ -22,19 +22,21 @@
             "x16": null
         },
 
+        individualSettings : {},
+
         init : function (obj) {   //default settings applyed from here
-            if(roles.hasControls()){
-               for(let propname in obj) {
-                   this.sessionSettings[propname] = obj[propname];
-               }
+            for (let propname in obj) {
+                if (virtualclass.edsettings.sessionSettings.hasOwnProperty(propname)) {
+                    virtualclass.edsettings.sessionSettings[propname] = obj[propname];
+                }
             }
         },
-
+        userObj : {},
         //settings object values assign to array for get a hax code
         settingsToHex : function (s) {
             var localSettings = [];
             localSettings[0] = +s.allowoverride;
-            localSettings[1] = +s.disableattendeeav;
+            localSettings[1] = +s.disablestudentau;
             localSettings[2] = +s.disableattendeepc;
             localSettings[3] = +s.disableattendeegc;
             localSettings[4] = +s.disablestudentvd;
@@ -61,7 +63,7 @@
                 localSettings = localSettings.split("");
             }
             settings.allowoverride = !!+localSettings[0];
-            settings.disableattendeeav = !!+localSettings[1];
+            settings.disablestudentau = !!+localSettings[1];
             settings.disableattendeepc = !!+localSettings[2];
             settings.disableattendeegc = !!+localSettings[3];
             settings.disablestudentvd = !!+localSettings[4];
@@ -145,12 +147,24 @@
             // TODO check role
             if(roles.hasControls()) {
                if ((value === true || value === false) && virtualclass.edsettings.sessionSettings.hasOwnProperty(settingName)) {
-                   //virtualclass.edsettings.sessionSettings[settingName] = (value === true) ? 1 : 0;
-                   virtualclass.edsettings.sessionSettings[settingName] = value;
-                   virtualclass.gObj.defaultSessionSetting[settingName] = value;
-                   let str = virtualclass.edsettings.settingsToHex(virtualclass.edsettings.sessionSettings);
-                   localStorage.setItem("settings", str);
-                   virtualclass.edsettings.stdSettings(str, userId);
+                   if(typeof userId === "undefined") {
+                      localStorage.removeItem("userSettings");
+                      var setting = (!localStorage.getItem("settings")) ? virtualclass.edsettings.sessionSettings : virtualclass.edsettings.onLoadSettings(localStorage.getItem("settings"));
+                      setting[settingName] = value;
+                      var str = virtualclass.edsettings.settingsToHex(setting);
+                      virtualclass.edsettings.stdSettings(str, userId);
+                      localStorage.setItem("settings", str);
+                   } else {
+                       var individualSetting = (!localStorage.getItem("settings")) ? virtualclass.edsettings.sessionSettings : virtualclass.edsettings.onLoadSettings(localStorage.getItem("settings"));
+                       for(let propname in individualSetting){
+                           virtualclass.edsettings.individualSettings[propname] = individualSetting[propname];
+                       }
+                       virtualclass.edsettings.individualSettings[settingName] = value;
+                       var spSettings = virtualclass.edsettings.settingsToHex(virtualclass.edsettings.individualSettings);
+                       virtualclass.edsettings.userObj[userId]= spSettings;
+                       localStorage.setItem("individualUserSetting" , JSON.stringify(virtualclass.edsettings.userObj));
+                       virtualclass.edsettings.stdSettings(spSettings, userId);
+                   }
                    return true;
                } else {
                    return false;
@@ -164,7 +178,7 @@
                if (typeof userId !== "undefined") {
                    virtualclass.vutil.beforeSend({"cf": "settings", "Hex": value, "toUser": userId}, userId);
                } else {
-                   virtualclass.vutil.beforeSend({"cf": "settings", "Hex": value, "toUser": userId});
+                   virtualclass.vutil.beforeSend({"cf": "settings", "Hex": value});
                }
             }
         },
@@ -180,22 +194,11 @@
         //Action on student side using object's each properties (audio,video enable/disable)
         allSettings : function (obj, userId) {
             if(roles.isStudent()) {
-               if(typeof userId === "undefined") {
-                  let settings = virtualclass.edsettings.settingsToHex(obj);
-                  localStorage.setItem("stdsettings", settings);
-               }
-
+               let settings = virtualclass.edsettings.settingsToHex(obj);
+               localStorage.setItem("settings", settings);
                for (let propname in obj) {
-                   if (virtualclass.edsettings.sessionSettings[propname] === null && typeof userId === "undefined") {
-                       virtualclass.edsettings[propname](obj[propname]);
-                   } else if (userId === virtualclass.gObj.uid) {
-                       virtualclass.edsettings.sessionSettings.disableattendeeav = obj.disableattendeeav;
-                       virtualclass.edsettings[propname](obj[propname]);
-                       if(!localStorage.getItem("overridesettings")) {
-                          var overrideSettings = virtualclass.edsettings.settingsToHex(virtualclass.edsettings.sessionSettings);
-                          localStorage.setItem("overridesettings", overrideSettings);
-                       }
-                   }
+                   virtualclass.edsettings.sessionSettings[propname] = obj[propname];
+                   virtualclass.edsettings[propname](obj[propname]);
                }
             }
         },
@@ -206,7 +209,7 @@
         },
 
         //Mute or Unmute all student audio or particular student mute or unmute
-        disableattendeeav : function (value) {
+        disablestudentau : function (value) {
             if(roles.isStudent()) {
                if (value === true) {
                    virtualclass.user.control.audioWidgetEnable(true);
@@ -248,7 +251,7 @@
                 }
                 action = (value === false) ? "disable" : "enable";
                 virtualclass.videoHost.toggleVideoMsg(action);
-                localStorage.setItem("allVideoAction", action);
+                //localStorage.setItem("allVideoAction", action);
             }
         },
 

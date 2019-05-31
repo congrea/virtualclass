@@ -742,10 +742,10 @@
                 _audio: function (userId, action) {
                     if (action == 'enable') {
                         //virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
-                        virtualclass.edsettings.changeSettings(true, "disableattendeeav", userId);
+                        virtualclass.edsettings.changeSettings(true, "disablestudentau", userId);
                     } else {
                         //virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
-                        virtualclass.edsettings.changeSettings(false, "disableattendeeav", userId);
+                        virtualclass.edsettings.changeSettings(false, "disablestudentau", userId);
                     }
 
 
@@ -762,10 +762,6 @@
                 audioWidgetEnable: function (notActive) {
                     console.log('Audio enable true' );
                     localStorage.setItem('audEnable', JSON.stringify({ac:'true'}));
-                    if(roles.isStudent() && !localStorage.getItem("stdsettings")) {
-                       let defaultsettings = virtualclass.edsettings.settingsToHex(virtualclass.gObj.defaultSessionSetting);
-                       localStorage.setItem('stdsettings', defaultsettings);
-                    }
                     if(localStorage.getItem('dvid') == null){
                         var studentSpeaker = document.getElementById('speakerPressOnce');
                         if(typeof notActive == 'undefined'){
@@ -1305,7 +1301,8 @@
                 }else{
 
                     //var defaultMediaSetting =  (type == 'audio') ? virtualclass.gObj.stdaudioEnable : virtualclass.gObj.stdvideoEnable;
-                    var defaultMediaSetting = virtualclass.user.defaultSettings(type, virtualclass.gObj.defaultSessionSetting);
+                    var settings = virtualclass.edsettings.onLoadSettings(virtualclassSetting.settings);
+                    var defaultMediaSetting = virtualclass.user.defaultSettings(type, settings);
                     var allAction = { action : defaultMediaSetting ? 'enable' : 'disable', enable :'disable', disable : 'enable'};
                     var spanTag= document.querySelector(".bulkUserActions #contr"+lable+"AllImg");
                     spanTag.setAttribute('data-action', allAction[allAction.action]);
@@ -1326,7 +1323,7 @@
                         if(type == "audio"){
                             var actionToPerform = that.toogleAudioIcon();
                             var actAudio = (actionToPerform == "enable") ? true :false;
-                            virtualclass.edsettings.changeSettings(actAudio, "disableattendeeav");
+                            virtualclass.edsettings.changeSettings(actAudio, "disablestudentau");
 
                             if(typeof actionToPerform != 'undefined'){
                                localStorage.setItem('allAudAction', actionToPerform);
@@ -1347,11 +1344,11 @@
             },
 
             defaultSettings :  function(type, obj){
-                for(let propname in obj){
+                for(let propname in obj) {
                     let value = obj[propname];
-                    let actionAV = (value === true) ? "enable" : "disable";
-                    if(type === "audio" && propname === "disableattendeeav"  || type === "video" && propname === "disablestudentvd"){
-                       var getMediaAction = actionAV;
+                    if (type === "audio" && propname === "disablestudentau" || type === "video" && propname === "disablestudentvd") {
+                        let actionAV = (value === true) ? "enable" : "disable";
+                        var getMediaAction = actionAV;
                     }
                 }
                 return getMediaAction;

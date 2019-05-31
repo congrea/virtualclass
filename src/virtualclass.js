@@ -12,19 +12,6 @@
             studentSSstatus = {sharing:false, mesharing: false, shareToAll : false};
         }
 
-        var studentAudioEnable = true;
-        var studentVideoEnable = true;
-
-        if(virtualclassSetting.hasOwnProperty('studentAudio') && virtualclassSetting.studentAudio == '' || virtualclassSetting.studentAudio == '0'){
-            studentAudioEnable = false;
-            virtualclass.gObj.defaultSessionSetting.disableattendeeav = studentAudioEnable;
-        }
-
-        if(virtualclassSetting.hasOwnProperty('studentVideo') && virtualclassSetting.studentVideo == '' || virtualclassSetting.studentVideo == '0'){
-            studentVideoEnable = false;
-            virtualclass.gObj.defaultSessionSetting.disablestudentvd = studentVideoEnable;
-        }
-
         return {
             isPlayMode :playMode,
             /* TODO, editorCode should be removed in proper way,
@@ -96,24 +83,6 @@
                 sendAudioStatus : false,
                 audioRecWorkerReady : false,
                 wbTool : {},
-                defaultSessionSetting : {
-                    "allowoverride": null,
-                    "disableattendeeav": studentAudioEnable,
-                    "disableattendeepc": null,
-                    "disableattendeegc": null,
-                    "disablestudentvd": studentVideoEnable,
-                    "disableraisehand": null,
-                    "disableuserlist": null,
-                    "x8": null,
-                    "enablerecording": null,
-                    "recallowpresentoravcontrol": null,
-                    "recshowpresentorrecordingstatus": null,
-                    "recdisablestudentav": null,
-                    "recallowstudentavcontrol": null,
-                    "recshowstudentrecordingstatus": null,
-                    "rectrimrecordings": null,
-                    "x16": null
-                },
                 fullScreenMode : false
             },
 
@@ -201,6 +170,12 @@
                 this.pageNavigation = window.pageIndexNav;
                 this.modal = window.modal;
                 this.edsettings = window.edsettings;
+
+                var userSettings = localStorage.getItem("settings");
+                if (!userSettings) {
+                    let settings = virtualclass.edsettings.onLoadSettings(virtualclassSetting.settings);
+                    virtualclass.edsettings.init(settings);
+                }
 
                 if(this.system.isIndexedDbSupport()){
                     await this.storage.init();
@@ -393,6 +368,8 @@
                         virtualclass.gObj.fullScreenMode = false;
                     }
                 }
+
+                
 
             },
 

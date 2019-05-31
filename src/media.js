@@ -1591,22 +1591,21 @@
                 var audio = localStorage.getItem('audEnable');
                 if(roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone){
                     // virtualclass.media.audioVisual.readyForVisual(stream);
-                    var str = (!localStorage.getItem("overridesettings")) ? localStorage.getItem("stdsettings") : localStorage.getItem("overridesettings");
-                    if(str !== null) {
-                       var settings = virtualclass.edsettings.onLoadSettings(str);
-                    }
+                    var str = localStorage.getItem("settings");
+                    var settings = (str !== null) ? virtualclass.edsettings.onLoadSettings(str) : virtualclass.edsettings.onLoadSettings(virtualclassSetting.settings);
+
                     if(str != null){
                         //audio = JSON.parse(audio);
-                        if ((settings.disableattendeeav === false)) {
+                        if ((settings.disablestudentau === false)) {
                             virtualclass.gObj.audioEnable = false;
                             virtualclass.user.control.audioDisable(true);
-                        } else if (settings.disableattendeeav === true) {
+                        } else if (settings.disablestudentau === true) {
                             virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
-                    }else if(virtualclass.gObj.defaultSessionSetting.disableattendeeav !== true){
+                    }else if(settings.disablestudentau !== true){
                         virtualclass.user.control.audioDisable();
-                    }else if(virtualclass.gObj.defaultSessionSetting.disableattendeeav === true){
+                    }else if(settings.disablestudentau === true){
                         virtualclass.gObj.audioEnable = true;
                         virtualclass.user.control.audioWidgetEnable(true);
                     }
@@ -1659,12 +1658,12 @@
                     });
                 }
 
-                var vidstatus = localStorage.getItem("allVideoAction");
-                if(vidstatus != null && vidstatus === "disable" && roles.isStudent()){
+                //var vidstatus = localStorage.getItem("allVideoAction");
+                if(str != null && settings.disablestudentvd === false && roles.isStudent()){
                     virtualclass.user.control.videoDisable();
                 }else {
                     //!virtualclass.gObj.stdvideoEnable
-                    if(roles.isStudent() && !virtualclass.gObj.stdvideoEnable){
+                    if(roles.isStudent() && settings.disablestudentvd !== true){
                         virtualclass.vutil.videoHandler("off");
                         virtualclass.videoHost.toggleVideoMsg('disable');
                     }else {
@@ -1675,8 +1674,8 @@
                         }
                     }
 
-                    var videoAction = localStorage.getItem("allVideoAction");
-                    if(videoAction != null && videoAction === "enable"){
+                    //var videoAction = localStorage.getItem("allVideoAction");
+                    if(str != null && settings.disablestudentvd === true){
                         virtualclass.user.control.videoEnable();
                     }
                 }

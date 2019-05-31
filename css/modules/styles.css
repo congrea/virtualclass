@@ -515,6 +515,7 @@
 	font-weight : normal !important;
 }
 
+
 #virtualclassCont.congrea .list-group-item.congtooltip:hover:after {
 	border: #615c5c solid 0px;
 	top: -0.2em;
@@ -527,29 +528,32 @@
 
 #virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	bottom:3.8em;
-	width: 50px;
-	left: auto;
-	height: 20px;
-	position: fixed;
+    bottom: 215px;
+    width: 50px;
+    left: auto;
+    right: 395px;
+    height: 18px;
+    position: fixed;
 }
 
 #virtualclassCont.congrea .zoomOut .congtooltip:hover:after {
 	border: #ccc solid 1px;
-    bottom:3.8em;
-    width: 61px;
-    height: 20px;
+    bottom: 116px;
+    width: 60px;
     left: auto;
+    right: 395px;
+    height: 18px;
     position: fixed;
 }
 
 #virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
 	border: #ccc solid 1px;
-	bottom: 3.8em;
-	width: 77px;
-	height: 20px;
-	left: auto;
-	position: fixed;
+    bottom: 165px;
+    width: 78px;
+    left: auto;
+    right: 395px;
+    height: 18px;
+    position: fixed;
 }
 #virtualclassCont.congrea .reloadNote .congtooltip:hover:after {
 	border: #ccc solid 1px;
@@ -3144,6 +3148,7 @@
 	top: 0;
 	right: 338px;
 	padding: 6px;
+	display: none;
 }
 
 #virtualclassCont.congrea #zoomControler button {
@@ -3192,14 +3197,12 @@
 
 #virtualclassCont.congrea .zoomControler {
 	position: fixed;
-	bottom:0;
-	text-align: right;
-	float: right;
-	right: 426px;
-	z-index: 1000;
-	overflow: hidden;
-    border-bottom: none;
-    border-right: none;
+    bottom: 105px;
+    /* text-align: right; */
+    /* float: right; */
+    right: 345px;
+    /* border-bottom: none; */
+    /* border-right: none; */
 }
 
 #virtualclassCont.congrea.playMode.student .zoomControler {
@@ -3278,17 +3281,31 @@
 }
 
 #virtualclassCont.congrea .zoomControler  div {
-  font-size: 22px;
-  margin: 0;
-  display: inline-block;
-  padding: 10px 18px 12px 18px;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  color: #fff;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-/*  border-right:1px solid rgba(254,254,254,0.2) ;*/
-    float:left;
+	font-size: 22px;
+	padding:10px;
+    margin-top: 10px;
+	border: 1px solid #b5b5b5;
+	background-color: #f3f3f3;
+	box-shadow: 0px 4px 5px -1px #e8e8e8;
+	border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+#virtualclassCont.congrea .zoomControler div:hover {
+	background-color: #e0e0e0;
+    border: 1px solid #d0d0d0;
+   
+}
+.zoomControler .zoomctrtool {
+   
+    line-height: 17px;
+}
+.zoomControler .zoomctrtool .icon-fitScreen {
+    position: relative;
+    top: 2px;
+    line-height: 13px;
 }
 #virtualclassCont.congrea .zoomControler  div.reloadNote {
     padding:12.5px 18px;
@@ -3296,11 +3313,8 @@
 } 
 
 #virtualclassCont.congrea .zoomControler  div:nth-child(3){
-    border-right:none;
-}
-
-#virtualclassCont.congrea .zoomControler div:hover{
-    background-color:#2e3842;
+	/* border-right:none; */
+	margin-bottom: 5px;
 }
 
 #virtualclassCont.congrea .ui-memblist-usr .controleCont.roleassign{
@@ -4287,6 +4301,15 @@ background-color: #d6d6d6;
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
 
+}
+#virtualclassCont .mouseMoveCtr {
+    width: 20%;
+    height: 46%;
+    position: fixed;
+    z-index: 0;
+    right: 330px;
+    bottom: 58px;
+    background-color: #5050501c;
 }
 
 #virtualclassCont.congrea.recordSeeking .footerCtr {

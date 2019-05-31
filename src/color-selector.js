@@ -85,7 +85,7 @@ var colorSelector ={
             // "{border:0 !important;}"+
             "#virtualclassCont.congrea #audioWidget li" +
             "{border-right:"+border +" !important;}"+
-            "#virtualclassCont.congrea .zoomControler div, #virtualclassCont.congrea #virtualclassAppRightPanel #chatWidget .chatBarTab, #virtualclassCont.congrea #audioWidget .audioTool, #virtualclassCont.congrea #networkStatusContainer, " +
+            "#virtualclassCont.congrea #virtualclassAppRightPanel #chatWidget .chatBarTab, #virtualclassCont.congrea #audioWidget .audioTool, #virtualclassCont.congrea #networkStatusContainer, " +
             "#virtualclassCont.congrea #alleditorRichContainerAnch" +
             "{border-left:"+border +" !important;}"+
             "#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ," +
@@ -226,9 +226,6 @@ var colorSelector ={
             "{background:none !important ;}"+
             "#virtualclassCont.congrea .vjs-control-bar .vjs-button " +
             "{background:none !important ; border:none !important ;color:white!important}" +
-
-            "#virtualclassCont.congrea  .zoomControler div:hover"+
-            "{background-image: radial-gradient(ellipse at center, "+hover.fcolor+" 0%,"+hover.scolor+" 100%) !important}"+
 
             "#virtualclassCont.congrea  #onlineusertext:before"+
             "{color :"+frontColor +"!important} "+

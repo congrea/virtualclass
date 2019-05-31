@@ -237,7 +237,7 @@
         },
 
         //Mute or Unmute all student audio or particular student mute or unmute
-        disableStudentAudio : function (value) {
+        disableAttendeeAudio : function (value) {
             if(roles.isStudent()) {
                if (value === true) {
                    virtualclass.user.control.audioWidgetEnable(true);
@@ -266,7 +266,7 @@
         },
 
         //All student video enable, disable
-        disableStudentVideo: function (value) {
+        disableAttendeeVideo: function (value) {
             if(roles.isStudent()) {
                 let action;
                 let sw = document.querySelector(".videoSwitchCont #videoSwitch");

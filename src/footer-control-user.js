@@ -742,10 +742,10 @@
                 _audio: function (userId, action) {
                     if (action == 'enable') {
                         //virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
-                        virtualclass.settings.applySettings(true, "disableStudentAudio", userId);
+                        virtualclass.settings.applySettings(true, "disableAttendeeAudio", userId);
                     } else {
                         //virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
-                        virtualclass.settings.applySettings(false, "disableStudentAudio", userId);
+                        virtualclass.settings.applySettings(false, "disableAttendeeAudio", userId);
                     }
 
 
@@ -1323,7 +1323,7 @@
                         if(type == "audio"){
                             var actionToPerform = that.toogleAudioIcon();
                             var actAudio = (actionToPerform == "enable") ? true :false;
-                            virtualclass.settings.applySettings(actAudio, "disableStudentAudio");
+                            virtualclass.settings.applySettings(actAudio, "disableAttendeeAudio");
 
                             if(typeof actionToPerform != 'undefined'){
                                localStorage.setItem('allAudAction', actionToPerform);
@@ -1332,7 +1332,7 @@
                         }else{
                             var actionToPerform = that.toggleVideoIcon();
                             var actVideo = (actionToPerform == "enable") ? true :false;
-                            virtualclass.settings.applySettings(actVideo, "disableStudentVideo");
+                            virtualclass.settings.applySettings(actVideo, "disableAttendeeVideo");
                             if(typeof actionToPerform != 'undefined'){
                                localStorage.setItem('allVideoAction', actionToPerform);
                                that.toggleAllVideo(actionToPerform);
@@ -1348,7 +1348,7 @@
                 // TODO, review this code
                 for(let propname in obj) {
                     value = obj[propname];
-                    if (type === "audio" && propname === "disableStudentAudio" || type === "video" && propname === "disableStudentVideo") {
+                    if (type === "audio" && propname === "disableAttendeeAudio" || type === "video" && propname === "disableAttendeeVideo") {
                          actionAV = (value === true) ? "enable" : "disable";
                     }
                 }

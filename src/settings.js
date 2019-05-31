@@ -16,11 +16,11 @@
         info : { //All settings object
             allowoverride: null,
             disableAttendeeAudio: null,
-            disableattendeepc: null,
-            disableattendeegc: null,
+            disableAttendeePc: null,
+            disableAttendeeGc: null,
             disableAttendeeVideo: null,
-            disableraisehand: null,
-            disableuserlist: null,
+            disableRaiseHand: null,
+            disableUserList: null,
             x8: null,
             x16: null,
 
@@ -257,11 +257,11 @@
             console.log("TO DO");
         },
 
-        disableattendeepc: function () {
+        disableAttendeePc: function () {
             console.log("TO DO");
         },
 
-        disableattendeegc: function () {
+        disableAttendeeGc: function () {
             console.log("TO DO");
         },
 
@@ -283,11 +283,11 @@
             }
         },
 
-        disableraisehand: function () {
+        disableRaiseHand: function () {
             console.log("TO DO");
         },
 
-        disableuserlist: function () {
+        disableUserList: function () {
             console.log("TO DO");
         },
 

@@ -686,11 +686,11 @@
                 _chat: function (userId, action) {
                     if (action == 'enable') {
                         virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf': 'enc'}, userId);
-                       // virtualclass.settings.applySettings(true, "disableattendeepc", userId);
+                       // virtualclass.settings.applySettings(true, "disableAttendeePc", userId);
                     } else {
                         var user = virtualclass.user.control.updateUser(userId, 'chat', false);
                         virtualclass.vutil.beforeSend({'dic': true, toUser: userId, 'cf' : 'dic'}, userId);
-                        //virtualclass.settings.applySettings(false, "disableattendeepc", userId);
+                        //virtualclass.settings.applySettings(false, "disableAttendeePc", userId);
                     }
                 },
 

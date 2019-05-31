@@ -741,7 +741,8 @@
 
     #virtualclassCont.congrea #screen-docs .pageContainer.lastNote .nvgt.next,
     #virtualclassCont.congrea #screen-docs .pageContainer.firstNote .nvgt.prev,
-    #virtualclassCont.congrea #virtualclassWhiteboard.firstNote .nvgt.prev {
+    #virtualclassCont.congrea #virtualclassWhiteboard.firstNote .nvgt.prev ,
+     #virtualclassCont.congrea #virtualclassWhiteboard.lastNote .nvgt.next{
         pointer-events: none;
         opacity: 0.5;
     }

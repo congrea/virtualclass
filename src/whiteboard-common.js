@@ -9,6 +9,9 @@
         initNavHandler: function () {
             var that = this;
             var nextButton = document.querySelector('#virtualclassWhiteboard.whiteboard .next');
+            
+            
+            
             if (nextButton != null) {
                 nextButton.onclick = function () {
                     virtualclass.vutil.navWhiteboard(that, that.next);
@@ -99,6 +102,7 @@
                 virtualclass.gObj.currWb = wid;
             }
             this.identifyFirstNote(wid);
+            this.identifyLastNote(wid);
             if (!roles.hasControls()) {
                 if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
                     var curr = virtualclass.gObj.currIndex -1 || virtualclass.gObj.currSlide ;
@@ -129,19 +133,19 @@
         next: function () {
             this.hideElement();
             var wid = this.whiteboardWrapperExist('next');
-            if (wid == null) {
-                virtualclass.gObj.wbCount++;
-                virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
-                wid = '_doc_0' + '_' + virtualclass.gObj.wbCount;
-                var currIndex = this.order.indexOf(virtualclass.gObj.wbCount)
-                if(!this.whiteboardExist(wid)){
-                    virtualclass.vutil.createWhiteBoard(wid,currIndex);
-                }
+//            if (wid == null) {
+//                virtualclass.gObj.wbCount++;
+//                virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
+//                wid = '_doc_0' + '_' + virtualclass.gObj.wbCount;
+//                var currIndex = this.order.indexOf(virtualclass.gObj.wbCount)
+//                if(!this.whiteboardExist(wid)){
+//                    virtualclass.vutil.createWhiteBoard(wid,currIndex);
+//                }
                
                 virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.wbCount);
                 virtualclass.vutil.beforeSend({'cf': 'cwb', wbCount : virtualclass.gObj.wbCount,currIndex:currIndex});
                 
-            } else {
+           // } else {
                 var i = wid.slice(7);
                 var currIndex = this.order.indexOf(i)
                 if(!this.whiteboardExist(wid)){
@@ -151,7 +155,7 @@
                 }
               
                 virtualclass.vutil.beforeSend({'cf': 'cwb', diswb : true, wid : wid,currIndex:currIndex});
-            }
+           //}
 
             this.setCurrSlideNumber(wid);
             virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
@@ -169,7 +173,6 @@
             
             virtualclass.gObj.wbCount++;
             var widn = this.whiteboardWrapperExist('next');
-         
             virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
             var wid = '_doc_0' + '_' + virtualclass.gObj.wbCount;
             //this.order(virtualclass.gObj.wbCount)
@@ -195,6 +198,7 @@
                 this.order.push( virtualclass.gObj.wbCount)
                 virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.wbCount,virtualclass.gObj.wbCount);
                 ind = this.order.length 
+                virtualclass.wbCommon.identifyLastNote(virtualclass.gObj.currWb);
             }else{
                 var ind = this.order.indexOf(i);
                 this.order.splice(ind +1,0,virtualclass.gObj.wbCount);
@@ -420,6 +424,17 @@
                 elem.classList.remove('firstNote');
             }
         },
+        identifyLastNote : function (wid){
+            var elem = document.querySelector('#virtualclassWhiteboard');
+            var index = this.order.indexOf(wid.slice(7));     
+            if(index +1 == this.order.length){
+                elem.classList.add('lastNote');
+            }else {
+                elem.classList.remove('lastNote');
+            }
+        },
+        
+        
 
         removeAllContainers : function (){
             var allContainers = document.querySelectorAll('#virtualclassWhiteboard .whiteboardContainer .canvasContainer');

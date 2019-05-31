@@ -690,6 +690,7 @@
                     //    virtualclass.gObj.currWb = '_doc_'+virtualclass.gObj.currSlide+'_'+virtualclass.gObj.currSlide;
 
                        virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
+                       virtualclass.wbCommon.identifyLastNote(virtualclass.gObj.currWb);
                        // system.initResize();
 
                         // virtualclass.zoom.zoomAction('fitToScreen');

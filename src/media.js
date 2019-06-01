@@ -1596,29 +1596,29 @@
 
                         //audio = JSON.parse(audio);
 
-                    if ((virtualclass.settings.info.disableStudentAudio === false)) {
+                    if ((virtualclass.settings.info.disableAttendeeAudio === false)) {
                         virtualclass.gObj.audioEnable = false;
                         virtualclass.user.control.audioDisable(true);
-                    } else if (virtualclass.settings.info.disableStudentAudio === true) {
+                    } else if (virtualclass.settings.info.disableAttendeeAudio === true) {
                         virtualclass.gObj.audioEnable = true;
                         virtualclass.user.control.audioWidgetEnable(true);
-                    }else if(virtualclass.settings.info.disableStudentAudio !== true) {
+                    }else if(virtualclass.settings.info.disableAttendeeAudio !== true) {
                         virtualclass.user.control.audioDisable();
                     }
 
                     /*/
                     if(str != null){
                         //audio = JSON.parse(audio);
-                        if ((virtualclass.settings.info..disableStudentAudio === false)) {
+                        if ((virtualclass.settings.info..disableAttendeeAudio === false)) {
                             virtualclass.gObj.audioEnable = false;
                             virtualclass.user.control.audioDisable(true);
-                        } else if (settings..disableStudentAudio === true) {
+                        } else if (settings..disableAttendeeAudio === true) {
                             virtualclass.gObj.audioEnable = true;
                             virtualclass.user.control.audioWidgetEnable(true);
                         }
-                    }else if(settings..disableStudentAudio !== true){
+                    }else if(settings..disableAttendeeAudio !== true){
                         virtualclass.user.control.audioDisable();
-                    }else if(settings..disableStudentAudio === true){
+                    }else if(settings..disableAttendeeAudio === true){
                         virtualclass.gObj.audioEnable = true;
                         virtualclass.user.control.audioWidgetEnable(true);
                     } */
@@ -1673,11 +1673,11 @@
                 }
 
                 //var vidstatus = localStorage.getItem("allVideoAction");
-                if(virtualclass.settings.info.disableStudentVideo === false && roles.isStudent()){
+                if(virtualclass.settings.info.disableAttendeeVideo === false && roles.isStudent()){
                     virtualclass.user.control.videoDisable();
                 }else {
                     //!virtualclass.gObj.stdvideoEnable
-                    if(roles.isStudent() && virtualclass.settings.info.disableStudentVideo !== true){
+                    if(roles.isStudent() && virtualclass.settings.info.disableAttendeeVideo !== true){
                         virtualclass.vutil.videoHandler("off");
                         virtualclass.videoHost.toggleVideoMsg('disable');
                     }else {
@@ -1689,7 +1689,7 @@
                     }
 
                     //var videoAction = localStorage.getItem("allVideoAction");
-                    if(virtualclass.settings.info.disableStudentVideo === true){
+                    if(virtualclass.settings.info.disableAttendeeVideo === true){
                         virtualclass.user.control.videoEnable();
                     }
                 }

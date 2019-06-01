@@ -32,26 +32,6 @@ this["JST"]["dest_temp/templates/appSettingDetail.hbs"] = Handlebars.template({"
     + " </div><div id=\"settingMedia\" class=\"app-settings-rbs\"><div id=\"webRtcIo\" class=\"io\" data-suggestion=\"\"></div></div></div>";
 },"useData":true});
 
-this["JST"]["dest_temp/templates/appSettingMedia.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return "<div id=\"webRtcIoContainer\" class=\"rtcIo\"><div class=\"setting-heading\"><label>"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"media",{"name":"getString","hash":{},"data":data}))
-    + "</label></div><ul class=\"list-group\"><li class=\"lists-cont d-flex justify-content-between align-items-center ainput\"> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"audioInput",{"name":"getString","hash":{},"data":data}))
-    + " <div class=\"audio-options\"><select id=\"audioSource\"></select><span class=\"hide\">"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"noain",{"name":"getString","hash":{},"data":data}))
-    + "</span></div></li><li class=\"lists-cont d-flex justify-content-between align-items-center aoutput\"> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"audioOutput",{"name":"getString","hash":{},"data":data}))
-    + " <div class=\"audio-options\"><select id=\"audioOutput\"></select><span class=\"hide\">"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"noaout",{"name":"getString","hash":{},"data":data}))
-    + "</span></div></li><li class=\"lists-cont clearfix justify-content-between align-items-center vinput\"> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"videoInput",{"name":"getString","hash":{},"data":data}))
-    + " <div class=\"audio-options\"><select id=\"videoSource\"></select><span class=\"hide\">"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"novideo",{"name":"getString","hash":{},"data":data}))
-    + "</span></div><div id=\"congreaVideoSettingCont\" data-setting-type=\"audio\"><video id=\"congreaVideoSetting\" playsinline autoplay muted></video></div></li></ul></div>";
-},"useData":true});
-
 this["JST"]["dest_temp/templates/appTools.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
@@ -122,30 +102,6 @@ this["JST"]["dest_temp/templates/audioWidget.hbs"] = Handlebars.template({"compi
     + "\"><a id=\"appSettingCtrlAnchor\"><span class=\"setting-btn cgIcon\"></span></a></li></ul></div>";
 },"useData":true});
 
-this["JST"]["dest_temp/templates/bottomBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return "<div id=\"bottomBar\"><div id=\"stickybar\" class=\"maximize something-happend\"><div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\"><ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\"></ul></div><div id=\"networkStatusContainer\" class=\"connecting-room\"><div id=\"networkLatency\"><div id=\"proposedSpeed\"><div id=\"svgContainer\"><svg version=\"1.1\" id=\"Capa_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 470.149 470.149\" style=\"enable-background:new 0 0 470.149 470.149;\" xml:space=\"preserve\"><path id=\"signalendpoint\" class=\"signal\" d=\"M202.775,383.825c0,17.567,14.167,31.733,31.733,31.733s31.733-14.167,31.733-31.733 c0-17.567-14.167-31.733-31.733-31.733C217.225,352.091,202.775,366.258,202.775,383.825z M236.775,383.825 c0,1.133-0.85,2.267-2.267,2.267c-1.133,0-2.267-0.85-2.267-2.267c0-1.133,0.85-2.267,2.267-2.267 C235.925,381.841,236.775,382.691,236.775,383.825z\"/><path id=\"mediumstepfst\" class=\"signalone\" d=\"M373.625,243.008c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-41.083-37.683-94.35-58.65-150.45-58.65c-55.25,0-108.233,20.4-149.033,57.517c-7.083,6.233-7.367,17-1.133,24.083 c6.233,7.083,17,7.367,24.083,1.133c34.567-31.45,79.617-48.733,126.367-48.733c47.317,0,92.65,17.567,127.217,49.583 C365.408,241.591,369.375,243.008,373.625,243.008z\"/><path id=\"lowstepfst\" class=\"signalfive\" d=\"M310.158,319.225c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083c-23.8-21.817-54.683-34-86.7-34 s-62.617,11.9-86.133,33.15c-7.083,6.233-7.367,17-1.133,24.083c6.233,7.083,17,7.367,24.083,1.133 c17.283-15.867,39.95-24.367,63.183-24.367c23.8,0,46.467,8.783,63.75,24.933C301.941,317.808,306.191,319.225,310.158,319.225z\"/><path id=\"highstepfst\" class=\"signalthree\" d=\"M453.241,173.875c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-62.9-58.083-144.783-89.817-230.35-89.817c-84.717,0-166.033,31.45-228.65,88.117c-7.083,6.233-7.367,17-1.133,24.083 s17,7.367,24.083,1.133c56.383-51.283,129.483-79.333,205.7-79.333c77.067,0,150.733,28.617,207.4,80.75 C445.025,172.175,449.275,173.875,453.241,173.875z\"/></svg></div></div></div><div id=\"connectingRoomIcon\"><span class=\"icon-whiteboard \"><svg id=\"svg-spinner\" xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" viewBox=\"0 0 48 48\"><circle cx=\"24\" cy=\"4\" r=\"4\" fill=\"#fff\"></circle><circle cx=\"12.19\" cy=\"7.86\" r=\"3.7\" fill=\"#fffbf2\"></circle><circle cx=\"5.02\" cy=\"17.68\" r=\"3.4\" fill=\"#fef7e4\"></circle><circle cx=\"5.02\" cy=\"30.32\" r=\"3.1\" fill=\"#fef3d7\"></circle><circle cx=\"12.19\" cy=\"40.14\" r=\"2.8\" fill=\"#feefc9\"></circle><circle cx=\"24\" cy=\"44\" r=\"2.5\" fill=\"#feebbc\"></circle><circle cx=\"35.81\" cy=\"40.14\" r=\"2.2\" fill=\"#fde7af\"></circle><circle cx=\"42.98\" cy=\"30.32\" r=\"1.9\" fill=\"#fde3a1\"></circle><circle cx=\"42.98\" cy=\"17.68\" r=\"1.6\" fill=\"#fddf94\"></circle><circle cx=\"35.81\" cy=\"7.86\" r=\"1.3\" fill=\"#fcdb86\"></circle></svg></span></div></div></div><div class=\"zoomControler\"><div class=\"fitScreen\"><span class=\"congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"fitToScreen",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-fitScreen cgIcon\"></i></span></div><div class=\"zoomIn\"><span class=\"congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomIn",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-zoonIn cgIcon\"></i></span></div><div class=\"zoomOut\"><span class=\"congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomOut",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-zoomOut cgIcon\"></i></span></div>  </div><div id=\"fullScreenButton\"><span class=\"congtooltip fullScreen\" data-title=\"Full Screen\"><i class=\"icon-fullScreen cgIcon\"></i></span></div><div id=\"fullScreenExitButton\"><span class=\"congtooltip\" data-title=\"Exit Full Screen\"><i class=\"icon-exitScreen cgIcon\"></i></span></div></div>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/chat/bottomBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"stickybar\" class=\"maximize something-happend\"><div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\"><ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\"></ul></div><div id=\"networkStatusContainer\" class=\"connecting-room\"><div id=\"networkLatency\"><div id=\"proposedSpeed\"><div id=\"svgContainer\"><svg version=\"1.1\" id=\"Capa_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 470.149 470.149\" style=\"enable-background:new 0 0 470.149 470.149;\" xml:space=\"preserve\"><path id=\"signalendpoint\" class=\"signal\" d=\"M202.775,383.825c0,17.567,14.167,31.733,31.733,31.733s31.733-14.167,31.733-31.733 c0-17.567-14.167-31.733-31.733-31.733C217.225,352.091,202.775,366.258,202.775,383.825z M236.775,383.825 c0,1.133-0.85,2.267-2.267,2.267c-1.133,0-2.267-0.85-2.267-2.267c0-1.133,0.85-2.267,2.267-2.267 C235.925,381.841,236.775,382.691,236.775,383.825z\"/><path id=\"mediumstepfst\" class=\"signalone\" d=\"M373.625,243.008c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-41.083-37.683-94.35-58.65-150.45-58.65c-55.25,0-108.233,20.4-149.033,57.517c-7.083,6.233-7.367,17-1.133,24.083 c6.233,7.083,17,7.367,24.083,1.133c34.567-31.45,79.617-48.733,126.367-48.733c47.317,0,92.65,17.567,127.217,49.583 C365.408,241.591,369.375,243.008,373.625,243.008z\"/><path id=\"lowstepfst\" class=\"signalfive\" d=\"M310.158,319.225c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083c-23.8-21.817-54.683-34-86.7-34 s-62.617,11.9-86.133,33.15c-7.083,6.233-7.367,17-1.133,24.083c6.233,7.083,17,7.367,24.083,1.133 c17.283-15.867,39.95-24.367,63.183-24.367c23.8,0,46.467,8.783,63.75,24.933C301.941,317.808,306.191,319.225,310.158,319.225z\"/><path id=\"highstepfst\" class=\"signalthree\" d=\"M453.241,173.875c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-62.9-58.083-144.783-89.817-230.35-89.817c-84.717,0-166.033,31.45-228.65,88.117c-7.083,6.233-7.367,17-1.133,24.083 s17,7.367,24.083,1.133c56.383-51.283,129.483-79.333,205.7-79.333c77.067,0,150.733,28.617,207.4,80.75 C445.025,172.175,449.275,173.875,453.241,173.875z\"/></svg></div></div></div><div id=\"connectingRoomIcon\"><span class=\"icon-whiteboard \"><svg id=\"svg-spinner\" xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" viewBox=\"0 0 48 48\"><circle cx=\"24\" cy=\"4\" r=\"4\" fill=\"#fff\"></circle><circle cx=\"12.19\" cy=\"7.86\" r=\"3.7\" fill=\"#fffbf2\"></circle><circle cx=\"5.02\" cy=\"17.68\" r=\"3.4\" fill=\"#fef7e4\"></circle><circle cx=\"5.02\" cy=\"30.32\" r=\"3.1\" fill=\"#fef3d7\"></circle><circle cx=\"12.19\" cy=\"40.14\" r=\"2.8\" fill=\"#feefc9\"></circle><circle cx=\"24\" cy=\"44\" r=\"2.5\" fill=\"#feebbc\"></circle><circle cx=\"35.81\" cy=\"40.14\" r=\"2.2\" fill=\"#fde7af\"></circle><circle cx=\"42.98\" cy=\"30.32\" r=\"1.9\" fill=\"#fde3a1\"></circle><circle cx=\"42.98\" cy=\"17.68\" r=\"1.6\" fill=\"#fddf94\"></circle><circle cx=\"35.81\" cy=\"7.86\" r=\"1.3\" fill=\"#fcdb86\"></circle></svg></span></div></div></div><div id=\"fullScreenButton\"><span class=\"congtooltip fullScreen\" data-title=\"Full Screen\"><i class=\"icon-fullScreen cgIcon\"></i></span></div><div id=\"fullScreenExitButton\"><span class=\"congtooltip\" data-title=\"Exit Full Screen\"><i class=\"icon-exitScreen cgIcon\"></i></span></div>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\"><div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\"><div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\" style=\"height: 389px; width: 320px; max-height: 429px;\"></div></div></div><div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\" style=\"width: 304px; left: 6px; display: none; z-index: 1;\"><div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\"><ul id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></ul></div></div>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/chat/chatMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\"><div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\"></div></div><div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\" style=\"width: 304px; left: 6px; display: none; z-index: 1;\"><div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\"><ul id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></ul></div></div>";
-},"useData":true});
-
 this["JST"]["dest_temp/templates/chat/chatbox.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
@@ -166,6 +122,14 @@ this["JST"]["dest_temp/templates/chat/chatbox.hbs"] = Handlebars.template({"comp
     + "\" class=\"ui-widget-content ui-chatbox-log\"></div><div class=\"ui-widget-content ui-chatbox-input\" id=\"yui_3_17_2_1_1496992871757_59\"><textarea class=\"ui-widget-content ui-chatbox-input-box\" id=\"ta"
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" style=\"width: 219px;\"></textarea></div></div></div></li>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\"><div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\"><div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\" style=\"height: 389px; width: 320px; max-height: 429px;\"></div></div></div><div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\" style=\"width: 304px; left: 6px; display: none; z-index: 1;\"><div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\"><ul id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></ul></div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/chat/chatMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\"><div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\"></div></div><div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\" style=\"width: 304px; left: 6px; display: none; z-index: 1;\"><div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\"><ul id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></ul></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/chat/chatuser.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -656,30 +620,6 @@ this["JST"]["dest_temp/templates/poll/optioninput.hbs"] = Handlebars.template({"
     + " </div>";
 },"useData":true});
 
-this["JST"]["dest_temp/templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return " <div><input class=\"opt\" name=\"option\" value=\""
-    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
-    + "\" type=\"radio\" id=\""
-    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
-    + "\"><span>"
-    + alias4(container.lambda(depth0, depth0))
-    + "</span></div> ";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return "<div id=\"stdPollContainer\" class=\"container\"><div id=\"stdContHead\" class=\"panel\"><div class=\"stdHeader\"><label id=\"pollHead\">"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"pollHead",{"name":"getString","hash":{},"data":data}))
-    + "</label></div><label id=\"timerLabel\"></label><div id=\"timerCont\"></div></div><div id=\"stdContBody\" class=\"panel\"><label>"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
-    + " :<span id=\"stdQnCont\">"
-    + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
-    + "</span></label><div id=\"stdOptionCont\"> "
-    + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " </div></div><div id=\"stdContFooter\"><input id=\"btnVote\" type=\"button\" class=\"btn btn-primary\" value=\"Vote\"></div></div>";
-},"useData":true});
-
 this["JST"]["dest_temp/templates/poll/pollmain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
@@ -744,6 +684,30 @@ this["JST"]["dest_temp/templates/poll/pollresultlist.hbs"] = Handlebars.template
     + "</th><th>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"optselectd",{"name":"getString","hash":{},"data":data}))
     + "</th></tr></thead><tbody id=\"resultList\"></tbody></table>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/poll/pollStd.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return " <div><input class=\"opt\" name=\"option\" value=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\" type=\"radio\" id=\""
+    + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\"><span>"
+    + alias4(container.lambda(depth0, depth0))
+    + "</span></div> ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<div id=\"stdPollContainer\" class=\"container\"><div id=\"stdContHead\" class=\"panel\"><div class=\"stdHeader\"><label id=\"pollHead\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"pollHead",{"name":"getString","hash":{},"data":data}))
+    + "</label></div><label id=\"timerLabel\"></label><div id=\"timerCont\"></div></div><div id=\"stdContBody\" class=\"panel\"><label>"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
+    + " :<span id=\"stdQnCont\">"
+    + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
+    + "</span></label><div id=\"stdOptionCont\"> "
+    + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " </div></div><div id=\"stdContFooter\"><input id=\"btnVote\" type=\"button\" class=\"btn btn-primary\" value=\"Vote\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/poll/preview-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -1732,11 +1696,11 @@ this["JST"]["dest_temp/templates/youtube/ytscontrol.hbs"] = Handlebars.template(
 this["JST"]["dest_temp/templates/zoomControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div class=\"zoomControler\"><div class=\"fitScreen\"><span class=\"congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"fitToScreen",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-fitScreen cgIcon\"></i></span></div><div class=\"zoomIn\"><span class=\"congtooltip\" data-title=\""
+  return "<div class=\"zoomControler\"><div class=\"zoomIn\"><span class=\"congtooltip zoomctrtool\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomIn",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-zoonIn cgIcon\"></i></span></div><div class=\"zoomOut\"><span class=\"congtooltip\" data-title=\""
+    + "\"><i class=\"icon-zoonIn\"></i></span></div><div class=\"fitScreen\"><span class=\"congtooltip zoomctrtool\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"fitToScreen",{"name":"getString","hash":{},"data":data}))
+    + "\"><i class=\"icon-fitScreen\"></i></span></div><div class=\"zoomOut\"><span class=\"congtooltip zoomctrtool\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomOut",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-zoomOut cgIcon\"></i></span></div>  </div>";
+    + "\"><i class=\"icon-zoomOut\"></i></span></div>  </div>";
 },"useData":true});

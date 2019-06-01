@@ -1,18 +1,6 @@
 (function (window) {
     "use strict";
-    let sessionSetting  = {
-        enableRecording : true,
-
-        recAllowpresentorAVcontrol : false,
-        recShowPresentorRecordingStatus : true,
-
-        recDisableAttendeeAV : false,
-        recallowattendeeAVcontrol : true,
-        showAttendeeRecordingStatus : true,
-        trimRecordings : true
-    }
-
-    var settings = {
+    let settings = {
         info : { //All settings object
             allowoverride: null,
             disableAttendeeAudio: null,
@@ -318,10 +306,6 @@
             console.log("TO DO");
         },
 
-        trimRecordings: function () {
-            console.log("TO DO");
-        },
-
         x16: function () {
             console.log("TO DO");
         },
@@ -488,11 +472,7 @@
             },
 
             triggerSetting (message) {
-                if(message.ac == false){
-                    this.allowattendeeAVcontrolByTeacher = true;
-                }else {
-                    this.allowattendeeAVcontrolByTeacher = false;
-                }
+                this.allowattendeeAVcontrolByTeacher = (message.ac == false) ? true : false;
                 this.setStatusOnElement();
                 this.updateSettingAV(message.ac);
             }

@@ -35,8 +35,7 @@
             trimRecordings :  null
         },
 
-        individualSettings : {},
-        userObj : {},
+        user : {},
         init : function () { //default settings applyed from here
             let settings = localStorage.getItem("settings");
             if (!settings) {
@@ -178,33 +177,33 @@
                 if ((value === true || value === false) && virtualclass.settings.info.hasOwnProperty(settingName)) {
                     if(typeof userId === "undefined") {
                         localStorage.removeItem("userSettings");
-                        var setting = (!localStorage.getItem("settings")) ? virtualclass.settings.info : virtualclass.settings.onLoadSettings(localStorage.getItem("settings"));
-                        setting[settingName] = value;
-                        var str = virtualclass.settings.settingsToHex(setting);
+                        virtualclass.settings.info[settingName] = value;
+                        let str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
                         virtualclass.settings.send(str, userId);
                         localStorage.setItem("settings", str);
                     } else {
-                        var individualSetting = (!localStorage.getItem("settings")) ? virtualclass.settings.info : virtualclass.settings.onLoadSettings(localStorage.getItem("settings"));
-                        for(let propname in individualSetting){
-                            virtualclass.settings.individualSettings[propname] = individualSetting[propname];
+                        let individualSetting = {};
+                        let setting = virtualclass.settings.info;
+                        for(let propname in setting){
+                            individualSetting[propname] = setting[propname];
                         }
-                        virtualclass.settings.individualSettings[settingName] = value;
-                        var spSettings = virtualclass.settings.settingsToHex(virtualclass.settings.individualSettings);
-                        virtualclass.settings.userObj[userId]= spSettings;
-                        localStorage.setItem("individualUserSetting" , JSON.stringify(virtualclass.settings.userObj));
-                        virtualclass.settings.send(spSettings, userId);
+                        individualSetting[settingName] = value;
+                        var specificSettings = virtualclass.settings.settingsToHex(individualSetting);
+                        virtualclass.settings.user[userId]= specificSettings;
+                        virtualclass.settings.send(specificSettings, userId);
+                        localStorage.setItem("userSettings" , JSON.stringify(virtualclass.settings.user));
                     }
                     return true;
                 } else {
                     return false;
                 }
             }else {
-                let settings = virtualclass.settings.settingsToHex(obj);
-                localStorage.setItem("settings", settings);
                 for (let propname in obj) {
                     virtualclass.settings.info[propname] = obj[propname];
                     virtualclass.settings[propname](obj[propname]);
                 }
+                let settings = virtualclass.settings.settingsToHex(obj);
+                localStorage.setItem("settings", settings);
             }
         },
 

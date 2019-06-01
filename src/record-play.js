@@ -382,7 +382,7 @@
                         if(!this.joinRoomRecevied &&  data.indexOf('"type":"joinroom"')  > -1 ){
                             this.joinRoomRecevied = true;
                             let joinMsg = JSON.parse(data);
-                            joinMsg.clientids  = data.action;
+                            joinMsg.clientids  = joinMsg.action;
                             data = JSON.stringify(joinMsg);
                         }
 

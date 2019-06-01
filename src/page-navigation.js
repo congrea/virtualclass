@@ -598,7 +598,9 @@
                     var total = document.createElement('span')
                     total.id = "totalPages";
                     total.className = "pages";
-                    subCont.appendChild(total);
+                    if(subCont != null ){
+                        subCont.appendChild(total);
+                    }
                 }
             }
          

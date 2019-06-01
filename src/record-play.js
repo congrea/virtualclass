@@ -95,7 +95,6 @@
         startSeek : false,
         initPlay : false,
         isTrimRecording : false,
-        enableTrim : 1,
         joinRoomRecevied : false,
         init: function () {
             if(!this.attachSeekHandler){
@@ -403,7 +402,7 @@
                             chunk.push({playTime : 0, 'recObjs' : data, type :type});
                             console.log("==== TRIM ")
                         } else {
-                            if(this.enableTrim && data.indexOf('{"ac":false,"cf":"recs"') > -1){
+                            if(virtualclass.settings.recording.trimRecordings && data.indexOf('{"ac":false,"cf":"recs"') > -1){
                                 this.isTrimRecording = true;
                                 chunk.push({playTime : 0, 'recObjs' : data, type :type});
                                 console.log("==== TRIM ")
@@ -414,7 +413,7 @@
 
                         this.totalTimeInMiliSeconds +=  chunk[chunk.length - 1].playTime;
 
-                        if(this.enableTrim && data.indexOf('{"ac":true,"cf":"recs"') > -1){
+                        if(virtualclass.settings.recording.trimRecordings && data.indexOf('{"ac":true,"cf":"recs"') > -1){
                             this.isTrimRecording = false;
                         }
 
@@ -692,7 +691,7 @@
                         // console.log('PLAY ERROR ' + e.errorCode);
                     }
 
-                    if(this.enableTrim && this.selfStartSeek && this.seekFinished()){
+                    if(virtualclass.settings.recording.trimRecordings && this.selfStartSeek && this.seekFinished()){
                         this.selfSeekFinished = true;
                         break;
                     }
@@ -916,7 +915,7 @@
                         } else if(virtualclass.currApp == 'Quiz' &&
                             this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"quiz":{"quizMsg":"stdPublish",') > -1){
                             virtualclass.quiz.quizStartTime = {app : 'Quiz', data : {masterIndex : this.masterIndex, subIndex : this.subRecordingIndex}};
-                        }else if (this.enableTrim && this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":false,"cf":"recs"') > -1){
+                        }else if (virtualclass.settings.recording.trimRecordings && this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":false,"cf":"recs"') > -1){
                             virtualclass.recorder.selfSeek();
                         }
                     }

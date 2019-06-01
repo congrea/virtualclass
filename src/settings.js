@@ -347,7 +347,7 @@
                     this.showAttendeeRecordingStatus = (virtualclass.settings.info.allowattendeeAVcontrol) ? true :  virtualclass.settings.info.showAttendeeRecordingStatus;
                 }
 
-                this.trimRecordings =  this.trimRecordings;
+                this.trimRecordings =  virtualclass.settings.info.trimRecordings;
 
                 this.showStatus = this.showStatus();
                 this.showButton();

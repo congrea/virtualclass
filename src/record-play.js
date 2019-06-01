@@ -94,7 +94,7 @@
         orginalTimes : [], // Todo, this and it's related variables and functions should be removed
         startSeek : false,
         initPlay : false,
-        isTrimRecording : false,
+        isTrimRecordingNow : false,
         joinRoomRecevied : false,
         init: function () {
             if(!this.attachSeekHandler){
@@ -333,7 +333,7 @@
             let totalSeconds = Math.trunc(miliSeconds/1000);
             let playTime = 0;
             if(!isNaN(totalSeconds) && totalSeconds >= 1 ){
-                if(!this.isTrimRecording){
+                if(!this.isTrimRecordingNow){
                     playTime = 1000;
                 }
 
@@ -398,12 +398,12 @@
 
                         // chunk.push({playTime : this.tempPlayTime, 'recObjs' : data, type :type});
 
-                        if(this.isTrimRecording){
+                        if(this.isTrimRecordingNow){
                             chunk.push({playTime : 0, 'recObjs' : data, type :type});
                             console.log("==== TRIM ")
                         } else {
                             if(virtualclass.settings.recording.trimRecordings && data.indexOf('{"ac":false,"cf":"recs"') > -1){
-                                this.isTrimRecording = true;
+                                this.isTrimRecordingNow = true;
                                 chunk.push({playTime : 0, 'recObjs' : data, type :type});
                                 console.log("==== TRIM ")
                             } else {
@@ -414,7 +414,7 @@
                         this.totalTimeInMiliSeconds +=  chunk[chunk.length - 1].playTime;
 
                         if(virtualclass.settings.recording.trimRecordings && data.indexOf('{"ac":true,"cf":"recs"') > -1){
-                            this.isTrimRecording = false;
+                            this.isTrimRecordingNow = false;
                         }
 
                         if(typeof allRecordigns[i+1] != 'undefined') {

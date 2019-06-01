@@ -661,6 +661,7 @@
             }
 
             localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
+            localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
 
             if(virtualclass.zoom.canvasScale != null){
                 var canvasScale = (+virtualclass.zoom.canvasScale);
@@ -692,6 +693,7 @@
             }
 
             localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
+            localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
 
             if(!roles.hasControls()){
                 var elem =  document.querySelector("#virtualclassCont.congrea #congHr.disable");
@@ -714,7 +716,7 @@
 
             }
             localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
-
+            this.saveWbOrder();
             if(virtualclass.currApp != 'DocumentShare'){
                 io.disconnect();
             }
@@ -2538,7 +2540,12 @@
             var url = virtualclass.api.UpdateRoomMetaData
             virtualclass.xhrn.sendData(data, url,cb);
         },
-
+        saveWbOrder: function (order) {
+            if (order) {
+                console.log("nirmala" +order)
+                localStorage.setItem("wbOrder", JSON.stringify(virtualclass.wbCommon.order))
+            }
+        },
         requestOrder : function (type, cb){
             var url = virtualclass.api.GetRoomMetaData;
             var cthis = this;
@@ -2881,7 +2888,51 @@
                 zoom.classList.remove("hideZoom");
                 zoom.classList.add("showZoom");
             }
-        }
+        },
+           
+            removeBackgroundVideoApp:function(){
+                virtualclass.videoUl.videoId = "";
+                var frame = document.getElementById("dispVideo_Youtube_api");
+                if (frame && frame.contentWindow) {
+                    frame.contentWindow.postMessage(
+                            '{"event":"command","func":"pauseVideo","args":""}',
+                            '*');
+                }
+
+                var dispVideo = document.querySelector(".congrea #dispVideo")
+                if (dispVideo) {
+                    dispVideo.style.display = "none";
+                    var video = document.querySelector(".congrea #dispVideo video")
+                    if (video) {
+                        video.setAttribute("src", '');
+                    }
+                }
+                var currPlaying = document.querySelector("#listvideo .playing")
+                if (currPlaying) {
+                    currPlaying.classList.remove('playing')
+                }
+                var currCtr = document.querySelector("#listvideo .removeCtr")
+                if (currCtr) {
+                    currCtr.classList.remove('removeCtr')
+                }
+
+                if (!roles.hasControls()) {
+                    if (virtualclass.gObj.hasOwnProperty('videoPauseTime')) {
+                        clearTimeout(virtualclass.gObj.videoPauseTime);
+                    }
+
+                    if (typeof virtualclass.videoUl.player == 'object' && virtualclass.videoUl.player.player_ != null
+                            && virtualclass.videoUl.player.paused()) {
+                        console.log('==== Video is paused')
+                        virtualclass.videoUl.player.pause();
+                    }
+                }
+                if (typeof virtualclass.videoUl.player == 'object') {
+                    delete(virtualclass.videoUl.player);
+                }
+                       
+            }
+        
     };
     window.vutil = vutil;
 })(window);

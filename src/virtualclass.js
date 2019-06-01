@@ -57,6 +57,7 @@
                 wIds : [0],
                 wbRearrang : false,
                 currSlide : (localStorage.getItem('currSlide') != null) ? localStorage.getItem('currSlide') : 0,
+                currIndex : (localStorage.getItem('currIndex') != null) ? localStorage.getItem('currIndex') : 0,
                 uploadingFiles : [],
                 docOrder : {},
                 fetchedData : false,
@@ -652,6 +653,7 @@
                              if(wIds != null && wIds.length > 0 ){
                                 virtualclass.wbCommon.readyElements(wIds);
                                 virtualclass.wbCommon.initNav(wIds);
+                              
 
 
       
@@ -659,18 +661,25 @@
                                 //virtualclass.gObj.currSlide = prevapp.wbcs;
 
                                 //virtualclass.wbCommon.currentWhiteboard('_doc_0_'+virtualclass.gObj.currSlide);
-                                 if(virtualclass.gObj.hasOwnProperty('currSlide') && wIds.indexOf(virtualclass.gObj.currSlide) == -1){
+                                 if(virtualclass.gObj.hasOwnProperty('currSlide') && wIds.indexOf(Number(virtualclass.gObj.currSlide)) == -1){
                                      console.log('wids, From virtualclass ');
                                      wIds.push(virtualclass.gObj.currSlide);
                                  }
                                 virtualclass.wbCommon.reArrangeElements(wIds);
                                 virtualclass.gObj.wbRearrang = true;
                                 virtualclass.gObj.wIds = wIds;
+                                if(roles.hasControls()){
+                                    virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order)
+                                    virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb)
+                                }
+
 //                                if (!roles.hasControls()) {
 //                                    if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
 //                                        virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
 //                                    }
 //                                }
+
+                    
                                  
                              }
 
@@ -681,6 +690,7 @@
                     //    virtualclass.gObj.currWb = '_doc_'+virtualclass.gObj.currSlide+'_'+virtualclass.gObj.currSlide;
 
                        virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
+                       virtualclass.wbCommon.identifyLastNote(virtualclass.gObj.currWb);
                        // system.initResize();
 
                         // virtualclass.zoom.zoomAction('fitToScreen');
@@ -786,7 +796,7 @@
                             }
                         }
 
-                    } else if(virtualclass.currApp == 'DocumentShare'){
+                    } else if(virtualclass.currApp == 'DocumentShare'|| virtualclass.currApp == 'SharePresentation' ){
                         // this.checkDsTable();
                     }else {
                         virtualclass.vutil.removeDashboardNav();
@@ -806,6 +816,7 @@
 
             // Helper functions for making the app is ready
             appInitiator : {
+
                 Whiteboard : async function (app, cusEvent, id, container){
                     // if(virtualclass.currApp == 'Whiteboard' &&  virtualclass.previous != 'virtualclassWhiteboard'){
                     //     // virtualclass.view.window.resize(id);
@@ -1231,6 +1242,7 @@
                         virtualclass.dts  = window.documentShare();
                     }else{
                         virtualclass.dts.firstRequest = false;
+                        virtualclass.dts.indexNav.init()
                     }
 
                     var args = [];

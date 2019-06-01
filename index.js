@@ -37,13 +37,12 @@ $(document).ready(function () {
 
         virtualclass.gObj.mobileVchOffset = vhCheck();
         var wIds = localStorage.getItem('wIds');
-
         if(wIds != null){
             wIds = JSON.parse(wIds);
             virtualclass.gObj.wids = wIds;
             virtualclass.gObj.wbCount = wIds.length - 1;
         }
-
+      
         var anypresenter = localStorage.getItem('anyp');
         if (anypresenter == null) {
             localStorage.setItem('anyp', wbUser.anyonepresenter)
@@ -990,7 +989,7 @@ $(document).ready(function () {
 
             //whiteboard ready
             this.dispWhiteboard = function (e) {
-                virtualclass.makeAppReady(virtualclass.apps.wb, undefined, e.message.d);
+                virtualclass.makeAppReady(virtualclass.apps.wb, undefined, e.message.d,e.message.ci);
             };
             this.ppt = function (e) {
                 if (e.fromUser.userid != virtualclass.gObj.uid) {
@@ -1284,7 +1283,10 @@ $(document).ready(function () {
                     virtualclass.vutil.resizeWindowIfBigger();
                 }else if(e.message.hasOwnProperty('wbCount')){
                     virtualclass.gObj.wbCount = e.message.wbCount;
-                    virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
+                    if(virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1){
+                        virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);  
+                    }
+                
                 }
             }
 
@@ -1450,6 +1452,19 @@ $(document).ready(function () {
             this.sync = function  (){
                 // console.log('nothing for sync ');
             }
+
+            this.wbData = function(e){
+                console.log(e)
+                if(e.message.wbIndex){
+                    virtualclass.gObj.currIndex = parseInt(e.message.wbIndex);
+                    virtualclass.wbCommon.indexNav.studentWBPagination(e.message.wbIndex-1)
+                }
+            }
+            
+            // this.stopSs= function(e){
+            //     virtualclass.ss.unShareScreen();
+            // }
+            //
 
             /** Record setting **/
             this.recs = function (e){

@@ -3245,7 +3245,7 @@
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler,
 #virtualclassCont.congrea[data-currapp='ScreenShare'] .zoomControler{
 	display : block;
-    background-image: none !important;
+	background-image: none !important;
 }
 
 #virtualclassCont.congrea.playMode #virtualclassSharePresentation {

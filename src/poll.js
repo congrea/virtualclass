@@ -416,7 +416,9 @@
                     list: this.list,
                     totalUsers: storedData.data.totalUsers,
                     users: this.uniqueUsers,
-                    pollType: pollType
+                    pollType: pollType,
+                    qId:storedData.data.qId
+
                 };
 
 
@@ -1043,14 +1045,14 @@
                 var optCount = 0;
                 var optionBlank = 0;
                 for (var i = 0; i < optionList.length; i++) {
-                    if (optionList[i].value) {
-                        optCount++;
-                    } else {
+                    if (optionList[i].value == null || optionList[i].value.trim() === '') {
                         optionBlank++;
+                    } else {
+                        optCount++;
                     }
                 }
                 var qn = document.getElementById("q");
-                if (!qn.value) {
+                if (qn.value == null || qn.value.trim() === '') {
                     virtualclass.lang.getString('pollblank');
                     alert(virtualclass.lang.getString('pollblank'));
                     return 0;

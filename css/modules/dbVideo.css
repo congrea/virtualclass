@@ -632,7 +632,7 @@ display: none;
   cursor:auto;
 }
 #virtualclassCont.congrea #listvideo .linkvideo.singleVideo .controls.delete{
-  pointer-events:visible!important;
+  pointer-events:visible;
   opacity:1!important;
   cursor:pointer!important;
 }
@@ -641,4 +641,8 @@ display: none;
     #virtualclassCont.congrea #listvideo .linkvideo.links .controlCont {
         width:16% !important;
     }
+}
+
+#virtualclassCont.congrea #VideoDashboard .playing .controls.delete{
+    pointer-events: none!important;
 }

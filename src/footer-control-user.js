@@ -535,6 +535,12 @@
                             }
                             ctrType = 'stdscreen';
                             this.control['_' + ctrType].call(this.control, userId);
+                                if (virtualclass.currApp == "Video" && virtualclass.videoUl.player) {
+                                    ioAdapter.mustSend({'videoUl': {init: 'destroyPlayer'}, 'cf': 'destroyPlayer'});
+                                    ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
+                                    virtualclass.vutil.initDashboard();
+                                    virtualclass.vutil.removeBackgroundVideoApp();
+                                }         
                         } else {
                             if (control == 'Chat') {
                                 tag.className = 'contrChatBlock';

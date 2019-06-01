@@ -425,13 +425,13 @@ var newCanvas;
 
              */
             init: function (screen) {
+  
                 this.type = screen.type;
                 this.ssByClick = true;
                 this.manualStop = false;
 
                 //if(roles.hasControls() && !virtualclass.hasOwnProperty('repType')){
                 if (roles.hasControls() && !virtualclass.recorder.recImgPlay && !virtualclass.gObj.studentSSstatus.mesharing) {
-
                     //if(!virtualclass.hasOwnProperty('repType')){
                     this.readyTostart(screen.app);
                     //this.tempCurrApp = virtualclass.vutil.capitalizeFirstLetter(screen.app);
@@ -450,21 +450,16 @@ var newCanvas;
              *
              */
             _init: function () {
-
                 console.log('Init screen');
                 this.currApp = this.tempCurrApp;
                 virtualclass.currApp = virtualclass.apps.ss;
-                
                 //add current app to main container
                 var vcContainer = document.getElementById('virtualclassCont');
                 virtualclass.vutil.setCurrApp(vcContainer, virtualclass.currApp);
-
-
                 if (virtualclass.previous != config.id) {
                     document.getElementById(virtualclass.previous).style.display = 'none';
                     virtualclass.previous = config.id;
                 }
-
                 var ss = document.getElementById(config.id);
                 if (ss != null) {
                     ss.style.display = 'block';
@@ -511,6 +506,7 @@ var newCanvas;
              * @param e error
              *
              */
+         
             onError: function (e) {
                // virtualclass.ss.setCurrentApp();
                 if(virtualclass.previous){
@@ -535,6 +531,8 @@ var newCanvas;
                 if (virtualclass.currApp == 'Video') {
                     ioAdapter.mustSend({'videoUl': {init: 'destroyPlayer'}, 'cf': 'destroyPlayer'});
                     ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
+                }else if(virtualclass.currApp == 'SharePresentation'){
+                    virtualclass.vutil.initDashboard();
                 }
             },
             /**
@@ -551,7 +549,12 @@ var newCanvas;
                         virtualclass.vutil.beforeSend({'ext': true, 'cf': 'colorIndicator'});
                         var url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
                         virtualclass.popup.chromeExtMissing();
-
+                        virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
+                        if (roles.hasControls()) {
+                            if (virtualclass.currApp == 'Video' || virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'DocumentShare') {
+                                virtualclass.ss.showDashboard();
+                            }
+                        }      
                     }
                 } else if (virtualclass.system.mybrowser.name == 'Firefox') {
                     virtualclass.getSceenFirefox();

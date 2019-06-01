@@ -951,14 +951,15 @@
                         this.indexNav.createDocNavigationNumber(this.order[i],i,status)
                     }
                 
-                
                 }
-               
-   
                 this.storeInDocs(this.allNotes);
                 if(roles.hasControls()){
                     this.indexNav.shownPage(this.indexNav.width)
-                    this.indexNav.addActiveNavigation()
+                    this.indexNav.addActiveNavigation();
+                    var subCont = document.querySelector("#dcPaging")
+                    subCont.addEventListener("change",function(){
+                        virtualclass.dts.docs.goToNavs(this.value)();
+                    });
                 }
               
                 var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
@@ -1754,6 +1755,10 @@
                 if(paging.length >0){
                     this.indexNav.rearrangePageNavigation(order)//new
                 }
+                var subCont = document.querySelector("#dcPaging")
+                subCont.addEventListener("change", function () {
+                    virtualclass.dts.docs.goToNavs(this.value)();
+                })
             
             },
 

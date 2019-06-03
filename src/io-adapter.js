@@ -164,6 +164,7 @@ var ioAdapter = {
         }else if(!virtualclass.isPlayMode && serverSession != session){
             this.setSession(serverSession);
         }
+        this.makeSessionReady();
     },
 
     sync (msg){

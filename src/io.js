@@ -244,7 +244,9 @@ var io = {
             case "joinroom":
                 if(receivemsg.hasOwnProperty('users')){ // When self web socket is connected
                     ioAdapter.setRecording();
-                    ioAdapter.makeSessionReady();
+                    if(!roles.hasControls()){
+                        ioAdapter.makeSessionReady();
+                    }
                     console.log("==== Member add, join room");
                 }else {
                     console.log("No users");
@@ -370,7 +372,6 @@ var io = {
                 break;
 
             case "setSession":
-                console.log("==== packet recieved json", receivemsg.session);
                 if(roles.hasControls()){
                     ioAdapter.initSetSession(receivemsg.session);
                 }

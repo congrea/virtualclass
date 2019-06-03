@@ -39,7 +39,7 @@
                     var self = this;
                     var box = self.elem.uiChatboxLog;
                     var userAlready = chatContainerEvent.elementFromShadowDom("#ml" + peer.userid);
-                    if (userAlready != null ) {
+                    if (userAlready != null) {
                         // console.log('double created ' + peer.userid);
                         // if(userAlready.classList.contains('offline')){
                         //     console.log('Remove user');
@@ -54,28 +54,28 @@
 
                     var e = document.createElement('div');
                     var mainUserDiv = document.createDocumentFragment('div');
-                    mainUserDiv.id ="tempId";
+                    mainUserDiv.id = "tempId";
                     // e.className = e.className + "userImg ui-memblist-usr offline";
                     var usr = peer;
                     if (peer.userid != wbUser.id) {
                         usr.notSelf = true;
                     }
 
-                    if(roles.hasControls()){
+                    if (roles.hasControls()) {
                         usr.isTeacher = true;
 
                     }
-                    if(peer.role=="t"){
-                        usr.rl="teacher"
-                    }else if(peer.role == 's'){
-                        usr.rl="student";
+                    if (peer.role == "t") {
+                        usr.rl = "teacher"
+                    } else if (peer.role == 's') {
+                        usr.rl = "student";
                     }
-                    usr.chatIconColors=virtualclass.gObj.chatIconColors[peer.userid ]
+                    usr.chatIconColors = virtualclass.gObj.chatIconColors[peer.userid]
                     console.log('Chat add user ' + peer.userid)
-                    var template=virtualclass.getTemplate("chatuser","chat");
+                    var template = virtualclass.getTemplate("chatuser", "chat");
                     // $(box).append(template({"peer": usr}));
                     // $(box).append(template({"peer": usr}));
-                    var userHtml =  template({"peer": usr});
+                    var userHtml = template({"peer": usr});
 
 
                     return userHtml;
@@ -138,7 +138,6 @@
                         //box.scrollTop(box.get(0).scrollHeight);
                         box.scrollTop(box.scrollHeight);
                     });
-
 
 
             // function init_chatBox (cthis) {

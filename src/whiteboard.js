@@ -1,4 +1,4 @@
-    // This file is part of Vidyamantra - http:www.vidyamantra.com/
+// This file is part of Vidyamantra - http:www.vidyamantra.com/
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
@@ -18,8 +18,8 @@
         var classes = config.hasOwnProperty('class');
         //virtualclass.gObj.currWb = currWb;
         //
-            if(typeof virtualclass.wb[currWb].vcan != 'object'){
-            virtualclass.wb[currWb].vcan  = new window.Vcan();
+        if (typeof virtualclass.wb[currWb].vcan != 'object') {
+            virtualclass.wb[currWb].vcan = new window.Vcan();
 
             window.vcanUtility(currWb);
             window.vcanMain(currWb);
@@ -38,7 +38,7 @@
         }
 
         return {
-          //  currWb : currWb,
+            //  currWb : currWb,
             id: id,
             classes: classes,
             tool: '',
@@ -57,11 +57,11 @@
                 myArr: [],
                 displayedObjId: 0,
                 packQueue: [],
-                queue : [],
+                queue: [],
                 virtualWindow: false
             }, // For store the global oject
 
-            vcan:virtualclass.wb[currWb].vcan,
+            vcan: virtualclass.wb[currWb].vcan,
 
 
             /**
@@ -72,21 +72,21 @@
              */
             init: function (id) {
                 var vcan = virtualclass.wb[id].vcan;
-                virtualclass.wb[id].canvas = vcan.create('#canvas'+id);
+                virtualclass.wb[id].canvas = vcan.create('#canvas' + id);
                 var canvasObj = vcan.main.canvas;
                 canvasObj.className += " whiteboards";
                 canvasObj.setAttribute('tabindex', '0');  //this does for set chrome
 
                 var canvasPdf = document.createElement('canvas');
-                    canvasPdf.id = 'canvas'+id+'_pdf';
-                    canvasPdf.className = 'pdfs';
-                    canvasPdf.width = canvasObj.width;
-                    canvasPdf.height = canvasObj.height;
+                canvasPdf.id = 'canvas' + id + '_pdf';
+                canvasPdf.className = 'pdfs';
+                canvasPdf.width = canvasObj.width;
+                canvasPdf.height = canvasObj.height;
 
-                    virtualclass.vutil.insertAfter(canvasPdf, canvasObj);
-                    //canvasObj.after(canvasPdf);
+                virtualclass.vutil.insertAfter(canvasPdf, canvasObj);
+                //canvasObj.after(canvasPdf);
 
-                    // canvasObj.focus();
+                // canvasObj.focus();
 
 
                 //IMPORTANT  this is changed during the UNIT testing
@@ -132,24 +132,24 @@
                 virtualclass.wb[id].utility.crateCanvasDrawMesssage(id);
             },
 
-            UI : {
+            UI: {
 
                 // TODO, this should be validated and removed
-                mainContainer : function (container, id){
+                mainContainer: function (container, id) {
                     var container = document.querySelector('#' + container);
-                    if(container != null){
+                    if (container != null) {
                         var vcanvas = document.createElement('div');
-                        vcanvas.id = 'vcanvas'+id;
+                        vcanvas.id = 'vcanvas' + id;
                         vcanvas.className = 'vcanvas';
                         vcanvas.dataset.wbId = id;
 
                         var containerWb = document.createElement('div');
-                        containerWb.id =  'containerWb' + id;
+                        containerWb.id = 'containerWb' + id;
                         containerWb.className = 'containerWb';
 
                         vcanvas.appendChild(containerWb);
                         container.appendChild(vcanvas);
-                    }else{
+                    } else {
                         alert('container is null');
                     }
                 }
@@ -180,11 +180,11 @@
 
                 // var cmdToolsWrapper = virtualclass.vutil.createCommandWrapper(id);
                 var toolTemplate = virtualclass.getTemplate('toolbar', 'whiteboard');
-                var cmdToolsWrapper = toolTemplate({cn:id});
+                var cmdToolsWrapper = toolTemplate({cn: id});
 
-                var whiteboardCont = document.getElementById('containerWb'+id);
-                if(whiteboardCont != null){
-                  whiteboardCont.insertAdjacentHTML('afterbegin', cmdToolsWrapper);
+                var whiteboardCont = document.getElementById('containerWb' + id);
+                if (whiteboardCont != null) {
+                    whiteboardCont.insertAdjacentHTML('afterbegin', cmdToolsWrapper);
                 }
             },
 
@@ -213,10 +213,10 @@
 
             initActiveElement(selector, tool) {
                 var elem = document.querySelector(selector);
-                if(typeof virtualclass.gObj.wbTool[virtualclass.gObj.currWb] == 'undefined'){
+                if (typeof virtualclass.gObj.wbTool[virtualclass.gObj.currWb] == 'undefined') {
                     virtualclass.gObj.wbTool[virtualclass.gObj.currWb] = {};
                 }
-                if(typeof virtualclass.gObj.wbTool[virtualclass.gObj.currWb][tool.type] == 'undefined'){
+                if (typeof virtualclass.gObj.wbTool[virtualclass.gObj.currWb][tool.type] == 'undefined') {
                     elem.addEventListener('click', this.activeElementHandler.bind(this, tool));
                     virtualclass.gObj.wbTool[virtualclass.gObj.currWb][tool.type] = true;
                 }
@@ -228,13 +228,13 @@
             },
 
             activeElement (ev, tool){
-                var prevSelectedTool = document.querySelector("#t_"+tool.type + virtualclass.gObj.currWb + " .selected");
-                if(prevSelectedTool != null) {
+                var prevSelectedTool = document.querySelector("#t_" + tool.type + virtualclass.gObj.currWb + " .selected");
+                if (prevSelectedTool != null) {
                     prevSelectedTool.classList.remove("selected");
                 }
 
                 var currElementValue = ev.target.dataset[tool.prop];
-                if(currElementValue != null) {
+                if (currElementValue != null) {
                     ev.target.classList.add("selected");
                     virtualclass.wb[virtualclass.gObj.currWb].changeToolProperty(tool.type, currElementValue);
                 }
@@ -248,41 +248,41 @@
                 var wbId = virtualclass.vutil.getWhiteboardId(this.parentNode);
                 var anchorNode = this;
 
-                if(evt.target.classList.contains("icon-shapes")|| evt.target.parentNode.classList.contains("shapes_icon")){
-                    var shapesElem = document.querySelector("#shapes"+wbId);
-                    if(shapesElem.classList.contains("open")){
-                       shapesElem.classList.remove("open");
-                       shapesElem.classList.add("close");
-                    }else{
-                       if(shapesElem.classList.contains("close")){
-                          shapesElem.classList.remove("close");
-                       }
-                       shapesElem.classList.add("open");
-                       virtualclass.wb[wbId].closeElem(document.querySelector("#t_strk"+wbId+" .strkSizeList"));
-                       virtualclass.wb[wbId].closeElem(document.querySelector("#t_font"+wbId+" .fontSizeList"));
+                if (evt.target.classList.contains("icon-shapes") || evt.target.parentNode.classList.contains("shapes_icon")) {
+                    var shapesElem = document.querySelector("#shapes" + wbId);
+                    if (shapesElem.classList.contains("open")) {
+                        shapesElem.classList.remove("open");
+                        shapesElem.classList.add("close");
+                    } else {
+                        if (shapesElem.classList.contains("close")) {
+                            shapesElem.classList.remove("close");
+                        }
+                        shapesElem.classList.add("open");
+                        virtualclass.wb[wbId].closeElem(document.querySelector("#t_strk" + wbId + " .strkSizeList"));
+                        virtualclass.wb[wbId].closeElem(document.querySelector("#t_font" + wbId + " .fontSizeList"));
                     }
                     return;
                 }
 
-                if(anchorNode.parentNode.id == "t_color" + wbId){
+                if (anchorNode.parentNode.id == "t_color" + wbId) {
                     virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
-                    virtualclass.wb[wbId].closeElem(document.querySelector("#t_strk"+wbId+" .strkSizeList"));
-                    virtualclass.wb[wbId].closeElem(document.querySelector("#t_font"+wbId+" .fontSizeList"));
+                    virtualclass.wb[wbId].closeElem(document.querySelector("#t_strk" + wbId + " .strkSizeList"));
+                    virtualclass.wb[wbId].closeElem(document.querySelector("#t_font" + wbId + " .fontSizeList"));
 
                     virtualclass.wb[wbId].toggleDisplay(anchorNode.parentNode.id, wbId);
-                    virtualclass.wb[wbId].initActiveElement("#colorList"+wbId,  {type : 'color', prop: 'color'});
+                    virtualclass.wb[wbId].initActiveElement("#colorList" + wbId, {type: 'color', prop: 'color'});
 
-                }else if(anchorNode.parentNode.id == "t_strk" + wbId){
-
-                    virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
-                    virtualclass.wb[wbId].toggleDisplay(anchorNode.parentNode.id, wbId);
-                    virtualclass.wb[wbId].initActiveElement("#t_strk"+wbId+" ul", {type : 'strk', prop: 'stroke'} );
-
-                }else if(anchorNode.parentNode.id == "t_font" + wbId){
+                } else if (anchorNode.parentNode.id == "t_strk" + wbId) {
 
                     virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
                     virtualclass.wb[wbId].toggleDisplay(anchorNode.parentNode.id, wbId);
-                    virtualclass.wb[wbId].initActiveElement("#t_font"+wbId+" ul", {type : 'font', prop: 'font'} );
+                    virtualclass.wb[wbId].initActiveElement("#t_strk" + wbId + " ul", {type: 'strk', prop: 'stroke'});
+
+                } else if (anchorNode.parentNode.id == "t_font" + wbId) {
+
+                    virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+                    virtualclass.wb[wbId].toggleDisplay(anchorNode.parentNode.id, wbId);
+                    virtualclass.wb[wbId].initActiveElement("#t_font" + wbId + " ul", {type: 'font', prop: 'font'});
 
                 } else {
                     if (typeof virtualclass.wb[virtualclass.gObj.currWb] != 'undefined' && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != '' &&
@@ -315,19 +315,18 @@
                         virtualclass.wb[wbId].toolInit(anchorNode.parentNode.id, wbId);
                     }
 
-                    if(anchorNode.parentNode.id == "t_rectangle"+wbId || anchorNode.parentNode.id == "t_line"+wbId
-                        || anchorNode.parentNode.id == "t_oval"+wbId  || anchorNode.parentNode.id == "t_triangle"+wbId)
-                    {
-                       var toolName = anchorNode.parentNode.id.slice(2, anchorNode.parentNode.id.split(/_doc_*/)[0].length);
-                       document.querySelector("#tool_wrapper"+wbId).dataset.currtool = anchorNode.parentNode.dataset.tool;
-                       document.querySelector("#shapeIcon"+wbId+ " a").dataset.title = toolName.charAt(0).toUpperCase()+ toolName.slice(1);
-                    }else {
-                       document.querySelector("#tool_wrapper"+wbId).dataset.currtool = "shapes";
-                       document.querySelector("#shapeIcon"+wbId+ " a").dataset.title = "Shapes"
-                       virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
-                       virtualclass.wb[wbId].closeElem(document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList"));
-                       virtualclass.wb[wbId].closeElem(document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList"));
-                       virtualclass.wb[wbId].closeElem(document.querySelector("#colorList" + virtualclass.gObj.currWb));
+                    if (anchorNode.parentNode.id == "t_rectangle" + wbId || anchorNode.parentNode.id == "t_line" + wbId
+                        || anchorNode.parentNode.id == "t_oval" + wbId || anchorNode.parentNode.id == "t_triangle" + wbId) {
+                        var toolName = anchorNode.parentNode.id.slice(2, anchorNode.parentNode.id.split(/_doc_*/)[0].length);
+                        document.querySelector("#tool_wrapper" + wbId).dataset.currtool = anchorNode.parentNode.dataset.tool;
+                        document.querySelector("#shapeIcon" + wbId + " a").dataset.title = toolName.charAt(0).toUpperCase() + toolName.slice(1);
+                    } else {
+                        document.querySelector("#tool_wrapper" + wbId).dataset.currtool = "shapes";
+                        document.querySelector("#shapeIcon" + wbId + " a").dataset.title = "Shapes"
+                        virtualclass.wb[wbId].closeElem(document.querySelector("#shapes" + virtualclass.gObj.currWb));
+                        virtualclass.wb[wbId].closeElem(document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .strkSizeList"));
+                        virtualclass.wb[wbId].closeElem(document.querySelector("#t_font" + virtualclass.gObj.currWb + " .fontSizeList"));
+                        virtualclass.wb[wbId].closeElem(document.querySelector("#colorList" + virtualclass.gObj.currWb));
                     }
 
 
@@ -354,66 +353,66 @@
                     }
 
 
-                    var fontTool = document.querySelector("#t_font"+wbId);
-                    var strkTool = document.querySelector("#t_strk"+wbId);
-                    if(anchorNode.parentNode.id == "t_text" + wbId){
-                       if(fontTool.classList.contains("hide")){
-                          fontTool.classList.remove("hide");
-                          fontTool.classList.add("show");
-                       }
-                          strkTool.classList.add("hide");
-                    }else{
-                       if(strkTool.classList.contains("hide")){
-                          strkTool.classList.remove("hide");
-                          strkTool.classList.add("show");
-                       }
-                          fontTool.classList.add("hide");
+                    var fontTool = document.querySelector("#t_font" + wbId);
+                    var strkTool = document.querySelector("#t_strk" + wbId);
+                    if (anchorNode.parentNode.id == "t_text" + wbId) {
+                        if (fontTool.classList.contains("hide")) {
+                            fontTool.classList.remove("hide");
+                            fontTool.classList.add("show");
+                        }
+                        strkTool.classList.add("hide");
+                    } else {
+                        if (strkTool.classList.contains("hide")) {
+                            strkTool.classList.remove("hide");
+                            strkTool.classList.add("show");
+                        }
+                        fontTool.classList.add("hide");
                     }
                 }
             },
 
-            toggleDisplay : function(toolId, wbId){
-                var colorPicker = document.querySelector("#colorList"+wbId);
-                if(toolId == "t_color"+wbId){
-                    if(colorPicker.classList.contains("open")){
-                       colorPicker.classList.remove("open");
-                       colorPicker.classList.add("close");
-                    }else{
-                       if(colorPicker.classList.contains("close")){
-                          colorPicker.classList.remove("close");
-                       }
-                          colorPicker.classList.add("open");
+            toggleDisplay: function (toolId, wbId) {
+                var colorPicker = document.querySelector("#colorList" + wbId);
+                if (toolId == "t_color" + wbId) {
+                    if (colorPicker.classList.contains("open")) {
+                        colorPicker.classList.remove("open");
+                        colorPicker.classList.add("close");
+                    } else {
+                        if (colorPicker.classList.contains("close")) {
+                            colorPicker.classList.remove("close");
+                        }
+                        colorPicker.classList.add("open");
                     }
-                }else if(toolId == "t_strk"+wbId || toolId == "t_font"+wbId){
+                } else if (toolId == "t_strk" + wbId || toolId == "t_font" + wbId) {
                     virtualclass.wb[wbId].closeElem(colorPicker);
-                    var selectSize = (toolId == "t_strk"+wbId) ? document.querySelector("#" + toolId + " .strkSizeList") : document.querySelector("#" + toolId+ " .fontSizeList");
-                    if(selectSize.classList.contains("open")){
-                       selectSize.classList.remove("open");
-                       selectSize.classList.add("close");
-                    }else{
-                       if(selectSize.classList.contains("close")){
-                          selectSize.classList.remove("close");
-                       }
-                          selectSize.classList.add("open");
+                    var selectSize = (toolId == "t_strk" + wbId) ? document.querySelector("#" + toolId + " .strkSizeList") : document.querySelector("#" + toolId + " .fontSizeList");
+                    if (selectSize.classList.contains("open")) {
+                        selectSize.classList.remove("open");
+                        selectSize.classList.add("close");
+                    } else {
+                        if (selectSize.classList.contains("close")) {
+                            selectSize.classList.remove("close");
+                        }
+                        selectSize.classList.add("open");
                     }
                 }
             },
 
-            changeToolProperty : function(attr, value){
+            changeToolProperty: function (attr, value) {
                 var currTime = new Date().getTime();
-                if(attr == "color") {
-                    var selectElem = document.querySelector("#colorList"+virtualclass.gObj.currWb+ " .selected").id;
+                if (attr == "color") {
+                    var selectElem = document.querySelector("#colorList" + virtualclass.gObj.currWb + " .selected").id;
                     virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = value;
-                    document.querySelector("#t_color"+ virtualclass.gObj.currWb +" .disActiveColor").style.backgroundColor = virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
-                    var obj = {'color': value,'elem' : selectElem, mt: currTime};
-                }else if(attr == "strk"){
-                    var selectElem = document.querySelector("#t_strk"+virtualclass.gObj.currWb+ " .selected").id;
+                    document.querySelector("#t_color" + virtualclass.gObj.currWb + " .disActiveColor").style.backgroundColor = virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+                    var obj = {'color': value, 'elem': selectElem, mt: currTime};
+                } else if (attr == "strk") {
+                    var selectElem = document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .selected").id;
                     virtualclass.wb[virtualclass.gObj.currWb].currStrkSize = value;
-                    var obj = {'strkSize': value,'elem':selectElem, mt: currTime};
-                }else if(attr == "font"){
-                    var selectElem = document.querySelector("#t_font"+virtualclass.gObj.currWb+ " .selected").id;
+                    var obj = {'strkSize': value, 'elem': selectElem, mt: currTime};
+                } else if (attr == "font") {
+                    var selectElem = document.querySelector("#t_font" + virtualclass.gObj.currWb + " .selected").id;
                     virtualclass.wb[virtualclass.gObj.currWb].textFontSize = value;
-                    var obj = {'fontSize': value,'elem':selectElem, mt: currTime};
+                    var obj = {'fontSize': value, 'elem': selectElem, mt: currTime};
                 }
 
                 var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
@@ -424,10 +423,10 @@
                 virtualclass.vutil.beforeSend({'repObj': [obj], 'cf': 'repObj'});
             },
 
-            closeElem : function(elem){
-                if(elem.classList.contains("open")){
-                   elem.classList.remove("open");
-                   elem.classList.add("close");
+            closeElem: function (elem) {
+                if (elem.classList.contains("open")) {
+                    elem.classList.remove("open");
+                    elem.classList.add("close");
                 }
             },
 
@@ -455,7 +454,7 @@
             toolInit: function (cmd, repMode, multiuser, myfunc) {
                 var wbId = virtualclass.gObj.currWb;
 
-                if(cmd.indexOf('_doc_') <= -1){
+                if (cmd.indexOf('_doc_') <= -1) {
                     cmd = cmd + wbId;
                 }
 
@@ -471,7 +470,7 @@
                             virtualclass.wb[wbId].utility.deActiveFrmDragDrop(); //after optimization NOTE:- this should have to be enable
                         }
                         if (multiuser != true && cmd != 't_replay') {
-                           vcan.renderAll();
+                            vcan.renderAll();
                         }
                     }
                 } else {
@@ -490,11 +489,11 @@
                 // }
 
                 //if (cmd == 't_activeall'+ wbId) {
-                if (cmd  ==  't_activeall'+ wbId) {
+                if (cmd == 't_activeall' + wbId) {
                     console.log('command active');
                     virtualclass.wb[wbId].utility.t_activeallInit();
-                //} else if (cmd == 't_replay') {
-                } else if (cmd == 't_replay'+ wbId) {
+                    //} else if (cmd == 't_replay') {
+                } else if (cmd == 't_replay' + wbId) {
                     if (typeof multiuser == 'undefined') {
                         vcan.setValInMain('id', 0);
                     }
@@ -503,11 +502,11 @@
                     } else {
                         virtualclass.wb[wbId].t_replayInit(repMode);
                     }
-                //  } else if (cmd == 't_clearall'+ wbId) {
-                } else if (cmd == 't_clearall'+ wbId) {
-                    if(virtualclass.currApp == "Whiteboard"){
+                    //  } else if (cmd == 't_clearall'+ wbId) {
+                } else if (cmd == 't_clearall' + wbId) {
+                    if (virtualclass.currApp == "Whiteboard") {
                         var cofirmmessage = virtualclass.lang.getString('clearAllWarnMessageW');
-                    }else if(virtualclass.currApp == "DocumentShare"){
+                    } else if (virtualclass.currApp == "DocumentShare") {
                         cofirmmessage = virtualclass.lang.getString('clearAllWarnMessageD');
                     }
                     virtualclass.popup.confirmInput(cofirmmessage, function (confirm) {
@@ -537,53 +536,53 @@
                             //     cmd += virtualclass.gObj.currWb;
                             // }
                             delete virtualclass.gObj.wbTool[virtualclass.gObj.currWb];
-                            if(roles.hasControls()) {
+                            if (roles.hasControls()) {
 
                                 virtualclass.wb[wbId].currStrkSize = virtualclass.gObj.defalutStrk;
                                 virtualclass.wb[wbId].textFontSize = virtualclass.gObj.defalutFont;
                                 virtualclass.wb[wbId].activeToolColor = virtualclass.gObj.defaultcolor;
-                                document.querySelector("#t_color"+ wbId +" .disActiveColor").style.backgroundColor = virtualclass.wb[wbId].activeToolColor;
+                                document.querySelector("#t_color" + wbId + " .disActiveColor").style.backgroundColor = virtualclass.wb[wbId].activeToolColor;
 
-                                var removeCurrtool = document.querySelector("#tool_wrapper"+wbId).dataset.currtool;
-                                if(removeCurrtool == "triangle" || removeCurrtool == "line" || removeCurrtool == "oval" || removeCurrtool == "rectangle"){
-                                   delete document.querySelector("#tool_wrapper"+wbId).dataset.currtool;
+                                var removeCurrtool = document.querySelector("#tool_wrapper" + wbId).dataset.currtool;
+                                if (removeCurrtool == "triangle" || removeCurrtool == "line" || removeCurrtool == "oval" || removeCurrtool == "rectangle") {
+                                    delete document.querySelector("#tool_wrapper" + wbId).dataset.currtool;
                                 }
 
-                                var tool = document.querySelector("#shapeIcon"+wbId+ " a").dataset.title;
-                                if(tool == "triangle" || tool == "line" || tool == "oval" || tool == "rectangle"){
-                                   tool = "Shapes";
+                                var tool = document.querySelector("#shapeIcon" + wbId + " a").dataset.title;
+                                if (tool == "triangle" || tool == "line" || tool == "oval" || tool == "rectangle") {
+                                    tool = "Shapes";
                                 }
 
-                                var strk = document.querySelector("#t_strk"+wbId);
-                                if(strk != null){
-                                   strk.classList.remove("show");
+                                var strk = document.querySelector("#t_strk" + wbId);
+                                if (strk != null) {
+                                    strk.classList.remove("show");
                                 }
 
-                                var font = document.querySelector("#t_font"+wbId);
-                                if(font != null) {
-                                   font.classList.remove("show");
+                                var font = document.querySelector("#t_font" + wbId);
+                                if (font != null) {
+                                    font.classList.remove("show");
                                 }
 
-                                var removeColor = document.querySelector("#colorList"+virtualclass.gObj.currWb+ " .selected");
-                                if(removeColor != null){
-                                   removeColor.classList.remove("selected");
+                                var removeColor = document.querySelector("#colorList" + virtualclass.gObj.currWb + " .selected");
+                                if (removeColor != null) {
+                                    removeColor.classList.remove("selected");
                                 }
 
-                                var removeSelectedStrk = document.querySelector("#t_strk"+virtualclass.gObj.currWb+ " .selected");
-                                if(removeSelectedStrk != null){
-                                   removeSelectedStrk.classList.remove("selected");
-                                   var selectDefaultStrk = document.querySelector(".strkSizeList #strk-1"+wbId);
-                                   selectDefaultStrk.classList.add("selected");
+                                var removeSelectedStrk = document.querySelector("#t_strk" + virtualclass.gObj.currWb + " .selected");
+                                if (removeSelectedStrk != null) {
+                                    removeSelectedStrk.classList.remove("selected");
+                                    var selectDefaultStrk = document.querySelector(".strkSizeList #strk-1" + wbId);
+                                    selectDefaultStrk.classList.add("selected");
                                 }
 
-                                var removeSelectedFont = document.querySelector("#t_font"+virtualclass.gObj.currWb+ " .selected");
-                                if(removeSelectedFont != null){
-                                   removeSelectedFont.classList.remove("selected");
-                                   var selectDefaultFont = document.querySelector(".fontSizeList #font-1"+wbId);
-                                   selectDefaultFont.classList.add("selected");
+                                var removeSelectedFont = document.querySelector("#t_font" + virtualclass.gObj.currWb + " .selected");
+                                if (removeSelectedFont != null) {
+                                    removeSelectedFont.classList.remove("selected");
+                                    var selectDefaultFont = document.querySelector(".fontSizeList #font-1" + wbId);
+                                    selectDefaultFont.classList.add("selected");
                                 }
 
-                                var shapesElem = document.querySelector("#tool_wrapper"+virtualclass.gObj.currWb +".shapesToolbox");
+                                var shapesElem = document.querySelector("#tool_wrapper" + virtualclass.gObj.currWb + ".shapesToolbox");
                                 shapesElem.classList.remove("active");
 
                                 localStorage.removeItem("activeTool");
@@ -596,7 +595,7 @@
                         }
                     );
 
-                } else if (cmd == 't_assign'+ wbId) {
+                } else if (cmd == 't_assign' + wbId) {
                     //debugger;
                     var toolHeight = localStorage.getItem('toolHeight');
                     if (toolHeight != null) {
@@ -620,8 +619,8 @@
                 // Removed t_activeall, because we need to show mouse movent while user click on Active all
                 // This is window for after assigned the role
                 // If (cmd != 't_activeall' && cmd != 't_replay' && cmd != 't_clearallInit' && cmd != 't_assign'
-                if ((cmd != 't_replay' + wbId)  && (cmd != 't_clearallInit' + wbId) && (cmd != 't_assign'+wbId)
-                    && (cmd != 't_reclaim'+wbId)) {
+                if ((cmd != 't_replay' + wbId) && (cmd != 't_clearallInit' + wbId) && (cmd != 't_assign' + wbId)
+                    && (cmd != 't_reclaim' + wbId)) {
                     //debugger;
                     virtualclass.wb[wbId].tool = new virtualclass.wb[wbId].tool_obj(cmd);
                     virtualclass.wb[wbId].utility.attachEventHandlers(wbId);
@@ -637,11 +636,11 @@
                 //alert("Suman bogati");
                 //debugger;
                 //var wbId = this.currWb;
-                if(cmd.indexOf('_doc_') > -1){
-                    var elem = document.querySelector('#'+cmd);
-                    if(elem == null){
+                if (cmd.indexOf('_doc_') > -1) {
+                    var elem = document.querySelector('#' + cmd);
+                    if (elem == null) {
                         var wbId = virtualclass.gObj.currWb;
-                    } else{
+                    } else {
                         var wbId = virtualclass.vutil.getWhiteboardId(elem);
                     }
                 } else {
@@ -658,26 +657,26 @@
                     virtualclass.wb[wbId].obj.freeDrawObj = "";
                 }
 
-                if (cmd != 't_text'+wbId && !virtualclass.vutil.exitTextWrapper()) {
+                if (cmd != 't_text' + wbId && !virtualclass.vutil.exitTextWrapper()) {
                     virtualclass.wb[wbId].obj.drawTextObj = "";
                 }
 
-                if (cmd == 't_freeDrawing'+wbId) {
+                if (cmd == 't_freeDrawing' + wbId) {
                     //NOTE:- this is added during the UNIT testing
                     var borderColor = "#424240";
                     var linWidth = "3";
                     virtualclass.wb[wbId].obj.freeDrawObj = new virtualclass.wb[wbId].readyFreeHandObj(borderColor, linWidth);
                     virtualclass.wb[wbId].obj.freeDrawObj.init();
-                } else if (cmd == 't_text'+wbId) {
+                } else if (cmd == 't_text' + wbId) {
                     //   virtualclass.vutil.attachClickOutSideCanvas();
                     virtualclass.wb[wbId].obj.drawTextObj = new virtualclass.wb[wbId].readyTextObj();
                     virtualclass.wb[wbId].obj.drawTextObj.init("canvasWrapper" + wbId);
                 }
 
                 var mCmd = cmd.slice(2, cmd.length);
-                    if(mCmd.indexOf('_doc_') > -1){
-                        mCmd = mCmd.substring(0, (mCmd.indexOf("_")));
-                    }
+                if (mCmd.indexOf('_doc_') > -1) {
+                    mCmd = mCmd.substring(0, (mCmd.indexOf("_")));
+                }
                 virtualclass.wb[wbId].draw_object(mCmd, virtualclass.wb[wbId].canvas, this)
             },
             /**

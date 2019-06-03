@@ -43,16 +43,16 @@ var ioAdapter = {
 
         if (this.sendWithDelayIdentifier.hasOwnProperty(uniqueIdentifier) && ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]) {
             // console.log ("Cancelling send " + sendFunction + " message " + JSON.stringify(msg));
-            console.log ("Cancelling send " + sendFunction + " message " + msg.cf);
+            console.log("Cancelling send " + sendFunction + " message " + msg.cf);
             clearTimeout(ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]);
             ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
         }
 
-        ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] =  setTimeout (function () {
-            console.log ("Sending With Delay " + sendFunction + " message " + msg.cf);
+        ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = setTimeout(function () {
+            console.log("Sending With Delay " + sendFunction + " message " + msg.cf);
             ioAdapter[sendFunction](msg);
             ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
-        },delay)
+        }, delay)
 
     },
 
@@ -101,7 +101,11 @@ var ioAdapter = {
         this.userAdapterMustData[touser][msg.userSerial] = {type: 'broadcastToAll', m: msg};
         this.sendUser(msg, touser);
         //TODO need to fix following
-        ioStorage.dataUserAdapterMustData({type: 'broadcastToAll', user: wbUser.id, m: msg}, touser + '_' + msg.userSerial);
+        ioStorage.dataUserAdapterMustData({
+            type: 'broadcastToAll',
+            user: wbUser.id,
+            m: msg
+        }, touser + '_' + msg.userSerial);
     },
 
     sendUser: function (msg, touser) {
@@ -118,7 +122,7 @@ var ioAdapter = {
 
     sendSpeed: function (msg) {
         "use strict";
-        ioAdapter.sendWithDelayAndDrop (msg, null, 'realSendSpeed', 'sendSpeed', 1000);
+        ioAdapter.sendWithDelayAndDrop(msg, null, 'realSendSpeed', 'sendSpeed', 1000);
     },
 
     realSendSpeed: function (msg) {
@@ -129,7 +133,7 @@ var ioAdapter = {
 
     sendBinary: function (msg) {
         "use strict";
-       io.sendBinary(msg);
+        io.sendBinary(msg);
     },
 
     makeSessionReady () {
@@ -159,9 +163,9 @@ var ioAdapter = {
 
     initSetSession (session) {
         let serverSession = localStorage.getItem('serverSession');
-        if(serverSession == null){
+        if (serverSession == null) {
             localStorage.setItem('serverSession', session);
-        }else if(!virtualclass.isPlayMode && serverSession != session){
+        } else if (!virtualclass.isPlayMode && serverSession != session) {
             this.setSession(serverSession);
         }
         this.makeSessionReady();

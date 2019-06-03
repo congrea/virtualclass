@@ -4,7 +4,7 @@
  */(function (window) {
 
 
-    function Path(id){
+    function Path(id) {
         var vcan = virtualclass.wb[id].vcan;
         /**
          * This class is used for create the path for each co-ordinate which is drawn by user
@@ -293,14 +293,14 @@
                         x = isLowerCase
                             ? previousX + this.utility.getX(item)
                             : item[0] === 'V'
-                            ? previousX
-                            : this.utility.getX(item);
+                                ? previousX
+                                : this.utility.getX(item);
 
                         y = isLowerCase
                             ? previousY + this.utility.getY(item)
                             : item[0] === 'H'
-                            ? previousY
-                            : this.utility.getY(item);
+                                ? previousY
+                                : this.utility.getY(item);
 
                         var val = parseInt(x, 10);
                         if (!isNaN(val)) {
@@ -374,5 +374,6 @@
             };
         }
     }
+
     window.Path = Path;
 })(window);

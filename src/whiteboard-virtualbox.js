@@ -4,7 +4,7 @@
  */
 (function (window) {
     //var vcan = window.vcan;
-    function Virtualbox (id){
+    function Virtualbox(id) {
         var vcan = virtualclass.wb[id].vcan;
         vcan.virtual_box = {
             /**
@@ -111,5 +111,6 @@
             }
         }
     }
+
     window.Virtualbox = Virtualbox;
 })(window);

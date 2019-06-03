@@ -7,10 +7,10 @@
  * and open the template in the editor.
  */
 
-(function(window) {
+(function (window) {
     "use strict";
     var vutil = {
-        createDOM: function(tag, id, _class) {
+        createDOM: function (tag, id, _class) {
             var elem = document.createElement(tag);
             if (typeof id != 'undefined') {
                 elem.id = id;
@@ -29,10 +29,10 @@
 
             return elem;
         },
-        ab2str: function(buf) {
+        ab2str: function (buf) {
             return String.fromCharCode.apply(null, new Uint8ClampedArray(buf));
         },
-        str2ab: function(str) {
+        str2ab: function (str) {
             var buf = new ArrayBuffer(str.length); // 2 bytes for each char
             var bufView = new Uint8ClampedArray(buf);
             for (var i = 0, strLen = str.length; i < strLen; i++) {
@@ -40,12 +40,12 @@
             }
             return bufView;
         },
-        sidebarHeightInit: function() {
+        sidebarHeightInit: function () {
             var sidebar = document.getElementById("widgetRightSide");
             sidebar.style.height = (window.innerHeight) + "px";
         },
         //there function name should be change
-        isSystemCompatible: function() {
+        isSystemCompatible: function () {
             if (virtualclass.error.length > 0) {
 
                 var errorMsg = (virtualclass.error.length > 1) ? (virtualclass.error.join("<br />")) : virtualclass.error[0];
@@ -69,7 +69,7 @@
                 }
             }
         },
-        chkValueInLocalStorage: function(property) {
+        chkValueInLocalStorage: function (property) {
             if (localStorage.getItem(property) === null) {
                 return false;
             } else {
@@ -79,9 +79,9 @@
 
         //TODO very critical and important for remove return
         /** Handle container dimension 1**/
-        setContainerWidth : function(res, app) {
+        setContainerWidth: function (res, app) {
             return;
-            if(app != null){
+            if (app != null) {
                 var appId = 'virtualclass' + app;
             } else {
                 var appId = 'virtualclassWhiteboard';
@@ -103,7 +103,7 @@
 
             var appCont = document.getElementById(appId);
 
-            if(appCont != null){
+            if (appCont != null) {
                 var rightOffSet, leftSideBarWidth, reduceHeight;
 
                 var leftSideBar = document.getElementById("virtualclassOptionsCont");
@@ -117,14 +117,14 @@
 
                 if (virtualclass.isPlayMode) {
                     reduceHeight += 75;
-                }else {
+                } else {
                     if (app == 'SharePresentation') {
                         reduceHeight = (document.querySelector('#virtualclass' + app + '.pptSharing') != null) ? 80 : 28;
-                    }else if(app == 'Video' || app == 'Yts'){
+                    } else if (app == 'Video' || app == 'Yts') {
                         reduceHeight = 28;
-                    }else if (app == 'EditorRich' || app == 'Poll' ||  app == 'Quiz'){
+                    } else if (app == 'EditorRich' || app == 'Poll' || app == 'Quiz') {
                         reduceHeight = 50;
-                    }else {
+                    } else {
                         reduceHeight = 60;
                     }
                 }
@@ -134,7 +134,7 @@
 
                 //console.log( ' leftSideBarWidth=' + leftSideBarWidth);
                 var extraWidth = 20;
-                if(virtualclass.currApp == 'Whiteboard' ||   virtualclass.currApp == 'DocumentShare' || virtualclass.currApp == 'SharePresentation'){
+                if (virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare' || virtualclass.currApp == 'SharePresentation') {
                     extraWidth = 20;
                 }
                 res.width = (extraWidth + res.width) - leftSideBarWidth;
@@ -149,14 +149,14 @@
                     appCont.style.width = res.width;
                     ssType.style.width = res.width + "px";
                     virtualclass.vutil.setScreenInnerTagsWidth(appId);
-                }else if(appId == 'virtualclassDocumentShare'){
+                } else if (appId == 'virtualclassDocumentShare') {
                     var wb = virtualclass.gObj.currWb;
-                    if(wb != null){
+                    if (wb != null) {
                         // This dimension is setting when window is being resized
-                        var canWrapper = document.querySelector('#canvasWrapper' +wb);
+                        var canWrapper = document.querySelector('#canvasWrapper' + wb);
                         canWrapper.style.width = res.width + "px";
                         //canvas wrapper height 2
-                        canWrapper.style.height = (res.height-virtualclass.gObj.screenRh) + "px";
+                        canWrapper.style.height = (res.height - virtualclass.gObj.screenRh) + "px";
 
                         console.log('Canvas wrapper height ' + canWrapper.style.height);
                         // virtualclass.system.setAppDimension(wb, true);
@@ -164,12 +164,12 @@
                 }
 
                 console.log('Container width ' + appId + ' ' + res.width);
-            }else {
+            } else {
                 console.log(appCont + ' is not found ');
             }
         },
-        
-        setScreenInnerTagsWidth: function(currAppId) {
+
+        setScreenInnerTagsWidth: function (currAppId) {
             var sId = currAppId;
             var screenShare = document.getElementById(sId);
             var screenShareWidth = screenShare.offsetWidth;
@@ -190,8 +190,8 @@
 
                 // If there is remaining any active class on tool
                 var appOptions = document.getElementsByClassName('appOptions');
-                for(var i=0; i<appOptions.length; i++){
-                    if(appOptions[i].classList.contains('active')){
+                for (var i = 0; i < appOptions.length; i++) {
+                    if (appOptions[i].classList.contains('active')) {
                         appOptions[i].classList.remove('active');
                     }
                 }
@@ -199,36 +199,36 @@
             }
             document.getElementById(app + "Tool").className += ' active';
         },
-        initInstallChromeExt: function(error) {
+        initInstallChromeExt: function (error) {
             if (error.name == 'EXTENSION_UNAVAILABLE') {
                 console.log('ask for inline installation');
                 this._inlineChomeExtensionStore();
             }
         },
 
-        _inlineChomeExtensionStore : function (){
+        _inlineChomeExtensionStore: function () {
             //alert('ss' + chrome);
             chrome.webstore.install('https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl',
-                function(arg) {
+                function (arg) {
                     window.location.reload();
                 },
-                function(e) {
+                function (e) {
                     alert(e);
                 }
             )
         },
 
-        removeAppPanel: function() {
+        removeAppPanel: function () {
             var appPanel = document.getElementById('virtualclassOptionsCont');
             if (appPanel != null) {
                 appPanel.parentNode.removeChild(appPanel);
             }
         },
-        removeTempVideo: function(id) {
+        removeTempVideo: function (id) {
             var toBeRemove = document.getElementById(id);
             toBeRemove.parentNode.removeChild(toBeRemove)
         },
-        createLocalTempVideo: function(mainCont, localTemp) {
+        createLocalTempVideo: function (mainCont, localTemp) {
             if (typeof mainCont == "string" || typeof mainCont == "String") {
                 mainCont = document.getElementById(mainCont);
             }
@@ -238,7 +238,7 @@
             locVidContTemp.appendChild(vidContTemp);
             mainCont.appendChild(locVidContTemp);
         },
-        initLocCanvasCont: function(tempVideoId) {
+        initLocCanvasCont: function (tempVideoId) {
             var app;
             if (virtualclass.currApp == "ScreenShare") {
                 app = 'ss';
@@ -281,16 +281,16 @@
                 virtualclass.vutil.removeTempVideo("virtualclass" + sid + "LocalTemp");
             }
         },
-        clickOutSideCanvas: function() {
+        clickOutSideCanvas: function () {
             if (this.exitTextWrapper()) {
                 virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.textUtility(virtualclass.wb[virtualclass.gObj.currWb].gObj.spx, virtualclass.wb[virtualclass.gObj.currWb].gObj.spy);
             }
         },
-        exitTextWrapper: function() {
+        exitTextWrapper: function () {
             var textBoxContainer = document.getElementsByClassName('textBoxContainer');
             return textBoxContainer.length > 0;
         },
-        attachClickOutSideCanvas: function() {
+        attachClickOutSideCanvas: function () {
             _attachClickOutSideCanvas('commandToolsWrapper');
             _attachClickOutSideCanvas('virtualclassOptionsCont');
             _attachClickOutSideCanvas('audioWidget');
@@ -301,30 +301,30 @@
                 if (elem != null) {
 
                     elem.onclick = function () {
-                        if(roles.hasControls()){
+                        if (roles.hasControls()) {
                             virtualclass.vutil.clickOutSideCanvas();
                         }
                     };
                 }
             }
         },
-        dimensionMatch: function(wbc, ssc) {
+        dimensionMatch: function (wbc, ssc) {
             var wbcWidth = document.getElementById(wbc).offsetWidth;
             var optionsContWidth = document.getElementById("virtualclassOptionsCont").offsetWidth;
             var sscElem = document.getElementById(ssc);
-            if(sscElem != null){
+            if (sscElem != null) {
                 var sscWidth = sscElem.offsetWidth + optionsContWidth;
                 return (sscWidth == wbcWidth);
             }
             return false;
         },
-        disableAppsBar: function() {
+        disableAppsBar: function () {
             var appBarCont = document.getElementById('virtualclassOptionsCont');
             if (appBarCont != null) {
                 appBarCont.style.pointerEvents = "none";
             }
         },
-        isMiniFileIncluded: function(src) {
+        isMiniFileIncluded: function (src) {
 //                var filePatt = new RegExp(src+".js$");
             var filePatt = new RegExp(src + ".js?=\*([0-9]*)"); //matched when src is mid of path, todo find it at end of path
             var scripts = document.getElementsByTagName("script");
@@ -335,10 +335,10 @@
             }
             return false;
         },
-        clearAllChat: function() {
+        clearAllChat: function () {
             localStorage.removeItem(virtualclass.gObj.uid); //remove chat about user
             localStorage.clear('chatroom'); //all
-            if(virtualclass.chat != null){
+            if (virtualclass.chat != null) {
                 virtualclass.chat.idList.length = 0;
             }
 
@@ -351,7 +351,7 @@
                 }
             }
         },
-        isObjectEmpty: function(obj) {
+        isObjectEmpty: function (obj) {
             for (var prop in obj) {
                 if (obj.hasOwnProperty(prop))
                     return false;
@@ -359,7 +359,7 @@
 
             return true;
         },
-        removeSessionTool: function() {
+        removeSessionTool: function () {
             if (!roles.hasAdmin()) {
                 var SessionEndTool = document.getElementById("virtualclassSessionEndTool");
                 if (SessionEndTool != null) {
@@ -367,8 +367,8 @@
                 }
             }
         },
-         
-        Fullscreen: function() {
+
+        Fullscreen: function () {
             var elem = document.getElementById("virtualclassCont");
             if (elem.requestFullscreen) {
                 elem.requestFullscreen();
@@ -385,17 +385,17 @@
         closeFullscreen: function () {
             var elem = document.getElementById("virtualclassCont");
             if (document.exitFullscreen) {
-              document.exitFullscreen();
+                document.exitFullscreen();
             } else if (document.mozCancelFullScreen) {
-              document.mozCancelFullScreen();
+                document.mozCancelFullScreen();
             } else if (document.webkitExitFullscreen) {
-              document.webkitExitFullscreen();
+                document.webkitExitFullscreen();
             } else if (document.msExitFullscreen) {
-              document.msExitFullscreen();
+                document.msExitFullscreen();
             }
             elem.classList.remove("fullScreenMode");
-          },
-        
+        },
+
         // TODO
         /***
          * Add class at body according to role
@@ -409,21 +409,21 @@
                 elem.className = className;
             }
         },
-        removeClass: function(id, className) {
+        removeClass: function (id, className) {
             var elem = document.getElementById(id);
 
             if (virtualclass.vutil.elemHasAnyClass(id) && elem.classList.contains(className)) {
                 elem.classList.remove(className);
             }
         },
-        breakIntoBytes: function(val, l) {
+        breakIntoBytes: function (val, l) {
             var numstring = val.toString();
             for (var i = numstring.length; i < l; i++) {
                 numstring = '0' + numstring;
             }
             return numstring.match(/[\S]{1,2}/g) || [];
         },
-        numValidateFour: function(n1, n2, n3, n4) {
+        numValidateFour: function (n1, n2, n3, n4) {
             n1 = this.preNumValidateTwo(n1);
             n2 = this.preNumValidateTwo(n2);
             n3 = this.preNumValidateTwo(n3);
@@ -431,13 +431,13 @@
             var nres = n1 + n2 + n3 + n4;
             return parseInt(nres);
         },
-        numValidateTwo: function(n1, n2) {
+        numValidateTwo: function (n1, n2) {
             n1 = this.preNumValidateTwo(n1);
             n2 = this.preNumValidateTwo(n2);
             var nres = n1 + n2;
             return parseInt(nres);
         },
-        preNumValidateTwo: function(n) {
+        preNumValidateTwo: function (n) {
             var numstring = n.toString();
             if (numstring.length == 1) {
                 return '0' + numstring;
@@ -445,42 +445,42 @@
                 return numstring;
             }
         },
-        elemHasAnyClass: function(elemId) {
+        elemHasAnyClass: function (elemId) {
             var elem = document.getElementById(elemId);
             if (elem != null) {
                 return (typeof elem.classList != 'undefined');
             }
             return false;
         },
-        userIsOrginalTeacher: function(userId) {
+        userIsOrginalTeacher: function (userId) {
             return roles.hasAdmin();
         },
-        isUserTeacher: function(userId) {
+        isUserTeacher: function (userId) {
             return roles.hasControls();
         },
-        initDisableAudVid: function() {
+        initDisableAudVid: function () {
             virtualclass.gObj.audIntDisable = true;
             virtualclass.gObj.vidIntDisable = true;
         },
-        initDisableVirtualClass: function() {
+        initDisableVirtualClass: function () {
             this.initDisableAudVid();
             virtualclass.gObj.errNotDesktop = true;
             virtualclass.gObj.errNotScreenShare = true;
             virtualclass.gObj.errAppBar = true;
         },
-        disableVirtualClass: function() {
+        disableVirtualClass: function () {
 
             var virtualClass = document.getElementById('virtualclassCont');
             virtualClass.style.opacity = 0.6;
             virtualClass.style.pointerEvents = "none";
         },
-        enableVirtualClass: function() {
+        enableVirtualClass: function () {
             var virtualClass = document.getElementById('virtualclassCont');
             virtualClass.style.opacity = 1;
             virtualClass.style.pointerEvents = "visible";
 
         },
-        firstiOSaudioCall: function() {
+        firstiOSaudioCall: function () {
             if (virtualclass.gObj.hasOwnProperty('audioPlayMessage')) {
                 //virtualclass.gObj.iosTabAudTrue = true;
                 virtualclass.gObj.iosIpadbAudTrue = true;
@@ -489,16 +489,16 @@
         },
 
         beforeLoad: function () {
-            if(virtualclass.currApp == 'DocumentShare'){
-                if(!roles.hasControls()){
+            if (virtualclass.currApp == 'DocumentShare') {
+                if (!roles.hasControls()) {
                     var rhElem = document.querySelector("#virtualclassCont.congrea #icHr");
                     var action = rhElem.getAttribute("data-action");
-                    if(action == "disable"){
+                    if (action == "disable") {
                         var toUser = virtualclass.vutil.whoIsTeacher();
                         ioAdapter.sendUser({
                             'data': {
                                 user: wbUser.id,
-                                action:action
+                                action: action
                             },
                             'cf': 'raiseHand'
                         }, toUser);
@@ -511,14 +511,14 @@
             virtualclass.gObj.windowLoading = true;
             // If user does page refresh after session saved and does not start new session  by clicking on element
             // Then we need to clear the session on page refresh
-            if(virtualclass.recorder.hasOwnProperty('doSessionClear')){
+            if (virtualclass.recorder.hasOwnProperty('doSessionClear')) {
                 virtualclass.clearSession();
                 return;
             }
             // When user does clear history by browser feature, some data are storing
             // in that case we are not saving the data by clearing all storage data.
 
-            if(localStorage.length == 0){
+            if (localStorage.length == 0) {
                 virtualclass.storage.clearStorageData();
                 return;
             }
@@ -527,8 +527,8 @@
             //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
             localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
             localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
-            if(typeof virtualclass.gObj.audioEnable != 'undefined' ){
-                localStorage.setItem('audEnable', JSON.stringify({'ac' : virtualclass.gObj.audioEnable}));
+            if (typeof virtualclass.gObj.audioEnable != 'undefined') {
+                localStorage.setItem('audEnable', JSON.stringify({'ac': virtualclass.gObj.audioEnable}));
             }
 
             localStorage.removeItem('otherRole');
@@ -559,13 +559,13 @@
             if (virtualclass.currApp == 'ScreenShare') {
                 prvAppObj.name = virtualclass.gObj.defaultApp; //not saving screen share but show Editor Rich default window
                 var teacherId = virtualclass.vutil.whoIsTeacher();
-                if(virtualclass.gObj.studentSSstatus.mesharing){
-                    ioAdapter.mustSendUser({'cf' : 'rmStdScreen'}, teacherId);
-                }else if(roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing){
+                if (virtualclass.gObj.studentSSstatus.mesharing) {
+                    ioAdapter.mustSendUser({'cf': 'rmStdScreen'}, teacherId);
+                } else if (roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing) {
                     virtualclass.vutil.beforeSend({'unshareScreen': true, st: 'ss', 'cf': 'unshareScreen'});
                 }
 
-                if((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()){
+                if ((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()) {
                     console.log('screen-detail is saving into storage');
                     localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
                 }
@@ -586,76 +586,76 @@
                     prvAppObj.metaData = {
                         'init': virtualclass.sharePt.pptUrl,
                         startFrom: virtualclass.sharePt.state,
-                        currId:virtualclass.sharePt.currId
+                        currId: virtualclass.sharePt.currId
                     };
-                    console.log("start From"+virtualclass.sharePt.state);
+                    console.log("start From" + virtualclass.sharePt.state);
                     virtualclass.sharePt.saveIntoLocalStorage(prvAppObj);
                 } else {
                     prvAppObj.metaData = null; // if video is not started to share.
                 }
-            }else if(virtualclass.currApp=="Poll"){
+            } else if (virtualclass.currApp == "Poll") {
                 virtualclass.poll.saveInLocalStorage();
                 console.log("currAppPoll");
-            }else if(virtualclass.currApp=="Video"){
-                    if(virtualclass.videoUl.player){
-                        var start=virtualclass.videoUl.player.currentTime();
-                    }
+            } else if (virtualclass.currApp == "Video") {
+                if (virtualclass.videoUl.player) {
+                    var start = virtualclass.videoUl.player.currentTime();
+                }
 
-                    prvAppObj.metaData = {
-                        'init': {
-                            videoId:virtualclass.videoUl.videoId,
-                            videoUrl:virtualclass.videoUl.videoUrl,
-                            yts:virtualclass.videoUl.yts,
-                            online:virtualclass.videoUl.online,
-                            isPaused:virtualclass.videoUl.isPaused
-                        },
-                        startFrom: start,
-                        isAutoplay:virtualclass.videoUl.autoPlayFlag
+                prvAppObj.metaData = {
+                    'init': {
+                        videoId: virtualclass.videoUl.videoId,
+                        videoUrl: virtualclass.videoUl.videoUrl,
+                        yts: virtualclass.videoUl.yts,
+                        online: virtualclass.videoUl.online,
+                        isPaused: virtualclass.videoUl.isPaused
+                    },
+                    startFrom: start,
+                    isAutoplay: virtualclass.videoUl.autoPlayFlag
 
-                    };
+                };
 
-                    console.log(prvAppObj);
-                        //nirmala
-                  //  virtualclass.videoUl.saveVideosInLocalStr();
+                console.log(prvAppObj);
+                //nirmala
+                //  virtualclass.videoUl.saveVideosInLocalStr();
 
-              //  }
+                //  }
 
-            } else if(virtualclass.currApp == 'DocumentShare'){
+            } else if (virtualclass.currApp == 'DocumentShare') {
                 console.log('previous app success ' + virtualclass.currApp);
-                if(virtualclass.dts.docs.hasOwnProperty('currDoc')){
+                if (virtualclass.dts.docs.hasOwnProperty('currDoc')) {
                     var currDoc = virtualclass.dts.docs.currDoc;
                     console.log('currentDocument ' + currDoc);
                     // console.dir('currDoc ' + virtualclass.dts.docs[virtualclass.dts.docs.currDoc]);
                     //  var slideNumber = virtualclass.dts.docs.note.currNote;
 
-                    if(virtualclass.dts.order.length > 0){
+                    if (virtualclass.dts.order.length > 0) {
                         prvAppObj.metaData = {
                             'init': currDoc,
-                            slideNumber : virtualclass.dts.docs.note.currNote,
-                            order : JSON.stringify(virtualclass.dts.order)
+                            slideNumber: virtualclass.dts.docs.note.currNote,
+                            order: JSON.stringify(virtualclass.dts.order)
                         };
-                    }else {
+                    } else {
                         var currDoc = 'layout';
                         prvAppObj.metaData = {
                             'init': currDoc,
-                            slideNumber : null
+                            slideNumber: null
                         };
                     }
-                }else {
+                } else {
                     var currDoc = 'layout';
                     prvAppObj.metaData = {
                         'init': currDoc,
-                        slideNumber : null
+                        slideNumber: null
                     };
                 }
-                if(Object.keys(virtualclass.dts.pages).length > 0){
+                if (Object.keys(virtualclass.dts.pages).length > 0) {
                     prvAppObj.metaData.docs = virtualclass.dts.pages;
                 }
 
             } else if (virtualclass.currApp == "Quiz") {
                 virtualclass.quiz.saveInLocalStorage();
                 console.log("quiz data saved");
-            }else if(virtualclass.currApp == "Whiteboard"){
+            } else if (virtualclass.currApp == "Whiteboard") {
                 // var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount, "wbcs"  : virtualclass.gObj.currSlide};
                 var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount};
             }
@@ -663,14 +663,14 @@
             localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
             localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
 
-            if(virtualclass.zoom.canvasScale != null){
+            if (virtualclass.zoom.canvasScale != null) {
                 var canvasScale = (+virtualclass.zoom.canvasScale);
                 console.log('Canvas pdf scale ' + canvasScale);
-                if(virtualclass.vutil.isNumeric(canvasScale)){
-                 //   localStorage.setItem('wbcScale', canvasScale);
+                if (virtualclass.vutil.isNumeric(canvasScale)) {
+                    //   localStorage.setItem('wbcScale', canvasScale);
                 }
-                if(virtualclass.zoom.hasOwnProperty('canvasDimension')){
-                    localStorage.setItem('canvasDimension', JSON.stringify(virtualclass.zoom.canvasDimension)); 
+                if (virtualclass.zoom.hasOwnProperty('canvasDimension')) {
+                    localStorage.setItem('canvasDimension', JSON.stringify(virtualclass.zoom.canvasDimension));
                 }
             }
 
@@ -688,16 +688,16 @@
              * rather than document sharing
              */
 
-            if(virtualclass.hasOwnProperty('dts') && virtualclass.dts != null){
+            if (virtualclass.hasOwnProperty('dts') && virtualclass.dts != null) {
                 virtualclass.dts.upateInStorage();
             }
 
             localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
             localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
 
-            if(!roles.hasControls()){
-                var elem =  document.querySelector("#virtualclassCont.congrea #congHr.disable");
-                if(elem){
+            if (!roles.hasControls()) {
+                var elem = document.querySelector("#virtualclassCont.congrea #congHr.disable");
+                if (elem) {
                     elem.click();
                 }
             }
@@ -708,28 +708,28 @@
             // TODO this should be enable and should test proper way
             // localStorage.setItem('uRole', virtualclass.gObj.uRole);
 
-            if(roles.hasControls()){
-                localStorage.setItem('videoSwitch',virtualclass.videoHost.gObj.videoSwitch );
-            }else{
-                localStorage.setItem('stdVideoSwitch',virtualclass.videoHost.gObj.stdStopSmallVid);
-                localStorage.setItem('allStdVideoOff',  virtualclass.videoHost.gObj.allStdVideoOff);
+            if (roles.hasControls()) {
+                localStorage.setItem('videoSwitch', virtualclass.videoHost.gObj.videoSwitch);
+            } else {
+                localStorage.setItem('stdVideoSwitch', virtualclass.videoHost.gObj.stdStopSmallVid);
+                localStorage.setItem('allStdVideoOff', virtualclass.videoHost.gObj.allStdVideoOff);
 
             }
-            localStorage.setItem('chatWindow',virtualclass.chat.chatWindow);
+            localStorage.setItem('chatWindow', virtualclass.chat.chatWindow);
             this.saveWbOrder();
-            if(virtualclass.currApp != 'DocumentShare'){
+            if (virtualclass.currApp != 'DocumentShare') {
                 io.disconnect();
             }
         },
 
-        initOnBeforeUnload: function(bname) {
+        initOnBeforeUnload: function (bname) {
             //debugger;
             if (bname == 'iOS') {
-                document.body.onunload = function() {
+                document.body.onunload = function () {
                     virtualclass.vutil.beforeLoad();
                 }
             } else {
-                window.onbeforeunload = function() {
+                window.onbeforeunload = function () {
                     var editor = virtualclass.vutil.smallizeFirstLetter(virtualclass.currApp);
                     virtualclass.vutil.beforeLoad();
 
@@ -744,10 +744,10 @@
                 }
             }
         },
-        isPlayMode: function() {
+        isPlayMode: function () {
             return (window.wbUser.virtualclassPlay == true);
         },
-        progressBar: function(totalVal, portion, pbar, pval) {
+        progressBar: function (totalVal, portion, pbar, pval) {
             if (portion > totalVal) {
                 portion = totalVal;
                 document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
@@ -763,18 +763,18 @@
             document.getElementById(pval).innerHTML = totalProgress + '%';
 
         },
-        hidePrevIcon: function(app) {
+        hidePrevIcon: function (app) {
             //debugger;
             var prvScreen = document.getElementById(virtualclass.previous);
             if (prvScreen != null) {
                 prvScreen.style.display = 'none';
 
-                console.log('Hide previous screen with display new '  + app);
-                if(app == 'ss'){
-                    if(typeof virtualclass[app] == 'object'){
+                console.log('Hide previous screen with display new ' + app);
+                if (app == 'ss') {
+                    if (typeof virtualclass[app] == 'object') {
                         document.getElementById(virtualclass[app].id).style.display = 'block';
                     }
-                }else {
+                } else {
 
                     document.getElementById(virtualclass[app].id).style.display = 'block';
                 }
@@ -786,7 +786,7 @@
          * @param key kew of which return value
          * @param userId the user
          */
-        getUserInfo: function(key, userId, users) {
+        getUserInfo: function (key, userId, users) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].userid == userId) {
                     return users[i][key];
@@ -795,27 +795,27 @@
         },
 
         /** TODO this function should be merged with above function **/
-        getUserAllInfo: function(userId, users) {
-           if(typeof userId != 'undefined' && typeof users != 'undefined'){
-               for (var i = 0; i < users.length; i++) {
-                   if (users[i].userid == userId) {
-                       return users[i];
-                   }
-               }
-               return false;
-           }else  {
-               console.log('Error user is not found' );
-               return false;
-           }
+        getUserAllInfo: function (userId, users) {
+            if (typeof userId != 'undefined' && typeof users != 'undefined') {
+                for (var i = 0; i < users.length; i++) {
+                    if (users[i].userid == userId) {
+                        return users[i];
+                    }
+                }
+                return false;
+            } else {
+                console.log('Error user is not found');
+                return false;
+            }
         },
 
-        smallizeFirstLetter: function(string) {
+        smallizeFirstLetter: function (string) {
             return string.charAt(0).toLowerCase() + string.slice(1);
         },
-        capitalizeFirstLetter: function(string) {
+        capitalizeFirstLetter: function (string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         },
-        initDefaultInfo: function(role, appIs) {
+        initDefaultInfo: function (role, appIs) {
             //debugger;
             if (role == 't' && appIs == 'Whiteboard') {
                 if (!roles.hasAdmin()) {
@@ -832,7 +832,7 @@
                     // If student became teacher has educator role at localStorage then
                     // the user would not join as student but teacher
                     var uRole = localStorage.getItem('uRole');
-                    if(uRole != null && uRole == 'e'){
+                    if (uRole != null && uRole == 'e') {
                         role = 'e';
                     }
 
@@ -843,10 +843,10 @@
 
             if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
                 setTimeout(
-                    function (){
+                    function () {
                         virtualclass.media.init();
                         virtualclass.media.isInitiator = true;
-                    },500 // Let be ready every thing
+                    }, 500 // Let be ready every thing
                 );
             }
 
@@ -859,7 +859,7 @@
          * @param className
          * @returns {string}
          */
-        removeClassFromElement: function(prvTool, className) {
+        removeClassFromElement: function (prvTool, className) {
             if (prvTool != "t_reclaim") {
                 var prvToolElem = document.getElementById(prvTool);
                 if (prvToolElem.classList.length > 0) { // If class list available only
@@ -875,7 +875,7 @@
          * @param {type} msg
          * @returns {undefined}
          */
-        beforeSend: function(msg, toUser, notMust) {
+        beforeSend: function (msg, toUser, notMust) {
             var wbId = virtualclass.gObj.currWb;
             ////debugger;
             // when we are in replay mode we don't need send the object to other user
@@ -889,7 +889,7 @@
                     }
                     virtualclass.wb[wbId].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
                     virtualclass.wb[wbId].gObj.displayedObjId = virtualclass.wb[wbId].gObj.rcvdPackId;
-        //            console.log('Last send data ' + virtualclass.wb[wbId].gObj.rcvdPackId);
+                    //            console.log('Last send data ' + virtualclass.wb[wbId].gObj.rcvdPackId);
                 }
 
                 var jobj = JSON.stringify(msg);
@@ -910,7 +910,7 @@
 
             }
         },
-        breakintobytes: function(val, l) {
+        breakintobytes: function (val, l) {
             var numstring = val.toString();
             for (var i = numstring.length; i < l; i++) {
                 numstring = '0' + numstring;
@@ -923,7 +923,7 @@
             this.createDiv('t_reclaim', 'educator', cmdToolsWrapper);
             var aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
             var that = this;
-            aTags[0].addEventListener('click', function() {
+            aTags[0].addEventListener('click', function () {
                 that._reclaimRole();
             });
         },
@@ -934,7 +934,7 @@
          * this whole output process should come by
          * html not javascript
          */
-        createDiv: function(toolId, text, cmdToolsWrapper, cmdClass) {
+        createDiv: function (toolId, text, cmdToolsWrapper, cmdClass) {
 
             //console.log('class name ' + text);
             var toolName = text;
@@ -969,7 +969,7 @@
                 cmdToolsWrapper.appendChild(lDiv);
             }
         },
-        assignRole: function(studentId) {
+        assignRole: function (studentId) {
             if (typeof virtualclass.wb == 'object') {
                 var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                 virtualclass.wb[virtualclass.gObj.currWb].tool = "";
@@ -1121,10 +1121,10 @@
             // If teacher is disconnected then
             // there would come the porblem on editor of assigning role to student while continuous writting by him.
 
-            if(!roles.hasAdmin()){
-                io. disconnect();
+            if (!roles.hasAdmin()) {
+                io.disconnect();
                 setTimeout(
-                    function() {
+                    function () {
                         virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
                         io.init(virtualclass.uInfo);
                     }, 500
@@ -1139,7 +1139,7 @@
             }
 
         },
-        renderWhiteboardObjectsIfAny: function() {
+        renderWhiteboardObjectsIfAny: function () {
             if (typeof virtualclass.wb == 'object') {
                 if (virtualclass.wb[virtualclass.gObj.currWb].vcan.main.children.length > 0) {
                     virtualclass.wb[virtualclass.gObj.currWb].vcan.renderAll();
@@ -1147,21 +1147,21 @@
             }
         },
 
-        createCommandWrapper: function(id) {
+        createCommandWrapper: function (id) {
             var vcan = virtualclass.wb[id].vcan;
             var cmdToolsWrapper = document.createElement('div');
             cmdToolsWrapper.id = virtualclass.gObj.commandToolsWrapperId[id];
             cmdToolsWrapper.className = "commandToolsWrapper";
             var canvasElem = document.getElementById(vcan.canvasWrapperId);
             if (canvasElem != null) {
-                document.getElementById('containerWb'+id).insertBefore(cmdToolsWrapper, canvasElem);
+                document.getElementById('containerWb' + id).insertBefore(cmdToolsWrapper, canvasElem);
             } else {
-                document.getElementById('containerWb'+id).appendChild(cmdToolsWrapper);
+                document.getElementById('containerWb' + id).appendChild(cmdToolsWrapper);
             }
             return cmdToolsWrapper;
         },
 
-        createRoleWrapper : function() {
+        createRoleWrapper: function () {
             var cmdToolsWrapper = document.createElement('div');
             cmdToolsWrapper.id = 'commandToolsWrapper_doc_0_0';
             cmdToolsWrapper.className = "commandToolsWrapper";
@@ -1177,19 +1177,19 @@
 
             var that = this;
             setTimeout(
-                function (){
+                function () {
                     that.reclaimRole();
                     virtualclass.user.control.changeAttrToAssign('enable');
                 }, 2000
             );
         },
 
-        reclaimRole: function() {
+        reclaimRole: function () {
             virtualclass.gObj.controlAssign = false;
             this.vcResponseAssignRole(virtualclass.gObj.uid, virtualclass.gObj.uid, true);
         },
         //equivalent to response.assignRole from receive-messages-response.js//equivalen
-        vcResponseAssignRole: function(fromUserId, id, reclaim) {
+        vcResponseAssignRole: function (fromUserId, id, reclaim) {
             if (fromUserId != id || typeof reclaim != 'undefined') {
                 virtualclass.vutil.assignRole(id);
                 if (typeof virtualclass.wb == 'object') {
@@ -1233,20 +1233,20 @@
             console.log('Reclaim role :- Init');
             if (formUserId != id) {
                 //virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs[virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs.length-1]);
-                if(typeof virtualclass.wb == 'object'){
+                if (typeof virtualclass.wb == 'object') {
                     // if whiteboard is in mid state, vcan.main.action == 'move' means user is doing drag/rotate
 
-                    var currObj = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs[virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs.length-1];
+                    var currObj = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs[virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs.length - 1];
 
-                    if(typeof currObj == 'object' && currObj.ac == 'del'){
+                    if (typeof currObj == 'object' && currObj.ac == 'del') {
                         console.log("Delete command:- Transferring the delete command");
                         virtualclass.vutil.beforeSend({'repObj': [currObj], 'cf': 'repObj'});
-                    } else if(virtualclass.wb[virtualclass.gObj.currWb].tool.cmd == 't_text' && virtualclass.wb[virtualclass.gObj.currWb].vcan.main.action == 'create'){
+                    } else if (virtualclass.wb[virtualclass.gObj.currWb].tool.cmd == 't_text' && virtualclass.wb[virtualclass.gObj.currWb].vcan.main.action == 'create') {
                         var midReclaim = true;
                         virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny(midReclaim);
                         console.log("Text command:- Transferring text command");
-                    } else if (((virtualclass.wb[virtualclass.gObj.currWb].tool.hasOwnProperty('started') && virtualclass.wb[virtualclass.gObj.currWb].tool.started == true) || virtualclass.wb[virtualclass.gObj.currWb].vcan.main.action == 'move')){
-                        var tempObj = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs[virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs.length-1];
+                    } else if (((virtualclass.wb[virtualclass.gObj.currWb].tool.hasOwnProperty('started') && virtualclass.wb[virtualclass.gObj.currWb].tool.started == true) || virtualclass.wb[virtualclass.gObj.currWb].vcan.main.action == 'move')) {
+                        var tempObj = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs[virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs.length - 1];
 
                         var currObj = vcan.extend({}, tempObj);
                         currObj.ac = 'u';
@@ -1296,7 +1296,7 @@
             }
             return false;
         },
-        whoIsTeacher: function() {
+        whoIsTeacher: function () {
             //TODO this function should call less frequently and may be called on member add function, status could be saved in a variable.
 
             if (virtualclass.hasOwnProperty('connectedUsers')) {
@@ -1309,7 +1309,7 @@
             return 0;
         },
 
-        getMySelf: function() {
+        getMySelf: function () {
             if (virtualclass.hasOwnProperty('connectedUsers')) {
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
                     if (virtualclass.connectedUsers[i].userid == virtualclass.gObj.uid) {
@@ -1318,13 +1318,13 @@
                 }
             }
         },
-        enablePresentatorEditors: function(touser) {
+        enablePresentatorEditors: function (touser) {
             var msg = {toUser: touser, status: true};
 
             virtualclass.user.control.received_editorRich(msg);
             virtualclass.user.control.received_editorCode(msg);
         },
-        getClassName: function(role) {
+        getClassName: function (role) {
             var className;
 
             if (role == 't') {
@@ -1334,7 +1334,7 @@
             } else if (role == 's') {
                 className = 'student';
 
-            }else if(role == 'p'){
+            } else if (role == 'p') {
 
                 className = 'presenter';
             }
@@ -1342,9 +1342,9 @@
         },
 
 
-        isPresenterExist : function (){
-            for(var i=0; i<virtualclass.connectedUsers.length; i++){
-                if(virtualclass.connectedUsers[i].role == 'p'){
+        isPresenterExist: function () {
+            for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
+                if (virtualclass.connectedUsers[i].role == 'p') {
 
                     return true;
                 }
@@ -1353,14 +1353,14 @@
         },
 
 
-        setReadModeWhenTeacherIsDisConn : function (eType){
-            if(!roles.hasAdmin()){
+        setReadModeWhenTeacherIsDisConn: function (eType) {
+            if (!roles.hasAdmin()) {
                 var teacherDisConn = localStorage.getItem('oTDisconn');
-                if(teacherDisConn != null){
+                if (teacherDisConn != null) {
                     teacherDisConn = JSON.parse(teacherDisConn);
-                    if(teacherDisConn){ //If orginal teacher is disconnnected
-                        if(virtualclass.hasOwnProperty(eType)){
-                            if(typeof virtualclass[eType].cm == 'object'){
+                    if (teacherDisConn) { //If orginal teacher is disconnnected
+                        if (virtualclass.hasOwnProperty(eType)) {
+                            if (typeof virtualclass[eType].cm == 'object') {
 
                                 virtualclass[eType].cm.setOption('readOnly', 'nocursor');
                             } else {
@@ -1377,14 +1377,14 @@
             }
         },
 
-        setReadModeWhenTeacherIsConn : function (eType){
+        setReadModeWhenTeacherIsConn: function (eType) {
             localStorage.removeItem('oTDisconn');
-            var writeModeElem = document.getElementById(virtualclass.vutil.capitalizeFirstLetter(eType) +  'writeModeBox');
-            if(writeModeElem != null){
+            var writeModeElem = document.getElementById(virtualclass.vutil.capitalizeFirstLetter(eType) + 'writeModeBox');
+            if (writeModeElem != null) {
                 var writeMode = writeModeElem.getAttribute('data-write-mode');
-                if(writeMode == 'true'){
+                if (writeMode == 'true') {
                     virtualclass[eType].cm.setOption('readOnly', false);
-                }else{
+                } else {
 
                     virtualclass[eType].cm.setOption('readOnly', 'nocursor');
                 }
@@ -1394,10 +1394,10 @@
         },
 
 
-        isTeacherAlreadyExist : function(joinId){
-            if(virtualclass.hasOwnProperty('connectedUsers')){
+        isTeacherAlreadyExist: function (joinId) {
+            if (virtualclass.hasOwnProperty('connectedUsers')) {
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
-                    if ((virtualclass.connectedUsers[i].role == 't' ||  virtualclass.connectedUsers[i].role == 'e')
+                    if ((virtualclass.connectedUsers[i].role == 't' || virtualclass.connectedUsers[i].role == 'e')
                         && virtualclass.connectedUsers[i].userid != joinId) {
 
                         console.log('joni Id ' + joinId);
@@ -1408,8 +1408,8 @@
             return false;
         },
 
-        isPresenterAlreadyExist : function (joinId){
-            if(virtualclass.hasOwnProperty('connectedUsers')){
+        isPresenterAlreadyExist: function (joinId) {
+            if (virtualclass.hasOwnProperty('connectedUsers')) {
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
                     if ((virtualclass.connectedUsers[i].role == 'p')
                         && virtualclass.connectedUsers[i].userid != joinId) {
@@ -1427,10 +1427,10 @@
          * @returns {*}
          */
 
-        getPresenterId :function (){
-            if(virtualclass.hasOwnProperty('connectedUsers')){
+        getPresenterId: function () {
+            if (virtualclass.hasOwnProperty('connectedUsers')) {
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
-                    if ((virtualclass.connectedUsers[i].role == 'p')){
+                    if ((virtualclass.connectedUsers[i].role == 'p')) {
 
                         return virtualclass.connectedUsers[i].userid;
                         return true;
@@ -1440,8 +1440,8 @@
             return false;
         },
 
-        isEducatorAlreadyExist : function (joinId){
-            if(virtualclass.hasOwnProperty('connectedUsers')){
+        isEducatorAlreadyExist: function (joinId) {
+            if (virtualclass.hasOwnProperty('connectedUsers')) {
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
                     if ((virtualclass.connectedUsers[i].role == 'e')
                         && virtualclass.connectedUsers[i].userid != joinId) {
@@ -1454,8 +1454,8 @@
             return false;
         },
 
-        isOrginalTeacherExist : function (joinId){
-            if(virtualclass.hasOwnProperty('connectedUsers')){
+        isOrginalTeacherExist: function (joinId) {
+            if (virtualclass.hasOwnProperty('connectedUsers')) {
                 for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
                     if ((virtualclass.connectedUsers[i].role == 't')
                         && virtualclass.connectedUsers[i].userid != joinId) {
@@ -1468,11 +1468,11 @@
             return false;
         },
 
-         /**
+        /**
          * The widget for requset the Teacher Role
          */
-        createBecomeTeacherWidget : function(){
-            if(document.getElementById('beTeacher') == null){
+        createBecomeTeacherWidget: function () {
+            if (document.getElementById('beTeacher') == null) {
 
                 var beTeacher = document.createElement('div');
                 beTeacher.id = 'beTeacher';
@@ -1491,8 +1491,7 @@
                 beTeacher.style.opacity = '0.5';
                 // For handle the case,  on where teacher refresh the page
                 setTimeout(
-
-                    function (){
+                    function () {
                         beTeacher.style.pointerEvents = 'visible';
                         beTeacher.style.opacity = '1';
                     }, 60000 //60000
@@ -1503,9 +1502,9 @@
         /**
          * Remove the teacher widget
          */
-        removeBecomeTeacherWidget : function (){
+        removeBecomeTeacherWidget: function () {
             var becomeTeacherElem = document.getElementById('beTeacher');
-            if(becomeTeacherElem != null){
+            if (becomeTeacherElem != null) {
                 becomeTeacherElem.parentNode.removeChild(becomeTeacherElem);
             }
         },
@@ -1519,15 +1518,15 @@
          */
 
 
-        initTeacherRole : function (){
+        initTeacherRole: function () {
             // debugger;
             ioAdapter.send({'cf': 'bt'}); //become teacher
             virtualclass.vutil.removeBecomeTeacherWidget(); // remove button from self window
             setTimeout(
-                function (){
-                    if(!virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId)){
+                function () {
+                    if (!virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId)) {
                         virtualclass.vutil.overrideRoles('t');
-                        localStorage.setItem('beTeacher',  true);
+                        localStorage.setItem('beTeacher', true);
                         console.log('connected teacher');
                     } else {
                         console.log('Already connected teacher');
@@ -1538,7 +1537,7 @@
         },
 
 
-        overrideRoles : function (role){
+        overrideRoles: function (role) {
 
             virtualclass.uInfo.userobj.role = role;
             virtualclass.gObj.uRole = virtualclass.uInfo.userobj.role;
@@ -1553,8 +1552,8 @@
          * @param role
          */
 
-        overrideRolesFromElem : function (elem, role){
-            if(role == 's'){
+        overrideRolesFromElem: function (elem, role) {
+            if (role == 's') {
 
                 elem.classList.remove('teacher');
                 elem.classList.remove('orginalTeacher');
@@ -1563,7 +1562,7 @@
                 virtualclassCont.classList.add('student');
                 //this.synchEditorTools();
 
-            } else if(role == 'p'){
+            } else if (role == 'p') {
 
                 elem.classList.remove('teacher');
                 elem.classList.remove('orginalTeacher');
@@ -1571,7 +1570,7 @@
                 virtualclassCont.classList.add('student');
                 virtualclassCont.classList.add('presenter');
 
-            } else if(role == 'e'){
+            } else if (role == 'e') {
 
                 // By removing the teacher class would hide
                 // the audio icon from footer control on reload
@@ -1583,7 +1582,7 @@
                 elem.classList.add('orginalTeacher');
 
 
-            }else if(role == 't'){
+            } else if (role == 't') {
                 elem.classList.remove('student');
                 elem.classList.remove('educator');
                 elem.classList.remove('presenter');
@@ -1593,23 +1592,23 @@
             }
         },
 
-        sesionEndMsgBoxIsExisting : function (){
+        sesionEndMsgBoxIsExisting: function () {
             var sessionEndCont = document.getElementById('sessionEndMsgCont');
             return (sessionEndCont.hasAttribute('data-displaying') && sessionEndCont.dataset.displaying == 'true'); // do nothing if there is already sesion end box
 
         },
 
-        removeVideoHostContainer : function(){
+        removeVideoHostContainer: function () {
             var videoHostContainer = document.getElementById('videoHostContainer');
-            if(videoHostContainer != null){
+            if (videoHostContainer != null) {
                 videoHostContainer.parentNode.removeChild(videoHostContainer);
             }
         },
 
-        createDummyUser : function (usersLength) {
-            if(usersLength){
+        createDummyUser: function (usersLength) {
+            if (usersLength) {
                 usersLength = usersLength;
-            }else {
+            } else {
                 var usersLength = 5000;
             }
 
@@ -1628,7 +1627,7 @@
                         joinUser: {key: userId},
                         message: [{
                             lname: " ",
-                            name: "User"+userId,
+                            name: "User" + userId,
                             role: "s",
                             userid: userId
                         }],
@@ -1667,7 +1666,7 @@
          * @returns {number} return height
          */
         //removejquery
-        getVisibleHeightElem : function(element) {
+        getVisibleHeightElem: function (element) {
             var $el = $(element),
                 scrollTop = $(window).scrollTop(),
                 scrollBot = scrollTop + $(window).height(),
@@ -1678,24 +1677,24 @@
             return (visibleBottom - visibleTop);
         },
 
-        applyHeight : function (elem){
+        applyHeight: function (elem) {
             var rightPanel = document.getElementById('virtualclassAppRightPanel');
             var rightPanelHeight = this.getVisibleHeightElem('virtualclassCont');
             rightPanel.style.height = (rightPanelHeight != nul1) ? rightPanelHeight : window.innerHeight;
         },
 
-        insertIntoLeftBar : function (tobeInsert){
+        insertIntoLeftBar: function (tobeInsert) {
             var element = document.querySelector("#virtualclassApp #virtualclassAppLeftPanel");
-            if(element != null){
+            if (element != null) {
                 element.appendChild(tobeInsert);
             } else {
                 alert('Error:- There is no Element to insert it.');
             }
         },
 
-        getWhiteboardId : function (elem){
-            var docElem  =  elem.closest('.vcanvas');
-            if(docElem != null){
+        getWhiteboardId: function (elem) {
+            var docElem = elem.closest('.vcanvas');
+            if (docElem != null) {
                 return docElem.dataset.wbId;
             } else {
                 alert("doc element is null");
@@ -1715,45 +1714,45 @@
             return ({x: valueL, y: valueT});
         },
 
-        updateCurrentDoc : function (slide){
-            virtualclass.gObj.currWb = '_doc_'+ slide + '_' + slide ;
+        updateCurrentDoc: function (slide) {
+            virtualclass.gObj.currWb = '_doc_' + slide + '_' + slide;
         },
 
-        getParentTag : function (element, selector){
+        getParentTag: function (element, selector) {
             return element.closest(selector);
         },
 
 
-        attachEventToUploadTab : function (type, elemArr, cb) {
+        attachEventToUploadTab: function (type, elemArr, cb) {
             var btn = document.getElementById("newDocBtn");
-            if(btn != null){
+            if (btn != null) {
                 btn.removeEventListener('click', virtualclass.vutil._attachEventToUploadTab);
                 btn.addEventListener("click", virtualclass.vutil._attachEventToUploadTab);
 
             }
         },
 
-        _attachEventToUploadTab : function (){
+        _attachEventToUploadTab: function () {
             var element = document.querySelector('#DocumentShareDashboard .qq-upload-button-selector.qq-upload-button input');
-            if(element != null){
+            if (element != null) {
                 element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
                 var msz = document.querySelector("#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list");
-                if(msz){
-                    msz.style.display="block";
+                if (msz) {
+                    msz.style.display = "block";
                 }
 
-            }else {
+            } else {
                 alert('Element is null');
             }
         },
-        attachEventToUpload : function (type, elemArr, cb) {
+        attachEventToUpload: function (type, elemArr, cb) {
             var btn = document.getElementById("uploadVideo")
-            if(btn != null){
-                btn.addEventListener("click", function (){
+            if (btn != null) {
+                btn.addEventListener("click", function () {
                     var element = document.querySelector('#VideoDashboard .qq-upload-button-selector.qq-upload-button input');
-                    if(element != null){
+                    if (element != null) {
                         element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
-                    }else {
+                    } else {
                         alert('Element is null');
                     }
                 })
@@ -1763,25 +1762,25 @@
 
         modalPopup: function (type, elemArr) {
             var upload = {};
-            if(type == 'video'){
+            if (type == 'video') {
                 var currPlayed = document.querySelector("#listvideo .playing")
                 if (currPlayed) {
                     var id = currPlayed.getAttribute('data-rid')
                     this.currPlaying = id;
                 }
-                upload.validation = [ "mp4", "avi",  "wmv", "mov", "webm", "mkv", "vob",  "mpeg"];
+                upload.validation = ["mp4", "avi", "wmv", "mov", "webm", "mkv", "vob", "mpeg"];
                 upload.cb = virtualclass.videoUl.afterUploadVideo;
                 upload.cthis = 'video';
-                upload.maxSize=512*1000*1000; //512 mb
+                upload.maxSize = 512 * 1000 * 1000; //512 mb
                 //upload.requesteEndPoint = window.webapi + "&methodname=file_save&user="+virtualclass.gObj.uid;
-                upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=2&user="+virtualclass.gObj.uid;
+                upload.requesteEndPoint = window.webapi + "&methodname=file_save&live_class_id=" + virtualclass.gObj.congCourse + "&status=1&content_type_id=2&user=" + virtualclass.gObj.uid;
             } else {
-                upload.validation = ['doc', 'docx', 'txt', 'html', 'csv', 'pdf', 'ppt', 'pptx','xls', 'xlsx', 'xlt', 'png', 'jpg', 'gif', 'svg', 'tiff', 'rtf', 'xpm'];
+                upload.validation = ['doc', 'docx', 'txt', 'html', 'csv', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'xlt', 'png', 'jpg', 'gif', 'svg', 'tiff', 'rtf', 'xpm'];
                 upload.cb = virtualclass.dts.onAjaxResponse;
                 upload.cthis = 'docs';
-                upload.maxSize=24*1000*1000; //24MB
+                upload.maxSize = 24 * 1000 * 1000; //24MB
                 // upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&user="+virtualclass.gObj.uid;
-                upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&live_class_id="+virtualclass.gObj.congCourse+"&status=1&content_type_id=1&user="+virtualclass.gObj.uid;
+                upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&live_class_id=" + virtualclass.gObj.congCourse + "&status=1&content_type_id=1&user=" + virtualclass.gObj.uid;
             }
 
             upload.multiple = false;
@@ -1796,7 +1795,7 @@
 
             virtualclass.fineUploader.uploaderFn(upload);
 
-            if(type != 'video') {
+            if (type != 'video') {
                 var cont = document.querySelector("#DocumentShareDashboard #docsUploadMsz");
                 var upMsz = document.createElement("div");
                 if (cont) {
@@ -1806,25 +1805,25 @@
 
         },
 
-        xhrSendWithForm : function (data, methodname, cb){
+        xhrSendWithForm: function (data, methodname, cb) {
             var form_data = new FormData();
-            for ( var key in data ) {
+            for (var key in data) {
                 form_data.append(key, data[key]);
             }
-            if(typeof methodname == 'undefined'){
+            if (typeof methodname == 'undefined') {
                 var path = window.webapi;
             } else {
-                var path = window.webapi + "&methodname="+ methodname +"&user="+virtualclass.gObj.uid;
+                var path = window.webapi + "&methodname=" + methodname + "&user=" + virtualclass.gObj.uid;
             }
 
-            if(typeof cb != 'undefined' ){
+            if (typeof cb != 'undefined') {
                 virtualclass.xhr.sendFormData(form_data, path, cb);
             } else {
                 virtualclass.xhr.sendFormData(form_data, path);
             }
         },
 
-        createSaveButton : function (){
+        createSaveButton: function () {
             var saveButton = document.createElement('div');
             saveButton.id = "tech_support_save";
 
@@ -1835,33 +1834,33 @@
         },
 
 
-        setChatContHeight : function (height){
-             return;
+        setChatContHeight: function (height) {
+            return;
             $('#chatWidget').height(height);
             this.setChatHeight(height);
         },
         //removejquery
-        setChatHeight : function (height){
+        setChatHeight: function (height) {
             return;
             var height = height - 40;
-            if(virtualclass.isPlayMode){
-                var height = height+64;
+            if (virtualclass.isPlayMode) {
+                var height = height + 64;
             }
             $('#chat_div').height(height);
         },
 
-        alreadyConnected : function (userId){
-            if(virtualclass.connectedUsers.length > 0){
-                var result = virtualclass.connectedUsers.filter(function( obj ) {
+        alreadyConnected: function (userId) {
+            if (virtualclass.connectedUsers.length > 0) {
+                var result = virtualclass.connectedUsers.filter(function (obj) {
                     return obj.userid == userId;
                 });
                 return (result.length > 0);
-            }else {
+            } else {
                 return false;
             }
         },
 
-        UTCtoLocalTime : function (time) {
+        UTCtoLocalTime: function (time) {
             var date = new Date(time);
 
             // Hours part from the timestamp
@@ -1869,7 +1868,7 @@
             // Minutes part from the timestamp
             var minutes = "0" + date.getMinutes();
             // Seconds part from the timestamp
-           // var seconds = "0" + date.getSeconds();
+            // var seconds = "0" + date.getSeconds();
 
             // Will display time in 10:30:23 format
             var formattedTime = hours + ':' + minutes.substr(-2);
@@ -1877,14 +1876,14 @@
             return formattedTime;
         },
 
-        UTCtoLocalTimeToSeconds : function (time){
+        UTCtoLocalTimeToSeconds: function (time) {
             var time = new Date(time).getTime();
             return time;
         },
 
-        appIsForEducator : function (app){
-            for(var i in virtualclass.apps){
-                if(virtualclass.apps[i] == app){
+        appIsForEducator: function (app) {
+            for (var i in virtualclass.apps) {
+                if (virtualclass.apps[i] == app) {
                     return false;
                 }
             }
@@ -1894,13 +1893,13 @@
          * Todo, this needs to move in dashboard.js
          * @param currVideo
          */
-        initDashboardNav : function (currVideo){
-            if(roles.hasControls()){
+        initDashboardNav: function (currVideo) {
+            if (roles.hasControls()) {
                 var dashboardnav = document.querySelector('#dashboardnav button');
 
-                if(dashboardnav == null){
+                if (dashboardnav == null) {
                     var dbNavTemp = virtualclass.getTemplate('dashboardNav');
-                    var context = {app : virtualclass.currApp};
+                    var context = {app: virtualclass.currApp};
                     var dbNavHtml = dbNavTemp(context);
 
                     //var virtualclassOptionsCont = document.querySelector('#virtualclassOptionsCont');
@@ -1908,85 +1907,85 @@
                     var virtualclassAppOptionsCont = document.querySelector('#virtualclassAppOptionsCont');
                     virtualclassAppOptionsCont.insertAdjacentHTML('beforeend', dbNavHtml);
 
-                    var dashboardnav =  document.querySelector('#dashboardnav button');
+                    var dashboardnav = document.querySelector('#dashboardnav button');
                     if (dashboardnav != null) {
                         dashboardnav.addEventListener('click', function () {
-                            var app = document.querySelector(".congrea #virtualclassApp");
-                            if (this.classList.contains('clicked')) {
-                                virtualclass.dashBoard.close();
-                                if (app) {
-                                    if (app.classList.contains("dashboard")) {
-                                        app.classList.remove("dashboard");
-                                    }
-                                }
-
-                            } else {
-                                if (app) {
-                                    if (!app.classList.contains("dashboard")) {
-                                        app.classList.add("dashboard");
-                                    }
-                                }
-                                
-                                virtualclass.vutil.initDashboard(virtualclass.currApp);
-                                this.classList.add('clicked');
-                                var Dtype = "close";
-                                virtualclass.dashBoard.dashBoardClickTooltip(Dtype);
-
-                                if (virtualclass.currApp == 'DocumentShare' && virtualclass.hasOwnProperty('dts')) {
-                                    virtualclass.dts.moveProgressbar();
-
-                                    if (virtualclass.dts.docs.currNote != null) {
-                                        virtualclass.dts.setCurrentNav(virtualclass.dts.docs.currNote);
-                                    }
-
-                                    var notes = document.querySelector(".dbContainer #listnotes .linknotes");
-                                    if (notes) {
-                                        var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
-                                        if (!btn) {
-                                            virtualclass.vutil.showFinishBtn();
+                                var app = document.querySelector(".congrea #virtualclassApp");
+                                if (this.classList.contains('clicked')) {
+                                    virtualclass.dashBoard.close();
+                                    if (app) {
+                                        if (app.classList.contains("dashboard")) {
+                                            app.classList.remove("dashboard");
                                         }
-                                    } else {
-                                        virtualclass.vutil.removeFinishBtn();
+                                    }
+
+                                } else {
+                                    if (app) {
+                                        if (!app.classList.contains("dashboard")) {
+                                            app.classList.add("dashboard");
+                                        }
+                                    }
+
+                                    virtualclass.vutil.initDashboard(virtualclass.currApp);
+                                    this.classList.add('clicked');
+                                    var Dtype = "close";
+                                    virtualclass.dashBoard.dashBoardClickTooltip(Dtype);
+
+                                    if (virtualclass.currApp == 'DocumentShare' && virtualclass.hasOwnProperty('dts')) {
+                                        virtualclass.dts.moveProgressbar();
+
+                                        if (virtualclass.dts.docs.currNote != null) {
+                                            virtualclass.dts.setCurrentNav(virtualclass.dts.docs.currNote);
+                                        }
+
+                                        var notes = document.querySelector(".dbContainer #listnotes .linknotes");
+                                        if (notes) {
+                                            var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable")
+                                            if (!btn) {
+                                                virtualclass.vutil.showFinishBtn();
+                                            }
+                                        } else {
+                                            virtualclass.vutil.removeFinishBtn();
+                                        }
+
                                     }
 
                                 }
-
+                                // virtualclass.vutil.removeFinishBtn();
                             }
-                            // virtualclass.vutil.removeFinishBtn();
-                        }
                         );
-                        if(currVideo){
+                        if (currVideo) {
                             virtualclass.vutil.readyDashboard(currVideo);
                         }
                     }
                 }
 
-                if(virtualclass.currApp == 'DocumentShare'){
-                    if(!virtualclass.dts.noteExist()){
+                if (virtualclass.currApp == 'DocumentShare') {
+                    if (!virtualclass.dts.noteExist()) {
                         this.readyDashboard();
 
                     } else {
-                        if(!virtualclass.dts.isUploaderExist()){
+                        if (!virtualclass.dts.isUploaderExist()) {
                             virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
                         }
                         var dtitle = document.getElementById('dashboardnav');
                         dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
                     }
-                }else if(virtualclass.currApp == 'Video'){
-                    if(typeof currVideo == 'undefined'){
+                } else if (virtualclass.currApp == 'Video') {
+                    if (typeof currVideo == 'undefined') {
                         this.readyDashboard();
                     }
                     var playing = document.querySelector(".congrea #listvideo .linkvideo.playing")
-                    if(!playing){
-                        virtualclass.vutil.removeFinishBtn(); 
+                    if (!playing) {
+                        virtualclass.vutil.removeFinishBtn();
                     }
 
                 } else {
                     this.readyDashboard();
-                     var playing = document.querySelector(".congrea #listppt .linkppt.playing")
-                    if(!playing){
-                        virtualclass.vutil.removeFinishBtn(); 
-                    }  
+                    var playing = document.querySelector(".congrea #listppt .linkppt.playing")
+                    if (!playing) {
+                        virtualclass.vutil.removeFinishBtn();
+                    }
                     var sharing = document.querySelector(".congrea .pptSharing");
                     if (sharing) {
                         virtualclass.modal.hideModal();
@@ -1996,29 +1995,29 @@
             }
         },
 
-        modalCloseHandler : function (){
-            var finish  =document.querySelector(".congrea .dashboardContainer .modal-header .close")
-            if(finish){
-                finish.addEventListener("click",function(){
+        modalCloseHandler: function () {
+            var finish = document.querySelector(".congrea .dashboardContainer .modal-header .close")
+            if (finish) {
+                finish.addEventListener("click", function () {
                     var app = document.querySelector(".congrea #virtualclassApp");
-                    if(app.classList.contains("dashboard")){
+                    if (app.classList.contains("dashboard")) {
                         app.classList.remove("dashboard")
                     }
-                    finish.setAttribute('data-dismiss',"modal");
-                      
+                    finish.setAttribute('data-dismiss', "modal");
+
                     virtualclass.modal.hideModal()
                 })
 
             }
         },
 
-        readyDashboard : function (currVideo){
+        readyDashboard: function (currVideo) {
             console.log('Ready Dashboard');
             var currApp = virtualclass.currApp;
 
-            if(document.querySelector('#congdashboard') ==  null){
+            if (document.querySelector('#congdashboard') == null) {
                 var dashboardTemp = virtualclass.getTemplate('dashboard');
-                var dbHtml = dashboardTemp({app:currApp});
+                var dbHtml = dashboardTemp({app: currApp});
                 document.querySelector('#dashboardContainer').innerHTML = dbHtml;
             }
 
@@ -2026,46 +2025,46 @@
 
             // in any other application we can handle
             // dashoard content in own style
-            if(currApp == 'DocumentShare'){
+            if (currApp == 'DocumentShare') {
                 var dtitle = document.getElementById('dashboardnav');
                 dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
-                if(document.querySelector('#'+currApp+'Dashboard') == null){
+                if (document.querySelector('#' + currApp + 'Dashboard') == null) {
                     var elem = document.createElement("div");
                     var cont = document.querySelector('#congdashboard .modal-body')
                     cont.appendChild(elem);
-                    elem.id =currApp+'Dashboard'
+                    elem.id = currApp + 'Dashboard'
                 }
-                var docsDbCont= document.querySelector('#docsDbCont');
-                if(docsDbCont){
+                var docsDbCont = document.querySelector('#docsDbCont');
+                if (docsDbCont) {
                     docsDbCont.parentNode.removeChild(docsDbCont);
                 }
 
-                document.querySelector('#'+currApp+'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
+                document.querySelector('#' + currApp + 'Dashboard').innerHTML = this.getDocsDashBoard(currApp);
                 virtualclass.dts.init();
                 virtualclass.vutil.attachEventToUploadTab();
-                if(!virtualclass.dts.isUploaderExist()){
+                if (!virtualclass.dts.isUploaderExist()) {
                     virtualclass.vutil.modalPopup('docs', ["docsuploadContainer"]);
                 }
                 virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listnotes');
-            }else if(currApp == 'Video'){
+            } else if (currApp == 'Video') {
                 var dtitle = document.getElementById('dashboardnav');
-                if(document.querySelector('#'+currApp+'Dashboard') == null){
+                if (document.querySelector('#' + currApp + 'Dashboard') == null) {
                     var elem = document.createElement("div");
                     var cont = document.querySelector('#congdashboard .modal-body')
                     cont.appendChild(elem);
-                    elem.id =currApp+'Dashboard'
+                    elem.id = currApp + 'Dashboard'
                 }
 
-                var videocont= document.querySelector('#videoPopup');
-                if(!videocont){
-                    var videoDashboard = virtualclass.getTemplate('popup','videoupload');
+                var videocont = document.querySelector('#videoPopup');
+                if (!videocont) {
+                    var videoDashboard = virtualclass.getTemplate('popup', 'videoupload');
                     var dbHtml = videoDashboard();
                     var videodb = document.querySelector('#VideoDashboard');
-                    videodb.insertAdjacentHTML('beforeend',dbHtml)
+                    videodb.insertAdjacentHTML('beforeend', dbHtml)
                     //$('#VideoDashboard').append(dbHtml);
                     var msz = document.querySelector("#videoPopup  #uploadMsz div");
-                    if(msz){
+                    if (msz) {
                         msz.parentNode.removeChild(msz)
                     }
                     virtualclass.vutil.attachEventToUpload();
@@ -2077,22 +2076,22 @@
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
 
-                 if(currVideo && currVideo.init.videoUrl){
-                    var hidepopup= true;
-                 }
-                var dashboardnav =  document.querySelector('#dashboardnav button');
-                if(dashboardnav != null && !hidepopup && !virtualclass.vutil.isDashboardOpened()){
+                if (currVideo && currVideo.init.videoUrl) {
+                    var hidepopup = true;
+                }
+                var dashboardnav = document.querySelector('#dashboardnav button');
+                if (dashboardnav != null && !hidepopup && !virtualclass.vutil.isDashboardOpened()) {
                     dashboardnav.click();
                 }
 
-            } else if (currApp == "SharePresentation"){
+            } else if (currApp == "SharePresentation") {
                 var dtitle = document.getElementById('dashboardnav');
                 dtitle.setAttribute('data-title', virtualclass.lang.getString('SharePresentationdbHeading'));
-                if(document.querySelector('#'+currApp+'Dashboard') == null){
+                if (document.querySelector('#' + currApp + 'Dashboard') == null) {
                     var elem = document.createElement("div");
                     var cont = document.querySelector('#congdashboard .modal-body')
                     cont.appendChild(elem);
-                    elem.id =currApp+'Dashboard'
+                    elem.id = currApp + 'Dashboard'
                 }
 
             }
@@ -2100,9 +2099,9 @@
 
         },
 
-        initDashboard : function (currApp, hidepopup){
+        initDashboard: function (currApp, hidepopup) {
             var mainContainer = document.querySelector('#mainContainer');
-            if(currApp=="SharePresentation") {
+            if (currApp == "SharePresentation") {
                 var dbcont = document.querySelector('#pptDbCont');
                 if (!dbcont) {
                     // todo, nirmala, you have to finde below condition is correct
@@ -2116,34 +2115,34 @@
                     }
                 }
             }
-            var allDbContainer  = document.querySelectorAll('#congdashboard .dbContainer');
-            for(var i=0; i<allDbContainer.length; i++){
-                if(allDbContainer[i].dataset.app == virtualclass.currApp){
+            var allDbContainer = document.querySelectorAll('#congdashboard .dbContainer');
+            for (var i = 0; i < allDbContainer.length; i++) {
+                if (allDbContainer[i].dataset.app == virtualclass.currApp) {
                     allDbContainer[i].style.display = 'block';
-                }else {
+                } else {
                     allDbContainer[i].style.display = 'none';
                 }
             }
 
             console.log('Dashboard is created for ' + virtualclass.currApp);
-            if(currApp == "DocumentShare"){
-                if(typeof hidepopup == 'undefined'){
+            if (currApp == "DocumentShare") {
+                if (typeof hidepopup == 'undefined') {
                     //$('#congdashboard').modal();
                     virtualclass.modal.showModal()
                     virtualclass.dashBoard.clickCloseButton();
                 }
 
-                if(virtualclass.dts.noteExist()){
+                if (virtualclass.dts.noteExist()) {
                     virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
                 }
-               //  virtualclass.vutil.attachEventToUploadTab();
+                //  virtualclass.vutil.attachEventToUploadTab();
 
-            }else if(currApp == "Video"){
-                if(typeof hidepopup == 'undefined'){
+            } else if (currApp == "Video") {
+                if (typeof hidepopup == 'undefined') {
 //                    $('#congdashboard').modal({
 //                        keyboard: false
 //                    });
-                virtualclass.modal.showModal() ;
+                    virtualclass.modal.showModal();
                 }
             } else {
                 virtualclass.modal.showModal();
@@ -2152,76 +2151,76 @@
             virtualclass.dashBoard.actualCloseHandler();
 
             var moodleHeader = document.querySelector('#congdashboard .modal-header h4');
-            if(moodleHeader != null){
+            if (moodleHeader != null) {
                 moodleHeader.innerHTML = virtualclass.lang.getString(currApp + 'dbHeading');
             }
 
 
         },
 
-        getDocsDashBoard : function (app){
+        getDocsDashBoard: function (app) {
             var dashboardTemp = virtualclass.getTemplate('dashboard', 'documentSharing');
-            var context = {app : app, hasControls : roles.hasControls()};
+            var context = {app: app, hasControls: roles.hasControls()};
             return dashboardTemp(context);
             // return "<div class='dbContainer' data-app='"+app+"'>"+app+"</div>";
         },
-        getPptDashBoard : function (app){
+        getPptDashBoard: function (app) {
             var dashboardTemp = virtualclass.getTemplate('dashboard', 'ppt');
-            var context = {app : app, hasControls : roles.hasControls()};
+            var context = {app: app, hasControls: roles.hasControls()};
             return dashboardTemp(context);
             // return "<div class='dbContainer' data-app='"+app+"'>"+app+"</div>";
         },
 
-        removeDashboardNav : function (){
+        removeDashboardNav: function () {
             var dashboardnav = document.querySelector('#dashboardnav');
-            if(dashboardnav != null){
+            if (dashboardnav != null) {
                 dashboardnav.parentNode.removeChild(dashboardnav);
             }
         },
 
-        makeElementDeactive : function (selector){
+        makeElementDeactive: function (selector) {
             console.log('drag drop Deactive element ' + selector);
             var element = document.querySelector(selector);
-            if(element != null){
+            if (element != null) {
                 element.style.pointerEvents = 'none';
             }
         },
 
-        makeElementActive : function (selector){
+        makeElementActive: function (selector) {
             console.log('drag drop Active element ' + selector);
             var element = document.querySelector(selector);
-            if(element != null){
+            if (element != null) {
                 element.style.pointerEvents = 'visible';
             }
         },
 
-        initCommonSortingChat : function (){
+        initCommonSortingChat: function () {
             setTimeout(
-                 function (){
-                      sortCommonChat();
-                 }, 800
+                function () {
+                    sortCommonChat();
+                }, 800
             );
         },
 
-        triggerDashboard : function (currApp, hidepopup){
-            if(currApp == 'DocumentShare'){
+        triggerDashboard: function (currApp, hidepopup) {
+            if (currApp == 'DocumentShare') {
                 var currentNote = document.querySelector('#screen-docs .note.current');
-                if(currentNote == null){
-                    if(typeof hidepopup ==  'undefined'){
+                if (currentNote == null) {
+                    if (typeof hidepopup == 'undefined') {
                         virtualclass.vutil.initDashboard(currApp);
-                    }else {
+                    } else {
                         virtualclass.vutil.initDashboard(currApp, hidepopup);
                     }
-                }else {
+                } else {
                     // virtualclass.zoom.zoomAction('fitToScreen');
                     // virtualclass.pdfRender[virtualclass.gObj.currWb].fitWhiteboardAtScale(virtualclass.gObj.currWb);
                     // virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale = virtualclass.zoom.canvasScale;
                 }
-            }else if(currApp == 'Video'){
-                if(typeof hidepopup ==  'undefined'){
+            } else if (currApp == 'Video') {
+                if (typeof hidepopup == 'undefined') {
 
                     virtualclass.vutil.initDashboard(currApp);
-                }else{
+                } else {
                     virtualclass.vutil.initDashboard(currApp, hidepopup);
 
                 }
@@ -2231,34 +2230,34 @@
             }
         },
 
-        trimExtension : function (fname){
+        trimExtension: function (fname) {
             return fname.replace(/\.[^/.]+$/, "")
         },
 
-        hideUploadMsg : function (appId){
-            var elem = document.querySelector('#'+appId+' .qq-uploader-selector.qq-uploader.qq-gallery');
-            if(elem != null){
+        hideUploadMsg: function (appId) {
+            var elem = document.querySelector('#' + appId + ' .qq-uploader-selector.qq-uploader.qq-gallery');
+            if (elem != null) {
                 elem.setAttribute('qq-drop-area-text', '')
             }
         },
 
-        showUploadMsg : function (appId){
-            var elem = document.querySelector('#'+appId+' .qq-uploader-selector.qq-uploader.qq-gallery');
-            if(elem != null){
+        showUploadMsg: function (appId) {
+            var elem = document.querySelector('#' + appId + ' .qq-uploader-selector.qq-uploader.qq-gallery');
+            if (elem != null) {
                 elem.setAttribute('qq-drop-area-text', virtualclass.lang.getString('dropfilehere'));
             }
         },
 
         /** Enable or Disable the Audio **/
-        audioStatus : function (tag, status){
+        audioStatus: function (tag, status) {
             var anchor = tag.getElementsByClassName('congtooltip')[0];
-            if(status == 'true'){
+            if (status == 'true') {
                 tag.setAttribute('data-audio-playing', "true");
                 anchor.setAttribute('data-title', virtualclass.lang.getString('audioEnable'));
                 tag.className = "audioTool active";
-            }else {
+            } else {
                 tag.setAttribute('data-audio-playing', "false");
-                if(anchor){
+                if (anchor) {
                     anchor.setAttribute('data-title', virtualclass.lang.getString('audioDisable'));
                 }
                 tag.className = "audioTool deactive";
@@ -2266,20 +2265,20 @@
         },
 
 
-        selfVideoStatus : function(){
+        selfVideoStatus: function () {
             var svid = document.querySelector(".congrea .videoSwitchCont #videoSwitch");
-            if(svid.classList.contains("off")){
+            if (svid.classList.contains("off")) {
                 return "off";
-            } else if(svid.classList.contains("on")){
+            } else if (svid.classList.contains("on")) {
                 return "on";
             }
         },
 
         videoController: function () {
             var ctr = document.querySelector(".congrea .videoSwitchCont");
-            if(ctr){
+            if (ctr) {
                 ctr.addEventListener("click", function () {
-                   virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off');
+                    virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() == 'off' ) ? 'on' : 'off');
                 })
             }
 
@@ -2304,71 +2303,74 @@
                     virtualclass.videoHost.gObj.stdStopSmallVid = false;
                 }
 
-               // var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a span")||document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
+                // var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a span")||document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
 
-                var hasImg = chatContainerEvent.elementFromShadowDom("#ml"+virtualclass.gObj.uid+" .user-details a span") || chatContainerEvent.elementFromShadowDom("#ml"+virtualclass.gObj.uid+" .user-details a img");
+                var hasImg = chatContainerEvent.elementFromShadowDom("#ml" + virtualclass.gObj.uid + " .user-details a span") || chatContainerEvent.elementFromShadowDom("#ml" + virtualclass.gObj.uid + " .user-details a img");
 
-                if(hasImg){
-                    virtualclass.videoHost.removeUserIcon(virtualclass.gObj.uid );
-                }else{
-                    virtualclass.gObj.delayVid="hide"
+                if (hasImg) {
+                    virtualclass.videoHost.removeUserIcon(virtualclass.gObj.uid);
+                } else {
+                    virtualclass.gObj.delayVid = "hide"
                 }
 
-                if(roles.hasControls()){
+                if (roles.hasControls()) {
                     virtualclass.videoHost.UI.displayTeacherVideo();
                 }
 
-                var mysmallVideo =  document.querySelector('#ml' + virtualclass.gObj.uid + ' video');
-                if(mysmallVideo != null){
+                var mysmallVideo = document.querySelector('#ml' + virtualclass.gObj.uid + ' video');
+                if (mysmallVideo != null) {
                     // mysmallVideo.srcObject.getVideoTracks()[0].stop();
                     setTimeout(
-                        function (){
-                            mysmallVideo.srcObject =  virtualclass.media.stream;
+                        function () {
+                            mysmallVideo.srcObject = virtualclass.media.stream;
                         }, 100
                     );
 
                 }
-            } else if(action == "off"){
+            } else if (action == "off") {
                 sw.classList.remove("on");
                 sw.classList.add("off");
                 // virtualclass.videoHost.gObj.videoSwitch = 0;
                 video = "off";
                 var tooltip = document.querySelector(".videoSwitchCont");
-                tooltip.dataset.title="Video on"
-                if(roles.hasControls()){
+                tooltip.dataset.title = "Video on"
+                if (roles.hasControls()) {
                     virtualclass.videoHost.gObj.videoSwitch = 0;
-                }else{
+                } else {
                     virtualclass.videoHost.gObj.stdStopSmallVid = true;
                 }
-                var hasVideo =  chatContainerEvent.elementFromShadowDom("#ml"+virtualclass.gObj.uid+" .user-details a .videoWrapper")
+                var hasVideo = chatContainerEvent.elementFromShadowDom("#ml" + virtualclass.gObj.uid + " .user-details a .videoWrapper")
 
-                if(hasVideo){
+                if (hasVideo) {
                     virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
-                }else{
-                    virtualclass.gObj.delayVid="display";
+                } else {
+                    virtualclass.gObj.delayVid = "display";
                 }
 
-                if(roles.hasControls()){
+                if (roles.hasControls()) {
                     virtualclass.videoHost.UI.hideTeacherVideo();
                 }
             }
 
-            if(typeof notSend == 'undefined'){
-                if(virtualclass.gObj.meetingMode){
+            if (typeof notSend == 'undefined') {
+                if (virtualclass.gObj.meetingMode) {
                     let vaction = (action == "off") ? false : true;
                     virtualclass.multiVideo.setVideoStatus(vaction);
-                }else if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()){
+                } else if (virtualclass.gObj.uid == virtualclass.vutil.whoIsTeacher()) {
 
                     ioAdapter.mustSend({'congCtr': {videoSwitch: video}, 'cf': 'congController'});
                 }
 
-                if(!roles.hasControls()){
-                    ioAdapter.mustSend({'stdVideoCtr': {videoSwitch:  virtualclass.videoHost.gObj.stdStopSmallVid}, 'cf': 'stdVideoCtrl'});
+                if (!roles.hasControls()) {
+                    ioAdapter.mustSend({
+                        'stdVideoCtr': {videoSwitch: virtualclass.videoHost.gObj.stdStopSmallVid},
+                        'cf': 'stdVideoCtrl'
+                    });
                 }
             }
         },
 
-        isChromeExtension : function (){
+        isChromeExtension: function () {
             window.postMessage({type: 'isInstalled', id: 1}, '*');
             console.log('Chrome Extension:- Check');
             // setTimeout(
@@ -2389,67 +2391,66 @@
 
         },
 
-        setWidth : function (wbId, canvas, width){
-            var canvas = document.querySelector('#canvas'+wbId);
+        setWidth: function (wbId, canvas, width) {
+            var canvas = document.querySelector('#canvas' + wbId);
             canvas.width = width;
         },
 
-        setHeight : function(wbId, canvas, height){
-            var canvas = document.querySelector('#canvas'+wbId);
-            canvas.height =  height;
+        setHeight: function (wbId, canvas, height) {
+            var canvas = document.querySelector('#canvas' + wbId);
+            canvas.height = height;
             // virtualclass.wb[wbId].vcan.renderAll();
         },
 
-        getWidth : function(canvas){
+        getWidth: function (canvas) {
             return canvas.width;
         },
 
-        getHeight : function(canvas){
+        getHeight: function (canvas) {
             return canvas.height;
         },
 
-        getValueWithoutPixel : function (pxValue){
+        getValueWithoutPixel: function (pxValue) {
             return parseInt(pxValue, 10);
         },
 
-        removeDecimal : function(number){
+        removeDecimal: function (number) {
             return number.toFixed(2);
         },
 
 
-        getElemM : function (wrapper, type){
-            if(type == 'Y'){
+        getElemM: function (wrapper, type) {
+            if (type == 'Y') {
                 var res = document.querySelector('#' + wrapper).offsetHeight;
-            }else if(type == 'X'){
+            } else if (type == 'X') {
                 var res = document.querySelector('#' + wrapper).offsetWidth;
             }
             return this.getValueWithoutPixel(res);
         },
 
-        getElemM2 : function (wrapper, type){
-            if(type == 'Y'){
+        getElemM2: function (wrapper, type) {
+            if (type == 'Y') {
                 var res = document.querySelector('#' + wrapper).offsetHeight;
-            }else if(type == 'X'){
+            } else if (type == 'X') {
                 var res = document.querySelector('#' + wrapper).offsetWidth;
             }
             return this.getValueWithoutPixel(res);
         },
 
-        getElemHeight : function (wrapper){
+        getElemHeight: function (wrapper) {
             var heighPx = document.querySelector('#' + wrapper).offsetHeight;
             return this.getValueWithoutPixel(heighPx);
         },
 
-        getElemWidth : function (wrapper){
+        getElemWidth: function (wrapper) {
             var widthPx = document.querySelector('#' + wrapper).offsetWidth;
             return this.getValueWithoutPixel(widthPx);
         },
 
-        visibleElementHeighOldt : function (innerElem, wrapper){
+        visibleElementHeighOldt: function (innerElem, wrapper) {
             var offset = 0;
             var node = document.getElementById(innerElem);
-            while (node.offsetParent && node.offsetParent.id != wrapper)
-            {
+            while (node.offsetParent && node.offsetParent.id != wrapper) {
                 offset += node.offsetTop;
                 node = node.offsetParent;
             }
@@ -2457,7 +2458,7 @@
             return visible;
         },
 
-        elementIsVisible2 : function(el) {
+        elementIsVisible2: function (el) {
             var elemTop = el.getBoundingClientRect().top;
             var elemBottom = el.getBoundingClientRect().bottom;
 
@@ -2468,50 +2469,53 @@
             return isVisible;
         },
 
-        elementIsVisible : function(elm) {
+        elementIsVisible: function (elm) {
             var rect = elm.getBoundingClientRect();
             var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
             return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
         },
 
-        getVisibleHeight : function (el){
+        getVisibleHeight: function (el) {
             // TODO this should be convert into pute javascript
-            var $el = $('#'+el),
+            var $el = $('#' + el),
                 scrollTop = $(window).scrollTop(),
                 scrollBot = scrollTop + $(window).height(),
                 elTop = $el.offset().top,
                 elBottom = elTop + $el.outerHeight(),
                 visibleTop = elTop < scrollTop ? scrollTop : elTop,
                 visibleBottom = elBottom > scrollBot ? scrollBot : elBottom;
-                return (visibleBottom-visibleTop);
+            return (visibleBottom - visibleTop);
         },
 
-        isNumeric : function(n) {
+        isNumeric: function (n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
         },
 
-        setContainerDimension : function (width, height){
+        setContainerDimension: function (width, height) {
 
         },
 
-        setDefaultScroll : function (){
-            if(roles.hasControls() && virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare'){
+        setDefaultScroll: function () {
+            if (roles.hasControls() && virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare') {
                 var wb = virtualclass.gObj.currWb;
-                if(wb != null && virtualclass.pdfRender[wb].canvasWrapper != null){
+                if (wb != null && virtualclass.pdfRender[wb].canvasWrapper != null) {
                     // Defualt scroll trigger
                     virtualclass.pdfRender[wb].canvasWrapper.scrollTop = 1;
                 }
             }
         },
 
-        createWhiteBoard : async function (wId){
+        createWhiteBoard: async function (wId) {
             var args = ['Whiteboard', 'byclick', wId];
             await virtualclass.appInitiator['Whiteboard'].apply(virtualclass, Array.prototype.slice.call(args));
-            var measureRes = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+            var measureRes = virtualclass.system.measureResoultion({
+                'width': window.innerWidth,
+                'height': window.innerHeight
+            });
             virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
         },
 
-        createHashString : function (str){
+        createHashString: function (str) {
             var res = 0,
                 len = str.length;
             for (var i = 0; i < len; i++) {
@@ -2521,42 +2525,42 @@
             return res;
         },
 
-        randomString : function (length) {
+        randomString: function (length) {
             var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             var result = '';
             for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
             return result;
         },
 
-        isBulkDataFetched : function (){
+        isBulkDataFetched: function () {
             return (virtualclass.serverData.rawData.video.length > 0
             || virtualclass.serverData.rawData.docs.length > 0
             || virtualclass.serverData.rawData.ppt.length > 0 );
         },
 
-        sendOrder : function (type, order,cb){
+        sendOrder: function (type, order, cb) {
             virtualclass.gObj.docOrder[type] = order;
             var data = {order: JSON.stringify(virtualclass.gObj.docOrder)};
             var url = virtualclass.api.UpdateRoomMetaData
-            virtualclass.xhrn.sendData(data, url,cb);
+            virtualclass.xhrn.sendData(data, url, cb);
         },
         saveWbOrder: function (order) {
             if (order) {
-                console.log("nirmala" +order)
+                console.log("nirmala" + order)
                 localStorage.setItem("wbOrder", JSON.stringify(virtualclass.wbCommon.order))
             }
         },
-        requestOrder : function (type, cb){
+        requestOrder: function (type, cb) {
             var url = virtualclass.api.GetRoomMetaData;
             var cthis = this;
-            virtualclass.xhrn.sendData({noting:true}, url, function (response) {
+            virtualclass.xhrn.sendData({noting: true}, url, function (response) {
                 if (response == "Error") {
                     console.log("page order retrieve failed");
                 } else {
                     var response = JSON.parse(response).Item;
-                    if(response != null && typeof response != 'undefined' && response != undefined){
+                    if (response != null && typeof response != 'undefined' && response != undefined) {
                         if (response.order.S) {
-                            if(virtualclass.vutil.IsJsonString(response.order.S)){
+                            if (virtualclass.vutil.IsJsonString(response.order.S)) {
                                 var responseData = JSON.parse(response.order.S);
                                 virtualclass.gObj.docOrder = responseData;
                                 cb(responseData[type]);
@@ -2567,7 +2571,7 @@
             });
         },
 
-        IsJsonString : function(str) {
+        IsJsonString: function (str) {
             try {
                 JSON.parse(str);
             } catch (e) {
@@ -2576,49 +2580,49 @@
             return true;
         },
 
-        removeChildrens : function (selector){
+        removeChildrens: function (selector) {
             // selector = selector + ' .qq-upload-list-selector.qq-upload-list li';
             console.log('children selector ' + selector);
             var uploadLists = document.querySelectorAll(selector);
-            for(var i=0; i < uploadLists.length; i++){
+            for (var i = 0; i < uploadLists.length; i++) {
                 uploadLists[i].parentNode.removeChild(uploadLists[i]);
             }
         },
 
 
-        initAcitveElement : function (){
-            if(virtualclass.currApp == 'Video'){
+        initAcitveElement: function () {
+            if (virtualclass.currApp == 'Video') {
                 var activeElem = '#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
                 var deactiveElem = '#listvideo';
-            }else if(virtualclass.currApp == 'DocumentShare'){
+            } else if (virtualclass.currApp == 'DocumentShare') {
                 var activeElem = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
                 var deactiveElem = '#listdocs';
             }
 
-            var elem = document.querySelector('#'+ virtualclass.currApp + 'Dashboard');
-            if(elem != null && !elem.classList.contains('uploading')) {
+            var elem = document.querySelector('#' + virtualclass.currApp + 'Dashboard');
+            if (elem != null && !elem.classList.contains('uploading')) {
                 virtualclass.vutil.makeElementActive(activeElem);
                 virtualclass.vutil.makeElementDeactive(deactiveElem);
 
-            }else{
+            } else {
                 virtualclass.vutil.makeElementDeactive(activeElem);
             }
 
         },
 
-        isResponseAvailable : function (reponse){
+        isResponseAvailable: function (reponse) {
             return (reponse != undefined && reponse != 'undefined' && reponse != null)
         },
 
-        navWhiteboard    : function (cthis, func, dthis){
+        navWhiteboard: function (cthis, func, dthis) {
             // this.removeAllTextWrapper();
-            if(virtualclass.vutil.isTextWrapperExist()){
+            if (virtualclass.vutil.isTextWrapperExist()) {
                 virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
             }
             // if(virtualclass.gObj.hasOwnProperty('wbNav')){
             //     clearTimeout(virtualclass.gObj.wbNav);
             // }
-            if(typeof dthis != 'undefined'){
+            if (typeof dthis != 'undefined') {
                 func.call(cthis, dthis);
             } else {
                 func.call(cthis);
@@ -2636,75 +2640,75 @@
             // )
         },
 
-        removeAllTextWrapper : function (){
+        removeAllTextWrapper: function () {
             var allTextWrapper = document.querySelectorAll('.canvasWrapper .textBoxContainer');
-            for(var i=0; i<allTextWrapper.length; i++){
+            for (var i = 0; i < allTextWrapper.length; i++) {
                 allTextWrapper[i].parentNode.removeChild(allTextWrapper[i]);
             }
         },
 
-        isDashboardOpened : function (navButton){
+        isDashboardOpened: function (navButton) {
             var navButton = document.querySelector('#dashboardnav button');
             return (navButton != null && navButton.classList.contains('clicked'));
         },
 
-        stopConnection : function (){
-            if(io.webSocketConnected()){
+        stopConnection: function () {
+            if (io.webSocketConnected()) {
                 // io.sock.close();
                 io.disconnect();
             }
             virtualclass.gObj.invalidlogin = true;
         },
 
-        initDefaultApp : () => {
-            var defaultApp  = document.querySelector('#virtualclass'+virtualclass.gObj.defaultApp +'Tool a');
-            if(defaultApp != null){
+        initDefaultApp: () => {
+            var defaultApp = document.querySelector('#virtualclass' + virtualclass.gObj.defaultApp + 'Tool a');
+            if (defaultApp != null) {
                 defaultApp.click(defaultApp);
             }
         },
 
         /** Indicates the sign who(student) is screen sharing **/
-        initssSharing : (uid) => {
+        initssSharing: (uid) => {
             virtualclass.gObj.whoIsSharing = uid;
             // var elem = document.getElementById(uid + 'contrstdscreenImg');
-            var elem = chatContainerEvent.elementFromShadowDom('#ml'+uid + ' .icon-stdscreenImg');
-            if(elem != null){
+            var elem = chatContainerEvent.elementFromShadowDom('#ml' + uid + ' .icon-stdscreenImg');
+            if (elem != null) {
                 elem.setAttribute('data-dcolor', 'green');
             }
         },
 
         /** Remove the sign from the student that who was screen sharing **/
-        removeSSsharing : () => {
+        removeSSsharing: () => {
             var controleCont = document.querySelector('#chat_div .controleCont.ssSharing');
-            if(controleCont != null){
+            if (controleCont != null) {
                 controleCont.classList.remove('ssSharing');
             }
             delete virtualclass.gObj.whoIsSharing;
         },
 
         /** Inoforming to the teacher that I am sharing the screen **/
-        informIamSharing : () => {
+        informIamSharing: () => {
             var teacher = virtualclass.vutil.whoIsTeacher();
-            if(roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing){
+            if (roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing) {
                 ioAdapter.mustSendUser({
-                    cf : 'sshare_user'
+                    cf: 'sshare_user'
                 }, teacher);
             }
         },
 
-        resizeWindowIfBigger : function (){
+        resizeWindowIfBigger: function () {
             var currWb = virtualclass.gObj.currWb;
             var canvasWrapper = document.querySelector('#canvasWrapper' + currWb);
-            if(canvasWrapper != null){
+            if (canvasWrapper != null) {
                 var diff = window.innerWidth - (canvasWrapper.offsetWidth + 320);
-                if(diff > 60){
+                if (diff > 60) {
                     console.log('Resize event is triggered');
                     system.initResize();
                 }
             }
         },
 
-        isTextWrapperExist : function (){
+        isTextWrapperExist: function () {
             return (document.querySelectorAll('.canvasWrapper .textBoxContainer').length > 0);
         },
 
@@ -2712,20 +2716,20 @@
         //     $('#virtualclassAppContainer').append(containerhtml);
         // }
 
-        insertAppLayout : (html) => {
+        insertAppLayout: (html) => {
             var appContainer = document.querySelector('#virtualclassAppContainer')
             //appContainer.insertAdjacentHTML('beforeend',html)
             $('#virtualclassAppContainer').append(html);
         },
-        prechkScrnShare:function(){
-            if(localStorage.getItem('precheck')){
+        prechkScrnShare: function () {
+            if (localStorage.getItem('precheck')) {
                 var virtualclassPreCheck = document.getElementById('preCheckcontainer');
                 virtualclassPreCheck.style.display = 'none';
                 var virtualclassApp = document.getElementById('virtualclassApp');
                 virtualclassApp.style.display = 'block';
                 virtualclass.videoHost._resetPrecheck();
 
-            }else{
+            } else {
                 virtualclass.popup.waitMsg();
                 virtualclass.makeReadySocket();
                 var virtualclassPreCheck = document.getElementById('preCheckcontainer');
@@ -2735,52 +2739,52 @@
                 localStorage.setItem('precheck', true);
                 virtualclass.videoHost.afterSessionJoin();
             }
-            virtualclass.gObj.precheckScrn=false;
+            virtualclass.gObj.precheckScrn = false;
         },
-        showFinishBtn:function(){
-            var btn = document.querySelector(".congrea #dashboardContainer .modal-header button") ;
-            if(btn){
+        showFinishBtn: function () {
+            var btn = document.querySelector(".congrea #dashboardContainer .modal-header button");
+            if (btn) {
                 btn.classList.add("enable")
             }
 
-            if(virtualclass.currApp == 'DocumentShare'){
+            if (virtualclass.currApp == 'DocumentShare') {
                 var virtualclassContainer = document.querySelector('#virtualclassAppLeftPanel');
                 virtualclassContainer.classList.add('showZoom');
                 virtualclassContainer.classList.remove('hideZoom');
             }
         },
 
-        removeFinishBtn:function(){
-            var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable") ;
-            if(btn){
+        removeFinishBtn: function () {
+            var btn = document.querySelector(".congrea.teacher  #dashboardContainer .modal-header button.enable");
+            if (btn) {
                 btn.classList.remove("enable")
             }
-            if(virtualclass.currApp == 'DocumentShare'){
+            if (virtualclass.currApp == 'DocumentShare') {
                 var virtualclassContainer = document.querySelector('#virtualclassAppLeftPanel');
                 virtualclassContainer.classList.add('hideZoom');
                 virtualclassContainer.classList.remove('showZoom');
             }
         },
 
-        removeSharingClass : function (){
+        removeSharingClass: function () {
             var virtualclassCont = document.querySelector('#virtualclassCont');
-            if(virtualclassCont != ''){
+            if (virtualclassCont != '') {
                 virtualclassCont.classList.remove('studentScreenSharing');
                 document.querySelector('#chat_div').classList.remove('studentScreenSharing');
             }
         },
-        
-        addNoteClass : function (){
-            if(roles.isStudent()){
+
+        addNoteClass: function () {
+            if (roles.isStudent()) {
                 var docScreenContainer = document.querySelector('#docScreenContainer');
-                if(docScreenContainer !=  null){
+                if (docScreenContainer != null) {
                     docScreenContainer.classList.add('noteDisplay');
                     console.log('add note display');
                 }
             }
         },
 
-        calcBrightness:function(color){
+        calcBrightness: function (color) {
             var rgb = chroma(color).rgb();
             var c = 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
             var brightness = Math.round(((parseInt(rgb[0]) * 299) + (parseInt(rgb[1]) * 587) + (parseInt(rgb[2]) * 114)) / 1000);
@@ -2789,36 +2793,38 @@
             return brightness
         },
 
-        removeStudenScreenStatus : function (){
-            var allStdscreenImg  = chatContainerEvent.elementFromShadowDom('.stdscreenImg', 'all');
-            for(var i=0; i<allStdscreenImg.length; i++){
+        removeStudenScreenStatus: function () {
+            var allStdscreenImg = chatContainerEvent.elementFromShadowDom('.stdscreenImg', 'all');
+            for (var i = 0; i < allStdscreenImg.length; i++) {
                 allStdscreenImg[i].dataset.dcolor = "";
             }
         },
 
-        insertAfter : function (newNode, afterNode){
+        insertAfter: function (newNode, afterNode) {
             afterNode.parentNode.insertBefore(newNode, afterNode.nextSibling);
         },
 
-        triggerMouseEvent : function (node, eventType) {
-			if(node != null){
-				var clickEvent = document.createEvent ('MouseEvents');
-				clickEvent.initEvent (eventType, true, true);
-				node.dispatchEvent (clickEvent);
-			}
+        triggerMouseEvent: function (node, eventType) {
+            if (node != null) {
+                var clickEvent = document.createEvent('MouseEvents');
+                clickEvent.initEvent(eventType, true, true);
+                node.dispatchEvent(clickEvent);
+            }
         },
 
-        getCookie : function(name) {
-            function escape(s) { return s.replace(/([.*+?\^${}()|\[\]\/\\])/g, '\\$1'); };
+        getCookie: function (name) {
+            function escape(s) {
+                return s.replace(/([.*+?\^${}()|\[\]\/\\])/g, '\\$1');
+            };
             var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
             return match ? match[1] : null;
         },
 
-        sendCurrAppOnUserJoin : function (){
+        sendCurrAppOnUserJoin: function () {
             if (typeof virtualclass.wb == 'object' && virtualclass.currApp == 'Whiteboard') {
                 var objs = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs;
                 if (objs.length > 0) {
-                    ioAdapter.sendWithDelayAndDrop ({'repObj': objs, 'cf': 'repObj'}, null, 'mustSend', 'repObj', 1500);
+                    ioAdapter.sendWithDelayAndDrop({'repObj': objs, 'cf': 'repObj'}, null, 'mustSend', 'repObj', 1500);
                     // virtualclass.vutil.beforeSend({'repObj': objs, 'cf': 'repObj'});
                 } else {
                     console.log('Could not send the whiteboard data');
@@ -2826,17 +2832,17 @@
             }
         },
 
-        setCurrApp : function (container, app){
+        setCurrApp: function (container, app) {
             container.dataset.currapp = app;
             console.log('Data set curr app ' + app);
             var chat_div = document.getElementById('chat_div');
-            if(chat_div != null){
+            if (chat_div != null) {
                 chat_div.dataset.currapp = app;
             }
         },
 
-        selfJoin : function (jId) {
-            if(jId == virtualclass.gObj.uid){
+        selfJoin: function (jId) {
+            if (jId == virtualclass.gObj.uid) {
                 // The speed needs to send only when self joining
                 ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
                 return true;
@@ -2847,8 +2853,7 @@
         getUrlVars (url) {
             var vars = [], hash;
             var hashes = url.slice(url.indexOf('?') + 1).split('&');
-            for(var i = 0; i < hashes.length; i++)
-            {
+            for (var i = 0; i < hashes.length; i++) {
                 hash = hashes[i].split('=');
                 vars.push(hash[0]);
                 vars[hash[0]] = hash[1];
@@ -2857,7 +2862,7 @@
         },
 
         clearSyncTimeInterval () {
-            if(virtualclass.videoUl.hasOwnProperty('syncTimeInterval')){
+            if (virtualclass.videoUl.hasOwnProperty('syncTimeInterval')) {
                 clearInterval(virtualclass.videoUl.syncTimeInterval);
             }
 
@@ -2876,7 +2881,7 @@
                     break;
                 }
             }
-            return function(c) {
+            return function (c) {
                 if (c) document.addEventListener(eventKey, c);
                 return !document[stateKey];
             }
@@ -2884,55 +2889,55 @@
 
         showZoom () {
             var zoom = document.querySelector("#virtualclassAppLeftPanel.hideZoom");
-            if(zoom){
+            if (zoom) {
                 zoom.classList.remove("hideZoom");
                 zoom.classList.add("showZoom");
             }
         },
-           
-            removeBackgroundVideoApp:function(){
-                virtualclass.videoUl.videoId = "";
-                var frame = document.getElementById("dispVideo_Youtube_api");
-                if (frame && frame.contentWindow) {
-                    frame.contentWindow.postMessage(
-                            '{"event":"command","func":"pauseVideo","args":""}',
-                            '*');
-                }
 
-                var dispVideo = document.querySelector(".congrea #dispVideo")
-                if (dispVideo) {
-                    dispVideo.style.display = "none";
-                    var video = document.querySelector(".congrea #dispVideo video")
-                    if (video) {
-                        video.setAttribute("src", '');
-                    }
-                }
-                var currPlaying = document.querySelector("#listvideo .playing")
-                if (currPlaying) {
-                    currPlaying.classList.remove('playing')
-                }
-                var currCtr = document.querySelector("#listvideo .removeCtr")
-                if (currCtr) {
-                    currCtr.classList.remove('removeCtr')
-                }
-
-                if (!roles.hasControls()) {
-                    if (virtualclass.gObj.hasOwnProperty('videoPauseTime')) {
-                        clearTimeout(virtualclass.gObj.videoPauseTime);
-                    }
-
-                    if (typeof virtualclass.videoUl.player == 'object' && virtualclass.videoUl.player.player_ != null
-                            && virtualclass.videoUl.player.paused()) {
-                        console.log('==== Video is paused')
-                        virtualclass.videoUl.player.pause();
-                    }
-                }
-                if (typeof virtualclass.videoUl.player == 'object') {
-                    delete(virtualclass.videoUl.player);
-                }
-                       
+        removeBackgroundVideoApp: function () {
+            virtualclass.videoUl.videoId = "";
+            var frame = document.getElementById("dispVideo_Youtube_api");
+            if (frame && frame.contentWindow) {
+                frame.contentWindow.postMessage(
+                    '{"event":"command","func":"pauseVideo","args":""}',
+                    '*');
             }
-        
+
+            var dispVideo = document.querySelector(".congrea #dispVideo")
+            if (dispVideo) {
+                dispVideo.style.display = "none";
+                var video = document.querySelector(".congrea #dispVideo video")
+                if (video) {
+                    video.setAttribute("src", '');
+                }
+            }
+            var currPlaying = document.querySelector("#listvideo .playing")
+            if (currPlaying) {
+                currPlaying.classList.remove('playing')
+            }
+            var currCtr = document.querySelector("#listvideo .removeCtr")
+            if (currCtr) {
+                currCtr.classList.remove('removeCtr')
+            }
+
+            if (!roles.hasControls()) {
+                if (virtualclass.gObj.hasOwnProperty('videoPauseTime')) {
+                    clearTimeout(virtualclass.gObj.videoPauseTime);
+                }
+
+                if (typeof virtualclass.videoUl.player == 'object' && virtualclass.videoUl.player.player_ != null
+                    && virtualclass.videoUl.player.paused()) {
+                    console.log('==== Video is paused')
+                    virtualclass.videoUl.player.pause();
+                }
+            }
+            if (typeof virtualclass.videoUl.player == 'object') {
+                delete(virtualclass.videoUl.player);
+            }
+
+        }
+
     };
     window.vutil = vutil;
 })(window);

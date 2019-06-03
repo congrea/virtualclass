@@ -9,7 +9,7 @@
      *  methods initilized for creating line object
      *  in future there can be more properties than now
      */
-    function Text(id){
+    function Text(id) {
         var vcan = virtualclass.wb[id].vcan;
 
         vcan.text = function () {

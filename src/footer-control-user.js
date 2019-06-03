@@ -14,7 +14,7 @@
                     virtualclass.attachFunction();
 
                     if (app == 'Whiteboard') {
-                        var vcan =  window.virtualclass.wb[virtualclass.gObj.currWb].vcan;
+                        var vcan = window.virtualclass.wb[virtualclass.gObj.currWb].vcan;
                         window.virtualclass.wb[virtualclass.gObj.currWb].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[virtualclass.gObj.currWb], true, virtualclass.gObj.currWb);
                     }
                     // This is already Check at above, no need here
@@ -25,7 +25,7 @@
                     }
 
                     //if (app == 'Whiteboard') {
-                    if(typeof virtualclass.wb == 'object'){
+                    if (typeof virtualclass.wb == 'object') {
                         virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasEnable();
                     }
                 }
@@ -161,10 +161,10 @@
                             });
                         }
 
-                        if(roles.hasAdmin()){
-                            if(audBlock.dataset.audioDisable == 'false'){
+                        if (roles.hasAdmin()) {
+                            if (audBlock.dataset.audioDisable == 'false') {
                                 var allAudAction = localStorage.getItem('allAudAction');
-                                if(allAudAction != null && allAudAction == 'disable'){
+                                if (allAudAction != null && allAudAction == 'disable') {
                                     audBlock.click();
                                 }
                             }
@@ -205,7 +205,7 @@
                             controller.className += ' controller' + controls[i];
 
                             controlCont.appendChild(controller);
-                            
+
 
                             if (virtualclass.currApp != virtualclass.vutil.capitalizeFirstLetter(controls[i])) {
                                 controller.style.display = 'none';
@@ -217,7 +217,7 @@
                                 editorBlock.addEventListener('click', that.closureEditor(that, editorBlock));
                             }
                         }
-                    }else if (controls[i] == 'RaiseHand'){
+                    } else if (controls[i] == 'RaiseHand') {
 
                         if (uObj && userObj.hasOwnProperty('raiseHand')) {
                             var rhEnable = (userObj.raiseHand) ? true : false;
@@ -254,7 +254,7 @@
                         writeModeBox.id = editorType + 'writeModeBox';
                         editorBody.appendChild(writeModeBox);
                     }
-                    if(writeModeBox != null){
+                    if (writeModeBox != null) {
                         writeModeBox.className = 'writeModeBox';
                         writeModeBox.dataset.writeMode = writeMode;
                         writeModeBox.innerHTML = modeMessage;
@@ -290,7 +290,7 @@
                     // If editor rich is enabled
                     if (msg.status) {
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            if(typeof virtualclass.editorRich.cm == 'object' && !virtualclass.isPlayMode){
+                            if (typeof virtualclass.editorRich.cm == 'object' && !virtualclass.isPlayMode) {
                                 virtualclass.editorRich.cm.setOption('readOnly', false);
                             }
 
@@ -299,7 +299,7 @@
                             this.enable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
                         }
 
-                        if(virtualclass.isPlayMode){
+                        if (virtualclass.isPlayMode) {
                             //TODO validate this statement
                             virtualclass.editorRich.control.toggleDisplayWriteModeMsgBox(false);
                         }
@@ -309,7 +309,7 @@
                     } else {
                         // If editor rich is disabled
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            if(typeof virtualclass.editorRich.cm == 'object'){
+                            if (typeof virtualclass.editorRich.cm == 'object') {
                                 virtualclass.editorRich.cm.setOption('readOnly', 'nocursor');
                             }
                         } else {
@@ -325,8 +325,8 @@
                     }
 
                     //if((roles.isStudent() || roles.isEducator()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
-                    if((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
-                        if(msg.status){
+                    if ((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
+                        if (msg.status) {
                             virtualclass.editorRich.enableEditorByOuterLayer();
                         } else {
                             virtualclass.editorRich.disableEditorByOuterLayer();
@@ -345,7 +345,7 @@
                     // If editor code is enabled
                     if (msg.status) {
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            if(typeof virtualclass.editorCode.cm == 'object' && !virtualclass.isPlayMode){
+                            if (typeof virtualclass.editorCode.cm == 'object' && !virtualclass.isPlayMode) {
                                 virtualclass.editorCode.cm.setOption('readOnly', false);
                             }
 
@@ -353,7 +353,7 @@
                             this.enable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
                         }
 
-                        if(virtualclass.isPlayMode){
+                        if (virtualclass.isPlayMode) {
                             virtualclass.editorCode.control.toggleDisplayWriteModeMsgBox(false);
                         }
                         action = true;
@@ -361,7 +361,7 @@
                     } else {
                         // If editor code is disabled
                         if (virtualclass.gObj.uid == msg.toUser) {
-                            if(typeof virtualclass.editorCode.cm == 'object'){
+                            if (typeof virtualclass.editorCode.cm == 'object') {
                                 virtualclass.editorCode.cm.setOption('readOnly', 'nocursor');
                             }
 
@@ -376,8 +376,8 @@
                         this.toggleDisplayWriteModeMsgBox('EditorCode', action);
                     }
                     //if((roles.isStudent() || roles.isEducator()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
-                    if((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
-                        if(msg.status){
+                    if ((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
+                        if (msg.status) {
                             virtualclass.editorCode.enableEditorByOuterLayer();
                         } else {
                             virtualclass.editorCode.disableEditorByOuterLayer();
@@ -387,7 +387,7 @@
                 },
 
                 onmessage: function (e) {
-                    if(!e.message.hasOwnProperty('toUser')){
+                    if (!e.message.hasOwnProperty('toUser')) {
                         e.message.toUser = virtualclass.gObj.uid;
                     }
                     this['received_' + e.message.control](e.message);
@@ -422,7 +422,7 @@
                 },
 
                 disable: function (toUser, control, contIdPart, label) {
-                    var selector = '.'+ control + 'Control'+toUser + ' ' + ' .contImg';
+                    var selector = '.' + control + 'Control' + toUser + ' ' + ' .contImg';
                     var elem = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(selector);
                     // var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
                     if (elem == null) {
@@ -464,7 +464,7 @@
 
                 enable: function (toUser, control, contIdPart, label) {
                     // var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
-                    var selector = '.'+ control + 'Control'+toUser +  ' .contImg';
+                    var selector = '.' + control + 'Control' + toUser + ' .contImg';
                     var elem = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(selector);
 
                     if (elem == null) {
@@ -480,8 +480,8 @@
                     // }
                     elem.setAttribute('data-' + control + '-disable', "false");
                     elem.className = "icon-" + control + "Img enable" + ' ' + control + 'Img';
-                    if(control =='RaiseHand'){
-                       virtualclass.raiseHand._raiseHand(userId)
+                    if (control == 'RaiseHand') {
+                        virtualclass.raiseHand._raiseHand(userId)
                     }
                     virtualclass.user.control.updateUser(userId, label, true);
                 },
@@ -511,7 +511,7 @@
                     //TODO this function should be generalise
                     if (control == 'Assign') {
                         // this condition only true when the app is not quiz, poll, docs, and video
-                        if(virtualclass.vutil.appIsForEducator(virtualclass.currApp)){
+                        if (virtualclass.vutil.appIsForEducator(virtualclass.currApp)) {
                             virtualclass.gObj.controlAssign = true;
                             virtualclass.gObj.controlAssignId = userId;
                             var assignDisable = (tag.getAttribute('data-assign-disable') == 'true') ? true : false;
@@ -530,17 +530,17 @@
                         //TODO this should be generalise
                         if (control == 'stdscreen') {
                             // if teacher share his screen
-                            if(roles.hasControls() && virtualclass.previous == "virtualclassScreenShare") {
+                            if (roles.hasControls() && virtualclass.previous == "virtualclassScreenShare") {
                                 virtualclass.vutil.initDefaultApp();
                             }
                             ctrType = 'stdscreen';
                             this.control['_' + ctrType].call(this.control, userId);
-                                if (virtualclass.currApp == "Video" && virtualclass.videoUl.player) {
-                                    ioAdapter.mustSend({'videoUl': {init: 'destroyPlayer'}, 'cf': 'destroyPlayer'});
-                                    ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
-                                    virtualclass.vutil.initDashboard();
-                                    virtualclass.vutil.removeBackgroundVideoApp();
-                                }         
+                            if (virtualclass.currApp == "Video" && virtualclass.videoUl.player) {
+                                ioAdapter.mustSend({'videoUl': {init: 'destroyPlayer'}, 'cf': 'destroyPlayer'});
+                                ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
+                                virtualclass.vutil.initDashboard();
+                                virtualclass.vutil.removeBackgroundVideoApp();
+                            }
                         } else {
                             if (control == 'Chat') {
                                 tag.className = 'contrChatBlock';
@@ -569,8 +569,8 @@
                             }
 
                             this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
-                            if(actSend == undefined) {
-                               this.control['_' + ctrType].call(this.control, userId, action);
+                            if (actSend == undefined) {
+                                this.control['_' + ctrType].call(this.control, userId, action);
                             }
 
                         }
@@ -659,17 +659,17 @@
                         console.log('role transfer');
                         virtualclass.vutil.beforeSend({'assignRole': true, toUser: userId, 'cf': 'assignRole'}, userId);
 
-                        if(roles.hasAdmin()){
-                            var erContId =  userId + 'contreditorRichImg';
+                        if (roles.hasAdmin()) {
+                            var erContId = userId + 'contreditorRichImg';
                             var erContTag = document.getElementById(erContId);
 
-                            if(erContTag.dataset.editorrichDisable == 'true'){
+                            if (erContTag.dataset.editorrichDisable == 'true') {
                                 virtualclass.user.control.init.call(virtualclass.user, erContTag);
                             }
-                            var ecContId =  userId + 'contreditorCodeImg';
+                            var ecContId = userId + 'contreditorCodeImg';
                             var ecContTag = document.getElementById(ecContId);
 
-                            if(ecContTag.dataset.editorcodeDisable == 'true'){
+                            if (ecContTag.dataset.editorcodeDisable == 'true') {
                                 virtualclass.user.control.init.call(virtualclass.user, ecContTag);
                             }
                         }
@@ -687,20 +687,18 @@
                 },
 
 
-
-
                 _chat: function (userId, action) {
                     if (action == 'enable') {
                         virtualclass.vutil.beforeSend({'enc': true, toUser: userId, 'cf': 'enc'}, userId);
-                       // virtualclass.settings.applySettings(true, "disableAttendeePc", userId);
+                        // virtualclass.settings.applySettings(true, "disableAttendeePc", userId);
                     } else {
                         var user = virtualclass.user.control.updateUser(userId, 'chat', false);
-                        virtualclass.vutil.beforeSend({'dic': true, toUser: userId, 'cf' : 'dic'}, userId);
+                        virtualclass.vutil.beforeSend({'dic': true, toUser: userId, 'cf': 'dic'}, userId);
                         //virtualclass.settings.applySettings(false, "disableAttendeePc", userId);
                     }
                 },
 
-                _audioAll : function (userId, action) {
+                _audioAll: function (userId, action) {
                     if (action == 'enable') {
                         virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
                     } else {
@@ -756,22 +754,22 @@
 
 
                 },
-                _RaiseHand:function(userId,action){
+                _RaiseHand: function (userId, action) {
                     // to disable only ..
                     virtualclass.raiseHand.disableRaiseHand(userId)
                 },
 
                 _stdscreen: function (userId) {
-                        virtualclass.vutil.beforeSend({'reqscreen': true, toUser: userId, 'cf' : 'reqscreen'}, userId);
+                    virtualclass.vutil.beforeSend({'reqscreen': true, toUser: userId, 'cf': 'reqscreen'}, userId);
                 },
 
                 audioWidgetEnable: function (notActive) {
-                    console.log('Audio enable true' );
-                    localStorage.setItem('audEnable', JSON.stringify({ac:'true'}));
-                    if(localStorage.getItem('dvid') == null){
+                    console.log('Audio enable true');
+                    localStorage.setItem('audEnable', JSON.stringify({ac: 'true'}));
+                    if (localStorage.getItem('dvid') == null) {
                         var studentSpeaker = document.getElementById('speakerPressOnce');
-                        if(typeof notActive == 'undefined'){
-                             studentSpeaker.className = 'active';
+                        if (typeof notActive == 'undefined') {
+                            studentSpeaker.className = 'active';
                         }
                         studentSpeaker.style.opacity = "1";
                         studentSpeaker.style.pointerEvents = "visible";
@@ -780,16 +778,16 @@
 
                 //move into media.js
                 mediaWidgetDisable: function (reason) {
-                   virtualclass.system.mediaDevices.hasWebcam = false;
-                    var ad = {ac:'false'};
+                    virtualclass.system.mediaDevices.hasWebcam = false;
+                    var ad = {ac: 'false'};
 
                     var aud = localStorage.getItem('audEnable');
-                    if(aud != null){
+                    if (aud != null) {
                         aud = JSON.parse(aud);
-                        if(aud.ac != 'false' && typeof reason != 'undefined'){
+                        if (aud.ac != 'false' && typeof reason != 'undefined') {
                             ad.r = reason;
                         }
-                    }else if(typeof reason != 'unefined'){
+                    } else if (typeof reason != 'unefined') {
                         ad.r = reason;
                     }
 
@@ -812,26 +810,26 @@
                     virtualclass.vutil.addClass('virtualclassCont', 'nowebcam')
                 },
 
-                audioDisable : function (){
+                audioDisable: function () {
                     var mic = document.getElementById('speakerPressOnce');
-                    if(mic != null){
+                    if (mic != null) {
                         mic.style.opacity = "0.5";
                         mic.style.pointerEvents = "none";
                     }
 
                 },
 
-                videoDisable : function (){
+                videoDisable: function () {
                     var videoIcon = document.getElementById('congCtrBar');
-                    if(videoIcon != null){
+                    if (videoIcon != null) {
                         videoIcon.style.opacity = "0.5";
                         videoIcon.style.pointerEvents = "none";
                     }
                 },
 
-                videoEnable : function (){
+                videoEnable: function () {
                     var videoIcon = document.getElementById('congCtrBar');
-                    if(videoIcon != null){
+                    if (videoIcon != null) {
                         videoIcon.style.opacity = "1";
                         videoIcon.style.pointerEvents = "visible";
                     }
@@ -850,14 +848,14 @@
 
                     }
                     var chatInput = document.querySelector("#virtualclassCont.congrea #ta_chrm2");
-                    if(chatInput){
+                    if (chatInput) {
                         chatInput.classList.add("disable");
                         chatInput.disabled = true;
                     }
                 },
                 disbaleAllChatBox: function () {
                     localStorage.setItem('chatEnable', "false");
-                    var chat_div  = document.querySelector('#virtualclassAppRightPanel');
+                    var chat_div = document.querySelector('#virtualclassAppRightPanel');
                     chat_div.classList.add('chat_disabled');
                     document.querySelector('#chat_div').classList.add('chat_disabled');
                     chat_div.classList.remove('chat_enabled');
@@ -877,7 +875,7 @@
                 },
 
                 makeElemDisable: function (elem) {
-                    if(elem.id !="chatrm"){
+                    if (elem.id != "chatrm") {
                         if (virtualclass.vutil.elemHasAnyClass(elem.id)) {
                             elem.classList.remove('enable');
                             elem.classList.add('disable');
@@ -893,13 +891,14 @@
                 },
                 allChatEnable: function () {
                     localStorage.setItem('chatEnable', "true");
-                    var chat_div  = document.querySelector('#virtualclassAppRightPanel');
+                    var chat_div = document.querySelector('#virtualclassAppRightPanel');
                     chat_div.classList.remove('chat_disabled')
-                    document.querySelector('#chat_div').classList.remove('chat_disabled');;
+                    document.querySelector('#chat_div').classList.remove('chat_disabled');
+                    ;
                     chat_div.classList.add('chat_enabled');
 
                     var chatInput = document.querySelector("#virtualclassCont.congrea #ta_chrm2");
-                    if(chatInput){
+                    if (chatInput) {
                         chatInput.classList.remove("disable");
                         chatInput.disabled = false;
                     }
@@ -912,18 +911,18 @@
                     }
                     var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
                     for (var i = 0; i < allChatDivCont.length; i++) {
-                        if(!allChatDivCont[i].classList.contains('mySelf')){
+                        if (!allChatDivCont[i].classList.contains('mySelf')) {
                             allChatDivCont[i].style.pointerEvents = "visible";
                             //virtualclass.user.control.enable(allChatDivCont[i].id.slice(2), 'chat', 'Chat', 'chat');
                         }
-                        var chatIcon=allChatDivCont[i].querySelector('.icon-chatImg');
-                        if(chatIcon && !chatIcon.classList.contains("enable")){
+                        var chatIcon = allChatDivCont[i].querySelector('.icon-chatImg');
+                        if (chatIcon && !chatIcon.classList.contains("enable")) {
                             chatIcon.classList.add("enable");
                             chatIcon.setAttribute("data-chat-disable", "false");
                         }
 
                         var txteditorIcon = allChatDivCont[i].querySelector('.icon-editorRichImg');
-                        if(txteditorIcon && txteditorIcon.classList.contains("enable")){
+                        if (txteditorIcon && txteditorIcon.classList.contains("enable")) {
                             txteditorIcon.classList.remove("enable");
                             txteditorIcon.classList.add("block");
                             txteditorIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('writemode'));
@@ -931,7 +930,7 @@
                         }
 
                         var codeeditorIcon = allChatDivCont[i].querySelector('.icon-editorCodeImg');
-                        if(codeeditorIcon && codeeditorIcon.classList.contains("enable")){
+                        if (codeeditorIcon && codeeditorIcon.classList.contains("enable")) {
                             codeeditorIcon.classList.remove("enable");
                             codeeditorIcon.classList.add("block");
                             codeeditorIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('editorCodeDisable'));
@@ -939,7 +938,7 @@
                         }
 
                         var muteIcon = allChatDivCont[i].querySelector('.icon-audioDisImg');
-                        if(muteIcon && muteIcon.classList.contains("block")){
+                        if (muteIcon && muteIcon.classList.contains("block")) {
                             muteIcon.parentNode.setAttribute("data-title", virtualclass.lang.getString('audioEnable'));
                             muteIcon.setAttribute("data-audio-disable", "false");
                         }
@@ -951,24 +950,24 @@
 
                     var listTab = document.querySelector("#user_list");
                     var chatroomTab = document.querySelector("#chatroom_bt2");
-                    if(userList && !listTab.classList.contains("active")){
-                        if(!listTab.classList.contains("active")){
+                    if (userList && !listTab.classList.contains("active")) {
+                        if (!listTab.classList.contains("active")) {
                             listTab.classList.add("active")
                         }
                         chatroomTab.classList.remove("active");
-                        virtualclass.chat.chatWindow="private";
+                        virtualclass.chat.chatWindow = "private";
                     }
                     // var supportTab = document.querySelector("#congreaSupport");
                     // if(supportTab.classList.contains("active")){
                     //     supportTab.classList.remove("active")
                     // }
 
-                    if(chatrm){
-                        if(!chatroomTab.classList.contains("active")){
+                    if (chatrm) {
+                        if (!chatroomTab.classList.contains("active")) {
                             chatroomTab.classList.add("active");
                         }
                         listTab.classList.remove("active")
-                        virtualclass.chat.chatWindow="common";
+                        virtualclass.chat.chatWindow = "common";
                     }
 
                     var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
@@ -979,25 +978,25 @@
 
                 },
 
-                resetmediaSetting : function(){ //if mute all contains enable
+                resetmediaSetting: function () { //if mute all contains enable
                     // todo need to configure meeting,
                     // The functionality should same as normal mode
-                    if(roles.isStudent()) {
+                    if (roles.isStudent()) {
 
-                        if(!virtualclass.gObj.stdaudioEnable){
+                        if (!virtualclass.gObj.stdaudioEnable) {
                             virtualclass.user.control.audioDisable();
-                        }else {
+                        } else {
                             // TODO check if need to audio enable
                         }
 
-                        if(virtualclass.system.mediaDevices.hasWebcam){
+                        if (virtualclass.system.mediaDevices.hasWebcam) {
                             /* stdvideoEnable means it's click able for ON,
-                            *  and user need cick that button to share the video
-                            * */
-                            if(virtualclass.gObj.stdvideoEnable){
+                             *  and user need cick that button to share the video
+                             * */
+                            if (virtualclass.gObj.stdvideoEnable) {
                                 virtualclass.vutil.videoHandler("off");
                                 virtualclass.videoHost.toggleVideoMsg('enable');
-                            }else {
+                            } else {
                                 virtualclass.videoHost.toggleVideoMsg('disable');
                                 var vidIcon = document.querySelector("#videoSwitch");
                                 // TODO try to remove the section vidIcon.classList.contains("on")
@@ -1011,19 +1010,19 @@
                     } else {
                         var mutebtn = document.getElementById("contrAudioAllImg");
 
-                        if(mutebtn && mutebtn.classList.contains("icon-all-audio-enable")){
+                        if (mutebtn && mutebtn.classList.contains("icon-all-audio-enable")) {
                             mutebtn.classList.remove("icon-all-audio-enable");
                             mutebtn.classList.add("icon-all-audio-disable");
                             mutebtn.setAttribute("data-title", virtualclass.lang.getString('muteAll'));
-                            if(mutebtn.dataset.action == "enable") {
+                            if (mutebtn.dataset.action == "enable") {
                                 mutebtn.dataset.action = "disable";
                             }
                         }
 
                         var vidbtn = document.getElementById("videoSwitch");
-                        if(virtualclass.system.mediaDevices.hasWebcam && vidbtn.classList.contains("video")){
+                        if (virtualclass.system.mediaDevices.hasWebcam && vidbtn.classList.contains("video")) {
                             var tvideoElem = document.getElementById("rightCtlr");
-                            if(vidbtn.classList.contains("on")) {
+                            if (vidbtn.classList.contains("on")) {
                                 virtualclass.vutil.videoHandler('off');
                                 tvideoElem.parentNode.setAttribute("data-title", virtualclass.lang.getString('videoon'));
                             }
@@ -1031,45 +1030,48 @@
                         }
 
 
-
                         this.mediaSliderSetting('audio');
                         this.mediaSliderSetting('video');
 
                     }
 
-                    if(roles.hasAdmin()){
-                        virtualclass.gObj.delayVid="display";
+                    if (roles.hasAdmin()) {
+                        virtualclass.gObj.delayVid = "display";
                     }
-               },
+                },
 
                 /***
                  * This funciton is used to control enable/disable all audio and enable/disable all video at teacher side
                  */
-                mediaSliderSetting : function (type){
+                mediaSliderSetting: function (type) {
 
-                    var lable =  (type == 'audio') ? 'Audio' : 'Video';
-                    var defaultMediaSetting =  (type == 'audio') ? virtualclass.gObj.stdaudioEnable : virtualclass.gObj.stdvideoEnable;
-                    var allAction = { action : defaultMediaSetting ? 'enable' : 'disable', enable :'disable', disable : 'enable'};
+                    var lable = (type == 'audio') ? 'Audio' : 'Video';
+                    var defaultMediaSetting = (type == 'audio') ? virtualclass.gObj.stdaudioEnable : virtualclass.gObj.stdvideoEnable;
+                    var allAction = {
+                        action: defaultMediaSetting ? 'enable' : 'disable',
+                        enable: 'disable',
+                        disable: 'enable'
+                    };
 
                     // allAction.action = 'enable' means green, now user able to click the audio
                     // allAction.action = 'disable' means gray, now user does not able to click the audio
 
                     //media represents audio or video
-                    var media = document.querySelector(".congrea #contr"+lable+"All."+allAction.action);
+                    var media = document.querySelector(".congrea #contr" + lable + "All." + allAction.action);
                     if (media) {
                         media.classList.remove(allAction.action);
                         media.classList.add(allAction[allAction.action])
-                        var chbox = document.querySelector(".congrea #contr"+lable+"All input")
+                        var chbox = document.querySelector(".congrea #contr" + lable + "All input")
                         if (chbox) {
                             chbox.removeAttribute("checked");
                         }
                     }
 
-                    var mediaIcon = document.querySelector(".congrea .slider.icon-all-"+type+"-" + allAction.action);
+                    var mediaIcon = document.querySelector(".congrea .slider.icon-all-" + type + "-" + allAction.action);
                     if (mediaIcon) {
-                        mediaIcon.className = "slider round congtooltip icon-all-"+type+"-"+allAction[allAction.action];
+                        mediaIcon.className = "slider round congtooltip icon-all-" + type + "-" + allAction[allAction.action];
                         mediaIcon.setAttribute('data-action', allAction[allAction.action]);
-                        mediaIcon.setAttribute('data-title', virtualclass.lang.getString(allAction[allAction.action]+'All'+lable));
+                        mediaIcon.setAttribute('data-title', virtualclass.lang.getString(allAction[allAction.action] + 'All' + lable));
                     }
                 },
 
@@ -1126,11 +1128,11 @@
                  * @param editor editor type
                  * @param action show or hidden
                  */
-                 toggleDisplayEditorController: function (editor, action) {
+                toggleDisplayEditorController: function (editor, action) {
                     var editor = virtualclass.vutil.smallizeFirstLetter(editor);
 
                     // var allEditorController = document.getElementsByClassName('controller' + editor);
-                    if(virtualclass.gObj.hasOwnProperty('testChatDiv')){
+                    if (virtualclass.gObj.hasOwnProperty('testChatDiv')) {
                         var allEditorController = chatContainerEvent.elementFromShadowDom('.controller' + editor, 'all');
                         for (var i = 0; i < allEditorController.length; i++) {
                             allEditorController[i].style.display = action;
@@ -1265,7 +1267,7 @@
                                 var idPart = allUsersDom[i].id.substr(0, idPartPos);
                                 var elem = chatContainerEvent.elementFromShadowDom(idPart + 'Img', null, true);
                                 // var elem = document.getElementById(idPart + 'Img');
-                                this.control.init.call(this, elem, action , undefined, 'actnotSend');
+                                this.control.init.call(this, elem, action, undefined, 'actnotSend');
                             }
                         }
                     }
@@ -1277,71 +1279,75 @@
                 //     virtualclass.vutil.beforeSend({'aDia': true, 'cf': 'aDia'});
                 // }
             },
-            toggleAllVideo:function(action){
-                ioAdapter.mustSend({'action': action,  'cf': 'toggleVideo'});
+            toggleAllVideo: function (action) {
+                ioAdapter.mustSend({'action': action, 'cf': 'toggleVideo'});
 
             },
             /**
              * Create Audio all Enable/Disable buttons with
              * it's helper function
              */
-            mediaSliderUI : function(type){
-                var lable =  (type == 'audio') ? 'Audio' : 'Video';
-                var spanTag= document.querySelector(".bulkUserActions #contr"+lable+"AllImg");
+            mediaSliderUI: function (type) {
+                var lable = (type == 'audio') ? 'Audio' : 'Video';
+                var spanTag = document.querySelector(".bulkUserActions #contr" + lable + "AllImg");
                 var settings = virtualclass.settings.info;
                 //var settings = localStorage.getItem("settings");
                 //if(getSettings !== null) {
-               // var applyedSettings = virtualclass.settings.onLoadSettings(getSettings);
+                // var applyedSettings = virtualclass.settings.onLoadSettings(getSettings);
                 var getMediaAction = virtualclass.user.defaultSettings(type, settings);
-               // }
+                // }
 
                 // var getMediaAction = (type == 'audio') ? localStorage.getItem('allAudAction') : localStorage.getItem('allVideoAction');
                 var localAction = (getMediaAction == 'enable') ? 'disable' : 'enable';
-                if(getMediaAction != null){
+                if (getMediaAction != null) {
                     spanTag.setAttribute('data-action', localAction);
-                    spanTag.className = 'slider round icon-all-'+type+'-'+localAction+' enable congtooltip cgIcon';
-                    spanTag.dataset.title = virtualclass.lang.getString(localAction+'All'+lable);
-                    var input = document.querySelector(".bulkUserActions #contr"+lable+"All input")
+                    spanTag.className = 'slider round icon-all-' + type + '-' + localAction + ' enable congtooltip cgIcon';
+                    spanTag.dataset.title = virtualclass.lang.getString(localAction + 'All' + lable);
+                    var input = document.querySelector(".bulkUserActions #contr" + lable + "All input")
                     input.setAttribute("checked", "true");
-                    var cont = document.querySelector(".congrea #contr"+lable+"All");
+                    var cont = document.querySelector(".congrea #contr" + lable + "All");
                     cont.classList.add(localAction)
-                }else{
+                } else {
                     //var defaultMediaSetting =  (type == 'audio') ? virtualclass.gObj.stdaudioEnable : virtualclass.gObj.stdvideoEnable;
                     //
                     // var defaultMediaSetting = virtualclass.user.defaultSettings(type, settings);
-                    var allAction = { action : getMediaAction ? 'enable' : 'disable', enable :'disable', disable : 'enable'};
-                    var spanTag= document.querySelector(".bulkUserActions #contr"+lable+"AllImg");
+                    var allAction = {
+                        action: getMediaAction ? 'enable' : 'disable',
+                        enable: 'disable',
+                        disable: 'enable'
+                    };
+                    var spanTag = document.querySelector(".bulkUserActions #contr" + lable + "AllImg");
                     spanTag.setAttribute('data-action', allAction[allAction.action]);
-                    spanTag.className = 'slider round icon-all-'+type+'-'+allAction[allAction.action]+' congtooltip cgIcon';
-                    spanTag.dataset.title = virtualclass.lang.getString(allAction[allAction.action]+'All'+lable);
-                    var input = document.querySelector(".bulkUserActions #contr"+lable+"All input")
+                    spanTag.className = 'slider round icon-all-' + type + '-' + allAction[allAction.action] + ' congtooltip cgIcon';
+                    spanTag.dataset.title = virtualclass.lang.getString(allAction[allAction.action] + 'All' + lable);
+                    var input = document.querySelector(".bulkUserActions #contr" + lable + "All input")
                     input.removeAttribute("checked");
-                    var cont = document.querySelector(".congrea #contr"+lable+"All");
+                    var cont = document.querySelector(".congrea #contr" + lable + "All");
                     cont.classList.add(allAction[allAction.action])
                 }
 
-                if(virtualclass.isPlayMode){
+                if (virtualclass.isPlayMode) {
                     anchorTag.pointerEvents = "none";
                     anchorTag.style.cursor = "default";
                 } else {
                     var that = this;
-                    spanTag.addEventListener('click', function (){
-                        if(type == "audio"){
+                    spanTag.addEventListener('click', function () {
+                        if (type == "audio") {
                             var actionToPerform = that.toogleAudioIcon();
-                            var actAudio = (actionToPerform == "enable") ? true :false;
+                            var actAudio = (actionToPerform == "enable") ? true : false;
                             virtualclass.settings.applySettings(actAudio, "disableAttendeeAudio");
 
-                            if(typeof actionToPerform != 'undefined'){
-                               localStorage.setItem('allAudAction', actionToPerform);
-                               that.toggleAllAudio.call(virtualclass.user, actionToPerform);
+                            if (typeof actionToPerform != 'undefined') {
+                                localStorage.setItem('allAudAction', actionToPerform);
+                                that.toggleAllAudio.call(virtualclass.user, actionToPerform);
                             }
-                        }else{
+                        } else {
                             var actionToPerform = that.toggleVideoIcon();
-                            var actVideo = (actionToPerform == "enable") ? true :false;
+                            var actVideo = (actionToPerform == "enable") ? true : false;
                             virtualclass.settings.applySettings(actVideo, "disableAttendeeVideo");
-                            if(typeof actionToPerform != 'undefined'){
-                               localStorage.setItem('allVideoAction', actionToPerform);
-                               that.toggleAllVideo(actionToPerform);
+                            if (typeof actionToPerform != 'undefined') {
+                                localStorage.setItem('allVideoAction', actionToPerform);
+                                that.toggleAllVideo(actionToPerform);
                             }
                         }
 
@@ -1349,13 +1355,13 @@
                 }
             },
 
-            defaultSettings :  function(type, obj){
+            defaultSettings: function (type, obj) {
                 let actionAV, value;
                 // TODO, review this code
-                for(let propname in obj) {
+                for (let propname in obj) {
                     value = obj[propname];
                     if (type === "audio" && propname === "disableAttendeeAudio" || type === "video" && propname === "disableAttendeeVideo") {
-                         actionAV = (value === true) ? "enable" : "disable";
+                        actionAV = (value === true) ? "enable" : "disable";
                     }
                 }
                 return actionAV;
@@ -1378,7 +1384,8 @@
                             offset: '20px',
                             messageSent: function (user, msg) {
                                 $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg);
-                            }});
+                            }
+                        });
 
                         if (virtualclass.gObj.hasOwnProperty('chatEnable')) {
                             if (!virtualclass.gObj.chatEnable) {
@@ -1398,7 +1405,7 @@
 
             },
 
-            toogleAudioIcon : function (){
+            toogleAudioIcon: function () {
                 var audioController = document.querySelector(".bulkUserActions #contrAudioAllImg");
                 if (audioController != null) {
                     actionToPerform = audioController.dataset.action;
@@ -1427,7 +1434,7 @@
                     return actionToPerform;
                 }
             },
-            toggleVideoIcon:function(){
+            toggleVideoIcon: function () {
                 var videoController = document.querySelector(".bulkUserActions #contrVideoAllImg");
                 if (videoController != null) {
                     actionToPerform = videoController.dataset.action;
@@ -1451,19 +1458,19 @@
                 }
             },
 
-            changeRoleOnFooter : function (id, role){
+            changeRoleOnFooter: function (id, role) {
                 var footerDiv = chatContainerEvent.elementFromShadowDom("#ml" + id);
                 footerDiv.dataset.role = role;
             },
 
-            initControlHandler : function (userId){
+            initControlHandler: function (userId) {
                 var orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
                 // Assign event handler
                 var that = this;
 
                 // shadow dom
 
-                var allSpans = chatContainerEvent.elementFromShadowDom('#ml' + userId +  ' .contImg', 'all');
+                var allSpans = chatContainerEvent.elementFromShadowDom('#ml' + userId + ' .contImg', 'all');
 
                 var uObj = false;
                 var userObj = localStorage.getItem('virtualclass' + userId);
@@ -1482,7 +1489,7 @@
                     }
                 }
 
-                for(var i=0; i<allSpans.length; i++){
+                for (var i = 0; i < allSpans.length; i++) {
 
                     // (
                     //     function (i){
@@ -1497,21 +1504,21 @@
                     // )(i);
 
 
-                    if(allSpans[i].className.indexOf('chat') > -1){
+                    if (allSpans[i].className.indexOf('chat') > -1) {
                         if (uObj && userObj.hasOwnProperty('chat')) {
                             var chEnable = (userObj.chat) ? true : false;
                         } else {
                             var chEnable = true;
                         }
                         virtualclass.user.control.changeAttribute(userId, allSpans[i], chEnable, 'chat', 'chat');
-                    } else if(allSpans[i].className.indexOf('aud') > -1) {
+                    } else if (allSpans[i].className.indexOf('aud') > -1) {
                         if (uObj && userObj.hasOwnProperty('aud')) {
                             var audEnable = (userObj.aud) ? true : false;
                         } else {
                             var elem = document.querySelector("#contrAudioAll");
-                            if(virtualclass.jId != null && elem.classList.contains("disable")){
+                            if (virtualclass.jId != null && elem.classList.contains("disable")) {
                                 var audEnable = true;
-                            }else {
+                            } else {
                                 var audEnable = virtualclass.gObj.stdaudioEnable;       //default value for userlist mic enable or disable
                             }
                         }
@@ -1524,15 +1531,15 @@
                         //     });
                         // }
 
-                        if(roles.hasAdmin()){
-                            if(allSpans[i].dataset.audioDisable == 'false'){
+                        if (roles.hasAdmin()) {
+                            if (allSpans[i].dataset.audioDisable == 'false') {
                                 var allAudAction = localStorage.getItem('allAudAction');
-                                if(allAudAction != null && allAudAction == 'disable'){
+                                if (allAudAction != null && allAudAction == 'disable') {
                                     //allSpans[i].click();
                                 }
                             }
                         }
-                    }else if(allSpans[i].className.indexOf('RaiseHand') > -1) {
+                    } else if (allSpans[i].className.indexOf('RaiseHand') > -1) {
                         if (uObj && userObj.hasOwnProperty('raiseHand')) {
                             var rhEnable = (userObj.raiseHand) ? true : false;
                         } else {
@@ -1540,19 +1547,19 @@
                         }
                         virtualclass.user.control.changeAttribute(userId, allSpans[i], rhEnable, 'RaiseHand', 'RaiseHand');
 
-                    } else if(allSpans[i].className.indexOf('stdscreen') > -1) {
-                        if(virtualclass.gObj.studentSSstatus.hasOwnProperty('whoIsSharing')){
+                    } else if (allSpans[i].className.indexOf('stdscreen') > -1) {
+                        if (virtualclass.gObj.studentSSstatus.hasOwnProperty('whoIsSharing')) {
                             virtualclass.vutil.initssSharing(virtualclass.gObj.whoIsSharing);
                         }
-                    }else if(allSpans[i].className.indexOf('editorRich') > -1 && virtualclass.currApp == "EditorRich"){
+                    } else if (allSpans[i].className.indexOf('editorRich') > -1 && virtualclass.currApp == "EditorRich") {
                         var elem = document.querySelector("#alleditorRichContainerAnch");
                         if (uObj && userObj.hasOwnProperty('editorRich')) {
                             var edEnable = (userObj.editorRich) ? true : false;
                         } else {
-                           var edEnable = false;
+                            var edEnable = false;
                         }
                         virtualclass.user.control.changeAttribute(userId, allSpans[i], edEnable, 'editorRich', 'editorRich');
-                    }else if(allSpans[i].className.indexOf('editorCode') > -1){
+                    } else if (allSpans[i].className.indexOf('editorCode') > -1) {
                         if (uObj && userObj.hasOwnProperty('editorCode')) {
                             var edcEnable = (userObj.editorCode) ? true : false;
                         } else {

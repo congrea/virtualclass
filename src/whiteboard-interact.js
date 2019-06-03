@@ -12,7 +12,7 @@
      * created object eg:- drag, rotate.
      */
 
-    function Interact (id){
+    function Interact(id) {
         var vcan = virtualclass.wb[id].vcan;
 
         vcan.interact = {
@@ -24,9 +24,9 @@
              */
             rotateObject: function (x, y) {
                 var t = vcan.main.currentTransform,
-                //TODO we should get the offset through this o = this._offset;
+                    //TODO we should get the offset through this o = this._offset;
 
-                // o = calcOffset(vcan.main.canvas.id)
+                    // o = calcOffset(vcan.main.canvas.id)
                     o = vcan.main.offset;
                 if (t.target.lockRotation) {
                     return;
@@ -80,6 +80,7 @@
             }
         }
     }
+
     window.Interact = Interact;
 
 })(window);

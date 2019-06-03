@@ -254,12 +254,12 @@
                 return;
             }
 
-            if(cursor != null && cursor.hasOwnProperty('position')){
+            if (cursor != null && cursor.hasOwnProperty('position')) {
                 var startPosition = cursor.position;
             }
 
 
-            if(cursor != null && cursor.hasOwnProperty('selectionEnd')){
+            if (cursor != null && cursor.hasOwnProperty('selectionEnd')) {
                 var selectionEnd = cursor.selectionEnd;
             }
 
@@ -274,19 +274,19 @@
             } else {
                 if (startPosition != null && selectionEnd != null) {
 
-                    if(sendSelection != null){
+                    if (sendSelection != null) {
                         clearTimeout(sendSelection);
 
                     }
                     latestCursorPacket = cursor;
                     var that = this;
-                     sendSelection = setTimeout(
-                        function (){
+                    sendSelection = setTimeout(
+                        function () {
                             that.serverAdapter.sendCursor(cursor);
                             latestCursorPacket = null;
-                        },300
+                        }, 300
                     );
-                 } else { // not selection
+                } else { // not selection
                     if (latestCursorPacket != null) {
                         this.serverAdapter.sendCursor(latestCursorPacket);
                         latestCursorPacket = null;

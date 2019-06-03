@@ -5,9 +5,9 @@
             var my_calculateChatHeight = null;
             return {
                 userList: [],
-                init: function ( ) {
+                init: function () {
                     this.chatroombox = null;
-                    this.chatWindow="private";
+                    this.chatWindow = "private";
                     this.counter = 0;
                     this.idList = [];
                     this.commonChat = [];
@@ -49,7 +49,7 @@
                     console.log('chat local storage start ');
                     /** Disable Chat **/
                     var chatEnable = localStorage.getItem('chatEnable');
-                    if(chatEnable != null){
+                    if (chatEnable != null) {
                         if (chatEnable == "false") {
                             document.querySelector('#chatWidget').classList.add('chat_disabled');
                             document.querySelector('#chat_div').classList.add('chat_disabled');
@@ -82,7 +82,7 @@
                     var chat = localStorage.getItem('chatWindow');
 
                     if (chat != null && chat == "common") {
-                        virtualclass.chat.chatWindow="common";
+                        virtualclass.chat.chatWindow = "common";
                         var chatroom = document.getElementById("chatrm");
                         if (chatroom) {
                             chatroom.classList.add("enable")
@@ -94,15 +94,15 @@
                             var list = document.getElementById("memlist");
                             if (list) {
                                 list.classList.remove("enable")
-                                if(!list.classList.contains("disable")){
-                                   list.classList.add("disable")
+                                if (!list.classList.contains("disable")) {
+                                    list.classList.add("disable")
                                 }
                                 var listBtn = document.getElementById("user_list");
                                 listBtn.classList.remove("active");
                             }
                             var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
-                            if(search){
-                                 search.style.display="none";
+                            if (search) {
+                                search.style.display = "none";
                             }
 
 
@@ -129,28 +129,28 @@
                             list.classList.add("enable");
                             var listBtn = document.getElementById("user_list");
                             listBtn.classList.add("active");
-                            virtualclass.chat.chatWindow="private";
+                            virtualclass.chat.chatWindow = "private";
                         }
 
-                        if(chatInput){
-                            chatInput.style.display="none";
+                        if (chatInput) {
+                            chatInput.style.display = "none";
                         }
 
                     }
                     var privateChat = document.querySelector("#virtualclassCont.congrea  .vmchat_bar_button");
-                    if(privateChat.classList.contains('active')){
-                        if(chatInput){
-                            chatInput.style.display="none";
+                    if (privateChat.classList.contains('active')) {
+                        if (chatInput) {
+                            chatInput.style.display = "none";
                         }
-                        if(search){
-                            search.style.display="block";
+                        if (search) {
+                            search.style.display = "block";
                         }
-                    }else{
-                        if(chatInput){
-                            chatInput.style.display="block";
+                    } else {
+                        if (chatInput) {
+                            chatInput.style.display = "block";
                         }
-                        if(search){
-                            search.style.display="none";
+                        if (search) {
+                            search.style.display = "none";
                         }
 
                     }
@@ -172,14 +172,14 @@
 
 
                     if (userlist.length > 0) {
-                        this. _showChatUserList(userlist);
+                        this._showChatUserList(userlist);
                         displayChatOfflineUserList(userlist);
                         // $("div#memlist").css({display: 'block'});
                         document.querySelector('div#memlist').classList.add("enable");
 
                     }
                 },
-                _showChatUserList:function(userlist){ //13%
+                _showChatUserList: function (userlist) { //13%
                     if (!document.getElementById('chat_div')) { // prevent creating div on each update
                         var cd = document.createElement('div');
                         cd.id = 'chat_div';
@@ -244,11 +244,11 @@
                     }
                 },
 
-                exportCommonChat:function(startTime){
-                    var chatHistory=[];
+                exportCommonChat: function (startTime) {
+                    var chatHistory = [];
                     var storedMsg = virtualclass.chat.commonChat;
-                    for(var i=0; i<storedMsg.length; i++){
-                        if(startTime <= storedMsg[i].time){
+                    for (var i = 0; i < storedMsg.length; i++) {
+                        if (startTime <= storedMsg[i].time) {
                             chatHistory.push(storedMsg[i]);
                         }
                     }
@@ -323,12 +323,12 @@
                     // var chatCont = document.getElementById(id);
                     // var chatRoot = virtualclass.gObj.testChatDiv.shadowRoot.
                     // if (chatCont != null) {
-                        if(virtualclass.gObj.hasOwnProperty('testChatDiv')){
-                            var hElements = chatContainerEvent.elementFromShadowDom('.ui-state-highlight', 'all');
-                            for (var i = 0; i < hElements.length; i++) {
-                                hElements[i].classList.remove('ui-state-highlight');
-                            }
+                    if (virtualclass.gObj.hasOwnProperty('testChatDiv')) {
+                        var hElements = chatContainerEvent.elementFromShadowDom('.ui-state-highlight', 'all');
+                        for (var i = 0; i < hElements.length; i++) {
+                            hElements[i].classList.remove('ui-state-highlight');
                         }
+                    }
                     //}
                 },
                 openChatBox: function () {
@@ -341,26 +341,26 @@
                     }
                 },
 
-                enableTechSupport : function (uid){
+                enableTechSupport: function (uid) {
                     var techSupport = document.querySelector('#congreaSupport');
                     techSupport.setAttribute('data-tsid', uid);
                     techSupport.classList.remove('notavailable');
                     techSupport.classList.add('available');
                 },
 
-                disableTechSupport : function (uid){
+                disableTechSupport: function (uid) {
                     var techSupport = document.querySelector('#congreaSupport');
                     techSupport.classList.add('notavailable');
                     techSupport.classList.remove('available');
                     var closeElement = document.querySelector('#tabcb' + uid + ' .icon-close');
-                    if(closeElement != null){
+                    if (closeElement != null) {
                         closeElement.click();
                     }
                 },
 
-                isTechSupportExist  :  function (uid){
+                isTechSupportExist: function (uid) {
                     var techSupport = document.querySelector('#congreaSupport');
-                    if(techSupport != null){
+                    if (techSupport != null) {
                         return ((+techSupport.dataset.tsid) == (+uid))
                     }
                 },

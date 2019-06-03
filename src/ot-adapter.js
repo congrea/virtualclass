@@ -170,7 +170,7 @@ otAdapter = function () {
                     // TW : 2b) Msg is received to students - Action : Process
                     this.processOp(event);
                 }
-            } else if (!msg.hasOwnProperty('edFrom') && event.fromUser.role != 't' &&  event.fromUser.role != 'e') {
+            } else if (!msg.hasOwnProperty('edFrom') && event.fromUser.role != 't' && event.fromUser.role != 'e') {
                 // SW : 1) Msg sent to Teacher
                 // console.log('SW : 1 From Student');
                 // SW : 2) Teacher do OT and send to all
@@ -305,8 +305,8 @@ otAdapter = function () {
             ioAdapter.mustSend(msg);
         } else {
             //TODO Check if it is possible avoid going through workerIO
-            setTimeout( function() { // We want to slow down OT to reduce frequency of msgs
-              ioAdapter.mustSendAll(msg);
+            setTimeout(function () { // We want to slow down OT to reduce frequency of msgs
+                ioAdapter.mustSendAll(msg);
             }, 300);
         }
     };

@@ -6,7 +6,7 @@
     var doit;
     var view = {
         /**
-         * Initializing the view 
+         * Initializing the view
          * @returns view object
          */
         init: function () {
@@ -16,7 +16,7 @@
             return this;
         },
         /**
-         * 
+         *
          * @param  msg message to be displayed
          * @param  id id of the container
          * @param  className of the container
@@ -30,9 +30,9 @@
             } else {
                 var msgBox = this.createMsgBox(msg, id, className, imageTag);
             }
-            var parTag = document.getElementById('vcanvas'+wid);
+            var parTag = document.getElementById('vcanvas' + wid);
             if (typeof intoAppend != 'undefined') {
-                document.getElementById(intoAppend+wid).appendChild(msgBox);
+                document.getElementById(intoAppend + wid).appendChild(msgBox);
             } else {
                 parTag.insertBefore(msgBox, parTag.childNodes[0]);
             }
@@ -51,36 +51,36 @@
                 var errorCont = document.createElement('div');
                 errorCont.id = contId;
 
-                errorCont.innerHTML = '<span className="'+classes+'">'+msg+'</span>';
+                errorCont.innerHTML = '<span className="' + classes + '">' + msg + '</span>';
 
             } else {
-                if(attribute != null){
-                    if(attribute.hasOwnProperty('className')){
+                if (attribute != null) {
+                    if (attribute.hasOwnProperty('className')) {
                         var elem = document.querySelector('#' + contId + '.' + attribute.className);
-                        if(elem != null){
+                        if (elem != null) {
                             elem.parentNode.removeChild(elem);
                         }
                         classes += ' ' + attribute.className;
                     }
                 }
 
-                var spanMsg = '<span className="'+classes+'">'+msg+'</span>';
+                var spanMsg = '<span className="' + classes + '">' + msg + '</span>';
 
                 errorCont.innerHTML = spanMsg;
             }
 
             var msgId = 'closeMsg';
-            closebutton = document.querySelector('#'+msgId);
+            closebutton = document.querySelector('#' + msgId);
 
-            if(closebutton == null){
+            if (closebutton == null) {
                 var closebutton = document.createElement('span');
                 closebutton.id = 'closeMsg';
                 closebutton.innerHTML = "X";
                 errorCont.appendChild(closebutton);
             }
 
-            closebutton.onclick = function (){
-                var parentelem = document.querySelector('#'+contId);
+            closebutton.onclick = function () {
+                var parentelem = document.querySelector('#' + contId);
                 parentelem.parentNode.removeChild(parentelem);
             }
 
@@ -131,7 +131,7 @@
         },
         /**
          * creating the message box to be displayed
-         * @param  msg message to be displayed 
+         * @param  msg message to be displayed
          * @param id id of the container
          * @param  className class of the container
          * @param imageTag boolean value
@@ -222,7 +222,7 @@
                 window.location.reload();
             };
             div.appendChild(a);
-            var panelId = (id == 'divForReloadMsg') ? 'virtualclassCont' :   'virtualclassAppLeftPanel';
+            var panelId = (id == 'divForReloadMsg') ? 'virtualclassCont' : 'virtualclassAppLeftPanel';
             var virtualclassCont = document.getElementById(panelId);
             virtualclassCont.insertBefore(div, virtualclassCont.firstChild);
         },
@@ -239,9 +239,9 @@
             vcanvas.parentNode.insertBefore(div, vcanvas);
         },
         /**
-         * 
+         *
          * @param  id id of the element to be removed
-         * @returns 
+         * @returns
          */
         removeElement: function (id) {
             var errorDiv = document.getElementById(id);
@@ -261,7 +261,7 @@
         },
         /**
          * Disabling  left application bar if there is an error and virtual class need to be disabled
-         * 
+         *
          */
         disableLeftAppBar: function () {
             //debugger;
@@ -289,11 +289,11 @@
     // Set container dimension (width and height)
     view.window.resize = function (wid) {
         var res = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
-        if(virtualclass.currApp == 'DocumentShare'){
+        if (virtualclass.currApp == 'DocumentShare') {
             res.width -= 10
-            if(roles.hasControls()){
+            if (roles.hasControls()) {
                 res.height -= 100;
-            }else {
+            } else {
                 res.height -= 40;
 
             }
@@ -305,25 +305,25 @@
         //console.log('Window resize event ');
 
         var cwb = virtualclass.gObj.currWb;
-        if(typeof cwb != 'undefined' && (typeof virtualclass.wb[cwb] != 'undefined') && virtualclass.wb[cwb].hasOwnProperty('vcan')){
+        if (typeof cwb != 'undefined' && (typeof virtualclass.wb[cwb] != 'undefined') && virtualclass.wb[cwb].hasOwnProperty('vcan')) {
             virtualclass.wb[cwb].vcan.renderAll();
         }
         view.windowResizeFinished()
 
     },
 
-    // this funciton is triggered when
-    // resize is finished
-    //nirmala
-    view.windowResizeFinished = function () {
-        clearTimeout(doit);
-        doit = setTimeout(function () {
-            view._windowResizeFinished();
-        }, 100)
-    }
+        // this funciton is triggered when
+        // resize is finished
+        //nirmala
+        view.windowResizeFinished = function () {
+            clearTimeout(doit);
+            doit = setTimeout(function () {
+                view._windowResizeFinished();
+            }, 100)
+        }
     //change by nirmala
     view._windowResizeFinished = function () {
-        if(virtualclass.system.device == 'mobTab'){
+        if (virtualclass.system.device == 'mobTab') {
             vhCheck();
         }
         // var height = virtualclass.vutil.calculateChatHeight();
@@ -345,91 +345,91 @@
 
 
         // virtualclass.chat.boxHeight = height;
-        if((virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare')
+        if ((virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare')
             && virtualclass.gObj.currWb != null && typeof virtualclass.gObj.currWb != 'undefined'
-        ){
+        ) {
 
             /*** Remove black screen on resizing of doucmet sharing window **/
-            if(virtualclass.gObj.hasOwnProperty('fitToScreenOnResize')){
+            if (virtualclass.gObj.hasOwnProperty('fitToScreenOnResize')) {
                 clearTimeout(virtualclass.gObj.fitToScreenOnResize);
             }
             virtualclass.gObj.fitToScreenOnResize = setTimeout(
-                function (){
+                function () {
                     var fitToscreen = document.querySelector('.zoomControler .fitScreen');
-                    if(fitToscreen != null){
+                    if (fitToscreen != null) {
                         fitToscreen.click();
                     }
-                },700
+                }, 700
             );
         }
     }
 
 //TODO
 // this code is not using should be removed
-        view.virtualWindow.manupulation = function (e) {
-            var message = e.message.virtualWindow;
-            if (message.hasOwnProperty('removeVirtualWindow')) {
-                if (e.fromUser.userid != wbUser.id) {
-                    virtualclass.wb[virtualclass.gObj.currWb].utility.removeVirtualWindow('virtualWindow');
-                }
+    view.virtualWindow.manupulation = function (e) {
+        var message = e.message.virtualWindow;
+        if (message.hasOwnProperty('removeVirtualWindow')) {
+            if (e.fromUser.userid != wbUser.id) {
+                virtualclass.wb[virtualclass.gObj.currWb].utility.removeVirtualWindow('virtualWindow');
+            }
 
-            } else if (message.hasOwnProperty('createVirtualWindow')) {
-                if (message.hasOwnProperty('toolHeight')) {
-                    localStorage.setItem('toolHeight', message.toolHeight);
-                }
+        } else if (message.hasOwnProperty('createVirtualWindow')) {
+            if (message.hasOwnProperty('toolHeight')) {
+                localStorage.setItem('toolHeight', message.toolHeight);
+            }
 
-                if (e.fromUser.userid != wbUser.id) {
-                    virtualclass.wb[virtualclass.gObj.currWb].utility.createVirtualWindow(message.createVirtualWindow);
+            if (e.fromUser.userid != wbUser.id) {
+                virtualclass.wb[virtualclass.gObj.currWb].utility.createVirtualWindow(message.createVirtualWindow);
 
-                }
-            } else if (message.hasOwnProperty('shareBrowserWidth')) {
-                if (message.hasOwnProperty('toolHeight')) {
-                    localStorage.setItem('toolHeight', message.toolHeight);
-                }
+            }
+        } else if (message.hasOwnProperty('shareBrowserWidth')) {
+            if (message.hasOwnProperty('toolHeight')) {
+                localStorage.setItem('toolHeight', message.toolHeight);
+            }
 
+            if (roles.hasControls()) {
+                var toolBoxHeight = virtualclass.wb[virtualclass.gObj.currWb].utility.getWideValueAppliedByCss('commandToolsWrapper');
+                localStorage.setItem('toolHeight', toolBoxHeight);
+            }
+
+            if (e.fromUser.userid != wbUser.id) {
                 if (roles.hasControls()) {
-                    var toolBoxHeight = virtualclass.wb[virtualclass.gObj.currWb].utility.getWideValueAppliedByCss('commandToolsWrapper');
-                    localStorage.setItem('toolHeight', toolBoxHeight);
+                    virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasEnable();
                 }
+                otherBrowser = message.browserRes;
+            } else {
+                myBrowser = virtualclass.system.measureResoultion({
+                    'width': window.outerWidth,
+                    'height': window.innerHeight
+                });
+            }
 
-                if (e.fromUser.userid != wbUser.id) {
-                    if (roles.hasControls()) {
-                        virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasEnable();
+            if (typeof myBrowser == 'object' && typeof otherBrowser == 'object') {
+                if (myBrowser.width > otherBrowser.width) {
+                    if (!virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow) {
+                        virtualclass.wb[virtualclass.gObj.currWb].utility.createVirtualWindow(otherBrowser);
+                        virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow = true;
                     }
-                    otherBrowser = message.browserRes;
-                } else {
-                    myBrowser = virtualclass.system.measureResoultion({
-                        'width': window.outerWidth,
-                        'height': window.innerHeight
-                    });
-                }
-
-                if (typeof myBrowser == 'object' && typeof otherBrowser == 'object') {
-                    if (myBrowser.width > otherBrowser.width) {
-                        if (!virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow) {
-                            virtualclass.wb[virtualclass.gObj.currWb].utility.createVirtualWindow(otherBrowser);
-                            virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow = true;
-                        }
-                    } else if (myBrowser.width < otherBrowser.width) {
-                        if (!virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow) {
-                            // virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow = true;
-                            var canvaContainer = document.getElementById("vcanvas");
-                            var rightOffset = virtualclass.wb[virtualclass.gObj.currWb].utility.getElementRightOffSet(canvaContainer);
-                            if (roles.hasControls()) {
-                                virtualclass.vutil.beforeSend({
-                                    'virtualWindow': {
-                                        'createVirtualWindow': myBrowser - rightOffset,
-                                        'toolHeight': toolBoxHeight
-                                    }
-                                });
-                            } else {
-                                virtualclass.vutil.beforeSend({'virtualWindow': {'createVirtualWindow': myBrowser - rightOffset}});
-                            }
+                } else if (myBrowser.width < otherBrowser.width) {
+                    if (!virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow) {
+                        // virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow = true;
+                        var canvaContainer = document.getElementById("vcanvas");
+                        var rightOffset = virtualclass.wb[virtualclass.gObj.currWb].utility.getElementRightOffSet(canvaContainer);
+                        if (roles.hasControls()) {
+                            virtualclass.vutil.beforeSend({
+                                'virtualWindow': {
+                                    'createVirtualWindow': myBrowser - rightOffset,
+                                    'toolHeight': toolBoxHeight
+                                }
+                            });
+                        } else {
+                            virtualclass.vutil.beforeSend({'virtualWindow': {'createVirtualWindow': myBrowser - rightOffset}});
                         }
                     }
                 }
             }
+        }
 
-        };
+    };
     window.view = view;
 })(window);

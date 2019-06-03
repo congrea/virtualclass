@@ -8,7 +8,7 @@
  * Depends on jquery.ui.core, jquery.ui.widiget, jquery.ui.effect
  *
  * Also uses some styles for jquery.ui.dialog
- 
+
  */
 
 
@@ -99,18 +99,18 @@
         _create: function () {
             createTab(this.options.id, this.options.title);
             var self = this,
-                    options = self.options,
-                    offset = options.offset,
-                    title = options.title || "No Title",
-                    // chatbox
-                    uiChatbox = (self.uiChatbox = $('<div></div>'))
+                options = self.options,
+                offset = options.offset,
+                title = options.title || "No Title",
+                // chatbox
+                uiChatbox = (self.uiChatbox = $('<div></div>'))
                     .appendTo(document.body)
                     .addClass('ui-widget ' +
-                            'ui-corner-top ' +
-                            'ui-chatbox'
-                            )
+                        'ui-corner-top ' +
+                        'ui-chatbox'
+                    )
                     .attr('id', 'cb' + self.options.id)
-//            .attr('outline', 0) //html is not validated so
+                    //            .attr('outline', 0) //html is not validated so
                     .focusin(function () {
                         // ui-state-highlight is not really helpful here
                         //self.uiChatbox.removeClass('ui-state-highlight');
@@ -119,31 +119,31 @@
                     .focusout(function () {
                         self.uiChatboxTitlebar.removeClass('ui-state-focus');
                     }),
-                    // titlebar
-                    uiChatboxTitlebar = (self.uiChatboxTitlebar = $('<div></div>'))
+                // titlebar
+                uiChatboxTitlebar = (self.uiChatboxTitlebar = $('<div></div>'))
                     .addClass('ui-widget-header ' +
-                            'ui-corner-top ' +
-                            'ui-chatbox-titlebar ' +
-                            'ui-dialog-header' // take advantage of dialog header style
-                            )
+                        'ui-corner-top ' +
+                        'ui-chatbox-titlebar ' +
+                        'ui-dialog-header' // take advantage of dialog header style
+                    )
                     .click(function (event) {
                         // self.toggleContent(event);
                     })
                     .appendTo(uiChatbox),
-                    uiChatboxTitle = (self.uiChatboxTitle = $('<span class="cgText"></span>'))
+                uiChatboxTitle = (self.uiChatboxTitle = $('<span class="cgText"></span>'))
                     .html(title)
                     .appendTo(uiChatboxTitlebar),
-                    uiChatboxTitlebarClose = (self.uiChatboxTitlebarClose = $('<a href="#"></a>'))
+                uiChatboxTitlebarClose = (self.uiChatboxTitlebarClose = $('<a href="#"></a>'))
                     .addClass(
-                            'ui-chatbox-icon '
-                            )
+                        'ui-chatbox-icon '
+                    )
                     .attr('role', 'button')
                     .hover(function () {
-                        uiChatboxTitlebarClose.addClass('ui-state-hover');
-                    },
-                            function () {
-                                uiChatboxTitlebarClose.removeClass('ui-state-hover');
-                            })
+                            uiChatboxTitlebarClose.addClass('ui-state-hover');
+                        },
+                        function () {
+                            uiChatboxTitlebarClose.removeClass('ui-state-hover');
+                        })
 
                     .click(function (event) {
                         delete virtualclass.chat.vmstorage[self.options.id][0].box;
@@ -153,29 +153,29 @@
                         // delete virtualclass.chat.vmstorage[self.options.id]; //delete variable storage
                         //localStorage.removeItem(self.options.id);//delete local storage
                         // to be verified
-                        if(virtualclass.chat.idList && virtualclass.chat.idList.length){
-                             var index= virtualclass.chat.idList.indexOf(self.options.id);
-                             if(index > -1){
-                                 virtualclass.chat.idList.splice(index,1);
-                             }
+                        if (virtualclass.chat.idList && virtualclass.chat.idList.length) {
+                            var index = virtualclass.chat.idList.indexOf(self.options.id);
+                            if (index > -1) {
+                                virtualclass.chat.idList.splice(index, 1);
+                            }
                         }
                         return false;
                     })
                     .appendTo(uiChatboxTitlebar),
-                    uiChatboxTitlebarCloseText = $("<span ></span>")
-                    .addClass('ui-icon ' + 'icon-close '+'cgIcon ')
+                uiChatboxTitlebarCloseText = $("<span ></span>")
+                    .addClass('ui-icon ' + 'icon-close ' + 'cgIcon ')
                     .text('')
                     //.text('close')
                     .appendTo(uiChatboxTitlebarClose),
-                    uiChatboxTitlebarMinimize = (self.uiChatboxTitlebarMinimize = $('<a href = "#"></a>'))
+                uiChatboxTitlebarMinimize = (self.uiChatboxTitlebarMinimize = $('<a href = "#"></a>'))
                     .addClass('ui-chatbox-icon')
                     .attr('role', 'button')
                     .hover(function () {
-                        uiChatboxTitlebarMinimize.addClass('ui-state-hover');
-                    },
-                            function () {
-                                uiChatboxTitlebarMinimize.removeClass('ui-state-hover');
-                            })
+                            uiChatboxTitlebarMinimize.addClass('ui-state-hover');
+                        },
+                        function () {
+                            uiChatboxTitlebarMinimize.removeClass('ui-state-hover');
+                        })
                     .click(function (event) {
                         self.toggleContentbox(event);
                         if (localStorage.getItem(self.options.id) == 'hidden') {
@@ -187,27 +187,27 @@
                     })
 
                     .appendTo(uiChatboxTitlebar),
-                    uiChatboxTitlebarMinimizeText = $("<span></span>")
+                uiChatboxTitlebarMinimizeText = $("<span></span>")
                     .addClass('ui-icon ' + 'icon-minus')
                     .text('')
                     .appendTo(uiChatboxTitlebarMinimize),
-                    // content
-                    uiChatboxContent = (self.uiChatboxContent = $('<div></div>'))
+                // content
+                uiChatboxContent = (self.uiChatboxContent = $('<div></div>'))
                     .addClass('ui-widget-content ' + 'ui-chatbox-content ')
                     .appendTo(uiChatbox),
-                    uiChatboxLog = (self.uiChatboxLog = self.element)
+                uiChatboxLog = (self.uiChatboxLog = self.element)
                     .addClass('ui-widget-content ' + 'ui-chatbox-log')
                     .appendTo(uiChatboxContent),
-                    uiChatboxInput = (self.uiChatboxInput = $('<div></div>'))
+                uiChatboxInput = (self.uiChatboxInput = $('<div></div>'))
                     .addClass('ui-widget-content ' + 'ui-chatbox-input')
                     .click(function (event) {
                         // anything?
                     })
                     .appendTo(uiChatboxContent),
-                    uiChatboxInputBox = (self.uiChatboxInputBox = $('<textarea></textarea>'))
+                uiChatboxInputBox = (self.uiChatboxInputBox = $('<textarea></textarea>'))
                     .addClass('ui-widget-content ' +
-                            'ui-chatbox-input-box '
-                            )
+                        'ui-chatbox-input-box '
+                    )
                     .prop('id', 'ta' + self.options.id)
                     .appendTo(uiChatboxInput)
                     .keypress(function (event) {

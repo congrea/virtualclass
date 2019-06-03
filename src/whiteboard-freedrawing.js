@@ -19,7 +19,7 @@
      * class can not create by addObject class,
      */
 
-    function FreeHandDrawing (id) {
+    function FreeHandDrawing(id) {
         var vcan = virtualclass.wb[id].vcan;
         vcan.main.freeHandDrawing = function (obj) {
             return {
@@ -42,9 +42,9 @@
                     }
 
                     if (obj.lineWidth != undefined) {
-                        this.freeDrawingLineWidth =  virtualclass.wb[virtualclass.gObj.currWb].currStrkSize * virtualclass.zoom.canvasScale;
+                        this.freeDrawingLineWidth = virtualclass.wb[virtualclass.gObj.currWb].currStrkSize * virtualclass.zoom.canvasScale;
                     } else {
-                        this.freeDrawingLineWidth =  virtualclass.wb[virtualclass.gObj.currWb].currStrkSize * virtualclass.zoom.canvasScale;
+                        this.freeDrawingLineWidth = virtualclass.wb[virtualclass.gObj.currWb].currStrkSize * virtualclass.zoom.canvasScale;
                     }
 
                     //IMPORTANT:- this have done during the unit testing
@@ -239,6 +239,7 @@
             }
         }
     }
-window.FreeHandDrawing = FreeHandDrawing;
+
+    window.FreeHandDrawing = FreeHandDrawing;
 
 })(window);

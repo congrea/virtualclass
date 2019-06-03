@@ -4,7 +4,7 @@
  */
 (function (window) {
 
-    function vcanMain (id){
+    function vcanMain(id) {
         var vcan = virtualclass.wb[id].vcan;
         /**
          * through the prototype we are adding method on object which is created by new vcan.main(canvasId);
@@ -270,7 +270,7 @@
                  * @param obj the operation would operated on it
                  * @return {vcan.Object} thisArg
                  */
-                    //TOOD that function  should create through the contstructor of object
+                //TOOD that function  should create through the contstructor of object
                 obj.drawBorders = function (ctx) {
                     if (!this.hasBorders) {
                         return;
@@ -408,9 +408,9 @@
                     this.active = !!active;
                     return this;
                 },
-                /**
-                 *  sets the particular value either draggable and vice-versa
-                 */
+                    /**
+                     *  sets the particular value either draggable and vice-versa
+                     */
                     obj.dragDrop = function (boolVal) {
                         if (boolVal != undefined) {
                             this.draggable = boolVal;
@@ -418,12 +418,12 @@
                             this.draggable = false;
                         }
                     },
-                /**
-                 * Sets the coordinates of the draggable boxes in the corners of
-                 * the image used to scale/rotate it.
-                 * @method setCornerCoords
-                 * @param obj the object of which sets the co-ordinates
-                 */
+                    /**
+                     * Sets the coordinates of the draggable boxes in the corners of
+                     * the image used to scale/rotate it.
+                     * @method setCornerCoords
+                     * @param obj the object of which sets the co-ordinates
+                     */
                     //TODO use this instead of obj
                     obj.setCornerCoords = function () {
                         //var coords = this.oCoords,
@@ -645,11 +645,11 @@
 
                     return false;
                 },
-                /**
-                 * This function sets up the current object for do various transform
-                 * eg:- drag, rotate and scale
-                 * this function does expects event as parameter
-                 */
+                    /**
+                     * This function sets up the current object for do various transform
+                     * eg:- drag, rotate and scale
+                     * this function does expects event as parameter
+                     */
                     obj.setupCurrentTransform = function (e) {
                         var obj = vcan.main;
                         var action = 'drag',
@@ -660,12 +660,12 @@
                             action = (corner === 'ml' || corner === 'mr')
                                 ? 'scaleX'
                                 : (corner === 'mt' || corner === 'mb')
-                                ? 'scaleY'
-                                : corner === 'mtr'
-                                ? 'rotate'
-                                : (this.hasRotatingPoint)
-                                ? 'scale'
-                                : 'rotate';
+                                    ? 'scaleY'
+                                    : corner === 'mtr'
+                                        ? 'rotate'
+                                        : (this.hasRotatingPoint)
+                                            ? 'scale'
+                                            : 'rotate';
                         }
                         // alert('heelo scalex');
                         // debugger;

@@ -28,7 +28,7 @@
         },
 
         makeQueue: function (rec) {
-              //  console.log('Whiteboard making in queue ' + rec.uid);
+            //  console.log('Whiteboard making in queue ' + rec.uid);
             virtualclass.wb[virtualclass.gObj.currWb].gObj.queue[rec.uid] = rec;
             //console.log('Making Queue' + e.message.repObj[0].uid + '; Should not come.');
         },

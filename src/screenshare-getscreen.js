@@ -16,18 +16,18 @@ window.addEventListener('message', function (event) {
         if (event.data.sourceId === '') { // user canceled
             var error = new Error('NavigatorUserMediaError');
             error.name = 'PERMISSION_DENIED';
-            if(virtualclass.hasOwnProperty('ss')){
+            if (virtualclass.hasOwnProperty('ss')) {
                 virtualclass.ss.onError(error);
             }
 
-            if(virtualclass.currApp == "SharePresentation" || virtualclass.currApp == "DocumentShare") {
+            if (virtualclass.currApp == "SharePresentation" || virtualclass.currApp == "DocumentShare") {
                 var dashboardnav = document.querySelector('#dashboardnav button');
                 if (dashboardnav != null) {
                     dashboardnav.click();
                 }
             }
 
-            if(roles.hasControls()){   // #943
+            if (roles.hasControls()) {   // #943
                 virtualclass.vutil.initDefaultApp();
             }
 
@@ -54,16 +54,16 @@ window.addEventListener('message', function (event) {
             navigator2.getUserMedia(constraints, function (stream) {
                 virtualclass.ss._init();
                 //if(roles.hasControls()){
-                    virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
-               // }
+                virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
+                // }
             }, function (e) {
                 virtualclass.ss.onError.call(virtualclass.ss, e);
             });
             //the stream we can get here with initalizeRecorder()
         }
         var elem = document.querySelector("#virtualclassScreenShareLocalSmall");
-        if(elem){
-            elem.style.display="block";
+        if (elem) {
+            elem.style.display = "block";
         }
 
 

@@ -119,7 +119,7 @@
                 //     }
                 // }
 
-                        virtualclass.vutil.removeAllTextWrapper();
+                virtualclass.vutil.removeAllTextWrapper();
                 var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;
                 var divNode = document.createElement('div');
                 divNode.id = "box" + boxNumber;
@@ -127,9 +127,9 @@
                 divNode.style.position = 'absolute';
 
                 divNode.style.left = (obj.x - virtualclass.leftPosX) + "px";
-                divNode.style.top = (obj.y-virtualclass.topPosY) + "px";
+                divNode.style.top = (obj.y - virtualclass.topPosY) + "px";
 
-                if(obj.x != undefined) {
+                if (obj.x != undefined) {
                     var textNode = document.createElement('textarea');
 
                     textNode.id = divNode.id + 'textarea';
@@ -152,9 +152,9 @@
                 this.prevTextObj.measure = obj;
                 virtualclass.wb[virtualclass.gObj.currWb].utility.toolWrapperDisable(true);
 
-                if(!roles.hasControls()){
+                if (!roles.hasControls()) {
                     textNode.style.display = 'none';
-                    if(roles.hasAdmin()){
+                    if (roles.hasAdmin()) {
                         virtualclass.wb[virtualclass.gObj.currWb].utility.toolWrapperEnable(true);
                     }
                 }
@@ -281,16 +281,16 @@
                 virtualclass.wb[virtualclass.gObj.currWb].utility.toolWrapperEnable(true);
             },
 
-            finalizeTextIfAny : function (midReclaim){
+            finalizeTextIfAny: function (midReclaim) {
                 var canvasWrapper = document.getElementById('canvasWrapper' + virtualclass.gObj.currWb);
-                if(canvasWrapper != null){
+                if (canvasWrapper != null) {
                     var textBox = canvasWrapper.getElementsByClassName('whiteBoardTextBox');
-                    if(textBox.length > 0){
+                    if (textBox.length > 0) {
                         textBox = textBox[0];
-                        if(typeof midReclaim == 'undefined' || (typeof midReclaim != 'undefined') && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.textWriteMode % 2 != 0 ){
+                        if (typeof midReclaim == 'undefined' || (typeof midReclaim != 'undefined') && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.textWriteMode % 2 != 0) {
                             virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.textUtility();
                         }
-                     }
+                    }
                 }
             }
         }

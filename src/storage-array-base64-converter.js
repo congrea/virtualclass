@@ -10,36 +10,35 @@
     var Converter = function () {
         function b64ToUint6(nChr) {
             return nChr > 64 && nChr < 91 ?
-            nChr - 65
+                nChr - 65
                 : nChr > 96 && nChr < 123 ?
-            nChr - 71
-                : nChr > 47 && nChr < 58 ?
-            nChr + 4
-                : nChr === 43 ?
-                62
-                : nChr === 47 ?
-                63
-                :
-                0;
+                    nChr - 71
+                    : nChr > 47 && nChr < 58 ?
+                        nChr + 4
+                        : nChr === 43 ?
+                            62
+                            : nChr === 47 ?
+                                63
+                                :
+                                0;
         }
-
 
 
         /* Base64 string to array encoding */
 
         function uint6ToB64(nUint6) {
             return nUint6 < 26 ?
-            nUint6 + 65
+                nUint6 + 65
                 : nUint6 < 52 ?
-            nUint6 + 71
-                : nUint6 < 62 ?
-            nUint6 - 4
-                : nUint6 === 62 ?
-                43
-                : nUint6 === 63 ?
-                47
-                :
-                65;
+                    nUint6 + 71
+                    : nUint6 < 62 ?
+                        nUint6 - 4
+                        : nUint6 === 62 ?
+                            43
+                            : nUint6 === 63 ?
+                                47
+                                :
+                                65;
         }
 
         return {
@@ -88,7 +87,8 @@
 
             base64DecToArr: function (sBase64, nBlocksSize) {
                 var sB64Enc = sBase64.replace(/[^A-Za-z0-9\+\/]/g, ""), nInLen = sB64Enc.length,
-                    nOutLen = nBlocksSize ? Math.ceil((nInLen * 3 + 1 >> 2) / nBlocksSize) * nBlocksSize : nInLen * 3 + 1 >> 2, taBytes = new Uint8Array(nOutLen);
+                    nOutLen = nBlocksSize ? Math.ceil((nInLen * 3 + 1 >> 2) / nBlocksSize) * nBlocksSize : nInLen * 3 + 1 >> 2,
+                    taBytes = new Uint8Array(nOutLen);
 
                 for (var nMod3, nMod4, nUint24 = 0, nOutIdx = 0, nInIdx = 0; nInIdx < nInLen; nInIdx++) {
                     nMod4 = nInIdx & 3;

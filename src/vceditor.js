@@ -170,7 +170,7 @@ var Vceditor = (function () {
     /**
      * Object to represent an Entity.
      */
-        //T5
+    //T5
     vceditor.Entity = (function () {
         var ATTR = vceditor.AttributeConstants;
         var SENTINEL = ATTR.ENTITY_SENTINEL;
@@ -643,11 +643,11 @@ var Vceditor = (function () {
                                 var dynStyle = DynamicStyleAttributes[attr];
                                 var css = (typeof dynStyle === 'function') ?
                                     dynStyle(val) :
-                                dynStyle + ": " + val;
+                                    dynStyle + ": " + val;
 
                                 var selector = (attr == ATTR.LINE_INDENT) ?
-                                'pre.' + className :
-                                '.' + className;
+                                    'pre.' + className :
+                                    '.' + className;
 
                                 this.addStyleWithCSS_(selector + ' { ' + css + ' }');
                             }
@@ -845,7 +845,8 @@ var Vceditor = (function () {
 
             for (var i = 0; i < changes.length; i++) {
                 var change = changes[i];
-                var start = change.start, end = change.end, text = change.text, removed = change.removed, origin = change.origin;
+                var start = change.start, end = change.end, text = change.text, removed = change.removed,
+                    origin = change.origin;
 
                 // When text with multiple sets of attributes on it is removed, we need to split it into separate remove changes.
                 if (removed.length > 0) {
@@ -922,8 +923,8 @@ var Vceditor = (function () {
                                 ch: (change.to.line < pos.line) ?
                                     pos.ch :
                                     (change.text.length <= 1) ?
-                                    pos.ch - (change.to.ch - change.from.ch) + sumLengths(change.text) :
-                                    pos.ch - change.to.ch + last(change.text).length
+                                        pos.ch - (change.to.ch - change.from.ch) + sumLengths(change.text) :
+                                        pos.ch - change.to.ch + last(change.text).length
                             }) + sumLengths(change.removed) - sumLengths(change.text);
                     }
                     if (change.from.line === pos.line) {
@@ -1984,11 +1985,11 @@ var Vceditor = (function () {
                 var dialog = document.getElementById('overlay');
                 dialog.style.visibility = "hidden";
                 var src = document.getElementById(id).value;
-                if (src){
-                    self.insertEntity(id, {'src': src}); 
-                  
+                if (src) {
+                    self.insertEntity(id, {'src': src});
+
                 }
-                 self.vcEditorWrapper_.removeChild(dialog);
+                self.vcEditorWrapper_.removeChild(dialog);
             };
 
             var input = utils.elt('input', null, {
@@ -1998,7 +1999,7 @@ var Vceditor = (function () {
                 'placeholder': placeholder,
                 'autofocus': 'autofocus'
             });
-     
+
             var submit = utils.elt('a', 'Submit', {'class': 'vceditor-btn', 'id': 'submitbtn'});
             utils.on(submit, 'click', utils.stopEventAnd(cb));
 

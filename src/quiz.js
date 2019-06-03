@@ -12,9 +12,9 @@
             listQuiz: {},
             uniqueUsers: [],
             usersFinishedQz: [],
-            quizJSON : {},
-            attemptedUsers : {},
-            cmid : 2, //TODO : courseid of moodle
+            quizJSON: {},
+            attemptedUsers: {},
+            cmid: 2, //TODO : courseid of moodle
             exportfilepath: window.exportfilepath,
             quizSt: {}, //used for storage
             quizAttempted: {}, //used for storage
@@ -81,22 +81,22 @@
 
                     virtualclass.storage.getQuizData(
                         function (data) {
-                            if(data.hasOwnProperty('qData')){
+                            if (data.hasOwnProperty('qData')) {
                                 var dataRc = JSON.parse(data['qData']);
                                 that.quizDisplay(dataRc);
-                            }else {
+                            } else {
                                 console.log('Quiz data is not available');
                             }
                         }
                     );
-                } else if(storedData.screen == "quizsubmitted") {
+                } else if (storedData.screen == "quizsubmitted") {
                     // If quiz has been submitted by student
                     // display quiz result page at student site
 
                     var rData = JSON.parse(localStorage.getItem('qRep'));
                     this.UI.displayStudentResultScreen(rData);
 
-                } else if(storedData.screen == "tchResultView") {
+                } else if (storedData.screen == "tchResultView") {
                     //display teacher screen after quiz publish
                     var that = this;
                     virtualclass.storage.getQuizData(
@@ -123,7 +123,7 @@
                                     that.qGrade = JSON.parse(data['qGrade']);
                                     that.displayGradeReport();
                                 }
-                                if(storedData.qClosed == "true"){
+                                if (storedData.qClosed == "true") {
                                     document.getElementById('closeQzBt').disabled = true;
                                 }
                             }
@@ -137,38 +137,38 @@
              Check if quiz exit, call function to display list of quizes
              */
             displayQuizList: function () {
-                var isQuiz=false
+                var isQuiz = false
                 virtualclass.quiz.dispList("course");
                 var listcont = document.getElementById("listquizcourse");
                 if (Object.keys(this.coursequiz).length > 0) {
-                    for ( var k in this.coursequiz) {
+                    for (var k in this.coursequiz) {
                         if (this.coursequiz.hasOwnProperty(k)) {
-                            if(! +this.coursequiz[k].quizstatus){
-                                isQuiz=true
-                                this.displayQuizes (this.coursequiz[k], k);
+                            if (!+this.coursequiz[k].quizstatus) {
+                                isQuiz = true
+                                this.displayQuizes(this.coursequiz[k], k);
 
                             }
                         }
                     }
                     this.UI.listHeader();
-                    if(isQuiz){
+                    if (isQuiz) {
                         var header = document.querySelector("#virtualclassCont.congrea #layoutQuiz #headerContainer")
-                        if(!header.classList.contains("show")){
+                        if (!header.classList.contains("show")) {
                             header.classList.add("show")
                         }
-                    }else{
-                        var mszBoxQuiz =document.querySelector("#virtualclassCont.congrea #layoutQuiz #mszBoxQuiz");
-                        if(mszBoxQuiz){
+                    } else {
+                        var mszBoxQuiz = document.querySelector("#virtualclassCont.congrea #layoutQuiz #mszBoxQuiz");
+                        if (mszBoxQuiz) {
                             mszBoxQuiz.classList.add("show");
-                            mszBoxQuiz.innerHTML= virtualclass.lang.getString("noQuiz");
+                            mszBoxQuiz.innerHTML = virtualclass.lang.getString("noQuiz");
                         }
                     }
 
                 } else {
-                    var mszBoxQuiz =document.querySelector("#virtualclassCont.congrea #layoutQuiz #mszBoxQuiz");
-                    if(mszBoxQuiz){
+                    var mszBoxQuiz = document.querySelector("#virtualclassCont.congrea #layoutQuiz #mszBoxQuiz");
+                    if (mszBoxQuiz) {
                         mszBoxQuiz.classList.add("show");
-                        mszBoxQuiz.innerHTML= virtualclass.lang.getString("noQuiz");
+                        mszBoxQuiz.innerHTML = virtualclass.lang.getString("noQuiz");
                     }
                 }
             },
@@ -198,10 +198,10 @@
                 formData.append("cmid", this.cmid);
                 formData.append("user", this.uid);
                 var scope = this;
-                virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_quiz", function (data) {
+                virtualclass.xhr.send(formData, window.webapi + "&methodname=congrea_quiz", function (data) {
 
                     var getContent = JSON.parse(data);
-                    if(getContent['status'] == 0) {
+                    if (getContent['status'] == 0) {
                         var cont = document.getElementById("bootstrapQzCont");
                         cont.innerHTML = virtualclass.lang.getString("noQuiz");
                     } else {
@@ -266,9 +266,9 @@
                 this.openQuizPopup(item, index);
                 this.quizPreview(item);
                 var quizModal = document.querySelector('#editQuizModal');
-                quizModal.className='modal in';
-                quizModal.style.display="block";
-            
+                quizModal.className = 'modal in';
+                quizModal.style.display = "block";
+
             },
 
             /**
@@ -291,7 +291,7 @@
                 // to change this to
                 var cont = document.getElementById("bootstrapQzCont");
                 virtualclass.quiz.UI.generateModal("editQuizModal", cont);
-             
+
 
 //                $('#editQuizModal').modal({
 //                    backdrop: 'static',
@@ -321,7 +321,7 @@
              * @param {object}  quiz detial
              * @return
              */
-            getQuizData: function(quizitem) {
+            getQuizData: function (quizitem) {
 
                 var quizDetail = this.coursequiz[quizitem.id];
                 var formData = new FormData();
@@ -329,15 +329,15 @@
                 formData.append("user", this.uid);
                 formData.append("qid", quizitem.id);
                 scope = this;
-                virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_get_quizdata", function (data) {
-                    if(scope.isJson(data)) {
+                virtualclass.xhr.send(formData, window.webapi + "&methodname=congrea_get_quizdata", function (data) {
+                    if (scope.isJson(data)) {
                         scope.quizJSON = data;
                         $('#slickQuiz').slickQuiz({
                             json: scope.quizJSON,
-                            questionPerPage : quizDetail.questionsperpage,
-                            questionMode : quizDetail.preferredbehaviour,
-                            quizTime : quizDetail.timelimit,
-                            displayDetailResult : false
+                            questionPerPage: quizDetail.questionsperpage,
+                            questionMode: quizDetail.preferredbehaviour,
+                            quizTime: quizDetail.timelimit,
+                            displayDetailResult: false
                         });
                     } else {
                         var pbBt = document.getElementById("publishQzBt");
@@ -397,7 +397,7 @@
              Function is called when teacher pulished quiz
              call by popupFn function and display quiz result
              */
-            publishQzBt: function() {
+            publishQzBt: function () {
                 var vthis = virtualclass.quiz;
                 var qzJson = vthis.quizJSON;
                 var quizobj = JSON.parse(qzJson);
@@ -405,12 +405,13 @@
                 vthis.coursequiz[vthis.qzid].noOfQus = noOfQus;
                 var quizDetail = vthis.coursequiz[vthis.qzid];
 
-                var data = {json: qzJson,
-                    questionPerPage : quizDetail.questionsperpage,
-                    questionMode : quizDetail.preferredbehaviour,
-                    quizTime : quizDetail.timelimit,
-                    displayDetailResult : false,
-                    ptm : new Date().getTime() // published time
+                var data = {
+                    json: qzJson,
+                    questionPerPage: quizDetail.questionsperpage,
+                    questionMode: quizDetail.preferredbehaviour,
+                    quizTime: quizDetail.timelimit,
+                    displayDetailResult: false,
+                    ptm: new Date().getTime() // published time
                 };
 
 
@@ -427,7 +428,7 @@
                 // display result interface to teacher
                 vthis.UI.resultView(quizDetail);
                 vthis.tabContent();
-                vthis.quizSt.screen ='tchResultView';
+                vthis.quizSt.screen = 'tchResultView';
                 virtualclass.storage.quizStorage('qDetail', JSON.stringify(quizDetail));
                 virtualclass.storage.quizStorage('qData', qzJson);
 
@@ -436,8 +437,8 @@
                 formData.append("cmid", vthis.cmid);
                 formData.append("qzid", vthis.qzid);
                 formData.append("user", vthis.uid);
-                virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_add_quiz", function (data) {
-                    if(data !== 'ture') {
+                virtualclass.xhr.send(formData, window.webapi + "&methodname=congrea_add_quiz", function (data) {
+                    if (data !== 'ture') {
                         console.log('Quiz data not saved in congrea');
                     }
                 });
@@ -450,10 +451,10 @@
              * @param {null}
              * @return
              */
-            closeQzBt: function() {
+            closeQzBt: function () {
                 console.log('-------CLOSE QUIZ--------');
                 var qzid = virtualclass.quiz.qzid;
-                var data = { qzid: qzid };
+                var data = {qzid: qzid};
                 ioAdapter.mustSend({
                     'quiz': {
                         quizMsg: 'stdShowResult',
@@ -462,16 +463,16 @@
                     'cf': 'quiz'
                 });
                 //stop timer
-                if(typeof CDTimer != 'undefined'){
+                if (typeof CDTimer != 'undefined') {
                     clearInterval(CDTimer);
                     console.log('Clear quiz interval');
                 }
 
                 document.getElementById("closeQzBt").disabled = true;
                 var msginfo = document.createElement('div');
-                msginfo.className="alert alert-info";
+                msginfo.className = "alert alert-info";
                 msginfo.innerHTML = virtualclass.lang.getString('QClosed');
-                resultQzLayout.insertBefore(msginfo,resultQzLayout.firstChild);
+                resultQzLayout.insertBefore(msginfo, resultQzLayout.firstChild);
                 // Reset the attempted quiz counter after closig the quiz
 
             },
@@ -482,7 +483,7 @@
              * @param {json} quiz json object
              * @return null
              */
-            quizDisplay: function(quiz){
+            quizDisplay: function (quiz) {
                 //console.log("student side " + quiz.quizMsg);
                 var msz = document.getElementById("mszBoxQuiz");
                 if (msz) {
@@ -493,7 +494,7 @@
                     cQzbody.parentNode.removeChild(cQzbody);
                 }
                 var cont = document.getElementById("bootstrapQzCont");//Todo:
-                var body = virtualclass.view.customCreateElement('div','contQzBody','modal-body');
+                var body = virtualclass.view.customCreateElement('div', 'contQzBody', 'modal-body');
                 cont.appendChild(body);
                 this.UI.modalContentUI();
                 $('#slickQuiz').slickQuiz(quiz);
@@ -505,28 +506,28 @@
              * @param {null}
              * @return
              */
-            saveInLocalStorage: function() {
+            saveInLocalStorage: function () {
                 var vthis = virtualclass.quiz;
                 // student timer
-                if(document.querySelector("#qztime") != null) {
+                if (document.querySelector("#qztime") != null) {
                     vthis.quizSt.qtime = document.querySelector("#qztime").textContent;
-                    console.log('quiz='+ vthis.quizSt.qtime);
+                    console.log('quiz=' + vthis.quizSt.qtime);
                 }
                 // teacher timer
-                if(document.querySelector("#elsTime") != null) {
+                if (document.querySelector("#elsTime") != null) {
                     vthis.quizSt.qtime = document.querySelector("#elsTime").textContent;
-                    console.log('quiz='+ vthis.quizSt.qtime);
+                    console.log('quiz=' + vthis.quizSt.qtime);
                 }
-                console.log('quiz='+ vthis.quizSt.screen);
-                if ((document.getElementById('closeQzBt')!= null) &&
+                console.log('quiz=' + vthis.quizSt.screen);
+                if ((document.getElementById('closeQzBt') != null) &&
                     document.getElementById('closeQzBt').disabled == true) {
                     vthis.quizSt.qClosed = 'true';
                 }
-                if(vthis.quizSt) {
+                if (vthis.quizSt) {
                     localStorage.setItem('quizSt', JSON.stringify(vthis.quizSt));
                 }
-                if(vthis.quizAttempted) {
-                    console.log('attempt data ='+ vthis.quizAttempted);
+                if (vthis.quizAttempted) {
+                    console.log('attempt data =' + vthis.quizAttempted);
                     virtualclass.storage.quizStorage("qAttempt", JSON.stringify(vthis.quizAttempted));
                 }
 
@@ -545,28 +546,28 @@
                 if (msg.quiz.quizMsg == "stdPublish") {
                     vthis.dataRec = msg.quiz.data;
                     virtualclass.storage.quizStorage("qData", JSON.stringify(vthis.dataRec));
-                    vthis.quizSt.screen ='stdPublish';
+                    vthis.quizSt.screen = 'stdPublish';
                     this.quizDisplay(msg.quiz.data);
                 }
 
                 // When teacher close the quiz, this event will be triggered
                 // At student end quiz will be submitted automatically
                 // and result will display to student screen
-                if((msg.quiz.quizMsg == "stdShowResult") || (msg.quiz.quizMsg == "quizTimeEnd")) {
+                if ((msg.quiz.quizMsg == "stdShowResult") || (msg.quiz.quizMsg == "quizTimeEnd")) {
 
                     if (document.querySelector('#timeText') != null) {
                         document.querySelector('#timeText').textContent = "Quiz has been closed";
                     }
                     var resPage = document.querySelector("#slickQuiz .quizResults");
-                    if(resPage && resPage.style.display != 'block') {
+                    if (resPage && resPage.style.display != 'block') {
                         // click submit button of student screen
                         var arr = document.querySelectorAll('#slickQuiz .nextQuestion');
-                        var arrlength = arr.length-1;
+                        var arrlength = arr.length - 1;
                         arr[arrlength].click();
                     }
                 }
                 // Quiz cose at student end
-                if(msg.quiz.quizMsg == "quizClosed") {
+                if (msg.quiz.quizMsg == "quizClosed") {
                     localStorage.removeItem('quizSt');
                     this.quizSt = {}
                     localStorage.removeItem('qRep');
@@ -578,11 +579,11 @@
                 // Event will be triggerd on each answer select by student
                 if (msg.quiz.quizMsg == "quizAttempt" && roles.hasControls()) {
 
-                    if(typeof this.attemptedUsers[msg.quiz.questionId] == 'undefined'){
+                    if (typeof this.attemptedUsers[msg.quiz.questionId] == 'undefined') {
                         this.attemptedUsers[msg.quiz.questionId] = {};
                     }
                     var usrid = msg.quiz.user;
-                    if(typeof this.attemptedUsers[msg.quiz.questionId][usrid] == 'undefined') {
+                    if (typeof this.attemptedUsers[msg.quiz.questionId][usrid] == 'undefined') {
                         this.attemptedUsers[msg.quiz.questionId][usrid] = {};
                     }
 
@@ -590,20 +591,20 @@
                     var totalAttptedUsers = Object.keys(this.attemptedUsers[msg.quiz.questionId]).length;
                     var correctAns = 0;
                     for (var key in this.attemptedUsers[msg.quiz.questionId]) {
-                        if(this.attemptedUsers[msg.quiz.questionId][key] == true) {
+                        if (this.attemptedUsers[msg.quiz.questionId][key] == true) {
                             correctAns++;
                         }
                     }
-                    document.getElementById('usA_'+msg.quiz.questionId).innerHTML = totalAttptedUsers;
+                    document.getElementById('usA_' + msg.quiz.questionId).innerHTML = totalAttptedUsers;
                     var attemptPercent = 0;
-                    if(correctAns > 0) {
-                        var attemptPercent = (correctAns / totalAttptedUsers)*100;
+                    if (correctAns > 0) {
+                        var attemptPercent = (correctAns / totalAttptedUsers) * 100;
                     }
-                    var pBar = document.getElementById('qPb_'+msg.quiz.questionId);
+                    var pBar = document.getElementById('qPb_' + msg.quiz.questionId);
                     pBar.innerHTML = attemptPercent + '% correct';
                     pBar.style.width = attemptPercent + '%';
 
-                    if(typeof this.quizAttempted[msg.quiz.questionId] == 'undefined'){
+                    if (typeof this.quizAttempted[msg.quiz.questionId] == 'undefined') {
                         this.quizAttempted[msg.quiz.questionId] = {};
                     }
                     this.quizAttempted[msg.quiz.questionId].uA = totalAttptedUsers;
@@ -623,11 +624,11 @@
                     this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
 
                     this.qGrade.push({
-                        'nm' : name,
-                        'tt' : msg.quiz.timetaken,
-                        'sc' : msg.quiz.score,
-                        'qAt' : msg.quiz.quesattemptd,
-                        'ca' : msg.quiz.correctans
+                        'nm': name,
+                        'tt': msg.quiz.timetaken,
+                        'sc': msg.quiz.score,
+                        'qAt': msg.quiz.quesattemptd,
+                        'ca': msg.quiz.correctans
                     });
                     virtualclass.storage.quizStorage("qGrade", JSON.stringify(vthis.qGrade));
 
@@ -646,7 +647,7 @@
              * @param {int}  no of currect answer
              * @return null
              */
-            saveGradeInDb: function(userId, timeTn, grade, quesAttempted, correctAns){
+            saveGradeInDb: function (userId, timeTn, grade, quesAttempted, correctAns) {
                 //save data in LMS DB
                 var vthis = virtualclass.quiz;
                 var tt = this.convertTimeToSec(timeTn);
@@ -658,7 +659,7 @@
                 formData.append("timetaken", tt);
                 formData.append("qusattempted", quesAttempted);
                 formData.append("currectans", correctAns);
-                virtualclass.xhr.send(formData, window.webapi+"&methodname=congrea_quiz_result", function (data) {
+                virtualclass.xhr.send(formData, window.webapi + "&methodname=congrea_quiz_result", function (data) {
                     if (data !== 'ture') {
                         console.log('Quiz data not saved in congrea');
                     }
@@ -671,15 +672,15 @@
              * @param {null}
              * @return
              */
-            displayAttemptOverview: function() {
+            displayAttemptOverview: function () {
                 var that = virtualclass.quiz;
                 for (var key in that.quizAttempted) {
-                    document.getElementById('usA_'+key).innerHTML = that.quizAttempted[key].uA;
-                    if(that.quizAttempted[key].cA > 0) {
-                        var attemptPt = (that.quizAttempted[key].cA / that.quizAttempted[key].uA)*100;
+                    document.getElementById('usA_' + key).innerHTML = that.quizAttempted[key].uA;
+                    if (that.quizAttempted[key].cA > 0) {
+                        var attemptPt = (that.quizAttempted[key].cA / that.quizAttempted[key].uA) * 100;
                         var attemptPercent = attemptPt.toFixed(2);
 
-                        var pBar = document.getElementById('qPb_'+key);
+                        var pBar = document.getElementById('qPb_' + key);
                         pBar.innerHTML = attemptPercent + '% correct';
                         pBar.style.width = attemptPercent + '%';
                     }
@@ -692,10 +693,10 @@
              * @param {null}
              * @return
              */
-            displayGradeReport: function() {
+            displayGradeReport: function () {
                 var that = virtualclass.quiz;
                 for (var i = 0; i < that.qGrade.length; i++) {
-                    that.gradeReport(i+1, that.qGrade[i].nm, that.qGrade[i].tt,
+                    that.gradeReport(i + 1, that.qGrade[i].nm, that.qGrade[i].tt,
                         that.qGrade[i].sc, that.qGrade[i].qAt, that.qGrade[i].ca);
                 }
             },
@@ -706,10 +707,10 @@
              * @param {null}
              * @return
              */
-            attemptProgressReport: function() {
+            attemptProgressReport: function () {
                 var qzJson = virtualclass.quiz.quizJSON;
                 var quizobj = JSON.parse(qzJson);
-                var body = virtualclass.view.customCreateElement('div','attemptQzBody','modal-body');
+                var body = virtualclass.view.customCreateElement('div', 'attemptQzBody', 'modal-body');
                 var questionArr = quizobj.questions;
                 var qcount = 1;
                 for (i = 0; i < questionArr.length; i++) {
@@ -720,11 +721,11 @@
                     quesDiv.appendChild(quesNoDiv);
 
                     var quesTxtDiv = virtualclass.view.customCreateElement('div', '', 'qscolor');
-                    quesTxtDiv.innerHTML =  questionArr[i].q;
+                    quesTxtDiv.innerHTML = questionArr[i].q;
                     quesDiv.appendChild(quesTxtDiv);
                     // no of users attempted question
                     var usAtdiv = virtualclass.view.customCreateElement('div');
-                    usAtdiv.innerHTML = "Users attempted : <span id='usA_"+questionArr[i].qid+"'>0</span>";
+                    usAtdiv.innerHTML = "Users attempted : <span id='usA_" + questionArr[i].qid + "'>0</span>";
                     quesDiv.appendChild(usAtdiv);
                     // progress bar
                     var pbar = this.UI.createProgressBar(questionArr[i].qid, 0);
@@ -739,7 +740,7 @@
              * @param {null}
              * @return
              */
-            tabContent:function(){
+            tabContent: function () {
                 var head = document.getElementById(("resultQzLayout"));
                 var tcDiv = virtualclass.view.customCreateElement('div', '', "tab-content");
 
@@ -748,7 +749,7 @@
                 var qzOverviewPage = this.attemptProgressReport();
                 tOvDiv.appendChild(qzOverviewPage);
                 tcDiv.appendChild(tOvDiv);
-              
+
                 var tGrDiv = virtualclass.view.customCreateElement('div', 'gdRpt');
                 tGrDiv.className = "tab-pane fade";
                 var tGdRpPage = this.UI.gradeReportLayout();
@@ -769,10 +770,10 @@
              * @param {string} td6v no of correct answer
              * @return null
              */
-            gradeReport:function(td1v, td2v, td3v, td4v, td5v, td6v) {
+            gradeReport: function (td1v, td2v, td3v, td4v, td5v, td6v) {
 
                 var tbody = document.getElementById('qzReTbody');
-                if(tbody){
+                if (tbody) {
 
                     var tr = document.createElement("tr");
                     tbody.appendChild(tr);
@@ -788,7 +789,7 @@
                     td3.innerHTML = td3v;
                     tr.appendChild(td3);
                     var td4 = document.createElement("td");
-                    td4.innerHTML = td4v +'%';
+                    td4.innerHTML = td4v + '%';
                     tr.appendChild(td4);
                     var td5 = document.createElement("td");
                     td5.innerHTML = td5v;
@@ -806,7 +807,7 @@
              * @param {string} asc or desc
              * @return
              */
-            quizTimer: function(duration, display, order) {
+            quizTimer: function (duration, display, order) {
                 // order asc or desc
                 order = typeof order !== 'undefined' ? order : 'desc';
                 var start = Date.now(),
@@ -818,7 +819,7 @@
                 function timer() {
                     // get the number of seconds that have elapsed since
                     // startTimer() was called
-                    if(order == 'asc'){
+                    if (order == 'asc') {
                         diff = duration + (((Date.now() - start) / 1000) | 0);
                     } else {
                         diff = duration - (((Date.now() - start) / 1000) | 0);
@@ -838,7 +839,7 @@
                     timeTakenQuiz = hours + ":" + minutes + ":" + seconds;
 
                     if (diff <= 0) {
-                        if(order != 'asc'){
+                        if (order != 'asc') {
                             display.textContent = "00 : 00 : 00 ";
 
                         }
@@ -846,8 +847,8 @@
                         // add one second so that the count down starts at the full duration
                         // example 17:00:00 not 16:59:59
                         //start = Date.now() + 1000;
-                        start =0;
-                        if(typeof CDTimer != 'undefined'){
+                        start = 0;
+                        if (typeof CDTimer != 'undefined') {
                             clearInterval(CDTimer);
                             console.log('Clear quiz interval');
                         }
@@ -859,14 +860,14 @@
                             },
                             'cf': 'quiz'
                         });
-                        if(roles.hasControls()){
+                        if (roles.hasControls()) {
                             document.getElementById('closeQzBt').disabled = true;
                         }
                     }
                     //return ctime;
                 };
                 // don't want to wait a full second before the timer starts
-                if(order !== 'asc'){
+                if (order !== 'asc') {
                     timer();
                 }
                 CDTimer = setInterval(timer, 1000);
@@ -882,7 +883,7 @@
             quizModalClose: function () {
                 var that = this;
                 var message = virtualclass.lang.getString('rusureCquiz');
-                virtualclass.popup.confirmInput(message, function (confirm){
+                virtualclass.popup.confirmInput(message, function (confirm) {
                     if (confirm) {
                         localStorage.removeItem('quizSt');
                         that.quizSt = {};
@@ -924,9 +925,9 @@
              * @param {string} hh:mm:ss
              * @return string date
              */
-            convertTimeToSec: function (hms){
+            convertTimeToSec: function (hms) {
                 //var hms = '02:04:33';
-                if(hms){
+                if (hms) {
                     var a = hms.split(':'); // specify value for SECONDS here
                     var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
                     return seconds;
@@ -977,18 +978,18 @@
                  */
                 layout: function (divQuiz) {
 
-                    var contQuiz = virtualclass.view.customCreateElement('div', 'layoutQuiz','bootstrap container-fluid quizLayout');
+                    var contQuiz = virtualclass.view.customCreateElement('div', 'layoutQuiz', 'bootstrap container-fluid quizLayout');
                     divQuiz.appendChild(contQuiz);
 
                     var nav = document.createElement('nav');
                     nav.className = "nav navbar ";
                     contQuiz.appendChild(nav);
 
-                    var div = virtualclass.view.customCreateElement('div','','vchead');
+                    var div = virtualclass.view.customCreateElement('div', '', 'vchead');
                     div.innerHTML = virtualclass.lang.getString('Quiz');
                     nav.appendChild(div);
 
-                    var contQuizBody = virtualclass.view.customCreateElement('div', 'layoutQuizBody','quizMainCont');
+                    var contQuizBody = virtualclass.view.customCreateElement('div', 'layoutQuizBody', 'quizMainCont');
                     contQuiz.appendChild(contQuizBody);
 
                     this.createMszBox(contQuizBody);
@@ -996,7 +997,7 @@
                 },
 
                 createModalCont: function (contQuiz) {
-                    var bsCont = virtualclass.view.customCreateElement('div', 'bootstrapQzCont','modalCont');
+                    var bsCont = virtualclass.view.customCreateElement('div', 'bootstrapQzCont', 'modalCont');
                     contQuiz.appendChild(bsCont);
                 },
 
@@ -1006,9 +1007,9 @@
                     var e = document.getElementById("listQzCont");
                     if (e == null) {
                         var mainQzDiv = document.createElement('div');
-                        mainQzDiv.className="table-responsive";
+                        mainQzDiv.className = "table-responsive";
                         ctr.appendChild(mainQzDiv);
-                        var e = virtualclass.view.customCreateElement('table', 'listQzCont','table table-bordered table-striped quizList');
+                        var e = virtualclass.view.customCreateElement('table', 'listQzCont', 'table table-bordered table-striped quizList');
                         mainQzDiv.appendChild(e);
                     }
                 },
@@ -1061,7 +1062,7 @@
                  * @param null
                  * @return
                  */
-                createTab: function(){
+                createTab: function () {
                     var tbUl = document.createElement("ul");
                     tbUl.classList.add("nav", "nav-tabs");
 
@@ -1073,7 +1074,7 @@
                     li1a.innerHTML = "Questions overview";
                     tbLi1.appendChild(li1a);
                     tbUl.appendChild(tbLi1);
-          
+
                     var tbLi2 = document.createElement("li");
                     var li2a = document.createElement("a");
                     li2a.setAttribute('data-toggle', "tab");
@@ -1081,26 +1082,26 @@
                     li2a.innerHTML = virtualclass.lang.getString('Greport');
                     tbLi2.appendChild(li2a);
                     tbUl.appendChild(tbLi2);
-                    tbLi2.addEventListener('click',function(){
-                        tbLi2.classList.toggle('active') ;
-                        tbLi1.classList.toggle('active') ;
-                        if(tbLi2.classList.contains('active')){
-                           var rpt = document.querySelector('#gdRpt')
-                           rpt.className= 'tab-pane fade in active';
-                           var qz = document.querySelector('#qzOverv')
-                           qz.className= 'tab-pane fade';
-                           
-                       }
+                    tbLi2.addEventListener('click', function () {
+                        tbLi2.classList.toggle('active');
+                        tbLi1.classList.toggle('active');
+                        if (tbLi2.classList.contains('active')) {
+                            var rpt = document.querySelector('#gdRpt')
+                            rpt.className = 'tab-pane fade in active';
+                            var qz = document.querySelector('#qzOverv')
+                            qz.className = 'tab-pane fade';
+
+                        }
                     })
-                             
-                    tbLi1.addEventListener('click',function(){
-                       tbLi1.classList.toggle('active') ;
-                       tbLi2.classList.toggle('active') ;
-                       if(tbLi1.classList.contains('active')){
-                           var qz = document.querySelector('#qzOverv')
-                           qz.className= 'tab-pane fade in active';
-                           var rpt = document.querySelector('#gdRpt')
-                           rpt.className= 'tab-pane fade';
+
+                    tbLi1.addEventListener('click', function () {
+                        tbLi1.classList.toggle('active');
+                        tbLi2.classList.toggle('active');
+                        if (tbLi1.classList.contains('active')) {
+                            var qz = document.querySelector('#qzOverv')
+                            qz.className = 'tab-pane fade in active';
+                            var rpt = document.querySelector('#gdRpt')
+                            rpt.className = 'tab-pane fade';
                         }
                     })
                     return tbUl;
@@ -1117,21 +1118,21 @@
                     if (roles.hasControls()) {
                         this.createResultLayout();
 
-                        var contQzHead  = document.querySelector('#contQzHead');
-                        var QstnName  = document.querySelector('#QstnName');
-                        if(QstnName == null){
-                            var QstnName =  document.createElement('div');
+                        var contQzHead = document.querySelector('#contQzHead');
+                        var QstnName = document.querySelector('#QstnName');
+                        if (QstnName == null) {
+                            var QstnName = document.createElement('div');
                             QstnName.id = 'QstnName';
-                            QstnName.innerHTML =  qz.name;
-                            if(contQzHead != null){
+                            QstnName.innerHTML = qz.name;
+                            if (contQzHead != null) {
                                 contQzHead.appendChild(QstnName)
                             }
                         }
 
                         var qtime = parseInt(qz.timelimit);
-                        if(qtime > 0) {
+                        if (qtime > 0) {
                             var order = 'desc';
-                            var timeHeader = "Time remaining" ;
+                            var timeHeader = "Time remaining";
                         } else {
                             var order = 'asc';
                             timeHeader = "Elapsed time";
@@ -1142,9 +1143,9 @@
                          * it was coming from timelimit earlier
                          * **/
                         let timerInfo = localStorage.getItem('quizSt');
-                        if(timerInfo != null){
+                        if (timerInfo != null) {
                             timerInfo = JSON.parse(timerInfo);
-                            if(Object.keys(timerInfo).length > 0){
+                            if (Object.keys(timerInfo).length > 0) {
                                 var elTime = timerInfo.qtime;
                                 var res = elTime.split(":");
                                 qtime = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
@@ -1152,40 +1153,40 @@
                         }
                         var bodyHdCont = document.getElementById("resultQzLayout");
 
-                        var elem = virtualclass.view.customCreateElement('div','rsQzHead','row col-md-12');
+                        var elem = virtualclass.view.customCreateElement('div', 'rsQzHead', 'row col-md-12');
                         bodyHdCont.appendChild(elem);
 
                         // var leftdiv = virtualclass.view.customCreateElement('div','', 'col-md-6');
                         // elem.appendChild(leftdiv);
 
-                        var timeInnerdiv = virtualclass.view.customCreateElement('div','','col-md-3');
-                        timeInnerdiv.innerHTML =  "Time limit : <span> " + virtualclass.quiz.convertSecToTime(qz.timelimit) +"</span>";
+                        var timeInnerdiv = virtualclass.view.customCreateElement('div', '', 'col-md-3');
+                        timeInnerdiv.innerHTML = "Time limit : <span> " + virtualclass.quiz.convertSecToTime(qz.timelimit) + "</span>";
                         elem.appendChild(timeInnerdiv);
 
-                        var qNoInnerdiv = virtualclass.view.customCreateElement('div','','col-md-3');
-                        qNoInnerdiv.innerHTML =  "No of questions : <span> " + qz.noOfQus +"</span>";
+                        var qNoInnerdiv = virtualclass.view.customCreateElement('div', '', 'col-md-3');
+                        qNoInnerdiv.innerHTML = "No of questions : <span> " + qz.noOfQus + "</span>";
                         elem.appendChild(qNoInnerdiv);
 
                         // var rightdiv = virtualclass.view.customCreateElement('div', '','col-md-6');
                         // elem.appendChild(rightdiv);
 
-                        var elstimeInnerdiv = virtualclass.view.customCreateElement('div','','col-md-4');
+                        var elstimeInnerdiv = virtualclass.view.customCreateElement('div', '', 'col-md-4');
                         elstimeInnerdiv.innerHTML = timeHeader + " : <span id=\"elsTime\">00:00:00</span>";
                         elem.appendChild(elstimeInnerdiv);
 
-                        var btnInnerdiv = virtualclass.view.customCreateElement('button', 'closeQzBt','');
+                        var btnInnerdiv = virtualclass.view.customCreateElement('button', 'closeQzBt', '');
                         btnInnerdiv.classList.add("btn", "btn-default", "controls");
                         btnInnerdiv.innerHTML = virtualclass.lang.getString('Cquiz');
                         elem.appendChild(btnInnerdiv);
                         btnInnerdiv.addEventListener("click", virtualclass.quiz.closeQzBt);
 
                         var storedData = JSON.parse(localStorage.getItem('quizSt'));
-                        if(storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)){
+                        if (storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)) {
                             console.log("Don't run timer when quiz is closed");
                             var elapsedTime = document.querySelector('#elsTime');
                             localStorage.setItem('quizSt', JSON.stringify(storedData));
-                            if(elapsedTime != null){
-                                elapsedTime.innerHTML =  storedData.qtime;
+                            if (elapsedTime != null) {
+                                elapsedTime.innerHTML = storedData.qtime;
                             }
 
                         } else {
@@ -1213,9 +1214,9 @@
                             pubbtn.parentNode.removeChild(pubbtn);
                         }
                         var closebt = document.querySelector('#contQzHead .close');
-                        if(closebt) {
+                        if (closebt) {
                             closebt.parentNode.removeChild(closebt);
-                            var el = virtualclass.view.customCreateElement('div','modalQzClose','close');
+                            var el = virtualclass.view.customCreateElement('div', 'modalQzClose', 'close');
                             el.type = "button";
                             //el.setAttribute("data-dismiss", "modal");
                             el.innerHTML = "&times";
@@ -1251,14 +1252,14 @@
                  * @return
                  */
                 createProgressBar: function (quesid, value) {
-                    var pbarOuterdiv = virtualclass.view.customCreateElement('div', '','progress');
-                    var pbarinnerdiv = virtualclass.view.customCreateElement('div', 'qPb_'+quesid,'progress-bar');
+                    var pbarOuterdiv = virtualclass.view.customCreateElement('div', '', 'progress');
+                    var pbarinnerdiv = virtualclass.view.customCreateElement('div', 'qPb_' + quesid, 'progress-bar');
                     pbarinnerdiv.role = 'progressbar';
                     pbarinnerdiv.setAttribute("setaria-valuenow", value);
                     pbarinnerdiv.setAttribute("aria-valuemin", "0");
                     pbarinnerdiv.setAttribute("aria-valuemax", "100");
-                    pbarinnerdiv.style = "width:"+value+"%";
-                    pbarinnerdiv.innerHTML = value+"% Correct";
+                    pbarinnerdiv.style = "width:" + value + "%";
+                    pbarinnerdiv.innerHTML = value + "% Correct";
                     pbarOuterdiv.appendChild(pbarinnerdiv);
                     return pbarOuterdiv;
                 },
@@ -1269,11 +1270,11 @@
                  * @param null
                  * @return
                  */
-                gradeReportLayout: function() {
-                    var body = virtualclass.view.customCreateElement('div','gradeRpBody','modal-body');
+                gradeReportLayout: function () {
+                    var body = virtualclass.view.customCreateElement('div', 'gradeRpBody', 'modal-body');
 
-                    var quesDiv = virtualclass.view.customCreateElement('table', '','table');
-                    var thead = virtualclass.view.customCreateElement('thead', '','thead-inverse');
+                    var quesDiv = virtualclass.view.customCreateElement('table', '', 'table');
+                    var thead = virtualclass.view.customCreateElement('thead', '', 'thead-inverse');
                     var tr = document.createElement("tr");
                     var th1 = document.createElement("th");
                     th1.innerHTML = "#";
@@ -1297,7 +1298,7 @@
                     thead.appendChild(tr);
                     quesDiv.appendChild(thead);
 
-                    var tbody = virtualclass.view.customCreateElement('tbody','qzReTbody');
+                    var tbody = virtualclass.view.customCreateElement('tbody', 'qzReTbody');
                     quesDiv.appendChild(tbody);
 
                     body.appendChild(quesDiv);
@@ -1311,7 +1312,7 @@
                  * @param {object} contain detial about quiz
                  * @return null
                  */
-                displayStudentResultScreen: function(data) {
+                displayStudentResultScreen: function (data) {
                     //var resPage = document.querySelector("#slickQuiz .quizResults");
                     var msgPage = document.getElementById('mszBoxQuiz');
 
@@ -1320,31 +1321,31 @@
                         if (sqm) {
                             msgPage.removeChild(sqm);
                         }
-                        var resPage = virtualclass.view.customCreateElement('div','resultDiv');
+                        var resPage = virtualclass.view.customCreateElement('div', 'resultDiv');
                         msgPage.appendChild(resPage);
 
                         var noOfQ = document.createElement('h4');
-                        noOfQ.innerHTML = "<span class='col-md-4'> Total no of questions </span>  <span class='nfqh'>: &nbsp;  "+data.grade.noofqus+"</span>";
+                        noOfQ.innerHTML = "<span class='col-md-4'> Total no of questions </span>  <span class='nfqh'>: &nbsp;  " + data.grade.noofqus + "</span>";
                         resPage.appendChild(noOfQ);
 
                         var tt = document.createElement('h4');
-                        tt.innerHTML = " <span class='col-md-4'> Time taken </span><span class='tth'> : &nbsp;   "+data.grade.timetaken+"</span>";
+                        tt.innerHTML = " <span class='col-md-4'> Time taken </span><span class='tth'> : &nbsp;   " + data.grade.timetaken + "</span>";
                         resPage.appendChild(tt);
 
                         var mm = document.createElement('h4');
-                        mm.innerHTML = " <span class='col-md-4'> Maximum mark </span><span class='mmh'>: &nbsp;  "+data.grade.maxmarks+"</span>";
+                        mm.innerHTML = " <span class='col-md-4'> Maximum mark </span><span class='mmh'>: &nbsp;  " + data.grade.maxmarks + "</span>";
                         resPage.appendChild(mm);
 
                         var ca = document.createElement('h4');
-                        ca.innerHTML = "<span class='col-md-4'> Correct answers </span><span class='cah'>: &nbsp;  "+data.grade.correctans+"</span>";
+                        ca.innerHTML = "<span class='col-md-4'> Correct answers </span><span class='cah'>: &nbsp;  " + data.grade.correctans + "</span>";
                         resPage.appendChild(ca);
 
                         var qa = document.createElement('h4');
-                        qa.innerHTML = " <span class='col-md-4'> Questions attempted</span> <span class='qah'>: &nbsp;  "+data.grade.quesattemptd+"</span>";
+                        qa.innerHTML = " <span class='col-md-4'> Questions attempted</span> <span class='qah'>: &nbsp;  " + data.grade.quesattemptd + "</span>";
                         resPage.appendChild(qa);
 
                         var sc = document.createElement('h4');
-                        sc.innerHTML = " <span class='col-md-4'> You Scored </span> <span class='sch'>: &nbsp;  "+data.grade.score+"</span>";
+                        sc.innerHTML = " <span class='col-md-4'> You Scored </span> <span class='sch'>: &nbsp;  " + data.grade.score + "</span>";
                         resPage.appendChild(sc);
 
                         resPage.style.display = 'block';
@@ -1352,12 +1353,12 @@
                 },
 
                 createMszBox: function (cont) {
-                    var elem = virtualclass.view.customCreateElement('div', 'mszBoxQuiz','row');
+                    var elem = virtualclass.view.customCreateElement('div', 'mszBoxQuiz', 'row');
                     cont.appendChild(elem);
                 },
 
                 generateModal: function (id, bsCont) {
-                    var modal = virtualclass.view.customCreateElement('div',id,'modal');
+                    var modal = virtualclass.view.customCreateElement('div', id, 'modal');
                     modal.role = "dialog";
                     modal.style.display = "none";
                     modal.setAttribute("tab-index", "-1");
@@ -1368,72 +1369,72 @@
                     dialog.className = "modal-dialog";
                     modal.appendChild(dialog);
 
-                    var content = virtualclass.view.customCreateElement('div','quizModalBody','modal-content');
+                    var content = virtualclass.view.customCreateElement('div', 'quizModalBody', 'modal-content');
                     dialog.appendChild(content);
 
-                    var head = virtualclass.view.customCreateElement('div','contQzHead','modal-header');
+                    var head = virtualclass.view.customCreateElement('div', 'contQzHead', 'modal-header');
                     content.appendChild(head);
 
-                    var el = virtualclass.view.customCreateElement('div','','close');
+                    var el = virtualclass.view.customCreateElement('div', '', 'close');
                     el.type = "button";
                     el.setAttribute("data-dismiss", "modal");
                     el.innerHTML = "&times";
                     head.appendChild(el);
 
-                    var body = virtualclass.view.customCreateElement('div','contQzBody','modal-body');
+                    var body = virtualclass.view.customCreateElement('div', 'contQzBody', 'modal-body');
                     content.appendChild(body);
-                    
+
                     var close = document.querySelector('#editQuizModal #contQzHead .close ');
-                    close.addEventListener('click',function(){
-                        modal.style.display="none";
-                        modal.className='modal fade'
+                    close.addEventListener('click', function () {
+                        modal.style.display = "none";
+                        modal.className = 'modal fade'
                     })
-                    
+
                 },
 
                 modalContentUI: function () {
                     //Quiz display container
                     var body = document.getElementById("contQzBody");
 
-                    var skQzCont = virtualclass.view.customCreateElement('div','slickQuiz','path-mod-congrea-quiz');
-                    var qzName = virtualclass.view.customCreateElement('h3','','quizName');
+                    var skQzCont = virtualclass.view.customCreateElement('div', 'slickQuiz', 'path-mod-congrea-quiz');
+                    var qzName = virtualclass.view.customCreateElement('h3', '', 'quizName');
                     skQzCont.appendChild(qzName); //quiz name div
 
-                    var qzTime = virtualclass.view.customCreateElement('P','timeText');
+                    var qzTime = virtualclass.view.customCreateElement('P', 'timeText');
                     skQzCont.appendChild(qzTime); //quiz timer p
 
-                    var skQzNav = virtualclass.view.customCreateElement('div','exam_navblock','navblock');
+                    var skQzNav = virtualclass.view.customCreateElement('div', 'exam_navblock', 'navblock');
                     skQzCont.appendChild(skQzNav); ////quiz questions navigation
 
-                    var skQzNavCont = virtualclass.view.customCreateElement('div','','content');
+                    var skQzNavCont = virtualclass.view.customCreateElement('div', '', 'content');
                     skQzNav.appendChild(skQzNavCont);
 
-                    var skQzNavContBt = virtualclass.view.customCreateElement('div','','qn_buttons multipages');
+                    var skQzNavContBt = virtualclass.view.customCreateElement('div', '', 'qn_buttons multipages');
                     skQzNavCont.appendChild(skQzNavContBt);
 
-                    var qzArea = virtualclass.view.customCreateElement('div','','quizArea');
+                    var qzArea = virtualclass.view.customCreateElement('div', '', 'quizArea');
                     skQzCont.appendChild(qzArea);
-                    var qzheader = virtualclass.view.customCreateElement('div','','quizHeader');
+                    var qzheader = virtualclass.view.customCreateElement('div', '', 'quizHeader');
                     qzArea.appendChild(qzheader);
 
-                    var qzheaderA = virtualclass.view.customCreateElement('a','','button startQuiz');
-                    qzheaderA.href="#";
-                    qzheaderA.innerHTML= "Get Started!";
+                    var qzheaderA = virtualclass.view.customCreateElement('a', '', 'button startQuiz');
+                    qzheaderA.href = "#";
+                    qzheaderA.innerHTML = "Get Started!";
                     qzheader.appendChild(qzheaderA);
 
                     //alert('I am here. add result div');
-                    var qzResult = virtualclass.view.customCreateElement('div','','quizResults');
+                    var qzResult = virtualclass.view.customCreateElement('div', '', 'quizResults');
                     skQzCont.appendChild(qzResult);
 
-                    var qzScr = virtualclass.view.customCreateElement('h3','','quizScore');
-                    qzScr.innerHTML= "You Scored: <span></span>";
+                    var qzScr = virtualclass.view.customCreateElement('h3', '', 'quizScore');
+                    qzScr.innerHTML = "You Scored: <span></span>";
                     qzResult.appendChild(qzScr);
 
-                    var qzLevel = virtualclass.view.customCreateElement('h3','','quizLevel');
-                    qzheaderA.innerHTML= "<strong>Ranking:</strong> <span></span>";
+                    var qzLevel = virtualclass.view.customCreateElement('h3', '', 'quizLevel');
+                    qzheaderA.innerHTML = "<strong>Ranking:</strong> <span></span>";
                     qzResult.appendChild(qzLevel);
 
-                    var qzRsCpy = virtualclass.view.customCreateElement('div','','quizResultsCopy');
+                    var qzRsCpy = virtualclass.view.customCreateElement('div', '', 'quizResultsCopy');
                     qzResult.appendChild(qzRsCpy);
                     body.appendChild(skQzCont);
                 },
@@ -1443,7 +1444,7 @@
                  */
                 qzCont: function (index) {
                     var list = document.getElementById("listQzCont");
-                    var elem = virtualclass.view.customCreateElement('tr', 'contQz' + index,'vcQuizCont');
+                    var elem = virtualclass.view.customCreateElement('tr', 'contQz' + index, 'vcQuizCont');
                     if (list != null) {
                         list.insertBefore(elem, list.firstChild);
                     }

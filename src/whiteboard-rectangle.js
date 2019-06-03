@@ -10,7 +10,7 @@
      *  in future there can be more properties than one
      */
 
-    function Rectangle (id){
+    function Rectangle(id) {
         var vcan = virtualclass.wb[id].vcan;
         //var vcan = virtualclass.wb[id];
         vcan.rectangle = function () {

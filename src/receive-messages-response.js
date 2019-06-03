@@ -97,9 +97,9 @@
             var wid = virtualclass.gObj.currWb;
             var imageElm = virtualclass.wb[wid].arrImg;
             var obj = {};
-            obj.mp = {x: eMessage.x*virtualclass.zoom.canvasScale, y: eMessage.y*virtualclass.zoom.canvasScale};
+            obj.mp = {x: eMessage.x * virtualclass.zoom.canvasScale, y: eMessage.y * virtualclass.zoom.canvasScale};
 
-            var wrapper = document.querySelector('#canvasWrapper'+wid);
+            var wrapper = document.querySelector('#canvasWrapper' + wid);
             // virtualclass.posY = (obj.mp.y - wrapper.scrollTop);
             // virtualclass.posX = (obj.mp.x - wrapper.scrollLeft);
 
@@ -111,12 +111,12 @@
             virtualclass.wb[virtualclass.gObj.currWb].utility.drawArrowImg(imageElm, obj);
 
 
-            if(virtualclass.pdfRender[wid].scroll.Y !=  null){
-                virtualclass.pdfRender[wid].customMoustPointer({y:virtualclass.posY}, 'Y', virtualclass.posY);
+            if (virtualclass.pdfRender[wid].scroll.Y != null) {
+                virtualclass.pdfRender[wid].customMoustPointer({y: virtualclass.posY}, 'Y', virtualclass.posY);
             }
 
-            if(virtualclass.pdfRender[wid].scroll.X !=  null){
-                virtualclass.pdfRender[wid].customMoustPointer({x:virtualclass.posX}, 'X', virtualclass.posX);
+            if (virtualclass.pdfRender[wid].scroll.X != null) {
+                virtualclass.pdfRender[wid].customMoustPointer({x: virtualclass.posX}, 'X', virtualclass.posX);
             }
             //console.log('Mouse cursor x=' + obj.mp.x  + ' y=' + obj.mp.y);
         },
@@ -130,7 +130,7 @@
                     console.log('Whiteboard:-  recieved ' + repObj[repObj.length - 1].uid);
                     virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromBrowser', true, virtualclass.wb[virtualclass.gObj.currWb].utility.dispQueuePacket);
                 } else {
-                    console.log('Whiteboard:- Problem between display id ' + virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId  + ' and recived first packet' + repObj[0].uid);
+                    console.log('Whiteboard:- Problem between display id ' + virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId + ' and recived first packet' + repObj[0].uid);
                 }
             }
         },

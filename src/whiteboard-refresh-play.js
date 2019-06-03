@@ -18,15 +18,15 @@
                 this.rendering = false;
             },
 
-            makeCustomEvent : function (obj, broadCast){
+            makeCustomEvent: function (obj, broadCast) {
                 if (obj.hasOwnProperty('mtext')) {
                     var eventObj = {detail: {cevent: {x: obj.x, y: obj.y, mtext: obj.mtext}}};
                 } else {
                     var eventObj = {detail: {cevent: {x: obj.x, y: obj.y}}};
                 }
 
-                if(typeof broadCast != 'undefined'){
-                     eventObj.detail.broadCast  = true; //For send packet to other.
+                if (typeof broadCast != 'undefined') {
+                    eventObj.detail.broadCast = true; //For send packet to other.
                 }
 
                 var eventConstruct = new CustomEvent(event, eventObj); //this is not supported for ie9 and older ie browsers
@@ -76,15 +76,15 @@
                             var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y, mtext: currObj.mtext}}};
                         } else {
                             var eventObj = {detail: {cevent: {x: currObj.x, y: currObj.y}}};
-                            if(currObj.hasOwnProperty('scy')){
+                            if (currObj.hasOwnProperty('scy')) {
                                 eventObj.detail.cevent.scy = currObj.scy;
                             }
-                            if(currObj.hasOwnProperty('scx')){
+                            if (currObj.hasOwnProperty('scx')) {
                                 eventObj.detail.cevent.scx = currObj.scx;
                             }
                         }
 
-                        if(currObj.hasOwnProperty('foundText')){
+                        if (currObj.hasOwnProperty('foundText')) {
                             eventObj.detail.foundText = true;
                         }
                         var eventConstruct = new CustomEvent(event, eventObj); //this is not supported for ie9 and older ie browsers
@@ -103,8 +103,8 @@
                     this.rendering = false; // Now rendering is finished
                 }
 
-                if(roles.hasControls()){
-                    if (virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs[virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs.length-1].uid == virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId){
+                if (roles.hasControls()) {
+                    if (virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs[virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs.length - 1].uid == virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId) {
 
                         vcan.main.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs;
                     }

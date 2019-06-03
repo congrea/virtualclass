@@ -26,27 +26,27 @@
                 init: function (elem) {
                     this.elem = elem;
                 },
-                addMsg: function (peer, msgObj,userid) {
-                    if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined" ) {
-                         groupChatImgColor(peer, userid)
+                addMsg: function (peer, msgObj, userid) {
+                    if (typeof virtualclass.gObj.chatIconColors[userid] == "undefined") {
+                        groupChatImgColor(peer, userid)
                     }
                     var time = virtualclass.vutil.UTCtoLocalTime(msgObj.time);
                     var msg = msgObj.msg;
                     var self = this;
                     var box = self.elem.uiChatboxLog;
                     var e = document.createElement('li');
-                    e.className="left clearfix";
+                    e.className = "left clearfix";
                     box.append(e);
 
                     var chatCont = document.createElement("div");
                     chatCont.className = "chat-user-icon pull-left";
                     e.appendChild(chatCont);
 
-                    if( virtualclass.gObj.chatIconColors[userid]) {
-                        chatCont.style.backgroundColor=virtualclass.gObj.chatIconColors[userid].bgColor ;
-                        chatCont.style.color=virtualclass.gObj.chatIconColors[userid].textColor ;
+                    if (virtualclass.gObj.chatIconColors[userid]) {
+                        chatCont.style.backgroundColor = virtualclass.gObj.chatIconColors[userid].bgColor;
+                        chatCont.style.color = virtualclass.gObj.chatIconColors[userid].textColor;
                         var Img = document.createElement("span");
-                        Img.className="chat-img ";
+                        Img.className = "chat-img ";
                         Img.innerHTML = virtualclass.gObj.chatIconColors[userid].initial;
                     }
 
@@ -58,7 +58,7 @@
 
                     if (peer) {
                         var peerName = document.createElement("a");
-                        peerName.className="primary-font";
+                        peerName.className = "primary-font";
                         $(peerName).text(peer);
                         chatContainer.appendChild(peerName);
                     } else {
@@ -66,11 +66,11 @@
                     }
 
                     var msgElement = document.createElement(systemMessage ? "i" : "p");
-                    msgElement.className="text";
+                    msgElement.className = "text";
                     $(msgElement).text(msg);
 
                     var msgTime = document.createElement('span');
-                    msgTime.className="text-muted";
+                    msgTime.className = "text-muted";
                     msgTime.innerHTML = time;
 
                     chatContainer.appendChild(msgElement);
@@ -90,37 +90,37 @@
                     self._scrollToBottom();
                     // sortCommonChat();
                 },
-                groupChatImgColor:function(peer,userid){
-                    var bgColor="green";
-                    var textColor="white"
+                groupChatImgColor: function (peer, userid) {
+                    var bgColor = "green";
+                    var textColor = "white"
                     //if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined"){
-                        var initial = this.getInitials(peer)
-                        var user = (userid.toString()) + peer;
-                        bgColor = this.stringToHslColor(user , 60, 35)
-                        var brightness = virtualclass.vutil.calcBrightness(bgColor);
-                        if (brightness > 125) {
-                            textColor="black";
-                        } else {
-                            textColor="white";
-                        }
-                        virtualclass.gObj.chatIconColors[userid] ={
-                            bgColor:bgColor,
-                            textColor:textColor,
-                            initial:initial
-                        }
-                   // }
+                    var initial = this.getInitials(peer)
+                    var user = (userid.toString()) + peer;
+                    bgColor = this.stringToHslColor(user, 60, 35)
+                    var brightness = virtualclass.vutil.calcBrightness(bgColor);
+                    if (brightness > 125) {
+                        textColor = "black";
+                    } else {
+                        textColor = "white";
+                    }
+                    virtualclass.gObj.chatIconColors[userid] = {
+                        bgColor: bgColor,
+                        textColor: textColor,
+                        initial: initial
+                    }
+                    // }
 
                 },
-                stringToHslColor:function (str, s, l) {
+                stringToHslColor: function (str, s, l) {
                     var hash = 0;
                     for (var i = 0; i < str.length; i++) {
                         hash = str.charCodeAt(i) + ((hash << 5) - hash);
                     }
 
                     var h = hash % 360;
-                    return 'hsl('+h+', '+s+'%, '+l+'%)';
+                    return 'hsl(' + h + ', ' + s + '%, ' + l + '%)';
                 },
-                getInitials : function (string) {
+                getInitials: function (string) {
                     var names = string.split(' '),
                         initials = names[0].substring(0, 1).toUpperCase();
 
@@ -162,34 +162,34 @@
             }
 
             var self = this,
-                    options = self.options,
-                    offset = options.offset,
-                    title = options.title || "No Title",
-                    // chatbox, commonchat box
-                    uiChatbox = (self.uiChatbox = $('<div></div>'))
+                options = self.options,
+                offset = options.offset,
+                title = options.title || "No Title",
+                // chatbox, commonchat box
+                uiChatbox = (self.uiChatbox = $('<div></div>'))
                     .appendTo(document.getElementById('congreaChatCont'))
                     .addClass('ui-widget ' +
-                            'ui-corner-top ' +
-                            'ui-chatroom ' +
-                            chatStatus
-                            )
+                        'ui-corner-top ' +
+                        'ui-chatroom ' +
+                        chatStatus
+                    )
                     .prop('id', 'chatrm')
             uiChatboxContent = (self.uiChatboxContent = $('<div></div>'))
-                    .addClass('ui-widget-content ' + 'ui-chatbox-content ')
-                    .appendTo(uiChatbox),
-                    uiChatboxLog = (self.uiChatboxLog = self.element)
+                .addClass('ui-widget-content ' + 'ui-chatbox-content ')
+                .appendTo(uiChatbox),
+                uiChatboxLog = (self.uiChatboxLog = self.element)
                     .addClass('ui-widget-content ' + 'ui-chatbox-log')
                     .appendTo(uiChatboxContent),
-                    // uiChatboxInput = (self.uiChatboxInput = $('<div></div>'))
-                    // .addClass('ui-widget-content ' + 'ui-chatbox-input') // saturday findout
-                    // .click(function (event) {
-                    //     // anything?
-                    // })
-                    // .appendTo(uiChatboxContent),
-                    uiChatboxInputBox = (self.uiChatboxInputBox = $('<input></input>'))
+                // uiChatboxInput = (self.uiChatboxInput = $('<div></div>'))
+                // .addClass('ui-widget-content ' + 'ui-chatbox-input') // saturday findout
+                // .click(function (event) {
+                //     // anything?
+                // })
+                // .appendTo(uiChatboxContent),
+                uiChatboxInputBox = (self.uiChatboxInputBox = $('<input></input>'))
                     .addClass('ui-widget-content ' + 'ui-chatbox-input-box ')
                     .prop('id', 'ta_chrm2')
-                        .prop('placeholder','Send message...')
+                    .prop('placeholder', 'Send message...')
                     .appendTo(document.querySelector(".congrea #congchatBarInput"))
                     .keydown(function (event) {
                         if (event.keyCode && event.keyCode == $.ui.keyCode.ENTER) {

@@ -113,7 +113,7 @@
 
                     //when presenter OR Teacher click on edit button
 
-                    if(!virtualclass.gObj.studentSSstatus.sharing){
+                    if (!virtualclass.gObj.studentSSstatus.sharing) {
                         ioAdapter.mustSendAll({eddata: 'init', et: this.etype, cf: 'eddata'});
                     }
 
@@ -133,14 +133,14 @@
                     var actionToPerform;
 
                     var editortemplate = virtualclass.getTemplate('edenableall', 'editor');
-                    var editorhtml = editortemplate({'type1':editorType});
-                   // $('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body').append(editorhtml);
+                    var editorhtml = editortemplate({'type1': editorType});
+                    // $('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body').append(editorhtml);
                     var editor = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body')
-                    editor.insertAdjacentHTML('beforeend',editorhtml);
+                    editor.insertAdjacentHTML('beforeend', editorhtml);
                     var editorControllerAnch = document.getElementById(containerId + 'Anch');
-                    var editorModestatus = localStorage.getItem(editorType+'mode');
-                    if(editorModestatus !== null){
-                        if((editorType == "editorRich" && editorModestatus == "disable") || (editorType == "editorCode" && editorModestatus == "disable")) {
+                    var editorModestatus = localStorage.getItem(editorType + 'mode');
+                    if (editorModestatus !== null) {
+                        if ((editorType == "editorRich" && editorModestatus == "disable") || (editorType == "editorCode" && editorModestatus == "disable")) {
                             editorControllerAnch.dataset.action = "disable";
                             //editorControllerAnch.innerHTML = "Disable all";
                         }
@@ -166,7 +166,7 @@
                                 //editorControllerAnch.innerHTML = "collaborate";
                             }
                         }
-                        localStorage.setItem(editorType+'mode' , editorControllerAnch.dataset.action);
+                        localStorage.setItem(editorType + 'mode', editorControllerAnch.dataset.action);
                         virtualclass.user.control.toggleAllEditorController.call(virtualclass.user, editorType, actionToPerform);
                     });
 
@@ -181,10 +181,10 @@
              */
 
             //This is not best way to handle scroll with firefox.
-            removeScrollFromFireFox : function (etype){
+            removeScrollFromFireFox: function (etype) {
                 etype = virtualclass.vutil.capitalizeFirstLetter(etype);
                 setTimeout(
-                    function (){
+                    function () {
                         var codeScrollElem = document.querySelector('#virtualclass' + etype + 'Body .CodeMirror-vscrollbar');
 
                         var codeMirrorCont = document.querySelector('#virtualclass' + etype + 'Body .CodeMirror');
@@ -192,15 +192,15 @@
                         var codeContainer = document.querySelector('#virtualclass' + etype + 'Body .CodeMirror-code');
 
                         var codeMirrorContHeight = codeMirrorCont.offsetHeight - 25;
-                        var codeContainerHeight =  codeContainer.offsetHeight;
+                        var codeContainerHeight = codeContainer.offsetHeight;
 
-                        if(codeContainerHeight > codeMirrorContHeight){
+                        if (codeContainerHeight > codeMirrorContHeight) {
                             codeScrollElem.style.display = 'block';
-                        } else{
+                        } else {
                             codeScrollElem.style.display = '';
                         }
 
-                    },20
+                    }, 20
                 );
             },
 
@@ -227,42 +227,41 @@
 
 
                 var browser = virtualclass.system.mybrowser.detection();
-                if(browser[0] == 'Firefox'){
+                if (browser[0] == 'Firefox') {
                     this.removeScrollFromFireFox(this.etype);
                 }
-                
-                
-                
+
+
             },
-            
-             // TODO its better if disableEditor and enableEditor are removes
+
+            // TODO its better if disableEditor and enableEditor are removes
             /**
-             * This function disables the main container of editor 
+             * This function disables the main container of editor
              * This should apply for iOS(ipad) only
              */
-            disableEditorByOuterLayer : function (){
+            disableEditorByOuterLayer: function () {
                 // id virtualclassEditorRichBody
                 // class CodeMirror cm-s-default CodeMirror-wrap
-                
-                var editorElem = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(this.etype)+'Body .CodeMirror.cm-s-default');
-                if(editorElem != null){
-                   editorElem.style.pointerEvents = 'none'; 
+
+                var editorElem = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(this.etype) + 'Body .CodeMirror.cm-s-default');
+                if (editorElem != null) {
+                    editorElem.style.pointerEvents = 'none';
                 }
                 console.log('Disable editor for ios');
             },
-            
+
             /**
-             * This function enables the main container of editor 
+             * This function enables the main container of editor
              * This should apply for iOS(ipad) only
              */
-            enableEditorByOuterLayer : function (){
-                var editorElem = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(this.etype)+'Body .CodeMirror.cm-s-default');
-                if(editorElem != null){
-                   editorElem.style.pointerEvents = 'visible'; 
+            enableEditorByOuterLayer: function () {
+                var editorElem = document.querySelector('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(this.etype) + 'Body .CodeMirror.cm-s-default');
+                if (editorElem != null) {
+                    editorElem.style.pointerEvents = 'visible';
                 }
                 console.log('Enable editor for ios');
             },
-            
+
             /**
              * Create the code mirror with layout
              * @param mode expect type  of editor
@@ -338,7 +337,7 @@
 
                 init: function (e, etype) {
                     // Ignore the editor init command received from Student
-                    if ((e.fromUser.role != 's' ) &&  (e.fromUser.userid != virtualclass.gObj.uid || wbUser.virtualclassPlay == '1')) {
+                    if ((e.fromUser.role != 's' ) && (e.fromUser.userid != virtualclass.gObj.uid || wbUser.virtualclassPlay == '1')) {
                         virtualclass.makeAppReady(etype);
                     }
                 },
@@ -347,14 +346,14 @@
                     console.log('received whole data');
 
                     if (roles.hasView()) {
-                        if(typeof virtualclass[e.message.et].vcAdapter.removeOperations == 'function'){
+                        if (typeof virtualclass[e.message.et].vcAdapter.removeOperations == 'function') {
                             virtualclass[e.message.et].vcAdapter.removeOperations(e);
                         }
                     }
 
                     if ((!roles.hasControls()) ||
-                         // allEdData when teacher in educator mode and reponse the data after page refresh
-                        (roles.hasControls() &&  e.fromUser.userid != virtualclass.gObj.uid) && (e.message.hasOwnProperty('resFromUser') || e.message.hasOwnProperty('allEdData'))) {
+                        // allEdData when teacher in educator mode and reponse the data after page refresh
+                        (roles.hasControls() && e.fromUser.userid != virtualclass.gObj.uid) && (e.message.hasOwnProperty('resFromUser') || e.message.hasOwnProperty('allEdData'))) {
                         var doc = JSON.parse(e.message.data);
 
 
@@ -449,7 +448,10 @@
                 container: function (classes) {
                     if (document.getElementById(this.id) == null) {
                         var containertemplate = virtualclass.getTemplate('editorrich', 'editor');
-                        var containerhtml = containertemplate({"type":virtualclass.vutil.capitalizeFirstLetter(classes), "class":classes});
+                        var containerhtml = containertemplate({
+                            "type": virtualclass.vutil.capitalizeFirstLetter(classes),
+                            "class": classes
+                        });
                         // $('#virtualclassAppLeftPanel').append(containerhtml);
 
                         virtualclass.vutil.insertAppLayout(containerhtml);
@@ -496,7 +498,7 @@
             responseToRequest: function (toUser) {
                 var initPacket = this.getWrappedOperations(true);
                 initPacket.layoutEd = "1";  //this would be for create editor layout
-                if(roles.isTeacher()){
+                if (roles.isTeacher()) {
                     initPacket.capp = virtualclass.currApp; // this should pass only when user is educator
                 }
 
@@ -592,15 +594,15 @@
                     }
                     virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
                     virtualclass.vutil.setReadModeWhenTeacherIsDisConn(virtualclass.vutil.smallizeFirstLetter(this.etype));
-      
+
                     // For handle editor's read only mode on iPad 
-                    if(virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
-                        if(writeMode){
+                    if (virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
+                        if (writeMode) {
                             this.enableEditorByOuterLayer();
                         } else {
                             this.disableEditorByOuterLayer();
                         }
-                    }   
+                    }
                 }
             },
 
@@ -638,7 +640,7 @@
                 var tempOps = deserialiseOps(doc.operations); // Get deserialize operations
 
                 //initializeig the editor to virtualclass current application
-                if(typeof msg != 'undefined' && msg.hasOwnProperty('capp')){
+                if (typeof msg != 'undefined' && msg.hasOwnProperty('capp')) {
                     virtualclass.currApp = virtualclass.vutil.capitalizeFirstLetter(msg.capp);
                 }
 
@@ -672,12 +674,12 @@
                     // if current app is not editor and, there is displaying editor in browser
                     // disable that editor
                     var ediotrRich = document.getElementById('virtualclassEditorRich');
-                    if(ediotrRich != null){
+                    if (ediotrRich != null) {
                         ediotrRich.style.display = 'none';
                     }
 
                     var ediotrCode = document.getElementById('virtualclassEditorCode');
-                    if(ediotrCode != null){
+                    if (ediotrCode != null) {
                         ediotrCode.style.display = 'none';
                     }
 
@@ -717,17 +719,17 @@
                     localStorage.setItem(this.etype + '_edOperationRev', this.cmClient.revision);
                 }
             },
-            
-            undoManager : function (keycode){
+
+            undoManager: function (keycode) {
                 // Setitmeout is used  to produce the dealy for firefox 
                 setTimeout(
-                     function (){
-                         if(keycode == 90){
+                    function () {
+                        if (keycode == 90) {
                             document.querySelector('.vceditor-tb-undo').parentNode.click();
-                         }else if (keycode == 89){
-                             document.querySelector('.vceditor-tb-redo').parentNode.click();
-                         }
-                     },0
+                        } else if (keycode == 89) {
+                            document.querySelector('.vceditor-tb-redo').parentNode.click();
+                        }
+                    }, 0
                 );
             }
         }

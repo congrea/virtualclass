@@ -3,7 +3,7 @@
 
 /** START chunk.js here ***/
 
-((window)=> {
+((window) => {
 
     const instanceOfAny = (object, constructors) => constructors.some(c => object instanceof c);
 
@@ -14,6 +14,7 @@
         return idbProxyableTypes || (
                 idbProxyableTypes = [IDBDatabase, IDBObjectStore, IDBIndex, IDBCursor, IDBTransaction]);
     }
+
 // This is a function to prevent it throwing up in node environments.
     function getCursorAdvanceMethods() {
         return cursorAdvanceMethods || (cursorAdvanceMethods = [
@@ -22,11 +23,13 @@
                 IDBCursor.prototype.continuePrimaryKey]);
 
     }
+
     const cursorRequestMap = new WeakMap();
     const transactionDoneMap = new WeakMap();
     const transactionStoreNamesMap = new WeakMap();
     const transformCache = new WeakMap();
     const reverseTransformCache = new WeakMap();
+
     function promisifyRequest(request) {
         const promise = new Promise((resolve, reject) => {
             const unlisten = () => {
@@ -56,6 +59,7 @@
         reverseTransformCache.set(promise, request);
         return promise;
     }
+
     function cacheDonePromiseForTransaction(tx) {
         // Early bail if we've already created a done promise for this transaction.
         if (transactionDoneMap.has(tx))
@@ -81,6 +85,7 @@
         // Cache it for later retrieval.
         transactionDoneMap.set(tx, done);
     }
+
     let idbProxyTraps = {
         get(target, prop, receiver) {
             if (target instanceof IDBTransaction) {
@@ -104,11 +109,13 @@
             if (target instanceof IDBTransaction && (prop === 'done' || prop === 'store'))
                 return true;
             return prop in target;
-        } };
+        }
+    };
 
     function addTraps(callback) {
         idbProxyTraps = callback(idbProxyTraps);
     }
+
     function wrapFunction(func) {
         // Due to expected object equality (which is enforced by the caching in `wrap`), we
         // only create one new func per func.
@@ -140,6 +147,7 @@
             return wrap(func.apply(unwrap(this), args));
         };
     }
+
     function transformCachableValue(value) {
         if (typeof value === 'function')
             return wrapFunction(value);
@@ -152,6 +160,7 @@
         // Return the same value back if we're not going to transform it.
         return value;
     }
+
     function wrap(value) {
         // We sometimes generate multiple promises from a single IDBRequest (eg when cursoring), because
         // IDB is weird and a single IDBRequest can yield many responses, so these can't be cached.
@@ -170,6 +179,7 @@
         }
         return newValue;
     }
+
     const unwrap = value => reverseTransformCache.get(value);
 
     /** END chunk.js here ***/
@@ -182,7 +192,7 @@
      * @param version Schema version.
      * @param callbacks Additional callbacks.
      */
-    function openDB(name, version, { blocked, upgrade, blocking } = {}) {
+    function openDB(name, version, {blocked, upgrade, blocking} = {}) {
         const request = indexedDB.open(name, version);
         const openPromise = wrap(request);
         if (upgrade) {
@@ -196,12 +206,13 @@
             openPromise.then(db => db.addEventListener('versionchange', blocking));
         return openPromise;
     }
+
     /**
      * Delete a database.
      *
      * @param name Name of the database.
      */
-    function deleteDB(name, { blocked } = {}) {
+    function deleteDB(name, {blocked} = {}) {
         const request = indexedDB.deleteDatabase(name);
         if (blocked)
             request.addEventListener('blocked', () => blocked());
@@ -211,6 +222,7 @@
     const readMethods = ['get', 'getKey', 'getAll', 'getAllKeys', 'count'];
     const writeMethods = ['put', 'add', 'delete', 'clear'];
     const cachedMethods = new Map();
+
     function getMethod(target, prop) {
         if (!(target instanceof IDBDatabase &&
             !(prop in target) &&
@@ -239,9 +251,11 @@
         cachedMethods.set(prop, method);
         return method;
     }
+
     addTraps(oldTraps => ({
         get: (target, prop, receiver) => getMethod(target, prop) || oldTraps.get(target, prop, receiver),
-        has: (target, prop) => !!getMethod(target, prop) || oldTraps.has(target, prop) }));
+        has: (target, prop) => !!getMethod(target, prop) || oldTraps.has(target, prop)
+    }));
 
     window.virtualclassOpenDB = openDB;
     window.virtualclassDeleteDB = deleteDB;

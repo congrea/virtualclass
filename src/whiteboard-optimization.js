@@ -4,7 +4,7 @@
  */
 
 (function (window) {
-    function Optimize(id){
+    function Optimize(id) {
         var vcan = virtualclass.wb[id].vcan;
 
         var optimize = {
@@ -13,7 +13,7 @@
                 if (typeof this.lastarrowtime == 'undefined') {
                     this.lastarrowtime = new Date().getTime();
                     // if (readyState == 1) {
-                    if(io.webSocketConnected()){
+                    if (io.webSocketConnected()) {
                         virtualclass.vutil.beforeSend(JSON.parse(jobj));
                     }
 
@@ -22,7 +22,7 @@
                 this.presentarrowtime = new Date().getTime();
                 if ((this.presentarrowtime - this.lastarrowtime) >= time) {
                     // if (readyState == 1) {
-                    if(io.webSocketConnected()){
+                    if (io.webSocketConnected()) {
                         //virutalclass.vutil.beforeSend(JSON.parse(jobj));
                         var msg = JSON.parse(jobj);
 
@@ -38,8 +38,8 @@
             },
 
             doOptiMize: function (e) {
-                if(vcan.main.action == 'move'){
-                    if(roles.hasControls()){
+                if (vcan.main.action == 'move') {
+                    if (roles.hasControls()) {
                         e = vcan.utility.updateCordinate(e);
                     }
                 }
@@ -72,7 +72,7 @@
 
                 var wId = virtualclass.gObj.currWb;
                 var obj = vcan.makeStackObj(time, ac, x, y);
-                if(typeof foundText != 'undefined'){
+                if (typeof foundText != 'undefined') {
                     obj.foundText = true;
                 }
                 virtualclass.wb[wId].uid++;
@@ -85,5 +85,6 @@
         vcan.optimize = optimize;
 
     }
+
     window.Optimize = Optimize;
 })(window);

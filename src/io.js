@@ -20,17 +20,17 @@ var io = {
     jsnMsgQueue: [],
     recBinMsgQueue: [],
     recjsnMsgQueue: null,
-    stockReadyState : false,
-    workerIOOnmessage : false,
+    stockReadyState: false,
+    workerIOOnmessage: false,
     sessionSet: false,
-    init: function(cfg) {
+    init: function (cfg) {
         this.cfg = cfg;
         "use strict";
         console.log("==== io init ");
-        ioInit.sendToWorker({cmd:'init', msg : cfg});
+        ioInit.sendToWorker({cmd: 'init', msg: cfg});
     },
 
-    send: function(msg, cfun, touser) {
+    send: function (msg, cfun, touser) {
         "use strict";
         if (msg.hasOwnProperty('m')) {
             if (msg.m.user == 'all') {
@@ -65,12 +65,12 @@ var io = {
         }
     },
 
-    realSend: function(obj) {
+    realSend: function (obj) {
         "use strict";
         if (typeof obj.arg.touser != 'undefined') {
-            if(io.uniquesids == null){
+            if (io.uniquesids == null) {
                 console.log('uniqueid is null');
-            }else {
+            } else {
                 obj.arg.touser = io.uniquesids[obj.arg.touser];
                 if (typeof obj.arg.touser == 'undefined') {
                     console.log("User is not connected." + obj.arg.touser);
@@ -81,7 +81,7 @@ var io = {
 
         // earlier the below information sent by server
         //var userObj = { name : wbUser.name, lname : wbUser.lname, role:wbUser.role, userid : wbUser.id};
-        var userObj = {userid : wbUser.id};
+        var userObj = {userid: wbUser.id};
         switch (obj.cfun) {
             case "broadcastToAll":
                 if (typeof obj.arg.touser == "undefined") {
@@ -90,7 +90,7 @@ var io = {
                         user: userObj,
                         m: obj.arg.msg
                     };
-                    var jobj = 'F-BR-{"0'+JSON.stringify(sobj);
+                    var jobj = 'F-BR-{"0' + JSON.stringify(sobj);
                 } else {
                     var sobj = {
                         //type: 'broadcastToAll',
@@ -101,9 +101,9 @@ var io = {
                     };
                     var touser = obj.arg.touser;
                     while (touser.length < 12) {
-                        touser = '0'+touser;
+                        touser = '0' + touser;
                     }
-                    var jobj = 'F-BRU-{"'+touser+'{"0'+JSON.stringify(sobj);
+                    var jobj = 'F-BRU-{"' + touser + '{"0' + JSON.stringify(sobj);
                 }
                 break;
             case "ping":
@@ -111,19 +111,19 @@ var io = {
                     type: 'PONG',
                     m: obj.arg.msg
                 };
-                var jobj = 'F-PI-'+JSON.stringify(sobj);
+                var jobj = 'F-PI-' + JSON.stringify(sobj);
                 break;
 
             case "speed":
-                var jobj = 'F-SPE-{"'+obj.arg.msg;
+                var jobj = 'F-SPE-{"' + obj.arg.msg;
                 break;
 
             case "session":
-                var jobj =  'F-SS-{"'+obj.arg.msg;
+                var jobj = 'F-SS-{"' + obj.arg.msg;
                 break;
 
             case "recording":
-                var jobj =  'F-SR-{"'+obj.arg.msg;
+                var jobj = 'F-SR-{"' + obj.arg.msg;
                 break;
 
             default:
@@ -132,26 +132,26 @@ var io = {
 
         // console.log('Total time ' + timeSec +', String send ' + jobj);
         if (jobj.length <= 600000) { //600k
-             // this.sock.send(jobj);
-             workerIO.postMessage({cmd : 'send', msg: jobj});
+            // this.sock.send(jobj);
+            workerIO.postMessage({cmd: 'send', msg: jobj});
 
             //this.sock.onerror = function(error) {}
         } else {
             this.jsnMsgQueue = this.chunkSubstr(jobj, 550000); // 550k
             if (this.jsnMsgQueue) {
-                for (var i=0; i<this.jsnMsgQueue.length; i++) {
+                for (var i = 0; i < this.jsnMsgQueue.length; i++) {
                     // this.sock.send(this.jsnMsgQueue[i]);
-                    workerIO.postMessage({cmd : 'send', msg: this.jsnMsgQueue[i]});
+                    workerIO.postMessage({cmd: 'send', msg: this.jsnMsgQueue[i]});
                 }
             }
             this.jsnMsgQueue = [];
         }
     },
 
-    chunkSubstr: function(str, size) {
+    chunkSubstr: function (str, size) {
         if (str.startsWith('F-BR-{"0')) {
             var prefix = 'F-BR-{"';
-            str = str.replace('F-BR-{"0','');
+            str = str.replace('F-BR-{"0', '');
         } else if (str.startsWith('F-BRU-{"')) {
             var prefix = str.substring(0, 22);
             str = str.substring(23, str.length);
@@ -164,7 +164,7 @@ var io = {
             chunks[i] = str.substr(o, size)
             if (i == 0) {
                 chunks[i] = prefix + '1' + chunks[i];
-            } else if (i < numChunks-1) {
+            } else if (i < numChunks - 1) {
                 chunks[i] = prefix + '2' + chunks[i];
             } else {
                 chunks[i] = prefix + '3' + chunks[i];
@@ -176,19 +176,19 @@ var io = {
     cleanRecJson: function (str) {
         if (!str.startsWith('{"0{"') && !str.startsWith('{"1{"') && !str.startsWith('{"2') && !str.startsWith('{"3')) {
             return str;
-        } else if (str.startsWith('{"0{"')){
-            str = str.replace('{"0{"','{"');
+        } else if (str.startsWith('{"0{"')) {
+            str = str.replace('{"0{"', '{"');
             return str;
         }
-        if (str.startsWith('{"1{"')){
-            this.recjsnMsgQueue = str.replace('{"1{"','{"');
-        } else if (str.startsWith('{"2')){
-            if (this.recjsnMsgQueue.length > 0){
-                this.recjsnMsgQueue = this.recjsnMsgQueue + str.replace('{"2','');
+        if (str.startsWith('{"1{"')) {
+            this.recjsnMsgQueue = str.replace('{"1{"', '{"');
+        } else if (str.startsWith('{"2')) {
+            if (this.recjsnMsgQueue.length > 0) {
+                this.recjsnMsgQueue = this.recjsnMsgQueue + str.replace('{"2', '');
             }
         } else if (str.startsWith('{"3')) {
-            if (this.recjsnMsgQueue.length > 0){
-                this.recjsnMsgQueue = this.recjsnMsgQueue + str.replace('{"3','');
+            if (this.recjsnMsgQueue.length > 0) {
+                this.recjsnMsgQueue = this.recjsnMsgQueue + str.replace('{"3', '');
                 return this.recjsnMsgQueue;
             }
         } else {
@@ -198,17 +198,17 @@ var io = {
         return false;
     },
 
-    sendBinary: function(msg) {
-        workerIO.postMessage({cmd : 'sendBinary', msg : msg});
+    sendBinary: function (msg) {
+        workerIO.postMessage({cmd: 'sendBinary', msg: msg});
     },
 
-    onRecMessage: function(e) {
+    onRecMessage: function (e) {
         if (e.data instanceof ArrayBuffer) {
             // this.onRecBinary(e)
-            workerIO.postMessage({'cmd' : 'onRecBinary', msg : e.data});
+            workerIO.postMessage({'cmd': 'onRecBinary', msg: e.data});
         } else {
             // console.log("==== ElapsedTime playtime REC : ", e.data);
-            ioInit.onmessage({data : {cmd : 'receivedJson', msg:e.data}});
+            ioInit.onmessage({data: {cmd: 'receivedJson', msg: e.data}});
 
             // var msg = JSON.parse(e.data);
             // this.onRecSave(msg, e.data);
@@ -217,14 +217,14 @@ var io = {
     },
 
     // Check if websocket is ready to send
-    webSocketConnected: function (){
-        return (io.stockReadyState ==  1 && this.readyToSend == true)
+    webSocketConnected: function () {
+        return (io.stockReadyState == 1 && this.readyToSend == true)
     },
 
-    onRecJson: function(receivemsg) {
-        if (io.globallock === false ) {
+    onRecJson: function (receivemsg) {
+        if (io.globallock === false) {
             if (io.globalmsgjson.length > 0) {
-                while (io.globalmsgjson.length > 0 && io.globallock === false){
+                while (io.globalmsgjson.length > 0 && io.globallock === false) {
                     var recmsg = io.globalmsgjson.shift();
                     io.onRecJsonIndividual(recmsg);
                 }
@@ -238,28 +238,28 @@ var io = {
         }
     },
 
-    onRecJsonIndividual: function(receivemsg) {
+    onRecJsonIndividual: function (receivemsg) {
         var userto = '';
         switch (receivemsg.type) {
             case "joinroom":
-                if(receivemsg.hasOwnProperty('users')){ // When self web socket is connected
+                if (receivemsg.hasOwnProperty('users')) { // When self web socket is connected
                     ioAdapter.setRecording();
-                    if(!roles.hasControls()){
+                    if (!roles.hasControls()) {
                         ioAdapter.makeSessionReady();
                     }
                     console.log("==== Member add, join room");
-                }else {
+                } else {
                     console.log("No users");
                 }
 
                 this.readyToSend = true;
 
-                workerIO.postMessage({cmd:'readyToSend'});
+                workerIO.postMessage({cmd: 'readyToSend'});
 
                 /* identifying new user from list*/
                 var newuser = null;
                 if (io.uniquesids != null) {
-                    for(let i in receivemsg.clientids){
+                    for (let i in receivemsg.clientids) {
                         if (io.uniquesids[i] == undefined) {
                             newuser = i;
                         }
@@ -271,23 +271,22 @@ var io = {
                 var msg = {
                     type: "member_added",
                     newuser: newuser,
-                    joinUser : receivemsg.action
+                    joinUser: receivemsg.action
                 }
 
-                if(receivemsg.hasOwnProperty('users')){
+                if (receivemsg.hasOwnProperty('users')) {
                     msg.message = receivemsg.users;
                     msg.users = true;
 
-                }else if(receivemsg.hasOwnProperty('user')){
+                } else if (receivemsg.hasOwnProperty('user')) {
                     msg.message = receivemsg.user;
                     msg.user = true;
                 }
 
 
-
-                if((!virtualclass.vutil.isPlayMode() ||
+                if ((!virtualclass.vutil.isPlayMode() ||
                     receivemsg.hasOwnProperty('clientids') && !virtualclass.hasOwnProperty('connectedUsers') || // When self joined the room
-                    virtualclass.hasOwnProperty('connectedUsers') && !receivemsg.hasOwnProperty('clientids'))){ // When other join the room
+                    virtualclass.hasOwnProperty('connectedUsers') && !receivemsg.hasOwnProperty('clientids'))) { // When other join the room
                     virtualclass.ioEventApi.readyto_member_add(msg);
                 }
                 break;
@@ -303,7 +302,7 @@ var io = {
                         message: receivemsg.m,
                         fromUser: receivemsg.user,
                         // toUser is user on which the action to be performed
-                        toUser:  virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
+                        toUser: virtualclass.vutil.getUserAllInfo(userto, virtualclass.connectedUsers)
                     });
                 }
                 break;
@@ -313,7 +312,7 @@ var io = {
                     userto = receivemsg.userto;
                 }
                 if (io.uniquesids != null) {
-                    for(let uid in receivemsg.action){
+                    for (let uid in receivemsg.action) {
                         console.log('===== JOIN user left call ' + uid);
                         delete io.uniquesids[uid];
                     }
@@ -372,7 +371,7 @@ var io = {
                 break;
 
             case "setSession":
-                if(roles.hasControls()){
+                if (roles.hasControls()) {
                     ioAdapter.initSetSession(receivemsg.session);
                 }
                 break;
@@ -381,12 +380,12 @@ var io = {
 
     },
 
-    disconnect: function() {
-        workerIO.postMessage({cmd:'disconnect'});
+    disconnect: function () {
+        workerIO.postMessage({cmd: 'disconnect'});
     }
 };
 
-workerIO.onmessage = function(e){
+workerIO.onmessage = function (e) {
     ioInit.onmessage(e);
 };
 
@@ -396,7 +395,7 @@ var ioInit = {
     },
 
     onmessage (e) {
-        switch (e.data.cmd){
+        switch (e.data.cmd) {
             case "connectionopen" :
                 io.stockReadyState = 1;
                 virtualclass.ioEventApi.connectionopen(e.data.msg);
@@ -410,7 +409,7 @@ var ioInit = {
                         // workerIO.postMessage({cmd : 'mkUser', msg:msg});
 
                         msg.type = "broadcastToAll";
-                        if(typeof virtualclass.gObj.allUserObj[msg.user.userid] == 'undefined'){
+                        if (typeof virtualclass.gObj.allUserObj[msg.user.userid] == 'undefined') {
                             virtualclass.gObj.allUserObj[msg.user.userid] = {};
                             virtualclass.gObj.allUserObj[msg.user.userid].userid = msg.user.userid;
                             virtualclass.gObj.allUserObj[msg.user.userid].lname = ' ';
@@ -418,7 +417,7 @@ var ioInit = {
                             virtualclass.gObj.allUserObj[msg.user.userid].role = 's';
                         }
 
-                        if(virtualclass.gObj.allUserObj[msg.user.userid].userid == msg.user.userid){
+                        if (virtualclass.gObj.allUserObj[msg.user.userid].userid == msg.user.userid) {
                             msg.user.lname = virtualclass.gObj.allUserObj[msg.user.userid].lname;
                             msg.user.name = virtualclass.gObj.allUserObj[msg.user.userid].name;
                             msg.user.role = virtualclass.gObj.allUserObj[msg.user.userid].role;
@@ -455,7 +454,7 @@ var ioInit = {
                     } else {
                         //return; // for temporary
                         io.onRecJson(msg);
-                      //  workerIO.postMessage({cmd : "saveJson", msg : {msg:msg, cj : cleanJson}});
+                        //  workerIO.postMessage({cmd : "saveJson", msg : {msg:msg, cj : cleanJson}});
                     }
                 }
 
@@ -484,7 +483,7 @@ var ioInit = {
                     message: e.data.msg
                 });
 
-                setTimeout(function() {
+                setTimeout(function () {
                     // For prevent to send any packet to other during save session
                     // and download session
                     if (!virtualclass.gObj.hasOwnProperty('endSession') &&
@@ -492,29 +491,29 @@ var ioInit = {
                         !virtualclass.recorder.uploadInProcess &&
                         !(virtualclass.gObj.hasOwnProperty('invalidlogin') && virtualclass.gObj.invalidlogin)) {
                         // scope.wsconnect();
-                        workerIO.postMessage({cmd : 'wsconnect'});
+                        workerIO.postMessage({cmd: 'wsconnect'});
 
                     }
                 }, 5000);
                 break;
             case 'initAudioWorklet':
-                if(virtualclass.gObj.hasOwnProperty('isAudioContextReady') && !virtualclass.gObj.audioRecWorkerReady){
-                    if(virtualclass.media.detectAudioWorklet()){
+                if (virtualclass.gObj.hasOwnProperty('isAudioContextReady') && !virtualclass.gObj.audioRecWorkerReady) {
+                    if (virtualclass.media.detectAudioWorklet()) {
                         virtualclass.media.audio.initPlay();
-                    }else {
+                    } else {
                         virtualclass.media.audio.initPlayWithFallback();
                     }
                 }
 
-            break;
+                break;
 
             case 'stBinary': // storage binary
-                 if(e.data.hasOwnProperty('triggerBinRec')){
+                if (e.data.hasOwnProperty('triggerBinRec')) {
                     virtualclass.ioEventApi.binrec({
                         type: "binrec",
                         message: e.data.msg.buffer
                     });
-                 }
+                }
                 break;
 
             case 'notaudio': // storage binary

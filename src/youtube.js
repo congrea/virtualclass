@@ -32,19 +32,19 @@
 
                 if (typeof videoObj != 'undefined') {
                     if (videoObj.init != 'studentlayout') {
-                        var videoId = videoObj.init ||(videoObj.yts && videoObj.yts.init);
+                        var videoId = videoObj.init || (videoObj.yts && videoObj.yts.init);
                     }
-                    startFrom=startFrom||(videoObj.yts && videoObj.yts.startFrom);
+                    startFrom = startFrom || (videoObj.yts && videoObj.yts.startFrom);
 
                 }
-                if(typeof videoObj.id  !='undefined'){
-                    virtualclass.yts.vidId =  videoObj.id;
+                if (typeof videoObj.id != 'undefined') {
+                    virtualclass.yts.vidId = videoObj.id;
                 }
 
                 if (!roles.hasAdmin() || (roles.isEducator())) {
                     if (typeof videoId == 'undefined' && roles.isStudent()) {
-                       // virtualclass.videoUl.UI.container();
-                       this.UI.defaultLayoutForStudent();
+                        // virtualclass.videoUl.UI.container();
+                        this.UI.defaultLayoutForStudent();
 
                     } else {
                         //("video url  available");
@@ -52,21 +52,21 @@
                         // if student has teacher role, localstorage validate because there is not ready actual role on virtualclass.gObj.uRole
 
                         if (roles.hasControls()) {
-                            if(typeof videoId != 'undefined'){
+                            if (typeof videoId != 'undefined') {
                                 this.onYTIframApi(videoId, startFrom, 'fromReload');
                             }
                             //this.UI.inputURL();
-                           // ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
+                            // ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
                         } else {
-                            if(typeof videoObj != 'undefined'){
+                            if (typeof videoObj != 'undefined') {
                                 if (!videoObj.hasOwnProperty('fromReload')) {
-                                    if(typeof videoId == 'undefined'){
+                                    if (typeof videoId == 'undefined') {
                                         //virtualclass.videoUl.UI.container()
                                         this.UI.defaultLayoutForStudent();
-                                    } else{
+                                    } else {
                                         (typeof startFrom == 'undefined') ? this.onYTIframApi(videoId) : this.onYTIframApi(videoId, startFrom);
                                     }
-                                } else{
+                                } else {
 
                                     this.onYTIframApi(videoId, startFrom, 'fromReload');
                                 }
@@ -83,13 +83,13 @@
                         }
                     }
                 } else {
-                    if(virtualclass.videoUl.yts && !startFrom ){
-                        if(!videoId){
-                            videoId= this.getVideoId(videoObj.content_path)
+                    if (virtualclass.videoUl.yts && !startFrom) {
+                        if (!videoId) {
+                            videoId = this.getVideoId(videoObj.content_path)
 
                         }
                         this.onYTIframApi(videoId);
-                        ioAdapter.mustSend({'yts': {init:videoId}, 'cf': 'yts'});
+                        ioAdapter.mustSend({'yts': {init: videoId}, 'cf': 'yts'});
 
                     }
                     else if (typeof startFrom != 'undefined') {
@@ -99,7 +99,7 @@
                 }
                 var vidCont = document.querySelector('#videoPlayerCont');
                 vidCont.style.display = "none"
-          
+
             },
             /**
              * this function is called  when we leave  the video player's page
@@ -108,7 +108,7 @@
             destroyYT: function () {
 
                 if (typeof virtualclass.yts.player == 'object') {
-                    if(virtualclass.currApp == 'ScreenShare'){
+                    if (virtualclass.currApp == 'ScreenShare') {
                         ioAdapter.mustSend({'yts': 'destroyYT', 'cf': 'yts'});
                     }
                     virtualclass.yts.player.destroy();
@@ -128,7 +128,7 @@
                  * Creates container for the video and appends the container before audio widget
                  */
                 container: function () {
-                     var ytsCont = document.getElementById(this.id);
+                    var ytsCont = document.getElementById(this.id);
                     // if (ytsCont != null) {
                     //     ytsCont.parentNode.removeChild(ytsCont);
                     // }
@@ -153,7 +153,7 @@
                 defaultLayoutForStudent: function () {
 
                     var cont = document.getElementById("virtualclassVideo");
-                    if(!cont){
+                    if (!cont) {
                         var control = roles.hasAdmin() ? true : false;
                         var data = {"control": control};
                         var template = JST['templates/videoupload/videoupload.hbs'];
@@ -257,7 +257,7 @@
              */
             onmessage: function (msg) {
 
-                if(typeof virtualclass.yts.player != 'object'){
+                if (typeof virtualclass.yts.player != 'object') {
                     virtualclass.yts.init(msg);
                 }
 
@@ -265,8 +265,6 @@
                 // var div = document.createElement("div");
                 // div.id="player";
                 // cont.appendChild(div) ;
-
-
 
 
                 if (typeof msg.yts == 'string') {
@@ -278,27 +276,27 @@
                         this.player.mute();
                     } else if (msg.yts == 'unmute') {
                         this.player.unMute();
-                    } else if(msg.yts == 'destroyYT'){
+                    } else if (msg.yts == 'destroyYT') {
                         virtualclass.yts.destroyYT();
                     }
 
                 } else {
                     if (msg.yts.hasOwnProperty('init')) {
                         virtualclass.videoUl.yts = true;
-                        if(typeof virtualclass.yts.player == 'object'){
+                        if (typeof virtualclass.yts.player == 'object') {
                             // virtualclass.yts.player.destroy()
-                            virtualclass.yts.player="";
+                            virtualclass.yts.player = "";
                         }
                         var player = document.querySelector("#virtualclassVideo #player");
-                        if(player){
+                        if (player) {
                             player.parentNode.removeChild(player)
                         }
 
 
                         var cont = document.querySelector("#virtualclassVideo");
                         var div = document.createElement("div");
-                        div.id="player";
-                        cont.appendChild(div) ;
+                        div.id = "player";
+                        cont.appendChild(div);
 
                         virtualclass.yts.init(msg);
                         //virtualclass.makeAppReady('Yts', undefined, msg.yts);
@@ -368,14 +366,14 @@
                         //    that.player = new YT.Player('player', videoObj);
                         //};
 
-                        if(yts.hasOwnProperty('ytApiReady')){
+                        if (yts.hasOwnProperty('ytApiReady')) {
                             that.player = new YT.Player('player', videoObj);
                             //window.onYouTubeIframeAPIReady = function () {
                             //    that.player = new YT.Player('player', videoObj);
                             //};
                         } else {
                             console.log('onYouTubeIframeAPIReady is not ready ');
-                            setTimeout(function (){
+                            setTimeout(function () {
                                 that.onYTIframApi(videoId, playStratFrom, fromReload);
                             }, 300);
                             return;
@@ -465,8 +463,8 @@
                     ioAdapter.mustSend({'yts': 'play', 'cf': 'yts'});
                 } else if (state == 2) {
                     ioAdapter.mustSend({'yts': 'pause', 'cf': 'yts'});
-                }else if(state ==0){
-                    var index = virtualclass.videoUl.order.indexOf( virtualclass.yts.vidId);
+                } else if (state == 0) {
+                    var index = virtualclass.videoUl.order.indexOf(virtualclass.yts.vidId);
                     if (index < virtualclass.videoUl.order.length - 1 && index >= 0) {
                         virtualclass.videoUl.listEnd = false;
                     } else {
@@ -490,7 +488,7 @@
 
                 if (roles.hasControls()) {
                     var submitURLButton = document.getElementById('submitURL');
-                    if(submitURLButton){
+                    if (submitURLButton) {
                         submitURLButton.innerHTML = virtualclass.lang.getString('share');
                     }
 

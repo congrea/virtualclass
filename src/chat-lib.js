@@ -9,37 +9,37 @@ var myDivResult = "";
 var checkChatDisabled = false;
 
 
-function displayChatUserList(totUsers){
-    if(!virtualclass.gObj.hasOwnProperty('insertUser')){
+function displayChatUserList(totUsers) {
+    if (!virtualclass.gObj.hasOwnProperty('insertUser')) {
         virtualclass.gObj.insertUser = true;
         virtualclass.gObj.userToBeDisplay = 500;
     }
 
     let users = totUsers;
 
-    if(virtualclass.gObj.insertUser){
+    if (virtualclass.gObj.insertUser) {
         /**
          * Below 'first if block' is  to restrict the update users in list after execeeding 500 users
          ****/
-        if(virtualclass.jId == virtualclass.gObj.uid && virtualclass.gObj.userToBeDisplay < totUsers.length) {
+        if (virtualclass.jId == virtualclass.gObj.uid && virtualclass.gObj.userToBeDisplay < totUsers.length) {
             var tusers = [];
             tusers.push(virtualclass.vutil.getMySelf()); // User list can not skip myself
             for (let i = 0; i < virtualclass.gObj.userToBeDisplay; i++) {
-                if(totUsers[i].userid != virtualclass.gObj.uid){
+                if (totUsers[i].userid != virtualclass.gObj.uid) {
                     tusers.push(totUsers[i]);
                 }
             }
             users = tusers;
         }
 
-        for(var i=0; i<users.length; i++){
+        for (var i = 0; i < users.length; i++) {
             if (typeof virtualclass.gObj.chatIconColors[users[i].userid] == 'undefined') {
                 groupChatImgColor(users[i].name, users[i].userid)
             }
-            if(users[i].img =="noimage") {
-                virtualclass.gObj.chatIconColors[users[i].userid].savedImg=false
-            }else{
-                virtualclass.gObj.chatIconColors[users[i].userid].savedImg= users[i].img;
+            if (users[i].img == "noimage") {
+                virtualclass.gObj.chatIconColors[users[i].userid].savedImg = false
+            } else {
+                virtualclass.gObj.chatIconColors[users[i].userid].savedImg = users[i].img;
             }
 
             if (document.getElementById('video' + users[i].userid) == null) {
@@ -47,12 +47,12 @@ function displayChatUserList(totUsers){
             }
 
             // tmpmyDivResult = true, means user div is created already
-            if(typeof tmpmyDivResult != 'boolean' && typeof tmpmyDivResult != undefined && tmpmyDivResult != undefined ){
+            if (typeof tmpmyDivResult != 'boolean' && typeof tmpmyDivResult != undefined && tmpmyDivResult != undefined) {
                 myDivResult = myDivResult + tmpmyDivResult;
             }
         }
 
-        if(typeof chat_div == 'undefined'){
+        if (typeof chat_div == 'undefined') {
             chat_div = document.querySelector('#chat_div');
         }
 
@@ -61,14 +61,14 @@ function displayChatUserList(totUsers){
          * If we click on anchor tag inside the shadow dom, then it does not return current clicked tag(shadow dom)
          * but it returns shadow dom
          * **/
-        if(myDivResult != null && myDivResult != undefined && myDivResult != '' && typeof myDivResult != 'boolean'){
+        if (myDivResult != null && myDivResult != undefined && myDivResult != '' && typeof myDivResult != 'boolean') {
 
-            if(chat_div.shadowRoot.innerHTML == " " || chat_div.shadowRoot.innerHTML == ""){
+            if (chat_div.shadowRoot.innerHTML == " " || chat_div.shadowRoot.innerHTML == "") {
                 var userRole = roles.hasControls() ? 'teacher' : 'student';
-                if(virtualclass.isPlayMode){
-                    chat_div.shadowRoot.innerHTML =  "<link rel='stylesheet' type='text/css' href='"+whiteboardPath+"css/modules/chat-container.css'> <div id='subchat' class='playMode "+userRole+"'>" +  myDivResult + "</div>";
-                }else {
-                    chat_div.shadowRoot.innerHTML =  "<link rel='stylesheet' type='text/css' href='"+whiteboardPath+"css/modules/chat-container.css'> <div id='subchat' class='"+userRole+"'>" +  myDivResult + "</div>";
+                if (virtualclass.isPlayMode) {
+                    chat_div.shadowRoot.innerHTML = "<link rel='stylesheet' type='text/css' href='" + whiteboardPath + "css/modules/chat-container.css'> <div id='subchat' class='playMode " + userRole + "'>" + myDivResult + "</div>";
+                } else {
+                    chat_div.shadowRoot.innerHTML = "<link rel='stylesheet' type='text/css' href='" + whiteboardPath + "css/modules/chat-container.css'> <div id='subchat' class='" + userRole + "'>" + myDivResult + "</div>";
                 }
             } else {
                 chat_div.shadowRoot.querySelector('#subchat').insertAdjacentHTML('beforeend', myDivResult);
@@ -80,7 +80,7 @@ function displayChatUserList(totUsers){
 
         // to verify
         if (virtualclass.gObj.uid == virtualclass.vutil.whoIsTeacher()) {
-            for(var i=0; i<users.length; i++) {
+            for (var i = 0; i < users.length; i++) {
                 if (virtualclass.gObj.uid != users[i].userid) {
                     virtualclass.user.initControlHandler(users[i].userid);
                 }
@@ -92,14 +92,14 @@ function displayChatUserList(totUsers){
 
 }
 
-function displayChatOfflineUserList (users){
+function displayChatOfflineUserList(users) {
     alert("display chat offline user");
     var divContainer = document.querySelector('#melistcontainer')
-    if(divContainer == null){
+    if (divContainer == null) {
         var divContainer = document.createDocumentFragment('div');
         divContainer.id = "melistcontainer";
     }
-    for(var i=0; i<users.length; i++){
+    for (var i = 0; i < users.length; i++) {
         if (!virtualclass.vutil.alreadyConnected(users[i].userid)) {
             if (users[i].userid != virtualclass.gObj.uid) {
                 if (document.getElementById('video' + users[i].userid) == null) {
@@ -114,8 +114,8 @@ function displayChatOfflineUserList (users){
     document.querySelector('#chat_div').appendChild(divContainer);
 }
 
-function updateOnlineUserText (){
-    if (roles.hasAdmin() ) {
+function updateOnlineUserText() {
+    if (roles.hasAdmin()) {
         if (virtualclass.chat.userList.length > 0) {
             document.querySelector('#usertab_text').innerHTML = "";
             if (roles.hasAdmin()) {
@@ -139,17 +139,17 @@ function updateOnlineUserText (){
         }
     }
     else {
-        document.querySelector("#user_list .inner_bt #usertab_text").innerHTML = "<span class='cgText' id='onlineusertext'>" + "Users (" + virtualclass.connectedUsers.length + ")</span>" ;
+        document.querySelector("#user_list .inner_bt #usertab_text").innerHTML = "<span class='cgText' id='onlineusertext'>" + "Users (" + virtualclass.connectedUsers.length + ")</span>";
     }
 }
 
 function memberUpdate(e, addType) {
     // TODO e.message now does not contain complete list of users. Function needs to be updated.
-    if(addType ==  'removed'){
+    if (addType == 'removed') {
 
         // shadow dom
-        var userUI = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#ml'+e.removeUser);
-        if(userUI != null){
+        var userUI = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#ml' + e.removeUser);
+        if (userUI != null) {
             userUI.parentNode.removeChild(userUI);
         }
         updateOnlineUserText();
@@ -169,10 +169,10 @@ function memberUpdate(e, addType) {
 
             displayChatUserList(userlist);
 
-            for(var i=0; i<userlist.length; i++){
+            for (var i = 0; i < userlist.length; i++) {
                 if (userlist[i].userid == io.cfg.userid && typeof addType != 'undefined' && addType != 'removed') {
                     var vidTag = document.getElementById('video' + virtualclass.gObj.uid);
-                    if (!virtualclass.gObj.hasOwnProperty('audIntDisable')   && !virtualclass.gObj.hasOwnProperty('vidIntDisable') && vidTag == null) {
+                    if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable') && vidTag == null) {
                         console.log('Media _handleUserMedia');
                         virtualclass.media._handleUserMedia(virtualclass.gObj.uid);
                     }
@@ -208,36 +208,36 @@ function memberUpdate(e, addType) {
         if (( roles.hasAdmin() && virtualclass.jId == virtualclass.gObj.uid)) {
             virtualclass.chat.openChatBox();
             // Only invoke when member is added
-            if(addType == 'added'){
+            if (addType == 'added') {
                 virtualclass.chat.fetchChatUsers();
-            }else {
+            } else {
                 // for handling if teacher refresh and user is left the session
                 virtualclass.chat.showChatListUsers();
             }
             virtualclass.chat.setChatDisplay();
-        } else if(virtualclass.jId == virtualclass.gObj.uid){
+        } else if (virtualclass.jId == virtualclass.gObj.uid) {
             virtualclass.chat.setChatDisplay();
         }
 
         var memList = document.querySelector('#memlist');
         var chatrm = document.querySelector('#chatrm');
-        if(memList != null && document.querySelector('#chatroom_bt2.active') == null){
+        if (memList != null && document.querySelector('#chatroom_bt2.active') == null) {
             memList.classList.add("enable");
             memList.classList.remove("disable");
 
 
-            if(chatrm !=  null){
+            if (chatrm != null) {
                 chatrm.classList.remove("enable");
                 chatrm.classList.add("disable")
             }
-        }else {
+        } else {
             memList.classList.remove("enable");
             memList.classList.add("disable");
             var listTab = document.querySelector("#user_list");
             var chatroomTab = document.querySelector("#chatroom_bt2");
 
-            if(chatrm){
-                if(!chatroomTab.classList.contains("active")){
+            if (chatrm) {
+                if (!chatroomTab.classList.contains("active")) {
                     chatroomTab.classList.add("active");
                 }
                 listTab.classList.remove("active")
@@ -247,21 +247,21 @@ function memberUpdate(e, addType) {
         var privateChat = document.querySelector("#virtualclassCont.congrea  .vmchat_bar_button");
         var search = document.querySelector("#virtualclassCont.congrea #congreaUserSearch");
         var chatInput = document.querySelector("#virtualclassCont.congrea  #ta_chrm2");
-        if(privateChat.classList.contains('active')){
+        if (privateChat.classList.contains('active')) {
 
-            if(chatInput){
-                chatInput.style.display="none";
+            if (chatInput) {
+                chatInput.style.display = "none";
             }
 
-            if(search){
-                search.style.display="block";
+            if (search) {
+                search.style.display = "block";
             }
-        }else{
-            if(chatInput){
-                chatInput.style.display="block";
+        } else {
+            if (chatInput) {
+                chatInput.style.display = "block";
             }
-            if(search){
-                search.style.display="none";
+            if (search) {
+                search.style.display = "none";
             }
         }
         updateOnlineUserText();
@@ -271,25 +271,25 @@ function memberUpdate(e, addType) {
 
         })
 
-        var userVid =  document.querySelector( '#chat_div .ui-memblist-usr.mySelf .videoSubWrapper video');
-        if(userVid != null){
+        var userVid = document.querySelector('#chat_div .ui-memblist-usr.mySelf .videoSubWrapper video');
+        if (userVid != null) {
             userVid.play();
         }
     }
 
 
-    if(virtualclass.gObj.delayVid == "display"){
+    if (virtualclass.gObj.delayVid == "display") {
 
         //Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause()
         // By delaying 200 miliseconds we are ensuring that above error is not coming
         setTimeout(
-            function (){
+            function () {
                 virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid)
-            },200
+            }, 200
         );
 
     }
-    virtualclass.gObj.delayVid ="";
+    virtualclass.gObj.delayVid = "";
 }
 
 function messageUpdate(e) {
@@ -320,8 +320,9 @@ function messageUpdate(e) {
                     title: lang.chatroom_header,
                     messageSent: function (user, msg) {
                         var userid = user.userid || virtualclass.gObj.uid
-                        $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg,userid);
-                    }});
+                        $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg, userid);
+                    }
+                });
             }
             $("#chat_room").chatroom("option").messageSent(from, msg);
         }
@@ -355,7 +356,7 @@ function messageUpdate(e) {
             if ($.inArray(from.userid, virtualclass.chat.idList) == -1) {
                 virtualclass.chat.counter++;
                 virtualclass.chat.idList.push(from.userid);
-                if(!virtualclass.chat.vmstorage.hasOwnProperty(from.userid)){
+                if (!virtualclass.chat.vmstorage.hasOwnProperty(from.userid)) {
                     virtualclass.chat.vmstorage[from.userid] = [];
                     virtualclass.chat.vmstorage[from.userid].push({
                         userid: from.userid,
@@ -366,7 +367,7 @@ function messageUpdate(e) {
 
             // In case of history exist
             var chatBox = document.querySelector('#cb' + from.userid);
-            if(chatBox == null){
+            if (chatBox == null) {
                 chatboxManager.addBox(from.userid,
                     {
                         dest: "dest" + virtualclass.chat.counter, // not used in demo
@@ -376,7 +377,7 @@ function messageUpdate(e) {
                         //you can add your own options too
                     });
 
-                if(virtualclass.chat.vmstorage.hasOwnProperty(from.userid) && virtualclass.chat.vmstorage[from.userid].length > 1){
+                if (virtualclass.chat.vmstorage.hasOwnProperty(from.userid) && virtualclass.chat.vmstorage[from.userid].length > 1) {
                     displayUserSinglePvtChatHistory(from.userid);
                 }
             }
@@ -387,7 +388,8 @@ function messageUpdate(e) {
                 user: from,
                 messageSent: function (did, user, msg) {
                     $("#" + did).chatbox("option", "boxManager").addMsg(user.name, msg);
-                }});
+                }
+            });
 
             var chEnable = localStorage.getItem('chatEnable');
             //bad way to check chatEnable
@@ -481,8 +483,9 @@ function displaycomChatHistory() {
                     title: "Common chat",
                     messageSent: function (user, msg) {
                         var userid = user.userid || virtualclass.gObj.uid;
-                        $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg,userid);
-                    }});
+                        $("#chat_room").chatroom("option", "boxManager").addMsg(user.name, msg, userid);
+                    }
+                });
             }
             if (typeof msgobj.msg == 'object') {
                 $("#chat_room").chatroom("option").messageSent(msgobj, msgobj.msg);
@@ -511,12 +514,12 @@ function displayPvtChatHistory(data) {
         virtualclass.chat.idList.push(id);
         $.each(msgarr, function (i, msgobj) {
             if (i < 1) {
-                if(msgobj.hasOwnProperty('box')){
+                if (msgobj.hasOwnProperty('box')) {
                     boxOpen = true
                 }
-                if(boxOpen){
-                    if(id == virtualclass.chat.supportId){
-                        msgobj.name ="support"; // to find alternative
+                if (boxOpen) {
+                    if (id == virtualclass.chat.supportId) {
+                        msgobj.name = "support"; // to find alternative
                     }
                     chatboxManager.addBox(id,
                         {
@@ -533,7 +536,7 @@ function displayPvtChatHistory(data) {
                 }
 
             } else {
-                if(boxOpen){
+                if (boxOpen) {
                     $("#" + id).chatbox("option").messageSent(id, msgobj, msgobj.msg);
                 }
 
@@ -543,9 +546,9 @@ function displayPvtChatHistory(data) {
         boxOpen = false
 
 
-        if(id == virtualclass.chat.supportId){
-            var support = document.getElementById("cb"+virtualclass.chat.supportId);
-            if(support){
+        if (id == virtualclass.chat.supportId) {
+            var support = document.getElementById("cb" + virtualclass.chat.supportId);
+            if (support) {
                 support.classList.add("support");
             }
 
@@ -566,7 +569,7 @@ function display_error(msg) {
     // $("<div id = 'dialog' title = 'VmChat Error:'></div>").prependTo("#stickybar");
     // $("#dialog").html(msg);
     // $('#dialog').dialog();
-    virtualclass.view.createErrorMsg(msg, 'errorContainer', 'chatWidget', {className : 'Unauthenticated'});
+    virtualclass.view.createErrorMsg(msg, 'errorContainer', 'chatWidget', {className: 'Unauthenticated'});
 }
 
 
@@ -627,44 +630,44 @@ function sortUserList(a, b) {
     return 0;
 }
 
-function sortCommonChat(){
+function sortCommonChat() {
     var $wrapper = $('#chat_room');
     $wrapper.find('.ui-chatbox-msg').sort(function (a, b) {
         return +(a.dataset.msgtime) - +(b.dataset.msgtime);
     })
-        .appendTo( $wrapper );
+        .appendTo($wrapper);
 }
 
 
-function displayUserSinglePvtChatHistory(userid){
-    $("#" + userid +" .ui-chatbox-msg").remove();
+function displayUserSinglePvtChatHistory(userid) {
+    $("#" + userid + " .ui-chatbox-msg").remove();
     var msgarr = virtualclass.chat.vmstorage[userid];
-    if(msgarr.length > 1){
+    if (msgarr.length > 1) {
         $.each(msgarr, function (i, msgobj) {
-            if(i > 0){
+            if (i > 0) {
                 $("#" + userid).chatbox("option").messageSent(userid, msgobj, msgobj.msg);
             }
         });
     }
 }
 
-function groupChatImgColor(peer,userid){
-    var bgColor="green";
-    var textColor="white"
+function groupChatImgColor(peer, userid) {
+    var bgColor = "green";
+    var textColor = "white"
     //if( typeof virtualclass.gObj.chatIconColors[userid] == "undefined"){
     var initial = getInitials(peer)
     var user = (userid.toString()) + peer;
-    bgColor = stringToHslColor(user , 60, 35)
+    bgColor = stringToHslColor(user, 60, 35)
     var brightness = virtualclass.vutil.calcBrightness(bgColor);
     if (brightness > 125) {
-        textColor="black";
+        textColor = "black";
     } else {
-        textColor="white";
+        textColor = "white";
     }
-    virtualclass.gObj.chatIconColors[userid] ={
-        bgColor:bgColor,
-        textColor:textColor,
-        initial:initial
+    virtualclass.gObj.chatIconColors[userid] = {
+        bgColor: bgColor,
+        textColor: textColor,
+        initial: initial
     }
     // }
 
@@ -676,9 +679,9 @@ function stringToHslColor(str, s, l) {
     }
 
     var h = hash % 360;
-    return 'hsl('+h+', '+s+'%, '+l+'%)';
+    return 'hsl(' + h + ', ' + s + '%, ' + l + '%)';
 }
-function getInitials (string) {
+function getInitials(string) {
     var names = string.split(' '),
         initials = names[0].substring(0, 1).toUpperCase();
 

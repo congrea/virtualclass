@@ -26,9 +26,9 @@ var videoHost = {
         this.height = height;
         this.gObj.videoSwitch = 1;//nirmala
         console.log("videoSwitch 1");
-        this.gObj.stdStopSmallVid =false;
+        this.gObj.stdStopSmallVid = false;
         this.domReady = false;
-        this.allStdVideoOff=false;
+        this.allStdVideoOff = false;
         if (roles.hasAdmin()) {
 
             this._init();
@@ -42,7 +42,7 @@ var videoHost = {
              }
              }; */
 
-            let canvas  = document.createElement('canvas');
+            let canvas = document.createElement('canvas');
             canvas.id = 'dummyCanvas';
             canvas.width = 40;
             canvas.height = 40;
@@ -63,30 +63,30 @@ var videoHost = {
         }
 
         var rightPanel = document.querySelector('#virtualclassAppRightPanel');
-        if(rightPanel != null){
+        if (rightPanel != null) {
             var teacherVideo = localStorage.getItem('tvideo');
-            if(teacherVideo == null){
+            if (teacherVideo == null) {
                 teacherVideo = 'show';
             }
             rightPanel.classList.add(teacherVideo);
-            if(roles.hasControls()){
+            if (roles.hasControls()) {
                 var swVideo = localStorage.getItem('videoSwitch');
-                if(swVideo && swVideo == "0"){
-                    if(virtualclass.connectedUsers && virtualclass.connectedUsers.length){
-                        virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid );
-                    }else{
-                        virtualclass.gObj.delayVid="display";
+                if (swVideo && swVideo == "0") {
+                    if (virtualclass.connectedUsers && virtualclass.connectedUsers.length) {
+                        virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
+                    } else {
+                        virtualclass.gObj.delayVid = "display";
                     }
                     virtualclass.videoHost.UI.hideTeacherVideo();
                 }
 
-            }else{
+            } else {
                 var swVideo = JSON.parse(localStorage.getItem('stdVideoSwitch'));
-                if(swVideo){
-                    if(virtualclass.connectedUsers && virtualclass.connectedUsers.length){
-                        virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid );
-                    }else{
-                        virtualclass.gObj.delayVid="display";
+                if (swVideo) {
+                    if (virtualclass.connectedUsers && virtualclass.connectedUsers.length) {
+                        virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
+                    } else {
+                        virtualclass.gObj.delayVid = "display";
                     }
                     virtualclass.videoHost.UI.hideTeacherVideo();
 
@@ -97,23 +97,23 @@ var videoHost = {
         }
     },
 
-    renderSelfVideo : function (stream){
-        if(typeof virtualclass.media.tempStream == 'undefined'){
+    renderSelfVideo: function (stream) {
+        if (typeof virtualclass.media.tempStream == 'undefined') {
             console.log('Media attached stream');
             this.getMediaStream(stream);
         }
     },
 
-    isDomReady : function (cb){
+    isDomReady: function (cb) {
         var that = this;
-        if(!this.domReady){
+        if (!this.domReady) {
             this.domreadyCheck = setTimeout(
-                function (){
+                function () {
                     that.isDomReady(cb);
-                },1000
+                }, 1000
             );
-        }else {
-            if(this.domreadyCheck !=  null){
+        } else {
+            if (this.domreadyCheck != null) {
                 clearTimeout(this.domreadyCheck);
             }
             cb();
@@ -150,99 +150,98 @@ var videoHost = {
         }
     },
 
-    stdVideoCtrlMsg:function(data){
+    stdVideoCtrlMsg: function (data) {
         var userid = data.fromUser.userid;
-        if(data.message.stdVideoCtr.videoSwitch) {
+        if (data.message.stdVideoCtr.videoSwitch) {
             this.setUserIcon(userid);
-        }else{
+        } else {
             this.removeUserIcon(userid);
         }
     },
 
-    toggleVideoMsg:function(action){
+    toggleVideoMsg: function (action) {
         var videoSwitchCont = document.querySelector('#congCtrBar');
-        if(action == "enable") {
-            videoSwitchCont.style.pointerEvents ="visible";
+        if (action == "enable") {
+            videoSwitchCont.style.pointerEvents = "visible";
             videoSwitchCont.style.opacity = "1";
-            virtualclass.videoHost.gObj.allStdVideoOff= false;
+            virtualclass.videoHost.gObj.allStdVideoOff = false;
         }
-        else{
+        else {
             videoSwitchCont.style.pointerEvents = "none";
             videoSwitchCont.style.opacity = "0.5";
-            virtualclass.videoHost.gObj.allStdVideoOff= true;
+            virtualclass.videoHost.gObj.allStdVideoOff = true;
         }
     },
-    toggleStdVideoIcon:function(action){
+    toggleStdVideoIcon: function (action) {
         var swCont = document.querySelector(".congrea .videoSwitchCont")
-        var sw  = document.querySelector('.congrea #rightCtlr #videoSwitch');
-         if(action == "enable") {
-             sw.setAttribute("data-action","disable")
-             sw.className ="video on"
-             swCont.setAttribute("data-title","Video off");
+        var sw = document.querySelector('.congrea #rightCtlr #videoSwitch');
+        if (action == "enable") {
+            sw.setAttribute("data-action", "disable")
+            sw.className = "video on"
+            swCont.setAttribute("data-title", "Video off");
         }
-         else{
-             sw.setAttribute("data-action","enable")
-             sw.className ="video off";
-             swCont.setAttribute("data-title","Video on");
+        else {
+            sw.setAttribute("data-action", "enable")
+            sw.className = "video off";
+            swCont.setAttribute("data-title", "Video on");
 
-         }
+        }
     },
 
-    setUserIcon:function(userid){
-        var isVideo = chatContainerEvent.elementFromShadowDom("#ml"+userid+" .user-details a .videoWrapper");
-        if(isVideo){
+    setUserIcon: function (userid) {
+        var isVideo = chatContainerEvent.elementFromShadowDom("#ml" + userid + " .user-details a .videoWrapper");
+        if (isVideo) {
             isVideo.parentNode.removeChild(isVideo);
         }
 
 
-
-        var imgCont = chatContainerEvent.elementFromShadowDom("#ml"+userid+" .user-details a")
-        var imgElem = chatContainerEvent.elementFromShadowDom("#ml"+userid+" .user-details a span") || chatContainerEvent.elementFromShadowDom("#ml"+userid+" .user-details a img");
-        if(!imgElem && imgCont != null){
-            if(virtualclass.gObj.chatIconColors[userid] && !virtualclass.gObj.chatIconColors[userid].savedImg ){
+        var imgCont = chatContainerEvent.elementFromShadowDom("#ml" + userid + " .user-details a")
+        var imgElem = chatContainerEvent.elementFromShadowDom("#ml" + userid + " .user-details a span") || chatContainerEvent.elementFromShadowDom("#ml" + userid + " .user-details a img");
+        if (!imgElem && imgCont != null) {
+            if (virtualclass.gObj.chatIconColors[userid] && !virtualclass.gObj.chatIconColors[userid].savedImg) {
                 var img = document.createElement('span');
-                img.innerHTML= virtualclass.gObj.chatIconColors[userid].initial;
-                img.style.backgroundColor=virtualclass.gObj.chatIconColors[userid].bgColor ;
-                img.style.color=virtualclass.gObj.chatIconColors[userid].textColor ;
+                img.innerHTML = virtualclass.gObj.chatIconColors[userid].initial;
+                img.style.backgroundColor = virtualclass.gObj.chatIconColors[userid].bgColor;
+                img.style.color = virtualclass.gObj.chatIconColors[userid].textColor;
                 img.dataset.event = "ub";
-                img.classList.add('chat-img','media-object');
+                img.classList.add('chat-img', 'media-object');
                 imgCont.appendChild(img);
-            }else if(virtualclass.gObj.chatIconColors[userid] && virtualclass.gObj.chatIconColors[userid].savedImg ){
+            } else if (virtualclass.gObj.chatIconColors[userid] && virtualclass.gObj.chatIconColors[userid].savedImg) {
                 var img = document.createElement('img');
-                img.setAttribute("src",virtualclass.gObj.chatIconColors[userid].savedImg );
-                img.classList.add('chat-img','media-object');
+                img.setAttribute("src", virtualclass.gObj.chatIconColors[userid].savedImg);
+                img.classList.add('chat-img', 'media-object');
                 imgCont.appendChild(img);
-            }else{
+            } else {
                 //todo to add default img
             }
             console.log("set User icon");
-        }else{
+        } else {
             console.log("Image container is null");
         }
     },
-    removeUserIcon:function(userid){
+    removeUserIcon: function (userid) {
         console.log("Remove User icon");
-         if(virtualclass.gObj.uid == userid){// for self
-             var vidContainer = cthis.video.createVideoElement();
+        if (virtualclass.gObj.uid == userid) {// for self
+            var vidContainer = cthis.video.createVideoElement();
 
-             virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
-              var canvas = chatContainerEvent.elementFromShadowDom("#ml"+virtualclass.gObj.uid +" #tempVideo");
-              if(!canvas){
-                  cthis.video.insertTempVideo(vidContainer);
-                  cthis.video.tempVideoInit();
-              }
-             cthis.video.myVideo = chatContainerEvent.elementFromShadowDom("#video" + virtualclass.gObj.uid);
-             cthis.video.myVideo.muted = true;
-             virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.video.tempStream);
-             // cthis.video.myVideo.muted = true;
-             // cthis.stream = cthis.video.tempStream;
-             // cthis.video.myVideo.onloadedmetadata = function () {
-             //     cthis.video.startToStream();
-             //     //virtualclass.precheck.webcam.createVideo();
-             // }
+            virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
+            var canvas = chatContainerEvent.elementFromShadowDom("#ml" + virtualclass.gObj.uid + " #tempVideo");
+            if (!canvas) {
+                cthis.video.insertTempVideo(vidContainer);
+                cthis.video.tempVideoInit();
+            }
+            cthis.video.myVideo = chatContainerEvent.elementFromShadowDom("#video" + virtualclass.gObj.uid);
+            cthis.video.myVideo.muted = true;
+            virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.video.tempStream);
+            // cthis.video.myVideo.muted = true;
+            // cthis.stream = cthis.video.tempStream;
+            // cthis.video.myVideo.onloadedmetadata = function () {
+            //     cthis.video.startToStream();
+            //     //virtualclass.precheck.webcam.createVideo();
+            // }
 
 
-         }
+        }
 
     },
 
@@ -251,20 +250,20 @@ var videoHost = {
     //todo *to be called only if flag  available in localstorage
     //todo to modify later
     fromLocalStorage: function () {
-        var videoSwitch ="";
-        if(roles.hasControls()){
-             videoSwitch = localStorage.getItem("videoSwitch");
-             localStorage.removeItem("videoSwitch");
-        }else{
+        var videoSwitch = "";
+        if (roles.hasControls()) {
+            videoSwitch = localStorage.getItem("videoSwitch");
+            localStorage.removeItem("videoSwitch");
+        } else {
             var stdSwitch = localStorage.getItem("stdVideoSwitch");
-            var stdVideoSwitch = (stdSwitch != null && (stdSwitch != 'undefined'))  ? JSON.parse(stdSwitch) : false;
+            var stdVideoSwitch = (stdSwitch != null && (stdSwitch != 'undefined')) ? JSON.parse(stdSwitch) : false;
 
             localStorage.removeItem("stdVideoSwitch");
 
             let allStdvideo = localStorage.getItem("allStdVideoOff");
 
             var allStdVideoOff = (allStdvideo != null && allStdvideo != 'undefined' ) ? JSON.parse(allStdvideo) : false;
-            virtualclass.videoHost.gObj.allStdVideoOff =allStdVideoOff;
+            virtualclass.videoHost.gObj.allStdVideoOff = allStdVideoOff;
             localStorage.removeItem("stdVideoSwitch");
         }
 
@@ -287,15 +286,15 @@ var videoHost = {
                             console.log('Video controller off');
                             sw.classList.add("off");
                             sw.classList.remove("on");
-                            if(virtualclass.gObj.meetingMode){
+                            if (virtualclass.gObj.meetingMode) {
                                 virtualclass.multiVideo.setVideoStatus(false);
                             }
                         }
                     }
                 }
 
-            }else {
-                if(!virtualclass.gObj.meetingMode){
+            } else {
+                if (!virtualclass.gObj.meetingMode) {
                     if (+videoSwitch) {
                         virtualclass.videoHost.UI.displayTeacherVideo();
                     } else {
@@ -303,26 +302,26 @@ var videoHost = {
                     }
                 }
             }
-           // localStorage.removeItem("videoSwitch");
+            // localStorage.removeItem("videoSwitch");
         }
-        if(!roles.hasControls()){
+        if (!roles.hasControls()) {
             if (typeof stdVideoSwitch != 'undefined' && stdVideoSwitch) {
                 virtualclass.videoHost.gObj.stdStopSmallVid = stdVideoSwitch;
 
-                    if (stdVideoSwitch) {
-                        virtualclass.videoHost.toggleStdVideoIcon('disable');
-                        virtualclass.multiVideo.setVideoStatus(false);
-                    } else {
-                        virtualclass.videoHost.toggleStdVideoIcon('enable');
-                    }
+                if (stdVideoSwitch) {
+                    virtualclass.videoHost.toggleStdVideoIcon('disable');
+                    virtualclass.multiVideo.setVideoStatus(false);
+                } else {
+                    virtualclass.videoHost.toggleStdVideoIcon('enable');
+                }
 
             }
-            if(virtualclass.videoHost.gObj.allStdVideoOff || ! virtualclass.system.mediaDevices.hasWebcam){
+            if (virtualclass.videoHost.gObj.allStdVideoOff || !virtualclass.system.mediaDevices.hasWebcam) {
                 virtualclass.videoHost.toggleVideoMsg('disable');
-            }else{
-                if(virtualclass.gObj.videoEnable) {
+            } else {
+                if (virtualclass.gObj.videoEnable) {
                     virtualclass.videoHost.toggleVideoMsg('enable');
-                }else{
+                } else {
                     virtualclass.videoHost.toggleStdVideoIcon('disable');
                 }
             }
@@ -375,19 +374,19 @@ var videoHost = {
         this.imageSlices = this.getImageSlices(resA, resB);
         var that = this;
 
-        if(videoHost.gObj.hasOwnProperty('shareVideoInterval')){
+        if (videoHost.gObj.hasOwnProperty('shareVideoInterval')) {
             clearInterval(videoHost.gObj.shareVideoInterval);
         }
 
-        videoHost.gObj.shareVideoInterval =  setInterval(
+        videoHost.gObj.shareVideoInterval = setInterval(
             function () {
                 if (that.gObj.videoSwitch) {
-                    if (io.webSocketConnected()&& virtualclass.system.mediaDevices.hasWebcam){
-                       that._shareVideo(that, resA, resB);
+                    if (io.webSocketConnected() && virtualclass.system.mediaDevices.hasWebcam) {
+                        that._shareVideo(that, resA, resB);
                     }
                 }
             },
-        120);
+            120);
     },
 
     _shareVideo: function (that, resA, resB) {
@@ -441,8 +440,8 @@ var videoHost = {
      * @param imgData expects image which has to be drawn
      * @param d expects destination x and y
      */
-    drawReceivedImage : function(imgData, imgType, d) {
-        if(typeof vid0eoPartCont == 'undefined'){
+    drawReceivedImage: function (imgData, imgType, d) {
+        if (typeof vid0eoPartCont == 'undefined') {
             // canvas2 = document.getElementById('mycanvas2');
             this.videoPartCan = document.getElementById('videoParticipate');
             this.videoPartCont = this.videoPartCan.getContext('2d');
@@ -453,34 +452,34 @@ var videoHost = {
         // for sync the audio and video
         var that = this;
 
-        if(typeof virtualclass.media.audio.Html5Audio != 'undefined'){
-               sampleRate = virtualclass.media.audio.Html5Audio.audioContext.sampleRate;
-        }else {
-            if(typeof sampleRate == 'undefined'){
+        if (typeof virtualclass.media.audio.Html5Audio != 'undefined') {
+            sampleRate = virtualclass.media.audio.Html5Audio.audioContext.sampleRate;
+        } else {
+            if (typeof sampleRate == 'undefined') {
                 sampleRate = new (window.AudioContext || window.webkitAudioContext)().sampleRate;
             }
         }
-        if(virtualclass.gObj.isReadyForVideo){
-            if(document.querySelector("#virtualclassCont.congrea #videoHostContainer.hide")){
+        if (virtualclass.gObj.isReadyForVideo) {
+            if (document.querySelector("#virtualclassCont.congrea #videoHostContainer.hide")) {
                 virtualclass.videoHost.UI.displayTeacherVideo();
             }
 
         }
 
         setTimeout(
-            function (){
+            function () {
                 if (virtualclass.isPlayMode || virtualclass.videoHost.gObj.MYSPEED < 3) {
                     if (virtualclass.system.webpSupport || (imgType == "jpeg")) {
                         var img = new Image();
-                        img.onload = function (){
+                        img.onload = function () {
                             that.videoPartCont.drawImage(img, d.x, d.y);
                         };
                         img.src = imgData;
                     } else {
-                        if(virtualclass.gObj.isReadyForVideo){
+                        if (virtualclass.gObj.isReadyForVideo) {
                             virtualclass.gObj.isReadyForVideo = false;
                             loadfile(imgData, that.videoPartCan, that.videoPartCont); // for browsers that do not support webp
-                         }
+                        }
                     }
                 }
             }, 260 //((4096/sampleRate)*1000*3)
@@ -577,8 +576,8 @@ var videoHost = {
             btn.innerHTML = virtualclass.lang.getString('prechkcmplt');
         }
 
-        var skip =   document.querySelector('#preCheckcontainer .skip');
-        if(skip){
+        var skip = document.querySelector('#preCheckcontainer .skip');
+        if (skip) {
             skip.addEventListener('click', function () {
                 micTesting.makeAudioEmpty();
                 var virtualclassPreCheck = document.getElementById('preCheckcontainer');
@@ -595,13 +594,13 @@ var videoHost = {
     //nirmala
     _resetPrecheck: function () {
         var pbar = document.querySelectorAll('#congProgressbar .active');
-        for(var i=0; i<pbar.length; i++){
-             if(i>0){
-                 pbar[i].classList.remove('active');
-             }
+        for (var i = 0; i < pbar.length; i++) {
+            if (i > 0) {
+                pbar[i].classList.remove('active');
+            }
         }
 
-        if (pbar.length >0) {
+        if (pbar.length > 0) {
             var matches = document.querySelectorAll("#myModal .precheck");
             var precheckElems = [].slice.call(matches, 0);
             precheckElems.forEach(function (item) {
@@ -615,7 +614,7 @@ var videoHost = {
             if (virtualclass.precheck.totalTest) {
                 virtualclass.precheck.totalTest.forEach(function (elem) {
                     if (typeof virtualclass.precheck[elem] != 'undefined' && virtualclass.precheck[elem].hasOwnProperty('alreadyDone')) {
-                        if(elem == 'mic'){
+                        if (elem == 'mic') {
                             delete virtualclass.precheck[elem].alreadyDone;
                         }
 
@@ -625,11 +624,11 @@ var videoHost = {
             }
         }
 
-   },
+    },
 
     UI: {
         displayTeacherVideo: function () {
-            if(!virtualclass.gObj.meetingMode){
+            if (!virtualclass.gObj.meetingMode) {
                 var host = document.querySelector(".congrea #videoHostContainer");
                 host.classList.add("show")
                 host.classList.remove("hide");
@@ -641,7 +640,7 @@ var videoHost = {
         },
 
         hideTeacherVideo: function () {
-            if(!virtualclass.gObj.meetingMode){
+            if (!virtualclass.gObj.meetingMode) {
                 var host = document.querySelector(".congrea #videoHostContainer");
                 host.classList.remove("show");
                 host.classList.add("hide");

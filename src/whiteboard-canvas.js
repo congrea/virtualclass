@@ -11,7 +11,7 @@
      * eg:- vcan.extend(), eg:- vcan.main.currentTransform
      */
 
-    function Vcan(){
+    function Vcan() {
         var vcan = {
             //TODO these are constant value should be at proper place
             // cmdWrapperDiv: 'commandToolsWrapper',
@@ -158,7 +158,7 @@
 
             },
 
-            normalDisplay : function (i){
+            normalDisplay: function (i) {
                 console.log('Whiteboard index ' + i);
                 if (vcan.main.children[i].type == 'freeDrawing') {
                     vcan.fhdRender(ctx, vcan.main.children[i]);
@@ -167,7 +167,7 @@
                 }
             },
 
-            displayPdfWhiteboard : function (){
+            displayPdfWhiteboard: function () {
                 var length = vcan.main.children.length;
                 if (length) {
                     var vcanvas = vcan.main.canvas;
@@ -176,7 +176,7 @@
                         // console.log('Whiteboard index ' + i);
                         if (vcan.main.children[i].type == 'pdf') {
                             console.log('Pdf, Render the data, that should not be a');
-                        }else if (vcan.main.children[i].type == 'freeDrawing') {
+                        } else if (vcan.main.children[i].type == 'freeDrawing') {
                             vcan.fhdRender(ctx, vcan.main.children[i]);
                         } else {
                             vcan.render(ctx, vcan.main.children[i]);
@@ -316,7 +316,7 @@
          *  this function is created after store the objects into local storage
          *  that we can not pass the function into JSON.strinfigy for multi user
          * */
-            //TODO this function should be into free draw object
+        //TODO this function should be into free draw object
         vcan.fhdRender = function (ctx, obj, noTransform) {
             ctx.save();
             var m = obj.transformMatrix;

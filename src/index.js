@@ -425,19 +425,7 @@ $(document).ready(function () {
             delete virtualclass.gObj['doEndSession'];
         }
 
-        function processImage(msg, vtype) {
-            var data_pack = new Uint8ClampedArray(msg);
-            var recmsg = data_pack.subarray(2, data_pack.length);
-            if(vtype == 1){
-                var b64encoded = "data:image/webp;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg));
-                var imgType = "webp";
-            }else {
-                var b64encoded = "data:image/jpeg;base64," + btoa(virtualclass.videoHost.Uint8ToString(recmsg));
-                var imgType = "jpeg";
-            }
 
-            virtualclass.videoHost.drawReceivedImage(b64encoded, imgType, {x: 0, y: 0});
-        }
 
         function clearEverthing() {
             localStorage.removeItem('editorRich');

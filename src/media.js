@@ -705,7 +705,7 @@
                     }
 
                     if (typeof workletAudioRec != 'object') {
-                        cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath + 'worker/worklet-audio-rec.js').then(() => {
+                        cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(workletAudioRecBlob).then(() => {
                             // Setup the connection: Port 1 is for worker 1
                             if (typeof initchannel == 'undefined') {
 
@@ -921,7 +921,7 @@
                     }
                     if (typeof stream != 'undefined' && stream != null) {
                         console.log('Audio worklet init add module');
-                        cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(whiteboardPath + 'worker/worklet-audio-send.js').then(() => {
+                        cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(workletAudioSendBlob).then(() => {
 
                             let audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
 

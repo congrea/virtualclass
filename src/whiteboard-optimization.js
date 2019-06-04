@@ -44,24 +44,24 @@
                     }
                 }
 
-                if (((typeof lastmousemovetime == 'undefined') || (lastmousemovetime == null))) {
-                    lastmousemovetime = new Date().getTime();
+                if (((typeof virtualclass.gObj.lastmousemovetime == 'undefined') || (virtualclass.gObj.lastmousemovetime == null))) {
+                    virtualclass.gObj.lastmousemovetime = new Date().getTime();
                     if (!e.detail.hasOwnProperty('cevent')) {
-                        vcan.optimize.calculatePackets(lastmousemovetime, 'm', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
+                        vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
                     }
                 }
 
-                presentmousemovetime = new Date().getTime();
+                virtualclass.gObj.presentmousemovetime = new Date().getTime();
 
-                if ((presentmousemovetime - lastmousemovetime) >= 2000) {	 // Optimized
+                if ((virtualclass.gObj.presentmousemovetime - virtualclass.gObj.lastmousemovetime) >= 2000) {	 // Optimized
                     var currTime = new Date().getTime();
                     if (!e.detail.hasOwnProperty('cevent')) {
-                        vcan.optimize.calculatePackets(lastmousemovetime, 'm', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
-                        // vcan.optimize.calculatePackets(lastmousemovetime, 'm', (e.clientX), (e.clientY));
+                        vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
+                        // vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', (e.clientX), (e.clientY));
                     }
-                    vcan.optimize.calculatePackets(lastmousemovetime, 'm', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
-                    // vcan.optimize.calculatePackets(lastmousemovetime, 'm', (e.clientX), (e.clientY));
-                    lastmousemovetime = new Date().getTime();
+                    vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
+                    // vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', (e.clientX), (e.clientY));
+                    virtualclass.gObj.lastmousemovetime = new Date().getTime();
                 }
             },
 

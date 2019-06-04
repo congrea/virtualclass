@@ -80,15 +80,15 @@
                     var wrapperWidth = canvas.parentNode.offsetWidth;
 
 
-                    // this.canvasScale = this.canvasScale * SCALE_FACTOR;
+                    // this.canvasScale = this.canvasScale * virtualclass.gObj.SCALE_FACTOR;
 
                     // console.log('Canvas pdf scale ' + this.canvasScale);
 
-                    // var actualWidth = virtualclass.vutil.getWidth(canvas) * SCALE_FACTOR;
-                    // var actualHeight = virtualclass.vutil.getHeight(canvas) * SCALE_FACTOR;
+                    // var actualWidth = virtualclass.vutil.getWidth(canvas) * virtualclass.gObj.SCALE_FACTOR;
+                    // var actualHeight = virtualclass.vutil.getHeight(canvas) * virtualclass.gObj.SCALE_FACTOR;
 
-                    var actualWidth = virtualclass.zoom.canvasDimension.width * SCALE_FACTOR;
-                    var actualHeight = virtualclass.zoom.canvasDimension.height * SCALE_FACTOR;
+                    var actualWidth = virtualclass.zoom.canvasDimension.width * virtualclass.gObj.SCALE_FACTOR;
+                    var actualHeight = virtualclass.zoom.canvasDimension.height * virtualclass.gObj.SCALE_FACTOR;
 
                     virtualclass.zoom.canvasDimension.width = actualWidth;
                     virtualclass.zoom.canvasDimension.height = actualHeight;
@@ -99,8 +99,8 @@
                         virtualclass.pdfRender[wid]._zoom.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
                     }
                     // if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
-                    //     zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width * SCALE_FACTOR;
-                    //     zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height *  SCALE_FACTOR;
+                    //     zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width * virtualclass.gObj.SCALE_FACTOR;
+                    //     zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height *  virtualclass.gObj.SCALE_FACTOR;
                     // }
 
                 }
@@ -116,12 +116,12 @@
                 var wrapperWidth = canvas.parentNode.offsetWidth;
 
 
-                // this.canvasScale = this.canvasScale / SCALE_FACTOR;
+                // this.canvasScale = this.canvasScale / virtualclass.gObj.SCALE_FACTOR;
                 console.log('Canvas pdf scale ' + this.canvasScale);
 
 
-                var actualWidth = virtualclass.zoom.canvasDimension.width * (1 / SCALE_FACTOR);
-                var actualHeight = virtualclass.zoom.canvasDimension.height * (1 / SCALE_FACTOR);
+                var actualWidth = virtualclass.zoom.canvasDimension.width * (1 / virtualclass.gObj.SCALE_FACTOR);
+                var actualHeight = virtualclass.zoom.canvasDimension.height * (1 / virtualclass.gObj.SCALE_FACTOR);
 
                 virtualclass.zoom.canvasDimension.width = actualWidth;
                 virtualclass.zoom.canvasDimension.height = actualHeight;
@@ -134,8 +134,8 @@
                 virtualclass.pdfRender[wid]._zoomOut.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
 
                 // if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
-                //     zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width / SCALE_FACTOR;
-                //     zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height / SCALE_FACTOR;
+                //     zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width / virtualclass.gObj.SCALE_FACTOR;
+                //     zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height / virtualclass.gObj.SCALE_FACTOR;
                 // }
                 //
             },
@@ -227,9 +227,9 @@
                 delete virtualclass.zoom.performZoom;
                 if (typeof virtualclass.pdfRender[wid].shownPdf == 'object') {
                     if (virtualclass.zoom.canvasScale != null) {
-                        // virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / SCALE_FACTOR;
-                        virtualclass.zoom.canvasDimension.width = virtualclass.zoom.canvasDimension.width / SCALE_FACTOR;
-                        virtualclass.zoom.canvasDimension.height = virtualclass.zoom.canvasDimension.height / SCALE_FACTOR;
+                        // virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / virtualclass.gObj.SCALE_FACTOR;
+                        virtualclass.zoom.canvasDimension.width = virtualclass.zoom.canvasDimension.width / virtualclass.gObj.SCALE_FACTOR;
+                        virtualclass.zoom.canvasDimension.height = virtualclass.zoom.canvasDimension.height / virtualclass.gObj.SCALE_FACTOR;
                         console.log('Canvas pdf scale ' + this.canvasScale);
                         // if(zoomWhiteboard == null){
                         //     virtualclass.zoom.zoomIn('normalRender');

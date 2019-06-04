@@ -1,4 +1,4 @@
-Server = (function (global) {
+var Server = (function (global) {
     'use strict';
 
     // Constructor. Takes the current document as a string and optionally the array

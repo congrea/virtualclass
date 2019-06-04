@@ -3,12 +3,13 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-    // var meeting = window.meeting
-    userStreams = {};
+    "use strict";
+    var _remoteStream, apc, opc;
+    var userStreams = {};
     var MultiVideo = {
         init: function () {
 
-            pc_config = {
+            var pc_config = {
                 iceServers: [
                     {urls: ['stun:turn.congrea.net']},
                     {
@@ -78,10 +79,10 @@
 
             virtualclass.multiVideo.localStream = virtualclass.media.video.tempStream;
 
-            _localStream = virtualclass.multiVideo.localStream;
+            var _localStream = virtualclass.multiVideo.localStream;
 
             console.log('multivideo, add get user media ');
-            selfView = document.querySelector('#videoConfrence .multilocalVideo');
+            var selfView = document.querySelector('#videoConfrence .multilocalVideo');
             // selfView.src = URL.createObjectURL(virtualclass.multiVideo.localStream);
 
             virtualclass.adpt.attachMediaStream(selfView, virtualclass.multiVideo.localStream);
@@ -378,7 +379,7 @@
         virtualclass.multiVideo.removeUser(userid);
         //remove jquery
         var $videoCont = $("<div class='videoCont remoteVideo'  id='vid" + userid + "' data-userid='" + userid + "' data-totaluser=''></div>");
-        $video = $("<video  class='videoBox' autoplay></video>");
+        var $video = $("<video  class='videoBox' autoplay></video>");
         $video.attr({"src": window.URL.createObjectURL(stream), "autoplay": "autoplay"});
         $videoCont.append($video);
         $('#videosWrapper').append($videoCont);

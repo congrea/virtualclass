@@ -86,7 +86,7 @@
                 }
 
                 var vcan = wb.vcan;
-                lastmousemovetime = null;
+                virtualclass.gObj.lastmousemovetime = null;
                 // tool.startPosX = ev.currX + scrollPos;
                 // tool.startPosY = ev.currY + scrollPosY;
 
@@ -177,9 +177,9 @@
 
                             if (!ev.detail.hasOwnProperty('cevent') || (ev.detail.hasOwnProperty('cevent') && ev.detail.hasOwnProperty('broadCast'))) {
                                 if (typeof mouseup == 'undefined') {
-                                    if (((typeof lastmousemovetime == 'undefined') || (lastmousemovetime == null))) {
-                                        lastmousemovetime = new Date().getTime();
-                                        vcan.optimize.calculatePackets(lastmousemovetime, 'm', ev.currX, ev.currY);
+                                    if (((typeof virtualclass.gObj.lastmousemovetime == 'undefined') || (virtualclass.gObj.lastmousemovetime == null))) {
+                                        virtualclass.gObj.lastmousemovetime = new Date().getTime();
+                                        vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', ev.currX, ev.currY);
                                     }
                                 }
 
@@ -195,8 +195,8 @@
                                 dataChunk.push(obj);
 
                                 if (typeof mouseup == 'undefined') {
-                                    presentmousemovetime = new Date().getTime();
-                                    if ((presentmousemovetime - lastmousemovetime) >= 2000) {	 // Optimized
+                                    virtualclass.gObj.presentmousemovetime = new Date().getTime();
+                                    if ((virtualclass.gObj.presentmousemovetime - virtualclass.gObj.lastmousemovetime) >= 2000) {	 // Optimized
                                         for (var i = 0; i < dataChunk.length; i++) {
                                             wb.uid++;
                                             dataChunk[i].uid = wb.uid;
@@ -208,7 +208,7 @@
                                         virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
 
                                         dataChunk = [];
-                                        lastmousemovetime = new Date().getTime();
+                                        virtualclass.gObj.lastmousemovetime = new Date().getTime();
                                     }
                                 }
 
@@ -237,21 +237,21 @@
 
                         var currTime = new Date().getTime();
 
-                        if ((typeof lastmousemovetime == 'undefined') || (lastmousemovetime == null)) {
-                            lastmousemovetime = new Date().getTime();
+                        if ((typeof virtualclass.gObj.lastmousemovetime == 'undefined') || (virtualclass.gObj.lastmousemovetime == null)) {
+                            virtualclass.gObj.lastmousemovetime = new Date().getTime();
                             if ((!ev.detail.hasOwnProperty('cevent') ||
                                 (ev.detail.hasOwnProperty('cevent') && ev.detail.hasOwnProperty('broadCast'))) && objType != 'text' && wb.tool.cmd != 't_clearall') {
                                 vcan.optimize.calculatePackets(currTime, 'm', endPosX, endPosY);
                             }
                         }
 
-                        presentmousemovetime = new Date().getTime();
-                        if ((presentmousemovetime - lastmousemovetime) >= 2000) { // Optimized
+                        virtualclass.gObj.presentmousemovetime = new Date().getTime();
+                        if ((virtualclass.gObj.presentmousemovetime - virtualclass.gObj.lastmousemovetime) >= 2000) { // Optimized
                             if ((!ev.detail.hasOwnProperty('cevent') ||
                                 (ev.detail.hasOwnProperty('cevent') && ev.detail.hasOwnProperty('broadCast'))) && objType != 'text' && wb.tool.cmd != 't_clearall') {
                                 vcan.optimize.calculatePackets(currTime, 'm', endPosX, endPosY);
                             }
-                            lastmousemovetime = new Date().getTime();
+                            virtualclass.gObj.lastmousemovetime = new Date().getTime();
                         }
 
                         /****
@@ -297,7 +297,7 @@
                 endPosX = ev.currX;
                 endPosY = ev.currY;
 
-                lastmousemovetime = null;
+                virtualclass.gObj.lastmousemovetime = null;
                 if (tool.started && objType != 'text') {
                     tool.mousemove(ev, 'up');
                     if ((!ev.detail.hasOwnProperty('cevent') ||

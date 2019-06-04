@@ -6,11 +6,11 @@
 <style>
      @font-face {
               font-family: 'icomoon';
-              src:url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.eot?-jjdyd0');
-              src:url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'),
-              url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.woff?-jjdyd0') format('woff'),
-              url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'),
-              url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+              src:url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.eot?-jjdyd0');
+              src:url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'),
+              url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.woff?-jjdyd0') format('woff'),
+              url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'),
+              url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
               font-weight: normal;
               font-style: normal;
           }
@@ -55,7 +55,7 @@ function get_string($phrase) {
 
 //the www path for virtualclass
 
-$whiteboardpath = "https://local.vidya.io/virtualclass/";
+$whiteboardpath = "https://live.congrea.net/virtualclass/";
 
 $cont_class = 'congrea ';
 
@@ -134,7 +134,7 @@ $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 $lname = isset($_GET['lname']) ? $_GET['lname'] : ' ';
 
 // Set 1 to add source file else 0 to min file
-$info = 0;
+$info = 1;
 $audio_disabled_completely = true;
 $cmid = 5;
 

@@ -7,6 +7,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worker-audio-send.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worklet-audio-send.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worklet-audio-rec.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/webptopng.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave-mic.js"></script>
@@ -27,6 +28,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/vhcheck.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/shadow-dom.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>

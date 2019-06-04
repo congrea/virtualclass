@@ -2,7 +2,7 @@
 /**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
-newScrollVal = 0;
+var newScrollVal = 0;
 (function (window) {
 
     function vcanUtility(id) {

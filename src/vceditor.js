@@ -7,7 +7,8 @@
  * Version 0.0.1
  */
 
-var Vceditor = (function () {
+var Vceditor = (function (window) {
+    "use strict";
     var vceditor = vceditor || {};
     vceditor.utils = window.utils;
 
@@ -18,9 +19,9 @@ var Vceditor = (function () {
     vceditor.TextOp = window.TextOp;
     vceditor.TextOperation = window.TextOperation;
 
-    if (typeof module === 'object') {
-        module.exports = vceditor.TextOperation;
-    }
+    // if (typeof module === 'object') {
+    //     module.exports = vceditor.TextOperation;
+    // }
 
     // TODO: Rewrite this (probably using a splay tree) to be efficient.  Right now it's based on a linked list
     // so all operations are O(n), where n is the number of spans in the list.
@@ -1403,7 +1404,8 @@ var Vceditor = (function () {
     var vceditor = vceditor || {};
 
 // TODO: Can this derive from CodeMirrorAdapter or similar?
-    vceditor.RichTextCodeMirrorAdapter = window.RichTextCodeMirrorAdapter;
+    // vceditor.RichTextCodeMirrorAdapter = window.RichTextCodeMirrorAdapter;
+    vceditor.RichTextCodeMirrorAdapter = vceditor.Client;
 
     var vceditor = vceditor || {};
 
@@ -2142,7 +2144,7 @@ var Vceditor = (function () {
 
 
         return Vceditor;
-    })(this);
+    })(window);
 
 // Export Text classes
     vceditor.Vceditor.Formatting = vceditor.Formatting;
@@ -2165,7 +2167,7 @@ var Vceditor = (function () {
     }
 
     return vceditor.Vceditor;
-})();
+})(window);
 
 window.Vceditor = Vceditor;
 

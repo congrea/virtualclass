@@ -16,7 +16,7 @@ function WebPDecDemo(canvasId) {
         img = document.createElement("img");
 
 
-    WebPDecodeAndDraw = function (data, canvas, context) {
+    var WebPDecodeAndDraw = function (data, canvas, context) {
         if (!!window.Worker) {
             webpToPng.postMessage({
                 vdata: data,
@@ -113,7 +113,7 @@ function WebPDecDemo(canvasId) {
         }, sleep);
     }
 
-    WebPIDecodeAndDraw = function (data) {
+    var WebPIDecodeAndDraw = function (data) {
         clearTimeout(active);
         if (isNaN(parseInt(IncrementalDecBufferSizeBtn.value))) return;
         if (isNaN(parseInt(IncrementalDecSleepBtn.value))) return;

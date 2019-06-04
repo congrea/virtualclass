@@ -1,7 +1,8 @@
 (
-//$ is stands for jQuery
     function (window, $) {
         var Chat = function () {
+            "use strict";
+            var tabs;
             var my_calculateChatHeight = null;
             return {
                 userList: [],
@@ -296,7 +297,7 @@
                     console.log("Chat box is  null");
 
                     // delete open chat box
-                    for (key in io.uniquesids) {
+                    for (let key in io.uniquesids) {
                         if (key != io.cfg.userid) {
                             chatboxManager.delBox(key);
                             $("li#tabcb" + key).remove(); //delete tab

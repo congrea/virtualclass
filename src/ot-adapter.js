@@ -1,4 +1,4 @@
-otAdapter = function () {
+var otAdapter = function () {
     'use strict';
     otAdapter.myrequestData = 0;
     otAdapter.myOTrequestData = 0;

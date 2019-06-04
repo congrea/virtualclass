@@ -5,6 +5,7 @@
 (function (window) {
 
     function Mouse(id) {
+        var canvasElement;
         var vcan = virtualclass.wb[id].vcan;
         vcan.mouse = function () {
             return {
@@ -17,6 +18,7 @@
                  * eg: mousedown, mouseup
                  */
                 bindHandlers: function () {
+
                     console.log("Whiteboard ");
                     canvasElement = vcan.main.canvas;
                     //TODO the types should be store into main/core funtion
@@ -98,7 +100,7 @@
                         e.currY = e.detail.cevent.y;
                     }
 
-                    lastmousemovetime = null;
+                    virtualclass.gObj.lastmousemovetime = null;
                     this.moveChunk = []; //todo this should be remove
 
                     if (vcan.main.action == 'move') {
@@ -335,7 +337,7 @@
                         e.currY = e.detail.cevent.y;
                     }
 
-                    lastmousemovetime = null;
+                    virtualclass.gObj.lastmousemovetime = null;
                     if (vcan.main.action == 'move') {
                         vcan.activMouse.mousemove(e);
                         var mainCan = vcan.main;

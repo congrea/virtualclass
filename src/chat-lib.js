@@ -7,7 +7,7 @@ var chatResults = [];
 //TODO, displayChatUserList and displayChatOfflineUserList should be merged into one function
 var myDivResult = "";
 var checkChatDisabled = false;
-
+var tmpmyDivResult;
 
 function displayChatUserList(totUsers) {
     if (!virtualclass.gObj.hasOwnProperty('insertUser')) {

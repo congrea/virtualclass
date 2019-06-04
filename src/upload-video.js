@@ -139,7 +139,7 @@
                 var sortedItems = [];
 
                 var orderChange = false;
-                for (j = 0; j < videos.length; j++) {
+                for (var j = 0; j < videos.length; j++) {
                     if (order.indexOf(videos[j].fileuuid) <= -1) {
                         order.push(videos[j].fileuuid);
                         orderChange = true;

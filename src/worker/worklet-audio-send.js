@@ -5,7 +5,10 @@
  * send it to send audio worker (worker-audio-send.js)
  */
 
+var $jscomp = $jscomp || {};
 
+/** @const Locals for goog.scope */
+$jscomp.scope = {};
 
 var workletAudioSendBlob = URL.createObjectURL(new Blob(['(', function (){
     class workletAudioSend extends AudioWorkletProcessor {

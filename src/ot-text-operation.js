@@ -9,7 +9,7 @@
  *
  */
 (function (window) {
-    TextOperation = (function () {
+    var TextOperation = (function () {
         'use strict';
         //var TextOp = vceditor.TextOp;
         //var utils = vceditor.utils;

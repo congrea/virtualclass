@@ -7,6 +7,7 @@
  * 
  */
 window.addEventListener('message', function (event) {
+    "use strict";
     if (event.origin != window.location.origin) {
         return;
     }
@@ -50,7 +51,7 @@ window.addEventListener('message', function (event) {
                 };
 
             virtualclass.adpt = new virtualclass.adapter();
-            navigator2 = virtualclass.adpt.init(navigator);
+            let navigator2 = virtualclass.adpt.init(navigator);
             navigator2.getUserMedia(constraints, function (stream) {
                 virtualclass.ss._init();
                 //if(roles.hasControls()){

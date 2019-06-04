@@ -7,6 +7,7 @@
  */
 
 (function (window) {
+    "use strict";
     var firstTime = true;
     var io = window.io;
     var documentShare = function () {
@@ -1410,7 +1411,7 @@
                             if (currNodeId != lastElement) {
                                 var currElem = document.querySelector('#documentScreen #note' + currNodeId);
                                 if (currElem != null) {
-                                    nextSlide = currElem.nextElementSibling;
+                                    var nextSlide = currElem.nextElementSibling;
                                     if (nextSlide != null) {
                                         if ((+nextSlide.dataset.status) == 0) {
                                             var activeSlide = this.getActiveSlide(cthis, currNodeId, 'next');
@@ -1541,7 +1542,7 @@
                          */
                         isWhiteboardExist: function (slide) {
                             var wbContId = 'containerWb_doc_' + slide + '_' + slide;
-                            wbCont = document.querySelector('#' + wbContId);
+                            var wbCont = document.querySelector('#' + wbContId);
                             return (wbCont != null);
                         }
                     }
@@ -2028,7 +2029,7 @@
 
             getAllNotes: function (order) {
                 var result = [];
-                for (i = 0; i < order.length; i++) {
+                for (var i = 0; i < order.length; i++) {
                     result.push(this.allNotes[order[i]]);
                 }
                 return result;

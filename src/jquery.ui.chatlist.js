@@ -9,6 +9,8 @@
 
 // Display online user list
 (function ($) {
+    "use strict";
+    var uiChatboxContent, uiChatboxLog;
     $.widget("ui.memberlist", {
         options: {
             id: null, //id for the DOM element

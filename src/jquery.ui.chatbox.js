@@ -14,6 +14,8 @@
 
 // TODO: implement destroy()
 (function ($) {
+    "use strict";
+    var uiChatboxTitlebar;
     $.widget("ui.chatbox", {
         options: {
             id: null, //id for the DOM element
@@ -212,7 +214,7 @@
                     .appendTo(uiChatboxInput)
                     .keypress(function (event) {
                         if (event.keyCode && event.keyCode == $.ui.keyCode.ENTER) {
-                            msg = $.trim($(this).val());
+                            var msg = $.trim($(this).val());
                             if (msg.length > 0) {
 
                                 ioAdapter.mustSendUser({'msg': msg, 'cf': 'msg'}, self.options.id); // userid=self.options.id

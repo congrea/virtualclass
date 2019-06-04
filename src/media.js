@@ -8,6 +8,8 @@
  */
 
 (function (window) {
+    "use strict";
+    var repMode, buf, vidId, randomTime, cthis;
 
     var audioToBePlay = {};
     var aChunksPlay = {};
@@ -799,12 +801,12 @@
                             var output = event.outputBuffer.getChannelData(0);
                             var newAud = that.getMergedAudio();
                             if (newAud !== null && newAud !== undefined) {
-                                for (i = 0; i < newAud.length; i++) {
+                                for (var i = 0; i < newAud.length; i++) {
                                     output[i] = newAud[i];
                                 }
                                 snNodePak = newAud[4095];
                             } else {
-                                for (i = 0; i < output.length; i++) {
+                                for (var i = 0; i < output.length; i++) {
                                     output[i] = snNodePak;
                                 }
                             }

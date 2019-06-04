@@ -1,8 +1,6 @@
 (function (window) {
     window.virtualclass = function () {
-
-        // canvasScale = 1; //global
-        SCALE_FACTOR = 1.02;//global 18/05/2015
+        "use strict";
         var dstData = null;
         var playMode = (wbUser.virtualclassPlay != '' ? parseInt(wbUser.virtualclassPlay, 10) : 0);
         var studentSSstatus = localStorage.getItem('studentSSstatus');
@@ -48,6 +46,7 @@
             pdfRender: {},
             clearGlobalLock: '',
             gObj: {
+                SCALE_FACTOR : 1.02,
                 next: {}, //prefetch next pdf
                 uid: window.wbUser.id,
                 uRole: window.wbUser.role,
@@ -93,7 +92,8 @@
                 sendAudioStatus: false,
                 audioRecWorkerReady: false,
                 wbTool: {},
-                fullScreenMode: false
+                fullScreenMode: false,
+                lastmousemovetime : null,
             },
 
             enablePreCheck: true,
@@ -1339,8 +1339,6 @@
                     // DON'T attach editor code tool
                     if (allAppOptions[i].id != 'virtualclassEditorCodeTool') {
                         var that = this;
-                        clickedAnchor = anchTag;
-
                         anchTag.onclick = function () {
                             that.initlizer(this);
                         };

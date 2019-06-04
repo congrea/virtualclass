@@ -1,4 +1,6 @@
 (function (window) {
+    "use strict";
+    var displayCb = null;
     function pdfRender() {
         return {
             firstTime: true,
@@ -660,7 +662,7 @@
                 var that = this;
                 this.displayPage(this.shownPdf, 1, function () {
                     // that.zoomOutWhiteboardObjects(virtualclass.gObj.currWb);
-                    for (wid in virtualclass.pdfRender) {
+                    for (var wid in virtualclass.pdfRender) {
                         that.zoomOutWhiteboardObjects(wid);
                     }
                 });
@@ -681,7 +683,7 @@
 
                 if (this.shownPdf !== " ") {
                     this.displayPage(this.shownPdf, 1, function () {
-                        for (wid in virtualclass.pdfRender) {
+                        for (var wid in virtualclass.pdfRender) {
                             that.fitToScreenWhiteboardObjects(wid);
                         }
 

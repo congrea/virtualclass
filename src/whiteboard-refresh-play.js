@@ -3,7 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-    _replay = function () {
+    var _replay = function () {
         return {
             init: function (repMode, myfunc) {
                 var vcan = virtualclass.wb[virtualclass.gObj.currWb].vcan;

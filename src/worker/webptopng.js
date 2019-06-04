@@ -1,6 +1,6 @@
 var webpToPngBlob = URL.createObjectURL(new Blob(['(', function (){
 
-    importScripts('https://live.congrea.net/virtualclass/external/build/src/video-libwebp-0.1.3.min.js');
+    importScripts('https://live.congrea.net/virtualclass/build/src/video-libwebp-0.1.3.min.js');
 
     onmessage = function (e) {
         var mdata;

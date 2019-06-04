@@ -2,7 +2,8 @@
 /**@Copyright 2015  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
-
+"use strict";
+var prvTimeout;
 var progressBar = {
     prvVal: '',
     currVal: '',

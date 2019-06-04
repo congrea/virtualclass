@@ -9,7 +9,7 @@
  *
  */
 (function (window) {
-    RichTextCodeMirrorAdapter = (function () {
+    var RichTextCodeMirrorAdapter = (function () {
         'use strict';
 
         //var TextOperation = vceditor.TextOperation;

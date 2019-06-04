@@ -4855,7 +4855,7 @@
                             element.play();
                         };
 
-                        reattachMediaStream = function (to, from) {
+                        var reattachMediaStream = function (to, from) {
                             console.log("Reattaching media stream");
                             to.mozSrcObject = from.mozSrcObject;
                             to.play();
@@ -4874,7 +4874,7 @@
                             this.videoAdd = true;
                         };
 
-                        reattachMediaStream = function (to, from) {
+                        var reattachMediaStream = function (to, from) {
                             to.src = from.src;
                         };
 

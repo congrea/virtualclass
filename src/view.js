@@ -275,9 +275,6 @@
     };
     view = view.init();
 
-    count = 0;
-
-
     view.window.resizeFinished = (function () {
         var timer = 0;
         return function (callback, ms) {

@@ -220,8 +220,10 @@ var videoHost = {
     }
   },
   removeUserIcon: function (userid) {
+    let cthis =  virtualclass.media.video;
     console.log("Remove User icon");
     if (virtualclass.gObj.uid == userid) {// for self
+
       var vidContainer = cthis.video.createVideoElement();
 
       virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
@@ -233,14 +235,6 @@ var videoHost = {
       cthis.video.myVideo = chatContainerEvent.elementFromShadowDom("#video" + virtualclass.gObj.uid);
       cthis.video.myVideo.muted = true;
       virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.video.tempStream);
-      // cthis.video.myVideo.muted = true;
-      // cthis.stream = cthis.video.tempStream;
-      // cthis.video.myVideo.onloadedmetadata = function () {
-      //     cthis.video.startToStream();
-      //     //virtualclass.precheck.webcam.createVideo();
-      // }
-
-
     }
 
   },

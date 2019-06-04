@@ -1,3 +1,4 @@
+"use strict";
 var precheck = {
   currTest: "",
   playTestAudio: false,

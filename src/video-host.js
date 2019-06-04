@@ -5,11 +5,11 @@
  * firefox as well
  */
 
+"use strict";
+
 var BASE64_MARKER = ';base64,';
 var videoHost = {
   gObj: {},
-
-
   setDefaultValue: function (speed) {
     virtualclass.videoHost.gObj.MYSPEED = speed || 1;
     virtualclass.videoHost.gObj.teacherVideoQuality = this.getTeacherVideoQuality();
@@ -430,7 +430,7 @@ var videoHost = {
     var rawLength = raw.length;
     var array = new Uint8Array(new ArrayBuffer(rawLength));
 
-    for (i = 0; i < rawLength; i++) {
+    for (var i = 0; i < rawLength; i++) {
       array[i] = raw.charCodeAt(i);
     }
     return array;

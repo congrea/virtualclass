@@ -3,6 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window, document) {
+  "use strict";
   const user = function (config) {
     return {
       // TODO function name should be change
@@ -1362,7 +1363,7 @@
       toogleAudioIcon() {
         const audioController = document.querySelector('.bulkUserActions #contrAudioAllImg');
         if (audioController != null) {
-          actionToPerform = audioController.dataset.action;
+          let actionToPerform = audioController.dataset.action;
 
           if (audioController.dataset.action == 'enable') {
             audioController.dataset.action = 'disable';
@@ -1390,7 +1391,7 @@
       toggleVideoIcon() {
         const videoController = document.querySelector('.bulkUserActions #contrVideoAllImg');
         if (videoController != null) {
-          actionToPerform = videoController.dataset.action;
+          let actionToPerform = videoController.dataset.action;
           if (videoController.dataset.action == 'enable') {
             videoController.dataset.action = 'disable';
             videoController.className = 'slider round icon-all-video-disable congtooltip';

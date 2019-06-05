@@ -204,7 +204,9 @@
       }
       for (const propname in obj) {
         virtualclass.settings.info[propname] = obj[propname];
-        virtualclass.settings[propname](obj[propname]);
+        if (propname !== 'trimRecordings') { //avoid trim recordings
+          virtualclass.settings[propname](obj[propname]);
+        }
       }
       const settings = virtualclass.settings.settingsToHex(obj);
       localStorage.setItem('settings', settings);

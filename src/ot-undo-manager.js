@@ -9,13 +9,10 @@
  *
  */
 (function (window) {
-  "use strict";
-  var UndoManager = (function () {
-    'use strict';
-
-    var NORMAL_STATE = 'normal';
-    var UNDOING_STATE = 'undoing';
-    var REDOING_STATE = 'redoing';
+  const UndoManager = (function () {
+    const NORMAL_STATE = 'normal';
+    const UNDOING_STATE = 'undoing';
+    const REDOING_STATE = 'redoing';
 
     // Create a new UndoManager with an optional maximum history size.
     function UndoManager(maxItems) {
@@ -39,7 +36,7 @@
         this.undoStack.push(operation);
         this.dontCompose = true;
       } else {
-        var undoStack = this.undoStack;
+        const { undoStack } = this;
         if (!this.dontCompose && compose && undoStack.length > 0) {
           undoStack.push(operation.compose(undoStack.pop()));
         } else {
@@ -54,10 +51,10 @@
     };
 
     function transformStack(stack, operation) {
-      var newStack = [];
-      var Operation = operation.constructor;
-      for (var i = stack.length - 1; i >= 0; i--) {
-        var pair = Operation.transform(stack[i], operation);
+      const newStack = [];
+      const Operation = operation.constructor;
+      for (let i = stack.length - 1; i >= 0; i--) {
+        const pair = Operation.transform(stack[i], operation);
         if (typeof pair[0].isNoop !== 'function' || !pair[0].isNoop()) {
           newStack.push(pair[0]);
         }
@@ -78,7 +75,7 @@
     UndoManager.prototype.performUndo = function (fn) {
       this.state = UNDOING_STATE;
       if (this.undoStack.length === 0) {
-        throw new Error("undo not possible");
+        throw new Error('undo not possible');
       }
       fn(this.undoStack.pop());
       this.state = NORMAL_STATE;
@@ -88,7 +85,7 @@
     UndoManager.prototype.performRedo = function (fn) {
       this.state = REDOING_STATE;
       if (this.redoStack.length === 0) {
-        throw new Error("redo not possible");
+        throw new Error('redo not possible');
       }
       fn(this.redoStack.pop());
       this.state = NORMAL_STATE;
@@ -115,8 +112,6 @@
     };
 
     return UndoManager;
-
   }());
   window.UndoManager = UndoManager;
-
-})(window);
+}(window));

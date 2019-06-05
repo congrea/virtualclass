@@ -1,12 +1,11 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
-var newScrollVal = 0;
+let newScrollVal = 0;
 (function (window) {
-
   function vcanUtility(id) {
-    var vcan = virtualclass.wb[id].vcan;
+    const { vcan } = virtualclass.wb[id];
 
     vcan.utility = {
       /**
@@ -14,13 +13,12 @@ var newScrollVal = 0;
        * @param cid is canvas's id
        * @return {offset} calculated value value
        */
-      canvasCalcOffset: function (cid) {
+      canvasCalcOffset(cid) {
+        const vcanMain = vcan.main;
+        // TODO cid should be happened as in fabric
+        const canvasEl = document.getElementById(cid);
 
-        var vcanMain = vcan.main;
-        //TODO cid should be happened as in fabric
-        var canvasEl = document.getElementById(cid);
-
-        var offset = vcan.utility.getElementOffset(canvasEl);
+        const offset = vcan.utility.getElementOffset(canvasEl);
         // If offset is 0 then we have to give default offset
         // if(roles.hasControls() && offset.x == 0){
         if (roles.hasControls() && offset.x == 0) {
@@ -37,17 +35,18 @@ var newScrollVal = 0;
        * @param {HTMLElement} element Element to get offset for
        * @return {Object} Object with "left" and "top" properties
        */
-      getElementOffset: function (element) {
-        //console.log(element.id + " should second ");
+      getElementOffset(element) {
+        // console.log(element.id + " should second ");
         // TODO : need to fix this method
-        var valueT = 0, valueL = 0;
+        let valueT = 0; let
+          valueL = 0;
         do {
           valueT += element.offsetTop || 0;
           valueL += element.offsetLeft || 0;
           element = element.offsetParent;
         }
         while (element);
-        return ({x: valueL, y: valueT});
+        return ({ x: valueL, y: valueT });
       },
       /**
        * this function does set the value on property of passed object
@@ -56,23 +55,19 @@ var newScrollVal = 0;
        * @param the value would be stored on property of object
        * TODO this function should transfer to object method
        */
-      setVal: function (obj, property, value) {
-        var shouldConstrainValue = (property === 'scaleX' || property === 'scaleY') && value < obj.MIN_SCALE_LIMIT;
+      setVal(obj, property, value) {
+        const shouldConstrainValue = (property === 'scaleX' || property === 'scaleY') && value < obj.MIN_SCALE_LIMIT;
         if (shouldConstrainValue) {
           value = obj.MIN_SCALE_LIMIT;
         }
-        if (typeof property == 'object') {
-          for (var prop in property) {
+        if (typeof property === 'object') {
+          for (const prop in property) {
             vcan.utility.setVal(obj, prop, property[prop]);
           }
-        }
-        else {
-          if (property === 'angle') {
-            vcan.utility.setAngle(obj, value);
-          }
-          else {
-            obj[property] = value;
-          }
+        } else if (property === 'angle') {
+          vcan.utility.setAngle(obj, value);
+        } else {
+          obj[property] = value;
         }
 
         return obj;
@@ -84,7 +79,7 @@ var newScrollVal = 0;
        *  return the value
        *  TODO this function should transfer to object method
        */
-      getVal: function (obj, property) {
+      getVal(obj, property) {
         return obj[property];
       },
       /**
@@ -92,7 +87,7 @@ var newScrollVal = 0;
        * @param value {Number} angle value
        * @return {Object} thisArg
        */
-      setAngle: function (obj, value) {
+      setAngle(obj, value) {
         obj.theta = value / 180 * Math.PI;
         obj.angle = value;
         return obj;
@@ -103,27 +98,26 @@ var newScrollVal = 0;
        * @param event is event object
        * returns horizontal and vertical position
        */
-      actualPointer: function (event) {
-
+      actualPointer(event) {
         // TODO this method needs fixing
         // virtualclass.leftPosX defines the scroll position from left side
         // virtualclass.topPosY defines the scroll position from top side
         var posY = 0;
         var posX = 0;
         if (virtualclass.gObj.currWb != null) {
-          if (typeof virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY == 'undefined') {
+          if (typeof virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY === 'undefined') {
             var posY = 0;
           } else {
             var posY = virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY;
           }
 
-          if (typeof virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX == 'undefined') {
+          if (typeof virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX === 'undefined') {
             var posX = 0;
           } else {
             var posX = virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX;
           }
         }
-        return {x: vcan.utility.pointerX(event) + posX, y: vcan.utility.pointerY(event) + posY};
+        return { x: vcan.utility.pointerX(event) + posX, y: vcan.utility.pointerY(event) + posY };
       },
       /**
        * Gets the actual horizontal position
@@ -131,33 +125,28 @@ var newScrollVal = 0;
        * @param event is event object
        * returns horizontal position
        */
-      pointerX: function (event) {
-        var ev = event.type.indexOf("touch") >= 0 ? 'touch' : 'mouse';
+      pointerX(event) {
+        const ev = event.type.indexOf('touch') >= 0 ? 'touch' : 'mouse';
         // console.log('Actual pointer clientX ' + event.clientX);
         /* TODO follow the standard as framework done */
-        var docElement = document.documentElement,
-          body = document.body || {scrollLeft: 0};
+        const docElement = document.documentElement;
+        const body = document.body || { scrollLeft: 0 };
         // looks like in IE (<9) clientX at certain point (apparently when mouseup fires on VML element)
         // is represented as COM object, with all the consequences, like "unknown" type and error on [[Get]]
         // need to investigate later
-        //todo to simplify
+        // todo to simplify
         if (ev == 'mouse') {
-          return ((typeof event.clientX != 'undefined' ? event.clientX : 0) +
-          (docElement.scrollLeft || body.scrollLeft) -
-          (docElement.clientLeft || 0));
-
-        } else {
-          if (event.type = 'touchend') {
-            return ((event.changedTouches[0] && typeof event.changedTouches[0].clientX != 'undefined' ? event.changedTouches[0].clientX : 0) +
-            (docElement.scrollLeft || body.scrollLeft) -
-            (docElement.clientLeft || 0));
-          } else {
-            return ((event.targetTouches[0] && typeof event.targetTouches[0].clientX != 'undefined' ? event.targetTouches[0].clientX : 0) +
-            (docElement.scrollLeft || body.scrollLeft) -
-            (docElement.clientLeft || 0));
-          }
-
+          return ((typeof event.clientX !== 'undefined' ? event.clientX : 0)
+          + (docElement.scrollLeft || body.scrollLeft)
+          - (docElement.clientLeft || 0));
+        } if (event.type = 'touchend') {
+          return ((event.changedTouches[0] && typeof event.changedTouches[0].clientX !== 'undefined' ? event.changedTouches[0].clientX : 0)
+            + (docElement.scrollLeft || body.scrollLeft)
+            - (docElement.clientLeft || 0));
         }
+        return ((event.targetTouches[0] && typeof event.targetTouches[0].clientX !== 'undefined' ? event.targetTouches[0].clientX : 0)
+            + (docElement.scrollLeft || body.scrollLeft)
+            - (docElement.clientLeft || 0));
       },
       /**
        * Gets the actual vertical position
@@ -165,36 +154,32 @@ var newScrollVal = 0;
        * @param is an event object
        * returns vertical position
        */
-      pointerYOld: function (event) {
-        /*TODO follow the standard as framework done*/
-        var docElement = document.documentElement,
-          body = document.body || {scrollTop: 0};
+      pointerYOld(event) {
+        /* TODO follow the standard as framework done */
+        const docElement = document.documentElement;
+        const body = document.body || { scrollTop: 0 };
 
-        return ((typeof event.clientY != 'unknown' ? event.clientY : 0) +
-        (docElement.scrollTop || body.scrollTop) -
-        (docElement.clientTop || 0));
+        return ((typeof event.clientY !== 'unknown' ? event.clientY : 0)
+        + (docElement.scrollTop || body.scrollTop)
+        - (docElement.clientTop || 0));
       },
 
-      pointerY: function (event) {
-        var ev = event.type.indexOf("touch") >= 0 ? 'touch' : 'mouse';
+      pointerY(event) {
+        const ev = event.type.indexOf('touch') >= 0 ? 'touch' : 'mouse';
         // console.log('Actual pointer clientY ' + event.clientY);
-        /*TODO follow the standard as framework done*/
-        var docElement = document.documentElement,
-          body = document.body || {scrollTop: 0};
+        /* TODO follow the standard as framework done */
+        const docElement = document.documentElement;
+        const body = document.body || { scrollTop: 0 };
         newScrollVal = (docElement.scrollTop || body.scrollTop) - (docElement.clientTop || 0);
         // if(!roles.hasControls()){
         //     newScrollVal = 0;
         // }
         if (ev == 'mouse') {
-          return (typeof event.clientY != 'undefined' ? event.clientY : 0) + newScrollVal;
-        } else {
-
-          if (event.type = 'touchend') {
-            return (event.changedTouches[0] && typeof event.changedTouches[0].clientY != 'undefined' ? event.changedTouches[0].clientY : 0) + newScrollVal;
-          } else {
-            return (event.targetTouches[0] && typeof event.targetTouches[0].clientY != 'undefined' ? event.targetTouches[0].clientY : 0) + newScrollVal;
-          }
+          return (typeof event.clientY !== 'undefined' ? event.clientY : 0) + newScrollVal;
+        } if (event.type = 'touchend') {
+          return (event.changedTouches[0] && typeof event.changedTouches[0].clientY !== 'undefined' ? event.changedTouches[0].clientY : 0) + newScrollVal;
         }
+        return (event.targetTouches[0] && typeof event.targetTouches[0].clientY !== 'undefined' ? event.targetTouches[0].clientY : 0) + newScrollVal;
       },
       /**
        * Returns pointer coordinates relative to canvas.
@@ -203,13 +188,13 @@ var newScrollVal = 0;
        * @return {Object} object with "x" and "y" number values
        */
 
-      getReltivePoint: function (e) {
-        var offset = vcan.main.offset;
-        var pointer = vcan.utility.actualPointer(e);
+      getReltivePoint(e) {
+        const { offset } = vcan.main;
+        const pointer = vcan.utility.actualPointer(e);
         // console.log('whiteboard canvas offset x = ' + (pointer.x - offset.x) + ' y =' + (pointer.y - offset.y));
         return {
-          x: (pointer.x - offset.x ),
-          y: (pointer.y - offset.y)
+          x: (pointer.x - offset.x),
+          y: (pointer.y - offset.y),
         };
       },
       /**
@@ -219,8 +204,8 @@ var newScrollVal = 0;
        * @param {Number} degrees value in degrees
        * @return {Number} value in radians
        */
-      degreesToRadians: function (degrees) {
-        var PiBy180 = Math.PI / 180;
+      degreesToRadians(degrees) {
+        const PiBy180 = Math.PI / 180;
         return degrees * PiBy180;
       },
       /**
@@ -229,7 +214,7 @@ var newScrollVal = 0;
        * @param object is the object which have to be active
        * @returns return particular that object
        */
-      setActiveObject: function (object) {
+      setActiveObject(object) {
         if (vcan.main.activeObject) {
           vcan.main.activeObject.setActive(false);
         }
@@ -240,8 +225,8 @@ var newScrollVal = 0;
       /* TODO this funciton should be optimized in future
        this function should be done properly
        this is not good way to talk	it woulld be greater if we can ignore this function */
-      updateObj: function (obj) {
-        var newObj = {};
+      updateObj(obj) {
+        const newObj = {};
         for (prop in obj) {
           if (prop != 'oCoords') {
             newObj[prop] = obj[prop];
@@ -267,27 +252,24 @@ var newScrollVal = 0;
        * @param target {Object} Object that the mouse is hovering, if so.
        */
 
-      setCursorFromEvent: function (vcanMain, e, target) {
-        var s = vcanMain.upperCanvasEl.style;
+      setCursorFromEvent(vcanMain, e, target) {
+        const s = vcanMain.upperCanvasEl.style;
         if (!target) {
           s.cursor = this.defaultCursor;
           return false;
-        } else {
-          var corner = target.findTargetCorner(e);
-          if (!corner) {
-            s.cursor = vcanMain.hoverCursor;
-          }
-          else {
-            if (corner in vcanMain.cursorMap) {
-              s.cursor = vcanMain.cursorMap[corner];
-            } else if (corner === 'mtr' && target.hasRotatingPoint) {
-              s.cursor = vcanMain.rotationCursor;
-            } else {
-              s.cursor = this.defaulCursor;
-              return false;
-            }
-          }
         }
+        const corner = target.findTargetCorner(e);
+        if (!corner) {
+          s.cursor = vcanMain.hoverCursor;
+        } else if (corner in vcanMain.cursorMap) {
+          s.cursor = vcanMain.cursorMap[corner];
+        } else if (corner === 'mtr' && target.hasRotatingPoint) {
+          s.cursor = vcanMain.rotationCursor;
+        } else {
+          s.cursor = this.defaulCursor;
+          return false;
+        }
+
         return true;
       },
       /**
@@ -296,28 +278,27 @@ var newScrollVal = 0;
        * TODO this function should used
        * instead of vcan.main.children
        */
-      getChildren: function () {
+      getChildren() {
         return vcan.main.children;
       },
 
-      isCeventExist: function (event) {
+      isCeventExist(event) {
         if (event.hasOwnProperty('detail')) {
           return event.hasOwnProperty('cevent');
-        } else {
-          return false;
         }
+        return false;
       },
 
-      updateCordinate: function (e) {
-        var pointer = vcan.utility.actualPointer(e);
-        var customEve = {};
+      updateCordinate(e) {
+        const pointer = vcan.utility.actualPointer(e);
+        const customEve = {};
         customEve.detail = {}; // that should be elimanted
         customEve.clientX = pointer.x;
         customEve.clientY = pointer.y;
         return customEve;
-      }
-    }
+      },
+    };
   }
 
   window.vcanUtility = vcanUtility;
-})(window);
+}(window));

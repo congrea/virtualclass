@@ -9,9 +9,8 @@
  *
  */
 (function (window) {
-  "use strict";
-  var RichTextToolbar = (function (global) {
-    var utils = window.utils;
+  const RichTextToolbar = (function (global) {
+    const { utils } = window;
 
     function RichTextToolbar(imageInsertionUI) {
       this.imageInsertionUI = imageInsertionUI;
@@ -27,111 +26,111 @@
     };
 
     RichTextToolbar.prototype.makeButton_ = function (eventName, iconName) {
-      var self = this;
+      const self = this;
       iconName = iconName || eventName;
-      var btn = utils.elt('a', [utils.elt('span', '', {'class': 'vceditor-tb-' + iconName})], {'class': 'vceditor-btn'});
-      utils.on(btn, 'click', utils.stopEventAnd(function () {
+      const btn = utils.elt('a', [utils.elt('span', '', { class: `vceditor-tb-${iconName}` })], { class: 'vceditor-btn' });
+      utils.on(btn, 'click', utils.stopEventAnd(() => {
         self.trigger(eventName);
       }));
       return btn;
-    }
+    };
 
     RichTextToolbar.prototype.makeElement_ = function () {
-      var self = this;
+      const self = this;
 
-      var font = this.makeFontDropdown_();
-      var fontSize = this.makeFontSizeDropdown_();
-      var color = this.makeColorDropdown_();
+      const font = this.makeFontDropdown_();
+      const fontSize = this.makeFontSizeDropdown_();
+      const color = this.makeColorDropdown_();
 
-      var toolbarOptions = [
-        utils.elt('div', [font], {'class': 'vceditor-btn-group'}),
-        utils.elt('div', [fontSize], {'class': 'vceditor-btn-group'}),
-        utils.elt('div', [color], {'class': 'vceditor-btn-group'}),
-        utils.elt('div', [self.makeButton_('bold'), self.makeButton_('italic'), self.makeButton_('underline'), self.makeButton_('strike', 'strikethrough')], {'class': 'vceditor-btn-group'}),
-        utils.elt('div', [self.makeButton_('unordered-list', 'list-2'), self.makeButton_('ordered-list', 'numbered-list'), self.makeButton_('todo-list', 'list')], {'class': 'vceditor-btn-group'}),
-        utils.elt('div', [self.makeButton_('indent-decrease'), self.makeButton_('indent-increase')], {'class': 'vceditor-btn-group'}),
-        utils.elt('div', [self.makeButton_('left', 'paragraph-left'), self.makeButton_('center', 'paragraph-center'), self.makeButton_('right', 'paragraph-right')], {'class': 'vceditor-btn-group'}),
-        utils.elt('div', [self.makeButton_('undo'), self.makeButton_('redo')], {'class': 'vceditor-btn-group'})
+      const toolbarOptions = [
+        utils.elt('div', [font], { class: 'vceditor-btn-group' }),
+        utils.elt('div', [fontSize], { class: 'vceditor-btn-group' }),
+        utils.elt('div', [color], { class: 'vceditor-btn-group' }),
+        utils.elt('div', [self.makeButton_('bold'), self.makeButton_('italic'), self.makeButton_('underline'), self.makeButton_('strike', 'strikethrough')], { class: 'vceditor-btn-group' }),
+        utils.elt('div', [self.makeButton_('unordered-list', 'list-2'), self.makeButton_('ordered-list', 'numbered-list'), self.makeButton_('todo-list', 'list')], { class: 'vceditor-btn-group' }),
+        utils.elt('div', [self.makeButton_('indent-decrease'), self.makeButton_('indent-increase')], { class: 'vceditor-btn-group' }),
+        utils.elt('div', [self.makeButton_('left', 'paragraph-left'), self.makeButton_('center', 'paragraph-center'), self.makeButton_('right', 'paragraph-right')], { class: 'vceditor-btn-group' }),
+        utils.elt('div', [self.makeButton_('undo'), self.makeButton_('redo')], { class: 'vceditor-btn-group' }),
       ];
 
       if (self.imageInsertionUI) {
-        toolbarOptions.push(utils.elt('div', [self.makeButton_('insert-image')], {'class': 'vceditor-btn-group'}));
+        toolbarOptions.push(utils.elt('div', [self.makeButton_('insert-image')], { class: 'vceditor-btn-group' }));
       }
 
-      var toolbarWrapper = utils.elt('div', toolbarOptions, {'class': 'vceditor-toolbar-wrapper'});
-      var toolbar = utils.elt('div', null, {'class': 'vceditor-toolbar'});
-      toolbar.appendChild(toolbarWrapper)
+      const toolbarWrapper = utils.elt('div', toolbarOptions, { class: 'vceditor-toolbar-wrapper' });
+      const toolbar = utils.elt('div', null, { class: 'vceditor-toolbar' });
+      toolbar.appendChild(toolbarWrapper);
 
       return toolbar;
     };
 
     RichTextToolbar.prototype.makeFontDropdown_ = function () {
       // NOTE: There must be matching .css styles in vceditor.css.
-      var fonts = ['Arial', 'Comic Sans MS', 'Courier New', 'Impact', 'Times New Roman', 'Verdana'];
+      const fonts = ['Arial', 'Comic Sans MS', 'Courier New', 'Impact', 'Times New Roman', 'Verdana'];
 
-      var items = [];
-      for (var i = 0; i < fonts.length; i++) {
-        var content = utils.elt('span', fonts[i]);
-        content.setAttribute('style', 'font-family:' + fonts[i]);
-        items.push({content: content, value: fonts[i]});
+      const items = [];
+      for (let i = 0; i < fonts.length; i++) {
+        const content = utils.elt('span', fonts[i]);
+        content.setAttribute('style', `font-family:${fonts[i]}`);
+        items.push({ content, value: fonts[i] });
       }
       return this.makeDropdown_('Font', 'font', items);
     };
 
     RichTextToolbar.prototype.makeFontSizeDropdown_ = function () {
       // NOTE: There must be matching .css styles in vceditor.css.
-      var sizes = [9, 10, 12, 14, 18, 24, 32, 42];
+      const sizes = [9, 10, 12, 14, 18, 24, 32, 42];
 
-      var items = [];
-      for (var i = 0; i < sizes.length; i++) {
-        var content = utils.elt('span', sizes[i].toString());
-        content.setAttribute('style', 'font-size:' + sizes[i] + 'px; line-height:' + (sizes[i] - 6) + 'px;');
-        items.push({content: content, value: sizes[i]});
+      const items = [];
+      for (let i = 0; i < sizes.length; i++) {
+        const content = utils.elt('span', sizes[i].toString());
+        content.setAttribute('style', `font-size:${sizes[i]}px; line-height:${sizes[i] - 6}px;`);
+        items.push({ content, value: sizes[i] });
       }
       return this.makeDropdown_('Size', 'font-size', items, 'px');
     };
 
     RichTextToolbar.prototype.makeColorDropdown_ = function () {
-      var colors = ['black', 'red', 'green', 'blue', 'yellow', 'cyan', 'magenta', 'grey'];
+      const colors = ['black', 'red', 'green', 'blue', 'yellow', 'cyan', 'magenta', 'grey'];
 
-      var items = [];
-      for (var i = 0; i < colors.length; i++) {
-        var content = utils.elt('div');
+      const items = [];
+      for (let i = 0; i < colors.length; i++) {
+        const content = utils.elt('div');
         content.className = 'vceditor-color-dropdown-item';
-        content.setAttribute('style', 'background-color:' + colors[i]);
-        items.push({content: content, value: colors[i]});
+        content.setAttribute('style', `background-color:${colors[i]}`);
+        items.push({ content, value: colors[i] });
       }
       return this.makeDropdown_('Color', 'color', items);
     };
 
     RichTextToolbar.prototype.makeDropdown_ = function (title, eventName, items, value_suffix) {
-      value_suffix = value_suffix || "";
-      var self = this;
-      var button = utils.elt('a', title + ' \u25be', {'class': 'vceditor-btn vceditor-dropdown'});
-      var list = utils.elt('ul', [], {'class': 'vceditor-dropdown-menu'});
+      value_suffix = value_suffix || '';
+      const self = this;
+      const button = utils.elt('a', `${title} \u25be`, { class: 'vceditor-btn vceditor-dropdown' });
+      const list = utils.elt('ul', [], { class: 'vceditor-dropdown-menu' });
       button.appendChild(list);
 
-      var isShown = false;
+      let isShown = false;
 
       function showDropdown() {
         if (!isShown) {
           list.style.display = 'block';
-          utils.on(document, 'click', hideDropdown, /*capture=*/true);
+          utils.on(document, 'click', hideDropdown, /* capture= */true);
           isShown = true;
         }
       }
 
-      var justDismissed = false;
+      let justDismissed = false;
 
       function hideDropdown() {
         if (isShown) {
           list.style.display = '';
-          utils.off(document, 'click', hideDropdown, /*capture=*/true);
+          utils.off(document, 'click', hideDropdown, /* capture= */true);
           isShown = false;
         }
         // HACK so we can avoid re-showing the dropdown if you click on the dropdown header to dismiss it.
         justDismissed = true;
-        setTimeout(function () {
+        setTimeout(() => {
           justDismissed = false;
         }, 0);
       }
@@ -140,9 +139,9 @@
         if (typeof content !== 'object') {
           content = document.createTextNode(String(content));
         }
-        var element = utils.elt('a', [content]);
+        const element = utils.elt('a', [content]);
 
-        utils.on(element, 'click', utils.stopEventAnd(function () {
+        utils.on(element, 'click', utils.stopEventAnd(() => {
           hideDropdown();
           self.trigger(eventName, value + value_suffix);
         }));
@@ -150,12 +149,13 @@
         list.appendChild(element);
       }
 
-      for (var i = 0; i < items.length; i++) {
-        var content = items[i].content, value = items[i].value;
+      for (let i = 0; i < items.length; i++) {
+        const { content } = items[i];
+        const { value } = items[i];
         addItem(content, value);
       }
 
-      utils.on(button, 'click', utils.stopEventAnd(function () {
+      utils.on(button, 'click', utils.stopEventAnd(() => {
         if (!justDismissed) {
           showDropdown();
         }
@@ -165,7 +165,6 @@
     };
 
     return RichTextToolbar;
-  })();
+  }());
   window.RichTextToolbar = RichTextToolbar;
-})(window);
-
+}(window));

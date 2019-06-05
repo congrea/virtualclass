@@ -1,9 +1,9 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-  var vcan = window.vcan;
+  const { vcan } = window;
 
   /**
    * @Class defined oval for drawing the object oval
@@ -11,7 +11,7 @@
    *  the arc() function used to create the oval object
    */
   function Oval(id) {
-    var vcan = virtualclass.wb[id].vcan;
+    const { vcan } = virtualclass.wb[id];
     vcan.oval = function () {
       return {
         type: 'oval',
@@ -19,7 +19,7 @@
          * initiates the properties to oval object
          * @param obj the properties would initates on it
          */
-        init: function (obj) {
+        init(obj) {
           if (obj.width == undefined) {
             obj.width = obj.rx * 2;
           }
@@ -29,7 +29,7 @@
           }
 
           if (obj.borderColor == undefined) {
-            obj.borderColor = "#000000";
+            obj.borderColor = '#000000';
           }
 
           if (obj.fillColor != undefined) {
@@ -44,18 +44,18 @@
          * @param obj contains the information eg: x, y, rx, ry
          */
 
-        draw: function (ctx, obj, noTransform) {
+        draw(ctx, obj, noTransform) {
           ctx.beginPath();
           ctx.save();
           // move from center (of virtual box) to its left/top corner
-          var startingPoint = 0;
-          var endingPoint = 2 * Math.PI;
-          var counterClockWise = false;
+          const startingPoint = 0;
+          const endingPoint = 2 * Math.PI;
+          const counterClockWise = false;
 
           ctx.lineWidth = obj.stroke;
 
-          //this is handling for into linux for firefox
-          var rNumber = obj.ry / obj.rx;
+          // this is handling for into linux for firefox
+          let rNumber = obj.ry / obj.rx;
           rNumber = rNumber.toFixed(3);
           if (rNumber == 0.00) {
             rNumber = 0.01;
@@ -74,11 +74,10 @@
             ctx.stroke();
           }
           ctx.restore();
-
-        }
+        },
       };
-    }
+    };
   }
 
   window.Oval = Oval;
-})(window);
+}(window));

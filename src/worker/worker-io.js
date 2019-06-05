@@ -6,57 +6,53 @@
  * This file sends/receives packet to/from  Server through websocket
  */
 
-var workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
-  let workerIO = {
+const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
+  const workerIO = {
     workerAudioRec: false,
     workerAudioSend: false,
     binMsgQueue: [],
     recBinMsgQueue: [],
 
-    init (cfg) {
-      "use strict";
+    init(cfg) {
       this.cfg = cfg;
       this.wsconnect();
     },
 
-    userauthenticate () {
-      "use strict";
-      var obj = {'authuser': this.cfg.authuser, 'authpass': this.cfg.authpass}
-      var jobj = 'F-AH-' + JSON.stringify(obj);
+    userauthenticate() {
+      const obj = { authuser: this.cfg.authuser, authpass: this.cfg.authpass };
+      const jobj = `F-AH-${JSON.stringify(obj)}`;
       // this.sock.send(jobj);
       this.finallySend(jobj);
     },
-    addclient () {
-      "use strict";
-      var obj = {'client': this.cfg.userid, 'roomname': this.cfg.room, 'user': this.cfg.userobj}
-      var jobj = 'F-JR-' + JSON.stringify(obj);
+    addclient() {
+      const obj = { client: this.cfg.userid, roomname: this.cfg.room, user: this.cfg.userobj };
+      const jobj = `F-JR-${JSON.stringify(obj)}`;
       // this.sock.send(jobj);
       this.finallySend(jobj);
     },
 
-    wsconnect () {
-      "use strict";
+    wsconnect() {
       console.log('member_added init for socket connect');
       workerIO.wsuri = this.cfg.rid;
 
-      if (typeof WebSocket != 'undefined') {
-        console.log('rid ' + workerIO.wsuri);
+      if (typeof WebSocket !== 'undefined') {
+        console.log(`rid ${workerIO.wsuri}`);
         this.sock = new WebSocket(workerIO.wsuri);
       } else {
-        console.log("Browser does not support WebSocket!");
+        console.log('Browser does not support WebSocket!');
         this.error = lang.wserror;
       }
 
-      var scope = this;
+      const scope = this;
 
       this.sock.onopen = function () {
         this.readyToSend = false;
-        console.log("member_added Connected to " + scope.cfg.rid);
+        console.log(`member_added Connected to ${scope.cfg.rid}`);
         scope.userauthenticate();
         // user join chat room
         scope.addclient();
 
-        postMessage({cmd: 'connectionopen', msg: {type: "connectionopen"}});
+        postMessage({ cmd: 'connectionopen', msg: { type: 'connectionopen' } });
       };
 
       this.sock.binaryType = 'arraybuffer';
@@ -65,59 +61,55 @@ var workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
         if (e.data instanceof ArrayBuffer) {
           workerIO.onRecBinary(e);
         } else {
-          postMessage({cmd: 'receivedJson', msg: e.data})
+          postMessage({ cmd: 'receivedJson', msg: e.data });
         }
       };
 
       this.sock.onerror = function (e) {
         scope.error = e;
-        console.log('Error:' + e);
-        postMessage({cmd: 'error', msg: e.reason});
+        console.log(`Error:${e}`);
+        postMessage({ cmd: 'error', msg: e.reason });
       };
 
       this.sock.onclose = function (e) {
         console.log('Connection Closed');
-        postMessage({cmd: 'close', msg: e.reason});
+        postMessage({ cmd: 'close', msg: e.reason });
       };
     },
 
-    disconnect () {
+    disconnect() {
       this.sock.onclose = function () {
       };
       this.sock.close();
-      console.log("i am closing this connection");
-      postMessage({cmd: 'iamclosing'});
+      console.log('i am closing this connection');
+      postMessage({ cmd: 'iamclosing' });
     },
 
-    onRecBinary  (e) {
-      "use strict";
-      //try {
-      var scope = this;
+    onRecBinary(e) {
+      // try {
+      const scope = this;
       if (e.data instanceof ArrayBuffer) {
-        var data_pack = new Uint8Array(e.data);
+        let data_pack = new Uint8Array(e.data);
         if (data_pack[1] == 0) { // All OK
-
           // Saving in local storage required 2 packets for later play back
-          var msg1 = (data_pack[2] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
-          postMessage({cmd: 'stBinary', msg: msg1});
-          //ioStorage.dataBinaryStore(msg1);
+          const msg1 = (data_pack[2] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
+          postMessage({ cmd: 'stBinary', msg: msg1 });
+          // ioStorage.dataBinaryStore(msg1);
 
           data_pack = data_pack.subarray(2);
           var msg = (data_pack[0] == 101) ? new Int8Array(data_pack) : new Uint8ClampedArray(data_pack);
 
           if (data_pack[0] == 101) {
             if (!this.workerAudioRec) {
-              postMessage({cmd: 'initAudioWorklet'});
+              postMessage({ cmd: 'initAudioWorklet' });
               console.log('workerAudioRec is not defined');
             } else {
-              this.workerAudioRec.postMessage({'cmd': 'ad', msg: data_pack}, [data_pack.buffer]);
+              this.workerAudioRec.postMessage({ cmd: 'ad', msg: data_pack }, [data_pack.buffer]);
             }
           } else {
             // console.log('Binary data than audio need to be send to Main thread');
-            postMessage({cmd: 'notaudio', msg: msg.buffer});
+            postMessage({ cmd: 'notaudio', msg: msg.buffer });
           }
-
-
         } else if (data_pack[1] == 1) { // Start of packet
           this.recBinMsgQueue = [];
           this.recBinMsgQueue[0] = data_pack.subarray(2);
@@ -128,34 +120,32 @@ var workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
         } else if (data_pack[1] == 3) { // End packet
           if (this.recBinMsgQueue.length > 0) {
             this.recBinMsgQueue.push(data_pack.subarray(2));
-            var totalsize = 0;
+            let totalsize = 0;
             for (var i = 0; i < this.recBinMsgQueue.length; i++) {
-              totalsize = totalsize + this.recBinMsgQueue[i].length;
+              totalsize += this.recBinMsgQueue[i].length;
             }
 
             var msg = (data_pack[0] == 101) ? new Int8Array(totalsize) : new Uint8ClampedArray(totalsize);
             for (var i = 0, s = 0; i < this.recBinMsgQueue.length; i++) {
               msg.set(this.recBinMsgQueue[i], s);
-              s = s + this.recBinMsgQueue[i].length;
+              s += this.recBinMsgQueue[i].length;
             }
-            postMessage({cmd: 'endBinary', msg: msg});
-
+            postMessage({ cmd: 'endBinary', msg });
           }
         }
       }
     },
 
-    webSocketConnected (){
+    webSocketConnected() {
       return (this.sock.readyState == 1 && this.readyToSend);
     },
 
-    finallySend (msg){
+    finallySend(msg) {
       this.sock.send(msg);
     },
 
-    sendBinary (msg) {
-      "use strict";
-      var type = null;
+    sendBinary(msg) {
+      const type = null;
       if (this.webSocketConnected() && msg.length) {
         if (msg.length <= 600000) { // Less than 600K
           if (msg.constructor === Int8Array) {
@@ -166,8 +156,7 @@ var workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
           msg1.set([msg[0], 0]);
           msg1.set(msg, 2);
           this.finallySend(msg1.buffer);
-          postMessage({cmd: 'stBinary', msg: msg1});
-
+          postMessage({ cmd: 'stBinary', msg: msg1 });
         } else {
           this.binMsgQueue = [];
           const len = 550000; // 550k
@@ -189,14 +178,14 @@ var workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
           for (let i = 0; i < this.binMsgQueue.length; i++) {
             // this.sock.send(this.binMsgQueue[i].buffer);
             this.finallySend(this.binMsgQueue[i].buffer);
-            postMessage({cmd: 'stBinary', msg: this.binMsgQueue[i]});
+            postMessage({ cmd: 'stBinary', msg: this.binMsgQueue[i] });
           }
           this.binMsgQueue = [];
         }
       }
     },
 
-    onMessage (e){
+    onMessage(e) {
       switch (e.data.cmd) {
         case 'init':
           this.init(e.data.msg);
@@ -210,7 +199,7 @@ var workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
           this.disconnect();
           break;
 
-        case 'sessionEndClose' :
+        case 'sessionEndClose':
           if (this.sock) {
             this.sock.close();
           }
@@ -225,54 +214,52 @@ var workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
                 postMessage(e.data);
               }
             }
-          }
+          };
           break;
 
         case 'send':
           if (this.webSocketConnected()) {
-            if (typeof e.data.msg != 'undefined') {
+            if (typeof e.data.msg !== 'undefined') {
               // this.sock.send(e.data.msg);
               this.finallySend(e.data.msg);
             }
           }
           break;
 
-        case 'sendBinary' :
+        case 'sendBinary':
           this.sendBinary(e.data.msg);
           break;
 
-        case 'workerAudioSend' :
+        case 'workerAudioSend':
           this.workerAudioSend = e.ports[0];
           // fromWorkerAudioSend from worker audio send
           this.workerAudioSend.onmessage = this.fromWorkerAudioSend.bind(this);
           break;
 
-        case 'readyToSend' :
+        case 'readyToSend':
           this.readyToSend = true;
           break;
 
-        case 'onRecBinary' :
-          this.onRecBinary({data: e.data.msg});
+        case 'onRecBinary':
+          this.onRecBinary({ data: e.data.msg });
           break;
 
         default:
           this.finallySend(e.data.msg);
-
       }
-      ;
     },
 
-    fromWorkerAudioSend (e){
+    fromWorkerAudioSend(e) {
       if (e.data.hasOwnProperty('cmd')) {
         this.sendBinary(e.data.msg);
       }
-    }
+    },
 
   };
 
   onmessage = function (e) {
     workerIO.onMessage(e);
-  }
-}.toString(), ')()'], {type: 'application/javascript'}));
+  };
+}.toString(), ')()'], { type: 'application/javascript' }));
 
-var workerIO = new Worker(workerIOBlob);
+const workerIO = new Worker(workerIOBlob);

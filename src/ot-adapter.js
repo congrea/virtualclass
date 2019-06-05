@@ -1,28 +1,27 @@
-var otAdapter = function () {
-  'use strict';
+const otAdapter = (function () {
   otAdapter.myrequestData = 0;
   otAdapter.myOTrequestData = 0;
 
-  //function otAdapter(revision, doc, operations) {
+  // function otAdapter(revision, doc, operations) {
   function otAdapter(editorInfo, etype) {
     etype = etype.charAt(0).toLowerCase() + etype.slice(1);
 
 
     //	this[etype] = {"operations" : ""};
-    var vceditor = Vceditor.getvcEditor();
+    const vceditor = Vceditor.getvcEditor();
     if (editorInfo.operations && editorInfo.revision > editorInfo.operations.length) {
       // the operations have been truncated fill in the beginning with empty space
-      var filler = [];
+      const filler = [];
       filler[editorInfo.revision - editorInfo.operations.length - 1] = null;
       //	this[etype].operations = filler.concat(editorInfo.operations);
       this.operations = filler.concat(editorInfo.operations);
     } else {
-      //this[etype].operations = editorInfo.operations ? editorInfo.operations : [];
+      // this[etype].operations = editorInfo.operations ? editorInfo.operations : [];
       this.operations = editorInfo.operations ? editorInfo.operations : [];
     }
 
     // We pretend to be a server
-    //var server = new vceditor.Server(editorInfo.doc, this[etype].operations);
+    // var server = new vceditor.Server(editorInfo.doc, this[etype].operations);
     this.server = new vceditor.Server(editorInfo.doc, this.operations);
 
     this.trigger = function (func) {
@@ -34,8 +33,8 @@ var otAdapter = function () {
       // TW : 1) Teacher do OT and send to all (Function this.teacherOT)
       // TODO Possible error at teacher (TRY CATCH)
 
-      var msg = this.doOT(sendData);
-      if (typeof msg != 'undefined') {
+      const msg = this.doOT(sendData);
+      if (typeof msg !== 'undefined') {
         this.preSend(msg, true);
       }
     };
@@ -45,20 +44,20 @@ var otAdapter = function () {
         return;
       }
       try {
-        //TODO sholld be done by calling dynamic method invoke
+        // TODO sholld be done by calling dynamic method invoke
         if (msg.eddata == 'virtualclass-editor-operation') {
-          //display editor if not
+          // display editor if not
 
-          var data = JSON.parse(msg.data);
-          var wrapped = new vceditor.WrappedOperation(
+          const data = JSON.parse(msg.data);
+          const wrapped = new vceditor.WrappedOperation(
             vceditor.TextOperation.fromJSON(data.operation),
-            data.cursor && vceditor.Cursor.fromJSON(data.cursor)
+            data.cursor && vceditor.Cursor.fromJSON(data.cursor),
           );
 
           // Might need to try catch here and if it fails wait a little while and
           // try again. This way if we receive operations out of order we might.p
           // be able to recover
-          var wrappedPrime = this.server.receiveOperation(data.revision, wrapped);
+          const wrappedPrime = this.server.receiveOperation(data.revision, wrapped);
 
           if (!wrappedPrime) {
             console.log('there is some problem on revision of history');
@@ -68,20 +67,17 @@ var otAdapter = function () {
           msg.data = wrappedPrime.wrapped.toJSON();
 
           msg.meta = wrappedPrime.meta;
-
         }
 
         return msg;
-
       } catch (error) {
-        console.log('ERROR ' + error);
-        //virtualclass[msg.et].cm.setValue("");
+        console.log(`ERROR ${error}`);
+        // virtualclass[msg.et].cm.setValue("");
         if (roles.isTeacher()) {
           this.myOTrequestData = 1;
           virtualclass[msg.et].responseToRequest();
         }
       }
-
     };
 
     this.processOp = function (event) {
@@ -89,13 +85,13 @@ var otAdapter = function () {
         return;
       }
       try {
-        var msg = event.message;
+        const msg = event.message;
         if (msg.hasOwnProperty('edFrom')) {
           event.fromUser.userid = msg.edFrom;
         }
         if (msg.hasOwnProperty('eddata')) {
           if (msg.eddata == 'virtualclass-editor-cursor') {
-            this.trigger('cursor', event.fromUser.userid, JSON.parse(msg.data)); //we need object for set other cursor
+            this.trigger('cursor', event.fromUser.userid, JSON.parse(msg.data)); // we need object for set other cursor
           } else if (msg.eddata == 'selection') {
             this.trigger('selection', virtualclass.gObj.uid, msg.data);
           } else if (msg.eddata == 'virtualclass-editor-operation') {
@@ -110,19 +106,19 @@ var otAdapter = function () {
         if (roles.hasAdmin()) {
           this.myOTrequestData = 1;
           virtualclass[event.message.et].responseToRequest();
-          console.log("Teacher : send whlole editor data ");
+          console.log('Teacher : send whlole editor data ');
         } else {
           this.removeOperations(event);
           virtualclass[event.message.et].requestData();
           this.myrequestData = 1;
-          console.log("Student : send whlole editor data ");
+          console.log('Student : send whlole editor data ');
         }
       }
     };
 
     this.storeOperationIfStudent = function (msg) {
       if (!roles.hasAdmin()) {
-        var wrappedOperation = {};
+        const wrappedOperation = {};
         wrappedOperation.wrapped = vceditor.TextOperation.fromJSON(msg.data);
         wrappedOperation.meta = msg.meta;
         this.server.operations.push(wrappedOperation);
@@ -147,22 +143,22 @@ var otAdapter = function () {
     this.receivedMessage = function (event) {
       if (virtualclass.isPlayMode) { // In Play Mode handle packets sent to self
         // if (event.toUser !== '') {
-        if (typeof event.toUser == 'object') {
+        if (typeof event.toUser === 'object') {
           return;
         }
       }
-      var msg = event.message;
-      //console.log('in');
+      const msg = event.message;
+      // console.log('in');
       // TW : 2
       if ((event.fromUser.role == 't' || event.fromUser.role == 'e') && !msg.hasOwnProperty('edFrom')) {
         if (roles.hasAdmin()) {
           // TW : 2a) Msg is received to Teacher (self) - Action : ACK
           if (msg.eddata == 'virtualclass-editor-operation') {
-            //console.log('TW : 2a teacher ack');
+            // console.log('TW : 2a teacher ack');
             try {
               this.trigger('ack');
             } catch (error) {
-              console.log('ACK Too Late ' + error);
+              console.log(`ACK Too Late ${error}`);
             }
           }
         } else {
@@ -174,13 +170,12 @@ var otAdapter = function () {
         // SW : 1) Msg sent to Teacher
         // console.log('SW : 1 From Student');
         // SW : 2) Teacher do OT and send to all
-        var op = this.doOT(msg);
-        if (typeof op != 'undefined') {
+        const op = this.doOT(msg);
+        if (typeof op !== 'undefined') {
           event.message = op;
           op.edFrom = event.fromUser.userid; // Adds edFrom message to identify who was original sender of message
           this.preSend(op, true);
         }
-
       } else {
         // SW : 3
         if (msg.edFrom == virtualclass.gObj.uid) {
@@ -195,9 +190,9 @@ var otAdapter = function () {
               if (ioMissingPackets.missRequestFlag === 1) {
                 virtualclass[msg.et].cmClient.revision--;
                 this.processOp(event);
-                console.log("Failed Acknolwdgement processOp()");
+                console.log('Failed Acknolwdgement processOp()');
               }
-              console.log('ACK Too Late ' + error);
+              console.log(`ACK Too Late ${error}`);
             }
           }
         } else {
@@ -211,7 +206,7 @@ var otAdapter = function () {
     };
 
     this.removeOperations = function (event) {
-      var et = event.message.et;
+      const { et } = event.message;
       this.server.operations = [];
       this.server.document = '';
       virtualclass[et].cmClient.revision = 0;
@@ -219,52 +214,51 @@ var otAdapter = function () {
         var edom = document.getElementById('virtualclassEditorRichBody');
         edom.parentNode.removeChild(edom);
       }
-    }
-
+    };
   }
 
-//sending the opration
+  // sending the opration
   otAdapter.prototype.sendOperation = function (revision, operation, cursor, etype) {
-    if (typeof etype != 'undefined') {
+    if (typeof etype !== 'undefined') {
       if (etype == 'richtext') {
-        var editor = "editorRich";
+        var editor = 'editorRich';
       } else {
-        var editor = "editorCode";
+        var editor = 'editorCode';
       }
     }
 
-    var sendData = {
+    const sendData = {
       eddata: 'virtualclass-editor-operation',
       data: JSON.stringify({
-        revision: revision,
-        operation: operation,
-        cursor: cursor
+        revision,
+        operation,
+        cursor,
       }),
       et: editor,
-      cf: 'eddata'
+      cf: 'eddata',
     };
 
-    console.log('from send operation ' + revision);
+    console.log(`from send operation ${revision}`);
 
     this.beforeSend(sendData);
-    var that = this;
-    console.log("send operation");
+    const that = this;
+    console.log('send operation');
   };
 
   otAdapter.prototype.sendSelection = function (selection) {
     this.beforeSend({
       eddata: 'selection',
       data: JSON.stringify(selection),
-      cf: 'eddata'
+      cf: 'eddata',
     });
   };
 
   otAdapter.prototype.sendCursor = function (cursor) {
-    //console.log("Send Cursor");
+    // console.log("Send Cursor");
     this.beforeSend({
       eddata: 'virtualclass-editor-cursor',
       data: JSON.stringify(cursor),
-      cf: 'eddata'
+      cf: 'eddata',
     });
   };
 
@@ -280,7 +274,7 @@ var otAdapter = function () {
     if (roles.hasAdmin()) {
       this.teacherOT(sendData);
     } else {
-      var teacherId = virtualclass.vutil.whoIsTeacher();
+      const teacherId = virtualclass.vutil.whoIsTeacher();
       sendData = this.setEditorTypeOnPacket(sendData);
       ioAdapter.mustSendUser(sendData, teacherId);
     }
@@ -289,9 +283,9 @@ var otAdapter = function () {
   otAdapter.prototype.setEditorTypeOnPacket = function (msg) {
     if (msg.hasOwnProperty('eddata')) {
       if (msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation') {
-        if (virtualclass.currApp == "EditorRich" || virtualclass.currApp == "editorRich") {
+        if (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'editorRich') {
           msg.et = 'editorRich';
-        } else if (virtualclass.currApp == "EditorCode" || virtualclass.currApp == "editorCode") {
+        } else if (virtualclass.currApp == 'EditorCode' || virtualclass.currApp == 'editorCode') {
           msg.et = 'editorCode';
         }
       }
@@ -301,14 +295,14 @@ var otAdapter = function () {
 
   otAdapter.prototype.preSend = function (msg, sendall) {
     msg = this.setEditorTypeOnPacket(msg);
-    if (typeof sendall == 'undefined' || sendall == false || sendall == null) {
+    if (typeof sendall === 'undefined' || sendall == false || sendall == null) {
       ioAdapter.mustSend(msg);
     } else {
-      //TODO Check if it is possible avoid going through workerIO
-      setTimeout(function () { // We want to slow down OT to reduce frequency of msgs
+      // TODO Check if it is possible avoid going through workerIO
+      setTimeout(() => { // We want to slow down OT to reduce frequency of msgs
         ioAdapter.mustSendAll(msg);
       }, 300);
     }
   };
   return otAdapter;
-}();
+}());

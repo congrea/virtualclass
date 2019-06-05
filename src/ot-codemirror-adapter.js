@@ -9,16 +9,14 @@
  *
  */
 (function (window) {
-  var RichTextCodeMirrorAdapter = (function () {
-    'use strict';
+  const RichTextCodeMirrorAdapter = (function () {
+    // var TextOperation = vceditor.TextOperation;
+    // var WrappedOperation = vceditor.WrappedOperation;
+    // var Cursor = vceditor.Cursor;
 
-    //var TextOperation = vceditor.TextOperation;
-    //var WrappedOperation = vceditor.WrappedOperation;
-    //var Cursor = vceditor.Cursor;
-
-    var TextOperation = window.TextOperation;
-    var WrappedOperation = window.WrappedOperation;
-    var Cursor = window.Cursor;
+    const { TextOperation } = window;
+    const { WrappedOperation } = window;
+    const { Cursor } = window;
 
 
     function RichTextCodeMirrorAdapter(rtcm) {
@@ -73,8 +71,8 @@
     }
 
     function codemirrorLength(cm) {
-      var lastLine = cm.lineCount() - 1;
-      return cm.indexFromPos({line: lastLine, ch: cm.getLine(lastLine).length});
+      const lastLine = cm.lineCount() - 1;
+      return cm.indexFromPos({ line: lastLine, ch: cm.getLine(lastLine).length });
     }
 
     // Converts a CodeMirror change object into a TextOperation and its inverse
@@ -91,28 +89,27 @@
       // A disadvantage of this approach is its complexity `O(n^2)` in the length
       // of the linked list of changes.
 
-      var docEndLength = codemirrorLength(cm);
-      var operation = new TextOperation().retain(docEndLength);
-      var inverse = new TextOperation().retain(docEndLength);
+      let docEndLength = codemirrorLength(cm);
+      let operation = new TextOperation().retain(docEndLength);
+      let inverse = new TextOperation().retain(docEndLength);
 
-      for (var i = changes.length - 1; i >= 0; i--) {
-        var change = changes[i];
-        var fromIndex = change.start;
-        var restLength = docEndLength - fromIndex - change.text.length;
+      for (let i = changes.length - 1; i >= 0; i--) {
+        const change = changes[i];
+        const fromIndex = change.start;
+        const restLength = docEndLength - fromIndex - change.text.length;
 
         operation = new TextOperation()
           .retain(fromIndex)
-          ['delete'](change.removed.length)
+          .delete(change.removed.length)
           .insert(change.text, change.attributes)
           .retain(restLength)
           .compose(operation);
 
         inverse = inverse.compose(new TextOperation()
           .retain(fromIndex)
-          ['delete'](change.text.length)
+          .delete(change.text.length)
           .insert(change.removed, change.removedAttributes)
-          .retain(restLength)
-        );
+          .retain(restLength));
 
         docEndLength += change.removed.length - change.text.length;
       }
@@ -122,19 +119,20 @@
 
     // Converts an attributes changed object to an operation and its inverse.
     RichTextCodeMirrorAdapter.operationFromAttributesChanges = function (changes, cm) {
-      var docEndLength = codemirrorLength(cm);
+      const docEndLength = codemirrorLength(cm);
 
-      var operation = new TextOperation(), inverse = new TextOperation();
-      var pos = 0;
+      const operation = new TextOperation(); const
+        inverse = new TextOperation();
+      let pos = 0;
 
-      for (var i = 0; i < changes.length; i++) {
-        var change = changes[i];
-        var toRetain = change.start - pos;
+      for (let i = 0; i < changes.length; i++) {
+        const change = changes[i];
+        const toRetain = change.start - pos;
         assert(toRetain >= 0); // changes should be in order and non-overlapping.
         operation.retain(toRetain);
         inverse.retain(toRetain);
 
-        var length = change.end - change.start;
+        const length = change.end - change.start;
         operation.retain(length, change.attributes);
         inverse.retain(length, change.attributesInverse);
         pos = change.start + length;
@@ -148,26 +146,24 @@
 
     // Apply an operation to a CodeMirror instance.
     RichTextCodeMirrorAdapter.applyOperationToCodeMirror = function (operation, rtcm) {
-
       // HACK: If there are a lot of operations; hide CodeMirror so that it doesn't re-render constantly.
-      if (operation.ops.length > 10)
-        rtcm.codeMirror.getWrapperElement().setAttribute('style', 'display: none');
+      if (operation.ops.length > 10) rtcm.codeMirror.getWrapperElement().setAttribute('style', 'display: none');
 
-      var ops = operation.ops;
-      var index = 0; // holds the current index into CodeMirror's content
-      for (var i = 0, l = ops.length; i < l; i++) {
+      const { ops } = operation;
+      let index = 0; // holds the current index into CodeMirror's content
+      for (let i = 0, l = ops.length; i < l; i++) {
         var op = ops[i];
         if (op.isRetain()) {
           if (!emptyAttributes(op.attributes)) {
-            rtcm.updateTextAttributes(index, index + op.chars, function (attributes) {
-              for (var attr in op.attributes) {
+            rtcm.updateTextAttributes(index, index + op.chars, (attributes) => {
+              for (const attr in op.attributes) {
                 if (op.attributes[attr] === false) {
                   delete attributes[attr];
                 } else {
                   attributes[attr] = op.attributes[attr];
                 }
               }
-            }, 'RTCMADAPTER', /*doLineAttributes=*/true);
+            }, 'RTCMADAPTER', /* doLineAttributes= */true);
           }
           index += op.chars;
         } else if (op.isInsert()) {
@@ -190,21 +186,21 @@
 
     RichTextCodeMirrorAdapter.prototype.onChange = function (_, changes) {
       if (changes[0].origin !== 'RTCMADAPTER') {
-        var pair = RichTextCodeMirrorAdapter.operationFromCodeMirrorChanges(changes, this.cm);
+        const pair = RichTextCodeMirrorAdapter.operationFromCodeMirrorChanges(changes, this.cm);
         this.trigger('change', pair[0], pair[1]);
       }
     };
 
     RichTextCodeMirrorAdapter.prototype.onAttributesChange = function (_, changes) {
       if (changes[0].origin !== 'RTCMADAPTER') {
-        var pair = RichTextCodeMirrorAdapter.operationFromAttributesChanges(changes, this.cm);
+        const pair = RichTextCodeMirrorAdapter.operationFromAttributesChanges(changes, this.cm);
         this.trigger('change', pair[0], pair[1]);
       }
     };
 
     RichTextCodeMirrorAdapter.prototype.onCursorActivity = function () {
       this.trigger('cursorActivity');
-    }
+    };
 
     RichTextCodeMirrorAdapter.prototype.onFocus = function () {
       this.trigger('focus');
@@ -221,13 +217,13 @@
     };
 
     RichTextCodeMirrorAdapter.prototype.getCursor = function () {
-      var cm = this.cm;
-      var cursorPos = cm.getCursor();
-      var position = cm.indexFromPos(cursorPos);
-      var selectionEnd;
+      const { cm } = this;
+      const cursorPos = cm.getCursor();
+      const position = cm.indexFromPos(cursorPos);
+      let selectionEnd;
       if (cm.somethingSelected()) {
-        var startPos = cm.getCursor(true);
-        var selectionEndPos = posEq(cursorPos, startPos) ? cm.getCursor(false) : startPos;
+        const startPos = cm.getCursor(true);
+        const selectionEndPos = posEq(cursorPos, startPos) ? cm.getCursor(false) : startPos;
         selectionEnd = cm.indexFromPos(selectionEndPos);
       } else {
         selectionEnd = position;
@@ -239,17 +235,17 @@
     RichTextCodeMirrorAdapter.prototype.setCursor = function (cursor) {
       this.cm.setSelection(
         this.cm.posFromIndex(cursor.position),
-        this.cm.posFromIndex(cursor.selectionEnd)
+        this.cm.posFromIndex(cursor.selectionEnd),
       );
     };
 
     RichTextCodeMirrorAdapter.prototype.addStyleRule = function (css) {
-      if (typeof document === "undefined" || document === null) {
+      if (typeof document === 'undefined' || document === null) {
         return;
       }
       if (!this.addedStyleRules) {
         this.addedStyleRules = {};
-        var styleElement = document.createElement('style');
+        const styleElement = document.createElement('style');
         document.documentElement.getElementsByTagName('head')[0].appendChild(styleElement);
         this.addedStyleSheet = styleElement.sheet;
       }
@@ -261,11 +257,11 @@
     };
 
     RichTextCodeMirrorAdapter.prototype.setOtherCursor = function (cursor, color, clientId) {
-      var cursorPos = this.cm.posFromIndex(cursor.position);
+      const cursorPos = this.cm.posFromIndex(cursor.position);
       if (typeof color !== 'string' || !color.match(/^#[a-fA-F0-9]{3,6}$/)) {
         return;
       }
-      var end = this.rtcm.end();
+      const end = this.rtcm.end();
       if (typeof cursor !== 'object' || typeof cursor.position !== 'number' || typeof cursor.selectionEnd !== 'number') {
         return;
       }
@@ -273,24 +269,24 @@
         return;
       }
 
-      //changed by SUMAN
+      // changed by SUMAN
 
-      var cursorCoords = this.cm.cursorCoords(cursorPos);
+      const cursorCoords = this.cm.cursorCoords(cursorPos);
 
-      var cursorEl = document.createElement('span');
+      const cursorEl = document.createElement('span');
       // console.log('Coords ' + cursorCoords);
       cursorEl.className = 'other-client';
-      cursorEl.id = "cursorId" + clientId;
+      cursorEl.id = `cursorId${clientId}`;
       cursorEl.style.borderLeftWidth = '3px';
       cursorEl.style.borderLeftStyle = 'solid';
       cursorEl.style.borderLeftColor = color;
       cursorEl.style.marginLeft = cursorEl.style.marginRight = '-3px';
-      cursorEl.style.height = (cursorCoords.bottom - cursorCoords.top) * 0.9 + 'px';
-      cursorEl.setAttribute('data-clientname', virtualclass.vutil.getUserInfo('name', clientId, virtualclass.connectedUsers)); //display user name with cursor
+      cursorEl.style.height = `${(cursorCoords.bottom - cursorCoords.top) * 0.9}px`;
+      cursorEl.setAttribute('data-clientname', virtualclass.vutil.getUserInfo('name', clientId, virtualclass.connectedUsers)); // display user name with cursor
       cursorEl.setAttribute('data-clientid', clientId);
       cursorEl.style.position = 'relative';
 
-      var cursorTag = document.getElementById('cursorId' + clientId);
+      const cursorTag = document.getElementById(`cursorId${clientId}`);
       if (cursorTag != null) {
         cursorTag.parentNode.removeChild(cursorTag);
       }
@@ -298,34 +294,34 @@
       if (clientId != virtualclass.gObj.uid) {
         if (cursor.position === cursor.selectionEnd) {
           cursorEl.style.zIndex = 0;
-          return this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});
-        } else {
-
-          this.cm.setBookmark(cursorPos, {widget: cursorEl, insertLeft: true});
-
-          // show selection
-          var selectionClassName = 'selection-' + color.replace('#', '');
-          var rule = '.' + selectionClassName + ' { background: ' + color + '; }';
-          this.addStyleRule(rule);
-
-          var fromPos, toPos;
-          if (cursor.selectionEnd > cursor.position) {
-            fromPos = cursorPos;
-            toPos = this.cm.posFromIndex(cursor.selectionEnd);
-          } else {
-            fromPos = this.cm.posFromIndex(cursor.selectionEnd);
-            toPos = cursorPos;
-          }
-          return this.cm.markText(fromPos, toPos, {
-            className: selectionClassName
-          });
+          return this.cm.setBookmark(cursorPos, { widget: cursorEl, insertLeft: true });
         }
+
+        this.cm.setBookmark(cursorPos, { widget: cursorEl, insertLeft: true });
+
+        // show selection
+        const selectionClassName = `selection-${color.replace('#', '')}`;
+        const rule = `.${selectionClassName} { background: ${color}; }`;
+        this.addStyleRule(rule);
+
+        let fromPos; let
+          toPos;
+        if (cursor.selectionEnd > cursor.position) {
+          fromPos = cursorPos;
+          toPos = this.cm.posFromIndex(cursor.selectionEnd);
+        } else {
+          fromPos = this.cm.posFromIndex(cursor.selectionEnd);
+          toPos = cursorPos;
+        }
+        return this.cm.markText(fromPos, toPos, {
+          className: selectionClassName,
+        });
       }
     };
 
     RichTextCodeMirrorAdapter.prototype.trigger = function (event) {
-      var args = Array.prototype.slice.call(arguments, 1);
-      var action = this.callbacks && this.callbacks[event];
+      const args = Array.prototype.slice.call(arguments, 1);
+      const action = this.callbacks && this.callbacks[event];
       if (action) {
         action.apply(this, args);
       }
@@ -344,10 +340,11 @@
     };
 
     RichTextCodeMirrorAdapter.prototype.invertOperation = function (operation) {
-      var pos = 0, cm = this.rtcm.codeMirror, spans, i;
-      var inverse = new TextOperation();
-      for (var opIndex = 0; opIndex < operation.wrapped.ops.length; opIndex++) {
-        var op = operation.wrapped.ops[opIndex];
+      let pos = 0; const cm = this.rtcm.codeMirror; let spans; let
+        i;
+      const inverse = new TextOperation();
+      for (let opIndex = 0; opIndex < operation.wrapped.ops.length; opIndex++) {
+        const op = operation.wrapped.ops[opIndex];
         if (op.isRetain()) {
           if (emptyAttributes(op.attributes)) {
             inverse.retain(op.chars);
@@ -355,10 +352,10 @@
           } else {
             spans = this.rtcm.getAttributeSpans(pos, pos + op.chars);
             for (i = 0; i < spans.length; i++) {
-              var inverseAttributes = {};
-              for (var attr in op.attributes) {
-                var opValue = op.attributes[attr];
-                var curValue = spans[i].attributes[attr];
+              const inverseAttributes = {};
+              for (const attr in op.attributes) {
+                const opValue = op.attributes[attr];
+                const curValue = spans[i].attributes[attr];
 
                 if (opValue === false) {
                   if (curValue) {
@@ -374,12 +371,12 @@
             }
           }
         } else if (op.isInsert()) {
-          inverse['delete'](op.text.length);
+          inverse.delete(op.text.length);
         } else if (op.isDelete()) {
-          var text = cm.getRange(cm.posFromIndex(pos), cm.posFromIndex(pos + op.chars));
+          const text = cm.getRange(cm.posFromIndex(pos), cm.posFromIndex(pos + op.chars));
 
           spans = this.rtcm.getAttributeSpans(pos, pos + op.chars);
-          var delTextPos = 0;
+          let delTextPos = 0;
           for (i = 0; i < spans.length; i++) {
             inverse.insert(text.substr(delTextPos, spans[i].length), spans[i].attributes);
             delTextPos += spans[i].length;
@@ -395,7 +392,7 @@
     // Throws an error if the first argument is falsy. Useful for debugging.
     function assert(b, msg) {
       if (!b) {
-        throw new Error(msg || "assertion error");
+        throw new Error(msg || 'assertion error');
       }
     }
 
@@ -403,14 +400,14 @@
     // object.method() directly or pass object.method as a reference to another
     // function.
     function bind(obj, method) {
-      var fn = obj[method];
+      const fn = obj[method];
       obj[method] = function () {
         fn.apply(obj, arguments);
       };
     }
 
     function emptyAttributes(attrs) {
-      for (var attr in attrs) {
+      for (const attr in attrs) {
         return false;
       }
       return true;
@@ -419,4 +416,4 @@
     return RichTextCodeMirrorAdapter;
   }());
   window.Client = RichTextCodeMirrorAdapter;
-})(window);
+}(window));

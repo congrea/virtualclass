@@ -9,10 +9,7 @@
  *
  */
 (function (window) {
-  "use strict";
-  var Client = (function () {
-    'use strict';
-
+  const Client = (function () {
     // Client constructor
     function Client(revision) {
       this.revision = revision;
@@ -50,12 +47,12 @@
 
     // Override this method.
     Client.prototype.sendOperation = function (operation) {
-      throw new Error("sendOperation must be defined in child class");
+      throw new Error('sendOperation must be defined in child class');
     };
 
     // Override this method.
     Client.prototype.applyOperation = function (operation) {
-      throw new Error("applyOperation must be defined in child class");
+      throw new Error('applyOperation must be defined in child class');
     };
 
 
@@ -69,7 +66,7 @@
     Synchronized.prototype.applyClient = function (client, operation) {
       // When the user makes an edit, send the operation to the server and
       // switch to the 'AwaitingConfirm' state
-//      client.sendOperation(operation);
+      //      client.sendOperation(operation);
       client.sendOperation(client.revision, operation);
 
       return new AwaitingConfirm(operation);
@@ -87,11 +84,11 @@
     };
 
     Synchronized.prototype.serverAck = function (client) {
-      throw new Error("There is no pending operation.");
+      throw new Error('There is no pending operation.');
     };
 
     Synchronized.prototype.serverRetry = function (client) {
-      throw new Error("There is no pending operation.");
+      throw new Error('There is no pending operation.');
     };
 
     // Singleton
@@ -124,7 +121,7 @@
       //  (can be applied  \/
       //  to the client's
       //  current document)
-      var pair = operation.constructor.transform(this.outstanding, operation);
+      const pair = operation.constructor.transform(this.outstanding, operation);
       client.applyOperation(pair[1]);
       return new AwaitingConfirm(pair[0]);
     };
@@ -158,7 +155,7 @@
 
     AwaitingWithBuffer.prototype.applyClient = function (client, operation) {
       // Compose the user's changes onto the buffer
-      var newBuffer = this.buffer.compose(operation);
+      const newBuffer = this.buffer.compose(operation);
       return new AwaitingWithBuffer(this.outstanding, newBuffer);
     };
 
@@ -180,16 +177,16 @@
       // document
       //
       // * pair1[1]
-      var transform = operation.constructor.transform;
-      var pair1 = transform(this.outstanding, operation);
-      var pair2 = transform(this.buffer, pair1[1]);
+      const { transform } = operation.constructor;
+      const pair1 = transform(this.outstanding, operation);
+      const pair2 = transform(this.buffer, pair1[1]);
       client.applyOperation(pair2[1]);
       return new AwaitingWithBuffer(pair1[0], pair2[0]);
     };
 
     AwaitingWithBuffer.prototype.serverRetry = function (client) {
       // Merge with our buffer and resend.
-      var outstanding = this.outstanding.compose(this.buffer);
+      const outstanding = this.outstanding.compose(this.buffer);
       client.sendOperation(outstanding);
       return new AwaitingConfirm(outstanding);
     };
@@ -206,8 +203,6 @@
     };
 
     return Client;
-
   }());
   window.Client = Client;
-
-})(window);
+}(window));

@@ -1,5 +1,5 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * @author  Jai Gupta <http://www.vidyamantra.com>
  * This file used for storing the data in to different base64 format
@@ -7,44 +7,42 @@
  */
 
 (function (window) {
-  var Converter = function () {
+  const Converter = function () {
     function b64ToUint6(nChr) {
-      return nChr > 64 && nChr < 91 ?
-        nChr - 65
-        : nChr > 96 && nChr < 123 ?
-          nChr - 71
-          : nChr > 47 && nChr < 58 ?
-            nChr + 4
-            : nChr === 43 ?
-              62
-              : nChr === 47 ?
-                63
-                :
-                0;
+      return nChr > 64 && nChr < 91
+        ? nChr - 65
+        : nChr > 96 && nChr < 123
+          ? nChr - 71
+          : nChr > 47 && nChr < 58
+            ? nChr + 4
+            : nChr === 43
+              ? 62
+              : nChr === 47
+                ? 63
+                : 0;
     }
 
 
     /* Base64 string to array encoding */
 
     function uint6ToB64(nUint6) {
-      return nUint6 < 26 ?
-        nUint6 + 65
-        : nUint6 < 52 ?
-          nUint6 + 71
-          : nUint6 < 62 ?
-            nUint6 - 4
-            : nUint6 === 62 ?
-              43
-              : nUint6 === 63 ?
-                47
-                :
-                65;
+      return nUint6 < 26
+        ? nUint6 + 65
+        : nUint6 < 52
+          ? nUint6 + 71
+          : nUint6 < 62
+            ? nUint6 - 4
+            : nUint6 === 62
+              ? 43
+              : nUint6 === 63
+                ? 47
+                : 65;
     }
 
     return {
-      base64EncArrInt: function (ar) {
-        var ounit = new Uint8Array(ar.length);
-        for (var i = 0; i < ar.length; i++) {
+      base64EncArrInt(ar) {
+        const ounit = new Uint8Array(ar.length);
+        for (let i = 0; i < ar.length; i++) {
           if (ar[i] < 0) {
             ounit[i] = ((ar[i] * -1) + 127);
           } else {
@@ -54,12 +52,13 @@
         return this.base64EncArr(ounit);
       },
 
-      base64EncArr: function (aBytes) {
-        var nMod3 = 2, sB64Enc = "";
-        for (var nLen = aBytes.length, nUint24 = 0, nIdx = 0; nIdx < nLen; nIdx++) {
+      base64EncArr(aBytes) {
+        let nMod3 = 2; let
+          sB64Enc = '';
+        for (let nLen = aBytes.length, nUint24 = 0, nIdx = 0; nIdx < nLen; nIdx++) {
           nMod3 = nIdx % 3;
           if (nIdx > 0 && (nIdx * 4 / 3) % 76 === 0) {
-            sB64Enc += "\r\n";
+            sB64Enc += '\r\n';
           }
           nUint24 |= aBytes[nIdx] << (16 >>> nMod3 & 24);
           if (nMod3 === 2 || aBytes.length - nIdx === 1) {
@@ -71,11 +70,11 @@
         return sB64Enc.substr(0, sB64Enc.length - 2 + nMod3) + (nMod3 === 2 ? '' : nMod3 === 1 ? '=' : '==');
       },
 
-      /** For loop inside the funciton is auditable **/
-      base64DecToArrInt: function (st) {
-        var ar = base64DecToArr(st);
-        var ounit = new Int8Array(ar.length);
-        for (var i = 0; i < ar.length; i++) {
+      /** For loop inside the funciton is auditable * */
+      base64DecToArrInt(st) {
+        const ar = base64DecToArr(st);
+        const ounit = new Int8Array(ar.length);
+        for (let i = 0; i < ar.length; i++) {
           if (ar[i] >= 128) {
             ounit[i] = ((ar[i] - 127) * -1);
           } else {
@@ -85,10 +84,10 @@
         return ounit;
       },
 
-      base64DecToArr: function (sBase64, nBlocksSize) {
-        var sB64Enc = sBase64.replace(/[^A-Za-z0-9\+\/]/g, ""), nInLen = sB64Enc.length,
-          nOutLen = nBlocksSize ? Math.ceil((nInLen * 3 + 1 >> 2) / nBlocksSize) * nBlocksSize : nInLen * 3 + 1 >> 2,
-          taBytes = new Uint8Array(nOutLen);
+      base64DecToArr(sBase64, nBlocksSize) {
+        const sB64Enc = sBase64.replace(/[^A-Za-z0-9\+\/]/g, ''); const nInLen = sB64Enc.length;
+        const nOutLen = nBlocksSize ? Math.ceil((nInLen * 3 + 1 >> 2) / nBlocksSize) * nBlocksSize : nInLen * 3 + 1 >> 2;
+        const taBytes = new Uint8Array(nOutLen);
 
         for (var nMod3, nMod4, nUint24 = 0, nOutIdx = 0, nInIdx = 0; nInIdx < nInLen; nInIdx++) {
           nMod4 = nInIdx & 3;
@@ -98,18 +97,17 @@
               taBytes[nOutIdx] = nUint24 >>> (16 >>> nMod3 & 24) & 255;
             }
             nUint24 = 0;
-
           }
         }
         return taBytes;
       },
 
-      base64DecToArrclm: function (st) {
-        var ar = base64DecToArr(st);
-        var ounit = new Uint8ClampedArray(ar.buffer);
+      base64DecToArrclm(st) {
+        const ar = base64DecToArr(st);
+        const ounit = new Uint8ClampedArray(ar.buffer);
         return ounit;
-      }
-    }
+      },
+    };
   };
   window.converter = Converter;
-})(window);
+}(window));

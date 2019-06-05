@@ -1,11 +1,11 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
   // var vcan = window.vcan;
   function Triangle(id) {
-    var vcan = virtualclass.wb[id].vcan;
+    const { vcan } = virtualclass.wb[id];
 
     /**
      * @Class defined triangle for drawing triangle
@@ -20,7 +20,7 @@
          * calcualte the width and height absolute x and absolute y for triangle object
          * @param obj the properties would initates on it
          */
-        init: function (obj) {
+        init(obj) {
           obj.fillStyle = obj.fillColor;
           if (obj.dRoad == undefined) {
             obj.dRoad = 'ltr';
@@ -35,12 +35,12 @@
           }
 
           if (obj.x == undefined) {
-            var absx = obj.ex - (obj.width / 2);
+            const absx = obj.ex - (obj.width / 2);
             obj.x = absx;
           }
 
           if (obj.y == undefined) {
-            var absy = obj.ey - (obj.height / 2);
+            const absy = obj.ey - (obj.height / 2);
             obj.y = absy;
           }
 
@@ -51,16 +51,16 @@
          * @param ctx current context
          * @param obj would be drawn
          */
-        draw: function (ctx, obj, noTransform) {
+        draw(ctx, obj, noTransform) {
           ctx.beginPath();
 
-          if (obj.dRoad == 't2b') {  //TODO this condtion should be re thinkable
-            var widthBy2 = obj.width / 2,
-              heightBy2 = obj.height / 2;
+          if (obj.dRoad == 't2b') { // TODO this condtion should be re thinkable
+            var widthBy2 = obj.width / 2;
+            var heightBy2 = obj.height / 2;
           } else {
-            //if user draw the object from right to left side
-            var widthBy2 = -obj.width / 2,
-              heightBy2 = -obj.height / 2;
+            // if user draw the object from right to left side
+            var widthBy2 = -obj.width / 2;
+            var heightBy2 = -obj.height / 2;
           }
 
           ctx.lineWidth = obj.lineWidth;
@@ -70,10 +70,10 @@
 
           ctx.moveTo(-widthBy2, heightBy2);
 
-          //left vertical line in case of ltr
+          // left vertical line in case of ltr
           ctx.lineTo(0, -heightBy2);
 
-          //right vertical line in case of rtl
+          // right vertical line in case of rtl
           ctx.lineTo(widthBy2, heightBy2);
           ctx.lineWidth = obj.stroke;
           ctx.strokeStyle = obj.color;
@@ -84,11 +84,10 @@
             ctx.fill();
           }
           ctx.stroke();
-        }
+        },
       };
-    }
-
+    };
   }
 
   window.Triangle = Triangle;
-})(window);
+}(window));

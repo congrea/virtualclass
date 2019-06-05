@@ -1,5 +1,5 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * This file looks for the environmment support for the virtual claas and its apis
  */
@@ -9,93 +9,88 @@
      * Initializing webRtc and browser
      * @return system object
      */
-    init: function () {
+    init() {
       this.wbRtc = {};
       this.wbRtc.className = 'webrtcCont';
       this.mybrowser = {};
       return this;
     },
-    //TODO function need to be revised
-    isCanvasSupport: function (navigator, browserName, version) {
-
+    // TODO function need to be revised
+    isCanvasSupport(navigator, browserName, version) {
       console.log('is canvas support');
       console.log(navigator);
       console.log(browserName);
       if (browserName == 'MSIE') {
-        return (version != 9) ? false : true;
-      } else {
-        return (!window.CanvasRenderingContext2D) ? false : true;
+        return version == 9;
       }
+      return !(!window.CanvasRenderingContext2D);
     },
     /*
      * To check whether  webSocket is supported  or not
      *
      */
     // TODO parameter passed are not being used
-    isWebSocketSupport: function (navigator, browser, version) {
-      if (typeof window.WebSocket != 'undefined' && (typeof window.WebSocket == 'function' || typeof window.WebSocket == 'object') && window.WebSocket.hasOwnProperty('OPEN')) {
+    isWebSocketSupport(navigator, browser, version) {
+      if (typeof window.WebSocket !== 'undefined' && (typeof window.WebSocket === 'function' || typeof window.WebSocket === 'object') && window.WebSocket.hasOwnProperty('OPEN')) {
         return true;
-      } else {
-        return false;
       }
-
+      return false;
     },
     /*
      * To check whether local storage is supported or not
      *
      */
-    isLocalStorageSupport: function () {
-      return (Storage !== void(0));
+    isLocalStorageSupport() {
+      return (Storage !== void (0));
     },
     /*
      * to test for getUSerMedia support
      */
     // TODO browser and version is not being supported
-    isGetUserMediaSupport: function (browser, version) {
+    isGetUserMediaSupport(browser, version) {
+      navigator.getUserMedia = (navigator.getUserMedia
+      || navigator.webkitGetUserMedia
+      || navigator.mozGetUserMedia
+      || navigator.msGetUserMedia);
 
-      navigator.getUserMedia = ( navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia ||
-      navigator.msGetUserMedia);
-
-      return (navigator.getUserMedia) ? true : false;
+      return !!(navigator.getUserMedia);
     },
     /*
      * Test for showned db support
      *
      */
-    isIndexedDbSupport: function () {
-      return (window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB) ? true : false;
+    isIndexedDbSupport() {
+      return !!((window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB));
     },
     /*
      * function to test  whether worker is supported or not
      *
      */
-    isWorkerSupport: function () {
+    isWorkerSupport() {
       return !!window.Worker;
     },
     /*
      * to test wheter audio api is supported
      */
-    isAudioApiSupport: function () {
-      return (window.AudioContext || window.webkitAudioContext) ? true : false;
+    isAudioApiSupport() {
+      return !!((window.AudioContext || window.webkitAudioContext));
     },
     /*
      * to check for typed aray support
      */
-    isTypedArraySupport: function () {
-      return !!( 'ArrayBuffer' in window );
+    isTypedArraySupport() {
+      return !!('ArrayBuffer' in window);
     },
     /*
      *
      * @param bname browser name
      * @param bversion browser version
      */
-    isScreenShareSupport: function (bname, bversion) {
+    isScreenShareSupport(bname, bversion) {
       if (bname == 'Firefox') {
         return (bversion >= 34);
-      } else if (bname == 'Chrome') {
-        return (bversion >= 39) ? true : false;
+      } if (bname == 'Chrome') {
+        return (bversion >= 39);
       }
       return false;
     },
@@ -104,7 +99,7 @@
      * @param key: property of the object
      * @param value: value of the property
      */
-    setValue: function (key, value) {
+    setValue(key, value) {
       this[key] = value;
     },
     /*
@@ -113,7 +108,7 @@
      * @param bname browser name
      * @param bversion browser version
      */
-    checkBrowserFunctions: function (bname, bversion) {
+    checkBrowserFunctions(bname, bversion) {
       this.setValue('canvas', this.isCanvasSupport());
       this.setValue('webSocket', this.isWebSocketSupport());
       this.setValue('getusermedia', this.isGetUserMediaSupport());
@@ -128,18 +123,18 @@
      * Measuring the resolution of virtual class container
      * @param resolution : an object containing inner width and inner height of window
      */
-    measureResoultion: function (resolution) {
+    measureResoultion(resolution) {
       if (!virtualclass.gObj.hasOwnProperty('measureDimension')) {
-        var element = document.getElementById('virtualclassCont');
-        var offset = virtualclass.vutil.getElementOffset(element);
-        var offsetLeft = offset.x;
+        const element = document.getElementById('virtualclassCont');
+        const offset = virtualclass.vutil.getElementOffset(element);
+        const offsetLeft = offset.x;
         if (resolution.width < 1024) {
           var width = 1024 - (offsetLeft + 10);
         } else {
           var width = resolution.width - (offsetLeft + 350);
         }
-        var height = resolution.height - (offset.y);
-        virtualclass.gObj.measureDimension = {'width': width, 'height': height};
+        const height = resolution.height - (offset.y);
+        virtualclass.gObj.measureDimension = { width, height };
       }
       return virtualclass.gObj.measureDimension;
     },
@@ -148,15 +143,15 @@
     /*
      * setting dimension of the application
      */
-    setAppDimension: function (id, canvasWrapper) {
+    setAppDimension(id, canvasWrapper) {
       return;
-      var measureRes = this.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
+      const measureRes = this.measureResoultion({ width: window.innerWidth, height: window.innerHeight });
 
-      //var mainWrapper =  document.getElementById('virtualclassCont');
+      // var mainWrapper =  document.getElementById('virtualclassCont');
       virtualclass.vutil.setContainerWidth(measureRes, virtualclass.currApp);
       if (virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentSharing') {
         var id = virtualclass.gObj.currWb;
-        if (typeof canvasWrapper != 'undefined') {
+        if (typeof canvasWrapper !== 'undefined') {
           system.setCanvasWrapperDimension(measureRes, id);
         } else {
           system.setCanvasDimension(measureRes, id);
@@ -164,8 +159,8 @@
       }
     },
 
-    setDocCanvasDimension: function (width, height, id) {
-      var elem = document.querySelector('#canvas' + id);
+    setDocCanvasDimension(width, height, id) {
+      const elem = document.querySelector(`#canvas${id}`);
       if (elem != null) {
         elem.width = width;
         elem.height = height;
@@ -175,55 +170,55 @@
     /*   TODO, this funciton should be merged with, setCanvasWrapperDimension
      * Setting dimension of the canvas
      */
-    setCanvasDimension: function (measureRes, id) {
-      if (typeof virtualclass.wb[id] == 'object') {
-        var vcan = virtualclass.wb[id].vcan;
+    setCanvasDimension(measureRes, id) {
+      if (typeof virtualclass.wb[id] === 'object') {
+        const { vcan } = virtualclass.wb[id];
 
-        if (typeof vcan.main.canvas != 'undefined') {
-          var canvas = vcan.main.canvas;
+        if (typeof vcan.main.canvas !== 'undefined') {
+          const { canvas } = vcan.main;
           ctx = vcan.main.canvas.getContext('2d');
           canvas.width = measureRes.width;
 
-          var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+          const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
 
-          canvasWrapper.style.width = (canvas.width) + 'px';
+          canvasWrapper.style.width = `${canvas.width}px`;
 
           // for handle the scroll on whiteboard during the play mode
-          var rHeight = (virtualclass.isPlayMode) ? 85 : 15;
+          const rHeight = (virtualclass.isPlayMode) ? 85 : 15;
 
-          var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : ((virtualclass.currApp == 'Whiteboard') ? rHeight + 30 : rHeight);
+          const toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : ((virtualclass.currApp == 'Whiteboard') ? rHeight + 30 : rHeight);
           canvas.height = measureRes.height - toolWrapperHeight;
 
           // canvas.parentNode.height = canvas.height + 'px';
 
-          canvasWrapper.style.height = (canvas.height - 30) + 'px';
-          console.log('canvasWrapper height' + canvasWrapper.style.height);
+          canvasWrapper.style.height = `${canvas.height - 30}px`;
+          console.log(`canvasWrapper height${canvasWrapper.style.height}`);
 
-          console.log("canvas width " + canvas.width);
-          //var element = document.getElementById('canvas');
-          var offset = vcan.utility.getElementOffset(document.getElementById('canvas' + id));
+          console.log(`canvas width ${canvas.width}`);
+          // var element = document.getElementById('canvas');
+          const offset = vcan.utility.getElementOffset(document.getElementById(`canvas${id}`));
 
           vcan.main.offset.x = offset.x;
-          console.log('canvas offset x=' + vcan.main.offset.x + ' canvas offset y=' + offset.y);
+          console.log(`canvas offset x=${vcan.main.offset.x} canvas offset y=${offset.y}`);
         }
       }
     },
 
-    /** Handle container dimension 1**/
-    setCanvasWrapperDimension: function (measureRes, id) {
+    /** Handle container dimension 1* */
+    setCanvasWrapperDimension(measureRes, id) {
       console.log('Width of canvas wrapper, not seeting ');
       return;
-      var vcan = virtualclass.wb[id].vcan;
-      if (typeof vcan.main.canvas != 'undefined') {
-        var canvas = vcan.main.canvas;
-        var width = measureRes.width;
+      const { vcan } = virtualclass.wb[id];
+      if (typeof vcan.main.canvas !== 'undefined') {
+        const { canvas } = vcan.main;
+        let { width } = measureRes;
 
-        var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
+        const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
 
-        var reduceWidth = 50;
+        let reduceWidth = 50;
 
 
-        var reduceHeight = 40;
+        let reduceHeight = 40;
         if (virtualclass.currApp == 'Whiteboard') {
           reduceWidth = 40;
         } else if (!roles.hasControls() && (virtualclass.currApp == 'DocumentShare')) {
@@ -231,28 +226,28 @@
           reduceHeight = 50;
         }
 
-        width = (width - reduceWidth);
+        width -= reduceWidth;
 
-        canvasWrapper.style.width = width + 'px';  //37
+        canvasWrapper.style.width = `${width}px`; // 37
 
-        var rHeight = (virtualclass.isPlayMode) ? 85 : reduceHeight;
+        const rHeight = (virtualclass.isPlayMode) ? 85 : reduceHeight;
 
-        var toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
+        let toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
         if (virtualclass.currApp == 'DocumentShare') {
           toolWrapperHeight += 40;
         }
 
-        var canWrapperHeight = measureRes.height - (toolWrapperHeight + 20);
+        const canWrapperHeight = measureRes.height - (toolWrapperHeight + 20);
 
-        //canvas wrapper height 1
-        canvasWrapper.style.height = canWrapperHeight + 'px';
-        console.log('canvasWrapper width' + canvasWrapper.style.width);
-        console.log('canvasWrapper height' + canvasWrapper.style.height);
+        // canvas wrapper height 1
+        canvasWrapper.style.height = `${canWrapperHeight}px`;
+        console.log(`canvasWrapper width${canvasWrapper.style.width}`);
+        console.log(`canvasWrapper height${canvasWrapper.style.height}`);
       }
     },
     // TODO this function is not being invoked
-    getResoultion: function (windowWidth) {
-      var resolution = {};
+    getResoultion(windowWidth) {
+      const resolution = {};
       if (windowWidth < 1280) {
         resolution.width = 1024;
         resolution.height = 768;
@@ -272,14 +267,12 @@
      *Getting application support for the user and if there  are errors they will be pushed in an array error
      *@param user user role
      */
-    reportBrowser: function (user) {
-      var errors = this.getErrors(user);
+    reportBrowser(user) {
+      const errors = this.getErrors(user);
       if (errors.length > 1) {
-
-        virtualclass.error.push(errors.join(",") + " are disabled in your browser.");
-
+        virtualclass.error.push(`${errors.join(',')} are disabled in your browser.`);
       } else if (errors.length == 1) {
-        virtualclass.error.push(errors + ' is disabled in your browser.');
+        virtualclass.error.push(`${errors} is disabled in your browser.`);
       }
     },
     /*
@@ -287,17 +280,17 @@
      * @param user user role
      * @return errors : An array of generated errors if apis are not available
      */
-    getErrors: function (user) {
-      var errors = [];
-      //webSocket to websocket
-      var apis = ['canvas', 'webSocket', 'getusermedia', 'webaudio', 'indexeddb', 'localstorage', 'typedarray'];
+    getErrors(user) {
+      const errors = [];
+      // webSocket to websocket
+      const apis = ['canvas', 'webSocket', 'getusermedia', 'webaudio', 'indexeddb', 'localstorage', 'typedarray'];
       if (user == 't' || user == 'e') apis.push('webworker', 'screenshare');
-      for (var i = 0; i < apis.length; i++) {
+      for (let i = 0; i < apis.length; i++) {
         if (!this[apis[i]]) {
           if (apis[i] == 'screenshare') {
             virtualclass.gObj.errNotScreenShare = true;
           }
-          errors.push(virtualclass.lang.getString('err' + apis[i]));
+          errors.push(virtualclass.lang.getString(`err${apis[i]}`));
         }
       }
       return errors;
@@ -306,42 +299,41 @@
      * To check Whether the device is apple device
      * @return return apple device version
      */
-    isiOSDevice: function () {
-      var iOSVersion = parseFloat(
-          ('' + (/CPU.*OS ([0-9_]{1,5})|(CPU like).*AppleWebKit.*Mobile/i.exec(navigator.userAgent) || [0, ''])[1])
-            .replace('undefined', '3_2').replace('_', '.').replace('_', '')
-        ) || false;
+    isiOSDevice() {
+      const iOSVersion = parseFloat(
+        (`${(/CPU.*OS ([0-9_]{1,5})|(CPU like).*AppleWebKit.*Mobile/i.exec(navigator.userAgent) || [0, ''])[1]}`)
+          .replace('undefined', '3_2').replace('_', '.').replace('_', ''),
+      ) || false;
       return iOSVersion;
     },
     /*
      * To test for the android device
      * @return return true if the device is android device
      */
-    isAndroid: function () {
-      var ua = navigator.userAgent.toLowerCase();
-      return ua.indexOf("android") > -1;
+    isAndroid() {
+      const ua = navigator.userAgent.toLowerCase();
+      return ua.indexOf('android') > -1;
     },
 
-    isIPad: function () {
+    isIPad() {
       return (/(iPad)/g.test(navigator.userAgent));
     },
 
-    setBrowserDetails: function () {
-      var iOS = this.isiOSDevice();
-      this.device = "desktop";
+    setBrowserDetails() {
+      const iOS = this.isiOSDevice();
+      this.device = 'desktop';
       if (iOS) {
-        var bname = "iOS";
+        var bname = 'iOS';
         var bversion = iOS;
-        this.device = "mobTab";
+        this.device = 'mobTab';
       } else {
-        var vendor = this.mybrowser.detection();
+        const vendor = this.mybrowser.detection();
         var bname = vendor[0];
         var bversion = parseFloat(vendor[1]);
       }
 
       this.mybrowser.name = bname;
       this.mybrowser.version = bversion;
-
     },
 
     /*
@@ -350,21 +342,19 @@
      * will be generated
      *
      */
-    check: function () {
-
-
+    check() {
       // TODO this should be normal
-      var iOS = this.isiOSDevice();
-      this.device = "desktop";
-      var addAttr = document.getElementById("virtualclassCont");
+      const iOS = this.isiOSDevice();
+      this.device = 'desktop';
+      const addAttr = document.getElementById('virtualclassCont');
 
       if (iOS) {
-        var bname = "iOS";
+        var bname = 'iOS';
         var bversion = iOS;
-        this.device = "mobTab";
+        this.device = 'mobTab';
       } else {
         var androidDevice = this.isAndroid();
-        var vendor = this.mybrowser.detection();
+        const vendor = this.mybrowser.detection();
         var bname = vendor[0];
         var bversion = parseFloat(vendor[1]);
       }
@@ -373,10 +363,10 @@
       this.mybrowser.version = bversion;
 
       this.checkBrowserFunctions(bname, bversion);
-      if ((typeof androidDevice != 'undefined' && androidDevice)) {
-        this.device = "mobTab";
-        addAttr.setAttribute("device", "mobile");
-        addAttr.classList.add("android");
+      if ((typeof androidDevice !== 'undefined' && androidDevice)) {
+        this.device = 'mobTab';
+        addAttr.setAttribute('device', 'mobile');
+        addAttr.classList.add('android');
 
         if (androidDevice) {
           if (bname == 'Chrome') {
@@ -387,19 +377,17 @@
               //     DO : Disable Audio Controls and Cam Support for this user
               virtualclass.vutil.initDisableAudVid();
             }
-
           } else {
             virtualclass.error.push(virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion])));
-            ;
+
             virtualclass.vutil.initDisableVirtualClass();
           }
         }
-
-      } else if ((bname == 'Chrome' && bversion >= 40) || (bname == 'Firefox' && bversion >= 35) ||
-        (roles.isStudent() && bname == 'OPR' > bversion >= 26)) {
+      } else if ((bname == 'Chrome' && bversion >= 40) || (bname == 'Firefox' && bversion >= 35)
+        || (roles.isStudent() && bname == bversion < 'OPR' >= 26)) {
         this.reportBrowser(virtualclass.gObj.uRole);
-      } else if ((bname == 'Chrome' && bversion < 40) || (bname == 'Firefox' && bversion < 35) ||
-        (roles.isStudent() && bname == 'OPR' && bversion < 26)) {
+      } else if ((bname == 'Chrome' && bversion < 40) || (bname == 'Firefox' && bversion < 35)
+        || (roles.isStudent() && bname == 'OPR' && bversion < 26)) {
         this.reportBrowser(virtualclass.gObj.uRole);
 
         virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion]));
@@ -408,13 +396,11 @@
         if (roles.hasControls()) {
           virtualclass.error.push(virtualclass.lang.getString('operaBrowserIssue', [bname, bversion]));
         }
-
       } else if (bname == 'SafarisupportedOld') {
         if (bversion >= 8) {
           if (roles.hasControls()) {
             virtualclass.vutil.initDisableVirtualClass();
             virtualclass.error.push(virtualclass.lang.getString('teacherSafariBrowserIssue', [bname, bversion]));
-
           } else {
             virtualclass.vutil.initDisableAudVid();
             virtualclass.error.push(virtualclass.lang.getString('studentSafariBrowserIssue', [bname, bversion]));
@@ -425,18 +411,17 @@
           virtualclass.error.push(virtualclass.lang.getString('safariBrowserIssue', [bname, bversion]));
         }
 
-        //DO : Disable Audio Controls and Cam Support for this user.
+        // DO : Disable Audio Controls and Cam Support for this user.
       } else if (bname == 'iOS') {
-        addAttr.setAttribute("device", "mobile");
-        addAttr.classList.add("ios");
-        //var iPad = /(iPad)/g.test(navigator.userAgent);
+        addAttr.setAttribute('device', 'mobile');
+        addAttr.classList.add('ios');
+        // var iPad = /(iPad)/g.test(navigator.userAgent);
         if (this.isIPad()) {
           if (roles.isStudent()) {
             if (bversion >= 8) {
               console.log('do nothing');
               // var audioWrapper = document.getElementById('audioWidget');
               // audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
-
             } else {
               virtualclass.vutil.initDisableVirtualClass();
               virtualclass.error.push(virtualclass.lang.getString('ios7support'));
@@ -451,7 +436,6 @@
         }
         // here bversion is version of operating system
         // we have to disable the audio compability
-
       } else {
         if (this.mybrowser.detectIE()) {
           virtualclass.gObj.errIE = true;
@@ -461,14 +445,14 @@
           //  virtualclass.error.push(virtualclass.lang.getString('commonBrowserIssue', [bname, bversion]));
           //  virtualclass.vutil.initDisableVirtualClass();
         }
-//                    virtualclass.error.push( bname +  ' ' + bversion + ' ' + virtualclass.lang.getString('commonBrowserIssue'));
+        //                    virtualclass.error.push( bname +  ' ' + bversion + ' ' + virtualclass.lang.getString('commonBrowserIssue'));
       }
     },
 
 
     mediaDevices: {
       webcamErr: [],
-      getMediaDeviceInfo: function () {
+      getMediaDeviceInfo() {
         if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
           // Firefox 38+ seems having support of enumerateDevicesx
           navigator.enumerateDevices = function (callback) {
@@ -476,9 +460,9 @@
           };
         }
 
-        var MediaDevices = [];
-        var isHTTPs = location.protocol === 'https:';
-        var canEnumerate = false;
+        let MediaDevices = [];
+        const isHTTPs = location.protocol === 'https:';
+        let canEnumerate = false;
 
         if (typeof MediaStreamTrack !== 'undefined' && 'getSources' in MediaStreamTrack) {
           canEnumerate = true;
@@ -490,10 +474,10 @@
         this.hasSpeakers = false;
         this.hasWebcam = false;
 
-        var isMicrophoneAlreadyCaptured = false;
-        var isWebcamAlreadyCaptured = false;
+        let isMicrophoneAlreadyCaptured = false;
+        let isWebcamAlreadyCaptured = false;
 
-        var that = this;
+        const that = this;
 
         function checkDeviceSupport(callback) {
           if (!canEnumerate) {
@@ -517,10 +501,10 @@
 
           MediaDevices = [];
 
-          navigator.enumerateDevices(function (devices) {
-            devices.forEach(function (_device) {
-              var device = {};
-              for (var d in _device) {
+          navigator.enumerateDevices((devices) => {
+            devices.forEach((_device) => {
+              const device = {};
+              for (const d in _device) {
                 device[d] = _device[d];
               }
 
@@ -532,8 +516,8 @@
                 device.kind = 'videoinput';
               }
 
-              var skip;
-              MediaDevices.forEach(function (d) {
+              let skip;
+              MediaDevices.forEach((d) => {
                 if (d.id === device.id && d.kind === device.kind) {
                   skip = true;
                 }
@@ -554,7 +538,7 @@
               if (!device.label) {
                 device.label = 'Please invoke getUserMedia once.';
                 if (!isHTTPs) {
-                  device.label = 'HTTPs is required to get label of this ' + device.kind + ' device.';
+                  device.label = `HTTPs is required to get label of this ${device.kind} device.`;
                 }
               } else {
                 if (device.kind === 'videoinput' && !isWebcamAlreadyCaptured) {
@@ -591,17 +575,16 @@
         }
 
         checkDeviceSupport();
-
-      }
+      },
     },
 
-    webpInit: function () {
-      virtualclass.modernizr.on('webp', function (result) {
-        virtualclass.system.webpSupport = (result) ? true : false;
+    webpInit() {
+      virtualclass.modernizr.on('webp', (result) => {
+        virtualclass.system.webpSupport = !!(result);
       });
     },
 
-    initResize: function () {
+    initResize() {
       if (virtualclass.gObj.hasOwnProperty('measureDimension')) {
         delete virtualclass.gObj.measureDimension;
       }
@@ -615,88 +598,85 @@
         system.setAppDimension(null, 'resize');
         virtualclass.view.window.resize();
       }, 50);
-
     },
 
-    _initResize: function () {
+    _initResize() {
       virtualclass.vutil.addClass('virtualclassCont', 'resizeWindow');
       system.setAppDimension(null, 'resize');
       virtualclass.view.window.resize();
-    }
+    },
   };
 
   system = system.init();
   // There could be the problem
   // TODO two event listener for the same event resize
   window.addEventListener('resize',
-    function () {
+    () => {
       system.initResize();
-    }
-  );
+    });
 
 
   // TODO this function is not being invoked
   system.mybrowser.detectIE = function () {
-    var ua = window.navigator.userAgent;
+    const ua = window.navigator.userAgent;
 
-    var msie = ua.indexOf('MSIE ');
+    const msie = ua.indexOf('MSIE ');
     if (msie > 0) {
       // IE 10 or older => return version number
       return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
     }
 
-    var trident = ua.indexOf('Trident/');
+    const trident = ua.indexOf('Trident/');
     if (trident > 0) {
       // IE 11 => return version number
-      var rv = ua.indexOf('rv:');
+      const rv = ua.indexOf('rv:');
       return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
     }
 
-    var edge = ua.indexOf('Edge/');
+    const edge = ua.indexOf('Edge/');
     if (edge >= 17) {
       // IE 12 => return version number
       // We are supporting on edge 17 or higher
       return false;
-    } else {
-      return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
     }
+    return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+
 
     // other browser
     return false;
   },
 
-    // TODO this function is not being invoked
-    system.mybrowser.detection = function () {
-      /**  The code is taking from
+  // TODO this function is not being invoked
+  system.mybrowser.detection = function () {
+    /**  The code is taking from
        https://stackoverflow.com/questions/5916900/how-can-you-detect-the-version-of-a-browser/5916928
        answered by Brandon
-       **/
+       * */
 
-      var browser;
-      var ua = navigator.userAgent, tem,
-        M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-      if (/trident/i.test(M[1])) {
-        tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
-        browser = {name: 'IE', version: (tem[1] || '')};
-      }
-      if (M[1] === 'Chrome') {
-        tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
-        if (tem != null) {
-          browser = {name: tem[1].replace('OPR', 'Opera'), version: tem[2]};
-        }
-      }
-      M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
-      if ((tem = ua.match(/version\/(\d+)/i)) != null) {
-        M.splice(1, 1, tem[1]);
-        browser = {name: M[0], version: M[1]};
-      }
-      if (typeof browser != 'undefined') {
-        return [browser.name, browser.version];
-      }
-      return M;
-
+    let browser;
+    const ua = navigator.userAgent; let tem;
+    let M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if (/trident/i.test(M[1])) {
+      tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+      browser = { name: 'IE', version: (tem[1] || '') };
     }
+    if (M[1] === 'Chrome') {
+      tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+      if (tem != null) {
+        browser = { name: tem[1].replace('OPR', 'Opera'), version: tem[2] };
+      }
+    }
+    M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+    if ((tem = ua.match(/version\/(\d+)/i)) != null) {
+      M.splice(1, 1, tem[1]);
+      browser = { name: M[0], version: M[1] };
+    }
+    if (typeof browser !== 'undefined') {
+      return [browser.name, browser.version];
+    }
+    return M;
+  };
 
 
   window.system = system;
-})(window);
+}(window));

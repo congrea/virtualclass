@@ -1,14 +1,13 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-
   function vcanMain(id) {
-    var vcan = virtualclass.wb[id].vcan;
+    const { vcan } = virtualclass.wb[id];
     /**
      * through the prototype we are adding method on object which is created by new vcan.main(canvasId);
-     **/
+     * */
 
     vcan.main.prototype = {
       /**
@@ -16,13 +15,13 @@
        * @param obj the object on which operation would operated
        *
        */
-      addObject: function (obj) {
-        if (typeof obj.coreObj == 'object') {
+      addObject(obj) {
+        if (typeof obj.coreObj === 'object') {
           if (obj.coreObj.type != 'freehand') {
-            vcan.main.children.push(obj.coreObj); //containing all the objects into children array
+            vcan.main.children.push(obj.coreObj); // containing all the objects into children array
           }
-          var vcanvas = vcan.main.canvas;
-          var ctx = vcanvas.getContext('2d');
+          const vcanvas = vcan.main.canvas;
+          const ctx = vcanvas.getContext('2d');
           // obj.coreObj.scaleX = virtualclass.zoom.canvasScale;
           // obj.coreObj.scaleY = virtualclass.zoom.canvasScale;
           vcan.render(ctx, obj.coreObj);
@@ -32,7 +31,7 @@
        * remove the passed object
        * @param obj which have to be delete
        */
-      removeObject: function (obj) {
+      removeObject(obj) {
         vcan.remove(obj);
       },
       /**
@@ -43,7 +42,7 @@
        * @param handler is function which is executed on this event type
        */
 
-      bind: function (type, handler) {
+      bind(type, handler) {
         vcan.events().bind(vcan.main.canvas, type, handler);
       },
       /**
@@ -57,27 +56,27 @@
       /**
        * this function need to be into another class
        */
-      readyObject: function (obj, replayObject) {
+      readyObject(obj, replayObject) {
         var obj = vcan.extend({}, obj);
-        //TODO this should be done into proper way or proper format
+        // TODO this should be done into proper way or proper format
         // I think it would be better if below condition would
         // obj.id == undefined is used for drawing free draw for multi user
-        //if (replayObject != true && obj.id == undefined) {
+        // if (replayObject != true && obj.id == undefined) {
         if (!replayObject && obj.id == undefined) {
           vcan.main.id++;
           obj.id = vcan.main.id;
         }
 
         obj.rotatingPointOffset = 40;
-        obj.selectable = true; //TODO this could be removed not sure but draggable property already defined.
+        obj.selectable = true; // TODO this could be removed not sure but draggable property already defined.
         obj.downObj = false;
-        obj.active = false; //TODO that should be set through setActive() function
+        obj.active = false; // TODO that should be set through setActive() function
         obj.cornersize = 12;
         obj.padding = 0;
         obj.hasControls = true;
         obj.cornerColor = 'rgba(102,153,255,0.5)'; // small  rectangle border color
 
-        //obj.borderColor = '#000'; Note: below three line code look like this
+        // obj.borderColor = '#000'; Note: below three line code look like this
         if (obj.borderColor == undefined) {
           obj.borderColor = '#000';
         }
@@ -87,7 +86,7 @@
         obj.draggable = false;
         obj.hasBorders = true;
         obj.hasRotatingPoint = false;
-        //TODO this should be dynamic and should not be consider on here
+        // TODO this should be dynamic and should not be consider on here
         obj.hideCorners = false;
         obj.lockRotation = false;
         obj.MIN_SCALE_LIMIT = 0.1;
@@ -137,7 +136,7 @@
           vcan.objTxt.init(obj);
         }
 
-        //TODO this function should not be inside the makeDispObject
+        // TODO this function should not be inside the makeDispObject
         /**
          * @param obj function operated on it
          * @return {Number} width value
@@ -164,65 +163,68 @@
           this.currentHeight = this.height * this.scaleY;
 
           this.hypotenuse = Math.sqrt(
-            Math.pow(this.currentWidth / 2, 2) +
-            Math.pow(this.currentHeight / 2, 2));
+            Math.pow(this.currentWidth / 2, 2)
+            + Math.pow(this.currentHeight / 2, 2),
+          );
           this.angle = Math.atan(this.currentHeight / this.currentWidth);
 
           this.theta = this.theta;
 
           // offset added for rotate and scale actions
-          var offsetX = Math.cos(this.angle + this.theta) * this.hypotenuse,
-            offsetY = Math.sin(this.angle + this.theta) * this.hypotenuse,
-            theta = this.theta,
-            sinTh = Math.sin(theta),
-            cosTh = Math.cos(theta);
+          const offsetX = Math.cos(this.angle + this.theta) * this.hypotenuse;
+          const offsetY = Math.sin(this.angle + this.theta) * this.hypotenuse;
+          const { theta } = this;
+          const sinTh = Math.sin(theta);
+          const cosTh = Math.cos(theta);
 
-          var tl = {
+          const tl = {
             x: this.x - offsetX,
-            y: this.y - offsetY
+            y: this.y - offsetY,
           };
 
-          var tr = {
+          const tr = {
             x: tl.x + (this.currentWidth * cosTh),
-            y: tl.y + (this.currentWidth * sinTh)
+            y: tl.y + (this.currentWidth * sinTh),
           };
 
-          var br = {
+          const br = {
             x: tr.x - (this.currentHeight * sinTh),
-            y: tr.y + (this.currentHeight * cosTh)
+            y: tr.y + (this.currentHeight * cosTh),
           };
 
-          var bl = {
+          const bl = {
             x: tl.x - (this.currentHeight * sinTh),
-            y: tl.y + (this.currentHeight * cosTh)
+            y: tl.y + (this.currentHeight * cosTh),
           };
-          var ml = {
+          const ml = {
             x: tl.x - (this.currentHeight / 2 * sinTh),
-            y: tl.y + (this.currentHeight / 2 * cosTh)
+            y: tl.y + (this.currentHeight / 2 * cosTh),
           };
-          var mt = {
+          const mt = {
             x: tl.x + (this.currentWidth / 2 * cosTh),
-            y: tl.y + (this.currentWidth / 2 * sinTh)
+            y: tl.y + (this.currentWidth / 2 * sinTh),
           };
-          var mr = {
+          const mr = {
             x: tr.x - (this.currentHeight / 2 * sinTh),
-            y: tr.y + (this.currentHeight / 2 * cosTh)
+            y: tr.y + (this.currentHeight / 2 * cosTh),
           };
-          var mb = {
+          const mb = {
             x: bl.x + (this.currentWidth / 2 * cosTh),
-            y: bl.y + (this.currentWidth / 2 * sinTh)
+            y: bl.y + (this.currentWidth / 2 * sinTh),
 
           };
-          var mtr = {
+          const mtr = {
             x: tl.x + (this.currentWidth / 2 * cosTh),
-            y: tl.y + (this.currentWidth / 2 * sinTh)
+            y: tl.y + (this.currentWidth / 2 * sinTh),
           };
 
           // clockwise
-          this.oCoords = {tl: tl, tr: tr, br: br, bl: bl, ml: ml, mt: mt, mr: mr, mb: mb, mtr: mtr};
+          this.oCoords = {
+            tl, tr, br, bl, ml, mt, mr, mb, mtr,
+          };
 
           // set coordinates of the draggable boxes in the corners used to scale/rotate the image
-          //TODO in proper way
+          // TODO in proper way
           this.setCornerCoords();
 
           /**
@@ -232,20 +234,20 @@
            * @return {String|Boolean} corner code (tl, tr, bl, br, etc.), or false if nothing is found
            */
           obj.findTargetCorner = function (e) {
-            var offset = vcan.main.offset;
+            const { offset } = vcan.main;
 
             if (!this.hasControls) {
               return false;
             }
             //  var pointer = actualPointer(e).
-            var pointer = vcan.utility.actualPointer(e);
-            var ex = pointer.x - offset.x,
-              ey = pointer.y - offset.y;
-            var xpoints,
-              lines;
+            const pointer = vcan.utility.actualPointer(e);
+            const ex = pointer.x - offset.x;
+            const ey = pointer.y - offset.y;
+            let xpoints;
+            let lines;
 
-            //for (var i in this.oCoords) {  //should get through the this.oCoords
-            for (var i in this.oCoords) {
+            // for (var i in this.oCoords) {  //should get through the this.oCoords
+            for (const i in this.oCoords) {
               if (i === 'mtr' && !this.hasRotatingPoint) {
                 return false;
               }
@@ -270,38 +272,38 @@
          * @param obj the operation would operated on it
          * @return {vcan.Object} thisArg
          */
-        //TOOD that function  should create through the contstructor of object
+        // TOOD that function  should create through the contstructor of object
         obj.drawBorders = function (ctx) {
           if (!this.hasBorders) {
             return;
           }
-          var padding = this.padding,
-            padding2 = padding * 2;
+          const { padding } = this;
+          const padding2 = padding * 2;
 
           ctx.save();
 
           ctx.globalAlpha = this.isMoving ? this.borderOpacityWhenMoving : 1;
           ctx.strokeStyle = this.borderColor;
 
-          var scaleX = 1 / (this.scaleX < this.MIN_SCALE_LIMIT ? this.MIN_SCALE_LIMIT : this.scaleX),
-            scaleY = 1 / (this.scaleY < this.MIN_SCALE_LIMIT ? this.MIN_SCALE_LIMIT : this.scaleY);
+          const scaleX = 1 / (this.scaleX < this.MIN_SCALE_LIMIT ? this.MIN_SCALE_LIMIT : this.scaleX);
+          const scaleY = 1 / (this.scaleY < this.MIN_SCALE_LIMIT ? this.MIN_SCALE_LIMIT : this.scaleY);
 
           ctx.lineWidth = 1 / this.borderScaleFactor;
           ctx.scale(scaleX, scaleY);
 
-          var w = this.getWidth(),
-            h = this.getHeight();
+          const w = this.getWidth();
+          const h = this.getHeight();
 
           ctx.strokeRect(
             ~~(-(w / 2) - padding) + 0.5, // offset needed to make lines look sharper
             ~~(-(h / 2) - padding) + 0.5,
             ~~(w + padding2),
-            ~~(h + padding2)
+            ~~(h + padding2),
           );
 
           if (this.hasRotatingPoint && !this.hideCorners && !this.lockRotation) {
-            var rotateHeight = (this.flipY ? h : -h) / 2;
-            var rotateWidth = (-w / 2);
+            const rotateHeight = (this.flipY ? h : -h) / 2;
+            const rotateWidth = (-w / 2);
 
             ctx.beginPath();
             ctx.moveTo(0, rotateHeight);
@@ -325,22 +327,22 @@
           if (!this.hasControls) {
             return;
           }
-          var size = 8 * virtualclass.zoom.canvasScale,
-            size2 = size / 2,
-            padding = this.padding,
-            left = -(this.width / 2),
-            top = -(this.height / 2),
-            _left,
-            _top,
-            // sizeX = size / this.scaleX,
-            // sizeY = size / this.scaleY,
-            sizeX = size / (this.scaleX),
-            sizeY = size / (this.scaleY),
-            scaleOffsetY = (padding + size2) / (this.scaleY),
-            scaleOffsetX = (padding + size2) / (this.scaleX),
-            scaleOffsetSizeX = (padding + size2 - size) / (this.scaleX),
-            scaleOffsetSizeY = (padding + size2 - size) / (this.scaleY),
-            height = this.height;
+          const size = 8 * virtualclass.zoom.canvasScale;
+          const size2 = size / 2;
+          const { padding } = this;
+          const left = -(this.width / 2);
+          const top = -(this.height / 2);
+          let _left;
+          let _top;
+          // sizeX = size / this.scaleX,
+          // sizeY = size / this.scaleY,
+          const sizeX = size / (this.scaleX);
+          const sizeY = size / (this.scaleY);
+          const scaleOffsetY = (padding + size2) / (this.scaleY);
+          const scaleOffsetX = (padding + size2) / (this.scaleX);
+          const scaleOffsetSizeX = (padding + size2 - size) / (this.scaleX);
+          const scaleOffsetSizeY = (padding + size2 - size) / (this.scaleY);
+          const { height } = this;
 
           ctx.save();
           ctx.fillStyle = this.cornerColor;
@@ -388,8 +390,8 @@
           // middle-top-rotate
           if (this.hasRotatingPoint) {
             _left = left + this.width / 2 - scaleOffsetX;
-            _top = this.flipY ?
-              (top + height + (this.rotatingPointOffset / this.scaleY) - sizeY / 2)
+            _top = this.flipY
+              ? (top + height + (this.rotatingPointOffset / this.scaleY) - sizeY / 2)
               : (top - (this.rotatingPointOffset / this.scaleY) - sizeY / 2);
 
             ctx.fillRect(_left, _top, sizeX, sizeY);
@@ -408,207 +410,206 @@
           this.active = !!active;
           return this;
         },
-          /**
+        /**
            *  sets the particular value either draggable and vice-versa
            */
-          obj.dragDrop = function (boolVal) {
-            if (boolVal != undefined) {
-              this.draggable = boolVal;
-            } else {
-              this.draggable = false;
-            }
-          },
-          /**
+        obj.dragDrop = function (boolVal) {
+          if (boolVal != undefined) {
+            this.draggable = boolVal;
+          } else {
+            this.draggable = false;
+          }
+        },
+        /**
            * Sets the coordinates of the draggable boxes in the corners of
            * the image used to scale/rotate it.
            * @method setCornerCoords
            * @param obj the object of which sets the co-ordinates
            */
-          //TODO use this instead of obj
-          obj.setCornerCoords = function () {
-            //var coords = this.oCoords,
-            var coords = this.oCoords,
-              theta = vcan.utility.degreesToRadians(45 - this.getAngle()),
-              cornerHypotenuse = Math.sqrt(2 * Math.pow(this.cornersize, 2)) / 2,
-              cosHalfOffset = cornerHypotenuse * Math.cos(theta),
-              sinHalfOffset = cornerHypotenuse * Math.sin(theta),
-              sinTh = Math.sin(this.theta),
-              cosTh = Math.cos(this.theta);
+        // TODO use this instead of obj
+        obj.setCornerCoords = function () {
+          // var coords = this.oCoords,
+          const coords = this.oCoords;
+          const theta = vcan.utility.degreesToRadians(45 - this.getAngle());
+          const cornerHypotenuse = Math.sqrt(2 * Math.pow(this.cornersize, 2)) / 2;
+          const cosHalfOffset = cornerHypotenuse * Math.cos(theta);
+          const sinHalfOffset = cornerHypotenuse * Math.sin(theta);
+          const sinTh = Math.sin(this.theta);
+          const cosTh = Math.cos(this.theta);
 
-            coords.tl.corner = {
-              tl: {
-                x: coords.tl.x - sinHalfOffset,
-                y: coords.tl.y - cosHalfOffset
-              },
-              tr: {
-                x: coords.tl.x + cosHalfOffset,
-                y: coords.tl.y - sinHalfOffset
-              },
-              bl: {
-                x: coords.tl.x - cosHalfOffset,
-                y: coords.tl.y + sinHalfOffset
-              },
-              br: {
-                x: coords.tl.x + sinHalfOffset,
-                y: coords.tl.y + cosHalfOffset
-              }
-            };
-
-            coords.tr.corner = {
-              tl: {
-                x: coords.tr.x - sinHalfOffset,
-                y: coords.tr.y - cosHalfOffset
-              },
-              tr: {
-                x: coords.tr.x + cosHalfOffset,
-                y: coords.tr.y - sinHalfOffset
-              },
-              br: {
-                x: coords.tr.x + sinHalfOffset,
-                y: coords.tr.y + cosHalfOffset
-              },
-              bl: {
-                x: coords.tr.x - cosHalfOffset,
-                y: coords.tr.y + sinHalfOffset
-              }
-            };
-
-            coords.bl.corner = {
-              tl: {
-                x: coords.bl.x - sinHalfOffset,
-                y: coords.bl.y - cosHalfOffset
-              },
-              bl: {
-                x: coords.bl.x - cosHalfOffset,
-                y: coords.bl.y + sinHalfOffset
-              },
-              br: {
-                x: coords.bl.x + sinHalfOffset,
-                y: coords.bl.y + cosHalfOffset
-              },
-              tr: {
-                x: coords.bl.x + cosHalfOffset,
-                y: coords.bl.y - sinHalfOffset
-              }
-            };
-
-            coords.br.corner = {
-              tr: {
-                x: coords.br.x + cosHalfOffset,
-                y: coords.br.y - sinHalfOffset
-              },
-              bl: {
-                x: coords.br.x - cosHalfOffset,
-                y: coords.br.y + sinHalfOffset
-              },
-              br: {
-                x: coords.br.x + sinHalfOffset,
-                y: coords.br.y + cosHalfOffset
-              },
-              tl: {
-                x: coords.br.x - sinHalfOffset,
-                y: coords.br.y - cosHalfOffset
-              }
-            };
-
-            coords.ml.corner = {
-              tl: {
-                x: coords.ml.x - sinHalfOffset,
-                y: coords.ml.y - cosHalfOffset
-              },
-              tr: {
-                x: coords.ml.x + cosHalfOffset,
-                y: coords.ml.y - sinHalfOffset
-              },
-              bl: {
-                x: coords.ml.x - cosHalfOffset,
-                y: coords.ml.y + sinHalfOffset
-              },
-              br: {
-                x: coords.ml.x + sinHalfOffset,
-                y: coords.ml.y + cosHalfOffset
-              }
-            };
-
-            coords.mt.corner = {
-              tl: {
-                x: coords.mt.x - sinHalfOffset,
-                y: coords.mt.y - cosHalfOffset
-              },
-              tr: {
-                x: coords.mt.x + cosHalfOffset,
-                y: coords.mt.y - sinHalfOffset
-              },
-              bl: {
-                x: coords.mt.x - cosHalfOffset,
-                y: coords.mt.y + sinHalfOffset
-              },
-              br: {
-                x: coords.mt.x + sinHalfOffset,
-                y: coords.mt.y + cosHalfOffset
-              }
-            };
-
-            coords.mr.corner = {
-              tl: {
-                x: coords.mr.x - sinHalfOffset,
-                y: coords.mr.y - cosHalfOffset
-              },
-              tr: {
-                x: coords.mr.x + cosHalfOffset,
-                y: coords.mr.y - sinHalfOffset
-              },
-              bl: {
-                x: coords.mr.x - cosHalfOffset,
-                y: coords.mr.y + sinHalfOffset
-              },
-              br: {
-                x: coords.mr.x + sinHalfOffset,
-                y: coords.mr.y + cosHalfOffset
-              }
-            };
-
-            coords.mb.corner = {
-              tl: {
-                x: coords.mb.x - sinHalfOffset,
-                y: coords.mb.y - cosHalfOffset
-              },
-              tr: {
-                x: coords.mb.x + cosHalfOffset,
-                y: coords.mb.y - sinHalfOffset
-              },
-              bl: {
-                x: coords.mb.x - cosHalfOffset,
-                y: coords.mb.y + sinHalfOffset
-              },
-              br: {
-                x: coords.mb.x + sinHalfOffset,
-                y: coords.mb.y + cosHalfOffset
-              }
-            };
-
-            coords.mtr.corner = {
-              tl: {
-                //todo earlier there was obj instead of obj
-                // x: coords.mtr.x - sinHalfOffset + (sinTh * obj.rotatingPointOffset),
-                x: coords.mtr.x - sinHalfOffset + (sinTh * this.rotatingPointOffset),
-                y: coords.mtr.y - cosHalfOffset - (cosTh * this.rotatingPointOffset)
-              },
-              tr: {
-                x: coords.mtr.x + cosHalfOffset + (sinTh * this.rotatingPointOffset),
-                y: coords.mtr.y - sinHalfOffset - (cosTh * this.rotatingPointOffset)
-              },
-              bl: {
-                x: coords.mtr.x - cosHalfOffset + (sinTh * this.rotatingPointOffset),
-                y: coords.mtr.y + sinHalfOffset - (cosTh * this.rotatingPointOffset)
-              },
-              br: {
-                x: coords.mtr.x + sinHalfOffset + (sinTh * this.rotatingPointOffset),
-                y: coords.mtr.y + cosHalfOffset - (cosTh * this.rotatingPointOffset)
-              }
-            };
-
+          coords.tl.corner = {
+            tl: {
+              x: coords.tl.x - sinHalfOffset,
+              y: coords.tl.y - cosHalfOffset,
+            },
+            tr: {
+              x: coords.tl.x + cosHalfOffset,
+              y: coords.tl.y - sinHalfOffset,
+            },
+            bl: {
+              x: coords.tl.x - cosHalfOffset,
+              y: coords.tl.y + sinHalfOffset,
+            },
+            br: {
+              x: coords.tl.x + sinHalfOffset,
+              y: coords.tl.y + cosHalfOffset,
+            },
           };
+
+          coords.tr.corner = {
+            tl: {
+              x: coords.tr.x - sinHalfOffset,
+              y: coords.tr.y - cosHalfOffset,
+            },
+            tr: {
+              x: coords.tr.x + cosHalfOffset,
+              y: coords.tr.y - sinHalfOffset,
+            },
+            br: {
+              x: coords.tr.x + sinHalfOffset,
+              y: coords.tr.y + cosHalfOffset,
+            },
+            bl: {
+              x: coords.tr.x - cosHalfOffset,
+              y: coords.tr.y + sinHalfOffset,
+            },
+          };
+
+          coords.bl.corner = {
+            tl: {
+              x: coords.bl.x - sinHalfOffset,
+              y: coords.bl.y - cosHalfOffset,
+            },
+            bl: {
+              x: coords.bl.x - cosHalfOffset,
+              y: coords.bl.y + sinHalfOffset,
+            },
+            br: {
+              x: coords.bl.x + sinHalfOffset,
+              y: coords.bl.y + cosHalfOffset,
+            },
+            tr: {
+              x: coords.bl.x + cosHalfOffset,
+              y: coords.bl.y - sinHalfOffset,
+            },
+          };
+
+          coords.br.corner = {
+            tr: {
+              x: coords.br.x + cosHalfOffset,
+              y: coords.br.y - sinHalfOffset,
+            },
+            bl: {
+              x: coords.br.x - cosHalfOffset,
+              y: coords.br.y + sinHalfOffset,
+            },
+            br: {
+              x: coords.br.x + sinHalfOffset,
+              y: coords.br.y + cosHalfOffset,
+            },
+            tl: {
+              x: coords.br.x - sinHalfOffset,
+              y: coords.br.y - cosHalfOffset,
+            },
+          };
+
+          coords.ml.corner = {
+            tl: {
+              x: coords.ml.x - sinHalfOffset,
+              y: coords.ml.y - cosHalfOffset,
+            },
+            tr: {
+              x: coords.ml.x + cosHalfOffset,
+              y: coords.ml.y - sinHalfOffset,
+            },
+            bl: {
+              x: coords.ml.x - cosHalfOffset,
+              y: coords.ml.y + sinHalfOffset,
+            },
+            br: {
+              x: coords.ml.x + sinHalfOffset,
+              y: coords.ml.y + cosHalfOffset,
+            },
+          };
+
+          coords.mt.corner = {
+            tl: {
+              x: coords.mt.x - sinHalfOffset,
+              y: coords.mt.y - cosHalfOffset,
+            },
+            tr: {
+              x: coords.mt.x + cosHalfOffset,
+              y: coords.mt.y - sinHalfOffset,
+            },
+            bl: {
+              x: coords.mt.x - cosHalfOffset,
+              y: coords.mt.y + sinHalfOffset,
+            },
+            br: {
+              x: coords.mt.x + sinHalfOffset,
+              y: coords.mt.y + cosHalfOffset,
+            },
+          };
+
+          coords.mr.corner = {
+            tl: {
+              x: coords.mr.x - sinHalfOffset,
+              y: coords.mr.y - cosHalfOffset,
+            },
+            tr: {
+              x: coords.mr.x + cosHalfOffset,
+              y: coords.mr.y - sinHalfOffset,
+            },
+            bl: {
+              x: coords.mr.x - cosHalfOffset,
+              y: coords.mr.y + sinHalfOffset,
+            },
+            br: {
+              x: coords.mr.x + sinHalfOffset,
+              y: coords.mr.y + cosHalfOffset,
+            },
+          };
+
+          coords.mb.corner = {
+            tl: {
+              x: coords.mb.x - sinHalfOffset,
+              y: coords.mb.y - cosHalfOffset,
+            },
+            tr: {
+              x: coords.mb.x + cosHalfOffset,
+              y: coords.mb.y - sinHalfOffset,
+            },
+            bl: {
+              x: coords.mb.x - cosHalfOffset,
+              y: coords.mb.y + sinHalfOffset,
+            },
+            br: {
+              x: coords.mb.x + sinHalfOffset,
+              y: coords.mb.y + cosHalfOffset,
+            },
+          };
+
+          coords.mtr.corner = {
+            tl: {
+              // todo earlier there was obj instead of obj
+              // x: coords.mtr.x - sinHalfOffset + (sinTh * obj.rotatingPointOffset),
+              x: coords.mtr.x - sinHalfOffset + (sinTh * this.rotatingPointOffset),
+              y: coords.mtr.y - cosHalfOffset - (cosTh * this.rotatingPointOffset),
+            },
+            tr: {
+              x: coords.mtr.x + cosHalfOffset + (sinTh * this.rotatingPointOffset),
+              y: coords.mtr.y - sinHalfOffset - (cosTh * this.rotatingPointOffset),
+            },
+            bl: {
+              x: coords.mtr.x - cosHalfOffset + (sinTh * this.rotatingPointOffset),
+              y: coords.mtr.y + sinHalfOffset - (cosTh * this.rotatingPointOffset),
+            },
+            br: {
+              x: coords.mtr.x + sinHalfOffset + (sinTh * this.rotatingPointOffset),
+              y: coords.mtr.y + cosHalfOffset - (cosTh * this.rotatingPointOffset),
+            },
+          };
+        };
 
         /**
          * Returns object's angle value
@@ -618,7 +619,7 @@
          */
 
         obj.getAngle = function () {
-          var theta = this.theta * 180 / Math.PI;
+          const theta = this.theta * 180 / Math.PI;
           // console.log('theta ' + theta);
           return theta;
         };
@@ -630,7 +631,7 @@
          * return false  in failure case
          */
         obj.setZindex = function () {
-          for (var i = 0; i < vcan.main.children.length; i++) {
+          for (let i = 0; i < vcan.main.children.length; i++) {
             if (this.id == vcan.main.children[i].id) {
               var delObj = vcan.main.children[i];
               vcan.main.children.splice(i, 1);
@@ -645,50 +646,50 @@
 
           return false;
         },
-          /**
+        /**
            * This function sets up the current object for do various transform
            * eg:- drag, rotate and scale
            * this function does expects event as parameter
            */
-          obj.setupCurrentTransform = function (e) {
-            var obj = vcan.main;
-            var action = 'drag',
-              corner,
-              pointer = vcan.utility.actualPointer(e);
+        obj.setupCurrentTransform = function (e) {
+          const obj = vcan.main;
+          let action = 'drag';
+          let corner;
+          const pointer = vcan.utility.actualPointer(e);
 
-            if (corner = this.findTargetCorner(e)) {
-              action = (corner === 'ml' || corner === 'mr')
-                ? 'scaleX'
-                : (corner === 'mt' || corner === 'mb')
-                  ? 'scaleY'
-                  : corner === 'mtr'
-                    ? 'rotate'
-                    : (this.hasRotatingPoint)
-                      ? 'scale'
-                      : 'rotate';
-            }
-            // alert('heelo scalex');
-            // debugger;
-            obj.currentTransform = {
-              target: this,
-              action: action,
-              scaleX: this.scaleX,
-              scaleY: this.scaleY,
-              offsetX: pointer.x - this.x,
-              offsetY: pointer.y - this.y,
-              ex: pointer.x,
-              ey: pointer.y,
-              x: this.x,
-              y: this.y,
-              theta: this.theta,
-              width: this.width * this.scaleX
-            };
-
-            obj.currentTransform.original = {
-              x: this.x,
-              y: this.y
-            };
+          if (corner = this.findTargetCorner(e)) {
+            action = (corner === 'ml' || corner === 'mr')
+              ? 'scaleX'
+              : (corner === 'mt' || corner === 'mb')
+                ? 'scaleY'
+                : corner === 'mtr'
+                  ? 'rotate'
+                  : (this.hasRotatingPoint)
+                    ? 'scale'
+                    : 'rotate';
+          }
+          // alert('heelo scalex');
+          // debugger;
+          obj.currentTransform = {
+            target: this,
+            action,
+            scaleX: this.scaleX,
+            scaleY: this.scaleY,
+            offsetX: pointer.x - this.x,
+            offsetY: pointer.y - this.y,
+            ex: pointer.x,
+            ey: pointer.y,
+            x: this.x,
+            y: this.y,
+            theta: this.theta,
+            width: this.width * this.scaleX,
           };
+
+          obj.currentTransform.original = {
+            x: this.x,
+            y: this.y,
+          };
+        };
 
         /**
          * Rotates object by invoking its rotate method
@@ -701,14 +702,12 @@
           obj.setCoords();
         }
 
-        var cor_cal = vcan.makeDispObject(obj);
+        const cor_cal = vcan.makeDispObject(obj);
         return cor_cal;
-      }
-    }
+      },
+    };
   }
 
   window.vcanMain = vcanMain;
-  //var vcan = window.vcan;
-
-
-})(window);
+  // var vcan = window.vcan;
+}(window));

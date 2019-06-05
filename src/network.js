@@ -12,12 +12,11 @@ function Network() {
   this.avgLatency = 1;
   this.MYSPEED_COUNTER_OK = 0;
   this.MYSPEED_COUNTER_HIGH = 0;
-
-};
+}
 
 Network.prototype.pingToServer = function () {
   if (io.webSocketConnected()) {
-    var time = Date.now();
+    const time = Date.now();
     ioAdapter.sendPing(time);
   }
 };
@@ -36,12 +35,12 @@ Network.prototype.initToPing = function (time) {
   this.initToPingTime = setTimeout(
     () => {
       this.pingToServer();
-      var that = this;
+      const that = this;
       this.sleepTime = setTimeout(() => {
         this.latency = 3000;
         that.initToPing(5000);
       }, 3000);
-    }, time
+    }, time,
   );
 
   this.variations();
@@ -60,17 +59,16 @@ Network.prototype.variations = function () {
     this.resetVariations();
   }
   this.adaptiveMedia();
-
 };
 
 // SPEED 1 is best, 5 is worst
 Network.prototype.adaptiveMedia = function () {
-  if (virtualclass.videoHost.gObj.MYSPEED < 3 && (this.latency >= 3000 || ( this.minLatency < 999999 && (this.latency > (this.minLatency * 3))))) {
+  if (virtualclass.videoHost.gObj.MYSPEED < 3 && (this.latency >= 3000 || (this.minLatency < 999999 && (this.latency > (this.minLatency * 3))))) {
     // Very high latency, disable video
     this.MYSPEED_COUNTER_OK = 0;
     this.MYSPEED_COUNTER_HIGH++;
-    this.updateNetworkInfo("slow");
-    //console.log('HIGH count ' + this.MYSPEED_COUNTER_HIGH + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
+    this.updateNetworkInfo('slow');
+    // console.log('HIGH count ' + this.MYSPEED_COUNTER_HIGH + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
     if (virtualclass.videoHost.gObj.MYSPEED == 1 && this.MYSPEED_COUNTER_HIGH >= 3) {
       this.MYSPEED_COUNTER_HIGH = 0;
       this.setSpeed(2);
@@ -82,7 +80,7 @@ Network.prototype.adaptiveMedia = function () {
     // Latency is ok, giving a chance of video recovery
     this.MYSPEED_COUNTER_OK++;
     this.MYSPEED_COUNTER_HIGH = 0;
-    this.updateNetworkInfo("fast");
+    this.updateNetworkInfo('fast');
     // console.log('OK count ' + this.MYSPEED_COUNTER_OK + ' Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
     if (virtualclass.videoHost.gObj.MYSPEED > 2 && this.MYSPEED_COUNTER_OK >= 4) {
       this.MYSPEED_COUNTER_OK = 0;
@@ -93,9 +91,9 @@ Network.prototype.adaptiveMedia = function () {
     }
   } else {
     if (this.latency > 2000) {
-      this.updateNetworkInfo("slow");
+      this.updateNetworkInfo('slow');
     } else {
-      this.updateNetworkInfo("fast");
+      this.updateNetworkInfo('fast');
     }
     //  console.log('Latency ' + this.latency + ' minLatency ' + this.minLatency + " speed " + virtualclass.videoHost.gObj.MYSPEED);
     this.MYSPEED_COUNTER_OK = 0;
@@ -104,27 +102,27 @@ Network.prototype.adaptiveMedia = function () {
 };
 
 Network.prototype.updateNetworkInfo = function (latency) {
-  var speed;
+  let speed;
   if (virtualclass.videoHost.gObj.MYSPEED == 1) {
-    speed = "high";
+    speed = 'high';
   } else if (virtualclass.videoHost.gObj.MYSPEED == 2) {
-    speed = "medium";
+    speed = 'medium';
   } else if (virtualclass.videoHost.gObj.MYSPEED == 3) {
-    speed = "low";
+    speed = 'low';
   }
 
   // var videoSpeed = document.getElementById('videSpeedNumber');
-  var videoSpeed = document.getElementById('proposedSpeed');
+  const videoSpeed = document.getElementById('proposedSpeed');
   if (videoSpeed) {
     videoSpeed.dataset.suggestion = speed;
   }
 
-  //videoFrameRate.innerHTML = frameRate;
+  // videoFrameRate.innerHTML = frameRate;
   // todo to  validate
-  var networkLatency = document.getElementById('networkLatency');
+  const networkLatency = document.getElementById('networkLatency');
   if (networkLatency) {
     networkLatency.dataset.latency = latency;
-    var text = virtualclass.lang.getString('band' + latency);
+    const text = virtualclass.lang.getString(`band${latency}`);
     networkLatency.dataset.title = text;
   }
 };
@@ -132,16 +130,16 @@ Network.prototype.updateNetworkInfo = function (latency) {
 Network.prototype.setSpeed = function (speed) {
   virtualclass.videoHost.gObj.MYSPEED = speed;
   ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
-  console.log("Latency - CHANGE SPEED TO " + virtualclass.videoHost.gObj.MYSPEED);
+  console.log(`Latency - CHANGE SPEED TO ${virtualclass.videoHost.gObj.MYSPEED}`);
   this.hideTeacherVideo();
   this.resetVariations();
 };
 
 Network.prototype.hideTeacherVideo = function () {
   if (roles.isStudent() && virtualclass.videoHost.gObj.MYSPEED >= 3) {
-    var videoCanvas = document.querySelector('#videoParticipate');
-    var videoCanvasContext = videoCanvas.getContext('2d');
-    videoCanvasContext.fillStyle = "#000000";
+    const videoCanvas = document.querySelector('#videoParticipate');
+    const videoCanvasContext = videoCanvas.getContext('2d');
+    videoCanvasContext.fillStyle = '#000000';
     videoCanvasContext.fillRect(0, 0, videoCanvas.offsetWidth, videoCanvas.offsetHeight);
   }
 };
@@ -155,17 +153,16 @@ Network.prototype.resetVariations = function () {
 
 
 Network.prototype.netWorkElementIsReady = function () {
-  var networkStatusContainer = document.querySelector('#networkStatusContainer');
+  const networkStatusContainer = document.querySelector('#networkStatusContainer');
   if (networkStatusContainer == null) {
-    var that = this;
+    const that = this;
     virtualclass.gObj.connectingRoom = setTimeout(
-      function () {
+      () => {
         that.netWorkElementIsReady();
-      }, 1000
+      }, 1000,
     );
   } else {
     networkStatusContainer.classList.add('connecting-room');
     clearTimeout(virtualclass.gObj.connectingRoom);
   }
-}
-
+};

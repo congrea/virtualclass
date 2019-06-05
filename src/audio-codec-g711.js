@@ -3,9 +3,10 @@
  * Copyright(c) 2011 João Martins <madjackoo@gmail.com>
  * MIT Licensed
  */
-//(function (exports) {
-"use strict";
-var G711 = {};
+// (function (exports) {
+
+
+const G711 = {};
 G711.BIAS = 0x84;
 G711.CLIP = 32635;
 G711.tables = {
@@ -27,7 +28,7 @@ G711.tables = {
       7, 7, 7, 7, 7, 7, 7, 7,
       7, 7, 7, 7, 7, 7, 7, 7,
       7, 7, 7, 7, 7, 7, 7, 7,
-      7, 7, 7, 7, 7, 7, 7, 7
+      7, 7, 7, 7, 7, 7, 7, 7,
     ],
 
     decompress: [
@@ -62,9 +63,9 @@ G711.tables = {
       1376, 1312, 1504, 1440, 1120, 1056, 1248, 1184,
       1888, 1824, 2016, 1952, 1632, 1568, 1760, 1696,
       688, 656, 752, 720, 560, 528, 624, 592,
-      944, 912, 1008, 976, 816, 784, 880, 848
-    ]
-  }
+      944, 912, 1008, 976, 816, 784, 880, 848,
+    ],
+  },
 };
 
 /**
@@ -76,18 +77,18 @@ G711.encode = function (samples, options) {
   if (samples.constructor == Array) {
     samples.byteLength = samples.length * 2;
   }
-  var buffer = new ArrayBuffer(samples.byteLength / 2)
-    , encoded = new Int8Array(buffer);
+  const buffer = new ArrayBuffer(samples.byteLength / 2);
+  const encoded = new Int8Array(buffer);
 
-  for (var i = 0; i < samples.byteLength / 2; i++) {
+  for (let i = 0; i < samples.byteLength / 2; i++) {
+    const sbuffer = new ArrayBuffer(2);
+    const bbuffer = new ArrayBuffer(1);
 
-    var sbuffer = new ArrayBuffer(2)
-      , bbuffer = new ArrayBuffer(1)
+    const _short = new Int16Array(sbuffer);
+    const _byte = new Int8Array(bbuffer);
 
-      , _short = new Int16Array(sbuffer)
-      , _byte = new Int8Array(bbuffer);
-
-    var sign, exponent, mantissa, s;
+    var sign; var exponent; var mantissa; var
+      s;
 
     sign = ((~samples[i]) >> 8) & 0x80;
     if (!(sign == 0x80)) {
@@ -117,19 +118,18 @@ G711.encode = function (samples, options) {
 
 G711.decode = function (encoded, options) {
   options = options || {};
-  if (typeof encoded.byteLength == 'undefined') {
+  if (typeof encoded.byteLength === 'undefined') {
     encoded.byteLength = encoded.length;
   }
-  var floating_point = !!options["floating_point"]
-    , buffer = new ArrayBuffer(encoded.byteLength * (!floating_point ? 2 : 4))
-    , decoded = new Float32Array(buffer)
-    , tmp;
+  const floating_point = !!options.floating_point;
+  var buffer = new ArrayBuffer(encoded.byteLength * (!floating_point ? 2 : 4));
+  const decoded = new Float32Array(buffer);
+  let tmp;
 
-  for (var i = 0; i < encoded.byteLength; i++) {
-
-    var buffer = new ArrayBuffer(2)
-      , _short = new Int8Array(buffer);
-    var s = G711.tables.alaw.decompress[encoded[i] & 0xff];
+  for (let i = 0; i < encoded.byteLength; i++) {
+    var buffer = new ArrayBuffer(2);
+    const _short = new Int8Array(buffer);
+    const s = G711.tables.alaw.decompress[encoded[i] & 0xff];
     _short[0] = s;
     _short[1] = (s >> 8);
     tmp = new Int16Array(_short.buffer)[0];
@@ -145,4 +145,4 @@ G711.decode = function (encoded, options) {
  */
 // exports.G711 = G711;
 // exports.version = '0.0.2';
-//}(typeof(exports) !== "undefined" ? module.exports : window));
+// }(typeof(exports) !== "undefined" ? module.exports : window));

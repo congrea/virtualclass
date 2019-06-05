@@ -1,9 +1,8 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-
   /**
    * @Class defined rectangle for rectangle
    *  methods initilized for creating rectangle object
@@ -11,8 +10,8 @@
    */
 
   function Rectangle(id) {
-    var vcan = virtualclass.wb[id].vcan;
-    //var vcan = virtualclass.wb[id];
+    const { vcan } = virtualclass.wb[id];
+    // var vcan = virtualclass.wb[id];
     vcan.rectangle = function () {
       return {
         type: 'rectangle',
@@ -21,17 +20,15 @@
          * initiates the properties of object
          * @param obj the properties would initates on it
          */
-        init: function (obj) {
-
+        init(obj) {
           if (obj.x == undefined) {
-            var absx = obj.ex - (obj.width / 2);
+            const absx = obj.ex - (obj.width / 2);
             obj.x = absx;
           }
 
           if (obj.y == undefined) {
-            var absy = obj.ey - (obj.height / 2);
+            const absy = obj.ey - (obj.height / 2);
             obj.y = absy;
-
           }
 
           return obj;
@@ -43,20 +40,19 @@
          * @param ctx current context
          * @param obj would be drawn
          */
-        draw: function (ctx, obj, noTransform) {
-
-          //TODO
+        draw(ctx, obj, noTransform) {
+          // TODO
           // this funciton should be done through the proper process
-          var x = -obj.width / 2,
-            y = -obj.height / 2,
-            w = obj.width,
-            h = obj.height;
+          const x = -obj.width / 2;
+          const y = -obj.height / 2;
+          const w = obj.width;
+          const h = obj.height;
 
           ctx.beginPath();
 
-          ctx.strokeStyle = (obj.borderColor != undefined) ? '"' + obj.strokeColor + '"' : "#000";
+          ctx.strokeStyle = (obj.borderColor != undefined) ? `"${obj.strokeColor}"` : '#000';
 
-          //alert(ctx.strokeStyle);
+          // alert(ctx.strokeStyle);
 
           ctx.moveTo(x, y);
           ctx.stroke();
@@ -79,7 +75,7 @@
           ctx.lineTo(x, y);
           ctx.stroke();
 
-          ctx.fillStyle = (obj.fillColor != undefined) ? obj.fillColor : " ";
+          ctx.fillStyle = (obj.fillColor != undefined) ? obj.fillColor : ' ';
           ctx.closePath();
           ctx.stroke();
           // todo this should be enable
@@ -87,11 +83,10 @@
             ctx.fillStyle = obj.fillColor;
             ctx.fill();
           }
-
-        }
+        },
       };
-    }
+    };
   }
 
   window.Rectangle = Rectangle;
-})(window);
+}(window));

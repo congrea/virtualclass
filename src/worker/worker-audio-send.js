@@ -1,12 +1,12 @@
-/***
+/** *
  * @copyright  2018 Suman Bogati  {@link http://vidyamantra.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * This file recevied the audio from audio worker send (worker-audio-send),
  * encode the audio and send it to io worker(worker-io.js)
  */
-var workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
+const workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
   importScripts('https://live.congrea.net/virtualclass/build/src/audio-g711-and-resampler.min.js');
-  var workerAudioSend = {
+  const workerAudioSend = {
     audioWorkletSend: null,
     workerIO: null,
     gObjUid: null,
@@ -19,55 +19,55 @@ var workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
     curAvg: 0,
     maxthreshold: 0,
 
-    convertFloat32ToInt16 (buffer) {
-      var l = buffer.length;
-      var buf = new Int16Array(l);
+    convertFloat32ToInt16(buffer) {
+      let l = buffer.length;
+      const buf = new Int16Array(l);
       while (l--) {
         buf[l] = Math.min(1, buffer[l]) * 0x7FFF;
       }
       return buf;
     },
 
-    encodeAudio (leftSix) {
-      var encoded = G711.encode(leftSix, {
-        alaw: true
+    encodeAudio(leftSix) {
+      const encoded = G711.encode(leftSix, {
+        alaw: true,
       });
       return encoded;
     },
 
-    breakintobytes (val, l) {
-      var numstring = val.toString();
-      for (var i = numstring.length; i < l; i++) {
-        numstring = '0' + numstring;
+    breakintobytes(val, l) {
+      let numstring = val.toString();
+      for (let i = numstring.length; i < l; i++) {
+        numstring = `0${numstring}`;
       }
-      var parts = numstring.match(/[\S]{1,2}/g) || [];
+      const parts = numstring.match(/[\S]{1,2}/g) || [];
       return parts;
     },
 
-    sendBinary (msg) {
-      "use strict";
+    sendBinary(msg) {
       if (this.workerIO != null) {
-        this.workerIO.postMessage({'cmd': "sendBinary", msg: msg});
+        this.workerIO.postMessage({ cmd: 'sendBinary', msg });
       }
     },
 
-    audioSend (msg, adStatus) {
+    audioSend(msg, adStatus) {
       if (this.audMouseDown && !this.precheck) {
-        var uid = this.breakintobytes(this.gObjUid, 8);
-        var scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
-        var sendmsg = new Int8Array(msg.length + scode.length);
+        const uid = this.breakintobytes(this.gObjUid, 8);
+        const scode = new Int8Array([101, uid[0], uid[1], uid[2], uid[3]]); // Status Code Audio
+        const sendmsg = new Int8Array(msg.length + scode.length);
         sendmsg.set(scode);
         sendmsg.set(msg, scode.length); // First element is status code (101)
         this.sendBinary(sendmsg);
-        postMessage({cmd: 'adStatus', msg: adStatus});
+        postMessage({ cmd: 'adStatus', msg: adStatus });
       } else {
-        postMessage({cmd: 'adStatus', msg: 'stop'});
+        postMessage({ cmd: 'adStatus', msg: 'stop' });
       }
     },
 
-    silenceDetection (send, leftSix) {
-      var audStatus, a;
-      var vol = sum = rate = 0;
+    silenceDetection(send, leftSix) {
+      let audStatus; let
+        a;
+      let vol = sum = rate = 0;
 
 
       for (i = 0; i < leftSix.length; i++) {
@@ -75,7 +75,7 @@ var workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
         if (vol < a) {
           vol = a;
         } // Vol is maximum volume in signal packet
-        sum = sum + a;
+        sum += a;
       }
 
       this.curAvg = sum / leftSix.length;
@@ -101,57 +101,57 @@ var workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
         this.maxthreshold = this.maxthreshold * 0.8;
       } // Keep algo sensitive
       var thdiff = this.maxthreshold / this.minthreshold;
-      var th = vol / this.minthreshold;
-      audStatus = "sending";
+      const th = vol / this.minthreshold;
+      audStatus = 'sending';
 
 
       if (vol !== 0) {
-        postMessage({cmd: 'unMuteAudio'});
+        postMessage({ cmd: 'unMuteAudio' });
       }
       // thediff is infinity when 1/0
-      if (isFinite(thdiff) && thdiff >= 20 || // historical max minus min
-        th > 2 || // Difference between current volume and minimum
-        rate > this.minthreshold || rate > 25 || // Change in signal strength
-        vol > (this.minthreshold * 2) || // Current max volume
-        thdiff <= 4) { // We are not ready for this algo
+      if (isFinite(thdiff) && thdiff >= 20 // historical max minus min
+        || th > 2 // Difference between current volume and minimum
+        || rate > this.minthreshold || rate > 25 // Change in signal strength
+        || vol > (this.minthreshold * 2) // Current max volume
+        || thdiff <= 4) { // We are not ready for this algo
         this.audioSend(send, audStatus);
         this.audioWasSent = 6;
         // console.log('SEND Current '+vol+' Min '+this.minthreshold+' Max '+this.maxthreshold+' rate '+rate+' thdiff '+thdiff+' th '+th);
       } else if (this.audioWasSent > 0) {
-        this.audioSend(send, audStatus);  // Continue sending Audio for next X samples
+        this.audioSend(send, audStatus); // Continue sending Audio for next X samples
         this.audioWasSent--;
       } else if (thdiff < 2) { // We are not ready, send all samples
         this.audioSend(send, audStatus);
       } else {
-        postMessage({cmd: 'adStatus', msg: 'notSending'});
-        postMessage({cmd: 'ioAdapterSend', msg: {cf: 'na'}});
+        postMessage({ cmd: 'adStatus', msg: 'notSending' });
+        postMessage({ cmd: 'ioAdapterSend', msg: { cf: 'na' } });
         if (vol === 0) {
-          postMessage({cmd: 'muteAudio'});
+          postMessage({ cmd: 'muteAudio' });
         }
       }
 
       return send;
     },
 
-    recorderProcess (left) {
+    recorderProcess(left) {
       if (!this.repMode && this.audMouseDown && !this.precheck) {
         // var left = e.inputBuffer.getChannelData(0);
-        var samples = this.resampler.resampler(left);
-        var leftSix = this.convertFloat32ToInt16(samples);
-        var send = this.encodeAudio(leftSix);
+        const samples = this.resampler.resampler(left);
+        const leftSix = this.convertFloat32ToInt16(samples);
+        const send = this.encodeAudio(leftSix);
         this.silenceDetection(send, leftSix);
       }
     },
 
-    onMessage (e){
+    onMessage(e) {
       switch (e.data.cmd) {
         case 'workerIO':
           this.workerIO = e.ports[0];
           // fromworkerIO from worker io
           this.resampler = new Resampler(e.data.sampleRate, 8000, 1, 4096),
-            this.workerIO.onmessage = function (e) {
-              console.log("From io lib");
-            };
+          this.workerIO.onmessage = function (e) {
+            console.log('From io lib');
+          };
           this.gObjUid = e.data.uid;
           break;
 
@@ -179,20 +179,18 @@ var workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
         default:
           console.log('Do nothing');
       }
-      ;
     },
 
-    formAudioWorkletSend (e) {
+    formAudioWorkletSend(e) {
       if (e.data.hasOwnProperty('cmd') && e.data.cmd == 'rawAudio') {
         this.recorderProcess(e.data.msg);
       }
-    }
-  }
+    },
+  };
 
   onmessage = function (e) {
     workerAudioSend.onMessage(e);
-  }
+  };
+}.toString(), ')()'], { type: 'application/javascript' }));
 
-}.toString(), ')()'], {type: 'application/javascript'}));
-
-var workerAudioSend = new Worker(workerAudioSendBlob);
+const workerAudioSend = new Worker(workerAudioSendBlob);

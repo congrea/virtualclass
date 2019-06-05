@@ -9,13 +9,12 @@
  *
  */
 (function (window) {
-  var TextOperation = (function () {
-    'use strict';
-    //var TextOp = vceditor.TextOp;
-    //var utils = vceditor.utils;
+  const TextOperation = (function () {
+    // var TextOp = vceditor.TextOp;
+    // var utils = vceditor.utils;
 
-    var TextOp = window.TextOp;
-    var utils = window.utils;
+    const { TextOp } = window;
+    const { utils } = window;
 
     // Constructor for new operations.
     function TextOperation() {
@@ -47,7 +46,7 @@
       if (this.ops.length !== other.ops.length) {
         return false;
       }
-      for (var i = 0; i < this.ops.length; i++) {
+      for (let i = 0; i < this.ops.length; i++) {
         if (!this.ops[i].equals(other.ops[i])) {
           return false;
         }
@@ -71,7 +70,7 @@
     // Skip over a given number of characters.
     TextOperation.prototype.retain = function (n, attributes) {
       if (typeof n !== 'number' || n < 0) {
-        throw new Error("retain expects a positive integer.");
+        throw new Error('retain expects a positive integer.');
       }
       if (n === 0) {
         return this;
@@ -79,7 +78,7 @@
       this.baseLength += n;
       this.targetLength += n;
       attributes = attributes || {};
-      var prevOp = (this.ops.length > 0) ? this.ops[this.ops.length - 1] : null;
+      const prevOp = (this.ops.length > 0) ? this.ops[this.ops.length - 1] : null;
       if (prevOp && prevOp.isRetain() && prevOp.attributesEqual(attributes)) {
         // The last op is a retain op with the same attributes => we can merge them into one op.
         prevOp.chars += n;
@@ -93,15 +92,15 @@
     // Insert a string at the current position.
     TextOperation.prototype.insert = function (str, attributes) {
       if (typeof str !== 'string') {
-        throw new Error("insert expects a string");
+        throw new Error('insert expects a string');
       }
       if (str === '') {
         return this;
       }
       attributes = attributes || {};
       this.targetLength += str.length;
-      var prevOp = (this.ops.length > 0) ? this.ops[this.ops.length - 1] : null;
-      var prevPrevOp = (this.ops.length > 1) ? this.ops[this.ops.length - 2] : null;
+      const prevOp = (this.ops.length > 0) ? this.ops[this.ops.length - 1] : null;
+      const prevPrevOp = (this.ops.length > 1) ? this.ops[this.ops.length - 2] : null;
       if (prevOp && prevOp.isInsert() && prevOp.attributesEqual(attributes)) {
         // Merge insert op.
         prevOp.text += str;
@@ -124,18 +123,18 @@
     };
 
     // Delete a string at the current position.
-    TextOperation.prototype['delete'] = function (n) {
+    TextOperation.prototype.delete = function (n) {
       if (typeof n === 'string') {
         n = n.length;
       }
       if (typeof n !== 'number' || n < 0) {
-        throw new Error("delete expects a positive integer or a string");
+        throw new Error('delete expects a positive integer or a string');
       }
       if (n === 0) {
         return this;
       }
       this.baseLength += n;
-      var prevOp = (this.ops.length > 0) ? this.ops[this.ops.length - 1] : null;
+      const prevOp = (this.ops.length > 0) ? this.ops[this.ops.length - 1] : null;
       if (prevOp && prevOp.isDelete()) {
         prevOp.chars += n;
       } else {
@@ -146,19 +145,19 @@
 
     // Tests whether this operation has no effect.
     TextOperation.prototype.isNoop = function () {
-      return this.ops.length === 0 ||
-        (this.ops.length === 1 && (this.ops[0].isRetain() && this.ops[0].hasEmptyAttributes()));
+      return this.ops.length === 0
+        || (this.ops.length === 1 && (this.ops[0].isRetain() && this.ops[0].hasEmptyAttributes()));
     };
 
     TextOperation.prototype.clone = function () {
-      var clone = new TextOperation();
-      for (var i = 0; i < this.ops.length; i++) {
+      const clone = new TextOperation();
+      for (let i = 0; i < this.ops.length; i++) {
         if (this.ops[i].isRetain()) {
           clone.retain(this.ops[i].chars, this.ops[i].attributes);
         } else if (this.ops[i].isInsert()) {
           clone.insert(this.ops[i].text, this.ops[i].attributes);
         } else {
-          clone['delete'](this.ops[i].chars);
+          clone.delete(this.ops[i].chars);
         }
       }
 
@@ -169,29 +168,28 @@
     TextOperation.prototype.toString = function () {
       // map: build a new array by applying a function to every element in an old
       // array.
-      var map = Array.prototype.map || function (fn) {
-          var arr = this;
-          var newArr = [];
-          for (var i = 0, l = arr.length; i < l; i++) {
-            newArr[i] = fn(arr[i]);
-          }
-          return newArr;
-        };
-      return map.call(this.ops, function (op) {
-        if (op.isRetain()) {
-          return "retain " + op.chars;
-        } else if (op.isInsert()) {
-          return "insert '" + op.text + "'";
-        } else {
-          return "delete " + (op.chars);
+      const map = Array.prototype.map || function (fn) {
+        const arr = this;
+        const newArr = [];
+        for (let i = 0, l = arr.length; i < l; i++) {
+          newArr[i] = fn(arr[i]);
         }
+        return newArr;
+      };
+      return map.call(this.ops, (op) => {
+        if (op.isRetain()) {
+          return `retain ${op.chars}`;
+        } if (op.isInsert()) {
+          return `insert '${op.text}'`;
+        }
+        return `delete ${op.chars}`;
       }).join(', ');
     };
 
     // Converts operation into a JSON value.
     TextOperation.prototype.toJSON = function () {
-      var ops = [];
-      for (var i = 0; i < this.ops.length; i++) {
+      const ops = [];
+      for (let i = 0; i < this.ops.length; i++) {
         // We prefix ops with their attributes if non-empty.
         if (!this.ops[i].hasEmptyAttributes()) {
           ops.push(this.ops[i].attributes);
@@ -213,10 +211,10 @@
 
     // Converts a plain JS object into an operation and validates it.
     TextOperation.fromJSON = function (ops) {
-      var o = new TextOperation();
-      for (var i = 0, l = ops.length; i < l; i++) {
-        var op = ops[i];
-        var attributes = {};
+      const o = new TextOperation();
+      for (let i = 0, l = ops.length; i < l; i++) {
+        let op = ops[i];
+        let attributes = {};
         if (typeof op === 'object') {
           attributes = op;
           i++;
@@ -226,7 +224,7 @@
           if (op > 0) {
             o.retain(op, attributes);
           } else {
-            o['delete'](-op);
+            o.delete(-op);
           }
         } else {
           utils.assert(typeof op === 'string');
@@ -239,17 +237,18 @@
     // Apply an operation to a string, returning a new string. Throws an error if
     // there's a mismatch between the input string and the operation.
     TextOperation.prototype.apply = function (str, oldAttributes, newAttributes) {
-      var operation = this;
+      const operation = this;
       oldAttributes = oldAttributes || [];
       newAttributes = newAttributes || [];
       if (str.length !== operation.baseLength) {
         throw new Error("The operation's base length must be equal to the string's length.");
       }
-      var newStringParts = [], j = 0, k, attr;
-      var oldIndex = 0;
-      var ops = this.ops;
-      for (var i = 0, l = ops.length; i < l; i++) {
-        var op = ops[i];
+      const newStringParts = []; let j = 0; let k; let
+        attr;
+      let oldIndex = 0;
+      const { ops } = this;
+      for (let i = 0, l = ops.length; i < l; i++) {
+        const op = ops[i];
         if (op.isRetain()) {
           if (oldIndex + op.chars > str.length) {
             throw new Error("Operation can't retain more characters than are left in the string.");
@@ -259,7 +258,8 @@
 
           // Copy (and potentially update) attributes for each char in retained string.
           for (k = 0; k < op.chars; k++) {
-            var currAttributes = oldAttributes[oldIndex + k] || {}, updatedAttributes = {};
+            const currAttributes = oldAttributes[oldIndex + k] || {}; const
+              updatedAttributes = {};
             for (attr in currAttributes) {
               updatedAttributes[attr] = currAttributes[attr];
               utils.assert(updatedAttributes[attr] !== false);
@@ -282,7 +282,7 @@
 
           // Insert attributes for each char.
           for (k = 0; k < op.text.length; k++) {
-            var insertedAttributes = {};
+            const insertedAttributes = {};
             for (attr in op.attributes) {
               insertedAttributes[attr] = op.attributes[attr];
               utils.assert(insertedAttributes[attr] !== false);
@@ -296,7 +296,7 @@
       if (oldIndex !== str.length) {
         throw new Error("The operation didn't operate on the whole string.");
       }
-      var newString = newStringParts.join('');
+      const newString = newStringParts.join('');
       utils.assert(newString.length === newAttributes.length);
 
       return newString;
@@ -307,16 +307,16 @@
     // operation 'insert("hello "); skip(6);' then the inverse is 'delete("hello ");
     // skip(6);'. The inverse should be used for implementing undo.
     TextOperation.prototype.invert = function (str) {
-      var strIndex = 0;
-      var inverse = new TextOperation();
-      var ops = this.ops;
-      for (var i = 0, l = ops.length; i < l; i++) {
-        var op = ops[i];
+      let strIndex = 0;
+      const inverse = new TextOperation();
+      const { ops } = this;
+      for (let i = 0, l = ops.length; i < l; i++) {
+        const op = ops[i];
         if (op.isRetain()) {
           inverse.retain(op.chars);
           strIndex += op.chars;
         } else if (op.isInsert()) {
-          inverse['delete'](op.text.length);
+          inverse.delete(op.text.length);
         } else { // delete op
           inverse.insert(str.slice(strIndex, strIndex + op.chars));
           strIndex += op.chars;
@@ -330,13 +330,14 @@
     // and a pair of consecutive operations A and B,
     // apply(apply(S, A), B) = apply(S, compose(A, B)) must hold.
     TextOperation.prototype.compose = function (operation2) {
-      var operation1 = this;
+      const operation1 = this;
       if (operation1.targetLength !== operation2.baseLength) {
-        throw new Error("The base length of the second operation has to be the target length of the first operation");
+        throw new Error('The base length of the second operation has to be the target length of the first operation');
       }
 
       function composeAttributes(first, second, firstOpIsInsert) {
-        var merged = {}, attr;
+        const merged = {}; let
+          attr;
         for (attr in first) {
           merged[attr] = first[attr];
         }
@@ -350,11 +351,14 @@
         return merged;
       }
 
-      var operation = new TextOperation(); // the combined operation
-      var ops1 = operation1.clone().ops, ops2 = operation2.clone().ops;
-      var i1 = 0, i2 = 0; // current index into ops1 respectively ops2
-      var op1 = ops1[i1++], op2 = ops2[i2++]; // current ops
-      var attributes;
+      const operation = new TextOperation(); // the combined operation
+      const ops1 = operation1.clone().ops; const
+        ops2 = operation2.clone().ops;
+      let i1 = 0; let
+        i2 = 0; // current index into ops1 respectively ops2
+      let op1 = ops1[i1++]; let
+        op2 = ops2[i2++]; // current ops
+      let attributes;
       while (true) {
         // Dispatch on the type of op1 and op2
         if (typeof op1 === 'undefined' && typeof op2 === 'undefined') {
@@ -363,7 +367,7 @@
         }
 
         if (op1 && op1.isDelete()) {
-          operation['delete'](op1.chars);
+          operation.delete(op1.chars);
           op1 = ops1[i1++];
           continue;
         }
@@ -374,10 +378,10 @@
         }
 
         if (typeof op1 === 'undefined') {
-          throw new Error("Cannot compose operations: first operation is too short.");
+          throw new Error('Cannot compose operations: first operation is too short.');
         }
         if (typeof op2 === 'undefined') {
-          throw new Error("Cannot compose operations: first operation is too long.");
+          throw new Error('Cannot compose operations: first operation is too long.');
         }
 
         if (op1.isRetain() && op2.isRetain()) {
@@ -407,7 +411,7 @@
             op1 = ops1[i1++];
           }
         } else if (op1.isInsert() && op2.isRetain()) {
-          attributes = composeAttributes(op1.attributes, op2.attributes, /*firstOpIsInsert=*/true);
+          attributes = composeAttributes(op1.attributes, op2.attributes, /* firstOpIsInsert= */true);
           if (op1.text.length > op2.chars) {
             operation.insert(op1.text.slice(0, op2.chars), attributes);
             op1.text = op1.text.slice(op2.chars);
@@ -423,23 +427,23 @@
           }
         } else if (op1.isRetain() && op2.isDelete()) {
           if (op1.chars > op2.chars) {
-            operation['delete'](op2.chars);
+            operation.delete(op2.chars);
             op1.chars -= op2.chars;
             op2 = ops2[i2++];
           } else if (op1.chars === op2.chars) {
-            operation['delete'](op2.chars);
+            operation.delete(op2.chars);
             op1 = ops1[i1++];
             op2 = ops2[i2++];
           } else {
-            operation['delete'](op1.chars);
+            operation.delete(op1.chars);
             op2.chars -= op1.chars;
             op1 = ops1[i1++];
           }
         } else {
           throw new Error(
-            "This shouldn't happen: op1: " +
-            JSON.stringify(op1) + ", op2: " +
-            JSON.stringify(op2)
+            `This shouldn't happen: op1: ${
+              JSON.stringify(op1)}, op2: ${
+              JSON.stringify(op2)}`,
           );
         }
       }
@@ -447,7 +451,7 @@
     };
 
     function getSimpleOp(operation) {
-      var ops = operation.ops;
+      const { ops } = operation;
       switch (ops.length) {
         case 1:
           return ops[0];
@@ -481,8 +485,10 @@
         return true;
       }
 
-      var startA = getStartIndex(this), startB = getStartIndex(other);
-      var simpleA = getSimpleOp(this), simpleB = getSimpleOp(other);
+      const startA = getStartIndex(this); const
+        startB = getStartIndex(other);
+      const simpleA = getSimpleOp(this); const
+        simpleB = getSimpleOp(other);
       if (!simpleA || !simpleB) {
         return false;
       }
@@ -508,8 +514,10 @@
         return true;
       }
 
-      var startA = getStartIndex(this), startB = getStartIndex(other);
-      var simpleA = getSimpleOp(this), simpleB = getSimpleOp(other);
+      const startA = getStartIndex(this); const
+        startB = getStartIndex(other);
+      const simpleA = getSimpleOp(this); const
+        simpleB = getSimpleOp(other);
       if (!simpleA || !simpleB) {
         return false;
       }
@@ -527,8 +535,10 @@
 
 
     TextOperation.transformAttributes = function (attributes1, attributes2) {
-      var attributes1prime = {}, attributes2prime = {};
-      var attr, allAttrs = {};
+      const attributes1prime = {}; const
+        attributes2prime = {};
+      let attr; const
+        allAttrs = {};
       for (attr in attributes1) {
         allAttrs[attr] = true;
       }
@@ -537,7 +547,8 @@
       }
 
       for (attr in allAttrs) {
-        var attr1 = attributes1[attr], attr2 = attributes2[attr];
+        const attr1 = attributes1[attr]; const
+          attr2 = attributes2[attr];
         utils.assert(attr1 != null || attr2 != null);
         if (attr1 == null) {
           // Only modified by attributes2; keep it.
@@ -561,14 +572,17 @@
     // heart of OT.
     TextOperation.transform = function (operation1, operation2) {
       if (operation1.baseLength !== operation2.baseLength) {
-        throw new Error("Both operations have to have the same base length");
+        throw new Error('Both operations have to have the same base length');
       }
 
-      var operation1prime = new TextOperation();
-      var operation2prime = new TextOperation();
-      var ops1 = operation1.clone().ops, ops2 = operation2.clone().ops;
-      var i1 = 0, i2 = 0;
-      var op1 = ops1[i1++], op2 = ops2[i2++];
+      const operation1prime = new TextOperation();
+      const operation2prime = new TextOperation();
+      const ops1 = operation1.clone().ops; const
+        ops2 = operation2.clone().ops;
+      let i1 = 0; let
+        i2 = 0;
+      let op1 = ops1[i1++]; let
+        op2 = ops2[i2++];
       while (true) {
         // At every iteration of the loop, the imaginary cursor that both
         // operation1 and operation2 have that operates on the input string must
@@ -596,16 +610,16 @@
         }
 
         if (typeof op1 === 'undefined') {
-          throw new Error("Cannot transform operations: first operation is too short.");
+          throw new Error('Cannot transform operations: first operation is too short.');
         }
         if (typeof op2 === 'undefined') {
-          throw new Error("Cannot transform operations: first operation is too long.");
+          throw new Error('Cannot transform operations: first operation is too long.');
         }
 
         var minl;
         if (op1.isRetain() && op2.isRetain()) {
           // Simple case: retain/retain
-          var attributesPrime = TextOperation.transformAttributes(op1.attributes, op2.attributes);
+          const attributesPrime = TextOperation.transformAttributes(op1.attributes, op2.attributes);
           if (op1.chars > op2.chars) {
             minl = op2.chars;
             op1.chars -= op2.chars;
@@ -651,7 +665,7 @@
             op2.chars -= op1.chars;
             op1 = ops1[i1++];
           }
-          operation1prime['delete'](minl);
+          operation1prime.delete(minl);
         } else if (op1.isRetain() && op2.isDelete()) {
           if (op1.chars > op2.chars) {
             minl = op2.chars;
@@ -666,7 +680,7 @@
             op2.chars -= op1.chars;
             op1 = ops1[i1++];
           }
-          operation2prime['delete'](minl);
+          operation2prime.delete(minl);
         } else {
           throw new Error("The two operations aren't compatible");
         }
@@ -678,4 +692,4 @@
     return TextOperation;
   }());
   window.TextOperation = TextOperation;
-})(window);
+}(window));

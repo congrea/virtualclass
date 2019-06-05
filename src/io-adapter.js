@@ -4,22 +4,23 @@ var ioAdapter = {
   userSerial: [], // It is serial number of sent packet to individual user
   userAdapterMustData: [], // It contains all data that is must for all users to have for individual users
   sendWithDelayIdentifier: {},
-  //TODO - Store to IndexDB
+  // TODO - Store to IndexDB
 
 
-  validateAllVariables: function (uid) {
-    //debugger;
-    "use strict";
-    if (typeof this.userSerial == 'undefined' || this.userSerial == null) {
+  validateAllVariables(uid) {
+    // debugger;
+
+
+    if (typeof this.userSerial === 'undefined' || this.userSerial == null) {
       this.userSerial = [];
     }
-    if (typeof this.userSerial[uid] == 'undefined') {
+    if (typeof this.userSerial[uid] === 'undefined') {
       this.userSerial[uid] = -1;
     }
-    if (typeof this.userAdapterMustData == 'undefined' || this.userAdapterMustData == null) {
+    if (typeof this.userAdapterMustData === 'undefined' || this.userAdapterMustData == null) {
       this.userAdapterMustData = [];
     }
-    if (typeof this.userAdapterMustData[uid] == 'undefined') {
+    if (typeof this.userAdapterMustData[uid] === 'undefined') {
       this.userAdapterMustData[uid] = [];
     }
   },
@@ -29,7 +30,7 @@ var ioAdapter = {
    If we get more msgs from same uniqueIdentifier before it was sent,
    it would drop last msg and preserve latest message.
    */
-  sendWithDelayAndDrop: function (msg, msgarg, sendFunction, uniqueIdentifier, delay) {
+  sendWithDelayAndDrop(msg, msgarg, sendFunction, uniqueIdentifier, delay) {
     if (msg == null || sendFunction == null) {
       return;
     }
@@ -43,126 +44,117 @@ var ioAdapter = {
 
     if (this.sendWithDelayIdentifier.hasOwnProperty(uniqueIdentifier) && ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]) {
       // console.log ("Cancelling send " + sendFunction + " message " + JSON.stringify(msg));
-      console.log("Cancelling send " + sendFunction + " message " + msg.cf);
+      console.log(`Cancelling send ${sendFunction} message ${msg.cf}`);
       clearTimeout(ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]);
       ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
     }
 
-    ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = setTimeout(function () {
-      console.log("Sending With Delay " + sendFunction + " message " + msg.cf);
+    ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = setTimeout(() => {
+      console.log(`Sending With Delay ${sendFunction} message ${msg.cf}`);
       ioAdapter[sendFunction](msg);
       ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
-    }, delay)
-
+    }, delay);
   },
 
-  mustSend: function (msg) {
-    "use strict";
+  mustSend(msg) {
     this.serial++;
     msg.serial = this.serial;
-    this.adapterMustData[this.serial] = {type: 'broadcast', m: msg};
+    this.adapterMustData[this.serial] = { type: 'broadcast', m: msg };
     this.send(msg);
-    ioStorage.dataAdapterStore({type: 'broadcast', user: wbUser.id, m: msg}, this.serial);
+    ioStorage.dataAdapterStore({ type: 'broadcast', user: wbUser.id, m: msg }, this.serial);
   },
 
-  send: function (msg) {
-    "use strict";
-    var cfun = 'broadcastToAll'; // BroadcastToALl (Do not send to self)
-    //console.log('Packet sending');
+  send(msg) {
+    const cfun = 'broadcastToAll'; // BroadcastToALl (Do not send to self)
+    // console.log('Packet sending');
     io.send(msg, cfun, null);
   },
 
-  mustSendAll: function (msg) {
-    "use strict";
+  mustSendAll(msg) {
     // var orisend = JSON.parse(JSON.stringify(msg));
     this.mustSendUser(msg, virtualclass.gObj.uid);
     this.mustSend(msg);
-
   },
 
   // not using any where
-  //sendAll: function (msg) {
+  // sendAll: function (msg) {
   //    "use strict";
   //    var cfun = 'broadcast'; // Broadcast (send to self) - Editor
   //    io.send(msg, cfun, null);
-  //},
+  // },
 
-  //TODO Function below still needs to have missing packets functionality
-  mustSendUser: function (msg, touser) {
-    //debugger;
-    "use strict";
+  // TODO Function below still needs to have missing packets functionality
+  mustSendUser(msg, touser) {
+    // debugger;
+
+
     this.validateAllVariables(touser);
-    if (typeof msg.serial != 'undefined' && msg.serial) {
+    if (typeof msg.serial !== 'undefined' && msg.serial) {
       msg.serial = null;
     }
     this.userSerial[touser]++;
-    console.log('USER s.n ' + this.userSerial[touser] + ' user ' + touser);
+    console.log(`USER s.n ${this.userSerial[touser]} user ${touser}`);
     msg.userSerial = this.userSerial[touser];
-    this.userAdapterMustData[touser][msg.userSerial] = {type: 'broadcastToAll', m: msg};
+    this.userAdapterMustData[touser][msg.userSerial] = { type: 'broadcastToAll', m: msg };
     this.sendUser(msg, touser);
-    //TODO need to fix following
+    // TODO need to fix following
     ioStorage.dataUserAdapterMustData({
       type: 'broadcastToAll',
       user: wbUser.id,
-      m: msg
-    }, touser + '_' + msg.userSerial);
+      m: msg,
+    }, `${touser}_${msg.userSerial}`);
   },
 
-  sendUser: function (msg, touser) {
-    "use strict";
-    var cfun = 'broadcastToAll';
+  sendUser(msg, touser) {
+    const cfun = 'broadcastToAll';
     io.send(msg, cfun, touser);
   },
 
-  sendPing: function (time) {
-    "use strict";
-    var cfun = 'ping';
+  sendPing(time) {
+    const cfun = 'ping';
     io.send(time, cfun);
   },
 
-  sendSpeed: function (msg) {
-    "use strict";
+  sendSpeed(msg) {
     ioAdapter.sendWithDelayAndDrop(msg, null, 'realSendSpeed', 'sendSpeed', 1000);
   },
 
-  realSendSpeed: function (msg) {
-    "use strict";
-    var cfun = 'speed';
+  realSendSpeed(msg) {
+    const cfun = 'speed';
     io.send(msg, cfun);
   },
 
-  sendBinary: function (msg) {
-    "use strict";
+  sendBinary(msg) {
     io.sendBinary(msg);
   },
 
-  makeSessionReady () {
+  makeSessionReady() {
     io.sessionSet = true;
   },
 
-  setRecording (){
+  setRecording() {
     if (!virtualclass.isPlayMode && virtualclass.settings.recording.enableRecording) {
-      var sendData = virtualclass.settings.recording.sendYesOrNo();
-      let obj = {
+      const sendData = virtualclass.settings.recording.sendYesOrNo();
+      const obj = {
         cfun: 'recording',
-        arg: {'msg': sendData}
+        arg: { msg: sendData },
       };
       io.realSend(obj);
-      console.log('==== Send Recording a/v ' + sendData);
+      console.log(`==== Send Recording a/v ${sendData}`);
     }
   },
 
-  setSession (session){ // Recording Session
-    let obj = {
+  setSession(session) { // Recording Session
+    const obj = {
       cfun: 'session',
-      arg: {'msg': session} // My session
+      arg: { msg: session }, // My session
     };
     io.realSend(obj);
-    console.log('==== Send Session serverSession ' + session);
+    console.log(`==== Send Session serverSession ${session}`);
   },
 
-  initSetSession (session) {
-    let serverSession = localStorage.getItem('serverSession');
+  initSetSession(session) {
+    const serverSession = localStorage.getItem('serverSession');
     if (serverSession == null) {
       localStorage.setItem('serverSession', session);
     } else if (!virtualclass.isPlayMode && serverSession != session) {
@@ -171,8 +163,8 @@ var ioAdapter = {
     this.makeSessionReady();
   },
 
-  sync (msg){
-    var cfun = 'broadcastToAll'; // BroadcastToALl (Do not send to self)
+  sync(msg) {
+    const cfun = 'broadcastToAll'; // BroadcastToALl (Do not send to self)
     io.send(msg, cfun, null);
-  }
+  },
 };

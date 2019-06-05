@@ -9,22 +9,20 @@
  *
  */
 (function (window) {
-  "use strict";
-
   /**
    * Helper to turn  contents into HMTL.
    * Takes a doc and an entity manager
    */
-  var SerializeHtml = (function () {
-    var utils = window.utils;
-    var ATTR = window.AttributeConstants;
-    var LIST_TYPE = window.LineFormatting.LIST_TYPE;
-    var TODO_STYLE = '<style>ul.vceditor-todo { list-style: none; margin-left: 0; padding-left: 0; } ul.vceditor-todo > li { padding-left: 1em; text-indent: -1em; } ul.vceditor-todo > li:before { content: "\\2610"; padding-right: 5px; } ul.vceditor-todo > li.vceditor-checked:before { content: "\\2611"; padding-right: 5px; }</style>\n';
+  const SerializeHtml = (function () {
+    const { utils } = window;
+    const ATTR = window.AttributeConstants;
+    const { LIST_TYPE } = window.LineFormatting;
+    const TODO_STYLE = '<style>ul.vceditor-todo { list-style: none; margin-left: 0; padding-left: 0; } ul.vceditor-todo > li { padding-left: 1em; text-indent: -1em; } ul.vceditor-todo > li:before { content: "\\2610"; padding-right: 5px; } ul.vceditor-todo > li.vceditor-checked:before { content: "\\2611"; padding-right: 5px; }</style>\n';
 
     function open(listType) {
-      return (listType === LIST_TYPE.ORDERED) ? '<ol>' :
-        (listType === LIST_TYPE.UNORDERED) ? '<ul>' :
-          '<ul class="vceditor-todo">';
+      return (listType === LIST_TYPE.ORDERED) ? '<ol>'
+        : (listType === LIST_TYPE.UNORDERED) ? '<ul>'
+          : '<ul class="vceditor-todo">';
     }
 
     function close(listType) {
@@ -32,9 +30,9 @@
     }
 
     function compatibleListType(l1, l2) {
-      return (l1 === l2) ||
-        (l1 === LIST_TYPE.TODO && l2 === LIST_TYPE.TODOCHECKED) ||
-        (l1 === LIST_TYPE.TODOCHECKED && l2 === LIST_TYPE.TODO);
+      return (l1 === l2)
+        || (l1 === LIST_TYPE.TODO && l2 === LIST_TYPE.TODOCHECKED)
+        || (l1 === LIST_TYPE.TODOCHECKED && l2 === LIST_TYPE.TODO);
     }
 
     function textToHtml(text) {
@@ -43,26 +41,28 @@
         .replace(/'/g, '&#39;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/\u00a0/g, '&nbsp;')
+        .replace(/\u00a0/g, '&nbsp;');
     }
 
     function serializeHtml(doc, entityManager) {
-      var html = '';
-      var newLine = true;
-      var listTypeStack = [];
-      var inListItem = false;
-      var firstLine = true;
-      var emptyLine = true;
-      var i = 0, op = doc.ops[i];
-      var usesTodo = false;
+      let html = '';
+      let newLine = true;
+      const listTypeStack = [];
+      let inListItem = false;
+      let firstLine = true;
+      let emptyLine = true;
+      let i = 0; let
+        op = doc.ops[i];
+      let usesTodo = false;
       while (op) {
         utils.assert(op.isInsert());
-        var attrs = op.attributes;
+        const attrs = op.attributes;
 
         if (newLine) {
           newLine = false;
 
-          var indent = 0, listType = null, lineAlign = 'left';
+          let indent = 0; let listType = null; let
+            lineAlign = 'left';
           if (ATTR.LINE_SENTINEL in attrs) {
             indent = attrs[ATTR.LINE_INDENT] || 0;
             listType = attrs[ATTR.LIST_TYPE] || null;
@@ -84,23 +84,23 @@
           firstLine = false;
 
           // Close any extra lists.
-          utils.assert(indent >= 0, "Indent must not be negative.");
-          while (listTypeStack.length > indent ||
-          (indent === listTypeStack.length && listType !== null && !compatibleListType(listType, listTypeStack[listTypeStack.length - 1]))) {
+          utils.assert(indent >= 0, 'Indent must not be negative.');
+          while (listTypeStack.length > indent
+          || (indent === listTypeStack.length && listType !== null && !compatibleListType(listType, listTypeStack[listTypeStack.length - 1]))) {
             html += close(listTypeStack.pop());
           }
 
           // Open any needed lists.
           while (listTypeStack.length < indent) {
-            var toOpen = listType || LIST_TYPE.UNORDERED; // default to unordered lists for indenting non-list-item lines.
+            const toOpen = listType || LIST_TYPE.UNORDERED; // default to unordered lists for indenting non-list-item lines.
             usesTodo = listType == LIST_TYPE.TODO || listType == LIST_TYPE.TODOCHECKED || usesTodo;
             html += open(toOpen);
             listTypeStack.push(toOpen);
           }
 
-          var style = (lineAlign !== 'left') ? ' style="text-align:' + lineAlign + '"' : '';
+          const style = (lineAlign !== 'left') ? ` style="text-align:${lineAlign}"` : '';
           if (listType) {
-            var clazz = '';
+            let clazz = '';
             switch (listType) {
               case LIST_TYPE.TODOCHECKED:
                 clazz = ' class="vceditor-checked"';
@@ -109,11 +109,11 @@
                 clazz = ' class="vceditor-unchecked"';
                 break;
             }
-            html += "<li" + clazz + style + ">";
+            html += `<li${clazz}${style}>`;
             inListItem = true;
           } else {
             // start line div.
-            html += '<div' + style + '>';
+            html += `<div${style}>`;
           }
           emptyLine = true;
         }
@@ -124,9 +124,9 @@
         }
 
         if (ATTR.ENTITY_SENTINEL in attrs) {
-          for (var j = 0; j < op.text.length; j++) {
-            var entity = vceditor.Entity.fromAttributes(attrs);
-            var element = entityManager.exportToElement(entity);
+          for (let j = 0; j < op.text.length; j++) {
+            const entity = vceditor.Entity.fromAttributes(attrs);
+            const element = entityManager.exportToElement(entity);
             html += element.outerHTML;
           }
 
@@ -134,36 +134,37 @@
           continue;
         }
 
-        var prefix = '', suffix = '';
-        for (var attr in attrs) {
-          var value = attrs[attr];
-          var start, end;
+        let prefix = ''; let
+          suffix = '';
+        for (const attr in attrs) {
+          const value = attrs[attr];
+          var start; var
+            end;
           if (attr === ATTR.BOLD || attr === ATTR.ITALIC || attr === ATTR.UNDERLINE || attr === ATTR.STRIKE) {
             utils.assert(value === true);
             start = end = attr;
           } else if (attr === ATTR.FONT_SIZE) {
-            start = 'span style="font-size: ' + value;
-            start += (typeof value !== "string" || value.indexOf("px", value.length - 2) === -1) ? 'px"' : '"';
+            start = `span style="font-size: ${value}`;
+            start += (typeof value !== 'string' || value.indexOf('px', value.length - 2) === -1) ? 'px"' : '"';
             end = 'span';
           } else if (attr === ATTR.FONT) {
-            start = 'span style="font-family: ' + value + '"';
+            start = `span style="font-family: ${value}"`;
             end = 'span';
           } else if (attr === ATTR.COLOR) {
-            start = 'span style="color: ' + value + '"';
+            start = `span style="color: ${value}"`;
             end = 'span';
           } else if (attr === ATTR.BACKGROUND_COLOR) {
-            start = 'span style="background-color: ' + value + '"';
+            start = `span style="background-color: ${value}"`;
             end = 'span';
+          } else {
+            utils.log(false, `Encountered unknown attribute while rendering html: ${attr}`);
           }
-          else {
-            utils.log(false, "Encountered unknown attribute while rendering html: " + attr);
-          }
-          if (start) prefix += '<' + start + '>';
-          if (end) suffix = '</' + end + '>' + suffix;
+          if (start) prefix += `<${start}>`;
+          if (end) suffix = `</${end}>${suffix}`;
         }
 
-        var text = op.text;
-        var newLineIndex = text.indexOf('\n');
+        let { text } = op;
+        const newLineIndex = text.indexOf('\n');
         if (newLineIndex >= 0) {
           newLine = true;
           if (newLineIndex < text.length - 1) {
@@ -178,9 +179,7 @@
         }
 
         // Replace leading, trailing, and consecutive spaces with nbsp's to make sure they're preserved.
-        text = text.replace(/  +/g, function (str) {
-          return new Array(str.length + 1).join('\u00a0');
-        }).replace(/^ /, '\u00a0').replace(/ $/, '\u00a0');
+        text = text.replace(/  +/g, str => new Array(str.length + 1).join('\u00a0')).replace(/^ /, '\u00a0').replace(/ $/, '\u00a0');
         if (text.length > 0) {
           emptyLine = false;
         }
@@ -210,7 +209,6 @@
     }
 
     return serializeHtml;
-  })();
+  }());
   window.SerializeHtml = SerializeHtml;
-})(window);
-
+}(window));

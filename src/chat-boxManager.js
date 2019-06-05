@@ -1,110 +1,105 @@
 // Need this to make IE happy
 if (!Array.indexOf) {
   Array.prototype.indexOf = function (obj) {
-    for (var i = 0; i < this.length; i++) {
+    for (let i = 0; i < this.length; i++) {
       if (this[i] == obj) {
         return i;
       }
     }
     return -1;
-  }
+  };
 }
 
-//Manage chatbox
-var chatboxManager = function () {
+// Manage chatbox
+const chatboxManager = (function () {
   // list of all opened boxes
-  var boxList = new Array();
+  let boxList = new Array();
   // list of boxes shown on the page
-  var showList = new Array();
+  let showList = new Array();
   // list of first names, for in-page demo
-  //var nameList = new Array();
+  // var nameList = new Array();
 
-  var config = {
-    width: 230, //px
+  const config = {
+    width: 230, // px
     gap: 20,
     maxBoxes: 5,
-    messageSent: function (id, dest, msg) {
+    messageSent(id, dest, msg) {
       // override this
-      $("#" + id).chatbox("option", "boxManager").addMsg(dest, msg);
-    }
+      $(`#${id}`).chatbox('option', 'boxManager').addMsg(dest, msg);
+    },
   };
 
-  var init = function (options) {
-    $.extend(config, options)
+  const init = function (options) {
+    $.extend(config, options);
   };
 
-  var delBox = function (id) {
+  const delBox = function (id) {
     // TODO
-    var remove = id;
-    showList = $.grep(showList, function (id) {
-      return remove != id;
-    });
-    boxList = $.grep(boxList, function (id) {
-      return remove != id;
-    });
-    //boxList.remove(id);
+    const remove = id;
+    showList = $.grep(showList, id => remove != id);
+    boxList = $.grep(boxList, id => remove != id);
+    // boxList.remove(id);
   };
 
-  var getNextOffset = function () {
+  const getNextOffset = function () {
     return 285 + (config.width + config.gap) * showList.length;
   };
 
-  var boxClosedCallback = function (id) {
+  const boxClosedCallback = function (id) {
     // close button in the titlebar is clicked
 
-    var idx = showList.indexOf(id);
+    const idx = showList.indexOf(id);
     if (idx != -1) {
       showList.splice(idx, 1);
-      boxList.splice(idx, 1); //removed if tab is hidden
+      boxList.splice(idx, 1); // removed if tab is hidden
       diff = config.width + config.gap;
-      for (var i = idx; i < showList.length; i++) {
-        offset = $("#" + showList[i]).chatbox("option", "offset");
-        $("#" + showList[i]).chatbox("option", "offset", offset - diff);
+      for (let i = idx; i < showList.length; i++) {
+        offset = $(`#${showList[i]}`).chatbox('option', 'offset');
+        $(`#${showList[i]}`).chatbox('option', 'offset', offset - diff);
       }
     } else {
-      alert("should not happen: " + id);
+      alert(`should not happen: ${id}`);
     }
   };
 
   // caller should guarantee the uniqueness of id
-  var addBox = function (id, user, name) {
-    var idx1 = showList.indexOf(id);
-    var idx2 = boxList.indexOf(id);
+  const addBox = function (id, user, name) {
+    const idx1 = showList.indexOf(id);
+    const idx2 = boxList.indexOf(id);
     if (idx1 != -1) {
       console.log('Do nothing');
     } else if (idx2 != -1) {
       // exists, but hidden
       // show it and put it back to showList
 
-      $("#" + id).chatbox("option", "offset", getNextOffset());
-      var manager = $("#" + id).chatbox("option", "boxManager");
+      $(`#${id}`).chatbox('option', 'offset', getNextOffset());
+      const manager = $(`#${id}`).chatbox('option', 'boxManager');
       manager.toggleBox();
       showList.push(id);
 
-      var index = -1;
+      let index = -1;
 
-      index = $('#tabs li').index($("#tabcb" + id));
+      index = $('#tabs li').index($(`#tabcb${id}`));
       $($('.tabs li')[index]).css('display', 'list-item');
 
-      $('#tabs').tabs("option", "active", index);
+      $('#tabs').tabs('option', 'active', index);
 
       $('#tabs').tabs('show');
     } else {
-
       if (user.last_name == undefined) {
         user.last_name = '';
       }
-      var elm = document.createElement('div');
+      const elm = document.createElement('div');
       elm.setAttribute('id', id);
       $(elm).chatbox({
-        id: id,
-        user: user,
-        title: user.first_name + " " + user.last_name,
+        id,
+        user,
+        title: `${user.first_name} ${user.last_name}`,
         hidden: false,
         width: config.width,
         offset: getNextOffset(),
         messageSent: messageSentCallback,
-        boxClosed: boxClosedCallback
+        boxClosed: boxClosedCallback,
       });
       boxList.push(id);
       showList.push(id);
@@ -121,15 +116,13 @@ var chatboxManager = function () {
     //         }
     //     }
     // }
-    if (user.class == "support") {
-      if (($(('#cb' + id) + '.support')).length == 0) {
-        $('#cb' + id).addClass("support").removeClass("privateChat");
+    if (user.class == 'support') {
+      if (($(`#cb${id}.support`)).length == 0) {
+        $(`#cb${id}`).addClass('support').removeClass('privateChat');
       }
-    }
-    else if (user.class == "privateChat") {
-
-      if ($('#cb' + id + '.privateChat').length == 0) {
-        $('#cb' + id).addClass("privateChat").removeClass("support");
+    } else if (user.class == 'privateChat') {
+      if ($(`#cb${id}.privateChat`).length == 0) {
+        $(`#cb${id}`).addClass('privateChat').removeClass('support');
       }
     }
     if (virtualclass.chat.vmstorage.hasOwnProperty(id)) {
@@ -138,18 +131,18 @@ var chatboxManager = function () {
   };
 
   var messageSentCallback = function (id, user, msg) {
-    var idx = boxList.indexOf(user.userid);
+    const idx = boxList.indexOf(user.userid);
     config.messageSent(id, user, msg);
   };
 
-  var dispatch = function (user, msg) {
-    $("#" + user.userid).chatbox("option", "boxManager").addMsg(user.name, msg);
-  }
+  const dispatch = function (user, msg) {
+    $(`#${user.userid}`).chatbox('option', 'boxManager').addMsg(user.name, msg);
+  };
 
   return {
-    init: init,
-    addBox: addBox,
-    delBox: delBox,
-    dispatch: dispatch
+    init,
+    addBox,
+    delBox,
+    dispatch,
   };
-}();
+}());

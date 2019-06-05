@@ -1,24 +1,25 @@
-/**@Copyright 2017  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2017  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Jai Gupta and Suman Bogati <http://www.vidyamantra.com>
  * @module Processing of Screen Sharing related stuff
  */
-var screenDecodeBlob = URL.createObjectURL(new Blob(['(',
+const screenDecodeBlob = URL.createObjectURL(new Blob(['(',
   function () {
-    var globalImageData = {}, imgData, sendTimeout;
+    let globalImageData = {}; let imgData; let
+      sendTimeout;
 
     function decodeRGB(encodeDataArr, cwidth, cheight) {
       globalImageData = new ImageData(cwidth, cheight);
-      var myLoop = encodeDataArr.length * 4;
-      for (var i = 0; i < myLoop; i++) {
-        globalImageData.data[(i * 4) + 0] = (encodeDataArr[i] >> 5) * 36.5; //red
+      const myLoop = encodeDataArr.length * 4;
+      for (let i = 0; i < myLoop; i++) {
+        globalImageData.data[(i * 4) + 0] = (encodeDataArr[i] >> 5) * 36.5; // red
         globalImageData.data[(i * 4) + 1] = ((encodeDataArr[i] & 28) >> 2) * 36.5;
         globalImageData.data[(i * 4) + 2] = (encodeDataArr[i] & 3) * 85;
         globalImageData.data[(i * 4) + 3] = 255;
       }
       postMessage({
-        globalImageData: globalImageData,
+        globalImageData,
         dtype: 'drgb',
-        'stype': 'full',
+        stype: 'full',
       });
     }
 
@@ -26,8 +27,8 @@ var screenDecodeBlob = URL.createObjectURL(new Blob(['(',
       myLoop = encodeDataArr.length * 4;
       imgData = new Uint8ClampedArray(myLoop);
 
-      for (var i = 0; i < myLoop; i++) {
-        imgData[(i * 4) + 0] = (encodeDataArr[i] >> 5) * 36.5; //red
+      for (let i = 0; i < myLoop; i++) {
+        imgData[(i * 4) + 0] = (encodeDataArr[i] >> 5) * 36.5; // red
         imgData[(i * 4) + 1] = ((encodeDataArr[i] & 28) >> 2) * 36.5;
         imgData[(i * 4) + 2] = (encodeDataArr[i] & 3) * 85;
         imgData[(i * 4) + 3] = 255;
@@ -35,11 +36,11 @@ var screenDecodeBlob = URL.createObjectURL(new Blob(['(',
     }
 
     function putImageDataCache(x, y, w, h, putData) {
-      var W = globalImageData.width;
-      var i = 0;
-      for (var r = y; r < h + y; r++) {
-        for (var c = x; c < w + x; c++) {
-          var O = ((r * W) + c) * 4;
+      const W = globalImageData.width;
+      let i = 0;
+      for (let r = y; r < h + y; r++) {
+        for (let c = x; c < w + x; c++) {
+          const O = ((r * W) + c) * 4;
           globalImageData.data[O] = putData[i++];
           globalImageData.data[O + 1] = putData[i++];
           globalImageData.data[O + 2] = putData[i++];
@@ -51,29 +52,31 @@ var screenDecodeBlob = URL.createObjectURL(new Blob(['(',
     function numValidateTwo(n1, n2) {
       n1 = preNumValidateTwo(n1);
       n2 = preNumValidateTwo(n2);
-      var nres = n1 + n2;
+      const nres = n1 + n2;
       return parseInt(nres);
     }
 
     function preNumValidateTwo(n) {
-      var numstring = n.toString();
+      const numstring = n.toString();
       if (numstring.length == 1) {
-        return '0' + numstring;
-      } else if (numstring.length == 2) {
+        return `0${numstring}`;
+      } if (numstring.length == 2) {
         return numstring;
       }
     }
 
     function process_data_pack(data_pack) {
-      var s = 7;
-      for (var i = 0; (i + 7) <= data_pack.length; i = l + 1) {
+      let s = 7;
+      for (let i = 0; (i + 7) <= data_pack.length; i = l + 1) {
         x = numValidateTwo(data_pack[i + 1], data_pack[i + 2]);
         y = numValidateTwo(data_pack[i + 3], data_pack[i + 4]);
         h = parseInt(data_pack[i + 5]);
         w = parseInt(data_pack[i + 6]);
         l = s + (h * w) - 1;
         recmsg = data_pack.subarray(s, l + 1);
-        var d = {x: x, y: y, w: w, h: h};
+        const d = {
+          x, y, w, h,
+        };
         decodeRGBSlice(recmsg);
         putImageDataCache(x, y, w, h, imgData);
         s = l + 7 + 1;
@@ -83,8 +86,8 @@ var screenDecodeBlob = URL.createObjectURL(new Blob(['(',
       }
       sendTimeout = setTimeout(() => {
         postMessage({
-          globalImageData: globalImageData,
-          dtype: 'drgb'
+          globalImageData,
+          dtype: 'drgb',
         });
       }, 100);
     }
@@ -97,7 +100,6 @@ var screenDecodeBlob = URL.createObjectURL(new Blob(['(',
      * @param e
      */
     onmessage = function (e) {
-      "use strict";
       if (e.data.hasOwnProperty('dtype')) {
         if (e.data.dtype == 'drgb') { // decodeRGB
           decodeRGB(e.data.encodeArr, e.data.cw, e.data.ch); // canvas width and canvas height
@@ -107,7 +109,6 @@ var screenDecodeBlob = URL.createObjectURL(new Blob(['(',
         }
       }
     };
-
   }.toString(),
-  ')()'], {type: 'application/javascript'}));
-var sdworker = new Worker(screenDecodeBlob);
+  ')()'], { type: 'application/javascript' }));
+const sdworker = new Worker(screenDecodeBlob);

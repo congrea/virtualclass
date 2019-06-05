@@ -1,19 +1,19 @@
-/***
+/** *
  * @copyright  2018 Suman Bogati  {@link http://vidyamantra.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * This file(Audio worklet) plays the received Audio from received audio worker(worker-audio-rec.js)
  */
 
 
-var workletAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
-  var audioToBePlay = {};
-  var aChunksPlay = {};
-  var lastAudioTone = 0;
-  var allAudioArr = {};
-  var luid;
-  var workerAudioRec;
-  var allAudioSend = [];
-  var audioLen = 0;
+const workletAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
+  const audioToBePlay = {};
+  const aChunksPlay = {};
+  let lastAudioTone = 0;
+  const allAudioArr = {};
+  let luid;
+  let workerAudioRec;
+  const allAudioSend = [];
+  let audioLen = 0;
 
   function initRecWorkerAud(msg) {
     if (msg.data.hasOwnProperty('cmd') && msg.data.cmd === 'workerAudioRec') {
@@ -40,28 +40,27 @@ var workletAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
         }
         aChunksPlay[uid] = true;
         return audioToBePlay[uid].shift();
-      } else if (audioToBePlay[uid].length >= 64) { // 185.759638 ms
+      } if (audioToBePlay[uid].length >= 64) { // 185.759638 ms
         aChunksPlay[uid] = true;
         return audioToBePlay[uid].shift();
-      } else if (audioToBePlay[uid].length > 0 && aChunksPlay[uid] === true) {
+      } if (audioToBePlay[uid].length > 0 && aChunksPlay[uid] === true) {
         aChunksPlay[uid] = true;
         return audioToBePlay[uid].shift();
-      } else {
-        aChunksPlay[uid] = false;
-        if (audioToBePlay[uid].length === 0) {
-          delete audioToBePlay[uid];
-        }
+      }
+      aChunksPlay[uid] = false;
+      if (audioToBePlay[uid].length === 0) {
+        delete audioToBePlay[uid];
       }
     }
   }
 
-  /** Return Merged audio which received from different sources **/
+  /** Return Merged audio which received from different sources * */
   function getMergedAudio() {
     // allAudioSend = [];
     allAudioSend.length = 0;
     audioLen = 0;
     for (luid in audioToBePlay) {
-      let temp = getAudioChunks(luid);
+      const temp = getAudioChunks(luid);
       if (temp != null) {
         audioLen++;
         if (audioLen === 1) {
@@ -79,7 +78,7 @@ var workletAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
 
     if (audioLen === 1) {
       return allAudioSend;
-    } else if (audioLen > 1) {
+    } if (audioLen > 1) {
       for (let z = 0; z < 128; z++) {
         allAudioSend[z] = allAudioSend[z] / audioLen;
       }
@@ -104,7 +103,7 @@ var workletAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
     }
 
     while (allAudioArr[uid].length >= 128) {
-      let arrChunk = allAudioArr[uid].splice(0, 128);
+      const arrChunk = allAudioArr[uid].splice(0, 128);
       audioToBePlay[uid].push(new Float32Array(arrChunk));
     }
   }
@@ -125,7 +124,7 @@ var workletAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
      * the following method is triggered continuously
      */
     process(inputs, outputs) {
-      let input = getMergedAudio();
+      const input = getMergedAudio();
       if (input != null) {
         outputs[0][0].set(input, 0);
         lastAudioTone = input[127];
@@ -141,4 +140,4 @@ var workletAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
     }
   }
   registerProcessor('worklet-audio-rec', workletAudioRec);
-}.toString(), ')()'], {type: 'application/javascript'}));
+}.toString(), ')()'], { type: 'application/javascript' }));

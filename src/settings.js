@@ -1,7 +1,6 @@
 (function (window) {
-  "use strict";
-  let settings = {
-    info: { //All settings object
+  const settings = {
+    info: { // All settings object
       allowoverride: null,
       disableAttendeeAudio: null,
       disableAttendeePc: null,
@@ -20,18 +19,18 @@
       recDisableAttendeeAV: null,
       recallowattendeeAVcontrol: null,
       showAttendeeRecordingStatus: null,
-      trimRecordings: null
+      trimRecordings: null,
     },
 
     user: {},
-    init: function () { //default settings applyed from here
-      let settings = localStorage.getItem("settings");
+    init() { // default settings applyed from here
+      let settings = localStorage.getItem('settings');
       if (!settings) {
         settings = virtualclassSetting.settings;
       }
       settings = virtualclass.settings.onLoadSettings(settings);
 
-      for (let propname in settings) {
+      for (const propname in settings) {
         if (virtualclass.settings.info.hasOwnProperty(propname)) {
           virtualclass.settings.info[propname] = settings[propname];
         }
@@ -40,9 +39,9 @@
       this.recording.init();
     },
 
-    //settings object values assign to array for get a hax code
-    settingsToHex: function (s) {
-      var localSettings = [];
+    // settings object values assign to array for get a hax code
+    settingsToHex(s) {
+      const localSettings = [];
       localSettings[0] = +s.allowoverride;
       localSettings[1] = +s.disableAttendeeAudio;
       localSettings[2] = +s.disableAttendeeVideo;
@@ -59,16 +58,16 @@
       localSettings[13] = +s.trimRecordings;
       localSettings[14] = +s.x8;
       localSettings[15] = +s.x16;
-      return virtualclass.settings.binaryToHex(localSettings.join(""));
+      return virtualclass.settings.binaryToHex(localSettings.join(''));
     },
 
-    //return data into true, false
-    //student side
-    parseSettings: function (s) {
-      let settings = {};
-      var localSettings = virtualclass.settings.hexToBinary(s);
+    // return data into true, false
+    // student side
+    parseSettings(s) {
+      const settings = {};
+      let localSettings = virtualclass.settings.hexToBinary(s);
       if (localSettings) {
-        localSettings = localSettings.split("");
+        localSettings = localSettings.split('');
       }
       settings.allowoverride = !!+localSettings[0];
       settings.disableAttendeeAudio = !!+localSettings[1];
@@ -90,17 +89,34 @@
       return settings;
     },
 
-    //Hex convert into binary
-    hexToBinary: function (s) {
-      var i, k, part, ret = "";
+    // Hex convert into binary
+    hexToBinary(s) {
+      let i; let k; let part; let
+        ret = '';
       // lookup table for easier conversion. '0' characters are padded for '1' to '7'
-      var lookupTable = {
-        "0": "0000", "1": "0001", "2": "0010", "3": "0011", "4": "0100",
-        "5": "0101", "6": "0110", "7": "0111", "8": "1000", "9": "1001",
-        "a": "1010", "b": "1011", "c": "1100", "d": "1101",
-        "e": "1110", "f": "1111",
-        "A": "1010", "B": "1011", "C": "1100", "D": "1101",
-        "E": "1110", "F": "1111"
+      const lookupTable = {
+        0: '0000',
+        1: '0001',
+        2: '0010',
+        3: '0011',
+        4: '0100',
+        5: '0101',
+        6: '0110',
+        7: '0111',
+        8: '1000',
+        9: '1001',
+        a: '1010',
+        b: '1011',
+        c: '1100',
+        d: '1101',
+        e: '1110',
+        f: '1111',
+        A: '1010',
+        B: '1011',
+        C: '1100',
+        D: '1101',
+        E: '1110',
+        F: '1111',
       };
       for (i = 0; i < s.length; i += 1) {
         if (lookupTable.hasOwnProperty(s[i])) {
@@ -112,15 +128,16 @@
       return ret;
     },
 
-    //convert binary into Hex
-    binaryToHex: function (s) {
-      var i, k, part, accum, ret = "";
+    // convert binary into Hex
+    binaryToHex(s) {
+      let i; let k; let part; let accum; let
+        ret = '';
       for (i = s.length - 1; i >= 3; i -= 4) {
         // extract out in substrings of 4 and convert to hex
         part = s.substr(i + 1 - 4, 4);
         accum = 0;
         for (k = 0; k < 4; k += 1) {
-          if (part[k] !== "0" && part[k] !== "1") {
+          if (part[k] !== '0' && part[k] !== '1') {
             // invalid character
             return false;
           }
@@ -129,7 +146,7 @@
         }
         if (accum >= 10) {
           // 'A' to 'F'
-          ret = String.fromCharCode(accum - 10 + "A".charCodeAt(0)) + ret;
+          ret = String.fromCharCode(accum - 10 + 'A'.charCodeAt(0)) + ret;
         } else {
           // '0' to '9'
           ret = String(accum) + ret;
@@ -140,7 +157,7 @@
         accum = 0;
         // convert from front
         for (k = 0; k <= i; k += 1) {
-          if (s[k] !== "0" && s[k] !== "1") {
+          if (s[k] !== '0' && s[k] !== '1') {
             return false;
           }
           accum = accum * 2 + parseInt(s[k], 10);
@@ -151,66 +168,64 @@
       return ret;
     },
 
-    //Object's properties value true or false into binary
-    applySettings: function (value, settingName, userId) {
-      let obj = {};
+    // Object's properties value true or false into binary
+    applySettings(value, settingName, userId) {
+      const obj = {};
       obj[settingName] = value;
       this._applySettings(obj, userId);
     },
 
-    _applySettings (obj, userId) {
+    _applySettings(obj, userId) {
       if (roles.hasControls()) {
-        let settingName = Object.keys(obj)[0];
-        let value = obj[settingName];
+        const settingName = Object.keys(obj)[0];
+        const value = obj[settingName];
         if ((value === true || value === false) && virtualclass.settings.info.hasOwnProperty(settingName)) {
-          if (typeof userId === "undefined") {
-            localStorage.removeItem("userSettings");
+          if (typeof userId === 'undefined') {
+            localStorage.removeItem('userSettings');
             virtualclass.settings.info[settingName] = value;
-            let str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
+            const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
             virtualclass.settings.send(str, userId);
-            localStorage.setItem("settings", str);
+            localStorage.setItem('settings', str);
           } else {
-            let individualSetting = {};
-            let setting = virtualclass.settings.info;
-            for (let propname in setting) {
+            const individualSetting = {};
+            const setting = virtualclass.settings.info;
+            for (const propname in setting) {
               individualSetting[propname] = setting[propname];
             }
             individualSetting[settingName] = value;
-            var specificSettings = virtualclass.settings.settingsToHex(individualSetting);
+            const specificSettings = virtualclass.settings.settingsToHex(individualSetting);
             virtualclass.settings.user[userId] = specificSettings;
             virtualclass.settings.send(specificSettings, userId);
-            localStorage.setItem("userSettings", JSON.stringify(virtualclass.settings.user));
+            localStorage.setItem('userSettings', JSON.stringify(virtualclass.settings.user));
           }
           return true;
-        } else {
-          return false;
         }
-      } else {
-        for (let propname in obj) {
-          virtualclass.settings.info[propname] = obj[propname];
-          virtualclass.settings[propname](obj[propname]);
-        }
-        let settings = virtualclass.settings.settingsToHex(obj);
-        localStorage.setItem("settings", settings);
+        return false;
       }
+      for (const propname in obj) {
+        virtualclass.settings.info[propname] = obj[propname];
+        virtualclass.settings[propname](obj[propname]);
+      }
+      const settings = virtualclass.settings.settingsToHex(obj);
+      localStorage.setItem('settings', settings);
     },
 
-    //Message send to student
-    send: function (value, userId) {
+    // Message send to student
+    send(value, userId) {
       if (roles.hasControls()) {
-        if (typeof userId !== "undefined") {
-          virtualclass.vutil.beforeSend({"cf": "settings", "Hex": value, "toUser": userId}, userId);
+        if (typeof userId !== 'undefined') {
+          virtualclass.vutil.beforeSend({ cf: 'settings', Hex: value, toUser: userId }, userId);
         } else {
-          virtualclass.vutil.beforeSend({"cf": "settings", "Hex": value});
+          virtualclass.vutil.beforeSend({ cf: 'settings', Hex: value });
         }
       }
     },
 
-    //Apply settings on student side
-    onMessage: function (msg) {
+    // Apply settings on student side
+    onMessage(msg) {
       if (typeof msg === 'string') {
         if (roles.isStudent()) {
-          let settings = virtualclass.settings.parseSettings(msg);
+          const settings = virtualclass.settings.parseSettings(msg);
           this._applySettings(settings);
         }
       } else {
@@ -218,21 +233,21 @@
       }
     },
 
-    onLoadSettings: function (str) {
-      let hextosettings = virtualclass.settings.parseSettings(str);
+    onLoadSettings(str) {
+      const hextosettings = virtualclass.settings.parseSettings(str);
       return hextosettings;
     },
 
-    //Mute or Unmute all student audio or particular student mute or unmute
-    disableAttendeeAudio: function (value) {
+    // Mute or Unmute all student audio or particular student mute or unmute
+    disableAttendeeAudio(value) {
       if (roles.isStudent()) {
         if (value === true) {
           virtualclass.user.control.audioWidgetEnable(true);
           virtualclass.gObj.audioEnable = true;
         } else if (value === false) {
-          var speakerPressOnce = document.querySelector("#speakerPressOnce");
-          if (speakerPressOnce.dataset.audioPlaying === true || speakerPressOnce.dataset.audioPlaying === "true") {
-            virtualclass.media.audio.clickOnceSpeaker("speakerPressOnce");
+          const speakerPressOnce = document.querySelector('#speakerPressOnce');
+          if (speakerPressOnce.dataset.audioPlaying === true || speakerPressOnce.dataset.audioPlaying === 'true') {
+            virtualclass.media.audio.clickOnceSpeaker('speakerPressOnce');
           }
           virtualclass.user.control.audioDisable();
           virtualclass.gObj.audioEnable = false;
@@ -240,74 +255,74 @@
       }
     },
 
-    allowoverride: function () {
-      console.log("TO DO");
+    allowoverride() {
+      console.log('TO DO');
     },
 
-    disableAttendeePc: function () {
-      console.log("TO DO");
+    disableAttendeePc() {
+      console.log('TO DO');
     },
 
-    disableAttendeeGc: function () {
-      console.log("TO DO");
+    disableAttendeeGc() {
+      console.log('TO DO');
     },
 
-    //All student video enable, disable
-    disableAttendeeVideo: function (value) {
+    // All student video enable, disable
+    disableAttendeeVideo(value) {
       if (roles.isStudent()) {
         let action;
-        let sw = document.querySelector(".videoSwitchCont #videoSwitch");
-        if (sw.classList.contains("off") && value === false) {
-          console.log("do nothing");
-        } else if (sw.classList.contains("on") && value === true) {
-          console.log("do nothing");
-        } else if (sw.classList.contains("on") && value === false) {
-          virtualclass.vutil.videoHandler("off");
+        const sw = document.querySelector('.videoSwitchCont #videoSwitch');
+        if (sw.classList.contains('off') && value === false) {
+          console.log('do nothing');
+        } else if (sw.classList.contains('on') && value === true) {
+          console.log('do nothing');
+        } else if (sw.classList.contains('on') && value === false) {
+          virtualclass.vutil.videoHandler('off');
         }
-        action = (value === false) ? "disable" : "enable";
+        action = (value === false) ? 'disable' : 'enable';
         virtualclass.videoHost.toggleVideoMsg(action);
-        //localStorage.setItem("allVideoAction", action);
+        // localStorage.setItem("allVideoAction", action);
       }
     },
 
-    disableRaiseHand: function () {
-      console.log("TO DO");
+    disableRaiseHand() {
+      console.log('TO DO');
     },
 
-    disableUserList: function () {
-      console.log("TO DO");
+    disableUserList() {
+      console.log('TO DO');
     },
 
-    x8: function () {
-      console.log("TO DO");
+    x8() {
+      console.log('TO DO');
     },
 
-    enableRecording: function () {
-      console.log("TO DO");
+    enableRecording() {
+      console.log('TO DO');
     },
 
-    recAllowpresentorAVcontrol: function () {
-      console.log("TO DO");
+    recAllowpresentorAVcontrol() {
+      console.log('TO DO');
     },
 
-    recShowPresentorRecordingStatus: function () {
-      console.log("TO DO");
+    recShowPresentorRecordingStatus() {
+      console.log('TO DO');
     },
 
-    recDisableAttendeeAV: function () {
-      console.log("TO DO");
+    recDisableAttendeeAV() {
+      console.log('TO DO');
     },
 
-    recallowattendeeAVcontrol: function () {
-      console.log("TO DO");
+    recallowattendeeAVcontrol() {
+      console.log('TO DO');
     },
 
-    showAttendeeRecordingStatus: function () {
-      console.log("TO DO");
+    showAttendeeRecordingStatus() {
+      console.log('TO DO');
     },
 
-    x16: function () {
-      console.log("TO DO");
+    x16() {
+      console.log('TO DO');
     },
 
     recording: {
@@ -320,7 +335,7 @@
       trimRecordings: false,
       allowattendeeAVcontrolByTeacher: false,
 
-      init () {
+      init() {
         this.enableRecording = virtualclass.settings.info.enableRecording;
         if (roles.hasControls()) {
           this.allowpresentorAVcontrol = virtualclass.settings.info.recAllowpresentorAVcontrol;
@@ -338,24 +353,24 @@
         this.overrideSettingFromLocalStorage();
       },
 
-      overrideSettingFromLocalStorage () {
+      overrideSettingFromLocalStorage() {
         let setting = localStorage.getItem('recsetting');
         if (setting !== null && setting !== undefined) {
           setting = JSON.parse(setting);
           if (roles.hasControls() || setting.statusonly !== true) {
             this.updateSettingAV(false);
           } else {
-            virtualclass.settings.onMessage({ac: false});
+            virtualclass.settings.onMessage({ ac: false });
           }
         }
       },
 
-      showButton () {
-        let recording = document.getElementById('recording');
+      showButton() {
+        const recording = document.getElementById('recording');
         if (this.showStatus) {
           recording.classList.remove('hide');
           recording.classList.add('show');
-          virtualclassCont.dataset.recording = "on";
+          virtualclassCont.dataset.recording = 'on';
           if (!this.statusOnly) {
             this.attachHandler(recording);
           } else {
@@ -370,19 +385,19 @@
         }
       },
 
-      attachHandler (recording) {
-        recording.addEventListener('click', this.recordingButtonAction.bind(this, recording))
+      attachHandler(recording) {
+        recording.addEventListener('click', this.recordingButtonAction.bind(this, recording));
       },
 
-      updateSettingAV (setting){
-        let recElem = document.querySelector("#recording");
-        let recButton = document.querySelector("#recording .recordingText");
+      updateSettingAV(setting) {
+        const recElem = document.querySelector('#recording');
+        const recButton = document.querySelector('#recording .recordingText');
 
         this.audioVideo = setting;
 
         if (this.audioVideo) {
-          recButton.innerHTML = "Recording";
-          virtualclassCont.dataset.recording = "on";
+          recButton.innerHTML = 'Recording';
+          virtualclassCont.dataset.recording = 'on';
           recElem.setAttribute('data-title', 'Recording Started');
           localStorage.removeItem('recsetting');
           if (virtualclass.currApp === 'ScreenShare' && virtualclass.ss != null) {
@@ -395,17 +410,17 @@
           } else {
             recElem.setAttribute('data-title', 'Recording Stopped');
           }
-          virtualclassCont.dataset.recording = "off";
+          virtualclassCont.dataset.recording = 'off';
 
           localStorage.setItem('recsetting', JSON.stringify({
             statusonly: this.statusOnly,
-            rec: virtualclassCont.dataset.recording
+            rec: virtualclassCont.dataset.recording,
           }));
         }
         ioAdapter.setRecording();
       },
 
-      recordingButtonAction (elem) {
+      recordingButtonAction(elem) {
         if (!elem.classList.contains('statusonly')) {
           let recordSetting;
           if (virtualclassCont.dataset.recording === 'off') {
@@ -417,54 +432,51 @@
           }
 
           if (roles.hasControls()) {
-            ioAdapter.mustSend({ac: recordSetting, 'cf': 'recs'});
+            ioAdapter.mustSend({ ac: recordSetting, cf: 'recs' });
           }
         } else {
-          console.log(" Do nothing");
+          console.log(' Do nothing');
         }
       },
 
-      showStatus (){
+      showStatus() {
         if (roles.hasControls()) {
           if (this.enableRecording && this.allowpresentorAVcontrol && this.showPresentorRecordingStatus) {
             return true;
-          } else if (this.enableRecording && !this.allowpresentorAVcontrol && this.showPresentorRecordingStatus) {
-            this.statusOnly = true;
-            return true
-          }
-          return false;
-        } else {
-
-          if (this.enableRecording && !this.disableAttendeeAV && this.allowattendeeAVcontrol && this.showAttendeeRecordingStatus) {
-            return true;
-          } else if (this.enableRecording && !this.disableAttendeeAV && !this.allowpresentorAVcontrol && this.showAttendeeRecordingStatus) {
+          } if (this.enableRecording && !this.allowpresentorAVcontrol && this.showPresentorRecordingStatus) {
             this.statusOnly = true;
             return true;
           }
           return false;
         }
+        if (this.enableRecording && !this.disableAttendeeAV && this.allowattendeeAVcontrol && this.showAttendeeRecordingStatus) {
+          return true;
+        } if (this.enableRecording && !this.disableAttendeeAV && !this.allowpresentorAVcontrol && this.showAttendeeRecordingStatus) {
+          this.statusOnly = true;
+          return true;
+        }
+        return false;
       },
 
-      isRecordingOn () {
+      isRecordingOn() {
         if (roles.hasControls()) {
           return (this.enableRecording && this.allowpresentorAVcontrol && this.audioVideo);
-        } else {
-          if (!this.disableAttendeeAV) {
-            if (this.allowattendeeAVcontrol) {
-              return this.audioVideo;
-            }
-            return true;
-          }
-          return false;
         }
+        if (!this.disableAttendeeAV) {
+          if (this.allowattendeeAVcontrol) {
+            return this.audioVideo;
+          }
+          return true;
+        }
+        return false;
       },
 
-      sendYesOrNo (){
-        return (this.isRecordingOn() ? "yes" : "no");
+      sendYesOrNo() {
+        return (this.isRecordingOn() ? 'yes' : 'no');
       },
 
-      setStatusOnElement () {
-        let recording = document.querySelector("#recording");
+      setStatusOnElement() {
+        const recording = document.querySelector('#recording');
         if (this.allowattendeeAVcontrolByTeacher) {
           recording.classList.add('statusonly');
           this.statusOnly = true;
@@ -474,12 +486,12 @@
         }
       },
 
-      triggerSetting (message) {
-        this.allowattendeeAVcontrolByTeacher = (message.ac == false) ? true : false;
+      triggerSetting(message) {
+        this.allowattendeeAVcontrolByTeacher = (message.ac == false);
         this.setStatusOnElement();
         this.updateSettingAV(message.ac);
-      }
-    }
+      },
+    },
   };
   window.settings = settings;
-})(window);
+}(window));

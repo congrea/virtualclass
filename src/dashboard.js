@@ -1,22 +1,22 @@
 /**
  * This class dashBoard is use to  create common behaviours(methods)
  * for following features Document, Video and Presentation Sharing
- **/
+ * */
 
 var dashBoard = {
-  userConfirmation: function (msg, cb) {
-    virtualclass.popup.confirmInput(msg, function (confirm) {
+  userConfirmation(msg, cb) {
+    virtualclass.popup.confirmInput(msg, (confirm) => {
       cb(confirm);
     });
   },
 
-  close: function () {
+  close() {
     console.log('Close dashboard');
-    var closeButton = document.querySelector('#congdashboard .modal-content button.close');
+    const closeButton = document.querySelector('#congdashboard .modal-content button.close');
     if (closeButton != null) {
       closeButton.classList.remove('clicked');
       closeButton.click();
-      var navButton = document.querySelector('#dashboardnav button');
+      const navButton = document.querySelector('#dashboardnav button');
       if (navButton != null) {
         navButton.classList.remove('clicked');
       }
@@ -25,46 +25,45 @@ var dashBoard = {
     }
   },
 
-  isDashBoardExit: function (app) {
-    return (document.querySelector('#' + app + 'Dashboard') != null);
+  isDashBoardExit(app) {
+    return (document.querySelector(`#${app}Dashboard`) != null);
   },
 
-  isDashBoardNavExist: function () {
+  isDashBoardNavExist() {
     return (document.querySelector('#dashboardnav') != null);
   },
 
-  actualCloseHandler: function () {
-    var closeButton = document.querySelector('#congdashboard .modal-content button.close');
+  actualCloseHandler() {
+    const closeButton = document.querySelector('#congdashboard .modal-content button.close');
     if (closeButton != null) {
-      closeButton.addEventListener('click', function () {
-        var navButton = document.querySelector('#dashboardnav button');
+      closeButton.addEventListener('click', () => {
+        const navButton = document.querySelector('#dashboardnav button');
         if (navButton != null) {
           navButton.classList.remove('clicked');
-          var Dtype = "open";
+          const Dtype = 'open';
           dashBoard.dashBoardClickTooltip(Dtype);
         }
       });
     }
   },
 
-  clickCloseButton: function () {
-    var navButton = document.querySelector('#dashboardnav button');
+  clickCloseButton() {
+    const navButton = document.querySelector('#dashboardnav button');
     if (navButton != null) {
       navButton.classList.add('clicked');
     }
   },
 
-  dashBoardClickTooltip: function (Dtype) {
-    var dashBoardButton = document.querySelector('#dashboardnav button');
+  dashBoardClickTooltip(Dtype) {
+    const dashBoardButton = document.querySelector('#dashboardnav button');
     if (virtualclass.currApp == 'Video') {
-      dashBoardButton.parentNode.setAttribute("data-title", virtualclass.lang.getString(Dtype + 'videoDashboard'));
-    } else if (virtualclass.currApp == "SharePresentation") {
-      dashBoardButton.parentNode.setAttribute("data-title", virtualclass.lang.getString(Dtype + 'SharePresentationdbHeading'));
+      dashBoardButton.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${Dtype}videoDashboard`));
+    } else if (virtualclass.currApp == 'SharePresentation') {
+      dashBoardButton.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${Dtype}SharePresentationdbHeading`));
     } else if (virtualclass.currApp == 'DocumentShare') {
-      dashBoardButton.parentNode.setAttribute("data-title", virtualclass.lang.getString(Dtype + 'dsDbheading'));
+      dashBoardButton.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${Dtype}dsDbheading`));
     } else {
-      console.log("dashboard tooltip not working properly");
+      console.log('dashboard tooltip not working properly');
     }
-
-  }
-}
+  },
+};

@@ -9,9 +9,8 @@
  *
  */
 (function (window) {
-  "use strict";
-  var ParseHtml = (function () {
-    var LIST_TYPE = window.LineFormatting.LIST_TYPE;
+  const ParseHtml = (function () {
+    const { LIST_TYPE } = window.LineFormatting;
 
     /**
      * Represents the current parse state as an immutable structure.  To create a new ParseState, use
@@ -41,12 +40,12 @@
     };
 
     ParseState.prototype.withIncreasedIndent = function () {
-      var lineFormatting = this.lineFormatting.indent(this.lineFormatting.getIndent() + 1);
+      const lineFormatting = this.lineFormatting.indent(this.lineFormatting.getIndent() + 1);
       return new ParseState(this.listType, lineFormatting, this.textFormatting);
     };
 
     ParseState.prototype.withAlign = function (align) {
-      var lineFormatting = this.lineFormatting.align(align);
+      const lineFormatting = this.lineFormatting.align(align);
       return new ParseState(this.listType, lineFormatting, this.textFormatting);
     };
 
@@ -76,7 +75,7 @@
 
     ParseOutput.prototype.newline = function (state) {
       this.cleanLine_();
-      var lineFormatting = state.lineFormatting;
+      let { lineFormatting } = state;
       if (this.currentLineListItemType !== null) {
         lineFormatting = lineFormatting.listItem(this.currentLineListItemType);
         this.currentLineListItemType = null;
@@ -94,10 +93,10 @@
       // Kinda' a hack, but we remove leading and trailing spaces (since these aren't significant in html) and
       // replaces nbsp's with normal spaces.
       if (this.currentLine.length > 0) {
-        var last = this.currentLine.length - 1;
+        const last = this.currentLine.length - 1;
         this.currentLine[0].text = this.currentLine[0].text.replace(/^ +/, '');
         this.currentLine[last].text = this.currentLine[last].text.replace(/ +$/g, '');
-        for (var i = 0; i < this.currentLine.length; i++) {
+        for (let i = 0; i < this.currentLine.length; i++) {
           this.currentLine[i].text = this.currentLine[i].text.replace(/\u00a0/g, ' ');
         }
       }
@@ -107,18 +106,18 @@
       }
     };
 
-    var entityManager_;
+    let entityManager_;
 
     function parseHtml(html, entityManager) {
       // Create DIV with HTML (as a convenient way to parse it).
-      var div = (vceditor.document || document).createElement('div');
+      const div = (vceditor.document || document).createElement('div');
       div.innerHTML = html;
 
       // HACK until I refactor this.
       entityManager_ = entityManager;
 
-      var output = new ParseOutput();
-      var state = new ParseState();
+      const output = new ParseOutput();
+      const state = new ParseState();
       parseNode(div, state, output);
 
       return output.lines;
@@ -126,18 +125,18 @@
 
     // Fix IE8.
     var Node = Node || {
-        ELEMENT_NODE: 1,
-        TEXT_NODE: 3
-      };
+      ELEMENT_NODE: 1,
+      TEXT_NODE: 3,
+    };
 
     function parseNode(node, state, output) {
       // Give entity manager first crack at it.
       if (node.nodeType === Node.ELEMENT_NODE) {
-        var entity = entityManager_.fromElement(node);
+        const entity = entityManager_.fromElement(node);
         if (entity) {
           output.currentLine.push(new vceditor.Text(
             vceditor.sentinelConstants.ENTITY_SENTINEL_CHARACTER,
-            new vceditor.Formatting(entity.toAttributes())
+            new vceditor.Formatting(entity.toAttributes()),
           ));
           return;
         }
@@ -229,7 +228,7 @@
 
     function parseChildren(node, state, output) {
       if (node.hasChildNodes()) {
-        for (var i = 0; i < node.childNodes.length; i++) {
+        for (let i = 0; i < node.childNodes.length; i++) {
           parseNode(node.childNodes[i], state, output);
         }
       }
@@ -242,9 +241,9 @@
 
       output.newlineIfNonEmptyOrListItem(state);
 
-      var listType = (node.getAttribute('class') === 'vceditor-checked') ? LIST_TYPE.TODOCHECKED : state.listType;
+      const listType = (node.getAttribute('class') === 'vceditor-checked') ? LIST_TYPE.TODOCHECKED : state.listType;
       output.makeListItem(listType);
-      var oldLine = output.currentLine;
+      const oldLine = output.currentLine;
 
       parseChildren(node, state, output);
 
@@ -254,15 +253,14 @@
     }
 
     function parseStyle(state, styleString) {
-      var textFormatting = state.textFormatting;
-      var lineFormatting = state.lineFormatting;
-      var styles = styleString.split(';');
-      for (var i = 0; i < styles.length; i++) {
-        var stylePieces = styles[i].split(':');
-        if (stylePieces.length !== 2)
-          continue;
-        var prop = vceditor.utils.trim(stylePieces[0]).toLowerCase();
-        var val = vceditor.utils.trim(stylePieces[1]).toLowerCase();
+      let { textFormatting } = state;
+      let { lineFormatting } = state;
+      const styles = styleString.split(';');
+      for (let i = 0; i < styles.length; i++) {
+        const stylePieces = styles[i].split(':');
+        if (stylePieces.length !== 2) continue;
+        const prop = vceditor.utils.trim(stylePieces[0]).toLowerCase();
+        const val = vceditor.utils.trim(stylePieces[1]).toLowerCase();
         switch (prop) {
           case 'text-decoration':
             var underline = val.indexOf('underline') >= 0;
@@ -291,9 +289,8 @@
             var allowedValues = ['px', 'pt', '%', 'em', 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large', 'smaller', 'larger'];
             if (vceditor.utils.stringEndsWith(val, allowedValues)) {
               size = val;
-            }
-            else if (parseInt(val)) {
-              size = parseInt(val) + 'px';
+            } else if (parseInt(val)) {
+              size = `${parseInt(val)}px`;
             }
             if (size) {
               textFormatting = textFormatting.fontSize(size);
@@ -302,9 +299,7 @@
           case 'font-family':
             var font = vceditor.utils.trim(val.split(',')[0]); // get first font.
             font = font.replace(/['"]/g, ''); // remove quotes.
-            font = font.replace(/\w\S*/g, function (txt) {
-              return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-            });
+            font = font.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
             textFormatting = textFormatting.font(font);
             break;
         }
@@ -313,7 +308,6 @@
     }
 
     return parseHtml;
-  })();
+  }());
   window.ParseHtml = ParseHtml;
-})(window);
-
+}(window));

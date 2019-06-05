@@ -1,22 +1,24 @@
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Jai Gupta <http://www.vidyamantra.com>
  * @module Processing of Screen Sharing related stuff
  */
 
 
-var screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
-  var x, y, cx, cy, sl, needFullScreen = 0;
-  var tempObj, matched, masterSlice, d, imgData, encodeDataArr = null;
-  var prevImageSlices = [];
+const screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
+  let x; let y; let cx; let cy; let sl; let
+    needFullScreen = 0;
+  let tempObj; let matched; let masterSlice; let d; let imgData; let
+    encodeDataArr = null;
+  let prevImageSlices = [];
 
 
   /**
    * Encodes Image Data from 4 bit per pixel into 1 bit per pixel (It reduces size)
    * @param imgData
    */
-  var encodeRGB = function (imgData) {
-    "use strict";
-    var length = imgData.length / 4, red, green, blue, encodedData, i;
+  const encodeRGB = function (imgData) {
+    const length = imgData.length / 4; let red; let green; let blue; let encodedData; let
+      i;
     if (encodeDataArr === null || encodeDataArr.length !== length) {
       encodeDataArr = new Uint8ClampedArray(length);
     }
@@ -36,10 +38,10 @@ var screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
    * @returns {Array}
    */
   function breakintobytes(value, length) {
-    "use strict";
-    var numstring = value.toString(), i;
+    let numstring = value.toString(); let
+      i;
     for (i = numstring.length; i < length; i++) {
-      numstring = '0' + numstring;
+      numstring = `0${numstring}`;
     }
     return numstring.match(/[\S]{1,2}/g) || [];
   }
@@ -51,9 +53,9 @@ var screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
    * @param screenType
    * @returns {Uint8ClampedArray}
    */
-  var sendSliceData = function (encodedData, dimension, screenType) {
-    "use strict";
-    var x, y, appCode, scode, sendmsg;
+  const sendSliceData = function (encodedData, dimension, screenType) {
+    let x; let y; let appCode; let scode; let
+      sendmsg;
     x = breakintobytes(dimension.x, 4);
     y = breakintobytes(dimension.y, 4);
     appCode = (screenType === 'ss') ? 103 : 203;
@@ -68,15 +70,13 @@ var screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
    * Combine multiple images into a single Image data
    * @param encodedData
    */
-  var addSliceToSingle = function (encodedData) {
-    "use strict";
+  const addSliceToSingle = function (encodedData) {
     // masterSlice === 'undefined' is false when masterSlice is undefined
-    //if (masterSlice === null || masterSlicse === 'undefined') {
+    // if (masterSlice === null || masterSlicse === 'undefined') {
     if (masterSlice === null || masterSlice === undefined) {
-
       masterSlice = encodedData;
     } else {
-      var tempslice = new Uint8ClampedArray(masterSlice.length + encodedData.length);
+      let tempslice = new Uint8ClampedArray(masterSlice.length + encodedData.length);
       tempslice.set(masterSlice);
       tempslice.set(encodedData, masterSlice.length);
       masterSlice = tempslice;
@@ -103,12 +103,12 @@ var screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
    * @returns {Uint8ClampedArray}
    * https://github.com/youbastard/getImageData
    */
-  var getImageDataCache = function (x, y, w, h, W, H, d) {
-    "use strict";
-    var arr = new Uint8ClampedArray(w * h), i = 0;
-    for (var r = y; r < (h) + y; r += 1) {
-      for (var c = x; c < (w) + x; c += 1) {
-        var O = ((r * W) + c);
+  const getImageDataCache = function (x, y, w, h, W, H, d) {
+    const arr = new Uint8ClampedArray(w * h); let
+      i = 0;
+    for (let r = y; r < (h) + y; r += 1) {
+      for (let c = x; c < (w) + x; c += 1) {
+        const O = ((r * W) + c);
         arr[i++] = d[O];
       }
     }
@@ -122,26 +122,26 @@ var screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
    * @param width
    * @returns {boolean}
    */
-  var matchWithPrevious = function (newImage, oldImage, width) {
-    "use strict";
-    var l = oldImage.length, w = width, i;
+  const matchWithPrevious = function (newImage, oldImage, width) {
+    const l = oldImage.length; const w = width; let
+      i;
     if (oldImage.length !== newImage.length) {
       return false;
     }
-    for (i = 0; i < l; i = i + 1) { // Quickly Check Forward Diagonal
+    for (i = 0; i < l; i += 1) { // Quickly Check Forward Diagonal
       if (oldImage[i] !== newImage[i]) {
         return false;
       }
-      i = i + w;
+      i += w;
     }
-    for (i = 0; i < l; i = i - 1) {// Quickly Check Backward Diagonal
-      i = i + w;
+    for (i = 0; i < l; i -= 1) { // Quickly Check Backward Diagonal
+      i += w;
       if (oldImage[i] !== newImage[i]) {
         return false;
       }
     }
-    var jump = 7; // Let us not check all pixels and rather check at intervals to favor speed
-    for (i = 0; i < l; i = i + jump) { // Check (all/jump) pixels
+    const jump = 7; // Let us not check all pixels and rather check at intervals to favor speed
+    for (i = 0; i < l; i += jump) { // Check (all/jump) pixels
       if (oldImage[i] !== newImage[i]) {
         return false;
       }
@@ -155,7 +155,6 @@ var screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
    * @returns {{x: *, y: *, w: (wdw|dw), h: (wdh|dh)}}
    */
   function calcDimensions(e) {
-    "use strict";
     if (sl === 0) {
       x = 0;
       y = 0;
@@ -165,7 +164,9 @@ var screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
       x = cx * e.data.dw;
       y = cy * e.data.dh;
     }
-    return {'x': x, 'y': y, 'w': e.data.dw, 'h': e.data.dh};
+    return {
+      x, y, w: e.data.dw, h: e.data.dh,
+    };
   }
 
   /**
@@ -176,54 +177,51 @@ var screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
    * @param e
    */
   onmessage = function (e) {
-    "use strict";
     if (e.data.hasOwnProperty('initPrevImg')) {
       prevImageSlices = [];
       encodeDataArr = null;
-    } else {
-      if (!e.data.hasOwnProperty('resize')) { // Resize operation is a special case, treat it as a new image for simplicity
-        encodeRGB(e.data.img);
-        for (sl = 0; sl < ( e.data.resA * e.data.resB); sl++) {
-          d = calcDimensions(e);
-          imgData = getImageDataCache(d.x, d.y, d.w, d.h, e.data.offsetWidth, e.data.offsetHeight, encodeDataArr);
-          if (typeof prevImageSlices[sl] !== 'undefined') {
-            matched = matchWithPrevious(imgData, prevImageSlices[sl], d.w);
-            if (!matched) {
-              if (prevImageSlices[sl].length !== imgData.length) {
-                prevImageSlices[sl] = imgData;
-              } else {
-                for (var l = 0; l < imgData.length; l++) {
-                  prevImageSlices[sl][l] = imgData[l];
-                }
+    } else if (!e.data.hasOwnProperty('resize')) { // Resize operation is a special case, treat it as a new image for simplicity
+      encodeRGB(e.data.img);
+      for (sl = 0; sl < (e.data.resA * e.data.resB); sl++) {
+        d = calcDimensions(e);
+        imgData = getImageDataCache(d.x, d.y, d.w, d.h, e.data.offsetWidth, e.data.offsetHeight, encodeDataArr);
+        if (typeof prevImageSlices[sl] !== 'undefined') {
+          matched = matchWithPrevious(imgData, prevImageSlices[sl], d.w);
+          if (!matched) {
+            if (prevImageSlices[sl].length !== imgData.length) {
+              prevImageSlices[sl] = imgData;
+            } else {
+              for (let l = 0; l < imgData.length; l++) {
+                prevImageSlices[sl][l] = imgData[l];
               }
-              addSliceToSingle(sendSliceData(imgData, d, e.data.type));
             }
-          } else {
-            prevImageSlices[sl] = imgData;
-            needFullScreen = 1;
+            addSliceToSingle(sendSliceData(imgData, d, e.data.type));
           }
-        }
-        if (masterSlice) {
-          postMessage({
-            masterSlice: masterSlice,
-            needFullScreen: needFullScreen
-          }, [masterSlice.buffer]);
         } else {
-          postMessage({
-            masterSlice: null,
-            needFullScreen: needFullScreen
-          });
-        }
-        needFullScreen = 0;
-        masterSlice = null;
-      } else {
-        for (sl = 0; sl < ( e.data.resA * e.data.resB); sl++) {
-          d = calcDimensions(e);
-          prevImageSlices[sl] = getImageDataCache(d.x, d.y, d.w, d.h, e.data.offsetWidth, e.data.offsetHeight, e.data.img);
+          prevImageSlices[sl] = imgData;
+          needFullScreen = 1;
         }
       }
+      if (masterSlice) {
+        postMessage({
+          masterSlice,
+          needFullScreen,
+        }, [masterSlice.buffer]);
+      } else {
+        postMessage({
+          masterSlice: null,
+          needFullScreen,
+        });
+      }
+      needFullScreen = 0;
+      masterSlice = null;
+    } else {
+      for (sl = 0; sl < (e.data.resA * e.data.resB); sl++) {
+        d = calcDimensions(e);
+        prevImageSlices[sl] = getImageDataCache(d.x, d.y, d.w, d.h, e.data.offsetWidth, e.data.offsetHeight, e.data.img);
+      }
     }
-  }
-}.toString(), ')()'], {type: 'application/javascript'}));
+  };
+}.toString(), ')()'], { type: 'application/javascript' }));
 
-var sworker = new Worker(screenWorkerBlob);
+const sworker = new Worker(screenWorkerBlob);

@@ -9,13 +9,12 @@
  *
  */
 (function (window) {
-  "use strict";
-  var AnnotationList = (function () {
-    var Span = window.Span;
+  const AnnotationList = (function () {
+    const { Span } = window;
 
     function assert(bool, text) {
       if (!bool) {
-        throw new Error('AnnotationList assertion failed' + (text ? (': ' + text) : ''));
+        throw new Error(`AnnotationList assertion failed${text ? (`: ${text}`) : ''}`);
       }
     }
 
@@ -41,10 +40,10 @@
       this.node_.attachedObject = object;
     };
 
-    var NullAnnotation = {
-      equals: function () {
+    const NullAnnotation = {
+      equals() {
         return false;
-      }
+      },
     };
 
     function AnnotationList(changeHandler) {
@@ -54,22 +53,21 @@
     }
 
     AnnotationList.prototype.insertAnnotatedSpan = function (span, annotation) {
-      this.wrapOperation_(new Span(span.pos, 0), function (oldPos, old) {
+      this.wrapOperation_(new Span(span.pos, 0), (oldPos, old) => {
         assert(!old || old.next === null); // should be 0 or 1 nodes.
-        var toInsert = new Node(span.length, annotation);
+        const toInsert = new Node(span.length, annotation);
         if (!old) {
           return toInsert;
-        } else {
-          assert(span.pos > oldPos && span.pos < oldPos + old.length);
-          var newNodes = new Node(0, NullAnnotation);
-          // Insert part of old before insertion point.
-          newNodes.next = new Node(span.pos - oldPos, old.annotation);
-          // Insert new node.
-          newNodes.next.next = toInsert;
-          // Insert part of old after insertion point.
-          toInsert.next = new Node(oldPos + old.length - span.pos, old.annotation);
-          return newNodes.next;
         }
+        assert(span.pos > oldPos && span.pos < oldPos + old.length);
+        const newNodes = new Node(0, NullAnnotation);
+        // Insert part of old before insertion point.
+        newNodes.next = new Node(span.pos - oldPos, old.annotation);
+        // Insert new node.
+        newNodes.next.next = toInsert;
+        // Insert part of old after insertion point.
+        toInsert.next = new Node(oldPos + old.length - span.pos, old.annotation);
+        return newNodes.next;
       });
     };
 
@@ -78,9 +76,10 @@
         return;
       }
 
-      this.wrapOperation_(removeSpan, function (oldPos, old) {
+      this.wrapOperation_(removeSpan, (oldPos, old) => {
         assert(old !== null);
-        var newNodes = new Node(0, NullAnnotation), current = newNodes;
+        const newNodes = new Node(0, NullAnnotation); let
+          current = newNodes;
         // Add new node for part before the removed span (if any).
         if (removeSpan.pos > oldPos) {
           current.next = new Node(removeSpan.pos - oldPos, old.annotation);
@@ -94,7 +93,7 @@
         }
 
         // Add new node for part after the removed span (if any).
-        var afterChars = oldPos + old.length - removeSpan.end();
+        const afterChars = oldPos + old.length - removeSpan.end();
         if (afterChars > 0) {
           current.next = new Node(afterChars, old.annotation);
         }
@@ -108,12 +107,13 @@
         return;
       }
 
-      this.wrapOperation_(span, function (oldPos, old) {
+      this.wrapOperation_(span, (oldPos, old) => {
         assert(old !== null);
-        var newNodes = new Node(0, NullAnnotation), current = newNodes, currentPos = oldPos;
+        const newNodes = new Node(0, NullAnnotation); let current = newNodes; let
+          currentPos = oldPos;
 
         // Add node for any characters before the span we're updating.
-        var beforeChars = span.pos - currentPos;
+        const beforeChars = span.pos - currentPos;
         assert(beforeChars < old.length);
         if (beforeChars > 0) {
           current.next = new Node(beforeChars, old.annotation);
@@ -123,7 +123,7 @@
 
         // Add updated nodes for entirely updated nodes.
         while (old !== null && span.end() >= oldPos + old.length) {
-          var length = oldPos + old.length - currentPos;
+          const length = oldPos + old.length - currentPos;
           current.next = new Node(length, updateFn(old.annotation, length));
           current = current.next;
           oldPos += old.length;
@@ -132,7 +132,7 @@
         }
 
         // Add updated nodes for last node.
-        var updateChars = span.end() - currentPos;
+        const updateChars = span.end() - currentPos;
         if (updateChars > 0) {
           assert(updateChars < old.length);
           current.next = new Node(updateChars, updateFn(old.annotation, updateChars));
@@ -151,11 +151,12 @@
       if (span.pos < 0) {
         throw new Error('Span start cannot be negative.');
       }
-      var oldNodes = [], newNodes = [];
+      const oldNodes = []; const
+        newNodes = [];
 
-      var res = this.getAffectedNodes_(span);
+      const res = this.getAffectedNodes_(span);
 
-      var tail;
+      let tail;
       if (res.start !== null) {
         tail = res.end.next;
         // Temporarily truncate list so we can pass it to operationFn.  We'll splice it back in later.
@@ -166,13 +167,14 @@
       }
 
       // Create a new segment to replace the affected nodes.
-      var newSegment = operationFn(res.startPos, res.start);
+      let newSegment = operationFn(res.startPos, res.start);
 
-      var includePredInOldNodes = false, includeSuccInOldNodes = false;
+      let includePredInOldNodes = false; let
+        includeSuccInOldNodes = false;
       if (newSegment) {
         this.mergeNodesWithSameAnnotations_(newSegment);
 
-        var newPos;
+        let newPos;
         if (res.pred && res.pred.annotation.equals(newSegment.annotation)) {
           // We can merge the pred node with newSegment's first node.
           includePredInOldNodes = true;
@@ -208,7 +210,6 @@
 
         // Add last newSegment node to newNodes.
         newNodes.push(new NewAnnotatedSpan(newPos, newSegment));
-
       } else {
         // newList is empty.  Try to merge pred and succ.
         if (res.pred && res.succ && res.pred.annotation.equals(res.succ.annotation)) {
@@ -233,7 +234,8 @@
         oldNodes.push(new OldAnnotatedSpan(res.predPos, res.pred));
       }
 
-      var oldPos = res.startPos, oldSegment = res.start;
+      let oldPos = res.startPos; let
+        oldSegment = res.start;
       while (oldSegment !== null) {
         oldNodes.push(new OldAnnotatedSpan(oldPos, oldSegment));
         oldPos += oldSegment.length;
@@ -256,9 +258,10 @@
       //  - 'succ' contains the node after 'end' if span.end() was on a node boundary, else null.
       //  - 'pred' contains the node before 'start' if span.pos was on a node boundary, else null.
 
-      var result = {};
+      const result = {};
 
-      var prevprev = null, prev = this.head_, current = prev.next, currentPos = 0;
+      let prevprev = null; let prev = this.head_; let current = prev.next; let
+        currentPos = 0;
       while (current !== null && span.pos >= currentPos + current.length) {
         currentPos += current.length;
         prevprev = prev;
@@ -310,7 +313,8 @@
       if (!list) {
         return;
       }
-      var prev = null, curr = list;
+      let prev = null; let
+        curr = list;
       while (curr) {
         if (prev && prev.annotation.equals(curr.annotation)) {
           prev.length += curr.length;
@@ -323,7 +327,7 @@
     };
 
     AnnotationList.prototype.forEach = function (callback) {
-      var current = this.head_.next;
+      let current = this.head_.next;
       while (current !== null) {
         callback(current.length, current.annotation, current.attachedObject);
         current = current.next;
@@ -331,8 +335,9 @@
     };
 
     AnnotationList.prototype.getAnnotatedSpansForPos = function (pos) {
-      var currentPos = 0;
-      var current = this.head_.next, prev = null;
+      let currentPos = 0;
+      let current = this.head_.next; let
+        prev = null;
       while (current !== null && currentPos + current.length <= pos) {
         currentPos += current.length;
         prev = current;
@@ -342,7 +347,7 @@
         throw new Error('pos exceeds the bounds of the AnnotationList');
       }
 
-      var res = [];
+      const res = [];
       if (currentPos === pos && prev) {
         res.push(new OldAnnotatedSpan(currentPos - prev.length, prev));
       }
@@ -356,12 +361,14 @@
       if (span.length === 0) {
         return [];
       }
-      var oldSpans = [];
-      var res = this.getAffectedNodes_(span);
-      var currentPos = res.startPos, current = res.start;
+      const oldSpans = [];
+      const res = this.getAffectedNodes_(span);
+      let currentPos = res.startPos; let
+        current = res.start;
       while (current !== null && currentPos < span.end()) {
-        var start = Math.max(currentPos, span.pos), end = Math.min(currentPos + current.length, span.end());
-        var oldSpan = new Span(start, end - start);
+        const start = Math.max(currentPos, span.pos); const
+          end = Math.min(currentPos + current.length, span.end());
+        const oldSpan = new Span(start, end - start);
         oldSpan.annotation = current.annotation;
         oldSpans.push(oldSpan);
 
@@ -373,8 +380,9 @@
 
     // For testing.
     AnnotationList.prototype.count = function () {
-      var count = 0;
-      var current = this.head_.next, prev = null;
+      let count = 0;
+      let current = this.head_.next; let
+        prev = null;
       while (current !== null) {
         if (prev) {
           assert(!prev.annotation.equals(current.annotation));
@@ -394,7 +402,7 @@
     }
 
     Node.prototype.clone = function () {
-      var node = new Node(this.spanLength, this.annotation);
+      const node = new Node(this.spanLength, this.annotation);
       node.next = this.next;
       return node;
     };
@@ -402,5 +410,4 @@
     return AnnotationList;
   }());
   window.AnnotationList = AnnotationList;
-})(window);
-
+}(window));

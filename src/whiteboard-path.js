@@ -1,11 +1,9 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */(function (window) {
-
-
   function Path(id) {
-    var vcan = virtualclass.wb[id].vcan;
+    const { vcan } = virtualclass.wb[id];
     /**
      * This class is used for create the path for each co-ordinate which is drawn by user
      * The paticular path array has some element which have some proeprties
@@ -28,7 +26,7 @@
          * eg:- x, y cordinate, timing
          * @param {Object} [options] Options object
          */
-        init: function (path, options) {
+        init(path, options) {
           options = options || {};
           /* TODO this could be disable for now
            * in future it may required
@@ -43,7 +41,7 @@
             s: 4,
             q: 4,
             t: 2,
-            a: 7
+            a: 7,
           };
 
           if (!path) {
@@ -62,9 +60,9 @@
          * and store them into array and returned it
          */
 
-        initializeFromArray: function (options) {
-          var isWidthSet = 'width' in options,
-            isHeightSet = 'height' in options;
+        initializeFromArray(options) {
+          const isWidthSet = 'width' in options;
+          const isHeightSet = 'height' in options;
 
           this.path = this._parsePath();
           if (!isWidthSet || !isHeightSet) {
@@ -83,18 +81,18 @@
          * @returns nothing
          * right now not using this function
          */
-        _render: function (ctx) {
-          var current, // current instruction
-            x = 0, // current x
-            y = 0, // current y
-            controlX = 0, // current control point x
-            controlY = 0, // current control point y
-            tempX,
-            tempY,
-            l = -(this.width / 2),
-            t = -(this.height / 2);
+        _render(ctx) {
+          let current; // current instruction
+          let x = 0; // current x
+          let y = 0; // current y
+          const controlX = 0; // current control point x
+          const controlY = 0; // current control point y
+          let tempX;
+          let tempY;
+          const l = -(this.width / 2);
+          const t = -(this.height / 2);
 
-          for (var i = 0, len = this.path.length; i < len; ++i) {
+          for (let i = 0, len = this.path.length; i < len; ++i) {
             current = this.path[i];
 
             switch (current[0]) { // first letter
@@ -113,7 +111,6 @@
                 ctx.closePath();
                 break;
             }
-
           }
         },
         /**
@@ -125,8 +122,8 @@
          * right now not using
          * @returns nothing
          */
-        replay_render: function (ctx, current, l, t) {
-          var x = y = 0;
+        replay_render(ctx, current, l, t) {
+          let x = y = 0;
           switch (current[0]) { // first letter
             case 'L': // lineto, relative
               x += current[1];
@@ -142,7 +139,6 @@
               ctx.moveTo(x + l, y + t);
               break;
           }
-
         },
         /**
          * Renders the free drawing object on a specified context
@@ -151,10 +147,9 @@
          * @param {Boolean} noTransform When true, context is not transformed
          * right now not using
          */
-        render: function (ctx, noTransform) {
-
+        render(ctx, noTransform) {
           ctx.save();
-          var m = this.transformMatrix;
+          const m = this.transformMatrix;
           if (m) {
             ctx.transform(m[0], m[1], m[2], m[3], m[4], m[5]);
           }
@@ -165,8 +160,7 @@
 
           if (this.overlayFill) {
             ctx.fillStyle = this.overlayFill;
-          }
-          else if (this.fill) {
+          } else if (this.fill) {
             ctx.fillStyle = this.fill;
           }
 
@@ -187,7 +181,7 @@
             ctx.stroke();
           }
           if (!noTransform && this.active) {
-            //alert('hello guys');
+            // alert('hello guys');
             this.drawBorders(ctx);
             this.hideCorners || this.drawCorners(ctx);
           }
@@ -201,17 +195,17 @@
          * returns the array  which contains the above informaiton   [0] => M,  [1] => 0,  [2] => 38,  [3] => 1363777101579
          *
          */
-        _parsePath: function () {
-          var result = [],
-            currentPath,
-            chunks,
-            parsed;
+        _parsePath() {
+          const result = [];
+          let currentPath;
+          let chunks;
+          let parsed;
 
           for (var i = 0, j, chunksParsed, len = this.path.length; i < len; i++) {
-            var pattern = /\d+\s$/; //TODO the pattern could be more specific
-            var mdTime = pattern.exec(this.path[i]);
+            const pattern = /\d+\s$/; // TODO the pattern could be more specific
+            const mdTime = pattern.exec(this.path[i]);
             if (mdTime != null) {
-              var pos = this.path[i].indexOf(mdTime);
+              const pos = this.path[i].indexOf(mdTime);
               this.path[i] = this.path[i].substring(0, pos);
             }
             currentPath = this.path[i];
@@ -226,12 +220,11 @@
               }
             }
 
-            var command = chunksParsed[0].toLowerCase(),
-              commandLength = this.commandLengths[command];
+            const command = chunksParsed[0].toLowerCase();
+            const commandLength = this.commandLengths[command];
 
             if (chunksParsed.length - 1 > commandLength) {
-
-              for (var k = 1, klen = chunksParsed.length; k < klen; k += commandLength) {
+              for (let k = 1, klen = chunksParsed.length; k < klen; k += commandLength) {
                 if (mdTime == null) {
                   result.push([chunksParsed[0]].concat(chunksParsed.slice(k, k + commandLength)));
                 } else {
@@ -240,14 +233,12 @@
                   result.push(chunksParsed);
                 }
               }
+            } else if (mdTime != null) {
+              // result.push(chunksParsed);
+              chunksParsed.push(mdTime[0]);
+              result.push(chunksParsed);
             } else {
-              if (mdTime != null) {
-                //result.push(chunksParsed);
-                chunksParsed.push(mdTime[0]);
-                result.push(chunksParsed);
-              } else {
-                result.push(chunksParsed);
-              }
+              result.push(chunksParsed);
             }
           }
 
@@ -259,18 +250,18 @@
          * This information would be used for select the object for drag and drop operation or other opertation
          * return the object which contains the value of width, height, top, bottom of drawn free hand object
          */
-        _parseDimensions: function () {
-          var aX = [],
-            aY = [],
-            previousX,
-            previousY,
-            isLowerCase = false,
-            x,
-            y;
+        _parseDimensions() {
+          const aX = [];
+          const aY = [];
+          let previousX;
+          let previousY;
+          let isLowerCase = false;
+          let x;
+          let y;
 
           this.path.forEach(function (item, i) {
-            if (item[3] != " ") {
-              //splice(3) is represented making time.
+            if (item[3] != ' ') {
+              // splice(3) is represented making time.
               var mdTime = item.splice(3);
             }
 
@@ -302,7 +293,7 @@
                 ? previousY
                 : this.utility.getY(item);
 
-            var val = parseInt(x, 10);
+            let val = parseInt(x, 10);
             if (!isNaN(val)) {
               aX.push(val);
             }
@@ -310,25 +301,24 @@
             if (!isNaN(val)) {
               aY.push(val);
             }
-            //TODO this can be ticky
+            // TODO this can be ticky
             if (mdTime != undefined) {
               if (mdTime.length >= 1) {
                 item.push(mdTime[0]);
               }
             }
-
           }, this);
 
-          var minX = fdObj.utility.min(aX),
-            minY = fdObj.utility.min(aY),
-            deltaX = 0,
-            deltaY = 0;
+          const minX = fdObj.utility.min(aX);
+          const minY = fdObj.utility.min(aY);
+          const deltaX = 0;
+          const deltaY = 0;
 
-          var o = {
+          const o = {
             y: minY - deltaY,
             x: minX - deltaX,
             bottom: fdObj.utility.max(aY) - deltaY,
-            right: fdObj.utility.max(aX) - deltaX
+            right: fdObj.utility.max(aX) - deltaX,
           };
 
           o.width = o.right - o.x;
@@ -339,7 +329,7 @@
           /**
            *  return the x co-ordinate of path
            */
-          getX: function (item) {
+          getX(item) {
             if (item[0] === 'H') {
               return item[1];
             }
@@ -348,7 +338,7 @@
           /**
            * return the y co-ordinate of path
            */
-          getY: function (item) {
+          getY(item) {
             if (item[0] === 'V') {
               return item[1];
             }
@@ -362,18 +352,18 @@
            * TODO the extend of vcan can be use instead of blow function
            */
 
-          extend: function (destination, source) {
+          extend(destination, source) {
             // JScript DontEnum bug is not taken care of
-            for (var property in source) {
+            for (const property in source) {
               destination[property] = source[property];
             }
             return destination;
-          }
+          },
 
-        }
+        },
       };
-    }
+    };
   }
 
   window.Path = Path;
-})(window);
+}(window));

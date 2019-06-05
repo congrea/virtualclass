@@ -9,8 +9,7 @@
  *
  */
 (function (window) {
-  "use strict";
-  var AttributeConstants = {
+  const AttributeConstants = {
     BOLD: 'b',
     ITALIC: 'i',
     UNDERLINE: 'u',
@@ -21,12 +20,11 @@
     BACKGROUND_COLOR: 'bc',
     ENTITY_SENTINEL: 'ent',
 
-// Line Attributes
+    // Line Attributes
     LINE_SENTINEL: 'l',
     LINE_INDENT: 'li',
     LINE_ALIGN: 'la',
-    LIST_TYPE: 'lt'
+    LIST_TYPE: 'lt',
   };
   window.AttributeConstants = AttributeConstants;
-
-})(window);
+}(window));

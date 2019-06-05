@@ -9,17 +9,14 @@
  *
  */
 (function (window) {
-  "use strict";
-
-
   /**
    * Immutable object to represent line formatting.  Formatting can be modified by chaining method calls.
    *
    * @constructor
    * @type {Function}
    */
-  var LineFormatting = (function () {
-    var ATTR = window.AttributeConstants;
+  const LineFormatting = (function () {
+    const ATTR = window.AttributeConstants;
 
     function LineFormatting(attributes) {
       // Allow calling without new.
@@ -36,14 +33,14 @@
       ORDERED: 'o',
       UNORDERED: 'u',
       TODO: 't',
-      TODOCHECKED: 'tc'
+      TODOCHECKED: 'tc',
     };
 
     LineFormatting.prototype.cloneWithNewAttribute_ = function (attribute, value) {
-      var attributes = {};
+      const attributes = {};
 
       // Copy existing.
-      for (var attr in this.attributes) {
+      for (const attr in this.attributes) {
         attributes[attr] = this.attributes[attr];
       }
 
@@ -82,9 +79,7 @@
       return this.attributes[ATTR.LIST_TYPE] || false;
     };
     return LineFormatting;
-  })();
+  }());
 
   window.LineFormatting = LineFormatting;
-
-})(window);
-
+}(window));

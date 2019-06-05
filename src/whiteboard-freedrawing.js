@@ -1,10 +1,10 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 
 (function (window) {
-  //var vcan = window.vcan;
+  // var vcan = window.vcan;
 
   /**
    * @Class defined rectangle for rectangle
@@ -20,7 +20,7 @@
    */
 
   function FreeHandDrawing(id) {
-    var vcan = virtualclass.wb[id].vcan;
+    const { vcan } = virtualclass.wb[id];
     vcan.main.freeHandDrawing = function (obj) {
       return {
         type: 'freeDrawing',
@@ -28,7 +28,7 @@
          * initialize the various variable for free drawing
          *  return the current context
          */
-        init: function () {
+        init() {
           this.contextTop = {};
           this.isCurrentlyDrawing = false;
           this.freeDrawingXPoints = [];
@@ -36,9 +36,9 @@
           this.mdTime = [];
 
           if (obj.borderColor == undefined) {
-            this.freeDrawingColor = "#0000ff";
+            this.freeDrawingColor = '#0000ff';
           } else {
-            this.freeDrawingColor = (virtualclass.wb[virtualclass.gObj.currWb].activeToolColor != undefined) ? virtualclass.wb[virtualclass.gObj.currWb].activeToolColor : "#0000ff";
+            this.freeDrawingColor = (virtualclass.wb[virtualclass.gObj.currWb].activeToolColor != undefined) ? virtualclass.wb[virtualclass.gObj.currWb].activeToolColor : '#0000ff';
           }
 
           if (obj.lineWidth != undefined) {
@@ -47,21 +47,20 @@
             this.freeDrawingLineWidth = virtualclass.wb[virtualclass.gObj.currWb].currStrkSize * virtualclass.zoom.canvasScale;
           }
 
-          //IMPORTANT:- this have done during the unit testing
-          //this.freeDrawingLineWidth = "3"; //TODO this should be dyanamic
-          return this; //IMPORTANT added after unit testing
+          // IMPORTANT:- this have done during the unit testing
+          // this.freeDrawingLineWidth = "3"; //TODO this should be dyanamic
+          return this; // IMPORTANT added after unit testing
         },
-        /***
+        /** *
          * This function does set up the situation for drawing the the free hand drawing object
          * eg:- context begins, call the moveTo()
          * this function is called when user click on canvas for draw the free hand draw
          * @param ctx current context of canvas
          * @returns
          */
-        fhdStart: function (ctx, pointer, crtMuser) {
-
-          var currTime = new Date().getTime();
-          var canvas = vcan.main.canvas;
+        fhdStart(ctx, pointer, crtMuser) {
+          const currTime = new Date().getTime();
+          const { canvas } = vcan.main;
 
           this.contextTop = ctx;
           this.isCurrentlyDrawing = true;
@@ -77,7 +76,6 @@
           this.contextTop.strokeStyle = this.freeDrawingColor;
           this.contextTop.lineWidth = this.freeDrawingLineWidth;
           this.contextTop.lineCap = this.contextTop.lineJoin = 'round';
-
         },
         /**
          * through this funciton the application is creting the object(free hand draw) in indeed
@@ -86,10 +84,10 @@
          * @returns nothing
          */
 
-        //captureDrawingPath: function(evt) {
-        //fhRendering: function(evt) {
-        fhRendering: function (pointer, crtMuser) {
-          var currTime = new Date().getTime();
+        // captureDrawingPath: function(evt) {
+        // fhRendering: function(evt) {
+        fhRendering(pointer, crtMuser) {
+          const currTime = new Date().getTime();
           this.freeDrawingXPoints.push(pointer.x);
           this.freeDrawingYPoints.push(pointer.y);
 
@@ -106,26 +104,26 @@
          * @returns nothing
          *
          */
-        finalizeDrawingPath: function (mcanvas, crtMuser, pointer) {
-          var currTime = new Date().getTime();
+        finalizeDrawingPath(mcanvas, crtMuser, pointer) {
+          const currTime = new Date().getTime();
           this.contextTop.closePath();
           this.isCurrentlyDrawing = false;
 
-          var minX = this.utility.min(this.freeDrawingXPoints),
-            minY = this.utility.min(this.freeDrawingYPoints),
-            maxX = this.utility.max(this.freeDrawingXPoints),
-            maxY = this.utility.max(this.freeDrawingYPoints),
-            ctx = this.contextTop,
-            path = [],
-            xPoint,
-            yPoint,
-            mdTime,
-            xPoints = this.freeDrawingXPoints,
-            yPoints = this.freeDrawingYPoints,
-            mdTimes = this.mdTime;
+          const minX = this.utility.min(this.freeDrawingXPoints);
+          const minY = this.utility.min(this.freeDrawingYPoints);
+          const maxX = this.utility.max(this.freeDrawingXPoints);
+          const maxY = this.utility.max(this.freeDrawingYPoints);
+          const ctx = this.contextTop;
+          let path = [];
+          let xPoint;
+          let yPoint;
+          let mdTime;
+          const xPoints = this.freeDrawingXPoints;
+          const yPoints = this.freeDrawingYPoints;
+          const mdTimes = this.mdTime;
 
           path.push('M ', xPoints[0] - minX, ' ', yPoints[0] - minY, ' ', mdTimes[0], ' ');
-          for (var i = 1; xPoint = xPoints[i], yPoint = yPoints[i], mdTime = mdTimes[i]; i++) { //NOTE:- this have done during the unit testing
+          for (let i = 1; xPoint = xPoints[i], yPoint = yPoints[i], mdTime = mdTimes[i]; i++) { // NOTE:- this have done during the unit testing
             path.push('L ', xPoint - minX, ' ', yPoint - minY, ' ', mdTime, ' ');
           }
 
@@ -133,21 +131,21 @@
           // and instead fire something like "drawing:completed" event with path string
 
           path = path.join('');
-          if (path === "M 0 0 L 0 0 ") {
+          if (path === 'M 0 0 L 0 0 ') {
             // do not create 0 width/height paths, as they are rendered inconsistently across browsers
             // Firefox 4, for example, renders a dot, whereas Chrome 10 renders nothing
             return;
           }
-          var xp = this.freeDrawingXPoints[this.freeDrawingXPoints.length - 1];
-          var yp = this.freeDrawingYPoints[this.freeDrawingYPoints.length - 1];
-          var p = new vcan.Path(path, this);
+          const xp = this.freeDrawingXPoints[this.freeDrawingXPoints.length - 1];
+          const yp = this.freeDrawingYPoints[this.freeDrawingYPoints.length - 1];
+          let p = new vcan.Path(path, this);
           p.mp = {};
           p.mp.x = xp;
           p.mp.y = yp;
 
           p.init(path);
-          //below line is commented out during unit testing
-          //p = vcan.main.mcanvas.readyObject(p);	 //this should be done thorugh the script.js
+          // below line is commented out during unit testing
+          // p = vcan.main.mcanvas.readyObject(p);	 //this should be done thorugh the script.js
           p = mcanvas.readyObject(p);
           p.coreObj.type = 'freeDrawing'; // this is need to make because we are finializing the path into freedrawing
           p = p.coreObj;
@@ -161,17 +159,16 @@
 
           this.utility.objAdd(p);
 
-          var resP = vcan.utility.setVal(p, "x", minX + (maxX - minX) / 2);
-          resP = vcan.utility.setVal(resP, "y", minY + (maxY - minY) / 2);
+          let resP = vcan.utility.setVal(p, 'x', minX + (maxX - minX) / 2);
+          resP = vcan.utility.setVal(resP, 'y', minY + (maxY - minY) / 2);
           resP.setCoords();
 
-          if (typeof obj == 'object') {
+          if (typeof obj === 'object') {
             this.contextTop.restore();
           }
 
           vcan.renderAll(this.contextTop);
           return resP;
-
         },
         utility: {
           /**
@@ -181,20 +178,19 @@
            * @param {String} byProperty
            * critical I have removed the cloned function named max
            */
-          max: function (array, byProperty) {
+          max(array, byProperty) {
             if (!array || array.length === 0) {
               return undefined;
             }
-            var i = array.length - 1,
-              result = byProperty ? array[i][byProperty] : array[i];
+            let i = array.length - 1;
+            let result = byProperty ? array[i][byProperty] : array[i];
             if (byProperty) {
               while (i--) {
                 if (array[i][byProperty] >= result) {
                   result = array[i][byProperty];
                 }
               }
-            }
-            else {
+            } else {
               while (i--) {
                 if (array[i] >= result) {
                   result = array[i];
@@ -209,12 +205,12 @@
            * @param {Array} array Array to iterate over
            * @param {String} byProperty
            */
-          min: function (array, byProperty) {
+          min(array, byProperty) {
             if (!array || array.length === 0) {
               return undefined;
             }
-            var i = array.length - 1,
-              result = byProperty ? array[i][byProperty] : array[i];
+            let i = array.length - 1;
+            let result = byProperty ? array[i][byProperty] : array[i];
             if (byProperty) {
               while (i--) {
                 if (array[i][byProperty] < result) {
@@ -229,17 +225,15 @@
               }
             }
             return result;
-
           },
-          objAdd: function (obj) {
+          objAdd(obj) {
             vcan.main.children.push(obj);
             return this;
-          }
-        }
-      }
-    }
+          },
+        },
+      };
+    };
   }
 
   window.FreeHandDrawing = FreeHandDrawing;
-
-})(window);
+}(window));

@@ -9,8 +9,7 @@
  *
  */
 (function (window) {
-  "use strict";
-  var Span = (function () {
+  const Span = (function () {
     function Span(pos, length) {
       this.pos = pos;
       this.length = length;
@@ -23,5 +22,4 @@
     return Span;
   }());
   window.Span = Span;
-
-})(window);
+}(window));

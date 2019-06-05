@@ -1,11 +1,11 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-  //var vcan = window.vcan;
+  // var vcan = window.vcan;
   function Virtualbox(id) {
-    var vcan = virtualclass.wb[id].vcan;
+    const { vcan } = virtualclass.wb[id];
     vcan.virtual_box = {
       /**
        * Helper method to determine how many cross points are between the 4 image edges
@@ -15,12 +15,12 @@
        * @param ey {Number} y coordinate of the mouse
        * @param oCoords {Object} Coordinates of the image being evaluated
        */
-      findCrossPoints: function (ex, ey, oCoords) {
-        var b1, b2, a1, a2, xi, yi,
-          xcount = 0,
-          iLine;
+      findCrossPoints(ex, ey, oCoords) {
+        let b1; let b2; let a1; let a2; let xi; let yi;
+        let xcount = 0;
+        let iLine;
 
-        for (var lineKey in oCoords) {
+        for (const lineKey in oCoords) {
           iLine = oCoords[lineKey];
           // optimisation 1: line below dot. no cross
           if ((iLine.o.y < ey) && (iLine.d.y < ey)) {
@@ -62,26 +62,26 @@
        * @method getImageLines
        * @param oCoords {Object} coordinates of the image corners
        */
-      //TODO the i is not using here we can remove it
-      getImageLines: function (oCoords, i) {
+      // TODO the i is not using here we can remove it
+      getImageLines(oCoords, i) {
         return {
           topline: {
             o: oCoords.tl,
-            d: oCoords.tr
+            d: oCoords.tr,
           },
           rightline: {
             o: oCoords.tr,
-            d: oCoords.br
+            d: oCoords.br,
           },
           bottomline: {
             o: oCoords.br,
-            d: oCoords.bl
+            d: oCoords.bl,
           },
           leftline: {
             o: oCoords.bl,
-            d: oCoords.tl
-          }
-        }
+            d: oCoords.tl,
+          },
+        };
       },
       /**
        * Applies one implementation of 'point inside polygon' algorithm
@@ -91,26 +91,26 @@
        * @return {Boolean} true if point contains within area of given object
        */
 
-      containsPoint: function (e, target) {
-        var pointer = vcan.utility.getReltivePoint(e);
-        var x = pointer.x,
-          y = pointer.y;
+      containsPoint(e, target) {
+        const pointer = vcan.utility.getReltivePoint(e);
+        const { x } = pointer;
+        const { y } = pointer;
 
         // http://www.geog.ubc.ca/courses/klink/gis.notes/ncgia/u32.html
         // http://idav.ucdavis.edu/~okreylos/TAship/Spring2000/PointInPolygon.html
 
         // we iterate through each object. If target found, return it.
-        var iLines = vcan.virtual_box.getImageLines(target.oCoords),
-          xpoints = vcan.virtual_box.findCrossPoints(x, y, iLines);
+        const iLines = vcan.virtual_box.getImageLines(target.oCoords);
+        const xpoints = vcan.virtual_box.findCrossPoints(x, y, iLines);
 
-        var canId = vcan.main.canvas.id;
+        const canId = vcan.main.canvas.id;
         if ((xpoints && xpoints % 2 === 1) || target.findTargetCorner(e)) {
           return true;
         }
         return false;
-      }
-    }
+      },
+    };
   }
 
   window.Virtualbox = Virtualbox;
-})(window);
+}(window));

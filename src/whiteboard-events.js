@@ -1,10 +1,10 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 
 (function (window) {
-  //var vcan = window.vcan;
+  // var vcan = window.vcan;
 
   /**
    *  @Class defined events
@@ -14,11 +14,11 @@
    */
 
   function Events(id) {
-    var vcan = virtualclass.wb[id].vcan;
+    const { vcan } = virtualclass.wb[id];
     vcan.events = function () {
       return {
-        bind: function (obj, type, handler) {
-          obj['on' + type] = handler;
+        bind(obj, type, handler) {
+          obj[`on${type}`] = handler;
         },
         /**
          * Method that determines that which object we are clicking on
@@ -26,13 +26,13 @@
          * @param {Event} e mouse event
          * @pointer refers x and y co-ordinate relative to canvas
          */
-        findTarget: function (e) {
-          var target;
+        findTarget(e) {
+          let target;
           // then check all of the objects on canvas
-          //TODO use this should be obj
+          // TODO use this should be obj
 
-          var objs = vcan.main.children;
-          for (var i = objs.length; i--;) {
+          const objs = vcan.main.children;
+          for (let i = objs.length; i--;) {
             if (objs[i] && vcan.virtual_box.containsPoint(e, objs[i])) {
               target = objs[i];
               break;
@@ -42,12 +42,10 @@
           if (target && target.selectable) {
             return target;
           }
-        }
-      }
-    }
+        },
+      };
+    };
   }
 
   window.Events = Events;
-
-
-})(window);
+}(window));

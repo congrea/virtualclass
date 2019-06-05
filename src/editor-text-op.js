@@ -9,10 +9,9 @@
  *
  */
 (function (window) {
-  "use strict";
-  var TextOp = (function () {
-    //var utils = vceditor.utils;
-    var utils = window.utils;
+  const TextOp = (function () {
+    // var utils = vceditor.utils;
+    const { utils } = window;
 
     // Operation are essentially lists of ops. There are three types of ops:
     //
@@ -54,10 +53,10 @@
     };
 
     TextOp.prototype.equals = function (other) {
-      return (this.type === other.type &&
-      this.text === other.text &&
-      this.chars === other.chars &&
-      this.attributesEqual(other.attributes));
+      return (this.type === other.type
+      && this.text === other.text
+      && this.chars === other.chars
+      && this.attributesEqual(other.attributes));
     };
 
     TextOp.prototype.attributesEqual = function (otherAttributes) {
@@ -77,8 +76,8 @@
     };
 
     TextOp.prototype.hasEmptyAttributes = function () {
-      var empty = true;
-      for (var attr in this.attributes) {
+      let empty = true;
+      for (const attr in this.attributes) {
         empty = false;
         break;
       }
@@ -87,8 +86,6 @@
     };
 
     return TextOp;
-  })();
+  }());
   window.TextOp = TextOp;
-
-})(window);
-
+}(window));

@@ -1,18 +1,18 @@
-var serverData = {
-  rawData: {video: [], ppt: [], docs: []},
+const serverData = {
+  rawData: { video: [], ppt: [], docs: [] },
 
-  fetchAllData: function (cb) {
+  fetchAllData(cb) {
     console.log('Fetch all data');
     this.cb = cb;
     console.log('Request get document url');
     this.requestData(virtualclass.api.GetDocumentURLs);
   },
 
-  requestData: function (url) {
-    this.rawData = {video: [], ppt: [], docs: []};
-    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+  requestData(url) {
+    this.rawData = { video: [], ppt: [], docs: [] };
+    const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     xhr.open('POST', url);
-    var that = this;
+    const that = this;
     xhr.onreadystatechange = function () {
       if (xhr.readyState > 3 && xhr.status == 200) {
         // that.formatRawData(xhr.responseText);
@@ -29,7 +29,6 @@ var serverData = {
     xhr.setRequestHeader('x-congrea-room', wbUser.room);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(null);
-
   },
 
   // requestData3 :function(url) {
@@ -37,49 +36,51 @@ var serverData = {
   //     virtualclass.xhrn.sendData(null, url, this.afterResponse);
   // },
 
-  afterResponse: function (responseText) {
+  afterResponse(responseText) {
     if (responseText != 'ERROR') {
       virtualclass.serverData.formatRawData(responseText);
       virtualclass.gObj.fetchedData = true;
-      if (typeof virtualclass.serverData.cb != 'undefined') {
+      if (typeof virtualclass.serverData.cb !== 'undefined') {
         virtualclass.serverData.cb();
       }
     }
   },
 
   /* To move this function */
-  formatRawData: function (raw) {
-    var awsData = JSON.parse(raw);
+  formatRawData(raw) {
+    const awsData = JSON.parse(raw);
 
     this.awsUrlArr(awsData);
   },
 
-  awsUrlArr: function (data) {
-    this.rawData = {video: [], ppt: [], docs: []};
-    var processedArr = [];
-    var arr = data.Items;
-    var newArr = [];
-    var prefix = "https://media.congrea.net/";
-    var doc = "https://media.congrea.net";
-    var imageUrl, pdfUrl, thnailUrl;
-    var cpath; // common path
+  awsUrlArr(data) {
+    this.rawData = { video: [], ppt: [], docs: [] };
+    const processedArr = [];
+    const arr = data.Items;
+    const newArr = [];
+    var prefix = 'https://media.congrea.net/';
+    const doc = 'https://media.congrea.net';
+    let imageUrl; let pdfUrl; let
+      thnailUrl;
+    let cpath; // common path
 
-    for (var j = 0; j < arr.length; j++) {
+    for (let j = 0; j < arr.length; j++) {
       if (arr[j].hasOwnProperty('filetype')) {
         switch (arr[j].filetype.S) {
-          case "doc":
+          case 'doc':
             var obj = this.processObj(arr[j]);
             cpath = arr[j].processed_data.M.commonpath.S;
             var count = parseInt(arr[j].processed_data.M.count.N);
 
             if (cpath != null && count != null) {
-              var docPrefix = doc + "/" + arr[j].processed_data.M.commonpath.S;
-              var prefix, num, noteId;
-              var notes = {};
-              obj.notes = {}
+              const docPrefix = `${doc}/${arr[j].processed_data.M.commonpath.S}`;
+              var prefix; var num; var
+                noteId;
+              const notes = {};
+              obj.notes = {};
               obj.notesarr = [];
-              var deletedNotes = [];
-              var disabledNotes = [];
+              let deletedNotes = [];
+              let disabledNotes = [];
 
               if (obj.hasOwnProperty('deletednes')) {
                 deletedNotes = obj.deletednes;
@@ -90,20 +91,20 @@ var serverData = {
               }
 
 
-              for (var i = 1; i <= count; i++) {
+              for (let i = 1; i <= count; i++) {
                 num = pad(i, 3);
-                imageUrl = docPrefix + "/image/" + num + "." + arr[j].processed_data.M.image.M.type.S;
-                pdfUrl = docPrefix + "/pdf/" + num + ".pdf";
-                thnailUrl = docPrefix + "/thumbnail/" + num + "." + arr[j].processed_data.M.thumbnail.M.type.S;
+                imageUrl = `${docPrefix}/image/${num}.${arr[j].processed_data.M.image.M.type.S}`;
+                pdfUrl = `${docPrefix}/pdf/${num}.pdf`;
+                thnailUrl = `${docPrefix}/thumbnail/${num}.${arr[j].processed_data.M.thumbnail.M.type.S}`;
 
                 if (i > 99) {
-                  noteId = obj.fileuuid + '_' + i;
+                  noteId = `${obj.fileuuid}_${i}`;
                 } else if (i > 9) {
-                  noteId = obj.fileuuid + '_0' + i
+                  noteId = `${obj.fileuuid}_0${i}`;
                 } else {
-                  noteId = obj.fileuuid + '_00' + i;
+                  noteId = `${obj.fileuuid}_00${i}`;
                 }
-                var tobj = {};
+                const tobj = {};
                 if (deletedNotes.length > 0) {
                   if (deletedNotes.indexOf(i) > -1) {
                     tobj.deletedn = noteId;
@@ -132,27 +133,27 @@ var serverData = {
               this.rawData.docs.push(obj);
             }
             break;
-          case  'video':
+          case 'video':
             if (arr[j].processed_data != null && arr[j].processed_data.S == 'COMPLETED') {
               var obj = this.processObj(arr[j]);
 
-              var add = obj.filepath.substr(0, obj.filepath.lastIndexOf("/"));
+              const add = obj.filepath.substr(0, obj.filepath.lastIndexOf('/'));
               obj.urls = {};
               obj.urls.thumbnail = {};
               obj.urls.videos = {};
-              obj.urls.main_video = prefix + add + "/video/play_video.m3u8";
-              obj.urls.videos["0400k"] = prefix + add + "/video/0400k/video.m3u8";
-              obj.urls.videos["0600k"] = prefix + add + "/video/0600k/video.m3u8";
-              obj.urls.videos["1000k"] = prefix + add + "/video/1000k/video.m3u8";
-              obj.urls.videos["1500k"] = prefix + add + "/video/1500k/video.m3u8";
-              obj.urls.videos["2000k"] = prefix + add + "/video/2000k/video.m3u8";
+              obj.urls.main_video = `${prefix + add}/video/play_video.m3u8`;
+              obj.urls.videos['0400k'] = `${prefix + add}/video/0400k/video.m3u8`;
+              obj.urls.videos['0600k'] = `${prefix + add}/video/0600k/video.m3u8`;
+              obj.urls.videos['1000k'] = `${prefix + add}/video/1000k/video.m3u8`;
+              obj.urls.videos['1500k'] = `${prefix + add}/video/1500k/video.m3u8`;
+              obj.urls.videos['2000k'] = `${prefix + add}/video/2000k/video.m3u8`;
 
 
-              obj.urls.thumbnail["0400k"] = prefix + add + "/video/0400k/thumbs/00001.png";
-              obj.urls.thumbnail["0600k"] = prefix + add + "/video/0600k/thumbs/00001.png";
-              obj.urls.thumbnail["1000k"] = prefix + add + "/video/1000k/thumbs/00001.png";
-              obj.urls.thumbnail["1500k"] = prefix + add + "/video/1500k/thumbs/00001.png";
-              obj.urls.thumbnail["2000k"] = prefix + add + "/video/2000k/thumbs/00001.png";
+              obj.urls.thumbnail['0400k'] = `${prefix + add}/video/0400k/thumbs/00001.png`;
+              obj.urls.thumbnail['0600k'] = `${prefix + add}/video/0600k/thumbs/00001.png`;
+              obj.urls.thumbnail['1000k'] = `${prefix + add}/video/1000k/thumbs/00001.png`;
+              obj.urls.thumbnail['1500k'] = `${prefix + add}/video/1500k/thumbs/00001.png`;
+              obj.urls.thumbnail['2000k'] = `${prefix + add}/video/2000k/thumbs/00001.png`;
               processedArr.push(obj);
               this.rawData.video.push(obj);
             }
@@ -168,7 +169,7 @@ var serverData = {
             break;
 
           case 'presentation':
-            console.log("presentation data")
+            console.log('presentation data');
             // console.log(obj);
             var obj = this.processVidUrlObj(arr[j]);
             obj.urls = {};
@@ -176,7 +177,7 @@ var serverData = {
             processedArr.push(obj);
             this.rawData.ppt.push(obj);
             break;
-          case 'video_online' :
+          case 'video_online':
             console.log('Handle one line ');
             var obj = this.processVidUrlObj(arr[j]);
             obj.urls = {};
@@ -184,22 +185,20 @@ var serverData = {
             processedArr.push(obj);
             this.rawData.video.push(obj);
             break;
-
         }
       }
     }
 
     virtualclass.awsData = processedArr;
-    //console.log(virtualclass.awsData);
+    // console.log(virtualclass.awsData);
     function pad(n, length) {
-      var len = length - ('' + n).length;
-      return (len > 0 ? new Array(++len).join('0') : '') + n
+      let len = length - (`${n}`).length;
+      return (len > 0 ? new Array(++len).join('0') : '') + n;
     }
-
   },
 
-  processObj: function (obj) {
-    var temp = {};
+  processObj(obj) {
+    const temp = {};
     // temp.filetag= obj.fileetag.S;
     temp.filename = obj.filename.S;
     temp.filepath = obj.filepath.S;
@@ -226,8 +225,8 @@ var serverData = {
     return temp;
   },
 
-  processVidUrlObj: function (obj) {
-    var temp = {};
+  processVidUrlObj(obj) {
+    const temp = {};
     // temp.filetag= obj.fileetag.S;
     temp.URL = obj.URL.S;
     temp.filename = temp.URL;
@@ -244,20 +243,20 @@ var serverData = {
     return temp;
   },
 
-  pollingStatus: function (cb) {
-    var url = virtualclass.api.GetDocumentStatus;
+  pollingStatus(cb) {
+    const url = virtualclass.api.GetDocumentStatus;
     if (virtualclass.gObj.hasOwnProperty('pollingDocumentStatus')) {
       clearTimeout(virtualclass.gObj.pollingDocumentStatus);
     }
-    var that = this;
+    const that = this;
     virtualclass.gObj.pollingDocumentStatus = setTimeout(
-      function () {
-        virtualclass.xhrn.sendData({uuid: virtualclass.gObj.file.uuid}, url, function (response) {
-          var responseObj = JSON.parse(response).Item;
-          if (responseObj != undefined && typeof responseObj != 'undefined') {
-            if (responseObj.hasOwnProperty('processed_data') &&
-              (responseObj.processed_data.hasOwnProperty('S') && (responseObj.processed_data.S == 'COMPLETED') ||
-              (responseObj.processed_data.hasOwnProperty('M') && responseObj.processed_data.M.hasOwnProperty('pdf')))) {
+      () => {
+        virtualclass.xhrn.sendData({ uuid: virtualclass.gObj.file.uuid }, url, (response) => {
+          const responseObj = JSON.parse(response).Item;
+          if (responseObj != undefined && typeof responseObj !== 'undefined') {
+            if (responseObj.hasOwnProperty('processed_data')
+              && (responseObj.processed_data.hasOwnProperty('S') && (responseObj.processed_data.S == 'COMPLETED')
+              || (responseObj.processed_data.hasOwnProperty('M') && responseObj.processed_data.M.hasOwnProperty('pdf')))) {
               clearTimeout(virtualclass.gObj.pollingDocumentStatus);
               virtualclass.serverData.fetchAllData(cb);
             } else {
@@ -265,7 +264,7 @@ var serverData = {
             }
           }
         });
-      }, 5000
+      }, 5000,
     );
-  }
-}
+  },
+};

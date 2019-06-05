@@ -6,68 +6,65 @@
  * initializes user's screen and recorders
  *
  */
-window.addEventListener('message', function (event) {
-  "use strict";
+window.addEventListener('message', (event) => {
   if (event.origin != window.location.origin) {
     return;
   }
   if (event.data.type == 'gotScreen') {
-    //delete window.shouldChromExtInstall;
-    var constraints;
+    // delete window.shouldChromExtInstall;
+    let constraints;
     if (event.data.sourceId === '') { // user canceled
-      var error = new Error('NavigatorUserMediaError');
+      const error = new Error('NavigatorUserMediaError');
       error.name = 'PERMISSION_DENIED';
       if (virtualclass.hasOwnProperty('ss')) {
         virtualclass.ss.onError(error);
       }
 
-      if (virtualclass.currApp == "SharePresentation" || virtualclass.currApp == "DocumentShare") {
-        var dashboardnav = document.querySelector('#dashboardnav button');
+      if (virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'DocumentShare') {
+        const dashboardnav = document.querySelector('#dashboardnav button');
         if (dashboardnav != null) {
           dashboardnav.click();
         }
       }
 
-      if (roles.hasControls()) {   // #943
+      if (roles.hasControls()) { // #943
         virtualclass.vutil.initDefaultApp();
       }
-
     } else {
       constraints = constraints || {
-          audio: false, video: {
-            mandatory: {
-              chromeMediaSource: 'desktop',
-              chromeMediaSourceId: event.data.sourceId,
-              maxWidth: 1440,
-              maxHeight: 9999
-            },
+        audio: false,
+        video: {
+          mandatory: {
+            chromeMediaSource: 'desktop',
+            chromeMediaSourceId: event.data.sourceId,
+            maxWidth: 1440,
+            maxHeight: 9999,
+          },
 
-            optional: [
-              {maxFrameRate: 3},
-              {googLeakyBucket: true},
-              {googTemporalLayeredScreencast: true}
-            ]
-          }
-        };
+          optional: [
+            { maxFrameRate: 3 },
+            { googLeakyBucket: true },
+            { googTemporalLayeredScreencast: true },
+          ],
+        },
+      };
 
       virtualclass.adpt = new virtualclass.adapter();
-      let navigator2 = virtualclass.adpt.init(navigator);
-      navigator2.getUserMedia(constraints, function (stream) {
+      const navigator2 = virtualclass.adpt.init(navigator);
+      navigator2.getUserMedia(constraints, (stream) => {
         virtualclass.ss._init();
-        //if(roles.hasControls()){
+        // if(roles.hasControls()){
         virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
         // }
-      }, function (e) {
+      }, (e) => {
         virtualclass.ss.onError.call(virtualclass.ss, e);
       });
-      //the stream we can get here with initalizeRecorder()
+      // the stream we can get here with initalizeRecorder()
     }
-    var elem = document.querySelector("#virtualclassScreenShareLocalSmall");
+    const elem = document.querySelector('#virtualclassScreenShareLocalSmall');
     if (elem) {
-      elem.style.display = "block";
+      elem.style.display = 'block';
     }
-
-
   } else if (event.data.type == 'getScreenPending') {
     window.clearTimeout(event.data.id);
   } else if (event.data.type == 'yes') {

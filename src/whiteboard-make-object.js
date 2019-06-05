@@ -1,5 +1,5 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
@@ -14,23 +14,23 @@
    *  @param objType particular ocanvas object type eg:- rectangle, oval etc
    *  returns the object wrapped along with the properties
    */
-  var makeobj = function (startPosX, startPosY, endPosX, endPosY, objType) {
+  const makeobj = function (startPosX, startPosY, endPosX, endPosY, objType) {
     // startPosX = startPosX / virtualclass.zoom.canvasScale;
     // startPosY = startPosY / virtualclass.zoom.canvasScale;
     // endPosX = endPosX / virtualclass.zoom.canvasScale;
     // endPosY = endPosY / virtualclass.zoom.canvasScale;
 
-    //TODO this should be deleted after check properly there is no use of obj.mp object.
-    var obj = {mp: {}};
+    // TODO this should be deleted after check properly there is no use of obj.mp object.
+    const obj = { mp: {} };
     obj.mp.x = endPosX;
     obj.mp.y = endPosY;
-    var lineWidth = 2 * virtualclass.zoom.canvasScale;
+    const lineWidth = 2 * virtualclass.zoom.canvasScale;
     // var lineWidth = 3
     if (startPosX > endPosX) {
-      //this is not using for oval
-      //TODO will have to look for other object that is it need or not
-      var temp_endPosX = endPosX;
-      var temp_endPosY = endPosY;
+      // this is not using for oval
+      // TODO will have to look for other object that is it need or not
+      const temp_endPosX = endPosX;
+      const temp_endPosY = endPosY;
       endPosX = startPosX;
       endPosY = startPosY;
       startPosX = temp_endPosX;
@@ -49,20 +49,18 @@
     }
 
     if (objType == 'line') {
-      obj.lineColor = "#424240";
+      obj.lineColor = '#424240';
       obj.lineWidth = lineWidth;
-      obj.start = {x: startPosX, y: startPosY};
-      obj.end = {x: endPosX, y: endPosY};
-
+      obj.start = { x: startPosX, y: startPosY };
+      obj.end = { x: endPosX, y: endPosY };
     } else if (objType == 'rectangle') {
       obj.width = endPosX - startPosX;
       obj.height = endPosY - startPosY;
-      obj.borderColor = "#424240";
+      obj.borderColor = '#424240';
       obj.lineWidth = lineWidth;
-
     } else if (objType == 'oval') {
       obj.lineWidth = lineWidth;
-      obj.borderColor = "#424240";
+      obj.borderColor = '#424240';
 
       obj.width = endPosX - startPosX;
       obj.height = endPosY - startPosY;
@@ -72,14 +70,13 @@
 
       obj.rx = (obj.width / 2);
       obj.ry = (obj.height / 2);
-
     } else if (objType == 'triangle') {
       obj.lineWidth = lineWidth;
-      obj.borderColor = "#424240";
+      obj.borderColor = '#424240';
     } else if (objType == 'text') {
       return;
     }
     return obj;
   };
   window.makeobj = makeobj;
-})(window);
+}(window));

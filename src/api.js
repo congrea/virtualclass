@@ -1,4 +1,4 @@
-var api = {
+const api = {
   access: 'https://api.congrea.net/data/access',
   upload: 'https://api.congrea.net/t/upload',
   uploadSuccess: 'https://api.congrea.net/t/uploadSuccess',
@@ -9,6 +9,6 @@ var api = {
   GetRoomMetaData: 'https://api.congrea.net/t/GetRoomMetaData',
   addURL: 'https://api.congrea.net/t/addURL',
   GetDocumentStatus: 'https://api.congrea.net/t/GetDocumentStatus',
-  recordingFiles: 'https://api.congrea.net/data/recording-files'
+  recordingFiles: 'https://api.congrea.net/data/recording-files',
 
-}
+};

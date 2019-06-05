@@ -1,30 +1,30 @@
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * @author  Jai Gupta
  * This file provides all functionality needed to share screen.
  */
-var globalImageData = {};
-var newCanvas;
+let globalImageData = {};
+let newCanvas;
 
 
 (function (window) {
-  "use strict";
-
-  var changeonresize, resizecalled, prvWidth, prvHeight, prvVWidth, prvVHeight, app, dim;
-  var canvasCont, newCanvas, newCtx, imageData;
+  let changeonresize; let resizecalled; let prvWidth; let prvHeight; let prvVWidth; let prvVHeight; let app; let
+    dim;
+  let canvasCont; let newCanvas; let newCtx; let
+    imageData;
 
   function callback(error) {
     virtualclass.vutil.initInstallChromeExt(error);
   }
 
-  var renderImage = function (imageData) {
+  const renderImage = function (imageData) {
     if (canvasCont == null) {
       canvasCont = document.querySelector('#virtualclassScreenShareLocal');
     }
 
     if (newCanvas == null) {
       newCanvas = document.createElement('canvas');
-      newCanvas.id = "virtualclassScreenShareLocalVideoNew";
+      newCanvas.id = 'virtualclassScreenShareLocalVideoNew';
       canvasCont.appendChild(newCanvas);
       newCanvas = document.querySelector('#virtualclassScreenShareLocalVideoNew');
     }
@@ -50,15 +50,15 @@ var newCanvas;
 
     virtualclass.ss.localCont.drawImage(newCanvas, 0, 0);
     virtualclass.ss.localCont.restore();
-    if (typeof stype != 'undefined') {
-      console.log('Screen type width ' + newCanvas.width);
-      console.log('Screen type height ' + newCanvas.height);
+    if (typeof stype !== 'undefined') {
+      console.log(`Screen type width ${newCanvas.width}`);
+      console.log(`Screen type height ${newCanvas.height}`);
     }
   };
 
-  if (!!window.Worker) {
+  if (window.Worker) {
     sdworker.onmessage = function (e) {
-      if (e.data.dtype == "drgb") {
+      if (e.data.dtype == 'drgb') {
         globalImageData = e.data.globalImageData;
         imageData = e.data.globalImageData;
         if (e.data.hasOwnProperty('stype')) {
@@ -73,7 +73,7 @@ var newCanvas;
           renderImage(imageData, 'full');
         }
       }
-    }
+    };
   }
 
   /**
@@ -81,12 +81,12 @@ var newCanvas;
    * @returns an object to initilize student screen
    */
 
-  var studentScreen = function () {
+  const studentScreen = function () {
     return {
       scale: 1,
       SCALE_FACTOR: 1.04,
       szoom: false,
-      base: {width: 0, height: 0},
+      base: { width: 0, height: 0 },
       /**
        * Calculating the width and height of the student screen according the requirement of the-
        * application to be shared
@@ -97,11 +97,12 @@ var newCanvas;
        * @param  sTool tool for the application here it is screen share
        */
 
-      ssProcess: function (data_pack, msg, stype, sTool) {
-        var mycase = data_pack[0];
+      ssProcess(data_pack, msg, stype, sTool) {
+        const mycase = data_pack[0];
         // uint8
         data_pack = new Uint8ClampedArray(msg);
-        var x, y, h, w, l, recmsg, dw, dh, vcw, vch, dimObj;
+        let x; let y; let h; let w; let l; let recmsg; let dw; let dh; let vcw; let vch; let
+          dimObj;
         switch (mycase) {
           // Full Image
           case 102:
@@ -109,13 +110,13 @@ var newCanvas;
             w = virtualclass.vutil.numValidateTwo(data_pack[1], data_pack[2]);
             h = virtualclass.vutil.numValidateTwo(data_pack[3], data_pack[4]);
             recmsg = data_pack.subarray(5, data_pack.length);
-            this.initStudentScreen(recmsg, {w: w, h: h}, stype, sTool);
+            this.initStudentScreen(recmsg, { w, h }, stype, sTool);
             break;
           // Slice Image
           case 103:
           case 203:
             /* Send to worker only if the screen layout is Ready already */
-            if (typeof virtualclass.ss == 'object') {
+            if (typeof virtualclass.ss === 'object') {
               this.drawImageThroughWorker(data_pack);
             }
 
@@ -128,7 +129,7 @@ var newCanvas;
             vcw = virtualclass.vutil.numValidateTwo(data_pack[5], data_pack[6]);
             vch = virtualclass.vutil.numValidateTwo(data_pack[7], data_pack[8]);
             recmsg = data_pack.subarray(9, data_pack.length);
-            dimObj = {d: {w: dw, h: dh}, vc: {w: vcw, h: vch}};
+            dimObj = { d: { w: dw, h: dh }, vc: { w: vcw, h: vch } };
             this.initStudentScreen(recmsg, dimObj, stype, sTool);
             break;
         }
@@ -144,25 +145,24 @@ var newCanvas;
        * @param  stool  screen share
        */
       // TODO name of parameter d should be changed ,It also contains the property named d
-      initStudentScreen: function (imgData, d, stype, stool) {
-
+      initStudentScreen(imgData, d, stype, stool) {
         app = stype;
-        var screenCont = document.getElementById('virtualclass' + virtualclass.apps.ss);
+        const screenCont = document.getElementById(`virtualclass${virtualclass.apps.ss}`);
 
-        if (typeof virtualclass[app] != 'object' || screenCont == null) {
-          if (typeof vtype != 'undefined') {
+        if (typeof virtualclass[app] !== 'object' || screenCont == null) {
+          if (typeof vtype !== 'undefined') {
             virtualclass.recorder.recImgPlay = true;
           }
-          var stool = "ScreenShare";
+          var stool = 'ScreenShare';
           virtualclass.makeAppReady(stool);
         } else {
-          if (virtualclass.currApp != "ScreenShare") {
+          if (virtualclass.currApp != 'ScreenShare') {
             virtualclass.vutil.hidePrevIcon(app);
           }
 
           virtualclass.currApp = stool;
 
-          var vcContainer = document.getElementById('virtualclassCont');
+          const vcContainer = document.getElementById('virtualclassCont');
           virtualclass.vutil.setCurrApp(vcContainer, virtualclass.currApp);
         }
 
@@ -171,7 +171,7 @@ var newCanvas;
           dim = true;
           virtualclass[app].drawImages(imgData);
         } else {
-          if (typeof dim == 'undefined' || ((typeof prvWidth != 'undefined') && (prvWidth != d.w) && (!d.hasOwnProperty('x')))) {
+          if (typeof dim === 'undefined' || ((typeof prvWidth !== 'undefined') && (prvWidth != d.w) && (!d.hasOwnProperty('x')))) {
             dim = true;
             virtualclass[app].dimensionStudentScreen(d.w, d.h);
             prvWidth = d.w;
@@ -194,42 +194,42 @@ var newCanvas;
         }
       },
 
-      initZoom: function () {
-        var zoomControler = virtualclass.getTemplate('zoomControl');
-        var zoomControlerhtml = zoomControler({hasControls: roles.hasControls()});
-        var container = document.querySelector('#virtualclass' + virtualclass.currApp);
+      initZoom() {
+        const zoomControler = virtualclass.getTemplate('zoomControl');
+        const zoomControlerhtml = zoomControler({ hasControls: roles.hasControls() });
+        const container = document.querySelector(`#virtualclass${virtualclass.currApp}`);
         if (container != null) {
           container.insertAdjacentHTML('beforeend', zoomControlerhtml);
-          var zoomIn = document.querySelector('#virtualclass' + virtualclass.currApp + ' .zoomIn');
-          var zoomOut = document.querySelector('#virtualclass' + virtualclass.currApp + ' .zoomOut');
-          var fitScreen = document.querySelector('#virtualclass' + virtualclass.currApp + ' .fitScreen');
+          const zoomIn = document.querySelector(`#virtualclass${virtualclass.currApp} .zoomIn`);
+          const zoomOut = document.querySelector(`#virtualclass${virtualclass.currApp} .zoomOut`);
+          const fitScreen = document.querySelector(`#virtualclass${virtualclass.currApp} .fitScreen`);
 
           if (zoomIn != null) {
             var that = this;
             zoomIn.onclick = function (elem) {
               that.zoomIn();
-            }
+            };
           }
 
           if (zoomOut != null) {
             var that = this;
             zoomOut.onclick = function () {
               that.zoomOut();
-            }
+            };
           }
 
           if (fitScreen != null) {
             var that = this;
             fitScreen.onclick = function () {
               that.fitToScreen();
-            }
+            };
           }
         }
 
         this.szoom = true;
       },
 
-      zoomIn: function () {
+      zoomIn() {
         virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * this.SCALE_FACTOR;
         virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * this.SCALE_FACTOR;
         this.scale = this.scale * this.SCALE_FACTOR;
@@ -238,7 +238,7 @@ var newCanvas;
         this.addScroll();
       },
 
-      zoomOut: function () {
+      zoomOut() {
         this.scale = this.scale / this.SCALE_FACTOR;
         virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * (1 / this.SCALE_FACTOR);
         virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * (1 / this.SCALE_FACTOR);
@@ -247,9 +247,9 @@ var newCanvas;
       },
 
 
-      addScroll: function () {
-        var canvasWidth = virtualclass.ss.localCanvas.width;
-        var canvasWrapperWidth = virtualclass.ss.localCanvas.parentNode.style.width;
+      addScroll() {
+        let canvasWidth = virtualclass.ss.localCanvas.width;
+        let canvasWrapperWidth = virtualclass.ss.localCanvas.parentNode.style.width;
         canvasWidth = virtualclass.vutil.getValueWithoutPixel(canvasWidth);
         canvasWrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvasWrapperWidth);
         if (canvasWidth > canvasWrapperWidth) {
@@ -259,8 +259,8 @@ var newCanvas;
         }
       },
 
-      fitToScreen: function () {
-        var dimen = this.setDimension();
+      fitToScreen() {
+        const dimen = this.setDimension();
         this.scale = virtualclass.ss.getScale(this.base.width, dimen.width);
         if (this.scale >= 1) {
           this.scale = 1;
@@ -275,21 +275,21 @@ var newCanvas;
         virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
       },
 
-      setDimension: function () {
-        var dimension = this.getCanvasContainerDimension();
-        var width = dimension.width;
-        var height = dimension.height;
+      setDimension() {
+        const dimension = this.getCanvasContainerDimension();
+        let { width } = dimension;
+        let { height } = dimension;
         width = virtualclass.vutil.getValueWithoutPixel(width);
         height = virtualclass.vutil.getValueWithoutPixel(height);
         this.setCanvasContainerDimension(width, height);
-        return {width: width, height: height}
+        return { width, height };
       },
 
 
-      getCanvasContainerDimension: function () {
-        var screenApp = document.querySelector('#virtualclass' + virtualclass.currApp);
-        var width = screenApp.style.width;
-        var height = screenApp.style.height;
+      getCanvasContainerDimension() {
+        const screenApp = document.querySelector(`#virtualclass${virtualclass.currApp}`);
+        let { width } = screenApp.style;
+        let { height } = screenApp.style;
 
         if (width == null || width == '' || width == undefined) {
           width = screenApp.offsetWidth;
@@ -302,25 +302,25 @@ var newCanvas;
         width = virtualclass.vutil.getValueWithoutPixel(width) - 40;
         height = virtualclass.vutil.getValueWithoutPixel(height);
 
-        return {width: width, height: height};
+        return { width, height };
       },
 
-      setCanvasContainerDimension: function (width, height) {
-        var canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
-        canvaScontainer.style.width = width + 'px';
-        canvaScontainer.style.height = (height) + 'px';
+      setCanvasContainerDimension(width, height) {
+        const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
+        canvaScontainer.style.width = `${width}px`;
+        canvaScontainer.style.height = `${height}px`;
       },
 
 
-      drawImageThroughWorker: function (data_pack) {
-        if (!!window.Worker) {
+      drawImageThroughWorker(data_pack) {
+        if (window.Worker) {
           sdworker.postMessage({
-            data_pack: data_pack,
-            dtype: "drgbs"
+            data_pack,
+            dtype: 'drgbs',
           }, [data_pack.buffer]);
         }
-      }
-    }
+      },
+    };
   };
   /**
    * This function returns an object that contains all the functions necessary to use the application share screen
@@ -333,35 +333,35 @@ var newCanvas;
    * @return  returns an object containing various methods for screen share
    *
    */
-  var screenShare = function (config) {
+  const screenShare = function (config) {
     /**
      *
      */
     virtualclass.getSceenFirefox = function () {
-      var ffver = parseInt(window.navigator.userAgent.match(/Firefox\/(.*)/)[1], 10);
+      const ffver = parseInt(window.navigator.userAgent.match(/Firefox\/(.*)/)[1], 10);
       if (ffver >= 33) {
-        var constraints = {
+        const constraints = {
           video: {
             mozMediaSource: 'window',
-            mediaSource: 'window'
-          }
+            mediaSource: 'window',
+          },
         };
         if (virtualclass.adpt == null) {
           virtualclass.adpt = new virtualclass.adapter();
         }
 
-        var navigator2 = virtualclass.adpt.init(navigator);
+        const navigator2 = virtualclass.adpt.init(navigator);
 
-        navigator2.mediaDevices.getUserMedia(constraints).then(function (stream) {
+        navigator2.mediaDevices.getUserMedia(constraints).then((stream) => {
           virtualclass.ss._init();
           if ((roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing) || virtualclass.gObj.studentSSstatus.mesharing) {
-            //callback(err, stream);
+            // callback(err, stream);
             virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
 
             // workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1045810
-            if (typeof err == 'undefined') {
-              var lastTime = stream.currentTime;
-              var polly = window.setInterval(function () {
+            if (typeof err === 'undefined') {
+              let lastTime = stream.currentTime;
+              var polly = window.setInterval(() => {
                 if (!stream) window.clearInterval(polly);
                 if (stream.currentTime == lastTime) {
                   window.clearInterval(polly);
@@ -376,29 +376,28 @@ var newCanvas;
             console.log('Set previous app as current app if teacher reclaim role during screen share');
             virtualclass.ss.setCurrentApp();
           }
-
-        }).catch(function (error) { //cancel screen share
+        }).catch((error) => { // cancel screen share
           virtualclass.ss.setCurrentApp();
 
-          if (virtualclass.currApp == "Video") {
-            var option = document.getElementById("virtualclassVideoTool");
-          } else if (virtualclass.currApp == "SharePresentation") {
-            var option = document.getElementById("virtualclassSharePresentationTool");
-          } else if (virtualclass.currApp == "DocumentShare") {
-            var option = document.getElementById("virtualclassDocumentShareTool");
+          if (virtualclass.currApp == 'Video') {
+            var option = document.getElementById('virtualclassVideoTool');
+          } else if (virtualclass.currApp == 'SharePresentation') {
+            var option = document.getElementById('virtualclassSharePresentationTool');
+          } else if (virtualclass.currApp == 'DocumentShare') {
+            var option = document.getElementById('virtualclassDocumentShareTool');
           }
-          var dashboard = option.getElementsByTagName('a')[0];
+          const dashboard = option.getElementsByTagName('a')[0];
           virtualclass.initlizer(dashboard);
 
-          if (typeof error == 'string') {
-            //PERMISSION_DENIED
+          if (typeof error === 'string') {
+            // PERMISSION_DENIED
             if (error === 'PERMISSION_DENIED') {
-              //this url is need to be changed
-              window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
+              // this url is need to be changed
+              window.open('https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/').focus();
             }
-          } else if (typeof error == 'object') {   //latest firefox
+          } else if (typeof error === 'object') { // latest firefox
             if (error.name === 'PermissionDeniedError' || error.name == 'SecurityError') {
-              window.open("https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/").focus();
+              window.open('https://addons.mozilla.org/en-US/firefox/addon/ff_screenshare/').focus();
             }
           }
           if (roles.hasControls()) {
@@ -422,18 +421,17 @@ var newCanvas;
        * @param screen screen object
 
        */
-      init: function (screen) {
-
+      init(screen) {
         this.type = screen.type;
         this.ssByClick = true;
         this.manualStop = false;
 
-        //if(roles.hasControls() && !virtualclass.hasOwnProperty('repType')){
+        // if(roles.hasControls() && !virtualclass.hasOwnProperty('repType')){
         if (roles.hasControls() && !virtualclass.recorder.recImgPlay && !virtualclass.gObj.studentSSstatus.mesharing) {
-          //if(!virtualclass.hasOwnProperty('repType')){
+          // if(!virtualclass.hasOwnProperty('repType')){
           this.readyTostart(screen.app);
-          //this.tempCurrApp = virtualclass.vutil.capitalizeFirstLetter(screen.app);
-          //}
+          // this.tempCurrApp = virtualclass.vutil.capitalizeFirstLetter(screen.app);
+          // }
         } else if (roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing) {
           this.readyTostart(screen.app);
         } else {
@@ -447,57 +445,55 @@ var newCanvas;
        * inilizing student screen
        *
        */
-      _init: function () {
+      _init() {
         console.log('Init screen');
         this.currApp = this.tempCurrApp;
         virtualclass.currApp = virtualclass.apps.ss;
-        //add current app to main container
-        var vcContainer = document.getElementById('virtualclassCont');
+        // add current app to main container
+        const vcContainer = document.getElementById('virtualclassCont');
         virtualclass.vutil.setCurrApp(vcContainer, virtualclass.currApp);
         if (virtualclass.previous != config.id) {
           document.getElementById(virtualclass.previous).style.display = 'none';
           virtualclass.previous = config.id;
         }
-        var ss = document.getElementById(config.id);
+        const ss = document.getElementById(config.id);
         if (ss != null) {
           ss.style.display = 'block';
         }
 
         if (!this.hasOwnProperty('id')) {
           this.dc = virtualclass.dirtyCorner;
-          this.postFix = "Cont";
-          this.id = config.hasOwnProperty('id') ? config.id : "virtualclassScreenShare";
-          this.className = "virtualclass";
-          this.label = "Local",
-            this.local = this.id + this.label;
-          this.localTemp = this.id + this.label + "Temp";
-          this.classes = config.hasOwnProperty('class') ? config.classes : "";
+          this.postFix = 'Cont';
+          this.id = config.hasOwnProperty('id') ? config.id : 'virtualclassScreenShare';
+          this.className = 'virtualclass';
+          this.label = 'Local',
+          this.local = this.id + this.label;
+          this.localTemp = `${this.id + this.label}Temp`;
+          this.classes = config.hasOwnProperty('class') ? config.classes : '';
 
-          //this.prevImageSlices = [];
+          // this.prevImageSlices = [];
           this.initPrevImage();
-          var ssUI = document.getElementById(this.id);
+          const ssUI = document.getElementById(this.id);
           if (ssUI != null) {
             ssUI.parentNode.removeChild(ssUI);
           }
 
           this.html.UI.call(this, virtualclass.gObj.uRole);
-          if (((roles.hasControls() && !virtualclass.recorder.recImgPlay) && !virtualclass.gObj.studentSSstatus.mesharing) ||
-            roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing) {
-            virtualclass.vutil.initLocCanvasCont(this.localTemp + "Video");
+          if (((roles.hasControls() && !virtualclass.recorder.recImgPlay) && !virtualclass.gObj.studentSSstatus.mesharing)
+            || roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing) {
+            virtualclass.vutil.initLocCanvasCont(`${this.localTemp}Video`);
           }
         }
-
       },
 
       /**
        * This function gets  screen reloaded with the url
        * @param app it stores the string screenshare
        */
-      readyTostart: function (app) {
+      readyTostart(app) {
         if (app == virtualclass.apps.ss) {
           this.getScreen();
         }
-
       },
       /**
        * Displays the error if any
@@ -505,14 +501,13 @@ var newCanvas;
        *
        */
 
-      onError: function (e) {
+      onError(e) {
         // virtualclass.ss.setCurrentApp();
         if (virtualclass.previous) {
-          var previous = virtualclass.previous
+          const { previous } = virtualclass;
           virtualclass.currApp = previous.split('virtualclass')[1];
           virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
-
-        } else if (virtualclass.hasOwnProperty('previousApp') && typeof virtualclass.previousApp == 'object') {
+        } else if (virtualclass.hasOwnProperty('previousApp') && typeof virtualclass.previousApp === 'object') {
           virtualclass.currApp = virtualclass.previousApp.name;
           virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
         }
@@ -521,14 +516,14 @@ var newCanvas;
             virtualclass.ss.showDashboard();
           }
         }
-        console.log("Error " + e);
+        console.log(`Error ${e}`);
       },
 
-      showDashboard: function () {
+      showDashboard() {
         virtualclass.vutil.initDashboardNav();
         if (virtualclass.currApp == 'Video') {
-          ioAdapter.mustSend({'videoUl': {init: 'destroyPlayer'}, 'cf': 'destroyPlayer'});
-          ioAdapter.mustSend({'videoUl': {init: 'studentlayout'}, 'cf': 'videoUl'});
+          ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
+          ioAdapter.mustSend({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' });
         } else if (virtualclass.currApp == 'SharePresentation') {
           virtualclass.vutil.initDashboard();
         }
@@ -539,13 +534,13 @@ var newCanvas;
        * it is added from the crome webstore
        * @param callback is unused
        */
-      getScreen: function (callback) {
+      getScreen(callback) {
         if (virtualclass.system.mybrowser.name == 'Chrome') {
           if (virtualclass.gObj.hasOwnProperty('ext') && virtualclass.gObj.ext) {
-            window.postMessage({type: 'getScreen', id: 1}, '*');
+            window.postMessage({ type: 'getScreen', id: 1 }, '*');
           } else {
-            virtualclass.vutil.beforeSend({'ext': true, 'cf': 'colorIndicator'});
-            var url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
+            virtualclass.vutil.beforeSend({ ext: true, cf: 'colorIndicator' });
+            const url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
             virtualclass.popup.chromeExtMissing();
             virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
             if (roles.hasControls()) {
@@ -557,11 +552,11 @@ var newCanvas;
         } else if (virtualclass.system.mybrowser.name == 'Firefox') {
           virtualclass.getSceenFirefox();
         } else if (virtualclass.system.mybrowser.name == 'Edge') {
-          navigator.getDisplayMedia().then(stream => {        //teacher share his screen using edge browser
+          navigator.getDisplayMedia().then((stream) => { // teacher share his screen using edge browser
             virtualclass.ss._init();
             virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
-          }, error => {
-            console.log("Unable to acquire screen capture", error);
+          }, (error) => {
+            console.log('Unable to acquire screen capture', error);
           });
         }
       },
@@ -571,25 +566,25 @@ var newCanvas;
        *  sends data to the student that previous screen is to be unshared
        *
        */
-      unShareScreen: function () {
+      unShareScreen() {
         console.log('Unshare the screen');
-        this.video.src = "";
+        this.video.src = '';
         this.localtempCont.clearRect(0, 0, this.localtempCanvas.width, this.localtempCanvas.height);
         clearInterval(virtualclass.clear);
-        //this.prevImageSlices = [];
+        // this.prevImageSlices = [];
         this.initPrevImage();
         if (this.hasOwnProperty('currentStream')) {
           // this.currentStream.stop(); is depricated from Google Chrome 45
           // https://developers.google.com/web/updates/2015/07/mediastream-deprecations?hl=en
           this.currentStream.getTracks()[0].stop();
         }
-        virtualclass.vutil.beforeSend({'unshareScreen': true, st: this.type, 'cf': 'unshareScreen'});
+        virtualclass.vutil.beforeSend({ unshareScreen: true, st: this.type, cf: 'unshareScreen' });
         this.clearScreenShare();
       },
 
-      clearScreenShare: function () {
+      clearScreenShare() {
         console.log('Clear the screen');
-        if (typeof virtualclass.prevScreen != 'undefined' && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
+        if (typeof virtualclass.prevScreen !== 'undefined' && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
           delete virtualclass.prevScreen.currentStream;
         }
         virtualclass.gObj.studentSSstatus.mesharing = false;
@@ -597,7 +592,7 @@ var newCanvas;
         virtualclass.gObj.studentSSstatus.shareToAll = false;
         virtualclass.gObj.studentSSstatus.sharing = false;
         localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
-        var elem = document.querySelector('#virtualclassScreenShare');
+        const elem = document.querySelector('#virtualclassScreenShare');
         if (elem != null) {
           elem.parentNode.removeChild(elem);
         }
@@ -608,14 +603,13 @@ var newCanvas;
         }
         virtualclass.zoom.removeZoomController();
         virtualclass.ss = '';
-
       },
 
       /**
        * It clears the canvas
        */
-      removeStream: function () {
-        virtualclass.vutil.removeClass('audioWidget', "fixed");
+      removeStream() {
+        virtualclass.vutil.removeClass('audioWidget', 'fixed');
         this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
         this.clearScreenShare();
       },
@@ -628,88 +622,85 @@ var newCanvas;
        * @param stream
        */
 
-      initializeRecorder: function (stream) {
-        //virtualclass.vutil.addClass("audioWidget", "fixed");
+      initializeRecorder(stream) {
+        // virtualclass.vutil.addClass("audioWidget", "fixed");
         changeonresize = 1;
         resizecalled = 0;
 
         if (this.prevStream) {
           this.ssByClick = false;
         }
-        if (typeof virtualclass.prevScreen != 'undefined') {
+        if (typeof virtualclass.prevScreen !== 'undefined') {
           if (virtualclass.prevScreen.hasOwnProperty('currentStream')) {
-
             virtualclass.prevScreen.unShareScreen();
           }
         }
 
-        this.video = document.getElementById(this.local + "Video");
-        this.videoSmall = document.getElementById(this.local + "Videosmall");
+        this.video = document.getElementById(`${this.local}Video`);
+        this.videoSmall = document.getElementById(`${this.local}Videosmall`);
 
 
-        if (this.video.tagName != "VIDEO") {
-          var earlierVideo = this.video;
-          var video = document.getElementById(this.local + "video");
+        if (this.video.tagName != 'VIDEO') {
+          const earlierVideo = this.video;
+          var video = document.getElementById(`${this.local}video`);
           this.video.parentNode.replaceChild(video, this.video);
-          this.video = document.getElementById(this.local + "Video");
+          this.video = document.getElementById(`${this.local}Video`);
           this.video.autoplay = true;
-          virtualclass.vutil.initLocCanvasCont(this.local + "Temp" + "Video");
+          virtualclass.vutil.initLocCanvasCont(`${this.local}Temp` + 'Video');
         }
         this.currentStream = stream;
         var that = this;
-        //("video changed");
+        // ("video changed");
         virtualclass.adpt.attachMediaStream(this.video, stream);
         virtualclass.adpt.attachMediaStream(this.videoSmall, stream);
         this.prevStream = true;
         // Event handler ON current stream ends ,clearing canvas and unsharing on student's screen
         this.currentStream.getVideoTracks()[0].onended = function (name) {
           if (that.ssByClick) {
-            var elem = document.querySelector("#virtualclassScreenShareLocalSmall");
+            const elem = document.querySelector('#virtualclassScreenShareLocalSmall');
             if (elem) {
-              elem.style.display = "none";
+              elem.style.display = 'none';
             }
-            that.video.src = "";
+            that.video.src = '';
             that.localtempCont.clearRect(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
             clearInterval(virtualclass.clear);
 
             that.initPrevImage();
             that.clearScreenShare();
-            virtualclass.vutil.beforeSend({'unshareScreen': true, st: that.type, 'cf': 'unshareScreen'});
-            console.log('Sending unshare screen with users ' + virtualclass.gObj.totalUser);
+            virtualclass.vutil.beforeSend({ unshareScreen: true, st: that.type, cf: 'unshareScreen' });
+            console.log(`Sending unshare screen with users ${virtualclass.gObj.totalUser}`);
             if (roles.hasControls()) {
               // virtualclass.vutil.initDefaultApp();
               if (!virtualclass.gObj.hasOwnProperty('windowLoading')) {
                 virtualclass.vutil.initDefaultApp();
               }
-
             } else {
               // Student unshares the screen by clicking stop button
-              var teacherId = virtualclass.vutil.whoIsTeacher();
-              ioAdapter.mustSendUser({'cf': 'rmStdScreen'}, teacherId);
+              const teacherId = virtualclass.vutil.whoIsTeacher();
+              ioAdapter.mustSendUser({ cf: 'rmStdScreen' }, teacherId);
             }
 
             that.prevStream = false;
-            that.prevScreen = "";
-            virtualclass.prevScreen = ""; //todo:- that.prevScreen and virtualclass.prevScreen should be same
+            that.prevScreen = '';
+            virtualclass.prevScreen = ''; // todo:- that.prevScreen and virtualclass.prevScreen should be same
 
 
             console.log('Stop by clicking');
-
           } else {
             that.ssByClick = true;
           }
         };
 
-        var container = {};
+        const container = {};
         container.width = window.innerWidth;
         container.height = window.innerHeight - 140;
 
-        var vidContainer = document.getElementById(this.local);
-        var dimension = this.html.getDimension(container);
-        vidContainer.style.width = Math.round(dimension.width) + "px";
-        vidContainer.style.height = Math.round(dimension.height) + "px";
+        const vidContainer = document.getElementById(this.local);
+        const dimension = this.html.getDimension(container);
+        vidContainer.style.width = `${Math.round(dimension.width)}px`;
+        vidContainer.style.height = `${Math.round(dimension.height)}px`;
 
-        //setStyleToElement(vidContainer, width, height);
+        // setStyleToElement(vidContainer, width, height);
         var that = this;
         var video;
         /**
@@ -726,24 +717,23 @@ var newCanvas;
           that.localtempCanvas.height = that.video.offsetHeight;
 
           virtualclass.prevScreen = that;
-          var res = virtualclass.system.measureResoultion({
-            'width': window.innerWidth,
-            'height': window.innerHeight
+          const res = virtualclass.system.measureResoultion({
+            width: window.innerWidth,
+            height: window.innerHeight,
           });
 
           that.sharing();
           virtualclass.vutil.setContainerWidth(res, virtualclass.currApp);
 
           if (roles.hasControls()) {
-            //TODO This should be invoke at one place
+            // TODO This should be invoke at one place
             virtualclass.vutil.makeActiveApp(that.id, virtualclass.previrtualclass);
             if (virtualclass.previrtualclass == 'virtualclassYts') {
               virtualclass.yts.destroyYT();
             }
-
           }
           virtualclass.previrtualclass = that.id;
-        }
+        };
       },
 
       /**
@@ -753,18 +743,19 @@ var newCanvas;
        *@return sendmsg encoded data and status code together
        */
       // function is too large
-      sharing: function () {
-        var tempObj, encodedData, stringData, d, matched, imgData;
-        var resA = Math.round(this.localtempCanvas.height / 12);
-        var resB = Math.round(this.localtempCanvas.width / 12);
-        var prvResA = resA;
-        var prvResB = resB;
-        var that = this;
-        var uniqcount = 0;
-        var uniqmax = (resA * resB) / 5;
-        var sendObj;
-        //var changeonresize=1;
-        //randomTime = Math.floor(Math.random() * (15000 - 5000 + 1)) + 5000;
+      sharing() {
+        let tempObj; let encodedData; let stringData; let d; let matched; let
+          imgData;
+        let resA = Math.round(this.localtempCanvas.height / 12);
+        let resB = Math.round(this.localtempCanvas.width / 12);
+        let prvResA = resA;
+        let prvResB = resB;
+        const that = this;
+        const uniqcount = 0;
+        const uniqmax = (resA * resB) / 5;
+        let sendObj;
+        // var changeonresize=1;
+        // randomTime = Math.floor(Math.random() * (15000 - 5000 + 1)) + 5000;
         if (virtualclass.hasOwnProperty('wholeImage')) {
           clearInterval(virtualclass.wholeImage);
         }
@@ -777,7 +768,7 @@ var newCanvas;
           virtualclass.view.createErrorMsg('screensharereload', 'errorContainer', 'chatWidget');
         }
 
-        var screenIntervalTime = 1000;
+        let screenIntervalTime = 1000;
         /**
          * To send full  encoded image data and status code
          * @param  type type of the application
@@ -788,19 +779,18 @@ var newCanvas;
           that.localtempCanvas.height = that.video.offsetHeight;
           that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
 
-          //if(typeof firstTimeDisp == 'undefined'){
-          var imgData = that.localtempCont.getImageData(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
-          var encodedData = that.dc.encodeRGB(imgData.data);
-          var h = breakintobytes(that.localtempCanvas.height, 4);
-          var w = breakintobytes(that.localtempCanvas.width, 4);
-          var statusCode = null;
+          // if(typeof firstTimeDisp == 'undefined'){
+          const imgData = that.localtempCont.getImageData(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
+          const encodedData = that.dc.encodeRGB(imgData.data);
+          const h = breakintobytes(that.localtempCanvas.height, 4);
+          const w = breakintobytes(that.localtempCanvas.width, 4);
+          let statusCode = null;
           statusCode = (type == 'ss') ? 102 : 202;
-          var scode = new Uint8ClampedArray([statusCode, w[0], w[1], h[0], h[1]]);
-          var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
+          const scode = new Uint8ClampedArray([statusCode, w[0], w[1], h[0], h[1]]);
+          const sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
           sendmsg.set(scode);
           sendmsg.set(encodedData, scode.length);
           return sendmsg;
-
         };
         /** Encoded message is sent to student,
          * Getting full video data on resize of the window
@@ -812,15 +802,16 @@ var newCanvas;
           that.localtempCanvas.height = that.video.offsetHeight;
           that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
 
-          var imgData = that.localtempCont.getImageData(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
-          var encodedData = that.dc.encodeRGB(imgData.data);
+          const imgData = that.localtempCont.getImageData(0, 0, that.localtempCanvas.width, that.localtempCanvas.height);
+          const encodedData = that.dc.encodeRGB(imgData.data);
 
-          var wdw = Math.round((that.localtempCanvas.width) / resB);
-          var wdh = Math.round((that.localtempCanvas.height) / resA);
-          var dw, dh, vcw, vch;
+          const wdw = Math.round((that.localtempCanvas.width) / resB);
+          const wdh = Math.round((that.localtempCanvas.height) / resA);
+          let dw; let dh; let vcw; let
+            vch;
 
-          var contDimension = that.getContainerDimension();
-          if (typeof prvVWidth != 'undefined' && typeof prvVHeight != 'undefined') {
+          const contDimension = that.getContainerDimension();
+          if (typeof prvVWidth !== 'undefined' && typeof prvVHeight !== 'undefined') {
             dw = breakintobytes(prvVWidth, 4);
             dh = breakintobytes(prvVHeight, 4);
             vcw = breakintobytes(contDimension.width, 4);
@@ -832,21 +823,21 @@ var newCanvas;
             vch = breakintobytes(contDimension.height, 4);
           }
 
-          var appCode = (stype == 'ss' ) ? 104 : 204;
-          var scode = new Uint8ClampedArray([appCode, dw[0], dw[1], dh[0], dh[1], vcw[0], vcw[1], vch[0], vch[1]]);
-          var sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
+          const appCode = (stype == 'ss') ? 104 : 204;
+          const scode = new Uint8ClampedArray([appCode, dw[0], dw[1], dh[0], dh[1], vcw[0], vcw[1], vch[0], vch[1]]);
+          const sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
           sendmsg.set(scode);
           sendmsg.set(encodedData, scode.length);
-          if (!!window.Worker) {
+          if (window.Worker) {
             sworker.postMessage({
               img: encodedData,
               resize: 1,
-              resA: resA,
-              resB: resB,
+              resA,
+              resB,
               dw: wdw,
               dh: wdh,
               offsetWidth: that.video.offsetWidth,
-              offsetHeight: that.video.offsetHeight
+              offsetHeight: that.video.offsetHeight,
             }, [encodedData.buffer]);
           }
           return sendmsg;
@@ -859,13 +850,11 @@ var newCanvas;
          * @returns returning comma separated string
          */
         function breakintobytes(val, l) {
-
-          var numstring = val.toString();
-          for (var i = numstring.length; i < l; i++) {
-            numstring = '0' + numstring;
-
+          let numstring = val.toString();
+          for (let i = numstring.length; i < l; i++) {
+            numstring = `0${numstring}`;
           }
-          var parts = numstring.match(/[\S]{1,2}/g) || [];
+          const parts = numstring.match(/[\S]{1,2}/g) || [];
           return parts;
         }
 
@@ -876,7 +865,7 @@ var newCanvas;
          */
         function sendScreen() {
           clearInterval(virtualclass.clear);
-          if (typeof prvVWidth != 'undefined' && typeof prvVHeight != 'undefined') {
+          if (typeof prvVWidth !== 'undefined' && typeof prvVHeight !== 'undefined') {
             if (prvVWidth != that.video.offsetWidth || prvVHeight != that.video.offsetHeight) {
               changeonresize = 1;
             }
@@ -890,7 +879,6 @@ var newCanvas;
           } else {
             sendDataImageSlices(that.type);
           }
-
         }
 
         /**
@@ -900,7 +888,7 @@ var newCanvas;
          */
         function calcBandwidth(localBandwidth) {
           switch (true) {
-            case localBandwidth <= 300 || typeof localBandwidth == 'undefined':
+            case localBandwidth <= 300 || typeof localBandwidth === 'undefined':
               screenIntervalTime = 300;
               break;
             case localBandwidth <= 3000:
@@ -931,12 +919,12 @@ var newCanvas;
               prvResA = resA;
               prvResB = resB;
             } else {
-              /** Uses previous resolution if dimension of localtempCanvas is less than 5 **/
+              /** Uses previous resolution if dimension of localtempCanvas is less than 5 * */
               resA = prvResA;
               resB = prvResB;
             }
 
-            var createdImg = getDataFullScreenResize(that.type);
+            const createdImg = getDataFullScreenResize(that.type);
             virtualclass.vutil.informIamSharing();
             ioAdapter.sendBinary(createdImg);
 
@@ -949,11 +937,11 @@ var newCanvas;
 
         //  TODO this function is unused ,should be removed
         function w(val, l) {
-          var numstring = val.toString();
-          for (var i = numstring.length; i < l; i++) {
-            numstring = '0' + numstring;
+          let numstring = val.toString();
+          for (let i = numstring.length; i < l; i++) {
+            numstring = `0${numstring}`;
           }
-          var parts = numstring.match(/[\S]{1,2}/g) || [];
+          const parts = numstring.match(/[\S]{1,2}/g) || [];
           return parts;
         }
 
@@ -963,36 +951,36 @@ var newCanvas;
          * @param type : type of the application
          */
         function sendDataImageSlices(type) {
-          //var localBandwidth = 0;
+          // var localBandwidth = 0;
           that.localtempCanvas.width = that.video.offsetWidth;
           that.localtempCanvas.height = that.video.offsetHeight;
-          //can be problem for crash
+          // can be problem for crash
           that.localtempCont.drawImage(that.video, 0, 0, that.video.offsetWidth, that.video.offsetHeight);
-          var needFullScreen = 0;
-          var dw = Math.round((that.localtempCanvas.width) / resB);
-          var dh = Math.round((that.localtempCanvas.height) / resA);
-          var x, y, cx, cy = 0;
+          const needFullScreen = 0;
+          const dw = Math.round((that.localtempCanvas.width) / resB);
+          const dh = Math.round((that.localtempCanvas.height) / resA);
+          let x; let y; let cx; const
+            cy = 0;
 
-          var masterImgData = that.localtempCont.getImageData(0, 0, that.video.offsetWidth, that.video.offsetHeight);
+          const masterImgData = that.localtempCont.getImageData(0, 0, that.video.offsetWidth, that.video.offsetHeight);
 
-          if (!!window.Worker) {
+          if (window.Worker) {
             sworker.postMessage({
               img: masterImgData.data,
-              resA: resA,
-              resB: resB,
-              dw: dw,
-              dh: dh,
+              resA,
+              resB,
+              dw,
+              dh,
               offsetWidth: that.video.offsetWidth,
               offsetHeight: that.video.offsetHeight,
-              type: that.type
+              type: that.type,
             }, [masterImgData.data.buffer]);
 
             // Every time the data is sending the function
             // is declaring as expression which is not good
             sworker.onmessage = function (e) {
-              if (e.data.needFullScreen == 1) { //sending full screen here
-
-                var createdImg = virtualclass.getDataFullScreen(that.type);
+              if (e.data.needFullScreen == 1) { // sending full screen here
+                const createdImg = virtualclass.getDataFullScreen(that.type);
                 virtualclass.vutil.informIamSharing();
 
                 ioAdapter.sendBinary(createdImg);
@@ -1005,7 +993,7 @@ var newCanvas;
               calcBandwidth(localBandwidth);
               clearInterval(virtualclass.clear);
               virtualclass.clear = setInterval(sendScreen, screenIntervalTime);
-            }
+            };
           }
           clearInterval(virtualclass.clear);
         }
@@ -1017,22 +1005,22 @@ var newCanvas;
        *  returnting  width and height of screen share container
        * @return  an object  containing width and height
        */
-      getContainerDimension: function () {
-        var vidCont = document.getElementById(this.id + "Local");
-        return {width: vidCont.offsetWidth, height: vidCont.offsetHeight};
+      getContainerDimension() {
+        const vidCont = document.getElementById(`${this.id}Local`);
+        return { width: vidCont.offsetWidth, height: vidCont.offsetHeight };
       },
       /**
        * Drawing the image over the canvas
        * @param rec image data
        * @param d dimension of the image
        */
-      drawImages: function (rec) {
+      drawImages(rec) {
         sdworker.postMessage({
           encodeArr: rec,
           // globalImageData: globalImageData,globalImageDataglobalImageData
           cw: virtualclass.ss.localCanvas.width,
           ch: virtualclass.ss.localCanvas.height,
-          dtype: "drgb"
+          dtype: 'drgb',
         }, [rec.buffer]); // [[rec.buffer]] is passed to make available in Worker
       },
       /**
@@ -1042,12 +1030,12 @@ var newCanvas;
        *
        */
 
-      dimensionStudentScreen: function (cWidth, cHeight) {
-        this.localCanvas = document.getElementById(virtualclass[app].local + "Video");
+      dimensionStudentScreen(cWidth, cHeight) {
+        this.localCanvas = document.getElementById(`${virtualclass[app].local}Video`);
         this.localCont = virtualclass[app].localCanvas.getContext('2d');
         this.localCanvas.width = cWidth;
         this.localCanvas.height = cHeight;
-        console.log("normal width " + this.localCanvas.width);
+        console.log(`normal width ${this.localCanvas.width}`);
       },
       /**
        * setting dimension of virtual class container and setting dimension of screen share canvas
@@ -1055,10 +1043,10 @@ var newCanvas;
        * @param msg  dimension object for local canvas for screen share and virtual container
        * @param vtype this variable is not being used
        */
-      dimensionStudentScreenResize: function (msg, vtype) {
+      dimensionStudentScreenResize(msg, vtype) {
         if (!this.hasOwnProperty('vac')) {
           this.vac = true;
-          this.localCanvas = document.getElementById(virtualclass[app].local + "Video");
+          this.localCanvas = document.getElementById(`${virtualclass[app].local}Video`);
           this.localCont = virtualclass[app].localCanvas.getContext('2d');
         }
 
@@ -1069,9 +1057,9 @@ var newCanvas;
         }
 
         if (msg.hasOwnProperty('vc')) {
-          var vc = document.getElementById(virtualclass[app].local);
-          vc.style.width = msg.vc.w + "px";
-          vc.style.height = msg.vc.h + "px";
+          const vc = document.getElementById(virtualclass[app].local);
+          vc.style.width = `${msg.vc.w}px`;
+          vc.style.height = `${msg.vc.h}px`;
         }
 
         if (virtualclass.previous == 'virtualclassScreenShare') {
@@ -1079,10 +1067,10 @@ var newCanvas;
         }
       },
 
-      isAbleToScreenShare: function () {
+      isAbleToScreenShare() {
         if (roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing) {
           return true;
-        } else if ((roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing)) {
+        } if ((roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing)) {
           return true;
         }
         return false;
@@ -1095,18 +1083,18 @@ var newCanvas;
          * Creating main catainer and local container for screen share
          * @user role of the user
          */
-        UI: function (user) {
-          var hascontrol = virtualclass.ss.isAbleToScreenShare();
-          var viewcontrol = roles.hasControls();
-          var recImgPlay = virtualclass.recorder.recImgPlay;
-          var main = virtualclass.getTemplate('ssmainDiv');
-          var roleControl = {
+        UI(user) {
+          const hascontrol = virtualclass.ss.isAbleToScreenShare();
+          const viewcontrol = roles.hasControls();
+          const { recImgPlay } = virtualclass.recorder;
+          const main = virtualclass.getTemplate('ssmainDiv');
+          const roleControl = {
             control: hascontrol,
             recImg: recImgPlay,
-            scrctrl: viewcontrol
+            scrctrl: viewcontrol,
           };
 
-          var mainConthtml = main(roleControl);
+          const mainConthtml = main(roleControl);
 
           // $('#virtualclassAppLeftPanel').append(mainConthtml);
 
@@ -1115,37 +1103,35 @@ var newCanvas;
           if (roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing) {
             var ss = document.querySelector('#virtualclassCont  #stopScreenShare');
             if (ss) {
-              ss.addEventListener("click", function () {
+              ss.addEventListener('click', () => {
                 virtualclass.vutil.initDefaultApp();
-              })
+              });
             }
           }
 
           if (viewcontrol) {
             this.html.initScreenController();
           }
-          var app = document.querySelector(".congrea #virtualclassApp");
+          const app = document.querySelector('.congrea #virtualclassApp');
           if (!hascontrol) {
-
             if (!app.classList.contains('zoomCtr')) {
-              app.classList.add("zoomCtrAdd");
+              app.classList.add('zoomCtrAdd');
             }
-
           } else {
-            app.classList.remove("zoomCtrAdd");
+            app.classList.remove('zoomCtrAdd');
           }
 
           function css(element, styles) {
-            if (typeof styles == 'string') {
-              element.style.cssText += ';' + styles;
+            if (typeof styles === 'string') {
+              element.style.cssText += `;${styles}`;
             }
           }
 
           if (roles.hasControls() && virtualclass.gObj.studentSSstatus.mesharing) {
-            var that = this;
+            const that = this;
 
             setTimeout(() => {
-              var elem = document.querySelector('#screenController .share');
+              const elem = document.querySelector('#screenController .share');
               if (virtualclass.gObj.studentSSstatus.shareToAll) {
                 that.html.changeSsInfoSelf(elem);
                 var view = 'sToAll';
@@ -1153,33 +1139,32 @@ var newCanvas;
                 that.html.changeSsInfoShareToAll(elem);
                 var view = 'sview';
               }
-              ioAdapter.mustSend({'cf': view, firstSs: true});
-
+              ioAdapter.mustSend({ cf: view, firstSs: true });
             }, 2000);
 
             var ss = document.querySelector('#virtualclassCont  #stopScreenShare');
             if (ss) {
-              ss.addEventListener("click", function () {
+              ss.addEventListener('click', () => {
                 virtualclass.vutil.initDefaultApp();
-                var cont = document.querySelector("#virtualclassCont.studentScreenSharing")
+                const cont = document.querySelector('#virtualclassCont.studentScreenSharing');
                 if (cont) {
-                  cont.classList.remove("studentScreenSharing");
+                  cont.classList.remove('studentScreenSharing');
                   document.querySelector('#chat_div').classList.remove('studentScreenSharing');
                 }
                 virtualclass.vutil.removeStudenScreenStatus();
-              })
+              });
             }
           }
           // return mainCont;
         },
 
-        initScreenController: function () {
-          var elem = document.querySelector('#screenController .share');
+        initScreenController() {
+          const elem = document.querySelector('#screenController .share');
           if (elem != null) {
-            var that = this;
+            const that = this;
             elem.onclick = function (elem) {
-              var share;
-              var classList = elem.currentTarget.classList;
+              let share;
+              const { classList } = elem.currentTarget;
               if (classList.contains('selfView')) { // Screen is sharing to all
                 that.changeSsInfoSelf(elem.currentTarget);
                 share = 'sToAll';
@@ -1187,19 +1172,19 @@ var newCanvas;
                 that.changeSsInfoShareToAll(elem.currentTarget);
                 share = 'sview';
               }
-              ioAdapter.mustSend({'cf': share});
-            }
+              ioAdapter.mustSend({ cf: share });
+            };
           }
         },
 
-        changeSsInfoSelf: function (elem) {
+        changeSsInfoSelf(elem) {
           elem.classList.remove('selfView');
           elem.classList.add('shareToAll');
           elem.children[0].innerHTML = virtualclass.lang.getString('selfview'); // for next time
           virtualclass.gObj.studentSSstatus.shareToAll = true;
         },
 
-        changeSsInfoShareToAll: function (elem) {
+        changeSsInfoShareToAll(elem) {
           elem.classList.remove('shareToAll');
           elem.classList.add('selfView');
           elem.children[0].innerHTML = virtualclass.lang.getString('sharetoall'); // for next time
@@ -1211,56 +1196,56 @@ var newCanvas;
          * @aspectRatio a fractional value
          * @return  an object containing modified width and height
          */
-        getDimension: function (container, aspectRatio) {
-          var aspectRatio = aspectRatio || (3 / 4),
-            height = (container.width * aspectRatio),
-            res = {};
+        getDimension(container, aspectRatio) {
+          var aspectRatio = aspectRatio || (3 / 4);
+          const height = (container.width * aspectRatio);
+          const res = {};
 
           return {
             height: container.height,
-            width: container.width
+            width: container.width,
           };
-        }
+        },
       },
       // to initialize previous image
-      initPrevImage: function () {
-        sworker.postMessage({'initPrevImg': true});
+      initPrevImage() {
+        sworker.postMessage({ initPrevImg: true });
       },
 
-      setCurrentApp: function () {
-        if (virtualclass.hasOwnProperty('previous') && typeof virtualclass.previous != 'undefined') {
+      setCurrentApp() {
+        if (virtualclass.hasOwnProperty('previous') && typeof virtualclass.previous !== 'undefined') {
           virtualclass.currApp = virtualclass.previous.slice(12);
           virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
         }
       },
 
-      getScale: function (baseWidth, givenWidth) {
-        console.log('Screen type base width ' + baseWidth);
-        var newScale = givenWidth / baseWidth;
+      getScale(baseWidth, givenWidth) {
+        console.log(`Screen type base width ${baseWidth}`);
+        const newScale = givenWidth / baseWidth;
         return newScale;
       },
 
 
-      initShareScreen (sType, setTime){
-        if (typeof virtualclass.getDataFullScreen == 'function') {
+      initShareScreen(sType, setTime) {
+        if (typeof virtualclass.getDataFullScreen === 'function') {
           if (virtualclass.gObj.hasOwnProperty('sendScreen')) {
             clearTimeout(virtualclass.gObj.sendScreen);
           }
 
           virtualclass.gObj.sendScreen = setTimeout(
-            function () {
+            () => {
               sType = virtualclass.getDataFullScreen(sType);
-              var createdImg = virtualclass.getDataFullScreen('ss');
+              const createdImg = virtualclass.getDataFullScreen('ss');
               ioAdapter.sendBinary(createdImg);
               virtualclass.vutil.informIamSharing();
               sType = null;
               console.log('Send full-screen image');
-            }, setTime
+            }, setTime,
           );
         }
-      }
-    }
+      },
+    };
   };
   window.studentScreen = studentScreen;
   window.screenShare = screenShare;
-})(window);
+}(window));

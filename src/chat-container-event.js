@@ -1,21 +1,21 @@
-var chatContainerEvent = {
-  ub: 'init_chatBox',     // User Box(When user lick on link, it will opened new chat user box)
-  ac: 'footerControler',  // audio controller
-  ch: 'footerControler',  // Chat controller
-  er: 'footerControler',  // Editor rich controller
-  rs: 'footerControler',  // Request screen share controller
+const chatContainerEvent = {
+  ub: 'init_chatBox', // User Box(When user lick on link, it will opened new chat user box)
+  ac: 'footerControler', // audio controller
+  ch: 'footerControler', // Chat controller
+  er: 'footerControler', // Editor rich controller
+  rs: 'footerControler', // Request screen share controller
   rh: 'footerControler', // Raised hand controller
 
-  getEvent: function (element) {
-    var event = element.dataset.event;
-    return this[event]
+  getEvent(element) {
+    const { event } = element.dataset;
+    return this[event];
   },
 
-  init_chatBox: function (cthis, chatboxManager) {
-    var str = $(cthis);
-    var ahref;
-    var id;
-    if (cthis.className == "videoSubWrapper" || cthis.classList == "userVideos") {
+  init_chatBox(cthis, chatboxManager) {
+    const str = $(cthis);
+    let ahref;
+    let id;
+    if (cthis.className == 'videoSubWrapper' || cthis.classList == 'userVideos') {
       ahref = str[0].id;
       id = ahref.replace('user', '');
     } else {
@@ -23,12 +23,12 @@ var chatContainerEvent = {
       id = ahref.replace('#', '');
     }
 
-    if (typeof ahref != 'undefined') {
+    if (typeof ahref !== 'undefined') {
       if (str.parent('.usern').length > 0) {
         var name = str.html();
       } else {
-        //var name = str.siblings('.usern').find('a').html();
-        var name = chat_div.shadowRoot.querySelector("#ml" + id + " .usern a").title;
+        // var name = str.siblings('.usern').find('a').html();
+        var name = chat_div.shadowRoot.querySelector(`#ml${id} .usern a`).title;
       }
 
       if ($.inArray(id, virtualclass.chat.idList) == -1) {
@@ -36,28 +36,28 @@ var chatContainerEvent = {
         virtualclass.chat.idList.push(id);
         if (!virtualclass.chat.vmstorage.hasOwnProperty(id)) {
           virtualclass.chat.vmstorage[id] = [];
-          virtualclass.chat.vmstorage[id].push({userid: id, name: name});
+          virtualclass.chat.vmstorage[id].push({ userid: id, name });
         }
       }
 
       chatboxManager.addBox(id,
         {
-          dest: "dest" + virtualclass.chat.counter, // not used in demo
-          title: "box" + virtualclass.chat.counter,
+          dest: `dest${virtualclass.chat.counter}`, // not used in demo
+          title: `box${virtualclass.chat.counter}`,
           first_name: name,
-          type: "privateChat"
-          //you can add your own options too
+          type: 'privateChat',
+          // you can add your own options too
         });
 
       chatboxManager.init({
-        user: {'name': name},
-        messageSent: function (id, user, msg) {
-          $("#" + id).chatbox("option", "boxManager").addMsg(user.name, msg);
-        }
+        user: { name },
+        messageSent(id, user, msg) {
+          $(`#${id}`).chatbox('option', 'boxManager').addMsg(user.name, msg);
+        },
       });
 
       if (virtualclass.chat.vmstorage.hasOwnProperty(id)) {
-        displayUserSinglePvtChatHistory(id)
+        displayUserSinglePvtChatHistory(id);
       }
 
       id = null;
@@ -65,9 +65,9 @@ var chatContainerEvent = {
     }
   },
 
-  onEvent: function (targetElem, chatboxManager) {
-    var event = this.getEvent(targetElem);
-    if (targetElem.classList == "userVideos" || targetElem.classList == "videoSubWrapper" || event == 'init_chatBox') {
+  onEvent(targetElem, chatboxManager) {
+    const event = this.getEvent(targetElem);
+    if (targetElem.classList == 'userVideos' || targetElem.classList == 'videoSubWrapper' || event == 'init_chatBox') {
       if (targetElem.classList.contains('media-heading')) {
         targetElem = targetElem.parentNode.previousElementSibling;
       } else {
@@ -87,16 +87,15 @@ var chatContainerEvent = {
     }
   },
 
-  elementFromShadowDom: function (selector, numOfElems, idStartFromNumber) {
+  elementFromShadowDom(selector, numOfElems, idStartFromNumber) {
     if (virtualclass.gObj.testChatDiv != null) {
-      var chat_div = virtualclass.gObj.testChatDiv.shadowRoot;
-      if (typeof numOfElems != 'undefined' && numOfElems == 'all') {
+      const chat_div = virtualclass.gObj.testChatDiv.shadowRoot;
+      if (typeof numOfElems !== 'undefined' && numOfElems == 'all') {
         return chat_div.querySelectorAll(selector);
-      } else if (typeof idStartFromNumber != 'undefined') {
+      } if (typeof idStartFromNumber !== 'undefined') {
         return chat_div.getElementById(selector);
-      } else {
-        return chat_div.querySelector(selector);
       }
+      return chat_div.querySelector(selector);
     }
-  }
-}
+  },
+};

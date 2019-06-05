@@ -9,26 +9,23 @@
  *
  */
 (function (window) {
+  let latestPacket = 0;
+  let latestCursorPacket = 0;
+  let sendSelection = null;
+  'use strict';
+  const EditorClient = (function () {
+    const { Client } = window;
+    const { Cursor } = window;
+    const { UndoManager } = window;
+    const { TextOperation } = window;
+    const { WrappedOperation } = window;
 
-  var latestPacket = 0;
-  var latestCursorPacket = 0;
-  var sendSelection = null;
-  "use strict";
-  var EditorClient = (function () {
-    'use strict';
-
-    var Client = window.Client;
-    var Cursor = window.Cursor;
-    var UndoManager = window.UndoManager;
-    var TextOperation = window.TextOperation;
-    var WrappedOperation = window.WrappedOperation;
-
-    //var Client = ot.Client;
-    //var Cursor = ot.Cursor;
-    //var Selection = ot.Selection;
-    //var UndoManager = ot.UndoManager;
-    //var TextOperation = ot.TextOperation;
-    //var WrappedOperation = ot.WrappedOperation;
+    // var Client = ot.Client;
+    // var Cursor = ot.Cursor;
+    // var Selection = ot.Selection;
+    // var UndoManager = ot.UndoManager;
+    // var TextOperation = ot.TextOperation;
+    // var WrappedOperation = ot.WrappedOperation;
 
     function SelfMeta(cursorBefore, cursorAfter) {
       this.cursorBefore = cursorBefore;
@@ -46,7 +43,7 @@
     SelfMeta.prototype.transform = function (operation) {
       return new SelfMeta(
         this.cursorBefore ? this.cursorBefore.transform(operation) : null,
-        this.cursorAfter ? this.cursorAfter.transform(operation) : null
+        this.cursorAfter ? this.cursorAfter.transform(operation) : null,
       );
     };
 
@@ -62,13 +59,13 @@
     };
 
     OtherClient.prototype.updateCursor = function (cursor) {
-      this.color = "#86BA7D";
+      this.color = '#86BA7D';
       this.removeCursor();
       this.cursor = cursor;
       this.mark = this.editorAdapter.setOtherCursor(
         cursor,
         this.color,
-        this.id
+        this.id,
       );
     };
 
@@ -80,9 +77,7 @@
 
 
     function EditorClient(revision, clients, serverAdapter, editorAdapter) {
-
-
-      //function EditorClient (serverAdapter, editorAdapter) {
+      // function EditorClient (serverAdapter, editorAdapter) {
       Client.call(this, revision);
       this.serverAdapter = serverAdapter;
       this.editorAdapter = editorAdapter;
@@ -90,56 +85,56 @@
 
       this.clients = {};
 
-      var self = this;
+      const self = this;
 
       this.editorAdapter.registerCallbacks({
-        change: function (operation, inverse) {
+        change(operation, inverse) {
           self.onChange(operation, inverse);
         },
-        cursorActivity: function () {
+        cursorActivity() {
           self.onCursorActivity();
         },
-        blur: function () {
+        blur() {
           self.onBlur();
         },
-        focus: function () {
+        focus() {
           self.onFocus();
-        }
+        },
       });
-      this.editorAdapter.registerUndo(function () {
+      this.editorAdapter.registerUndo(() => {
         self.undo();
       });
-      this.editorAdapter.registerRedo(function () {
+      this.editorAdapter.registerRedo(() => {
         self.redo();
       });
 
 
       this.serverAdapter.registerCallbacks({
-        client_left: function (clientId) {
+        client_left(clientId) {
           self.onClientLeft(clientId);
         },
-        set_name: function (clientId, name) {
+        set_name(clientId, name) {
           self.getClientObject(clientId).setName(name);
         },
-        ack: function () {
+        ack() {
           self.serverAck();
         },
-        operation: function (operation) {
+        operation(operation) {
           self.applyServer(TextOperation.fromJSON(operation));
         },
 
-        cursor: function (clientId, cursor) {
+        cursor(clientId, cursor) {
           if (cursor) {
             self.getClientObject(clientId).updateCursor(
-              self.transformCursor(Cursor.fromJSON(cursor))
+              self.transformCursor(Cursor.fromJSON(cursor)),
             );
           } else {
             self.getClientObject(clientId).removeCursor();
           }
         },
 
-        clients: function (clients) {
-          var clientId;
+        clients(clients) {
+          let clientId;
           for (clientId in self.clients) {
             if (self.clients.hasOwnProperty(clientId) && !clients.hasOwnProperty(clientId)) {
               self.onClientLeft(clientId);
@@ -148,16 +143,16 @@
 
           for (clientId in clients) {
             if (clients.hasOwnProperty(clientId)) {
-              var clientObject = self.getClientObject(clientId);
+              const clientObject = self.getClientObject(clientId);
 
               if (clients[clientId].name) {
                 clientObject.setName(clients[clientId].name);
               }
 
-              var selection = clients[clientId].selection;
+              const { selection } = clients[clientId];
               if (selection) {
                 self.clients[clientId].updateSelection(
-                  self.transformSelection(Selection.fromJSON(selection))
+                  self.transformSelection(Selection.fromJSON(selection)),
                 );
               } else {
                 self.clients[clientId].removeSelection();
@@ -165,23 +160,22 @@
             }
           }
         },
-        reconnect: function () {
+        reconnect() {
           self.serverReconnect();
-        }
+        },
       });
-
     }
 
     inherit(EditorClient, Client);
 
     EditorClient.prototype.getClientObject = function (clientId) {
-      var client = this.clients[clientId];
+      const client = this.clients[clientId];
       if (client) {
         return client;
       }
       return this.clients[clientId] = new OtherClient(
         clientId,
-        this.editorAdapter
+        this.editorAdapter,
       );
     };
 
@@ -189,38 +183,37 @@
       this.undoManager.add(this.editorAdapter.invertOperation(operation));
       this.editorAdapter.applyOperation(operation.wrapped);
       this.cursor = operation.meta.cursorAfter;
-      if (this.cursor)
-        this.editorAdapter.setCursor(this.cursor);
+      if (this.cursor) this.editorAdapter.setCursor(this.cursor);
       this.applyClient(operation.wrapped);
     };
 
     EditorClient.prototype.undo = function () {
-      var self = this;
+      const self = this;
       if (!this.undoManager.canUndo()) {
         return;
       }
-      this.undoManager.performUndo(function (o) {
+      this.undoManager.performUndo((o) => {
         self.applyUnredo(o);
       });
     };
 
     EditorClient.prototype.redo = function () {
-      var self = this;
+      const self = this;
       if (!this.undoManager.canRedo()) {
         return;
       }
-      this.undoManager.performRedo(function (o) {
+      this.undoManager.performRedo((o) => {
         self.applyUnredo(o);
       });
     };
 
     EditorClient.prototype.onChange = function (textOperation, inverse) {
-      var cursorBefore = this.cursor;
+      const cursorBefore = this.cursor;
       this.updateCursor();
 
-      var compose = this.undoManager.undoStack.length > 0 &&
-        inverse.shouldBeComposedWithInverted(last(this.undoManager.undoStack).wrapped);
-      var inverseMeta = new SelfMeta(this.cursor, cursorBefore);
+      const compose = this.undoManager.undoStack.length > 0
+        && inverse.shouldBeComposedWithInverted(last(this.undoManager.undoStack).wrapped);
+      const inverseMeta = new SelfMeta(this.cursor, cursorBefore);
       this.undoManager.add(new WrappedOperation(inverse, inverseMeta), compose);
       this.applyClient(textOperation);
     };
@@ -230,7 +223,7 @@
     };
 
     EditorClient.prototype.onCursorActivity = function () {
-      var oldCursor = this.cursor;
+      const oldCursor = this.cursor;
       this.updateCursor();
       if (!this.focused || oldCursor && this.cursor.equals(oldCursor)) {
         return;
@@ -260,57 +253,52 @@
 
 
       if (cursor != null && cursor.hasOwnProperty('selectionEnd')) {
-        var selectionEnd = cursor.selectionEnd;
+        var { selectionEnd } = cursor;
       }
 
       if (latestPacket === 0) {
         if (startPosition != null && selectionEnd != null) {
           this.serverAdapter.sendCursor(cursor);
           latestPacket = 1;
-
         } else {
           this.serverAdapter.sendCursor(cursor);
         }
-      } else {
-        if (startPosition != null && selectionEnd != null) {
-
-          if (sendSelection != null) {
-            clearTimeout(sendSelection);
-
-          }
-          latestCursorPacket = cursor;
-          var that = this;
-          sendSelection = setTimeout(
-            function () {
-              that.serverAdapter.sendCursor(cursor);
-              latestCursorPacket = null;
-            }, 300
-          );
-        } else { // not selection
-          if (latestCursorPacket != null) {
-            this.serverAdapter.sendCursor(latestCursorPacket);
-            latestCursorPacket = null;
-          }
-          this.serverAdapter.sendCursor(cursor);
-          latestPacket = 0;
+      } else if (startPosition != null && selectionEnd != null) {
+        if (sendSelection != null) {
+          clearTimeout(sendSelection);
         }
+        latestCursorPacket = cursor;
+        const that = this;
+        sendSelection = setTimeout(
+          () => {
+            that.serverAdapter.sendCursor(cursor);
+            latestCursorPacket = null;
+          }, 300,
+        );
+      } else { // not selection
+        if (latestCursorPacket != null) {
+          this.serverAdapter.sendCursor(latestCursorPacket);
+          latestCursorPacket = null;
+        }
+        this.serverAdapter.sendCursor(cursor);
+        latestPacket = 0;
       }
       startPosition = null;
       selectionEnd = null;
     };
 
     EditorClient.prototype.sendOperation = function (revision, operation) {
-      //this.editorAdapter.cm.options.keyMap is editor type need to send with each operation
+      // this.editorAdapter.cm.options.keyMap is editor type need to send with each operation
       // becuase at very speed, when switching the editor, vApp.currApp is not playing correctly at io.lib.js
       // vApp.currApp is containg the older application but should be contain latest as app
       // we should know about text is comming from which Editor from richtext editor or OR code editor
       this.serverAdapter.sendOperation(revision, operation.toJSON(), this.cursor, this.editorAdapter.cm.options.keyMap);
     };
 
-    //EditorClient.prototype.sendOperation = function (operation) {
+    // EditorClient.prototype.sendOperation = function (operation) {
     //  this.serverAdapter.sendOperation(operation);
     //  //this.emitStatus();
-    //};
+    // };
 
     EditorClient.prototype.applyOperation = function (operation) {
       this.editorAdapter.applyOperation(operation);
@@ -319,8 +307,8 @@
     };
 
     EditorClient.prototype.emitStatus = function () {
-      var self = this;
-      setTimeout(function () {
+      const self = this;
+      setTimeout(() => {
         self.trigger('synced', self.state instanceof Client.Synchronized);
       }, 0);
     };
@@ -343,5 +331,4 @@
   }());
 
   window.EditorClient = EditorClient;
-
-})(window);
+}(window));

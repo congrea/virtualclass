@@ -229,7 +229,7 @@ if($info) {
 ?>
 
 <script type="text/javascript">
-  "user strict";
+   "user strict";
     let virtualclassSetting = {};
     virtualclassSetting.settings = "4800";
     virtualclassSetting.classes = "audioTool deactive";

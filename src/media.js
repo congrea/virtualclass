@@ -18,6 +18,8 @@
   let allAudioSend = [];
   let audioLen = 0;
   let workletAudioSend;
+  let workletAudioRec;
+  let initchannel;
 
   function breakintobytes(val, l) {
     let numstring = val.toString();

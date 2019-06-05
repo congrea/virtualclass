@@ -64,13 +64,13 @@ var micTesting = {
           var output = event.outputBuffer.getChannelData(0);
           const newAud = that.getAudioChunks();
           if (newAud != null) {
-            for (i = 0; i < newAud.length; i++) {
+            for (let i = 0; i < newAud.length; i++) {
               output[i] = newAud[i];
             }
           }
         } else {
           var output = event.outputBuffer.getChannelData(0);
-          for (i = 0; i < output.length; i++) {
+          for (let i = 0; i < output.length; i++) {
             output[i] = 0;
           }
         }

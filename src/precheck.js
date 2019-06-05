@@ -263,8 +263,6 @@ var preCheck = {
       this.measureConnectionSpeed((speedKbps) => {
         document.querySelector(msgSelector).innerHTML = '';
         const bandWidthText = that.bandWidthInWords(speedKbps);
-        msgSelector.innerHTML = '';
-
         const bandWidthMsg = virtualclass.lang.getString(`${bandWidthText}BandWidthSpeed`);
 
         virtualclass.precheck.createMessage(msgSelector, bandWidthMsg, 'information');

@@ -594,6 +594,15 @@
         console.log(`New role before clear ${virtualclass.gObj.uRole}`);
         // virtualclass.gObj.uRole // update the role at
         that.config.createNewSession();
+        if(roles.isStudent()) {
+          virtualclass.settings.init();
+          virtualclass.settings.userAudioIcon();
+          virtualclass.settings.userVideoIcon();
+          var rightPanelElem = document.querySelector("#virtualclassAppRightPanel");
+          if(!rightPanelElem.classList.contains("vidHide")){
+             rightPanelElem.classList.add("vidHide");
+          }
+        }
         console.log(`New role after clear ${virtualclass.gObj.uRole}`);
         if (!virtualclass.enablePreCheck) {
           // Only popup the message, if the precheck is not enabled
@@ -672,6 +681,9 @@
         virtualclass.gObj.wbCount = 0;
         virtualclass.wbCommon.clearNavigation();
         delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+        localStorage.removeItem("settings");
+        localStorage.removeItem("userSettings");
+        virtualclass.settings.user = {};
       },
     },
 

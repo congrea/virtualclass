@@ -389,12 +389,6 @@ $(document).ready(() => {
       }
     }
 
-    function triggerInitShareScreen(sType, setTime) {
-      if (typeof virtualclass.getDataFullScreen === 'function') {
-        virtualclass.ss.initShareScreen(sType, setTime);
-      }
-    }
-
     virtualclass.gObj.veryFirstJoin = true;
 
     function getUserObj(arr, uid) {

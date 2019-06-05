@@ -1,3 +1,11 @@
+"use strict";
+
+function triggerInitShareScreen(sType, setTime) {
+  if (typeof virtualclass.getDataFullScreen === 'function') {
+    virtualclass.ss.initShareScreen(sType, setTime);
+  }
+}
+
 const removeAppsDom = function () {
   // remove whiteboard tool wrapper
   const commandToolsWrapper = document.getElementById('commandToolsWrapper');

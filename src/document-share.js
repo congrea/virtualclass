@@ -7,6 +7,7 @@
  */
 
 (function (window) {
+  "use strict";
   let firstTime = true;
   const { io } = window;
   const documentShare = function () {
@@ -243,13 +244,14 @@
         if (typeof fromReload === 'undefined' && roles.hasControls()) {
           this.requestDocs(doc);
         } else {
+          let title;
           const docId = `docs${doc}`;
           if (typeof this.pages[docId] !== 'object') {
             this.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
             if (typeof docObj !== 'undefined') {
-              let  title  = docObj.docs[docId].title;
+                title  = docObj.docs[docId].title;
             } else {
-              let  title  = cthis.allDocs[doc].title;
+                title  = cthis.allDocs[doc].title;
             }
             this.pages[docId].init(doc, title);
           }
@@ -1210,7 +1212,7 @@
          * @param slide represents the slide/note
          *
          */
-        slide(slide) {
+        slide : function(slide) {
           return {
             li_items: 0,
             imageNumber: 0,

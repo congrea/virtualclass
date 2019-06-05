@@ -1,3 +1,5 @@
+"use strict";
+
 const chatContainerEvent = {
   ub: 'init_chatBox', // User Box(When user lick on link, it will opened new chat user box)
   ac: 'footerControler', // audio controller

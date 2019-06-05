@@ -1,4 +1,5 @@
 // widget for footer bar
+"use strict";
 (function ($) {
   $.widget('ui.footerbar', {
     options: {

@@ -1,6 +1,6 @@
 /* function library */
-
-
+"use strict";
+let tabId;
 const myChatBoxOpen = false;
 
 const chatResults = [];

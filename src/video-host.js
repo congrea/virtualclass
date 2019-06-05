@@ -209,7 +209,7 @@ var videoHost = {
     }
   },
   removeUserIcon(userid) {
-    let cthis = virtualclass.media.video;
+    let cthis = virtualclass.media;
     console.log('Remove User icon');
     if (virtualclass.gObj.uid == userid) { // for self
       const vidContainer = cthis.video.createVideoElement();

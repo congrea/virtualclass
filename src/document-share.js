@@ -234,7 +234,8 @@
         const cthis = this;
         // need to get all images from here
         if (typeof docObj !== 'undefined') {
-          var { status } = docObj.docs[`docs${doc}`];
+          // var { status } = docObj.docs[`docs${doc}`];
+          var status = docObj.docs['docs'+doc].status;
         } else {
           var status = 1;
         }

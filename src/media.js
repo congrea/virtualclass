@@ -17,6 +17,7 @@
   let luid;
   let allAudioSend = [];
   let audioLen = 0;
+  let workletAudioSend;
 
   function breakintobytes(val, l) {
     let numstring = val.toString();
@@ -908,6 +909,7 @@
           if (typeof stream !== 'undefined' && stream != null) {
             console.log('Audio worklet init add module');
             cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(workletAudioSendBlob).then(() => {
+              console.log("== init audio worklet 3");
               const audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
 
               const filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();

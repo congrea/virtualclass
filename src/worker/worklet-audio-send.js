@@ -4,7 +4,9 @@
  * This file gets audio continuously from getUserMedia, and
  * send it to send audio worker (worker-audio-send.js)
  */
-const workletAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
+var workletAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
+  console.log("== init audio worklet 1");
+  debugger;
   class workletAudioSend extends AudioWorkletProcessor {
     constructor() {
       super();

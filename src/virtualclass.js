@@ -168,7 +168,7 @@
         this.fineUploader = window.fineUploader;
         this.system = window.system;
         this.recorder = window.recorder;
-        this.converter = window.converter;
+        this.converter = converter;
         this.clear = '';
         this.currApp = this.vutil.capitalizeFirstLetter(app);
         this.storage = window.storage;
@@ -206,7 +206,7 @@
           this.system.setBrowserDetails();
         }
 
-        virtualclass.api = window.api;
+        virtualclass.api = api;
 
         virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
         virtualclass.xhr = window.xhr;
@@ -249,7 +249,7 @@
         virtualclass.videoUl = window.videoUl();
 
         virtualclass.videoHost = window.videoHost;
-        virtualclass.precheck = window.precheck;
+        virtualclass.precheck = preCheck;
         virtualclass.page = page;
         // virtualclass.zoom = window.zoomWhiteboard();
         console.log('==== session clear zoom object ready ');

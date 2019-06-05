@@ -280,12 +280,7 @@ function memberUpdate(e, addType) {
 }
 
 function messageUpdate(e) {
-  if ($.isPlainObject(e.message)) {
-    var { msg } = e.message;
-  } else {
-    var msg = e.message;
-  }
-
+  var msg = $.isPlainObject(e.message) ? e.message.msg : e.message;
   const to = e.toUser;
   const from = e.fromUser;
   const self = io.cfg.userid;

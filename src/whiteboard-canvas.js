@@ -3,6 +3,8 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window, document) {
+  "use strict";
+
   const { io } = window;
 
   /**
@@ -24,7 +26,7 @@
           const cid = canvasId.substring(1, canvasId.length);
           vcan.utility.canvasCalcOffset(cid);
 
-          return new vcan.main(canvasId);
+          return vcan.main(canvasId);
         }
         console.log('there is a problem with canvas id');
       },

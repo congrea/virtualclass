@@ -246,9 +246,9 @@
           if (typeof this.pages[docId] !== 'object') {
             this.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
             if (typeof docObj !== 'undefined') {
-              var { title } = docObj.docs[docId];
+              let  title  = docObj.docs[docId].title;
             } else {
-              var { title } = cthis.allDocs[doc];
+              let  title  = cthis.allDocs[doc].title;
             }
             this.pages[docId].init(doc, title);
           }

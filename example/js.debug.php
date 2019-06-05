@@ -28,10 +28,12 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/vhcheck.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/shadow-dom.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/chroma.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/precheck.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-storage.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-missing-packets.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-adapter.js"></script>
@@ -112,7 +114,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-boxManager.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lang.en.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/precheck.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-base64.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-ajax.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-script.js"></script>
@@ -133,7 +135,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/api.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/raise-hand.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/color-selector.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chroma.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/network.js"></script>

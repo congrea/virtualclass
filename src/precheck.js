@@ -1,6 +1,5 @@
 
-
-const precheck = {
+var preCheck = {
   currTest: '',
   playTestAudio: false,
   session: null,

@@ -120,4 +120,4 @@ const dtConWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
   };
 }.toString(), ')()'], { type: 'application/javascript' }));
 
-const sworker = new Worker(screenWorkerBlob);
+const dtConWorker = new Worker(dtConWorkerBlob);

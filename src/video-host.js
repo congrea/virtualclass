@@ -4,8 +4,7 @@
  * then it converst webp images to png images for enable the video in
  * firefox as well
  */
-
-
+"use strict";
 const BASE64_MARKER = ';base64,';
 var videoHost = {
   gObj: {},

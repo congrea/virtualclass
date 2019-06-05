@@ -612,8 +612,7 @@
         // If (cmd != 't_activeall' && cmd != 't_replay' && cmd != 't_clearallInit' && cmd != 't_assign'
         if ((cmd != `t_replay${wbId}`) && (cmd != `t_clearallInit${wbId}`) && (cmd != `t_assign${wbId}`)
           && (cmd != `t_reclaim${wbId}`)) {
-          // debugger;
-          virtualclass.wb[wbId].tool = new virtualclass.wb[wbId].tool_obj(cmd);
+          virtualclass.wb[wbId].tool = virtualclass.wb[wbId].tool_obj(cmd);
           virtualclass.wb[wbId].utility.attachEventHandlers(wbId);
         }
       },

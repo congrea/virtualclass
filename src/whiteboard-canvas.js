@@ -3,8 +3,6 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window, document) {
-  "use strict";
-
   const { io } = window;
 
   /**
@@ -26,8 +24,10 @@
           const cid = canvasId.substring(1, canvasId.length);
           vcan.utility.canvasCalcOffset(cid);
 
-          return vcan.main(canvasId);
+          return new vcan.main(canvasId);
         }
+        console.log('there is a problem with canvas id');
+
         console.log('there is a problem with canvas id');
       },
       /**
@@ -35,7 +35,7 @@
        *  call mouse.init() function
        *  @param canvid is canvas's id
        */
-      main(canvid) {
+      main: function (canvid) {
         vcan.main.children = []; // vcan.main should be converted into 'this' variable
         vcan.main.id = 0;
         vcan.main.uid = 0;

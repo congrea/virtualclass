@@ -612,7 +612,8 @@
         // If (cmd != 't_activeall' && cmd != 't_replay' && cmd != 't_clearallInit' && cmd != 't_assign'
         if ((cmd != `t_replay${wbId}`) && (cmd != `t_clearallInit${wbId}`) && (cmd != `t_assign${wbId}`)
           && (cmd != `t_reclaim${wbId}`)) {
-          virtualclass.wb[wbId].tool = virtualclass.wb[wbId].tool_obj(cmd);
+          // debugger;
+          virtualclass.wb[wbId].tool = new virtualclass.wb[wbId].tool_obj(cmd);
           virtualclass.wb[wbId].utility.attachEventHandlers(wbId);
         }
       },
@@ -622,7 +623,7 @@
        * @param the cmd expects one of the object that user can draw
        * text and free draw are different case than other object
        */
-      tool_obj(cmd) {
+      tool_obj: function (cmd) {
         // alert("Suman bogati");
         // debugger;
         // var wbId = this.currWb;

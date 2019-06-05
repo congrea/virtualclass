@@ -41,9 +41,7 @@
             lineWidth: this.freeDrawingLineWidth,
           });
           this.fdObj.init();
-
-          pointer = vcan.utility.getReltivePoint(ev);
-          this.fdObj.fhdStart(ctx, pointer);
+          this.fdObj.fhdStart(ctx, vcan.utility.getReltivePoint(ev));
 
           // }
         }

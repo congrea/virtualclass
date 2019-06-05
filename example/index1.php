@@ -134,7 +134,7 @@ $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 $lname = isset($_GET['lname']) ? $_GET['lname'] : ' ';
 
 // Set 1 to add source file else 0 to min file
-$info = 0;
+$info = 1;
 $audio_disabled_completely = true;
 $cmid = 5;
 
@@ -229,14 +229,15 @@ if($info) {
 ?>
 
 <script type="text/javascript">
-    virtualclassSetting = {};
+	"use strict";
+    let virtualclassSetting = {};
     virtualclassSetting.settings = "4800";
     virtualclassSetting.classes = "audioTool deactive";
     virtualclassSetting.audio_tooltip = '<?php echo get_string('audioEnable','congrea'); ?>';
     virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
 
     virtualclassSetting.theme={};
-	virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
+	 virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
     wbUser.session = '<?php echo $session; ?>';
     wbUser.virtualclassPlay = '<?php echo $isplay; ?>';
     wbUser.vcSid = '<?php echo "1"; ?>';

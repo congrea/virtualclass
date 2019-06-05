@@ -6,6 +6,7 @@
  */
 "use strict";
 const BASE64_MARKER = ';base64,';
+var videoPartCont, sampleRate;
 var videoHost = {
   gObj: {},
   setDefaultValue(speed) {
@@ -208,7 +209,7 @@ var videoHost = {
     }
   },
   removeUserIcon(userid) {
-    const cthis = virtualclass.media.video;
+    let cthis = virtualclass.media.video;
     console.log('Remove User icon');
     if (virtualclass.gObj.uid == userid) { // for self
       const vidContainer = cthis.video.createVideoElement();

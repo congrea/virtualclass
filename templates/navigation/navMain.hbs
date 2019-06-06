@@ -1,0 +1,20 @@
+{{#if control}}  
+  <span id="leftNavPage" class="pageNav"></span>
+    <span class="navArrow"></span>
+    <span class="pageHead">Page</span>
+    <div id="ancCont" class="noCont">
+        <div id="pageAnc">
+            <span id="currIndex">{{currIndex}}</span>
+            <span id="totalPages"> of {{totalPages}}</span>
+        </div>
+    </div>
+    <div id="dcPaging" class="close">
+    </div>
+    <span id="rightNavPage" class="pageNav disable"></span>
+{{else}}
+<span class="pageHead">Page</span>
+<div id="dcPaging">
+    <span id="stdPageNo"></span>
+    <span id="totalPages" class="pages"></span>
+</div>
+{{/if}}

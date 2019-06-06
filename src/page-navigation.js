@@ -31,10 +31,6 @@
     for (let i = 0; i < virtualclass.dts.order.length; i++) {
       this.createDocNavigationNumber(virtualclass.dts.order[i], i);
     }
-    const subCont = document.querySelector('#dcPaging');
-    subCont.addEventListener('change', function () {
-      virtualclass.dts.docs.goToNavs(this.value)();
-    });
     this.shownPage(this.width);
     this.addActiveNavigation();
     this.setTotalPages(virtualclass.dts.order.length);
@@ -70,7 +66,7 @@
       var nodes = document.querySelectorAll('.noteIndex.shw');
       if (nodes.length) {
         var rl = nodes[nodes.length - 1];
-        var shw = parseInt(rl.getAttribute('title'));
+        var shw = parseInt(rl.getAttribute("data-set"))
       }
 
       for (var i = shw; i < currIndex; i++) {
@@ -99,7 +95,7 @@
     } else {
       var nodes = document.querySelector('.noteIndex.shw');
       if (nodes) {
-        var shw = parseInt(nodes.getAttribute('title'));
+          var shw = parseInt(nodes.getAttribute("data-set"));
       }
 
       for (var i = shw; i > currIndex; i--) {
@@ -233,7 +229,7 @@
         ioAdapter.mustSend({ wbData: 'wbIndex', wbIndex: active.innerHTML, cf: 'wbData' });
       }
     } else {
-      this.index = (currIndex != null) ? currIndex : (index != null && typeof index !== 'undefined') ? index.title : 1;
+      this.index = (currIndex != null) ? currIndex : (index != null && typeof index !== 'undefined') ? index.getAttribute("data-set") : 1;
       if (!virtualclass.dts.order.length) {
         this.index = 0;
       }
@@ -327,49 +323,39 @@
 
   /** Create navigation for teacher on document sharing * */
   pageIndexNav.prototype.createDocNavigationNumber = function (order, i) {
-    const sn = document.createElement('span');
-    sn.id = `index${order}`;
-    sn.value = order;
-    sn.className = 'noteIndex';
-    const pageNum = i + 1;
-    sn.setAttribute('title', pageNum);
-    sn.innerHTML = pageNum;
-    this.subCont.appendChild(sn);
-    if (virtualclass.dts.docs.currNote == order) {
-      sn.classList.add('active');
-      document.querySelector('#currIndex').innerHTML = i + 1;
-    }
-    this.index = pageNum;
-    sn.onclick = virtualclass.dts.docs.goToNavs(order);
+     var template = virtualclass.getTemplate('docIndex', 'navigation');
+        var navHtml = template({app: virtualclass.currApp, id: order, page: i + 1});
+        this.subCont.insertAdjacentHTML('beforeend', navHtml);
+        var sn = document.querySelector("#index" + order)
+        if (virtualclass.dts.docs.currNote == order) {
+            sn.classList.add("active")
+            document.querySelector("#currIndex").innerHTML = i + 1;
+        }
+        this.index = i + 1;
+        sn.onclick = virtualclass.dts.docs.goToNavs(order);
   };
 
 
   /** Create navigation for teacher  on  Whiteboard * */
   pageIndexNav.prototype.createWbNavigationNumber = function (id, order) {
-    const wid = `_doc_0_${id}`;
-    const sn = document.createElement('span');
-    sn.id = `index${id}`;
-    sn.className = 'noteIndex';
-    // sn.setAttribute('selected','selected');
-    const pageNum = id + 1;
-    sn.setAttribute('title', pageNum);
-    sn.innerHTML = order + 1;
-    sn.setAttribute('value', wid);
-    this.subCont.appendChild(sn);
-    sn.className = (id > this.shownPages) ? 'noteIndex hid right' : 'noteIndex shw';
+        var wid = "_doc_0_" + id;
+        var template = virtualclass.getTemplate('wbIndex', 'navigation');
+        var navHtml = template({app: virtualclass.currApp, id: id, order: order + 1, wid: wid});
+        this.subCont.insertAdjacentHTML('beforeend', navHtml);
+        var sn = document.querySelector("#index" + id)
+        sn.className = (id > this.shownPages) ? "noteIndex hid right" : "noteIndex shw";
+        if (virtualclass.gObj.currWb == wid) {
+            virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
+            document.querySelector("#currIndex").innerHTML = order + 1;
+        }
 
-    if (virtualclass.gObj.currWb == wid) {
-      virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
-      document.querySelector('#currIndex').innerHTML = order + 1;
-    }
-
-    sn.onclick = function () {
-      virtualclass.wbCommon.setCurrSlideNumber(wid);
-      virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
-      virtualclass.wbCommon.readyCurrentWhiteboard(wid);
-      // virtualclass.wbCommon.displaySlide(wid);
-      virtualclass.gObj.currWb = wid;
-    };
+        navHtml.onclick = function () {
+            virtualclass.wbCommon.setCurrSlideNumber(wid);
+            virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
+            virtualclass.wbCommon.readyCurrentWhiteboard(wid);
+            // virtualclass.wbCommon.displaySlide(wid);
+            virtualclass.gObj.currWb = wid;
+        }
   };
   pageIndexNav.prototype.newWbpage = function (value) {
     virtualclass.vutil.navWhiteboard(virtualclass.wbCommon, virtualclass.wbCommon.newPage);
@@ -426,154 +412,90 @@
   /** Create navigation */
   pageIndexNav.prototype.UI = {
     container() {
-      /** TODO Use handlebars* */
-      const dc = document.getElementById('docShareNav');
-      if (roles.hasControls()) {
-        const i = 0;
+            /** TODO Use handlebars* */
+            /** TODO Use handlebars**/
+        var dc = document.getElementById("docShareNav");
         while (dc.firstChild) {
-          dc.removeChild(dc.firstChild);
+            dc.removeChild(dc.firstChild);
         }
 
-        var cont = document.querySelector('.congrea #docShareNav');
-        const left = document.createElement('span');
-        left.id = 'leftNavPage';
-        left.className = 'pageNav';
-        // left.innerHTML = "left"
-        cont.appendChild(left);
+        var template = virtualclass.getTemplate('navMain', 'navigation');
+        var navHtml = template({app: virtualclass.currApp, control: roles.hasControls()});
+        dc.innerHTML = navHtml;
 
 
-        var elem = document.createElement('span');
-        elem.classList.add('navArrow');
-        elem.innerHTML = '';
-        cont.appendChild(elem);
+        if (roles.hasControls()) {
+            var cont = document.querySelector(".congrea #docShareNav");
+            var anc = document.querySelector("#currIndex")
+            anc.addEventListener("click", function () {
+            var elem = document.querySelector("#dcPaging");
+                if (elem) {
+                    elem.classList.toggle("close");
+                    elem.classList.toggle("open");
+                }
 
-        var elem = document.createElement('span');
-        elem.classList.add('pageHead');
-        elem.innerHTML = 'Page';
-        cont.appendChild(elem);
+            })
+            if (virtualclass.currApp == "Whiteboard") {
+                var addCont = document.createElement('span')
+                addCont.id = "addNewPage";
+                addCont.className = "newPage";
+                cont.appendChild(addCont);
 
-        var elem = document.createElement('div');
-        elem.id = 'ancCont';
-        elem.classList.add('noCont');
-        cont.appendChild(elem);
-
-        const anc = document.createElement('div');
-        anc.id = 'pageAnc';
-        elem.appendChild(anc);
-
-        var elem = document.createElement('span');
-        elem.id = 'currIndex';
-        anc.appendChild(elem);
-
-        // anc.innerHTML ="pages ▾"
-        anc.addEventListener('click', () => {
-          const elem = document.querySelector('#dcPaging');
-          if (elem) {
-            elem.classList.toggle('close');
-            elem.classList.toggle('open');
-          }
-        });
-        if (virtualclass.currApp == 'Whiteboard') {
-          const addCont = document.createElement('span');
-          addCont.id = 'addNewPage';
-          addCont.className = 'newPage';
-          cont.appendChild(addCont);
-
-          const add = document.createElement('span');
-          addCont.appendChild(add);
-          add.className = 'icon-newPage congtooltip'; // to be removed
-          add.setAttribute('data-title', virtualclass.lang.getString('newPage'));
-          // add.innerHTML="new"
-          add.addEventListener('click', function () {
-            virtualclass.wbCommon.indexNav.newWbpage(this.type);
-          });
-        }
-        var subCont = document.createElement('div');
-        subCont.id = 'dcPaging';
-        subCont.classList.add('close');
-        cont.appendChild(subCont);
-
-        const right = document.createElement('span');
-        right.id = 'rightNavPage';
-        right.className = 'pageNav';
-        // right.innerHTML = "right"
-        cont.appendChild(right);
-        const that = this;
-
-        cont.addEventListener('mouseover', () => {
-          subCont.classList.add('open');
-          subCont.classList.remove('close');
-        });
-        cont.addEventListener('mouseout', () => {
-          subCont.classList.add('close');
-          subCont.classList.remove('open');
-        });
-
-        /** create the descriptive function here* */
-        left.addEventListener('click', () => {
-          if (virtualclass.currApp == 'Whiteboard') {
-            if (that.isNodeAvailable('.noteIndex.shw.active', 'prev')) {
-              document.querySelector('#virtualclassWhiteboard .prev').click();
-            } else {
-              // that.disableLastNavigation();
-              that.setArrowStatus('leftNavPage', 'disable');
+                var add = document.createElement('span')
+                addCont.appendChild(add);
+                add.className = "icon-newPage congtooltip" // to be removed
+                add.setAttribute('data-title', virtualclass.lang.getString('newPage'));
+                add.addEventListener('click', function () {
+                    virtualclass.wbCommon.indexNav.newWbpage(this.type)
+                })
             }
-          } else {
-            document.getElementById('docsprev').click();
-            // that.disableLastNavigation();
-            that.setArrowStatus('leftNavPage', 'disable');
-          }
-        });
+            var subCont = document.querySelector("#dcPaging")
+            cont.addEventListener("mouseover", function () {
+                subCont.classList.add("open");
+                subCont.classList.remove("close")
+            })
+            cont.addEventListener("mouseout", function () {
 
+                subCont.classList.add("close");
+                subCont.classList.remove("open")
+            })
+            var that = this;
+            var left = document.querySelector("#leftNavPage")
+            left.addEventListener("click", function () {
+                if (virtualclass.currApp == "Whiteboard") {
+                   if (that.isNodeAvailable(".noteIndex.shw.active", 'prev')) {
+                        document.querySelector("#virtualclassWhiteboard .prev").click();
+                    } else {
+                        that.setArrowStatus('leftNavPage', 'disable');
+                    }
+                    } else {
+                        document.getElementById("docsprev").click()
+                        that.setArrowStatus('leftNavPage', 'disable');
+                    }
+                })
 
-        right.addEventListener('click', function () {
-          /** create the descriptive function here* */
-          if (virtualclass.currApp == 'Whiteboard') {
-            if (that.isNodeAvailable('.noteIndex.shw.active', 'next')) {
-              document.querySelector('#virtualclassWhiteboard .next').click();
-              const num = virtualclass.gObj.currWb.split('_doc_0')[1];
-              if (num > this.shownPages) {
-                const shw = document.querySelector('.noteIndex.shw');
-                shw.className = 'noteIndex hid left';
-              }
-            } else {
-              // that.disableLastNavigation();
-              that.setArrowStatus('rightNavPage', 'disable');
+                var right = document.querySelector("#rightNavPage")
+                right.addEventListener("click", function () {
+                    if (virtualclass.currApp == "Whiteboard") {
+                        if (that.isNodeAvailable(".noteIndex.shw.active", 'next')) {
+                            document.querySelector("#virtualclassWhiteboard .next").click();
+                            var num = virtualclass.gObj.currWb.split("_doc_0")[1]
+                            if (num > this.shownPages) {
+                                var shw = document.querySelector(".noteIndex.shw");
+                                shw.className = "noteIndex hid left";
+                            }
+                        } else {
+                            that.setArrowStatus('rightNavPage', 'disable');
+
+                        }
+                    } else {
+                        document.getElementById("docsnext").click()
+                        that.setArrowStatus('rightNavPage', 'disable');
+                    }
+                })
+
             }
-          } else {
-            document.getElementById('docsnext').click();
-            that.setArrowStatus('rightNavPage', 'disable');
-          }
-        });
-      } else {
-        var cont = document.querySelector('.congrea #docShareNav');
-        const paging = document.querySelector('.congrea #stdPageNo');
-        if (!paging) {
-          var elem = document.createElement('span');
-          elem.classList.add('pageHead');
-          elem.innerHTML = 'Page';
-          cont.appendChild(elem);
-          var subCont = document.createElement('div');
-          subCont.id = 'dcPaging';
-          cont.appendChild(subCont);
-
-          const pageNo = document.createElement('span');
-          pageNo.id = 'stdPageNo';
-          subCont.appendChild(pageNo);
-        }
-      }
-      if (!roles.hasControls()) {
-        var cont = document.querySelector('#totalPages');
-        if (!cont) {
-          const total = document.createElement('span');
-          total.id = 'totalPages';
-          total.className = 'pages';
-          if (subCont != null) {
-            subCont.appendChild(total);
-          }
-        }
-      }
-    },
+        },
 
     /** Set enable/disable class for previous or next button when required */
     setClassPrevNext() {

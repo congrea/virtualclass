@@ -598,7 +598,7 @@
         virtualclass.settings.user = {};
 
         that.config.createNewSession();
-        if (roles.isStudent() && !virtualclass.isPlayMode) {
+        if (virtualclass.videoHost && roles.isStudent() && !virtualclass.isPlayMode) {
           virtualclass.settings.init();
           virtualclass.settings.userAudioIcon();
           virtualclass.settings.userVideoIcon();

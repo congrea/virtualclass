@@ -376,13 +376,6 @@ window.onload = async function () {
   let memberUpdateWithDelay_timer;
   virtualclass.gObj.memberlistpending = [];
 
-  function isAlreadyInPendingList(user) {
-    if (virtualclass.gObj.memberlistpending.length > 0) {
-      const index = virtualclass.gObj.memberlistpending.findIndex(userObj => userObj.userid == user.userid);
-      return (index > -1);
-    }
-  }
-
   virtualclass.gObj.veryFirstJoin = true;
 
   function getUserObj(arr, uid) {

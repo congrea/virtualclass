@@ -6,6 +6,13 @@ function triggerInitShareScreen(sType, setTime) {
   }
 }
 
+function isAlreadyInPendingList(user) {
+  if (virtualclass.gObj.memberlistpending.length > 0) {
+    const index = virtualclass.gObj.memberlistpending.findIndex(userObj => userObj.userid == user.userid);
+    return (index > -1);
+  }
+}
+
 const removeAppsDom = function () {
   // remove whiteboard tool wrapper
   const commandToolsWrapper = document.getElementById('commandToolsWrapper');

@@ -18,6 +18,7 @@ function isAnyOnePresenter() {
 }
 
 function joinAsTeacher(jId) {
+
   virtualclass.gObj.veryFirstJoin = false;
   if (!virtualclass.vutil.isOrginalTeacherExist(jId)) {
     overrideOperation('t');

@@ -159,8 +159,9 @@ var ioAdapter = {
       localStorage.setItem('serverSession', session);
     } else if (!virtualclass.isPlayMode && serverSession != session) {
       this.setSession(serverSession);
+    } else if (!virtualclass.isPlayMode && serverSession === session) {
+      this.makeSessionReady();
     }
-    this.makeSessionReady();
   },
 
   sync(msg) {

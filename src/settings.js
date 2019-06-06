@@ -185,9 +185,12 @@
         const value = obj[settingName];
         if ((value === true || value === false) && virtualclass.settings.info.hasOwnProperty(settingName)) {
           if (typeof userId === 'undefined') {
-            for(let propname in virtualclass.settings.user) {
-              virtualclass.user.control.changeAttribute(propname, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(propname+"contrAudImg"), true, 'audio', 'aud');
-              virtualclass.user.control.changeAttribute(propname, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(propname+"contrChatImg"), true, 'chat', 'chat');
+            const userList = virtualclass.connectedUsers;
+            for(let i = 0; i < userList.length; i++) {
+              if(userList[i].role === "s") {
+                virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrAudImg"), true, 'audio', 'aud');
+                virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrChatImg"), true, 'chat', 'chat');
+              }
             }
             localStorage.removeItem("userSettings");
             virtualclass.settings.user = {};

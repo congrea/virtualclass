@@ -1,4 +1,5 @@
 // Need this to make IE happy
+"use strict";
 if (!Array.indexOf) {
   Array.prototype.indexOf = function (obj) {
     for (let i = 0; i < this.length; i++) {

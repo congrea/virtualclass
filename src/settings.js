@@ -16,7 +16,7 @@
       recAllowpresentorAVcontrol: null,
       recShowPresentorRecordingStatus: null,
 
-      recDisableAttendeeAV: null,
+      attendeeAV: null,
       recallowattendeeAVcontrol: null,
       showAttendeeRecordingStatus: null,
       trimRecordings: null,
@@ -56,7 +56,7 @@
       localSettings[7] = +s.enableRecording;
       localSettings[8] = +s.recAllowpresentorAVcontrol;
       localSettings[9] = +s.recShowPresentorRecordingStatus;
-      localSettings[10] = +s.recDisableAttendeeAV;
+      localSettings[10] = +s.attendeeAV;
       localSettings[11] = +s.recallowattendeeAVcontrol;
       localSettings[12] = +s.showAttendeeRecordingStatus;
       localSettings[13] = +s.trimRecordings;
@@ -83,7 +83,7 @@
       settings.enableRecording = !!+localSettings[7];
       settings.recAllowpresentorAVcontrol = !!+localSettings[8];
       settings.recShowPresentorRecordingStatus = !!+localSettings[9];
-      settings.recDisableAttendeeAV = !!+localSettings[10];
+      settings.attendeeAV = !!+localSettings[10];
       settings.recallowattendeeAVcontrol = !!+localSettings[11];
       settings.showAttendeeRecordingStatus = !!+localSettings[12];
       settings.trimRecordings = !!+localSettings[13];
@@ -224,10 +224,9 @@
       }
       for (const propname in obj) {
         virtualclass.settings.info[propname] = obj[propname];
-        if(propname !== "trimRecordings"){
-           virtualclass.settings[propname](obj[propname]);
+        if (propname !== 'trimRecordings') { // avoid trim recordings
+          virtualclass.settings[propname](obj[propname]);
         }
-
       }
       const settings = virtualclass.settings.settingsToHex(obj);
       localStorage.setItem('settings', settings);
@@ -341,7 +340,7 @@
       console.log('TO DO');
     },
 
-    recDisableAttendeeAV() {
+    attendeeAV() {
       console.log('TO DO');
     },
 
@@ -360,7 +359,7 @@
     recording: {
       enableRecording: false,
       allowpresentorAVcontrol: false,
-      disableAttendeeAV: false,
+      attendeeAV: false,
       allowattendeeAVcontrol: false,
       audioVideo: true,
       statusOnly: false,
@@ -373,7 +372,7 @@
           this.allowpresentorAVcontrol = virtualclass.settings.info.recAllowpresentorAVcontrol;
           this.showPresentorRecordingStatus = (virtualclass.settings.info.allowpresentorAVcontrol) ? true : virtualclass.settings.info.recShowPresentorRecordingStatus;
         } else {
-          this.disableAttendeeAV = virtualclass.settings.info.recDisableAttendeeAV;
+          this.attendeeAV = virtualclass.settings.info.attendeeAV;
           this.allowattendeeAVcontrol = virtualclass.settings.info.recallowattendeeAVcontrol;
           this.showAttendeeRecordingStatus = (virtualclass.settings.info.allowattendeeAVcontrol) ? true : virtualclass.settings.info.showAttendeeRecordingStatus;
         }
@@ -481,9 +480,9 @@
           }
           return false;
         }
-        if (this.enableRecording && !this.disableAttendeeAV && this.allowattendeeAVcontrol && this.showAttendeeRecordingStatus) {
+        if (this.enableRecording && this.attendeeAV && this.allowattendeeAVcontrol && this.showAttendeeRecordingStatus) {
           return true;
-        } if (this.enableRecording && !this.disableAttendeeAV && !this.allowpresentorAVcontrol && this.showAttendeeRecordingStatus) {
+        } if (this.enableRecording && this.attendeeAV && !this.allowpresentorAVcontrol && this.showAttendeeRecordingStatus) {
           this.statusOnly = true;
           return true;
         }
@@ -494,7 +493,7 @@
         if (roles.hasControls()) {
           return (this.enableRecording && this.allowpresentorAVcontrol && this.audioVideo);
         }
-        if (!this.disableAttendeeAV) {
+        if (this.attendeeAV) {
           if (this.allowattendeeAVcontrol) {
             return this.audioVideo;
           }

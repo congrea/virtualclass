@@ -5,8 +5,11 @@
  *
  * Also uses some styles for jquery.ui.dialog
  */
-
-
+"use strict";
+let uiChatboxContent;
+let uiChatboxLog;
+let uiChatboxInputBox;
+let msg;
 // Display box for chatroom
 (function ($) {
   $.widget('ui.chatroom', {

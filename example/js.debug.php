@@ -151,4 +151,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user-join-operation.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-event-api.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/receive-function.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/bootstrap.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/index.js"></script>
+

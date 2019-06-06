@@ -2243,11 +2243,15 @@
         video = 'off';
         var tooltip = document.querySelector('.videoSwitchCont');
         tooltip.dataset.title = 'Video on';
-        if (roles.hasControls()) {
-          virtualclass.videoHost.gObj.videoSwitch = 0;
-        } else {
-          virtualclass.videoHost.gObj.stdStopSmallVid = true;
+        if (virtualclass.videoHost ){
+          if (roles.hasControls()) {
+            virtualclass.videoHost.gObj.videoSwitch = 0;
+          } else {
+            virtualclass.videoHost.gObj.stdStopSmallVid = true;
+          }
         }
+
+
         const hasVideo = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid} .user-details a .videoWrapper`);
 
         if (hasVideo) {

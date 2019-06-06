@@ -48,18 +48,18 @@ const chatboxManager = (function () {
 
   const boxClosedCallback = function (id) {
     // close button in the titlebar is clicked
-
     const idx = showList.indexOf(id);
     if (idx != -1) {
       showList.splice(idx, 1);
       boxList.splice(idx, 1); // removed if tab is hidden
-      diff = config.width + config.gap;
+      const diff = config.width + config.gap;
+      let offset;
       for (let i = idx; i < showList.length; i++) {
         offset = $(`#${showList[i]}`).chatbox('option', 'offset');
         $(`#${showList[i]}`).chatbox('option', 'offset', offset - diff);
       }
     } else {
-      alert(`should not happen: ${id}`);
+      alert(`There is some error: ${id}`);
     }
   };
 

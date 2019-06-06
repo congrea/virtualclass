@@ -188,7 +188,7 @@
             const userList = virtualclass.connectedUsers;
             for(let i = 0; i < userList.length; i++) {
               if(userList[i].role === "s") {
-                virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrAudImg"), true, 'audio', 'aud');
+                virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrAudImg"), virtualclass.settings.info.disableAttendeeAudio, 'audio', 'aud');
                 virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrChatImg"), true, 'chat', 'chat');
               }
             }

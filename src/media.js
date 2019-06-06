@@ -1583,40 +1583,9 @@
       handleUserMedia(stream) {
         localStorage.removeItem('dvid');
         const audioWiget = document.getElementById('audioWidget');
-        let audio = localStorage.getItem('audEnable');
+        var audio = localStorage.getItem('audEnable');
         if (roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone) {
-          // virtualclass.media.audioVisual.readyForVisual(stream);
-          // var str = localStorage.getItem("settings");
-          // var settings = (str !== null) ? virtualclass.settings.onLoadSettings(str) : virtualclass.settings.onLoadSettings(virtualclassSetting.settings);
-
-          // audio = JSON.parse(audio);
-
-          if ((virtualclass.settings.info.disableAttendeeAudio === false)) {
-            virtualclass.gObj.audioEnable = false;
-            virtualclass.user.control.audioDisable(true);
-          } else if (virtualclass.settings.info.disableAttendeeAudio === true) {
-            virtualclass.gObj.audioEnable = true;
-            virtualclass.user.control.audioWidgetEnable(true);
-          } else if (virtualclass.settings.info.disableAttendeeAudio !== true) {
-            virtualclass.user.control.audioDisable();
-          }
-
-          /* /
-           if(str != null){
-           //audio = JSON.parse(audio);
-           if ((virtualclass.settings.info..disableAttendeeAudio === false)) {
-           virtualclass.gObj.audioEnable = false;
-           virtualclass.user.control.audioDisable(true);
-           } else if (settings..disableAttendeeAudio === true) {
-           virtualclass.gObj.audioEnable = true;
-           virtualclass.user.control.audioWidgetEnable(true);
-           }
-           }else if(settings..disableAttendeeAudio !== true){
-           virtualclass.user.control.audioDisable();
-           }else if(settings..disableAttendeeAudio === true){
-           virtualclass.gObj.audioEnable = true;
-           virtualclass.user.control.audioWidgetEnable(true);
-           } */
+            virtualclass.settings.userAudioIcon();
         } else if (virtualclass.system.mediaDevices.hasMicrophone) {
           // virtualclass.media.audioVisual.readyForVisual(stream);
           if (audio != null) {
@@ -1663,28 +1632,7 @@
             virtualclass.videoHost.renderSelfVideo(stream); // Teacher video
           });
         }
-
-        // var vidstatus = localStorage.getItem("allVideoAction");
-        if (virtualclass.settings.info.disableAttendeeVideo === false && roles.isStudent()) {
-          virtualclass.user.control.videoDisable();
-        } else {
-          //! virtualclass.gObj.stdvideoEnable
-          if (roles.isStudent() && virtualclass.settings.info.disableAttendeeVideo !== true) {
-            virtualclass.vutil.videoHandler('off');
-            virtualclass.videoHost.toggleVideoMsg('disable');
-          } else {
-            virtualclass.user.control.videoEnable();
-            if (roles.isStudent()) {
-              // after refresh video disable when user enable his video etc.
-              virtualclass.vutil.videoHandler('off');
-            }
-          }
-
-          // var videoAction = localStorage.getItem("allVideoAction");
-          if (virtualclass.settings.info.disableAttendeeVideo === true) {
-            virtualclass.user.control.videoEnable();
-          }
-        }
+         virtualclass.settings.userVideoIcon();
 
         /**
          * Disable teacher video by default, when he/she will join first time

@@ -667,12 +667,12 @@
 
         _chat(userId, action) {
           if (action == 'enable') {
-            virtualclass.vutil.beforeSend({ enc: true, toUser: userId, cf: 'enc' }, userId);
-            // virtualclass.settings.applySettings(true, "disableAttendeePc", userId);
+            //virtualclass.vutil.beforeSend({ enc: true, toUser: userId, cf: 'enc' }, userId);
+             virtualclass.settings.applySettings(true, "disableAttendeePc", userId);
           } else {
             const user = virtualclass.user.control.updateUser(userId, 'chat', false);
-            virtualclass.vutil.beforeSend({ dic: true, toUser: userId, cf: 'dic' }, userId);
-            // virtualclass.settings.applySettings(false, "disableAttendeePc", userId);
+            //virtualclass.vutil.beforeSend({ dic: true, toUser: userId, cf: 'dic' }, userId);
+             virtualclass.settings.applySettings(false, "disableAttendeePc", userId);
           }
         },
 
@@ -1457,22 +1457,32 @@
 
 
           if (allSpans[i].className.indexOf('chat') > -1) {
-            if (uObj && userObj.hasOwnProperty('chat')) {
-              var chEnable = !!(userObj.chat);
+              if (uObj && userObj.hasOwnProperty('chat')) {
+                if(virtualclass.settings.user.hasOwnProperty(userId)) {
+                   var userSettings = virtualclass.settings.onLoadSettings(virtualclass.settings.user[userId]);
+                   var chEnable = userSettings.disableAttendeePc;
+                }else{
+                   var chEnable = virtualclass.settings.info.disableAttendeePc;
+                }
             } else {
-              var chEnable = true;
+                var chEnable = virtualclass.settings.info.disableAttendeePc;
             }
             virtualclass.user.control.changeAttribute(userId, allSpans[i], chEnable, 'chat', 'chat');
           } else if (allSpans[i].className.indexOf('aud') > -1) {
-            if (uObj && userObj.hasOwnProperty('aud')) {
-              var audEnable = !!(userObj.aud);
+              if (uObj && userObj.hasOwnProperty('aud')) {
+                  if(virtualclass.settings.user.hasOwnProperty(userId)) {
+                     var userSettings = virtualclass.settings.onLoadSettings(virtualclass.settings.user[userId]);
+                     var audEnable = userSettings.disableAttendeeAudio;
+                  }else{
+                     var audEnable = virtualclass.settings.info.disableAttendeeAudio;
+                  }
             } else {
-              var elem = document.querySelector('#contrAudioAll');
-              if (virtualclass.jId != null && elem.classList.contains('disable')) {
-                var audEnable = true;
-              } else {
-                var audEnable = virtualclass.gObj.stdaudioEnable; // default value for userlist mic enable or disable
-              }
+                  var elem = document.querySelector("#contrAudioAll");
+                  if(virtualclass.jId != null && elem.classList.contains("disable")){
+                     var audEnable = virtualclass.settings.info.disableAttendeeAudio;
+                  }else {
+                     var audEnable = virtualclass.gObj.stdaudioEnable;       //default value for userlist mic enable or disable
+                  }
             }
 
             virtualclass.user.control.changeAttribute(userId, allSpans[i], audEnable, 'audio', 'aud');

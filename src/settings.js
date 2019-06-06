@@ -35,8 +35,12 @@
           virtualclass.settings.info[propname] = settings[propname];
         }
       }
+      let userSetting = JSON.parse(localStorage.getItem("userSettings"));
+      if(userSetting){
+        virtualclass.settings.user = userSetting;
+      }
 
-      this.recording.init();
+      //this.recording.init();
     },
 
     // settings object values assign to array for get a hax code
@@ -181,22 +185,38 @@
         const value = obj[settingName];
         if ((value === true || value === false) && virtualclass.settings.info.hasOwnProperty(settingName)) {
           if (typeof userId === 'undefined') {
-            localStorage.removeItem('userSettings');
+            const userList = virtualclass.connectedUsers;
+            for(let i = 0; i < userList.length; i++) {
+              if(userList[i].role === "s") {
+                virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrAudImg"), true, 'audio', 'aud');
+                virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrChatImg"), true, 'chat', 'chat');
+              }
+            }
+            localStorage.removeItem("userSettings");
+            virtualclass.settings.user = {};
             virtualclass.settings.info[settingName] = value;
             const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
             virtualclass.settings.send(str, userId);
             localStorage.setItem('settings', str);
           } else {
-            const individualSetting = {};
-            const setting = virtualclass.settings.info;
-            for (const propname in setting) {
-              individualSetting[propname] = setting[propname];
+            var specificSettings;
+            if(virtualclass.settings.user.hasOwnProperty(userId)) {
+              const user = virtualclass.settings.user[userId];
+              const setting = virtualclass.settings.onLoadSettings(user);
+              setting[settingName] = value;
+              specificSettings = virtualclass.settings.settingsToHex(setting);
+            }else {
+              const individualSetting = {};
+              const setting = virtualclass.settings.info;
+              for(const propname in setting) {
+                individualSetting[propname] = setting[propname];
+              }
+              individualSetting[settingName] = value;
+              specificSettings = virtualclass.settings.settingsToHex(individualSetting);
             }
-            individualSetting[settingName] = value;
-            const specificSettings = virtualclass.settings.settingsToHex(individualSetting);
-            virtualclass.settings.user[userId] = specificSettings;
             virtualclass.settings.send(specificSettings, userId);
-            localStorage.setItem('userSettings', JSON.stringify(virtualclass.settings.user));
+            virtualclass.settings.user[userId] = specificSettings;
+            localStorage.setItem("userSettings" , JSON.stringify(virtualclass.settings.user));
           }
           return true;
         }
@@ -204,7 +224,7 @@
       }
       for (const propname in obj) {
         virtualclass.settings.info[propname] = obj[propname];
-        if (propname !== 'trimRecordings') { //avoid trim recordings
+        if (propname !== 'trimRecordings') { // avoid trim recordings
           virtualclass.settings[propname](obj[propname]);
         }
       }
@@ -261,8 +281,17 @@
       console.log('TO DO');
     },
 
-    disableAttendeePc() {
+    disableAttendeePc(value) {
       console.log('TO DO');
+      if(value === true) {
+        virtualclass.user.control.allChatEnable();
+        virtualclass.gObj.chatEnable = true;
+        document.querySelector('#chatWidget').classList.remove('chat_disabled');
+        document.querySelector('#chat_div').classList.remove('chat_disabled');
+      }else if(value === false){
+        virtualclass.user.control.allChatDisable();
+        virtualclass.gObj.chatEnable = false;
+      }
     },
 
     disableAttendeeGc() {
@@ -493,6 +522,38 @@
         this.setStatusOnElement();
         this.updateSettingAV(message.ac);
       },
+    },
+    userAudioIcon() {
+      if ((virtualclass.settings.info.disableAttendeeAudio === false)) {
+        virtualclass.gObj.audioEnable = false;
+        virtualclass.user.control.audioDisable(true);
+      } else if (virtualclass.settings.info.disableAttendeeAudio === true) {
+        virtualclass.gObj.audioEnable = true;
+        virtualclass.user.control.audioWidgetEnable(true);
+      } else if (virtualclass.settings.info.disableAttendeeAudio !== true) {
+        virtualclass.user.control.audioDisable();
+      }
+
+    },
+
+    userVideoIcon() {
+      if (virtualclass.settings.info.disableAttendeeVideo === false && roles.isStudent()) {
+        virtualclass.user.control.videoDisable();
+      } else {
+        if (roles.isStudent() && virtualclass.settings.info.disableAttendeeVideo !== true) {
+          virtualclass.vutil.videoHandler("off");
+          virtualclass.videoHost.toggleVideoMsg("disable");
+        } else {
+          virtualclass.user.control.videoEnable();
+          if (roles.isStudent()) {
+            // after refresh video disable when user enable his video etc.
+            virtualclass.vutil.videoHandler("off");
+          }
+        }
+        if (virtualclass.settings.info.disableAttendeeVideo === true) {
+          virtualclass.user.control.videoEnable();
+        }
+      }
     },
   };
   window.settings = settings;

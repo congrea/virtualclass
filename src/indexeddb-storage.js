@@ -593,6 +593,10 @@
 
         console.log(`New role before clear ${virtualclass.gObj.uRole}`);
         // virtualclass.gObj.uRole // update the role at
+        localStorage.removeItem("settings");
+        localStorage.removeItem("userSettings");
+        virtualclass.settings.user = {};
+
         that.config.createNewSession();
         if(roles.isStudent()) {
           virtualclass.settings.init();
@@ -681,9 +685,7 @@
         virtualclass.gObj.wbCount = 0;
         virtualclass.wbCommon.clearNavigation();
         delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
-        localStorage.removeItem("settings");
-        localStorage.removeItem("userSettings");
-        virtualclass.settings.user = {};
+
       },
     },
 

@@ -40,7 +40,7 @@
         virtualclass.settings.user = userSetting;
       }
 
-      //this.recording.init();
+      this.recording.init();
     },
 
     // settings object values assign to array for get a hax code
@@ -379,7 +379,7 @@
 
         this.trimRecordings = virtualclass.settings.info.trimRecordings;
 
-        this.showStatus = this.showStatus();
+        this.showStatusButton = this.showStatus();
         this.showButton();
         this.overrideSettingFromLocalStorage();
       },
@@ -398,7 +398,7 @@
 
       showButton() {
         const recording = document.getElementById('recording');
-        if (this.showStatus) {
+        if (this.showStatusButton) {
           recording.classList.remove('hide');
           recording.classList.add('show');
           virtualclassCont.dataset.recording = 'on';

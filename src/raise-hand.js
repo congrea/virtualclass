@@ -28,7 +28,7 @@
         }
       },
 
-      disableRaiseHand(userid) {
+      raisehand(userid) {
         // var controlContainer = document.getElementById(userid + 'contRaiseH');
         var controlContainer = chatContainerEvent.elementFromShadowDom(`#ml${userid} .controllerRaiseH`);
 

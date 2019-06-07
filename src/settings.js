@@ -2,12 +2,12 @@
   const settings = {
     info: { // All settings object
       allowoverride: null,
-      disableAttendeeAudio: null,
-      disableAttendeePc: null,
-      disableAttendeeGc: null,
-      disableAttendeeVideo: null,
-      disableRaiseHand: null,
-      disableUserList: null,
+      studentaudio: null,
+      studentpc: null,
+      studentgc: null,
+      studentvideo: null,
+      raisehand: null,
+      userlist: null,
       x8: null,
       x16: null,
 
@@ -23,11 +23,13 @@
     },
 
     user: {},
+    setting : "",
     init() { // default settings applyed from here
       let settings = localStorage.getItem('settings');
       if (!settings) {
         settings = virtualclassSetting.settings;
       }
+      virtualclass.settings.setting = settings;
       settings = virtualclass.settings.onLoadSettings(settings);
 
       for (const propname in settings) {
@@ -47,12 +49,12 @@
     settingsToHex(s) {
       const localSettings = [];
       localSettings[0] = +s.allowoverride;
-      localSettings[1] = +s.disableAttendeeAudio;
-      localSettings[2] = +s.disableAttendeeVideo;
-      localSettings[3] = +s.disableAttendeePc;
-      localSettings[4] = +s.disableAttendeeGc;
-      localSettings[5] = +s.disableRaiseHand;
-      localSettings[6] = +s.disableUserList;
+      localSettings[1] = +s.studentaudio;
+      localSettings[2] = +s.studentvideo;
+      localSettings[3] = +s.studentpc;
+      localSettings[4] = +s.studentgc;
+      localSettings[5] = +s.raisehand;
+      localSettings[6] = +s.userlist;
       localSettings[7] = +s.enableRecording;
       localSettings[8] = +s.recAllowpresentorAVcontrol;
       localSettings[9] = +s.recShowPresentorRecordingStatus;
@@ -74,12 +76,12 @@
         localSettings = localSettings.split('');
       }
       settings.allowoverride = !!+localSettings[0];
-      settings.disableAttendeeAudio = !!+localSettings[1];
-      settings.disableAttendeeVideo = !!+localSettings[2];
-      settings.disableAttendeePc = !!+localSettings[3];
-      settings.disableAttendeeGc = !!+localSettings[4];
-      settings.disableRaiseHand = !!+localSettings[5];
-      settings.disableUserList = !!+localSettings[6];
+      settings.studentaudio = !!+localSettings[1];
+      settings.studentvideo = !!+localSettings[2];
+      settings.studentpc = !!+localSettings[3];
+      settings.studentgc = !!+localSettings[4];
+      settings.raisehand = !!+localSettings[5];
+      settings.userlist = !!+localSettings[6];
       settings.enableRecording = !!+localSettings[7];
       settings.recAllowpresentorAVcontrol = !!+localSettings[8];
       settings.recShowPresentorRecordingStatus = !!+localSettings[9];
@@ -188,7 +190,7 @@
             const userList = virtualclass.connectedUsers;
             for(let i = 0; i < userList.length; i++) {
               if(userList[i].role === "s") {
-                virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrAudImg"), virtualclass.settings.info.disableAttendeeAudio, 'audio', 'aud');
+                virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrAudImg"), virtualclass.settings.info.studentaudio, 'audio', 'aud');
                 virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrChatImg"), true, 'chat', 'chat');
               }
             }
@@ -261,7 +263,7 @@
     },
 
     // Mute or Unmute all student audio or particular student mute or unmute
-    disableAttendeeAudio(value) {
+    studentaudio(value) {
       if (roles.isStudent()) {
         if (value === true) {
           virtualclass.user.control.audioWidgetEnable(true);
@@ -281,7 +283,7 @@
       console.log('TO DO');
     },
 
-    disableAttendeePc(value) {
+    studentpc(value) {
       console.log('TO DO');
       if(value === true) {
         virtualclass.user.control.allChatEnable();
@@ -294,12 +296,12 @@
       }
     },
 
-    disableAttendeeGc() {
+    studentgc() {
       console.log('TO DO');
     },
 
     // All student video enable, disable
-    disableAttendeeVideo(value) {
+    studentvideo(value) {
       if (roles.isStudent()) {
         let action;
         const sw = document.querySelector('.videoSwitchCont #videoSwitch');
@@ -316,11 +318,11 @@
       }
     },
 
-    disableRaiseHand() {
+    raisehand() {
       console.log('TO DO');
     },
 
-    disableUserList() {
+    userlist() {
       console.log('TO DO');
     },
 
@@ -524,23 +526,23 @@
       },
     },
     userAudioIcon() {
-      if ((virtualclass.settings.info.disableAttendeeAudio === false)) {
+      if ((virtualclass.settings.info.studentaudio === false)) {
         virtualclass.gObj.audioEnable = false;
         virtualclass.user.control.audioDisable(true);
-      } else if (virtualclass.settings.info.disableAttendeeAudio === true) {
+      } else if (virtualclass.settings.info.studentaudio === true) {
         virtualclass.gObj.audioEnable = true;
         virtualclass.user.control.audioWidgetEnable(true);
-      } else if (virtualclass.settings.info.disableAttendeeAudio !== true) {
+      } else if (virtualclass.settings.info.studentaudio !== true) {
         virtualclass.user.control.audioDisable();
       }
 
     },
 
     userVideoIcon() {
-      if (virtualclass.settings.info.disableAttendeeVideo === false && roles.isStudent()) {
+      if (virtualclass.settings.info.studentvideo === false && roles.isStudent()) {
         virtualclass.user.control.videoDisable();
       } else {
-        if (roles.isStudent() && virtualclass.settings.info.disableAttendeeVideo !== true) {
+        if (roles.isStudent() && virtualclass.settings.info.studentvideo !== true) {
           virtualclass.vutil.videoHandler("off");
           virtualclass.videoHost.toggleVideoMsg("disable");
         } else {
@@ -550,7 +552,7 @@
             virtualclass.vutil.videoHandler("off");
           }
         }
-        if (virtualclass.settings.info.disableAttendeeVideo === true) {
+        if (virtualclass.settings.info.studentvideo === true) {
           virtualclass.user.control.videoEnable();
         }
       }

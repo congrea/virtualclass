@@ -3333,7 +3333,7 @@
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler{
-	z-index: 1000;
+	/* z-index: 1000; */
 }
 
 #virtualclassCont.congrea #layoutQuizBody .table > tr >th,

@@ -1025,7 +1025,7 @@
     }
 
     #virtualclassCont.congrea.playMode[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea.playMode[data-currapp = 'Whiteboard'].student #docShareNav {
-        right:560px;
+        right:380px;
     }
 
     .congrea #stdPageNo {

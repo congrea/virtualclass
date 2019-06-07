@@ -5,7 +5,7 @@
     bottom:255px;
     padding: 0px;
     border-bottom: none;
-    z-index: -1;
+    z-index: 13;
     overflow: hidden;
     left: -1px;
     border: 1px solid #bbb;

@@ -459,7 +459,7 @@
           virtualclass.vutil.prechkScrnShare();
         }
 
-        // virtualclass.raiseHand.disableRaiseHand();
+        // virtualclass.raiseHand.raisehand();
         virtualclass.gObj.audioEnable = (roles.hasControls()) ? true : virtualclass.gObj.stdaudioEnable;
         virtualclass.storage.config.sessionEndFlag = true;
         const newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator

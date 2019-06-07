@@ -668,11 +668,11 @@
         _chat(userId, action) {
           if (action == 'enable') {
             //virtualclass.vutil.beforeSend({ enc: true, toUser: userId, cf: 'enc' }, userId);
-             virtualclass.settings.applySettings(true, "disableAttendeePc", userId);
+             virtualclass.settings.applySettings(true, "studentpc", userId);
           } else {
             const user = virtualclass.user.control.updateUser(userId, 'chat', false);
             //virtualclass.vutil.beforeSend({ dic: true, toUser: userId, cf: 'dic' }, userId);
-             virtualclass.settings.applySettings(false, "disableAttendeePc", userId);
+             virtualclass.settings.applySettings(false, "studentpc", userId);
           }
         },
 
@@ -724,15 +724,15 @@
         _audio(userId, action) {
           if (action == 'enable') {
             // virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
-            virtualclass.settings.applySettings(true, 'disableAttendeeAudio', userId);
+            virtualclass.settings.applySettings(true, 'studentaudio', userId);
           } else {
             // virtualclass.vutil.beforeSend({'dia': true, toUser: userId, 'cf': 'dia'}, userId);
-            virtualclass.settings.applySettings(false, 'disableAttendeeAudio', userId);
+            virtualclass.settings.applySettings(false, 'studentaudio', userId);
           }
         },
         _RaiseHand(userId, action) {
           // to disable only ..
-          virtualclass.raiseHand.disableRaiseHand(userId);
+          virtualclass.raiseHand.raisehand(userId);
         },
 
         _stdscreen(userId) {
@@ -1295,7 +1295,7 @@
             if (type == 'audio') {
               var actionToPerform = that.toogleAudioIcon();
               const actAudio = (actionToPerform == 'enable');
-              virtualclass.settings.applySettings(actAudio, 'disableAttendeeAudio');
+              virtualclass.settings.applySettings(actAudio, 'studentaudio');
 
               if (typeof actionToPerform !== 'undefined') {
                 localStorage.setItem('allAudAction', actionToPerform);
@@ -1304,7 +1304,7 @@
             } else {
               var actionToPerform = that.toggleVideoIcon();
               const actVideo = (actionToPerform == 'enable');
-              virtualclass.settings.applySettings(actVideo, 'disableAttendeeVideo');
+              virtualclass.settings.applySettings(actVideo, 'studentvideo');
               if (typeof actionToPerform !== 'undefined') {
                 localStorage.setItem('allVideoAction', actionToPerform);
                 that.toggleAllVideo(actionToPerform);
@@ -1320,7 +1320,7 @@
         // TODO, review this code
         for (const propname in obj) {
           value = obj[propname];
-          if (type === 'audio' && propname === 'disableAttendeeAudio' || type === 'video' && propname === 'disableAttendeeVideo') {
+          if (type === 'audio' && propname === 'studentaudio' || type === 'video' && propname === 'studentvideo') {
             actionAV = (value === true) ? 'enable' : 'disable';
           }
         }
@@ -1460,26 +1460,26 @@
               if (uObj && userObj.hasOwnProperty('chat')) {
                 if(virtualclass.settings.user.hasOwnProperty(userId)) {
                    var userSettings = virtualclass.settings.onLoadSettings(virtualclass.settings.user[userId]);
-                   var chEnable = userSettings.disableAttendeePc;
+                   var chEnable = userSettings.studentpc;
                 }else{
-                   var chEnable = virtualclass.settings.info.disableAttendeePc;
+                   var chEnable = virtualclass.settings.info.studentpc;
                 }
             } else {
-                var chEnable = virtualclass.settings.info.disableAttendeePc;
+                var chEnable = virtualclass.settings.info.studentpc;
             }
             virtualclass.user.control.changeAttribute(userId, allSpans[i], chEnable, 'chat', 'chat');
           } else if (allSpans[i].className.indexOf('aud') > -1) {
               if (uObj && userObj.hasOwnProperty('aud')) {
                   if(virtualclass.settings.user.hasOwnProperty(userId)) {
                      var userSettings = virtualclass.settings.onLoadSettings(virtualclass.settings.user[userId]);
-                     var audEnable = userSettings.disableAttendeeAudio;
+                     var audEnable = userSettings.studentaudio;
                   }else{
-                     var audEnable = virtualclass.settings.info.disableAttendeeAudio;
+                     var audEnable = virtualclass.settings.info.studentaudio;
                   }
             } else {
                   var elem = document.querySelector("#contrAudioAll");
                   if(virtualclass.jId != null && elem.classList.contains("disable")){
-                     var audEnable = virtualclass.settings.info.disableAttendeeAudio;
+                     var audEnable = virtualclass.settings.info.studentaudio;
                   }else {
                      var audEnable = virtualclass.gObj.stdaudioEnable;       //default value for userlist mic enable or disable
                   }

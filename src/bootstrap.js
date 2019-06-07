@@ -147,7 +147,7 @@
     virtualclass.gObj.fromPageRefresh = true;
     virtualclass.config.data.appIs = appIs;
     virtualclass.config.data.videoObj = videoObj;
-  }
+  };
 
   Bootstrap.prototype.appInit = async function () {
 
@@ -171,7 +171,7 @@
       virtualclass.editorRich.veryInit();
       virtualclass.editorCode.veryInit();
     }
-  }
+  };
 
   Bootstrap.prototype.setUpData = function (window) {
     if (virtualclass.vutil.isMiniFileIncluded('wb.min')) {
@@ -202,7 +202,7 @@
     virtualclass.gObj.testChatDiv.attachShadow({ mode: 'open' });
   }
 
-  Bootstrap.prototype.readyToGo  = function (){
+  Bootstrap.prototype.readyToGo = function (){
     virtualclass.vutil.attachClickOutSideCanvas();
     if (virtualclass.vutil.isPlayMode()) {
       virtualclass.vutil.clearEverthing();

@@ -151,6 +151,8 @@ var ioAdapter = {
     };
     io.realSend(obj);
     console.log(`==== Send Session serverSession ${session}`);
+    this.initSetSession(session);
+    this.makeSessionReady();
   },
 
   initSetSession(session) {

@@ -26,7 +26,7 @@ function joinAsTeacher(jId) {
   }
 
   if (virtualclass.gObj.hasOwnProperty('doEndSession') && roles.isTeacher()) {
-    overrideRoleTeacher();
+    virtualclass.vutil.overrideRoleTeacher();
   }
 }
 
@@ -36,30 +36,13 @@ function joinAsTeacher(jId) {
  * @param role
  */
 var overrideOperation = function (role) {
-  if (role == 's') {
+  if (role === 's') {
     virtualclass.view.disappearBox('drawArea'); // remove draw message box
     removeAppsDom();
     if (typeof virtualclass.wb === 'object') {
       // make canvas disable if there canvas is disabled
       virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasDisable();
     }
-  } else if (role == 'e') {
-    const userId = getUserId(virtualclass.jId);
-    if (userId) {
-      const virtualclassCont = document.getElementById('virtualclassCont');
-      virtualclassCont.classList.add('orginalTeacher');
-      // sending flag as new user become educator is joined
-      // virtualclass.vutil.beforeSend({
-      //    'status': true,
-      //    control: 'editorRich',
-      //    toUser: userId,
-      //    'cf': 'nEd'
-      // }, userId);
-      // transferControl(userId);
-    }
-    console.log('Member add :- join as educator');
-  } else {
-    console.log(`Member add :- join as ${role}`);
   }
 
   io.disconnect();
@@ -77,7 +60,7 @@ var overrideOperation = function (role) {
 
 function initOverrideRoleTeacher(jId) {
   if (virtualclass.gObj.hasOwnProperty('doEndSession') && selfJoin(jId) && virtualclass.joinUser.role == 't') {
-    overrideRoleTeacher();
+    virtualclass.vutil.overrideRoleTeacher();
   }
 }
 
@@ -167,19 +150,6 @@ const ioEventApi = {
         virtualclass.gObj.veryFirstJoin = false;
         overrideOperation('s');
         console.log('Member add :- Join As Student');
-      } else if (virtualclass.gObj.veryFirstJoin && virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId)) {
-        // overrideOperation('e');
-
-        const presenterId = virtualclass.vutil.getPresenterId();
-        if (presenterId) {
-          ioAdapter.sendUser({
-            cf: 'rpr', // remove presenter role
-          }, presenterId);
-
-          overrideRoleTeacher();
-        } else {
-          console.log('There some problem on joining as');
-        }
       } else {
         /* Clouser is used to retain the joined userid on SetTimeout */
         (function (jId) {
@@ -193,14 +163,6 @@ const ioEventApi = {
         }(virtualclass.jId));
       }
       // If user try to join as Presenter OR Educator
-    } else if (((virtualclass.vutil.selfJoin(virtualclass.jId) && virtualclass.gObj.veryFirstJoin))
-      && (virtualclass.joinUser.role == 'p'
-      && (virtualclass.vutil.isPresenterAlreadyExist(virtualclass.jId))
-      || (virtualclass.joinUser.role == 'e'
-      && (virtualclass.vutil.isEducatorAlreadyExist(virtualclass.jId) || virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId))))) {
-      virtualclass.gObj.veryFirstJoin = false;
-      overrideOperation('s');
-      console.log('Member add :- join as student. Earlier was educator OR teacher');
     } else {
       // this will be the usual case:-
       defaultOperation(e, sType);
@@ -276,11 +238,7 @@ const ioEventApi = {
 
   user_logout(e) {
     console.log('user_logout');
-    if (isAnyOnePresenter() && !isTeacherExistWhenRemoveUser(virtualclass.connectedUsers)) {
-      if (virtualclass.gObj.uRole != 't' && virtualclass.gObj.uRole != 'e') {
-        virtualclass.vutil.createBecomeTeacherWidget();
-      }
-    }
+
 
 
     if (!roles.hasControls()) {
@@ -303,12 +261,6 @@ const ioEventApi = {
 
     if (virtualclass.chat.isTechSupportExist(e.fromUser)) {
       virtualclass.chat.disableTechSupport(e.fromUser);
-    }
-
-    if ((e.fromUser.role == 't' || e.fromUser.role == 'e') && (roles.isStudent() || roles.isPresenter())) {
-      localStorage.setItem('oTDisconn', true);
-      disableEditor('editorRich');
-      disableEditor('editorCode');
     }
 
     const removeUser = e.fromUser;

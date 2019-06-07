@@ -1,5 +1,6 @@
 (function (window) {
   window.virtualclass = function () {
+    /** TODO, this below data should be move into config ***/
     const dstData = null;
     const playMode = (wbUser.virtualclassPlay != '' ? parseInt(wbUser.virtualclassPlay, 10) : 0);
     let studentSSstatus = localStorage.getItem('studentSSstatus');
@@ -10,10 +11,9 @@
     }
 
     return {
+      config: {},
       isPlayMode: playMode,
-      /* TODO, editorCode should be removed in proper way,
-       the apps should not be in array but should handle in better way I */
-      //            apps: ["Whiteboard", "ScreenShare", 'Yts', 'EditorRich', 'EditorCode', 'SharePresentation','Poll','Video', 'DocumentShare','Quiz', 'MultiVideo'],
+      /* TODO, editorCode should be removed in proper way */
       apps: {
         wb: 'Whiteboard',
         ss: 'ScreenShare',

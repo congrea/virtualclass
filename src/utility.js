@@ -1358,24 +1358,11 @@
       return false;
     },
 
-    isPresenterAlreadyExist(joinId) {
-      if (virtualclass.hasOwnProperty('connectedUsers')) {
-        for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
-          if ((virtualclass.connectedUsers[i].role == 'p')
-            && virtualclass.connectedUsers[i].userid != joinId) {
-            console.log(`joniId ${joinId}`);
-            return true;
-          }
-        }
-      }
-      return false;
-    },
 
     /**
      * Get presenter id otherwise false
      * @returns {*}
      */
-
     getPresenterId() {
       if (virtualclass.hasOwnProperty('connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
@@ -2847,6 +2834,36 @@
       }
     },
 
+    removeSessionEndTool() {
+      const virtualclassSessionEndTool = document.getElementById('virtualclassSessionEndTool');
+      if (virtualclassSessionEndTool != null) {
+        virtualclassSessionEndTool.parentNode.removeChild(virtualclassSessionEndTool);
+      }
+    },
+
+    overrideRoleTeacher() {
+      console.log('Member add:- End session override teacher');
+      virtualclass.storage.config.endSession();
+      localStorage.setItem('uRole', 't');
+      delete virtualclass.gObj.doEndSession;
+    },
+
+    clearEverthing() {
+      localStorage.removeItem('editorRich');
+      localStorage.removeItem('editorCode');
+
+      virtualclass.notPLayed = true;
+      virtualclass.storage.config.endSession();
+      virtualclass.chat.chatroombox = false;
+      const chatRoom = document.getElementById('chatrm');
+      if (chatRoom !== null) {
+        chatRoom.parentNode.removeChild(chatRoom);
+      }
+      const canvasElem = document.getElementById('canvas');
+      if (canvasElem !== null) {
+        canvasElem.style.pointerEvents = 'none';
+      }
+    },
   };
   window.vutil = vutil;
 }(window));

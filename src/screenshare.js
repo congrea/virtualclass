@@ -516,6 +516,10 @@ let newCanvas;
             virtualclass.ss.showDashboard();
           }
         }
+
+        if (virtualclass.gObj.studentSSstatus.mesharing) {
+          virtualclass.gObj.studentSSstatus.mesharing = false;
+        }
         console.log(`Error ${e}`);
       },
 

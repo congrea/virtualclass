@@ -9,8 +9,6 @@ const ioPingPong = {
         ioAdapter.sendWithDelayAndDrop(msg, null, 'mustSend', 'pingAll', 3000);
         console.log('PING BROADCAST');
       }
-    } else if (e.type == 'member_added' && e.hasOwnProperty('users')) {
-      io.sessionSet = true;
     }
   },
   pong(e) {

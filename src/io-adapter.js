@@ -128,10 +128,6 @@ var ioAdapter = {
     io.sendBinary(msg);
   },
 
-  makeSessionReady() {
-    io.sessionSet = true;
-  },
-
   setRecording() {
     if (!virtualclass.isPlayMode && virtualclass.settings.recording.enableRecording) {
       const sendData = virtualclass.settings.recording.sendYesOrNo();
@@ -150,20 +146,21 @@ var ioAdapter = {
       arg: { msg: session }, // My session
     };
     io.realSend(obj);
-    console.log(`==== Send Session serverSession ${session}`);
-    this.initSetSession(session);
-    this.makeSessionReady();
   },
 
   initSetSession(session) {
-    const serverSession = localStorage.getItem('serverSession');
-    if (serverSession == null) {
-      localStorage.setItem('serverSession', session);
-    } else if (!virtualclass.isPlayMode && serverSession != session) {
-      this.setSession(serverSession);
-    } else if (!virtualclass.isPlayMode && serverSession === session) {
-      this.makeSessionReady();
+    if (virtualclass.isPlayMode) {
+      return;
     }
+    const localSession = localStorage.getItem('serverSession');
+    if (localSession === null) {
+      localStorage.setItem('serverSession', session);
+    } else if (localSession !== session) {
+      io.readyToSend = true;
+      workerIO.postMessage({ cmd: 'readyToSend' });
+      this.setSession(localSession);
+    }
+    io.sessionSet = true;
   },
 
   sync(msg) {

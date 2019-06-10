@@ -242,15 +242,13 @@ var io = {
       case 'joinroom':
         if (receivemsg.hasOwnProperty('users')) { // When self web socket is connected
           ioAdapter.setRecording();
-          if (!roles.hasControls()) {
-            ioAdapter.makeSessionReady();
-          }
+          io.sessionSet = true;
           console.log('==== Member add, join room');
         } else {
           console.log('No users');
         }
 
-        this.readyToSend = true;
+        io.readyToSend = true;
 
         workerIO.postMessage({ cmd: 'readyToSend' });
 

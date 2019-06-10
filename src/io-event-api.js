@@ -145,10 +145,13 @@ const ioEventApi = {
     virtualclass.gObj.mySetTime = 2000;
 
 
-    if (virtualclass.vutil.selfJoin(virtualclass.jId)) {
-      console.log('self join suman');
-      defaultOperation(e, sType);
-    }
+    // if (virtualclass.vutil.selfJoin(virtualclass.jId)) {
+    //   console.log('self join suman');
+    //   defaultOperation(e, sType);
+    // }
+
+    console.log("==== Add users")
+    defaultOperation(e, sType);
 
     if (roles.hasControls()) {
       virtualclass.poll.updateUsersOnPoll();

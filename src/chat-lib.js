@@ -129,11 +129,8 @@ function updateOnlineUserText() {
       } else {
         onlineUser.innerHTML = text;
       }
-    } else if (virtualclass.chat.userList.nothing == 'nothing') {
-      // in case of without moodle
-      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${"<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
     } else {
-      console.log('Chat list is not fetched yet.');
+      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${"<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
     }
   } else {
     document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${"<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;

@@ -31,6 +31,7 @@
     virtualclass.ioEventApi = ioEventApi;
 
     virtualclass.gObj.mobileVchOffset = vhCheck();
+    localStorage.setItem("settings", virtualclass.settings.temp);
     let wIds = localStorage.getItem('wIds');
     if (wIds != null) {
       wIds = JSON.parse(wIds);

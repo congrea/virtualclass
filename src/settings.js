@@ -23,13 +23,13 @@
     },
 
     user: {},
-    setting : "",
+    temp : "",
     init() { // default settings applyed from here
       let settings = localStorage.getItem('settings');
       if (!settings) {
         settings = virtualclassSetting.settings;
       }
-      virtualclass.settings.setting = settings;
+      virtualclass.settings.temp = settings;
       settings = virtualclass.settings.onLoadSettings(settings);
 
       for (const propname in settings) {

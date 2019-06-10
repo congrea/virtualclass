@@ -309,7 +309,7 @@ const receiveFunctions = new function () {
       virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
 
       // The packets came from teacher when he/she does not has control won't be display
-      if (e.fromUser.role == 'p' || ((e.fromUser.role == 't' || (e.fromUser.role == 'e')) && !virtualclass.vutil.isPresenterExist())) {
+      if (e.fromUser.role == 't') {
         virtualclass.wb[virtualclass.gObj.currWb].utility.replayObjsByFilter(e.message.repObj);
       } else {
         console.log('whiteboard -------------------------- We just lost a packet');

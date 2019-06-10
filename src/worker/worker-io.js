@@ -12,6 +12,7 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
     workerAudioSend: false,
     binMsgQueue: [],
     recBinMsgQueue: [],
+    packetQueue: [],
 
     init(cfg) {
       this.cfg = cfg;
@@ -46,7 +47,6 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
       const scope = this;
 
       this.sock.onopen = function () {
-        this.readyToSend = false;
         console.log(`member_added Connected to ${scope.cfg.rid}`);
         scope.userauthenticate();
         // user join chat room
@@ -136,17 +136,13 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
       }
     },
 
-    webSocketConnected() {
-      return (this.sock.readyState == 1 && this.readyToSend);
-    },
-
     finallySend(msg) {
       this.sock.send(msg);
     },
 
     sendBinary(msg) {
       const type = null;
-      if (this.webSocketConnected() && msg.length) {
+      if (this.sock.readyState && msg.length) {
         if (msg.length <= 600000) { // Less than 600K
           if (msg.constructor === Int8Array) {
             var msg1 = new Int8Array(msg.length + 2);
@@ -218,11 +214,16 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
           break;
 
         case 'send':
-          if (this.webSocketConnected()) {
-            if (typeof e.data.msg !== 'undefined') {
-              // this.sock.send(e.data.msg);
-              this.finallySend(e.data.msg);
+          if (this.sock.readyState) {
+            if (workerIO.packetQueue.length > 0) {
+              for (let i = 0; i < workerIO.packetQueue.length; i++) {
+                this.finallySend(workerIO.packetQueue[i]);
+              }
+              workerIO.packetQueue.length = 0;
             }
+            this.finallySend(e.data.msg);
+          } else {
+            workerIO.packetQueue.push(e.data.msg);
           }
           break;
 
@@ -234,10 +235,6 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
           this.workerAudioSend = e.ports[0];
           // fromWorkerAudioSend from worker audio send
           this.workerAudioSend.onmessage = this.fromWorkerAudioSend.bind(this);
-          break;
-
-        case 'readyToSend':
-          this.readyToSend = true;
           break;
 
         case 'onRecBinary':

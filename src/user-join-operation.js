@@ -101,13 +101,13 @@ const defaultOperation = function (e, sType) {
       if (virtualclass.joinUser.role == 's') {
         removeAppsDom();
       } else if (virtualclass.joinUser.role != 'e') {
-        removeSessionEndTool(); // remove session tool if there is any
+        virtualclass.vutil.removeSessionEndTool(); // remove session tool if there is any
       }
     }
 
 
     if (virtualclass.gObj.hasOwnProperty('doEndSession') && virtualclass.joinUser.role == 't') {
-      overrideRoleTeacher();
+      virtualclass.vutil.overrideRoleTeacher();
       console.log('From localStorage, perform the override role action');
     } else {
       console.log('From localStorage, cannot perform the override role action');

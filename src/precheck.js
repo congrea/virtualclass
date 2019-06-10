@@ -8,15 +8,11 @@ var preCheck = {
   videoAction: false,
   donePrecheck: false,
   init() {
-    // $("#myModal").modal();
-    // remove jquery
-    // $('#myModal').modal({backdrop: 'static', keyboard: false});
 
     const modal = document.querySelector('#myModal');
     if (modal) {
       modal.className = 'modal in';
     }
-
 
     if (roles.hasControls()) {
       this.videoAction = virtualclass.videoHost.gObj.videoSwitch;

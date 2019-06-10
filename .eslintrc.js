@@ -38,6 +38,7 @@ module.exports = {
     packetQueue: 'writable',
     xhr: 'writable',
     xhrn: 'writable',
+    workerIO: 'writable',
   },
   parserOptions: {
     ecmaVersion: 2017,

@@ -3279,25 +3279,25 @@
 
 #virtualclassCont.congrea .zoomControler  div {
 	font-size: 22px;
-	padding:10px;
+    padding: 10px;
     margin-top: 10px;
-	border: 0.5px solid #b5b5b5;
-	background-color: #f3f3f3;
-	/* box-shadow: 0px 4px 5px -1px #e8e8e8; */
-	border-radius: 50%;
+    border: 0.5px solid #e6e6e673;
+    background-color: #f7f7f7;
+    box-shadow: 0px 3px 3px -3px #585858;
+    border-radius: 50%;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 #virtualclassCont.congrea .zoomControler div:hover {
-	background-color: #e0e0e0;
-    border: 0.5px solid #d0d0d0;
+	background-color: #efefef;
+    border: 0.5px solid #e6e6e6;
    
 }
 .zoomControler .zoomctrtool {
    
-    line-height: 16px;
+    line-height: 15px;
 }
 .zoomControler .zoomctrtool .icon-fitScreen {
 	position: relative;

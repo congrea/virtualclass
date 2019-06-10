@@ -6,11 +6,11 @@
 <style>
      @font-face {
               font-family: 'icomoon';
-              src:url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.eot?-jjdyd0');
-              src:url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'),
-              url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.woff?-jjdyd0') format('woff'),
-              url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'),
-              url('https://local.vidya.io/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
+              src:url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.eot?-jjdyd0');
+              src:url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.eot?#iefix-jjdyd0') format('embedded-opentype'),
+              url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.woff?-jjdyd0') format('woff'),
+              url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0') format('truetype'),
+              url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon') format('svg');
               font-weight: normal;
               font-style: normal;
           }
@@ -55,7 +55,7 @@ function get_string($phrase) {
 
 //the www path for virtualclass
 
-$whiteboardpath = "https://local.vidya.io/virtualclass/";
+$whiteboardpath = "https://live.congrea.net/virtualclass/";
 
 $cont_class = 'congrea ';
 
@@ -134,9 +134,40 @@ $uname = isset($_GET['name']) ? $_GET['name'] : 'My name';
 $lname = isset($_GET['lname']) ? $_GET['lname'] : ' ';
 
 // Set 1 to add source file else 0 to min file
-$info = 0;
+$info = 1;
 $audio_disabled_completely = true;
 $cmid = 5;
+
+/* Show status button on ui */
+/*
+$enable_recording  = 1;
+$allow_presenter_av = 1;
+$show= 1;
+*/
+
+/* Show status icon only ***/
+
+/*
+$enable_recording  = 1;
+$allow_presenter_av = 0;
+$show= 1; */
+
+/* Hide the status icon for presenter**/
+
+/*  $enable_recording  = 1;
+    $allow_presenter_av = 1;
+    $show= 0; */
+
+
+$enable_recording  = 1;
+$allow_presenter_av = 0;
+$show= 1;
+
+/* show the status icon for student**/
+$disable_attendee_av = 0;
+$allow_attendee_av = 1;
+$show = 1;
+
 ?>
 
 <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "external/css/overrideimage.css" ?> />
@@ -198,18 +229,17 @@ if($info) {
 ?>
 
 <script type="text/javascript">
-    virtualclassSetting = {};
+   "user strict";
+    let virtualclassSetting = {};
+    virtualclassSetting.settings = "F600";
     virtualclassSetting.classes = "audioTool deactive";
     virtualclassSetting.audio_tooltip = '<?php echo get_string('audioEnable','congrea'); ?>';
-    virtualclassSetting.studentAudio = '<?php echo $stdAudio; ?>';
-    virtualclassSetting.studentVideo = '<?php echo $stdVideo; ?>';
     virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';
 
     virtualclassSetting.theme={};
-	virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
+	 virtualclassSetting.theme.selectedColor='<?php echo $selected_color; ?>';
     wbUser.session = '<?php echo $session; ?>';
     wbUser.virtualclassPlay = '<?php echo $isplay; ?>';
-    wbUser.saveRecording = '<?php echo $saverecording; ?>';
     wbUser.vcSid = '<?php echo "1"; ?>';
     wbUser.imageurl =  '';
     wbUser.id =  '<?php echo $uid; ?>';
@@ -228,18 +258,6 @@ if($info) {
     window.exportfilepath = "<?php echo $whiteboardpath . "export.php" ?>";
     window.webapi = "<?php echo $whiteboardpath ."webapi.php?cmid=".$cmid; ?>";
     window.congCourse =  "<?php echo $cmid ?>";
-    if (!!window.Worker) {
-        var sworker = new Worker("<?php echo $whiteboardpath."worker/screenworker.js" ?>");
-        var sdworker = new Worker("<?php echo $whiteboardpath."worker/screendecode.js" ?>");
-        var mvDataWorker = new Worker("<?php echo $whiteboardpath."worker/json-chunks.js" ?>");
-        var dtConWorker = new Worker("<?php echo $whiteboardpath."worker/storage-array-base64-converter.js" ?>");
-        var webpToPng = new Worker("<?php echo $whiteboardpath."worker/webptopng.js" ?>");
-        var workerAudioRec = new Worker("<?php echo $whiteboardpath."worker/worker-audio-rec.js" ?>");
-        var workerIO = new Worker("<?php echo $whiteboardpath."worker/worker-io.js" ?>");
-        var workerAudioSend = new Worker("<?php echo $whiteboardpath."worker/worker-audio-send.js" ?>");
-
-    }
-
 </script>
 <script>
 var virtualclassIDBOpen, virtualclassIDBDelete;
@@ -258,6 +276,7 @@ if ($info) {
 } else {
     include('js.php');
 }
+
 ?>
 
 <!-- Fine Uploader JS file

@@ -1,3 +1,14 @@
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>build/src/audio-g711-and-resampler.min.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/screendecode.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/screenworker.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/storage-array-base64-converter.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worker-io.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worker-audio-rec.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worker-audio-send.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worklet-audio-send.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worklet-audio-rec.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/webptopng.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave-mic.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-1.12.4.js"></script>
@@ -17,10 +28,12 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/vhcheck.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/shadow-dom.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/chroma.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/precheck.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-storage.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-missing-packets.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-adapter.js"></script>
@@ -54,14 +67,13 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-readytextobj.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-keyboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/webrtc-adapter.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/audio-resampler.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pptshare.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-packet-queue.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-optimization.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/receive-messages-response.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lzstring.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/audio-codec-g711.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/screenshare-getscreen.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/screenshare-dirtycorner.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/utility.js"></script>
@@ -102,7 +114,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-boxManager.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lib.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lang.en.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/precheck.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-base64.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-ajax.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-script.js"></script>
@@ -123,7 +135,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/api.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/raise-hand.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/color-selector.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chroma.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/network.js"></script>
@@ -134,6 +146,11 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-container-event.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/mic-testing.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/common-xhr.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/idb.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>index.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user-join-operation.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-event-api.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/receive-function.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/bootstrap.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/index.js"></script>
 

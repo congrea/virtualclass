@@ -3,13 +3,16 @@
   "title": "minify_resource",
   "version": "1.0.0",
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-cssmin": "~2.2.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "grunt": "^1.0.4",
+    "grunt-contrib-cssmin": "^3.0.0",
     "grunt-contrib-handlebars": "^1.0.0",
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-nodeunit": "^2.0.0",
     "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "~1.1.0",
     "grunt-htmlcompressor": "~0.1.10"
   },
@@ -24,12 +27,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vidyamantra/virtualclass.git"
+    "url": "https://github.com/congrea/virtualclass.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vidyamantra/virtualclass/issues"
+    "url": "https://github.com/congrea/virtualclass/issues"
   },
-  "homepage": "https://github.com/vidyamantra/virtualclass"
+  "homepage": "https://github.com/congrea/virtualclass"
 }

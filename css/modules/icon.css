@@ -507,12 +507,12 @@
 #replayContainer #replayClose.icon-close:before, #sessionEndMsgCont #sessionEndClose.icon-close:before,
 #virtualclassCont.congrea #chromeExtClose.icon-close:before {
   content: "\f00d";
-  font-size: 12px;
+  font-size: 18px;
   color: #6a8e0b;
   border: #bcd2aa 1px solid;
   border-radius: 50%;
-  padding: 3px 5px;
-  background-color: #f9f9f9;
+  padding: 3px 4px 4px 5px;
+  background-color: #ffffff;
 }
 
 .icon-minus:before {
@@ -729,39 +729,42 @@
 
 #virtualclassCont.congrea #popupContainer .urlValidation  .icon-close:before {
   content: "\f00d";
-  font-size: 12px;
+  font-size: 15px;
   color: #a0111f;
   border: #a0111f 1px solid;
   border-radius: 50%;
-  padding: 3px 5px;
+  padding: 4px 5px 5px 6px;
   background-color: #f9f9f9;
 }
 
 #virtualclassCont.congrea .icon-zoonIn:before{
-  content: "\e95f";
-  font-size: 22px;
-    font-weight: 100;
-    font-variant: normal;
-    -webkit-font-smoothing: antialiased;
-    float:left;
-}
-
-#virtualclassCont.congrea .icon-zoomOut:before{
-  content: "\e960";
-  font-size: 22px;
+  content: "\e9a4";
+  font-size: 12px;
+  color: #232323;
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
-    float:left;
+  /* float:left; */
+}
+
+#virtualclassCont.congrea .icon-zoomOut:before{
+  content: "\e9a5";
+  font-size: 12px;
+  color: #232323;
+  font-weight: 100;
+  font-variant: normal;
+  -webkit-font-smoothing: antialiased;
+  /* float:left; */
 }
 
 #virtualclassCont.congrea .icon-fitScreen:before{
-  content: "\e999";
-  font-size: 22px;
-     font-weight: 100;
-    font-variant: normal;
-    -webkit-font-smoothing: antialiased;
-    float:left;
+  content: "\e99b";
+  font-size: 15px;
+  color: #232323;
+  font-weight: 100;
+  font-variant: normal;
+  -webkit-font-smoothing: antialiased;
+  /* float:left; */
 }
 #virtualclassCont.congrea .icon-reloadDoc:before{
   content: "\e988";
@@ -819,8 +822,15 @@
 }
 
 #virtualclassCont.congrea #fullScreenExitButton span .icon-exitScreen:before {
-  content: "\e99b";
+    content: "\e99b";
     font-weight: normal;
     font-family: 'icomoon';
     font-size: 18px;
+}
+
+#virtualclassCont.congrea[data-currapp = 'Whiteboard'] #addNewPage span:before {
+    content: "\e9a4";
+    font-weight: normal;
+    font-family: 'icomoon';
+    font-size: 13px;
 }

@@ -9,82 +9,77 @@
  *
  */
 (function (window) {
-    "use strict";
+  /**
+   * Immutable object to represent line formatting.  Formatting can be modified by chaining method calls.
+   *
+   * @constructor
+   * @type {Function}
+   */
+  const LineFormatting = (function () {
+    const ATTR = window.AttributeConstants;
 
+    function LineFormatting(attributes) {
+      // Allow calling without new.
+      if (!(this instanceof LineFormatting)) {
+        return new LineFormatting(attributes);
+      }
 
-    /**
-     * Immutable object to represent line formatting.  Formatting can be modified by chaining method calls.
-     *
-     * @constructor
-     * @type {Function}
-     */
-    var LineFormatting = (function () {
-        var ATTR = window.AttributeConstants;
+      this.attributes = attributes || {};
+      this.attributes[ATTR.LINE_SENTINEL] = true;
+    }
 
-        function LineFormatting(attributes) {
-            // Allow calling without new.
-            if (!(this instanceof LineFormatting)) {
-                return new LineFormatting(attributes);
-            }
+    LineFormatting.LIST_TYPE = {
+      NONE: false,
+      ORDERED: 'o',
+      UNORDERED: 'u',
+      TODO: 't',
+      TODOCHECKED: 'tc',
+    };
 
-            this.attributes = attributes || {};
-            this.attributes[ATTR.LINE_SENTINEL] = true;
-        }
+    LineFormatting.prototype.cloneWithNewAttribute_ = function (attribute, value) {
+      const attributes = {};
 
-        LineFormatting.LIST_TYPE = {
-            NONE: false,
-            ORDERED: 'o',
-            UNORDERED: 'u',
-            TODO: 't',
-            TODOCHECKED: 'tc'
-        };
+      // Copy existing.
+      for (const attr in this.attributes) {
+        attributes[attr] = this.attributes[attr];
+      }
 
-        LineFormatting.prototype.cloneWithNewAttribute_ = function (attribute, value) {
-            var attributes = {};
+      // Add new one.
+      if (value === false) {
+        delete attributes[attribute];
+      } else {
+        attributes[attribute] = value;
+      }
 
-            // Copy existing.
-            for (var attr in this.attributes) {
-                attributes[attr] = this.attributes[attr];
-            }
+      return new LineFormatting(attributes);
+    };
 
-            // Add new one.
-            if (value === false) {
-                delete attributes[attribute];
-            } else {
-                attributes[attribute] = value;
-            }
+    LineFormatting.prototype.indent = function (indent) {
+      return this.cloneWithNewAttribute_(ATTR.LINE_INDENT, indent);
+    };
 
-            return new LineFormatting(attributes);
-        };
+    LineFormatting.prototype.align = function (align) {
+      return this.cloneWithNewAttribute_(ATTR.LINE_ALIGN, align);
+    };
 
-        LineFormatting.prototype.indent = function (indent) {
-            return this.cloneWithNewAttribute_(ATTR.LINE_INDENT, indent);
-        };
+    LineFormatting.prototype.listItem = function (val) {
+      vceditor.utils.assert(val === false || val === 'u' || val === 'o' || val === 't' || val === 'tc');
+      return this.cloneWithNewAttribute_(ATTR.LIST_TYPE, val);
+    };
 
-        LineFormatting.prototype.align = function (align) {
-            return this.cloneWithNewAttribute_(ATTR.LINE_ALIGN, align);
-        };
+    LineFormatting.prototype.getIndent = function () {
+      return this.attributes[ATTR.LINE_INDENT] || 0;
+    };
 
-        LineFormatting.prototype.listItem = function (val) {
-            vceditor.utils.assert(val === false || val === 'u' || val === 'o' || val === 't' || val === 'tc');
-            return this.cloneWithNewAttribute_(ATTR.LIST_TYPE, val);
-        };
+    LineFormatting.prototype.getAlign = function () {
+      return this.attributes[ATTR.LINE_ALIGN] || 0;
+    };
 
-        LineFormatting.prototype.getIndent = function () {
-            return this.attributes[ATTR.LINE_INDENT] || 0;
-        };
+    LineFormatting.prototype.getListItem = function () {
+      return this.attributes[ATTR.LIST_TYPE] || false;
+    };
+    return LineFormatting;
+  }());
 
-        LineFormatting.prototype.getAlign = function () {
-            return this.attributes[ATTR.LINE_ALIGN] || 0;
-        };
-
-        LineFormatting.prototype.getListItem = function () {
-            return this.attributes[ATTR.LIST_TYPE] || false;
-        };
-        return LineFormatting;
-    })();
-
-    window.LineFormatting = LineFormatting;
-
-})(window);
-
+  window.LineFormatting = LineFormatting;
+}(window));

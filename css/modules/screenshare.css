@@ -153,7 +153,7 @@
 
 
 #virtualclassCont.congrea #screenController .share button{
-  left: 134px;
+  left: 147px;
   color: #fff;
   border:none;
   position: fixed;
@@ -161,11 +161,16 @@
   z-index: 1000;
   cursor: pointer;
   background-color: transparent;
-  padding: 13.5px;
+  padding: 14px;
   border-right: 1px solid black;
     -webkit-font-smoothing: antialiased;
-    letter-spacing: .1px;
+    letter-spacing: 1px;
     border-radius: 0px;
+}
+
+#virtualclassCont.congrea[data-recording="on"] #screenController .share button, 
+#virtualclassCont.congrea[data-recording="off"] #screenController .share button {
+  left:295px;
 }
 
 #virtualclassCont.congrea #screenController .share button:hover {
@@ -212,11 +217,15 @@
   z-index: 1000;
   cursor: pointer;
   background-color: transparent;
-  padding: 13.5px;
+  padding: 14px;
   border-right: 1px solid black;
   -webkit-font-smoothing: antialiased;
-  letter-spacing: .1px;
+  letter-spacing: 1px;
   border-radius:0px;
+}
+
+#virtualclassCont.congrea[data-recording="on"] #stopScreenShare  button, #virtualclassCont.congrea[data-recording="off"] #stopScreenShare  button{
+  left:148px;
 }
 
 @-moz-document url-prefix() {

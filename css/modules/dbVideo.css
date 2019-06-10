@@ -244,7 +244,7 @@
 
 #virtualclassCont #listvideo .linkvideo:hover {
   /*border: 1px solid #ccc;*/
-  box-shadow: 0 0 6px  #e3e3e3;;
+/*  box-shadow: 0 0 6px  #e3e3e3;;*/
 }
 
 #virtualclassCont #listvideo .controlCont:hover {
@@ -539,7 +539,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   /*-moz-transform:scale(1.008);*/
   /*-ms-transform:scale(.9);*/
   /*-o-transform:scale(.9);*/
-  transform:scale(1.0005);
+/*  transform:scale(1.0005);*/
 }
 #virtualclassCont.congrea #listvideo .linkvideo {
   -webkit-transition:all 0.5s ease-out;
@@ -632,7 +632,7 @@ display: none;
   cursor:auto;
 }
 #virtualclassCont.congrea #listvideo .linkvideo.singleVideo .controls.delete{
-  pointer-events:visible!important;
+  pointer-events:visible;
   opacity:1!important;
   cursor:pointer!important;
 }
@@ -641,4 +641,8 @@ display: none;
     #virtualclassCont.congrea #listvideo .linkvideo.links .controlCont {
         width:16% !important;
     }
+}
+
+#virtualclassCont.congrea #VideoDashboard .playing .controls.delete{
+    pointer-events: none!important;
 }

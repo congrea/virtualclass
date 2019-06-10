@@ -1,53 +1,51 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 
 (function (window) {
-    //var vcan = window.vcan;
+  // var vcan = window.vcan;
 
-    /**
-     *  @Class defined events
-     *  the class initialize various method
-     *  in future there can be more properties than now
-     *  TODO this function should be improvement
-     */
+  /**
+   *  @Class defined events
+   *  the class initialize various method
+   *  in future there can be more properties than now
+   *  TODO this function should be improvement
+   */
 
-    function Events (id){
-        var vcan = virtualclass.wb[id].vcan;
-        vcan.events = function () {
-            return {
-                bind: function (obj, type, handler) {
-                    obj['on' + type] = handler;
-                },
-                /**
-                 * Method that determines that which object we are clicking on
-                 * @method findTarget
-                 * @param {Event} e mouse event
-                 * @pointer refers x and y co-ordinate relative to canvas
-                 */
-                findTarget: function (e) {
-                    var target;
-                    // then check all of the objects on canvas
-                    //TODO use this should be obj
+  function Events(id) {
+    const { vcan } = virtualclass.wb[id];
+    vcan.events = function () {
+      return {
+        bind(obj, type, handler) {
+          obj[`on${type}`] = handler;
+        },
+        /**
+         * Method that determines that which object we are clicking on
+         * @method findTarget
+         * @param {Event} e mouse event
+         * @pointer refers x and y co-ordinate relative to canvas
+         */
+        findTarget(e) {
+          let target;
+          // then check all of the objects on canvas
+          // TODO use this should be obj
 
-                    var objs = vcan.main.children;
-                    for (var i = objs.length; i--;) {
-                        if (objs[i] && vcan.virtual_box.containsPoint(e, objs[i])) {
-                            target = objs[i];
-                            break;
-                        }
-                    }
-
-                    if (target && target.selectable) {
-                        return target;
-                    }
-                }
+          const objs = vcan.main.children;
+          for (let i = objs.length; i--;) {
+            if (objs[i] && vcan.virtual_box.containsPoint(e, objs[i])) {
+              target = objs[i];
+              break;
             }
-        }
-    }
- window.Events= Events;
+          }
 
+          if (target && target.selectable) {
+            return target;
+          }
+        },
+      };
+    };
+  }
 
-
-})(window);
+  window.Events = Events;
+}(window));

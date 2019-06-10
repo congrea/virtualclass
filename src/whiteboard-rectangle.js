@@ -1,97 +1,92 @@
 // This file is part of Vidyamantra - http:www.vidyamantra.com/
-/**@Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+  /**
+   * @Class defined rectangle for rectangle
+   *  methods initilized for creating rectangle object
+   *  in future there can be more properties than one
+   */
 
-    /**
-     * @Class defined rectangle for rectangle
-     *  methods initilized for creating rectangle object
-     *  in future there can be more properties than one
-     */
+  function Rectangle(id) {
+    const { vcan } = virtualclass.wb[id];
+    // var vcan = virtualclass.wb[id];
+    vcan.rectangle = function () {
+      return {
+        type: 'rectangle',
+        /**
+         * TOD0 we need to extend this function in future
+         * initiates the properties of object
+         * @param obj the properties would initates on it
+         */
+        init(obj) {
+          if (obj.x == undefined) {
+            const absx = obj.ex - (obj.width / 2);
+            obj.x = absx;
+          }
 
-    function Rectangle (id){
-        var vcan = virtualclass.wb[id].vcan;
-        //var vcan = virtualclass.wb[id];
-        vcan.rectangle = function () {
-            return {
-                type: 'rectangle',
-                /**
-                 * TOD0 we need to extend this function in future
-                 * initiates the properties of object
-                 * @param obj the properties would initates on it
-                 */
-                init: function (obj) {
+          if (obj.y == undefined) {
+            const absy = obj.ey - (obj.height / 2);
+            obj.y = absy;
+          }
 
-                    if (obj.x == undefined) {
-                        var absx = obj.ex - (obj.width / 2);
-                        obj.x = absx;
-                    }
+          return obj;
+        },
+        /**
+         * it draws the object according to information passed by object
+         * the funciton does not use the rect() funciton to create
+         * rectangle object but uses the moveTo/lineTo object
+         * @param ctx current context
+         * @param obj would be drawn
+         */
+        draw(ctx, obj, noTransform) {
+          // TODO
+          // this funciton should be done through the proper process
+          const x = -obj.width / 2;
+          const y = -obj.height / 2;
+          const w = obj.width;
+          const h = obj.height;
 
-                    if (obj.y == undefined) {
-                        var absy = obj.ey - (obj.height / 2);
-                        obj.y = absy;
+          ctx.beginPath();
 
-                    }
+          ctx.strokeStyle = (obj.borderColor != undefined) ? `"${obj.strokeColor}"` : '#000';
 
-                    return obj;
-                },
-                /**
-                 * it draws the object according to information passed by object
-                 * the funciton does not use the rect() funciton to create
-                 * rectangle object but uses the moveTo/lineTo object
-                 * @param ctx current context
-                 * @param obj would be drawn
-                 */
-                draw: function (ctx, obj, noTransform) {
+          // alert(ctx.strokeStyle);
 
-                    //TODO
-                    // this funciton should be done through the proper process
-                    var x = -obj.width / 2,
-                        y = -obj.height / 2,
-                        w = obj.width,
-                        h = obj.height;
+          ctx.moveTo(x, y);
+          ctx.stroke();
 
-                    ctx.beginPath();
+          ctx.strokeStyle = obj.color;
+          ctx.stroke();
 
-                    ctx.strokeStyle = (obj.borderColor != undefined) ? '"' + obj.strokeColor + '"' : "#000";
+          ctx.lineWidth = obj.stroke;
+          ctx.stroke();
 
-                    //alert(ctx.strokeStyle);
+          ctx.lineTo(x + w, y);
+          ctx.stroke();
 
-                    ctx.moveTo(x, y);
-                    ctx.stroke();
+          ctx.lineTo(x + w, y + h);
+          ctx.stroke();
 
-                    ctx.strokeStyle = obj.color;
-                    ctx.stroke();
+          ctx.lineTo(x, y + h);
+          ctx.stroke();
 
-                    ctx.lineWidth = obj.stroke;
-                    ctx.stroke();
+          ctx.lineTo(x, y);
+          ctx.stroke();
 
-                    ctx.lineTo(x + w, y);
-                    ctx.stroke();
+          ctx.fillStyle = (obj.fillColor != undefined) ? obj.fillColor : ' ';
+          ctx.closePath();
+          ctx.stroke();
+          // todo this should be enable
+          if (obj.fillColor != undefined) {
+            ctx.fillStyle = obj.fillColor;
+            ctx.fill();
+          }
+        },
+      };
+    };
+  }
 
-                    ctx.lineTo(x + w, y + h);
-                    ctx.stroke();
-
-                    ctx.lineTo(x, y + h);
-                    ctx.stroke();
-
-                    ctx.lineTo(x, y);
-                    ctx.stroke();
-
-                    ctx.fillStyle = (obj.fillColor != undefined) ? obj.fillColor : " ";
-                    ctx.closePath();
-                    ctx.stroke();
-                    // todo this should be enable
-                    if (obj.fillColor != undefined) {
-                        ctx.fillStyle = obj.fillColor;
-                        ctx.fill();
-                    }
-
-                }
-            };
-        }
-    }
-
-    window.Rectangle = Rectangle;
-})(window);
+  window.Rectangle = Rectangle;
+}(window));

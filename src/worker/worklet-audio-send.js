@@ -6,7 +6,6 @@
  */
 var workletAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
   console.log("== init audio worklet 1");
-  debugger;
   class workletAudioSend extends AudioWorkletProcessor {
     constructor() {
       super();

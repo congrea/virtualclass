@@ -136,6 +136,7 @@ var ioAdapter = {
         arg: { msg: sendData },
       };
       io.realSend(obj);
+      io.recordingSet = true;
       console.log(`==== Send Recording a/v ${sendData}`);
     }
   },
@@ -149,18 +150,15 @@ var ioAdapter = {
   },
 
   initSetSession(session) {
-    if (virtualclass.isPlayMode) {
-      return;
-    }
     const localSession = localStorage.getItem('serverSession');
     if (localSession === null) {
       localStorage.setItem('serverSession', session);
+      io.sessionSet = true;
     } else if (localSession !== session) {
-      io.readyToSend = true;
-      workerIO.postMessage({ cmd: 'readyToSend' });
       this.setSession(localSession);
+    } else {
+      io.sessionSet = true;
     }
-    io.sessionSet = true;
   },
 
   sync(msg) {

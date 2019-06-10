@@ -23,6 +23,7 @@ var io = {
   stockReadyState: false,
   workerIOOnmessage: false,
   sessionSet: false,
+  recordingSet: false,
   init(cfg) {
     this.cfg = cfg;
     'use strict';
@@ -47,7 +48,7 @@ var io = {
 
     let jobj;
 
-    if (this.webSocketConnected() && io.sessionSet) { // If Socket is ready
+    if (this.webSocketConnected()) { // If Socket is ready
       if (io.packetQueue.length > 0) {
         for (let i = 0; i < io.packetQueue.length; i++) {
           const tmp_jobj = JSON.parse(io.packetQueue[i]);
@@ -59,7 +60,7 @@ var io = {
       this.realSend(obj);
     } else { // Save msg in queue
       console.log('SOCKET is not ready.');
-      jobj = JSON.stringify(obj);
+      const jobj = JSON.stringify(obj);
       io.packetQueue.push(jobj);
     }
   },
@@ -216,7 +217,27 @@ var io = {
 
   // Check if websocket is ready to send
   webSocketConnected() {
-    return (io.stockReadyState == 1 && this.readyToSend == true);
+    // Handle Set Session for teacher
+    if (roles.hasControls()) {
+      if (!io.sessionSet) {
+        return false;
+      }
+    }
+
+    // Handle recording for everyone if enabled
+    if (virtualclass.settings.recording.enableRecording) {
+      if (!io.recordingSet) {
+        return false;
+      }
+    }
+
+    // Check if application ready
+    if (!io.readyToSend) {
+      return false;
+    }
+
+    // Check Socket Ready
+    return io.stockReadyState;
   },
 
   onRecJson(receivemsg) {
@@ -242,15 +263,12 @@ var io = {
       case 'joinroom':
         if (receivemsg.hasOwnProperty('users')) { // When self web socket is connected
           ioAdapter.setRecording();
-          io.sessionSet = true;
           console.log('==== Member add, join room');
         } else {
           console.log('No users');
         }
 
         io.readyToSend = true;
-
-        workerIO.postMessage({ cmd: 'readyToSend' });
 
         /* identifying new user from list */
         var newuser = null;
@@ -390,7 +408,7 @@ var ioInit = {
   onmessage(e) {
     switch (e.data.cmd) {
       case 'connectionopen':
-        io.stockReadyState = 1;
+        io.stockReadyState = true;
         virtualclass.ioEventApi.connectionopen(e.data.msg);
         break;
 
@@ -458,11 +476,15 @@ var ioInit = {
         break;
 
       case 'iamclosing':
-        io.stockReadyState = 0;
+        io.stockReadyState = false;
+        io.sessionSet = false;
+        io.recordingSet = false;
         break;
 
       case 'error':
-        io.stockReadyState = 0;
+        io.stockReadyState = false;
+        io.sessionSet = false;
+        io.recordingSet = false;
         virtualclass.ioEventApi.error({
           type: 'error',
           message: e.data.msg,
@@ -470,7 +492,9 @@ var ioInit = {
         break;
 
       case 'close':
-        io.stockReadyState = 0;
+        io.stockReadyState = false;
+        io.sessionSet = false;
+        io.recordingSet = false;
         virtualclass.ioEventApi.connectionclose({
           type: 'connectionclose',
           message: e.data.msg,

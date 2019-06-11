@@ -4526,3 +4526,9 @@ background-color: #d6d6d6;
 #virtualclassCont.playMode #recording {
 	display : none;
 }
+
+/* ======== MEDIA FOR MOBILE ========== */
+@media only screen and (min-device-width: 320px) and (max-device-width: 768px){
+#virtualclassCont.congrea .bootstrap .modal-dialog {
+    width: 870px !important;
+}

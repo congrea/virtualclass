@@ -506,6 +506,18 @@ div.ui-memblist-usr .user-details  img.media-object{
     /*left : 2px;*/
 }
 
+#subchat.student .ui-memblist-usr .icon-audioDisImg:before {
+    font-family: 'icomoon';
+    content: "\ea2a";
+    color: #7d7a7a;
+    font-size: 118%;
+    font-weight: normal;
+    /*margin-right:1px;*/
+    margin-right:2px;
+    position : relative;
+    top : -1px;
+    /*left : 2px;*/
+}
 
 /** After :host-context is supported in all browser, we don't need to put current app on chat_div element **/
 

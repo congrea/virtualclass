@@ -540,6 +540,7 @@
 
     userVideoIcon() {
       if (virtualclass.settings.info.studentvideo === false && roles.isStudent()) {
+        virtualclass.vutil.videoHandler("off");
         virtualclass.user.control.videoDisable();
       } else {
         if (roles.isStudent() && virtualclass.settings.info.studentvideo !== true) {

@@ -81,6 +81,7 @@ float:right;}
 
 /*  ===== FOR MOBILES ====== */
 
+
 @media only screen 
   and ( min-device-width: 768px) 
     and ( max-device-width: 1024px) {
@@ -111,4 +112,14 @@ float:right;}
         #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
             z-index:1001;
         }
+        #virtualclassCont.congrea #virtualclassPreCheck.bootstrap video{
+            height: 165px;
+        }
     }
+    @media only screen and ( min-device-width: 320px) and ( max-device-width: 768px){
+        #virtualclassCont.congrea #virtualclassPreCheck.bootstrap video{
+            height: 100px;
+        }
+        
+    }
+   

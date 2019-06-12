@@ -650,7 +650,6 @@
                 virtualclass.wbCommon.readyElements(wIds);
                 virtualclass.wbCommon.initNav(wIds);
 
-
                 // virtualclass.gObj.currSlide = prevapp.wbcs;
 
                 // virtualclass.wbCommon.currentWhiteboard('_doc_0_'+virtualclass.gObj.currSlide);
@@ -808,12 +807,15 @@
             this.ss.prevStream = false;
           }
 
+
           if (typeof this.previous !== 'undefined') {
             if (typeof cusEvent !== 'undefined' && cusEvent == 'byclick' && roles.hasControls() && virtualclass.currApp == 'Whiteboard') {
               const docid = id.split('_doc_')[1];
               virtualclass.vutil.beforeSend({ dispWhiteboard: true, cf: 'dispWhiteboard', d: docid });
+
             }
           }
+
           // this.dispvirtualclassLayout(this.wbConfig.id);
           // this should be checked with solid condition
           virtualclass.gObj.currWb = id;

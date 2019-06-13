@@ -36,6 +36,11 @@
     this.setTotalPages(virtualclass.dts.order.length);
   };
 
+  pageIndexNav.prototype.setCurrentIndex = function (index) {
+    console.log("==== set current index");
+    document.querySelector('#currIndex').innerHTML = index;
+  },
+
   pageIndexNav.prototype.setTotalPages = function (length) {
     const cont = document.querySelector('#docShareNav #totalPages');
     if (cont) {
@@ -222,12 +227,14 @@
 
     if (virtualclass.currApp == 'Whiteboard') {
       this.index = (+curr) + 1;
-      const active = document.querySelector('.noteIndex.active');
-      if (active) {
-        var anc = document.querySelector('#currIndex');
-        anc.innerHTML = active.innerHTML; // to modify later
-        ioAdapter.mustSend({wbData: 'wbIndex', wbIndex: active.innerHTML, cf: 'wbData'});
-      }
+      // const active = document.querySelector('.noteIndex.active');
+      // if (active) {
+      //   var anc = document.querySelector('#currIndex');
+      //   anc.innerHTML = active.innerHTML; // to modify later
+      //
+      //  // ioAdapter.mustSend({wbData: 'wbIndex', wbIndex: active.innerHTML, cf: 'wbData'});
+      //
+      // }
     } else {
       this.index = (currIndex != null) ? currIndex : (index != null && typeof index !== 'undefined') ? index.getAttribute("data-set") : 1;
       if (!virtualclass.dts.order.length) {
@@ -241,7 +248,7 @@
         nav.classList.add('show');
         nav.classList.remove('hide');
       }
-      document.querySelector('#currIndex').innerHTML = this.index;
+      // document.querySelector('#currIndex').innerHTML = this.index;
     }
 
     const teacherCurrPage = document.getElementById('teacherCurrPage');
@@ -339,33 +346,22 @@
 
 
   /** Create navigation for teacher  on  Whiteboard * */
-  pageIndexNav.prototype.createWbNavigationNumber = function (id, order) {
-    var wid = "_doc_0_" + id;
-    var template = virtualclass.getTemplate('wbIndex', 'navigation');
-    var navHtml = template({app: virtualclass.currApp, id: id, order: order + 1, wid: wid});
+  pageIndexNav.prototype.createWbNavigationNumber = function (index) {
+    const wid = "_doc_0_" + index;
+    const template = virtualclass.getTemplate('wbIndex', 'navigation');
+    const navHtml = template({app: virtualclass.currApp, id: index, order: index + 1, wid: wid});
     this.subCont.insertAdjacentHTML('beforeend', navHtml);
-    var sn = document.querySelector("#index" + id)
-    sn.className = (id > this.shownPages) ? "noteIndex hid right" : "noteIndex shw";
-    if (virtualclass.gObj.currWb == wid) {
-      virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
-      document.querySelector("#currIndex").innerHTML = order + 1;
-    }
 
-    // TODO, this should be used later while creating the thumbnail
-    // navHtml.onclick = function () {
-    //     virtualclass.wbCommon.setCurrSlideNumber(wid);
-    //     virtualclass.wbCommon.indexNav.addActiveNavigation(wid)
-    //     virtualclass.wbCommon.readyCurrentWhiteboard(wid);
-    //     // virtualclass.wbCommon.displaySlide(wid);
-    //     virtualclass.gObj.currWb = wid;
-    // }
+    virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
+    this.setCurrentIndex(index);
   };
+
   pageIndexNav.prototype.newWbpage = function (value) {
     virtualclass.vutil.navWhiteboard(virtualclass.wbCommon, virtualclass.wbCommon.newPage);
     if (virtualclass.wbCommon.hasOwnProperty('setNextWhiteboardTime')) {
       clearTimeout(virtualclass.wbCommon.setNextWhiteboardTime);
     }
-    if (virtualclass.currApp == 'Whiteboard') {
+    if (virtualclass.currApp === 'Whiteboard') {
       virtualclass.wbCommon.setNextWhiteboardTime = setTimeout(
         () => {
           /** We can not run zoomControlerFitToScreen as we need to retain canvas scale * */
@@ -403,7 +399,9 @@
   pageIndexNav.prototype.studentWBPagination = function (index) {
     const cont = document.getElementById('stdPageNo');
     if (cont) {
-      cont.innerHTML = parseInt(index) + 1;
+      console.log("==== student page navigation");
+      // cont.innerHTML = parseInt(index) + 1;
+      cont.innerHTML = parseInt(index);
       const that = this;
       setTimeout(() => {
         that.setTotalPages((virtualclass.gObj.wbCount + 1));

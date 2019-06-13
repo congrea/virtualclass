@@ -447,13 +447,15 @@ const receiveFunctions = new function () {
       if (idn.length > 0) {
         virtualclass.gObj.currSlide = idn[idn.length - 1];
       }
+      virtualclass.gObj.currIndex = e.message.currIndex;
       virtualclass.wbCommon.displaySlide(wid);
-      console.log(`whiteboard slide received=${wid}`);
-      virtualclass.vutil.resizeWindowIfBigger();
+      // virtualclass.vutil.resizeWindowIfBigger();
     } else if (e.message.hasOwnProperty('wbCount')) {
       virtualclass.gObj.wbCount = e.message.wbCount;
       if (virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1) {
         virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
+        virtualclass.gObj.currIndex = e.message.currIndex;
+        virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currIndex);
       }
     }
   };
@@ -599,13 +601,13 @@ const receiveFunctions = new function () {
   this.sync = function () {
   };
 
-  this.wbData = function (e) {
-    console.log(e);
-    if (e.message.wbIndex) {
-      virtualclass.gObj.currIndex = parseInt(e.message.wbIndex);
-      virtualclass.wbCommon.indexNav.studentWBPagination(e.message.wbIndex - 1);
-    }
-  };
+  // this.wbData = function (e) {
+  //   console.log(e);
+  //   if (e.message.wbIndex) {
+  //     virtualclass.gObj.currIndex = parseInt(e.message.wbIndex);
+  //     virtualclass.wbCommon.indexNav.studentWBPagination(e.message.wbIndex - 1);
+  //   }
+  // };
 
 
   /** Record setting * */

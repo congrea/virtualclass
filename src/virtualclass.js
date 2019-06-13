@@ -66,7 +66,7 @@
         wIds: [0],
         wbRearrang: false,
         currSlide: (localStorage.getItem('currSlide') != null) ? localStorage.getItem('currSlide') : 0,
-        currIndex: (localStorage.getItem('currIndex') != null) ? localStorage.getItem('currIndex') : 0,
+        currIndex: (localStorage.getItem('currIndex') != null) ? localStorage.getItem('currIndex') : 1,
         uploadingFiles: [],
         docOrder: {},
         fetchedData: false,

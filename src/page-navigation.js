@@ -37,19 +37,15 @@
   };
 
   pageIndexNav.prototype.setCurrentIndex = function (index) {
-    console.log("==== set current index");
+    console.log("==== page, set current index");
     document.querySelector('#currIndex').innerHTML = index;
   },
 
   pageIndexNav.prototype.setTotalPages = function (length) {
+    console.log("==== page, set total page");
     const cont = document.querySelector('#docShareNav #totalPages');
     if (cont) {
-      if (roles.hasControls()) {
-        cont.innerHTML = ` of ${length}`;
-      } else {
-        cont.innerHTML = ` of ${length}`;
-      }
-
+      cont.innerHTML = ` of ${length}`;
       const nav = document.querySelector('#docShareNav');
       if (!length) {
         nav.classList.add('hide');
@@ -183,7 +179,17 @@
   /** Add active class for current active Note* */
   pageIndexNav.prototype.addActiveClass = function (wbCurr) {
     let pages;
-    if (virtualclass.currApp == 'Whiteboard') {
+    if (virtualclass.currApp === 'Whiteboard') {
+      pages = virtualclass.gObj.wbCount + 1;
+    } else {
+      pages = virtualclass.dts.order.length;
+      let currPage = virtualclass.dts.order.indexOf(virtualclass.dts.docs.currNote);
+      this.setCurrentIndex(currPage+1);
+    }
+    this.setTotalPages(pages);
+    return;
+
+    if (virtualclass.currApp === 'Whiteboard') {
       var num = wbCurr.split('doc_0_')[1];
       pages = virtualclass.gObj.wbCount + 1;
     } else {
@@ -196,6 +202,7 @@
     // var curr = virtualclass.dts.docs.currNote;
     const curr = virtualclass.currApp == 'DocumentShare' ? virtualclass.dts.docs.currNote : num;
     var index = document.querySelector(`#index${curr}`);
+
     if (index) {
       index.classList.add('active');
       index.selected = 'selected';
@@ -209,6 +216,7 @@
       var anc = document.querySelector('#pageAnc');
       anc.appendChild(elem);
       this.setTotalPages(pages);
+
     }
     const rActive = document.querySelector('#dcPaging .hid.right.active');
     const lActive = document.querySelector('#dcPaging .hid.left.active');
@@ -249,11 +257,6 @@
         nav.classList.remove('hide');
       }
       // document.querySelector('#currIndex').innerHTML = this.index;
-    }
-
-    const teacherCurrPage = document.getElementById('teacherCurrPage');
-    if (teacherCurrPage != null) {
-      teacherCurrPage.innerHTML = this.index;
     }
   };
 
@@ -338,7 +341,8 @@
     var sn = document.querySelector("#index" + order)
     if (virtualclass.dts.docs.currNote == order) {
       sn.classList.add("active")
-      document.querySelector("#currIndex").innerHTML = i + 1;
+      this.setCurrentIndex(i);
+
     }
     this.index = i + 1;
     sn.onclick = virtualclass.dts.docs.goToNavs(order);
@@ -349,7 +353,7 @@
   pageIndexNav.prototype.createWbNavigationNumber = function (index) {
     const wid = "_doc_0_" + index;
     const template = virtualclass.getTemplate('wbIndex', 'navigation');
-    const navHtml = template({app: virtualclass.currApp, id: index, order: index + 1, wid: wid});
+    const navHtml = template({app: virtualclass.currApp, id: index, order: index, wid: wid});
     this.subCont.insertAdjacentHTML('beforeend', navHtml);
 
     virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
@@ -414,7 +418,7 @@
   pageIndexNav.prototype.UI = {
     container() {
       /** TODO Use handlebars* */
-      /** TODO Use handlebars**/
+
       var dc = document.getElementById("docShareNav");
       while (dc.firstChild) {
         dc.removeChild(dc.firstChild);
@@ -423,7 +427,6 @@
       var template = virtualclass.getTemplate('navMain', 'navigation');
       var navHtml = template({app: virtualclass.currApp, control: roles.hasControls()});
       dc.innerHTML = navHtml;
-
 
       if (roles.hasControls()) {
         var cont = document.querySelector(".congrea #docShareNav");
@@ -434,8 +437,8 @@
             elem.classList.toggle("close");
             elem.classList.toggle("open");
           }
-
         })
+
         if (virtualclass.currApp == "Whiteboard") {
           var addCont = document.createElement('span')
           addCont.id = "addNewPage";

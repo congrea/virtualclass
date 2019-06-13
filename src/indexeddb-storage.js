@@ -685,7 +685,7 @@
         virtualclass.gObj.wbCount = 0;
         virtualclass.wbCommon.clearNavigation();
         delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
-
+        virtualclass.gObj.currIndex = 1;
       },
     },
 

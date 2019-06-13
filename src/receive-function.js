@@ -449,7 +449,7 @@ const receiveFunctions = new function () {
       }
       virtualclass.gObj.currIndex = e.message.currIndex;
       virtualclass.wbCommon.displaySlide(wid);
-      // virtualclass.vutil.resizeWindowIfBigger();
+      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     } else if (e.message.hasOwnProperty('wbCount')) {
       virtualclass.gObj.wbCount = e.message.wbCount;
       if (virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1) {
@@ -457,6 +457,7 @@ const receiveFunctions = new function () {
         virtualclass.gObj.currIndex = e.message.currIndex;
         virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currIndex);
       }
+      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     }
   };
 

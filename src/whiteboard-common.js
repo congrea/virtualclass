@@ -59,7 +59,9 @@
         // for (let i = 0; i < wIds.length; i++) {
         //   virtualclass.wbCommon.indexNav.createWbNavigationNumber(wIds[i], wIds[i]);
         // }
-        virtualclass.wbCommon.indexNav.createWbNavigationNumber(wIds.length);
+
+        const currentPageNumber = virtualclass.gObj.currIndex ||  wIds.length;
+        virtualclass.wbCommon.indexNav.createWbNavigationNumber(currentPageNumber);
         virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb);
 
         let wbOrder = localStorage.getItem('wbOrder');
@@ -97,7 +99,7 @@
         virtualclass.gObj.currWb = wid;
       }
       this.identifyFirstNote(wid);
-      this.identifyLastNote(wid);
+      // this.identifyLastNote(wid);
       if (!roles.hasControls()) {
         if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
           const curr = virtualclass.gObj.currIndex || virtualclass.gObj.currSlide;
@@ -140,9 +142,11 @@
 
         virtualclass.wbCommon.indexNav.setCurrentIndex(virtualclass.gObj.currIndex);
         virtualclass.vutil.beforeSend({'cf': 'cwb', diswb: true, wid: wid, currIndex: virtualclass.gObj.currIndex});
+        localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
       }
 
       console.log('==== current slide ', virtualclass.gObj.currSlide);
+      this.identifyFirstNote(wid);
 
       // virtualclass.vutil.beforeSend({'cf': 'cwb', wbCount : virtualclass.gObj.wbCount});
     },
@@ -166,6 +170,8 @@
       console.log('==== current slide ', virtualclass.gObj.currSlide);
       virtualclass.vutil.beforeSend({'cf': 'cwb', diswb: true, wid: wid, currIndex: virtualclass.gObj.currIndex});
       // virtualclass.vutil.beforeSend({'cf': 'cwb', wbCount : virtualclass.gObj.wbCount});
+      this.identifyLastNote(wid);
+      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     },
 
     newPage : async function  () {
@@ -182,13 +188,15 @@
       const currIndex = this.order.indexOf(prevIndex);
       const whiteboardNext = this.whiteboardWrapperExist('next');
 
-      virtualclass.vutil.createWhiteBoard(wid, currIndex);
+      await virtualclass.vutil.createWhiteBoard(wid, currIndex);
       this.displaySlide(wid);
       let newIndex;
       let currPageNumber;
 
       if (whiteboardNext == null) {
-        this.order.push(virtualclass.gObj.wbCount);
+        if (this.order.indexOf(virtualclass.gObj.wbCount) <= -1) {
+          this.order.push(virtualclass.gObj.wbCount);
+        }
         newIndex = this.order.length;
         virtualclass.wbCommon.indexNav.createWbNavigationNumber(newIndex);
         currPageNumber = newIndex;
@@ -200,11 +208,14 @@
         currPageNumber = newIndex + 2;
         virtualclass.wbCommon.indexNav.createWbNavigationNumber(currPageNumber);
       }
-      virtualclass.vutil.beforeSend({'cf': 'cwb', wbCount : virtualclass.gObj.wbCount, currIndex : currPageNumber});
+      virtualclass.vutil.beforeSend({cf: 'cwb', wbCount : virtualclass.gObj.wbCount, currIndex : currPageNumber});
       this.setCurrSlideNumber(wid);
       virtualclass.gObj.currIndex = currPageNumber;
       console.log('==== current slide ', virtualclass.gObj.currSlide);
+      this.identifyLastNote(wid);
 
+      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
+      localStorage.setItem('wbOrder', JSON.stringify(this.order));
     },
 
     rearrange(order) {
@@ -212,14 +223,6 @@
       const tmpdiv = document.createElement('div');
       // tmpdiv.id = "listppt";
       tmpdiv.className = 'whiteboardContainer';
-      // var orderChange = false;
-
-      //            for (var j = 0; j < virtualclass.sharePt.activeppts.length; j++) {
-      //                if (order.indexOf(virtualclass.sharePt.activeppts[j].fileuuid) <= -1) {
-      //                    order.push(virtualclass.sharePt.activeppts[j].fileuuid);
-      //                    orderChange = true;
-      //                }
-      //            }
 
       for (let i = 0; i < order.length; i++) {
         const elem = document.getElementById(`note_doc_0_${order[i]}`);
@@ -229,13 +232,8 @@
       }
 
       container.parentNode.replaceChild(tmpdiv, container);
-
-      // if (orderChange) {
-      //  virtualclass.wbCommon.order = order;
-      // virtualclass.vutil.sendOrder("presentation", virtualclass.sharePt.order);
-      // orderChange = false;
-      // }
     },
+
     rearrangeNav(order) {
       const e = document.querySelector('#dcPaging');
       e.innerHTML = '';
@@ -243,7 +241,9 @@
       // for (let i = 0; i <= virtualclass.gObj.wbCount; i++) {
       //   virtualclass.wbCommon.indexNav.createWbNavigationNumber(order[i], i);
       // }
-      virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.wbCount);
+
+      virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.currIndex);
+      //virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.wbCount+1);
       // virtualclass.wbCommon.indexNav.addActiveNavigation(this.indexNav.order.indexOf(virtualclass.gObj.currWb), virtualclass.gObj.currWb)
 
       if (virtualclass.currApp == 'Whiteboard') {

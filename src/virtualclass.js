@@ -621,7 +621,7 @@
             }
           }
 
-          if (app == 'Whiteboard') {
+          if (app === 'Whiteboard') {
             const args = [];
             for (let i = 0; i < arguments.length; i++) {
               args.push(arguments[i]);
@@ -632,69 +632,48 @@
 
             const id = (typeof data !== 'undefined') ? `_doc_${data}` : `_doc_0_${virtualclass.gObj.currSlide}`;
             args[2] = id;
-
             args.push('virtualclassWhiteboard');
 
             this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
-
             prevapp = JSON.parse(prevapp);
-            // if(wIds != null && wIds.length > 0 ){
-            //    virtualclass.wbCommon.initNav(virtualclass.gObj.wIds);
-            // }
-            virtualclass.wbCommon.initNav(virtualclass.gObj.wIds);
-            // if(!virtualclass.gObj.wbRearrang && prevapp != null && prevapp.hasOwnProperty('wbcs')){
+
             if (!virtualclass.gObj.wbRearrang && prevapp != null && localStorage.getItem('currSlide') != null) {
               let wIds = localStorage.getItem('wIds');
-              wIds = JSON.parse(wIds);
-              if (wIds != null && wIds.length > 0) {
-                virtualclass.wbCommon.readyElements(wIds);
-                virtualclass.wbCommon.initNav(wIds);
-
-                // virtualclass.gObj.currSlide = prevapp.wbcs;
-
-                // virtualclass.wbCommon.currentWhiteboard('_doc_0_'+virtualclass.gObj.currSlide);
-                if (virtualclass.gObj.hasOwnProperty('currSlide') && wIds.indexOf(Number(virtualclass.gObj.currSlide)) == -1) {
-                  console.log('wids, From virtualclass ');
-                  wIds.push(virtualclass.gObj.currSlide);
+              if (wIds !== null) {
+                wIds = JSON.parse(wIds);
+                if (wIds.length > 0) {
+                  virtualclass.wbCommon.readyElements(wIds);
+                  if (virtualclass.gObj.hasOwnProperty('currSlide') && wIds.indexOf(+(virtualclass.gObj.currSlide)) === -1) {
+                    console.log('wids, From virtualclass ');
+                    wIds.push(virtualclass.gObj.currSlide);
+                  }
+                  //
+                  // virtualclass.wbCommon.reArrangeElements(wIds);
+                  virtualclass.gObj.wbRearrang = true;
+                  virtualclass.gObj.wIds = wIds;
                 }
-                virtualclass.wbCommon.reArrangeElements(wIds);
-                virtualclass.gObj.wbRearrang = true;
-                virtualclass.gObj.wIds = wIds;
-                if (roles.hasControls()) {
-                  virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order);
-                  virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb);
-                }
-
-                //                                if (!roles.hasControls()) {
-                //                                    if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
-                //                                        virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
-                //                                    }
-                //                                }
               }
-
-
-              // virtualclass.gObj.currWb = '_doc_0_'+virtualclass.gObj.currSlide;
             }
 
-            //    virtualclass.gObj.currWb = '_doc_'+virtualclass.gObj.currSlide+'_'+virtualclass.gObj.currSlide;
+            virtualclass.wbCommon.initNav(virtualclass.gObj.wIds);
+
+            if (virtualclass.gObj.wbRearrang) {
+              if (roles.hasControls()) {
+                virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order);
+                virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb);
+              } else {
+                virtualclass.wbCommon.rearrange(virtualclass.gObj.wIds); //TODO, here should the wbCommon.order
+              }
+            }
 
             virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
             virtualclass.wbCommon.identifyLastNote(virtualclass.gObj.currWb);
-            // system.initResize();
-
-            // virtualclass.zoom.zoomAction('fitToScreen');
           } else {
             var currVideo = Array.prototype.slice.call(arguments)[2];
             this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
-            // if(roles.hasControls() && app == 'Video' && !(currVideo && currVideo.init&&(currVideo.init.videoUrl|| currVideo.fromReload))){
-            //     virtualclass.vutil.triggerDashboard(app);
-            // }
-
             if (currVideo && currVideo.init && currVideo.init.videoUrl && currVideo.fromReload) {
               var hidepopup = true;
             }
-
-
             if (roles.hasControls() && app == 'Video') {
               if (`virtualclass${app}` != virtualclass.previous) {
                 var dashboardnav = document.querySelector('#dashboardnav button');
@@ -719,13 +698,7 @@
         //     virtualclass.yts.destroyYT();
         // }
         if (app != 'Video' && virtualclass.hasOwnProperty('videoUl')) {
-          // to verify this
-          // virtualclass.videoUl.videoUrl ="";
           virtualclass.videoUl.videoId = '';
-          // $('.vjs-tech').each(function(){
-          //     var el_src = $(this).attr("src");
-          //     $(this).attr("src",el_src);
-          // });
           const frame = document.getElementById('dispVideo_Youtube_api');
           if (frame && frame.contentWindow) {
             frame.contentWindow.postMessage(
@@ -750,8 +723,6 @@
           if (currCtr) {
             currCtr.classList.remove('removeCtr');
           }
-          //                    $('.congrea #listvideo .playing').removeClass('playing');
-          //                    $('.congrea #listvideo .removeCtr').removeClass('removeCtr');
           if (!roles.hasControls()) {
             if (virtualclass.gObj.hasOwnProperty('videoPauseTime')) {
               clearTimeout(virtualclass.gObj.videoPauseTime);

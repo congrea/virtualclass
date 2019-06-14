@@ -6,6 +6,7 @@
 
  */
 (function (window) {
+  "use strtic";
   var poll = function () {
     return {
       /* to generlize */
@@ -841,7 +842,7 @@
       },
       //* *****************
       popupFn(id, index, pollType) {
-        virtualclass.poll[id].call(this.poll, index, pollType, id);
+        virtualclass.poll[id].call(virtualclass.poll, index, pollType, id);
       },
       next(index, pollType) {
         virtualclass.poll.pollSetting(pollType, index);

@@ -3,6 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
+  "use strict";
   let that;
   let dataStore = false;
   let dataAllStore = false;
@@ -431,8 +432,8 @@
           virtualclass.videoUl.destroyPlayer();
         }
 
-        if (typeof CDTimer !== 'undefined') {
-          clearInterval(CDTimer);
+        if (virtualclass.gObj.CDTimer != null) {
+          clearInterval(virtualclass.gObj.CDTimer);
         }
 
         const currApp = document.querySelector(`#virtualclass${virtualclass.currApp}`);
@@ -801,7 +802,7 @@
 
     // Get quiz data, store in array based on
     // key and then return array of object
-    async getQuizData() {
+    async getQuizData(cb) {
       const dataArr = [];
       let cursor = await this.db.transaction('quizData').store.openCursor();
       while (cursor) {

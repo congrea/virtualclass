@@ -49,21 +49,15 @@
         };
       }
     },
+
     initNav(wIds) {
       if (typeof this.indexNav === 'undefined') {
         this.indexNav = new pageIndexNav('WB');
       }
+      let currentPageNumber = virtualclass.gObj.currIndex ||  wIds.length;
 
       this.indexNav.init();
       if (roles.hasControls()) {
-        // for (let i = 0; i < wIds.length; i++) {
-        //   virtualclass.wbCommon.indexNav.createWbNavigationNumber(wIds[i], wIds[i]);
-        // }
-
-        const currentPageNumber = virtualclass.gObj.currIndex ||  wIds.length;
-        virtualclass.wbCommon.indexNav.createWbNavigationNumber(currentPageNumber);
-        virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb);
-
         let wbOrder = localStorage.getItem('wbOrder');
         if (wbOrder != null) {
           wbOrder = JSON.parse(wbOrder);
@@ -73,19 +67,21 @@
         if (this.order.length > 1) {
           virtualclass.wbCommon.rearrangeNav(this.order);
           this.rearrange(this.order);
-          let currentPageNumber = localStorage.getItem('currIndex');
-          if (currentPageNumber !==  null) {
-            this.indexNav.createWbNavigationNumber(currentPageNumber); // for teacher
+          let currentIndex = localStorage.getItem('currIndex');
+          if (currentIndex !==  null) {
+            currentPageNumber = currentIndex;
           }
         }
+        virtualclass.wbCommon.indexNav.createWbNavigationNumber(currentPageNumber);
+        virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb);
+
       } else {
         const curr = virtualclass.gObj.currIndex || virtualclass.gObj.currSlide;
         virtualclass.wbCommon.indexNav.studentWBPagination(curr);
       }
-      // virtualclass.gObj.wbCount = wIds.length;
+
       virtualclass.wbCommon.indexNav.setTotalPages(wIds.length);
     },
-
 
     /**
      * TODO, this should be merged with dislaySlide on document-share.js
@@ -242,7 +238,7 @@
       //   virtualclass.wbCommon.indexNav.createWbNavigationNumber(order[i], i);
       // }
 
-      virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.currIndex);
+      //virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.currIndex);
       //virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.wbCount+1);
       // virtualclass.wbCommon.indexNav.addActiveNavigation(this.indexNav.order.indexOf(virtualclass.gObj.currWb), virtualclass.gObj.currWb)
 
@@ -367,6 +363,7 @@
 
       // this.reArrangeElements(wids)
     },
+
     /** this is only for whitebaord not for docs * */
     reArrangeElements(order) {
       const container = document.querySelector('#virtualclassWhiteboard .whiteboardContainer');

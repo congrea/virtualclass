@@ -432,8 +432,8 @@
           virtualclass.videoUl.destroyPlayer();
         }
 
-        if (typeof CDTimer !== 'undefined') {
-          clearInterval(CDTimer);
+        if (virtualclass.gObj.CDTimer != null) {
+          clearInterval(virtualclass.gObj.CDTimer);
         }
 
         const currApp = document.querySelector(`#virtualclass${virtualclass.currApp}`);

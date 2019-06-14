@@ -21,8 +21,8 @@
       quizAttempted: {}, // used for storage
       qGrade: [], // used for storage
       init() {
-        virtualclass.previrtualclass = 'virtualclass' + 'Quiz';
-        virtualclass.previous = 'virtualclass' + 'Quiz';
+        virtualclass.previrtualclass = 'virtualclassQuiz';
+        virtualclass.previous = 'virtualclassQuiz';
         const urlquery = virtualclass.vutil.getUrlVars(exportfilepath);
         this.cmid = urlquery.cmid;
 
@@ -449,8 +449,8 @@
           cf: 'quiz',
         });
         // stop timer
-        if (typeof CDTimer !== 'undefined') {
-          clearInterval(CDTimer);
+        if (virtualclass.gObj.CDTimer != null) {
+          clearInterval(virtualclass.gObj.CDTimer);
           console.log('Clear quiz interval');
         }
 
@@ -695,7 +695,7 @@
         const body = virtualclass.view.customCreateElement('div', 'attemptQzBody', 'modal-body');
         const questionArr = quizobj.questions;
         let qcount = 1;
-        for (i = 0; i < questionArr.length; i++) {
+        for (let i = 0; i < questionArr.length; i++) {
           const quesDiv = virtualclass.view.customCreateElement('div', '', 'q-area');
           body.appendChild(quesDiv);
           const quesNoDiv = virtualclass.view.customCreateElement('span', '', 'q-no');
@@ -827,8 +827,8 @@
             // example 17:00:00 not 16:59:59
             // start = Date.now() + 1000;
             start = 0;
-            if (typeof CDTimer !== 'undefined') {
-              clearInterval(CDTimer);
+            if (virtualclass.gObj.CDTimer != null) {
+              clearInterval(virtualclass.gObj.CDTimer);
               console.log('Clear quiz interval');
             }
 
@@ -849,7 +849,7 @@
         if (order !== 'asc') {
           timer();
         }
-        CDTimer = setInterval(timer, 1000);
+        virtualclass.gObj.CDTimer = setInterval(timer, 1000);
       },
 
       /**

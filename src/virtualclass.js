@@ -93,6 +93,7 @@
         wbTool: {},
         fullScreenMode: false,
         lastmousemovetime: null,
+        CDTimer : null,
       },
 
       enablePreCheck: true,
@@ -190,8 +191,8 @@
         }
 
         // this.pdfRender = window.pdfRender();
-        if (this.currApp != 'Quiz' && typeof CDTimer !== 'undefined') {
-          clearInterval(CDTimer);
+        if (this.currApp != 'Quiz' && virtualclass.gObj.CDTimer != null) {
+          clearInterval(virtualclass.gObj.CDTimer != null);
         }
 
         virtualclass.modernizr = Modernizr;

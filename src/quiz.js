@@ -1,5 +1,7 @@
 /* global virtualclass, ioAdapter */
 (function (window) {
+  "use strtic";
+  let scope, pubbtn;
   const quiz = function () {
     return {
       /* to generlize */
@@ -374,7 +376,7 @@
       },
 
       popupFn(id, index) {
-        virtualclass.quiz[id].call(this.quiz, index);
+        virtualclass.quiz[id].call(virtualclass.quiz, index);
       },
 
       /*
@@ -814,7 +816,7 @@
           display.textContent = `${hours}:${minutes}:${seconds}`;
           // var ctime = hours + ":" + minutes + ":" + seconds;
           // Global scope of timer
-          timeTakenQuiz = `${hours}:${minutes}:${seconds}`;
+        //  timeTakenQuiz = `${hours}:${minutes}:${seconds}`;
 
           if (diff <= 0) {
             if (order != 'asc') {

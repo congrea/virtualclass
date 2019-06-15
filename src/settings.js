@@ -1,45 +1,19 @@
 (function (window) {
   const settings = {
-    info: { // All settings object
-      allowoverride: null,
-      studentaudio: null,
-      studentpc: null,
-      studentgc: null,
-      studentvideo: null,
-      raisehand: null,
-      userlist: null,
-      x8: null,
-      x16: null,
-
-      enableRecording: null,
-
-      recAllowpresentorAVcontrol: null,
-      recShowPresentorRecordingStatus: null,
-
-      attendeeAV: null,
-      recallowattendeeAVcontrol: null,
-      showAttendeeRecordingStatus: null,
-      trimRecordings: null,
-    },
-
+    info: {},
     user: {},
-    temp : "",
     init() { // default settings applyed from here
-      let settings = localStorage.getItem('settings');
-      if (!settings) {
-        settings = virtualclassSetting.settings;
+      let coreSettings = localStorage.getItem('settings');
+      if (coreSettings === null) {
+        coreSettings = virtualclassSetting.settings;
+        localStorage.setItem('settings', coreSettings);
       }
-      virtualclass.settings.temp = settings;
-      settings = virtualclass.settings.onLoadSettings(settings);
 
-      for (const propname in settings) {
-        if (virtualclass.settings.info.hasOwnProperty(propname)) {
-          virtualclass.settings.info[propname] = settings[propname];
-        }
-      }
-      let userSetting = JSON.parse(localStorage.getItem("userSettings"));
-      if(userSetting){
-        virtualclass.settings.user = userSetting;
+      virtualclass.settings.info = virtualclass.settings.parseSettings(coreSettings);
+
+      const userSetting = localStorage.getItem('userSettings');
+      if (userSetting) {
+        virtualclass.settings.user = JSON.parse(userSetting);
       }
 
       this.recording.init();
@@ -62,43 +36,40 @@
       localSettings[11] = +s.recallowattendeeAVcontrol;
       localSettings[12] = +s.showAttendeeRecordingStatus;
       localSettings[13] = +s.trimRecordings;
-      localSettings[14] = +s.x8;
-      localSettings[15] = +s.x16;
+      localSettings[14] = +s.x5;
+      localSettings[15] = +s.x6;
       return virtualclass.settings.binaryToHex(localSettings.join(''));
     },
 
     // return data into true, false
     // student side
     parseSettings(s) {
-      const settings = {};
+      const parsedSettings = {};
       let localSettings = virtualclass.settings.hexToBinary(s);
-      if (localSettings) {
-        localSettings = localSettings.split('');
-      }
-      settings.allowoverride = !!+localSettings[0];
-      settings.studentaudio = !!+localSettings[1];
-      settings.studentvideo = !!+localSettings[2];
-      settings.studentpc = !!+localSettings[3];
-      settings.studentgc = !!+localSettings[4];
-      settings.raisehand = !!+localSettings[5];
-      settings.userlist = !!+localSettings[6];
-      settings.enableRecording = !!+localSettings[7];
-      settings.recAllowpresentorAVcontrol = !!+localSettings[8];
-      settings.recShowPresentorRecordingStatus = !!+localSettings[9];
-      settings.attendeeAV = !!+localSettings[10];
-      settings.recallowattendeeAVcontrol = !!+localSettings[11];
-      settings.showAttendeeRecordingStatus = !!+localSettings[12];
-      settings.trimRecordings = !!+localSettings[13];
-      settings.x8 = !!+localSettings[14];
-      settings.x16 = !!+localSettings[15];
-
-      return settings;
+      localSettings = localSettings.split('');
+      parsedSettings.allowoverride = !!+localSettings[0];
+      parsedSettings.studentaudio = !!+localSettings[1];
+      parsedSettings.studentvideo = !!+localSettings[2];
+      parsedSettings.studentpc = !!+localSettings[3];
+      parsedSettings.studentgc = !!+localSettings[4];
+      parsedSettings.raisehand = !!+localSettings[5];
+      parsedSettings.userlist = !!+localSettings[6];
+      parsedSettings.enableRecording = !!+localSettings[7];
+      parsedSettings.recAllowpresentorAVcontrol = !!+localSettings[8];
+      parsedSettings.recShowPresentorRecordingStatus = !!+localSettings[9];
+      parsedSettings.attendeeAV = !!+localSettings[10];
+      parsedSettings.recallowattendeeAVcontrol = !!+localSettings[11];
+      parsedSettings.showAttendeeRecordingStatus = !!+localSettings[12];
+      parsedSettings.trimRecordings = !!+localSettings[13];
+      parsedSettings.x5 = !!+localSettings[14];
+      parsedSettings.x6 = !!+localSettings[15];
+      return parsedSettings;
     },
 
     // Hex convert into binary
     hexToBinary(s) {
-      let i; let k; let part; let
-        ret = '';
+      let i;
+      let ret = '';
       // lookup table for easier conversion. '0' characters are padded for '1' to '7'
       const lookupTable = {
         0: '0000',
@@ -136,8 +107,7 @@
 
     // convert binary into Hex
     binaryToHex(s) {
-      let i; let k; let part; let accum; let
-        ret = '';
+      let i; let k; let part; let accum; let ret = '';
       for (i = s.length - 1; i >= 3; i -= 4) {
         // extract out in substrings of 4 and convert to hex
         part = s.substr(i + 1 - 4, 4);
@@ -188,37 +158,38 @@
         if ((value === true || value === false) && virtualclass.settings.info.hasOwnProperty(settingName)) {
           if (typeof userId === 'undefined') {
             const userList = virtualclass.connectedUsers;
-            for(let i = 0; i < userList.length; i++) {
-              if(userList[i].role === "s") {
-                virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrAudImg"), virtualclass.settings.info.studentaudio, 'audio', 'aud');
-                virtualclass.user.control.changeAttribute(userList[i].userid, virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + "contrChatImg"), true, 'chat', 'chat');
+            for (let i = 0; i < userList.length; i++) {
+              if (userList[i].role === 's') {
+                virtualclass.user.control.changeAttribute(userList[i].userid,
+                  virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + 'contrAudImg'),
+                  virtualclass.settings.info.studentaudio, 'audio', 'aud');
+                virtualclass.user.control.changeAttribute(userList[i].userid,
+                  virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + 'contrChatImg'),
+                  true, 'chat', 'chat');
               }
             }
-            localStorage.removeItem("userSettings");
+            localStorage.removeItem('userSettings');
             virtualclass.settings.user = {};
             virtualclass.settings.info[settingName] = value;
             const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
             virtualclass.settings.send(str, userId);
             localStorage.setItem('settings', str);
           } else {
-            var specificSettings;
-            if(virtualclass.settings.user.hasOwnProperty(userId)) {
+            let specificSettings;
+            if (virtualclass.settings.user.hasOwnProperty(userId)) {
               const user = virtualclass.settings.user[userId];
-              const setting = virtualclass.settings.onLoadSettings(user);
+              const setting = virtualclass.settings.parseSettings(user);
               setting[settingName] = value;
               specificSettings = virtualclass.settings.settingsToHex(setting);
-            }else {
-              const individualSetting = {};
-              const setting = virtualclass.settings.info;
-              for(const propname in setting) {
-                individualSetting[propname] = setting[propname];
-              }
+            } else {
+              let individualSetting = {};
+              individualSetting = virtualclass.settings.info;
               individualSetting[settingName] = value;
               specificSettings = virtualclass.settings.settingsToHex(individualSetting);
             }
             virtualclass.settings.send(specificSettings, userId);
             virtualclass.settings.user[userId] = specificSettings;
-            localStorage.setItem("userSettings" , JSON.stringify(virtualclass.settings.user));
+            localStorage.setItem('userSettings', JSON.stringify(virtualclass.settings.user));
           }
           return true;
         }
@@ -230,8 +201,8 @@
           virtualclass.settings[propname](obj[propname]);
         }
       }
-      const settings = virtualclass.settings.settingsToHex(obj);
-      localStorage.setItem('settings', settings);
+      const str = virtualclass.settings.settingsToHex(obj);
+      localStorage.setItem('settings', str);
     },
 
     // Message send to student
@@ -249,17 +220,12 @@
     onMessage(msg) {
       if (typeof msg === 'string') {
         if (roles.isStudent()) {
-          const settings = virtualclass.settings.parseSettings(msg);
-          this._applySettings(settings);
+          const stdSettings = virtualclass.settings.parseSettings(msg);
+          this._applySettings(stdSettings);
         }
       } else {
         this.recording.triggerSetting(msg);
       }
-    },
-
-    onLoadSettings(str) {
-      const hextosettings = virtualclass.settings.parseSettings(str);
-      return hextosettings;
     },
 
     // Mute or Unmute all student audio or particular student mute or unmute
@@ -283,14 +249,14 @@
       console.log('TO DO');
     },
 
-    studentpc(value) {
+    studentpc(value) { // student chat enable/disable
       console.log('TO DO');
-      if(value === true) {
+      if (value === true) {
         virtualclass.user.control.allChatEnable();
         virtualclass.gObj.chatEnable = true;
         document.querySelector('#chatWidget').classList.remove('chat_disabled');
         document.querySelector('#chat_div').classList.remove('chat_disabled');
-      }else if(value === false){
+      } else if (value === false) {
         virtualclass.user.control.allChatDisable();
         virtualclass.gObj.chatEnable = false;
       }
@@ -300,10 +266,8 @@
       console.log('TO DO');
     },
 
-    // All student video enable, disable
-    studentvideo(value) {
+    studentvideo(value) { // All student video enable, disable
       if (roles.isStudent()) {
-        let action;
         const sw = document.querySelector('.videoSwitchCont #videoSwitch');
         if (sw.classList.contains('off') && value === false) {
           console.log('do nothing');
@@ -312,9 +276,8 @@
         } else if (sw.classList.contains('on') && value === false) {
           virtualclass.vutil.videoHandler('off');
         }
-        action = (value === false) ? 'disable' : 'enable';
+        const action = (value === false) ? 'disable' : 'enable';
         virtualclass.videoHost.toggleVideoMsg(action);
-        // localStorage.setItem("allVideoAction", action);
       }
     },
 
@@ -359,62 +322,79 @@
     },
 
     recording: {
-      enableRecording: false,
-      allowpresentorAVcontrol: false,
-      attendeeAV: false,
-      allowattendeeAVcontrol: false,
-      audioVideo: true,
-      statusOnly: false,
-      trimRecordings: false,
-      allowattendeeAVcontrolByTeacher: false,
+      recordingButton: 0, // 0 - Do not show button, 1 - show button but no click, 2 - show button and clickable
+      attendeeButtonAction: true,
 
-      init() {
-        this.enableRecording = virtualclass.settings.info.enableRecording;
+      init() { // recording status, button show or hide, override setting
+        const buttonSettings = JSON.parse(localStorage.getItem('recordingButton'));
+        if (buttonSettings === null) {
+          this.recordingButton = this.recordingStatus();
+          localStorage.setItem('recordingButton', this.recordingButton);
+        } else {
+          this.recordingButton = buttonSettings;
+        }
+
+        const atbuttonSettings = JSON.parse(localStorage.getItem('attendeeButtonAction'));
+        if (atbuttonSettings !== null) {
+          this.attendeeButtonAction = atbuttonSettings;
+        }
+
+        this.showRecordingButton();
+      },
+
+      toggleRecordingButton() {
+        if (this.recordingButton === 21) {
+          this.recordingButton = 11;
+        } else if (this.recordingButton === 11) {
+          this.recordingButton = 21;
+        }
+        ioAdapter.setRecording();
+        localStorage.setItem('recordingButton', this.recordingButton);
+        this.showRecordingButton();
         if (roles.hasControls()) {
-          this.allowpresentorAVcontrol = virtualclass.settings.info.recAllowpresentorAVcontrol;
-          this.showPresentorRecordingStatus = (virtualclass.settings.info.allowpresentorAVcontrol) ? true : virtualclass.settings.info.recShowPresentorRecordingStatus;
+          if (virtualclass.settings.info.attendeeAV) {
+            ioAdapter.mustSend({ ac: this.recordingButton, cf: 'recs' });
+          }
         } else {
-          this.attendeeAV = virtualclass.settings.info.attendeeAV;
-          this.allowattendeeAVcontrol = virtualclass.settings.info.recallowattendeeAVcontrol;
-          this.showAttendeeRecordingStatus = (virtualclass.settings.info.allowattendeeAVcontrol) ? true : virtualclass.settings.info.showAttendeeRecordingStatus;
-        }
-
-        this.trimRecordings = virtualclass.settings.info.trimRecordings;
-
-        this.showStatusButton = this.showStatus();
-        this.showButton();
-        this.overrideSettingFromLocalStorage();
-      },
-
-      overrideSettingFromLocalStorage() {
-        let setting = localStorage.getItem('recsetting');
-        if (setting !== null && setting !== undefined) {
-          setting = JSON.parse(setting);
-          if (roles.hasControls() || setting.statusonly !== true) {
-            this.updateSettingAV(false);
+          if (this.recordingButton === 21) {
+            this.attendeeButtonAction = true;
+            localStorage.setItem('attendeeButtonAction', true);
           } else {
-            virtualclass.settings.onMessage({ ac: false });
+            this.attendeeButtonAction = false;
+            localStorage.setItem('attendeeButtonAction', false);
           }
         }
       },
 
-      showButton() {
-        const recording = document.getElementById('recording');
-        if (this.showStatusButton) {
-          recording.classList.remove('hide');
-          recording.classList.add('show');
-          virtualclassCont.dataset.recording = 'on';
-          if (!this.statusOnly) {
-            this.attachHandler(recording);
-          } else {
-            recording.classList.add('statusonly');
-          }
-          if (this.trimRecordings) {
-            recording.classList.add('trimRecording');
-          }
-        } else {
-          recording.classList.remove('show');
-          recording.classList.add('hide');
+      showRecordingButton() { // recording button button show or hide
+        const recordingButton = virtualclass.getTemplate('recordingButton');
+        let context;
+        switch (this.recordingButton) {
+          case 10:
+            context = { ten: 'ten' };
+            break;
+          case 11:
+            context = { eleven: 'eleven' };
+            break;
+          case 20:
+            context = { twenty: 'twenty' };
+            break;
+          case 21:
+            context = { twentyone: 'twentyone' };
+            break;
+          default:
+            return;
+        }
+        const temp = recordingButton(context);
+        const elem = document.querySelector('#docShareNav');
+        let recording = document.getElementById('recording');
+        if (recording !== null) {
+          recording.remove();
+        }
+        elem.insertAdjacentHTML('afterend', temp);
+        recording = document.getElementById('recording');
+        if (this.recordingButton === 21 || this.recordingButton === 11) {
+          this.attachHandler(recording);
         }
       },
 
@@ -422,109 +402,93 @@
         recording.addEventListener('click', this.recordingButtonAction.bind(this, recording));
       },
 
-      updateSettingAV(setting) {
-        const recElem = document.querySelector('#recording');
-        const recButton = document.querySelector('#recording .recordingText');
-
-        this.audioVideo = setting;
-
-        if (this.audioVideo) {
-          recButton.innerHTML = 'Recording';
-          virtualclassCont.dataset.recording = 'on';
-          recElem.setAttribute('data-title', 'Recording Started');
-          localStorage.removeItem('recsetting');
-          if (virtualclass.currApp === 'ScreenShare' && virtualclass.ss != null) {
-            virtualclass.ss.initShareScreen('ss', 500);
-          }
-        } else {
-          if (roles.hasControls() && this.trimRecordings) {
-            // recButton.innerHTML = "Start Recording";
-            recElem.setAttribute('data-title', 'Recording Stopped');
-          } else {
-            recElem.setAttribute('data-title', 'Recording Stopped');
-          }
-          virtualclassCont.dataset.recording = 'off';
-
-          localStorage.setItem('recsetting', JSON.stringify({
-            statusonly: this.statusOnly,
-            rec: virtualclassCont.dataset.recording,
-          }));
+      recordingButtonAction() { // On recording button action send to student
+        if (this.recordingButton === 21 || this.recordingButton === 11) {
+          this.toggleRecordingButton();
         }
-        ioAdapter.setRecording();
       },
 
-      recordingButtonAction(elem) {
-        if (!elem.classList.contains('statusonly')) {
-          let recordSetting;
-          if (virtualclassCont.dataset.recording === 'off') {
-            recordSetting = true;
-            this.updateSettingAV(recordSetting);
-          } else {
-            recordSetting = false;
-            this.updateSettingAV(recordSetting);
-          }
-
+      recordingStatus() {
+        if (!virtualclass.settings.info.enableRecording) {
           if (roles.hasControls()) {
-            ioAdapter.mustSend({ ac: recordSetting, cf: 'recs' });
+            if (virtualclass.settings.info.recShowPresentorRecordingStatus) {
+              return 10;
+            }
+          } else {
+            if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+              return 10;
+            }
           }
+          return 0;
         } else {
-          console.log(' Do nothing');
-        }
-      },
-
-      showStatus() {
-        if (roles.hasControls()) {
-          if (this.enableRecording && this.allowpresentorAVcontrol && this.showPresentorRecordingStatus) {
-            return true;
-          } if (this.enableRecording && !this.allowpresentorAVcontrol && this.showPresentorRecordingStatus) {
-            this.statusOnly = true;
-            return true;
+          if (roles.hasControls()) {
+            if (virtualclass.settings.info.recShowPresentorRecordingStatus) {
+              if (virtualclass.settings.info.recAllowpresentorAVcontrol) {
+                return 21;
+              }
+              return 20;
+            }
+            return 22;
+          } else {
+            if (virtualclass.settings.info.attendeeAV) {
+              if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+                if (virtualclass.settings.info.recallowattendeeAVcontrol) {
+                  return 21;
+                }
+                return 20;
+              }
+              return 22;
+            } else {
+              if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+                return 10;
+              }
+              return 0;
+            }
           }
-          return false;
         }
-        if (this.enableRecording && this.attendeeAV && this.allowattendeeAVcontrol && this.showAttendeeRecordingStatus) {
-          return true;
-        } if (this.enableRecording && this.attendeeAV && !this.allowpresentorAVcontrol && this.showAttendeeRecordingStatus) {
-          this.statusOnly = true;
-          return true;
-        }
-        return false;
-      },
-
-      isRecordingOn() {
-        if (roles.hasControls()) {
-          return (this.enableRecording && this.allowpresentorAVcontrol && this.audioVideo);
-        }
-        if (this.attendeeAV) {
-          if (this.allowattendeeAVcontrol) {
-            return this.audioVideo;
-          }
-          return true;
-        }
-        return false;
       },
 
       sendYesOrNo() {
-        return (this.isRecordingOn() ? 'yes' : 'no');
-      },
-
-      setStatusOnElement() {
-        const recording = document.querySelector('#recording');
-        if (this.allowattendeeAVcontrolByTeacher) {
-          recording.classList.add('statusonly');
-          this.statusOnly = true;
-        } else {
-          recording.classList.remove('statusonly');
-          this.statusOnly = false;
+        if (this.recordingButton === 20 || this.recordingButton === 21 || this.recordingButton === 22) {
+          return 'yes';
         }
+        return 'no';
       },
 
       triggerSetting(message) {
-        this.allowattendeeAVcontrolByTeacher = (message.ac == false);
-        this.setStatusOnElement();
-        this.updateSettingAV(message.ac);
+        if (!virtualclass.settings.info.attendeeAV) {
+          this.recordingButton = 0;
+          ioAdapter.setRecording();
+          this.showRecordingButton();
+          return;
+        }
+        switch (message.ac) {
+          case 11:
+            this.recordingButton = 10;
+            break;
+          case 21:
+            if (virtualclass.settings.info.recallowattendeeAVcontrol) {
+              if (this.attendeeButtonAction) {
+                this.recordingButton = 21;
+              } else {
+                this.recordingButton = 11;
+              }
+            } else {
+              this.recordingButton = 20;
+            }
+            break;
+          default:
+            return;
+        }
+
+        ioAdapter.setRecording();
+        localStorage.setItem('recordingButton', this.recordingButton);
+        if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+          this.showRecordingButton();
+        }
       },
     },
+
     userAudioIcon() {
       if ((virtualclass.settings.info.studentaudio === false)) {
         virtualclass.gObj.audioEnable = false;
@@ -535,22 +499,21 @@
       } else if (virtualclass.settings.info.studentaudio !== true) {
         virtualclass.user.control.audioDisable();
       }
-
     },
 
     userVideoIcon() {
       if (virtualclass.settings.info.studentvideo === false && roles.isStudent()) {
-        virtualclass.vutil.videoHandler("off");
+        virtualclass.vutil.videoHandler('off');
         virtualclass.user.control.videoDisable();
       } else {
         if (roles.isStudent() && virtualclass.settings.info.studentvideo !== true) {
-          virtualclass.vutil.videoHandler("off");
-          virtualclass.videoHost.toggleVideoMsg("disable");
+          virtualclass.vutil.videoHandler('off');
+          virtualclass.videoHost.toggleVideoMsg('disable');
         } else {
           virtualclass.user.control.videoEnable();
           if (roles.isStudent()) {
             // after refresh video disable when user enable his video etc.
-            virtualclass.vutil.videoHandler("off");
+            virtualclass.vutil.videoHandler('off');
           }
         }
         if (virtualclass.settings.info.studentvideo === true) {

@@ -129,7 +129,7 @@ var ioAdapter = {
   },
 
   setRecording() {
-    if (!virtualclass.isPlayMode && virtualclass.settings.recording.enableRecording) {
+    if (!virtualclass.isPlayMode && virtualclass.settings.info.enableRecording) {
       const sendData = virtualclass.settings.recording.sendYesOrNo();
       const obj = {
         cfun: 'recording',

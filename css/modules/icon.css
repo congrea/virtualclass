@@ -504,7 +504,7 @@
 }
 
 #virtualclassCont.congrea .rv-vanilla-modal-body #recordFinishedMessageBox .icon-close:before,
-#replayContainer #replayClose.icon-close:before, #sessionEndMsgCont #sessionEndClose.icon-close:before,
+#replayContainer #replayClose.icon-close:before, 
 #virtualclassCont.congrea #chromeExtClose.icon-close:before {
   content: "\f00d";
   font-size: 18px;
@@ -515,6 +515,19 @@
   background-color: #ffffff;
 }
 
+#virtualclassCont.congrea #chromeExtClose.icon-close:before{
+  content: "\f00d";
+    font-size: 16px;
+    font-weight: bolder;
+    color: #6a8e0b;
+
+}
+#sessionEndMsgCont #sessionEndClose.icon-close:before{
+  content: "\e986";
+  font-size: 12px;
+  font-weight: bolder;
+  color: #ffffff;
+}
 .icon-minus:before {
   content: "\e60f";
   color:#fff;

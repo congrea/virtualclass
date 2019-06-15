@@ -594,27 +594,33 @@
 
         console.log(`New role before clear ${virtualclass.gObj.uRole}`);
         virtualclass.settings.user = {};
-        virtualclass.endSession = true;
-        virtualclass.popup.sesseionEndWindow();
+
         let virtualclassWhiteboard = document.querySelector("#virtualclassWhiteboard");
         virtualclassWhiteboard.style.display = 'none';
         let virtualclassCont = document.querySelector('#virtualclassCont');
-        if(virtualclassCont != null){
+
+        if (virtualclassCont != null) {
           virtualclassCont.classList.remove('loading');
         }
-        return;
-        that.config.createNewSession();
 
+        if (!virtualclass.isPlayMode) {
+          virtualclass.endSession = true;
+          virtualclass.popup.sesseionEndWindow();
+          return;
+        }
+
+        that.config.createNewSession();
 
         if (virtualclass.videoHost && roles.isStudent() && !virtualclass.isPlayMode) {
           virtualclass.settings.init();
           virtualclass.settings.userAudioIcon();
           virtualclass.settings.userVideoIcon();
           var rightPanelElem = document.querySelector("#virtualclassAppRightPanel");
-          if(!rightPanelElem.classList.contains("vidHide")){
+          if (!rightPanelElem.classList.contains("vidHide")) {
              rightPanelElem.classList.add("vidHide");
           }
         }
+
         console.log(`New role after clear ${virtualclass.gObj.uRole}`);
         //if (!virtualclass.enablePreCheck) {
           // Only popup the message, if the precheck is not enabled

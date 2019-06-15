@@ -2867,6 +2867,38 @@
         canvasElem.style.pointerEvents = 'none';
       }
     },
+
+    WebPDecodeAndDraw: function (data, canvas, context) {
+      if (window.Worker) {
+        webpToPng.postMessage({
+          vdata: data,
+          canid: canvas.id,
+        });
+      }
+
+      if (window.Worker) {
+        webpToPng.onmessage = function (e) {
+          if (e.data.canid == 'videoParticipate') {
+            // Teacher's big video which is outside of the Shadow Dom
+            var canvas = document.querySelector(`#${e.data.canid}`);
+          } else {
+            var canvas = chatContainerEvent.elementFromShadowDom(`#${e.data.canid}`);
+          }
+
+          const context = canvas.getContext('2d');
+          const output = context.createImageData(canvas.width, canvas.height);
+
+          canvas.height = e.data.bh;
+          canvas.width = e.data.bw;
+
+          //	output.data =  new Uint8ClampedArray(outputData);
+          output.data.set(e.data.vdata);
+          context.putImageData(output, 0, 0);
+          virtualclass.gObj.isReadyForVideo = true;
+        };
+      }
+      canvas = canvas;
+    }
   };
   window.vutil = vutil;
 }(window));

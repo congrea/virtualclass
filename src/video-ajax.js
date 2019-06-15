@@ -57,7 +57,7 @@ function loadfile2(filename, type) {
         } else {
           var response = convertResponseBodyToText(http.responseBody);
         }
-        if (type === 'dec') WebPDecodeAndDraw(response);
+        if (type === 'dec') virtualclass.vutil.WebPDecodeAndDraw(response);
       } // else alert('Cannot load file. Please, try again');
     };
     http.send(null);
@@ -89,7 +89,7 @@ function loadfile(imgData, canvas, context) {
           }
         }
         // WebPDecDemo(canvas.id);
-        WebPDecodeAndDraw(response, canvas, context);
+        virtualclass.vutil.WebPDecodeAndDraw(response, canvas, context);
       } // else alert('Cannot load file. Please, try again');
     };
     http.send(null);

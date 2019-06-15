@@ -372,12 +372,13 @@ var videoHost = {
       var d = { x: 0, y: 0 };
       // you increase the the value, increase the quality
       // 0.4 and 9 need 400 to 500 kb/persecond
+      let sendimage;
       if (virtualclass.system.webpSupport) {
-        var sendimage = that.vidHostSlice.toDataURL('image/webp', 0.6);
-        var vidType = 1;
+         sendimage = that.vidHostSlice.toDataURL('image/webp', 0.6);
+         var vidType = 1;
       } else {
-        var sendimage = that.vidHostSlice.toDataURL('image/jpeg', 0.3);
-        var vidType = 0;
+        sendimage = that.vidHostSlice.toDataURL('image/jpeg', 0.3);
+         var vidType = 0;
       }
 
       that.vidHostSliceCon.clearRect(0, 0, that.width, that.height);

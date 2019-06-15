@@ -700,6 +700,9 @@
       }
       localStorage.setItem('chatWindow', virtualclass.chat.chatWindow);
       this.saveWbOrder();
+      if (virtualclass.isPlayMode) {
+        localStorage.clear();
+      }
       if (virtualclass.currApp != 'DocumentShare') {
         io.disconnect();
       }

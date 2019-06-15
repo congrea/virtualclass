@@ -239,6 +239,7 @@
     sentPackets: 'Sent <br/><span>Packets</span>',
     // 'sessionend': "Close session.",
     SessionEnd: 'Session end',
+    sessionexpired: 'Session Expired',
     sessionendmsg: 'Session has been closed. You may now close your browser.',
     setting: 'Setting',
     Searchuser: 'Search user',

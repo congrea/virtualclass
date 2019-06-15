@@ -465,7 +465,7 @@
         virtualclass.storage.config.sessionEndFlag = true;
         const newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
         const precheck = localStorage.getItem('precheck');
-        localStorage.clear();
+        // localStorage.clear();
         if (virtualclass.chat != null) {
           delete virtualclass.chat.vmstorage;
           virtualclass.chat.vmstorage = {};
@@ -573,13 +573,13 @@
         virtualclass.recorder.storeDone = 0;
 
 
-        virtualclass.setPrvUser(); // Set Previous User
+       // virtualclass.setPrvUser(); // Set Previous User
 
         workerIO.postMessage({ cmd: 'sessionEndClose' });
 
-        if (precheck != null) {
-          localStorage.setItem('precheck', JSON.parse(precheck));
-        }
+        // if (precheck != null) {
+        //   localStorage.setItem('precheck', JSON.parse(precheck));
+        // }
 
         // The new session is trying to open
         // overriding educator role (new teacher become educator) at where already has presenter
@@ -602,7 +602,7 @@
         if (virtualclassCont != null) {
           virtualclassCont.classList.remove('loading');
         }
-
+        localStorage.clear();
         if (!virtualclass.isPlayMode) {
           virtualclass.endSession = true;
           virtualclass.popup.sesseionEndWindow();

@@ -308,9 +308,7 @@
         }
 
         if (virtualclass.makePreCheckAvailable) {
-          if(virtualclass.endSession){
-            return;
-          }
+
           virtualclass.precheck.init();
         } else {
           virtualclass.makeReadySocket();

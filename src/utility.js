@@ -2901,7 +2901,7 @@
     },
 
     isSessionEnded (){
-      if (virtualclass.endSession) {
+      if (!virtualclass.isPlayMode && virtualclass.endSession) {
         localStorage.clear();
         return true;
       }

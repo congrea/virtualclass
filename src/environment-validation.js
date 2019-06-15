@@ -580,7 +580,11 @@
 
     webpInit() {
       virtualclass.modernizr.on('webp', (result) => {
-        virtualclass.system.webpSupport = !!(result);
+        if (virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'Edge'){
+          virtualclass.system.webpSupport = false;
+        } else {
+          virtualclass.system.webpSupport = !!(result);
+        }
       });
     },
 

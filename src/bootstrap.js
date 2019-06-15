@@ -35,7 +35,7 @@
     let wIds = localStorage.getItem('wIds');
     if (wIds != null) {
       wIds = JSON.parse(wIds);
-      virtualclass.gObj.wids = wIds;
+      virtualclass.gObj.wIds = wIds;
       virtualclass.gObj.wbCount = wIds.length - 1;
     }
 
@@ -93,6 +93,7 @@
         const currSlide = localStorage.getItem('currSlide');
         if (currSlide != null) {
           virtualclass.gObj.currSlide = currSlide;
+          console.log('==== current slide ', virtualclass.gObj.currSlide);
         }
       }
     } else {

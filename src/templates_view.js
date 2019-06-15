@@ -573,7 +573,7 @@ this["JST"]["dest_temp/templates/navigation/navMain.hbs"] = Handlebars.template(
     + alias4(((helper = (helper = helpers.totalPages || (depth0 != null ? depth0.totalPages : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"totalPages","hash":{},"data":data}) : helper)))
     + "</span></div></div><div id=\"dcPaging\" class=\"close\"></div><span id=\"rightNavPage\" class=\"pageNav disable\"></span> ";
 },"3":function(container,depth0,helpers,partials,data) {
-    return " <span class=\"pageHead\">Page</span><div id=\"dcPaging\"><span id=\"stdPageNo\"></span><span id=\"totalPages\" class=\"pages\"></span></div> ";
+    return " <span class=\"pageHead\">Page</span><div id=\"dcPaging\"><span id=\"stdPageNo\">1</span><span id=\"totalPages\" class=\"pages\">1</span></div> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 

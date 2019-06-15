@@ -395,8 +395,10 @@
             } else if (response) {
               if (roles.hasAdmin()) {
                 ioAdapter.mustSend({ dts: { order_recived: response }, cf: 'dts' });
-                cthis.afterRequestOrder(response);
-                cthis.createNoteNav();
+                if (virtualclass.currApp === 'DocumentShare'){
+                  cthis.afterRequestOrder(response);
+                  cthis.createNoteNav();
+                }
               }
             }
           }
@@ -593,7 +595,7 @@
           } else {
             const cont = document.getElementById('stdPageNo');
             if (cont) {
-              cont.innerHTML = 0;
+              cont.innerHTML = 1;
             }
             virtualclass.dts.indexNav.setTotalPages((virtualclass.dts.order.length));
           }

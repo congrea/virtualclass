@@ -39,6 +39,7 @@ module.exports = {
     xhr: 'writable',
     xhrn: 'writable',
     workerIO: 'writable',
+    virtualclass : 'writable'
   },
   parserOptions: {
     ecmaVersion: 2017,

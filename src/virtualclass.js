@@ -1343,7 +1343,7 @@
           virtualclass.setPrvUser();
         } else {
           prvUser = JSON.parse(prvUser);
-          if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role != prvUser.role || prvUser.recording != virtualclass.settings.recording.enableRecording) {
+          if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role != prvUser.role || prvUser.recording != virtualclassSetting.settings.enableRecording) {
             virtualclass.gObj.sessionClear = true;
             virtualclass.setPrvUser();
             if (roles.hasControls()) {
@@ -1359,7 +1359,7 @@
           id: wbUser.id,
           room: wbUser.room,
           role: wbUser.role,
-          recording: virtualclass.settings.recording.enableRecording,
+          recording: virtualclassSetting.settings.enableRecording,
         };
         console.log('previosu user');
         localStorage.setItem('prvUser', JSON.stringify(prvUser));

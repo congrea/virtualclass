@@ -1129,7 +1129,7 @@
               const audEnableSign = document.createElement('div');
               audEnableSign.id = `${user.id}AudEnableSign`;
               const audEnableImg = document.createElement('img');
-              imgName = 'audioenable';
+              const imgName = 'audioenable';
               audEnableImg.id = `${user.id + imgName}Img`;
               audEnableImg.src = `${window.whiteboardPath}images/${imgName}.png`;
               const enAudAnch = document.createElement('a');
@@ -1248,41 +1248,30 @@
        * it's helper function
        */
       mediaSliderUI(type) {
-        const lable = (type == 'audio') ? 'Audio' : 'Video';
-        var spanTag = document.querySelector(`.bulkUserActions #contr${lable}AllImg`);
+        const lable = (type === 'audio') ? 'Audio' : 'Video';
+        let spanTag = document.querySelector(`.bulkUserActions #contr${lable}AllImg`);
         const settings = virtualclass.settings.info;
-        // var settings = localStorage.getItem("settings");
-        // if(getSettings !== null) {
-        // var applyedSettings = virtualclass.settings.onLoadSettings(getSettings);
         const getMediaAction = virtualclass.user.defaultSettings(type, settings);
-        // }
-
-        // var getMediaAction = (type == 'audio') ? localStorage.getItem('allAudAction') : localStorage.getItem('allVideoAction');
-        const localAction = (getMediaAction == 'enable') ? 'disable' : 'enable';
+        const input = document.querySelector(`.bulkUserActions #contr${lable}All input`);
+        const cont = document.querySelector(`.congrea #contr${lable}All`);
+        const localAction = (getMediaAction === 'enable') ? 'disable' : 'enable';
         if (getMediaAction != null) {
           spanTag.setAttribute('data-action', localAction);
           spanTag.className = `slider round icon-all-${type}-${localAction} enable congtooltip cgIcon`;
           spanTag.dataset.title = virtualclass.lang.getString(`${localAction}All${lable}`);
-          var input = document.querySelector(`.bulkUserActions #contr${lable}All input`);
           input.setAttribute('checked', 'true');
-          var cont = document.querySelector(`.congrea #contr${lable}All`);
           cont.classList.add(localAction);
         } else {
-          // var defaultMediaSetting =  (type == 'audio') ? virtualclass.gObj.stdaudioEnable : virtualclass.gObj.stdvideoEnable;
-          //
-          // var defaultMediaSetting = virtualclass.user.defaultSettings(type, settings);
           const allAction = {
             action: getMediaAction ? 'enable' : 'disable',
             enable: 'disable',
             disable: 'enable',
           };
-          var spanTag = document.querySelector(`.bulkUserActions #contr${lable}AllImg`);
+          spanTag = document.querySelector(`.bulkUserActions #contr${lable}AllImg`);
           spanTag.setAttribute('data-action', allAction[allAction.action]);
           spanTag.className = `slider round icon-all-${type}-${allAction[allAction.action]} congtooltip cgIcon`;
           spanTag.dataset.title = virtualclass.lang.getString(`${allAction[allAction.action]}All${lable}`);
-          var input = document.querySelector(`.bulkUserActions #contr${lable}All input`);
           input.removeAttribute('checked');
-          var cont = document.querySelector(`.congrea #contr${lable}All`);
           cont.classList.add(allAction[allAction.action]);
         }
 
@@ -1292,9 +1281,10 @@
         } else {
           const that = this;
           spanTag.addEventListener('click', () => {
-            if (type == 'audio') {
-              var actionToPerform = that.toogleAudioIcon();
-              const actAudio = (actionToPerform == 'enable');
+            let actionToPerform;
+            if (type === 'audio') {
+              actionToPerform = that.toogleAudioIcon();
+              const actAudio = (actionToPerform === 'enable');
               virtualclass.settings.applySettings(actAudio, 'studentaudio');
 
               if (typeof actionToPerform !== 'undefined') {
@@ -1302,8 +1292,8 @@
                 that.toggleAllAudio.call(virtualclass.user, actionToPerform);
               }
             } else {
-              var actionToPerform = that.toggleVideoIcon();
-              const actVideo = (actionToPerform == 'enable');
+              actionToPerform = that.toggleVideoIcon();
+              const actVideo = (actionToPerform === 'enable');
               virtualclass.settings.applySettings(actVideo, 'studentvideo');
               if (typeof actionToPerform !== 'undefined') {
                 localStorage.setItem('allVideoAction', actionToPerform);
@@ -1457,32 +1447,34 @@
 
 
           if (allSpans[i].className.indexOf('chat') > -1) {
-              if (uObj && userObj.hasOwnProperty('chat')) {
-                if(virtualclass.settings.user.hasOwnProperty(userId)) {
-                   var userSettings = virtualclass.settings.onLoadSettings(virtualclass.settings.user[userId]);
-                   var chEnable = userSettings.studentpc;
-                }else{
-                   var chEnable = virtualclass.settings.info.studentpc;
-                }
+            let chEnable;
+            if (uObj && userObj.hasOwnProperty('chat')) {
+              if (virtualclass.settings.user.hasOwnProperty(userId)) {
+                const userSettings = virtualclass.settings.parseSettings(virtualclass.settings.user[userId]);
+                chEnable = userSettings.studentpc;
+              } else {
+                chEnable = virtualclass.settings.info.studentpc;
+              }
             } else {
-                var chEnable = virtualclass.settings.info.studentpc;
+              chEnable = virtualclass.settings.info.studentpc;
             }
             virtualclass.user.control.changeAttribute(userId, allSpans[i], chEnable, 'chat', 'chat');
           } else if (allSpans[i].className.indexOf('aud') > -1) {
-              if (uObj && userObj.hasOwnProperty('aud')) {
-                  if(virtualclass.settings.user.hasOwnProperty(userId)) {
-                     var userSettings = virtualclass.settings.onLoadSettings(virtualclass.settings.user[userId]);
-                     var audEnable = userSettings.studentaudio;
-                  }else{
-                     var audEnable = virtualclass.settings.info.studentaudio;
-                  }
+            let audEnable;
+            if (uObj && userObj.hasOwnProperty('aud')) {
+              if (virtualclass.settings.user.hasOwnProperty(userId)) {
+                const userSettings = virtualclass.settings.parseSettings(virtualclass.settings.user[userId]);
+                audEnable = userSettings.studentaudio;
+              } else {
+                audEnable = virtualclass.settings.info.studentaudio;
+              }
             } else {
-                  var elem = document.querySelector("#contrAudioAll");
-                  if(virtualclass.jId != null && elem.classList.contains("disable")){
-                     var audEnable = virtualclass.settings.info.studentaudio;
-                  }else {
-                     var audEnable = virtualclass.gObj.stdaudioEnable;       //default value for userlist mic enable or disable
-                  }
+              const elem = document.querySelector("#contrAudioAll");
+              if (virtualclass.jId != null && elem.classList.contains("disable")) {
+                audEnable = virtualclass.settings.info.studentaudio;
+              } else {
+                audEnable = virtualclass.settings.info.studentaudio; // default value for userlist mic enable or disable
+              }
             }
 
             virtualclass.user.control.changeAttribute(userId, allSpans[i], audEnable, 'audio', 'aud');

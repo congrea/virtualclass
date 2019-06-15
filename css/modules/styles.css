@@ -1487,7 +1487,7 @@
     bottom: 10%;
     left: 50%;
     transform: translate(-50%);
-	
+
 	z-index : 10
 }
 
@@ -1683,7 +1683,7 @@
 #virtualclassCont.congrea #playController #replayFromStart .congtooltip:hover {
     background-color:transparent !important;
     border-radius:inherit !important;
-    
+
 }
 
 
@@ -1828,7 +1828,7 @@
     background-color:transparent !important;
     border:none !important;
 }
-#virtualclassCont.congrea #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished, 
+#virtualclassCont.congrea #recordingContainer.popupWindow .rv-vanilla-modal-body .MessageBoxFinished,
 #virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-body, #virtualclassCont.congrea #chromeExtMiss{
 	color: #6a8a13;
 	background-color: #fff;
@@ -1931,7 +1931,7 @@
 
 #virtualclassCont.congrea .ui-memblist-usr.student , #virtualclassCont.congrea .ui-memblist-usr.mySelf.teacher[data-role="p"] , #virtualclassCont.congrea .ui-memblist-usr.mySelf.student[data-role="s"] {
 /*	border-bottom:#ddd 1px solid;*/
-    
+
 }
 
 #virtualclassCont.congrea .ui-memblist-usr[data-role="p"]{
@@ -2008,7 +2008,7 @@
 
 #virtualclassOptionsCont .appOptions a.congtooltip:hover:after{
 	bottom: 2px !important;
-    
+
 }
 
 #virtualclassCont.congrea.playMode.student .writeModeBox{top: -60px;}
@@ -2115,7 +2115,7 @@
     #virtualclassCont.congrea #errorContainer {
         max-width:440px;
     }
-    
+
     #virtualclassCont.congrea #errorContainer {
        bottom: 15%;
     }
@@ -2730,7 +2730,7 @@
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool.appOptions,
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorCodeTool.appOptions,
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassDocumentShareTool.appOptions,
-#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool.appOptions, 
+#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSharePresentationTool.appOptions,
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions {
     margin-bottom: -1px;
 }
@@ -2802,7 +2802,7 @@
 }
 
 @media (min-width:1024px) and (max-width:1150px) {
-    
+
     #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog .modal-content{
 	max-height: calc(100vh - 20px);
     padding-top: 3px;
@@ -2813,10 +2813,10 @@
         margin:10px auto;
     }
 }
-    
+
 
 @media (min-width:1200px) and (max-width:1366px) {
-    
+
     #virtualclassCont.congrea #virtualclassPoll #editPollModal .modal-dialog .modal-content{
 	max-height: calc(100vh - 20px);
     padding-top: 5px;
@@ -3323,10 +3323,10 @@
 #virtualclassCont.congrea .zoomControler div:hover {
 	background-color: #efefef;
     border: 0.5px solid #e6e6e6;
-   
+
 }
 .zoomControler .zoomctrtool {
-   
+
     line-height: 15px;
 }
 .zoomControler .zoomctrtool .icon-fitScreen {
@@ -3338,7 +3338,7 @@
 #virtualclassCont.congrea .zoomControler  div.reloadNote {
     padding:12.5px 18px;
     border-right: none;
-} 
+}
 
 #virtualclassCont.congrea .zoomControler  div:nth-child(3){
 	/* border-right:none; */
@@ -3862,11 +3862,11 @@ opacity: 1;
     right: 10px;
 }
 /* #virtualclassCont.congrea  #dashboardContainer .in .modal-header button{
-	 display: none; 
+	 display: none;
 }
 
 #virtualclassCont.congrea  #dashboardContainer .fade .modal-header button {
-	
+
 	display: block;
 	position: absolute;
     right: 10px;
@@ -4045,17 +4045,17 @@ background-color: #d6d6d6;
             width: 5px;
             height:4px;
             background-color: #d9dbdc;
-        } 
+        }
         #virtualclassCont.congrea.student .path-mod-congrea-quiz .navblock::-webkit-scrollbar {
         width: 5px !important;
         height: 8px;
         background-color: #d9dbdc;
         }
-        
+
         #virtualclassCont.congrea .congtooltip:hover::after {
             display:none !important;
         }
-        
+
         #virtualclassCont.congrea.student .icon-audioImg.enable:before {
             font-size:110% !important;
         }
@@ -4083,7 +4083,7 @@ background-color: #d6d6d6;
 }
 
 /* For Safari Browser */
-@media not all and (min-resolution:.001dpcm) { 
+@media not all and (min-resolution:.001dpcm) {
 
     #virtualclassCont.congrea #videoHostSource, #virtualclassCont.congrea #webcamTempVideo {
         transform:inherit !important;
@@ -4240,7 +4240,7 @@ background-color: #d6d6d6;
     left:20px;
     position: absolute; */
 }
-  
+
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay {
     box-sizing: border-box;
 	display:block;
@@ -4265,7 +4265,7 @@ background-color: #d6d6d6;
 
 #virtualclassCont.congrea.playMode #popupContainer.loading.playPopup #loadingWindowCont .askToPlay, #virtualclassCont.congrea.playMode #popupContainer.loading #loadingWindowCont .loading{
     display:block;
-} 
+}
 
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .loading, #virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .askToPlay,
 #virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .loading{
@@ -4288,7 +4288,7 @@ background-color: #d6d6d6;
     box-shadow: 0px 0px 10px rgb(232, 232, 220);
     text-shadow: 0px 0px 10px rgb(232, 232, 225);
 }
-    
+
 #virtualclassCont.congrea #loadingWindowCont.askToPlayCont {
 	cursor : pointer;
 }
@@ -4306,7 +4306,7 @@ background-color: #d6d6d6;
 	border-radius : 5px;
 	pointer-events : none;
 	z-index: 5000;
-    -webkit-user-select: none; /* Safari */        
+    -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
@@ -4325,7 +4325,7 @@ background-color: #d6d6d6;
 {
 	pointer-events : none;
 	user-select : none;
-    -webkit-user-select: none; /* Safari */        
+    -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
@@ -4353,8 +4353,8 @@ background-color: #d6d6d6;
 	cursor : pointer;
 }
 
-@media only screen 
-  and (min-device-width: 768px) 
+@media only screen
+  and (min-device-width: 768px)
     and (max-device-width: 1024px) {
          #virtualclassCont.congrea #virtualclassApp .playControllerMainCont {
           bottom:-1px !important;
@@ -4453,7 +4453,8 @@ background-color: #d6d6d6;
 	background-image:none;
 }
 
-#virtualclassCont[data-recording="on"] #virtualclassAppLeftPanel #recording span.showStatus {
+#virtualclassCont[data-recording="on"] #virtualclassAppLeftPanel #recording span.showStatus,
+#virtualclassCont #virtualclassApp #virtualclassAppLeftPanel #recording[data-recording="on"] span.showStatus {
 	float:left;
 	margin-top:1px;
 	width: 16px;
@@ -4469,7 +4470,8 @@ background-color: #d6d6d6;
 	animation-timing-function: linear;
 }
 
-#virtualclassCont[data-recording="off"] #virtualclassAppLeftPanel #recording span.showStatus {
+#virtualclassCont[data-recording="off"] #virtualclassAppLeftPanel #recording span.showStatus,
+#virtualclassCont #virtualclassApp #virtualclassAppLeftPanel #recording[data-recording="off"] span.showStatus {
 	float:left;
 	margin-top:1px;
 	width: 16px;
@@ -4557,7 +4559,6 @@ background-color: #d6d6d6;
 #virtualclassCont.playMode #recording {
 	display : none;
 }
-
 /* ======== MEDIA FOR MOBILE ========== */
 @media only screen and (min-device-width: 320px) and (max-device-width: 768px){
 #virtualclassCont.congrea #preCheckcontainer.bootstrap .modal-dialog {

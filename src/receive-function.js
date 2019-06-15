@@ -608,7 +608,7 @@ const receiveFunctions = new function () {
   };
 
 
-  /** Record setting * */
+  /** setting * */
   this.recs = function (e) {
     if (!virtualclass.isPlayMode) {
       virtualclass.settings.onMessage(e.message);

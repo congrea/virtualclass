@@ -601,6 +601,7 @@
     },
 
     seek(seekPointPercent) {
+      virtualclass.videoHost.UI.hideTeacherVideo();
       const index = this.getSeekPoint(seekPointPercent);
       // console.log('Total till play, Index val master index ' + index.master + ' sub index' + index.sub + ' in percent' + seekPointPercent);
       if ((index.master < this.masterIndex) || (index.master == this.masterIndex && index.sub < this.subRecordingIndex)) {
@@ -616,7 +617,6 @@
       this.selfStartSeek = true;
       this._seek();
       this.triggerSynchPacket();
-
       this.controller._play();
     },
 

@@ -352,11 +352,15 @@
         localStorage.setItem('recordingButton', this.recordingButton);
         this.showRecordingButton();
         if (roles.hasControls()) {
-          ioAdapter.mustSend({ ac: this.recordingButton, cf: 'recs' });
+          if (virtualclass.settings.info.attendeeAV) {
+            ioAdapter.mustSend({ ac: this.recordingButton, cf: 'recs' });
+          }
         } else {
           if (this.recordingButton === 21) {
+            this.attendeeButtonAction = true;
             localStorage.setItem('attendeeButtonAction', true);
           } else {
+            this.attendeeButtonAction = false;
             localStorage.setItem('attendeeButtonAction', false);
           }
         }
@@ -405,39 +409,59 @@
       },
 
       recordingStatus() {
-        if (roles.hasControls()) { // For presenter/teacher
-          if (virtualclass.settings.info.enableRecording && virtualclass.settings.info.recAllowpresentorAVcontrol
-            && virtualclass.settings.info.recShowPresentorRecordingStatus) {
-            return 21;
-          }
-          if (virtualclass.settings.info.enableRecording && !virtualclass.settings.info.recAllowpresentorAVcontrol
-            && virtualclass.settings.info.recShowPresentorRecordingStatus) {
-            return 20;
-          }
-          return 0;
-        } else { // For students
-          if (virtualclass.settings.info.enableRecording && virtualclass.settings.info.attendeeAV
-            && virtualclass.settings.info.recallowattendeeAVcontrol
-            && virtualclass.settings.info.showAttendeeRecordingStatus) {
-            return 21;
-          }
-          if (virtualclass.settings.info.enableRecording && virtualclass.settings.info.attendeeAV
-            && virtualclass.settings.info.recAllowpresentorAVcontrol
-            && virtualclass.settings.info.showAttendeeRecordingStatus) {
-            return 20;
+        if (!virtualclass.settings.info.enableRecording) {
+          if (roles.hasControls()) {
+            if (virtualclass.settings.info.recShowPresentorRecordingStatus) {
+              return 10;
+            }
+          } else {
+            if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+              return 10;
+            }
           }
           return 0;
+        } else {
+          if (roles.hasControls()) {
+            if (virtualclass.settings.info.recShowPresentorRecordingStatus) {
+              if (virtualclass.settings.info.recAllowpresentorAVcontrol) {
+                return 21;
+              }
+              return 20;
+            }
+            return 22;
+          } else {
+            if (virtualclass.settings.info.attendeeAV) {
+              if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+                if (virtualclass.settings.info.recallowattendeeAVcontrol) {
+                  return 21;
+                }
+                return 20;
+              }
+              return 22;
+            } else {
+              if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+                return 10;
+              }
+              return 0;
+            }
+          }
         }
       },
 
       sendYesOrNo() {
-        if (this.recordingButton === 20 || this.recordingButton === 21) {
+        if (this.recordingButton === 20 || this.recordingButton === 21 || this.recordingButton === 22) {
           return 'yes';
         }
         return 'no';
       },
 
       triggerSetting(message) {
+        if (!virtualclass.settings.info.attendeeAV) {
+          this.recordingButton = 0;
+          ioAdapter.setRecording();
+          this.showRecordingButton();
+          return;
+        }
         switch (message.ac) {
           case 11:
             this.recordingButton = 10;
@@ -456,9 +480,10 @@
           default:
             return;
         }
+
         ioAdapter.setRecording();
         localStorage.setItem('recordingButton', this.recordingButton);
-        if (!virtualclass.settings.info.showAttendeeRecordingStatus) {
+        if (virtualclass.settings.info.showAttendeeRecordingStatus) {
           this.showRecordingButton();
         }
       },

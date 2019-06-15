@@ -952,7 +952,9 @@ this["JST"]["dest_temp/templates/popupCont.hbs"] = Handlebars.template({"compile
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"replay_message",{"name":"getString","hash":{},"data":data}))
     + "</p><div id=\"replayClose\" class=\"close icon-close\"></div><button id=\"replayButton\" class=\"icon-repeat cgText\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"replay",{"name":"getString","hash":{},"data":data}))
-    + " </button></div>  <div id=\"confirm\" class=\"popupWindow simple-box\"></div>  <div id=\"sessionEndMsgCont\" class=\"popupWindow\"><span id=\"sessionEndClose\" class=\"icon-close\"></span><span id=\"sessionEndMsg\"> "
+    + " </button></div>  <div id=\"confirm\" class=\"popupWindow simple-box\"></div>  <div id=\"sessionEndMsgCont\" class=\"popupWindow\"><div class=\"endHeader\"><h3>"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"sessionexpired",{"name":"getString","hash":{},"data":data}))
+    + "</h3></div><span id=\"sessionEndClose\" class=\"icon-close\"></span><span id=\"sessionEndMsg\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"sessionendmsg",{"name":"getString","hash":{},"data":data}))
     + " </span></div><div id=\"uploadvideourl\" class=\"popupWindow urlValidation\"><span id=\"vidPopupClose\" class=\"icon-close urlMszClose \"></span><span id=\"vidUrlValidateTx\" class=\"validationMsz\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"validateurlmsg",{"name":"getString","hash":{},"data":data}))

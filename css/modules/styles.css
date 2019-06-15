@@ -4561,3 +4561,7 @@ background-color: #d6d6d6;
     width: 870px !important;
 }
 }
+#virtualclassCont.congrea #sessionEndMsgCont .endHeader {
+  background-image : linear-gradient(to bottom, #021317 0%,#2c393d 100%) !important;
+}
+

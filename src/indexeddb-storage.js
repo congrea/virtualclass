@@ -405,7 +405,7 @@
         }
       },
 
-      endSession(onlyStoredData) {
+      endSession:  async function  (onlyStoredData) {
         delete virtualclass.connectedUsers;
         if (virtualclass.gObj.hasOwnProperty('memberUpdateDelayTimer')) {
           clearTimeout(virtualclass.gObj.memberUpdateDelayTimer);
@@ -593,12 +593,19 @@
         }
 
         console.log(`New role before clear ${virtualclass.gObj.uRole}`);
-        // virtualclass.gObj.uRole // update the role at
-        // localStorage.removeItem("settings");
-        // localStorage.removeItem("userSettings");
         virtualclass.settings.user = {};
-
+        virtualclass.endSession = true;
+        virtualclass.popup.sesseionEndWindow();
+        let virtualclassWhiteboard = document.querySelector("#virtualclassWhiteboard");
+        virtualclassWhiteboard.style.display = 'none';
+        let virtualclassCont = document.querySelector('#virtualclassCont');
+        if(virtualclassCont != null){
+          virtualclassCont.classList.remove('loading');
+        }
+        return;
         that.config.createNewSession();
+
+
         if (virtualclass.videoHost && roles.isStudent() && !virtualclass.isPlayMode) {
           virtualclass.settings.init();
           virtualclass.settings.userAudioIcon();
@@ -609,10 +616,10 @@
           }
         }
         console.log(`New role after clear ${virtualclass.gObj.uRole}`);
-        if (!virtualclass.enablePreCheck) {
+        //if (!virtualclass.enablePreCheck) {
           // Only popup the message, if the precheck is not enabled
           virtualclass.popup.waitMsg();
-        }
+//        }
 
         if (typeof virtualclass.dts === 'object' && virtualclass.dts != null) {
           virtualclass.dts.destroyDts();

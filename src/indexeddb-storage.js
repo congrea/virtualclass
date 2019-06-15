@@ -594,8 +594,8 @@
 
         console.log(`New role before clear ${virtualclass.gObj.uRole}`);
         // virtualclass.gObj.uRole // update the role at
-        localStorage.removeItem("settings");
-        localStorage.removeItem("userSettings");
+        // localStorage.removeItem("settings");
+        // localStorage.removeItem("userSettings");
         virtualclass.settings.user = {};
 
         that.config.createNewSession();

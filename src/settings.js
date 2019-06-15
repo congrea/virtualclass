@@ -422,22 +422,24 @@
           return 0;
         } else {
           if (roles.hasControls()) {
-            if (virtualclass.settings.info.recShowPresentorRecordingStatus) {
-              if (virtualclass.settings.info.recAllowpresentorAVcontrol) {
-                return 21;
-              }
-              return 20;
-            }
-            return 22;
-          } else {
-            if (virtualclass.settings.info.attendeeAV) {
-              if (virtualclass.settings.info.showAttendeeRecordingStatus) {
-                if (virtualclass.settings.info.recallowattendeeAVcontrol) {
-                  return 21;
-                }
+            if (virtualclass.settings.info.recAllowpresentorAVcontrol) {
+              return 21;
+            } else {
+              if (virtualclass.settings.info.recShowPresentorRecordingStatus) {
                 return 20;
               }
               return 22;
+            }
+          } else {
+            if (virtualclass.settings.info.attendeeAV) {
+              if (virtualclass.settings.info.recallowattendeeAVcontrol) {
+                return 21;
+              } else {
+                if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+                  return 20;
+                }
+                return 22;
+              }
             } else {
               if (virtualclass.settings.info.showAttendeeRecordingStatus) {
                 return 10;

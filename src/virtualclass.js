@@ -253,6 +253,11 @@
         virtualclass.precheck = preCheck;
         virtualclass.page = page;
         // virtualclass.zoom = window.zoomWhiteboard();
+        if(virtualclass.vutil.isSessionEnded()){
+            return true;
+        }
+
+
         console.log('==== session clear zoom object ready ');
         virtualclass.network = new Network();
         virtualclass.gesture = gesture;
@@ -303,6 +308,9 @@
         }
 
         if (virtualclass.makePreCheckAvailable) {
+          if(virtualclass.endSession){
+            return;
+          }
           virtualclass.precheck.init();
         } else {
           virtualclass.makeReadySocket();
@@ -1304,7 +1312,7 @@
 
               allFinish.then(() => {
                 delete virtualclass.gObj.sessionEndResolve;
-                virtualclass.popup.sesseionEndWindow();
+                //virtualclass.popup.sesseionEndWindow();
               }, (error) => {
                 console.log(`ERRROR ${error}`);
               });

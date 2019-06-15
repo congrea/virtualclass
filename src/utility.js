@@ -2898,7 +2898,15 @@
         };
       }
       canvas = canvas;
+    },
+
+    isSessionEnded (){
+      if (virtualclass.endSession) {
+        localStorage.clear();
+        return true;
+      }
     }
+
   };
   window.vutil = vutil;
 }(window));

@@ -662,9 +662,11 @@
               if (roles.hasControls()) {
                 virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order);
                 virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb);
-              } else {
-                virtualclass.wbCommon.rearrange(virtualclass.gObj.wIds); //TODO, here should the wbCommon.order
               }
+
+              // else {
+              //    virtualclass.wbCommon.rearrange(virtualclass.gObj.wIds);
+              // }
             }
 
             virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);

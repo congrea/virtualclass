@@ -631,16 +631,21 @@
         if (Object.keys(virtualclass.dts.pages).length > 0) {
           prvAppObj.metaData.docs = virtualclass.dts.pages;
         }
-      } else if (virtualclass.currApp == 'Quiz') {
+      } else if (virtualclass.currApp === 'Quiz') {
         virtualclass.quiz.saveInLocalStorage();
         console.log('quiz data saved');
-      } else if (virtualclass.currApp == 'Whiteboard') {
+      } else if (virtualclass.currApp === 'Whiteboard') {
         // var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount, "wbcs"  : virtualclass.gObj.currSlide};
         var prvAppObj = { name: 'Whiteboard', wbn: virtualclass.gObj.wbCount };
       }
 
-      localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
-      localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
+      if (virtualclass.gObj.wIds.length > 0) {
+        localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
+      }
+
+      if (roles.hasControls()) {
+        localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
+      }
 
       if (virtualclass.zoom.canvasScale != null) {
         const canvasScale = (+virtualclass.zoom.canvasScale);
@@ -2443,7 +2448,6 @@
     },
     saveWbOrder(order) {
       if (order) {
-        console.log(`nirmala${order}`);
         localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
       }
     },

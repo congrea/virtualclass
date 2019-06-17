@@ -334,7 +334,8 @@
         //     virtualclass.vutil.initTechSupportUi();
         // }
         // nirmala
-        var precheck = document.getElementById('precheckSetting');
+        // var precheckBtn = document.getElementsByClassName('pre-check-btn');
+        var precheck = document.getElementById('precheckBtn');
         precheck.addEventListener('click', () => {
           virtualclass.gObj.precheckScrn = true;
           virtualclass.precheck.init(virtualclass.precheck);

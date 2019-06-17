@@ -431,7 +431,7 @@
               return 22;
             }
           } else {
-            if(virtualclass.settings.info.attendeerecording) {
+            if (virtualclass.settings.info.attendeerecording) {
               if (virtualclass.settings.info.attendeeAV) {
                 if (virtualclass.settings.info.recallowattendeeAVcontrol) {
                   return 21;

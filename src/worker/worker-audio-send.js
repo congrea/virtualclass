@@ -58,9 +58,6 @@ const workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
         sendmsg.set(scode);
         sendmsg.set(msg, scode.length); // First element is status code (101)
         this.sendBinary(sendmsg);
-        postMessage({ cmd: 'adStatus', msg: adStatus });
-      } else {
-        postMessage({ cmd: 'adStatus', msg: 'stop' });
       }
     },
 
@@ -123,8 +120,6 @@ const workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
       } else if (thdiff < 2) { // We are not ready, send all samples
         this.audioSend(send, audStatus);
       } else {
-        postMessage({ cmd: 'adStatus', msg: 'notSending' });
-        postMessage({ cmd: 'ioAdapterSend', msg: { cf: 'na' } });
         if (vol === 0) {
           postMessage({ cmd: 'muteAudio' });
         }

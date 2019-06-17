@@ -159,20 +159,7 @@
       workerAudioSendOnmessage() {
         workerAudioSend.onmessage = function (e) {
           if (e.data.hasOwnProperty('cmd')) {
-            if (e.data.cmd === 'adStatus') {
-              virtualclass.media.audio.setAudioStatus(e.data.msg);
-              if (!virtualclass.gObj.sendAudioStatus && e.data.msg == 'sending') {
-                ioAdapter.send({ cf: 'ya' }); // yes audio
-                virtualclass.gObj.sendAudioStatus = true;
-              }
-            } else if (e.data.cmd === 'ioAdapterSend') {
-              if (e.data.msg.cf === 'na') { // yes audio
-                virtualclass.gObj.sendAudioStatus = false;
-              } else {
-                virtualclass.gObj.sendAudioStatus = true;
-              }
-              ioAdapter.send(e.data.msg);
-            } else if (e.data.cmd === 'muteAudio') {
+            if (e.data.cmd === 'muteAudio') {
               cthis.audio.notifiyMuteAudio();
             } else if (e.data.cmd === 'unMuteAudio') {
               cthis.audio.notifiyUnmuteAudio();

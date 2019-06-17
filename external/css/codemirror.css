@@ -183,6 +183,13 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
   overflow-y: hidden;
   overflow-x: scroll;
 }
+@media (max-width:1025px) {
+
+  #virtualclassCont.playMode .CodeMirror-hscrollbar {
+    bottom: 3px;
+  }
+
+}
 .CodeMirror-scrollbar-filler {
   right: 0; bottom: 0;
 }

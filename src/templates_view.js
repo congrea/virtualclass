@@ -23,7 +23,7 @@ this["JST"]["dest_temp/templates/appSettingDetail.hbs"] = Handlebars.template({"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"general",{"name":"getString","hash":{},"data":data}))
     + "</label></div><ul class=\"list-group\"><li class=\"lists-cont d-flex justify-content-between align-items-center\"><div class=\"appSettingIcons\" id=\"validate-precheck\"></div> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"appPrerequites",{"name":"getString","hash":{},"data":data}))
-    + " <span class=\"pre-check-btn\"><div id=\"settingPrecheck\"><div class=\"prechk\" data-title=\""
+    + " <span class=\"pre-check-btn\" id=\"precheckBtn\"><div id=\"settingPrecheck\"><div class=\"prechk\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"precheck",{"name":"getString","hash":{},"data":data}))
     + "\" id=\"precheckTest\"><span class=\"precheck cgIcon\" id=\"precheckSetting\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"precheckStart",{"name":"getString","hash":{},"data":data}))

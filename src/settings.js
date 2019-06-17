@@ -36,7 +36,7 @@
       localSettings[11] = +s.recallowattendeeAVcontrol;
       localSettings[12] = +s.showAttendeeRecordingStatus;
       localSettings[13] = +s.trimRecordings;
-      localSettings[14] = +s.x5;
+      localSettings[14] = +s.attendeerecording;
       localSettings[15] = +s.x6;
       return virtualclass.settings.binaryToHex(localSettings.join(''));
     },
@@ -61,7 +61,7 @@
       parsedSettings.recallowattendeeAVcontrol = !!+localSettings[11];
       parsedSettings.showAttendeeRecordingStatus = !!+localSettings[12];
       parsedSettings.trimRecordings = !!+localSettings[13];
-      parsedSettings.x5 = !!+localSettings[14];
+      parsedSettings.attendeerecording = !!+localSettings[14];
       parsedSettings.x6 = !!+localSettings[15];
       return parsedSettings;
     },
@@ -289,7 +289,7 @@
       console.log('TO DO');
     },
 
-    x8() {
+    attendeerecording() {
       console.log('TO DO');
     },
 
@@ -317,7 +317,7 @@
       console.log('TO DO');
     },
 
-    x16() {
+    x6() {
       console.log('TO DO');
     },
 
@@ -431,19 +431,23 @@
               return 22;
             }
           } else {
-            if (virtualclass.settings.info.attendeeAV) {
-              if (virtualclass.settings.info.recallowattendeeAVcontrol) {
-                return 21;
+            if(virtualclass.settings.info.attendeerecording) {
+              if (virtualclass.settings.info.attendeeAV) {
+                if (virtualclass.settings.info.recallowattendeeAVcontrol) {
+                  return 21;
+                } else {
+                  if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+                    return 20;
+                  }
+                  return 22;
+                }
               } else {
                 if (virtualclass.settings.info.showAttendeeRecordingStatus) {
-                  return 20;
+                  return 10;
                 }
-                return 22;
+                return 0;
               }
             } else {
-              if (virtualclass.settings.info.showAttendeeRecordingStatus) {
-                return 10;
-              }
               return 0;
             }
           }

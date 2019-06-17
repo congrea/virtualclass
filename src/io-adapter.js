@@ -130,7 +130,7 @@ var ioAdapter = {
 
   setRecording() {
     if (!virtualclass.isPlayMode && virtualclass.settings.info.enableRecording) {
-      if (!roles.hasControls() && !virtualclass.settings.info.recallowattendeeAVcontrol) {
+      if (!roles.hasControls() && !virtualclass.settings.info.attendeerecording) {
         return; // Do not run when role is student and recording is disabled TODO (Validate this)
       }
       const sendData = virtualclass.settings.recording.sendYesOrNo();

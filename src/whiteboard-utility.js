@@ -774,10 +774,6 @@
 
         const wid = virtualclass.gObj.currWb;
         if (typeof (Storage) !== 'undefined') {
-          if (virtualclass.storage.reclaim === false) {
-            // virtualclass.wb[virtualclass.gObj.currWb].utility.disableAppsBar();
-            virtualclass.vutil.disableAppsBar();
-          }
           virtualclass.wb[wid].utility.clearAll(false, 'dontClear');
           virtualclass.wb[wid].gObj.tempRepObjs = allRepObjs;
 

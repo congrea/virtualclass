@@ -173,7 +173,7 @@
        */
       createCommand(alreadyCreated, id) {
         var alreadyCreated = virtualclass.wb[id].utility.alreadyExistToolBar(id);
-        if (alreadyCreated || (localStorage.getItem('educator') != null && localStorage.reclaim)) {
+        if (alreadyCreated || (localStorage.getItem('educator') != null)) {
           return true;
         }
 

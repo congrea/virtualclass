@@ -104,14 +104,6 @@ const defaultOperation = function (e, sType) {
         virtualclass.vutil.removeSessionEndTool(); // remove session tool if there is any
       }
     }
-
-
-    if (virtualclass.gObj.hasOwnProperty('doEndSession') && virtualclass.joinUser.role == 't') {
-      virtualclass.vutil.overrideRoleTeacher();
-      console.log('From localStorage, perform the override role action');
-    } else {
-      console.log('From localStorage, cannot perform the override role action');
-    }
   } else {
     console.log('Does not need to say hello to new user');
     // We nee to send the current cursor to new user for for whiteboards

@@ -2804,7 +2804,7 @@
 
     // clearEverthing() {
     //   virtualclass.notPLayed = true;
-    //   virtualclass.storage.config.endSession();
+    //   virtualclass.config.endSession();
     //   virtualclass.chat.chatroombox = false;
     //   const chatRoom = document.getElementById('chatrm');
     //   if (chatRoom !== null) {

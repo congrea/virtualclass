@@ -158,7 +158,7 @@
       this.playTime = 150;
       this.tempPlayTime = this.playTime;
       const tempMasterRecordings = this.masterRecordings;
-      virtualclass.storage.config.endSession();
+      virtualclass.config.endSession();
       virtualclass.popup.closeElem();
 
       // For disable the common chant on every replay from start
@@ -526,7 +526,7 @@
       virtualclass.popup.closeElem();
       virtualclass.recorder.init(virtualclass.recorder.masterRecordings);
       // virtualclass.recorder.playStart = true;
-      localStorage.setItem('mySession', 'thisismyplaymode');
+      virtualclass.config.setNewSession('thisismyplaymode')
       virtualclass.recorder.initController();
       virtualclass.media.audio.initAudiocontext();
     },

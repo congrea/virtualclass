@@ -75,11 +75,11 @@ var ioMissingPackets = {
         // TODO Finish Session and start gracefully
         if (!virtualclass.isPlayMode) {
           localStorage.removeItem('mySession');
-          virtualclass.storage.config.endSession();
-          localStorage.setItem('mySession', msg.m.session);
+          virtualclass.config.endSession();
+          virtualclass.config.setNewSession(msg.m.session)
           console.log('REFRESH SESSION');
         } else {
-          localStorage.setItem('mySession', 'thisismyplaymode');
+          virtualclass.config.setNewSession('thisismyplaymode');
         }
 
         console.log('Start session gracefully');

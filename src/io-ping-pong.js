@@ -35,7 +35,7 @@ const ioPingPong = {
   setSession() {
     const session = virtualclass.vutil.randomString(32);
     console.log('==== session, My session is created by setSession');
-    localStorage.setItem('mySession', session);
+    virtualclass.config.setNewSession(session);
     return session;
   },
   verifySession(e) {
@@ -50,7 +50,8 @@ const ioPingPong = {
     } else {
       console.log('==== session, start session');
       console.log('My session is created');
-      localStorage.setItem('mySession', session);
+      virtualclass.config.setNewSession(session);
+
     }
   },
   /**
@@ -62,14 +63,14 @@ const ioPingPong = {
       console.log('==== session, start session');
       const uid = e.fromUser.userid;
       localStorage.removeItem('mySession');
-      virtualclass.storage.config.endSession();
-      localStorage.setItem('mySession', session);
+      virtualclass.config.endSession();
+      virtualclass.config.setNewSession(session);
       ioMissingPackets.validateAllVariables(uid);
       console.log('REFRESH SESSION');
     } else {
       console.log('==== session, end session');
       console.log('My session is created');
-      localStorage.setItem('mySession', 'thisismyplaymode');
+      virtualclass.config.setNewSession('thisismyplaymode');
     }
   },
 };

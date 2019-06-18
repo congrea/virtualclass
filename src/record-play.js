@@ -405,7 +405,7 @@
             if (this.isTrimRecordingNow) {
               chunk.push({ playTime: 0, recObjs: data, type });
               console.log('==== TRIM ');
-            } else if (virtualclass.settings.recording.trimRecordings && data.indexOf('{"ac":false,"cf":"recs"') > -1) {
+            } else if (virtualclass.settings.info.trimRecordings && data.indexOf('{"ac":false,"cf":"recs"') > -1) {
               this.isTrimRecordingNow = true;
               chunk.push({ playTime: 0, recObjs: data, type });
               console.log('==== TRIM ');
@@ -415,7 +415,7 @@
 
             this.totalTimeInMiliSeconds += chunk[chunk.length - 1].playTime;
 
-            if (virtualclass.settings.recording.trimRecordings && data.indexOf('{"ac":true,"cf":"recs"') > -1) {
+            if (virtualclass.settings.info.trimRecordings && data.indexOf('{"ac":true,"cf":"recs"') > -1) {
               this.isTrimRecordingNow = false;
             }
 
@@ -703,7 +703,7 @@
             // console.log('PLAY ERROR ' + e.errorCode);
           }
 
-          if (virtualclass.settings.recording.trimRecordings && this.selfStartSeek && this.seekFinished()) {
+          if (virtualclass.settings.info.trimRecordings && this.selfStartSeek && this.seekFinished()) {
             this.selfSeekFinished = true;
             break;
           }
@@ -934,7 +934,7 @@
                 app: 'Quiz',
                 data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
               };
-            } else if (virtualclass.settings.recording.trimRecordings && this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":false,"cf":"recs"') > -1) {
+            } else if (virtualclass.settings.info.trimRecordings && this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":false,"cf":"recs"') > -1) {
               virtualclass.recorder.selfSeek();
             }
           }

@@ -9,11 +9,11 @@
 }
 
 /*#virtualclassCont.congrea #virtualclassScreenShare {*/
-  /*margin-left: 55px;*/
+/*margin-left: 55px;*/
 /*}*/
 
 /*#virtualclassCont.congrea #virtualclassScreenShare {*/
-  /*width: 99%;*/
+/*width: 99%;*/
 /*}*/
 
 #virtualclassCont.congrea.student #virtualclassScreenShare {
@@ -37,12 +37,10 @@
 }
 
 /*#virtualclassCont.congrea #virtualclassScreenShareTool .icon-screenshare:before {*/
-  /*content: "\e602";*/
-  /*font-size: 32px;*/
-  /*margin-right: 5px;*/
+/*content: "\e602";*/
+/*font-size: 32px;*/
+/*margin-right: 5px;*/
 /*}*/
-
-
 
 #virtualclassCont.congrea.educator #virtualclassScreenShare {
   margin-left: 9px;
@@ -71,29 +69,29 @@
 }
 
 /*#virtualclassCont.congrea #virtualclassScreenShare {*/
-  /*height: 95vh;*/
+/*height: 95vh;*/
 /*}*/
 
 /*#virtualclassCont.congrea #virtualclassScreenShareLocal  #screenShrMsg {*/
-  /*width: 250px;*/
-  /*margin-left: 10%;*/
-  /*font-weight: normal;*/
-  /*text-align: center;*/
+/*width: 250px;*/
+/*margin-left: 10%;*/
+/*font-weight: normal;*/
+/*text-align: center;*/
 /*}*/
 
 #virtualclassCont.congrea.teacher #virtualclassScreenShareLocalVideo {
-  position : absolute;
+  position: absolute;
   visibility: hidden;
 
 }
 
-#virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideo{
-  position : static; /* To add the scroll */
+#virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideo {
+  position: static; /* To add the scroll */
   visibility: visible;
 }
 
 #virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideoNew {
-  display : none;
+  display: none;
 }
 
 #virtualclassCont.congrea #virtualclassScreenShareLocalTempVideo {
@@ -101,61 +99,58 @@
 }
 
 #virtualclassCont.congrea #virtualclassScreenShareLocalSmall {
-  width :  400px;
-  height : 300px;
-  margin:0 auto;
-  position:absolute;
-  left:45%;
-  top:50%;
-  margin-left:-250px;
-  margin-top:-250px;
+  width: 400px;
+  height: 300px;
+  margin: 0 auto;
+  position: absolute;
+  left: 45%;
+  top: 50%;
+  margin-left: -250px;
+  margin-top: -250px;
 }
 
 #virtualclassScreenShareLocalVideosmall {
-  width :  400px;
-  height : 250px;
+  width: 400px;
+  height: 250px;
   border: 1px solid #ddd;
   padding: 10px;
   border-radius: 5px;
-  margin-bottom : 10px;
+  margin-bottom: 10px;
 }
 
 #virtualclassCont.congrea #screenShrMsg {
-  height : 10px;
-  font-weight : normal;
+  height: 10px;
+  font-weight: normal;
   text-align: center;
- }
-
+}
 
 /*#virtualclassCont.congrea #virtualclassScreenShareLocal, #virtualclassCont.congrea #virtualclassScreenShare{*/
-  /*overflow : auto;*/
+/*overflow : auto;*/
 /*}*/
 
-
 /*#virtualclassCont.congrea.student #virtualclassScreenShareLocal{*/
-  /*overflow-x : auto;*/
-  /*overflow-y : auto;*/
+/*overflow-x : auto;*/
+/*overflow-y : auto;*/
 /*}*/
 
 #virtualclassCont.congrea.student #virtualclassScreenShareLocal.scrollX {
-  overflow-x : scroll;
+  overflow-x: scroll;
 }
 
 /*#virtualclassCont.congrea.playMode #virtualclassScreenShare {*/
-  /*height: 93vh;*/
+/*height: 93vh;*/
 /*}*/
 
-#virtualclassCont.congrea.student video#virtualclassScreenShareLocalVideo{
-  position : absolute;
+#virtualclassCont.congrea.student video#virtualclassScreenShareLocalVideo {
+  position: absolute;
   visibility: hidden;
-  left : -2000;
+  left: -2000;
 }
 
-
-#virtualclassCont.congrea #screenController .share button{
+#virtualclassCont.congrea #screenController .share button {
   right: 572px;
   color: #fff;
-  border:none;
+  border: none;
   position: fixed;
   bottom: 0px;
   z-index: 1000;
@@ -163,52 +158,52 @@
   background-color: transparent;
   padding: 14px;
   border-right: 1px solid black;
-    -webkit-font-smoothing: antialiased;
-    letter-spacing: 1px;
-    border-radius: 0px;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 1px;
+  border-radius: 0px;
 }
 
-#virtualclassCont.congrea[data-recording="on"] #screenController .share button, 
+#virtualclassCont.congrea[data-recording="on"] #screenController .share button,
 #virtualclassCont.congrea[data-recording="off"] #screenController .share button {
-  left:295px;
+  left: 295px;
 }
 
 #virtualclassCont.congrea #screenController .share button:hover {
-    background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%) !important;
+  background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%) !important;
 }
 
 #virtualclassCont.congrea #screenController .share button:before {
-    content: "\e98b";
-    font-family: 'icomoon';
-    font-size: 16px;
-    color: #09b208;
-    padding-right: 13px;
-    float:left;
+  content: "\e98b";
+  font-family: 'icomoon';
+  font-size: 16px;
+  color: #09b208;
+  padding-right: 13px;
+  float: left;
 }
 
 /*#virtualclassCont.congrea.studentScreenSharing[data-currapp='ScreenShare'] #congreaChatCont span.icon-stdscreenImg{*/
-  /*pointer-events: none;*/
-  /*opacity: 0.5;*/
+/*pointer-events: none;*/
+/*opacity: 0.5;*/
 /*}*/
 
 /*#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="red"]:before{*/
-  /*color:#FF0000;*/
+/*color:#FF0000;*/
 /*}*/
 
 /*#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="orange"]:before{*/
-  /*color:#FF8C00;*/
+/*color:#FF8C00;*/
 /*}*/
 
 /*#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="green"]:before{*/
-  /*color:#006400;*/
+/*color:#006400;*/
 /*}*/
 
 /*#virtualclassCont.congrea #chat_div .controls span.enable.icon-stdscreenImg[data-dcolor="nosupport"]{*/
-  /*pointer-events : none;*/
-  /*opacity : 0.5;*/
+/*pointer-events : none;*/
+/*opacity : 0.5;*/
 /*}*/
 
-#virtualclassCont.congrea #stopScreenShare  button{
+#virtualclassCont.congrea #stopScreenShare button {
   right: 427px;
   color: #fff;
   border: none;
@@ -220,28 +215,28 @@
   padding: 14px;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
-  border-radius:0px;
+  border-radius: 0px;
 }
 
-#virtualclassCont.congrea[data-recording="on"] #stopScreenShare  button, #virtualclassCont.congrea[data-recording="off"] #stopScreenShare  button{
-  left:148px;
+#virtualclassCont.congrea[data-recording="on"] #stopScreenShare button, #virtualclassCont.congrea[data-recording="off"] #stopScreenShare button {
+  left: 148px;
 }
 
 @-moz-document url-prefix() {
-    #virtualclassCont.congrea #stopScreenShare  button, #virtualclassCont.congrea #screenController .share button {
-        bottom:-2px;
-    }
+  #virtualclassCont.congrea #stopScreenShare button, #virtualclassCont.congrea #screenController .share button {
+    bottom: -2px;
+  }
 }
 
-#virtualclassCont.congrea #stopScreenShare  button:hover {
-    background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%) !important;
+#virtualclassCont.congrea #stopScreenShare button:hover {
+  background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%) !important;
 }
 
-#virtualclassCont.congrea #stopScreenShare  button:before {
-    content: "\e98d";
-    font-family: 'icomoon';
-    font-size: 16px;
-    color: red;
-    padding-right: 10px;
-    float:left;
+#virtualclassCont.congrea #stopScreenShare button:before {
+  content: "\e98d";
+  font-family: 'icomoon';
+  font-size: 16px;
+  color: red;
+  padding-right: 10px;
+  float: left;
 }

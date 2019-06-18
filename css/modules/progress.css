@@ -1,20 +1,22 @@
 body {
-    font-family: 'Alegreya Sans', sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: 'Alegreya Sans', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 #virtualclassCont.congrea .pbcontainer {
   width: 80%;
-/*   margin: 100px auto;  */
-  margin: 0 auto; 
+  /*   margin: 100px auto;  */
+  margin: 0 auto;
 }
+
 #virtualclassCont.congrea .progressbar {
   margin: 20px 0;
   padding: 0;
   counter-reset: step;
 
 }
+
 #virtualclassCont.congrea .progressbar li {
   list-style-type: none;
   width: 20%;
@@ -24,15 +26,16 @@ body {
   text-align: center;
   text-transform: uppercase;
   color: #7d7d7d;
-    margin-bottom: 28px;
+  margin-bottom: 28px;
 }
+
 #virtualclassCont.congrea .progressbar li:before {
   width: 43px;
   height: 30px;
-/*
-  content: counter(step);
-  counter-increment: step;
-*/
+  /*
+    content: counter(step);
+    counter-increment: step;
+  */
   line-height: 30px;
   display: block;
   text-align: center;
@@ -40,6 +43,7 @@ body {
   border-radius: 50%;
   background-color: white;
 }
+
 #virtualclassCont.congrea .progressbar li:after {
   width: 100%;
   height: 2px;
@@ -47,16 +51,19 @@ body {
   position: absolute;
   background-color: #7d7d7d;
   top: 15px;
-/*  left: -50%;*/
+  /*  left: -50%;*/
   left: 0;
   z-index: -1;
 }
+
 #virtualclassCont.congrea .progressbar li:first-child:after {
   content: none;
 }
+
 #virtualclassCont.congrea .progressbar li.active {
-  color: rgba(0,128,0,1);
+  color: rgba(0, 128, 0, 1);
 }
+
 #virtualclassCont.congrea .progressbar li.active:before {
   /*
   border-color: #55b776;
@@ -64,9 +71,11 @@ body {
   */
 
 }
+
 #virtualclassCont.congrea .progressbar li.active + li:after {
-  background-color: #55b776; 
+  background-color: #55b776;
 }
+
 #virtualclassCont.congrea .progressbar li.active.current::before {
-    color: #ffbb4d;
+  color: #ffbb4d;
 }

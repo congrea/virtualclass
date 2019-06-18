@@ -109,11 +109,10 @@
             }
           }
         }
-        virtualclass.storage.config.endSession();
+        virtualclass.storage.config.endSession(); // by Teacher
         if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
           virtualclass.prevScreen.unShareScreen();
         }
-
         virtualclass.previrtualclass = `virtualclass${virtualclass.gObj.defaultApp}`;
       },
 
@@ -160,23 +159,25 @@
         this.mvConfig = { id: `virtualclass${this.apps.mv}`, classes: 'appOptions' };
 
         // this.wssConfig = { id : "virtualclass" + virtualclass.apps.yt, classes : "appOptions"};
-        this.user = new window.user();
+        // this.user = new window.user();
         // this.lang.getString = window.getString;
         // this.lang.message = window.message;
-        this.vutil = window.vutil;
+        // this.vutil = window.vutil;
         // this.media = window.media
         this.sharePt = window.sharePt;
         this.fineUploader = window.fineUploader;
-        this.system = window.system;
-        this.recorder = window.recorder;
+
+        // this.system = window.system;
+
+        // this.recorder = window.recorder;
         this.converter = converter;
         this.clear = '';
         this.currApp = this.vutil.capitalizeFirstLetter(app);
-        this.storage = window.storage;
+        // this.storage = window.storage;
         this.dashBoard = dashBoard;
         this.multiVideo = window.MultiVideo;
         this.vutil.isChromeExtension();
-        this.wbCommon = window.wbCommon;
+
         this.pageNavigation = window.pageIndexNav;
         this.modal = window.modal;
         // this.settings = window.settings;
@@ -184,11 +185,12 @@
 
         this.zoom = window.zoomWhiteboard();
         virtualclass.pageIndexNav = window.pageIndexNav;
-        if (this.system.isIndexedDbSupport()) {
-          await this.storage.init();
-        } else {
-          console.log('Indexeddb does not support');
-        }
+
+        // if (this.system.isIndexedDbSupport()) {
+        //   await this.storage.init();
+        // } else {
+        //   console.log('Indexeddb does not support');
+        // }
 
         // this.pdfRender = window.pdfRender();
         if (this.currApp != 'Quiz' && virtualclass.gObj.CDTimer != null) {
@@ -385,18 +387,9 @@
 
       makeReadySocket() {
         if (!virtualclass.vutil.isPlayMode()) {
-          // Init Socket only after both editor instances are ready.
-
-          const that = this;
-          var initSocket = setInterval(() => {
-            if (that.gObj.editorInitDone >= 2) {
-              that.initSocketConn();
-              clearInterval(initSocket);
-            }
-          }, 100);
+          this.initSocketConn();
         }
       },
-
 
       initSocketConn() {
         if (this.system.webSocket) {
@@ -1290,7 +1283,7 @@
 
       initlizer(elem) {
         let appName = elem.parentNode.id.split('virtualclass')[1];
-        if (appName == 'SessionEndTool') {
+        if (appName === 'SessionEndTool') {
           virtualclass.popup.confirmInput(virtualclass.lang.getString('startnewsession'),
             (confirm) => {
               if (!confirm) {
@@ -1311,7 +1304,7 @@
 
               allFinish.then(() => {
                 delete virtualclass.gObj.sessionEndResolve;
-                //virtualclass.popup.sesseionEndWindow();
+                virtualclass.popup.sesseionEndWindow();
               }, (error) => {
                 console.log(`ERRROR ${error}`);
               });
@@ -1344,29 +1337,28 @@
         return !!((previous == 'virtualclassWholeScreenShare' && appName == virtualclass.apps.yt));
       },
 
-      handleCurrentUserWithPrevious() {
-        let prvUser = localStorage.getItem('prvUser');
-        if (prvUser == null) {
-          virtualclass.setPrvUser();
-        } else {
-          prvUser = JSON.parse(prvUser);
-          if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role != prvUser.role || prvUser.recording != virtualclassSetting.settings.enableRecording) {
-            virtualclass.gObj.sessionClear = true;
-            virtualclass.setPrvUser();
-            if (roles.hasControls()) {
-              localStorage.setItem('uRole', this.gObj.uRole);
-            }
-          }
-        }
-      },
+      // handleCurrentUserWithPrevious() {
+      //   let prvUser = localStorage.getItem('prvUser');
+      //   if (prvUser == null) {
+      //     virtualclass.setPrvUser();
+      //   } else {
+      //     prvUser = JSON.parse(prvUser);
+      //     if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role != prvUser.role || prvUser.recording != virtualclassSetting.settings.enableRecording) {
+      //       virtualclass.gObj.sessionClear = true;
+      //       virtualclass.setPrvUser();
+      //       if (roles.hasControls()) {
+      //         localStorage.setItem('uRole', this.gObj.uRole);
+      //       }
+      //     }
+      //   }
+      // },
 
       setPrvUser() {
-        localStorage.clear();
         const prvUser = {
           id: wbUser.id,
           room: wbUser.room,
           role: wbUser.role,
-          recording: virtualclassSetting.settings.enableRecording,
+          settings: virtualclassSetting.settings,
         };
         console.log('previosu user');
         localStorage.setItem('prvUser', JSON.stringify(prvUser));
@@ -1473,6 +1465,42 @@
         }
         return template;
       },
+
+      isMiniFileIncluded(src) {
+        const filePatt = new RegExp(`${src}.js?=\*([0-9]*)`); // matched when src is mid of path, todo find it at end of path
+        const scripts = document.getElementsByTagName('script');
+        for (let i = 0; i < scripts.length; i++) {
+          if (filePatt.test(scripts[i].src)) {
+            return true;
+          }
+        }
+        return false;
+      },
+
+      removeSharingClass() {
+        const virtualclassCont = document.querySelector('#virtualclassCont');
+        if (virtualclassCont != '') {
+          virtualclassCont.classList.remove('studentScreenSharing');
+          document.querySelector('#chat_div').classList.remove('studentScreenSharing');
+        }
+      },
+
+      clearAllChat() {
+        localStorage.removeItem(virtualclass.gObj.uid); // remove chat about user
+        localStorage.clear('chatroom'); // all
+        if (virtualclass.chat != null) {
+          virtualclass.chat.idList.length = 0;
+        }
+
+        clearAllChatBox();
+
+        const allChat = document.getElementById('chatWidget').getElementsByClassName('ui-chatbox-msg');
+        if (allChat.length > 0) {
+          while (allChat[0] != null) {
+            allChat[0].parentNode.removeChild(allChat[0]);
+          }
+        }
+      }
     };
 
     function capitalizeFirstLetter(string) {

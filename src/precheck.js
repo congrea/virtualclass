@@ -615,7 +615,6 @@ var preCheck = {
     virtualclass.videoHost._resetPrecheck();
     micTesting.destroyAudioNode();
     virtualclass.precheck.removeAllListener();
-    virtualclass.media.isInitiator = false;
     if (typeof workletAudioSend !== 'undefined') {
       workletAudioSend.disconnect();
     } else if (virtualclass.gObj.audioPlayerNode != null) {

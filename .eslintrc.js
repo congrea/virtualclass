@@ -41,6 +41,8 @@ module.exports = {
     workerIO: 'writable',
     virtualclass : 'writable',
     virtualclassSetting: 'writable',
+    wbUser: 'writable',
+    chatContainerEvent: 'writable'
   },
   parserOptions: {
     ecmaVersion: 2017,

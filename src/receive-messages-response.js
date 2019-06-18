@@ -65,15 +65,6 @@
       }
     },
 
-
-    checkUser(e, id, storageHasTeacher) {
-      const { joinId } = e.message;
-      if ((typeof vcan.teacher === 'undefined') && (!storageHasTeacher)) {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasDisable();
-      }
-      virtualclass.vutil.initDefaultInfo(e, wbUser.role, virtualclass.currApp);
-      virtualclass.wb[virtualclass.gObj.currWb].utility.makeUserAvailable(e.message.checkUser.e.clientLen);
-    },
     clearAll(formUserId, id, eMessage, orginalTeacherId) {
       if (formUserId != id) {
         virtualclass.wb[virtualclass.gObj.currWb].tool = new virtualclass.wb[virtualclass.gObj.currWb].tool_obj('t_clearall');

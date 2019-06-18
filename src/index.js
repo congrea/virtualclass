@@ -6,9 +6,11 @@ $.uiBackCompat = false;
 (function (window) {
   window.onload = async function () {
     const bootStraper = new window.Bootstrap();
-    await bootStraper.loadData(window);
+    await bootStraper.setBasicData(window);
+    await bootStraper.validDateSession();
+    await bootStraper.loadData();
     await bootStraper.appInit();
-    await bootStraper.setUpData(window);
+    await bootStraper.setUpMedia();
     await bootStraper.readyToGo();
   };
 }(window));

@@ -24,9 +24,6 @@ function joinAsTeacher(jId) {
     console.log('Member add :- join as teacher');
   }
 
-  if (virtualclass.gObj.hasOwnProperty('doEndSession') && roles.isTeacher()) {
-    virtualclass.vutil.overrideRoleTeacher();
-  }
 }
 
 /**
@@ -58,11 +55,7 @@ var overrideOperation = function (role) {
 };
 
 
-function initOverrideRoleTeacher(jId) {
-  if (virtualclass.gObj.hasOwnProperty('doEndSession') && selfJoin(jId) && virtualclass.joinUser.role == 't') {
-    virtualclass.vutil.overrideRoleTeacher();
-  }
-}
+
 
 function getPosition(connectedUsers, uid) {
   const index = connectedUsers.findIndex(o => o.userid == uid);

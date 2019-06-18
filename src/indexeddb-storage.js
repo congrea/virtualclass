@@ -12,7 +12,7 @@
 
   const storage = {
     //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
-    version: 7,
+    version: 8,
     sessionEndFlag: false,
     async init() {
       /** *
@@ -20,7 +20,6 @@
        executedStoreAll => To store the executed data of users till now
        dataAdapterAll => To store the must data of all user.
        dataUserAdapterAll =>  To Store the must data of all user on particular user
-       chunkData => To save chunk data which would be convert into file as later.
        wbData => To store the whiteboard data.
        config => For store the date of created session of particular room,
        By which, we calculate the time(after 48 hour we are
@@ -28,15 +27,8 @@
        executedUserStoreAll => for store the missed packet of according to user.
        */
 
-      this.reclaim = roles.isEducator();
       that = this;
-      // TODO these are not using because audio and video is not using
-
-      this.tables = ['wbData', 'chunkData', 'config', 'dataAdapterAll', 'dataUserAdapterAll', 'executedStoreAll', 'executedUserStoreAll', 'dstdata', 'pollStorage', 'quizData', 'dstall'];
-
-      //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
-
-      //  Try and Catch not supporting here
+      this.tables = ['wbData', 'dataAdapterAll', 'dataUserAdapterAll', 'executedStoreAll', 'executedUserStoreAll', 'dstdata', 'pollStorage', 'quizData', 'dstall'];
 
       this.db = await virtualclass.virtualclassIDBOpen('vidya_apps', that.dbVersion, {
         upgrade(db, oldVersion, newVersion, transaction) {
@@ -55,15 +47,6 @@
       const thisDb = db;
       if (!thisDb.objectStoreNames.contains('wbData')) {
         thisDb.createObjectStore('wbData', { keyPath: 'did' });
-      }
-
-
-      if (!thisDb.objectStoreNames.contains('config')) {
-        thisDb.createObjectStore('config', { keyPath: 'timeStamp', autoIncrement: true });
-      }
-
-      if (!thisDb.objectStoreNames.contains('chunkData')) {
-        thisDb.createObjectStore('chunkData', { autoIncrement: true });
       }
 
       if (!thisDb.objectStoreNames.contains('dataAdapterAll')) {
@@ -100,41 +83,18 @@
     },
 
     async onsuccess() {
-      if (virtualclass.gObj.sessionClear) {
-        console.log('==== session clear endsession after room change');
-        this.config.endSession(true);
+      const pos = this.tables.indexOf('wbData');
+      if (pos > -1) {
+        var tables = this.tables.slice(pos + 1);
       } else {
-        const pos = this.tables.indexOf('wbData');
-
-        if (pos > -1) {
-          var tables = this.tables.slice(pos + 1);
-        } else {
-          var { tables } = this;
-        }
-
-        await this.getAllObjs(tables, (result) => {
-          if (typeof result === 'undefined') {
-            that.config.createNewSession();
-          } else {
-            const roomCreatedTime = result.createdDate;
-            const baseDate = new Date().getTime();
-            const totalTime = baseDate - roomCreatedTime;
-            // Session is clear after 3 hour continous session
-            // ////////////////////1sec-1min--1hr--3hr/////////
-            if (totalTime > (1000 * 60 * 60 * 3) || result.room != wbUser.room) {
-              // if (totalTime > (1000 * 6) || result.room != wbUser.room) {
-              console.log('==== session clear endsession after date expire');
-              that.config.endSession();
-            }
-          }
-        });
+        var { tables } = this;
       }
-      console.log('==== Member add, config is ready');
 
-      /** TODO, error handling * */
-      // that.db.onerror = function (event) {
-      //     console.dir(event.target);
-      // };
+      await this.getAllObjs(tables, () => {
+        if (virtualclass.gObj.myConfig === null) {
+          that.config.createNewSession();
+        }
+      });
     },
 
 
@@ -395,17 +355,12 @@
       createNewSession() {
         virtualclass.makeAppReady(virtualclass.gObj.defaultApp);
         const currTime = new Date().getTime();
-        if (typeof that.db !== 'undefined') {
-          const t = that.db.transaction(['config'], 'readwrite');
-          const objectStore = t.objectStore('config');
-          const config = JSON.stringify({ createdDate: currTime, room: wbUser.room });
-          objectStore.add({ myconfig: config, timeStamp: new Date().getTime() });
-        } else {
-          console.log('The Datbase is not created for Applicatoin.');
-        }
+        const configData = JSON.stringify({ createdDate: currTime });
+        localStorage.setItem('myConfig', configData);
       },
 
       endSession:  async function  (onlyStoredData) {
+        console.log('==== End the session here');
         delete virtualclass.connectedUsers;
         if (virtualclass.gObj.hasOwnProperty('memberUpdateDelayTimer')) {
           clearTimeout(virtualclass.gObj.memberUpdateDelayTimer);
@@ -463,7 +418,6 @@
         // virtualclass.raiseHand.raisehand();
         virtualclass.gObj.audioEnable = (roles.hasControls()) ? true : virtualclass.gObj.stdaudioEnable;
         virtualclass.storage.config.sessionEndFlag = true;
-        const newEducator = localStorage.getItem('nEd'); // new participate  who becomes educator
         const precheck = localStorage.getItem('precheck');
         // localStorage.clear();
         if (virtualclass.chat != null) {
@@ -477,7 +431,7 @@
         virtualclass.wb = ''; // make white board empty
         delete virtualclass.gObj.currWb; // deleting current whiteboard
         virtualclass.gObj.studentSSstatus.mesharing = false;
-        virtualclass.vutil.removeSharingClass();
+        virtualclass.removeSharingClass();
         virtualclass.gObj.studentSSstatus.shareToAll = false;
         virtualclass.gObj.studentSSstatus.sharing = false;
         delete virtualclass.gObj.whoIsSharing;
@@ -485,7 +439,6 @@
           virtualclass.videoHost.gObj.stdStopSmallVid = false;
           virtualclass.videoHost.gObj.allStdVideoOff = false;
         }
-
 
         virtualclass.gObj.wbTool = {};
 
@@ -509,7 +462,7 @@
             }
           }
 
-          virtualclass.vutil.clearAllChat();
+          // virtualclass.clearAllChat();
           if (virtualclass.editorRich != null) {
             virtualclass.editorRich.removeEditorData();
           }
@@ -537,23 +490,21 @@
         virtualclass.user.control.allChatEnable(); // Enabble all chat if disabled
         virtualclass.user.control.resetmediaSetting();
 
-        if (!virtualclass.gObj.meetingMode && roles.isStudent()) {
+        if (roles.isStudent()) {
           const teacherVid = document.getElementById('videoHostContainer');
-          teacherVid.style.display = 'none';
-
+          if (teacherVid !== null) {
+            teacherVid.style.display = 'none';
+          }
           const leftPanel = document.getElementById('virtualclassAppRightPanel');
-          if (leftPanel.classList.contains('vidShow')) {
+          if (leftPanel !== null && leftPanel.classList.contains('vidShow')) {
             leftPanel.classList.remove('vidShow');
           }
-        }
-
-
-        if (roles.hasAdmin()) {
-          // For remove the active tool
+        } else {
           const sessionEndTool = document.getElementById('virtualclassSessionEndTool');
-          sessionEndTool.className = virtualclass.vutil.removeClassFromElement('virtualclassSessionEndTool', 'active');
+          if (sessionEndTool !== null) {
+            sessionEndTool.className = virtualclass.vutil.removeClassFromElement('virtualclassSessionEndTool', 'active');
+          }
         }
-
 
         if (typeof virtualclass.yts === 'object') {
           clearInterval(virtualclass.yts.tsc); // Clear If youTube seekChange interval is exist
@@ -573,59 +524,41 @@
         virtualclass.recorder.storeDone = 0;
 
 
-       // virtualclass.setPrvUser(); // Set Previous User
-
         workerIO.postMessage({ cmd: 'sessionEndClose' });
-
-        // if (precheck != null) {
-        //   localStorage.setItem('precheck', JSON.parse(precheck));
-        // }
-
-        // The new session is trying to open
-        // overriding educator role (new teacher become educator) at where already has presenter
-        if (newEducator != null) {
-          console.log('Editor mode enable');
-          localStorage.setItem('editorRich', true);
-          localStorage.setItem('editorCode', true);
-          localStorage.removeItem('nEd');
-        } else {
-          console.log('Editor mode disable');
+        if (precheck != null) {
+          localStorage.setItem('precheck', JSON.parse(precheck));
         }
 
         console.log(`New role before clear ${virtualclass.gObj.uRole}`);
         virtualclass.settings.user = {};
 
-        let virtualclassWhiteboard = document.querySelector("#virtualclassWhiteboard");
-        virtualclassWhiteboard.style.display = 'none';
-        let virtualclassCont = document.querySelector('#virtualclassCont');
+        const virtualclassWhiteboard = document.querySelector('#virtualclassWhiteboard');
+        if (virtualclassWhiteboard !== null) {
+          virtualclassWhiteboard.style.display = 'none';
+        }
 
-        if (virtualclassCont != null) {
+        const virtualclassCont = document.querySelector('#virtualclassCont');
+        if (virtualclassCont !== null) {
           virtualclassCont.classList.remove('loading');
         }
-        localStorage.clear();
-        if (!virtualclass.isPlayMode) {
-          virtualclass.endSession = true;
-          virtualclass.popup.sesseionEndWindow();
-          return;
-        }
 
-        that.config.createNewSession();
+        localStorage.clear();
+
+        // TODO, CHECK WHERE WE NEED TO PUT BELOW CREATENEWFUNCTION()
+        // that.config.createNewSession();
 
         if (virtualclass.videoHost && roles.isStudent() && !virtualclass.isPlayMode) {
-          virtualclass.settings.init();
-          virtualclass.settings.userAudioIcon();
-          virtualclass.settings.userVideoIcon();
-          var rightPanelElem = document.querySelector("#virtualclassAppRightPanel");
-          if (!rightPanelElem.classList.contains("vidHide")) {
-             rightPanelElem.classList.add("vidHide");
+          const rightPanelElem = document.querySelector("#virtualclassAppRightPanel");
+          if (rightPanelElem !== null && !rightPanelElem.classList.contains("vidHide")) {
+            rightPanelElem.classList.add('vidHide');
           }
         }
 
         console.log(`New role after clear ${virtualclass.gObj.uRole}`);
-        //if (!virtualclass.enablePreCheck) {
-          // Only popup the message, if the precheck is not enabled
+        if (!virtualclass.enablePreCheck) {
+        // Only popup the message, if the precheck is not enabled
           virtualclass.popup.waitMsg();
-//        }
+        }
 
         if (typeof virtualclass.dts === 'object' && virtualclass.dts != null) {
           virtualclass.dts.destroyDts();
@@ -650,41 +583,45 @@
               handBt.classList.remove('highlight');
             }
             const text = document.querySelector('.congrea .vmchat_bar_button .hand_bt #notifyText');
-            text.innerHTML = '';
+            if (text) {
+              text.innerHTML = '';
+            }
           }
         }
 
-        // var chatHighlight = document.querySelector("#virtualclassCont.congrea .vmchat_room_bt.ui-state-highlight");
-        const chatHighlight = chatContainerEvent.elementFromShadowDom('.vmchat_room_bt.ui-state-highlight');
-        if (chatHighlight) {
-          chatHighlight.classList.remove('ui-state-highlight');
-        }
-
-        const videOff = document.querySelector('#virtualclassCont.congrea.student');
-        if (videOff && videOff.classList.contains('videoff')) {
-          videOff.classList.remove('videoff');
-        }
-        const userList = document.querySelector('#virtualclassCont #memlist');
-        const chatrm = document.querySelector('#virtualclassCont #chatrm');
-
-        const listTab = document.querySelector('#user_list');
-        const chatroomTab = document.querySelector('#chatroom_bt2');
-
-
-        if (userList && !userList.classList.contains('enable')) {
-          userList.classList.add('enable');
-          userList.classList.remove('disable');
-          if (chatrm) {
-            chatrm.classList.add('disable');
-            chatrm.classList.remove('enable');
+        const chatDiv = document.getElementById('chat_div');
+        if (chatDiv !== null) {
+          const chatHighlight = chatContainerEvent.elementFromShadowDom('.vmchat_room_bt.ui-state-highlight');
+          if (chatHighlight) {
+            chatHighlight.classList.remove('ui-state-highlight');
           }
-        }
 
-        if (chatroomTab != null) {
-          if (!listTab.classList.contains('active')) {
-            listTab.classList.add('active');
+          const videOff = document.querySelector('#virtualclassCont.congrea.student');
+          if (videOff && videOff.classList.contains('videoff')) {
+            videOff.classList.remove('videoff');
           }
-          chatroomTab.classList.remove('active');
+          const userList = document.querySelector('#virtualclassCont #memlist');
+          const chatrm = document.querySelector('#virtualclassCont #chatrm');
+
+          const listTab = document.querySelector('#user_list');
+          const chatroomTab = document.querySelector('#chatroom_bt2');
+
+
+          if (userList && !userList.classList.contains('enable')) {
+            userList.classList.add('enable');
+            userList.classList.remove('disable');
+            if (chatrm) {
+              chatrm.classList.add('disable');
+              chatrm.classList.remove('enable');
+            }
+          }
+
+          if (chatroomTab != null) {
+            if (!listTab.classList.contains('active')) {
+              listTab.classList.add('active');
+            }
+            chatroomTab.classList.remove('active');
+          }
         }
 
         if (virtualclass.serverData != null) {
@@ -698,7 +635,9 @@
         virtualclass.wbCommon.order = [0];
         virtualclass.gObj.wbCount = 0;
         virtualclass.wbCommon.clearNavigation();
-        delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+        if (typeof virtualclass.wb === 'object') {
+          delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+        }
         virtualclass.gObj.currIndex = 1;
       },
     },

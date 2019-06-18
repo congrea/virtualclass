@@ -311,33 +311,18 @@
         appBarCont.style.pointerEvents = 'none';
       }
     },
-    isMiniFileIncluded(src) {
-      //                var filePatt = new RegExp(src+".js$");
-      const filePatt = new RegExp(`${src}.js?=\*([0-9]*)`); // matched when src is mid of path, todo find it at end of path
-      const scripts = document.getElementsByTagName('script');
-      for (let i = 0; i < scripts.length; i++) {
-        if (filePatt.test(scripts[i].src)) {
-          return true;
-        }
-      }
-      return false;
-    },
-    clearAllChat() {
-      localStorage.removeItem(virtualclass.gObj.uid); // remove chat about user
-      localStorage.clear('chatroom'); // all
-      if (virtualclass.chat != null) {
-        virtualclass.chat.idList.length = 0;
-      }
+    // isMiniFileIncluded(src) {
+    //   //                var filePatt = new RegExp(src+".js$");
+    //   const filePatt = new RegExp(`${src}.js?=\*([0-9]*)`); // matched when src is mid of path, todo find it at end of path
+    //   const scripts = document.getElementsByTagName('script');
+    //   for (let i = 0; i < scripts.length; i++) {
+    //     if (filePatt.test(scripts[i].src)) {
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // },
 
-      clearAllChatBox();
-
-      const allChat = document.getElementById('chatWidget').getElementsByClassName('ui-chatbox-msg');
-      if (allChat.length > 0) {
-        while (allChat[0] != null) {
-          allChat[0].parentNode.removeChild(allChat[0]);
-        }
-      }
-    },
     isObjectEmpty(obj) {
       for (const prop in obj) {
         if (obj.hasOwnProperty(prop)) return false;
@@ -472,8 +457,14 @@
       }
     },
 
-    beforeLoad() {
-      if (virtualclass.currApp == 'DocumentShare') {
+    beforeLoad: async function () {
+      if (virtualclass.isPlayMode) {
+        // We need to clear everything when user first play-recoring and join the live class
+        console.log("==== Clear Session PlayMode")
+        return;
+      }
+
+      if (virtualclass.currApp === 'DocumentShare') {
         if (!roles.hasControls()) {
           const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
           const action = rhElem.getAttribute('data-action');
@@ -798,43 +789,17 @@
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
-    initDefaultInfo(role, appIs) {
-      // debugger;
-      if (role == 't' && appIs == 'Whiteboard') {
-        if (!roles.hasAdmin()) {
-          virtualclass.wb[virtualclass.gObj.currWb].utility.setOrginalTeacherContent();
-          const commandWrapperId = commandToolsWrapper + virtualclass.gObj.currWb;
-          virtualclass.wb[virtualclass.gObj.currWb].attachToolFunction(commandWrapperId, true);
-        }
-      } else if (role == 's') {
-        // TODO this should be removed
-        virtualclass.gObj.studentId = wbUser.id;
 
-        if (!roles.hasControls()) {
-          // If student became teacher has educator role at localStorage then
-          // the user would not join as student but teacher
-          const uRole = localStorage.getItem('uRole');
-          if (uRole != null && uRole == 'e') {
-            role = 'e';
-          }
+    // initDefaultInfo(role, appIs) {
+    //   if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
+    //     setTimeout(
+    //       () => {
+    //         virtualclass.media.init();
+    //       }, 500, // Let be ready every thing
+    //     );
+    //   }
+    // },
 
-          localStorage.setItem('uRole', role);
-        }
-        virtualclass.vutil.removeSessionTool();
-      }
-
-      if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
-        setTimeout(
-          () => {
-            virtualclass.media.init();
-            virtualclass.media.isInitiator = true;
-          }, 500, // Let be ready every thing
-        );
-      }
-
-      // vcan.oneExecuted = false;
-      virtualclass.gObj.oneExecuted = false;
-    },
     /**
      * Remove the given class name from givven element
      * @param prvTool
@@ -842,13 +807,10 @@
      * @returns {string}
      */
     removeClassFromElement(prvTool, className) {
-      if (prvTool != 't_reclaim') {
-        const prvToolElem = document.getElementById(prvTool);
-        if (prvToolElem.classList.length > 0) { // If class list available only
-          prvToolElem.classList.remove(className);
-          return prvToolElem.className;
-        }
-        console.log(`Whiteboard Tool class:- could not remove ${className}`);
+      const prvToolElem = document.getElementById(prvTool);
+      if (prvToolElem !== null && prvToolElem.classList.length > 0) { // If class list available only
+        prvToolElem.classList.remove(className);
+        return prvToolElem.className;
       }
     },
     /**
@@ -2667,14 +2629,6 @@
       }
     },
 
-    removeSharingClass() {
-      const virtualclassCont = document.querySelector('#virtualclassCont');
-      if (virtualclassCont != '') {
-        virtualclassCont.classList.remove('studentScreenSharing');
-        document.querySelector('#chat_div').classList.remove('studentScreenSharing');
-      }
-    },
-
     addNoteClass() {
       if (roles.isStudent()) {
         const docScreenContainer = document.querySelector('#docScreenContainer');
@@ -2847,29 +2801,20 @@
       }
     },
 
-    overrideRoleTeacher() {
-      console.log('Member add:- End session override teacher');
-      virtualclass.storage.config.endSession();
-      localStorage.setItem('uRole', 't');
-      delete virtualclass.gObj.doEndSession;
-    },
 
-    clearEverthing() {
-      localStorage.removeItem('editorRich');
-      localStorage.removeItem('editorCode');
-
-      virtualclass.notPLayed = true;
-      virtualclass.storage.config.endSession();
-      virtualclass.chat.chatroombox = false;
-      const chatRoom = document.getElementById('chatrm');
-      if (chatRoom !== null) {
-        chatRoom.parentNode.removeChild(chatRoom);
-      }
-      const canvasElem = document.getElementById('canvas');
-      if (canvasElem !== null) {
-        canvasElem.style.pointerEvents = 'none';
-      }
-    },
+    // clearEverthing() {
+    //   virtualclass.notPLayed = true;
+    //   virtualclass.storage.config.endSession();
+    //   virtualclass.chat.chatroombox = false;
+    //   const chatRoom = document.getElementById('chatrm');
+    //   if (chatRoom !== null) {
+    //     chatRoom.parentNode.removeChild(chatRoom);
+    //   }
+    //   const canvasElem = document.getElementById('canvas');
+    //   if (canvasElem !== null) {
+    //     canvasElem.style.pointerEvents = 'none';
+    //   }
+    // },
 
     WebPDecodeAndDraw: function (data, canvas, context) {
       if (window.Worker) {

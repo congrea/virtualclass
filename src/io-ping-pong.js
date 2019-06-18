@@ -28,12 +28,6 @@ const ioPingPong = {
   sessionName() {
     let session = localStorage.getItem('mySession');
     if (session === null) {
-      // If there is already exisiting session
-      // If new session trying to be create from new teacher become eduactor
-      if (virtualclass.gObj.hasOwnProperty('doEndSession')) {
-        virtualclass.storage.config.endSession();
-        console.log('==== session, end session');
-      }
       session = this.setSession();
     }
     return session;
@@ -50,7 +44,7 @@ const ioPingPong = {
     const localSession = localStorage.getItem('mySession');
     if (localSession != null) {
       // only destroy the session when the request comes from teacher
-      if (localSession !== session && e.fromUser.role == 't') { // We are good, if same;
+      if (localSession !== session && e.fromUser.role === 't') { // We are good, if same;
         this.sessionDestroy(session, e);
       }
     } else {

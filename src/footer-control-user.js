@@ -744,11 +744,13 @@
           localStorage.setItem('audEnable', JSON.stringify({ ac: 'true' }));
           if (localStorage.getItem('dvid') == null) {
             const studentSpeaker = document.getElementById('speakerPressOnce');
-            if (typeof notActive === 'undefined') {
-              studentSpeaker.className = 'active';
+            if (studentSpeaker !== null) {
+              if (typeof notActive === 'undefined') {
+                studentSpeaker.className = 'active';
+              }
+              studentSpeaker.style.opacity = '1';
+              studentSpeaker.style.pointerEvents = 'visible';
             }
-            studentSpeaker.style.opacity = '1';
-            studentSpeaker.style.pointerEvents = 'visible';
           }
         },
 
@@ -829,14 +831,16 @@
         },
         disbaleAllChatBox() {
           localStorage.setItem('chatEnable', 'false');
-          const chat_div = document.querySelector('#virtualclassAppRightPanel');
-          chat_div.classList.add('chat_disabled');
-          document.querySelector('#chat_div').classList.add('chat_disabled');
-          chat_div.classList.remove('chat_enabled');
+          const rightPanel = document.querySelector('#virtualclassAppRightPanel');
+          if (rightPanel !== null) {
+            rightPanel.classList.add('chat_disabled');
+            document.querySelector('#chat_div').classList.add('chat_disabled');
+            rightPanel.classList.remove('chat_enabled');
 
-          const allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
-          for (let i = 0; i < allChatBoxes.length; i++) {
-            this.makeElemDisable(allChatBoxes[i]);
+            const allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
+            for (let i = 0; i < allChatBoxes.length; i++) {
+              this.makeElemDisable(allChatBoxes[i]);
+            }
           }
         },
 
@@ -865,87 +869,85 @@
         },
         allChatEnable() {
           localStorage.setItem('chatEnable', 'true');
-          const chat_div = document.querySelector('#virtualclassAppRightPanel');
-          chat_div.classList.remove('chat_disabled');
-          document.querySelector('#chat_div').classList.remove('chat_disabled');
+          const rightPanel = document.querySelector('#virtualclassAppRightPanel');
+          if (rightPanel !== null) {
+            rightPanel.classList.remove('chat_disabled');
+            document.querySelector('#chat_div').classList.remove('chat_disabled');
 
-          chat_div.classList.add('chat_enabled');
+            rightPanel.classList.add('chat_enabled');
 
-          const chatInput = document.querySelector('#virtualclassCont.congrea #ta_chrm2');
-          if (chatInput) {
-            chatInput.classList.remove('disable');
-            chatInput.disabled = false;
-          }
-
-
-          // var allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
-          const allChatBoxes = document.getElementById('stickycontainer').getElementsByClassName('ui-chatbox');
-          for (var i = 0; i < allChatBoxes.length; i++) {
-            this.makeElemEnable(allChatBoxes[i]);
-          }
-          var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
-          for (var i = 0; i < allChatDivCont.length; i++) {
-            if (!allChatDivCont[i].classList.contains('mySelf')) {
-              allChatDivCont[i].style.pointerEvents = 'visible';
-              // virtualclass.user.control.enable(allChatDivCont[i].id.slice(2), 'chat', 'Chat', 'chat');
-            }
-            const chatIcon = allChatDivCont[i].querySelector('.icon-chatImg');
-            if (chatIcon && !chatIcon.classList.contains('enable')) {
-              chatIcon.classList.add('enable');
-              chatIcon.setAttribute('data-chat-disable', 'false');
+            const chatInput = document.querySelector('#virtualclassCont.congrea #ta_chrm2');
+            if (chatInput) {
+              chatInput.classList.remove('disable');
+              chatInput.disabled = false;
             }
 
-            const txteditorIcon = allChatDivCont[i].querySelector('.icon-editorRichImg');
-            if (txteditorIcon && txteditorIcon.classList.contains('enable')) {
-              txteditorIcon.classList.remove('enable');
-              txteditorIcon.classList.add('block');
-              txteditorIcon.parentNode.setAttribute('data-title', virtualclass.lang.getString('writemode'));
-              txteditorIcon.setAttribute('data-editorrich-disable', 'true');
+
+            // var allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
+            const allChatBoxes = document.getElementById('stickycontainer').getElementsByClassName('ui-chatbox');
+            for (var i = 0; i < allChatBoxes.length; i++) {
+              this.makeElemEnable(allChatBoxes[i]);
+            }
+            var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
+            for (var i = 0; i < allChatDivCont.length; i++) {
+              if (!allChatDivCont[i].classList.contains('mySelf')) {
+                allChatDivCont[i].style.pointerEvents = 'visible';
+                // virtualclass.user.control.enable(allChatDivCont[i].id.slice(2), 'chat', 'Chat', 'chat');
+              }
+              const chatIcon = allChatDivCont[i].querySelector('.icon-chatImg');
+              if (chatIcon && !chatIcon.classList.contains('enable')) {
+                chatIcon.classList.add('enable');
+                chatIcon.setAttribute('data-chat-disable', 'false');
+              }
+
+              const txteditorIcon = allChatDivCont[i].querySelector('.icon-editorRichImg');
+              if (txteditorIcon && txteditorIcon.classList.contains('enable')) {
+                txteditorIcon.classList.remove('enable');
+                txteditorIcon.classList.add('block');
+                txteditorIcon.parentNode.setAttribute('data-title', virtualclass.lang.getString('writemode'));
+                txteditorIcon.setAttribute('data-editorrich-disable', 'true');
+              }
+
+              const codeeditorIcon = allChatDivCont[i].querySelector('.icon-editorCodeImg');
+              if (codeeditorIcon && codeeditorIcon.classList.contains('enable')) {
+                codeeditorIcon.classList.remove('enable');
+                codeeditorIcon.classList.add('block');
+                codeeditorIcon.parentNode.setAttribute('data-title', virtualclass.lang.getString('editorCodeDisable'));
+                codeeditorIcon.setAttribute('data-editorcode-disable', 'true');
+              }
+
+              const muteIcon = allChatDivCont[i].querySelector('.icon-audioDisImg');
+              if (muteIcon && muteIcon.classList.contains('block')) {
+                muteIcon.parentNode.setAttribute('data-title', virtualclass.lang.getString('audioEnable'));
+                muteIcon.setAttribute('data-audio-disable', 'false');
+              }
             }
 
-            const codeeditorIcon = allChatDivCont[i].querySelector('.icon-editorCodeImg');
-            if (codeeditorIcon && codeeditorIcon.classList.contains('enable')) {
-              codeeditorIcon.classList.remove('enable');
-              codeeditorIcon.classList.add('block');
-              codeeditorIcon.parentNode.setAttribute('data-title', virtualclass.lang.getString('editorCodeDisable'));
-              codeeditorIcon.setAttribute('data-editorcode-disable', 'true');
+            const userList = document.querySelector('#virtualclassCont #memlist.enable');
+            const chatrm = document.querySelector('#virtualclassCont #chatrm.enable');
+
+            const listTab = document.querySelector('#user_list');
+            const chatroomTab = document.querySelector('#chatroom_bt2');
+            if (userList && !listTab.classList.contains('active')) {
+              if (!listTab.classList.contains('active')) {
+                listTab.classList.add('active');
+              }
+              chatroomTab.classList.remove('active');
+              virtualclass.chat.chatWindow = 'private';
             }
 
-            const muteIcon = allChatDivCont[i].querySelector('.icon-audioDisImg');
-            if (muteIcon && muteIcon.classList.contains('block')) {
-              muteIcon.parentNode.setAttribute('data-title', virtualclass.lang.getString('audioEnable'));
-              muteIcon.setAttribute('data-audio-disable', 'false');
+            if (chatrm) {
+              if (!chatroomTab.classList.contains('active')) {
+                chatroomTab.classList.add('active');
+              }
+              listTab.classList.remove('active');
+              virtualclass.chat.chatWindow = 'common';
             }
-          }
 
-          const userList = document.querySelector('#virtualclassCont #memlist.enable');
-          const chatrm = document.querySelector('#virtualclassCont #chatrm.enable');
-
-          const listTab = document.querySelector('#user_list');
-          const chatroomTab = document.querySelector('#chatroom_bt2');
-          if (userList && !listTab.classList.contains('active')) {
-            if (!listTab.classList.contains('active')) {
-              listTab.classList.add('active');
+            var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
+            for (var i = 0; i < allChatBoxes.length; i++) {
+              this.makeElemEnable(allChatBoxes[i]);
             }
-            chatroomTab.classList.remove('active');
-            virtualclass.chat.chatWindow = 'private';
-          }
-          // var supportTab = document.querySelector("#congreaSupport");
-          // if(supportTab.classList.contains("active")){
-          //     supportTab.classList.remove("active")
-          // }
-
-          if (chatrm) {
-            if (!chatroomTab.classList.contains('active')) {
-              chatroomTab.classList.add('active');
-            }
-            listTab.classList.remove('active');
-            virtualclass.chat.chatWindow = 'common';
-          }
-
-          var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
-          for (var i = 0; i < allChatBoxes.length; i++) {
-            this.makeElemEnable(allChatBoxes[i]);
           }
         },
 

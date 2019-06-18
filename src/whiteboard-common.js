@@ -412,31 +412,32 @@
     },
 
     clearNavigation() {
-      var dc = document.getElementById("dcPaging");
-      while (dc.firstChild) {
-        dc.removeChild(dc.firstChild);
-      }
+      const dc = document.getElementById("dcPaging");
+      if (dc !== null) {
+        while (dc.firstChild) {
+          dc.removeChild(dc.firstChild);
+        }
 
-      if (roles.hasControls()) {
-        virtualclass.wbCommon.indexNav.createWbNavigationNumber(0, 0);
-        var wb = document.querySelector("#virtualclassWhiteboard")
-        wb.classList.add("lastNote");
-      } else {
-
-        var pageNo = document.createElement('span')
-        pageNo.id = "stdPageNo";
-        dc.appendChild(pageNo);
-        virtualclass.wbCommon.indexNav.studentWBPagination(0);
+        if (roles.hasControls()) {
+          virtualclass.wbCommon.indexNav.createWbNavigationNumber(0, 0);
+          const wb = document.querySelector('#virtualclassWhiteboard')
+          wb.classList.add('lastNote');
+        } else {
+          const pageNo = document.createElement('span')
+          pageNo.id = 'stdPageNo';
+          dc.appendChild(pageNo);
+          virtualclass.wbCommon.indexNav.studentWBPagination(0);
+        }
       }
     },
 
     deleteWhiteboard(wbId) {
       delete virtualclass.wb[wbId];
       delete virtualclass.pdfRender[wbId];
-      if (virtualclass.currApp == 'Whiteboard') {
-        const containerWb_doc = document.querySelector(`#containerWb${wbId}`);
-        if (containerWb_doc != null) {
-          containerWb_doc.parentNode.removeChild(containerWb_doc);
+      if (virtualclass.currApp === 'Whiteboard') {
+        const containerWbDoc = document.querySelector(`#containerWb${wbId}`);
+        if (containerWbDoc !== null) {
+          containerWbDoc.parentNode.removeChild(containerWbDoc);
         }
       }
     },

@@ -77,7 +77,6 @@
   const media = function () {
     return {
       isChannelReady: '', // not being used
-      isInitiator: false,
       isStarted: '',
       pc: [],
       cn: 0,
@@ -87,7 +86,6 @@
       bNotRender: false,
       remoteStream: '',
       turnReady: '',
-      oneExecuted: false,
       videoControlId: 'videoContainer',
       videoContainerId: 'videos',
       CONFIG: {
@@ -1493,7 +1491,6 @@
       init(cb) {
         console.log('Video second, normal video');
         cthis = this; // TODO there should be done work for cthis
-        virtualclass.gObj.oneExecuted = true;
 
         if (virtualclass.gesture.classJoin) {
           virtualclass.gesture.attachHandler();

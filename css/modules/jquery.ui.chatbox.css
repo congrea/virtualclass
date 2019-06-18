@@ -1,67 +1,69 @@
 /* style sheets */
 /*css for chatbox*/
 #virtualclassCont.congrea .ui-chatbox {
-    position: relative;
-    bottom:255px;
-    padding: 0px;
-    border-bottom: none;
-    z-index: 13;
-    overflow: hidden;
-    left: -1px;
-    border: 1px solid #bbb;
+  position: relative;
+  bottom: 255px;
+  padding: 0px;
+  border-bottom: none;
+  z-index: 13;
+  overflow: hidden;
+  left: -1px;
+  border: 1px solid #bbb;
 }
 
 #virtualclassCont.congrea .ui-chatbox-titlebar {
-    padding: 3px;
-    height:20px;
+  padding: 3px;
+  height: 20px;
 }
-#virtualclassCont.congrea .ui-chatbox-titlebar span{
-    position: relative;
-    font-weight: normal;
-    text-transform: capitalize;
+
+#virtualclassCont.congrea .ui-chatbox-titlebar span {
+  position: relative;
+  font-weight: normal;
+  text-transform: capitalize;
 
 }
 
 #virtualclassCont.congrea #congreaChatCont .ui-chatbox-content {
-    border-width: 0;
-    width: 315px;
-/*    pointer-events: none;*/
+  border-width: 0;
+  width: 315px;
+  /*    pointer-events: none;*/
 }
 
 #virtualclassCont.congrea.playMode .vidHide #congreaChatCont .ui-chatbox-content {
-    
-    overflow-y :auto;
-    height: calc(100vh - 118px) !important;
-    
+
+  overflow-y: auto;
+  height: calc(100vh - 118px) !important;
+
 }
+
 #virtualclassCont.congrea.playMode .vidShow #congreaChatCont .ui-chatbox-content {
-    
-    overflow-y :auto;
-    height: calc(100vh - 350px) !important;
-    
+
+  overflow-y: auto;
+  height: calc(100vh - 350px) !important;
+
 }
 
 #virtualclassCont.congrea .ui-chatbox-log {
-    border-width: 0;
-    height: 170px;
-    overflow-y: auto;
+  border-width: 0;
+  height: 170px;
+  overflow-y: auto;
 }
 
 #virtualclassCont.congrea.playMode .ui-chatbox-log {
-    overflow:unset;
+  overflow: unset;
 }
 
 @-moz-document url-prefix() {
-    #virtualclassCont.congrea .ui-chatbox-log {
-        height:159px;
-    }
+  #virtualclassCont.congrea .ui-chatbox-log {
+    height: 159px;
+  }
 }
 
 #virtualclassCont.congrea .ui-chatbox-input {
-    background-color: #fff;
-    border-width: 0;
-    overflow: hidden;
-    clear: both;
+  background-color: #fff;
+  border-width: 0;
+  overflow: hidden;
+  clear: both;
 }
 
 /*
@@ -77,685 +79,737 @@
 */
 
 #virtualclassCont.congrea .ui-chatbox-icon {
-    float: right!important;
-    margin-top: -18px;
+  float: right !important;
+  margin-top: -18px;
 }
 
 #virtualclassCont.congrea .ui-chatbox-input-focus {
-    border-color: #6699FF;
+  border-color: #6699FF;
 }
 
 #virtualclassCont.congrea .ui-chatbox-msg,
 #virtualclassCont.congrea.student .ui-chatbox-msg {
-    clear: both;
-    font-size: 12px;
-    padding: 3px 7px;
-    list-style: none;
-    line-height: 18px;
+  clear: both;
+  font-size: 12px;
+  padding: 3px 7px;
+  list-style: none;
+  line-height: 18px;
 }
 
-#virtualclassCont.congrea.student .ui-chatbox-msg{
-    padding: 3px 7px;
+#virtualclassCont.congrea.student .ui-chatbox-msg {
+  padding: 3px 7px;
 }
 
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon {
-    font-size: 12px;
-    margin-top: 6px;
+  font-size: 12px;
+  margin-top: 6px;
 }
 
-#virtualclassCont.congrea .ui-chatbox-msg .commonChatCon .text{
-    word-break: break-word;
-    padding: 2px;
+#virtualclassCont.congrea .ui-chatbox-msg .commonChatCon .text {
+  word-break: break-word;
+  padding: 2px;
 }
 
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon span {
-    text-align: right;
-    float: right;
-    font-size:10px;
+  text-align: right;
+  float: right;
+  font-size: 10px;
 }
+
 #virtualclassCont.congrea .ui-chatbox-msg .msgCont {
-    text-indent: 8px;
-    border: 1px solid #eee;
-    border-radius: 3px;
-    line-height: 16px;
-    padding: 5px 6px;
-    margin: 6px 0 12px;
-    background-color: rgba(0,0,0,0.016);
+  text-indent: 8px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  line-height: 16px;
+  padding: 5px 6px;
+  margin: 6px 0 12px;
+  background-color: rgba(0, 0, 0, 0.016);
 }
+
 #virtualclassCont.congrea .ui-chatbox-msg .msgCont::first-letter {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
+
 /*css for userlist*/
 
-.ui-memblist-usr
-{
-    clear: both;
+.ui-memblist-usr {
+  clear: both;
 }
 
 #virtualclassCont.congrea .ui-memblist-titlebar {
-    padding: 10px 3px 3px;
-    height: 20px;
+  padding: 10px 3px 3px;
+  height: 20px;
 }
 
 #virtualclassCont.congrea .ui-memblist-icon {
-    float: right;
+  float: right;
 }
 
 /*#virtualclassCont.congrea .ui-memblist-log .userImg.ui-memblist-usr.teacher a img {*/
-    /*padding: 4px 10px !important;*/
+/*padding: 4px 10px !important;*/
 /*}*/
 
 #virtualclassCont.congrea .ui-memblist-log div.teacher:last-child {
-    margin-bottom:0px !important;
+  margin-bottom: 0px !important;
 }
 
 /*css for sticky footer bar*/
 #virtualclassCont.congrea #stickybar {
-    font-size:14px;
-    font-weight:bold;
-    position:fixed;
-    bottom:0;
-    z-index:1000;
+  font-size: 14px;
+  font-weight: bold;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
 }
+
 #virtualclassCont.congrea #stickybar .footerCtr {
-    float: right;
-    width: auto;
-    position: absolute;
-    top: 0;
-    right: 0;
+  float: right;
+  width: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
+
 #virtualclassCont.congrea #stickybar .footerCtr .uiMuteAll, #virtualclassCont.congrea #stickybar .footerCtr .prechk, #virtualclassCont.congrea #stickybar .footerCtr .videoSwitchCont,
 #virtualclassCont.congrea #stickybar .footerCtr .vmchat_search {
-    background: transparent none;
-    position: relative;
-    bottom: 1px;
-    z-index: 10000;
+  background: transparent none;
+  position: relative;
+  bottom: 1px;
+  z-index: 10000;
 }
 
 #virtualclassCont.congrea #stickycontainer .uiMuteAll {
-    cursor: pointer;
-    /*padding-top: 1px;*/
-    /*width:20%;*/
-}
-#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search {
-    float: right;
-    width: 324px;
-    left: 0;
-}
-#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search input[type="text"] {
-    height: 32px;
-    margin: 4px 10px 10px 5px;
-    padding:4px;
-    width: 316px;
-    color: #555;
-    font: icon;
-    border-radius: 4px;
-    border:none;
-}
-#virtualclassCont.congrea #stickybar a {
-    text-decoration:none;
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 3px;
-    border: none;
-    font-size:13px;
-    text-transform: capitalize;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    line-height: 20px;
-    max-height: 32px;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-}
-#virtualclassCont.congrea #closebtn {
-    border:0;
-    width: 40px;
-    cursor: pointer;
-    height: 40px;
-    margin: 0; /* override moodle button css*/
-    padding: 0;/* override moodle button css*/
-    white-space: pre-wrap;/* some theme require*/
-    outline: 0;/* moodle override*/
-}
-#virtualclassCont.congrea #hide_bar input.close{
-    background:url('/virtualclass/images/close.png') top no-repeat;
-    opacity: 1;
-    margin-top: 2px;
+  cursor: pointer;
+  /*padding-top: 1px;*/
+  /*width:20%;*/
 }
 
-#virtualclassCont.congrea #hide_bar input.expand{
-    margin-top: 5px;
-    background:url('/virtualclass/images/open.png') top no-repeat;
+#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search {
+  float: right;
+  width: 324px;
+  left: 0;
 }
-#virtualclassCont.congrea .vmchat_close_bt{
-    color: #333;
-    cursor: pointer;
-    height: 29px;
-    padding: 3px 6px;
-    position: relative;
-    padding-top: 2px;
-    z-index: 1026;
-    float: right;
+
+#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search input[type="text"] {
+  height: 32px;
+  margin: 4px 10px 10px 5px;
+  padding: 4px;
+  width: 316px;
+  color: #555;
+  font: icon;
+  border-radius: 4px;
+  border: none;
+}
+
+#virtualclassCont.congrea #stickybar a {
+  text-decoration: none;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 3px;
+  border: none;
+  font-size: 13px;
+  text-transform: capitalize;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 20px;
+  max-height: 32px;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+#virtualclassCont.congrea #closebtn {
+  border: 0;
+  width: 40px;
+  cursor: pointer;
+  height: 40px;
+  margin: 0; /* override moodle button css*/
+  padding: 0; /* override moodle button css*/
+  white-space: pre-wrap; /* some theme require*/
+  outline: 0; /* moodle override*/
+}
+
+#virtualclassCont.congrea #hide_bar input.close {
+  background: url('/virtualclass/images/close.png') top no-repeat;
+  opacity: 1;
+  margin-top: 2px;
+}
+
+#virtualclassCont.congrea #hide_bar input.expand {
+  margin-top: 5px;
+  background: url('/virtualclass/images/open.png') top no-repeat;
+}
+
+#virtualclassCont.congrea .vmchat_close_bt {
+  color: #333;
+  cursor: pointer;
+  height: 29px;
+  padding: 3px 6px;
+  position: relative;
+  padding-top: 2px;
+  z-index: 1026;
+  float: right;
 }
 
 #virtualclassCont.congrea #chatroom_bt {
-    padding-right: 5px;
-    white-space: nowrap;
+  padding-right: 5px;
+  white-space: nowrap;
 }
+
 #virtualclassCont.congrea .vmchat_room_bt {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-#virtualclassCont.congrea.student .vmchat_room_bt{
-    width:40%;
+#virtualclassCont.congrea.student .vmchat_room_bt {
+  width: 40%;
 }
+
 #virtualclassCont.congrea #usertab_icon {
-    background: url('/virtualclass/images/offline.png') no-repeat top left;
-    float: left;
-    height: 16px;
-    margin: 6px 2px 0px 0px;
-    width: 16px;
+  background: url('/virtualclass/images/offline.png') no-repeat top left;
+  float: left;
+  height: 16px;
+  margin: 6px 2px 0px 0px;
+  width: 16px;
 }
-/*css for sticky footer bar*/
 
+/*css for sticky footer bar*/
 
 /* css for chat romm */
 #virtualclassCont.congrea .ui-chatroom {
-    position: absolute;
-    bottom:99px;
-    padding: 2px 2px 2px 2px;
-    padding: 2px 2px 2px 2px;
-    z-index: 100;
+  position: absolute;
+  bottom: 99px;
+  padding: 2px 2px 2px 2px;
+  padding: 2px 2px 2px 2px;
+  z-index: 100;
 }
 
-#virtualclassCont.congrea .ui-chatroom-titlebar, #virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header, #virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header{
-    font-weight: normal;
-    padding: 8px 0px;
-    height: 35px;
-    border-color: #3f4b56;
+#virtualclassCont.congrea .ui-chatroom-titlebar, #virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header, #virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header {
+  font-weight: normal;
+  padding: 8px 0px;
+  height: 35px;
+  border-color: #3f4b56;
 }
+
 #virtualclassCont.congrea .ui-chatbox.support .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header {
-    border-color: green;
-    background: green none !important;
+  border-color: green;
+  background: green none !important;
 }
-#virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header{
-    padding: 5px 0px 15px;
+
+#virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header {
+  padding: 5px 0px 15px;
 }
-.ui-widget-header.ui-corner-top.ui-chatroom-titlebar.ui-dialog-header span{
-    vertical-align: top;
+
+.ui-widget-header.ui-corner-top.ui-chatroom-titlebar.ui-dialog-header span {
+  vertical-align: top;
 }
 
 #virtualclassCont.congrea .ui-chatroom-content {
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
-    border: 0px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px;
 }
 
 #virtualclassCont.congrea .ui-chatroom-log {
-    padding: 7px 3px 3px 5px;
-    height: 150px;
-    overflow-y: auto;
-    background: #FFFFFF;
+  padding: 7px 3px 3px 5px;
+  height: 150px;
+  overflow-y: auto;
+  background: #FFFFFF;
 }
 
 #virtualclassCont.congrea .ui-chatroom-input {
-    padding: 3px 3px 3px 3px;
-    border-top: 1px solid grey;
-    overflow: hidden;
+  padding: 3px 3px 3px 3px;
+  border-top: 1px solid grey;
+  overflow: hidden;
 }
 
 #virtualclassCont.congrea .ui-chatroom-input-box {
-    margin: 5px 5px 5px 5px;
-    border: 2px solid lightgrey;/* #6699FF */
-    height: 35px;
+  margin: 5px 5px 5px 5px;
+  border: 2px solid lightgrey; /* #6699FF */
+  height: 35px;
 }
 
-
 #virtualclassCont.congrea .ui-chatroom-input-focus {
-    border-color: #6699FF;
+  border-color: #6699FF;
 }
 
 #virtualclassCont.congrea .ui-chatroom-msg {
-    float: left;
-    clear: both;
+  float: left;
+  clear: both;
 }
-#virtualclassCont.congrea .minimize{
-    left: 96.2%;
-    height: 40px;
-    right:0;
-    width: 40px;
+
+#virtualclassCont.congrea .minimize {
+  left: 96.2%;
+  height: 40px;
+  right: 0;
+  width: 40px;
 }
-#virtualclassCont.congrea .maximize{
-    left: 0;
-    width:100%;
-    height: 44px; /* Changed from 41px */
+
+#virtualclassCont.congrea .maximize {
+  left: 0;
+  width: 100%;
+  height: 44px; /* Changed from 41px */
 }
 
 /*custom css for chatroom*/
-#virtualclassCont.congrea .allUser{
-    border-left:1px solid #000;
-    width:300px;
-    height:40px;
-    float:right;
-    width: 188px;
-    height:160px;
-    background-color:#fff;
+#virtualclassCont.congrea .allUser {
+  border-left: 1px solid #000;
+  width: 300px;
+  height: 40px;
+  float: right;
+  width: 188px;
+  height: 160px;
+  background-color: #fff;
 }
-#virtualclassCont.congrea .mainContainer{
-    width:500px;
-    background:none;
+
+#virtualclassCont.congrea .mainContainer {
+  width: 500px;
+  background: none;
 }
-#virtualclassCont.congrea .mainContainer textarea{
-    background-color:#ffffdd;
+
+#virtualclassCont.congrea .mainContainer textarea {
+  background-color: #ffffdd;
 }
-#virtualclassCont.congrea .mainContainer .ui-widget-header{
-    width:500px;
+
+#virtualclassCont.congrea .mainContainer .ui-widget-header {
+  width: 500px;
 }
-#virtualclassCont.congrea .msgContainer{
-    clear:both;
-    width:100%;
+
+#virtualclassCont.congrea .msgContainer {
+  clear: both;
+  width: 100%;
 }
-#virtualclassCont.congrea #onlineUsers .usrImg{
-    width:25px;
-    height:25px;
-    margin:2px 5px 5px 5px;
-    float:left;
-    clear:both;
+
+#virtualclassCont.congrea #onlineUsers .usrImg {
+  width: 25px;
+  height: 25px;
+  margin: 2px 5px 5px 5px;
+  float: left;
+  clear: both;
 }
-#virtualclassCont.congrea#onlineUsers  a{
-    text-decoration:none;
-    /*font-size:16px;*/
-    /*float:left;*/
+
+#virtualclassCont.congrea#onlineUsers a {
+  text-decoration: none;
+  /*font-size:16px;*/
+  /*float:left;*/
 }
 
 /* tab css */
-#virtualclassCont.congrea .ui-tabs,.ui-tabs .ui-tabs-nav{
-    padding: 0;
+#virtualclassCont.congrea .ui-tabs, .ui-tabs .ui-tabs-nav {
+  padding: 0;
 }
+
 #virtualclassCont.congrea .ui-tabs .ui-tabs-nav li {
-    float:right;
-    white-space:normal;
+  float: right;
+  white-space: normal;
 }
+
 #virtualclassCont.congrea .ui-tabs-panel {
-    padding: 0;
+  padding: 0;
 }
 
 #virtualclassCont.congrea .tabs-bottom .ui-tabs-nav li {
-    top: auto;
-    bottom: 0;
-    margin: 0em 1px 0;
-    border-top: 0;
-    width:229px;
+  top: auto;
+  bottom: 0;
+  margin: 0em 1px 0;
+  border-top: 0;
+  width: 229px;
 }
-
 
 /*message notification*/
 
-#virtualclassCont.congrea .notify:before{
-    border-top: 6px solid rgba(0, 0, 0, 0.2);
-    border-left: 6px solid rgba(0, 0, 0, 0);
-    border-right: 6px solid rgba(0, 0, 0, 0);
-    content: "";
-    display: inline-block;
-    left: 2px;
-    position: absolute;
-    top: 16px;
+#virtualclassCont.congrea .notify:before {
+  border-top: 6px solid rgba(0, 0, 0, 0.2);
+  border-left: 6px solid rgba(0, 0, 0, 0);
+  border-right: 6px solid rgba(0, 0, 0, 0);
+  content: "";
+  display: inline-block;
+  left: 2px;
+  position: absolute;
+  top: 16px;
 }
-#virtualclassCont.congrea .notify:after{
-    border-top: 5px solid #ff0000;
-    border-left: 5px solid rgba(0, 0, 0, 0);
-    border-right: 5px solid rgba(0, 0, 0, 0);
-    content: "";
-    display: inline-block;
-    left:3px;
-    position: absolute;
-    top: 16px;
+
+#virtualclassCont.congrea .notify:after {
+  border-top: 5px solid #ff0000;
+  border-left: 5px solid rgba(0, 0, 0, 0);
+  border-right: 5px solid rgba(0, 0, 0, 0);
+  content: "";
+  display: inline-block;
+  left: 3px;
+  position: absolute;
+  top: 16px;
 }
-#virtualclassCont.congrea .notify{
-    background-color:#ff0000;
-    position:absolute;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    padding:2px 5px;
-    color:#fff;
-    font-size:12px;
-    top: -16px;
+
+#virtualclassCont.congrea .notify {
+  background-color: #ff0000;
+  position: absolute;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding: 2px 5px;
+  color: #fff;
+  font-size: 12px;
+  top: -16px;
 
 }
 
 /*#virtualclassCont.congrea .vmchat_bar_button .inner_bt #usertab_text, #virtualclassCont.congrea .vmchat_room_bt .inner_bt #chatroom_text{font-weight: normal;}*/
 
-
-
 /*----------------Susmita----------------*/
-#virtualclassCont.congrea .ui-state-default, #virtualclassCont.congrea .ui-widget-content .ui-state-default, #virtualclassCont.congrea .ui-widget-header .ui-state-default{
-    height: 38px;
-/*    border: 1px solid #ccc;*/
-    height: 37px;
-    /*border: 1px solid #ccc;*/
-    border-top: none;
-    border-radius: 0;
-    -webkit-border-bottom-right-radius: 6px;
-    -webkit-border-bottom-left-radius: 6px;
-    -moz-border-radius-bottomright: 6px;
-    -moz-border-radius-bottomleft: 6px;
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
+#virtualclassCont.congrea .ui-state-default, #virtualclassCont.congrea .ui-widget-content .ui-state-default, #virtualclassCont.congrea .ui-widget-header .ui-state-default {
+  height: 38px;
+  /*    border: 1px solid #ccc;*/
+  height: 37px;
+  /*border: 1px solid #ccc;*/
+  border-top: none;
+  border-radius: 0;
+  -webkit-border-bottom-right-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
 }
 
-#virtualclassCont.congrea .ui-chatbox-input textarea{
-    font-size: 15px;
-    border: 1px solid #ccc !important;
-    padding: 4px 0 0 5px;
+#virtualclassCont.congrea .ui-chatbox-input textarea {
+  font-size: 15px;
+  border: 1px solid #ccc !important;
+  padding: 4px 0 0 5px;
 }
 
-#virtualclassCont.congrea .ui-widget-header .ui-corner-all{
-    border-radius: 2px;
-    border:none;
-}
-#virtualclassCont.congrea .ui-widget-content .ui-corner-all{
-    border: none;
-    min-height: 44px;
-/*    padding-right: 7px;*/
+#virtualclassCont.congrea .ui-widget-header .ui-corner-all {
+  border-radius: 2px;
+  border: none;
 }
 
-#virtualclassCont.congrea .user-details .usern .media-heading{
-    color:#3585d5;
-    letter-spacing: 0.5px;
+#virtualclassCont.congrea .ui-widget-content .ui-corner-all {
+  border: none;
+  min-height: 44px;
+  /*    padding-right: 7px;*/
+}
+
+#virtualclassCont.congrea .user-details .usern .media-heading {
+  color: #3585d5;
+  letter-spacing: 0.5px;
 }
 
 #virtualclassCont.congrea .ui-memblist-usr .user-details .usern {
-    width: 40%;
-    float: left;
-    font-size: 14px;
-    text-transform: capitalize;
-    margin:16px 6px;
-    text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    line-height: 16px;
-    max-height: 32px;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    cursor: pointer;
+  width: 40%;
+  float: left;
+  font-size: 14px;
+  text-transform: capitalize;
+  margin: 16px 6px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 16px;
+  max-height: 32px;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  cursor: pointer;
 }
 
 #virtualclassCont.congrea[data-currapp="EditorRich"] .ui-memblist-usr .user-details .usern {
-   width:38%;
+  width: 38%;
 }
 
-#virtualclassCont.congrea .ui-memblist-usr a span{
-    font-size: 12px;
-    text-transform: capitalize;
-}
-#virtualclassCont.congrea .ui-tabs .ui-tabs-nav li.ui-state-active{position: relative !important;
-    top: -1px !important;}
-
-#virtualclassCont.congrea .ui-tabs .ui-tabs-nav li.ui-tabs-active{
-    border-top: none;
-    position: relative;
-    top: 0px;
-    border-radius: 0;
-    margin-right: 0px;
-    border-bottom: none;
+#virtualclassCont.congrea .ui-memblist-usr a span {
+  font-size: 12px;
+  text-transform: capitalize;
 }
 
-#virtualclassCont.congrea .ui-icon-close{
-    margin-top: 4px;
-}
-#virtualclassCont.congrea a.ui-tabs-anchor{
-    width: 160px;
-    cursor: pointer !important;
+#virtualclassCont.congrea .ui-tabs .ui-tabs-nav li.ui-state-active {
+  position: relative !important;
+  top: -1px !important;
 }
 
-#virtualclassCont.congrea #chatroom_bt2 .inner_bt #chatroom_text{margin-top: -7px;}
-
-#virtualclassCont.congrea.playMode #chat_div{
-    padding-top:0px;
+#virtualclassCont.congrea .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+  border-top: none;
+  position: relative;
+  top: 0px;
+  border-radius: 0;
+  margin-right: 0px;
+  border-bottom: none;
 }
+
+#virtualclassCont.congrea .ui-icon-close {
+  margin-top: 4px;
+}
+
+#virtualclassCont.congrea a.ui-tabs-anchor {
+  width: 160px;
+  cursor: pointer !important;
+}
+
+#virtualclassCont.congrea #chatroom_bt2 .inner_bt #chatroom_text {
+  margin-top: -7px;
+}
+
+#virtualclassCont.congrea.playMode #chat_div {
+  padding-top: 0px;
+}
+
 virtualclassCont.congrea.playMode.student .ui-chatroom {
-    overflow-y: auto;
-    z-index: 0 !important;
+  overflow-y: auto;
+  z-index: 0 !important;
 }
 
-#virtualclassCont.congrea.playMode.student #stickybar{
-    z-index: 1 !important;
+#virtualclassCont.congrea.playMode.student #stickybar {
+  z-index: 1 !important;
 }
+
 #usertab_text.tooltip.close, #usertab_text.tooltip.open {
-    line-height: 20px;
+  line-height: 20px;
 }
 
-#chatroom_bt2.vmchat_room_bt.tooltip{
-    line-height: 20px;
+#chatroom_bt2.vmchat_room_bt.tooltip {
+  line-height: 20px;
 }
 
-#virtualclassCont.congrea .vmchat_bar_button{
-    border-right:none;
-    /*width:130px;*/
-    cursor: pointer;
-}
-#virtualclassCont.congrea .vmchat_bar_button.active{
-    background-color: rgba(0,0,0,0.25);
-}
-#virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea[data-currapp="EditorCode"] .vmchat_bar_button{
-    width: 130px; /* add 100px , it was  218*/
+#virtualclassCont.congrea .vmchat_bar_button {
+  border-right: none;
+  /*width:130px;*/
+  cursor: pointer;
 }
 
-#virtualclassCont.congrea.student[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea.student[data-currapp="EditorCode"] .vmchat_bar_button{
-    width:40%;
+#virtualclassCont.congrea .vmchat_bar_button.active {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+#virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea[data-currapp="EditorCode"] .vmchat_bar_button {
+  width: 130px; /* add 100px , it was  218*/
+}
+
+#virtualclassCont.congrea.student[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea.student[data-currapp="EditorCode"] .vmchat_bar_button {
+  width: 40%;
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
-    background-color: #395161;
-    cursor: pointer;
-    height:38px;
+  background-color: #395161;
+  cursor: pointer;
+  height: 38px;
 }
 
-#virtualclassCont.congrea[data-currapp="Whiteboard"] .vmchat_bar_button{
-    width: 130px;
+#virtualclassCont.congrea[data-currapp="Whiteboard"] .vmchat_bar_button {
+  width: 130px;
 }
 
-#virtualclassCont.congrea[data-currapp="Whiteboard"] .ui-memblist{
-    right: -1px !important;
+#virtualclassCont.congrea[data-currapp="Whiteboard"] .ui-memblist {
+  right: -1px !important;
 }
 
-#virtualclassCont.congrea[data-currapp="ScreenShare"] .vmchat_bar_button{
-    width: 130px;
+#virtualclassCont.congrea[data-currapp="ScreenShare"] .vmchat_bar_button {
+  width: 130px;
 }
 
-#virtualclassCont.congrea[data-currapp="Yts"] .ui-memblist{
-    right: -1px !important;
+#virtualclassCont.congrea[data-currapp="Yts"] .ui-memblist {
+  right: -1px !important;
 }
 
-#virtualclassCont.congrea[data-currapp="Yts"] .vmchat_bar_button{
-    width: 130px;
+#virtualclassCont.congrea[data-currapp="Yts"] .vmchat_bar_button {
+  width: 130px;
 }
 
-#virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] .ui-memblist{
-    right: 15px !important;
-}
-#virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] #virtualclassAppRightPanel .ui-memblist{
-    right: -1px !important;
+#virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] .ui-memblist {
+  right: 15px !important;
 }
 
-#virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] .vmchat_bar_button{
-    width: 130px;
+#virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] #virtualclassAppRightPanel .ui-memblist {
+  right: -1px !important;
 }
 
-#virtualclassCont.congrea[data-currapp="EditorCode"] .ui-memblist{
-    right: -1px !important;
+#virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] .vmchat_bar_button {
+  width: 130px;
 }
-#virtualclassCont.congrea[data-currapp="EditorCode"] .vmchat_bar_button{
-    width: 130px;
+
+#virtualclassCont.congrea[data-currapp="EditorCode"] .ui-memblist {
+  right: -1px !important;
+}
+
+#virtualclassCont.congrea[data-currapp="EditorCode"] .vmchat_bar_button {
+  width: 130px;
 }
 
 /* Gray color */
 
 #page-mod-congrea-classroom #virtualclassCont .vmchat_room_bt .inner_bt #chatroom_text {
-    padding-left: 3px !important;
+  padding-left: 3px !important;
 }
 
 #virtualclassCont.congrea .vmchat_support {
-    float: right;
-    width: 52px;
-    /*color: #fff;*/
-    padding: 11px 22px;
-}
-#page-mod-congrea-classroom #virtualclassCont #usertab_icon {
-    margin: 7px 4px 0 0 !important;
+  float: right;
+  width: 52px;
+  /*color: #fff;*/
+  padding: 11px 22px;
 }
 
-#virtualclassCont.congrea .ui-tabs .ui-tabs-nav li.ui-tabs-active{
-    /*border: 1px solid #5d6b76;*/
+#page-mod-congrea-classroom #virtualclassCont #usertab_icon {
+  margin: 7px 4px 0 0 !important;
 }
-.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a{
-    color:#d3dce5;
+
+#virtualclassCont.congrea .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+  /*border: 1px solid #5d6b76;*/
 }
-.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active .ui-corner-all.ui-chatbox-icon .ui-icon.ui-icon-close.icon-remove:before{
-    color:#d3dce5;
+
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active a {
+  color: #d3dce5;
 }
-.ui-state-default.ui-corner-bottom.ui-tabs-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active a{
-    color: #fff;
+
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active .ui-corner-all.ui-chatbox-icon .ui-icon.ui-icon-close.icon-remove:before {
+  color: #d3dce5;
 }
-.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight a, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight a{
-    color: #333 !important;
+
+.ui-state-default.ui-corner-bottom.ui-tabs-active a.ui-tabs-anchor, .ui-state-default.ui-corner-bottom.ui-tabs-active a {
+  color: #fff;
+}
+
+.ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight a, .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight a {
+  color: #333 !important;
 }
 
 #virtualclassCont.congrea .ui-chatroom {
-    top: 5px;
-    left:5px;
-    position:absolute !important;
+  top: 5px;
+  left: 5px;
+  position: absolute !important;
 }
 
-#virtualclassCont.congrea #chat_div{
-    overflow-y: auto;
-    position: relative;
-    padding-top: 51px;
+#virtualclassCont.congrea #chat_div {
+  overflow-y: auto;
+  position: relative;
+  padding-top: 51px;
 
 }
 
-#virtualclassCont.congrea .ui-widget-content{
-/*    border: none;*/
+#virtualclassCont.congrea .ui-widget-content {
+  /*    border: none;*/
 }
 
 #virtualclassCont.congrea .ui-tabs-active .ui-widget-content.ui-chatbox-log::-webkit-scrollbar {
-    width: 6px;
-    height: 8px;
-    background-color: #d9dbdc;
+  width: 6px;
+  height: 8px;
+  background-color: #d9dbdc;
 }
 
-#virtualclassCont.congrea #chat_room{
-    height:calc(100vh - 390px);
-    margin: 0px;
+#virtualclassCont.congrea #chat_room {
+  height: calc(100vh - 390px);
+  margin: 0px;
 }
 
 /*#virtualclassCont.congrea.playMode #chat_room {*/
-    /*pointer-events: none;*/
+/*pointer-events: none;*/
 /*}*/
 #virtualclassCont.congrea.playMode #chat_room {
-    width: 302px;
-    pointer-events: none;
+  width: 302px;
+  pointer-events: none;
 }
 
-#virtualclassCont.congrea.teacher.nowebcam #chat_room{
-    height:calc(100vh - 153px);
-    margin: 0px;
+#virtualclassCont.congrea.teacher.nowebcam #chat_room {
+  height: calc(100vh - 153px);
+  margin: 0px;
 }
+
 #virtualclassCont.congrea.teacher .vidHide #chat_room {
-    height: calc(100vh - 160px);
-    margin: 0px;
-/*    pointer-events: none;*/
+  height: calc(100vh - 160px);
+  margin: 0px;
+  /*    pointer-events: none;*/
 }
+
 #virtualclassCont.congrea.student .vidHide #chat_room {
-    height: calc(100vh - 160px) !important;
+  height: calc(100vh - 160px) !important;
 }
+
 #virtualclassCont.congrea.student #chat_room {
-    height: calc(100vh - 400px) !important;
+  height: calc(100vh - 400px) !important;
 }
+
 #virtualclassCont.videoff.student #chat_room {
-    height: calc(100vh - 106px) !important;
+  height: calc(100vh - 106px) !important;
 }
 
 #virtualclassCont.congrea .usern span {
-    margin-left : 6px;
+  margin-left: 6px;
 }
 
 #virtualclassCont.congrea #chatWidget .chatBarTab {
-    width: 100%;
-/*
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-*/
+  width: 100%;
+  /*
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+  */
 }
 
-
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.online {
-    pointer-events : visible;
+  pointer-events: visible;
 }
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.offline {
-    opacity: .6;
-    border-bottom: 1px solid #ddd;
+  opacity: .6;
+  border-bottom: 1px solid #ddd;
 
 }
-#virtualclassCont.congrea #chat_div .ui-memblist-usr.mySelf{
-    pointer-events : none !important;
-    position: absolute;
-    top: 0;
-    width:100%;
-    background-image: linear-gradient(120deg, #fff 0%, #d1e8f6 100%);
-/*    background-image: linear-gradient(135deg, #f5f7fa 0%, #f0ededfa 100%); */
+
+#virtualclassCont.congrea #chat_div .ui-memblist-usr.mySelf {
+  pointer-events: none !important;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-image: linear-gradient(120deg, #fff 0%, #d1e8f6 100%);
+  /*    background-image: linear-gradient(135deg, #f5f7fa 0%, #f0ededfa 100%); */
 }
 
-#virtualclassCont.congrea #chat_room .ui-chatbox-msg{
-/*    border-bottom: 1px solid #eee;*/
+#virtualclassCont.congrea #chat_room .ui-chatbox-msg {
+  /*    border-bottom: 1px solid #eee;*/
 }
+
 #virtualclassCont.congrea #chat_room .text-muted {
-    color: #bbb;
-    margin-right: 7px;
+  color: #bbb;
+  margin-right: 7px;
 }
-#virtualclassCont.congrea .congtooltip{
-    margin-right: 0px;
-    padding-right: 0px;
+
+#virtualclassCont.congrea .congtooltip {
+  margin-right: 0px;
+  padding-right: 0px;
 }
 
 #virtualclassCont.congrea .commonChatCon .primary-font {
-    color: #3585d5;
-    letter-spacing: 0.5px;
-    font-size:13px;
-    text-transform: capitalize;
-    text-decoration:none;
+  color: #3585d5;
+  letter-spacing: 0.5px;
+  font-size: 13px;
+  text-transform: capitalize;
+  text-decoration: none;
 }
+
 #virtualclassCont.congrea .primary {
-    border-radius: 20%;
-    border: #bbb solid 1px;
-    width: 52px;
-    height: 40px;
-    margin-bottom: 5px;
+  border-radius: 20%;
+  border: #bbb solid 1px;
+  width: 52px;
+  height: 40px;
+  margin-bottom: 5px;
 }
+
 #virtualclassCont.congrea .commonChatCon {
-    margin-left: 55px;
+  margin-left: 55px;
 }
-#virtualclassCont.congrea .Search{
-    font-style:normal;
+
+#virtualclassCont.congrea .Search {
+  font-style: normal;
 }
+
 .text {
-    color: #464646;
-    letter-spacing: 0.5px;
-    word-break: break-word;
+  color: #464646;
+  letter-spacing: 0.5px;
+  word-break: break-word;
 }
 
 #virtualclassCont.congrea.student .vmchat_bar_button {
-    width:40%;
+  width: 40%;
 }
 
-#virtualclassCont.congrea a.inner_bt, #virtualclassCont.congrea a.inner_bt:hover{
-    height:38px;
-/*    line-height:27px; udit*/
+#virtualclassCont.congrea a.inner_bt, #virtualclassCont.congrea a.inner_bt:hover {
+  height: 38px;
+  /*    line-height:27px; udit*/
 }
+
 /*
 #virtualclassCont.congrea.student .vmchat_room_bt.ui-state-highlight{
     height: 50px;
@@ -763,91 +817,95 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 */
 
 #virtualclassCont.congrea.teacher #audioWidget a#rightCtlr:hover {
-/*    height: 40px; comment*/
+  /*    height: 40px; comment*/
 }
 
 #virtualclassCont.congrea #audioWidget a#videoPacketInfo:hover,
-#virtualclassCont.congrea #audioWidget .prechk a:hover{
-    height:50px;
+#virtualclassCont.congrea #audioWidget .prechk a:hover {
+  height: 50px;
 }
 
-#congreaChatCont .chat-img.pull-left{
-    margin-top:5px;
+#congreaChatCont .chat-img.pull-left {
+  margin-top: 5px;
 }
 
 #virtualclassCont.congrea .ui-widget-header,
-#virtualclassCont.congrea.student .ui-widget-header{
-   padding-left: 2px !important;
+#virtualclassCont.congrea.student .ui-widget-header {
+  padding-left: 2px !important;
 }
 
-#virtualclassCont.congrea #congreaChatCont .icon-chatImg.chatImg{
-margin-right:6px !important;
+#virtualclassCont.congrea #congreaChatCont .icon-chatImg.chatImg {
+  margin-right: 6px !important;
 }
 
- #virtualclassCont.congrea a.stdRaiseHand, #virtualclassCont.congrea a.stdRaiseHand:hover{
-     height: 44px;
-     line-height:27px;
- }
- #virtualclasscont.congrea.student a.inner_bt:hover{
-     height:52px;
- }
-
-#virtualclassCont.congrea  .ui-widget-content.ui-chatbox-input-box.disable{
-
- opacity:0.4;
+#virtualclassCont.congrea a.stdRaiseHand, #virtualclassCont.congrea a.stdRaiseHand:hover {
+  height: 44px;
+  line-height: 27px;
 }
 
-#virtualclassCont.congrea #stickybar{
+#virtualclasscont.congrea.student a.inner_bt:hover {
+  height: 52px;
+}
+
+#virtualclassCont.congrea .ui-widget-content.ui-chatbox-input-box.disable {
+
+  opacity: 0.4;
+}
+
+#virtualclassCont.congrea #stickybar {
   width: calc(100% - 320px); /*changed from 325px */
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel .ui-state-default .ui-tabs-anchor,
 #virtualclassCont.congrea #virtualclassAppRightPanel .ui-state-default a.ui-corner-all,
-#virtualclassCont.congrea #virtualclassAppRightPanel .ui-state-default .icon-minus
-{
-    display:none;
+#virtualclassCont.congrea #virtualclassAppRightPanel .ui-state-default .icon-minus {
+  display: none;
 }
 
-#virtualclassCont.congrea .chat_enabled #memlist.enable{
-    display:block;
+#virtualclassCont.congrea .chat_enabled #memlist.enable {
+  display: block;
 }
-#virtualclassCont.congrea .chat_enabled #chatrm.enable{
-    display:block;
+
+#virtualclassCont.congrea .chat_enabled #chatrm.enable {
+  display: block;
 }
 
 /*#virtualclassCont.congrea  #virtualclassAppRightPanel.chat_disabled .ui-memblist-usr.online {*/
-    /*pointer-events : none;*/
+/*pointer-events : none;*/
 /*}*/
 
-#virtualclassCont.congrea #chatrm.disable{
-    display:none!important;
+#virtualclassCont.congrea #chatrm.disable {
+  display: none !important;
 }
 
-#virtualclassCont.congrea  #memlist.disable{
-    display:none!important;
+#virtualclassCont.congrea #memlist.disable {
+  display: none !important;
 }
 
-#virtualclassCont.congrea #ta_chrm2{
-  display:none;
+#virtualclassCont.congrea #ta_chrm2 {
+  display: none;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel.chat_disabled #chatrm.enable{
-    opacity :.4;
+#virtualclassCont.congrea #virtualclassAppRightPanel.chat_disabled #chatrm.enable {
+  opacity: .4;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel.chat_disabled .ui-memblist-usr{
- pointer-events: none;
+#virtualclassCont.congrea #virtualclassAppRightPanel.chat_disabled .ui-memblist-usr {
+  pointer-events: none;
 }
 
 #virtualclassCont.congrea #chat_div {
-    height: calc(100vh - 388px);
+  height: calc(100vh - 388px);
 }
+
 #virtualclassCont.congrea .vidHide #chat_div, #virtualclassCont.congrea.nowebcam.teacher #chat_div {
-    height: calc(100vh - 148px);
+  height: calc(100vh - 148px);
 }
+
 #virtualclassCont.congrea.teacher #chatroom_bt2 .inner_bt #chatroom_text {
-    margin-left:7px;
+  margin-left: 7px;
 }
+
 #virtualclassCont.congrea .user-details.media-body a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }

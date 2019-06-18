@@ -228,16 +228,6 @@ const receiveFunctions = new function () {
     }
   };
 
-  // not found
-  this.checkUser = function (e) {
-    const disconnect = virtualclass.wb[virtualclass.gObj.currWb].response.checkUser(e, wbUser.id, virtualclass.wb[virtualclass.gObj.currWb].stHasTeacher);
-    if (typeof disconnect !== 'undefined') {
-      if (disconnect === 'diconnect') {
-        // TODO : ?
-      }
-    }
-  };
-
   // Reclaim Role
   this.reclaimRole = function (e) {
     // debugger;

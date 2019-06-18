@@ -8,11 +8,11 @@
   float: left;
   margin-left: 14px;
   height: 45px;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 #virtualclassCont.congrea #audioWidget ul li {
-  cursor : pointer;
+  cursor: pointer;
 }
 
 #virtualclassCont.congrea #audioWidget.fixed {
@@ -119,7 +119,7 @@
   border-top: none;
 }
 
- #virtualclassCont.congrea #audioTest .congtooltip:hover:after {
+#virtualclassCont.congrea #audioTest .congtooltip:hover:after {
   line-height: 16px;
 }
 
@@ -134,57 +134,55 @@
 }
 
 /*#virtualclassCont.congrea.student .icon-audioImg.enable:before {*/
-  /*content: "\f026";*/
-  /*color: #7d7a7a;*/
-  /*padding-right: 0px;*/
-  /*margin-right: 7px;*/
-  /*font-size: 120%;*/
+/*content: "\f026";*/
+/*color: #7d7a7a;*/
+/*padding-right: 0px;*/
+/*margin-right: 7px;*/
+/*font-size: 120%;*/
 /*}*/
 
 /*#virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen:before {*/
-  /*content: "\ea27";*/
-  /*color: #94b532;*/
-  /*font-variant: normal;*/
-  /*font-style: normal;*/
-  /*font-size: 118%;*/
-  /*margin-right:7px;*/
-  /*font-weight: normal;*/
+/*content: "\ea27";*/
+/*color: #94b532;*/
+/*font-variant: normal;*/
+/*font-style: normal;*/
+/*font-size: 118%;*/
+/*margin-right:7px;*/
+/*font-weight: normal;*/
 /*}*/
 
 /*#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioEnaGreen:before{*/
-    /*margin-right:3px;*/
+/*margin-right:3px;*/
 /*}*/
 
-
 /*#virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaOrange:before {*/
-  /*content: "\ea27";*/
-  /*color: #e55e0d;*/
-  /*font-variant: normal;*/
-  /*font-style: normal;*/
-  /*font-size: 112%;*/
-  /*font-weight: normal;*/
+/*content: "\ea27";*/
+/*color: #e55e0d;*/
+/*font-variant: normal;*/
+/*font-style: normal;*/
+/*font-size: 112%;*/
+/*font-weight: normal;*/
 /*}*/
 
 /*#virtualclassCont.congrea.student .ui-memblist-usr .icon-audioEnaOrange:before {*/
-  /*margin-right : 7px;*/
+/*margin-right : 7px;*/
 /*}*/
 
 /*#virtualclassCont.congrea .ui-memblist-usr .icon-audioDisImg:before {*/
-  /*content: "\f026";*/
-  /*color: #7d7a7a;*/
-  /*font-size: 112%;*/
-  /*margin-right:7px;*/
-  /*font-weight: normal;*/
+/*content: "\f026";*/
+/*color: #7d7a7a;*/
+/*font-size: 112%;*/
+/*margin-right:7px;*/
+/*font-weight: normal;*/
 /*}*/
 
 /*#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioDisImg:before {*/
-  /*content: "\ea2a";*/
-  /*color: #7d7a7a;*/
-  /*font-size: 120%;*/
-  /*font-weight: normal;*/
-  /*margin-right:1px;*/
+/*content: "\ea2a";*/
+/*color: #7d7a7a;*/
+/*font-size: 120%;*/
+/*font-weight: normal;*/
+/*margin-right:1px;*/
 /*}*/
-
 
 #virtualclassCont.congrea #alwaysPress .audioTool a {
   text-transform: uppercase;
@@ -222,13 +220,13 @@
 }
 
 /*#virtualclassCont.congrea #contrAudioAll .icon-all-audio-disable:before{*/
-  /*!*content: "\e610";*!*/
-  /*font-size: 18px;*/
+/*!*content: "\e610";*!*/
+/*font-size: 18px;*/
 /*}*/
 
 /*#virtualclassCont.congrea #contrAudioAll .icon-all-audio-enable:before {*/
-  /*!*content: "\e611";*!*/
-  /*font-size: 18px;*/
+/*!*content: "\e611";*!*/
+/*font-size: 18px;*/
 /*}*/
 
 #virtualclassCont.congrea a#contrAudioAll, #virtualclassCont.congrea a#contrAudioAll:hover {
@@ -236,8 +234,6 @@
   line-height: 28px;
   height: 52px;
 }
-
-
 
 #virtualclassCont.congrea.student.presenter #mainAudioPanel {
   border-right: 0px;
@@ -281,12 +277,14 @@
 
 #virtualclassCont.congrea .suggestion,
 #virtualclassCont.congrea .latency,
-#virtualclassCont.congrea .quality{
-  padding: 1px;}
-
-#virtualclassCont.congrea #videoHostSource{
-  height:240px;
+#virtualclassCont.congrea .quality {
+  padding: 1px;
 }
-#pollModalBody #chartMenuCont .col-sm-1 #barView,#pollModalBody #chartMenuCont .col-sm-1 #piView,#pollModalBody #chartMenuCont .col-sm-1 #listView{
+
+#virtualclassCont.congrea #videoHostSource {
+  height: 240px;
+}
+
+#pollModalBody #chartMenuCont .col-sm-1 #barView, #pollModalBody #chartMenuCont .col-sm-1 #piView, #pollModalBody #chartMenuCont .col-sm-1 #listView {
   color: #337ab7;
 }

@@ -27,7 +27,7 @@
     virtualclass.recorder = window.recorder;
     virtualclass.vutil = window.vutil;
     virtualclass.system = window.system;
-
+    await virtualclass.system.mediaDevices.getMediaDeviceInfo();
     wbUser.virtualclassPlay = +wbUser.virtualclassPlay;
 
     if (wbUser.virtualclassPlay) {

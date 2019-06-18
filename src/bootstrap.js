@@ -192,7 +192,7 @@
     virtualclass.gObj.testChatDiv.attachShadow({ mode: 'open' });
   };
 
-  Bootstrap.prototype.setUpMedia = function () {
+  Bootstrap.prototype.setUpMedia = async function () {
     if (roles.isStudent()) {
       const audioEnable = localStorage.getItem('audEnable');
       if (audioEnable !== null && audioEnable.ac === 'false') {
@@ -202,13 +202,9 @@
     }
 
     if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
-      setTimeout(
-        () => {
-          virtualclass.media.init();
-        }, 100, // TODO, this set time out need be removed
-      );
+      await virtualclass.media.init();
     }
-  }
+  };
 
   Bootstrap.prototype.readyToGo = async function (){
     if (virtualclass.isPrecheck != null) {

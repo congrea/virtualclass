@@ -33,7 +33,7 @@
   height: 65px;
 }
 
-#virtualclassCont.congrea #dispVideo{
+#virtualclassCont.congrea #dispVideo {
   /*width: 97%;*/
   /*height: 90vh;*/
 
@@ -42,19 +42,21 @@
   /*margin-left : 20px;*/
 }
 
-#virtualclassCont.congrea #videourl{
-  display : inline;
-  height:100% !important;
-    padding-left:10px;
-    padding-right:10px;
+#virtualclassCont.congrea #videourl {
+  display: inline;
+  height: 100% !important;
+  padding-left: 10px;
+  padding-right: 10px;
   /*border : none;*/
 }
+
 #virtualclassCont.congrea #videourl::placeholder {
-    text-align:center;
+  text-align: center;
 }
-#virtualclassCont.congrea #videoPlayerCont{
-  height:94vh;
-  width : 102%;
+
+#virtualclassCont.congrea #videoPlayerCont {
+  height: 94vh;
+  width: 102%;
 }
 
 @media (max-width: 1175px) {

@@ -68,7 +68,7 @@
 }
 
 /*#virtualclassCont.congrea.teacher #virtualclassWhiteboard, #virtualclassCont.congrea.presenter #virtualclassWhiteboard {*/
-  /*margin-left: 60px;*/
+/*margin-left: 60px;*/
 /*}*/
 
 #virtualclassCont.congrea.educator #virtualclassWhiteboard {
@@ -83,7 +83,7 @@
   /*float: none;*/
   /*overflow: hidden; */
   margin-right: 6px;
-/*  border: 1px solid #e7eae7;*/
+  /*  border: 1px solid #e7eae7;*/
 }
 
 #virtualclassCont.congrea #screen-docs .whiteboard {
@@ -99,42 +99,41 @@
   position: absolute;
   bottom: 50px;
   right: 345px;
-  height:35px;
-  opacity : 0.5;
-  z-index:11;
+  height: 35px;
+  opacity: 0.5;
+  z-index: 11;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
   bottom: 58px;
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel a#congrealogo.disbaleOnmousedown img{
+#virtualclassCont.congrea #virtualclassAppLeftPanel a#congrealogo.disbaleOnmousedown img {
   pointer-events: none;
 }
-
 
 #virtualclassCont.congrea .textBoxContainer {
   z-index: 15;
 }
 
 #virtualclassCont.congrea #canvasCont {
-  position : relative;
+  position: relative;
   top: 0;
-  left : 0;
+  left: 0;
 }
 
 #virtualclassCont.congrea .canvasWrapper canvas {
-  position : absolute;
-  top : 0;
-  left : 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-#virtualclassCont.congrea .canvasWrapper .whiteboards{
-  z-index : 10;
+#virtualclassCont.congrea .canvasWrapper .whiteboards {
+  z-index: 10;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .table,
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer .table{
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer .table {
   position: absolute;
   top: 50px;
   left: 285px;
@@ -145,7 +144,7 @@
   padding: 5px;
   border-spacing: 0px;
   box-shadow: 0 0 6px rgb(96, 96, 97);
-  background-color:rgba(255,255,255,.7);
+  background-color: rgba(255, 255, 255, .7);
   cursor: pointer;
 }
 
@@ -155,30 +154,31 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer table tr td,
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer table tr td{
-  width:15px;
-  height:15px;
-  border : 1px solid #FFFFFF;
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer table tr td {
+  width: 15px;
+  height: 15px;
+  border: 1px solid #FFFFFF;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer table tr td:hover,
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer table tr td:hover{
-  border:.5px solid #434343;
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer table tr td:hover {
+  border: .5px solid #434343;
 }
+
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .table .spacing td,
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer .table .spacing td{
-  margin-bottom:6px;
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer .table .spacing td {
+  margin-bottom: 6px;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer table tr td.selected,
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer table tr td.selected{
-  border:.5px solid #000000;
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer table tr td.selected {
+  border: .5px solid #000000;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer table tr td.selected:after,
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer table tr td.selected:after{
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer table tr td.selected:after {
   content: "\e996";
-  color:#fff;
+  color: #fff;
   font-family: "icomoon";
   font-size: 15px;
 }
@@ -188,26 +188,31 @@
   float: left;
   position: relative;
   z-index: 100000;
-  border-right: 0.01em solid #021317!important;
+  border-right: 0.01em solid #021317 !important;
   cursor: pointer;
 }
 
 #virtualclassCont.congrea .shapesToolbox .shapes_icon .congtooltip:hover::after {
-  bottom:-30px;
-  left:0px;
+  bottom: -30px;
+  left: 0px;
 }
 
-#virtualclassCont.congrea .shapesToolbox a {color: #fff;}
-#virtualclassCont.congrea .shapesToolbox a:hover {color: #00A0BA;}
+#virtualclassCont.congrea .shapesToolbox a {
+  color: #fff;
+}
+
+#virtualclassCont.congrea .shapesToolbox a:hover {
+  color: #00A0BA;
+}
 
 /*#virtualclassCont.congrea .shapesToolbox:hover .shapesTool {*/
-  /*display:block !important;*/
+/*display:block !important;*/
 /*}*/
 
-#virtualclassCont.congrea .shapesToolbox .shapesTool{
-  display:none;
-  background-image: linear-gradient(to right, #021317 0%,#2c393d 100%);
-  width:209px;
+#virtualclassCont.congrea .shapesToolbox .shapesTool {
+  display: none;
+  background-image: linear-gradient(to right, #021317 0%, #2c393d 100%);
+  width: 209px;
   /*border-bottom-right-radius: 10px;*/
 }
 
@@ -215,36 +220,37 @@
   border-bottom: 0.05em solid #021317 !important;
 
 }
+
 #virtualclassCont.congrea .commandToolsWrapper .shapesTool {
-  position:absolute;
-  top:48.5px;
-  left:2px;
+  position: absolute;
+  top: 48.5px;
+  left: 2px;
 }
 
 /*#virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon .icon-shapes.cgIcon {*/
-  /*padding: 13px 13px 14px 14px;*/
+/*padding: 13px 13px 14px 14px;*/
 /*}*/
 
 #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a.congtooltip:hover::after {
-  bottom:-30px;
-  left:0;
+  bottom: -30px;
+  left: 0;
 }
 
 #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a {
   padding: 12px 12px 11px 15px;
-  border-left: 0.01em solid #021317!important;
+  border-left: 0.01em solid #021317 !important;
 }
 
 /*#virtualclassCont.congrea .shapesToolbox .shapes_icon .icon-shapes.cgIcon:before {*/
-  /*font-size: 21px;*/
+/*font-size: 21px;*/
 /*}*/
 
-#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="line"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="rectangle"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="triangle"] .shapes_icon .icon-shapes.cgIcon:before{
-  font-size:24px;
+#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="line"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="rectangle"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="triangle"] .shapes_icon .icon-shapes.cgIcon:before {
+  font-size: 24px;
 }
 
-#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon a span::after , #virtualclassCont.congrea .shapesToolbox[data-currtool="line"] .shapes_icon a span::after , #virtualclassCont.congrea .shapesToolbox[data-currtool="rectangle"] .shapes_icon a span::after , #virtualclassCont.congrea .shapesToolbox[data-currtool="triangle"] .shapes_icon a span::after{
-    margin-left:-2px;
+#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon a span::after, #virtualclassCont.congrea .shapesToolbox[data-currtool="line"] .shapes_icon a span::after, #virtualclassCont.congrea .shapesToolbox[data-currtool="rectangle"] .shapes_icon a span::after, #virtualclassCont.congrea .shapesToolbox[data-currtool="triangle"] .shapes_icon a span::after {
+  margin-left: -2px;
 }
 
 #virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon a, .shapesToolbox[data-currtool="line"] .shapes_icon a, .shapesToolbox[data-currtool="rectangle"] .shapes_icon a, .shapesToolbox[data-currtool="triangle"] .shapes_icon a {
@@ -253,36 +259,36 @@
 
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:after {
   content: "\e967";
-  color:#fff;
+  color: #fff;
   font-size: 15px;
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Rectangle"],#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Line"], #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Oval"], #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Triangle"] {
+#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Rectangle"], #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Line"], #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Oval"], #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Triangle"] {
   padding: 7px 14px 8px;
 }
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Rectangle"] span,#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Line"] span, #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Oval"] span, #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Triangle"] span {
-  font-size:23px;
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Rectangle"] span, #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Line"] span, #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Oval"] span, #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Triangle"] span {
+  font-size: 23px;
 }
 
-
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="rectangle"] .icon-shapes.cgIcon:before{
-  content : "\e60b";
+#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="rectangle"] .icon-shapes.cgIcon:before {
+  content: "\e60b";
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="line"] .icon-shapes.cgIcon:before{
-  content : "\e607";
+#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="line"] .icon-shapes.cgIcon:before {
+  content: "\e607";
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="oval"] .icon-shapes.cgIcon:before{
-  content : "\f1db";
+#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="oval"] .icon-shapes.cgIcon:before {
+  content: "\f1db";
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="triangle"] .icon-shapes.cgIcon:before{
-  content : "\e603";
+#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="triangle"] .icon-shapes.cgIcon:before {
+  content: "\e603";
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-tool="freeDrawing"] .active .shapesToolbox .icon-shapes:before{
-  content : "\e994";
+#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-tool="freeDrawing"] .active .shapesToolbox .icon-shapes:before {
+  content: "\e994";
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="rectangle"],
@@ -291,8 +297,8 @@
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="triangle"],
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper[data-currTool="freeDrawing"],
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper[data-currTool="text"],
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper[data-currTool="activeAll"]{
-  background-image: radial-gradient(ellipse at center, #000000 0%,#000000 100%);
+#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper[data-currTool="activeAll"] {
+  background-image: radial-gradient(ellipse at center, #000000 0%, #000000 100%);
 }
 
 #virtualclassCont.congrea .disActiveColor {
@@ -306,7 +312,7 @@
   border: .5px solid #55575a;
 }
 
-#virtualclassCont.congrea ul.strkSizeList, ul.fontSizeList{
+#virtualclassCont.congrea ul.strkSizeList, ul.fontSizeList {
   position: absolute;
   top: 100%;
   left: 195px;
@@ -324,7 +330,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .strkSizeList,
-#virtualclassCont.congrea #virtualclassAppLeftPanel .fontSizeList{
+#virtualclassCont.congrea #virtualclassAppLeftPanel .fontSizeList {
   color: #FFFFFF;
 }
 
@@ -352,7 +358,7 @@
 
 #virtualclassCont.congrea ul.fontSizeList span:hover {
   background-color: #112126;
-  color:#fff;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper table.open,
@@ -362,9 +368,9 @@
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .show,
 #virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .show,
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .shapesTool.open,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .shapesTool.open{
+#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .shapesTool.open {
   display: block !important;
-  z-index:inherit;
+  z-index: inherit;
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper table.close,
@@ -378,10 +384,9 @@
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .fontSizeList,
 #virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .fontSizeList,
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .shapesTool.close,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .shapesTool.close{
+#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .shapesTool.close {
   display: none !important;
 }
-
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Font size"] {
   font-size: 17px;
@@ -390,7 +395,7 @@
 #virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList {
   width: 85px;
   border: 1px solid lightgray;
-  padding:0;
+  padding: 0;
   background-color: #fff;
 }
 
@@ -400,31 +405,33 @@
 
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li {
   width: 57px;
-  margin:0 auto;
+  margin: 0 auto;
   padding-top: 12px;
   padding-bottom: 12px;
 }
+
 #virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li span {
-  background-color:#000;
-  pointer-events:none;
-  display:block;
+  background-color: #000;
+  pointer-events: none;
+  display: block;
 }
 
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool ul li.selected span {
-  background-color:#fff !important;
+  background-color: #fff !important;
 }
 
 #virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li:hover {
   background-color: #0e2227;
 }
+
 #virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li:hover span {
-  background-color:#fff;
+  background-color: #fff;
 }
 
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="font"] ul.fontSizeList {
   background-color: #fff;
   border: 1px solid lightgray;
-  width:85px;
+  width: 85px;
 }
 
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="font"] ul.fontSizeList span {
@@ -440,15 +447,16 @@
 
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="font"] ul.fontSizeList span.selected {
   background-color: #18282d;
-  color:#fff;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="font"] ul.fontSizeList span:after {
-  content:"px";
-  font-size:15px;
+  content: "px";
+  font-size: 15px;
 }
+
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="font"] ul.fontSizeList span:hover {
-  color:#fff;
+  color: #fff;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="color"] a {
@@ -458,22 +466,22 @@
 /* CSS for Firefox only */
 @-moz-document url-prefix() {
   #virtualclassCont.congrea .shapesToolbox .shapesTool {
-    width:212px;
+    width: 212px;
   }
-    
+
   #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a {
     padding: 12.5px 13px 11.5px 14px;
-  } 
-    
-  #virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapes_icon a {
-      border-left:none !important;
-    }
-    
-  #virtualclassCont.congrea #virtualclassOptionsCont, .congtooltip {
-    line-height:19px;
   }
-    
+
+  #virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapes_icon a {
+    border-left: none !important;
+  }
+
+  #virtualclassCont.congrea #virtualclassOptionsCont, .congtooltip {
+    line-height: 19px;
+  }
+
   .shapesToolbox .shapes_icon .icon-shapes.cgIcon {
-    border-left:none !important;
+    border-left: none !important;
   }
 }

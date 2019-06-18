@@ -1,126 +1,143 @@
 
-#virtualclassCont.congrea #virtualclassPreCheck #browserNext {width: 100%;}
-#virtualclassCont.congrea  #virtualclassPreCheck.bootstrap .btn {
-border-color: #c2c2c2;
-float:right;}
+#virtualclassCont.congrea #virtualclassPreCheck #browserNext {
+  width: 100%;
+}
+
+#virtualclassCont.congrea #virtualclassPreCheck.bootstrap .btn {
+  border-color: #c2c2c2;
+  float: right;
+}
 
 #virtualclassCont.congrea #virtualclassPreCheck .testName {
-    font-size: 20px;
-    text-align: center;
-    margin-bottom: 10px;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck .result div {
-    background: rgba(0, 128, 0, 0.01) none;
-    border: 1px dotted rgba(0,128,0,0.4);
-    border-radius: 3px;
-    padding: 12px;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 15px;
+  background: rgba(0, 128, 0, 0.01) none;
+  border: 1px dotted rgba(0, 128, 0, 0.4);
+  border-radius: 3px;
+  padding: 12px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 15px;
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck .result div.errorMsg {
-    text-align: left;
-    padding-left: 15px;
-    line-height: 160%;
+  text-align: left;
+  padding-left: 15px;
+  line-height: 160%;
 }
+
 #virtualclassCont.congrea #virtualclassPreCheck .result .error div {
-    background: rgba(255,148,148,0.012) none;
-    border: 1px dotted rgba(255,148,148,0.5);
+  background: rgba(255, 148, 148, 0.012) none;
+  border: 1px dotted rgba(255, 148, 148, 0.5);
 }
-#virtualclassCont.congrea #virtualclassPreCheck .result div.screenImages {margin-top: 3px;}
+
+#virtualclassCont.congrea #virtualclassPreCheck .result div.screenImages {
+  margin-top: 3px;
+}
 
 #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .btn-default:hover {
-    background-color: #eee;
-    border-color: #aaa !important;
+  background-color: #eee;
+  border-color: #aaa !important;
 }
+
 #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .btn {
-    line-height: 1.684;
-    padding: 2px 12px;
+  line-height: 1.684;
+  padding: 2px 12px;
 }
+
 /*#virtualclassCont.congrea .bootstrap .modal-body {padding: 15px 16px 24px;}*/
 #virtualclassCont.congrea .bootstrap .progress {
-    background-color: #f5f5f5;
-    border-radius: 3px;
-    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12) inset;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12) inset;
-    color: #666;
-    font-size: 12px;
-    height: 26px;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    overflow: hidden;
-    padding: 5px 6px;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12) inset;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12) inset;
+  color: #666;
+  font-size: 12px;
+  height: 26px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  overflow: hidden;
+  padding: 5px 6px;
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .next.btn {
-    float: right;
-    cursor: pointer;
+  float: right;
+  cursor: pointer;
 }
+
 #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .prev.btn {
-    margin-right: 10px; float: left;
-    cursor: pointer;
+  margin-right: 10px;
+  float: left;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
-    #virtualclassCont.congrea .bootstrap .modal-dialog {
-        width: 600px;
-        /* margin: 30px auto; */
-    }
-    /* #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 6% auto;}
-} */
+  #virtualclassCont.congrea .bootstrap .modal-dialog {
+    width: 600px;
+    /* margin: 30px auto; */
+  }
 
-@media (max-width: 1400px) {
+  /* #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 6% auto;}
+} */
+  @media (max-width: 1400px) {
     /* #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {margin: 4% auto;}
 } */
+    @media (min-width: 992px) {
+      #virtualclassCont.congrea .bootstrap .modal-lg {
+        width: 900px;
+      }
+    }
 
-@media (min-width: 992px) {
-    #virtualclassCont.congrea .bootstrap .modal-lg {width: 900px;}
-}
-
-/*  ===== FOR MOBILES ====== */
-
-
-@media only screen 
-  and ( min-device-width: 768px) 
+    /*  ===== FOR MOBILES ====== */
+    @media only screen
+    and ( min-device-width: 768px)
     and ( max-device-width: 1024px) {
-        /* #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {
-            position: absolute;
-            top: 40%;
-            left: 9%;
-            transform: translateY(-50%);
-        } */
-        #virtualclassCont.congrea #virtualclassPreCheck .testName {
-            margin-bottom:0;
-        }
-        #virtualclassCont.congrea #preCheckcontainer .progressbar {
-            margin: 0;
-        }
-        #virtualclassCont.congrea #preCheckcontainer .progressbar li {
-            margin-bottom:15px;
-        }
-        #virtualclassCont.congrea #preCheckcontainer .screen1.browser::before{
-            font-size:32px;
-        }
-        #virtualclassCont.congrea #preCheckcontainer .progressbar li:before {
-            margin:0 auto 15px auto;
-        }
-        #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
-            right:610px !important;
-        }
-        #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
-            z-index:1001;
-        }
-        #virtualclassCont.congrea #virtualclassPreCheck.bootstrap video{
-            height: 165px;
-        }
+      /* #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .modal-dialog {
+          position: absolute;
+          top: 40%;
+          left: 9%;
+          transform: translateY(-50%);
+      } */
+      #virtualclassCont.congrea #virtualclassPreCheck .testName {
+        margin-bottom: 0;
+      }
+
+      #virtualclassCont.congrea #preCheckcontainer .progressbar {
+        margin: 0;
+      }
+
+      #virtualclassCont.congrea #preCheckcontainer .progressbar li {
+        margin-bottom: 15px;
+      }
+
+      #virtualclassCont.congrea #preCheckcontainer .screen1.browser::before {
+        font-size: 32px;
+      }
+
+      #virtualclassCont.congrea #preCheckcontainer .progressbar li:before {
+        margin: 0 auto 15px auto;
+      }
+
+      #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
+        right: 610px !important;
+      }
+
+      #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
+        z-index: 1001;
+      }
+
+      #virtualclassCont.congrea #virtualclassPreCheck.bootstrap video {
+        height: 165px;
+      }
     }
-    @media only screen and ( min-device-width: 320px) and ( max-device-width: 768px){
-        #virtualclassCont.congrea #virtualclassPreCheck.bootstrap video{
-            height: 100px;
-        }
-        
+    @media only screen and ( min-device-width: 320px) and ( max-device-width: 768px) {
+      #virtualclassCont.congrea #virtualclassPreCheck.bootstrap video {
+        height: 100px;
+      }
+
     }
 
-   

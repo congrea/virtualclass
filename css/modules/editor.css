@@ -5,7 +5,7 @@
 }
 
 /*#virtualclassCont.congrea #virtualclassEditorRich, #virtualclassCont.congrea #virtualclassEditorCode {*/
-  /*margin-left: 60px;*/
+/*margin-left: 60px;*/
 /*}*/
 
 #virtualclassCont.congrea.student #virtualclassCont.congrea #virtualclassEditorRich {
@@ -19,10 +19,10 @@
 }
 
 /*#virtualclassEditorRich #synchMessageBox, .writeModeBox {*/
-  /*background: #EBECC6;*/
-  /*font-size: 13px;*/
-  /*padding: 2px 8px 2px 8px;*/
-  /*dispaly:none;*/
+/*background: #EBECC6;*/
+/*font-size: 13px;*/
+/*padding: 2px 8px 2px 8px;*/
+/*dispaly:none;*/
 /*}*/
 
 #virtualclassEditorRich #synchMessageBox p {
@@ -44,8 +44,8 @@
   /*text-transform: uppercase;*/
   /*width: 85px;*/
   /*border-top-left-radius: 5px;*/
-    /*z-index:2000;*/
-  dispaly:none;
+  /*z-index:2000;*/
+  dispaly: none;
 }
 
 #virtualclassEditorRich, #virtualclassEditorCode {
@@ -55,7 +55,6 @@
 #virtualclassEditorRich, #virtualclassEditorBody {
   height: 100%;
 }
-
 
 #virtualclassCont.congrea div.CodeMirror-cursors {
   visibility: visible !important;
@@ -78,22 +77,22 @@
   font-size: 13px;
   font-weight: 200;
   z-index: 2000;
-    border-radius:0;
+  border-radius: 0;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch {
-    padding: 16px 14px 14px 14px !important;
-    font-size:14px;
-    background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%) !important;
-    border-radius: 0 !important;
-} 
+  padding: 16px 14px 14px 14px !important;
+  font-size: 14px;
+  background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
+  border-radius: 0 !important;
+}
 
 #virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch:hover {
-    background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%) !important;
+  background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%) !important;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer.congtooltip:hover:after {
-    bottom:3.1em !important;
+  bottom: 3.1em !important;
 }
 
 @-moz-document url-prefix() {
@@ -158,7 +157,7 @@
 /*#virtualclassCont.congrea.orginalTeacher #virtualclassEditorCodeBody,*/
 /*#virtualclassCont.congrea.teacher #virtualclassEditorRichBody,*/
 /*#virtualclassCont.congrea.teacher #virtualclassEditorCodeBody {*/
-  /*width: 100%;*/
+/*width: 100%;*/
 
 /*}*/
 
@@ -214,7 +213,7 @@
 }
 
 /*#virtualclassCont.congrea #virtualclassEditorRich {*/
-  /*margin-right: 6px;*/
+/*margin-right: 6px;*/
 /*}*/
 
 #virtualclassCont.congrea.student.pt_enable #virtualclassAppLeftPanel #virtualclassEditorRich {
@@ -227,11 +226,11 @@
 }
 
 /*#virtualclassCont.congrea #virtualclassEditorRich, #virtualclassCont.congrea #virtualclassEditorCode {*/
-  /*height: 95vh;*/
+/*height: 95vh;*/
 /*}*/
 
 /*#virtualclassCont.congrea.educator #virtualclassEditorCode, #virtualclassCont.congrea.educator #virtualclassEditorRich {*/
-  /*height: 93vh;*/
+/*height: 93vh;*/
 /*}*/
 
 #virtualclassCont.congrea #chat_div .controllereditorCode {
@@ -244,13 +243,13 @@
   margin-top: 70px;
 }
 
-#virtualclassCont.congrea #alleditorCodeContainer{
+#virtualclassCont.congrea #alleditorCodeContainer {
   border-radius: 5px !important;
   top: 6px;
   right: 6px;
 }
 
-#virtualclassCont.congrea.student[data-currapp="EditorCode"] #EditorCodewriteModeBox{
+#virtualclassCont.congrea.student[data-currapp="EditorCode"] #EditorCodewriteModeBox {
   top: 6px;
   right: 6px;
 
@@ -263,27 +262,27 @@
   padding: 2px 8px 2px 8px;
 }
 
-#virtualclassCont.congrea.teacher[data-currapp="ScreenShare"] .zoomControler{
-  display:none;
+#virtualclassCont.congrea.teacher[data-currapp="ScreenShare"] .zoomControler {
+  display: none;
 }
 
 /*#virtualclassCont.congrea.teacher[data-currapp="EditorRich"] .controllereditorRich,*/
 /*#virtualclassCont.congrea.teacher[data-currapp="EditorCode"] .controllereditorCode*/
 /*{*/
-  /*display:block !important;*/
+/*display:block !important;*/
 /*}*/
 
 /*#virtualclassCont.congrea.teacher .controllereditorRich,*/
 /*#virtualclassCont.congrea.teacher .controllereditorCode {*/
-  /*display:none !important;*/
+/*display:none !important;*/
 /*}*/
 
 /** TODO, the code editor should be removed in proper way **/
 #virtualclassCont.congrea #virtualclassEditorCodeTool {
-  display : none;
+  display: none;
 }
 
-#virtualclassCont.congrea #alleditorRichContainer.icon-collaborate:before{
+#virtualclassCont.congrea #alleditorRichContainer.icon-collaborate:before {
   content: "\e97e";
   font-size: 18px;
   font-family: icomoon;

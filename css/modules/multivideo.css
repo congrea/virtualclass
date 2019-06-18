@@ -1,33 +1,31 @@
 #virtualclassCont.congrea #multiremoteVideo {
-  width : 400px;
-  height : 400px;
+  width: 400px;
+  height: 400px;
 }
-
 
 #virtualclassCont.congrea #videosWrapper {
   z-index: 600;
-  height : auto;
+  height: auto;
   max-height: 345px;
   width: 320px;
   overflow-y: auto;
 }
 
 #virtualclassCont.congrea .videoWrap {
-  width : 25%;
+  width: 25%;
   padding: 5px;
-  float:left;
+  float: left;
 }
 
-
-#virtualclassCont.congrea .videoCont{
+#virtualclassCont.congrea .videoCont {
   float: left;
   /*width: 32%;*/
 }
 
-#virtualclassCont.congrea .videoCont video{
+#virtualclassCont.congrea .videoCont video {
   border: 0px solid #ddd;
-  padding : 0;
-  width : 100%;
+  padding: 0;
+  width: 100%;
 
 }
 
@@ -35,32 +33,31 @@
 #virtualclassCont.congrea #preCheckcontainer .screen2.bandwidth::before,
 #virtualclassCont.congrea #preCheckcontainer .screen3.bandwidth::before,
 #virtualclassCont.congrea #preCheckcontainer .screen4.bandwidth::before,
-#virtualclassCont.congrea #preCheckcontainer .screen5.bandwidth::before{
+#virtualclassCont.congrea #preCheckcontainer .screen5.bandwidth::before {
   /*padding-left : 40px !important;*/
 }
 
-
-#virtualclassMultiVideoTool span{
-  color : #ffffff;
+#virtualclassMultiVideoTool span {
+  color: #ffffff;
 }
 
 #virtualclassCont.congrea.teacher #virtualclassMultiVideo {
-  margin-left : 65px;
-  margin-top : 10px;
+  margin-left: 65px;
+  margin-top: 10px;
 }
 
-#virtualclassCont.congrea #virtualclassMultiVideo #multiVidSelected{
+#virtualclassCont.congrea #virtualclassMultiVideo #multiVidSelected {
   border: 1px solid #ddd;
   padding: 6px
 }
 
 /*#virtualclassCont.congrea.meetingmode #speakerPressOnce, #virtualclassCont.congrea.meetingmode #congCtrBar{*/
-  /*display : none;*/
+/*display : none;*/
 /*}*/
 
 /** Multi Video Two User layout, Start **/
 #virtualclassCont.congrea #videoConfrence[data-totaluser='two'] #videosWrapper {
-  position : relative;
+  position: relative;
 }
 
 #virtualclassCont.congrea #videoConfrence[data-totaluser='two'] .selfVideo {
@@ -68,28 +65,28 @@
   position: absolute;
   bottom: 0px;
   right: 0px;
-  border: 2px solid rgba(254,254,254,0.7);
+  border: 2px solid rgba(254, 254, 254, 0.7);
   border-width: 2px 0 0 2px;
 }
 
-#virtualclassCont.congrea #videoConfrence[data-totaluser='two'] .remoteVideo{
-  width:100%;
+#virtualclassCont.congrea #videoConfrence[data-totaluser='two'] .remoteVideo {
+  width: 100%;
 }
 
 /** Multi Video Two User layout, End **/
 
 /** Multi Video Four User layout **/
 #virtualclassCont.congrea #videoConfrence[data-totaluser='four'] .videoCont,
-#virtualclassCont.congrea #videoConfrence[data-totaluser='morethanfour'] .videoCont  {
-  width : 50%;
+#virtualclassCont.congrea #videoConfrence[data-totaluser='morethanfour'] .videoCont {
+  width: 50%;
 }
 
 #virtualclassCont.congrea #multiVidSelected {
-  width : 860px;
+  width: 860px;
 }
 
 #virtualclassCont.congrea.meetingmode[data-totaluser="one"] .selfVideo {
-  z-index : 500;
+  z-index: 500;
   width: 100%;
 }
 
@@ -101,103 +98,101 @@
   transform: translate(-50%, -50%);
 }
 
-
 #virtualclassCont.congrea #videoMainPreview #multiVidSelected {
   width: 600px;
 }
 
 #virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li {
-    width:33.3%;
+  width: 33.3%;
 }
 
 #virtualclassCont.congrea.meetingmode[data-totaluser="one"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="one"]  #congreaChatMainCont {
-    height: calc(100% - 286px);
+  height: calc(100% - 286px);
 }
 
 #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #chat_div {
-    height: calc(100vh - 387px);
+  height: calc(100vh - 387px);
 }
 
 #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #chat_room {
-    height: calc(100vh - 397px);
+  height: calc(100vh - 397px);
 }
 
 #virtualclassCont.congrea.meetingmode[data-totaluser="two"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="two"]  #congreaChatMainCont, #virtualclassCont.congrea.meetingmode[data-totaluser="four"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="four"]  #congreaChatMainCont, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"]  #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="morethanfour"]  #congreaChatMainCont {
-    height: calc(100% - 285px);
+  height: calc(100% - 285px);
 }
 
 #virtualclassCont.congrea.meetingmode[data-totaluser="two"] #chat_div, #virtualclassCont.congrea.meetingmode[data-totaluser="four"] #chat_div, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #chat_div {
-    height: calc(100vh - 386px);
+  height: calc(100vh - 386px);
 }
 
-#virtualclassCont.congrea.meetingmode[data-totaluser="two"] #chat_room , #virtualclassCont.congrea.meetingmode[data-totaluser="four"] #chat_room, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #chat_room {
-    height: calc(100vh - 388px);
+#virtualclassCont.congrea.meetingmode[data-totaluser="two"] #chat_room, #virtualclassCont.congrea.meetingmode[data-totaluser="four"] #chat_room, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #chat_room {
+  height: calc(100vh - 388px);
 }
 
 #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #videosWrapper {
-    max-height:240px;
-    overflow-y:auto;
+  max-height: 240px;
+  overflow-y: auto;
 }
 
 /* When Camera is not available*/
 #virtualclassCont.congrea.meetingmode.nowebcam #virtualclassAppRightPanel #videoConfrence {
-    display:none;
-} 
+  display: none;
+}
 
-#virtualclassCont.congrea.meetingmode.nowebcam #rightSubContainer,  #virtualclassCont.meetingmode.nowebcam #congreaChatMainCont {
-    height: calc(100% - 48px) !important;
+#virtualclassCont.congrea.meetingmode.nowebcam #rightSubContainer, #virtualclassCont.meetingmode.nowebcam #congreaChatMainCont {
+  height: calc(100% - 48px) !important;
 }
 
 #virtualclassCont.congrea.meetingmode.nowebcam #chat_div {
-    height: calc(100vh - 148px);
+  height: calc(100vh - 148px);
 }
 
 #virtualclassCont.congrea.meetingmode.nowebcam #chat_room {
-    height: calc(100vh - 160px);
+  height: calc(100vh - 160px);
 }
 
-
 #virtualclassCont.congrea.meetingmode[data-totaluser="one"] .vshow {
-    display : block;
+  display: block;
 }
 
 #virtualclassCont.congrea.meetingmode[data-totaluser="one"] .vhide {
-    display : none;
+  display: none;
 }
 
 /* For Tablets */
-@media only screen 
-  and (min-device-width: 768px) 
-    and (max-device-width: 1024px) {
-        #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #chat_div {
-            height: calc(100vh - var(--vh-offset) - 372px);
-        }
-        
-       #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #chat_room {
-            height: calc(100vh - var(--vh-offset) - 383px);
-        }
-        
-        #virtualclassCont.congrea.meetingmode[data-totaluser="two"] #chat_div, #virtualclassCont.congrea.meetingmode[data-totaluser="four"] #chat_div, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #chat_div {
-            height: calc(100vh - var(--vh-offset) - 386px);
-        }
-        
-        #virtualclassCont.congrea.meetingmode[data-totaluser="two"] #chat_room , #virtualclassCont.congrea.meetingmode[data-totaluser="four"] #chat_room, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #chat_room {
-            height: calc(100vh - var(--vh-offset) - 388px);
-        }
-        
-       #virtualclassCont.congrea.meetingmode.nowebcam #chat_div {
-            height: calc(100vh - var(--vh-offset) - 148px);
-        }
-        
-        #virtualclassCont.congrea.meetingmode.nowebcam #chat_room {
-            height: calc(100vh - var(--vh-offset) - 160px);
-        }
-        #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="one"] #congreaChatMainCont {
-            height: calc(100% - 288px);
-        }
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px) {
+  #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #chat_div {
+    height: calc(100vh - var(--vh-offset) - 372px);
+  }
+
+  #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #chat_room {
+    height: calc(100vh - var(--vh-offset) - 383px);
+  }
+
+  #virtualclassCont.congrea.meetingmode[data-totaluser="two"] #chat_div, #virtualclassCont.congrea.meetingmode[data-totaluser="four"] #chat_div, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #chat_div {
+    height: calc(100vh - var(--vh-offset) - 386px);
+  }
+
+  #virtualclassCont.congrea.meetingmode[data-totaluser="two"] #chat_room, #virtualclassCont.congrea.meetingmode[data-totaluser="four"] #chat_room, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #chat_room {
+    height: calc(100vh - var(--vh-offset) - 388px);
+  }
+
+  #virtualclassCont.congrea.meetingmode.nowebcam #chat_div {
+    height: calc(100vh - var(--vh-offset) - 148px);
+  }
+
+  #virtualclassCont.congrea.meetingmode.nowebcam #chat_room {
+    height: calc(100vh - var(--vh-offset) - 160px);
+  }
+
+  #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="one"] #congreaChatMainCont {
+    height: calc(100% - 288px);
+  }
 }
 
-
 #virtualclassCont.congrea.meetingmode .videoCont.selfVideo {
-    z-index : 2000;
+  z-index: 2000;
 }

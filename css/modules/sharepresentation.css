@@ -1,5 +1,5 @@
 /*#virtualclassCont.congrea.teacher #virtualclassSharePresentation {*/
-  /*margin-left: 60px;*/
+/*margin-left: 60px;*/
 /*}*/
 
 #virtualclassCont.congrea.student.presenter #virtualclassSharePresentation {
@@ -83,33 +83,33 @@
 #virtualclassCont.congrea #iframecontainer {
   /*height : 94vh;*/
   /*width : 99%;*/
-  display : block;
+  display: block;
   /*margin-top : 0.3%;*/
 }
 
 #virtualclassCont.congrea.student #iframecontainer {
-  width : 100%;
+  width: 100%;
 }
 
 #virtualclassCont.congrea #pptiframe {
-  width : 100%;
+  width: 100%;
 }
 
-#virtualclassCont.congrea #presentationurl.form-control{
-  display:inline;
-/*  text-align: center;*/
-    padding-left:10px;
-    padding-right:10px;
+#virtualclassCont.congrea #presentationurl.form-control {
+  display: inline;
+  /*  text-align: center;*/
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #virtualclassCont.congrea #presentationurl.form-control::placeholder {
-    text-align:center;
+  text-align: center;
 }
 
 embed-footer {
-     display:none !important; 
+  display: none !important;
 }
 
-#virtualclassCont.congrea[data-currapp="SharePresentation"] #virtualclassAppLeftPanel #congrealogo img{
-display: none;
+#virtualclassCont.congrea[data-currapp="SharePresentation"] #virtualclassAppLeftPanel #congrealogo img {
+  display: none;
 }

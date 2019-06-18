@@ -27,17 +27,19 @@
   padding-top: 10px;
 }
 
-#virtualclassCont.congrea.teacher #virtualclassEditorRich, #virtualclassCont.congrea.teacher #virtualclassEditorCode{
+#virtualclassCont.congrea.teacher #virtualclassEditorRich, #virtualclassCont.congrea.teacher #virtualclassEditorCode {
   /*margin-top : 5px;*/
 }
 
-#virtualclassCont.congrea.presenter #virtualclassEditorRich, #virtualclassCont.congrea.presenter #virtualclassEditorCode, #virtualclassCont.congrea.presenter #virtualclassScreenShare{margin-left : 60px}
+#virtualclassCont.congrea.presenter #virtualclassEditorRich, #virtualclassCont.congrea.presenter #virtualclassEditorCode, #virtualclassCont.congrea.presenter #virtualclassScreenShare {
+  margin-left: 60px
+}
 
 #virtualclassCont.congrea .vceditor-toolbar {
   height: 48px;
   line-height: 47px;
   padding-left: 22px;
-/*  border-bottom: 1px solid #c9c9c9;*/
+  /*  border-bottom: 1px solid #c9c9c9;*/
 
   /* Don't select text when double-clicking in toolbar */
   -webkit-touch-callout: none;
@@ -49,8 +51,8 @@
   border-bottom-left-radius: 5px;
 }
 
-#virtualclassCont.congrea.student .vceditor-toolbar{
-  border-bottom-left-radius : 0px;
+#virtualclassCont.congrea.student .vceditor-toolbar {
+  border-bottom-left-radius: 0px;
 }
 
 #virtualclassCont.congrea .vceditor-toolbar-wrapper {
@@ -70,22 +72,61 @@
 }
 
 /** Styles for all of the rich-text formatting we support. */
-#virtualclassCont.congrea .vceditor-b { font-weight: bold; }
-#virtualclassCont.congrea .vceditor-i { font-style: italic; }
-#virtualclassCont.congrea .vceditor-u { text-decoration: underline; }
-#virtualclassCont.congrea .vceditor-s { text-decoration: line-through; }
-#virtualclassCont.congrea .vceditor-u.vceditor-s { text-decoration: underline line-through; }
+#virtualclassCont.congrea .vceditor-b {
+  font-weight: bold;
+}
 
-#virtualclassCont.congrea .vceditor-f-arial { font-family: Arial, Helvetica, sans-serif; }
-#virtualclassCont.congrea .vceditor-f-comic-sans-ms { font-family: "Comic Sans MS", cursive, sans-serif; }
-#virtualclassCont.congrea .vceditor-f-courier-new { font-family: "Courier New", Courier, monospace; }
-#virtualclassCont.congrea .vceditor-f-impact { font-family: Impact, Charcoal, sans-serif; }
-#virtualclassCont.congrea .vceditor-f-times-new-roman { font-family: "Times New Roman", Times, serif; }
-#virtualclassCont.congrea .vceditor-f-verdana { font-family: Verdana, Geneva, sans-serif; }
+#virtualclassCont.congrea .vceditor-i {
+  font-style: italic;
+}
 
-#virtualclassCont.congrea .vceditor-la-left { text-align: left; }
-#virtualclassCont.congrea .vceditor-la-center { text-align: center; }
-#virtualclassCont.congrea .vceditor-la-right { text-align: right; }
+#virtualclassCont.congrea .vceditor-u {
+  text-decoration: underline;
+}
+
+#virtualclassCont.congrea .vceditor-s {
+  text-decoration: line-through;
+}
+
+#virtualclassCont.congrea .vceditor-u.vceditor-s {
+  text-decoration: underline line-through;
+}
+
+#virtualclassCont.congrea .vceditor-f-arial {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#virtualclassCont.congrea .vceditor-f-comic-sans-ms {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+#virtualclassCont.congrea .vceditor-f-courier-new {
+  font-family: "Courier New", Courier, monospace;
+}
+
+#virtualclassCont.congrea .vceditor-f-impact {
+  font-family: Impact, Charcoal, sans-serif;
+}
+
+#virtualclassCont.congrea .vceditor-f-times-new-roman {
+  font-family: "Times New Roman", Times, serif;
+}
+
+#virtualclassCont.congrea .vceditor-f-verdana {
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+#virtualclassCont.congrea .vceditor-la-left {
+  text-align: left;
+}
+
+#virtualclassCont.congrea .vceditor-la-center {
+  text-align: center;
+}
+
+#virtualclassCont.congrea .vceditor-la-right {
+  text-align: right;
+}
 
 /** Line Styles */
 #virtualclassCont.congrea pre.vceditor-lt-o, #virtualclassCont.congrea pre.vceditor-lt-u, #virtualclassCont.congrea pre.vceditor-lt-t, #virtualclassCont.congrea pre.vceditor-lt-tc {
@@ -93,7 +134,7 @@
 }
 
 #virtualclassCont.congrea .vceditor-list-left {
-  display:inline-block;
+  display: inline-block;
   margin-left: -40px;
   width: 40px;
   padding-right: 5px;
@@ -101,7 +142,7 @@
 }
 
 #virtualclassCont.congrea .vceditor-todo-left {
-  display:inline-block;
+  display: inline-block;
   margin-left: -20px;
   width: 20px;
 }
@@ -128,42 +169,43 @@
   display: inline-block;
 }
 
-@media (max-width:1300px) {
-    #virtualclassCont.congrea .vceditor-btn-group {
-        margin: 11px 4px 11px 0;
-    }
-    #virtualclassCont.congrea .vceditor-toolbar {
-        padding-left: 13px;
-    }
+@media (max-width: 1300px) {
+  #virtualclassCont.congrea .vceditor-btn-group {
+    margin: 11px 4px 11px 0;
+  }
+
+  #virtualclassCont.congrea .vceditor-toolbar {
+    padding-left: 13px;
+  }
 }
 
-#virtualclassCont.congrea .vceditor-dialog .vceditor-dialog-div .vceditor-btn-group{
+#virtualclassCont.congrea .vceditor-dialog .vceditor-dialog-div .vceditor-btn-group {
   float: right;
 }
 
-#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn{
+#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn {
 
-	background: #83c2b2; /* Old browsers */
-	background: -moz-linear-gradient(top,  #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#83c2b2), color-stop(100%,#6cad9d)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #83c2b2 0%,#6cad9d 100%); /* IE10+ */
-	background: linear-gradient(to bottom, #0e1f24 0%,#112227 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#83c2b2', endColorstr='#6cad9d',GradientType=0 ); /* IE6-9 */
-	padding: 7px 10px;
-    margin-right: 10px;
-    color:#fff;
-    border:none;
-    font-weight: 200;
+  background: #83c2b2; /* Old browsers */
+  background: -moz-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #83c2b2), color-stop(100%, #6cad9d)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #0e1f24 0%, #112227 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); /* IE6-9 */
+  padding: 7px 10px;
+  margin-right: 10px;
+  color: #fff;
+  border: none;
+  font-weight: 200;
 }
 
-#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:hover{
-	background-image: none;
-	background-color: #68a697;
+#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:hover {
+  background-image: none;
+  background-color: #68a697;
 }
 
-#virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:last-child{
+#virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:last-child {
   margin-right: 0px;
 }
 
@@ -190,9 +232,9 @@
 }
 
 #virtualclassCont.congrea a.vceditor-btn:active {
-  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
-  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 #virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn {
@@ -201,7 +243,6 @@
   border-radius: 0;
   margin-left: -1px;
 }
-
 
 #virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:first-child {
   border-bottom-left-radius: 6px;
@@ -307,8 +348,6 @@
   font-size: 15px;
 }
 
-
-
 /********************************************************************
  * Generated via icomoon.io.
   If you want to make changes, you can go to http://icomoon.io/app/, go to the bottom right and click the
@@ -317,7 +356,6 @@
   Note: When you download the generated font, turn on the "Base 64 Encode ..." option to generate the font inline
   in the CSS (to avoid needing to distribute a font file with vceditor).
  */
-
 
 @font-face {
   font-family: 'vceditor';
@@ -342,102 +380,121 @@
 #virtualclassCont.congrea .vceditor-tb-bold:before {
   content: "\e000";
 }
+
 #virtualclassCont.congrea .vceditor-tb-italic:before {
   content: "\e001";
 }
+
 #virtualclassCont.congrea .vceditor-tb-underline:before {
   content: "\e002";
 }
+
 #virtualclassCont.congrea .vceditor-tb-strikethrough:before {
   content: "\e003";
 }
+
 #virtualclassCont.congrea .vceditor-tb-list:before {
   content: "\e004";
 }
+
 #virtualclassCont.congrea .vceditor-tb-list-2:before {
   content: "\e005";
 }
+
 #virtualclassCont.congrea .vceditor-tb-numbered-list:before {
   content: "\e006";
 }
+
 #virtualclassCont.congrea .vceditor-tb-paragraph-left:before {
   content: "\e007";
 }
+
 #virtualclassCont.congrea .vceditor-tb-paragraph-center:before {
   content: "\e008";
 }
+
 #virtualclassCont.congrea .vceditor-tb-paragraph-right:before {
   content: "\e009";
 }
+
 #virtualclassCont.congrea .vceditor-tb-paragraph-justify:before {
   content: "\e00a";
 }
+
 #virtualclassCont.congrea .vceditor-tb-menu:before {
   content: "\e00b";
 }
+
 #virtualclassCont.congrea .vceditor-tb-link:before {
   content: "\e00c";
 }
+
 #virtualclassCont.congrea .vceditor-tb-undo:before {
   content: "\e00d";
 }
+
 #virtualclassCont.congrea .vceditor-tb-redo:before {
   content: "\e00e";
 }
+
 #virtualclassCont.congrea .vceditor-tb-box-add:before {
   content: "\e010";
 }
+
 #virtualclassCont.congrea .vceditor-tb-box-remove:before {
   content: "\e011";
 }
+
 #virtualclassCont.congrea .vceditor-tb-print:before {
   content: "\e012";
 }
+
 #virtualclassCont.congrea .vceditor-tb-indent-decrease:before {
   content: "\e013";
 }
+
 #virtualclassCont.congrea .vceditor-tb-indent-increase:before {
   content: "\e014";
 }
+
 #virtualclassCont.congrea .vceditor-tb-insert-image:before {
   content: "\e015";
 }
+
 #virtualclassCont.congrea .vceditor-tb-bubble:before {
   content: "\e00f";
 }
 
-
 /* Gray color */
 
-
-#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:hover{
-	background-color: #62e47d;
+#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:hover {
+  background-color: #62e47d;
 }
 
-#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:last-child{
-	 background-color: #fb8a1c;
-}
-#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:last-child:hover{
-	background-color: #ff9f41;
+#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:last-child {
+  background-color: #fb8a1c;
 }
 
-
-#virtualclassCont.congrea .vceditor-dialog-input{
-	border-radius: 6px;
+#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:last-child:hover {
+  background-color: #ff9f41;
 }
 
-#virtualclassCont.congrea a.vceditor-btn:hover, #virtualclassCont.congrea .vceditor-dropdown-menu a:hover{
-	background-color: #6e7780;
+#virtualclassCont.congrea .vceditor-dialog-input {
+  border-radius: 6px;
 }
 
-#virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active{
-	background-color: #28323c;
-    border: 1px solid #555;
-    color: #fff;
+#virtualclassCont.congrea a.vceditor-btn:hover, #virtualclassCont.congrea .vceditor-dropdown-menu a:hover {
+  background-color: #6e7780;
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassEditorRich #EditorRichwriteModeBox{
-  display : none;
+#virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
+  background-color: #28323c;
+  border: 1px solid #555;
+  color: #fff;
+}
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassEditorRich #EditorRichwriteModeBox {
+  display: none;
 }
 
 

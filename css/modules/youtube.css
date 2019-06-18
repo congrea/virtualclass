@@ -1,5 +1,5 @@
 /*#virtualclassCont.congrea.teacher #virtualclassVideo, #virtualclassCont.congrea.student.presenter #virtualclassVideo {*/
-  /*margin-left: 45px;*/
+/*margin-left: 45px;*/
 /*}*/
 
 #virtualclassCont.congrea.educator #virtualclassVideo {
@@ -25,9 +25,9 @@
 }
 
 /*#virtualclassCont.congrea  #videoUrlContainer, #virtualclassCont.congrea.student.educator  #videoUrlContainer {*/
-  /*top: 0;*/
-  /*text-align: left;*/
-  /*margin-left: 22px;*/
+/*top: 0;*/
+/*text-align: left;*/
+/*margin-left: 22px;*/
 /*}*/
 
 #virtualclassCont.congrea #virtualclassVideo iframe#player {
@@ -50,6 +50,7 @@
   font-size: 30px;
   content: "\ea99";
 }
+
 #virtualclassCont.congrea .youTubeSharing {
   text-align: left;
 }
@@ -59,18 +60,17 @@
 }
 
 /*#virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer{*/
-  /*left: 0;*/
-  /*margin-top: 10px;*/
-  /*right: 0;*/
-  /*text-align: center;*/
-  /*top: 40%;*/
+/*left: 0;*/
+/*margin-top: 10px;*/
+/*right: 0;*/
+/*text-align: center;*/
+/*top: 40%;*/
 /*}*/
 
 /*#virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer {*/
-  /*top: 0;*/
-  /*text-align: left;*/
+/*top: 0;*/
+/*text-align: left;*/
 /*}*/
-
 
 #virtualclassCont.congrea #videoUrlContainer #videourl {
   height: 35px;
@@ -79,5 +79,5 @@
 }
 
 /*#virtualclassCont.congrea #virtualclassVideo {*/
-  /*margin-top : 5px;*/
+/*margin-top : 5px;*/
 /*}*/

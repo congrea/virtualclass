@@ -1,4 +1,5 @@
 (function (window) {
+
   function Bootstrap() {};
 
   Bootstrap.prototype.setBasicData = async function (window) {
@@ -8,8 +9,8 @@
     window.pageEnter = new Date().getTime();
 
     const virtualclass = new window.virtualclass();
-
-    virtualclass.config.data = {};
+    virtualclass.config = new Config();
+    virtualclass.appData = {};
     virtualclass.virtualclassIDBOpen = window.virtualclassOpenDB;
     window.virtualclass = virtualclass; // Need virtualclass object in each file
 
@@ -63,12 +64,12 @@
 
     let config;
     if (virtualclass.isPlayMode || (mySession !== null && mySession === 'thisismyplaymode')) {
-      virtualclass.storage.config.endSession();
+      virtualclass.config.endSession();
     } else if (prvUser !== null) {
       prvUser = JSON.parse(prvUser);
       if (prvUser.id !== wbUser.id || prvUser.room !== wbUser.room ||
         wbUser.role !== prvUser.role || prvUser.settings !== virtualclassSetting.settings) {
-        virtualclass.storage.config.endSession();
+        virtualclass.config.endSession();
       }
     } else if (virtualclass.gObj.myConfig !== null) {
       config = JSON.parse(virtualclass.gObj.myConfig);
@@ -78,7 +79,7 @@
       // Session is clear after 3 hour continous session
       // ////////////////////1sec-1min--1hr--3hr/////////
       if (totalTime > (1000 * 60 * 60 * 3)) {
-        virtualclass.storage.config.endSession();
+        virtualclass.config.endSession();
       }
     }
   }
@@ -168,13 +169,13 @@
       virtualclass.popup.waitMsg('refresh');
     }
 
-    virtualclass.config.data.appIs = appIs;
-    virtualclass.config.data.videoObj = videoObj;
+    virtualclass.appData.appIs = appIs;
+    virtualclass.appData.videoObj = videoObj;
   };
 
   Bootstrap.prototype.appInit = async function () {
     virtualclass.settings.init();
-    await virtualclass.init(wbUser.role, virtualclass.config.data.appIs, virtualclass.config.data.videoObj);
+    await virtualclass.init(wbUser.role, virtualclass.appData.appIs, virtualclass.appData.videoObj);
 
     if (virtualclass.system.mybrowser.name === 'Edge') {
       const virtualclassContainer = document.getElementById('virtualclassCont');

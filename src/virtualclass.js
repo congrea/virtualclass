@@ -11,7 +11,6 @@
     }
 
     return {
-      config: {},
       isPlayMode: playMode,
       /* TODO, editorCode should be removed in proper way */
       apps: {
@@ -109,7 +108,7 @@
             }
           }
         }
-        virtualclass.storage.config.endSession(); // by Teacher
+        virtualclass.config.endSession(); // by Teacher
         if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
           virtualclass.prevScreen.unShareScreen();
         }

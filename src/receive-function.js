@@ -155,7 +155,7 @@ const receiveFunctions = new function () {
     if (virtualclassApp != null) {
       virtualclassApp.style.display = 'block';
     }
-    virtualclass.storage.config.endSession();
+    virtualclass.config.endSession();
     virtualclass.popup.sesseionEndWindow();
     virtualclass.gObj.endSession = true;
   };

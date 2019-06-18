@@ -13,7 +13,6 @@
   const storage = {
     //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
     version: 8,
-    sessionEndFlag: false,
     async init() {
       /** *
        * Which table, what doing
@@ -90,11 +89,7 @@
         var { tables } = this;
       }
 
-      await this.getAllObjs(tables, () => {
-        if (virtualclass.gObj.myConfig === null) {
-          that.config.createNewSession();
-        }
-      });
+      await this.getAllObjs(tables);
     },
 
 
@@ -203,18 +198,19 @@
       });
     },
 
-    async getAllObjs(tables, callback) {
-      const cb = typeof callback !== 'undefined' ? callback : '';
-      for (let i = 0; i < tables.length; i++) {
-        const cursor = await this.db.transaction(tables[i]).store.openCursor();
-        if (typeof cb === 'function') {
-          if (tables[i] !== 'chunkData' && tables[i] !== 'quizData' && tables[i] !== 'pollStorage') {
-            await this[tables[i]].handleResult(cursor, cb);
-          }
-        } else {
-          await this[tables[i]].handleResult(cursor);
-        }
-      }
+    async getAllObjs() {
+      await this.getDataFromTable('wbData');
+      await this.getDataFromTable('dataAdapterAll');
+      await this.getDataFromTable('dataUserAdapterAll');
+      await this.getDataFromTable('executedStoreAll');
+      await this.getDataFromTable('executedUserStoreAll');
+      await this.getDataFromTable('dstdata');
+      await this.getDataFromTable('dstall');
+    },
+
+    async getDataFromTable(table) {
+      const cursor = await this.db.transaction(table).store.openCursor();
+      await this[table].handleResult(cursor);
     },
 
     async getAllDataOfPoll(table, cb) {
@@ -330,315 +326,6 @@
           }
           cursor = await cursor.continue();
         }
-      },
-    },
-
-    config: {
-      async handleResult(cursor, cb) {
-        if (cursor != null) {
-          while (cursor) {
-            if (cursor) {
-              if (cursor.value.hasOwnProperty('myconfig')) {
-                const config = JSON.parse(cursor.value.myconfig);
-                if (typeof cb !== 'undefined') {
-                  cb(config);
-                }
-              }
-              cursor = await cursor.continue();
-            }
-          }
-        } else if (typeof cb !== 'undefined') {
-          cb();
-        }
-      },
-
-      createNewSession() {
-        virtualclass.makeAppReady(virtualclass.gObj.defaultApp);
-        const currTime = new Date().getTime();
-        const configData = JSON.stringify({ createdDate: currTime });
-        localStorage.setItem('myConfig', configData);
-      },
-
-      endSession:  async function  (onlyStoredData) {
-        console.log('==== End the session here');
-        delete virtualclass.connectedUsers;
-        if (virtualclass.gObj.hasOwnProperty('memberUpdateDelayTimer')) {
-          clearTimeout(virtualclass.gObj.memberUpdateDelayTimer);
-          virtualclass.gObj.memberlistpending.length = 0;
-          delete virtualclass.gObj.memberUpdateDelayTimer;
-        }
-
-        if (virtualclass.hasOwnProperty('poll') && virtualclass.poll !== '') {
-          virtualclass.poll.pollState = {};
-          virtualclass.poll.dataRec = {};
-        }
-
-        const congrealogo = document.getElementById('congrealogo');
-        if (congrealogo != null) {
-          congrealogo.classList.remove('disbaleOnmousedown');
-        }
-
-        $('#chatroom_bt2').removeClass('ui-state-highlight');
-
-        if (typeof virtualclass.videoUl === 'object' && virtualclass.videoUl.hasOwnProperty('player')
-          && typeof virtualclass.videoUl.player === 'object' && virtualclass.videoUl.player.player_ != null
-
-        ) {
-          virtualclass.videoUl.destroyPlayer();
-        }
-
-        if (virtualclass.gObj.CDTimer != null) {
-          clearInterval(virtualclass.gObj.CDTimer);
-        }
-
-        const currApp = document.querySelector(`#virtualclass${virtualclass.currApp}`);
-        if (currApp != null) {
-          currApp.style.display = 'none';
-        }
-
-        if (virtualclass.hasOwnProperty('media')) {
-          virtualclass.media.audio.muteButtonToogle();
-        }
-
-        // Remove all chat user list
-        const chatUsers = chatContainerEvent.elementFromShadowDom('.ui-memblist-usr', 'all');
-
-        if (chatUsers != null && chatUsers.length > 0) {
-          for (let i = 0; i < chatUsers.length; i++) {
-            if (chatUsers[i] != null) {
-              chatUsers[i].parentNode.removeChild(chatUsers[i]);
-            }
-          }
-        }
-
-        if (virtualclass.gObj.precheckScrn) {
-          virtualclass.vutil.prechkScrnShare();
-        }
-
-        // virtualclass.raiseHand.raisehand();
-        virtualclass.gObj.audioEnable = (roles.hasControls()) ? true : virtualclass.gObj.stdaudioEnable;
-        virtualclass.storage.config.sessionEndFlag = true;
-        const precheck = localStorage.getItem('precheck');
-        // localStorage.clear();
-        if (virtualclass.chat != null) {
-          delete virtualclass.chat.vmstorage;
-          virtualclass.chat.vmstorage = {};
-          virtualclass.chat.removeChatHighLight('chatrm');
-        }
-        virtualclass.recorder.items = [];
-        virtualclass.recorder.totalSent = 0;
-        virtualclass.gObj.tempReplayObjs.length = 0;
-        virtualclass.wb = ''; // make white board empty
-        delete virtualclass.gObj.currWb; // deleting current whiteboard
-        virtualclass.gObj.studentSSstatus.mesharing = false;
-        virtualclass.removeSharingClass();
-        virtualclass.gObj.studentSSstatus.shareToAll = false;
-        virtualclass.gObj.studentSSstatus.sharing = false;
-        delete virtualclass.gObj.whoIsSharing;
-        if (virtualclass.videoHost != null) {
-          virtualclass.videoHost.gObj.stdStopSmallVid = false;
-          virtualclass.videoHost.gObj.allStdVideoOff = false;
-        }
-
-        virtualclass.gObj.wbTool = {};
-
-        // virtualclass.recorder.rnum = 1; // set file to 1
-
-        if (virtualclass.recorder.hasOwnProperty('startUpload')) {
-          delete virtualclass.recorder.startUpload;
-        }
-
-        if (virtualclass.gObj.hasOwnProperty('downloadProgress')) {
-          delete virtualclass.gObj.downloadProgress;
-        }
-
-        if (!onlyStoredData) {
-          if (typeof virtualclass.wb === 'object') {
-            alert('Clear all whiteboard');
-            virtualclass.wb[virtualclass.gObj.currWb].utility.t_clearallInit();
-            virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue();
-            if (typeof virtualclass.wb[virtualclass.gObj.currWb].replay === 'object') {
-              virtualclass.wb[virtualclass.gObj.currWb].replay.rendering = false;
-            }
-          }
-
-          // virtualclass.clearAllChat();
-          if (virtualclass.editorRich != null) {
-            virtualclass.editorRich.removeEditorData();
-          }
-          virtualclass.pdfRender = {};
-        }
-
-        virtualclass.vutil.removeClass('audioWidget', 'fixed');
-        virtualclass.storage.clearStorageData();
-
-
-        virtualclass.wbCommon.removeAllContainers();
-        virtualclass.gObj.wbCount = 0;
-        virtualclass.gObj.currSlide = 0;
-
-        // var prvAppObj = {name : "EditorRich"};
-        virtualclass.currApp = virtualclass.gObj.defaultApp; // default app
-
-        // hasMicrophone is true if audio is avaialble on hardware but the audio/video is disabled by user
-        if (!virtualclass.gObj.hasOwnProperty('disableCamByUser')) {
-          virtualclass.user.control.audioWidgetEnable(true);
-        } else {
-          virtualclass.user.control.audioDisable(); // Enable the audio if disabled
-        }
-
-        virtualclass.user.control.allChatEnable(); // Enabble all chat if disabled
-        virtualclass.user.control.resetmediaSetting();
-
-        if (roles.isStudent()) {
-          const teacherVid = document.getElementById('videoHostContainer');
-          if (teacherVid !== null) {
-            teacherVid.style.display = 'none';
-          }
-          const leftPanel = document.getElementById('virtualclassAppRightPanel');
-          if (leftPanel !== null && leftPanel.classList.contains('vidShow')) {
-            leftPanel.classList.remove('vidShow');
-          }
-        } else {
-          const sessionEndTool = document.getElementById('virtualclassSessionEndTool');
-          if (sessionEndTool !== null) {
-            sessionEndTool.className = virtualclass.vutil.removeClassFromElement('virtualclassSessionEndTool', 'active');
-          }
-        }
-
-        if (typeof virtualclass.yts === 'object') {
-          clearInterval(virtualclass.yts.tsc); // Clear If youTube seekChange interval is exist
-        }
-
-        if (typeof virtualclass.sharePt === 'object') {
-          virtualclass.sharePt.UI.removeIframe();
-        }
-
-        console.log('Session End.');
-
-        virtualclass.previous = `virtualclass${virtualclass.currApp}`;
-
-        // True when fethcing data from indexeddb, there would not data store into table of indexeddb if it is true
-        //  so need to do false
-        virtualclass.getContent = false;
-        virtualclass.recorder.storeDone = 0;
-
-
-        workerIO.postMessage({ cmd: 'sessionEndClose' });
-        if (precheck != null) {
-          localStorage.setItem('precheck', JSON.parse(precheck));
-        }
-
-        console.log(`New role before clear ${virtualclass.gObj.uRole}`);
-        virtualclass.settings.user = {};
-
-        const virtualclassWhiteboard = document.querySelector('#virtualclassWhiteboard');
-        if (virtualclassWhiteboard !== null) {
-          virtualclassWhiteboard.style.display = 'none';
-        }
-
-        const virtualclassCont = document.querySelector('#virtualclassCont');
-        if (virtualclassCont !== null) {
-          virtualclassCont.classList.remove('loading');
-        }
-
-        localStorage.clear();
-
-        // TODO, CHECK WHERE WE NEED TO PUT BELOW CREATENEWFUNCTION()
-        // that.config.createNewSession();
-
-        if (virtualclass.videoHost && roles.isStudent() && !virtualclass.isPlayMode) {
-          const rightPanelElem = document.querySelector("#virtualclassAppRightPanel");
-          if (rightPanelElem !== null && !rightPanelElem.classList.contains("vidHide")) {
-            rightPanelElem.classList.add('vidHide');
-          }
-        }
-
-        console.log(`New role after clear ${virtualclass.gObj.uRole}`);
-        if (!virtualclass.enablePreCheck) {
-        // Only popup the message, if the precheck is not enabled
-          virtualclass.popup.waitMsg();
-        }
-
-        if (typeof virtualclass.dts === 'object' && virtualclass.dts != null) {
-          virtualclass.dts.destroyDts();
-        }
-
-        if (typeof virtualclass.raiseHand === 'object' && virtualclass.raiseHand != null) {
-          if (!roles.hasControls()) {
-            const rh = document.querySelector('.congrea .handRaise.disable');
-            if (rh) {
-              rh.classList.remove('disable');
-              rh.classList.add('enable');
-              rh.setAttribute('data-title', virtualclass.lang.getString('RaiseHandStdEnabled'));
-              const icon = document.querySelector('.congrea .handRaise #icHr');
-              icon.setAttribute('data-action', 'enable');
-              virtualclass.raiseHand.stdRhEnable = 'enabled';
-            }
-          } else {
-            virtualclass.raiseHand.rhCount = 0;
-            virtualclass.raiseHand.rhCountR = 0;
-            const handBt = document.querySelector('.congrea .vmchat_bar_button .hand_bt.highlight');
-            if (handBt) {
-              handBt.classList.remove('highlight');
-            }
-            const text = document.querySelector('.congrea .vmchat_bar_button .hand_bt #notifyText');
-            if (text) {
-              text.innerHTML = '';
-            }
-          }
-        }
-
-        const chatDiv = document.getElementById('chat_div');
-        if (chatDiv !== null) {
-          const chatHighlight = chatContainerEvent.elementFromShadowDom('.vmchat_room_bt.ui-state-highlight');
-          if (chatHighlight) {
-            chatHighlight.classList.remove('ui-state-highlight');
-          }
-
-          const videOff = document.querySelector('#virtualclassCont.congrea.student');
-          if (videOff && videOff.classList.contains('videoff')) {
-            videOff.classList.remove('videoff');
-          }
-          const userList = document.querySelector('#virtualclassCont #memlist');
-          const chatrm = document.querySelector('#virtualclassCont #chatrm');
-
-          const listTab = document.querySelector('#user_list');
-          const chatroomTab = document.querySelector('#chatroom_bt2');
-
-
-          if (userList && !userList.classList.contains('enable')) {
-            userList.classList.add('enable');
-            userList.classList.remove('disable');
-            if (chatrm) {
-              chatrm.classList.add('disable');
-              chatrm.classList.remove('enable');
-            }
-          }
-
-          if (chatroomTab != null) {
-            if (!listTab.classList.contains('active')) {
-              listTab.classList.add('active');
-            }
-            chatroomTab.classList.remove('active');
-          }
-        }
-
-        if (virtualclass.serverData != null) {
-          virtualclass.serverData.rawData = { video: [], ppt: [], docs: [] };
-          if (roles.hasAdmin()) {
-            virtualclass.serverData.fetchAllData();
-          }
-        }
-
-        virtualclass.gObj.wIds = [0];
-        virtualclass.wbCommon.order = [0];
-        virtualclass.gObj.wbCount = 0;
-        virtualclass.wbCommon.clearNavigation();
-        if (typeof virtualclass.wb === 'object') {
-          delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
-        }
-        virtualclass.gObj.currIndex = 1;
       },
     },
 

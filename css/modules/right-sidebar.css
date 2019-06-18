@@ -688,7 +688,7 @@ body {
   right: 2.4em;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover:after {
+#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .vmchat_room_bt.congtooltip:hover::after {
   bottom: 4.1em;
   left: auto;
   right: 2.4em;

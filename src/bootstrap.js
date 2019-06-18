@@ -202,7 +202,7 @@
     }
 
     if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
-      await virtualclass.media.init();
+      virtualclass.media.init();
     }
   };
 

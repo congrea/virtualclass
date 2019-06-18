@@ -607,7 +607,7 @@ var preCheck = {
     }
   },
 
-  afterComplete() {
+  async afterComplete() {
     if (virtualclass.precheck.hasOwnProperty('mediaStream') && virtualclass.precheck.mediaStream != null) {
       const track = virtualclass.precheck.mediaStream.getTracks()[0]; // if only one media track
       track.stop();
@@ -641,18 +641,22 @@ var preCheck = {
 
     console.log('Fetching media stream');
 
-    const that = this;
+    virtualclass.media.init();
+    virtualclass.media.audio.initAudiocontext();
 
-    virtualclass.media.init((gotStream) => {
-      if (gotStream == 'success') {
-        virtualclass.media.audio.initAudiocontext();
-        /** Set video status after precheck * */
-        const videoAction = that.videoAction ? 'on' : 'off';
-        virtualclass.vutil.videoHandler(videoAction, 'notSendStatus');
-      } else {
-        console.log('Something wrong with stream');
-      }
-    }, 'fromPrecheck');
+
+
+
+    // virtualclass.media.init((gotStream) => {
+    //   if (gotStream == 'success') {
+    //     virtualclass.media.audio.initAudiocontext();
+    //     /** Set video status after precheck * */
+    //     const videoAction = that.videoAction ? 'on' : 'off';
+    //     virtualclass.vutil.videoHandler(videoAction, 'notSendStatus');
+    //   } else {
+    //     console.log('Something wrong with stream');
+    //   }
+    // }, 'fromPrecheck');
 
     virtualclass.precheck.speaker.playTestAudio = false;
 

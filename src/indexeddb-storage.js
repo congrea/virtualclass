@@ -12,7 +12,7 @@
 
   const storage = {
     //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
-    version: 7,
+    version: 8,
     sessionEndFlag: false,
     async init() {
       /** *
@@ -20,7 +20,6 @@
        executedStoreAll => To store the executed data of users till now
        dataAdapterAll => To store the must data of all user.
        dataUserAdapterAll =>  To Store the must data of all user on particular user
-       chunkData => To save chunk data which would be convert into file as later.
        wbData => To store the whiteboard data.
        config => For store the date of created session of particular room,
        By which, we calculate the time(after 48 hour we are
@@ -29,13 +28,7 @@
        */
 
       that = this;
-      // TODO these are not using because audio and video is not using
-
-      this.tables = ['wbData', 'chunkData', 'dataAdapterAll', 'dataUserAdapterAll', 'executedStoreAll', 'executedUserStoreAll', 'dstdata', 'pollStorage', 'quizData', 'dstall'];
-
-      //  this.tables = ["wbData", "allData", "chunkData", "audioData", "config", "dataAdapterAll", "executedStoreAll", "dataUserAdapterAll"];
-
-      //  Try and Catch not supporting here
+      this.tables = ['wbData', 'dataAdapterAll', 'dataUserAdapterAll', 'executedStoreAll', 'executedUserStoreAll', 'dstdata', 'pollStorage', 'quizData', 'dstall'];
 
       this.db = await virtualclass.virtualclassIDBOpen('vidya_apps', that.dbVersion, {
         upgrade(db, oldVersion, newVersion, transaction) {
@@ -54,15 +47,6 @@
       const thisDb = db;
       if (!thisDb.objectStoreNames.contains('wbData')) {
         thisDb.createObjectStore('wbData', { keyPath: 'did' });
-      }
-
-
-      // if (!thisDb.objectStoreNames.contains('config')) {
-      //   thisDb.createObjectStore('config', { keyPath: 'timeStamp', autoIncrement: true });
-      // }
-
-      if (!thisDb.objectStoreNames.contains('chunkData')) {
-        thisDb.createObjectStore('chunkData', { autoIncrement: true });
       }
 
       if (!thisDb.objectStoreNames.contains('dataAdapterAll')) {
@@ -106,7 +90,7 @@
         var { tables } = this;
       }
 
-      await this.getAllObjs(tables, (result) => {
+      await this.getAllObjs(tables, () => {
         if (virtualclass.gObj.myConfig === null) {
           that.config.createNewSession();
         }
@@ -371,7 +355,7 @@
       createNewSession() {
         virtualclass.makeAppReady(virtualclass.gObj.defaultApp);
         const currTime = new Date().getTime();
-        const configData = JSON.stringify({ createdDate: currTime});
+        const configData = JSON.stringify({ createdDate: currTime });
         localStorage.setItem('myConfig', configData);
       },
 

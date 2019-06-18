@@ -641,7 +641,7 @@ var preCheck = {
 
     console.log('Fetching media stream');
 
-    virtualclass.media.init();
+    await virtualclass.media.init();
     virtualclass.media.audio.initAudiocontext();
 
 

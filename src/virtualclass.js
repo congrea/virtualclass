@@ -286,7 +286,7 @@
 
         this.system.check();
         this.vutil.isSystemCompatible(); // this should be at environment-validation.js file
-        this.system.mediaDevices.getMediaDeviceInfo();
+
         this.pageVisible = virtualclass.vutil.pageVisible();
 
 

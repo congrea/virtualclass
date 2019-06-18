@@ -1488,7 +1488,7 @@
       /* TODO @param vbool :no use of parameter vbool */
 
 
-      init(cb) {
+      async init() {
         console.log('Video second, normal video');
         cthis = this; // TODO there should be done work for cthis
 
@@ -1504,7 +1504,7 @@
         cthis.video.init();
         // cthis.audio.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
         // cthis.audio.resampler = new Resampler(cthis.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
-        const that = this;
+        // const that = this;
         // Default we disable audio and video
 
         virtualclass.user.control.audioDisable();
@@ -1526,19 +1526,14 @@
 
 
           const cNavigator = virtualclass.adpt.init(navigator);
-          cNavigator.mediaDevices.getUserMedia(session).then((stream) => {
-            that.handleUserMedia(stream);
+          let stream = null;
+          try {
+            stream = await cNavigator.mediaDevices.getUserMedia(session);
+          } catch (e) {
+            this.handleUserMediaError(e);
+          }
 
-            if (virtualclass.gObj.meetingMode) {
-              virtualclass.multiVideo.init();
-            }
-
-            if (typeof cb !== 'undefined') {
-              cb('success');
-            }
-          }).catch((e) => {
-            that.handleUserMediaError(e);
-          });
+          this.handleUserMedia(stream);
         }
 
 

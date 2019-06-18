@@ -387,18 +387,9 @@
 
       makeReadySocket() {
         if (!virtualclass.vutil.isPlayMode()) {
-          // Init Socket only after both editor instances are ready.
-
-          const that = this;
-          var initSocket = setInterval(() => {
-            if (that.gObj.editorInitDone >= 2) {
-              that.initSocketConn();
-              clearInterval(initSocket);
-            }
-          }, 100);
+          this.initSocketConn();
         }
       },
-
 
       initSocketConn() {
         if (this.system.webSocket) {
@@ -1292,7 +1283,7 @@
 
       initlizer(elem) {
         let appName = elem.parentNode.id.split('virtualclass')[1];
-        if (appName == 'SessionEndTool') {
+        if (appName === 'SessionEndTool') {
           virtualclass.popup.confirmInput(virtualclass.lang.getString('startnewsession'),
             (confirm) => {
               if (!confirm) {
@@ -1313,7 +1304,7 @@
 
               allFinish.then(() => {
                 delete virtualclass.gObj.sessionEndResolve;
-                //virtualclass.popup.sesseionEndWindow();
+                virtualclass.popup.sesseionEndWindow();
               }, (error) => {
                 console.log(`ERRROR ${error}`);
               });

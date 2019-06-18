@@ -70,7 +70,10 @@
         + '{border-top:'}${border} !important;}`
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapesTool .tool a'
         + `{border-bottom:${border} !important;}`
-        + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapes_icon a'
+        + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapes_icon a ,'
+        + '#virtualclassCont.congrea #virtualclassAppLeftPanel #docShareNav ,'
+        + '#virtualclassCont.congrea #screenController .share button ,'
+        + '#virtualclassCont.congrea #stopScreenShare button '
         + `{border-left: 0.01em solid ${allbg.fcolor}!important;}`
         // "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool" +
         // "{border:0 !important;}"+
@@ -96,7 +99,8 @@
         + '#virtualclassCont.congrea .zoomControler ,'
         + '#virtualclassCont.congrea .btn-default '
         + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important;}`
-        + '#virtualclassCont.congrea .shapesToolbox'
+        + '#virtualclassCont.congrea .shapesToolbox ,'
+        + '#virtualclassCont.congrea #stopScreenShare button '
         + `{border-right: 0.01em solid ${allbg.fcolor}!important;}`;
 
       this.addCss(css);
@@ -233,9 +237,6 @@
         + `{border : 1px solid${allbg.fcolor}!important} `
         + `{background-image: linear-gradient(to bottom, ${active.fcolor} 0%,${active.scolor} 100%) !important ;color:${frontColor}!important} `
         + `{border-left: 1px solid ${allbg.fcolor}!important}`
-        + '#virtualclassCont.congrea #screenController .share button,'
-        + '#virtualclassCont.congrea #stopScreenShare button'
-        + `{border-right:1px solid ${active.fcolor}!important}`
         + '#virtualclassCont.congrea #screenController .share button:hover,'
         + '#virtualclassCont.congrea #stopScreenShare button:hover '
         + `{background-image: linear-gradient(to bottom, ${hover.fcolor} 0%,${hover.scolor} 100%) !important;color:${frontColor}!important}`

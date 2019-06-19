@@ -965,16 +965,18 @@
               /* stdvideoEnable means it's click able for ON,
                *  and user need cick that button to share the video
                * */
-              if (virtualclass.gObj.stdvideoEnable) {
-                virtualclass.vutil.videoHandler('off');
-                virtualclass.videoHost.toggleVideoMsg('enable');
-              } else {
-                virtualclass.videoHost.toggleVideoMsg('disable');
-                const vidIcon = document.querySelector('#videoSwitch');
-                // TODO try to remove the section vidIcon.classList.contains("on")
-                if (vidIcon != null && vidIcon.classList.contains('on')) {
-                  vidIcon.classList.remove('on');
-                  vidIcon.classList.add('off');
+              if (virtualclass.videoHost) {
+                if (virtualclass.gObj.stdvideoEnable) {
+                  virtualclass.vutil.videoHandler('off');
+                  virtualclass.videoHost.toggleVideoMsg('enable');
+                } else {
+                  virtualclass.videoHost.toggleVideoMsg('disable');
+                  const vidIcon = document.querySelector('#videoSwitch');
+                  // TODO try to remove the section vidIcon.classList.contains("on")
+                  if (vidIcon != null && vidIcon.classList.contains('on')) {
+                    vidIcon.classList.remove('on');
+                    vidIcon.classList.add('off');
+                  }
                 }
               }
             }
@@ -991,7 +993,7 @@
             }
 
             const vidbtn = document.getElementById('videoSwitch');
-            if (virtualclass.system.mediaDevices.hasWebcam && vidbtn.classList.contains('video')) {
+            if (vidbtn != null && virtualclass.system.mediaDevices.hasWebcam && vidbtn.classList.contains('video')) {
               const tvideoElem = document.getElementById('rightCtlr');
               if (vidbtn.classList.contains('on')) {
                 virtualclass.vutil.videoHandler('off');

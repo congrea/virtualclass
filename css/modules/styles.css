@@ -4471,21 +4471,18 @@ and (max-device-width: 1024px) {
   font-size: 22px;
   margin: 0;
   display: inline-block;
-  padding: 11px 18px 9px 18px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
   border-left: 0.05em solid #021317 !important;
 }
+#virtualclassCont.congrea #fullScreenButton .fullScreen, #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
+  padding: 11px 18px 9px 18px;
+}
 
 #virtualclassCont.congrea.playMode #fullScreenButton, #virtualclassCont.congrea.playMode #fullScreenExitButton {
   right: 320px;
 }
-
-#virtualclassCont.congrea #fullScreenExitButton {
-  padding: 12px 18px 10px 18px;
-}
-
 #virtualclassCont.congrea #fullScreenExitButton {
   display: none;
 }
@@ -4501,7 +4498,8 @@ and (max-device-width: 1024px) {
 }
 
 #virtualclassCont.congrea #fullScreenButton span.congtooltip:hover:after, #virtualclassCont.congrea #fullScreenExitButton span.congtooltip:hover:after {
-  bottom: 3.2em !important;
+  bottom: 4.2em !important;
+  left: -14px;
 }
 
 #virtualclassCont.loading {

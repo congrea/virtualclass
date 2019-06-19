@@ -741,20 +741,19 @@
         playWithFallback(uid) {
           if (this.Html5Audio.audioContext.state === 'suspended') {
             /** Wait till 2 seconds and see if still it's suspended ** */
-            if (this.hasOwnProperty('audioSuspendTime')) {
-              clearTimeout(this.audioSuspendTime);
-            }
-
-            this.audioSuspendTime = setTimeout(() => {
-              if (this.Html5Audio.audioContext.state === 'suspended') {
-                this.snode.push(uid);
-                if (virtualclass.gObj.requestToScriptNode === null) {
-                  this.Html5Audio.audioContext.resume();
-                  virtualclass.gesture.initAudioResume(uid);
-                  virtualclass.gObj.requestToScriptNode = true;
+            if (!this.hasOwnProperty('audioSuspendTime')) {
+              this.audioSuspendTime = setTimeout(() => {
+                if (this.Html5Audio.audioContext.state === 'suspended') {
+                  this.snode.push(uid);
+                  if (virtualclass.gObj.requestToScriptNode === null) {
+                    delete this.audioSuspendTime;
+                    this.Html5Audio.audioContext.resume();
+                    virtualclass.gesture.initAudioResume(uid);
+                    virtualclass.gObj.requestToScriptNode = true;
+                  }
                 }
-              }
-            }, 2000);
+              }, 2000);
+            }
           } else {
             this._playWithFallback();
           }
@@ -1533,7 +1532,9 @@
             this.handleUserMediaError(e);
           }
 
-          this.handleUserMedia(stream);
+          if (stream !== null) {
+            this.handleUserMedia(stream);
+          }
         }
 
 

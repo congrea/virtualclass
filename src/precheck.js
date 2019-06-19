@@ -642,21 +642,9 @@ var preCheck = {
     console.log('Fetching media stream');
 
     await virtualclass.media.init();
+    const videoAction = this.videoAction ? 'on' : 'off';
+    virtualclass.vutil.videoHandler(videoAction, 'notSendStatus')
     virtualclass.media.audio.initAudiocontext();
-
-
-
-
-    // virtualclass.media.init((gotStream) => {
-    //   if (gotStream == 'success') {
-    //     virtualclass.media.audio.initAudiocontext();
-    //     /** Set video status after precheck * */
-    //     const videoAction = that.videoAction ? 'on' : 'off';
-    //     virtualclass.vutil.videoHandler(videoAction, 'notSendStatus');
-    //   } else {
-    //     console.log('Something wrong with stream');
-    //   }
-    // }, 'fromPrecheck');
 
     virtualclass.precheck.speaker.playTestAudio = false;
 

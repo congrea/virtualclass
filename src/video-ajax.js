@@ -1,3 +1,4 @@
+let vType;
 function createRequestObject() {
   let ro;
   const browser = navigator.appName;
@@ -41,34 +42,11 @@ const IEBinaryToArray_ByteStr_Script = '<!-- IEBinaryToArray_ByteStr -->\r\n'
   + '</script>\r\n';
 document.write(IEBinaryToArray_ByteStr_Script);
 
-function loadfile2(filename, type) {
-  if (typeof type === 'undefined') type = 'dec';
-  // document.getElementById('testbild').innerHTML='server query....';
-  if (type === 'dec') {
-    http.open('get', 'http://localhost/google-webp/1.webp');
-
-    if (http.overrideMimeType) http.overrideMimeType('text/plain; charset=x-user-defined');
-    else http.setRequestHeader('Accept-Charset', 'x-user-defined');
-
-    http.onreadystatechange = function () {
-      if (http.readyState == 4) {
-        if (typeof http.responseBody === 'undefined') {
-          var response = http.responseText.split('').map(e => String.fromCharCode(e.charCodeAt(0) & 0xff)).join('');
-        } else {
-          var response = convertResponseBodyToText(http.responseBody);
-        }
-        if (type === 'dec') virtualclass.vutil.WebPDecodeAndDraw(response);
-      } // else alert('Cannot load file. Please, try again');
-    };
-    http.send(null);
-  } else if (type === 'enc') ImageToCanvas(`/images-enc/${filename}`);
-}
-
 
 function loadfile(imgData, canvas, context) {
-  if (typeof type === 'undefined') type = 'dec';
+  if (typeof vType === 'undefined') vType = 'dec';
   // document.getElementById('testbild').innerHTML='server query....';
-  if (type === 'dec') {
+  if (vType === 'dec') {
     const imgTag = new Image();
     imgTag.src = imgData;
     http.open('get', imgTag.src);
@@ -83,7 +61,7 @@ function loadfile(imgData, canvas, context) {
         } else {
           var response = convertResponseBodyToText(http.responseBody);
         }
-        if (type === 'dec') {
+        if (vType === 'dec') {
           if (virtualclass.gObj.meetingMode) {
             WebPDecDemo(canvas.id);
           }
@@ -93,5 +71,5 @@ function loadfile(imgData, canvas, context) {
       } // else alert('Cannot load file. Please, try again');
     };
     http.send(null);
-  } else if (type === 'enc') ImageToCanvas(`/images-enc/${filename}`);
+  } else if (vType === 'enc') ImageToCanvas(`/images-enc/${filename}`);
 }

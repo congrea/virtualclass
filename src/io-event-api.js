@@ -249,16 +249,21 @@ const ioEventApi = {
   error(e) {
     if (virtualclass.gObj.displayError) {
       virtualclass.view.removeElement('serverErrorCont');
-
-      if (typeof e.message.stack !== 'undefined') {
-        virtualclass.view.displayServerError('serverErrorCont', e.message.stack);
+      if (typeof e.message == 'undefined') {
+        console.log ('Error ', e.message);
       } else {
-        console.log(`Error message ${e.message.stack} could not display`);
+        if (typeof e.message.stack !== 'undefined') {
+          virtualclass.view.displayServerError('serverErrorCont', e.message.stack);
+        } else {
+          console.log(`Error message ${e.message.stack} could not display`);
+        }
+
+        if (typeof e.message !== 'object') {
+          display_error(e.message.stack);
+        }
       }
 
-      if (typeof e.message !== 'object') {
-        display_error(e.message.stack);
-      }
+
     } else if (typeof e.message !== 'object') {
       console.log(e.message.stack);
     }
@@ -291,7 +296,7 @@ const ioEventApi = {
   },
 
   PONG(e) {
-    virtualclass.network.latency = e.timeStamp - e.message;
+    virtualclass.network.latency = Date.now() - e.message;
     virtualclass.network.initToPing(1000);
   },
 

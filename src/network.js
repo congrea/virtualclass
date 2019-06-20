@@ -103,14 +103,15 @@ Network.prototype.adaptiveMedia = function () {
 
 Network.prototype.updateNetworkInfo = function (latency) {
   let speed;
-  if (virtualclass.videoHost.gObj.MYSPEED == 1) {
+  if (virtualclass.videoHost.gObj.MYSPEED === 1) {
     speed = 'high';
-  } else if (virtualclass.videoHost.gObj.MYSPEED == 2) {
+  } else if (virtualclass.videoHost.gObj.MYSPEED === 2) {
     speed = 'medium';
-  } else if (virtualclass.videoHost.gObj.MYSPEED == 3) {
+  } else if (virtualclass.videoHost.gObj.MYSPEED === 3) {
     speed = 'low';
   }
 
+  
   // var videoSpeed = document.getElementById('videSpeedNumber');
   const videoSpeed = document.getElementById('proposedSpeed');
   if (videoSpeed) {

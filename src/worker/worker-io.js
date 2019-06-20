@@ -137,7 +137,9 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
     },
 
     finallySend(msg) {
-      this.sock.send(msg);
+      if (this.sock.readyState) {
+        this.sock.send(msg);
+      }
     },
 
     sendBinary(msg) {

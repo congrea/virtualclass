@@ -71,5 +71,5 @@ function loadfile(imgData, canvas, context) {
       } // else alert('Cannot load file. Please, try again');
     };
     http.send(null);
-  } else if (vType === 'enc') ImageToCanvas(`/images-enc/${filename}`);
+  }
 }

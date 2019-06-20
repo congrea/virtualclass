@@ -2,6 +2,7 @@
 /** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
+
 (function (window) {
   const TIME_TO_REQUEST = 3 * 60 * 1000; // every request would be performeed in given milisecond
   const RECORDING_TIME = 15 * 60 * 1000; // If elapsed time goes beyond the
@@ -95,6 +96,7 @@
     initPlay: false,
     isTrimRecordingNow: false,
     joinRoomRecevied: false,
+    totalTrimTime : 0,
     init() {
       if (!this.attachSeekHandler) {
         this.attachSeekHandler = true;
@@ -132,6 +134,8 @@
         this.play();
         this.prvNum = this.masterIndex;
       }
+
+
     },
 
     handlPageActiveness() {
@@ -194,10 +198,8 @@
     },
 
     playProgressBar(playTime) {
-      // console.log('total play time ' + playTime + ' elapsed time2 ' + playTime);
       if (playTime > 0) {
         virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds, playTime, 'playProgressBar', undefined);
-
         const time = this.convertIntoReadable(playTime);
         document.getElementById('tillRepTime').innerHTML = `${time.h}:${time.m}:${time.s}`;
         if (!this.alreadyCalcTotTime) {
@@ -333,6 +335,8 @@
       if (!isNaN(totalSeconds) && totalSeconds >= 1) {
         if (!this.isTrimRecordingNow) {
           playTime = 1000;
+        } else {
+          this.updateTrimTime(totalSeconds * 1000);
         }
 
         const data = {
@@ -342,7 +346,7 @@
         };
 
         for (let s = 0; s < totalSeconds; s++) {
-          this.totalTimeInMiliSeconds += playTime;
+          // this.totalTimeInMiliSeconds += playTime;
           chunk.push(data);
         }
       }
@@ -355,7 +359,6 @@
         metaData;
       let chunk = [];
       let nextMinus = null;
-      const tempChunk = [];
       const allRecordigns = rawData.trim().split(/(?:\r\n|\r|\n)/g); // Getting recordings line by line
 
       for (let i = 0; i < allRecordigns.length; i++) {
@@ -376,12 +379,6 @@
             }
           }
 
-          if (this.hasOwnProperty('tempRefrenceTime')) {
-            tempChunk.push(Math.trunc((this.tempTime - this.tempRefrenceTime) / 1000000));
-          } else {
-            tempChunk.push(150);
-          }
-
           if (data != null && data != '') {
             if (!this.joinRoomRecevied && data.indexOf('"type":"joinroom"') > -1) {
               this.joinRoomRecevied = true;
@@ -400,23 +397,27 @@
               this.lastFileTime = time;
             }
 
-            // chunk.push({playTime : this.tempPlayTime, 'recObjs' : data, type :type});
+            if (virtualclass.settings.info.trimRecordings && data.indexOf('{"ac":21,"cf":"recs"') > -1) {
+              console.log('Trim off, ==== index ',  chunk.length, 'master ', this.masterRecordings.length);
+              this.isTrimRecordingNow = false;
+              this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - this.totalTrimTime;
+            }
+
             if (this.isTrimRecordingNow) {
               chunk.push({ playTime: 0, recObjs: data, type });
-              console.log('==== TRIM ');
+              this.updateTrimTime(this.tempPlayTime);
+              console.log('Trim on, ==== index ',  i, 'master ', this.masterRecordings.length);
             } else if (virtualclass.settings.info.trimRecordings && data.indexOf('{"ac":11,"cf":"recs"') > -1) {
               this.isTrimRecordingNow = true;
+              this.updateTrimTime(this.tempPlayTime);
               chunk.push({ playTime: 0, recObjs: data, type });
-              console.log('==== TRIM ');
+              console.log('Trim on, ==== index ',  chunk.length, 'master ', this.masterRecordings.length);
+
             } else {
               chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
             }
 
-            this.totalTimeInMiliSeconds += chunk[chunk.length - 1].playTime;
-
-            if (virtualclass.settings.info.trimRecordings && data.indexOf('{"ac":21,"cf":"recs"') > -1) {
-              this.isTrimRecordingNow = false;
-            }
+            // this.totalTimeInMiliSeconds += chunk[chunk.length - 1].playTime;
 
             if (typeof allRecordigns[i + 1] !== 'undefined') {
               const nextMiliSeconds = this.calculateNextTime(time, allRecordigns[i + 1]);
@@ -426,7 +427,7 @@
               }
             }
             this.refrenceTime = time;
-            this.tempRefrenceTime = this.tempTime;
+
           }
         }
       }
@@ -434,27 +435,31 @@
       console.log(`totalTime in seconds ${this.totalTimeInMiliSeconds / 1000}`);
       let binData;
       for (let k = 0; k < chunk.length; k++) {
-        if (chunk[k].type == 'B') {
+        if (chunk[k].type === 'B') {
           binData = virtualclass.dtCon.base64DecToArr(chunk[k].recObjs);
           chunk[k].recObjs = binData;
         }
       }
 
       this.masterRecordings.push(chunk);
-
-      this.orginalTimes.push(tempChunk);
-
       this.UIdownloadProgress(file);
+      this.updateTotalTime();
 
-      if ((this.currentMin > 3 || this.lastFile == file) && this.masterRecordings.length > 0) { // Starts playing after 5 mins of download
+      // Starts playing after 3 mins of download
+      if ((this.currentMin > 3 || this.lastFile === file) && this.masterRecordings.length > 0) {
         if (this.playStart) {
           this.startToPlay();
-          this.updateTotalTime();
+          // this.updateTotalTime();
         } else if (!this.alreadyAskForPlay) {
           this.alreadyAskForPlay = true;
           this.askToPlay();
         }
       }
+    },
+
+    updateTrimTime (time) {
+      this.totalTrimTime += time;
+      console.log("==== total trim time", this.totalTrimTime);
     },
 
     handleStartToPlay(ev) {
@@ -509,8 +514,8 @@
       if (currentMin > this.currentMin) {
         this.currentMin = currentMin;
       }
-
-      const totalMin = virtualclass.recorder.totalTimeInMiliSeconds / 1000 / 60;
+      console.log('=====  total trim time ', this.totalTrimTime);
+      const totalMin = (virtualclass.recorder.totalTimeInMiliSeconds) / 1000 / 60;
       this.downloadInPercentage = ((this.currentMin * 100) / totalMin);
       virtualclass.pbar.renderProgressBar(totalMin, this.currentMin, 'downloadProgressBar', 'downloadProgressValue');
       this.finishRequestDataFromServer(singleFileTime);
@@ -1286,7 +1291,7 @@
       const lastTime = Math.trunc(+(virtualclass.recorder.totalRecordingFiles[virtualclass.recorder.totalRecordingFiles.length - 1].split('-')[1].split('.')[0]) / 1000000);
       // converting nano to seconds
 
-      // this.totalTimeInMiliSeconds = (lastTime - firstTime);
+       this.totalTimeInMiliSeconds = (lastTime - firstTime);
 
       this.lastTimeInSeconds = Math.trunc(lastTime / 1000);
       this.firstTimeInSeconds = Math.trunc(firstTime / 1000);
@@ -1312,11 +1317,11 @@
       while (mi <= master) {
         for (let i = 0; i < virtualclass.recorder.masterRecordings[mi].length; i++) {
           totalTimeInMiliSeconds += virtualclass.recorder.masterRecordings[mi][i].playTime;
-          if ((master == mi) && (subIndex == i)) {
+          if ((master === mi) && (subIndex === i)) {
             break;
           }
         }
-        mi++;
+        mi += 1;
       }
 
       return totalTimeInMiliSeconds;

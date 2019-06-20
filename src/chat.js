@@ -353,6 +353,14 @@
         }
       },
 
+      removeCommonChatNodes () {
+        const chatRoom = document.getElementById('chat_room');
+        if (chatRoom !== null) {
+          while (chatRoom.firstChild) {
+            chatRoom.removeChild(chatRoom.firstChild);
+          }
+        }
+      },
     };
   };
   window.Chat = Chat;

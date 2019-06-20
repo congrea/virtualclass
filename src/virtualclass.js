@@ -232,7 +232,8 @@
           }
         });
 
-        virtualclass.chat = new Chat();
+        // virtualclass.chat = new Chat();
+
         virtualclass.chat.init();
 
         virtualclass.dtCon = virtualclass.converter();

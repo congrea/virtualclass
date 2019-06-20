@@ -397,6 +397,7 @@
               this.lastFileTime = time;
             }
 
+            // 21, Recording off
             if (virtualclass.settings.info.trimRecordings && data.indexOf('{"ac":21,"cf":"recs"') > -1) {
               console.log('Trim off, ==== index ',  chunk.length, 'master ', this.masterRecordings.length);
               this.isTrimRecordingNow = false;
@@ -407,11 +408,12 @@
               chunk.push({ playTime: 0, recObjs: data, type });
               this.updateTrimTime(this.tempPlayTime);
               console.log('Trim on, ==== index ',  i, 'master ', this.masterRecordings.length);
+              // 11, Recording on
             } else if (virtualclass.settings.info.trimRecordings && data.indexOf('{"ac":11,"cf":"recs"') > -1) {
               this.isTrimRecordingNow = true;
               this.updateTrimTime(this.tempPlayTime);
               chunk.push({ playTime: 0, recObjs: data, type });
-              console.log('Trim on, ==== index ',  chunk.length, 'master ', this.masterRecordings.length);
+              console.log('Trim on, ==== index ', chunk.length, 'master ', this.masterRecordings.length);
 
             } else {
               chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
@@ -442,7 +444,17 @@
       }
 
       this.masterRecordings.push(chunk);
-      this.UIdownloadProgress(file);
+
+      const singleFileTime = virtualclass.recorder.getTimeFromFile(file); // Getting time stamp 112021210
+      this.finishRequestDataFromServer(singleFileTime);
+
+      // In case of total file is downloaded and recoring on command is not found
+      if (this.isTrimRecordingNow && this.allFileFound) {
+        this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - this.totalTrimTime;
+        this.isTrimRecordingNow = false;
+      }
+
+      this.UIdownloadProgress(file, singleFileTime);
       this.updateTotalTime();
 
       // Starts playing after 3 mins of download
@@ -508,8 +520,8 @@
       }
     },
 
-    UIdownloadProgress(file) {
-      const singleFileTime = virtualclass.recorder.getTimeFromFile(file); // Getting time stamp 112021210
+    UIdownloadProgress(file, singleFileTime) {
+      // const singleFileTime = virtualclass.recorder.getTimeFromFile(file); // Getting time stamp 112021210
       const currentMin = (singleFileTime - this.firstTimeInSeconds) / 60;
       if (currentMin > this.currentMin) {
         this.currentMin = currentMin;
@@ -518,8 +530,6 @@
       const totalMin = (virtualclass.recorder.totalTimeInMiliSeconds) / 1000 / 60;
       this.downloadInPercentage = ((this.currentMin * 100) / totalMin);
       virtualclass.pbar.renderProgressBar(totalMin, this.currentMin, 'downloadProgressBar', 'downloadProgressValue');
-      this.finishRequestDataFromServer(singleFileTime);
-
       if (virtualclass.recorder.playStart && !virtualclass.recorder.waitServer) {
         virtualclass.recorder.init();
       }

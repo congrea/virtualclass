@@ -392,8 +392,9 @@
       }
     },
     identifyLastNote(wid) {
-      var elem = document.querySelector('#virtualclassWhiteboard');
-      var index = this.order.indexOf(wid.slice(7));
+      let elem = document.querySelector('#virtualclassWhiteboard');
+      const extractId = +(wid.slice(7));
+      let index = this.order.indexOf(extractId);
       if ((index + 1 == this.order.length) || (wid == '_doc_0_0' && virtualclass.gObj.wIds.length == 1)) {
         elem.classList.add('lastNote');
       } else {

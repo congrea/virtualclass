@@ -59,7 +59,6 @@ Config.prototype.endSession = function (onlyStoredData){
 
   // Remove all chat user list
   const chatUsers = chatContainerEvent.elementFromShadowDom('.ui-memblist-usr', 'all');
-
   if (chatUsers != null && chatUsers.length > 0) {
     for (let i = 0; i < chatUsers.length; i++) {
       if (chatUsers[i] != null) {
@@ -272,12 +271,14 @@ Config.prototype.endSession = function (onlyStoredData){
       }
     }
 
-    if (chatroomTab != null) {
+    if (chatroomTab !== null) {
       if (!listTab.classList.contains('active')) {
         listTab.classList.add('active');
       }
       chatroomTab.classList.remove('active');
     }
+
+    virtualclass.chat.removeCommonChatNodes();
   }
 
   if (virtualclass.serverData != null) {

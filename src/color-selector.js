@@ -292,7 +292,8 @@
         + '#virtualclassCont.congrea #audioWidget #speakerPressOnce:hover,'
         + '#virtualclassCont.congrea #audioTest-box:hover,'
         + '#virtualclassCont.congrea #playButton:hover, '
-        + '#virtualclassCont.congrea #alwaysPress:hover'
+        + '#virtualclassCont.congrea #alwaysPress:hover,'
+        + '#virtualclassCont.congrea .recButton:hover'
         + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%) !important}`
 
         + '#virtualclassCont.congrea .vmchat_support.active ,'

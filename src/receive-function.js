@@ -99,31 +99,6 @@ const receiveFunctions = new function () {
     }
   };
 
-  // enable chat
-  this.enc = function (e) {
-    if (e.message.hasOwnProperty('ouser')) {
-      virtualclass.user.control.enable(e.message.ouser, 'chat', 'Chat', 'chat');
-    } else {
-      virtualclass.user.control.allChatEnable();
-      virtualclass.gObj.chatEnable = true;
-      // virtualclass.vutil.beforeSend({'enc': true, 'cf': 'enc', ouser: e.message.toUser});
-    }
-    document.querySelector('#chatWidget').classList.remove('chat_disabled');
-    document.querySelector('#chat_div').classList.remove('chat_disabled');
-  };
-
-  // disable chat
-  this.dic = function (e) {
-    // if other user's control should be disabled
-    if (e.message.hasOwnProperty('ouser')) {
-      virtualclass.user.control.disable(e.message.ouser, 'chat', 'Chat', 'chat');
-    } else {
-      virtualclass.user.control.allChatDisable();
-      virtualclass.gObj.chatEnable = false;
-      // virtualclass.vutil.beforeSend({'dic': true, 'cf': 'dic', ouser: e.message.toUser});
-    }
-  };
-
   // enable audio
   this.ena = function (e) {
   };

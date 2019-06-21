@@ -160,9 +160,9 @@
             }
 
             if (roles.hasAdmin()) {
-              if (audBlock.dataset.audioDisable == 'false') {
-                const allAudAction = localStorage.getItem('allAudAction');
-                if (allAudAction != null && allAudAction == 'disable') {
+              if (audBlock.dataset.audioDisable === 'false') {
+                const allAudAction = localStorage.getItem('allAudioAction');
+                if (allAudAction != null && allAudAction === 'disable') {
                   audBlock.click();
                 }
               }
@@ -439,7 +439,7 @@
             } else if (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssignId == userId) {
               virtualclass.user.control.updateUser(userId, 'currTeacher', true);
             }
-          } else if (control == 'audio') {
+          } else if (control == 'audio'|| control == 'chat' ) {
             elem.className = `icon-${control}DisImg block` + ` ${control}DisImg`;
           }
 
@@ -666,13 +666,11 @@
 
 
         _chat(userId, action) {
-          if (action == 'enable') {
-            //virtualclass.vutil.beforeSend({ enc: true, toUser: userId, cf: 'enc' }, userId);
-             virtualclass.settings.applySettings(true, "studentpc", userId);
+          if (action === 'enable') {
+            virtualclass.settings.applySettings(true, 'studentpc', userId);
           } else {
             const user = virtualclass.user.control.updateUser(userId, 'chat', false);
-            //virtualclass.vutil.beforeSend({ dic: true, toUser: userId, cf: 'dic' }, userId);
-             virtualclass.settings.applySettings(false, "studentpc", userId);
+            virtualclass.settings.applySettings(false, 'studentpc', userId);
           }
         },
 
@@ -812,16 +810,11 @@
           }
         },
 
-        allChatDisable() {
-          this.disableCommonChat();
-          this.disbaleAllChatBox();
-          this.disableOnLineUser();
-        },
-
         disableCommonChat() {
           const div = document.getElementById('chatrm');
           if (div != null) {
             this.makeElemDisable(div);
+            div.classList.add('chat_disable');
           }
           const chatInput = document.querySelector('#virtualclassCont.congrea #ta_chrm2');
           if (chatInput) {
@@ -830,25 +823,10 @@
           }
         },
         disbaleAllChatBox() {
-          localStorage.setItem('chatEnable', 'false');
-          const rightPanel = document.querySelector('#virtualclassAppRightPanel');
-          if (rightPanel !== null) {
-            rightPanel.classList.add('chat_disabled');
-            document.querySelector('#chat_div').classList.add('chat_disabled');
-            rightPanel.classList.remove('chat_enabled');
-
-            const allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
-            for (let i = 0; i < allChatBoxes.length; i++) {
-              this.makeElemDisable(allChatBoxes[i]);
-            }
-          }
-        },
-
-        /** TODO this function should be removed, use the mechanism, which is using at chat.init() in chat.js * */
-        disableOnLineUser() {
-          const allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
-          for (let i = 0; i < allChatDivCont.length; i++) {
-            allChatDivCont[i].style.pointerEvents = 'none';
+          document.querySelector('#chat_div').classList.add('chat_disabled');
+          const allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
+          for (let i = 0; i < allChatBoxes.length; i++) {
+            this.makeElemDisable(allChatBoxes[i]);
           }
         },
 
@@ -867,87 +845,45 @@
             inputBox.disabled = true;
           }
         },
-        allChatEnable() {
-          localStorage.setItem('chatEnable', 'true');
-          const rightPanel = document.querySelector('#virtualclassAppRightPanel');
-          if (rightPanel !== null) {
-            rightPanel.classList.remove('chat_disabled');
+        allChatEnable(act) {
+          if (act === 'pc') {
             document.querySelector('#chat_div').classList.remove('chat_disabled');
-
-            rightPanel.classList.add('chat_enabled');
-
+            const allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
+            for (var i = 0; i < allChatBoxes.length; i++) {
+              this.makeElemEnable(allChatBoxes[i]);
+            }
+          } else if (act === 'gc') {
+            const div = document.getElementById('chatrm');
+            if (div != null) {
+              // virtualclass.user.control.makeElemEnable(div);
+              div.classList.remove('chat_disable');
+            }
             const chatInput = document.querySelector('#virtualclassCont.congrea #ta_chrm2');
             if (chatInput) {
               chatInput.classList.remove('disable');
               chatInput.disabled = false;
             }
+          }
 
+          const userList = document.querySelector('#virtualclassCont #memlist.enable');
+          const chatrm = document.querySelector('#virtualclassCont #chatrm.enable');
 
-            // var allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
-            const allChatBoxes = document.getElementById('stickycontainer').getElementsByClassName('ui-chatbox');
-            for (var i = 0; i < allChatBoxes.length; i++) {
-              this.makeElemEnable(allChatBoxes[i]);
+          const listTab = document.querySelector('#user_list');
+          const chatroomTab = document.querySelector('#chatroom_bt2');
+          if (userList && !listTab.classList.contains('active')) {
+            if (!listTab.classList.contains('active')) {
+              listTab.classList.add('active');
             }
-            var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
-            for (var i = 0; i < allChatDivCont.length; i++) {
-              if (!allChatDivCont[i].classList.contains('mySelf')) {
-                allChatDivCont[i].style.pointerEvents = 'visible';
-                // virtualclass.user.control.enable(allChatDivCont[i].id.slice(2), 'chat', 'Chat', 'chat');
-              }
-              const chatIcon = allChatDivCont[i].querySelector('.icon-chatImg');
-              if (chatIcon && !chatIcon.classList.contains('enable')) {
-                chatIcon.classList.add('enable');
-                chatIcon.setAttribute('data-chat-disable', 'false');
-              }
+            chatroomTab.classList.remove('active');
+            virtualclass.chat.chatWindow = 'private';
+          }
 
-              const txteditorIcon = allChatDivCont[i].querySelector('.icon-editorRichImg');
-              if (txteditorIcon && txteditorIcon.classList.contains('enable')) {
-                txteditorIcon.classList.remove('enable');
-                txteditorIcon.classList.add('block');
-                txteditorIcon.parentNode.setAttribute('data-title', virtualclass.lang.getString('writemode'));
-                txteditorIcon.setAttribute('data-editorrich-disable', 'true');
-              }
-
-              const codeeditorIcon = allChatDivCont[i].querySelector('.icon-editorCodeImg');
-              if (codeeditorIcon && codeeditorIcon.classList.contains('enable')) {
-                codeeditorIcon.classList.remove('enable');
-                codeeditorIcon.classList.add('block');
-                codeeditorIcon.parentNode.setAttribute('data-title', virtualclass.lang.getString('editorCodeDisable'));
-                codeeditorIcon.setAttribute('data-editorcode-disable', 'true');
-              }
-
-              const muteIcon = allChatDivCont[i].querySelector('.icon-audioDisImg');
-              if (muteIcon && muteIcon.classList.contains('block')) {
-                muteIcon.parentNode.setAttribute('data-title', virtualclass.lang.getString('audioEnable'));
-                muteIcon.setAttribute('data-audio-disable', 'false');
-              }
+          if (chatrm) {
+            if (!chatroomTab.classList.contains('active')) {
+              chatroomTab.classList.add('active');
             }
-
-            const userList = document.querySelector('#virtualclassCont #memlist.enable');
-            const chatrm = document.querySelector('#virtualclassCont #chatrm.enable');
-
-            const listTab = document.querySelector('#user_list');
-            const chatroomTab = document.querySelector('#chatroom_bt2');
-            if (userList && !listTab.classList.contains('active')) {
-              if (!listTab.classList.contains('active')) {
-                listTab.classList.add('active');
-              }
-              chatroomTab.classList.remove('active');
-              virtualclass.chat.chatWindow = 'private';
-            }
-
-            if (chatrm) {
-              if (!chatroomTab.classList.contains('active')) {
-                chatroomTab.classList.add('active');
-              }
-              listTab.classList.remove('active');
-              virtualclass.chat.chatWindow = 'common';
-            }
-
-            var allChatDivCont = document.getElementsByClassName('ui-memblist-usr');
-            for (var i = 0; i < allChatBoxes.length; i++) {
-              this.makeElemEnable(allChatBoxes[i]);
-            }
+            listTab.classList.remove('active');
+            virtualclass.chat.chatWindow = 'common';
           }
         },
 
@@ -1219,12 +1155,18 @@
        * disable/enable all the audio
        * @param action expect either enable/disable
        */
-      toggleAllAudio(action) {
+      toggleAllUserListIcon(action, type) {
+        let actType;
+        if (type === 'audio') {
+          actType = 'Aud';
+        } else {
+          actType = 'Chat';
+        }
         const allUsersDom = chatContainerEvent.elementFromShadowDom('.controleCont', 'all');
         // var allUsersDom = document.getElementsByClassName('controleCont');
         if (allUsersDom.length > 0) {
           for (let i = 0; i < allUsersDom.length; i++) {
-            if (allUsersDom[i].id.indexOf('Aud') > 0) {
+            if (allUsersDom[i].id.indexOf(actType) > 0) {
               const idPartPos = allUsersDom[i].id.indexOf('Cont');
               if (idPartPos > 0) {
                 const idPart = allUsersDom[i].id.substr(0, idPartPos);
@@ -1250,7 +1192,8 @@
        * it's helper function
        */
       mediaSliderUI(type) {
-        const lable = (type === 'audio') ? 'Audio' : 'Video';
+        // const lable = (type === 'audio') ? 'Audio' : 'Video';
+        const lable = virtualclass.vutil.capitalizeFirstLetter(type);
         let spanTag = document.querySelector(`.bulkUserActions #contr${lable}AllImg`);
         const settings = virtualclass.settings.info;
         const getMediaAction = virtualclass.user.defaultSettings(type, settings);
@@ -1278,28 +1221,33 @@
         }
 
         if (virtualclass.isPlayMode) {
-          anchorTag.pointerEvents = 'none';
-          anchorTag.style.cursor = 'default';
+          // anchorTag.pointerEvents = 'none';
+          // anchorTag.style.cursor = 'default';
         } else {
           const that = this;
           spanTag.addEventListener('click', () => {
             let actionToPerform;
-            if (type === 'audio') {
-              actionToPerform = that.toogleAudioIcon();
-              const actAudio = (actionToPerform === 'enable');
-              virtualclass.settings.applySettings(actAudio, 'studentaudio');
-
-              if (typeof actionToPerform !== 'undefined') {
-                localStorage.setItem('allAudAction', actionToPerform);
-                that.toggleAllAudio.call(virtualclass.user, actionToPerform);
+            if (type === 'audio' || type === 'video' || type === 'chat' || type === 'groupChat') {
+              const setLable = virtualclass.vutil.capitalizeFirstLetter(type);
+              actionToPerform = that.toogleIcon(type);
+              const act = (actionToPerform === 'enable');
+              let typeSend;
+              if (type === 'chat') {
+                typeSend = 'pc';
+              } else if (type === 'groupChat') {
+                typeSend = 'gc';
+              } else {
+                typeSend = type;
               }
-            } else {
-              actionToPerform = that.toggleVideoIcon();
-              const actVideo = (actionToPerform === 'enable');
-              virtualclass.settings.applySettings(actVideo, 'studentvideo');
+              virtualclass.settings.applySettings(act, `student${typeSend}`);
               if (typeof actionToPerform !== 'undefined') {
-                localStorage.setItem('allVideoAction', actionToPerform);
-                that.toggleAllVideo(actionToPerform);
+                localStorage.setItem(`all${setLable}Action`, actionToPerform);
+                // if (type === 'video') {
+                //   that.toggleAllVideo.call(virtualclass.user, actionToPerform, type);
+                // } else
+                if (type === 'audio' || type === 'chat') {
+                  that.toggleAllUserListIcon.call(virtualclass.user, actionToPerform, type);
+                }
               }
             }
           });
@@ -1312,7 +1260,8 @@
         // TODO, review this code
         for (const propname in obj) {
           value = obj[propname];
-          if (type === 'audio' && propname === 'studentaudio' || type === 'video' && propname === 'studentvideo') {
+          if (type === 'audio' && propname === 'studentaudio' || type === 'video' && propname === 'studentvideo'
+            || type === 'chat' && propname === 'studentpc' || type === 'groupChat' && propname === 'studentgc') {
             actionAV = (value === true) ? 'enable' : 'disable';
           }
         }
@@ -1352,50 +1301,23 @@
         }
       },
 
-      toogleAudioIcon() {
-        const audioController = document.querySelector('.bulkUserActions #contrAudioAllImg');
-        if (audioController != null) {
-          let actionToPerform = audioController.dataset.action;
-
-          if (audioController.dataset.action == 'enable') {
-            audioController.dataset.action = 'disable';
-            // audioController.innerHTML = "Dis Aud All";
-
-            audioController.className = 'slider round icon-all-audio-disable congtooltip';
-
-            audioController.dataset.title = virtualclass.lang.getString('muteAll');
-
-            var cont = document.querySelector('.congrea .bulkUserActions #contrAudioAll');
+      toogleIcon(type) {
+        const lable = virtualclass.vutil.capitalizeFirstLetter(type);
+        const Controller = document.querySelector(`.bulkUserActions #contr${lable}AllImg`);
+        if (Controller != null) {
+          const actionToPerform = Controller.dataset.action;
+          if (Controller.dataset.action === 'enable') {
+            Controller.dataset.action = 'disable';
+            Controller.className = `slider round icon-all-${type}-disable congtooltip`;
+            Controller.dataset.title = virtualclass.lang.getString(`disableAll${lable}`);
+            const cont = document.querySelector(`.congrea .bulkUserActions #contr${lable}All`);
             cont.classList.add('disable');
             cont.classList.remove('enable');
           } else {
-            audioController.dataset.action = 'enable';
-            // audioController.innerHTML = "En Aud All";
-            audioController.className = 'slider round icon-all-audio-enable congtooltip';
-            audioController.dataset.title = virtualclass.lang.getString('unmuteAll');
-            var cont = document.querySelector('.congrea .bulkUserActions #contrAudioAll');
-            cont.classList.add('enable');
-            cont.classList.remove('disable');
-          }
-          return actionToPerform;
-        }
-      },
-      toggleVideoIcon() {
-        const videoController = document.querySelector('.bulkUserActions #contrVideoAllImg');
-        if (videoController != null) {
-          let actionToPerform = videoController.dataset.action;
-          if (videoController.dataset.action == 'enable') {
-            videoController.dataset.action = 'disable';
-            videoController.className = 'slider round icon-all-video-disable congtooltip';
-            videoController.dataset.title = virtualclass.lang.getString('disableAllVideo');
-            var cont = document.querySelector('.congrea .bulkUserActions #contrVideoAll');
-            cont.classList.add('disable');
-            cont.classList.remove('enable');
-          } else {
-            videoController.dataset.action = 'enable';
-            videoController.className = 'slider round icon-all-video-enable congtooltip';
-            videoController.dataset.title = virtualclass.lang.getString('enableAllVideo');
-            var cont = document.querySelector('.congrea .bulkUserActions #contrVideoAll');
+            Controller.dataset.action = 'enable';
+            Controller.className = `slider round icon-all-${type}-enable congtooltip`;
+            Controller.dataset.title = virtualclass.lang.getString(`enableAll${lable}`);
+            const cont = document.querySelector(`.congrea .bulkUserActions #contr${lable}All`);
             cont.classList.add('enable');
             cont.classList.remove('disable');
           }
@@ -1488,9 +1410,9 @@
             // }
 
             if (roles.hasAdmin()) {
-              if (allSpans[i].dataset.audioDisable == 'false') {
-                const allAudAction = localStorage.getItem('allAudAction');
-                if (allAudAction != null && allAudAction == 'disable') {
+              if (allSpans[i].dataset.audioDisable === 'false') {
+                const allAudAction = localStorage.getItem('allAudioAction');
+                if (allAudAction != null && allAudAction === 'disable') {
                   // allSpans[i].click();
                 }
               }

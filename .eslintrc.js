@@ -42,6 +42,7 @@ module.exports = {
     virtualclass : 'writable',
     virtualclassSetting: 'writable',
     wbUser: 'writable',
+    axios: 'readonly',
     chatContainerEvent: 'writable'
   },
   parserOptions: {

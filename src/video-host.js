@@ -128,14 +128,13 @@ var videoHost = {
   },
 
 
-  onmessage(msg) {
-    console.log(msg);
-    if (msg.congCtr.videoSwitch == 'on') {
+  onmessage(videoSwitch) {
+    if (videoSwitch === 'on') {
       virtualclass.videoHost.gObj.videoSwitch = 1;
       console.log('videoSwitch 1');
       this.UI.displayTeacherVideo();
       localStorage.tvideo = 'show';
-    } else if (msg.congCtr.videoSwitch == 'off') {
+    } else if (videoSwitch === 'off') {
       virtualclass.videoHost.gObj.videoSwitch = 0;
       this.UI.hideTeacherVideo();
       localStorage.tvideo = 'hide';

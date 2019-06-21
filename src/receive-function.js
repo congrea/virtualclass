@@ -360,14 +360,15 @@ const receiveFunctions = new function () {
       virtualclass.videoUl.onmessage(e.message);
     }
   };
-  // nirmala
+
   this.congController = function (e) {
+    const videoMode = e.message.congCtr.videoSwitch;
+
     if (e.fromUser.userid != virtualclass.gObj.uid) {
-      virtualclass.videoHost.onmessage(e.message);
+      virtualclass.videoHost.onmessage(videoMode);
     }
 
-    const videoMode = e.message.congCtr.videoSwitch;
-    if (videoMode == 'off') {
+    if (videoMode === 'off') {
       virtualclass.vutil.addClass('virtualclassCont', 'videoff');
       virtualclass.vutil.addClass('virtualclassAppRightPanel', 'hide');
       virtualclass.vutil.removeClass('virtualclassAppRightPanel', 'show');
@@ -589,21 +590,14 @@ const receiveFunctions = new function () {
     }
   };
 
-  this.sync = function () {
-  };
-
-  // this.wbData = function (e) {
-  //   console.log(e);
-  //   if (e.message.wbIndex) {
-  //     virtualclass.gObj.currIndex = parseInt(e.message.wbIndex);
-  //     virtualclass.wbCommon.indexNav.studentWBPagination(e.message.wbIndex - 1);
-  //   }
-  // };
-
+  this.sync = function () {};
 
   /** setting * */
   this.recs = function (e) {
-    if (!virtualclass.isPlayMode) {
+    if (virtualclass.isPlayMode) {
+      /* Teacher video Off/On on recording after av recording off/on */
+      e.message.ac === 11 ? virtualclass.videoHost.onmessage('off') : virtualclass.videoHost.onmessage('on');
+    } else {
       virtualclass.settings.onMessage(e.message);
     }
   };

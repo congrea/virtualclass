@@ -626,14 +626,6 @@
       this.triggerSynchPacket();
     },
 
-    selfSeek() {
-      console.log('Start self seek');
-      this.selfStartSeek = true;
-      this._seek();
-      this.triggerSynchPacket();
-      this.controller._play();
-    },
-
     triggerSynchPacket() {
       this.triggerPlayProgress();
       // console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
@@ -643,12 +635,6 @@
         this.binarySyncMsg = null;
       }
       this.handleSyncStringPacket();
-    },
-
-    seekFinished(index) {
-      if (index == undefined && this.masterRecordings[this.masterIndex][this.subRecordingIndex] != undefined) {
-        return (this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":true,"cf":"recs"') > -1);
-      }
     },
 
     _seek(index) {
@@ -717,10 +703,6 @@
             // console.log('PLAY ERROR ' + e.errorCode);
           }
 
-          if (virtualclass.settings.info.trimRecordings && this.selfStartSeek && this.seekFinished()) {
-            this.selfSeekFinished = true;
-            break;
-          }
           this.subRecordingIndex++;
         }
 
@@ -728,7 +710,7 @@
 
         /* When seek point is found exit the while loop* */
 
-        if ((index != undefined && this.masterIndex === index.master && index.sub === this.subRecordingIndex) || this.selfSeekFinished) {
+        if (index != undefined && this.masterIndex === index.master && index.sub === this.subRecordingIndex) {
           break;
         } else {
           this.subRecordingIndex = 0;
@@ -739,7 +721,7 @@
     },
 
     handleSyncStringPacket() {
-      if (virtualclass.currApp == 'Poll' && typeof virtualclass.poll.pollState.data === 'object' && virtualclass.poll.hasOwnProperty('recordStartTime')) {
+      if (virtualclass.currApp === 'Poll' && typeof virtualclass.poll.pollState.data === 'object' && virtualclass.poll.hasOwnProperty('recordStartTime')) {
         const pollStartTime = this.getTotalTimeInMilSeconds(virtualclass.poll.recordStartTime.data.masterIndex, virtualclass.poll.recordStartTime.data.subIndex);
         if (virtualclass.poll.dataRec.setting.timer) { // showTimer() for remaining time
           const pollData = virtualclass.poll.pollState;
@@ -752,7 +734,7 @@
           virtualclass.poll.elapsedTimer();
           // for elapsed timer
         }
-      } else if (virtualclass.currApp == 'Video' && typeof virtualclass.videoUl === 'object'
+      } else if (virtualclass.currApp === 'Video' && typeof virtualclass.videoUl === 'object'
         && virtualclass.videoUl.hasOwnProperty('videoStartTime')) {
         const videoStartTime = this.getTotalTimeInMilSeconds(virtualclass.videoUl.videoStartTime.data.masterIndex, virtualclass.videoUl.videoStartTime.data.subIndex);
         const videoElapsedtime = (this.elapsedPlayTime - videoStartTime);
@@ -769,7 +751,7 @@
           }
           virtualclass.videoUl.startTime = videoSeekTime;
         }
-      } else if (virtualclass.currApp == 'Quiz' && typeof virtualclass.quiz === 'object') {
+      } else if (virtualclass.currApp === 'Quiz' && typeof virtualclass.quiz === 'object') {
         // virtualclass.quiz.plugin.method.completeQuiz({callback: virtualclass.quiz.plugin.config.animationCallbacks.completeQuiz});
 
         const timeDisplayInto = document.querySelector('#qztime');
@@ -783,6 +765,7 @@
           virtualclass.quiz.plugin.method.startTimer(quizElapsedTime, timeDisplayInto, 'asc', 'vmQuiz');
         }
       }
+
     },
 
     pollUpdateTime(pollStartTime, pollData) {
@@ -926,30 +909,26 @@
         this.triggerPlayProgress();
         try {
           if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"cf":"sync"') < 0) {
-            // console.log('Execute real packet', this.subRecordings[this.subRecordingIndex].recObjs);
-            // console.log("==== ElapsedTime playtime ", this.playTime + ' index='+this.masterIndex + ' subindex'+ this.subRecordingIndex);
             io.onRecMessage(this.convertInto({ data: this.subRecordings[this.subRecordingIndex].recObjs }));
-            if (virtualclass.currApp == 'Poll'
+            if (virtualclass.currApp === 'Poll'
               && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('},"m":{"poll":{"pollMsg":"stdPublish",') > -1) {
               virtualclass.poll.recordStartTime = {
                 app: 'Poll',
                 data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
               };
-            } else if (virtualclass.currApp == 'Video'
+            } else if (virtualclass.currApp === 'Video'
               && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"videoUl":{"content_path"') > -1) {
               virtualclass.videoUl.videoStartTime = {
                 app: 'Video',
                 data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
               };
               console.log('Capture video');
-            } else if (virtualclass.currApp == 'Quiz'
+            } else if (virtualclass.currApp === 'Quiz'
               && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"quiz":{"quizMsg":"stdPublish",') > -1) {
               virtualclass.quiz.quizStartTime = {
                 app: 'Quiz',
                 data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
               };
-            } else if (virtualclass.settings.info.trimRecordings && this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":false,"cf":"recs"') > -1) {
-              virtualclass.recorder.selfSeek();
             }
           }
         } catch (e) {

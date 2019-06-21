@@ -1812,7 +1812,7 @@
       updateInAllDocs(noteid) {
         // var docId = virtualclass.dts.currDoc.substring(4, virtualclass.dts.currDoc.length);
         const docId = noteid.split('_')[0];
-        doc = this.allDocs[docId];
+        const doc = this.allDocs[docId];
         if (typeof doc.notes[noteid] !== 'undefined') {
           doc.notes[noteid].deletedn = noteid;
           for (let i = 0; i < doc.notesarr.length; i++) {

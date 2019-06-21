@@ -9,6 +9,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worklet-audio-rec.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/webptopng.js"></script>
 
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/axios.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave-mic.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/jquery-1.12.4.js"></script>

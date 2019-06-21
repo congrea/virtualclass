@@ -1127,3 +1127,11 @@
   padding: 6px !important;
   bottom: 31px !important;
 }
+
+@-moz-document url-prefix() { 
+
+  #virtualclassCont.congrea[data-currapp="DocumentShare"].teacher #docShareNav, #virtualclassCont.congrea[data-currapp="Whiteboard"].teacher #docShareNav {
+    padding: 11px 16px 12px 16px;
+  }
+
+}

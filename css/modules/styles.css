@@ -2432,14 +2432,6 @@
   border-left: 1px solid #bbb;
 }
 
-@-moz-document url-prefix() {
-  #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber,
-  #virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videLatency,
-  #virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videoFrameRate {
-    padding-bottom: 18px;
-  }
-}
-
 #virtualclassCont.congrea #virtualclassAppRightPanel .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header {
   border-radius: 0;
   padding: 7px 0px 18px;
@@ -4655,3 +4647,17 @@ and (max-device-width: 1024px) {
   background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
 }
 
+/* ======== Firefox ========== */
+
+@-moz-document url-prefix() {
+  #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber,
+  #virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videLatency,
+  #virtualclassCont.congrea #virtualclassAppRightPanel #videoPacketInfo #videoFrameRate {
+    padding-bottom: 18px;
+  }
+
+  #virtualclassCont.congrea #fullScreenButton .fullScreen, #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
+    padding: 11px 18px 10px 18px;
+  }
+
+}

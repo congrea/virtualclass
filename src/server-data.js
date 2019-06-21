@@ -24,12 +24,13 @@ const serverData = {
   requestData(url) {
     this.rawData = { video: [], ppt: [], docs: [] };
     this.sdxhr.post(url, {})
-      .then(function (response) {
+      .then((response) => {
         virtualclass.serverData.afterResponse(response.data);
       })
-      .catch(function (error) {
-        console.log(error)
-        virtualclass.serverData.requestData(url);
+      .catch(() => {
+        setTimeout(() => {
+          virtualclass.serverData.requestData(url);
+        }, 1000);
       });
   },
 
@@ -83,24 +84,24 @@ const serverData = {
                 disabledNotes = obj.disablednes;
               }
 
-              const dochead = document.getElementsByTagName('head')[0];
-              let hint;
+              // const dochead = document.getElementsByTagName('head')[0];
+              // let hint;
               for (let i = 1; i <= count; i++) {
                 num = pad(i, 3);
                 imageUrl = `${docPrefix}/image/${num}.${arr[j].processed_data.M.image.M.type.S}`;
                 pdfUrl = `${docPrefix}/pdf/${num}.pdf`;
                 thnailUrl = `${docPrefix}/thumbnail/${num}.${arr[j].processed_data.M.thumbnail.M.type.S}`;
 
-                hint = document.createElement('link');
-                hint.setAttribute('rel', 'prefetch');
-                hint.setAttribute('crossOrigin', 'use-credentials');
-                hint.setAttribute('href', thnailUrl);
-                dochead.appendChild(hint);
-                hint = document.createElement('link');
-                hint.setAttribute('rel', 'prefetch');
-                hint.setAttribute('crossOrigin', 'use-credentials');
-                hint.setAttribute('href', pdfUrl);
-                dochead.appendChild(hint);
+                // hint = document.createElement('link');
+                // hint.setAttribute('rel', 'prefetch');
+                // hint.setAttribute('crossOrigin', 'use-credentials');
+                // hint.setAttribute('href', thnailUrl);
+                // dochead.appendChild(hint);
+                // hint = document.createElement('link');
+                // hint.setAttribute('rel', 'prefetch');
+                // hint.setAttribute('crossOrigin', 'use-credentials');
+                // hint.setAttribute('href', pdfUrl);
+                // dochead.appendChild(hint);
 
                 if (i > 99) {
                   noteId = `${obj.fileuuid}_${i}`;

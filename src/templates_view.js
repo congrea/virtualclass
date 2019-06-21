@@ -9,7 +9,11 @@ this["JST"]["dest_temp/templates/appSettingDetail.hbs"] = Handlebars.template({"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"muteAllAudio",{"name":"getString","hash":{},"data":data}))
     + " <label class=\"switch\"><input type=\"checkbox\"><span class=\"slider round icon-all-audio-enable congtooltip\" id=\"contrAudioAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrVideoAll\"><div class=\"appSettingIcons\" id=\"usersVideoSwitch\"></div> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"disableAllVideo",{"name":"getString","hash":{},"data":data}))
-    + " <label class=\"switch video_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-video-enable congtooltip\" id=\"contrVideoAllImg\"></span></label></li></ul></div> ";
+    + " <label class=\"switch video_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-video-enable congtooltip\" id=\"contrVideoAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrChatAll\"><div class=\"appSettingIcons\" id=\"usersChatSwitch\"></div> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"disableAllChat",{"name":"getString","hash":{},"data":data}))
+    + " <label class=\"switch chat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-chat-enable congtooltip\" id=\"contrChatAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrGroupChatAll\"><div class=\"appSettingIcons\" id=\"usersGroupChatSwitch\"></div> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"disableAllGroupChat",{"name":"getString","hash":{},"data":data}))
+    + " <label class=\"switch GroupChat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-groupChat-enable congtooltip\" id=\"contrGroupChatAllImg\"></span></label></li></ul></div> ";
 },"3":function(container,depth0,helpers,partials,data) {
     return " <div class=\"uiMuteAll\"><a id=\"contrAudioAll\"><span class=\"cgIcon\"id=\"contrAudioAllImg\" data-action=\"disable\" class=\"icon-all-audio-disable cgIcon\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"muteAll",{"name":"getString","hash":{},"data":data}))
@@ -153,7 +157,7 @@ this["JST"]["dest_temp/templates/chat/chatuser.hbs"] = Handlebars.template({"1":
     + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.chatIconColors : stack1)) != null ? stack1.initial : stack1), depth0))
     + "</span></a> ";
 },"5":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {}), alias4=helpers.helperMissing;
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {});
 
   return " <div id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
@@ -164,24 +168,12 @@ this["JST"]["dest_temp/templates/chat/chatuser.hbs"] = Handlebars.template({"1":
     + "\" id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrAudCont\"><a class=\"congtooltip\" data-title=\""
-    + alias2((helpers.getString || (depth0 && depth0.getString) || alias4).call(alias3,"audioEnable",{"name":"getString","hash":{},"data":data}))
+    + alias2((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(alias3,"audioEnable",{"name":"getString","hash":{},"data":data}))
     + "\" id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "contrAudAnch\" data-event=\"ac\"><span class=\"icon-audioImg enable audioImg contImg\" data-audio-disable=\"false\" id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "contrAudImg\" data-event=\"ac\"></span></a></div><div class=\"controleCont userChat chatControl"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "\" id=\""
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "contrChatCont chatUser"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "\"><a class=\"congtooltip\" data-title=\""
-    + alias2((helpers.getString || (depth0 && depth0.getString) || alias4).call(alias3,"chatEnable",{"name":"getString","hash":{},"data":data}))
-    + "\" id=\""
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "contrChatAnch\" data-event=\"ch\"><span class=\"icon-chatImg enable chatImg contImg\" data-chat-disable=\"false\" id=\""
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
-    + "contrChatImg\" data-event=\"ch\"></span></a></div> "
+    + "contrAudImg\" data-event=\"ac\"></span></a></div> "
     + ((stack1 = helpers["if"].call(alias3,((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.isTeacher : stack1),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " </div> ";
 },"6":function(container,depth0,helpers,partials,data) {
@@ -215,7 +207,19 @@ this["JST"]["dest_temp/templates/chat/chatuser.hbs"] = Handlebars.template({"1":
 },"8":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {}), alias4=helpers.helperMissing;
 
-  return " <div class=\"controleCont controllereditorRich editorRich"
+  return " <div class=\"controleCont userChat chatControl"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
+    + "\" id=\""
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
+    + "contrChatCont chatUser"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
+    + "\"><a class=\"congtooltip\" data-title=\""
+    + alias2((helpers.getString || (depth0 && depth0.getString) || alias4).call(alias3,"chatEnable",{"name":"getString","hash":{},"data":data}))
+    + "\" id=\""
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
+    + "contrChatAnch\" data-event=\"ch\"><span class=\"icon-chatImg enable chatImg contImg\" data-chat-disable=\"false\" id=\""
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
+    + "contrChatImg\" data-event=\"ch\"></span></a></div><div class=\"controleCont controllereditorRich editorRich"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))
     + "\" id=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.peer : depth0)) != null ? stack1.userid : stack1), depth0))

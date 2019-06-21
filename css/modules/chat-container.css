@@ -456,6 +456,32 @@ div.ui-memblist-usr .user-details a .media-object {
   top: -1px;
 }
 
+#subchat.teacher .ui-memblist-usr .icon-chatDisImg::before {
+  font-family: 'icomoon';
+  content: "\f075";
+  color: #7d7a7a;
+  font-size: 118%;
+  font-weight: normal;
+  /*margin-right:1px;*/
+  margin-right:2px;
+  position : relative;
+  top : -1px;
+  /*left : 2px;*/
+}
+
+#subchat.student .ui-memblist-usr .icon-chatDisImg::before {
+  font-family: 'icomoon';
+  content: "\f075";
+  color: #7d7a7a;
+  font-size: 118%;
+  font-weight: normal;
+  /*margin-right:1px;*/
+  margin-right:2px;
+  position : relative;
+  top : -1px;
+  /*left : 2px;*/
+}
+
 /** After :host-context is supported in all browser, we don't need to put current app on chat_div element **/
 
 :host(.studentScreenSharing[data-currapp='ScreenShare']) span.icon-stdscreenImg {

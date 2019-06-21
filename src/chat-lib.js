@@ -370,11 +370,8 @@ function messageUpdate(e) {
           $(`#${did}`).chatbox('option', 'boxManager').addMsg(user.name, msg);
         },
       });
-
-      const chEnable = localStorage.getItem('chatEnable');
-      // bad way to check chatEnable
-      if (chEnable != null && chEnable == 'false') {
-        virtualclass.user.control.allChatDisable();
+      if (roles.isStudent()) {
+        virtualclass.settings.studentpc(virtualclass.settings.info.studentpc); // when teacher pc to student
       }
       $(`#${from.userid}`).chatbox('option').messageSent(from.userid, from, msg);
       // to change this

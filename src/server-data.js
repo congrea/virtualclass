@@ -1,5 +1,18 @@
 const serverData = {
   rawData: { video: [], ppt: [], docs: [] },
+  sdxhr: axios.create({
+    timeout: 10000,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': wbUser.lkey,
+      'x-congrea-authuser': wbUser.auth_user,
+      'x-congrea-authpass': wbUser.auth_pass,
+      'x-congrea-room': wbUser.room,
+      post: {
+        'Content-Type': 'application/json',
+      },
+    },
+  }),
 
   fetchAllData(cb) {
     console.log('Fetch all data');
@@ -10,25 +23,15 @@ const serverData = {
 
   requestData(url) {
     this.rawData = { video: [], ppt: [], docs: [] };
-    const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    xhr.open('POST', url);
-    const that = this;
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState > 3 && xhr.status == 200) {
-        // that.formatRawData(xhr.responseText);
-        // if(typeof that.cb != 'undefined'){
-        //     that.cb();
-        // }
-        that.afterResponse(xhr.responseText);
-      }
-    };
-
-    xhr.setRequestHeader('x-api-key', wbUser.lkey);
-    xhr.setRequestHeader('x-congrea-authuser', wbUser.auth_user);
-    xhr.setRequestHeader('x-congrea-authpass', wbUser.auth_pass);
-    xhr.setRequestHeader('x-congrea-room', wbUser.room);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(null);
+    this.sdxhr.post(url, {})
+      .then((response) => {
+        virtualclass.serverData.afterResponse(response.data);
+      })
+      .catch(() => {
+        setTimeout(() => {
+          virtualclass.serverData.requestData(url);
+        }, 1000);
+      });
   },
 
   // requestData3 :function(url) {
@@ -37,20 +40,11 @@ const serverData = {
   // },
 
   afterResponse(responseText) {
-    if (responseText != 'ERROR') {
-      virtualclass.serverData.formatRawData(responseText);
-      virtualclass.gObj.fetchedData = true;
-      if (typeof virtualclass.serverData.cb !== 'undefined') {
-        virtualclass.serverData.cb();
-      }
+    this.awsUrlArr(responseText);
+    virtualclass.gObj.fetchedData = true;
+    if (typeof virtualclass.serverData.cb !== 'undefined') {
+      virtualclass.serverData.cb();
     }
-  },
-
-  /* To move this function */
-  formatRawData(raw) {
-    const awsData = JSON.parse(raw);
-
-    this.awsUrlArr(awsData);
   },
 
   awsUrlArr(data) {
@@ -90,12 +84,24 @@ const serverData = {
                 disabledNotes = obj.disablednes;
               }
 
-
+              // const dochead = document.getElementsByTagName('head')[0];
+              // let hint;
               for (let i = 1; i <= count; i++) {
                 num = pad(i, 3);
                 imageUrl = `${docPrefix}/image/${num}.${arr[j].processed_data.M.image.M.type.S}`;
                 pdfUrl = `${docPrefix}/pdf/${num}.pdf`;
                 thnailUrl = `${docPrefix}/thumbnail/${num}.${arr[j].processed_data.M.thumbnail.M.type.S}`;
+
+                // hint = document.createElement('link');
+                // hint.setAttribute('rel', 'prefetch');
+                // hint.setAttribute('crossOrigin', 'use-credentials');
+                // hint.setAttribute('href', thnailUrl);
+                // dochead.appendChild(hint);
+                // hint = document.createElement('link');
+                // hint.setAttribute('rel', 'prefetch');
+                // hint.setAttribute('crossOrigin', 'use-credentials');
+                // hint.setAttribute('href', pdfUrl);
+                // dochead.appendChild(hint);
 
                 if (i > 99) {
                   noteId = `${obj.fileuuid}_${i}`;

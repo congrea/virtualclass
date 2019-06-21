@@ -10,8 +10,11 @@
       canvas: null,
       pdfScale: 1,
       url: '',
-      xhr: new CommonXHR(),
-      xhrNext: new CommonXHR(),
+      axhr: axios.create({
+        timeout: 5000,
+        withCredentials: true,
+        responseType: 'arraybuffer',
+      }),
       init(canvas, currNote) {
         const virtualclasElem = document.querySelector('#virtualclassCont');
         // if(virtualclasElem != null){
@@ -33,7 +36,15 @@
 
       prefechPdf(noteId) {
         const note = virtualclass.dts.getNote(noteId);
-        this.xhrNext.send(note.pdf, this.afterPdfPrefetch.bind(this, noteId), 'arraybuffer');
+        this.axhr.get(note.pdf)
+          .then((response) => {
+            virtualclass.pdfRender[virtualclass.gObj.currWb].afterPdfPrefetch(note.id, response.data);
+          })
+          .catch(() => {
+            setTimeout(() => {
+              virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(noteId);
+            }, 1000);
+          });
       },
 
       afterPdfPrefetch(noteId, data) {
@@ -67,7 +78,15 @@
         if (virtualclass.gObj.next.hasOwnProperty(currNote)) {
           this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
         } else {
-          this.xhr.send(url, this.afterPdfLoad.bind(this, canvas, currNote), 'arraybuffer');
+          this.axhr.get(url)
+            .then((response) => {
+              virtualclass.pdfRender[virtualclass.gObj.currWb].afterPdfLoad(canvas, currNote, response.data);
+            })
+            .catch(() => {
+              setTimeout(() => {
+                virtualclass.pdfRender[virtualclass.gObj.currWb]._loadPdf(url, canvas, currNote);
+              }, 1000);
+            });
         }
 
         // if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){

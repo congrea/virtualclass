@@ -506,6 +506,7 @@
   white-space: nowrap;
   z-index: 100;
   color: #000;
+  pointer-events: none;
   /*box-shadow : 0px 0px 1px #a4a4a4;*/
   font-size: 12px;
   font-weight: normal !important;
@@ -1525,10 +1526,8 @@
   float: left;
   text-align: center;
 }
-
-/*
-#virtualclassCont.congrea #playProgress {
-	background-color: #676666;
+  /*#virtualclassCont.congrea #playProgress {
+  background-color: #676666;
 	float: left;
 	margin-left: 18px;
 	margin-top: 21.5px;
@@ -1569,7 +1568,7 @@
 
 #virtualclassCont.congrea #playProgressBar.progressBar {
   height: 7px;
-  z-index: 13;
+  z-index: 1115;
   position: relative;
   top: 7px;
 
@@ -2112,16 +2111,6 @@
   z-index: 1150;
   max-width: 377px;
   color: rgba(131, 14, 14, 0.93);
-}
-
-@media (max-width: 1100px) {
-  #virtualclassCont.congrea #errorContainer {
-    max-width: 440px;
-  }
-
-  #virtualclassCont.congrea #errorContainer {
-    bottom: 15%;
-  }
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
@@ -4316,10 +4305,9 @@ span#usertab_text {
     bottom: 55%; */
 }
 
-#virtualclassCont.congrea.playMode #popupContainer.loading #loadingWindowCont .loading {
-  /* top: 32px;
-    left:20px;
-    position: absolute; */
+#virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .loading {
+  position: relative;
+  bottom: 25px;
 }
 
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay {
@@ -4340,6 +4328,7 @@ span#usertab_text {
   font-weight: bold;
   transition: all 0.3s ease;
   position: relative;
+  bottom: 25px;
   cursor: pointer;
 }
 
@@ -4430,6 +4419,24 @@ span#usertab_text {
 
 .rv-vanilla-modal-overlay.is-shown.askToPlayCont, #popupContainer.playPopup #loadingWindowCont {
   cursor: pointer;
+}
+@media (max-width: 1100px) {
+  #virtualclassCont.congrea #errorContainer {
+    max-width: 440px;
+  }
+
+  #virtualclassCont.congrea #errorContainer {
+    bottom: 15%;
+  }
+  #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay{
+    width: 70px;
+    height: 70px;
+  }
+  #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay span {
+    position: absolute;
+    top: 19px;
+    left: 24px;
+}
 }
 
 @media only screen

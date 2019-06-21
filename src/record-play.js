@@ -214,11 +214,13 @@
           const fileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${virtualclass.recorder.session}/${file}`;
 
           xhr.get(fileUrl)
-            .then(function (response) {
+            .then((response) => {
               virtualclass.recorder.afterDownloading(file, response.data, xhr);
             })
-            .catch(function (error) {
-              virtualclass.recorder.requestDataFromServer(file, xhr);
+            .catch(() => {
+              setTimeout(() => {
+                virtualclass.recorder.requestDataFromServer(file, xhr);
+              }, 1000);
             });
 
           // virtualclass.recorder.xhr[file] = new XHR();

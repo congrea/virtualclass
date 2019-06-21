@@ -37,11 +37,13 @@
       prefechPdf(noteId) {
         const note = virtualclass.dts.getNote(noteId);
         this.axhr.get(note.pdf)
-          .then(function (response) {
+          .then((response) => {
             virtualclass.pdfRender[virtualclass.gObj.currWb].afterPdfPrefetch(note.id, response.data);
           })
-          .catch(function () {
-            virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(noteId);
+          .catch(() => {
+            setTimeout(() => {
+              virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(noteId);
+            }, 1000);
           });
       },
 
@@ -77,11 +79,13 @@
           this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
         } else {
           this.axhr.get(url)
-            .then(function (response) {
+            .then((response) => {
               virtualclass.pdfRender[virtualclass.gObj.currWb].afterPdfLoad(canvas, currNote, response.data);
             })
-            .catch(function () {
-              virtualclass.pdfRender[virtualclass.gObj.currWb]._loadPdf(url, canvas, currNote);
+            .catch(() => {
+              setTimeout(() => {
+                virtualclass.pdfRender[virtualclass.gObj.currWb]._loadPdf(url, canvas, currNote);
+              }, 1000);
             });
         }
 

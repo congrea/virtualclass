@@ -1558,13 +1558,14 @@
           var cthis = this;
           cthis.afterFirstRequestDocs(dts.fallDocs);
           virtualclass.serverData.rawData.docs = dts.fallDocs;
-
-
-          //                    this.allDocs = dts.fallDocs;
-          //                    for(var i=0; i< this.allDocs.length; i++){
-          //                        this.initDocs( this.allDocs.id);
-          //                    }
-          // have to do something
+          const dochead = document.getElementsByTagName('head')[0];
+          for (const note in virtualclass.serverData.rawData.docs[0].notes) {
+            const hint = document.createElement('link');
+            hint.setAttribute('rel', 'prefetch');
+            hint.setAttribute('crossOrigin', 'use-credentials');
+            hint.setAttribute('href', virtualclass.serverData.rawData.docs[0].notes[note].pdf);
+            dochead.appendChild(hint);
+          }
         } else if (dts.hasOwnProperty('dres')) {
           this.docs.studentExecuteScreen(dts);
           console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Layout initialized');
@@ -1812,7 +1813,7 @@
       updateInAllDocs(noteid) {
         // var docId = virtualclass.dts.currDoc.substring(4, virtualclass.dts.currDoc.length);
         const docId = noteid.split('_')[0];
-        doc = this.allDocs[docId];
+        const doc = this.allDocs[docId];
         if (typeof doc.notes[noteid] !== 'undefined') {
           doc.notes[noteid].deletedn = noteid;
           for (let i = 0; i < doc.notesarr.length; i++) {

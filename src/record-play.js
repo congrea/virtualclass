@@ -6,55 +6,6 @@
 (function (window) {
   const TIME_TO_REQUEST = 3 * 60 * 1000; // every request would be performeed in given milisecond
   const RECORDING_TIME = 15 * 60 * 1000; // If elapsed time goes beyond the
-
-  function XHR() {
-    console.log('Define XHR class');
-  }
-
-  XHR.prototype.init = function () {
-    if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
-      this.httpObj = new XMLHttpRequest();
-    } else {
-      this.httpObj = new ActiveXObject('Microsoft.XMLHTTP');
-    }
-
-    this.onReadStateChange();
-
-    this.httpObj.onerror = function (err) {
-      console.log(`Error ${err}`);
-      this.cb('ERROR');
-    };
-
-    this.httpObj.withCredentials = true;
-
-    this.httpObj.onabort = function (evt) {
-      console.log(`Error abort ${evt}`);
-    };
-
-    return this.httpObj;
-  };
-
-  XHR.prototype.onReadStateChange = function () {
-    const that = this;
-    this.httpObj.onreadystatechange = function () {
-      if (that.httpObj.readyState == 4 && typeof that.cb !== 'undefined') {
-        that.httpObj.status == 200 ? that.cb(that.httpObj.responseText) : that.cb('ERROR');
-      }
-    };
-  };
-
-  XHR.prototype.send = function () {
-    this.cb = cb;
-    this.httpObj.open('POST', file, true);
-    this.httpObj.send(data);
-  };
-
-  XHR.prototype.loadData = function (url, cb) {
-    this.cb = cb;
-    this.httpObj.open('GET', url, true);
-    this.httpObj.send();
-  };
-
   const recorder = {
     playTime: 150,
     tempPlayTime: 150,
@@ -254,41 +205,44 @@
       }
     },
 
-    requestDataFromServer(file) {
+    requestDataFromServer(file, xhr) {
       if (this.isFileVcp(file)) {
         if (!this.alreadyRequested[file]) {
           console.log(`requested file ${file}`);
           // this.displayWaitPopupIfNot(virtualclass.lang.getString("plswaitwhile"));
 
           const fileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${virtualclass.recorder.session}/${file}`;
-          virtualclass.recorder.xhr[file] = new XHR();
-          virtualclass.recorder.xhr[file].init();
-          virtualclass.recorder.xhr[file].loadData(fileUrl, this.afterDownloading.bind(this, file));
+
+          xhr.get(fileUrl)
+            .then(function (response) {
+              virtualclass.recorder.afterDownloading(file, response.data, xhr);
+            })
+            .catch(function (error) {
+              virtualclass.recorder.requestDataFromServer(file, xhr);
+            });
+
+          // virtualclass.recorder.xhr[file] = new XHR();
+          // virtualclass.recorder.xhr[file].init();
+          // virtualclass.recorder.xhr[file].loadData(fileUrl, this.afterDownloading.bind(this, file));
         } else {
           console.log(`Already requested file ${file}`);
           if (virtualclass.recorder.totalRecordingFiles.length > 0) {
             const NextfileName = virtualclass.recorder.totalRecordingFiles.shift(); // Call Next
-            virtualclass.recorder.requestDataFromServer(NextfileName);
+            virtualclass.recorder.requestDataFromServer(NextfileName, xhr);
           }
         }
       }
     },
 
-    afterDownloading(file, data) {
-      if (data == 'ERROR') {
-        setTimeout(() => {
-          virtualclass.recorder.requestDataFromServer(file);
-        }, 500);
-      } else {
-        if (virtualclass.recorder.totalRecordingFiles.length > 0) {
-          const NextfileName = virtualclass.recorder.totalRecordingFiles.shift(); // Call Next
-          virtualclass.recorder.requestDataFromServer(NextfileName);
-        }
-        virtualclass.recorder.rawDataQueue[file] = { file, data };
-        this.formatRecording(file);
-        this.alreadyRequested[file] = true;
-        // this.UIdownloadProgress(file);
+    afterDownloading(file, data, xhr) {
+      if (virtualclass.recorder.totalRecordingFiles.length > 0) {
+        const NextfileName = virtualclass.recorder.totalRecordingFiles.shift(); // Call Next
+        virtualclass.recorder.requestDataFromServer(NextfileName, xhr);
       }
+      virtualclass.recorder.rawDataQueue[file] = { file, data };
+      this.formatRecording(file);
+      this.alreadyRequested[file] = true;
+      // this.UIdownloadProgress(file);
     },
 
     isFirstPacket(file) {
@@ -626,14 +580,6 @@
       this.triggerSynchPacket();
     },
 
-    selfSeek() {
-      console.log('Start self seek');
-      this.selfStartSeek = true;
-      this._seek();
-      this.triggerSynchPacket();
-      this.controller._play();
-    },
-
     triggerSynchPacket() {
       this.triggerPlayProgress();
       // console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
@@ -643,12 +589,6 @@
         this.binarySyncMsg = null;
       }
       this.handleSyncStringPacket();
-    },
-
-    seekFinished(index) {
-      if (index == undefined && this.masterRecordings[this.masterIndex][this.subRecordingIndex] != undefined) {
-        return (this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":true,"cf":"recs"') > -1);
-      }
     },
 
     _seek(index) {
@@ -717,10 +657,6 @@
             // console.log('PLAY ERROR ' + e.errorCode);
           }
 
-          if (virtualclass.settings.info.trimRecordings && this.selfStartSeek && this.seekFinished()) {
-            this.selfSeekFinished = true;
-            break;
-          }
           this.subRecordingIndex++;
         }
 
@@ -728,7 +664,7 @@
 
         /* When seek point is found exit the while loop* */
 
-        if ((index != undefined && this.masterIndex === index.master && index.sub === this.subRecordingIndex) || this.selfSeekFinished) {
+        if (index != undefined && this.masterIndex === index.master && index.sub === this.subRecordingIndex) {
           break;
         } else {
           this.subRecordingIndex = 0;
@@ -739,7 +675,7 @@
     },
 
     handleSyncStringPacket() {
-      if (virtualclass.currApp == 'Poll' && typeof virtualclass.poll.pollState.data === 'object' && virtualclass.poll.hasOwnProperty('recordStartTime')) {
+      if (virtualclass.currApp === 'Poll' && typeof virtualclass.poll.pollState.data === 'object' && virtualclass.poll.hasOwnProperty('recordStartTime')) {
         const pollStartTime = this.getTotalTimeInMilSeconds(virtualclass.poll.recordStartTime.data.masterIndex, virtualclass.poll.recordStartTime.data.subIndex);
         if (virtualclass.poll.dataRec.setting.timer) { // showTimer() for remaining time
           const pollData = virtualclass.poll.pollState;
@@ -752,7 +688,7 @@
           virtualclass.poll.elapsedTimer();
           // for elapsed timer
         }
-      } else if (virtualclass.currApp == 'Video' && typeof virtualclass.videoUl === 'object'
+      } else if (virtualclass.currApp === 'Video' && typeof virtualclass.videoUl === 'object'
         && virtualclass.videoUl.hasOwnProperty('videoStartTime')) {
         const videoStartTime = this.getTotalTimeInMilSeconds(virtualclass.videoUl.videoStartTime.data.masterIndex, virtualclass.videoUl.videoStartTime.data.subIndex);
         const videoElapsedtime = (this.elapsedPlayTime - videoStartTime);
@@ -769,7 +705,7 @@
           }
           virtualclass.videoUl.startTime = videoSeekTime;
         }
-      } else if (virtualclass.currApp == 'Quiz' && typeof virtualclass.quiz === 'object') {
+      } else if (virtualclass.currApp === 'Quiz' && typeof virtualclass.quiz === 'object') {
         // virtualclass.quiz.plugin.method.completeQuiz({callback: virtualclass.quiz.plugin.config.animationCallbacks.completeQuiz});
 
         const timeDisplayInto = document.querySelector('#qztime');
@@ -783,6 +719,7 @@
           virtualclass.quiz.plugin.method.startTimer(quizElapsedTime, timeDisplayInto, 'asc', 'vmQuiz');
         }
       }
+
     },
 
     pollUpdateTime(pollStartTime, pollData) {
@@ -926,30 +863,26 @@
         this.triggerPlayProgress();
         try {
           if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"cf":"sync"') < 0) {
-            // console.log('Execute real packet', this.subRecordings[this.subRecordingIndex].recObjs);
-            // console.log("==== ElapsedTime playtime ", this.playTime + ' index='+this.masterIndex + ' subindex'+ this.subRecordingIndex);
             io.onRecMessage(this.convertInto({ data: this.subRecordings[this.subRecordingIndex].recObjs }));
-            if (virtualclass.currApp == 'Poll'
+            if (virtualclass.currApp === 'Poll'
               && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('},"m":{"poll":{"pollMsg":"stdPublish",') > -1) {
               virtualclass.poll.recordStartTime = {
                 app: 'Poll',
                 data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
               };
-            } else if (virtualclass.currApp == 'Video'
+            } else if (virtualclass.currApp === 'Video'
               && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"videoUl":{"content_path"') > -1) {
               virtualclass.videoUl.videoStartTime = {
                 app: 'Video',
                 data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
               };
               console.log('Capture video');
-            } else if (virtualclass.currApp == 'Quiz'
+            } else if (virtualclass.currApp === 'Quiz'
               && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"quiz":{"quizMsg":"stdPublish",') > -1) {
               virtualclass.quiz.quizStartTime = {
                 app: 'Quiz',
                 data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
               };
-            } else if (virtualclass.settings.info.trimRecordings && this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('{"ac":false,"cf":"recs"') > -1) {
-              virtualclass.recorder.selfSeek();
             }
           }
         } catch (e) {
@@ -1272,12 +1205,31 @@
           this.calculateTotalPlayTime();
 
           const fileName = this.totalRecordingFiles.shift();
-          this.requestDataFromServer(fileName);
+          this.firstxhr = axios.create({
+            timeout: 600000,
+            withCredentials: true,
+          });
 
-          if (this.totalRecordingFiles.length > 0) {
-            const NextfileName = this.totalRecordingFiles.shift(); // Call Next
-            this.requestDataFromServer(NextfileName);
+          this.requestDataFromServer(fileName, this.firstxhr);
+
+          const dochead = document.getElementsByTagName('head')[0];
+          for (const nfile in this.totalRecordingFiles) {
+            const nfileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${virtualclass.recorder.session}/${this.totalRecordingFiles[nfile]}`;
+            const hint = document.createElement('link');
+            hint.setAttribute('rel', 'prefetch');
+            hint.setAttribute('crossOrigin', 'use-credentials');
+            hint.setAttribute('href', nfileUrl);
+            dochead.appendChild(hint);
           }
+
+          // if (this.totalRecordingFiles.length > 0) {
+          //   const NextfileName = this.totalRecordingFiles.shift(); // Call Next
+          //   this.nextxhr = axios.create({
+          //     timeout: 600000,
+          //     withCredentials: true,
+          //   });
+          //   this.requestDataFromServer(NextfileName, this.nextxhr);
+          // }
 
           if (this.sessionStartTime < RECORDING_TIME) {
             this.triggerDownloader();
@@ -1301,7 +1253,7 @@
       const lastTime = Math.trunc(+(virtualclass.recorder.totalRecordingFiles[virtualclass.recorder.totalRecordingFiles.length - 1].split('-')[1].split('.')[0]) / 1000000);
       // converting nano to seconds
 
-       this.totalTimeInMiliSeconds = (lastTime - firstTime);
+      this.totalTimeInMiliSeconds = (lastTime - firstTime);
 
       this.lastTimeInSeconds = Math.trunc(lastTime / 1000);
       this.firstTimeInSeconds = Math.trunc(firstTime / 1000);

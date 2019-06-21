@@ -309,7 +309,7 @@ span.icon-stdscreenImg[data-dcolor="green"]::before {
   text-overflow: ellipsis;
   display: -webkit-box;
   line-height: 16px;
-  max-height: 32px;
+  max-height: 16px;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   cursor: pointer;

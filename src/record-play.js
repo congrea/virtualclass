@@ -6,55 +6,6 @@
 (function (window) {
   const TIME_TO_REQUEST = 3 * 60 * 1000; // every request would be performeed in given milisecond
   const RECORDING_TIME = 15 * 60 * 1000; // If elapsed time goes beyond the
-
-  function XHR() {
-    console.log('Define XHR class');
-  }
-
-  XHR.prototype.init = function () {
-    if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
-      this.httpObj = new XMLHttpRequest();
-    } else {
-      this.httpObj = new ActiveXObject('Microsoft.XMLHTTP');
-    }
-
-    this.onReadStateChange();
-
-    this.httpObj.onerror = function (err) {
-      console.log(`Error ${err}`);
-      this.cb('ERROR');
-    };
-
-    this.httpObj.withCredentials = true;
-
-    this.httpObj.onabort = function (evt) {
-      console.log(`Error abort ${evt}`);
-    };
-
-    return this.httpObj;
-  };
-
-  XHR.prototype.onReadStateChange = function () {
-    const that = this;
-    this.httpObj.onreadystatechange = function () {
-      if (that.httpObj.readyState == 4 && typeof that.cb !== 'undefined') {
-        that.httpObj.status == 200 ? that.cb(that.httpObj.responseText) : that.cb('ERROR');
-      }
-    };
-  };
-
-  XHR.prototype.send = function () {
-    this.cb = cb;
-    this.httpObj.open('POST', file, true);
-    this.httpObj.send(data);
-  };
-
-  XHR.prototype.loadData = function (url, cb) {
-    this.cb = cb;
-    this.httpObj.open('GET', url, true);
-    this.httpObj.send();
-  };
-
   const recorder = {
     playTime: 150,
     tempPlayTime: 150,
@@ -254,41 +205,44 @@
       }
     },
 
-    requestDataFromServer(file) {
+    requestDataFromServer(file, xhr) {
       if (this.isFileVcp(file)) {
         if (!this.alreadyRequested[file]) {
           console.log(`requested file ${file}`);
           // this.displayWaitPopupIfNot(virtualclass.lang.getString("plswaitwhile"));
 
           const fileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${virtualclass.recorder.session}/${file}`;
-          virtualclass.recorder.xhr[file] = new XHR();
-          virtualclass.recorder.xhr[file].init();
-          virtualclass.recorder.xhr[file].loadData(fileUrl, this.afterDownloading.bind(this, file));
+
+          xhr.get(fileUrl)
+            .then(function (response) {
+              virtualclass.recorder.afterDownloading(file, response.data, xhr);
+            })
+            .catch(function (error) {
+              virtualclass.recorder.requestDataFromServer(file, xhr);
+            });
+
+          // virtualclass.recorder.xhr[file] = new XHR();
+          // virtualclass.recorder.xhr[file].init();
+          // virtualclass.recorder.xhr[file].loadData(fileUrl, this.afterDownloading.bind(this, file));
         } else {
           console.log(`Already requested file ${file}`);
           if (virtualclass.recorder.totalRecordingFiles.length > 0) {
             const NextfileName = virtualclass.recorder.totalRecordingFiles.shift(); // Call Next
-            virtualclass.recorder.requestDataFromServer(NextfileName);
+            virtualclass.recorder.requestDataFromServer(NextfileName, xhr);
           }
         }
       }
     },
 
-    afterDownloading(file, data) {
-      if (data == 'ERROR') {
-        setTimeout(() => {
-          virtualclass.recorder.requestDataFromServer(file);
-        }, 500);
-      } else {
-        if (virtualclass.recorder.totalRecordingFiles.length > 0) {
-          const NextfileName = virtualclass.recorder.totalRecordingFiles.shift(); // Call Next
-          virtualclass.recorder.requestDataFromServer(NextfileName);
-        }
-        virtualclass.recorder.rawDataQueue[file] = { file, data };
-        this.formatRecording(file);
-        this.alreadyRequested[file] = true;
-        // this.UIdownloadProgress(file);
+    afterDownloading(file, data, xhr) {
+      if (virtualclass.recorder.totalRecordingFiles.length > 0) {
+        const NextfileName = virtualclass.recorder.totalRecordingFiles.shift(); // Call Next
+        virtualclass.recorder.requestDataFromServer(NextfileName, xhr);
       }
+      virtualclass.recorder.rawDataQueue[file] = { file, data };
+      this.formatRecording(file);
+      this.alreadyRequested[file] = true;
+      // this.UIdownloadProgress(file);
     },
 
     isFirstPacket(file) {
@@ -1251,12 +1205,31 @@
           this.calculateTotalPlayTime();
 
           const fileName = this.totalRecordingFiles.shift();
-          this.requestDataFromServer(fileName);
+          this.firstxhr = axios.create({
+            timeout: 600000,
+            withCredentials: true,
+          });
 
-          if (this.totalRecordingFiles.length > 0) {
-            const NextfileName = this.totalRecordingFiles.shift(); // Call Next
-            this.requestDataFromServer(NextfileName);
+          this.requestDataFromServer(fileName, this.firstxhr);
+
+          const dochead = document.getElementsByTagName('head')[0];
+          for (const nfile in this.totalRecordingFiles) {
+            const nfileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${virtualclass.recorder.session}/${this.totalRecordingFiles[nfile]}`;
+            const hint = document.createElement('link');
+            hint.setAttribute('rel', 'prefetch');
+            hint.setAttribute('crossOrigin', 'use-credentials');
+            hint.setAttribute('href', nfileUrl);
+            dochead.appendChild(hint);
           }
+
+          // if (this.totalRecordingFiles.length > 0) {
+          //   const NextfileName = this.totalRecordingFiles.shift(); // Call Next
+          //   this.nextxhr = axios.create({
+          //     timeout: 600000,
+          //     withCredentials: true,
+          //   });
+          //   this.requestDataFromServer(NextfileName, this.nextxhr);
+          // }
 
           if (this.sessionStartTime < RECORDING_TIME) {
             this.triggerDownloader();
@@ -1280,7 +1253,7 @@
       const lastTime = Math.trunc(+(virtualclass.recorder.totalRecordingFiles[virtualclass.recorder.totalRecordingFiles.length - 1].split('-')[1].split('.')[0]) / 1000000);
       // converting nano to seconds
 
-       this.totalTimeInMiliSeconds = (lastTime - firstTime);
+      this.totalTimeInMiliSeconds = (lastTime - firstTime);
 
       this.lastTimeInSeconds = Math.trunc(lastTime / 1000);
       this.firstTimeInSeconds = Math.trunc(firstTime / 1000);

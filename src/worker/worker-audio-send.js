@@ -154,7 +154,6 @@ const workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
           this.audioWorkletSend = e.ports[0];
           this.repMode = e.data.msg.repMode;
           // formAudioWorkletSend from Audio worklet send
-          var that = this;
           this.audioWorkletSend.onmessage = this.formAudioWorkletSend.bind(this);
           break;
 

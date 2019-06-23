@@ -190,8 +190,8 @@
         formData.append('cmid', this.cmid);
         formData.append('user', this.uid);
         const scope = this;
-        virtualclass.xhr.send(formData, `${window.webapi}&methodname=congrea_quiz`, (data) => {
-          const getContent = JSON.parse(data);
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=congrea_quiz`, formData).then((data) => {
+          const getContent = data.data;
           if (getContent.status == 0) {
             const cont = document.getElementById('bootstrapQzCont');
             cont.innerHTML = virtualclass.lang.getString('noQuiz');
@@ -207,7 +207,10 @@
             scope.coursequiz = getContent;
             scope.displayQuizList();
           }
-        });
+        })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
       /*
        Display quiz list with detail
@@ -315,9 +318,9 @@
         formData.append('user', this.uid);
         formData.append('qid', quizitem.id);
         scope = this;
-        virtualclass.xhr.send(formData, `${window.webapi}&methodname=congrea_get_quizdata`, (data) => {
-          if (scope.isJson(data)) {
-            scope.quizJSON = data;
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=congrea_get_quizdata`, formData, { transformResponse: res => res }).then((data) => {
+          if (scope.isJson(data.data)) {
+            scope.quizJSON = data.data;
             $('#slickQuiz').slickQuiz({
               json: scope.quizJSON,
               questionPerPage: quizDetail.questionsperpage,
@@ -331,7 +334,10 @@
             const msgCont = document.getElementById('contQzBody');
             msgCont.innerHTML = data;
           }
-        });
+        })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
 
       quizPopUp(cb, index) {
@@ -423,11 +429,14 @@
         formData.append('cmid', vthis.cmid);
         formData.append('qzid', vthis.qzid);
         formData.append('user', vthis.uid);
-        virtualclass.xhr.send(formData, `${window.webapi}&methodname=congrea_add_quiz`, (data) => {
-          if (data !== 'ture') {
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=congrea_add_quiz`, formData).then((msg) => {
+          if (msg.data !== 'ture') {
             console.log('Quiz data not saved in congrea');
           }
-        });
+        })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
 
       /**
@@ -641,11 +650,14 @@
         formData.append('timetaken', tt);
         formData.append('qusattempted', quesAttempted);
         formData.append('currectans', correctAns);
-        virtualclass.xhr.send(formData, `${window.webapi}&methodname=congrea_quiz_result`, (data) => {
-          if (data !== 'ture') {
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=congrea_quiz_result`, formData).then((data) => {
+          if (data.data !== 'ture') {
             console.log('Quiz data not saved in congrea');
           }
-        });
+        })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
 
       /**

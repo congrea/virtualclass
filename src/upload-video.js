@@ -496,7 +496,7 @@
         this.sendOrder(this.order);
       },
 
-      _editTitle(id, title, videotype) {
+      async _editTitle(id, title, videotype) {
         var form_data = new FormData();
         const data = {
           lc_content_id: id, action: 'edit', title, user: virtualclass.gObj.uid,
@@ -507,8 +507,8 @@
           console.log(data[key]);
         }
 
-        virtualclass.xhr.sendFormData(form_data, `${window.webapi}&user=${virtualclass.gObj.uid}&methodname=update_content_video`, (msg) => {
-          if (msg != 'ERROR') {
+        await this.vxhr.post(`${window.webapi}&user=${virtualclass.gObj.uid}&methodname=update_content_video`, form_data)
+          .then((response) => {
             const elem = document.getElementById(`videoTitle${id}`);
             if (elem) {
               elem.innerHTML = title;
@@ -523,10 +523,11 @@
                 });
               }
             }
-          }
-        });
+          })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
-
 
       sendOrder(order, type) {
         type = 'vid';
@@ -830,8 +831,8 @@
         //     that.afterDeleteCallback(msg)
         // });
 
-        virtualclass.xhrn.sendData(data, url, (msg) => {
-          that.afterDeleteCallback(msg, id);
+        virtualclass.xhrn.vxhrn.post(url, data).then((msg) => {
+          that.afterDeleteCallback(msg.data, id);
         });
       },
 
@@ -894,7 +895,7 @@
       xhrOrderSend(order) {
         const data = { order: order.toString() };
         const url = virtualclass.api.UpdateRoomMetaData;
-        virtualclass.xhrn.sendData(data, url, () => {
+        virtualclass.xhrn.vxhrn.post(url, data).then(() => {
           // virtualclass.videoUl.UI.awsr();
           virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
         });
@@ -1274,7 +1275,7 @@
           } else {
             vidObj.type = 'video_yts';
           }
-          virtualclass.xhrn.sendData(vidObj, url, (response) => {
+          virtualclass.xhrn.vxhrn.post(url, vidObj).then(() => {
             virtualclass.videoUl.updateOrder();
             virtualclass.videoUl.order.push(vidObj.uuid);
 

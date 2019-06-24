@@ -146,72 +146,63 @@
 
     // Object's properties value true or false into binary
     applySettings(value, settingName, userId) {
-      const obj = {};
-      obj[settingName] = value;
-      this._applySettings(obj, userId);
-    },
-
-    _applySettings(obj, userId) {
       if (roles.hasControls()) {
-        const settingName = Object.keys(obj)[0];
-        const value = obj[settingName];
         if ((value === true || value === false) && virtualclass.settings.info.hasOwnProperty(settingName)) {
           if (typeof userId === 'undefined') {
-            const userList = virtualclass.connectedUsers;
-            for (let i = 0; i < userList.length; i++) {
-              if (userList[i].role === 's') {
-                virtualclass.user.control.changeAttribute(userList[i].userid,
-                  virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + 'contrAudImg'),
-                  virtualclass.settings.info.studentaudio, 'audio', 'aud');
-                virtualclass.user.control.changeAttribute(userList[i].userid,
-                  virtualclass.gObj.testChatDiv.shadowRoot.getElementById(userList[i].userid + 'contrChatImg'),
-                  true, 'chat', 'chat');
-              }
-            }
-            localStorage.removeItem('userSettings');
-            virtualclass.settings.user = {};
-            virtualclass.settings.info[settingName] = value;
-            const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
-            virtualclass.settings.send(str, userId);
-            localStorage.setItem('settings', str);
+            virtualclass.settings.applyPresentorGlobalSetting(value, settingName);
           } else {
-            let specificSettings;
-            if (virtualclass.settings.user.hasOwnProperty(userId)) {
-              const user = virtualclass.settings.user[userId];
-              const setting = virtualclass.settings.parseSettings(user);
-              setting[settingName] = value;
-              specificSettings = virtualclass.settings.settingsToHex(setting);
-            } else {
-              let individualSetting = {};
-              individualSetting = virtualclass.settings.info;
-              individualSetting[settingName] = value;
-              specificSettings = virtualclass.settings.settingsToHex(individualSetting);
-            }
-            virtualclass.settings.send(specificSettings, userId);
-            virtualclass.settings.user[userId] = specificSettings;
-            localStorage.setItem('userSettings', JSON.stringify(virtualclass.settings.user));
+            virtualclass.settings.applySpecificAttendeeSetting(value, settingName, userId);
           }
           return true;
         }
         return false;
       }
-      for (const propname in obj) {
-        virtualclass.settings.info[propname] = obj[propname];
-        if (propname !== 'trimRecordings') { // avoid trim recordings
-          virtualclass.settings[propname](obj[propname]);
-        }
-      }
-      const str = virtualclass.settings.settingsToHex(obj);
-      localStorage.setItem('settings', str);
     },
 
-    // Message send to student
-    send(value, userId) {
-      if (roles.hasControls()) {
-        if (typeof userId !== 'undefined') {
-          virtualclass.vutil.beforeSend({ cf: 'settings', Hex: value, toUser: userId }, userId);
-        } else {
-          virtualclass.vutil.beforeSend({ cf: 'settings', Hex: value });
+    applyPresentorGlobalSetting(value, settingName) {
+      localStorage.removeItem('userSettings');
+      virtualclass.settings.info[settingName] = value;
+      const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
+      virtualclass.vutil.beforeSend({ cf: 'settings', Hex: str });
+      localStorage.setItem('settings', str);
+      for (const propname in virtualclass.settings.user) {
+        virtualclass.user.control.changeAttribute(propname,
+          virtualclass.gObj.testChatDiv.shadowRoot.getElementById(propname + 'contrAudImg'),
+          virtualclass.settings.info.studentaudio, 'audio', 'aud');
+        virtualclass.user.control.changeAttribute(propname,
+          virtualclass.gObj.testChatDiv.shadowRoot.getElementById(propname + 'contrChatImg'),
+          virtualclass.settings.info.studentpc, 'chat', 'chat');
+      }
+      virtualclass.settings.user = {};
+    },
+
+    applySpecificAttendeeSetting(value, settingName, userId) {
+      let specificSettings;
+      if (virtualclass.settings.user.hasOwnProperty(userId)) {
+        const user = virtualclass.settings.user[userId];
+        const setting = virtualclass.settings.parseSettings(user);
+        setting[settingName] = value;
+        specificSettings = virtualclass.settings.settingsToHex(setting);
+      } else {
+        const individualSetting = {};
+        for (const propname in virtualclass.settings.info) {
+          individualSetting[propname] = virtualclass.settings.info[propname];
+        }
+        individualSetting[settingName] = value;
+        specificSettings = virtualclass.settings.settingsToHex(individualSetting);
+      }
+      virtualclass.vutil.beforeSend({ cf: 'settings', Hex: specificSettings, toUser: userId }, userId);
+      virtualclass.settings.user[userId] = specificSettings;
+      localStorage.setItem('userSettings', JSON.stringify(virtualclass.settings.user));
+    },
+
+    applyAttendeeSetting(obj) {
+      for (const propname in obj) {
+        if (virtualclass.settings.info[propname] !== obj[propname]) {
+          virtualclass.settings.info[propname] = obj[propname];
+          if (propname !== 'trimRecordings') { // avoid trim recordings
+            virtualclass.settings[propname](obj[propname]);
+          }
         }
       }
     },
@@ -221,7 +212,8 @@
       if (typeof msg === 'string') {
         if (roles.isStudent()) {
           const stdSettings = virtualclass.settings.parseSettings(msg);
-          this._applySettings(stdSettings);
+          this.applyAttendeeSetting(stdSettings);
+          localStorage.setItem('settings', msg);
         }
       } else {
         this.recording.triggerSetting(msg);
@@ -252,18 +244,19 @@
     studentpc(value) { // student chat enable/disable
       console.log('TO DO');
       if (value === true) {
-        virtualclass.user.control.allChatEnable();
-        virtualclass.gObj.chatEnable = true;
-        document.querySelector('#chatWidget').classList.remove('chat_disabled');
-        document.querySelector('#chat_div').classList.remove('chat_disabled');
+        virtualclass.user.control.allChatEnable('pc');
       } else if (value === false) {
-        virtualclass.user.control.allChatDisable();
-        virtualclass.gObj.chatEnable = false;
+        virtualclass.user.control.disbaleAllChatBox();
       }
     },
 
-    studentgc() {
+    studentgc(value) { // student group chat enable/disable
       console.log('TO DO');
+      if (value === true) {
+        virtualclass.user.control.allChatEnable('gc');
+      } else {
+        virtualclass.user.control.disableCommonChat();
+      }
     },
 
     studentvideo(value) { // All student video enable, disable

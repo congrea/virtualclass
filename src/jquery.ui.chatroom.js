@@ -157,12 +157,7 @@ let msg;
       return this.uiChatbox;
     },
     _create() {
-      if (localStorage.getItem('chatEnable') != null) {
-        var chatStatus = (localStorage.chatEnable == 'true') ? 'enable' : 'disable';
-      } else {
-        var chatStatus = 'disable';
-      }
-
+      const chatStatus = (virtualclass.settings.info.studentgc === 'true') ? 'enable' : 'disable';
       const self = this;
       const { options } = self;
       const { offset } = options;
@@ -242,7 +237,9 @@ let msg;
       self._position(self.options.offset);
 
       self.options.boxManager.init(self);
-
+      if (roles.isStudent()) {
+        virtualclass.settings.studentgc(virtualclass.settings.info.studentgc); // when teacher gc to student
+      }
 
       if (!self.options.hidden) {
         uiChatbox.show();

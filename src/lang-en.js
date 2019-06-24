@@ -407,6 +407,10 @@
     'dark-magenta-2': 'dark magenta 2',
     'dark-magenta-3': 'dark magenta 3',
     Shapes: 'Shapes',
+    disableAllChat: 'Disable private chat',
+    enableAllChat: 'Enable private chat',
+    disableAllGroupChat: 'Disable common chat',
+    enableAllGroupChat: 'Enable common chat',
     /* For Chrome */
     PermissionDeniedErrorExt: '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'
     + 'Go to camera icon on top right of the screen <br /> '

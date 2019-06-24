@@ -46,15 +46,21 @@
 
         console.log('chat local storage start ');
         /** Disable Chat * */
-        const chatEnable = localStorage.getItem('chatEnable');
-        if (chatEnable != null) {
-          if (chatEnable == 'false') {
-            document.querySelector('#chatWidget').classList.add('chat_disabled');
-            document.querySelector('#chat_div').classList.add('chat_disabled');
-            document.querySelector('#chatWidget').classList.remove('chat_enabled');
-          }
+        // const chatEnable = localStorage.getItem('chatEnable');
+        // if (chatEnable != null) {
+        //   if (chatEnable == 'false') {
+        //     document.querySelector('#chatWidget').classList.add('chat_disabled');
+        //     document.querySelector('#chat_div').classList.add('chat_disabled');
+        //     document.querySelector('#chatWidget').classList.remove('chat_enabled');
+        //   }
+        // }
+        if (roles.isStudent()) {
+          virtualclass.settings.studentpc(virtualclass.settings.info.studentpc); // chat disable or eneble on refresh
+          virtualclass.settings.studentgc(virtualclass.settings.info.studentgc); // groupchat disable or eneble on refresh
         }
       },
+
+
 
       /** TODO , that should be handle properly for simple layout * */
       fetchChatUsers() {

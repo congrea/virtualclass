@@ -52,11 +52,15 @@
 
 
       async loadPdf(url, canvas, currNote) {
-        // console.log('====PDF, Init1 load ',  virtualclass.gObj.currWb, url);
         if (virtualclass.gObj.hasOwnProperty('getDocumentTimeout')) {
           clearTimeout(virtualclass.gObj.getDocumentTimeout);
         }
-        if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer === false) {
+        if (virtualclass.isPlayMode) {
+          virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
+            this.loadPdfActual(url, canvas, currNote);
+            virtualclass.gObj.getDocumentTimer = false;
+          }, 100);
+        } else if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer === false) {
           this.loadPdfActual(url, canvas, currNote);
           virtualclass.gObj.getDocumentTimer = true;
           virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
@@ -64,7 +68,6 @@
           }, 1000);
         } else {
           virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
-            // console.log('====PDF, Init1 load final',  url);
             this.loadPdfActual(url, canvas, currNote);
             virtualclass.gObj.getDocumentTimer = false;
           }, 300);

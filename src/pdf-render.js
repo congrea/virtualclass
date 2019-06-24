@@ -57,7 +57,7 @@
           clearTimeout(virtualclass.gObj.getDocumentTimeout);
         }
         if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer === false) {
-          this._loadPdf(url, canvas, currNote);
+          this.loadPdfActual(url, canvas, currNote);
           virtualclass.gObj.getDocumentTimer = true;
           virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
             virtualclass.gObj.getDocumentTimer = false;
@@ -65,13 +65,13 @@
         } else {
           virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
             // console.log('====PDF, Init1 load final',  url);
-            this._loadPdf(url, canvas, currNote);
+            this.loadPdfActual(url, canvas, currNote);
             virtualclass.gObj.getDocumentTimer = false;
           }, 300);
         }
       },
 
-      _loadPdf(url, canvas, currNote) {
+      loadPdfActual(url, canvas, currNote) {
         // console.log('====PDF, Init2 load ' + virtualclass.gObj.currWb);
         if (virtualclass.gObj.next.hasOwnProperty(currNote)) {
           this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
@@ -83,7 +83,7 @@
             .catch((error) => {
               console.error('Request failed with error ', error);
               setTimeout(() => {
-                virtualclass.pdfRender[virtualclass.gObj.currWb]._loadPdf(url, canvas, currNote);
+                virtualclass.pdfRender[virtualclass.gObj.currWb].loadPdfActual(url, canvas, currNote);
               }, 1000);
             });
         }
@@ -127,6 +127,8 @@
           console.log(`-----------START ${virtualclass.currApp}----------`);
           console.log('PDF render request to pdf.js 1');
           PDFJS.workerSrc = `${whiteboardPath}build/src/pdf.worker.min.js`;
+          PDFJS.cMapUrl = `${whiteboardPath}build/cmaps/`;
+          PDFJS.cMapPacked = true;
           PDFJS.getDocument(doc).then((pdf) => {
             if (virtualclass.gObj.myworker == null) {
               virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS

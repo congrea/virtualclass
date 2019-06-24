@@ -144,15 +144,17 @@
    *  First the data would be appended into formData, like
    *  formData.append('username', 'Vidyamantra');
    */
-  page.prototype.xhrSend = function (data) {
+  page.prototype.xhrSend = async function (data) {
     const form_data = new FormData();
     for (const key in data) {
       form_data.append(key, data[key]);
     }
     const method = (virtualclass.currApp != 'SharePresentation') ? '&methodname=update_content' : '&methodname=update_content_video';
     const path = `${window.webapi}&user=${virtualclass.gObj.uid}${method}`;
-    const cthis = this;
-    virtualclass.xhr.sendFormData(form_data, path, cthis.onServerResponse);
+    await this.vxhr.post(path, form_data)
+      .catch((error) => {
+        console.error('Request failed with error ', error);
+      });
   };
 
 
@@ -180,8 +182,8 @@
       data.page = 0;
     }
 
-    virtualclass.xhrn.sendData(data, virtualclass.api.UpdateDocumentStatus, (msg) => {
-      console.log(`Msg ${msg}`);
+    virtualclass.xhrn.vxhrn.post(virtualclass.api.UpdateDocumentStatus, data).then((msg) => {
+      console.log(`Msg ${msg.data}`);
     });
     // this.xhrSend(data);
   };

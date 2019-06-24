@@ -43,6 +43,9 @@
       error: [],
       pdfRender: {},
       clearGlobalLock: '',
+      queueCreatePrefetchLink: [],
+      pqueueCreatePrefetchLink: [],
+      countCreatePrefetchLink: 0,
       gObj: {
         SCALE_FACTOR: 1.02,
         next: {}, // prefetch next pdf
@@ -113,6 +116,53 @@
           virtualclass.prevScreen.unShareScreen();
         }
         virtualclass.previrtualclass = `virtualclass${virtualclass.gObj.defaultApp}`;
+      },
+
+      createPrefetchLink(url) {
+        const LINKSCOUNT = 20; // Number of links to process at once.
+        if (url) {
+          for (let i = 0; i < virtualclass.pqueueCreatePrefetchLink.length; i += 1) {
+            if (virtualclass.pqueueCreatePrefetchLink[i] === url) {
+              return; // Return if link is duplicate (already processed).
+            }
+          }
+          virtualclass.queueCreatePrefetchLink.push(url);
+          virtualclass.pqueueCreatePrefetchLink.push(url);
+        }
+
+        if (virtualclass.queueCreatePrefetchLink.length > 0) {
+          for (let i = 0; i < virtualclass.queueCreatePrefetchLink.length; i += 1) {
+            if (virtualclass.countCreatePrefetchLink < LINKSCOUNT) {
+              virtualclass.createPrefetchLinkActual(virtualclass.queueCreatePrefetchLink.shift());
+            } else {
+              break;
+            }
+          }
+
+          if (virtualclass.delaycreatePrefetchLink) {
+            clearTimeout(virtualclass.delaycreatePrefetchLink);
+            virtualclass.delaycreatePrefetchLink = 0;
+          }
+
+          virtualclass.delaycreatePrefetchLink = setTimeout(() => {
+            document.getElementsByTagName('head')[0].appendChild(virtualclass.linkFragment);
+            virtualclass.linkFragment = document.createDocumentFragment();
+            virtualclass.countCreatePrefetchLink = 0;
+            virtualclass.createPrefetchLink();
+          }, 2000);
+        }
+      },
+
+      createPrefetchLinkActual(url) {
+        if (!virtualclass.linkFragment) {
+          virtualclass.linkFragment = document.createDocumentFragment();
+        }
+        const hint = document.createElement('link');
+        hint.setAttribute('rel', 'prefetch');
+        hint.setAttribute('crossOrigin', 'use-credentials');
+        hint.setAttribute('href', url);
+        virtualclass.linkFragment.appendChild(hint);
+        virtualclass.countCreatePrefetchLink += 1;
       },
 
       async init(urole, app, videoObj) {
@@ -219,19 +269,10 @@
 
         virtualclass.xhrn.init();
 
-        if (virtualclass.vutil.getCookie('readyToCommunicate')) {
-          virtualclass.gObj.readyToCommunicate = true;
+        virtualclass.xhrn.getAccess();
+        if (virtualclass.vutil.isPlayMode()) {
+          virtualclass.recorder.requestListOfFiles();
         }
-        this.xhrn.getAcess((response) => {
-          if (response != 'ERROR' || response != 'Error') {
-            virtualclass.gObj.readyToCommunicate = true;
-            console.log('get access');
-            if (virtualclass.vutil.isPlayMode()) {
-              virtualclass.recorder.requestListOfFiles();
-            }
-          }
-        });
-
         // virtualclass.chat = new Chat();
 
         virtualclass.chat.init();
@@ -1500,7 +1541,7 @@
             allChat[0].parentNode.removeChild(allChat[0]);
           }
         }
-      }
+      },
     };
 
     function capitalizeFirstLetter(string) {

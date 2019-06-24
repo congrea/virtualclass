@@ -232,6 +232,8 @@
       if (roles.hasAdmin()) {
         virtualclass.user.mediaSliderUI('audio');
         virtualclass.user.mediaSliderUI('video');
+        virtualclass.user.mediaSliderUI('chat');
+        virtualclass.user.mediaSliderUI('groupChat');
       }
     },
     _setOption(option, value) {

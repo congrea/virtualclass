@@ -335,6 +335,50 @@ body {
   color: #464646;
 }
 
+#virtualclassCont #appSettingDetail .disable #usersChatSwitch::before {
+  content: "\e9aa";
+  font-weight: normal;
+  font-size: 17px;
+  margin-top: 3px;
+  float: left;
+  font-family: 'icomoon';
+  color: #464646;
+}
+
+#virtualclassCont #appSettingDetail .enable #usersChatSwitch::before {
+  content: "\e9ab";
+  font-weight: normal;
+  font-size: 17px;
+  margin-top: 3px;
+  float: left;
+  font-family: 'icomoon';
+  color: #464646;
+}
+
+#virtualclassCont #appSettingDetail .disable #usersGroupChatSwitch::before {
+  content: "\e9a8";
+  font-weight: normal;
+  font-size: 17px;
+  margin-top: 3px;
+  float: left;
+  font-family: 'icomoon';
+  color: #464646;
+}
+
+#virtualclassCont #appSettingDetail .enable #usersGroupChatSwitch::before {
+  content: "\e9a9";
+  font-weight: normal;
+  font-size: 17px;
+  margin-top: 3px;
+  float: left;
+  font-family: 'icomoon';
+  color: #464646;
+}
+
+#virtualclassCont.congrea.student .ui-widget.enable.chat_disable {
+  opacity: 0.5;
+}
+
 #virtualclassCont #appSettingDetail #validate-precheck:before {
   content: "\e974";
   font-size: 15px;

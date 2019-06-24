@@ -1620,6 +1620,7 @@
         } else if (dts.hasOwnProperty('rmsnote')) { // remove single note
           this._removePageUI(dts.rmsnote);
           this._removePageFromStructure(dts.rmsnote);
+          this.storeInDocs(this.allNotes);
         } else if (dts.hasOwnProperty('noteSt')) {
           this.noteStatus(dts.note, dts.noteSt);
           this.storeInDocs(this.allNotes);
@@ -1754,6 +1755,7 @@
       _deleteNote(id, typeDoc) {
         this._removePageUI(id, typeDoc);
         this._removePageFromStructure(id, typeDoc);
+        this.storeInDocs(this.allNotes);
         if (roles.hasControls()) {
           ioAdapter.mustSend({ dts: { rmsnote: id }, cf: 'dts' });
         }
@@ -1803,9 +1805,9 @@
         for (i in this.allNotes) {
           if (this.allNotes[i].id.indexOf(id) > -1) {
             this._removePageFromStructure(this.allNotes[i].id);
-            // this.removePagesFromStructure(id); // again we call the deltePages as allPages array is re-arranged
           }
         }
+        this.storeInDocs(this.allNotes);
       },
 
       updateInAllDocs(noteid) {
@@ -1828,14 +1830,13 @@
         this.removeWhiteboardFromStorage(`_doc_${id}_${id}`);
         // delete this.allNotes[id];
         this.allNotes[id].deletedn = id;
-        this.storeInDocs(this.allNotes); // new pages save into docs
+         // new pages save into docs
         this.updateInAllDocs(id);
       },
 
       _disable(id) {
         this.docStatus(id);
       },
-
 
       _enable(id) {
         this.docStatus(id);

@@ -157,7 +157,7 @@ let msg;
       return this.uiChatbox;
     },
     _create() {
-      const chatStatus = (virtualclass.settings.info.studentgc === 'true') ? 'enable' : 'disable';
+      const chatStatus = (virtualclass.settings.info.studentgc === true) ? 'enable' : 'disable';
       const self = this;
       const { options } = self;
       const { offset } = options;

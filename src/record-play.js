@@ -213,11 +213,18 @@
 
           const fileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${virtualclass.recorder.session}/${file}`;
 
+          if (virtualclass.gObj.readyToCommunicate !== true) {
+            setTimeout(() => {
+              virtualclass.recorder.requestDataFromServer(file, xhr);
+            }, 1000);
+            return;
+          }
           xhr.get(fileUrl)
             .then((response) => {
               virtualclass.recorder.afterDownloading(file, response.data, xhr);
             })
-            .catch(() => {
+            .catch((error) => {
+              console.error('Request failed with error ', error);
               setTimeout(() => {
                 virtualclass.recorder.requestDataFromServer(file, xhr);
               }, 1000);
@@ -1177,15 +1184,16 @@
             this.askAgainToPlay();
           }
         } else {
-          virtualclass.xhrn.sendData({ session: this.session }, virtualclass.api.recordingFiles, this.afterDownloadingList.bind(this));
+          virtualclass.xhrn.vxhrn.post(virtualclass.api.recordingFiles, data).then((response) => {
+            this.afterDownloadingList(response.data);
+          });
         }
 
         console.log(`Time to request ${TIME_TO_REQUEST}`);
       }, TIME_TO_REQUEST); // 3 is now, but that could be 5 minute
     },
 
-    afterDownloadingList(data) {
-      const rawData = JSON.parse(data);
+    afterDownloadingList(rawData) {
       if (rawData != null && rawData.hasOwnProperty('Item')) {
         const sessionStart = +(rawData.Item.time.N);
         const currentTime = new Date().getTime();
@@ -1214,14 +1222,9 @@
 
           this.requestDataFromServer(fileName, this.firstxhr);
 
-          const dochead = document.getElementsByTagName('head')[0];
           for (const nfile in this.totalRecordingFiles) {
             const nfileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${virtualclass.recorder.session}/${this.totalRecordingFiles[nfile]}`;
-            const hint = document.createElement('link');
-            hint.setAttribute('rel', 'prefetch');
-            hint.setAttribute('crossOrigin', 'use-credentials');
-            hint.setAttribute('href', nfileUrl);
-            dochead.appendChild(hint);
+            virtualclass.createPrefetchLink(nfileUrl);
           }
 
           // if (this.totalRecordingFiles.length > 0) {
@@ -1247,7 +1250,10 @@
     requestListOfFiles() {
       this.session = wbUser.session;
       virtualclass.popup.loadingWindow();
-      virtualclass.xhrn.sendData({ session: virtualclass.recorder.session }, virtualclass.api.recordingFiles, this.afterDownloadingList.bind(this));
+      virtualclass.xhrn.vxhrn.post(virtualclass.api.recordingFiles, { session: virtualclass.recorder.session })
+        .then((response) => {
+          this.afterDownloadingList(response.data);
+        });
     },
 
     calculateTotalPlayTime() {

@@ -61,16 +61,16 @@
         console.log('FetchUser congrea_get_enrolled_users');
         const data = new FormData();
         data.append('action', 'fetchUser');
-        virtualclass.xhr.send(data, `${window.webapi}&user=${virtualclass.gObj.uid}&methodname=congrea_get_enrolled_users`, (msg) => {
-          // debugger;
-          // TODO only return total number users instead of array objects
-          virtualclass.chat.userList = JSON.parse(msg);
-          // console.log(virtualclass.chat.userList);
-          // virtualclass.chat.showChatListUsers();
-          // virtualclass.chat.setChatDisplay();
-          updateOnlineUserText();
-          // virtualclass.media.updateVideoContHeight();
-        });
+
+        virtualclass.xhr.vxhr.post(`${window.webapi}&user=${virtualclass.gObj.uid}&methodname=congrea_get_enrolled_users`, data)
+          .then((msg) => {
+            // TODO only return total number users instead of array objects
+            virtualclass.chat.userList = msg.data;
+            updateOnlineUserText();
+          })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
       setChatDisplay() {
         const chatInput = document.querySelector('#virtualclassCont.congrea  #ta_chrm2');
@@ -152,15 +152,6 @@
       // nirmala
       showChatListUsers() { // 8%
         const userlist = virtualclass.chat.userList;
-        //
-        // $("#user_list .inner_bt #usertab_text").html("<span id='onlineusertext'>" + "Users" + "(" + count + ")</span>");
-        // var onlineUser = document.createElement('span');
-        //     onlineUser.id = 'onlineusertext';
-        //     onlineUser.innerHTML =
-        //     document.querySelector('#usertab_text').appendChild(onlineUserTxt);
-
-        // $("#user_list .inner_bt #usertab_text").html("<span id='onlineusertext'>" + "Users" + "(" + count + ")</span>");
-
 
         if (userlist.length > 0) {
           this._showChatUserList(userlist);
@@ -176,20 +167,6 @@
           document.body.appendChild(cd);
         }
 
-        /** *
-         * Chat height is calculated only when Chat div is created, Or, on Window re-size.
-         * It does not need to calculate on each _showChatUserList() invocation.
-         ** */
-        // if (my_calculateChatHeight == null) {
-        //     var height = virtualclass.vutil.calculateChatHeight(); //12%
-        //     my_calculateChatHeight = height;
-        //     if (!roles.hasControls() && !virtualclass.videoHost.gObj.videoSwitch) {
-        //         height = height + 230; // 230 is teacher's video height
-        //     }
-        //     virtualclass.vutil.setChatContHeight(height);
-        //     virtualclass.chat.boxHeight = height;
-        // }
-
         $('#chat_div').memberlist({
           id: 'chat_div',
           user: userlist,
@@ -200,14 +177,6 @@
             return userDiv;
           },
         });
-
-
-        // var testChatDiv = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#subchat');
-        // testChatDiv.addEventListener('click', function (element){
-        //     var targetElem = element.srcElement;
-        //     chatContainerEvent.onEvent(targetElem, chatboxManager);
-        //
-        // });
       },
 
       history() {

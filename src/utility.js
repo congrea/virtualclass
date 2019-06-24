@@ -1692,7 +1692,7 @@
       }
     },
 
-    xhrSendWithForm(data, methodname, cb) {
+    async xhrSendWithForm(data, methodname) {
       const form_data = new FormData();
       for (const key in data) {
         form_data.append(key, data[key]);
@@ -1703,11 +1703,7 @@
         var path = `${window.webapi}&methodname=${methodname}&user=${virtualclass.gObj.uid}`;
       }
 
-      if (typeof cb !== 'undefined') {
-        virtualclass.xhr.sendFormData(form_data, path, cb);
-      } else {
-        virtualclass.xhr.sendFormData(form_data, path);
-      }
+      return await this.vxhr.post(path, form_data);
     },
 
     createSaveButton() {
@@ -2405,11 +2401,11 @@
       || virtualclass.serverData.rawData.ppt.length > 0);
     },
 
-    sendOrder(type, order, cb) {
+    sendOrder(type, order) {
       virtualclass.gObj.docOrder[type] = order;
       const data = { order: JSON.stringify(virtualclass.gObj.docOrder) };
       const url = virtualclass.api.UpdateRoomMetaData;
-      virtualclass.xhrn.sendData(data, url, cb);
+      virtualclass.xhrn.vxhrn.post(url, data);
     },
     saveWbOrder(order) {
       if (order) {
@@ -2418,19 +2414,13 @@
     },
     requestOrder(type, cb) {
       const url = virtualclass.api.GetRoomMetaData;
-      const cthis = this;
-      virtualclass.xhrn.sendData({ noting: true }, url, (response) => {
-        if (response == 'Error') {
-          console.log('page order retrieve failed');
-        } else {
-          var response = JSON.parse(response).Item;
-          if (response != null && typeof response !== 'undefined' && response != undefined) {
-            if (response.order.S) {
-              if (virtualclass.vutil.IsJsonString(response.order.S)) {
-                const responseData = JSON.parse(response.order.S);
-                virtualclass.gObj.docOrder = responseData;
-                cb(responseData[type]);
-              }
+      virtualclass.xhrn.vxhrn.post(url, { noting: true }).then((response) => {
+        if (response.data.Item != null) {
+          if (response.data.Item.order.S) {
+            if (virtualclass.vutil.IsJsonString(response.data.Item.order.S)) {
+              const responseData = JSON.parse(response.data.Item.order.S);
+              virtualclass.gObj.docOrder = responseData;
+              cb(responseData[type]);
             }
           }
         }

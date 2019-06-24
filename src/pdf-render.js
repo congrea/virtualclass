@@ -40,10 +40,8 @@
           .then((response) => {
             virtualclass.pdfRender[virtualclass.gObj.currWb].afterPdfPrefetch(note.id, response.data);
           })
-          .catch(() => {
-            setTimeout(() => {
-              virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(noteId);
-            }, 1000);
+          .catch((error) => {
+            console.error('Request failed with error ', error);
           });
       },
 
@@ -58,7 +56,7 @@
         if (virtualclass.gObj.hasOwnProperty('getDocumentTimeout')) {
           clearTimeout(virtualclass.gObj.getDocumentTimeout);
         }
-        if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer == false) {
+        if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer === false) {
           this._loadPdf(url, canvas, currNote);
           virtualclass.gObj.getDocumentTimer = true;
           virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
@@ -69,7 +67,7 @@
             // console.log('====PDF, Init1 load final',  url);
             this._loadPdf(url, canvas, currNote);
             virtualclass.gObj.getDocumentTimer = false;
-          }, 1000);
+          }, 300);
         }
       },
 
@@ -82,7 +80,8 @@
             .then((response) => {
               virtualclass.pdfRender[virtualclass.gObj.currWb].afterPdfLoad(canvas, currNote, response.data);
             })
-            .catch(() => {
+            .catch((error) => {
+              console.error('Request failed with error ', error);
               setTimeout(() => {
                 virtualclass.pdfRender[virtualclass.gObj.currWb]._loadPdf(url, canvas, currNote);
               }, 1000);

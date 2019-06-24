@@ -183,7 +183,6 @@
           // TODO This should be improve at later, should handle at function createNoteNav
           for (var i = 0; i < this.order.length; i++) {
             this.noteStatus(this.order[i], this.allNotes[this.order[i]].status);
-            //                        console.log('Note status ' + this.order[i] + ' -->' + this.allNotes[this.order[i]].status);
           }
 
           /** Earlier it was in noteStatus() which causes the performance issue * */
@@ -478,15 +477,18 @@
           notes_id: 'all',
           user: virtualclass.gObj.uid,
         };
-        virtualclass.vutil.xhrSendWithForm(data, 'retrieve_all_notes', (response) => {
-          response = JSON.parse(response);
-          if ((+response.status)) {
-            cthis.allPages = response.resultdata;
-            cthis.allNotes = cthis.convertInObjects(cthis.allPages);
-            cthis.storeInDocs(cthis.allNotes);
-            ioAdapter.mustSend({ dts: { allNotes: cthis.allNotes, doc }, cf: 'dts' });
-          }
-        });
+        virtualclass.vutil.xhrSendWithForm(data, 'retrieve_all_notes')
+          .then((response) => {
+            if ((+response.data.status)) {
+              cthis.allPages = response.data.resultdata;
+              cthis.allNotes = cthis.convertInObjects(cthis.allPages);
+              cthis.storeInDocs(cthis.allNotes);
+              ioAdapter.mustSend({ dts: { allNotes: cthis.allNotes, doc }, cf: 'dts' });
+            }
+          })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
 
       firstRequestNotes() {
@@ -496,17 +498,20 @@
           notes_id: 'all',
           user: virtualclass.gObj.uid,
         };
-        virtualclass.vutil.xhrSendWithForm(data, 'retrieve_all_notes', (response) => {
-          response = JSON.parse(response);
-          //  if((+response.status)){
-          cthis.allPages = response.resultdata;
-          cthis.allNotes = cthis.convertInObjects(cthis.allPages);
-          cthis.storeInDocs(cthis.allNotes);
-          ioAdapter.mustSend({ dts: { fallNotes: cthis.allNotes }, cf: 'dts' });
-          // cthis.firstRequestDocs();
-          cthis.requestOrder(cthis.executeOrder);
-          // }
-        });
+        virtualclass.vutil.xhrSendWithForm(data, 'retrieve_all_notes')
+          .then((response) => {
+            //  if((+response.status)){
+            cthis.allPages = response.data.resultdata;
+            cthis.allNotes = cthis.convertInObjects(cthis.allPages);
+            cthis.storeInDocs(cthis.allNotes);
+            ioAdapter.mustSend({ dts: { fallNotes: cthis.allNotes }, cf: 'dts' });
+            // cthis.firstRequestDocs();
+            cthis.requestOrder(cthis.executeOrder);
+            // }
+          })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
 
       requestSlidesOld(filepath) {
@@ -1558,14 +1563,9 @@
           var cthis = this;
           cthis.afterFirstRequestDocs(dts.fallDocs);
           virtualclass.serverData.rawData.docs = dts.fallDocs;
-          // const dochead = document.getElementsByTagName('head')[0];
-          // for (const note in virtualclass.serverData.rawData.docs[0].notes) {
-          //   const hint = document.createElement('link');
-          //   hint.setAttribute('rel', 'prefetch');
-          //   hint.setAttribute('crossOrigin', 'use-credentials');
-          //   hint.setAttribute('href', virtualclass.serverData.rawData.docs[0].notes[note].pdf);
-          //   dochead.appendChild(hint);
-          // }
+          for (const note in virtualclass.serverData.rawData.docs[0].notes) {
+            virtualclass.createPrefetchLink(virtualclass.serverData.rawData.docs[0].notes[note].pdf);
+          }
         } else if (dts.hasOwnProperty('dres')) {
           this.docs.studentExecuteScreen(dts);
           console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Layout initialized');
@@ -1739,9 +1739,8 @@
         const that = this;
 
         const cthis = this;
-        virtualclass.xhrn.sendData(data, url, (msg) => {
-          const res = JSON.parse(msg);
-          if (res.status == 'ok') {
+        virtualclass.xhrn.vxhrn.post(url, data).then((res) => {
+          if (res.data.status == 'ok') {
             cthis.sendOrder(cthis.order);
           }
         });
@@ -1772,9 +1771,8 @@
         const url = virtualclass.api.UpdateDocumentStatus;
 
         const cthis = this;
-        virtualclass.xhrn.sendData(data, url, (msg) => {
-          const res = JSON.parse(msg);
-          if (res.status == 'ok') {
+        virtualclass.xhrn.vxhrn.post(url, data).then((res) => {
+          if (res.data.status == 'ok') {
             cthis.sendOrder(cthis.order);
           }
         });

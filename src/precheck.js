@@ -309,7 +309,8 @@ var preCheck = {
       };
 
       download.onerror = function (err, msg) {
-        ShowProgressMessage('Invalid image, or error downloading');
+        // TODO, we need to handle error propely
+        alert('Invalid image, or error downloading');
       };
 
       this.startTime = (new Date()).getTime();

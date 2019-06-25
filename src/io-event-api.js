@@ -368,9 +368,11 @@ const ioEventApi = {
           virtualclass.studentScreen = new studentScreen();
         }
 
-        if (virtualclass.gObj.precheckScrn) {
-          virtualclass.vutil.prechkScrnShare();
-        }
+        // We can't call below statement
+        // precheck would  be hidden on continuous reciving of screen
+        // if (virtualclass.gObj.precheckScrn) {
+        //  virtualclass.vutil.prechkScrnShare();
+        // }
 
         // The binary data is coming on teacher when user download the session
         // which actually should not, workaround for now

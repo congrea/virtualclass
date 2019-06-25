@@ -2105,11 +2105,12 @@
   background-color: #f0f0f0;
   box-shadow: #ddd 0px 0px 5px;
   border: #DDD 1px solid;
-  padding: 20px;
+  padding: 22px;
   border-radius: 5px;
   text-align: center;
   z-index: 1150;
-  max-width: 377px;
+  max-width: 475px;
+  line-height: 1.5em;
   color: rgba(131, 14, 14, 0.93);
 }
 
@@ -3144,6 +3145,9 @@
   font-family: sans-serif;
   cursor: pointer;
   float: right;
+}
+#virtualclassCont.congrea #errorContainer #closeMsg {
+  padding: 0 4px;
 }
 
 #virtualclassCont.congrea #popupContainer .popupWindow.urlValidation {
@@ -4421,10 +4425,7 @@ span#usertab_text {
   cursor: pointer;
 }
 @media (max-width: 1100px) {
-  #virtualclassCont.congrea #errorContainer {
-    max-width: 440px;
-  }
-
+ 
   #virtualclassCont.congrea #errorContainer {
     bottom: 15%;
   }

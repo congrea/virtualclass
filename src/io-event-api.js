@@ -132,6 +132,12 @@ const ioEventApi = {
       }
       virtualclass.videoHost.setDefaultValue(speed);
       virtualclass.vutil.setDefaultScroll();
+
+      if (roles.hasControls()) { // settings send to students when teacher change his browser
+        virtualclass.vutil.beforeSend({
+          cf: 'settings', Hex: virtualclass.settings.settingsToHex(virtualclass.settings.info),
+        });
+      }
     }
 
     // virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
@@ -368,9 +374,11 @@ const ioEventApi = {
           virtualclass.studentScreen = new studentScreen();
         }
 
-        if (virtualclass.gObj.precheckScrn) {
-          virtualclass.vutil.prechkScrnShare();
-        }
+        // We can't call below statement
+        // precheck would  be hidden on continuous reciving of screen
+        // if (virtualclass.gObj.precheckScrn) {
+        //  virtualclass.vutil.prechkScrnShare();
+        // }
 
         // The binary data is coming on teacher when user download the session
         // which actually should not, workaround for now

@@ -2575,25 +2575,25 @@
       // appContainer.insertAdjacentHTML('beforeend',html)
       $('#virtualclassAppContainer').append(html);
     },
+
     prechkScrnShare() {
+      const virtualclassPreCheck = document.getElementById('preCheckcontainer');
+      virtualclassPreCheck.style.display = 'none';
+      const virtualclassApp = document.getElementById('virtualclassApp');
+      virtualclassApp.style.display = 'block';
+
       if (localStorage.getItem('precheck')) {
-        var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-        virtualclassPreCheck.style.display = 'none';
-        var virtualclassApp = document.getElementById('virtualclassApp');
-        virtualclassApp.style.display = 'block';
         virtualclass.videoHost._resetPrecheck();
       } else {
+        /* TODO, this need to verify, it's using or not  **/
         virtualclass.popup.waitMsg();
         virtualclass.makeReadySocket();
-        var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-        virtualclassPreCheck.style.display = 'none';
-        var virtualclassApp = document.getElementById('virtualclassApp');
-        virtualclassApp.style.display = 'block';
         localStorage.setItem('precheck', true);
         virtualclass.videoHost.afterSessionJoin();
       }
       virtualclass.gObj.precheckScrn = false;
     },
+
     showFinishBtn() {
       const btn = document.querySelector('.congrea #dashboardContainer .modal-header button');
       if (btn) {

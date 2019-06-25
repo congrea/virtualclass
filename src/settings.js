@@ -345,9 +345,7 @@
         localStorage.setItem('recordingButton', this.recordingButton);
         this.showRecordingButton();
         if (roles.hasControls()) {
-          if (virtualclass.settings.info.attendeeAV) {
-            ioAdapter.mustSend({ ac: this.recordingButton, cf: 'recs' });
-          }
+          ioAdapter.mustSend({ ac: this.recordingButton, cf: 'recs' });
         } else {
           if (this.recordingButton === 21) {
             this.attendeeButtonAction = true;

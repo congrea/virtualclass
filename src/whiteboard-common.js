@@ -419,16 +419,19 @@
           dc.removeChild(dc.firstChild);
         }
 
-        if (roles.hasControls()) {
-          virtualclass.wbCommon.indexNav.createWbNavigationNumber(0, 0);
-          const wb = document.querySelector('#virtualclassWhiteboard')
-          wb.classList.add('lastNote');
-        } else {
-          const pageNo = document.createElement('span')
-          pageNo.id = 'stdPageNo';
-          dc.appendChild(pageNo);
-          virtualclass.wbCommon.indexNav.studentWBPagination(0);
+        if (virtualclass.wbCommon.indexNav != null) {
+          if (roles.hasControls()) {
+            virtualclass.wbCommon.indexNav.createWbNavigationNumber(0, 0);
+            const wb = document.querySelector('#virtualclassWhiteboard')
+            wb.classList.add('lastNote');
+          } else {
+            const pageNo = document.createElement('span')
+            pageNo.id = 'stdPageNo';
+            dc.appendChild(pageNo);
+            virtualclass.wbCommon.indexNav.studentWBPagination(0);
+          }
         }
+
       }
     },
 

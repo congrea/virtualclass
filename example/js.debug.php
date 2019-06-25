@@ -19,6 +19,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-continuelist.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-xml.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/codemirror-markdown.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/mo_slickQuiz.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath."external/src/poll-d3.js" ?>"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath."external/src/poll-c3.js" ?>"></script>
@@ -30,7 +31,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/vhcheck.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/shadow-dom.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/chroma.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
@@ -63,6 +63,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-freedrawing.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-path.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-mouse.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-readyfreehandobj.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-refresh-play.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-readytextobj.js"></script>
@@ -86,11 +87,13 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/xhrn.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/popup.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/storage-array-base64-converter.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/progressbar.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-server.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-utils.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-rich-toolbar.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-text-op.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-text-operation.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-wrapped-operation.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-cursor.js"></script>
@@ -101,6 +104,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-annotation-list.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-attribute-constants.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-line-formatting.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-serialize-html.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor-parse-html.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ot-codemirror-adapter.js"></script>
@@ -109,6 +113,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/editor.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-footer.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/jquery.ui.chatlist.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/jquery.ui.chatbox.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/jquery.ui.chatroom.js"></script>
@@ -137,12 +142,11 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/raise-hand.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/color-selector.js"></script>
 
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/network.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/gesture.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/page-navigation.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modal.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-container-event.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/mic-testing.js"></script>
@@ -154,5 +158,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/receive-function.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/config.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/bootstrap.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/index.js"></script>
 

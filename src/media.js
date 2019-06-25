@@ -746,16 +746,19 @@
                 if (this.Html5Audio.audioContext.state === 'suspended') {
                   this.snode.push(uid);
                   if (virtualclass.gObj.requestToScriptNode === null) {
-                    delete this.audioSuspendTime;
                     this.Html5Audio.audioContext.resume();
                     virtualclass.gesture.initAudioResume(uid);
                     virtualclass.gObj.requestToScriptNode = true;
                   }
+                  delete this.audioSuspendTime;
                 }
               }, 2000);
             }
           } else {
             this._playWithFallback();
+            if (this.audioSuspendTime) {
+              delete this.audioSuspendTime;
+            }
           }
         },
 

@@ -30,19 +30,18 @@
             <a class="congtooltip"  data-title="{{getString 'requestScreenShare'}}" id="{{peer.userid}}contrstdscreenAnch" data-event="rs">
               <span class="icon-stdscreenImg enable stdscreenImg contImg" data-chat-disable="false" id="{{peer.userid}}contrstdscreenImg" data-event="rs"></span></a>
           </div>
-
-
         {{/if}}
+
         <div class="controleCont audioControl{{peer.userid}}" id="{{peer.userid}}contrAudCont">
           <a class="congtooltip" data-title="{{getString 'audioEnable'}}" id="{{peer.userid}}contrAudAnch" data-event="ac">
             <span class="icon-audioImg enable audioImg contImg" data-audio-disable="false" id="{{peer.userid}}contrAudImg" data-event="ac"></span></a>
         </div>
+
+      {{#if peer.isTeacher}}
         <div class="controleCont userChat chatControl{{peer.userid}}" id="{{peer.userid}}contrChatCont chatUser{{peer.userid}}">
           <a class="congtooltip" data-title="{{getString 'chatEnable'}}" id="{{peer.userid}}contrChatAnch" data-event="ch">
             <span class="icon-chatImg enable chatImg contImg" data-chat-disable="false" id="{{peer.userid}}contrChatImg" data-event="ch"></span></a>
         </div>
-
-      {{#if peer.isTeacher}}
         <div class="controleCont controllereditorRich editorRich{{peer.userid}}" id="{{peer.userid}}contreditorRichCont">
           <a class="congtooltip" data-title="{{getString 'writemode'}}" id="{{peer.userid}}contreditorRichAnch" data-event="er">
             <span class="icon-editorRichImg block editorRichImg contImg" data-editorrich-disable="true" id="{{peer.userid}}contreditorRichImg" data-event="er"></span></a>

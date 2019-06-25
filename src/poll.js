@@ -98,8 +98,8 @@
         const formData = new FormData();
         formData.append('dataToSave', JSON.stringify(data));
         formData.append('user', virtualclass.gObj.uid);
-        virtualclass.xhr.send(formData, `${window.webapi}&methodname=poll_save`, (msg) => { // TODO Handle more situations
-          const getContent = JSON.parse(msg);
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_save`, formData).then((msg) => { // TODO Handle more situations
+          const getContent = msg.data;
           const { options } = getContent;
           const obj = {};
           const optObj = {};
@@ -129,7 +129,10 @@
             that.currQid = getContent.qid;
             that.currOption = optObj;
           }
-        });
+        })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
       /*
        *
@@ -144,11 +147,14 @@
         const formData = new FormData();
         formData.append('editdata', JSON.stringify(data));
         formData.append('user', virtualclass.gObj.uid);
-        virtualclass.xhr.send(formData, `${window.webapi}&methodname=poll_update`, (msg) => { // TODO Handle more situations
-          const getContent = JSON.parse(msg);
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_update`, formData).then((msg) => { // TODO Handle more situations
+          const getContent = msg.data;
           console.log(getContent);
           that.updatePollList(getContent);
-        });
+        })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
 
       /*
@@ -187,10 +193,10 @@
         formData.append('category', JSON.stringify(category));
         formData.append('user', virtualclass.gObj.uid);
         virtualclass.recorder.items = []; // empty on each chunk sent
-        virtualclass.xhr.send(formData, `${window.webapi}&methodname=poll_data_retrieve`, (msg) => { // TODO Handle more situations
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_data_retrieve`, formData).then((msg) => { // TODO Handle more situations
           // console.log("fetched" + msg);
           //  later in php file
-          const getContent = JSON.parse(msg);
+          const getContent = msg.data;
           for (let i = 0; i <= getContent.length - 1; i++) {
             const { options } = getContent[i];
             for (const j in options) {
@@ -207,37 +213,49 @@
             that.sitePoll = getContent;
             that.displaysitePollList(isAdmin);
           }
-        });
+        })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
       interfaceToDelete(qid) {
         const that = this;
         const formData = new FormData();
         formData.append('qid', JSON.stringify(qid));
         formData.append('user', virtualclass.gObj.uid);
-        virtualclass.xhr.send(formData, `${window.webapi}&methodname=poll_delete`, (msg) => {
-          const getContent = JSON.parse(msg);
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_delete`, formData).then((msg) => {
+          const getContent = msg.data;
           that.interfaceToFetchList(getContent);
-        });
+        })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
       interfaceToDelOption(optionId) {
         const formData = new FormData();
         formData.append('id', JSON.stringify(optionId));
         formData.append('user', virtualclass.gObj.uid);
-        virtualclass.xhr.send(formData, `${window.webapi}&methodname=poll_option_drop`, (msg) => {
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_option_drop`, formData).then(() => {
           // nothing to do
-        });
+        })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
       interfaceToSaveResult(data) {
         const that = this;
         const formData = new FormData();
         formData.append('saveResult', JSON.stringify(data));
         formData.append('user', virtualclass.gObj.uid);
-        virtualclass.xhr.send(formData, `${window.webapi}&methodname=poll_result`, (msg) => {
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_result`, formData).then((msg) => {
           if (msg) {
-            const getContent = JSON.parse(msg);
+            const getContent = msg.data;
             that.interfaceToFetchList(getContent);
           }
-        });
+        })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+          });
       },
       storedDataHandle(storedData) {
         if (storedData.currScreen == 'displaycoursePollList') {

@@ -190,8 +190,7 @@
           content_order_type: '3',
           live_class_id: virtualclass.gObj.congCourse,
         };
-        virtualclass.vutil.xhrSendWithForm(data, 'congrea_page_order', (response) => {
-        });
+        virtualclass.vutil.xhrSendWithForm(data, 'congrea_page_order');
       },
 
 
@@ -246,12 +245,12 @@
         //     that.afterDeleteCallback(msg)
         // });
 
-        virtualclass.xhrn.sendData(data, url, (msg) => {
-          that.afterDeletePtCallback(msg, id);
+        virtualclass.xhrn.vxhrn.post(url, data).then((msg) => {
+          that.afterDeletePtCallback(msg.data, id);
         });
 
 
-        // virtualclass.xhr.sendFormData(form_data, window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content_video", function (msg) {
+        // virtualclass.xhr.vxhr.postFormData(window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content_video", formData).then((msg) => {
         //     if (msg != "ERROR") {
         //         var elem = document.getElementById("linkppt" + id);
         //         if (elem) {
@@ -354,8 +353,8 @@
         // virtualclass.xhrn.sendFormData({uuid:videoid}, url, function (msg) {
         //     that.afterDeleteCallback(msg)
         // });
-        virtualclass.xhrn.sendData(data, url, (msg) => {
-          that.afterDeleteCallback(msg, id);
+        virtualclass.xhrn.vxhrn.post(url, data).then((msg) => {
+          that.afterDeleteCallback(msg.data, id);
         });
       },
 
@@ -848,7 +847,8 @@
         const url = virtualclass.api.addURL;
         pptObj.type = 'presentation';
         const that = this;
-        virtualclass.xhrn.sendData(pptObj, url, (response) => {
+
+        virtualclass.xhrn.vxhrn.post(url, pptObj).then(() => {
           if (virtualclass.sharePt.hasOwnProperty('activeppts')) {
             const ppts = virtualclass.sharePt.activeppts.map(ppt => ppt.fileuuid);
             if (ppts.length != virtualclass.sharePt.order.length) {

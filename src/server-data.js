@@ -22,12 +22,19 @@ const serverData = {
   },
 
   requestData(url) {
+    if (virtualclass.gObj.readyToCommunicate !== true) {
+      setTimeout(() => {
+        virtualclass.serverData.requestData(url);
+      }, 1000);
+      return;
+    }
     this.rawData = { video: [], ppt: [], docs: [] };
     this.sdxhr.post(url, {})
       .then((response) => {
         virtualclass.serverData.afterResponse(response.data);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error('Request failed with error ', error);
         setTimeout(() => {
           virtualclass.serverData.requestData(url);
         }, 1000);
@@ -84,24 +91,13 @@ const serverData = {
                 disabledNotes = obj.disablednes;
               }
 
-              // const dochead = document.getElementsByTagName('head')[0];
-              // let hint;
               for (let i = 1; i <= count; i++) {
                 num = pad(i, 3);
                 imageUrl = `${docPrefix}/image/${num}.${arr[j].processed_data.M.image.M.type.S}`;
                 pdfUrl = `${docPrefix}/pdf/${num}.pdf`;
                 thnailUrl = `${docPrefix}/thumbnail/${num}.${arr[j].processed_data.M.thumbnail.M.type.S}`;
 
-                // hint = document.createElement('link');
-                // hint.setAttribute('rel', 'prefetch');
-                // hint.setAttribute('crossOrigin', 'use-credentials');
-                // hint.setAttribute('href', thnailUrl);
-                // dochead.appendChild(hint);
-                // hint = document.createElement('link');
-                // hint.setAttribute('rel', 'prefetch');
-                // hint.setAttribute('crossOrigin', 'use-credentials');
-                // hint.setAttribute('href', pdfUrl);
-                // dochead.appendChild(hint);
+                virtualclass.createPrefetchLink(pdfUrl);
 
                 if (i > 99) {
                   noteId = `${obj.fileuuid}_${i}`;
@@ -257,9 +253,9 @@ const serverData = {
     const that = this;
     virtualclass.gObj.pollingDocumentStatus = setTimeout(
       () => {
-        virtualclass.xhrn.sendData({ uuid: virtualclass.gObj.file.uuid }, url, (response) => {
-          const responseObj = JSON.parse(response).Item;
-          if (responseObj != undefined && typeof responseObj !== 'undefined') {
+        virtualclass.xhrn.vxhrn.post(url, { uuid: virtualclass.gObj.file.uuid }).then((response) => {
+          const responseObj = response.data.Item;
+          if (responseObj != null) {
             if (responseObj.hasOwnProperty('processed_data')
               && (responseObj.processed_data.hasOwnProperty('S') && (responseObj.processed_data.S == 'COMPLETED')
               || (responseObj.processed_data.hasOwnProperty('M') && responseObj.processed_data.M.hasOwnProperty('pdf')))) {

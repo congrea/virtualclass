@@ -132,6 +132,12 @@ const ioEventApi = {
       }
       virtualclass.videoHost.setDefaultValue(speed);
       virtualclass.vutil.setDefaultScroll();
+
+      if (roles.hasControls()) { // settings send to students when teacher change his browser
+        virtualclass.vutil.beforeSend({
+          cf: 'settings', Hex: virtualclass.settings.settingsToHex(virtualclass.settings.info),
+        });
+      }
     }
 
     // virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);

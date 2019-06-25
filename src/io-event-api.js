@@ -123,12 +123,13 @@ const ioEventApi = {
     }
 
     // set the default value related about video quality, internet latency and frame rate
-    if (virtualclass.jId == virtualclass.gObj.uid) {
+    if (virtualclass.jId === virtualclass.gObj.uid) {
+      let speed;
       // var speed = roles.hasAdmin() ? 1 :  0;
       if (typeof virtualclass.videoHost.gObj.MYSPEED === 'undefined') {
-        var speed = 1;
+        speed = 1;
       } else {
-        var speed = virtualclass.videoHost.gObj.MYSPEED;
+        speed = virtualclass.videoHost.gObj.MYSPEED;
       }
       virtualclass.videoHost.setDefaultValue(speed);
       virtualclass.vutil.setDefaultScroll();
@@ -137,6 +138,12 @@ const ioEventApi = {
         virtualclass.vutil.beforeSend({
           cf: 'settings', Hex: virtualclass.settings.settingsToHex(virtualclass.settings.info),
         });
+        if (virtualclass.settings.info.recAllowpresentorAVcontrol) {
+          const recordingButton = localStorage.getItem('recordingButton');
+          if (recordingButton !== null) {
+            ioAdapter.mustSend({ ac: JSON.parse(recordingButton), cf: 'recs' });
+          }
+        }
       }
     }
 

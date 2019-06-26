@@ -110,12 +110,12 @@
       virtualclassCont.classList.remove('recordSeeking');
     },
 
-    replayFromStart() {
+    async replayFromStart() {
       console.log('Replay from start');
       this.playTime = 150;
       this.tempPlayTime = this.playTime;
       const tempMasterRecordings = this.masterRecordings;
-      virtualclass.config.endSession();
+      await virtualclass.config.endSession();
       virtualclass.popup.closeElem();
 
       // For disable the common chant on every replay from start
@@ -569,12 +569,12 @@
       return widthPlayProgress;
     },
 
-    seek(seekPointPercent) {
+    async seek(seekPointPercent) {
       virtualclass.videoHost.UI.hideTeacherVideo();
       const index = this.getSeekPoint(seekPointPercent);
       // console.log('Total till play, Index val master index ' + index.master + ' sub index' + index.sub + ' in percent' + seekPointPercent);
       if ((index.master < this.masterIndex) || (index.master == this.masterIndex && index.sub < this.subRecordingIndex)) {
-        this.replayFromStart();
+        await this.replayFromStart();
       }
       this._seek(index);
       console.log('seek is finished');

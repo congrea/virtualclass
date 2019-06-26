@@ -121,7 +121,7 @@ const receiveFunctions = new function () {
   };
 
   // session end
-  this.sEnd = function (e) {
+  this.sEnd = async function (e) {
     // #967
     const joinClass = document.querySelector('#joinClassModal');
     joinClass.style.display = 'none';
@@ -130,7 +130,7 @@ const receiveFunctions = new function () {
     if (virtualclassApp != null) {
       virtualclassApp.style.display = 'block';
     }
-    virtualclass.config.endSession();
+    await virtualclass.config.endSession();
     virtualclass.popup.sesseionEndWindow();
     virtualclass.gObj.endSession = true;
   };

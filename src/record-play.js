@@ -411,7 +411,7 @@
 
       // In case of total file is downloaded and recoring on command is not found
       if (this.isTrimRecordingNow && this.allFileFound) {
-        this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - (this.trimontime - time);
+        this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - (time - this.trimontime);
         this.isTrimRecordingNow = false;
       }
 

@@ -24,8 +24,8 @@ $authusername = substr(str_shuffle(MD5(microtime())), 0, 20);
 $authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
 
 
-$licensekey = 'VUkRDJ7L9tSW530tOPwl6pApWVpXEU3LqoR3jgup2dHkPDgr';
-$secret = 'ThNhegjCVvzm70VPurec6mfy4eQ7FsZEi1TqpyR3gbJy0OJWtfJ44hKLVMbhbreS';
+$licensekey = 'toHM8Ee6rjrDTiaF1iyI7RBdc7uqFbc8a36XZkK6z2yLsf56';
+$secret = '1ETYgPXim8wyG7czfbz10eAumJZsrJ7bhHutdC0esFcXpW6F7Emho5RFQP7baBvU';
 
 
 $r = isset($_GET['role'] ) ? $_GET['role'] : 's';

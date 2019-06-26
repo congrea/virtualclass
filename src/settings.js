@@ -17,6 +17,8 @@
       }
 
       this.recording.init();
+
+      virtualclass.settings.info.trimRecordings = true;
     },
 
     // settings object values assign to array for get a hax code

@@ -48,6 +48,8 @@
     isTrimRecordingNow: false,
     joinRoomRecevied: false,
     totalTrimTime : 0,
+    trimofftime: 0,
+    trimontime: 0,
     init() {
       if (!this.attachSeekHandler) {
         this.attachSeekHandler = true;
@@ -296,11 +298,7 @@
       const totalSeconds = Math.trunc(miliSeconds / 1000);
       let playTime = 0;
       if (!isNaN(totalSeconds) && totalSeconds >= 1) {
-        if (!this.isTrimRecordingNow) {
-          playTime = 1000;
-        } else {
-          this.updateTrimTime(totalSeconds * 1000);
-        }
+        playTime = 1000;
 
         const data = {
           playTime,
@@ -323,13 +321,14 @@
       let chunk = [];
       let nextMinus = null;
       const allRecordigns = rawData.trim().split(/(?:\r\n|\r|\n)/g); // Getting recordings line by line
-
+      let time;
+      let type;
       for (let i = 0; i < allRecordigns.length; i++) {
         if (allRecordigns[i] != null && allRecordigns[i] != '') {
           this.totalElements++;
           metaData = allRecordigns[i].substring(0, 21);
           data = allRecordigns[i].substring(22, allRecordigns[i].length);
-          let [time, type] = metaData.split(' ');
+          [time, type] = metaData.split(' ');
           this.tempTime = time;
           time = Math.trunc(time / 1000000);
           /** Converting time, from macro to mili seconds * */
@@ -360,29 +359,29 @@
               this.lastFileTime = time;
             }
 
-            // 21, Recording off
-            if (virtualclass.settings.info.trimRecordings && data.indexOf('{"ac":21,"cf":"recs"') > -1) {
-              console.log('Trim off, ==== index ',  chunk.length, 'master ', this.masterRecordings.length);
-              this.isTrimRecordingNow = false;
-              this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - this.totalTrimTime;
-            }
-
-            if (this.isTrimRecordingNow) {
-              chunk.push({ playTime: 0, recObjs: data, type });
-              this.updateTrimTime(this.tempPlayTime);
-              console.log('Trim on, ==== index ',  i, 'master ', this.masterRecordings.length);
-              // 11, Recording on
-            } else if (virtualclass.settings.info.trimRecordings && data.indexOf('{"ac":11,"cf":"recs"') > -1) {
-              this.isTrimRecordingNow = true;
-              this.updateTrimTime(this.tempPlayTime);
-              chunk.push({ playTime: 0, recObjs: data, type });
-              console.log('Trim on, ==== index ', chunk.length, 'master ', this.masterRecordings.length);
-
+            if (virtualclass.settings.info.trimRecordings) {
+              if (this.isTrimRecordingNow) { // Recording off
+                chunk.push({ playTime: 0, recObjs: data, type });
+                if (data.indexOf('{"ac":21,"cf":"recs"') > -1) { // Check if recording turned on
+                  this.trimofftime = time;
+                  this.isTrimRecordingNow = false;
+                  const trimdifftime = this.trimofftime - this.trimontime;
+                  this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - trimdifftime;
+                  this.trimofftime = 0;
+                  this.trimontime = 0;
+                }
+              } else { // Recording on
+                if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // Check if recording turned off
+                  this.isTrimRecordingNow = true;
+                  chunk.push( { playTime: 0, recObjs: data, type } );
+                  this.trimontime = time;
+                } else {
+                  chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
+                }
+              }
             } else {
               chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
             }
-
-            // this.totalTimeInMiliSeconds += chunk[chunk.length - 1].playTime;
 
             if (typeof allRecordigns[i + 1] !== 'undefined') {
               const nextMiliSeconds = this.calculateNextTime(time, allRecordigns[i + 1]);
@@ -396,8 +395,6 @@
           }
         }
       }
-
-      console.log(`totalTime in seconds ${this.totalTimeInMiliSeconds / 1000}`);
       let binData;
       for (let k = 0; k < chunk.length; k++) {
         if (chunk[k].type === 'B') {
@@ -413,7 +410,7 @@
 
       // In case of total file is downloaded and recoring on command is not found
       if (this.isTrimRecordingNow && this.allFileFound) {
-        this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - this.totalTrimTime;
+        this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - (this.trimofftime - time);
         this.isTrimRecordingNow = false;
       }
 
@@ -430,11 +427,6 @@
           this.askToPlay();
         }
       }
-    },
-
-    updateTrimTime (time) {
-      this.totalTrimTime += time;
-      console.log("==== total trim time", this.totalTrimTime);
     },
 
     handleStartToPlay(ev) {
@@ -489,7 +481,7 @@
       if (currentMin > this.currentMin) {
         this.currentMin = currentMin;
       }
-      console.log('=====  total trim time ', this.totalTrimTime);
+      // console.log('=====  total trim time ', this.totalTrimTime);
       const totalMin = (virtualclass.recorder.totalTimeInMiliSeconds) / 1000 / 60;
       this.downloadInPercentage = ((this.currentMin * 100) / totalMin);
       virtualclass.pbar.renderProgressBar(totalMin, this.currentMin, 'downloadProgressBar', 'downloadProgressValue');

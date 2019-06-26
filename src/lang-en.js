@@ -25,12 +25,12 @@
     bandfast: 'Bandwidth is high',
     bandmedium: 'Bandwidth is medium',
     bandslow: 'Bandwidth is low',
+    bandwitdhImageNotFound: 'Image downloading failed, please click "Next" button to continue.',
     becomeTeacher: 'Become teacher',
     Binary_Limit_Exeed: 'Warning: High BN usage',
     bulkUserActions: 'Bulk user actions',
     ByInstructor: 'By instructor',
     ByTimer: 'By timer',
-
     cancel: 'Cancel',
     canvasDrawMsg: 'You can click on any tool for drawing' + 'click and hold the left mouse button to draw',
     canvasmissing: 'Canvas is missing in your browser. Please update your browser to the latest version.',

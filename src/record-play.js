@@ -361,7 +361,7 @@
             if (virtualclass.settings.info.trimRecordings) {
               if (this.isTrimRecordingNow) { // Recording off
                 chunk.push({ playTime: 0, recObjs: data, type });
-                if (data.indexOf('{"ac":21,"cf":"recs"') > -1) { // Check if recording turned on
+                if (data.indexOf('{"ac":21,"cf":"recs"') > -1) { // Check if recording turned on, trim off
                   console.log('=== trim off');
                   this.trimofftime = time;
                   this.isTrimRecordingNow = false;
@@ -370,8 +370,8 @@
                   this.trimofftime = 0;
                   this.trimontime = 0;
                 }
-              } else { // Recording on
-                if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // Check if recording turned off
+              } else {
+                if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // Check if recording turned off, trim on
                   console.log('=== trim on');
                   this.isTrimRecordingNow = true;
                   chunk.push({ playTime: 0, recObjs: data, type });

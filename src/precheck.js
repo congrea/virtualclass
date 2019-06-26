@@ -1,4 +1,3 @@
-
 var preCheck = {
   currTest: '',
   playTestAudio: false,
@@ -253,18 +252,11 @@ var preCheck = {
 
       this.downloadSize = 1000000; // bytes
 
-      /** TODO,  Remove below that * */
-
-      var that = this;
-      this.measureConnectionSpeed((speedKbps) => {
+      this.measureConnectionSpeed((msg) => {
         document.querySelector(msgSelector).innerHTML = '';
-        const bandWidthText = that.bandWidthInWords(speedKbps);
-        const bandWidthMsg = virtualclass.lang.getString(`${bandWidthText}BandWidthSpeed`);
-
-        virtualclass.precheck.createMessage(msgSelector, bandWidthMsg, 'information');
-
-        virtualclass.precheck.initHandler((`${preCheck} #${that.curr}Buttons .prev`), that.curr);
-        virtualclass.precheck.initHandler((`${preCheck} #${that.curr}Buttons .next`), that.curr);
+        virtualclass.precheck.createMessage(msgSelector, msg, 'information');
+        virtualclass.precheck.initHandler((`${preCheck} #${this.curr}Buttons .prev`), this.curr);
+        virtualclass.precheck.initHandler((`${preCheck} #${this.curr}Buttons .next`), this.curr);
       });
 
       const mediaDetails = virtualclass.media.sessionConstraints();
@@ -299,23 +291,20 @@ var preCheck = {
     },
 
     measureConnectionSpeed(cb) {
-      const download = new Image();
-      const that = this;
-      download.onload = function () {
-        that.endTime = (new Date()).getTime();
-        const speedKbps = that.calculateSpeed();
-        console.log('Download speed is occurred');
-        cb(speedKbps);
+      const bandWidthImage = new Image();
+      bandWidthImage.onload = () => {
+        this.endTime = (new Date()).getTime();
+        const speedKbps = this.calculateSpeed();
+        cb(virtualclass.lang.getString(`${this.bandWidthInWords(speedKbps)}BandWidthSpeed`));
       };
 
-      download.onerror = function (err, msg) {
-        // TODO, we need to handle error propely
-        alert('Invalid image, or error downloading');
+      bandWidthImage.onerror = function (err, msg) {
+        cb(virtualclass.lang.getString('bandwitdhImageNotFound'));
       };
 
       this.startTime = (new Date()).getTime();
       const cacheBuster = `?nnn=${this.startTime}`; // everytime the page is refrsh, the browser treat the image file as new file
-      download.src = this.imageAddr + cacheBuster;
+      bandWidthImage.src = this.imageAddr + cacheBuster;
     },
 
     calculateSpeed() {

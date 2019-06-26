@@ -502,9 +502,4 @@ span.sch {
   #virtualclassCont.congrea #slickQuiz .quizArea {
     margin-top: 5px;
   }
-
-  #virtualclassCont.congrea .bootstrap #layoutQuizBody #stdQuizContainer .row,
-  #virtualclassCont.congrea .bootstrap #layoutQuizBody.quizMainCont .row {
-    display: inline-flex;
-  }
 }

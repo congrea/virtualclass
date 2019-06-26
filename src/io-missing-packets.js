@@ -58,7 +58,7 @@ var ioMissingPackets = {
    * 2) If a request is already in queue, do not send more requests.
    * 3) Finally call, io.onRecJson function when queue is normal (all missing packets received).
    */
-  checkMissing(msg) {
+  async checkMissing(msg) {
     // debugger;
     if (virtualclass.isPlayMode) {
       io.onRecJson(msg);
@@ -75,7 +75,7 @@ var ioMissingPackets = {
         // TODO Finish Session and start gracefully
         if (!virtualclass.isPlayMode) {
           localStorage.removeItem('mySession');
-          virtualclass.config.endSession();
+          await virtualclass.config.endSession();
           virtualclass.config.setNewSession(msg.m.session)
           console.log('REFRESH SESSION');
         } else {

@@ -11,7 +11,7 @@ const ioPingPong = {
       }
     }
   },
-  pong(e) {
+  async pong(e) {
     if (e.toUser) {
       console.log(`PONG TO ${e.toUser.userid} from ${e.fromUser.userid}`);
       const msg = { ping: 'pong', cf: 'pongAck' };
@@ -19,7 +19,7 @@ const ioPingPong = {
       console.log(`PONG ACK TO ${e.fromUser.userid}`);
     } else {
       console.log(`PONG BROADCAST from ${e.fromUser.userid}`);
-      this.verifySession(e);
+      await this.verifySession(e);
     }
   },
   pongAck(e) {
@@ -38,14 +38,14 @@ const ioPingPong = {
     virtualclass.config.setNewSession(session);
     return session;
   },
-  verifySession(e) {
+  async verifySession(e) {
     const msg = e.message;
     const { session } = msg;
     const localSession = localStorage.getItem('mySession');
     if (localSession != null) {
       // only destroy the session when the request comes from teacher
       if (localSession !== session && e.fromUser.role === 't') { // We are good, if same;
-        this.sessionDestroy(session, e);
+        await this.sessionDestroy(session, e);
       }
     } else {
       console.log('==== session, start session');
@@ -57,13 +57,13 @@ const ioPingPong = {
   /**
    * We will delete all data from local Storage and IndexedDB and begin a new session
    */
-  sessionDestroy(session, e) {
+  async sessionDestroy(session, e) {
     // TODO Finish Session and start gracefully
     if (!virtualclass.isPlayMode) {
       console.log('==== session, start session');
       const uid = e.fromUser.userid;
       localStorage.removeItem('mySession');
-      virtualclass.config.endSession();
+      await virtualclass.config.endSession();
       virtualclass.config.setNewSession(session);
       ioMissingPackets.validateAllVariables(uid);
       console.log('REFRESH SESSION');

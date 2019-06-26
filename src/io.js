@@ -405,7 +405,7 @@ var ioInit = {
     workerIO.postMessage(msg);
   },
 
-  onmessage(e) {
+  async onmessage(e) {
     switch (e.data.cmd) {
       case 'connectionopen':
         io.stockReadyState = true;
@@ -438,7 +438,7 @@ var ioInit = {
 
           if (msg.hasOwnProperty('m')) {
             if (msg.m.hasOwnProperty('serial')) {
-              ioMissingPackets.checkMissing(msg);
+              await ioMissingPackets.checkMissing(msg);
             } else if (msg.m.hasOwnProperty('reqMissPac')) {
               // there is bing upload the content then we will not send miss packet
               if (!virtualclass.recorder.hasOwnProperty('startUpload')) {

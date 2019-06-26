@@ -297,11 +297,8 @@
     insertPacketInto(chunk, miliSeconds) {
       const totalSeconds = Math.trunc(miliSeconds / 1000);
       let playTime = 0;
-      if (!isNaN(totalSeconds) && totalSeconds >= 1) {
-        if (!this.isTrimRecordingNow) {
-          playTime = 1000;
-        }
-
+      if (!isNaN(totalSeconds) && totalSeconds >= 1 && !this.isTrimRecordingNow) {
+        playTime = 1000;
         const data = {
           playTime,
           recObjs: '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ',
@@ -414,7 +411,7 @@
 
       // In case of total file is downloaded and recoring on command is not found
       if (this.isTrimRecordingNow && this.allFileFound) {
-        this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - (this.trimofftime - time);
+        this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - (this.trimontime - time);
         this.isTrimRecordingNow = false;
       }
 
@@ -863,40 +860,50 @@
 
     executePacketToPlay() {
       this.calcPlayTime();
-      this.playTimeout = setTimeout(() => {
+      if (this.playTime === 0) {
         this.triggerPlayProgress();
-        try {
-          if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"cf":"sync"') < 0) {
-            io.onRecMessage(this.convertInto({ data: this.subRecordings[this.subRecordingIndex].recObjs }));
-            if (virtualclass.currApp === 'Poll'
-              && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('},"m":{"poll":{"pollMsg":"stdPublish",') > -1) {
-              virtualclass.poll.recordStartTime = {
-                app: 'Poll',
-                data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
-              };
-            } else if (virtualclass.currApp === 'Video'
-              && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"videoUl":{"content_path"') > -1) {
-              virtualclass.videoUl.videoStartTime = {
-                app: 'Video',
-                data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
-              };
-              console.log('Capture video');
-            } else if (virtualclass.currApp === 'Quiz'
-              && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"quiz":{"quizMsg":"stdPublish",') > -1) {
-              virtualclass.quiz.quizStartTime = {
-                app: 'Quiz',
-                data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
-              };
-            }
-          }
-        } catch (e) {
-          console.log(`PLAY ERROR ${e.errorCode}`);
-        }
+        this.executePacketToPlayActual();
         this.calcPlayTimeNext();
         this.play();
-      }, this.playTime);
+      } else {
+        this.playTimeout = setTimeout(() => {
+          this.triggerPlayProgress();
+          this.executePacketToPlayActual();
+          this.calcPlayTimeNext();
+          this.play();
+        }, this.playTime);
+      }
     },
 
+    executePacketToPlayActual() {
+      try {
+        if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"cf":"sync"') < 0) {
+          io.onRecMessage(this.convertInto({ data: this.subRecordings[this.subRecordingIndex].recObjs }));
+          if (virtualclass.currApp === 'Poll'
+            && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('},"m":{"poll":{"pollMsg":"stdPublish",') > -1) {
+            virtualclass.poll.recordStartTime = {
+              app: 'Poll',
+              data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
+            };
+          } else if (virtualclass.currApp === 'Video'
+            && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"videoUl":{"content_path"') > -1) {
+            virtualclass.videoUl.videoStartTime = {
+              app: 'Video',
+              data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
+            };
+            console.log('Capture video');
+          } else if (virtualclass.currApp === 'Quiz'
+            && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"quiz":{"quizMsg":"stdPublish",') > -1) {
+            virtualclass.quiz.quizStartTime = {
+              app: 'Quiz',
+              data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
+            };
+          }
+        }
+      } catch (e) {
+        console.log(`PLAY ERROR ${e.errorCode}`);
+      }
+    },
 
     isPlayFinished() {
       return ((typeof this.masterRecordings[this.masterIndex] === 'undefined')

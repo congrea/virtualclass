@@ -298,7 +298,9 @@
       const totalSeconds = Math.trunc(miliSeconds / 1000);
       let playTime = 0;
       if (!isNaN(totalSeconds) && totalSeconds >= 1) {
-        playTime = 1000;
+        if (!this.isTrimRecordingNow) {
+          playTime = 1000;
+        }
 
         const data = {
           playTime,
@@ -372,8 +374,8 @@
                   this.trimontime = 0;
                 }
               } else { // Recording on
-                console.log('=== trim on');
                 if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // Check if recording turned off
+                  console.log('=== trim on');
                   this.isTrimRecordingNow = true;
                   chunk.push({ playTime: 0, recObjs: data, type });
                   this.trimontime = time;

@@ -58,19 +58,19 @@
 
   };
 
-  Bootstrap.prototype.validDateSession = function () {
+  Bootstrap.prototype.validDateSession = async function () {
     let prvUser = localStorage.getItem('prvUser');
     const mySession = localStorage.getItem('thisismyplaymode');
     virtualclass.gObj.myConfig = localStorage.getItem('myConfig');
 
     let config;
     if (virtualclass.isPlayMode || (mySession !== null && mySession === 'thisismyplaymode')) {
-      virtualclass.config.endSession();
+      await virtualclass.config.endSession();
     } else if (prvUser !== null) {
       prvUser = JSON.parse(prvUser);
       if (prvUser.id !== wbUser.id || prvUser.room !== wbUser.room ||
         wbUser.role !== prvUser.role || prvUser.settings !== virtualclassSetting.settings) {
-        virtualclass.config.endSession();
+        await virtualclass.config.endSession();
       }
     } else if (virtualclass.gObj.myConfig !== null) {
       config = JSON.parse(virtualclass.gObj.myConfig);
@@ -80,7 +80,7 @@
       // Session is clear after 3 hour continous session
       // ////////////////////1sec-1min--1hr--3hr/////////
       if (totalTime > (1000 * 60 * 60 * 3)) {
-        virtualclass.config.endSession();
+        await virtualclass.config.endSession();
       }
     }
   }

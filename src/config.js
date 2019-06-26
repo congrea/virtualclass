@@ -16,7 +16,7 @@ Config.prototype.setNewSession = function (session) {
 }
 
 
-Config.prototype.endSession = function (onlyStoredData){
+Config.prototype.endSession = async function (onlyStoredData){
   console.log('==== End the session here');
   delete virtualclass.connectedUsers;
   if (virtualclass.gObj.hasOwnProperty('memberUpdateDelayTimer')) {
@@ -125,7 +125,7 @@ Config.prototype.endSession = function (onlyStoredData){
   }
 
   virtualclass.vutil.removeClass('audioWidget', 'fixed');
-  virtualclass.storage.clearStorageData();
+  await virtualclass.storage.clearStorageData();
 
 
   virtualclass.wbCommon.removeAllContainers();

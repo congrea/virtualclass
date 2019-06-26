@@ -437,7 +437,7 @@ span.sch {
   overflow: auto;
   margin-bottom: 0 !important;
   max-height: 96px !important;
-  min-height: 70px !important;
+  /* min-height: 70px !important; */
 }
 
 #virtualclassCont.congrea .path-mod-congrea-quiz .qnbutton {
@@ -482,4 +482,25 @@ span.sch {
   margin-top: 18px;
   overflow: auto;
   height: calc(100vh - 336px);
+}
+
+/* ======== MEDIA FOR MOBILE ========== */
+@media only screen and (min-device-width: 320px) and (max-device-width: 1024px) {
+  #virtualclassCont.congrea #layoutQuizBody #timeText {
+    position: relative;
+    top: -15px;
+  }
+
+  #virtualclassCont.congrea .path-mod-congrea-quiz .navblock {
+    position: relative;
+    top: -15px;
+  }
+
+  #virtualclassCont.congrea #slickQuiz .quizArea {
+    margin-top: 5px;
+  }
+
+  #virtualclassCont.congrea .bootstrap #layoutQuizBody #stdQuizContainer .row, #virtualclassCont.congrea .bootstrap #layoutQuizBody.quizMainCont .row {
+    display: inline-flex;
+  }
 }

@@ -373,7 +373,7 @@
               } else { // Recording on
                 if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // Check if recording turned off
                   this.isTrimRecordingNow = true;
-                  chunk.push( { playTime: 0, recObjs: data, type } );
+                  chunk.push({ playTime: 0, recObjs: data, type });
                   this.trimontime = time;
                 } else {
                   chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
@@ -460,7 +460,6 @@
       }
       return false;
     },
-
     finishRequestDataFromServer(singleFileTime) {
       if (this.isDownloadedAllRecordings(singleFileTime)) {
         virtualclass.recorder.allFileFound = true;
@@ -1418,7 +1417,5 @@
       }
     },
   };
-
-
   window.recorder = recorder;
 }(window));

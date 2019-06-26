@@ -395,8 +395,6 @@
           }
         }
       }
-
-      console.log(`totalTime in seconds ${this.totalTimeInMiliSeconds / 1000}`);
       let binData;
       for (let k = 0; k < chunk.length; k++) {
         if (chunk[k].type === 'B') {

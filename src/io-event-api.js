@@ -135,13 +135,16 @@ const ioEventApi = {
       virtualclass.vutil.setDefaultScroll();
 
       if (roles.hasControls()) { // settings send to students when teacher change his browser
-        virtualclass.vutil.beforeSend({
-          cf: 'settings', Hex: virtualclass.settings.settingsToHex(virtualclass.settings.info),
-        });
-        if (virtualclass.settings.info.recAllowpresentorAVcontrol) {
-          const recordingButton = localStorage.getItem('recordingButton');
-          if (recordingButton !== null) {
-            ioAdapter.mustSend({ ac: JSON.parse(recordingButton), cf: 'recs' });
+        if (!localStorage.getItem('userSettings')) {
+          const settings = localStorage.getItem('settings');
+          if (settings !== null) {
+            ioAdapter.mustSend({ cf: 'settings', Hex: settings });
+          }
+          if (virtualclass.settings.info.recAllowpresentorAVcontrol) {
+            const recordingButton = localStorage.getItem('recordingButton');
+            if (recordingButton !== null) {
+              ioAdapter.mustSend({ ac: JSON.parse(recordingButton), cf: 'recs' });
+            }
           }
         }
       }

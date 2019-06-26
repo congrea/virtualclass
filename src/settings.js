@@ -163,7 +163,7 @@
       localStorage.removeItem('userSettings');
       virtualclass.settings.info[settingName] = value;
       const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
-      virtualclass.vutil.beforeSend({ cf: 'settings', Hex: str });
+      ioAdapter.mustSend({ cf: 'settings', Hex: str });
       localStorage.setItem('settings', str);
       for (const propname in virtualclass.settings.user) {
         virtualclass.user.control.changeAttribute(propname,
@@ -191,7 +191,7 @@
         individualSetting[settingName] = value;
         specificSettings = virtualclass.settings.settingsToHex(individualSetting);
       }
-      virtualclass.vutil.beforeSend({ cf: 'settings', Hex: specificSettings, toUser: userId }, userId);
+      ioAdapter.mustSendUser({ cf: 'settings', Hex: specificSettings, toUser: userId }, userId);
       virtualclass.settings.user[userId] = specificSettings;
       localStorage.setItem('userSettings', JSON.stringify(virtualclass.settings.user));
     },

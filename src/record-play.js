@@ -363,6 +363,7 @@
               if (this.isTrimRecordingNow) { // Recording off
                 chunk.push({ playTime: 0, recObjs: data, type });
                 if (data.indexOf('{"ac":21,"cf":"recs"') > -1) { // Check if recording turned on
+                  console.log('=== trim off');
                   this.trimofftime = time;
                   this.isTrimRecordingNow = false;
                   const trimdifftime = this.trimofftime - this.trimontime;
@@ -371,6 +372,7 @@
                   this.trimontime = 0;
                 }
               } else { // Recording on
+                console.log('=== trim on');
                 if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // Check if recording turned off
                   this.isTrimRecordingNow = true;
                   chunk.push({ playTime: 0, recObjs: data, type });

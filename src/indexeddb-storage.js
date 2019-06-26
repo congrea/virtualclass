@@ -433,6 +433,9 @@
       await this.clearSingleTable('pollStorage');
       await this.clearSingleTable('quizData');
       await this.clearSingleTable('dstall');
+      if (virtualclass.gObj.hasOwnProperty('sessionEndResolve')) {
+        virtualclass.gObj.sessionEndResolve();
+      }
     },
 
     clearLastTable() {

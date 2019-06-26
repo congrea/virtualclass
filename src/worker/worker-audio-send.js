@@ -5,7 +5,7 @@
  * encode the audio and send it to io worker(worker-io.js)
  */
 const workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
-  importScripts('https://live.congrea.net/virtualclass/build/src/audio-g711-and-resampler.min.js');
+  importScripts('https://cdn.congrea.net/build/src/audio-g711-and-resampler.min.js');
   const workerAudioSend = {
     audioWorkletSend: null,
     workerIO: null,

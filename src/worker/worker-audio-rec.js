@@ -5,7 +5,7 @@
  * decode the audio and send this to reciever audio worklert(worklet-audio-rec.js)
  */
 const workerAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
-  importScripts('https://live.congrea.net/virtualclass/build/src/audio-g711-and-resampler.min.js');
+  importScripts('https://cdn.congrea.net/build/src/audio-g711-and-resampler.min.js');
 
   const workerAudioRec = {
     workletAudioRec: null,

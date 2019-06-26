@@ -388,6 +388,8 @@
     },
 
     clearSingleTable(table, lastTable) {
+      console.log('Clear single table ', table);
+
       const tx = this.db.transaction(table, 'readwrite');
       tx.store.clear();
 
@@ -407,7 +409,7 @@
       }
     },
 
-    clearStorageData() {
+    async clearStorageData() {
       ioAdapter.adapterMustData = [];
       ioAdapter.serial = -1;
       ioAdapter.userSerial = [];
@@ -422,15 +424,15 @@
       ioMissingPackets.missUserRequest = [];
       ioMissingPackets.aheadUserPackets = [];
       ioMissingPackets.missUserRequestFlag = 0;
-
-
-      for (let i = 0; i < this.tables.length; i++) {
-        if (i + 1 == this.tables.length) {
-          this.clearSingleTable(this.tables[i], this.clearLastTable);
-        } else {
-          this.clearSingleTable(this.tables[i]);
-        }
-      }
+      await this.clearSingleTable('wbData');
+      await this.clearSingleTable('dataAdapterAll');
+      await this.clearSingleTable('dataUserAdapterAll');
+      await this.clearSingleTable('executedStoreAll');
+      await this.clearSingleTable('executedUserStoreAll');
+      await this.clearSingleTable('dstdata');
+      await this.clearSingleTable('pollStorage');
+      await this.clearSingleTable('quizData');
+      await this.clearSingleTable('dstall');
     },
 
     clearLastTable() {

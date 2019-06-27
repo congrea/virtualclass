@@ -16,6 +16,7 @@
 
 #virtualclassCont.congrea #layoutPollBody, #virtualclassCont.congrea #layoutQuizBody {
   height: calc(100% - 48px);
+
 }
 
 #virtualclassCont.congrea #virtualclassVideo, #virtualclassCont.congrea #videoPlayerCont, #virtualclassCont.congrea #dispVideo,
@@ -212,7 +213,7 @@ and (max-device-width: 1024px) {
   }
 
   #virtualclassCont.congrea #slickQuiz .quizArea {
-    height: calc(100vh - var(--vh-offset) - 336px);
+    height: calc(100vh - var(--vh-offset) - 255px);
   }
 
   #virtualclassCont.congrea.fullScreenMode #slickQuiz .quizArea {
@@ -277,4 +278,27 @@ and (max-device-width: 1024px) {
     top: 85%;
   }
 
+  #virtualclassCont.congrea.student #layoutPollBody {
+    overflow: auto;
+  }
+
+  /* #virtualclassCont.congrea #virtualclassPoll #layoutPoll {
+    height: 95%;
+  }
+
+  #virtualclassCont.congrea.student #resultLayout {
+    width: 100%;
+    position: relative;
+    bottom: 315px;
+    overflow: auto;
+    height: 76%;
+  }
+  #virtualclassCont.congrea .modal-content #resultLayout {
+    position: relative;
+    bottom: 0;
+  }
+
+  #virtualclassCont.congrea.teacher #layoutPollBody {
+    overflow: hidden;
+  } */
 }

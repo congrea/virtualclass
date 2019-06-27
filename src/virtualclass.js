@@ -99,7 +99,7 @@
       },
 
       enablePreCheck: true,
-      clearSession() {
+      async clearSession() {
         window.pageEnter = new Date().getTime();
         if (typeof notSend === 'undefined') {
           virtualclass.vutil.beforeSend({ sEnd: true, cf: 'sEnd' }, null, true);
@@ -111,7 +111,7 @@
             }
           }
         }
-        virtualclass.config.endSession(); // by Teacher
+        await virtualclass.config.endSession(); // by Teacher
         if (virtualclass.hasOwnProperty('prevScreen') && virtualclass.prevScreen.hasOwnProperty('currentStream')) {
           virtualclass.prevScreen.unShareScreen();
         }

@@ -571,7 +571,13 @@ const receiveFunctions = new function () {
   this.recs = function (e) {
     if (virtualclass.isPlayMode) {
       /* Teacher video Off/On on recording after av recording off/on */
-      e.message.ac === 11 ? virtualclass.videoHost.onmessage('off') : virtualclass.videoHost.onmessage('on');
+      if (virtualclass.videoHost.gObj.videoSwitch) {
+        virtualclass.videoHost.onmessage('on');
+      } else {
+        virtualclass.videoHost.onmessage('off');
+      }
+
+      // e.message.ac === 11 ? virtualclass.videoHost.onmessage('off') : virtualclass.videoHost.onmessage('on');
     } else {
       if (virtualclass.settings.info.attendeeAV) {
         virtualclass.settings.onMessage(e.message);

@@ -129,6 +129,7 @@ var videoHost = {
 
 
   onmessage(videoSwitch) {
+    // console.log("==== draw teacher video ", videoSwitch);
     if (videoSwitch === 'on') {
       virtualclass.videoHost.gObj.videoSwitch = 1;
       console.log('videoSwitch 1');

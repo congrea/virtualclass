@@ -157,7 +157,6 @@ let msg;
       return this.uiChatbox;
     },
     _create() {
-      const chatStatus = (virtualclass.settings.info.studentgc === true) ? 'enable' : 'disable';
       const self = this;
       const { options } = self;
       const { offset } = options;
@@ -168,7 +167,7 @@ let msg;
         .addClass(`${'ui-widget '
             + 'ui-corner-top '
             + 'ui-chatroom '}${
-          chatStatus}`)
+          'disable'}`)
         .prop('id', 'chatrm');
       uiChatboxContent = (self.uiChatboxContent = $('<div></div>'))
         .addClass('ui-widget-content ' + 'ui-chatbox-content ')

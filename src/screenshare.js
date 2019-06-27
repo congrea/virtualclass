@@ -1155,7 +1155,7 @@ let newCanvas;
                   cont.classList.remove('studentScreenSharing');
                   document.querySelector('#chat_div').classList.remove('studentScreenSharing');
                 }
-                virtualclass.vutil.removeStudenScreenStatus();
+                // virtualclass.vutil.removeStudenScreenStatus();
               });
             }
           }

@@ -6,6 +6,7 @@
 (function (window) {
   const TIME_TO_REQUEST = 3 * 60 * 1000; // every request would be performeed in given milisecond
   const RECORDING_TIME = 15 * 60 * 1000; // If elapsed time goes beyond the
+  const PLAY_START_TIME = 3 * 60 * 1000;
   const recorder = {
     playTime: 150,
     tempPlayTime: 150,
@@ -322,6 +323,7 @@
       const allRecordigns = rawData.trim().split(/(?:\r\n|\r|\n)/g); // Getting recordings line by line
       let time;
       let type;
+
       for (let i = 0; i < allRecordigns.length; i++) {
         if (allRecordigns[i] != null && allRecordigns[i] != '') {
           this.totalElements++;
@@ -405,7 +407,6 @@
       }
 
       this.masterRecordings.push(chunk);
-
       const singleFileTime = virtualclass.recorder.getTimeFromFile(file); // Getting time stamp 112021210
       this.finishRequestDataFromServer(singleFileTime);
 
@@ -419,10 +420,20 @@
       this.updateTotalTime();
 
       // Starts playing after 3 mins of download
-      if ((this.currentMin > 3 || this.lastFile === file) && this.masterRecordings.length > 0) {
+
+      if (virtualclass.settings.info.trimRecordings && this.masterRecordings.length > 0) {
+        if (this.actualTotalPlayTime < PLAY_START_TIME) {
+          const masterIndex = this.masterRecordings.length - 1;
+          const subIndex = this.masterRecordings[this.masterRecordings.length - 1].length - 1;
+          this.actualTotalPlayTime = this.getTotalTimeInMilSeconds(masterIndex, subIndex);
+        }
+      } else {
+        this.actualTotalPlayTime = this.currentMin;
+      }
+      // Init to play after 3 minute or if last file is downloaded
+      if ((this.actualTotalPlayTime >= PLAY_START_TIME || this.lastFile === file) && this.masterRecordings.length > 0) {
         if (this.playStart) {
           this.startToPlay();
-          // this.updateTotalTime();
         } else if (!this.alreadyAskForPlay) {
           this.alreadyAskForPlay = true;
           this.askToPlay();
@@ -1250,6 +1261,7 @@
     },
 
     requestListOfFiles() {
+      this.actualTotalPlayTime = 0;
       this.session = wbUser.session;
       virtualclass.popup.loadingWindow();
       virtualclass.xhrn.vxhrn.post(virtualclass.api.recordingFiles, { session: virtualclass.recorder.session })

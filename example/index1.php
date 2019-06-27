@@ -259,15 +259,6 @@ if($info) {
     window.webapi = "<?php echo $whiteboardpath ."webapi.php?cmid=".$cmid; ?>";
     window.congCourse =  "<?php echo $cmid ?>";
 </script>
-<script>
-var virtualclassIDBOpen, virtualclassIDBDelete;
-</script>
-<script type="module">
-     import {openDB, deleteDB} from 'https://unpkg.com/idb?module';
-     virtualclassIDBOpen = openDB;
-     virtualclassIDBDelete = deleteDB;
-</script>
-
 <?php
 
 

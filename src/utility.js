@@ -2538,6 +2538,7 @@
         controleCont.classList.remove('ssSharing');
       }
       delete virtualclass.gObj.whoIsSharing;
+      virtualclass.vutil.removeStudenScreenStatus();
     },
 
     /** Inoforming to the teacher that I am sharing the screen * */
@@ -2639,6 +2640,7 @@
     },
 
     removeStudenScreenStatus() {
+      console.log("Remove screen share icon color");
       const allStdscreenImg = chatContainerEvent.elementFromShadowDom('.stdscreenImg', 'all');
       for (let i = 0; i < allStdscreenImg.length; i++) {
         allStdscreenImg[i].dataset.dcolor = '';

@@ -199,13 +199,15 @@
     },
 
     async getAllObjs() {
-      await this.getDataFromTable('wbData');
-      await this.getDataFromTable('dataAdapterAll');
-      await this.getDataFromTable('dataUserAdapterAll');
-      await this.getDataFromTable('executedStoreAll');
-      await this.getDataFromTable('executedUserStoreAll');
-      await this.getDataFromTable('dstdata');
-      await this.getDataFromTable('dstall');
+      await Promise.all([
+        this.getDataFromTable('wbData'),
+        this.getDataFromTable('dataAdapterAll'),
+        this.getDataFromTable('dataUserAdapterAll'),
+        this.getDataFromTable('executedStoreAll'),
+        this.getDataFromTable('executedUserStoreAll'),
+        this.getDataFromTable('dstdata'),
+        this.getDataFromTable('dstall'),
+      ]);
     },
 
     async getDataFromTable(table) {
@@ -424,15 +426,17 @@
       ioMissingPackets.missUserRequest = [];
       ioMissingPackets.aheadUserPackets = [];
       ioMissingPackets.missUserRequestFlag = 0;
-      await this.clearSingleTable('wbData');
-      await this.clearSingleTable('dataAdapterAll');
-      await this.clearSingleTable('dataUserAdapterAll');
-      await this.clearSingleTable('executedStoreAll');
-      await this.clearSingleTable('executedUserStoreAll');
-      await this.clearSingleTable('dstdata');
-      await this.clearSingleTable('pollStorage');
-      await this.clearSingleTable('quizData');
-      await this.clearSingleTable('dstall');
+      await Promise.all([
+        this.clearSingleTable('wbData'),
+        this.clearSingleTable('dataAdapterAll'),
+        this.clearSingleTable('dataUserAdapterAll'),
+        this.clearSingleTable('executedStoreAll'),
+        this.clearSingleTable('executedUserStoreAll'),
+        this.clearSingleTable('dstdata'),
+        this.clearSingleTable('pollStorage'),
+        this.clearSingleTable('quizData'),
+        this.clearSingleTable('dstall'),
+      ]);
       if (virtualclass.gObj.hasOwnProperty('sessionEndResolve')) {
         virtualclass.gObj.sessionEndResolve();
       }

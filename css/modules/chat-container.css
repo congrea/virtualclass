@@ -258,11 +258,11 @@ span.icon-stdscreenImg.enable::before {
   display: none;
 }
 
-.icon-stdscreenImg[data-dcolor="red"]::before {
+span.icon-stdscreenImg[data-dcolor="red"]::before {
   color: #f00;
 }
 
-.icon-stdscreenImg[data-dcolor="orange"]::before {
+span.icon-stdscreenImg[data-dcolor="orange"]::before {
   color: #ff8c00;
 }
 

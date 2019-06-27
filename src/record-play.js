@@ -416,22 +416,27 @@
         this.isTrimRecordingNow = false;
       }
 
-      this.UIdownloadProgress(file, singleFileTime);
-      this.updateTotalTime();
-
-      // Starts playing after 3 mins of download
-
+      // console.log ('==== actual recording play time', this.actualTotalPlayTime);
       if (virtualclass.settings.info.trimRecordings && this.masterRecordings.length > 0) {
-        if (this.actualTotalPlayTime < PLAY_START_TIME) {
-          const masterIndex = this.masterRecordings.length - 1;
-          const subIndex = this.masterRecordings[this.masterRecordings.length - 1].length - 1;
-          this.actualTotalPlayTime = this.getTotalTimeInMilSeconds(masterIndex, subIndex);
-        }
+        const masterIndex = this.masterRecordings.length - 1;
+        const subIndex = this.masterRecordings[this.masterRecordings.length - 1].length - 1;
+        this.actualTotalPlayTime = this.getTotalTimeInMilSeconds(masterIndex, subIndex);
+        this.currentMin =  this.actualTotalPlayTime / 1000 / 60;
       } else {
-        this.actualTotalPlayTime = this.currentMin;
+        // this.actualTotalPlayTime = this.currentMin;
+        const currentMin = (singleFileTime - this.firstTimeInSeconds) / 60;
+        if (currentMin > this.currentMin) {
+          this.currentMin = currentMin;
+        }
       }
+
+      console.log('==== downloaded total min ', this.currentMin);
+
+      this.updateTotalTime();
+      this.UIdownloadProgress();
+
       // Init to play after 3 minute or if last file is downloaded
-      if ((this.actualTotalPlayTime >= PLAY_START_TIME || this.lastFile === file) && this.masterRecordings.length > 0) {
+      if (((this.currentMin * 60 * 1000) >= PLAY_START_TIME || this.lastFile === file) && this.masterRecordings.length > 0) {
         if (this.playStart) {
           this.startToPlay();
         } else if (!this.alreadyAskForPlay) {
@@ -486,16 +491,11 @@
       }
     },
 
-    UIdownloadProgress(file, singleFileTime) {
-      // const singleFileTime = virtualclass.recorder.getTimeFromFile(file); // Getting time stamp 112021210
-      const currentMin = (singleFileTime - this.firstTimeInSeconds) / 60;
-      if (currentMin > this.currentMin) {
-        this.currentMin = currentMin;
-      }
-      // console.log('=====  total trim time ', this.totalTrimTime);
+    UIdownloadProgress() {
       const totalMin = (virtualclass.recorder.totalTimeInMiliSeconds) / 1000 / 60;
       this.downloadInPercentage = ((this.currentMin * 100) / totalMin);
       virtualclass.pbar.renderProgressBar(totalMin, this.currentMin, 'downloadProgressBar', 'downloadProgressValue');
+
       if (virtualclass.recorder.playStart && !virtualclass.recorder.waitServer) {
         virtualclass.recorder.init();
       }
@@ -584,10 +584,10 @@
       virtualclass.videoHost.UI.hideTeacherVideo();
       const index = this.getSeekPoint(seekPointPercent);
       // console.log('Total till play, Index val master index ' + index.master + ' sub index' + index.sub + ' in percent' + seekPointPercent);
-      if ((index.master < this.masterIndex) || (index.master == this.masterIndex && index.sub < this.subRecordingIndex)) {
+      if ((index.master < this.masterIndex) || (index.master === this.masterIndex && index.sub < this.subRecordingIndex)) {
         await this.replayFromStart();
       }
-      this._seek(index);
+      await this._seek(index);
       console.log('seek is finished');
       this.triggerSynchPacket();
     },
@@ -684,6 +684,8 @@
           this.subRecordings = this.masterRecordings[this.masterIndex];
         }
       }
+
+      console.log('==== recording final 1');
     },
 
     handleSyncStringPacket() {
@@ -1400,7 +1402,7 @@
       this.seekTimeWithMove = time;
     },
 
-    finalSeek(ev) {
+    async finalSeek(ev) {
       if (!ev.offsetX) {
         ev = this.getOffset(ev);
       }
@@ -1410,7 +1412,7 @@
           this.seekValueInPercentage = Math.trunc(this.downloadInPercentage);
         }
         if (this.seekValueInPercentage > 0) {
-          this.seek(this.seekValueInPercentage);
+          await this.seek(this.seekValueInPercentage);
         }
 
 
@@ -1420,6 +1422,7 @@
           this.triggerPauseVideo();
         } else {
           console.log('=== Video play ');
+          console.log('==== recording final 2');
           this.controller._play();
           this.triggerPlayVideo();
         }

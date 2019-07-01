@@ -1229,7 +1229,7 @@
           const that = this;
           spanTag.addEventListener('click', () => {
             let actionToPerform;
-            if (type === 'audio' || type === 'video' || type === 'chat' || type === 'groupChat') {
+            if (type === 'audio' || type === 'video' || type === 'chat' || type === 'groupChat' || type === 'raisehand' || type === 'userlist') {
               const setLable = virtualclass.vutil.capitalizeFirstLetter(type);
               actionToPerform = that.toogleIcon(type);
               const act = (actionToPerform === 'enable');
@@ -1238,10 +1238,16 @@
                 typeSend = 'pc';
               } else if (type === 'groupChat') {
                 typeSend = 'gc';
+              } else if (type === 'raisehand') {
+                virtualclass.settings.applySettings(act, type);
+              } else if (type === 'userlist') {
+                virtualclass.settings.applySettings(act, type);
               } else {
                 typeSend = type;
               }
-              virtualclass.settings.applySettings(act, `student${typeSend}`);
+              if (type !== 'raisehand' || type !== 'userlist') {
+                virtualclass.settings.applySettings(act, `student${typeSend}`);
+              }
               if (typeof actionToPerform !== 'undefined') {
                 localStorage.setItem(`all${setLable}Action`, actionToPerform);
                 // if (type === 'video') {
@@ -1263,7 +1269,8 @@
         for (const propname in obj) {
           value = obj[propname];
           if (type === 'audio' && propname === 'studentaudio' || type === 'video' && propname === 'studentvideo'
-            || type === 'chat' && propname === 'studentpc' || type === 'groupChat' && propname === 'studentgc') {
+            || type === 'chat' && propname === 'studentpc' || type === 'groupChat' && propname === 'studentgc'
+          || type === 'raisehand' && propname === 'raisehand' || type === 'userlist' && propname === 'userlist') {
             actionAV = (value === true) ? 'enable' : 'disable';
           }
         }

@@ -1194,15 +1194,27 @@
        * it's helper function
        */
       mediaSliderUI(type) {
-        // const lable = (type === 'audio') ? 'Audio' : 'Video';
+        let action;
+        let getMediaAction;
         const lable = virtualclass.vutil.capitalizeFirstLetter(type);
         let spanTag = document.querySelector(`.bulkUserActions #contr${lable}AllImg`);
-        const settings = virtualclass.settings.info;
-        const getMediaAction = virtualclass.user.defaultSettings(type, settings);
+        if (type === 'chat') {
+          action = 'pc';
+        } else if (type === 'groupChat') {
+          action = 'gc';
+        } else if (type === 'audio' || type === 'video') {
+          action = type;
+        }
+
+        if (type === 'raisehand' || type === 'userlist') {
+          getMediaAction = virtualclass.settings.info[type];
+        } else {
+          getMediaAction = virtualclass.settings.info['student' + action];
+        }
         const input = document.querySelector(`.bulkUserActions #contr${lable}All input`);
         const cont = document.querySelector(`.congrea #contr${lable}All`);
-        const localAction = (getMediaAction === 'enable') ? 'disable' : 'enable';
-        if (getMediaAction != null) {
+        const localAction = (getMediaAction === true) ? 'disable' : 'enable';
+        if (getMediaAction !== null) {
           spanTag.setAttribute('data-action', localAction);
           spanTag.className = `slider round icon-all-${type}-${localAction} enable congtooltip cgIcon`;
           spanTag.dataset.title = virtualclass.lang.getString(`${localAction}All${lable}`);
@@ -1228,53 +1240,33 @@
         } else {
           const that = this;
           spanTag.addEventListener('click', () => {
-            let actionToPerform;
-            if (type === 'audio' || type === 'video' || type === 'chat' || type === 'groupChat' || type === 'raisehand' || type === 'userlist') {
-              const setLable = virtualclass.vutil.capitalizeFirstLetter(type);
-              actionToPerform = that.toogleIcon(type);
-              const act = (actionToPerform === 'enable');
-              let typeSend;
-              if (type === 'chat') {
-                typeSend = 'pc';
-              } else if (type === 'groupChat') {
-                typeSend = 'gc';
-              } else if (type === 'raisehand') {
-                virtualclass.settings.applySettings(act, type);
-              } else if (type === 'userlist') {
-                virtualclass.settings.applySettings(act, type);
-              } else {
-                typeSend = type;
-              }
-              if (type !== 'raisehand' || type !== 'userlist') {
-                virtualclass.settings.applySettings(act, `student${typeSend}`);
-              }
-              if (typeof actionToPerform !== 'undefined') {
-                localStorage.setItem(`all${setLable}Action`, actionToPerform);
-                // if (type === 'video') {
-                //   that.toggleAllVideo.call(virtualclass.user, actionToPerform, type);
-                // } else
-                if (type === 'audio' || type === 'chat') {
-                  that.toggleAllUserListIcon.call(virtualclass.user, actionToPerform, type);
-                }
+            const setLable = virtualclass.vutil.capitalizeFirstLetter(type);
+            const actionToPerform = that.toogleIcon(type);
+            const act = (actionToPerform === 'enable');
+            let typeSend;
+            if (type === 'chat') {
+              typeSend = 'pc';
+            } else if (type === 'groupChat') {
+              typeSend = 'gc';
+            } else if (type === 'raisehand' || type === 'userlist') {
+              virtualclass.settings.applySettings(act, type);
+            } else {
+              typeSend = type;
+            }
+            if (type !== 'raisehand' || type !== 'userlist') {
+              virtualclass.settings.applySettings(act, `student${typeSend}`);
+            }
+            if (typeof actionToPerform !== 'undefined') {
+              localStorage.setItem(`all${setLable}Action`, actionToPerform);
+              // if (type === 'video') {
+              //   that.toggleAllVideo.call(virtualclass.user, actionToPerform, type);
+              // } else
+              if (type === 'audio' || type === 'chat') {
+                that.toggleAllUserListIcon.call(virtualclass.user, actionToPerform, type);
               }
             }
           });
         }
-      },
-
-      defaultSettings(type, obj) {
-        let actionAV; let
-          value;
-        // TODO, review this code
-        for (const propname in obj) {
-          value = obj[propname];
-          if (type === 'audio' && propname === 'studentaudio' || type === 'video' && propname === 'studentvideo'
-            || type === 'chat' && propname === 'studentpc' || type === 'groupChat' && propname === 'studentgc'
-          || type === 'raisehand' && propname === 'raisehand' || type === 'userlist' && propname === 'userlist') {
-            actionAV = (value === true) ? 'enable' : 'disable';
-          }
-        }
-        return actionAV;
       },
 
       chatBoxesSwitch() {

@@ -207,7 +207,7 @@
     }
   };
 
-  Bootstrap.prototype.readyToGo = async function (){
+  Bootstrap.prototype.readyToGo = async function () {
     if (virtualclass.isPrecheck != null) {
       if (typeof virtualclass.videoHost.gObj.MYSPEED === 'undefined') {
         virtualclass.videoHost.gObj.MYSPEED = 1;
@@ -215,6 +215,14 @@
       await virtualclass.videoHost.afterSessionJoin();
     }
 
-  }
+  };
+
+  Bootstrap.prototype.cache = async function () {
+    await virtualclass.storage.getDataFromCacheAll();
+    await virtualclass.storage.getDataFromCacheIn();
+    await virtualclass.storage.getDataFromCacheOut();
+    virtualclass.config.makeWebSocketReady = true;
+  };
+
   window.Bootstrap = Bootstrap;
 }(window));

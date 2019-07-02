@@ -193,7 +193,7 @@
       },
 
       updateInStorage() {
-        localStorage.setItem('stdRhEnable', this.stdRhEnable);
+        // localStorage.setItem('stdRhEnable', this.stdRhEnable);
       },
 
       attachHandlerAtStudent() {

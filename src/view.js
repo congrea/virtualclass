@@ -360,7 +360,7 @@
       }
     } else if (message.hasOwnProperty('createVirtualWindow')) {
       if (message.hasOwnProperty('toolHeight')) {
-        localStorage.setItem('toolHeight', message.toolHeight);
+        // localStorage.setItem('toolHeight', message.toolHeight);
       }
 
       if (e.fromUser.userid != wbUser.id) {
@@ -368,12 +368,12 @@
       }
     } else if (message.hasOwnProperty('shareBrowserWidth')) {
       if (message.hasOwnProperty('toolHeight')) {
-        localStorage.setItem('toolHeight', message.toolHeight);
+        // localStorage.setItem('toolHeight', message.toolHeight);
       }
 
       if (roles.hasControls()) {
         var toolBoxHeight = virtualclass.wb[virtualclass.gObj.currWb].utility.getWideValueAppliedByCss('commandToolsWrapper');
-        localStorage.setItem('toolHeight', toolBoxHeight);
+        // localStorage.setItem('toolHeight', toolBoxHeight);
       }
 
       if (e.fromUser.userid != wbUser.id) {

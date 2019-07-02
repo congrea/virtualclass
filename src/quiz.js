@@ -517,13 +517,13 @@
           && document.getElementById('closeQzBt').disabled == true) {
           vthis.quizSt.qClosed = 'true';
         }
-        if (vthis.quizSt) {
-          localStorage.setItem('quizSt', JSON.stringify(vthis.quizSt));
-        }
-        if (vthis.quizAttempted) {
-          console.log(`attempt data =${vthis.quizAttempted}`);
-          virtualclass.storage.quizStorage('qAttempt', JSON.stringify(vthis.quizAttempted));
-        }
+        // if (vthis.quizSt) {
+        //   localStorage.setItem('quizSt', JSON.stringify(vthis.quizSt));
+        // }
+        // if (vthis.quizAttempted) {
+        //   console.log(`attempt data =${vthis.quizAttempted}`);
+        //   virtualclass.storage.quizStorage('qAttempt', JSON.stringify(vthis.quizAttempted));
+        // }
       },
 
       /**
@@ -1172,7 +1172,7 @@
             if (storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)) {
               console.log("Don't run timer when quiz is closed");
               const elapsedTime = document.querySelector('#elsTime');
-              localStorage.setItem('quizSt', JSON.stringify(storedData));
+              // localStorage.setItem('quizSt', JSON.stringify(storedData));
               if (elapsedTime != null) {
                 elapsedTime.innerHTML = storedData.qtime;
               }

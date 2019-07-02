@@ -61,7 +61,7 @@ var ioAdapter = {
     msg.serial = this.serial;
     this.adapterMustData[this.serial] = { type: 'broadcast', m: msg };
     this.send(msg);
-    ioStorage.dataAdapterStore({ type: 'broadcast', user: wbUser.id, m: msg }, this.serial);
+    // ioStorage.dataAdapterStore({ type: 'broadcast', user: wbUser.id, m: msg }, this.serial);
   },
 
   send(msg) {
@@ -97,12 +97,6 @@ var ioAdapter = {
     msg.userSerial = this.userSerial[touser];
     this.userAdapterMustData[touser][msg.userSerial] = { type: 'broadcastToAll', m: msg };
     this.sendUser(msg, touser);
-    // TODO need to fix following
-    ioStorage.dataUserAdapterMustData({
-      type: 'broadcastToAll',
-      user: wbUser.id,
-      m: msg,
-    }, `${touser}_${msg.userSerial}`);
   },
 
   sendUser(msg, touser) {

@@ -595,7 +595,7 @@ let newCanvas;
         virtualclass.removeSharingClass();
         virtualclass.gObj.studentSSstatus.shareToAll = false;
         virtualclass.gObj.studentSSstatus.sharing = false;
-        localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
+        // localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
         const elem = document.querySelector('#virtualclassScreenShare');
         if (elem != null) {
           elem.parentNode.removeChild(elem);

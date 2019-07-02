@@ -35,7 +35,7 @@ const receiveFunctions = new function () {
    * @param e.message has various required properties
    */
   this.nEd = function (e) {
-    localStorage.setItem('nEd', true);
+    // localStorage.setItem('nEd', true);
     // TODO the editor should be dynamic
     const editorRichWriteModeBox = document.getElementById('EditorRichwriteModeBox');
 
@@ -44,7 +44,7 @@ const receiveFunctions = new function () {
         localStorage.removeItem('nEd');
       } else {
         e.message.cf = 'control';
-        localStorage.setItem('editorCode', 'true');
+        // localStorage.setItem('editorCode', 'true');
         virtualclass.user.control.onmessage(e);
       }
     } else {
@@ -415,7 +415,7 @@ const receiveFunctions = new function () {
       }
       virtualclass.gObj.currIndex = e.message.currIndex;
       virtualclass.wbCommon.displaySlide(wid);
-      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
+      // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     } else if (e.message.hasOwnProperty('wbCount')) {
       virtualclass.gObj.wbCount = e.message.wbCount;
       if (virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1) {
@@ -423,7 +423,7 @@ const receiveFunctions = new function () {
         virtualclass.gObj.currIndex = e.message.currIndex;
         virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currIndex);
       }
-      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
+      // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     }
   };
 

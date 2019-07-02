@@ -12,5 +12,6 @@ $.uiBackCompat = false;
     await bootStraper.appInit();
     await bootStraper.setUpMedia();
     await bootStraper.readyToGo();
+    await bootStraper.cache();
   };
 }(window));

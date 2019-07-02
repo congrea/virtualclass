@@ -81,17 +81,22 @@ var io = {
     // earlier the below information sent by server
     // var userObj = { name : wbUser.name, lname : wbUser.lname, role:wbUser.role, userid : wbUser.id};
     const userObj = { userid: wbUser.id };
+    let jobj;
+    let sobj;
     switch (obj.cfun) {
       case 'broadcastToAll':
         if (typeof obj.arg.touser === 'undefined') {
-          var sobj = {
+          sobj = {
             // type: 'broadcastToAll',
             user: userObj,
             m: obj.arg.msg,
           };
-          var jobj = `F-BR-{"0${JSON.stringify(sobj)}`;
+          if (obj.arg.msg.hasOwnProperty('serial')) {
+            ioStorage.storeCacheAllData(sobj, [virtualclass.gObj.uid, obj.arg.msg.serial]);
+          }
+          jobj = `F-BR-{"0${JSON.stringify(sobj)}`;
         } else {
-          var sobj = {
+          sobj = {
             // type: 'broadcastToAll',
             // user: virtualclass.gObj.uid,
             user: userObj,
@@ -102,31 +107,34 @@ var io = {
           while (touser.length < 12) {
             touser = `0${touser}`;
           }
-          var jobj = `F-BRU-{"${touser}{"0${JSON.stringify(sobj)}`;
+          if (obj.arg.msg.hasOwnProperty('userSerial')) {
+            ioStorage.storeCacheOutData(sobj, [obj.arg.touser, obj.arg.msg.userSerial]);
+          }
+          jobj = `F-BRU-{"${touser}{"0${JSON.stringify(sobj)}`;
         }
         break;
       case 'ping':
-        var sobj = {
+        sobj = {
           type: 'PONG',
           m: obj.arg.msg,
         };
-        var jobj = `F-PI-${JSON.stringify(sobj)}`;
+        jobj = `F-PI-${JSON.stringify(sobj)}`;
         break;
 
       case 'speed':
-        var jobj = `F-SPE-{"${obj.arg.msg}`;
+        jobj = `F-SPE-{"${obj.arg.msg}`;
         break;
 
       case 'session':
-        var jobj = `F-SS-{"${obj.arg.msg}`;
+        jobj = `F-SS-{"${obj.arg.msg}`;
         break;
 
       case 'recording':
-        var jobj = `F-SR-{"${obj.arg.msg}`;
+        jobj = `F-SR-{"${obj.arg.msg}`;
         break;
 
       default:
-        var jobj = JSON.stringify(obj);
+        jobj = JSON.stringify(obj);
     }
 
     // console.log('Total time ' + timeSec +', String send ' + jobj);

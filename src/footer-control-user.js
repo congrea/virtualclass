@@ -295,7 +295,7 @@
               virtualclass.editorRich.control.toggleDisplayWriteModeMsgBox(false);
             }
             action = true;
-            localStorage.setItem('editorRich', action);
+            // localStorage.setItem('editorRich', action);
           } else {
             // If editor rich is disabled
             if (virtualclass.gObj.uid == msg.toUser) {
@@ -307,7 +307,7 @@
               this.disable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
             }
             action = false;
-            localStorage.setItem('editorRich', action);
+            // localStorage.setItem('editorRich', action);
           }
 
           if (!roles.hasAdmin()) {
@@ -346,7 +346,7 @@
               virtualclass.editorCode.control.toggleDisplayWriteModeMsgBox(false);
             }
             action = true;
-            localStorage.setItem('editorCode', action);
+            // localStorage.setItem('editorCode', action);
           } else {
             // If editor code is disabled
             if (virtualclass.gObj.uid == msg.toUser) {
@@ -357,7 +357,7 @@
               this.disable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
             }
             action = false;
-            localStorage.setItem('editorCode', action);
+            // localStorage.setItem('editorCode', action);
           }
 
           if (!roles.hasAdmin()) {
@@ -615,7 +615,7 @@
             canvasWrapper.className = 'student';
           }
 
-          localStorage.setItem('canvasDrwMsg', true);
+          // localStorage.setItem('canvasDrwMsg', true);
           const ssVideo = document.getElementById('virtualclassScreenShareLocalVideo');
           if (ssVideo != null && ssVideo.tagName == 'VIDEO') {
             virtualclass.vutil.videoTeacher2Student('ScreenShare', true);
@@ -739,7 +739,7 @@
 
         audioWidgetEnable(notActive) {
           console.log('Audio enable true');
-          localStorage.setItem('audEnable', JSON.stringify({ ac: 'true' }));
+          // localStorage.setItem('audEnable', JSON.stringify({ ac: 'true' }));
           if (localStorage.getItem('dvid') == null) {
             const studentSpeaker = document.getElementById('speakerPressOnce');
             if (studentSpeaker !== null) {
@@ -1256,13 +1256,16 @@
             if (type !== 'raisehand' || type !== 'userlist') {
               virtualclass.settings.applySettings(act, `student${typeSend}`);
             }
+       
             if (typeof actionToPerform !== 'undefined') {
-              localStorage.setItem(`all${setLable}Action`, actionToPerform);
-              // if (type === 'video') {
-              //   that.toggleAllVideo.call(virtualclass.user, actionToPerform, type);
-              // } else
-              if (type === 'audio' || type === 'chat') {
-                that.toggleAllUserListIcon.call(virtualclass.user, actionToPerform, type);
+                // localStorage.setItem(`all${setLable}Action`, actionToPerform);
+                // if (type === 'video') {
+                //   that.toggleAllVideo.call(virtualclass.user, actionToPerform, type);
+                // } else
+                if (type === 'audio' || type === 'chat') {
+                  that.toggleAllUserListIcon.call(virtualclass.user, actionToPerform, type);
+                }
+
               }
             }
           });

@@ -319,9 +319,9 @@
         }
 
         if (typeof videoObj === 'undefined' || videoObj == null) {
-          this.makeAppReady(app, 'byclick');
+          await this.makeAppReady(app, 'byclick');
         } else {
-          this.makeAppReady(app, 'byclick', videoObj);
+          await this.makeAppReady(app, 'byclick', videoObj);
         }
 
         // TODO system checking function should be invoked before makeAppReady
@@ -659,7 +659,7 @@
             const preapp = JSON.parse(prevapp);
             if (preapp.name == 'SharePresentation') {
               preapp.name = '';
-              localStorage.setItem('prevApp', JSON.stringify(preapp));
+              // localStorage.setItem('prevApp', JSON.stringify(preapp));
             }
           }
 
@@ -676,7 +676,7 @@
             args[2] = id;
             args.push('virtualclassWhiteboard');
 
-            this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
+            await this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
             prevapp = JSON.parse(prevapp);
 
             if (!virtualclass.gObj.wbRearrang && prevapp != null && localStorage.getItem('currSlide') != null) {
@@ -963,9 +963,9 @@
                   //     },1000
                   // );
 
-                  virtualclass.pdfRender[wid].init(canvas, currNote);
+                  await virtualclass.pdfRender[wid].init(canvas, currNote);
                 } else {
-                  virtualclass.pdfRender[wid].init(canvas);
+                  await virtualclass.pdfRender[wid].init(canvas);
                 }
 
                 // Only need to  serve on after page refresh
@@ -1334,7 +1334,7 @@
 
               virtualclass.gObj.endSession = true;
               if (virtualclass.gObj.hasOwnProperty('beTeacher') && roles.isTeacher()) {
-                localStorage.setItem('uRole', 't');
+                // localStorage.setItem('uRole', 't');
               }
               localStorage.clear();
 
@@ -1388,7 +1388,7 @@
       //       virtualclass.gObj.sessionClear = true;
       //       virtualclass.setPrvUser();
       //       if (roles.hasControls()) {
-      //         localStorage.setItem('uRole', this.gObj.uRole);
+      //         // localStorage.setItem('uRole', this.gObj.uRole);
       //       }
       //     }
       //   }

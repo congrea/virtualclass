@@ -138,7 +138,7 @@
 
         virtualclass.wbCommon.indexNav.setCurrentIndex(virtualclass.gObj.currIndex);
         virtualclass.vutil.beforeSend({'cf': 'cwb', diswb: true, wid: wid, currIndex: virtualclass.gObj.currIndex});
-        localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
+        // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
       }
 
       console.log('==== current slide ', virtualclass.gObj.currSlide);
@@ -167,7 +167,7 @@
       virtualclass.vutil.beforeSend({'cf': 'cwb', diswb: true, wid: wid, currIndex: virtualclass.gObj.currIndex});
       // virtualclass.vutil.beforeSend({'cf': 'cwb', wbCount : virtualclass.gObj.wbCount});
       this.identifyLastNote(wid);
-      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
+      // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     },
 
     newPage : async function  () {
@@ -210,8 +210,8 @@
       console.log('==== current slide ', virtualclass.gObj.currSlide);
       this.identifyLastNote(wid);
 
-      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
-      localStorage.setItem('wbOrder', JSON.stringify(this.order));
+      // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
+      // localStorage.setItem('wbOrder', JSON.stringify(this.order));
     },
 
     rearrange(order) {

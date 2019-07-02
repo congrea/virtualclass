@@ -192,8 +192,8 @@
         console.log(order);
         console.log('videosinlocalstorage');
         console.log(virtualclass.videoUl.videos);
-        localStorage.setItem('videoList', JSON.stringify(virtualclass.videoUl.videos));
-        localStorage.setItem('videoOrder', JSON.stringify(virtualclass.videoUl.order));
+        // localStorage.setItem('videoList', JSON.stringify(virtualclass.videoUl.videos));
+        // localStorage.setItem('videoOrder', JSON.stringify(virtualclass.videoUl.order));
       },
 
 

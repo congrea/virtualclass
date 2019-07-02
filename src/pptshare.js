@@ -1225,16 +1225,16 @@
        * @param prvAppObj previous object it shareppt object
        */
       saveIntoLocalStorage(prvAppObj) {
-        if (this.validURLWithDomain(prvAppObj.metaData.init) || this.isUrlip(prvAppObj.metaData.init)) {
-          localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
-          console.log('ppt_state', prvAppObj.metaData.startFrom);
-          localStorage.setItem('ppt_state', JSON.stringify(prvAppObj.metaData.startFrom));
-          console.log('savinlocal');
-
-          localStorage.setItem('pptUrl', JSON.stringify(prvAppObj.metaData.init));
-          localStorage.setItem('autoSlideTime', JSON.stringify(virtualclass.sharePt.autoSlideTime));
-          localStorage.setItem('autoSlideFlag', JSON.stringify(virtualclass.sharePt.autoSlideFlag));
-        }
+        // if (this.validURLWithDomain(prvAppObj.metaData.init) || this.isUrlip(prvAppObj.metaData.init)) {
+        //   localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
+        //   console.log('ppt_state', prvAppObj.metaData.startFrom);
+        //   localStorage.setItem('ppt_state', JSON.stringify(prvAppObj.metaData.startFrom));
+        //   console.log('savinlocal');
+        //
+        //   localStorage.setItem('pptUrl', JSON.stringify(prvAppObj.metaData.init));
+        //   localStorage.setItem('autoSlideTime', JSON.stringify(virtualclass.sharePt.autoSlideTime));
+        //   localStorage.setItem('autoSlideFlag', JSON.stringify(virtualclass.sharePt.autoSlideFlag));
+        // }
       },
       initTeacherLayout() {
         const frame = document.getElementById('pptiframe');

@@ -103,31 +103,31 @@
           this.rendering = false; // Now rendering is finished
         }
 
-        if (roles.hasControls()) {
-          if (virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs[virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs.length - 1].uid == virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId) {
-            vcan.main.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs;
-          }
-        }
+        // if (roles.hasControls()) {
+        //   if (virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs[virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs.length - 1].uid == virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId) {
+        //     vcan.main.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs;
+        //   }
+        // }
 
 
-        if (typeof this.objs[this.objNo + 1] === 'object') {
-          if (typeof this.repMode !== 'undefined' && this.repMode == 'fromBrowser') {
-            // virtualclass.wb[virtualclass.gObj.currWb].replayTime = 0;
-            virtualclass.wb[virtualclass.gObj.currWb].replayTime = 0;
-          } else if (this.objNo == 0) {
-            // virtualclass.wb[virtualclass.gObj.currWb].replayTime = this.objs[this.objNo].mt - virtualclass.wb[virtualclass.gObj.currWb].pageEnteredTime;
-            virtualclass.wb[virtualclass.gObj.currWb].replayTime = 0;
-          } else {
-            virtualclass.wb[virtualclass.gObj.currWb].replayTime = this.objs[this.objNo + 1].mt - this.objs[this.objNo].mt;
-          }
-          this.objNo++;
-          const that = this;
-          // self = this; compile error
-          setTimeout(() => {
-            // / var temp = self;
-            that.renderObj.call(that);
-          }, virtualclass.wb[virtualclass.gObj.currWb].replayTime);
-        }
+        // if (typeof this.objs[this.objNo + 1] === 'object') {
+        //   if (typeof this.repMode !== 'undefined' && this.repMode == 'fromBrowser') {
+        //     // virtualclass.wb[virtualclass.gObj.currWb].replayTime = 0;
+        //     virtualclass.wb[virtualclass.gObj.currWb].replayTime = 0;
+        //   } else if (this.objNo == 0) {
+        //     // virtualclass.wb[virtualclass.gObj.currWb].replayTime = this.objs[this.objNo].mt - virtualclass.wb[virtualclass.gObj.currWb].pageEnteredTime;
+        //     virtualclass.wb[virtualclass.gObj.currWb].replayTime = 0;
+        //   } else {
+        //     virtualclass.wb[virtualclass.gObj.currWb].replayTime = this.objs[this.objNo + 1].mt - this.objs[this.objNo].mt;
+        //   }
+        //   this.objNo++;
+        //   const that = this;
+        //   // self = this; compile error
+        //   setTimeout(() => {
+        //     // / var temp = self;
+        //     that.renderObj.call(that);
+        //   }, virtualclass.wb[virtualclass.gObj.currWb].replayTime);
+        // }
       },
     };
   };

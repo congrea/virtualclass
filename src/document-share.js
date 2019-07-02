@@ -99,7 +99,7 @@
             if (docsObj.slideNumber != null) {
               this.setNoteScreen(docsObj);
               docsObj.slideNumber = null;
-              localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
+              // localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
             }
           } else if (this.allDocs != null && Object.keys(this.allDocs).length > 0) {
             console.log('Do nothing');
@@ -700,7 +700,7 @@
             const docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
             if (docsObj != null) {
               docsObj.slideNumber = null;
-              localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
+              // localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
             }
             if (roles.isStudent()) {
               const cont = document.querySelector(`#cont${virtualclass.gObj.currWb}`);
@@ -2118,7 +2118,7 @@
           docsObj.docs = virtualclass.dts.pages;
           docsObj.order = JSON.stringify(virtualclass.dts.order);
           docsObj.slideNumber = (virtualclass.dts.order.length > 0) ? virtualclass.dts.docs.note.currNote : null;
-          localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
+          // localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
         }
       },
     };

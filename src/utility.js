@@ -499,11 +499,11 @@
       }
       console.log('screen-detail init');
 
-      //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
-      localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
-      localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
+      //   // localStorage.setItem('totalStored', virtualclass.storage.totalStored);
+      // localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
+      // localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
       if (typeof virtualclass.gObj.audioEnable !== 'undefined') {
-        localStorage.setItem('audEnable', JSON.stringify({ ac: virtualclass.gObj.audioEnable }));
+        // localStorage.setItem('audEnable', JSON.stringify({ ac: virtualclass.gObj.audioEnable }));
       }
 
       localStorage.removeItem('otherRole');
@@ -515,7 +515,7 @@
       }
 
       virtualclass.vutil.clickOutSideCanvas();
-      localStorage.setItem(wbUser.sid, JSON.stringify(virtualclass.chat.vmstorage));
+      // localStorage.setItem(wbUser.sid, JSON.stringify(virtualclass.chat.vmstorage));
 
       if (virtualclass.hasOwnProperty('editorRich')) {
         if (typeof virtualclass.editorRich.vcAdapter === 'object') {
@@ -542,7 +542,7 @@
 
         if ((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()) {
           console.log('screen-detail is saving into storage');
-          localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
+          // localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
         }
       } else if ((virtualclass.currApp == 'Yts')) {
         if (typeof virtualclass.yts.videoId !== 'undefined' && typeof virtualclass.yts.player === 'object') {
@@ -631,21 +631,21 @@
       }
 
       if (virtualclass.gObj.wIds.length > 0) {
-        localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
+        // localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
       }
 
       if (roles.hasControls()) {
-        localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
+        // localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
       }
 
       if (virtualclass.zoom.canvasScale != null) {
         const canvasScale = (+virtualclass.zoom.canvasScale);
         console.log(`Canvas pdf scale ${canvasScale}`);
         if (virtualclass.vutil.isNumeric(canvasScale)) {
-          //   localStorage.setItem('wbcScale', canvasScale);
+          //   // localStorage.setItem('wbcScale', canvasScale);
         }
         if (virtualclass.zoom.hasOwnProperty('canvasDimension')) {
-          localStorage.setItem('canvasDimension', JSON.stringify(virtualclass.zoom.canvasDimension));
+          // localStorage.setItem('canvasDimension', JSON.stringify(virtualclass.zoom.canvasDimension));
         }
       }
 
@@ -667,8 +667,8 @@
         virtualclass.dts.upateInStorage();
       }
 
-      localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
-      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
+      // // localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
+      // // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
 
       if (!roles.hasControls()) {
         const elem = document.querySelector('#virtualclassCont.congrea #congHr.disable');
@@ -679,17 +679,17 @@
 
       console.dir(`Previous object ${prvAppObj}`);
 
-      localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
+      // localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
       // TODO this should be enable and should test proper way
-      // localStorage.setItem('uRole', virtualclass.gObj.uRole);
+      // // localStorage.setItem('uRole', virtualclass.gObj.uRole);
 
       if (roles.hasControls()) {
-        localStorage.setItem('videoSwitch', virtualclass.videoHost.gObj.videoSwitch);
+        // localStorage.setItem('videoSwitch', virtualclass.videoHost.gObj.videoSwitch);
       } else {
-        localStorage.setItem('stdVideoSwitch', virtualclass.videoHost.gObj.stdStopSmallVid);
-        localStorage.setItem('allStdVideoOff', virtualclass.videoHost.gObj.allStdVideoOff);
+        // localStorage.setItem('stdVideoSwitch', virtualclass.videoHost.gObj.stdStopSmallVid);
+        // localStorage.setItem('allStdVideoOff', virtualclass.videoHost.gObj.allStdVideoOff);
       }
-      localStorage.setItem('chatWindow', virtualclass.chat.chatWindow);
+      // localStorage.setItem('chatWindow', virtualclass.chat.chatWindow);
       this.saveWbOrder();
       if (virtualclass.isPlayMode) {
         localStorage.clear();
@@ -931,7 +931,7 @@
 
         virtualclass.gObj.uRole = (!roles.hasAdmin()) ? 'p' : 't';
 
-        localStorage.setItem('uRole', virtualclass.gObj.uRole); // Role problem
+        // localStorage.setItem('uRole', virtualclass.gObj.uRole); // Role problem
 
         virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp), studentId);
 
@@ -1030,7 +1030,7 @@
           }
         }
 
-        localStorage.setItem('uRole', virtualclass.gObj.uRole); // should be store role student
+        // localStorage.setItem('uRole', virtualclass.gObj.uRole); // should be store role student
 
         if (typeof virtualclass.wb === 'object') {
           virtualclass.wb[virtualclass.gObj.currWb].utility.uniqueArrOfObjsToStudent();
@@ -1137,7 +1137,7 @@
             divContainer.appendChild(divControl);
           }
 
-          localStorage.setItem('aId', fromUserId);
+          // localStorage.setItem('aId', fromUserId);
           // virtualclass.vutil.toggleRoleClass();
         } else {
           const currTeacherElem = document.getElementById('chat_div').getElementsByClassName('currTeacher')[0];
@@ -1427,7 +1427,7 @@
         () => {
           if (!virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId)) {
             virtualclass.vutil.overrideRoles('t');
-            localStorage.setItem('beTeacher', true);
+            // localStorage.setItem('beTeacher', true);
             console.log('connected teacher');
           } else {
             console.log('Already connected teacher');
@@ -2409,7 +2409,7 @@
     },
     saveWbOrder(order) {
       if (order) {
-        localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
+        // localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
       }
     },
     requestOrder(type, cb) {
@@ -2589,7 +2589,7 @@
         /* TODO, this need to verify, it's using or not  **/
         virtualclass.popup.waitMsg();
         virtualclass.makeReadySocket();
-        localStorage.setItem('precheck', true);
+        // localStorage.setItem('precheck', true);
         virtualclass.videoHost.afterSessionJoin();
       }
       virtualclass.gObj.precheckScrn = false;
@@ -2668,6 +2668,7 @@
     },
 
     sendCurrAppOnUserJoin() {
+      return; // TODO remove this gracefully
       if (typeof virtualclass.wb === 'object' && virtualclass.currApp == 'Whiteboard') {
         const objs = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs;
         if (objs.length > 0) {

@@ -48,7 +48,7 @@
             divContainer.appendChild(divControl);
           }
 
-          localStorage.setItem('aId', fromUserId);
+          // localStorage.setItem('aId', fromUserId);
           // virtualclass.vutil.toggleRoleClass();
         } else {
           const currTeacherElem = document.getElementById('chat_div').getElementsByClassName('currTeacher')[0];

@@ -1774,7 +1774,7 @@
 
         virtualclass.user.control.mediaWidgetDisable('vd');
         virtualclass.view.disappearBox('WebRtc');
-        localStorage.setItem('dvid', true);
+        // localStorage.setItem('dvid', true);
         console.log('navigator.getUserMedia error: ', error);
 
         let errorCode = '';

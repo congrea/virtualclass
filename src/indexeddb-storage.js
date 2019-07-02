@@ -3,221 +3,212 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window) {
-  "use strict";
-  let that;
-  let dataStore = false;
-  let dataAllStore = false;
-  let storeFirstObj = false;
-  const mc = false;
-
   const storage = {
-    //  totalStored: (totalDataStored == null) ? 0 : JSON.parse(totalDataStored),
-    version: 8,
+    version: 1,
+    mycacheQueue: [],
+    mycacheInQueue: [],
+    mycacheOutQueue: [],
     async init() {
-      /** *
-       * Which table, what doing
-       executedStoreAll => To store the executed data of users till now
-       dataAdapterAll => To store the must data of all user.
-       dataUserAdapterAll =>  To Store the must data of all user on particular user
-       wbData => To store the whiteboard data.
-       config => For store the date of created session of particular room,
-       By which, we calculate the time(after 48 hour we are
-       ending the session for that particular room)
-       executedUserStoreAll => for store the missed packet of according to user.
-       */
+      this.tables = [
+        'cacheAll',
+        'cacheOut',
+        'cacheIn',
+      ];
 
-      that = this;
-      this.tables = ['wbData', 'dataAdapterAll', 'dataUserAdapterAll', 'executedStoreAll', 'executedUserStoreAll', 'dstdata', 'pollStorage', 'quizData', 'dstall'];
-
-      this.db = await virtualclass.virtualclassIDBOpen('vidya_apps', that.dbVersion, {
-        upgrade(db, oldVersion, newVersion, transaction) {
-          that.onupgradeneeded(db);
+      virtualclass.storage.db = await virtualclass.virtualclassIDBOpen('congrea', virtualclass.storage.version, {
+        upgrade(db) {
+          virtualclass.storage.onupgradeneeded(db);
         },
       });
 
-      if (typeof this.db.objectStoreNames === 'object' && this.db.objectStoreNames != null) {
-        await this.onsuccess();
+      if (typeof virtualclass.storage.db.objectStoreNames === 'object' && virtualclass.storage.db.objectStoreNames != null) {
+        await virtualclass.storage.onsuccess();
       } else {
-        this.init();
+        virtualclass.storage.init();
       }
     },
 
     onupgradeneeded(db) {
-      const thisDb = db;
-      if (!thisDb.objectStoreNames.contains('wbData')) {
-        thisDb.createObjectStore('wbData', { keyPath: 'did' });
+      if (!db.objectStoreNames.contains('cacheAll')) {
+        db.createObjectStore('cacheAll');
       }
 
-      if (!thisDb.objectStoreNames.contains('dataAdapterAll')) {
-        thisDb.createObjectStore('dataAdapterAll', { keyPath: 'serialKey' });
+      if (!db.objectStoreNames.contains('cacheOut')) {
+        db.createObjectStore('cacheOut');
       }
 
-      if (!thisDb.objectStoreNames.contains('dataUserAdapterAll')) {
-        thisDb.createObjectStore('dataUserAdapterAll', { keyPath: 'serialKey' });
-      }
-
-      if (!thisDb.objectStoreNames.contains('executedStoreAll')) {
-        thisDb.createObjectStore('executedStoreAll', { keyPath: 'serialKey' });
-      }
-
-      if (!thisDb.objectStoreNames.contains('executedUserStoreAll')) {
-        thisDb.createObjectStore('executedUserStoreAll', { keyPath: 'serialKey' });
-      }
-
-      if (!thisDb.objectStoreNames.contains('dstdata')) {
-        thisDb.createObjectStore('dstdata', { keyPath: 'timeStamp', autoIncrement: true });
-      }
-
-      if (!thisDb.objectStoreNames.contains('pollStorage')) {
-        thisDb.createObjectStore('pollStorage', { keyPath: 'timeStamp', autoIncrement: true });
-      }
-
-      if (!thisDb.objectStoreNames.contains('quizData')) {
-        thisDb.createObjectStore('quizData', { keyPath: 'quizkey' });
-      }
-
-      if (!thisDb.objectStoreNames.contains('dstall')) {
-        thisDb.createObjectStore('dstall', { keyPath: 'timeStamp', autoIncrement: true });
+      if (!db.objectStoreNames.contains('cacheIn')) {
+        db.createObjectStore('cacheIn');
       }
     },
 
     async onsuccess() {
-      const pos = this.tables.indexOf('wbData');
-      if (pos > -1) {
-        var tables = this.tables.slice(pos + 1);
-      } else {
-        var { tables } = this;
-      }
-
-      await this.getAllObjs(tables);
     },
 
 
     store(data) {
-      // console.log("whiteboard data store");
-      const tx = that.db.transaction('wbData', 'readwrite');
-      tx.store.put({ repObjs: data, did: virtualclass.gObj.currWb, id: 1 });
-      tx.done.then(() => {
-        // console.log('success')
-      }, () => {
-        console.log('failure');
-      });
+
     },
 
 
     pollStore(store) {
-      const tx = that.db.transaction('pollStorage', 'readwrite');
-      tx.store.add({ pollResult: store, currTime: new Date().getTime(), id: 1 });
-      tx.done.then(() => {
-        console.log('success');
-      }, () => {
-        console.log('failure');
-      });
+
     },
 
     wbDataRemove(key) {
-      console.log('Whiteboard data remove');
-      const tx = that.db.transaction(['wbData'], 'readwrite');
-      tx.store.delete(key);
+
     },
 
     async dataExecutedStoreAll(data, serialKey) {
-      const tx = that.db.transaction('executedStoreAll', 'readwrite');
-      tx.store.put({ executedData: data, id: 6, serialKey });
-      tx.done.then(() => {
-        console.log('success');
-      }, () => {
-        console.log('failure');
-      });
 
-      /** TODO, this should be enable * */
-
-      // t.onerror = function ( e ) {
-      //     // prevent Firefox from throwing a ConstraintError and aborting (hard)
-      //     e.preventDefault();
-      // }
     },
 
     dataAdapterAllStore(data, serialKey) {
-      const tx = that.db.transaction('dataAdapterAll', 'readwrite');
-      tx.store.put({ adaptData: data, id: 5, serialKey });
-      tx.done.then(() => {
-        // console.log('success')
-      }, () => {
-        console.log('failure');
-      });
-      /** TODO, this should be enable * */
-      // t.onerror = function ( e ) {
-      //     // prevent Firefox from throwing a ConstraintError and aborting (hard)
-      //     e.preventDefault();
-      // }
+
     },
 
-    dataUserAdapterAllStore(data, serialKey) {
-      const tx = that.db.transaction('dataUserAdapterAll', 'readwrite');
-      tx.store.put({ adaptUserData: data, id: 7, serialKey });
+    storeCacheAll(data, serialKey) {
+      if (virtualclass.config.makeWebSocketReady) {
+        const tx = virtualclass.storage.db.transaction('cacheAll', 'readwrite');
+        serialKey[0] = parseInt(serialKey[0]);
+        serialKey[1] = parseInt(serialKey[1]);
+
+        tx.store.put(data, serialKey);
+        tx.done.then(() => {
+          console.log('success');
+        }, () => {
+          console.log('failure');
+        });
+      }
+    },
+
+
+    storeCacheOut(data, serialKey) {
+      const tx = virtualclass.storage.db.transaction('cacheOut', 'readwrite');
+      tx.store.put(data, serialKey);
       tx.done.then(() => {
         console.log('success');
       }, () => {
         console.log('failure');
       });
+    },
 
-      // hack for firefox
-      // problem https://bugzilla.mozilla.org/show_bug.cgi?id=872873
-      // solution https://github.com/aaronpowell/db.js/issues/98
-      // TODO, this should be enable
-      // t.onerror = function ( e ) {
-      //     // prevent Firefox from throwing a ConstraintError and aborting (hard)
-      //     e.preventDefault();
-      // }
+    storeCacheIn(data, serialKey) {
+      const tx = virtualclass.storage.db.transaction('cacheIn', 'readwrite');
+      tx.store.put(data, serialKey);
+      tx.done.then(() => {
+        console.log('success');
+      }, () => {
+        console.log('failure');
+      });
+    },
+
+    async getDataFromCacheAll() {
+      let cursor = await virtualclass.storage.db.transaction('cacheAll').store.openCursor();
+      while (cursor) {
+        if (cursor.value) {
+          if (!Array.isArray(virtualclass.storage.mycacheQueue[cursor.key[0]])) {
+            virtualclass.storage.mycacheQueue[cursor.key[0]] = [];
+          }
+          virtualclass.storage.mycacheQueue[cursor.key[0]][cursor.key[1]] = cursor.value;
+        }
+        cursor = await cursor.continue();
+      }
+
+      if (virtualclass.storage.mycacheQueue.length > 0) {
+        for (const key1 in virtualclass.storage.mycacheQueue) {
+          ioMissingPackets.validateAllVariables(key1);
+          for (const key2 in virtualclass.storage.mycacheQueue[key1]) {
+            const m = JSON.parse(virtualclass.storage.mycacheQueue[key1][key2]);
+            if (key1 === virtualclass.gObj.uid) {
+              ioAdapter.validateAllVariables(key1);
+              ioAdapter.serial = parseInt(key2, 10);
+              ioAdapter.adapterMustData[ioAdapter.serial] = m;
+            }
+            ioMissingPackets.executedSerial[key1] = m.m.serial;
+            ioMissingPackets.executedStore[key1][m.m.serial] = m;
+            io.onRecJson(m);
+          }
+        }
+      }
+    },
+
+    async getDataFromCacheIn() {
+      let cursor = await virtualclass.storage.db.transaction('cacheIn').store.openCursor();
+      while (cursor) {
+        if (cursor.value) {
+          if (!Array.isArray(virtualclass.storage.mycacheInQueue[cursor.key[0]])) {
+            virtualclass.storage.mycacheInQueue[cursor.key[0]] = [];
+          }
+          virtualclass.storage.mycacheInQueue[cursor.key[0]][cursor.key[1]] = cursor.value;
+        }
+        cursor = await cursor.continue();
+      }
+
+      if (virtualclass.storage.mycacheInQueue.length > 0) {
+        for (const key1 in virtualclass.storage.mycacheInQueue) {
+          ioMissingPackets.validateAllUserVariables(key1);
+          for (const key2 in virtualclass.storage.mycacheInQueue[key1]) {
+            const m = JSON.parse(virtualclass.storage.mycacheInQueue[key1][key2]);
+            ioMissingPackets.executedUserSerial[key1] = m.m.userSerial;
+            ioMissingPackets.executedUserStore[key1][m.m.userSerial] = m;
+            io.onRecJson(m);
+          }
+        }
+      }
+    },
+
+    async getDataFromCacheOut() {
+      let cursor = await virtualclass.storage.db.transaction('cacheOut').store.openCursor();
+      while (cursor) {
+        if (cursor.value) {
+          if (!Array.isArray(virtualclass.storage.mycacheOutQueue[cursor.key[0]])) {
+            virtualclass.storage.mycacheOutQueue[cursor.key[0]] = [];
+          }
+          virtualclass.storage.mycacheOutQueue[cursor.key[0]][cursor.key[1]] = cursor.value;
+        }
+        cursor = await cursor.continue();
+      }
+
+      if (virtualclass.storage.mycacheOutQueue.length > 0) {
+        for (const key1 in virtualclass.storage.mycacheOutQueue) {
+          for (const key2 in virtualclass.storage.mycacheOutQueue[key1]) {
+            const m = JSON.parse(virtualclass.storage.mycacheOutQueue[key1][key2]);
+            ioAdapter.validateAllVariables(key1);
+            ioAdapter.userSerial[key1] = parseInt(key2, 10);
+            ioAdapter.userAdapterMustData[key1][ioAdapter.userSerial[key1]] = m;
+          }
+        }
+      }
+    },
+
+    dataUserAdapterAllStore(data, serialKey) {
+
     },
 
 
     dataExecutedUserStoreAll(data, serialKey) {
-      const tx = that.db.transaction('executedUserStoreAll', 'readwrite');
-      tx.store.put({ executedUserData: data, id: 8, serialKey });
-      tx.done.then(() => {
-        console.log('success');
-      }, () => {
-        console.log('failure');
-      });
 
-      // t.onerror = function ( e ) {
-      //     // prevent Firefox from throwing a ConstraintError and aborting (hard)
-      //     e.preventDefault();
-      // }
     },
 
     quizStorage(quizkey, data) {
-      const tx = that.db.transaction('quizData', 'readwrite');
-      tx.store.put({ qzData: data, quizkey });
-      tx.done.then(() => {
-        console.log('success');
-      }, () => {
-        console.log('failure');
-      });
+
     },
 
     async getAllObjs() {
       await Promise.all([
-        this.getDataFromTable('wbData'),
-        this.getDataFromTable('dataAdapterAll'),
-        this.getDataFromTable('dataUserAdapterAll'),
-        this.getDataFromTable('executedStoreAll'),
-        this.getDataFromTable('executedUserStoreAll'),
-        this.getDataFromTable('dstdata'),
-        this.getDataFromTable('dstall'),
+
       ]);
     },
 
     async getDataFromTable(table) {
-      const cursor = await this.db.transaction(table).store.openCursor();
+      const cursor = await virtualclass.storage.db.transaction(table).store.openCursor();
       await this[table].handleResult(cursor);
     },
 
     async getAllDataOfPoll(table, cb) {
       const wholeData = [];
-      let cursor = await that.db.transaction('pollStorage').store.openCursor();
+      let cursor = await virtualclass.storage.db.transaction('pollStorage').store.openCursor();
 
       while (cursor) {
         console.log(cursor.key, cursor.value);
@@ -232,167 +223,10 @@
       }
     },
 
-    wbData: {
-      async handleResult(cursor) {
-        while (cursor) {
-          if (cursor.value.hasOwnProperty('repObjs')) {
-            if (typeof virtualclass.wb === 'object') {
-              console.log(`Total Whiteboard Length ${JSON.parse(cursor.value.repObjs).length} From indexeddb`);
-              virtualclass.wb[virtualclass.gObj.currWb].utility.replayFromLocalStroage(JSON.parse(cursor.value.repObjs));
-            } else {
-              virtualclass.gObj.tempReplayObjs._doc_0_0 = JSON.parse(cursor.value.repObjs);
-            }
-            storeFirstObj = true;
-          }
-
-          cursor = await cursor.continue();
-        }
-
-        if (!storeFirstObj && virtualclass.currApp === 'Whiteboard') {
-          virtualclass.wb[virtualclass.gObj.currWb].utility.makeUserAvailable(); // at very first
-        }
-      },
-    },
-
-
-    dataAdapterAll: {
-      async handleResult(cursor) {
-        while (cursor) {
-          if (cursor.value.hasOwnProperty('adaptData')) {
-            const data = JSON.parse(cursor.value.adaptData);
-            if (parseInt(cursor.value.serialKey) > ioAdapter.serial) {
-              ioAdapter.serial = parseInt(cursor.value.serialKey);
-            }
-            // debugger;
-            ioAdapter.adapterMustData[ioAdapter.serial] = data;
-          }
-          cursor = await cursor.continue();
-        }
-      },
-    },
-
-    dataUserAdapterAll: {
-      async handleResult(cursor) {
-        while (cursor) {
-          if (cursor.value.hasOwnProperty('adaptUserData')) {
-            const data = JSON.parse(cursor.value.adaptUserData);
-            const usKey = cursor.value.serialKey.split('_');
-            const uid = parseInt(usKey[0]); const
-              serial = parseInt(usKey[1]);
-            ioAdapter.validateAllVariables(uid);
-            if (serial > ioAdapter.userSerial[uid]) {
-              ioAdapter.userSerial[uid] = serial;
-            }
-
-            ioAdapter.userAdapterMustData[uid][serial] = data;
-          }
-          cursor = await cursor.continue();
-        }
-      },
-    },
-
-
-    executedStoreAll: {
-      async handleResult(cursor) {
-        while (cursor) {
-          if (cursor.value.hasOwnProperty('executedData')) {
-            const data = JSON.parse(cursor.value.executedData);
-            // ioMissingPackets.executedSerial = cursor.value.serialKey;
-            const akey = cursor.value.serialKey.split('_');
-            const uid = parseInt(akey[0]); const
-              serial = parseInt(akey[1]);
-            ioMissingPackets.validateAllVariables(uid);
-            ioMissingPackets.executedStore[uid][serial] = data;
-            // console.log('till now executed ' + cursor.value.serialKey);
-          }
-          cursor = await cursor.continue();
-        }
-      },
-    },
-
-
-    executedUserStoreAll: {
-      async handleResult(cursor) {
-        while (cursor) {
-          if (cursor.value.hasOwnProperty('executedUserData')) {
-            const data = JSON.parse(cursor.value.executedUserData);
-
-            // ioMissingPackets.executedSerial = cursor.value.serialKey;
-            const akey = cursor.value.serialKey.split('_');
-            const uid = parseInt(akey[0]); const
-              serial = parseInt(akey[1]);
-
-            ioMissingPackets.validateAllUserVariables(uid);
-
-            ioMissingPackets.executedUserStore[uid][serial] = data;
-          }
-          cursor = await cursor.continue();
-        }
-      },
-    },
-
-    // Store for document sharing data
-    dstdata: {
-      async handleResult(cursor) {
-        while (cursor) {
-          if (cursor.value.hasOwnProperty('alldocs')) {
-            console.log('document share store');
-            dataStore = true;
-            virtualclass.gObj.docs = JSON.parse(cursor.value.alldocs);
-            // virtualclass.gObj.docs = 'init';
-          }
-          cursor = await cursor.continue();
-        }
-
-        if (!dataStore) {
-          virtualclass.gObj.docs = 'init';
-          console.log('==== Docs init ');
-        }
-      },
-    },
-
-    dstAllStore(data) {
-      const tx = this.db.transaction('dstall', 'readwrite');
-      tx.store.clear();
-
-      const allNotes = JSON.stringify(virtualclass.dts.allNotes);
-      tx.store.add({
-        dstalldocs: JSON.stringify(data),
-        allNotes,
-        timeStamp: new Date().getTime(),
-        id: 10,
-      });
-      tx.done.then(() => {
-        console.log('success');
-      }, () => {
-        console.log('failure');
-      });
-    },
-
-    dstall: {
-      async handleResult(cursor) {
-        while (cursor) {
-          if (cursor.value.hasOwnProperty('dstalldocs')) {
-            console.log('document share store');
-            dataAllStore = true;
-            // We are not getting the data from local storage for now
-            virtualclass.gObj.dstAll = JSON.parse(cursor.value.dstalldocs);
-            virtualclass.gObj.dstAllNotes = JSON.parse(cursor.value.allNotes);
-          }
-          cursor = await cursor.continue();
-        }
-
-        if (!dataAllStore) {
-          console.log('document share store init');
-          virtualclass.gObj.dstAll = 'init';
-        }
-      },
-    },
-
     clearSingleTable(table, lastTable) {
       console.log('Clear single table ', table);
 
-      const tx = this.db.transaction(table, 'readwrite');
+      const tx = virtualclass.storage.db.transaction(table, 'readwrite');
       tx.store.clear();
 
       if (typeof lastTable !== 'undefined') {
@@ -427,15 +261,9 @@
       ioMissingPackets.aheadUserPackets = [];
       ioMissingPackets.missUserRequestFlag = 0;
       await Promise.all([
-        this.clearSingleTable('wbData'),
-        this.clearSingleTable('dataAdapterAll'),
-        this.clearSingleTable('dataUserAdapterAll'),
-        this.clearSingleTable('executedStoreAll'),
-        this.clearSingleTable('executedUserStoreAll'),
-        this.clearSingleTable('dstdata'),
-        this.clearSingleTable('pollStorage'),
-        this.clearSingleTable('quizData'),
-        this.clearSingleTable('dstall'),
+        this.clearSingleTable('cacheAll'),
+        this.clearSingleTable('cacheIn'),
+        this.clearSingleTable('cacheOut'),
       ]);
       if (virtualclass.gObj.hasOwnProperty('sessionEndResolve')) {
         virtualclass.gObj.sessionEndResolve();
@@ -451,37 +279,18 @@
     // Get quiz data, store in array based on
     // key and then return array of object
     async getQuizData(cb) {
-      const dataArr = [];
-      let cursor = await this.db.transaction('quizData').store.openCursor();
-      while (cursor) {
-        const qdata = cursor.value;
-        dataArr[cursor.value.quizkey] = cursor.value.qzData;
-        cursor = await cursor.continue();
-      }
 
-      cb(dataArr);
     },
 
     // Clear all data from given table
     clearTableData(table) {
-      const tx = this.db.transaction(table, 'readwrite');
-      tx.store.clear();
+
     },
 
     // get whiteboard data accoring to whieboard id
 
     async getWbData(wbId) {
-      const tx = await this.db.transaction('wbData', 'readwrite');
-      const store = tx.objectStore('wbData');
-      const wb = await store.get(wbId);
 
-      if (typeof wb !== 'undefined') {
-        console.log(`Whiteboard start store from local storage ${wbId}`);
-        virtualclass.gObj.tempReplayObjs[wbId] = [];
-        virtualclass.gObj.tempReplayObjs[wbId] = JSON.parse(wb.repObjs);
-      } else {
-        virtualclass.gObj.tempReplayObjs[wbId] = 'nodata';
-      }
     },
   };
   window.storage = storage;

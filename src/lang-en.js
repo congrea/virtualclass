@@ -321,8 +321,8 @@
     noain: 'No audio input',
     noaout: 'No audio output',
     novideo: 'No video',
-    enableAllAudio: 'Unmute All',
-    disableAllAudio: 'Mute All',
+    enableAllAudio: 'Unmute all',
+    disableAllAudio: 'Mute all',
     colorSelector: 'Color',
     strk: 'Stroke size',
     font: 'Font size',
@@ -411,6 +411,16 @@
     enableAllChat: 'Enable private chat',
     disableAllGroupChat: 'Disable common chat',
     enableAllGroupChat: 'Enable common chat',
+    disableAllRaisehand: 'Disable raise hand',
+    enableAllRaisehand: 'Enable raise hand',
+    disableAllUserlist: 'Disable user list',
+    enableAllUserlist: 'Enable user list',
+    Audio: 'audio',
+    Video: 'video',
+    Chat: 'private chat',
+    GroupChat: 'common chat',
+    RaiseHand: 'raise hand',
+    UserList: 'user list',
     /* For Chrome */
     PermissionDeniedErrorExt: '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'
     + 'Go to camera icon on top right of the screen <br /> '

@@ -6,14 +6,18 @@ this["JST"]["dest_temp/templates/appSettingDetail.hbs"] = Handlebars.template({"
   return " <div class=\"bulkUserActions app-setting-rbs\"><div class=\"setting-heading\"><label class=\"bulk\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"bulkUserActions",{"name":"getString","hash":{},"data":data}))
     + "</label></div><ul class=\"list-group\"><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrAudioAll\"><div class=\"appSettingIcons\" id=\"usersMuteSwitch\"></div> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"muteAllAudio",{"name":"getString","hash":{},"data":data}))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Audio",{"name":"getString","hash":{},"data":data}))
     + " <label class=\"switch\"><input type=\"checkbox\"><span class=\"slider round icon-all-audio-enable congtooltip\" id=\"contrAudioAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrVideoAll\"><div class=\"appSettingIcons\" id=\"usersVideoSwitch\"></div> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"disableAllVideo",{"name":"getString","hash":{},"data":data}))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Video",{"name":"getString","hash":{},"data":data}))
     + " <label class=\"switch video_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-video-enable congtooltip\" id=\"contrVideoAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrChatAll\"><div class=\"appSettingIcons\" id=\"usersChatSwitch\"></div> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"disableAllChat",{"name":"getString","hash":{},"data":data}))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Chat",{"name":"getString","hash":{},"data":data}))
     + " <label class=\"switch chat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-chat-enable congtooltip\" id=\"contrChatAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrGroupChatAll\"><div class=\"appSettingIcons\" id=\"usersGroupChatSwitch\"></div> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"disableAllGroupChat",{"name":"getString","hash":{},"data":data}))
-    + " <label class=\"switch GroupChat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-groupChat-enable congtooltip\" id=\"contrGroupChatAllImg\"></span></label></li></ul></div> ";
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"GroupChat",{"name":"getString","hash":{},"data":data}))
+    + " <label class=\"switch GroupChat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-groupChat-enable congtooltip\" id=\"contrGroupChatAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrRaisehandAll\"><div class=\"appSettingIcons\" id=\"usersRaisehandSwitch\"></div> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"RaiseHand",{"name":"getString","hash":{},"data":data}))
+    + " <label class=\"switch Raisehand_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-raisehand-enable congtooltip\" id=\"contrRaisehandAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrUserlistAll\"><div class=\"appSettingIcons\" id=\"usersUserlistSwitch\"></div> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"UserList",{"name":"getString","hash":{},"data":data}))
+    + " <label class=\"switch Userlist_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-userlist-enable congtooltip\" id=\"contrUserlistAllImg\"></span></label></li></ul></div> ";
 },"3":function(container,depth0,helpers,partials,data) {
     return " <div class=\"uiMuteAll\"><a id=\"contrAudioAll\"><span class=\"cgIcon\"id=\"contrAudioAllImg\" data-action=\"disable\" class=\"icon-all-audio-disable cgIcon\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"muteAll",{"name":"getString","hash":{},"data":data}))
@@ -126,10 +130,6 @@ this["JST"]["dest_temp/templates/chat/chatbox.hbs"] = Handlebars.template({"comp
     + "\" class=\"ui-widget-content ui-chatbox-log\"></div><div class=\"ui-widget-content ui-chatbox-input\" id=\"yui_3_17_2_1_1496992871757_59\"><textarea class=\"ui-widget-content ui-chatbox-input-box\" id=\"ta"
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" style=\"width: 219px;\"></textarea></div></div></div></li>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/chat/chatCont.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"ui-widget ui-corner-top ui-memblist\" id=\"memlist\" style=\"display: block; right: -1px; z-index: 0;\"><div class=\"ui-widget-content ui-memblist-content\" id=\"yui_3_17_2_1_1496901386584_68\"><div id=\"chat_div\" class=\"ui-widget-content ui-memblist-log\" style=\"height: 389px; width: 320px; max-height: 429px;\"></div></div></div><div class=\"ui-widget ui-corner-top ui-chatroom enable\" id=\"chatrm\" style=\"width: 304px; left: 6px; display: none; z-index: 1;\"><div class=\"ui-widget-content ui-chatbox-content\" id=\"yui_3_17_2_1_1496901386584_77\"><ul id=\"chat_room\" class=\"ui-widget-content ui-chatbox-log\"></ul></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/chat/chatMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

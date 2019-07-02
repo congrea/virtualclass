@@ -375,6 +375,77 @@ body {
   color: #464646;
 }
 
+#virtualclassCont #appSettingDetail .disable #usersRaisehandSwitch::before {
+  content: "\e962";
+  font-weight: normal;
+  font-size: 17px;
+  margin-top: 3px;
+  float: left;
+  font-family: 'icomoon';
+  color: #464646;
+}
+
+#virtualclassCont #appSettingDetail .enable #usersRaisehandSwitch::before {
+  content: "\e962";
+  font-weight: normal;
+  font-size: 17px;
+  margin-top: 3px;
+  float: left;
+  font-family: 'icomoon';
+  color: #464646;
+}
+
+#virtualclassCont #appSettingDetail .disable #usersUserlistSwitch::before {
+  content: "\e923";
+  font-weight: normal;
+  font-size: 17px;
+  margin-top: 3px;
+  float: left;
+  font-family: 'icomoon';
+  color: #464646;
+}
+
+#virtualclassCont #appSettingDetail .enable #usersUserlistSwitch::before {
+  content: "\e923";
+  font-weight: normal;
+  font-size: 17px;
+  margin-top: 3px;
+  float: left;
+  font-family: 'icomoon';
+  color: #464646;
+}
+
+#virtualclassCont.congrea.student #congHr.rsEnable {
+  opacity: 1;
+  pointer-events: visible !important;
+}
+
+#virtualclassCont.congrea.student #congHr.rsDisable {
+  opacity: 0.5;
+  pointer-events: none !important;
+}
+
+#virtualclassCont.congrea.student #congreaChatMainCont #memlist.hideList {
+  display: none;
+}
+
+#virtualclassCont.congrea.student #congreaChatMainCont #memlist.showList {
+  display: block;
+}
+
+#virtualclassCont.congrea.student #congreaChatMainCont #congFooterCtr #congchatBarInput #congreaUserSearch.showInput {
+  display: block !important;
+}
+
+#virtualclassCont.congrea.student #congreaChatMainCont #congFooterCtr #congchatBarInput #congreaUserSearch.hideInput {
+  display: none !important;
+}
+
+#virtualclassCont.congrea.student #rightSubContainer .vmchat_bar_button.disable {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 #virtualclassCont.congrea.student .ui-widget.enable.chat_disable {
   opacity: 0.5;
 }

@@ -225,6 +225,7 @@
             virtualclass.raiseHand.stdRhEnable = 'enabled';
           }
         });
+        virtualclass.settings.raisehand(virtualclass.settings.info.raisehand);
       },
 
     };

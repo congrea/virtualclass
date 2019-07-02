@@ -88,6 +88,16 @@ function displayChatUserList(totUsers) {
   }
 
   virtualclass.gObj.insertUser = !((virtualclass.connectedUsers.length >= virtualclass.gObj.userToBeDisplay));
+  if (roles.isStudent()) {
+    virtualclass.settings.userlist(virtualclass.settings.info.userlist);
+    // const gcElem = document.querySelector('#chatrm');
+    if (virtualclass.settings.info.userlist === false) {
+      const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
+      const vmlist = document.querySelector('.vmchat_bar_button');
+      vmchat.click();
+      vmlist.classList.add('disable');
+    }
+  }
 }
 
 function displayChatOfflineUserList(users) {

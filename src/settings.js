@@ -244,7 +244,6 @@
     },
 
     studentpc(value) { // student chat enable/disable
-      console.log('TO DO');
       if (value === true) {
         virtualclass.user.control.allChatEnable('pc');
       } else if (value === false) {
@@ -253,7 +252,6 @@
     },
 
     studentgc(value) { // student group chat enable/disable
-      console.log('TO DO');
       if (value === true) {
         virtualclass.user.control.allChatEnable('gc');
       } else {
@@ -276,12 +274,32 @@
       }
     },
 
-    raisehand() {
-      console.log('TO DO');
+    raisehand(value) {
+      const raiseHand = document.querySelector('#congHr');
+      if (value === true) {
+        raiseHand.classList.remove('rsDisable');
+        raiseHand.classList.add('rsEnable');
+      } else {
+        raiseHand.classList.remove('rsEnable');
+        raiseHand.classList.add('rsDisable');
+      }
     },
 
-    userlist() {
-      console.log('TO DO');
+    userlist(value) {
+      const userList = document.querySelector('#memlist');
+      const searchUserInput = document.querySelector('#congchatBarInput #congreaUserSearch');
+      const vmlist = document.querySelector('.vmchat_bar_button');
+      if (value === true) {
+        userList.classList.remove('hideList');
+        searchUserInput.classList.remove('hideInput');
+        vmlist.classList.remove('disable');
+      } else {
+        userList.classList.add('hideList');
+        searchUserInput.classList.add('hideInput');
+        vmlist.classList.add('disable');
+        const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
+        vmchat.click();
+      }
     },
 
     attendeerecording() {

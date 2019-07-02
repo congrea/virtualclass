@@ -206,12 +206,12 @@ let msg;
                   userid: io.cfg.userid, name: io.cfg.userobj.name, msg, time,
                 };
                 chatroom.push(cmsg);
-                localStorage.setItem('chatroom', JSON.stringify(chatroom));
+                // localStorage.setItem('chatroom', JSON.stringify(chatroom));
               } else {
                 var cmsg = {
                   userid: io.cfg.userid, name: io.cfg.userobj.name, msg, time,
                 };
-                localStorage.setItem('chatroom', JSON.stringify([cmsg]));
+                // localStorage.setItem('chatroom', JSON.stringify([cmsg]));
               }
               // For exporting the common chat
               virtualclass.chat.commonChat.push(cmsg);

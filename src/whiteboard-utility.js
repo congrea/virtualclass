@@ -310,11 +310,11 @@
           }
 
           // localStorage.removeItem('studentId');
-          // localStorage.setItem('teacherId', studentId);
+          // // localStorage.setItem('teacherId', studentId);
 
 
           virtualclass.gObj.uRole = 'p'; // P for Presenter
-          localStorage.setItem('uRole', virtualclass.gObj.uRole);
+          // localStorage.setItem('uRole', virtualclass.gObj.uRole);
 
           virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.currApp);
           vcan.utility.canvasCalcOffset(vcan.main.canid);
@@ -346,14 +346,14 @@
           if (roles.hasAdmin()) {
             virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
             // localStorage.reclaim = true;
-            // localStorage.setItem('reclaim', true);
+            // // localStorage.setItem('reclaim', true);
             virtualclassCont = document.getElementById('virtualclassCont');
             virtualclassCont.className += ' educator';
           } else if (cmdToolsWrapper != null) {
             cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
           }
 
-          localStorage.setItem('uRole', virtualclass.gObj.uRole);
+          // localStorage.setItem('uRole', virtualclass.gObj.uRole);
           virtualclass.wb[wid].utility.uniqueArrOfObjsToStudent();
         }
       },
@@ -451,7 +451,7 @@
         virtualclass.wb[wid].gObj.queue = [];
         virtualclass.wb[wid].uid = 0;
 
-        localStorage.setItem('rcvdPackId', 0);
+        // localStorage.setItem('rcvdPackId', 0);
         // TODO this code should be removed after validate
         // localStorage.removeItem('totalStored');
         // var teacherId = virtualclass.vutil.chkValueInLocalStorage('teacherId');
@@ -492,10 +492,10 @@
 
       // setOrginalTeacherContent: function(e) {
       setOrginalTeacherContent() {
-        // localStorage.setItem('teacherId', virtualclass.gObj.uid); //crtical, this could be critcal
+        // // localStorage.setItem('teacherId', virtualclass.gObj.uid); //crtical, this could be critcal
         // window.virtualclass.view.canvasDrawMsg('Canvas');
-        localStorage.setItem('canvasDrwMsg', true);
-        // localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
+        // localStorage.setItem('canvasDrwMsg', true);
+        // // localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
       },
 
       checkWebRtcConnected() {
@@ -617,7 +617,7 @@
               }
 
               if (typeof roles !== 'undefined') {
-                localStorage.setItem('otherRole', JSON.stringify(roles));
+                // localStorage.setItem('otherRole', JSON.stringify(roles));
                 console.log(`Other Browser ${role} ${e.fromUser.userid}`);
               }
             }

@@ -573,7 +573,7 @@
         console.log(`pollinlocalstorage${this.pollState}`);
         console.log(this.pollState.data);
         console.log(this.pollState);
-        localStorage.setItem('pollState', JSON.stringify(this.pollState));
+        // localStorage.setItem('pollState', JSON.stringify(this.pollState));
       },
       // At student end
       onmessage(msg, fromUser) {

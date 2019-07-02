@@ -15,7 +15,7 @@
         withCredentials: true,
         responseType: 'arraybuffer',
       }),
-      init(canvas, currNote) {
+      async init(canvas, currNote) {
         const virtualclasElem = document.querySelector('#virtualclassCont');
         // if(virtualclasElem != null){
         //    // virtualclasElem.classList.add('pdfRendering');
@@ -31,7 +31,7 @@
           this.url = `${whiteboardPath}resources/sample.pdf`;
         }
 
-        this.loadPdf(this.url, canvas, currNote);
+        await this.loadPdf(this.url, canvas, currNote);
       },
 
       prefechPdf(noteId) {
@@ -61,7 +61,7 @@
             virtualclass.gObj.getDocumentTimer = false;
           }, 100);
         } else if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer === false) {
-          this.loadPdfActual(url, canvas, currNote);
+          await this.loadPdfActual(url, canvas, currNote);
           virtualclass.gObj.getDocumentTimer = true;
           virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
             virtualclass.gObj.getDocumentTimer = false;
@@ -74,14 +74,14 @@
         }
       },
 
-      loadPdfActual(url, canvas, currNote) {
+      async loadPdfActual(url, canvas, currNote) {
         // console.log('====PDF, Init2 load ' + virtualclass.gObj.currWb);
         if (virtualclass.gObj.next.hasOwnProperty(currNote)) {
           this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
         } else {
-          this.axhr.get(url)
-            .then((response) => {
-              virtualclass.pdfRender[virtualclass.gObj.currWb].afterPdfLoad(canvas, currNote, response.data);
+          await this.axhr.get(url)
+            .then(async (response) => {
+              await virtualclass.pdfRender[virtualclass.gObj.currWb].afterPdfLoad(canvas, currNote, response.data);
             })
             .catch((error) => {
               console.error('Request failed with error ', error);
@@ -132,7 +132,7 @@
           PDFJS.workerSrc = `${whiteboardPath}build/src/pdf.worker.min.js`;
           PDFJS.cMapUrl = `${whiteboardPath}build/cmaps/`;
           PDFJS.cMapPacked = true;
-          PDFJS.getDocument(doc).then((pdf) => {
+          await PDFJS.getDocument(doc).then((pdf) => {
             if (virtualclass.gObj.myworker == null) {
               virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS
             }

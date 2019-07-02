@@ -158,7 +158,7 @@
                 // editorControllerAnch.innerHTML = "collaborate";
               }
             }
-            localStorage.setItem(`${editorType}mode`, editorControllerAnch.dataset.action);
+            // localStorage.setItem(`${editorType}mode`, editorControllerAnch.dataset.action);
             virtualclass.user.control.toggleAllEditorController.call(virtualclass.user, editorType, actionToPerform);
           });
         }
@@ -693,9 +693,9 @@
       saveIntoLocalStorage() {
         if ((typeof this.vcAdapter === 'object' && this.vcAdapter.operations.length > 0)) {
           const wrappedOperations = this.getWrappedOperations();
-          localStorage.removeItem(`${this.etype}_allEditorOperations`);
-          localStorage.setItem(`${this.etype}_allEditorOperations`, JSON.stringify(wrappedOperations));
-          localStorage.setItem(`${this.etype}_edOperationRev`, this.cmClient.revision);
+          // localStorage.removeItem(`${this.etype}_allEditorOperations`);
+          // localStorage.setItem(`${this.etype}_allEditorOperations`, JSON.stringify(wrappedOperations));
+          // localStorage.setItem(`${this.etype}_edOperationRev`, this.cmClient.revision);
         }
       },
 

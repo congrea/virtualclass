@@ -314,12 +314,12 @@ function messageUpdate(e) {
         userid: from.userid, name: from.name, msg, time,
       };
       chatroom.push(cmsg);
-      localStorage.setItem('chatroom', JSON.stringify(chatroom));
+      // localStorage.setItem('chatroom', JSON.stringify(chatroom));
     } else {
       var cmsg = {
         userid: from.userid, name: from.name, msg, time,
       };
-      localStorage.setItem('chatroom', JSON.stringify([cmsg]));
+      // localStorage.setItem('chatroom', JSON.stringify([cmsg]));
     }
     // For exporting common chat
     virtualclass.chat.commonChat.push(cmsg);
@@ -567,7 +567,7 @@ function toggleCommonChatBox() {
     localStorage.removeItem('chatroom_status');
     uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('minCommonChat'));
   } else {
-    localStorage.setItem('chatroom_status', 'hidden');
+    // localStorage.setItem('chatroom_status', 'hidden');
     uiFooterbarchatroomtab.attr('data-title', virtualclass.lang.getString('maxCommonChat'));
   }
 

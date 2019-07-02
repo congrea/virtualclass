@@ -127,7 +127,11 @@
             }
             ioMissingPackets.executedSerial[key1] = m.m.serial;
             ioMissingPackets.executedStore[key1][m.m.serial] = m;
-            io.onRecJson(m);
+            try {
+              io.onRecJson(m);
+            } catch (error) {
+              console.log(`Error ${error}`);
+            }
           }
         }
       }
@@ -152,7 +156,11 @@
             const m = JSON.parse(virtualclass.storage.mycacheInQueue[key1][key2]);
             ioMissingPackets.executedUserSerial[key1] = m.m.userSerial;
             ioMissingPackets.executedUserStore[key1][m.m.userSerial] = m;
-            io.onRecJson(m);
+            try {
+              io.onRecJson(m);
+            } catch (error) {
+              console.log(`Error ${error}`);
+            }
           }
         }
       }

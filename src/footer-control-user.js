@@ -6,8 +6,7 @@
   "use strict";
   const user = function (config) {
     return {
-      // TODO function name should be change
-      assignRole(role, app, toUser) {
+      readyLeftBar (role, app, toUser) {
         if (roles.hasControls()) {
           if (!roles.isEducator()) {
             virtualclass.html.leftAppBar();
@@ -31,6 +30,7 @@
           }
         }
       },
+
 
       teacherIsAlreadyExist() {
         const allExistedUser = document.getElementById('chat_div').getElementsByClassName('ui-memblist-usr');
@@ -602,66 +602,7 @@
         },
 
         _assign(userId, notsent, fromUserId) {
-          // debugger;
-          virtualclass.vutil.assignRole();
-          virtualclass.vutil.removeAppPanel();
-          virtualclass.system.setAppDimension();
-          // After resize we need tor render all the drawn object on whiteboard
-          virtualclass.vutil.renderWhiteboardObjectsIfAny();
 
-          if (!roles.hasAdmin()) {
-            const canvasWrapper = document.getElementById('vcanvas');
-            canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
-            canvasWrapper.className = 'student';
-          }
-
-          // localStorage.setItem('canvasDrwMsg', true);
-          const ssVideo = document.getElementById('virtualclassScreenShareLocalVideo');
-          if (ssVideo != null && ssVideo.tagName == 'VIDEO') {
-            virtualclass.vutil.videoTeacher2Student('ScreenShare', true);
-          }
-
-          let app;
-          if (virtualclass.currApp == 'ScreenShare') {
-            app = 'ss';
-            if (virtualclass[app].hasOwnProperty('currentStream')) {
-              // this.currentStream.stop(); is depricated from Google Chrome 45
-              // https://developers.google.com/web/updates/2015/07/mediastream-deprecations?hl=en
-              virtualclass[app].currentStream.getTracks()[0].stop();
-              // virtualclass[app].currentStream.stop();
-            }
-            virtualclass[app] = '';
-          }
-
-          if (typeof notsent === 'undefined') {
-            console.log('role transfer');
-            virtualclass.vutil.beforeSend({ assignRole: true, toUser: userId, cf: 'assignRole' }, userId);
-
-            if (roles.hasAdmin()) {
-              const erContId = `${userId}contreditorRichImg`;
-              const erContTag = document.getElementById(erContId);
-
-              if (erContTag.dataset.editorrichDisable == 'true') {
-                virtualclass.user.control.init.call(virtualclass.user, erContTag);
-              }
-              const ecContId = `${userId}contreditorCodeImg`;
-              const ecContTag = document.getElementById(ecContId);
-
-              if (ecContTag.dataset.editorcodeDisable == 'true') {
-                virtualclass.user.control.init.call(virtualclass.user, ecContTag);
-              }
-            }
-          }
-
-          // if role is student
-          if (!roles.hasAdmin()) {
-            if (typeof fromUserId === 'undefined') {
-              fromUserId = userId;
-            }
-            const controlContainer = document.getElementById(`${fromUserId}ControlContainer`).getElementsByClassName('controleCont')[0];
-            controlContainer.removeChild(controlContainer.firstChild);
-            localStorage.removeItem('aId');
-          }
         },
 
 
@@ -1256,7 +1197,7 @@
             if (type !== 'raisehand' || type !== 'userlist') {
               virtualclass.settings.applySettings(act, `student${typeSend}`);
             }
-       
+
             if (typeof actionToPerform !== 'undefined') {
                 // localStorage.setItem(`all${setLable}Action`, actionToPerform);
                 // if (type === 'video') {
@@ -1265,9 +1206,7 @@
                 if (type === 'audio' || type === 'chat') {
                   that.toggleAllUserListIcon.call(virtualclass.user, actionToPerform, type);
                 }
-
               }
-            }
           });
         }
       },

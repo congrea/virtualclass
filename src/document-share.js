@@ -20,38 +20,39 @@
       tempFolder: 'documentSharing',
 
       init(docsObj) {
+
         this.firstRequest = false;
         firstTime = true;
         this.indexNav = new virtualclass.pageIndexNav('documentShare');
 
-        if (virtualclass.gObj.hasOwnProperty('dstAll') && typeof virtualclass.gObj.dstAll === 'string') {
-          this.storageRawData = null;
-        } else {
-          if (virtualclass.gObj.dstAll == null || (typeof virtualclass.gObj.dstAll !== 'undefined' && Object.keys(virtualclass.gObj.dstAll).length == 0)) {
-            // In case of storing metata data of docs in local storage but not storing
-            docsObj = undefined;
-            localStorage.removeItem('dtsdocs');
-            this.storageRawData = null;
-          } else {
-            this.storageRawData = (typeof virtualclass.gObj.dstAll === 'object') ? virtualclass.gObj.dstAll : null;
-          }
-
-          if (virtualclass.gObj.dstAllNotes != null) {
-            this.allNotes = virtualclass.gObj.dstAllNotes;
-          }
-
-          if (roles.isStudent()) {
-            virtualclass.serverData.rawData.docs = this.storageRawData;
-          }
-
-          // virtualclass.storage.dstAllStore(virtualclass.gObj.dstAll);
-          /**
-           * Storing again into indexedDb when page is being refreshed
-           */
-          if (roles.hasControls()) {
-            virtualclass.storage.dstAllStore(virtualclass.gObj.dstAll);
-          }
-        }
+        // if (virtualclass.gObj.hasOwnProperty('dstAll') && typeof virtualclass.gObj.dstAll === 'string') {
+        //   this.storageRawData = null;
+        // } else {
+        //   if (virtualclass.gObj.dstAll == null || (typeof virtualclass.gObj.dstAll !== 'undefined' && Object.keys(virtualclass.gObj.dstAll).length == 0)) {
+        //     // In case of storing metata data of docs in local storage but not storing
+        //     docsObj = undefined;
+        //     localStorage.removeItem('dtsdocs');
+        //     this.storageRawData = null;
+        //   } else {
+        //     this.storageRawData = (typeof virtualclass.gObj.dstAll === 'object') ? virtualclass.gObj.dstAll : null;
+        //   }
+        //
+        //   if (virtualclass.gObj.dstAllNotes != null) {
+        //     this.allNotes = virtualclass.gObj.dstAllNotes;
+        //   }
+        //
+        //   if (roles.isStudent()) {
+        //     virtualclass.serverData.rawData.docs = this.storageRawData;
+        //   }
+        //
+        //   // virtualclass.storage.dstAllStore(virtualclass.gObj.dstAll);
+        //   /**
+        //    * Storing again into indexedDb when page is being refreshed
+        //    */
+        //   // if (roles.hasControls()) {
+        //   //   virtualclass.storage.dstAllStore(virtualclass.gObj.dstAll);
+        //   // }
+        // }
 
         if (virtualclass.gObj.hasOwnProperty('docs') && typeof virtualclass.gObj.docs === 'string') {
           this.documents = null;
@@ -317,7 +318,7 @@
       // requestDocs
       afterFirstRequestDocs(docs, notconvert) {
         this.rawToProperData(docs);
-        virtualclass.storage.dstAllStore(docs);
+         // virtualclass.storage.dstAllStore(docs);
         for (const key in this.allDocs) {
           if (!this.allDocs[key].hasOwnProperty('deleted')) {
             this.initDocs(this.allDocs[key].fileuuid);
@@ -454,7 +455,7 @@
         cthis.allPages = virtualclass.dts.fetchAllNotesAsArr();
         cthis.allNotes = virtualclass.dts.fetchAllNotes();
         cthis.storeInDocs(cthis.allNotes);
-        virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
+        // virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
         // TODO, by disabling this can be critical, new api
         // ioAdapter.mustSend({'dts': {allNotes: cthis.allNotes, doc:doc},  'cf': 'dts'});
         ioAdapter.mustSend({ dts: { allNotes: cthis.allNotes }, cf: 'dts' });
@@ -542,7 +543,7 @@
        */
       storeInDocs(allPages) {
         // virtualclass.storage.dstStore(JSON.stringify(allPages));
-        virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
+        // virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
       },
 
       removeWhiteboardFromStorage(key) {
@@ -1555,7 +1556,7 @@
         } else if (dts.hasOwnProperty('fallNotes')) {
           this.allNotes = dts.fallNotes;
           this.storeInDocs(this.allNotes);
-          virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
+          // virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
         } else if ((dts.hasOwnProperty('allDocs'))) {
           this.allDocs = dts.allDocs;
           this.afterUploadFile(dts.doc);

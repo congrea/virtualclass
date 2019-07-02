@@ -352,7 +352,7 @@ var ioMissingPackets = {
           // ioStorage.dataExecutedUserStoreAll(msg.m.data[i], `${uid}_${msg.m.data[i].m.userSerial}`, msg.m.data[i].m.userSerial);
           msg.m.data[i].user = msg.user;
           msg.m.data[i].userto = msg.userto;
-          ioStorage.storeCacheInData(msg, [uid, msg.m.userSerial]);
+          ioStorage.storeCacheInData(msg.m.data[i], [uid, msg.m.data[i].m.userSerial]);
           try {
             console.log(`UID ${uid} Object with user Serial ${msg.m.data[i].m.userSerial}`);
             io.onRecJson(msg.m.data[i]);

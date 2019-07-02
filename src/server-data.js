@@ -36,7 +36,7 @@ const serverData = {
       .catch((error) => {
         console.error('Request failed with error ', error);
         setTimeout(() => {
-          virtualclass.serverData.requestData(url);
+            virtualclass.serverData.requestData(url);
         }, 1000);
       });
   },

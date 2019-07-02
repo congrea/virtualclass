@@ -83,6 +83,11 @@
             ctx.fillStyle = obj.fillColor;
             ctx.fill();
           }
+
+          console.log("=====> whiteboard ", virtualclass.gObj.currWb);
+          console.log("=====> whiteboard length", virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs.length);
+
+
         },
       };
     };

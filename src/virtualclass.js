@@ -336,11 +336,10 @@
           this.system.setAppDimension();
         }
 
-        virtualclass.vutil.createReclaimButtonIfNeed();
+
 
         // To teacher
-        virtualclass.user.assignRole(virtualclass.gObj.uRole, app);
-
+        virtualclass.user.readyLeftBar(virtualclass.gObj.uRole, app);
         this.media = new window.media();
 
         //  this.gObj.video.audioVisual.init();

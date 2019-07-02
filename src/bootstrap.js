@@ -28,6 +28,7 @@
     virtualclass.vutil = window.vutil;
     virtualclass.system = window.system;
     virtualclass.chat = new Chat();
+    virtualclass.gObj.docs = 'init';
     await virtualclass.system.mediaDevices.getMediaDeviceInfo();
     wbUser.virtualclassPlay = +wbUser.virtualclassPlay;
 

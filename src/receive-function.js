@@ -203,39 +203,14 @@ const receiveFunctions = new function () {
     }
   };
 
-  // Reclaim Role
-  this.reclaimRole = function (e) {
-    // debugger;
-    console.log('Role reclaim');
-    // if (localStorage.getItem('teacherId') !== null) {
-    if (roles.hasControls()) {
-      virtualclass.vutil.vcResponseAReclaimRole(e.fromUser.userid, wbUser.id);
 
-      // virtualclass.wb[virtualclass.gObj.currWb].response.reclaimRole(e.fromUser.userid, wbUser.id);
-    }
-  };
 
   /**
    * remove presenter role when educator is join as teacher
    * @param e
    */
-  this.rpr = function (e) {
-    this.reclaimRole(e);
-    console.log('reclaim role');
-  };
 
   // Assign Role
-  this.assignRole = function (e) {
-    // debugger;
-    if (e.message.toUser === virtualclass.gObj.uid) {
-      console.log('Role assign');
-      if (typeof virtualclass.wb === 'object') {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
-      }
-      virtualclass.vutil.vcResponseAssignRole(e.fromUser.userid, wbUser.id);
-      // virtualclass.wb[virtualclass.gObj.currWb].response.assignRole(e.fromUser.userid, wbUser.id);
-    }
-  };
 
   // Clear All
   this.clearAll = function (e) {

@@ -294,75 +294,6 @@
       // initialize transfred packets from local storage when
       // browser is reloaded.
 
-
-      assignRole(studentId) {
-        const wid = virtualclass.gObj.currWb;
-        virtualclass.wb[wid].tool = '';
-        if (vcan.main.action == 'move') {
-          virtualclass.wb[wid].utility.deActiveFrmDragDrop();
-        }
-
-        if (typeof studentId !== 'undefined') {
-          if (roles.isEducator()) {
-            var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
-            cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-            // localStorage.removeItem('reclaim');
-          }
-
-          // localStorage.removeItem('studentId');
-          // // localStorage.setItem('teacherId', studentId);
-
-
-          virtualclass.gObj.uRole = 'p'; // P for Presenter
-          // localStorage.setItem('uRole', virtualclass.gObj.uRole);
-
-          virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.currApp);
-          vcan.utility.canvasCalcOffset(vcan.main.canid);
-          if (virtualclass.currApp == 'Yts') {
-            virtualclass.yts.UI.inputURL();
-
-            virtualclass.yts.seekChangeInterval();
-          }
-        } else {
-          //                        alert(virtualclass.currApp);
-          if (virtualclass.currApp == 'Yts') {
-            virtualclass.yts.UI.removeinputURL();
-            if (virtualclass.yts.hasOwnProperty('tsc')) {
-              clearInterval(virtualclass.yts.tsc);
-            }
-          }
-
-
-          virtualclass.gObj.uRole = 's';
-          var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
-          if (cmdToolsWrapper != null) {
-            while (cmdToolsWrapper.hasChildNodes()) {
-              cmdToolsWrapper.removeChild(cmdToolsWrapper.lastChild);
-            }
-          }
-
-          virtualclass.wb[wid].utility.makeCanvasDisable();
-
-          if (roles.hasAdmin()) {
-            virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
-            // localStorage.reclaim = true;
-            // // localStorage.setItem('reclaim', true);
-            virtualclassCont = document.getElementById('virtualclassCont');
-            virtualclassCont.className += ' educator';
-          } else if (cmdToolsWrapper != null) {
-            cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-          }
-
-          // localStorage.setItem('uRole', virtualclass.gObj.uRole);
-          virtualclass.wb[wid].utility.uniqueArrOfObjsToStudent();
-        }
-      },
-
-      reclaimRole() {
-        const wid = virtualclass.gObj.currWb;
-        virtualclass.gObj.controlAssign = false;
-        virtualclass.wb[wid].response.assignRole(virtualclass.gObj.uid, virtualclass.gObj.uid, true);
-      },
       dispQueuePacket(result) {
         const wid = virtualclass.gObj.currWb;
         if ((roles.hasControls())
@@ -399,12 +330,6 @@
         cmdWrapper.parentNode.removeChild(cmdWrapper);
       },
 
-      createReclaimButton(cmdToolsWrapper) {
-        const wid = virtualclass.gObj.currWb;
-        virtualclass.vutil.createDiv('t_reclaim', 'reclaim', cmdToolsWrapper);
-        const aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
-        aTags[0].addEventListener('click', virtualclass.wb[wid].objInit);
-      },
 
       chkValueInLocalStorage(property) {
         if (localStorage.getItem(property) === null) {
@@ -428,6 +353,7 @@
       uniqueArrOfObjsToTeacher() {
         const wid = virtualclass.gObj.currWb;
         const { vcan } = virtualclass.wb[wid];
+        console.log("=JAI= BLANK");
         vcan.main.replayObjs = [];
         let tempRepObjs = '';
         for (let i = 0; i < virtualclass.wb[wid].gObj.replayObjs.length; i++) {
@@ -836,7 +762,7 @@
 
 
       sendRequest() {
-        virtualclass.vutil.beforeSend({ reclaimRole: true, cf: 'reclaimRole' });
+
       },
       updateSentInformation(jobj, createArrow) {
         if (roles.hasAdmin()) {
@@ -993,13 +919,7 @@
         iconElem.className = 'audioTransmit';
         const controlCont = document.getElementById(`${userId}ControlContainer`);
       },
-      // todo, this shoudl be into user file
-      _reclaimRole() {
-        const wid = virtualclass.gObj.currWb;
-        virtualclass.wb[wid].utility.reclaimRole();
-        virtualclass.wb[wid].utility.sendRequest();
-        virtualclass.user.control.changeAttrToAssign('enable');
-      },
+
 
       // TODO this should be at virtualclass.js
       enableAppsBar() {

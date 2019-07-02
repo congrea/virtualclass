@@ -578,11 +578,12 @@
       },
 
       async initWhiteboardData(wb) {
-        await virtualclass.storage.getWbData(wb);
-        if (typeof virtualclass.gObj.tempReplayObjs[wb] === 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
-          console.log('Start whiteboard replay from local storage');
-          virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
-        }
+        virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs);
+        // await virtualclass.storage.getWbData(wb);
+        // if (typeof virtualclass.gObj.tempReplayObjs[wb] === 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
+        //   console.log('Start whiteboard replay from local storage');
+        //   virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
+        // }
       },
 
       _zoom(canvas, canvasWidth, canvasHeight, normalZoom) {

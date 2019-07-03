@@ -96,6 +96,7 @@
         fullScreenMode: false,
         lastmousemovetime: null,
         CDTimer : null,
+        wbData : {},
       },
 
       enablePreCheck: true,
@@ -813,9 +814,7 @@
       appInitiator: {
 
         async Whiteboard(app, cusEvent, id, container) {
-          // if(virtualclass.currApp == 'Whiteboard' &&  virtualclass.previous != 'virtualclassWhiteboard'){
-          //     // virtualclass.view.window.resize(id);
-          // }
+
 
           if (typeof this.ss === 'object') {
             this.ss.prevStream = false;
@@ -848,6 +847,7 @@
 
           if (typeof id !== 'undefined') {
             if (typeof this.wb[id] !== 'object') {
+              console.log('====> Creating whiteboard template ');
               // if (this.wb[id] != null && this.wb[id].hasOwnProperty("gObj") && this.wb[id].gObj.queue != null) {
               //     var myQueue = this.wb[id].gObj.queue;
               // } else {

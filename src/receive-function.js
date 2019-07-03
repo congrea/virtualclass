@@ -234,18 +234,17 @@ const receiveFunctions = new function () {
       }
     }
 
-    if (!virtualclass.wb[virtualclass.gObj.currWb].data) {
-      console.log('==== Creating whiteboard   QUEUE');
-      virtualclass.wb[virtualclass.gObj.currWb].data = [];
+    if (typeof virtualclass.gObj.wbData[virtualclass.gObj.currWb] != 'object') {
+      // console.log('==== Creating whiteboard   QUEUE');
+      // virtualclass.wb[virtualclass.gObj.currWb].data = [];
+      virtualclass.gObj.wbData[virtualclass.gObj.currWb] = [];
     }
 
     let i = 0;
     for (; i < e.message.repObj.length; i++) {
-      virtualclass.wb[virtualclass.gObj.currWb].data.push(e.message.repObj[i]);
+      virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
+      console.log('==== Creating whiteboard   QUEUE, length ', virtualclass.gObj.wbData[virtualclass.gObj.currWb].length);
     }
-
-    console.log('==== Creating whiteboard   QUEUE, length ', virtualclass.wb[virtualclass.gObj.currWb].data.length);
-
   };
 
   // Replay All, TODO, need to do verify

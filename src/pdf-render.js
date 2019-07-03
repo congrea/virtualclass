@@ -578,8 +578,8 @@
       },
 
       async initWhiteboardData(wb) {
-        if (virtualclass.wb[virtualclass.gObj.currWb].data && virtualclass.wb[virtualclass.gObj.currWb].data.length > 0) {
-          virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.wb[virtualclass.gObj.currWb].data);
+        if (typeof virtualclass.gObj.wbData[wb] == 'object' && virtualclass.gObj.wbData[wb] && virtualclass.gObj.wbData[wb].length > 0) {
+          virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.wbData[wb]);
         }
 
         // await virtualclass.storage.getWbData(wb);

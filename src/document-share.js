@@ -589,6 +589,7 @@
 
         if (typeof virtualclass.wb[`_doc_${noteId}_${noteId}`] === 'object') {
           // delete whiteboard object
+          console.log('Delete whiteboard');
           delete virtualclass.wb[`_doc_${noteId}_${noteId}`];
         }
         this.removeNoteNav(noteId);
@@ -1461,6 +1462,7 @@
               if (!this.isWhiteboardExist(this.currNote)) {
                 virtualclass.dts.docs.createWhiteboard(this.currNote);
               } else if (this.isWhiteboardExist(this.currNote) && !this.isPdfRendered(this.currNote)) {
+                console.log('Delete whiteboard');
                 delete virtualclass.wb[virtualclass.gObj.currWb];
                 virtualclass.dts.docs.createWhiteboard(this.currNote);
               } else {

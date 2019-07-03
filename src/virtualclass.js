@@ -873,7 +873,7 @@
               this.wb[id] = new window.whiteboard(this.wbConfig, id);
 
               if (this.gObj.tempQueue[id] != null) {
-                this.wb[id].gObj.queue = this.gObj.tempQueue[id].slice();
+                // this.wb[id].gObj.queue = this.gObj.tempQueue[id].slice();
                 this.gObj.tempQueue[id] = null;
               }
 

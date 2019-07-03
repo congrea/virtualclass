@@ -52,10 +52,8 @@
     },
 
     replayObj(repObj) {
-      console.log("=JAI= BLANK 2");
       window.virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = [];
       if (repObj.length > 0) {
-        console.log("=JAI= ASSIGN 2");
         window.virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = repObj;
         virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromBrowser', true, virtualclass.wb[virtualclass.gObj.currWb].utility.dispQueuePacket);
       }

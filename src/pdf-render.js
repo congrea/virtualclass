@@ -120,7 +120,7 @@
          * to reproduce the problem without condition, page refresh on docuemnt share
          * without load pdf click on whiteboard and again on document share and finally on whiteboard,
          * */
-        if (prvApp == virtualclass.currApp) {
+        if (prvApp === virtualclass.currApp) {
           if (typeof currNote === 'undefined') {
             that.wbId = virtualclass.gObj.currWb;
           } else {
@@ -582,11 +582,6 @@
           virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.wbData[wb]);
         }
 
-        // await virtualclass.storage.getWbData(wb);
-        // if (typeof virtualclass.gObj.tempReplayObjs[wb] === 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
-        //   console.log('Start whiteboard replay from local storage');
-        //   virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.tempReplayObjs[wb]);
-        // }
       },
 
       _zoom(canvas, canvasWidth, canvasHeight, normalZoom) {

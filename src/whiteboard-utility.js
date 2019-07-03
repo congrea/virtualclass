@@ -296,8 +296,7 @@
 
       dispQueuePacket(result) {
         const wid = virtualclass.gObj.currWb;
-        if ((roles.hasControls())
-          || (roles.isEducator())) {
+        if (roles.hasControls()) {
           virtualclass.wb[wid].utility.toolWrapperEnable();
         }
         virtualclass.wb[wid].drawMode = false;
@@ -374,7 +373,7 @@
       //  virtualclass.wb[wid].gObj.rcvdPackId = 0;
         //virtualclass.wb[wid].gObj.displayedObjId = 0;
         virtualclass.wb[wid].gObj.packQueue = [];
-        virtualclass.wb[wid].gObj.queue = [];
+        // virtualclass.wb[wid].gObj.queue = [];
         virtualclass.wb[wid].uid = 0;
 
         // localStorage.setItem('rcvdPackId', 0);
@@ -984,10 +983,7 @@
           // if (repObjs[i].uid === virtualclass.wb[wid].gObj.displayedObjId + 1) {
             virtualclass.wb[wid].uid = repObjs[i].uid;
             this.executeWhiteboardData(repObjs[i]);
-            // if (typeof fromBrowser !== 'undefined') {
-            //   virtualclass.wb[wid].gObj.rcvdPackId = virtualclass.wb[wid].uid;
-            // }
-          // }
+
         }
       },
 
@@ -1007,33 +1003,6 @@
         // console.log('Whiteboard executed uid ' + objToDisplay.uid);
         virtualclass.wb[wid].gObj.replayObjs.push(objToDisplay);
         virtualclass.wb[wid].response.replayObj([objToDisplay]);
-        this.checkNextQueue(objToDisplay);
-      },
-
-      checkNextQueue(playedObj) {
-        const foundObj = this.findPacketInQueue(playedObj);
-        if (foundObj) {
-          this.executeWhiteboardData(foundObj);
-        }
-      },
-
-      findPacketInQueue(playedObj) {
-        const wid = virtualclass.gObj.currWb;
-        if (playedObj.hasOwnProperty('color')) {
-          virtualclass.wb[wid].activeToolColor = playedObj.color;
-        } else if (playedObj.hasOwnProperty('strkSize')) {
-          virtualclass.wb[wid].currStrkSize = playedObj.strkSize;
-        } else if (playedObj.hasOwnProperty('fontSize')) {
-          virtualclass.wb[wid].textFontSize = playedObj.fontSize;
-        }
-
-        if (virtualclass.wb[wid].gObj.queue.hasOwnProperty(playedObj.uid + 1)) {
-          return virtualclass.wb[wid].gObj.queue[playedObj.uid + 1];
-        }
-        // console.log("Whiteboard Packet is " + (playedObj.uid + 1) +  " is not found in queue");
-
-
-        return false;
       },
 
 

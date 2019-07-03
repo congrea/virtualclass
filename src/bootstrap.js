@@ -222,7 +222,10 @@
     await virtualclass.storage.getDataFromCacheAll();
     await virtualclass.storage.getDataFromCacheIn();
     await virtualclass.storage.getDataFromCacheOut();
-    virtualclass.config.makeWebSocketReady = true;
+    setTimeout(function(){
+      virtualclass.config.makeWebSocketReady = true;
+      virtualclass.makeReadySocket();
+    }, 10000);
   };
 
   window.Bootstrap = Bootstrap;

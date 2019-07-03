@@ -25,35 +25,6 @@
         firstTime = true;
         this.indexNav = new virtualclass.pageIndexNav('documentShare');
 
-        // if (virtualclass.gObj.hasOwnProperty('dstAll') && typeof virtualclass.gObj.dstAll === 'string') {
-        //   this.storageRawData = null;
-        // } else {
-        //   if (virtualclass.gObj.dstAll == null || (typeof virtualclass.gObj.dstAll !== 'undefined' && Object.keys(virtualclass.gObj.dstAll).length == 0)) {
-        //     // In case of storing metata data of docs in local storage but not storing
-        //     docsObj = undefined;
-        //     localStorage.removeItem('dtsdocs');
-        //     this.storageRawData = null;
-        //   } else {
-        //     this.storageRawData = (typeof virtualclass.gObj.dstAll === 'object') ? virtualclass.gObj.dstAll : null;
-        //   }
-        //
-        //   if (virtualclass.gObj.dstAllNotes != null) {
-        //     this.allNotes = virtualclass.gObj.dstAllNotes;
-        //   }
-        //
-        //   if (roles.isStudent()) {
-        //     virtualclass.serverData.rawData.docs = this.storageRawData;
-        //   }
-        //
-        //   // virtualclass.storage.dstAllStore(virtualclass.gObj.dstAll);
-        //   /**
-        //    * Storing again into indexedDb when page is being refreshed
-        //    */
-        //   // if (roles.hasControls()) {
-        //   //   virtualclass.storage.dstAllStore(virtualclass.gObj.dstAll);
-        //   // }
-        // }
-
         if (virtualclass.gObj.hasOwnProperty('docs') && typeof virtualclass.gObj.docs === 'string') {
           this.documents = null;
         } else {
@@ -71,6 +42,7 @@
         this.initAfterUpload(docsObj);
         if (roles.hasControls()) {
           if (typeof docsObj === 'undefined') {
+            console.log('==== dts must send ');
             ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
             console.log(`${virtualclass.gObj.currWb} ` + 'Document share Teacher layout ');
           }
@@ -249,9 +221,9 @@
           if (typeof this.pages[docId] !== 'object') {
             this.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
             if (typeof docObj !== 'undefined') {
-                title  = docObj.docs[docId].title;
+                title = docObj.docs[docId].title;
             } else {
-                title  = cthis.allDocs[doc].title;
+                title = cthis.allDocs[doc].title;
             }
             this.pages[docId].init(doc, title);
           }
@@ -285,11 +257,13 @@
         const that = this;
         if (!virtualclass.vutil.isBulkDataFetched()) {
           virtualclass.serverData.fetchAllData(() => {
+            console.log('==== dts must send ');
             ioAdapter.mustSend({ dts: { fallDocs: virtualclass.serverData.rawData.docs }, cf: 'dts' });
             that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
             that.firstRequest = true;
           });
         } else {
+          console.log('==== dts must send ');
           ioAdapter.mustSend({ dts: { fallDocs: virtualclass.serverData.rawData.docs }, cf: 'dts' });
           that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         }
@@ -394,6 +368,7 @@
               virtualclass.dashBoard.clickCloseButton();
             } else if (response) {
               if (roles.hasAdmin()) {
+                console.log('==== dts must send order');
                 ioAdapter.mustSend({ dts: { order_recived: response }, cf: 'dts' });
                 if (virtualclass.currApp === 'DocumentShare'){
                   cthis.afterRequestOrder(response);
@@ -440,6 +415,7 @@
             element.classList.add('noDocs');
           }
         }
+        console.log('==== dts must send ');
         ioAdapter.mustSend({ dts: { allDocs: cthis.allDocs, doc }, cf: 'dts' });
         // here should be the polling
         // cthis.requestNotes(doc);
@@ -450,6 +426,7 @@
       afterRequestNotes() {
         const cthis = virtualclass.dts;
         virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+        console.log('==== dts must send ');
         ioAdapter.mustSend({ dts: { fallDocs: virtualclass.serverData.rawData.docs }, cf: 'dts' });
         cthis.removeNoDocsElem();
         cthis.allPages = virtualclass.dts.fetchAllNotesAsArr();
@@ -458,6 +435,7 @@
         // virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
         // TODO, by disabling this can be critical, new api
         // ioAdapter.mustSend({'dts': {allNotes: cthis.allNotes, doc:doc},  'cf': 'dts'});
+        console.log('==== dts must send ');
         ioAdapter.mustSend({ dts: { allNotes: cthis.allNotes }, cf: 'dts' });
       },
 
@@ -484,6 +462,7 @@
               cthis.allPages = response.data.resultdata;
               cthis.allNotes = cthis.convertInObjects(cthis.allPages);
               cthis.storeInDocs(cthis.allNotes);
+              console.log('==== dts must send ');
               ioAdapter.mustSend({ dts: { allNotes: cthis.allNotes, doc }, cf: 'dts' });
             }
           })
@@ -505,6 +484,7 @@
             cthis.allPages = response.data.resultdata;
             cthis.allNotes = cthis.convertInObjects(cthis.allPages);
             cthis.storeInDocs(cthis.allNotes);
+            console.log('==== dts must send ');
             ioAdapter.mustSend({ dts: { fallNotes: cthis.allNotes }, cf: 'dts' });
             // cthis.firstRequestDocs();
             cthis.requestOrder(cthis.executeOrder);
@@ -515,17 +495,6 @@
           });
       },
 
-      requestSlidesOld(filepath) {
-        var filepath = parseInt(filepath, 10);
-        const cthis = this;
-        console.log(`${virtualclass.gObj.currWb} ` + `document share : request ${filepath}`);
-
-        const relativeDocs = this.getDocs(filepath);
-
-        const dsStatus = document.querySelector(`#linkdocs${filepath}`).dataset.selected;
-        ioAdapter.mustSend({ dts: { dres: filepath, ds: (1 - (+dsStatus)) }, cf: 'dts' });
-        return relativeDocs;
-      },
 
       requestSlides(filepath) {
         const cthis = this;
@@ -533,6 +502,8 @@
 
         const relativeDocs = this.getDocs(filepath);
         const dsStatus = document.querySelector(`#linkdocs${filepath}`).dataset.selected;
+
+        console.log('==== dts must send ');
         ioAdapter.mustSend({ dts: { dres: filepath, ds: (1 - (+dsStatus)) }, cf: 'dts' });
         return relativeDocs;
       },
@@ -1271,6 +1242,7 @@
                * while teacher select/click the document tab subsequently
                * */
               if (roles.hasControls() && typeof fromReload === 'undefined') {
+                console.log('==== dts must send current slide');
                 ioAdapter.mustSend({
                   dts: { slideTo: noteId, docn: virtualclass.dts.docs.currDoc },
                   cf: 'dts',
@@ -1646,6 +1618,7 @@
           const doc = virtualclass.dts.docs.currDoc;
           if (doc != undefined) {
             if (document.querySelector('#listnotes .note') != null) {
+              console.log('==== dts must send ');
               ioAdapter.mustSend({
                 dts: { slideTo: virtualclass.dts.docs.note.currNote, docn: doc },
                 cf: 'dts',
@@ -1662,6 +1635,7 @@
         if (virtualclass.dts.docs.hasOwnProperty('currDoc')) {
           if (doc != undefined) {
             var doc = virtualclass.dts.docs.currDoc;
+            console.log('==== dts must send ');
             ioAdapter.mustSend({ dts: { doc: doc = virtualclass.dts.docs.currDoc }, cf: 'dts' });
             // console.log('Document share send current doc only');
             console.log(`${virtualclass.gObj.currWb} ` + 'Document share send current doc only');
@@ -1684,6 +1658,7 @@
         this.reArrangeElements(order);
         if (roles.hasAdmin()) {
           this.sendOrder(this.order);
+          console.log('==== dts must send norder');
           ioAdapter.mustSend({ dts: { norder: this.order }, cf: 'dts' });
         }
       },
@@ -1760,6 +1735,7 @@
         this._removePageFromStructure(id, typeDoc);
         this.storeInDocs(this.allNotes);
         if (roles.hasControls()) {
+          console.log('==== dts must send ');
           ioAdapter.mustSend({ dts: { rmsnote: id }, cf: 'dts' });
         }
 
@@ -1867,6 +1843,7 @@
         }
         this.storeInDocs(this.allNotes);
         if (roles.hasControls()) {
+          console.log('==== dts must send ');
           ioAdapter.mustSend({ dts: { docSt: status, doc: id }, cf: 'dts' });
         }
       },
@@ -1905,6 +1882,7 @@
         if (roles.hasControls()) {
           const note = document.querySelector(`#note${id}`);
           if (note != null) {
+            console.log('==== dts must send ');
             ioAdapter.mustSend({ dts: { noteSt: note.dataset.status, note: id }, cf: 'dts' });
           } else {
             console.log('Element is null');

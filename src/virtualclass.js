@@ -427,7 +427,9 @@
       },
 
       makeReadySocket() {
-        if (!virtualclass.vutil.isPlayMode()) {
+        if (!virtualclass.vutil.isPlayMode() && virtualclass.config.makeWebSocketReady
+          && !virtualclass.gObj.initsocketws) {
+          virtualclass.gObj.initsocketws = true;
           this.initSocketConn();
         }
       },
@@ -1200,6 +1202,7 @@
                 }, 1000,
               );
             } else {
+
               virtualclass.dts.init();
             }
           } else {

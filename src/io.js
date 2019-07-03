@@ -405,6 +405,7 @@ var io = {
 };
 
 workerIO.onmessage = function (e) {
+  console.log();
   ioInit.onmessage(e);
 };
 

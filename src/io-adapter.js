@@ -57,6 +57,9 @@ var ioAdapter = {
   },
 
   mustSend(msg) {
+    if (!virtualclass.config.makeWebSocketReady) {
+      return;
+    }
     this.serial++;
     msg.serial = this.serial;
     this.adapterMustData[this.serial] = { type: 'broadcast', m: msg };
@@ -65,12 +68,18 @@ var ioAdapter = {
   },
 
   send(msg) {
+    if (!virtualclass.config.makeWebSocketReady) {
+      return;
+    }
     const cfun = 'broadcastToAll'; // BroadcastToALl (Do not send to self)
     // console.log('Packet sending');
     io.send(msg, cfun, null);
   },
 
   mustSendAll(msg) {
+    if (!virtualclass.config.makeWebSocketReady) {
+      return;
+    }
     // var orisend = JSON.parse(JSON.stringify(msg));
     this.mustSendUser(msg, virtualclass.gObj.uid);
     this.mustSend(msg);
@@ -85,8 +94,9 @@ var ioAdapter = {
 
   // TODO Function below still needs to have missing packets functionality
   mustSendUser(msg, touser) {
-    // debugger;
-
+    if (!virtualclass.config.makeWebSocketReady) {
+      return;
+    }
 
     this.validateAllVariables(touser);
     if (typeof msg.serial !== 'undefined' && msg.serial) {
@@ -100,6 +110,9 @@ var ioAdapter = {
   },
 
   sendUser(msg, touser) {
+    if (!virtualclass.config.makeWebSocketReady) {
+      return;
+    }
     const cfun = 'broadcastToAll';
     io.send(msg, cfun, touser);
   },

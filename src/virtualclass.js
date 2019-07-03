@@ -1258,7 +1258,8 @@
             if (!virtualclass.dts.firstRequest && !virtualclass.dts.noteExist()) {
               const dashboardnav = document.querySelector('#dashboardnav button');
               if (dashboardnav != null) {
-                dashboardnav.click();
+                // TODO, Need to enable later
+                 dashboardnav.click();
               }
             } else {
               console.log('===== DOCUMENT EXIST');

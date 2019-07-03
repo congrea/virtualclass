@@ -578,7 +578,10 @@
       },
 
       async initWhiteboardData(wb) {
-        virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs);
+        if (virtualclass.wb[virtualclass.gObj.currWb].data && virtualclass.wb[virtualclass.gObj.currWb].data.length > 0) {
+          virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.wb[virtualclass.gObj.currWb].data);
+        }
+
         // await virtualclass.storage.getWbData(wb);
         // if (typeof virtualclass.gObj.tempReplayObjs[wb] === 'object' && virtualclass.gObj.tempReplayObjs[wb].length > 0) {
         //   console.log('Start whiteboard replay from local storage');

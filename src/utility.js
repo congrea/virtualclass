@@ -830,8 +830,8 @@
           if (typeof (msg.repObj[msg.repObj.length - 1]) === 'undefined') {
             return;
           }
-          virtualclass.wb[wbId].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
-          virtualclass.wb[wbId].gObj.displayedObjId = virtualclass.wb[wbId].gObj.rcvdPackId;
+        //  virtualclass.wb[wbId].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
+         // virtualclass.wb[wbId].gObj.displayedObjId = virtualclass.wb[wbId].gObj.rcvdPackId;
           //            console.log('Last send data ' + virtualclass.wb[wbId].gObj.rcvdPackId);
         }
 

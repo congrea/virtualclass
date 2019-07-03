@@ -371,8 +371,8 @@
 
         virtualclass.wb[wid].gObj.myrepObj = [];
         virtualclass.wb[wid].gObj.replayObjs = [];
-        virtualclass.wb[wid].gObj.rcvdPackId = 0;
-        virtualclass.wb[wid].gObj.displayedObjId = 0;
+      //  virtualclass.wb[wid].gObj.rcvdPackId = 0;
+        //virtualclass.wb[wid].gObj.displayedObjId = 0;
         virtualclass.wb[wid].gObj.packQueue = [];
         virtualclass.wb[wid].gObj.queue = [];
         virtualclass.wb[wid].uid = 0;
@@ -707,8 +707,22 @@
           if (allRepObjs.length > 0) {
             virtualclass.wb[wid].utility.makeCanvasDisable();
             virtualclass.wb[wid].utility.toolWrapperDisable();
-            virtualclass.wb[wid].gObj.displayedObjId = 0;
-            virtualclass.wb[wid].utility.replayObjsByFilter(allRepObjs, 'fromBrowser');
+            //virtualclass.wb[wid].gObj.displayedObjId = 0;
+            virtualclass.wb[wid].utility.drawInWhiteboards(allRepObjs, 'fromBrowser');
+          }
+
+          if (roles.hasControls()) {
+            const fontTool = document.querySelector(`#t_font${wid}`);
+            const strkTool = document.querySelector(`#t_strk${wid}`);
+            if (virtualclass.wb[wid].tool.cmd === `t_text${wid}`) {
+              if (fontTool.classList.contains('hide')) {
+                fontTool.classList.remove('hide');
+                fontTool.classList.add('show');
+              }
+              strkTool.classList.add('hide');
+            } else if (!fontTool.classList.contains('hide')) {
+              fontTool.classList.add('hide');
+            }
           }
         }
       },
@@ -798,10 +812,10 @@
             if (typeof (msg.repObj[msg.repObj.length - 1]) === 'undefined') {
               return;
             }
-            virtualclass.wb[wid].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
+          //  virtualclass.wb[wid].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
 
 
-            virtualclass.wb[wid].gObj.displayedObjId = virtualclass.wb[wid].gObj.rcvdPackId;
+            // virtualclass.wb[wid].gObj.displayedObjId = virtualclass.wb[wid].gObj.rcvdPackId;
           }
           var jobj = JSON.stringify(msg);
 
@@ -929,17 +943,15 @@
         }
       },
 
-      replayObjsByFilter(repObjs, fromBrowser) {
+      drawInWhiteboards(repObjs, fromBrowser) {
         const wid = virtualclass.gObj.currWb;
         for (let i = 0; i < repObjs.length; i++) {
-          virtualclass.wb[wid].bridge.makeQueue(repObjs[i]);
-
           if (repObjs[i].hasOwnProperty('cmd')) {
             if (roles.hasControls()) {
               const tool = repObjs[i].cmd.slice(2, repObjs[i].cmd.length);
               const currentShapeTool = document.querySelector(`${'#' + 'tool_wrapper'}${wid}`);
               const shapesElem = document.querySelector(`#tool_wrapper${virtualclass.gObj.currWb}.shapesToolbox`);
-              if (tool == 'triangle' || tool == 'line' || tool == 'oval' || tool == 'rectangle') {
+              if (tool === 'triangle' || tool === 'line' || tool === 'oval' || tool === 'rectangle') {
                 document.querySelector(`#shapeIcon${wid} a`).dataset.title = tool.charAt(0).toUpperCase() + tool.slice(1);
                 currentShapeTool.dataset.currtool = tool;
                 shapesElem.classList.add('active');
@@ -969,32 +981,13 @@
             }
           }
 
-          if (repObjs[i].uid == virtualclass.wb[wid].gObj.displayedObjId + 1) {
+          // if (repObjs[i].uid === virtualclass.wb[wid].gObj.displayedObjId + 1) {
             virtualclass.wb[wid].uid = repObjs[i].uid;
             this.executeWhiteboardData(repObjs[i]);
-            if (typeof fromBrowser !== 'undefined') {
-              virtualclass.wb[wid].gObj.rcvdPackId = virtualclass.wb[wid].uid;
-            }
-          }
-        }
-        // console.log('Whiteboard Stored ID ' + virtualclass.wb[wid].gObj.replayObjs[virtualclass.wb[wid].gObj.replayObjs.length-1].uid);
-        if (virtualclass.wb[wid].gObj.replayObjs.length > 0) {
-          // console.log('Whiteboard saving storage ' + repObjs[repObjs.length-1].uid);
-          virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
-        }
-        //  virtualclass.storage.store(JSON.stringify(virtualclass.wb[wid].gObj.replayObjs));
-        if (roles.hasControls()) {
-          const fontTool = document.querySelector(`#t_font${wid}`);
-          const strkTool = document.querySelector(`#t_strk${wid}`);
-          if (virtualclass.wb[wid].tool.cmd == `t_text${wid}`) {
-            if (fontTool.classList.contains('hide')) {
-              fontTool.classList.remove('hide');
-              fontTool.classList.add('show');
-            }
-            strkTool.classList.add('hide');
-          } else if (!fontTool.classList.contains('hide')) {
-            fontTool.classList.add('hide');
-          }
+            // if (typeof fromBrowser !== 'undefined') {
+            //   virtualclass.wb[wid].gObj.rcvdPackId = virtualclass.wb[wid].uid;
+            // }
+          // }
         }
       },
 

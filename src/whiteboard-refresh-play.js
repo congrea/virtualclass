@@ -50,7 +50,7 @@
           this.callBkfunc = myfunc;
         }
         if (this.objs[this.objNo].hasOwnProperty('cmd')) {
-          virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId = this.objs[this.objNo].uid;
+        //  virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId = this.objs[this.objNo].uid;
           virtualclass.wb[virtualclass.gObj.currWb].toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
         } else {
           let event = '';
@@ -91,17 +91,17 @@
 
             vcan.main.canvas.dispatchEvent(eventConstruct);
           }
-          virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId = this.objs[this.objNo].uid;
+          //virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId = this.objs[this.objNo].uid;
         }
 
         // console.log('Whiteboard : Till now play ' + virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId);
 
-        if (this.objs[this.objs.length - 1].uid == virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId) {
-          if (typeof this.callBkfunc === 'function') {
-            this.callBkfunc('callBkfunc');
-          }
-          this.rendering = false; // Now rendering is finished
-        }
+        // if (this.objs[this.objs.length - 1].uid == virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId) {
+        //   if (typeof this.callBkfunc === 'function') {
+        //     this.callBkfunc('callBkfunc');
+        //   }
+        //   this.rendering = false; // Now rendering is finished
+        // }
 
         // if (roles.hasControls()) {
         //   if (virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs[virtualclass.wb[virtualclass.gObj.currWb].gObj.tempRepObjs.length - 1].uid == virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId) {

@@ -183,18 +183,6 @@ const receiveFunctions = new function () {
     }
   };
 
-  // not found
-  this.userMsg = function (e) {
-    virtualclass.gObj.chat.display(e.message.userMsg);
-  };
-
-  // not found
-  this.requestPacketBy = function (e) {
-    if (roles.hasControls()) {
-      const requestBy = e.message.requestPacketBy; // request user
-      virtualclass.gObj.chat.sendPackets(requestBy, e.message.sp);
-    }
-  };
 
   // not found
   this.chatPackResponsed = function (e) {
@@ -220,14 +208,6 @@ const receiveFunctions = new function () {
     virtualclass.wb[virtualclass.gObj.currWb].response.clearAll(e.fromUser.userid, wbUser.id, e.message, virtualclass.wb[virtualclass.gObj.currWb].oTeacher);
   };
 
-  // Get missed packet
-  this.getMsPckt = function (e) {
-    virtualclass.wb[virtualclass.gObj.currWb].gObj.chunk = [];
-    const chunk = virtualclass.wb[virtualclass.gObj.currWb].bridge.sendPackets(e, virtualclass.wb[virtualclass.gObj.currWb].gObj.chunk);
-    virtualclass.vutil.beforeSend({ repObj: chunk, chunk: true, cf: 'repObj' });
-    // var chunk = virtualclass.wb[virtualclass.gObj.currWb].bridge.sendPackets(e, virtualclass.wb[virtualclass.gObj.currWb].gObj.chunk);
-  };
-
   // Create mouse
   this.createArrow = function (e) {
     if (typeof virtualclass.wb === 'object') {
@@ -239,8 +219,6 @@ const receiveFunctions = new function () {
 
   // Display Whiteboard Data
   this.repObj = function (e) {
-    //     console.log("whiteboard Incomming UID ===== " + e.message.repObj[0].uid);
-
     if (typeof virtualclass.wb !== 'object' && virtualclass.currApp != 'DocumentShare') {
       virtualclass.makeAppReady(virtualclass.apps.wb);
     }
@@ -249,12 +227,25 @@ const receiveFunctions = new function () {
       virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
 
       // The packets came from teacher when he/she does not has control won't be display
-      if (e.fromUser.role == 't') {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.replayObjsByFilter(e.message.repObj);
+      if (e.fromUser.role === 't') {
+        virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.repObj);
       } else {
         console.log('whiteboard -------------------------- We just lost a packet');
       }
     }
+
+    if (!virtualclass.wb[virtualclass.gObj.currWb].data) {
+      console.log('==== Creating whiteboard   QUEUE');
+      virtualclass.wb[virtualclass.gObj.currWb].data = [];
+    }
+
+    let i = 0;
+    for (; i < e.message.repObj.length; i++) {
+      virtualclass.wb[virtualclass.gObj.currWb].data.push(e.message.repObj[i]);
+    }
+
+    console.log('==== Creating whiteboard   QUEUE, length ', virtualclass.wb[virtualclass.gObj.currWb].data.length);
+
   };
 
   // Replay All, TODO, need to do verify

@@ -55,7 +55,7 @@
         myrepObj: [],
         replayObjs: [],
         myArr: [],
-        displayedObjId: 0,
+       // displayedObjId: 0,
         packQueue: [],
         queue: [],
         virtualWindow: false,
@@ -114,11 +114,11 @@
       _init(id) {
         virtualclass.wb[id].oTeacher = roles.hasAdmin();
 
-        if (virtualclass.vutil.chkValueInLocalStorage('rcvdPackId')) {
-          virtualclass.wb[id].gObj.rcvdPackId = parseInt(localStorage.rcvdPackId);
-        } else {
-          virtualclass.wb[id].gObj.rcvdPackId = 0;
-        }
+        // if (virtualclass.vutil.chkValueInLocalStorage('rcvdPackId')) {
+        //   virtualclass.wb[id].gObj.rcvdPackId = parseInt(localStorage.rcvdPackId);
+        // } else {
+        //   virtualclass.wb[id].gObj.rcvdPackId = 0;
+        // }
 
         // virtualclass.wb[id].utility.displayCanvas();
 

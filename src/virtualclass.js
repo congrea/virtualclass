@@ -582,6 +582,8 @@
       },
 
       async makeAppReady(app, cusEvent, data) {
+
+
         // var congdashboardClose = document.querySelector('#congdashboard button.close');
         // if(congdashboardClose != null){
         //     congdashboardClose.click();
@@ -638,6 +640,8 @@
         if (app == 'SharePresentation') {
           // debugger;
           if (`virtualclass${app}` != virtualclass.previous) {
+            console.log('==== DST init appInitiator');
+
             this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
           }
         } else if (app == 'DocumentShare') {
@@ -1252,9 +1256,10 @@
             virtualclass.dts.indexNav = new virtualclass.pageIndexNav('documentShare');
           }
 
-
+          console.log('==== DST init makeReadyDsShare 1259');
           if (virtualclass.gObj.hasOwnProperty('docs')) {
-            virtualclass.appInitiator.makeReadyDsShare.apply(virtualclass.appInitiator, args);
+            console.log('==== DST init makeReadyDsShare 1261');
+           // virtualclass.appInitiator.makeReadyDsShare.apply(virtualclass.appInitiator, args);
             virtualclass.vutil.initDashboardNav();
 
 
@@ -1319,6 +1324,7 @@
           if (allAppOptions[i].id != 'virtualclassEditorCodeTool') {
             var that = this;
             anchTag.onclick = function () {
+              console.log('==== DST init click');
               that.initlizer(this);
             };
           }
@@ -1361,6 +1367,7 @@
             if (virtualclass.currApp == 'DocumentShare') {
               virtualclass.gObj.screenRh = 160;
             }
+            console.log('==== DST init makeAppReady');
             this.makeAppReady(appName, 'byclick');
             setTimeout(
               () => {

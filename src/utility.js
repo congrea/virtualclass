@@ -1572,6 +1572,8 @@
             virtualclass.modal.hideModal();
           }
         }
+      } else {
+        virtualclass.dts.init();
       }
     },
 

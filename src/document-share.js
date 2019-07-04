@@ -20,7 +20,7 @@
       tempFolder: 'documentSharing',
 
       init(docsObj) {
-
+        console.log('==== DST init acutal');
         this.firstRequest = false;
         firstTime = true;
         this.indexNav = new virtualclass.pageIndexNav('documentShare');
@@ -60,7 +60,7 @@
             this.rawToProperData(this.storageRawData, 'fromStorage');
           }
         } else {
-          // Check if there is already docs in local storage
+
           var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
           if (docsObj != null) {
             if (this.storageRawData != null) {

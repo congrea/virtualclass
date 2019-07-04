@@ -312,7 +312,8 @@
 
         this.serverData = serverData;
         if (roles.hasControls()) {
-          this.serverData.fetchAllData(); // gets all data from server at very first
+          // this.serverData.fetchAllData(); // gets all data from server at very first
+          virtualclass.serverData.syncAllData();
         }
         if (localStorage.uRole != null) {
           virtualclass.gObj.uRole = localStorage.uRole; // this done only for whiteboard in _init()

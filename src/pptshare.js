@@ -859,18 +859,21 @@
           virtualclass.sharePt.order.push(pptObj.uuid);
           virtualclass.vutil.sendOrder('presentation', virtualclass.sharePt.order);
           virtualclass.sharePt.getPptList();
-          that.fetchAllData();
+          virtualclass.serverData.syncAllData().then(() => {
+            virtualclass.sharePt.awsPresentationList(virtualclass.serverData.rawData.ppt);
+          });
+          // that.fetchAllData();
 
           // // TODO, Critical this need be re-enable
           // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
         });
       },
 
-      fetchAllData() {
-        virtualclass.serverData.fetchAllData(() => {
-          virtualclass.sharePt.awsPresentationList(virtualclass.serverData.rawData.ppt);
-        });
-      },
+      // fetchAllData() {
+      //   virtualclass.serverData.fetchAllData(() => {
+      //     virtualclass.sharePt.awsPresentationList(virtualclass.serverData.rawData.ppt);
+      //   });
+      // },
 
       awsPresentationList(ppts) {
         virtualclass.sharePt.ppts = [];
@@ -1051,7 +1054,10 @@
         if (virtualclass.gObj.fetchedData) {
           virtualclass.sharePt.awsPresentationList(virtualclass.serverData.rawData.ppt);
         } else {
-          this.fetchAllData();
+          // this.fetchAllData();
+          virtualclass.serverData.syncAllData().then(() => {
+            virtualclass.sharePt.awsPresentationList(virtualclass.serverData.rawData.ppt);
+          });
         }
       },
 

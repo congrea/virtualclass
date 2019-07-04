@@ -29,15 +29,19 @@
         if (roles.hasControls() && virtualclass.config.makeWebSocketReady) {
           ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
           if (!virtualclass.serverData.firstRequest) {
-            virtualclass.serverData.fetchAllData(() => {
-              ioAdapter.mustSend({ dts: { fallDocs: true }, cf: 'dts' });
+            virtualclass.serverData.syncAllData().then(() => {
               this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
             });
+            // virtualclass.serverData.fetchAllData(() => {
+            //   ioAdapter.mustSend({ dts: { fallDocs: true }, cf: 'dts' });
+            //   this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+            // });
           } else {
             ioAdapter.mustSend({ dts: { fallDocs: true }, cf: 'dts' });
-            this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+            // this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
           }
         }
+        this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         (virtualclass.dts.noteExist()) ? virtualclass.modal.hideModal() : virtualclass.modal.showModal();
       },
 
@@ -310,7 +314,7 @@
       // Earlier it was requestNotes,
       afterRequestNotes() {
         virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-        ioAdapter.mustSend({ dts: { fallDocs: virtualclass.serverData.rawData.docs }, cf: 'dts' });
+        // ioAdapter.mustSend({ dts: { fallDocs: virtualclass.serverData.rawData.docs }, cf: 'dts' });
         cthis.removeNoDocsElem();
       },
 

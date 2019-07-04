@@ -281,12 +281,12 @@ Config.prototype.endSession = async function (onlyStoredData){
     virtualclass.chat.removeCommonChatNodes();
   }
 
-  if (virtualclass.serverData != null) {
-    virtualclass.serverData.rawData = { video: [], ppt: [], docs: [] };
-    if (roles.hasAdmin()) {
-      virtualclass.serverData.fetchAllData();
-    }
-  }
+  // if (virtualclass.serverData != null) {
+  //   virtualclass.serverData.rawData = { video: [], ppt: [], docs: [] };
+  //   if (roles.hasAdmin()) {
+  //     virtualclass.serverData.fetchAllData();
+  //   }
+  // }
 
   virtualclass.gObj.wIds = [0];
   virtualclass.wbCommon.order = [0];

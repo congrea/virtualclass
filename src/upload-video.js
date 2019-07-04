@@ -897,7 +897,10 @@
         const url = virtualclass.api.UpdateRoomMetaData;
         virtualclass.xhrn.vxhrn.post(url, data).then(() => {
           // virtualclass.videoUl.UI.awsr();
-          virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
+          virtualclass.serverData.syncAllData().then(() => {
+            virtualclass.videoUl.UI.awsVideoList();
+          });
+          // virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
         });
       },
 
@@ -1281,7 +1284,10 @@
 
             // TODO, Critical this need be re-enable
             virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
-            virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
+            virtualclass.serverData.syncAllData().then(() => {
+              virtualclass.videoUl.UI.awsVideoList();
+            });
+            // virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
           });
 
           document.querySelector('.congrea #videourl').value = '';
@@ -1353,7 +1359,10 @@
           upload.wrapper = document.getElementById(elemArr[0]);
           virtualclass.fineUploader.uploaderFn(upload);
           if (!virtualclass.vutil.isBulkDataFetched() || !virtualclass.videoUl.videos.length) {
-            virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
+            virtualclass.serverData.syncAllData().then(() => {
+              virtualclass.videoUl.UI.awsVideoList();
+            });
+            // virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
           } else {
             virtualclass.videoUl.showVideos(virtualclass.videoUl.videos);
             if (virtualclass.videoUl.order.length > 0) {

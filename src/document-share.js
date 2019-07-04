@@ -22,20 +22,23 @@
       init () {
         this.pages = {};
         this.notes = {};
-        this.firstRequest = false;
         firstTime = true;
         this.indexNav = new virtualclass.pageIndexNav('documentShare');
         this.UI.container();
-        if (roles.hasControls()) {
-          ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
-          this.firstRequestDocs();
-        }
 
-        if (virtualclass.dts.noteExist()) {
-          virtualclass.modal.hideModal();
-        } else {
-          virtualclass.modal.showModal();
+        if (roles.hasControls() && virtualclass.config.makeWebSocketReady) {
+          ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
+          if (!virtualclass.serverData.firstRequest) {
+            virtualclass.serverData.fetchAllData(() => {
+              ioAdapter.mustSend({ dts: { fallDocs: true }, cf: 'dts' });
+              this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+            });
+          } else {
+            ioAdapter.mustSend({ dts: { fallDocs: true }, cf: 'dts' });
+            this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+          }
         }
+        (virtualclass.dts.noteExist()) ? virtualclass.modal.hideModal() : virtualclass.modal.showModal();
       },
 
       moveProgressbar() {
@@ -169,26 +172,6 @@
           // this.pages[docId].init(id, this.allDocs[id].title);
           this.pages[docId].init(id, this.allDocs[id].filename);
           this.upateInStorage();
-        }
-      },
-
-      /**
-       * We don't nee to update fetch the all docs according the length but
-       * we have to fetch that only once
-       *
-       */
-      firstRequestDocs() {
-        const that = this;
-        if (!virtualclass.vutil.isBulkDataFetched()) {
-          virtualclass.serverData.fetchAllData(() => {
-            ioAdapter.mustSend({ dts: { fallDocs: virtualclass.serverData.rawData.docs }, cf: 'dts' });
-            that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-            that.firstRequest = true;
-          });
-        } else {
-          console.log('==== dts must send ');
-          ioAdapter.mustSend({ dts: { fallDocs: virtualclass.serverData.rawData.docs }, cf: 'dts' });
-          that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         }
       },
 
@@ -598,7 +581,7 @@
         container() {
           const docShareCont = document.getElementById(this.id);
           if (docShareCont == null) {
-            const control = !!roles.hasAdmin();
+            // const control = !!roles.hasAdmin();
             const data = { control: roles.hasControls() };
 
             const template = virtualclass.getTemplate('docsMain', 'documentSharing');
@@ -1357,8 +1340,7 @@
           this.allDocs = dts.allDocs;
           this.afterUploadFile(dts.doc);
         } else if (dts.hasOwnProperty('fallDocs')) {
-          this.afterFirstRequestDocs(dts.fallDocs);
-          virtualclass.serverData.rawData.docs = dts.fallDocs;
+          this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
           for (const note in virtualclass.serverData.rawData.docs[0].notes) {
             virtualclass.createPrefetchLink(virtualclass.serverData.rawData.docs[0].notes[note].pdf);
           }

@@ -1,5 +1,6 @@
 const serverData = {
   rawData: { video: [], ppt: [], docs: [] },
+  firstRequest: false,
   sdxhr: axios.create({
     timeout: 10000,
     headers: {
@@ -14,11 +15,17 @@ const serverData = {
     },
   }),
 
+  onMessage (msg) {
+    virtualclass.serverData.rawData = msg.rawData;
+  },
+
   fetchAllData(cb) {
+    // TODO We should not use callback at all
     console.log('Fetch all data');
     this.cb = cb;
     console.log('Request get document url');
     this.requestData(virtualclass.api.GetDocumentURLs);
+    this.firstRequest = true;
   },
 
   requestData(url) {
@@ -197,6 +204,9 @@ const serverData = {
       let len = length - (`${n}`).length;
       return (len > 0 ? new Array(++len).join('0') : '') + n;
     }
+
+    ioAdapter.mustSend({ rawData: virtualclass.serverData.rawData, cf: 'rawData' });
+
   },
 
   processObj(obj) {

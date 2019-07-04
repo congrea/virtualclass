@@ -549,4 +549,8 @@ const receiveFunctions = new function () {
       }
     }
   };
+
+  this.rawData = function (e) {
+    virtualclass.serverData.onMessage(e.message);
+  }
 }();

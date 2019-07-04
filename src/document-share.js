@@ -19,73 +19,18 @@
       order: [],
       tempFolder: 'documentSharing',
 
-      init(docsObj) {
-        console.log('==== DST init acutal');
+      init () {
+        this.pages = {};
+        this.notes = {};
         this.firstRequest = false;
         firstTime = true;
         this.indexNav = new virtualclass.pageIndexNav('documentShare');
-
-        if (virtualclass.gObj.hasOwnProperty('docs') && typeof virtualclass.gObj.docs === 'string') {
-          this.documents = null;
-        } else {
-          this.documents = (typeof virtualclass.gObj.docs === 'object') ? virtualclass.gObj.docs : null;
-        }
-
         this.UI.container();
-        this.pages = {};
-        this.notes = {};
-
-        if (this.documents != null) {
-          this.allNotes = this.documents;
-        }
-
-        this.initAfterUpload(docsObj);
         if (roles.hasControls()) {
-          if (typeof docsObj === 'undefined') {
-            console.log('==== dts must send ');
-            ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
-            console.log(`${virtualclass.gObj.currWb} ` + 'Document share Teacher layout ');
-          }
-          // this.UI.attachDocsNav();
+          ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
+          this.firstRequestDocs();
         }
 
-        if (typeof docsObj !== 'undefined') {
-          if (docsObj.init != 'layout' && docsObj.init != 'studentlayout') {
-            if (this.storageRawData != null) {
-              this.rawToProperData(this.storageRawData, 'fromStorage');
-            }
-            // docsObj.init = layout means first layout
-            this.setNoteScreen(docsObj);
-          } else if (firstTime && roles.isStudent()) {
-            this.rawToProperData(this.storageRawData, 'fromStorage');
-          }
-        } else {
-
-          var docsObj = JSON.parse(localStorage.getItem('dtsdocs'));
-          if (docsObj != null) {
-            if (this.storageRawData != null) {
-              this.rawToProperData(this.storageRawData, 'fromStorage');
-            }
-            this.initAfterUpload(docsObj);
-            //       this.allDocs = docsObj.docs;
-
-            if (docsObj.slideNumber != null) {
-              this.setNoteScreen(docsObj);
-              docsObj.slideNumber = null;
-              // localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
-            }
-          } else if (this.allDocs != null && Object.keys(this.allDocs).length > 0) {
-            console.log('Do nothing');
-            this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs, true);
-          } else {
-            // Only send the request to server
-            // when the docs is not in storage
-            if (roles.hasControls()) {
-              this.firstRequestDocs();
-              // this.firstRequest = true;
-            }
-          }
-        }
         if (virtualclass.dts.noteExist()) {
           virtualclass.modal.hideModal();
         } else {
@@ -101,23 +46,6 @@
           const divCont = document.createElement('div');
           cont.appendChild(divCont);
           divCont.appendChild(msz);
-        }
-      },
-
-      /**
-       * This function initiate the docs order
-       * and the function which should be performed
-       * after uploading the docs
-       */
-      initAfterUpload(docsObj) {
-        if (typeof docsObj !== 'undefined') {
-          for (const key in docsObj.docs) {
-            this.afterUploadFile(docsObj.docs[key].rid, 'fromReload', docsObj);
-          }
-
-          if (docsObj.hasOwnProperty('order')) {
-            this.order = JSON.parse(docsObj.order);
-          }
         }
       },
 
@@ -141,7 +69,6 @@
       setScreenByOrder(currDoc) {
         if (this.order != null && this.order.length > 0) {
           const allNotes = this.getAllNotes(this.order);
-          // TODO this should be improve
           let docId;
           for (var i = 0; i < allNotes.length; i++) {
             docId = allNotes[i].id.split('_')[0];
@@ -157,9 +84,6 @@
           for (var i = 0; i < this.order.length; i++) {
             this.noteStatus(this.order[i], this.allNotes[this.order[i]].status);
           }
-
-          /** Earlier it was in noteStatus() which causes the performance issue * */
-          this.storeInDocs(this.allNotes);
         }
       },
 
@@ -257,7 +181,6 @@
         const that = this;
         if (!virtualclass.vutil.isBulkDataFetched()) {
           virtualclass.serverData.fetchAllData(() => {
-            console.log('==== dts must send ');
             ioAdapter.mustSend({ dts: { fallDocs: virtualclass.serverData.rawData.docs }, cf: 'dts' });
             that.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
             that.firstRequest = true;
@@ -289,37 +212,28 @@
         return allNotes;
       },
 
-      // requestDocs
-      afterFirstRequestDocs(docs, notconvert) {
+      // calling from both teacher and student
+      afterFirstRequestDocs(docs) {
         this.rawToProperData(docs);
-         // virtualclass.storage.dstAllStore(docs);
         for (const key in this.allDocs) {
           if (!this.allDocs[key].hasOwnProperty('deleted')) {
             this.initDocs(this.allDocs[key].fileuuid);
           }
         }
+
         if (roles.hasAdmin()) {
-          this.requestOrder(this.executeOrder);
+          if (virtualclass.config.makeWebSocketReady) {
+            this.requestOrder(this.executeOrder);
+          } else {
+            this.executeOrder(virtualclass.gObj.docOrder.docs);
+          }
         }
       },
 
-      rawToProperData(docs, fromStorage) {
-        if (typeof notconvert === 'undefined') {
-          this.allDocsTemp = docs;
-          this.allDocs = this.convertInObjects(this.allDocsTemp);
-        }
-
-        // this.allNotes = this.fetchAllNotes();
-        if (typeof fromStorage !== 'undefined') {
-          this.allNotes = virtualclass.gObj.dstAllNotes;
-        } else {
-          this.allNotes = this.fetchAllNotes();
-        }
-
-
-        // if(this.documents != null){
-        //     this.allNotes = this.documents;
-        // }
+      rawToProperData(docs) {
+        this.allDocsTemp = docs;
+        this.allDocs = this.convertInObjects(this.allDocsTemp);
+        this.allNotes = this.fetchAllNotes();
       },
 
       /**
@@ -340,12 +254,6 @@
           this.setScreenByOrder(docId);
           this.docs.currNote = this.order[0];
           this.docs.displayScreen(docId, this.order[0]);
-
-          /**
-           TODO, this should be handle properly
-           As of now, use can see the diffrence
-           * */
-          // virtualclass.dashBoard.close();
         }
       },
 
@@ -358,22 +266,18 @@
 
       executeOrder(response) {
         if (response != undefined && typeof response !== 'undefined') {
-          const cthis = virtualclass.dts;
           if (response.length > 0) {
-            if (response == 'Failed' || response == 'Error') {
+            if (response === 'Failed' || response === 'Error') {
               console.log('page order retrieve failed');
               $('#congdashboard').modal();
               console.log(`dashboard length ${$('#congdashboard').length}`);
-
               virtualclass.dashBoard.clickCloseButton();
-            } else if (response) {
-              if (roles.hasAdmin()) {
-                console.log('==== dts must send order');
-                ioAdapter.mustSend({ dts: { order_recived: response }, cf: 'dts' });
-                if (virtualclass.currApp === 'DocumentShare'){
-                  cthis.afterRequestOrder(response);
-                  cthis.createNoteNav();
-                }
+            } else if (response && roles.hasAdmin()) {
+              console.log('==== dts must send order');
+              ioAdapter.mustSend({ dts: { order_recived: response }, cf: 'dts' });
+              if (virtualclass.currApp === 'DocumentShare'){
+                virtualclass.dts.afterRequestOrder(response);
+                virtualclass.dts.createNoteNav();
               }
             }
           }
@@ -415,28 +319,16 @@
             element.classList.add('noDocs');
           }
         }
-        console.log('==== dts must send ');
+
         ioAdapter.mustSend({ dts: { allDocs: cthis.allDocs, doc }, cf: 'dts' });
-        // here should be the polling
-        // cthis.requestNotes(doc);
         virtualclass.serverData.pollingStatus(virtualclass.dts.afterRequestNotes);
       },
 
       // Earlier it was requestNotes,
       afterRequestNotes() {
-        const cthis = virtualclass.dts;
         virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-        console.log('==== dts must send ');
         ioAdapter.mustSend({ dts: { fallDocs: virtualclass.serverData.rawData.docs }, cf: 'dts' });
         cthis.removeNoDocsElem();
-        cthis.allPages = virtualclass.dts.fetchAllNotesAsArr();
-        cthis.allNotes = virtualclass.dts.fetchAllNotes();
-        cthis.storeInDocs(cthis.allNotes);
-        // virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
-        // TODO, by disabling this can be critical, new api
-        // ioAdapter.mustSend({'dts': {allNotes: cthis.allNotes, doc:doc},  'cf': 'dts'});
-        console.log('==== dts must send ');
-        ioAdapter.mustSend({ dts: { allNotes: cthis.allNotes }, cf: 'dts' });
       },
 
       removeNoDocsElem() {
@@ -445,56 +337,6 @@
           allNoDocsElem[i].classList.remove('noDocs');
         }
       },
-
-      /**
-       * this requests all notes from LMS
-       */
-      requestNotes(doc) {
-        const cthis = this;
-        const data = {
-          live_class_id: virtualclass.gObj.congCourse,
-          notes_id: 'all',
-          user: virtualclass.gObj.uid,
-        };
-        virtualclass.vutil.xhrSendWithForm(data, 'retrieve_all_notes')
-          .then((response) => {
-            if ((+response.data.status)) {
-              cthis.allPages = response.data.resultdata;
-              cthis.allNotes = cthis.convertInObjects(cthis.allPages);
-              cthis.storeInDocs(cthis.allNotes);
-              console.log('==== dts must send ');
-              ioAdapter.mustSend({ dts: { allNotes: cthis.allNotes, doc }, cf: 'dts' });
-            }
-          })
-          .catch((error) => {
-            console.error('Request failed with error ', error);
-          });
-      },
-
-      firstRequestNotes() {
-        const cthis = this;
-        const data = {
-          live_class_id: virtualclass.gObj.congCourse,
-          notes_id: 'all',
-          user: virtualclass.gObj.uid,
-        };
-        virtualclass.vutil.xhrSendWithForm(data, 'retrieve_all_notes')
-          .then((response) => {
-            //  if((+response.status)){
-            cthis.allPages = response.data.resultdata;
-            cthis.allNotes = cthis.convertInObjects(cthis.allPages);
-            cthis.storeInDocs(cthis.allNotes);
-            console.log('==== dts must send ');
-            ioAdapter.mustSend({ dts: { fallNotes: cthis.allNotes }, cf: 'dts' });
-            // cthis.firstRequestDocs();
-            cthis.requestOrder(cthis.executeOrder);
-            // }
-          })
-          .catch((error) => {
-            console.error('Request failed with error ', error);
-          });
-      },
-
 
       requestSlides(filepath) {
         const cthis = this;
@@ -506,15 +348,6 @@
         console.log('==== dts must send ');
         ioAdapter.mustSend({ dts: { dres: filepath, ds: (1 - (+dsStatus)) }, cf: 'dts' });
         return relativeDocs;
-      },
-
-      /**
-       * This store all the notes/pages/slides in browser indexdb storage
-       * @param allPages exepects all notes
-       */
-      storeInDocs(allPages) {
-        // virtualclass.storage.dstStore(JSON.stringify(allPages));
-        // virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
       },
 
       removeWhiteboardFromStorage(key) {
@@ -917,7 +750,7 @@
             this.indexNav.createDocNavigationNumber(this.order[i], i, status);
           }
         }
-        this.storeInDocs(this.allNotes);
+
         if (roles.hasControls()) {
           this.indexNav.shownPage(this.indexNav.width);
           this.indexNav.addActiveNavigation();
@@ -981,10 +814,6 @@
           if (typeof fromReload === 'undefined') {
             this.noteStatus(this.order[i], status);
           }
-        }
-
-        if (typeof fromReload === 'undefined') {
-          this.storeInDocs(this.allNotes);
         }
       },
 
@@ -1524,19 +1353,11 @@
           dts.docn = `docs${dts.docn}`; // incaseof missing docs prefix
         }
 
-        if (dts.hasOwnProperty('allNotes')) {
-          this.allNotes = dts.allNotes;
-          this.storeInDocs(this.allNotes);
-        } else if (dts.hasOwnProperty('fallNotes')) {
-          this.allNotes = dts.fallNotes;
-          this.storeInDocs(this.allNotes);
-          // virtualclass.storage.dstAllStore(virtualclass.serverData.rawData.docs);
-        } else if ((dts.hasOwnProperty('allDocs'))) {
+        if ((dts.hasOwnProperty('allDocs'))) {
           this.allDocs = dts.allDocs;
           this.afterUploadFile(dts.doc);
         } else if (dts.hasOwnProperty('fallDocs')) {
-          var cthis = this;
-          cthis.afterFirstRequestDocs(dts.fallDocs);
+          this.afterFirstRequestDocs(dts.fallDocs);
           virtualclass.serverData.rawData.docs = dts.fallDocs;
           for (const note in virtualclass.serverData.rawData.docs[0].notes) {
             virtualclass.createPrefetchLink(virtualclass.serverData.rawData.docs[0].notes[note].pdf);
@@ -1595,10 +1416,8 @@
         } else if (dts.hasOwnProperty('rmsnote')) { // remove single note
           this._removePageUI(dts.rmsnote);
           this._removePageFromStructure(dts.rmsnote);
-          this.storeInDocs(this.allNotes);
         } else if (dts.hasOwnProperty('noteSt')) {
           this.noteStatus(dts.note, dts.noteSt);
-          this.storeInDocs(this.allNotes);
         } else if (dts.hasOwnProperty('docSt')) {
           this.docStatus(dts.doc, dts.docSt);
         } else if (dts.hasOwnProperty('order_recived')) {
@@ -1733,7 +1552,6 @@
       _deleteNote(id, typeDoc) {
         this._removePageUI(id, typeDoc);
         this._removePageFromStructure(id, typeDoc);
-        this.storeInDocs(this.allNotes);
         if (roles.hasControls()) {
           console.log('==== dts must send ');
           ioAdapter.mustSend({ dts: { rmsnote: id }, cf: 'dts' });
@@ -1786,7 +1604,6 @@
             this._removePageFromStructure(this.allNotes[i].id);
           }
         }
-        this.storeInDocs(this.allNotes);
       },
 
       updateInAllDocs(noteid) {
@@ -1841,7 +1658,6 @@
           this.noteStatus(nid, status);
           this.updatePageNavStatus(nid, status);
         }
-        this.storeInDocs(this.allNotes);
         if (roles.hasControls()) {
           console.log('==== dts must send ');
           ioAdapter.mustSend({ dts: { docSt: status, doc: id }, cf: 'dts' });
@@ -1868,13 +1684,11 @@
 
       _noteDisable(id) {
         this.noteStatus(id);
-        this.storeInDocs(this.allNotes);
         this.sendNoteStatus(id);
       },
 
       _noteEnable(id) {
         this.noteStatus(id);
-        this.storeInDocs(this.allNotes);
         this.sendNoteStatus(id);
       },
 
@@ -1909,7 +1723,6 @@
           const noteObj = this.allNotes[id];
           noteObj.status = note.dataset.status;
           this.allNotes[id] = noteObj;
-          // this.storeInDocs(this.allNotes);
         } else {
           console.log(`there is no element #note${id}`);
         }

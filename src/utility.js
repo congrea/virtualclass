@@ -2121,19 +2121,25 @@
         // localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
       }
     },
+
     requestOrder(type, cb) {
-      const url = virtualclass.api.GetRoomMetaData;
-      virtualclass.xhrn.vxhrn.post(url, { noting: true }).then((response) => {
-        if (response.data.Item != null) {
-          if (response.data.Item.order.S) {
+      if (virtualclass.config.makeWebSocketReady) {
+        const url = virtualclass.api.GetRoomMetaData;
+        virtualclass.xhrn.vxhrn.post(url, { noting: true }).then((response) => {
+          if (response.data.Item != null && response.data.Item.order.S) {
             if (virtualclass.vutil.IsJsonString(response.data.Item.order.S)) {
               const responseData = JSON.parse(response.data.Item.order.S);
               virtualclass.gObj.docOrder = responseData;
               cb(responseData[type]);
             }
           }
-        }
-      });
+        });
+      }
+    },
+
+    realRequestOrder () {
+
+
     },
 
     IsJsonString(str) {

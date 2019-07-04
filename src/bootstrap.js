@@ -219,10 +219,13 @@
   };
 
   Bootstrap.prototype.cache = async function () {
+    virtualclass.config.makeWebSocketReady = false;
     await virtualclass.storage.getDataFromCacheAll();
     await virtualclass.storage.getDataFromCacheIn();
     await virtualclass.storage.getDataFromCacheOut();
     virtualclass.config.makeWebSocketReady = true;
+
+    console.log('Suman save data 2 ', virtualclass.config.makeWebSocketReady);
     virtualclass.makeReadySocket();
 
   };

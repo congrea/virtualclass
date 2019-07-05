@@ -261,7 +261,7 @@
           }
 
           virtualclass.gObj.uploadingFiles = [];
-          virtualclass.serverData.pollingStatus(virtualclass.videoUl.UI.awsVideoList);
+          virtualclass.serverData.pollingStatus().then(() => { virtualclass.videoUl.UI.awsVideoList(); });
         } else {
           virtualclass.videoUl.showUploadMsz('video upload failed', 'alert-error');
         }

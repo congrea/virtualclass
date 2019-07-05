@@ -648,7 +648,7 @@
         } else if (app == 'DocumentShare') {
           this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
           if (roles.hasControls()) {
-            if (!virtualclass.dts.firstRequest) {
+            if (!virtualclass.serverData.syncComplete) {
               virtualclass.vutil.triggerDashboard(app);
             } else {
               /* For the request of Docs, we need to hide the popup Dashboard,
@@ -1235,7 +1235,6 @@
           if (!virtualclass.hasOwnProperty('dts') || virtualclass.dts == null) {
             virtualclass.dts = window.documentShare();
           } else {
-            virtualclass.dts.firstRequest = false;
             virtualclass.dts.indexNav.init();
           }
 
@@ -1264,7 +1263,7 @@
             virtualclass.vutil.initDashboardNav();
 
 
-            if (!virtualclass.dts.firstRequest && !virtualclass.dts.noteExist()) {
+            if (!virtualclass.serverData.syncComplete && !virtualclass.dts.noteExist()) {
               const dashboardnav = document.querySelector('#dashboardnav button');
               if (dashboardnav != null) {
                 // TODO, Need to enable later

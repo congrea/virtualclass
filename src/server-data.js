@@ -1,6 +1,5 @@
 const serverData = {
   rawData: { video: [], ppt: [], docs: [] },
-  firstRequest: false,
   syncComplete: false,
   syncxhr: axios.create({
     timeout: 10000,
@@ -38,7 +37,8 @@ const serverData = {
 
   syncAllData() {
     return new Promise(((resolve) => {
-      if (roles.hasControls()) {
+      function syncAllDataInternal() {
+        // if (roles.hasControls()) {
         if (virtualclass.serverData.syncComplete === true) {
           resolve(true);
           return;
@@ -52,47 +52,14 @@ const serverData = {
           })
           .catch((error) => {
             console.error('Request failed with error ', error);
-            setTimeout(() => virtualclass.serverData.syncAllData(), 1000);
+            setTimeout(() => syncAllDataInternal(), 1000);
           });
+        // }
+      }
+      if (roles.hasControls()) {
+        syncAllDataInternal();
       }
     }));
-  },
-
-
-  fetchAllData(cb) { // TODO should be removed
-    // TODO We should not use callback at all
-    console.log('Fetch all data');
-    this.cb = cb;
-    console.log('Request get document url');
-    this.requestData(virtualclass.api.GetDocumentURLs);
-    this.firstRequest = true;
-  },
-
-  requestData(url) { // TODO should be removed
-    this.rawData = { video: [], ppt: [], docs: [] };
-    this.sdxhr.post(url, {})
-      .then((response) => {
-        virtualclass.serverData.afterResponse(response.data);
-      })
-      .catch((error) => {
-        console.error('Request failed with error ', error);
-        setTimeout(() => {
-            virtualclass.serverData.requestData(url);
-        }, 1000);
-      });
-  },
-
-  // requestData3 :function(url) {
-  //     this.rawData = {video:[], ppt:[], docs:[]};
-  //     virtualclass.xhrn.sendData(null, url, this.afterResponse);
-  // },
-
-  afterResponse(responseText) { // TODO should be removed
-    this.awsUrlArr(responseText);
-    virtualclass.gObj.fetchedData = true;
-    if (typeof virtualclass.serverData.cb !== 'undefined') {
-      virtualclass.serverData.cb();
-    }
   },
 
   awsUrlArr(data) {
@@ -287,28 +254,40 @@ const serverData = {
     return temp;
   },
 
-  pollingStatus(cb) {
-    const url = virtualclass.api.GetDocumentStatus;
-    if (virtualclass.gObj.hasOwnProperty('pollingDocumentStatus')) {
-      clearTimeout(virtualclass.gObj.pollingDocumentStatus);
-    }
-    const that = this;
-    virtualclass.gObj.pollingDocumentStatus = setTimeout(
-      () => {
-        virtualclass.xhrn.vxhrn.post(url, { uuid: virtualclass.gObj.file.uuid }).then((response) => {
-          const responseObj = response.data.Item;
-          if (responseObj != null) {
-            if (responseObj.hasOwnProperty('processed_data')
-              && (responseObj.processed_data.hasOwnProperty('S') && (responseObj.processed_data.S == 'COMPLETED')
-              || (responseObj.processed_data.hasOwnProperty('M') && responseObj.processed_data.M.hasOwnProperty('pdf')))) {
-              clearTimeout(virtualclass.gObj.pollingDocumentStatus);
-              virtualclass.serverData.fetchAllData(cb);
-            } else {
-              that.pollingStatus(cb);
-            }
-          }
-        });
-      }, 5000,
-    );
+  pollingStatus() {
+    return new Promise( (resolve) => {
+      console.log('polling promise start');
+      function pollingStatusInternal() {
+        if (virtualclass.gObj.hasOwnProperty('pollingDocumentStatus')) {
+          clearTimeout(virtualclass.gObj.pollingDocumentStatus);
+        }
+        virtualclass.gObj.pollingDocumentStatus = setTimeout(
+          () => {
+            console.log('polling status start');
+            virtualclass.xhrn.vxhrn.post(virtualclass.api.GetDocumentStatus, { uuid: virtualclass.gObj.file.uuid }).then((response) => {
+              console.log('polling xhr then');
+              const responseObj = response.data.Item;
+              if (responseObj != null) {
+                if (responseObj.hasOwnProperty('processed_data')
+                  && (responseObj.processed_data.hasOwnProperty('S') && (responseObj.processed_data.S === 'COMPLETED')
+                  || (responseObj.processed_data.hasOwnProperty('M') && responseObj.processed_data.M.hasOwnProperty('pdf')))) {
+                  clearTimeout(virtualclass.gObj.pollingDocumentStatus);
+                  virtualclass.serverData.syncComplete = false;
+
+                  virtualclass.serverData.syncAllData().then(() => {
+                    console.log('polling status converted');
+                    resolve();
+                  });
+                } else {
+                  console.log('polling status retry');
+                  pollingStatusInternal();
+                }
+              }
+            });
+          }, 5000,
+        );
+      }
+      pollingStatusInternal();
+    });
   },
-};
+}

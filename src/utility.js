@@ -663,13 +663,6 @@
        * rather than document sharing
        */
 
-      if (virtualclass.hasOwnProperty('dts') && virtualclass.dts != null) {
-        virtualclass.dts.upateInStorage();
-      }
-
-      // // localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
-      // // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
-
       if (!roles.hasControls()) {
         const elem = document.querySelector('#virtualclassCont.congrea #congHr.disable');
         if (elem) {

@@ -25,21 +25,9 @@
         firstTime = true;
         this.indexNav = new virtualclass.pageIndexNav('documentShare');
         this.UI.container();
-
         if (roles.hasControls() && virtualclass.config.makeWebSocketReady) {
           ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
-          if (!virtualclass.serverData.firstRequest) {
-            virtualclass.serverData.syncAllData().then(() => {
-              this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-            });
-            // virtualclass.serverData.fetchAllData(() => {
-            //   ioAdapter.mustSend({ dts: { fallDocs: true }, cf: 'dts' });
-            //   this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-            // });
-          } else {
-            ioAdapter.mustSend({ dts: { fallDocs: true }, cf: 'dts' });
-            // this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-          }
+          virtualclass.serverData.syncAllData();
         }
         this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         (virtualclass.dts.noteExist()) ? virtualclass.modal.hideModal() : virtualclass.modal.showModal();
@@ -175,7 +163,6 @@
           this.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
           // this.pages[docId].init(id, this.allDocs[id].title);
           this.pages[docId].init(id, this.allDocs[id].filename);
-          this.upateInStorage();
         }
       },
 
@@ -308,14 +295,17 @@
         }
 
         ioAdapter.mustSend({ dts: { allDocs: cthis.allDocs, doc }, cf: 'dts' });
-        virtualclass.serverData.pollingStatus(virtualclass.dts.afterRequestNotes);
+        virtualclass.serverData.pollingStatus().then(() => {
+          virtualclass.dts.afterConverted();
+        });
       },
 
-      // Earlier it was requestNotes,
-      afterRequestNotes() {
+      afterConverted() {
+        console.log('polling status done 2');
         virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-        // ioAdapter.mustSend({ dts: { fallDocs: virtualclass.serverData.rawData.docs }, cf: 'dts' });
-        cthis.removeNoDocsElem();
+        ioAdapter.mustSend({ dts: { fallDocs: true }, cf: 'dts' });
+        this.removeNoDocsElem();
+        this.allNotes = virtualclass.dts.fetchAllNotes();
       },
 
       removeNoDocsElem() {
@@ -339,16 +329,6 @@
 
       removeWhiteboardFromStorage(key) {
         virtualclass.storage.wbDataRemove(key);
-      },
-
-      getNotesOld(id) {
-        const notes = [];
-        for (const i in this.allNotes) {
-          if (this.allNotes[i].lc_content_id == id) {
-            notes.push(this.allNotes[i]);
-          }
-        }
-        return notes;
       },
 
       getNotes(id) {
@@ -436,12 +416,7 @@
 
       onResponseFiles(doc, slides, docFetch, slide, fromReload) {
         if (firstTime) {
-          // this.docs.currNote = (typeof slide != 'undefined') ? slide : slides[0].id; // first id if order is not defined
           this.docs.currNote = (typeof slide !== 'undefined') ? slide : slides[0].id; // first id if order is not defined
-
-          console.log(`Current note ${this.docs.currNote}`);
-
-          // this.order = [];
           firstTime = false;
         }
 
@@ -766,22 +741,6 @@
           sn.classList.add('shw');
         }
       },
-
-
-      calcInitialWidth() {
-        //                if ($(window).width() <= 320) {
-        //                    return $('meta[name=viewport]').attr('content', 'user-scalable=yes, initial-scale=0.63, maximum-scale=1.3, width=480');
-        //                } else if ($(window).width() <= 480) {
-        //                    return $('meta[name=viewport]').attr('content', 'user-scalable=yes, initial-scale=0.89, maximum-scale=1.3, width=480');
-        //                } else if ($(window).width() <= 768) {
-        //                    return $('meta[name=viewport]').attr('content', 'user-scalable=yes, initial-scale=0.8, maximum-scale=1.3, width=920');
-        //                } else if ($(window).width() <= 1024) {
-        //                    return $('meta[name=viewport]').attr('content', 'user-scalable=yes, initial-scale=0.85, maximum-scale=1.3, width=920');
-        //                }
-
-
-      },
-
 
       indexHandler(order) {
         // virtualclass.page.prototype.createPageNavAttachEvent(order)
@@ -1344,10 +1303,7 @@
           this.allDocs = dts.allDocs;
           this.afterUploadFile(dts.doc);
         } else if (dts.hasOwnProperty('fallDocs')) {
-          this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-          for (const note in virtualclass.serverData.rawData.docs[0].notes) {
-            virtualclass.createPrefetchLink(virtualclass.serverData.rawData.docs[0].notes[note].pdf);
-          }
+          virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         } else if (dts.hasOwnProperty('dres')) {
           this.docs.studentExecuteScreen(dts);
           console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Layout initialized');
@@ -1413,9 +1369,6 @@
           virtualclass.dts.indexNav.studentDocNavigation(this.docs.currNote);
         }
 
-        // if(!dts.hasOwnProperty('dres')){
-        //     virtualclass.vutil.resizeWindowIfBigger();
-        // }
       },
 
       sendCurrentSlide() {
@@ -1532,7 +1485,6 @@
         delete this.pages[`docs${id}`];
         this.removePagesUI(id);
         this.removePagesFromStructure(id);
-        this.upateInStorage();
       },
 
       _deleteNote(id, typeDoc) {
@@ -1793,7 +1745,7 @@
 
           virtualclass.gObj.uploadingFiles = [];
           this.showUploadMsz(virtualclass.lang.getString('docUploadSuccess'), 'alert-success');
-        } else if (response.message == 'duplicate') {
+        } else if (response.message === 'duplicate') {
           // alert(virtualclass.lang.getString('duplicateUploadMsg'));
           this.showUploadMsz(virtualclass.lang.getString('duplicateUploadMsg'), 'alert-error');
         } else if (response.hasOwnProperty('error')) {
@@ -1890,17 +1842,6 @@
         return (uploadElem != null);
       },
 
-      // Update in lcoal Storage
-      upateInStorage() {
-        if (virtualclass.hasOwnProperty('dts') && typeof virtualclass.dts.hasOwnProperty('pages')
-          && (typeof virtualclass.dts.pages === 'object')) {
-          const docsObj = {};
-          docsObj.docs = virtualclass.dts.pages;
-          docsObj.order = JSON.stringify(virtualclass.dts.order);
-          docsObj.slideNumber = (virtualclass.dts.order.length > 0) ? virtualclass.dts.docs.note.currNote : null;
-          // localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
-        }
-      },
     };
   };
   window.documentShare = documentShare;

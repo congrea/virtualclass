@@ -122,30 +122,10 @@
        * This function is trigger after upload the doc,
        * create the intance of page/navigation from this page
        */
-      afterUploadFile(doc, fromReload, docObj) {
-        const cthis = this;
-        // need to get all images from here
-        if (typeof docObj !== 'undefined') {
-          // var { status } = docObj.docs[`docs${doc}`];
-          var status = docObj.docs['docs'+doc].status;
-        } else {
-          var status = 1;
-        }
-
-        if (typeof fromReload === 'undefined' && roles.hasControls()) {
-          this.requestDocs(doc);
-        } else {
-          let title;
-          const docId = `docs${doc}`;
-          if (typeof this.pages[docId] !== 'object') {
-            this.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
-            if (typeof docObj !== 'undefined') {
-                title = docObj.docs[docId].title;
-            } else {
-                title = cthis.allDocs[doc].title;
-            }
-            this.pages[docId].init(doc, title);
-          }
+      afterUploadFile(doc) {
+        if (roles.hasControls()) {
+          this.createPageForNavigation(doc);
+          virtualclass.serverData.pollingStatus().then(() => { virtualclass.dts.afterConverted();});
         }
       },
 
@@ -176,16 +156,6 @@
         return allNotes;
       },
 
-      fetchAllNotesAsArr() {
-        const allNotes = [];
-        for (const key in virtualclass.dts.allDocs) {
-          for (let j = 0; j < virtualclass.dts.allDocs[key].notesarr.length; j++) {
-            allNotes.push(virtualclass.dts.allDocs[key].notesarr[j]);
-          }
-        }
-        return allNotes;
-      },
-
       // calling from both teacher and student
       afterFirstRequestDocs(docs) {
         this.rawToProperData(docs);
@@ -205,8 +175,7 @@
       },
 
       rawToProperData(docs) {
-        this.allDocsTemp = docs;
-        this.allDocs = this.convertInObjects(this.allDocsTemp);
+        this.allDocs = this.convertInObjects(docs);
         this.allNotes = this.fetchAllNotes();
       },
 
@@ -216,7 +185,6 @@
        * @param docs expects documenation list that have been
        * received from LMS and localstorage
        */
-
       afterRequestOrder(content) {
         this.order.length = 0;
         this.order = content;
@@ -267,8 +235,7 @@
         }
       },
 
-      requestDocs(doc) {
-        const cthis = this;
+      createPageForNavigation(doc) {
         const newDocObj = {
           filename: this.getFilenameFromUploadingfiles(doc),
           fileuuid: doc,
@@ -278,26 +245,21 @@
           status: 1,
         };
 
-        cthis.allDocs[doc] = newDocObj;
+        this.allDocs[doc] = newDocObj;
         let status = 0;
-        if (cthis.allDocs[doc].status == 'true' || cthis.allDocs[doc].status == 1) {
+        if (this.allDocs[doc].status == 'true' || this.allDocs[doc].status == 1) {
           status = 1;
         }
 
         const docId = `docs${doc}`;
-        if (typeof cthis.pages[docId] !== 'object') {
-          cthis.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
-          cthis.pages[docId].init(doc, cthis.allDocs[doc].filename);
-          if (!cthis.allDocs[doc].hasOwnProperty('notes')) {
+        if (typeof this.pages[docId] !== 'object') {
+          this.pages[docId] = new virtualclass.page('docScreenContainer', 'docs', 'virtualclassDocumentShare', 'dts', status);
+          this.pages[docId].init(doc, this.allDocs[doc].filename);
+          if (!this.allDocs[doc].hasOwnProperty('notes')) {
             const element = document.querySelector(`#linkdocs${doc}`);
             element.classList.add('noDocs');
           }
         }
-
-        ioAdapter.mustSend({ dts: { allDocs: cthis.allDocs, doc }, cf: 'dts' });
-        virtualclass.serverData.pollingStatus().then(() => {
-          virtualclass.dts.afterConverted();
-        });
       },
 
       afterConverted() {
@@ -305,7 +267,6 @@
         virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         ioAdapter.mustSend({ dts: { fallDocs: true }, cf: 'dts' });
         this.removeNoDocsElem();
-        this.allNotes = virtualclass.dts.fetchAllNotes();
       },
 
       removeNoDocsElem() {
@@ -1299,10 +1260,7 @@
           dts.docn = `docs${dts.docn}`; // incaseof missing docs prefix
         }
 
-        if ((dts.hasOwnProperty('allDocs'))) {
-          this.allDocs = dts.allDocs;
-          this.afterUploadFile(dts.doc);
-        } else if (dts.hasOwnProperty('fallDocs')) {
+        if (dts.hasOwnProperty('fallDocs')) {
           virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         } else if (dts.hasOwnProperty('dres')) {
           this.docs.studentExecuteScreen(dts);
@@ -1368,7 +1326,6 @@
           this.order = dts.norder;
           virtualclass.dts.indexNav.studentDocNavigation(this.docs.currNote);
         }
-
       },
 
       sendCurrentSlide() {

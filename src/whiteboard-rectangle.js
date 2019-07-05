@@ -41,8 +41,7 @@
          * @param obj would be drawn
          */
         draw(ctx, obj, noTransform) {
-          // TODO
-          // this funciton should be done through the proper process
+          console.log("====> whiteboard data actual sx=", obj.sx, " sy=", obj.sy, " ex=", obj.ex, " ey=", obj.ey);
           const x = -obj.width / 2;
           const y = -obj.height / 2;
           const w = obj.width;

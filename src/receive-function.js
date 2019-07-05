@@ -242,6 +242,7 @@ const receiveFunctions = new function () {
 
     let i = 0;
     for (; i < e.message.repObj.length; i++) {
+      console.log("====> whiteboard data ", JSON.stringify(e.message.repObj[i]));
       virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
       console.log('==== Creating whiteboard   QUEUE, length ', virtualclass.gObj.wbData[virtualclass.gObj.currWb].length);
     }

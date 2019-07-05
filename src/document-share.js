@@ -19,7 +19,7 @@
       order: [],
       tempFolder: 'documentSharing',
 
-      init () {
+      async init () {
         this.pages = {};
         this.notes = {};
         firstTime = true;
@@ -29,7 +29,7 @@
           ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
           virtualclass.serverData.syncAllData();
         }
-        this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
+        await this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         (virtualclass.dts.noteExist()) ? virtualclass.modal.hideModal() : virtualclass.modal.showModal();
       },
 

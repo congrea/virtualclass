@@ -1012,12 +1012,14 @@
       },
 
       scaleCordinate(ev) {
+        console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
         ev.detail.cevent.x = ev.detail.cevent.x * virtualclass.zoom.canvasScale;
         ev.detail.cevent.y = ev.detail.cevent.y * virtualclass.zoom.canvasScale;
         return ev;
       },
 
       scaleMoveCordinate(obj) {
+        console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
         obj.x = ev.detail.cevent.x / virtualclass.zoom.canvasScale;
         obj.y = ev.detail.cevent.y / virtualclass.zoom.canvasScale;
         return obj;

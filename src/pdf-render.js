@@ -61,8 +61,8 @@
             virtualclass.gObj.getDocumentTimer = false;
           }, 100);
         } else if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer === false) {
-          await this.loadPdfActual(url, canvas, currNote);
           virtualclass.gObj.getDocumentTimer = true;
+          await this.loadPdfActual(url, canvas, currNote);
           virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
             virtualclass.gObj.getDocumentTimer = false;
           }, 1000);

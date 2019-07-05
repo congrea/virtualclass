@@ -224,10 +224,9 @@
     await virtualclass.storage.getDataFromCacheIn();
     await virtualclass.storage.getDataFromCacheOut();
     virtualclass.config.makeWebSocketReady = true;
-
-    console.log('Suman save data 2 ', virtualclass.config.makeWebSocketReady);
-    virtualclass.makeReadySocket();
-
+    if (localStorage.getItem('precheck') !==  null) {
+      virtualclass.makeReadySocket();
+    }
   };
 
   window.Bootstrap = Bootstrap;

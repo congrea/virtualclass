@@ -1122,6 +1122,7 @@
             currentSlide(slideNum) {
               const currElem = document.querySelector(`#documentScreen #note${slideNum}`);
               if (currElem != null) {
+                console.log(`${slideNum} ` + ' ====> init trigger');
                 this.getScreen(currElem);
               } else {
                 console.log(`Document-Sharing:-${slideNum} is not found `);
@@ -1290,6 +1291,7 @@
               this.docs.currNote = dts.slideTo;
               console.log(`Current note ${this.docs.currNote}`);
               // In normal case
+              console.log(`${virtualclass.gObj.currWb} ` + ' ====> init trigger');
               this.docs.note.getScreen(note);
               console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Normal Case');
             } else {

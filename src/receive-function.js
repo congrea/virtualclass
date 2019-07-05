@@ -550,7 +550,7 @@ const receiveFunctions = new function () {
     }
   };
 
-  this.rawData = function (e) {
+  this.rawSyncData = function (e) {
     virtualclass.serverData.onMessage(e.message);
-  }
+  };
 }();

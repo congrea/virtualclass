@@ -1,6 +1,20 @@
 const serverData = {
   rawData: { video: [], ppt: [], docs: [] },
   firstRequest: false,
+  syncComplete: false,
+  syncxhr: axios.create({
+    timeout: 10000,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': wbUser.lkey,
+      'x-congrea-authuser': wbUser.auth_user,
+      'x-congrea-authpass': wbUser.auth_pass,
+      'x-congrea-room': wbUser.room,
+      post: {
+        'Content-Type': 'application/json',
+      },
+    },
+  }),
   sdxhr: axios.create({
     timeout: 10000,
     headers: {
@@ -15,11 +29,37 @@ const serverData = {
     },
   }),
 
-  onMessage (msg) {
-    virtualclass.serverData.rawData = msg.rawData;
+  onMessage(msg) {
+    if (msg.rawData) {
+      virtualclass.serverData.awsUrlArr(msg.rawData);
+      virtualclass.serverData.syncComplete = true;
+    }
   },
 
-  fetchAllData(cb) {
+  syncAllData() {
+    return new Promise(((resolve) => {
+      if (roles.hasControls()) {
+        if (virtualclass.serverData.syncComplete === true) {
+          resolve(true);
+          return;
+        }
+        virtualclass.serverData.syncxhr.post(virtualclass.api.GetDocumentURLs, {})
+          .then((response) => {
+            virtualclass.serverData.awsUrlArr(response.data);
+            ioAdapter.mustSend({ rawData: response.data, cf: 'rawSyncData' });
+            virtualclass.serverData.syncComplete = true;
+            resolve(true);
+          })
+          .catch((error) => {
+            console.error('Request failed with error ', error);
+            setTimeout(() => virtualclass.serverData.syncAllData(), 1000);
+          });
+      }
+    }));
+  },
+
+
+  fetchAllData(cb) { // TODO should be removed
     // TODO We should not use callback at all
     console.log('Fetch all data');
     this.cb = cb;
@@ -28,13 +68,7 @@ const serverData = {
     this.firstRequest = true;
   },
 
-  requestData(url) {
-    if (virtualclass.gObj.readyToCommunicate !== true) {
-      setTimeout(() => {
-        virtualclass.serverData.requestData(url);
-      }, 1000);
-      return;
-    }
+  requestData(url) { // TODO should be removed
     this.rawData = { video: [], ppt: [], docs: [] };
     this.sdxhr.post(url, {})
       .then((response) => {
@@ -53,7 +87,7 @@ const serverData = {
   //     virtualclass.xhrn.sendData(null, url, this.afterResponse);
   // },
 
-  afterResponse(responseText) {
+  afterResponse(responseText) { // TODO should be removed
     this.awsUrlArr(responseText);
     virtualclass.gObj.fetchedData = true;
     if (typeof virtualclass.serverData.cb !== 'undefined') {
@@ -65,25 +99,26 @@ const serverData = {
     this.rawData = { video: [], ppt: [], docs: [] };
     const processedArr = [];
     const arr = data.Items;
-    const newArr = [];
-    var prefix = 'https://media.congrea.net/';
+    const prefix = 'https://media.congrea.net/';
     const doc = 'https://media.congrea.net';
-    let imageUrl; let pdfUrl; let
-      thnailUrl;
+    let imageUrl; let pdfUrl;
+    let thnailUrl;
     let cpath; // common path
+    let obj
 
     for (let j = 0; j < arr.length; j++) {
       if (arr[j].hasOwnProperty('filetype')) {
+        // eslint-disable-next-line default-case
         switch (arr[j].filetype.S) {
           case 'doc':
-            var obj = this.processObj(arr[j]);
+            obj = this.processObj(arr[j]);
             cpath = arr[j].processed_data.M.commonpath.S;
-            var count = parseInt(arr[j].processed_data.M.count.N);
+            let count = parseInt(arr[j].processed_data.M.count.N);
 
             if (cpath != null && count != null) {
               const docPrefix = `${doc}/${arr[j].processed_data.M.commonpath.S}`;
-              var prefix; var num; var
-                noteId;
+              let num;
+              let noteId;
               const notes = {};
               obj.notes = {};
               obj.notesarr = [];
@@ -144,7 +179,7 @@ const serverData = {
             break;
           case 'video':
             if (arr[j].processed_data != null && arr[j].processed_data.S == 'COMPLETED') {
-              var obj = this.processObj(arr[j]);
+              obj = this.processObj(arr[j]);
 
               const add = obj.filepath.substr(0, obj.filepath.lastIndexOf('/'));
               obj.urls = {};
@@ -170,7 +205,7 @@ const serverData = {
 
           case 'video_yts':
             console.log('Handle youtube');
-            var obj = this.processVidUrlObj(arr[j]);
+            obj = this.processVidUrlObj(arr[j]);
             obj.urls = {};
             obj.urls.main_video = obj.URL;
             processedArr.push(obj);
@@ -180,7 +215,7 @@ const serverData = {
           case 'presentation':
             console.log('presentation data');
             // console.log(obj);
-            var obj = this.processVidUrlObj(arr[j]);
+            obj = this.processVidUrlObj(arr[j]);
             obj.urls = {};
             obj.urls.presentation = obj.URL;
             processedArr.push(obj);
@@ -188,7 +223,7 @@ const serverData = {
             break;
           case 'video_online':
             console.log('Handle one line ');
-            var obj = this.processVidUrlObj(arr[j]);
+            obj = this.processVidUrlObj(arr[j]);
             obj.urls = {};
             obj.urls.main_video = obj.URL;
             processedArr.push(obj);
@@ -198,15 +233,12 @@ const serverData = {
       }
     }
 
-    virtualclass.awsData = processedArr;
+    virtualclass.awsData = processedArr; // TODO should be removed
     // console.log(virtualclass.awsData);
     function pad(n, length) {
       let len = length - (`${n}`).length;
       return (len > 0 ? new Array(++len).join('0') : '') + n;
     }
-
-    ioAdapter.mustSend({ rawData: virtualclass.serverData.rawData, cf: 'rawData' });
-
   },
 
   processObj(obj) {

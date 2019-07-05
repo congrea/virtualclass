@@ -13,5 +13,6 @@ $.uiBackCompat = false;
     await bootStraper.setUpMedia();
     await bootStraper.readyToGo();
     await bootStraper.cache();
+    await virtualclass.serverData.syncAllData();
   };
 }(window));

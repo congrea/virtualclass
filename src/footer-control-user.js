@@ -3,10 +3,9 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window, document) {
-  "use strict";
   const user = function (config) {
     return {
-      readyLeftBar (role, app, toUser) {
+      readyLeftBar(role, app, toUser) {
         if (roles.hasControls()) {
           if (!roles.isEducator()) {
             virtualclass.html.leftAppBar();
@@ -18,7 +17,7 @@
             window.virtualclass.wb[virtualclass.gObj.currWb].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[virtualclass.gObj.currWb], true, virtualclass.gObj.currWb);
           }
           // This is already Check at above, no need here
-          if (virtualclass.hasOwnProperty('previrtualclass')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass, 'previrtualclass')) {
             virtualclass.vutil.makeActiveApp(`virtualclass${app}`, virtualclass.previrtualclass);
           } else {
             virtualclass.vutil.makeActiveApp(`virtualclass${app}`);
@@ -115,7 +114,7 @@
         if (userObj != null) {
           uObj = true;
           userObj = JSON.parse(userObj);
-          if (userObj.hasOwnProperty('currTeacher')) {
+          if (Object.prototype.hasOwnProperty.call(userObj, 'currTeacher')) {
             virtualclass.gObj[`${userId}currTeacher`] = {};
             if (userObj.currTeacher == true) {
               virtualclass.user.control.currTeacherAlready = true;
@@ -145,7 +144,7 @@
             var audBlock = elems[1];
             controlCont.appendChild(controller);
 
-            if (uObj && userObj.hasOwnProperty('aud')) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'aud')) {
               var audEnable = !!(userObj.aud);
             } else {
               var audEnable = true;
@@ -181,7 +180,7 @@
               });
             }
 
-            if (uObj && userObj.hasOwnProperty('chat')) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'chat')) {
               var chEnable = !!(userObj.chat);
             } else {
               var chEnable = true;
@@ -189,7 +188,7 @@
             virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'chat');
           } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')) {
             if (roles.hasAdmin()) {
-              if (uObj && userObj.hasOwnProperty(controls[i])) {
+              if (uObj && Object.prototype.hasOwnProperty.call(userObj, controls[i])) {
                 var editorBlockEnable = !!(userObj[controls[i]]);
               } else {
                 var editorBlockEnable = false; // By default it would be false
@@ -214,7 +213,7 @@
               }
             }
           } else if (controls[i] == 'RaiseHand') {
-            if (uObj && userObj.hasOwnProperty('raiseHand')) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'raiseHand')) {
               var rhEnable = !!(userObj.raiseHand);
             } else {
               var rhEnable = true;
@@ -375,7 +374,7 @@
         },
 
         onmessage(e) {
-          if (!e.message.hasOwnProperty('toUser')) {
+          if (!Object.prototype.hasOwnProperty.call(e.message, 'toUser')) {
             e.message.toUser = virtualclass.gObj.uid;
           }
           this[`received_${e.message.control}`](e.message);
@@ -432,14 +431,14 @@
             let userObj = localStorage.getItem(`virtualclass${userId}`);
             userObj = JSON.parse(userObj);
 
-            if (virtualclass.gObj.hasOwnProperty(`${userId}currTeacher`)) {
-              if (virtualclass.gObj[`${userId}currTeacher`].ct || (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssign && userObj.currTeacher)) {
+            if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, `${userId}currTeacher`)) {
+              if (virtualclass.gObj[`${userId}currTeacher`].ct || (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'controlAssign') && virtualclass.gObj.controlAssign && userObj.currTeacher)) {
                 virtualclass.user.control.updateUser(userId, 'currTeacher', true);
               }
-            } else if (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssignId == userId) {
+            } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'controlAssign') && virtualclass.gObj.controlAssignId == userId) {
               virtualclass.user.control.updateUser(userId, 'currTeacher', true);
             }
-          } else if (control == 'audio'|| control == 'chat' ) {
+          } else if (control == 'audio' || control == 'chat') {
             elem.className = `icon-${control}DisImg block` + ` ${control}DisImg`;
           }
 
@@ -453,7 +452,7 @@
           const elem = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(selector);
 
           if (elem == null) {
-            console.log('Element is Null');
+            // console.log('Element is Null');
             return;
           }
           virtualclass.user.control._enable(elem, control, toUser, label);
@@ -679,7 +678,7 @@
         },
 
         audioWidgetEnable(notActive) {
-          console.log('Audio enable true');
+          // console.log('Audio enable true');
           // localStorage.setItem('audEnable', JSON.stringify({ ac: 'true' }));
           if (localStorage.getItem('dvid') == null) {
             const studentSpeaker = document.getElementById('speakerPressOnce');
@@ -708,7 +707,7 @@
             ad.r = reason;
           }
 
-          console.log(`audEnable ${ad}`);
+          // console.log(`audEnable ${ad}`);
           // localStorage.setItem('audEnable', JSON.stringify(ad));
 
           const studentSpeaker = document.getElementById('audioWidget');
@@ -719,7 +718,7 @@
           this.videoDisable();
 
           // var alwaysPressElem = document.getElementById('speakerPressing');
-          if (virtualclass.gObj.hasOwnProperty('video')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'video')) {
             virtualclass.media.audio.studentNotSpeak();
             virtualclass.media.audio.clickOnceSpeaker('speakerPressOnce', 'alwaysDisable');
           }
@@ -790,7 +789,7 @@
           if (act === 'pc') {
             document.querySelector('#chat_div').classList.remove('chat_disabled');
             const allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
-            for (var i = 0; i < allChatBoxes.length; i++) {
+            for (let i = 0; i < allChatBoxes.length; i++) {
               this.makeElemEnable(allChatBoxes[i]);
             }
           } else if (act === 'gc') {
@@ -979,7 +978,7 @@
           var editor = virtualclass.vutil.smallizeFirstLetter(editor);
 
           // var allEditorController = document.getElementsByClassName('controller' + editor);
-          if (virtualclass.gObj.hasOwnProperty('testChatDiv')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'testChatDiv')) {
             const allEditorController = chatContainerEvent.elementFromShadowDom(`.controller${editor}`, 'all');
             for (let i = 0; i < allEditorController.length; i++) {
               allEditorController[i].style.display = action;
@@ -1150,7 +1149,7 @@
         if (type === 'raisehand' || type === 'userlist') {
           getMediaAction = virtualclass.settings.info[type];
         } else {
-          getMediaAction = virtualclass.settings.info['student' + action];
+          getMediaAction = virtualclass.settings.info[`student${action}`];
         }
         const input = document.querySelector(`.bulkUserActions #contr${lable}All input`);
         const cont = document.querySelector(`.congrea #contr${lable}All`);
@@ -1199,14 +1198,14 @@
             }
 
             if (typeof actionToPerform !== 'undefined') {
-                // localStorage.setItem(`all${setLable}Action`, actionToPerform);
-                // if (type === 'video') {
-                //   that.toggleAllVideo.call(virtualclass.user, actionToPerform, type);
-                // } else
-                if (type === 'audio' || type === 'chat') {
-                  that.toggleAllUserListIcon.call(virtualclass.user, actionToPerform, type);
-                }
+              // localStorage.setItem(`all${setLable}Action`, actionToPerform);
+              // if (type === 'video') {
+              //   that.toggleAllVideo.call(virtualclass.user, actionToPerform, type);
+              // } else
+              if (type === 'audio' || type === 'chat') {
+                that.toggleAllUserListIcon.call(virtualclass.user, actionToPerform, type);
               }
+            }
           });
         }
       },
@@ -1230,7 +1229,7 @@
             },
           });
 
-          if (virtualclass.gObj.hasOwnProperty('chatEnable')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'chatEnable')) {
             if (!virtualclass.gObj.chatEnable) {
               const chatCont = document.getElementById('chatrm');
               if (chatCont != null) {
@@ -1287,7 +1286,7 @@
         if (userObj != null) {
           uObj = true;
           userObj = JSON.parse(userObj);
-          if (userObj.hasOwnProperty('currTeacher')) {
+          if (Object.prototype.hasOwnProperty.call(userObj, 'currTeacher')) {
             virtualclass.gObj[`${userId}currTeacher`] = {};
             if (userObj.currTeacher == true) {
               virtualclass.user.control.currTeacherAlready = true;
@@ -1315,8 +1314,8 @@
 
           if (allSpans[i].className.indexOf('chat') > -1) {
             let chEnable;
-            if (uObj && userObj.hasOwnProperty('chat')) {
-              if (virtualclass.settings.user.hasOwnProperty(userId)) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'chat')) {
+              if (Object.prototype.hasOwnProperty.call(virtualclass.settings.user, userId)) {
                 const userSettings = virtualclass.settings.parseSettings(virtualclass.settings.user[userId]);
                 chEnable = userSettings.studentpc;
               } else {
@@ -1328,16 +1327,16 @@
             virtualclass.user.control.changeAttribute(userId, allSpans[i], chEnable, 'chat', 'chat');
           } else if (allSpans[i].className.indexOf('aud') > -1) {
             let audEnable;
-            if (uObj && userObj.hasOwnProperty('aud')) {
-              if (virtualclass.settings.user.hasOwnProperty(userId)) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'aud')) {
+              if (Object.prototype.hasOwnProperty.call(virtualclass.settings.user, userId)) {
                 const userSettings = virtualclass.settings.parseSettings(virtualclass.settings.user[userId]);
                 audEnable = userSettings.studentaudio;
               } else {
                 audEnable = virtualclass.settings.info.studentaudio;
               }
             } else {
-              const elem = document.querySelector("#contrAudioAll");
-              if (virtualclass.jId != null && elem.classList.contains("disable")) {
+              const elem = document.querySelector('#contrAudioAll');
+              if (virtualclass.jId != null && elem.classList.contains('disable')) {
                 audEnable = virtualclass.settings.info.studentaudio;
               } else {
                 audEnable = virtualclass.settings.info.studentaudio; // default value for userlist mic enable or disable
@@ -1361,26 +1360,26 @@
               }
             }
           } else if (allSpans[i].className.indexOf('RaiseHand') > -1) {
-            if (uObj && userObj.hasOwnProperty('raiseHand')) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'raiseHand')) {
               var rhEnable = !!(userObj.raiseHand);
             } else {
               var rhEnable = false;
             }
             virtualclass.user.control.changeAttribute(userId, allSpans[i], rhEnable, 'RaiseHand', 'RaiseHand');
           } else if (allSpans[i].className.indexOf('stdscreen') > -1) {
-            if (virtualclass.gObj.studentSSstatus.hasOwnProperty('whoIsSharing')) {
+            if (Object.prototype.hasOwnProperty.call(virtualclass.gObj.studentSSstatus, 'whoIsSharing')) {
               virtualclass.vutil.initssSharing(virtualclass.gObj.whoIsSharing);
             }
           } else if (allSpans[i].className.indexOf('editorRich') > -1 && virtualclass.currApp == 'EditorRich') {
-            var elem = document.querySelector('#alleditorRichContainerAnch');
-            if (uObj && userObj.hasOwnProperty('editorRich')) {
+            const elem = document.querySelector('#alleditorRichContainerAnch');
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'editorRich')) {
               var edEnable = !!(userObj.editorRich);
             } else {
               var edEnable = false;
             }
             virtualclass.user.control.changeAttribute(userId, allSpans[i], edEnable, 'editorRich', 'editorRich');
           } else if (allSpans[i].className.indexOf('editorCode') > -1) {
-            if (uObj && userObj.hasOwnProperty('editorCode')) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'editorCode')) {
               var edcEnable = !!(userObj.editorCode);
             } else {
               var edcEnable = false;

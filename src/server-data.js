@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const serverData = {
   rawData: { video: [], ppt: [], docs: [] },
   syncComplete: false,
@@ -38,7 +39,6 @@ const serverData = {
   syncAllData() {
     return new Promise(((resolve) => {
       function syncAllDataInternal() {
-        // if (roles.hasControls()) {
         if (virtualclass.serverData.syncComplete === true) {
           resolve(true);
           return;
@@ -51,10 +51,10 @@ const serverData = {
             resolve(true);
           })
           .catch((error) => {
+            // eslint-disable-next-line no-console
             console.error('Request failed with error ', error);
             setTimeout(() => syncAllDataInternal(), 1000);
           });
-        // }
       }
       if (roles.hasControls()) {
         syncAllDataInternal();
@@ -71,43 +71,46 @@ const serverData = {
     let imageUrl; let pdfUrl;
     let thnailUrl;
     let cpath; // common path
-    let obj
+    let obj;
+    let count;
 
-    for (let j = 0; j < arr.length; j++) {
-      if (arr[j].hasOwnProperty('filetype')) {
+    function pad(n, length) {
+      let len = length - (`${n}`).length;
+      return (len > 0 ? new Array(++len).join('0') : '') + n;
+    }
+
+    for (let j = 0; j < arr.length; j += 1) {
+      if (Object.prototype.hasOwnProperty.call(arr[j], 'filetype')) {
         // eslint-disable-next-line default-case
         switch (arr[j].filetype.S) {
           case 'doc':
             obj = this.processObj(arr[j]);
             cpath = arr[j].processed_data.M.commonpath.S;
-            let count = parseInt(arr[j].processed_data.M.count.N);
+            count = parseInt(arr[j].processed_data.M.count.N, 10);
 
             if (cpath != null && count != null) {
               const docPrefix = `${doc}/${arr[j].processed_data.M.commonpath.S}`;
               let num;
               let noteId;
-              const notes = {};
               obj.notes = {};
               obj.notesarr = [];
               let deletedNotes = [];
               let disabledNotes = [];
 
-              if (obj.hasOwnProperty('deletednes')) {
+              if (Object.prototype.hasOwnProperty.call(obj, 'deletednes')) {
                 deletedNotes = obj.deletednes;
               }
 
-              if (obj.hasOwnProperty('disablednes')) {
+              if (Object.prototype.hasOwnProperty.call(obj, 'disablednes')) {
                 disabledNotes = obj.disablednes;
               }
 
-              for (let i = 1; i <= count; i++) {
+              for (let i = 1; i <= count; i += 1) {
                 num = pad(i, 3);
                 imageUrl = `${docPrefix}/image/${num}.${arr[j].processed_data.M.image.M.type.S}`;
                 pdfUrl = `${docPrefix}/pdf/${num}.pdf`;
                 thnailUrl = `${docPrefix}/thumbnail/${num}.${arr[j].processed_data.M.thumbnail.M.type.S}`;
-
                 virtualclass.createPrefetchLink(pdfUrl);
-
                 if (i > 99) {
                   noteId = `${obj.fileuuid}_${i}`;
                 } else if (i > 9) {
@@ -125,8 +128,6 @@ const serverData = {
                 tobj.pdf = pdfUrl;
                 tobj.image = imageUrl;
                 tobj.thumbnail = thnailUrl;
-
-
                 if (disabledNotes.length > 0) {
                   if (disabledNotes.indexOf(i) > -1) {
                     tobj.status = 0;
@@ -139,15 +140,13 @@ const serverData = {
                 obj.notes[noteId] = tobj;
                 obj.notesarr.push(tobj);
               }
-
               processedArr.push(obj);
               this.rawData.docs.push(obj);
             }
             break;
           case 'video':
-            if (arr[j].processed_data != null && arr[j].processed_data.S == 'COMPLETED') {
+            if (arr[j].processed_data != null && arr[j].processed_data.S === 'COMPLETED') {
               obj = this.processObj(arr[j]);
-
               const add = obj.filepath.substr(0, obj.filepath.lastIndexOf('/'));
               obj.urls = {};
               obj.urls.thumbnail = {};
@@ -158,8 +157,6 @@ const serverData = {
               obj.urls.videos['1000k'] = `${prefix + add}/video/1000k/video.m3u8`;
               obj.urls.videos['1500k'] = `${prefix + add}/video/1500k/video.m3u8`;
               obj.urls.videos['2000k'] = `${prefix + add}/video/2000k/video.m3u8`;
-
-
               obj.urls.thumbnail['0400k'] = `${prefix + add}/video/0400k/thumbs/00001.png`;
               obj.urls.thumbnail['0600k'] = `${prefix + add}/video/0600k/thumbs/00001.png`;
               obj.urls.thumbnail['1000k'] = `${prefix + add}/video/1000k/thumbs/00001.png`;
@@ -169,18 +166,15 @@ const serverData = {
               this.rawData.video.push(obj);
             }
             break;
-
           case 'video_yts':
-            console.log('Handle youtube');
+          case 'video_online':
             obj = this.processVidUrlObj(arr[j]);
             obj.urls = {};
             obj.urls.main_video = obj.URL;
             processedArr.push(obj);
             this.rawData.video.push(obj);
             break;
-
           case 'presentation':
-            console.log('presentation data');
             // console.log(obj);
             obj = this.processVidUrlObj(arr[j]);
             obj.urls = {};
@@ -188,24 +182,10 @@ const serverData = {
             processedArr.push(obj);
             this.rawData.ppt.push(obj);
             break;
-          case 'video_online':
-            console.log('Handle one line ');
-            obj = this.processVidUrlObj(arr[j]);
-            obj.urls = {};
-            obj.urls.main_video = obj.URL;
-            processedArr.push(obj);
-            this.rawData.video.push(obj);
-            break;
         }
       }
     }
-
     virtualclass.awsData = processedArr; // TODO should be removed
-    // console.log(virtualclass.awsData);
-    function pad(n, length) {
-      let len = length - (`${n}`).length;
-      return (len > 0 ? new Array(++len).join('0') : '') + n;
-    }
   },
 
   processObj(obj) {
@@ -216,18 +196,17 @@ const serverData = {
     temp.filetype = obj.filetype.S;
     temp.fileuuid = obj.fileuuid.S;
     temp.key_room = obj.key_room.S;
-    temp.fileuuid = obj.fileuuid.S;
 
-    if (obj.hasOwnProperty('deleted')) {
-      if (obj.deleted.NS[0] == '0') {
+    if (Object.prototype.hasOwnProperty.call(obj, 'deleted')) {
+      if (obj.deleted.NS[0] === '0') {
         temp.deleted = obj.deleted.NS[0];
       } else {
         temp.deletednes = obj.deleted.NS;
       }
     }
 
-    if (obj.hasOwnProperty('disabled')) {
-      if (obj.disabled.NS[0] == '0') {
+    if (Object.prototype.hasOwnProperty.call(obj, 'disabled')) {
+      if (obj.disabled.NS[0] === '0') {
         temp.disabled = obj.disabled.NS[0];
       } else {
         temp.disablednes = obj.disabled.NS;
@@ -244,42 +223,38 @@ const serverData = {
     temp.filetype = obj.filetype.S;
     temp.fileuuid = obj.fileuuid.S;
     temp.key_room = obj.key_room.S;
-    temp.fileuuid = obj.fileuuid.S;
-    if (obj.hasOwnProperty('deleted')) {
+    if (Object.prototype.hasOwnProperty.call(obj, 'deleted')) {
       temp.deleted = obj.deleted.NS[0];
     }
-    if (obj.hasOwnProperty('disabled')) {
+    if (Object.prototype.hasOwnProperty.call(obj, 'disabled')) {
       temp.disabled = obj.disabled.NS[0];
     }
     return temp;
   },
 
   pollingStatus() {
-    return new Promise( (resolve) => {
-      console.log('polling promise start');
+    return new Promise((resolve) => {
       function pollingStatusInternal() {
-        if (virtualclass.gObj.hasOwnProperty('pollingDocumentStatus')) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'pollingDocumentStatus')) {
           clearTimeout(virtualclass.gObj.pollingDocumentStatus);
         }
         virtualclass.gObj.pollingDocumentStatus = setTimeout(
           () => {
-            console.log('polling status start');
-            virtualclass.xhrn.vxhrn.post(virtualclass.api.GetDocumentStatus, { uuid: virtualclass.gObj.file.uuid }).then((response) => {
-              console.log('polling xhr then');
+            virtualclass.xhrn.vxhrn.post(virtualclass.api.GetDocumentStatus,
+              { uuid: virtualclass.gObj.file.uuid }).then((response) => {
               const responseObj = response.data.Item;
               if (responseObj != null) {
-                if (responseObj.hasOwnProperty('processed_data')
-                  && (responseObj.processed_data.hasOwnProperty('S') && (responseObj.processed_data.S === 'COMPLETED')
-                  || (responseObj.processed_data.hasOwnProperty('M') && responseObj.processed_data.M.hasOwnProperty('pdf')))) {
+                if (Object.prototype.hasOwnProperty.call(responseObj, 'processed_data')
+                  && ((Object.prototype.hasOwnProperty.call(responseObj.processed_data, 'S')
+                    && (responseObj.processed_data.S === 'COMPLETED'))
+                  || (Object.prototype.hasOwnProperty.call(responseObj.processed_data, 'M')
+                      && Object.prototype.hasOwnProperty.call(responseObj.processed_data.M, 'pdf')))) {
                   clearTimeout(virtualclass.gObj.pollingDocumentStatus);
                   virtualclass.serverData.syncComplete = false;
-
                   virtualclass.serverData.syncAllData().then(() => {
-                    console.log('polling status converted');
                     resolve();
                   });
                 } else {
-                  console.log('polling status retry');
                   pollingStatusInternal();
                 }
               }
@@ -290,4 +265,4 @@ const serverData = {
       pollingStatusInternal();
     });
   },
-}
+};

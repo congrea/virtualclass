@@ -91,47 +91,47 @@
         obj.lockRotation = false;
         obj.MIN_SCALE_LIMIT = 0.1;
         obj.borderOpacityWhenMoving = 0.4;
-        obj.color = (virtualclass.wb[virtualclass.gObj.currWb].activeToolColor == undefined) ? virtualclass.gObj.defaultcolor : virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
-        obj.stroke = (virtualclass.wb[virtualclass.gObj.currWb].currStrkSize == undefined) ? virtualclass.gObj.defalutStrk : virtualclass.wb[virtualclass.gObj.currWb].currStrkSize;
-        obj.fontSize = (virtualclass.wb[virtualclass.gObj.currWb].textFontSize == undefined) ? virtualclass.gObj.defalutFont : virtualclass.wb[virtualclass.gObj.currWb].textFontSize;
+        obj.color = (virtualclass.wb[virtualclass.gObj.currWb].activeToolColor === undefined) ? virtualclass.gObj.defaultcolor : virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+        obj.stroke = (virtualclass.wb[virtualclass.gObj.currWb].currStrkSize === undefined) ? virtualclass.gObj.defalutStrk : virtualclass.wb[virtualclass.gObj.currWb].currStrkSize;
+        obj.fontSize = (virtualclass.wb[virtualclass.gObj.currWb].textFontSize === undefined) ? virtualclass.gObj.defalutFont : virtualclass.wb[virtualclass.gObj.currWb].textFontSize;
 
-        if (!obj.hasOwnProperty('theta')) {
+        if (!Object.prototype.hasOwnProperty.call(obj, 'theta')) {
           obj.theta = 0;
         }
         // if(virtualclass.wb[virtualclass.gObj.currWb].scale != null){
         //     obj.scaleX = virtualclass.wb[virtualclass.gObj.currWb].scale;
         //     obj.scaleY = virtualclass.wb[virtualclass.gObj.currWb].scale;
         // } else {
-        //     if (!obj.hasOwnProperty('scaleX')) {
+        //     if (!Object.prototype.hasOwnProperty.call(obj, 'scaleX')) {
         //         obj.scaleX = 1;
         //     }
         //
-        //     if (!obj.hasOwnProperty('scaleY')) {
+        //     if (!Object.prototype.hasOwnProperty.call(obj, 'scaleY')) {
         //         obj.scaleY = 1;
         //     }
         // }
 
-        if (!obj.hasOwnProperty('scaleX')) {
+        if (!Object.prototype.hasOwnProperty.call(obj, 'scaleX')) {
           obj.scaleX = 1;
         }
 
-        if (!obj.hasOwnProperty('scaleY')) {
+        if (!Object.prototype.hasOwnProperty.call(obj, 'scaleY')) {
           obj.scaleY = 1;
         }
 
-        if (obj.type == 'line') {
+        if (obj.type === 'line') {
           vcan.objLine = new vcan.line();
           vcan.objLine.init(obj);
-        } else if (obj.type == 'rectangle') {
+        } else if (obj.type === 'rectangle') {
           vcan.objRect = new vcan.rectangle();
           vcan.objRect.init(obj);
-        } else if (obj.type == 'oval') {
+        } else if (obj.type === 'oval') {
           vcan.objOval = new vcan.oval();
           vcan.objOval.init(obj);
-        } else if (obj.type == 'triangle') {
+        } else if (obj.type === 'triangle') {
           vcan.objTri = new vcan.triangle();
           vcan.objTri.init(obj);
-        } else if (obj.type == 'text') {
+        } else if (obj.type === 'text') {
           vcan.objTxt = new vcan.text();
           vcan.objTxt.init(obj);
         }

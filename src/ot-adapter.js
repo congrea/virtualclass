@@ -60,7 +60,7 @@ const otAdapter = (function () {
           const wrappedPrime = this.server.receiveOperation(data.revision, wrapped);
 
           if (!wrappedPrime) {
-            console.log('there is some problem on revision of history');
+            // console.log('there is some problem on revision of history');
             return;
           }
 
@@ -71,7 +71,7 @@ const otAdapter = (function () {
 
         return msg;
       } catch (error) {
-        console.log(`ERROR ${error}`);
+        // console.log(`ERROR ${error}`);
         // virtualclass[msg.et].cm.setValue("");
         if (roles.isTeacher()) {
           this.myOTrequestData = 1;
@@ -86,10 +86,10 @@ const otAdapter = (function () {
       }
       try {
         const msg = event.message;
-        if (msg.hasOwnProperty('edFrom')) {
+        if (Object.prototype.hasOwnProperty.call(msg, 'edFrom')) {
           event.fromUser.userid = msg.edFrom;
         }
-        if (msg.hasOwnProperty('eddata')) {
+        if (Object.prototype.hasOwnProperty.call(msg, 'eddata')) {
           if (msg.eddata == 'virtualclass-editor-cursor') {
             this.trigger('cursor', event.fromUser.userid, JSON.parse(msg.data)); // we need object for set other cursor
           } else if (msg.eddata == 'selection') {
@@ -100,18 +100,18 @@ const otAdapter = (function () {
             this.storeOperationIfStudent(msg);
           }
         } else {
-          console.log('Editor : processOP - No EDDATA');
+          // console.log('Editor : processOP - No EDDATA');
         }
       } catch (error) {
         if (roles.hasAdmin()) {
           this.myOTrequestData = 1;
           virtualclass[event.message.et].responseToRequest();
-          console.log('Teacher : send whlole editor data ');
+          // console.log('Teacher : send whlole editor data ');
         } else {
           this.removeOperations(event);
           virtualclass[event.message.et].requestData();
           this.myrequestData = 1;
-          console.log('Student : send whlole editor data ');
+          // console.log('Student : send whlole editor data ');
         }
       }
     };
@@ -150,7 +150,7 @@ const otAdapter = (function () {
       const msg = event.message;
       // console.log('in');
       // TW : 2
-      if ((event.fromUser.role == 't' || event.fromUser.role == 'e') && !msg.hasOwnProperty('edFrom')) {
+      if ((event.fromUser.role == 't' || event.fromUser.role == 'e') && !Object.prototype.hasOwnProperty.call(msg, 'edFrom')) {
         if (roles.hasAdmin()) {
           // TW : 2a) Msg is received to Teacher (self) - Action : ACK
           if (msg.eddata == 'virtualclass-editor-operation') {
@@ -158,7 +158,7 @@ const otAdapter = (function () {
             try {
               this.trigger('ack');
             } catch (error) {
-              console.log(`ACK Too Late ${error}`);
+              // console.log(`ACK Too Late ${error}`);
             }
           }
         } else {
@@ -166,7 +166,7 @@ const otAdapter = (function () {
           // TW : 2b) Msg is received to students - Action : Process
           this.processOp(event);
         }
-      } else if (!msg.hasOwnProperty('edFrom') && event.fromUser.role != 't' && event.fromUser.role != 'e') {
+      } else if (!Object.prototype.hasOwnProperty.call(msg, 'edFrom') && event.fromUser.role != 't' && event.fromUser.role != 'e') {
         // SW : 1) Msg sent to Teacher
         // console.log('SW : 1 From Student');
         // SW : 2) Teacher do OT and send to all
@@ -190,9 +190,9 @@ const otAdapter = (function () {
               if (ioMissingPackets.missRequestFlag === 1) {
                 virtualclass[msg.et].cmClient.revision--;
                 this.processOp(event);
-                console.log('Failed Acknolwdgement processOp()');
+                // console.log('Failed Acknolwdgement processOp()');
               }
-              console.log(`ACK Too Late ${error}`);
+              // console.log(`ACK Too Late ${error}`);
             }
           }
         } else {
@@ -238,11 +238,11 @@ const otAdapter = (function () {
       cf: 'eddata',
     };
 
-    console.log(`from send operation ${revision}`);
+    // console.log(`from send operation ${revision}`);
 
     this.beforeSend(sendData);
     const that = this;
-    console.log('send operation');
+    // console.log('send operation');
   };
 
   otAdapter.prototype.sendSelection = function (selection) {
@@ -281,7 +281,7 @@ const otAdapter = (function () {
   };
 
   otAdapter.prototype.setEditorTypeOnPacket = function (msg) {
-    if (msg.hasOwnProperty('eddata')) {
+    if (Object.prototype.hasOwnProperty.call(msg, 'eddata')) {
       if (msg.eddata != 'initVcEditor' && msg.eddata != 'virtualclass-editor-operation') {
         if (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'editorRich') {
           msg.et = 'editorRich';

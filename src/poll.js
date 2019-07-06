@@ -6,7 +6,8 @@
 
  */
 (function (window) {
-  "use strtic";
+  'use strtic';
+
   var poll = function () {
     return {
       /* to generlize */
@@ -71,17 +72,17 @@
 
         const storedData = JSON.parse(localStorage.getItem('pollState'));
         if (storedData && !(isEmpty(storedData))) {
-          console.log('storeddata if block');
+          // console.log('storeddata if block');
           this.storedDataHandle(storedData);
         } else if (roles.hasControls()) {
-          console.log('fetchlist');
+          // console.log('fetchlist');
           this.interfaceToFetchList(this.cmid);
         }
 
         localStorage.removeItem('pollState');
         function isEmpty(obj) {
           for (const prop in obj) {
-            if (obj.hasOwnProperty(prop)) return false;
+            if (Object.prototype.hasOwnProperty.call(obj, prop)) return false;
           }
           return true;
         }
@@ -149,7 +150,7 @@
         formData.append('user', virtualclass.gObj.uid);
         virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_update`, formData).then((msg) => { // TODO Handle more situations
           const getContent = msg.data;
-          console.log(getContent);
+          // console.log(getContent);
           that.updatePollList(getContent);
         })
           .catch((error) => {
@@ -201,10 +202,10 @@
             const { options } = getContent[i];
             for (const j in options) {
               getContent[i].options[j] = options[j].options;
-              console.log(`getContent ${getContent[i]}`);
+              // console.log(`getContent ${getContent[i]}`);
             }
           }
-          console.log(getContent);
+          // console.log(getContent);
           const isAdmin = getContent.pop();
           if (JSON.parse(category)) {
             that.coursePoll = getContent;
@@ -363,7 +364,7 @@
       },
       // timer to..
       loadTeacherScrn(storedData) {
-        console.log('currentscreenpublish');
+        // console.log('currentscreenpublish');
         this.dataToStd.question = storedData.data.question;
         this.dataToStd.options = storedData.data.options;
         this.dataToStd.qId = storedData.data.qId;
@@ -570,9 +571,9 @@
         }
       },
       saveInLocalStorage() {
-        console.log(`pollinlocalstorage${this.pollState}`);
-        console.log(this.pollState.data);
-        console.log(this.pollState);
+        // console.log(`pollinlocalstorage${this.pollState}`);
+        // console.log(this.pollState.data);
+        // console.log(this.pollState);
         // localStorage.setItem('pollState', JSON.stringify(this.pollState));
       },
       // At student end
@@ -580,7 +581,7 @@
         if (msg.poll.pollMsg == 'stdPublish') {
           this.dataRec = msg.poll.data;
         }
-        console.log(`student side ${msg.poll.pollMsg}`);
+        // console.log(`student side ${msg.poll.pollMsg}`);
         virtualclass.poll[msg.poll.pollMsg].call(this, msg.poll.data, fromUser);
         if (msg.poll.pollMsg == 'stdPublishResult') {
           this.resultToStorage();
@@ -588,7 +589,7 @@
       },
       pollPopUp(cb, index, pollType) {
         const attachInit = function () {
-          console.log(this.id);
+          // console.log(this.id);
           virtualclass.poll.action(this.id, cb, index, pollType);
           if (this.id == 'goBack' || this.id == 'cacelSetting') {
             virtualclass.modal.removeModal();
@@ -866,7 +867,7 @@
         virtualclass.poll.pollSetting(pollType, index);
       },
       goBack(index, pollType) {
-        console.log('modal dismiss');
+        // console.log('modal dismiss');
       },
       // course poll and site poll
 
@@ -915,7 +916,7 @@
           this.sitePoll[qIndex].questiontext = elem.value;
           this.sitePoll[qIndex].creator = wbUser.name;
         }
-        console.log(this.coursePoll);
+        // console.log(this.coursePoll);
         const elem1 = document.getElementById(`qnText${pollType}${qIndex}`);
         elem1.innerHTML = elem.value;
       },
@@ -1447,7 +1448,7 @@
         }
       },
       elapsedTimer(minut, second) {
-        if (virtualclass.poll.hasOwnProperty('timer')) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.poll, 'timer')) {
           clearInterval(virtualclass.poll.timer);
         }
         const label = document.getElementById('timerLabel');
@@ -1512,7 +1513,7 @@
         if (roles.hasControls()) {
           if (virtualclass.poll.pollState.data) {
             virtualclass.poll.pollState.data.newTime = virtualclass.poll.newUserTime;
-            console.log(`test${virtualclass.poll.pollState.data.newTime}`);
+            // console.log(`test${virtualclass.poll.pollState.data.newTime}`);
           }
         }
         var min = 0;
@@ -1549,7 +1550,7 @@
             virtualclass.poll.newUserTime.min = min;
             virtualclass.poll.newUserTime.sec = sec;
             elem.innerHTML = `${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
-            console.log(`testtimer${virtualclass.poll.timer}`);
+            // console.log(`testtimer${virtualclass.poll.timer}`);
 
             sec--;
             if (sec <= 0) {
@@ -1859,7 +1860,7 @@
           virtualclass.poll.setting.time.unit = ut;
 
           const timeStamp = Date.now();
-          console.log(`sender TimeStamp${Date.now()}`);
+          // console.log(`sender TimeStamp${Date.now()}`);
           virtualclass.poll.setting.time.timestamp = timeStamp;
         }
 
@@ -1908,7 +1909,7 @@
             },
             cf: 'poll',
           });
-          console.log(`to send${data}`);
+          // console.log(`to send${data}`);
         }
 
         data.view = virtualclass.poll.currResultView;
@@ -1954,7 +1955,7 @@
 
 
       noOfVotes(pt) {
-        const joinedUsers = virtualclass.hasOwnProperty('connectedUsers') ? virtualclass.connectedUsers.length : 0;
+        const joinedUsers = Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers') ? virtualclass.connectedUsers.length : 0;
         let usersVote = 0;
 
         for (const i in virtualclass.poll.count) {
@@ -1997,7 +1998,7 @@
         }
 
         for (var i in data.options) {
-          if (!virtualclass.poll.count.hasOwnProperty(i)) {
+          if (!Object.prototype.hasOwnProperty.call(virtualclass.poll.count, i)) {
             columns.push([data.options[i], '0']);
             virtualclass.poll.count[i] = 0;
           }
@@ -2032,7 +2033,7 @@
         }
 
         for (var i in data.options) {
-          if (!virtualclass.poll.count.hasOwnProperty(i)) {
+          if (!Object.prototype.hasOwnProperty.call(virtualclass.poll.count, i)) {
             columns.push([data.options[i], '0']);
             virtualclass.poll.count[i] = 0;
           }
@@ -2083,13 +2084,13 @@
             },
             type: 'pie',
             onclick(d, i) {
-              console.log('onclick', d, i);
+              // console.log('onclick', d, i);
             },
             onmouseover(d, i) {
-              console.log('onmouseover', d, i);
+              // console.log('onmouseover', d, i);
             },
             onmouseout(d, i) {
-              console.log('onmouseout', d, i);
+              // console.log('onmouseout', d, i);
             },
           },
         });
@@ -2504,7 +2505,7 @@
           let optsCount = 0;
           if (typeof opts === 'object') {
             for (var i in opts) {
-              console.log(i);
+              // console.log(i);
               optsCount++;
               virtualclass.poll.UI.editOptions(pollType, index, i, optsCount);
             }

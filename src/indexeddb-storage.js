@@ -74,9 +74,9 @@
 
       tx.store.put(data, serialKey);
       tx.done.then(() => {
-        console.log('success');
+        // console.log('success');
       }, () => {
-        console.log('failure');
+        // console.log('failure');
       });
     },
 
@@ -85,9 +85,9 @@
       const tx = virtualclass.storage.db.transaction('cacheOut', 'readwrite');
       tx.store.put(data, serialKey);
       tx.done.then(() => {
-        console.log('success');
+        // console.log('success');
       }, () => {
-        console.log('failure');
+        // console.log('failure');
       });
     },
 
@@ -95,9 +95,9 @@
       const tx = virtualclass.storage.db.transaction('cacheIn', 'readwrite');
       tx.store.put(data, serialKey);
       tx.done.then(() => {
-        console.log('success');
+        // console.log('success');
       }, () => {
-        console.log('failure');
+        // console.log('failure');
       });
     },
 
@@ -128,7 +128,7 @@
             try {
               io.onRecJson(m);
             } catch (error) {
-              console.log(`Error ${error}`);
+              // console.log(`Error ${error}`);
             }
           }
         }
@@ -157,7 +157,7 @@
             try {
               io.onRecJson(m);
             } catch (error) {
-              console.log(`Error ${error}`);
+              // console.log(`Error ${error}`);
             }
           }
         }
@@ -217,7 +217,7 @@
       let cursor = await virtualclass.storage.db.transaction('pollStorage').store.openCursor();
 
       while (cursor) {
-        console.log(cursor.key, cursor.value);
+        // console.log(cursor.key, cursor.value);
         wholeData.push(cursor.value);
         cursor = await cursor.continue();
       }
@@ -225,12 +225,12 @@
       if (wholeData.length > 0) {
         cb(wholeData);
       } else {
-        console.log('No data fetched from indexedDb');
+        // console.log('No data fetched from indexedDb');
       }
     },
 
     clearSingleTable(table, lastTable) {
-      console.log('Clear single table ', table);
+      // console.log('Clear single table ', table);
 
       const tx = virtualclass.storage.db.transaction(table, 'readwrite');
       tx.store.clear();
@@ -243,7 +243,7 @@
       // that docs to be init
       if (table == 'dstdata') {
         virtualclass.gObj.docs = 'init';
-        console.log('==== Docs init ');
+        // console.log('==== Docs init ');
       }
 
       if (table == 'dstall') {
@@ -271,13 +271,13 @@
         this.clearSingleTable('cacheIn'),
         this.clearSingleTable('cacheOut'),
       ]);
-      if (virtualclass.gObj.hasOwnProperty('sessionEndResolve')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'sessionEndResolve')) {
         virtualclass.gObj.sessionEndResolve();
       }
     },
 
     clearLastTable() {
-      if (virtualclass.gObj.hasOwnProperty('sessionEndResolve')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'sessionEndResolve')) {
         virtualclass.gObj.sessionEndResolve();
       }
     },

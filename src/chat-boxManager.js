@@ -1,5 +1,6 @@
 // Need this to make IE happy
-"use strict";
+
+
 if (!Array.indexOf) {
   Array.prototype.indexOf = function (obj) {
     for (let i = 0; i < this.length; i++) {
@@ -14,9 +15,9 @@ if (!Array.indexOf) {
 // Manage chatbox
 const chatboxManager = (function () {
   // list of all opened boxes
-  let boxList = new Array();
+  let boxList = [];
   // list of boxes shown on the page
-  let showList = new Array();
+  let showList = [];
   // list of first names, for in-page demo
   // var nameList = new Array();
 
@@ -68,7 +69,7 @@ const chatboxManager = (function () {
     const idx1 = showList.indexOf(id);
     const idx2 = boxList.indexOf(id);
     if (idx1 != -1) {
-      console.log('Do nothing');
+      // console.log('Do nothing');
     } else if (idx2 != -1) {
       // exists, but hidden
       // show it and put it back to showList
@@ -110,7 +111,7 @@ const chatboxManager = (function () {
     // if(chatBox != null) {
     //     var elem = document.querySelector('#cb' + id+ ' .ui-chatbox-msg');
     //     if(elem == null){
-    //         if(virtualclass.chat.vmstorage.hasOwnProperty(id)){
+    //         if(Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, id)){
     //             var chat = {};
     //              //  chat[id] = virtualclass.chat.vmstorage[id];
     //              // displayPvtChatHistory(chat);
@@ -126,7 +127,7 @@ const chatboxManager = (function () {
         $(`#cb${id}`).addClass('privateChat').removeClass('support');
       }
     }
-    if (virtualclass.chat.vmstorage.hasOwnProperty(id)) {
+    if (Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, id)) {
       virtualclass.chat.vmstorage[id][0].box = 'opened';
     }
   };

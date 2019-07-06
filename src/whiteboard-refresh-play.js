@@ -19,7 +19,7 @@
       },
 
       makeCustomEvent(obj, broadCast) {
-        if (obj.hasOwnProperty('mtext')) {
+        if (Object.prototype.hasOwnProperty.call(obj, 'mtext')) {
           var eventObj = { detail: { cevent: { x: obj.x, y: obj.y, mtext: obj.mtext } } };
         } else {
           var eventObj = { detail: { cevent: { x: obj.x, y: obj.y } } };
@@ -40,7 +40,7 @@
         const { vcan } = virtualclass.wb[wid];
 
         if (typeof this.objs[this.objNo] === 'undefined') {
-          console.log(`${this.objs}is undefined cannot continue play.`);
+          // console.log(`${this.objs}is undefined cannot continue play.`);
           return;
         }
 
@@ -49,7 +49,7 @@
         if (typeof myfunc !== 'undefined') {
           this.callBkfunc = myfunc;
         }
-        if (this.objs[this.objNo].hasOwnProperty('cmd')) {
+        if (Object.prototype.hasOwnProperty.call(this.objs[this.objNo], 'cmd')) {
         //  virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId = this.objs[this.objNo].uid;
           virtualclass.wb[virtualclass.gObj.currWb].toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
         } else {
@@ -57,7 +57,7 @@
           if (this.objs[this.objNo].ac == 'del') {
             if (vcan.main.currObj != '') {
               virtualclass.wb[virtualclass.gObj.currWb].utility.removeSelectedItem(vcan.main.currObj, true, true);
-              console.log('Whiteboard Delete:-  Performing delete operation:-');
+              // console.log('Whiteboard Delete:-  Performing delete operation:-');
             }
           } else {
             if (this.objs[this.objNo].ac == 'd') {
@@ -72,26 +72,26 @@
 
             // this.makeCustomEvent(currObj);
 
-            if (currObj.hasOwnProperty('mtext')) {
+            if (Object.prototype.hasOwnProperty.call(currObj, 'mtext')) {
               var eventObj = { detail: { cevent: { x: currObj.x, y: currObj.y, mtext: currObj.mtext } } };
             } else {
               var eventObj = { detail: { cevent: { x: currObj.x, y: currObj.y } } };
-              if (currObj.hasOwnProperty('scy')) {
+              if (Object.prototype.hasOwnProperty.call(currObj, 'scy')) {
                 eventObj.detail.cevent.scy = currObj.scy;
               }
-              if (currObj.hasOwnProperty('scx')) {
+              if (Object.prototype.hasOwnProperty.call(currObj, 'scx')) {
                 eventObj.detail.cevent.scx = currObj.scx;
               }
             }
 
-            if (currObj.hasOwnProperty('foundText')) {
+            if (Object.prototype.hasOwnProperty.call(currObj, 'foundText')) {
               eventObj.detail.foundText = true;
             }
             const eventConstruct = new CustomEvent(event, eventObj); // this is not supported for ie9 and older ie browsers
 
             vcan.main.canvas.dispatchEvent(eventConstruct);
           }
-          //virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId = this.objs[this.objNo].uid;
+          // virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId = this.objs[this.objNo].uid;
         }
 
         // console.log('Whiteboard : Till now play ' + virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId);

@@ -1,4 +1,4 @@
-"use strict";
+
 
 function triggerInitShareScreen(sType, setTime) {
   if (typeof virtualclass.getDataFullScreen === 'function') {
@@ -34,10 +34,10 @@ function memberUpdateWithDelay(e, f) {
     const index = virtualclass.gObj.memberlistpending.findIndex(x => x.userid == e.removeUser);
     if (index > -1) {
       virtualclass.gObj.memberlistpending.splice(index, 1);
-      console.log('===== JOIN user left call');
+      // console.log('===== JOIN user left call');
     } else {
       setTimeout(() => {
-        console.log('===== JOIN user left call');
+        // console.log('===== JOIN user left call');
         memberUpdate(e, f);
       }, 0);
     }
@@ -60,7 +60,7 @@ function memberUpdateWithDelay(e, f) {
         virtualclass.gObj.memberlistpending.push(userlist[i]);
       }
     }
-    console.log('member list pending(memberlistpending) udpate ');
+    // console.log('member list pending(memberlistpending) udpate ');
   }
 
   /**
@@ -68,11 +68,11 @@ function memberUpdateWithDelay(e, f) {
    * after every 1500 miliseconds, which means the setimeout would not be set on every user joined
    * * */
   if (virtualclass.gObj.memberlistpending.length > 0) {
-    if (!virtualclass.gObj.hasOwnProperty('memberUpdateDelayTimer')) {
+    if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'memberUpdateDelayTimer')) {
       virtualclass.gObj.memberUpdateDelayTimer = setTimeout(() => {
         memberUpdate(null, 'added');
         delete virtualclass.gObj.memberUpdateDelayTimer;
-        if (!virtualclass.gObj.hasOwnProperty('addEventToChatDiv')) {
+        if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'addEventToChatDiv')) {
           const chatDiv = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#subchat');
           chatDiv.addEventListener('click', (element) => {
             const targetElem = element.srcElement;
@@ -105,7 +105,7 @@ const defaultOperation = function (e, sType) {
       }
     }
   } else {
-    console.log('Does not need to say hello to new user');
+    // console.log('Does not need to say hello to new user');
     // We nee to send the current cursor to new user for for whiteboards
     // sendCursorToNewUser(e, virtualclass.jId);
   }
@@ -131,13 +131,13 @@ const defaultOperation = function (e, sType) {
         if (virtualclass.editorRich.isVcAdapterIsReady('editorRich')) {
           virtualclass.editorRich.responseToRequest();
         } else {
-          console.log('Editor Rich vcAdapter is not ready');
+          // console.log('Editor Rich vcAdapter is not ready');
         }
 
         if (virtualclass.editorCode.isVcAdapterIsReady('editorCode')) {
           virtualclass.editorCode.responseToRequest();
         } else {
-          console.log('Editor Code vcAdapter is not ready');
+          // console.log('Editor Code vcAdapter is not ready');
         }
       }
 
@@ -180,7 +180,7 @@ const defaultOperation = function (e, sType) {
     if (virtualclass.currApp === 'ScreenShare') {
       sType = 'ss';
     } else if (virtualclass.currApp === 'SharePresentation') {
-      console.log('sharePPt');
+      // console.log('sharePPt');
       // debugger;
       if (typeof virtualclass.sharePt === 'object') {
         ioAdapter.mustSendUser({
@@ -197,7 +197,7 @@ const defaultOperation = function (e, sType) {
     } else if (virtualclass.currApp === 'DocumentShare') {
       // ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
 
-      if (roles.hasControls() && virtualclass.dts.docs.hasOwnProperty('currDoc')) {
+      if (roles.hasControls() && Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
         if (virtualclass.gObj.currWb != null) {
           // const doc = virtualclass.dts.docs.currDoc;
           // // ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
@@ -212,7 +212,7 @@ const defaultOperation = function (e, sType) {
         }
       } else {
         ioAdapter.mustSendUser({ dts: { init: 'studentlayout' }, cf: 'dts' }, virtualclass.jId);
-        console.log('Document share send :- Layout');
+        // console.log('Document share send :- Layout');
       }
     } else if (virtualclass.currApp === 'Video') {
       if (typeof virtualclass.videoUl.player === 'object') {

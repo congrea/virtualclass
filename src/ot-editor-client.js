@@ -136,13 +136,13 @@
         clients(clients) {
           let clientId;
           for (clientId in self.clients) {
-            if (self.clients.hasOwnProperty(clientId) && !clients.hasOwnProperty(clientId)) {
+            if (Object.prototype.hasOwnProperty.call(self.clients, clientId) && !Object.prototype.hasOwnProperty.call(clients, clientId)) {
               self.onClientLeft(clientId);
             }
           }
 
           for (clientId in clients) {
-            if (clients.hasOwnProperty(clientId)) {
+            if (Object.prototype.hasOwnProperty.call(clients, clientId)) {
               const clientObject = self.getClientObject(clientId);
 
               if (clients[clientId].name) {
@@ -247,12 +247,12 @@
         return;
       }
 
-      if (cursor != null && cursor.hasOwnProperty('position')) {
+      if (cursor != null && Object.prototype.hasOwnProperty.call(cursor, 'position')) {
         var startPosition = cursor.position;
       }
 
 
-      if (cursor != null && cursor.hasOwnProperty('selectionEnd')) {
+      if (cursor != null && Object.prototype.hasOwnProperty.call(cursor, 'selectionEnd')) {
         var { selectionEnd } = cursor;
       }
 

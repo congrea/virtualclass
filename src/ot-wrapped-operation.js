@@ -32,7 +32,7 @@
     // Copy all properties from source to target.
     function copy(source, target) {
       for (const key in source) {
-        if (source.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
           target[key] = source[key];
         }
       }

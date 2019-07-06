@@ -7,23 +7,23 @@ const ioPingPong = {
         const session = this.sessionName();
         const msg = { ping: 'ping', cf: 'pong', session };
         ioAdapter.sendWithDelayAndDrop(msg, null, 'mustSend', 'pingAll', 3000);
-        console.log('PING BROADCAST');
+        // console.log('PING BROADCAST');
       }
     }
   },
   async pong(e) {
     if (e.toUser) {
-      console.log(`PONG TO ${e.toUser.userid} from ${e.fromUser.userid}`);
+      // console.log(`PONG TO ${e.toUser.userid} from ${e.fromUser.userid}`);
       const msg = { ping: 'pong', cf: 'pongAck' };
       ioAdapter.mustSendUser(msg, e.fromUser.userid);
-      console.log(`PONG ACK TO ${e.fromUser.userid}`);
+      // console.log(`PONG ACK TO ${e.fromUser.userid}`);
     } else {
-      console.log(`PONG BROADCAST from ${e.fromUser.userid}`);
+      // console.log(`PONG BROADCAST from ${e.fromUser.userid}`);
       await this.verifySession(e);
     }
   },
   pongAck(e) {
-    console.log(`PONG ACK FROM ${e.fromUser.userid}`);
+    // console.log(`PONG ACK FROM ${e.fromUser.userid}`);
   },
   sessionName() {
     let session = localStorage.getItem('mySession');
@@ -34,7 +34,7 @@ const ioPingPong = {
   },
   setSession() {
     const session = virtualclass.vutil.randomString(32);
-    console.log('==== session, My session is created by setSession');
+    // console.log('==== session, My session is created by setSession');
     virtualclass.config.setNewSession(session);
     return session;
   },
@@ -48,10 +48,9 @@ const ioPingPong = {
         await this.sessionDestroy(session, e);
       }
     } else {
-      console.log('==== session, start session');
-      console.log('My session is created');
+      // console.log('==== session, start session');
+      // console.log('My session is created');
       virtualclass.config.setNewSession(session);
-
     }
   },
   /**
@@ -60,16 +59,16 @@ const ioPingPong = {
   async sessionDestroy(session, e) {
     // TODO Finish Session and start gracefully
     if (!virtualclass.isPlayMode) {
-      console.log('==== session, start session');
+      // console.log('==== session, start session');
       const uid = e.fromUser.userid;
       localStorage.removeItem('mySession');
       await virtualclass.config.endSession();
       virtualclass.config.setNewSession(session);
       ioMissingPackets.validateAllVariables(uid);
-      console.log('REFRESH SESSION');
+      // console.log('REFRESH SESSION');
     } else {
-      console.log('==== session, end session');
-      console.log('My session is created');
+      // console.log('==== session, end session');
+      // console.log('My session is created');
       virtualclass.config.setNewSession('thisismyplaymode');
     }
   },

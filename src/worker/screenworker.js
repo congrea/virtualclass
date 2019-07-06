@@ -177,10 +177,10 @@ const screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
    * @param e
    */
   onmessage = function (e) {
-    if (e.data.hasOwnProperty('initPrevImg')) {
+    if (Object.prototype.hasOwnProperty.call(e.data, 'initPrevImg')) {
       prevImageSlices = [];
       encodeDataArr = null;
-    } else if (!e.data.hasOwnProperty('resize')) { // Resize operation is a special case, treat it as a new image for simplicity
+    } else if (!Object.prototype.hasOwnProperty.call(e.data, 'resize')) { // Resize operation is a special case, treat it as a new image for simplicity
       encodeRGB(e.data.img);
       for (sl = 0; sl < (e.data.resA * e.data.resB); sl++) {
         d = calcDimensions(e);

@@ -1,7 +1,6 @@
 (function (window) {
-
-  function Bootstrap() {};
-
+  function Bootstrap() {
+  }
   Bootstrap.prototype.setBasicData = async function (window) {
     window.earlierWidth = window.innerWidth;
     window.earlierHeight = window.innerHeight;
@@ -56,7 +55,6 @@
     virtualclass.gObj.veryFirstJoin = true;
 
     await virtualclass.storage.init();
-
   };
 
   Bootstrap.prototype.validDateSession = async function () {
@@ -69,8 +67,8 @@
       await virtualclass.config.endSession();
     } else if (prvUser !== null) {
       prvUser = JSON.parse(prvUser);
-      if (prvUser.id !== wbUser.id || prvUser.room !== wbUser.room ||
-        wbUser.role !== prvUser.role || prvUser.settings !== virtualclassSetting.settings) {
+      if (prvUser.id !== wbUser.id || prvUser.room !== wbUser.room
+        || wbUser.role !== prvUser.role || prvUser.settings !== virtualclassSetting.settings) {
         await virtualclass.config.endSession();
       }
     } else if (virtualclass.gObj.myConfig !== null) {
@@ -84,7 +82,7 @@
         await virtualclass.config.endSession();
       }
     }
-  }
+  };
 
 
   Bootstrap.prototype.loadData = function () {
@@ -110,7 +108,7 @@
 
     if (previousApp != null) {
       virtualclass.previousApp = previousApp;
-      let appNameUpper = previousApp.name;
+      const appNameUpper = previousApp.name;
 
       var appIs = appNameUpper.charAt(0).toUpperCase() + appNameUpper.slice(1);
       if (previousApp.name == 'Yts' || (previousApp.name == 'DocumentShare')) {
@@ -135,7 +133,6 @@
         const currSlide = localStorage.getItem('currSlide');
         if (currSlide != null) {
           virtualclass.gObj.currSlide = currSlide;
-          console.log('==== current slide ', virtualclass.gObj.currSlide);
         }
       }
     } else {
@@ -203,7 +200,7 @@
       }
     }
 
-    if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
+    if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
       await virtualclass.media.init();
     }
   };
@@ -215,7 +212,6 @@
       }
       await virtualclass.videoHost.afterSessionJoin();
     }
-
   };
 
   Bootstrap.prototype.cache = async function () {
@@ -224,7 +220,7 @@
     await virtualclass.storage.getDataFromCacheIn();
     await virtualclass.storage.getDataFromCacheOut();
     virtualclass.config.makeWebSocketReady = true;
-    if (localStorage.getItem('precheck') !==  null) {
+    if (localStorage.getItem('precheck') !== null) {
       virtualclass.makeReadySocket();
     }
   };

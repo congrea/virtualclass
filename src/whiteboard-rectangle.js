@@ -41,7 +41,7 @@
          * @param obj would be drawn
          */
         draw(ctx, obj, noTransform) {
-          console.log("====> whiteboard data actual sx=", obj.sx, " sy=", obj.sy, " ex=", obj.ex, " ey=", obj.ey);
+          // console.log('====> whiteboard data actual sx=', obj.sx, ' sy=', obj.sy, ' ex=', obj.ex, ' ey=', obj.ey);
           const x = -obj.width / 2;
           const y = -obj.height / 2;
           const w = obj.width;
@@ -83,10 +83,8 @@
             ctx.fill();
           }
 
-          console.log("=====> whiteboard ", virtualclass.gObj.currWb);
-          console.log("=====> whiteboard length", virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs.length);
-
-
+          // console.log('=====> whiteboard ', virtualclass.gObj.currWb);
+          // console.log('=====> whiteboard length', virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs.length);
         },
       };
     };

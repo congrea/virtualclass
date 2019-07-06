@@ -72,11 +72,11 @@
             urlCont.style.display = 'block';
           }
           virtualclass.vutil.requestOrder('presentation', (response) => {
-            console.log(response);
+            // console.log(response);
             if (virtualclass.vutil.isResponseAvailable(response)) {
               virtualclass.sharePt.order = response;
             } else {
-              console.log('Order response is not available');
+              // console.log('Order response is not available');
             }
           });
         } else if (roles.hasView()) {
@@ -114,8 +114,8 @@
        */
       findInStorage() {
         var pApp = localStorage.getItem('prevApp');
-        console.log(`test pApp${typeof pApp}`);
-        console.log(pApp);
+        // console.log(`test pApp${typeof pApp}`);
+        // console.log(pApp);
         if (pApp != null) {
           var pApp = JSON.parse(pApp);
           if (pApp.name == 'SharePresentation') {
@@ -167,7 +167,7 @@
 
         const msgCont = document.getElementById('pptMessageLayout');
         if (msgCont != null) {
-          console.log('message block');
+          // console.log('message block');
           msgCont.style.display = 'none';
         }
         const pptContainer = document.getElementById(this.UI.id);
@@ -304,14 +304,14 @@
                   var index = virtualclass.sharePt.ppts.indexOf(ppt);
                   if (index >= 0) {
                     virtualclass.sharePt.ppts.splice(index, 1);
-                    console.log(virtualclass.sharePt.ppts);
+                    // console.log(virtualclass.sharePt.ppts);
                   }
                 }
               });
               const idIndex = virtualclass.sharePt.order.indexOf(id);
               if (idIndex >= 0) {
                 virtualclass.sharePt.order.splice(idIndex, 1);
-                console.log(virtualclass.sharePt.order);
+                // console.log(virtualclass.sharePt.order);
                 virtualclass.vutil.sendOrder('presentation', virtualclass.sharePt.order);
               }
               const slide = document.querySelector('.congrea #pptiframe');
@@ -415,7 +415,7 @@
           var pptData = (typeof pptData === 'string') ? JSON.parse(event.data) : event.data;
 
           if (typeof pptData !== 'undefined') {
-            if (pptData.hasOwnProperty('namespace') && pptData.namespace == 'reveal') {
+            if (Object.prototype.hasOwnProperty.call(pptData, 'namespace') && pptData.namespace == 'reveal') {
               virtualclass.sharePt.state = pptData.state;
             }
             // only proceed ahead if the namespace is revealjs paramter, if found another case instead of revealjs
@@ -466,7 +466,7 @@
                 }
               }
             } else if (roles.hasControls()) {
-              console.log(pptData.eventName);
+              // console.log(pptData.eventName);
               if (typeof pptData.eventName !== 'undefined') {
                 virtualclass.sharePt[pptData.eventName].call(virtualclass.sharePt, pptData);
                 virtualclass.sharePt.state = pptData.state;
@@ -489,7 +489,7 @@
 
        */
       onmessage(msg) {
-        if (msg.hasOwnProperty('autoSlide')) {
+        if (Object.prototype.hasOwnProperty.call(msg, 'autoSlide')) {
           this.autoSlideTime = msg.autoSlide;
         }
         if (typeof virtualclass.sharePt !== 'undefined') {
@@ -502,7 +502,7 @@
         }
       },
       ready(pptData) {
-        console.log('teacher ready for ppt ');
+        // console.log('teacher ready for ppt ');
         ioAdapter.mustSend({ pptMsg: pptData, cf: 'ppt', cfpt: 'setPEvent' });
       },
       /*
@@ -531,13 +531,13 @@
           if (this.eventsObj[0].name == 'slidechanged' && this.eventsObj[1].name == 'slidechanged') {
             // perform only in rearest case,
             this.autoSlideTime = this.eventsObj[1].time - this.eventsObj[0].time;
-            console.log(`auto slide time withoutpause${this.autoSlideTime}`);
+            // console.log(`auto slide time withoutpause${this.autoSlideTime}`);
           } else if (this.eventsObj[0].name == 'autoslideresumed' && this.eventsObj[1].name == 'slidechanged') {
             this.autoSlideTime = this.eventsObj[1].time - this.eventsObj[0].time;
-            console.log(`withpause${this.autoSlideTime}`);
+            // console.log(`withpause${this.autoSlideTime}`);
           }
-          console.log(this.eventsObj);
-          console.log(this.autoSlideTime);
+          // console.log(this.eventsObj);
+          // console.log(this.autoSlideTime);
         }
       },
       /*
@@ -548,7 +548,7 @@
       autoslidepaused(pptData) {
         this.autoSlideFlag = 1; // To find that autoSlide is enabled or not
         this.autoSlideResumed = 0; // To konw auto slide is resumed or not
-        console.log(this.pause);
+        // console.log(this.pause);
         ioAdapter.mustSend({ pptMsg: pptData, cf: 'ppt', cfpt: 'setPEvent' });
       },
       /*
@@ -708,7 +708,7 @@
           }
 
 
-          if (receivemsg.hasOwnProperty('cfpt') && typeof receivemsg.cfpt !== 'undefined' && typeof virtualclass.sharePt.cfpt[receivemsg.cfpt] !== 'undefined') {
+          if (Object.prototype.hasOwnProperty.call(receivemsg, 'cfpt') && typeof receivemsg.cfpt !== 'undefined' && typeof virtualclass.sharePt.cfpt[receivemsg.cfpt] !== 'undefined') {
             virtualclass.sharePt.cfpt[receivemsg.cfpt].call(virtualclass.sharePt, receivemsg);
           }
         }
@@ -732,7 +732,7 @@
       setSlideUrl(receivemsg) {
         if (receivemsg.pptMsg != null && receivemsg.pptMsg != '') {
           virtualclass.sharePt.studentPpt = 0;
-          console.log('PPT:- invoke setSlideUrl');
+          // console.log('PPT:- invoke setSlideUrl');
           this.viewFlag = 0;
           this.autoSlideFlag = 0;
           this.autoSlideTime = 0;
@@ -740,14 +740,14 @@
           if (iframe != null) {
             iframe.parentNode.removeChild(iframe);
           }
-          console.log('create iframe from setslide url');
+          // console.log('create iframe from setslide url');
           this.UI.createIframe();
           const elem = document.getElementById('iframecontainer');
           elem.style.display = 'block';
           var iframe = document.getElementById('pptiframe');
 
           iframe.setAttribute('src', (receivemsg.pptMsg.search('postMessage') < 0) ? `${receivemsg.pptMsg}?postMessage=true&postMessageEvents=true` : receivemsg.pptMsg);
-          console.log('test url is set');
+          // console.log('test url is set');
           this.pptUrl = receivemsg.pptMsg;
         }
 
@@ -770,7 +770,7 @@
             break;
           case 'slidechanged':
             virtualclass.sharePt.studentPpt = msg;
-            console.log('test PPt:-  changed');
+            // console.log('test PPt:-  changed');
             frame.postMessage(JSON.stringify({ method: 'slide', args: indexArg }), '*');
             break;
           case 'autoslidepaused':
@@ -794,7 +794,7 @@
             frame.postMessage(JSON.stringify({ method: 'setState', args: stateArg }), '*');
             frame.postMessage(JSON.stringify({ method: 'slide', args: indexArg }), '*');
           default:
-            console.log('There is no event is occured');
+            // console.log('There is no event is occured');
         }
       },
 
@@ -849,7 +849,7 @@
         const that = this;
 
         virtualclass.xhrn.vxhrn.post(url, pptObj).then(() => {
-          if (virtualclass.sharePt.hasOwnProperty('activeppts')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.sharePt, 'activeppts')) {
             const ppts = virtualclass.sharePt.activeppts.map(ppt => ppt.fileuuid);
             if (ppts.length != virtualclass.sharePt.order.length) {
               virtualclass.sharePt.order = ppts;
@@ -898,7 +898,7 @@
                 virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
               }
             } else {
-              console.log('Order response is not available');
+              // console.log('Order response is not available');
             }
           });
           // virtualclass.sharePt.retrieveOrder();
@@ -921,7 +921,7 @@
         const idPostfix = pptObj.fileuuid;
         // var docId = 'docs' + doc;
 
-        if (pptObj.hasOwnProperty('disabled')) {
+        if (Object.prototype.hasOwnProperty.call(pptObj, 'disabled')) {
           pptObj.status = 0;
         } else {
           pptObj.status = 1;
@@ -952,7 +952,7 @@
         titleCont.setAttribute('data-placement', 'bottom');
         titleCont.setAttribute('title', pptObj.URL);
 
-        if (pptObj.hasOwnProperty('disabled')) {
+        if (Object.prototype.hasOwnProperty.call(pptObj, 'disabled')) {
           this._disable(pptObj.fileuuid);
           if (ppt) {
             ppt.classList.add('disable');
@@ -1073,7 +1073,7 @@
         if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
           virtualclass.sharePt.activeppts = [];
           virtualclass.sharePt.ppts.forEach((pptObj, i) => {
-            if (!pptObj.hasOwnProperty('deleted')) {
+            if (!Object.prototype.hasOwnProperty.call(pptObj, 'deleted')) {
               virtualclass.sharePt.activeppts.push(pptObj);
               const elem = document.querySelector(`#linkppt${pptObj.fileuuid}`);
               if (elem != null) {
@@ -1105,7 +1105,7 @@
 
       requestOrder(rdata) {
         virtualclass.vutil.requestOrder('presentation', (data) => {
-          console.log(data);
+          // console.log(data);
           if (virtualclass.vutil.isResponseAvailable(data)) {
             virtualclass.sharePt.order = data;
             if (virtualclass.sharePt.order.length > 0) {
@@ -1130,7 +1130,7 @@
 
         const iframecontainer = document.getElementById('iframecontainer');
         if (iframecontainer == null) {
-          console.log('call of iframe creater from onclick event handler');
+          // console.log('call of iframe creater from onclick event handler');
           virtualclass.sharePt.UI.createIframe();
         }
 
@@ -1159,12 +1159,12 @@
        * @param urlValue of the slide to be set in appropriate format
        */
       setPptUrl(urlValue) {
-        console.log('test+set ppt url function');
+        // console.log('test+set ppt url function');
         const elem = document.getElementById('iframecontainer');
         elem.style.display = 'block';
 
         const frame = document.getElementById('pptiframe');
-        console.log(`completeurl${urlValue}`);
+        // console.log(`completeurl${urlValue}`);
         virtualclass.sharePt.pptUrl = `${urlValue}?postMessage=true&postMessageEvents=true`;
 
         frame.setAttribute('src', virtualclass.sharePt.pptUrl);

@@ -53,7 +53,7 @@
         errorCont.innerHTML = `<span className="${classes}">${msg}</span>`;
       } else {
         if (attribute != null) {
-          if (attribute.hasOwnProperty('className')) {
+          if (Object.prototype.hasOwnProperty.call(attribute, 'className')) {
             const elem = document.querySelector(`#${contId}.${attribute.className}`);
             if (elem != null) {
               elem.parentNode.removeChild(elem);
@@ -293,7 +293,7 @@
     // console.log('Window resize event ');
 
     const cwb = virtualclass.gObj.currWb;
-    if (typeof cwb !== 'undefined' && (typeof virtualclass.wb[cwb] !== 'undefined') && virtualclass.wb[cwb].hasOwnProperty('vcan')) {
+    if (typeof cwb !== 'undefined' && (typeof virtualclass.wb[cwb] !== 'undefined') && Object.prototype.hasOwnProperty.call(virtualclass.wb[cwb], 'vcan')) {
       virtualclass.wb[cwb].vcan.renderAll();
     }
     view.windowResizeFinished();
@@ -336,7 +336,7 @@
       && virtualclass.gObj.currWb != null && typeof virtualclass.gObj.currWb !== 'undefined'
     ) {
       /** * Remove black screen on resizing of doucmet sharing window * */
-      if (virtualclass.gObj.hasOwnProperty('fitToScreenOnResize')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreenOnResize')) {
         clearTimeout(virtualclass.gObj.fitToScreenOnResize);
       }
       virtualclass.gObj.fitToScreenOnResize = setTimeout(
@@ -354,20 +354,20 @@
   // this code is not using should be removed
   view.virtualWindow.manupulation = function (e) {
     const message = e.message.virtualWindow;
-    if (message.hasOwnProperty('removeVirtualWindow')) {
+    if (Object.prototype.hasOwnProperty.call(message, 'removeVirtualWindow')) {
       if (e.fromUser.userid != wbUser.id) {
         virtualclass.wb[virtualclass.gObj.currWb].utility.removeVirtualWindow('virtualWindow');
       }
-    } else if (message.hasOwnProperty('createVirtualWindow')) {
-      if (message.hasOwnProperty('toolHeight')) {
+    } else if (Object.prototype.hasOwnProperty.call(message, 'createVirtualWindow')) {
+      if (Object.prototype.hasOwnProperty.call(message, 'toolHeight')) {
         // localStorage.setItem('toolHeight', message.toolHeight);
       }
 
       if (e.fromUser.userid != wbUser.id) {
         virtualclass.wb[virtualclass.gObj.currWb].utility.createVirtualWindow(message.createVirtualWindow);
       }
-    } else if (message.hasOwnProperty('shareBrowserWidth')) {
-      if (message.hasOwnProperty('toolHeight')) {
+    } else if (Object.prototype.hasOwnProperty.call(message, 'shareBrowserWidth')) {
+      if (Object.prototype.hasOwnProperty.call(message, 'toolHeight')) {
         // localStorage.setItem('toolHeight', message.toolHeight);
       }
 

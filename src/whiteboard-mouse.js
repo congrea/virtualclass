@@ -16,7 +16,7 @@
          * eg: mousedown, mouseup
          */
         bindHandlers() {
-          console.log('Whiteboard ');
+          // console.log('Whiteboard ');
           canvasElement = vcan.main.canvas;
           // TODO the types should be store into main/core funtion
           // the place of this object should not be here
@@ -81,7 +81,7 @@
           // var newpointer = vcan.utility.getReltivePoint(e);
           // console.log('Whiteboard position drag start x=' + e.offsetX + ' y=' + e.offsetY);
 
-          if (e.detail.hasOwnProperty('cevent') && (vcan.main.action != 'create')) {
+          if (Object.prototype.hasOwnProperty.call(e.detail, 'cevent') && (vcan.main.action != 'create')) {
             // console.log('Whiteboard drag start before scale x=' + (e.detail.cevent.x - vcan.main.offset.x) + ' y=' + ( e.detail.cevent.y - vcan.main.offset.y));
             e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e); // Page refresh
             e.clientX = vcan.main.offset.x + e.detail.cevent.x;
@@ -126,7 +126,7 @@
               vcan.renderAll();
             }
 
-            if (!e.detail.hasOwnProperty('cevent')) {
+            if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
               if (roles.hasControls()) {
                 e = vcan.utility.updateCordinate(e);
               }
@@ -139,7 +139,7 @@
               // console.log('Whiteboard drag start x=' + (e.clientX - vcan.main.offset.x) + ' y=' + ( e.clientY - vcan.main.offset.y) + ' x=' + (obj.x) + ' y=' + (obj.y));
 
               virtualclass.wb[virtualclass.gObj.currWb].uid++;
-              console.log(`uid ${virtualclass.wb[virtualclass.gObj.currWb].uid}`);
+              // console.log(`uid ${virtualclass.wb[virtualclass.gObj.currWb].uid}`);
               obj.uid = virtualclass.wb[virtualclass.gObj.currWb].uid;
 
               // obj = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollPositionInObj(obj);
@@ -151,12 +151,12 @@
 
             // these code run when user is trying to create particular object.
           } else if (vcan.main.action == 'create') {
-            if (e.detail.hasOwnProperty('cevent')) {
+            if (Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
               /** If user click on text to edit, we need to map the position according to
                *  current scale so we called putScrollWithCevent, foundText represents teacher clicks on text. We don't need
                *  to map the position when user creates the new text
                * * */
-              if (e.detail.hasOwnProperty('foundText')) {
+              if (Object.prototype.hasOwnProperty.call(e.detail, 'foundText')) {
                 e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e);
               }
 
@@ -191,7 +191,7 @@
         mousemove(e) {
           // var newpointer = vcan.utility.getReltivePoint(e);
 
-          if (e.detail.hasOwnProperty('cevent')) {
+          if (Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
             if (vcan.main.action == 'move') {
               e = virtualclass.wb[virtualclass.gObj.currWb].utility.putScrollWithCevent(e);
               // e = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(e);
@@ -234,21 +234,21 @@
                   vcan.interact.scaleObject(x, y);
                 }
 
-                if (!e.detail.hasOwnProperty('cevent')) {
+                if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
                   vcan.optimize.doOptiMize(e);
                 }
               } else if (obj.currentTransform.action === 'scale') {
-                if (!e.detail.hasOwnProperty('cevent')) {
+                if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
                   vcan.optimize.doOptiMize(e);
                 }
                 vcan.interact.scaleObject(x, y);
               } else if (obj.currentTransform.action === 'scaleX') {
-                if (!e.detail.hasOwnProperty('cevent')) {
+                if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
                   vcan.optimize.doOptiMize(e);
                 }
                 vcan.interact.scaleObject(x, y, 'x');
               } else if (obj.currentTransform.action === 'scaleY') {
-                if (!e.detail.hasOwnProperty('cevent')) {
+                if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
                   vcan.optimize.doOptiMize(e);
                 }
                 vcan.interact.scaleObject(x, y, 'y');
@@ -277,7 +277,7 @@
                 }
 
                 var tempTarget = vcan.interact.translateObject(x, y);
-                if (!e.detail.hasOwnProperty('cevent')) {
+                if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
                   vcan.optimize.doOptiMize(e);
                 }
                 // console.log('Whiteboard drag move x=' + (e.clientX ) + ' y=' + (e.clientY));
@@ -312,7 +312,7 @@
         mouseup(e) {
           const removeclogo = document.getElementById('congrealogo');
           removeclogo.classList.remove('disbaleOnmousedown');
-          if (e.detail.hasOwnProperty('cevent')) {
+          if (Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
             e.clientX = vcan.main.offset.x + e.detail.cevent.x;
             e.clientY = vcan.main.offset.y + e.detail.cevent.y;
             e.x = vcan.main.offset.x + e.detail.cevent.x;
@@ -354,7 +354,7 @@
               }
 
               var currTime = new Date().getTime();
-              if (!e.detail.hasOwnProperty('cevent') || (e.detail.hasOwnProperty('cevent') && e.detail.hasOwnProperty('broadCast'))) {
+              if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent') || (Object.prototype.hasOwnProperty.call(e.detail, 'cevent') && Object.prototype.hasOwnProperty.call(e.detail, 'broadCast'))) {
                 vcan.optimize.calculatePackets(currTime, 'u', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
               }
 
@@ -367,7 +367,7 @@
               if (vcan.main.scaleMode) {
                 vcan.main.scaleMode = false;
               }
-            } else if (!e.detail.hasOwnProperty('cevent') && e.detail.hasOwnProperty('cevent') && e.detail.hasOwnProperty('broadCast')) {
+            } else if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent') && Object.prototype.hasOwnProperty.call(e.detail, 'cevent') && Object.prototype.hasOwnProperty.call(e.detail, 'broadCast')) {
               vcan.optimize.calculatePackets(currTime, 'u', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
             }
             vcan.wb.sentPack = true;

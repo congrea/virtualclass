@@ -1,7 +1,7 @@
-/***
+/** *
  * @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
-***/
+** */
 $.uiBackCompat = false;
 (function (window) {
   window.onload = async function () {

@@ -43,6 +43,8 @@ module.exports = {
     virtualclassSetting: 'writable',
     wbUser: 'writable',
     axios: 'readonly',
+    sdworker: 'writable',
+    sworker: 'writable',
     chatContainerEvent: 'writable'
   },
   parserOptions: {

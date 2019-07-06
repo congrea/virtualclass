@@ -56,7 +56,7 @@
               // this.UI.inputURL();
               // ioAdapter.mustSend({'yts': {init: 'studentlayout'}, 'cf': 'yts'});
             } else if (typeof videoObj !== 'undefined') {
-              if (!videoObj.hasOwnProperty('fromReload')) {
+              if (!Object.prototype.hasOwnProperty.call(videoObj, 'fromReload')) {
                 if (typeof videoId === 'undefined') {
                   // virtualclass.videoUl.UI.container()
                   this.UI.defaultLayoutForStudent();
@@ -99,7 +99,7 @@
           }
           virtualclass.yts.player.destroy();
           virtualclass.yts.player = '';
-          if (virtualclass.yts.hasOwnProperty('tsc')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.yts, 'tsc')) {
             clearInterval(virtualclass.yts.tsc);
           }
         }
@@ -258,7 +258,7 @@
           } else if (msg.yts == 'destroyYT') {
             virtualclass.yts.destroyYT();
           }
-        } else if (msg.yts.hasOwnProperty('init')) {
+        } else if (Object.prototype.hasOwnProperty.call(msg.yts, 'init')) {
           virtualclass.videoUl.yts = true;
           if (typeof virtualclass.yts.player === 'object') {
             // virtualclass.yts.player.destroy()
@@ -280,7 +280,7 @@
         } else {
           const seekToNum = parseInt(msg.yts.seekto, 10);
           // during the replay if player is ready for seek
-          if (this.player.hasOwnProperty('seekTo')) {
+          if (Object.prototype.hasOwnProperty.call(this.player, 'seekTo')) {
             this.player.seekTo(seekToNum);
           }
         }
@@ -332,7 +332,7 @@
             videoObj.start = playStratFrom;
           }
 
-          console.log('Player object is CREATED');
+          // console.log('Player object is CREATED');
           if (typeof fromReload !== 'undefined') {
             const that = this;
             // YouTube player is not ready for when the page is being load
@@ -342,13 +342,13 @@
             //    that.player = new YT.Player('player', videoObj);
             // };
 
-            if (yts.hasOwnProperty('ytApiReady')) {
+            if (Object.prototype.hasOwnProperty.call(yts, 'ytApiReady')) {
               that.player = new YT.Player('player', videoObj);
               // window.onYouTubeIframeAPIReady = function () {
               //    that.player = new YT.Player('player', videoObj);
               // };
             } else {
-              console.log('onYouTubeIframeAPIReady is not ready ');
+              // console.log('onYouTubeIframeAPIReady is not ready ');
               setTimeout(() => {
                 that.onYTIframApi(videoId, playStratFrom, fromReload);
               }, 300);
@@ -370,7 +370,7 @@
        */
       triggerOnSeekChange() {
         // this.actualCurrentTime = this.player.getCurrentTime();
-        console.log('there should happend something after each 2 second');
+        // console.log('there should happend something after each 2 second');
         if (CTpre == 0 || PLState == -2 || PSmute == -1) {
           CTpre = this.player.getCurrentTime();
           PLState = this.player.getPlayerState();
@@ -378,9 +378,9 @@
         } else {
           const difftime = Math.abs(this.player.getCurrentTime() - CTpre);
           CTpre = this.player.getCurrentTime();
-          console.log(CTpre);
+          // console.log(CTpre);
 
-          console.log(this.player.getCurrentTime());
+          // console.log(this.player.getCurrentTime());
           if (difftime > 4) {
             this.ytOnSeek(this.player.getCurrentTime());
           }
@@ -411,7 +411,7 @@
           ioAdapter.mustSend({ yts: 'unmute', cf: 'yts' });
         }
 
-        console.log(`MUTED ${muted}`);
+        // console.log(`MUTED ${muted}`);
       },
       /**
        * Send the seek position to the receiver.
@@ -421,7 +421,7 @@
       // seekto is video in seconds
       ytOnSeek(seekto) {
         ioAdapter.mustSend({ yts: { seekto }, cf: 'yts' });
-        console.log(`SEEK CHANGED ${seekto}`);
+        // console.log(`SEEK CHANGED ${seekto}`);
       },
 
       /**
@@ -429,7 +429,7 @@
        * @param int state state of the video
        */
       ytOnChange(state) {
-        console.log(`STATE CHANGED ${state}`);
+        // console.log(`STATE CHANGED ${state}`);
         if (state == 1) {
           ioAdapter.mustSend({ yts: 'play', cf: 'yts' });
         } else if (state == 2) {
@@ -489,7 +489,7 @@
 
   window.onYouTubeIframeAPIReady = function () {
     yts.ytApiReady = true;
-    console.log('onYouTubeIframeAPIReady is ready now');
+    // console.log('onYouTubeIframeAPIReady is ready now');
   };
 
   window.yts = yts;

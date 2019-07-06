@@ -27,7 +27,7 @@
        * @returns nothing
        */
       textUtility(startPosX, startPosY, mtext) {
-        console.log(`Text position x=${startPosX} y=${startPosY}`);
+        // console.log(`Text position x=${startPosX} y=${startPosY}`);
         this.startPosX = startPosX;
         this.startPosY = startPosY;
         // alert('is there anything for you');
@@ -154,7 +154,7 @@
           }
         }
 
-        console.log('Text Command:- Create text wrapper box');
+        // console.log('Text Command:- Create text wrapper box');
       },
       /**
        * The function renders the text after typed by user into textarea
@@ -262,7 +262,7 @@
 
         const text = virtualclass.wb[virtualclass.gObj.currWb].canvas.readyObject(textObj);
         const tempObj = text.coreObj;
-        console.log(`Whiteboard text ${text}`);
+        // console.log(`Whiteboard text ${text}`);
         virtualclass.wb[virtualclass.gObj.currWb].canvas.addObject(text);
 
         const lastTxtObj = vcan.main.children[vcan.main.children.length - 1];

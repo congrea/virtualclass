@@ -74,13 +74,13 @@
     },
 
     start() {
-      console.log('Video First, multivideo');
+      // console.log('Video First, multivideo');
 
       virtualclass.multiVideo.localStream = virtualclass.media.video.tempStream;
 
       const _localStream = virtualclass.multiVideo.localStream;
 
-      console.log('multivideo, add get user media ');
+      // console.log('multivideo, add get user media ');
       const selfView = document.querySelector('#videoConfrence .multilocalVideo');
       // selfView.src = URL.createObjectURL(virtualclass.multiVideo.localStream);
 
@@ -169,7 +169,7 @@
     setAudioStatus(action) {
       const audioTracks = virtualclass.multiVideo.localStream.getAudioTracks();
       if (audioTracks.length === 0) {
-        console.log('No local audio available.');
+        // console.log('No local audio available.');
         return;
       }
 
@@ -187,10 +187,10 @@
           const videoTracks = virtualclass.multiVideo.localStream.getVideoTracks();
 
           if (videoTracks.length === 0) {
-            console.log('No local video available.');
+            // console.log('No local video available.');
             return;
           }
-          console.log('Toggling video mute state.');
+          // console.log('Toggling video mute state.');
           let dispClass;
           for (let i = 0; i < videoTracks.length; ++i) {
             videoTracks[i].enabled = action;
@@ -205,7 +205,7 @@
             }
           }
         } else {
-          console.log('localStream is undefined');
+          // console.log('localStream is undefined');
         }
       }, 1000);
       // this.pcClient_.sendCallstatsEvents(videoTracks[0].enabled ? "videoResume" : "videoPause");
@@ -245,16 +245,16 @@
 
 
   function failureCallback(error) {
-    console.log(`multivideo, ${error}`);
+    // console.log(`multivideo, ${error}`);
   }
 
   MultiVideo.onmessage = function (message, fromUser) {
-    if (message.hasOwnProperty('_init')) {
+    if (Object.prototype.hasOwnProperty.call(message, '_init')) {
       virtualclass.makeAppReady(virtualclass.apps.mv);
       // this.displayVideo();
-    } else if (message.hasOwnProperty('offer')) {
+    } else if (Object.prototype.hasOwnProperty.call(message, 'offer')) {
       _createAnswer(message, fromUser);
-    } else if (message.hasOwnProperty('candidate')) {
+    } else if (Object.prototype.hasOwnProperty.call(message, 'candidate')) {
       const candidate = new RTCIceCandidate(message.candidate);
       if (message.pt == 'apc') {
         apc[fromUser].addIceCandidate(candidate, addIceCandidateSuccess, addIceCandidateError);
@@ -262,31 +262,31 @@
         opc[fromUser].addIceCandidate(candidate, addIceCandidateSuccess, addIceCandidateError);
       }
 
-      console.log('multivideo addIcecandidate');
-    } else if (message.hasOwnProperty('answer')) {
-      console.log(`multivideo setRemoteDescription for${fromUser}`);
+      // console.log('multivideo addIcecandidate');
+    } else if (Object.prototype.hasOwnProperty.call(message, 'answer')) {
+      // console.log(`multivideo setRemoteDescription for${fromUser}`);
       opc[fromUser].setRemoteDescription(new RTCSessionDescription(message.sdp), setRemoteDescriptionSuccess, setRemoteDescriptionError);
     }
   };
 
   function setRemoteDescriptionSuccess() {
-    console.log('multivideo, success setRemoteDescriptionSuccess');
+    // console.log('multivideo, success setRemoteDescriptionSuccess');
   }
 
   function setRemoteDescriptionError(error) {
-    console.log(`multivideo, error setRemoteDescriptionError${error}`);
+    // console.log(`multivideo, error setRemoteDescriptionError${error}`);
   }
 
   function handleCreateAnswerError(error) {
-    console.log(`multivideo, error handleCreateAnswerError${error}`);
+    // console.log(`multivideo, error handleCreateAnswerError${error}`);
   }
 
   function addIceCandidateSuccess() {
-    console.log('multivideo, success addIceCandidateSuccess');
+    // console.log('multivideo, success addIceCandidateSuccess');
   }
 
   function addIceCandidateError(error) {
-    console.log(`multivideo, error addIceCandidateError${error}`);
+    // console.log(`multivideo, error addIceCandidateError${error}`);
   }
 
   function _createAnswer(msg, to) {
@@ -298,10 +298,10 @@
     if (typeof _localStream !== 'undefined') {
       apc[to].addStream(_localStream);
     } else {
-      console.log('_localStream is not defined');
+      // console.log('_localStream is not defined');
     }
     apc[to].setRemoteDescription(new RTCSessionDescription(signal.sdp), setRemoteDescriptionSuccess, setRemoteDescriptionError);
-    console.log(`multivideo, addStream and setRemoteDescription for${to}`);
+    // console.log(`multivideo, addStream and setRemoteDescription for${to}`);
     apc[to].createAnswer((desc) => {
       gotAnswerDescription(desc, to);
     }, handleCreateAnswerError);
@@ -309,17 +309,17 @@
 
   function gotAnswerDescription(desc, to, pt) {
     apc[to].setLocalDescription(desc);
-    console.log(`multivideo setLocalDescription for ${to}`);
+    // console.log(`multivideo setLocalDescription for ${to}`);
     ioAdapter.sendUser({ cf: 'mvid', sdp: desc, answer: true }, to);
   }
 
   function handleIceCandidateAnswerWrapper(to, pt) {
     return function handleIceCandidate(event) {
-      console.log('multivideo, STEP 7(9), handleIceCandidate event');
+      // console.log('multivideo, STEP 7(9), handleIceCandidate event');
       if (event.candidate) {
         ioAdapter.sendUser({ cf: 'mvid', candidate: event.candidate, pt }, to);
       } else {
-        console.log('multivideo, STEP 10, End of candidates.');
+        // console.log('multivideo, STEP 10, End of candidates.');
       }
     };
   }
@@ -337,13 +337,13 @@
           videosWrapper.classList.add('vshow');
           videosWrapper.classList.remove('vhide');
         } else {
-          console.log('Meeting mode is null');
+          // console.log('Meeting mode is null');
         }
       } else if (videosWrapper != null) {
         videosWrapper.classList.add('vhide');
         videosWrapper.classList.remove('vshow');
       } else {
-        console.log('Meeting mode is null');
+        // console.log('Meeting mode is null');
       }
     }
 
@@ -375,7 +375,7 @@
     $('#videosWrapper').append($videoCont);
 
     virtualclass.multiVideo.updateVideoLength();
-    console.log('multivideo, Remote stream added');
+    // console.log('multivideo, Remote stream added');
 
 
     $videoCont.click(
@@ -407,18 +407,18 @@
 
     if (typeof _localStream !== 'undefined') {
       opc[juser].addStream(_localStream);
-      console.log(`multivideo, Set addStream for ${juser}`);
+      // console.log(`multivideo, Set addStream for ${juser}`);
     } else {
-      console.log(`No _localStream  for ${juser}`);
+      // console.log(`No _localStream  for ${juser}`);
     }
 
     function gotOfferDescription(desc) {
       opc[juser].setLocalDescription(desc);
-      console.log('multivideo, setLocalDescription with offer');
+      // console.log('multivideo, setLocalDescription with offer');
       ioAdapter.sendUser({ cf: 'mvid', sdp: desc, offer: true }, juser);
     }
 
-    console.log(`multivideo, Create offer for ${juser}`);
+    // console.log(`multivideo, Create offer for ${juser}`);
     opc[juser].createOffer((desc) => {
       gotOfferDescription(desc); // true for createOffer
     }, failureCallback);

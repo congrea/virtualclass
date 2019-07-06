@@ -24,7 +24,7 @@ const progressBar = {
     }
     prvTimeout = setTimeout(
       () => {
-        if (that.prvVal == that.currVal && virtualclass.gObj.hasOwnProperty('downloadProgress')) {
+        if (that.prvVal == that.currVal && Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'downloadProgress')) {
           virtualclass.recorder.initMakeAvailDownloadFile();
         } else {
           that.prvVal = that.currVal;

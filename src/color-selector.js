@@ -111,7 +111,7 @@
       const rgb = chroma(color).rgb();
       const c = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
       const brightness = Math.round(((parseInt(rgb[0]) * 299) + (parseInt(rgb[1]) * 587) + (parseInt(rgb[2]) * 114)) / 1000);
-      console.log(`brightne${brightness}`);
+      // console.log(`brightne${brightness}`);
       // alert(brightness);
       return brightness;
     },

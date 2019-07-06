@@ -4,7 +4,6 @@
  */
 
 (function (window) {
-  'use strict';
   // var vcan = window.vcan;
   /**
    * TODO this object has some methods
@@ -46,7 +45,7 @@
       scaleObject(x, y, by) {
         const t = vcan.main.currentTransform;
         const { offset } = vcan.main;
-        const target = t.target;
+        const { target } = t;
         if (target.lockScalingX && target.lockScalingY) {
           return;
         }

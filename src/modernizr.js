@@ -9,7 +9,7 @@
     let e; let n; let A; let t; let a; let i; let
       l;
     for (const f in r) {
-      if (r.hasOwnProperty(f)) {
+      if (Object.prototype.hasOwnProperty.call(r, f)) {
         if (e = [], n = r[f], n.name && (e.push(n.name.toLowerCase()), n.options && n.options.aliases && n.options.aliases.length)) for (A = 0; A < n.options.aliases.length; A++)e.push(n.options.aliases[A].toLowerCase());
         for (t = o(n.fn, 'function') ? n.fn() : n.fn, a = 0; a < e.length; a++)i = e[a], l = i.split('.'), l.length === 1 ? Modernizr[l[0]] = t : (!Modernizr[l[0]] || Modernizr[l[0]] instanceof Boolean || (Modernizr[l[0]] = new Boolean(Modernizr[l[0]])), Modernizr[l[0]][l[1]] = t), s.push((t ? '' : 'no-') + l.join('-'));
       }
@@ -69,7 +69,7 @@
       return e.call(n, A);
     };
   }()), l._l = {}, l.on = function (e, n) {
-    this._l[e] || (this._l[e] = []), this._l[e].push(n), Modernizr.hasOwnProperty(e) && setTimeout(() => {
+    this._l[e] || (this._l[e] = []), this._l[e].push(n), Object.prototype.hasOwnProperty.call(Modernizr, e) && setTimeout(() => {
       Modernizr._trigger(e, Modernizr[e]);
     }, 0);
   }, l._trigger = function (e, n) {

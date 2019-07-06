@@ -1,6 +1,7 @@
 var ioStorage = {
 
   dataAdapterStore(allData, serialKey) {
+    // TODO To be removed
     if (typeof virtualclass.storage === 'object' && typeof virtualclass.storage.db === 'object') {
       virtualclass.storage.dataAdapterAllStore(JSON.stringify(allData), serialKey);
     } else {
@@ -14,6 +15,7 @@ var ioStorage = {
   },
 
   dataUserAdapterMustData(allData, serialKey) {
+    // TODO To be removed
     // debugger;
     if (typeof virtualclass.storage === 'object' && typeof virtualclass.storage.db === 'object') {
       virtualclass.storage.dataUserAdapterAllStore(JSON.stringify(allData), serialKey);
@@ -59,7 +61,7 @@ var ioStorage = {
   },
 
   addUserObj(msg) {
-    if (!msg.hasOwnProperty('type') && msg.hasOwnProperty('user')) {
+    if (!Object.prototype.hasOwnProperty.call(msg, 'type') && Object.prototype.hasOwnProperty.call(msg, 'user')) {
       msg.type = 'broadcastToAll';
       if (typeof virtualclass.gObj.allUserObj[msg.user.userid] === 'undefined') {
         virtualclass.gObj.allUserObj[msg.user.userid] = {};

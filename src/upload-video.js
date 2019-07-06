@@ -60,7 +60,7 @@
             } else if (typeof videoObj !== 'undefined') {
               // this.UI.defaultLayoutForStudent();
               // to b e modified
-              if (!videoObj.hasOwnProperty('fromReload')) {
+              if (!Object.prototype.hasOwnProperty.call(videoObj, 'fromReload')) {
                 if (this.videoId == undefined || typeof this.videoId === 'undefined') {
                   // this.UI.defaultLayoutForStudent();
                 } else if (typeof this.videoId === 'object' && this.videoId.yts == false) {
@@ -101,7 +101,7 @@
       },
 
       isPlayerReady() {
-        return (virtualclass.videoUl.hasOwnProperty('player') && typeof virtualclass.videoUl.player === 'object');
+        return (Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'player') && typeof virtualclass.videoUl.player === 'object');
       },
 
       // startsync () {
@@ -158,7 +158,7 @@
       getActiveVideos() {
         const activeVideos = [];
         for (let i = 0; i < virtualclass.videoUl.videos.length; i++) {
-          if (!virtualclass.videoUl.videos[i].hasOwnProperty('deleted')) {
+          if (!Object.prototype.hasOwnProperty.call(virtualclass.videoUl.videos[i], 'deleted')) {
             activeVideos.push(virtualclass.videoUl.videos[i]);
           }
         }
@@ -189,9 +189,9 @@
        */
       saveVideosInLocalStr() {
         const { order } = virtualclass.videoUl;
-        console.log(order);
-        console.log('videosinlocalstorage');
-        console.log(virtualclass.videoUl.videos);
+        // console.log(order);
+        // console.log('videosinlocalstorage');
+        // console.log(virtualclass.videoUl.videos);
         // localStorage.setItem('videoList', JSON.stringify(virtualclass.videoUl.videos));
         // localStorage.setItem('videoOrder', JSON.stringify(virtualclass.videoUl.order));
       },
@@ -201,7 +201,7 @@
         virtualclass.vutil.requestOrder('vid',
           (response) => {
             if (response == 'Error') {
-              console.log('page order retrieve failed');
+              // console.log('page order retrieve failed');
             } else if (typeof response !== 'undefined' && response != undefined) {
               virtualclass.videoUl.order = [];
               virtualclass.videoUl.order = response;
@@ -256,7 +256,7 @@
             fileObj.filetype = 'video';
             fileObj.key_room = `${virtualclass.gObj.sessionInfo.key}_${virtualclass.gObj.sessionInfo.room}`;
             fileObj.noVideo = true;
-            console.log(`File uploading ${fileObj.filename}`);
+            // console.log(`File uploading ${fileObj.filename}`);
             this.afterUploadFile(fileObj);
           }
 
@@ -325,7 +325,7 @@
 
         const controlElem = vid.getElementsByClassName('status')[0];
 
-        if (vidObj.hasOwnProperty('disabled')) {
+        if (Object.prototype.hasOwnProperty.call(vidObj, 'disabled')) {
           this._disable(vidObj.fileuuid);
           if (vid) {
             vid.classList.add('disable');
@@ -341,7 +341,7 @@
         controlElem.dataset.status = vid.dataset.status;
         this.calculateHeight();
 
-        if (vidObj.hasOwnProperty('noVideo')) {
+        if (Object.prototype.hasOwnProperty.call(vidObj, 'noVideo')) {
           vid.classList.add('noVideo');
         }
       },
@@ -350,9 +350,9 @@
       calculateHeight() {
         const element = document.querySelector('#listvideo');
         const fineUploader = document.querySelector('.congrea .qq-uploader-selector');
-        console.log(element.offsetHeight);
+        // console.log(element.offsetHeight);
         const h = element.offsetHeight;
-        console.log(fineUploader.offsetHeight);
+        // console.log(fineUploader.offsetHeight);
         $('.qq-uploader-selector').css({
           minHeight: h,
 
@@ -380,7 +380,7 @@
         }
         if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
           virtualclass.videoUl.videos.forEach((vidObj, i) => {
-            if (!vidObj.hasOwnProperty('deleted')) {
+            if (!Object.prototype.hasOwnProperty.call(vidObj, 'deleted')) {
               const elem = document.querySelector(`#linkvideo${vidObj.fileuuid}`);
               if (elem != null) {
                 elem.classList.remove('noVideo');
@@ -504,7 +504,7 @@
         var form_data = new FormData();
         for (const key in data) {
           form_data.append(key, data[key]);
-          console.log(data[key]);
+          // console.log(data[key]);
         }
 
         await this.vxhr.post(`${window.webapi}&user=${virtualclass.gObj.uid}&methodname=update_content_video`, form_data)
@@ -517,7 +517,7 @@
               if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
                 virtualclass.videoUl.videos.forEach((video, index) => {
                   if (video.id == id) {
-                    console.log(video);
+                    // console.log(video);
                     video.title = title;
                   }
                 });
@@ -601,17 +601,17 @@
           }
         }
 
-        if (msg.videoUl.hasOwnProperty('init')) {
+        if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'init')) {
           // virtualclass.videoUl.yts=false;
           virtualclass.videoUl.rec = msg.videoUl;
-          console.log(virtualclass.videoUl.rec);
+          // console.log(virtualclass.videoUl.rec);
           if (msg.videoUl.init == 'studentlayout') {
             virtualclass.makeAppReady('Video', undefined, msg.videoUl);
             const msz = document.getElementById('messageLayoutVideo');
             if (msz) {
               msz.style.display = 'block';
             }
-          } else if (msg.videoUl.init.hasOwnProperty('videoUrl')) {
+          } else if (Object.prototype.hasOwnProperty.call(msg.videoUl.init, 'videoUrl')) {
             virtualclass.videoUl.videoId = msg.videoUl.init.id;
             virtualclass.videoUl.videoUrl = msg.videoUl.init.videoUrl;
             virtualclass.videoUl.UI.displayVideo(msg.videoUl.init.id, msg.videoUl.init.videoUrl, msg.videoUl.startFrom);
@@ -621,12 +621,12 @@
             //     }
             // }
           }
-        } else if (msg.videoUl.hasOwnProperty('content_path')) {
+        } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'content_path')) {
           virtualclass.videoUl.videoId = msg.videoUl.id;
           virtualclass.videoUl.videoUrl = msg.videoUl.content_path;
           virtualclass.videoUl.title = msg.videoUl.title;
           virtualclass.videoUl.UI.displayVideo(msg.videoUl.id, virtualclass.videoUl.videoUrl);
-        } else if (msg.videoUl.hasOwnProperty('play')) {
+        } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'play')) {
           this.playVideo(msg.videoUl.play);
           virtualclass.videoUl.isPaused = false;
         }
@@ -652,7 +652,7 @@
 
       playVideo(seekVal) {
         if (virtualclass.videoUl.isPlayerReady()) {
-          console.log('====Video play');
+          // console.log('====Video play');
           virtualclass.videoUl.player.currentTime(seekVal);
           virtualclass.videoUl.player.play();
         }
@@ -661,7 +661,7 @@
       pauseVideo() {
         // todo pass paused time to students
         if (virtualclass.videoUl.isPlayerReady()) {
-          console.log('====Video pause');
+          // console.log('====Video pause');
           virtualclass.videoUl.player.pause();
           virtualclass.videoUl.isPaused = true;
         }
@@ -867,7 +867,7 @@
                   var index = virtualclass.videoUl.videos.indexOf(video);
                   if (index >= 0) {
                     virtualclass.videoUl.videos.splice(index, 1);
-                    console.log(virtualclass.videoUl.videos);
+                    // console.log(virtualclass.videoUl.videos);
                   }
                 }
               });
@@ -876,7 +876,7 @@
             const idIndex = virtualclass.videoUl.order.indexOf(id);
             if (idIndex >= 0) {
               virtualclass.videoUl.order.splice(idIndex, 1);
-              console.log(virtualclass.videoUl.order);
+              // console.log(virtualclass.videoUl.order);
               // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
               virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
             }
@@ -955,7 +955,7 @@
 
         displayVideo(vidId, videoUrl, startFrom) {
           const that = this;
-          if (virtualclass.videoUl.hasOwnProperty('displayVideoTime')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'displayVideoTime')) {
             clearTimeout(virtualclass.videoUl.displayVideoTime);
           }
           virtualclass.videoUl.displayVideoTime = setTimeout(
@@ -969,7 +969,7 @@
 
         _displayVideo(vidId, videoUrl, startFrom) {
           if (typeof virtualclass.videoUl.player === 'object') {
-            if (virtualclass.videoUl.player.hasOwnProperty('dispose')) {
+            if (Object.prototype.hasOwnProperty.call(virtualclass.videoUl.player, 'dispose')) {
               virtualclass.videoUl.player.dispose();
             }
           }
@@ -1017,9 +1017,9 @@
         attachPlayerHandler(player, vidId, videoUrl) {
           if (!this.attachPlayer) {
             this.attachPlayer = true;
-            console.log('Attach video player');
+            // console.log('Attach video player');
             player.on('pause', (e) => {
-              console.log('paused');
+              // console.log('paused');
               if (roles.hasControls()) {
                 ioAdapter.mustSend({ videoUl: 'pause', cf: 'videoUl' });
               }
@@ -1027,7 +1027,7 @@
             });
 
             player.on('play', (e) => {
-              console.log('play');
+              // console.log('play');
               if (roles.hasControls()) {
                 ioAdapter.mustSend({ videoUl: { play: player.currentTime() }, cf: 'videoUl' });
               }
@@ -1079,7 +1079,7 @@
         },
 
         setPlayerUrl(player, videoUrl, startFrom) {
-          console.log('====Video init to play start');
+          // console.log('====Video init to play start');
           if (startFrom == undefined && virtualclass.videoUl.startTime) {
             startFrom = virtualclass.videoUl.startTime;
           }
@@ -1121,7 +1121,7 @@
             });
           });
 
-          console.log(startFrom);
+          // console.log(startFrom);
         },
         //  todo  modify
         appendAutoPlayButton(player) {
@@ -1180,7 +1180,7 @@
             dispVideo.setAttribute('data-setup', '{"preload": "auto", "controls": true, }');
             player.src({ type: 'application/x-mpegURL', withCredentials: true, src: videoUrl });
           }
-          console.log(`ended${vidId}`);
+          // console.log(`ended${vidId}`);
 
 
           const list = document.querySelectorAll('#listvideo .linkvideo');
@@ -1213,7 +1213,7 @@
           virtualclass.videoUl.listEndPause = true;
           virtualclass.videoUl.player.on('play', () => {
             if (virtualclass.videoUl.listEndPause) {
-              console.log('==== Video is paused');
+              // console.log('==== Video is paused');
               virtualclass.videoUl.player.pause();
               virtualclass.videoUl.listEndPause = false;
             }
@@ -1302,13 +1302,13 @@
           }, (data) => {
             let title = '';
             if (data.items.length === 0) {
-              console.log('video not found');
+              // console.log('video not found');
             } else {
               title = data.items[0].snippet.title;
               virtualclass.videoUl.UI.setYtsTitle(vidObj, title);
             }
           }).fail((jqXHR, textStatus, errorThrown) => {
-            console.log('unable to fetch you tube title');
+            // console.log('unable to fetch you tube title');
             return 'ERROR';
           });
         },
@@ -1414,7 +1414,7 @@
         // nirmala aws
         awsr() {
           const data = 'Demo';
-          console.log('Request get document url 2');
+          // console.log('Request get document url 2');
           this.postAjax(virtualclass.api.GetDocumentURLs, data);
         },
 
@@ -1423,11 +1423,11 @@
           const data = virtualclass.awsData;
           const videos = [];
           for (let i = 0; i < data.length; i++) {
-            if ((data[i].filetype == 'video' || data[i].filetype == 'video_yts' || data[i].filetype == 'video_online') && !data[i].hasOwnProperty('deleted')) {
+            if ((data[i].filetype == 'video' || data[i].filetype == 'video_yts' || data[i].filetype == 'video_online') && !Object.prototype.hasOwnProperty.call(data[i], 'deleted')) {
               videos.push(data[i]);
             }
           }
-          console.log(videos);
+          // console.log(videos);
           virtualclass.videoUl.videos = videos;
           virtualclass.serverData.rawData.video = videos;
 

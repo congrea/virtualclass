@@ -44,7 +44,7 @@
         //  this.fetchChatUsers();
 
 
-        console.log('chat local storage start ');
+        // console.log('chat local storage start ');
         /** Disable Chat * */
         // const chatEnable = localStorage.getItem('chatEnable');
         // if (chatEnable != null) {
@@ -61,10 +61,9 @@
       },
 
 
-
       /** TODO , that should be handle properly for simple layout * */
       fetchChatUsers() {
-        console.log('FetchUser congrea_get_enrolled_users');
+        // console.log('FetchUser congrea_get_enrolled_users');
         const data = new FormData();
         data.append('action', 'fetchUser');
 
@@ -257,7 +256,7 @@
         $('.ui-chatbox').remove();
         $('div#chatrm').remove();
         virtualclass.chat.chatroombox = null;
-        console.log('Chat box is  null');
+        // console.log('Chat box is  null');
 
         // delete open chat box
         for (const key in io.uniquesids) {
@@ -286,7 +285,7 @@
         // var chatCont = document.getElementById(id);
         // var chatRoot = virtualclass.gObj.testChatDiv.shadowRoot.
         // if (chatCont != null) {
-        if (virtualclass.gObj.hasOwnProperty('testChatDiv')) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'testChatDiv')) {
           const hElements = chatContainerEvent.elementFromShadowDom('.ui-state-highlight', 'all');
           for (let i = 0; i < hElements.length; i++) {
             hElements[i].classList.remove('ui-state-highlight');
@@ -328,7 +327,7 @@
         }
       },
 
-      removeCommonChatNodes () {
+      removeCommonChatNodes() {
         const chatRoom = document.getElementById('chat_room');
         if (chatRoom !== null) {
           while (chatRoom.firstChild) {

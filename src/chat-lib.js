@@ -1,5 +1,6 @@
 /* function library */
-"use strict";
+
+
 let tabId;
 const myChatBoxOpen = false;
 
@@ -10,7 +11,7 @@ const checkChatDisabled = false;
 let tmpmyDivResult;
 
 function displayChatUserList(totUsers) {
-  if (!virtualclass.gObj.hasOwnProperty('insertUser')) {
+  if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'insertUser')) {
     virtualclass.gObj.insertUser = true;
     virtualclass.gObj.userToBeDisplay = 500;
   }
@@ -118,7 +119,7 @@ function displayChatOfflineUserList(users) {
       }
     }
   }
-  console.log('display offline user');
+  // console.log('display offline user');
   document.querySelector('#chat_div').appendChild(divContainer);
 }
 
@@ -159,7 +160,7 @@ function memberUpdate(e, addType) {
   } else {
     const userlist = virtualclass.gObj.memberlistpending;
     virtualclass.gObj.memberlistpending = [];
-    console.log('member list pending(memberlistpending) empty ');
+    // console.log('member list pending(memberlistpending) empty ');
     if (userlist.length > 0) {
       virtualclass.chat._showChatUserList(userlist);
 
@@ -167,7 +168,7 @@ function memberUpdate(e, addType) {
         // openChatBox
         virtualclass.chat.openChatBox();
         virtualclass.media.dispAllVideo('chat_div');
-        console.log('chat box is opened');
+        // console.log('chat box is opened');
       }
 
       displayChatUserList(userlist);
@@ -175,8 +176,8 @@ function memberUpdate(e, addType) {
       for (let i = 0; i < userlist.length; i++) {
         if (userlist[i].userid == io.cfg.userid && typeof addType !== 'undefined' && addType != 'removed') {
           const vidTag = document.getElementById(`video${virtualclass.gObj.uid}`);
-          if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable') && vidTag == null) {
-            console.log('Media _handleUserMedia');
+          if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable') && vidTag == null) {
+            // console.log('Media _handleUserMedia');
             virtualclass.media._handleUserMedia(virtualclass.gObj.uid);
           }
 
@@ -198,7 +199,7 @@ function memberUpdate(e, addType) {
        */
 
       if ($('div#memlist').length) {
-        console.log(`member remove memlist ${$('div#memlist').length} addType=${addType}`);
+        // console.log(`member remove memlist ${$('div#memlist').length} addType=${addType}`);
         $('div#memlist').remove();
       }
     }
@@ -277,6 +278,7 @@ function memberUpdate(e, addType) {
   if (virtualclass.gObj.delayVid == 'display') {
     // Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause()
     // By delaying 200 miliseconds we are ensuring that above error is not coming
+    // TODO remove setTimeout
     setTimeout(
       () => {
         virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
@@ -287,7 +289,7 @@ function memberUpdate(e, addType) {
 }
 
 function messageUpdate(e) {
-  var msg = $.isPlainObject(e.message) ? e.message.msg : e.message;
+  let msg = $.isPlainObject(e.message) ? e.message.msg : e.message;
   const to = e.toUser;
   const from = e.fromUser;
   const self = io.cfg.userid;
@@ -346,7 +348,7 @@ function messageUpdate(e) {
       if ($.inArray(from.userid, virtualclass.chat.idList) == -1) {
         virtualclass.chat.counter++;
         virtualclass.chat.idList.push(from.userid);
-        if (!virtualclass.chat.vmstorage.hasOwnProperty(from.userid)) {
+        if (!Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, from.userid)) {
           virtualclass.chat.vmstorage[from.userid] = [];
           virtualclass.chat.vmstorage[from.userid].push({
             userid: from.userid,
@@ -367,7 +369,7 @@ function messageUpdate(e) {
             // you can add your own options too
           });
 
-        if (virtualclass.chat.vmstorage.hasOwnProperty(from.userid) && virtualclass.chat.vmstorage[from.userid].length > 1) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, from.userid) && virtualclass.chat.vmstorage[from.userid].length > 1) {
           displayUserSinglePvtChatHistory(from.userid);
         }
       }
@@ -494,13 +496,13 @@ function displaycomChatHistory() {
 function displayPvtChatHistory(data) {
   let boxOpen = false;
   // Private chat data populated on page referesh
-  console.log(data);
+  // console.log(data);
   $.each(data, (id, msgarr) => {
     virtualclass.chat.counter++;
     virtualclass.chat.idList.push(id);
     $.each(msgarr, (i, msgobj) => {
       if (i < 1) {
-        if (msgobj.hasOwnProperty('box')) {
+        if (Object.prototype.hasOwnProperty.call(msgobj, 'box')) {
           boxOpen = true;
         }
         if (boxOpen) {

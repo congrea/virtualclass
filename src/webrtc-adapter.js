@@ -4740,13 +4740,13 @@
             };
 
             var reattachMediaStream = function (to, from) {
-              console.log('Reattaching media stream');
+              // console.log('Reattaching media stream');
               to.mozSrcObject = from.mozSrcObject;
               to.play();
             };
           } else if (navigator.webkitGetUserMedia) {
             //                            alert('this is for chrome');
-            console.log('This appears to be Chrome');
+            // console.log('This appears to be Chrome');
 
             this.attachMediaStream = function (element, stream) {
               const url = window.URL || window.webkitURL;
@@ -4787,7 +4787,7 @@
               element.play();
             };
           } else {
-            console.log('Browser does not appear to be WebRTC-capable');
+            // console.log('Browser does not appear to be WebRTC-capable');
           }
         }
         return navigator;

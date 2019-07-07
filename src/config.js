@@ -2,10 +2,10 @@
 /** @Copyright 2019  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
-"use strict";
 
-function Config () {};
 
+function Config() {
+}
 Config.prototype.setNewSession = function (session) {
   localStorage.setItem('mySession', session);
   if (!virtualclass.isPlayMode && roles.hasControls()) {
@@ -13,19 +13,19 @@ Config.prototype.setNewSession = function (session) {
     const configData = JSON.stringify({ createdDate: currTime });
     localStorage.setItem('myConfig', configData);
   }
-}
+};
 
 
-Config.prototype.endSession = async function (onlyStoredData){
-  console.log('==== End the session here');
+Config.prototype.endSession = async function (onlyStoredData) {
+  // console.log('==== End the session here');
   delete virtualclass.connectedUsers;
-  if (virtualclass.gObj.hasOwnProperty('memberUpdateDelayTimer')) {
+  if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'memberUpdateDelayTimer')) {
     clearTimeout(virtualclass.gObj.memberUpdateDelayTimer);
     virtualclass.gObj.memberlistpending.length = 0;
     delete virtualclass.gObj.memberUpdateDelayTimer;
   }
 
-  if (virtualclass.hasOwnProperty('poll') && virtualclass.poll !== '') {
+  if (Object.prototype.hasOwnProperty.call(virtualclass, 'poll') && virtualclass.poll !== '') {
     virtualclass.poll.pollState = {};
     virtualclass.poll.dataRec = {};
   }
@@ -37,7 +37,7 @@ Config.prototype.endSession = async function (onlyStoredData){
 
   $('#chatroom_bt2').removeClass('ui-state-highlight');
 
-  if (typeof virtualclass.videoUl === 'object' && virtualclass.videoUl.hasOwnProperty('player')
+  if (typeof virtualclass.videoUl === 'object' && Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'player')
     && typeof virtualclass.videoUl.player === 'object' && virtualclass.videoUl.player.player_ != null
 
   ) {
@@ -53,7 +53,7 @@ Config.prototype.endSession = async function (onlyStoredData){
     currApp.style.display = 'none';
   }
 
-  if (virtualclass.hasOwnProperty('media')) {
+  if (Object.prototype.hasOwnProperty.call(virtualclass, 'media')) {
     virtualclass.media.audio.muteButtonToogle();
   }
 
@@ -99,11 +99,11 @@ Config.prototype.endSession = async function (onlyStoredData){
 
   // virtualclass.recorder.rnum = 1; // set file to 1
 
-  if (virtualclass.recorder.hasOwnProperty('startUpload')) {
+  if (Object.prototype.hasOwnProperty.call(virtualclass.recorder, 'startUpload')) {
     delete virtualclass.recorder.startUpload;
   }
 
-  if (virtualclass.gObj.hasOwnProperty('downloadProgress')) {
+  if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'downloadProgress')) {
     delete virtualclass.gObj.downloadProgress;
   }
 
@@ -136,7 +136,7 @@ Config.prototype.endSession = async function (onlyStoredData){
   virtualclass.currApp = virtualclass.gObj.defaultApp; // default app
 
   // hasMicrophone is true if audio is avaialble on hardware but the audio/video is disabled by user
-  if (!virtualclass.gObj.hasOwnProperty('disableCamByUser')) {
+  if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'disableCamByUser')) {
     virtualclass.user.control.audioWidgetEnable(true);
   } else {
     virtualclass.user.control.audioDisable(); // Enable the audio if disabled
@@ -169,7 +169,7 @@ Config.prototype.endSession = async function (onlyStoredData){
     virtualclass.sharePt.UI.removeIframe();
   }
 
-  console.log('Session End.');
+  // console.log('Session End.');
 
   virtualclass.previous = `virtualclass${virtualclass.currApp}`;
 
@@ -184,7 +184,7 @@ Config.prototype.endSession = async function (onlyStoredData){
     localStorage.setItem('precheck', JSON.parse(precheck));
   }
 
-  console.log(`New role before clear ${virtualclass.gObj.uRole}`);
+  // console.log(`New role before clear ${virtualclass.gObj.uRole}`);
   virtualclass.settings.user = {};
 
   const virtualclassWhiteboard = document.querySelector('#virtualclassWhiteboard');
@@ -203,13 +203,13 @@ Config.prototype.endSession = async function (onlyStoredData){
   // that.config.createNewSession();
 
   if (virtualclass.videoHost && roles.isStudent() && !virtualclass.isPlayMode) {
-    const rightPanelElem = document.querySelector("#virtualclassAppRightPanel");
-    if (rightPanelElem !== null && !rightPanelElem.classList.contains("vidHide")) {
+    const rightPanelElem = document.querySelector('#virtualclassAppRightPanel');
+    if (rightPanelElem !== null && !rightPanelElem.classList.contains('vidHide')) {
       rightPanelElem.classList.add('vidHide');
     }
   }
 
-  console.log(`New role after clear ${virtualclass.gObj.uRole}`);
+  // console.log(`New role after clear ${virtualclass.gObj.uRole}`);
   if (!virtualclass.enablePreCheck) {
     // Only popup the message, if the precheck is not enabled
     virtualclass.popup.waitMsg();
@@ -296,4 +296,4 @@ Config.prototype.endSession = async function (onlyStoredData){
     delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
   }
   virtualclass.gObj.currIndex = 1;
-}
+};

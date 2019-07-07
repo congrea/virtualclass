@@ -5,7 +5,8 @@
  *
  * Also uses some styles for jquery.ui.dialog
  */
-"use strict";
+
+
 let uiChatboxContent;
 let uiChatboxLog;
 let uiChatboxInputBox;

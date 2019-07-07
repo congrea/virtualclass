@@ -76,7 +76,7 @@
         }
       },
       msgRecAtTeacher(msg) {
-        console.log(`raiseStd${msg.action}`);
+        // console.log(`raiseStd${msg.action}`);
         const userid = msg.user;
 
         // var controlContainer = document.getElementById(userid+ 'contRaiseH');

@@ -119,10 +119,8 @@ const workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
         this.audioWasSent--;
       } else if (thdiff < 2) { // We are not ready, send all samples
         this.audioSend(send, audStatus);
-      } else {
-        if (vol === 0) {
-          postMessage({ cmd: 'muteAudio' });
-        }
+      } else if (vol === 0) {
+        postMessage({ cmd: 'muteAudio' });
       }
 
       return send;
@@ -145,7 +143,7 @@ const workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
           // fromworkerIO from worker io
           this.resampler = new Resampler(e.data.sampleRate, 8000, 1, 4096),
           this.workerIO.onmessage = function (e) {
-            console.log('From io lib');
+            // console.log('From io lib');
           };
           this.gObjUid = e.data.uid;
           break;
@@ -171,12 +169,12 @@ const workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
 
         // Send the message to receiver
         default:
-          console.log('Do nothing');
+          // console.log('Do nothing');
       }
     },
 
     formAudioWorkletSend(e) {
-      if (e.data.hasOwnProperty('cmd') && e.data.cmd == 'rawAudio') {
+      if (Object.prototype.hasOwnProperty.call(e.data, 'cmd') && e.data.cmd == 'rawAudio') {
         this.recorderProcess(e.data.msg);
       }
     },

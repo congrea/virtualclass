@@ -16,7 +16,7 @@ window.addEventListener('message', (event) => {
     if (event.data.sourceId === '') { // user canceled
       const error = new Error('NavigatorUserMediaError');
       error.name = 'PERMISSION_DENIED';
-      if (virtualclass.hasOwnProperty('ss')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'ss')) {
         virtualclass.ss.onError(error);
       }
 
@@ -52,7 +52,7 @@ window.addEventListener('message', (event) => {
       virtualclass.adpt = new virtualclass.adapter();
       const navigator2 = virtualclass.adpt.init(navigator);
       navigator2.getUserMedia(constraints, (stream) => {
-        virtualclass.ss._init();
+        virtualclass.ss.initInternal();
         // if(roles.hasControls()){
         virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
         // }

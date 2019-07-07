@@ -53,8 +53,8 @@
           let docs = JSON.parse(this.stroageData);
 
           docs = JSON.parse(docs.data);
-          console.log(`Current Editor type ${virtualclass.currAppEditorType}`);
-          if (virtualclass.hasOwnProperty('currAppEditor')) {
+          // console.log(`Current Editor type ${virtualclass.currAppEditorType}`);
+          if (Object.prototype.hasOwnProperty.call(virtualclass, 'currAppEditor')) {
             if (virtualclass.currAppEditorType == this.etype) {
               this.initialiseDataWithEditor(docs, 'displayEditor', virtualclass.currAppEditorType);
             } else {
@@ -120,7 +120,7 @@
         const editorType = this.etype;
         const containerId = `all${editorType}Container`;
         if (document.getElementById(containerId) == null) {
-          console.log('For Enable all, Button is creating');
+          // console.log('For Enable all, Button is creating');
 
           let actionToPerform;
 
@@ -137,10 +137,10 @@
               // editorControllerAnch.innerHTML = "Disable all";
             }
           }
-          console.log(`Editor type ${editorType}`);
+          // console.log(`Editor type ${editorType}`);
 
           editorControllerAnch.addEventListener('click', () => {
-            console.log(`Editor type ${editorType} clicked`);
+            // console.log(`Editor type ${editorType} clicked`);
             const editorControllerAnch = document.getElementById(`${containerId}Anch`);
             if (editorControllerAnch != null) {
               actionToPerform = editorControllerAnch.dataset.action;
@@ -173,6 +173,7 @@
       // This is not best way to handle scroll with firefox.
       removeScrollFromFireFox(etype) {
         etype = virtualclass.vutil.capitalizeFirstLetter(etype);
+        // TODO remove setTimeout
         setTimeout(
           () => {
             const codeScrollElem = document.querySelector(`#virtualclass${etype}Body .CodeMirror-vscrollbar`);
@@ -234,7 +235,7 @@
         if (editorElem != null) {
           editorElem.style.pointerEvents = 'none';
         }
-        console.log('Disable editor for ios');
+        // console.log('Disable editor for ios');
       },
 
       /**
@@ -246,7 +247,7 @@
         if (editorElem != null) {
           editorElem.style.pointerEvents = 'visible';
         }
-        console.log('Enable editor for ios');
+        // console.log('Enable editor for ios');
       },
 
       /**
@@ -257,7 +258,7 @@
         this.UI.container(this.etype);
         const edElem = document.getElementById(this.UI.edId);
         if (typeof this.cm !== 'object') {
-          console.log('Code mirror instance is created ');
+          // console.log('Code mirror instance is created ');
           this.cm = CodeMirror(document.getElementById(this.UI.edId), options);
         }
       },
@@ -305,14 +306,14 @@
 
       // Check if vcAdapter is ready for given Editor
       isVcAdapterIsReady(et) {
-        return (virtualclass[et].hasOwnProperty('vcAdapter') && typeof virtualclass[et].vcAdapter === 'object');
+        return (Object.prototype.hasOwnProperty.call(virtualclass[et], 'vcAdapter') && typeof virtualclass[et].vcAdapter === 'object');
       },
 
 
       receivedOperations: {
         currAppEditor(e) {
           if (e.fromUser.userid != virtualclass.gObj.userid) {
-            console.log('curr app editor');
+            // console.log('curr app editor');
             virtualclass.currAppEditor = true;
             virtualclass.currAppEditorType = e.message.et;
             virtualclass.dispvirtualclassLayout(virtualclass.currAppEditorType);
@@ -327,7 +328,7 @@
         },
 
         initVcEditor(e) {
-          console.log('received whole data');
+          // console.log('received whole data');
 
           if (roles.hasView()) {
             if (typeof virtualclass[e.message.et].vcAdapter.removeOperations === 'function') {
@@ -337,11 +338,11 @@
 
           if ((!roles.hasControls())
             // allEdData when teacher in educator mode and reponse the data after page refresh
-            || (roles.hasControls() && e.fromUser.userid != virtualclass.gObj.uid) && (e.message.hasOwnProperty('resFromUser') || e.message.hasOwnProperty('allEdData'))) {
+            || (roles.hasControls() && e.fromUser.userid != virtualclass.gObj.uid) && (Object.prototype.hasOwnProperty.call(e.message, 'resFromUser') || Object.prototype.hasOwnProperty.call(e.message, 'allEdData'))) {
             const doc = JSON.parse(e.message.data);
 
 
-            if (e.message.hasOwnProperty('layoutEd')) {
+            if (Object.prototype.hasOwnProperty.call(e.message, 'layoutEd')) {
               // if(e.message.cet == 'EditorRich' || e.message.cet == 'EditorCode'){
               //    virtualclass.currAppEditor = true;
               // }
@@ -363,7 +364,7 @@
             }
             this.responseToRequest(e.fromUser.userid);
           } else {
-            console.log('Cannot send requestForEditorData to self');
+            // console.log('Cannot send requestForEditorData to self');
           }
         },
 
@@ -413,7 +414,7 @@
             // this.vcAdapter should convert into otAdapter
             this.vcAdapter.receivedMessage(e, onmessage);
           }
-          console.log('virtualclass adapter is not ready for editor');
+          // console.log('virtualclass adapter is not ready for editor');
         }
       },
 
@@ -488,11 +489,11 @@
         if (toUser) {
           initPacket.resFromUser = true;
           ioAdapter.mustSendUser(initPacket, toUser);
-          console.log(`Sending responseToRequest to ${toUser}`);
+          // console.log(`Sending responseToRequest to ${toUser}`);
         } else {
           initPacket.allEdData = true;
           ioAdapter.mustSend(initPacket);
-          console.log('Sending responseToRequest to all');
+          // console.log('Sending responseToRequest to all');
           virtualclass[initPacket.et].vcAdapter.removeOperations({ message: { et: initPacket.et } });
           const operations = JSON.parse(initPacket.data);
           virtualclass[initPacket.et].initialiseDataWithEditor(operations); // for display content to self
@@ -620,7 +621,7 @@
         const tempOps = deserialiseOps(doc.operations); // Get deserialize operations
 
         // initializeig the editor to virtualclass current application
-        if (typeof msg !== 'undefined' && msg.hasOwnProperty('capp')) {
+        if (typeof msg !== 'undefined' && Object.prototype.hasOwnProperty.call(msg, 'capp')) {
           virtualclass.currApp = virtualclass.vutil.capitalizeFirstLetter(msg.capp);
         }
 
@@ -701,6 +702,7 @@
 
       undoManager(keycode) {
         // Setitmeout is used  to produce the dealy for firefox
+        // TODO remove setTimeout
         setTimeout(
           () => {
             if (keycode == 90) {

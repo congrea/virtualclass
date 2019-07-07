@@ -3,7 +3,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window, document) {
-  const { io } = window;
+  // const { io } = window;
 
   /**
    * This is core object on which
@@ -12,7 +12,7 @@
    */
 
   function Vcan() {
-    var vcan = {
+    let vcan = {
       // TODO these are constant value should be at proper place
       // cmdWrapperDiv: 'commandToolsWrapper',
       /** extracts the canvas id
@@ -26,16 +26,16 @@
 
           return new vcan.main(canvasId);
         }
-        console.log('there is a problem with canvas id');
+        // console.log('there is a problem with canvas id');
 
-        console.log('there is a problem with canvas id');
+        // console.log('there is a problem with canvas id');
       },
       /**
        *    initiates the various properties to vcan.main
        *  call mouse.init() function
        *  @param canvid is canvas's id
        */
-      main: function (canvid) {
+      main: function main(canvid) {
         vcan.main.children = []; // vcan.main should be converted into 'this' variable
         vcan.main.id = 0;
         vcan.main.uid = 0;
@@ -55,7 +55,8 @@
         vcan.main.currObj = ''; // TODO this should be achieved  through the vcan.main.currentTransform; this one
 
         vcan.main.textObj = false;
-        vcan.main.action = 'create'; // the vcan.main.action should be change into another name eg:- vcan.main.cMode or anything else
+        // the vcan.main.action should be change into another name eg:- vcan.main.cMode or anything else
+        vcan.main.action = 'create';
         vcan.wb = {};
         vcan.wb.sentPack = false;
         vcan.activMouse = new vcan.mouse();
@@ -76,7 +77,7 @@
           }
           return fobj;
         }
-        console.log('it seems that the arguments you passed are not object');
+        // console.log('it seems that the arguments you passed are not object');
       },
 
       /**
@@ -156,7 +157,7 @@
       },
 
       normalDisplay(i) {
-        console.log(`Whiteboard index ${i}`);
+        // console.log(`Whiteboard index ${i}`);
         if (vcan.main.children[i].type == 'freeDrawing') {
           vcan.fhdRender(ctx, vcan.main.children[i]);
         } else {
@@ -172,7 +173,7 @@
           for (let i = 0; i < length; ++i) {
             // console.log('Whiteboard index ' + i);
             if (vcan.main.children[i].type == 'pdf') {
-              console.log('Pdf, Render the data, that should not be a');
+              // console.log('Pdf, Render the data, that should not be a');
             } else if (vcan.main.children[i].type == 'freeDrawing') {
               vcan.fhdRender(ctx, vcan.main.children[i]);
             } else {

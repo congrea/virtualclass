@@ -4,8 +4,8 @@
  * This file gets audio continuously from getUserMedia, and
  * send it to send audio worker (worker-audio-send.js)
  */
-var workletAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
-  console.log("== init audio worklet 1");
+const workletAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
+  // console.log('== init audio worklet 1');
   class workletAudioSend extends AudioWorkletProcessor {
     constructor() {
       super();
@@ -13,7 +13,7 @@ var workletAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
       this.position = 0;
       const that = this;
       this.port.onmessage = function (e) {
-        if (e.data.hasOwnProperty('cmd') && e.data.cmd == 'workerAudioSend') {
+        if (Object.prototype.hasOwnProperty.call(e.data, 'cmd') && e.data.cmd == 'workerAudioSend') {
           that.workerAudioSend = e.ports[0];
           that.workerAudioSend.onmessage = that.fromworkerAudioSend;
         }
@@ -21,7 +21,7 @@ var workletAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
     }
 
     fromworkerAudioSend() {
-      console.log('This is from audio sender');
+      // console.log('This is from audio sender');
     }
 
     /**
@@ -33,7 +33,7 @@ var workletAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
       this.audios.set(input, this.position);
       this.position += input.length;
       if (this.position >= 4096) {
-        if (this.hasOwnProperty('workerAudioSend')) {
+        if (Object.prototype.hasOwnProperty.call(this, 'workerAudioSend')) {
           this.workerAudioSend.postMessage({ cmd: 'rawAudio', msg: this.audios });
         }
         this.audios = new Float32Array(4096);

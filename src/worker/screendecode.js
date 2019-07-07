@@ -100,7 +100,7 @@ const screenDecodeBlob = URL.createObjectURL(new Blob(['(',
      * @param e
      */
     onmessage = function (e) {
-      if (e.data.hasOwnProperty('dtype')) {
+      if (Object.prototype.hasOwnProperty.call(e.data, 'dtype')) {
         if (e.data.dtype == 'drgb') { // decodeRGB
           decodeRGB(e.data.encodeArr, e.data.cw, e.data.ch); // canvas width and canvas height
         } else {

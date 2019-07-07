@@ -183,7 +183,7 @@
     }
 
     virtualclass.xhrn.vxhrn.post(virtualclass.api.UpdateDocumentStatus, data).then((msg) => {
-      console.log(`Msg ${msg.data}`);
+      // console.log(`Msg ${msg.data}`);
     });
     // this.xhrSend(data);
   };
@@ -209,7 +209,7 @@
         virtualclass[this.module]._rearrange(orders);
       }
     } else {
-      console.log('Document share:- Element is missing');
+      // console.log('Document share:- Element is missing');
     }
   };
 
@@ -453,7 +453,7 @@
 
           if (this.source) {
             this.source.classList.add('dragElem');
-            console.log('add dragelem');
+            // console.log('add dragelem');
             var elem;
             // if(this.cthis.type == 'video'){
             //
@@ -515,7 +515,7 @@
           cthis.rearrange();
           e.preventDefault();
           this.source.classList.remove('dragElem');
-          console.log('remove dragelem');
+          // console.log('remove dragelem');
 
           if (cthis.type == 'video' || cthis.type == 'notes' || cthis.type == 'ppt') {
             if (cthis.type == 'video') {

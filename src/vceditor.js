@@ -1637,7 +1637,7 @@ const Vceditor = (function (window) {
         var curValue = this.codeMirror_.getValue();
         if (curValue !== '') {
           // throw new Error("Can't initialize Vceditor with a CodeMirror instance that already contains text.");
-          console.log("Can't initialize Vceditor with a CodeMirror instance that already contains text.");
+          // console.log("Can't initialize Vceditor with a CodeMirror instance that already contains text.");
         }
       } else if (ace && place && place.session instanceof ace.EditSession) {
         this.ace_ = this.editor_ = place;
@@ -1708,7 +1708,7 @@ const Vceditor = (function (window) {
       //  virtualclass.editorRich.cmClient = new EditorClient(revision, clients, virtualclass.editorRich.vcAdapter, this.editorAdapter_);
       // TODO this should be dynamic
 
-      if (options.hasOwnProperty('richTextToolbar')) {
+      if (Object.prototype.hasOwnProperty.call(options, 'richTextToolbar')) {
         // if(virtualclass.currApp == "Editor"){
         virtualclass.editorRich.vcAdapter = new otAdapter(editorInfo, 'EditorRich');
         virtualclass.editorRich.cmClient = new EditorClient(revision, clients, virtualclass.editorRich.vcAdapter, this.editorAdapter_);

@@ -69,20 +69,20 @@ var ioMissingPackets = {
     this.validateAllVariables(uid);
 
     // we would think about sesion clear only when the request would come from teacher
-    if (msg.user.role == 't' && msg.m.hasOwnProperty('ping') && msg.m.hasOwnProperty('session')) {
+    if (msg.user.role == 't' && Object.prototype.hasOwnProperty.call(msg.m, 'ping') && Object.prototype.hasOwnProperty.call(msg.m, 'session')) {
       const mySession = localStorage.getItem('mySession');
       if (mySession != null && msg.m.session != mySession) {
         // TODO Finish Session and start gracefully
         if (!virtualclass.isPlayMode) {
           localStorage.removeItem('mySession');
           await virtualclass.config.endSession();
-          virtualclass.config.setNewSession(msg.m.session)
-          console.log('REFRESH SESSION');
+          virtualclass.config.setNewSession(msg.m.session);
+          // console.log('REFRESH SESSION');
         } else {
           virtualclass.config.setNewSession('thisismyplaymode');
         }
 
-        console.log('Start session gracefully');
+        // console.log('Start session gracefully');
         return;
       }
     }
@@ -92,24 +92,24 @@ var ioMissingPackets = {
     } else if (typeof msg.m.serial !== 'undefined' && msg.m.serial != null) {
       if ((msg.m.serial == (this.executedSerial[uid] + 1)) || msg.m.serial === 0) {
         // Everything is good and in order
-        console.log(`UID ${uid} Object with Serial ${msg.m.serial}`);
+        // console.log(`UID ${uid} Object with Serial ${msg.m.serial}`);
         this.executedSerial[uid] = msg.m.serial;
         this.executedStore[uid][msg.m.serial] = msg;
         ioStorage.storeCacheAllData(msg, [msg.user.userid, msg.m.serial]);
         io.onRecJson(msg);
       } else if (msg.m.serial > (this.executedSerial[uid] + 1)) {
-        console.log(`UID ${uid} requst miss packet`);
+        // console.log(`UID ${uid} requst miss packet`);
         // we should not need the request packet when self packet is recieved
         // if(msg.user.userid != virtualclass.gObj.uid){
         const from = this.executedSerial[uid] + 1;
         this.requestMissedPackets(from, msg.m.serial, msg, uid);
         // }
       } else { // We will not execute packets that has serial lesser then current packet but let us still store them
-        console.log(`UID ${uid} no action current packet ${this.executedSerial[uid]} coming at ${msg.m.serial}`);
+        // console.log(`UID ${uid} no action current packet ${this.executedSerial[uid]} coming at ${msg.m.serial}`);
         this.executedStore[uid][msg.m.serial] = msg;
       }
     } else {
-      console.log(`UID ${uid} checkMissing should not be called without serial`);
+      // console.log(`UID ${uid} checkMissing should not be called without serial`);
     }
   },
 
@@ -128,21 +128,21 @@ var ioMissingPackets = {
     } else if (typeof msg.m.userSerial !== 'undefined' && msg.m.userSerial != null) {
       if ((msg.m.userSerial == (this.executedUserSerial[uid] + 1)) || msg.m.userSerial === 0) {
         // Everything is good and in order
-        console.log(`UID ${uid} Object with userSerial ${msg.m.userSerial}`);
+        // console.log(`UID ${uid} Object with userSerial ${msg.m.userSerial}`);
         this.executedUserSerial[uid] = msg.m.userSerial;
         io.onRecJson(msg);
         this.executedUserStore[uid][msg.m.userSerial] = msg;
         ioStorage.storeCacheInData(msg, [uid, msg.m.userSerial]);
       } else if (msg.m.userSerial > (this.executedUserSerial[uid] + 1)) {
-        console.log(`UID ${uid} requst miss packet`);
+        // console.log(`UID ${uid} requst miss packet`);
         const from = this.executedUserSerial[uid] + 1;
         this.userRequestMissedPackets(from, msg.m.userSerial, msg, uid);
       } else { // We will not execute packets that has userSerial lesser then current packet but let us still store them
-        console.log(`UID ${uid} no action current packet ${this.executedUserSerial[uid]} coming at ${msg.m.userSerial}`);
+        // console.log(`UID ${uid} no action current packet ${this.executedUserSerial[uid]} coming at ${msg.m.userSerial}`);
         this.executedUserStore[uid][msg.m.userSerial] = msg;
       }
     } else {
-      console.log(`UID ${uid} checkMissing should not be called without userSerial`);
+      // console.log(`UID ${uid} checkMissing should not be called without userSerial`);
     }
   },
 
@@ -158,7 +158,7 @@ var ioMissingPackets = {
       this.aheadPackets[uid].unshift(msg.m.serial);
       this.executedStore[uid][msg.m.serial] = msg;
       till--; // We do not need to request current packet.
-      console.log(`UID ${uid} request packet from ${from} to ${till}`);
+      // console.log(`UID ${uid} request packet from ${from} to ${till}`);
       this.waitAndResetmissRequest(uid);
       const sendMsg = {
         reqMissPac: 1,
@@ -168,7 +168,7 @@ var ioMissingPackets = {
       // var tid = virtualclass.vutil.whoIsTeacher();
       ioAdapter.sendUser(sendMsg, uid);
     } else {
-      console.log(`UID ${uid} ahead packet${msg.m.serial}`);
+      // console.log(`UID ${uid} ahead packet${msg.m.serial}`);
       this.aheadPackets[uid].unshift(msg.m.serial);
       this.executedStore[uid][msg.m.serial] = msg;
     }
@@ -186,7 +186,7 @@ var ioMissingPackets = {
       this.aheadUserPackets[uid].unshift(msg.m.userSerial);
       this.executedUserStore[uid][msg.m.userSerial] = msg;
       till--; // We do not need to request current packet.
-      console.log(`UID ${uid} User request packet from ${from} to ${till}`);
+      // console.log(`UID ${uid} User request packet from ${from} to ${till}`);
       this.userWaitAndResetmissUserRequest(uid);
       const sendMsg = {
         userReqMissPac: 1,
@@ -196,7 +196,7 @@ var ioMissingPackets = {
       // var tid = virtualclass.vutil.whoIsTeacher();
       ioAdapter.sendUser(sendMsg, uid);
     } else {
-      console.log(`UID ${uid} User ahead packet${msg.m.userSerial}`);
+      // console.log(`UID ${uid} User ahead packet${msg.m.userSerial}`);
       this.aheadUserPackets[uid].unshift(msg.m.userSerial);
       this.executedUserStore[uid][msg.m.userSerial] = msg;
     }
@@ -247,7 +247,7 @@ var ioMissingPackets = {
     };
 
     ioAdapter.sendUser(sendmsg, msg.user.userid); // to user
-    console.log(`UID ${uid} send packet total chunk length ${senddata.length}`);
+    // console.log(`UID ${uid} send packet total chunk length ${senddata.length}`);
   },
 
   userSendMissedPackets(msg) {
@@ -267,7 +267,7 @@ var ioMissingPackets = {
     };
 
     ioAdapter.sendUser(sendmsg, msg.user.userid); // Will avoid using 'Must' Send for 'Must' Send miss request
-    console.log(`UID ${uid} send packet total chunk length ${senddata.length}`);
+    // console.log(`UID ${uid} send packet total chunk length ${senddata.length}`);
   },
 
   /**
@@ -291,13 +291,13 @@ var ioMissingPackets = {
           ioStorage.storeCacheAllData(msg.m.data[i], [uid, msg.m.data[i].m.serial]);
           this.executedStore[uid][msg.m.data[i].m.serial] = msg.m.data[i];
           try {
-            console.log(`UID ${uid} Object with Serial ${msg.m.data[i].m.serial}`);
+            // console.log(`UID ${uid} Object with Serial ${msg.m.data[i].m.serial}`);
             io.onRecJson(msg.m.data[i]);
           } catch (error) {
-            console.log(`Error ${error}`);
+            // console.log(`Error ${error}`);
           }
         } else {
-          console.log(`UID ${uid} Received Packed missing serial`);
+          // console.log(`UID ${uid} Received Packed missing serial`);
         }
       }
     }
@@ -308,15 +308,15 @@ var ioMissingPackets = {
       if (typeof ex !== 'undefined' && ex != null) {
         if (typeof this.executedStore[uid][ex] !== 'undefined') {
           this.executedSerial[uid] = ex;
-          console.log(`UID ${uid} Object with Serial ${this.executedStore[uid][ex].m.serial}`);
+          // console.log(`UID ${uid} Object with Serial ${this.executedStore[uid][ex].m.serial}`);
           ioStorage.storeCacheAllData(this.executedStore[uid][ex], [uid, this.executedStore[uid][ex].m.serial]);
           io.onRecJson(this.executedStore[uid][ex]);
         } else {
-          console.log('fillExecutedStore undefined');
+          // console.log('fillExecutedStore undefined');
           return; //
         }
       } else {
-        console.log(`UID ${uid} ahead Packed missing serial`);
+        // console.log(`UID ${uid} ahead Packed missing serial`);
       }
     }
     this.missRequest[uid] = 0;
@@ -338,7 +338,7 @@ var ioMissingPackets = {
     if (msg.m.data.length > 0) {
       // console.log('UID ' + uid + ' received user packet from ' + msg.m.data[0].m.userSerial + ' to ' + msg.m.data[msg.m.data.length - 1].m.userSerial);
     } else {
-      console.log(`UID ${uid} empty user data object`);
+      // console.log(`UID ${uid} empty user data object`);
     }
 
     const dataLength = msg.m.data.length;
@@ -354,14 +354,14 @@ var ioMissingPackets = {
           msg.m.data[i].userto = msg.userto;
           ioStorage.storeCacheInData(msg.m.data[i], [uid, msg.m.data[i].m.userSerial]);
           try {
-            console.log(`UID ${uid} Object with user Serial ${msg.m.data[i].m.userSerial}`);
+            // console.log(`UID ${uid} Object with user Serial ${msg.m.data[i].m.userSerial}`);
             io.onRecJson(msg.m.data[i]);
           } catch (error) {
-            console.log(`Error ${error}`);
+            // console.log(`Error ${error}`);
           }
           this.executedUserStore[uid][msg.m.data[i].m.userSerial] = msg.m.data[i];
         } else {
-          console.log(`UID ${uid} Received Packed missing User serial`);
+          // console.log(`UID ${uid} Received Packed missing User serial`);
         }
       }
     }
@@ -370,12 +370,12 @@ var ioMissingPackets = {
     while (ex = this.aheadUserPackets[uid].pop()) {
       if (typeof ex !== 'undefined' && ex != null) {
         this.executedUserSerial[uid] = ex;
-        console.log(`UID ${uid} Object with Serial ${this.executedUserStore[uid][ex].m.userSerial}`);
+        // console.log(`UID ${uid} Object with Serial ${this.executedUserStore[uid][ex].m.userSerial}`);
         io.onRecJson(this.executedUserStore[uid][ex]);
         // TODO Add proper Store
         // ioStorage.dataexecutedUserStoreAll(this.executedUserStore[uid][ex], uid + '_' + this.executedUserStore[uid][ex].m.userSerial);
       } else {
-        console.log(`UID ${uid} ahead Packed missing serial`);
+        // console.log(`UID ${uid} ahead Packed missing serial`);
       }
     }
     this.missUserRequest[uid] = 0;

@@ -53,7 +53,7 @@ const workerAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
     },
 
     resample(packets, uid) {
-      if (!this.audioToBePlay.hasOwnProperty(uid)) {
+      if (!Object.prototype.hasOwnProperty.call(this.audioToBePlay, uid)) {
         this.audioToBePlay[uid] = [];
       }
 
@@ -72,7 +72,7 @@ const workerAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
     },
 
     onMessage(e) {
-      if (e.data.hasOwnProperty('cmd')) {
+      if (Object.prototype.hasOwnProperty.call(e.data, 'cmd')) {
         switch (e.data.cmd) {
           case 'workerIO':
             this.workerIO = e.ports[0];
@@ -88,22 +88,22 @@ const workerAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
             this.supportAudioWorklet = e.data.msg;
 
           default:
-            console.log('do nothing');
+            // console.log('do nothing');
         }
       }
     },
 
     fromworkletAudioRec() {
-      console.log('from audio worklet');
+      // console.log('from audio worklet');
     },
 
     fromworkerIO(e) {
-      if (e.data.hasOwnProperty('msg')) {
+      if (Object.prototype.hasOwnProperty.call(e.data, 'msg')) {
         const { msg } = e.data;
         const dataArr = this.extractData(msg);// extract data and user id from the message received
         const uid = dataArr[0];
 
-        if (!this.adSign.hasOwnProperty(uid)) {
+        if (!Object.prototype.hasOwnProperty.call(this.adSign, uid)) {
           this.adSign[uid] = {};
           this.adSign[uid].ad = true;
           this.workerIO.postMessage({ cmd: 'firstAudio', msg: { userId: uid }, dest: 'mainthread' });

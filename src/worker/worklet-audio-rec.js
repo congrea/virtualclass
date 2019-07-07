@@ -16,14 +16,14 @@ const workletAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
   let audioLen = 0;
 
   function initRecWorkerAud(msg) {
-    if (msg.data.hasOwnProperty('cmd') && msg.data.cmd === 'workerAudioRec') {
+    if (Object.prototype.hasOwnProperty.call(msg.data, 'cmd') && msg.data.cmd === 'workerAudioRec') {
       workerAudioRec = msg.ports[0];
       workerAudioRec.onmessage = fromWorkerAudioRec;
     }
   }
 
   function fromWorkerAudioRec(e) {
-    if (e.data.hasOwnProperty('cmd') && e.data.cmd === 'audio') {
+    if (Object.prototype.hasOwnProperty.call(e.data, 'cmd') && e.data.cmd === 'audio') {
       queue(e.data.msg.data, e.data.msg.uid);
     }
   }
@@ -109,7 +109,7 @@ const workletAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
   }
 
   function workerAudioRecMsg(data) {
-    console.log('data received from audio ready');
+    // console.log('data received from audio ready');
   }
 
 

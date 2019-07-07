@@ -109,7 +109,7 @@ const dtConWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
   }());
 
   onmessage = function (e) {
-    if (e.data.hasOwnProperty('dt')) {
+    if (Object.prototype.hasOwnProperty.call(e.data, 'dt')) {
       if (e.data.dt == 'a') {
         var msg = Converter.base64EncArrInt(e.data.msg);
       } else if (e.data.dt == 'c') {

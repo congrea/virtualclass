@@ -19,7 +19,7 @@ const receiveFunctions = new function () {
   // editor data
   this.eddata = function (e) {
     // virtualclass.editorRich.onmessage(e.message);
-    if (e.message.hasOwnProperty('et')) {
+    if (Object.prototype.hasOwnProperty.call(e.message, 'et')) {
       if (e.message.et == 'editorRich') {
         virtualclass.editorRich.onmessage(e, 'EditorRich');
       } else {
@@ -48,9 +48,9 @@ const receiveFunctions = new function () {
         virtualclass.user.control.onmessage(e);
       }
     } else {
-      console.log('editor mode editorRichWriteModeBox null');
+      // console.log('editor mode editorRichWriteModeBox null');
     }
-    console.log('Editor mode save');
+    // console.log('Editor mode save');
   };
 
   this.bt = function () {
@@ -94,7 +94,7 @@ const receiveFunctions = new function () {
   };
 
   this.settings = function (e) {
-    if (e.message.hasOwnProperty('Hex')) {
+    if (Object.prototype.hasOwnProperty.call(e.message, 'Hex')) {
       virtualclass.settings.onMessage(e.message.Hex);
     }
   };
@@ -141,7 +141,7 @@ const receiveFunctions = new function () {
   };
   this.ppt = function (e) {
     if (e.fromUser.userid != virtualclass.gObj.uid) {
-      if (e.message.hasOwnProperty('init')) {
+      if (Object.prototype.hasOwnProperty.call(e.message, 'init')) {
         virtualclass.makeAppReady(virtualclass.apps.sp);
       } else {
         if (typeof virtualclass.sharePt !== 'object') {
@@ -164,7 +164,7 @@ const receiveFunctions = new function () {
   this.unshareScreen = function (e) {
     const app = e.message.st;
     if (typeof virtualclass[app] === 'object') {
-      console.log('Unshare the screen at student');
+      // console.log('Unshare the screen at student');
       virtualclass[app].prevImageSlices = [];
       virtualclass[app].removeStream();
       virtualclass.currApp = virtualclass.gObj.defaultApp;
@@ -190,7 +190,6 @@ const receiveFunctions = new function () {
       virtualclass.gObj.chat.displayMissedChats(e.message.chatPackResponsed);
     }
   };
-
 
 
   /**
@@ -230,11 +229,11 @@ const receiveFunctions = new function () {
       if (e.fromUser.role === 't') {
         virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.repObj);
       } else {
-        console.log('whiteboard -------------------------- We just lost a packet');
+        // console.log('whiteboard -------------------------- We just lost a packet');
       }
     }
 
-    if (typeof virtualclass.gObj.wbData[virtualclass.gObj.currWb] != 'object') {
+    if (typeof virtualclass.gObj.wbData[virtualclass.gObj.currWb] !== 'object') {
       // console.log('==== Creating whiteboard   QUEUE');
       // virtualclass.wb[virtualclass.gObj.currWb].data = [];
       virtualclass.gObj.wbData[virtualclass.gObj.currWb] = [];
@@ -242,9 +241,9 @@ const receiveFunctions = new function () {
 
     let i = 0;
     for (; i < e.message.repObj.length; i++) {
-      console.log("====> whiteboard data ", JSON.stringify(e.message.repObj[i]));
+      // console.log('====> whiteboard data ', JSON.stringify(e.message.repObj[i]));
       virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
-      console.log('==== Creating whiteboard   QUEUE, length ', virtualclass.gObj.wbData[virtualclass.gObj.currWb].length);
+      // console.log('==== Creating whiteboard   QUEUE, length ', virtualclass.gObj.wbData[virtualclass.gObj.currWb].length);
     }
   };
 
@@ -257,9 +256,9 @@ const receiveFunctions = new function () {
   // documnetation sharing
   this.dts = function (e) {
     // virtualclass.dts.onmessage(e);
-    console.log(`Document share :- message received ${e.message.serial}`);
-    console.dir(e.message.dts);
-    if (e.message.dts.hasOwnProperty('init')) {
+    // console.log(`Document share :- message received ${e.message.serial}`);
+    // console.dir(e.message.dts);
+    if (Object.prototype.hasOwnProperty.call(e.message.dts, 'init')) {
       virtualclass.gObj.screenRh = 100;
       virtualclass.makeAppReady('DocumentShare', undefined, e.message.dts);
       virtualclass.gObj.screenRh = 60;
@@ -268,7 +267,7 @@ const receiveFunctions = new function () {
     }
   };
   this.poll = function (e) {
-    console.log(e.message.poll.pollMsg);
+    // console.log(e.message.poll.pollMsg);
     if (e.message.poll.pollMsg == 'init') {
       virtualclass.makeAppReady('Poll');
     } else {
@@ -283,7 +282,7 @@ const receiveFunctions = new function () {
   };
 
   this.quiz = function (e) {
-    console.log(e.message.quiz.quizMsg);
+    // console.log(e.message.quiz.quizMsg);
     if (e.message.quiz.quizMsg == 'init') {
       virtualclass.makeAppReady('Quiz');
     } else {
@@ -351,17 +350,17 @@ const receiveFunctions = new function () {
   };
 
   this.mvid = function (e) {
-    console.log('multivideo, message received');
+    // console.log('multivideo, message received');
     virtualclass.multiVideo.onmessage(e.message, e.fromUser.userid);
   };
 
   this.sc = function (e) {
-    console.log('Recevied scroll');
+    // console.log('Recevied scroll');
     virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
   };
 
   this.scf = function (e) {
-    console.log('Recevied scroll first');
+    // console.log('Recevied scroll first');
     console.dir(e.message);
     if (virtualclass.gObj.currWb != null) {
       virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
@@ -369,7 +368,7 @@ const receiveFunctions = new function () {
   };
 
   this.cwb = function (e) {
-    if (e.message.hasOwnProperty('diswb')) {
+    if (Object.prototype.hasOwnProperty.call(e.message, 'diswb')) {
       const { wid } = e.message;
       virtualclass.gObj.currWb = wid;
       if (!virtualclass.wbCommon.whiteboardExist(virtualclass.gObj.currWb)) {
@@ -382,7 +381,7 @@ const receiveFunctions = new function () {
       virtualclass.gObj.currIndex = e.message.currIndex;
       virtualclass.wbCommon.displaySlide(wid);
       // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
-    } else if (e.message.hasOwnProperty('wbCount')) {
+    } else if (Object.prototype.hasOwnProperty.call(e.message, 'wbCount')) {
       virtualclass.gObj.wbCount = e.message.wbCount;
       if (virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1) {
         virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
@@ -433,11 +432,11 @@ const receiveFunctions = new function () {
         elem.style.display = 'none';
       }
     }
-    if (e.message.hasOwnProperty('firstSs')) {
+    if (Object.prototype.hasOwnProperty.call(e.message, 'firstSs')) {
       virtualclass.gObj.studentSSstatus.sharing = true;
     }
     virtualclass.gObj.studentSSstatus.shareToAll = false;
-    console.log('Share, self view');
+    // console.log('Share, self view');
   };
 
   // Share screenshare to all
@@ -448,7 +447,7 @@ const receiveFunctions = new function () {
     }
     virtualclass.gObj.studentSSstatus.shareToAll = true;
     virtualclass.gObj.studentSSstatus.sharing = true;
-    console.log('Share, to all');
+    // console.log('Share, to all');
   };
 
   /** This happens when student does page refresh during the share is being shared  * */
@@ -475,7 +474,7 @@ const receiveFunctions = new function () {
         elem.setAttribute('data-dcolor', 'red');
       }
     } else if (rMsg.ext) {
-      const color = rMsg.hasOwnProperty('nosupport') ? 'nosupport' : 'orange';
+      const color = Object.prototype.hasOwnProperty.call(rMsg, 'nosupport') ? 'nosupport' : 'orange';
 
 
       var elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
@@ -497,7 +496,7 @@ const receiveFunctions = new function () {
 
   this.destroyPlayer = function (e) {
     if (virtualclass.currApp == 'Video') {
-      if (virtualclass.hasOwnProperty('videoUl') && virtualclass.videoUl.videoUrl) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'videoUl') && virtualclass.videoUl.videoUrl) {
         virtualclass.videoUl.videoUrl = '';
         virtualclass.videoUl.videoId = '';
         const frame = document.getElementById('dispVideo_Youtube_api'); // youtube video
@@ -544,10 +543,8 @@ const receiveFunctions = new function () {
       }
 
       // e.message.ac === 11 ? virtualclass.videoHost.onmessage('off') : virtualclass.videoHost.onmessage('on');
-    } else {
-      if (virtualclass.settings.info.attendeeAV) {
-        virtualclass.settings.onMessage(e.message);
-      }
+    } else if (virtualclass.settings.info.attendeeAV) {
+      virtualclass.settings.onMessage(e.message);
     }
   };
 

@@ -129,6 +129,7 @@
           isShown = false;
         }
         // HACK so we can avoid re-showing the dropdown if you click on the dropdown header to dismiss it.
+        // TODO remove setTimeout
         justDismissed = true;
         setTimeout(() => {
           justDismissed = false;

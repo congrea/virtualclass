@@ -33,21 +33,21 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
     },
 
     wsconnect() {
-      console.log('member_added init for socket connect');
+      // console.log('member_added init for socket connect');
       workerIO.wsuri = this.cfg.rid;
 
       if (typeof WebSocket !== 'undefined') {
-        console.log(`rid ${workerIO.wsuri}`);
+        // console.log(`rid ${workerIO.wsuri}`);
         this.sock = new WebSocket(workerIO.wsuri);
       } else {
-        console.log('Browser does not support WebSocket!');
+        // console.log('Browser does not support WebSocket!');
         this.error = lang.wserror;
       }
 
       const scope = this;
 
       this.sock.onopen = function () {
-        console.log(`member_added Connected to ${scope.cfg.rid}`);
+        // console.log(`member_added Connected to ${scope.cfg.rid}`);
         scope.userauthenticate();
         // user join chat room
         scope.addclient();
@@ -67,12 +67,12 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
 
       this.sock.onerror = function (e) {
         scope.error = e;
-        console.log(`Error:${e}`);
+        // console.log(`Error:${e}`);
         postMessage({ cmd: 'error', msg: e.reason });
       };
 
       this.sock.onclose = function (e) {
-        console.log('Connection Closed');
+        // console.log('Connection Closed');
         postMessage({ cmd: 'close', msg: e.reason });
       };
     },
@@ -81,7 +81,7 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
       this.sock.onclose = function () {
       };
       this.sock.close();
-      console.log('i am closing this connection');
+      // console.log('i am closing this connection');
       postMessage({ cmd: 'iamclosing' });
     },
 
@@ -102,7 +102,7 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
           if (data_pack[0] == 101) {
             if (!this.workerAudioRec) {
               postMessage({ cmd: 'initAudioWorklet' });
-              console.log('workerAudioRec is not defined');
+              // console.log('workerAudioRec is not defined');
             } else {
               this.workerAudioRec.postMessage({ cmd: 'ad', msg: data_pack }, [data_pack.buffer]);
             }
@@ -207,7 +207,7 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
           this.workerAudioRec = e.ports[0];
           // fromWorkerAudioRec; from workder audio received
           this.workerAudioRec.onmessage = function (e) {
-            if (e.data.hasOwnProperty('dest')) {
+            if (Object.prototype.hasOwnProperty.call(e.data, 'dest')) {
               if (e.data.dest == 'mainthread') {
                 postMessage(e.data);
               }
@@ -249,7 +249,7 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
     },
 
     fromWorkerAudioSend(e) {
-      if (e.data.hasOwnProperty('cmd')) {
+      if (Object.prototype.hasOwnProperty.call(e.data, 'cmd')) {
         this.sendBinary(e.data.msg);
       }
     },

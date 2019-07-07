@@ -27,12 +27,12 @@ var io = {
   init(cfg) {
     this.cfg = cfg;
     'use strict';
-    console.log('==== io init ');
+    // console.log('==== io init ');
     ioInit.sendToWorker({ cmd: 'init', msg: cfg });
   },
 
   send(msg, cfun, touser) {
-    if (msg.hasOwnProperty('m')) {
+    if (Object.prototype.hasOwnProperty.call(msg, 'm')) {
       if (msg.m.user == 'all') {
         alert('som packet are sending');
       }
@@ -59,7 +59,7 @@ var io = {
       // Now send requested msg
       this.realSend(obj);
     } else { // Save msg in queue
-      console.log('SOCKET is not ready.');
+      // console.log('SOCKET is not ready.');
       const jobj = JSON.stringify(obj);
       io.packetQueue.push(jobj);
     }
@@ -68,11 +68,11 @@ var io = {
   realSend(obj) {
     if (typeof obj.arg.touser !== 'undefined') {
       if (io.uniquesids == null) {
-        console.log('uniqueid is null');
+        // console.log('uniqueid is null');
       } else {
         obj.arg.touser = io.uniquesids[obj.arg.touser];
         if (typeof obj.arg.touser === 'undefined') {
-          console.log(`User is not connected.${obj.arg.touser}`);
+          // console.log(`User is not connected.${obj.arg.touser}`);
           return;
         }
       }
@@ -91,7 +91,7 @@ var io = {
             user: userObj,
             m: obj.arg.msg,
           };
-          if (obj.arg.msg.hasOwnProperty('serial')) {
+          if (Object.prototype.hasOwnProperty.call(obj.arg.msg, 'serial')) {
             ioStorage.storeCacheAllData(sobj, [virtualclass.gObj.uid, obj.arg.msg.serial]);
           }
           jobj = `F-BR-{"0${JSON.stringify(sobj)}`;
@@ -107,7 +107,7 @@ var io = {
           while (touser.length < 12) {
             touser = `0${touser}`;
           }
-          if (obj.arg.msg.hasOwnProperty('userSerial')) {
+          if (Object.prototype.hasOwnProperty.call(obj.arg.msg, 'userSerial')) {
             ioStorage.storeCacheOutData(sobj, [obj.arg.touser, obj.arg.msg.userSerial]);
           }
           jobj = `F-BRU-{"${touser}{"0${JSON.stringify(sobj)}`;
@@ -269,11 +269,11 @@ var io = {
     let userto = '';
     switch (receivemsg.type) {
       case 'joinroom':
-        if (receivemsg.hasOwnProperty('users')) { // When self web socket is connected
+        if (Object.prototype.hasOwnProperty.call(receivemsg, 'users')) { // When self web socket is connected
           ioAdapter.setRecording();
-          console.log('==== Member add, join room');
+          // console.log('==== Member add, join room');
         } else {
-          console.log('No users');
+          // console.log('No users');
         }
 
         io.readyToSend = true;
@@ -296,18 +296,18 @@ var io = {
           joinUser: receivemsg.action,
         };
 
-        if (receivemsg.hasOwnProperty('users')) {
+        if (Object.prototype.hasOwnProperty.call(receivemsg, 'users')) {
           msg.message = receivemsg.users;
           msg.users = true;
-        } else if (receivemsg.hasOwnProperty('user')) {
+        } else if (Object.prototype.hasOwnProperty.call(receivemsg, 'user')) {
           msg.message = receivemsg.user;
           msg.user = true;
         }
 
 
         if ((!virtualclass.vutil.isPlayMode()
-          || receivemsg.hasOwnProperty('clientids') && !virtualclass.hasOwnProperty('connectedUsers') // When self joined the room
-          || virtualclass.hasOwnProperty('connectedUsers') && !receivemsg.hasOwnProperty('clientids'))) { // When other join the room
+          || Object.prototype.hasOwnProperty.call(receivemsg, 'clientids') && !Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers') // When self joined the room
+          || Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers') && !Object.prototype.hasOwnProperty.call(receivemsg, 'clientids'))) { // When other join the room
           virtualclass.ioEventApi.readyto_member_add(msg);
         }
         break;
@@ -334,7 +334,7 @@ var io = {
         }
         if (io.uniquesids != null) {
           for (const uid in receivemsg.action) {
-            console.log(`===== JOIN user left call ${uid}`);
+            // console.log(`===== JOIN user left call ${uid}`);
             delete io.uniquesids[uid];
           }
         }
@@ -343,14 +343,14 @@ var io = {
 
         break;
       case 'Unauthenticated':
-        console.log('Case:- unauthenticated');
+        // console.log('Case:- unauthenticated');
         virtualclass.ioEventApi.authentication_failed({
           type: 'authentication_failed',
           message: 'Authentication failed',
         });
         break;
       case 'Multiple_login':
-        console.log('Case:- Multiple_login');
+        // console.log('Case:- Multiple_login');
         virtualclass.ioEventApi.Multiple_login({
           type: 'Multiple_login',
         });
@@ -405,7 +405,7 @@ var io = {
 };
 
 workerIO.onmessage = function (e) {
-  console.log();
+  // console.log();
   ioInit.onmessage(e);
 };
 
@@ -425,7 +425,7 @@ var ioInit = {
         var cleanJson = io.cleanRecJson(e.data.msg);
         if (cleanJson) {
           var msg = JSON.parse(cleanJson); // msg.user is from user/*
-          if (!msg.hasOwnProperty('type') && msg.hasOwnProperty('user')) {
+          if (!Object.prototype.hasOwnProperty.call(msg, 'type') && Object.prototype.hasOwnProperty.call(msg, 'user')) {
             // workerIO.postMessage({cmd : 'mkUser', msg:msg});
 
             msg.type = 'broadcastToAll';
@@ -445,25 +445,25 @@ var ioInit = {
           }
           this.recjsnMsgQueue = '';
 
-          if (msg.hasOwnProperty('m')) {
-            if (msg.m.hasOwnProperty('serial')) {
+          if (Object.prototype.hasOwnProperty.call(msg, 'm')) {
+            if (Object.prototype.hasOwnProperty.call(msg.m, 'serial')) {
               await ioMissingPackets.checkMissing(msg);
-            } else if (msg.m.hasOwnProperty('reqMissPac')) {
+            } else if (Object.prototype.hasOwnProperty.call(msg.m, 'reqMissPac')) {
               // there is bing upload the content then we will not send miss packet
-              if (!virtualclass.recorder.hasOwnProperty('startUpload')) {
+              if (!Object.prototype.hasOwnProperty.call(virtualclass.recorder, 'startUpload')) {
                 ioMissingPackets.sendMissedPackets(msg);
               }
-            } else if (msg.m.hasOwnProperty('missedpackets')) {
-              console.log('Execute missed packets');
+            } else if (Object.prototype.hasOwnProperty.call(msg.m, 'missedpackets')) {
+              // console.log('Execute missed packets');
               ioMissingPackets.fillExecutedStore(msg);
-            } else if (msg.m.hasOwnProperty('userSerial')) {
+            } else if (Object.prototype.hasOwnProperty.call(msg.m, 'userSerial')) {
               ioMissingPackets.userCheckMissing(msg);
-            } else if (msg.m.hasOwnProperty('userReqMissPac')) {
+            } else if (Object.prototype.hasOwnProperty.call(msg.m, 'userReqMissPac')) {
               // there is bing upload the content then we will not send miss packet
-              if (!virtualclass.recorder.hasOwnProperty('startUpload')) {
+              if (!Object.prototype.hasOwnProperty.call(virtualclass.recorder, 'startUpload')) {
                 ioMissingPackets.userSendMissedPackets(msg);
               }
-            } else if (msg.m.hasOwnProperty('userMissedpackets')) {
+            } else if (Object.prototype.hasOwnProperty.call(msg.m, 'userMissedpackets')) {
               ioMissingPackets.userFillExecutedStore(msg);
             } else {
               // return; // for temporary
@@ -508,21 +508,21 @@ var ioInit = {
           type: 'connectionclose',
           message: e.data.msg,
         });
-
+        // TODO Do we need this?
         setTimeout(() => {
           // For prevent to send any packet to other during save session
           // and download session
-          if (!virtualclass.gObj.hasOwnProperty('endSession')
-            && !virtualclass.gObj.hasOwnProperty('downloadProgress')
+          if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'endSession')
+            && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'downloadProgress')
             && !virtualclass.recorder.uploadInProcess
-            && !(virtualclass.gObj.hasOwnProperty('invalidlogin') && virtualclass.gObj.invalidlogin)) {
+            && !(Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'invalidlogin') && virtualclass.gObj.invalidlogin)) {
             // scope.wsconnect();
             workerIO.postMessage({ cmd: 'wsconnect' });
           }
         }, 5000);
         break;
       case 'initAudioWorklet':
-        if (virtualclass.gObj.hasOwnProperty('isAudioContextReady') && !virtualclass.gObj.audioRecWorkerReady) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'isAudioContextReady') && !virtualclass.gObj.audioRecWorkerReady) {
           if (virtualclass.media.detectAudioWorklet()) {
             virtualclass.media.audio.initPlay();
           } else {
@@ -533,7 +533,7 @@ var ioInit = {
         break;
 
       case 'stBinary': // storage binary
-        if (e.data.hasOwnProperty('triggerBinRec')) {
+        if (Object.prototype.hasOwnProperty.call(e.data, 'triggerBinRec')) {
           virtualclass.ioEventApi.binrec({
             type: 'binrec',
             message: e.data.msg.buffer,
@@ -576,7 +576,7 @@ var ioInit = {
 
 
       default:
-        console.log('Do nothing');
+        // console.log('Do nothing');
     }
   },
 };

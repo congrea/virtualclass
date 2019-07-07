@@ -11,7 +11,7 @@ var dashBoard = {
   },
 
   close() {
-    console.log('Close dashboard');
+    // console.log('Close dashboard');
     const closeButton = document.querySelector('#congdashboard .modal-content button.close');
     if (closeButton != null) {
       closeButton.classList.remove('clicked');
@@ -63,7 +63,7 @@ var dashBoard = {
     } else if (virtualclass.currApp == 'DocumentShare') {
       dashBoardButton.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${Dtype}dsDbheading`));
     } else {
-      console.log('dashboard tooltip not working properly');
+      // console.log('dashboard tooltip not working properly');
     }
   },
 };

@@ -4,9 +4,11 @@
  * then it converst webp images to png images for enable the video in
  * firefox as well
  */
-"use strict";
+
+
 const BASE64_MARKER = ';base64,';
-var videoPartCont, sampleRate;
+let videoPartCont; let
+  sampleRate;
 var videoHost = {
   gObj: {},
   setDefaultValue(speed) {
@@ -24,7 +26,7 @@ var videoHost = {
     this.width = width;
     this.height = height;
     this.gObj.videoSwitch = 1;// nirmala
-    console.log('videoSwitch 1');
+    // console.log('videoSwitch 1');
     this.gObj.stdStopSmallVid = false;
     this.domReady = false;
     this.allStdVideoOff = false;
@@ -84,14 +86,14 @@ var videoHost = {
           }
           virtualclass.videoHost.UI.hideTeacherVideo();
         }
-        console.log(swVideo);
+        // console.log(swVideo);
       }
     }
   },
 
   renderSelfVideo(stream) {
     if (typeof virtualclass.media.tempStream === 'undefined') {
-      console.log('Media attached stream');
+      // console.log('Media attached stream');
       this.getMediaStream(stream);
     }
   },
@@ -132,7 +134,7 @@ var videoHost = {
     // console.log("==== draw teacher video ", videoSwitch);
     if (videoSwitch === 'on') {
       virtualclass.videoHost.gObj.videoSwitch = 1;
-      console.log('videoSwitch 1');
+      // console.log('videoSwitch 1');
       this.UI.displayTeacherVideo();
       localStorage.tvideo = 'show';
     } else if (videoSwitch === 'off') {
@@ -203,14 +205,14 @@ var videoHost = {
       } else {
         // todo to add default img
       }
-      console.log('set User icon');
+      // console.log('set User icon');
     } else {
-      console.log('Image container is null');
+      // console.log('Image container is null');
     }
   },
   removeUserIcon(userid) {
-    let cthis = virtualclass.media;
-    console.log('Remove User icon');
+    const cthis = virtualclass.media;
+    // console.log('Remove User icon');
     if (virtualclass.gObj.uid == userid) { // for self
       const vidContainer = cthis.video.createVideoElement();
 
@@ -260,10 +262,10 @@ var videoHost = {
             if (sw.classList.contains('off')) {
               sw.classList.add('on');
               sw.classList.remove('off');
-              console.log('Video controller on');
+              // console.log('Video controller on');
             }
           } else if (sw.classList.contains('on')) {
-            console.log('Video controller off');
+            // console.log('Video controller off');
             sw.classList.add('off');
             sw.classList.remove('on');
             if (virtualclass.gObj.meetingMode) {
@@ -325,6 +327,7 @@ var videoHost = {
     // virtualclass.vhAdpt.attachMediaStream(this.videoHostSrc, stream);
     virtualclass.adpt.attachMediaStream(this.videoHostSrc, stream);
     const that = this;
+    // TODO remove setTimeout
     setTimeout(
       () => {
         that.shareVideo();
@@ -344,7 +347,7 @@ var videoHost = {
     this.imageSlices = this.getImageSlices(resA, resB);
     const that = this;
 
-    if (videoHost.gObj.hasOwnProperty('shareVideoInterval')) {
+    if (Object.prototype.hasOwnProperty.call(videoHost.gObj, 'shareVideoInterval')) {
       clearInterval(videoHost.gObj.shareVideoInterval);
     }
 
@@ -374,11 +377,11 @@ var videoHost = {
       // 0.4 and 9 need 400 to 500 kb/persecond
       let sendimage;
       if (virtualclass.system.webpSupport) {
-         sendimage = that.vidHostSlice.toDataURL('image/webp', 0.6);
-         var vidType = 1;
+        sendimage = that.vidHostSlice.toDataURL('image/webp', 0.6);
+        var vidType = 1;
       } else {
         sendimage = that.vidHostSlice.toDataURL('image/jpeg', 0.3);
-         var vidType = 0;
+        var vidType = 0;
       }
 
       that.vidHostSliceCon.clearRect(0, 0, that.width, that.height);
@@ -452,7 +455,7 @@ var videoHost = {
     );
   },
   onError(err) {
-    console.log(`MediaStream Error ${err}`);
+    // console.log(`MediaStream Error ${err}`);
   },
   /**
    *
@@ -579,7 +582,7 @@ var videoHost = {
 
       if (virtualclass.precheck.totalTest) {
         virtualclass.precheck.totalTest.forEach((elem) => {
-          if (typeof virtualclass.precheck[elem] !== 'undefined' && virtualclass.precheck[elem].hasOwnProperty('alreadyDone')) {
+          if (typeof virtualclass.precheck[elem] !== 'undefined' && Object.prototype.hasOwnProperty.call(virtualclass.precheck[elem], 'alreadyDone')) {
             if (elem == 'mic') {
               delete virtualclass.precheck[elem].alreadyDone;
             }

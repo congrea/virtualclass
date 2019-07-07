@@ -17,13 +17,11 @@ function isAnyOnePresenter() {
 }
 
 function joinAsTeacher(jId) {
-
   virtualclass.gObj.veryFirstJoin = false;
   if (!virtualclass.vutil.isOrginalTeacherExist(jId)) {
     overrideOperation('t');
-    console.log('Member add :- join as teacher');
+    // console.log('Member add :- join as teacher');
   }
-
 }
 
 /**
@@ -55,8 +53,6 @@ var overrideOperation = function (role) {
 };
 
 
-
-
 function getPosition(connectedUsers, uid) {
   const index = connectedUsers.findIndex(o => o.userid == uid);
   return index;
@@ -70,7 +66,7 @@ const ioEventApi = {
 
       for (const key in e.joinUser) {
         if (wbUser.id != key) {
-          console.log('Don t join');
+          // console.log('Don t join');
           te.joinUser = { key };
           te.message = e.message[i];
           te.newuser = e.newuser;
@@ -93,11 +89,11 @@ const ioEventApi = {
       virtualclass.connectedUsers = [];
     }
     // console.log('===== JOIN user member_added call ');
-    if (e.hasOwnProperty('user')) {
+    if (Object.prototype.hasOwnProperty.call(e, 'user')) {
       const joinUserObj = e.message;
       virtualclass.jId = joinUserObj.userid;
 
-      console.log(`===== JOIN users ${virtualclass.jId}`);
+      // console.log(`===== JOIN users ${virtualclass.jId}`);
 
 
       const upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
@@ -109,9 +105,9 @@ const ioEventApi = {
 
       // Get the new joinecr user id and object
       virtualclass.joinUser = joinUserObj;
-    } else if (e.hasOwnProperty('users')) {
+    } else if (Object.prototype.hasOwnProperty.call(e, 'users')) {
       virtualclass.jId = e.joinUser;
-      console.log(`===== JOIN users ${virtualclass.jId}`);
+      // console.log(`===== JOIN users ${virtualclass.jId}`);
 
       virtualclass.connectedUsers = e.message;
       for (var i = 0; i < virtualclass.connectedUsers.length; i++) {
@@ -119,7 +115,7 @@ const ioEventApi = {
       }
       virtualclass.joinUser = this.getJoinUser(virtualclass.connectedUsers, virtualclass.jId);
     } else {
-      console.log('User packet is not receving');
+      // console.log('User packet is not receving');
     }
 
     // set the default value related about video quality, internet latency and frame rate
@@ -159,7 +155,7 @@ const ioEventApi = {
     //   defaultOperation(e, sType);
     // }
 
-    console.log("==== Add users")
+    // console.log('==== Add users');
     defaultOperation(e, sType);
 
     if (roles.hasControls()) {
@@ -199,11 +195,11 @@ const ioEventApi = {
   newmessage(e) {
     const recMsg = e.message; let
       key;
-    if (recMsg.hasOwnProperty('cf')) {
+    if (Object.prototype.hasOwnProperty.call(recMsg, 'cf')) {
       if (typeof receiveFunctions[recMsg.cf] === 'function') {
         receiveFunctions[recMsg.cf](e);
       } else {
-        console.log(`CF ${recMsg.cf} is not a function of receiveFunctions`);
+        // console.log(`CF ${recMsg.cf} is not a function of receiveFunctions`);
       }
     }
   },
@@ -217,12 +213,11 @@ const ioEventApi = {
   },
 
   user_logout(e) {
-    console.log('user_logout');
-
+    // console.log('user_logout');
 
 
     if (!roles.hasControls()) {
-      if (!virtualclass.gObj.hasOwnProperty('whoIsTeacher')) {
+      if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'whoIsTeacher')) {
         virtualclass.gObj.whoIsTeacher = virtualclass.vutil.whoIsTeacher();
       }
       // if teacher is log out
@@ -265,23 +260,21 @@ const ioEventApi = {
   error(e) {
     if (virtualclass.gObj.displayError) {
       virtualclass.view.removeElement('serverErrorCont');
-      if (typeof e.message == 'undefined') {
-        console.log ('Error ', e.message);
+      if (typeof e.message === 'undefined') {
+        // console.log('Error ', e.message);
       } else {
         if (typeof e.message.stack !== 'undefined') {
           virtualclass.view.displayServerError('serverErrorCont', e.message.stack);
         } else {
-          console.log(`Error message ${e.message.stack} could not display`);
+          // console.log(`Error message ${e.message.stack} could not display`);
         }
 
         if (typeof e.message !== 'object') {
           display_error(e.message.stack);
         }
       }
-
-
     } else if (typeof e.message !== 'object') {
-      console.log(e.message.stack);
+      // console.log(e.message.stack);
     }
   },
 
@@ -321,10 +314,10 @@ const ioEventApi = {
   },
 
   connectionclose(e) {
-    if (virtualclass.hasOwnProperty('recorder') && virtualclass.recorder.startUpload) {
-      console.log('During the upload process there would not any other popup box.');
-    } else if (virtualclass.recorder.smallData && virtualclass.recorder.hasOwnProperty('rdlength') && virtualclass.recorder.rdlength < 100000) {
-      console.log('Do not show the waiting popupbox if there small chunks of data');
+    if (Object.prototype.hasOwnProperty.call(virtualclass, 'recorder') && virtualclass.recorder.startUpload) {
+      // console.log('During the upload process there would not any other popup box.');
+    } else if (virtualclass.recorder.smallData && Object.prototype.hasOwnProperty.call(virtualclass.recorder, 'rdlength') && virtualclass.recorder.rdlength < 100000) {
+      // console.log('Do not show the waiting popupbox if there small chunks of data');
     } else {
       virtualclass.popup.waitMsg();
     }
@@ -332,17 +325,18 @@ const ioEventApi = {
   },
 
   connectionopen(e) {
+    // TODO Do we need this?
     virtualclass.gObj.invalidlogin = false;
     let setTimeReady = 6000;
     // There will take more time to connect socket when teacher will
     // Come from become Teacher
-    if (virtualclass.gObj.hasOwnProperty('doEndSession')) {
-      console.log('From Become Teacher');
+    if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'doEndSession')) {
+      // console.log('From Become Teacher');
       setTimeReady = 10000;
     }
     setTimeout(
       () => {
-        if (!virtualclass.vutil.sesionEndMsgBoxIsExisting() && !virtualclass.gObj.hasOwnProperty('downloadProgress') && !(virtualclass.recorder.startUpload)) {
+        if (!virtualclass.vutil.sesionEndMsgBoxIsExisting() && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'downloadProgress') && !(virtualclass.recorder.startUpload)) {
           virtualclass.popup.closePopup();
           virtualclass.vutil.setDefaultScroll();
           const popupContainer = document.getElementById('popupContainer');
@@ -350,9 +344,9 @@ const ioEventApi = {
             popupContainer.style.display = 'none';
           }
 
-          console.log('Popup box Close All');
+          // console.log('Popup box Close All');
         } else {
-          console.log('Popup box Could not close');
+          // console.log('Popup box Could not close');
         }
       }, setTimeReady, // Wait for everything is to be ready
 
@@ -360,27 +354,28 @@ const ioEventApi = {
   },
   binrec(e) {
     // TODO here should be eith unit8clampped array or unit8array
-    const data_pack = new Uint8Array(e.message);
-    switch (data_pack[0]) {
+    const dataPack = new Uint8Array(e.message);
+    const stype = 'ss';
+    const sTool = 'ScreenShare';
+    switch (dataPack[0]) {
       case 102:
       case 103:
       case 104:
       case 202:
       case 203:
       case 204:
-        var stype = 'ss';
-        var sTool = 'ScreenShare';
         if (roles.hasControls()) {
           virtualclass.gObj.studentSSstatus.mesharing = true;
           const virtualclassCont = document.querySelector('#virtualclassCont');
-          if (virtualclassCont != '') {
+          if (virtualclassCont !== '') {
             virtualclassCont.classList.add('studentScreenSharing');
             /** Remove following statement after fully support of SHADOW DOM * */
             document.querySelector('#chat_div').classList.add('studentScreenSharing');
           }
         }
 
-        if (!virtualclass.hasOwnProperty('studentScreen')) {
+        if (!Object.prototype.hasOwnProperty.call(virtualclass, 'studentScreen')) {
+          // eslint-disable-next-line new-cap,no-undef
           virtualclass.studentScreen = new studentScreen();
         }
 
@@ -394,7 +389,7 @@ const ioEventApi = {
         // which actually should not, workaround for now
 
         if (!roles.hasControls() || virtualclass.gObj.studentSSstatus.mesharing) {
-          virtualclass.studentScreen.ssProcess(data_pack, e.message, stype, sTool);
+          virtualclass.studentScreen.ssProcess(e.message, stype, sTool);
         }
 
         if (virtualclass.gObj.studentSSstatus.sharing && roles.isStudent()) {
@@ -413,7 +408,7 @@ const ioEventApi = {
         virtualclass.media.video.process(e.message);
         break;
       case 21: // teacher big video
-        processImage(e.message, data_pack[1]);
+        processImage(e.message, dataPack[1]);
     }
   },
 

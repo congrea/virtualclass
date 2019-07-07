@@ -8,22 +8,22 @@
   const utility = function () {
     return {
       userIds: [],
-      /**
-       * This function does check that passed object is existing into
-       * removeElements array or not
-       * @param obj expects the object which have to be checked against removeElements
-       * @returns that position if the object is existing into remove Elements
-       * TODO This function is not used any more can be removed from here
-       */
-      isObjExistRE(obj) {
-        const id = virtualclass.gObj.currWb;
-        if (virtualclass.wb[id].replay.removeElements.length >= 0) {
-          const objPos = virtualclass.wb[id].vcan.ArrayIndexOf(virtualclass.wb[id].replay.removeElements, pobj => pobj.id == obj.id);
-          if (objPos >= 0) {
-            return objPos;
-          }
-        }
-      },
+      // /**
+      //  * This function does check that passed object is existing into
+      //  * removeElements array or not
+      //  * @param obj expects the object which have to be checked against removeElements
+      //  * @returns that position if the object is existing into remove Elements
+      //  * TODO This function is not used any more can be removed from here
+      //  */
+      // isObjExistRE(obj) {
+      //   const id = virtualclass.gObj.currWb;
+      //   if (virtualclass.wb[id].replay.removeElements.length >= 0) {
+      //     const objPos = virtualclass.wb[id].vcan.ArrayIndexOf(virtualclass.wb[id].replay.removeElements, pobj => pobj.id == obj.id);
+      //     if (objPos >= 0) {
+      //       return objPos;
+      //     }
+      //   }
+      // },
       /**
        *  This function checks that particular object has property or not
        *  @obj the object should be tested that object has property or not
@@ -31,7 +31,7 @@
        */
       IsObjEmpty(obj) {
         for (const key in obj) {
-          if (obj.hasOwnProperty(key)) {
+          if (Object.prototype.hasOwnProperty.call(obj, key)) {
             return false;
           }
         }
@@ -77,7 +77,7 @@
           const { vcan } = virtualclass.wb[id];
           if (vcan.main.currObj != '') {
             if (roles.hasControls()) { // can not remove the object when user has not control
-              console.log('Delete whiteboard obj:- Invoke the command');
+              // console.log('Delete whiteboard obj:- Invoke the command');
               const obj = virtualclass.wb[id].utility.removeSelectedItem(vcan.main.currObj);
               virtualclass.vutil.beforeSend({ repObj: [obj], cf: 'repObj' });
             }
@@ -105,7 +105,7 @@
         if (roles.hasControls()) {
           // we will not delete object during the replay
           if (typeof notSave === 'undefined') {
-            console.log(`Delete:- Saving the delete command with id ${obj.uid}`);
+            // console.log(`Delete:- Saving the delete command with id ${obj.uid}`);
             vcan.main.replayObjs.push(obj);
             virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
           }
@@ -114,7 +114,7 @@
         }
 
         vcan.main.currObj = '';
-        console.log('Delete:- Removing the whitboard object');
+        // console.log('Delete:- Removing the whitboard object');
         return obj;
       },
       /**
@@ -148,7 +148,7 @@
        */
       clearAll(delRpNode, pkMode) {
         const wid = virtualclass.gObj.currWb;
-        console.log(`Whiteboard clear ${wid}`);
+        // console.log(`Whiteboard clear ${wid}`);
         // TODO this should be done in proper way
         // virtualclass.recorder.items = [];
 
@@ -189,7 +189,7 @@
         const error = document.getElementById('serverErrorCont');
         if (error != null) {
           error.parentNode.removeChild(error);
-          console.log('Some ERROR removed.');
+          // console.log('Some ERROR removed.');
         }
 
         virtualclass.vutil.removeAllTextWrapper();
@@ -318,7 +318,7 @@
         const { vcan } = virtualclass.wb[wid];
         // debugger;
         if (roles.hasControls()) {
-          if (!virtualclass.wb[wid].hasOwnProperty('canvasDisable') || !virtualclass.wb[wid].canvasDisable) {
+          if (!Object.prototype.hasOwnProperty.call(virtualclass.wb[wid], 'canvasDisable') || !virtualclass.wb[wid].canvasDisable) {
             const canvasElement = vcan.main.canvas;
             canvasElement.style.pointerEvents = 'visible';
           }
@@ -338,28 +338,28 @@
       },
       // The uniqueArrOfObjsToStudent and.
       // uniqueArrOfObjsToTeacher can be into sign.
-      uniqueArrOfObjsToStudent() {
-        const wid = virtualclass.gObj.currWb;
-        const { vcan } = virtualclass.wb[wid];
-        //  alert('toStudent');
-        let tempRepObjs = '';
-        virtualclass.wb[wid].gObj.replayObjs = [];
-        for (let i = 0; i < vcan.main.replayObjs.length; i++) {
-          tempRepObjs = vcan.extend({}, vcan.main.replayObjs[i]);
-          virtualclass.wb[wid].gObj.replayObjs.push(tempRepObjs);
-        }
-      },
-      uniqueArrOfObjsToTeacher() {
-        const wid = virtualclass.gObj.currWb;
-        const { vcan } = virtualclass.wb[wid];
-        console.log("=JAI= BLANK");
-        vcan.main.replayObjs = [];
-        let tempRepObjs = '';
-        for (let i = 0; i < virtualclass.wb[wid].gObj.replayObjs.length; i++) {
-          tempRepObjs = vcan.extend({}, virtualclass.wb[wid].gObj.replayObjs[i]);
-          vcan.main.replayObjs.push(tempRepObjs);
-        }
-      },
+      // uniqueArrOfObjsToStudent() {
+      //   const wid = virtualclass.gObj.currWb;
+      //   const { vcan } = virtualclass.wb[wid];
+      //   //  alert('toStudent');
+      //   let tempRepObjs = '';
+      //   virtualclass.wb[wid].gObj.replayObjs = [];
+      //   for (let i = 0; i < vcan.main.replayObjs.length; i++) {
+      //     tempRepObjs = vcan.extend({}, vcan.main.replayObjs[i]);
+      //     virtualclass.wb[wid].gObj.replayObjs.push(tempRepObjs);
+      //   }
+      // },
+      // uniqueArrOfObjsToTeacher() {
+      //   const wid = virtualclass.gObj.currWb;
+      //   const { vcan } = virtualclass.wb[wid];
+      //   // console.log('=JAI= BLANK');
+      //   vcan.main.replayObjs = [];
+      //   let tempRepObjs = '';
+      //   for (let i = 0; i < virtualclass.wb[wid].gObj.replayObjs.length; i++) {
+      //     tempRepObjs = vcan.extend({}, virtualclass.wb[wid].gObj.replayObjs[i]);
+      //     vcan.main.replayObjs.push(tempRepObjs);
+      //   }
+      // },
       makeDefaultValue(cmd) {
         // console.log('Whiteboard re-init queue');
         const wid = virtualclass.gObj.currWb;
@@ -370,8 +370,8 @@
 
         virtualclass.wb[wid].gObj.myrepObj = [];
         virtualclass.wb[wid].gObj.replayObjs = [];
-      //  virtualclass.wb[wid].gObj.rcvdPackId = 0;
-        //virtualclass.wb[wid].gObj.displayedObjId = 0;
+        //  virtualclass.wb[wid].gObj.rcvdPackId = 0;
+        // virtualclass.wb[wid].gObj.displayedObjId = 0;
         virtualclass.wb[wid].gObj.packQueue = [];
         // virtualclass.wb[wid].gObj.queue = [];
         virtualclass.wb[wid].uid = 0;
@@ -408,12 +408,12 @@
         virtualclass.media.audio.updateInfo();
       },
 
-      clearCurrentTool() {
-        const wid = virtualclass.gObj.currWb;
-        if (virtualclass.wb[wid].hasOwnProperty('tool')) {
-          virtualclass.wb[wid].tool = '';
-        }
-      },
+      // clearCurrentTool() {
+      //   const wid = virtualclass.gObj.currWb;
+      //   if (Object.prototype.hasOwnProperty.call(virtualclass.wb[wid], 'tool')) {
+      //     virtualclass.wb[wid].tool = '';
+      //   }
+      // },
 
       // setOrginalTeacherContent: function(e) {
       setOrginalTeacherContent() {
@@ -423,14 +423,14 @@
         // // localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
       },
 
-      checkWebRtcConnected() {
-        if (typeof cthis !== 'undefined') {
-          if (cthis.pc[0].hasOwnProperty('iceConnectionState') || typeof cthis.pc[0].iceConnectionState !== 'undefined') {
-            return true;
-          }
-        }
-        return false;
-      },
+      // checkWebRtcConnected() {
+      //   if (typeof cthis !== 'undefined') {
+      //     if (Object.prototype.hasOwnProperty.call(cthis.pc[0], 'iceConnectionState') || typeof cthis.pc[0].iceConnectionState !== 'undefined') {
+      //       return true;
+      //     }
+      //   }
+      //   return false;
+      // },
       createVirtualWindow(resolution) {
         const wid = virtualclass.gObj.currWb;
 
@@ -489,17 +489,17 @@
         }
         return false;
       },
-      setCommandToolHeights(toolHeight, operation) {
-        const virDiv = document.getElementById('virtualWindow');
-        if (virDiv != null) {
-          const divHeight = parseInt(virDiv.style.height.match(/\d+/));
-          if (operation == 'decrement') {
-            virDiv.style.height = `${divHeight - parseInt(toolHeight)}px`;
-          } else {
-            virDiv.style.height = `${divHeight + parseInt(toolHeight)}px`;
-          }
-        }
-      },
+      // setCommandToolHeights(toolHeight, operation) {
+      //   const virDiv = document.getElementById('virtualWindow');
+      //   if (virDiv != null) {
+      //     const divHeight = parseInt(virDiv.style.height.match(/\d+/));
+      //     if (operation == 'decrement') {
+      //       virDiv.style.height = `${divHeight - parseInt(toolHeight)}px`;
+      //     } else {
+      //       virDiv.style.height = `${divHeight + parseInt(toolHeight)}px`;
+      //     }
+      //   }
+      // },
       setClass(elmentId, newClass) {
         const elem = document.getElementById(elmentId);
         const allClasses = elem.classList;
@@ -521,47 +521,47 @@
           cdiv.setAttribute('class', `${newClass} controlCmd`);
         }
       },
-      existUserLikeMe(e) {
-        if (e.fromUser.userid != wbUser.id) {
-          if (e.message.checkUser.hasOwnProperty('role')) {
-            const { role } = e.message.checkUser;
-            if (role) {
-              if (localStorage.getItem('otherRole') == null) {
-                var roles = [];
-                if (role != virtualclass.gObj.uRole) {
-                  roles.push(role);
-                } else {
-                  existUser = true;
-                  return true;
-                }
-              } else {
-                roles = JSON.parse(localStorage.getItem('otherRole'));
-                if (roles.indexOf(role) == -1) {
-                  roles.push(role);
-                }
-              }
-
-              if (typeof roles !== 'undefined') {
-                // localStorage.setItem('otherRole', JSON.stringify(roles));
-                console.log(`Other Browser ${role} ${e.fromUser.userid}`);
-              }
-            }
-            return (virtualclass.gObj.uRole == role);
-          }
-        } else if (typeof existUser !== 'undefined') {
-          return true;
-        } else {
-          const otherRoles = JSON.parse(localStorage.getItem('otherRole'));
-          if (otherRoles != null) {
-            for (let i = 0; i < otherRoles.length; i++) {
-              if (virtualclass.gObj.uRole == otherRoles[i]) {
-                return true;
-              }
-            }
-            return false;
-          }
-        }
-      },
+      // existUserLikeMe(e) {
+      //   if (e.fromUser.userid != wbUser.id) {
+      //     if (Object.prototype.hasOwnProperty.call(e.message.checkUser, 'role')) {
+      //       const { role } = e.message.checkUser;
+      //       if (role) {
+      //         if (localStorage.getItem('otherRole') == null) {
+      //           var roles = [];
+      //           if (role != virtualclass.gObj.uRole) {
+      //             roles.push(role);
+      //           } else {
+      //             existUser = true;
+      //             return true;
+      //           }
+      //         } else {
+      //           roles = JSON.parse(localStorage.getItem('otherRole'));
+      //           if (roles.indexOf(role) == -1) {
+      //             roles.push(role);
+      //           }
+      //         }
+      //
+      //         if (typeof roles !== 'undefined') {
+      //           // localStorage.setItem('otherRole', JSON.stringify(roles));
+      //           // console.log(`Other Browser ${role} ${e.fromUser.userid}`);
+      //         }
+      //       }
+      //       return (virtualclass.gObj.uRole == role);
+      //     }
+      //   } else if (typeof existUser !== 'undefined') {
+      //     return true;
+      //   } else {
+      //     const otherRoles = JSON.parse(localStorage.getItem('otherRole'));
+      //     if (otherRoles != null) {
+      //       for (let i = 0; i < otherRoles.length; i++) {
+      //         if (virtualclass.gObj.uRole == otherRoles[i]) {
+      //           return true;
+      //         }
+      //       }
+      //       return false;
+      //     }
+      //   }
+      // },
 
       // TODO remove this function
       existUserWithSameId(e) {
@@ -685,7 +685,7 @@
               allAnchors[i].style.pointerEvents = 'visible';
             }
           } else if (commandToolWrapper != null) {
-            if (!virtualclass.gObj.hasOwnProperty('errNotDesktop')) {
+            if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'errNotDesktop')) {
               commandToolWrapper.style.pointerEvents = 'visible';
             }
           }
@@ -694,7 +694,7 @@
 
       replayFromLocalStroage(allRepObjs) {
         // alert('Replay from local storage');
-        console.log('PDF, Whiteboard is intializing');
+        // console.log('PDF, Whiteboard is intializing');
         // console.log('Whiteboard from local storage last Object ' + allRepObjs[allRepObjs.length - 1].uid);
 
         const wid = virtualclass.gObj.currWb;
@@ -706,7 +706,7 @@
           if (allRepObjs.length > 0) {
             virtualclass.wb[wid].utility.makeCanvasDisable();
             virtualclass.wb[wid].utility.toolWrapperDisable();
-            //virtualclass.wb[wid].gObj.displayedObjId = 0;
+            // virtualclass.wb[wid].gObj.displayedObjId = 0;
             virtualclass.wb[wid].utility.drawInWhiteboards(allRepObjs, 'fromBrowser');
           }
 
@@ -803,15 +803,15 @@
        */
       beforeSend(msg, toUser) {
         const wid = virtualclass.gObj.currWb;
-        if (msg.hasOwnProperty('createArrow')) {
+        if (Object.prototype.hasOwnProperty.call(msg, 'createArrow')) {
           var jobj = JSON.stringify(msg);
           virtualclass.wb[wid].vcan.optimize.sendPacketWithOptimization(jobj, 300);
         } else {
-          if (msg.hasOwnProperty('repObj')) {
+          if (Object.prototype.hasOwnProperty.call(msg, 'repObj')) {
             if (typeof (msg.repObj[msg.repObj.length - 1]) === 'undefined') {
               return;
             }
-          //  virtualclass.wb[wid].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
+            //  virtualclass.wb[wid].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
 
 
             // virtualclass.wb[wid].gObj.displayedObjId = virtualclass.wb[wid].gObj.rcvdPackId;
@@ -825,7 +825,7 @@
 
           // TODO this should be enable
           const tempObj = JSON.parse(jobj);
-          if (tempObj.hasOwnProperty('repObj')) {
+          if (Object.prototype.hasOwnProperty.call(tempObj, 'repObj')) {
             virtualclass.wb[wid].utility.updateSentInformation(jobj);
           }
         }
@@ -889,7 +889,7 @@
         const wid = virtualclass.gObj.currWb;
         const tag = document.getElementById(byReload);
         let classes;
-        if (virtualclass.wb[wid].hasOwnProperty('prvTool') && virtualclass.wb[wid].prvTool != `t_reclaim${wid}`) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.wb[wid], 'prvTool') && virtualclass.wb[wid].prvTool != `t_reclaim${wid}`) {
           // classes = virtualclass.wb[virtualclass.gObj.currWb].utility.removeClassFromElement(virtualclass.wb[virtualclass.gObj.currWb].prvTool, "active");
           classes = virtualclass.vutil.removeClassFromElement(virtualclass.wb[wid].prvTool, 'active');
 
@@ -945,7 +945,7 @@
       drawInWhiteboards(repObjs, fromBrowser) {
         const wid = virtualclass.gObj.currWb;
         for (let i = 0; i < repObjs.length; i++) {
-          if (repObjs[i].hasOwnProperty('cmd')) {
+          if (Object.prototype.hasOwnProperty.call(repObjs[i], 'cmd')) {
             if (roles.hasControls()) {
               const tool = repObjs[i].cmd.slice(2, repObjs[i].cmd.length);
               const currentShapeTool = document.querySelector(`${'#' + 'tool_wrapper'}${wid}`);
@@ -960,19 +960,19 @@
                 shapesElem.classList.remove('active');
               }
             }
-          } else if (repObjs[i].hasOwnProperty('color')) {
+          } else if (Object.prototype.hasOwnProperty.call(repObjs[i], 'color')) {
             virtualclass.wb[wid].activeToolColor = repObjs[i].color;
             if (roles.hasControls()) {
               document.querySelector(`#t_color${wid} .disActiveColor`).style.backgroundColor = virtualclass.wb[wid].activeToolColor;
               virtualclass.wb[wid].utility.selectElem(`#colorList${wid}`, repObjs[i].elem);
             }
-          } else if (repObjs[i].hasOwnProperty('strkSize')) {
+          } else if (Object.prototype.hasOwnProperty.call(repObjs[i], 'strkSize')) {
             virtualclass.wb[wid].currStrkSize = repObjs[i].strkSize;
             if (roles.hasControls()) {
               document.querySelector(`#t_strk${wid} ul`).dataset.stroke = virtualclass.wb[wid].currStrkSize;
               virtualclass.wb[wid].utility.selectElem(`#t_strk${wid}`, repObjs[i].elem);
             }
-          } else if (repObjs[i].hasOwnProperty('fontSize')) {
+          } else if (Object.prototype.hasOwnProperty.call(repObjs[i], 'fontSize')) {
             virtualclass.wb[wid].textFontSize = repObjs[i].fontSize;
             if (roles.hasControls()) {
               document.querySelector(`#t_font${wid} ul`).dataset.font = virtualclass.wb[wid].textFontSize;
@@ -981,9 +981,8 @@
           }
 
           // if (repObjs[i].uid === virtualclass.wb[wid].gObj.displayedObjId + 1) {
-            virtualclass.wb[wid].uid = repObjs[i].uid;
-            this.executeWhiteboardData(repObjs[i]);
-
+          virtualclass.wb[wid].uid = repObjs[i].uid;
+          this.executeWhiteboardData(repObjs[i]);
         }
       },
 
@@ -1012,14 +1011,14 @@
       },
 
       scaleCordinate(ev) {
-        console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
+        // console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
         ev.detail.cevent.x = ev.detail.cevent.x * virtualclass.zoom.canvasScale;
         ev.detail.cevent.y = ev.detail.cevent.y * virtualclass.zoom.canvasScale;
         return ev;
       },
 
       scaleMoveCordinate(obj) {
-        console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
+        // console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
         obj.x = ev.detail.cevent.x / virtualclass.zoom.canvasScale;
         obj.y = ev.detail.cevent.y / virtualclass.zoom.canvasScale;
         return obj;

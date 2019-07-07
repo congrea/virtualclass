@@ -42,15 +42,15 @@ var ioAdapter = {
       delay = 1000;
     }
 
-    if (this.sendWithDelayIdentifier.hasOwnProperty(uniqueIdentifier) && ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]) {
+    if (Object.prototype.hasOwnProperty.call(this.sendWithDelayIdentifier, uniqueIdentifier) && ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]) {
       // console.log ("Cancelling send " + sendFunction + " message " + JSON.stringify(msg));
-      console.log(`Cancelling send ${sendFunction} message ${msg.cf}`);
+      // console.log(`Cancelling send ${sendFunction} message ${msg.cf}`);
       clearTimeout(ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]);
       ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
     }
 
     ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = setTimeout(() => {
-      console.log(`Sending With Delay ${sendFunction} message ${msg.cf}`);
+      // console.log(`Sending With Delay ${sendFunction} message ${msg.cf}`);
       ioAdapter[sendFunction](msg);
       ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
     }, delay);
@@ -103,7 +103,7 @@ var ioAdapter = {
       msg.serial = null;
     }
     this.userSerial[touser]++;
-    console.log(`USER s.n ${this.userSerial[touser]} user ${touser}`);
+    // console.log(`USER s.n ${this.userSerial[touser]} user ${touser}`);
     msg.userSerial = this.userSerial[touser];
     this.userAdapterMustData[touser][msg.userSerial] = { type: 'broadcastToAll', m: msg };
     this.sendUser(msg, touser);
@@ -147,7 +147,7 @@ var ioAdapter = {
       };
       io.realSend(obj);
       io.recordingSet = true;
-      console.log(`==== Send Recording a/v ${sendData}`);
+      // console.log(`==== Send Recording a/v ${sendData}`);
     }
   },
 

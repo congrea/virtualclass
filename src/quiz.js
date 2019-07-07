@@ -1,7 +1,9 @@
 /* global virtualclass, ioAdapter */
 (function (window) {
-  "use strtic";
-  let scope, pubbtn;
+  'use strtic';
+
+  let scope; let
+    pubbtn;
   const quiz = function () {
     return {
       /* to generlize */
@@ -53,7 +55,7 @@
           });
         }
         if (roles.hasControls()) {
-          console.log('fetchquizes');
+          // console.log('fetchquizes');
           this.interfaceToFetchList(this.cmid);
         }
 
@@ -78,11 +80,11 @@
 
           virtualclass.storage.getQuizData(
             (data) => {
-              if (data.hasOwnProperty('qData')) {
+              if (Object.prototype.hasOwnProperty.call(data, 'qData')) {
                 const dataRc = JSON.parse(data.qData);
                 that.quizDisplay(dataRc);
               } else {
-                console.log('Quiz data is not available');
+                // console.log('Quiz data is not available');
               }
             },
           );
@@ -97,24 +99,24 @@
           var that = this;
           virtualclass.storage.getQuizData(
             (data) => {
-              if (typeof data !== 'undefined' && data.hasOwnProperty('qData')
-                && data.hasOwnProperty('qDetail')) {
+              if (typeof data !== 'undefined' && Object.prototype.hasOwnProperty.call(data, 'qData')
+                && Object.prototype.hasOwnProperty.call(data, 'qDetail')) {
                 const quizDetial = JSON.parse(data.qDetail);
                 /* On page refesh, we don't have to reset the time limit,
                  * if we do this, the quiz without timer would be closed on page refresh
                  * */
-                // if (storedData.hasOwnProperty('qtime')) {
+                // if (Object.prototype.hasOwnProperty.call(storedData, 'qtime')) {
                 // quizDetial.timelimit = that.convertTimeToSec(storedData.qtime);
                 // }
                 that.quizJSON = data.qData;
                 that.openQuizPopup(that.quizJSON, quizDetial.id);
                 that.UI.resultView(quizDetial);
                 that.tabContent();
-                if (data.hasOwnProperty('qAttempt')) {
+                if (Object.prototype.hasOwnProperty.call(data, 'qAttempt')) {
                   that.quizAttempted = JSON.parse(data.qAttempt);
                   that.displayAttemptOverview();
                 }
-                if (data.hasOwnProperty('qGrade')) {
+                if (Object.prototype.hasOwnProperty.call(data, 'qGrade')) {
                   that.qGrade = JSON.parse(data.qGrade);
                   that.displayGradeReport();
                 }
@@ -137,7 +139,7 @@
         const listcont = document.getElementById('listquizcourse');
         if (Object.keys(this.coursequiz).length > 0) {
           for (const k in this.coursequiz) {
-            if (this.coursequiz.hasOwnProperty(k)) {
+            if (Object.prototype.hasOwnProperty.call(this.coursequiz, k)) {
               if (!+this.coursequiz[k].quizstatus) {
                 isQuiz = true;
                 this.displayQuizes(this.coursequiz[k], k);
@@ -173,7 +175,7 @@
         if (listCont) {
           listCont.style.display = 'block';
         } else {
-          console.log('quiz layout 2');
+          // console.log('quiz layout 2');
           this.UI.layout2('layoutQuizBody');
         }
       },
@@ -228,11 +230,11 @@
         if (elem != null) {
           elem.addEventListener(eventName, () => {
             if (typeof item !== 'undefined') {
-              console.log('attach time handler');
+              // console.log('attach time handler');
               handler(item, index);
               // handler(item, index, actionid, item.id);
             } else {
-              console.log('quiz is missing no need of time');
+              // console.log('quiz is missing no need of time');
               // handler(index, actionid);
             }
           });
@@ -341,9 +343,9 @@
       },
 
       quizPopUp(cb, index) {
-        console.log('quiz pop up');
+        // console.log('quiz pop up');
         const attachInit = function () {
-          console.log(this.id);
+          // console.log(this.id);
           virtualclass.quiz.action(this.id, cb, index);
         };
         const modal = document.getElementById('editQuizModal') ? document.getElementById('editQuizModal') : document.getElementById('qzPopup');
@@ -355,7 +357,7 @@
       },
 
       quizPreview(quizitem) {
-        console.log('quiz preview function');
+        // console.log('quiz preview function');
         this.UI.modalContentUI();
 
         const header = document.getElementById('contQzHead');
@@ -431,7 +433,7 @@
         formData.append('user', vthis.uid);
         virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=congrea_add_quiz`, formData).then((msg) => {
           if (msg.data !== 'ture') {
-            console.log('Quiz data not saved in congrea');
+            // console.log('Quiz data not saved in congrea');
           }
         })
           .catch((error) => {
@@ -447,7 +449,7 @@
        * @return
        */
       closeQzBt() {
-        console.log('-------CLOSE QUIZ--------');
+        // console.log('-------CLOSE QUIZ--------');
         const { qzid } = virtualclass.quiz;
         const data = { qzid };
         ioAdapter.mustSend({
@@ -460,7 +462,7 @@
         // stop timer
         if (virtualclass.gObj.CDTimer != null) {
           clearInterval(virtualclass.gObj.CDTimer);
-          console.log('Clear quiz interval');
+          // console.log('Clear quiz interval');
         }
 
         document.getElementById('closeQzBt').disabled = true;
@@ -505,14 +507,14 @@
         // student timer
         if (document.querySelector('#qztime') != null) {
           vthis.quizSt.qtime = document.querySelector('#qztime').textContent;
-          console.log(`quiz=${vthis.quizSt.qtime}`);
+          // console.log(`quiz=${vthis.quizSt.qtime}`);
         }
         // teacher timer
         if (document.querySelector('#elsTime') != null) {
           vthis.quizSt.qtime = document.querySelector('#elsTime').textContent;
-          console.log(`quiz=${vthis.quizSt.qtime}`);
+          // console.log(`quiz=${vthis.quizSt.qtime}`);
         }
-        console.log(`quiz=${vthis.quizSt.screen}`);
+        // console.log(`quiz=${vthis.quizSt.screen}`);
         if ((document.getElementById('closeQzBt') != null)
           && document.getElementById('closeQzBt').disabled == true) {
           vthis.quizSt.qClosed = 'true';
@@ -652,7 +654,7 @@
         formData.append('currectans', correctAns);
         virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=congrea_quiz_result`, formData).then((data) => {
           if (data.data !== 'ture') {
-            console.log('Quiz data not saved in congrea');
+            // console.log('Quiz data not saved in congrea');
           }
         })
           .catch((error) => {
@@ -828,7 +830,7 @@
           display.textContent = `${hours}:${minutes}:${seconds}`;
           // var ctime = hours + ":" + minutes + ":" + seconds;
           // Global scope of timer
-        //  timeTakenQuiz = `${hours}:${minutes}:${seconds}`;
+          //  timeTakenQuiz = `${hours}:${minutes}:${seconds}`;
 
           if (diff <= 0) {
             if (order != 'asc') {
@@ -841,7 +843,7 @@
             start = 0;
             if (virtualclass.gObj.CDTimer != null) {
               clearInterval(virtualclass.gObj.CDTimer);
-              console.log('Clear quiz interval');
+              // console.log('Clear quiz interval');
             }
 
             ioAdapter.mustSend({
@@ -948,7 +950,7 @@
          * Creates container for the quiz
          */
         container() {
-          console.log('quiz layout check');
+          // console.log('quiz layout check');
           const quizCont = document.getElementById(this.id);
           if (quizCont != null) {
             quizCont.parentNode.removeChild(quizCont);
@@ -1170,7 +1172,7 @@
 
             const storedData = JSON.parse(localStorage.getItem('quizSt'));
             if (storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)) {
-              console.log("Don't run timer when quiz is closed");
+              // console.log("Don't run timer when quiz is closed");
               const elapsedTime = document.querySelector('#elsTime');
               // localStorage.setItem('quizSt', JSON.stringify(storedData));
               if (elapsedTime != null) {

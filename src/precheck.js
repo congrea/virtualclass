@@ -1,4 +1,4 @@
-var preCheck = {
+const preCheck = {
   currTest: '',
   playTestAudio: false,
   session: null,
@@ -7,7 +7,6 @@ var preCheck = {
   videoAction: false,
   donePrecheck: false,
   init() {
-
     const modal = document.querySelector('#myModal');
     if (modal) {
       modal.className = 'modal in';
@@ -15,7 +14,7 @@ var preCheck = {
 
     if (roles.hasControls()) {
       this.videoAction = virtualclass.videoHost.gObj.videoSwitch;
-    } else if (virtualclass.videoHost.gObj.hasOwnProperty('stdStopSmallVid')) {
+    } else if (Object.prototype.hasOwnProperty.call(virtualclass.videoHost.gObj, 'stdStopSmallVid')) {
       this.videoAction = !(virtualclass.videoHost.gObj.stdStopSmallVid); // false means video off
     } else {
       this.videoAction = false;
@@ -37,7 +36,7 @@ var preCheck = {
     }
 
     this.startToCheckWholeSytem();
-    console.log('Precheck init skip');
+    // console.log('Precheck init skip');
     const skip = document.querySelector('#preCheckcontainer .skip');
 
     if (skip) {
@@ -53,7 +52,7 @@ var preCheck = {
   },
 
   initSkip() {
-    console.log('Skip clicked');
+    // console.log('Skip clicked');
     micTesting.makeAudioEmpty();
     if (localStorage.getItem('precheck')) {
       var virtualclassPreCheck = document.getElementById('preCheckcontainer');
@@ -101,7 +100,7 @@ var preCheck = {
   },
 
   _next(curr, cb) {
-    console.log('Clicked next');
+    // console.log('Clicked next');
 
     if (curr == 'browser') {
       virtualclass.media.audio.initAudiocontext();
@@ -112,7 +111,7 @@ var preCheck = {
     const test = this[curr].next;
     virtualclass.precheck.currTest = test;
     virtualclass.precheck.updateProgressBar(test);
-    if ((!this[test].hasOwnProperty('alreadyDone') || this[test].hasOwnProperty('alreadyDone') && test == 'bandwidth')) {
+    if ((!Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone') || Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone') && test == 'bandwidth')) {
       // Only perform the test if it's not already done
       this[test].perform();
     } else {
@@ -181,7 +180,7 @@ var preCheck = {
   },
 
   initHandler(selector, currSec, cb) {
-    console.log('initHandler next/prev');
+    // console.log('initHandler next/prev');
     const nextButton = document.querySelector(selector);
 
     if (nextButton != null) {
@@ -202,10 +201,10 @@ var preCheck = {
   triggerInitHandler(selector, currSec, cb) {
     if (this.classList.contains('next')) {
       virtualclass.precheck._next(currSec);
-      console.log('Trigger handle Next');
+      // console.log('Trigger handle Next');
     } else if (this.classList.contains('prev')) {
       virtualclass.precheck._prev(currSec);
-      console.log('Trigger handle previous');
+      // console.log('Trigger handle previous');
     }
 
     if (typeof cb !== 'undefined' && cb != null) {
@@ -243,7 +242,7 @@ var preCheck = {
     perform() {
       const preCheck = '#preCheckcontainer .precheck';
       virtualclass.precheck.display(`#preCheckcontainer .precheck.${this.curr}`);
-      var that = this;
+      const that = this;
 
       /** Inspired from, http://stackoverflow.com/questions/5529718/how-to-detect-internet-speed-in-javascript * */
 
@@ -268,13 +267,13 @@ var preCheck = {
 
       virtualclass.precheck.cNavigator = virtualclass.adpt.init(navigator);
       virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(virtualclass.precheck.session).then((stream) => {
-        console.log('GEtting stream');
+        // console.log('GEtting stream');
         virtualclass.precheck.mediaStream = stream;
       });
     },
 
     bandWidthInWords(speed) {
-      console.log(`bandwidth speed ${speed}`);
+      // console.log(`bandwidth speed ${speed}`);
       let bandwidthText;
       if (speed > 600) {
         bandwidthText = 'high';
@@ -396,7 +395,7 @@ var preCheck = {
     },
 
     initAudioGraph() {
-      if (this.hasOwnProperty('graph') && this.graph != null) {
+      if (Object.prototype.hasOwnProperty.call(this, 'graph') && this.graph != null) {
         const waveElem = document.querySelector('#audioGraph wave');
         if (waveElem != null) {
           waveElem.parentNode.removeChild(waveElem);
@@ -598,7 +597,7 @@ var preCheck = {
   },
 
   async afterComplete() {
-    if (virtualclass.precheck.hasOwnProperty('mediaStream') && virtualclass.precheck.mediaStream != null) {
+    if (Object.prototype.hasOwnProperty.call(virtualclass.precheck, 'mediaStream') && virtualclass.precheck.mediaStream != null) {
       const track = virtualclass.precheck.mediaStream.getTracks()[0]; // if only one media track
       track.stop();
     }
@@ -618,22 +617,22 @@ var preCheck = {
     }
 
     /** Need for safari for iOS ** */
-    if ((virtualclass.system.mybrowser.name == 'iOS' || virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Safari') && virtualclass.media.audio.hasOwnProperty('Html5Audio')
-      && virtualclass.media.audio.Html5Audio.hasOwnProperty('audioContext')
+    if ((virtualclass.system.mybrowser.name == 'iOS' || virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Safari') && Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
+      && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
       && virtualclass.media.audio.Html5Audio.audioContext != null) {
       virtualclass.media.audio.Html5Audio.audioContext.close();
     }
 
 
-    if (virtualclass.media.audio.hasOwnProperty('Html5Audio')) {
+    if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')) {
       delete virtualclass.media.audio.Html5Audio;
     }
 
-    console.log('Fetching media stream');
+    // console.log('Fetching media stream');
 
     await virtualclass.media.init();
     const videoAction = this.videoAction ? 'on' : 'off';
-    virtualclass.vutil.videoHandler(videoAction, 'notSendStatus')
+    virtualclass.vutil.videoHandler(videoAction, 'notSendStatus');
     virtualclass.media.audio.initAudiocontext();
 
     virtualclass.precheck.speaker.playTestAudio = false;

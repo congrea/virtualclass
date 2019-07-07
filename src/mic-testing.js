@@ -6,34 +6,34 @@ var micTesting = {
     this.allAudioArr = [];
     this.bufferSize = 16384;
     if (stream != null) {
-      if (!virtualclass.media.audioVisual.hasOwnProperty('audioCtx')
-        || (virtualclass.media.audioVisual.hasOwnProperty('audioCtx') && virtualclass.media.audioVisual.audioCtx == null)) {
+      if (!Object.prototype.hasOwnProperty.call(virtualclass.media.audioVisual, 'audioCtx')
+        || (Object.prototype.hasOwnProperty.call(virtualclass.media.audioVisual, 'audioCtx') && virtualclass.media.audioVisual.audioCtx == null)) {
         virtualclass.media.audioVisual.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
 
       if (virtualclass.system.mediaDevices.hasMicrophone) {
         if (this.audioCreatorNode == null || this.audioCreatorNode == undefined || typeof this.audioCreatorNode === 'undefined') {
-          console.log('processor intialize');
+          // console.log('processor intialize');
           this.audioInput = virtualclass.media.audioVisual.audioCtx.createMediaStreamSource(stream);
           this.audioCreatorNode = virtualclass.media.audioVisual.audioCtx.createScriptProcessor(this.bufferSize, 1, 1);
           this.audioCreatorNode.onaudioprocess = this.recorderProcessFallback.bind(this);
           this.audioInput.connect(this.audioCreatorNode);
           this.audioCreatorNode.connect(virtualclass.media.audioVisual.audioCtx.destination);
         } else {
-          console.log('No audio ');
+          // console.log('No audio ');
         }
       } else {
-        console.log('There is no microphone');
+        // console.log('There is no microphone');
       }
     } else {
-      console.log('No stream is found');
+      // console.log('No stream is found');
     }
   },
 
   recorderProcessFallback(e) {
     if (this.playAudio) {
       /** for edge browser * */
-      if (!virtualclass.precheck.mic.graph.microphone.hasOwnProperty('localAudioBuffer') || virtualclass.precheck.mic.graph.microphone.localAudioBuffer == null) {
+      if (!Object.prototype.hasOwnProperty.call(virtualclass.precheck.mic.graph.microphone, 'localAudioBuffer') || virtualclass.precheck.mic.graph.microphone.localAudioBuffer == null) {
         virtualclass.precheck.mic.graph.microphone.localAudioBuffer = virtualclass.media.audioVisual.audioCtx.createBuffer(1, this.bufferSize, virtualclass.media.audioVisual.audioCtx.sampleRate);
       }
 
@@ -123,7 +123,7 @@ var micTesting = {
         }
 
         /** Audio context for graph * */
-        if (virtualclass.precheck.mic.hasOwnProperty('graphProcessor')) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.precheck.mic, 'graphProcessor')) {
           if (virtualclass.precheck.mic.graphProcessor != null) {
             virtualclass.precheck.mic.graphProcessor.disconnect(virtualclass.precheck.mic.graphContext.destination);
           }
@@ -151,7 +151,7 @@ var micTesting = {
     //     this.grec.disconnect(virtualclass.gObj.video.audioVisual.audioCtx.destination);
     //     delete this.grec;
     //
-    //     if(virtualclass.precheck.mic.hasOwnProperty('graphProcessor')){
+    //     if(Object.prototype.hasOwnProperty.call(virtualclass.precheck.mic, 'graphProcessor')){
     //         virtualclass.precheck.mic.graphProcessor.disconnect(virtualclass.precheck.mic.graphContext.destination);
     //     }
     //

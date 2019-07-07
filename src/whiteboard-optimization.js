@@ -26,7 +26,7 @@
             // virutalclass.vutil.beforeSend(JSON.parse(jobj));
             const msg = JSON.parse(jobj);
 
-            if (msg.hasOwnProperty('createArrow')) {
+            if (Object.prototype.hasOwnProperty.call(msg, 'createArrow')) {
               ioAdapter.send(msg);
             } else {
               ioAdapter.mustSend(msg);
@@ -46,7 +46,7 @@
 
         if (((typeof virtualclass.gObj.lastmousemovetime === 'undefined') || (virtualclass.gObj.lastmousemovetime == null))) {
           virtualclass.gObj.lastmousemovetime = new Date().getTime();
-          if (!e.detail.hasOwnProperty('cevent')) {
+          if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
             vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
           }
         }
@@ -55,7 +55,7 @@
 
         if ((virtualclass.gObj.presentmousemovetime - virtualclass.gObj.lastmousemovetime) >= 2000) {	 // Optimized
           const currTime = new Date().getTime();
-          if (!e.detail.hasOwnProperty('cevent')) {
+          if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
             vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
             // vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', (e.clientX), (e.clientY));
           }

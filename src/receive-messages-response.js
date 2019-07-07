@@ -6,7 +6,7 @@
   const response = {
     clearAll(formUserId, id, eMessage, orginalTeacherId) {
       if (formUserId != id) {
-        virtualclass.wb[virtualclass.gObj.currWb].tool = new virtualclass.wb[virtualclass.gObj.currWb].tool_obj('t_clearall');
+        virtualclass.wb[virtualclass.gObj.currWb].tool = new virtualclass.wb[virtualclass.gObj.currWb].toolObj('t_clearall');
         virtualclass.wb[virtualclass.gObj.currWb].utility.t_clearallInit();
         virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue();
         // virtualclass.storage.clearStorageData();
@@ -17,7 +17,7 @@
     // TODO this is not used any more
     // should be deleted
     replayAll() {
-      console.log("=JAI= ASSIGN");
+      // console.log('=JAI= ASSIGN');
       window.virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs;
       virtualclass.wb[virtualclass.gObj.currWb].utility.clearAll(false);
       virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromFile');

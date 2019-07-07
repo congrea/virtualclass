@@ -1,4 +1,4 @@
-"use strict";
+
 
 const chatContainerEvent = {
   ub: 'init_chatBox', // User Box(When user lick on link, it will opened new chat user box)
@@ -36,7 +36,7 @@ const chatContainerEvent = {
       if ($.inArray(id, virtualclass.chat.idList) == -1) {
         virtualclass.chat.counter++;
         virtualclass.chat.idList.push(id);
-        if (!virtualclass.chat.vmstorage.hasOwnProperty(id)) {
+        if (!Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, id)) {
           virtualclass.chat.vmstorage[id] = [];
           virtualclass.chat.vmstorage[id].push({ userid: id, name });
         }
@@ -58,7 +58,7 @@ const chatContainerEvent = {
         },
       });
 
-      if (virtualclass.chat.vmstorage.hasOwnProperty(id)) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, id)) {
         displayUserSinglePvtChatHistory(id);
       }
 

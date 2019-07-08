@@ -293,11 +293,6 @@
 
     },
 
-    // get whiteboard data accoring to whieboard id
-
-    async getWbData(wbId) {
-
-    },
   };
   window.storage = storage;
 }(window));

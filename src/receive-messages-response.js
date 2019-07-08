@@ -52,10 +52,11 @@
     },
 
     replayObj(repObj) {
-      window.virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = [];
+      virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = [];
       if (repObj.length > 0) {
-        window.virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = repObj;
-        virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromBrowser', true, virtualclass.wb[virtualclass.gObj.currWb].utility.dispQueuePacket);
+        virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = repObj;
+        virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromBrowser', true, virtualclass.wb[virtualclass.gObj.currWb].utility.triggerCanvasEnable);
+        // virtualclass.wb[virtualclass.gObj.currWb].utility.triggerCanvasEnable();
       }
     },
   };

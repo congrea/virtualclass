@@ -12,7 +12,7 @@
           }
           virtualclass.attachFunction();
 
-          if (app == 'Whiteboard') {
+          if (app === 'Whiteboard') {
             const { vcan } = window.virtualclass.wb[virtualclass.gObj.currWb];
             window.virtualclass.wb[virtualclass.gObj.currWb].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[virtualclass.gObj.currWb], true, virtualclass.gObj.currWb);
           }
@@ -24,9 +24,9 @@
           }
 
           // if (app == 'Whiteboard') {
-          if (typeof virtualclass.wb === 'object') {
-            virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasEnable();
-          }
+          // if (typeof virtualclass.wb === 'object') {
+          //   virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasEnable();
+          // }
         }
       },
 

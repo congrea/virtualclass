@@ -294,19 +294,20 @@
       // initialize transfred packets from local storage when
       // browser is reloaded.
 
-      dispQueuePacket(result) {
+      triggerCanvasEnable() {
         const wid = virtualclass.gObj.currWb;
+        // virtualclass.wb[wid].drawMode = false;
+
         if (roles.hasControls()) {
           virtualclass.wb[wid].utility.toolWrapperEnable();
-        }
-        virtualclass.wb[wid].drawMode = false;
-        if (roles.hasControls()) {
           virtualclass.wb[wid].utility.makeCanvasEnable();
           virtualclass.wb[wid].utility.enableAppsBar();
         }
       },
 
       makeCanvasDisable() {
+        console.log('====> Canvas count 1 ', virtualclass.gObj.currWb);
+        console.log('====> Canvas Disbale ');
         const wid = virtualclass.gObj.currWb;
         const { vcan } = virtualclass.wb[wid];
         const canvasElement = vcan.main.canvas;
@@ -408,29 +409,6 @@
         virtualclass.media.audio.updateInfo();
       },
 
-      // clearCurrentTool() {
-      //   const wid = virtualclass.gObj.currWb;
-      //   if (Object.prototype.hasOwnProperty.call(virtualclass.wb[wid], 'tool')) {
-      //     virtualclass.wb[wid].tool = '';
-      //   }
-      // },
-
-      // setOrginalTeacherContent: function(e) {
-      setOrginalTeacherContent() {
-        // // localStorage.setItem('teacherId', virtualclass.gObj.uid); //crtical, this could be critcal
-        // window.virtualclass.view.canvasDrawMsg('Canvas');
-        // localStorage.setItem('canvasDrwMsg', true);
-        // // localStorage.setItem('orginalTeacherId', virtualclass.gObj.uid);
-      },
-
-      // checkWebRtcConnected() {
-      //   if (typeof cthis !== 'undefined') {
-      //     if (Object.prototype.hasOwnProperty.call(cthis.pc[0], 'iceConnectionState') || typeof cthis.pc[0].iceConnectionState !== 'undefined') {
-      //       return true;
-      //     }
-      //   }
-      //   return false;
-      // },
       createVirtualWindow(resolution) {
         const wid = virtualclass.gObj.currWb;
 
@@ -577,38 +555,18 @@
         }
       },
 
-      // important TODO have to think tabout this function
-      // makeUserAvailable: function(browerLength) {
-      makeUserAvailable() {
-        const wid = virtualclass.gObj.currWb;
-        if (localStorage.getItem('repObjs') == null) {
-          virtualclass.wb[wid].utility.toolWrapperEnable();
-          if (vcan.main.canvas != null) {
-            virtualclass.wb[wid].utility.makeCanvasEnable();
-          }
-        }
-      },
-
       displayCanvas(id) {
         const { vcan } = virtualclass.wb[id];
-
         vcan.canvasWrapperId = `canvasWrapper${id}`;
         if (document.getElementById(`canvas${id}`) == null) {
           virtualclass.wb[id].createCanvas(id);
         }
-
-        window.virtualclass.wb[id].init(id);
-
+        virtualclass.wb[id].init(id);
 
         virtualclass.wb[id].utility.makeCanvasDisable();
         virtualclass.wb[id].utility.toolWrapperDisable();
 
-        if (!roles.hasControls() && !roles.hasAdmin()) {
-          if (vcan.main.children == 0) {
-            //     virtualclass.wb[id].utility.createWhiteboardMessage()
-          }
-        }
-        if (!roles.hasControls() && virtualclass.currApp == 'Whiteboard') {
+        if (!roles.hasControls() && virtualclass.currApp === 'Whiteboard') {
           if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
             virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currSlide);
           }
@@ -637,16 +595,6 @@
         }
       },
 
-      initAll(e) {
-        const wid = virtualclass.gObj.currWb;
-        if (roles.hasControls()) {
-          virtualclass.wb[wid].utility.makeCanvasDisable();
-        }
-        const res = virtualclass.system.measureResoultion({
-          width: window.outerWidth,
-          height: window.innerHeight,
-        });
-      },
       alreadyExistToolBar(id) {
         const rectDiv = document.getElementById(`t_rectangle${id}`);
         if (rectDiv != null) {
@@ -704,9 +652,8 @@
 
 
           if (allRepObjs.length > 0) {
-            virtualclass.wb[wid].utility.makeCanvasDisable();
-            virtualclass.wb[wid].utility.toolWrapperDisable();
-            // virtualclass.wb[wid].gObj.displayedObjId = 0;
+            // virtualclass.wb[wid].utility.makeCanvasDisable();
+            // virtualclass.wb[wid].utility.toolWrapperDisable();
             virtualclass.wb[wid].utility.drawInWhiteboards(allRepObjs, 'fromBrowser');
           }
 
@@ -756,27 +703,6 @@
         return true;
       },
 
-      actionAfterRemovedUser() {
-        const wid = virtualclass.gObj.currWb;
-        virtualclass.wb[wid].utility.makeCanvasDisable();
-        virtualclass.wb[wid].utility.setStyleUserConnetion('con', 'coff');
-        virtualclass.wb[wid].utility.removeVirtualWindow('virtualWindow');
-        virtualclass.wb[wid].user.connected = false;
-        wb[wid];
-        localStorage.removeItem('otherRole');
-
-        if (typeof cthis !== 'undefined') {
-          tempIsInitiaor = true;
-          if (cthis.isStarted) {
-            cthis.handleRemoteHangup();
-          }
-        }
-      },
-
-
-      sendRequest() {
-
-      },
       updateSentInformation(jobj, createArrow) {
         if (roles.hasAdmin()) {
           const sentObj = JSON.parse(jobj);
@@ -844,23 +770,6 @@
         if (currentTag.id != 'vcanvas') {
           currentTag.style.margin = '0';
           currentTag.style.padding = '0';
-        }
-      },
-
-      // TODO lockvirtualclass should be lockWhiteboard
-      lockvirtualclass() {
-        const wid = virtualclass.gObj.currWb;
-        if (window.earlierWidth != window.innerWidth) {
-          virtualclass.wb[wid].canvasDisable = true;
-          virtualclass.wb[wid].utility.makeCanvasDisable();
-          virtualclass.wb[wid].utility.toolWrapperDisable();
-          virtualclass.vutil.disableAppsBar();
-          if (document.getElementById('divForReloadMsg') == null) {
-            const label = (roles.hasControls()) ? 'msgForReload' : 'msgStudentForReload';
-            window.virtualclass.view.displayMsgBox('divForReloadMsg', label);
-            // fix me earlierWidth and innerwidth are same
-            window.earlierWidth = window.innerWidth;
-          }
         }
       },
       getElementRightOffSet(element) {

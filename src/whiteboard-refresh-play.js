@@ -44,7 +44,7 @@
           return;
         }
 
-        virtualclass.wb[virtualclass.gObj.currWb].drawMode = true; // TODO this should be removed
+        //virtualclass.wb[virtualclass.gObj.currWb].drawMode = true; // TODO this should be removed
         this.rendering = true;
         if (typeof myfunc !== 'undefined') {
           this.callBkfunc = myfunc;

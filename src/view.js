@@ -313,25 +313,7 @@
     if (virtualclass.system.device == 'mobTab') {
       vhCheck();
     }
-    // var height = virtualclass.vutil.calculateChatHeight();
-    // if (!roles.hasControls()) {
-    //
-    //     if (!virtualclass.videoHost.gObj.videoSwitch) {
-    //         height = height+230;
-    //     }
-    // }
-    // console.log("heightinview" + height);
-    // virtualclass.vutil.setChatContHeight(height);
-    // //$('#chatWidget').height(height);
-    //
-    // if(virtualclass.isPlayMode){
-    //        var height = height+64;
-    // }
-    //
-    // $('#chat_div').css('max-height', height + 'px');
 
-
-    // virtualclass.chat.boxHeight = height;
     if ((virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare')
       && virtualclass.gObj.currWb != null && typeof virtualclass.gObj.currWb !== 'undefined'
     ) {
@@ -350,69 +332,5 @@
     }
   };
 
-  // TODO
-  // this code is not using should be removed
-  view.virtualWindow.manupulation = function (e) {
-    const message = e.message.virtualWindow;
-    if (Object.prototype.hasOwnProperty.call(message, 'removeVirtualWindow')) {
-      if (e.fromUser.userid != wbUser.id) {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.removeVirtualWindow('virtualWindow');
-      }
-    } else if (Object.prototype.hasOwnProperty.call(message, 'createVirtualWindow')) {
-      if (Object.prototype.hasOwnProperty.call(message, 'toolHeight')) {
-        // localStorage.setItem('toolHeight', message.toolHeight);
-      }
-
-      if (e.fromUser.userid != wbUser.id) {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.createVirtualWindow(message.createVirtualWindow);
-      }
-    } else if (Object.prototype.hasOwnProperty.call(message, 'shareBrowserWidth')) {
-      if (Object.prototype.hasOwnProperty.call(message, 'toolHeight')) {
-        // localStorage.setItem('toolHeight', message.toolHeight);
-      }
-
-      if (roles.hasControls()) {
-        var toolBoxHeight = virtualclass.wb[virtualclass.gObj.currWb].utility.getWideValueAppliedByCss('commandToolsWrapper');
-        // localStorage.setItem('toolHeight', toolBoxHeight);
-      }
-
-      if (e.fromUser.userid != wbUser.id) {
-        if (roles.hasControls()) {
-          virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasEnable();
-        }
-        otherBrowser = message.browserRes;
-      } else {
-        myBrowser = virtualclass.system.measureResoultion({
-          width: window.outerWidth,
-          height: window.innerHeight,
-        });
-      }
-
-      if (typeof myBrowser === 'object' && typeof otherBrowser === 'object') {
-        if (myBrowser.width > otherBrowser.width) {
-          if (!virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow) {
-            virtualclass.wb[virtualclass.gObj.currWb].utility.createVirtualWindow(otherBrowser);
-            virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow = true;
-          }
-        } else if (myBrowser.width < otherBrowser.width) {
-          if (!virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow) {
-            // virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow = true;
-            const canvaContainer = document.getElementById('vcanvas');
-            const rightOffset = virtualclass.wb[virtualclass.gObj.currWb].utility.getElementRightOffSet(canvaContainer);
-            if (roles.hasControls()) {
-              virtualclass.vutil.beforeSend({
-                virtualWindow: {
-                  createVirtualWindow: myBrowser - rightOffset,
-                  toolHeight: toolBoxHeight,
-                },
-              });
-            } else {
-              virtualclass.vutil.beforeSend({ virtualWindow: { createVirtualWindow: myBrowser - rightOffset } });
-            }
-          }
-        }
-      }
-    }
-  };
   window.view = view;
 }(window));

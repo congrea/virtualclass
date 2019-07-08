@@ -113,15 +113,6 @@
 
       _init(mid) {
         virtualclass.wb[mid].oTeacher = roles.hasAdmin();
-
-        // if (virtualclass.vutil.chkValueInLocalStorage('rcvdPackId')) {
-        //   virtualclass.wb[mid].gObj.rcvdPackId = parseInt(localStorage.rcvdPackId);
-        // } else {
-        //   virtualclass.wb[mid].gObj.rcvdPackId = 0;
-        // }
-
-        // virtualclass.wb[mid].utility.displayCanvas();
-
         window.addEventListener('click', () => {
           virtualclass.view.disappearBox('WebRtc');
           virtualclass.view.disappearBox('Canvas');
@@ -581,32 +572,9 @@
             //     anch.click();
             // }
           });
-        } else if (cmd === `t_assign${wbId}`) {
-          // debugger;
-          const toolHeight = localStorage.getItem('toolHeight');
-          if (toolHeight != null) {
-            virtualclass.vutil.beforeSend({
-              assignRole: true,
-              toolHeight,
-              socket: virtualclass.wb[wbId].socketOn,
-            });
-          } else {
-            virtualclass.vutil.beforeSend({
-              assignRole: true,
-              socket: virtualclass.wb[wbId].socketOn,
-              cf: 'assignRole',
-            });
-          }
-        } else if (cmd === 't_reclaim') {
-          // debugger;
-          virtualclass.wb[wbId].utility._reclaimRole();
         }
 
-        // Removed t_activeall, because we need to show mouse movent while user click on Active all
-        // This is window for after assigned the role
-        // If (cmd != 't_activeall' && cmd != 't_replay' && cmd != 't_clearallInit' && cmd != 't_assign'
-        if ((cmd !== `t_replay${wbId}`) && (cmd !== `t_clearallInit${wbId}`) && (cmd !== `t_assign${wbId}`)
-          && (cmd !== `t_reclaim${wbId}`)) {
+        if ((cmd !== `t_replay${wbId}`) && (cmd !== `t_clearallInit${wbId}`)) {
           // debugger;
           virtualclass.wb[wbId].tool = new virtualclass.wb[wbId].toolObj(cmd);
           virtualclass.wb[wbId].utility.attachEventHandlers(wbId);

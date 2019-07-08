@@ -33,10 +33,10 @@ var overrideOperation = function (role) {
   if (role === 's') {
     virtualclass.view.disappearBox('drawArea'); // remove draw message box
     removeAppsDom();
-    if (typeof virtualclass.wb === 'object') {
-      // make canvas disable if there canvas is disabled
-      virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasDisable();
-    }
+    // if (typeof virtualclass.wb === 'object') {
+    //   // make canvas disable if there canvas is disabled
+    //   virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasDisable();
+    // }
   }
   virtualclass.vutil.overrideRoles(role);
 

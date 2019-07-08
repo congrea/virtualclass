@@ -83,10 +83,11 @@ const workerAudioRecBlob = URL.createObjectURL(new Blob(['(', function () {
           case 'workletAudioRec':
             this.workletAudioRec = e.ports[0];
             this.workletAudioRec.onmessage = this.fromworkletAudioRec.bind(this);
+            break;
 
           case 'audioWorklet':
             this.supportAudioWorklet = e.data.msg;
-
+            break;
           default:
             // console.log('do nothing');
         }

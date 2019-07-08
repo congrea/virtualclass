@@ -7,48 +7,11 @@
     order: [0],
     wbInd: 0,
     initNavHandler() {
-      const that = this;
       const nextButton = document.querySelector('#virtualclassWhiteboard.whiteboard .next');
+      nextButton.addEventListener('click', virtualclass.vutil.navWhiteboard.bind(virtualclass.vutil, this, this.next));
 
-
-      if (nextButton != null) {
-        nextButton.onclick = function onclick() {
-          virtualclass.vutil.navWhiteboard(that, that.next);
-          if (Object.prototype.hasOwnProperty.call(wbCommon, 'setNextWhiteboardTime')) {
-            clearTimeout(wbCommon.setNextWhiteboardTime);
-          }
-          if (virtualclass.currApp === 'Whiteboard') {
-            wbCommon.setNextWhiteboardTime = setTimeout(
-              () => {
-                /** We can not run zoomControlerFitToScreen as we need to retain canvas scale * */
-                virtualclass.zoom.normalRender();
-              }, 500,
-            );
-          }
-        };
-      }
       const prevButton = document.querySelector('#virtualclassWhiteboard.whiteboard .prev');
-      if (prevButton != null) {
-        prevButton.onclick = function onclick() {
-          // that.prev();
-          virtualclass.vutil.navWhiteboard(that, that.prev);
-          /** to set the dimension of whiteboard during window is resized * */
-          const currWb = virtualclass.wb[virtualclass.gObj.currWb];
-          if (typeof currWb === 'object') {
-            /* To handle the dimension of whiteboard on previous click, */
-            // TODO remove setTimeout
-            setTimeout(
-              () => {
-                // console.log('whiteboard zoom normal render');
-                // virtualclass.zoom.normalRender();
-                // system.setAppDimension(null, 'resize');
-                //  virtualclass.view.window.resize();
-                virtualclass.zoom.normalRender();
-              }, 500,
-            );
-          }
-        };
-      }
+      prevButton.addEventListener('click', virtualclass.vutil.navWhiteboard.bind(virtualclass.vutil, this, this.prev));
     },
 
     initNav(wIds) {

@@ -77,7 +77,6 @@
         screenRh: 60,
         isReadyForVideo: true,
         defaultApp: 'Whiteboard',
-        tempQueue: {},
         chatIconColors: {},
         prevApp: null,
         myworker: null, // It contains a pdf worker for all PDFS of whiteboard and document sharing
@@ -621,7 +620,7 @@
           virtualclass.vutil.setCurrApp(vcContainer, this.currApp);
           const vcAppContainer = document.querySelector('#virtualclassApp');
           if (vcAppContainer != null) {
-            if (this.currApp == 'DocumentShare' || this.currApp == 'SharePresentation' || this.currApp == 'Video') {
+            if (this.currApp === 'DocumentShare' || this.currApp === 'SharePresentation' || this.currApp === 'Video') {
               virtualclass.vutil.setCurrApp(vcAppContainer, vcContainer.dataset.currapp);
             } else {
               vcAppContainer.dataset.currapp = '';
@@ -787,9 +786,9 @@
         }
         if (roles.hasControls()) {
           var currVideo = Array.prototype.slice.call(arguments)[2];
-          if (app != 'ScreenShare' && (virtualclass.currApp == 'SharePresentation' || (virtualclass.currApp == 'Video'))) {
+          if (app !== 'ScreenShare' && (virtualclass.currApp === 'SharePresentation' || (virtualclass.currApp === 'Video'))) {
             virtualclass.vutil.initDashboardNav(currVideo);
-            if (virtualclass.currApp == 'Video') {
+            if (virtualclass.currApp === 'Video') {
               // console.log(`currApp ${virtualclass.currApp}`);
             } else if (!(virtualclass.sharePt.localStoragFlag)) {
               var dashboardnav = document.querySelector('#dashboardnav button');
@@ -797,7 +796,7 @@
                 dashboardnav.click();
               }
             }
-          } else if (virtualclass.currApp == 'DocumentShare' || virtualclass.currApp == 'SharePresentation') {
+          } else if (virtualclass.currApp === 'DocumentShare' || virtualclass.currApp === 'SharePresentation') {
             // this.checkDsTable();
           } else {
             virtualclass.vutil.removeDashboardNav();
@@ -815,18 +814,16 @@
 
       // Helper functions for making the app is ready
       appInitiator: {
-
         async Whiteboard(app, cusEvent, id, container) {
           let vcan;
           if (typeof this.ss === 'object') {
             this.ss.prevStream = false;
           }
 
-          if (typeof this.previous !== 'undefined' && typeof cusEvent !== 'undefined') {
-            if (cusEvent === 'byclick' && roles.hasControls() && virtualclass.currApp === 'Whiteboard') {
-              const docid = id.split('_doc_')[1];
-              virtualclass.vutil.beforeSend({ dispWhiteboard: true, cf: 'dispWhiteboard', d: docid });
-            }
+          if (roles.hasControls() && typeof this.previous !== 'undefined' && typeof cusEvent !== 'undefined'
+          && cusEvent === 'byclick' && roles.hasControls() && virtualclass.currApp === 'Whiteboard') {
+            const docid = id.split('_doc_')[1];
+            virtualclass.vutil.beforeSend({ dispWhiteboard: true, cf: 'dispWhiteboard', d: docid });
           }
 
           virtualclass.gObj.currWb = id;
@@ -839,9 +836,6 @@
             virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
             // virtualclass.zoom.normalRender();
           }
-          if (roles.isStudent() && virtualclass.currApp === 'Whiteboard') {
-            virtualclass.wbCommon.setCurrSlideNumber(id);
-          }
 
           if (typeof id !== 'undefined') {
             if (typeof this.wb[id] !== 'object') {
@@ -853,21 +847,20 @@
               this.wb[id] = {};
               virtualclass.gObj.tempReplayObjs[id] = [];
               this.wb[id] = new window.whiteboard(this.wbConfig, id);
-              if (this.gObj.tempQueue[id] != null) {
-                this.gObj.tempQueue[id] = null;
-              }
               let whiteboardContainer;
+              let wbHtml;
+              let canvas;
+
               if (virtualclass.currApp === 'Whiteboard') {
                 whiteboardContainer = document.querySelector('#virtualclassWhiteboard .whiteboardContainer');
-                if (!virtualclass.gObj.wbInitHandle) {
+                if (roles.hasControls() && !virtualclass.gObj.wbInitHandle) {
                   virtualclass.wbCommon.initNavHandler();
                   virtualclass.gObj.wbInitHandle = true;
                 }
               } else {
                 whiteboardContainer = document.getElementById(`cont${id}`);
               }
-              let wbHtml;
-              let canvas;
+
               if (whiteboardContainer !== null) {
                 if (document.querySelector(`vcanvas${id}`) === null) {
                   const wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
@@ -912,7 +905,7 @@
                 this.wb[id].readyTextObj = window.readyTextObj;
                 this.wb[id].bridge = window.bridge;
                 this.wb[id].response = window.response;
-                virtualclass.wb[id].utility.displayCanvas(id); // TODO this should be invoke only once
+                virtualclass.wb[id].utility.displayCanvas(id);
 
                 if (roles.hasControls()) {
                   virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
@@ -928,7 +921,6 @@
                 alert('whiteboard container is null');
               }
             } else {
-              // if command tool wrapper is not added
               const commonWrapperId = `commandToolsWrapper${id}`;
               const commandToolsWrapper = document.getElementById(`commandToolsWrapper${id}`);
               if (commandToolsWrapper == null && roles.hasControls()) {
@@ -940,7 +932,7 @@
           } else {
             alert('id is undefined');
           }
-          // console.log('==== SESSION CLEAR');
+
           virtualclass.zoom.init();
           const activeWbTool = localStorage.getItem('activeTool');
           if (activeWbTool !== null) {
@@ -957,7 +949,9 @@
               virtualclass.wb[id].utility.makeCanvasEnable();
             }
 
-            /** TODO, move code to whiteboard-utility.js **/
+            /** TODO, move code to utilit.js and should not be invoked from here **/
+            console.log("=====> whiteboard mouse up ");
+
             window.addEventListener('mouseup', (ev) => {
               const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
               if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare')) {
@@ -990,6 +984,11 @@
                 }
               }
             });
+
+          } else {
+            if (roles.isStudent() && virtualclass.currApp === 'Whiteboard') {
+              virtualclass.wbCommon.setCurrSlideNumber(id);
+            }
           }
 
           if (typeof virtualclass.wb.indexNav === 'undefined') {
@@ -1214,7 +1213,7 @@
             }
 
             if (virtualclass.gObj.currWb != null && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] !== 'undefined'
-              && virtualclass.currApp == 'DocumentShare' && Object.prototype.hasOwnProperty.call(virtualclass.pdfRender[virtualclass.gObj.currWb], 'page')
+              && virtualclass.currApp === 'DocumentShare' && Object.prototype.hasOwnProperty.call(virtualclass.pdfRender[virtualclass.gObj.currWb], 'page')
               && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null) {
               if (virtualclass.dts.order) {
                 if (typeof virtualclass.dts.indexNav === 'undefined') {
@@ -1300,7 +1299,7 @@
           appName = appName.substring(0, appName.indexOf('Tool'));
           //  this.currApp = appName; //could be dangerous
           if (!this.PrvAndCurrIsWss(this.previous, appName)) {
-            if (virtualclass.currApp == 'DocumentShare') {
+            if (virtualclass.currApp === 'DocumentShare') {
               virtualclass.gObj.screenRh = 160;
             }
             // console.log('==== DST init makeAppReady');

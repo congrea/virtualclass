@@ -360,20 +360,8 @@
     this.setCurrentIndex(index);
   };
 
-  pageIndexNav.prototype.newWbpage = function (value) {
+  pageIndexNav.prototype.newWbpage = function () {
     virtualclass.vutil.navWhiteboard(virtualclass.wbCommon, virtualclass.wbCommon.newPage);
-    if (Object.prototype.hasOwnProperty.call(virtualclass.wbCommon, 'setNextWhiteboardTime')) {
-      clearTimeout(virtualclass.wbCommon.setNextWhiteboardTime);
-    }
-    if (virtualclass.currApp === 'Whiteboard') {
-      virtualclass.wbCommon.setNextWhiteboardTime = setTimeout(
-        () => {
-          /** We can not run zoomControlerFitToScreen as we need to retain canvas scale * */
-          virtualclass.zoom.normalRender();
-        }, 500,
-      );
-    }
-    // document.querySelector("#virtualclassWhiteboard .next").click();
   };
 
   /** Navigation for student on Document Sharing * */
@@ -381,7 +369,7 @@
     if (virtualclass.dts.order) {
       const index = virtualclass.dts.order.indexOf(id);
       const nav = document.querySelector('#docShareNav');
-      if (index == -1) {
+      if (index === -1) {
         nav.classList.add('hide');
         nav.classList.remove('show');
       } else {

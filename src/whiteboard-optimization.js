@@ -38,7 +38,7 @@
       },
 
       doOptiMize(e) {
-        if (vcan.main.action == 'move') {
+        if (vcan.main.action === 'move') {
           if (roles.hasControls()) {
             e = vcan.utility.updateCordinate(e);
           }

@@ -211,7 +211,7 @@ const defaultOperation = function (e, sType) {
           // console.log('Document share send :- Complete slide');
         }
       } else {
-        ioAdapter.mustSendUser({ dts: { init: 'studentlayout' }, cf: 'dts' }, virtualclass.jId);
+        //ioAdapter.mustSendUser({ dts: { init: 'studentlayout' }, cf: 'dts' }, virtualclass.jId);
         // console.log('Document share send :- Layout');
       }
     } else if (virtualclass.currApp === 'Video') {

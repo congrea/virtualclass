@@ -1132,37 +1132,19 @@
         //    this.ss.prevStream = false;
         // }
 
-        makeReadyDsShare(app, customEvent, docsObj) {
-          if (!Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
-            if (typeof docsObj !== 'undefined') {
-              // TODO remove setTimeout
-              setTimeout(
-                () => {
-                  virtualclass.dts.init(docsObj);
-                }, 1000,
-              );
-            } else {
-              virtualclass.dts.init();
-            }
-          } else {
-            // send the initialize for the user layout
+        makeReadyDocumentShare() {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
             if (roles.hasControls()) {
               ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
-              // console.log('doc share current');
-              virtualclass.dts.sendCurrentDoc();
-              virtualclass.dts.sendCurrentSlide();
-              // var slide = virtualclass.dts.docs[virtualclass.dts.docs.currDoc].currSlide;
             }
 
             const slide = virtualclass.dts.docs.currNote;
-            // if( typeof slide != 'undefined' ){
             if (typeof slide !== 'undefined') {
               virtualclass.vutil.updateCurrentDoc(slide);
             }
           }
-
           virtualclass.previous = virtualclass.dtsConfig.id;
-          // console.log(`==== previous ${virtualclass.previous}`);
+
         },
 
         DocumentShare(app, customEvent, docsObj) {
@@ -1190,10 +1172,9 @@
             virtualclass.dts.indexNav = new virtualclass.pageIndexNav('documentShare');
           }
 
-          // console.log('==== DST init makeReadyDsShare 1259');
+
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'docs')) {
-            // console.log('==== DST init makeReadyDsShare 1261');
-            // virtualclass.appInitiator.makeReadyDsShare.apply(virtualclass.appInitiator, args);
+            virtualclass.appInitiator.makeReadyDocumentShare();
             virtualclass.vutil.initDashboardNav();
 
 

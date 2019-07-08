@@ -15,6 +15,7 @@
       online: false,
       listEndPause: false,
       attachPlayer: false,
+      lastSeek : 0,
 
       /*
        * it creates the the necessary layout and containers to place
@@ -24,95 +25,33 @@
        * @param  startFrom the position from where to start playing video in second
 
        */
-      init(videoObj, startFrom) {
+      init() {
         this.videoInit = true;
         this.currPlaying = '';
         this.pages = {};
-        virtualclass.previrtualclass = 'virtualclass' + 'Video';
-        virtualclass.previous = 'virtualclass' + 'Video';
+        virtualclass.previrtualclass = 'virtualclassVideo';
+        virtualclass.previous = 'virtualclassVideo';
         this.autoPlayFlag = 1;
-        if (typeof videoObj !== 'undefined') {
-          if (videoObj.init != 'studentlayout') {
-            this.videoId = videoObj.init.videoId || videoObj.init;
-            this.videoUrl = videoObj.init.videoUrl;
-            this.yts = videoObj.init.yts;
-            this.online = videoObj.init.online;
-            this.isPaused = videoObj.init.isPaused;
-          }
-          if (typeof videoObj.isAutoplay !== 'undefined') {
-            this.autoPlayFlag = videoObj.isAutoplay;
-          }
-        }
-
-        if (!roles.hasAdmin() || (roles.isEducator())) {
-          if (typeof this.videoId === 'undefined' && roles.isStudent() && !virtualclass.videoUl.yts) {
-          } else {
-            this.UI.container();
-            if (roles.hasControls()) {
-              ioAdapter.mustSend({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' });
-              ioAdapter.mustSend({
-                videoUl: {
-                  init: { id: virtualclass.videoUl.videoId, videoUrl: virtualclass.videoUl.videoUrl },
-                  startFrom: virtualclass.videoUl.player.currentTime(),
-                },
-                cf: 'videoUl',
-              });
-            } else if (typeof videoObj !== 'undefined') {
-              // this.UI.defaultLayoutForStudent();
-              // to b e modified
-              if (!Object.prototype.hasOwnProperty.call(videoObj, 'fromReload')) {
-                if (this.videoId == undefined || typeof this.videoId === 'undefined') {
-                  // this.UI.defaultLayoutForStudent();
-                } else if (typeof this.videoId === 'object' && this.videoId.yts == false) {
-                  // this.UI.defaultLayoutForStudent();
-                } else {
-                  const url = videoObj.url || videoObj.init.videoUrl;
-                  if (typeof url !== 'undefined' && url != '' && videoObj.init != 'studentlayout') {
-                    (typeof startFrom === 'undefined') ? this.UI.displayVideo(videoObj.id, url) : this.UI.displayVideo(videoObj.id, url, startFrom);
-                  }
-                }
-              } else {
-                this.fromReload(this.videoId, this.videoUrl, startFrom);
-              }
-            } else {
-              // this.UI.defaultLayoutForStudent();
-              const msz = document.getElementById('messageLayoutVideo');
-              if (msz) {
-                msz.style.display = 'block';
-              }
-            }
-          }
-        } else {
-          this.UI.container();
+        this.UI.container();
+        if (roles.hasControls()) {
           const dashboardnav = document.querySelector('#dashboardnav button');
-          if (dashboardnav != null) {
+          if (dashboardnav) {
             dashboardnav.click();
           }
-
-          if (typeof startFrom !== 'undefined') {
-            this.fromReload(this.videoId, this.videoUrl, startFrom);
-          } else {
+          if (virtualclass.config.makeWebSocketReady) {
             ioAdapter.mustSend({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' });
           }
+        } else {
+          const videoLayoutMessage = document.getElementById('messageLayoutVideo');
+          if (videoLayoutMessage) {
+            videoLayoutMessage.style.display = 'block';
+          }
         }
-        // if(!virtualclass.isPlayMode){
-        //     this.startsync();
-        // }
       },
 
       isPlayerReady() {
         return (Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'player') && typeof virtualclass.videoUl.player === 'object');
       },
-
-      // startsync () {
-      //     virtualclass.vutil.clearSyncTimeInterval();
-      //     virtualclass.videoUl.syncTimeInterval = setInterval(() => {
-      //         if(virtualclass.videoUl.videoUrl != null && virtualclass.videoUl.videoUrl != "" && virtualclass.videoUl.player != null){
-      //             ioAdapter.sync({time : virtualclass.videoUl.player.currentTime(), 'app': 'video', 'cf': 'sync'});
-      //         }
-      //     }, 1000);
-      // },
-
 
       createPageModule() {
         if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
@@ -183,19 +122,6 @@
         }
       },
 
-      /*
-       * saves current list and current order in localstorage on reload
-
-       */
-      saveVideosInLocalStr() {
-        const { order } = virtualclass.videoUl;
-        // console.log(order);
-        // console.log('videosinlocalstorage');
-        // console.log(virtualclass.videoUl.videos);
-        // localStorage.setItem('videoList', JSON.stringify(virtualclass.videoUl.videos));
-        // localStorage.setItem('videoOrder', JSON.stringify(virtualclass.videoUl.order));
-      },
-
 
       requestOrder() {
         virtualclass.vutil.requestOrder('vid',
@@ -210,18 +136,6 @@
               }
             }
           });
-      },
-
-      /*
-       * after upload video callbback function to update  order of videolist
-       * and new order to save in dabase
-       * @param response message
-
-       */
-      // new
-
-      afterDocStatus(response) {
-        const object = response;
       },
 
       updateOrder() {
@@ -396,7 +310,7 @@
         virtualclass.vutil.makeElementActive('#listvideo');
         const video = document.querySelector('.congrea #listvideo .linkvideo.singleVideo');
         const link = document.querySelector('.congrea #listvideo .linkvideo');
-        if (virtualclass.videoUl.videos.length == 1 && !video) {
+        if (virtualclass.videoUl.videos.length === 1 && !video) {
           link.classList.add('singleVideo');
         } else if (virtualclass.videoUl.videos.length > 1 && video) {
           video.classList.remove('singleVideo');
@@ -415,10 +329,10 @@
         if (video) {
           video.addEventListener('click', () => {
             virtualclass.videoUl.isPaused = false;
-            if (vidObj.filetype == 'video_yts') {
+            if (vidObj.filetype === 'video_yts') {
               virtualclass.videoUl.yts = true;
               virtualclass.videoUl.online = false;
-            } else if (vidObj.filetype == 'video_online') {
+            } else if (vidObj.filetype === 'video_online') {
               virtualclass.videoUl.yts = false;
               virtualclass.videoUl.online = true;
             } else {
@@ -516,8 +430,7 @@
               // virtualclass.videoUl.order=[];
               if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
                 virtualclass.videoUl.videos.forEach((video, index) => {
-                  if (video.id == id) {
-                    // console.log(video);
+                  if (video.id === id) {
                     video.title = title;
                   }
                 });
@@ -543,21 +456,22 @@
        */
       onmessage(msg) {
         if (typeof msg.videoUl === 'string') {
-          if (msg.videoUl == 'play') {
-            this.playVideo(msg);
+          if (msg.videoUl === 'play') {
+            virtualclass.videoUl.player.lastSeek = msg.videoUl.play;
+            this.playVideo();
             virtualclass.videoUl.isPaused = false;
-          } else if (msg.videoUl == 'pause') {
+          } else if (msg.videoUl === 'pause') {
             this.pauseVideo();
             virtualclass.videoUl.isPaused = true;
-          } else if (msg.videoUl == 'destroyPlayer') {
+          } else if (msg.videoUl === 'destroyPlayer') {
             virtualclass.videoUl.destroyPlayer();
-          } else if (msg.videoUl == 'enterFullScreen') {
+          } else if (msg.videoUl === 'enterFullScreen') {
             // alert("enter full screen");
             virtualclass.videoUl.enterFullScreen();
-          } else if (msg.videoUl == 'exitFullScreen') {
+          } else if (msg.videoUl === 'exitFullScreen') {
             // alert("exit full screen");
             virtualclass.videoUl.exitFullScreen();
-          } else if (msg.videoUl == 'videoDelete') {
+          } else if (msg.videoUl === 'videoDelete') {
             const playerCont = document.querySelector('#videoPlayerCont');
             if (playerCont) {
               playerCont.style.display = 'none';
@@ -576,7 +490,7 @@
             }
           }
         } else {
-          this.onmessageObj(msg);
+           this.onmessageObj(msg);
         }
       },
 
@@ -589,10 +503,10 @@
 
       onmessageObj(msg) {
         if (msg.videoUl.type) {
-          if (msg.videoUl.type == 'video_yts') {
+          if (msg.videoUl.type === 'video_yts') {
             virtualclass.videoUl.yts = true;
             virtualclass.videoUl.online = false;
-          } else if (msg.videoUl.type == 'video_online') {
+          } else if (msg.videoUl.type === 'video_online') {
             virtualclass.videoUl.online = true;
             virtualclass.videoUl.yts = false;
           } else {
@@ -605,7 +519,7 @@
           // virtualclass.videoUl.yts=false;
           virtualclass.videoUl.rec = msg.videoUl;
           // console.log(virtualclass.videoUl.rec);
-          if (msg.videoUl.init == 'studentlayout') {
+          if (msg.videoUl.init === 'studentlayout') {
             virtualclass.makeAppReady('Video', undefined, msg.videoUl);
             const msz = document.getElementById('messageLayoutVideo');
             if (msz) {
@@ -615,11 +529,6 @@
             virtualclass.videoUl.videoId = msg.videoUl.init.id;
             virtualclass.videoUl.videoUrl = msg.videoUl.init.videoUrl;
             virtualclass.videoUl.UI.displayVideo(msg.videoUl.init.id, msg.videoUl.init.videoUrl, msg.videoUl.startFrom);
-            // if (msg.videoUl.isPaused) {
-            //     if (virtualclass.videoUl.player){
-            //         virtualclass.videoUl.player.pause();
-            //     }
-            // }
           }
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'content_path')) {
           virtualclass.videoUl.videoId = msg.videoUl.id;
@@ -627,7 +536,8 @@
           virtualclass.videoUl.title = msg.videoUl.title;
           virtualclass.videoUl.UI.displayVideo(msg.videoUl.id, virtualclass.videoUl.videoUrl);
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'play')) {
-          this.playVideo(msg.videoUl.play);
+          virtualclass.videoUl.player.lastSeek = msg.videoUl.play;
+          this.playVideo();
           virtualclass.videoUl.isPaused = false;
         }
       },
@@ -650,18 +560,21 @@
         virtualclass.videoUl.player.dispose();
       },
 
-      playVideo(seekVal) {
+      playVideo() {
         if (virtualclass.videoUl.isPlayerReady()) {
-          // console.log('====Video play');
-          virtualclass.videoUl.player.currentTime(seekVal);
+          // console.log('=====Video play');
+          virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
           virtualclass.videoUl.player.play();
+          console.log('=====> set video url 2');
+        } else {
+          // Todo Handle
         }
       },
 
       pauseVideo() {
         // todo pass paused time to students
         if (virtualclass.videoUl.isPlayerReady()) {
-          // console.log('====Video pause');
+          // console.log('=====Video pause');
           virtualclass.videoUl.player.pause();
           virtualclass.videoUl.isPaused = true;
         }
@@ -690,7 +603,7 @@
           toStd.type = currVideoObj.filetype;
 
           if (!virtualclass.videoUl.listEnd) {
-            if (currVideoObj.filetype == 'video_online') {
+            if (currVideoObj.filetype === 'video_online') {
               virtualclass.videoUl.yts = false;
               virtualclass.videoUl.online = true;
               //  virtualclass.videoUl.UI.displayVideo(currVideoObj.id, currVideoObj.URL);
@@ -707,7 +620,7 @@
               toStd.content_path = currVideoObj.URL;
             } else {
               virtualclass.videoUl.online = false;
-              if (currVideoObj.filetype == 'video_yts') {
+              if (currVideoObj.filetype === 'video_yts') {
                 virtualclass.videoUl.yts = true;
                 virtualclass.videoUl.UI.displayVideo(currVideoObj.fileuuid, currVideoObj.URL);
                 toStd.content_path = currVideoObj.URL;
@@ -742,7 +655,7 @@
         const videos = this.getActiveVideos();
         for (let i = 0; i < videos.length; i++) {
           // for (var j in virtualclass.videoUl.videos[i]) {
-          if (videos[i].fileuuid == nextId) {
+          if (videos[i].fileuuid === nextId) {
             const vid = document.getElementById(`linkvideo${videos[i].fileuuid}`);
             if (vid.getAttribute('data-status') == '1') {
               currVideoObj = videos[i];
@@ -954,17 +867,19 @@
         },
 
         displayVideo(vidId, videoUrl, startFrom) {
-          const that = this;
-          if (Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'displayVideoTime')) {
-            clearTimeout(virtualclass.videoUl.displayVideoTime);
-          }
-          virtualclass.videoUl.displayVideoTime = setTimeout(
-            () => {
-              if (virtualclass.currApp == 'Video') {
-                that._displayVideo(vidId, videoUrl, startFrom);
-              }
-            }, 300,
-          );
+          this._displayVideo(vidId, videoUrl, startFrom);
+
+          // const that = this;
+          // if (Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'displayVideoTime')) {
+          //   clearTimeout(virtualclass.videoUl.displayVideoTime);
+          // }
+          // virtualclass.videoUl.displayVideoTime = setTimeout(
+          //   () => {
+          //     if (virtualclass.currApp == 'Video') {
+          //       that._displayVideo(vidId, videoUrl, startFrom);
+          //     }
+          //   }, 300,
+          // );
         },
 
         _displayVideo(vidId, videoUrl, startFrom) {
@@ -976,12 +891,11 @@
           virtualclass.videoUl.videoUrl = videoUrl;
           virtualclass.videoUl.videoId = vidId;
           // var videourl = "https://dev.muzioapp.com.s3-website-us-east-1.amazonaws.com/content/ourMuzeVid1.webm";
-          var videoCont = document.getElementById('videoPlayerCont');
+          const videoCont = document.getElementById('videoPlayerCont');
           if (videoCont) {
             videoCont.style.display = 'block';
           } else {
             virtualclass.videoUl.UI.container();
-            var videoCont = document.getElementById('videoPlayerCont');
           }
           const ply = document.querySelector('iframe#player');
           if (ply) {
@@ -1011,8 +925,8 @@
             virtualclass.videoUl.UI.attachPlayerHandler(virtualclass.videoUl.player, vidId, videoUrl);
           }
           // virtualclass.videoUl.player.reset();
-          virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
-          virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl, startFrom);
+           virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
+           virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl, startFrom);
         },
         attachPlayerHandler(player, vidId, videoUrl) {
           if (!this.attachPlayer) {
@@ -1078,8 +992,8 @@
           vn.appendChild(a);
         },
 
-        setPlayerUrl(player, videoUrl, startFrom) {
-          // console.log('====Video init to play start');
+          setPlayerUrl(player, videoUrl, startFrom) {
+
           if (startFrom == undefined && virtualclass.videoUl.startTime) {
             startFrom = virtualclass.videoUl.startTime;
           }
@@ -1095,12 +1009,14 @@
             player.src({ type: 'video/youtube', src: videoUrl });
           } else if (virtualclass.videoUl.online) {
             dispVideo.setAttribute('data-setup', '{"preload": "auto" }');
-            player.src({ type: 'video/webm', src: videoUrl });
-            player.src({ type: 'video/mp4', src: videoUrl });
+             player.src({ type: 'video/webm', src: videoUrl });
+             player.src({ type: 'video/mp4', src: videoUrl });
           } else {
             dispVideo.setAttribute('data-setup', '{"preload": "auto"}');
-            player.src({ type: 'application/x-mpegURL', withCredentials: true, src: videoUrl });
+             player.src({ type: 'application/x-mpegURL', withCredentials: true, src: videoUrl });
           }
+
+          console.log('=====> set video url 1');
 
 
           player.ready(function () {
@@ -1110,6 +1026,7 @@
               if (virtualclass.videoUl.isPaused) {
                 myPlayer.pause();
               } else if (virtualclass.system.device == 'desktop') {
+                virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
                 myPlayer.play();
               }
               if (startFrom) {
@@ -1121,8 +1038,8 @@
             });
           });
 
-          // console.log(startFrom);
         },
+
         //  todo  modify
         appendAutoPlayButton(player) {
           // var on = '<div>auto play is on</div>'
@@ -1160,7 +1077,6 @@
         },
         onEndedHandler(player, vidId, videoUrl) {
           player.off('ended');
-
           player.on('ended', (e) => {
             virtualclass.videoUl.UI.onEnded(player, vidId, videoUrl);
           });

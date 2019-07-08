@@ -586,11 +586,7 @@
 
         };
 
-        // console.log(prvAppObj);
-        // nirmala
-        //  virtualclass.videoUl.saveVideosInLocalStr();
 
-        //  }
       } else if (virtualclass.currApp == 'DocumentShare') {
         // console.log(`previous app success ${virtualclass.currApp}`);
         if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {

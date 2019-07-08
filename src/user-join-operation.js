@@ -151,20 +151,22 @@ const defaultOperation = function (e, sType) {
             cf: 'ppt',
           }, virtualclass.jId);
         }
-      } else if (virtualclass.currApp === 'Video') {
-        if (typeof virtualclass.videoUl.player === 'object') {
-          ioAdapter.mustSendUser({
-            videoUl: {
-              init: {
-                videoId: virtualclass.videoUl.videoId,
-                videoUrl: virtualclass.videoUl.videoUrl,
-              },
-              startFrom: virtualclass.videoUl.player.currentTime(),
-            },
-            cf: 'videoUl',
-          }, virtualclass.jId);
-        }
       }
+
+      // else if (virtualclass.currApp === 'Video') {
+      //   if (typeof virtualclass.videoUl.player === 'object') {
+      //     ioAdapter.mustSendUser({
+      //       videoUl: {
+      //         init: {
+      //           videoId: virtualclass.videoUl.videoId,
+      //           videoUrl: virtualclass.videoUl.videoUrl,
+      //         },
+      //         startFrom: virtualclass.videoUl.player.currentTime(),
+      //       },
+      //       cf: 'videoUl',
+      //     }, virtualclass.jId);
+      //   }
+      // }
     }
 
     // Send to everyone that the teacher is connected

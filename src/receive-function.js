@@ -296,9 +296,8 @@ const receiveFunctions = new function () {
 
 
   this.videoUl = function (e) {
-    if (e.fromUser.userid != virtualclass.gObj.uid) {
-      virtualclass.videoUl.onmessage(e.message);
-    }
+    console.log('=====> set video url ', e.message);
+    virtualclass.videoUl.onmessage(e.message);
   };
 
   this.congController = function (e) {

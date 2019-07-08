@@ -201,7 +201,6 @@
                   }
 
                   virtualclass.vutil.beforeSend({ repObj: dataChunk, cf: 'repObj' });
-                  virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
 
                   dataChunk = [];
                   virtualclass.gObj.lastmousemovetime = new Date().getTime();
@@ -323,7 +322,6 @@
               virtualclass.vutil.beforeSend({ repObj: dataChunk, cf: 'repObj' });
 
               // localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
-              virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
               dataChunk = [];
             }
           }

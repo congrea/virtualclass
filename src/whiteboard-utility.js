@@ -102,15 +102,8 @@
 
         obj.uid = virtualclass.wb[id].uid;
 
-        if (roles.hasControls()) {
-          // we will not delete object during the replay
-          if (typeof notSave === 'undefined') {
-            // console.log(`Delete:- Saving the delete command with id ${obj.uid}`);
-            vcan.main.replayObjs.push(obj);
-            virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
-          }
-        } else {
-          virtualclass.storage.store(JSON.stringify(virtualclass.wb[id].gObj.replayObjs));
+        if (roles.hasControls() && typeof notSave === 'undefined') {
+          vcan.main.replayObjs.push(obj);
         }
 
         vcan.main.currObj = '';
@@ -791,7 +784,6 @@
       objPutInContainer(obj) {
         vcan.main.replayObjs.push(obj);
         // localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
-        virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
       },
 
       makeActiveTool(byReload) {

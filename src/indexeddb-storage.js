@@ -45,25 +45,11 @@
     async onsuccess() {
     },
 
-
-    store(data) {
-
-    },
-
-
     pollStore(store) {
 
     },
 
     wbDataRemove(key) {
-
-    },
-
-    async dataExecutedStoreAll(data, serialKey) {
-
-    },
-
-    dataAdapterAllStore(data, serialKey) {
 
     },
 
@@ -188,29 +174,10 @@
       }
     },
 
-    dataUserAdapterAllStore(data, serialKey) {
-
-    },
-
-
-    dataExecutedUserStoreAll(data, serialKey) {
-
-    },
-
     quizStorage(quizkey, data) {
 
     },
 
-    async getAllObjs() {
-      await Promise.all([
-
-      ]);
-    },
-
-    async getDataFromTable(table) {
-      const cursor = await virtualclass.storage.db.transaction(table).store.openCursor();
-      await this[table].handleResult(cursor);
-    },
 
     async getAllDataOfPoll(table, cb) {
       const wholeData = [];

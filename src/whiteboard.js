@@ -325,11 +325,6 @@
             virtualclass.wb[wbId].uid++;
             obj.uid = virtualclass.wb[wbId].uid;
             vcan.main.replayObjs.push(obj);
-            // recorder.items.push(obj);
-
-            virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
-
-
             virtualclass.vutil.beforeSend({ repObj: [obj], cf: 'repObj' }); // after optimized
           }
           if (this.parentNode.id !== `t_clearall${wbId}`) {
@@ -406,7 +401,6 @@
         virtualclass.wb[virtualclass.gObj.currWb].uid++;
         obj.uid = virtualclass.wb[virtualclass.gObj.currWb].uid;
         vcan.main.replayObjs.push(obj);
-        virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
         virtualclass.vutil.beforeSend({ repObj: [obj], cf: 'repObj' });
       },
 

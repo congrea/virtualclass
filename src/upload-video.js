@@ -460,7 +460,9 @@
             virtualclass.videoUl.player.lastSeek = msg.videoUl.play;
             this.playVideo();
             virtualclass.videoUl.isPaused = false;
+            virtualclass.videoUl.isPaused = false;
           } else if (msg.videoUl === 'pause') {
+            virtualclass.videoUl.player.lastSeek = msg.currTime;
             this.pauseVideo();
             virtualclass.videoUl.isPaused = true;
           } else if (msg.videoUl === 'destroyPlayer') {
@@ -561,23 +563,15 @@
       },
 
       playVideo() {
-        if (virtualclass.videoUl.isPlayerReady()) {
-          // console.log('=====Video play');
-          virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
-          virtualclass.videoUl.player.play();
-          console.log('=====> set video url 2');
-        } else {
-          // Todo Handle
-        }
+        // console.log('=====Video play');
+        virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
+        virtualclass.videoUl.player.play();
       },
 
       pauseVideo() {
-        // todo pass paused time to students
-        if (virtualclass.videoUl.isPlayerReady()) {
-          // console.log('=====Video pause');
-          virtualclass.videoUl.player.pause();
-          virtualclass.videoUl.isPaused = true;
-        }
+        virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
+        virtualclass.videoUl.player.pause();
+        virtualclass.videoUl.isPaused = true;
       },
 
       /*
@@ -928,14 +922,14 @@
            virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
            virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl, startFrom);
         },
-        attachPlayerHandler(player, vidId, videoUrl) {
+        attachPlayerHandler(player) {
           if (!this.attachPlayer) {
             this.attachPlayer = true;
             // console.log('Attach video player');
             player.on('pause', (e) => {
               // console.log('paused');
               if (roles.hasControls()) {
-                ioAdapter.mustSend({ videoUl: 'pause', cf: 'videoUl' });
+                ioAdapter.mustSend({ videoUl: 'pause', cf: 'videoUl', currTime : player.currentTime()});
               }
               virtualclass.videoUl.isPaused = true;
             });

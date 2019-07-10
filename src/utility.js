@@ -1453,6 +1453,13 @@
       return formattedTime;
     },
 
+    localToUTC() {
+      const date = new Date();
+      const nowUtc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+      date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+      return new Date(nowUtc);
+    },
+
     UTCtoLocalTimeToSeconds(time) {
       var time = new Date(time).getTime();
       return time;

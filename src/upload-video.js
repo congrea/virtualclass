@@ -15,7 +15,7 @@
       online: false,
       listEndPause: false,
       attachPlayer: false,
-      lastSeek : 0,
+      lastSeek: 0,
 
       /*
        * it creates the the necessary layout and containers to place
@@ -26,6 +26,7 @@
 
        */
       init() {
+        this.alreadySetPlayerUrl = false;
         this.videoInit = true;
         this.currPlaying = '';
         this.pages = {};
@@ -49,28 +50,12 @@
         }
       },
 
-      isPlayerReady() {
-        return (Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'player') && typeof virtualclass.videoUl.player === 'object');
-      },
-
-      createPageModule() {
-        if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
-          virtualclass.videoUl.videos.forEach((vidObj, i) => {
-            const idPostfix = vidObj.id;
-            virtualclass.videoUl.pages[idPostfix] = new virtualclass.page('videoList', 'video', 'virtualclassVideo', 'videoUl', vidObj.status);
-          });
-        }
-      },
-
       reArrangeElements(order) {
         const container = document.getElementById('listvideo');
         const tmpdiv = document.createElement('div');
         tmpdiv.id = 'listvideo';
         tmpdiv.className = 'videos';
-
         const videos = this.getActiveVideos();
-        const sortedItems = [];
-
         let orderChange = false;
         for (let j = 0; j < videos.length; j++) {
           if (order.indexOf(videos[j].fileuuid) <= -1) {
@@ -122,11 +107,10 @@
         }
       },
 
-
       requestOrder() {
         virtualclass.vutil.requestOrder('vid',
           (response) => {
-            if (response == 'Error') {
+            if (response === 'Error') {
               // console.log('page order retrieve failed');
             } else if (typeof response !== 'undefined' && response != undefined) {
               virtualclass.videoUl.order = [];
@@ -140,7 +124,7 @@
 
       updateOrder() {
         const activeVideos = this.getActiveVideos();
-        if (activeVideos.length != this.order.length) {
+        if (activeVideos.length !== this.order.length) {
           const videos = activeVideos.map(video => video.fileuuid);
           this.order = videos;
         }
@@ -148,11 +132,8 @@
       },
 
       afterUploadVideo(id, xhr, res) {
-        var res = res.success;
-        if (res) {
-          const url = virtualclass.api.GetDocumentStatus;
-          const that = this;
-          that.updateOrder();
+        if (res.success) {
+          this.updateOrder();
           virtualclass.videoUl.order.push(virtualclass.gObj.file.uuid);
           virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
           virtualclass.videoUl.showUploadMsz('Video uploaded successfully', 'alert-success');
@@ -173,9 +154,8 @@
             // console.log(`File uploading ${fileObj.filename}`);
             this.afterUploadFile(fileObj);
           }
-
           virtualclass.gObj.uploadingFiles = [];
-          virtualclass.serverData.pollingStatus().then(() => { virtualclass.videoUl.UI.awsVideoList(); });
+          virtualclass.serverData.pollingStatus().then(() => { virtualclass.videoUl.UI.rawVideoList(); });
         } else {
           virtualclass.videoUl.showUploadMsz('video upload failed', 'alert-error');
         }
@@ -225,7 +205,7 @@
         const idPostfix = vidObj.fileuuid;
         // var docId = 'docs' + doc;
         this.pages[idPostfix] = new virtualclass.page('videoList', 'video', 'virtualclassVideo', 'videoUl', vidObj.status, vidObj.filetype);
-        if (vidObj.filetype == 'video_yts') {
+        if (vidObj.filetype === 'video_yts') {
           const ytsId = virtualclass.videoUl.getVideoId(vidObj.URL);
           virtualclass.videoUl.UI.fetchYtsTitle(vidObj, ytsId);
         }
@@ -263,21 +243,16 @@
 
       calculateHeight() {
         const element = document.querySelector('#listvideo');
-        const fineUploader = document.querySelector('.congrea .qq-uploader-selector');
-        // console.log(element.offsetHeight);
-        const h = element.offsetHeight;
-        // console.log(fineUploader.offsetHeight);
         $('.qq-uploader-selector').css({
-          minHeight: h,
-
+          minHeight: element.offsetHeight,
         });
       },
 
-      showVideos(content, storedId) {
+      showVideos() {
         if (roles.hasControls()) {
           virtualclass.videoUl.showVideoList();
         }
-        const currId = virtualclass.videoUl.currPlaying || storedId;
+
         if (virtualclass.videoUl.videoUrl) {
           virtualclass.videoUl.activeVideoClass(virtualclass.videoUl.videoId);
           virtualclass.vutil.showFinishBtn();
@@ -285,7 +260,6 @@
       },
 
       showVideoList() {
-        const list = document.getElementById('videoList');
         const elem = document.getElementById('listvideo');
         if (elem) {
           for (let i = 0; i < elem.childNodes.length - 1; i++) {
@@ -329,6 +303,7 @@
         if (video) {
           video.addEventListener('click', () => {
             virtualclass.videoUl.isPaused = false;
+            console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
             if (vidObj.filetype === 'video_yts') {
               virtualclass.videoUl.yts = true;
               virtualclass.videoUl.online = false;
@@ -361,10 +336,10 @@
       },
 
       activeVideoClass(currId) {
-        var otherElems = document.getElementsByClassName('controlCont');
-        for (var i = 0; i < otherElems.length; i++) {
-          if (otherElems[i].classList.contains('removeCtr')) {
-            otherElems[i].classList.remove('removeCtr');
+        const controlCont = document.getElementsByClassName('controlCont');
+        for (let i = 0; i < controlCont.length; i++) {
+          if (controlCont[i].classList.contains('removeCtr')) {
+            controlCont[i].classList.remove('removeCtr');
           }
         }
         const controlElem = document.getElementById(`controlContvideo${currId}`);
@@ -372,10 +347,10 @@
           controlElem.classList.add('removeCtr');
         }
 
-        var otherElems = document.getElementsByClassName('linkvideo');
-        for (var i = 0; i < otherElems.length; i++) {
-          if (otherElems[i].classList.contains('playing')) {
-            otherElems[i].classList.remove('playing');
+        const linkvideos = document.getElementsByClassName('linkvideo');
+        for (let i = 0; i < linkvideos.length; i++) {
+          if (linkvideos[i].classList.contains('playing')) {
+            linkvideos[i].classList.remove('playing');
           }
         }
 
@@ -396,10 +371,12 @@
 
       destroyPl() {
         if (typeof virtualclass.videoUl.player === 'object') {
-          if (virtualclass.currApp == 'ScreenShare') {
+          if (virtualclass.currApp === 'ScreenShare') {
             ioAdapter.mustSend({ video: 'destroyPl', cf: 'video' });
           }
-          virtualclass.videoUl.player.dispose();
+          console.log('==== video player ready dispose');
+          // virtualclass.videoUl.player.dispose();
+          virtualclass.videoUl.player.destroyPlayer();
         }
       },
 
@@ -429,7 +406,7 @@
               elem.style.display = 'inline';
               // virtualclass.videoUl.order=[];
               if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
-                virtualclass.videoUl.videos.forEach((video, index) => {
+                virtualclass.videoUl.videos.forEach((video) => {
                   if (video.id === id) {
                     video.title = title;
                   }
@@ -442,8 +419,8 @@
           });
       },
 
-      sendOrder(order, type) {
-        type = 'vid';
+      sendOrder(order) {
+        const type = 'vid';
         virtualclass.vutil.sendOrder(type, order);
       },
 
@@ -457,10 +434,7 @@
       onmessage(msg) {
         if (typeof msg.videoUl === 'string') {
           if (msg.videoUl === 'play') {
-            virtualclass.videoUl.player.lastSeek = msg.videoUl.play;
-            this.playVideo();
-            virtualclass.videoUl.isPaused = false;
-            virtualclass.videoUl.isPaused = false;
+            this.handlePlayEvent(msg, msg.play);
           } else if (msg.videoUl === 'pause') {
             virtualclass.videoUl.player.lastSeek = msg.currTime;
             this.pauseVideo();
@@ -468,10 +442,8 @@
           } else if (msg.videoUl === 'destroyPlayer') {
             virtualclass.videoUl.destroyPlayer();
           } else if (msg.videoUl === 'enterFullScreen') {
-            // alert("enter full screen");
             virtualclass.videoUl.enterFullScreen();
           } else if (msg.videoUl === 'exitFullScreen') {
-            // alert("exit full screen");
             virtualclass.videoUl.exitFullScreen();
           } else if (msg.videoUl === 'videoDelete') {
             const playerCont = document.querySelector('#videoPlayerCont');
@@ -523,6 +495,7 @@
           // console.log(virtualclass.videoUl.rec);
           if (msg.videoUl.init === 'studentlayout') {
             virtualclass.makeAppReady('Video', undefined, msg.videoUl);
+            console.log('====> Video play 1');
             const msz = document.getElementById('messageLayoutVideo');
             if (msz) {
               msz.style.display = 'block';
@@ -537,11 +510,31 @@
           virtualclass.videoUl.videoUrl = msg.videoUl.content_path;
           virtualclass.videoUl.title = msg.videoUl.title;
           virtualclass.videoUl.UI.displayVideo(msg.videoUl.id, virtualclass.videoUl.videoUrl);
+
+          const lastPlayTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.videoTime);
+          const currentTime = (new Date().getTime());
+          const totalDuration = (currentTime - lastPlayTime) / 1000;
+          this.onmessage({ videoUl: 'play', play: totalDuration });
+
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'play')) {
-          virtualclass.videoUl.player.lastSeek = msg.videoUl.play;
-          this.playVideo();
-          virtualclass.videoUl.isPaused = false;
+          this.handlePlayEvent(msg, msg.videoUl.play);
         }
+      },
+
+      calculateVideoTime(time) {
+        const lastPlayTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(time);
+        const currentTime = (new Date().getTime());
+        return (currentTime - lastPlayTime) / 1000;
+      },
+
+      handlePlayEvent(msg, playTime) {
+        virtualclass.videoUl.player.lastSeek = playTime;
+        if (msg.videoTime) {
+          virtualclass.videoUl.player.lastSeek += this.calculateVideoTime(msg.videoTime);
+        }
+        this.playVideo();
+        virtualclass.videoUl.isPaused = false;
+        console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
       },
 
       enablePlayer() {
@@ -559,17 +552,20 @@
       },
 
       destroyPlayer() {
+        console.log('=====> dispose video here');
         virtualclass.videoUl.player.dispose();
+        virtualclass.videoUl.alreadySetPlayerUrl = false;
       },
 
       playVideo() {
-        // console.log('=====Video play');
+        // console.log('====> seek play', virtualclass.videoUl.player.lastSeek / 60);
         virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
         virtualclass.videoUl.player.play();
       },
 
       pauseVideo() {
         virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
+        console.log('====> seek pause ', virtualclass.videoUl.player.lastSeek / 60);
         virtualclass.videoUl.player.pause();
         virtualclass.videoUl.isPaused = true;
       },
@@ -581,7 +577,6 @@
 
       autoPlayList(index) {
         const videos = this.getActiveVideos();
-        const videoUrl = '';
         const nextIndex = index;
         // var nextId = virtualclass.videoUl.order[index + 1];
         let currVideoObj = this.findNextObj(nextIndex);
@@ -632,6 +627,7 @@
             if (virtualclass.videoUl.player) {
               virtualclass.videoUl.player.ready(function () {
                 const myPlayer = this;
+                // console.log('====> seek play ', virtualclass.videoUl.player.lastSeek);
                 myPlayer.play();
               });
             }
@@ -644,7 +640,7 @@
 
        */
       findNextObj(index) {
-        const nextId = this.findNextVideoId(index);
+        const nextId = this.findNextVideo(index);
         let currVideoObj = false;
         const videos = this.getActiveVideos();
         for (let i = 0; i < videos.length; i++) {
@@ -653,29 +649,21 @@
             const vid = document.getElementById(`linkvideo${videos[i].fileuuid}`);
             if (vid.getAttribute('data-status') == '1') {
               currVideoObj = videos[i];
-              return currVideoObj;
+              break;
             }
-            return index + 1;
+            currVideoObj = index + 1;
+            break;
           }
         }
+        return currVideoObj;
       },
 
-      findNextVideoId(index) {
+      findNextVideo(index) {
         const list = document.querySelectorAll('#listvideo .linkvideo');
         if (index < list.length) {
           return list[index].getAttribute('data-rid');
         }
         return false;
-      },
-      findVideoIndex(vidId) {
-        const list = document.querySelectorAll('#listvideo .linkvideo');
-        let index = 0;
-        for (let i = 0; i < list.length; i++) {
-          if (list[i].getAttribute('data-rid') == vidId) {
-            index = i;
-            return index;
-          }
-        }
       },
 
       /*
@@ -749,17 +737,15 @@
           const elem = document.getElementById(`linkvideo${id}`);
           if (elem) {
             elem.parentNode.removeChild(elem);
-
             // if current playing video is deleted
-            if (virtualclass.videoUl.videoId == id) {
-              // if(type !="yts"){
+            if (virtualclass.videoUl.videoId === id) {
               const playerCont = document.querySelector('#videoPlayerCont');
               if (playerCont) {
                 playerCont.style.display = 'none';
                 ioAdapter.mustSend({ videoUl: 'videoDelete', cf: 'videoUl' });
                 virtualclass.videoUl.videoId = null;
                 virtualclass.videoUl.videoUrl = null;
-                var video = document.querySelector('.congrea #dispVideo video');
+                const video = document.querySelector('.congrea #dispVideo video');
                 const ytube = document.querySelector('.congrea #dispVideo iframe');
                 const cont = video || ytube;
                 if (cont) {
@@ -768,10 +754,11 @@
                 virtualclass.vutil.removeFinishBtn();
               }
             }
+
             if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
-              virtualclass.videoUl.videos.forEach((video, index) => {
-                if (video.fileuuid == id) {
-                  var index = virtualclass.videoUl.videos.indexOf(video);
+              virtualclass.videoUl.videos.forEach((video) => {
+                if (video.fileuuid === id) {
+                  const index = virtualclass.videoUl.videos.indexOf(video);
                   if (index >= 0) {
                     virtualclass.videoUl.videos.splice(index, 1);
                     // console.log(virtualclass.videoUl.videos);
@@ -799,20 +786,20 @@
         }
       },
 
-      xhrOrderSend(order) {
-        const data = { order: order.toString() };
-        const url = virtualclass.api.UpdateRoomMetaData;
-        virtualclass.xhrn.vxhrn.post(url, data).then(() => {
-          // virtualclass.videoUl.UI.awsr();
-          virtualclass.serverData.syncAllData().then(() => {
-            virtualclass.videoUl.UI.awsVideoList();
-          });
-          // virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
-        });
-      },
+      // xhrOrderSend(order) {
+      //   const data = { order: order.toString() };
+      //   const url = virtualclass.api.UpdateRoomMetaData;
+      //   virtualclass.xhrn.vxhrn.post(url, data).then(() => {
+      //     if (virtualclass.config.makeWebSocketReady) {
+      //       virtualclass.serverData.syncAllData().then(() => {
+      //         virtualclass.videoUl.UI.rawVideoList();
+      //       });
+      //     }
+      //   });
+      // },
 
       videoToStudent(videoObj) {
-        ioAdapter.mustSend({ videoUl: videoObj, cf: 'videoUl' });
+        ioAdapter.mustSend({ videoUl: videoObj, cf: 'videoUl', videoTime: virtualclass.vutil.localToUTC() });
       },
 
       getVideoId(url) {
@@ -861,52 +848,38 @@
         },
 
         displayVideo(vidId, videoUrl, startFrom) {
-          this._displayVideo(vidId, videoUrl, startFrom);
-
-          // const that = this;
-          // if (Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'displayVideoTime')) {
-          //   clearTimeout(virtualclass.videoUl.displayVideoTime);
-          // }
-          // virtualclass.videoUl.displayVideoTime = setTimeout(
-          //   () => {
-          //     if (virtualclass.currApp == 'Video') {
-          //       that._displayVideo(vidId, videoUrl, startFrom);
-          //     }
-          //   }, 300,
-          // );
-        },
-
-        _displayVideo(vidId, videoUrl, startFrom) {
           if (typeof virtualclass.videoUl.player === 'object') {
             if (Object.prototype.hasOwnProperty.call(virtualclass.videoUl.player, 'dispose')) {
-              virtualclass.videoUl.player.dispose();
+              // virtualclass.videoUl.player.dispose();
+              virtualclass.videoUl.player.destroyPlayer();
             }
           }
           virtualclass.videoUl.videoUrl = videoUrl;
           virtualclass.videoUl.videoId = vidId;
           // var videourl = "https://dev.muzioapp.com.s3-website-us-east-1.amazonaws.com/content/ourMuzeVid1.webm";
-          const videoCont = document.getElementById('videoPlayerCont');
-          if (videoCont) {
-            videoCont.style.display = 'block';
+          let videoPlayerCont = document.getElementById('videoPlayerCont');
+          if (videoPlayerCont) {
+            videoPlayerCont.style.display = 'block';
           } else {
             virtualclass.videoUl.UI.container();
+            videoPlayerCont = document.getElementById('videoPlayerCont');
           }
           const ply = document.querySelector('iframe#player');
           if (ply) {
             ply.remove();
           }
 
-          virtualclass.videoUl.UI.switchDisplay(videoCont, videoUrl);
+          virtualclass.videoUl.UI.switchDisplay(videoPlayerCont, videoUrl);
           virtualclass.videoUl.UI.videojsPlayer(videoUrl, vidId, startFrom);
           virtualclass.modal.hideModal();
         },
 
         videojsPlayer(videoUrl, vidId, startFrom) {
           if (!virtualclass.videoUl.player) {
-            const player = videojs('dispVideo'); // TODO, generating error need to handle
+            virtualclass.videoUl.player = videojs('dispVideo'); // TODO, generating error need to handle
             if (roles.hasControls()) {
               if (!($('.vjs-autoPlay-button').length)) {
-                virtualclass.videoUl.UI.appendAutoPlayButton(player);
+                virtualclass.videoUl.UI.appendAutoPlayButton(virtualclass.videoUl.player);
               }
               const autoPlayBtn = document.getElementById('autoPlayListBtn');
               if (autoPlayBtn) {
@@ -915,12 +888,13 @@
               }
             }
 
-            virtualclass.videoUl.player = player;
+            console.log('==== video player ready 1', virtualclass.videoUl.player);
             virtualclass.videoUl.UI.attachPlayerHandler(virtualclass.videoUl.player, vidId, videoUrl);
+            virtualclass.videoUl.alreadySetPlayerUrl = false;
           }
-          // virtualclass.videoUl.player.reset();
-           virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
-           virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl, startFrom);
+
+          virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
+          virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl, startFrom);
         },
         attachPlayerHandler(player) {
           if (!this.attachPlayer) {
@@ -934,43 +908,41 @@
               virtualclass.videoUl.isPaused = true;
             });
 
+            console.log('====> seek play init ');
             player.on('play', (e) => {
-              // console.log('play');
               if (roles.hasControls()) {
-                ioAdapter.mustSend({ videoUl: { play: player.currentTime() }, cf: 'videoUl' });
+                ioAdapter.mustSend({ videoUl: { play: player.currentTime() }, cf: 'videoUl', videoTime: virtualclass.vutil.localToUTC() });
               }
               virtualclass.videoUl.isPaused = false;
+              console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
             });
           }
         },
-        // todo to modify
+
+
         switchDisplay(videoCont, videoUrl) {
-          var elem = document.getElementById('dispVideo');
-          if (!elem) {
-            virtualclass.videoUl.UI.createVideoElem(videoCont);
+          const dispVideo = document.getElementById('dispVideo');
+          if (dispVideo) {
+            dispVideo.style.display = 'block';
           } else {
-            elem.style.display = 'block';
+            virtualclass.videoUl.UI.createVideoElem(videoCont);
           }
 
-          var elem = document.getElementById('videoPlayerCont');
           const msz = document.getElementById('messageLayoutVideo');
           if (typeof videoUrl === 'undefined') {
-            elem.style.display = 'none';
+            videoCont.style.display = 'none';
             if (msz) {
               msz.style.display = 'block';
-            } else {
-              var elem = document.createElement('div');
-              elem.id = 'messageLayoutVideo';
             }
           } else {
-            elem.style.display = 'block';
+            videoCont.style.display = 'block';
             if (msz) {
               msz.style.display = 'none';
             }
           }
         },
-        // n
-        createVideoElem(videoCont, type) {
+
+        createVideoElem(videoCont) {
           const video = '<video id="dispVideo" class="video-js" autoplay controls  preload="auto" data-setup="{}" >';
           videoCont.insertAdjacentHTML('beforeend', video);
           // $(videoCont).append(video);
@@ -986,8 +958,7 @@
           vn.appendChild(a);
         },
 
-          setPlayerUrl(player, videoUrl, startFrom) {
-
+        setPlayerUrl(player, videoUrl, startFrom) {
           if (startFrom == undefined && virtualclass.videoUl.startTime) {
             startFrom = virtualclass.videoUl.startTime;
           }
@@ -1003,35 +974,46 @@
             player.src({ type: 'video/youtube', src: videoUrl });
           } else if (virtualclass.videoUl.online) {
             dispVideo.setAttribute('data-setup', '{"preload": "auto" }');
-             player.src({ type: 'video/webm', src: videoUrl });
-             player.src({ type: 'video/mp4', src: videoUrl });
+            player.src({ type: 'video/webm', src: videoUrl });
+            player.src({ type: 'video/mp4', src: videoUrl });
           } else {
             dispVideo.setAttribute('data-setup', '{"preload": "auto"}');
-             player.src({ type: 'application/x-mpegURL', withCredentials: true, src: videoUrl });
+            player.src({ type: 'application/x-mpegURL', withCredentials: true, src: videoUrl });
           }
 
           console.log('=====> set video url 1');
 
-
           player.ready(function () {
             const myPlayer = this;
-            /** When video is loaded * */
-            myPlayer.on('loadedmetadata', () => {
-              if (virtualclass.videoUl.isPaused) {
-                myPlayer.pause();
-              } else if (virtualclass.system.device == 'desktop') {
-                virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
-                myPlayer.play();
-              }
-              if (startFrom) {
-                myPlayer.currentTime(startFrom);
-                if (virtualclass.videoUl.yts && !virtualclass.videoUl.isPaused && virtualclass.system.device == 'desktop') {
+            console.log('=====> set video url 1 a');
+            if (!virtualclass.videoUl.alreadySetPlayerUrl) {
+              /** When video is loaded * */
+              myPlayer.on('loadedmetadata', () => {
+                console.log('=====> set video url 1 c');
+                virtualclass.videoUl.alreadySetPlayerUrl = true;
+                if (virtualclass.videoUl.isPaused) {
+                  if (virtualclass.videoUl.player.lastSeek) {
+                    virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
+                  }
+                  myPlayer.pause();
+                } else if (virtualclass.system.device === 'desktop') {
+                  if (virtualclass.videoUl.player.lastSeek) {
+                    virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
+                  }
+                  console.log("====> seek play ", virtualclass.videoUl.player.lastSeek / 60);
                   myPlayer.play();
                 }
-              }
-            });
-          });
 
+                if (startFrom) {
+                  myPlayer.currentTime(startFrom);
+                  if (virtualclass.videoUl.yts && !virtualclass.videoUl.isPaused && virtualclass.system.device === 'desktop') {
+                    myPlayer.play();
+                    console.log("====> seek play ", virtualclass.videoUl.player.lastSeek / 60);
+                  }
+                }
+              });
+            }
+          });
         },
 
         //  todo  modify
@@ -1107,7 +1089,7 @@
             if (player.poster_) {
               player.poster_ = '';
             }
-            if (virtualclass.videoUl.findNextVideoId(index + 1)) {
+            if (virtualclass.videoUl.findNextVideo(index + 1)) {
               virtualclass.videoUl.autoPlayList(index + 1, list);
             } else {
               virtualclass.videoUl.UI.autoVideoPause();
@@ -1194,10 +1176,12 @@
 
             // TODO, Critical this need be re-enable
             virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
-            virtualclass.serverData.syncAllData().then(() => {
-              virtualclass.videoUl.UI.awsVideoList();
-            });
-            // virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
+            if (virtualclass.config.makeWebSocketReady) {
+              virtualclass.serverData.syncComplete = false;
+              virtualclass.serverData.syncAllData().then(() => {
+                virtualclass.videoUl.UI.rawVideoList();
+              });
+            }
           });
 
           document.querySelector('.congrea #videourl').value = '';
@@ -1245,7 +1229,7 @@
             inputContainer.parentNode.removeChild(inputContainer);
           }
         },
-        popup(currVideo) {
+        popup() {
           const dropArea = document.querySelector('#congreavideoContBody');
           if (dropArea && dropArea.lastChild != null) {
             dropArea.removeChild(dropArea.lastChild);
@@ -1254,49 +1238,43 @@
           const upload = {};
           const currPlayed = document.querySelector('#listvideo .playing');
           if (currPlayed) {
-            // var currPlayed = document.querySelector('#listvideo .playing')
-            const id = currPlayed.getAttribute('data-rid');
-            this.currPlaying = id;
+            this.currPlaying = currPlayed.getAttribute('data-rid');
           }
-          //                        upload.validation = ["avi", "flv", "wmv", "mov", "mp4", "webm", "mkv", "vob", "ogv", "ogg", "drc", "mng", "qt", "yuv", "rm", "rmvb", "asf", "amv", "m4p",
-          //                        "m4v", "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf", "roq", "nsv", "f4v", "f4p", "f4a", "f4b"];
+
           upload.validation = ['mp4', 'avi', 'wmv', 'mov', 'webm', 'mkv', 'vob', 'mpeg'];
           upload.cb = virtualclass.videoUl.afterUploadVideo;
           upload.cthis = 'video';
           upload.multiple = false;
           upload.maxSize = 512 * 1000 * 1000; // 512 MB
+
           upload.requesteEndPoint = `${window.webapi}&methodname=file_save&live_class_id=${virtualclass.gObj.congCourse}&status=1&content_type_id=2&user=${virtualclass.gObj.uid}`;
           upload.wrapper = document.getElementById(elemArr[0]);
           virtualclass.fineUploader.uploaderFn(upload);
-          if (!virtualclass.vutil.isBulkDataFetched() || !virtualclass.videoUl.videos.length) {
+
+          if (!virtualclass.serverData.syncComplete) {
             virtualclass.serverData.syncAllData().then(() => {
-              virtualclass.videoUl.UI.awsVideoList();
+              virtualclass.videoUl.UI.rawVideoList();
             });
-            // virtualclass.serverData.fetchAllData(virtualclass.videoUl.UI.awsVideoList);
+          } else if (!virtualclass.videoUl.videos.length) {
+            this.rawVideoList();
           } else {
-            virtualclass.videoUl.showVideos(virtualclass.videoUl.videos);
-            if (virtualclass.videoUl.order.length > 0) {
-              virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order); // 1
-            }
+            virtualclass.videoUl.showVideos();
+            virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order);
           }
-          // virtualclass.videoUl.getVideoList();
 
           const dropMsz = document.querySelector('#virtualclassCont.congrea #VideoDashboard .qq-uploader.qq-gallery');
-          if (dropMsz) {
-            dropMsz.setAttribute('qq-drop-area-text', 'Drop videos here');
-          }
-          const cont = document.querySelector('#uploadMsz');
-          var msz = document.querySelector('#videoPopup #congreavideoContBody .qq-upload-list-selector.qq-upload-list');
-          if (msz) {
-            msz.style.display = 'block';
-          }
+          dropMsz.setAttribute('qq-drop-area-text', 'Drop videos here');
+
+          const uploadMesssage = document.querySelector('#uploadMsz');
+          const uploadMessageList = document.querySelector('#congreavideoContBody .qq-upload-list-selector.qq-upload-list');
+          uploadMessageList.style.display = 'block';
 
           let upMsz = document.querySelector('#uploadMsz div');
           if (!upMsz) {
             upMsz = document.createElement('div');
-            cont.appendChild(upMsz);
+            uploadMesssage.appendChild(upMsz);
           }
-          upMsz.appendChild(msz);
+          upMsz.appendChild(uploadMessageList);
           const lists = document.querySelectorAll('#videoPopup #uploadMsz ul');
           // two ul not to be deleted(one is with li as a child and another recent):when we have started upload,
           // we change current app and after that return to video
@@ -1308,45 +1286,17 @@
             }
           }
 
-          var msz = document.querySelector('#videoPopup #uploadMsz .qq-upload-list-selector.qq-upload-list');
           const btnUpload = document.querySelector('#uploadVideo');
           btnUpload.addEventListener('click', () => {
+            uploadMesssage.style.display = 'block';
             const btn = document.querySelector('#videoPopup .qq-upload-list-selector.qq-upload-button input');
-            const msz = document.querySelector('#uploadMsz');
-            if (msz) {
-              msz.style.display = 'block';
-            }
-            if (btn) {
-              btn.click();
-            }
+            btn.click();
           });
         },
-        // nirmala aws
-        awsr() {
-          const data = 'Demo';
-          // console.log('Request get document url 2');
-          this.postAjax(virtualclass.api.GetDocumentURLs, data);
-        },
 
-
-        awsVideoList() {
-          const data = virtualclass.awsData;
-          const videos = [];
-          for (let i = 0; i < data.length; i++) {
-            if ((data[i].filetype == 'video' || data[i].filetype == 'video_yts' || data[i].filetype == 'video_online') && !Object.prototype.hasOwnProperty.call(data[i], 'deleted')) {
-              videos.push(data[i]);
-            }
-          }
-          // console.log(videos);
-          virtualclass.videoUl.videos = videos;
-          virtualclass.serverData.rawData.video = videos;
-
-          // virtualclass.videoUl.allPages = content;
-          // var type = "video";
-          // var firstId = "congrea" + type + "ContBody";
-          // var secondId = "congreaShareVideoUrlCont";
-          // var elemArr = [firstId, secondId];
-          virtualclass.videoUl.showVideos(videos);
+        rawVideoList() {
+          virtualclass.videoUl.videos = virtualclass.serverData.rawData.video;
+          virtualclass.videoUl.showVideos();
           virtualclass.videoUl.retrieveOrder();
         },
       },

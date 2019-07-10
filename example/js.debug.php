@@ -24,6 +24,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath."external/src/poll-d3.js" ?>"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath."external/src/poll-c3.js" ?>"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/video.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/youtube.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/videojs-contrib-hls.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath.'external/src/s3.fine-uploader.js'; ?>"></script>

@@ -249,7 +249,7 @@ var io = {
   },
 
   onRecJson(receivemsg) {
-    console.log("====> re-play ", JSON.stringify(receivemsg));
+    // console.log("====> re-play ", JSON.stringify(receivemsg));
     if (io.globallock === false) {
       if (io.globalmsgjson.length > 0) {
         while (io.globalmsgjson.length > 0 && io.globallock === false) {

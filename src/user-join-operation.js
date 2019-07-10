@@ -217,20 +217,21 @@ const defaultOperation = function (e, sType) {
         // console.log('Document share send :- Layout');
       }
     } else if (virtualclass.currApp === 'Video') {
-      if (typeof virtualclass.videoUl.player === 'object') {
-        if (virtualclass.videoUl.videoUrl) {
-          ioAdapter.mustSendUser({
-            videoUl: {
-              init: { id: virtualclass.videoUl.videoId, videoUrl: virtualclass.videoUl.videoUrl },
-              startFrom: virtualclass.videoUl.player.currentTime(),
-              isPaused: virtualclass.videoUl.player.paused(),
-            },
-            cf: 'videoUl',
-          }, virtualclass.jId);
-        }
-      } else {
-        ioAdapter.mustSendUser({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' }, virtualclass.jId);
-      }
+
+      // if (typeof virtualclass.videoUl.player === 'object') {
+      //   if (virtualclass.videoUl.videoUrl) {
+      //     ioAdapter.mustSendUser({
+      //       videoUl: {
+      //         init: { id: virtualclass.videoUl.videoId, videoUrl: virtualclass.videoUl.videoUrl },
+      //         startFrom: virtualclass.videoUl.player.currentTime(),
+      //         isPaused: virtualclass.videoUl.player.paused(),
+      //       },
+      //       cf: 'videoUl',
+      //     }, virtualclass.jId);
+      //   }
+      // } else {
+      //   ioAdapter.mustSendUser({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' }, virtualclass.jId);
+      // }
     }
 
     if (typeof sType !== 'undefined' && sType !== null) {

@@ -296,7 +296,6 @@ const receiveFunctions = new function () {
 
 
   this.videoUl = function (e) {
-    console.log('=====> set video url ', e.message);
     virtualclass.videoUl.onmessage(e.message);
   };
 

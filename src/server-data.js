@@ -175,7 +175,6 @@ const serverData = {
             this.rawData.video.push(obj);
             break;
           case 'presentation':
-            // console.log(obj);
             obj = this.processVidUrlObj(arr[j]);
             obj.urls = {};
             obj.urls.presentation = obj.URL;
@@ -185,7 +184,6 @@ const serverData = {
         }
       }
     }
-    virtualclass.awsData = processedArr; // TODO should be removed
   },
 
   processObj(obj) {

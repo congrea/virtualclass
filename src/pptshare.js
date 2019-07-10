@@ -877,14 +877,6 @@
 
       awsPresentationList(ppts) {
         virtualclass.sharePt.ppts = [];
-
-        // var data = virtualclass.awsData;
-        // for(var i =0;i<data.length;i++){
-        //     if(data[i]["filetype"]=="presentation" ){
-        //         virtualclass.sharePt.ppts.push(data[i])
-        //     }
-        // }
-
         virtualclass.sharePt.ppts = ppts;
 
         const db = document.querySelector('#SharePresentationDashboard .dbContainer');

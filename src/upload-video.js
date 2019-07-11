@@ -856,7 +856,7 @@
             console.log('==== video player ready 1', virtualclass.videoUl.player);
             virtualclass.videoUl.UI.attachPlayerHandler(virtualclass.videoUl.player, vidId, videoUrl);
           }
-
+          virtualclass.videoUl.lastSeek = 0;
           virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
           virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl, startFrom);
         },
@@ -955,6 +955,7 @@
               if (virtualclass.videoUl.lastSeek) {
                 virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
               }
+              /* TODO, pause state isn't working with uploaded video on page refresh, however it's fine with youtube videos */
               player.pause();
               console.log('====> Video 2 finished pause');
             } else if (virtualclass.system.device === 'desktop') { // TODO, WHY only on desktop

@@ -26,7 +26,6 @@
 
        */
       init() {
-        this.alreadySetPlayerUrl = false;
         this.videoInit = true;
         this.currPlaying = '';
         this.pages = {};
@@ -87,24 +86,6 @@
           }
         }
         return activeVideos;
-      },
-
-      /*
-       * after reload video state is retrived from localstorage
-       * @param  id id of video
-       * @param  url of the video
-       * @param  startFrom place from where to start the video
-
-       */
-      fromReload(id, url, startFrom) {
-        virtualclass.videoUl.UI.container();
-        if (url) {
-          virtualclass.videoUl.UI.displayVideo(id, url, startFrom);
-        } else {
-          const obj = {};
-          obj.init = id;
-          // virtualclass.yts.init(obj,startFrom);
-        }
       },
 
       requestOrder() {
@@ -303,7 +284,6 @@
         if (video) {
           video.addEventListener('click', () => {
             virtualclass.videoUl.isPaused = false;
-            console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
             if (vidObj.filetype === 'video_yts') {
               virtualclass.videoUl.yts = true;
               virtualclass.videoUl.online = false;
@@ -358,15 +338,6 @@
         if (currentVideo && !currentVideo.classList.contains('playing')) {
           currentVideo.classList.add('playing');
         }
-      },
-
-      shareVideo(videoUrl) {
-        const videoObj = {};
-        const id = 'no';
-        virtualclass.videoUl.UI.displayVideo(id, videoUrl);
-        videoObj.instantVideo = true;
-        videoObj.content_path = videoUrl;
-        virtualclass.videoUl.videoToStudent(videoObj);
       },
 
       destroyPl() {
@@ -436,9 +407,10 @@
           if (msg.videoUl === 'play') {
             this.handlePlayEvent(msg, msg.play);
           } else if (msg.videoUl === 'pause') {
-            virtualclass.videoUl.player.lastSeek = msg.currTime;
-            this.pauseVideo();
-            virtualclass.videoUl.isPaused = true;
+            this.handlePauseEvent(msg);
+            // virtualclass.videoUl.player.lastSeek = msg.currTime;
+            // this.pauseVideo();
+            // virtualclass.videoUl.isPaused = true;
           } else if (msg.videoUl === 'destroyPlayer') {
             virtualclass.videoUl.destroyPlayer();
           } else if (msg.videoUl === 'enterFullScreen') {
@@ -464,7 +436,7 @@
             }
           }
         } else {
-           this.onmessageObj(msg);
+          this.onmessageObj(msg);
         }
       },
 
@@ -495,7 +467,7 @@
           // console.log(virtualclass.videoUl.rec);
           if (msg.videoUl.init === 'studentlayout') {
             virtualclass.makeAppReady('Video', undefined, msg.videoUl);
-            console.log('====> Video play 1');
+            // console.log('====> Video play 1');
             const msz = document.getElementById('messageLayoutVideo');
             if (msz) {
               msz.style.display = 'block';
@@ -510,12 +482,6 @@
           virtualclass.videoUl.videoUrl = msg.videoUl.content_path;
           virtualclass.videoUl.title = msg.videoUl.title;
           virtualclass.videoUl.UI.displayVideo(msg.videoUl.id, virtualclass.videoUl.videoUrl);
-
-          const lastPlayTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.videoTime);
-          const currentTime = (new Date().getTime());
-          const totalDuration = (currentTime - lastPlayTime) / 1000;
-          this.onmessage({ videoUl: 'play', play: totalDuration });
-
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'play')) {
           this.handlePlayEvent(msg, msg.videoUl.play);
         }
@@ -528,13 +494,22 @@
       },
 
       handlePlayEvent(msg, playTime) {
-        virtualclass.videoUl.player.lastSeek = playTime;
+        virtualclass.videoUl.lastSeek = playTime;
         if (msg.videoTime) {
-          virtualclass.videoUl.player.lastSeek += this.calculateVideoTime(msg.videoTime);
+          virtualclass.videoUl.lastSeek += this.calculateVideoTime(msg.videoTime);
         }
+        console.log('====> last seek ', virtualclass.videoUl.lastSeek);
         this.playVideo();
         virtualclass.videoUl.isPaused = false;
-        console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
+        // console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
+      },
+
+      handlePauseEvent(msg) {
+        virtualclass.videoUl.lastSeek = msg.currTime;
+        console.log('====> last seek ', virtualclass.videoUl.lastSeek);
+        this.pauseVideo();
+        virtualclass.videoUl.isPaused = true;
+
       },
 
       enablePlayer() {
@@ -552,20 +527,20 @@
       },
 
       destroyPlayer() {
-        console.log('=====> dispose video here');
         virtualclass.videoUl.player.dispose();
-        virtualclass.videoUl.alreadySetPlayerUrl = false;
       },
 
       playVideo() {
         // console.log('====> seek play', virtualclass.videoUl.player.lastSeek / 60);
-        virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
+        console.log('====> Video 1 play', virtualclass.videoUl.lastSeek);
+        virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
         virtualclass.videoUl.player.play();
       },
 
       pauseVideo() {
-        virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
-        console.log('====> seek pause ', virtualclass.videoUl.player.lastSeek / 60);
+        console.log('====> Video 2 pause', virtualclass.videoUl.lastSeek);
+        virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
+        //console.log('====> seek pause ', virtualclass.videoUl.player.lastSeek / 60);
         virtualclass.videoUl.player.pause();
         virtualclass.videoUl.isPaused = true;
       },
@@ -598,14 +573,7 @@
               //  virtualclass.videoUl.UI.displayVideo(currVideoObj.id, currVideoObj.URL);
               virtualclass.videoUl.UI.displayVideo(currVideoObj.fileuuid, currVideoObj.URL);
               virtualclass.videoUl.videoToStudent(currVideoObj);
-
-              if (virtualclass.videoUl.player) {
-                // virtualclass.videoUl.player.on("ready",function() {
-                //     virtualclass.videoUl.player.play();
-                // })
-              }
               this.activeVideoClass(currVideoObj.id);
-
               toStd.content_path = currVideoObj.URL;
             } else {
               virtualclass.videoUl.online = false;
@@ -618,16 +586,13 @@
                 virtualclass.videoUl.UI.displayVideo(currVideoObj.fileuuid, currVideoObj.urls.main_video);
                 toStd.content_path = currVideoObj.urls.main_video;
               }
-
-              // virtualclass.videoUl.UI.displayVideo(currVideoObj.fileuuid,currVideoObj.urls.main_video);
-
               virtualclass.videoUl.videoToStudent(toStd);
             }
 
             if (virtualclass.videoUl.player) {
               virtualclass.videoUl.player.ready(function () {
                 const myPlayer = this;
-                // console.log('====> seek play ', virtualclass.videoUl.player.lastSeek);
+                // console.log('====> seek play ', virtualclass.videoUl.lastSeek);
                 myPlayer.play();
               });
             }
@@ -647,7 +612,7 @@
           // for (var j in virtualclass.videoUl.videos[i]) {
           if (videos[i].fileuuid === nextId) {
             const vid = document.getElementById(`linkvideo${videos[i].fileuuid}`);
-            if (vid.getAttribute('data-status') == '1') {
+            if (vid.getAttribute('data-status') === '1') {
               currVideoObj = videos[i];
               break;
             }
@@ -890,12 +855,12 @@
 
             console.log('==== video player ready 1', virtualclass.videoUl.player);
             virtualclass.videoUl.UI.attachPlayerHandler(virtualclass.videoUl.player, vidId, videoUrl);
-            virtualclass.videoUl.alreadySetPlayerUrl = false;
           }
 
           virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
           virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl, startFrom);
         },
+
         attachPlayerHandler(player) {
           if (!this.attachPlayer) {
             this.attachPlayer = true;
@@ -908,13 +873,13 @@
               virtualclass.videoUl.isPaused = true;
             });
 
-            console.log('====> seek play init ');
+            // console.log('====> seek play init ');
             player.on('play', (e) => {
               if (roles.hasControls()) {
                 ioAdapter.mustSend({ videoUl: { play: player.currentTime() }, cf: 'videoUl', videoTime: virtualclass.vutil.localToUTC() });
               }
               virtualclass.videoUl.isPaused = false;
-              console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
+              // console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
             });
           }
         },
@@ -959,6 +924,7 @@
         },
 
         setPlayerUrl(player, videoUrl, startFrom) {
+          console.log('====> Video 0 start');
           if (startFrom == undefined && virtualclass.videoUl.startTime) {
             startFrom = virtualclass.videoUl.startTime;
           }
@@ -967,51 +933,36 @@
             player.poster_ = '';
           }
 
-          /* player.reset(); */
           const dispVideo = document.querySelector('#dispVideo');
           if (virtualclass.videoUl.yts) {
             dispVideo.setAttribute('data-setup', '{ techOrder: [youtube],"preload": "auto"}');
             player.src({ type: 'video/youtube', src: videoUrl });
+            console.log('====> Video 1 b Finished youtube');
           } else if (virtualclass.videoUl.online) {
             dispVideo.setAttribute('data-setup', '{"preload": "auto" }');
             player.src({ type: 'video/webm', src: videoUrl });
             player.src({ type: 'video/mp4', src: videoUrl });
+            console.log('====> Video 1 b Finished uploaded');
           } else {
             dispVideo.setAttribute('data-setup', '{"preload": "auto"}');
             player.src({ type: 'application/x-mpegURL', withCredentials: true, src: videoUrl });
+            console.log('====> Video 1 b normal');
           }
 
-          console.log('=====> set video url 1');
-
-          player.ready(function () {
-            const myPlayer = this;
-            console.log('=====> set video url 1 a');
-            if (!virtualclass.videoUl.alreadySetPlayerUrl) {
-              /** When video is loaded * */
-              myPlayer.on('loadedmetadata', () => {
-                console.log('=====> set video url 1 c');
-                virtualclass.videoUl.alreadySetPlayerUrl = true;
-                if (virtualclass.videoUl.isPaused) {
-                  if (virtualclass.videoUl.player.lastSeek) {
-                    virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
-                  }
-                  myPlayer.pause();
-                } else if (virtualclass.system.device === 'desktop') {
-                  if (virtualclass.videoUl.player.lastSeek) {
-                    virtualclass.videoUl.player.currentTime(virtualclass.videoUl.player.lastSeek);
-                  }
-                  console.log("====> seek play ", virtualclass.videoUl.player.lastSeek / 60);
-                  myPlayer.play();
-                }
-
-                if (startFrom) {
-                  myPlayer.currentTime(startFrom);
-                  if (virtualclass.videoUl.yts && !virtualclass.videoUl.isPaused && virtualclass.system.device === 'desktop') {
-                    myPlayer.play();
-                    console.log("====> seek play ", virtualclass.videoUl.player.lastSeek / 60);
-                  }
-                }
-              });
+          player.any('loadstart', () => {
+            virtualclass.videoUl.alreadySetPlayerUrl = true;
+            if (virtualclass.videoUl.isPaused) {
+              if (virtualclass.videoUl.lastSeek) {
+                virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
+              }
+              player.pause();
+              console.log('====> Video 2 finished pause');
+            } else if (virtualclass.system.device === 'desktop') { // TODO, WHY only on desktop
+              if (virtualclass.videoUl.lastSeek) {
+                virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
+              }
+              player.play();
+              console.log('====> Video 2 finished play');
             }
           });
         },

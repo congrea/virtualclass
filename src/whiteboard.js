@@ -20,6 +20,7 @@
     //
     if (typeof virtualclass.wb[currWb].vcan !== 'object') {
       virtualclass.wb[currWb].vcan = new window.Vcan();
+      console.log('====> vcan is creating ', currWb);
 
       window.vcanUtility(currWb);
       window.vcanMain(currWb);

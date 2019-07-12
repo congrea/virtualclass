@@ -2,6 +2,7 @@
 
 const gesture = {
   initClassJoin() {
+    return;
     const joinClassModal = document.querySelector('#joinClassModal');
     if (joinClassModal != null) {
       joinClassModal.style.display = 'block';

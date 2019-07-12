@@ -292,6 +292,7 @@ var ioMissingPackets = {
           this.executedStore[uid][msg.m.data[i].m.serial] = msg.m.data[i];
           try {
             // console.log(`UID ${uid} Object with Serial ${msg.m.data[i].m.serial}`);
+            console.log('====> missing packet ', i);
             io.onRecJson(msg.m.data[i]);
           } catch (error) {
             // console.log(`Error ${error}`);

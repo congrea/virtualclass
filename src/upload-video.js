@@ -347,7 +347,7 @@
           }
           console.log('==== video player ready dispose');
           // virtualclass.videoUl.player.dispose();
-          virtualclass.videoUl.player.destroyPlayer();
+          virtualclass.videoUl.destroyPlayer();
         }
       },
 
@@ -526,8 +526,31 @@
         }
       },
 
+      // clearEverThing () {
+      //
+      //   // virtualclass.videoUl.videoId = '';
+      //   // const dispVideo = document.querySelector('.congrea #dispVideo');
+      //   // if (dispVideo) {
+      //   //   dispVideo.style.display = 'none';
+      //   //   const video = document.querySelector('.congrea #dispVideo video');
+      //   //   if (video) {
+      //   //     video.setAttribute('src', '');
+      //   //   }
+      //   // }
+      //   // const currPlaying = document.querySelector('#listvideo .playing');
+      //   // if (currPlaying) {
+      //   //   currPlaying.classList.remove('playing');
+      //   // }
+      //   // const currCtr = document.querySelector('#listvideo .removeCtr');
+      //   // if (currCtr) {
+      //   //   currCtr.classList.remove('removeCtr');
+      //   // }
+      // },
+
       destroyPlayer() {
         virtualclass.videoUl.player.dispose();
+        delete virtualclass.videoUl.player;
+        console.log('====> Video player is finished end <======', virtualclass.videoUl.player);
       },
 
       playVideo() {
@@ -816,7 +839,7 @@
           if (typeof virtualclass.videoUl.player === 'object') {
             if (Object.prototype.hasOwnProperty.call(virtualclass.videoUl.player, 'dispose')) {
               // virtualclass.videoUl.player.dispose();
-              virtualclass.videoUl.player.destroyPlayer();
+              virtualclass.videoUl.destroyPlayer();
             }
           }
           virtualclass.videoUl.videoUrl = videoUrl;
@@ -842,6 +865,7 @@
         videojsPlayer(videoUrl, vidId, startFrom) {
           if (!virtualclass.videoUl.player) {
             virtualclass.videoUl.player = videojs('dispVideo'); // TODO, generating error need to handle
+            console.log('====> Video player is ready <====== 0');
             if (roles.hasControls()) {
               if (!($('.vjs-autoPlay-button').length)) {
                 virtualclass.videoUl.UI.appendAutoPlayButton(virtualclass.videoUl.player);
@@ -857,7 +881,7 @@
             virtualclass.videoUl.UI.attachPlayerHandler(virtualclass.videoUl.player, vidId, videoUrl);
           }
           virtualclass.videoUl.lastSeek = 0;
-          virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
+          // virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
           virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl, startFrom);
         },
 

@@ -46,6 +46,7 @@ const serverData = {
         virtualclass.serverData.syncxhr.post(virtualclass.api.GetDocumentURLs, {})
           .then((response) => {
             virtualclass.serverData.awsUrlArr(response.data);
+            console.log('===> rawSyncData');
             ioAdapter.mustSend({ rawData: response.data, cf: 'rawSyncData' });
             virtualclass.serverData.syncComplete = true;
             resolve(true);

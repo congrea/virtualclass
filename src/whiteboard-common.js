@@ -403,6 +403,7 @@
 
     deleteWhiteboard(wbId) {
       delete virtualclass.wb[wbId];
+      console.log('JAI 2')
       delete virtualclass.pdfRender[wbId];
       if (virtualclass.currApp === 'Whiteboard') {
         const containerWbDoc = document.querySelector(`#containerWb${wbId}`);

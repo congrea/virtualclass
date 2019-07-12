@@ -107,7 +107,7 @@
         if (typeof virtualclass.videoUl === 'object') {
           if (typeof virtualclass.videoUl.player === 'object') {
             if (typeof virtualclass.videoUl.player.dispose !== 'undefined') {
-              virtualclass.videoUl.player.dispose();
+              virtualclass.videoUl.destroyPlayer();
             }
           }
         }
@@ -740,50 +740,43 @@
           virtualclass.system.setAppDimension();
         }
 
-        // if (app != virtualclass.apps.ss && app != virtualclass.apps.yt&& app != virtualclass.apps.vid && Object.prototype.hasOwnProperty.call(virtualclass, 'yts')) {
-        //     virtualclass.yts.destroyYT();
+        // if (app !== 'Video' && Object.prototype.hasOwnProperty.call(virtualclass, 'videoUl')) {
+        //   virtualclass.videoUl.clearEverThing();
+        //
+        //   virtualclass.videoUl.videoId = '';
+        //   const frame = document.getElementById('dispVideo_Youtube_api');
+        //   if (frame && frame.contentWindow) {
+        //     frame.contentWindow.postMessage(
+        //       '{"event":"command","func":"pauseVideo","args":""}',
+        //       '*',
+        //     );
+        //   }
+        //
+        //   const dispVideo = document.querySelector('.congrea #dispVideo');
+        //   if (dispVideo) {
+        //     dispVideo.style.display = 'none';
+        //     const video = document.querySelector('.congrea #dispVideo video');
+        //     if (video) {
+        //       video.setAttribute('src', '');
+        //     }
+        //   }
+        //   const currPlaying = document.querySelector('#listvideo .playing');
+        //   if (currPlaying) {
+        //     currPlaying.classList.remove('playing');
+        //   }
+        //   const currCtr = document.querySelector('#listvideo .removeCtr');
+        //   if (currCtr) {
+        //     currCtr.classList.remove('removeCtr');
+        //   }
+        //
         // }
-        if (app != 'Video' && Object.prototype.hasOwnProperty.call(virtualclass, 'videoUl')) {
-          virtualclass.videoUl.videoId = '';
-          const frame = document.getElementById('dispVideo_Youtube_api');
-          if (frame && frame.contentWindow) {
-            frame.contentWindow.postMessage(
-              '{"event":"command","func":"pauseVideo","args":""}',
-              '*',
-            );
-          }
 
-          const dispVideo = document.querySelector('.congrea #dispVideo');
-          if (dispVideo) {
-            dispVideo.style.display = 'none';
-            const video = document.querySelector('.congrea #dispVideo video');
-            if (video) {
-              video.setAttribute('src', '');
-            }
-          }
-          const currPlaying = document.querySelector('#listvideo .playing');
-          if (currPlaying) {
-            currPlaying.classList.remove('playing');
-          }
-          const currCtr = document.querySelector('#listvideo .removeCtr');
-          if (currCtr) {
-            currCtr.classList.remove('removeCtr');
-          }
-          if (!roles.hasControls()) {
-            if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'videoPauseTime')) {
-              clearTimeout(virtualclass.gObj.videoPauseTime);
-            }
-
-            if (typeof virtualclass.videoUl.player === 'object' && virtualclass.videoUl.player.player_ != null
-              && virtualclass.videoUl.player.paused()) {
-              // console.log('==== Video is paused');
-              virtualclass.videoUl.player.pause();
-            }
-          }
-          if (typeof virtualclass.videoUl.player === 'object') {
-            delete (virtualclass.videoUl.player);
-          }
+        if (app !== 'Video' && Object.prototype.hasOwnProperty.call(virtualclass, 'videoUl')
+          &&  Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'player')) {
+          virtualclass.videoUl.destroyPlayer();
         }
+
+
         if (roles.hasControls()) {
           var currVideo = Array.prototype.slice.call(arguments)[2];
           if (app !== 'ScreenShare' && (virtualclass.currApp === 'SharePresentation' || (virtualclass.currApp === 'Video'))) {
@@ -846,10 +839,13 @@
               virtualclass.gObj.commandToolsWrapperId[id] = `commandToolsWrapper${id}`;
               this.wb[id] = {};
               virtualclass.gObj.tempReplayObjs[id] = [];
+              console.log('====> vcan is creating', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+              console.log('====> jai 1 ', id, ' ', virtualclass.wb[id].vcan);
               this.wb[id] = new window.whiteboard(this.wbConfig, id);
               let whiteboardContainer;
               let wbHtml;
               let canvas;
+              console.log('====> jai 2 ', id, ' ', virtualclass.wb[id].vcan);
 
               if (virtualclass.currApp === 'Whiteboard') {
                 whiteboardContainer = document.querySelector('#virtualclassWhiteboard .whiteboardContainer');
@@ -860,6 +856,7 @@
               } else {
                 whiteboardContainer = document.getElementById(`cont${id}`);
               }
+              console.log('====> jai 3 ', id, ' ', virtualclass.wb[id].vcan);
 
               if (whiteboardContainer !== null) {
                 if (document.querySelector(`vcanvas${id}`) === null) {
@@ -894,6 +891,7 @@
                   }
                   canvas = document.querySelector(`#canvas${id}`);
                 }
+                console.log('====> jai 4 ', id, ' ', virtualclass.wb[id].vcan);
 
                 this.wb[id].utility = new window.utility();
                 this.wb[id].alreadyReplay = false;
@@ -906,16 +904,22 @@
                 this.wb[id].bridge = window.bridge;
                 this.wb[id].response = window.response;
                 virtualclass.wb[id].utility.displayCanvas(id);
+                console.log('====> jai 5 ', id, ' ', virtualclass.wb[id].vcan);
 
                 if (roles.hasControls()) {
                   virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
                 }
+                console.log('====> jai 6 ', id, ' ', virtualclass.wb[id].vcan);
 
                 if (virtualclass.currApp === 'DocumentShare') {
                   const { currNote } = virtualclass.dts.docs.note;
+                  console.log('====> jai 6.1', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                   await virtualclass.pdfRender[wid].init(canvas, currNote);
+                  console.log('====> jai 6.2', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                 } else {
+                  console.log('====> jai 6.3', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                   await virtualclass.pdfRender[wid].init(canvas);
+                  console.log('====> jai 6.4', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                 }
               } else {
                 alert('whiteboard container is null');
@@ -927,6 +931,7 @@
                 virtualclass.wb[id].attachToolFunction(commonWrapperId, true, id);
               }
             }
+            console.log('====> jai 7 ', id, ' ', id, ' ', virtualclass.wb[id].vcan);
             vcan = virtualclass.wb[id].vcan;
             this.previous = this.wbConfig.id;
           } else {

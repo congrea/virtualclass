@@ -468,8 +468,10 @@
             } else if (roles.hasControls()) {
               // console.log(pptData.eventName);
               if (typeof pptData.eventName !== 'undefined') {
-                virtualclass.sharePt[pptData.eventName].call(virtualclass.sharePt, pptData);
-                virtualclass.sharePt.state = pptData.state;
+                if (typeof virtualclass.sharePt[pptData.eventName] !== 'undefined') {
+                  virtualclass.sharePt[pptData.eventName].call(virtualclass.sharePt, pptData);
+                  virtualclass.sharePt.state = pptData.state;
+                }
               }
             }
           }

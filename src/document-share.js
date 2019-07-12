@@ -321,7 +321,10 @@
         if (typeof virtualclass.wb[`_doc_${noteId}_${noteId}`] === 'object') {
           // delete whiteboard object
           // console.log('Delete whiteboard');
+
+          // TODO, we need look why it is causing the problem on page refresh
           delete virtualclass.wb[`_doc_${noteId}_${noteId}`];
+          console.log('JAI 3');
         }
         this.removeNoteNav(noteId);
         this.reaArrangeThumbCount();
@@ -1169,8 +1172,9 @@
                 virtualclass.dts.docs.createWhiteboard(this.currNote);
               } else if (this.isWhiteboardExist(this.currNote) && !this.isPdfRendered(this.currNote)) {
                 // console.log('Delete whiteboard');
-                delete virtualclass.wb[virtualclass.gObj.currWb];
-                virtualclass.dts.docs.createWhiteboard(this.currNote);
+                // delete virtualclass.wb[virtualclass.gObj.currWb];
+                // console.log("JAI ", virtualclass.gObj.currWb);
+                // virtualclass.dts.docs.createWhiteboard(this.currNote);
               } else {
                 // If there is a zoom, that needs to apply at in next/previous screen,
                 // virtualclass.zoom.normalRender();

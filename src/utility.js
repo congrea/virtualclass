@@ -2496,6 +2496,7 @@
         }
       }
       if (typeof virtualclass.videoUl.player === 'object') {
+        console.log('=====> Video delete <==== ',  virtualclass.videoUl.player);
         delete (virtualclass.videoUl.player);
       }
     },

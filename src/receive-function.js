@@ -522,6 +522,7 @@ const receiveFunctions = new function () {
         }
 
         if (typeof virtualclass.videoUl.player === 'object') {
+          console.log('====> Video player is destroyed  <======', virtualclass.videoUl.player);
           delete (virtualclass.videoUl.player);
         }
       }

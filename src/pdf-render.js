@@ -696,7 +696,7 @@
         virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, actualWidth);
         await virtualclass.pdfRender[virtualclass.gObj.currWb].displayPage(this.shownPdf, 1);
         for (const wid in virtualclass.pdfRender) {
-          that.zoomOutWhiteboardObjects(wid);
+          this.zoomOutWhiteboardObjects(wid);
         }
         // const that = this;
         // this.displayPage(this.shownPdf, 1, () => {

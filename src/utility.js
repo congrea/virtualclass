@@ -2068,16 +2068,16 @@
     setDefaultScroll() {
       if (roles.hasControls() && virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare') {
         const wb = virtualclass.gObj.currWb;
-        if (wb != null && virtualclass.pdfRender[wb].canvasWrapper != null) {
+        if (wb != null && typeof virtualclass.pdfRender[wb] === 'object' && virtualclass.pdfRender[wb].canvasWrapper != null) {
           // Defualt scroll trigger
           virtualclass.pdfRender[wb].canvasWrapper.scrollTop = 1;
         }
       }
     },
 
-    async createWhiteBoard(wId) {
+    createWhiteBoard(wId) {
       const args = ['Whiteboard', 'byclick', wId];
-      await virtualclass.appInitiator.Whiteboard.apply(virtualclass, Array.prototype.slice.call(args));
+      virtualclass.appInitiator.Whiteboard.apply(virtualclass, Array.prototype.slice.call(args));
       const measureRes = virtualclass.system.measureResoultion({
         width: window.innerWidth,
         height: window.innerHeight,
@@ -2562,6 +2562,10 @@
       }
     },
 
+    afterPdfPrefetch(noteId, data) {
+      virtualclass.gObj.next = {};
+      virtualclass.gObj.next[noteId] = data;
+    },
   };
   window.vutil = vutil;
 }(window));

@@ -172,9 +172,9 @@
     virtualclass.appData.videoObj = videoObj;
   };
 
-  Bootstrap.prototype.appInit = async function () {
+  Bootstrap.prototype.appInit = function () {
     virtualclass.settings.init();
-    await virtualclass.init(wbUser.role, virtualclass.appData.appIs, virtualclass.appData.videoObj);
+    virtualclass.init(wbUser.role, virtualclass.appData.appIs, virtualclass.appData.videoObj);
 
     if (virtualclass.system.mybrowser.name === 'Edge') {
       const virtualclassContainer = document.getElementById('virtualclassCont');

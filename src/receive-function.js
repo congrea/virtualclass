@@ -223,28 +223,23 @@ const receiveFunctions = new function () {
     }
 
     if (typeof virtualclass.gObj.currWb !== 'undefined') {
-      virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
+      // virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
 
       // The packets came from teacher when he/she does not has control won't be display
-      if (e.fromUser.role === 't') {
+      if (typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object' && e.fromUser.role === 't') {
         virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.repObj);
-      } else {
-        // console.log('whiteboard -------------------------- We just lost a packet');
       }
     }
 
     if (typeof virtualclass.gObj.wbData[virtualclass.gObj.currWb] !== 'object') {
-      // console.log('==== Creating whiteboard   QUEUE');
-      // virtualclass.wb[virtualclass.gObj.currWb].data = [];
       virtualclass.gObj.wbData[virtualclass.gObj.currWb] = [];
     }
 
     let i = 0;
     for (; i < e.message.repObj.length; i++) {
-      // console.log('====> whiteboard data ', JSON.stringify(e.message.repObj[i]));
       virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
-      // console.log('==== Creating whiteboard   QUEUE, length ', virtualclass.gObj.wbData[virtualclass.gObj.currWb].length);
     }
+
   };
 
   // Replay All, TODO, need to do verify

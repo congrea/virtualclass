@@ -15,7 +15,7 @@
         withCredentials: true,
         responseType: 'arraybuffer',
       }),
-      async init(canvas, currNote) {
+      init(canvas, currNote) {
         const virtualclasElem = document.querySelector('#virtualclassCont');
         // if(virtualclasElem != null){
         //    // virtualclasElem.classList.add('pdfRendering');
@@ -24,137 +24,98 @@
 
         io.globallock = false;
         virtualclass.gObj.firstNormalRender = false;
+        let currWhiteBoard;
         if (typeof currNote !== 'undefined') {
           const note = virtualclass.dts.getNote(currNote);
           this.url = note.pdf;
+          currWhiteBoard = '_doc_' + currNote + '_' + currNote;
         } else {
           this.url = `${whiteboardPath}resources/sample.pdf`;
+          currWhiteBoard = virtualclass.gObj.currWb;
         }
 
-        await this.loadPdf(this.url, canvas, currNote);
+        this.loadPdf(this.url, canvas, currWhiteBoard);
       },
 
       prefechPdf(noteId) {
         const note = virtualclass.dts.getNote(noteId);
         this.axhr.get(note.pdf)
-          .then((response) => {
-            virtualclass.pdfRender[virtualclass.gObj.currWb].afterPdfPrefetch(note.id, response.data);
-          })
-          .catch((error) => {
-            console.error('Request failed with error ', error);
-          });
+          .then((response) => { virtualclass.vutil.afterPdfPrefetch(note.id, response.data); })
+          .catch((error) => { console.error('Request failed with error ', error); });
       },
 
-      afterPdfPrefetch(noteId, data) {
-        virtualclass.gObj.next = {};
-        virtualclass.gObj.next[noteId] = data;
-      },
-
-
-      async loadPdf(url, canvas, currNote) {
-        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'getDocumentTimeout')) {
-          clearTimeout(virtualclass.gObj.getDocumentTimeout);
-        }
-        if (virtualclass.isPlayMode) {
-          virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
-            this.loadPdfActual(url, canvas, currNote);
-            virtualclass.gObj.getDocumentTimer = false;
-          }, 100);
-        } else if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer === false) {
-          virtualclass.gObj.getDocumentTimer = true;
-          await this.loadPdfActual(url, canvas, currNote);
-          virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
-            virtualclass.gObj.getDocumentTimer = false;
-          }, 1000);
+      loadPdf(url, canvas, currWhiteBoard) {
+        console.log('##==jai, Init2 currWhiteBoard ' + currWhiteBoard);
+        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj.next, currWhiteBoard)) {
+          this.afterPdfLoad(canvas, currWhiteBoard, virtualclass.gObj.next[currWhiteBoard]);
         } else {
-          virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
-            this.loadPdfActual(url, canvas, currNote);
-            virtualclass.gObj.getDocumentTimer = false;
-          }, 300);
-        }
-      },
-
-      async loadPdfActual(url, canvas, currNote) {
-        // console.log('====PDF, Init2 load ' + virtualclass.gObj.currWb);
-        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj.next, currNote)) {
-          this.afterPdfLoad(canvas, currNote, virtualclass.gObj.next[currNote]);
-        } else {
-          await this.axhr.get(url)
+          this.axhr.get(url)
             .then(async (response) => {
-              await virtualclass.pdfRender[virtualclass.gObj.currWb].afterPdfLoad(canvas, currNote, response.data);
+              await virtualclass.pdfRender[currWhiteBoard].afterPdfLoad(canvas, currWhiteBoard, response.data);
             })
             .catch((error) => {
-              console.error('Request failed with error ', error);
+              // console.error('Request failed with error ', error);
               setTimeout(() => {
-                virtualclass.pdfRender[virtualclass.gObj.currWb].loadPdfActual(url, canvas, currNote);
+                virtualclass.pdfRender[currWhiteBoard].loadPdf(url, canvas, currWhiteBoard);
               }, 1000);
             });
         }
 
-        // if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
-        //     var note = document.querySelector('#note'+currNote);
-        //     if(note != null && note.nextElementSibling != null){
-        //         var preFetchSlide =  note.nextElementSibling.dataset.slide;
-        //         virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
-        //     }
-        // }
       },
 
       async afterPdfLoad(canvas, currNote, data) {
-        // console.log('====PDF, After PDF load' + virtualclass.gObj.currWb);
-        this.canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
+        // this.wbId = '_doc_' + currNote + '_' + currNote;
+        this.wbId = currNote;
         this.canvas = canvas;
+        console.log('====JAI, After PDF currNote' + currNote);
+        // this.canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
+        this.canvasWrapper = canvas.parentNode;
         const doc = {};
         doc.data = data;
         // doc.currwb = virtualclass.gObj.currWb;
         if (virtualclass.gObj.myworker != null) {
           doc.worker = virtualclass.gObj.myworker;
         }
+        //
+        // if (typeof currNote === 'undefined') {
+        //   this.wbId = virtualclass.gObj.currWb;
+        // } else {
+        //   this.wbId = '_doc_' + currNote + '_' + currNote;
+        // }
 
-        // const that = this;
-        const prvApp = virtualclass.currApp;
-        const prvWhiteboard = virtualclass.gObj.currWb;
 
 
-        /** Avoids the PDF which would be different for current app
-         * to reproduce the problem without condition, page refresh on docuemnt share
-         * without load pdf click on whiteboard and again on document share and finally on whiteboard,
-         * */
-        if (prvApp === virtualclass.currApp) {
-          if (typeof currNote === 'undefined') {
-            this.wbId = virtualclass.gObj.currWb;
-          } else {
-            this.wbId = currNote;
-          }
+        // console.log(`-----------START ${virtualclass.currApp}----------`);
+        // console.log('PDF render request to pdf.js 1');
+        PDFJS.workerSrc = `${whiteboardPath}build/src/pdf.worker.min.js`;
+        PDFJS.cMapUrl = `${whiteboardPath}build/cmaps/`;
+        PDFJS.cMapPacked = true;
 
-          // console.log(`-----------START ${virtualclass.currApp}----------`);
-          // console.log('PDF render request to pdf.js 1');
-          PDFJS.workerSrc = `${whiteboardPath}build/src/pdf.worker.min.js`;
-          PDFJS.cMapUrl = `${whiteboardPath}build/cmaps/`;
-          PDFJS.cMapPacked = true;
-          const pdf = await PDFJS.getDocument(doc);
+        const pdf = await PDFJS.getDocument(doc);
+        pdf.wbId = this.wbId;
+        this.shownPdf = pdf;
 
-          if (virtualclass.gObj.myworker == null) {
-            virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS
-          }
-          await virtualclass.pdfRender[virtualclass.gObj.currWb].displayPage(pdf, 1, true);
-          this.shownPdf = pdf;
-          // console.log('====PDF, placed at shown PDF '  + doc.currwb);
-          if (!roles.hasControls()) {
-            this.topPosY = 0;
-            this.leftPosX = 0;
-          }
-          this.scrollEvent();
-        } else if (virtualclass.currApp === 'DocumentShare') {
-          // virtualclasElem.classList.remove('pdfRendering');
-          virtualclass.wbCommon.deleteWhiteboard(prvWhiteboard);
+        console.log('====> shown pdf id 2 fp ', pdf.pdfInfo.fingerprint, ' wb', this.wbId);
+
+        if (virtualclass.gObj.myworker == null) {
+          virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS
         }
 
-        if (typeof virtualclass.gObj.currWb !== 'undefined' && virtualclass.gObj.currWb != null) {
-          const note = document.querySelector(`#note${currNote}`);
+        await virtualclass.pdfRender[this.wbId].displayPage(pdf, 1, true);
+
+        if (!roles.hasControls()) {
+          this.topPosY = 0;
+          this.leftPosX = 0;
+        }
+        this.scrollEvent();
+
+
+        if (typeof this.wbId !== 'undefined' && this.wbId != null) {
+          const cN = currNote.split('_');
+          const note = document.querySelector(`#note${cN[2]}_${cN[3]}`);
           if (note != null && note.nextElementSibling != null) {
             const preFetchSlide = note.nextElementSibling.dataset.slide;
-            virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
+            virtualclass.pdfRender[this.wbId].prefechPdf(preFetchSlide);
           }
         }
       },
@@ -429,16 +390,15 @@
             }
           }
 
-          if (virtualclass.currApp == 'Whiteboard' && this.wbId != null && virtualclass.gObj.currWb != this.wbId) {
+          if (virtualclass.currApp === 'Whiteboard' && this.wbId != null && virtualclass.gObj.currWb !== this.wbId) {
             var wb = (this.wbId.indexOf('_doc_') > -1) ? this.wbId : `_doc_${this.wbId}_${this.wbId}`;
           } else {
-            var wb = virtualclass.gObj.currWb;
+            // var wb = virtualclass.gObj.currWb;
+            var wb = page.wbId;
           }
 
           const { canvas } = virtualclass.wb[wb].vcan.main;
           let viewport;
-
-
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
             canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas();
             // console.log('==== a canvas width fit to screen');
@@ -459,8 +419,6 @@
             canvas.width = window.innerWidth - 382;
             // console.log('==== a canvas width');
           }
-
-          // console.log('==== a jai canvas width ', canvas.width);
 
           if (this.firstTime) {
             this.firstTime = false;
@@ -514,16 +472,8 @@
             viewport,
           };
 
-          // const that = this;
-          // console.log('PDF render initiate to display pdf on canvas 3');
           await page.render(renderContext);
-          // .then(
-          //   () => {
-          // console.log('PDF render DONE 4');
-          // console.log('-----------END----------');
-
           canvas.parentNode.dataset.pdfrender = true;
-          // canvas.style.backgroundRepeat = 'no-repeat';
           this[wb] = { pdfrender: true };
 
           // virtualclass.dts[virtualclass.gObj.currWb].showZoom();
@@ -555,26 +505,24 @@
               if (virtualclass.gObj.currWb != null) {
                 if (document.querySelector(`#canvas${virtualclass.gObj.currWb}_pdf`) != null) {
                   /* Always run first document with Normal render */
-                  // virtualclass.zoom.adjustScreenOnDifferentPdfWidthRender(page);
-                  virtualclass.zoom.adjustScreenOnDifferentPdfWidth(page);
+                  // // virtualclass.zoom.adjustScreenOnDifferentPdfWidthRender(page);
+
+                  // // virtualclass.zoom.adjustScreenOnDifferentPdfWidth(page);
                   virtualclass.gObj.firstNormalRender = true;
                 }
               }
             }
             virtualclass.vutil.removeClass('virtualclassCont', 'resizeWindow');
-          } else {
-            // console.log('We should have a PDF here');
           }
-          //   },
-          // );
         }
       },
 
       async displayPage(pdf, num, firstTime) {
         // displayCb = cb;
         const page = await pdf.getPage(num);
+        page.wbId = pdf.wbId;
         virtualclass.pdfRender[virtualclass.gObj.currWb].page = page;
-        // console.log('==== to be display ', virtualclass.pdfRender[virtualclass.gObj.currWb].page, virtualclass.gObj.currWb);
+        console.log('====> shown pdf ', pdf.pdfInfo.fingerprint, ' ', pdf.wbId);
         if (typeof firstTime !== 'undefined') {
           await this.renderPage(page, firstTime);
         } else {
@@ -587,7 +535,7 @@
       // },
 
       fitToScreenIfNeed() {
-        if (virtualclass.currApp == 'DocumentShare' && !virtualclass.gObj.docPdfFirstTime) {
+        if (virtualclass.currApp === 'DocumentShare' && !virtualclass.gObj.docPdfFirstTime) {
           virtualclass.gObj.docPdfFirstTime = true;
           virtualclass.zoom.zoomAction('fitToScreen');
         }

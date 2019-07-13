@@ -3,6 +3,7 @@
     // var zoomScaleWidth, zoomScaleHeight;
     return {
       init() {
+        this.canvasScale = 1; // At very first, there is no canvas scale to draw the shapes on whiteboard
         if (document.querySelector('.zoomControler') == null) {
           const parent = document.querySelector('#virtualclassAppLeftPanel');
           if (parent != null) {
@@ -136,16 +137,16 @@
         //
       },
 
-      adjustScreenOnDifferentPdfWidth(page) {
-        if (Object.prototype.hasOwnProperty.call(this, 'adjustScreenOnDifferentPdfWidthTime')) {
-          clearTimeout(this.adjustScreenOnDifferentPdfWidthTime);
-        }
-        this.adjustScreenOnDifferentPdfWidthTime = setTimeout(() => {
-          this._adjustScreenOnDifferentPdfWidth(); // To control the reverse document
-        }, 400);
-      },
+      // adjustScreenOnDifferentPdfWidth(page) {
+      //   if (Object.prototype.hasOwnProperty.call(this, 'adjustScreenOnDifferentPdfWidthTime')) {
+      //     clearTimeout(this.adjustScreenOnDifferentPdfWidthTime);
+      //   }
+      //   this.adjustScreenOnDifferentPdfWidthTime = setTimeout(() => {
+      //     this._adjustScreenOnDifferentPdfWidth(); // To control the reverse document
+      //   }, 400);
+      // },
 
-      _adjustScreenOnDifferentPdfWidth(page) {
+      adjustScreenOnDifferentPdfWidth(page) {
         page = page || virtualclass.pdfRender[virtualclass.gObj.currWb].page;
         if (page != null) {
           const viewPort = page.getViewport(1);

@@ -165,7 +165,7 @@
         virtualclass.countCreatePrefetchLink += 1;
       },
 
-      async init(urole, app, videoObj) {
+      init(urole, app, videoObj) {
         const vcContainer = document.getElementById('virtualclassCont');
         vcContainer.classList.add('loading');
         const { wbUser } = window;
@@ -320,9 +320,9 @@
         }
 
         if (typeof videoObj === 'undefined' || videoObj == null) {
-          await this.makeAppReady(app, 'byclick');
+          this.makeAppReady(app, 'byclick');
         } else {
-          await this.makeAppReady(app, 'byclick', videoObj);
+          this.makeAppReady(app, 'byclick', videoObj);
         }
 
         // TODO system checking function should be invoked before makeAppReady
@@ -579,7 +579,7 @@
         }
       },
 
-      async makeAppReady(app, cusEvent, data) {
+      makeAppReady(app, cusEvent, data) {
         // var congdashboardClose = document.querySelector('#congdashboard button.close');
         // if(congdashboardClose != null){
         //     congdashboardClose.click();
@@ -678,7 +678,7 @@
             args[2] = id;
             args.push('virtualclassWhiteboard');
 
-            await this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
+            this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(args));
             prevapp = JSON.parse(prevapp);
 
             if (!virtualclass.gObj.wbRearrang && prevapp != null && localStorage.getItem('currSlide') != null) {
@@ -807,7 +807,32 @@
 
       // Helper functions for making the app is ready
       appInitiator: {
-        async Whiteboard(app, cusEvent, id, container) {
+        Whiteboard(app, cusEvent, id, container){
+          console.log('##==jai, LOAD currNote ' + id);
+          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'getDocumentTimeout')) {
+            clearTimeout(virtualclass.gObj.getDocumentTimeout);
+          }
+          if (virtualclass.isPlayMode) {
+            virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
+              this.appInitiator.whiteboardActual.call(this, app, cusEvent, id, container);
+              virtualclass.gObj.getDocumentTimer = false;
+            }, 100);
+          } else if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer === false) {
+            virtualclass.gObj.getDocumentTimer = true;
+            this.appInitiator.whiteboardActual.call(this, app, cusEvent, id, container);
+            virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
+              virtualclass.gObj.getDocumentTimer = false;
+            }, 1000);
+          } else {
+            virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
+              this.appInitiator.whiteboardActual.call(this, app, cusEvent, id, container);
+              virtualclass.gObj.getDocumentTimer = false;
+            }, 300);
+          }
+        },
+
+        whiteboardActual(app, cusEvent, id, container) {
+          console.log('##==jai, whiteboard ' + id);
           let vcan;
           if (typeof this.ss === 'object') {
             this.ss.prevStream = false;
@@ -826,7 +851,7 @@
             this.pdfRender[wid] = window.pdfRender();
           } else if (virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare') {
             // TODO, USE adjustScreenOnDifferentPdfWidth instead of normalRender
-            virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
+            // // virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
             // virtualclass.zoom.normalRender();
           }
 
@@ -910,16 +935,16 @@
                   virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
                 }
                 console.log('====> jai 6 ', id, ' ', virtualclass.wb[id].vcan);
-
+                console.log('##==jai, whiteboard 2 ' + id);
                 if (virtualclass.currApp === 'DocumentShare') {
                   const { currNote } = virtualclass.dts.docs.note;
-                  console.log('====> jai 6.1', id, ' ', id, ' ', virtualclass.wb[id].vcan);
-                  await virtualclass.pdfRender[wid].init(canvas, currNote);
-                  console.log('====> jai 6.2', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                  console.log('##==jai.1', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                  virtualclass.pdfRender[wid].init(canvas, currNote);
+                  console.log('##==jai.2', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                 } else {
-                  console.log('====> jai 6.3', id, ' ', id, ' ', virtualclass.wb[id].vcan);
-                  await virtualclass.pdfRender[wid].init(canvas);
-                  console.log('====> jai 6.4', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                  console.log('##==jai.3', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                  virtualclass.pdfRender[wid].init(canvas);
+                  console.log('##==jai.4', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                 }
               } else {
                 alert('whiteboard container is null');
@@ -1191,7 +1216,7 @@
               }
             } else {
               // console.log('===== DOCUMENT EXIST');
-              virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
+              // // virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
             }
 
             if (dstData != null) {

@@ -309,6 +309,8 @@
       },
 
       _removePageUI(noteId, typeDoc) {
+
+        console.log('JAI 2b');
         const orderId = this.order.indexOf(noteId);
         if (orderId >= 0) {
           this.order.splice(orderId, 1);
@@ -884,7 +886,7 @@
          * Create whitebaord/annoation tool for each slide/note
          * @param slide expects the slide
          */
-        async createWhiteboard(slide) {
+        createWhiteboard(slide) {
           const cthis = virtualclass.dts;
           const wbid = `_doc_${slide}_${slide}`;
 
@@ -905,7 +907,6 @@
 
           // console.log(`${virtualclass.gObj.currWb} ` + 'document share Create Whiteboard ');
           const whiteboard = document.createElement('div');
-          whiteboard.id = 'cont';
           whiteboard.className = 'whiteboard';
 
           whiteboard.dataset.wid = wbid;
@@ -917,7 +918,7 @@
           const elem = document.querySelector(query);
           if (elem != null) {
             elem.insertBefore(whiteboard, elem.firstChild);
-            await virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
+            virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
           } else {
             // console.log('Element is null');
           }
@@ -968,15 +969,12 @@
             },
 
             slideTo(note, fromReload) {
+              console.log("hello 3");
               const noteId = note.dataset.slide;
               virtualclass.vutil.updateCurrentDoc(noteId);
 
               this.displaySlide(note);
 
-              /**
-               * TODO, that setTimeout should be removed, it used to hanldle black screen at student
-               * while teacher select/click the document tab subsequently
-               * */
               if (roles.hasControls() && typeof fromReload === 'undefined') {
                 // console.log('==== dts must send current thslide');
                 ioAdapter.mustSend({
@@ -1104,7 +1102,7 @@
               } else {
                 // alert('There is no page');
                 virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'disable', 'enable');
-                virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
+                // virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
               }
             },
 
@@ -1151,6 +1149,7 @@
               //      virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
               //     }
               // }
+              console.log('##==jai get screen id ' + note.id);
 
               this.currSlide = note.dataset.slide;
               this.currNote = note.dataset.slide;
@@ -1168,8 +1167,12 @@
               //   virtualclass.gObj.tempQueue[virtualclass.gObj.currWb] = virtualclass.wb[virtualclass.gObj.currWb].gObj.queue;
               // }
 
+              console.log('##==jai create whiteboard ' + this.currNote);
+
               if (!this.isWhiteboardExist(this.currNote)) {
                 virtualclass.dts.docs.createWhiteboard(this.currNote);
+                // virtualclass.dts.docs.createWhiteboard(this.currNote);
+
               } else if (this.isWhiteboardExist(this.currNote) && !this.isPdfRendered(this.currNote)) {
                 // console.log('Delete whiteboard');
                 // delete virtualclass.wb[virtualclass.gObj.currWb];
@@ -1178,9 +1181,10 @@
               } else {
                 // If there is a zoom, that needs to apply at in next/previous screen,
                 // virtualclass.zoom.normalRender();
-                virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
+                // virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
 
                 // virtualclass.zoom.zoomAction('fitToScreen');
+                console.log('====> get screen fail to load', this.currNote);
               }
 
               virtualclass.vutil.updateCurrentDoc(this.currNote);
@@ -1212,9 +1216,11 @@
              * @returns {boolean}
              */
             isWhiteboardExist(slide) {
-              const wbContId = `containerWb_doc_${slide}_${slide}`;
+              const wId = `_doc_${slide}_${slide}`;
+              const wbContId = `containerWb${wId}`;
               const wbCont = document.querySelector(`#${wbContId}`);
-              return (wbCont != null);
+              const loadPdf = virtualclass.pdfRender[wId];
+              return (wbCont !== null && loadPdf != null);
             },
           };
         },
@@ -1411,14 +1417,15 @@
 
         // organize list
         this.reaArrangeThumbCount();
-        const paging = document.querySelectorAll('#dcPaging .noteIndex');
-        if (paging.length > 0) {
-          this.indexNav.rearrangePageNavigation(order);// new
-        }
-        const subCont = document.querySelector('#dcPaging');
-        subCont.addEventListener('change', function () {
-          virtualclass.dts.docs.goToNavs(this.value)();
-        });
+        // const paging = document.querySelectorAll('#dcPaging .noteIndex');
+        //
+        // // if (paging.length > 0) {
+        // //   this.indexNav.rearrangePageNavigation(order);// new
+        // // }
+        // // const subCont = document.querySelector('#dcPaging');
+        // // subCont.addEventListener('change', function () {
+        // //   virtualclass.dts.docs.goToNavs(this.value)();
+        // // });
       },
 
       _delete(id) {

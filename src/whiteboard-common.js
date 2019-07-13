@@ -137,7 +137,7 @@
       // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     },
 
-    async newPage() {
+     newPage() {
       this.hideElement();
       virtualclass.gObj.wbCount++;
 
@@ -151,7 +151,7 @@
       const currIndex = this.order.indexOf(prevIndex);
       const whiteboardNext = this.whiteboardWrapperExist('next');
 
-      await virtualclass.vutil.createWhiteBoard(wid, currIndex);
+      virtualclass.vutil.createWhiteBoard(wid, currIndex);
       this.displaySlide(wid);
       let newIndex;
       let currPageNumber;
@@ -282,9 +282,6 @@
           this.displaySlide(wid);
           virtualclass.gObj.currWb = wid;
         }
-        // virtualclass.vutil.beforeSend({cf: 'cwb', diswb: true, wid: virtualclass.gObj.currWb});
-
-        // console.log(`whiteboard slide send=${virtualclass.gObj.currWb}`);
       } else {
         alert('Elemennt is NULL');
       }

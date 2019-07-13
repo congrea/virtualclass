@@ -319,6 +319,7 @@
         }
       },
       removeToolBox(id) {
+        console.log("====> remove toolbar");
         const cmdWrapper = document.getElementById(`commandToolsWrapper${id}`);
         cmdWrapper.parentNode.removeChild(cmdWrapper);
       },

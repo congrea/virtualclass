@@ -635,19 +635,11 @@
       },
 
       replayFromLocalStroage(allRepObjs) {
-        // alert('Replay from local storage');
-        // console.log('PDF, Whiteboard is intializing');
-        // console.log('Whiteboard from local storage last Object ' + allRepObjs[allRepObjs.length - 1].uid);
-
         const wid = virtualclass.gObj.currWb;
         if (typeof (Storage) !== 'undefined') {
           virtualclass.wb[wid].utility.clearAll(false, 'dontClear');
           virtualclass.wb[wid].gObj.tempRepObjs = allRepObjs;
-
-
           if (allRepObjs.length > 0) {
-            // virtualclass.wb[wid].utility.makeCanvasDisable();
-            // virtualclass.wb[wid].utility.toolWrapperDisable();
             virtualclass.wb[wid].utility.drawInWhiteboards(allRepObjs, 'fromBrowser');
           }
 
@@ -844,7 +836,7 @@
         }
       },
 
-      drawInWhiteboards(repObjs, fromBrowser) {
+      drawInWhiteboards(repObjs) {
         const wid = virtualclass.gObj.currWb;
         for (let i = 0; i < repObjs.length; i++) {
           if (Object.prototype.hasOwnProperty.call(repObjs[i], 'cmd')) {
@@ -882,7 +874,6 @@
             }
           }
 
-          // if (repObjs[i].uid === virtualclass.wb[wid].gObj.displayedObjId + 1) {
           virtualclass.wb[wid].uid = repObjs[i].uid;
           this.executeWhiteboardData(repObjs[i]);
         }

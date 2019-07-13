@@ -138,6 +138,7 @@ const receiveFunctions = new function () {
   // whiteboard ready
   this.dispWhiteboard = function (e) {
     virtualclass.makeAppReady(virtualclass.apps.wb, undefined, e.message.d, e.message.ci);
+    // virtualclass.vutil.createWhiteBoard(`_doc_${e.message.d}`);
   };
   this.ppt = function (e) {
     if (e.fromUser.userid != virtualclass.gObj.uid) {
@@ -218,14 +219,7 @@ const receiveFunctions = new function () {
 
   // Display Whiteboard Data
   this.repObj = function (e) {
-    if (typeof virtualclass.wb !== 'object' && virtualclass.currApp != 'DocumentShare') {
-      virtualclass.makeAppReady(virtualclass.apps.wb);
-    }
-
     if (typeof virtualclass.gObj.currWb !== 'undefined') {
-      // virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
-
-      // The packets came from teacher when he/she does not has control won't be display
       if (typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object' && e.fromUser.role === 't') {
         virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.repObj);
       }
@@ -239,7 +233,6 @@ const receiveFunctions = new function () {
     for (; i < e.message.repObj.length; i++) {
       virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
     }
-
   };
 
   // Replay All, TODO, need to do verify

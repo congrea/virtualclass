@@ -48,7 +48,7 @@
       countCreatePrefetchLink: 0,
       gObj: {
         SCALE_FACTOR: 1.02,
-        next: {}, // prefetch next pdf
+        nextPdf: {}, // prefetch next pdf
         uid: window.wbUser.id,
         uRole: window.wbUser.role,
         uName: window.wbUser.name,
@@ -809,6 +809,7 @@
       appInitiator: {
         Whiteboard(app, cusEvent, id, container){
           console.log('##==jai, LOAD currNote ' + id);
+          virtualclass.gObj.currWb = id;
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'getDocumentTimeout')) {
             clearTimeout(virtualclass.gObj.getDocumentTimeout);
           }
@@ -832,7 +833,7 @@
         },
 
         whiteboardActual(app, cusEvent, id, container) {
-          console.log('##==jai, whiteboard ' + id);
+          console.log('##==jai, whiteboard actual ' + id);
           let vcan;
           if (typeof this.ss === 'object') {
             this.ss.prevStream = false;
@@ -1333,22 +1334,6 @@
       PrvAndCurrIsWss(previous, appName) {
         return !!((previous == 'virtualclassWholeScreenShare' && appName == virtualclass.apps.yt));
       },
-
-      // handleCurrentUserWithPrevious() {
-      //   let prvUser = localStorage.getItem('prvUser');
-      //   if (prvUser == null) {
-      //     virtualclass.setPrvUser();
-      //   } else {
-      //     prvUser = JSON.parse(prvUser);
-      //     if (prvUser.id != wbUser.id || prvUser.room != wbUser.room || wbUser.role != prvUser.role || prvUser.recording != virtualclassSetting.settings.enableRecording) {
-      //       virtualclass.gObj.sessionClear = true;
-      //       virtualclass.setPrvUser();
-      //       if (roles.hasControls()) {
-      //         // localStorage.setItem('uRole', this.gObj.uRole);
-      //       }
-      //     }
-      //   }
-      // },
 
       setPrvUser() {
         const prvUser = {

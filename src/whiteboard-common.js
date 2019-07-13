@@ -103,18 +103,15 @@
         virtualclass.vutil.beforeSend({
           cf: 'cwb', diswb: true, wid, currIndex: virtualclass.gObj.currIndex,
         });
-        // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
       }
 
-      // console.log('==== current slide ', virtualclass.gObj.currSlide);
       this.identifyFirstNote(wid);
-
-      // virtualclass.vutil.beforeSend({'cf': 'cwb', wbCount : virtualclass.gObj.wbCount});
     },
 
     prev() {
       this.hideElement();
       const wid = this.whiteboardWrapperExist('prev');
+
       const currIndex = +(wid.split('_doc_0_')[1]);
 
       this.readyCurrentWhiteboard(wid);
@@ -123,7 +120,7 @@
       virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
       virtualclass.wbCommon.indexNav.UI.pageNavHandler('left');
       const prvsTool = document.querySelector(`#${virtualclass.wb[wid].prvTool}`);
-      if (prvsTool != null && !prvsTool.classList.contains('active')) {
+      if (prvsTool !== null && !prvsTool.classList.contains('active')) {
         prvsTool.classList.add('active');
       }
       virtualclass.gObj.currIndex = this.order.indexOf(currIndex) + 1;
@@ -132,12 +129,13 @@
       virtualclass.vutil.beforeSend({
         cf: 'cwb', diswb: true, wid, currIndex: virtualclass.gObj.currIndex,
       });
-      // virtualclass.vutil.beforeSend({'cf': 'cwb', wbCount : virtualclass.gObj.wbCount});
       this.identifyLastNote(wid);
+
       // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     },
 
      newPage() {
+      console.log('====> Creating whiteboard ');
       this.hideElement();
       virtualclass.gObj.wbCount++;
 
@@ -174,11 +172,8 @@
       virtualclass.vutil.beforeSend({ cf: 'cwb', wbCount: virtualclass.gObj.wbCount, currIndex: currPageNumber });
       this.setCurrSlideNumber(wid);
       virtualclass.gObj.currIndex = currPageNumber;
-      // console.log('==== current slide ', virtualclass.gObj.currSlide);
       this.identifyLastNote(wid);
 
-      // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
-      // localStorage.setItem('wbOrder', JSON.stringify(this.order));
     },
 
     rearrange(order) {
@@ -291,22 +286,22 @@
       return (document.querySelector(`#canvas${wid}`) != null);
     },
 
-
     whiteboardWrapperExist(elemtype) {
+      let whiteboard;
+      let wid = null;
       const currWhiteboard = virtualclass.gObj.currWb;
-      if (currWhiteboard != null) {
+      if (currWhiteboard !== null) {
         const elem = document.querySelector(`#note${currWhiteboard}`);
-        if (elemtype == 'prev') {
-          var whiteboard = elem.previousElementSibling;
-        } else if (elemtype == 'next') {
-          var whiteboard = elem.nextElementSibling;
+        if (elemtype === 'prev') {
+          whiteboard = elem.previousElementSibling;
+        } else if (elemtype === 'next') {
+          whiteboard = elem.nextElementSibling;
         }
 
-        if (whiteboard != null) {
-          const wid = whiteboard.dataset.wbId;
-          return wid;
+        if (whiteboard !== null) {
+           wid = whiteboard.dataset.wbId;
         }
-        return null;
+        return wid;
       }
     },
 
@@ -348,6 +343,7 @@
     },
 
     identifyFirstNote(wid) {
+      return;
       const elem = document.querySelector('#virtualclassWhiteboard');
       if (wid == '_doc_0_0') {
         elem.classList.add('firstNote');

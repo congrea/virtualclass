@@ -96,12 +96,12 @@
         onkeydown = virtualclass.wb[mid].utility.keyOperation;
 
         virtualclass.system.setAppDimension(mid);
-        if (typeof (Storage) !== 'undefined') {
-          // if (localStorage.repObjs) {
-          //   // var replayObjs = JSON.parse(localStorage.repObjs);
-          // }
-          virtualclass.wb[mid] = virtualclass.wb[mid];
-        }
+        // if (typeof (Storage) !== 'undefined') {
+        //   // if (localStorage.repObjs) {
+        //   //   // var replayObjs = JSON.parse(localStorage.repObjs);
+        //   // }
+        //   virtualclass.wb[mid] = virtualclass.wb[mid];
+        // }
 
         this.arrowInit();
         this._init(mid);

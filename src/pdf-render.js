@@ -46,8 +46,8 @@
 
       loadPdf(url, canvas, currWhiteBoard) {
         console.log('##==jai, Init2 currWhiteBoard ' + currWhiteBoard);
-        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj.next, currWhiteBoard)) {
-          this.afterPdfLoad(canvas, currWhiteBoard, virtualclass.gObj.next[currWhiteBoard]);
+        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj.nextPdf, currWhiteBoard)) {
+          this.afterPdfLoad(canvas, currWhiteBoard, virtualclass.gObj.nextPdf[currWhiteBoard]);
         } else {
           this.axhr.get(url)
             .then(async (response) => {

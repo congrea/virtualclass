@@ -2076,6 +2076,7 @@
     },
 
     createWhiteBoard(wId) {
+      console.log('====> Creating whiteboard init ', wId);
       const args = ['Whiteboard', 'byclick', wId];
       virtualclass.appInitiator.Whiteboard.apply(virtualclass, Array.prototype.slice.call(args));
       const measureRes = virtualclass.system.measureResoultion({
@@ -2563,8 +2564,8 @@
     },
 
     afterPdfPrefetch(noteId, data) {
-      virtualclass.gObj.next = {};
-      virtualclass.gObj.next[noteId] = data;
+      virtualclass.gObj.nextPdf = {};
+      virtualclass.gObj.nextPdf[noteId] = data;
     },
   };
   window.vutil = vutil;

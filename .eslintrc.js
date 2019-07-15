@@ -45,7 +45,8 @@ module.exports = {
     axios: 'readonly',
     sdworker: 'writable',
     sworker: 'writable',
-    chatContainerEvent: 'writable'
+    chatContainerEvent: 'writable',
+    OrderedList: 'writeable'
   },
   parserOptions: {
     ecmaVersion: 2017,

@@ -58,7 +58,7 @@
         virtualclass.gObj.currWb = wid;
       }
       this.identifyFirstNote(wid);
-      // this.identifyLastNote(wid);
+      this.identifyLastNote(wid);
       if (!roles.hasControls()) {
         if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
           const curr = virtualclass.gObj.currIndex || virtualclass.gObj.currSlide;
@@ -74,105 +74,102 @@
         prevElem.classList.remove('current');
       }
     },
-    currentWhiteboard(wid) {
-      const whiteboard = document.querySelector(`#canvas${wid}`);
-      if (whiteboard == null) {
-        this.hideElement();
-        virtualclass.vutil.createWhiteBoard(wid);
-        this.displaySlide(wid);
-        virtualclass.gObj.currWb = wid;
-      }
-    },
-
+  
     next() {
       this.hideElement();
-      const wid = this.whiteboardWrapperExist('next');
-      if (wid !== null) {
+      const next = virtualclass.orderList.Whiteboard.getNextByID(virtualclass.gObj.currWb);
+      if (next) {
+        const wid = next.id;
         this.readyCurrentWhiteboard(wid);
         this.setCurrSlideNumber(wid);
         virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
         virtualclass.wbCommon.indexNav.UI.pageNavHandler('right');
-        const currIndex = this.order.indexOf(wid.slice(7));
+        const currIndex = virtualclass.orderList.Whiteboard.ol.order.indexOf(wid);
 
         this.identifyLastNote(wid);
         virtualclass.gObj.currWb = wid;
-
         virtualclass.gObj.currIndex = currIndex + 1;
-
         virtualclass.wbCommon.indexNav.setCurrentIndex(virtualclass.gObj.currIndex);
         virtualclass.vutil.beforeSend({
           cf: 'cwb', diswb: true, wid, currIndex: virtualclass.gObj.currIndex,
         });
+        this.identifyFirstNote(wid);
+      } else {
+        console.log('No element found');
       }
-
-      this.identifyFirstNote(wid);
     },
 
     prev() {
       this.hideElement();
-      const wid = this.whiteboardWrapperExist('prev');
-      const currIndex = +(wid.split('_doc_0_')[1]);
-
-      this.readyCurrentWhiteboard(wid);
-      this.setCurrSlideNumber(wid);
-
-      virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
-      virtualclass.wbCommon.indexNav.UI.pageNavHandler('left');
-      const prvsTool = document.querySelector(`#${virtualclass.wb[wid].prvTool}`);
-      if (prvsTool !== null && !prvsTool.classList.contains('active')) {
-        prvsTool.classList.add('active');
+      const prev = virtualclass.orderList.Whiteboard.getPreviousByID(virtualclass.gObj.currWb);
+      if (prev) {
+        const wid = prev.id;
+        this.readyCurrentWhiteboard(wid);
+        this.setCurrSlideNumber(wid);
+        virtualclass.wbCommon.indexNav.addActiveNavigation(wid);
+        virtualclass.wbCommon.indexNav.UI.pageNavHandler('left');
+        const currIndex = virtualclass.orderList.Whiteboard.ol.order.indexOf(wid);
+        virtualclass.gObj.currIndex = currIndex + 1;
+        virtualclass.wbCommon.indexNav.setCurrentIndex(virtualclass.gObj.currIndex);
+        virtualclass.vutil.beforeSend({
+          cf: 'cwb', diswb: true, wid, currIndex: virtualclass.gObj.currIndex,
+        });
+        this.identifyLastNote(wid);
+      } else {
+        console.log('No element found');
       }
-      virtualclass.gObj.currIndex = this.order.indexOf(currIndex) + 1;
-      virtualclass.wbCommon.indexNav.setCurrentIndex(virtualclass.gObj.currIndex);
-      // console.log('==== current slide ', virtualclass.gObj.currSlide);
-      virtualclass.vutil.beforeSend({
-        cf: 'cwb', diswb: true, wid, currIndex: virtualclass.gObj.currIndex,
-      });
-      this.identifyLastNote(wid);
-
-      // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     },
 
-     newPage() {
-      console.log('====> Creating whiteboard ');
+    //  newPage() {
+    //   this.hideElement();
+    //   virtualclass.gObj.wbCount++;
+    //
+    //   const wid = `${'_doc_0_'}${virtualclass.gObj.wbCount}`;
+    //   const wb = virtualclass.gObj.currWb;
+    //   const prevIndex = wb.slice(7);
+    //   const currIndex = this.order.indexOf(prevIndex);
+    //   const whiteboardNext = this.whiteboardWrapperExist('next');
+    //
+    //   virtualclass.vutil.createWhiteBoard(wid, currIndex);
+    //   this.displaySlide(wid);
+    //   let newIndex;
+    //   let currPageNumber;
+    //
+    //   if (whiteboardNext == null) {
+    //     if (this.order.indexOf(virtualclass.gObj.wbCount) <= -1) {
+    //       this.order.push(virtualclass.gObj.wbCount);
+    //     }
+    //     newIndex = this.order.length;
+    //     virtualclass.wbCommon.indexNav.createWbNavigationNumber(newIndex);
+    //     currPageNumber = newIndex;
+    //   } else {
+    //     newIndex = this.order.indexOf(prevIndex);
+    //     this.order.splice(newIndex + 1, 0, virtualclass.gObj.wbCount);
+    //     this.rearrange(this.order);
+    //     this.rearrangeNav(this.order);
+    //     currPageNumber = newIndex + 2;
+    //     virtualclass.wbCommon.indexNav.createWbNavigationNumber(currPageNumber);
+    //   }
+    //   virtualclass.vutil.beforeSend({ cf: 'cwb', wbCount: virtualclass.gObj.wbCount, currIndex: currPageNumber });
+    //   this.setCurrSlideNumber(wid);
+    //   virtualclass.gObj.currIndex = currPageNumber;
+    //   this.identifyLastNote(wid);
+    //
+    // },
+
+
+    newPage() {
       this.hideElement();
-      virtualclass.gObj.wbCount++;
-
-      if (virtualclass.gObj.wIds.indexOf(virtualclass.gObj.wbCount) <= -1) {
-        virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
-      }
-
+      virtualclass.gObj.wbCount += 1;
       const wid = `${'_doc_0_'}${virtualclass.gObj.wbCount}`;
-      const wb = virtualclass.gObj.currWb;
-      const prevIndex = wb.slice(7);
-      const currIndex = this.order.indexOf(prevIndex);
-      const whiteboardNext = this.whiteboardWrapperExist('next');
-
-      virtualclass.vutil.createWhiteBoard(wid, currIndex);
       this.displaySlide(wid);
-      let newIndex;
-      let currPageNumber;
-
-      if (whiteboardNext == null) {
-        if (this.order.indexOf(virtualclass.gObj.wbCount) <= -1) {
-          this.order.push(virtualclass.gObj.wbCount);
-        }
-        newIndex = this.order.length;
-        virtualclass.wbCommon.indexNav.createWbNavigationNumber(newIndex);
-        currPageNumber = newIndex;
-      } else {
-        newIndex = this.order.indexOf(prevIndex);
-        this.order.splice(newIndex + 1, 0, virtualclass.gObj.wbCount);
-        this.rearrange(this.order);
-        this.rearrangeNav(this.order);
-        currPageNumber = newIndex + 2;
-        virtualclass.wbCommon.indexNav.createWbNavigationNumber(currPageNumber);
-      }
+      virtualclass.vutil.createWhiteBoard(wid);
+      const currPageNumber = virtualclass.gObj.wbCount + 1;
+      virtualclass.gObj.currIndex = currPageNumber;
+      virtualclass.wbCommon.indexNav.createWbNavigationNumber(currPageNumber);
       virtualclass.vutil.beforeSend({ cf: 'cwb', wbCount: virtualclass.gObj.wbCount, currIndex: currPageNumber });
       this.setCurrSlideNumber(wid);
-      virtualclass.gObj.currIndex = currPageNumber;
       this.identifyLastNote(wid);
-
     },
 
     rearrange(order) {
@@ -342,20 +339,19 @@
     },
 
     identifyFirstNote(wid) {
-      return;
       const elem = document.querySelector('#virtualclassWhiteboard');
-      if (wid == '_doc_0_0') {
+      if (wid === '_doc_0_0') {
         elem.classList.add('firstNote');
       } else {
         elem.classList.remove('firstNote');
       }
     },
+
     identifyLastNote(wid) {
-      return;
       const elem = document.querySelector('#virtualclassWhiteboard');
-      const extractId = +(wid.slice(7));
-      const index = this.order.indexOf(extractId);
-      if ((index + 1 == this.order.length) || (wid == '_doc_0_0' && virtualclass.gObj.wIds.length == 1)) {
+      const index = virtualclass.orderList.Whiteboard.ol.order.indexOf(wid);
+      if ((index + 1 === virtualclass.orderList.Whiteboard.ol.order.length)
+        || (wid === '_doc_0_0' && virtualclass.orderList.Whiteboard.ol.order.length === 1)) {
         elem.classList.add('lastNote');
       } else {
         elem.classList.remove('lastNote');

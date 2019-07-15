@@ -369,11 +369,11 @@ const receiveFunctions = new function () {
       // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     } else if (Object.prototype.hasOwnProperty.call(e.message, 'wbCount')) {
       virtualclass.gObj.wbCount = e.message.wbCount;
-      if (virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1) {
-        virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
-        virtualclass.gObj.currIndex = e.message.currIndex;
-        virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currIndex);
-      }
+      // if (virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1) {
+      //   virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
+      //   virtualclass.gObj.currIndex = e.message.currIndex;
+      //   virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currIndex);
+      // }
       // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     }
   };

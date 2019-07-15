@@ -626,9 +626,9 @@
         var prvAppObj = { name: 'Whiteboard', wbn: virtualclass.gObj.wbCount };
       }
 
-      if (virtualclass.gObj.wIds.length > 0) {
+      //if (virtualclass.gObj.wIds.length > 0) {
         // localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
-      }
+      //}
 
       if (roles.hasControls()) {
         // localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
@@ -1485,8 +1485,6 @@
           const dbNavTemp = virtualclass.getTemplate('dashboardNav');
           const context = { app: virtualclass.currApp };
           const dbNavHtml = dbNavTemp(context);
-
-          // var virtualclassOptionsCont = document.querySelector('#virtualclassOptionsCont');
 
           const virtualclassAppOptionsCont = document.querySelector('#virtualclassAppOptionsCont');
           virtualclassAppOptionsCont.insertAdjacentHTML('beforeend', dbNavHtml);

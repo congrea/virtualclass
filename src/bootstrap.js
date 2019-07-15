@@ -95,12 +95,12 @@
     }
 
     virtualclass.createMainContainer();
-    let wIds = localStorage.getItem('wIds');
-    if (wIds != null) {
-      wIds = JSON.parse(wIds);
-      virtualclass.gObj.wIds = wIds;
-      virtualclass.gObj.wbCount = wIds.length - 1;
-    }
+    // let wIds = localStorage.getItem('wIds');
+    // if (wIds != null) {
+    //   wIds = JSON.parse(wIds);
+    //   virtualclass.gObj.wIds = wIds;
+    //   virtualclass.gObj.wbCount = wIds.length - 1;
+    // }
 
     const previousApp = JSON.parse(localStorage.getItem('prevApp'));
     virtualclass.gObj.prevApp = previousApp;

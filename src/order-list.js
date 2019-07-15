@@ -1,10 +1,11 @@
-function OrderedList() {
+function OrderedList(app) {
   this.ol = {};
   this.ol.order = [];
   this.ol.list = {};
 }
 
 OrderedList.prototype.insert = function (id, data, position) {
+  console.log('inserting order');
   if (position != null || position === 0) {
     this.ol.order.splice(position, 0, id);
   } else {
@@ -36,12 +37,20 @@ OrderedList.prototype.getPrevious = function (position) {
 
 OrderedList.prototype.getNextByID = function (id) {
   const position = this.ol.order.indexOf(id) + 1;
-  return { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+  if (position > -1) {
+    return { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+  } else {
+    return false;
+  }
 };
 
 OrderedList.prototype.getPreviousByID = function (id) {
   const position = this.ol.order.indexOf(id) - 1;
-  return { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+  if (position > -1) {
+    return { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+  } else {
+    return false;
+  }
 };
 
 OrderedList.prototype.getOrder = function () {

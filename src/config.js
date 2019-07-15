@@ -288,7 +288,7 @@ Config.prototype.endSession = async function (onlyStoredData) {
   //   }
   // }
 
-  virtualclass.gObj.wIds = [0];
+  // virtualclass.gObj.wIds = [0];
   virtualclass.wbCommon.order = [0];
   virtualclass.gObj.wbCount = 0;
   virtualclass.wbCommon.clearNavigation();

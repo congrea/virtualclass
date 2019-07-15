@@ -111,7 +111,6 @@
     prev() {
       this.hideElement();
       const wid = this.whiteboardWrapperExist('prev');
-
       const currIndex = +(wid.split('_doc_0_')[1]);
 
       this.readyCurrentWhiteboard(wid);
@@ -352,6 +351,7 @@
       }
     },
     identifyLastNote(wid) {
+      return;
       const elem = document.querySelector('#virtualclassWhiteboard');
       const extractId = +(wid.slice(7));
       const index = this.order.indexOf(extractId);

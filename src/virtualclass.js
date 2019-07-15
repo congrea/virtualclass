@@ -580,46 +580,36 @@
       },
 
       makeAppReady(app, cusEvent, data) {
-        // var congdashboardClose = document.querySelector('#congdashboard button.close');
-        // if(congdashboardClose != null){
-        //     congdashboardClose.click();
-        // }
+        console.log('====> current app ', app);
         virtualclass.dashBoard.close();
-        // console.log(`Application is ready${app}`);
         this.view = window.view;
-        /**
-         Screen share be applied to current app only when the screen share
-         is being shared
-         * */
         const tempApp = virtualclass.vutil.capitalizeFirstLetter(app);
-        if (tempApp != 'ScreenShare') {
+        if (tempApp !== 'ScreenShare') {
           this.currApp = tempApp;
         }
 
-        if (app != 'DocumentShare') {
+        if (app !== 'DocumentShare') {
           virtualclass.gObj.docPdfFirstTime = false;
         }
-        // console.log(`Current App init ${this.currApp}`);
         if ((roles.hasControls() && Object.prototype.hasOwnProperty.call(virtualclass, 'previrtualclass'))
-          && (app != virtualclass.apps.ss || (virtualclass.gObj.studentSSstatus.mesharing && virtualclass.apps.ss == 'ScreenShare'))) {
+          && (app !== virtualclass.apps.ss || (virtualclass.gObj.studentSSstatus.mesharing && virtualclass.apps.ss === 'ScreenShare'))) {
           virtualclass.vutil.makeActiveApp(`virtualclass${app}`, virtualclass.previrtualclass);
         }
-
         // hiding editor controllers from footer
         if (typeof this.previous !== 'undefined') {
-          if (this.previous == 'virtualclassEditorRich' || this.previous == 'virtualclassEditorCode') {
+          if (this.previous === 'virtualclassEditorRich') {
             const editorType = this.previous.split('virtualclass')[1];
             this.user.control.toggleDisplayEditorController(editorType, 'none');
           }
         }
 
         // if not screen share
-        if (app != virtualclass.apps.ss) {
+        if (app !== virtualclass.apps.ss) {
           this.dispvirtualclassLayout(app);
           const vcContainer = document.getElementById('virtualclassCont');
           virtualclass.vutil.setCurrApp(vcContainer, this.currApp);
           const vcAppContainer = document.querySelector('#virtualclassApp');
-          if (vcAppContainer != null) {
+          if (vcAppContainer !== null) {
             if (this.currApp === 'DocumentShare' || this.currApp === 'SharePresentation' || this.currApp === 'Video') {
               virtualclass.vutil.setCurrApp(vcAppContainer, vcContainer.dataset.currapp);
             } else {
@@ -633,14 +623,12 @@
         }
 
         // call the function with passing dynamic variablesc
-        if (app == 'SharePresentation') {
-          // debugger;
-          if (`virtualclass${app}` != virtualclass.previous) {
-            // console.log('==== DST init appInitiator');
+        if (app === 'SharePresentation') {
+          if (`virtualclass${app}` !== virtualclass.previous) {
 
             this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
           }
-        } else if (app == 'DocumentShare') {
+        } else if (app === 'DocumentShare') {
           this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
           if (roles.hasControls()) {
             if (!virtualclass.serverData.syncComplete) {
@@ -659,7 +647,7 @@
           let prevapp = localStorage.getItem('prevApp');
           if (prevapp != null) {
             const preapp = JSON.parse(prevapp);
-            if (preapp.name == 'SharePresentation') {
+            if (preapp.name === 'SharePresentation') {
               preapp.name = '';
               // localStorage.setItem('prevApp', JSON.stringify(preapp));
             }
@@ -706,10 +694,6 @@
                 virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order);
                 virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb);
               }
-
-              // else {
-              //    virtualclass.wbCommon.rearrange(virtualclass.gObj.wIds);
-              // }
             }
 
             virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
@@ -720,9 +704,9 @@
             if (currVideo && currVideo.init && currVideo.init.videoUrl && currVideo.fromReload) {
               var hidepopup = true;
             }
-            if (roles.hasControls() && app == 'Video') {
+            if (roles.hasControls() && app === 'Video') {
               if (`virtualclass${app}` != virtualclass.previous) {
-                var dashboardnav = document.querySelector('#dashboardnav button');
+                const dashboardnav = document.querySelector('#dashboardnav button');
                 if (dashboardnav != null) {
                   dashboardnav.setAttribute('data-currapp', 'Video');
                   if (dashboardnav.classList.contains('clicked')) {
@@ -736,40 +720,9 @@
         }
         this.previrtualclass = this.previous;
 
-        if (app != virtualclass.apps.wb && app != virtualclass.apps.ss) {
+        if (app !== virtualclass.apps.wb && app !== virtualclass.apps.ss) {
           virtualclass.system.setAppDimension();
         }
-
-        // if (app !== 'Video' && Object.prototype.hasOwnProperty.call(virtualclass, 'videoUl')) {
-        //   virtualclass.videoUl.clearEverThing();
-        //
-        //   virtualclass.videoUl.videoId = '';
-        //   const frame = document.getElementById('dispVideo_Youtube_api');
-        //   if (frame && frame.contentWindow) {
-        //     frame.contentWindow.postMessage(
-        //       '{"event":"command","func":"pauseVideo","args":""}',
-        //       '*',
-        //     );
-        //   }
-        //
-        //   const dispVideo = document.querySelector('.congrea #dispVideo');
-        //   if (dispVideo) {
-        //     dispVideo.style.display = 'none';
-        //     const video = document.querySelector('.congrea #dispVideo video');
-        //     if (video) {
-        //       video.setAttribute('src', '');
-        //     }
-        //   }
-        //   const currPlaying = document.querySelector('#listvideo .playing');
-        //   if (currPlaying) {
-        //     currPlaying.classList.remove('playing');
-        //   }
-        //   const currCtr = document.querySelector('#listvideo .removeCtr');
-        //   if (currCtr) {
-        //     currCtr.classList.remove('removeCtr');
-        //   }
-        //
-        // }
 
         if (app !== 'Video' && Object.prototype.hasOwnProperty.call(virtualclass, 'videoUl')
           &&  Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'player')) {
@@ -778,7 +731,7 @@
 
 
         if (roles.hasControls()) {
-          var currVideo = Array.prototype.slice.call(arguments)[2];
+          const currVideo = Array.prototype.slice.call(arguments)[2];
           if (app !== 'ScreenShare' && (virtualclass.currApp === 'SharePresentation' || (virtualclass.currApp === 'Video'))) {
             virtualclass.vutil.initDashboardNav(currVideo);
             if (virtualclass.currApp === 'Video') {
@@ -789,13 +742,10 @@
                 dashboardnav.click();
               }
             }
-          } else if (virtualclass.currApp === 'DocumentShare' || virtualclass.currApp === 'SharePresentation') {
-            // this.checkDsTable();
-          } else {
+          } else if (virtualclass.currApp !== 'DocumentShare' && virtualclass.currApp !== 'SharePresentation') {
             virtualclass.vutil.removeDashboardNav();
           }
-
-          if (virtualclass.currApp != 'SharePresentation') {
+          if (virtualclass.currApp !== 'SharePresentation') {
             const playing = document.querySelector('#listppt .playing');
             if (playing) {
               playing.classList.remove('playing');

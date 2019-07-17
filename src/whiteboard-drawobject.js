@@ -18,7 +18,7 @@
   // var scrollPos = 0;
   // var scrollPosY = 600;
 
-  const draw_object = function (objType, canvas, thisobj) {
+  const draw_object = function (objType, canvas, thisobj, wid) {
     const wb = this;
 
     const tool = thisobj;
@@ -29,7 +29,8 @@
     let endPosX;
     let endPosY;
     let dataChunk = [];
-    const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+    // const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+    const { vcan } = virtualclass.wb[wid];
 
     /**
        * This function sets up the situation for draw the particular object
@@ -232,7 +233,7 @@
           }
 
           const currObject = wb.makeobj(tool.startPosX, tool.startPosY, endPosX, endPosY, objType);
-          const rCurrObject = wb.canvas.readyObject(currObject);
+          const rCurrObject = wb.canvas.readyObject(currObject, wId);
 
           wb.canvas.addObject(rCurrObject); // drawing the object/shape
           rCurrObject.coreObj.usrCurrAction = 'create';

@@ -5,8 +5,9 @@
 (function (window) {
   const _replay = function () {
     return {
-      init(repMode, myfunc) {
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+      init(repMode, wid, myfunc) {
+        //const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+        const { vcan } = virtualclass.wb[wid];
         if (typeof myfunc !== 'undefined') {
           this.objs = vcan.getStates('replayObjs');
         } else {
@@ -35,8 +36,8 @@
         //                return new CustomEvent(event, eventObj); // This is not supported for ie9 and older ie browsers
       },
 
-      renderObj(myfunc) {
-        const wid = virtualclass.gObj.currWb;
+      renderObj(wid, myfunc) {
+        // const wid = virtualclass.gObj.currWb;
         const { vcan } = virtualclass.wb[wid];
 
         if (typeof this.objs[this.objNo] === 'undefined') {

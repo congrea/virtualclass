@@ -520,9 +520,9 @@
             vcan.setValInMain('id', 0);
           }
           if (typeof myfunc !== 'undefined') {
-            virtualclass.wb[wbId].t_replayInit(repMode, myfunc);
+            virtualclass.wb[wbId].t_replayInit(repMode, wbId, myfunc);
           } else {
-            virtualclass.wb[wbId].t_replayInit(repMode);
+            virtualclass.wb[wbId].t_replayInit(repMode, wbId);
           }
           //  } else if (cmd == 't_clearall'+ wbId) {
         } else if (cmd === `t_clearall${wbId}`) {
@@ -660,14 +660,14 @@
         if (mCmd.indexOf('_doc_') > -1) {
           mCmd = mCmd.substring(0, (mCmd.indexOf('_')));
         }
-        virtualclass.wb[wbId].draw_object(mCmd, virtualclass.wb[wbId].canvas, this);
+        virtualclass.wb[wbId].draw_object(mCmd, virtualclass.wb[wbId].canvas, this, wbId);
       },
       /**
        * This function does initiates replay function after click on replay button
        * it replays all the object the user would drawn
        */
-      t_replayInit(repMode, myfunc) {
-        const wid = virtualclass.gObj.currWb;
+      t_replayInit(repMode, wid, myfunc) {
+         // const wid = virtualclass.gObj.currWb;
         // debugger;
         // virtual0class.wb.replay = virtualclass.wb[id]._replay();
         if (repMode === 'fromFile') {
@@ -675,15 +675,15 @@
           virtualclass.wb[wid].recordAudio = true;
           virtualclass.recorder.init();
         } else {
-          console.log('=====> whiteboard ready 2');
+          console.log('=====> whiteboard ready 2 ', wid);
           virtualclass.wb[wid].replay = virtualclass.wb[wid]._replay();
 
           if (typeof myfunc !== 'undefined') {
-            virtualclass.wb[wid].replay.init(repMode, myfunc);
-            virtualclass.wb[wid].replay.renderObj(myfunc);
+            virtualclass.wb[wid].replay.init(repMode, wid, myfunc);
+            virtualclass.wb[wid].replay.renderObj(wid, myfunc);
           } else {
-            virtualclass.wb[wid].replay.init(repMode);
-            virtualclass.wb[wid].replay.renderObj();
+            virtualclass.wb[wid].replay.init(repMode, wid);
+            virtualclass.wb[wid].replay.renderObj(wid);
           }
         }
       },

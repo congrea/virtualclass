@@ -59,13 +59,14 @@
       /**
        * this function need to be into another class
        */
-      readyObject(obj, replayObject) {
+      //readyObject(obj, replayObject, wid) {
+      readyObject(obj, wid) {
         var obj = vcan.extend({}, obj);
         // TODO this should be done into proper way or proper format
         // I think it would be better if below condition would
         // obj.id == undefined is used for drawing free draw for multi user
         // if (replayObject != true && obj.id == undefined) {
-        if (!replayObject && obj.id == undefined) {
+        if (obj.id == undefined) {
           vcan.main.id++;
           obj.id = vcan.main.id;
         }
@@ -94,9 +95,9 @@
         obj.lockRotation = false;
         obj.MIN_SCALE_LIMIT = 0.1;
         obj.borderOpacityWhenMoving = 0.4;
-        obj.color = (virtualclass.wb[virtualclass.gObj.currWb].activeToolColor === undefined) ? virtualclass.gObj.defaultcolor : virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
-        obj.stroke = (virtualclass.wb[virtualclass.gObj.currWb].currStrkSize === undefined) ? virtualclass.gObj.defalutStrk : virtualclass.wb[virtualclass.gObj.currWb].currStrkSize;
-        obj.fontSize = (virtualclass.wb[virtualclass.gObj.currWb].textFontSize === undefined) ? virtualclass.gObj.defalutFont : virtualclass.wb[virtualclass.gObj.currWb].textFontSize;
+        obj.color = (virtualclass.wb[wid].activeToolColor === undefined) ? virtualclass.gObj.defaultcolor : virtualclass.wb[wid].activeToolColor;
+        obj.stroke = (virtualclass.wb[wid].currStrkSize === undefined) ? virtualclass.gObj.defalutStrk : virtualclass.wb[wid].currStrkSize;
+        obj.fontSize = (virtualclass.wb[wid].textFontSize === undefined) ? virtualclass.gObj.defalutFont : virtualclass.wb[wid].textFontSize;
 
         if (!Object.prototype.hasOwnProperty.call(obj, 'theta')) {
           obj.theta = 0;

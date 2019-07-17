@@ -74,7 +74,7 @@
         prevElem.classList.remove('current');
       }
     },
-  
+
     next() {
       this.hideElement();
       const next = virtualclass.orderList.Whiteboard.getNextByID(virtualclass.gObj.currWb);
@@ -279,7 +279,7 @@
     },
 
     whiteboardExist(wid) {
-      return (document.querySelector(`#canvas${wid}`) != null);
+      return (virtualclass.wb[wid] === 'object' && document.querySelector(`#canvas${wid}`) != null);
     },
 
     whiteboardWrapperExist(elemtype) {

@@ -298,7 +298,7 @@
             virtualclass.wb[wbId].utility.clearAll(false);
             virtualclass.vutil.beforeSend({ replayAll: true, cf: replayAll });
           } else {
-            virtualclass.wb[wbId].toolInit(anchorNode.parentNode.id, wbId);
+            virtualclass.wb[wbId].toolInit({ cmd : anchorNode.parentNode.id, wbId: wbId });
           }
 
           if (anchorNode.parentNode.id === `t_rectangle${wbId}` || anchorNode.parentNode.id === `t_line${wbId}`
@@ -430,7 +430,7 @@
         }
       },
       /**
-       * By this method the particular function would be initialize
+       * By this method the particular  function would be initialize
        * eg: if the user click on replay button then  the 'replay' function would initialize
        * @param cmd expects the particular command from user
        *
@@ -438,8 +438,40 @@
        * @param multiuser
        * @param myfunc
        */
-      toolInit(cmd, repMode, multiuser, myfunc) {
-        const wbId = virtualclass.gObj.currWb;
+      toolInit(data) {
+        let cmd;
+        let repMode;
+        let multiuser;
+        let myfunc;
+        let wbId;
+
+        if (Object.prototype.hasOwnProperty.call(data, 'cmd')) {
+          cmd = data.cmd;
+        }
+
+
+        if (Object.prototype.hasOwnProperty.call(data, 'repMode')) {
+          repMode = data.repMode;
+        }
+
+
+        if (Object.prototype.hasOwnProperty.call(data, 'multiUser')) {
+          multiuser = data.multiUser;
+        }
+
+        if (Object.prototype.hasOwnProperty.call(data, 'myfunc')) {
+          myfunc = data.myfunc;
+        }
+
+        if (Object.prototype.hasOwnProperty.call(data, 'wbId')) {
+          wbId = data.wbId;
+        }
+
+
+        if (Object.prototype.hasOwnProperty.call(data, 'myfunc')) {
+          myfunc = data.myfunc;
+        }
+        // const wbId = virtualclass.gObj.currWb;
 
         if (cmd.indexOf('_doc_') <= -1) {
           cmd += wbId;
@@ -484,6 +516,7 @@
           // } else if (cmd == 't_replay') {
         } else if (cmd === `t_replay${wbId}`) {
           if (typeof multiuser === 'undefined') {
+            console.log('====> setting vcan main = 0');
             vcan.setValInMain('id', 0);
           }
           if (typeof myfunc !== 'undefined') {
@@ -642,7 +675,9 @@
           virtualclass.wb[wid].recordAudio = true;
           virtualclass.recorder.init();
         } else {
+          console.log('=====> whiteboard ready 2');
           virtualclass.wb[wid].replay = virtualclass.wb[wid]._replay();
+
           if (typeof myfunc !== 'undefined') {
             virtualclass.wb[wid].replay.init(repMode, myfunc);
             virtualclass.wb[wid].replay.renderObj(myfunc);

@@ -171,6 +171,7 @@
             for (let i = 0; i < vcan.main.children.length; i++) {
               if (currObject.id == vcan.main.children[i].id) {
                 vcan.main.children.splice(i, 1);
+                console.log('====> whiteboard pushing deleting object');
                 this.currObject = '';
                 break;
               }

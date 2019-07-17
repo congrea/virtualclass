@@ -75,7 +75,7 @@
          * @param e is event object
          */
 
-        mousedown(e, cobj) {
+        mousedown(e) {
           const clogo = document.getElementById('congrealogo');
           clogo.classList.add('disbaleOnmousedown');
           // var newpointer = vcan.utility.getReltivePoint(e);

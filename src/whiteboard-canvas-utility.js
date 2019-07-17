@@ -98,23 +98,23 @@ let newScrollVal = 0;
        * @param event is event object
        * returns horizontal and vertical position
        */
-      actualPointer(event) {
+      actualPointer(event, wId) {
         // TODO this method needs fixing
         // virtualclass.leftPosX defines the scroll position from left side
         // virtualclass.topPosY defines the scroll position from top side
-        var posY = 0;
-        var posX = 0;
-        if (virtualclass.gObj.currWb != null) {
-          if (typeof virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY === 'undefined') {
-            var posY = 0;
+        let posY = 0;
+        let posX = 0;
+        if (wId != null) {
+          if (typeof virtualclass.pdfRender[wId].topPosY === 'undefined') {
+            posY = 0;
           } else {
-            var posY = virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY;
+            posY = virtualclass.pdfRender[wId].topPosY;
           }
 
-          if (typeof virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX === 'undefined') {
-            var posX = 0;
+          if (typeof virtualclass.pdfRender[wId].leftPosX === 'undefined') {
+            posX = 0;
           } else {
-            var posX = virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX;
+            posX = virtualclass.pdfRender[wId].leftPosX;
           }
         }
         return { x: vcan.utility.pointerX(event) + posX, y: vcan.utility.pointerY(event) + posY };
@@ -188,9 +188,9 @@ let newScrollVal = 0;
        * @return {Object} object with "x" and "y" number values
        */
 
-      getReltivePoint(e) {
+      getReltivePoint(e, wId) {
         const { offset } = vcan.main;
-        const pointer = vcan.utility.actualPointer(e);
+        const pointer = vcan.utility.actualPointer(e, wId);
         // console.log('whiteboard canvas offset x = ' + (pointer.x - offset.x) + ' y =' + (pointer.y - offset.y));
         return {
           x: (pointer.x - offset.x),

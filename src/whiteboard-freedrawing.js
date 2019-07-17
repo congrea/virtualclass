@@ -228,6 +228,7 @@
           },
           objAdd(obj) {
             vcan.main.children.push(obj);
+            console.log('====> whiteboard pushing object');
             return this;
           },
         },

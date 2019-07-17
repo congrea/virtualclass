@@ -36,6 +36,7 @@
        *  @param canvid is canvas's id
        */
       main: function main(canvid) {
+        console.log('vcan main is creating ');
         vcan.main.children = []; // vcan.main should be converted into 'this' variable
         vcan.main.id = 0;
         vcan.main.uid = 0;
@@ -142,23 +143,16 @@
        *
        */
       renderAll(ctx) {
-        // console.log('Whiteboard :- Render All');
         if (typeof ctx !== 'object') {
-          var ctx = vcan.main.canvas.getContext('2d');
+           ctx = vcan.main.canvas.getContext('2d');
         }
-
-        const canelem = vcan.main.canvas;
-
         vcan.clearContext(ctx);
-
-
-        const that = this;
         this.displayPdfWhiteboard();
       },
 
       normalDisplay(i) {
         // console.log(`Whiteboard index ${i}`);
-        if (vcan.main.children[i].type == 'freeDrawing') {
+        if (vcan.main.children[i].type === 'freeDrawing') {
           vcan.fhdRender(ctx, vcan.main.children[i]);
         } else {
           vcan.render(ctx, vcan.main.children[i]);
@@ -234,9 +228,13 @@
        * multiuser is a flag used for removed the previous drawn data over the canvas
        * this chunk of data would display for multi user only not for self user
        */
-      const rindex = vcan.ArrayIndexOf(vcan.main.children, pobj => pobj.id == obj.id && (pobj.mt == obj.mt || obj.multiuser == true));
+      const rindex = vcan.ArrayIndexOf(vcan.main.children, pobj => pobj.id === obj.id);
+      // const rindex = vcan.ArrayIndexOf(vcan.main.children, pobj => pobj.id == obj.id && (pobj.mt == obj.mt || obj.multiuser == true));
       if (rindex >= 0) {
-        vcan.main.children.splice(rindex, 1);
+        // if (roles.hasControls()) {
+          vcan.main.children.splice(rindex, 1);
+          console.log('====> whiteboard pushing deleting object');
+        // }
       }
 
       const { height } = vcanvas;

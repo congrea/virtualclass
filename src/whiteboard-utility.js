@@ -116,13 +116,21 @@
        *  mouse down, up and move
        */
       attachEventHandlers(id) {
-        virtualclass.wb[id].canvas.bind('mousedown', virtualclass.wb[id].utility.ev_canvas);
-        virtualclass.wb[id].canvas.bind('mousemove', virtualclass.wb[id].utility.ev_canvas);
-        virtualclass.wb[id].canvas.bind('mouseup', virtualclass.wb[id].utility.ev_canvas);
-        virtualclass.wb[id].canvas.bind('touchstart', virtualclass.wb[id].utility.ev_canvas);
-        virtualclass.wb[id].canvas.bind('touchmove', virtualclass.wb[id].utility.ev_canvas);
-        virtualclass.wb[id].canvas.bind('touchend', virtualclass.wb[id].utility.ev_canvas);
+        // virtualclass.wb[id].canvas.addEventListener('mousedown', virtualclass.wb[id].utility.ev_canvas.call(virtualclass.wb[id].utility, id));
+        // virtualclass.wb[id].canvas.addEventListener('mousemove', virtualclass.wb[id].utility.ev_canvas.call(virtualclass.wb[id].utility, id));
+        // virtualclass.wb[id].canvas.addEventListener('mouseup', virtualclass.wb[id].utility.ev_canvas.call(virtualclass.wb[id].utility, id));
+        // virtualclass.wb[id].canvas.addEventListener('touchstart', virtualclass.wb[id].utility.ev_canvas.call(virtualclass.wb[id].utility, id));
+        // virtualclass.wb[id].canvas.addEventListener('touchmove', virtualclass.wb[id].utility.ev_canvas.call(virtualclass.wb[id].utility, id));
+        // virtualclass.wb[id].canvas.addEventListener('touchend', virtualclass.wb[id].utility.ev_canvas.call(virtualclass.wb[id].utility, id));
+
+        virtualclass.wb[id].canvas.bind('mousedown', (ev) => { this.ev_canvas(ev, id); });
+        virtualclass.wb[id].canvas.bind('mousemove', (ev) => { this.ev_canvas(ev, id); });
+        virtualclass.wb[id].canvas.bind('mouseup', (ev) => { this.ev_canvas(ev, id); });
+        virtualclass.wb[id].canvas.bind('touchstart', (ev) => { this.ev_canvas(ev, id); });
+        virtualclass.wb[id].canvas.bind('touchmove', (ev) => { this.ev_canvas(ev, id); });
+        virtualclass.wb[id].canvas.bind('touchend', (ev) => { this.ev_canvas(ev, id); });
       },
+
       /**
        * Call the function through which
        * the canvas would be clear
@@ -132,22 +140,24 @@
         virtualclass.wb[virtualclass.gObj.currWb].textFontSize = virtualclass.gObj.defalutFont;
         virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = virtualclass.gObj.defaultcolor;
         const delRpNode = true;
-        virtualclass.wb[virtualclass.gObj.currWb].utility.clearAll(delRpNode);
+        virtualclass.wb[virtualclass.gObj.currWb].utility.clearAll(delRpNode, virtualclass.gObj.currWb);
+        console.log('====> whiteboard clear all');
       },
       /**
        * By this function  all drawn object over the canvas would be erased
        * which means the canvas would be cleared
        * @param delRpNode
        */
-      clearAll(delRpNode, pkMode) {
-        const wid = virtualclass.gObj.currWb;
+      clearAll(delRpNode, wid) {
+        console.log('====> whiteboard clear all');
+        // const wid = virtualclass.gObj.currWb;
         // console.log(`Whiteboard clear ${wid}`);
         // TODO this should be done in proper way
         // virtualclass.recorder.items = [];
 
         virtualclass.wb[wid].uid = 0; // this should be done with proper way
         virtualclass.wb[wid].lt = '';
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+        const { vcan } = virtualclass.wb[wid];
         while (vcan.main.children.length > 0) {
           virtualclass.wb[wid].canvas.removeObject(vcan.main.children[0]);
         }
@@ -165,7 +175,7 @@
           virtualclass.wb[wid].replay.objNo = 0;
         }
 
-        if (vcan.getStates('action') == 'move') {
+        if (vcan.getStates('action') === 'move') {
           vcan.setValInMain('action', 'create');
         }
 
@@ -187,9 +197,9 @@
 
         virtualclass.vutil.removeAllTextWrapper();
 
-        virtualclass.wb[virtualclass.gObj.currWb].currStrkSize = virtualclass.gObj.defalutStrk;
-        virtualclass.wb[virtualclass.gObj.currWb].textFontSize = virtualclass.gObj.defalutFont;
-        virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = virtualclass.gObj.defaultcolor;
+        virtualclass.wb[wid].currStrkSize = virtualclass.gObj.defalutStrk;
+        virtualclass.wb[wid].textFontSize = virtualclass.gObj.defalutFont;
+        virtualclass.wb[wid].activeToolColor = virtualclass.gObj.defaultcolor;
       },
       /**
        * By this function there would de-activating all the objects
@@ -240,17 +250,17 @@
        * particular object eg:- mouse down over the rectangle object
        * which means the mouse is downed/created for create the rectangle
        */
-      ev_canvas(ev) {
-        const wbId = virtualclass.gObj.currWb;
+      ev_canvas(ev, wbId) {
+        // const wbId = virtualclass.gObj.currWb;
         // NOTE:- this have been done during the unit testing
-        const posMous = virtualclass.wb[wbId].vcan.utility.getReltivePoint(ev);
+        const posMous = virtualclass.wb[wbId].vcan.utility.getReltivePoint(ev, wbId);
         ev.currX = posMous.x;
         ev.currY = posMous.y;
 
         // Here the particular function is calling according to mouse event.
         const func = virtualclass.wb[wbId].tool[ev.type];
         if (func) {
-          func(ev);
+          func(ev, wbId);
           return this.ev_canvas;
         }
       },
@@ -634,13 +644,12 @@
         }
       },
 
-      replayFromLocalStroage(allRepObjs) {
-        const wid = virtualclass.gObj.currWb;
+      replayFromLocalStroage(allRepObjs, wid) {
         if (typeof (Storage) !== 'undefined') {
-          virtualclass.wb[wid].utility.clearAll(false, 'dontClear');
+          virtualclass.wb[wid].utility.clearAll(false, wid);
           virtualclass.wb[wid].gObj.tempRepObjs = allRepObjs;
           if (allRepObjs.length > 0) {
-            virtualclass.wb[wid].utility.drawInWhiteboards(allRepObjs, 'fromBrowser');
+            virtualclass.wb[wid].utility.drawInWhiteboards(allRepObjs, wid);
           }
 
           if (roles.hasControls()) {
@@ -836,14 +845,13 @@
         }
       },
 
-      drawInWhiteboards(repObjs) {
-        const wid = virtualclass.gObj.currWb;
+      drawInWhiteboards(repObjs, wid) {
         for (let i = 0; i < repObjs.length; i++) {
           if (Object.prototype.hasOwnProperty.call(repObjs[i], 'cmd')) {
             if (roles.hasControls()) {
               const tool = repObjs[i].cmd.slice(2, repObjs[i].cmd.length);
               const currentShapeTool = document.querySelector(`${'#' + 'tool_wrapper'}${wid}`);
-              const shapesElem = document.querySelector(`#tool_wrapper${virtualclass.gObj.currWb}.shapesToolbox`);
+              const shapesElem = document.querySelector(`#tool_wrapper${wid}.shapesToolbox`);
               if (tool === 'triangle' || tool === 'line' || tool === 'oval' || tool === 'rectangle') {
                 document.querySelector(`#shapeIcon${wid} a`).dataset.title = tool.charAt(0).toUpperCase() + tool.slice(1);
                 currentShapeTool.dataset.currtool = tool;
@@ -875,7 +883,7 @@
           }
 
           virtualclass.wb[wid].uid = repObjs[i].uid;
-          this.executeWhiteboardData(repObjs[i]);
+          this.executeWhiteboardData(repObjs[i], wid);
         }
       },
 
@@ -890,17 +898,16 @@
         }
       },
 
-      executeWhiteboardData(objToDisplay) {
-        const wid = virtualclass.gObj.currWb;
+      executeWhiteboardData(objToDisplay, wId) {
+        // const wid = virtualclass.gObj.currWb;
         // console.log('Whiteboard executed uid ' + objToDisplay.uid);
-        virtualclass.wb[wid].gObj.replayObjs.push(objToDisplay);
-        virtualclass.wb[wid].response.replayObj([objToDisplay]);
+        virtualclass.wb[wId].gObj.replayObjs.push(objToDisplay);
+        virtualclass.wb[wId].response.replayObj([objToDisplay], wId);
       },
 
 
       putScrollWithCevent(e) {
-        var e = this.scaleCordinate(e);
-        return e;
+        return this.scaleCordinate(e);
       },
 
       scaleCordinate(ev) {

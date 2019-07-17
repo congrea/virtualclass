@@ -6,6 +6,7 @@
   const response = {
     clearAll(formUserId, id, eMessage, orginalTeacherId) {
       if (formUserId != id) {
+
         virtualclass.wb[virtualclass.gObj.currWb].tool = new virtualclass.wb[virtualclass.gObj.currWb].toolObj('t_clearall');
         virtualclass.wb[virtualclass.gObj.currWb].utility.t_clearallInit();
         virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue();
@@ -18,9 +19,16 @@
     // should be deleted
     replayAll() {
       // console.log('=JAI= ASSIGN');
-      window.virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs;
-      virtualclass.wb[virtualclass.gObj.currWb].utility.clearAll(false);
-      virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromFile');
+      virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs;
+      virtualclass.wb[virtualclass.gObj.currWb].utility.clearAll(false, virtualclass.gObj.currWb);
+
+      const data = {
+        cmd: 't_replay',
+        fromWhere: 'fromFile',
+        wbId: virtualclass.gObj.currWb,
+      };
+      //           virtualclass.wb[virtualclass.gObj.currWb].toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
+      virtualclass.wb[virtualclass.gObj.currWb].toolInit(data);
     },
 
     createArrow(eMessage) {
@@ -51,11 +59,20 @@
       // console.log('Mouse cursor x=' + obj.mp.x  + ' y=' + obj.mp.y);
     },
 
-    replayObj(repObj) {
-      virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = [];
+    replayObj(repObj, wId) {
+      virtualclass.wb[wId].vcan.main.replayObjs = [];
       if (repObj.length > 0) {
-        virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = repObj;
-        virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromBrowser', true, virtualclass.wb[virtualclass.gObj.currWb].utility.triggerCanvasEnable);
+        virtualclass.wb[wId].vcan.main.replayObjs = repObj;
+        const data = {
+          cmd: 't_replay',
+          fromWhere: 'fromBrowser',
+          multiUser: true,
+          myfunc: virtualclass.wb[wId].utility.triggerCanvasEnable,
+          wbId: wId,
+        };
+        //         virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromBrowser', true, virtualclass.wb[virtualclass.gObj.currWb].utility.triggerCanvasEnable);
+
+        virtualclass.wb[wId].toolInit(data);
         // virtualclass.wb[virtualclass.gObj.currWb].utility.triggerCanvasEnable();
       }
     },

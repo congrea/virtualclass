@@ -593,7 +593,9 @@
           } else {
             let hidepopup;
             const currVideo = Array.prototype.slice.call(arguments)[2];
+
             this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+
             if (currVideo && currVideo.init && currVideo.init.videoUrl && currVideo.fromReload) {
               hidepopup = true;
             }
@@ -747,6 +749,7 @@
               console.log('====> vcan is creating', id, ' ', id, ' ', virtualclass.wb[id].vcan);
               console.log('====> jai 1 ', id, ' ', virtualclass.wb[id].vcan);
               this.wb[id] = new window.whiteboard(this.wbConfig, id);
+              console.log('=====> whiteboard ready 1');
               let whiteboardContainer;
               let wbHtml;
               let canvas;

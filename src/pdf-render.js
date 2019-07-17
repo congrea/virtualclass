@@ -44,6 +44,45 @@
           .catch((error) => { console.error('Request failed with error ', error); });
       },
 
+      // loadPdf(url, canvas, currWhiteBoard) {
+      //   if (Object.prototype.hasOwnProperty.call(virtualclass.gObj.nextPdf, currWhiteBoard)) {
+      //     this.afterPdfLoad(canvas, currWhiteBoard, virtualclass.gObj.nextPdf[currWhiteBoard]);
+      //   } else {
+      //     this.axhr.get(url)
+      //       .then(async (response) => {
+      //         await virtualclass.pdfRender[currWhiteBoard].afterPdfLoad(canvas, currWhiteBoard, response.data);
+      //       })
+      //       .catch((error) => {
+      //         // console.error('Request failed with error ', error);
+      //         setTimeout(() => {
+      //           virtualclass.pdfRender[currWhiteBoard].loadPdf(url, canvas, currWhiteBoard);
+      //         }, 1000);
+      //       });
+      //   }
+      // },
+
+
+      //  loadPdf (url, canvas, currWhiteBoard) {
+      //   if (Object.prototype.hasOwnProperty.call(virtualclass.gObj.nextPdf, currWhiteBoard)) {
+      //     this.afterPdfLoad(canvas, currWhiteBoard, virtualclass.gObj.nextPdf[currWhiteBoard]);
+      //   } else {
+      //     // const response = await this.axhr.get(url);
+      //     // virtualclass.pdfRender[currWhiteBoard].afterPdfLoad(canvas, currWhiteBoard, response.data);
+      //
+      //
+      //      this.axhr.get(url)
+      //       .then(async (response) => {
+      //         await virtualclass.pdfRender[currWhiteBoard].afterPdfLoad(canvas, currWhiteBoard, response.data);
+      //       })
+      //       .catch((error) => {
+      //         // console.error('Request failed with error ', error);
+      //         setTimeout(() => {
+      //           virtualclass.pdfRender[currWhiteBoard].loadPdf(url, canvas, currWhiteBoard);
+      //         }, 1000);
+      //       });
+      //   }
+      // },
+
       loadPdf(url, canvas, currWhiteBoard) {
         console.log('##==jai, Init2 currWhiteBoard ' + currWhiteBoard);
         if (Object.prototype.hasOwnProperty.call(virtualclass.gObj.nextPdf, currWhiteBoard)) {
@@ -60,7 +99,6 @@
               }, 1000);
             });
         }
-
       },
 
       async afterPdfLoad(canvas, currNote, data) {
@@ -76,17 +114,7 @@
         if (virtualclass.gObj.myworker != null) {
           doc.worker = virtualclass.gObj.myworker;
         }
-        //
-        // if (typeof currNote === 'undefined') {
-        //   this.wbId = virtualclass.gObj.currWb;
-        // } else {
-        //   this.wbId = '_doc_' + currNote + '_' + currNote;
-        // }
 
-
-
-        // console.log(`-----------START ${virtualclass.currApp}----------`);
-        // console.log('PDF render request to pdf.js 1');
         PDFJS.workerSrc = `${whiteboardPath}build/src/pdf.worker.min.js`;
         PDFJS.cMapUrl = `${whiteboardPath}build/cmaps/`;
         PDFJS.cMapPacked = true;
@@ -389,14 +417,13 @@
               // console.log('Why negative value');
             }
           }
-
+          let wb;
           if (virtualclass.currApp === 'Whiteboard' && this.wbId != null && virtualclass.gObj.currWb !== this.wbId) {
-            var wb = (this.wbId.indexOf('_doc_') > -1) ? this.wbId : `_doc_${this.wbId}_${this.wbId}`;
+            wb = (this.wbId.indexOf('_doc_') > -1) ? this.wbId : `_doc_${this.wbId}_${this.wbId}`;
           } else {
-            // var wb = virtualclass.gObj.currWb;
-            var wb = page.wbId;
+            wb = page.wbId;
           }
-
+          // virtualclass.gObj.currWb = wb;
           const { canvas } = virtualclass.wb[wb].vcan.main;
           let viewport;
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
@@ -438,9 +465,7 @@
 
           virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
           virtualclass.zoom.canvasScale = viewport.scale;
-          if (virtualclass.zoom.prvCanvasScale !== virtualclass.zoom.canvasScale) {
-            // console.log('==== a jai SCALE CHANGE prv ', virtualclass.zoom.prvCanvasScale, ' cur ', virtualclass.zoom.canvasScale);
-          }
+
 
           canvas.height = viewport.height;
           // console.log('==== a jai canvas scale ', virtualclass.zoom.canvasScale);
@@ -482,7 +507,8 @@
 
           if (firstTime != undefined) {
             if (virtualclass.gObj.currWb != null) {
-              this.initWhiteboardData(virtualclass.gObj.currWb);
+              // this.initWhiteboardData(page.wbId);
+              this.initWhiteboardData(page.wbId)
             }
           }
 
@@ -521,7 +547,10 @@
         // displayCb = cb;
         const page = await pdf.getPage(num);
         page.wbId = pdf.wbId;
-        virtualclass.pdfRender[virtualclass.gObj.currWb].page = page;
+        // if (typeof virtualclass.pdfRender[virtualclass.gObj.currWb] === 'undefined') {
+        //   debugger;
+        // }
+        virtualclass.pdfRender[pdf.wbId].page = page;
         console.log('====> shown pdf ', pdf.pdfInfo.fingerprint, ' ', pdf.wbId);
         if (typeof firstTime !== 'undefined') {
           await this.renderPage(page, firstTime);
@@ -543,7 +572,7 @@
 
       async initWhiteboardData(wb) {
         if (typeof virtualclass.gObj.wbData[wb] === 'object' && virtualclass.gObj.wbData[wb] && virtualclass.gObj.wbData[wb].length > 0) {
-          virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.wbData[wb]);
+          virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.wbData[wb], wb);
         }
       },
 

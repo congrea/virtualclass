@@ -50,13 +50,20 @@
           this.callBkfunc = myfunc;
         }
         if (Object.prototype.hasOwnProperty.call(this.objs[this.objNo], 'cmd')) {
-        //  virtualclass.wb[virtualclass.gObj.currWb].gObj.displayedObjId = this.objs[this.objNo].uid;
-          virtualclass.wb[virtualclass.gObj.currWb].toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
+         // virtualclass.wb[virtualclass.gObj.currWb].toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
+
+          const data = {
+            cmd: this.objs[this.objNo].cmd,
+            fromWhere: 'fromFile',
+            multiUser: true,
+            wbId: wid,
+          };
+          virtualclass.wb[wid].toolInit(data);
         } else {
           let event = '';
           if (this.objs[this.objNo].ac == 'del') {
             if (vcan.main.currObj != '') {
-              virtualclass.wb[virtualclass.gObj.currWb].utility.removeSelectedItem(vcan.main.currObj, true, true);
+              virtualclass.wb[wid].utility.removeSelectedItem(vcan.main.currObj, true, true);
               // console.log('Whiteboard Delete:-  Performing delete operation:-');
             }
           } else {

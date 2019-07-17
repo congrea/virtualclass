@@ -221,7 +221,7 @@ const receiveFunctions = new function () {
   this.repObj = function (e) {
     if (typeof virtualclass.gObj.currWb !== 'undefined') {
       if (typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object' && e.fromUser.role === 't') {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.repObj);
+        virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.repObj, virtualclass.gObj.currWb);
       }
     }
 

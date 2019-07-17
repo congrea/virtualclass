@@ -250,7 +250,9 @@
 
   MultiVideo.onmessage = function (message, fromUser) {
     if (Object.prototype.hasOwnProperty.call(message, '_init')) {
-      virtualclass.makeAppReady(virtualclass.apps.mv);
+      // virtualclass.makeAppReady(virtualclass.apps.mv);
+      virtualclass.makeAppReady({ app: virtualclass.apps.mv });
+
       // this.displayVideo();
     } else if (Object.prototype.hasOwnProperty.call(message, 'offer')) {
       _createAnswer(message, fromUser);

@@ -146,7 +146,8 @@ let globalImageData = {};
             virtualclass.recorder.recImgPlay = true;
           }
           var stool = 'ScreenShare';
-          virtualclass.makeAppReady(stool);
+          virtualclass.makeAppReady({app: stool});
+
         } else {
           if (virtualclass.currApp !== 'ScreenShare') {
             virtualclass.vutil.hidePrevIcon(app);

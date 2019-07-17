@@ -291,7 +291,9 @@
           vcContainer.classList.add(virtualclass.vutil.getClassName(virtualclass.gObj.uRole));
         }
 
-        this.makeAppReady(app, 'byclick');
+        // this.makeAppReady(app, 'byclick');
+
+        this.makeAppReady({ app: app, cusEvent: 'byclick' });
 
         // TODO system checking function should be invoked before makeAppReady
         this.system.check();
@@ -522,7 +524,24 @@
         }
       },
 
-      makeAppReady(app, cusEvent, data) {
+      // makeAppReady(app, cusEvent, data) {
+      makeAppReady(setting) {
+        let app;
+        let cusEvent;
+        let data;
+
+        if (setting.app) {
+          app = setting.app;
+        }
+
+        if (setting.cusEvent) {
+          cusEvent = setting.cusEvent;
+        }
+
+        if (setting.data) {
+          data = setting.data;
+        }
+
         virtualclass.dashBoard.close();
         const tempApp = virtualclass.vutil.capitalizeFirstLetter(app);
         if (tempApp !== 'ScreenShare') {
@@ -567,10 +586,12 @@
         // call the function with passing dynamic variablesc
         if (app === 'SharePresentation') {
           if (`virtualclass${app}` !== virtualclass.previous) {
-            this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+            // this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+            this.appInitiator[app].call(virtualclass, setting);
           }
         } else if (app === 'DocumentShare') {
-          this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+          // this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+          this.appInitiator[app].call(virtualclass, setting);
           if (roles.hasControls()) {
             if (!virtualclass.serverData.syncComplete) {
               virtualclass.vutil.triggerDashboard(app);
@@ -589,12 +610,14 @@
             if (typeof this.orderList[app] !== 'object') {
               this.orderList[app] = new OrderedList();
             }
-            this.handleWhiteboardReady(arguments, cusEvent, data);
+            // this.handleWhiteboardReady(arguments, cusEvent, data);
+            this.handleWhiteboardReady(app, cusEvent, data);
           } else {
             let hidepopup;
             const currVideo = Array.prototype.slice.call(arguments)[2];
 
-            this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+            // this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+            this.appInitiator[app].call(virtualclass, setting);
 
             if (currVideo && currVideo.init && currVideo.init.videoUrl && currVideo.fromReload) {
               hidepopup = true;
@@ -649,20 +672,25 @@
 
       // TODO, this and app inittiator should be merged
 
-      handleWhiteboardReady (cargs, cusEvent, data) {
-        const args = [];
-        for (let i = 0; i < cargs.length; i++) {
-          args.push(cargs[i]);
-        }
-        if (typeof cusEvent === 'undefined') {
-          args[1] = (cusEvent);
-        }
+      handleWhiteboardReady (app, cusEvent, data) {
+        console.log('=====> Handle whiteboard ');
+        // const args = [];
+        // for (let i = 0; i < cargs.length; i++) {
+        //   args.push(cargs[i]);
+        // }
+        // if (typeof cusEvent === 'undefined') {
+        //   args[1] = (cusEvent);
+        // }
+        //
+        // const id = (data !== undefined) ? data : '_doc_0_0';
+        // args[2] = id;
+        //
+        // args.push('virtualclassWhiteboard');
 
-        const id = (data !== undefined) ? data : '_doc_0_0';
-        args[2] = id;
-
-        args.push('virtualclassWhiteboard');
-        this.appInitiator.Whiteboard.apply(virtualclass, Array.prototype.slice.call(args));
+        data = (data !== undefined) ? data : '_doc_0_0';
+        const setting = { app: app, cusEvent: cusEvent, data: data, container: 'virtualclassWhiteboard' }
+        //this.appInitiator.Whiteboard.call(virtualclass, app, cusEvent, data, 'virtualclassWhiteboard');
+        this.appInitiator.Whiteboard.call(virtualclass, setting);
 
         if (!virtualclass.gObj.wbRearrang) {
           const wIds = this.orderList.Whiteboard.ol.order;
@@ -670,24 +698,47 @@
             if (wIds.length > 0) {
               virtualclass.wbCommon.readyElements(wIds);
               virtualclass.gObj.wbRearrang = true;
-              // virtualclass.gObj.wIds = wIds;
             }
           }
         }
         virtualclass.wbCommon.initNav(virtualclass.orderList.Whiteboard.ol);
         if (roles.hasControls()) {
-          if (virtualclass.gObj.wbRearrang) {
-            virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order);
-            virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb);
+            if (virtualclass.gObj.wbRearrang) {
+              //virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order);
+              // virtualclass.wbCommon.rearrange(virtualclass.orderList[virtualclass.currApp].ol.order);
+              // todo Check Here.
+              virtualclass.wbCommon.indexNav.addActiveNavigation(data);
+            }
+            virtualclass.wbCommon.identifyFirstNote(data);
+            virtualclass.wbCommon.identifyLastNote(data);
           }
-          virtualclass.wbCommon.identifyFirstNote(virtualclass.gObj.currWb);
-          virtualclass.wbCommon.identifyLastNote(virtualclass.gObj.currWb);
-        }
       },
 
       // Helper functions for making the app is ready
       appInitiator: {
-        Whiteboard(app, cusEvent, id, container){
+       // Whiteboard(app, cusEvent, id, container){
+        Whiteboard(setting){
+          let app;
+          let cusEvent;
+          let id;
+          let container;
+
+          if (setting.app) {
+            app = setting.app;
+          }
+
+          if (setting.cusEvent) {
+            cusEvent = setting.cusEvent;
+          }
+
+          if (setting.data) {
+            id = setting.data;
+          }
+
+          if (setting.container) {
+            container = setting.container;
+          }
+
           virtualclass.gObj.currWb = id;
           console.log('====> current whiteboard ', virtualclass.gObj.currWb);
           if (this.orderList[app].ol.order.indexOf(virtualclass.gObj.currWb) <= -1) {
@@ -909,7 +960,8 @@
           }
         },
 
-        ScreenShare(app) {
+        ScreenShare(setting) {
+          let app = setting.app;
           if (typeof this.ss !== 'object') {
             this.ss = new window.screenShare(virtualclass.ssConfig);
           }
@@ -917,6 +969,7 @@
         },
 
         Yts(app, custEvent, videoObj) {
+
           // this.dispvirtualclassLayout(virtualclass.ytsConfig.id);
           // if there is not already sharing the youtube video
           if (typeof videoObj !== 'undefined' && videoObj != null) {
@@ -931,23 +984,27 @@
           this.previous = virtualclass.ytsConfig.id;
         },
 
-        EditorRich(app) {
-          this.appInitiator.editor.call(virtualclass, app);
+        EditorRich(setting) {
+          this.appInitiator.editor.call(virtualclass, setting);
         },
 
-        EditorCode(app) {
-          this.appInitiator.editor.call(virtualclass, app);
+        EditorCode(setting) {
+          this.appInitiator.editor.call(virtualclass, setting);
         },
 
-        SharePresentation(app, cusEvent) {
+        SharePresentation(setting) {
+          if (setting.app) {
+            app = setting.app;
+          }
+
+          if (setting.cusEvent) {
+            cusEvent = setting.cusEvent;
+          }
+
           if (typeof this.ss === 'object') {
             this.ss.prevStream = false;
           }
-          //                    if (typeof this.previous != 'undefined') {
-          //                        if (typeof cusEvent != 'undefined' && cusEvent == "byclick") {
-          //                            virtualclass.vutil.beforeSend({'ppt': true,init:'makeAppReady', cf: 'ppt'});
-          //                        }
-          //                    }
+
           this.sharePt = new window.sharePt();
 
           // console.log(virtualclass.sharePt.pptUrl);
@@ -957,11 +1014,10 @@
           virtualclass.sharePt.attachMessageEvent('message', virtualclass.sharePt.pptMessageEventHandler);
         },
 
-        Poll(app) {
-          // alert("init Poll");
+        Poll() {
           virtualclass.poll.init();
         },
-        Quiz(app) {
+        Quiz() {
           virtualclass.quiz.init();
         },
 
@@ -978,32 +1034,10 @@
           } else {
             virtualclass.videoUl.init();
           }
-
-          // if (typeof videoObj.type == 'undefined') {
-          //     if (typeof videoObj != 'undefined' && videoObj != null) {
-          //         virtualclass.videoUl.init(videoObj, videoObj.startFrom);
-          //     } else {
-          //         virtualclass.videoUl.init();
-          //     }
-          // }else if(typeof videoObj.type == 'yts'){
-          //     if (typeof videoObj != 'undefined' && videoObj != null) {
-          //         virtualclass.yts.init(videoObj, videoObj.startFrom);
-          //     } else {
-          //         virtualclass.yts.init();
-          //     }
-          //
-          // }else{
-          //
-          //     if (typeof videoObj != 'undefined' && videoObj != null) {
-          //         virtualclass.videoUl.init(videoObj, videoObj.startFrom);
-          //     } else {
-          //         virtualclass.videoUl.init();
-          //     }
-          //
-          // }
         },
 
-        editor(app) {
+        editor(setting) {
+          let app = setting.app;
           // showing controllers from footer
           this.user.control.toggleDisplayEditorController(app.substring(app.indexOf('virtualclass'), app.length), 'block');
           const revision = 0;
@@ -1011,7 +1045,7 @@
           const docs = '';
           const operations = '';
 
-          if (app == virtualclass.apps.er) {
+          if (app === virtualclass.apps.er) {
             virtualclass.editorRich.init(revision, clients, docs, operations);
             this.previous = virtualclass.edConfig.id;
           } else {
@@ -1060,7 +1094,21 @@
 
         },
 
-        DocumentShare(app, customEvent, docsObj) {
+        // DocumentShare(app, customEvent, docsObj) {
+          DocumentShare(setting) {
+
+          if (setting.app) {
+            app = setting.app;
+          }
+
+          if (setting.cusEvent) {
+            customEvent = setting.cusEvent;
+          }
+
+          if (setting.data) {
+            docsObj = setting.data;
+          }
+
           if (!Object.prototype.hasOwnProperty.call(virtualclass, 'dts') || virtualclass.dts == null) {
             virtualclass.dts = window.documentShare();
           } else {
@@ -1097,9 +1145,6 @@
                 // TODO, Need to enable later
                 dashboardnav.click();
               }
-            } else {
-              // console.log('===== DOCUMENT EXIST');
-              // // virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
             }
 
             if (dstData != null) {
@@ -1189,15 +1234,19 @@
               });
             });
         } else {
-          // alert(virtualclass.currApp);
           appName = appName.substring(0, appName.indexOf('Tool'));
-          //  this.currApp = appName; //could be dangerous
           if (!this.PrvAndCurrIsWss(this.previous, appName)) {
             if (virtualclass.currApp === 'DocumentShare') {
               virtualclass.gObj.screenRh = 160;
             }
             // console.log('==== DST init makeAppReady');
-            this.makeAppReady(appName, 'byclick');
+            // this.makeAppReady(appName, 'byclick');
+            if (appName === 'Whiteboard') {
+              const wbId = document.querySelector('#virtualclassWhiteboard .canvasContainer.current').dataset.wbId;
+              this.makeAppReady({ app: appName, data:wbId, cusEvent: 'byclick'});
+            } else {
+              this.makeAppReady({ app: appName, cusEvent: 'byclick'});
+            }
             setTimeout(
               () => {
                 virtualclass.gObj.screenRh = 60;

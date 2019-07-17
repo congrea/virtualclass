@@ -296,6 +296,7 @@
       },
 
       removePagesUI(doc) {
+        console.log('====> Note remove UI');
         const notes = this.getNotes(doc);
         for (let i = 0; i < notes.length; i++) {
           this._removePageUI(notes[i].id);
@@ -1261,7 +1262,8 @@
        */
       onmessage(e) {
         if (typeof virtualclass.dts !== 'object') {
-          virtualclass.makeAppReady('DocumentShare', undefined, { init: 'studentlayout' });
+          // virtualclass.makeAppReady('DocumentShare', undefined, { init: 'studentlayout' });
+          virtualclass.makeAppReady({app: 'DocumentShare', data: { init: 'studentlayout' } });
         }
         const { dts } = e.message;
         if (Object.prototype.hasOwnProperty.call(dts, 'docn') && dts.docn.indexOf('docs') == -1) {

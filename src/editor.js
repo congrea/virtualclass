@@ -323,7 +323,8 @@
         init(e, etype) {
           // Ignore the editor init command received from Student
           if ((e.fromUser.role != 's') && (e.fromUser.userid != virtualclass.gObj.uid || wbUser.virtualclassPlay == '1')) {
-            virtualclass.makeAppReady(etype);
+            //virtualclass.makeAppReady(etype);
+            virtualclass.makeAppReady({ app: etype });
           }
         },
 
@@ -410,7 +411,9 @@
         this.receivedOperations[e.message.eddata].call(this, e, etype);
         if (typeof this.vcAdapter !== 'object') {
           if (roles.hasAdmin() && e.message.eddata == 'virtualclass-editor-operation') {
-            virtualclass.makeAppReady(etype);
+            // virtualclass.makeAppReady(etype);
+            virtualclass.makeAppReady({ app: etype });
+
             // this.vcAdapter should convert into otAdapter
             this.vcAdapter.receivedMessage(e, onmessage);
           }

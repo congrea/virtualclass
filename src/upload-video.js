@@ -466,7 +466,9 @@
           virtualclass.videoUl.rec = msg.videoUl;
           // console.log(virtualclass.videoUl.rec);
           if (msg.videoUl.init === 'studentlayout') {
-            virtualclass.makeAppReady('Video', undefined, msg.videoUl);
+            // virtualclass.makeAppReady('Video', undefined, msg.videoUl);
+            virtualclass.makeAppReady({ app: 'Video', data:  msg.videoUl });
+
             // console.log('====> Video play 1');
             const msz = document.getElementById('messageLayoutVideo');
             if (msz) {

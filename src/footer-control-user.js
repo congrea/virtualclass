@@ -12,10 +12,10 @@
           }
           virtualclass.attachFunction();
 
-          if (app === 'Whiteboard') {
-            const { vcan } = window.virtualclass.wb[virtualclass.gObj.currWb];
-            window.virtualclass.wb[virtualclass.gObj.currWb].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[virtualclass.gObj.currWb], true, virtualclass.gObj.currWb);
-          }
+          // if (app === 'Whiteboard') {
+          //   const { vcan } = window.virtualclass.wb[virtualclass.gObj.currWb];
+          //   window.virtualclass.wb[virtualclass.gObj.currWb].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[virtualclass.gObj.currWb], true, virtualclass.gObj.currWb);
+          // }
           // This is already Check at above, no need here
           if (Object.prototype.hasOwnProperty.call(virtualclass, 'previrtualclass')) {
             virtualclass.vutil.makeActiveApp(`virtualclass${app}`, virtualclass.previrtualclass);

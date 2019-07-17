@@ -137,18 +137,22 @@ const receiveFunctions = new function () {
 
   // whiteboard ready
   this.dispWhiteboard = function (e) {
-    virtualclass.makeAppReady(virtualclass.apps.wb, undefined, e.message.d, e.message.ci);
+    // virtualclass.makeAppReady(virtualclass.apps.wb, undefined, e.message.d, e.message.ci);
+    // virtualclass.makeAppReady(virtualclass.apps.wb, undefined, e.message.d);
+    virtualclass.makeAppReady({ app: virtualclass.apps.wb, data: e.message.d });
     // virtualclass.vutil.createWhiteBoard(`_doc_${e.message.d}`);
   };
   this.ppt = function (e) {
     if (e.fromUser.userid != virtualclass.gObj.uid) {
       if (Object.prototype.hasOwnProperty.call(e.message, 'init')) {
-        virtualclass.makeAppReady(virtualclass.apps.sp);
+        // virtualclass.makeAppReady(virtualclass.apps.sp);
+        virtualclass.makeAppReady({ app: virtualclass.apps.sp });
       } else {
         if (typeof virtualclass.sharePt !== 'object') {
           // If virtualclass.ssharePt is not ready at participate side, then we
           // will create it first then only proceed to next ppt packet
-          virtualclass.makeAppReady(virtualclass.apps.sp);
+          // virtualclass.makeAppReady(virtualclass.apps.sp);
+          virtualclass.makeAppReady({ app: virtualclass.apps.sp });
           virtualclass.sharePt.onmessage({
             pptMsg: e.message.ppt.init,
             cf: 'ppt',
@@ -203,7 +207,8 @@ const receiveFunctions = new function () {
   // Clear All
   this.clearAll = function (e) {
     if (typeof virtualclass.wb !== 'object') {
-      virtualclass.makeAppReady(virtualclass.apps.wb);
+      // virtualclass.makeAppReady(virtualclass.apps.wb);
+      virtualclass.makeAppReady({ app: virtualclass.apps.wb });
     }
     virtualclass.wb[virtualclass.gObj.currWb].response.clearAll(e.fromUser.userid, wbUser.id, e.message, virtualclass.wb[virtualclass.gObj.currWb].oTeacher);
   };
@@ -248,7 +253,8 @@ const receiveFunctions = new function () {
     // console.dir(e.message.dts);
     if (Object.prototype.hasOwnProperty.call(e.message.dts, 'init')) {
       virtualclass.gObj.screenRh = 100;
-      virtualclass.makeAppReady('DocumentShare', undefined, e.message.dts);
+      // virtualclass.makeAppReady('DocumentShare', undefined, e.message.dts);
+      virtualclass.makeAppReady({ app: 'DocumentShare', data: e.message.dts });
       virtualclass.gObj.screenRh = 60;
     } else if (typeof virtualclass.dts === 'object') {
       virtualclass.dts.onmessage(e);
@@ -257,12 +263,15 @@ const receiveFunctions = new function () {
   this.poll = function (e) {
     // console.log(e.message.poll.pollMsg);
     if (e.message.poll.pollMsg == 'init') {
-      virtualclass.makeAppReady('Poll');
+      // virtualclass.makeAppReady('Poll');
+      // virtualclass.makeAppReady({ app: 'Poll' });
+      virtualclass.makeAppReady({ app: 'Poll' });
     } else {
       if (typeof virtualclass.poll !== 'object') {
         // If virtualclass.ssharePt is not ready at participate side, then we
         // will create it first then only proceed to next ppt packet
-        virtualclass.makeAppReady('Poll');
+        // virtualclass.makeAppReady('Poll');
+        virtualclass.makeAppReady({app: 'Poll'});
         virtualclass.poll.onmessage({ pollMsg: e.message.poll.init, cf: 'poll', user: 'all' });
       }
       virtualclass.poll.onmessage(e.message, e.fromUser);
@@ -271,11 +280,14 @@ const receiveFunctions = new function () {
 
   this.quiz = function (e) {
     // console.log(e.message.quiz.quizMsg);
-    if (e.message.quiz.quizMsg == 'init') {
-      virtualclass.makeAppReady('Quiz');
+    if (e.message.quiz.quizMsg === 'init') {
+      // virtualclass.makeAppReady('Quiz');
+      virtualclass.makeAppReady({ app: 'Quiz' });
     } else {
       if (typeof virtualclass.quiz !== 'object') {
-        virtualclass.makeAppReady('Quiz');
+        // virtualclass.makeAppReady('Quiz');
+        virtualclass.makeAppReady({ app: 'Quiz' });
+
         virtualclass.quiz.onmessage({ quizMsg: e.message.quiz.init, cf: 'quiz', user: 'all' });
       }
       virtualclass.quiz.onmessage(e.message, e.fromUser);
@@ -393,7 +405,8 @@ const receiveFunctions = new function () {
             virtualclass.gObj.studentSSstatus.mesharing = true;
           }
           const appName = 'ScreenShare';
-          virtualclass.makeAppReady(appName, 'byclick');
+          //virtualclass.makeAppReady(appName, 'byclick');
+          virtualclass.makeAppReady({ app: appName, cusEvent: 'byclick' });
         } else {
           virtualclass.vutil.beforeSend({ sd: true, cf: 'colorIndicator' });
         }

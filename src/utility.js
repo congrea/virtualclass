@@ -2075,13 +2075,15 @@
 
     createWhiteBoard(wId) {
       console.log('====> Creating whiteboard init ', wId);
-      const args = ['Whiteboard', 'byclick', wId];
-      virtualclass.appInitiator.Whiteboard.apply(virtualclass, Array.prototype.slice.call(args));
+      // const args = ['Whiteboard', 'byclick', wId];
+      //const setting = { app: 'Whiteboard', cusEvent: 'byclick', data: wId};
+      // virtualclass.appInitiator.Whiteboard.apply(virtualclass, Array.prototype.slice.call(args));
+      virtualclass.appInitiator.Whiteboard.call(virtualclass, { app: 'Whiteboard', cusEvent: 'byclick', data: wId });
       const measureRes = virtualclass.system.measureResoultion({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-      virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
+      // virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
     },
 
     createHashString(str) {

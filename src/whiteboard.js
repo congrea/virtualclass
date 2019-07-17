@@ -604,7 +604,7 @@
 
         if ((cmd !== `t_replay${wbId}`) && (cmd !== `t_clearallInit${wbId}`)) {
           // debugger;
-          virtualclass.wb[wbId].tool = new virtualclass.wb[wbId].toolObj(cmd);
+          virtualclass.wb[wbId].tool = new virtualclass.wb[wbId].toolObj(cmd, wbId);
           virtualclass.wb[wbId].utility.attachEventHandlers(wbId);
         }
       },
@@ -614,24 +614,28 @@
        * @param the cmd expects one of the object that user can draw
        * text and free draw are different case than other object
        */
-      toolObj: function toolObj(cmd) {
+      toolObj: function toolObj(cmd, wbId) {
         // alert("Suman bogati");
         // debugger;
         // var wbId = this.currWb;
-        let wbId;
-        if (cmd.indexOf('_doc_') > -1) {
-          const elem = document.querySelector(`#${cmd}`);
-          if (elem == null) {
-            wbId = virtualclass.gObj.currWb;
-          } else {
-            wbId = virtualclass.vutil.getWhiteboardId(elem);
-          }
-        } else {
-          // When this is executed from student side
-          wbId = virtualclass.gObj.currWb;
+        // let wbId;
+        // if (cmd.indexOf('_doc_') > -1) {
+        //   // const elem = document.querySelector(`#${cmd}`);
+        //   // if (elem == null) {
+        //   //   wbId = virtualclass.gObj.currWb;
+        //   // } else {
+        //   //   wbId = virtualclass.vutil.getWhiteboardId(elem);
+        //   // }
+        //   // wbId =
+        // } else {
+        //   // When this is executed from student side
+        //   // wbId = virtualclass.gObj.currWb;
+        //   cmd += wbId;
+        // }
+
+        if (cmd.indexOf('_doc_') <= -1) {
           cmd += wbId;
         }
-
 
         // debugger;
         this.cmd = cmd;

@@ -102,18 +102,7 @@
         if (!Object.prototype.hasOwnProperty.call(obj, 'theta')) {
           obj.theta = 0;
         }
-        // if(virtualclass.wb[virtualclass.gObj.currWb].scale != null){
-        //     obj.scaleX = virtualclass.wb[virtualclass.gObj.currWb].scale;
-        //     obj.scaleY = virtualclass.wb[virtualclass.gObj.currWb].scale;
-        // } else {
-        //     if (!Object.prototype.hasOwnProperty.call(obj, 'scaleX')) {
-        //         obj.scaleX = 1;
-        //     }
-        //
-        //     if (!Object.prototype.hasOwnProperty.call(obj, 'scaleY')) {
-        //         obj.scaleY = 1;
-        //     }
-        // }
+
 
         if (!Object.prototype.hasOwnProperty.call(obj, 'scaleX')) {
           obj.scaleX = 1;

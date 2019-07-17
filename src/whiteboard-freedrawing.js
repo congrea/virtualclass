@@ -104,7 +104,7 @@
          * @returns nothing
          *
          */
-        finalizeDrawingPath(mcanvas, crtMuser, pointer) {
+        finalizeDrawingPath(mcanvas, wbId) {
           const currTime = new Date().getTime();
           this.contextTop.closePath();
           this.isCurrentlyDrawing = false;
@@ -146,7 +146,7 @@
           p.init(path);
           // below line is commented out during unit testing
           // p = vcan.main.mcanvas.readyObject(p);	 //this should be done thorugh the script.js
-          p = mcanvas.readyObject(p);
+          p = mcanvas.readyObject(p, wbId);
           p.coreObj.type = 'freeDrawing'; // this is need to make because we are finializing the path into freedrawing
           p = p.coreObj;
 

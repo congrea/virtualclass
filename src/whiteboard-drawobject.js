@@ -175,13 +175,10 @@
         ev.currY = ev.detail.cevent.y;
       }
 
-      if (tool.started && wb.tool.cmd != 't_clearall') { // command code inserted after found the problem
-        console.log("====> mouse move", ev.currX);
-        // this function should be conveted into appended with freedrawing module.
-        if (wb.obj.freeDrawObj != undefined && wb.obj.freeDrawObj.freesvg == true) {
+      if (tool.started && wb.tool.cmd !== 't_clearall') { // command code inserted after found the problem
+        if (wb.obj.freeDrawObj !== undefined && wb.obj.freeDrawObj.freesvg == true) {
           if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
             wb.obj.freeDrawObj.wb_draw(ev);
-
             if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) {
               if (typeof mouseup === 'undefined') {
                 if (((typeof virtualclass.gObj.lastmousemovetime === 'undefined') || (virtualclass.gObj.lastmousemovetime == null))) {
@@ -207,11 +204,9 @@
                     wb.uid++;
                     dataChunk[i].uid = wb.uid;
                     vcan.main.replayObjs.push(dataChunk[i]);
-                    // console.log('free drawing move x=' +  dataChunk[i].x + ' drawing y=' + dataChunk[i].y);
                   }
 
                   virtualclass.vutil.beforeSend({ repObj: dataChunk, cf: 'repObj' });
-
                   dataChunk = [];
                   virtualclass.gObj.lastmousemovetime = new Date().getTime();
                 }
@@ -256,14 +251,6 @@
             }
             virtualclass.gObj.lastmousemovetime = new Date().getTime();
           }
-
-          /** **
-             *
-             * This would I have disbaled can be critical
-             * wb.replay.replayObjs.push(currObject);
-             *
-             *** */
-
           wb.prvObj = rCurrObject.coreObj;
         }
       } else if ((wb.vcan.main.action != 'move')
@@ -312,7 +299,7 @@
 
         if ((wb.obj.freeDrawObj != undefined && wb.obj.freeDrawObj.freesvg == true)) {
           if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
-            wb.obj.freeDrawObj.finalizeDraw(ev);
+            wb.obj.freeDrawObj.finalizeDraw(ev, wId);
           }
 
           if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) {

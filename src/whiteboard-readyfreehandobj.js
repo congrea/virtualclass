@@ -57,21 +57,12 @@
         const pointer = vcan.utility.getReltivePoint(ev);
         this.fdObj.fhRendering(pointer);
       },
-      finalizeDraw(ev) {
+      finalizeDraw(ev, wbId) {
         const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
         // TODO this(finalizeDrawingPath) should be called over the object.
-        // prvObj =  vcan.main.freeDraw.finalizeDrawingPath();
-
-        virtualclass.wb[virtualclass.gObj.currWb].prvObj = this.fdObj.finalizeDrawingPath(virtualclass.wb[virtualclass.gObj.currWb].canvas);
+        virtualclass.wb[wbId].prvObj = this.fdObj.finalizeDrawingPath(virtualclass.wb[wbId].canvas, wbId);
         const lastChild = vcan.main.children[vcan.main.children.length - 1];
-        lastChild.mt = virtualclass.wb[virtualclass.gObj.currWb].utility.stringToNumber(virtualclass.wb[virtualclass.gObj.currWb].prvObj.path[virtualclass.wb[virtualclass.gObj.currWb].prvObj.path.length - 1][3]);
-
-        /** **
-           *
-           * This would I have disbaled can be critical
-           * virtualclass.wb[virtualclass.gObj.currWb].repObj.replayObjs.push(virtualclass.wb[virtualclass.gObj.currWb].prvObj);
-           *
-           *** */
+        lastChild.mt = virtualclass.wb[wbId].utility.stringToNumber(virtualclass.wb[wbId].prvObj.path[virtualclass.wb[wbId].prvObj.path.length - 1][3]);
       },
     };
   };

@@ -132,16 +132,12 @@ const ioEventApi = {
 
       if (roles.hasControls()) { // settings send to students when teacher change his browser
         if (!localStorage.getItem('userSettings')) {
-          const settings = localStorage.getItem('settings');
-          if (settings !== null) {
-            ioAdapter.mustSend({ cf: 'settings', Hex: settings });
-          }
-          if (virtualclass.settings.info.recAllowpresentorAVcontrol) {
-            const recordingButton = localStorage.getItem('recordingButton');
-            if (recordingButton !== null) {
-              ioAdapter.mustSend({ ac: JSON.parse(recordingButton), cf: 'recs' });
-            }
-          }
+          const settings = virtualclass.settings.settingsToHex(virtualclass.settings.info);
+          ioAdapter.mustSend({ cf: 'settings', Hex: settings });
+        }
+        const recordingButton = localStorage.getItem('recordingButton');
+        if (recordingButton !== null) {
+          ioAdapter.mustSend({ ac: JSON.parse(recordingButton), cf: 'recs' });
         }
       }
     }

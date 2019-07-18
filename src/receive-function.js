@@ -556,8 +556,14 @@ const receiveFunctions = new function () {
       }
 
       // e.message.ac === 11 ? virtualclass.videoHost.onmessage('off') : virtualclass.videoHost.onmessage('on');
-    } else if (virtualclass.settings.info.attendeeAV) {
-      virtualclass.settings.onMessage(e.message);
+    } else {
+      if (virtualclass.settings.info.attendeeAV) {
+        virtualclass.settings.onMessage(e.message);
+      } else {
+        if (roles.hasControls()) {
+          virtualclass.settings.onMessage(e.message);
+        }
+      }
     }
   };
 

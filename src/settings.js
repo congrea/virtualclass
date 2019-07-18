@@ -3,21 +3,13 @@
     info: {},
     user: {},
     init() { // default settings applyed from here
-      let coreSettings = localStorage.getItem('settings');
-      if (coreSettings === null) {
-        coreSettings = virtualclassSetting.settings;
-        localStorage.setItem('settings', coreSettings);
-      }
-
+      const coreSettings = virtualclassSetting.settings;
       virtualclass.settings.info = virtualclass.settings.parseSettings(coreSettings);
-
       const userSetting = localStorage.getItem('userSettings');
       if (userSetting) {
         virtualclass.settings.user = JSON.parse(userSetting);
       }
-
       this.recording.init();
-
       // virtualclass.settings.info.trimRecordings = true;
     },
 
@@ -166,7 +158,6 @@
       virtualclass.settings.info[settingName] = value;
       const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
       ioAdapter.mustSend({ cf: 'settings', Hex: str });
-      localStorage.setItem('settings', str);
       for (const propname in virtualclass.settings.user) {
         virtualclass.user.control.changeAttribute(propname,
           virtualclass.gObj.testChatDiv.shadowRoot.getElementById(`${propname}contrAudImg`),
@@ -199,11 +190,15 @@
     },
 
     applyAttendeeSetting(obj) {
+      const rec = ['enableRecording', 'recAllowpresentorAVcontrol', 'recShowPresentorRecordingStatus', 'attendeeAV',
+        'recallowattendeeAVcontrol', 'showAttendeeRecordingStatus', 'attendeerecording'];
       for (const propname in obj) {
         if (virtualclass.settings.info[propname] !== obj[propname]) {
           virtualclass.settings.info[propname] = obj[propname];
           if (propname !== 'trimRecordings') { // avoid trim recordings
-            virtualclass.settings[propname](obj[propname]);
+            const recSettings = rec.indexOf(propname);
+            const value = (recSettings !== -1) ? obj : obj[propname];
+            virtualclass.settings[propname](value);
           }
         }
       }
@@ -211,14 +206,19 @@
 
     // Apply settings on student side
     onMessage(msg) {
-      if (typeof msg === 'string') {
-        if (roles.isStudent()) {
-          const stdSettings = virtualclass.settings.parseSettings(msg);
-          this.applyAttendeeSetting(stdSettings);
-          localStorage.setItem('settings', msg);
+      if (roles.hasControls()) {
+        if (typeof msg === 'string') {
+          virtualclass.settings.info = virtualclass.settings.parseSettings(msg);
         }
       } else {
-        this.recording.triggerSetting(msg);
+        if (typeof msg === 'string') {
+          if (roles.isStudent()) {
+            const stdSettings = virtualclass.settings.parseSettings(msg);
+            this.applyAttendeeSetting(stdSettings);
+          }
+        } else {
+          this.recording.triggerSetting(msg);
+        }
       }
     },
 
@@ -244,18 +244,22 @@
     },
 
     studentpc(value) { // student chat enable/disable
-      if (value === true) {
-        virtualclass.user.control.allChatEnable('pc');
-      } else if (value === false) {
-        virtualclass.user.control.disbaleAllChatBox();
+      if (roles.isStudent()) {
+        if (value === true) {
+          virtualclass.user.control.allChatEnable('pc');
+        } else if (value === false) {
+          virtualclass.user.control.disbaleAllChatBox();
+        }
       }
     },
 
     studentgc(value) { // student group chat enable/disable
-      if (value === true) {
-        virtualclass.user.control.allChatEnable('gc');
-      } else {
-        virtualclass.user.control.disableCommonChat();
+      if (roles.isStudent()) {
+        if (value === true) {
+          virtualclass.user.control.allChatEnable('gc');
+        } else {
+          virtualclass.user.control.disableCommonChat();
+        }
       }
     },
 
@@ -275,67 +279,73 @@
     },
 
     raisehand(value) {
-      const raiseHand = document.querySelector('#congHr');
-      if (value === true) {
-        raiseHand.classList.remove('rsDisable');
-        raiseHand.classList.add('rsEnable');
-      } else {
-        raiseHand.classList.remove('rsEnable');
-        raiseHand.classList.add('rsDisable');
+      if (roles.isStudent()) {
+        const raiseHand = document.querySelector('#congHr');
+        if (value === true) {
+          raiseHand.classList.remove('rsDisable');
+          raiseHand.classList.add('rsEnable');
+        } else {
+          raiseHand.classList.remove('rsEnable');
+          raiseHand.classList.add('rsDisable');
+        }
       }
     },
-
     userlist(value) {
-      console.log('====> user list disabled 1');
-      const userList = document.querySelector('#memlist');
-      const searchUserInput = document.querySelector('#congchatBarInput #congreaUserSearch');
-      const vmlist = document.querySelector('.vmchat_bar_button');
-      if (userList !== null){
-        if (value === true) {
-          userList.classList.remove('hideList');
-          searchUserInput.classList.remove('hideInput');
-          vmlist.classList.remove('disable');
-        } else {
-          console.log('====> user list disabled 2');
-          userList.classList.add('hideList');
-          searchUserInput.classList.add('hideInput');
-          vmlist.classList.add('disable');
-          const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
-          vmchat.click();
+      if (roles.isStudent()) {
+        const userList = document.querySelector('#memlist');
+        if (userList !== null) {
+          const searchUserInput = document.querySelector('#congchatBarInput #congreaUserSearch');
+          const vmlist = document.querySelector('.vmchat_bar_button');
+          if (value === true) {
+            userList.classList.remove('hideList');
+            searchUserInput.classList.remove('hideInput');
+            vmlist.classList.remove('disable');
+          } else {
+            userList.classList.add('hideList');
+            searchUserInput.classList.add('hideInput');
+            vmlist.classList.add('disable');
+            const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
+            vmchat.click();
+          }
         }
       }
     },
 
-    attendeerecording() {
-      // console.log('TO DO');
+    attendeerecording(obj) {
+      virtualclass.settings.recordingSettings(obj);
     },
 
-    enableRecording() {
-      // console.log('TO DO');
+    enableRecording(obj) {
+      virtualclass.settings.recordingSettings(obj);
     },
 
-    recAllowpresentorAVcontrol() {
-      // console.log('TO DO');
+    recAllowpresentorAVcontrol(obj) {
+      virtualclass.settings.recordingSettings(obj);
     },
 
-    recShowPresentorRecordingStatus() {
-      // console.log('TO DO');
+    recShowPresentorRecordingStatus(obj) {
+      virtualclass.settings.recordingSettings(obj);
     },
 
-    attendeeAV() {
-      // console.log('TO DO');
+    attendeeAV(obj) {
+      virtualclass.settings.recordingSettings(obj);
     },
 
-    recallowattendeeAVcontrol() {
-      // console.log('TO DO');
+    recallowattendeeAVcontrol(obj) {
+      virtualclass.settings.recordingSettings(obj);
     },
 
-    showAttendeeRecordingStatus() {
-      // console.log('TO DO');
+    showAttendeeRecordingStatus(obj) {
+      virtualclass.settings.recordingSettings(obj);
     },
 
     x6() {
-      // console.log('TO DO');
+      console.log('TO DO');
+    },
+
+    recordingSettings(obj) {
+      const buttonStatus = virtualclass.settings.recording.recordingStatus(obj);
+      virtualclass.settings.recording.showRecordingButton(buttonStatus);
     },
 
     recording: {
@@ -346,7 +356,6 @@
         const buttonSettings = JSON.parse(localStorage.getItem('recordingButton'));
         if (buttonSettings === null) {
           this.recordingButton = this.recordingStatus();
-          localStorage.setItem('recordingButton', this.recordingButton);
         } else {
           this.recordingButton = buttonSettings;
         }
@@ -379,7 +388,10 @@
         }
       },
 
-      showRecordingButton() { // recording button button show or hide
+      showRecordingButton(buttonStatus) { // recording button button show or hide
+        if (typeof buttonStatus !== 'undefined') {
+          this.recordingButton = buttonStatus;
+        }
         const recordingButton = virtualclass.getTemplate('recordingButton');
         let context;
         switch (this.recordingButton) {
@@ -421,37 +433,43 @@
         }
       },
 
-      recordingStatus() {
-        if (!virtualclass.settings.info.enableRecording) {
+      recordingStatus(obj) {
+        let settingsInfo;
+        if (typeof obj !== 'undefined') {
+          settingsInfo = obj;
+        } else {
+          settingsInfo = virtualclass.settings.info;
+        }
+        if (!settingsInfo.enableRecording) {
           if (roles.hasControls()) {
-            if (virtualclass.settings.info.recShowPresentorRecordingStatus) {
+            if (settingsInfo.recShowPresentorRecordingStatus) {
               return 10;
             }
-          } else if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+          } else if (settingsInfo.showAttendeeRecordingStatus) {
             return 10;
           }
           return 0;
         }
         if (roles.hasControls()) {
-          if (virtualclass.settings.info.recAllowpresentorAVcontrol) {
+          if (settingsInfo.recAllowpresentorAVcontrol) {
             return 21;
           }
-          if (virtualclass.settings.info.recShowPresentorRecordingStatus) {
+          if (settingsInfo.recShowPresentorRecordingStatus) {
             return 20;
           }
           return 22;
         }
-        if (virtualclass.settings.info.attendeerecording) {
-          if (virtualclass.settings.info.attendeeAV) {
-            if (virtualclass.settings.info.recallowattendeeAVcontrol) {
+        if (settingsInfo.attendeerecording) {
+          if (settingsInfo.attendeeAV) {
+            if (settingsInfo.recallowattendeeAVcontrol) {
               return 21;
             }
-            if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+            if (settingsInfo.showAttendeeRecordingStatus) {
               return 20;
             }
             return 22;
           }
-          if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+          if (settingsInfo.showAttendeeRecordingStatus) {
             return 10;
           }
           return 0;
@@ -467,35 +485,37 @@
       },
 
       triggerSetting(message) {
-        if (!virtualclass.settings.info.attendeeAV) {
-          this.recordingButton = 0;
-          ioAdapter.setRecording();
-          this.showRecordingButton();
-          return;
-        }
-        switch (message.ac) {
-          case 11:
-            this.recordingButton = 10;
-            break;
-          case 21:
-            if (virtualclass.settings.info.recallowattendeeAVcontrol) {
-              if (this.attendeeButtonAction) {
-                this.recordingButton = 21;
-              } else {
-                this.recordingButton = 11;
-              }
-            } else {
-              this.recordingButton = 20;
-            }
-            break;
-          default:
+        if (roles.isStudent()) {
+          if (!virtualclass.settings.info.attendeeAV) {
+            this.recordingButton = 0;
+            ioAdapter.setRecording();
+            this.showRecordingButton();
             return;
-        }
+          }
+          switch (message.ac) {
+            case 11:
+              this.recordingButton = 10;
+              break;
+            case 21:
+              if (virtualclass.settings.info.recallowattendeeAVcontrol) {
+                if (this.attendeeButtonAction) {
+                  this.recordingButton = 21;
+                } else {
+                  this.recordingButton = 11;
+                }
+              } else {
+                this.recordingButton = 20;
+              }
+              break;
+            default:
+              return;
+          }
 
-        ioAdapter.setRecording();
-        localStorage.setItem('recordingButton', this.recordingButton);
-        if (virtualclass.settings.info.showAttendeeRecordingStatus) {
-          this.showRecordingButton();
+          ioAdapter.setRecording();
+          localStorage.setItem('recordingButton', this.recordingButton);
+          if (virtualclass.settings.info.showAttendeeRecordingStatus) {
+            this.showRecordingButton();
+          }
         }
       },
     },

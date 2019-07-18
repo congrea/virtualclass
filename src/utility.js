@@ -1538,7 +1538,7 @@
           }
         }
 
-        if (virtualclass.currApp == 'DocumentShare') {
+        if (virtualclass.currApp === 'DocumentShare') {
           if (!virtualclass.dts.noteExist()) {
             this.readyDashboard();
           } else {
@@ -2064,7 +2064,7 @@
     },
 
     setDefaultScroll() {
-      if (roles.hasControls() && virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare') {
+      if (roles.hasControls() && virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare') {
         const wb = virtualclass.gObj.currWb;
         if (wb != null && typeof virtualclass.pdfRender[wb] === 'object' && virtualclass.pdfRender[wb].canvasWrapper != null) {
           // Defualt scroll trigger
@@ -2074,16 +2074,7 @@
     },
 
     createWhiteBoard(wId) {
-      console.log('====> Creating whiteboard init ', wId);
-      // const args = ['Whiteboard', 'byclick', wId];
-      //const setting = { app: 'Whiteboard', cusEvent: 'byclick', data: wId};
-      // virtualclass.appInitiator.Whiteboard.apply(virtualclass, Array.prototype.slice.call(args));
       virtualclass.appInitiator.Whiteboard.call(virtualclass, { app: 'Whiteboard', cusEvent: 'byclick', data: wId });
-      const measureRes = virtualclass.system.measureResoultion({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-      // virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
     },
 
     createHashString(str) {

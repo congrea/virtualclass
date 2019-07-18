@@ -500,7 +500,7 @@
 
       isDocumentExist(docsObj) {
         if (typeof docsObj !== 'undefined') {
-          if (docsObj.init != 'layout' && docsObj.init != 'studentlayout') {
+          if (docsObj.init !== 'layout' && docsObj.init !== 'studentlayout') {
             return true;
           }
           return false;
@@ -888,47 +888,27 @@
          * @param slide expects the slide
          */
         createWhiteboard(slide) {
-          const cthis = virtualclass.dts;
           const wbid = `_doc_${slide}_${slide}`;
 
-          /**
-           * This canvas width and height is set for Screen 1280 * 1024
-           * The same dimension is using for image
-           */
+          // const whiteboard = document.createElement('div');
+          // whiteboard.className = 'whiteboard';
+          //
+          // whiteboard.dataset.wid = wbid;
+          // whiteboard.id = `cont${whiteboard.dataset.wid}`;
+          //
+          // const query = `.note[data-slide='${slide}']`;
+          // const elem = document.querySelector(query);
+          // if (elem != null) {
+          //   elem.insertBefore(whiteboard, elem.firstChild);
+          //   console.log('##==jai 3b ', slide);
+          //   virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
+          // }
 
-          /** * width and height handling ** */
-
-          // var res = virtualclass.system.measureResoultion({'width': window.innerWidth, 'height': window.innerHeight});
-
-          const canvasWidth = 730;
-          const canvasHeight = 750;
-
-          // cthis.setNoteDimension(canvasWidth, canvasHeight, wbid);
-          // console.log('Create Whiteboard ');
-
-          // console.log(`${virtualclass.gObj.currWb} ` + 'document share Create Whiteboard ');
-          const whiteboard = document.createElement('div');
-          whiteboard.className = 'whiteboard';
-
-          whiteboard.dataset.wid = wbid;
-          whiteboard.id = `cont${whiteboard.dataset.wid}`;
-
-          // document.querySelector("[data-doc='1'] .slide[data-slide='1']");
-
-          const query = `.note[data-slide='${slide}']`;
-          const elem = document.querySelector(query);
-          if (elem != null) {
-            elem.insertBefore(whiteboard, elem.firstChild);
-            virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
-          } else {
-            // console.log('Element is null');
-          }
-          // console.log('==== previous set ', virtualclass.dtsConfig.id);
+          virtualclass.vutil.createWhiteBoard(wbid);
           virtualclass.previous = virtualclass.dtsConfig.id;
         },
 
         /**
-         *
          * @param thslide represents the slide/note
          *
          */
@@ -1141,58 +1121,28 @@
             },
 
             /**
-             * Create the screen with Whiteboard and Current thslide
+             * Create the screen with Whiteboard and Current slide
              */
-            getScreen(note, userClicked) {
-              // if(typeof virtualclass.gObj.currWb != 'undefined' && virtualclass.gObj.currWb != null){
-              //   if(note.nextElementSibling != null){
-              //      var preFetchSlide =  note.nextElementSibling.dataset.thslide;
-              //      virtualclass.pdfRender[virtualclass.gObj.currWb].prefechPdf(preFetchSlide);
-              //     }
-              // }
-              console.log('##==jai get screen id ' + note.id);
-
+            getScreen(note) {
+              console.log('====> document shareing 4d');
               this.currSlide = note.dataset.slide;
               this.currNote = note.dataset.slide;
               virtualclass.dts.currDoc = this.doc;
-
               this.slideTo(note);
-
-              // todo, critical that's need to be enable and handle properly
-              // if (virtualclass.wb[virtualclass.gObj.currWb] != null) {
-              //   console.log(`whiteboard ============ ${virtualclass.wb[virtualclass.gObj.currWb].gObj.queue.length}`);
-              // }
-
-              //
-              // if (virtualclass.wb[virtualclass.gObj.currWb] != null && virtualclass.wb[virtualclass.gObj.currWb].gObj.queue.length > 0) {
-              //   virtualclass.gObj.tempQueue[virtualclass.gObj.currWb] = virtualclass.wb[virtualclass.gObj.currWb].gObj.queue;
-              // }
-
-              console.log('##==jai create whiteboard ' + this.currNote);
 
               if (!this.isWhiteboardExist(this.currNote)) {
                 virtualclass.dts.docs.createWhiteboard(this.currNote);
-                // virtualclass.dts.docs.createWhiteboard(this.currNote);
-
-              } else if (this.isWhiteboardExist(this.currNote) && !this.isPdfRendered(this.currNote)) {
-                // console.log('Delete whiteboard');
-                // delete virtualclass.wb[virtualclass.gObj.currWb];
-                // console.log("JAI ", virtualclass.gObj.currWb);
-                // virtualclass.dts.docs.createWhiteboard(this.currNote);
-              } else {
-                // If there is a zoom, that needs to apply at in next/previous screen,
-                // virtualclass.zoom.normalRender();
-                // virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
-
-                // virtualclass.zoom.zoomAction('fitToScreen');
-                console.log('====> get screen fail to load', this.currNote);
               }
 
               virtualclass.vutil.updateCurrentDoc(this.currNote);
               virtualclass.dts.updateLinkNotes(this.currNote);
+              this.identifyFirstAndLastNote(note.id);
 
-              const isFirstNote = virtualclass.dts.isFirstNote(note.id);
-              const isLastNote = virtualclass.dts.isLastNote(note.id);
+            },
+
+            identifyFirstAndLastNote (noteId) {
+              const isFirstNote = virtualclass.dts.isFirstNote(noteId);
+              const isLastNote = virtualclass.dts.isLastNote(noteId);
 
               const notesContainer = document.querySelector('#screen-docs .pageContainer');
 
@@ -1210,6 +1160,7 @@
                 notesContainer.classList.remove('lastNote');
               }
             },
+
             /**
              * this expects the the whiteboard related to thslide
              * is exist or not
@@ -1262,8 +1213,7 @@
        */
       onmessage(e) {
         if (typeof virtualclass.dts !== 'object') {
-          // virtualclass.makeAppReady('DocumentShare', undefined, { init: 'studentlayout' });
-          virtualclass.makeAppReady({app: 'DocumentShare', data: { init: 'studentlayout' } });
+          virtualclass.makeAppReady({ app: 'DocumentShare', data: { init: 'studentlayout' } });
         }
         const { dts } = e.message;
         if (Object.prototype.hasOwnProperty.call(dts, 'docn') && dts.docn.indexOf('docs') == -1) {

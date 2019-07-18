@@ -1,7 +1,7 @@
 (function (window) {
   window.virtualclass = function () {
     /** TODO, this below data should be move into config ** */
-    const dstData = null;
+    // const dstData = null;
     const playMode = (wbUser.virtualclassPlay != '' ? parseInt(wbUser.virtualclassPlay, 10) : 0);
     let studentSSstatus = localStorage.getItem('studentSSstatus');
     if (studentSSstatus != null) {
@@ -499,7 +499,7 @@
             }
 
             if (typeof appId !== 'undefined') {
-              if (appId.toUpperCase() == 'EDITORRICH') {
+              if (appId.toUpperCase() === 'EDITORRICH') {
                 const editorCode = document.getElementById('virtualclassEditorCode');
                 if (editorCode != null) {
                   editorCode.style.display = 'none';
@@ -590,8 +590,9 @@
             this.appInitiator[app].call(virtualclass, setting);
           }
         } else if (app === 'DocumentShare') {
-          // this.appInitiator[app].apply(virtualclass, Array.prototype.slice.call(arguments));
+          console.log('====> document shareing 2');
           this.appInitiator[app].call(virtualclass, setting);
+          console.log('====> document shareing 3');
           if (roles.hasControls()) {
             if (!virtualclass.serverData.syncComplete) {
               virtualclass.vutil.triggerDashboard(app);
@@ -601,6 +602,7 @@
                * shows the popup Dashboard later
                */
               virtualclass.vutil.triggerDashboard(app, 'hidepopup');
+              console.log('====> document shareing 4');
             }
           }
 
@@ -703,20 +705,38 @@
         }
         virtualclass.wbCommon.initNav(virtualclass.orderList.Whiteboard.ol);
         if (roles.hasControls()) {
-            if (virtualclass.gObj.wbRearrang) {
-              //virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order);
-              // virtualclass.wbCommon.rearrange(virtualclass.orderList[virtualclass.currApp].ol.order);
-              // todo Check Here.
-              virtualclass.wbCommon.indexNav.addActiveNavigation(data);
-            }
-            virtualclass.wbCommon.identifyFirstNote(data);
-            virtualclass.wbCommon.identifyLastNote(data);
+          if (virtualclass.gObj.wbRearrang) {
+            //virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order);
+            // virtualclass.wbCommon.rearrange(virtualclass.orderList[virtualclass.currApp].ol.order);
+            // todo Check Here.
+            virtualclass.wbCommon.indexNav.addActiveNavigation(data);
           }
+          virtualclass.wbCommon.identifyFirstNote(data);
+          virtualclass.wbCommon.identifyLastNote(data);
+        }
+      },
+
+      whitboardWrapper(wbId) {
+        console.log('=== Whiteboard wrapper ', wbId);
+        const whiteboard = document.createElement('div');
+        whiteboard.className = 'whiteboard';
+
+        whiteboard.dataset.wid = wbId;
+        whiteboard.id = `cont${whiteboard.dataset.wid}`;
+        const params = wbId.split('_');
+        const slide = `${params[2]}_${params[3]}`;
+
+        const query = `.note[data-slide='${slide}']`;
+        const elem = document.querySelector(query);
+        if (elem != null) {
+          elem.insertBefore(whiteboard, elem.firstChild);
+          console.log('##==jai 3b ', slide);
+          // virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
+        }
       },
 
       // Helper functions for making the app is ready
       appInitiator: {
-       // Whiteboard(app, cusEvent, id, container){
         Whiteboard(setting){
           let app;
           let cusEvent;
@@ -739,6 +759,8 @@
             container = setting.container;
           }
 
+          console.log('##==jai 3c ', virtualclass.gObj.currWb);
+
           virtualclass.gObj.currWb = id;
           console.log('====> current whiteboard ', virtualclass.gObj.currWb);
           if (this.orderList[app].ol.order.indexOf(virtualclass.gObj.currWb) <= -1) {
@@ -751,22 +773,32 @@
 
           if (virtualclass.isPlayMode) {
             virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
+              if (virtualclass.currApp === 'DocumentShare') {
+                this.whitboardWrapper(id);
+              }
               this.appInitiator.whiteboardActual.call(this, app, cusEvent, id, container);
               virtualclass.gObj.getDocumentTimer = false;
             }, 100);
           } else if (virtualclass.gObj.getDocumentTimer == null || virtualclass.gObj.getDocumentTimer === false) {
             virtualclass.gObj.getDocumentTimer = true;
+            if (virtualclass.currApp === 'DocumentShare') {
+              this.whitboardWrapper(id);
+            }
             this.appInitiator.whiteboardActual.call(this, app, cusEvent, id, container);
             virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
               virtualclass.gObj.getDocumentTimer = false;
             }, 1000);
           } else {
             virtualclass.gObj.getDocumentTimeout = setTimeout(() => {
+              if (virtualclass.currApp === 'DocumentShare') {
+                this.whitboardWrapper(id);
+              }
               this.appInitiator.whiteboardActual.call(this, app, cusEvent, id, container);
               virtualclass.gObj.getDocumentTimer = false;
             }, 300);
           }
         },
+
 
         whiteboardActual(app, cusEvent, id, container) {
           console.log('##==jai, whiteboard actual ' + id);
@@ -1096,38 +1128,44 @@
 
         // DocumentShare(app, customEvent, docsObj) {
           DocumentShare(setting) {
-
+          let app;
+          let data;
           if (setting.app) {
             app = setting.app;
           }
 
-          if (setting.cusEvent) {
-            customEvent = setting.cusEvent;
-          }
+          // if (setting.cusEvent) {
+          //   customEvent = setting.cusEvent;
+          // }
 
           if (setting.data) {
-            docsObj = setting.data;
+            data = setting.data;
           }
 
           if (!Object.prototype.hasOwnProperty.call(virtualclass, 'dts') || virtualclass.dts == null) {
             virtualclass.dts = window.documentShare();
           } else {
+            console.log('====> document shareing 2b');
             virtualclass.dts.indexNav.init();
+            if (data != null && data.slideTo) {
+              const note = document.getElementById(data.slideTo);
+              virtualclass.dts.docs.note.getScreen(note);
+            }
           }
 
-          const args = [];
-
-          if (typeof app !== 'undefined') {
-            args.push(app);
-          }
-
-          if (typeof customEvent !== 'undefined') {
-            args.push(customEvent);
-          }
-
-          if (typeof docsObj !== 'undefined') {
-            args.push(docsObj);
-          }
+          // const args = [];
+          //
+          // if (typeof app !== 'undefined') {
+          //   args.push(app);
+          // }
+          //
+          // if (typeof customEvent !== 'undefined') {
+          //   args.push(customEvent);
+          // }
+          //
+          // if (typeof docsObj !== 'undefined') {
+          //   args.push(docsObj);
+          // }
 
           if (typeof virtualclass.dts.indexNav === 'undefined') {
             virtualclass.dts.indexNav = new virtualclass.pageIndexNav('documentShare');
@@ -1135,6 +1173,7 @@
 
 
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'docs')) {
+            console.log('====> document shareing 2c');
             virtualclass.appInitiator.makeReadyDocumentShare();
             virtualclass.vutil.initDashboardNav();
 
@@ -1143,13 +1182,14 @@
               const dashboardnav = document.querySelector('#dashboardnav button');
               if (dashboardnav != null) {
                 // TODO, Need to enable later
+                console.log('====> document shareing 2d');
                 dashboardnav.click();
               }
             }
 
-            if (dstData != null) {
-              clearTimeout(dstData);
-            }
+            // if (dstData != null) {
+            //   clearTimeout(dstData);
+            // }
 
             if (virtualclass.gObj.currWb != null && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] !== 'undefined'
               && virtualclass.currApp === 'DocumentShare' && Object.prototype.hasOwnProperty.call(virtualclass.pdfRender[virtualclass.gObj.currWb], 'page')
@@ -1241,12 +1281,20 @@
             }
             // console.log('==== DST init makeAppReady');
             // this.makeAppReady(appName, 'byclick');
+            const setting = { app: appName, cusEvent: 'byclick' };
             if (appName === 'Whiteboard') {
-              const wbId = document.querySelector('#virtualclassWhiteboard .canvasContainer.current').dataset.wbId;
-              this.makeAppReady({ app: appName, data:wbId, cusEvent: 'byclick'});
-            } else {
-              this.makeAppReady({ app: appName, cusEvent: 'byclick'});
+              setting.data = document.querySelector('#virtualclassWhiteboard .canvasContainer.current').dataset.wbId;
+            } else if (appName === 'DocumentShare') {
+              const currentNoteElem = document.querySelector('#screen-docs .note.current');
+              if (currentNoteElem !== null) {
+                const currentNote = `_doc_${currentNoteElem.dataset.slide}_${currentNoteElem.dataset.slide}`;
+                if (typeof virtualclass.pdfRender[currentNote] !== 'object') {
+                  setting.data = { slideTo: currentNoteElem.id };
+                }
+              }
             }
+
+            this.makeAppReady(setting);
             setTimeout(
               () => {
                 virtualclass.gObj.screenRh = 60;

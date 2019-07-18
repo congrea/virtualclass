@@ -248,10 +248,8 @@ const receiveFunctions = new function () {
 
   // documnetation sharing
   this.dts = function (e) {
-    // virtualclass.dts.onmessage(e);
-    // console.log(`Document share :- message received ${e.message.serial}`);
-    // console.dir(e.message.dts);
     if (Object.prototype.hasOwnProperty.call(e.message.dts, 'init')) {
+      console.log('====> document shareing 1');
       virtualclass.gObj.screenRh = 100;
       // virtualclass.makeAppReady('DocumentShare', undefined, e.message.dts);
       virtualclass.makeAppReady({ app: 'DocumentShare', data: e.message.dts });

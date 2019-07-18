@@ -1289,23 +1289,23 @@
         }
       },
 
-      sendCurrentSlide() {
-        if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
-          const doc = virtualclass.dts.docs.currDoc;
-          if (doc != undefined) {
-            if (document.querySelector('#listnotes .note') != null) {
-              // console.log('==== dts must send ');
-              ioAdapter.mustSend({
-                dts: { slideTo: virtualclass.dts.docs.note.currNote, docn: doc },
-                cf: 'dts',
-              });
-              // console.log(`${virtualclass.gObj.currWb} ` + 'Document share send current slide');
-            }
-          } else {
-            // console.log('Document sharing : doc number is undefined');
-          }
-        }
-      },
+      // sendCurrentSlide() {
+      //   if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
+      //     const doc = virtualclass.dts.docs.currDoc;
+      //     if (doc != undefined) {
+      //       if (document.querySelector('#listnotes .note') != null) {
+      //         // console.log('==== dts must send ');
+      //         ioAdapter.mustSend({
+      //           dts: { slideTo: virtualclass.dts.docs.note.currNote, docn: doc },
+      //           cf: 'dts',
+      //         });
+      //         // console.log(`${virtualclass.gObj.currWb} ` + 'Document share send current slide');
+      //       }
+      //     } else {
+      //       // console.log('Document sharing : doc number is undefined');
+      //     }
+      //   }
+      // },
 
       sendCurrentDoc() {
         if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {

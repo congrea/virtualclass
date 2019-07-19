@@ -811,7 +811,7 @@
         },
 
 
-        whiteboardActual(app, cusEvent, id) {
+          whiteboardActual(app, cusEvent, id) {
           console.log('##==jai, whiteboard actual ' + id);
           let vcan;
           if (typeof this.ss === 'object') {

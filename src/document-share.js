@@ -29,7 +29,6 @@
           virtualclass.serverData.syncAllData();
         }
         await this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
-        (virtualclass.dts.noteExist()) ? virtualclass.modal.hideModal() : virtualclass.modal.showModal();
       },
 
       moveProgressbar() {
@@ -171,6 +170,7 @@
             this.executeOrder(virtualclass.gObj.docOrder.docs);
           }
         }
+        (virtualclass.dts.noteExist()) ? virtualclass.modal.hideModal() : virtualclass.modal.showModal();
       },
 
       rawToProperData(docs) {
@@ -211,6 +211,7 @@
             if (response === 'Failed' || response === 'Error') {
               // console.log('page order retrieve failed');
               $('#congdashboard').modal();
+              console.log('Congrea dashboard here');
               // console.log(`dashboard length ${$('#congdashboard').length}`);
               virtualclass.dashBoard.clickCloseButton();
             } else if (response && roles.hasAdmin()) {

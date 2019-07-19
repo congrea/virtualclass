@@ -38,12 +38,14 @@
       const db = document.querySelector('#congdashboard');
       if (db) {
         db.className = 'modal fade';
+        console.log('Congrea dashboard here close');
       }
     },
     showModal() {
       const db = document.querySelector('#congdashboard');
       if (db) {
         db.className = 'modal in';
+        console.log('Congrea dashboard here open');
       }
     },
 

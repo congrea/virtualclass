@@ -347,8 +347,10 @@
           }
           console.log('==== video player ready dispose');
           // virtualclass.videoUl.player.dispose();
+        
           virtualclass.videoUl.destroyPlayer();
         }
+          
       },
 
 
@@ -552,6 +554,7 @@
       destroyPlayer() {
         virtualclass.videoUl.player.dispose();
         delete virtualclass.videoUl.player;
+        this.UI.attachPlayer = false;
         console.log('====> Video player is finished end <======', virtualclass.videoUl.player);
       },
 
@@ -890,6 +893,7 @@
         attachPlayerHandler(player) {
           if (!this.attachPlayer) {
             this.attachPlayer = true;
+            console.log('====> video attaching the player');
             // console.log('Attach video player');
             player.on('pause', (e) => {
               // console.log('paused');
@@ -901,6 +905,7 @@
 
             // console.log('====> seek play init ');
             player.on('play', (e) => {
+              console.log('====> video play on');
               if (roles.hasControls()) {
                 ioAdapter.mustSend({ videoUl: { play: player.currentTime() }, cf: 'videoUl', videoTime: virtualclass.vutil.localToUTC() });
               }

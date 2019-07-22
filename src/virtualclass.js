@@ -811,7 +811,7 @@
         },
 
 
-          whiteboardActual(app, cusEvent, id) {
+        whiteboardActual(app, cusEvent, id) {
           console.log('##==jai, whiteboard actual ' + id);
           let vcan;
           if (typeof this.ss === 'object') {
@@ -1016,7 +1016,7 @@
           // this.dispvirtualclassLayout(virtualclass.ytsConfig.id);
           // if there is not already sharing the youtube video
           if (typeof videoObj !== 'undefined' && videoObj != null) {
-            virtualclass.yts.init(videoObj, videoObj.startFrom);
+            virtualclass.yts.init(videoObj);
           } else {
             // only display the layout if youtube is not sharing
             if (document.querySelector('iframe#player') == null) {
@@ -1067,7 +1067,7 @@
         Video(app, custEvent, videoObj) {
           if (typeof videoObj !== 'undefined' && videoObj != null) {
             if (typeof videoObj.type === 'undefined') {
-              virtualclass.videoUl.init(videoObj, videoObj.startFrom);
+              virtualclass.videoUl.init(videoObj);
             } else if (videoObj.type == 'video_yts') {
               virtualclass.videoUl.init();
               // virtualclass.yts.init(videoObj, videoObj.startFrom);

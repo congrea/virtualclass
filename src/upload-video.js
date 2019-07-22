@@ -22,8 +22,6 @@
        * video
        * Call to the function to create player object
        * @param  videoObj
-       * @param  startFrom the position from where to start playing video in second
-
        */
       init() {
         this.videoInit = true;
@@ -347,10 +345,10 @@
           }
           console.log('==== video player ready dispose');
           // virtualclass.videoUl.player.dispose();
-        
+
           virtualclass.videoUl.destroyPlayer();
         }
-          
+
       },
 
 
@@ -479,7 +477,7 @@
           } else if (Object.prototype.hasOwnProperty.call(msg.videoUl.init, 'videoUrl')) {
             virtualclass.videoUl.videoId = msg.videoUl.init.id;
             virtualclass.videoUl.videoUrl = msg.videoUl.init.videoUrl;
-            virtualclass.videoUl.UI.displayVideo(msg.videoUl.init.id, msg.videoUl.init.videoUrl, msg.videoUl.startFrom);
+            virtualclass.videoUl.UI.displayVideo(msg.videoUl.init.id, msg.videoUl.init.videoUrl);
           }
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'content_path')) {
           virtualclass.videoUl.videoId = msg.videoUl.id;
@@ -840,7 +838,7 @@
           cont.appendChild(list);
         },
 
-        displayVideo(vidId, videoUrl, startFrom) {
+        displayVideo(vidId, videoUrl) {
           if (typeof virtualclass.videoUl.player === 'object') {
             if (Object.prototype.hasOwnProperty.call(virtualclass.videoUl.player, 'dispose')) {
               // virtualclass.videoUl.player.dispose();
@@ -863,11 +861,11 @@
           }
 
           virtualclass.videoUl.UI.switchDisplay(videoPlayerCont, videoUrl);
-          virtualclass.videoUl.UI.videojsPlayer(videoUrl, vidId, startFrom);
+          virtualclass.videoUl.UI.videojsPlayer(videoUrl, vidId);
           virtualclass.modal.hideModal();
         },
 
-        videojsPlayer(videoUrl, vidId, startFrom) {
+        videojsPlayer(videoUrl, vidId) {
           if (!virtualclass.videoUl.player) {
             virtualclass.videoUl.player = videojs('dispVideo'); // TODO, generating error need to handle
             console.log('====> Video player is ready <====== 0');
@@ -886,8 +884,8 @@
             virtualclass.videoUl.UI.attachPlayerHandler(virtualclass.videoUl.player, vidId, videoUrl);
           }
           virtualclass.videoUl.lastSeek = 0;
-          // virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
-          virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl, startFrom);
+          virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
+          virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl);
         },
 
         attachPlayerHandler(player) {
@@ -954,12 +952,8 @@
           vn.appendChild(a);
         },
 
-        setPlayerUrl(player, videoUrl, startFrom) {
+        setPlayerUrl(player, videoUrl) {
           console.log('====> Video 0 start');
-          if (startFrom == undefined && virtualclass.videoUl.startTime) {
-            startFrom = virtualclass.videoUl.startTime;
-          }
-
           if (player.poster_) {
             player.poster_ = '';
           }
@@ -1036,32 +1030,33 @@
         },
         onEndedHandler(player, vidId, videoUrl) {
           player.off('ended');
-          player.on('ended', (e) => {
-            virtualclass.videoUl.UI.onEnded(player, vidId, videoUrl);
+          player.on('ended', () => {
+            console.log('====> on ended video ');
+            // virtualclass.videoUl.UI.onEnded(player, vidId, videoUrl);
+            virtualclass.videoUl.UI.onEnded(player, vidId);
           });
         },
 
+        // onEnded(player, vidId, videoUrl) {
         onEnded(player, vidId, videoUrl) {
           // player.reset();
-          const dispVideo = document.querySelector('#dispVideo');
-          if (virtualclass.videoUl.yts) {
-            dispVideo.setAttribute('data-setup', '{ techOrder: [youtube],controls: true,}');
-            player.src({ type: 'video/youtube', src: videoUrl });
-          } else if (virtualclass.videoUl.online) {
-            dispVideo.setAttribute('data-setup', '{"preload": "auto", "controls": true, }');
-            player.src({ type: 'video/webm', src: videoUrl });
-            player.src({ type: 'video/mp4', src: videoUrl });
-          } else {
-            dispVideo.setAttribute('data-setup', '{"preload": "auto", "controls": true, }');
-            player.src({ type: 'application/x-mpegURL', withCredentials: true, src: videoUrl });
-          }
-          // console.log(`ended${vidId}`);
-
+          // const dispVideo = document.querySelector('#dispVideo');
+          // if (virtualclass.videoUl.yts) {
+          //   dispVideo.setAttribute('data-setup', '{ techOrder: [youtube],controls: true,}');
+          //   player.src({ type: 'video/youtube', src: videoUrl });
+          // } else if (virtualclass.videoUl.online) {
+          //   dispVideo.setAttribute('data-setup', '{"preload": "auto", "controls": true, }');
+          //   player.src({ type: 'video/webm', src: videoUrl });
+          //   player.src({ type: 'video/mp4', src: videoUrl });
+          // } else {
+          //   dispVideo.setAttribute('data-setup', '{"preload": "auto", "controls": true, }');
+          //   player.src({ type: 'application/x-mpegURL', withCredentials: true, src: videoUrl });
+          // }
 
           const list = document.querySelectorAll('#listvideo .linkvideo');
           let index = 0;
           for (let i = 0; i < list.length; i++) {
-            if (list[i].getAttribute('data-rid') == vidId) {
+            if (list[i].getAttribute('data-rid') === vidId) {
               index = i;
               break;
             }

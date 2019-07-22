@@ -143,27 +143,25 @@ const receiveFunctions = new function () {
     // virtualclass.vutil.createWhiteBoard(`_doc_${e.message.d}`);
   };
   this.ppt = function (e) {
-    if (e.fromUser.userid != virtualclass.gObj.uid) {
-      if (Object.prototype.hasOwnProperty.call(e.message, 'init')) {
+    if (Object.prototype.hasOwnProperty.call(e.message, 'init')) {
+      // virtualclass.makeAppReady(virtualclass.apps.sp);
+      virtualclass.makeAppReady({ app: virtualclass.apps.sp });
+    } else {
+      if (typeof virtualclass.sharePt !== 'object') {
+        // If virtualclass.ssharePt is not ready at participate side, then we
+        // will create it first then only proceed to next ppt packet
         // virtualclass.makeAppReady(virtualclass.apps.sp);
         virtualclass.makeAppReady({ app: virtualclass.apps.sp });
-      } else {
-        if (typeof virtualclass.sharePt !== 'object') {
-          // If virtualclass.ssharePt is not ready at participate side, then we
-          // will create it first then only proceed to next ppt packet
-          // virtualclass.makeAppReady(virtualclass.apps.sp);
-          virtualclass.makeAppReady({ app: virtualclass.apps.sp });
-          virtualclass.sharePt.onmessage({
-            pptMsg: e.message.ppt.init,
-            cf: 'ppt',
-            user: 'all',
-            cfpt: 'setUrl',
-          });
-        }
-        virtualclass.sharePt.onmessage(e.message);
+        virtualclass.sharePt.onmessage({
+          pptMsg: e.message.ppt.init,
+          cf: 'ppt',
+          user: 'all',
+          cfpt: 'setUrl',
+        });
       }
+      virtualclass.sharePt.onmessage(e.message);
     }
-  };
+ };
 
   // unshare schreen
   this.unshareScreen = function (e) {

@@ -1036,6 +1036,8 @@
         },
 
         SharePresentation(setting) {
+          let app;
+          let cusEvent
           if (setting.app) {
             app = setting.app;
           }

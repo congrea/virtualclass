@@ -862,7 +862,8 @@
 
           virtualclass.videoUl.UI.switchDisplay(videoPlayerCont, videoUrl);
           virtualclass.videoUl.UI.videojsPlayer(videoUrl, vidId);
-          virtualclass.modal.hideModal();
+          // virtualclass.modal.hideModal();
+          virtualclass.dashBoard.close();
         },
 
         videojsPlayer(videoUrl, vidId) {

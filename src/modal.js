@@ -35,17 +35,18 @@
       }
     },
     hideModal() {
-      const db = document.querySelector('#congdashboard');
+		  const db = document.querySelector('#congdashboard');
       if (db) {
+        console.log('====> modal hide modal ', virtualclass.currApp);
         db.className = 'modal fade';
-        console.log('Congrea dashboard here close');
       }
     },
+
     showModal() {
-      const db = document.querySelector('#congdashboard');
+		  const db = document.querySelector('#congdashboard');
       if (db) {
         db.className = 'modal in';
-        console.log('Congrea dashboard here open');
+        console.log('====> modal show ', virtualclass.currApp);
       }
     },
 

@@ -520,7 +520,7 @@ let globalImageData = {};
       },
 
       showDashboard() {
-        virtualclass.vutil.initDashboardNav();
+        virtualclass.dashBoard.initDashboardNav();
         if (virtualclass.currApp === 'Video') {
           ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
           ioAdapter.mustSend({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' });

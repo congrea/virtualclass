@@ -651,30 +651,16 @@
         if (roles.hasControls()) {
           const currVideo = Array.prototype.slice.call(arguments)[2];
           if (app !== 'ScreenShare' && (virtualclass.currApp === 'SharePresentation' || (virtualclass.currApp === 'Video'))) {
-            virtualclass.vutil.initDashboardNav(currVideo);
-            if (virtualclass.currApp === 'Video') {
-              // console.log(`currApp ${virtualclass.currApp}`);
-            } else if (!(virtualclass.sharePt.localStoragFlag)) {
-              const dashboardnav = document.querySelector('#dashboardnav button');
-              if (dashboardnav !== null) {
-                dashboardnav.click();
-              }
-            }
-          } else if (virtualclass.currApp !== 'DocumentShare' && virtualclass.currApp !== 'SharePresentation') {
+            virtualclass.dashBoard.initDashboardNav(currVideo);
+          } else if (virtualclass.currApp !== 'DocumentShare') {
             virtualclass.vutil.removeDashboardNav();
-          }
-          if (virtualclass.currApp !== 'SharePresentation') {
-            const playing = document.querySelector('#listppt .playing');
-            if (playing) {
-              playing.classList.remove('playing');
-            }
           }
         }
       },
 
       // TODO, this and app inittiator should be merged
 
-      handleWhiteboardReady (app, cusEvent, data) {
+      handleWhiteboardReady(app, cusEvent, data) {
         console.log('=====> Handle whiteboard ');
         // const args = [];
         // for (let i = 0; i < cargs.length; i++) {
@@ -1139,18 +1125,8 @@
 
         },
 
-        // DocumentShare(app, customEvent, docsObj) {
-          DocumentShare(setting) {
-          let app;
+        DocumentShare(setting) {
           let data;
-          if (setting.app) {
-            app = setting.app;
-          }
-
-          // if (setting.cusEvent) {
-          //   customEvent = setting.cusEvent;
-          // }
-
           if (setting.data) {
             data = setting.data;
           }
@@ -1172,20 +1148,6 @@
             }
           }
 
-          // const args = [];
-          //
-          // if (typeof app !== 'undefined') {
-          //   args.push(app);
-          // }
-          //
-          // if (typeof customEvent !== 'undefined') {
-          //   args.push(customEvent);
-          // }
-          //
-          // if (typeof docsObj !== 'undefined') {
-          //   args.push(docsObj);
-          // }
-
           if (typeof virtualclass.dts.indexNav === 'undefined') {
             virtualclass.dts.indexNav = new virtualclass.pageIndexNav('documentShare');
           }
@@ -1194,7 +1156,7 @@
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'docs')) {
             console.log('====> document shareing 2c');
             virtualclass.appInitiator.makeReadyDocumentShare();
-            virtualclass.vutil.initDashboardNav();
+            virtualclass.dashBoard.initDashboardNav();
 
 
             if (!virtualclass.serverData.syncComplete && !virtualclass.dts.noteExist()) {
@@ -1265,6 +1227,7 @@
       },
 
       initlizer(elem) {
+        console.log('====> modal trigger');
         let appName = elem.parentNode.id.split('virtualclass')[1];
         if (appName === 'SessionEndTool') {
           virtualclass.popup.confirmInput(virtualclass.lang.getString('startnewsession'),

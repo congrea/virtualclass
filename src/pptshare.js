@@ -350,9 +350,9 @@
 
       actualPptMessageEventHandler(event) {
         console.log('====> PPT SLIDE receive ', event.data);
+        console.log('====> dashboard init 2');
         if (virtualclass.currApp === 'SharePresentation') {
           const pptData = (typeof event.data === 'string') ? JSON.parse(event.data) : event.data;
-
           if (typeof pptData !== 'undefined') {
             if (Object.prototype.hasOwnProperty.call(pptData, 'namespace') && pptData.namespace === 'reveal') {
               this.state = pptData.state;
@@ -371,7 +371,7 @@
               && (this.isPptEventDefined(pptData) && (!this.lastSlideChanged
               || (this.lastSlideChanged && (this.isVerticalSlideChanged(pptData)
               || this.isHorizontalSlideChanged(pptData)))))) {
-              // Send slide only if difference between changed and recevied slide
+              // Send slide only if there is difference between changed and recevied slide
               this[pptData.eventName].call(this, pptData);
               this.state = pptData.state;
               delete this.lastSlideChanged;
@@ -536,13 +536,13 @@
       },
       // custom function presentation
       cfpt: {
-        displayFrame() {
+        displayframe() {
           this.displayFrame();
         },
 
         setUrl(receivemsg) {
           console.log('====> PPT SLIDE SET URL 2');
-          virtualclass.sharePt.localStoragFlag = 0;
+          // virtualclass.sharePt.localStoragFlag = 0;
           virtualclass.sharePt.stateLocalStorage = {};
           virtualclass.sharePt.state = { indexh: 0, indexv: 0, indexf: 0 };
           this.setSlideUrl(receivemsg);
@@ -624,7 +624,6 @@
             msgLayout.style.display = 'none';
           }
 
-
           if (Object.prototype.hasOwnProperty.call(receivemsg, 'cfpt') && typeof receivemsg.cfpt !== 'undefined'
             && typeof virtualclass.sharePt.cfpt[receivemsg.cfpt] !== 'undefined') {
             virtualclass.sharePt.cfpt[receivemsg.cfpt].call(virtualclass.sharePt, receivemsg);
@@ -639,11 +638,12 @@
       displayFrame() {
         console.log('====> PPT SLIDE UI CREATE 2');
         // virtualclass.sharePt.localStoragFlag=0;
-        virtualclass.system.setAppDimension(virtualclass.currApp);
         const pptContainer = document.getElementById(virtualclass.sharePt.UI.id);
         if (!pptContainer.classList.contains('pptSharing')) {
           pptContainer.classList.add('pptSharing');
+          virtualclass.dashBoard.close();
         }
+
       },
       /*
        * Set url of the slide at student's side
@@ -671,7 +671,7 @@
           this.pptUrl = receivemsg.pptMsg;
         }
 
-        virtualclass.sharePt.localStoragFlag = 0;
+        // virtualclass.sharePt.localStoragFlag = 0;
         virtualclass.sharePt.startFromFlag = 0;
       },
       /*
@@ -1033,7 +1033,7 @@
       playPptUrl(vUrl) {
         virtualclass.sharePt.autoSlideTime = 0;
         virtualclass.sharePt.autoSlideFlag = 0;
-        virtualclass.sharePt.localStoragFlag = 0;
+        // virtualclass.sharePt.localStoragFlag = 0;
         virtualclass.sharePt.startFromFlag = 0;
 
         virtualclass.sharePt.eventsObj = [];

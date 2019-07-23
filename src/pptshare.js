@@ -335,68 +335,64 @@
         }
       },
 
-      
+
       /*
        * Set the autoslide configation value from local storage to iniline variables
        */
+      isPptEventDefined(pptData) {
+        return (typeof pptData.eventName !== 'undefined'
+        && typeof virtualclass.sharePt[pptData.eventName] !== 'undefined');
+      },
+
       pptMessageEventHandler(event) {
-        const frame = document.getElementById('pptiframe');
+        virtualclass.sharePt.actualPptMessageEventHandler(event);
+      },
+
+      actualPptMessageEventHandler(event) {
+        console.log('====> PPT SLIDE receive ', event.data);
         if (virtualclass.currApp === 'SharePresentation') {
           const pptData = (typeof event.data === 'string') ? JSON.parse(event.data) : event.data;
 
           if (typeof pptData !== 'undefined') {
             if (Object.prototype.hasOwnProperty.call(pptData, 'namespace') && pptData.namespace === 'reveal') {
-              virtualclass.sharePt.state = pptData.state;
+              this.state = pptData.state;
             }
-
-            // if (roles.hasView()) {
-            //   if (pptData.eventName === 'ready') {
-            //     /** Need bit delay * */
-            //     setTimeout(() => {
-            //       virtualclass.sharePt.removeControls();
-            //     }, 100);
-            //
-            //     if (virtualclass.sharePt.studentPpt) {
-            //       // virtualclass.sharePt.setSlideState(virtualclass.sharePt.studentPpt);
-            //       virtualclass.sharePt.studentPpt = 0;
-            //       // virtualclass.sharePt.studentPptReadyFlag = 0;
-            //     }
-            //   }
-            // } else if (roles.hasControls()) {
-            //   // console.log(pptData.eventName);
-            //   if (typeof pptData.eventName !== 'undefined') {
-            //     if (typeof virtualclass.sharePt[pptData.eventName] !== 'undefined') {
-            //       virtualclass.sharePt[pptData.eventName].call(virtualclass.sharePt, pptData);
-            //       virtualclass.sharePt.state = pptData.state;
-            //     }
-            //   }
-            // }
-
-            if (pptData.eventName === 'ready' && (roles.hasView() || !virtualclass.config.makeWebSocketReady)) {
-              // console.log('====> PPT SLIDE UI CREATE 1.1 received msg ', event.data, 'current', virtualclass.sharePt.studentPpt);
-              if (virtualclass.sharePt.studentPpt) {
-                virtualclass.sharePt.studentPpt = 0;
-                // virtualclass.sharePt.setSlideState(virtualclass.sharePt.studentPpt);
+            if (pptData.eventName === 'ready') {
+              if (this.lastSlideChanged) {
+                // Set the last changed slide if revealjs failed to load that
+                // eg, send if user passes slide 5 and revealjs returns slide 0
+                this.setSlideState(this.lastSlideChanged);
+              } else if (roles.hasControls()) {
+                this[pptData.eventName].call(this, pptData);
+                this.state = pptData.state;
               }
-              setTimeout(() => {
-                if (roles.isStudent()) {
-                  // virtualclass.sharePt.removeControls();
-                }
-              }, 100);
-
-            } else if (roles.hasControls() && (pptData.eventName === 'ready' || pptData.eventName === 'slidechanged')) {
-              console.log('====> PPT SLIDE UI CREATE 1.1 received msg ', event.data);
-              if (typeof pptData.eventName !== 'undefined') {
-                if (typeof virtualclass.sharePt[pptData.eventName] !== 'undefined') {
-                  virtualclass.sharePt[pptData.eventName].call(virtualclass.sharePt, pptData);
-                  virtualclass.sharePt.state = pptData.state;
-                }
-              }
+              if (roles.isStudent()) this.removeControls();
+            } else if (pptData.eventName === 'slidechanged' && roles.hasControls() && virtualclass.config.makeWebSocketReady
+              && (this.isPptEventDefined(pptData) && (!this.lastSlideChanged
+              || (this.lastSlideChanged && (this.isVerticalSlideChanged(pptData)
+              || this.isHorizontalSlideChanged(pptData)))))) {
+              // Send slide only if difference between changed and recevied slide
+              this[pptData.eventName].call(this, pptData);
+              this.state = pptData.state;
+              delete this.lastSlideChanged;
             }
-          } else if (frame != null) {
-            frame.removeAttribute('src');
+          } else {
+            const frame = document.getElementById('pptiframe');
+            if (frame !== null) {
+              frame.removeAttribute('src');
+            }
           }
         }
+      },
+
+      isVerticalSlideChanged(pptData) {
+        return (virtualclass.sharePt.lastSlideChanged.state.indexh === pptData.state.indexh
+        && virtualclass.sharePt.lastSlideChanged.state.indexv !== pptData.state.indexv);
+      },
+
+      isHorizontalSlideChanged(pptData) {
+        return (virtualclass.sharePt.lastSlideChanged.state.indexv === pptData.state.indexv
+        && virtualclass.sharePt.lastSlideChanged.state.indexh !== pptData.state.indexh);
       },
 
       setAutoSlideConfig() {
@@ -614,7 +610,7 @@
             pptIframe.onload = function () {
               if (roles.hasView() || !virtualclass.gObj.makeWebSocketReady) {
                 if (pptIframe.contentWindow != null && typeof receivemsg.pptMsg.state !== 'undefined') {
-                  console.log('====> PPT SLIDE POST');
+                  console.log('====> PPT SLIDE POST ', receivemsg.pptMsg.state);
                   pptIframe.contentWindow.postMessage(JSON.stringify({
                     method: 'setState',
                     args: [receivemsg.pptMsg.state],
@@ -696,7 +692,7 @@
             break;
           case 'slidechanged':
             virtualclass.sharePt.studentPpt = msg;
-            console.log('====> PPT SLIDE CHANGED 2b', msg.state.indexv);
+            virtualclass.sharePt.lastSlideChanged = msg;
             frame.postMessage(JSON.stringify({ method: 'slide', args: indexArg }), '*');
             break;
           case 'autoslidepaused':
@@ -708,7 +704,7 @@
             frame.postMessage(JSON.stringify({ method: 'toggleAutoSlide' }), '*');
             break;
           case 'fragmentshown':
-            console.log('====> PPT SLIDE UI CREATE 2', msg.state.indexv);
+            console.log('====> PPT SLIDE CHANGED 2b v=', msg.state.indexv, ' =h', msg.state.indexh);
             frame.postMessage(JSON.stringify({ method: 'slide', args: indexArg }), '*');
             break;
           case 'fragmenthidden':

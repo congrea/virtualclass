@@ -81,7 +81,14 @@ var ioAdapter = {
       return;
     }
     // var orisend = JSON.parse(JSON.stringify(msg));
+    // const data = {
+    //   m: msg,
+    //   type: 'broadcastToAll',
+    //   user: virtualclass.vutil.getUserAllInfo(virtualclass.gObj.uid, virtualclass.connectedUsers),
+    //   userto: virtualclass.gObj.uid
+    // }
     this.mustSendUser(msg, virtualclass.gObj.uid);
+    // io.onRecJson(data);
     this.mustSend(msg);
   },
 

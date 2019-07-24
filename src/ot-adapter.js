@@ -103,6 +103,7 @@ const otAdapter = (function () {
           // console.log('Editor : processOP - No EDDATA');
         }
       } catch (error) {
+        console.log('ERROR!')
         if (roles.hasAdmin()) {
           this.myOTrequestData = 1;
           virtualclass[event.message.et].responseToRequest();
@@ -117,7 +118,8 @@ const otAdapter = (function () {
     };
 
     this.storeOperationIfStudent = function (msg) {
-      if (!roles.hasAdmin()) {
+    //  if (!roles.hasAdmin() || !virtualclass.config.makeWebSocketReady) {
+      if (!roles.hasAdmin() || !virtualclass.config.makeWebSocketReady) {
         const wrappedOperation = {};
         wrappedOperation.wrapped = vceditor.TextOperation.fromJSON(msg.data);
         wrappedOperation.meta = msg.meta;
@@ -151,9 +153,9 @@ const otAdapter = (function () {
       // console.log('in');
       // TW : 2
       if ((event.fromUser.role == 't' || event.fromUser.role == 'e') && !Object.prototype.hasOwnProperty.call(msg, 'edFrom')) {
-        if (roles.hasAdmin()) {
+        if (roles.hasAdmin() && virtualclass.config.makeWebSocketReady) {
           // TW : 2a) Msg is received to Teacher (self) - Action : ACK
-          if (msg.eddata == 'virtualclass-editor-operation') {
+          if (msg.eddata === 'virtualclass-editor-operation') {
             // console.log('TW : 2a teacher ack');
             try {
               this.trigger('ack');
@@ -164,7 +166,12 @@ const otAdapter = (function () {
         } else {
           // console.log('TW : 2b received @student');
           // TW : 2b) Msg is received to students - Action : Process
+          console.log('====> Process Editor 2');
           this.processOp(event);
+
+          if (!virtualclass.config.makeWebSocketReady) {
+           // this.trigger('ack');
+          }
         }
       } else if (!Object.prototype.hasOwnProperty.call(msg, 'edFrom') && event.fromUser.role != 't' && event.fromUser.role != 'e') {
         // SW : 1) Msg sent to Teacher

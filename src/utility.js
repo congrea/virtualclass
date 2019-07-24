@@ -751,9 +751,11 @@
      * @param userId the user
      */
     getUserInfo(key, userId, users) {
-      for (let i = 0; i < users.length; i++) {
-        if (users[i].userid == userId) {
-          return users[i][key];
+      if (users != null) {
+        for (let i = 0; i < users.length; i++) {
+          if (users[i].userid == userId) {
+            return users[i][key];
+          }
         }
       }
     },

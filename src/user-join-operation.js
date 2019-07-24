@@ -123,22 +123,24 @@ const defaultOperation = function (e, sType) {
   if (roles.hasAdmin()) {
     if (virtualclass.gObj.uid == virtualclass.jId) {
       if (!virtualclass.gObj.studentSSstatus.mesharing) {
-        if (virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE') {
-          ioAdapter.mustSend({ eddata: 'currAppEditor', et: virtualclass.currApp });
-        }
+
+        // if (virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE') {
+        //   ioAdapter.mustSend({ eddata: 'currAppEditor', et: virtualclass.currApp });
+        // }
 
         // On reload or new connection, make sure all students have same editor data
         if (virtualclass.editorRich.isVcAdapterIsReady('editorRich')) {
-          virtualclass.editorRich.responseToRequest();
+         virtualclass.editorRich.responseToRequest();
         } else {
           // console.log('Editor Rich vcAdapter is not ready');
         }
 
-        if (virtualclass.editorCode.isVcAdapterIsReady('editorCode')) {
-          virtualclass.editorCode.responseToRequest();
-        } else {
-          // console.log('Editor Code vcAdapter is not ready');
-        }
+        //
+        // if (virtualclass.editorCode.isVcAdapterIsReady('editorCode')) {
+        //   virtualclass.editorCode.responseToRequest();
+        // } else {
+        //   // console.log('Editor Code vcAdapter is not ready');
+        // }
       }
 
       // if (virtualclass.currApp === 'SharePresentation') {

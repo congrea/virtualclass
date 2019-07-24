@@ -17,8 +17,10 @@ const ioStorage = {
   },
 
   storeCacheOutData(data, key) {
-    const msg = ioStorage.addUserObj(data);
-    virtualclass.storage.storeCacheOut(JSON.stringify(msg), key);
+    // if (data.m.cf !== 'eddata') {
+      const msg = ioStorage.addUserObj(data);
+      virtualclass.storage.storeCacheOut(JSON.stringify(msg), key);
+    // }
   },
 
   addUserObj(msg) {
@@ -42,6 +44,8 @@ const ioStorage = {
   },
 
   storeCacheInData(data, key) {
-    virtualclass.storage.storeCacheIn(JSON.stringify(data), key);
+    // if (data.m.cf !== 'eddata') {
+      virtualclass.storage.storeCacheIn(JSON.stringify(data), key);
+    // }
   },
 };

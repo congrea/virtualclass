@@ -13,7 +13,7 @@
   // this is main class
   const editor = function (type, containerId, editorId) {
     this.etype = type;
-    const that = this;
+    // const that = this;
 
     // TODO this should be dynamic
     if (type == 'editorRich') {
@@ -37,8 +37,8 @@
       dataReqTry: 0,
       stroageData: localStorage.getItem(`${this.etype}_allEditorOperations`),
       tempstroageDataRev: localStorage.getItem(`${this.etype}_edOperationRev`),
-
       readonly: false,
+      editorStatus : true,
 
 
       /**
@@ -47,25 +47,24 @@
        *  if data is not available,
        *  the function requests the data from teacher in case of student
        */
-      veryInit() {
-        if (this.stroageData != null && this.stroageData != '') {
-          this.stroageDataRev = (this.tempstroageDataRev == null) ? 0 : this.tempstroageDataRev;
-          let docs = JSON.parse(this.stroageData);
-
-          docs = JSON.parse(docs.data);
-          // console.log(`Current Editor type ${virtualclass.currAppEditorType}`);
-          if (Object.prototype.hasOwnProperty.call(virtualclass, 'currAppEditor')) {
-            if (virtualclass.currAppEditorType == this.etype) {
-              this.initialiseDataWithEditor(docs, 'displayEditor', virtualclass.currAppEditorType);
-            } else {
-              this.initialiseDataWithEditor(docs);
-            }
-          } else {
-            this.initialiseDataWithEditor(docs);
-          }
-        }
-        virtualclass.gObj.editorInitDone++; // Count number of Init done. It should be two for two instances of editors.
-      },
+      // veryInit() {
+      //   if (this.stroageData != null && this.stroageData != '') {
+      //     this.stroageDataRev = (this.tempstroageDataRev == null) ? 0 : this.tempstroageDataRev;
+      //     let docs = JSON.parse(this.stroageData);
+      //
+      //     docs = JSON.parse(docs.data);
+      //     // console.log(`Current Editor type ${virtualclass.currAppEditorType}`);
+      //     if (Object.prototype.hasOwnProperty.call(virtualclass, 'currAppEditor')) {
+      //       if (virtualclass.currAppEditorType == this.etype) {
+      //         this.initialiseDataWithEditor(docs, 'displayEditor', virtualclass.currAppEditorType);
+      //       } else {
+      //         this.initialiseDataWithEditor(docs);
+      //       }
+      //     } else {
+      //       this.initialiseDataWithEditor(docs);
+      //     }
+      //   }
+      // },
 
       /**
        * Initialise the Editor at very first when user click on click Or get command
@@ -76,6 +75,7 @@
        * @param operations expect operations of docs
        */
       init(revision, clients, docs, operations) {
+        console.log('====> Process Editor 1');
         const docsInfo = {};
         if (typeof revision !== 'undefined') {
           docsInfo.revision = revision;
@@ -98,21 +98,29 @@
           virtualclass.dispvirtualclassLayout(virtualclass.currApp); //
         }
 
+        // if (roles.hasControls()) {
+        //   this.createAllEditorController();
+        //
+        //   // if (roles.hasAdmin()) {
+        //   //   this.createAllEditorController();
+        //   //
+        //   //   // TODO Check if it is required to send to all
+        //   //   // TODO Check if it is possible avoid going through workerIO
+        //   // }
+        //   // when presenter OR Teacher click on edit button
+        //
+        //   if (!virtualclass.gObj.studentSSstatus.sharing) {
+        //     ioAdapter.mustSendAll({ eddata: 'init', et: this.etype, cf: 'eddata' });
+        //   }
+        // } else if (roles.hasAdmin()) {
+        //   this.createAllEditorController();
+        // }
         if (roles.hasControls()) {
-          if (roles.hasAdmin()) {
-            this.createAllEditorController();
-
-            // TODO Check if it is required to send to all
-            // TODO Check if it is possible avoid going through workerIO
-          }
-
-          // when presenter OR Teacher click on edit button
-
-          if (!virtualclass.gObj.studentSSstatus.sharing) {
-            ioAdapter.mustSendAll({ eddata: 'init', et: this.etype, cf: 'eddata' });
-          }
-        } else if (roles.hasAdmin()) {
           this.createAllEditorController();
+        }
+
+        if (roles.hasControls() && !virtualclass.gObj.studentSSstatus.sharing) {
+          ioAdapter.mustSendAll({ eddata: 'init', et: this.etype, cf: 'eddata' });
         }
       },
 
@@ -120,9 +128,8 @@
         const editorType = this.etype;
         const containerId = `all${editorType}Container`;
         if (document.getElementById(containerId) == null) {
-          // console.log('For Enable all, Button is creating');
 
-          let actionToPerform;
+         let actionToPerform;
 
           const editortemplate = virtualclass.getTemplate('edenableall', 'editor');
           const editorhtml = editortemplate({ type1: editorType });
@@ -130,7 +137,8 @@
           const editor = document.querySelector(`#virtualclass${virtualclass.vutil.capitalizeFirstLetter(editorType)}Body`);
           editor.insertAdjacentHTML('beforeend', editorhtml);
           const editorControllerAnch = document.getElementById(`${containerId}Anch`);
-          const editorModestatus = localStorage.getItem(`${editorType}mode`);
+          // const editorModestatus = localStorage.getItem(`${editorType}mode`);
+          const editorModestatus = this.editorStatus;
           if (editorModestatus !== null) {
             if ((editorType == 'editorRich' && editorModestatus == 'disable') || (editorType == 'editorCode' && editorModestatus == 'disable')) {
               editorControllerAnch.dataset.action = 'disable';
@@ -159,6 +167,7 @@
               }
             }
             // localStorage.setItem(`${editorType}mode`, editorControllerAnch.dataset.action);
+            virtualclass.editorRich.editorStatus = editorControllerAnch.dataset.action;
             virtualclass.user.control.toggleAllEditorController.call(virtualclass.user, editorType, actionToPerform);
           });
         }
@@ -563,7 +572,8 @@
       },
 
       setReadMode() {
-        const cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
+        // const cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
+        const cmReadOnly = this.editorStatus;
         if (!roles.hasAdmin()) {
           if (cmReadOnly != null) {
             if (!cmReadOnly) {

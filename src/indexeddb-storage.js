@@ -145,7 +145,9 @@
             ioMissingPackets.executedUserSerial[key1] = m.m.userSerial;
             ioMissingPackets.executedUserStore[key1][m.m.userSerial] = m;
             try {
-              io.onRecJson(m);
+              if (m.m.cf !== 'eddata') {
+                io.onRecJson(m);
+              }
             } catch (error) {
               // console.log(`Error ${error}`);
             }

@@ -55,7 +55,6 @@
         tempReplayObjs: {}, // for store temp replayObjs
         // commandToolsWrapperId: 'commandToolsWrapper',
         commandToolsWrapperId: {},
-        editorInitDone: 0,
         resize: false,
         has_ts_capability: !!((wbUser.ts == 1 || wbUser.ts == true)),
         // meetingMode : +(wbUser.meetingMode),

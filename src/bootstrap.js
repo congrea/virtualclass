@@ -183,10 +183,10 @@
       }
     }
 
-    if (!wbUser.virtualclassPlay) {
-      virtualclass.editorRich.veryInit();
-      // virtualclass.editorCode.veryInit();
-    }
+    // if (!wbUser.virtualclassPlay) {
+    //   virtualclass.editorRich.veryInit();
+    //   // virtualclass.editorCode.veryInit();
+    // }
     virtualclass.gObj.testChatDiv = document.querySelector('#chat_div');
     virtualclass.gObj.testChatDiv.attachShadow({ mode: 'open' });
   };

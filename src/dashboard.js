@@ -1,13 +1,68 @@
 /**
- * This class dashBoard is use to  create common behaviours(methods)
+ * This class dashboard is use to  create common behaviours(methods)
  * for following features Document, Video and Presentation Sharing
  * */
 
-var dashBoard = {
+var dashboard = {
   userConfirmation(msg, cb) {
     virtualclass.popup.confirmInput(msg, (confirm) => {
       cb(confirm);
     });
+  },
+
+  init(currApp, hidepopup) {
+    const mainContainer = document.querySelector('#mainContainer');
+    if (currApp === 'SharePresentation') {
+      const dbcont = document.querySelector('#pptDbCont');
+      if (!dbcont) {
+        // todo, nirmala, you have to finde below condition is correct
+        if (document.querySelector('.docsDbCont') == null) {
+          document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard('SharePresentation');
+        }
+        virtualclass.sharePt.attachEvent('submitpurl', 'click', virtualclass.sharePt.initNewPpt);
+        if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
+          virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
+          virtualclass.sharePt.retrieveOrder();
+        }
+      }
+    }
+    const allDbContainer = document.querySelectorAll('#congdashboard .dbContainer');
+    for (let i = 0; i < allDbContainer.length; i++) {
+      if (allDbContainer[i].dataset.app == virtualclass.currApp) {
+        allDbContainer[i].style.display = 'block';
+      } else {
+        allDbContainer[i].style.display = 'none';
+      }
+    }
+
+    // console.log(`Dashboard is created for ${virtualclass.currApp}`);
+    if (currApp === 'DocumentShare') {
+      if (typeof hidepopup === 'undefined') {
+        // $('#congdashboard').modal();
+        this.open();
+      }
+
+      if (virtualclass.dts.noteExist()) {
+        virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
+      }
+      //  virtualclass.vutil.attachEventToUploadTab();
+    } else if (currApp === 'Video') {
+      if (typeof hidepopup === 'undefined') {
+        //                    $('#congdashboard').modal({
+        //                        keyboard: false
+        //                    });
+        virtualclass.modal.showModal();
+      }
+    } else {
+      virtualclass.modal.showModal();
+    }
+
+    virtualclass.dashboard.actualCloseHandler();
+
+    const moodleHeader = document.querySelector('#congdashboard .modal-header h4');
+    if (moodleHeader != null) {
+      moodleHeader.innerHTML = virtualclass.lang.getString(`${currApp}dbHeading`);
+    }
   },
 
   close() {
@@ -20,9 +75,12 @@ var dashBoard = {
       if (navButton != null) {
         navButton.classList.remove('clicked');
       }
-      // virtualclass.modal.hideModal();
-      // closeButton.classList.remove('clicked');
     }
+  },
+
+  open() {
+    virtualclass.modal.showModal();
+    virtualclass.dashboard.clickCloseButton();
   },
 
   isDashBoardExit(app) {
@@ -41,7 +99,7 @@ var dashBoard = {
         if (navButton != null) {
           navButton.classList.remove('clicked');
           const Dtype = 'open';
-          dashBoard.dashBoardClickTooltip(Dtype);
+          dashboard.dashBoardClickTooltip(Dtype);
         }
       });
     }
@@ -70,7 +128,7 @@ var dashBoard = {
   dashBoardNavHandler() {
     const app = document.querySelector('.congrea #virtualclassApp');
     if (this.classList.contains('clicked')) {
-      virtualclass.dashBoard.close();
+      virtualclass.dashboard.close();
       if (app) {
         if (app.classList.contains('dashboard')) {
           app.classList.remove('dashboard');
@@ -83,10 +141,10 @@ var dashBoard = {
         }
       }
 
-      virtualclass.vutil.initDashboard(virtualclass.currApp);
+      virtualclass.dashboard.init(virtualclass.currApp);
       this.classList.add('clicked');
       const Dtype = 'close';
-      virtualclass.dashBoard.dashBoardClickTooltip(Dtype);
+      virtualclass.dashboard.dashBoardClickTooltip(Dtype);
 
       if (virtualclass.currApp === 'DocumentShare' && Object.prototype.hasOwnProperty.call(virtualclass, 'dts')) {
         virtualclass.dts.moveProgressbar();
@@ -122,7 +180,7 @@ var dashBoard = {
         if (dashboardnav != null) {
           dashboardnav.addEventListener('click', this.dashBoardNavHandler);
           if (currVideo) {
-            virtualclass.dashBoard.readyDashboard(currVideo);
+            virtualclass.dashboard.readyDashboard(currVideo);
           }
         }
       }
@@ -150,7 +208,7 @@ var dashBoard = {
         console.log('====> dashboard init ');
         const sharing = document.querySelector('.congrea .pptSharing');
         if (sharing) {
-          virtualclass.dashBoard.close();
+          virtualclass.dashboard.close();
         }
       }
     } else {

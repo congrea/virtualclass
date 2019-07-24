@@ -170,7 +170,8 @@
             this.executeOrder(virtualclass.gObj.docOrder.docs);
           }
         }
-        (virtualclass.dts.noteExist()) ? virtualclass.modal.hideModal() : virtualclass.modal.showModal();
+
+        (virtualclass.dts.noteExist()) ? virtualclass.dashboard.close() : virtualclass.dashboard.open();
       },
 
       rawToProperData(docs) {
@@ -213,7 +214,7 @@
               $('#congdashboard').modal();
               console.log('Congrea dashboard here');
               // console.log(`dashboard length ${$('#congdashboard').length}`);
-              virtualclass.dashBoard.clickCloseButton();
+              virtualclass.dashboard.clickCloseButton();
             } else if (response && roles.hasAdmin()) {
               // console.log('==== dts must send order');
               ioAdapter.mustSend({ dts: { order_recived: response }, cf: 'dts' });
@@ -563,7 +564,7 @@
               }
               /** Initialize close handler of document's dailogue box, if it's not,
                *  then there is a problem when user click on document dashboard after page refreshing on whiteboard */
-              virtualclass.dashBoard.modalCloseHandler();
+              virtualclass.dashboard.modalCloseHandler();
             }
           }
         },

@@ -210,7 +210,7 @@
         this.clear = '';
         this.currApp = this.vutil.capitalizeFirstLetter(app);
         // this.storage = window.storage;
-        this.dashBoard = dashBoard;
+        this.dashboard = dashboard;
         this.multiVideo = window.MultiVideo;
         this.vutil.isChromeExtension();
 
@@ -542,7 +542,7 @@
           data = setting.data;
         }
 
-        virtualclass.dashBoard.close();
+        virtualclass.dashboard.close();
         const tempApp = virtualclass.vutil.capitalizeFirstLetter(app);
         if (tempApp !== 'ScreenShare') {
           this.currApp = tempApp;
@@ -651,7 +651,7 @@
         if (roles.hasControls()) {
           const currVideo = Array.prototype.slice.call(arguments)[2];
           if (app !== 'ScreenShare' && (virtualclass.currApp === 'SharePresentation' || (virtualclass.currApp === 'Video'))) {
-            virtualclass.dashBoard.initDashboardNav(currVideo);
+            virtualclass.dashboard.initDashboardNav(currVideo);
           } else if (virtualclass.currApp !== 'DocumentShare') {
             virtualclass.vutil.removeDashboardNav();
           }
@@ -892,22 +892,22 @@
                 this.wb[id].bridge = window.bridge;
                 this.wb[id].response = window.response;
                 virtualclass.wb[id].utility.displayCanvas(id);
-                console.log('====> jai 5 ', id, ' ', virtualclass.wb[id].vcan);
+                // console.log('====> jai 5 ', id, ' ', virtualclass.wb[id].vcan);
 
                 if (roles.hasControls()) {
                   virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
                 }
-                console.log('====> jai 6 ', id, ' ', virtualclass.wb[id].vcan);
-                console.log('##==jai, whiteboard 2 ' + id);
+                // console.log('====> jai 6 ', id, ' ', virtualclass.wb[id].vcan);
+                // console.log('##==jai, whiteboard 2 ' + id);
                 if (app === 'DocumentShare') {
                   const { currNote } = virtualclass.dts.docs.note;
-                  console.log('##==jai.1', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                  // console.log('##==jai.1', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                   virtualclass.pdfRender[wid].init(canvas, currNote);
-                  console.log('##==jai.2', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                  // console.log('##==jai.2', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                 } else {
-                  console.log('##==jai.3', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                  // console.log('##==jai.3', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                   virtualclass.pdfRender[wid].init(canvas);
-                  console.log('##==jai.4', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                  // console.log('##==jai.4', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                 }
               } else {
                 alert('whiteboard container is null');
@@ -1156,7 +1156,7 @@
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'docs')) {
             console.log('====> document shareing 2c');
             virtualclass.appInitiator.makeReadyDocumentShare();
-            virtualclass.dashBoard.initDashboardNav();
+            virtualclass.dashboard.initDashboardNav();
 
 
             if (!virtualclass.serverData.syncComplete && !virtualclass.dts.noteExist()) {

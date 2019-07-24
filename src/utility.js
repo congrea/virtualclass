@@ -1474,63 +1474,6 @@
       return true;
     },
 
-
-    initDashboard(currApp, hidepopup) {
-      const mainContainer = document.querySelector('#mainContainer');
-      if (currApp == 'SharePresentation') {
-        const dbcont = document.querySelector('#pptDbCont');
-        if (!dbcont) {
-          // todo, nirmala, you have to finde below condition is correct
-          if (document.querySelector('.docsDbCont') == null) {
-            document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard('SharePresentation');
-          }
-          virtualclass.sharePt.attachEvent('submitpurl', 'click', virtualclass.sharePt.initNewPpt);
-          if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
-            virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
-            virtualclass.sharePt.retrieveOrder();
-          }
-        }
-      }
-      const allDbContainer = document.querySelectorAll('#congdashboard .dbContainer');
-      for (let i = 0; i < allDbContainer.length; i++) {
-        if (allDbContainer[i].dataset.app == virtualclass.currApp) {
-          allDbContainer[i].style.display = 'block';
-        } else {
-          allDbContainer[i].style.display = 'none';
-        }
-      }
-
-      // console.log(`Dashboard is created for ${virtualclass.currApp}`);
-      if (currApp == 'DocumentShare') {
-        if (typeof hidepopup === 'undefined') {
-          // $('#congdashboard').modal();
-          virtualclass.modal.showModal();
-          virtualclass.dashBoard.clickCloseButton();
-        }
-
-        if (virtualclass.dts.noteExist()) {
-          virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
-        }
-        //  virtualclass.vutil.attachEventToUploadTab();
-      } else if (currApp == 'Video') {
-        if (typeof hidepopup === 'undefined') {
-          //                    $('#congdashboard').modal({
-          //                        keyboard: false
-          //                    });
-          virtualclass.modal.showModal();
-        }
-      } else {
-        virtualclass.modal.showModal();
-      }
-
-      virtualclass.dashBoard.actualCloseHandler();
-
-      const moodleHeader = document.querySelector('#congdashboard .modal-header h4');
-      if (moodleHeader != null) {
-        moodleHeader.innerHTML = virtualclass.lang.getString(`${currApp}dbHeading`);
-      }
-    },
-
     getDocsDashBoard(app) {
       const dashboardTemp = virtualclass.getTemplate('dashboard', 'documentSharing');
       const context = { app, hasControls: roles.hasControls() };
@@ -1580,9 +1523,9 @@
         const currentNote = document.querySelector('#screen-docs .note.current');
         if (currentNote == null) {
           if (typeof hidepopup === 'undefined') {
-            virtualclass.vutil.initDashboard(currApp);
+            virtualclass.dashboard.init(currApp);
           } else {
-            virtualclass.vutil.initDashboard(currApp, hidepopup);
+            virtualclass.dashboard.init(currApp, hidepopup);
           }
         } else {
           // virtualclass.zoom.zoomAction('fitToScreen');
@@ -1591,12 +1534,12 @@
         }
       } else if (currApp == 'Video') {
         if (typeof hidepopup === 'undefined') {
-          virtualclass.vutil.initDashboard(currApp);
+          virtualclass.dashboard.init(currApp);
         } else {
-          virtualclass.vutil.initDashboard(currApp, hidepopup);
+          virtualclass.dashboard.init(currApp, hidepopup);
         }
       } else {
-        virtualclass.vutil.initDashboard(currApp);
+        virtualclass.dashboard.init(currApp);
       }
     },
 

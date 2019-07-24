@@ -307,7 +307,7 @@
               virtualclass.videoUl.videoToStudent(toStd);
               virtualclass.videoUl.videoId = vidObj.fileuuid;
               virtualclass.vutil.showFinishBtn();
-              virtualclass.dashBoard.close();
+              virtualclass.dashboard.close();
             }
           });
         }
@@ -863,7 +863,7 @@
           virtualclass.videoUl.UI.switchDisplay(videoPlayerCont, videoUrl);
           virtualclass.videoUl.UI.videojsPlayer(videoUrl, vidId);
           // virtualclass.modal.hideModal();
-          virtualclass.dashBoard.close();
+          virtualclass.dashboard.close();
         },
 
         videojsPlayer(videoUrl, vidId) {

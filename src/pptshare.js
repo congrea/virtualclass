@@ -641,7 +641,7 @@
         const pptContainer = document.getElementById(virtualclass.sharePt.UI.id);
         if (!pptContainer.classList.contains('pptSharing')) {
           pptContainer.classList.add('pptSharing');
-          virtualclass.dashBoard.close();
+          virtualclass.dashboard.close();
         }
 
       },
@@ -897,7 +897,7 @@
         if (ppt) {
           ppt.addEventListener('click', () => {
             virtualclass.sharePt.playPptUrl(pptObj.URL, pptObj.fileuuid);
-            virtualclass.dashBoard.close();
+            virtualclass.dashboard.close();
             virtualclass.sharePt.currId = pptObj.fileuuid;
             virtualclass.sharePt.activePrs(pptObj.fileuuid);
           });

@@ -523,7 +523,7 @@
               if (virtualclass.currApp == 'Video' && virtualclass.videoUl.player) {
                 ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
                 ioAdapter.mustSend({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' });
-                virtualclass.vutil.initDashboard();
+                virtualclass.dashboard.init();
                 virtualclass.vutil.removeBackgroundVideoApp();
               }
             } else {

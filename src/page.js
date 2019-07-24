@@ -611,7 +611,7 @@
           // } else {
           //
 
-          virtualclass.dashBoard.userConfirmation(virtualclass.lang.getString('deletepopup'), (confirmation) => {
+          virtualclass.dashboard.userConfirmation(virtualclass.lang.getString('deletepopup'), (confirmation) => {
             if (confirmation) {
               if (cthis.type == 'notes') {
                 virtualclass[cthis.module]._deleteNote(cthis.rid, cthis.type);

@@ -520,12 +520,12 @@ let globalImageData = {};
       },
 
       showDashboard() {
-        virtualclass.dashBoard.initDashboardNav();
+        virtualclass.dashboard.initDashboardNav();
         if (virtualclass.currApp === 'Video') {
           ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
           ioAdapter.mustSend({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' });
         } else if (virtualclass.currApp === 'SharePresentation') {
-          virtualclass.vutil.initDashboard();
+          virtualclass.dashboard.init();
         }
       },
       /**

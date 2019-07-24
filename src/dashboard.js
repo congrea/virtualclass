@@ -222,7 +222,11 @@ var dashboard = {
 
     if (document.querySelector('#congdashboard') === null) {
       const dashboardTemp = virtualclass.getTemplate('dashboard');
-      document.querySelector('#dashboardContainer').innerHTML = dashboardTemp({ app: currApp });;
+      document.querySelector('#dashboardContainer').innerHTML = dashboardTemp({ app: currApp });
+      const dashboardnav = document.querySelector('#dashboardnav button');
+      if (dashboardnav != null) {
+        dashboardnav.classList.add('clicked');
+      }
     }
 
     this.modalCloseHandler();

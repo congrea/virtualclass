@@ -662,19 +662,6 @@
 
       handleWhiteboardReady(app, cusEvent, data) {
         console.log('=====> Handle whiteboard ');
-        // const args = [];
-        // for (let i = 0; i < cargs.length; i++) {
-        //   args.push(cargs[i]);
-        // }
-        // if (typeof cusEvent === 'undefined') {
-        //   args[1] = (cusEvent);
-        // }
-        //
-        // const id = (data !== undefined) ? data : '_doc_0_0';
-        // args[2] = id;
-        //
-        // args.push('virtualclassWhiteboard');
-
         data = (data !== undefined) ? data : '_doc_0_0';
         const setting = { app: app, cusEvent: cusEvent, data: data, container: 'virtualclassWhiteboard' }
         //this.appInitiator.Whiteboard.call(virtualclass, app, cusEvent, data, 'virtualclassWhiteboard');
@@ -1158,19 +1145,13 @@
             virtualclass.appInitiator.makeReadyDocumentShare();
             virtualclass.dashboard.initDashboardNav();
 
-
-            if (!virtualclass.serverData.syncComplete && !virtualclass.dts.noteExist()) {
+            // Open the document dashboard if there is no any note to display
+            if (virtualclass.serverData.syncComplete && !virtualclass.dts.noteExist()) {
               const dashboardnav = document.querySelector('#dashboardnav button');
               if (dashboardnav != null) {
-                // TODO, Need to enable later
-                console.log('====> document shareing 2d');
-                dashboardnav.click();
+                virtualclass.dashboard.open();
               }
             }
-
-            // if (dstData != null) {
-            //   clearTimeout(dstData);
-            // }
 
             if (virtualclass.gObj.currWb != null && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] !== 'undefined'
               && virtualclass.currApp === 'DocumentShare' && Object.prototype.hasOwnProperty.call(virtualclass.pdfRender[virtualclass.gObj.currWb], 'page')

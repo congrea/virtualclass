@@ -171,7 +171,7 @@
           }
         }
 
-        (virtualclass.dts.noteExist()) ? virtualclass.dashboard.close() : virtualclass.dashboard.open();
+        // (virtualclass.dts.noteExist()) ? virtualclass.dashboard.close() : virtualclass.dashboard.open();
       },
 
       rawToProperData(docs) {
@@ -197,6 +197,7 @@
           this.docs.currNote = this.order[0];
           this.docs.displayScreen(docId, this.order[0]);
         }
+
       },
 
       /**
@@ -221,6 +222,7 @@
               if (virtualclass.currApp === 'DocumentShare') {
                 virtualclass.dts.afterRequestOrder(response);
                 virtualclass.dts.createNoteNav();
+//                (virtualclass.dts.noteExist()) ? virtualclass.dashboard.close() : virtualclass.dashboard.open()
               }
             }
           }
@@ -988,6 +990,8 @@
               if (!roles.hasControls()) {
                 const id = note.id.split('note')[1];
                 virtualclass.dts.indexNav.studentDocNavigation(id);
+              } else if (!virtualclass.makeWebSocketReady) {
+                virtualclass.dashboard.close();
               }
             },
 

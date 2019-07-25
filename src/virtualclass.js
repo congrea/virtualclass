@@ -1054,8 +1054,7 @@
         },
 
         editor(setting) {
-          let app = setting.app;
-          // showing controllers from footer
+          const app = setting.app;
           this.user.control.toggleDisplayEditorController(app.substring(app.indexOf('virtualclass'), app.length), 'block');
           const revision = 0;
           const clients = [];
@@ -1070,22 +1069,16 @@
             this.previous = virtualclass.edCodeConfig.id;
           }
 
-          const writeMode = JSON.parse(localStorage.getItem(virtualclass.vutil.smallizeFirstLetter(app)));
-          const etType = virtualclass.vutil.smallizeFirstLetter(app);
-
-          if (!roles.hasAdmin()) {
-            if (writeMode == null) {
+          // const writeMode = JSON.parse(localStorage.getItem(virtualclass.vutil.smallizeFirstLetter(app)));
+          const writeMode = (virtualclass.editorRich) ? virtualclass.editorRich.editorStatus : false;
+          if (roles.isStudent()) {
+            const etType = virtualclass.vutil.smallizeFirstLetter(app);
+            if (!writeMode) {
               this[etType].cm.setOption('readOnly', 'nocursor');
-              this.user.control.toggleDisplayWriteModeMsgBox(app, false);
-              // console.log(`message box is created ${app}`);
             } else {
-              this.user.control.toggleDisplayWriteModeMsgBox(app, writeMode);
-              if (!writeMode) {
-                this[etType].cm.setOption('readOnly', 'nocursor');
-              } else {
-                this[etType].cm.setOption('readOnly', false);
-              }
+              this[etType].cm.setOption('readOnly', false);
             }
+            this.user.control.toggleDisplayWriteModeMsgBox(app, writeMode);
             virtualclass.vutil.setReadModeWhenTeacherIsDisConn(etType);
           }
         },

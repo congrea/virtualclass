@@ -307,7 +307,9 @@ const otAdapter = (function () {
     } else {
       // TODO Check if it is possible avoid going through workerIO
       setTimeout(() => { // We want to slow down OT to reduce frequency of msgs
-        ioAdapter.mustSendAll(msg);
+        if (virtualclass.currApp === 'EditorRich') { // Avoid null while switching the app
+          ioAdapter.mustSendAll(msg);
+        }
       }, 300);
     }
   };

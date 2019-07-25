@@ -38,7 +38,7 @@
       stroageData: localStorage.getItem(`${this.etype}_allEditorOperations`),
       tempstroageDataRev: localStorage.getItem(`${this.etype}_edOperationRev`),
       readonly: false,
-      editorStatus : true,
+      editorStatus : false,
 
 
       /**
@@ -330,16 +330,14 @@
         },
 
         init(e, etype) {
-          // Ignore the editor init command received from Student
-          if ((e.fromUser.role != 's') && (e.fromUser.userid != virtualclass.gObj.uid || wbUser.virtualclassPlay == '1')) {
-            //virtualclass.makeAppReady(etype);
+          if ((e.fromUser.role !== 's')
+            && ((e.fromUser.userid !== virtualclass.gObj.uid || wbUser.virtualclassPlay == '1')
+            || (!virtualclass.config.makeWebSocketReady))) {
             virtualclass.makeAppReady({ app: etype });
           }
         },
 
         initVcEditor(e) {
-          // console.log('received whole data');
-
           if (roles.hasView()) {
             if (typeof virtualclass[e.message.et].vcAdapter.removeOperations === 'function') {
               virtualclass[e.message.et].vcAdapter.removeOperations(e);
@@ -495,21 +493,19 @@
         if (roles.isTeacher()) {
           initPacket.capp = virtualclass.currApp; // this should pass only when user is educator
         }
-
         initPacket.et = this.etype;
-
         if (toUser) {
           initPacket.resFromUser = true;
           ioAdapter.mustSendUser(initPacket, toUser);
-          // console.log(`Sending responseToRequest to ${toUser}`);
         } else {
           initPacket.allEdData = true;
-          ioAdapter.mustSend(initPacket);
-          // console.log('Sending responseToRequest to all');
           virtualclass[initPacket.et].vcAdapter.removeOperations({ message: { et: initPacket.et } });
           const operations = JSON.parse(initPacket.data);
           virtualclass[initPacket.et].initialiseDataWithEditor(operations); // for display content to self
           virtualclass[initPacket.et].vcAdapter.myOTrequestData = 0;
+          if (virtualclass.currApp === 'EditorRich') {
+            ioAdapter.mustSend(initPacket);
+          }
         }
       },
 

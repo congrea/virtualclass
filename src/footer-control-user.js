@@ -262,6 +262,9 @@
          * @param writeMode expects true or flase
          */
         tooglDisplayEditorToolBar(writeMode) {
+          // this.editorStatus = writeMode;
+          console.log('====> editor Write mode ', writeMode);
+          virtualclass.editorRich.editorStatus = writeMode;
           const editorToolBars = document.getElementsByClassName('vceditor-toolbar');
           const editorToolBar = editorToolBars[0];
           if (editorToolBars.length > 0) {

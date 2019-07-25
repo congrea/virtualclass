@@ -166,12 +166,7 @@ const otAdapter = (function () {
         } else {
           // console.log('TW : 2b received @student');
           // TW : 2b) Msg is received to students - Action : Process
-          console.log('====> Process Editor 2');
           this.processOp(event);
-
-          if (!virtualclass.config.makeWebSocketReady) {
-           // this.trigger('ack');
-          }
         }
       } else if (!Object.prototype.hasOwnProperty.call(msg, 'edFrom') && event.fromUser.role != 't' && event.fromUser.role != 'e') {
         // SW : 1) Msg sent to Teacher
@@ -217,23 +212,19 @@ const otAdapter = (function () {
       this.server.operations = [];
       this.server.document = '';
       virtualclass[et].cmClient.revision = 0;
-      if (edom != null) {
-        var edom = document.getElementById('virtualclassEditorRichBody');
-        edom.parentNode.removeChild(edom);
-      }
+      // if (edom != null) {
+      //   var edom = document.getElementById('virtualclassEditorRichBody');
+      //   edom.parentNode.removeChild(edom);
+      // }
     };
   }
 
   // sending the opration
   otAdapter.prototype.sendOperation = function (revision, operation, cursor, etype) {
+    let editor;
     if (typeof etype !== 'undefined') {
-      if (etype == 'richtext') {
-        var editor = 'editorRich';
-      } else {
-        var editor = 'editorCode';
-      }
+      editor = (etype === 'richtext') ? 'editorRich' : 'editorCode';
     }
-
     const sendData = {
       eddata: 'virtualclass-editor-operation',
       data: JSON.stringify({

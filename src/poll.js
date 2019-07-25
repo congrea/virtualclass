@@ -264,9 +264,9 @@
         } else if (storedData.currScreen == 'displaysitePollList') {
           this.reloadPollList(storedData, 'site');
         } else if (storedData.currScreen == 'stdPublish') {
-          this.reloadStdPublish(storedData);
+          // this.reloadStdPublish(storedData);
         } else if (storedData.currScreen == 'teacherPublish') {
-          this.loadTeacherScrn(storedData);
+          // this.loadTeacherScrn(storedData);
         } else if (storedData.currScreen == 'voted') {
           this.reloadVotedScrn(storedData);
           setTimeout(() => {
@@ -293,29 +293,35 @@
           sitePollTab.classList.add('active');
         }
         this.interfaceToFetchList(category);
-        storedData.currScreen == `display${pollType}PollList`;
       },
       //
-      reloadStdPublish(storedData) {
-        this.dataRec = storedData.data.stdPoll;
-        this.dataRec.newTime = storedData.data.timer;
-        this.stdPublish();
-        const data = {
-          stdPoll: this.dataRec,
-          timer: this.newUserTime,
-          // timer: virtualclass.poll.newTimer
-        };
-        this.pollState.currScreen = 'stdPublish';
-        this.pollState.data = data;
-      },
+      // reloadStdPublish(storedData) {
+      //   this.dataRec = storedData.data.stdPoll;
+      //   this.dataRec.newTime = storedData.data.timer;
+      //   this.stdPublish();
+      //   const data = {
+      //     stdPoll: this.dataRec,
+      //     timer: this.newUserTime,
+      //     // timer: virtualclass.poll.newTimer
+      //   };
+      //   this.pollState.currScreen = 'stdPublish';
+      //   this.pollState.data = data;
+      // },
 
-      reloadVotedScrn(storedData) {
-        this.dataRec = storedData.data.stdPoll;
-        this.dataRec.newTime = storedData.data.timer;
+      reloadVotedScrn() {
+        // this.dataRec = storedData.data.stdPoll;
+        // this.dataRec = storedData.data;
+        // this.dataRec.newTime = storedData.data.timer;
+        this.dataRec.newTime = 0;
         const elem = document.getElementById('stdPollMszLayout');
         if (elem) {
           elem.parentNode.removeChild(elem);
         }
+        const stdPollContainer = document.getElementById('stdPollContainer');
+        if (stdPollContainer) {
+          stdPollContainer.style.display = 'none';
+        }
+
         let msg = '';
         if (this.dataRec.setting.showResult) {
           msg = virtualclass.lang.getString('votesuccess');
@@ -324,13 +330,22 @@
         }
         this.showMsg('mszBoxPoll', msg, 'alert-success');
 
-        const data = {
-          stdPoll: this.dataRec,
-          timer: this.newUserTime,
-          // timer: virtualclass.poll.newTimer
-        };
+        // const data = {
+        //   stdPoll: this.dataRec,
+        //   timer: this.newUserTime,
+        //   // timer: virtualclass.poll.newTimer
+        // };
+        // this.pollState.currScreen = 'voted';
+        // this.pollState.data = data;
+
+        // const data = {
+        //   stdPoll: this.dataRec,
+        //   timer: this.newUserTime,
+        //   // timer: virtualclass.poll.newTimer
+        // };
         this.pollState.currScreen = 'voted';
-        this.pollState.data = data;
+        this.pollState.data = this.dataRec;
+        this.pollState.timer = this.newUserTime;
       },
 
       reloadStdResult(storedData) {
@@ -338,7 +353,8 @@
         if (mszbox) {
           mszbox.style.display = 'none';
         }
-        this.dataRec = storedData.data.stdPoll;
+        // this.dataRec = storedData.data.stdPoll;
+        this.dataRec = storedData.data;
         if (this.dataRec) {
           this.dataRec.newTime = storedData.data.timer;
         }
@@ -352,15 +368,29 @@
           this.updatePiChart();
         }
 
-        const data = {
-          stdPoll: this.dataRec,
-          timer: this.newUserTime,
-          count: this.count,
-          view: this.currResultView,
-          // timer: virtualclass.poll.newTimer
-        };
+        // const data = {
+        //   stdPoll: this.dataRec,
+        //   timer: this.newUserTime,
+        //   count: this.count,
+        //   view: this.currResultView,
+        //   // timer: virtualclass.poll.newTimer
+        // };
+        // this.pollState.currScreen = 'stdPublishResult';
+        // this.pollState.data = data;
+
+        // const data = {
+        //   stdPoll: this.dataRec,
+        //   timer: this.newUserTime,
+        //   count: this.count,
+        //   view: this.currResultView,
+        //   // timer: virtualclass.poll.newTimer
+        // };
+
         this.pollState.currScreen = 'stdPublishResult';
-        this.pollState.data = data;
+        this.pollState.data = this.dataRec;
+        this.pollState.timer = this.newUserTime;
+        this.pollState.count = this.count;
+        this.pollState.view = this.currResultView;
       },
       // timer to..
       loadTeacherScrn(storedData) {
@@ -578,8 +608,11 @@
       },
       // At student end
       onmessage(msg, fromUser) {
-        if (msg.poll.pollMsg == 'stdPublish') {
+        if (msg.poll.pollMsg === 'stdPublish' ){
           this.dataRec = msg.poll.data;
+        } else if (roles.isStudent() && msg.poll.pollMsg === 'stdResponse'){
+          msg.poll.timer = 0;
+          this.reloadVotedScrn(msg.poll);
         }
         // console.log(`student side ${msg.poll.pollMsg}`);
         virtualclass.poll[msg.poll.pollMsg].call(this, msg.poll.data, fromUser);
@@ -846,6 +879,7 @@
         virtualclass.modal.closeModalHandler('editPollModal');
       },
       stdResponse(response, fromUser) {
+        console.log('====> Poll student reponse');
         this.updateResponse(response, fromUser);
       },
       newPollHandler(pollType) {
@@ -1309,75 +1343,89 @@
         const timer = document.getElementById('timer');
         timer.classList.add('disabled');
       },
+
       stdPublish() {
-        const mszBox = document.getElementById('mszBoxPoll');
-        if (mszBox) {
-          if (mszBox.childNodes.length > 0) {
-            mszBox.childNodes[0].parentNode.removeChild(mszBox.childNodes[0]);
-          }
-        }
-        if (virtualclass.poll.timer) {
-          clearInterval(virtualclass.poll.timer);
-        }
-        const resultLayout = document.getElementById('resultLayout');
-        if (resultLayout) {
-          resultLayout.parentNode.removeChild(resultLayout);
-        }
-
-        const elem = document.getElementById('stdPollContainer');
-        if (elem) {
-          elem.parentNode.removeChild(elem);
-        }
-
-        const pollHeader = document.querySelector('.congrea.student #virtualclassPoll #navigator #stdPollHeader');
-        if (pollHeader) {
-          pollHeader.style.display = 'block';
-        }
-        const obj = {};
-        obj.question = virtualclass.poll.dataRec.options;
-        const template = virtualclass.getTemplate('pollStd', 'poll');
-        const layout = document.querySelector('#layoutPollBody');
-        layout.insertAdjacentHTML('beforeend', template({ poll: obj }));
-        this.UI.stdPublishUI();
-
-        const isTimer = virtualclass.poll.dataRec.setting.timer;
-        if (isTimer) {
-          const updatedTime = virtualclass.poll.dataRec.newTime;
-          virtualclass.poll.newTimer = updatedTime;
-          this.showTimer(updatedTime);
-          var label = document.querySelector('#timerLabel');
-          label.innerHTML = virtualclass.lang.getString('Rtime');
+        console.log('====> Poll publish');
+        virtualclass.poll.pollState.data = virtualclass.poll.dataRec;
+        virtualclass.poll.pollState.timer = virtualclass.poll.newUserTime;
+        if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
+          console.log('there is happening something');
+          this.loadTeacherScrn(virtualclass.poll.pollState);
+          // return;
         } else {
-          this.elapsedTimer();
-          const msg = virtualclass.lang.getString('Tmyclose');
-          virtualclass.poll.showMsg('stdContHead', msg, 'alert-success');
-          var label = document.querySelector('#timerLabel');
-          label.innerHTML = virtualclass.lang.getString('ETime');
+          const mszBox = document.getElementById('mszBoxPoll');
+          if (mszBox) {
+            if (mszBox.childNodes.length > 0) {
+              mszBox.childNodes[0].parentNode.removeChild(mszBox.childNodes[0]);
+            }
+          }
+          if (virtualclass.poll.timer) {
+            clearInterval(virtualclass.poll.timer);
+          }
+          const resultLayout = document.getElementById('resultLayout');
+          if (resultLayout) {
+            resultLayout.parentNode.removeChild(resultLayout);
+          }
+
+          const elem = document.getElementById('stdPollContainer');
+          if (elem) {
+            elem.parentNode.removeChild(elem);
+          }
+
+          const pollHeader = document.querySelector('.congrea.student #virtualclassPoll #navigator #stdPollHeader');
+          if (pollHeader) {
+            pollHeader.style.display = 'block';
+          }
+          const obj = {};
+          obj.question = virtualclass.poll.dataRec.options;
+          const template = virtualclass.getTemplate('pollStd', 'poll');
+          const layout = document.querySelector('#layoutPollBody');
+          layout.insertAdjacentHTML('beforeend', template({ poll: obj }));
+          this.UI.stdPublishUI();
+
+          const isTimer = virtualclass.poll.dataRec.setting.timer;
+          if (isTimer) {
+            const updatedTime = virtualclass.poll.dataRec.newTime;
+            virtualclass.poll.newTimer = updatedTime;
+            this.showTimer(updatedTime);
+            var label = document.querySelector('#timerLabel');
+            label.innerHTML = virtualclass.lang.getString('Rtime');
+          } else {
+            this.elapsedTimer();
+            const msg = virtualclass.lang.getString('Tmyclose');
+            virtualclass.poll.showMsg('stdContHead', msg, 'alert-success');
+            var label = document.querySelector('#timerLabel');
+            label.innerHTML = virtualclass.lang.getString('ETime');
+          }
+
+          const qnCont = document.getElementById('stdQnCont');
+          this.showQn(qnCont);
+
+          const optionCont = document.getElementById('stdOptionCont');
+          this.showOption(optionCont);
+
+          const btn = document.getElementById('btnVote');
+          if (btn) {
+            btn.addEventListener('click', virtualclass.poll.voted);
+          }
+
+          // const data = {
+          //   stdPoll: virtualclass.poll.dataRec,
+          //   timer: virtualclass.poll.newUserTime,
+          // };
+
+          const nav = document.querySelector('#virtualclassCont.congrea.student #navigator #pollResult');
+          if (nav) {
+            nav.style.display = 'none';
+          }
+
+          virtualclass.poll.pollState.currScreen = 'stdPublish';
+
+          //virtualclass.poll.pollState.data = data;
+
+          // virtualclass.poll.pollState.data = virtualclass.poll.dataRec;
+          // virtualclass.poll.pollState.timer = virtualclass.poll.newUserTime;
         }
-
-        const qnCont = document.getElementById('stdQnCont');
-        this.showQn(qnCont);
-
-        const optionCont = document.getElementById('stdOptionCont');
-        this.showOption(optionCont);
-
-        const btn = document.getElementById('btnVote');
-        if (btn) {
-          btn.addEventListener('click', virtualclass.poll.voted);
-        }
-
-        const data = {
-          stdPoll: virtualclass.poll.dataRec,
-          timer: virtualclass.poll.newUserTime,
-
-        };
-        const nav = document.querySelector('#virtualclassCont.congrea.student #navigator #pollResult');
-        if (nav) {
-          nav.style.display = 'none';
-        }
-
-        virtualclass.poll.pollState.currScreen = 'stdPublish';
-        virtualclass.poll.pollState.data = data;
       },
       voted() {
         virtualclass.poll.pollState.currScreen = 'voted';
@@ -1388,13 +1436,13 @@
             if (virtualclass.poll.timer) {
               clearInterval(virtualclass.poll.timer);
             }
-            var elem = document.getElementById('stdPollMszLayout');
-            if (elem) {
-              elem.parentNode.removeChild(elem);
+            const stdPollMszLayout = document.getElementById('stdPollMszLayout');
+            if (stdPollMszLayout) {
+              stdPollMszLayout.parentNode.removeChild(stdPollMszLayout);
             }
 
-            var elem = document.getElementById('stdPollContainer');
-            elem.parentNode.removeChild(elem);
+            const stdPollContainer = document.getElementById('stdPollContainer');
+            stdPollContainer.parentNode.removeChild(stdPollContainer);
             let msg = '';
             if (virtualclass.poll.dataRec.setting.showResult) {
               msg = virtualclass.lang.getString('votesuccess');
@@ -1411,13 +1459,22 @@
           }
         }
 
-        const data = {
-          stdPoll: virtualclass.poll.dataRec,
-          timer: virtualclass.poll.newUserTime,
-          // timer: virtualclass.poll.newTimer
-        };
+        // const data = {
+        //   stdPoll: virtualclass.poll.dataRec,
+        //   timer: virtualclass.poll.newUserTime,
+        //   // timer: virtualclass.poll.newTimer
+        // };
+
         virtualclass.poll.pollState.currScreen = 'voted';
-        virtualclass.poll.pollState.data = data;
+        // virtualclass.poll.pollState.data = data;
+
+        // const data = {
+        //   stdPoll: virtualclass.poll.dataRec,
+        //   timer: virtualclass.poll.newUserTime,
+        //   // timer: virtualclass.poll.newTimer
+        // };
+        virtualclass.poll.pollState.data = virtualclass.poll.dataRec;
+        virtualclass.poll.pollState.timer = virtualclass.poll.newUserTime;
       },
 
       sendResponse() {
@@ -1642,6 +1699,7 @@
         }
       },
       stdPublishResult(count, report) {
+        console.log('====> student publish result ');
         virtualclass.poll.count = count;
         if (virtualclass.poll.timer) {
           clearInterval(virtualclass.poll.timer);
@@ -1707,14 +1765,22 @@
         } else {
           this.noneVoted();
         }
-        const data = {
-          stdPoll: virtualclass.poll.dataRec,
-          timer: virtualclass.poll.newUserTime,
-          count: virtualclass.poll.count,
-
-        };
+        // const data = {
+        //   stdPoll: virtualclass.poll.dataRec,
+        //   timer: virtualclass.poll.newUserTime,
+        //   count: virtualclass.poll.count,
+        //
+        // };
         virtualclass.poll.pollState.currScreen = 'stdPublishResult';
-        virtualclass.poll.pollState.data = data;
+        // const data = {
+        //   stdPoll: virtualclass.poll.dataRec,
+        //   timer: virtualclass.poll.newUserTime,
+        //   count: virtualclass.poll.count,
+        //
+        // };
+        virtualclass.poll.pollState.data = virtualclass.poll.dataRec;
+        virtualclass.poll.pollState.timer = virtualclass.poll.newUserTime;
+        virtualclass.poll.pollState.count = virtualclass.poll.count;
       },
       noResultDisplay() {
         const layout = document.getElementById('stdPollContainer');
@@ -2253,24 +2319,26 @@
             const resultNav = document.querySelector('#virtualclassCont.congrea.student #navigator #pollResult');
             resultNav.style.display = 'none';
 
+            // We need to display last result on student side after switch back to Poll app
 
-            virtualclass.storage.getAllDataOfPoll(['pollStorage'], (arr) => {
-              if (arr) {
-                const top = JSON.parse(arr.pop().pollResult);
-                if (top.pollData.setting.showResult) {
-                  virtualclass.poll.previousResult = top;
-                  const resultNav = document.querySelector('#virtualclassCont.congrea.student #navigator #pollResult');
-                  if (resultNav) {
-                    resultNav.style.display = 'block';
-                  }
+            // virtualclass.storage.getAllDataOfPoll(['pollStorage'], (arr) => {
+            //   if (arr) {
+            //     const top = JSON.parse(arr.pop().pollResult);
+            //     if (top.pollData.setting.showResult) {
+            //       virtualclass.poll.previousResult = top;
+            //       const resultNav = document.querySelector('#virtualclassCont.congrea.student #navigator #pollResult');
+            //       if (resultNav) {
+            //         resultNav.style.display = 'block';
+            //       }
+            //
+            //       const pollText = document.querySelector('#virtualclassCont.congrea.student #navigator #stdPollHeader');
+            //       if (pollText) {
+            //         pollText.style.display = 'none';
+            //       }
+            //     }
+            //   }
+            // });
 
-                  const pollText = document.querySelector('#virtualclassCont.congrea.student #navigator #stdPollHeader');
-                  if (pollText) {
-                    pollText.style.display = 'none';
-                  }
-                }
-              }
-            });
             const stdNav = document.querySelector('.congrea.student #virtualclassPoll #navigator #pollResult');
             stdNav.addEventListener('click', () => {
               virtualclass.poll.showStudentPollReport(virtualclass.poll.previousResult);
@@ -2286,8 +2354,7 @@
         },
 
         resultView(istimer, pollType) {
-          const layout = document.getElementById('layoutPoll');
-
+          console.log('====> Poll result view ');
           if (roles.hasControls()) {
             this.createResultLayout();
             if (!istimer) {
@@ -2319,6 +2386,7 @@
           virtualclass.poll.count = {};
           virtualclass.poll.list = [];
         },
+
         createResultLayout() {
           const resultLayout = document.getElementById('resultLayout');
           if (resultLayout) {

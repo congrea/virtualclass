@@ -175,6 +175,14 @@
             ioAdapter.validateAllVariables(key1);
             ioAdapter.userSerial[key1] = parseInt(key2, 10);
             ioAdapter.userAdapterMustData[key1][ioAdapter.userSerial[key1]] = m;
+
+            try {
+              if (m.m.cf !== 'eddata') {
+                io.onRecJson(m);
+              }
+            } catch (error) {
+               console.log(`Error ${error}`);
+            }
           }
         }
       }

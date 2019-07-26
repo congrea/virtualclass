@@ -50,6 +50,8 @@
           } else {
             this.UI.container();
             if (roles.hasControls()) {
+              console.log('====> Poll Init');
+              virtualclass.poll.consolePollSate();
               ioAdapter.mustSend({
                 poll: {
                   pollMsg: 'init',
@@ -62,6 +64,8 @@
           }
         } else {
           this.UI.container();
+          console.log('====> Poll Init');
+          virtualclass.poll.consolePollSate();
           ioAdapter.mustSend({
             poll: {
               pollMsg: 'init',
@@ -87,6 +91,13 @@
           return true;
         }
       },
+
+      consolePollSate() {
+        //if (this.poll.pollState) {
+        //   console.log('====> Poll current state ', this.pollState);
+        //}
+      },
+
       /*
        *
        * @param {object} create poll data
@@ -411,7 +422,7 @@
         const coursePollTab = document.getElementById('coursePollTab');
         const sitePollTab = document.getElementById('sitePollTab');
         let category = 0;
-        if (pollType == 'course') {
+        if (pollType === 'course') {
           sitePollTab.classList.remove('active');
           coursePollTab.classList.add('active');
           category = this.cmid;
@@ -537,6 +548,8 @@
             modal.remove();
           }
           if (virtualclass.poll.timer) {
+            virtualclass.poll.consolePollSate();
+            console.log('====> Poll student publish result');
             ioAdapter.mustSend({
               poll: {
                 pollMsg: 'stdPublishResult',
@@ -612,7 +625,9 @@
           this.dataRec = msg.poll.data;
         } else if (roles.isStudent() && msg.poll.pollMsg === 'stdResponse'){
           msg.poll.timer = 0;
-          this.reloadVotedScrn(msg.poll);
+          if (virtualclass.poll.pollState.currScreen !== 'stdPublishResult') {
+            this.reloadVotedScrn(msg.poll);
+          }
         }
         // console.log(`student side ${msg.poll.pollMsg}`);
         virtualclass.poll[msg.poll.pollMsg].call(this, msg.poll.data, fromUser);
@@ -879,8 +894,11 @@
         virtualclass.modal.closeModalHandler('editPollModal');
       },
       stdResponse(response, fromUser) {
+        virtualclass.poll.consolePollSate();
         console.log('====> Poll student reponse');
-        this.updateResponse(response, fromUser);
+        if (this.pollState.currScreen !== 'voted') {
+          this.updateResponse(response, fromUser);
+        }
       },
       newPollHandler(pollType) {
         const bsCont = document.querySelector('#createPollCont');
@@ -1263,6 +1281,8 @@
       askConfirmClose(opted, label, pollType) {
         if (opted) {
           if ((virtualclass.poll.setting.showResult && roles.hasControls()) || !roles.hasControls()) {
+            virtualclass.poll.consolePollSate();
+            console.log('====> Poll student publish result');
             ioAdapter.mustSend({
               poll: {
                 pollMsg: 'stdPublishResult',
@@ -1345,6 +1365,7 @@
       },
 
       stdPublish() {
+        virtualclass.poll.consolePollSate();
         console.log('====> Poll publish');
         virtualclass.poll.pollState.data = virtualclass.poll.dataRec;
         virtualclass.poll.pollState.timer = virtualclass.poll.newUserTime;
@@ -1479,6 +1500,8 @@
 
       sendResponse() {
         const toUser = virtualclass.vutil.whoIsTeacher();
+        virtualclass.poll.consolePollSate();
+        console.log('====> Poll student response');
         ioAdapter.mustSendUser({
           poll: {
             pollMsg: 'stdResponse',
@@ -1643,6 +1666,8 @@
         }
         if (roles.hasControls()) {
           if (virtualclass.poll.setting.showResult) {
+            virtualclass.poll.consolePollSate();
+            console.log('====> Poll show result');
             ioAdapter.mustSend({
               poll: {
                 pollMsg: 'stdPublishResult',
@@ -1699,7 +1724,8 @@
         }
       },
       stdPublishResult(count, report) {
-        console.log('====> student publish result ');
+        virtualclass.poll.consolePollSate();
+        console.log('====> Poll student publish result ');
         virtualclass.poll.count = count;
         if (virtualclass.poll.timer) {
           clearInterval(virtualclass.poll.timer);
@@ -1967,6 +1993,8 @@
         }
 
         if (time) {
+          virtualclass.poll.consolePollSate();
+          console.log('====> Poll student publish');
           ioAdapter.mustSend({
             poll: {
               pollMsg: 'stdPublish',
@@ -2354,6 +2382,7 @@
         },
 
         resultView(istimer, pollType) {
+          virtualclass.poll.consolePollSate();
           console.log('====> Poll result view ');
           if (roles.hasControls()) {
             this.createResultLayout();

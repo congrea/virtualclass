@@ -405,6 +405,7 @@
         console.log('====> POLL COUNT', this.count);
         this.pollState.view = this.currResultView;
       },
+
       // timer to..
       loadTeacherScrn(storedData) {
         // console.log('currentscreenpublish');
@@ -416,7 +417,10 @@
         this.setting = storedData.data.setting;
         this.newUserTime = storedData.data.newTime;
         this.newTime = storedData.data.newTime;
+
+        // this.nTimer = storedData.data.newTime;
         this.nTimer = storedData.data.newTime;
+
         // virtualclass.poll.afterReload=storedData.data.newTime;
         this.count = storedData.data.count;
         console.log('====> POLL COUNT', this.count);
@@ -490,22 +494,43 @@
         this.noOfVotes(totalUsers);
 
         if (isTimer) {
+          // const publishTime = virtualclass.poll.pollState.data.setting.time.timestamp;
+          // const publishTimeInSeconds = virtualclass.vutil.UTCtoLocalTimeToSeconds(publishTime);
+          // const totalDiff = (new Date().getTime() - publishTimeInSeconds);
+          // const remainingTime = (virtualclass.poll.setting.time.totalInSeconds * 1000) - totalDiff;
+          //
+          // let formattedTimes;
+          // if (remainingTime > 0) {
+          //   formattedTimes = virtualclass.vutil.miliSecondsToFormatedTime(remainingTime);
+          //   this.nTimer.min = formattedTimes[1];
+          //   this.nTimer.sec = formattedTimes[2];
+          // } else {
+          //   this.nTimer.min = 0;
+          //   this.nTimer.sec = 0;
+          // }
+
+          const formattedTimes = this.getFormatedTime();
+          this.nTimer.min = formattedTimes[1];
+          this.nTimer.sec = formattedTimes[2];
+
+          // this.nTimer
           // this.UI.resultView(isTimer);
-          var { min } = this.nTimer;
-          var { sec } = this.nTimer;
+          let elem;
+          const { min } = virtualclass.poll.nTimer;
+          const { sec } = virtualclass.poll.nTimer;
 
           if (min || sec > 1) {
-            var timerWrapper = document.getElementById('timerWrapper');
+            const timerWrapper = document.getElementById('timerWrapper');
             if (timerWrapper) {
-              var elem = document.createElement('div');
+              elem = document.createElement('div');
               elem.id = 'timerCont';
               timerWrapper.appendChild(elem);
             }
-            this.showTimer(virtualclass.poll.nTimer, 0); // not in ui
+            this.showTimer(virtualclass.poll.nTimer); // not in ui
           } else if (min || sec <= 1) {
-            var timerWrapper = document.getElementById('timerWrapper');
+            const timerWrapper = document.getElementById('timerWrapper');
             if (timerWrapper) {
-              var elem = document.createElement('div');
+              elem = document.createElement('div');
               elem.id = 'timerCont';
               timerWrapper.appendChild(elem);
             }
@@ -517,9 +542,6 @@
             }
           }
         } else {
-
-          // var { min } = storedData.data.newTime;
-          // var { sec } = storedData.data.newTime;
           this.triggerElapseTimer();
         }
 
@@ -533,6 +555,8 @@
         this.count = storedData.data.count;
         this.pollState.currScreen = 'teacherPublish';
       },
+
+
 
       pollModalClose(pollType) {
         if (roles.hasControls()) {
@@ -1423,7 +1447,9 @@
           if (isTimer) {
             const updatedTime = virtualclass.poll.dataRec.newTime;
             virtualclass.poll.newTimer = updatedTime;
-            this.showTimer(updatedTime);
+            const formattedTimes = this.getFormatedTime();
+            const showerTime = {min: formattedTimes[1], sec: formattedTimes[2]};
+            this.showTimer(showerTime);
             var label = document.querySelector('#timerLabel');
             label.innerHTML = virtualclass.lang.getString('Rtime');
           } else {
@@ -1461,6 +1487,21 @@
           // virtualclass.poll.pollState.data = virtualclass.poll.dataRec;
           // virtualclass.poll.pollState.timer = virtualclass.poll.newUserTime;
         }
+      },
+
+      getFormatedTime() {
+        const publishTime = virtualclass.poll.pollState.data.setting.time.timestamp;
+        const publishTimeInSeconds = virtualclass.vutil.UTCtoLocalTimeToSeconds(publishTime);
+        const totalDiff = (new Date().getTime() - publishTimeInSeconds);
+        const remainingTime = (virtualclass.poll.pollState.data.setting.time.totalInSeconds * 1000) - totalDiff;
+
+        let formattedTimes;
+        if (remainingTime > 0) {
+          formattedTimes = virtualclass.vutil.miliSecondsToFormatedTime(remainingTime);
+        } else {
+          formattedTimes = [0, 0, 0];
+        }
+        return formattedTimes;
       },
 
       triggerElapseTimer(){
@@ -1663,53 +1704,56 @@
         virtualclass.poll.timer = setInterval(handler, 1000);
       },
 
-      showTimer(rTime, diff) {
+      showTimer(rTime) {
+        let min = 0;
+        let sec = 0;
+
         if (virtualclass.poll.timer) {
           clearInterval(virtualclass.poll.timer);
         }
         const elem = document.getElementById('timerCont');
-        if (roles.hasControls()) {
-          if (virtualclass.poll.pollState.data) {
-            virtualclass.poll.pollState.data.newTime = virtualclass.poll.newUserTime;
-            // console.log(`test${virtualclass.poll.pollState.data.newTime}`);
-          }
+        if (roles.hasControls() && virtualclass.poll.pollState.data) {
+          virtualclass.poll.pollState.data.newTime = virtualclass.poll.newUserTime;
+          // if (virtualclass.poll.pollState.data) {
+          //   virtualclass.poll.pollState.data.newTime = virtualclass.poll.newUserTime;
+          // }
         }
-        var min = 0;
-        var sec = 0;
+
+        // var min = 0;
+        // var sec = 0;
         if (roles.hasControls()) {
           if (typeof rTime.digit !== 'undefined') {
             const dgt = rTime.digit;
             const { unit } = rTime;
-            var sec = dgt;
-            var min = 0;
-            if (unit == 'minut') {
-              var min = dgt;
-              var sec = 0;
+            if (unit === 'minut') {
+              min = dgt;
+              sec = 0;
+            } else {
+              sec = dgt;
+              min = 0;
             }
           } else if (typeof rTime.min !== 'undefined') {
             // for reload
             min = rTime.min;
             sec = rTime.sec;
           }
-        }
-
-        if (!roles.hasControls()) {
-          if (virtualclass.poll.newTimer.min || virtualclass.poll.newTimer.sec) {
-            min = virtualclass.poll.newTimer.min;
-            sec = virtualclass.poll.newTimer.sec;
-            virtualclass.poll.newTimer = {};
-          }
+        } else {
+          // if (virtualclass.poll.newTimer.min || virtualclass.poll.newTimer.sec) {
+          //   min = virtualclass.poll.newTimer.min;
+          //   sec = virtualclass.poll.newTimer.sec;
+          //   virtualclass.poll.newTimer = {};
+          // }
+          min = rTime.min;
+          sec = rTime.sec;
         }
 
         /** TODO, hanlder says please take me out from here * */
-
         const handler = function () {
           if (elem) {
             virtualclass.poll.newUserTime.min = min;
             virtualclass.poll.newUserTime.sec = sec;
             elem.innerHTML = `${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
             // console.log(`testtimer${virtualclass.poll.timer}`);
-
             sec--;
             if (sec <= 0) {
               sec = 59;
@@ -1722,21 +1766,17 @@
                 virtualclass.poll.timerExpired();
               }
             }
-            // virtualclass.poll.pollState["data"].
           } else {
-            // temp
             clearInterval(virtualclass.poll.timer);
           }
-
-          // if(roles.hasAdmin()){
-          //     ioAdapter.sync({time : {min : min, sec : sec}, 'app': 'poll', 'cf': 'sync'});
-          // }
         };
+
         if (min || sec) {
           handler();
           virtualclass.poll.timer = setInterval(handler, 1000);
         }
       },
+
       timerExpired() {
         const btn = document.getElementById('btnVote');
         if (btn) {
@@ -2037,11 +2077,15 @@
         if (time) {
           const dgt = time.options[time.selectedIndex].value;
           virtualclass.poll.setting.time.digit = dgt;
+          const unitElem = document.getElementById('ut');
+          const unit = unitElem.options[unitElem.selectedIndex].value;
+          virtualclass.poll.setting.time.unit = unit;
 
-          const unit = document.getElementById('ut');
-          const ut = unit.options[unit.selectedIndex].value;
-          virtualclass.poll.setting.time.unit = ut;
-
+          if (unit === 'minut') {
+            virtualclass.poll.setting.time.totalInSeconds = (+(dgt) * 60);
+          } else {
+            virtualclass.poll.setting.time.totalInSeconds = (+(dgt));
+          }
           // const timeStamp = Date.now();
           // console.log(`sender TimeStamp${Date.now()}`);
           virtualclass.poll.setting.time.timestamp = virtualclass.vutil.localToUTC(Date.now());
@@ -2055,7 +2099,7 @@
         virtualclass.poll.currResultView = 'bar';
 
         if (isTimer) {
-          virtualclass.poll.showTimer(virtualclass.poll.setting.time, 0); // not in ui
+          virtualclass.poll.showTimer(virtualclass.poll.setting.time); // not in ui
         } else {
           virtualclass.poll.elapsedTimer();
         }

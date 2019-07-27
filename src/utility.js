@@ -1439,20 +1439,11 @@
       return false;
     },
 
-    UTCtoLocalTime(time) {
-      const date = new Date(time);
-
-      // Hours part from the timestamp
-      const hours = date.getHours();
-      // Minutes part from the timestamp
-      const minutes = `0${date.getMinutes()}`;
-      // Seconds part from the timestamp
-      // var seconds = "0" + date.getSeconds();
-
-      // Will display time in 10:30:23 format
-      const formattedTime = `${hours}:${minutes.substr(-2)}`;
-
-      return formattedTime;
+    miliSecondsToFormatedTime(milliseconds) {
+      const seconds = Math.floor((milliseconds / 1000) % 60);
+      const minutes = Math.floor(((milliseconds / (1000 * 60)) % 60));
+      const hours = Math.floor(((milliseconds / (1000 * 60 * 60)) % 24));
+      return [hours, minutes, seconds];
     },
 
     localToUTC() {
@@ -1463,8 +1454,7 @@
     },
 
     UTCtoLocalTimeToSeconds(time) {
-      var time = new Date(time).getTime();
-      return time;
+      return new Date(time).getTime();
     },
 
     appIsForEducator(app) {

@@ -517,9 +517,10 @@
             }
           }
         } else {
-          var { min } = storedData.data.newTime;
-          var { sec } = storedData.data.newTime;
-          this.elapsedTimer(min, sec);
+
+          // var { min } = storedData.data.newTime;
+          // var { sec } = storedData.data.newTime;
+          this.triggerElapseTimer();
         }
 
         const modalClose = document.getElementById('modalClose');
@@ -1426,11 +1427,10 @@
             var label = document.querySelector('#timerLabel');
             label.innerHTML = virtualclass.lang.getString('Rtime');
           } else {
-            this.elapsedTimer();
+            this.triggerElapseTimer();
             const msg = virtualclass.lang.getString('Tmyclose');
             virtualclass.poll.showMsg('stdContHead', msg, 'alert-success');
-            var label = document.querySelector('#timerLabel');
-            label.innerHTML = virtualclass.lang.getString('ETime');
+            document.querySelector('#timerLabel').innerHTML = virtualclass.lang.getString('ETime');
           }
 
           const qnCont = document.getElementById('stdQnCont');
@@ -1462,6 +1462,15 @@
           // virtualclass.poll.pollState.timer = virtualclass.poll.newUserTime;
         }
       },
+
+      triggerElapseTimer(){
+        const publishTime = virtualclass.poll.pollState.data.setting.time.timestamp;
+        const publishTimeInSeconds = virtualclass.vutil.UTCtoLocalTimeToSeconds(publishTime);
+        const totalDiff = (new Date().getTime() - publishTimeInSeconds);
+        const [hour, min, sec] = virtualclass.vutil.miliSecondsToFormatedTime(totalDiff);
+        this.elapsedTimer(min, sec);
+      },
+
       voted() {
         virtualclass.poll.pollState.currScreen = 'voted';
         const btn = document.querySelector('#virtualclassCont.congrea #stdPollContainer #btnVote');
@@ -1529,6 +1538,7 @@
       timeStamp(message) {
         virtualclass.poll.newTimer = message;
       },
+
       saveSelected() {
         const optsCont = document.getElementById('stdOptionCont');
         const elem = optsCont.querySelectorAll('#stdOptionCont .opt');
@@ -1542,7 +1552,70 @@
           return 0;
         }
       },
-      elapsedTimer(minut, second) {
+
+      // elapsedTimer(minut, second) {
+      //   if (Object.prototype.hasOwnProperty.call(virtualclass.poll, 'timer')) {
+      //     clearInterval(virtualclass.poll.timer);
+      //   }
+      //   const label = document.getElementById('timerLabel');
+      //   if (label) {
+      //     label.innerHTML = virtualclass.lang.getString('ETime');
+      //   }
+      //
+      //   if (minut || second) {
+      //     var min = minut;
+      //     var sec = second;
+      //   } else {
+      //     var sec = 0;
+      //     var min = 0;
+      //   }
+      //
+      //
+      //   if (!roles.hasControls()) {
+      //     const head = document.getElementById('stdContHead');
+      //     if (head) {
+      //       elem = document.querySelector('#timerCont');
+      //       if (elem == null) {
+      //         elem = document.createElement('div');
+      //         elem.id = 'timerCont';
+      //         head.appendChild(elem);
+      //       }
+      //     }
+      //     // to verify
+      //     min = virtualclass.poll.dataRec.newTime.min;
+      //     sec = virtualclass.poll.dataRec.newTime.sec;
+      //   } else {
+      //     var elem = document.getElementById('timerCont');
+      //   }
+      //
+      //   const handler = function () {
+      //     // console.log("timer" + virtualclass.poll.timer)
+      //     if (elem) {
+      //       sec++;
+      //       if (sec == 60) {
+      //         sec = 0;
+      //         min++;
+      //         if (min == 60) min = 0;
+      //       }
+      //
+      //       virtualclass.poll.newUserTime.min = min;
+      //       virtualclass.poll.newUserTime.sec = sec;
+      //       // console.log("hello")
+      //       elem.innerHTML = `${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
+      //     } else {
+      //       clearInterval(virtualclass.poll.timer);
+      //     }
+      //   };
+      //
+      //   handler();
+      //   virtualclass.poll.timer = setInterval(handler, 1000);
+      // },
+
+      elapsedTimer(min, sec) {
+        let minute = min || 0;
+        let second = sec || 0;
+        let elem;
+
         if (Object.prototype.hasOwnProperty.call(virtualclass.poll, 'timer')) {
           clearInterval(virtualclass.poll.timer);
         }
@@ -1551,46 +1624,36 @@
           label.innerHTML = virtualclass.lang.getString('ETime');
         }
 
-        if (minut || second) {
-          var min = minut;
-          var sec = second;
+        if (roles.hasControls()) {
+          elem = document.getElementById('timerCont');
         } else {
-          var sec = 0;
-          var min = 0;
-        }
-
-
-        if (!roles.hasControls()) {
           const head = document.getElementById('stdContHead');
           if (head) {
             elem = document.querySelector('#timerCont');
-            if (elem == null) {
+            if (elem === null) {
               elem = document.createElement('div');
               elem.id = 'timerCont';
               head.appendChild(elem);
             }
           }
           // to verify
-          min = virtualclass.poll.dataRec.newTime.min;
-          sec = virtualclass.poll.dataRec.newTime.sec;
-        } else {
-          var elem = document.getElementById('timerCont');
+          // minute = virtualclass.poll.dataRec.newTime.min;
+          // second = virtualclass.poll.dataRec.newTime.sec;
         }
-
         const handler = function () {
           // console.log("timer" + virtualclass.poll.timer)
           if (elem) {
-            sec++;
-            if (sec == 60) {
-              sec = 0;
-              min++;
-              if (min == 60) min = 0;
+            second++;
+            if (second === 60) {
+              second = 0;
+              minute++;
+              if (minute === 60) minute = 0;
             }
 
-            virtualclass.poll.newUserTime.min = min;
-            virtualclass.poll.newUserTime.sec = sec;
+            virtualclass.poll.newUserTime.min = minute;
+            virtualclass.poll.newUserTime.sec = second;
             // console.log("hello")
-            elem.innerHTML = `${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
+            elem.innerHTML = `${minute < 10 ? `0${minute}` : minute}:${second < 10 ? `0${second}` : second}`;
           } else {
             clearInterval(virtualclass.poll.timer);
           }
@@ -1979,9 +2042,9 @@
           const ut = unit.options[unit.selectedIndex].value;
           virtualclass.poll.setting.time.unit = ut;
 
-          const timeStamp = Date.now();
+          // const timeStamp = Date.now();
           // console.log(`sender TimeStamp${Date.now()}`);
-          virtualclass.poll.setting.time.timestamp = timeStamp;
+          virtualclass.poll.setting.time.timestamp = virtualclass.vutil.localToUTC(Date.now());
         }
 
         if (document.getElementById('pollCkbox')) {

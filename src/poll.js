@@ -10,16 +10,12 @@
 
   var poll = function () {
     return {
-      /* to generlize */
       coursePoll: [],
       sitePoll: [],
       setting: {
         showResult: true,
         timer: true,
-        time: {
-          // digit: '2',
-          // unit: 'minut',
-        },
+        time: {},
       },
       uid: 0,
       currQid: 0,
@@ -37,39 +33,18 @@
       uniqueUsers: [],
       init() {
         this.pollState = {};
-        virtualclass.previrtualclass = 'virtualclass' + 'Poll';
-        virtualclass.previous = 'virtualclass' + 'Poll';
+        virtualclass.previrtualclass = 'virtualclassPoll';
+        virtualclass.previous = virtualclass.previrtualclass;
         const urlquery = virtualclass.vutil.getUrlVars(exportfilepath);
         this.cmid = urlquery.cmid;
         if (this.timer) {
           clearInterval(this.timer);
         }
-        if (!roles.hasAdmin() || (roles.isEducator())) {
-          if (roles.isStudent()) {
-            this.UI.defaultLayoutForStudent();
-          } else {
-            this.UI.container();
-            if (roles.hasControls()) {
-              console.log('====> Poll Init 1');
-              ioAdapter.mustSend({
-                poll: {
-                  pollMsg: 'init',
-                },
-                cf: 'poll',
-              });
-            } else {
-              this.UI.defaultLayoutForStudent();
-            }
-          }
+        if (roles.isStudent()) {
+          this.UI.defaultLayoutForStudent();
         } else {
           this.UI.container();
-          console.log('====> Poll Init 1');
-          ioAdapter.mustSend({
-            poll: {
-              pollMsg: 'init',
-            },
-            cf: 'poll',
-          });
+          ioAdapter.mustSend({ poll: { pollMsg: 'init' }, cf: 'poll' });
         }
         this.interfaceToFetchList(this.cmid);
       },
@@ -81,7 +56,7 @@
        * @response text  {object}
        * poll interface to save poll in moodle database
        */
-      interfaceToSave(data, category) {
+      interfaceToSave(data) {
         const that = this;
         const formData = new FormData();
         formData.append('dataToSave', JSON.stringify(data));
@@ -413,7 +388,7 @@
               elem.id = 'timerCont';
               timerWrapper.appendChild(elem);
             }
-            this.remainingTimer({ min, sec });
+            this.remainingTimer({ hour, min, sec });
           } else if (min || sec <= 1) {
             const timerWrapper = document.getElementById('timerWrapper');
             if (timerWrapper) {
@@ -1351,13 +1326,7 @@
           if (nav) {
             nav.style.display = 'none';
           }
-
           virtualclass.poll.pollState.currScreen = 'stdPublish';
-
-          //virtualclass.poll.pollState.data = data;
-
-          // virtualclass.poll.pollState.data = virtualclass.poll.dataRec;
-          // virtualclass.poll.pollState.timer = virtualclass.poll.newUserTime;
         }
       },
 
@@ -1485,9 +1454,6 @@
               if (minute === 60) minute = 0;
             }
 
-            // virtualclass.poll.newUserTime.min = minute;
-            // virtualclass.poll.newUserTime.sec = second;
-            // console.log("hello")
             elem.innerHTML = `${minute < 10 ? `0${minute}` : minute}:${second < 10 ? `0${second}` : second}`;
           } else {
             clearInterval(virtualclass.poll.timer);
@@ -1506,7 +1472,6 @@
         let min = time.min || 0;
         let sec = time.sec || 0;
 
-        /** TODO, hanlder says please take me out from here * */
         const handler = function () {
           if (elem) {
             elem.innerHTML = `${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
@@ -1811,8 +1776,9 @@
       },
 
       saveSetting(pollType, next) {
+        let isTimer;
         if (document.getElementById('radioBtn2')) {
-          var isTimer = document.getElementById('radioBtn2').checked;
+          isTimer = document.getElementById('radioBtn2').checked;
           virtualclass.poll.setting.timer = isTimer;
         }
 
@@ -1841,7 +1807,7 @@
 
         if (isTimer) {
           const [hour, min, sec] = virtualclass.vutil.miliSecondsToFormatedTime(virtualclass.poll.setting.time.totalInSeconds * 1000);
-          virtualclass.poll.remainingTimer({ min, sec }); // not in ui
+          virtualclass.poll.remainingTimer({ hour, min, sec }); // not in ui
         } else {
           virtualclass.poll.elapsedTimer();
         }

@@ -738,7 +738,7 @@
       const timer = this.convertIntoReadable(toSeekTime);
       virtualclass.poll.newTimer.sec = timer.s;
       virtualclass.poll.newTimer.min = timer.m;
-      virtualclass.poll.showTimer(virtualclass.poll.newTimer);
+      virtualclass.poll.remainingTimer(virtualclass.poll.newTimer);
     },
 
     handleSyncPacket() {

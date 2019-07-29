@@ -1113,10 +1113,6 @@
         virtualclass.poll.UI.previewFooterBtns(cont, pollType);
       },
 
-      publishHandler2() {
-        const message = 'poll published';
-        virtualclass.poll.showMsg('mszBoxPoll', message, 'alert-success');
-      },
       deleteHandler(item, pollType, index) {
         const mszbox = document.getElementById('mszBoxPoll');
         const notify = mszbox.querySelectorAll('#mszBoxPoll .alert');
@@ -1316,11 +1312,6 @@
           if (btn) {
             btn.addEventListener('click', virtualclass.poll.voted);
           }
-
-          // const data = {
-          //   stdPoll: virtualclass.poll.dataRec,
-          //   timer: virtualclass.poll.newUserTime,
-          // };
 
           const nav = document.querySelector('#virtualclassCont.congrea.student #navigator #pollResult');
           if (nav) {

@@ -47,7 +47,7 @@
                 questionMode: 'deferredfeedback',  //(deferredfeedback(default) = completionResponseMessaging,adaptive,interactive = perQuestionResponseAnswers)
                 perQuestionResponseMessaging: ( (options.questionMode != undefined && options.questionMode != 'deferredfeedback') ? true : false ),
                 perQuestionResponseAnswers: ((options.questionMode != undefined && options.questionMode != 'deferredfeedback') ? true : false ),
-                completionResponseMessaging: ( (options.questionMode != undefined 
+                completionResponseMessaging: ( (options.questionMode != undefined
                     && options.questionMode != 'deferredfeedback') ? false : options.displayDetailResult ),
                 //completionResponseMessaging: true,
                 displayQuestionCount: false, // Deprecate?
@@ -222,16 +222,16 @@
                 key = internal.method.getKey (3); // how many notches == how many jQ animations you will run
                 keyNotch = internal.method.getKeyNotch; // a function that returns a jQ animation callback function
                 kN = keyNotch; // you specify the notch, you get a callback function for your animation
-                
+
                 // Count down timer
 
-                if (plugin.config.quizTime && plugin.config.quizTime > 0) { 
+                if (plugin.config.quizTime && plugin.config.quizTime > 0) {
                     $('#timeText').html('Time remaining <span id="qztime">' + plugin.config.quizTime + '</span>');
                 } else {
                     $('#timeText').html('Elapsed time <span id="qztime">00:00:00</span>');
                 }
                 $quizName.hide().html(plugin.config.nameTemplateText
-                    .replace('%name', quizValues.info.name) ).fadeIn(1000, kN(key,1));             
+                    .replace('%name', quizValues.info.name) ).fadeIn(1000, kN(key,1));
                 $quizHeader.hide().prepend($('<div class="quizDescription">' + quizValues.info.main + '</div>')).fadeIn(1000, kN(key,2));
                 //$quizResultsCopy.append(quizValues.info.results);  //pinky
 
@@ -562,7 +562,7 @@
                     if ($(_element + ' ' + _answers).find('input:checked').length > 0 ) {
                         plugin.method.sendQzdata(questionId, false);
                     }
-                    
+
                 }
 
                 // Toggle appropriate response (either for display now and / or on completion)
@@ -626,7 +626,7 @@
 
                         }else{
                            currentQuestion.nextAll(_question).show();//display all next questions
-                           if (!$('li#question' + (quizValues.questions.length-1) + 
+                           if (!$('li#question' + (quizValues.questions.length-1) +
                            '.question').find(_prevQuestionBtn).show().end().length) kN(key,1).apply (null, []);
 
                            $('a#nav'+currentQuestion[0].id+'.qnbutton').nextAll('.qnbutton').addClass("thispage"); //paging button highlight
@@ -840,7 +840,7 @@
                     display.textContent = hours + ":" + minutes + ":" + seconds;
                     //display.innerHTML = hours + ":" + minutes + ":" + seconds;
                     // Global scope of timer
-                    timeTakenQuiz = hours + ":" + minutes + ":" + seconds; 
+                    timeTakenQuiz = hours + ":" + minutes + ":" + seconds;
 
                     if (diff <= 0) {
                         // add one second so that the count down starts at the full duration
@@ -925,7 +925,7 @@
 
                         if (plugin.config.quizTime && plugin.config.quizTime > 0) {
                             var tS = timeTakenQuiz.split(':');
-                            var timeInSec = (+tS[0]) * 60 * 60 + (+tS[1]) * 60 + (+tS[2]); 
+                            var timeInSec = (+tS[0]) * 60 * 60 + (+tS[1]) * 60 + (+tS[2]);
                             var timeTaken = parseInt(plugin.config.quizTime) - timeInSec ;
                             var tt = virtualclass.quiz.convertSecToTime(timeTaken);
                         } else {
@@ -933,17 +933,18 @@
                         }
 
                         //hide navigation block
+                        console.log('====> QUIZ IS CRERATING');
                         $(_element + ' ' +'.navblock').hide()
-                        $quizResults.prepend($('<h4>Questions attempted: <span>' 
+                        $quizResults.prepend($('<h4>Questions attempted: <span>'
                             + aAttempted +'</span></h4>'));
-                        $quizResults.prepend($('<h4>Correct answers: <span>' 
+                        $quizResults.prepend($('<h4>Correct answers: <span>'
                             + currectAns +'</span></h4>'));
-                        $quizResults.prepend($('<h4>Maximum mark: <span>' 
+                        $quizResults.prepend($('<h4>Maximum mark: <span>'
                             + totalMarks.toFixed(2) +'</span></h4>'));
-                        $quizResults.prepend($('<h4>Time taken: <span>' 
+                        $quizResults.prepend($('<h4>Time taken: <span>'
                             + tt +'</span></h4>'));
                         $(_element + ' ' +'#timeText').hide();
-                        $quizResults.prepend($('<h4>Total no of questions: <span>' 
+                        $quizResults.prepend($('<h4>Total no of questions: <span>'
                             + questionCount +'</span></h4>'));
                         //$('.quizResults').prepend($('<div class="totalTimeTaken">' + questionCount + '</div>'))
                         $quizResults.fadeIn(500, kN(key,1)); // 1st notch on key must be on both sides of if/else, otherwise key won't turn
@@ -970,7 +971,9 @@
                                         quesattemptd: aAttempted,
                                         correctans : currectAns,
                                         score: grade.toFixed(2),
-                                        user: virtualclass.gObj.uid
+                                        user: virtualclass.gObj.uid,
+                                        maxmarks: quizValues.info.results,
+                                        noofqus: questionCount,
                                     },
                                     'cf': 'quiz'
                                 }, teacherID);
@@ -978,17 +981,18 @@
                         );
 
 
-                    // save data to storage
-                    var resultData = {
-                            noofqus: questionCount,
-                            timetaken : tt,
-                            quesattemptd: aAttempted,
-                            correctans : currectAns,
-                            score: score,
-                            maxmarks: quizValues.info.results
-                        }
-                    virtualclass.quiz.quizSt.screen ='quizsubmitted';
-                    localStorage.setItem('qRep', JSON.stringify({'grade':resultData, 'attemp': null}));
+                      // // save data to storage
+                      // var resultData = {
+                      //         noofqus: questionCount,
+                      //         timetaken : tt,
+                      //         quesattemptd: aAttempted,
+                      //         correctans : currectAns,
+                      //         score: score,
+                      //         maxmarks: quizValues.info.results
+                      //     }
+                      // virtualclass.quiz.quizSt.screen ='quizsubmitted';
+                      // localStorage.setItem('qRep', JSON.stringify({'grade':resultData, 'attemp': null}));
+
                     }
                     //$('#slickQuiz .quizResults').append("<div class='finished'><button type='button'>Finised</button></div>");
                     // Save score in grade table
@@ -1055,19 +1059,21 @@
             },
 
             sendQzdata: function(questionId, answer) {
-                if(! roles.hasControls()) {  // To avoid preview mode
-                    var teacherID = virtualclass.vutil.whoIsTeacher();
-                    ioAdapter.mustSendUser({
-                        'quiz': {
-                            quizMsg: 'quizAttempt',
-                            quizid : quizValues.info.quiz,
-                            questionId: questionId,
-                            ans : answer,
-                            user: virtualclass.gObj.uid
-                        },
-                        'cf': 'quiz'
-                    }, teacherID);
-                }
+                virtualclass.quiz.sendQuizData(quizValues.info.quiz, questionId, answer);
+
+                // if(! roles.hasControls()) {  // To avoid preview mode
+                //     var teacherID = virtualclass.vutil.whoIsTeacher();
+                //     ioAdapter.mustSendUser({
+                //         'quiz': {
+                //             quizMsg: 'quizAttempt',
+                //             quizid : quizValues.info.quiz,
+                //             questionId: questionId,
+                //             ans : answer,
+                //             user: virtualclass.gObj.uid
+                //         },
+                //         'cf': 'quiz'
+                //     }, teacherID);
+                // }
             }
         };
 

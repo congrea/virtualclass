@@ -595,7 +595,7 @@
             }
           }
         }
-        
+
         // Quiz cose at student end
         if (msg.quiz.quizMsg === 'quizClosed') {
           // localStorage.removeItem('quizSt');
@@ -1232,17 +1232,27 @@
             elem.appendChild(btnInnerdiv);
             btnInnerdiv.addEventListener('click', virtualclass.quiz.closeQzBt);
 
-            const storedData = JSON.parse(localStorage.getItem('quizSt'));
-            if (storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)) {
-              // console.log("Don't run timer when quiz is closed");
-              const elapsedTime = document.querySelector('#elsTime');
-              // localStorage.setItem('quizSt', JSON.stringify(storedData));
-              if (elapsedTime != null) {
-                elapsedTime.innerHTML = storedData.qtime;
-              }
-            } else {
-              virtualclass.quiz.quizTimer(qtime, document.getElementById('elsTime'), order);
+           // const storedData = JSON.parse(localStorage.getItem('quizSt'));
+
+            // if (storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)) {
+            //   // console.log("Don't run timer when quiz is closed");
+            //   const elapsedTime = document.querySelector('#elsTime');
+            //   // localStorage.setItem('quizSt', JSON.stringify(storedData));
+            //   if (elapsedTime != null) {
+            //     elapsedTime.innerHTML = storedData.qtime;
+            //   }
+            // } else {
+            //   virtualclass.quiz.quizTimer(qtime, document.getElementById('elsTime'), order);
+            // }
+
+            if (order === 'asc' && virtualclass.quiz.publishedTime) {
+              const publishTime = virtualclass.quiz.publishedTime;
+              const publishTimeInMiliSeconds = virtualclass.vutil.UTCtoLocalTimeToSeconds(publishTime);
+              qtime = (new Date().getTime() - publishTimeInMiliSeconds) / 1000;
             }
+
+            virtualclass.quiz.quizTimer(qtime, document.getElementById('elsTime'), order);
+
             const tbUl = this.createTab();
             bodyHdCont.appendChild(tbUl);
             // var maxMarksdiv = virtualclass.view.customCreateElement('div', 'maxMark','');

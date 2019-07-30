@@ -419,24 +419,31 @@
                 }
 
                 //this is for timer set on page referesh
-                var storedData = JSON.parse(localStorage.getItem('quizSt'));
-                if(storedData && storedData.qtime != null){
-                    var qzTime = storedData.qtime;
-                    var res = qzTime.split(":");
-                    var qzTm = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
-                    var lT = qzTm - 1;
+                // var storedData = JSON.parse(localStorage.getItem('quizSt'));
+                // if(storedData && storedData.qtime != null){
+                //     var qzTime = storedData.qtime;
+                //     var res = qzTime.split(":");
+                //     var qzTm = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
+                //     var lT = qzTm - 1;
+                //
+                // }else {
+                //     var quizPublishTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(plugin.config.ptm);
+                //     var currentTime = new Date().getTime();
+                //     if(!virtualclass.vutil.isPlayMode()){
+                //         var lT = (plugin.config.quizTime - ((currentTime -  quizPublishTime) / 1000 )); // left timing for quiz
+                //     }
+                // }
 
-                }else {
-                    var quizPublishTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(plugin.config.ptm);
-                    var currentTime = new Date().getTime();
-                    if(!virtualclass.vutil.isPlayMode()){
-                        var lT = (plugin.config.quizTime - ((currentTime -  quizPublishTime) / 1000 )); // left timing for quiz
-                    }
-                }
+                  var quizPublishTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(plugin.config.ptm);
+                  var currentTime = new Date().getTime();
+                  if(!virtualclass.vutil.isPlayMode()){
+                    var qzTm = ((currentTime -  quizPublishTime) / 1000 ); // left timing for quiz
+                    var lT = qzTm - 1;
+                  }
 
                 if (plugin.config.quizTime && plugin.config.quizTime > 0) {
                     // Quiz timer
-                    var timeLeft = lT ? lT : plugin.config.quizTime ,
+                    var timeLeft = lT ? lT : plugin.config.quizTime,
                     display = document.querySelector('#qztime');
                     plugin.method.startTimer(timeLeft, display,'desc', 'vmQuiz');
                     //startTimer(timeLeft, display, 'vmQuiz');

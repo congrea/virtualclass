@@ -964,21 +964,33 @@
                         virtualclass.quiz.timeQuizComplete = setTimeout(
                             function (){
                                 console.log('quiz submit from ' + virtualclass.gObj.uid);
-                                ioAdapter.mustSendUser({
-                                    'quiz': {
-                                        quizMsg: 'quizsubmitted',
-                                        timetaken : tt,
-                                        quesattemptd: aAttempted,
-                                        correctans : currectAns,
-                                        score: grade.toFixed(2),
-                                        user: virtualclass.gObj.uid,
-                                        maxmarks: quizValues.info.results,
-                                        noofqus: questionCount,
-                                    },
-                                    'cf': 'quiz'
-                                }, teacherID);
-                            }, 300
-                        );
+                                virtualclass.quiz.sendSubmittedQuiz(
+                                  {
+                                    quizMsg: 'quizsubmitted',
+                                    timetaken : tt,
+                                    quesattemptd: aAttempted,
+                                    correctans : currectAns,
+                                    score: grade.toFixed(2),
+                                    user: virtualclass.gObj.uid,
+                                    maxmarks: quizValues.info.results,
+                                    noofqus: questionCount,
+                                  }
+                                );
+                                // ioAdapter.mustSendUser({
+                                //     'quiz': {
+                                //         quizMsg: 'quizsubmitted',
+                                //         timetaken : tt,
+                                //         quesattemptd: aAttempted,
+                                //         correctans : currectAns,
+                                //         score: grade.toFixed(2),
+                                //         user: virtualclass.gObj.uid,
+                                //         maxmarks: quizValues.info.results,
+                                //         noofqus: questionCount,
+                                //     },
+                                //     'cf': 'quiz'
+                                // }, teacherID);
+                            }, 300);
+
 
 
                       // // save data to storage

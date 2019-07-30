@@ -439,6 +439,7 @@
             quizId: vthis.qzid,
             data,
             quizDetail,
+            timestamp: virtualclass.vutil.localToUTC(Date.now()),
           },
           cf: 'quiz',
         });
@@ -561,9 +562,10 @@
       onmessage(msg, fromUser) {
         // localStorage.removeItem('quizSt');
         const vthis = virtualclass.quiz;
-
         if (msg.quiz.quizMsg === 'stdPublish') {
+          vthis.publishedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
           vthis.dataRec = msg.quiz.data;
+          vthis.qzid = msg.quiz.quizId;
           if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
             this.teacherViewOnPageRefresh(msg.quiz);
           } else {
@@ -639,7 +641,7 @@
             this.usersFinishedQz.push(msg.quiz.user);
             const ct = this.usersFinishedQz.length;
 
-            const name = (!typeof fromUser.lname == 'undefined') ? `${fromUser.name} ${fromUser.lname}` : fromUser.name;
+            const name = (!typeof fromUser.lname === 'undefined') ? `${fromUser.name} ${fromUser.lname}` : fromUser.name;
 
             this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
 
@@ -655,10 +657,17 @@
             // save data in LMS DB
             this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
           } else {
-            // const rData = JSON.parse(localStorage.getItem('qRep'));
-            const contQuizBody = document.getElementById('layoutQuizBody');
-            this.UI.createMszBox(contQuizBody);
-            this.UI.displayStudentResultScreen(msg.quiz);
+            this.submittedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
+            if (vthis.submittedTime > vthis.publishedTime) {
+              const quizBodyContainer = document.getElementById('contQzBody');
+              if (quizBodyContainer != null) {
+                quizBodyContainer.parentNode.removeChild(quizBodyContainer);
+              }
+
+              const contQuizBody = document.getElementById('layoutQuizBody');
+              this.UI.createMszBox(contQuizBody);
+              this.UI.displayStudentResultScreen(msg.quiz);
+            }
           }
         }
       },
@@ -1550,6 +1559,25 @@
           studentMessage.innerHTML = virtualclass.lang.getString('quizmayshow');
           mszCont.appendChild(studentMessage);
         }
+      },
+
+      sendSubmittedQuiz(msg) {
+        const teacherID = virtualclass.vutil.whoIsTeacher();
+        ioAdapter.mustSendUser({
+          quiz: {
+            quizMsg: 'quizsubmitted',
+            quizId: this.qzid,
+            user: virtualclass.gObj.uid,
+            timestamp: virtualclass.vutil.localToUTC(Date.now()),
+            timetaken: msg.timetaken,
+            quesattemptd: msg.quesattemptd,
+            correctans: msg.correctans,
+            score: msg.score,
+            maxmarks: msg.maxmarks,
+            noofqus: msg.noofqus,
+          },
+          cf: 'quiz',
+        }, teacherID);
       },
     };
     // return _quiz;

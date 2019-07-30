@@ -159,9 +159,9 @@
           this.qGrade = JSON.parse(msg.data.qGrade);
           this.displayGradeReport();
         }
-        if (typeof storedData != 'undefined' && storedData.qClosed == 'true') {  // TODO, need to find what it is ?
-          document.getElementById('closeQzBt').disabled = true;
-        }
+        // if (typeof storedData != 'undefined' && storedData.qClosed == 'true') {  // TODO, need to find what it is ?
+        //   document.getElementById('closeQzBt').disabled = true;
+        // }
         virtualclass.quiz.quizSt.screen = 'tchResultView';
       },
 
@@ -429,7 +429,7 @@
           questionMode: quizDetail.preferredbehaviour,
           quizTime: quizDetail.timelimit,
           displayDetailResult: false,
-          ptm: new Date().getTime(), // published time
+          // ptm: new Date().getTime(), // published time
         };
 
         // send data to student
@@ -473,6 +473,7 @@
        * @return
        */
       closeQzBt() {
+        virtualclass.quiz.publishedTime = 0;
         // console.log('-------CLOSE QUIZ--------');
         const { qzid } = virtualclass.quiz;
         const data = { qzid };
@@ -564,6 +565,7 @@
         const vthis = virtualclass.quiz;
         if (msg.quiz.quizMsg === 'stdPublish') {
           vthis.publishedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
+          msg.quiz.data.ptm = vthis.publishedTime;
           vthis.dataRec = msg.quiz.data;
           vthis.qzid = msg.quiz.quizId;
           if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
@@ -579,8 +581,12 @@
         // At student end quiz will be submitted automatically
         // and result will display to student screen
         if ((msg.quiz.quizMsg === 'stdShowResult') || (msg.quiz.quizMsg === 'quizTimeEnd')) {
+          virtualclass.quiz.publishedTime = 0;
           if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
-            document.getElementById('closeQzBt').disabled = true;
+            let closeQzBt = document.getElementById('closeQzBt');
+            if (closeQzBt != null) {
+              closeQzBt.disabled = true;
+            }
           } else {
             if (document.querySelector('#timeText') != null) {
               document.querySelector('#timeText').textContent = 'Quiz has been closed';
@@ -608,36 +614,41 @@
         // teacher result progress view
         // Event will be triggerd on each answer select by student
         if (msg.quiz.quizMsg === 'quizAttempt' && roles.hasControls()) {
-          if (typeof this.attemptedUsers[msg.quiz.questionId] === 'undefined') {
-            this.attemptedUsers[msg.quiz.questionId] = {};
-          }
-          const usrid = msg.quiz.user;
-          if (typeof this.attemptedUsers[msg.quiz.questionId][usrid] === 'undefined') {
-            this.attemptedUsers[msg.quiz.questionId][usrid] = {};
-          }
-
-          this.attemptedUsers[msg.quiz.questionId][usrid] = msg.quiz.ans;
-          const totalAttptedUsers = Object.keys(this.attemptedUsers[msg.quiz.questionId]).length;
-          let correctAns = 0;
-          for (const key in this.attemptedUsers[msg.quiz.questionId]) {
-            if (this.attemptedUsers[msg.quiz.questionId][key] == true) {
-              correctAns++;
+          const attemptedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
+          if (attemptedTime > virtualclass.quiz.publishedTime) {
+            if (typeof this.attemptedUsers[msg.quiz.questionId] === 'undefined') {
+              this.attemptedUsers[msg.quiz.questionId] = {};
             }
-          }
-          document.getElementById(`usA_${msg.quiz.questionId}`).innerHTML = totalAttptedUsers;
-          var attemptPercent = 0;
-          if (correctAns > 0) {
-            var attemptPercent = (correctAns / totalAttptedUsers) * 100;
-          }
-          const pBar = document.getElementById(`qPb_${msg.quiz.questionId}`);
-          pBar.innerHTML = `${attemptPercent}% correct`;
-          pBar.style.width = `${attemptPercent}%`;
+            const usrid = msg.quiz.user;
+            if (typeof this.attemptedUsers[msg.quiz.questionId][usrid] === 'undefined') {
+              this.attemptedUsers[msg.quiz.questionId][usrid] = {};
+            }
 
-          if (typeof this.quizAttempted[msg.quiz.questionId] === 'undefined') {
-            this.quizAttempted[msg.quiz.questionId] = {};
+            this.attemptedUsers[msg.quiz.questionId][usrid] = msg.quiz.ans;
+            const totalAttptedUsers = Object.keys(this.attemptedUsers[msg.quiz.questionId]).length;
+            let correctAns = 0;
+            for (const key in this.attemptedUsers[msg.quiz.questionId]) {
+              if (this.attemptedUsers[msg.quiz.questionId][key] == true) {
+                correctAns++;
+              }
+            }
+            document.getElementById(`usA_${msg.quiz.questionId}`).innerHTML = totalAttptedUsers;
+            var attemptPercent = 0;
+            if (correctAns > 0) {
+              var attemptPercent = (correctAns / totalAttptedUsers) * 100;
+            }
+            const pBar = document.getElementById(`qPb_${msg.quiz.questionId}`);
+            pBar.innerHTML = `${attemptPercent}% correct`;
+            pBar.style.width = `${attemptPercent}%`;
+
+            if (typeof this.quizAttempted[msg.quiz.questionId] === 'undefined') {
+              this.quizAttempted[msg.quiz.questionId] = {};
+            }
+            this.quizAttempted[msg.quiz.questionId].uA = totalAttptedUsers;
+            this.quizAttempted[msg.quiz.questionId].cA = correctAns;
+          } else {
+            console.log('Igonre the packet');
           }
-          this.quizAttempted[msg.quiz.questionId].uA = totalAttptedUsers;
-          this.quizAttempted[msg.quiz.questionId].cA = correctAns;
         }
 
         // Event triggerd on quiz submit
@@ -855,6 +866,11 @@
         let hours;
         let minutes;
         let seconds;
+        if (virtualclass.gObj.CDTimer != null) {
+          clearInterval(virtualclass.gObj.CDTimer);
+          // console.log('Clear quiz interval');
+        }
+
 
         function timer() {
           // get the number of seconds that have elapsed since
@@ -900,7 +916,10 @@
               cf: 'quiz',
             });
             if (roles.hasControls()) {
-              document.getElementById('closeQzBt').disabled = true;
+              let closeQzBt = document.getElementById('closeQzBt');
+              if (closeQzBt != null) {
+                closeQzBt.disabled = true;
+              }
             }
           }
           // return ctime;
@@ -996,6 +1015,7 @@
               questionId,
               ans: answer,
               user: virtualclass.gObj.uid,
+              timestamp: virtualclass.vutil.localToUTC(Date.now())
             },
             cf: 'quiz',
           }, teacherID);
@@ -1194,15 +1214,15 @@
              * Displays the timer in result view from local storage, with or without timer,
              * it was coming from timelimit earlier
              * * */
-            let timerInfo = localStorage.getItem('quizSt');
-            if (timerInfo != null) {
-              timerInfo = JSON.parse(timerInfo);
-              if (Object.keys(timerInfo).length > 0) {
-                const elTime = timerInfo.qtime;
-                const res = elTime.split(':');
-                qtime = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
-              }
-            }
+            // let timerInfo = localStorage.getItem('quizSt');
+            // if (timerInfo != null) {
+            //   timerInfo = JSON.parse(timerInfo);
+            //   if (Object.keys(timerInfo).length > 0) {
+            //     const elTime = timerInfo.qtime;
+            //     const res = elTime.split(':');
+            //     qtime = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
+            //   }
+            // }
             const bodyHdCont = document.getElementById('resultQzLayout');
 
             const elem = virtualclass.view.customCreateElement('div', 'rsQzHead', 'row col-md-12');
@@ -1245,10 +1265,15 @@
             //   virtualclass.quiz.quizTimer(qtime, document.getElementById('elsTime'), order);
             // }
 
-            if (order === 'asc' && virtualclass.quiz.publishedTime) {
+            if (order === 'asc' && typeof virtualclass.quiz.publishedTime !== 'undefined') {
               const publishTime = virtualclass.quiz.publishedTime;
               const publishTimeInMiliSeconds = virtualclass.vutil.UTCtoLocalTimeToSeconds(publishTime);
               qtime = (new Date().getTime() - publishTimeInMiliSeconds) / 1000;
+              if (qtime < 0 || virtualclass.quiz.publishedTime === 0) {
+                qtime = 0;
+              }
+            } else {
+              qtime = virtualclass.quiz.calculateRemainingTime(+(qz.timelimit));
             }
 
             virtualclass.quiz.quizTimer(qtime, document.getElementById('elsTime'), order);
@@ -1593,6 +1618,22 @@
           },
           cf: 'quiz',
         }, teacherID);
+      },
+
+
+      calculateRemainingTime(totalTimeInSec) {
+        if (typeof virtualclass.quiz.publishedTime !== 'undefined') {
+          if (virtualclass.quiz.publishedTime == 0) {
+            return totalTimeInSec;
+          } else {
+            const totalDiff = (new Date().getTime() - virtualclass.quiz.publishedTime);
+            let timeLeft = ((totalTimeInSec * 1000) - totalDiff) / 1000;
+            if (timeLeft < 0) {
+              timeLeft = 0;
+            }
+            return timeLeft;
+          }
+        }
       },
     };
     // return _quiz;

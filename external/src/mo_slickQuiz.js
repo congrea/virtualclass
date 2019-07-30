@@ -434,16 +434,18 @@
                 //     }
                 // }
 
-                  var quizPublishTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(plugin.config.ptm);
+                  // var quizPublishTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(plugin.config.ptm);
+                  var quizPublishTime = plugin.config.ptm;
                   var currentTime = new Date().getTime();
                   if(!virtualclass.vutil.isPlayMode()){
                     var qzTm = ((currentTime -  quizPublishTime) / 1000 ); // left timing for quiz
-                    var lT = qzTm - 1;
+                    // var lT = qzTm - 1; // We don't require this because left time is calculating at below
                   }
 
                 if (plugin.config.quizTime && plugin.config.quizTime > 0) {
                     // Quiz timer
-                    var timeLeft = lT ? lT : plugin.config.quizTime,
+                    // var timeLeft = lT ? lT : plugin.config.quizTime,
+                    timeLeft = virtualclass.quiz.calculateRemainingTime(plugin.config.quizTime);
                     display = document.querySelector('#qztime');
                     plugin.method.startTimer(timeLeft, display,'desc', 'vmQuiz');
                     //startTimer(timeLeft, display, 'vmQuiz');

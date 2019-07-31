@@ -5,14 +5,14 @@
 (function (window) {
   const response = {
     clearAll(formUserId, id, eMessage, orginalTeacherId) {
-      if (formUserId != id) {
+      //if (formUserId != id) {
 
         virtualclass.wb[virtualclass.gObj.currWb].tool = new virtualclass.wb[virtualclass.gObj.currWb].toolObj('t_clearall', virtualclass.gObj.currWb);
         virtualclass.wb[virtualclass.gObj.currWb].utility.t_clearallInit();
         virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue();
         // virtualclass.storage.clearStorageData();
         virtualclass.storage.wbDataRemove(virtualclass.gObj.currWb);
-      }
+      //}
     },
 
     // TODO this is not used any more

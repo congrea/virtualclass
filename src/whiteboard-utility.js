@@ -848,20 +848,28 @@
       drawInWhiteboards(repObjs, wid) {
         for (let i = 0; i < repObjs.length; i++) {
           if (Object.prototype.hasOwnProperty.call(repObjs[i], 'cmd')) {
-            if (roles.hasControls()) {
-              const tool = repObjs[i].cmd.slice(2, repObjs[i].cmd.length);
-              const currentShapeTool = document.querySelector(`${'#' + 'tool_wrapper'}${wid}`);
-              const shapesElem = document.querySelector(`#tool_wrapper${wid}.shapesToolbox`);
-              if (tool === 'triangle' || tool === 'line' || tool === 'oval' || tool === 'rectangle') {
-                document.querySelector(`#shapeIcon${wid} a`).dataset.title = tool.charAt(0).toUpperCase() + tool.slice(1);
-                currentShapeTool.dataset.currtool = tool;
-                shapesElem.classList.add('active');
-              } else {
-                document.querySelector(`#shapeIcon${wid} a`).dataset.title = 'Shapes';
-                currentShapeTool.dataset.currtool = 'shapes';
-                shapesElem.classList.remove('active');
+            if (repObjs[i].cmd === 'clearAll') {
+              if (typeof virtualclass.wb !== 'object') {
+                virtualclass.makeAppReady({ app: virtualclass.apps.wb });
+              }
+              virtualclass.wb[wid].response.clearAll(wid);
+            } else {
+              if (roles.hasControls()) {
+                const tool = repObjs[i].cmd.slice(2, repObjs[i].cmd.length);
+                const currentShapeTool = document.querySelector(`${'#' + 'tool_wrapper'}${wid}`);
+                const shapesElem = document.querySelector(`#tool_wrapper${wid}.shapesToolbox`);
+                if (tool === 'triangle' || tool === 'line' || tool === 'oval' || tool === 'rectangle') {
+                  document.querySelector(`#shapeIcon${wid} a`).dataset.title = tool.charAt(0).toUpperCase() + tool.slice(1);
+                  currentShapeTool.dataset.currtool = tool;
+                  shapesElem.classList.add('active');
+                } else {
+                  document.querySelector(`#shapeIcon${wid} a`).dataset.title = 'Shapes';
+                  currentShapeTool.dataset.currtool = 'shapes';
+                  shapesElem.classList.remove('active');
+                }
               }
             }
+
           } else if (Object.prototype.hasOwnProperty.call(repObjs[i], 'color')) {
             virtualclass.wb[wid].activeToolColor = repObjs[i].color;
             if (roles.hasControls()) {

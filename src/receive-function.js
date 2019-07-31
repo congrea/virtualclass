@@ -204,11 +204,11 @@ const receiveFunctions = new function () {
 
   // Clear All
   this.clearAll = function (e) {
-    if (typeof virtualclass.wb !== 'object') {
-      // virtualclass.makeAppReady(virtualclass.apps.wb);
-      virtualclass.makeAppReady({ app: virtualclass.apps.wb });
-    }
-    virtualclass.wb[virtualclass.gObj.currWb].response.clearAll(e.fromUser.userid, wbUser.id, e.message, virtualclass.wb[virtualclass.gObj.currWb].oTeacher);
+    // console.log('====> WHITEBOARD APP DATA CLEAR ALL');
+    // if (typeof virtualclass.wb !== 'object') {
+    //   virtualclass.makeAppReady({ app: virtualclass.apps.wb });
+    // }
+    // virtualclass.wb[virtualclass.gObj.currWb].response.clearAll();
   };
 
   // Create mouse

@@ -541,7 +541,10 @@
             virtualclass.wb[wbId].utility.t_clearallInit();
             virtualclass.wb[wbId].utility.makeDefaultValue(cmd);
             virtualclass.storage.wbDataRemove(wbId);
-            virtualclass.vutil.beforeSend({ clearAll: true, cf: 'clearAll' });
+
+            // const obj = { cmd: 't_activeall', mt: currTime };
+
+            virtualclass.vutil.beforeSend({ repObj: [{ cmd: 'clearAll' }], cf: 'repObj' });
             delete virtualclass.gObj.wbTool[virtualclass.gObj.currWb];
             if (roles.hasControls()) {
               virtualclass.wb[wbId].currStrkSize = virtualclass.gObj.defalutStrk;

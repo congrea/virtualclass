@@ -488,6 +488,7 @@
       },
 
       dispvirtualclassLayout(appId) {
+        console.log('====> My App init ', appId, 'previous ', this.previous);
         if (typeof this.previous !== 'undefined') {
           // TODO this should be handle by better way, this is very rough
           // remove case situation
@@ -495,6 +496,7 @@
             const prevElem = document.getElementById(virtualclass.previous);
             if (prevElem != null) {
               prevElem.style.display = 'none';
+              console.log('====> My App hide', virtualclass.previous);
             }
 
             if (typeof appId !== 'undefined') {
@@ -502,6 +504,7 @@
                 const editorCode = document.getElementById('virtualclassEditorCode');
                 if (editorCode != null) {
                   editorCode.style.display = 'none';
+                  console.log('====> My App hide', appId);
                 }
               }
             }
@@ -510,6 +513,7 @@
             const allApps = document.getElementById('virtualclassCont').getElementsByClassName('virtualclass');
             for (let i = 0; i < allApps.length; i++) {
               allApps[i].style.display = 'none';
+              console.log('====> My App hide', allApps[i].id);
             }
           }
         }
@@ -519,12 +523,14 @@
         const appElement = document.getElementById(appId);
         if (appElement != null) {
           appElement.style.display = 'block';
+          console.log('====> My App SHOW', appId);
           // console.log(`App ${appId} block`);
         }
       },
 
       // makeAppReady(app, cusEvent, data) {
       makeAppReady(setting) {
+        console.log('====> My App =================================== ', setting.app);
         let app;
         let cusEvent;
         let data;
@@ -780,6 +786,8 @@
               virtualclass.gObj.getDocumentTimer = false;
             }, 300);
           }
+
+          this.previous = this.wbConfig.id;
         },
 
 
@@ -907,7 +915,7 @@
             }
             console.log('====> jai 7 ', id, ' ', id, ' ', virtualclass.wb[id].vcan);
             vcan = virtualclass.wb[id].vcan;
-            this.previous = this.wbConfig.id;
+            // this.previous = this.wbConfig.id;
           } else {
             alert('id is undefined');
           }

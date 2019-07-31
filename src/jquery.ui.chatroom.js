@@ -34,7 +34,7 @@ let msg;
           if (typeof virtualclass.gObj.chatIconColors[userid] === 'undefined') {
             groupChatImgColor(peer, userid);
           }
-          const time = virtualclass.vutil.UTCtoLocalTime(msgObj.time);
+          const time = virtualclass.vutil.getCurrentFormattedTime(msgObj.time);
           const { msg } = msgObj;
           const self = this;
           const box = self.elem.uiChatboxLog;

@@ -1398,6 +1398,7 @@
          * @return null
          */
         displayStudentResultScreen(data) {
+          console.log('====> Create message box 2');
           // var resPage = document.querySelector("#slickQuiz .quizResults");
           const msgPage = document.getElementById('mszBoxQuiz');
 
@@ -1592,6 +1593,7 @@
       },
 
       createMessageBox() {
+        console.log('=====> CREATE MESSAGE BOX');
         const mszCont = document.getElementById('mszBoxQuiz');
         const messageLayoutId = 'stdQuizMszLayout';
         if (document.getElementById(messageLayoutId) == null) {

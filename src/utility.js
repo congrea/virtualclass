@@ -2297,6 +2297,24 @@
       virtualclass.gObj.nextPdf = {};
       virtualclass.gObj.nextPdf[noteId] = data;
     },
+
+    getCurrentFormattedTime(time) {
+      time = this.UTCtoLocalTimeToSeconds(time);
+
+      const date = new Date(time);
+
+      // Hours part from the timestamp
+      const hours = date.getHours();
+      // Minutes part from the timestamp
+      const minutes = `0${date.getMinutes()}`;
+      // Seconds part from the timestamp
+      // var seconds = "0" + date.getSeconds();
+
+      // Will display time in 10:30:23 format
+      const formattedTime = `${hours}:${minutes.substr(-2)}`;
+
+      return formattedTime;
+    },
   };
   window.vutil = vutil;
 }(window));

@@ -1078,7 +1078,7 @@
              * cthis expects main class virtuaclass.dts
              */
             nextSlide(cthis) {
-              const lastElement = virtualclass.orderList[this.appName].ol.order[virtualclass.orderList[this.appName].ol.order.length - 1];
+              const lastElement = virtualclass.orderList[virtualclass.dts.appName].ol.order[virtualclass.orderList[virtualclass.dts.appName].ol.order.length - 1];
               const currNodeId = cthis.docs.currNote;
 
               if (currNodeId != lastElement) {

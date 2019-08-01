@@ -140,12 +140,12 @@
 
           if (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')) {
             if (Object.prototype.hasOwnProperty.call(ev.detail.cevent, 'mtext')) {
-              wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY, ev.detail.cevent.mtext);
+              wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY, ev.detail.cevent.mtext, wId);
             } else {
-              wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY);
+              wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY, undefined, wId);
             }
           } else if (typeof wb.obj.drawTextObj === 'object') {
-            wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY);
+            wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY, undefined, wId);
           }
         }
       }

@@ -1915,7 +1915,7 @@
     navWhiteboard(cthis, func, dthis) {
       // this.removeAllTextWrapper();
       if (virtualclass.vutil.isTextWrapperExist()) {
-        virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
+        virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny(undefined, virtualclass.gObj.currWb);
       }
       // if(Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'wbNav')){
       //     clearTimeout(virtualclass.gObj.wbNav);

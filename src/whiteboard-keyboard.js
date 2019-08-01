@@ -29,7 +29,7 @@
     triggerdeActiveAll(e) {
       if (virtualclass.wb[virtualclass.gObj.currWb].keyBoard.skey) {
         const currTime = new Date().getTime();
-        virtualclass.wb[virtualclass.gObj.currWb].utility.deActiveFrmDragDrop();
+        virtualclass.wb[virtualclass.gObj.currWb].utility.deActiveFrmDragDrop(virtualclass.gObj.currWb);
         // virtualclass.wb[virtualclass.gObj.currWb].toolInit(virtualclass.wb[virtualclass.gObj.currWb].keyBoard.prvTool);
 
         virtualclass.wb[virtualclass.gObj.currWb].toolInit({cmd : virtualclass.wb[virtualclass.gObj.currWb].keyBoard.prvTool, wbId: virtualclass.gObj.currWb});

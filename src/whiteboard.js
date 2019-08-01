@@ -277,7 +277,7 @@
             // virtualclass.vutil.removeAllTextWrapper();
             const allTextWrapper = document.querySelectorAll('.canvasWrapper .textBoxContainer');
             if (allTextWrapper.length > 0) {
-              virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
+              virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny(undefined, virtualclass.gObj.currWb);
             }
           }
 
@@ -488,7 +488,7 @@
           if (cmd !== `t_clearall${wbId}`) {
             if (typeof multiuser === 'undefined' || cmd !== `t_replay${wbId}`) {
               // after optimization NOTE:- this should have to be enable
-              virtualclass.wb[wbId].utility.deActiveFrmDragDrop();
+              virtualclass.wb[wbId].utility.deActiveFrmDragDrop(wbId);
             }
             if (multiuser !== true && cmd !== 't_replay') {
               vcan.renderAll();
@@ -538,8 +538,8 @@
               return true;
             }
             // console.log(`Whiteboard clear init ${wbId}`);
-            virtualclass.wb[wbId].utility.t_clearallInit();
-            virtualclass.wb[wbId].utility.makeDefaultValue(cmd);
+            virtualclass.wb[wbId].utility.t_clearallInit(wbId);
+            virtualclass.wb[wbId].utility.makeDefaultValue(cmd, wId);
             virtualclass.storage.wbDataRemove(wbId);
 
             // const obj = { cmd: 't_activeall', mt: currTime };

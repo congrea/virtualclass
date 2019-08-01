@@ -84,7 +84,7 @@
           }
         } else if (evt.keyCode == 27) { // escape key
           if ((virtualclass.currApp == 'Whiteborad' || virtualclass.currApp == 'DocumentShare') && typeof virtualclass.wb[id] === 'object') {
-            virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny();
+            virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny(undefined, id);
           }
         }
       },
@@ -135,12 +135,12 @@
        * Call the function through which
        * the canvas would be clear
        */
-      t_clearallInit() {
-        virtualclass.wb[virtualclass.gObj.currWb].currStrkSize = virtualclass.gObj.defalutStrk;
-        virtualclass.wb[virtualclass.gObj.currWb].textFontSize = virtualclass.gObj.defalutFont;
-        virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = virtualclass.gObj.defaultcolor;
+      t_clearallInit(wId) {
+        virtualclass.wb[wId].currStrkSize = virtualclass.gObj.defalutStrk;
+        virtualclass.wb[wId].textFontSize = virtualclass.gObj.defalutFont;
+        virtualclass.wb[wId].activeToolColor = virtualclass.gObj.defaultcolor;
         const delRpNode = true;
-        virtualclass.wb[virtualclass.gObj.currWb].utility.clearAll(delRpNode, virtualclass.gObj.currWb);
+        virtualclass.wb[wId].utility.clearAll(delRpNode, wId);
         console.log('====> whiteboard clear all');
       },
       /**
@@ -207,8 +207,7 @@
        * de-activating means the particular object would not be select able
        * @returns {Boolean}
        */
-      deActiveFrmDragDrop() {
-        const wid = virtualclass.gObj.currWb;
+      deActiveFrmDragDrop(wid) {
         const { vcan } = virtualclass.wb[wid];
         const allChildren = vcan.main.children;
         const currState = vcan.getStates('action');
@@ -365,12 +364,12 @@
       //     vcan.main.replayObjs.push(tempRepObjs);
       //   }
       // },
-      makeDefaultValue(cmd) {
+      makeDefaultValue(cmd, wid) {
         // console.log('Whiteboard re-init queue');
-        const wid = virtualclass.gObj.currWb;
+        // const wid = virtualclass.gObj.currWb;
 
         if (typeof cmd === 'undefined' || cmd != 't_clearall') {
-          virtualclass.wb[wid].utility.makeDeActiveTool();
+          virtualclass.wb[wid].utility.makeDeActiveTool(wid);
         }
 
         virtualclass.wb[wid].gObj.myrepObj = [];
@@ -817,8 +816,8 @@
         }
       },
 
-      makeDeActiveTool() {
-        const wid = virtualclass.gObj.currWb;
+      makeDeActiveTool(wid) {
+        // const wid = virtualclass.gObj.currWb;
         virtualclass.wb[wid].tool = '';// unselect any selected tool
 
         const toolsWrapper = document.getElementById('commandToolsWrapper');

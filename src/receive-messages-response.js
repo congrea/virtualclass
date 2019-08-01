@@ -4,15 +4,12 @@
  */
 (function (window) {
   const response = {
-    clearAll(formUserId, id, eMessage, orginalTeacherId) {
-      //if (formUserId != id) {
-
-        virtualclass.wb[virtualclass.gObj.currWb].tool = new virtualclass.wb[virtualclass.gObj.currWb].toolObj('t_clearall', virtualclass.gObj.currWb);
-        virtualclass.wb[virtualclass.gObj.currWb].utility.t_clearallInit();
-        virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue();
-        // virtualclass.storage.clearStorageData();
-        virtualclass.storage.wbDataRemove(virtualclass.gObj.currWb);
-      //}
+    clearAll(wId) {
+      virtualclass.wb[wId].tool = new virtualclass.wb[wId].toolObj('t_clearall', wId);
+      virtualclass.wb[wId].utility.t_clearallInit(wId);
+      virtualclass.wb[wId].utility.makeDefaultValue(undefined, wId);
+      // virtualclass.storage.clearStorageData();
+      virtualclass.storage.wbDataRemove(virtualclass.gObj.currWb);
     },
 
     // TODO this is not used any more

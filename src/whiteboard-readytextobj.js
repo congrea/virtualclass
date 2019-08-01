@@ -26,12 +26,13 @@
        * @param startPosY points out the y co-ordination of canvas after clicked by user
        * @returns nothing
        */
-      textUtility(startPosX, startPosY, mtext) {
+      textUtility(startPosX, startPosY, mtext, wId) {
+        console.log('====> whiteboard text ', wId);
         // console.log(`Text position x=${startPosX} y=${startPosY}`);
         this.startPosX = startPosX;
         this.startPosY = startPosY;
         // alert('is there anything for you');
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+        const { vcan } = virtualclass.wb[wId];
         const ctx = vcan.main.canvas.getContext('2d');
         var obj = {};
         this.textWriteMode++;
@@ -47,15 +48,15 @@
               y: this.currObject.oCoords.tl.y,
               text: this.currObject.text,
             };
-            if (!virtualclass.wb[virtualclass.gObj.currWb].utility.clickOutSidebox(this.textWriteMode)) {
+            if (!virtualclass.wb[wId].utility.clickOutSidebox(this.textWriteMode)) {
               // virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.drawTextBoxWrapper(ctx, obj,  this.currObject.id);
-              virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.drawTextBoxWrapper(obj, this.currObject.id);
+              virtualclass.wb[wId].obj.drawTextObj.drawTextBoxWrapper(obj, this.currObject.id, wId);
             }
             vcan.main.currentTransform = '';
           }
 
-          if (virtualclass.wb[virtualclass.gObj.currWb].utility.clickOutSidebox(this.textWriteMode)) {
-            virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.renderText(this.prvCurrTransform, this.prvModTextObj, ctx);
+          if (virtualclass.wb[wId].utility.clickOutSidebox(this.textWriteMode)) {
+            virtualclass.wb[wId].obj.drawTextObj.renderText(this.prvCurrTransform, this.prvModTextObj, ctx, undefined, wId);
           }
 
           if (this.currObject != undefined && this.currObject.type == 'text') {
@@ -76,11 +77,11 @@
             this.prvTextObj = this.currObject;
           }
           this.prvCurrTransform = this.currObject;
-        } else if (virtualclass.wb[virtualclass.gObj.currWb].utility.clickOutSidebox(this.textWriteMode)) {
+        } else if (virtualclass.wb[wId].utility.clickOutSidebox(this.textWriteMode)) {
           if (typeof mtext !== 'undefined') {
-            virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.renderText(this.currObject, this.prvModTextObj, ctx, mtext);
+            virtualclass.wb[wId].obj.drawTextObj.renderText(this.currObject, this.prvModTextObj, ctx, mtext, wId);
           } else {
-            virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.renderText(this.currObject, this.prvModTextObj, ctx);
+            virtualclass.wb[wId].obj.drawTextObj.renderText(this.currObject, this.prvModTextObj, ctx, undefined, wId);
           }
         } else {
           this.totalBox++;
@@ -89,9 +90,9 @@
           };
           // virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.drawTextBoxWrapper(ctx, obj,  this.totalBox);
           if (typeof mtext === 'undefined') {
-            virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.drawTextBoxWrapper(obj, this.totalBox);
+            virtualclass.wb[wId].obj.drawTextObj.drawTextBoxWrapper(obj, this.totalBox, wId);
           } else {
-            virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.drawTextBoxWrapper(obj, this.totalBox, mtext);
+            virtualclass.wb[wId].obj.drawTextObj.drawTextBoxWrapper(obj, this.totalBox, wId);
           }
         }
       },
@@ -103,7 +104,7 @@
        * @param boxNumber the number of box till now created
        * @returns nothing
        */
-      drawTextBoxWrapper(obj, boxNumber, mtext) {
+      drawTextBoxWrapper(obj, boxNumber, wId) {
         const boxWidth = 350;
         // var viewPort = document.querySelector('#vcanvas' + virtualclass.gObj.currWb);
         // if(viewPort != null ){
@@ -115,7 +116,7 @@
         // }
 
         virtualclass.vutil.removeAllTextWrapper();
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+        const { vcan } = virtualclass.wb[wId];
         const divNode = document.createElement('div');
         divNode.id = `box${boxNumber}`;
         divNode.className = 'textBoxContainer';
@@ -145,12 +146,12 @@
         this.prevTextObj = divNode;
         this.currTextObjWrapper = obj;
         this.prevTextObj.measure = obj;
-        virtualclass.wb[virtualclass.gObj.currWb].utility.toolWrapperDisable(true);
+        virtualclass.wb[wId].utility.toolWrapperDisable(true);
 
         if (!roles.hasControls()) {
           textNode.style.display = 'none';
           if (roles.hasAdmin()) {
-            virtualclass.wb[virtualclass.gObj.currWb].utility.toolWrapperEnable(true);
+            virtualclass.wb[wId].utility.toolWrapperEnable(true);
           }
         }
 
@@ -164,10 +165,10 @@
        * @param ctx is the current canvas context
        * @returns nothing
        */
-      renderText(currObject, prvModTextObj, ctx, mtext) {
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+      renderText(currObject, prvModTextObj, ctx, mtext, wId) {
+        const { vcan } = virtualclass.wb[wId];
         if (this.prevTextObj != '') {
-          if (!virtualclass.wb[virtualclass.gObj.currWb].utility.IsObjEmpty(currObject)) {
+          if (!virtualclass.wb[wId].utility.IsObjEmpty(currObject)) {
             for (let i = 0; i < vcan.main.children.length; i++) {
               if (currObject.id == vcan.main.children[i].id) {
                 vcan.main.children.splice(i, 1);
@@ -178,19 +179,19 @@
             }
           }
 
-          if (!virtualclass.wb[virtualclass.gObj.currWb].utility.IsObjEmpty(currObject)) {
+          if (!virtualclass.wb[wId].utility.IsObjEmpty(currObject)) {
             if (typeof mtext !== 'undefined') {
-              this.finalizeText(ctx, this.prevTextObj, prvModTextObj, mtext);
+              this.finalizeText(ctx, this.prevTextObj, prvModTextObj, mtext, wId);
             } else {
-              this.finalizeText(ctx, this.prevTextObj, prvModTextObj);
+              this.finalizeText(ctx, this.prevTextObj, prvModTextObj, undefined, wId);
             }
           } else if (typeof mtext !== 'undefined') {
-            this.finalizeText(ctx, this.prevTextObj, 'undefined', mtext);
+            this.finalizeText(ctx, this.prevTextObj, 'undefined', mtext, wId);
           } else {
-            this.finalizeText(ctx, this.prevTextObj);
+            this.finalizeText(ctx, this.prevTextObj, 'undefined', undefined, wId);
           }
 
-          virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.wmode = false;
+          virtualclass.wb[wId].obj.drawTextObj.wmode = false;
         }
       },
       /**
@@ -201,8 +202,8 @@
        * then prvModObj contains the vidya other info x, y
        * @returns nothing
        */
-      finalizeText(ctx, txtWrapper, prvModObj, mtext) {
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+      finalizeText(ctx, txtWrapper, prvModObj, mtext, wId) {
+        const { vcan } = virtualclass.wb[wId];
         const prvNode = document.getElementById(txtWrapper.id);
         let userText = '';
         if (typeof mtext === 'undefined') {
@@ -246,7 +247,7 @@
           mp: { x: txtWrapper.measure.x, y: txtWrapper.measure.y },
         };
 
-        if (virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.muser == false) {
+        if (virtualclass.wb[wId].obj.drawTextObj.muser == false) {
           const obj = {
             mt: currTime,
             ac: 'd',
@@ -254,16 +255,16 @@
             y: this.startPosY,
             mtext: textObj.text,
           };
-          virtualclass.wb[virtualclass.gObj.currWb].uid++;
-          obj.uid = virtualclass.wb[virtualclass.gObj.currWb].uid;
+          virtualclass.wb[wId].uid++;
+          obj.uid = virtualclass.wb[wId].uid;
           vcan.main.replayObjs.push(obj);
           virtualclass.vutil.beforeSend({ repObj: [obj], cf: 'repObj' });
         }
 
-        const text = virtualclass.wb[virtualclass.gObj.currWb].canvas.readyObject(textObj);
+        const text = virtualclass.wb[wId].canvas.readyObject(textObj, wId);
         const tempObj = text.coreObj;
         // console.log(`Whiteboard text ${text}`);
-        virtualclass.wb[virtualclass.gObj.currWb].canvas.addObject(text);
+        virtualclass.wb[wId].canvas.addObject(text);
 
         const lastTxtObj = vcan.main.children[vcan.main.children.length - 1];
         lastTxtObj.mt = currTime;
@@ -271,17 +272,17 @@
         prvNode.parentNode.removeChild(txtWrapper);
         vcan.renderAll();
 
-        virtualclass.wb[virtualclass.gObj.currWb].utility.toolWrapperEnable(true);
+        virtualclass.wb[wId].utility.toolWrapperEnable(true);
       },
 
-      finalizeTextIfAny(midReclaim) {
-        const canvasWrapper = document.getElementById(`canvasWrapper${virtualclass.gObj.currWb}`);
+      finalizeTextIfAny(midReclaim, wId) {
+        const canvasWrapper = document.getElementById(`canvasWrapper${wId}`);
         if (canvasWrapper != null) {
           let textBox = canvasWrapper.getElementsByClassName('whiteBoardTextBox');
           if (textBox.length > 0) {
             textBox = textBox[0];
-            if (typeof midReclaim === 'undefined' || (typeof midReclaim !== 'undefined') && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.textWriteMode % 2 != 0) {
-              virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.textUtility();
+            if (typeof midReclaim === 'undefined' || (typeof midReclaim !== 'undefined') && virtualclass.wb[wId].obj.drawTextObj.textWriteMode % 2 != 0) {
+              virtualclass.wb[wId].obj.drawTextObj.textUtility();
             }
           }
         }
@@ -290,3 +291,4 @@
   };
   window.readyTextObj = readyTextObj;
 }(window));
+

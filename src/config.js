@@ -111,7 +111,7 @@ Config.prototype.endSession = async function (onlyStoredData) {
     if (typeof virtualclass.wb === 'object') {
       alert('Clear all whiteboard');
       virtualclass.wb[virtualclass.gObj.currWb].utility.t_clearallInit();
-      virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue();
+      virtualclass.wb[virtualclass.gObj.currWb].utility.makeDefaultValue(undefined, virtualclass.gObj.currWb);
       if (typeof virtualclass.wb[virtualclass.gObj.currWb].replay === 'object') {
         virtualclass.wb[virtualclass.gObj.currWb].replay.rendering = false;
       }

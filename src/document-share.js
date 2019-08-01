@@ -1305,7 +1305,19 @@
           this._removePageUI(dts.rmsnote);
           this._removePageFromStructure(dts.rmsnote);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'noteSt')) {
-          this.noteStatus(dts.note, dts.noteSt);
+          if (roles.isStudent()) {
+            this.noteStatus(dts.note, dts.noteSt);
+          } else {
+            // controlContnotes31385ae3
+            const elem = document.querySelector(`#controlContnotes${dts.note} .status`);
+            const currObj = virtualclass.dts.notes[dts.note];
+            if (dts.noteSt == 0) {
+              virtualclass.dts.notes[dts.note].UI.controller.events.disableElement(elem, currObj);
+            } else {
+              virtualclass.dts.notes[dts.note].UI.controller.events.enableElement(elem, currObj);
+            }
+            virtualclass.dts.notes[dts.note].UI.controller.events.setStatusToElement(elem, currObj);
+          }
         } else if (Object.prototype.hasOwnProperty.call(dts, 'docSt')) {
           this.docStatus(dts.doc, dts.docSt);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'order_recived')) {
@@ -1596,6 +1608,7 @@
        * @param status expect enable or disable
        */
       noteStatus(id, status) {
+          console.log('====> note status ', id, status);
         const note = document.querySelector(`#note${id}`);
         if (note != null) {
           if (typeof status === 'undefined') {

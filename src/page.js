@@ -162,15 +162,6 @@
    * This funcitons sends the status to Server.
    * like 1 for enable 0 disable
    */
-  page.prototype.sendStatus2 = function (data) {
-    if (this.type == 'notes') {
-      // cthis.dts.sendStatusNote();
-      data.page_id = this.rid;
-    } else {
-      data.lc_content_id = this.rid;
-    }
-    this.xhrSend(data);
-  },
 
   page.prototype.sendStatus = function (data) {
     if (this.type == 'notes') {
@@ -568,37 +559,48 @@
           cthis.sendStatus(data);
         },
 
-        status(elem, cthis) {
-          // alert(cthis.rid + ' from events');
+        status(elem, currObj) {
           if (+(elem.dataset.status) == 0) {
-            if (cthis.type == 'video' || cthis.type == 'ppt') {
-              elem.title = 'Disable';
-            } else {
-              elem.title = 'Hide';
-            }
-            cthis.status = 1;
-            cthis.enable();
+            this.enableElement(elem, currObj);
           } else {
-            if (cthis.type == 'video' || cthis.type == 'ppt') {
-              elem.title = 'Enable';
-            } else {
-              elem.title = 'Show';
-            }
-            cthis.status = 0;
-            cthis.disable();
+            this.disableElement(elem, currObj);
           }
-          elem.dataset.status = cthis.status;
-          const parElem = elem.closest(`.link${cthis.type}`);
-          parElem.dataset.status = cthis.status;
+          this.setStatusToElement(elem, currObj);
+        },
+
+
+        disableElement(elem, currObj) {
+          if (currObj.type == 'video' || currObj.currObj == 'ppt') {
+            elem.title = 'Enable';
+          } else {
+            elem.title = 'Show';
+          }
+          currObj.status = 0;
+          currObj.disable();
+        },
+
+        enableElement(elem, currObj) {
+          if (currObj.type === 'video' || currObj.type === 'ppt') {
+            elem.title = 'Disable';
+          } else {
+            elem.title = 'Hide';
+          }
+          currObj.status = 1;
+          currObj.enable();
+        },
+
+        setStatusToElement(elem, currObj) {
+          elem.dataset.status = currObj.status;
+          const parElem = elem.closest(`.link${currObj.type}`);
+          if (parElem != null) {
+            parElem.dataset.status = currObj.status;
+          }
+
           elem.querySelector('.statusanch').innerHTML = `status${elem.dataset.status}`;
 
           // var data = {'action': 'status', 'status': elem.dataset.status};
-          if (cthis.status == 0) {
-            var data = { action: 'disable' };
-          } else {
-            var data = { action: 'enable' };
-          }
-          cthis.sendStatus(data);
+          const status = (currObj.status == 0) ? 'disable' : 'enable';
+          currObj.sendStatus(status);
         },
 
         delete(elem, cthis, e) {

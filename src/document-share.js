@@ -17,8 +17,13 @@
       notes: null,
       order: [],
       tempFolder: 'documentSharing',
-
+      appName: 'DocumentShare',
       async init() {
+        if (!virtualclass.orderList[this.appName]) {
+          console.log('====> ORDER LIST IS CREATING ');
+          virtualclass.orderList[this.appName] = new OrderedList();
+        }
+
         this.pages = {};
         this.notes = {};
         firstTime = true;
@@ -56,12 +61,12 @@
 
       /**
        * This display the notes acorrding to order
-       * Whatever the order will be on this.order,
+       * Whatever the order will be on virtualclass.orderList[this.appName].ol.order,
        * there will be display the notes according to this
        */
       setScreenByOrder(currDoc) {
-        if (this.order != null && this.order.length > 0) {
-          const allNotes = this.getAllNotes(this.order);
+        if (virtualclass.orderList[this.appName].ol.order != null && virtualclass.orderList[this.appName].ol.order.length > 0) {
+          const allNotes = this.getAllNotes(virtualclass.orderList[this.appName].ol.order);
           let docId;
           for (var i = 0; i < allNotes.length; i++) {
             docId = allNotes[i].id.split('_')[0];
@@ -71,29 +76,31 @@
           const alreadyElements = document.querySelectorAll('#notesContainer .note');
           this.createNoteLayout(allNotes, currDoc);
 
-          this.reArrangeNotes(this.order);
+          this.reArrangeNotes(virtualclass.orderList[this.appName].ol.order);
 
           // TODO This should be improve at later, should handle at function createNoteNav
-          for (var i = 0; i < this.order.length; i++) {
-            this.noteStatus(this.order[i], this.allNotes[this.order[i]].status);
+          for (var i = 0; i < virtualclass.orderList[this.appName].ol.order.length; i++) {
+            this.noteStatus(virtualclass.orderList[this.appName].ol.order[i], this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status);
           }
         }
       },
 
       createNoteLayout(notes, currDoc) {
-        let mainContainer; var tempCont; let objTemp; let template; let
-          tempHtml;
+        let mainContainer;
+        let tempCont;
+        let template;
+        let tempHtml;
         const allNotes = [];
         for (let i = 0; i < notes.length; i++) {
           if (!Object.prototype.hasOwnProperty.call(notes[i], 'deletedn')) {
             allNotes.push(notes[i]);
           }
         }
+
         if (allNotes.length > 0) {
           const pageContainer = document.querySelector('#screen-docs .pageContainer');
-          // this.UI.createSlides(pageContainer, allNotes);
           if (pageContainer == null) {
-            var tempCont = { notes: allNotes, hasControls: roles.hasControls(), cd: currDoc };
+            tempCont = { notes: allNotes, hasControls: roles.hasControls(), cd: currDoc };
             template = 'screen';
             mainContainer = document.querySelector('#docScreenContainer');
           } else {
@@ -110,6 +117,7 @@
           } else {
             // console.log('there is no such element');
           }
+
           if (!roles.hasControls()) {
             virtualclass.vutil.showZoom();
           }
@@ -161,6 +169,10 @@
           if (!Object.prototype.hasOwnProperty.call(this.allDocs[key], 'deleted')) {
             this.initDocs(this.allDocs[key].fileuuid);
           }
+
+          // else {
+          //   this._deleteUI(this.allDocs[key].fileuuid);
+          // }
         }
 
         if (roles.hasAdmin()) {
@@ -186,18 +198,20 @@
        * received from LMS and localstorage
        */
       afterRequestOrder(content) {
-        this.order.length = 0;
-        this.order = content;
-        const doc = this.getDocId(this.order[0]);
-        if (Object.prototype.hasOwnProperty.call(virtualclass.dts.allDocs, doc)) {
-          const docId = `docs${doc}`;
-          // var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
-          // console.log(`From database doc share order ${this.order.join(',')}`);
-          this.setScreenByOrder(docId);
-          this.docs.currNote = this.order[0];
-          this.docs.displayScreen(docId, this.order[0]);
+        if (content != null && content.length > 0) {
+          // virtualclass.orderList[this.appName].ol.order.length = 0;
+          virtualclass.orderList[this.appName].ol.order = content;
+          console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
+          const doc = this.getDocId(virtualclass.orderList[this.appName].ol.order[0]);
+          if (Object.prototype.hasOwnProperty.call(virtualclass.dts.allDocs, doc)) {
+            const docId = `docs${doc}`;
+            // var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
+            // console.log(`From database doc share order ${virtualclass.orderList[this.appName].ol.order.join(',')}`);
+            this.setScreenByOrder(docId);
+            this.docs.currNote = virtualclass.orderList[this.appName].ol.order[0];
+            this.docs.displayScreen(docId, virtualclass.orderList[this.appName].ol.order[0]);
+          }
         }
-
       },
 
       /**
@@ -305,7 +319,7 @@
         for (let i = 0; i < notes.length; i++) {
           this._removePageUI(notes[i].id);
         }
-        if (this.order.length <= 0) {
+        if (virtualclass.orderList[this.appName].ol.order.length <= 0) {
           firstTime = true;
         }
         if (roles.hasControls()) {
@@ -314,11 +328,12 @@
       },
 
       _removePageUI(noteId, typeDoc) {
+        console.log('====> DOCUMENT SHARING removing node', noteId);
 
-        console.log('JAI 2b');
-        const orderId = this.order.indexOf(noteId);
+        // console.log('JAI 2b');
+        const orderId = virtualclass.orderList[this.appName].ol.order.indexOf(noteId);
         if (orderId >= 0) {
-          this.order.splice(orderId, 1);
+          virtualclass.orderList[this.appName].ol.order.splice(orderId, 1);
         }
         const note = document.querySelector(`#notesContainer #note${noteId}`);
         if (note != null) {
@@ -354,9 +369,10 @@
         let j = 0;
         while (j < slides.length) {
           if (!Object.prototype.hasOwnProperty.call(slides[j], 'deletedn')) {
-            if (this.order != null) {
-              if (this.order.indexOf(slides[j].id) <= -1) {
-                this.order.push(slides[j].id);
+            if (virtualclass.orderList[this.appName].ol.order != null) {
+              if (virtualclass.orderList[this.appName].ol.order.indexOf(slides[j].id) <= -1) {
+                virtualclass.orderList[this.appName].ol.order.push(slides[j].id);
+                console.log('====> ORDER is generating');
               }
             }
           }
@@ -485,7 +501,7 @@
         }
 
         if (roles.hasAdmin()) {
-          this.sendOrder(this.order);
+          this.sendOrder(virtualclass.orderList[this.appName].ol.order);
         }
       },
 
@@ -659,27 +675,27 @@
       },
 
       createNoteNav(fromReload) {
-        if (this.order) {
+        if (virtualclass.orderList[this.appName].ol.order) {
           this.indexNav.init();
         }
 
         const curr = virtualclass.dts.docs.currNote;
         const order = '';
-        for (let i = 0; i < this.order.length; i++) {
-          if (typeof this.notes[this.order[i]] !== 'object') {
-            if (this.allNotes[this.order[i]].status == 'true' || (+this.allNotes[this.order[i]].status) == 1) {
+        for (let i = 0; i < virtualclass.orderList[this.appName].ol.order.length; i++) {
+          if (typeof this.notes[virtualclass.orderList[this.appName].ol.order[i]] !== 'object') {
+            if (this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status == 'true' || (+this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status) == 1) {
               var status = 1;
             } else {
               var status = 0;
             }
-            this.notes[this.order[i]] = new virtualclass.page('screen-docs', 'notes', 'virtualclassDocumentShare', 'dts', status);
-            this.notes[this.order[i]].init(this.order[i], `note_${this.allNotes[this.order[i]].lc_content_id}_${this.order[i]}`);
+            this.notes[virtualclass.orderList[this.appName].ol.order[i]] = new virtualclass.page('screen-docs', 'notes', 'virtualclassDocumentShare', 'dts', status);
+            this.notes[virtualclass.orderList[this.appName].ol.order[i]].init(virtualclass.orderList[this.appName].ol.order[i], `note_${this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].lc_content_id}_${virtualclass.orderList[this.appName].ol.order[i]}`);
             if (typeof fromReload === 'undefined') {
-              this.noteStatus(this.order[i], status);
+              this.noteStatus(virtualclass.orderList[this.appName].ol.order[i], status);
             }
           }
           if (roles.hasControls()) {
-            this.indexNav.createDocNavigationNumber(this.order[i], i, status);
+            this.indexNav.createDocNavigationNumber(virtualclass.orderList[this.appName].ol.order[i], i, status);
           }
         }
 
@@ -719,16 +735,16 @@
 
       createNoteNavAlt(fromReload) {
         // need to get all images from here
-        for (let i = 0; i < this.order.length; i++) {
-          if (this.allNotes[this.order[i]].status == 'true' || (+this.allNotes[this.order[i]].status) == 1) {
+        for (let i = 0; i < virtualclass.orderList[this.appName].ol.order.length; i++) {
+          if (this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status == 'true' || (+this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status) == 1) {
             var status = 1;
           } else {
             var status = 0;
           }
-          this.notes[this.order[i]] = new virtualclass.page('screen-docs', 'notes', 'virtualclassDocumentShare', 'dts', status);
-          this.notes[this.order[i]].init(this.order[i], `note_${this.allNotes[this.order[i]].lc_content_id}_${this.order[i]}`);
+          this.notes[virtualclass.orderList[this.appName].ol.order[i]] = new virtualclass.page('screen-docs', 'notes', 'virtualclassDocumentShare', 'dts', status);
+          this.notes[virtualclass.orderList[this.appName].ol.order[i]].init(virtualclass.orderList[this.appName].ol.order[i], `note_${this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].lc_content_id}_${virtualclass.orderList[this.appName].ol.order[i]}`);
           if (typeof fromReload === 'undefined') {
-            this.noteStatus(this.order[i], status);
+            this.noteStatus(virtualclass.orderList[this.appName].ol.order[i], status);
           }
         }
       },
@@ -990,7 +1006,7 @@
               if (!roles.hasControls()) {
                 const id = note.id.split('note')[1];
                 virtualclass.dts.indexNav.studentDocNavigation(id);
-              } else if (!virtualclass.makeWebSocketReady) {
+              } else if (!virtualclass.config.makeWebSocketReady) {
                 virtualclass.dashboard.close();
               }
             },
@@ -1062,7 +1078,7 @@
              * cthis expects main class virtuaclass.dts
              */
             nextSlide(cthis) {
-              const lastElement = cthis.order[cthis.order.length - 1];
+              const lastElement = virtualclass.orderList[this.appName].ol.order[virtualclass.orderList[this.appName].ol.order.length - 1];
               const currNodeId = cthis.docs.currNote;
 
               if (currNodeId != lastElement) {
@@ -1130,7 +1146,7 @@
              * Create the screen with Whiteboard and Current slide
              */
             getScreen(note) {
-              console.log('====> document shareing 4d');
+              console.log('====> document sharing 4d');
               this.currSlide = note.dataset.slide;
               this.currNote = note.dataset.slide;
               virtualclass.dts.currDoc = this.doc;
@@ -1225,11 +1241,16 @@
         if (Object.prototype.hasOwnProperty.call(dts, 'docn') && dts.docn.indexOf('docs') == -1) {
           dts.docn = `docs${dts.docn}`; // incaseof missing docs prefix
         }
+        console.log('====> DOCUMENT SHARING ', dts);
 
         if (Object.prototype.hasOwnProperty.call(dts, 'fallDocs')) {
           virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'dres')) {
           this.docs.studentExecuteScreen(dts);
+          if (roles.hasControls() && !virtualclass.dts.noteExist()) {
+            virtualclass.dashboard.open();
+          }
+          console.log('====> DOCUMENT SHARING  res ', dts);
           // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Layout initialized');
         } else if (Object.prototype.hasOwnProperty.call(dts, 'slideTo')) {
           if (typeof this.docs.note !== 'object') {
@@ -1290,7 +1311,8 @@
         } else if (Object.prototype.hasOwnProperty.call(dts, 'order_recived')) {
           this.afterRequestOrder(dts.order_recived);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'norder')) {
-          this.order = dts.norder;
+          virtualclass.orderList[this.appName].ol.order = dts.norder;
+          console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
           virtualclass.dts.indexNav.studentDocNavigation(this.docs.currNote);
         }
       },
@@ -1336,12 +1358,13 @@
       },
 
       reArrangeNotes(order) {
-        this.order = order;
+        virtualclass.orderList[this.appName].ol.order = order;
+        console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
         this.reArrangeElements(order);
         if (roles.hasAdmin()) {
-          this.sendOrder(this.order);
+          this.sendOrder(virtualclass.orderList[this.appName].ol.order);
           // console.log('==== dts must send norder');
-          ioAdapter.mustSend({ dts: { norder: this.order }, cf: 'dts' });
+          ioAdapter.mustSend({ dts: { norder: virtualclass.orderList[this.appName].ol.order }, cf: 'dts' });
         }
       },
 
@@ -1387,26 +1410,26 @@
       },
 
       _delete(id) {
-        const linkDocs = document.querySelector(`#linkdocs${id}`);
-        if (linkDocs != null) {
-          linkDocs.parentNode.removeChild(linkDocs);
-        }
+        this.deleteDocElement(id);
         const data = {
           uuid: id,
           action: 'delete',
           page: 0,
         };
-
         const url = virtualclass.api.UpdateDocumentStatus;
-        const that = this;
-
         const cthis = this;
         virtualclass.xhrn.vxhrn.post(url, data).then((res) => {
-          if (res.data.status == 'ok') {
-            cthis.sendOrder(cthis.order);
+          if (res.data.status === 'ok') {
+            virtualclass.dts.sendOrder(virtualclass.orderList[this.appName].ol.order);
           }
         });
+      },
 
+      deleteDocElement(id) {
+        const linkDocs = document.querySelector(`#linkdocs${id}`);
+        if (linkDocs != null) {
+          linkDocs.parentNode.removeChild(linkDocs);
+        }
         delete this.pages[`docs${id}`];
         this.removePagesUI(id);
         this.removePagesFromStructure(id);
@@ -1434,8 +1457,8 @@
 
         const cthis = this;
         virtualclass.xhrn.vxhrn.post(url, data).then((res) => {
-          if (res.data.status == 'ok') {
-            cthis.sendOrder(cthis.order);
+          if (res.data.status === 'ok') {
+            cthis.sendOrder(virtualclass.orderList[this.appName].ol.order);
           }
         });
 
@@ -1767,6 +1790,16 @@
         return (uploadElem != null);
       },
 
+      updateScreen() {
+        this.rawToProperData(virtualclass.serverData.rawData.docs);
+        for (const key in this.allDocs) {
+          if (!Object.prototype.hasOwnProperty.call(this.allDocs[key], 'deleted')) {
+            this.initDocs(this.allDocs[key].fileuuid);
+          } else {
+            this.deleteDocElement(this.allDocs[key].fileuuid);
+          }
+        }
+      }
     };
   };
   window.documentShare = documentShare;

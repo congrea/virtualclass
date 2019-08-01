@@ -748,7 +748,8 @@
            * */
 
           if (typeof this.orderList[virtualclass.currApp] === 'object'
-            && this.orderList[virtualclass.currApp].ol.order.indexOf(virtualclass.gObj.currWb) <= -1) {
+            && this.orderList[virtualclass.currApp].ol.order.indexOf(virtualclass.gObj.currWb) <= -1
+            && virtualclass.currApp !== 'DocumentShare') {
             this.orderList[virtualclass.currApp].insert(virtualclass.gObj.currWb);
           }
 
@@ -792,7 +793,19 @@
 
 
         whiteboardActual(app, cusEvent, id) {
+          let whiteboardContainer;
+          if (app === 'Whiteboard') {
+            whiteboardContainer = document.querySelector('#virtualclassWhiteboard .whiteboardContainer');
+          } else {
+            whiteboardContainer = document.getElementById(`cont${id}`);
+          }
+
+          if (whiteboardContainer == null) {
+            return;
+          }
+
           console.log('##==jai, whiteboard actual ' + id);
+
           let vcan;
           if (typeof this.ss === 'object') {
             this.ss.prevStream = false;
@@ -800,7 +813,6 @@
 
           if (roles.hasControls() && typeof this.previous !== 'undefined' && typeof cusEvent !== 'undefined'
           && cusEvent === 'byclick' && roles.hasControls() && app === 'Whiteboard') {
-            // const docid = id.split('_doc_')[1];
             virtualclass.vutil.beforeSend({ dispWhiteboard: true, cf: 'dispWhiteboard', d: id });
           }
 
@@ -824,19 +836,15 @@
               console.log('====> jai 1 ', id, ' ', virtualclass.wb[id].vcan);
               this.wb[id] = new window.whiteboard(this.wbConfig, id);
               console.log('=====> whiteboard ready 1');
-              let whiteboardContainer;
               let wbHtml;
               let canvas;
               console.log('====> jai 2 ', id, ' ', virtualclass.wb[id].vcan);
 
               if (app === 'Whiteboard') {
-                whiteboardContainer = document.querySelector('#virtualclassWhiteboard .whiteboardContainer');
                 if (roles.hasControls() && !virtualclass.gObj.wbInitHandle) {
                   virtualclass.wbCommon.initNavHandler();
                   virtualclass.gObj.wbInitHandle = true;
                 }
-              } else {
-                whiteboardContainer = document.getElementById(`cont${id}`);
               }
               console.log('====> jai 3 ', id, ' ', virtualclass.wb[id].vcan);
 

@@ -110,7 +110,9 @@
               ioAdapter.adapterMustData[ioAdapter.serial] = m;
             }
             ioMissingPackets.executedSerial[key1] = m.m.serial;
+            //console.log('====> msg serial ', m.m.serial);
             ioMissingPackets.executedStore[key1][m.m.serial] = m;
+            console.log('====> MSG serial ', m.m.serial);
             //console.log('onrecevie json ', JSON.stringify(m));
             // console.log('====> POLL msg cache all');
             io.onRecJson(m);

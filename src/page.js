@@ -348,11 +348,8 @@
       cthis: null,
       init(cthis, parent) {
         this.cthis = cthis;
-
-        // if(cthis.type=="video"){
-        const helem = this.element(cthis, 'status', this.cthis.status);
-        // var helem = this.element('status');
-        const delem = this.element(cthis, 'delete');
+        this.element(cthis, 'status', this.cthis.status);
+        this.element(cthis, 'delete');
         if (cthis.type == 'video') {
           this.element(cthis, 'edit');
         }
@@ -510,7 +507,7 @@
         },
         handleDragEnd(e, cthis) {
           if (virtualclass.currApp == 'DocumentShare') {
-            virtualclass.dts.indexNav.oldOrder = virtualclass.dts.order;
+            virtualclass.dts.indexNav.oldOrder = virtualclass.orderList.DocumentShare.ol.order;
           }
           cthis.rearrange();
           e.preventDefault();

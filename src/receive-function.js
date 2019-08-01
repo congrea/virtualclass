@@ -545,6 +545,6 @@ const receiveFunctions = new function () {
   };
 
   this.rawSyncData = function (e) {
-    virtualclass.serverData.onMessage(e.message);
+      virtualclass.serverData.onMessage(e.message);
   };
 }();

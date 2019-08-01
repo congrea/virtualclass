@@ -37,6 +37,7 @@ const serverData = {
   },
 
   syncAllData() {
+    console.log('====> Sync data init');
     return new Promise(((resolve) => {
       function syncAllDataInternal() {
         if (virtualclass.serverData.syncComplete === true) {
@@ -46,7 +47,7 @@ const serverData = {
         virtualclass.serverData.syncxhr.post(virtualclass.api.GetDocumentURLs, {})
           .then((response) => {
             virtualclass.serverData.awsUrlArr(response.data);
-            console.log('===> rawSyncData');
+            console.log('====> Sync data all ');
             ioAdapter.mustSend({ rawData: response.data, cf: 'rawSyncData' });
             virtualclass.serverData.syncComplete = true;
             resolve(true);

@@ -13,6 +13,13 @@ $.uiBackCompat = false;
     await bootStraper.setUpMedia();
     await bootStraper.readyToGo();
     await bootStraper.cache();
-    await virtualclass.serverData.syncAllData();
+    virtualclass.serverData.syncComplete = false;
+    await virtualclass.serverData.syncAllData().then(() => {
+      if (virtualclass.currApp === 'DocumentShare' && virtualclass.dts){
+        virtualclass.dts.updateScreen();
+      }
+    });
+
+
   };
 }(window));

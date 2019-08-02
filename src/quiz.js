@@ -447,8 +447,6 @@
         vthis.UI.resultView(quizDetail);
         vthis.tabContent();
         vthis.quizSt.screen = 'tchResultView';
-        virtualclass.storage.quizStorage('qDetail', JSON.stringify(quizDetail));
-        virtualclass.storage.quizStorage('qData', qzJson);
 
         // save data in LMS DB
         const formData = new FormData();
@@ -571,7 +569,6 @@
           if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
             this.teacherViewOnPageRefresh(msg.quiz);
           } else {
-            virtualclass.storage.quizStorage('qData', JSON.stringify(vthis.dataRec));
             vthis.quizSt.screen = 'stdPublish';
             this.quizDisplay(msg.quiz.data);
           }
@@ -668,8 +665,6 @@
               qAt: msg.quiz.quesattemptd,
               ca: msg.quiz.correctans,
             });
-            virtualclass.storage.quizStorage('qGrade', JSON.stringify(vthis.qGrade));
-
             // save data in LMS DB
             this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
           } else {
@@ -943,10 +938,7 @@
         const message = virtualclass.lang.getString('rusureCquiz');
         virtualclass.popup.confirmInput(message, (confirm) => {
           if (confirm) {
-            localStorage.removeItem('quizSt');
             that.quizSt = {};
-            virtualclass.storage.clearTableData('quizData');
-            localStorage.removeItem('qRep');
             const mBody = document.getElementById('editQuizModal');
             mBody.parentNode.removeChild(mBody);
             that.attemptedUsers = {};

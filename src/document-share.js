@@ -305,10 +305,6 @@
         return relativeDocs;
       },
 
-      removeWhiteboardFromStorage(key) {
-        virtualclass.storage.wbDataRemove(key);
-      },
-
       getNotes(id) {
         return this.allDocs[id].notesarr;
       },
@@ -1521,7 +1517,6 @@
       },
 
       _removePageFromStructure(id) {
-        this.removeWhiteboardFromStorage(`_doc_${id}_${id}`);
         // delete this.allNotes[id];
         this.allNotes[id].deletedn = id;
         // new pages save into docs

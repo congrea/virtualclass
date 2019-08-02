@@ -45,14 +45,6 @@
     async onsuccess() {
     },
 
-    pollStore(store) {
-
-    },
-
-    wbDataRemove(key) {
-
-    },
-
     storeCacheAll(data, serialKey) {
       const tx = virtualclass.storage.db.transaction('cacheAll', 'readwrite');
       serialKey[0] = parseInt(serialKey[0]);
@@ -110,19 +102,9 @@
               ioAdapter.adapterMustData[ioAdapter.serial] = m;
             }
             ioMissingPackets.executedSerial[key1] = m.m.serial;
-            //console.log('====> msg serial ', m.m.serial);
             ioMissingPackets.executedStore[key1][m.m.serial] = m;
             console.log('====> MSG serial ', m.m.serial);
-            //console.log('onrecevie json ', JSON.stringify(m));
-            // console.log('====> POLL msg cache all');
             io.onRecJson(m);
-
-            // try {
-            //   console.log('Execute till now ', ioMissingPackets.executedSerial[key1]);
-            //   io.onRecJson(m);
-            // } catch (error) {
-            //   console.log(`Error ${error}`);
-            // }
           }
         }
       }
@@ -179,10 +161,8 @@
             ioAdapter.validateAllVariables(key1);
             ioAdapter.userSerial[key1] = parseInt(key2, 10);
             ioAdapter.userAdapterMustData[key1][ioAdapter.userSerial[key1]] = m;
-
             try {
-              if (m.m.cf !== 'eddata') {
-                // console.log('====> POLL msg cache out');
+              if (m.m.cf !== 'eddata') { // We do
                 io.onRecJson(m);
               }
             } catch (error) {
@@ -192,29 +172,6 @@
         }
       }
     },
-
-    quizStorage(quizkey, data) {
-
-    },
-
-
-    async getAllDataOfPoll(table, cb) {
-      const wholeData = [];
-      let cursor = await virtualclass.storage.db.transaction('pollStorage').store.openCursor();
-
-      while (cursor) {
-        // console.log(cursor.key, cursor.value);
-        wholeData.push(cursor.value);
-        cursor = await cursor.continue();
-      }
-
-      if (wholeData.length > 0) {
-        cb(wholeData);
-      } else {
-        // console.log('No data fetched from indexedDb');
-      }
-    },
-
     clearSingleTable(table, lastTable) {
       // console.log('Clear single table ', table);
 
@@ -267,18 +224,6 @@
         virtualclass.gObj.sessionEndResolve();
       }
     },
-
-    // Get quiz data, store in array based on
-    // key and then return array of object
-    async getQuizData(cb) {
-
-    },
-
-    // Clear all data from given table
-    clearTableData(table) {
-
-    },
-
   };
   window.storage = storage;
 }(window));

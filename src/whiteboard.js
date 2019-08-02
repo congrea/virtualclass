@@ -540,7 +540,6 @@
             // console.log(`Whiteboard clear init ${wbId}`);
             virtualclass.wb[wbId].utility.t_clearallInit(wbId);
             virtualclass.wb[wbId].utility.makeDefaultValue(cmd, wId);
-            virtualclass.storage.wbDataRemove(wbId);
 
             // const obj = { cmd: 't_activeall', mt: currTime };
 

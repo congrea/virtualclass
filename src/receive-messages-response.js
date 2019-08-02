@@ -9,7 +9,6 @@
       virtualclass.wb[wId].utility.t_clearallInit(wId);
       virtualclass.wb[wId].utility.makeDefaultValue(undefined, wId);
       // virtualclass.storage.clearStorageData();
-      virtualclass.storage.wbDataRemove(virtualclass.gObj.currWb);
     },
 
     // TODO this is not used any more

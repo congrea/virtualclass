@@ -782,6 +782,7 @@
           virtualclass.sharePt.order.push(pptObj.uuid);
           virtualclass.vutil.sendOrder('presentation', virtualclass.sharePt.order);
           virtualclass.sharePt.getPptList();
+          virtualclass.serverData.syncComplete = false;
           virtualclass.serverData.syncAllData().then(() => {
             virtualclass.sharePt.awsPresentationList(virtualclass.serverData.rawData.ppt);
           });
@@ -976,7 +977,7 @@
         }
       },
 
-      showPpts(content) {
+      showPpts() {
         // var list = document.getElementById("videoList");
         const elem = document.getElementById('listppt');
         if (elem) {

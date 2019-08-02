@@ -469,9 +469,6 @@
           const obj = { result: this.count, qid: data.qId, pollData: data };
           this.uid++;
           obj.uid = this.uid;
-          if (!roles.hasControls()) {
-            virtualclass.storage.pollStore(JSON.stringify(obj));
-          }
         }
       },
 

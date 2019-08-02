@@ -609,6 +609,9 @@
               virtualclass.vutil.triggerDashboard(app, 'hidepopup');
               console.log('====> document shareing 4');
             }
+            if (virtualclass.dts.noteExist()) {
+              virtualclass.zoom.normalRender();
+            }
           }
 
           // virtualclass.zoom.zoomAction('fitToScreen');
@@ -832,13 +835,13 @@
               virtualclass.gObj.commandToolsWrapperId[id] = `commandToolsWrapper${id}`;
               this.wb[id] = {};
               virtualclass.gObj.tempReplayObjs[id] = [];
-              console.log('====> vcan is creating', id, ' ', id, ' ', virtualclass.wb[id].vcan);
-              console.log('====> jai 1 ', id, ' ', virtualclass.wb[id].vcan);
+              // console.log('====> vcan is creating', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+              // console.log('====> jai 1 ', id, ' ', virtualclass.wb[id].vcan);
               this.wb[id] = new window.whiteboard(this.wbConfig, id);
               console.log('=====> whiteboard ready 1');
               let wbHtml;
               let canvas;
-              console.log('====> jai 2 ', id, ' ', virtualclass.wb[id].vcan);
+              // console.log('====> jai 2 ', id, ' ', virtualclass.wb[id].vcan);
 
               if (app === 'Whiteboard') {
                 if (roles.hasControls() && !virtualclass.gObj.wbInitHandle) {
@@ -846,7 +849,7 @@
                   virtualclass.gObj.wbInitHandle = true;
                 }
               }
-              console.log('====> jai 3 ', id, ' ', virtualclass.wb[id].vcan);
+              // console.log('====> jai 3 ', id, ' ', virtualclass.wb[id].vcan);
 
               if (whiteboardContainer !== null) {
                 if (document.querySelector(`vcanvas${id}`) === null) {
@@ -881,7 +884,7 @@
                   }
                   canvas = document.querySelector(`#canvas${id}`);
                 }
-                console.log('====> jai 4 ', id, ' ', virtualclass.wb[id].vcan);
+                // console.log('====> jai 4 ', id, ' ', virtualclass.wb[id].vcan);
 
                 this.wb[id].utility = new window.utility();
                 this.wb[id].alreadyReplay = false;

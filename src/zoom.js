@@ -3,7 +3,7 @@
     // var zoomScaleWidth, zoomScaleHeight;
     return {
       init() {
-        this.canvasScale = 1; // At very first, there is no canvas scale to draw the shapes on whiteboard
+        // this.canvasScale = 1; // At very first, there is no canvas scale to draw the shapes on whiteboard
         if (document.querySelector('.zoomControler') == null) {
           const parent = document.querySelector('#virtualclassAppLeftPanel');
           if (parent != null) {
@@ -30,8 +30,6 @@
 
       _initScaleController() {
         const elem = document.querySelector('.zoomControler');
-        var that = this;
-
         var that = this;
         const zoomIn = elem.querySelector('.zoomIn');
         zoomIn.addEventListener('click', () => {
@@ -216,27 +214,14 @@
         virtualclass.zoom.normalRender();
       },
 
-      normalRender(zoomWhiteboard) {
-        // console.log(`--Pdf Render Start ${virtualclass.currApp} ------------`);
-        // console.log('Pdf render normal view');
-        // console.log('--Pdf render------------');
+      normalRender() {
         const wid = virtualclass.gObj.currWb;
         delete virtualclass.zoom.performZoom;
-        if (typeof virtualclass.pdfRender[wid].shownPdf === 'object') {
-          if (virtualclass.zoom.canvasScale != null) {
-            // virtualclass.zoom.canvasScale = virtualclass.zoom.canvasScale / virtualclass.gObj.SCALE_FACTOR;
-            virtualclass.zoom.canvasDimension.width = virtualclass.zoom.canvasDimension.width / virtualclass.gObj.SCALE_FACTOR;
-            virtualclass.zoom.canvasDimension.height = virtualclass.zoom.canvasDimension.height / virtualclass.gObj.SCALE_FACTOR;
-            // console.log(`Canvas pdf scale ${this.canvasScale}`);
-            // if(zoomWhiteboard == null){
-            //     virtualclass.zoom.zoomIn('normalRender');
-            // }else {
-            //     virtualclass.zoom.zoomIn();
-            // }
-            virtualclass.zoom.zoomIn('normalRender');
-          } else {
-            // console.log('canvasScale is not defined yet.');
-          }
+        if (typeof virtualclass.pdfRender[wid].shownPdf === 'object'
+          && virtualclass.zoom.canvasScale != null) {
+          virtualclass.zoom.canvasDimension.width = virtualclass.zoom.canvasDimension.width / virtualclass.gObj.SCALE_FACTOR;
+          virtualclass.zoom.canvasDimension.height = virtualclass.zoom.canvasDimension.height / virtualclass.gObj.SCALE_FACTOR;
+          virtualclass.zoom.zoomIn('normalRender');
         }
       },
 

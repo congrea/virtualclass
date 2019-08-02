@@ -1150,6 +1150,8 @@
 
               if (!this.isWhiteboardExist(this.currNote)) {
                 virtualclass.dts.docs.createWhiteboard(this.currNote);
+              } else {
+                virtualclass.zoom.normalRender();
               }
 
               virtualclass.vutil.updateCurrentDoc(this.currNote);

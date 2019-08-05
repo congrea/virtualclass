@@ -16,6 +16,7 @@
       listEndPause: false,
       attachPlayer: false,
       lastSeek: 0,
+      appName: 'Video',
 
       /*
        * it creates the the necessary layout and containers to place
@@ -92,6 +93,7 @@
             if (response === 'Error') {
               // console.log('page order retrieve failed');
             } else if (typeof response !== 'undefined' && response != undefined) {
+              console.log('====> Order request');
               virtualclass.videoUl.order = [];
               virtualclass.videoUl.order = response;
               if (virtualclass.videoUl.order.length > 0) {
@@ -101,18 +103,18 @@
           });
       },
 
-      updateOrder() {
-        const activeVideos = this.getActiveVideos();
-        if (activeVideos.length !== this.order.length) {
-          const videos = activeVideos.map(video => video.fileuuid);
-          this.order = videos;
-        }
-        this.sendOrder(this.order);
-      },
+      // updateOrder() {
+      //   const activeVideos = this.getActiveVideos();
+      //   if (activeVideos.length !== this.order.length) {
+      //     const videos = activeVideos.map(video => video.fileuuid);
+      //     this.order = videos;
+      //   }
+      //   this.sendOrder(this.order);
+      // },
 
       afterUploadVideo(id, xhr, res) {
         if (res.success) {
-          this.updateOrder();
+          // this.updateOrder();
           virtualclass.videoUl.order.push(virtualclass.gObj.file.uuid);
           virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
           virtualclass.videoUl.showUploadMsz('Video uploaded successfully', 'alert-success');
@@ -134,7 +136,10 @@
             this.afterUploadFile(fileObj);
           }
           virtualclass.gObj.uploadingFiles = [];
-          virtualclass.serverData.pollingStatus().then(() => { virtualclass.videoUl.UI.rawVideoList(); });
+          virtualclass.serverData.pollingStatus().then(() => {
+            virtualclass.videoUl.UI.rawVideoList();
+            virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
+          });
         } else {
           virtualclass.videoUl.showUploadMsz('video upload failed', 'alert-error');
         }
@@ -176,6 +181,7 @@
       },
 
       retrieveOrder() {
+        console.log('====> VIDEO RETRIVE');
         this.requestOrder();
       },
 
@@ -393,6 +399,7 @@
       sendOrder(order) {
         const type = 'vid';
         virtualclass.vutil.sendOrder(type, order);
+        ioAdapter.mustSend({ videoUl: { order }, cf: 'videoUl' });
       },
 
 
@@ -486,6 +493,8 @@
           virtualclass.videoUl.UI.displayVideo(msg.videoUl.id, virtualclass.videoUl.videoUrl);
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'play')) {
           this.handlePlayEvent(msg, msg.videoUl.play);
+        } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'order')) {
+          virtualclass.videoUl.order = msg.videoUl.order;
         }
       },
 
@@ -1150,15 +1159,13 @@
             vidObj.type = 'video_yts';
           }
           virtualclass.xhrn.vxhrn.post(url, vidObj).then(() => {
-            virtualclass.videoUl.updateOrder();
+            // virtualclass.videoUl.updateOrder();
             virtualclass.videoUl.order.push(vidObj.uuid);
-
-            // TODO, Critical this need be re-enable
-            virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
             if (virtualclass.config.makeWebSocketReady) {
               virtualclass.serverData.syncComplete = false;
               virtualclass.serverData.syncAllData().then(() => {
                 virtualclass.videoUl.UI.rawVideoList();
+                virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
               });
             }
           });
@@ -1276,7 +1283,9 @@
         rawVideoList() {
           virtualclass.videoUl.videos = virtualclass.serverData.rawData.video;
           virtualclass.videoUl.showVideos();
-          virtualclass.videoUl.retrieveOrder();
+          // virtualclass.videoUl.retrieveOrder();
+          virtualclass.videoUl.requestOrder();
+
         },
       },
     };

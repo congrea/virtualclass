@@ -7,7 +7,7 @@
       videoId: '',
       videoUrl: '',
       isfullscreen: false,
-      order: [],
+      // order: [],
       currPlaying: '',
       autoPlayFlag: 1,
       status: 0,
@@ -25,6 +25,11 @@
        * @param  videoObj
        */
       init() {
+        if (!virtualclass.orderList[virtualclass.videoUl.appName]) {
+          console.log('====> ORDER LIST IS CREATING ');
+          virtualclass.orderList[virtualclass.videoUl.appName] = new OrderedList();
+        }
+
         this.videoInit = true;
         this.currPlaying = '';
         this.pages = {};
@@ -62,8 +67,10 @@
           }
         }
         if (orderChange) {
-          virtualclass.videoUl.order = order;
-          virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
+          // virtualclass.videoUl.order = order;
+          virtualclass.orderList[virtualclass.videoUl.appName].ol.order = order;
+          console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
+          virtualclass.videoUl.sendOrder(virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
           orderChange = false;
         }
 
@@ -79,9 +86,9 @@
 
       getActiveVideos() {
         const activeVideos = [];
-        for (let i = 0; i < virtualclass.videoUl.videos.length; i++) {
-          if (!Object.prototype.hasOwnProperty.call(virtualclass.videoUl.videos[i], 'deleted')) {
-            activeVideos.push(virtualclass.videoUl.videos[i]);
+        for (let i = 0; i < virtualclass.serverData.rawData.video.length; i++) {
+          if (!Object.prototype.hasOwnProperty.call(virtualclass.serverData.rawData.video[i], 'deleted')) {
+            activeVideos.push(virtualclass.serverData.rawData.video[i]);
           }
         }
         return activeVideos;
@@ -94,10 +101,12 @@
               // console.log('page order retrieve failed');
             } else if (typeof response !== 'undefined' && response != undefined) {
               console.log('====> Order request');
-              virtualclass.videoUl.order = [];
-              virtualclass.videoUl.order = response;
-              if (virtualclass.videoUl.order.length > 0) {
-                virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order); // 1
+              // virtualclass.videoUl.order = [];
+              // virtualclass.videoUl.order = response;
+              virtualclass.orderList[virtualclass.videoUl.appName].ol.order = response;
+              console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
+              if (virtualclass.orderList[virtualclass.videoUl.appName].ol.order.length > 0) {
+                virtualclass.videoUl.reArrangeElements(virtualclass.orderList[virtualclass.videoUl.appName].ol.order); // 1
               }
             }
           });
@@ -115,8 +124,9 @@
       afterUploadVideo(id, xhr, res) {
         if (res.success) {
           // this.updateOrder();
-          virtualclass.videoUl.order.push(virtualclass.gObj.file.uuid);
-          virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
+          // virtualclass.videoUl.order.push(virtualclass.gObj.file.uuid);
+          virtualclass.orderList[virtualclass.videoUl.appName].insert(virtualclass.gObj.file.uuid);
+          virtualclass.videoUl.sendOrder(virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
           virtualclass.videoUl.showUploadMsz('Video uploaded successfully', 'alert-success');
           const popup = document.querySelector('.congrea #VideoDashboard #videoPopup');
           if (popup) {
@@ -138,7 +148,8 @@
           virtualclass.gObj.uploadingFiles = [];
           virtualclass.serverData.pollingStatus().then(() => {
             virtualclass.videoUl.UI.rawVideoList();
-            virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
+            // virtualclass.orderList[virtualclass.videoUl.appName].insert(virtualclass.gObj.file.uuid);
+            virtualclass.videoUl.sendOrder(virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
           });
         } else {
           virtualclass.videoUl.showUploadMsz('video upload failed', 'alert-error');
@@ -251,8 +262,8 @@
             elem.childNodes[i].parentNode.removeChild(elem.childNodes[i]);
           }
         }
-        if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
-          virtualclass.videoUl.videos.forEach((vidObj, i) => {
+        if (virtualclass.serverData.rawData.video && virtualclass.serverData.rawData.video.length) {
+          virtualclass.serverData.rawData.video.forEach((vidObj, i) => {
             if (!Object.prototype.hasOwnProperty.call(vidObj, 'deleted')) {
               const elem = document.querySelector(`#linkvideo${vidObj.fileuuid}`);
               if (elem != null) {
@@ -269,9 +280,9 @@
         virtualclass.vutil.makeElementActive('#listvideo');
         const video = document.querySelector('.congrea #listvideo .linkvideo.singleVideo');
         const link = document.querySelector('.congrea #listvideo .linkvideo');
-        if (virtualclass.videoUl.videos.length === 1 && !video) {
+        if (virtualclass.serverData.rawData.video.length === 1 && !video) {
           link.classList.add('singleVideo');
-        } else if (virtualclass.videoUl.videos.length > 1 && video) {
+        } else if (virtualclass.serverData.rawData.video.length > 1 && video) {
           video.classList.remove('singleVideo');
         }
       },
@@ -357,11 +368,13 @@
 
       },
 
-
       _rearrange(order) {
-        this.order = order;
-        this.reArrangeElements(order); // 2, rearrange
-        this.sendOrder(this.order);
+        virtualclass.orderList[virtualclass.videoUl.appName].ol.order = order;
+        console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
+        // this.order = order;
+        this.reArrangeElements(virtualclass.orderList[virtualclass.videoUl.appName].ol.order); // 2, rearrange
+        this.sendOrder(virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
+        // this.sendOrder(this.order);
       },
 
       async _editTitle(id, title, videotype) {
@@ -382,8 +395,8 @@
               elem.innerHTML = title;
               elem.style.display = 'inline';
               // virtualclass.videoUl.order=[];
-              if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
-                virtualclass.videoUl.videos.forEach((video) => {
+              if (virtualclass.serverData.rawData.video && virtualclass.serverData.rawData.video.length) {
+                virtualclass.serverData.rawData.video.forEach((video) => {
                   if (video.id === id) {
                     video.title = title;
                   }
@@ -494,7 +507,14 @@
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'play')) {
           this.handlePlayEvent(msg, msg.videoUl.play);
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'order')) {
-          virtualclass.videoUl.order = msg.videoUl.order;
+          // virtualclass.videoUl.order = msg.videoUl.order;
+          virtualclass.orderList[virtualclass.videoUl.appName].ol.order = msg.videoUl.order;
+          if (roles.hasControls() && !virtualclass.config.makeWebSocketReady
+          && virtualclass.orderList[virtualclass.videoUl.appName].ol.order.length > 0) {
+            virtualclass.videoUl.showVideos();
+            virtualclass.videoUl.reArrangeElements(virtualclass.orderList[virtualclass.videoUl.appName].ol.order); // 1
+          }
+          console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
         }
       },
 
@@ -644,7 +664,7 @@
         let currVideoObj = false;
         const videos = this.getActiveVideos();
         for (let i = 0; i < videos.length; i++) {
-          // for (var j in virtualclass.videoUl.videos[i]) {
+          // for (var j in virtualclass.serverData.rawData.video[i]) {
           if (videos[i].fileuuid === nextId) {
             const vid = document.getElementById(`linkvideo${videos[i].fileuuid}`);
             if (vid.getAttribute('data-status') === '1') {
@@ -677,8 +697,8 @@
         video.style.opacity = 0.3;
         video.style.pointerEvents = 'none';
 
-        if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
-          virtualclass.videoUl.videos.forEach((elem, i) => {
+        if (virtualclass.serverData.rawData.video && virtualclass.serverData.rawData.video.length) {
+          virtualclass.serverData.rawData.video.forEach((elem, i) => {
             if (elem.fileuuid == _id) {
               elem.disabled = 0;
               elem.status = 0;
@@ -699,8 +719,8 @@
         if (video) {
           video.style.opacity = 1;
           video.style.pointerEvents = 'auto';
-          if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
-            virtualclass.videoUl.videos.forEach((elem, i) => {
+          if (virtualclass.serverData.rawData.video && virtualclass.serverData.rawData.video.length) {
+            virtualclass.serverData.rawData.video.forEach((elem, i) => {
               if (elem.fileuuid == _id) {
                 delete (elem.disabled);
                 elem.status = 1;
@@ -755,13 +775,13 @@
               }
             }
 
-            if (virtualclass.videoUl.videos && virtualclass.videoUl.videos.length) {
-              virtualclass.videoUl.videos.forEach((video) => {
+            if (virtualclass.serverData.rawData.video && virtualclass.serverData.rawData.video.length) {
+              virtualclass.serverData.rawData.video.forEach((video) => {
                 if (video.fileuuid === id) {
-                  const index = virtualclass.videoUl.videos.indexOf(video);
+                  const index = virtualclass.serverData.rawData.video.indexOf(video);
                   if (index >= 0) {
-                    virtualclass.videoUl.videos.splice(index, 1);
-                    // console.log(virtualclass.videoUl.videos);
+                    virtualclass.serverData.rawData.video.splice(index, 1);
+                    // console.log(virtualclass.serverData.rawData.video);
                   }
                 }
               });
@@ -772,11 +792,11 @@
               virtualclass.videoUl.order.splice(idIndex, 1);
               // console.log(virtualclass.videoUl.order);
               // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
-              virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
+              virtualclass.videoUl.sendOrder(virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
             }
-            if (!virtualclass.videoUl.videos.length) {
+            if (!virtualclass.serverData.rawData.video.length) {
               virtualclass.vutil.removeFinishBtn();
-            } else if (virtualclass.videoUl.videos.length == 1) {
+            } else if (virtualclass.serverData.rawData.video.length == 1) {
               var video = document.querySelector('.congrea #listvideo .linkvideo');
               if (video) {
                 video.classList.add('singleVideo');
@@ -1160,12 +1180,13 @@
           }
           virtualclass.xhrn.vxhrn.post(url, vidObj).then(() => {
             // virtualclass.videoUl.updateOrder();
-            virtualclass.videoUl.order.push(vidObj.uuid);
+           // virtualclass.videoUl.order.push(vidObj.uuid);
+            virtualclass.orderList[virtualclass.videoUl.appName].insert(vidObj.uuid);
             if (virtualclass.config.makeWebSocketReady) {
               virtualclass.serverData.syncComplete = false;
               virtualclass.serverData.syncAllData().then(() => {
                 virtualclass.videoUl.UI.rawVideoList();
-                virtualclass.videoUl.sendOrder(virtualclass.videoUl.order);
+                virtualclass.videoUl.sendOrder(virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
               });
             }
           });
@@ -1241,11 +1262,11 @@
             virtualclass.serverData.syncAllData().then(() => {
               virtualclass.videoUl.UI.rawVideoList();
             });
-          } else if (!virtualclass.videoUl.videos.length) {
+          } else if (!virtualclass.serverData.rawData.video.length) {
             this.rawVideoList();
           } else {
             virtualclass.videoUl.showVideos();
-            virtualclass.videoUl.reArrangeElements(virtualclass.videoUl.order);
+            virtualclass.videoUl.reArrangeElements(virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
           }
 
           const dropMsz = document.querySelector('#virtualclassCont.congrea #VideoDashboard .qq-uploader.qq-gallery');
@@ -1281,7 +1302,7 @@
         },
 
         rawVideoList() {
-          virtualclass.videoUl.videos = virtualclass.serverData.rawData.video;
+          // virtualclass.videoUl.videos = virtualclass.serverData.rawData.video;
           virtualclass.videoUl.showVideos();
           // virtualclass.videoUl.retrieveOrder();
           virtualclass.videoUl.requestOrder();

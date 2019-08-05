@@ -143,7 +143,6 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
     },
 
     sendBinary(msg) {
-      const type = null;
       if (this.sock.readyState && msg.length) {
         if (msg.length <= 600000) { // Less than 600K
           if (msg.constructor === Int8Array) {

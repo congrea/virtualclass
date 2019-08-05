@@ -1230,12 +1230,12 @@
               }
 
               virtualclass.gObj.endSession = true;
-              if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'beTeacher') && roles.isTeacher()) {
-                // localStorage.setItem('uRole', 't');
-              }
+              // if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'beTeacher') && roles.isTeacher()) {
+              //   // localStorage.setItem('uRole', 't');
+              // }
               localStorage.clear();
 
-              const allFinish = new Promise(((resolve, reject) => {
+              const allFinish = new Promise(((resolve) => {
                 virtualclass.gObj.sessionEndResolve = resolve;
                 virtualclass.clearSession();
               }));

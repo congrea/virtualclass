@@ -29,10 +29,10 @@
          * @returns nothing
          */
 
-      drawStart(ev) {
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+      drawStart(ev, wId) {
+        const { vcan } = virtualclass.wb[wId];
         // if(vcan.main.freesvg == true){
-        if (virtualclass.wb[virtualclass.gObj.currWb].obj.freeDrawObj.freesvg == true) {
+        if (virtualclass.wb[wId].obj.freeDrawObj.freesvg == true) {
           const ctx = vcan.main.canvas.getContext('2d');
           // borderColor = "red";
           // this.fdObj = vcan.main.freeHandDrawing(ev, {borderColor: borderColor});
@@ -52,13 +52,13 @@
          * @param ev expects the mouse move event
          * @returns nothing
          */
-      wb_draw(ev) {
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+      wb_draw(ev, wId) {
+        const { vcan } = virtualclass.wb[wId];
         const pointer = vcan.utility.getReltivePoint(ev);
         this.fdObj.fhRendering(pointer);
       },
       finalizeDraw(ev, wbId) {
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+        const { vcan } = virtualclass.wb[wbId];
         // TODO this(finalizeDrawingPath) should be called over the object.
         virtualclass.wb[wbId].prvObj = this.fdObj.finalizeDrawingPath(virtualclass.wb[wbId].canvas, wbId);
         const lastChild = vcan.main.children[vcan.main.children.length - 1];

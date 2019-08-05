@@ -38,13 +38,13 @@
           if (obj.borderColor == undefined) {
             this.freeDrawingColor = '#0000ff';
           } else {
-            this.freeDrawingColor = (virtualclass.wb[virtualclass.gObj.currWb].activeToolColor != undefined) ? virtualclass.wb[virtualclass.gObj.currWb].activeToolColor : '#0000ff';
+            this.freeDrawingColor = (virtualclass.wb[id].activeToolColor != undefined) ? virtualclass.wb[id].activeToolColor : '#0000ff';
           }
 
           if (obj.lineWidth != undefined) {
-            this.freeDrawingLineWidth = virtualclass.wb[virtualclass.gObj.currWb].currStrkSize * virtualclass.zoom.canvasScale;
+            this.freeDrawingLineWidth = virtualclass.wb[id].currStrkSize * virtualclass.zoom.canvasScale;
           } else {
-            this.freeDrawingLineWidth = virtualclass.wb[virtualclass.gObj.currWb].currStrkSize * virtualclass.zoom.canvasScale;
+            this.freeDrawingLineWidth = virtualclass.wb[id].currStrkSize * virtualclass.zoom.canvasScale;
           }
 
           // IMPORTANT:- this have done during the unit testing

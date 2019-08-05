@@ -3,7 +3,8 @@
     // var zoomScaleWidth, zoomScaleHeight;
     return {
       init() {
-        // this.canvasScale = 1; // At very first, there is no canvas scale to draw the shapes on whiteboard
+        // Incase of not setting canvasScale = 1, there will be NaN value for drawn object on page refresh
+        this.canvasScale = 1; // At very first, there is no canvas scale to draw the shapes on whiteboard
         if (document.querySelector('.zoomControler') == null) {
           const parent = document.querySelector('#virtualclassAppLeftPanel');
           if (parent != null) {

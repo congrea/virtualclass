@@ -151,7 +151,7 @@
       }
 
       if (objType == 'freeDrawing' && wb.obj.freeDrawObj.freesvg == true) {
-        wb.obj.freeDrawObj.drawStart(ev);
+        wb.obj.freeDrawObj.drawStart(ev, wId);
         // console.log('free drawing start x=' +  ev.currX + ' drawing y=' + ev.currY);
       }
     };
@@ -178,7 +178,7 @@
       if (tool.started && wb.tool.cmd !== 't_clearall') { // command code inserted after found the problem
         if (wb.obj.freeDrawObj !== undefined && wb.obj.freeDrawObj.freesvg == true) {
           if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
-            wb.obj.freeDrawObj.wb_draw(ev);
+            wb.obj.freeDrawObj.wb_draw(ev, wId);
             if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) {
               if (typeof mouseup === 'undefined') {
                 if (((typeof virtualclass.gObj.lastmousemovetime === 'undefined') || (virtualclass.gObj.lastmousemovetime == null))) {

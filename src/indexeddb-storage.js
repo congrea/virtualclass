@@ -20,12 +20,6 @@
           virtualclass.storage.onupgradeneeded(db);
         },
       });
-
-      if (typeof this.db.objectStoreNames === 'object' && this.db.objectStoreNames != null) {
-        await this.onsuccess();
-      } else {
-        this.init();
-      }
     },
 
     onupgradeneeded(db) {
@@ -40,10 +34,6 @@
       if (!db.objectStoreNames.contains('cacheIn')) {
         db.createObjectStore('cacheIn');
       }
-    },
-
-    async onsuccess() {
-      console.log('====> Database is created');
     },
 
     storeCacheAll(data, serialKey) {

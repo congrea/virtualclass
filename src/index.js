@@ -15,7 +15,7 @@ $.uiBackCompat = false;
     await bootStraper.cache();
     virtualclass.serverData.syncComplete = false;
     await virtualclass.serverData.syncAllData().then(() => {
-      if (virtualclass.currApp === 'DocumentShare' && virtualclass.dts){
+      if (virtualclass.currApp === 'DocumentShare' && virtualclass.dts) {
         virtualclass.dts.updateScreen();
       }
     });

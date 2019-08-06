@@ -684,7 +684,7 @@
             }
           }
         }
-        virtualclass.wbCommon.initNav(virtualclass.orderList.Whiteboard.ol);
+        virtualclass.wbCommon.initNav(virtualclass.orderList.Whiteboard.ol.order);
         if (roles.hasControls()) {
           if (virtualclass.gObj.wbRearrang) {
             //virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order);
@@ -1167,7 +1167,7 @@
             if (virtualclass.gObj.currWb != null && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] !== 'undefined'
               && virtualclass.currApp === 'DocumentShare' && Object.prototype.hasOwnProperty.call(virtualclass.pdfRender[virtualclass.gObj.currWb], 'page')
               && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null) {
-              if (virtualclass.dts.order) {
+              if (virtualclass.orderList['DocumentShare'].ol.order) {
                 if (typeof virtualclass.dts.indexNav === 'undefined') {
                   virtualclass.dts.indexNav = new virtualclass.pageIndexNav('documentShare');
                 }

@@ -18,31 +18,31 @@
       if (typeof this.indexNav === 'undefined') {
         this.indexNav = new pageIndexNav('WB');
       }
-      let currentPageNumber = virtualclass.gObj.currIndex || wIds.length;
+
+      const currentPageNumber = virtualclass.gObj.currIndex || wIds.length;
 
       this.indexNav.init();
       if (roles.hasControls()) {
-        let wbOrder = localStorage.getItem('wbOrder');
-        if (wbOrder != null) {
-          wbOrder = JSON.parse(wbOrder);
-          virtualclass.wbCommon.order = wbOrder;
-        }
+        // let wbOrder = localStorage.getItem('wbOrder');
+        // if (wbOrder != null) {
+        //   wbOrder = JSON.parse(wbOrder);
+        //   virtualclass.wbCommon.order = wbOrder;
+        // }
 
-        if (this.order.length > 1) {
-          virtualclass.wbCommon.rearrangeNav(this.order);
-          this.rearrange(this.order);
-          const currentIndex = localStorage.getItem('currIndex');
-          if (currentIndex !== null) {
-            currentPageNumber = currentIndex;
-          }
-        }
+        // if (this.order.length > 1) {
+        //   virtualclass.wbCommon.rearrangeNav(this.order);
+        //   this.rearrange(this.order);
+        //   const currentIndex = localStorage.getItem('currIndex');
+        //   if (currentIndex !== null) {
+        //     currentPageNumber = currentIndex;
+        //   }
+        // }
         virtualclass.wbCommon.indexNav.createWbNavigationNumber(currentPageNumber);
         virtualclass.wbCommon.indexNav.addActiveNavigation(virtualclass.gObj.currWb);
       } else {
         const curr = virtualclass.gObj.currIndex || virtualclass.gObj.currSlide;
         virtualclass.wbCommon.indexNav.studentWBPagination(curr);
       }
-
       virtualclass.wbCommon.indexNav.setTotalPages(wIds.length);
     },
 
@@ -234,7 +234,7 @@
         this.index = (+curr) + 1;
       } else {
         this.index = (currIndex != null) ? currIndex : (index != null && typeof index !== 'undefined') ? index.title : 1;
-        if (!virtualclass.dts.order.length) {
+        if (!virtualclass.orderList['DocumentShare'].ol.order.length) {
           this.index = 0;
         }
         const nav = document.querySelector('#docShareNav');

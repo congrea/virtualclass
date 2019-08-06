@@ -356,7 +356,9 @@
             if (cont) {
               cont.innerHTML = 1;
             }
-            virtualclass.dts.indexNav.setTotalPages((virtualclass.dts.order.length));
+
+            virtualclass.dts.indexNav.setTotalPages((virtualclass.orderList[virtualclass.dts.appName].ol.order.length));
+            // virtualclass.dts.indexNav.setTotalPages((virtualclass.orderList['DocumentShare'].ol.order.length));
           }
         }
       },
@@ -708,7 +710,7 @@
         if (!btn) {
           virtualclass.vutil.showFinishBtn();
         }
-        this.indexNav.setTotalPages(virtualclass.dts.order.length);
+        this.indexNav.setTotalPages(virtualclass.orderList[virtualclass.dts.appName].ol.order.length);
 
         //                var index = document.querySelector(".congrea #dcPaging #index" + curr);
         //                if (index && !index.classList.contains('active')) {
@@ -999,10 +1001,12 @@
                 note.classList.add('current');
               }
               virtualclass.vutil.addNoteClass();
+              const id = note.id.split('note')[1];
               if (!roles.hasControls()) {
-                const id = note.id.split('note')[1];
                 virtualclass.dts.indexNav.studentDocNavigation(id);
-              } else if (!virtualclass.config.makeWebSocketReady) {
+              } else if (!virtualclass.config.makeWebSocketReady) { // when page refresh on teacher side
+                const index = virtualclass.orderList[virtualclass.dts.appName].ol.order.indexOf(id);
+                virtualclass.wbCommon.indexNav.setCurrentIndex(index + 1);
                 virtualclass.dashboard.close();
               }
             },

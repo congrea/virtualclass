@@ -595,11 +595,11 @@
           // console.dir('currDoc ' + virtualclass.dts.docs[virtualclass.dts.docs.currDoc]);
           //  var slideNumber = virtualclass.dts.docs.note.currNote;
 
-          if (virtualclass.dts.order.length > 0) {
+          if (virtualclass.orderList['DocumentShare'].ol.order.length > 0) {
             prvAppObj.metaData = {
               init: currDoc,
               slideNumber: virtualclass.dts.docs.note.currNote,
-              order: JSON.stringify(virtualclass.dts.order),
+              order: JSON.stringify(virtualclass.orderList['DocumentShare'].ol.order),
             };
           } else {
             var currDoc = 'layout';

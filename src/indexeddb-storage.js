@@ -121,9 +121,11 @@
             ioMissingPackets.executedUserSerial[key1] = m.m.userSerial;
             ioMissingPackets.executedUserStore[key1][m.m.userSerial] = m;
             try {
-              if (m.m.cf !== 'eddata') {
+              if (m.m.cf !== 'eddata' && m.m.cf !== 'colorIndicator' && m.m.cf !== 'reqscreen') {
                 // console.log('====> POLL msg cache in');
                 io.onRecJson(m);
+              } else {
+                console.log('===> colorIndicator');
               }
             } catch (error) {
               // console.log(`Error ${error}`);
@@ -153,7 +155,7 @@
             ioAdapter.userSerial[key1] = parseInt(key2, 10);
             ioAdapter.userAdapterMustData[key1][ioAdapter.userSerial[key1]] = m;
             try {
-              if (m.m.cf !== 'eddata') { // We do
+              if (m.m.cf !== 'eddata' && m.m.cf !== 'reqscreen') { // We do
                 io.onRecJson(m);
               }
             } catch (error) {

@@ -534,7 +534,8 @@
       if (virtualclass.currApp == 'ScreenShare') {
         prvAppObj.name = virtualclass.gObj.defaultApp; // not saving screen share but show Editor Rich default window
         const teacherId = virtualclass.vutil.whoIsTeacher();
-        if (virtualclass.gObj.studentSSstatus.mesharing) {
+        if (virtualclass.gObj.studentSSstatus.mesharing && roles.isStudent()) {
+          console.log('====> me sharing rmStdScreen');
           ioAdapter.mustSendUser({ cf: 'rmStdScreen' }, teacherId);
         } else if (roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing) {
           virtualclass.vutil.beforeSend({ unshareScreen: true, st: 'ss', cf: 'unshareScreen' });

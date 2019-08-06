@@ -59,12 +59,16 @@
       }
       this.identifyFirstNote(wid);
       this.identifyLastNote(wid);
-      if (!roles.hasControls()) {
-        if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
-          const curr = virtualclass.gObj.currIndex || virtualclass.gObj.currSlide;
-          virtualclass.wbCommon.indexNav.studentWBPagination(curr);
-        }
-      }
+
+      // if (!roles.hasControls()) {
+      //   if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
+      //     const curr = virtualclass.gObj.currIndex || virtualclass.gObj.currSlide;
+      //    virtualclass.wbCommon.indexNav.studentWBPagination(curr);
+      //   }
+      // } else if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
+      //   virtualclass.wbCommon.indexNav.setCurrentIndex(virtualclass.gObj.currIndex);
+      //   virtualclass.wbCommon.indexNav.setTotalPages((virtualclass.orderList.Whiteboard.ol.order.length));
+      // }
     },
 
     hideElement() {

@@ -357,8 +357,8 @@
               cont.innerHTML = 1;
             }
 
-            virtualclass.dts.indexNav.setTotalPages((virtualclass.orderList[virtualclass.dts.appName].ol.order.length));
-            // virtualclass.dts.indexNav.setTotalPages((virtualclass.orderList['DocumentShare'].ol.order.length));
+            // virtualclass.indexNav.setTotalPages((virtualclass.orderList[virtualclass.dts.appName].ol.order.length));
+            virtualclass.dts.indexNav.setTotalPages(virtualclass.orderList.DocumentShare.ol.order.length);
           }
         }
       },
@@ -862,9 +862,15 @@
 
           const cthis = virtualclass.dts;
           if (roles.hasControls() && typeof fromReload === 'undefined') {
+            const isDocs = doc.substring(0, 4); //if docs is prepend at id
+            if (isDocs === 'docs') {
+              doc = doc.split('docs')[1];
+            }
             const notes = cthis.requestSlides(doc);
             if (notes != null) {
+
               cthis.onResponseFiles(doc, notes);
+
               if (typeof cb !== 'undefined') {
                 cb();
               }

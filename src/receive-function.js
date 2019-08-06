@@ -365,18 +365,30 @@ const receiveFunctions = new function () {
     if (Object.prototype.hasOwnProperty.call(e.message, 'diswb')) {
       const { wid } = e.message;
       virtualclass.gObj.currWb = wid;
-      if (!virtualclass.wbCommon.whiteboardExist(virtualclass.gObj.currWb)) {
-        virtualclass.vutil.createWhiteBoard(virtualclass.gObj.currWb);
-      }
+
       const idn = wid.split('_');
       if (idn.length > 0) {
         virtualclass.gObj.currSlide = idn[idn.length - 1];
       }
       virtualclass.gObj.currIndex = e.message.currIndex;
+      if (!virtualclass.wbCommon.whiteboardExist(virtualclass.gObj.currWb)) {
+        virtualclass.vutil.createWhiteBoard(virtualclass.gObj.currWb);
+      } else {
+        virtualclass.wbCommon.indexNav.updateNavigation();
+      }
       virtualclass.wbCommon.displaySlide(wid);
       // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     } else if (Object.prototype.hasOwnProperty.call(e.message, 'wbCount')) {
       virtualclass.gObj.wbCount = e.message.wbCount;
+      virtualclass.gObj.currIndex = e.message.currIndex;
+      virtualclass.wbCommon.indexNav.updateNavigation();
+      // if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
+      //   virtualclass.wbCommon.indexNav.setCurrentIndex(virtualclass.gObj.currIndex);
+      // } else {
+      //   virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currIndex);
+      // }
+
+
       // if (virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1) {
       //   virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
       //   virtualclass.gObj.currIndex = e.message.currIndex;

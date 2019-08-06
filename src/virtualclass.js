@@ -675,26 +675,23 @@
         //this.appInitiator.Whiteboard.call(virtualclass, app, cusEvent, data, 'virtualclassWhiteboard');
         this.appInitiator.Whiteboard.call(virtualclass, setting);
 
-        if (!virtualclass.gObj.wbRearrang) {
-          const wIds = this.orderList.Whiteboard.ol.order;
-          if (wIds !== null) {
-            if (wIds.length > 0) {
-              virtualclass.wbCommon.readyElements(wIds);
-              virtualclass.gObj.wbRearrang = true;
-            }
-          }
-        }
-        virtualclass.wbCommon.initNav(virtualclass.orderList.Whiteboard.ol.order);
-        if (roles.hasControls()) {
-          if (virtualclass.gObj.wbRearrang) {
-            //virtualclass.wbCommon.rearrange(virtualclass.wbCommon.order);
-            // virtualclass.wbCommon.rearrange(virtualclass.orderList[virtualclass.currApp].ol.order);
-            // todo Check Here.
-            virtualclass.wbCommon.indexNav.addActiveNavigation(data);
-          }
-          virtualclass.wbCommon.identifyFirstNote(data);
-          virtualclass.wbCommon.identifyLastNote(data);
-        }
+        // if (!virtualclass.gObj.wbRearrang) {
+        //   const wIds = this.orderList.Whiteboard.ol.order;
+        //   if (wIds !== null) {
+        //     if (wIds.length > 0) {
+        //       virtualclass.wbCommon.readyElements(wIds);
+        //       virtualclass.gObj.wbRearrang = true;
+        //     }
+        //   }
+        // }
+        // virtualclass.wbCommon.initNav(virtualclass.orderList.Whiteboard.ol.order);
+        // if (roles.hasControls()) {
+        //   if (virtualclass.gObj.wbRearrang) {
+        //     virtualclass.wbCommon.indexNav.addActiveNavigation(data);
+        //   }
+        //   virtualclass.wbCommon.identifyFirstNote(data);
+        //   virtualclass.wbCommon.identifyLastNote(data);
+        // }
       },
 
       whitboardWrapper(wbId) {
@@ -752,7 +749,9 @@
 
           if (typeof this.orderList[virtualclass.currApp] === 'object'
             && this.orderList[virtualclass.currApp].ol.order.indexOf(virtualclass.gObj.currWb) <= -1
-            && virtualclass.currApp !== 'DocumentShare') {
+            && virtualclass.currApp !== 'DocumentShare' && virtualclass.gObj.currWb.length < 10) {
+            // virtualclass.gObj.currWb.length < 10, to check id is related to document sharing or not
+            // Find the better way to replace the condition virtualclass.gObj.currWb.length < 10
             this.orderList[virtualclass.currApp].insert(virtualclass.gObj.currWb);
           }
 
@@ -799,6 +798,7 @@
           let whiteboardContainer;
           if (app === 'Whiteboard') {
             whiteboardContainer = document.querySelector('#virtualclassWhiteboard .whiteboardContainer');
+            // virtualclass.wbCommon.indexNav.updateNavigation();
           } else {
             whiteboardContainer = document.getElementById(`cont${id}`);
           }
@@ -992,6 +992,32 @@
           if (typeof virtualclass.wb.indexNav === 'undefined') {
             virtualclass.wb.indexNav = new virtualclass.pageIndexNav('WB');
           }
+
+          if (app === 'Whiteboard') {
+            if (typeof virtualclass.wbCommon.indexNav === 'undefined') {
+              virtualclass.wbCommon.indexNav =  new pageIndexNav('WB');
+            }
+
+            if (!virtualclass.gObj.wbRearrang) {
+              const wIds = this.orderList.Whiteboard.ol.order;
+              if (wIds !== null) {
+                if (wIds.length > 0) {
+                  virtualclass.wbCommon.readyElements(wIds);
+                  virtualclass.gObj.wbRearrang = true;
+                }
+              }
+            }
+            virtualclass.wbCommon.initNav(virtualclass.orderList.Whiteboard.ol.order);
+            if (roles.hasControls()) {
+              if (virtualclass.gObj.wbRearrang) {
+                virtualclass.wbCommon.indexNav.addActiveNavigation(id);
+              }
+              virtualclass.wbCommon.identifyFirstNote(id);
+              virtualclass.wbCommon.identifyLastNote(id);
+            }
+
+            virtualclass.wbCommon.indexNav.updateNavigation();
+          }
         },
 
         ScreenShare(setting) {
@@ -1165,14 +1191,14 @@
             }
 
             if (virtualclass.gObj.currWb != null && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] !== 'undefined'
-              && virtualclass.currApp === 'DocumentShare' && Object.prototype.hasOwnProperty.call(virtualclass.pdfRender[virtualclass.gObj.currWb], 'page')
-              && virtualclass.pdfRender[virtualclass.gObj.currWb].page != null) {
-              if (virtualclass.orderList['DocumentShare'].ol.order) {
-                if (typeof virtualclass.dts.indexNav === 'undefined') {
-                  virtualclass.dts.indexNav = new virtualclass.pageIndexNav('documentShare');
-                }
+              && virtualclass.currApp === 'DocumentShare') {
+              if (virtualclass.orderList.DocumentShare.ol.order.length > 0) {
+                // if (typeof virtualclass.dts.indexNav === 'undefined') {
+                //   virtualclass.dts.indexNav = new virtualclass.pageIndexNav('documentShare');
+                // }
                 if (roles.hasControls()) {
                   virtualclass.dts.indexNav.createIndex();
+
                 } else {
                   virtualclass.dts.indexNav.studentDocNavigation(virtualclass.dts.docs.currNote);
                 }

@@ -42,10 +42,6 @@
   },
 
   pageIndexNav.prototype.setTotalPages = function (length) {
-    // if (length == 0) {
-    //   debugger;
-    // }
-
     console.log('==== page, set total page ', length,  virtualclass.currApp);
     const cont = document.querySelector('#docShareNav #totalPages');
     if (cont) {
@@ -385,9 +381,10 @@
       if (cont) {
         cont.innerHTML = index + 1;
       }
-      setTimeout(() => {
-        this.setTotalPages(virtualclass.orderList[virtualclass.dts.appName].ol.order.length);
-      }, 100);
+      this.setTotalPages(virtualclass.orderList[virtualclass.dts.appName].ol.order.length);
+      // setTimeout(() => {
+      //   this.setTotalPages(virtualclass.orderList[virtualclass.dts.appName].ol.order.length);
+      // }, 100);
     }
   };
 
@@ -397,13 +394,30 @@
     if (cont) {
       // console.log('==== student page navigation');
       // cont.innerHTML = parseInt(index) + 1;
-      cont.innerHTML = +index;
-      setTimeout(() => {
-        this.setTotalPages((virtualclass.gObj.wbCount + 1));
-      }, 100);
+      cont.innerHTML = +(index);
+      this.setTotalPages(virtualclass.orderList.Whiteboard.ol.order.length);
+      // setTimeout(() => {
+      //   this.setTotalPages((virtualclass.gObj.wbCount + 1));
+      // }, 100);
     }
   };
 
+  pageIndexNav.prototype.updateNavigation = function () {
+    if (virtualclass.currApp === 'Whiteboard') {
+      if (!roles.hasControls()) {
+        if (typeof virtualclass.wbCommon.indexNav !== 'undefined') {
+          const curr = virtualclass.gObj.currIndex || virtualclass.gObj.currSlide;
+          virtualclass.wbCommon.indexNav.studentWBPagination(curr);
+        }
+      } else if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
+        virtualclass.wbCommon.indexNav.setCurrentIndex(virtualclass.gObj.currIndex);
+        virtualclass.wbCommon.indexNav.setTotalPages((virtualclass.orderList.Whiteboard.ol.order.length));
+      }
+    } else {
+       this.setCurrentIndex(virtualclass.gObj.currIndex);
+       this.setTotalPages((virtualclass.orderList.Documentshare.ol.order.length));
+    }
+  };
 
   /** Create navigation */
   pageIndexNav.prototype.UI = {

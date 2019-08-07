@@ -315,7 +315,7 @@
          * @param e event object
          *  it occures when the mouse rellease over the canvas
          */
-        mouseup(e) {
+        mouseup(e, wId) {
           const removeclogo = document.getElementById('congrealogo');
           removeclogo.classList.remove('disbaleOnmousedown');
           if (Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
@@ -331,7 +331,7 @@
 
           virtualclass.gObj.lastmousemovetime = null;
           if (vcan.main.action == 'move') {
-            vcan.activMouse.mousemove(e);
+            vcan.activMouse.mousemove(e, wId);
             const mainCan = vcan.main;
             if (mainCan.currentTransform) {
               const transform = mainCan.currentTransform;

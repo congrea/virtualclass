@@ -95,7 +95,8 @@
         ev.currY = ev.detail.cevent.y;
       }
 
-      console.log("====> mouse down", ev.currX);
+      console.log("====> mouse down ", ev.currX, ev.currY);
+      // console.log('=====> pointer start event x, y ',  ev.currX, ev.currY);
 
       var { vcan } = wb;
       virtualclass.gObj.lastmousemovetime = null;
@@ -174,7 +175,7 @@
         ev.currX = ev.detail.cevent.x;
         ev.currY = ev.detail.cevent.y;
       }
-
+      // console.log('=====> pointer move event x, y ',  ev.currX, ev.currY);
       if (tool.started && wb.tool.cmd !== 't_clearall') { // command code inserted after found the problem
         if (wb.obj.freeDrawObj !== undefined && wb.obj.freeDrawObj.freesvg == true) {
           if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {

@@ -41,7 +41,7 @@
             lineWidth: this.freeDrawingLineWidth,
           });
           this.fdObj.init();
-          this.fdObj.fhdStart(ctx, vcan.utility.getReltivePoint(ev));
+          this.fdObj.fhdStart(ctx, vcan.utility.getReltivePoint(ev, wId));
 
           // }
         }
@@ -54,7 +54,7 @@
          */
       wb_draw(ev, wId) {
         const { vcan } = virtualclass.wb[wId];
-        const pointer = vcan.utility.getReltivePoint(ev);
+        const pointer = vcan.utility.getReltivePoint(ev, wId);
         this.fdObj.fhRendering(pointer);
       },
       finalizeDraw(ev, wbId) {

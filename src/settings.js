@@ -286,19 +286,23 @@
     },
 
     userlist(value) {
+      console.log('====> user list disabled 1');
       const userList = document.querySelector('#memlist');
       const searchUserInput = document.querySelector('#congchatBarInput #congreaUserSearch');
       const vmlist = document.querySelector('.vmchat_bar_button');
-      if (value === true) {
-        userList.classList.remove('hideList');
-        searchUserInput.classList.remove('hideInput');
-        vmlist.classList.remove('disable');
-      } else {
-        userList.classList.add('hideList');
-        searchUserInput.classList.add('hideInput');
-        vmlist.classList.add('disable');
-        const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
-        vmchat.click();
+      if (userList !== null){
+        if (value === true) {
+          userList.classList.remove('hideList');
+          searchUserInput.classList.remove('hideInput');
+          vmlist.classList.remove('disable');
+        } else {
+          console.log('====> user list disabled 2');
+          userList.classList.add('hideList');
+          searchUserInput.classList.add('hideInput');
+          vmlist.classList.add('disable');
+          const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
+          vmchat.click();
+        }
       }
     },
 
@@ -513,7 +517,8 @@
         virtualclass.vutil.videoHandler('off');
         virtualclass.user.control.videoDisable();
       } else {
-        if (roles.isStudent() && virtualclass.settings.info.studentvideo !== true) {
+        if (roles.isStudent() && virtualclass.settings.info.studentvideo !== undefined
+          && virtualclass.settings.info.studentvideo !== true) { // todo, check it properly on page refresh
           virtualclass.vutil.videoHandler('off');
           virtualclass.videoHost.toggleVideoMsg('disable');
         } else {

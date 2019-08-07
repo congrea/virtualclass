@@ -66,4 +66,12 @@ class OrderedList {
     this.ol.order.length = 0;
     this.ol.list = {};
   }
+
+  overrideOrder(order) {
+    this.ol.order = order;
+  }
+
+  getCurrentPosition(id) {
+    return this.ol.order.indexOf(id);
+  }
 }

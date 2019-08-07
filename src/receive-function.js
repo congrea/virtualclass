@@ -398,6 +398,11 @@ const receiveFunctions = new function () {
     }
   };
 
+  this.rearrangeWb = function (e) {
+    virtualclass.orderList.Whiteboard.overrideOrder(e.message.order);
+    virtualclass.wbCommon.rearrange(virtualclass.orderList.Whiteboard.ol.order);
+  }
+
   /** *** Start Student Screen Sharing **** */
   /* Handle teacher request for screen sharing * */
   this.reqscreen = function (e) {

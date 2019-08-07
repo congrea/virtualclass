@@ -720,6 +720,7 @@
           let cusEvent;
           let id;
           let container;
+          let position;
 
           if (setting.app) {
             app = setting.app;
@@ -737,6 +738,11 @@
             container = setting.container;
           }
 
+          if (setting.position) {
+            position = setting.position;
+          }
+
+
           console.log('##==jai 3c ', virtualclass.gObj.currWb);
 
           virtualclass.gObj.currWb = id;
@@ -752,7 +758,11 @@
             && virtualclass.currApp !== 'DocumentShare' && virtualclass.gObj.currWb.length < 10) {
             // virtualclass.gObj.currWb.length < 10, to check id is related to document sharing or not
             // Find the better way to replace the condition virtualclass.gObj.currWb.length < 10
-            this.orderList[virtualclass.currApp].insert(virtualclass.gObj.currWb);
+            if (position != undefined) {
+              this.orderList[virtualclass.currApp].insert(virtualclass.gObj.currWb, null, position);
+            } else {
+              this.orderList[virtualclass.currApp].insert(virtualclass.gObj.currWb, null);
+            }
           }
 
           if (virtualclass.currApp === 'Whiteboard' ) {
@@ -795,6 +805,8 @@
 
 
         whiteboardActual(app, cusEvent, id) {
+
+          console.log('====> call whiteboard actual');
           let whiteboardContainer;
           if (app === 'Whiteboard') {
             whiteboardContainer = document.querySelector('#virtualclassWhiteboard .whiteboardContainer');
@@ -989,9 +1001,9 @@
             }
           }
 
-          if (typeof virtualclass.wb.indexNav === 'undefined') {
-            virtualclass.wb.indexNav = new virtualclass.pageIndexNav('WB');
-          }
+          // if (typeof virtualclass.wb.indexNav === 'undefined') {
+          //   virtualclass.wb.indexNav = new virtualclass.pageIndexNav('WB');
+          // }
 
           if (app === 'Whiteboard') {
             if (typeof virtualclass.wbCommon.indexNav === 'undefined') {

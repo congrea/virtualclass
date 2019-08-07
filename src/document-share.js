@@ -27,7 +27,10 @@
         this.pages = {};
         this.notes = {};
         firstTime = true;
-        this.indexNav = new virtualclass.pageIndexNav('documentShare');
+        if (typeof this.indexNav === 'undefined') {
+          this.indexNav = new virtualclass.pageIndexNav('documentShare');
+        }
+        // this.indexNav = new virtualclass.pageIndexNav('documentShare');
         this.UI.container();
         if (roles.hasControls() && virtualclass.config.makeWebSocketReady) {
           ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });

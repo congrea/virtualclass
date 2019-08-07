@@ -1812,9 +1812,9 @@
       }
     },
 
-    createWhiteBoard(wId) {
+    createWhiteBoard(wId, position) {
       // virtualclass.appInitiator.Whiteboard.call(virtualclass, { app: 'Whiteboard', cusEvent: 'byclick', data: wId });
-      virtualclass.appInitiator.Whiteboard.call(virtualclass, { app: virtualclass.currApp, cusEvent: 'byclick', data: wId });
+      virtualclass.appInitiator.Whiteboard.call(virtualclass, { app: virtualclass.currApp, cusEvent: 'byclick', data: wId, position});
     },
 
     createHashString(str) {

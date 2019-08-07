@@ -6,6 +6,7 @@
   let wbCommon = {
     order: [0],
     wbInd: 0,
+
     initNavHandler() {
       const nextButton = document.querySelector('#virtualclassWhiteboard.whiteboard .next');
       nextButton.addEventListener('click', virtualclass.vutil.navWhiteboard.bind(virtualclass.vutil, this, this.next));
@@ -22,6 +23,11 @@
       const currentPageNumber = virtualclass.gObj.currIndex || wIds.length;
 
       this.indexNav.init();
+      if (!this.createWbNavigation) {
+        this.indexNav.UI.createNewPageButton();
+        this.createWbNavigation = true;
+        console.log('====> page init 2');
+      }
       if (roles.hasControls()) {
         // let wbOrder = localStorage.getItem('wbOrder');
         // if (wbOrder != null) {
@@ -124,57 +130,64 @@
       }
     },
 
-    //  newPage() {
-    //   this.hideElement();
-    //   virtualclass.gObj.wbCount++;
-    //
-    //   const wid = `${'_doc_0_'}${virtualclass.gObj.wbCount}`;
-    //   const wb = virtualclass.gObj.currWb;
-    //   const prevIndex = wb.slice(7);
-    //   const currIndex = this.order.indexOf(prevIndex);
-    //   const whiteboardNext = this.whiteboardWrapperExist('next');
-    //
-    //   virtualclass.vutil.createWhiteBoard(wid, currIndex);
-    //   this.displaySlide(wid);
-    //   let newIndex;
-    //   let currPageNumber;
-    //
-    //   if (whiteboardNext == null) {
-    //     if (this.order.indexOf(virtualclass.gObj.wbCount) <= -1) {
-    //       this.order.push(virtualclass.gObj.wbCount);
-    //     }
-    //     newIndex = this.order.length;
-    //     virtualclass.wbCommon.indexNav.createWbNavigationNumber(newIndex);
-    //     currPageNumber = newIndex;
-    //   } else {
-    //     newIndex = this.order.indexOf(prevIndex);
-    //     this.order.splice(newIndex + 1, 0, virtualclass.gObj.wbCount);
-    //     this.rearrange(this.order);
-    //     this.rearrangeNav(this.order);
-    //     currPageNumber = newIndex + 2;
-    //     virtualclass.wbCommon.indexNav.createWbNavigationNumber(currPageNumber);
-    //   }
-    //   virtualclass.vutil.beforeSend({ cf: 'cwb', wbCount: virtualclass.gObj.wbCount, currIndex: currPageNumber });
-    //   this.setCurrSlideNumber(wid);
-    //   virtualclass.gObj.currIndex = currPageNumber;
-    //   this.identifyLastNote(wid);
-    //
-    // },
-
-
     newPage() {
       this.hideElement();
-      virtualclass.gObj.wbCount += 1;
+      virtualclass.gObj.wbCount++;
+      let whiteboardPos = virtualclass.gObj.wbCount;
+
       const wid = `${'_doc_0_'}${virtualclass.gObj.wbCount}`;
+      // const wb = virtualclass.gObj.currWb;
+      const prevIndex = virtualclass.gObj.currWb;
+      let whiteboardNext = null;
+     // const whiteboardNext = this.whiteboardWrapperExist('next');
+      if (virtualclass.orderList.Whiteboard.ol.order.length > 0) {
+        const currPosition = virtualclass.orderList.Whiteboard.getCurrentPosition(virtualclass.gObj.currWb);
+        if (currPosition + 1 !== virtualclass.orderList.Whiteboard.ol.order.length ) {
+          whiteboardNext = true;
+        }
+      }
+
       this.displaySlide(wid);
-      virtualclass.vutil.createWhiteBoard(wid);
-      const currPageNumber = virtualclass.gObj.wbCount + 1;
+      let newIndex;
+      let currPageNumber;
+
+      if (whiteboardNext === null) {
+        newIndex = virtualclass.orderList.Whiteboard.ol.order.length;
+        currPageNumber = newIndex + 1;
+        // virtualclass.wbCommon.indexNav.createWbNavigationNumber(newIndex);
+        virtualclass.vutil.createWhiteBoard(wid, whiteboardPos);
+      } else {
+        newIndex = virtualclass.orderList.Whiteboard.ol.order.indexOf(prevIndex);
+        whiteboardPos = newIndex + 1;
+        currPageNumber = whiteboardPos + 1;
+        virtualclass.vutil.createWhiteBoard(wid, whiteboardPos);
+        this.rearrange(virtualclass.orderList.Whiteboard.ol.order);
+        virtualclass.vutil.beforeSend({ cf: 'rearrangeWb', order: virtualclass.orderList.Whiteboard.ol.order });
+      }
+
       virtualclass.gObj.currIndex = currPageNumber;
       virtualclass.wbCommon.indexNav.createWbNavigationNumber(currPageNumber);
       virtualclass.vutil.beforeSend({ cf: 'cwb', wbCount: virtualclass.gObj.wbCount, currIndex: currPageNumber });
-      this.setCurrSlideNumber(wid);
+      // this.setCurrSlideNumber(wid);
+
       this.identifyLastNote(wid);
     },
+
+
+    // newPage() {
+    //   this.hideElement();
+    //   virtualclass.gObj.wbCount += 1;
+    //   const wid = `${'_doc_0_'}${virtualclass.gObj.wbCount}`;
+    //   this.displaySlide(wid);
+    //   virtualclass.vutil.createWhiteBoard(wid);
+    //   const currPageNumber = virtualclass.gObj.wbCount + 1;
+    //   virtualclass.gObj.currIndex = currPageNumber;
+    //
+    //   virtualclass.wbCommon.indexNav.createWbNavigationNumber(currPageNumber);
+    //   virtualclass.vutil.beforeSend({ cf: 'cwb', wbCount: virtualclass.gObj.wbCount, currIndex: currPageNumber });
+    //   this.setCurrSlideNumber(wid);
+    //   this.identifyLastNote(wid);
+    // },
 
     rearrange(order) {
       const container = document.getElementsByClassName('whiteboardContainer')[0];
@@ -183,74 +196,73 @@
       tmpdiv.className = 'whiteboardContainer';
 
       for (let i = 0; i < order.length; i++) {
-        const elem = document.getElementById(`note_doc_0_${order[i]}`);
+        const elem = document.getElementById(`note${order[i]}`);
         if (elem) {
           tmpdiv.appendChild(elem);
         }
       }
-
       container.parentNode.replaceChild(tmpdiv, container);
     },
 
-    rearrangeNav(order) {
-      const e = document.querySelector('#dcPaging');
-      e.innerHTML = '';
-
-      // for (let i = 0; i <= virtualclass.gObj.wbCount; i++) {
-      //   virtualclass.wbCommon.indexNav.createWbNavigationNumber(order[i], i);
-      // }
-
-      // virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.currIndex);
-      // virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.wbCount+1);
-      // virtualclass.wbCommon.indexNav.addActiveNavigation(this.indexNav.order.indexOf(virtualclass.gObj.currWb), virtualclass.gObj.currWb)
-
-      if (virtualclass.currApp == 'Whiteboard') {
-        var n1 = virtualclass.gObj.currWb.split('doc_0_')[1];
-      }
-      const num = this.order.indexOf(n1);
-      var index = document.querySelector('.congrea #dcPaging .noteIndex.active');
-      if (index) {
-        index.classList.remove('active');
-      }
-      // var curr = virtualclass.dts.docs.currNote;
-      const curr = num;
-      var index = document.querySelector(`#index${n1}`);
-      if (index) {
-        index.classList.add('active');
-        index.selected = 'selected';
-      }
-      const rActive = document.querySelector('#dcPaging .hid.right.active');
-      const lActive = document.querySelector('#dcPaging .hid.left.active');
-      if (rActive || lActive) {
-        var currIndex;
-        let dir;
-        if (rActive) {
-          currIndex = rActive.title;
-          dir = 'right';
-        } else {
-          currIndex = lActive.title;
-          dir = 'left';
-        }
-        // this.adjustPageNavigation(parseInt(currIndex), dir);
-      }
-
-      if (virtualclass.currApp == 'Whiteboard') {
-        this.index = (+curr) + 1;
-      } else {
-        this.index = (currIndex != null) ? currIndex : (index != null && typeof index !== 'undefined') ? index.title : 1;
-        if (!virtualclass.orderList['DocumentShare'].ol.order.length) {
-          this.index = 0;
-        }
-        const nav = document.querySelector('#docShareNav');
-        if (!this.index) {
-          nav.classList.add('hide');
-          nav.classList.remove('show');
-        } else {
-          nav.classList.add('show');
-          nav.classList.remove('hide');
-        }
-      }
-    },
+    // rearrangeNav(order) {
+    //   const e = document.querySelector('#dcPaging');
+    //   e.innerHTML = '';
+    //
+    //   // for (let i = 0; i <= virtualclass.gObj.wbCount; i++) {
+    //   //   virtualclass.wbCommon.indexNav.createWbNavigationNumber(order[i], i);
+    //   // }
+    //
+    //   // virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.currIndex);
+    //   // virtualclass.wbCommon.indexNav.createWbNavigationNumber(virtualclass.gObj.wbCount+1);
+    //   // virtualclass.wbCommon.indexNav.addActiveNavigation(this.indexNav.order.indexOf(virtualclass.gObj.currWb), virtualclass.gObj.currWb)
+    //
+    //   if (virtualclass.currApp == 'Whiteboard') {
+    //     var n1 = virtualclass.gObj.currWb.split('doc_0_')[1];
+    //   }
+    //   const num = this.order.indexOf(n1);
+    //   var index = document.querySelector('.congrea #dcPaging .noteIndex.active');
+    //   if (index) {
+    //     index.classList.remove('active');
+    //   }
+    //   // var curr = virtualclass.dts.docs.currNote;
+    //   const curr = num;
+    //   var index = document.querySelector(`#index${n1}`);
+    //   if (index) {
+    //     index.classList.add('active');
+    //     index.selected = 'selected';
+    //   }
+    //   const rActive = document.querySelector('#dcPaging .hid.right.active');
+    //   const lActive = document.querySelector('#dcPaging .hid.left.active');
+    //   if (rActive || lActive) {
+    //     var currIndex;
+    //     let dir;
+    //     if (rActive) {
+    //       currIndex = rActive.title;
+    //       dir = 'right';
+    //     } else {
+    //       currIndex = lActive.title;
+    //       dir = 'left';
+    //     }
+    //     // this.adjustPageNavigation(parseInt(currIndex), dir);
+    //   }
+    //
+    //   if (virtualclass.currApp == 'Whiteboard') {
+    //     this.index = (+curr) + 1;
+    //   } else {
+    //     this.index = (currIndex != null) ? currIndex : (index != null && typeof index !== 'undefined') ? index.title : 1;
+    //     if (!virtualclass.orderList['DocumentShare'].ol.order.length) {
+    //       this.index = 0;
+    //     }
+    //     const nav = document.querySelector('#docShareNav');
+    //     if (!this.index) {
+    //       nav.classList.add('hide');
+    //       nav.classList.remove('show');
+    //     } else {
+    //       nav.classList.add('show');
+    //       nav.classList.remove('hide');
+    //     }
+    //   }
+    // },
 
 
     setCurrSlideNumber(wid) {
@@ -309,7 +321,8 @@
       const whiteboardWrapper = document.querySelector('#virtualclassWhiteboard .whiteboardContainer');
       let note;
       for (let i = 0; i < wids.length; i++) {
-        const wId = `_doc_0_${wids[i]}`;
+        // const wId = `_doc_0_${wids[i]}`;
+        const wId = wids[i];
         note = document.querySelector(`#note${wId}`);
         if (note == null) {
           const myDiv = document.createElement('div');
@@ -331,7 +344,7 @@
       let id;
       let dnode;
       for (let i = 0; i < order.length; i++) {
-        id = `note_doc_0_${order[i]}`;
+        id = `note_${order[i]}`;
         dnode = document.getElementById(id);
         if (tmpdiv != null && dnode != null) {
           tmpdiv.appendChild(dnode);

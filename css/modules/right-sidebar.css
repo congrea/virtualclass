@@ -415,15 +415,17 @@ body {
   color: #464646;
 }
 
-#virtualclassCont.congrea.student #congHr.rsEnable {
+#virtualclassCont.congrea #congHr.rsEnable {
   opacity: 1;
   pointer-events: visible !important;
 }
 
-#virtualclassCont.congrea.student #congHr.rsDisable {
+#virtualclassCont.congrea.student #congHr.rsDisable, #virtualclassCont.congrea.playMode #congHr.handRaise {
   opacity: 0.5;
   pointer-events: none !important;
 }
+
+
 
 #virtualclassCont.congrea.student #congreaChatMainCont #memlist.hideList {
   display: none;

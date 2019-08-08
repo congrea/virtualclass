@@ -8,7 +8,6 @@
 
 (function (window) {
   let firstTime = true;
-  const { io } = window;
   const documentShare = function () {
     return {
       allPages: null,
@@ -201,6 +200,7 @@
        * received from LMS and localstorage
        */
       afterRequestOrder(content) {
+        console.log('====> dts order after request ', content.length);
         if (content != null && content.length > 0) {
           // virtualclass.orderList[this.appName].ol.order.length = 0;
           virtualclass.orderList[this.appName].ol.order = content;
@@ -221,10 +221,11 @@
        * this requests the order from LMS
        */
       requestOrder(cb) {
+        console.log('====> dts order request ');
         virtualclass.vutil.requestOrder('docs', cb);
       },
 
-      executeOrder(response) {
+      executeOrder(response){
         if (response != undefined && typeof response !== 'undefined') {
           if (response.length > 0) {
             if (response === 'Failed' || response === 'Error') {
@@ -297,7 +298,6 @@
       },
 
       requestSlides(filepath) {
-        const cthis = this;
         // console.log(`${virtualclass.gObj.currWb} ` + `document share : request ${filepath}`);
 
         const relativeDocs = this.getDocs(filepath);
@@ -326,7 +326,7 @@
         }
       },
 
-      _removePageUI(noteId, typeDoc) {
+      _removePageUI(noteId) {
         console.log('====> DOCUMENT SHARING removing node', noteId);
 
         // console.log('JAI 2b');
@@ -372,7 +372,7 @@
           if (!Object.prototype.hasOwnProperty.call(slides[j], 'deletedn')) {
             if (virtualclass.orderList[this.appName].ol.order != null) {
               if (virtualclass.orderList[this.appName].ol.order.indexOf(slides[j].id) <= -1) {
-                virtualclass.orderList[this.appName].ol.order.push(slides[j].id);
+                virtualclass.orderList[this.appName].insert(slides[j].id);
                 console.log('====> ORDER is generating');
               }
             }
@@ -381,7 +381,7 @@
         }
       },
 
-      toggleSlideWithOrder(doc, slides) {
+      toggleSlideWithOrder(doc) {
         const linkDoc = document.querySelector(`#linkdocs${doc}`);
         if (linkDoc != null) {
           if (linkDoc.dataset.selected == 1) {
@@ -442,7 +442,10 @@
           virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
           virtualclass.vutil.addNoteClass();
         } else {
+          // this.removePagesUI(doc);
+          this.deleteNotesFromOrder(doc);
           this.removePagesUI(doc);
+
           if (!virtualclass.dts.noteExist()) {
             virtualclass.vutil.showUploadMsg('docsuploadContainer'); // file uploader container
             virtualclass.dts.docs.currNote = 0;
@@ -1433,18 +1436,25 @@
       },
 
       _delete(id) {
-        this.deleteDocElement(id);
+        this.deleteNotesFromOrder(id);
         const data = {
           uuid: id,
           action: 'delete',
           page: 0,
         };
         const url = virtualclass.api.UpdateDocumentStatus;
-        const cthis = this;
         virtualclass.xhrn.vxhrn.post(url, data).then((res) => {
           if (res.data.status === 'ok') {
             virtualclass.dts.sendOrder(virtualclass.orderList[this.appName].ol.order);
           }
+        });
+        this.deleteDocElement(id);
+      },
+
+      deleteNotesFromOrder(doc) {
+        const notes = this.getNotes(doc);
+        virtualclass.orderList[this.appName].ol.order = virtualclass.orderList[this.appName].ol.order.filter((el) => {
+          return !notes.includes(el.id);
         });
       },
 
@@ -1819,7 +1829,9 @@
           if (!Object.prototype.hasOwnProperty.call(this.allDocs[key], 'deleted')) {
             this.initDocs(this.allDocs[key].fileuuid);
           } else {
-            this.deleteDocElement(this.allDocs[key].fileuuid);
+            // this.deleteNotesFromOrder(this.allDocs[key].fileuuid);
+            //this.deleteDocElement(this.allDocs[key].fileuuid);
+            this._delete(this.allDocs[key].fileuuid);
           }
         }
       }

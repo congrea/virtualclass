@@ -215,7 +215,7 @@
             e.currY = e.detail.cevent.y;
           }
 
-          console.log('====> mouse x, y', e.currX, e.currY);
+          // console.log('====> mouse x, y', e.currX, e.currY);
 
           // this condition is set because of performance reason
           // we don't want to execute below code when user is

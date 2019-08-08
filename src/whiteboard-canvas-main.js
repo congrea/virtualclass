@@ -226,14 +226,14 @@
            * @param e {Event} event object
            * @return {String|Boolean} corner code (tl, tr, bl, br, etc.), or false if nothing is found
            */
-          obj.findTargetCorner = function (e) {
+          obj.findTargetCorner = function (e, wId) {
             const { offset } = vcan.main;
 
             if (!this.hasControls) {
               return false;
             }
             //  var pointer = actualPointer(e).
-            const pointer = vcan.utility.actualPointer(e);
+            const pointer = vcan.utility.actualPointer(e, wId);
             const ex = pointer.x - offset.x;
             const ey = pointer.y - offset.y;
             let xpoints;
@@ -647,13 +647,13 @@
            * eg:- drag, rotate and scale
            * this function does expects event as parameter
            */
-        obj.setupCurrentTransform = function (e) {
+        obj.setupCurrentTransform = function (e, wId) {
           const obj = vcan.main;
           let action = 'drag';
           let corner;
-          const pointer = vcan.utility.actualPointer(e);
+          const pointer = vcan.utility.actualPointer(e, wId);
 
-          if (corner = this.findTargetCorner(e)) {
+          if (corner = this.findTargetCorner(e, wId)) {
             action = (corner === 'ml' || corner === 'mr')
               ? 'scaleX'
               : (corner === 'mt' || corner === 'mb')

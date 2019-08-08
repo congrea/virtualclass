@@ -91,8 +91,8 @@
        * @return {Boolean} true if point contains within area of given object
        */
 
-      containsPoint(e, target) {
-        const pointer = vcan.utility.getReltivePoint(e);
+      containsPoint(e, target, wId) {
+        const pointer = vcan.utility.getReltivePoint(e, wId);
         const { x } = pointer;
         const { y } = pointer;
 
@@ -104,7 +104,7 @@
         const xpoints = vcan.virtual_box.findCrossPoints(x, y, iLines);
 
         const canId = vcan.main.canvas.id;
-        if ((xpoints && xpoints % 2 === 1) || target.findTargetCorner(e)) {
+        if ((xpoints && xpoints % 2 === 1) || target.findTargetCorner(e, wId)) {
           return true;
         }
         return false;

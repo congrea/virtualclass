@@ -99,6 +99,10 @@ let newScrollVal = 0;
        * returns horizontal and vertical position
        */
       actualPointer(event, wId) {
+        // if (wId == undefined) {
+        //   debugger;
+        // }
+        console.log('===> suman wb id ', wId);
         // TODO this method needs fixing
         // virtualclass.leftPosX defines the scroll position from left side
         // virtualclass.topPosY defines the scroll position from top side
@@ -289,8 +293,8 @@ let newScrollVal = 0;
       //   return false;
       // },
 
-      updateCordinate(e) {
-        const pointer = vcan.utility.actualPointer(e);
+      updateCordinate(e, wId) {
+        const pointer = vcan.utility.actualPointer(e, wId);
         const customEve = {};
         customEve.detail = {}; // that should be elimanted
         customEve.clientX = pointer.x;

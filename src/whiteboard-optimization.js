@@ -37,10 +37,10 @@
         }
       },
 
-      doOptiMize(e) {
+      doOptiMize(e, wId) {
         if (vcan.main.action === 'move') {
           if (roles.hasControls()) {
-            e = vcan.utility.updateCordinate(e);
+            e = vcan.utility.updateCordinate(e, wId);
           }
         }
 

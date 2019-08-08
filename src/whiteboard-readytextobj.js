@@ -282,7 +282,7 @@
           if (textBox.length > 0) {
             textBox = textBox[0];
             if (typeof midReclaim === 'undefined' || (typeof midReclaim !== 'undefined') && virtualclass.wb[wId].obj.drawTextObj.textWriteMode % 2 != 0) {
-              virtualclass.wb[wId].obj.drawTextObj.textUtility();
+              virtualclass.wb[wId].obj.drawTextObj.textUtility(undefined, undefined, undefined, wId);
             }
           }
         }

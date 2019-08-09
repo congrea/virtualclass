@@ -829,22 +829,23 @@
       // const data = this.recViewData.data[this.timeStamp];
       const time = this.seekTime + (this.actualPlayRecordingTime - this.lastViewTime);
       const obj = { [this.seekTime]: time };
-      if (data.length !== 0) {
-        for (let i = 0; i < data.length; i++) {
-          for (const prop in data[i]) {
-            prvProp = prop;
-            prvValue = data[i][prop];
-            // if (this.seekTime >= prvProp && this.seekTime <= prvValue && time >= prvValue) {
-            //   const newObj = { [prvValue]: time };
-            //   data.push(newObj);
-            // } else if (this.seekTime >= prvProp && time <= prvValue) {
-            //   console.log('Nothing to do');
-            // }
-          }
-        }
-      } else {
-        data.push(obj);
-      }
+      // if (data.length !== 0) {
+      //   for (let i = 0; i < data.length; i++) {
+      //     for (const prop in data[i]) {
+      //       prvProp = prop;
+      //       prvValue = data[i][prop];
+      //       // if (this.seekTime >= prvProp && this.seekTime <= prvValue && time >= prvValue) {
+      //       //   const newObj = { [prvValue]: time };
+      //       //   data.push(newObj);
+      //       // } else if (this.seekTime >= prvProp && time <= prvValue) {
+      //       //   console.log('Nothing to do');
+      //       // }
+      //     }
+      //   }
+      // } else {
+      //   data.push(obj);
+      // }
+      data.push(obj);
       this.recViewData.data.rtt = this.totalRecordingTime;
       this.recViewData['x-congrea-uid'] = wbUser.rid;
     },

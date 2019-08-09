@@ -708,6 +708,7 @@
         const elem = document.querySelector(query);
         if (elem != null) {
           elem.insertBefore(whiteboard, elem.firstChild);
+          console.log('====> suman whiteboard canvas is created');
           console.log('##==jai 3b ', slide);
           // virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
         }
@@ -743,7 +744,7 @@
           }
 
 
-          console.log('##==jai 3c ', virtualclass.gObj.currWb);
+          console.log('##==jai 3c ', virtualclass.currApp, virtualclass.gObj.currWb);
 
           virtualclass.gObj.currWb = id;
 
@@ -891,6 +892,7 @@
                       }
                     }
                   } else {
+                    console.log('====> suman whiteboard canvas is created 2');
                     wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
                     whiteboardContainer.innerHTML = wbHtml;
                   }
@@ -915,16 +917,16 @@
                   virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
                 }
                 // console.log('====> jai 6 ', id, ' ', virtualclass.wb[id].vcan);
-                // console.log('##==jai, whiteboard 2 ' + id);
+                 console.log('##==jai, whiteboard 2 ' + id);
                 if (app === 'DocumentShare') {
                   const { currNote } = virtualclass.dts.docs.note;
-                  // console.log('##==jai.1', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                 // console.log('##==jai.1', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                   virtualclass.pdfRender[wid].init(canvas, currNote);
-                  // console.log('##==jai.2', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                //  console.log('##==jai.2', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                 } else {
-                  // console.log('##==jai.3', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                //  console.log('##==jai.3', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                   virtualclass.pdfRender[wid].init(canvas);
-                  // console.log('##==jai.4', id, ' ', id, ' ', virtualclass.wb[id].vcan);
+                 // console.log('##==jai.4', id, ' ', id, ' ', virtualclass.wb[id].vcan);
                 }
               } else {
                 alert('whiteboard container is null');
@@ -1149,6 +1151,7 @@
         makeReadyDocumentShare() {
           if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
             if (roles.hasControls()) {
+              console.log('====> DOCUMENT SHARE SUMAN 1');
               ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
             }
 

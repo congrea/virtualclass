@@ -188,7 +188,9 @@ var dashboard = {
       if (virtualclass.currApp === 'DocumentShare') {
         if (!virtualclass.dts.noteExist()) {
           this.readyDashboard();
+          console.log('====> DOCUMENT SHARE SUMAN 10.00');
         } else {
+          console.log('====> DOCUMENT SHARE SUMAN 10.01');
           if (!virtualclass.dts.isUploaderExist()) {
             virtualclass.vutil.modalPopup('docs', ['docsuploadContainer']);
           }
@@ -233,6 +235,7 @@ var dashboard = {
 
     // in any other application we can handle
     // dashoard content in own style
+    console.log('====> DOCUMENT SHARE SUMAN 1.0');
     if (currApp === 'DocumentShare') {
       var dtitle = document.getElementById('dashboardnav');
       dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));

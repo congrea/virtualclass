@@ -461,6 +461,7 @@
             viewport,
           };
 
+          console.log('====> PDF renderer ======= ', this.wbId, canvas.id);
           await page.render(renderContext);
           canvas.parentNode.dataset.pdfrender = true;
           this[wb] = { pdfrender: true };
@@ -472,7 +473,7 @@
           if (firstTime != undefined) {
             if (virtualclass.gObj.currWb != null) {
               // this.initWhiteboardData(page.wbId);
-              this.initWhiteboardData(page.wbId)
+              this.initWhiteboardData(page.wbId);
             }
           }
 

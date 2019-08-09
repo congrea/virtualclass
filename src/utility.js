@@ -1867,11 +1867,6 @@
       }
     },
 
-    realRequestOrder() {
-
-
-    },
-
     IsJsonString(str) {
       try {
         JSON.parse(str);

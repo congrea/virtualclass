@@ -17,6 +17,7 @@
       order: [],
       tempFolder: 'documentSharing',
       appName: 'DocumentShare',
+      sentStudentLayout: false,
       async init() {
         if (!virtualclass.orderList[this.appName]) {
           console.log('====> ORDER LIST IS CREATING ');
@@ -31,8 +32,11 @@
         }
         // this.indexNav = new virtualclass.pageIndexNav('documentShare');
         this.UI.container();
+        console.log('====> DOCUMENT SHARE SUMAN 1A');
         if (roles.hasControls() && virtualclass.config.makeWebSocketReady) {
+          console.log('====> DOCUMENT SHARE SUMAN 1B');
           ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
+          virtualclass.dts.sentStudentLayout = true;
           virtualclass.serverData.syncAllData();
         }
         await this.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
@@ -987,11 +991,17 @@
               this.displaySlide(note);
 
               if (roles.hasControls() && typeof fromReload === 'undefined') {
-                // console.log('==== dts must send current thslide');
+                if (!virtualclass.dts.sentStudentLayout && virtualclass.config.makeWebSocketReady) {
+                  ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
+                  console.log('====> DOCUMENT SHARE SUMAN 1B');
+                  virtualclass.dts.sentStudentLayout = true;
+                }
+
                 ioAdapter.mustSend({
                   dts: { slideTo: noteId, docn: virtualclass.dts.docs.currDoc },
                   cf: 'dts',
                 });
+                console.log('====> DOCUMENT SHARE SUMAN 2');
                 // console.log(`Slide to document sharing ${noteId}`);
               }
             },
@@ -1811,7 +1821,7 @@
       },
 
       noteExist() {
-        return (document.querySelector('#notesContainer .note') != null);
+       return (document.querySelector('#notesContainer .note') != null);
       },
 
       docSelected() {

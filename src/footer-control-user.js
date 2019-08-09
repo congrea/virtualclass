@@ -834,30 +834,32 @@
           // todo need to configure meeting,
           // The functionality should same as normal mode
           if (roles.isStudent()) {
-            if (!virtualclass.gObj.stdaudioEnable) {
-              virtualclass.user.control.audioDisable();
-            } else {
-              // TODO check if need to audio enable
-            }
+            // if (virtualclass.settings.info.studentaudio === false) {
+            //   virtualclass.user.control.audioDisable();
+            // } else {
+            //   // TODO check if need to audio enable
+            // }
+            virtualclass.settings.userAudioIcon();
 
             if (virtualclass.system.mediaDevices.hasWebcam) {
               /* stdvideoEnable means it's click able for ON,
                *  and user need cick that button to share the video
                * */
-              if (virtualclass.videoHost) {
-                if (virtualclass.gObj.stdvideoEnable) {
-                  virtualclass.vutil.videoHandler('off');
-                  virtualclass.videoHost.toggleVideoMsg('enable');
-                } else {
-                  virtualclass.videoHost.toggleVideoMsg('disable');
-                  const vidIcon = document.querySelector('#videoSwitch');
-                  // TODO try to remove the section vidIcon.classList.contains("on")
-                  if (vidIcon != null && vidIcon.classList.contains('on')) {
-                    vidIcon.classList.remove('on');
-                    vidIcon.classList.add('off');
-                  }
-                }
-              }
+              // if (virtualclass.videoHost) {
+              //   if (virtualclass.gObj.stdvideoEnable) {
+              //     virtualclass.vutil.videoHandler('off');
+              //     virtualclass.videoHost.toggleVideoMsg('enable');
+              //   } else {
+              //     virtualclass.videoHost.toggleVideoMsg('disable');
+              //     const vidIcon = document.querySelector('#videoSwitch');
+              //     // TODO try to remove the section vidIcon.classList.contains("on")
+              //     if (vidIcon != null && vidIcon.classList.contains('on')) {
+              //       vidIcon.classList.remove('on');
+              //       vidIcon.classList.add('off');
+              //     }
+              //   }
+              // }
+              virtualclass.settings.userVideoIcon();
             }
           } else {
             const mutebtn = document.getElementById('contrAudioAllImg');

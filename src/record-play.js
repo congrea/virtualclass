@@ -65,9 +65,11 @@
       'x-congrea-uid': wbUser.rid,
       'data': {},
     },
-    lastViewTime: 0,
+    lastActualPlayRecordingTime: 0,
     recording: 'on',
     viewPoint: null,
+    getData: [],
+    viewRecordingData: null,
     init() {
       if (!this.attachSeekHandler) {
         this.attachSeekHandler = true;
@@ -79,6 +81,7 @@
         playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
         virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
         window.addEventListener('mouseup', this.finalSeek.bind(this));
+        // window.addEventListener('onunload', this.recDataSend(this));
 
         virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
         virtualclassApp.addEventListener('touchend', this.finalSeek.bind(this));
@@ -95,7 +98,7 @@
         downloadProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, downloadProgressBar));
         playProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, playProgressBar));
         virtualclass.pageVisible(this.handlPageActiveness.bind(this));
-        this.viewPoint = [{'0': '3145'}, {'58734': '66317'}, {'104662': '104740'}, {'174878': '175878'}, {'223456': '224665'}, {'266292': '269292'}, {'266292': '270124'}];
+        this.viewPoint = this.fetchRecViewData();
       }
 
       if (!Object.prototype.hasOwnProperty.call(this, 'prvNum')) {
@@ -609,7 +612,7 @@
     async seek(seekPointPercent) {
       console.log('====> final seek suman 2', this.seekValueInPercentage);
       virtualclass.videoHost.UI.hideTeacherVideo();
-      this.getRecViewData();
+      // this.getRecViewData();
       const index = this.getSeekPoint(seekPointPercent);
       // console.log('Total till play, Index val master index ' + index.master + ' sub index' + index.sub + ' in percent' + seekPointPercent);
       if ((index.master < this.masterIndex) || (index.master === this.masterIndex && index.sub < this.subRecordingIndex)) {
@@ -823,36 +826,6 @@
         // }
       }
     },
-    getRecViewData() { // get actual recording view time of student.
-      let prvProp;
-      let prvValue;
-      if (typeof this.recViewData.data[this.timeStamp] === 'undefined') {
-        this.recViewData.data[this.timeStamp] = [];
-      }
-      const data = (this.viewPoint !== null) ? this.viewPoint : this.recViewData.data[this.timeStamp];
-      // const data = this.recViewData.data[this.timeStamp];
-      const time = this.seekTime + (this.actualPlayRecordingTime - this.lastViewTime);
-      const obj = { [this.seekTime]: time };
-      // if (data.length !== 0) {
-      //   for (let i = 0; i < data.length; i++) {
-      //     for (const prop in data[i]) {
-      //       prvProp = prop;
-      //       prvValue = data[i][prop];
-      //       // if (this.seekTime >= prvProp && this.seekTime <= prvValue && time >= prvValue) {
-      //       //   const newObj = { [prvValue]: time };
-      //       //   data.push(newObj);
-      //       // } else if (this.seekTime >= prvProp && time <= prvValue) {
-      //       //   console.log('Nothing to do');
-      //       // }
-      //     }
-      //   }
-      // } else {
-      //   data.push(obj);
-      // }
-      data.push(obj);
-      this.recViewData.data.rtt = this.totalRecordingTime;
-      this.recViewData['x-congrea-uid'] = wbUser.rid;
-    },
 
     fetchRecViewData() {
       const url = 'https://api.congrea.net/data/analytics/recording/fetch';
@@ -871,15 +844,65 @@
             'content-type': 'application/json',
           },
         }).then((response) => {
-        this.viewPoint = JSON.parse(response.data);
-        console.log('recording view data '+this.viewPoint);
+        this.viewPoint = this.mapper(response.data.Items[0]);
+        // console.log('recording view data '+data);
       });
+    },
+
+    mapper(data) {
+      const S = 'S';
+      const SS = 'SS';
+      const NN = 'NN';
+      const NS = 'NS';
+      const BS = 'BS';
+      const BB = 'BB';
+      const N = 'N';
+      const BOOL = 'BOOL';
+      const NULL = 'NULL';
+      const M = 'M';
+      const L = 'L';
+      if (isObject(data)) {
+        const keys = Object.keys(data);
+        while (keys.length) {
+          const key = keys.shift();
+          const types = data[key];
+
+          if (isObject(types) && types.hasOwnProperty(S)) {
+            data[key] = types[S];
+          } else if (isObject(types) && types.hasOwnProperty(N)) {
+            data[key] = parseFloat(types[N]);
+          } else if (isObject(types) && types.hasOwnProperty(BOOL)) {
+            data[key] = types[BOOL];
+          } else if (isObject(types) && types.hasOwnProperty(NULL)) {
+            data[key] = null;
+          } else if (isObject(types) && types.hasOwnProperty(M)) {
+            data[key] = this.mapper(types[M]);
+          } else if (isObject(types) && types.hasOwnProperty(L)) {
+            data[key] = this.mapper(types[L]);
+          } else if (isObject(types) && types.hasOwnProperty(SS)) {
+            data[key] = types[SS];
+          } else if (isObject(types) && types.hasOwnProperty(NN)) {
+            data[key] = types[NN];
+          } else if (isObject(types) && types.hasOwnProperty(BB)) {
+            data[key] = types[BB];
+          } else if (isObject(types) && types.hasOwnProperty(NS)) {
+            data[key] = types[NS];
+          } else if (isObject(types) && types.hasOwnProperty(BS)) {
+            data[key] = types[BS];
+          }
+        }
+      }
+      return data;
+
+      function isObject(value) {
+        return typeof value === 'object' && value !== null;
+      }
     },
 
     getSeekPoint(seekPointPercent) {
       const seekVal = Math.trunc((this.totalTimeInMiliSeconds * seekPointPercent) / 100);
       this.seekTime = seekVal;
-      this.lastViewTime = this.actualPlayRecordingTime;
+      this.lastActualPlayRecordingTime = this.actualPlayRecordingTime;
       // console.log(`Seek index ${seekVal}`);
       /** Todo THIS should be optimize, don't use nested loop * */
       let totalTimeMil = 0;
@@ -997,6 +1020,12 @@
             };
           }
         }
+        if (this.timeStamp === null) {
+          this.timeStamp = new Date(new Date().toUTCString()).getTime(); // get time once when recording play.
+          this.recViewData.data[this.timeStamp] = [];
+          const length = Math.floor(this.totalTimeInMiliSeconds / 5000);
+          this.viewRecordingData = new Array(length);
+        }
         if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"ac":11,"cf":"recs"') > -1) {
           this.recording = 'off';
         } else if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"ac":21,"cf":"recs"') > -1) {
@@ -1004,9 +1033,10 @@
         }
         if (this.recording === 'on') { // add time of actual play recording packets but seek packets time not added.
           this.actualPlayRecordingTime += this.subRecordings[this.subRecordingIndex].playTime;
-        }
-        if (this.timeStamp === null) {
-          this.timeStamp = new Date(new Date().toUTCString()).getTime(); // get time once when recording play.
+          if (this.actualPlayRecordingTime >= 5000) {
+            this.viewRecordingData.push(this.timeStamp);
+            this.actualPlayRecordingTime = 0;
+          }
         }
       } catch (e) {
         // console.log(`PLAY ERROR ${e.errorCode}`);
@@ -1071,7 +1101,7 @@
     },
 
     initReplayWindow() {
-      this.getRecViewData();
+      // this.getRecViewData();
       this.triggerPauseVideo();
       virtualclass.popup.replayWindow();
       virtualclass.popup.sendBackOtherElems();
@@ -1171,7 +1201,7 @@
         recPause.addEventListener('click', () => {
           if (recPause.parentNode.classList.contains('recordingPlay')) {
             that.initRecPause();
-            this.getRecViewData();
+            // this.getRecViewData();
           } else {
             that.initRecPlay();
           }

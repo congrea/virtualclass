@@ -607,6 +607,7 @@
     },
 
     async seek(seekPointPercent) {
+      console.log('====> final seek suman 2', this.seekValueInPercentage);
       virtualclass.videoHost.UI.hideTeacherVideo();
       this.getRecViewData();
       const index = this.getSeekPoint(seekPointPercent);
@@ -631,6 +632,7 @@
     },
 
     _seek(index) {
+      console.log('====> final seek suman 3', this.seekValueInPercentage);
       this.controller._pause();
       let subLength;
       // while (index ? this.masterIndex <= index.master : !this.seekFinished()){
@@ -669,6 +671,7 @@
               }
 
               io.onRecMessage(this.convertInto({ data: this.msg }));
+              console.log('master index ', this.masterIndex, ' sub index', this.subRecordingIndex);
             } else { // Binary
               this.msg = this.subRecordings[this.subRecordingIndex].recObjs;
 
@@ -763,14 +766,15 @@
     },
 
     pollUpdateTime(pollStartTime, pollData) {
-      const minMiliseconds = pollData.data.stdPoll.newTime.min * 60 * 1000;
-      const secMiliseconds = pollData.data.stdPoll.newTime.sec * 1000;
-      const totalMiniSeconds = (minMiliseconds + secMiliseconds);
+      // const minMiliseconds = pollData.data.stdPoll.newTime.min * 60 * 1000;
+      // const secMiliseconds = pollData.data.stdPoll.newTime.sec * 1000;
+      // const totalMiniSeconds = (minMiliseconds + secMiliseconds);
+      const totalMiniSeconds = pollData.data.setting.time.totalInSeconds * 1000;
       const toSeekTime = (totalMiniSeconds - (this.elapsedPlayTime - pollStartTime));
       const timer = this.convertIntoReadable(toSeekTime);
-      virtualclass.poll.newTimer.sec = timer.s;
-      virtualclass.poll.newTimer.min = timer.m;
-      virtualclass.poll.remainingTimer(virtualclass.poll.newTimer);
+      // virtualclass.poll.newTimer.sec = timer.s;
+      // virtualclass.poll.newTimer.min = timer.m;
+      virtualclass.poll.remainingTimer({min: timer.m, sec: timer.s});
     },
 
     handleSyncPacket() {
@@ -1505,6 +1509,7 @@
           this.seekValueInPercentage = Math.trunc(this.downloadInPercentage);
         }
         if (this.seekValueInPercentage > 0) {
+          console.log('====> final seek suman ', this.seekValueInPercentage);
           await this.seek(this.seekValueInPercentage);
         }
 

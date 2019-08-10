@@ -1179,7 +1179,8 @@
               if (data.slideTo) {
                 const note = document.getElementById(data.slideTo);
                 virtualclass.dts.docs.note.getScreen(note);
-              } else if (data.init && !(virtualclass.dts.pdfRender
+              } else if (data.init && virtualclass.dts.docs.currNote !== 0
+                && !(virtualclass.dts.pdfRender
                 && typeof virtualclass.dts.pdfRender[`_doc_${virtualclass.dts.docs.currNote}_${virtualclass.dts.docs.currNote}`] === 'object')) {
                 const note = document.getElementById(`note${virtualclass.dts.docs.currNote}`);
                 virtualclass.dts.docs.note.getScreen(note);

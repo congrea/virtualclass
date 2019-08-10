@@ -569,7 +569,7 @@
           prvAppObj.metaData = null; // if video is not started to share.
         }
       } else if (virtualclass.currApp == 'Poll') {
-        virtualclass.poll.saveInLocalStorage();
+        // virtualclass.poll.saveInLocalStorage();
         // console.log('currAppPoll');
       } else if (virtualclass.currApp == 'Video') {
         if (virtualclass.videoUl.player) {
@@ -622,7 +622,7 @@
           prvAppObj.metaData.docs = virtualclass.dts.pages;
         }
       } else if (virtualclass.currApp === 'Quiz') {
-        virtualclass.quiz.saveInLocalStorage();
+        //virtualclass.quiz.saveInLocalStorage();
         // console.log('quiz data saved');
       } else if (virtualclass.currApp === 'Whiteboard') {
         // var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount, "wbcs"  : virtualclass.gObj.currSlide};

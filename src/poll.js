@@ -46,7 +46,9 @@
           this.UI.container();
           ioAdapter.mustSend({ poll: { pollMsg: 'init' }, cf: 'poll' });
         }
-        this.interfaceToFetchList(this.cmid);
+        if (!virtualclass.isPlayMode && roles.hasControls()) {
+          this.interfaceToFetchList(this.cmid);
+        }
       },
 
       /*
@@ -645,9 +647,11 @@
               elem.classList.add(pollType);
             }
           }
-        } else {
-          this.UI.layout2('layoutPollBody', pollType);
         }
+
+        // else {
+        //   this.UI.layout2('layoutPollBody', pollType);
+        // }
       },
       dispNewPollBtn(pollType, isAdmin) {
         this.attachEvent(`newPollBtn${pollType}`, 'click', this.newPollHandler, pollType);
@@ -1319,10 +1323,15 @@
       },
 
       getFormatedTime() {
-        const publishTime = virtualclass.poll.pollState.data.setting.time.timestamp;
-        const publishTimeInSeconds = virtualclass.vutil.UTCtoLocalTimeToSeconds(publishTime);
-        const totalDiff = (new Date().getTime() - publishTimeInSeconds);
-        const remainingTime = (virtualclass.poll.pollState.data.setting.time.totalInSeconds * 1000) - totalDiff;
+        let remainingTime;
+        if (!virtualclass.isPlayMode) {
+          const publishTime = virtualclass.poll.pollState.data.setting.time.timestamp;
+          const publishTimeInSeconds = virtualclass.vutil.UTCtoLocalTimeToSeconds(publishTime);
+          const totalDiff = (new Date().getTime() - publishTimeInSeconds);
+          remainingTime = (virtualclass.poll.pollState.data.setting.time.totalInSeconds * 1000) - totalDiff;
+        } else {
+          remainingTime = virtualclass.poll.pollState.data.setting.time.totalInSeconds * 1000;
+        }
 
         let formattedTimes;
         if (remainingTime > 0) {

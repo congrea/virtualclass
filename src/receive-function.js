@@ -247,6 +247,7 @@ const receiveFunctions = new function () {
   // documnetation sharing
   this.dts = function (e) {
     if (Object.prototype.hasOwnProperty.call(e.message.dts, 'init')) {
+      console.log('====> final seek suman 4', e.message.dts);
       console.log('====> document shareing 1');
       virtualclass.gObj.screenRh = 100;
       // virtualclass.makeAppReady('DocumentShare', undefined, e.message.dts);

@@ -44,14 +44,18 @@
      * @return errorCont.id id of the error container
      */
     createErrorMsg(msg, contId, addBefore, attribute) {
+      const cpuNotCompatible = document.querySelector('#errorContainer .notcompatiblecpu');
+      if (cpuNotCompatible !== null) { // HIGH PRIORITY ERROR
+        return;
+      }
       let classes = 'error';
-      var errorCont = document.getElementById(contId);
+      let errorCont = document.getElementById(contId);
       if (errorCont == null) {
-        var errorCont = document.createElement('div');
+        errorCont = document.createElement('div');
         errorCont.id = contId;
-
         errorCont.innerHTML = `<span className="${classes}">${msg}</span>`;
       } else {
+
         if (attribute != null) {
           if (Object.prototype.hasOwnProperty.call(attribute, 'className')) {
             const elem = document.querySelector(`#${contId}.${attribute.className}`);

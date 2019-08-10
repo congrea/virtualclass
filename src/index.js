@@ -19,7 +19,6 @@ $.uiBackCompat = false;
         virtualclass.dts.updateScreen();
       }
     });
-
-
+    bootStraper.notifyAboutCPU();
   };
 }(window));

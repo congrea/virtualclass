@@ -676,6 +676,20 @@
     return M;
   };
 
+  system.isCompatibleCPU = function () {
+    if (window.navigator.hardwareConcurrency) {
+      return !(window.navigator.hardwareConcurrency < 4);
+    }
+    return true;
+  };
+
+  system.isCompatibleRAM = function () {
+    if (window.navigator.deviceMemory) {
+      return !(window.navigator.deviceMemory < 6);
+    }
+    return true;
+  };
+
 
   window.system = system;
 }(window));

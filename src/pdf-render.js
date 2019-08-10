@@ -47,7 +47,7 @@
               await virtualclass.pdfRender[currWhiteBoard].afterPdfLoad(canvas, currWhiteBoard, response.data);
             })
             .catch((error) => {
-              // console.error('Request failed with error ', error);
+              console.error('Request failed with error ', error);
               setTimeout(() => {
                 virtualclass.pdfRender[currWhiteBoard].loadPdf(url, canvas, currWhiteBoard);
               }, 1000);
@@ -353,9 +353,8 @@
       },
 
       async renderPage(page, firstTime) {
-
+        console.log('====> HELLO WHITEBOARD width');
         if (virtualclass.zoom.prvPdfDimension && virtualclass.zoom.prvPdfDimension[2] !== page.view[2]) {
-          console.log('====> DIFFERENT DOCUMENT ', virtualclass.zoom.canvasDimension.width);
           const newCanvasScale = (virtualclass.zoom.canvasScale / virtualclass.zoom.prvPdfDimension[2]) *  page.view[2];
           virtualclass.zoom.diffrentDocumentWidth = (virtualclass.zoom.canvasDimension.width / virtualclass.zoom.canvasScale) * newCanvasScale;
         }
@@ -470,11 +469,9 @@
 
           virtualclass.vutil.showZoom();
 
-          if (firstTime != undefined) {
-            if (virtualclass.gObj.currWb != null) {
-              // this.initWhiteboardData(page.wbId);
-              this.initWhiteboardData(page.wbId);
-            }
+          if (firstTime != undefined && virtualclass.gObj.currWb != null) {
+            // this.initWhiteboardData(page.wbId);
+            this.initWhiteboardData(page.wbId);
           }
 
           // if (virtualclass.zoom.prvCanvasScale !== virtualclass.zoom.canvasScale) {

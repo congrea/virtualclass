@@ -95,7 +95,7 @@
         ev.currY = ev.detail.cevent.y;
       }
 
-      console.log("====> mouse down ", ev.currX, ev.currY);
+      // // console.log("====> mouse down ", ev.currX, ev.currY);
       // console.log('=====> pointer start event x, y ',  ev.currX, ev.currY);
 
       var { vcan } = wb;
@@ -155,6 +155,7 @@
         wb.obj.freeDrawObj.drawStart(ev, wId);
         // console.log('free drawing start x=' +  ev.currX + ' drawing y=' + ev.currY);
       }
+  //    console.log('=====> CANVAS SCALE ===== down, xy', virtualclass.zoom.canvasScale, ev.currX, ev.currY);
     };
 
     /**
@@ -187,7 +188,7 @@
                   vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', ev.currX, ev.currY);
                 }
               } else {
-                console.log("====> mouse up finally", ev.currX);
+                // console.log("====> mouse up finally", ev.currX);
               }
 
               var currTime = new Date().getTime();
@@ -212,7 +213,7 @@
                   virtualclass.gObj.lastmousemovetime = new Date().getTime();
                 }
               } else {
-                console.log("====> mouse up finally", ev.currX);
+                // console.log("====> mouse up finally", ev.currX);
               }
             }
           }
@@ -254,6 +255,7 @@
           }
           wb.prvObj = rCurrObject.coreObj;
         }
+       // console.log('=====> CANVAS SCALE ===== move x/y', virtualclass.zoom.canvasScale, ' ', endPosX, endPosY);
       } else if ((wb.vcan.main.action != 'move')
             || ((vcan.main.currentTransform == '' || vcan.main.currentTransform == null) && wb.vcan.main.action == 'move')) {
         const x = ev.currX / virtualclass.zoom.canvasScale;
@@ -285,7 +287,7 @@
         ev.currY = ev.detail.cevent.y;
       }
 
-      console.log("====> mouse up", ev.currX);
+      // // console.log("====> mouse up", ev.currX);
       endPosX = ev.currX;
       endPosY = ev.currY;
 
@@ -337,6 +339,8 @@
       if (wb.vcan.wb.sentPack) {
         wb.vcan.wb.sentPack = false;
       }
+
+      // console.log('=====> CANVAS SCALE ===== up ', virtualclass.zoom.canvasScale);
     };
   };
   window.draw_object = draw_object;

@@ -53,23 +53,19 @@
     trimontime: 0,
     totalRecordingTime: null,
     actualPlayRecordingTime: 0,
-    seekTime: 0,
     timeStamp: null,
-    viewDataByStudent: {},
     recViewData: {
       'x-api-key': wbUser.lkey,
       'x-congrea-authuser': wbUser.auth_user,
       'x-congrea-authpass': wbUser.auth_pass,
       'x-congrea-room': wbUser.room,
       'x-congrea-session': wbUser.session,
-      'x-congrea-uid': wbUser.rid,
       'data': {},
     },
-    lastActualPlayRecordingTime: 0,
     recording: 'on',
     viewPoint: null,
-    getData: [],
-    viewRecordingData: null,
+    count: 0,
+    remainingSeconds: 0,
     init() {
       if (!this.attachSeekHandler) {
         this.attachSeekHandler = true;
@@ -347,6 +343,10 @@
       let type;
       let recordingOn = null;
       let recordingOff = null;
+
+      if (this.viewPoint === null) {
+        this.fetchRecViewData();
+      }
 
       for (let i = 0; i < allRecordigns.length; i++) {
         if (allRecordigns[i] != null && allRecordigns[i] != '') {
@@ -901,8 +901,7 @@
 
     getSeekPoint(seekPointPercent) {
       const seekVal = Math.trunc((this.totalTimeInMiliSeconds * seekPointPercent) / 100);
-      this.seekTime = seekVal;
-      this.lastActualPlayRecordingTime = this.actualPlayRecordingTime;
+      this.count = Math.floor(seekVal / 5000);
       // console.log(`Seek index ${seekVal}`);
       /** Todo THIS should be optimize, don't use nested loop * */
       let totalTimeMil = 0;
@@ -1020,22 +1019,31 @@
             };
           }
         }
+
         if (this.timeStamp === null) {
           this.timeStamp = new Date(new Date().toUTCString()).getTime(); // get time once when recording play.
-          this.recViewData.data[this.timeStamp] = [];
-          const length = Math.floor(this.totalTimeInMiliSeconds / 5000);
-          this.viewRecordingData = new Array(length);
+          const recordingTime = (this.totalrecordingTime === undefined) ? this.totalTimeInMiliSeconds : this.totalrecordingTime;
+          const length = Math.floor(recordingTime / 5000);
+          if (this.viewPoint !== undefined) {
+            this.recViewData.data[this.timeStamp] = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
+          } else {
+            this.recViewData.data[this.timeStamp] = new Array(length);
+          }
+          this.recViewData.data.rtt = recordingTime;
+          this.recViewData['x-congrea-uid'] = wbUser.rid;
         }
         if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"ac":11,"cf":"recs"') > -1) {
           this.recording = 'off';
         } else if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"ac":21,"cf":"recs"') > -1) {
           this.recording = 'on';
         }
-        if (this.recording === 'on') { // add time of actual play recording packets but seek packets time not added.
+        if (this.recording === 'on') { // add time of actual play recording packets but trim packets time not added.
           this.actualPlayRecordingTime += this.subRecordings[this.subRecordingIndex].playTime;
           if (this.actualPlayRecordingTime >= 5000) {
-            this.viewRecordingData.push(this.timeStamp);
-            this.actualPlayRecordingTime = 0;
+            this.remainingSeconds = this.actualPlayRecordingTime - 5000;
+            this.recViewData.data[this.timeStamp].splice(this.count, 1, { [this.count]: this.timeStamp });
+            this.count++;
+            this.actualPlayRecordingTime = this.remainingSeconds;
           }
         }
       } catch (e) {

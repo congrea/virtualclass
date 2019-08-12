@@ -537,8 +537,7 @@
         virtualclass.vutil.videoHandler('off');
         virtualclass.user.control.videoDisable();
       } else {
-        if (roles.isStudent()
-          && (virtualclass.settings.info.studentvideo !== true)) { // todo, check it properly on page refresh
+        if (roles.isStudent() && virtualclass.settings.info.studentvideo !== true) { // todo, check it properly on page refresh
           if (virtualclass.settings.info.studentvideo !== undefined) {
             virtualclass.vutil.videoHandler('off');
             virtualclass.videoHost.toggleVideoMsg('disable');

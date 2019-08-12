@@ -35,7 +35,7 @@ const progressBar = {
   },
 
   renderProgressBar(totalVal, portion, pbar, pval) {
-    // console.log('===== totalVal ==== ' + totalVal + '; portion' + portion);
+    //console.log('===== totalVal ==== ' + totalVal + '; portion' + portion);
 
     if (portion > totalVal) {
       portion = totalVal;

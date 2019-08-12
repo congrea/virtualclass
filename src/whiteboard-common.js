@@ -26,7 +26,7 @@
       if (!this.createWbNavigation) {
         this.indexNav.UI.createNewPageButton();
         this.createWbNavigation = true;
-        console.log('====> page init 2');
+        //console.log('====> page init 2');
       }
       if (roles.hasControls()) {
         // let wbOrder = localStorage.getItem('wbOrder');

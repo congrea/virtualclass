@@ -18,9 +18,9 @@
       addObject(obj) {
         if (typeof obj.coreObj === 'object') {
           if (obj.coreObj.type != 'freehand') {
-            console.log('====> all children sx', obj.coreObj.sx, ' sy', obj.coreObj.sy, ' ex ', obj.coreObj.ex, ' ey ', obj.coreObj.ey)
+            //console.log('====> all children sx', obj.coreObj.sx, ' sy', obj.coreObj.sy, ' ex ', obj.coreObj.ex, ' ey ', obj.coreObj.ey)
             vcan.main.children.push(obj.coreObj); // containing all the objects into children array
-            console.log('====> whiteboard pushing object');
+            //console.log('====> whiteboard pushing object');
 
           }
           const vcanvas = vcan.main.canvas;
@@ -627,16 +627,16 @@
           for (let i = 0; i < vcan.main.children.length; i++) {
             if (this.id == vcan.main.children[i].id) {
               var delObj = vcan.main.children[i];
-              console.log('====> whiteboard removing object');
+              //console.log('====> whiteboard removing object');
               vcan.main.children.splice(i, 1);
-              console.log('====> whiteboard pushing deleting object');
+              //console.log('====> whiteboard pushing deleting object');
               break;
             }
           }
 
           if (delObj != ' ') {
             vcan.main.children.push(delObj);
-            console.log('====> whiteboard pushing object');
+            //console.log('====> whiteboard pushing object');
             return true;
           }
 

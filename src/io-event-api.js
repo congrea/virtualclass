@@ -82,13 +82,13 @@ const ioEventApi = {
   },
 
   member_added(e) {
-    // console.log('===== JOIN user ' + e.message.length);
-    // console.log('===== JOIN user ' + e.message);
+    //console.log('===== JOIN user ' + e.message.length);
+    //console.log('===== JOIN user ' + e.message);
     let sType;
     if (typeof virtualclass.connectedUsers === 'undefined') {
       virtualclass.connectedUsers = [];
     }
-    // console.log('===== JOIN user member_added call ');
+    //console.log('===== JOIN user member_added call ');
     if (Object.prototype.hasOwnProperty.call(e, 'user')) {
       const joinUserObj = e.message;
       virtualclass.jId = joinUserObj.userid;
@@ -151,7 +151,7 @@ const ioEventApi = {
     //   defaultOperation(e, sType);
     // }
 
-    // console.log('==== Add users');
+    //console.log('==== Add users');
     defaultOperation(e, sType);
 
     if (roles.hasControls()) {

@@ -37,7 +37,7 @@
     hideModal() {
       const db = document.querySelector('#congdashboard');
       if (db) {
-        console.log('====> modal hide modal ', virtualclass.currApp);
+        //console.log('====> modal hide modal ', virtualclass.currApp);
         db.className = 'modal fade';
       }
     },
@@ -46,7 +46,7 @@
       const db = document.querySelector('#congdashboard');
       if (db) {
         db.className = 'modal in';
-        console.log('====> modal show ', virtualclass.currApp);
+        //console.log('====> modal show ', virtualclass.currApp);
       }
     },
 

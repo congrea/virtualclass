@@ -12,7 +12,7 @@
     this.app = app;
     // this.createContainer = false;
     // this.createWbNavigation = false;
-    console.log('====> page init');
+    //console.log('====> page init');
   };
 
   /* Create the UI container and measure dimension(width) for navigation */
@@ -22,7 +22,7 @@
     // if (!this.createWbNavigation) {
     //   this.UI.createNewPageButton();
     //   this.createWbNavigation = true;
-    //   console.log('====> page init 2');
+    //   //console.log('====> page init 2');
     // }
 
     // const res = virtualclass.system.measureResoultion({
@@ -51,13 +51,13 @@
   };
 
   pageIndexNav.prototype.setCurrentIndex = function (index) {
-    // console.log('==== page, set current index');
+    //console.log('==== page, set current index');
     document.querySelector('#currIndex').innerHTML = index;
   },
 
   pageIndexNav.prototype.setTotalPages = function (length) {
 
-    console.log('==== page, set total page ', length,  virtualclass.currApp);
+    //console.log('==== page, set total page ', length,  virtualclass.currApp);
     const cont = document.querySelector('#docShareNav #totalPages');
     if (cont) {
       cont.innerHTML = ` of ${length}`;
@@ -407,7 +407,7 @@
   pageIndexNav.prototype.studentWBPagination = function (index) {
     const cont = document.getElementById('stdPageNo');
     if (cont) {
-      // console.log('==== student page navigation');
+      //console.log('==== student page navigation');
       // cont.innerHTML = parseInt(index) + 1;
       cont.innerHTML = +(index);
       this.setTotalPages(virtualclass.orderList.Whiteboard.ol.order.length);
@@ -437,7 +437,7 @@
   /** Create navigation */
   pageIndexNav.prototype.UI = {
     // container() {
-    //   console.log('===> create navigation');
+    //   //console.log('===> create navigation');
     //   /** TODO Use handlebars* */
     //
     //   const dc = document.getElementById('docShareNav');
@@ -521,7 +521,7 @@
     // },
 
     container() {
-      console.log('===> create navigation');
+      //console.log('===> create navigation');
       const dc = document.getElementById('docShareNav');
       const template = virtualclass.getTemplate('navMain', 'navigation');
       const navHtml = template({ app: virtualclass.currApp, control: roles.hasControls()});

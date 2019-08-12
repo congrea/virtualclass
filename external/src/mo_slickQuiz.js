@@ -942,7 +942,7 @@
                         }
 
                         //hide navigation block
-                        console.log('====> QUIZ IS CRERATING');
+                        //console.log('====> QUIZ IS CRERATING');
                         $(_element + ' ' +'.navblock').hide()
                         $quizResults.prepend($('<h4>Questions attempted: <span>'
                             + aAttempted +'</span></h4>'));

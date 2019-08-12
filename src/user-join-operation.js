@@ -34,10 +34,10 @@ function memberUpdateWithDelay(e, f) {
     const index = virtualclass.gObj.memberlistpending.findIndex(x => x.userid == e.removeUser);
     if (index > -1) {
       virtualclass.gObj.memberlistpending.splice(index, 1);
-      // console.log('===== JOIN user left call');
+      //console.log('===== JOIN user left call');
     } else {
       setTimeout(() => {
-        // console.log('===== JOIN user left call');
+        //console.log('===== JOIN user left call');
         memberUpdate(e, f);
       }, 0);
     }

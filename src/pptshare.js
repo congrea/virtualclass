@@ -57,7 +57,7 @@
           elem.parentNode.removeChild(elem);
         }
 
-        console.log('====> PPT SLIDE UI CREATE 1');
+        //console.log('====> PPT SLIDE UI CREATE 1');
         this.UI.container();
 
         const messageContainer = document.getElementById('pptMessageLayout');
@@ -89,7 +89,7 @@
         //   this.getPptList();
         // }
 
-        console.log('====> PPT SLIDE UI CREATE 1.0 init');
+        //console.log('====> PPT SLIDE UI CREATE 1.0 init');
         virtualclass.sharePt.attachMessageEvent('message', virtualclass.sharePt.pptMessageEventHandler);
       },
 
@@ -349,8 +349,8 @@
       },
 
       actualPptMessageEventHandler(event) {
-        console.log('====> PPT SLIDE receive ', event.data);
-        console.log('====> dashboard init 2');
+        //console.log('====> PPT SLIDE receive ', event.data);
+        //console.log('====> dashboard init 2');
         if (virtualclass.currApp === 'SharePresentation') {
           const pptData = (typeof event.data === 'string') ? JSON.parse(event.data) : event.data;
           if (typeof pptData !== 'undefined') {
@@ -525,7 +525,7 @@
       removeControls() {
         setTimeout(() => {
           const frame = document.getElementById('pptiframe');
-          console.log('====> PPT SLIDE POST');
+          //console.log('====> PPT SLIDE POST');
           frame.contentWindow.postMessage(JSON.stringify({
             method: 'configure',
             args: [{
@@ -541,7 +541,7 @@
         },
 
         setUrl(receivemsg) {
-          console.log('====> PPT SLIDE SET URL 2');
+          //console.log('====> PPT SLIDE SET URL 2');
           // virtualclass.sharePt.localStoragFlag = 0;
           virtualclass.sharePt.stateLocalStorage = {};
           virtualclass.sharePt.state = { indexh: 0, indexv: 0, indexf: 0 };
@@ -551,7 +551,7 @@
             if (roles.hasView()) {
               if (frame.contentWindow != null) {
                 if (typeof receivemsg.pptMsg.state !== 'undefined') {
-                  console.log('====> PPT SLIDE POST');
+                  //console.log('====> PPT SLIDE POST');
                   frame.contentWindow.postMessage(JSON.stringify({
                     method: 'setState',
                     args: [receivemsg.pptMsg.state],
@@ -579,14 +579,14 @@
 
 
       onPptMsgReceive(receivemsg) {
-        console.log('====> PPT SLIDE ONRECEIVE MSG');
+        //console.log('====> PPT SLIDE ONRECEIVE MSG');
         const pptIframe = document.getElementById('pptiframe');
         const msgLayout = document.getElementById('pptMessageLayout');
 
         if (typeof receivemsg.ppt !== 'undefined' && typeof receivemsg.ppt.startFrom !== 'undefined') {
           virtualclass.sharePt.startFromFlag = 1;
           if (pptIframe !== null) {
-            console.log('====> PPT SLIDE POST');
+            //console.log('====> PPT SLIDE POST');
             if (receivemsg.ppt.init.search('postMessage') < 0) {
               pptIframe.setAttribute('src', `${receivemsg.ppt.init}?postMessage=true&postMessageEvents=true`);
             } else {
@@ -610,7 +610,7 @@
             pptIframe.onload = function () {
               if (roles.hasView() || !virtualclass.gObj.makeWebSocketReady) {
                 if (pptIframe.contentWindow != null && typeof receivemsg.pptMsg.state !== 'undefined') {
-                  console.log('====> PPT SLIDE POST ', receivemsg.pptMsg.state);
+                  //console.log('====> PPT SLIDE POST ', receivemsg.pptMsg.state);
                   pptIframe.contentWindow.postMessage(JSON.stringify({
                     method: 'setState',
                     args: [receivemsg.pptMsg.state],
@@ -636,7 +636,7 @@
        * @param  receivemsg ppt data recevied from the teacher
        */
       displayFrame() {
-        console.log('====> PPT SLIDE UI CREATE 2');
+        //console.log('====> PPT SLIDE UI CREATE 2');
         // virtualclass.sharePt.localStoragFlag=0;
         const pptContainer = document.getElementById(virtualclass.sharePt.UI.id);
         if (!pptContainer.classList.contains('pptSharing')) {
@@ -665,7 +665,7 @@
           const elem = document.getElementById('iframecontainer');
           elem.style.display = 'block';
           const pptiframe = document.getElementById('pptiframe');
-          console.log('====> PPT SLIDE POST');
+          //console.log('====> PPT SLIDE POST');
           pptiframe.setAttribute('src', (receivemsg.pptMsg.search('postMessage') < 0) ? `${receivemsg.pptMsg}?postMessage=true&postMessageEvents=true` : receivemsg.pptMsg);
           // console.log('test url is set');
           this.pptUrl = receivemsg.pptMsg;
@@ -680,12 +680,12 @@
 
        */
       setSlideState(msg) {
-        console.log('====> PPT SLIDE set slide');
+        //console.log('====> PPT SLIDE set slide');
         const frame = document.getElementById('pptiframe').contentWindow;
         const indexArg = [msg.state.indexh, msg.state.indexv, msg.state.indexf];
         const stateArg = [msg.state];
         const eventReceived = msg.eventName;
-        console.log('====> PPT SLIDE POST');
+        //console.log('====> PPT SLIDE POST');
         switch (eventReceived) {
           case 'ready':
             frame.postMessage(JSON.stringify({ method: 'setState', args: stateArg }), '*');
@@ -704,7 +704,7 @@
             frame.postMessage(JSON.stringify({ method: 'toggleAutoSlide' }), '*');
             break;
           case 'fragmentshown':
-            console.log('====> PPT SLIDE CHANGED 2b v=', msg.state.indexv, ' =h', msg.state.indexh);
+            //console.log('====> PPT SLIDE CHANGED 2b v=', msg.state.indexv, ' =h', msg.state.indexh);
             frame.postMessage(JSON.stringify({ method: 'slide', args: indexArg }), '*');
             break;
           case 'fragmenthidden':
@@ -1081,7 +1081,7 @@
 
         const frame = document.getElementById('pptiframe');
         // console.log(`completeurl${urlValue}`);
-        console.log('====> PPT SLIDE POST');
+        //console.log('====> PPT SLIDE POST');
         virtualclass.sharePt.pptUrl = `${urlValue}?postMessage=true&postMessageEvents=true`;
 
         frame.setAttribute('src', virtualclass.sharePt.pptUrl);
@@ -1177,7 +1177,7 @@
             configValues.autoSlide = autoSlideTime;
           }
 
-          console.log('====> PPT SLIDE POST');
+          //console.log('====> PPT SLIDE POST');
 
           // frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: true,keyboard:true,progress:true,touch:true}]}), '*');
           frame.contentWindow.postMessage(JSON.stringify({ method: 'configure', args: [configValues] }), '*');
@@ -1206,7 +1206,7 @@
           if (frame.src != '') {
             virtualclass.sharePt.hideElement('pptMessageLayout');
           }
-          console.log('====> PPT SLIDE POST');
+          //console.log('====> PPT SLIDE POST');
           frame.contentWindow.postMessage(JSON.stringify({
             method: 'configure',
             args: [{

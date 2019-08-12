@@ -59,7 +59,7 @@
          * @returns
          */
         fhdStart(ctx, pointer, crtMuser) {
-          console.log('=====> pointer start x, y ', pointer.x, pointer.y);
+          //console.log('=====> pointer start x, y ', pointer.x, pointer.y);
           const currTime = new Date().getTime();
           const { canvas } = vcan.main;
 
@@ -88,7 +88,7 @@
         // captureDrawingPath: function(evt) {
         // fhRendering: function(evt) {
         fhRendering(pointer, crtMuser) {
-          // console.log('=====> pointer move x, y ', pointer.x, pointer.y);
+          //console.log('=====> pointer move x, y ', pointer.x, pointer.y);
           const currTime = new Date().getTime();
           this.freeDrawingXPoints.push(pointer.x);
           this.freeDrawingYPoints.push(pointer.y);
@@ -230,7 +230,7 @@
           },
           objAdd(obj) {
             vcan.main.children.push(obj);
-            console.log('====> whiteboard pushing object');
+            //console.log('====> whiteboard pushing object');
             return this;
           },
         },

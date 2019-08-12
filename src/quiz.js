@@ -281,7 +281,7 @@
        */
       publishHandler(item, index) {
         const mszbox = document.getElementById('mszBoxQuiz');
-        console.log('====> quiz removing mszBoxQuiz');
+        //console.log('====> quiz removing mszBoxQuiz');
         if (mszbox.childNodes.length > 0) {
           mszbox.childNodes[0].parentNode.removeChild(mszbox.childNodes[0]);
         }
@@ -507,7 +507,7 @@
         const msz = document.getElementById('mszBoxQuiz');
         if (msz) {
           msz.parentNode.removeChild(msz);
-          console.log('====> quiz removing mszBoxQuiz');
+          //console.log('====> quiz removing mszBoxQuiz');
         }
         const cQzbody = document.getElementById('contQzBody');
         if (cQzbody) {
@@ -589,7 +589,7 @@
               document.querySelector('#timeText').textContent = 'Quiz has been closed';
             }
             const resPage = document.querySelector('#slickQuiz .quizResults');
-            console.log('====> QUIZ IS CREATING');
+            //console.log('====> QUIZ IS CREATING');
             if (resPage && resPage.style.display != 'block') {
               // click submit button of student screen
               const arr = document.querySelectorAll('#slickQuiz .nextQuestion');
@@ -1391,7 +1391,7 @@
          * @return null
          */
         displayStudentResultScreen(data) {
-          console.log('====> Create message box 2');
+          //console.log('====> Create message box 2');
           // var resPage = document.querySelector("#slickQuiz .quizResults");
           const msgPage = document.getElementById('mszBoxQuiz');
 
@@ -1501,7 +1501,7 @@
           qzheader.appendChild(qzheaderA);
 
           // alert('I am here. add result div');
-          console.log('====> QUIZ IS CREATING');
+          //console.log('====> QUIZ IS CREATING');
           const qzResult = virtualclass.view.customCreateElement('div', '', 'quizResults');
           skQzCont.appendChild(qzResult);
 
@@ -1586,7 +1586,7 @@
       },
 
       createMessageBox() {
-        console.log('=====> CREATE MESSAGE BOX');
+        //console.log('=====> CREATE MESSAGE BOX');
         const mszCont = document.getElementById('mszBoxQuiz');
         const messageLayoutId = 'stdQuizMszLayout';
         if (document.getElementById(messageLayoutId) == null) {

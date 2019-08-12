@@ -96,7 +96,7 @@
       }
 
       // // console.log("====> mouse down ", ev.currX, ev.currY);
-      // console.log('=====> pointer start event x, y ',  ev.currX, ev.currY);
+      //console.log('=====> pointer start event x, y ',  ev.currX, ev.currY);
 
       var { vcan } = wb;
       virtualclass.gObj.lastmousemovetime = null;
@@ -155,7 +155,7 @@
         wb.obj.freeDrawObj.drawStart(ev, wId);
         // console.log('free drawing start x=' +  ev.currX + ' drawing y=' + ev.currY);
       }
-  //    console.log('=====> CANVAS SCALE ===== down, xy', virtualclass.zoom.canvasScale, ev.currX, ev.currY);
+  //    //console.log('=====> CANVAS SCALE ===== down, xy', virtualclass.zoom.canvasScale, ev.currX, ev.currY);
     };
 
     /**
@@ -176,7 +176,7 @@
         ev.currX = ev.detail.cevent.x;
         ev.currY = ev.detail.cevent.y;
       }
-      // console.log('=====> pointer move event x, y ',  ev.currX, ev.currY);
+      //console.log('=====> pointer move event x, y ',  ev.currX, ev.currY);
       if (tool.started && wb.tool.cmd !== 't_clearall') { // command code inserted after found the problem
         if (wb.obj.freeDrawObj !== undefined && wb.obj.freeDrawObj.freesvg == true) {
           if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
@@ -255,7 +255,7 @@
           }
           wb.prvObj = rCurrObject.coreObj;
         }
-       // console.log('=====> CANVAS SCALE ===== move x/y', virtualclass.zoom.canvasScale, ' ', endPosX, endPosY);
+       //console.log('=====> CANVAS SCALE ===== move x/y', virtualclass.zoom.canvasScale, ' ', endPosX, endPosY);
       } else if ((wb.vcan.main.action != 'move')
             || ((vcan.main.currentTransform == '' || vcan.main.currentTransform == null) && wb.vcan.main.action == 'move')) {
         const x = ev.currX / virtualclass.zoom.canvasScale;
@@ -340,7 +340,7 @@
         wb.vcan.wb.sentPack = false;
       }
 
-      // console.log('=====> CANVAS SCALE ===== up ', virtualclass.zoom.canvasScale);
+      //console.log('=====> CANVAS SCALE ===== up ', virtualclass.zoom.canvasScale);
     };
   };
   window.draw_object = draw_object;

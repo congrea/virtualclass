@@ -81,7 +81,7 @@ let msg;
           chatContainer.appendChild(msgElement);
           chatContainer.appendChild(msgTime);
           e.appendChild(chatContainer);
-          console.log('====> chat time ', time);
+          //console.log('====> chat time ', time);
 
           // var msgCont = document.createElement('div');
           // msgCont.className = 'msgCont';

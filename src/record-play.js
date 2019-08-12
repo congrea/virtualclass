@@ -66,6 +66,7 @@
     viewPoint: null,
     count: 0,
     remainingSeconds: 0,
+    recData: '',
     init() {
       if (!this.attachSeekHandler) {
         this.attachSeekHandler = true;
@@ -106,6 +107,65 @@
     },
 
     recDataSend() { // data send to server when browser unload, beforeload and recording complete.
+      let flag = null;
+      let startTime = 0;
+      // let stopTime = 0;
+      // let countSeek = 0;
+      for (let i = 0; i <= this.recData.length; i++) {
+        if (this.recData[i] === undefined) {
+          startTime = i * 5000;
+          if (flag === null) {
+            flag = 'save';
+            this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
+          }
+        } else {
+          flag = null;
+        }
+      }
+      this.recViewData.data[this.timeStamp].push({ [startTime]: (this.recData.length * 5000) });
+
+      for (let i = 0; i <= this.recData.length; i++) {
+        if (this.recData[i] === undefined && flag === null) {
+          flag = 'save';
+          this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
+        } else if (this.recData[i] !== undefined) {
+          flag = null;
+          if (i === this.recData.length) {
+            this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
+          }
+        }
+
+        if (this.recData[i] === undefined) {
+          startTime = i * 5000;
+        }
+
+        // stopTime += 5000;
+        // if (this.timestamp !== this.recData[i] && this.recData[i] !== undefined) {
+        //   this.recViewData.data[this.recData[i]] = [];
+        //   this.timestamp = this.recData[i];
+        // }
+      }
+      // for (let i = 0; i <= this.recData.length; i++) {
+      //   if (this.recData[i] === undefined && flag === null) {
+      //     flag = 'save';
+      //     this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
+      //   } else if (this.recData[i] !== undefined) {
+      //     flag = null;
+      //     if (i === this.recData.length) {
+      //       this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
+      //     }
+      //   }
+      //   if (this.recData[i] === undefined) {
+      //     startTime = i * 5000;
+      //   }
+      //
+      //   // stopTime += 5000;
+      //   // if (this.timestamp !== this.recData[i] && this.recData[i] !== undefined) {
+      //   //   this.recViewData.data[this.recData[i]] = [];
+      //   //   this.timestamp = this.recData[i];
+      //   // }
+      // }
+      console.log('====> sent data ', JSON.stringify(this.recViewData));
       navigator.sendBeacon('https://api.congrea.net/data/analytics/recording', JSON.stringify(this.recViewData));
     },
 
@@ -340,12 +400,6 @@
       const allRecordigns = rawData.trim().split(/(?:\r\n|\r|\n)/g); // Getting recordings line by line
       let time;
       let type;
-      let recordingOn = null;
-      let recordingOff = null;
-
-      if (this.viewPoint === null) {
-        this.fetchRecViewData(); // todo, put this code into requestingListOfFiles
-      }
 
       for (let i = 0; i < allRecordigns.length; i++) {
         if (allRecordigns[i] != null && allRecordigns[i] != '') {
@@ -391,7 +445,6 @@
                   this.isTrimRecordingNow = false;
                   const trimdifftime = this.trimofftime - this.trimontime;
                   this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - trimdifftime;
-                  this.totalrecordingTime = this.totalTimeInMiliSeconds; // Todo, disable the line
                   this.trimofftime = 0;
                   this.trimontime = 0;
                 }
@@ -404,15 +457,7 @@
                 chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
               }
             } else {
-              if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // TODO, convert this block of code into function
-                recordingOff = time;
-              } else if (data.indexOf('{"ac":21,"cf":"recs"') > -1) {
-                recordingOn = time;
-              }
-              if (recordingOff !== null && recordingOn !== null && this.totalRecordingTime === null) {
-                const trimtime = recordingOn - recordingOff;
-                this.totalRecordingTime = this.totalTimeInMiliSeconds - trimtime;
-              }
+              this.recordingTotalTime(data, time);
               chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
             }
 
@@ -472,6 +517,20 @@
           this.alreadyAskForPlay = true;
           this.askToPlay();
         }
+      }
+    },
+
+    recordingTotalTime(data, time) { // check if recording turned off or on
+      let recordingOn = null;
+      let recordingOff = null;
+      if (data.indexOf('{"ac":11,"cf":"recs"') > -1) {
+        recordingOff = time;
+      } else if (data.indexOf('{"ac":21,"cf":"recs"') > -1) {
+        recordingOn = time;
+      }
+      if (recordingOff !== null && recordingOn !== null && this.totalRecordingTime === null) {
+        const trimtime = recordingOn - recordingOff;
+        this.totalRecordingTime = this.totalTimeInMiliSeconds - trimtime;
       }
     },
 
@@ -1020,35 +1079,42 @@
           }
         }
 
-        // Todo, convert this block of code into function
-        if (this.timeStamp === null) {
-          this.timeStamp = new Date(new Date().toUTCString()).getTime(); // get time once when recording play.
-          const recordingTime = (this.totalrecordingTime === undefined) ? this.totalTimeInMiliSeconds : this.totalrecordingTime;
-          const length = Math.floor(recordingTime / 5000);
-          if (this.viewPoint !== undefined) {
-            this.recViewData.data[this.timeStamp] = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
-          } else {
-            this.recViewData.data[this.timeStamp] = new Array(length); // Todo, try to avoid the fixed length
-          }
-          this.recViewData.data.rtt = recordingTime;
-          this.recViewData['x-congrea-uid'] = wbUser.rid;
-        }
-        if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"ac":11,"cf":"recs"') > -1) {
-          this.recording = 'off';
-        } else if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"ac":21,"cf":"recs"') > -1) {
-          this.recording = 'on';
-        }
-        if (this.recording === 'on') { // add time of actual play recording packets but trim packets time not added.
-          this.actualPlayRecordingTime += this.subRecordings[this.subRecordingIndex].playTime;
-          if (this.actualPlayRecordingTime >= 5000) {
-            this.remainingSeconds = this.actualPlayRecordingTime - 5000;
-            this.recViewData.data[this.timeStamp].splice(this.count, 1, { [this.count]: this.timeStamp });
-            this.count++;
-            this.actualPlayRecordingTime = this.remainingSeconds;
-          }
-        }
+        this.recordingViewByStudent();
       } catch (e) {
         // console.log(`PLAY ERROR ${e.errorCode}`);
+      }
+    },
+
+    recordingViewByStudent() {
+      if (this.timeStamp === null) {
+        this.timeStamp = new Date(new Date().toUTCString()).getTime(); // get time once when recording play.
+        this.recViewData.data[this.timeStamp] = [];
+        const recordingTime = (this.totalrecordingTime === undefined) ? this.totalTimeInMiliSeconds : this.totalrecordingTime;
+        const length = Math.floor(recordingTime / 5000);
+        //if (this.viewPoint !== undefined) {
+          // this.recViewData.data[this.timeStamp] = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
+          //this.recData = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
+        //} else {
+         // this.recViewData.data[this.timeStamp] = new Array(length); // Todo, try to avoid the fixed length
+          this.recData = new Array(length);
+       // }
+        this.recViewData.data.rtt = recordingTime;
+        this.recViewData['x-congrea-uid'] = wbUser.rid;
+      }
+      if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"ac":11,"cf":"recs"') > -1) {
+        this.recording = 'off';
+      } else if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"ac":21,"cf":"recs"') > -1) {
+        this.recording = 'on';
+      }
+      if (this.recording === 'on') { // add time of actual play recording packets but trim packets time not added.
+        this.actualPlayRecordingTime += this.subRecordings[this.subRecordingIndex].playTime;
+        if (this.actualPlayRecordingTime >= 5000) {
+          this.remainingSeconds = this.actualPlayRecordingTime - 5000;
+          // this.recViewData.data[this.timeStamp].splice(this.count, 1, { [this.count]: this.timeStamp });
+          this.recData.splice(this.count, 1, this.timeStamp);
+          this.count++;
+          this.actualPlayRecordingTime = this.remainingSeconds;
+        }
       }
     },
 
@@ -1399,6 +1465,7 @@
     },
 
     requestListOfFiles() {
+      this.fetchRecViewData();
       this.actualTotalPlayTime = 0;
       this.session = wbUser.session;
       virtualclass.popup.loadingWindow();

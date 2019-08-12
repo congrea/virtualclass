@@ -1257,7 +1257,8 @@
             //   virtualclass.quiz.quizTimer(qtime, document.getElementById('elsTime'), order);
             // }
 
-            if (order === 'asc' && typeof virtualclass.quiz.publishedTime !== 'undefined') {
+            if (order === 'asc' && typeof virtualclass.quiz.publishedTime !== 'undefined'
+              && !virtualclass.config.makeWebSocketReady) {
               const publishTime = virtualclass.quiz.publishedTime;
               const publishTimeInMiliSeconds = virtualclass.vutil.UTCtoLocalTimeToSeconds(publishTime);
               qtime = (new Date().getTime() - publishTimeInMiliSeconds) / 1000;
@@ -1614,9 +1615,9 @@
         }, teacherID);
       },
 
-
       calculateRemainingTime(totalTimeInSec) {
-        if (typeof virtualclass.quiz.publishedTime !== 'undefined') {
+        if (typeof virtualclass.quiz.publishedTime !== 'undefined' && (roles.isStudent()
+          || (roles.hasControls() && !virtualclass.config.makeWebSocketReady))) {
           if (virtualclass.quiz.publishedTime == 0) {
             return totalTimeInSec;
           } else {
@@ -1627,6 +1628,8 @@
             }
             return timeLeft;
           }
+        } else {
+          return totalTimeInSec;
         }
       },
     };

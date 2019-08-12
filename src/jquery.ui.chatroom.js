@@ -5,7 +5,8 @@
  *
  * Also uses some styles for jquery.ui.dialog
  */
-"use strict";
+
+
 let uiChatboxContent;
 let uiChatboxLog;
 let uiChatboxInputBox;
@@ -33,7 +34,7 @@ let msg;
           if (typeof virtualclass.gObj.chatIconColors[userid] === 'undefined') {
             groupChatImgColor(peer, userid);
           }
-          const time = virtualclass.vutil.UTCtoLocalTime(msgObj.time);
+          const time = virtualclass.vutil.getCurrentFormattedTime(msgObj.time);
           const { msg } = msgObj;
           const self = this;
           const box = self.elem.uiChatboxLog;
@@ -76,9 +77,11 @@ let msg;
           msgTime.className = 'text-muted';
           msgTime.innerHTML = time;
 
+
           chatContainer.appendChild(msgElement);
           chatContainer.appendChild(msgTime);
           e.appendChild(chatContainer);
+          console.log('====> chat time ', time);
 
           // var msgCont = document.createElement('div');
           // msgCont.className = 'msgCont';
@@ -206,12 +209,12 @@ let msg;
                   userid: io.cfg.userid, name: io.cfg.userobj.name, msg, time,
                 };
                 chatroom.push(cmsg);
-                localStorage.setItem('chatroom', JSON.stringify(chatroom));
+                // localStorage.setItem('chatroom', JSON.stringify(chatroom));
               } else {
                 var cmsg = {
                   userid: io.cfg.userid, name: io.cfg.userobj.name, msg, time,
                 };
-                localStorage.setItem('chatroom', JSON.stringify([cmsg]));
+                // localStorage.setItem('chatroom', JSON.stringify([cmsg]));
               }
               // For exporting the common chat
               virtualclass.chat.commonChat.push(cmsg);

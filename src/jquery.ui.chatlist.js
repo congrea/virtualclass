@@ -71,7 +71,7 @@
             usr.rl = 'student';
           }
           usr.chatIconColors = virtualclass.gObj.chatIconColors[peer.userid];
-          console.log(`Chat add user ${peer.userid}`);
+          // console.log(`Chat add user ${peer.userid}`);
           const template = virtualclass.getTemplate('chatuser', 'chat');
           // $(box).append(template({"peer": usr}));
           // $(box).append(template({"peer": usr}));
@@ -149,7 +149,7 @@
       //         if ($.inArray(id, virtualclass.chat.idList) == -1) {
       //             virtualclass.chat.counter++;
       //             virtualclass.chat.idList.push(id);
-      //             if(!virtualclass.chat.vmstorage.hasOwnProperty(id)){
+      //             if(!Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, id)){
       //                 virtualclass.chat.vmstorage[id] = [];
       //                 virtualclass.chat.vmstorage[id].push({userid: id, name: name});
       //             }
@@ -171,7 +171,7 @@
       //             }
       //         });
       //
-      //         if(virtualclass.chat.vmstorage.hasOwnProperty(id)){
+      //         if(Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, id)){
       //             displayUserSinglePvtChatHistory(id)
       //         }
       //
@@ -194,7 +194,7 @@
       //         if ($.inArray(id, virtualclass.chat.idList) == -1) {
       //             virtualclass.chat.counter++;
       //             virtualclass.chat.idList.push(id);
-      //             if(!virtualclass.chat.vmstorage.hasOwnProperty(id)){
+      //             if(!Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, id)){
       //                 virtualclass.chat.vmstorage[id] = [];
       //                 virtualclass.chat.vmstorage[id].push({userid: id, name: name});
       //             }
@@ -216,7 +216,7 @@
       //             }
       //         });
       //
-      //         if(virtualclass.chat.vmstorage.hasOwnProperty(id)){
+      //         if(Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, id)){
       //             displayUserSinglePvtChatHistory(id)
       //         }
       //
@@ -234,6 +234,8 @@
         virtualclass.user.mediaSliderUI('video');
         virtualclass.user.mediaSliderUI('chat');
         virtualclass.user.mediaSliderUI('groupChat');
+        virtualclass.user.mediaSliderUI('raisehand');
+        virtualclass.user.mediaSliderUI('userlist');
       }
     },
     _setOption(option, value) {

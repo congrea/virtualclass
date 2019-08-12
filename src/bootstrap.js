@@ -1,7 +1,6 @@
 (function (window) {
-
-  function Bootstrap() {};
-
+  function Bootstrap() {
+  }
   Bootstrap.prototype.setBasicData = async function (window) {
     window.earlierWidth = window.innerWidth;
     window.earlierHeight = window.innerHeight;
@@ -28,6 +27,7 @@
     virtualclass.vutil = window.vutil;
     virtualclass.system = window.system;
     virtualclass.chat = new Chat();
+    virtualclass.gObj.docs = 'init';
     await virtualclass.system.mediaDevices.getMediaDeviceInfo();
     wbUser.virtualclassPlay = +wbUser.virtualclassPlay;
 
@@ -35,6 +35,7 @@
       // virtualclass.gObj.sessionClear = true;
       virtualclass.gObj.role = 's';
       localStorage.removeItem('teacherId');
+      wbUser.rid = wbUser.id;
       wbUser.id = 99955551230;
       virtualclass.gObj.uid = wbUser.id;
     }
@@ -55,7 +56,6 @@
     virtualclass.gObj.veryFirstJoin = true;
 
     await virtualclass.storage.init();
-
   };
 
   Bootstrap.prototype.validDateSession = async function () {
@@ -68,8 +68,8 @@
       await virtualclass.config.endSession();
     } else if (prvUser !== null) {
       prvUser = JSON.parse(prvUser);
-      if (prvUser.id !== wbUser.id || prvUser.room !== wbUser.room ||
-        wbUser.role !== prvUser.role || prvUser.settings !== virtualclassSetting.settings) {
+      if (prvUser.id !== wbUser.id || prvUser.room !== wbUser.room
+        || wbUser.role !== prvUser.role || prvUser.settings !== virtualclassSetting.settings) {
         await virtualclass.config.endSession();
       }
     } else if (virtualclass.gObj.myConfig !== null) {
@@ -83,7 +83,7 @@
         await virtualclass.config.endSession();
       }
     }
-  }
+  };
 
 
   Bootstrap.prototype.loadData = function () {
@@ -96,12 +96,12 @@
     }
 
     virtualclass.createMainContainer();
-    let wIds = localStorage.getItem('wIds');
-    if (wIds != null) {
-      wIds = JSON.parse(wIds);
-      virtualclass.gObj.wIds = wIds;
-      virtualclass.gObj.wbCount = wIds.length - 1;
-    }
+    // let wIds = localStorage.getItem('wIds');
+    // if (wIds != null) {
+    //   wIds = JSON.parse(wIds);
+    //   virtualclass.gObj.wIds = wIds;
+    //   virtualclass.gObj.wbCount = wIds.length - 1;
+    // }
 
     const previousApp = JSON.parse(localStorage.getItem('prevApp'));
     virtualclass.gObj.prevApp = previousApp;
@@ -109,7 +109,7 @@
 
     if (previousApp != null) {
       virtualclass.previousApp = previousApp;
-      let appNameUpper = previousApp.name;
+      const appNameUpper = previousApp.name;
 
       var appIs = appNameUpper.charAt(0).toUpperCase() + appNameUpper.slice(1);
       if (previousApp.name == 'Yts' || (previousApp.name == 'DocumentShare')) {
@@ -134,7 +134,6 @@
         const currSlide = localStorage.getItem('currSlide');
         if (currSlide != null) {
           virtualclass.gObj.currSlide = currSlide;
-          console.log('==== current slide ', virtualclass.gObj.currSlide);
         }
       }
     } else {
@@ -155,12 +154,7 @@
       virtualclass.isPrecheck = false;
       virtualclass.enablePreCheck = false;
     } else {
-      virtualclass.precheck = localStorage.getItem('precheck');
       virtualclass.enablePreCheck = true;
-      var isPrecheck = localStorage.getItem('precheck');
-      if (isPrecheck != null) {
-        virtualclass.isPrecheck = JSON.parse(isPrecheck);
-      }
     }
 
     if (virtualclass.enablePreCheck && (virtualclass.isPrecheck == null || !virtualclass.isPrecheck)) {
@@ -174,9 +168,9 @@
     virtualclass.appData.videoObj = videoObj;
   };
 
-  Bootstrap.prototype.appInit = async function () {
+  Bootstrap.prototype.appInit = function () {
     virtualclass.settings.init();
-    await virtualclass.init(wbUser.role, virtualclass.appData.appIs, virtualclass.appData.videoObj);
+    virtualclass.init(wbUser.role, virtualclass.appData.appIs, virtualclass.appData.videoObj);
 
     if (virtualclass.system.mybrowser.name === 'Edge') {
       const virtualclassContainer = document.getElementById('virtualclassCont');
@@ -185,10 +179,10 @@
       }
     }
 
-    if (!wbUser.virtualclassPlay) {
-      virtualclass.editorRich.veryInit();
-      // virtualclass.editorCode.veryInit();
-    }
+    // if (!wbUser.virtualclassPlay) {
+    //   virtualclass.editorRich.veryInit();
+    //   // virtualclass.editorCode.veryInit();
+    // }
     virtualclass.gObj.testChatDiv = document.querySelector('#chat_div');
     virtualclass.gObj.testChatDiv.attachShadow({ mode: 'open' });
   };
@@ -202,19 +196,42 @@
       }
     }
 
-    if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
+    if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
       await virtualclass.media.init();
     }
   };
 
-  Bootstrap.prototype.readyToGo = async function (){
+  Bootstrap.prototype.readyToGo = async function () {
     if (virtualclass.isPrecheck != null) {
       if (typeof virtualclass.videoHost.gObj.MYSPEED === 'undefined') {
         virtualclass.videoHost.gObj.MYSPEED = 1;
       }
       await virtualclass.videoHost.afterSessionJoin();
     }
+  };
 
+  Bootstrap.prototype.cache = async function () {
+    virtualclass.config.makeWebSocketReady = false;
+    await virtualclass.storage.getDataFromCacheAll();
+    await virtualclass.storage.getDataFromCacheIn();
+    await virtualclass.storage.getDataFromCacheOut();
+    virtualclass.config.makeWebSocketReady = true;
+    if (localStorage.getItem('precheck') !== null) {
+      virtualclass.makeReadySocket();
+    }
+  };
+
+  Bootstrap.prototype.notifyAboutCPU = function () {
+    if (!virtualclass.system.isCompatibleCPU()) {
+      virtualclass.view.createErrorMsg(virtualclass.lang.getString('notcompatiblecpu'), 'errorContainer', 'chatWidget', { className: 'notcompatiblecpu' });
+    }
+
+    if (!virtualclass.system.isCompatibleRAM()) {
+      virtualclass.view.createErrorMsg(virtualclass.lang.getString('notcompatibleram'), 'errorContainer', 'chatWidget', { className: 'notcompatiblecpu' });
+    }
   }
+
+
+
   window.Bootstrap = Bootstrap;
 }(window));

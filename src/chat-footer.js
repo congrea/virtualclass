@@ -1,5 +1,6 @@
 // widget for footer bar
-"use strict";
+
+
 (function ($) {
   $.widget('ui.footerbar', {
     options: {
@@ -74,7 +75,7 @@
             },
           });
 
-          if (virtualclass.gObj.hasOwnProperty('chatEnable')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'chatEnable')) {
             if (!virtualclass.gObj.chatEnable) {
               const chatCont = document.getElementById('chatrm');
               if (chatCont != null) {

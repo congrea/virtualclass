@@ -43,7 +43,10 @@ module.exports = {
     virtualclassSetting: 'writable',
     wbUser: 'writable',
     axios: 'readonly',
-    chatContainerEvent: 'writable'
+    sdworker: 'writable',
+    sworker: 'writable',
+    chatContainerEvent: 'writable',
+    OrderedList: 'writeable'
   },
   parserOptions: {
     ecmaVersion: 2017,

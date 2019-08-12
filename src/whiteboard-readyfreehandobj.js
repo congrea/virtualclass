@@ -29,10 +29,10 @@
          * @returns nothing
          */
 
-      drawStart(ev) {
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+      drawStart(ev, wId) {
+        const { vcan } = virtualclass.wb[wId];
         // if(vcan.main.freesvg == true){
-        if (virtualclass.wb[virtualclass.gObj.currWb].obj.freeDrawObj.freesvg == true) {
+        if (virtualclass.wb[wId].obj.freeDrawObj.freesvg == true) {
           const ctx = vcan.main.canvas.getContext('2d');
           // borderColor = "red";
           // this.fdObj = vcan.main.freeHandDrawing(ev, {borderColor: borderColor});
@@ -41,7 +41,7 @@
             lineWidth: this.freeDrawingLineWidth,
           });
           this.fdObj.init();
-          this.fdObj.fhdStart(ctx, vcan.utility.getReltivePoint(ev));
+          this.fdObj.fhdStart(ctx, vcan.utility.getReltivePoint(ev, wId));
 
           // }
         }
@@ -52,26 +52,17 @@
          * @param ev expects the mouse move event
          * @returns nothing
          */
-      wb_draw(ev) {
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
-        const pointer = vcan.utility.getReltivePoint(ev);
+      wb_draw(ev, wId) {
+        const { vcan } = virtualclass.wb[wId];
+        const pointer = vcan.utility.getReltivePoint(ev, wId);
         this.fdObj.fhRendering(pointer);
       },
-      finalizeDraw(ev) {
-        const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+      finalizeDraw(ev, wbId) {
+        const { vcan } = virtualclass.wb[wbId];
         // TODO this(finalizeDrawingPath) should be called over the object.
-        // prvObj =  vcan.main.freeDraw.finalizeDrawingPath();
-
-        virtualclass.wb[virtualclass.gObj.currWb].prvObj = this.fdObj.finalizeDrawingPath(virtualclass.wb[virtualclass.gObj.currWb].canvas);
+        virtualclass.wb[wbId].prvObj = this.fdObj.finalizeDrawingPath(virtualclass.wb[wbId].canvas, wbId);
         const lastChild = vcan.main.children[vcan.main.children.length - 1];
-        lastChild.mt = virtualclass.wb[virtualclass.gObj.currWb].utility.stringToNumber(virtualclass.wb[virtualclass.gObj.currWb].prvObj.path[virtualclass.wb[virtualclass.gObj.currWb].prvObj.path.length - 1][3]);
-
-        /** **
-           *
-           * This would I have disbaled can be critical
-           * virtualclass.wb[virtualclass.gObj.currWb].repObj.replayObjs.push(virtualclass.wb[virtualclass.gObj.currWb].prvObj);
-           *
-           *** */
+        lastChild.mt = virtualclass.wb[wbId].utility.stringToNumber(virtualclass.wb[wbId].prvObj.path[virtualclass.wb[wbId].prvObj.path.length - 1][3]);
       },
     };
   };

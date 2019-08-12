@@ -18,7 +18,10 @@
       addObject(obj) {
         if (typeof obj.coreObj === 'object') {
           if (obj.coreObj.type != 'freehand') {
+            console.log('====> all children sx', obj.coreObj.sx, ' sy', obj.coreObj.sy, ' ex ', obj.coreObj.ex, ' ey ', obj.coreObj.ey)
             vcan.main.children.push(obj.coreObj); // containing all the objects into children array
+            console.log('====> whiteboard pushing object');
+
           }
           const vcanvas = vcan.main.canvas;
           const ctx = vcanvas.getContext('2d');
@@ -56,13 +59,14 @@
       /**
        * this function need to be into another class
        */
-      readyObject(obj, replayObject) {
+      //readyObject(obj, replayObject, wid) {
+      readyObject(obj, wid) {
         var obj = vcan.extend({}, obj);
         // TODO this should be done into proper way or proper format
         // I think it would be better if below condition would
         // obj.id == undefined is used for drawing free draw for multi user
         // if (replayObject != true && obj.id == undefined) {
-        if (!replayObject && obj.id == undefined) {
+        if (obj.id == undefined) {
           vcan.main.id++;
           obj.id = vcan.main.id;
         }
@@ -91,47 +95,36 @@
         obj.lockRotation = false;
         obj.MIN_SCALE_LIMIT = 0.1;
         obj.borderOpacityWhenMoving = 0.4;
-        obj.color = (virtualclass.wb[virtualclass.gObj.currWb].activeToolColor == undefined) ? virtualclass.gObj.defaultcolor : virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
-        obj.stroke = (virtualclass.wb[virtualclass.gObj.currWb].currStrkSize == undefined) ? virtualclass.gObj.defalutStrk : virtualclass.wb[virtualclass.gObj.currWb].currStrkSize;
-        obj.fontSize = (virtualclass.wb[virtualclass.gObj.currWb].textFontSize == undefined) ? virtualclass.gObj.defalutFont : virtualclass.wb[virtualclass.gObj.currWb].textFontSize;
+        obj.color = (virtualclass.wb[wid].activeToolColor === undefined) ? virtualclass.gObj.defaultcolor : virtualclass.wb[wid].activeToolColor;
+        obj.stroke = (virtualclass.wb[wid].currStrkSize === undefined) ? virtualclass.gObj.defalutStrk : virtualclass.wb[wid].currStrkSize;
+        obj.fontSize = (virtualclass.wb[wid].textFontSize === undefined) ? virtualclass.gObj.defalutFont : virtualclass.wb[wid].textFontSize;
 
-        if (!obj.hasOwnProperty('theta')) {
+        if (!Object.prototype.hasOwnProperty.call(obj, 'theta')) {
           obj.theta = 0;
         }
-        // if(virtualclass.wb[virtualclass.gObj.currWb].scale != null){
-        //     obj.scaleX = virtualclass.wb[virtualclass.gObj.currWb].scale;
-        //     obj.scaleY = virtualclass.wb[virtualclass.gObj.currWb].scale;
-        // } else {
-        //     if (!obj.hasOwnProperty('scaleX')) {
-        //         obj.scaleX = 1;
-        //     }
-        //
-        //     if (!obj.hasOwnProperty('scaleY')) {
-        //         obj.scaleY = 1;
-        //     }
-        // }
 
-        if (!obj.hasOwnProperty('scaleX')) {
+
+        if (!Object.prototype.hasOwnProperty.call(obj, 'scaleX')) {
           obj.scaleX = 1;
         }
 
-        if (!obj.hasOwnProperty('scaleY')) {
+        if (!Object.prototype.hasOwnProperty.call(obj, 'scaleY')) {
           obj.scaleY = 1;
         }
 
-        if (obj.type == 'line') {
+        if (obj.type === 'line') {
           vcan.objLine = new vcan.line();
           vcan.objLine.init(obj);
-        } else if (obj.type == 'rectangle') {
+        } else if (obj.type === 'rectangle') {
           vcan.objRect = new vcan.rectangle();
           vcan.objRect.init(obj);
-        } else if (obj.type == 'oval') {
+        } else if (obj.type === 'oval') {
           vcan.objOval = new vcan.oval();
           vcan.objOval.init(obj);
-        } else if (obj.type == 'triangle') {
+        } else if (obj.type === 'triangle') {
           vcan.objTri = new vcan.triangle();
           vcan.objTri.init(obj);
-        } else if (obj.type == 'text') {
+        } else if (obj.type === 'text') {
           vcan.objTxt = new vcan.text();
           vcan.objTxt.init(obj);
         }
@@ -233,14 +226,14 @@
            * @param e {Event} event object
            * @return {String|Boolean} corner code (tl, tr, bl, br, etc.), or false if nothing is found
            */
-          obj.findTargetCorner = function (e) {
+          obj.findTargetCorner = function (e, wId) {
             const { offset } = vcan.main;
 
             if (!this.hasControls) {
               return false;
             }
             //  var pointer = actualPointer(e).
-            const pointer = vcan.utility.actualPointer(e);
+            const pointer = vcan.utility.actualPointer(e, wId);
             const ex = pointer.x - offset.x;
             const ey = pointer.y - offset.y;
             let xpoints;
@@ -634,13 +627,16 @@
           for (let i = 0; i < vcan.main.children.length; i++) {
             if (this.id == vcan.main.children[i].id) {
               var delObj = vcan.main.children[i];
+              console.log('====> whiteboard removing object');
               vcan.main.children.splice(i, 1);
+              console.log('====> whiteboard pushing deleting object');
               break;
             }
           }
 
           if (delObj != ' ') {
             vcan.main.children.push(delObj);
+            console.log('====> whiteboard pushing object');
             return true;
           }
 
@@ -651,13 +647,13 @@
            * eg:- drag, rotate and scale
            * this function does expects event as parameter
            */
-        obj.setupCurrentTransform = function (e) {
+        obj.setupCurrentTransform = function (e, wId) {
           const obj = vcan.main;
           let action = 'drag';
           let corner;
-          const pointer = vcan.utility.actualPointer(e);
+          const pointer = vcan.utility.actualPointer(e, wId);
 
-          if (corner = this.findTargetCorner(e)) {
+          if (corner = this.findTargetCorner(e, wId)) {
             action = (corner === 'ml' || corner === 'mr')
               ? 'scaleX'
               : (corner === 'mt' || corner === 'mb')

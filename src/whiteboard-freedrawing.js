@@ -38,13 +38,13 @@
           if (obj.borderColor == undefined) {
             this.freeDrawingColor = '#0000ff';
           } else {
-            this.freeDrawingColor = (virtualclass.wb[virtualclass.gObj.currWb].activeToolColor != undefined) ? virtualclass.wb[virtualclass.gObj.currWb].activeToolColor : '#0000ff';
+            this.freeDrawingColor = (virtualclass.wb[id].activeToolColor != undefined) ? virtualclass.wb[id].activeToolColor : '#0000ff';
           }
 
           if (obj.lineWidth != undefined) {
-            this.freeDrawingLineWidth = virtualclass.wb[virtualclass.gObj.currWb].currStrkSize * virtualclass.zoom.canvasScale;
+            this.freeDrawingLineWidth = virtualclass.wb[id].currStrkSize * virtualclass.zoom.canvasScale;
           } else {
-            this.freeDrawingLineWidth = virtualclass.wb[virtualclass.gObj.currWb].currStrkSize * virtualclass.zoom.canvasScale;
+            this.freeDrawingLineWidth = virtualclass.wb[id].currStrkSize * virtualclass.zoom.canvasScale;
           }
 
           // IMPORTANT:- this have done during the unit testing
@@ -59,6 +59,7 @@
          * @returns
          */
         fhdStart(ctx, pointer, crtMuser) {
+          console.log('=====> pointer start x, y ', pointer.x, pointer.y);
           const currTime = new Date().getTime();
           const { canvas } = vcan.main;
 
@@ -87,6 +88,7 @@
         // captureDrawingPath: function(evt) {
         // fhRendering: function(evt) {
         fhRendering(pointer, crtMuser) {
+          // console.log('=====> pointer move x, y ', pointer.x, pointer.y);
           const currTime = new Date().getTime();
           this.freeDrawingXPoints.push(pointer.x);
           this.freeDrawingYPoints.push(pointer.y);
@@ -104,7 +106,7 @@
          * @returns nothing
          *
          */
-        finalizeDrawingPath(mcanvas, crtMuser, pointer) {
+        finalizeDrawingPath(mcanvas, wbId) {
           const currTime = new Date().getTime();
           this.contextTop.closePath();
           this.isCurrentlyDrawing = false;
@@ -146,7 +148,7 @@
           p.init(path);
           // below line is commented out during unit testing
           // p = vcan.main.mcanvas.readyObject(p);	 //this should be done thorugh the script.js
-          p = mcanvas.readyObject(p);
+          p = mcanvas.readyObject(p, wbId);
           p.coreObj.type = 'freeDrawing'; // this is need to make because we are finializing the path into freedrawing
           p = p.coreObj;
 
@@ -228,6 +230,7 @@
           },
           objAdd(obj) {
             vcan.main.children.push(obj);
+            console.log('====> whiteboard pushing object');
             return this;
           },
         },

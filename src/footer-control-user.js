@@ -3,34 +3,33 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window, document) {
-  "use strict";
   const user = function (config) {
     return {
-      // TODO function name should be change
-      assignRole(role, app, toUser) {
+      readyLeftBar(role, app, toUser) {
         if (roles.hasControls()) {
           if (!roles.isEducator()) {
             virtualclass.html.leftAppBar();
           }
           virtualclass.attachFunction();
 
-          if (app == 'Whiteboard') {
-            const { vcan } = window.virtualclass.wb[virtualclass.gObj.currWb];
-            window.virtualclass.wb[virtualclass.gObj.currWb].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[virtualclass.gObj.currWb], true, virtualclass.gObj.currWb);
-          }
+          // if (app === 'Whiteboard') {
+          //   const { vcan } = window.virtualclass.wb[virtualclass.gObj.currWb];
+          //   window.virtualclass.wb[virtualclass.gObj.currWb].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[virtualclass.gObj.currWb], true, virtualclass.gObj.currWb);
+          // }
           // This is already Check at above, no need here
-          if (virtualclass.hasOwnProperty('previrtualclass')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass, 'previrtualclass')) {
             virtualclass.vutil.makeActiveApp(`virtualclass${app}`, virtualclass.previrtualclass);
           } else {
             virtualclass.vutil.makeActiveApp(`virtualclass${app}`);
           }
 
           // if (app == 'Whiteboard') {
-          if (typeof virtualclass.wb === 'object') {
-            virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasEnable();
-          }
+          // if (typeof virtualclass.wb === 'object') {
+          //   virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasEnable();
+          // }
         }
       },
+
 
       teacherIsAlreadyExist() {
         const allExistedUser = document.getElementById('chat_div').getElementsByClassName('ui-memblist-usr');
@@ -115,7 +114,7 @@
         if (userObj != null) {
           uObj = true;
           userObj = JSON.parse(userObj);
-          if (userObj.hasOwnProperty('currTeacher')) {
+          if (Object.prototype.hasOwnProperty.call(userObj, 'currTeacher')) {
             virtualclass.gObj[`${userId}currTeacher`] = {};
             if (userObj.currTeacher == true) {
               virtualclass.user.control.currTeacherAlready = true;
@@ -145,7 +144,7 @@
             var audBlock = elems[1];
             controlCont.appendChild(controller);
 
-            if (uObj && userObj.hasOwnProperty('aud')) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'aud')) {
               var audEnable = !!(userObj.aud);
             } else {
               var audEnable = true;
@@ -181,7 +180,7 @@
               });
             }
 
-            if (uObj && userObj.hasOwnProperty('chat')) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'chat')) {
               var chEnable = !!(userObj.chat);
             } else {
               var chEnable = true;
@@ -189,7 +188,7 @@
             virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'chat');
           } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')) {
             if (roles.hasAdmin()) {
-              if (uObj && userObj.hasOwnProperty(controls[i])) {
+              if (uObj && Object.prototype.hasOwnProperty.call(userObj, controls[i])) {
                 var editorBlockEnable = !!(userObj[controls[i]]);
               } else {
                 var editorBlockEnable = false; // By default it would be false
@@ -214,7 +213,7 @@
               }
             }
           } else if (controls[i] == 'RaiseHand') {
-            if (uObj && userObj.hasOwnProperty('raiseHand')) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'raiseHand')) {
               var rhEnable = !!(userObj.raiseHand);
             } else {
               var rhEnable = true;
@@ -263,6 +262,9 @@
          * @param writeMode expects true or flase
          */
         tooglDisplayEditorToolBar(writeMode) {
+          // this.editorStatus = writeMode;
+          console.log('====> editor Write mode ', writeMode);
+          virtualclass.editorRich.editorStatus = writeMode;
           const editorToolBars = document.getElementsByClassName('vceditor-toolbar');
           const editorToolBar = editorToolBars[0];
           if (editorToolBars.length > 0) {
@@ -295,7 +297,7 @@
               virtualclass.editorRich.control.toggleDisplayWriteModeMsgBox(false);
             }
             action = true;
-            localStorage.setItem('editorRich', action);
+            // localStorage.setItem('editorRich', action);
           } else {
             // If editor rich is disabled
             if (virtualclass.gObj.uid == msg.toUser) {
@@ -307,7 +309,7 @@
               this.disable(msg.toUser, 'editorRich', 'editorRich', 'editorRich');
             }
             action = false;
-            localStorage.setItem('editorRich', action);
+            // localStorage.setItem('editorRich', action);
           }
 
           if (!roles.hasAdmin()) {
@@ -346,7 +348,7 @@
               virtualclass.editorCode.control.toggleDisplayWriteModeMsgBox(false);
             }
             action = true;
-            localStorage.setItem('editorCode', action);
+            // localStorage.setItem('editorCode', action);
           } else {
             // If editor code is disabled
             if (virtualclass.gObj.uid == msg.toUser) {
@@ -357,7 +359,7 @@
               this.disable(msg.toUser, 'editorCode', 'editorCode', 'editorCode');
             }
             action = false;
-            localStorage.setItem('editorCode', action);
+            // localStorage.setItem('editorCode', action);
           }
 
           if (!roles.hasAdmin()) {
@@ -375,7 +377,7 @@
         },
 
         onmessage(e) {
-          if (!e.message.hasOwnProperty('toUser')) {
+          if (!Object.prototype.hasOwnProperty.call(e.message, 'toUser')) {
             e.message.toUser = virtualclass.gObj.uid;
           }
           this[`received_${e.message.control}`](e.message);
@@ -432,14 +434,14 @@
             let userObj = localStorage.getItem(`virtualclass${userId}`);
             userObj = JSON.parse(userObj);
 
-            if (virtualclass.gObj.hasOwnProperty(`${userId}currTeacher`)) {
-              if (virtualclass.gObj[`${userId}currTeacher`].ct || (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssign && userObj.currTeacher)) {
+            if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, `${userId}currTeacher`)) {
+              if (virtualclass.gObj[`${userId}currTeacher`].ct || (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'controlAssign') && virtualclass.gObj.controlAssign && userObj.currTeacher)) {
                 virtualclass.user.control.updateUser(userId, 'currTeacher', true);
               }
-            } else if (virtualclass.gObj.hasOwnProperty('controlAssign') && virtualclass.gObj.controlAssignId == userId) {
+            } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'controlAssign') && virtualclass.gObj.controlAssignId == userId) {
               virtualclass.user.control.updateUser(userId, 'currTeacher', true);
             }
-          } else if (control == 'audio'|| control == 'chat' ) {
+          } else if (control == 'audio' || control == 'chat') {
             elem.className = `icon-${control}DisImg block` + ` ${control}DisImg`;
           }
 
@@ -453,7 +455,7 @@
           const elem = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(selector);
 
           if (elem == null) {
-            console.log('Element is Null');
+            // console.log('Element is Null');
             return;
           }
           virtualclass.user.control._enable(elem, control, toUser, label);
@@ -524,7 +526,7 @@
               if (virtualclass.currApp == 'Video' && virtualclass.videoUl.player) {
                 ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
                 ioAdapter.mustSend({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' });
-                virtualclass.vutil.initDashboard();
+                virtualclass.dashboard.init();
                 virtualclass.vutil.removeBackgroundVideoApp();
               }
             } else {
@@ -602,66 +604,7 @@
         },
 
         _assign(userId, notsent, fromUserId) {
-          // debugger;
-          virtualclass.vutil.assignRole();
-          virtualclass.vutil.removeAppPanel();
-          virtualclass.system.setAppDimension();
-          // After resize we need tor render all the drawn object on whiteboard
-          virtualclass.vutil.renderWhiteboardObjectsIfAny();
 
-          if (!roles.hasAdmin()) {
-            const canvasWrapper = document.getElementById('vcanvas');
-            canvasWrapper.className = canvasWrapper.className.replace(/\bteacher\b/, ' ');
-            canvasWrapper.className = 'student';
-          }
-
-          localStorage.setItem('canvasDrwMsg', true);
-          const ssVideo = document.getElementById('virtualclassScreenShareLocalVideo');
-          if (ssVideo != null && ssVideo.tagName == 'VIDEO') {
-            virtualclass.vutil.videoTeacher2Student('ScreenShare', true);
-          }
-
-          let app;
-          if (virtualclass.currApp == 'ScreenShare') {
-            app = 'ss';
-            if (virtualclass[app].hasOwnProperty('currentStream')) {
-              // this.currentStream.stop(); is depricated from Google Chrome 45
-              // https://developers.google.com/web/updates/2015/07/mediastream-deprecations?hl=en
-              virtualclass[app].currentStream.getTracks()[0].stop();
-              // virtualclass[app].currentStream.stop();
-            }
-            virtualclass[app] = '';
-          }
-
-          if (typeof notsent === 'undefined') {
-            console.log('role transfer');
-            virtualclass.vutil.beforeSend({ assignRole: true, toUser: userId, cf: 'assignRole' }, userId);
-
-            if (roles.hasAdmin()) {
-              const erContId = `${userId}contreditorRichImg`;
-              const erContTag = document.getElementById(erContId);
-
-              if (erContTag.dataset.editorrichDisable == 'true') {
-                virtualclass.user.control.init.call(virtualclass.user, erContTag);
-              }
-              const ecContId = `${userId}contreditorCodeImg`;
-              const ecContTag = document.getElementById(ecContId);
-
-              if (ecContTag.dataset.editorcodeDisable == 'true') {
-                virtualclass.user.control.init.call(virtualclass.user, ecContTag);
-              }
-            }
-          }
-
-          // if role is student
-          if (!roles.hasAdmin()) {
-            if (typeof fromUserId === 'undefined') {
-              fromUserId = userId;
-            }
-            const controlContainer = document.getElementById(`${fromUserId}ControlContainer`).getElementsByClassName('controleCont')[0];
-            controlContainer.removeChild(controlContainer.firstChild);
-            localStorage.removeItem('aId');
-          }
         },
 
 
@@ -738,8 +681,8 @@
         },
 
         audioWidgetEnable(notActive) {
-          console.log('Audio enable true');
-          localStorage.setItem('audEnable', JSON.stringify({ ac: 'true' }));
+          // console.log('Audio enable true');
+          // localStorage.setItem('audEnable', JSON.stringify({ ac: 'true' }));
           if (localStorage.getItem('dvid') == null) {
             const studentSpeaker = document.getElementById('speakerPressOnce');
             if (studentSpeaker !== null) {
@@ -767,7 +710,7 @@
             ad.r = reason;
           }
 
-          console.log(`audEnable ${ad}`);
+          // console.log(`audEnable ${ad}`);
           // localStorage.setItem('audEnable', JSON.stringify(ad));
 
           const studentSpeaker = document.getElementById('audioWidget');
@@ -778,7 +721,7 @@
           this.videoDisable();
 
           // var alwaysPressElem = document.getElementById('speakerPressing');
-          if (virtualclass.gObj.hasOwnProperty('video')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'video')) {
             virtualclass.media.audio.studentNotSpeak();
             virtualclass.media.audio.clickOnceSpeaker('speakerPressOnce', 'alwaysDisable');
           }
@@ -849,7 +792,7 @@
           if (act === 'pc') {
             document.querySelector('#chat_div').classList.remove('chat_disabled');
             const allChatBoxes = document.getElementById('stickybar').getElementsByClassName('ui-chatbox');
-            for (var i = 0; i < allChatBoxes.length; i++) {
+            for (let i = 0; i < allChatBoxes.length; i++) {
               this.makeElemEnable(allChatBoxes[i]);
             }
           } else if (act === 'gc') {
@@ -891,30 +834,32 @@
           // todo need to configure meeting,
           // The functionality should same as normal mode
           if (roles.isStudent()) {
-            if (!virtualclass.gObj.stdaudioEnable) {
-              virtualclass.user.control.audioDisable();
-            } else {
-              // TODO check if need to audio enable
-            }
+            // if (virtualclass.settings.info.studentaudio === false) {
+            //   virtualclass.user.control.audioDisable();
+            // } else {
+            //   // TODO check if need to audio enable
+            // }
+            virtualclass.settings.userAudioIcon();
 
             if (virtualclass.system.mediaDevices.hasWebcam) {
               /* stdvideoEnable means it's click able for ON,
                *  and user need cick that button to share the video
                * */
-              if (virtualclass.videoHost) {
-                if (virtualclass.gObj.stdvideoEnable) {
-                  virtualclass.vutil.videoHandler('off');
-                  virtualclass.videoHost.toggleVideoMsg('enable');
-                } else {
-                  virtualclass.videoHost.toggleVideoMsg('disable');
-                  const vidIcon = document.querySelector('#videoSwitch');
-                  // TODO try to remove the section vidIcon.classList.contains("on")
-                  if (vidIcon != null && vidIcon.classList.contains('on')) {
-                    vidIcon.classList.remove('on');
-                    vidIcon.classList.add('off');
-                  }
-                }
-              }
+              // if (virtualclass.videoHost) {
+              //   if (virtualclass.gObj.stdvideoEnable) {
+              //     virtualclass.vutil.videoHandler('off');
+              //     virtualclass.videoHost.toggleVideoMsg('enable');
+              //   } else {
+              //     virtualclass.videoHost.toggleVideoMsg('disable');
+              //     const vidIcon = document.querySelector('#videoSwitch');
+              //     // TODO try to remove the section vidIcon.classList.contains("on")
+              //     if (vidIcon != null && vidIcon.classList.contains('on')) {
+              //       vidIcon.classList.remove('on');
+              //       vidIcon.classList.add('off');
+              //     }
+              //   }
+              // }
+              virtualclass.settings.userVideoIcon();
             }
           } else {
             const mutebtn = document.getElementById('contrAudioAllImg');
@@ -1038,7 +983,7 @@
           var editor = virtualclass.vutil.smallizeFirstLetter(editor);
 
           // var allEditorController = document.getElementsByClassName('controller' + editor);
-          if (virtualclass.gObj.hasOwnProperty('testChatDiv')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'testChatDiv')) {
             const allEditorController = chatContainerEvent.elementFromShadowDom(`.controller${editor}`, 'all');
             for (let i = 0; i < allEditorController.length; i++) {
               allEditorController[i].style.display = action;
@@ -1194,15 +1139,27 @@
        * it's helper function
        */
       mediaSliderUI(type) {
-        // const lable = (type === 'audio') ? 'Audio' : 'Video';
+        let action;
+        let getMediaAction;
         const lable = virtualclass.vutil.capitalizeFirstLetter(type);
         let spanTag = document.querySelector(`.bulkUserActions #contr${lable}AllImg`);
-        const settings = virtualclass.settings.info;
-        const getMediaAction = virtualclass.user.defaultSettings(type, settings);
+        if (type === 'chat') {
+          action = 'pc';
+        } else if (type === 'groupChat') {
+          action = 'gc';
+        } else if (type === 'audio' || type === 'video') {
+          action = type;
+        }
+
+        if (type === 'raisehand' || type === 'userlist') {
+          getMediaAction = virtualclass.settings.info[type];
+        } else {
+          getMediaAction = virtualclass.settings.info[`student${action}`];
+        }
         const input = document.querySelector(`.bulkUserActions #contr${lable}All input`);
         const cont = document.querySelector(`.congrea #contr${lable}All`);
-        const localAction = (getMediaAction === 'enable') ? 'disable' : 'enable';
-        if (getMediaAction != null) {
+        const localAction = (getMediaAction === true) ? 'disable' : 'enable';
+        if (getMediaAction !== null) {
           spanTag.setAttribute('data-action', localAction);
           spanTag.className = `slider round icon-all-${type}-${localAction} enable congtooltip cgIcon`;
           spanTag.dataset.title = virtualclass.lang.getString(`${localAction}All${lable}`);
@@ -1228,46 +1185,34 @@
         } else {
           const that = this;
           spanTag.addEventListener('click', () => {
-            let actionToPerform;
-            if (type === 'audio' || type === 'video' || type === 'chat' || type === 'groupChat') {
-              const setLable = virtualclass.vutil.capitalizeFirstLetter(type);
-              actionToPerform = that.toogleIcon(type);
-              const act = (actionToPerform === 'enable');
-              let typeSend;
-              if (type === 'chat') {
-                typeSend = 'pc';
-              } else if (type === 'groupChat') {
-                typeSend = 'gc';
-              } else {
-                typeSend = type;
-              }
+            const setLable = virtualclass.vutil.capitalizeFirstLetter(type);
+            const actionToPerform = that.toogleIcon(type);
+            const act = (actionToPerform === 'enable');
+            let typeSend;
+            if (type === 'chat') {
+              typeSend = 'pc';
+            } else if (type === 'groupChat') {
+              typeSend = 'gc';
+            } else if (type === 'raisehand' || type === 'userlist') {
+              virtualclass.settings.applySettings(act, type);
+            } else {
+              typeSend = type;
+            }
+            if (type !== 'raisehand' || type !== 'userlist') {
               virtualclass.settings.applySettings(act, `student${typeSend}`);
-              if (typeof actionToPerform !== 'undefined') {
-                localStorage.setItem(`all${setLable}Action`, actionToPerform);
-                // if (type === 'video') {
-                //   that.toggleAllVideo.call(virtualclass.user, actionToPerform, type);
-                // } else
-                if (type === 'audio' || type === 'chat') {
-                  that.toggleAllUserListIcon.call(virtualclass.user, actionToPerform, type);
-                }
+            }
+
+            if (typeof actionToPerform !== 'undefined') {
+              // localStorage.setItem(`all${setLable}Action`, actionToPerform);
+              // if (type === 'video') {
+              //   that.toggleAllVideo.call(virtualclass.user, actionToPerform, type);
+              // } else
+              if (type === 'audio' || type === 'chat') {
+                that.toggleAllUserListIcon.call(virtualclass.user, actionToPerform, type);
               }
             }
           });
         }
-      },
-
-      defaultSettings(type, obj) {
-        let actionAV; let
-          value;
-        // TODO, review this code
-        for (const propname in obj) {
-          value = obj[propname];
-          if (type === 'audio' && propname === 'studentaudio' || type === 'video' && propname === 'studentvideo'
-            || type === 'chat' && propname === 'studentpc' || type === 'groupChat' && propname === 'studentgc') {
-            actionAV = (value === true) ? 'enable' : 'disable';
-          }
-        }
-        return actionAV;
       },
 
       chatBoxesSwitch() {
@@ -1289,7 +1234,7 @@
             },
           });
 
-          if (virtualclass.gObj.hasOwnProperty('chatEnable')) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'chatEnable')) {
             if (!virtualclass.gObj.chatEnable) {
               const chatCont = document.getElementById('chatrm');
               if (chatCont != null) {
@@ -1346,7 +1291,7 @@
         if (userObj != null) {
           uObj = true;
           userObj = JSON.parse(userObj);
-          if (userObj.hasOwnProperty('currTeacher')) {
+          if (Object.prototype.hasOwnProperty.call(userObj, 'currTeacher')) {
             virtualclass.gObj[`${userId}currTeacher`] = {};
             if (userObj.currTeacher == true) {
               virtualclass.user.control.currTeacherAlready = true;
@@ -1374,8 +1319,8 @@
 
           if (allSpans[i].className.indexOf('chat') > -1) {
             let chEnable;
-            if (uObj && userObj.hasOwnProperty('chat')) {
-              if (virtualclass.settings.user.hasOwnProperty(userId)) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'chat')) {
+              if (Object.prototype.hasOwnProperty.call(virtualclass.settings.user, userId)) {
                 const userSettings = virtualclass.settings.parseSettings(virtualclass.settings.user[userId]);
                 chEnable = userSettings.studentpc;
               } else {
@@ -1387,16 +1332,16 @@
             virtualclass.user.control.changeAttribute(userId, allSpans[i], chEnable, 'chat', 'chat');
           } else if (allSpans[i].className.indexOf('aud') > -1) {
             let audEnable;
-            if (uObj && userObj.hasOwnProperty('aud')) {
-              if (virtualclass.settings.user.hasOwnProperty(userId)) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'aud')) {
+              if (Object.prototype.hasOwnProperty.call(virtualclass.settings.user, userId)) {
                 const userSettings = virtualclass.settings.parseSettings(virtualclass.settings.user[userId]);
                 audEnable = userSettings.studentaudio;
               } else {
                 audEnable = virtualclass.settings.info.studentaudio;
               }
             } else {
-              const elem = document.querySelector("#contrAudioAll");
-              if (virtualclass.jId != null && elem.classList.contains("disable")) {
+              const elem = document.querySelector('#contrAudioAll');
+              if (virtualclass.jId != null && elem.classList.contains('disable')) {
                 audEnable = virtualclass.settings.info.studentaudio;
               } else {
                 audEnable = virtualclass.settings.info.studentaudio; // default value for userlist mic enable or disable
@@ -1420,26 +1365,26 @@
               }
             }
           } else if (allSpans[i].className.indexOf('RaiseHand') > -1) {
-            if (uObj && userObj.hasOwnProperty('raiseHand')) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'raiseHand')) {
               var rhEnable = !!(userObj.raiseHand);
             } else {
               var rhEnable = false;
             }
             virtualclass.user.control.changeAttribute(userId, allSpans[i], rhEnable, 'RaiseHand', 'RaiseHand');
           } else if (allSpans[i].className.indexOf('stdscreen') > -1) {
-            if (virtualclass.gObj.studentSSstatus.hasOwnProperty('whoIsSharing')) {
+            if (Object.prototype.hasOwnProperty.call(virtualclass.gObj.studentSSstatus, 'whoIsSharing')) {
               virtualclass.vutil.initssSharing(virtualclass.gObj.whoIsSharing);
             }
           } else if (allSpans[i].className.indexOf('editorRich') > -1 && virtualclass.currApp == 'EditorRich') {
-            var elem = document.querySelector('#alleditorRichContainerAnch');
-            if (uObj && userObj.hasOwnProperty('editorRich')) {
+            const elem = document.querySelector('#alleditorRichContainerAnch');
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'editorRich')) {
               var edEnable = !!(userObj.editorRich);
             } else {
               var edEnable = false;
             }
             virtualclass.user.control.changeAttribute(userId, allSpans[i], edEnable, 'editorRich', 'editorRich');
           } else if (allSpans[i].className.indexOf('editorCode') > -1) {
-            if (uObj && userObj.hasOwnProperty('editorCode')) {
+            if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'editorCode')) {
               var edcEnable = !!(userObj.editorCode);
             } else {
               var edcEnable = false;

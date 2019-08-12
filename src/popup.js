@@ -128,7 +128,7 @@ const PopUp = (function (window, undefined) {
     const mainModelCont = document.getElementById('popupContainer');
     mainModelCont.classList.remove('playPopup', 'loading');
 
-    console.log('close popup');
+    // console.log('close popup');
     if (virtualclass.recorder.waitServer == false) {
       const virtualclassToolCont = document.getElementById('virtualclassOptionsCont');
       if (virtualclassToolCont != null) {
@@ -162,7 +162,7 @@ const PopUp = (function (window, undefined) {
 
       const chatRoom = document.getElementById('chatrm');
       if (chatRoom != null) {
-        console.log('zIndex performing');
+        // console.log('zIndex performing');
         chatRoom.style.zIndex = 1;
       }
 
@@ -281,7 +281,7 @@ const PopUp = (function (window, undefined) {
       mszPopup = document.querySelector('#virtualclassCont.congrea #popupContainer #uploadppturl');
       popupClose = document.querySelector('#virtualclassCont.congrea #popupContainer #pptPopupClose');
     } else {
-      console.log('popup works for video and presentation');
+      // console.log('popup works for video and presentation');
     }
     mszPopup.style.display = 'block';
     mszPopup.dataset.displaying = true;
@@ -378,7 +378,7 @@ const PopUp = (function (window, undefined) {
     const that = this;
 
     const attachConfirmInit = function () {
-      console.log(this.id);
+      // console.log(this.id);
       that.action(this.id, cb, label);
     };
 

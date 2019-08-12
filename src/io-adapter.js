@@ -42,37 +42,53 @@ var ioAdapter = {
       delay = 1000;
     }
 
-    if (this.sendWithDelayIdentifier.hasOwnProperty(uniqueIdentifier) && ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]) {
+    if (Object.prototype.hasOwnProperty.call(this.sendWithDelayIdentifier, uniqueIdentifier) && ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]) {
       // console.log ("Cancelling send " + sendFunction + " message " + JSON.stringify(msg));
-      console.log(`Cancelling send ${sendFunction} message ${msg.cf}`);
+      // console.log(`Cancelling send ${sendFunction} message ${msg.cf}`);
       clearTimeout(ioAdapter.sendWithDelayIdentifier[uniqueIdentifier]);
       ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
     }
 
     ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = setTimeout(() => {
-      console.log(`Sending With Delay ${sendFunction} message ${msg.cf}`);
+      // console.log(`Sending With Delay ${sendFunction} message ${msg.cf}`);
       ioAdapter[sendFunction](msg);
       ioAdapter.sendWithDelayIdentifier[uniqueIdentifier] = 0;
     }, delay);
   },
 
   mustSend(msg) {
+    if (!virtualclass.config.makeWebSocketReady) {
+      return;
+    }
     this.serial++;
     msg.serial = this.serial;
     this.adapterMustData[this.serial] = { type: 'broadcast', m: msg };
     this.send(msg);
-    ioStorage.dataAdapterStore({ type: 'broadcast', user: wbUser.id, m: msg }, this.serial);
+
   },
 
   send(msg) {
+    if (!virtualclass.config.makeWebSocketReady) {
+      return;
+    }
     const cfun = 'broadcastToAll'; // BroadcastToALl (Do not send to self)
     // console.log('Packet sending');
     io.send(msg, cfun, null);
   },
 
   mustSendAll(msg) {
+    if (!virtualclass.config.makeWebSocketReady) {
+      return;
+    }
     // var orisend = JSON.parse(JSON.stringify(msg));
+    // const data = {
+    //   m: msg,
+    //   type: 'broadcastToAll',
+    //   user: virtualclass.vutil.getUserAllInfo(virtualclass.gObj.uid, virtualclass.connectedUsers),
+    //   userto: virtualclass.gObj.uid
+    // }
     this.mustSendUser(msg, virtualclass.gObj.uid);
+    // io.onRecJson(data);
     this.mustSend(msg);
   },
 
@@ -85,27 +101,25 @@ var ioAdapter = {
 
   // TODO Function below still needs to have missing packets functionality
   mustSendUser(msg, touser) {
-    // debugger;
-
+    if (!virtualclass.config.makeWebSocketReady) {
+      return;
+    }
 
     this.validateAllVariables(touser);
     if (typeof msg.serial !== 'undefined' && msg.serial) {
       msg.serial = null;
     }
     this.userSerial[touser]++;
-    console.log(`USER s.n ${this.userSerial[touser]} user ${touser}`);
+    // console.log(`USER s.n ${this.userSerial[touser]} user ${touser}`);
     msg.userSerial = this.userSerial[touser];
     this.userAdapterMustData[touser][msg.userSerial] = { type: 'broadcastToAll', m: msg };
     this.sendUser(msg, touser);
-    // TODO need to fix following
-    ioStorage.dataUserAdapterMustData({
-      type: 'broadcastToAll',
-      user: wbUser.id,
-      m: msg,
-    }, `${touser}_${msg.userSerial}`);
   },
 
   sendUser(msg, touser) {
+    if (!virtualclass.config.makeWebSocketReady) {
+      return;
+    }
     const cfun = 'broadcastToAll';
     io.send(msg, cfun, touser);
   },
@@ -140,7 +154,7 @@ var ioAdapter = {
       };
       io.realSend(obj);
       io.recordingSet = true;
-      console.log(`==== Send Recording a/v ${sendData}`);
+      // console.log(`==== Send Recording a/v ${sendData}`);
     }
   },
 

@@ -48,9 +48,24 @@
     initPlay: false,
     isTrimRecordingNow: false,
     joinRoomRecevied: false,
-    totalTrimTime : 0,
+    totalTrimTime: 0,
     trimofftime: 0,
     trimontime: 0,
+    totalRecordingTime: null,
+    actualPlayRecordingTime: 0,
+    timeStamp: null,
+    recViewData: {
+      'x-api-key': wbUser.lkey,
+      'x-congrea-authuser': wbUser.auth_user,
+      'x-congrea-authpass': wbUser.auth_pass,
+      'x-congrea-room': wbUser.room,
+      'x-congrea-session': wbUser.session,
+      'data': {},
+    },
+    recording: 'on',
+    viewPoint: null,
+    count: 0,
+    remainingSeconds: 0,
     init() {
       if (!this.attachSeekHandler) {
         this.attachSeekHandler = true;
@@ -62,6 +77,7 @@
         playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
         virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
         window.addEventListener('mouseup', this.finalSeek.bind(this));
+        // window.addEventListener('onunload', this.recDataSend(this));
 
         virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
         virtualclassApp.addEventListener('touchend', this.finalSeek.bind(this));
@@ -77,19 +93,20 @@
 
         downloadProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, downloadProgressBar));
         playProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, playProgressBar));
-
         virtualclass.pageVisible(this.handlPageActiveness.bind(this));
       }
 
-      if (!this.hasOwnProperty('prvNum')) {
+      if (!Object.prototype.hasOwnProperty.call(this, 'prvNum')) {
         this.subRecordingIndex = 0;
         this.masterIndex = 0;
         this.subRecordings = this.masterRecordings[this.masterIndex];
         this.play();
         this.prvNum = this.masterIndex;
       }
+    },
 
-
+    recDataSend() { // data send to server when browser unload, beforeload and recording complete.
+      navigator.sendBeacon('https://api.congrea.net/data/analytics/recording', JSON.stringify(this.recViewData));
     },
 
     handlPageActiveness() {
@@ -112,7 +129,7 @@
     },
 
     async replayFromStart() {
-      console.log('Replay from start');
+      // console.log('Replay from start');
       this.playTime = 150;
       this.tempPlayTime = this.playTime;
       const tempMasterRecordings = this.masterRecordings;
@@ -211,7 +228,7 @@
     requestDataFromServer(file, xhr) {
       if (this.isFileVcp(file)) {
         if (!this.alreadyRequested[file]) {
-          console.log(`requested file ${file}`);
+          // console.log(`requested file ${file}`);
           // this.displayWaitPopupIfNot(virtualclass.lang.getString("plswaitwhile"));
 
           const fileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${virtualclass.recorder.session}/${file}`;
@@ -237,7 +254,7 @@
           // virtualclass.recorder.xhr[file].init();
           // virtualclass.recorder.xhr[file].loadData(fileUrl, this.afterDownloading.bind(this, file));
         } else {
-          console.log(`Already requested file ${file}`);
+          // console.log(`Already requested file ${file}`);
           if (virtualclass.recorder.totalRecordingFiles.length > 0) {
             const NextfileName = virtualclass.recorder.totalRecordingFiles.shift(); // Call Next
             virtualclass.recorder.requestDataFromServer(NextfileName, xhr);
@@ -315,7 +332,7 @@
     },
 
     makeRecordingQueue(file, rawData) {
-      console.log(`File formatting ${file}`);
+      // console.log(`File formatting ${file}`);
       let data; let
         metaData;
       let chunk = [];
@@ -323,6 +340,12 @@
       const allRecordigns = rawData.trim().split(/(?:\r\n|\r|\n)/g); // Getting recordings line by line
       let time;
       let type;
+      let recordingOn = null;
+      let recordingOff = null;
+
+      if (this.viewPoint === null) {
+        this.fetchRecViewData(); // todo, put this code into requestingListOfFiles
+      }
 
       for (let i = 0; i < allRecordigns.length; i++) {
         if (allRecordigns[i] != null && allRecordigns[i] != '') {
@@ -330,7 +353,6 @@
           metaData = allRecordigns[i].substring(0, 21);
           data = allRecordigns[i].substring(22, allRecordigns[i].length);
           [time, type] = metaData.split(' ');
-          this.tempTime = time;
           time = Math.trunc(time / 1000000);
           /** Converting time, from macro to mili seconds * */
           if (this.refrenceTime != null) {
@@ -364,25 +386,33 @@
               if (this.isTrimRecordingNow) { // Recording off
                 chunk.push({ playTime: 0, recObjs: data, type });
                 if (data.indexOf('{"ac":21,"cf":"recs"') > -1) { // Check if recording turned on, trim off
-                  console.log('=== trim off');
+                  // console.log('=== trim off');
                   this.trimofftime = time;
                   this.isTrimRecordingNow = false;
                   const trimdifftime = this.trimofftime - this.trimontime;
                   this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - trimdifftime;
+                  this.totalrecordingTime = this.totalTimeInMiliSeconds; // Todo, disable the line
                   this.trimofftime = 0;
                   this.trimontime = 0;
                 }
+              } else if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // Check if recording turned off, trim on
+                // console.log('=== trim on');
+                this.isTrimRecordingNow = true;
+                chunk.push({ playTime: 0, recObjs: data, type });
+                this.trimontime = time;
               } else {
-                if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // Check if recording turned off, trim on
-                  console.log('=== trim on');
-                  this.isTrimRecordingNow = true;
-                  chunk.push({ playTime: 0, recObjs: data, type });
-                  this.trimontime = time;
-                } else {
-                  chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
-                }
+                chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
               }
             } else {
+              if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // TODO, convert this block of code into function
+                recordingOff = time;
+              } else if (data.indexOf('{"ac":21,"cf":"recs"') > -1) {
+                recordingOn = time;
+              }
+              if (recordingOff !== null && recordingOn !== null && this.totalRecordingTime === null) {
+                const trimtime = recordingOn - recordingOff;
+                this.totalRecordingTime = this.totalTimeInMiliSeconds - trimtime;
+              }
               chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
             }
 
@@ -394,7 +424,6 @@
               }
             }
             this.refrenceTime = time;
-
           }
         }
       }
@@ -421,7 +450,7 @@
         const masterIndex = this.masterRecordings.length - 1;
         const subIndex = this.masterRecordings[this.masterRecordings.length - 1].length - 1;
         this.actualTotalPlayTime = this.getTotalTimeInMilSeconds(masterIndex, subIndex);
-        this.currentMin =  this.actualTotalPlayTime / 1000 / 60;
+        this.currentMin = this.actualTotalPlayTime / 1000 / 60;
       } else {
         // this.actualTotalPlayTime = this.currentMin;
         const currentMin = (singleFileTime - this.firstTimeInSeconds) / 60;
@@ -430,7 +459,7 @@
         }
       }
 
-      console.log('==== downloaded total min ', this.currentMin);
+      // console.log('==== downloaded total min ', this.currentMin);
 
       this.updateTotalTime();
       this.UIdownloadProgress();
@@ -452,7 +481,7 @@
         ContinueBtn.removeEventListener('click', this.handleStartToPlay.bind(this));
       }
       virtualclass.gesture.clickToContinue();
-      console.log('===== Start to play');
+      // console.log('===== Start to play');
       this.startToPlay();
       ev.currentTarget.classList.remove('askToPlayCont');
     },
@@ -462,7 +491,7 @@
         this.playStart = true;
         this.playInt();
         virtualclass.popup.closeElem();
-      } else if (this.hasOwnProperty('isPausedByNotPresent')) {
+      } else if (Object.prototype.hasOwnProperty.call(this, 'isPausedByNotPresent')) {
         delete this.isPausedByNotPresent;
         this.subRecordingIndex = 0;
         this.subRecordings = this.masterRecordings[this.masterIndex];
@@ -502,11 +531,11 @@
     },
 
     playInt() {
-      console.log('=====Play init recording=====');
+      // console.log('=====Play init recording=====');
       virtualclass.popup.closeElem();
       virtualclass.recorder.init(virtualclass.recorder.masterRecordings);
       // virtualclass.recorder.playStart = true;
-      virtualclass.config.setNewSession('thisismyplaymode')
+      virtualclass.config.setNewSession('thisismyplaymode');
       virtualclass.recorder.initController();
       virtualclass.media.audio.initAudiocontext();
     },
@@ -535,7 +564,7 @@
     },
 
     playProgressOutput(ev) {
-      console.log('Offset ', ev.offsetX);
+      // console.log('Offset ', ev.offsetX);
     },
 
     getOffset(e) {
@@ -553,7 +582,6 @@
       if (ev.offsetX == undefined) {
         ev = this.getOffset(ev);
       }
-
       this.pauseBeforeSeek = this.controller.pause;
 
       if (!this.startSeek) {
@@ -569,9 +597,9 @@
 
         this.seekValueInPercentage = seekValueInPer;
 
-        console.log(`====Seek start ${this.seekValueInPercentage} ev current target=${ev.currentTarget.id}`);
+        // console.log(`====Seek start ${this.seekValueInPercentage} ev current target=${ev.currentTarget.id}`);
       } else {
-        console.log('Earlier seek start is not end yet.');
+        // console.log('Earlier seek start is not end yet.');
       }
     },
 
@@ -581,14 +609,16 @@
     },
 
     async seek(seekPointPercent) {
+      console.log('====> final seek suman 2', this.seekValueInPercentage);
       virtualclass.videoHost.UI.hideTeacherVideo();
+      // this.getRecViewData();
       const index = this.getSeekPoint(seekPointPercent);
       // console.log('Total till play, Index val master index ' + index.master + ' sub index' + index.sub + ' in percent' + seekPointPercent);
       if ((index.master < this.masterIndex) || (index.master === this.masterIndex && index.sub < this.subRecordingIndex)) {
         await this.replayFromStart();
       }
       await this._seek(index);
-      console.log('seek is finished');
+      // console.log('seek is finished');
       this.triggerSynchPacket();
     },
 
@@ -604,6 +634,7 @@
     },
 
     _seek(index) {
+      console.log('====> final seek suman 3', this.seekValueInPercentage);
       this.controller._pause();
       let subLength;
       // while (index ? this.masterIndex <= index.master : !this.seekFinished()){
@@ -642,6 +673,7 @@
               }
 
               io.onRecMessage(this.convertInto({ data: this.msg }));
+              console.log('master index ', this.masterIndex, ' sub index', this.subRecordingIndex);
             } else { // Binary
               this.msg = this.subRecordings[this.subRecordingIndex].recObjs;
 
@@ -685,11 +717,11 @@
         }
       }
 
-      console.log('==== recording final 1');
+      // console.log('==== recording final 1');
     },
 
     handleSyncStringPacket() {
-      if (virtualclass.currApp === 'Poll' && typeof virtualclass.poll.pollState.data === 'object' && virtualclass.poll.hasOwnProperty('recordStartTime')) {
+      if (virtualclass.currApp === 'Poll' && typeof virtualclass.poll.pollState.data === 'object' && Object.prototype.hasOwnProperty.call(virtualclass.poll, 'recordStartTime')) {
         const pollStartTime = this.getTotalTimeInMilSeconds(virtualclass.poll.recordStartTime.data.masterIndex, virtualclass.poll.recordStartTime.data.subIndex);
         if (virtualclass.poll.dataRec.setting.timer) { // showTimer() for remaining time
           const pollData = virtualclass.poll.pollState;
@@ -703,7 +735,7 @@
           // for elapsed timer
         }
       } else if (virtualclass.currApp === 'Video' && typeof virtualclass.videoUl === 'object'
-        && virtualclass.videoUl.hasOwnProperty('videoStartTime')) {
+        && Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'videoStartTime')) {
         const videoStartTime = this.getTotalTimeInMilSeconds(virtualclass.videoUl.videoStartTime.data.masterIndex, virtualclass.videoUl.videoStartTime.data.subIndex);
         const videoElapsedtime = (this.elapsedPlayTime - videoStartTime);
         const videoSeekTime = (this.elapsedPlayTime - videoStartTime) / 1000;
@@ -711,7 +743,7 @@
         if (typeof virtualclass.videoUl.player === 'object') {
           virtualclass.videoUl.playVideo(videoSeekTime);
         } else {
-          console.log('====Video init to play start');
+          // console.log('====Video init to play start');
           if (this.pauseBeforeSeek) {
             virtualclass.videoUl.isPaused = true;
           } else {
@@ -733,29 +765,29 @@
           virtualclass.quiz.plugin.method.startTimer(quizElapsedTime, timeDisplayInto, 'asc', 'vmQuiz');
         }
       }
-
     },
 
     pollUpdateTime(pollStartTime, pollData) {
-      const minMiliseconds = pollData.data.stdPoll.newTime.min * 60 * 1000;
-      const secMiliseconds = pollData.data.stdPoll.newTime.sec * 1000;
-      const totalMiniSeconds = (minMiliseconds + secMiliseconds);
+      // const minMiliseconds = pollData.data.stdPoll.newTime.min * 60 * 1000;
+      // const secMiliseconds = pollData.data.stdPoll.newTime.sec * 1000;
+      // const totalMiniSeconds = (minMiliseconds + secMiliseconds);
+      const totalMiniSeconds = pollData.data.setting.time.totalInSeconds * 1000;
       const toSeekTime = (totalMiniSeconds - (this.elapsedPlayTime - pollStartTime));
       const timer = this.convertIntoReadable(toSeekTime);
-      virtualclass.poll.newTimer.sec = timer.s;
-      virtualclass.poll.newTimer.min = timer.m;
-      virtualclass.poll.showTimer(virtualclass.poll.newTimer);
+      // virtualclass.poll.newTimer.sec = timer.s;
+      // virtualclass.poll.newTimer.min = timer.m;
+      virtualclass.poll.remainingTimer({min: timer.m, sec: timer.s});
     },
 
     handleSyncPacket() {
       if (this.binarySyncMsg) {
-        // if(this.binarySyncMsg != null && syncMsg.app == 'ss' && !this.binarySyncMsg.hasOwnProperty('unshareScreen')){
-        console.log('Get full screen share');
+        // if(this.binarySyncMsg != null && syncMsg.app == 'ss' && !Object.prototype.hasOwnProperty.call(this.binarySyncMsg, 'unshareScreen')){
+        // console.log('Get full screen share');
         let startSubIndex = this.binarySyncMsg.data.subIndex;
         let startMindex = this.binarySyncMsg.data.masterIndex;
 
         while (startMindex <= this.masterIndex) {
-          console.log(`Start from master index ${startMindex} from Subindex ${startSubIndex}`);
+          // console.log(`Start from master index ${startMindex} from Subindex ${startSubIndex}`);
           const subRecordings = this.masterRecordings[startMindex];
           let subLength = null;
 
@@ -774,10 +806,10 @@
                   io.onRecMessage(this.convertInto({ data: this.msg }));
                 }
               } else {
-                console.log('Either this.msg is null or string');
+                // console.log('Either this.msg is null or string');
               }
             } catch (e) {
-              console.log(`PLAY ERROR ${e.errorCode}`);
+              // console.log(`PLAY ERROR ${e.errorCode}`);
             }
           }
 
@@ -788,15 +820,89 @@
             startSubIndex = 0;
           }
         }
-        console.log(`===== Elapsed time 2 ==== ${this.elapsedPlayTime}`);
+        // console.log(`===== Elapsed time 2 ==== ${this.elapsedPlayTime}`);
         this.playProgressBar(this.elapsedPlayTime);
         // }
       }
     },
 
+    fetchRecViewData() {
+      const url = 'https://api.congrea.net/data/analytics/recording/fetch';
+      axios.post(url,
+        {
+          session: wbUser.session,
+          uid: wbUser.rid,
+        },
+        {
+          method: 'POST',
+          headers: {
+            'x-api-key': wbUser.lkey,
+            'x-congrea-authuser': wbUser.auth_user,
+            'x-congrea-authpass': wbUser.auth_pass,
+            'x-congrea-room': wbUser.room,
+            'content-type': 'application/json',
+          },
+        }).then((response) => {
+        this.viewPoint = this.mapper(response.data.Items[0]);
+        // console.log('recording view data '+data);
+      });
+    },
+
+    mapper(data) {
+      const S = 'S';
+      const SS = 'SS';
+      const NN = 'NN';
+      const NS = 'NS';
+      const BS = 'BS';
+      const BB = 'BB';
+      const N = 'N';
+      const BOOL = 'BOOL';
+      const NULL = 'NULL';
+      const M = 'M';
+      const L = 'L';
+      if (isObject(data)) {
+        const keys = Object.keys(data);
+        while (keys.length) {
+          const key = keys.shift();
+          const types = data[key];
+
+          if (isObject(types) && types.hasOwnProperty(S)) {
+            data[key] = types[S];
+
+          } else if (isObject(types) && types.hasOwnProperty(N)) {
+            data[key] = parseFloat(types[N]);
+          } else if (isObject(types) && types.hasOwnProperty(BOOL)) {
+            data[key] = types[BOOL];
+          } else if (isObject(types) && types.hasOwnProperty(NULL)) {
+            data[key] = null;
+          } else if (isObject(types) && types.hasOwnProperty(M)) {
+            data[key] = this.mapper(types[M]);
+          } else if (isObject(types) && types.hasOwnProperty(L)) {
+            data[key] = this.mapper(types[L]);
+          } else if (isObject(types) && types.hasOwnProperty(SS)) {
+            data[key] = types[SS];
+          } else if (isObject(types) && types.hasOwnProperty(NN)) {
+            data[key] = types[NN];
+          } else if (isObject(types) && types.hasOwnProperty(BB)) {
+            data[key] = types[BB];
+          } else if (isObject(types) && types.hasOwnProperty(NS)) {
+            data[key] = types[NS];
+          } else if (isObject(types) && types.hasOwnProperty(BS)) {
+            data[key] = types[BS];
+          }
+        }
+      }
+      return data;
+
+      function isObject(value) {
+        return typeof value === 'object' && value !== null;
+      }
+    },
+
     getSeekPoint(seekPointPercent) {
       const seekVal = Math.trunc((this.totalTimeInMiliSeconds * seekPointPercent) / 100);
-      console.log(`Seek index ${seekVal}`);
+      this.count = Math.floor(seekVal / 5000);
+      // console.log(`Seek index ${seekVal}`);
       /** Todo THIS should be optimize, don't use nested loop * */
       let totalTimeMil = 0;
       for (let i = 0; i < this.masterRecordings.length; i++) {
@@ -804,7 +910,7 @@
           totalTimeMil += this.masterRecordings[i][j].playTime;
           if (totalTimeMil == seekVal) {
             return { master: i, sub: j };
-            console.log(`Seek index i = ${i} j=${j} totalTime=${totalTimeMil}`);
+            // console.log(`Seek index i = ${i} j=${j} totalTime=${totalTimeMil}`);
           } if (totalTimeMil >= seekVal) {
             if (j > 0) {
               j--;
@@ -816,7 +922,7 @@
                 j = 0;
               }
             }
-            console.log(`Seek index i = ${i} j=${j} totalTime=${totalTimeMil}`);
+            // console.log(`Seek index i = ${i} j=${j} totalTime=${totalTimeMil}`);
             return { master: i, sub: j };
           }
         }
@@ -864,7 +970,7 @@
         clearTimeout(this.playTimeout);
       }
 
-      if (!this.hasOwnProperty('playTime')) {
+      if (!Object.prototype.hasOwnProperty.call(this, 'playTime')) {
         this.subRecordings = this.masterRecordings[this.masterIndex];
         io.cfg = JSON.parse(this.subRecordings[this.subRecordingIndex].recObjs);
         virtualclass.gObj.uRole = 's'; // if teacher sets there would ask for choose screen share
@@ -904,7 +1010,7 @@
               app: 'Video',
               data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
             };
-            console.log('Capture video');
+            // console.log('Capture video');
           } else if (virtualclass.currApp === 'Quiz'
             && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('"m":{"quiz":{"quizMsg":"stdPublish",') > -1) {
             virtualclass.quiz.quizStartTime = {
@@ -913,8 +1019,36 @@
             };
           }
         }
+
+        // Todo, convert this block of code into function
+        if (this.timeStamp === null) {
+          this.timeStamp = new Date(new Date().toUTCString()).getTime(); // get time once when recording play.
+          const recordingTime = (this.totalrecordingTime === undefined) ? this.totalTimeInMiliSeconds : this.totalrecordingTime;
+          const length = Math.floor(recordingTime / 5000);
+          if (this.viewPoint !== undefined) {
+            this.recViewData.data[this.timeStamp] = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
+          } else {
+            this.recViewData.data[this.timeStamp] = new Array(length); // Todo, try to avoid the fixed length
+          }
+          this.recViewData.data.rtt = recordingTime;
+          this.recViewData['x-congrea-uid'] = wbUser.rid;
+        }
+        if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"ac":11,"cf":"recs"') > -1) {
+          this.recording = 'off';
+        } else if (this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"ac":21,"cf":"recs"') > -1) {
+          this.recording = 'on';
+        }
+        if (this.recording === 'on') { // add time of actual play recording packets but trim packets time not added.
+          this.actualPlayRecordingTime += this.subRecordings[this.subRecordingIndex].playTime;
+          if (this.actualPlayRecordingTime >= 5000) {
+            this.remainingSeconds = this.actualPlayRecordingTime - 5000;
+            this.recViewData.data[this.timeStamp].splice(this.count, 1, { [this.count]: this.timeStamp });
+            this.count++;
+            this.actualPlayRecordingTime = this.remainingSeconds;
+          }
+        }
       } catch (e) {
-        console.log(`PLAY ERROR ${e.errorCode}`);
+        // console.log(`PLAY ERROR ${e.errorCode}`);
       }
     },
 
@@ -930,7 +1064,7 @@
     triggerPauseVideo() {
       const playAct = document.querySelector('#dispVideo');
       if (virtualclass.videoUl && virtualclass.videoUl.player) {
-        console.log('VIDEO IS PAUSED');
+        // console.log('VIDEO IS PAUSED');
         virtualclass.videoUl.player.pause();
         virtualclass.videoUl.isPaused = true;
       }
@@ -939,7 +1073,7 @@
 
     triggerPlayVideo() {
       if (virtualclass.currApp == 'Video' && virtualclass.videoUl && virtualclass.videoUl.player) {
-        console.log('VIDEO IS Played');
+        // console.log('VIDEO IS Played');
         virtualclass.videoUl.player.play();
         virtualclass.videoUl.isPaused = false;
       }
@@ -976,6 +1110,7 @@
     },
 
     initReplayWindow() {
+      // this.getRecViewData();
       this.triggerPauseVideo();
       virtualclass.popup.replayWindow();
       virtualclass.popup.sendBackOtherElems();
@@ -1052,7 +1187,7 @@
     initController() {
       const playControllerCont = document.getElementById('playControllerCont');
       if (playControllerCont != null) {
-        var that = this;
+        var that = this; // TODO Remove that
         // init fast forward
         const recButton = document.getElementsByClassName('ff');
         for (let i = 0; i < recButton.length; i++) {
@@ -1075,6 +1210,7 @@
         recPause.addEventListener('click', () => {
           if (recPause.parentNode.classList.contains('recordingPlay')) {
             that.initRecPause();
+            // this.getRecViewData();
           } else {
             that.initRecPlay();
           }
@@ -1119,12 +1255,12 @@
         this.ff = 1;
         this.pause = false;
         virtualclass.recorder.play();
-        console.log('====== Recording play');
+        // console.log('====== Recording play');
       },
 
       _pause() {
         this.pause = true;
-        console.log('====== Recording pause');
+        // console.log('====== Recording pause');
       },
 
       fastForward(by) {
@@ -1175,23 +1311,23 @@
     },
 
     triggerDownloader() {
-      console.log('Init trigger time to request 1');
+      // console.log('Init trigger time to request 1');
       this.tryNumberOfTimes = 1;
-      if (this.hasOwnProperty('triggerDownloaderTime')) {
+      if (Object.prototype.hasOwnProperty.call(this, 'triggerDownloaderTime')) {
         clearInterval(this.triggerDownloaderTime);
       }
-      if (this.hasOwnProperty('startTimeCounter')) {
+      if (Object.prototype.hasOwnProperty.call(this, 'startTimeCounter')) {
         clearInterval(this.startTimeCounter);
       }
 
       let timerCounter = 0;
       this.startTimeCounter = setInterval(() => {
         timerCounter++;
-        console.log(`=====Timer ===${timerCounter}`);
+        // console.log(`=====Timer ===${timerCounter}`);
       }, 1000);
 
       this.triggerDownloaderTime = setInterval(() => {
-        console.log('Init trigger time to request 2');
+        // console.log('Init trigger time to request 2');
         if (this.tryNumberOfTimes > 3) {
           virtualclass.recorder.allFileFound = true;
           clearInterval(this.triggerDownloaderTime.triggerDownloaderTime);
@@ -1204,12 +1340,12 @@
           });
         }
 
-        console.log(`Time to request ${TIME_TO_REQUEST}`);
+        // console.log(`Time to request ${TIME_TO_REQUEST}`);
       }, TIME_TO_REQUEST); // 3 is now, but that could be 5 minute
     },
 
     afterDownloadingList(rawData) {
-      if (rawData != null && rawData.hasOwnProperty('Item')) {
+      if (rawData != null && Object.prototype.hasOwnProperty.call(rawData, 'Item')) {
         const sessionStart = +(rawData.Item.time.N);
         const currentTime = new Date().getTime();
         this.sessionStartTime = (currentTime - sessionStart);
@@ -1406,23 +1542,24 @@
       if (!ev.offsetX) {
         ev = this.getOffset(ev);
       }
-      if (this.startSeek && this.hasOwnProperty('seekValueInPercentage')) {
-        console.log(`====Seek up ${this.seekValueInPercentage}`);
+      if (this.startSeek && Object.prototype.hasOwnProperty.call(this, 'seekValueInPercentage')) {
+        // console.log(`====Seek up ${this.seekValueInPercentage}`);
         if (this.downloadInPercentage < this.seekValueInPercentage) {
           this.seekValueInPercentage = Math.trunc(this.downloadInPercentage);
         }
         if (this.seekValueInPercentage > 0) {
+          console.log('====> final seek suman ', this.seekValueInPercentage);
           await this.seek(this.seekValueInPercentage);
         }
 
 
         if (this.pauseBeforeSeek) {
-          console.log('=== Video pause ');
+          // console.log('=== Video pause ');
           this.controller._pause();
           this.triggerPauseVideo();
         } else {
-          console.log('=== Video play ');
-          console.log('==== recording final 2');
+          // console.log('=== Video play ');
+          // console.log('==== recording final 2');
           this.controller._play();
           this.triggerPlayVideo();
         }
@@ -1433,7 +1570,7 @@
       virtualclassCont.classList.remove('recordSeeking');
 
 
-      console.log(ev.offsetX);
+      // console.log(ev.offsetX);
       delete this.seekValueInPercentage;
       this.startSeek = false;
 

@@ -24,6 +24,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath."external/src/poll-d3.js" ?>"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath."external/src/poll-c3.js" ?>"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/video.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/youtube.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/videojs-contrib-hls.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath.'external/src/s3.fine-uploader.js'; ?>"></script>
@@ -70,7 +71,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/webrtc-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pptshare.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-packet-queue.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-optimization.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/receive-messages-response.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lzstring.js"></script>
@@ -157,6 +158,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/receive-function.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/config.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/bootstrap.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/order-list.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/index.js"></script>
 

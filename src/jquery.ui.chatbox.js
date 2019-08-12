@@ -177,11 +177,11 @@
         })
         .click((event) => {
           self.toggleContentbox(event);
-          if (localStorage.getItem(self.options.id) == 'hidden') {
-            localStorage.removeItem(self.options.id);
-          } else {
-            localStorage.setItem(self.options.id, 'hidden');
-          }
+          // if (localStorage.getItem(self.options.id) == 'hidden') {
+          //   localStorage.removeItem(self.options.id);
+          // } else {
+          //   // localStorage.setItem(self.options.id, 'hidden');
+          // }
           return false;
         })
 

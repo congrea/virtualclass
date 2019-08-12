@@ -98,23 +98,27 @@ let newScrollVal = 0;
        * @param event is event object
        * returns horizontal and vertical position
        */
-      actualPointer(event) {
+      actualPointer(event, wId) {
+        // if (wId == undefined) {
+        //   debugger;
+        // }
+        console.log('===> suman wb id ', wId);
         // TODO this method needs fixing
         // virtualclass.leftPosX defines the scroll position from left side
         // virtualclass.topPosY defines the scroll position from top side
-        var posY = 0;
-        var posX = 0;
-        if (virtualclass.gObj.currWb != null) {
-          if (typeof virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY === 'undefined') {
-            var posY = 0;
+        let posY = 0;
+        let posX = 0;
+        if (wId != null) {
+          if (typeof virtualclass.pdfRender[wId].topPosY === 'undefined') {
+            posY = 0;
           } else {
-            var posY = virtualclass.pdfRender[virtualclass.gObj.currWb].topPosY;
+            posY = virtualclass.pdfRender[wId].topPosY;
           }
 
-          if (typeof virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX === 'undefined') {
-            var posX = 0;
+          if (typeof virtualclass.pdfRender[wId].leftPosX === 'undefined') {
+            posX = 0;
           } else {
-            var posX = virtualclass.pdfRender[virtualclass.gObj.currWb].leftPosX;
+            posX = virtualclass.pdfRender[wId].leftPosX;
           }
         }
         return { x: vcan.utility.pointerX(event) + posX, y: vcan.utility.pointerY(event) + posY };
@@ -148,21 +152,21 @@ let newScrollVal = 0;
             + (docElement.scrollLeft || body.scrollLeft)
             - (docElement.clientLeft || 0));
       },
-      /**
-       * Gets the actual vertical position
-       * expects as event object as parameter
-       * @param is an event object
-       * returns vertical position
-       */
-      pointerYOld(event) {
-        /* TODO follow the standard as framework done */
-        const docElement = document.documentElement;
-        const body = document.body || { scrollTop: 0 };
-
-        return ((typeof event.clientY !== 'unknown' ? event.clientY : 0)
-        + (docElement.scrollTop || body.scrollTop)
-        - (docElement.clientTop || 0));
-      },
+      // /**
+      //  * Gets the actual vertical position
+      //  * expects as event object as parameter
+      //  * @param is an event object
+      //  * returns vertical position
+      //  */
+      // pointerYOld(event) {
+      //   /* TODO follow the standard as framework done */
+      //   const docElement = document.documentElement;
+      //   const body = document.body || { scrollTop: 0 };
+      //
+      //   return ((typeof event.clientY !== 'unknown' ? event.clientY : 0)
+      //   + (docElement.scrollTop || body.scrollTop)
+      //   - (docElement.clientTop || 0));
+      // },
 
       pointerY(event) {
         const ev = event.type.indexOf('touch') >= 0 ? 'touch' : 'mouse';
@@ -188,9 +192,9 @@ let newScrollVal = 0;
        * @return {Object} object with "x" and "y" number values
        */
 
-      getReltivePoint(e) {
+      getReltivePoint(e, wId) {
         const { offset } = vcan.main;
-        const pointer = vcan.utility.actualPointer(e);
+        const pointer = vcan.utility.actualPointer(e, wId);
         // console.log('whiteboard canvas offset x = ' + (pointer.x - offset.x) + ' y =' + (pointer.y - offset.y));
         return {
           x: (pointer.x - offset.x),
@@ -222,75 +226,75 @@ let newScrollVal = 0;
         object.setActive(true);
         return object;
       },
-      /* TODO this funciton should be optimized in future
-       this function should be done properly
-       this is not good way to talk	it woulld be greater if we can ignore this function */
-      updateObj(obj) {
-        const newObj = {};
-        for (prop in obj) {
-          if (prop != 'oCoords') {
-            newObj[prop] = obj[prop];
-          } else {
-            newObj.start = {};
-            newObj.end = {};
-            newObj.start.x = obj[prop].tl.x;
-            newObj.start.y = obj[prop].tl.y;
-            newObj.end.x = obj[prop].br.x;
-            newObj.end.y = obj[prop].br.y;
-          }
-        }
-        return newObj;
-      },
-      /*
-       * imporant right now this funciton is not using
-       */
-      /**
-       * Sets the cursor depending on where the canvas is being hovered.
-       * Note: very buggy in Opera
-       * @method setCursorFromEvent
-       * @param e {Event} Event object
-       * @param target {Object} Object that the mouse is hovering, if so.
-       */
+      // /* TODO this funciton should be optimized in future
+      //  this function should be done properly
+      //  this is not good way to talk	it woulld be greater if we can ignore this function */
+      // updateObj(obj) {
+      //   const newObj = {};
+      //   for (prop in obj) {
+      //     if (prop != 'oCoords') {
+      //       newObj[prop] = obj[prop];
+      //     } else {
+      //       newObj.start = {};
+      //       newObj.end = {};
+      //       newObj.start.x = obj[prop].tl.x;
+      //       newObj.start.y = obj[prop].tl.y;
+      //       newObj.end.x = obj[prop].br.x;
+      //       newObj.end.y = obj[prop].br.y;
+      //     }
+      //   }
+      //   return newObj;
+      // },
+      // /*
+      //  * imporant right now this funciton is not using
+      //  */
+      // /**
+      //  * Sets the cursor depending on where the canvas is being hovered.
+      //  * Note: very buggy in Opera
+      //  * @method setCursorFromEvent
+      //  * @param e {Event} Event object
+      //  * @param target {Object} Object that the mouse is hovering, if so.
+      //  */
+      //
+      // setCursorFromEvent(vcanMain, e, target) {
+      //   const s = vcanMain.upperCanvasEl.style;
+      //   if (!target) {
+      //     s.cursor = this.defaultCursor;
+      //     return false;
+      //   }
+      //   const corner = target.findTargetCorner(e);
+      //   if (!corner) {
+      //     s.cursor = vcanMain.hoverCursor;
+      //   } else if (corner in vcanMain.cursorMap) {
+      //     s.cursor = vcanMain.cursorMap[corner];
+      //   } else if (corner === 'mtr' && target.hasRotatingPoint) {
+      //     s.cursor = vcanMain.rotationCursor;
+      //   } else {
+      //     s.cursor = this.defaulCursor;
+      //     return false;
+      //   }
+      //
+      //   return true;
+      // },
+      // /**
+      //  * this function returns the number object
+      //  * those have created on canavas
+      //  * TODO this function should used
+      //  * instead of vcan.main.children
+      //  */
+      // getChildren() {
+      //   return vcan.main.children;
+      // },
+      //
+      // isCeventExist(event) {
+      //   if (Object.prototype.hasOwnProperty.call(event, 'detail')) {
+      //     return Object.prototype.hasOwnProperty.call(event, 'cevent');
+      //   }
+      //   return false;
+      // },
 
-      setCursorFromEvent(vcanMain, e, target) {
-        const s = vcanMain.upperCanvasEl.style;
-        if (!target) {
-          s.cursor = this.defaultCursor;
-          return false;
-        }
-        const corner = target.findTargetCorner(e);
-        if (!corner) {
-          s.cursor = vcanMain.hoverCursor;
-        } else if (corner in vcanMain.cursorMap) {
-          s.cursor = vcanMain.cursorMap[corner];
-        } else if (corner === 'mtr' && target.hasRotatingPoint) {
-          s.cursor = vcanMain.rotationCursor;
-        } else {
-          s.cursor = this.defaulCursor;
-          return false;
-        }
-
-        return true;
-      },
-      /**
-       * this function returns the number object
-       * those have created on canavas
-       * TODO this function should used
-       * instead of vcan.main.children
-       */
-      getChildren() {
-        return vcan.main.children;
-      },
-
-      isCeventExist(event) {
-        if (event.hasOwnProperty('detail')) {
-          return event.hasOwnProperty('cevent');
-        }
-        return false;
-      },
-
-      updateCordinate(e) {
-        const pointer = vcan.utility.actualPointer(e);
+      updateCordinate(e, wId) {
+        const pointer = vcan.utility.actualPointer(e, wId);
         const customEve = {};
         customEve.detail = {}; // that should be elimanted
         customEve.clientX = pointer.x;

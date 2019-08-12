@@ -162,15 +162,6 @@
    * This funcitons sends the status to Server.
    * like 1 for enable 0 disable
    */
-  page.prototype.sendStatus2 = function (data) {
-    if (this.type == 'notes') {
-      // cthis.dts.sendStatusNote();
-      data.page_id = this.rid;
-    } else {
-      data.lc_content_id = this.rid;
-    }
-    this.xhrSend(data);
-  },
 
   page.prototype.sendStatus = function (data) {
     if (this.type == 'notes') {
@@ -183,7 +174,7 @@
     }
 
     virtualclass.xhrn.vxhrn.post(virtualclass.api.UpdateDocumentStatus, data).then((msg) => {
-      console.log(`Msg ${msg.data}`);
+      // console.log(`Msg ${msg.data}`);
     });
     // this.xhrSend(data);
   };
@@ -209,7 +200,7 @@
         virtualclass[this.module]._rearrange(orders);
       }
     } else {
-      console.log('Document share:- Element is missing');
+      // console.log('Document share:- Element is missing');
     }
   };
 
@@ -348,11 +339,8 @@
       cthis: null,
       init(cthis, parent) {
         this.cthis = cthis;
-
-        // if(cthis.type=="video"){
-        const helem = this.element(cthis, 'status', this.cthis.status);
-        // var helem = this.element('status');
-        const delem = this.element(cthis, 'delete');
+        this.element(cthis, 'status', this.cthis.status);
+        this.element(cthis, 'delete');
         if (cthis.type == 'video') {
           this.element(cthis, 'edit');
         }
@@ -453,7 +441,7 @@
 
           if (this.source) {
             this.source.classList.add('dragElem');
-            console.log('add dragelem');
+            // console.log('add dragelem');
             var elem;
             // if(this.cthis.type == 'video'){
             //
@@ -510,12 +498,12 @@
         },
         handleDragEnd(e, cthis) {
           if (virtualclass.currApp == 'DocumentShare') {
-            virtualclass.dts.indexNav.oldOrder = virtualclass.dts.order;
+            virtualclass.dts.indexNav.oldOrder = virtualclass.orderList.DocumentShare.ol.order;
           }
           cthis.rearrange();
           e.preventDefault();
           this.source.classList.remove('dragElem');
-          console.log('remove dragelem');
+          // console.log('remove dragelem');
 
           if (cthis.type == 'video' || cthis.type == 'notes' || cthis.type == 'ppt') {
             if (cthis.type == 'video') {
@@ -571,37 +559,48 @@
           cthis.sendStatus(data);
         },
 
-        status(elem, cthis) {
-          // alert(cthis.rid + ' from events');
+        status(elem, currObj) {
           if (+(elem.dataset.status) == 0) {
-            if (cthis.type == 'video' || cthis.type == 'ppt') {
-              elem.title = 'Disable';
-            } else {
-              elem.title = 'Hide';
-            }
-            cthis.status = 1;
-            cthis.enable();
+            this.enableElement(elem, currObj);
           } else {
-            if (cthis.type == 'video' || cthis.type == 'ppt') {
-              elem.title = 'Enable';
-            } else {
-              elem.title = 'Show';
-            }
-            cthis.status = 0;
-            cthis.disable();
+            this.disableElement(elem, currObj);
           }
-          elem.dataset.status = cthis.status;
-          const parElem = elem.closest(`.link${cthis.type}`);
-          parElem.dataset.status = cthis.status;
+          this.setStatusToElement(elem, currObj);
+        },
+
+
+        disableElement(elem, currObj) {
+          if (currObj.type == 'video' || currObj.currObj == 'ppt') {
+            elem.title = 'Enable';
+          } else {
+            elem.title = 'Show';
+          }
+          currObj.status = 0;
+          currObj.disable();
+        },
+
+        enableElement(elem, currObj) {
+          if (currObj.type === 'video' || currObj.type === 'ppt') {
+            elem.title = 'Disable';
+          } else {
+            elem.title = 'Hide';
+          }
+          currObj.status = 1;
+          currObj.enable();
+        },
+
+        setStatusToElement(elem, currObj) {
+          elem.dataset.status = currObj.status;
+          const parElem = elem.closest(`.link${currObj.type}`);
+          if (parElem != null) {
+            parElem.dataset.status = currObj.status;
+          }
+
           elem.querySelector('.statusanch').innerHTML = `status${elem.dataset.status}`;
 
           // var data = {'action': 'status', 'status': elem.dataset.status};
-          if (cthis.status == 0) {
-            var data = { action: 'disable' };
-          } else {
-            var data = { action: 'enable' };
-          }
-          cthis.sendStatus(data);
+          const status = (currObj.status == 0) ? 'disable' : 'enable';
+          currObj.sendStatus(status);
         },
 
         delete(elem, cthis, e) {
@@ -611,7 +610,7 @@
           // } else {
           //
 
-          virtualclass.dashBoard.userConfirmation(virtualclass.lang.getString('deletepopup'), (confirmation) => {
+          virtualclass.dashboard.userConfirmation(virtualclass.lang.getString('deletepopup'), (confirmation) => {
             if (confirmation) {
               if (cthis.type == 'notes') {
                 virtualclass[cthis.module]._deleteNote(cthis.rid, cthis.type);

@@ -17,9 +17,9 @@
     },
     // TODO function need to be revised
     isCanvasSupport(navigator, browserName, version) {
-      console.log('is canvas support');
-      console.log(navigator);
-      console.log(browserName);
+      // console.log('is canvas support');
+      // console.log(navigator);
+      // console.log(browserName);
       if (browserName == 'MSIE') {
         return version == 9;
       }
@@ -31,7 +31,7 @@
      */
     // TODO parameter passed are not being used
     isWebSocketSupport(navigator, browser, version) {
-      if (typeof window.WebSocket !== 'undefined' && (typeof window.WebSocket === 'function' || typeof window.WebSocket === 'object') && window.WebSocket.hasOwnProperty('OPEN')) {
+      if (typeof window.WebSocket !== 'undefined' && (typeof window.WebSocket === 'function' || typeof window.WebSocket === 'object') && Object.prototype.hasOwnProperty.call(window.WebSocket, 'OPEN')) {
         return true;
       }
       return false;
@@ -124,7 +124,7 @@
      * @param resolution : an object containing inner width and inner height of window
      */
     measureResoultion(resolution) {
-      if (!virtualclass.gObj.hasOwnProperty('measureDimension')) {
+      if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'measureDimension')) {
         const element = document.getElementById('virtualclassCont');
         const offset = virtualclass.vutil.getElementOffset(element);
         const offsetLeft = offset.x;
@@ -192,21 +192,21 @@
           // canvas.parentNode.height = canvas.height + 'px';
 
           canvasWrapper.style.height = `${canvas.height - 30}px`;
-          console.log(`canvasWrapper height${canvasWrapper.style.height}`);
+          // console.log(`canvasWrapper height${canvasWrapper.style.height}`);
 
-          console.log(`canvas width ${canvas.width}`);
+          // console.log(`canvas width ${canvas.width}`);
           // var element = document.getElementById('canvas');
           const offset = vcan.utility.getElementOffset(document.getElementById(`canvas${id}`));
 
           vcan.main.offset.x = offset.x;
-          console.log(`canvas offset x=${vcan.main.offset.x} canvas offset y=${offset.y}`);
+          // console.log(`canvas offset x=${vcan.main.offset.x} canvas offset y=${offset.y}`);
         }
       }
     },
 
     /** Handle container dimension 1* */
     setCanvasWrapperDimension(measureRes, id) {
-      console.log('Width of canvas wrapper, not seeting ');
+      // console.log('Width of canvas wrapper, not seeting ');
       return;
       const { vcan } = virtualclass.wb[id];
       if (typeof vcan.main.canvas !== 'undefined') {
@@ -241,8 +241,8 @@
 
         // canvas wrapper height 1
         canvasWrapper.style.height = `${canWrapperHeight}px`;
-        console.log(`canvasWrapper width${canvasWrapper.style.width}`);
-        console.log(`canvasWrapper height${canvasWrapper.style.height}`);
+        // console.log(`canvasWrapper width${canvasWrapper.style.width}`);
+        // console.log(`canvasWrapper height${canvasWrapper.style.height}`);
       }
     },
     // TODO this function is not being invoked
@@ -419,7 +419,7 @@
         if (this.isIPad()) {
           if (roles.isStudent()) {
             if (bversion >= 8) {
-              console.log('do nothing');
+              // console.log('do nothing');
               // var audioWrapper = document.getElementById('audioWidget');
               // audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
             } else {
@@ -453,7 +453,6 @@
     mediaDevices: {
       webcamErr: [],
       async getMediaDeviceInfo() {
-
         if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
           // Firefox 38+ seems having support of enumerateDevicesx
           navigator.enumerateDevices = async function () {
@@ -505,7 +504,7 @@
         try {
           devices = await navigator.enumerateDevices();
         } catch (err) {
-          console.log(err);
+          // console.log(err);
         }
 
 
@@ -571,12 +570,12 @@
           // there is no 'videoouput' in the spec.
           MediaDevices.push(device);
         });
-      }
+      },
     },
 
     webpInit() {
       virtualclass.modernizr.on('webp', (result) => {
-        if (virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'Edge'){
+        if (virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'Edge') {
           virtualclass.system.webpSupport = false;
         } else {
           virtualclass.system.webpSupport = !!(result);
@@ -585,11 +584,11 @@
     },
 
     initResize() {
-      if (virtualclass.gObj.hasOwnProperty('measureDimension')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'measureDimension')) {
         delete virtualclass.gObj.measureDimension;
       }
 
-      if (virtualclass.gObj.hasOwnProperty('initResize')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'initResize')) {
         clearTimeout(virtualclass.gObj.initResize);
       }
 
@@ -675,6 +674,20 @@
       return [browser.name, browser.version];
     }
     return M;
+  };
+
+  system.isCompatibleCPU = function () {
+    if (window.navigator.hardwareConcurrency) {
+      return !(window.navigator.hardwareConcurrency < 4);
+    }
+    return true;
+  };
+
+  system.isCompatibleRAM = function () {
+    if (window.navigator.deviceMemory) {
+      return !(window.navigator.deviceMemory < 6);
+    }
+    return true;
   };
 
 

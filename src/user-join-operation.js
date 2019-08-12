@@ -1,4 +1,4 @@
-"use strict";
+
 
 function triggerInitShareScreen(sType, setTime) {
   if (typeof virtualclass.getDataFullScreen === 'function') {
@@ -34,10 +34,10 @@ function memberUpdateWithDelay(e, f) {
     const index = virtualclass.gObj.memberlistpending.findIndex(x => x.userid == e.removeUser);
     if (index > -1) {
       virtualclass.gObj.memberlistpending.splice(index, 1);
-      console.log('===== JOIN user left call');
+      // console.log('===== JOIN user left call');
     } else {
       setTimeout(() => {
-        console.log('===== JOIN user left call');
+        // console.log('===== JOIN user left call');
         memberUpdate(e, f);
       }, 0);
     }
@@ -60,7 +60,7 @@ function memberUpdateWithDelay(e, f) {
         virtualclass.gObj.memberlistpending.push(userlist[i]);
       }
     }
-    console.log('member list pending(memberlistpending) udpate ');
+    // console.log('member list pending(memberlistpending) udpate ');
   }
 
   /**
@@ -68,11 +68,11 @@ function memberUpdateWithDelay(e, f) {
    * after every 1500 miliseconds, which means the setimeout would not be set on every user joined
    * * */
   if (virtualclass.gObj.memberlistpending.length > 0) {
-    if (!virtualclass.gObj.hasOwnProperty('memberUpdateDelayTimer')) {
+    if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'memberUpdateDelayTimer')) {
       virtualclass.gObj.memberUpdateDelayTimer = setTimeout(() => {
         memberUpdate(null, 'added');
         delete virtualclass.gObj.memberUpdateDelayTimer;
-        if (!virtualclass.gObj.hasOwnProperty('addEventToChatDiv')) {
+        if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'addEventToChatDiv')) {
           const chatDiv = virtualclass.gObj.testChatDiv.shadowRoot.querySelector('#subchat');
           chatDiv.addEventListener('click', (element) => {
             const targetElem = element.srcElement;
@@ -105,7 +105,7 @@ const defaultOperation = function (e, sType) {
       }
     }
   } else {
-    console.log('Does not need to say hello to new user');
+    // console.log('Does not need to say hello to new user');
     // We nee to send the current cursor to new user for for whiteboards
     // sendCursorToNewUser(e, virtualclass.jId);
   }
@@ -123,48 +123,52 @@ const defaultOperation = function (e, sType) {
   if (roles.hasAdmin()) {
     if (virtualclass.gObj.uid == virtualclass.jId) {
       if (!virtualclass.gObj.studentSSstatus.mesharing) {
-        if (virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE') {
-          ioAdapter.mustSend({ eddata: 'currAppEditor', et: virtualclass.currApp });
-        }
+
+        // if (virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE') {
+        //   ioAdapter.mustSend({ eddata: 'currAppEditor', et: virtualclass.currApp });
+        // }
 
         // On reload or new connection, make sure all students have same editor data
         if (virtualclass.editorRich.isVcAdapterIsReady('editorRich')) {
-          virtualclass.editorRich.responseToRequest();
+         virtualclass.editorRich.responseToRequest();
         } else {
-          console.log('Editor Rich vcAdapter is not ready');
+          // console.log('Editor Rich vcAdapter is not ready');
         }
 
-        if (virtualclass.editorCode.isVcAdapterIsReady('editorCode')) {
-          virtualclass.editorCode.responseToRequest();
-        } else {
-          console.log('Editor Code vcAdapter is not ready');
-        }
+        //
+        // if (virtualclass.editorCode.isVcAdapterIsReady('editorCode')) {
+        //   virtualclass.editorCode.responseToRequest();
+        // } else {
+        //   // console.log('Editor Code vcAdapter is not ready');
+        // }
       }
 
-      if (virtualclass.currApp === 'SharePresentation') {
-        if (typeof virtualclass.sharePt === 'object') {
-          ioAdapter.mustSendUser({
-            ppt: {
-              init: virtualclass.sharePt.pptUrl,
-              startFrom: virtualclass.sharePt.state,
-            },
-            cf: 'ppt',
-          }, virtualclass.jId);
-        }
-      } else if (virtualclass.currApp === 'Video') {
-        if (typeof virtualclass.videoUl.player === 'object') {
-          ioAdapter.mustSendUser({
-            videoUl: {
-              init: {
-                videoId: virtualclass.videoUl.videoId,
-                videoUrl: virtualclass.videoUl.videoUrl,
-              },
-              startFrom: virtualclass.videoUl.player.currentTime(),
-            },
-            cf: 'videoUl',
-          }, virtualclass.jId);
-        }
-      }
+      // if (virtualclass.currApp === 'SharePresentation') {
+      //   if (typeof virtualclass.sharePt === 'object') {
+      //     ioAdapter.mustSendUser({
+      //       ppt: {
+      //         init: virtualclass.sharePt.pptUrl,
+      //         startFrom: virtualclass.sharePt.state,
+      //       },
+      //       cf: 'ppt',
+      //     }, virtualclass.jId);
+      //   }
+      // }
+
+      // else if (virtualclass.currApp === 'Video') {
+      //   if (typeof virtualclass.videoUl.player === 'object') {
+      //     ioAdapter.mustSendUser({
+      //       videoUl: {
+      //         init: {
+      //           videoId: virtualclass.videoUl.videoId,
+      //           videoUrl: virtualclass.videoUl.videoUrl,
+      //         },
+      //         startFrom: virtualclass.videoUl.player.currentTime(),
+      //       },
+      //       cf: 'videoUl',
+      //     }, virtualclass.jId);
+      //   }
+      // }
     }
 
     // Send to everyone that the teacher is connected
@@ -180,55 +184,57 @@ const defaultOperation = function (e, sType) {
     if (virtualclass.currApp === 'ScreenShare') {
       sType = 'ss';
     } else if (virtualclass.currApp === 'SharePresentation') {
-      console.log('sharePPt');
+      // console.log('sharePPt');
       // debugger;
-      if (typeof virtualclass.sharePt === 'object') {
-        ioAdapter.mustSendUser({
-          ppt: {
-            init: virtualclass.sharePt.pptUrl,
-            startFrom: virtualclass.sharePt.state,
-          },
-          cf: 'ppt',
-        }, virtualclass.jId);
-      } else {
-        // TODO Need more validation  from nirmala
-        ioAdapter.mustSendUser({ ppt: { init: 'studentlayout' }, cf: 'ppt' }, virtualclass.jId);
-      }
+      // if (typeof virtualclass.sharePt === 'object') {
+      //   ioAdapter.mustSendUser({
+      //     ppt: {
+      //       init: virtualclass.sharePt.pptUrl,
+      //       startFrom: virtualclass.sharePt.state,
+      //     },
+      //     cf: 'ppt',
+      //   }, virtualclass.jId);
+      // } else {
+      //   // TODO Need more validation  from nirmala
+      //   ioAdapter.mustSendUser({ ppt: { init: 'studentlayout' }, cf: 'ppt' }, virtualclass.jId);
+      // }
+
     } else if (virtualclass.currApp === 'DocumentShare') {
       // ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
 
-      if (roles.hasControls() && virtualclass.dts.docs.hasOwnProperty('currDoc')) {
+      if (roles.hasControls() && Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
         if (virtualclass.gObj.currWb != null) {
-          const doc = virtualclass.dts.docs.currDoc;
-          // ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
-          ioAdapter.mustSendUser({
-            dts: {
-              slideTo: virtualclass.dts.docs.note.currNote,
-              docn: virtualclass.dts.docs.currDoc,
-            },
-            cf: 'dts',
-          }, virtualclass.jId);
-          console.log('Document share send :- Complete slide');
+          // const doc = virtualclass.dts.docs.currDoc;
+          // // ioAdapter.mustSendUser({'ppt': {'init': virtualclass.sharePt.pptUrl, startFrom : virtualclass.sharePt.state}, 'cf' : 'ppt'}, virtualclass.jId);
+          // ioAdapter.mustSendUser({
+          //   dts: {
+          //     slideTo: virtualclass.dts.docs.note.currNote,
+          //     docn: virtualclass.dts.docs.currDoc,
+          //   },
+          //   cf: 'dts',
+          // }, virtualclass.jId);
+          // console.log('Document share send :- Complete slide');
         }
       } else {
-        ioAdapter.mustSendUser({ dts: { init: 'studentlayout' }, cf: 'dts' }, virtualclass.jId);
-        console.log('Document share send :- Layout');
+        //ioAdapter.mustSendUser({ dts: { init: 'studentlayout' }, cf: 'dts' }, virtualclass.jId);
+        // console.log('Document share send :- Layout');
       }
     } else if (virtualclass.currApp === 'Video') {
-      if (typeof virtualclass.videoUl.player === 'object') {
-        if (virtualclass.videoUl.videoUrl) {
-          ioAdapter.mustSendUser({
-            videoUl: {
-              init: { id: virtualclass.videoUl.videoId, videoUrl: virtualclass.videoUl.videoUrl },
-              startFrom: virtualclass.videoUl.player.currentTime(),
-              isPaused: virtualclass.videoUl.player.paused(),
-            },
-            cf: 'videoUl',
-          }, virtualclass.jId);
-        }
-      } else {
-        ioAdapter.mustSendUser({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' }, virtualclass.jId);
-      }
+
+      // if (typeof virtualclass.videoUl.player === 'object') {
+      //   if (virtualclass.videoUl.videoUrl) {
+      //     ioAdapter.mustSendUser({
+      //       videoUl: {
+      //         init: { id: virtualclass.videoUl.videoId, videoUrl: virtualclass.videoUl.videoUrl },
+      //         startFrom: virtualclass.videoUl.player.currentTime(),
+      //         isPaused: virtualclass.videoUl.player.paused(),
+      //       },
+      //       cf: 'videoUl',
+      //     }, virtualclass.jId);
+      //   }
+      // } else {
+      //   ioAdapter.mustSendUser({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' }, virtualclass.jId);
+      // }
     }
 
     if (typeof sType !== 'undefined' && sType !== null) {

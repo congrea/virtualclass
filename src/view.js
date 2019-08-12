@@ -44,16 +44,20 @@
      * @return errorCont.id id of the error container
      */
     createErrorMsg(msg, contId, addBefore, attribute) {
+      const cpuNotCompatible = document.querySelector('#errorContainer .notcompatiblecpu');
+      if (cpuNotCompatible !== null) { // HIGH PRIORITY ERROR
+        return;
+      }
       let classes = 'error';
-      var errorCont = document.getElementById(contId);
+      let errorCont = document.getElementById(contId);
       if (errorCont == null) {
-        var errorCont = document.createElement('div');
+        errorCont = document.createElement('div');
         errorCont.id = contId;
-
         errorCont.innerHTML = `<span className="${classes}">${msg}</span>`;
       } else {
+
         if (attribute != null) {
-          if (attribute.hasOwnProperty('className')) {
+          if (Object.prototype.hasOwnProperty.call(attribute, 'className')) {
             const elem = document.querySelector(`#${contId}.${attribute.className}`);
             if (elem != null) {
               elem.parentNode.removeChild(elem);
@@ -293,7 +297,7 @@
     // console.log('Window resize event ');
 
     const cwb = virtualclass.gObj.currWb;
-    if (typeof cwb !== 'undefined' && (typeof virtualclass.wb[cwb] !== 'undefined') && virtualclass.wb[cwb].hasOwnProperty('vcan')) {
+    if (typeof cwb !== 'undefined' && (typeof virtualclass.wb[cwb] !== 'undefined') && Object.prototype.hasOwnProperty.call(virtualclass.wb[cwb], 'vcan')) {
       virtualclass.wb[cwb].vcan.renderAll();
     }
     view.windowResizeFinished();
@@ -313,30 +317,12 @@
     if (virtualclass.system.device == 'mobTab') {
       vhCheck();
     }
-    // var height = virtualclass.vutil.calculateChatHeight();
-    // if (!roles.hasControls()) {
-    //
-    //     if (!virtualclass.videoHost.gObj.videoSwitch) {
-    //         height = height+230;
-    //     }
-    // }
-    // console.log("heightinview" + height);
-    // virtualclass.vutil.setChatContHeight(height);
-    // //$('#chatWidget').height(height);
-    //
-    // if(virtualclass.isPlayMode){
-    //        var height = height+64;
-    // }
-    //
-    // $('#chat_div').css('max-height', height + 'px');
 
-
-    // virtualclass.chat.boxHeight = height;
     if ((virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare')
       && virtualclass.gObj.currWb != null && typeof virtualclass.gObj.currWb !== 'undefined'
     ) {
       /** * Remove black screen on resizing of doucmet sharing window * */
-      if (virtualclass.gObj.hasOwnProperty('fitToScreenOnResize')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreenOnResize')) {
         clearTimeout(virtualclass.gObj.fitToScreenOnResize);
       }
       virtualclass.gObj.fitToScreenOnResize = setTimeout(
@@ -350,69 +336,5 @@
     }
   };
 
-  // TODO
-  // this code is not using should be removed
-  view.virtualWindow.manupulation = function (e) {
-    const message = e.message.virtualWindow;
-    if (message.hasOwnProperty('removeVirtualWindow')) {
-      if (e.fromUser.userid != wbUser.id) {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.removeVirtualWindow('virtualWindow');
-      }
-    } else if (message.hasOwnProperty('createVirtualWindow')) {
-      if (message.hasOwnProperty('toolHeight')) {
-        localStorage.setItem('toolHeight', message.toolHeight);
-      }
-
-      if (e.fromUser.userid != wbUser.id) {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.createVirtualWindow(message.createVirtualWindow);
-      }
-    } else if (message.hasOwnProperty('shareBrowserWidth')) {
-      if (message.hasOwnProperty('toolHeight')) {
-        localStorage.setItem('toolHeight', message.toolHeight);
-      }
-
-      if (roles.hasControls()) {
-        var toolBoxHeight = virtualclass.wb[virtualclass.gObj.currWb].utility.getWideValueAppliedByCss('commandToolsWrapper');
-        localStorage.setItem('toolHeight', toolBoxHeight);
-      }
-
-      if (e.fromUser.userid != wbUser.id) {
-        if (roles.hasControls()) {
-          virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasEnable();
-        }
-        otherBrowser = message.browserRes;
-      } else {
-        myBrowser = virtualclass.system.measureResoultion({
-          width: window.outerWidth,
-          height: window.innerHeight,
-        });
-      }
-
-      if (typeof myBrowser === 'object' && typeof otherBrowser === 'object') {
-        if (myBrowser.width > otherBrowser.width) {
-          if (!virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow) {
-            virtualclass.wb[virtualclass.gObj.currWb].utility.createVirtualWindow(otherBrowser);
-            virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow = true;
-          }
-        } else if (myBrowser.width < otherBrowser.width) {
-          if (!virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow) {
-            // virtualclass.wb[virtualclass.gObj.currWb].gObj.virtualWindow = true;
-            const canvaContainer = document.getElementById('vcanvas');
-            const rightOffset = virtualclass.wb[virtualclass.gObj.currWb].utility.getElementRightOffSet(canvaContainer);
-            if (roles.hasControls()) {
-              virtualclass.vutil.beforeSend({
-                virtualWindow: {
-                  createVirtualWindow: myBrowser - rightOffset,
-                  toolHeight: toolBoxHeight,
-                },
-              });
-            } else {
-              virtualclass.vutil.beforeSend({ virtualWindow: { createVirtualWindow: myBrowser - rightOffset } });
-            }
-          }
-        }
-      }
-    }
-  };
   window.view = view;
 }(window));

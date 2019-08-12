@@ -26,14 +26,14 @@
          * @param {Event} e mouse event
          * @pointer refers x and y co-ordinate relative to canvas
          */
-        findTarget(e) {
+        findTarget(e, wId) {
           let target;
           // then check all of the objects on canvas
           // TODO use this should be obj
 
           const objs = vcan.main.children;
           for (let i = objs.length; i--;) {
-            if (objs[i] && vcan.virtual_box.containsPoint(e, objs[i])) {
+            if (objs[i] && vcan.virtual_box.containsPoint(e, objs[i], wId)) {
               target = objs[i];
               break;
             }

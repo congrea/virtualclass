@@ -84,7 +84,7 @@
         const dataObj = {
           element: obj.wrapper,
           template: 'qq-template-gallery',
-          debug: true,
+          debug: false,
           multiple: obj.multiple,
           validation: { allowedExtensions: obj.validation, minSizeLimit: (4 * 1000), sizeLimit: obj.maxSize }, // minimum file should be 4kb limit
           request: {
@@ -247,11 +247,11 @@
           },
         };
 
-        // if(obj.hasOwnProperty('multiple')){
+        // if(Object.prototype.hasOwnProperty.call(obj, 'multiple')){
         //     dataObj.multiple = obj.multiple;
         // }
 
-        // if(obj.hasOwnProperty('validation')){
+        // if(Object.prototype.hasOwnProperty.call(obj, 'validation')){
         //     dataObj.allowedExtensions = obj.validation;
         // }
 

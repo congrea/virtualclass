@@ -76,7 +76,7 @@
         }
       },
       msgRecAtTeacher(msg) {
-        console.log(`raiseStd${msg.action}`);
+        // console.log(`raiseStd${msg.action}`);
         const userid = msg.user;
 
         // var controlContainer = document.getElementById(userid+ 'contRaiseH');
@@ -193,7 +193,7 @@
       },
 
       updateInStorage() {
-        localStorage.setItem('stdRhEnable', this.stdRhEnable);
+        // localStorage.setItem('stdRhEnable', this.stdRhEnable);
       },
 
       attachHandlerAtStudent() {
@@ -225,6 +225,7 @@
             virtualclass.raiseHand.stdRhEnable = 'enabled';
           }
         });
+        virtualclass.settings.raisehand(virtualclass.settings.info.raisehand);
       },
 
     };

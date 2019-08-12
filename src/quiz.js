@@ -1,7 +1,9 @@
 /* global virtualclass, ioAdapter */
 (function (window) {
-  "use strtic";
-  let scope, pubbtn;
+  'use strtic';
+
+  let scope; let
+    pubbtn;
   const quiz = function () {
     return {
       /* to generlize */
@@ -53,13 +55,13 @@
           });
         }
         if (roles.hasControls()) {
-          console.log('fetchquizes');
+          // console.log('fetchquizes');
           this.interfaceToFetchList(this.cmid);
         }
 
         const storedData = JSON.parse(localStorage.getItem('quizSt'));
         if (storedData) {
-          this.storedDataHandle(storedData);
+          // this.storedDataHandle(storedData);
           virtualclass.quiz.quizSt = storedData;
         }
       },
@@ -71,61 +73,96 @@
        * @param {string}  display screen
        * @return
        */
-      storedDataHandle(storedData) {
-        // display quiz on student screen
-        if (storedData.screen == 'stdPublish') {
-          var that = this;
+      // storedDataHandle(storedData) {
+      //   // display quiz on student screen
+      //   if (storedData.screen === 'stdPublish') {
+      //     var that = this;
+      //
+      //     virtualclass.storage.getQuizData(
+      //       (data) => {
+      //         if (Object.prototype.hasOwnProperty.call(data, 'qData')) {
+      //           const dataRc = JSON.parse(data.qData);
+      //           that.quizDisplay(dataRc);
+      //         } else {
+      //           // console.log('Quiz data is not available');
+      //         }
+      //       },
+      //     );
+      //   } else if (storedData.screen === 'quizsubmitted') {
+      //     // If quiz has been submitted by student
+      //     // display quiz result page at student site
+      //
+      //     // const rData = JSON.parse(localStorage.getItem('qRep'));
+      //     // this.UI.displayStudentResultScreen(rData);
+      //   } else if (storedData.screen == 'tchResultView') {
+      //     // display teacher screen after quiz publish
+      //     // var that = this;
+      //
+      //     // virtualclass.storage.getQuizData(
+      //     //   (data) => {
+      //     //     if (typeof data !== 'undefined' && Object.prototype.hasOwnProperty.call(data, 'qData')
+      //     //       && Object.prototype.hasOwnProperty.call(data, 'qDetail')) {
+      //     //
+      //     //       const quizDetial = JSON.parse(data.qDetail);
+      //     //       /* On page refesh, we don't have to reset the time limit,
+      //     //        * if we do this, the quiz without timer would be closed on page refresh
+      //     //        * */
+      //     //       that.quizJSON = data.qData;
+      //     //       that.openQuizPopup(that.quizJSON, quizDetial.id);
+      //     //       that.UI.resultView(quizDetial);
+      //     //       that.tabContent();
+      //     //       if (Object.prototype.hasOwnProperty.call(data, 'qAttempt')) {
+      //     //         that.quizAttempted = JSON.parse(data.qAttempt);
+      //     //         that.displayAttemptOverview();
+      //     //       }
+      //     //       if (Object.prototype.hasOwnProperty.call(data, 'qGrade')) {
+      //     //         that.qGrade = JSON.parse(data.qGrade);
+      //     //         that.displayGradeReport();
+      //     //       }
+      //     //       if (storedData.qClosed == 'true') {
+      //     //         document.getElementById('closeQzBt').disabled = true;
+      //     //       }
+      //     //
+      //     //     }
+      //     //   },
+      //     // );
+      //     // virtualclass.quiz.quizSt.screen = storedData.screen;
+      //   }
+      // },
 
-          virtualclass.storage.getQuizData(
-            (data) => {
-              if (data.hasOwnProperty('qData')) {
-                const dataRc = JSON.parse(data.qData);
-                that.quizDisplay(dataRc);
-              } else {
-                console.log('Quiz data is not available');
-              }
-            },
-          );
-        } else if (storedData.screen == 'quizsubmitted') {
-          // If quiz has been submitted by student
-          // display quiz result page at student site
+      displayQuizModalBox() {
+        const quizModal = document.querySelector('#editQuizModal');
+        quizModal.className = 'modal in';
+        quizModal.style.display = 'block';
+      },
 
-          const rData = JSON.parse(localStorage.getItem('qRep'));
-          this.UI.displayStudentResultScreen(rData);
-        } else if (storedData.screen == 'tchResultView') {
-          // display teacher screen after quiz publish
-          var that = this;
-          virtualclass.storage.getQuizData(
-            (data) => {
-              if (typeof data !== 'undefined' && data.hasOwnProperty('qData')
-                && data.hasOwnProperty('qDetail')) {
-                const quizDetial = JSON.parse(data.qDetail);
-                /* On page refesh, we don't have to reset the time limit,
-                 * if we do this, the quiz without timer would be closed on page refresh
-                 * */
-                // if (storedData.hasOwnProperty('qtime')) {
-                // quizDetial.timelimit = that.convertTimeToSec(storedData.qtime);
-                // }
-                that.quizJSON = data.qData;
-                that.openQuizPopup(that.quizJSON, quizDetial.id);
-                that.UI.resultView(quizDetial);
-                that.tabContent();
-                if (data.hasOwnProperty('qAttempt')) {
-                  that.quizAttempted = JSON.parse(data.qAttempt);
-                  that.displayAttemptOverview();
-                }
-                if (data.hasOwnProperty('qGrade')) {
-                  that.qGrade = JSON.parse(data.qGrade);
-                  that.displayGradeReport();
-                }
-                if (storedData.qClosed == 'true') {
-                  document.getElementById('closeQzBt').disabled = true;
-                }
-              }
-            },
-          );
-          virtualclass.quiz.quizSt.screen = storedData.screen;
+      teacherViewOnPageRefresh(msg) {
+        const quizDetial = msg.quizDetail;
+        // virtualclass.quiz.readyToPublishQuiz(quizDetial, quizDetial.id);
+        /* On page refesh, we don't have to reset the time limit,
+         * if we do this, the quiz without timer would be closed on page refresh
+         * */
+        this.quizJSON = msg.data.json;
+
+        this.openQuizPopup(this.quizJSON, quizDetial.id);
+        this.UI.resultView(quizDetial);
+        this.tabContent();
+        this.displayQuizModalBox();
+
+        if (Object.prototype.hasOwnProperty.call(msg.data, 'qAttempt')) {
+          alert('performing attempt');
+          this.quizAttempted = JSON.parse(msg.data.qAttempt);
+          this.displayAttemptOverview();
         }
+        if (Object.prototype.hasOwnProperty.call(msg.data, 'qGrade')) {
+          alert('performing grade');
+          this.qGrade = JSON.parse(msg.data.qGrade);
+          this.displayGradeReport();
+        }
+        // if (typeof storedData != 'undefined' && storedData.qClosed == 'true') {  // TODO, need to find what it is ?
+        //   document.getElementById('closeQzBt').disabled = true;
+        // }
+        virtualclass.quiz.quizSt.screen = 'tchResultView';
       },
 
       /*
@@ -137,7 +174,7 @@
         const listcont = document.getElementById('listquizcourse');
         if (Object.keys(this.coursequiz).length > 0) {
           for (const k in this.coursequiz) {
-            if (this.coursequiz.hasOwnProperty(k)) {
+            if (Object.prototype.hasOwnProperty.call(this.coursequiz, k)) {
               if (!+this.coursequiz[k].quizstatus) {
                 isQuiz = true;
                 this.displayQuizes(this.coursequiz[k], k);
@@ -173,7 +210,7 @@
         if (listCont) {
           listCont.style.display = 'block';
         } else {
-          console.log('quiz layout 2');
+          // console.log('quiz layout 2');
           this.UI.layout2('layoutQuizBody');
         }
       },
@@ -228,11 +265,11 @@
         if (elem != null) {
           elem.addEventListener(eventName, () => {
             if (typeof item !== 'undefined') {
-              console.log('attach time handler');
+              // console.log('attach time handler');
               handler(item, index);
               // handler(item, index, actionid, item.id);
             } else {
-              console.log('quiz is missing no need of time');
+              // console.log('quiz is missing no need of time');
               // handler(index, actionid);
             }
           });
@@ -244,22 +281,21 @@
        */
       publishHandler(item, index) {
         const mszbox = document.getElementById('mszBoxQuiz');
+        console.log('====> quiz removing mszBoxQuiz');
         if (mszbox.childNodes.length > 0) {
           mszbox.childNodes[0].parentNode.removeChild(mszbox.childNodes[0]);
         }
-        virtualclass.quiz.publishQuiz(item, index);
+        virtualclass.quiz.readyToPublishQuiz(item, index);
       },
 
       /*
        Display preview pop up box for quiz display
        and call preview function for teacher screen
        */
-      publishQuiz(item, index) {
+      readyToPublishQuiz(item, index) {
         this.openQuizPopup(item, index);
         this.quizPreview(item);
-        const quizModal = document.querySelector('#editQuizModal');
-        quizModal.className = 'modal in';
-        quizModal.style.display = 'block';
+        this.displayQuizModalBox();
       },
 
       /**
@@ -282,16 +318,6 @@
         var cont = document.getElementById('bootstrapQzCont');
         virtualclass.quiz.UI.generateModal('editQuizModal', cont);
 
-
-        //                $('#editQuizModal').modal({
-        //                    backdrop: 'static',
-        //                    keyboard: false
-        //                });
-        //                $('#editQuizModal').modal({
-        //                    show: true
-        //                });
-
-        // virtualclass.quiz.quizPreview(item);
       },
       showQn(qnCont) {
         if (roles.hasControls()) {
@@ -341,9 +367,9 @@
       },
 
       quizPopUp(cb, index) {
-        console.log('quiz pop up');
+        // console.log('quiz pop up');
         const attachInit = function () {
-          console.log(this.id);
+          // console.log(this.id);
           virtualclass.quiz.action(this.id, cb, index);
         };
         const modal = document.getElementById('editQuizModal') ? document.getElementById('editQuizModal') : document.getElementById('qzPopup');
@@ -355,7 +381,7 @@
       },
 
       quizPreview(quizitem) {
-        console.log('quiz preview function');
+        // console.log('quiz preview function');
         this.UI.modalContentUI();
 
         const header = document.getElementById('contQzHead');
@@ -403,9 +429,8 @@
           questionMode: quizDetail.preferredbehaviour,
           quizTime: quizDetail.timelimit,
           displayDetailResult: false,
-          ptm: new Date().getTime(), // published time
+          // ptm: new Date().getTime(), // published time
         };
-
 
         // send data to student
         ioAdapter.mustSend({
@@ -413,7 +438,8 @@
             quizMsg: 'stdPublish',
             quizId: vthis.qzid,
             data,
-
+            quizDetail,
+            timestamp: virtualclass.vutil.localToUTC(Date.now()),
           },
           cf: 'quiz',
         });
@@ -421,8 +447,6 @@
         vthis.UI.resultView(quizDetail);
         vthis.tabContent();
         vthis.quizSt.screen = 'tchResultView';
-        virtualclass.storage.quizStorage('qDetail', JSON.stringify(quizDetail));
-        virtualclass.storage.quizStorage('qData', qzJson);
 
         // save data in LMS DB
         const formData = new FormData();
@@ -431,7 +455,7 @@
         formData.append('user', vthis.uid);
         virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=congrea_add_quiz`, formData).then((msg) => {
           if (msg.data !== 'ture') {
-            console.log('Quiz data not saved in congrea');
+            // console.log('Quiz data not saved in congrea');
           }
         })
           .catch((error) => {
@@ -447,7 +471,8 @@
        * @return
        */
       closeQzBt() {
-        console.log('-------CLOSE QUIZ--------');
+        virtualclass.quiz.publishedTime = 0;
+        // console.log('-------CLOSE QUIZ--------');
         const { qzid } = virtualclass.quiz;
         const data = { qzid };
         ioAdapter.mustSend({
@@ -460,7 +485,7 @@
         // stop timer
         if (virtualclass.gObj.CDTimer != null) {
           clearInterval(virtualclass.gObj.CDTimer);
-          console.log('Clear quiz interval');
+          // console.log('Clear quiz interval');
         }
 
         document.getElementById('closeQzBt').disabled = true;
@@ -482,6 +507,7 @@
         const msz = document.getElementById('mszBoxQuiz');
         if (msz) {
           msz.parentNode.removeChild(msz);
+          console.log('====> quiz removing mszBoxQuiz');
         }
         const cQzbody = document.getElementById('contQzBody');
         if (cQzbody) {
@@ -500,31 +526,31 @@
        * @param {null}
        * @return
        */
-      saveInLocalStorage() {
-        const vthis = virtualclass.quiz;
-        // student timer
-        if (document.querySelector('#qztime') != null) {
-          vthis.quizSt.qtime = document.querySelector('#qztime').textContent;
-          console.log(`quiz=${vthis.quizSt.qtime}`);
-        }
-        // teacher timer
-        if (document.querySelector('#elsTime') != null) {
-          vthis.quizSt.qtime = document.querySelector('#elsTime').textContent;
-          console.log(`quiz=${vthis.quizSt.qtime}`);
-        }
-        console.log(`quiz=${vthis.quizSt.screen}`);
-        if ((document.getElementById('closeQzBt') != null)
-          && document.getElementById('closeQzBt').disabled == true) {
-          vthis.quizSt.qClosed = 'true';
-        }
-        if (vthis.quizSt) {
-          localStorage.setItem('quizSt', JSON.stringify(vthis.quizSt));
-        }
-        if (vthis.quizAttempted) {
-          console.log(`attempt data =${vthis.quizAttempted}`);
-          virtualclass.storage.quizStorage('qAttempt', JSON.stringify(vthis.quizAttempted));
-        }
-      },
+      // saveInLocalStorage() {
+      //   const vthis = virtualclass.quiz;
+      //   // student timer
+      //   if (document.querySelector('#qztime') != null) {
+      //     vthis.quizSt.qtime = document.querySelector('#qztime').textContent;
+      //     // console.log(`quiz=${vthis.quizSt.qtime}`);
+      //   }
+      //   // teacher timer
+      //   if (document.querySelector('#elsTime') != null) {
+      //     vthis.quizSt.qtime = document.querySelector('#elsTime').textContent;
+      //     // console.log(`quiz=${vthis.quizSt.qtime}`);
+      //   }
+      //   // console.log(`quiz=${vthis.quizSt.screen}`);
+      //   if ((document.getElementById('closeQzBt') != null)
+      //     && document.getElementById('closeQzBt').disabled == true) {
+      //     vthis.quizSt.qClosed = 'true';
+      //   }
+      //   // if (vthis.quizSt) {
+      //   //   localStorage.setItem('quizSt', JSON.stringify(vthis.quizSt));
+      //   // }
+      //   // if (vthis.quizAttempted) {
+      //   //   console.log(`attempt data =${vthis.quizAttempted}`);
+      //   //   virtualclass.storage.quizStorage('qAttempt', JSON.stringify(vthis.quizAttempted));
+      //   // }
+      // },
 
       /**
        * Event received on onmessage
@@ -535,97 +561,125 @@
       onmessage(msg, fromUser) {
         // localStorage.removeItem('quizSt');
         const vthis = virtualclass.quiz;
-
-        if (msg.quiz.quizMsg == 'stdPublish') {
+        if (msg.quiz.quizMsg === 'stdPublish') {
+          vthis.publishedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
+          msg.quiz.data.ptm = vthis.publishedTime;
           vthis.dataRec = msg.quiz.data;
-          virtualclass.storage.quizStorage('qData', JSON.stringify(vthis.dataRec));
-          vthis.quizSt.screen = 'stdPublish';
-          this.quizDisplay(msg.quiz.data);
+          vthis.qzid = msg.quiz.quizId;
+          if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
+            this.teacherViewOnPageRefresh(msg.quiz);
+          } else {
+            vthis.quizSt.screen = 'stdPublish';
+            this.quizDisplay(msg.quiz.data);
+          }
         }
 
-        // When teacher close the quiz, this event will be triggered
+        // W hen teacher close the quiz, this event will be triggered
         // At student end quiz will be submitted automatically
         // and result will display to student screen
-        if ((msg.quiz.quizMsg == 'stdShowResult') || (msg.quiz.quizMsg == 'quizTimeEnd')) {
-          if (document.querySelector('#timeText') != null) {
-            document.querySelector('#timeText').textContent = 'Quiz has been closed';
-          }
-          const resPage = document.querySelector('#slickQuiz .quizResults');
-          if (resPage && resPage.style.display != 'block') {
-            // click submit button of student screen
-            const arr = document.querySelectorAll('#slickQuiz .nextQuestion');
-            const arrlength = arr.length - 1;
-            arr[arrlength].click();
+        if ((msg.quiz.quizMsg === 'stdShowResult') || (msg.quiz.quizMsg === 'quizTimeEnd')) {
+          virtualclass.quiz.publishedTime = 0;
+          if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
+            let closeQzBt = document.getElementById('closeQzBt');
+            if (closeQzBt != null) {
+              closeQzBt.disabled = true;
+            }
+          } else {
+            if (document.querySelector('#timeText') != null) {
+              document.querySelector('#timeText').textContent = 'Quiz has been closed';
+            }
+            const resPage = document.querySelector('#slickQuiz .quizResults');
+            console.log('====> QUIZ IS CREATING');
+            if (resPage && resPage.style.display != 'block') {
+              // click submit button of student screen
+              const arr = document.querySelectorAll('#slickQuiz .nextQuestion');
+              const arrlength = arr.length - 1;
+              arr[arrlength].click();
+            }
           }
         }
+
         // Quiz cose at student end
-        if (msg.quiz.quizMsg == 'quizClosed') {
-          localStorage.removeItem('quizSt');
+        if (msg.quiz.quizMsg === 'quizClosed') {
+          // localStorage.removeItem('quizSt');
           this.quizSt = {};
-          localStorage.removeItem('qRep');
-          virtualclass.storage.clearTableData('quizData');
+        //  localStorage.removeItem('qRep');
+      //    virtualclass.storage.clearTableData('quizData');
           this.UI.defaultLayoutForStudent();
         }
 
         // teacher result progress view
         // Event will be triggerd on each answer select by student
-        if (msg.quiz.quizMsg == 'quizAttempt' && roles.hasControls()) {
-          if (typeof this.attemptedUsers[msg.quiz.questionId] === 'undefined') {
-            this.attemptedUsers[msg.quiz.questionId] = {};
-          }
-          const usrid = msg.quiz.user;
-          if (typeof this.attemptedUsers[msg.quiz.questionId][usrid] === 'undefined') {
-            this.attemptedUsers[msg.quiz.questionId][usrid] = {};
-          }
-
-          this.attemptedUsers[msg.quiz.questionId][usrid] = msg.quiz.ans;
-          const totalAttptedUsers = Object.keys(this.attemptedUsers[msg.quiz.questionId]).length;
-          let correctAns = 0;
-          for (const key in this.attemptedUsers[msg.quiz.questionId]) {
-            if (this.attemptedUsers[msg.quiz.questionId][key] == true) {
-              correctAns++;
+        if (msg.quiz.quizMsg === 'quizAttempt' && roles.hasControls()) {
+          const attemptedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
+          if (attemptedTime > virtualclass.quiz.publishedTime) {
+            if (typeof this.attemptedUsers[msg.quiz.questionId] === 'undefined') {
+              this.attemptedUsers[msg.quiz.questionId] = {};
             }
-          }
-          document.getElementById(`usA_${msg.quiz.questionId}`).innerHTML = totalAttptedUsers;
-          var attemptPercent = 0;
-          if (correctAns > 0) {
-            var attemptPercent = (correctAns / totalAttptedUsers) * 100;
-          }
-          const pBar = document.getElementById(`qPb_${msg.quiz.questionId}`);
-          pBar.innerHTML = `${attemptPercent}% correct`;
-          pBar.style.width = `${attemptPercent}%`;
+            const usrid = msg.quiz.user;
+            if (typeof this.attemptedUsers[msg.quiz.questionId][usrid] === 'undefined') {
+              this.attemptedUsers[msg.quiz.questionId][usrid] = {};
+            }
 
-          if (typeof this.quizAttempted[msg.quiz.questionId] === 'undefined') {
-            this.quizAttempted[msg.quiz.questionId] = {};
+            this.attemptedUsers[msg.quiz.questionId][usrid] = msg.quiz.ans;
+            const totalAttptedUsers = Object.keys(this.attemptedUsers[msg.quiz.questionId]).length;
+            let correctAns = 0;
+            for (const key in this.attemptedUsers[msg.quiz.questionId]) {
+              if (this.attemptedUsers[msg.quiz.questionId][key] == true) {
+                correctAns++;
+              }
+            }
+            document.getElementById(`usA_${msg.quiz.questionId}`).innerHTML = totalAttptedUsers;
+            var attemptPercent = 0;
+            if (correctAns > 0) {
+              var attemptPercent = (correctAns / totalAttptedUsers) * 100;
+            }
+            const pBar = document.getElementById(`qPb_${msg.quiz.questionId}`);
+            pBar.innerHTML = `${attemptPercent}% correct`;
+            pBar.style.width = `${attemptPercent}%`;
+
+            if (typeof this.quizAttempted[msg.quiz.questionId] === 'undefined') {
+              this.quizAttempted[msg.quiz.questionId] = {};
+            }
+            this.quizAttempted[msg.quiz.questionId].uA = totalAttptedUsers;
+            this.quizAttempted[msg.quiz.questionId].cA = correctAns;
+          } else {
+            console.log('Igonre the packet');
           }
-          this.quizAttempted[msg.quiz.questionId].uA = totalAttptedUsers;
-          this.quizAttempted[msg.quiz.questionId].cA = correctAns;
         }
 
         // Event triggerd on quiz submit
-        if (msg.quiz.quizMsg == 'quizsubmitted' && roles.hasControls()) {
-          // console.log(fromUser);
+        if (msg.quiz.quizMsg === 'quizsubmitted') {
+          if (roles.hasControls()) {
+            this.usersFinishedQz.push(msg.quiz.user);
+            const ct = this.usersFinishedQz.length;
 
-          // if (this.usersFinishedQz.indexOf(msg.quiz.user) < 0) {
-          this.usersFinishedQz.push(msg.quiz.user);
-          const ct = this.usersFinishedQz.length;
+            const name = (!typeof fromUser.lname === 'undefined') ? `${fromUser.name} ${fromUser.lname}` : fromUser.name;
 
-          const name = (!typeof fromUser.lname == 'undefined') ? `${fromUser.name} ${fromUser.lname}` : fromUser.name;
+            this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
 
-          this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
+            this.qGrade.push({
+              nm: name,
+              tt: msg.quiz.timetaken,
+              sc: msg.quiz.score,
+              qAt: msg.quiz.quesattemptd,
+              ca: msg.quiz.correctans,
+            });
+            // save data in LMS DB
+            this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
+          } else {
+            this.submittedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
+            if (vthis.submittedTime > vthis.publishedTime) {
+              const quizBodyContainer = document.getElementById('contQzBody');
+              if (quizBodyContainer != null) {
+                quizBodyContainer.parentNode.removeChild(quizBodyContainer);
+              }
 
-          this.qGrade.push({
-            nm: name,
-            tt: msg.quiz.timetaken,
-            sc: msg.quiz.score,
-            qAt: msg.quiz.quesattemptd,
-            ca: msg.quiz.correctans,
-          });
-          virtualclass.storage.quizStorage('qGrade', JSON.stringify(vthis.qGrade));
-
-          // save data in LMS DB
-          this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
-          // }
+              const contQuizBody = document.getElementById('layoutQuizBody');
+              this.UI.createMszBox(contQuizBody);
+              this.UI.displayStudentResultScreen(msg.quiz);
+            }
+          }
         }
       },
 
@@ -652,7 +706,7 @@
         formData.append('currectans', correctAns);
         virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=congrea_quiz_result`, formData).then((data) => {
           if (data.data !== 'ture') {
-            console.log('Quiz data not saved in congrea');
+            // console.log('Quiz data not saved in congrea');
           }
         })
           .catch((error) => {
@@ -807,6 +861,11 @@
         let hours;
         let minutes;
         let seconds;
+        if (virtualclass.gObj.CDTimer != null) {
+          clearInterval(virtualclass.gObj.CDTimer);
+          // console.log('Clear quiz interval');
+        }
+
 
         function timer() {
           // get the number of seconds that have elapsed since
@@ -828,7 +887,7 @@
           display.textContent = `${hours}:${minutes}:${seconds}`;
           // var ctime = hours + ":" + minutes + ":" + seconds;
           // Global scope of timer
-        //  timeTakenQuiz = `${hours}:${minutes}:${seconds}`;
+          //  timeTakenQuiz = `${hours}:${minutes}:${seconds}`;
 
           if (diff <= 0) {
             if (order != 'asc') {
@@ -841,7 +900,7 @@
             start = 0;
             if (virtualclass.gObj.CDTimer != null) {
               clearInterval(virtualclass.gObj.CDTimer);
-              console.log('Clear quiz interval');
+              // console.log('Clear quiz interval');
             }
 
             ioAdapter.mustSend({
@@ -852,7 +911,10 @@
               cf: 'quiz',
             });
             if (roles.hasControls()) {
-              document.getElementById('closeQzBt').disabled = true;
+              let closeQzBt = document.getElementById('closeQzBt');
+              if (closeQzBt != null) {
+                closeQzBt.disabled = true;
+              }
             }
           }
           // return ctime;
@@ -876,10 +938,7 @@
         const message = virtualclass.lang.getString('rusureCquiz');
         virtualclass.popup.confirmInput(message, (confirm) => {
           if (confirm) {
-            localStorage.removeItem('quizSt');
             that.quizSt = {};
-            virtualclass.storage.clearTableData('quizData');
-            localStorage.removeItem('qRep');
             const mBody = document.getElementById('editQuizModal');
             mBody.parentNode.removeChild(mBody);
             that.attemptedUsers = {};
@@ -938,6 +997,23 @@
         return true;
       },
 
+      sendQuizData(quizId, questionId, answer) {
+        if (roles.isStudent()) {  // To avoid preview mode
+          const teacherID = virtualclass.vutil.whoIsTeacher();
+          ioAdapter.mustSendUser({
+            quiz: {
+              quizMsg: 'quizAttempt',
+              quizid: quizId,
+              questionId,
+              ans: answer,
+              user: virtualclass.gObj.uid,
+              timestamp: virtualclass.vutil.localToUTC(Date.now())
+            },
+            cf: 'quiz',
+          }, teacherID);
+        }
+      },
+
       /**
        * Object contain userInterface functions
        */
@@ -948,7 +1024,7 @@
          * Creates container for the quiz
          */
         container() {
-          console.log('quiz layout check');
+          // console.log('quiz layout check');
           const quizCont = document.getElementById(this.id);
           if (quizCont != null) {
             quizCont.parentNode.removeChild(quizCont);
@@ -1130,15 +1206,15 @@
              * Displays the timer in result view from local storage, with or without timer,
              * it was coming from timelimit earlier
              * * */
-            let timerInfo = localStorage.getItem('quizSt');
-            if (timerInfo != null) {
-              timerInfo = JSON.parse(timerInfo);
-              if (Object.keys(timerInfo).length > 0) {
-                const elTime = timerInfo.qtime;
-                const res = elTime.split(':');
-                qtime = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
-              }
-            }
+            // let timerInfo = localStorage.getItem('quizSt');
+            // if (timerInfo != null) {
+            //   timerInfo = JSON.parse(timerInfo);
+            //   if (Object.keys(timerInfo).length > 0) {
+            //     const elTime = timerInfo.qtime;
+            //     const res = elTime.split(':');
+            //     qtime = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
+            //   }
+            // }
             const bodyHdCont = document.getElementById('resultQzLayout');
 
             const elem = virtualclass.view.customCreateElement('div', 'rsQzHead', 'row col-md-12');
@@ -1168,17 +1244,32 @@
             elem.appendChild(btnInnerdiv);
             btnInnerdiv.addEventListener('click', virtualclass.quiz.closeQzBt);
 
-            const storedData = JSON.parse(localStorage.getItem('quizSt'));
-            if (storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)) {
-              console.log("Don't run timer when quiz is closed");
-              const elapsedTime = document.querySelector('#elsTime');
-              localStorage.setItem('quizSt', JSON.stringify(storedData));
-              if (elapsedTime != null) {
-                elapsedTime.innerHTML = storedData.qtime;
+           // const storedData = JSON.parse(localStorage.getItem('quizSt'));
+
+            // if (storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)) {
+            //   // console.log("Don't run timer when quiz is closed");
+            //   const elapsedTime = document.querySelector('#elsTime');
+            //   // localStorage.setItem('quizSt', JSON.stringify(storedData));
+            //   if (elapsedTime != null) {
+            //     elapsedTime.innerHTML = storedData.qtime;
+            //   }
+            // } else {
+            //   virtualclass.quiz.quizTimer(qtime, document.getElementById('elsTime'), order);
+            // }
+
+            if (order === 'asc' && typeof virtualclass.quiz.publishedTime !== 'undefined') {
+              const publishTime = virtualclass.quiz.publishedTime;
+              const publishTimeInMiliSeconds = virtualclass.vutil.UTCtoLocalTimeToSeconds(publishTime);
+              qtime = (new Date().getTime() - publishTimeInMiliSeconds) / 1000;
+              if (qtime < 0 || virtualclass.quiz.publishedTime === 0) {
+                qtime = 0;
               }
             } else {
-              virtualclass.quiz.quizTimer(qtime, document.getElementById('elsTime'), order);
+              qtime = virtualclass.quiz.calculateRemainingTime(+(qz.timelimit));
             }
+
+            virtualclass.quiz.quizTimer(qtime, document.getElementById('elsTime'), order);
+
             const tbUl = this.createTab();
             bodyHdCont.appendChild(tbUl);
             // var maxMarksdiv = virtualclass.view.customCreateElement('div', 'maxMark','');
@@ -1299,6 +1390,7 @@
          * @return null
          */
         displayStudentResultScreen(data) {
+          console.log('====> Create message box 2');
           // var resPage = document.querySelector("#slickQuiz .quizResults");
           const msgPage = document.getElementById('mszBoxQuiz');
 
@@ -1311,27 +1403,27 @@
             msgPage.appendChild(resPage);
 
             const noOfQ = document.createElement('h4');
-            noOfQ.innerHTML = `<span class='col-md-4'> Total no of questions </span>  <span class='nfqh'>: &nbsp;  ${data.grade.noofqus}</span>`;
+            noOfQ.innerHTML = `<span class='col-md-4'> Total no of questions </span>  <span class='nfqh'>: &nbsp;  ${data.noofqus}</span>`;
             resPage.appendChild(noOfQ);
 
             const tt = document.createElement('h4');
-            tt.innerHTML = ` <span class='col-md-4'> Time taken </span><span class='tth'> : &nbsp;   ${data.grade.timetaken}</span>`;
+            tt.innerHTML = ` <span class='col-md-4'> Time taken </span><span class='tth'> : &nbsp;   ${data.timetaken}</span>`;
             resPage.appendChild(tt);
 
             const mm = document.createElement('h4');
-            mm.innerHTML = ` <span class='col-md-4'> Maximum mark </span><span class='mmh'>: &nbsp;  ${data.grade.maxmarks}</span>`;
+            mm.innerHTML = ` <span class='col-md-4'> Maximum mark </span><span class='mmh'>: &nbsp;  ${data.maxmarks}</span>`;
             resPage.appendChild(mm);
 
             const ca = document.createElement('h4');
-            ca.innerHTML = `<span class='col-md-4'> Correct answers </span><span class='cah'>: &nbsp;  ${data.grade.correctans}</span>`;
+            ca.innerHTML = `<span class='col-md-4'> Correct answers </span><span class='cah'>: &nbsp;  ${data.correctans}</span>`;
             resPage.appendChild(ca);
 
             const qa = document.createElement('h4');
-            qa.innerHTML = ` <span class='col-md-4'> Questions attempted</span> <span class='qah'>: &nbsp;  ${data.grade.quesattemptd}</span>`;
+            qa.innerHTML = ` <span class='col-md-4'> Questions attempted</span> <span class='qah'>: &nbsp;  ${data.quesattemptd}</span>`;
             resPage.appendChild(qa);
 
             const sc = document.createElement('h4');
-            sc.innerHTML = ` <span class='col-md-4'> You Scored </span> <span class='sch'>: &nbsp;  ${data.grade.score}</span>`;
+            sc.innerHTML = ` <span class='col-md-4'> You Scored </span> <span class='sch'>: &nbsp;  ${data.score}</span>`;
             resPage.appendChild(sc);
 
             resPage.style.display = 'block';
@@ -1408,6 +1500,7 @@
           qzheader.appendChild(qzheaderA);
 
           // alert('I am here. add result div');
+          console.log('====> QUIZ IS CREATING');
           const qzResult = virtualclass.view.customCreateElement('div', '', 'quizResults');
           skQzCont.appendChild(qzResult);
 
@@ -1489,6 +1582,52 @@
             mszCont.appendChild(studentMessage);
           }
         },
+      },
+
+      createMessageBox() {
+        console.log('=====> CREATE MESSAGE BOX');
+        const mszCont = document.getElementById('mszBoxQuiz');
+        const messageLayoutId = 'stdQuizMszLayout';
+        if (document.getElementById(messageLayoutId) == null) {
+          const studentMessage = virtualclass.view.customCreateElement('div', messageLayoutId);
+          studentMessage.innerHTML = virtualclass.lang.getString('quizmayshow');
+          mszCont.appendChild(studentMessage);
+        }
+      },
+
+      sendSubmittedQuiz(msg) {
+        const teacherID = virtualclass.vutil.whoIsTeacher();
+        ioAdapter.mustSendUser({
+          quiz: {
+            quizMsg: 'quizsubmitted',
+            quizId: this.qzid,
+            user: virtualclass.gObj.uid,
+            timestamp: virtualclass.vutil.localToUTC(Date.now()),
+            timetaken: msg.timetaken,
+            quesattemptd: msg.quesattemptd,
+            correctans: msg.correctans,
+            score: msg.score,
+            maxmarks: msg.maxmarks,
+            noofqus: msg.noofqus,
+          },
+          cf: 'quiz',
+        }, teacherID);
+      },
+
+
+      calculateRemainingTime(totalTimeInSec) {
+        if (typeof virtualclass.quiz.publishedTime !== 'undefined') {
+          if (virtualclass.quiz.publishedTime == 0) {
+            return totalTimeInSec;
+          } else {
+            const totalDiff = (new Date().getTime() - virtualclass.quiz.publishedTime);
+            let timeLeft = ((totalTimeInSec * 1000) - totalDiff) / 1000;
+            if (timeLeft < 0) {
+              timeLeft = 0;
+            }
+            return timeLeft;
+          }
+        }
       },
     };
     // return _quiz;

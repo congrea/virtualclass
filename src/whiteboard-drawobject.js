@@ -18,7 +18,7 @@
   // var scrollPos = 0;
   // var scrollPosY = 600;
 
-  const draw_object = function (objType, canvas, thisobj) {
+  const draw_object = function (objType, canvas, thisobj, wid) {
     const wb = this;
 
     const tool = thisobj;
@@ -29,7 +29,8 @@
     let endPosX;
     let endPosY;
     let dataChunk = [];
-    const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+    // const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+    const { vcan } = virtualclass.wb[wid];
 
     /**
        * This function sets up the situation for draw the particular object
@@ -37,41 +38,52 @@
        *
        */
 
+    //
+    // tool.mousedown = function (ev, cobj) {
+    //   tool._mousedown(ev, cobj);
+    // };
+    // tool.mousemove = function (ev, mouseup) {
+    //   tool._mousemove(ev, mouseup);
+    // };
+    // tool.mouseup = function (ev, cobj) {
+    //   tool._mouseup(ev, cobj);
+    // };
 
-    tool.mousedown = function (ev, cobj) {
-      tool._mousedown(ev, cobj);
+    tool.mousedown = function (ev, wId) {
+      tool._mousedown(ev, wId);
     };
-    tool.mousemove = function (ev, mouseup) {
-      tool._mousemove(ev, mouseup);
+    tool.mousemove = function (ev, wId, mouseup) {
+      tool._mousemove(ev, wId, mouseup);
     };
-    tool.mouseup = function (ev, cobj) {
-      tool._mouseup(ev, cobj);
+    tool.mouseup = function (ev, wId) {
+      tool._mouseup(ev, wId);
     };
-    tool.touchstart = function (ev, cobj) {
+
+    tool.touchstart = function (ev, wId) {
       // in case we need to add some additional functionality for touch
-      tool._mousedown(ev, cobj);
+      tool._mousedown(ev, wId);
       ev.preventDefault();
     };
-    tool.touchmove = function (ev, mouseup) {
-      tool._mousemove(ev, mouseup);
+    tool.touchmove = function (ev, wId, mouseup) {
+      tool._mousemove(ev, wId, mouseup);
       ev.preventDefault();
     };
-    tool.touchend = function (ev, cobj) {
-      tool._mouseup(ev, cobj);
+    tool.touchend = function (ev, wId) {
+      tool._mouseup(ev, wId);
       ev.preventDefault();
     };
 
-    tool._mousedown = function (ev, cobj) {
+    tool._mousedown = function (ev, wId) {
       // console.log('Whiteboard draw down');
       // ev.currX =  ev.currX / virtualclass.zoom.canvasScale;
       // ev.currY =  ev.currY / virtualclass.zoom.canvasScale;
 
 
-      const wId = virtualclass.gObj.currWb;
+      // const wId = virtualclass.gObj.currWb;
       const ct = new Date().getTime();
 
-      if (ev.detail.hasOwnProperty('cevent')) {
-        ev = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(ev);
+      if (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')) {
+        ev = virtualclass.wb[wId].utility.scaleCordinate(ev);
 
         ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
         ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
@@ -82,6 +94,9 @@
         ev.currX = ev.detail.cevent.x;
         ev.currY = ev.detail.cevent.y;
       }
+
+      // // console.log("====> mouse down ", ev.currX, ev.currY);
+      // console.log('=====> pointer start event x, y ',  ev.currX, ev.currY);
 
       var { vcan } = wb;
       virtualclass.gObj.lastmousemovetime = null;
@@ -101,8 +116,8 @@
         if (objType != 'text' && wb.tool.cmd != `t_clearall${wId}`) {
           const currTransformState = vcan.getStates('currentTransform');
           if (currTransformState == '' || currTransformState == null) {
-            //	if(!ev.detail.hasOwnProperty('cevent') && objType != 'freeDrawing'){
-            if (!ev.detail.hasOwnProperty('cevent')) {
+            //	if(!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && objType != 'freeDrawing'){
+            if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')) {
               // var currTime = new Date().getTime();
               vcan.optimize.calculatePackets(currTime, 'd', tool.startPosX, tool.startPosY);
             }
@@ -110,9 +125,9 @@
           }
         } else {
           wb.obj.drawTextObj.muser = false;
-          if (!ev.detail.hasOwnProperty('cevent') && wb.tool.cmd != `t_clearall${wId}`) { // creating for other browser
+          if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && wb.tool.cmd != `t_clearall${wId}`) { // creating for other browser
             if (wb.utility.clickOutSidebox(wb.obj.drawTextObj.textWriteMode)) {
-              var { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+              var { vcan } = virtualclass.wb[wId];
               if (vcan.main.currentTransform != undefined && vcan.main.currentTransform != '') {
                 /** 'foundtext' is passed to notify that teacher clicks on text to edit on whiteboard * */
                 vcan.optimize.calculatePackets(currTime, 'd', tool.startPosX, tool.startPosY, 'foundtext');
@@ -124,22 +139,23 @@
             wb.obj.drawTextObj.muser = true;
           }
 
-          if (ev.detail.hasOwnProperty('cevent')) {
-            if (ev.detail.cevent.hasOwnProperty('mtext')) {
-              wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY, ev.detail.cevent.mtext);
+          if (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')) {
+            if (Object.prototype.hasOwnProperty.call(ev.detail.cevent, 'mtext')) {
+              wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY, ev.detail.cevent.mtext, wId);
             } else {
-              wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY);
+              wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY, undefined, wId);
             }
           } else if (typeof wb.obj.drawTextObj === 'object') {
-            wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY);
+            wb.obj.drawTextObj.textUtility(tool.startPosX, tool.startPosY, undefined, wId);
           }
         }
       }
 
       if (objType == 'freeDrawing' && wb.obj.freeDrawObj.freesvg == true) {
-        wb.obj.freeDrawObj.drawStart(ev);
+        wb.obj.freeDrawObj.drawStart(ev, wId);
         // console.log('free drawing start x=' +  ev.currX + ' drawing y=' + ev.currY);
       }
+  //    console.log('=====> CANVAS SCALE ===== down, xy', virtualclass.zoom.canvasScale, ev.currX, ev.currY);
     };
 
     /**
@@ -148,13 +164,9 @@
        * object and stored drawn object into replayObjs array
        * @param expects mousemove event
        */
-    tool._mousemove = function (ev, mouseup) {
-      // console.log('Whiteboard draw move');
-      // ev.currX = ev.currX / virtualclass.zoom.canvasScale;
-      // ev.currY = ev.currY / virtualclass.zoom.canvasScale;
-
-      if (ev.detail.hasOwnProperty('cevent')) {
-        ev = virtualclass.wb[virtualclass.gObj.currWb].utility.scaleCordinate(ev);
+    tool._mousemove = function (ev, wId, mouseup) {
+      if (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')) {
+        ev = virtualclass.wb[wId].utility.scaleCordinate(ev);
         ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
         ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
         ev.x = ev.detail.cevent.x + (wb.vcan.main.offset.x);
@@ -164,19 +176,19 @@
         ev.currX = ev.detail.cevent.x;
         ev.currY = ev.detail.cevent.y;
       }
-      if (tool.started && wb.tool.cmd != 't_clearall') { // command code inserted after found the problem
-        // this function should be conveted into appended with freedrawing module.
-        if (wb.obj.freeDrawObj != undefined && wb.obj.freeDrawObj.freesvg == true) {
+      // console.log('=====> pointer move event x, y ',  ev.currX, ev.currY);
+      if (tool.started && wb.tool.cmd !== 't_clearall') { // command code inserted after found the problem
+        if (wb.obj.freeDrawObj !== undefined && wb.obj.freeDrawObj.freesvg == true) {
           if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
-            wb.obj.freeDrawObj.wb_draw(ev);
-            // console.log('free drawing move x=' +  ev.currX + ' drawing y=' + ev.currY);
-
-            if (!ev.detail.hasOwnProperty('cevent') || (ev.detail.hasOwnProperty('cevent') && ev.detail.hasOwnProperty('broadCast'))) {
+            wb.obj.freeDrawObj.wb_draw(ev, wId);
+            if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) {
               if (typeof mouseup === 'undefined') {
                 if (((typeof virtualclass.gObj.lastmousemovetime === 'undefined') || (virtualclass.gObj.lastmousemovetime == null))) {
                   virtualclass.gObj.lastmousemovetime = new Date().getTime();
                   vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', ev.currX, ev.currY);
                 }
+              } else {
+                // console.log("====> mouse up finally", ev.currX);
               }
 
               var currTime = new Date().getTime();
@@ -184,9 +196,6 @@
               const evx = ev.currX / virtualclass.zoom.canvasScale;
               const evy = ev.currY / virtualclass.zoom.canvasScale;
               const obj = vcan.makeStackObj(currTime, 'm', evx, evy);
-              // console.log('whiteboard create, move position x =' + ev.currX + ' y = ' + ev.currY);
-              // console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
-
 
               dataChunk.push(obj);
 
@@ -197,18 +206,15 @@
                     wb.uid++;
                     dataChunk[i].uid = wb.uid;
                     vcan.main.replayObjs.push(dataChunk[i]);
-                    // console.log('free drawing move x=' +  dataChunk[i].x + ' drawing y=' + dataChunk[i].y);
                   }
 
                   virtualclass.vutil.beforeSend({ repObj: dataChunk, cf: 'repObj' });
-                  virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
-
                   dataChunk = [];
                   virtualclass.gObj.lastmousemovetime = new Date().getTime();
                 }
+              } else {
+                // console.log("====> mouse up finally", ev.currX);
               }
-            } else {
-              //                          console.log('free drawing move x=' +  ev.currX + ' drawing y=' + ev.currY);
             }
           }
         } else {
@@ -224,7 +230,7 @@
           }
 
           const currObject = wb.makeobj(tool.startPosX, tool.startPosY, endPosX, endPosY, objType);
-          const rCurrObject = wb.canvas.readyObject(currObject);
+          const rCurrObject = wb.canvas.readyObject(currObject, wId);
 
           wb.canvas.addObject(rCurrObject); // drawing the object/shape
           rCurrObject.coreObj.usrCurrAction = 'create';
@@ -233,30 +239,23 @@
 
           if ((typeof virtualclass.gObj.lastmousemovetime === 'undefined') || (virtualclass.gObj.lastmousemovetime == null)) {
             virtualclass.gObj.lastmousemovetime = new Date().getTime();
-            if ((!ev.detail.hasOwnProperty('cevent')
-                || (ev.detail.hasOwnProperty('cevent') && ev.detail.hasOwnProperty('broadCast'))) && objType != 'text' && wb.tool.cmd != 't_clearall') {
+            if ((!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
+                || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType != 'text' && wb.tool.cmd != 't_clearall') {
               vcan.optimize.calculatePackets(currTime, 'm', endPosX, endPosY);
             }
           }
 
           virtualclass.gObj.presentmousemovetime = new Date().getTime();
           if ((virtualclass.gObj.presentmousemovetime - virtualclass.gObj.lastmousemovetime) >= 2000) { // Optimized
-            if ((!ev.detail.hasOwnProperty('cevent')
-                || (ev.detail.hasOwnProperty('cevent') && ev.detail.hasOwnProperty('broadCast'))) && objType != 'text' && wb.tool.cmd != 't_clearall') {
+            if ((!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
+                || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType != 'text' && wb.tool.cmd != 't_clearall') {
               vcan.optimize.calculatePackets(currTime, 'm', endPosX, endPosY);
             }
             virtualclass.gObj.lastmousemovetime = new Date().getTime();
           }
-
-          /** **
-             *
-             * This would I have disbaled can be critical
-             * wb.replay.replayObjs.push(currObject);
-             *
-             *** */
-
           wb.prvObj = rCurrObject.coreObj;
         }
+       // console.log('=====> CANVAS SCALE ===== move x/y', virtualclass.zoom.canvasScale, ' ', endPosX, endPosY);
       } else if ((wb.vcan.main.action != 'move')
             || ((vcan.main.currentTransform == '' || vcan.main.currentTransform == null) && wb.vcan.main.action == 'move')) {
         const x = ev.currX / virtualclass.zoom.canvasScale;
@@ -274,9 +273,9 @@
        *  This function does finalize the object
        *  with last made object very specail
        */
-    tool._mouseup = function (ev, cobj) {
+    tool._mouseup = function (ev, wId) {
       // console.log('Whiteboard draw up');
-      if (ev.detail.hasOwnProperty('cevent')) {
+      if (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')) {
         ev.clientX = ev.detail.cevent.x + (wb.vcan.main.offset.x);
         ev.clientY = ev.detail.cevent.y + (wb.vcan.main.offset.y);
         //  console.log('whiteboard create, end position x =' + ev.clientX  + ' y = ' + ev.clientY);
@@ -288,24 +287,25 @@
         ev.currY = ev.detail.cevent.y;
       }
 
+      // // console.log("====> mouse up", ev.currX);
       endPosX = ev.currX;
       endPosY = ev.currY;
 
       virtualclass.gObj.lastmousemovetime = null;
       if (tool.started && objType != 'text') {
-        tool.mousemove(ev, 'up');
-        if ((!ev.detail.hasOwnProperty('cevent')
-            || (ev.detail.hasOwnProperty('cevent') && ev.detail.hasOwnProperty('broadCast'))) && objType != 'freeDrawing') {
+        tool.mousemove(ev, wId, 'up');
+        if ((!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
+            || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType != 'freeDrawing') {
           var currTime = new Date().getTime();
           vcan.optimize.calculatePackets(currTime, 'u', endPosX, endPosY);
         }
 
         if ((wb.obj.freeDrawObj != undefined && wb.obj.freeDrawObj.freesvg == true)) {
           if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
-            wb.obj.freeDrawObj.finalizeDraw(ev);
+            wb.obj.freeDrawObj.finalizeDraw(ev, wId);
           }
 
-          if (!ev.detail.hasOwnProperty('cevent') || (ev.detail.hasOwnProperty('cevent') && ev.detail.hasOwnProperty('broadCast'))) {
+          if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) {
             if (dataChunk.length > 0) {
               var currTime = new Date().getTime();
               const ex = endPosX / virtualclass.zoom.canvasScale;
@@ -323,7 +323,6 @@
               virtualclass.vutil.beforeSend({ repObj: dataChunk, cf: 'repObj' });
 
               // localStorage.repObjs = JSON.stringify(vcan.main.replayObjs);
-              virtualclass.storage.store(JSON.stringify(vcan.main.replayObjs));
               dataChunk = [];
             }
           }
@@ -340,6 +339,8 @@
       if (wb.vcan.wb.sentPack) {
         wb.vcan.wb.sentPack = false;
       }
+
+      // console.log('=====> CANVAS SCALE ===== up ', virtualclass.zoom.canvasScale);
     };
   };
   window.draw_object = draw_object;

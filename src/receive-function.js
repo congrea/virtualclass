@@ -19,7 +19,7 @@ const receiveFunctions = new function () {
   // editor data
   this.eddata = function (e) {
     // virtualclass.editorRich.onmessage(e.message);
-    if (e.message.hasOwnProperty('et')) {
+    if (Object.prototype.hasOwnProperty.call(e.message, 'et')) {
       if (e.message.et == 'editorRich') {
         virtualclass.editorRich.onmessage(e, 'EditorRich');
       } else {
@@ -35,7 +35,7 @@ const receiveFunctions = new function () {
    * @param e.message has various required properties
    */
   this.nEd = function (e) {
-    localStorage.setItem('nEd', true);
+    // localStorage.setItem('nEd', true);
     // TODO the editor should be dynamic
     const editorRichWriteModeBox = document.getElementById('EditorRichwriteModeBox');
 
@@ -44,13 +44,13 @@ const receiveFunctions = new function () {
         localStorage.removeItem('nEd');
       } else {
         e.message.cf = 'control';
-        localStorage.setItem('editorCode', 'true');
+        // localStorage.setItem('editorCode', 'true');
         virtualclass.user.control.onmessage(e);
       }
     } else {
-      console.log('editor mode editorRichWriteModeBox null');
+      // console.log('editor mode editorRichWriteModeBox null');
     }
-    console.log('Editor mode save');
+    // console.log('Editor mode save');
   };
 
   this.bt = function () {
@@ -94,7 +94,7 @@ const receiveFunctions = new function () {
   };
 
   this.settings = function (e) {
-    if (e.message.hasOwnProperty('Hex')) {
+    if (Object.prototype.hasOwnProperty.call(e.message, 'Hex')) {
       virtualclass.settings.onMessage(e.message.Hex);
     }
   };
@@ -137,34 +137,37 @@ const receiveFunctions = new function () {
 
   // whiteboard ready
   this.dispWhiteboard = function (e) {
-    virtualclass.makeAppReady(virtualclass.apps.wb, undefined, e.message.d, e.message.ci);
+    // virtualclass.makeAppReady(virtualclass.apps.wb, undefined, e.message.d, e.message.ci);
+    // virtualclass.makeAppReady(virtualclass.apps.wb, undefined, e.message.d);
+    virtualclass.makeAppReady({ app: virtualclass.apps.wb, data: e.message.d });
+    // virtualclass.vutil.createWhiteBoard(`_doc_${e.message.d}`);
   };
   this.ppt = function (e) {
-    if (e.fromUser.userid != virtualclass.gObj.uid) {
-      if (e.message.hasOwnProperty('init')) {
-        virtualclass.makeAppReady(virtualclass.apps.sp);
-      } else {
-        if (typeof virtualclass.sharePt !== 'object') {
-          // If virtualclass.ssharePt is not ready at participate side, then we
-          // will create it first then only proceed to next ppt packet
-          virtualclass.makeAppReady(virtualclass.apps.sp);
-          virtualclass.sharePt.onmessage({
-            pptMsg: e.message.ppt.init,
-            cf: 'ppt',
-            user: 'all',
-            cfpt: 'setUrl',
-          });
-        }
-        virtualclass.sharePt.onmessage(e.message);
+    if (Object.prototype.hasOwnProperty.call(e.message, 'init')) {
+      // virtualclass.makeAppReady(virtualclass.apps.sp);
+      virtualclass.makeAppReady({ app: virtualclass.apps.sp });
+    } else {
+      if (typeof virtualclass.sharePt !== 'object') {
+        // If virtualclass.ssharePt is not ready at participate side, then we
+        // will create it first then only proceed to next ppt packet
+        // virtualclass.makeAppReady(virtualclass.apps.sp);
+        virtualclass.makeAppReady({ app: virtualclass.apps.sp });
+        virtualclass.sharePt.onmessage({
+          pptMsg: e.message.ppt.init,
+          cf: 'ppt',
+          user: 'all',
+          cfpt: 'setUrl',
+        });
       }
+      virtualclass.sharePt.onmessage(e.message);
     }
-  };
+ };
 
   // unshare schreen
   this.unshareScreen = function (e) {
     const app = e.message.st;
     if (typeof virtualclass[app] === 'object') {
-      console.log('Unshare the screen at student');
+      // console.log('Unshare the screen at student');
       virtualclass[app].prevImageSlices = [];
       virtualclass[app].removeStream();
       virtualclass.currApp = virtualclass.gObj.defaultApp;
@@ -183,18 +186,6 @@ const receiveFunctions = new function () {
     }
   };
 
-  // not found
-  this.userMsg = function (e) {
-    virtualclass.gObj.chat.display(e.message.userMsg);
-  };
-
-  // not found
-  this.requestPacketBy = function (e) {
-    if (roles.hasControls()) {
-      const requestBy = e.message.requestPacketBy; // request user
-      virtualclass.gObj.chat.sendPackets(requestBy, e.message.sp);
-    }
-  };
 
   // not found
   this.chatPackResponsed = function (e) {
@@ -203,54 +194,21 @@ const receiveFunctions = new function () {
     }
   };
 
-  // Reclaim Role
-  this.reclaimRole = function (e) {
-    // debugger;
-    console.log('Role reclaim');
-    // if (localStorage.getItem('teacherId') !== null) {
-    if (roles.hasControls()) {
-      virtualclass.vutil.vcResponseAReclaimRole(e.fromUser.userid, wbUser.id);
-
-      // virtualclass.wb[virtualclass.gObj.currWb].response.reclaimRole(e.fromUser.userid, wbUser.id);
-    }
-  };
 
   /**
    * remove presenter role when educator is join as teacher
    * @param e
    */
-  this.rpr = function (e) {
-    this.reclaimRole(e);
-    console.log('reclaim role');
-  };
 
   // Assign Role
-  this.assignRole = function (e) {
-    // debugger;
-    if (e.message.toUser === virtualclass.gObj.uid) {
-      console.log('Role assign');
-      if (typeof virtualclass.wb === 'object') {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
-      }
-      virtualclass.vutil.vcResponseAssignRole(e.fromUser.userid, wbUser.id);
-      // virtualclass.wb[virtualclass.gObj.currWb].response.assignRole(e.fromUser.userid, wbUser.id);
-    }
-  };
 
   // Clear All
   this.clearAll = function (e) {
-    if (typeof virtualclass.wb !== 'object') {
-      virtualclass.makeAppReady(virtualclass.apps.wb);
-    }
-    virtualclass.wb[virtualclass.gObj.currWb].response.clearAll(e.fromUser.userid, wbUser.id, e.message, virtualclass.wb[virtualclass.gObj.currWb].oTeacher);
-  };
-
-  // Get missed packet
-  this.getMsPckt = function (e) {
-    virtualclass.wb[virtualclass.gObj.currWb].gObj.chunk = [];
-    const chunk = virtualclass.wb[virtualclass.gObj.currWb].bridge.sendPackets(e, virtualclass.wb[virtualclass.gObj.currWb].gObj.chunk);
-    virtualclass.vutil.beforeSend({ repObj: chunk, chunk: true, cf: 'repObj' });
-    // var chunk = virtualclass.wb[virtualclass.gObj.currWb].bridge.sendPackets(e, virtualclass.wb[virtualclass.gObj.currWb].gObj.chunk);
+    // console.log('====> WHITEBOARD APP DATA CLEAR ALL');
+    // if (typeof virtualclass.wb !== 'object') {
+    //   virtualclass.makeAppReady({ app: virtualclass.apps.wb });
+    // }
+    // virtualclass.wb[virtualclass.gObj.currWb].response.clearAll();
   };
 
   // Create mouse
@@ -264,21 +222,19 @@ const receiveFunctions = new function () {
 
   // Display Whiteboard Data
   this.repObj = function (e) {
-    //     console.log("whiteboard Incomming UID ===== " + e.message.repObj[0].uid);
-
-    if (typeof virtualclass.wb !== 'object' && virtualclass.currApp != 'DocumentShare') {
-      virtualclass.makeAppReady(virtualclass.apps.wb);
+    if (typeof virtualclass.gObj.currWb !== 'undefined') {
+      if (typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object' && e.fromUser.role === 't') {
+        virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.repObj, virtualclass.gObj.currWb);
+      }
     }
 
-    if (typeof virtualclass.gObj.currWb !== 'undefined') {
-      virtualclass.wb[virtualclass.gObj.currWb].utility.removeWhiteboardMessage();
+    if (typeof virtualclass.gObj.wbData[virtualclass.gObj.currWb] !== 'object') {
+      virtualclass.gObj.wbData[virtualclass.gObj.currWb] = [];
+    }
 
-      // The packets came from teacher when he/she does not has control won't be display
-      if (e.fromUser.role == 't') {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.replayObjsByFilter(e.message.repObj);
-      } else {
-        console.log('whiteboard -------------------------- We just lost a packet');
-      }
+    let i = 0;
+    for (; i < e.message.repObj.length; i++) {
+      virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
     }
   };
 
@@ -290,26 +246,29 @@ const receiveFunctions = new function () {
 
   // documnetation sharing
   this.dts = function (e) {
-    // virtualclass.dts.onmessage(e);
-    console.log(`Document share :- message received ${e.message.serial}`);
-    console.dir(e.message.dts);
-    if (e.message.dts.hasOwnProperty('init')) {
+    if (Object.prototype.hasOwnProperty.call(e.message.dts, 'init')) {
+      console.log('====> final seek suman 4', e.message.dts);
+      console.log('====> document shareing 1');
       virtualclass.gObj.screenRh = 100;
-      virtualclass.makeAppReady('DocumentShare', undefined, e.message.dts);
+      // virtualclass.makeAppReady('DocumentShare', undefined, e.message.dts);
+      virtualclass.makeAppReady({ app: 'DocumentShare', data: e.message.dts });
       virtualclass.gObj.screenRh = 60;
     } else if (typeof virtualclass.dts === 'object') {
       virtualclass.dts.onmessage(e);
     }
   };
   this.poll = function (e) {
-    console.log(e.message.poll.pollMsg);
+    // console.log(e.message.poll.pollMsg);
     if (e.message.poll.pollMsg == 'init') {
-      virtualclass.makeAppReady('Poll');
+      // virtualclass.makeAppReady('Poll');
+      // virtualclass.makeAppReady({ app: 'Poll' });
+      virtualclass.makeAppReady({ app: 'Poll' });
     } else {
       if (typeof virtualclass.poll !== 'object') {
         // If virtualclass.ssharePt is not ready at participate side, then we
         // will create it first then only proceed to next ppt packet
-        virtualclass.makeAppReady('Poll');
+        // virtualclass.makeAppReady('Poll');
+        virtualclass.makeAppReady({app: 'Poll'});
         virtualclass.poll.onmessage({ pollMsg: e.message.poll.init, cf: 'poll', user: 'all' });
       }
       virtualclass.poll.onmessage(e.message, e.fromUser);
@@ -317,12 +276,15 @@ const receiveFunctions = new function () {
   };
 
   this.quiz = function (e) {
-    console.log(e.message.quiz.quizMsg);
-    if (e.message.quiz.quizMsg == 'init') {
-      virtualclass.makeAppReady('Quiz');
+    // console.log(e.message.quiz.quizMsg);
+    if (e.message.quiz.quizMsg === 'init') {
+      // virtualclass.makeAppReady('Quiz');
+      virtualclass.makeAppReady({ app: 'Quiz' });
     } else {
       if (typeof virtualclass.quiz !== 'object') {
-        virtualclass.makeAppReady('Quiz');
+        // virtualclass.makeAppReady('Quiz');
+        virtualclass.makeAppReady({ app: 'Quiz' });
+
         virtualclass.quiz.onmessage({ quizMsg: e.message.quiz.init, cf: 'quiz', user: 'all' });
       }
       virtualclass.quiz.onmessage(e.message, e.fromUser);
@@ -331,9 +293,7 @@ const receiveFunctions = new function () {
 
 
   this.videoUl = function (e) {
-    if (e.fromUser.userid != virtualclass.gObj.uid) {
-      virtualclass.videoUl.onmessage(e.message);
-    }
+    virtualclass.videoUl.onmessage(e.message);
   };
 
   this.congController = function (e) {
@@ -385,17 +345,17 @@ const receiveFunctions = new function () {
   };
 
   this.mvid = function (e) {
-    console.log('multivideo, message received');
+    // console.log('multivideo, message received');
     virtualclass.multiVideo.onmessage(e.message, e.fromUser.userid);
   };
 
   this.sc = function (e) {
-    console.log('Recevied scroll');
+    // console.log('Recevied scroll');
     virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
   };
 
   this.scf = function (e) {
-    console.log('Recevied scroll first');
+    // console.log('Recevied scroll first');
     console.dir(e.message);
     if (virtualclass.gObj.currWb != null) {
       virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
@@ -403,29 +363,46 @@ const receiveFunctions = new function () {
   };
 
   this.cwb = function (e) {
-    if (e.message.hasOwnProperty('diswb')) {
+    if (Object.prototype.hasOwnProperty.call(e.message, 'diswb')) {
       const { wid } = e.message;
       virtualclass.gObj.currWb = wid;
-      if (!virtualclass.wbCommon.whiteboardExist(virtualclass.gObj.currWb)) {
-        virtualclass.vutil.createWhiteBoard(virtualclass.gObj.currWb);
-      }
+
       const idn = wid.split('_');
       if (idn.length > 0) {
         virtualclass.gObj.currSlide = idn[idn.length - 1];
       }
       virtualclass.gObj.currIndex = e.message.currIndex;
-      virtualclass.wbCommon.displaySlide(wid);
-      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
-    } else if (e.message.hasOwnProperty('wbCount')) {
-      virtualclass.gObj.wbCount = e.message.wbCount;
-      if (virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1) {
-        virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
-        virtualclass.gObj.currIndex = e.message.currIndex;
-        virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currIndex);
+      if (!virtualclass.wbCommon.whiteboardExist(virtualclass.gObj.currWb)) {
+        virtualclass.vutil.createWhiteBoard(virtualclass.gObj.currWb);
+      } else {
+        virtualclass.wbCommon.indexNav.updateNavigation();
       }
-      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
+      virtualclass.wbCommon.displaySlide(wid);
+      // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
+    } else if (Object.prototype.hasOwnProperty.call(e.message, 'wbCount')) {
+      virtualclass.gObj.wbCount = e.message.wbCount;
+      virtualclass.gObj.currIndex = e.message.currIndex;
+      virtualclass.wbCommon.indexNav.updateNavigation();
+      // if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
+      //   virtualclass.wbCommon.indexNav.setCurrentIndex(virtualclass.gObj.currIndex);
+      // } else {
+      //   virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currIndex);
+      // }
+
+
+      // if (virtualclass.gObj.wIds.indexOf(Number(virtualclass.gObj.wbCount)) == -1) {
+      //   virtualclass.gObj.wIds.push(virtualclass.gObj.wbCount);
+      //   virtualclass.gObj.currIndex = e.message.currIndex;
+      //   virtualclass.wbCommon.indexNav.studentWBPagination(virtualclass.gObj.currIndex);
+      // }
+      // localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
     }
   };
+
+  this.rearrangeWb = function (e) {
+    virtualclass.orderList.Whiteboard.overrideOrder(e.message.order);
+    virtualclass.wbCommon.rearrange(virtualclass.orderList.Whiteboard.ol.order);
+  }
 
   /** *** Start Student Screen Sharing **** */
   /* Handle teacher request for screen sharing * */
@@ -442,7 +419,8 @@ const receiveFunctions = new function () {
             virtualclass.gObj.studentSSstatus.mesharing = true;
           }
           const appName = 'ScreenShare';
-          virtualclass.makeAppReady(appName, 'byclick');
+          //virtualclass.makeAppReady(appName, 'byclick');
+          virtualclass.makeAppReady({ app: appName, cusEvent: 'byclick' });
         } else {
           virtualclass.vutil.beforeSend({ sd: true, cf: 'colorIndicator' });
         }
@@ -467,11 +445,11 @@ const receiveFunctions = new function () {
         elem.style.display = 'none';
       }
     }
-    if (e.message.hasOwnProperty('firstSs')) {
+    if (Object.prototype.hasOwnProperty.call(e.message, 'firstSs')) {
       virtualclass.gObj.studentSSstatus.sharing = true;
     }
     virtualclass.gObj.studentSSstatus.shareToAll = false;
-    console.log('Share, self view');
+    // console.log('Share, self view');
   };
 
   // Share screenshare to all
@@ -482,7 +460,7 @@ const receiveFunctions = new function () {
     }
     virtualclass.gObj.studentSSstatus.shareToAll = true;
     virtualclass.gObj.studentSSstatus.sharing = true;
-    console.log('Share, to all');
+    // console.log('Share, to all');
   };
 
   /** This happens when student does page refresh during the share is being shared  * */
@@ -509,7 +487,7 @@ const receiveFunctions = new function () {
         elem.setAttribute('data-dcolor', 'red');
       }
     } else if (rMsg.ext) {
-      const color = rMsg.hasOwnProperty('nosupport') ? 'nosupport' : 'orange';
+      const color = Object.prototype.hasOwnProperty.call(rMsg, 'nosupport') ? 'nosupport' : 'orange';
 
 
       var elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
@@ -531,7 +509,7 @@ const receiveFunctions = new function () {
 
   this.destroyPlayer = function (e) {
     if (virtualclass.currApp == 'Video') {
-      if (virtualclass.hasOwnProperty('videoUl') && virtualclass.videoUl.videoUrl) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'videoUl') && virtualclass.videoUl.videoUrl) {
         virtualclass.videoUl.videoUrl = '';
         virtualclass.videoUl.videoId = '';
         const frame = document.getElementById('dispVideo_Youtube_api'); // youtube video
@@ -559,6 +537,7 @@ const receiveFunctions = new function () {
         }
 
         if (typeof virtualclass.videoUl.player === 'object') {
+          console.log('====> Video player is destroyed  <======', virtualclass.videoUl.player);
           delete (virtualclass.videoUl.player);
         }
       }
@@ -581,7 +560,15 @@ const receiveFunctions = new function () {
     } else {
       if (virtualclass.settings.info.attendeeAV) {
         virtualclass.settings.onMessage(e.message);
+      } else {
+        if (roles.hasControls()) {
+          virtualclass.settings.onMessage(e.message);
+        }
       }
     }
+  };
+
+  this.rawSyncData = function (e) {
+      virtualclass.serverData.onMessage(e.message);
   };
 }();

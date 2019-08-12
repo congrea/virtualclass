@@ -26,10 +26,10 @@ Network.prototype.pingToServer = function () {
  * @param time is miliseconds at which, the applicaton pings the server
  */
 Network.prototype.initToPing = function (time) {
-  if (this.hasOwnProperty('initToPingTime')) {
+  if (Object.prototype.hasOwnProperty.call(this, 'initToPingTime')) {
     clearTimeout(this.initToPingTime);
   }
-  if (this.hasOwnProperty('sleepTime')) {
+  if (Object.prototype.hasOwnProperty.call(this, 'sleepTime')) {
     clearTimeout(this.sleepTime);
   }
   this.initToPingTime = setTimeout(
@@ -134,7 +134,7 @@ Network.prototype.updateNetworkInfo = function (latency) {
 Network.prototype.setSpeed = function (speed) {
   virtualclass.videoHost.gObj.MYSPEED = speed;
   ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
-  console.log(`Latency - CHANGE SPEED TO ${virtualclass.videoHost.gObj.MYSPEED}`);
+  // console.log(`Latency - CHANGE SPEED TO ${virtualclass.videoHost.gObj.MYSPEED}`);
   this.hideTeacherVideo();
   this.resetVariations();
 };

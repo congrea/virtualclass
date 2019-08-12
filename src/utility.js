@@ -49,19 +49,19 @@
         const errorMsg = (virtualclass.error.length > 1) ? (virtualclass.error.join('<br />')) : virtualclass.error[0];
         virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
 
-        if (virtualclass.gObj.hasOwnProperty('errIE')) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'errIE')) {
           virtualclass.vutil.disableVirtualClass();
         }
 
-        if (virtualclass.gObj.hasOwnProperty('audIntDisable')) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable')) {
           virtualclass.user.control.mediaWidgetDisable();
         }
 
-        if (virtualclass.gObj.hasOwnProperty('errNotDesktop')) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'errNotDesktop')) {
           virtualclass.user.control.mediaWidgetDisable();
           virtualclass.vutil.disableVirtualClass();
         }
-      } else if (virtualclass.gObj.hasOwnProperty('audIntDisable') || virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
+      } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') || Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
         virtualclass.user.control.mediaWidgetDisable();
       }
     },
@@ -149,14 +149,14 @@
             // canvas wrapper height 2
             canWrapper.style.height = `${res.height - virtualclass.gObj.screenRh}px`;
 
-            console.log(`Canvas wrapper height ${canWrapper.style.height}`);
+            // console.log(`Canvas wrapper height ${canWrapper.style.height}`);
             // virtualclass.system.setAppDimension(wb, true);
           }
         }
 
-        console.log(`Container width ${appId} ${res.width}`);
+        // console.log(`Container width ${appId} ${res.width}`);
       } else {
-        console.log(`${appCont} is not found `);
+        // console.log(`${appCont} is not found `);
       }
     },
 
@@ -191,7 +191,7 @@
     },
     initInstallChromeExt(error) {
       if (error.name == 'EXTENSION_UNAVAILABLE') {
-        console.log('ask for inline installation');
+        // console.log('ask for inline installation');
         this._inlineChomeExtensionStore();
       }
     },
@@ -236,7 +236,7 @@
       }
 
       virtualclass[app].localtempCanvas = document.getElementById(tempVideoId);
-      console.log(virtualclass[app].localtempCanvas);
+      // console.log(virtualclass[app].localtempCanvas);
       virtualclass[app].localtempCont = virtualclass[app].localtempCanvas.getContext('2d');
     },
 
@@ -325,7 +325,7 @@
 
     isObjectEmpty(obj) {
       for (const prop in obj) {
-        if (obj.hasOwnProperty(prop)) return false;
+        if (Object.prototype.hasOwnProperty.call(obj, prop)) return false;
       }
 
       return true;
@@ -450,17 +450,19 @@
       virtualClass.style.pointerEvents = 'visible';
     },
     firstiOSaudioCall() {
-      if (virtualclass.gObj.hasOwnProperty('audioPlayMessage')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audioPlayMessage')) {
         // virtualclass.gObj.iosTabAudTrue = true;
         virtualclass.gObj.iosIpadbAudTrue = true;
         virtualclass.media.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
       }
     },
 
-    beforeLoad: async function () {
+    async beforeLoad() {
       if (virtualclass.isPlayMode) {
+        // virtualclass.recorder.getRecViewData();
+        virtualclass.recorder.recDataSend();
         // We need to clear everything when user first play-recoring and join the live class
-        console.log("==== Clear Session PlayMode")
+        // console.log('==== Clear Session PlayMode');
         return;
       }
 
@@ -486,7 +488,7 @@
       virtualclass.gObj.windowLoading = true;
       // If user does page refresh after session saved and does not start new session  by clicking on element
       // Then we need to clear the session on page refresh
-      if (virtualclass.recorder.hasOwnProperty('doSessionClear')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass.recorder, 'doSessionClear')) {
         virtualclass.clearSession();
         return;
       }
@@ -497,52 +499,53 @@
         virtualclass.storage.clearStorageData();
         return;
       }
-      console.log('screen-detail init');
+      // console.log('screen-detail init');
 
-      //   localStorage.setItem('totalStored', virtualclass.storage.totalStored);
-      localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
-      localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
+      //   // localStorage.setItem('totalStored', virtualclass.storage.totalStored);
+      // localStorage.setItem('executedSerial', JSON.stringify(ioMissingPackets.executedSerial));
+      // localStorage.setItem('executedUserSerial', JSON.stringify(ioMissingPackets.executedUserSerial));
       if (typeof virtualclass.gObj.audioEnable !== 'undefined') {
-        localStorage.setItem('audEnable', JSON.stringify({ ac: virtualclass.gObj.audioEnable }));
+        // localStorage.setItem('audEnable', JSON.stringify({ ac: virtualclass.gObj.audioEnable }));
       }
 
       localStorage.removeItem('otherRole');
 
       // critical, this can be critical
 
-      if (!virtualclass.gObj.hasOwnProperty('audIntDisable')) {
+      if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable')) {
         virtualclass.media.audio.studentNotSpeak();
       }
 
       virtualclass.vutil.clickOutSideCanvas();
-      localStorage.setItem(wbUser.sid, JSON.stringify(virtualclass.chat.vmstorage));
+      // localStorage.setItem(wbUser.sid, JSON.stringify(virtualclass.chat.vmstorage));
 
-      if (virtualclass.hasOwnProperty('editorRich')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'editorRich')) {
         if (typeof virtualclass.editorRich.vcAdapter === 'object') {
           virtualclass.editorRich.saveIntoLocalStorage();
         }
       }
 
-      if (virtualclass.hasOwnProperty('editorCode')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'editorCode')) {
         if (typeof virtualclass.editorCode.vcAdapter === 'object') {
           virtualclass.editorCode.saveIntoLocalStorage();
         }
       }
 
       var prvAppObj = { name: virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp) };
-      console.log(virtualclass.currApp);
+      // console.log(virtualclass.currApp);
       if (virtualclass.currApp == 'ScreenShare') {
         prvAppObj.name = virtualclass.gObj.defaultApp; // not saving screen share but show Editor Rich default window
         const teacherId = virtualclass.vutil.whoIsTeacher();
-        if (virtualclass.gObj.studentSSstatus.mesharing) {
+        if (virtualclass.gObj.studentSSstatus.mesharing && roles.isStudent()) {
+          console.log('====> me sharing rmStdScreen');
           ioAdapter.mustSendUser({ cf: 'rmStdScreen' }, teacherId);
         } else if (roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing) {
           virtualclass.vutil.beforeSend({ unshareScreen: true, st: 'ss', cf: 'unshareScreen' });
         }
 
         if ((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()) {
-          console.log('screen-detail is saving into storage');
-          localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
+          // console.log('screen-detail is saving into storage');
+          // localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
         }
       } else if ((virtualclass.currApp == 'Yts')) {
         if (typeof virtualclass.yts.videoId !== 'undefined' && typeof virtualclass.yts.player === 'object') {
@@ -554,20 +557,20 @@
       } else if ((virtualclass.currApp == 'SharePresentation')) {
         // virtualclass.sharePt.saveIntoLocalStorage();
         if (typeof virtualclass.sharePt !== 'undefined' && typeof virtualclass.sharePt === 'object' && virtualclass.sharePt.pptUrl) {
-          console.log(`beforeloadS${virtualclass.sharePt.pptUrl}`);
+          // console.log(`beforeloadS${virtualclass.sharePt.pptUrl}`);
           prvAppObj.metaData = {
             init: virtualclass.sharePt.pptUrl,
             startFrom: virtualclass.sharePt.state,
             currId: virtualclass.sharePt.currId,
           };
-          console.log(`start From${virtualclass.sharePt.state}`);
+          // console.log(`start From${virtualclass.sharePt.state}`);
           virtualclass.sharePt.saveIntoLocalStorage(prvAppObj);
         } else {
           prvAppObj.metaData = null; // if video is not started to share.
         }
       } else if (virtualclass.currApp == 'Poll') {
-        virtualclass.poll.saveInLocalStorage();
-        console.log('currAppPoll');
+        // virtualclass.poll.saveInLocalStorage();
+        // console.log('currAppPoll');
       } else if (virtualclass.currApp == 'Video') {
         if (virtualclass.videoUl.player) {
           var start = virtualclass.videoUl.player.currentTime();
@@ -586,24 +589,20 @@
 
         };
 
-        console.log(prvAppObj);
-        // nirmala
-        //  virtualclass.videoUl.saveVideosInLocalStr();
 
-        //  }
       } else if (virtualclass.currApp == 'DocumentShare') {
-        console.log(`previous app success ${virtualclass.currApp}`);
-        if (virtualclass.dts.docs.hasOwnProperty('currDoc')) {
+        // console.log(`previous app success ${virtualclass.currApp}`);
+        if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
           var { currDoc } = virtualclass.dts.docs;
-          console.log(`currentDocument ${currDoc}`);
+          // console.log(`currentDocument ${currDoc}`);
           // console.dir('currDoc ' + virtualclass.dts.docs[virtualclass.dts.docs.currDoc]);
           //  var slideNumber = virtualclass.dts.docs.note.currNote;
 
-          if (virtualclass.dts.order.length > 0) {
+          if (virtualclass.orderList['DocumentShare'].ol.order.length > 0) {
             prvAppObj.metaData = {
               init: currDoc,
               slideNumber: virtualclass.dts.docs.note.currNote,
-              order: JSON.stringify(virtualclass.dts.order),
+              order: JSON.stringify(virtualclass.orderList['DocumentShare'].ol.order),
             };
           } else {
             var currDoc = 'layout';
@@ -623,29 +622,29 @@
           prvAppObj.metaData.docs = virtualclass.dts.pages;
         }
       } else if (virtualclass.currApp === 'Quiz') {
-        virtualclass.quiz.saveInLocalStorage();
-        console.log('quiz data saved');
+        //virtualclass.quiz.saveInLocalStorage();
+        // console.log('quiz data saved');
       } else if (virtualclass.currApp === 'Whiteboard') {
         // var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount, "wbcs"  : virtualclass.gObj.currSlide};
         var prvAppObj = { name: 'Whiteboard', wbn: virtualclass.gObj.wbCount };
       }
 
-      if (virtualclass.gObj.wIds.length > 0) {
-        localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
-      }
+      //if (virtualclass.gObj.wIds.length > 0) {
+        // localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
+      //}
 
       if (roles.hasControls()) {
-        localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
+        // localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
       }
 
       if (virtualclass.zoom.canvasScale != null) {
         const canvasScale = (+virtualclass.zoom.canvasScale);
-        console.log(`Canvas pdf scale ${canvasScale}`);
+        // console.log(`Canvas pdf scale ${canvasScale}`);
         if (virtualclass.vutil.isNumeric(canvasScale)) {
-          //   localStorage.setItem('wbcScale', canvasScale);
+          //   // localStorage.setItem('wbcScale', canvasScale);
         }
-        if (virtualclass.zoom.hasOwnProperty('canvasDimension')) {
-          localStorage.setItem('canvasDimension', JSON.stringify(virtualclass.zoom.canvasDimension));
+        if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'canvasDimension')) {
+          // localStorage.setItem('canvasDimension', JSON.stringify(virtualclass.zoom.canvasDimension));
         }
       }
 
@@ -663,13 +662,6 @@
        * rather than document sharing
        */
 
-      if (virtualclass.hasOwnProperty('dts') && virtualclass.dts != null) {
-        virtualclass.dts.upateInStorage();
-      }
-
-      localStorage.setItem('currSlide', virtualclass.gObj.currSlide);
-      localStorage.setItem('currIndex', virtualclass.gObj.currIndex);
-
       if (!roles.hasControls()) {
         const elem = document.querySelector('#virtualclassCont.congrea #congHr.disable');
         if (elem) {
@@ -679,17 +671,17 @@
 
       console.dir(`Previous object ${prvAppObj}`);
 
-      localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
+      // localStorage.setItem('prevApp', JSON.stringify(prvAppObj));
       // TODO this should be enable and should test proper way
-      // localStorage.setItem('uRole', virtualclass.gObj.uRole);
+      // // localStorage.setItem('uRole', virtualclass.gObj.uRole);
 
       if (roles.hasControls()) {
-        localStorage.setItem('videoSwitch', virtualclass.videoHost.gObj.videoSwitch);
+        // localStorage.setItem('videoSwitch', virtualclass.videoHost.gObj.videoSwitch);
       } else {
-        localStorage.setItem('stdVideoSwitch', virtualclass.videoHost.gObj.stdStopSmallVid);
-        localStorage.setItem('allStdVideoOff', virtualclass.videoHost.gObj.allStdVideoOff);
+        // localStorage.setItem('stdVideoSwitch', virtualclass.videoHost.gObj.stdStopSmallVid);
+        // localStorage.setItem('allStdVideoOff', virtualclass.videoHost.gObj.allStdVideoOff);
       }
-      localStorage.setItem('chatWindow', virtualclass.chat.chatWindow);
+      // localStorage.setItem('chatWindow', virtualclass.chat.chatWindow);
       this.saveWbOrder();
       if (virtualclass.isPlayMode) {
         localStorage.clear();
@@ -745,7 +737,7 @@
       if (prvScreen != null) {
         prvScreen.style.display = 'none';
 
-        console.log(`Hide previous screen with display new ${app}`);
+        // console.log(`Hide previous screen with display new ${app}`);
         if (app == 'ss') {
           if (typeof virtualclass[app] === 'object') {
             document.getElementById(virtualclass[app].id).style.display = 'block';
@@ -762,9 +754,11 @@
      * @param userId the user
      */
     getUserInfo(key, userId, users) {
-      for (let i = 0; i < users.length; i++) {
-        if (users[i].userid == userId) {
-          return users[i][key];
+      if (users != null) {
+        for (let i = 0; i < users.length; i++) {
+          if (users[i].userid == userId) {
+            return users[i][key];
+          }
         }
       }
     },
@@ -779,7 +773,7 @@
         }
         return false;
       }
-      console.log('Error user is not found');
+      // console.log('Error user is not found');
       return false;
     },
 
@@ -791,7 +785,7 @@
     },
 
     // initDefaultInfo(role, appIs) {
-    //   if (!virtualclass.gObj.hasOwnProperty('audIntDisable') && !virtualclass.gObj.hasOwnProperty('vidIntDisable')) {
+    //   if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
     //     setTimeout(
     //       () => {
     //         virtualclass.media.init();
@@ -822,16 +816,16 @@
       const wbId = virtualclass.gObj.currWb;
       // //debugger;
       // when we are in replay mode we don't need send the object to other user
-      if (msg.hasOwnProperty('createArrow')) {
+      if (Object.prototype.hasOwnProperty.call(msg, 'createArrow')) {
         var jobj = JSON.stringify(msg);
         virtualclass.wb[wbId].vcan.optimize.sendPacketWithOptimization(jobj, 300);
       } else {
-        if (msg.hasOwnProperty('repObj')) { // For Whiteboard
+        if (Object.prototype.hasOwnProperty.call(msg, 'repObj')) { // For Whiteboard
           if (typeof (msg.repObj[msg.repObj.length - 1]) === 'undefined') {
             return;
           }
-          virtualclass.wb[wbId].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
-          virtualclass.wb[wbId].gObj.displayedObjId = virtualclass.wb[wbId].gObj.rcvdPackId;
+        //  virtualclass.wb[wbId].gObj.rcvdPackId = msg.repObj[msg.repObj.length - 1].uid;
+          // virtualclass.wb[wbId].gObj.displayedObjId = virtualclass.wb[wbId].gObj.rcvdPackId;
           //            console.log('Last send data ' + virtualclass.wb[wbId].gObj.rcvdPackId);
         }
 
@@ -859,14 +853,6 @@
       return parts;
     },
 
-    createReclaimButton(cmdToolsWrapper) {
-      this.createDiv('t_reclaim', 'educator', cmdToolsWrapper);
-      const aTags = document.getElementById('t_reclaim').getElementsByTagName('a');
-      const that = this;
-      aTags[0].addEventListener('click', () => {
-        that._reclaimRole();
-      });
-    },
     /**
      * this function does create the div
      * toolId expect id for command
@@ -907,166 +893,7 @@
         cmdToolsWrapper.appendChild(lDiv);
       }
     },
-    assignRole(studentId) {
-      if (typeof virtualclass.wb === 'object') {
-        var { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
-        virtualclass.wb[virtualclass.gObj.currWb].tool = '';
 
-        if (vcan.main.action == 'move') {
-          virtualclass.wb[virtualclass.gObj.currWb].utility.deActiveFrmDragDrop();
-        }
-      }
-
-      if (typeof studentId !== 'undefined') {
-        if (roles.isEducator()) {
-          // var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
-          var commandToolsWrapperId = 'commandToolsWrapper_doc_0_0';
-          var cmdToolsWrapper = document.getElementById(commandToolsWrapperId);
-          // var cmdToolsWrapper = 'commandToolsWrapper_doc_0_0';
-          cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-          virtualclass.vutil.removeClass('virtualclassCont', 'educator');
-        } else {
-          virtualclass.vutil.addClass('virtualclassCont', 'presenter');
-        }
-
-        virtualclass.gObj.uRole = (!roles.hasAdmin()) ? 'p' : 't';
-
-        localStorage.setItem('uRole', virtualclass.gObj.uRole); // Role problem
-
-        virtualclass.user.assignRole(virtualclass.gObj.uRole, virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp), studentId);
-
-        if (typeof virtualclass.wb === 'object') {
-          vcan.utility.canvasCalcOffset(vcan.main.canid);
-        }
-
-        if (virtualclass.currApp == 'Yts') {
-          const virtualclassYts = document.getElementById('virtualclassYts');
-          if (virtualclassYts != null) {
-            if (document.getElementById('player') == null) {
-              virtualclass.yts.UI.createPlayerTag(virtualclassYts);
-            }
-          } else {
-            virtualclass.yts.UI.container();
-          }
-
-          virtualclass.yts.UI.inputURL();
-          if (typeof virtualclass.yts.player === 'object') {
-            virtualclass.yts.seekChangeInterval();
-          } else {
-            console.log('Player object is not ready');
-          }
-        } else if (virtualclass.currApp == 'SharePresentation') {
-          const virtualclassppt = document.getElementById('virtualclassSharePresentation');
-          if (virtualclassppt != null) {
-            if (document.getElementById('iframecontainer') == null) {
-              virtualclass.sharePt.UI.createIframe();
-            }
-          } else {
-            virtualclass.sharePt.UI.container();
-          }
-
-          if (roles.hasControls()) {
-            virtualclass.sharePt.initTeacherLayout();
-          }
-
-          if (roles.hasView()) {
-            virtualclass.sharePt.eventsObj = [];
-          }
-
-          virtualclass.sharePt.attachEvent('submitpurl', 'click', virtualclass.sharePt.initNewPpt);
-          virtualclass.sharePt.attachMessageEvent('message', virtualclass.sharePt.pptMessageEventHandler);
-        }
-      } else {
-        if (virtualclass.currApp == 'Yts') {
-          virtualclass.yts.UI.removeinputURL();
-          if (virtualclass.yts.hasOwnProperty('tsc')) {
-            clearInterval(virtualclass.yts.tsc);
-          }
-        }
-
-        if (virtualclass.currApp == 'SharePresentation') {
-          if (roles.hasControls()) {
-            virtualclass.sharePt.initStudentLayout();
-          }
-
-          if (roles.hasView()) {
-            virtualclass.sharePt.eventsObj = [];
-            virtualclass.sharePt.hideElement('pptMessageLayout');
-            virtualclass.sharePt.UI.createUrlContainer();
-            virtualclass.sharePt.displayElement('urlcontainer');
-          }
-
-          virtualclass.sharePt.attachEvent('submitpurl', 'click', virtualclass.sharePt.initNewPpt);
-          virtualclass.sharePt.attachMessageEvent('message', virtualclass.sharePt.pptMessageEventHandler);
-        }
-
-        virtualclass.gObj.uRole = (!roles.hasAdmin()) ? 's' : 'e';
-        var commandToolsWrapperId = 'commandToolsWrapper_doc_0_0';
-        // var cmdToolsWrapper = document.getElementById(virtualclass.gObj.commandToolsWrapperId);
-        var cmdToolsWrapper = document.getElementById(commandToolsWrapperId);
-
-        if (cmdToolsWrapper != null) {
-          while (cmdToolsWrapper.hasChildNodes()) {
-            cmdToolsWrapper.removeChild(cmdToolsWrapper.lastChild);
-          }
-        } else {
-          var cmdToolsWrapper = virtualclass.vutil.createRoleWrapper(); // incase of assign role without clicking whiteboard
-        }
-
-        if (typeof virtualclass.wb === 'object') {
-          virtualclass.wb[virtualclass.gObj.currWb].utility.makeCanvasDisable();
-        }
-
-        if (roles.hasAdmin()) {
-          const virtualclassCont = document.getElementById('virtualclassCont');
-          virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
-          virtualclass.vutil.addClass('virtualclassCont', 'educator');
-        } else {
-          virtualclass.vutil.removeClass('virtualclassCont', 'presenter');
-
-          cmdToolsWrapper = document.querySelector('#commandToolsWrapper_doc_0_0');
-          if (cmdToolsWrapper != null) {
-            cmdToolsWrapper.parentNode.removeChild(cmdToolsWrapper);
-          }
-        }
-
-        localStorage.setItem('uRole', virtualclass.gObj.uRole); // should be store role student
-
-        if (typeof virtualclass.wb === 'object') {
-          virtualclass.wb[virtualclass.gObj.currWb].utility.uniqueArrOfObjsToStudent();
-        }
-      }
-
-      virtualclass.system.setAppDimension();
-      virtualclass.vutil.renderWhiteboardObjectsIfAny();
-
-      /**
-       * After assign the teacher Role, we need disconnect and reconnect
-       * for pass the the reflected role to all other uses, because of problem
-       * https://github.com/vidyamantra/virtualclass/issues/150
-       *
-       */
-
-      // If teacher is disconnected then
-      // there would come the porblem on editor of assigning role to student while continuous writting by him.
-
-      if (!roles.hasAdmin()) {
-        io.disconnect();
-        setTimeout(
-          () => {
-            virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
-            io.init(virtualclass.uInfo);
-          }, 500,
-        );
-      } else {
-        /** We need to  update  the role at teacher side with virtualclass.uInfo.userobj.role
-         * because the older role is existing while new session is being created.
-         * TEST CASE:- assign role, page refresh both side, reclaim role, see io.cfg.userobj.role, you get the older role
-         * This happens only on teacher side, below st
-         * * */
-        virtualclass.uInfo.userobj.role = virtualclass.gObj.uRole;
-      }
-    },
     renderWhiteboardObjectsIfAny() {
       if (typeof virtualclass.wb === 'object') {
         if (virtualclass.wb[virtualclass.gObj.currWb].vcan.main.children.length > 0) {
@@ -1096,136 +923,10 @@
       return cmdToolsWrapper;
     },
 
-    _reclaimRole() {
-      virtualclass.vutil.beforeSend({ reclaimRole: true, cf: 'reclaimRole' });
-      const reclaimButton = document.getElementById('t_reclaim');
-      reclaimButton.style.pointerEvents = 'none';
-      reclaimButton.style.opacity = '0.5';
-
-      const that = this;
-      setTimeout(
-        () => {
-          that.reclaimRole();
-          virtualclass.user.control.changeAttrToAssign('enable');
-        }, 2000,
-      );
-    },
-
-    reclaimRole() {
-      virtualclass.gObj.controlAssign = false;
-      this.vcResponseAssignRole(virtualclass.gObj.uid, virtualclass.gObj.uid, true);
-    },
-    // equivalent to response.assignRole from receive-messages-response.js//equivalen
-    vcResponseAssignRole(fromUserId, id, reclaim) {
-      if (fromUserId != id || typeof reclaim !== 'undefined') {
-        virtualclass.vutil.assignRole(id);
-        if (typeof virtualclass.wb === 'object') {
-          virtualclass.wb[virtualclass.gObj.currWb].utility.uniqueArrOfObjsToTeacher();
-        }
-
-        // create assing button only to student
-        if (!roles.hasAdmin()) {
-          virtualclass.vutil.removeSessionTool(); //
-          const divContainer = chatContainerEvent.elementFromShadowDom(`#ml${fromUserId}`);
-          const controls = ['assign'];
-
-          const controlCont = document.getElementById(`${fromUserId}ControlContainer`);
-          if (controlCont != null) {
-            virtualclass.user.createAssignControl(controlCont, fromUserId, true);
-          } else {
-            const divControl = virtualclass.user.createControl(fromUserId, controls);
-            divContainer.appendChild(divControl);
-          }
-
-          localStorage.setItem('aId', fromUserId);
-          // virtualclass.vutil.toggleRoleClass();
-        } else {
-          const currTeacherElem = document.getElementById('chat_div').getElementsByClassName('currTeacher')[0];
-          if (currTeacherElem != null) {
-            virtualclass.user.control.removeCurrTeacherFromControl(currTeacherElem.id);
-          }
-          virtualclass.user.control.changeAttrToAssign('enable');
-        }
-      }
-      virtualclass.vutil.attachClickOutSideCanvas();
-      if (virtualclass.system.device == 'mobTab') { // mobile or tablet
-        virtualclass.vutil.disableVirtualClass();
-        virtualclass.view.createErrorMsg(virtualclass.lang.getString('supportDesktop'), 'errorContainer', 'chatWidget');
-      }
-    },
-
-
-    // equivalent to response.reclaimRole from receive-messages-response.js
-    vcResponseAReclaimRole(formUserId, id) {
-      console.log('Reclaim role :- Init');
-      if (formUserId != id) {
-        // virtualclsss.wb._replay.makeCustomEvent(virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs[virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs.length-1]);
-        if (typeof virtualclass.wb === 'object') {
-          // if whiteboard is in mid state, vcan.main.action == 'move' means user is doing drag/rotate
-
-          var currObj = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs[virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs.length - 1];
-
-          if (typeof currObj === 'object' && currObj.ac == 'del') {
-            console.log('Delete command:- Transferring the delete command');
-            virtualclass.vutil.beforeSend({ repObj: [currObj], cf: 'repObj' });
-          } else if (virtualclass.wb[virtualclass.gObj.currWb].tool.cmd == 't_text' && virtualclass.wb[virtualclass.gObj.currWb].vcan.main.action == 'create') {
-            const midReclaim = true;
-            virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny(midReclaim);
-            console.log('Text command:- Transferring text command');
-          } else if (((virtualclass.wb[virtualclass.gObj.currWb].tool.hasOwnProperty('started') && virtualclass.wb[virtualclass.gObj.currWb].tool.started == true) || virtualclass.wb[virtualclass.gObj.currWb].vcan.main.action == 'move')) {
-            const tempObj = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs[virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs.length - 1];
-
-            var currObj = vcan.extend({}, tempObj);
-            currObj.ac = 'u';
-            if (currObj.hasOwnProperty('mtext')) {
-              var eventObj = { detail: { cevent: { x: currObj.x, y: currObj.y, mtext: currObj.mtext } } };
-            } else {
-              var eventObj = { detail: { cevent: { x: currObj.x, y: currObj.y } } };
-            }
-
-            eventObj.detail.broadCast = true;
-            const eventConstruct = new CustomEvent('mouseup', eventObj); // this is not supported for ie9 and older ie browsers
-            vcan.main.canvas.dispatchEvent(eventConstruct);
-            console.log('Whiteboard:- Transfering the assign role to Teacher');
-          }
-
-          console.log('Role assign with reclaim');
-        }
-
-
-        virtualclass.user.control._assign(id, 'notsent', formUserId);
-        console.log('Reclaim role :- peforme');
-        virtualclass.user.displayStudentSpeaker(true);
-        if (localStorage.getItem('aId') != null) {
-          localStorage.removeItem('aId');
-        }
-        virtualclass.user.control.removeAudioFromParticipate(formUserId);
-        // virtualclass.vutil.toggleRoleClass(true);
-
-        if (virtualclass.system.device == 'mobTab') { // mobile or tablet
-          // alert(App.system.mybrowser.name);
-          if ((virtualclass.system.mybrowser.name = 'iOS' && virtualclass.system.mybrowser.version >= 8) && /(iPad)/g.test(navigator.userAgent)) {
-            virtualclass.vutil.enableVirtualClass();
-          }
-          const onlyLatest = true;
-          virtualclass.view.removeErrorMsg('errorContainer', onlyLatest);
-        }
-      }
-    },
-
-    createReclaimButtonIfNeed() {
-      if (roles.isEducator()) {
-        const cmdToolsWrapper = virtualclass.vutil.createRoleWrapper();
-        virtualclass.vutil.createReclaimButton(cmdToolsWrapper);
-        // virtualclass.gObj.uRole = 's';
-        return true;
-      }
-      return false;
-    },
     whoIsTeacher() {
       // TODO this function should call less frequently and may be called on member add function, status could be saved in a variable.
 
-      if (virtualclass.hasOwnProperty('connectedUsers')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
           if (virtualclass.connectedUsers[i].role == 't' || virtualclass.connectedUsers[i].role == 'e') {
             return virtualclass.connectedUsers[i].userid;
@@ -1236,7 +937,7 @@
     },
 
     getMySelf() {
-      if (virtualclass.hasOwnProperty('connectedUsers')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
           if (virtualclass.connectedUsers[i].userid == virtualclass.gObj.uid) {
             return virtualclass.connectedUsers[i];
@@ -1282,17 +983,17 @@
         if (teacherDisConn != null) {
           teacherDisConn = JSON.parse(teacherDisConn);
           if (teacherDisConn) { // If orginal teacher is disconnnected
-            if (virtualclass.hasOwnProperty(eType)) {
+            if (Object.prototype.hasOwnProperty.call(virtualclass, eType)) {
               if (typeof virtualclass[eType].cm === 'object') {
                 virtualclass[eType].cm.setOption('readOnly', 'nocursor');
               } else {
-                console.log(`Editor CM is notvutil defined for editor ${eType}`);
+                // console.log(`Editor CM is notvutil defined for editor ${eType}`);
               }
             } else {
-              console.log(`Editor type ${eType} is not ready.`);
+              // console.log(`Editor type ${eType} is not ready.`);
             }
           } else {
-            console.log('Teacher is connected.');
+            // console.log('Teacher is connected.');
           }
         }
       }
@@ -1309,17 +1010,17 @@
           virtualclass[eType].cm.setOption('readOnly', 'nocursor');
         }
       } else {
-        console.log(`Editor:- writemode element is not found for ${eType}`);
+        // console.log(`Editor:- writemode element is not found for ${eType}`);
       }
     },
 
 
     isTeacherAlreadyExist(joinId) {
-      if (virtualclass.hasOwnProperty('connectedUsers')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
           if ((virtualclass.connectedUsers[i].role == 't' || virtualclass.connectedUsers[i].role == 'e')
             && virtualclass.connectedUsers[i].userid != joinId) {
-            console.log(`joni Id ${joinId}`);
+            // console.log(`joni Id ${joinId}`);
             return true;
           }
         }
@@ -1333,7 +1034,7 @@
      * @returns {*}
      */
     getPresenterId() {
-      if (virtualclass.hasOwnProperty('connectedUsers')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
           if ((virtualclass.connectedUsers[i].role == 'p')) {
             return virtualclass.connectedUsers[i].userid;
@@ -1345,11 +1046,11 @@
     },
 
     isEducatorAlreadyExist(joinId) {
-      if (virtualclass.hasOwnProperty('connectedUsers')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
           if ((virtualclass.connectedUsers[i].role == 'e')
             && virtualclass.connectedUsers[i].userid != joinId) {
-            console.log(`joniId ${joinId}`);
+            // console.log(`joniId ${joinId}`);
             return true;
           }
         }
@@ -1358,11 +1059,11 @@
     },
 
     isOrginalTeacherExist(joinId) {
-      if (virtualclass.hasOwnProperty('connectedUsers')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
           if ((virtualclass.connectedUsers[i].role == 't')
             && virtualclass.connectedUsers[i].userid != joinId) {
-            console.log(`joniId ${joinId}`);
+            // console.log(`joniId ${joinId}`);
             return true;
           }
         }
@@ -1391,6 +1092,7 @@
         beTeacher.style.pointerEvents = 'none';
         beTeacher.style.opacity = '0.5';
         // For handle the case,  on where teacher refresh the page
+        // TODO remove setTimeout
         setTimeout(
           () => {
             beTeacher.style.pointerEvents = 'visible';
@@ -1427,10 +1129,10 @@
         () => {
           if (!virtualclass.vutil.isOrginalTeacherExist(virtualclass.jId)) {
             virtualclass.vutil.overrideRoles('t');
-            localStorage.setItem('beTeacher', true);
-            console.log('connected teacher');
+            // localStorage.setItem('beTeacher', true);
+            // console.log('connected teacher');
           } else {
-            console.log('Already connected teacher');
+            // console.log('Already connected teacher');
           }
           window.location.reload();
         }, virtualclass.gObj.mySetTime,
@@ -1481,7 +1183,7 @@
         elem.classList.remove('presenter');
         elem.classList.add('teacher');
         elem.classList.add('orginalTeacher');
-        console.log('add Teacher');
+        // console.log('add Teacher');
       }
     },
 
@@ -1740,25 +1442,22 @@
       return false;
     },
 
-    UTCtoLocalTime(time) {
-      const date = new Date(time);
+    miliSecondsToFormatedTime(milliseconds) {
+      const seconds = Math.floor((milliseconds / 1000) % 60);
+      const minutes = Math.floor(((milliseconds / (1000 * 60)) % 60));
+      const hours = Math.floor(((milliseconds / (1000 * 60 * 60)) % 24));
+      return [hours, minutes, seconds];
+    },
 
-      // Hours part from the timestamp
-      const hours = date.getHours();
-      // Minutes part from the timestamp
-      const minutes = `0${date.getMinutes()}`;
-      // Seconds part from the timestamp
-      // var seconds = "0" + date.getSeconds();
-
-      // Will display time in 10:30:23 format
-      const formattedTime = `${hours}:${minutes.substr(-2)}`;
-
-      return formattedTime;
+    localToUTC() {
+      const date = new Date();
+      const nowUtc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+      date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+      return new Date(nowUtc);
     },
 
     UTCtoLocalTimeToSeconds(time) {
-      var time = new Date(time).getTime();
-      return time;
+      return new Date(time).getTime();
     },
 
     appIsForEducator(app) {
@@ -1768,260 +1467,6 @@
         }
       }
       return true;
-    },
-    /**
-     * Todo, this needs to move in dashboard.js
-     * @param currVideo
-     */
-    initDashboardNav(currVideo) {
-      if (roles.hasControls()) {
-        var dashboardnav = document.querySelector('#dashboardnav button');
-
-        if (dashboardnav == null) {
-          const dbNavTemp = virtualclass.getTemplate('dashboardNav');
-          const context = { app: virtualclass.currApp };
-          const dbNavHtml = dbNavTemp(context);
-
-          // var virtualclassOptionsCont = document.querySelector('#virtualclassOptionsCont');
-
-          const virtualclassAppOptionsCont = document.querySelector('#virtualclassAppOptionsCont');
-          virtualclassAppOptionsCont.insertAdjacentHTML('beforeend', dbNavHtml);
-
-          var dashboardnav = document.querySelector('#dashboardnav button');
-          if (dashboardnav != null) {
-            dashboardnav.addEventListener('click', function () {
-              const app = document.querySelector('.congrea #virtualclassApp');
-              if (this.classList.contains('clicked')) {
-                virtualclass.dashBoard.close();
-                if (app) {
-                  if (app.classList.contains('dashboard')) {
-                    app.classList.remove('dashboard');
-                  }
-                }
-              } else {
-                if (app) {
-                  if (!app.classList.contains('dashboard')) {
-                    app.classList.add('dashboard');
-                  }
-                }
-
-                virtualclass.vutil.initDashboard(virtualclass.currApp);
-                this.classList.add('clicked');
-                const Dtype = 'close';
-                virtualclass.dashBoard.dashBoardClickTooltip(Dtype);
-
-                if (virtualclass.currApp == 'DocumentShare' && virtualclass.hasOwnProperty('dts')) {
-                  virtualclass.dts.moveProgressbar();
-
-                  if (virtualclass.dts.docs.currNote != null) {
-                    virtualclass.dts.setCurrentNav(virtualclass.dts.docs.currNote);
-                  }
-
-                  const notes = document.querySelector('.dbContainer #listnotes .linknotes');
-                  if (notes) {
-                    const btn = document.querySelector('.congrea.teacher  #dashboardContainer .modal-header button.enable');
-                    if (!btn) {
-                      virtualclass.vutil.showFinishBtn();
-                    }
-                  } else {
-                    virtualclass.vutil.removeFinishBtn();
-                  }
-                }
-              }
-              // virtualclass.vutil.removeFinishBtn();
-            });
-            if (currVideo) {
-              virtualclass.vutil.readyDashboard(currVideo);
-            }
-          }
-        }
-
-        if (virtualclass.currApp == 'DocumentShare') {
-          if (!virtualclass.dts.noteExist()) {
-            this.readyDashboard();
-          } else {
-            if (!virtualclass.dts.isUploaderExist()) {
-              virtualclass.vutil.modalPopup('docs', ['docsuploadContainer']);
-            }
-            const dtitle = document.getElementById('dashboardnav');
-            dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
-          }
-        } else if (virtualclass.currApp == 'Video') {
-          if (typeof currVideo === 'undefined') {
-            this.readyDashboard();
-          }
-          var playing = document.querySelector('.congrea #listvideo .linkvideo.playing');
-          if (!playing) {
-            virtualclass.vutil.removeFinishBtn();
-          }
-        } else {
-          this.readyDashboard();
-          var playing = document.querySelector('.congrea #listppt .linkppt.playing');
-          if (!playing) {
-            virtualclass.vutil.removeFinishBtn();
-          }
-          const sharing = document.querySelector('.congrea .pptSharing');
-          if (sharing) {
-            virtualclass.modal.hideModal();
-          }
-        }
-      }
-    },
-
-    modalCloseHandler() {
-      const finish = document.querySelector('.congrea .dashboardContainer .modal-header .close');
-      if (finish) {
-        finish.addEventListener('click', () => {
-          const app = document.querySelector('.congrea #virtualclassApp');
-          if (app.classList.contains('dashboard')) {
-            app.classList.remove('dashboard');
-          }
-          finish.setAttribute('data-dismiss', 'modal');
-
-          virtualclass.modal.hideModal();
-        });
-      }
-    },
-
-    readyDashboard(currVideo) {
-      console.log('Ready Dashboard');
-      const { currApp } = virtualclass;
-
-      if (document.querySelector('#congdashboard') == null) {
-        const dashboardTemp = virtualclass.getTemplate('dashboard');
-        var dbHtml = dashboardTemp({ app: currApp });
-        document.querySelector('#dashboardContainer').innerHTML = dbHtml;
-      }
-
-      this.modalCloseHandler();
-
-      // in any other application we can handle
-      // dashoard content in own style
-      if (currApp == 'DocumentShare') {
-        var dtitle = document.getElementById('dashboardnav');
-        dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
-        if (document.querySelector(`#${currApp}Dashboard`) == null) {
-          var elem = document.createElement('div');
-          var cont = document.querySelector('#congdashboard .modal-body');
-          cont.appendChild(elem);
-          elem.id = `${currApp}Dashboard`;
-        }
-        const docsDbCont = document.querySelector('#docsDbCont');
-        if (docsDbCont) {
-          docsDbCont.parentNode.removeChild(docsDbCont);
-        }
-
-        document.querySelector(`#${currApp}Dashboard`).innerHTML = this.getDocsDashBoard(currApp);
-        virtualclass.dts.init();
-        virtualclass.vutil.attachEventToUploadTab();
-        if (!virtualclass.dts.isUploaderExist()) {
-          virtualclass.vutil.modalPopup('docs', ['docsuploadContainer']);
-        }
-        virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-        virtualclass.vutil.makeElementActive('#listnotes');
-      } else if (currApp == 'Video') {
-        var dtitle = document.getElementById('dashboardnav');
-        if (document.querySelector(`#${currApp}Dashboard`) == null) {
-          var elem = document.createElement('div');
-          var cont = document.querySelector('#congdashboard .modal-body');
-          cont.appendChild(elem);
-          elem.id = `${currApp}Dashboard`;
-        }
-
-        const videocont = document.querySelector('#videoPopup');
-        if (!videocont) {
-          const videoDashboard = virtualclass.getTemplate('popup', 'videoupload');
-          var dbHtml = videoDashboard();
-          const videodb = document.querySelector('#VideoDashboard');
-          videodb.insertAdjacentHTML('beforeend', dbHtml);
-          // $('#VideoDashboard').append(dbHtml);
-          const msz = document.querySelector('#videoPopup  #uploadMsz div');
-          if (msz) {
-            msz.parentNode.removeChild(msz);
-          }
-          virtualclass.vutil.attachEventToUpload();
-          virtualclass.videoUl.UI.inputUrl();
-        }
-        /* modal need to be created again and old one to be deleted, to remove conflict
-         with events of drag drops */
-        virtualclass.videoUl.UI.popup(currVideo);
-        virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-        virtualclass.vutil.makeElementActive('#listvideo');
-
-        if (currVideo && currVideo.init.videoUrl) {
-          var hidepopup = true;
-        }
-        const dashboardnav = document.querySelector('#dashboardnav button');
-        if (dashboardnav != null && !hidepopup && !virtualclass.vutil.isDashboardOpened()) {
-          dashboardnav.click();
-        }
-      } else if (currApp == 'SharePresentation') {
-        var dtitle = document.getElementById('dashboardnav');
-        dtitle.setAttribute('data-title', virtualclass.lang.getString('SharePresentationdbHeading'));
-        if (document.querySelector(`#${currApp}Dashboard`) == null) {
-          var elem = document.createElement('div');
-          var cont = document.querySelector('#congdashboard .modal-body');
-          cont.appendChild(elem);
-          elem.id = `${currApp}Dashboard`;
-        }
-      }
-      // in case dashboard already created and button is enabled in previous app
-    },
-
-    initDashboard(currApp, hidepopup) {
-      const mainContainer = document.querySelector('#mainContainer');
-      if (currApp == 'SharePresentation') {
-        const dbcont = document.querySelector('#pptDbCont');
-        if (!dbcont) {
-          // todo, nirmala, you have to finde below condition is correct
-          if (document.querySelector('.docsDbCont') == null) {
-            document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard('SharePresentation');
-          }
-          virtualclass.sharePt.attachEvent('submitpurl', 'click', virtualclass.sharePt.initNewPpt);
-          if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
-            virtualclass.sharePt.showPpts(virtualclass.sharePt.ppts);
-            virtualclass.sharePt.retrieveOrder();
-          }
-        }
-      }
-      const allDbContainer = document.querySelectorAll('#congdashboard .dbContainer');
-      for (let i = 0; i < allDbContainer.length; i++) {
-        if (allDbContainer[i].dataset.app == virtualclass.currApp) {
-          allDbContainer[i].style.display = 'block';
-        } else {
-          allDbContainer[i].style.display = 'none';
-        }
-      }
-
-      console.log(`Dashboard is created for ${virtualclass.currApp}`);
-      if (currApp == 'DocumentShare') {
-        if (typeof hidepopup === 'undefined') {
-          // $('#congdashboard').modal();
-          virtualclass.modal.showModal();
-          virtualclass.dashBoard.clickCloseButton();
-        }
-
-        if (virtualclass.dts.noteExist()) {
-          virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
-        }
-        //  virtualclass.vutil.attachEventToUploadTab();
-      } else if (currApp == 'Video') {
-        if (typeof hidepopup === 'undefined') {
-          //                    $('#congdashboard').modal({
-          //                        keyboard: false
-          //                    });
-          virtualclass.modal.showModal();
-        }
-      } else {
-        virtualclass.modal.showModal();
-      }
-
-      virtualclass.dashBoard.actualCloseHandler();
-
-      const moodleHeader = document.querySelector('#congdashboard .modal-header h4');
-      if (moodleHeader != null) {
-        moodleHeader.innerHTML = virtualclass.lang.getString(`${currApp}dbHeading`);
-      }
     },
 
     getDocsDashBoard(app) {
@@ -2045,7 +1490,7 @@
     },
 
     makeElementDeactive(selector) {
-      console.log(`drag drop Deactive element ${selector}`);
+      // console.log(`drag drop Deactive element ${selector}`);
       const element = document.querySelector(selector);
       if (element != null) {
         element.style.pointerEvents = 'none';
@@ -2053,7 +1498,7 @@
     },
 
     makeElementActive(selector) {
-      console.log(`drag drop Active element ${selector}`);
+      // console.log(`drag drop Active element ${selector}`);
       const element = document.querySelector(selector);
       if (element != null) {
         element.style.pointerEvents = 'visible';
@@ -2073,9 +1518,9 @@
         const currentNote = document.querySelector('#screen-docs .note.current');
         if (currentNote == null) {
           if (typeof hidepopup === 'undefined') {
-            virtualclass.vutil.initDashboard(currApp);
+            virtualclass.dashboard.init(currApp);
           } else {
-            virtualclass.vutil.initDashboard(currApp, hidepopup);
+            virtualclass.dashboard.init(currApp, hidepopup);
           }
         } else {
           // virtualclass.zoom.zoomAction('fitToScreen');
@@ -2084,12 +1529,12 @@
         }
       } else if (currApp == 'Video') {
         if (typeof hidepopup === 'undefined') {
-          virtualclass.vutil.initDashboard(currApp);
+          virtualclass.dashboard.init(currApp);
         } else {
-          virtualclass.vutil.initDashboard(currApp, hidepopup);
+          virtualclass.dashboard.init(currApp, hidepopup);
         }
       } else {
-        virtualclass.vutil.initDashboard(currApp);
+        virtualclass.dashboard.init(currApp);
       }
     },
 
@@ -2160,7 +1605,7 @@
         tooltip.dataset.title = 'Video off';
         if (roles.hasControls()) {
           virtualclass.videoHost.gObj.videoSwitch = 1;
-          console.log('videoswitch 1');
+          // console.log('videoswitch 1');
         } else {
           virtualclass.videoHost.gObj.stdStopSmallVid = false;
         }
@@ -2182,6 +1627,7 @@
         const mysmallVideo = document.querySelector(`#ml${virtualclass.gObj.uid} video`);
         if (mysmallVideo != null) {
           // mysmallVideo.srcObject.getVideoTracks()[0].stop();
+          // TODO remove setTimeout
           setTimeout(
             () => {
               mysmallVideo.srcObject = virtualclass.media.stream;
@@ -2195,7 +1641,7 @@
         video = 'off';
         var tooltip = document.querySelector('.videoSwitchCont');
         tooltip.dataset.title = 'Video on';
-        if (virtualclass.videoHost ){
+        if (virtualclass.videoHost) {
           if (roles.hasControls()) {
             virtualclass.videoHost.gObj.videoSwitch = 0;
           } else {
@@ -2236,7 +1682,7 @@
 
     isChromeExtension() {
       window.postMessage({ type: 'isInstalled', id: 1 }, '*');
-      console.log('Chrome Extension:- Check');
+      // console.log('Chrome Extension:- Check');
       // setTimeout(
       //     function (){
       //         if(!virtualclass.gObj.chromeExt){
@@ -2359,23 +1805,18 @@
     },
 
     setDefaultScroll() {
-      if (roles.hasControls() && virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare') {
+      if (roles.hasControls() && virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare') {
         const wb = virtualclass.gObj.currWb;
-        if (wb != null && virtualclass.pdfRender[wb].canvasWrapper != null) {
+        if (wb != null && typeof virtualclass.pdfRender[wb] === 'object' && virtualclass.pdfRender[wb].canvasWrapper != null) {
           // Defualt scroll trigger
           virtualclass.pdfRender[wb].canvasWrapper.scrollTop = 1;
         }
       }
     },
 
-    async createWhiteBoard(wId) {
-      const args = ['Whiteboard', 'byclick', wId];
-      await virtualclass.appInitiator.Whiteboard.apply(virtualclass, Array.prototype.slice.call(args));
-      const measureRes = virtualclass.system.measureResoultion({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-      virtualclass.system.setCanvasWrapperDimension(measureRes, wId);
+    createWhiteBoard(wId, position) {
+      // virtualclass.appInitiator.Whiteboard.call(virtualclass, { app: 'Whiteboard', cusEvent: 'byclick', data: wId });
+      virtualclass.appInitiator.Whiteboard.call(virtualclass, { app: virtualclass.currApp, cusEvent: 'byclick', data: wId, position});
     },
 
     createHashString(str) {
@@ -2409,22 +1850,23 @@
     },
     saveWbOrder(order) {
       if (order) {
-        localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
+        // localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
       }
     },
+
     requestOrder(type, cb) {
-      const url = virtualclass.api.GetRoomMetaData;
-      virtualclass.xhrn.vxhrn.post(url, { noting: true }).then((response) => {
-        if (response.data.Item != null) {
-          if (response.data.Item.order.S) {
+      if (virtualclass.config.makeWebSocketReady) {
+        const url = virtualclass.api.GetRoomMetaData;
+        virtualclass.xhrn.vxhrn.post(url, { noting: true }).then((response) => {
+          if (response.data.Item != null && response.data.Item.order.S) {
             if (virtualclass.vutil.IsJsonString(response.data.Item.order.S)) {
               const responseData = JSON.parse(response.data.Item.order.S);
               virtualclass.gObj.docOrder = responseData;
               cb(responseData[type]);
             }
           }
-        }
-      });
+        });
+      }
     },
 
     IsJsonString(str) {
@@ -2438,7 +1880,7 @@
 
     removeChildrens(selector) {
       // selector = selector + ' .qq-upload-list-selector.qq-upload-list li';
-      console.log(`children selector ${selector}`);
+      // console.log(`children selector ${selector}`);
       const uploadLists = document.querySelectorAll(selector);
       for (let i = 0; i < uploadLists.length; i++) {
         uploadLists[i].parentNode.removeChild(uploadLists[i]);
@@ -2471,9 +1913,9 @@
     navWhiteboard(cthis, func, dthis) {
       // this.removeAllTextWrapper();
       if (virtualclass.vutil.isTextWrapperExist()) {
-        virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
+        virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny(undefined, virtualclass.gObj.currWb);
       }
-      // if(virtualclass.gObj.hasOwnProperty('wbNav')){
+      // if(Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'wbNav')){
       //     clearTimeout(virtualclass.gObj.wbNav);
       // }
       if (typeof dthis !== 'undefined') {
@@ -2481,7 +1923,7 @@
       } else {
         func.call(cthis);
       }
-      console.log(`whiteboard nav time${virtualclass.gObj.wbNavtime}`);
+      // console.log(`whiteboard nav time${virtualclass.gObj.wbNavtime}`);
       // virtualclass.gObj.wbNav = setTimeout(
       //     function (){
       //         if(typeof dthis != 'undefined'){
@@ -2557,7 +1999,7 @@
       if (canvasWrapper != null) {
         const diff = window.innerWidth - (canvasWrapper.offsetWidth + 320);
         if (diff > 60) {
-          console.log('Resize event is triggered');
+          // console.log('Resize event is triggered');
           system.initResize();
         }
       }
@@ -2586,10 +2028,10 @@
       if (localStorage.getItem('precheck')) {
         virtualclass.videoHost._resetPrecheck();
       } else {
-        /* TODO, this need to verify, it's using or not  **/
+        /* TODO, this need to verify, it's using or not  * */
         virtualclass.popup.waitMsg();
         virtualclass.makeReadySocket();
-        localStorage.setItem('precheck', true);
+        // localStorage.setItem('precheck', true);
         virtualclass.videoHost.afterSessionJoin();
       }
       virtualclass.gObj.precheckScrn = false;
@@ -2625,7 +2067,7 @@
         const docScreenContainer = document.querySelector('#docScreenContainer');
         if (docScreenContainer != null) {
           docScreenContainer.classList.add('noteDisplay');
-          console.log('add note display');
+          // console.log('add note display');
         }
       }
     },
@@ -2634,13 +2076,13 @@
       const rgb = chroma(color).rgb();
       const c = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
       const brightness = Math.round(((parseInt(rgb[0]) * 299) + (parseInt(rgb[1]) * 587) + (parseInt(rgb[2]) * 114)) / 1000);
-      console.log(`brightne${brightness}`);
+      // console.log(`brightne${brightness}`);
       // alert(brightness);
       return brightness;
     },
 
     removeStudenScreenStatus() {
-      console.log("Remove screen share icon color");
+      // console.log('Remove screen share icon color');
       const allStdscreenImg = chatContainerEvent.elementFromShadowDom('.stdscreenImg', 'all');
       for (let i = 0; i < allStdscreenImg.length; i++) {
         allStdscreenImg[i].dataset.dcolor = '';
@@ -2668,20 +2110,21 @@
     },
 
     sendCurrAppOnUserJoin() {
+      return; // TODO remove this gracefully
       if (typeof virtualclass.wb === 'object' && virtualclass.currApp == 'Whiteboard') {
         const objs = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs;
         if (objs.length > 0) {
           ioAdapter.sendWithDelayAndDrop({ repObj: objs, cf: 'repObj' }, null, 'mustSend', 'repObj', 1500);
           // virtualclass.vutil.beforeSend({'repObj': objs, 'cf': 'repObj'});
         } else {
-          console.log('Could not send the whiteboard data');
+          // console.log('Could not send the whiteboard data');
         }
       }
     },
 
     setCurrApp(container, app) {
       container.dataset.currapp = app;
-      console.log(`Data set curr app ${app}`);
+      // console.log(`Data set curr app ${app}`);
       const chat_div = document.getElementById('chat_div');
       if (chat_div != null) {
         chat_div.dataset.currapp = app;
@@ -2710,7 +2153,7 @@
     },
 
     clearSyncTimeInterval() {
-      if (virtualclass.videoUl.hasOwnProperty('syncTimeInterval')) {
+      if (Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'syncTimeInterval')) {
         clearInterval(virtualclass.videoUl.syncTimeInterval);
       }
     },
@@ -2771,17 +2214,18 @@
       }
 
       if (!roles.hasControls()) {
-        if (virtualclass.gObj.hasOwnProperty('videoPauseTime')) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'videoPauseTime')) {
           clearTimeout(virtualclass.gObj.videoPauseTime);
         }
 
         if (typeof virtualclass.videoUl.player === 'object' && virtualclass.videoUl.player.player_ != null
           && virtualclass.videoUl.player.paused()) {
-          console.log('==== Video is paused');
+          // console.log('==== Video is paused');
           virtualclass.videoUl.player.pause();
         }
       }
       if (typeof virtualclass.videoUl.player === 'object') {
+        console.log('=====> Video delete <==== ',  virtualclass.videoUl.player);
         delete (virtualclass.videoUl.player);
       }
     },
@@ -2808,7 +2252,7 @@
     //   }
     // },
 
-    WebPDecodeAndDraw: function (data, canvas, context) {
+    WebPDecodeAndDraw(data, canvas, context) {
       if (window.Worker) {
         webpToPng.postMessage({
           vdata: data,
@@ -2840,13 +2284,35 @@
       canvas = canvas;
     },
 
-    isSessionEnded (){
+    isSessionEnded() {
       if (!virtualclass.isPlayMode && virtualclass.endSession) {
         localStorage.clear();
         return true;
       }
-    }
+    },
 
+    afterPdfPrefetch(noteId, data) {
+      virtualclass.gObj.nextPdf = {};
+      virtualclass.gObj.nextPdf[noteId] = data;
+    },
+
+    getCurrentFormattedTime(time) {
+      time = this.UTCtoLocalTimeToSeconds(time);
+
+      const date = new Date(time);
+
+      // Hours part from the timestamp
+      const hours = date.getHours();
+      // Minutes part from the timestamp
+      const minutes = `0${date.getMinutes()}`;
+      // Seconds part from the timestamp
+      // var seconds = "0" + date.getSeconds();
+
+      // Will display time in 10:30:23 format
+      const formattedTime = `${hours}:${minutes.substr(-2)}`;
+
+      return formattedTime;
+    },
   };
   window.vutil = vutil;
 }(window));

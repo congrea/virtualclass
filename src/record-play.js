@@ -94,7 +94,6 @@
         downloadProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, downloadProgressBar));
         playProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, playProgressBar));
         virtualclass.pageVisible(this.handlPageActiveness.bind(this));
-        this.viewPoint = this.fetchRecViewData();
       }
 
       if (!Object.prototype.hasOwnProperty.call(this, 'prvNum')) {
@@ -345,7 +344,7 @@
       let recordingOff = null;
 
       if (this.viewPoint === null) {
-        this.fetchRecViewData();
+        this.fetchRecViewData(); // todo, put this code into requestingListOfFiles
       }
 
       for (let i = 0; i < allRecordigns.length; i++) {
@@ -392,7 +391,7 @@
                   this.isTrimRecordingNow = false;
                   const trimdifftime = this.trimofftime - this.trimontime;
                   this.totalTimeInMiliSeconds = this.totalTimeInMiliSeconds - trimdifftime;
-                  this.totalrecordingTime = this.totalTimeInMiliSeconds;
+                  this.totalrecordingTime = this.totalTimeInMiliSeconds; // Todo, disable the line
                   this.trimofftime = 0;
                   this.trimontime = 0;
                 }
@@ -405,7 +404,7 @@
                 chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
               }
             } else {
-              if (data.indexOf('{"ac":11,"cf":"recs"') > -1) {
+              if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // TODO, convert this block of code into function
                 recordingOff = time;
               } else if (data.indexOf('{"ac":21,"cf":"recs"') > -1) {
                 recordingOn = time;
@@ -869,6 +868,7 @@
 
           if (isObject(types) && types.hasOwnProperty(S)) {
             data[key] = types[S];
+
           } else if (isObject(types) && types.hasOwnProperty(N)) {
             data[key] = parseFloat(types[N]);
           } else if (isObject(types) && types.hasOwnProperty(BOOL)) {
@@ -1020,6 +1020,7 @@
           }
         }
 
+        // Todo, convert this block of code into function
         if (this.timeStamp === null) {
           this.timeStamp = new Date(new Date().toUTCString()).getTime(); // get time once when recording play.
           const recordingTime = (this.totalrecordingTime === undefined) ? this.totalTimeInMiliSeconds : this.totalrecordingTime;
@@ -1027,7 +1028,7 @@
           if (this.viewPoint !== undefined) {
             this.recViewData.data[this.timeStamp] = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
           } else {
-            this.recViewData.data[this.timeStamp] = new Array(length);
+            this.recViewData.data[this.timeStamp] = new Array(length); // Todo, try to avoid the fixed length
           }
           this.recViewData.data.rtt = recordingTime;
           this.recViewData['x-congrea-uid'] = wbUser.rid;

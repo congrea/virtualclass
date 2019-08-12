@@ -154,12 +154,7 @@
       virtualclass.isPrecheck = false;
       virtualclass.enablePreCheck = false;
     } else {
-      virtualclass.precheck = localStorage.getItem('precheck');
       virtualclass.enablePreCheck = true;
-      var isPrecheck = localStorage.getItem('precheck');
-      if (isPrecheck != null) {
-        virtualclass.isPrecheck = JSON.parse(isPrecheck);
-      }
     }
 
     if (virtualclass.enablePreCheck && (virtualclass.isPrecheck == null || !virtualclass.isPrecheck)) {

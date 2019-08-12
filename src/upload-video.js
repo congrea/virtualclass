@@ -526,7 +526,7 @@
 
       handlePlayEvent(msg, playTime) {
         virtualclass.videoUl.lastSeek = playTime;
-        if (msg.videoTime) {
+        if (msg.videoTime && !virtualclass.isPlayMode) {
           virtualclass.videoUl.lastSeek += this.calculateVideoTime(msg.videoTime);
         }
         console.log('====> last seek ', virtualclass.videoUl.lastSeek);
@@ -585,7 +585,8 @@
         console.log('====> Video player is finished end <======', virtualclass.videoUl.player);
       },
 
-      playVideo() {
+      playVideo(videoTime) {
+        virtualclass.videoUl.lastSeek = videoTime || virtualclass.videoUl.lastSeek;
         // console.log('====> seek play', virtualclass.videoUl.player.lastSeek / 60);
         console.log('====> Video 1 play', virtualclass.videoUl.lastSeek);
         virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);

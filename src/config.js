@@ -17,7 +17,7 @@ Config.prototype.setNewSession = function (session) {
 
 
 Config.prototype.endSession = async function (onlyStoredData) {
-  // console.log('==== End the session here');
+  //console.log('==== End the session here');
   delete virtualclass.connectedUsers;
   if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'memberUpdateDelayTimer')) {
     clearTimeout(virtualclass.gObj.memberUpdateDelayTimer);

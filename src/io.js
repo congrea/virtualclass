@@ -27,7 +27,7 @@ var io = {
   init(cfg) {
     this.cfg = cfg;
     'use strict';
-    // console.log('==== io init ');
+    //console.log('==== io init ');
     ioInit.sendToWorker({ cmd: 'init', msg: cfg });
   },
 
@@ -272,7 +272,7 @@ var io = {
       case 'joinroom':
         if (Object.prototype.hasOwnProperty.call(receivemsg, 'users')) { // When self web socket is connected
           ioAdapter.setRecording();
-          // console.log('==== Member add, join room');
+          //console.log('==== Member add, join room');
         } else {
           // console.log('No users');
         }

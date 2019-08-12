@@ -676,7 +676,7 @@ let globalImageData = {};
             } else {
               // Student unshares the screen by clicking stop button
               const teacherId = virtualclass.vutil.whoIsTeacher();
-              console.log('====> me sharing rmStdScreen');
+              //console.log('====> me sharing rmStdScreen');
               ioAdapter.mustSendUser({ cf: 'rmStdScreen' }, teacherId);
             }
 

@@ -94,7 +94,7 @@
             }
             ioMissingPackets.executedSerial[key1] = m.m.serial;
             ioMissingPackets.executedStore[key1][m.m.serial] = m;
-            console.log('====> MSG serial ', m.m.serial);
+            //console.log('====> MSG serial ', m.m.serial);
             io.onRecJson(m);
           }
         }
@@ -122,10 +122,10 @@
             ioMissingPackets.executedUserStore[key1][m.m.userSerial] = m;
             try {
               if (m.m.cf !== 'eddata' && m.m.cf !== 'colorIndicator' && m.m.cf !== 'reqscreen') {
-                // console.log('====> POLL msg cache in');
+                //console.log('====> POLL msg cache in');
                 io.onRecJson(m);
               } else {
-                console.log('===> colorIndicator');
+                //console.log('===> colorIndicator');
               }
             } catch (error) {
               // console.log(`Error ${error}`);

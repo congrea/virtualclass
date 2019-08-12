@@ -27,7 +27,7 @@
        * @returns nothing
        */
       textUtility(startPosX, startPosY, mtext, wId) {
-        console.log('====> whiteboard text ', wId);
+        //console.log('====> whiteboard text ', wId);
         // console.log(`Text position x=${startPosX} y=${startPosY}`);
         this.startPosX = startPosX;
         this.startPosY = startPosY;
@@ -172,7 +172,7 @@
             for (let i = 0; i < vcan.main.children.length; i++) {
               if (currObject.id == vcan.main.children[i].id) {
                 vcan.main.children.splice(i, 1);
-                console.log('====> whiteboard pushing deleting object');
+                //console.log('====> whiteboard pushing deleting object');
                 this.currObject = '';
                 break;
               }

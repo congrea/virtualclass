@@ -275,7 +275,7 @@
           this.dataRec.newTime = storedData.data.timer;
         }
         this.count = storedData.data.count;
-        console.log('====> POLL COUNT', this.count);
+        //console.log('====> POLL COUNT', this.count);
         this.currResultView = storedData.data.view;
         this.stdPublishResult(this.count);
         if (this.currResultView == 'bar') {
@@ -289,7 +289,7 @@
         this.pollState.data = this.dataRec;
         this.pollState.timer = this.newUserTime;
         this.pollState.count = this.count;
-        console.log('====> POLL COUNT', this.count);
+        //console.log('====> POLL COUNT', this.count);
         this.pollState.view = this.currResultView;
       },
 
@@ -310,7 +310,7 @@
 
         // virtualclass.poll.afterReload=storedData.data.newTime;
         this.count = storedData.data.count;
-        console.log('====> POLL COUNT', this.count);
+        //console.log('====> POLL COUNT', this.count);
         this.currResultView = storedData.data.view;
         this.uniqueUsers = storedData.data.users;
         const { pollType } = storedData.data;
@@ -374,7 +374,7 @@
         this.UI.resultView(isTimer, pollType);
         this.list = storedData.data.list;
         this.count = storedData.data.count;
-        console.log('====> POLL COUNT', this.count);
+        //console.log('====> POLL COUNT', this.count);
         this.currResultView = storedData.data.view;
         const { totalUsers } = storedData.data;
         this.reloadGraph();
@@ -437,7 +437,7 @@
             modal.remove();
           }
           if (virtualclass.poll.timer) {
-            console.log('====> Poll student publish result 3');
+            //console.log('====> Poll student publish result 3');
             ioAdapter.mustSend({
               poll: {
                 pollMsg: 'stdPublishResult',
@@ -462,7 +462,7 @@
             elem.innerHTML = virtualclass.lang.getString('receivedVotes');
           }
           virtualclass.poll.count = {};
-          console.log('====> POLL COUNT', this.count);
+          //console.log('====> POLL COUNT', this.count);
         }
       },
       resultToStorage() {
@@ -783,7 +783,7 @@
       stdResponse(response, fromUser) {
         if (this.pollState.currScreen !== 'voted'
           && this.pollState.currScreen !== 'stdPublishResult' && this.pollState.currScreen !== 'displaysitePollList') {
-          console.log('====> Poll student reponse');
+          //console.log('====> Poll student reponse');
           this.updateResponse(response, fromUser);
         }
       },
@@ -1164,7 +1164,7 @@
       askConfirmClose(opted, label, pollType) {
         if (opted) {
           if ((virtualclass.poll.setting.showResult && roles.hasControls()) || !roles.hasControls()) {
-            console.log('====> Poll student publish result');
+            //console.log('====> Poll student publish result');
             ioAdapter.mustSend({
               poll: {
                 pollMsg: 'stdPublishResult',
@@ -1239,7 +1239,7 @@
         const count = obj.result;
         // elem.innerHTML="data fetched from indexed db";
         virtualclass.poll.count = count;
-        console.log('====> Poll count ', virtualclass.poll.count)
+        //console.log('====> Poll count ', virtualclass.poll.count)
         virtualclass.poll.dataRec = obj.pollData;
         virtualclass.poll.stdPublishResult(count, report);
       },
@@ -1249,7 +1249,7 @@
       },
 
       stdPublish() {
-        console.log('====> Poll publish 2');
+        //console.log('====> Poll publish 2');
         virtualclass.poll.pollState.data = virtualclass.poll.dataRec;
         virtualclass.poll.pollState.timer = virtualclass.poll.newUserTime;
         if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
@@ -1389,7 +1389,7 @@
 
       sendResponse() {
         const toUser = virtualclass.vutil.whoIsTeacher();
-        console.log('====> Poll student response');
+        //console.log('====> Poll student response');
         ioAdapter.mustSendUser({
           poll: {
             pollMsg: 'stdResponse',
@@ -1502,7 +1502,7 @@
         }
         if (roles.hasControls()) {
           if (virtualclass.poll.setting.showResult) {
-            console.log('====> Poll show result');
+            //console.log('====> Poll show result');
             ioAdapter.mustSend({
               poll: {
                 pollMsg: 'stdPublishResult',
@@ -1561,16 +1561,16 @@
 
       stdPublishResult(count, report) {
         if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
-          console.log('====> Poll displaysitePollList')
+          //console.log('====> Poll displaysitePollList')
           // this.loadTeacherScrn(virtualclass.poll.pollState);
           this.pollState.currScreen = 'displaysitePollList';
           const modal = document.querySelector('#editPollModal');
           if (modal) modal.remove();
           this.reloadPollList(virtualclass.poll.pollState, virtualclass.poll.pollState.data.pollType);
         } else {
-          console.log('====> Poll student publish result ');
+          //console.log('====> Poll student publish result ');
           virtualclass.poll.count = count;
-          console.log('====> Poll count ', virtualclass.poll.count)
+          //console.log('====> Poll count ', virtualclass.poll.count)
           if (virtualclass.poll.timer) {
             clearInterval(virtualclass.poll.timer);
           }
@@ -1610,7 +1610,7 @@
         var cont = document.getElementById(('resultLayout'));
         cont.classList.add('bootstrap', 'container');
         virtualclass.poll.count = count;
-        console.log('====> Poll count ', virtualclass.poll.count)
+        //console.log('====> Poll count ', virtualclass.poll.count)
         const mszbox = document.getElementById('mszBoxPoll');
         if (mszbox) {
           if (mszbox.childNodes.length > 0) {
@@ -1833,7 +1833,7 @@
         }
 
         if (time) {
-          console.log('====> Poll student publish 2');
+          //console.log('====> Poll student publish 2');
           ioAdapter.mustSend({
             poll: {
               pollMsg: 'stdPublish',
@@ -1872,7 +1872,7 @@
           virtualclass.poll.count[response] = 0;
         }
 
-        console.log('====> count ', virtualclass.poll.count);
+        //console.log('====> count ', virtualclass.poll.count);
         virtualclass.poll.count[response] = virtualclass.poll.count[response] + 1;
         obj[fromUser.userid] = response;
         obj.username = fromUser.name;
@@ -1970,7 +1970,7 @@
           if (!Object.prototype.hasOwnProperty.call(virtualclass.poll.count, i)) {
             columns.push([data.options[i], '0']);
             virtualclass.poll.count[i] = 0;
-            console.log('====> Poll count ', virtualclass.poll.count)
+            //console.log('====> Poll count ', virtualclass.poll.count)
           }
         }
 
@@ -2182,7 +2182,7 @@
         },
 
         resultView(istimer, pollType) {
-          console.log('====> Poll result view 1B ');
+          //console.log('====> Poll result view 1B ');
           if (roles.hasControls()) {
             this.createResultLayout();
             if (!istimer) {
@@ -2212,7 +2212,7 @@
             });
           }
           virtualclass.poll.count = {};
-          console.log('====> Poll count ', virtualclass.poll.count)
+          //console.log('====> Poll count ', virtualclass.poll.count)
           virtualclass.poll.list = [];
         },
 

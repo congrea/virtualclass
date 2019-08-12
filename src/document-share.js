@@ -20,7 +20,7 @@
       sentStudentLayout: false,
       async init() {
         if (!virtualclass.orderList[this.appName]) {
-          console.log('====> ORDER LIST IS CREATING ');
+          //console.log('====> ORDER LIST IS CREATING ');
           virtualclass.orderList[this.appName] = new OrderedList();
         }
 
@@ -32,9 +32,9 @@
         }
         // this.indexNav = new virtualclass.pageIndexNav('documentShare');
         this.UI.container();
-        console.log('====> DOCUMENT SHARE SUMAN 1A');
+        //console.log('====> DOCUMENT SHARE SUMAN 1A');
         if (roles.hasControls() && virtualclass.config.makeWebSocketReady) {
-          console.log('====> DOCUMENT SHARE SUMAN 1B');
+          //console.log('====> DOCUMENT SHARE SUMAN 1B');
           ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
           virtualclass.dts.sentStudentLayout = true;
           virtualclass.serverData.syncAllData();
@@ -204,11 +204,11 @@
        * received from LMS and localstorage
        */
       afterRequestOrder(content) {
-        console.log('====> dts order after request ', content.length);
+        //console.log('====> dts order after request ', content.length);
         if (content != null && content.length > 0) {
           // virtualclass.orderList[this.appName].ol.order.length = 0;
           virtualclass.orderList[this.appName].ol.order = content;
-          console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
+          //console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
           const doc = this.getDocId(virtualclass.orderList[this.appName].ol.order[0]);
           if (Object.prototype.hasOwnProperty.call(virtualclass.dts.allDocs, doc)) {
             const docId = `docs${doc}`;
@@ -225,7 +225,7 @@
        * this requests the order from LMS
        */
       requestOrder(cb) {
-        console.log('====> dts order request ');
+        //console.log('====> dts order request ');
         virtualclass.vutil.requestOrder('docs', cb);
       },
 
@@ -239,7 +239,7 @@
               // console.log(`dashboard length ${$('#congdashboard').length}`);
               virtualclass.dashboard.clickCloseButton();
             } else if (response && roles.hasAdmin()) {
-              // console.log('==== dts must send order');
+              //console.log('==== dts must send order');
               ioAdapter.mustSend({ dts: { order_recived: response }, cf: 'dts' });
               if (virtualclass.currApp === 'DocumentShare') {
                 virtualclass.dts.afterRequestOrder(response);
@@ -307,7 +307,7 @@
         const relativeDocs = this.getDocs(filepath);
         const dsStatus = document.querySelector(`#linkdocs${filepath}`).dataset.selected;
 
-        // console.log('==== dts must send ');
+        //console.log('==== dts must send ');
         ioAdapter.mustSend({ dts: { dres: filepath, ds: (1 - (+dsStatus)) }, cf: 'dts' });
         return relativeDocs;
       },
@@ -317,7 +317,7 @@
       },
 
       removePagesUI(doc) {
-        console.log('====> Note remove UI');
+        //console.log('====> Note remove UI');
         const notes = this.getNotes(doc);
         for (let i = 0; i < notes.length; i++) {
           this._removePageUI(notes[i].id);
@@ -331,7 +331,7 @@
       },
 
       _removePageUI(noteId) {
-        console.log('====> DOCUMENT SHARING removing node', noteId);
+        //console.log('====> DOCUMENT SHARING removing node', noteId);
 
         // console.log('JAI 2b');
         const orderId = virtualclass.orderList[this.appName].ol.order.indexOf(noteId);
@@ -377,7 +377,7 @@
             if (virtualclass.orderList[this.appName].ol.order != null) {
               if (virtualclass.orderList[this.appName].ol.order.indexOf(slides[j].id) <= -1) {
                 virtualclass.orderList[this.appName].insert(slides[j].id);
-                console.log('====> ORDER is generating');
+                //console.log('====> ORDER is generating');
               }
             }
           }
@@ -908,7 +908,7 @@
         },
 
         displayScreen(screen, slide) {
-          // console.log('==== prev display screen');
+          //console.log('==== prev display screen');
           if (typeof slide !== 'undefined') {
             this.curr(screen, slide);
           } else {
@@ -993,7 +993,7 @@
               if (roles.hasControls() && typeof fromReload === 'undefined') {
                 if (!virtualclass.dts.sentStudentLayout && virtualclass.config.makeWebSocketReady) {
                   ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
-                  console.log('====> DOCUMENT SHARE SUMAN 1B');
+                  //console.log('====> DOCUMENT SHARE SUMAN 1B');
                   virtualclass.dts.sentStudentLayout = true;
                 }
 
@@ -1001,7 +1001,7 @@
                   dts: { slideTo: noteId, docn: virtualclass.dts.docs.currDoc },
                   cf: 'dts',
                 });
-                console.log('====> DOCUMENT SHARE SUMAN 2');
+                //console.log('====> DOCUMENT SHARE SUMAN 2');
                 // console.log(`Slide to document sharing ${noteId}`);
               }
             },
@@ -1168,7 +1168,7 @@
              * Create the screen with Whiteboard and Current slide
              */
             getScreen(note) {
-              console.log('====> document sharing 4d');
+              //console.log('====> document sharing 4d');
               this.currSlide = note.dataset.slide;
               this.currNote = note.dataset.slide;
               virtualclass.dts.currDoc = this.doc;
@@ -1265,7 +1265,7 @@
         if (Object.prototype.hasOwnProperty.call(dts, 'docn') && dts.docn.indexOf('docs') == -1) {
           dts.docn = `docs${dts.docn}`; // incaseof missing docs prefix
         }
-        console.log('====> DOCUMENT SHARING ', dts);
+        //console.log('====> DOCUMENT SHARING ', dts);
 
         if (Object.prototype.hasOwnProperty.call(dts, 'fallDocs')) {
           virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
@@ -1274,7 +1274,7 @@
           if (roles.hasControls() && !virtualclass.dts.noteExist()) {
             virtualclass.dashboard.open();
           }
-          console.log('====> DOCUMENT SHARING  res ', dts);
+          //console.log('====> DOCUMENT SHARING  res ', dts);
           // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Layout initialized');
         } else if (Object.prototype.hasOwnProperty.call(dts, 'slideTo')) {
           if (typeof this.docs.note !== 'object') {
@@ -1348,7 +1348,7 @@
           this.afterRequestOrder(dts.order_recived);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'norder')) {
           virtualclass.orderList[this.appName].ol.order = dts.norder;
-          console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
+          //console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
           virtualclass.dts.indexNav.studentDocNavigation(this.docs.currNote);
         }
       },
@@ -1358,7 +1358,7 @@
       //     const doc = virtualclass.dts.docs.currDoc;
       //     if (doc != undefined) {
       //       if (document.querySelector('#listnotes .note') != null) {
-      //         // console.log('==== dts must send ');
+      //         //console.log('==== dts must send ');
       //         ioAdapter.mustSend({
       //           dts: { slideTo: virtualclass.dts.docs.note.currNote, docn: doc },
       //           cf: 'dts',
@@ -1375,7 +1375,7 @@
         if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
           if (doc != undefined) {
             var doc = virtualclass.dts.docs.currDoc;
-            // console.log('==== dts must send ');
+            //console.log('==== dts must send ');
             ioAdapter.mustSend({ dts: { doc: doc = virtualclass.dts.docs.currDoc }, cf: 'dts' });
             // console.log('Document share send current doc only');
             // console.log(`${virtualclass.gObj.currWb} ` + 'Document share send current doc only');
@@ -1395,11 +1395,11 @@
 
       reArrangeNotes(order) {
         virtualclass.orderList[this.appName].ol.order = order;
-        console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
+        //console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
         this.reArrangeElements(order);
         if (roles.hasAdmin()) {
           this.sendOrder(virtualclass.orderList[this.appName].ol.order);
-          // console.log('==== dts must send norder');
+          //console.log('==== dts must send norder');
           ioAdapter.mustSend({ dts: { norder: virtualclass.orderList[this.appName].ol.order }, cf: 'dts' });
         }
       },
@@ -1482,7 +1482,7 @@
         this._removePageUI(id, typeDoc);
         this._removePageFromStructure(id, typeDoc);
         if (roles.hasControls()) {
-          // console.log('==== dts must send ');
+          //console.log('==== dts must send ');
           ioAdapter.mustSend({ dts: { rmsnote: id }, cf: 'dts' });
         }
 
@@ -1587,7 +1587,7 @@
           this.updatePageNavStatus(nid, status);
         }
         if (roles.hasControls()) {
-          // console.log('==== dts must send ');
+          //console.log('==== dts must send ');
           ioAdapter.mustSend({ dts: { docSt: status, doc: id }, cf: 'dts' });
         }
       },
@@ -1624,7 +1624,7 @@
         if (roles.hasControls()) {
           const note = document.querySelector(`#note${id}`);
           if (note != null) {
-            // console.log('==== dts must send ');
+            //console.log('==== dts must send ');
             ioAdapter.mustSend({ dts: { noteSt: note.dataset.status, note: id }, cf: 'dts' });
           } else {
             // console.log('Element is null');
@@ -1638,7 +1638,7 @@
        * @param status expect enable or disable
        */
       noteStatus(id, status) {
-          console.log('====> note status ', id, status);
+          //console.log('====> note status ', id, status);
         const note = document.querySelector(`#note${id}`);
         if (note != null) {
           if (typeof status === 'undefined') {

@@ -26,7 +26,7 @@
        */
       init() {
         if (!virtualclass.orderList[virtualclass.videoUl.appName]) {
-          console.log('====> ORDER LIST IS CREATING ');
+          //console.log('====> ORDER LIST IS CREATING ');
           virtualclass.orderList[virtualclass.videoUl.appName] = new OrderedList();
         }
 
@@ -69,7 +69,7 @@
         if (orderChange) {
           // virtualclass.videoUl.order = order;
           virtualclass.orderList[virtualclass.videoUl.appName].ol.order = order;
-          console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
+          //console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
           virtualclass.videoUl.sendOrder(virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
           orderChange = false;
         }
@@ -100,11 +100,11 @@
             if (response === 'Error') {
               // console.log('page order retrieve failed');
             } else if (typeof response !== 'undefined' && response != undefined) {
-              console.log('====> Order request');
+              //console.log('====> Order request');
               // virtualclass.videoUl.order = [];
               // virtualclass.videoUl.order = response;
               virtualclass.orderList[virtualclass.videoUl.appName].ol.order = response;
-              console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
+              //console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
               if (virtualclass.orderList[virtualclass.videoUl.appName].ol.order.length > 0) {
                 virtualclass.videoUl.reArrangeElements(virtualclass.orderList[virtualclass.videoUl.appName].ol.order); // 1
               }
@@ -192,7 +192,7 @@
       },
 
       retrieveOrder() {
-        console.log('====> VIDEO RETRIVE');
+        //console.log('====> VIDEO RETRIVE');
         this.requestOrder();
       },
 
@@ -360,7 +360,7 @@
           if (virtualclass.currApp === 'ScreenShare') {
             ioAdapter.mustSend({ video: 'destroyPl', cf: 'video' });
           }
-          console.log('==== video player ready dispose');
+          //console.log('==== video player ready dispose');
           // virtualclass.videoUl.player.dispose();
 
           virtualclass.videoUl.destroyPlayer();
@@ -370,7 +370,7 @@
 
       _rearrange(order) {
         virtualclass.orderList[virtualclass.videoUl.appName].ol.order = order;
-        console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
+        //console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
         // this.order = order;
         this.reArrangeElements(virtualclass.orderList[virtualclass.videoUl.appName].ol.order); // 2, rearrange
         this.sendOrder(virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
@@ -489,7 +489,7 @@
             // virtualclass.makeAppReady('Video', undefined, msg.videoUl);
             virtualclass.makeAppReady({ app: 'Video', data:  msg.videoUl });
 
-            // console.log('====> Video play 1');
+            //console.log('====> Video play 1');
             const msz = document.getElementById('messageLayoutVideo');
             if (msz) {
               msz.style.display = 'block';
@@ -514,7 +514,7 @@
             virtualclass.videoUl.showVideos();
             virtualclass.videoUl.reArrangeElements(virtualclass.orderList[virtualclass.videoUl.appName].ol.order); // 1
           }
-          console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
+          //console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
         }
       },
 
@@ -529,15 +529,15 @@
         if (msg.videoTime && !virtualclass.isPlayMode) {
           virtualclass.videoUl.lastSeek += this.calculateVideoTime(msg.videoTime);
         }
-        console.log('====> last seek ', virtualclass.videoUl.lastSeek);
+        //console.log('====> last seek ', virtualclass.videoUl.lastSeek);
         this.playVideo();
         virtualclass.videoUl.isPaused = false;
-        // console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
+        //console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
       },
 
       handlePauseEvent(msg) {
         virtualclass.videoUl.lastSeek = msg.currTime;
-        console.log('====> last seek ', virtualclass.videoUl.lastSeek);
+        //console.log('====> last seek ', virtualclass.videoUl.lastSeek);
         this.pauseVideo();
         virtualclass.videoUl.isPaused = true;
 
@@ -582,21 +582,21 @@
         virtualclass.videoUl.player.dispose();
         delete virtualclass.videoUl.player;
         this.UI.attachPlayer = false;
-        console.log('====> Video player is finished end <======', virtualclass.videoUl.player);
+        //console.log('====> Video player is finished end <======', virtualclass.videoUl.player);
       },
 
       playVideo(videoTime) {
         virtualclass.videoUl.lastSeek = videoTime || virtualclass.videoUl.lastSeek;
-        // console.log('====> seek play', virtualclass.videoUl.player.lastSeek / 60);
-        console.log('====> Video 1 play', virtualclass.videoUl.lastSeek);
+        //console.log('====> seek play', virtualclass.videoUl.player.lastSeek / 60);
+        //console.log('====> Video 1 play', virtualclass.videoUl.lastSeek);
         virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
         virtualclass.videoUl.player.play();
       },
 
       pauseVideo() {
-        console.log('====> Video 2 pause', virtualclass.videoUl.lastSeek);
+        //console.log('====> Video 2 pause', virtualclass.videoUl.lastSeek);
         virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
-        //console.log('====> seek pause ', virtualclass.videoUl.player.lastSeek / 60);
+        ////console.log('====> seek pause ', virtualclass.videoUl.player.lastSeek / 60);
         virtualclass.videoUl.player.pause();
         virtualclass.videoUl.isPaused = true;
       },
@@ -648,7 +648,7 @@
             if (virtualclass.videoUl.player) {
               virtualclass.videoUl.player.ready(function () {
                 const myPlayer = this;
-                // console.log('====> seek play ', virtualclass.videoUl.lastSeek);
+                //console.log('====> seek play ', virtualclass.videoUl.lastSeek);
                 myPlayer.play();
               });
             }
@@ -899,7 +899,7 @@
         videojsPlayer(videoUrl, vidId) {
           if (!virtualclass.videoUl.player) {
             virtualclass.videoUl.player = videojs('dispVideo'); // TODO, generating error need to handle
-            console.log('====> Video player is ready <====== 0');
+            //console.log('====> Video player is ready <====== 0');
             if (roles.hasControls()) {
               if (!($('.vjs-autoPlay-button').length)) {
                 virtualclass.videoUl.UI.appendAutoPlayButton(virtualclass.videoUl.player);
@@ -911,7 +911,7 @@
               }
             }
 
-            console.log('==== video player ready 1', virtualclass.videoUl.player);
+            //console.log('==== video player ready 1', virtualclass.videoUl.player);
             virtualclass.videoUl.UI.attachPlayerHandler(virtualclass.videoUl.player, vidId, videoUrl);
           }
           virtualclass.videoUl.lastSeek = 0;
@@ -922,7 +922,7 @@
         attachPlayerHandler(player) {
           if (!this.attachPlayer) {
             this.attachPlayer = true;
-            console.log('====> video attaching the player');
+            //console.log('====> video attaching the player');
             // console.log('Attach video player');
             player.on('pause', (e) => {
               // console.log('paused');
@@ -932,14 +932,14 @@
               virtualclass.videoUl.isPaused = true;
             });
 
-            // console.log('====> seek play init ');
+            //console.log('====> seek play init ');
             player.on('play', (e) => {
-              console.log('====> video play on');
+              //console.log('====> video play on');
               if (roles.hasControls()) {
                 ioAdapter.mustSend({ videoUl: { play: player.currentTime() }, cf: 'videoUl', videoTime: virtualclass.vutil.localToUTC() });
               }
               virtualclass.videoUl.isPaused = false;
-              // console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
+              //console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
             });
           }
         },
@@ -984,7 +984,7 @@
         },
 
         setPlayerUrl(player, videoUrl) {
-          console.log('====> Video 0 start');
+          //console.log('====> Video 0 start');
           if (player.poster_) {
             player.poster_ = '';
           }
@@ -993,16 +993,16 @@
           if (virtualclass.videoUl.yts) {
             dispVideo.setAttribute('data-setup', '{ techOrder: [youtube],"preload": "auto"}');
             player.src({ type: 'video/youtube', src: videoUrl });
-            console.log('====> Video 1 b Finished youtube');
+            //console.log('====> Video 1 b Finished youtube');
           } else if (virtualclass.videoUl.online) {
             dispVideo.setAttribute('data-setup', '{"preload": "auto" }');
             player.src({ type: 'video/webm', src: videoUrl });
             player.src({ type: 'video/mp4', src: videoUrl });
-            console.log('====> Video 1 b Finished uploaded');
+            //console.log('====> Video 1 b Finished uploaded');
           } else {
             dispVideo.setAttribute('data-setup', '{"preload": "auto"}');
             player.src({ type: 'application/x-mpegURL', withCredentials: true, src: videoUrl });
-            console.log('====> Video 1 b normal');
+            //console.log('====> Video 1 b normal');
           }
 
           player.any('loadstart', () => {
@@ -1013,13 +1013,13 @@
               }
               /* TODO, pause state isn't working with uploaded video on page refresh, however it's fine with youtube videos */
               player.pause();
-              console.log('====> Video 2 finished pause');
+              //console.log('====> Video 2 finished pause');
             } else if (virtualclass.system.device === 'desktop') { // TODO, WHY only on desktop
               if (virtualclass.videoUl.lastSeek) {
                 virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
               }
               player.play();
-              console.log('====> Video 2 finished play');
+              //console.log('====> Video 2 finished play');
             }
           });
         },
@@ -1062,7 +1062,7 @@
         onEndedHandler(player, vidId, videoUrl) {
           player.off('ended');
           player.on('ended', () => {
-            console.log('====> on ended video ');
+            //console.log('====> on ended video ');
             // virtualclass.videoUl.UI.onEnded(player, vidId, videoUrl);
             virtualclass.videoUl.UI.onEnded(player, vidId);
           });
@@ -1114,7 +1114,7 @@
           virtualclass.videoUl.listEndPause = true;
           virtualclass.videoUl.player.on('play', () => {
             if (virtualclass.videoUl.listEndPause) {
-              // console.log('==== Video is paused');
+              //console.log('==== Video is paused');
               virtualclass.videoUl.player.pause();
               virtualclass.videoUl.listEndPause = false;
             }

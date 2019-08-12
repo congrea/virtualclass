@@ -141,7 +141,7 @@
         virtualclass.wb[wId].activeToolColor = virtualclass.gObj.defaultcolor;
         const delRpNode = true;
         virtualclass.wb[wId].utility.clearAll(delRpNode, wId);
-        console.log('====> whiteboard clear all');
+        //console.log('====> whiteboard clear all');
       },
       /**
        * By this function  all drawn object over the canvas would be erased
@@ -149,7 +149,7 @@
        * @param delRpNode
        */
       clearAll(delRpNode, wid) {
-        console.log('====> whiteboard clear all');
+        //console.log('====> whiteboard clear all');
         // const wid = virtualclass.gObj.currWb;
         // console.log(`Whiteboard clear ${wid}`);
         // TODO this should be done in proper way
@@ -308,8 +308,8 @@
       },
 
       makeCanvasDisable() {
-        console.log('====> Canvas count 1 ', virtualclass.gObj.currWb);
-        console.log('====> Canvas Disbale ');
+        //console.log('====> Canvas count 1 ', virtualclass.gObj.currWb);
+        //console.log('====> Canvas Disbale ');
         const wid = virtualclass.gObj.currWb;
         const { vcan } = virtualclass.wb[wid];
         const canvasElement = vcan.main.canvas;
@@ -918,14 +918,14 @@
       },
 
       scaleCordinate(ev) {
-        // console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
+        //console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
         ev.detail.cevent.x = ev.detail.cevent.x * virtualclass.zoom.canvasScale;
         ev.detail.cevent.y = ev.detail.cevent.y * virtualclass.zoom.canvasScale;
         return ev;
       },
 
       scaleMoveCordinate(obj) {
-        // console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
+        //console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
         obj.x = ev.detail.cevent.x / virtualclass.zoom.canvasScale;
         obj.y = ev.detail.cevent.y / virtualclass.zoom.canvasScale;
         return obj;

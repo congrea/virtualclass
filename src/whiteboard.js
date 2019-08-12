@@ -20,7 +20,7 @@
     //
     if (typeof virtualclass.wb[currWb].vcan !== 'object') {
       virtualclass.wb[currWb].vcan = new window.Vcan();
-      console.log('====> vcan is creating ', currWb);
+      //console.log('====> vcan is creating ', currWb);
 
       window.vcanUtility(currWb);
       window.vcanMain(currWb);
@@ -516,7 +516,7 @@
           // } else if (cmd == 't_replay') {
         } else if (cmd === `t_replay${wbId}`) {
           if (typeof multiuser === 'undefined') {
-            console.log('====> setting vcan main = 0');
+            //console.log('====> setting vcan main = 0');
             vcan.setValInMain('id', 0);
           }
           if (typeof myfunc !== 'undefined') {
@@ -681,7 +681,7 @@
           virtualclass.wb[wid].recordAudio = true;
           virtualclass.recorder.init();
         } else {
-          console.log('=====> whiteboard ready 2 ', wid);
+          //console.log('=====> whiteboard ready 2 ', wid);
           virtualclass.wb[wid].replay = virtualclass.wb[wid]._replay();
 
           if (typeof myfunc !== 'undefined') {

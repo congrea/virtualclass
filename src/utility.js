@@ -462,7 +462,7 @@
         // virtualclass.recorder.getRecViewData();
         virtualclass.recorder.recDataSend();
         // We need to clear everything when user first play-recoring and join the live class
-        // console.log('==== Clear Session PlayMode');
+        //console.log('==== Clear Session PlayMode');
         return;
       }
 
@@ -537,7 +537,7 @@
         prvAppObj.name = virtualclass.gObj.defaultApp; // not saving screen share but show Editor Rich default window
         const teacherId = virtualclass.vutil.whoIsTeacher();
         if (virtualclass.gObj.studentSSstatus.mesharing && roles.isStudent()) {
-          console.log('====> me sharing rmStdScreen');
+          //console.log('====> me sharing rmStdScreen');
           ioAdapter.mustSendUser({ cf: 'rmStdScreen' }, teacherId);
         } else if (roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing) {
           virtualclass.vutil.beforeSend({ unshareScreen: true, st: 'ss', cf: 'unshareScreen' });
@@ -2220,12 +2220,12 @@
 
         if (typeof virtualclass.videoUl.player === 'object' && virtualclass.videoUl.player.player_ != null
           && virtualclass.videoUl.player.paused()) {
-          // console.log('==== Video is paused');
+          //console.log('==== Video is paused');
           virtualclass.videoUl.player.pause();
         }
       }
       if (typeof virtualclass.videoUl.player === 'object') {
-        console.log('=====> Video delete <==== ',  virtualclass.videoUl.player);
+        //console.log('=====> Video delete <==== ',  virtualclass.videoUl.player);
         delete (virtualclass.videoUl.player);
       }
     },

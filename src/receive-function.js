@@ -204,7 +204,7 @@ const receiveFunctions = new function () {
 
   // Clear All
   this.clearAll = function (e) {
-    // console.log('====> WHITEBOARD APP DATA CLEAR ALL');
+    //console.log('====> WHITEBOARD APP DATA CLEAR ALL');
     // if (typeof virtualclass.wb !== 'object') {
     //   virtualclass.makeAppReady({ app: virtualclass.apps.wb });
     // }
@@ -247,8 +247,8 @@ const receiveFunctions = new function () {
   // documnetation sharing
   this.dts = function (e) {
     if (Object.prototype.hasOwnProperty.call(e.message.dts, 'init')) {
-      console.log('====> final seek suman 4', e.message.dts);
-      console.log('====> document shareing 1');
+      //console.log('====> final seek suman 4', e.message.dts);
+      //console.log('====> document shareing 1');
       virtualclass.gObj.screenRh = 100;
       // virtualclass.makeAppReady('DocumentShare', undefined, e.message.dts);
       virtualclass.makeAppReady({ app: 'DocumentShare', data: e.message.dts });
@@ -537,7 +537,7 @@ const receiveFunctions = new function () {
         }
 
         if (typeof virtualclass.videoUl.player === 'object') {
-          console.log('====> Video player is destroyed  <======', virtualclass.videoUl.player);
+          //console.log('====> Video player is destroyed  <======', virtualclass.videoUl.player);
           delete (virtualclass.videoUl.player);
         }
       }

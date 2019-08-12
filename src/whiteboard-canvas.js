@@ -233,7 +233,7 @@
       if (rindex >= 0) {
         // if (roles.hasControls()) {
           vcan.main.children.splice(rindex, 1);
-          console.log('====> whiteboard pushing deleting object');
+          //console.log('====> whiteboard pushing deleting object');
         // }
       }
 

@@ -283,7 +283,7 @@
         },
 
         notifiyUnmuteAudioDom() {
-          // console.log('==== notify unmute audio');
+          //console.log('==== notify unmute audio');
           if (Object.prototype.hasOwnProperty.call(this, 'speakerPressOnce') && this.speakerPressOnce != null && this.speakerPressOnce.classList.contains('audioMute')) {
             this.speakerPressOnce.classList.remove('audioMute');
           }
@@ -691,7 +691,7 @@
 
 
                 if (virtualclass.system.mybrowser.name === 'Chrome') {
-                  // console.log('==== Chrome after change');
+                  //console.log('==== Chrome after change');
                   cthis.audio.bug_687574_callLocalPeers();
                 }
 

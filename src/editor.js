@@ -75,7 +75,7 @@
        * @param operations expect operations of docs
        */
       init(revision, clients, docs, operations) {
-        console.log('====> Process Editor 1');
+        //console.log('====> Process Editor 1');
         const docsInfo = {};
         if (typeof revision !== 'undefined') {
           docsInfo.revision = revision;

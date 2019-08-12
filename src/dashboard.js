@@ -188,9 +188,9 @@ var dashboard = {
       if (virtualclass.currApp === 'DocumentShare') {
         if (!virtualclass.dts.noteExist()) {
           this.readyDashboard();
-          console.log('====> DOCUMENT SHARE SUMAN 10.00');
+          //console.log('====> DOCUMENT SHARE SUMAN 10.00');
         } else {
-          console.log('====> DOCUMENT SHARE SUMAN 10.01');
+          //console.log('====> DOCUMENT SHARE SUMAN 10.01');
           if (!virtualclass.dts.isUploaderExist()) {
             virtualclass.vutil.modalPopup('docs', ['docsuploadContainer']);
           }
@@ -207,7 +207,7 @@ var dashboard = {
         }
       } else {
         this.readyDashboard();
-        console.log('====> dashboard init ');
+        //console.log('====> dashboard init ');
         const sharing = document.querySelector('.congrea .pptSharing');
         if (sharing) {
           virtualclass.dashboard.close();
@@ -235,7 +235,7 @@ var dashboard = {
 
     // in any other application we can handle
     // dashoard content in own style
-    console.log('====> DOCUMENT SHARE SUMAN 1.0');
+    //console.log('====> DOCUMENT SHARE SUMAN 1.0');
     if (currApp === 'DocumentShare') {
       var dtitle = document.getElementById('dashboardnav');
       dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
@@ -317,7 +317,7 @@ var dashboard = {
       const finish = document.querySelector('.congrea .dashboardContainer .modal-header .close');
       if (finish) {
         this.attachModalCloseHandler = true
-        console.log('====> modal init handler');
+        //console.log('====> modal init handler');
         finish.addEventListener('click', () => {
           const app = document.querySelector('.congrea #virtualclassApp');
           if (app.classList.contains('dashboard')) {

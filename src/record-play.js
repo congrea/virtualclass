@@ -386,7 +386,7 @@
               if (this.isTrimRecordingNow) { // Recording off
                 chunk.push({ playTime: 0, recObjs: data, type });
                 if (data.indexOf('{"ac":21,"cf":"recs"') > -1) { // Check if recording turned on, trim off
-                  // console.log('=== trim off');
+                  //console.log('=== trim off');
                   this.trimofftime = time;
                   this.isTrimRecordingNow = false;
                   const trimdifftime = this.trimofftime - this.trimontime;
@@ -396,7 +396,7 @@
                   this.trimontime = 0;
                 }
               } else if (data.indexOf('{"ac":11,"cf":"recs"') > -1) { // Check if recording turned off, trim on
-                // console.log('=== trim on');
+                //console.log('=== trim on');
                 this.isTrimRecordingNow = true;
                 chunk.push({ playTime: 0, recObjs: data, type });
                 this.trimontime = time;
@@ -459,7 +459,7 @@
         }
       }
 
-      // console.log('==== downloaded total min ', this.currentMin);
+      //console.log('==== downloaded total min ', this.currentMin);
 
       this.updateTotalTime();
       this.UIdownloadProgress();
@@ -481,7 +481,7 @@
         ContinueBtn.removeEventListener('click', this.handleStartToPlay.bind(this));
       }
       virtualclass.gesture.clickToContinue();
-      // console.log('===== Start to play');
+      //console.log('===== Start to play');
       this.startToPlay();
       ev.currentTarget.classList.remove('askToPlayCont');
     },
@@ -531,7 +531,7 @@
     },
 
     playInt() {
-      // console.log('=====Play init recording=====');
+      //console.log('=====Play init recording=====');
       virtualclass.popup.closeElem();
       virtualclass.recorder.init(virtualclass.recorder.masterRecordings);
       // virtualclass.recorder.playStart = true;
@@ -609,7 +609,7 @@
     },
 
     async seek(seekPointPercent) {
-      console.log('====> final seek suman 2', this.seekValueInPercentage);
+      //console.log('====> final seek suman 2', this.seekValueInPercentage);
       virtualclass.videoHost.UI.hideTeacherVideo();
       // this.getRecViewData();
       const index = this.getSeekPoint(seekPointPercent);
@@ -624,7 +624,7 @@
 
     triggerSynchPacket() {
       this.triggerPlayProgress();
-      // console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
+      //console.log('===== Elapsed time 1 ==== ' + this.elapsedPlayTime);
       if (this.binarySyncMsg) {
         // this.handleSyncPacket (syncMsg, this.binarySyncMsg);
         this.handleSyncPacket();
@@ -634,7 +634,7 @@
     },
 
     _seek(index) {
-      console.log('====> final seek suman 3', this.seekValueInPercentage);
+      //console.log('====> final seek suman 3', this.seekValueInPercentage);
       this.controller._pause();
       let subLength;
       // while (index ? this.masterIndex <= index.master : !this.seekFinished()){
@@ -717,7 +717,7 @@
         }
       }
 
-      // console.log('==== recording final 1');
+      //console.log('==== recording final 1');
     },
 
     handleSyncStringPacket() {
@@ -743,7 +743,7 @@
         if (typeof virtualclass.videoUl.player === 'object') {
           virtualclass.videoUl.playVideo(videoSeekTime);
         } else {
-          // console.log('====Video init to play start');
+          //console.log('====Video init to play start');
           if (this.pauseBeforeSeek) {
             virtualclass.videoUl.isPaused = true;
           } else {
@@ -1255,12 +1255,12 @@
         this.ff = 1;
         this.pause = false;
         virtualclass.recorder.play();
-        // console.log('====== Recording play');
+        //console.log('====== Recording play');
       },
 
       _pause() {
         this.pause = true;
-        // console.log('====== Recording pause');
+        //console.log('====== Recording pause');
       },
 
       fastForward(by) {
@@ -1548,18 +1548,18 @@
           this.seekValueInPercentage = Math.trunc(this.downloadInPercentage);
         }
         if (this.seekValueInPercentage > 0) {
-          console.log('====> final seek suman ', this.seekValueInPercentage);
+          //console.log('====> final seek suman ', this.seekValueInPercentage);
           await this.seek(this.seekValueInPercentage);
         }
 
 
         if (this.pauseBeforeSeek) {
-          // console.log('=== Video pause ');
+          //console.log('=== Video pause ');
           this.controller._pause();
           this.triggerPauseVideo();
         } else {
-          // console.log('=== Video play ');
-          // console.log('==== recording final 2');
+          //console.log('=== Video play ');
+          //console.log('==== recording final 2');
           this.controller._play();
           this.triggerPlayVideo();
         }

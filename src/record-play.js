@@ -109,21 +109,6 @@
     recDataSend() { // data send to server when browser unload, beforeload and recording complete.
       let flag = null;
       let startTime = 0;
-      // let stopTime = 0;
-      // let countSeek = 0;
-      for (let i = 0; i <= this.recData.length; i++) {
-        if (this.recData[i] === undefined) {
-          startTime = i * 5000;
-          if (flag === null) {
-            flag = 'save';
-            this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
-          }
-        } else {
-          flag = null;
-        }
-      }
-      this.recViewData.data[this.timeStamp].push({ [startTime]: (this.recData.length * 5000) });
-
       for (let i = 0; i <= this.recData.length; i++) {
         if (this.recData[i] === undefined && flag === null) {
           flag = 'save';
@@ -134,37 +119,15 @@
             this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
           }
         }
-
         if (this.recData[i] === undefined) {
-          startTime = i * 5000;
+          startTime = ((i * 5000) + 5000);
         }
-
-        // stopTime += 5000;
-        // if (this.timestamp !== this.recData[i] && this.recData[i] !== undefined) {
+        // if (this.timestamp !== this.recData[i] && this.recData[i] !== undefined && this.timeStamp !== undefined) {
         //   this.recViewData.data[this.recData[i]] = [];
         //   this.timestamp = this.recData[i];
         // }
       }
-      // for (let i = 0; i <= this.recData.length; i++) {
-      //   if (this.recData[i] === undefined && flag === null) {
-      //     flag = 'save';
-      //     this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
-      //   } else if (this.recData[i] !== undefined) {
-      //     flag = null;
-      //     if (i === this.recData.length) {
-      //       this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
-      //     }
-      //   }
-      //   if (this.recData[i] === undefined) {
-      //     startTime = i * 5000;
-      //   }
-      //
-      //   // stopTime += 5000;
-      //   // if (this.timestamp !== this.recData[i] && this.recData[i] !== undefined) {
-      //   //   this.recViewData.data[this.recData[i]] = [];
-      //   //   this.timestamp = this.recData[i];
-      //   // }
-      // }
+
       console.log('====> sent data ', JSON.stringify(this.recViewData));
       navigator.sendBeacon('https://api.congrea.net/data/analytics/recording', JSON.stringify(this.recViewData));
     },
@@ -1091,13 +1054,12 @@
         this.recViewData.data[this.timeStamp] = [];
         const recordingTime = (this.totalrecordingTime === undefined) ? this.totalTimeInMiliSeconds : this.totalrecordingTime;
         const length = Math.floor(recordingTime / 5000);
-        //if (this.viewPoint !== undefined) {
-          // this.recViewData.data[this.timeStamp] = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
-          //this.recData = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
-        //} else {
-         // this.recViewData.data[this.timeStamp] = new Array(length); // Todo, try to avoid the fixed length
+        if (this.viewPoint !== undefined) {
+          this.recDataConvertIntoArrayForm(length);
+        } else {
+          // this.recViewData.data[this.timeStamp] = new Array(length); // Todo, try to avoid the fixed length
           this.recData = new Array(length);
-       // }
+        }
         this.recViewData.data.rtt = recordingTime;
         this.recViewData['x-congrea-uid'] = wbUser.rid;
       }
@@ -1115,6 +1077,29 @@
           this.count++;
           this.actualPlayRecordingTime = this.remainingSeconds;
         }
+      }
+    },
+
+    recDataConvertIntoArrayForm(length) {
+      let lastViewTime = null;
+      const data = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
+      // this.recViewData.data[Object.keys(this.viewPoint.data)[0]] = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
+      // var obj = {"1565626745000":[{"0":30000},{"60000":90000},{"120000":125000}], "1565626746000":[{"0":30000},{"30000":60000},{"90000":120000}]};
+      // var data = obj[Object.keys(obj)[0]];
+      this.recData = new Array(length);
+      let index = 0;
+      for (let i = 0; i < data.length; i++) {
+        const prop = parseInt(Object.keys(data[i])[0]);
+        const val = Object.values(data[i])[0];
+        if (lastViewTime !== null) {
+          index += ((prop - lastViewTime) / 5000);
+        }
+        const recViewDataLength = ((val - prop) / 5000);
+        for (let j = 0; j < recViewDataLength; j++) {
+          this.recData.splice(index, 1, parseInt(Object.keys(this.viewPoint.data)[0]));
+          index++;
+        }
+        lastViewTime = val;
       }
     },
 

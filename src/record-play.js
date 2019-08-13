@@ -66,7 +66,8 @@
     viewPoint: null,
     count: 0,
     remainingSeconds: 0,
-    recData: '',
+    recData: null,
+    recDataOne: null,
     init() {
       if (!this.attachSeekHandler) {
         this.attachSeekHandler = true;
@@ -107,26 +108,59 @@
     },
 
     recDataSend() { // data send to server when browser unload, beforeload and recording complete.
-      let flag = null;
       let startTime = 0;
+      let timeStamp = null;
       for (let i = 0; i <= this.recData.length; i++) {
-        if (this.recData[i] === undefined && flag === null) {
+        if (timeStamp !== this.recData[i] && this.recData[i] !== undefined) {
+          this.recViewData.data[timeStamp] = [];
+          if (timeStamp !== null || timeStamp !== undefined) {
+            this.recViewData.data[timeStamp].push({ [startTime]: (i * 5000) });
+          }
+        } else if (this.recData[i] !== undefined) {
+          if (i === this.recData.length) {
+            this.recViewData.data[this.recData[i]].push({ [startTime]: (i * 5000) });
+          }
+        }
+        if (timeStamp !== this.recData[i]) {
+          startTime = ((i * 5000) + 5000);
+        }
+        timeStamp = this.recData[i];
+      }
+      /*
+      let data = (this.recDataOne === null) ? this.recData : this.recDataOne;
+      for (let i = 0; i <= data.length; i++) {
+        if (data[i] === undefined && flag === null) {
           flag = 'save';
           this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
-        } else if (this.recData[i] !== undefined) {
+        } else if (data[i] !== undefined) {
           flag = null;
-          if (i === this.recData.length) {
+          if (i === data.length) {
             this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
           }
         }
-        if (this.recData[i] === undefined) {
+        if (data[i] === undefined) {
           startTime = ((i * 5000) + 5000);
         }
-        // if (this.timestamp !== this.recData[i] && this.recData[i] !== undefined && this.timeStamp !== undefined) {
-        //   this.recViewData.data[this.recData[i]] = [];
-        //   this.timestamp = this.recData[i];
-        // }
       }
+      */
+      // for (let i = 0; i <= this.recData.length; i++) {
+      //   if (this.recData[i] === undefined && flag === null) {
+      //     flag = 'save';
+      //     this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
+      //   } else if (this.recData[i] !== undefined) {
+      //     flag = null;
+      //     if (i === this.recData.length) {
+      //       this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
+      //     }
+      //   }
+      //   if (this.recData[i] === undefined) {
+      //     startTime = ((i * 5000) + 5000);
+      //   }
+      //   // if (this.timestamp !== this.recData[i] && this.recData[i] !== undefined && this.timeStamp !== undefined) {
+      //   //   this.recViewData.data[this.recData[i]] = [];
+      //   //   this.timestamp = this.recData[i];
+      //   // }
+      // }
 
       console.log('====> sent data ', JSON.stringify(this.recViewData));
       navigator.sendBeacon('https://api.congrea.net/data/analytics/recording', JSON.stringify(this.recViewData));
@@ -1073,7 +1107,14 @@
         if (this.actualPlayRecordingTime >= 5000) {
           this.remainingSeconds = this.actualPlayRecordingTime - 5000;
           // this.recViewData.data[this.timeStamp].splice(this.count, 1, { [this.count]: this.timeStamp });
-          this.recData.splice(this.count, 1, this.timeStamp);
+          // if (this.recData[this.count] === undefined && this.viewPoint !== undefined) {
+          //   this.recDataOne.splice(this.count, 1, this.timeStamp);
+          // } else if (this.viewPoint === undefined) {
+          //   this.recData.splice(this.count, 1, this.timeStamp);
+          // }
+          if (this.recData[this.count] === undefined) {
+            this.recData.splice(this.count, 1, this.timeStamp);
+          }
           this.count++;
           this.actualPlayRecordingTime = this.remainingSeconds;
         }
@@ -1084,23 +1125,58 @@
       let lastViewTime = null;
       const data = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
       // this.recViewData.data[Object.keys(this.viewPoint.data)[0]] = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
-      // var obj = {"1565626745000":[{"0":30000},{"60000":90000},{"120000":125000}], "1565626746000":[{"0":30000},{"30000":60000},{"90000":120000}]};
-      // var data = obj[Object.keys(obj)[0]];
       this.recData = new Array(length);
+      // this.recDataOne = new Array(length);
       let index = 0;
-      for (let i = 0; i < data.length; i++) {
-        const prop = parseInt(Object.keys(data[i])[0]);
-        const val = Object.values(data[i])[0];
-        if (lastViewTime !== null) {
-          index += ((prop - lastViewTime) / 5000);
+      if (data !== null) {
+        for (const prop in this.viewPoint.data) {
+          const property = prop;
+          const val = this.viewPoint.data[prop];
+          for (let i = 0; i < val.length; i++) {
+            const propr = parseInt(Object.keys(val[i])[0]);
+            const value = Object.values(val[i])[0];
+            if (lastViewTime !== null) {
+              index += ((propr - lastViewTime) / 5000);
+            }
+            const recViewDataLength = ((value - propr) / 5000);
+            for (let j = 0; j < recViewDataLength; j++) {
+              this.recData.splice(index, 1, parseInt(property));
+              index++;
+            }
+            lastViewTime = value;
+          }
         }
-        const recViewDataLength = ((val - prop) / 5000);
-        for (let j = 0; j < recViewDataLength; j++) {
-          this.recData.splice(index, 1, parseInt(Object.keys(this.viewPoint.data)[0]));
-          index++;
-        }
-        lastViewTime = val;
       }
+      // this.recData = new Array(length);
+      // let index = 0;
+      // for (let i = 0; i < data.length; i++) {
+      //   const prop = parseInt(Object.keys(data[i])[0]);
+      //   const val = Object.values(data[i])[0];
+      //   if (lastViewTime !== null) {
+      //     index += ((prop - lastViewTime) / 5000);
+      //   }
+      //   const recViewDataLength = ((val - prop) / 5000);
+      //   for (let j = 0; j < recViewDataLength; j++) {
+      //     this.recData.splice(index, 1, parseInt(Object.keys(this.viewPoint.data)[0]));
+      //     index++;
+      //   }
+      //   lastViewTime = val;
+      // }
+      // this.recData = new Array(length);
+      // let index = 0;
+      // for (let i = 0; i < data.length; i++) {
+      //   const prop = parseInt(Object.keys(data[i])[0]);
+      //   const val = Object.values(data[i])[0];
+      //   if (lastViewTime !== null) {
+      //     index += ((prop - lastViewTime) / 5000);
+      //   }
+      //   const recViewDataLength = ((val - prop) / 5000);
+      //   for (let j = 0; j < recViewDataLength; j++) {
+      //     this.recData.splice(index, 1, parseInt(Object.keys(this.viewPoint.data)[0]));
+      //     index++;
+      //   }
+      //   lastViewTime = val;
+      // }
     },
 
     isPlayFinished() {

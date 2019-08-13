@@ -648,3 +648,9 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #VideoDashboard .playing .controls.delete {
   pointer-events: none !important;
 }
+
+#virtualclassCont.congrea .vjs-seek-to-live-control {
+  display: none;
+}
+
+

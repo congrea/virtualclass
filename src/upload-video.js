@@ -1278,6 +1278,7 @@
           dropMsz.setAttribute('qq-drop-area-text', 'Drop videos here');
 
           const uploadMesssage = document.querySelector('#uploadMsz');
+          /** Creating list (li) for displaying the upload video **/
           const uploadMessageList = document.querySelector('#congreavideoContBody .qq-upload-list-selector.qq-upload-list');
           uploadMessageList.style.display = 'block';
 
@@ -1302,7 +1303,9 @@
           btnUpload.addEventListener('click', () => {
             uploadMesssage.style.display = 'block';
             const btn = document.querySelector('#videoPopup .qq-upload-list-selector.qq-upload-button input');
-            btn.click();
+            if (btn) {
+              btn.click();
+            }
           });
         },
 

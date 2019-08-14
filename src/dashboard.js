@@ -216,10 +216,13 @@ var dashboard = {
     } else {
       virtualclass.dts.init();
     }
+
+    if (virtualclass.currApp === 'DocumentShare' && Object.prototype.hasOwnProperty.call(virtualclass, 'dts')) {
+      virtualclass.dts.moveProgressbar();
+    }
   },
 
   readyDashboard(currVideo) {
-    // console.log('Ready Dashboard');
     const { currApp } = virtualclass;
 
     if (document.querySelector('#congdashboard') === null) {

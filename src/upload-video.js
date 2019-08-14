@@ -898,7 +898,11 @@
 
         videojsPlayer(videoUrl, vidId) {
           if (!virtualclass.videoUl.player) {
-            virtualclass.videoUl.player = videojs('dispVideo'); // TODO, generating error need to handle
+            virtualclass.videoUl.player = videojs('dispVideo',   {
+              controlBar: {
+                pictureInPictureToggle: false,
+              }
+            }); // TODO, generating error need to handle
             //console.log('====> Video player is ready <====== 0');
             if (roles.hasControls()) {
               if (!($('.vjs-autoPlay-button').length)) {
@@ -1274,6 +1278,7 @@
           dropMsz.setAttribute('qq-drop-area-text', 'Drop videos here');
 
           const uploadMesssage = document.querySelector('#uploadMsz');
+          /** Creating list (li) for displaying the upload video **/
           const uploadMessageList = document.querySelector('#congreavideoContBody .qq-upload-list-selector.qq-upload-list');
           uploadMessageList.style.display = 'block';
 
@@ -1298,7 +1303,9 @@
           btnUpload.addEventListener('click', () => {
             uploadMesssage.style.display = 'block';
             const btn = document.querySelector('#videoPopup .qq-upload-list-selector.qq-upload-button input');
-            btn.click();
+            if (btn) {
+              btn.click();
+            }
           });
         },
 

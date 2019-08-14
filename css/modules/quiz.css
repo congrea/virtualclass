@@ -503,3 +503,7 @@ span.sch {
     margin-top: 5px;
   }
 }
+
+#virtualclassCont.congrea #resultQzLayout.elapsedTime .timilimit{
+  display : none;
+}

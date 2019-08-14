@@ -459,7 +459,6 @@
 
     async beforeLoad() {
       if (virtualclass.isPlayMode) {
-        // virtualclass.recorder.getRecViewData();
         virtualclass.recorder.recDataSend();
         // We need to clear everything when user first play-recoring and join the live class
         //console.log('==== Clear Session PlayMode');

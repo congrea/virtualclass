@@ -1216,6 +1216,9 @@
             //   }
             // }
             const bodyHdCont = document.getElementById('resultQzLayout');
+            if (order === 'asc') {
+              bodyHdCont.classList.add('elapsedTime');
+            }
 
             const elem = virtualclass.view.customCreateElement('div', 'rsQzHead', 'row col-md-12');
             bodyHdCont.appendChild(elem);
@@ -1223,7 +1226,7 @@
             // var leftdiv = virtualclass.view.customCreateElement('div','', 'col-md-6');
             // elem.appendChild(leftdiv);
 
-            const timeInnerdiv = virtualclass.view.customCreateElement('div', '', 'col-md-3');
+            const timeInnerdiv = virtualclass.view.customCreateElement('div', '', 'timilimit col-md-3');
             timeInnerdiv.innerHTML = `Time limit : <span> ${virtualclass.quiz.convertSecToTime(qz.timelimit)}</span>`;
             elem.appendChild(timeInnerdiv);
 

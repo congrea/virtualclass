@@ -109,22 +109,26 @@
 
     recDataSend() { // data send to server when browser unload, beforeload and recording complete.
       let startTime = 0;
-      let timeStamp = null;
-      for (let i = 0; i <= this.recData.length; i++) {
-        if (timeStamp !== this.recData[i] && this.recData[i] !== undefined) {
-          this.recViewData.data[timeStamp] = [];
-          if (timeStamp !== null || timeStamp !== undefined) {
-            this.recViewData.data[timeStamp].push({ [startTime]: (i * 5000) });
+      let timeStamp = 0;
+      if (this.recData !== undefined) {
+        for (let i = 0; i <= this.recData.length; i++) {
+          if (timeStamp !== this.recData[i] || this.recData[i] === undefined) {
+            if (timeStamp !== 0 && !this.recViewData.data.hasOwnProperty(timeStamp)) {
+              this.recViewData.data[timeStamp] = [];
+            }
+            if (timeStamp !== 0 && timeStamp !== undefined) {
+              this.recViewData.data[timeStamp].push({[startTime]: (i)});
+            }
+          } else if (this.recData[i] !== undefined) {
+            if (i === this.recData.length) {
+              this.recViewData.data[this.recData[i]].push({[startTime]: (i)});
+            }
           }
-        } else if (this.recData[i] !== undefined) {
-          if (i === this.recData.length) {
-            this.recViewData.data[this.recData[i]].push({ [startTime]: (i * 5000) });
+          if (timeStamp !== this.recData[i]) {
+            startTime = (i);
           }
+          timeStamp = this.recData[i];
         }
-        if (timeStamp !== this.recData[i]) {
-          startTime = ((i * 5000) + 5000);
-        }
-        timeStamp = this.recData[i];
       }
       /*
       let data = (this.recDataOne === null) ? this.recData : this.recDataOne;
@@ -1122,28 +1126,31 @@
     },
 
     recDataConvertIntoArrayForm(length) {
-      let lastViewTime = null;
+      let stop = null;
       const data = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
       // this.recViewData.data[Object.keys(this.viewPoint.data)[0]] = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
       this.recData = new Array(length);
       // this.recDataOne = new Array(length);
-      let index = 0;
+      // let index = 0;
       if (data !== null) {
         for (const prop in this.viewPoint.data) {
           const property = prop;
           const val = this.viewPoint.data[prop];
           for (let i = 0; i < val.length; i++) {
-            const propr = parseInt(Object.keys(val[i])[0]);
-            const value = Object.values(val[i])[0];
-            if (lastViewTime !== null) {
-              index += ((propr - lastViewTime) / 5000);
+            const propr = (parseInt(Object.keys(val[i])[0]));
+            const value = (Object.values(val[i])[0]);
+            for (let j = propr; j < value; j++) {
+              this.recData.splice(j, 1, parseInt(property));
             }
-            const recViewDataLength = ((value - propr) / 5000);
-            for (let j = 0; j < recViewDataLength; j++) {
-              this.recData.splice(index, 1, parseInt(property));
-              index++;
-            }
-            lastViewTime = value;
+            // if (stop !== null) {
+            //   index += ((propr - stop) / 5000);
+            // }
+            // const recViewDataLength = ((value - propr) / 5000);
+            // for (let j = 0; j < recViewDataLength; j++) {
+            //   this.recData.splice(index, 1, parseInt(property));
+            //   index++;
+            // }
+            // stop = value;
           }
         }
       }

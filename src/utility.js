@@ -465,6 +465,10 @@
         return;
       }
 
+      if (roles.hasControls() && document.querySelector('#virtualclassAppRightPanel.vidShow') !== null) { // if teacher video is enabled
+        ioAdapter.mustSend({ congCtr: { videoSwitch: 'off' }, cf: 'congController' });
+      }
+
       if (virtualclass.currApp === 'DocumentShare') {
         if (!roles.hasControls()) {
           const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');

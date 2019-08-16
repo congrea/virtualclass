@@ -113,7 +113,7 @@
       if (this.recData !== undefined) {
         for (let i = 0; i <= this.recData.length; i++) {
           if (timeStamp !== this.recData[i] || this.recData[i] === undefined) {
-            if (timeStamp !== 0 && !this.recViewData.data.hasOwnProperty(timeStamp)) {
+            if (timeStamp !== 0 && timeStamp !== undefined && !this.recViewData.data.hasOwnProperty(timeStamp)) {
               this.recViewData.data[timeStamp] = [];
             }
             if (timeStamp !== 0 && timeStamp !== undefined) {

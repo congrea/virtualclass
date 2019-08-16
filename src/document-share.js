@@ -294,6 +294,19 @@
         this.removeNoDocsElem();
       },
 
+      triggerMsgCloseButton() {
+        if (this.successMsgTime) {
+          clearTimeout(this.successMsgTime);
+        }
+
+        this.successMsgTime = setTimeout(() => {
+          const msgCloseButton = document.querySelector('#docsUploadMsz .close');
+          if (msgCloseButton) {
+            msgCloseButton.click();
+          }
+        }, 4000);
+      },
+
       removeNoDocsElem() {
         const allNoDocsElem = document.querySelectorAll('.noDocs');
         for (let i = 0; i < allNoDocsElem.length; i++) {
@@ -1736,6 +1749,7 @@
 
           virtualclass.gObj.uploadingFiles = [];
           this.showUploadMsz(virtualclass.lang.getString('docUploadSuccess'), 'alert-success');
+          this.triggerMsgCloseButton();
         } else if (response.message === 'duplicate') {
           // alert(virtualclass.lang.getString('duplicateUploadMsg'));
           this.showUploadMsz(virtualclass.lang.getString('duplicateUploadMsg'), 'alert-error');

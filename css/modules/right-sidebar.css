@@ -338,7 +338,7 @@ body {
 #virtualclassCont #appSettingDetail .disable #usersChatSwitch::before {
   content: "\e9aa";
   font-weight: normal;
-  font-size: 17px;
+  font-size: 15px;
   margin-top: 3px;
   float: left;
   font-family: 'icomoon';
@@ -346,9 +346,9 @@ body {
 }
 
 #virtualclassCont #appSettingDetail .enable #usersChatSwitch::before {
-  content: "\e9ab";
+  content: "\e9bb";
   font-weight: normal;
-  font-size: 17px;
+  font-size: 15px;
   margin-top: 3px;
   float: left;
   font-family: 'icomoon';
@@ -356,7 +356,7 @@ body {
 }
 
 #virtualclassCont #appSettingDetail .disable #usersGroupChatSwitch::before {
-  content: "\e9a8";
+  content: "\f0e6";
   font-weight: normal;
   font-size: 17px;
   margin-top: 3px;
@@ -366,7 +366,7 @@ body {
 }
 
 #virtualclassCont #appSettingDetail .enable #usersGroupChatSwitch::before {
-  content: "\e9a9";
+  content: "\e9b9";
   font-weight: normal;
   font-size: 17px;
   margin-top: 3px;
@@ -376,7 +376,7 @@ body {
 }
 
 #virtualclassCont #appSettingDetail .disable #usersRaisehandSwitch::before {
-  content: "\e9ad";
+  content: "\e962";
   font-weight: normal;
   font-size: 17px;
   margin-top: 3px;
@@ -386,17 +386,18 @@ body {
 }
 
 #virtualclassCont #appSettingDetail .enable #usersRaisehandSwitch::before {
-  content: "\e9b2";
+  content: "\e9ba";
   font-weight: normal;
   font-size: 17px;
   margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
+  border: white;
 }
 
 #virtualclassCont #appSettingDetail .disable #usersUserlistSwitch::before {
-  content: "\e9b0";
+  content: "\e971";
   font-weight: normal;
   font-size: 17px;
   margin-top: 3px;
@@ -406,9 +407,9 @@ body {
 }
 
 #virtualclassCont #appSettingDetail .enable #usersUserlistSwitch::before {
-  content: "\e9b4";
+  content: "\e9b8";
   font-weight: normal;
-  font-size: 17px;
+  font-size: 18px;
   margin-top: 3px;
   float: left;
   font-family: 'icomoon';

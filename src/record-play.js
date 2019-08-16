@@ -60,7 +60,7 @@
       'x-congrea-authpass': wbUser.auth_pass,
       'x-congrea-room': wbUser.room,
       'x-congrea-session': wbUser.session,
-      'data': {},
+      data: {},
     },
     recording: 'on',
     viewPoint: null,
@@ -117,55 +117,19 @@
               this.recViewData.data[timeStamp] = [];
             }
             if (timeStamp !== 0 && timeStamp !== undefined) {
-              this.recViewData.data[timeStamp].push({[startTime]: (i)});
+              this.recViewData.data[timeStamp].push({ [startTime]: i });
             }
           } else if (this.recData[i] !== undefined) {
             if (i === this.recData.length) {
-              this.recViewData.data[this.recData[i]].push({[startTime]: (i)});
+              this.recViewData.data[this.recData[i]].push({ [startTime]: i });
             }
           }
           if (timeStamp !== this.recData[i]) {
-            startTime = (i);
+            startTime = i;
           }
           timeStamp = this.recData[i];
         }
       }
-      /*
-      let data = (this.recDataOne === null) ? this.recData : this.recDataOne;
-      for (let i = 0; i <= data.length; i++) {
-        if (data[i] === undefined && flag === null) {
-          flag = 'save';
-          this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
-        } else if (data[i] !== undefined) {
-          flag = null;
-          if (i === data.length) {
-            this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
-          }
-        }
-        if (data[i] === undefined) {
-          startTime = ((i * 5000) + 5000);
-        }
-      }
-      */
-      // for (let i = 0; i <= this.recData.length; i++) {
-      //   if (this.recData[i] === undefined && flag === null) {
-      //     flag = 'save';
-      //     this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
-      //   } else if (this.recData[i] !== undefined) {
-      //     flag = null;
-      //     if (i === this.recData.length) {
-      //       this.recViewData.data[this.timeStamp].push({ [startTime]: (i * 5000) });
-      //     }
-      //   }
-      //   if (this.recData[i] === undefined) {
-      //     startTime = ((i * 5000) + 5000);
-      //   }
-      //   // if (this.timestamp !== this.recData[i] && this.recData[i] !== undefined && this.timeStamp !== undefined) {
-      //   //   this.recViewData.data[this.recData[i]] = [];
-      //   //   this.timestamp = this.recData[i];
-      //   // }
-      // }
-
       console.log('====> sent data ', JSON.stringify(this.recViewData));
       navigator.sendBeacon('https://api.congrea.net/data/analytics/recording', JSON.stringify(this.recViewData));
     },
@@ -671,7 +635,6 @@
     async seek(seekPointPercent) {
       //console.log('====> final seek suman 2', this.seekValueInPercentage);
       virtualclass.videoHost.UI.hideTeacherVideo();
-      // this.getRecViewData();
       const index = this.getSeekPoint(seekPointPercent);
       // console.log('Total till play, Index val master index ' + index.master + ' sub index' + index.sub + ' in percent' + seekPointPercent);
       if ((index.master < this.masterIndex) || (index.master === this.masterIndex && index.sub < this.subRecordingIndex)) {
@@ -908,6 +871,7 @@
       });
     },
 
+    // this function use for convert recording view data into object
     mapper(data) {
       const S = 'S';
       const SS = 'SS';
@@ -1095,7 +1059,6 @@
         if (this.viewPoint !== undefined) {
           this.recDataConvertIntoArrayForm(length);
         } else {
-          // this.recViewData.data[this.timeStamp] = new Array(length); // Todo, try to avoid the fixed length
           this.recData = new Array(length);
         }
         this.recViewData.data.rtt = recordingTime;
@@ -1110,12 +1073,6 @@
         this.actualPlayRecordingTime += this.subRecordings[this.subRecordingIndex].playTime;
         if (this.actualPlayRecordingTime >= 5000) {
           this.remainingSeconds = this.actualPlayRecordingTime - 5000;
-          // this.recViewData.data[this.timeStamp].splice(this.count, 1, { [this.count]: this.timeStamp });
-          // if (this.recData[this.count] === undefined && this.viewPoint !== undefined) {
-          //   this.recDataOne.splice(this.count, 1, this.timeStamp);
-          // } else if (this.viewPoint === undefined) {
-          //   this.recData.splice(this.count, 1, this.timeStamp);
-          // }
           if (this.recData[this.count] === undefined) {
             this.recData.splice(this.count, 1, this.timeStamp);
           }
@@ -1128,10 +1085,7 @@
     recDataConvertIntoArrayForm(length) {
       let stop = null;
       const data = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
-      // this.recViewData.data[Object.keys(this.viewPoint.data)[0]] = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
       this.recData = new Array(length);
-      // this.recDataOne = new Array(length);
-      // let index = 0;
       if (data !== null) {
         for (const prop in this.viewPoint.data) {
           const property = prop;
@@ -1142,48 +1096,9 @@
             for (let j = propr; j < value; j++) {
               this.recData.splice(j, 1, parseInt(property));
             }
-            // if (stop !== null) {
-            //   index += ((propr - stop) / 5000);
-            // }
-            // const recViewDataLength = ((value - propr) / 5000);
-            // for (let j = 0; j < recViewDataLength; j++) {
-            //   this.recData.splice(index, 1, parseInt(property));
-            //   index++;
-            // }
-            // stop = value;
           }
         }
       }
-      // this.recData = new Array(length);
-      // let index = 0;
-      // for (let i = 0; i < data.length; i++) {
-      //   const prop = parseInt(Object.keys(data[i])[0]);
-      //   const val = Object.values(data[i])[0];
-      //   if (lastViewTime !== null) {
-      //     index += ((prop - lastViewTime) / 5000);
-      //   }
-      //   const recViewDataLength = ((val - prop) / 5000);
-      //   for (let j = 0; j < recViewDataLength; j++) {
-      //     this.recData.splice(index, 1, parseInt(Object.keys(this.viewPoint.data)[0]));
-      //     index++;
-      //   }
-      //   lastViewTime = val;
-      // }
-      // this.recData = new Array(length);
-      // let index = 0;
-      // for (let i = 0; i < data.length; i++) {
-      //   const prop = parseInt(Object.keys(data[i])[0]);
-      //   const val = Object.values(data[i])[0];
-      //   if (lastViewTime !== null) {
-      //     index += ((prop - lastViewTime) / 5000);
-      //   }
-      //   const recViewDataLength = ((val - prop) / 5000);
-      //   for (let j = 0; j < recViewDataLength; j++) {
-      //     this.recData.splice(index, 1, parseInt(Object.keys(this.viewPoint.data)[0]));
-      //     index++;
-      //   }
-      //   lastViewTime = val;
-      // }
     },
 
     isPlayFinished() {
@@ -1244,7 +1159,6 @@
     },
 
     initReplayWindow() {
-      // this.getRecViewData();
       this.triggerPauseVideo();
       virtualclass.popup.replayWindow();
       virtualclass.popup.sendBackOtherElems();
@@ -1344,7 +1258,6 @@
         recPause.addEventListener('click', () => {
           if (recPause.parentNode.classList.contains('recordingPlay')) {
             that.initRecPause();
-            // this.getRecViewData();
           } else {
             that.initRecPlay();
           }

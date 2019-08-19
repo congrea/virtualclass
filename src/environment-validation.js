@@ -685,7 +685,7 @@
 
   system.isCompatibleRAM = function () {
     if (window.navigator.deviceMemory) {
-      return !(window.navigator.deviceMemory < 6);
+      return !(window.navigator.deviceMemory < 4);
     }
     return true;
   };

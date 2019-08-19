@@ -157,7 +157,7 @@
     Novote: 'No vote received for this poll',
     nowebcam: 'Webcam is not available, or not connected properly.',
     notcompatiblecpu: 'Processing power (CPU) in this system is low. <br /> We recommend working with modern CPU.',
-    notcompatibleram: 'RAM in this system is low. <br /> We recommend 8GB of RAM.',
+    notcompatibleram: 'RAM in this system is low. <br /> We recommend 4GB of RAM.',
     offcollaboration: 'Collaboration off',
     oncollaboration: 'Collaboration on',
     opendsDbheading: 'Document dashboard',

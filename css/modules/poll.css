@@ -208,9 +208,9 @@
   padding: 20px;
 }
 
-#virtualclassCont.congrea.teacher #virtualclassPoll #listQnContcourse .previewTxCont {
-  margin-bottom: 10px;
-}
+/*#virtualclassCont.congrea.teacher #virtualclassPoll #listQnContcourse .previewTxCont {*/
+  /*margin-bottom: 10px;*/
+/*}*/
 
 #virtualclassCont.congrea.teacher #virtualclassPoll #listQnContcourse #optsTxCont div label {
   font-weight: normal !important;
@@ -245,11 +245,11 @@
   margin-top: 10px;
 }
 
-#virtualclassCont.congrea.teacher #virtualclassPoll .vcPollCont #popupCont #qnTxCont label {
+#virtualclassCont.congrea.teacher #virtualclassPoll .vcPollCont .previewTxCont label {
   display: inline;
 }
 
-#virtualclassCont.congrea.teacher #virtualclassPoll .vcPollCont #qnTxCont .viewQn {
+#virtualclassCont.congrea.teacher #virtualclassPoll .vcPollCont .previewTxCont .viewQn {
   display: inline;
 }
 
@@ -497,15 +497,21 @@
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:first-child td.qnText .popover-content {
-  top: 10%;
+  top: 7%;
   bottom: auto;
   overflow: auto;
 }
+
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:last-child td.qnText .popover-content {
   bottom: 10%;
   overflow: auto;
 }
+
+/*#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:nth-child(1) .popover-content,*/
+/*#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:nth-child(2) .popover-content {*/
+  /*height : 95px;*/
+/*}*/
 
 .congrea.teacher .pollList td.qnText.col-sm-8:hover {
   background-color: #efefef;

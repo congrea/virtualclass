@@ -399,7 +399,7 @@
               timerWrapper.appendChild(elem);
             }
             elem.innerHTML = `${min < 10 ? `0${min}` : min}:${sec < 10 ? '00' : sec}`;
-            this.testNoneVoted();
+            //this.testNoneVoted();
             const msz = document.getElementById('pollResultMsz');
             if (msz) {
               msz.parentNode.removeChild(msz);
@@ -1145,15 +1145,16 @@
         elem.innerHTML = msg;
         mszCont.insertBefore(elem, mszCont.firstChild);
 
-        const btn = document.createElement('button');
-        btn.className = 'close';
-        btn.setAttribute('data-dismiss', 'alert');
-        btn.innerHTML = '&times';
-        elem.appendChild(btn);
+        // const btn = document.createElement('button');
+        // btn.className = 'close';
+        // btn.setAttribute('data-dismiss', 'alert');
+        // btn.innerHTML = '&times';
+        // elem.appendChild(btn);
 
-        btn.addEventListener('click', () => {
-          elem.parentNode.removeChild(elem);
-        });
+        // btn.addEventListener('click', () => {
+        //   elem.parentNode.removeChild(elem);
+        // });
+
       },
       askConfirm(opted, pollType, index) {
         if (opted) {
@@ -1547,7 +1548,7 @@
         }
         if (flagnonzero) {
           if (virtualclass.poll.currResultView != 'list') {
-            virtualclass.poll.showChart()
+            virtualclass.poll.showChart();
           }
         } else {
           this.noneVoted();
@@ -1580,11 +1581,10 @@
 
           clearInterval(virtualclass.poll.timer);
           virtualclass.poll.timer = 0;
-
-        } else {
-          //console.log('====> Poll student publish result ');
           virtualclass.poll.count = count;
-          //console.log('====> Poll count ', virtualclass.poll.count)
+          this.testNoneVoted();
+        } else {
+          virtualclass.poll.count = count;
           if (virtualclass.poll.timer) {
             clearInterval(virtualclass.poll.timer);
           }
@@ -2199,7 +2199,7 @@
         if (chart) {
            chart.style.display = 'block';
         }
-        console.log('====> chat graph show ', document.querySelector('#chart').offsetWidth);
+     //   console.log('====> chat graph show ', document.querySelector('#chart').offsetWidth);
       },
 
       UI: {

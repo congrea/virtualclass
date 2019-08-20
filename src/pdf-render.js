@@ -248,7 +248,7 @@
 
 
       customMoustPointer(obj, tp, pos) {
-        //                console.log('custom mouse pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e);
+        // console.log('custom mouse pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e);
         this.scroll[tp].e = pos;
         //  e is mouse's position
         // console.log('Scroll '  + tp + ' a ' + this.scroll[tp].a);
@@ -410,7 +410,8 @@
           }
 
           if (this.firstTime) {
-            this.firstTime = false;
+
+            //this.firstTime = false;
             // console.log('## WHITEBOARD Canvas = ', virtualclass.zoom.prvCanvasScale, ' ID ', virtualclass.gObj.currWb);
             if (virtualclass.zoom.canvasScale == null) {
               viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
@@ -502,6 +503,11 @@
             }
             virtualclass.vutil.removeClass('virtualclassCont', 'resizeWindow');
           }
+          if (this.firstTime && roles.isStudent()){
+            virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition({ scX: 0, scY: 0 });
+            this.firstTime = false;
+          }
+
         }
       },
 

@@ -1055,7 +1055,7 @@ this["JST"]["dest_temp/templates/ppt/ppt.hbs"] = Handlebars.template({"1":functi
 },"useData":true});
 
 this["JST"]["dest_temp/templates/ppt/pptiframe.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"iframecontainer\"><iframe id=\"pptiframe\"></iframe></div>";
+    return "<div id=\"iframecontainer\"><iframe id=\"pptiframe\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/precheck.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

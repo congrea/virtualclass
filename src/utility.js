@@ -931,7 +931,7 @@
 
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
-          if (virtualclass.connectedUsers[i].role == 't' || virtualclass.connectedUsers[i].role == 'e') {
+          if (virtualclass.connectedUsers[i].role == 't') {
             return virtualclass.connectedUsers[i].userid;
           }
         }

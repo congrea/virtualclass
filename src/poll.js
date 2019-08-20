@@ -2610,11 +2610,26 @@
 
       },
 
-      updateUsersOnPoll() {
-        if ((virtualclass.poll.uniqueUsers.indexOf(virtualclass.jId) < 0)) {
-          virtualclass.poll.uniqueUsers.push(virtualclass.jId);
+      updateUsersOnPoll(e) {
+        if (e.hasOwnProperty('users')) {
+          virtualclass.poll.uniqueUsers = e.message.map(obj => obj.userid);
+          virtualclass.poll.uniqueUsers = virtualclass.poll.uniqueUsers.filter((userid) => {
+            if (userid !== virtualclass.gObj.uid) {
+              return userid;
+            }
+          });
           if (Object.keys(virtualclass.poll.count).length > 0) {
             virtualclass.poll.updateVotingInformation();
+          }
+        } else {
+          if ((virtualclass.poll.uniqueUsers.indexOf(virtualclass.jId) < 0)) {
+            const teacherId = virtualclass.vutil.whoIsTeacher();
+            if (teacherId !== virtualclass.jId) {
+              virtualclass.poll.uniqueUsers.push(virtualclass.jId);
+              if (Object.keys(virtualclass.poll.count).length > 0) {
+                virtualclass.poll.updateVotingInformation();
+              }
+            }
           }
         }
       },

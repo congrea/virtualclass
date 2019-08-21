@@ -489,10 +489,12 @@ const receiveFunctions = new function () {
     } else if (rMsg.ext) {
       const color = Object.prototype.hasOwnProperty.call(rMsg, 'nosupport') ? 'nosupport' : 'orange';
 
-
       var elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
       if (elem != null) {
         elem.setAttribute('data-dcolor', color);
+        if (color === 'nosupport') {
+          elem.parentNode.dataset.title = virtualclass.lang.getString('screensharenotsupport');
+        }
       }
     }
   };

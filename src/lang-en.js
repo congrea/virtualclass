@@ -234,6 +234,7 @@
     screensharealready: 'The screen is being shared.',
     ScreenShare: 'Screen share',
     screensharemsg: 'The above screen is being shared.',
+    screensharenotsupport: 'Screen share is not supported',
     second: 'Second',
     selfview: 'Self view',
     SetTimer: 'Set timer',

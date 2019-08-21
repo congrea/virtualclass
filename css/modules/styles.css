@@ -4425,7 +4425,7 @@ span#usertab_text {
   cursor: pointer;
 }
 @media (max-width: 1100px) {
- 
+
   #virtualclassCont.congrea #errorContainer {
     bottom: 15%;
   }
@@ -4493,9 +4493,7 @@ and (max-device-width: 1024px) {
 
 /* For FullScreen */
 
-#virtualclassCont.congrea:fullscreen {
-  background-color: #fff;
-}
+
 
 #virtualclassCont.congrea #fullScreenButton span.congtooltip:hover:after, #virtualclassCont.congrea #fullScreenExitButton span.congtooltip:hover:after {
   bottom: 4.2em !important;

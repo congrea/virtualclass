@@ -336,8 +336,9 @@ function messageUpdate(e) {
     // For exporting common chat
     virtualclass.chat.commonChat.push(cmsg);
 
-    if ($('#chatroom_bt2.active').length == 0) {
+    if ($('#chatroom_bt2.active').length == 0 && virtualclass.config.makeWebSocketReady) {
       $('#chatroom_bt2').addClass('ui-state-highlight');
+     // console.log('====> Adding high light');
       $('#chatrm').removeClass('enable');
     }
   } else if (to != undefined && to != '') { // private chat
@@ -388,6 +389,7 @@ function messageUpdate(e) {
       $(`#${from.userid}`).chatbox('option').messageSent(from.userid, from, msg);
       // to change this
       $(`li[aria-controls='tabcb${from.userid}']`).addClass('ui-state-highlight');
+      // console.log('====> Adding high light');
       // createNotification(from.userid);// tab scrolling notification for hidden tab
       var k = from.userid;
     }

@@ -162,7 +162,7 @@
       if (rightNavPage != null) {
         if (virtualclass.currApp == 'Whiteboard') {
           this.UI.setArrowStatus('rightNavPage', 'enable');
-        } else {
+        } else if (virtualclass.currApp === 'DocumentShare') {
           virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'enable', 'disable');
         }
       }
@@ -183,9 +183,9 @@
           virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'enable', 'disable');
         }
       }
-    } else if (virtualclass.currApp == 'Whiteboard') {
+    } else if (virtualclass.currApp === 'Whiteboard') {
       this.UI.setArrowStatus('leftNavPage', 'disable');
-    } else {
+    } else if (virtualclass.currApp === 'DocumentShare') {
       virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'disable', 'enable');
     }
   };
@@ -196,83 +196,12 @@
     let pages;
     if (virtualclass.currApp === 'Whiteboard') {
       pages = virtualclass.gObj.wbCount + 1;
-    } else {
+    } else if (virtualclass.currApp === 'DocumentShare') {
       pages = virtualclass.orderList[virtualclass.dts.appName].ol.order.length;
       const currPage = virtualclass.orderList[virtualclass.dts.appName].ol.order.indexOf(virtualclass.dts.docs.currNote);
       this.setCurrentIndex(currPage + 1);
     }
     this.setTotalPages(pages);
-
-   //
-   //  return;
-   // if (virtualclass.currApp === 'Whiteboard') {
-   //    var num = wbCurr.split('doc_0_')[1];
-   //    pages = virtualclass.gObj.wbCount + 1;
-   //  } else {
-   //    pages = virtualclass.orderList['DocumentShare'].ol.order.length;
-   //  }
-   //  var index = document.querySelector('.congrea #dcPaging .noteIndex.active');
-   //  if (index) {
-   //    index.classList.remove('active');
-   //  }
-   //  // var curr = virtualclass.dts.docs.currNote;
-   //  const curr = virtualclass.currApp == 'DocumentShare' ? virtualclass.dts.docs.currNote : num;
-   //  var index = document.querySelector(`#index${curr}`);
-   //
-   //  if (index) {
-   //    index.classList.add('active');
-   //    index.selected = 'selected';
-   //    const pg = document.querySelector('#totalPages');
-   //    if (pg) {
-   //      pg.parentNode.removeChild(pg);// remove if it is added to some other index
-   //    }
-   //
-   //    const elem = document.createElement('span');
-   //    elem.id = 'totalPages';// to be changed
-   //    const anc = document.querySelector('#pageAnc');
-   //    anc.appendChild(elem);
-   //    this.setTotalPages(pages);
-   //  }
-   //  const rActive = document.querySelector('#dcPaging .hid.right.active');
-   //  const lActive = document.querySelector('#dcPaging .hid.left.active');
-   //  if (rActive || lActive) {
-   //    var currIndex;
-   //    let dir;
-   //    if (rActive) {
-   //      currIndex = rActive.value;
-   //      dir = 'right';
-   //    } else {
-   //      currIndex = lActive.value;
-   //      dir = 'left';
-   //    }
-   //    this.adjustPageNavigation(parseInt(currIndex), dir);
-   //  }
-   //
-   //  if (virtualclass.currApp == 'Whiteboard') {
-   //    this.index = (+curr) + 1;
-   //    // const active = document.querySelector('.noteIndex.active');
-   //    // if (active) {
-   //    //   var anc = document.querySelector('#currIndex');
-   //    //   anc.innerHTML = active.innerHTML; // to modify later
-   //    //
-   //    //  // ioAdapter.mustSend({wbData: 'wbIndex', wbIndex: active.innerHTML, cf: 'wbData'});
-   //    //
-   //    // }
-   //  } else {
-   //    this.index = (currIndex != null) ? currIndex : (index != null && typeof index !== 'undefined') ? index.getAttribute('data-set') : 1;
-   //    if (!virtualclass.orderList['DocumentShare'].ol.order.length) {
-   //      this.index = 0;
-   //    }
-   //    const nav = document.querySelector('#docShareNav');
-   //    if (!virtualclass.orderList['DocumentShare'].ol.order.length) {
-   //      nav.classList.add('hide');
-   //      nav.classList.remove('show');
-   //    } else {
-   //      nav.classList.add('show');
-   //      nav.classList.remove('hide');
-   //    }
-   //    // document.querySelector('#currIndex').innerHTML = this.index;
-   //  }
   };
 
 
@@ -429,8 +358,10 @@
         virtualclass.wbCommon.indexNav.setTotalPages((virtualclass.orderList.Whiteboard.ol.order.length));
       }
     } else {
-       this.setCurrentIndex(virtualclass.gObj.currIndex);
-       this.setTotalPages((virtualclass.orderList.Documentshare.ol.order.length));
+      if (virtualclass.currApp === 'DocumentShare') {
+        this.setCurrentIndex(virtualclass.gObj.currIndex);
+        this.setTotalPages((virtualclass.orderList.Documentshare.ol.order.length));
+      }
     }
   };
 

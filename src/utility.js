@@ -465,6 +465,10 @@
         return;
       }
 
+      if (roles.hasControls() && document.querySelector('#virtualclassAppRightPanel.vidShow') !== null) { // if teacher video is enabled
+        ioAdapter.mustSend({ congCtr: { videoSwitch: 'off' }, cf: 'congController' });
+      }
+
       if (virtualclass.currApp === 'DocumentShare') {
         if (!roles.hasControls()) {
           const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
@@ -927,7 +931,7 @@
 
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
-          if (virtualclass.connectedUsers[i].role == 't' || virtualclass.connectedUsers[i].role == 'e') {
+          if (virtualclass.connectedUsers[i].role == 't') {
             return virtualclass.connectedUsers[i].userid;
           }
         }

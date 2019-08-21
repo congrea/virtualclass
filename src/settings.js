@@ -394,6 +394,7 @@
         }
         const recordingButton = virtualclass.getTemplate('recordingButton');
         let context;
+        this.removeButton();
         switch (this.recordingButton) {
           case 10:
             context = { ten: 'ten' };
@@ -412,14 +413,18 @@
         }
         const temp = recordingButton(context);
         const elem = document.querySelector('#docShareNav');
-        let recording = document.getElementById('recording');
-        if (recording !== null) {
-          recording.remove();
-        }
+        // this.removeButton();
         elem.insertAdjacentHTML('afterend', temp);
-        recording = document.getElementById('recording');
+        const recording = document.getElementById('recording');
         if (this.recordingButton === 21 || this.recordingButton === 11) {
           this.attachHandler(recording);
+        }
+      },
+
+      removeButton() {
+        const recording = document.getElementById('recording');
+        if (recording !== null) {
+          recording.remove();
         }
       },
 

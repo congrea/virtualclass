@@ -61,6 +61,7 @@ function getPosition(connectedUsers, uid) {
 const ioEventApi = {
   readyto_member_add(e) {
     if (typeof e.joinUser === 'object') {
+
       const te = {};
       let i = 0;
 
@@ -155,7 +156,7 @@ const ioEventApi = {
     defaultOperation(e, sType);
 
     if (roles.hasControls()) {
-      virtualclass.poll.updateUsersOnPoll();
+      virtualclass.poll.updateUsersOnPoll(e);
     }
 
     if (typeof virtualclass.quiz !== 'undefined') {

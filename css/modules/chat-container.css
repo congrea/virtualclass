@@ -270,10 +270,7 @@ span.icon-stdscreenImg[data-dcolor="green"]::before {
   color: #006400;
 }
 
-.controls span.enable.icon-stdscreenImg[data-dcolor="nosupport"] {
-  pointer-events: none;
-  opacity: 0.5;
-}
+
 
 .controllerRaiseH .icon-RaiseHandImg::before {
   font-family: 'icomoon';
@@ -401,6 +398,12 @@ div.ui-memblist-usr .user-details a .media-object {
   cursor: pointer;
   pointer-events: visible;
 }
+
+#subchat.teacher .controls span.enable.icon-stdscreenImg[data-dcolor="nosupport"] {
+  opacity: 0.5;
+  cursor: default;
+}
+
 
 #subchat.teacher .icon-audioImg.enable::before {
   font-family: 'icomoon';

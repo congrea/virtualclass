@@ -340,7 +340,10 @@
     },
 
     Fullscreen() {
-      const elem = document.getElementById('virtualclassCont');
+      /** Making virtualclassCont is fullScreen, displays the background is black on virtualclassCont **/
+      //const elem = document.getElementById('virtualclassCont');
+      const elem = document.documentElement;
+
       if (elem.requestFullscreen) {
         elem.requestFullscreen();
       } else if (elem.mozRequestFullScreen) { /* Firefox */
@@ -354,7 +357,8 @@
     },
 
     closeFullscreen() {
-      const elem = document.getElementById('virtualclassCont');
+      //const elem = document.getElementById('virtualclassCont');
+      const elem = document.documentElement;
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.mozCancelFullScreen) {

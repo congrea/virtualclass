@@ -4,6 +4,7 @@
   function pdfRender() {
     return {
       firstTime: true,
+      firstTimeScroll: true,
       shownPdf: '',
       canvasWrapper: null,
       canvasId: null,
@@ -411,7 +412,7 @@
 
           if (this.firstTime) {
 
-            //this.firstTime = false;
+            this.firstTime = false;
             // console.log('## WHITEBOARD Canvas = ', virtualclass.zoom.prvCanvasScale, ' ID ', virtualclass.gObj.currWb);
             if (virtualclass.zoom.canvasScale == null) {
               viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
@@ -503,9 +504,9 @@
             }
             virtualclass.vutil.removeClass('virtualclassCont', 'resizeWindow');
           }
-          if (this.firstTime && roles.isStudent()){
+          if (this.firstTimeScroll && roles.isStudent()){
             virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition({ scX: 0, scY: 0 });
-            this.firstTime = false;
+            this.firstTimeScroll = false;
           }
 
         }

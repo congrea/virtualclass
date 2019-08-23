@@ -677,7 +677,11 @@
         },
 
         _stdscreen(userId) {
+          if (virtualclass.gObj.prvRequestScreenUser && virtualclass.config.makeWebSocketReady) {
+            ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
+          }
           virtualclass.vutil.beforeSend({ reqscreen: true, toUser: userId, cf: 'reqscreen' }, userId);
+          virtualclass.gObj.prvRequestScreenUser = userId;
         },
 
         audioWidgetEnable(notActive) {

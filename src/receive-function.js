@@ -407,26 +407,29 @@ const receiveFunctions = new function () {
   /** *** Start Student Screen Sharing **** */
   /* Handle teacher request for screen sharing * */
   this.reqscreen = function (e) {
-    if (virtualclass.system.device != 'mobTab'
-      && (virtualclass.system.mybrowser.name == 'Chrome' || virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Edge')) {
-      const message = virtualclass.lang.getString('stdscreenshare');
-      if (virtualclass.gObj.precheckScrn) {
-        virtualclass.vutil.prechkScrnShare();
-      }
-      virtualclass.popup.confirmInput(message, (confirm) => {
-        if (confirm) {
-          if (roles.isStudent()) {
-            virtualclass.gObj.studentSSstatus.mesharing = true;
-          }
-          const appName = 'ScreenShare';
-          //virtualclass.makeAppReady(appName, 'byclick');
-          virtualclass.makeAppReady({ app: appName, cusEvent: 'byclick' });
-        } else {
-          virtualclass.vutil.beforeSend({ sd: true, cf: 'colorIndicator' });
-        }
-      });
+    if (e.message.cancel) {
+      virtualclass.popup.closeElem();
     } else {
-      virtualclass.vutil.beforeSend({ ext: true, cf: 'colorIndicator', nosupport: true });
+      if (virtualclass.system.device != 'mobTab'
+        && (virtualclass.system.mybrowser.name == 'Chrome' || virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Edge')) {
+        const message = virtualclass.lang.getString('stdscreenshare');
+        if (virtualclass.gObj.precheckScrn) {
+          virtualclass.vutil.prechkScrnShare();
+        }
+        virtualclass.popup.confirmInput(message, (confirm) => {
+          if (confirm) {
+            if (roles.isStudent()) {
+              virtualclass.gObj.studentSSstatus.mesharing = true;
+            }
+            const appName = 'ScreenShare';
+            virtualclass.makeAppReady({ app: appName, cusEvent: 'byclick' });
+          } else {
+            virtualclass.vutil.beforeSend({ sd: true, cf: 'colorIndicator' });
+          }
+        });
+      } else {
+        virtualclass.vutil.beforeSend({ ext: true, cf: 'colorIndicator', nosupport: true });
+      }
     }
   };
 

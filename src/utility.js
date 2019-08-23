@@ -472,6 +472,9 @@
       if (roles.hasControls() && document.querySelector('#virtualclassAppRightPanel.vidShow') !== null) { // if teacher video is enabled
         ioAdapter.mustSend({ congCtr: { videoSwitch: 'off' }, cf: 'congController' });
       }
+      if (virtualclass.gObj.prvRequestScreenUser && virtualclass.config.makeWebSocketReady) {
+        ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
+      }
 
       if (virtualclass.currApp === 'DocumentShare') {
         if (!roles.hasControls()) {

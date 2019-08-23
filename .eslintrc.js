@@ -46,7 +46,8 @@ module.exports = {
     sdworker: 'writable',
     sworker: 'writable',
     chatContainerEvent: 'writable',
-    OrderedList: 'writeable'
+    OrderedList: 'writeable',
+    receiveFunctions: 'writeable'
   },
   parserOptions: {
     ecmaVersion: 2017,

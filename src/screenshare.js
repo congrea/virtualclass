@@ -15,6 +15,10 @@ let globalImageData = {};
   //   virtualclass.vutil.initInstallChromeExt(error);
   // }
 
+  function isNewerVersion(data) {
+    return (data == virtualclass.gObj.screenShareVersion);
+  }
+
   const renderImage = function renderImage(imgData) {
     if (canvasCont == null) {
       canvasCont = document.querySelector('#virtualclassScreenShareLocal');
@@ -59,9 +63,10 @@ let globalImageData = {};
           virtualclass.studentScreen.base.width = 0;
           virtualclass.studentScreen.setDimension();
           renderImage(imageData);
-          if (e.data.stype === 'full' && virtualclass.studentScreen.scale === 1) {
-            virtualclass.studentScreen.scale = 1;
-            virtualclass.studentScreen.fitToScreen();
+          virtualclass.studentScreen.triggerFitToScreene(e.data.stype);
+          const teacher = virtualclass.vutil.getUserAllInfo(e.data.uid, virtualclass.connectedUsers);
+          if ((teacher.role !== 't' && roles.isStudent() && !virtualclass.gObj.studentSSstatus.shareToAll)) {
+            receiveFunctions.sview({ message: 'firstSs' });
           }
         } else {
           renderImage(imageData);
@@ -100,30 +105,64 @@ let globalImageData = {};
           // Full Image
           case 102:
           case 202:
-            w = virtualclass.vutil.numValidateTwo(dataPack[1], dataPack[2]);
-            h = virtualclass.vutil.numValidateTwo(dataPack[3], dataPack[4]);
-            recmsg = dataPack.subarray(5, dataPack.length);
-            this.initStudentScreen(recmsg, { w, h }, stype, sTool);
+            if (isNewerVersion(dataPack[1])) {
+              const uid = virtualclass.vutil.numValidateFour(dataPack[2], dataPack[3], dataPack[4], dataPack[5]);
+              w = virtualclass.vutil.numValidateTwo(dataPack[6], dataPack[7]);
+              h = virtualclass.vutil.numValidateTwo(dataPack[8], dataPack[9]);
+              recmsg = dataPack.subarray(10, dataPack.length);
+              this.initStudentScreen(recmsg, { w, h }, stype, sTool, uid);
+            } else {
+              w = virtualclass.vutil.numValidateTwo(dataPack[1], dataPack[2]);
+              h = virtualclass.vutil.numValidateTwo(dataPack[3], dataPack[4]);
+              recmsg = dataPack.subarray(5, dataPack.length);
+              this.initStudentScreen(recmsg, { w, h }, stype, sTool);
+            }
             break;
           // Slice Image
           case 103:
           case 203:
             /* Send to worker only if the screen layout is Ready already */
             if (typeof virtualclass.ss === 'object') {
-              this.drawImageThroughWorker(dataPack);
+              let receiveMsg;
+              if (isNewerVersion(dataPack[1])){
+                receiveMsg = dataPack.subarray(6, dataPack.length);
+                this.drawImageThroughWorker(receiveMsg);
+              } else {
+                this.drawImageThroughWorker(dataPack);
+              }
             }
             break;
           // Full Image with Resize
           case 104:
           case 204:
-            dw = virtualclass.vutil.numValidateTwo(dataPack[1], dataPack[2]);
-            dh = virtualclass.vutil.numValidateTwo(dataPack[3], dataPack[4]);
-            vcw = virtualclass.vutil.numValidateTwo(dataPack[5], dataPack[6]);
-            vch = virtualclass.vutil.numValidateTwo(dataPack[7], dataPack[8]);
-            recmsg = dataPack.subarray(9, dataPack.length);
-            dimObj = { d: { w: dw, h: dh }, vc: { w: vcw, h: vch } };
-            this.initStudentScreen(recmsg, dimObj, stype, sTool);
+            if (isNewerVersion(dataPack[1])) {
+              const uid = virtualclass.vutil.numValidateFour(dataPack[2], dataPack[3], dataPack[4], dataPack[5]);
+              dw = virtualclass.vutil.numValidateTwo(dataPack[6], dataPack[7]);
+              dh = virtualclass.vutil.numValidateTwo(dataPack[8], dataPack[9]);
+              vcw = virtualclass.vutil.numValidateTwo(dataPack[10], dataPack[11]);
+              vch = virtualclass.vutil.numValidateTwo(dataPack[12], dataPack[13]);
+              recmsg = dataPack.subarray(14, dataPack.length);
+              dimObj = { d: { w: dw, h: dh }, vc: { w: vcw, h: vch } };
+
+              this.initStudentScreen(recmsg, dimObj, stype, sTool, uid);
+            } else {
+              dw = virtualclass.vutil.numValidateTwo(dataPack[1], dataPack[2]);
+              dh = virtualclass.vutil.numValidateTwo(dataPack[3], dataPack[4]);
+              vcw = virtualclass.vutil.numValidateTwo(dataPack[5], dataPack[6]);
+              vch = virtualclass.vutil.numValidateTwo(dataPack[7], dataPack[8]);
+
+              recmsg = dataPack.subarray(9, dataPack.length);
+              dimObj = { d: { w: dw, h: dh }, vc: { w: vcw, h: vch } };
+              this.initStudentScreen(recmsg, dimObj, stype, sTool);
+            }
             break;
+        }
+      },
+
+      triggerFitToScreene(stype) {
+        if (stype === 'full' && virtualclass.studentScreen.scale === 1) {
+          virtualclass.studentScreen.scale = 1;
+          virtualclass.studentScreen.fitToScreen();
         }
       },
       /**
@@ -137,7 +176,7 @@ let globalImageData = {};
        * @param  stool  screen share
        */
       // TODO name of parameter d should be changed ,It also contains the property named d
-      initStudentScreen(imgData, d, stype, stool) {
+      initStudentScreen(imgData, d, stype, stool, uid) {
         app = stype;
         const screenCont = document.getElementById(`virtualclass${virtualclass.apps.ss}`);
 
@@ -162,7 +201,7 @@ let globalImageData = {};
         if (Object.prototype.hasOwnProperty.call(d, 'd')) {
           virtualclass[app].dimensionStudentScreenResize(d);
           dim = true;
-          virtualclass[app].drawImages(imgData);
+          (typeof uid === 'undefined') ? virtualclass[app].drawImages(imgData) : virtualclass[app].drawImages(imgData, uid);
         } else {
           if (typeof dim === 'undefined' || ((typeof prvWidth !== 'undefined')
             && (prvWidth !== d.w) && (!Object.prototype.hasOwnProperty.call(d, 'x')))) {
@@ -177,7 +216,7 @@ let globalImageData = {};
               virtualclass[app].localCanvas.height = d.h;
             }
           }
-          virtualclass[app].drawImages(imgData);
+          (typeof uid === 'undefined') ? virtualclass[app].drawImages(imgData) : virtualclass[app].drawImages(imgData, uid);
         }
 
         virtualclass.previous = virtualclass[app].id;
@@ -797,7 +836,8 @@ let globalImageData = {};
           const w = breakintobytes(that.localtempCanvas.width, 4);
           let statusCode = null;
           statusCode = (type === 'ss') ? 102 : 202;
-          const scode = new Uint8ClampedArray([statusCode, w[0], w[1], h[0], h[1]]);
+          const uId = breakintobytes(virtualclass.gObj.uid, 8);
+          const scode = new Uint8ClampedArray([statusCode, virtualclass.gObj.screenShareVersion, uId[0], uId[1], uId[2], uId[3], w[0], w[1], h[0], h[1]]);
           const sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
           sendmsg.set(scode);
           sendmsg.set(encodedData, scode.length);
@@ -820,8 +860,9 @@ let globalImageData = {};
 
           const wdw = Math.round((that.localtempCanvas.width) / resB);
           const wdh = Math.round((that.localtempCanvas.height) / resA);
-          let dw; let dh; let vcw; let
-            vch;
+          let dw; let dh; let vcw; let vch;
+
+          const uId = breakintobytes(virtualclass.gObj.uid, 8);
 
           const contDimension = that.getContainerDimension();
           if (typeof prvVWidth !== 'undefined' && typeof prvVHeight !== 'undefined') {
@@ -837,7 +878,7 @@ let globalImageData = {};
           }
 
           const appCode = (stype === 'ss') ? 104 : 204;
-          const scode = new Uint8ClampedArray([appCode, dw[0], dw[1], dh[0], dh[1], vcw[0], vcw[1], vch[0], vch[1]]);
+          const scode = new Uint8ClampedArray([appCode, virtualclass.gObj.screenShareVersion, uId[0], uId[1], uId[2], uId[3], dw[0], dw[1], dh[0], dh[1], vcw[0], vcw[1], vch[0], vch[1]]);
           const sendmsg = new Uint8ClampedArray(encodedData.length + scode.length);
           sendmsg.set(scode);
           sendmsg.set(encodedData, scode.length);
@@ -935,6 +976,7 @@ let globalImageData = {};
               offsetWidth: that.video.offsetWidth,
               offsetHeight: that.video.offsetHeight,
               type: that.type,
+              uid: virtualclass.gObj.uid,
             }, [masterImgData.data.buffer]);
 
             // Every time the data is sending the function
@@ -944,13 +986,11 @@ let globalImageData = {};
               if (e.data.needFullScreen === 1) { // sending full screen here
                 const createdImg = virtualclass.getDataFullScreen(that.type);
                 virtualclass.vutil.informIamSharing();
-
                 ioAdapter.sendBinary(createdImg);
-
                 localBandwidth = (createdImg.length / 128); // In Kbps
-              } else if (e.data.masterSlice != null) {
-                ioAdapter.sendBinary(e.data.masterSlice);
-                localBandwidth = (e.data.masterSlice.length / 128); // In Kbps
+              } else if (e.data.sendMasterSlice != null) {
+                ioAdapter.sendBinary(e.data.sendMasterSlice);
+                localBandwidth = (e.data.sendMasterSlice.length / 128); // In Kbps
               }
               calcBandwidth(localBandwidth);
               clearInterval(virtualclass.clear);
@@ -998,13 +1038,14 @@ let globalImageData = {};
        * Drawing the image over the canvas
        * @param rec image data
        */
-      drawImages(rec) {
+      drawImages(rec, uid) {
         sdworker.postMessage({
           encodeArr: rec,
           // globalImageData: globalImageData,globalImageDataglobalImageData
           cw: virtualclass.ss.localCanvas.width,
           ch: virtualclass.ss.localCanvas.height,
           dtype: 'drgb',
+          uid: (typeof uid === 'undefined' ? null : uid),
         }, [rec.buffer]); // [[rec.buffer]] is passed to make available in Worker
       },
       /**
@@ -1109,21 +1150,6 @@ let globalImageData = {};
           // }
 
           if (roles.hasControls() && virtualclass.gObj.studentSSstatus.mesharing) {
-            const that = this;
-
-            setTimeout(() => {
-              const elem = document.querySelector('#screenController .share');
-              let view;
-              if (virtualclass.gObj.studentSSstatus.shareToAll) {
-                that.html.changeSsInfoSelf(elem);
-                view = 'sToAll';
-              } else {
-                that.html.changeSsInfoShareToAll(elem);
-                view = 'sview';
-              }
-              ioAdapter.mustSend({ cf: view, firstSs: true });
-            }, 2000);
-
             const ss = document.querySelector('#virtualclassCont  #stopScreenShare');
             if (ss) {
               ss.addEventListener('click', () => {

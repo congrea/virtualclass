@@ -7,7 +7,7 @@ const screenDecodeBlob = URL.createObjectURL(new Blob(['(',
     let globalImageData = {}; let imgData; let
       sendTimeout;
 
-    function decodeRGB(encodeDataArr, cwidth, cheight) {
+    function decodeRGB(encodeDataArr, cwidth, cheight, uid) {
       globalImageData = new ImageData(cwidth, cheight);
       const myLoop = encodeDataArr.length * 4;
       for (let i = 0; i < myLoop; i++) {
@@ -20,6 +20,7 @@ const screenDecodeBlob = URL.createObjectURL(new Blob(['(',
         globalImageData,
         dtype: 'drgb',
         stype: 'full',
+        uid,
       });
     }
 
@@ -102,7 +103,7 @@ const screenDecodeBlob = URL.createObjectURL(new Blob(['(',
     onmessage = function (e) {
       if (Object.prototype.hasOwnProperty.call(e.data, 'dtype')) {
         if (e.data.dtype == 'drgb') { // decodeRGB
-          decodeRGB(e.data.encodeArr, e.data.cw, e.data.ch); // canvas width and canvas height
+          decodeRGB(e.data.encodeArr, e.data.cw, e.data.ch, e.data.uid);
         } else {
           // for decoding slicing image
           process_data_pack(e.data.data_pack);

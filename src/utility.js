@@ -943,6 +943,18 @@
       return 0;
     },
 
+
+    getTeacherInstance() {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
+        for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
+          if (virtualclass.connectedUsers[i].role === 't') {
+            return virtualclass.connectedUsers[i];
+          }
+        }
+      }
+      return 0;
+    },
+
     getMySelf() {
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {

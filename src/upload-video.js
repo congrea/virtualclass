@@ -945,6 +945,12 @@
               virtualclass.videoUl.isPaused = false;
               //console.log('====> seek pause false ', virtualclass.videoUl.isPaused);
             });
+
+            player.on('fullscreenchange', (e) => {
+              setTimeout(() => {
+                virtualclass.vutil.showFullScreenButtonIfNeed();
+              }, 0);
+            });
           }
         },
 

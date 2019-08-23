@@ -2335,6 +2335,26 @@
 
       return formattedTime;
     },
+
+    hideFullScreenButton() {
+      document.querySelector('#fullScreenButton').style.display = 'none';
+      document.querySelector('#fullScreenExitButton').style.display = 'block';
+      virtualclass.gObj.fullScreenMode = true;
+    },
+
+    showFullScreenButton() {
+      console.log('====> show video full screen 2');
+      document.querySelector('#fullScreenButton').style.display = 'block';
+      document.querySelector('#fullScreenExitButton').style.display = 'none';
+      virtualclass.gObj.fullScreenMode = false;
+    },
+
+    showFullScreenButtonIfNeed() {
+      console.log('====> show video full screen 1');
+      if (virtualclass.gObj.fullScreenMode) {
+        this.showFullScreenButton();
+      }
+    },
   };
   window.vutil = vutil;
 }(window));

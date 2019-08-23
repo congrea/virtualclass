@@ -371,15 +371,11 @@
           fullScreenExitBtn.addEventListener('click', virtualclass.vutil.closeFullscreen);
         }
 
-        document.onfullscreenchange = function (event) {
+        document.onfullscreenchange = function () {
           if (!virtualclass.gObj.fullScreenMode) {
-            document.querySelector('#fullScreenButton').style.display = 'none';
-            document.querySelector('#fullScreenExitButton').style.display = 'block';
-            virtualclass.gObj.fullScreenMode = true;
+            virtualclass.vutil.hideFullScreenButton();
           } else {
-            document.querySelector('#fullScreenButton').style.display = 'block';
-            document.querySelector('#fullScreenExitButton').style.display = 'none';
-            virtualclass.gObj.fullScreenMode = false;
+            virtualclass.vutil.showFullScreenButton();
           }
         };
       },

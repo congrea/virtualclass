@@ -416,6 +416,8 @@ const receiveFunctions = new function () {
         if (virtualclass.gObj.precheckScrn) {
           virtualclass.vutil.prechkScrnShare();
         }
+
+        virtualclass.gesture.closeContinueWindow();
         virtualclass.popup.confirmInput(message, (confirm) => {
           if (confirm) {
             if (roles.isStudent()) {
@@ -425,6 +427,11 @@ const receiveFunctions = new function () {
             virtualclass.makeAppReady({ app: appName, cusEvent: 'byclick' });
           } else {
             virtualclass.vutil.beforeSend({ sd: true, cf: 'colorIndicator' });
+          }
+
+          if (!virtualclass.media.readyAudioContext) {
+            virtualclass.media.audio.initAudiocontext(); // Incase of audio context is not ready yet
+            virtualclass.media.readyAudioContext = true;
           }
         });
       } else {
@@ -482,6 +489,7 @@ const receiveFunctions = new function () {
     virtualclass.raiseHand.onMsgRec(e);
   };
   this.colorIndicator = function (e) {
+    delete virtualclass.gObj.prvRequestScreenUser;
     const rMsg = e.message;
     const uid = e.fromUser.userid;
     if (rMsg.sd) {

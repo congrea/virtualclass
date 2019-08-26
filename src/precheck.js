@@ -116,12 +116,12 @@ const preCheck = {
       this[test].perform();
     } else {
       virtualclass.precheck.display(`#preCheckcontainer .precheck.${test}`);
-      if (test == 'speaker') {
+      if (test === 'speaker') {
         this[test]._play(); // play the audio while next buttong is clicked
-      } else if (test == 'mic') {
+      } else if (test === 'mic') {
         // this[test].visualize();
         this[test].audioOperation();
-      } else if (test == 'webcam') {
+      } else if (test === 'webcam') {
         virtualclass.precheck.webcam.initHandler();
         virtualclass.precheck.webcam.createVideo();
       }

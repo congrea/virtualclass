@@ -677,7 +677,7 @@
         },
 
         _stdscreen(userId) {
-          if (virtualclass.gObj.prvRequestScreenUser && virtualclass.config.makeWebSocketReady) {
+          if (virtualclass.gObj.prvRequestScreenUser && (virtualclass.gObj.prvRequestScreenUser != userId) && virtualclass.config.makeWebSocketReady) {
             ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
           }
           virtualclass.vutil.beforeSend({ reqscreen: true, toUser: userId, cf: 'reqscreen' }, userId);

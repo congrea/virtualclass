@@ -51,7 +51,7 @@
     totalTrimTime: 0,
     trimofftime: 0,
     trimontime: 0,
-    totalRecordingTime: null,
+    totalRecordingTime: 0,
     actualPlayRecordingTime: 0,
     timeStamp: null,
     recViewData: {
@@ -68,6 +68,8 @@
     remainingSeconds: 0,
     recData: null,
     recDataOne: null,
+    recordingOn: 0,
+    recordingOff: 0,
     init() {
       if (!this.attachSeekHandler) {
         this.attachSeekHandler = true;
@@ -486,16 +488,14 @@
     },
 
     recordingTotalTime(data, time) { // check if recording turned off or on
-      let recordingOn = null;
-      let recordingOff = null;
       if (data.indexOf('{"ac":11,"cf":"recs"') > -1) {
-        recordingOff = time;
+        this.recordingOff = time;
       } else if (data.indexOf('{"ac":21,"cf":"recs"') > -1) {
-        recordingOn = time;
-      }
-      if (recordingOff !== null && recordingOn !== null && this.totalRecordingTime === null) {
-        const trimtime = recordingOn - recordingOff;
-        this.totalRecordingTime = this.totalTimeInMiliSeconds - trimtime;
+        this.recordingOn = time;
+        const trimtime = this.recordingOn - this.recordingOff;
+        this.totalRecordingTime = (!this.totalRecordingTime) ? this.totalTimeInMiliSeconds - trimtime : this.totalRecordingTime - trimtime;
+        this.recordingOff = 0;
+        this.recordingOn = 0;
       }
     },
 
@@ -1054,7 +1054,7 @@
       if (this.timeStamp === null) {
         this.timeStamp = new Date(new Date().toUTCString()).getTime(); // get time once when recording play.
         this.recViewData.data[this.timeStamp] = [];
-        const recordingTime = (this.totalrecordingTime === undefined) ? this.totalTimeInMiliSeconds : this.totalrecordingTime;
+        const recordingTime = (!this.totalRecordingTime) ? this.totalTimeInMiliSeconds : this.totalRecordingTime;
         const length = Math.floor(recordingTime / 5000);
         if (this.viewPoint !== undefined) {
           this.recDataConvertIntoArrayForm(length);
@@ -1083,7 +1083,6 @@
     },
 
     recDataConvertIntoArrayForm(length) {
-      let stop = null;
       const data = this.viewPoint.data[Object.keys(this.viewPoint.data)[0]];
       this.recData = new Array(length);
       if (data !== null) {
@@ -1091,9 +1090,9 @@
           const property = prop;
           const val = this.viewPoint.data[prop];
           for (let i = 0; i < val.length; i++) {
-            const propr = (parseInt(Object.keys(val[i])[0]));
+            const dataProp = (parseInt(Object.keys(val[i])[0]));
             const value = (Object.values(val[i])[0]);
-            for (let j = propr; j < value; j++) {
+            for (let j = dataProp; j < value; j++) {
               this.recData.splice(j, 1, parseInt(property));
             }
           }

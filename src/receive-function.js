@@ -179,11 +179,11 @@ const receiveFunctions = new function () {
     virtualclass.media.playVideo(e.message.videoSlice);
   };
 
-  // screen share by image
-  this.videoByImage = function (e) {
-    if (!virtualclass.media.existVideoContainer(e.message.videoByImage)) {
-      virtualclass.media.video.createElement(e.message.videoByImage);
-    }
+  // This is depricated from 26-08-2019, should be removed in future
+  this.videoByImage = function () {
+    // if (!virtualclass.media.existVideoContainer(e.message.videoByImage)) {
+    //   virtualclass.media.video.createElement(e.message.videoByImage);
+    // }
   };
 
 

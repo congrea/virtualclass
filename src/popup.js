@@ -468,6 +468,9 @@ const PopUp = (function (window, undefined) {
     const sessionEndClose = document.getElementById('chromeExtClose');
     sessionEndClose.addEventListener('click',
       () => {
+        if (roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing) {
+          virtualclass.gObj.studentSSstatus.mesharing = false;
+        }
         virtualclass.popup.closeElem();
         element.dataset.currPopup = '';
       });

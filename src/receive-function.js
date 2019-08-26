@@ -485,15 +485,14 @@ const receiveFunctions = new function () {
     const rMsg = e.message;
     const uid = e.fromUser.userid;
     if (rMsg.sd) {
-      var elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
-      if (elem != null) {
-        elem.setAttribute('data-dcolor', 'red');
+      const elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
+      if (elem !== null) {
+        elem.setAttribute('data-dcolor', 'red'); // Cancelled the sharing the screen
       }
     } else if (rMsg.ext) {
-      const color = Object.prototype.hasOwnProperty.call(rMsg, 'nosupport') ? 'nosupport' : 'orange';
-
-      var elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
-      if (elem != null) {
+      const color = Object.prototype.hasOwnProperty.call(rMsg, 'nosupport') ? 'nosupport' : 'orange'; // not support screen share
+      const elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
+      if (elem !== null) {
         elem.setAttribute('data-dcolor', color);
         if (color === 'nosupport') {
           elem.parentNode.dataset.title = virtualclass.lang.getString('screensharenotsupport');
@@ -501,7 +500,6 @@ const receiveFunctions = new function () {
       }
     }
   };
-
 
   this.stdVideoCtrl = function (e) {
     if (e.fromUser.userid != virtualclass.gObj.uid) {

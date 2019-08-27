@@ -354,7 +354,6 @@
       },
 
       async renderPage(page, firstTime) {
-        //console.log('====> HELLO WHITEBOARD width');
         if (virtualclass.zoom.prvPdfDimension && virtualclass.zoom.prvPdfDimension[2] !== page.view[2]) {
           const newCanvasScale = (virtualclass.zoom.canvasScale / virtualclass.zoom.prvPdfDimension[2]) *  page.view[2];
           virtualclass.zoom.diffrentDocumentWidth = (virtualclass.zoom.canvasDimension.width / virtualclass.zoom.canvasScale) * newCanvasScale;

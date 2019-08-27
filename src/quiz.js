@@ -1042,24 +1042,30 @@
           tbUl.classList.add('nav', 'nav-tabs');
 
           const tbLi1 = document.createElement('li');
-          tbLi1.className = 'active';
+          tbLi1.classList.add('active', 'questionPreview');
           const li1a = document.createElement('a');
           li1a.setAttribute('data-toggle', 'tab');
           li1a.href = '#qzOverv';
           li1a.innerHTML = 'Questions overview';
+
           tbLi1.appendChild(li1a);
           tbUl.appendChild(tbLi1);
 
           const tbLi2 = document.createElement('li');
+          tbLi2.classList.add('reportPreview');
           const li2a = document.createElement('a');
           li2a.setAttribute('data-toggle', 'tab');
           li2a.href = '#gdRpt';
+          li1a.classList.add('reportPreview');
           li2a.innerHTML = virtualclass.lang.getString('Greport');
           tbLi2.appendChild(li2a);
           tbUl.appendChild(tbLi2);
           tbLi2.addEventListener('click', () => {
-            tbLi2.classList.toggle('active');
-            tbLi1.classList.toggle('active');
+            if (!tbLi2.classList.contains('active')) {
+              tbLi2.classList.toggle('active');
+              tbLi1.classList.toggle('active');
+            }
+
             if (tbLi2.classList.contains('active')) {
               const rpt = document.querySelector('#gdRpt');
               rpt.className = 'tab-pane fade in active';
@@ -1069,8 +1075,10 @@
           });
 
           tbLi1.addEventListener('click', () => {
-            tbLi1.classList.toggle('active');
-            tbLi2.classList.toggle('active');
+            if (!tbLi1.classList.contains('active')) {
+              tbLi1.classList.toggle('active');
+              tbLi2.classList.toggle('active');
+            }
             if (tbLi1.classList.contains('active')) {
               const qz = document.querySelector('#qzOverv');
               qz.className = 'tab-pane fade in active';

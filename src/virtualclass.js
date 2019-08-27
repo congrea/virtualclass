@@ -619,6 +619,10 @@
             }
             // this.handleWhiteboardReady(arguments, cusEvent, data);
             this.handleWhiteboardReady(app, cusEvent, data);
+            if (virtualclass.currApp === 'Whiteboard') {
+              // To maintain the scale on whiteboard
+              virtualclass.zoom.normalRender();
+            }
           } else {
             let hidepopup;
             const currVideo = Array.prototype.slice.call(arguments)[2];

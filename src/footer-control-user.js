@@ -682,6 +682,12 @@
           }
           virtualclass.vutil.beforeSend({ reqscreen: true, toUser: userId, cf: 'reqscreen' }, userId);
           virtualclass.gObj.prvRequestScreenUser = userId;
+
+          if (virtualclass.currApp === 'Video' && virtualclass.videoUl !=  null) {
+            ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
+            virtualclass.videoUl.destroyPlayer();
+
+          }
         },
 
         audioWidgetEnable(notActive) {

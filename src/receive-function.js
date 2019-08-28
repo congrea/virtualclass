@@ -410,6 +410,7 @@ const receiveFunctions = new function () {
     if (e.message.cancel) {
       virtualclass.popup.closeElem();
     } else {
+      virtualclass.gObj.studentSSstatus.receivedScreenShareRequest = true;
       if (virtualclass.system.device != 'mobTab'
         && (virtualclass.system.mybrowser.name == 'Chrome' || virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Edge')) {
         const message = virtualclass.lang.getString('stdscreenshare');
@@ -419,6 +420,7 @@ const receiveFunctions = new function () {
 
         virtualclass.gesture.closeContinueWindow();
         virtualclass.popup.confirmInput(message, (confirm) => {
+          delete virtualclass.gObj.studentSSstatus.receivedScreenShareRequest;
           if (confirm) {
             if (roles.isStudent()) {
               virtualclass.gObj.studentSSstatus.mesharing = true;
@@ -521,6 +523,10 @@ const receiveFunctions = new function () {
   this.destroyPlayer = function (e) {
     if (virtualclass.currApp == 'Video') {
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'videoUl') && virtualclass.videoUl.videoUrl) {
+        if (virtualclass.videoUl) {
+          virtualclass.videoUl.destroyPlayer();
+        }
+        
         virtualclass.videoUl.videoUrl = '';
         virtualclass.videoUl.videoId = '';
         const frame = document.getElementById('dispVideo_Youtube_api'); // youtube video

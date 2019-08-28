@@ -528,6 +528,11 @@
       // makeAppReady(app, cusEvent, data) {
       makeAppReady(setting) {
         //console.log('====> My App =================================== ', setting.app);
+        if (virtualclass.gObj.studentSSstatus.receivedScreenShareRequest){
+          virtualclass.popup.closeElem();
+          delete virtualclass.gObj.studentSSstatus.receivedScreenShareRequest;
+        }
+
         let app;
         let cusEvent;
         let data;

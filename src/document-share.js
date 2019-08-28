@@ -420,7 +420,19 @@
 
       onResponseFiles(doc, slides, docFetch, slide, fromReload) {
         if (firstTime) {
-          this.docs.currNote = (typeof slide !== 'undefined') ? slide : slides[0].id; // first id if order is not defined
+          if (typeof slide !== 'undefined'){
+            this.docs.currNote = slide;
+          } else {
+            let i = 0;
+            for (; i < slides.length; i++) {
+              if (slides[i].status == 1) {
+                slide = slides[i].id;
+                break;
+              }
+            }
+            this.docs.currNote = slide // first id if order is not defined
+          }
+
           firstTime = false;
         }
 

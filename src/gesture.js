@@ -40,18 +40,20 @@ const gesture = {
     }
   },
 
-  clickToContinue() {
+  closeContinueWindow() {
     const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
     const joinClassModal = document.querySelector('#joinClassModal');
-
     virtualclassApp.style.display = 'block';
     joinClassModal.style.display = 'none';
-    // virtualclass.media.audioVisual.init();
+  },
+
+  clickToContinue() {
+    this.closeContinueWindow();
     virtualclass.media.audio.initAudiocontext();
+    virtualclass.media.readyAudioContext = true;
 
     /* User does not to click on editor to view the written text */
     virtualclass.vutil.triggerMouseEvent(document.querySelector('.CodeMirror-scroll'), 'mousedown');
-    // virtualclass.media.audio.receivedAudioProcess(virtualclass.gObj.audioPlayMessage);
   },
 
 

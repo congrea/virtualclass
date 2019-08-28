@@ -677,7 +677,17 @@
         },
 
         _stdscreen(userId) {
+          if (virtualclass.gObj.prvRequestScreenUser && (virtualclass.gObj.prvRequestScreenUser != userId) && virtualclass.config.makeWebSocketReady) {
+            ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
+          }
           virtualclass.vutil.beforeSend({ reqscreen: true, toUser: userId, cf: 'reqscreen' }, userId);
+          virtualclass.gObj.prvRequestScreenUser = userId;
+
+          if (virtualclass.currApp === 'Video' && virtualclass.videoUl !=  null) {
+            ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
+            virtualclass.videoUl.destroyPlayer();
+
+          }
         },
 
         audioWidgetEnable(notActive) {

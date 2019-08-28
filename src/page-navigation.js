@@ -42,9 +42,9 @@
   /* create the pagination */
   pageIndexNav.prototype.createIndex = function () {
     // this.init();
-    for (let i = 0; i < virtualclass.orderList['DocumentShare'].ol.order.length; i++) {
-      this.createDocNavigationNumber(virtualclass.orderList['DocumentShare'].ol.order[i], i);
-    }
+    // for (let i = 0; i < virtualclass.orderList['DocumentShare'].ol.order.length; i++) {
+    //   this.createDocNavigationNumber(virtualclass.orderList['DocumentShare'].ol.order[i], i);
+    // }
     this.shownPage(this.width);
     this.addActiveNavigation();
     this.setTotalPages(virtualclass.orderList['DocumentShare'].ol.order.length);

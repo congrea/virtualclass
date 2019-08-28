@@ -1180,6 +1180,7 @@
           videoSubWrapper.id = `user${user.id}`;
           videoWrapper.appendChild(videoSubWrapper);
           vidId = user.id;
+
           const video = document.createElement('canvas');
           video.id = `video${vidId}`;
           video.className = 'userVideos';
@@ -1212,7 +1213,8 @@
             id: virtualclass.gObj.uid,
           };
           if (io.webSocketConnected()) {
-            virtualclass.vutil.beforeSend({ videoByImage: user, cf: 'videoByImage' }, null, true);
+           //  console.log('====> video by image ');
+            // virtualclass.vutil.beforeSend({ videoByImage: user, cf: 'videoByImage' }, null, true);
             ioAdapter.sendBinary(sendimage);
           }
         },
@@ -1422,10 +1424,17 @@
          * @param  msg : Received message
 
          */
+
         process(msg) {
           const data_pack = new Uint8ClampedArray(msg);
           const uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
+
+          const userInfo = { id: uid };
+          if (!virtualclass.media.existVideoContainer(userInfo)) {
+            virtualclass.media.video.createElement(userInfo);
+          }
           const recmsg = data_pack.subarray(6, data_pack.length);
+
           if (data_pack[5] === 1) {
             var b64encoded = `data:image/webp;base64,${btoa(virtualclass.videoHost.Uint8ToString(recmsg))}`;
             var imgType = 'webp';
@@ -1434,8 +1443,6 @@
             var imgType = 'jpeg';
           }
 
-
-          // virtualclass.media.video.playWithoutSlice(uid, recmsg, imgType);
           virtualclass.media.video.drawReceivedImage(b64encoded, imgType, { x: 0, y: 0 }, uid);
         },
       },

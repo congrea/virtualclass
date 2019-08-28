@@ -95,6 +95,7 @@
         lastmousemovetime: null,
         CDTimer: null,
         wbData: {},
+        screenShareVersion: '123',
       },
 
       enablePreCheck: true,
@@ -370,15 +371,11 @@
           fullScreenExitBtn.addEventListener('click', virtualclass.vutil.closeFullscreen);
         }
 
-        document.onfullscreenchange = function (event) {
+        document.onfullscreenchange = function () {
           if (!virtualclass.gObj.fullScreenMode) {
-            document.querySelector('#fullScreenButton').style.display = 'none';
-            document.querySelector('#fullScreenExitButton').style.display = 'block';
-            virtualclass.gObj.fullScreenMode = true;
+            virtualclass.vutil.hideFullScreenButton();
           } else {
-            document.querySelector('#fullScreenButton').style.display = 'block';
-            document.querySelector('#fullScreenExitButton').style.display = 'none';
-            virtualclass.gObj.fullScreenMode = false;
+            virtualclass.vutil.showFullScreenButton();
           }
         };
       },
@@ -531,6 +528,11 @@
       // makeAppReady(app, cusEvent, data) {
       makeAppReady(setting) {
         //console.log('====> My App =================================== ', setting.app);
+        if (virtualclass.gObj.studentSSstatus.receivedScreenShareRequest){
+          virtualclass.popup.closeElem();
+          delete virtualclass.gObj.studentSSstatus.receivedScreenShareRequest;
+        }
+
         let app;
         let cusEvent;
         let data;
@@ -622,6 +624,10 @@
             }
             // this.handleWhiteboardReady(arguments, cusEvent, data);
             this.handleWhiteboardReady(app, cusEvent, data);
+            if (virtualclass.currApp === 'Whiteboard') {
+              // To maintain the scale on whiteboard
+              virtualclass.zoom.normalRender();
+            }
           } else {
             let hidepopup;
             const currVideo = Array.prototype.slice.call(arguments)[2];

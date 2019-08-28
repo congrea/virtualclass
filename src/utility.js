@@ -472,6 +472,9 @@
       if (roles.hasControls() && document.querySelector('#virtualclassAppRightPanel.vidShow') !== null) { // if teacher video is enabled
         ioAdapter.mustSend({ congCtr: { videoSwitch: 'off' }, cf: 'congController' });
       }
+      if (virtualclass.gObj.prvRequestScreenUser && virtualclass.config.makeWebSocketReady) {
+        ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
+      }
 
       if (virtualclass.currApp === 'DocumentShare') {
         if (!roles.hasControls()) {
@@ -937,6 +940,18 @@
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
           if (virtualclass.connectedUsers[i].role == 't') {
             return virtualclass.connectedUsers[i].userid;
+          }
+        }
+      }
+      return 0;
+    },
+
+
+    getTeacherInstance() {
+      if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
+        for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
+          if (virtualclass.connectedUsers[i].role === 't') {
+            return virtualclass.connectedUsers[i];
           }
         }
       }
@@ -2319,6 +2334,26 @@
       const formattedTime = `${hours}:${minutes.substr(-2)}`;
 
       return formattedTime;
+    },
+
+    hideFullScreenButton() {
+      document.querySelector('#fullScreenButton').style.display = 'none';
+      document.querySelector('#fullScreenExitButton').style.display = 'block';
+      virtualclass.gObj.fullScreenMode = true;
+    },
+
+    showFullScreenButton() {
+      console.log('====> show video full screen 2');
+      document.querySelector('#fullScreenButton').style.display = 'block';
+      document.querySelector('#fullScreenExitButton').style.display = 'none';
+      virtualclass.gObj.fullScreenMode = false;
+    },
+
+    showFullScreenButtonIfNeed() {
+      console.log('====> show video full screen 1');
+      if (virtualclass.gObj.fullScreenMode) {
+        this.showFullScreenButton();
+      }
     },
   };
   window.vutil = vutil;

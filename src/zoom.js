@@ -65,6 +65,7 @@
           virtualclass.studentScreen[fnName].call(virtualclass.studentScreen);
         } else {
           virtualclass.zoom.prvCanvasScale = this.canvasScale;
+          console.log('previous canvas scale ', virtualclass.zoom.prvCanvasScale);
           this[fnName].call(this);
         }
       },
@@ -136,45 +137,18 @@
         //
       },
 
-      // adjustScreenOnDifferentPdfWidth(page) {
-      //   if (Object.prototype.hasOwnProperty.call(this, 'adjustScreenOnDifferentPdfWidthTime')) {
-      //     clearTimeout(this.adjustScreenOnDifferentPdfWidthTime);
-      //   }
-      //   this.adjustScreenOnDifferentPdfWidthTime = setTimeout(() => {
-      //     this._adjustScreenOnDifferentPdfWidth(); // To control the reverse document
-      //   }, 400);
-      // },
-
-      adjustScreenOnDifferentPdfWidth(page) {
-        page = page || virtualclass.pdfRender[virtualclass.gObj.currWb].page;
-        if (page != null) {
-          const viewPort = page.getViewport(1);
-          const newPdfWidth = viewPort.width;
-          const newPdfHeight = viewPort.height;
-
-          if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'prevPdfWidth') && newPdfWidth !== virtualclass.zoom.prevPdfWidth) {
-            virtualclass.zoom.canvasDimension.width = virtualclass.zoom.canvasScale * newPdfWidth;
-            virtualclass.zoom.canvasDimension.height = virtualclass.zoom.canvasScale * newPdfHeight;
-            if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'fitToScreenWidth')) {
-              virtualclass.zoom.fitToScreen();
-            } else {
-              virtualclass.zoom.normalRender();
-            }
-          } else {
-            virtualclass.zoom.normalRender();
-          }
-          virtualclass.zoom.prevPdfWidth = newPdfWidth;
-        } else {
-          // console.log('Page is null');
-        }
-      },
-
       getReduceValueForCanvas() {
-        const canvas = document.querySelector(`#canvas${virtualclass.gObj.currWb}`);
-        if (canvas != null && canvas.parentNode != null) {
-          // 382 = rightside bar + scroll + left app bar
-          // 372 = rightside bar + left app bar
-          return (canvas.parentNode.scrollHeight > canvas.parentNode.clientHeight) ? 382 : 372;
+        const withoutScroll = 382;
+        const withScroll = 372;
+        if (virtualclass.pdfRender[virtualclass.gObj.currWb].firstTime) {
+          return withoutScroll;
+        } else {
+          const canvas = document.querySelector(`#canvas${virtualclass.gObj.currWb}`);
+          if (canvas != null && canvas.parentNode != null) {
+            // 382 = rightside bar + scroll + left app bar
+            // 372 = rightside bar + left app bar
+            return (canvas.parentNode.scrollHeight > canvas.parentNode.clientHeight) ? withoutScroll : withScroll;
+          }
         }
       },
 
@@ -197,11 +171,11 @@
           const wrapperWidth = (containerWidth - this.getReduceValueForCanvas());
           // console.log(`==== wrapperWidth ${wrapperWidth}`);
           try {
-            const tempviewport = page.getViewport(1);
-            virtualclass.zoom.fitToScreenWidth = tempviewport.width;
-            virtualclass.zoom.prvWhiteboard = virtualclass.gObj.currWb;
+            // const tempviewport = page.getViewport(1);
+            // virtualclass.zoom.fitToScreenWidth = tempviewport.width;
+            // virtualclass.zoom.prvWhiteboard = virtualclass.gObj.currWb;
 
-            const viewport = page.getViewport((+(wrapperWidth)) / page.getViewport(1.0).width);
+            // const viewport = page.getViewport((+(wrapperWidth)) / page.getViewport(1.0).width);
             // console.log(`==== PDF width => ${viewport.width} PDF height => ${viewport.height} scale => ${viewport.scale}`);
             // console.log(`==== PDF temp width => ${tempviewport.width} PDF height => ${tempviewport.height} scale => ${tempviewport.scale}, after scale=${this.canvasScale}`);
             virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);

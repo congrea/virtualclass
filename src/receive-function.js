@@ -179,11 +179,11 @@ const receiveFunctions = new function () {
     virtualclass.media.playVideo(e.message.videoSlice);
   };
 
-  // screen share by image
-  this.videoByImage = function (e) {
-    if (!virtualclass.media.existVideoContainer(e.message.videoByImage)) {
-      virtualclass.media.video.createElement(e.message.videoByImage);
-    }
+  // This is depricated from 26-08-2019, should be removed in future
+  this.videoByImage = function () {
+    // if (!virtualclass.media.existVideoContainer(e.message.videoByImage)) {
+    //   virtualclass.media.video.createElement(e.message.videoByImage);
+    // }
   };
 
 
@@ -407,26 +407,38 @@ const receiveFunctions = new function () {
   /** *** Start Student Screen Sharing **** */
   /* Handle teacher request for screen sharing * */
   this.reqscreen = function (e) {
-    if (virtualclass.system.device != 'mobTab'
-      && (virtualclass.system.mybrowser.name == 'Chrome' || virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Edge')) {
-      const message = virtualclass.lang.getString('stdscreenshare');
-      if (virtualclass.gObj.precheckScrn) {
-        virtualclass.vutil.prechkScrnShare();
-      }
-      virtualclass.popup.confirmInput(message, (confirm) => {
-        if (confirm) {
-          if (roles.isStudent()) {
-            virtualclass.gObj.studentSSstatus.mesharing = true;
-          }
-          const appName = 'ScreenShare';
-          //virtualclass.makeAppReady(appName, 'byclick');
-          virtualclass.makeAppReady({ app: appName, cusEvent: 'byclick' });
-        } else {
-          virtualclass.vutil.beforeSend({ sd: true, cf: 'colorIndicator' });
-        }
-      });
+    if (e.message.cancel) {
+      virtualclass.popup.closeElem();
     } else {
-      virtualclass.vutil.beforeSend({ ext: true, cf: 'colorIndicator', nosupport: true });
+      virtualclass.gObj.studentSSstatus.receivedScreenShareRequest = true;
+      if (virtualclass.system.device != 'mobTab'
+        && (virtualclass.system.mybrowser.name == 'Chrome' || virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Edge')) {
+        const message = virtualclass.lang.getString('stdscreenshare');
+        if (virtualclass.gObj.precheckScrn) {
+          virtualclass.vutil.prechkScrnShare();
+        }
+
+        virtualclass.gesture.closeContinueWindow();
+        virtualclass.popup.confirmInput(message, (confirm) => {
+          delete virtualclass.gObj.studentSSstatus.receivedScreenShareRequest;
+          if (confirm) {
+            if (roles.isStudent()) {
+              virtualclass.gObj.studentSSstatus.mesharing = true;
+            }
+            const appName = 'ScreenShare';
+            virtualclass.makeAppReady({ app: appName, cusEvent: 'byclick' });
+          } else {
+            virtualclass.vutil.beforeSend({ sd: true, cf: 'colorIndicator' });
+          }
+
+          if (!virtualclass.media.readyAudioContext) {
+            virtualclass.media.audio.initAudiocontext(); // Incase of audio context is not ready yet
+            virtualclass.media.readyAudioContext = true;
+          }
+        });
+      } else {
+        virtualclass.vutil.beforeSend({ ext: true, cf: 'colorIndicator', nosupport: true });
+      }
     }
   };
 
@@ -479,18 +491,18 @@ const receiveFunctions = new function () {
     virtualclass.raiseHand.onMsgRec(e);
   };
   this.colorIndicator = function (e) {
+    delete virtualclass.gObj.prvRequestScreenUser;
     const rMsg = e.message;
     const uid = e.fromUser.userid;
     if (rMsg.sd) {
-      var elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
-      if (elem != null) {
-        elem.setAttribute('data-dcolor', 'red');
+      const elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
+      if (elem !== null) {
+        elem.setAttribute('data-dcolor', 'red'); // Cancelled the sharing the screen
       }
     } else if (rMsg.ext) {
-      const color = Object.prototype.hasOwnProperty.call(rMsg, 'nosupport') ? 'nosupport' : 'orange';
-
-      var elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
-      if (elem != null) {
+      const color = Object.prototype.hasOwnProperty.call(rMsg, 'nosupport') ? 'nosupport' : 'orange'; // not support screen share
+      const elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
+      if (elem !== null) {
         elem.setAttribute('data-dcolor', color);
         if (color === 'nosupport') {
           elem.parentNode.dataset.title = virtualclass.lang.getString('screensharenotsupport');
@@ -498,7 +510,6 @@ const receiveFunctions = new function () {
       }
     }
   };
-
 
   this.stdVideoCtrl = function (e) {
     if (e.fromUser.userid != virtualclass.gObj.uid) {
@@ -512,6 +523,10 @@ const receiveFunctions = new function () {
   this.destroyPlayer = function (e) {
     if (virtualclass.currApp == 'Video') {
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'videoUl') && virtualclass.videoUl.videoUrl) {
+        if (virtualclass.videoUl) {
+          virtualclass.videoUl.destroyPlayer();
+        }
+        
         virtualclass.videoUl.videoUrl = '';
         virtualclass.videoUl.videoId = '';
         const frame = document.getElementById('dispVideo_Youtube_api'); // youtube video

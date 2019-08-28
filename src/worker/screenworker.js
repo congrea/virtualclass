@@ -10,7 +10,9 @@ const screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
   let tempObj; let matched; let masterSlice; let d; let imgData; let
     encodeDataArr = null;
   let prevImageSlices = [];
-
+  let headerInfo;
+  let uid;
+  let sendMasterSlice;
 
   /**
    * Encodes Image Data from 4 bit per pixel into 1 bit per pixel (It reduces size)
@@ -53,9 +55,9 @@ const screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
    * @param screenType
    * @returns {Uint8ClampedArray}
    */
+
   const sendSliceData = function (encodedData, dimension, screenType) {
-    let x; let y; let appCode; let scode; let
-      sendmsg;
+    let x; let y; let appCode; let scode; let sendmsg;
     x = breakintobytes(dimension.x, 4);
     y = breakintobytes(dimension.y, 4);
     appCode = (screenType === 'ss') ? 103 : 203;
@@ -198,15 +200,23 @@ const screenWorkerBlob = URL.createObjectURL(new Blob(['(', function () {
             addSliceToSingle(sendSliceData(imgData, d, e.data.type));
           }
         } else {
+          console.log('====> screen share need full screen ');
           prevImageSlices[sl] = imgData;
           needFullScreen = 1;
         }
       }
+
       if (masterSlice) {
+        uid = breakintobytes(e.data.uid, 8);
+        headerInfo = new Uint8ClampedArray(['103', '123', uid[0], uid[1], uid[2], uid[3]]);
+        sendMasterSlice = new Uint8ClampedArray(masterSlice.length + headerInfo.length);
+        sendMasterSlice.set(headerInfo);
+        sendMasterSlice.set(masterSlice, headerInfo.length);
         postMessage({
-          masterSlice,
+          sendMasterSlice,
           needFullScreen,
-        }, [masterSlice.buffer]);
+        }, [sendMasterSlice.buffer]);
+        sendMasterSlice = null;
       } else {
         postMessage({
           masterSlice: null,

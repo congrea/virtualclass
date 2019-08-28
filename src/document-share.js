@@ -214,8 +214,9 @@
             const docId = `docs${doc}`;
             // var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
             // console.log(`From database doc share order ${virtualclass.orderList[this.appName].ol.order.join(',')}`);
-            virtualclass.dts.docs.currDoc = docId;
             this.setScreenByOrder(docId);
+            this.docs.currNote = virtualclass.orderList[this.appName].ol.order[0];
+            this.docs.displayScreen(docId, virtualclass.orderList[this.appName].ol.order[0]);
           }
         }
       },
@@ -848,19 +849,11 @@
             if (element != null) {
               if ((+element.dataset.status) == 1) {
                 virtualclass.dts.docs.currNote = note;
-                if (typeof virtualclass.dts.docs.note === 'undefined') {
-                  virtualclass.dts.docs.displayScreen(virtualclass.dts.docs.currDoc, note);
-                } else {
-                  virtualclass.dts.docs.note.currentSlide(note);
-                }
+                virtualclass.dts.docs.note.currentSlide(note);
               }
             } else {
               virtualclass.dts.docs.currNote = note;
-              if (typeof virtualclass.dts.docs.note === 'undefined') {
-                virtualclass.dts.docs.displayScreen(virtualclass.dts.docs.currDoc, note);
-              } else {
-                virtualclass.dts.docs.note.currentSlide(note);
-              }
+              virtualclass.dts.docs.note.currentSlide(note);
             }
             virtualclass.dts.indexNav.addActiveNavigation();
             virtualclass.dts.indexNav.UI.setClassPrevNext();
@@ -1658,7 +1651,7 @@
        * @param status expect enable or disable
        */
       noteStatus(id, status) {
-          //console.log('====> note status ', id, status);
+        //console.log('====> note status ', id, status);
         const note = document.querySelector(`#note${id}`);
         if (note != null) {
           if (typeof status === 'undefined') {
@@ -1842,7 +1835,7 @@
       },
 
       noteExist() {
-       return (document.querySelector('#notesContainer .note') != null);
+        return (document.querySelector('#notesContainer .note') != null);
       },
 
       docSelected() {

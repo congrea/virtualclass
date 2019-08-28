@@ -31,14 +31,10 @@
       raisehand(userid) {
         // var controlContainer = document.getElementById(userid + 'contRaiseH');
         var controlContainer = chatContainerEvent.elementFromShadowDom(`#ml${userid} .controllerRaiseH`);
-
-        var controlContainer = chatContainerEvent.elementFromShadowDom(`#ml${userid} .controllerRaiseH`);
         const anch = controlContainer.querySelector('a.congtooltip');
         const cont = anch.querySelector('.RaiseHandImg');
-
         ioAdapter.mustSendUser({
           data: {
-
             action: 'disable',
           },
           cf: 'raiseHand',
@@ -201,7 +197,7 @@
         cont.addEventListener('click', () => {
           const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
           const toUser = virtualclass.vutil.whoIsTeacher();
-          ioAdapter.sendUser({
+          ioAdapter.mustSendUser({
             data: {
               user: wbUser.id,
               action: rhElem.getAttribute('data-action'),

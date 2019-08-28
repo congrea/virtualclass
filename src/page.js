@@ -174,7 +174,7 @@
     }
 
     virtualclass.xhrn.vxhrn.post(virtualclass.api.UpdateDocumentStatus, data).then((msg) => {
-      // console.log(`Msg ${msg.data}`);
+      console.log(`====> Update status  ${msg.data}`);
     });
     // this.xhrSend(data);
   };
@@ -600,7 +600,7 @@
 
           // var data = {'action': 'status', 'status': elem.dataset.status};
           const status = (currObj.status == 0) ? 'disable' : 'enable';
-          currObj.sendStatus(status);
+          currObj.sendStatus({ action: status });
         },
 
         delete(elem, cthis, e) {

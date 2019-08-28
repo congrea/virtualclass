@@ -715,9 +715,10 @@
               this.noteStatus(virtualclass.orderList[this.appName].ol.order[i], status);
             }
           }
-          if (roles.hasControls()) {
-            this.indexNav.createDocNavigationNumber(virtualclass.orderList[this.appName].ol.order[i], i, status);
-          }
+
+          // if (roles.hasControls()) {
+          //   this.indexNav.createDocNavigationNumber(virtualclass.orderList[this.appName].ol.order[i], i, status);
+          // }
         }
 
         if (roles.hasControls()) {

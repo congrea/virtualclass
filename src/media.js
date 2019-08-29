@@ -1541,6 +1541,7 @@
             stream = await cNavigator.mediaDevices.getUserMedia(session);
           } catch (e) {
             this.handleUserMediaError(e);
+            this.audio.notifiyMuteAudio();
           }
 
           if (stream !== null) {
@@ -1809,7 +1810,7 @@
 
         virtualclass.system.mediaDevices.webcamErr.push(errorCode);
 
-        cthis.audio.notifiyMuteAudio();
+        // cthis.audio.notifiyMuteAudio();
         // virtualclass.media.audio.removeAudioFromLocalStorage();
       },
 

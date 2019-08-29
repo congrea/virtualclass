@@ -156,6 +156,7 @@
     noQuiz: 'No quiz available. Congrea supports only mutliple choice questions',
     Novote: 'No vote received for this poll',
     nowebcam: 'Webcam is not available, or not connected properly.',
+    nowebcamconnectedyet: 'Congrea does not receives any user input yet.',
     notcompatiblecpu: 'Processing power (CPU) in this system is low. <br /> We recommend working with modern CPU.',
     notcompatibleram: 'RAM in this system is low. <br /> We recommend 4GB of RAM.',
     offcollaboration: 'Collaboration off',

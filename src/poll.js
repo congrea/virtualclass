@@ -2142,13 +2142,26 @@
         tbody.appendChild(listItem);
 
         var elem = document.createElement('td');
-        elem.innerHTML = item.username;
+        const name = virtualclass.poll.capitalizeFirstLetterFnameLname(item.username);
+        elem.innerHTML = name;
         listItem.appendChild(elem);
 
         var elem = document.createElement('td');
         elem.innerHTML = optedVal[val];
         listItem.appendChild(elem);
       },
+
+      capitalizeFirstLetterFnameLname(name) {
+        const [firstname, lastname] = name.split(/\s*(?: |$)\s*/);
+        const firstName = virtualclass.vutil.capitalizeFirstLetter(firstname);
+        if (typeof lastname !== 'undefined') {
+          const lastName = virtualclass.vutil.capitalizeFirstLetter(lastname);
+          return `${firstName} ${lastName}`;
+        } else {
+          return `${firstName}`;
+        }
+      },
+
       barGraph() {
         // const chart = document.getElementById('chart');
         // if (chart) {

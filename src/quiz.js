@@ -565,8 +565,8 @@
             if (this.submittedTime > this.publishedTime) {
               this.usersFinishedQz.push(msg.quiz.user);
               const ct = this.usersFinishedQz.length;
-
-              const name = (!typeof fromUser.lname === 'undefined') ? `${fromUser.name} ${fromUser.lname}` : fromUser.name;
+              const userName = virtualclass.poll.capitalizeFirstLetterFnameLname(fromUser.name);
+              const name = (!typeof fromUser.lname === 'undefined') ? `${fromUser.name} ${fromUser.lname}` : userName;
               this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans, fromUser.userid);
 
               // this.qGrade.push({
@@ -582,7 +582,6 @@
               }
 
             }
-
           } else {
             if (this.submittedTime > this.publishedTime) {
               const quizBodyContainer = document.getElementById('contQzBody');

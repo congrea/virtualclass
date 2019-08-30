@@ -28,6 +28,15 @@ const receiveFunctions = new function () {
     }
   };
 
+  this.videoStop = function () {
+    if (roles.isStudent()) {
+      const videoHostContainer = document.getElementById('videoHostContainer');
+      if (videoHostContainer !== null) {
+        videoHostContainer.classList.add('displayInterrupt');
+      }
+    }
+  }
+
   /**
    * This functioon would invoke when the new user would join as
    * educator with overriding the role. This would at invoke at presenter window
@@ -526,7 +535,7 @@ const receiveFunctions = new function () {
         if (virtualclass.videoUl) {
           virtualclass.videoUl.destroyPlayer();
         }
-        
+
         virtualclass.videoUl.videoUrl = '';
         virtualclass.videoUl.videoId = '';
         const frame = document.getElementById('dispVideo_Youtube_api'); // youtube video

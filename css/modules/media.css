@@ -288,3 +288,26 @@
 #pollModalBody #chartMenuCont .col-sm-1 #barView, #pollModalBody #chartMenuCont .col-sm-1 #piView, #pollModalBody #chartMenuCont .col-sm-1 #listView {
   color: #337ab7;
 }
+
+
+#virtualclassCont.congrea #videoHostContainer .videoInterrupt {
+  display:none;
+}
+
+#virtualclassCont.congrea #videoHostContainer.displayInterrupt .videoInterrupt {
+  display:block;
+}
+
+#videoHostContainer.displayInterrupt {
+  position: relative;
+}
+
+#videoHostContainer.displayInterrupt .videoInterrupt {
+  position: absolute;
+  color: #f9f9f9;
+  font-weight: bold;
+  top: 120px;
+  left: 30px;
+  background: #000000;
+  padding: 10px;
+}

@@ -1593,11 +1593,20 @@
           virtualclass.user.control.audioDisable();
         }
 
-        const that = this;
         const mediaStreamTrack = stream.getVideoTracks()[0];
         if (typeof mediaStreamTrack !== 'undefined') {
           mediaStreamTrack.onended = function () { // for Chrome.
-            virtualclass.system.mediaDevices.webcamErr.push('webcambusy');
+            if (roles.hasControls()) {
+              virtualclass.videoHost.clearTeacherVideoTime();
+              virtualclass.system.mediaDevices.webcamErr.push('webcambusy');
+              const videoHostContainer = document.getElementById('videoHostContainer');
+              if (videoHostContainer !== null) {
+                videoHostContainer.classList.add('displayInterrupt');
+              }
+
+              ioAdapter.mustSend({cf: 'videoStop'});
+            }
+
             // virtualclass.media.audio.removeAudioFromLocalStorage();
           };
         } else {

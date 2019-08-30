@@ -232,7 +232,6 @@
             this.resampler = new Resampler(virtualclass.media.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
             virtualclass.gObj.isAudioContextReady = true;
             this.audioContextReady = true;
-
             if (virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode && cthis.video.tempStream != null) {
               virtualclass.media.stream = cthis.video.tempStream;
               virtualclass.media.audio._maniPulateStream();
@@ -1541,8 +1540,8 @@
             stream = await cNavigator.mediaDevices.getUserMedia(session);
           } catch (e) {
             this.handleUserMediaError(e);
+            this.audio.notifiyMuteAudio();
           }
-
           if (stream !== null) {
             this.handleUserMedia(stream);
           }
@@ -1573,7 +1572,6 @@
 
       handleUserMedia(stream) {
         localStorage.removeItem('dvid');
-        const audioWiget = document.getElementById('audioWidget');
         let audio = localStorage.getItem('audEnable');
         if (roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone) {
           virtualclass.settings.userAudioIcon();
@@ -1809,7 +1807,7 @@
 
         virtualclass.system.mediaDevices.webcamErr.push(errorCode);
 
-        cthis.audio.notifiyMuteAudio();
+        // cthis.audio.notifiyMuteAudio();
         // virtualclass.media.audio.removeAudioFromLocalStorage();
       },
 

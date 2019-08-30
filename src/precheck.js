@@ -6,6 +6,7 @@ const preCheck = {
   handlers: [],
   videoAction: false,
   donePrecheck: false,
+  cameraStreamStatus: 2, // 2 = not receving anything, 1 = media stream received, some, 0 = some error on receving media
   init() {
     const modal = document.querySelector('#myModal');
     if (modal) {
@@ -155,7 +156,7 @@ const preCheck = {
       // this[test].visualize();
       micTesting.playAudio = true;
       this[test].audioOperation();
-    } else if (test == 'webcam') {
+    } else if (test === 'webcam') {
       virtualclass.precheck.webcam.initHandler();
     }
 
@@ -242,7 +243,7 @@ const preCheck = {
     perform() {
       const preCheck = '#preCheckcontainer .precheck';
       virtualclass.precheck.display(`#preCheckcontainer .precheck.${this.curr}`);
-      const that = this;
+
 
       /** Inspired from, http://stackoverflow.com/questions/5529718/how-to-detect-internet-speed-in-javascript * */
 
@@ -269,6 +270,32 @@ const preCheck = {
       virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(virtualclass.precheck.session).then((stream) => {
         // console.log('GEtting stream');
         virtualclass.precheck.mediaStream = stream;
+        const videoStream = virtualclass.precheck.mediaStream.getVideoTracks();
+        if (videoStream.length > 0) {
+          virtualclass.precheck.cameraStreamStatus = 1;
+          if (virtualclass.precheck.currTest === 'webcam') {
+            const tempVideo = document.getElementById('webcamTempVideo');
+            tempVideo.classList.remove('novideo');
+            let resultDiv = document.querySelector('#vcWebCamCheck .result .error');
+            if (resultDiv != null) {
+              resultDiv.classList.remove('error');
+              resultDiv.classList.add('general');
+              resultDiv.innerHTML = virtualclass.lang.getString('webcamerainfo');
+            }
+            virtualclass.precheck.webcam.createVideo();
+          }
+        }
+
+      }).catch(function(e) {
+        virtualclass.media.handleUserMediaError(e);
+        const [msg, wclassName] = virtualclass.precheck.webcam.currentStatus();
+        const selectorId = `#preCheckcontainer .precheck.${virtualclass.precheck.webcam.curr}`;
+        const existingContainer = document.querySelector(`${selectorId} .msg`);
+        if (existingContainer !== null) {
+          existingContainer.parentNode.removeChild(existingContainer);
+        }
+        virtualclass.precheck.webcam.displayMessage(selectorId, wclassName, msg);
+        virtualclass.precheck.cameraStreamStatus = 0;
       });
     },
 
@@ -453,14 +480,9 @@ const preCheck = {
     prev: 'mic',
     curr: 'webcam',
 
-    perform() {
-      const preCheck = '#preCheckcontainer .precheck';
-      const selectorId = `#preCheckcontainer .precheck.${this.curr}`;
-
-      var videoLable = document.createElement('div');
-      let msg; let
-        wclassName;
-
+    currentStatus () {
+      let msg ='';
+      let wclassName;
       if (virtualclass.system.mediaDevices.hasWebcam) {
         if (virtualclass.system.mediaDevices.webcamErr.length > 0) {
           msg = virtualclass.system.mediaDevices.webcamErr[virtualclass.system.mediaDevices.webcamErr.length - 1];
@@ -472,34 +494,46 @@ const preCheck = {
               msg += 'FF';
             }
           }
-
           msg = virtualclass.lang.getString(msg);
-          wclassName = `${videoLable.className} error`;
+          wclassName = `error`;
+        } else if (virtualclass.precheck.cameraStreamStatus === 2) {
+          wclassName = `error`;
+          msg = virtualclass.lang.getString('nowebcamconnectedyet');
         } else {
-          wclassName = `${videoLable.className} general`;
-          var videoLable = document.createElement('div');
+          wclassName = `general`;
           msg = virtualclass.lang.getString('webcamerainfo');
         }
       } else {
-        wclassName = `${videoLable.className} error`;
+        wclassName = `error`;
         msg = virtualclass.lang.getString('nowebcam');
       }
+      return [msg, wclassName];
+    },
 
-      videoLable.className = wclassName;
+    displayMessage(appendInto, wclassName, msg)  {
+      let videoLable = document.querySelector(`${appendInto} .result .msg`);
+      if (videoLable !== null) {
+        videoLable.parentNode.removeChild(videoLable);
+      }
+      videoLable = document.createElement('div');
+      videoLable.className = `msg ${wclassName}`;
       videoLable.innerHTML = msg;
+      document.querySelector(`${appendInto} .result`).appendChild(videoLable);
+    },
 
-      document.querySelector(`${selectorId} .result`).appendChild(videoLable);
+    perform() {
+      const [msg, wclassName] = this.currentStatus();
+
+      const selectorId = `#preCheckcontainer .precheck.${this.curr}`;
+      this.displayMessage(selectorId, wclassName, msg);
 
       // virtualclass.precheck.updateProgressBar(this.curr);
       virtualclass.precheck.display(selectorId);
-
-      if (!videoLable.classList.contains('error')) {
-        this.createVideo();
+      if (wclassName.indexOf('error') > -1) {
+        document.getElementById('webcamTempVideo').className = 'novideo';
       } else {
-        const tempVideo = document.getElementById('webcamTempVideo');
-        tempVideo.className = 'novideo';
+        this.createVideo();
       }
-
       this.initHandler();
     },
 

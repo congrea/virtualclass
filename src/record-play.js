@@ -184,6 +184,9 @@
       this.playProgressBar(this.playTime);
       delete this.prvNum;
       this.init();
+      delete virtualclass.ss;
+      virtualclass.ss = "";
+
     },
 
     // If binary, return buffer else return original value
@@ -696,7 +699,6 @@
               }
 
               io.onRecMessage(this.convertInto({ data: this.msg }));
-              console.log('master index ', this.masterIndex, ' sub index', this.subRecordingIndex);
             } else { // Binary
               this.msg = this.subRecordings[this.subRecordingIndex].recObjs;
 

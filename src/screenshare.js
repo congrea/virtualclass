@@ -6,8 +6,7 @@
 let globalImageData = {};
 
 (function screenShare(window) {
-  let changeonresize; let prvWidth; let prvVWidth; let prvVHeight; let app; let
-    dim;
+  let changeonresize; let prvWidth; let prvVWidth; let prvVHeight; let app;
   let canvasCont; let newCanvas; let newCtx; let
     imageData;
 
@@ -200,12 +199,12 @@ let globalImageData = {};
 
         if (Object.prototype.hasOwnProperty.call(d, 'd')) {
           virtualclass[app].dimensionStudentScreenResize(d);
-          dim = true;
+          virtualclass[app].dim = true;
           (typeof uid === 'undefined') ? virtualclass[app].drawImages(imgData) : virtualclass[app].drawImages(imgData, uid);
         } else {
-          if (typeof dim === 'undefined' || ((typeof prvWidth !== 'undefined')
+          if (!virtualclass[app].dim || ((typeof prvWidth !== 'undefined')
             && (prvWidth !== d.w) && (!Object.prototype.hasOwnProperty.call(d, 'x')))) {
-            dim = true;
+            virtualclass[app].dim = true;
             virtualclass[app].dimensionStudentScreen(d.w, d.h);
             prvWidth = d.w;
           }

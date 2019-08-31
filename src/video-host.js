@@ -343,50 +343,48 @@ var videoHost = {
   shareVideo() {
     const resA = 1;
     const resB = 1;
-
     this.imageSlices = this.getImageSlices(resA, resB);
-    const that = this;
-
-    if (Object.prototype.hasOwnProperty.call(videoHost.gObj, 'shareVideoInterval')) {
-      clearInterval(videoHost.gObj.shareVideoInterval);
-    }
-
+    this.clearTeacherVideoTime();
     videoHost.gObj.shareVideoInterval = setInterval(
       () => {
-        if (that.gObj.videoSwitch) {
-          if (io.webSocketConnected() && virtualclass.system.mediaDevices.hasWebcam) {
-            that._shareVideo(that, resA, resB);
-          }
+        if (this.gObj.videoSwitch && io.webSocketConnected() && virtualclass.system.mediaDevices.hasWebcam) {
+          this._shareVideo(resA, resB);
         }
       },
       120,
     );
   },
 
-  _shareVideo(that, resA, resB) {
-    for (that.sl = 0; that.sl < (resA * resB); that.sl++) {
-      that.vidHostCon.drawImage(that.videoHostSrc, 0, 0, that.width, that.height);
-      var d = that.imageSlices[that.sl];
-      const imgData = that.vidHostCon.getImageData(d.x, d.y, d.w, d.h);
-      that.vidHostSliceCon.putImageData(imgData, d.x, d.y);
+  clearTeacherVideoTime() {
+    if (Object.prototype.hasOwnProperty.call(videoHost.gObj, 'shareVideoInterval')) {
+      clearInterval(videoHost.gObj.shareVideoInterval);
+    }
+  },
+
+  _shareVideo(resA, resB) {
+    let d;
+    for (this.sl = 0; this.sl < (resA * resB); this.sl++) {
+      this.vidHostCon.drawImage(this.videoHostSrc, 0, 0, this.width, this.height);
+      d = this.imageSlices[this.sl];
+      const imgData = this.vidHostCon.getImageData(d.x, d.y, d.w, d.h);
+      this.vidHostSliceCon.putImageData(imgData, d.x, d.y);
     }
 
-    if (that.sl == resA * resB) {
-      var d = { x: 0, y: 0 };
+    if (this.sl === resA * resB) {
+      d = { x: 0, y: 0 };
       // you increase the the value, increase the quality
       // 0.4 and 9 need 400 to 500 kb/persecond
       let sendimage;
+      let videoType;
       if (virtualclass.system.webpSupport) {
-        sendimage = that.vidHostSlice.toDataURL('image/webp', 0.6);
-        var vidType = 1;
+        sendimage = this.vidHostSlice.toDataURL('image/webp', 0.6);
+        videoType = 1;
       } else {
-        sendimage = that.vidHostSlice.toDataURL('image/jpeg', 0.3);
-        var vidType = 0;
+        sendimage = this.vidHostSlice.toDataURL('image/jpeg', 0.3);
+        videoType = 0;
       }
-
-      that.vidHostSliceCon.clearRect(0, 0, that.width, that.height);
-      that.sendInBinary(sendimage, vidType);
-      // ioAdapter.send({'videoSlice' : sendimage, 'des' : d, 'cf' : 'teacherVideo'});
+      this.vidHostSliceCon.clearRect(0, 0, this.width, this.height);
+      this.sendInBinary(sendimage, videoType);
     }
   },
   sendInBinary(sendimage, vidType) {

@@ -63,9 +63,11 @@ let globalImageData = {};
           virtualclass.studentScreen.setDimension();
           renderImage(imageData);
           virtualclass.studentScreen.triggerFitToScreene(e.data.stype);
-          const teacher = virtualclass.vutil.getUserAllInfo(e.data.uid, virtualclass.connectedUsers);
-          if ((teacher.role !== 't' && roles.isStudent() && !virtualclass.gObj.studentSSstatus.shareToAll)) {
-            receiveFunctions.sview({ message: 'firstSs' });
+          if (virtualclass.connectedUsers != null) {
+            const teacher = virtualclass.vutil.getUserAllInfo(e.data.uid, virtualclass.connectedUsers);
+            if ((teacher.role !== 't' && roles.isStudent() && !virtualclass.gObj.studentSSstatus.shareToAll)) {
+              receiveFunctions.sview({ message: 'firstSs' });
+            }
           }
         } else {
           renderImage(imageData);
@@ -1250,6 +1252,29 @@ let globalImageData = {};
           );
         }
       },
+
+      selfView(message) {
+        const elem = document.getElementById('virtualclassScreenShareLocal');
+        if (roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) {
+          if (elem != null) {
+            console.log('====> Screen share dislay none');
+            elem.style.display = 'none';
+          }
+        }
+        if (Object.prototype.hasOwnProperty.call(message, 'firstSs')) {
+          virtualclass.gObj.studentSSstatus.sharing = true;
+        }
+        virtualclass.gObj.studentSSstatus.shareToAll = false;
+      },
+
+      shareToAll() {
+        const elem = document.getElementById('virtualclassScreenShareLocal');
+        if (elem != null) {
+          elem.style.display = 'block';
+        }
+        virtualclass.gObj.studentSSstatus.shareToAll = true;
+        virtualclass.gObj.studentSSstatus.sharing = true;
+      }
     };
   };
   window.studentScreen = studentScreen;

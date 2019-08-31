@@ -8,6 +8,10 @@ function processImage(msg, vtype) {
     var b64encoded = `data:image/jpeg;base64,${btoa(virtualclass.videoHost.Uint8ToString(recmsg))}`;
     var imgType = 'jpeg';
   }
+  const teacherVideoContainer = document.getElementById('videoHostContainer');
+  if (roles.isStudent() &&  teacherVideoContainer.classList.contains('displayInterrupt')) {
+    teacherVideoContainer.classList.remove('displayInterrupt');
+  }
   virtualclass.videoHost.drawReceivedImage(b64encoded, imgType, { x: 0, y: 0 });
 }
 

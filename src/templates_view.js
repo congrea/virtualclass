@@ -1209,7 +1209,7 @@ this["JST"]["dest_temp/templates/teacherVideo.hbs"] = Handlebars.template({"1":f
 
   return "<div id=\"videoHostContainer\"> "
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + " </div>";
+    + " <div class=\"videoInterrupt\"> Teacher video is interrupted</div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/videoupload/linkvideo.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

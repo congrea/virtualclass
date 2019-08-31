@@ -318,11 +318,13 @@
         // console.log(`${virtualclass.gObj.currWb} ` + `document share : request ${filepath}`);
 
         const relativeDocs = this.getDocs(filepath);
-        const dsStatus = document.querySelector(`#linkdocs${filepath}`).dataset.selected;
-
-        //console.log('==== dts must send ');
-        ioAdapter.mustSend({ dts: { dres: filepath, ds: (1 - (+dsStatus)) }, cf: 'dts' });
-        return relativeDocs;
+        if (relativeDocs != null) {
+          const dsStatus = document.querySelector(`#linkdocs${filepath}`).dataset.selected;
+          ioAdapter.mustSend({ dts: { dres: filepath, ds: (1 - (+dsStatus)) }, cf: 'dts' });
+          return relativeDocs;
+        } else {
+          return null;
+        }
       },
 
       getNotes(id) {

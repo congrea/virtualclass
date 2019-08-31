@@ -460,28 +460,12 @@ const receiveFunctions = new function () {
 
   // Self view, but display none to others
   this.sview = function (e) {
-    const elem = document.getElementById('virtualclassScreenShareLocal');
-    if (roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) {
-      if (elem != null) {
-        elem.style.display = 'none';
-      }
-    }
-    if (Object.prototype.hasOwnProperty.call(e.message, 'firstSs')) {
-      virtualclass.gObj.studentSSstatus.sharing = true;
-    }
-    virtualclass.gObj.studentSSstatus.shareToAll = false;
-    // console.log('Share, self view');
+    virtualclass.ss.selfView(e.message);
   };
 
   // Share screenshare to all
   this.sToAll = function () {
-    const elem = document.getElementById('virtualclassScreenShareLocal');
-    if (elem != null) {
-      elem.style.display = 'block';
-    }
-    virtualclass.gObj.studentSSstatus.shareToAll = true;
-    virtualclass.gObj.studentSSstatus.sharing = true;
-    // console.log('Share, to all');
+    virtualclass.ss.shareToAll();
   };
 
   /** This happens when student does page refresh during the share is being shared  * */

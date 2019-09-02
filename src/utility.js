@@ -1390,7 +1390,7 @@
         upload.validation = ['doc', 'docx', 'txt', 'html', 'csv', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'xlt', 'png', 'jpg', 'gif', 'svg', 'tiff', 'rtf', 'xpm'];
         upload.cb = virtualclass.dts.onAjaxResponse;
         upload.cthis = 'docs';
-        upload.maxSize = 24 * 1000 * 1000; // 24MB
+        upload.maxSize = 100 * 1000 * 1000; // 100MB
         // upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&user="+virtualclass.gObj.uid;
         upload.requesteEndPoint = `${window.webapi}&methodname=congrea_image_converter&live_class_id=${virtualclass.gObj.congCourse}&status=1&content_type_id=1&user=${virtualclass.gObj.uid}`;
       }
@@ -1403,7 +1403,6 @@
 
 
       // upload.requesteEndPoint = "https://local.vidya.io/congrea_te_online/example/upload.php";
-
 
       virtualclass.fineUploader.uploaderFn(upload);
 

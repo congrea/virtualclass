@@ -1570,6 +1570,13 @@
           return totalTimeInSec;
         }
       },
+
+      scrollToTop() {
+        const quizArea = document.querySelector('#slickQuiz .quizArea');
+        if (quizArea != null) {
+          quizArea.scrollTop  = 0;
+        }
+    }
     };
     // return _quiz;
   };

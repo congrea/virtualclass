@@ -598,6 +598,7 @@
                 }
 
                 internal.method.turnKeyAndGo (key, options && options.callback ? options.callback : function () {});
+
             },
 
             // Moves to the next question OR completes the quiz if on last question
@@ -651,6 +652,7 @@
                 }
 
                 internal.method.turnKeyAndGo (key, options && options.callback ? options.callback : function () {});
+                virtualclass.quiz.scrollToTop();
             },
 
             // Go back to the last question
@@ -734,6 +736,7 @@
                 }
 
                 internal.method.turnKeyAndGo (key, options && options.callback ? options.callback : function () {});
+              virtualclass.quiz.scrollToTop();
             },
 
             diaplayQuestion: function(currButton, options) {
@@ -802,6 +805,7 @@
                 }*/
 
                 //internal.method.turnKeyAndGo (key, options && options.callback ? options.callback : function () {});
+              virtualclass.quiz.scrollToTop();
             },
             // flag questions
             flagQuestion: function(flagButton, options) {

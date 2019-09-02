@@ -371,7 +371,7 @@
           displayDetailResult: false,
           // ptm: new Date().getTime(), // published time
         };
-
+        virtualclass.quiz.publishedTime = Date.now();
         // send data to student
         ioAdapter.mustSend({
           quiz: {
@@ -559,26 +559,29 @@
 
         // Event triggerd on quiz submit
         if (msg.quiz.quizMsg === 'quizsubmitted') {
+          this.submittedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
           if (roles.hasControls()) {
-            this.usersFinishedQz.push(msg.quiz.user);
-            const ct = this.usersFinishedQz.length;
+            console.log('===> quiz result quizsubmitted ');
+            if (this.submittedTime > this.publishedTime) {
+              this.usersFinishedQz.push(msg.quiz.user);
+              const ct = this.usersFinishedQz.length;
 
-            const name = (!typeof fromUser.lname === 'undefined') ? `${fromUser.name} ${fromUser.lname}` : fromUser.name;
+              const name = (!typeof fromUser.lname === 'undefined') ? `${fromUser.name} ${fromUser.lname}` : fromUser.name;
+              this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
 
-            this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
+              this.qGrade.push({
+                nm: name,
+                tt: msg.quiz.timetaken,
+                sc: msg.quiz.score,
+                qAt: msg.quiz.quesattemptd,
+                ca: msg.quiz.correctans,
+              });
+              // save data in LMS DB
+              this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
+            }
 
-            this.qGrade.push({
-              nm: name,
-              tt: msg.quiz.timetaken,
-              sc: msg.quiz.score,
-              qAt: msg.quiz.quesattemptd,
-              ca: msg.quiz.correctans,
-            });
-            // save data in LMS DB
-            this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
           } else {
-            this.submittedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
-            if (vthis.submittedTime > vthis.publishedTime) {
+            if (this.submittedTime > this.publishedTime) {
               const quizBodyContainer = document.getElementById('contQzBody');
               if (quizBodyContainer != null) {
                 quizBodyContainer.parentNode.removeChild(quizBodyContainer);
@@ -590,6 +593,7 @@
             }
           }
         }
+
       },
 
       /**
@@ -1320,6 +1324,10 @@
             const sqm = document.getElementById('stdQuizMszLayout');
             if (sqm) {
               msgPage.removeChild(sqm);
+            }
+            var resultDiv = document.getElementById('resultDiv');
+            if (resultDiv != null) {
+              resultDiv.parentNode.removeChild(resultDiv);
             }
             const resPage = virtualclass.view.customCreateElement('div', 'resultDiv');
             msgPage.appendChild(resPage);

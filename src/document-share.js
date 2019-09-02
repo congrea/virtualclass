@@ -733,6 +733,9 @@
           // if (roles.hasControls()) {
           //   this.indexNav.createDocNavigationNumber(virtualclass.orderList[this.appName].ol.order[i], i, status);
           // }
+          if (i === 0) {
+            virtualclass.vutil.hideUploadMsg('docsuploadContainer');
+          }
         }
 
         if (roles.hasControls()) {

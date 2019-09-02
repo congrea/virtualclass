@@ -21,7 +21,7 @@
       exportfilepath: window.exportfilepath,
       quizSt: {}, // used for storage
       quizAttempted: {}, // used for storage
-      qGrade: [], // used for storage
+      // qGrade: [], // used for storage
       initToFetch: true,
       init() {
         virtualclass.previrtualclass = 'virtualclassQuiz';
@@ -86,16 +86,16 @@
         this.tabContent();
         this.displayQuizModalBox();
 
-        if (Object.prototype.hasOwnProperty.call(msg.data, 'qAttempt')) {
-          alert('performing attempt');
-          this.quizAttempted = JSON.parse(msg.data.qAttempt);
-          this.displayAttemptOverview();
-        }
-        if (Object.prototype.hasOwnProperty.call(msg.data, 'qGrade')) {
-          alert('performing grade');
-          this.qGrade = JSON.parse(msg.data.qGrade);
-          this.displayGradeReport();
-        }
+        // if (Object.prototype.hasOwnProperty.call(msg.data, 'qAttempt')) {
+        //   alert('performing attempt');
+        //   this.quizAttempted = JSON.parse(msg.data.qAttempt);
+        //   this.displayAttemptOverview();
+        // }
+        // if (Object.prototype.hasOwnProperty.call(msg.data, 'qGrade')) {
+        //   alert('performing grade');
+        //   this.qGrade = JSON.parse(msg.data.qGrade);
+        //   this.displayGradeReport();
+        // }
         // if (typeof storedData != 'undefined' && storedData.qClosed == 'true') {  // TODO, need to find what it is ?
         //   document.getElementById('closeQzBt').disabled = true;
         // }
@@ -567,17 +567,20 @@
               const ct = this.usersFinishedQz.length;
 
               const name = (!typeof fromUser.lname === 'undefined') ? `${fromUser.name} ${fromUser.lname}` : fromUser.name;
-              this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
+              this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans, fromUser.userid);
 
-              this.qGrade.push({
-                nm: name,
-                tt: msg.quiz.timetaken,
-                sc: msg.quiz.score,
-                qAt: msg.quiz.quesattemptd,
-                ca: msg.quiz.correctans,
-              });
+              // this.qGrade.push({
+              //   nm: name,
+              //   tt: msg.quiz.timetaken,
+              //   sc: msg.quiz.score,
+              //   qAt: msg.quiz.quesattemptd,
+              //   ca: msg.quiz.correctans,
+              // });
               // save data in LMS DB
-              this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
+              if (virtualclass.config.makeWebSocketReady) {
+                this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
+              }
+
             }
 
           } else {
@@ -654,13 +657,13 @@
        * @param {null}
        * @return
        */
-      displayGradeReport() {
-        const that = virtualclass.quiz;
-        for (let i = 0; i < that.qGrade.length; i++) {
-          that.gradeReport(i + 1, that.qGrade[i].nm, that.qGrade[i].tt,
-            that.qGrade[i].sc, that.qGrade[i].qAt, that.qGrade[i].ca);
-        }
-      },
+      // displayGradeReport() {
+      //   const that = virtualclass.quiz;
+      //   for (let i = 0; i < that.qGrade.length; i++) {
+      //     that.gradeReport(i + 1, that.qGrade[i].nm, that.qGrade[i].tt,
+      //       that.qGrade[i].sc, that.qGrade[i].qAt, that.qGrade[i].ca);
+      //   }
+      // },
 
       /**
        * create progress overview page with
@@ -731,10 +734,16 @@
        * @param {string} td6v no of correct answer
        * @return null
        */
-      gradeReport(td1v, td2v, td3v, td4v, td5v, td6v) {
+      gradeReport(td1v, td2v, td3v, td4v, td5v, td6v, userId) {
         const tbody = document.getElementById('qzReTbody');
         if (tbody) {
-          const tr = document.createElement('tr');
+          let tr = document.getElementById(`user${userId}`);
+          if (tr !== null) {
+            td1v = tr.childNodes[0].innerHTML; // COUNTER
+            tr.parentNode.removeChild(tr);
+          }
+          tr = document.createElement('tr');
+          tr.id = `user${userId}`;
           tbody.appendChild(tr);
 
           const th = document.createElement('th');

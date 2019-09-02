@@ -1665,7 +1665,7 @@
 }
 
 #virtualclassCont.congrea #playController #recPlayCont #recPlay.congtooltip:hover:after, #virtualclassCont.congrea #playController #recPauseCont #recPause.congtooltip:hover:after {
-  bottom: 46px !important;
+  bottom: 53px !important;
   right: 10px !important;
   padding: .4em .8em;
   letter-spacing: 1px;

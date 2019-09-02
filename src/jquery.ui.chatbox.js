@@ -35,6 +35,7 @@
           this.elem = elem;
         },
         addMsg(peer, msg) {
+          const name = virtualclass.poll.capitalizeFirstLetterFnameLname(peer);
           const self = this;
           const box = self.elem.uiChatboxLog;
           const e = document.createElement('div');
@@ -43,9 +44,9 @@
 
           let systemMessage = false;
 
-          if (peer) {
+          if (name) {
             const peerName = document.createElement('b');
-            $(peerName).text(`${peer}: `);
+            $(peerName).text(`${name}: `);
             e.appendChild(peerName);
           } else {
             systemMessage = true;

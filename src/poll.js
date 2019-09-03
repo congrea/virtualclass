@@ -699,7 +699,7 @@
       forEachPoll(item, index, pollType, isAdmin) {
         const pollQn = {};
         pollQn.questiontext = item.questiontext;
-        pollQn.creator = item.creatorname;
+        pollQn.creator = item.creatorfname;
         pollQn.pollType = pollType;
         pollQn.index = index;
 

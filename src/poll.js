@@ -699,7 +699,8 @@
       forEachPoll(item, index, pollType, isAdmin) {
         const pollQn = {};
         pollQn.questiontext = item.questiontext;
-        pollQn.creator = item.creatorfname;
+        const name = virtualclass.poll.capitalizeFirstLetterFnameLname(item.creatorfname);
+        pollQn.creator = name;
         pollQn.pollType = pollType;
         pollQn.index = index;
 

@@ -494,6 +494,8 @@
         io.disconnect();
       }
 
+      // console.log('====> BEFORE LOAD dts order ', virtualclass.orderList[virtualclass.dts.appName].ol.order);
+      //
       // console.log("whiteboard --=-=-=- DISCONNECT IO");
       virtualclass.gObj.windowLoading = true;
       // If user does page refresh after session saved and does not start new session  by clicking on element
@@ -1864,11 +1866,18 @@
     },
 
     sendOrder(type, order) {
-      virtualclass.gObj.docOrder[type] = order;
-      const data = { order: JSON.stringify(virtualclass.gObj.docOrder) };
-      const url = virtualclass.api.UpdateRoomMetaData;
-      virtualclass.xhrn.vxhrn.post(url, data);
+      virtualclass.orderList[virtualclass.dts.appName].ol.order =  order;
+      // virtualclass.gObj.docOrder[type] = order;
+      if (virtualclass.config.makeWebSocketReady) {
+        const data = { order: JSON.stringify(virtualclass.orderList[virtualclass.dts.appName].ol.order) };
+        const url = virtualclass.api.UpdateRoomMetaData;
+        console.log('DTS ORDER 1 ', virtualclass.orderList[virtualclass.dts.appName].ol.order.length);
+        virtualclass.xhrn.vxhrn.post(url, data).then((res) => {
+          console.log('DTS ORDER 2 ', virtualclass.orderList[virtualclass.dts.appName].ol.order.length, res);
+        });
+      }
     },
+
     saveWbOrder(order) {
       if (order) {
         // localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
@@ -1882,7 +1891,9 @@
           if (response.data.Item != null && response.data.Item.order.S) {
             if (virtualclass.vutil.IsJsonString(response.data.Item.order.S)) {
               const responseData = JSON.parse(response.data.Item.order.S);
-              virtualclass.gObj.docOrder = responseData;
+              //virtualclass.gObj.docOrder = responseData;
+              virtualclass.orderList[virtualclass.dts.appName].ol.order = responseData;
+              // virtualclass.gObj.docOrder = responseData;
               cb(responseData[type]);
             }
           }

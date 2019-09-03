@@ -880,7 +880,7 @@ this["JST"]["dest_temp/templates/poll/result-modal.hbs"] = Handlebars.template({
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"VotedSoFar",{"name":"getString","hash":{},"data":data}))
     + "</label><div id=\"receivedVotes\"></div></div></div><div id=\"resultLayoutBody\"><div id=\"TqnPoll\" class=\"panel\"><label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
-    + " : <span id=\"qnLabelCont\">"
+    + " :<span id=\"qnLabelCont\">"
     + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.question : stack1), depth0))
     + "</span></label><div id=\"nonVotTqn\"> "
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")

@@ -288,3 +288,7 @@
   font-family: icomoon;
 }
 
+
+#virtualclassEditorRichBody .vceditor img{
+  max-width: 100%;
+}

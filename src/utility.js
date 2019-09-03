@@ -1894,7 +1894,7 @@
               //virtualclass.gObj.docOrder = responseData;
               virtualclass.orderList[virtualclass.dts.appName].ol.order = responseData;
               // virtualclass.gObj.docOrder = responseData;
-              cb(responseData[type]);
+              cb(responseData);
             }
           }
         });

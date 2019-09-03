@@ -426,23 +426,30 @@
           if (typeof slide !== 'undefined'){
             this.docs.currNote = slide;
           } else {
-            let i = 0;
-            for (; i < slides.length; i++) {
-              if (slides[i].status == 1) {
-                slide = slides[i].id;
-                break;
+            if (!virtualclass.dts.noteExist()) {
+              let i = 0;
+              for (; i < slides.length; i++) {
+                if (slides[i].status == 1) {
+                  slide = slides[i].id;
+                  break;
+                }
               }
+              this.docs.currNote = slide // first id if order is not defined
             }
-            this.docs.currNote = slide // first id if order is not defined
           }
           firstTime = false;
         }
 
-        if (roles.hasControls() && virtualclass.config.makeWebSocketReady) {
-          var addSlide = this.toggleSlideWithOrder(doc, slides);
-          console.log('====> adding slide ', addSlide);
+        let addSlide;
+        if (typeof docFetch !== 'undefined') {
+          addSlide = +docFetch;
+          if (roles.hasControls()) {
+            (docFetch == true) ? this.setLinkSelected(doc, 1) : this.setLinkSelected(doc, 0);
+          }
+        } else if (roles.hasControls()) {
+          addSlide = this.toggleSlideWithOrder(doc, slides);
         } else {
-          var addSlide = (typeof docFetch !== 'undefined') ? (+docFetch) : true;
+          addSlide = true;
         }
 
         // var addSlide = this.toggleSlideWithOrder(doc, slides);
@@ -499,6 +506,7 @@
                 const docsContainer = document.querySelector('#docScreenContainer');
                 if (docsContainer != null) {
                   docsContainer.classList.remove('noteDisplay');
+                  console.log('====> noteDisplay removing');
                 }
                 virtualclass.gObj.currWb = null;
 
@@ -1183,6 +1191,7 @@
               const docsContainer = document.querySelector('#docScreenContainer');
               if (docsContainer != null) {
                 docsContainer.classList.add('noteDisplay');
+                console.log('====> noteDisplay add');
               }
             },
 
@@ -1325,7 +1334,7 @@
           } else if (typeof this.docs.note === 'object' && dts.docn != this.docs.num) {
             this.docs.currNote = dts.slideTo;
             // console.log(`Current note ${this.docs.currNote}`);
-            this.docs.executeScreen(dts.docn, undefined);
+           // this.docs.executeScreen(dts.docn, undefined);
             this.docs.note.currentSlide(dts.slideTo);
           } else {
             const note = document.querySelector(`#note${dts.slideTo}`);
@@ -1880,7 +1889,11 @@
             this._delete(this.allDocs[key].fileuuid);
           }
         }
-      }
+      },
+
+      printOrderList() {
+        console.log(virtualclass.orderList.DocumentShare.ol.order);
+      },
     };
   };
   window.documentShare = documentShare;

@@ -1189,7 +1189,12 @@
                 && !(virtualclass.dts.pdfRender
                 && typeof virtualclass.dts.pdfRender[`_doc_${virtualclass.dts.docs.currNote}_${virtualclass.dts.docs.currNote}`] === 'object')) {
                 const note = document.getElementById(`note${virtualclass.dts.docs.currNote}`);
-                virtualclass.dts.docs.note.getScreen(note);
+                if (note != null ) {
+                  virtualclass.dts.docs.note.getScreen(note);
+                } else {
+                  console.log('note/slide container is not ready yet');
+                }
+
               }
             }
           }

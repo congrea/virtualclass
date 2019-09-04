@@ -1570,8 +1570,7 @@
   height: 7px;
   z-index: 1115;
   position: relative;
-  top: 7px;
-
+  top: -7px;
 }
 
 #virtualclassCont.congrea #playProgressBar .circle {
@@ -4024,7 +4023,7 @@ span#usertab_text {
 
 ::-webkit-scrollbar {
   width: 10px;
-  height: 8px;
+  height: 9px;
   background-color: #d9dbdc;
 }
 
@@ -4375,7 +4374,7 @@ span#usertab_text {
   padding: 6px 8px 6px 8px;
   float: left;
   margin: 0px;
-  margin-top: -41px;
+  margin-top: -50px;
   border-radius: 5px;
   pointer-events: none;
   z-index: 5000;
@@ -4666,4 +4665,10 @@ and (max-device-width: 1024px) {
     padding: 11px 18px 10px 18px;
   }
 
+}
+
+
+#playProgress #downloadProgress {
+  position: relative;
+  top: -14px;
 }

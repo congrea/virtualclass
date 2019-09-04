@@ -499,10 +499,8 @@
               // localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
             }
             if (roles.isStudent()) {
-              const cont = document.querySelector(`#cont${virtualclass.gObj.currWb}`);
-              if (cont != null) {
-                cont.style.display = 'block';
-              } else {
+              console.log('====> suman current whiteboard ', virtualclass.gObj.currWb);
+              if (!virtualclass.dts.noteExist()) {
                 const docsContainer = document.querySelector('#docScreenContainer');
                 if (docsContainer != null) {
                   docsContainer.classList.remove('noteDisplay');
@@ -521,8 +519,6 @@
                   zoom.classList.add('hideZoom');
                   zoom.classList.remove('showZoom');
                 }
-                // }
-                // }
               }
             }
           }

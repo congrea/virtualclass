@@ -2076,6 +2076,7 @@
               duration: null,
             },
             type: 'pie',
+
             onclick(d, i) {
               // console.log('onclick', d, i);
             },
@@ -2197,16 +2198,40 @@
         // if (chart) {
         //    chart.style.display = 'none';
         // }
+
+
+
         const graphData = {
           bindto: '#chart',
           data: Data,
           bar: { width: 100 },
+          axis: {
+            y: {
+              tick: {
+                format: function (d) {
+                  return (parseInt(d) == d) ? d : null;
+                },
+              },
+              label: 'Votes',
+            },
+
+          },
         };
+
+        // TODO, below property shoude be used instead of format method in above
+        //   scale: {
+        //     ticks: {
+        //       precision:0
+        //     }
+        //   }
+
+
         // On page refreseh, we need the width of parent node of #chart
         // displaying block #virtualclassApp is giving the correct width
         if (!virtualclass.config.makeWebSocketReady) {
           const virtualclassAppCont = document.querySelector('#virtualclassApp');
           virtualclassAppCont.style.display = 'block';
+
           virtualclass.poll.chart = c3.generate(graphData);
           virtualclassAppCont.style.display = 'none';
         } else {

@@ -237,14 +237,11 @@ const receiveFunctions = new function () {
       }
     }
 
-    if (typeof virtualclass.gObj.wbData[virtualclass.gObj.currWb] !== 'object') {
-      virtualclass.gObj.wbData[virtualclass.gObj.currWb] = [];
-    }
-
-    let i = 0;
-    for (; i < e.message.repObj.length; i++) {
-      virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
-    }
+    // let i = 0;
+    // for (; i < e.message.repObj.length; i++) {
+    //   virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
+    // }
+    virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
   };
 
   // Replay All, TODO, need to do verify

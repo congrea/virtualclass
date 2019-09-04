@@ -2365,6 +2365,13 @@
         this.showFullScreenButton();
       }
     },
+
+    storeWhiteboardAtInlineMemory(repObj) {
+      if (typeof virtualclass.gObj.wbData[virtualclass.gObj.currWb] !== 'object') {
+        virtualclass.gObj.wbData[virtualclass.gObj.currWb] = [];
+      }
+      virtualclass.gObj.wbData[virtualclass.gObj.currWb] = virtualclass.gObj.wbData[virtualclass.gObj.currWb].concat(repObj);
+    },
   };
   window.vutil = vutil;
 }(window));

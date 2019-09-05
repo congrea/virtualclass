@@ -1884,7 +1884,7 @@
       }
     },
 
-    requestOrder(type, cb) {
+    requestOrder(apptype, cb) {
       if (virtualclass.config.makeWebSocketReady) {
         const url = virtualclass.api.GetRoomMetaData;
         virtualclass.xhrn.vxhrn.post(url, { noting: true }).then((response) => {
@@ -1892,9 +1892,12 @@
             if (virtualclass.vutil.IsJsonString(response.data.Item.order.S)) {
               const responseData = JSON.parse(response.data.Item.order.S);
               //virtualclass.gObj.docOrder = responseData;
-              virtualclass.orderList[virtualclass.dts.appName].ol.order = responseData;
+              if (apptype === 'docs') {
+                cb(responseData);
+              } else {
+                (responseData[apptype]) ? cb(responseData[apptype]) : cb();
+              }
               // virtualclass.gObj.docOrder = responseData;
-              cb(responseData);
             }
           }
         });

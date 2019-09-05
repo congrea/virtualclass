@@ -185,7 +185,9 @@
           if (virtualclass.config.makeWebSocketReady) {
             this.requestOrder(this.executeOrder);
           } else {
-            this.executeOrder(virtualclass.gObj.docOrder.docs);
+            // this.executeOrder(virtualclass.gObj.docOrder.docs);
+             this.executeOrder(virtualclass.orderList.DocumentShare.ol.order);
+
           }
         }
 

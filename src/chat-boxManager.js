@@ -105,6 +105,8 @@ const chatboxManager = (function () {
       });
       boxList.push(id);
       showList.push(id);
+
+      virtualclass.chat.calculateViewPortForMessageBox();
     }
 
     // var chatBox = document.querySelector('#cb' + id);

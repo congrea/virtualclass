@@ -699,7 +699,7 @@
       forEachPoll(item, index, pollType, isAdmin) {
         const pollQn = {};
         pollQn.questiontext = item.questiontext;
-        const name = virtualclass.poll.capitalizeFirstLetterFnameLname(item.creatorfname);
+        const name = (item.creatorfname != "" || item.creatorfname != null) ? virtualclass.poll.capitalizeFirstLetterFnameLname(item.creatorfname) : virtualclass.poll.capitalizeFirstLetterFnameLname(item.creatorname);
         pollQn.creator = name;
         pollQn.pollType = pollType;
         pollQn.index = index;
@@ -2154,6 +2154,9 @@
       },
 
       capitalizeFirstLetterFnameLname(name) {
+        if (name == "" || name == null) {
+          return;
+        }
         const [firstname, lastname] = name.split(/\s*(?: |$)\s*/);
         const firstName = virtualclass.vutil.capitalizeFirstLetter(firstname);
         if (typeof lastname !== 'undefined') {

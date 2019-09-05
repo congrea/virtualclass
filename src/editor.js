@@ -722,6 +722,67 @@
           }, 0,
         );
       },
+
+      initAttachTool() {
+        const myStyleGroup = document.querySelector('.vceditor-btn-style-group');
+        const style = document.querySelector('.vceditor-btn-group.style-group');
+        myStyleGroup.appendChild(style);
+        const myListGroup = document.querySelector('.vceditor-btn-list-group');
+        const list = document.querySelector('.vceditor-btn-group.list-group');
+        myListGroup.appendChild(list);
+        const myIndentGroup = document.querySelector('.vceditor-btn-indent-group');
+        const indent = document.querySelector('.vceditor-btn-group.indent-group');
+        myIndentGroup.appendChild(indent);
+        const myParagraphGroup = document.querySelector('.vceditor-btn-paragraph-group');
+        const paragraph = document.querySelector('.vceditor-btn-group.paragraph-group');
+        myParagraphGroup.appendChild(paragraph);
+        // const myUndoGroup = document.querySelector('.vceditor-btn-undo-group');
+        // const undo = document.querySelector('.vceditor-btn-group.undo-group');
+        // myUndoGroup.appendChild(undo);
+
+        myStyleGroup.addEventListener('mousedown', this.editorNavBar.bind(this));
+        myListGroup.addEventListener('mousedown', this.editorNavBar.bind(this));
+        myIndentGroup.addEventListener('mousedown', this.editorNavBar.bind(this));
+        myParagraphGroup.addEventListener('mousedown', this.editorNavBar.bind(this));
+        // myUndoGroup.addEventListener('mousedown', this.editorNavBar.bind(this));
+        window.addEventListener('mouseup', this.editorTool.bind(this));
+      },
+
+      editorNavBar(ev) {
+        if (ev.target.classList[0] === 'vceditor-btn-style-group' || ev.target.classList[0] === 'vceditor-btn-list-group'
+        || ev.target.classList[0] === 'vceditor-btn-indent-group' || ev.target.classList[0] === 'vceditor-btn-paragraph-group') {
+          const openElement = document.querySelector('.vceditor-toolbar-wrapper .open');
+          const elem = document.querySelector(`.${ev.target.classList[0]}`);
+          if (openElement == null || !ev.currentTarget.classList.contains(openElement.classList[0])) {
+            virtualclass.editorRich.getEditorToolElem();
+            if (elem.classList.contains('close')) {
+              elem.classList.remove('close');
+              elem.classList.add('open');
+            } else if (elem.classList.contains('open')) {
+              elem.classList.remove('open');
+              elem.classList.add('close');
+            }
+          } else if (openElement != null && elem.classList.contains('open')) {
+            elem.classList.remove('open');
+            elem.classList.add('close');
+          }
+        }
+      },
+
+      editorTool(ev) {
+        const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
+        if (currApp !== null && currApp === 'EditorRich' && !ev.target.classList.contains('open')) {
+          virtualclass.editorRich.getEditorToolElem();
+        }
+      },
+
+      getEditorToolElem() {
+        const openElement = document.querySelector('.vceditor-toolbar-wrapper .open');
+        if (openElement != null) {
+          openElement.classList.remove('open');
+          openElement.classList.add('close');
+        }
+      },
     };
   };
 

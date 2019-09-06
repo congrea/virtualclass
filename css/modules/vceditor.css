@@ -497,6 +497,10 @@
   display: none;
 }
 
+#virtualclassCont.student[data-currapp="EditorRich"] {
+  pointer-events: none;
+}
 
-
-
+#virtualclassCont.tr_available[data-currapp="EditorRich"] {
+  pointer-events: visible;
+}

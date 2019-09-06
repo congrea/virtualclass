@@ -1866,14 +1866,23 @@
     },
 
     sendOrder(type, order) {
-      virtualclass.orderList[virtualclass.dts.appName].ol.order =  order;
+      let appName;
+      if (type === 'vid') {
+         appName = 'Video';
+      } else if (type === 'docs') {
+        appName = 'DocumentShare';
+      } else {
+        appName = virtualclass.currApp;
+      }
+
+      virtualclass.orderList[appName].ol.order =  order;
       // virtualclass.gObj.docOrder[type] = order;
       if (virtualclass.config.makeWebSocketReady) {
-        const data = { order: JSON.stringify(virtualclass.orderList[virtualclass.dts.appName].ol.order) };
+        const data = { order: JSON.stringify(virtualclass.orderList[appName].ol.order) };
         const url = virtualclass.api.UpdateRoomMetaData;
-        console.log('DTS ORDER 1 ', virtualclass.orderList[virtualclass.dts.appName].ol.order.length);
+        console.log('DTS ORDER 1 ', virtualclass.orderList[appName].ol.order.length);
         virtualclass.xhrn.vxhrn.post(url, data).then((res) => {
-          console.log('DTS ORDER 2 ', virtualclass.orderList[virtualclass.dts.appName].ol.order.length, res);
+          console.log('DTS ORDER 2 ', virtualclass.orderList[appName].ol.order.length, res);
         });
       }
     },

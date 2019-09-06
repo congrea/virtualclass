@@ -214,15 +214,14 @@ const ioEventApi = {
   },
 
   user_logout(e) {
-    // console.log('user_logout');
-
 
     if (!roles.hasControls()) {
       if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'whoIsTeacher')) {
         virtualclass.gObj.whoIsTeacher = virtualclass.vutil.whoIsTeacher();
       }
+
       // if teacher is log out
-      if (virtualclass.gObj.whoIsTeacher == e.fromUser) {
+      if (virtualclass.gObj.whoIsTeacher === e.fromUser) {
         const vcCont = document.querySelector('#virtualclassCont.congrea');
         if (vcCont && vcCont.classList.contains('tr_available')) {
           vcCont.classList.remove('tr_available');
@@ -235,9 +234,9 @@ const ioEventApi = {
     virtualclass.media.video.removeUser(e.fromUser);
     // TODO this should be update accordiing to new user
 
-    if (virtualclass.chat.isTechSupportExist(e.fromUser)) {
-      virtualclass.chat.disableTechSupport(e.fromUser);
-    }
+    // if (virtualclass.chat.isTechSupportExist(e.fromUser)) {
+    //   virtualclass.chat.disableTechSupport(e.fromUser);
+    // }
 
     const removeUser = e.fromUser;
     delete virtualclass.gObj.allUserObj[removeUser];

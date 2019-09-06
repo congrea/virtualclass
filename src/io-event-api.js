@@ -184,10 +184,19 @@ const ioEventApi = {
     }
 
     if (!roles.hasControls()) {
-      if (e.message.role === 't' || ((virtualclass.gObj.uid == virtualclass.jId) && virtualclass.vutil.whoIsTeacher())) {
-        const vcCont = document.querySelector('#virtualclassCont.congrea');
+      if (e.message[0].role === 't' || ((virtualclass.gObj.uid == virtualclass.jId) && virtualclass.vutil.whoIsTeacher())) {
+        const vcCont = document.getElementById('virtualclassCont');
         if (!vcCont.classList.contains('tr_available')) {
           vcCont.classList.add('tr_available');
+          if (virtualclass.gObj.editorAvailable) {
+            clearTimeout(virtualclass.gObj.editorAvailable);
+          }
+
+          if (virtualclass.currApp === 'editorRich') {
+            virtualclass.gObj.editorAvailable = setTimeout(() => {
+              virtualclass.editorRich.cm.setOption('readOnly', false);
+            }, 3000);
+          }
         }
       }
     }
@@ -214,7 +223,6 @@ const ioEventApi = {
   },
 
   user_logout(e) {
-
     if (!roles.hasControls()) {
       if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'whoIsTeacher')) {
         virtualclass.gObj.whoIsTeacher = virtualclass.vutil.whoIsTeacher();
@@ -222,9 +230,12 @@ const ioEventApi = {
 
       // if teacher is log out
       if (virtualclass.gObj.whoIsTeacher === e.fromUser) {
-        const vcCont = document.querySelector('#virtualclassCont.congrea');
+        const vcCont = document.getElementById('virtualclassCont');
         if (vcCont && vcCont.classList.contains('tr_available')) {
           vcCont.classList.remove('tr_available');
+          if (virtualclass.currApp === 'EditorRich' && roles.isStudent()) {
+            virtualclass.editorRich.cm.setOption('readOnly', 'nocursor');
+          }
         }
       }
     }

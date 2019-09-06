@@ -316,7 +316,6 @@
             this.toggleDisplayWriteModeMsgBox('EditorRich', action);
           }
 
-          // if((roles.isStudent() || roles.isEducator()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
           if ((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
             if (msg.status) {
               virtualclass.editorRich.enableEditorByOuterLayer();
@@ -324,7 +323,7 @@
               virtualclass.editorRich.disableEditorByOuterLayer();
             }
           }
-          virtualclass.vutil.setReadModeWhenTeacherIsDisConn('editorRich');
+          // virtualclass.vutil.setReadModeWhenTeacherIsDisConn('editorRich');
         },
 
         /**

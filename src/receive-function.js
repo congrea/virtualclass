@@ -13,7 +13,12 @@ const receiveFunctions = new function () {
   };
 
   this.control = function (e) {
-    virtualclass.user.control.onmessage(e);
+    if (roles.isStudent()) {
+      virtualclass.user.control.onmessage(e);
+    } else if (roles.hasControls()){
+
+      virtualclass.editorRich.collborateToolStatus = e.message.status;
+    }
   };
 
   // editor data

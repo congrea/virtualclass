@@ -140,7 +140,9 @@
           // const editorModestatus = localStorage.getItem(`${editorType}mode`);
           const editorModestatus = this.editorStatus;
           if (editorModestatus !== null) {
-            if ((editorType == 'editorRich' && editorModestatus == 'disable') || (editorType == 'editorCode' && editorModestatus == 'disable')) {
+            if (virtualclass.editorRich.collborateToolStatus) {
+              virtualclass.editorRich.disableCollaborateTool();
+            } else if (editorModestatus === 'disable') {
               editorControllerAnch.dataset.action = 'disable';
               // editorControllerAnch.innerHTML = "Disable all";
             }
@@ -149,28 +151,41 @@
 
           editorControllerAnch.addEventListener('click', () => {
             // console.log(`Editor type ${editorType} clicked`);
-            const editorControllerAnch = document.getElementById(`${containerId}Anch`);
-            if (editorControllerAnch != null) {
+            let editorControllerAnch = document.getElementById(`${containerId}Anch`);
+            if (editorControllerAnch !== null) {
               actionToPerform = editorControllerAnch.dataset.action;
-              if (editorControllerAnch.dataset.action == 'enable') {
-                editorControllerAnch.dataset.action = 'disable';
-                editorControllerAnch.classList.remove('icon-collaboratecrose');
-                editorControllerAnch.classList.add('icon-collaborate');
-                editorControllerAnch.parentNode.setAttribute('data-title', virtualclass.lang.getString('offcollaboration'));
-                // editorControllerAnch.innerHTML = "collaborate";
+              if (editorControllerAnch.dataset.action === 'enable') {
+                virtualclass.editorRich.disableCollaborateTool();
               } else {
-                editorControllerAnch.classList.remove('icon-collaborate');
-                editorControllerAnch.classList.add('icon-collaboratecrose');
-                editorControllerAnch.dataset.action = 'enable';
-                editorControllerAnch.parentNode.setAttribute('data-title', virtualclass.lang.getString('oncollaboration'));
+                virtualclass.editorRich.enableCollaborateTool();
                 // editorControllerAnch.innerHTML = "collaborate";
               }
             }
+
             // localStorage.setItem(`${editorType}mode`, editorControllerAnch.dataset.action);
             virtualclass.editorRich.editorStatus = editorControllerAnch.dataset.action;
             virtualclass.user.control.toggleAllEditorController.call(virtualclass.user, editorType, actionToPerform);
           });
         }
+      },
+
+      disableCollaborateTool() {
+        console.log("showing enable editor controller");
+        const editorControllerAnch = document.getElementById('alleditorRichContainerAnch');
+        editorControllerAnch.dataset.action = 'disable';
+        editorControllerAnch.classList.remove('icon-collaboratecrose');
+        editorControllerAnch.classList.add('icon-collaborate');
+        editorControllerAnch.parentNode.setAttribute('data-title', virtualclass.lang.getString('offcollaboration'));
+      },
+
+      enableCollaborateTool() {
+        console.log("showing disable editor controller");
+        const editorControllerAnch = document.getElementById('alleditorRichContainerAnch');
+        editorControllerAnch.classList.remove('icon-collaborate');
+        editorControllerAnch.classList.add('icon-collaboratecrose');
+        editorControllerAnch.dataset.action = 'enable';
+        editorControllerAnch.parentNode.setAttribute('data-title', virtualclass.lang.getString('oncollaboration'));
+
       },
 
       /**

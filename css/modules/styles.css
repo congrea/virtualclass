@@ -1702,8 +1702,8 @@
   font-size: 12px;
 }
 
-#virtualclassCont.congrea .vceditor-toolbar-wrapper div:nth-child(3), #virtualclassCont.congrea .vceditor-toolbar-wrapper div:nth-child(5), #virtualclassCont.congrea .vceditor-toolbar-wrapper div:nth-child(8) {
-  margin-right: 20px;
+#virtualclassCont.congrea .vceditor-toolbar-wrapper div:nth-child(3) {
+  margin-right: 8px;
   padding-right: 20px;
   border-right: #ccc 1px solid;
 }

@@ -725,17 +725,9 @@
 
       initAttachTool() {
         const myStyleGroup = document.querySelector('.vceditor-btn-style-group');
-        const style = document.querySelector('.vceditor-btn-group.style-group');
-        myStyleGroup.appendChild(style);
         const myListGroup = document.querySelector('.vceditor-btn-list-group');
-        const list = document.querySelector('.vceditor-btn-group.list-group');
-        myListGroup.appendChild(list);
         const myIndentGroup = document.querySelector('.vceditor-btn-indent-group');
-        const indent = document.querySelector('.vceditor-btn-group.indent-group');
-        myIndentGroup.appendChild(indent);
         const myParagraphGroup = document.querySelector('.vceditor-btn-paragraph-group');
-        const paragraph = document.querySelector('.vceditor-btn-group.paragraph-group');
-        myParagraphGroup.appendChild(paragraph);
 
         myStyleGroup.addEventListener('mousedown', this.editorNavBar.bind(this));
         myListGroup.addEventListener('mousedown', this.editorNavBar.bind(this));

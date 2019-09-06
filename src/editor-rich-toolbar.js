@@ -45,16 +45,30 @@
         utils.elt('div', [font], { class: 'vceditor-btn-group' }),
         utils.elt('div', [fontSize], { class: 'vceditor-btn-group' }),
         utils.elt('div', [color], { class: 'vceditor-btn-group' }),
-        utils.elt('div', null, { class: 'vceditor-btn-style-group close' }),
-        utils.elt('div', [self.makeButton_('bold'), self.makeButton_('italic'), self.makeButton_('underline'), self.makeButton_('strike', 'strikethrough')], { class: 'vceditor-btn-group style-group' }),
-        utils.elt('div', null, { class: 'vceditor-btn-list-group close' }),
-        utils.elt('div', [self.makeButton_('unordered-list', 'list-2'), self.makeButton_('ordered-list', 'numbered-list'), self.makeButton_('todo-list', 'list')], { class: 'vceditor-btn-group list-group' }),
-        utils.elt('div', null, { class: 'vceditor-btn-indent-group close' }),
-        utils.elt('div', [self.makeButton_('indent-decrease'), self.makeButton_('indent-increase')], { class: 'vceditor-btn-group indent-group' }),
-        utils.elt('div', null, { class: 'vceditor-btn-paragraph-group close' }),
-        utils.elt('div', [self.makeButton_('left', 'paragraph-left'), self.makeButton_('center', 'paragraph-center'), self.makeButton_('right', 'paragraph-right')], { class: 'vceditor-btn-group paragraph-group' }),
-        utils.elt('div', [self.makeButton_('undo'), self.makeButton_('redo')], { class: 'vceditor-btn-group undo-group' }),
       ];
+
+      const styleGroup = utils.elt('div', null, { class: 'vceditor-btn-style-group close' });
+      const styleGroupInner = utils.elt('div', [self.makeButton_('bold'), self.makeButton_('italic'), self.makeButton_('underline'), self.makeButton_('strike', 'strikethrough')], { class: 'vceditor-btn-group style-group' });
+      styleGroup.appendChild(styleGroupInner);
+      toolbarOptions.push(styleGroup);
+
+      const myListGroup = utils.elt('div', null, { class: 'vceditor-btn-list-group close' });
+      const list = utils.elt('div', [self.makeButton_('unordered-list', 'list-2'), self.makeButton_('ordered-list', 'numbered-list'), self.makeButton_('todo-list', 'list')], { class: 'vceditor-btn-group list-group' });
+      myListGroup.appendChild(list);
+      toolbarOptions.push(myListGroup);
+
+      const myIndentGroup = utils.elt('div', null, { class: 'vceditor-btn-indent-group close' });
+      const indent = utils.elt('div', [self.makeButton_('indent-decrease'), self.makeButton_('indent-increase')], { class: 'vceditor-btn-group indent-group' });
+      myIndentGroup.appendChild(indent);
+      toolbarOptions.push(myIndentGroup);
+
+      const myParagraphGroup = utils.elt('div', null, { class: 'vceditor-btn-paragraph-group close' });
+      const paragraph = utils.elt('div', [self.makeButton_('left', 'paragraph-left'), self.makeButton_('center', 'paragraph-center'), self.makeButton_('right', 'paragraph-right')], { class: 'vceditor-btn-group paragraph-group' });
+      myParagraphGroup.appendChild(paragraph);
+      toolbarOptions.push(myParagraphGroup);
+
+      const undo = utils.elt('div', [self.makeButton_('undo'), self.makeButton_('redo')], { class: 'vceditor-btn-group undo-group' });
+      toolbarOptions.push(undo);
 
       if (self.imageInsertionUI) {
         toolbarOptions.push(utils.elt('div', [self.makeButton_('insert-image')], { class: 'vceditor-btn-group' }));

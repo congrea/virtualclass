@@ -736,15 +736,11 @@
         const myParagraphGroup = document.querySelector('.vceditor-btn-paragraph-group');
         const paragraph = document.querySelector('.vceditor-btn-group.paragraph-group');
         myParagraphGroup.appendChild(paragraph);
-        // const myUndoGroup = document.querySelector('.vceditor-btn-undo-group');
-        // const undo = document.querySelector('.vceditor-btn-group.undo-group');
-        // myUndoGroup.appendChild(undo);
 
         myStyleGroup.addEventListener('mousedown', this.editorNavBar.bind(this));
         myListGroup.addEventListener('mousedown', this.editorNavBar.bind(this));
         myIndentGroup.addEventListener('mousedown', this.editorNavBar.bind(this));
         myParagraphGroup.addEventListener('mousedown', this.editorNavBar.bind(this));
-        // myUndoGroup.addEventListener('mousedown', this.editorNavBar.bind(this));
         window.addEventListener('mouseup', this.editorTool.bind(this));
       },
 
@@ -755,13 +751,8 @@
           const elem = document.querySelector(`.${ev.target.classList[0]}`);
           if (openElement == null || !ev.currentTarget.classList.contains(openElement.classList[0])) {
             virtualclass.editorRich.getEditorToolElem();
-            if (elem.classList.contains('close')) {
-              elem.classList.remove('close');
-              elem.classList.add('open');
-            } else if (elem.classList.contains('open')) {
-              elem.classList.remove('open');
-              elem.classList.add('close');
-            }
+            elem.classList.remove('close');
+            elem.classList.add('open');
           } else if (openElement != null && elem.classList.contains('open')) {
             elem.classList.remove('open');
             elem.classList.add('close');

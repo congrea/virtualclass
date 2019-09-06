@@ -962,6 +962,11 @@
       }
       this.config();
       if (this.isPlayFinished()) {
+        // Sometimes there would come session end packet before 1 or 2 towards end packets
+        // In that case, let play time would be equal to total time
+        if (this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('"cf":"sEnd"') > -1) {
+          this.playProgressBar(this.totalTimeInMiliSeconds);
+        }
         if (this.allFileFound) {
           this.askAgainToPlay();
         } else {
@@ -1380,6 +1385,11 @@
           virtualclass.recorder.allFileFound = true;
           clearInterval(this.triggerDownloaderTime.triggerDownloaderTime);
           if (this.isPlayFinished()) {
+            // Sometime there would come session end packet before 1 or 2 end packet
+            // In that case, let play time would be equal to total time
+            if (this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('"cf":"sEnd"') > -1) {
+              this.playProgressBar(this.totalTimeInMiliSeconds);
+            }
             this.askAgainToPlay();
           }
         } else {

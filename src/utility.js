@@ -1868,15 +1868,14 @@
     sendOrder(type, order) {
       let appName;
       if (type === 'vid') {
-         appName = 'Video';
+        appName = 'Video';
       } else if (type === 'docs') {
         appName = 'DocumentShare';
       } else {
         appName = virtualclass.currApp;
       }
 
-      virtualclass.orderList[appName].ol.order =  order;
-      // virtualclass.gObj.docOrder[type] = order;
+      virtualclass.orderList[appName].ol.order = order;
       if (virtualclass.config.makeWebSocketReady) {
         const data = { order: JSON.stringify(virtualclass.orderList[appName].ol.order) };
         const url = virtualclass.api.UpdateRoomMetaData;

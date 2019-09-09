@@ -64,7 +64,10 @@ var ioAdapter = {
     msg.serial = this.serial;
     this.adapterMustData[this.serial] = { type: 'broadcast', m: msg };
     this.send(msg);
-
+    if (msg.cf && msg.cf === 'repObj') {
+      // this is for storing the whiteboards data while unslecting and selecting the document
+      virtualclass.vutil.storeWhiteboardAtInlineMemory(msg.repObj);
+    }
   },
 
   send(msg) {

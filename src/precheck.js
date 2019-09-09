@@ -217,8 +217,6 @@ const preCheck = {
     curr: 'browser',
     next: 'bandwidth',
 
-    // TODO This should be simplyfied with isSystemCompatible() function at isSystemCompatible()
-
     perform() {
       const preCheck = '#preCheckcontainer .precheck';
 
@@ -391,7 +389,7 @@ const preCheck = {
     perform() {
       micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
 
-      const preCheck = '#preCheckcontainer .precheck';
+      let preCheck = '#preCheckcontainer .precheck';
 
       // virtualclass.precheck.updateProgressBar(this.curr);
       virtualclass.precheck.display(`${preCheck}.${this.curr}`);
@@ -400,7 +398,7 @@ const preCheck = {
       if (document.querySelector('#micTest') == null) {
         const micLable = document.createElement('div');
         micLable.id = 'micTest';
-        micLable.innerHTML = virtualclass.lang.getString('mictesting');
+        // micLable.innerHTML = virtualclass.lang.getString('mictesting');
 
         const selectorId = `${preCheck}.${this.curr}`;
         document.querySelector(`${selectorId} .result`).appendChild(micLable);
@@ -422,32 +420,40 @@ const preCheck = {
     },
 
     initAudioGraph() {
-      if (Object.prototype.hasOwnProperty.call(this, 'graph') && this.graph != null) {
-        const waveElem = document.querySelector('#audioGraph wave');
-        if (waveElem != null) {
-          waveElem.parentNode.removeChild(waveElem);
+      const micLable = document.getElementById('micTest');
+      micLable.innerHTML = virtualclass.lang.getString('microphoneNotConnected');
+      if (virtualclass.precheck.mediaStream) {
+        const audioTrackStream = virtualclass.precheck.mediaStream.getAudioTracks();
+        if (audioTrackStream.length > 0) {
+          if (Object.prototype.hasOwnProperty.call(this, 'graph') && this.graph != null) {
+            const waveElem = document.querySelector('#audioGraph wave');
+            if (waveElem != null) {
+              waveElem.parentNode.removeChild(waveElem);
+            }
+          }
+
+          this.graph = WaveSurfer.create({
+            container: '#audioGraph',
+            waveColor: 'green',
+            interact: false,
+            cursorWidth: 0,
+            audioContext: this.graphContext || null,
+            audioScriptProcessor: this.graphProcessor || null,
+            plugins: [WaveSurfer.microphone.create()],
+            height: 50,
+            maxCanvasWidth: 500,
+          });
+
+          this.graph.microphone.on('deviceReady', () => {
+            console.info('Device ready!');
+          });
+
+          this.graph.microphone.on('deviceError', (code) => {
+            console.warn(`Device error: ${code}`);
+          });
+          micLable.innerHTML = virtualclass.lang.getString('mictesting');
         }
       }
-
-      this.graph = WaveSurfer.create({
-        container: '#audioGraph',
-        waveColor: 'green',
-        interact: false,
-        cursorWidth: 0,
-        audioContext: this.graphContext || null,
-        audioScriptProcessor: this.graphProcessor || null,
-        plugins: [WaveSurfer.microphone.create()],
-        height: 50,
-        maxCanvasWidth: 500,
-      });
-
-      this.graph.microphone.on('deviceReady', () => {
-        console.info('Device ready!');
-      });
-
-      this.graph.microphone.on('deviceError', (code) => {
-        console.warn(`Device error: ${code}`);
-      });
     },
 
     audioOperation() {
@@ -465,9 +471,9 @@ const preCheck = {
     },
 
     visualize() {
-      if (this.graph != null && this.graph != undefined) {
+      //if (this.graph != null && this.graph != undefined) {
         // this.graph.microphone.start()
-      }
+      //}
       virtualclass.precheck.initHandler((`#preCheckcontainer .precheck #${this.curr}Buttons .prev`), this.curr);
       virtualclass.precheck.initHandler((`#preCheckcontainer .precheck #${this.curr}Buttons .next`), this.curr);
     },

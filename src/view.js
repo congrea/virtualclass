@@ -334,6 +334,8 @@
         }, 700,
       );
     }
+
+    virtualclass.chat.calculateViewPortForMessageBox();
   };
 
   window.view = view;

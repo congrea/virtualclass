@@ -494,6 +494,8 @@
         io.disconnect();
       }
 
+      // console.log('====> BEFORE LOAD dts order ', virtualclass.orderList[virtualclass.dts.appName].ol.order);
+      //
       // console.log("whiteboard --=-=-=- DISCONNECT IO");
       virtualclass.gObj.windowLoading = true;
       // If user does page refresh after session saved and does not start new session  by clicking on element
@@ -1390,7 +1392,7 @@
         upload.validation = ['doc', 'docx', 'txt', 'html', 'csv', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'xlt', 'png', 'jpg', 'gif', 'svg', 'tiff', 'rtf', 'xpm'];
         upload.cb = virtualclass.dts.onAjaxResponse;
         upload.cthis = 'docs';
-        upload.maxSize = 24 * 1000 * 1000; // 24MB
+        upload.maxSize = 100 * 1000 * 1000; // 100MB
         // upload.requesteEndPoint = window.webapi + "&methodname=congrea_image_converter&user="+virtualclass.gObj.uid;
         upload.requesteEndPoint = `${window.webapi}&methodname=congrea_image_converter&live_class_id=${virtualclass.gObj.congCourse}&status=1&content_type_id=1&user=${virtualclass.gObj.uid}`;
       }
@@ -1403,7 +1405,6 @@
 
 
       // upload.requesteEndPoint = "https://local.vidya.io/congrea_te_online/example/upload.php";
-
 
       virtualclass.fineUploader.uploaderFn(upload);
 
@@ -1865,26 +1866,47 @@
     },
 
     sendOrder(type, order) {
-      virtualclass.gObj.docOrder[type] = order;
-      const data = { order: JSON.stringify(virtualclass.gObj.docOrder) };
-      const url = virtualclass.api.UpdateRoomMetaData;
-      virtualclass.xhrn.vxhrn.post(url, data);
+      let appName;
+      if (type === 'vid') {
+         appName = 'Video';
+      } else if (type === 'docs') {
+        appName = 'DocumentShare';
+      } else {
+        appName = virtualclass.currApp;
+      }
+
+      virtualclass.orderList[appName].ol.order =  order;
+      // virtualclass.gObj.docOrder[type] = order;
+      if (virtualclass.config.makeWebSocketReady) {
+        const data = { order: JSON.stringify(virtualclass.orderList[appName].ol.order) };
+        const url = virtualclass.api.UpdateRoomMetaData;
+        console.log('DTS ORDER 1 ', virtualclass.orderList[appName].ol.order.length);
+        virtualclass.xhrn.vxhrn.post(url, data).then((res) => {
+          console.log('DTS ORDER 2 ', virtualclass.orderList[appName].ol.order.length, res);
+        });
+      }
     },
+
     saveWbOrder(order) {
       if (order) {
         // localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
       }
     },
 
-    requestOrder(type, cb) {
+    requestOrder(apptype, cb) {
       if (virtualclass.config.makeWebSocketReady) {
         const url = virtualclass.api.GetRoomMetaData;
         virtualclass.xhrn.vxhrn.post(url, { noting: true }).then((response) => {
           if (response.data.Item != null && response.data.Item.order.S) {
             if (virtualclass.vutil.IsJsonString(response.data.Item.order.S)) {
               const responseData = JSON.parse(response.data.Item.order.S);
-              virtualclass.gObj.docOrder = responseData;
-              cb(responseData[type]);
+              //virtualclass.gObj.docOrder = responseData;
+              if (apptype === 'docs') {
+                cb(responseData);
+              } else {
+                (responseData[apptype]) ? cb(responseData[apptype]) : cb();
+              }
+              // virtualclass.gObj.docOrder = responseData;
             }
           }
         });
@@ -2354,6 +2376,48 @@
       if (virtualclass.gObj.fullScreenMode) {
         this.showFullScreenButton();
       }
+    },
+
+    storeWhiteboardAtInlineMemory(repObj) {
+      if (typeof virtualclass.gObj.wbData[virtualclass.gObj.currWb] !== 'object') {
+        virtualclass.gObj.wbData[virtualclass.gObj.currWb] = [];
+      }
+      virtualclass.gObj.wbData[virtualclass.gObj.currWb] = virtualclass.gObj.wbData[virtualclass.gObj.currWb].concat(repObj);
+    },
+
+    attachWhiteboardPopupHandler(wId) {
+      window.addEventListener('mouseup', (ev) => {
+        const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
+        if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare')) {
+          if (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke') || Object.prototype.hasOwnProperty.call(ev.target.dataset, 'font')) {
+            const dropDown = (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke')) ? document.querySelector(`#t_strk${wId} .strkSizeList`) : document.querySelector(`#t_font${wId} .fontSizeList`);
+            virtualclass.wb[wId].closeElem(dropDown);
+          } else if (ev.target.classList.contains('icon-color') || ev.target.classList.contains('selected') || ev.target.classList.contains('congtooltip')) {
+            virtualclass.wb[wId].closeElem(document.querySelector(`#shapes${wId}`));
+          } else if (ev.target.classList.contains('icon-rectangle') || ev.target.classList.contains('icon-line')
+            || ev.target.classList.contains('icon-oval') || ev.target.classList.contains('icon-triangle')) {
+            virtualclass.wb[wId].closeElem(document.querySelector(`#shapes${wId}`));
+          } else {
+            const stroke = document.querySelector(`#t_strk${wId} .strkSizeList`);
+            const font = document.querySelector(`#t_font${wId} .fontSizeList`);
+            const colorList = document.querySelector(`#colorList${wId}`);
+            if (stroke !== null && stroke.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+              virtualclass.wb[wId].closeElem(stroke);
+            } else if (font !== null && font.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+              virtualclass.wb[wId].closeElem(font);
+            } else if (colorList !== null && colorList.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+              virtualclass.wb[wId].closeElem(colorList);
+            }
+
+            if (!ev.target.classList.contains('icon-shapes') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+              const shapes = document.querySelector(`#shapes${wId}`);
+              if (shapes !== null && shapes.classList.contains('open')) {
+                virtualclass.wb[wId].closeElem(shapes);
+              }
+            }
+          }
+        }
+      });
     },
   };
   window.vutil = vutil;

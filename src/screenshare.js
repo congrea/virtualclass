@@ -63,11 +63,9 @@ let globalImageData = {};
           virtualclass.studentScreen.setDimension();
           renderImage(imageData);
           virtualclass.studentScreen.triggerFitToScreene(e.data.stype);
-          if (virtualclass.connectedUsers != null) {
-            const teacher = virtualclass.vutil.getUserAllInfo(e.data.uid, virtualclass.connectedUsers);
-            if ((teacher.role !== 't' && roles.isStudent() && !virtualclass.gObj.studentSSstatus.shareToAll)) {
-              receiveFunctions.sview({ message: 'firstSs' });
-            }
+          const teacher = virtualclass.vutil.getUserAllInfo(e.data.uid, virtualclass.connectedUsers);
+          if ((teacher && teacher.role !== 't' && roles.isStudent() && !virtualclass.gObj.studentSSstatus.shareToAll)) {
+            receiveFunctions.sview({ message: 'firstSs' });
           }
         } else {
           renderImage(imageData);

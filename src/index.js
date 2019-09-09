@@ -17,6 +17,8 @@ $.uiBackCompat = false;
     await virtualclass.serverData.syncAllData().then(() => {
       if (virtualclass.currApp === 'DocumentShare' && virtualclass.dts) {
         virtualclass.dts.updateScreen();
+      } else if (virtualclass.currApp === 'Video' && typeof virtualclass.videoUl.UI.rawVideoList() == 'object') {
+        virtualclass.videoUl.UI.rawVideoList();
       }
     });
     bootStraper.notifyAboutCPU();

@@ -21,7 +21,7 @@
       exportfilepath: window.exportfilepath,
       quizSt: {}, // used for storage
       quizAttempted: {}, // used for storage
-      qGrade: [], // used for storage
+      // qGrade: [], // used for storage
       initToFetch: true,
       init() {
         virtualclass.previrtualclass = 'virtualclassQuiz';
@@ -86,16 +86,16 @@
         this.tabContent();
         this.displayQuizModalBox();
 
-        if (Object.prototype.hasOwnProperty.call(msg.data, 'qAttempt')) {
-          alert('performing attempt');
-          this.quizAttempted = JSON.parse(msg.data.qAttempt);
-          this.displayAttemptOverview();
-        }
-        if (Object.prototype.hasOwnProperty.call(msg.data, 'qGrade')) {
-          alert('performing grade');
-          this.qGrade = JSON.parse(msg.data.qGrade);
-          this.displayGradeReport();
-        }
+        // if (Object.prototype.hasOwnProperty.call(msg.data, 'qAttempt')) {
+        //   alert('performing attempt');
+        //   this.quizAttempted = JSON.parse(msg.data.qAttempt);
+        //   this.displayAttemptOverview();
+        // }
+        // if (Object.prototype.hasOwnProperty.call(msg.data, 'qGrade')) {
+        //   alert('performing grade');
+        //   this.qGrade = JSON.parse(msg.data.qGrade);
+        //   this.displayGradeReport();
+        // }
         // if (typeof storedData != 'undefined' && storedData.qClosed == 'true') {  // TODO, need to find what it is ?
         //   document.getElementById('closeQzBt').disabled = true;
         // }
@@ -371,7 +371,7 @@
           displayDetailResult: false,
           // ptm: new Date().getTime(), // published time
         };
-
+        virtualclass.quiz.publishedTime = Date.now();
         // send data to student
         ioAdapter.mustSend({
           quiz: {
@@ -559,26 +559,31 @@
 
         // Event triggerd on quiz submit
         if (msg.quiz.quizMsg === 'quizsubmitted') {
+          this.submittedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
           if (roles.hasControls()) {
-            this.usersFinishedQz.push(msg.quiz.user);
-            const ct = this.usersFinishedQz.length;
+            console.log('===> quiz result quizsubmitted ');
+            if (this.submittedTime > this.publishedTime) {
+              this.usersFinishedQz.push(msg.quiz.user);
+              const ct = this.usersFinishedQz.length;
+              const userName = virtualclass.poll.capitalizeFirstLetterFnameLname(fromUser.name);
+              const name = (!typeof fromUser.lname === 'undefined') ? `${fromUser.name} ${fromUser.lname}` : userName;
+              this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans, fromUser.userid);
 
-            const name = (!typeof fromUser.lname === 'undefined') ? `${fromUser.name} ${fromUser.lname}` : fromUser.name;
+              // this.qGrade.push({
+              //   nm: name,
+              //   tt: msg.quiz.timetaken,
+              //   sc: msg.quiz.score,
+              //   qAt: msg.quiz.quesattemptd,
+              //   ca: msg.quiz.correctans,
+              // });
+              // save data in LMS DB
+              if (virtualclass.config.makeWebSocketReady) {
+                this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
+              }
 
-            this.gradeReport(ct, name, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
-
-            this.qGrade.push({
-              nm: name,
-              tt: msg.quiz.timetaken,
-              sc: msg.quiz.score,
-              qAt: msg.quiz.quesattemptd,
-              ca: msg.quiz.correctans,
-            });
-            // save data in LMS DB
-            this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
+            }
           } else {
-            this.submittedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
-            if (vthis.submittedTime > vthis.publishedTime) {
+            if (this.submittedTime > this.publishedTime) {
               const quizBodyContainer = document.getElementById('contQzBody');
               if (quizBodyContainer != null) {
                 quizBodyContainer.parentNode.removeChild(quizBodyContainer);
@@ -590,6 +595,7 @@
             }
           }
         }
+
       },
 
       /**
@@ -650,13 +656,13 @@
        * @param {null}
        * @return
        */
-      displayGradeReport() {
-        const that = virtualclass.quiz;
-        for (let i = 0; i < that.qGrade.length; i++) {
-          that.gradeReport(i + 1, that.qGrade[i].nm, that.qGrade[i].tt,
-            that.qGrade[i].sc, that.qGrade[i].qAt, that.qGrade[i].ca);
-        }
-      },
+      // displayGradeReport() {
+      //   const that = virtualclass.quiz;
+      //   for (let i = 0; i < that.qGrade.length; i++) {
+      //     that.gradeReport(i + 1, that.qGrade[i].nm, that.qGrade[i].tt,
+      //       that.qGrade[i].sc, that.qGrade[i].qAt, that.qGrade[i].ca);
+      //   }
+      // },
 
       /**
        * create progress overview page with
@@ -727,10 +733,16 @@
        * @param {string} td6v no of correct answer
        * @return null
        */
-      gradeReport(td1v, td2v, td3v, td4v, td5v, td6v) {
+      gradeReport(td1v, td2v, td3v, td4v, td5v, td6v, userId) {
         const tbody = document.getElementById('qzReTbody');
         if (tbody) {
-          const tr = document.createElement('tr');
+          let tr = document.getElementById(`user${userId}`);
+          if (tr !== null) {
+            td1v = tr.childNodes[0].innerHTML; // COUNTER
+            tr.parentNode.removeChild(tr);
+          }
+          tr = document.createElement('tr');
+          tr.id = `user${userId}`;
           tbody.appendChild(tr);
 
           const th = document.createElement('th');
@@ -1321,31 +1333,35 @@
             if (sqm) {
               msgPage.removeChild(sqm);
             }
+            var resultDiv = document.getElementById('resultDiv');
+            if (resultDiv != null) {
+              resultDiv.parentNode.removeChild(resultDiv);
+            }
             const resPage = virtualclass.view.customCreateElement('div', 'resultDiv');
             msgPage.appendChild(resPage);
 
             const noOfQ = document.createElement('h4');
-            noOfQ.innerHTML = `<span class='col-md-4'> Total no of questions </span>  <span class='nfqh'>: &nbsp;  ${data.noofqus}</span>`;
+            noOfQ.innerHTML = `Total no of questions<span class='nfqh'>: ${data.noofqus}</span>`;
             resPage.appendChild(noOfQ);
 
             const tt = document.createElement('h4');
-            tt.innerHTML = ` <span class='col-md-4'> Time taken </span><span class='tth'> : &nbsp;   ${data.timetaken}</span>`;
+            tt.innerHTML = `Time taken<span class='tth'> : ${data.timetaken}</span>`;
             resPage.appendChild(tt);
 
             const mm = document.createElement('h4');
-            mm.innerHTML = ` <span class='col-md-4'> Maximum mark </span><span class='mmh'>: &nbsp;  ${data.maxmarks}</span>`;
+            mm.innerHTML = `Maximum mark<span class='mmh'>: ${(+data.maxmarks).toFixed(2)}</span>`;
             resPage.appendChild(mm);
 
             const ca = document.createElement('h4');
-            ca.innerHTML = `<span class='col-md-4'> Correct answers </span><span class='cah'>: &nbsp;  ${data.correctans}</span>`;
+            ca.innerHTML = `Correct answers<span class='cah'>: ${data.correctans}</span>`;
             resPage.appendChild(ca);
 
             const qa = document.createElement('h4');
-            qa.innerHTML = ` <span class='col-md-4'> Questions attempted</span> <span class='qah'>: &nbsp;  ${data.quesattemptd}</span>`;
+            qa.innerHTML = `Questions attempted<span class='qah'>: ${data.quesattemptd}</span>`;
             resPage.appendChild(qa);
 
-            const sc = document.createElement('h4');
-            sc.innerHTML = ` <span class='col-md-4'> You Scored </span> <span class='sch'>: &nbsp;  ${data.score}</span>`;
+            const sc = document.createElement('h3');
+            sc.innerHTML = `You Scored<span class='sch'>: <i>${data.score}</i></span>`;
             resPage.appendChild(sc);
 
             resPage.style.display = 'block';
@@ -1553,6 +1569,13 @@
           return totalTimeInSec;
         }
       },
+
+      scrollToTop() {
+        const quizArea = document.querySelector('#slickQuiz .quizArea');
+        if (quizArea != null) {
+          quizArea.scrollTop  = 0;
+        }
+    }
     };
     // return _quiz;
   };

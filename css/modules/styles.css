@@ -1570,8 +1570,7 @@
   height: 7px;
   z-index: 1115;
   position: relative;
-  top: 7px;
-
+  top: -7px;
 }
 
 #virtualclassCont.congrea #playProgressBar .circle {
@@ -1665,7 +1664,7 @@
 }
 
 #virtualclassCont.congrea #playController #recPlayCont #recPlay.congtooltip:hover:after, #virtualclassCont.congrea #playController #recPauseCont #recPause.congtooltip:hover:after {
-  bottom: 46px !important;
+  bottom: 53px !important;
   right: 10px !important;
   padding: .4em .8em;
   letter-spacing: 1px;
@@ -1703,8 +1702,8 @@
   font-size: 12px;
 }
 
-#virtualclassCont.congrea .vceditor-toolbar-wrapper div:nth-child(3), #virtualclassCont.congrea .vceditor-toolbar-wrapper div:nth-child(5), #virtualclassCont.congrea .vceditor-toolbar-wrapper div:nth-child(8) {
-  margin-right: 20px;
+#virtualclassCont.congrea .vceditor-toolbar-wrapper div:nth-child(3) {
+  margin-right: 8px;
   padding-right: 20px;
   border-right: #ccc 1px solid;
 }
@@ -4024,7 +4023,7 @@ span#usertab_text {
 
 ::-webkit-scrollbar {
   width: 10px;
-  height: 8px;
+  height: 9px;
   background-color: #d9dbdc;
 }
 
@@ -4375,7 +4374,7 @@ span#usertab_text {
   padding: 6px 8px 6px 8px;
   float: left;
   margin: 0px;
-  margin-top: -41px;
+  margin-top: -50px;
   border-radius: 5px;
   pointer-events: none;
   z-index: 5000;
@@ -4666,4 +4665,10 @@ and (max-device-width: 1024px) {
     padding: 11px 18px 10px 18px;
   }
 
+}
+
+
+#playProgress #downloadProgress {
+  position: relative;
+  top: -14px;
 }

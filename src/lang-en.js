@@ -127,6 +127,7 @@
     mediumBandWidthSpeed: 'Your bandwidth is limited, we are reducing video quality based on your available bandwidth.',
     minCommonChat: 'Hide chat window',
     minoption: 'Enter at least two options',
+    microphoneNotConnected: 'Microphone is not available, or not connected properly',
     // 'mictesting' : 'If above audio bar fluctuate while you speak, microphone is working.',
     mictesting: 'Microphone is working, if above audio bar fluctuates <br />'
     + 'and you are able to hear your own voice, while you speak',
@@ -425,6 +426,7 @@
     GroupChat: 'common chat',
     RaiseHand: 'raise hand',
     UserList: 'user list',
+    uploading: 'Processing...',
     /* For Chrome */
     PermissionDeniedErrorExt: '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'
     + 'Go to camera icon on top right of the screen <br /> '

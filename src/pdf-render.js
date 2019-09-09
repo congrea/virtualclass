@@ -145,9 +145,10 @@
           this._scroll(leftPosX, topPosY, elem, 'X');
         }
 
-
-        if (!roles.hasControls()) {
+        if (!roles.hasControls() && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] === 'object') {
           virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition({ scX: leftPosX, scY: topPosY });
+        } else {
+          console.log("Could not call scroll function for student");
         }
       },
 
@@ -386,7 +387,7 @@
             canvas.width = virtualclass.zoom.diffrentDocumentWidth;
             delete virtualclass.zoom.diffrentDocumentWidth;
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
-            console.log('====> FIT to screen 1');
+            // console.log('====> FIT to screen 1');
             canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas();
             console.log('==== a canvas width fit to screen ', canvas.width);
             console.log('RIGHT SIDE BAR WIDTH ', virtualclass.zoom.getReduceValueForCanvas())
@@ -412,7 +413,7 @@
             this.firstTime = false;
             // console.log('## WHITEBOARD Canvas = ', virtualclass.zoom.prvCanvasScale, ' ID ', virtualclass.gObj.currWb);
             if (virtualclass.zoom.canvasScale == null || virtualclass.gObj.fitToScreen) {
-              console.log('====> FIT to screen 2');
+              // console.log('====> FIT to screen 2');
               viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
               //console.log('==== a jai canvas scale 1 ', canvas.width, ' ', page.getViewport(1.0).width);
               // virtualclass.zoom.canvasScale =  viewport.scale;
@@ -423,7 +424,7 @@
 
           } else {
             viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
-            console.log('====> FIT to screen 2');
+            // console.log('====> FIT to screen 2');
             //console.log('==== a jai canvas scale 3 ', canvas.width, ' ', page.getViewport(1.0).width);
           }
 
@@ -554,7 +555,7 @@
           const { vcan } = virtualclass.wb[wId];
           const objects = vcan.main.children;
           if (objects.length > 0) {
-            console.log('====> FIT to screen 3 whiteboard ', wId);
+            // console.log('====> FIT to screen 3 whiteboard ', wId);
             for (const i in objects) {
               const { scaleX } = objects[i];
               const { scaleY } = objects[i];

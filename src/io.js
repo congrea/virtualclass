@@ -341,7 +341,6 @@ var io = {
         }
 
         virtualclass.ioEventApi.readyto_user_logout(receivemsg);
-
         break;
       case 'Unauthenticated':
         // console.log('Case:- unauthenticated');

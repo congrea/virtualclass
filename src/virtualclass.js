@@ -812,7 +812,7 @@
 
 
         whiteboardActual(app, cusEvent, id) {
-
+          virtualclass.gObj.readyToCreate = true;
           //console.log('====> call whiteboard actual');
           let whiteboardContainer;
           if (app === 'Whiteboard') {
@@ -969,40 +969,7 @@
 
             /** TODO, move code to utilit.js and should not be invoked from here **/
             console.log("=====> whiteboard mouse up ");
-
-            window.addEventListener('mouseup', (ev) => {
-              const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
-              if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare')) {
-                if (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke') || Object.prototype.hasOwnProperty.call(ev.target.dataset, 'font')) {
-                  const dropDown = (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke')) ? document.querySelector(`#t_strk${virtualclass.gObj.currWb} .strkSizeList`) : document.querySelector(`#t_font${virtualclass.gObj.currWb} .fontSizeList`);
-                  virtualclass.wb[virtualclass.gObj.currWb].closeElem(dropDown);
-                } else if (ev.target.classList.contains('icon-color') || ev.target.classList.contains('selected') || ev.target.classList.contains('congtooltip')) {
-                  virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector(`#shapes${virtualclass.gObj.currWb}`));
-                } else if (ev.target.classList.contains('icon-rectangle') || ev.target.classList.contains('icon-line')
-                  || ev.target.classList.contains('icon-oval') || ev.target.classList.contains('icon-triangle')) {
-                  virtualclass.wb[virtualclass.gObj.currWb].closeElem(document.querySelector(`#shapes${virtualclass.gObj.currWb}`));
-                } else {
-                  const stroke = document.querySelector(`#t_strk${virtualclass.gObj.currWb} .strkSizeList`);
-                  const font = document.querySelector(`#t_font${virtualclass.gObj.currWb} .fontSizeList`);
-                  const colorList = document.querySelector(`#colorList${virtualclass.gObj.currWb}`);
-                  if (stroke !== null && stroke.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
-                    virtualclass.wb[virtualclass.gObj.currWb].closeElem(stroke);
-                  } else if (font !== null && font.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
-                    virtualclass.wb[virtualclass.gObj.currWb].closeElem(font);
-                  } else if (colorList !== null && colorList.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
-                    virtualclass.wb[virtualclass.gObj.currWb].closeElem(colorList);
-                  }
-
-                  if (!ev.target.classList.contains('icon-shapes') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
-                    const shapes = document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
-                    if (shapes !== null && shapes.classList.contains('open')) {
-                      virtualclass.wb[virtualclass.gObj.currWb].closeElem(shapes);
-                    }
-                  }
-                }
-              }
-            });
-
+           virtualclass.vutil.attachWhiteboardPopupHandler(id);
           } else {
             if (roles.isStudent() && app === 'Whiteboard') {
               virtualclass.wbCommon.setCurrSlideNumber(id);
@@ -1189,7 +1156,12 @@
                 && !(virtualclass.dts.pdfRender
                 && typeof virtualclass.dts.pdfRender[`_doc_${virtualclass.dts.docs.currNote}_${virtualclass.dts.docs.currNote}`] === 'object')) {
                 const note = document.getElementById(`note${virtualclass.dts.docs.currNote}`);
-                virtualclass.dts.docs.note.getScreen(note);
+                if (note != null ) {
+                  virtualclass.dts.docs.note.getScreen(note);
+                } else {
+                  console.log('note/slide container is not ready yet');
+                }
+
               }
             }
           }

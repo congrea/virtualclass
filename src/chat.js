@@ -335,6 +335,28 @@
           }
         }
       },
+
+      calculateViewPortForMessageBox() {
+        const allNodes = document.querySelectorAll('#tabs .ui-widget.ui-chatbox');
+        if (allNodes != null) {
+          let totalWidth = 0;
+          let i = 0;
+          for (; i < allNodes.length; i++) {
+            totalWidth += allNodes[i].offsetWidth;
+          }
+
+          const mainContaineridth = document.getElementById('virtualclassAppContainer').offsetWidth;
+          if (totalWidth > mainContaineridth) {
+            const tobeClosed = document.querySelector('#tabs .ui-widget.ui-chatbox');
+            if (tobeClosed != null) {
+              const closeSpan = tobeClosed.querySelector('span.icon-close');
+              if (closeSpan !=  null) {
+                closeSpan.parentNode.click(); // Cliking on close button
+              }
+            }
+          }
+        }
+      },
     };
   };
   window.Chat = Chat;

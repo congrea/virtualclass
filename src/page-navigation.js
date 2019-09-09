@@ -472,7 +472,10 @@
         add.className = 'icon-newPage congtooltip'; // to be removed
         add.setAttribute('data-title', virtualclass.lang.getString('newPage'));
         add.addEventListener('click', function () {
-          virtualclass.wbCommon.indexNav.newWbpage(this.type);
+          if (virtualclass.gObj.readyToCreate) {
+            virtualclass.gObj.readyToCreate = false;
+            virtualclass.wbCommon.indexNav.newWbpage(this.type);
+          }
         });
       }
     },

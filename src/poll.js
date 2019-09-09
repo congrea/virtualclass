@@ -699,7 +699,8 @@
       forEachPoll(item, index, pollType, isAdmin) {
         const pollQn = {};
         pollQn.questiontext = item.questiontext;
-        pollQn.creator = item.creatorname;
+        const name = (item.creatorfname != "" || item.creatorfname != null) ? virtualclass.poll.capitalizeFirstLetterFnameLname(item.creatorfname) : virtualclass.poll.capitalizeFirstLetterFnameLname(item.creatorname);
+        pollQn.creator = name;
         pollQn.pollType = pollType;
         pollQn.index = index;
 
@@ -2075,6 +2076,7 @@
               duration: null,
             },
             type: 'pie',
+
             onclick(d, i) {
               // console.log('onclick', d, i);
             },
@@ -2142,13 +2144,29 @@
         tbody.appendChild(listItem);
 
         var elem = document.createElement('td');
-        elem.innerHTML = item.username;
+        const name = virtualclass.poll.capitalizeFirstLetterFnameLname(item.username);
+        elem.innerHTML = name;
         listItem.appendChild(elem);
 
         var elem = document.createElement('td');
         elem.innerHTML = optedVal[val];
         listItem.appendChild(elem);
       },
+
+      capitalizeFirstLetterFnameLname(name) {
+        if (name == "" || name == null) {
+          return;
+        }
+        const [firstname, lastname] = name.split(/\s*(?: |$)\s*/);
+        const firstName = virtualclass.vutil.capitalizeFirstLetter(firstname);
+        if (typeof lastname !== 'undefined') {
+          const lastName = virtualclass.vutil.capitalizeFirstLetter(lastname);
+          return `${firstName} ${lastName}`;
+        } else {
+          return `${firstName}`;
+        }
+      },
+
       barGraph() {
         // const chart = document.getElementById('chart');
         // if (chart) {
@@ -2183,16 +2201,40 @@
         // if (chart) {
         //    chart.style.display = 'none';
         // }
+
+
+
         const graphData = {
           bindto: '#chart',
           data: Data,
           bar: { width: 100 },
+          axis: {
+            y: {
+              tick: {
+                format: function (d) {
+                  return (parseInt(d) == d) ? d : null;
+                },
+              },
+              label: 'Votes',
+            },
+
+          },
         };
+
+        // TODO, below property shoude be used instead of format method in above
+        //   scale: {
+        //     ticks: {
+        //       precision:0
+        //     }
+        //   }
+
+
         // On page refreseh, we need the width of parent node of #chart
         // displaying block #virtualclassApp is giving the correct width
         if (!virtualclass.config.makeWebSocketReady) {
           const virtualclassAppCont = document.querySelector('#virtualclassApp');
           virtualclassAppCont.style.display = 'block';
+
           virtualclass.poll.chart = c3.generate(graphData);
           virtualclassAppCont.style.display = 'none';
         } else {

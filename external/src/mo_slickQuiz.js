@@ -598,6 +598,7 @@
                 }
 
                 internal.method.turnKeyAndGo (key, options && options.callback ? options.callback : function () {});
+
             },
 
             // Moves to the next question OR completes the quiz if on last question
@@ -651,6 +652,7 @@
                 }
 
                 internal.method.turnKeyAndGo (key, options && options.callback ? options.callback : function () {});
+                virtualclass.quiz.scrollToTop();
             },
 
             // Go back to the last question
@@ -734,6 +736,7 @@
                 }
 
                 internal.method.turnKeyAndGo (key, options && options.callback ? options.callback : function () {});
+              virtualclass.quiz.scrollToTop();
             },
 
             diaplayQuestion: function(currButton, options) {
@@ -802,6 +805,7 @@
                 }*/
 
                 //internal.method.turnKeyAndGo (key, options && options.callback ? options.callback : function () {});
+              virtualclass.quiz.scrollToTop();
             },
             // flag questions
             flagQuestion: function(flagButton, options) {
@@ -970,35 +974,25 @@
                         }
 
                         /* Don't send quiz data twice when user would join after end the session */
-                        virtualclass.quiz.timeQuizComplete = setTimeout(
+                        if (virtualclass.config.makeWebSocketReady) {
+                          virtualclass.quiz.timeQuizComplete = setTimeout(
                             function (){
-                                console.log('quiz submit from ' + virtualclass.gObj.uid);
-                                virtualclass.quiz.sendSubmittedQuiz(
-                                  {
-                                    quizMsg: 'quizsubmitted',
-                                    timetaken : tt,
-                                    quesattemptd: aAttempted,
-                                    correctans : currectAns,
-                                    score: grade.toFixed(2),
-                                    user: virtualclass.gObj.uid,
-                                    maxmarks: quizValues.info.results,
-                                    noofqus: questionCount,
-                                  }
-                                );
-                                // ioAdapter.mustSendUser({
-                                //     'quiz': {
-                                //         quizMsg: 'quizsubmitted',
-                                //         timetaken : tt,
-                                //         quesattemptd: aAttempted,
-                                //         correctans : currectAns,
-                                //         score: grade.toFixed(2),
-                                //         user: virtualclass.gObj.uid,
-                                //         maxmarks: quizValues.info.results,
-                                //         noofqus: questionCount,
-                                //     },
-                                //     'cf': 'quiz'
-                                // }, teacherID);
+                              console.log('quiz submit from ' + virtualclass.gObj.uid);
+                              virtualclass.quiz.sendSubmittedQuiz(
+                                {
+                                  quizMsg: 'quizsubmitted',
+                                  timetaken : tt,
+                                  quesattemptd: aAttempted,
+                                  correctans : currectAns,
+                                  score: grade.toFixed(2),
+                                  user: virtualclass.gObj.uid,
+                                  maxmarks: quizValues.info.results,
+                                  noofqus: questionCount,
+                                }
+                              );
                             }, 300);
+                        }
+
 
 
 

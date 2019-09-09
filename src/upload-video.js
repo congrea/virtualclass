@@ -233,6 +233,7 @@
 
         if (Object.prototype.hasOwnProperty.call(vidObj, 'noVideo')) {
           vid.classList.add('noVideo');
+          document.querySelector('.noVideo .playDisable').title = virtualclass.lang.getString('uploading');
         }
       },
 
@@ -268,6 +269,10 @@
               const elem = document.querySelector(`#linkvideo${vidObj.fileuuid}`);
               if (elem != null) {
                 elem.classList.remove('noVideo');
+                const playDisable = document.querySelector('.noVideo .playDisable');
+                if (playDisable != null) {
+                  playDisable.title = virtualclass.lang.getString('Play');
+                }
               }
               virtualclass.videoUl.afterUploadFile(vidObj);
             }

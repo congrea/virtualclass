@@ -13,7 +13,12 @@ const receiveFunctions = new function () {
   };
 
   this.control = function (e) {
-    virtualclass.user.control.onmessage(e);
+    if (roles.isStudent()) {
+      virtualclass.user.control.onmessage(e);
+    } else if (roles.hasControls()){
+
+      virtualclass.editorRich.collborateToolStatus = e.message.status;
+    }
   };
 
   // editor data
@@ -223,7 +228,7 @@ const receiveFunctions = new function () {
   // Create mouse
   this.createArrow = function (e) {
     if (typeof virtualclass.wb === 'object') {
-      if (!roles.hasControls()) {
+      if (!roles.hasControls() && virtualclass.wb[virtualclass.gObj.currWb]) {
         virtualclass.wb[virtualclass.gObj.currWb].response.createArrow(e.message);
       }
     }
@@ -237,14 +242,11 @@ const receiveFunctions = new function () {
       }
     }
 
-    if (typeof virtualclass.gObj.wbData[virtualclass.gObj.currWb] !== 'object') {
-      virtualclass.gObj.wbData[virtualclass.gObj.currWb] = [];
-    }
-
-    let i = 0;
-    for (; i < e.message.repObj.length; i++) {
-      virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
-    }
+    // let i = 0;
+    // for (; i < e.message.repObj.length; i++) {
+    //   virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
+    // }
+    virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
   };
 
   // Replay All, TODO, need to do verify

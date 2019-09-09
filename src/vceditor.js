@@ -1676,6 +1676,7 @@ const Vceditor = (function (window) {
       if (this.getOption('richTextToolbar', false)) {
         this.addToolbar_();
         this.vcEditorWrapper_.className += ' vceditor-richtext vceditor-with-toolbar';
+        virtualclass.editorRich.initAttachTool();
       }
 
       this.addPoweredByLogo_();

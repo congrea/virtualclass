@@ -1871,6 +1871,8 @@
         appName = 'Video';
       } else if (type === 'docs') {
         appName = 'DocumentShare';
+      } else if (type === 'presentation') {
+        appName = 'SharePresentation';
       } else {
         appName = virtualclass.currApp;
       }

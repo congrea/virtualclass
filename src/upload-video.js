@@ -526,6 +526,7 @@
       },
 
       handlePlayEvent(msg, playTime) {
+        console.log('====> video play event');
         virtualclass.videoUl.lastSeek = playTime;
         if (msg.videoTime && !virtualclass.isPlayMode) {
           virtualclass.videoUl.lastSeek += this.calculateVideoTime(msg.videoTime);
@@ -537,6 +538,7 @@
       },
 
       handlePauseEvent(msg) {
+        console.log('====> video pause event');
         virtualclass.videoUl.lastSeek = msg.currTime;
         //console.log('====> last seek ', virtualclass.videoUl.lastSeek);
         this.pauseVideo();

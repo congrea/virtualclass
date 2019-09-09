@@ -720,11 +720,10 @@
           this.indexNav.init();
         }
 
-        const curr = virtualclass.dts.docs.currNote;
-        const order = '';
         for (let i = 0; i < virtualclass.orderList[this.appName].ol.order.length; i++) {
-          if (typeof this.notes[virtualclass.orderList[this.appName].ol.order[i]] !== 'object') {
-            if (this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status == 'true' || (+this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status) == 1) {
+          if (this.notes[virtualclass.orderList[this.appName]] && typeof this.notes[virtualclass.orderList[this.appName].ol.order[i]] !== 'object') {
+            if (this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status == 'true' ||
+              (+this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status) == 1) {
               var status = 1;
             } else {
               var status = 0;
@@ -735,10 +734,6 @@
               this.noteStatus(virtualclass.orderList[this.appName].ol.order[i], status);
             }
           }
-
-          // if (roles.hasControls()) {
-          //   this.indexNav.createDocNavigationNumber(virtualclass.orderList[this.appName].ol.order[i], i, status);
-          // }
           if (i === 0) {
             virtualclass.vutil.hideUploadMsg('docsuploadContainer');
           }

@@ -147,7 +147,7 @@
 
         if (!roles.hasControls() && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] === 'object') {
           virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition({ scX: leftPosX, scY: topPosY });
-        } else {
+        } else if (roles.isStudent()) {
           console.log("Could not call scroll function for student");
         }
       },

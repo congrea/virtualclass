@@ -649,7 +649,7 @@
             if (virtualclass.videoUl.player) {
               virtualclass.videoUl.player.ready(function () {
                 const myPlayer = this;
-                //console.log('====> seek play ', virtualclass.videoUl.lastSeek);
+                console.log('====> video play ');
                 myPlayer.play();
               });
             }

@@ -40,6 +40,9 @@
        * @param cusEvent byclick event
        */
       init(app, cusEvent) {
+        if (!virtualclass.orderList[virtualclass.currApp]) {
+          virtualclass.orderList[virtualclass.currApp] = new OrderedList();
+        }
 
         this.pages = {};
         this.order = [];

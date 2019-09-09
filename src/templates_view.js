@@ -930,7 +930,7 @@ this["JST"]["dest_temp/templates/poll/stdResult.hbs"] = Handlebars.template({"co
 
   return "<div id=\"resultLayout\"><div id=\"resultLayoutHead\" class=\"stdrslt container\"><div id=\"timerWrapper\"><label id=\"timerLabel\">"
     + alias1((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Rtime",{"name":"getString","hash":{},"data":data}))
-    + "</label><div id=\"timerCont\"></div></div><div id=\"votesWrapper\" class=\"modal-header\"></div></div><div id=\"resultLayoutBody\" class=\"container stdlayout\"><label>Question :<span id=\"qnLabelCont\">"
+    + "</label><div id=\"timerCont\"></div></div><div id=\"votesWrapper\" class=\"modal-header\"></div></div><div id=\"resultLayoutBody\" class=\"container stdlayout\"><label>Question : <span id=\"qnLabelCont\">"
     + alias1(container.lambda(((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.question : stack1), depth0))
     + "</span></label><div class=\"panel\"><div id=\"optnNonVotd\"></div></div><div id=\"chartMenuCont\" class=\"panel\"><button id=\"bar\" class=\"btn btn-default\"><a href=\"#\" id=\"barView\"><span class=\"icon-stats-bars cgIcon\"></span></a></button><button id=\"pi\" class=\"btn btn-default\"><a href=\"#\" id=\"piView\"><span class=\"icon-pie-chart cgIcon\"></span></a></button></div><div id=\"chart\" class=\"row c3\" style=\"display: none; max-height: 320px; position: relative;\"></div></div><div id=\"pollResultMsz\" class=\"pollResultMsz\"></div><div id=\"resultLayoutFooter\" class=\"row\"></div></div>";
 },"useData":true});

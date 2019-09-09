@@ -1900,8 +1900,7 @@
           if (response.data.Item != null && response.data.Item.order.S) {
             if (virtualclass.vutil.IsJsonString(response.data.Item.order.S)) {
               const responseData = JSON.parse(response.data.Item.order.S);
-              //virtualclass.gObj.docOrder = responseData;
-              if (apptype === 'docs') {
+              if (apptype === 'docs' || (apptype === 'vid' && responseData)) {
                 cb(responseData);
               } else {
                 (responseData[apptype]) ? cb(responseData[apptype]) : cb();

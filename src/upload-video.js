@@ -98,13 +98,9 @@
         virtualclass.vutil.requestOrder('vid',
           (response) => {
             if (response === 'Error') {
-              // console.log('page order retrieve failed');
+              console.log('page order retrieve failed');
             } else if (typeof response !== 'undefined' && response != undefined) {
-              //console.log('====> Order request');
-              // virtualclass.videoUl.order = [];
-              // virtualclass.videoUl.order = response;
               virtualclass.orderList[virtualclass.videoUl.appName].ol.order = response;
-              //console.log('====> order change ', virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
               if (virtualclass.orderList[virtualclass.videoUl.appName].ol.order.length > 0) {
                 virtualclass.videoUl.reArrangeElements(virtualclass.orderList[virtualclass.videoUl.appName].ol.order); // 1
               }

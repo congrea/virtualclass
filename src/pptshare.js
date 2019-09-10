@@ -72,11 +72,7 @@
           if (urlCont) {
             urlCont.style.display = 'block';
           }
-          virtualclass.vutil.requestOrder('presentation', (response) => {
-            if (virtualclass.vutil.isResponseAvailable(response)) {
-              virtualclass.sharePt.order = response;
-            }
-          });
+          virtualclass.vutil.requestOrder(() => {});
           this.getPptList();
         } else {
           this.UI.messageDisplay();
@@ -178,7 +174,8 @@
         this.order = order;
         this.reArrangeElements(order);
         // this.sendOrder(this.order);
-        virtualclass.vutil.sendOrder('presentation', order);
+        this.finallySendPptOrder(order);
+        // virtualclass.vutil.sendOrder('presentation', order);
       },
 
       // not needed
@@ -215,10 +212,15 @@
 
         container.parentNode.replaceChild(tmpdiv, container);
         if (orderChange) {
-          virtualclass.sharePt.order = order;
-          virtualclass.vutil.sendOrder('presentation', virtualclass.sharePt.order);
+          // virtualclass.sharePt.order = order;
+          virtualclass.orderList[virtualclass.currApp].ol.order = response;
+          this.finallySendPptOrder();
           orderChange = false;
         }
+      },
+
+      finallySendPptOrder() {
+        virtualclass.vutil.sendOrder('presentation', virtualclass.orderList[virtualclass.currApp].ol.order);
       },
 
 
@@ -306,11 +308,12 @@
                   }
                 }
               });
-              const idIndex = virtualclass.sharePt.order.indexOf(id);
+              const idIndex = virtualclass.orderList[virtualclass.currApp].ol.order.indexOf(id);
               if (idIndex >= 0) {
-                virtualclass.sharePt.order.splice(idIndex, 1);
+                virtualclass.orderList[virtualclass.currApp].ol.order.splice(idIndex, 1);
                 // console.log(virtualclass.sharePt.order);
-                virtualclass.vutil.sendOrder('presentation', virtualclass.sharePt.order);
+                // virtualclass.vutil.sendOrder('presentation', virtualclass.orderList[virtualclass.currApp].ol.order);
+                this.finallySendPptOrder(virtualclass.orderList[virtualclass.currApp].ol.order);
               }
               const slide = document.querySelector('.congrea #pptiframe');
               if (slide && slide.getAttribute('src')) {
@@ -777,13 +780,15 @@
         virtualclass.xhrn.vxhrn.post(url, pptObj).then(() => {
           if (Object.prototype.hasOwnProperty.call(virtualclass.sharePt, 'activeppts')) {
             const ppts = virtualclass.sharePt.activeppts.map(ppt => ppt.fileuuid);
-            if (ppts.length != virtualclass.sharePt.order.length) {
-              virtualclass.sharePt.order = ppts;
+            if (ppts.length != virtualclass.orderList[virtualclass.currApp].ol.order.length) {
+              //virtualclass.sharePt.order = ppts;
+              virtualclass.orderList[virtualclass.currApp].ol.order = ppts;
             }
           }
 
-          virtualclass.sharePt.order.push(pptObj.uuid);
-          virtualclass.vutil.sendOrder('presentation', virtualclass.sharePt.order);
+          virtualclass.orderList[virtualclass.currApp].ol.order.push(pptObj.uuid);
+         // virtualclass.vutil.sendOrder('presentation', virtualclass.orderList[virtualclass.currApp].ol.order);
+          that.finallySendPptOrder(virtualclass.orderList[virtualclass.currApp].ol.order);
           virtualclass.sharePt.getPptList();
           virtualclass.serverData.syncComplete = false;
           virtualclass.serverData.syncAllData().then(() => {
@@ -810,14 +815,12 @@
         if (db) {
           virtualclass.sharePt.createPageModule();
           virtualclass.sharePt.showPpts();
-          virtualclass.vutil.requestOrder('presentation', (response) => {
+          virtualclass.vutil.requestOrder((response) => {
             if (virtualclass.vutil.isResponseAvailable(response)) {
-              virtualclass.sharePt.order = response;
-              if (virtualclass.sharePt.order && virtualclass.sharePt.order.length > 0) {
-                virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
+              // virtualclass.orderList[virtualclass.currApp].ol.order = response;
+              if (virtualclass.orderList[virtualclass.currApp].ol.order && virtualclass.orderList[virtualclass.currApp].ol.order.length > 0) {
+                virtualclass.sharePt.reArrangeElements(virtualclass.orderList[virtualclass.currApp].ol.order);
               }
-            } else {
-              // console.log('Order response is not available');
             }
           });
           // virtualclass.sharePt.retrieveOrder();
@@ -1002,7 +1005,8 @@
             }
             // virtualclass.sharePt.afterPptSaved(pptObj);
           });
-          virtualclass.vutil.sendOrder('presentation', virtualclass.sharePt.order);
+          this.finallySendPptOrder(virtualclass.orderList[virtualclass.currApp].ol.order);
+          // virtualclass.vutil.sendOrder('presentation', virtualclass.orderList[virtualclass.currApp].ol.order);
         }
 
         const slide = document.querySelector('.congrea #pptiframe');
@@ -1023,12 +1027,12 @@
       },
 
       requestOrder(rdata) {
-        virtualclass.vutil.requestOrder('presentation', (data) => {
+        virtualclass.vutil.requestOrder((data) => {
           // console.log(data);
           if (virtualclass.vutil.isResponseAvailable(data)) {
-            virtualclass.sharePt.order = data;
-            if (virtualclass.sharePt.order.length > 0) {
-              virtualclass.sharePt.reArrangeElements(virtualclass.sharePt.order);
+            // virtualclass.orderList[virtualclass.currApp].ol.order = data;
+            if (virtualclass.orderList[virtualclass.currApp].ol.order.length > 0) {
+              virtualclass.sharePt.reArrangeElements(virtualclass.orderList[virtualclass.currApp].ol.order);
             }
           }
         });

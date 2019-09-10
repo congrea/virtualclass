@@ -95,12 +95,11 @@
       },
 
       requestOrder() {
-        virtualclass.vutil.requestOrder('vid',
-          (response) => {
+        virtualclass.vutil.requestOrder((response) => {
             if (response === 'Error') {
               console.log('page order retrieve failed');
             } else if (typeof response !== 'undefined' && response != undefined) {
-              virtualclass.orderList[virtualclass.videoUl.appName].ol.order = response;
+              // virtualclass.orderList[virtualclass.videoUl.appName].ol.order = response;
               if (virtualclass.orderList[virtualclass.videoUl.appName].ol.order.length > 0) {
                 virtualclass.videoUl.reArrangeElements(virtualclass.orderList[virtualclass.videoUl.appName].ol.order); // 1
               }

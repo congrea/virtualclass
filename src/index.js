@@ -20,6 +20,8 @@ $.uiBackCompat = false;
       } else if (virtualclass.currApp === 'Video' && typeof virtualclass.videoUl.UI.rawVideoList() == 'object') {
         virtualclass.videoUl.UI.rawVideoList();
       }
+
+      virtualclass.vutil.requestOrder(() => {});
     });
     bootStraper.notifyAboutCPU();
   };

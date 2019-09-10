@@ -19,6 +19,8 @@ $.uiBackCompat = false;
         virtualclass.dts.updateScreen();
       } else if (virtualclass.currApp === 'Video' && typeof virtualclass.videoUl.UI.rawVideoList() == 'object') {
         virtualclass.videoUl.UI.rawVideoList();
+      } else if (virtualclass.currApp === 'SharePresentation' && virtualclass.serverData.rawData.ppt.length > 0) {
+        virtualclass.sharePt.awsPresentationList(virtualclass.serverData.rawData.ppt);
       }
 
       virtualclass.vutil.requestOrder(() => {});

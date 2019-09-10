@@ -337,6 +337,7 @@
                 virtualclass.vutil.removeFinishBtn();
               }
             }
+
           }
         }
       },
@@ -602,6 +603,7 @@
         }
 
         if (typeof receivemsg.pptMsg !== 'undefined') {
+
           if (receivemsg.pptMsg === 'deletePrt') {
             if (pptIframe !== null) {
               pptIframe.removeAttribute('src');
@@ -812,19 +814,24 @@
         virtualclass.sharePt.ppts = ppts;
 
         const db = document.querySelector('#SharePresentationDashboard .dbContainer');
-        if (db) {
-          virtualclass.sharePt.createPageModule();
-          virtualclass.sharePt.showPpts();
-          virtualclass.vutil.requestOrder((response) => {
-            if (virtualclass.vutil.isResponseAvailable(response)) {
-              // virtualclass.orderList[virtualclass.currApp].ol.order = response;
-              if (virtualclass.orderList[virtualclass.currApp].ol.order && virtualclass.orderList[virtualclass.currApp].ol.order.length > 0) {
-                virtualclass.sharePt.reArrangeElements(virtualclass.orderList[virtualclass.currApp].ol.order);
-              }
-            }
-          });
-          // virtualclass.sharePt.retrieveOrder();
+        if (db == null) {
+          document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard('SharePresentation');
+          virtualclass.sharePt.attachEvent('submitpurl', 'click', virtualclass.sharePt.initNewPpt);
         }
+
+        virtualclass.sharePt.createPageModule();
+        virtualclass.sharePt.showPpts();
+        virtualclass.vutil.requestOrder((response) => {
+          if (virtualclass.vutil.isResponseAvailable(response)) {
+            // virtualclass.orderList[virtualclass.currApp].ol.order = response;
+            if (virtualclass.orderList[virtualclass.currApp].ol.order && virtualclass.orderList[virtualclass.currApp].ol.order.length > 0) {
+              virtualclass.sharePt.reArrangeElements(virtualclass.orderList[virtualclass.currApp].ol.order);
+            }
+          }
+        });
+
+        // virtualclass.sharePt.retrieveOrder();
+
 
 
         // console.log(videos);

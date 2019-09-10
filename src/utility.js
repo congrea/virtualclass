@@ -1876,14 +1876,12 @@
       } else {
         appName = virtualclass.currApp;
       }
-
       virtualclass.orderList[appName].ol.order = order;
       if (virtualclass.config.makeWebSocketReady) {
-        const data = { order: JSON.stringify(virtualclass.orderList[appName].ol.order) };
+        const data = { order: JSON.stringify(virtualclass.orderList)};
         const url = virtualclass.api.UpdateRoomMetaData;
-        console.log('DTS ORDER 1 ', virtualclass.orderList[appName].ol.order.length);
         virtualclass.xhrn.vxhrn.post(url, data).then((res) => {
-          console.log('DTS ORDER 2 ', virtualclass.orderList[appName].ol.order.length, res);
+          console.log(res);
         });
       }
     },
@@ -1894,18 +1892,22 @@
       }
     },
 
-    requestOrder(apptype, cb) {
+    requestOrder(cb) {
       if (virtualclass.config.makeWebSocketReady) {
         const url = virtualclass.api.GetRoomMetaData;
         virtualclass.xhrn.vxhrn.post(url, { noting: true }).then((response) => {
           if (response.data.Item != null && response.data.Item.order.S) {
             if (virtualclass.vutil.IsJsonString(response.data.Item.order.S)) {
               const responseData = JSON.parse(response.data.Item.order.S);
-              if (apptype === 'docs' || (apptype === 'vid' && responseData)) {
-                cb(responseData);
-              } else {
-                (responseData[apptype]) ? cb(responseData[apptype]) : cb();
+              // virtualclass.gObj.allOrder = responseData;
+              for (let key in responseData) {
+                if (key !== 'Whitebaord' && typeof virtualclass.orderList[key] != 'object') {
+                  virtualclass.orderList[key] = new OrderedList();
+                }
+                virtualclass.orderList[key].ol = responseData[key].ol;
               }
+              cb('ok');
+              //cb(responseData[apptype]);
               // virtualclass.gObj.docOrder = responseData;
             }
           }

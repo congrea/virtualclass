@@ -211,7 +211,7 @@
           // virtualclass.orderList[this.appName].ol.order.length = 0;
           virtualclass.orderList[this.appName].ol.order = content;
           console.log('====> DTS ORDER ', virtualclass.orderList[this.appName].ol.order);
-          //console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
+
           const doc = this.getDocId(virtualclass.orderList[this.appName].ol.order[0]);
           if (Object.prototype.hasOwnProperty.call(virtualclass.dts.allDocs, doc)) {
             const docId = `docs${doc}`;
@@ -229,7 +229,7 @@
        */
       requestOrder(cb) {
         //console.log('====> dts order request ');
-        virtualclass.vutil.requestOrder('docs', cb);
+        virtualclass.vutil.requestOrder(cb);
       },
 
       executeOrder(response){
@@ -243,9 +243,9 @@
               virtualclass.dashboard.clickCloseButton();
             } else if (response && roles.hasAdmin()) {
               //console.log('==== dts must send order');
-              ioAdapter.mustSend({ dts: { order_recived: response }, cf: 'dts' });
+              ioAdapter.mustSend({ dts: { order_recived: virtualclass.orderList.DocumentShare.ol.order }, cf: 'dts' });
               if (virtualclass.currApp === 'DocumentShare') {
-                virtualclass.dts.afterRequestOrder(response);
+                virtualclass.dts.afterRequestOrder(virtualclass.orderList.DocumentShare.ol.order);
                 virtualclass.dts.createNoteNav();
 //                (virtualclass.dts.noteExist()) ? virtualclass.dashboard.close() : virtualclass.dashboard.open()
               }

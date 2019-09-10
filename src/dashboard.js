@@ -15,7 +15,7 @@ var dashboard = {
     if (currApp === 'SharePresentation') {
       const dbcont = document.querySelector('#pptDbCont');
       if (!dbcont) {
-        // todo, nirmala, you have to finde below condition is correct
+
         if (document.querySelector('.docsDbCont') == null) {
           document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard('SharePresentation');
         }

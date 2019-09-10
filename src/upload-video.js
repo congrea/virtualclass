@@ -299,6 +299,7 @@
         }
         if (video) {
           video.addEventListener('click', () => {
+            // console.log('====> VIDEO CLICK ');
             virtualclass.videoUl.isPaused = false;
             if (vidObj.filetype === 'video_yts') {
               virtualclass.videoUl.yts = true;
@@ -424,6 +425,7 @@
 
        */
       onmessage(msg) {
+        // console.log('====> receving message ', msg);
         if (typeof msg.videoUl === 'string') {
           if (msg.videoUl === 'play') {
             this.handlePlayEvent(msg, msg.play);
@@ -526,11 +528,12 @@
       },
 
       handlePlayEvent(msg, playTime) {
-        console.log('====> video play event');
+
         virtualclass.videoUl.lastSeek = playTime;
         if (msg.videoTime && !virtualclass.isPlayMode) {
           virtualclass.videoUl.lastSeek += this.calculateVideoTime(msg.videoTime);
         }
+        // console.log('====> video event play event ', virtualclass.videoUl.lastSeek);
         //console.log('====> last seek ', virtualclass.videoUl.lastSeek);
         this.playVideo();
         virtualclass.videoUl.isPaused = false;
@@ -590,6 +593,7 @@
 
       playVideo(videoTime) {
         virtualclass.videoUl.lastSeek = videoTime || virtualclass.videoUl.lastSeek;
+        // console.log('====> video event play event ', virtualclass.videoUl.lastSeek);
         //console.log('====> seek play', virtualclass.videoUl.player.lastSeek / 60);
         //console.log('====> Video 1 play', virtualclass.videoUl.lastSeek);
         virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
@@ -597,6 +601,7 @@
       },
 
       pauseVideo() {
+        // console.log('====> video event pause event ', virtualclass.videoUl.lastSeek);
         //console.log('====> Video 2 pause', virtualclass.videoUl.lastSeek);
         virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
         ////console.log('====> seek pause ', virtualclass.videoUl.player.lastSeek / 60);
@@ -791,9 +796,13 @@
               });
             }
 
-            const idIndex = virtualclass.videoUl.order.indexOf(id);
+            // const idIndex = virtualclass.videoUl.order.indexOf(id);
+            // const idIndex = virtualclass.videoUl.order.indexOf(id);
+            const idIndex = virtualclass.orderList.Video.ol.order.indexOf(id);
+
             if (idIndex >= 0) {
-              virtualclass.videoUl.order.splice(idIndex, 1);
+              // virtualclass.videoUl.order.splice(idIndex, 1);
+              virtualclass.orderList.Video.ol.order.splice(idIndex, 1);
               // console.log(virtualclass.videoUl.order);
               // virtualclass.videoUl.xhrOrderSend(virtualclass.videoUl.order);
               virtualclass.videoUl.sendOrder(virtualclass.orderList[virtualclass.videoUl.appName].ol.order);
@@ -923,7 +932,13 @@
           }
           virtualclass.videoUl.lastSeek = 0;
           virtualclass.videoUl.UI.onEndedHandler(virtualclass.videoUl.player, vidId, videoUrl);
-          virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl);
+
+          if (virtualclass.videoUl.setPlayerUrlTime) {
+            clearTimeout(virtualclass.videoUl.setPlayerUrlTime);
+          }
+          virtualclass.videoUl.setPlayerUrlTime = setTimeout(() => {
+            virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl);
+          }, 100);
         },
 
         attachPlayerHandler(player) {
@@ -998,6 +1013,7 @@
 
         setPlayerUrl(player, videoUrl) {
           //console.log('====> Video 0 start');
+          // console.log('====> loadstart set url  ', videoUrl);
           if (player.poster_) {
             player.poster_ = '';
           }
@@ -1019,19 +1035,24 @@
           }
 
           player.any('loadstart', () => {
+            // console.log('====> loadstart 2 ', virtualclass.videoUl.lastSeek);
             virtualclass.videoUl.alreadySetPlayerUrl = true;
             if (virtualclass.videoUl.isPaused) {
               if (virtualclass.videoUl.lastSeek) {
                 virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
               }
+              // console.log('====> video event pause event ', virtualclass.videoUl.lastSeek);
+
               /* TODO, pause state isn't working with uploaded video on page refresh, however it's fine with youtube videos */
               player.pause();
               //console.log('====> Video 2 finished pause');
             } else if (virtualclass.system.device === 'desktop') { // TODO, WHY only on desktop
+
               if (virtualclass.videoUl.lastSeek) {
                 virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
               }
               player.play();
+              // console.log('====> video event play event ', virtualclass.videoUl.lastSeek);
               //console.log('====> Video 2 finished play');
             }
           });
@@ -1077,7 +1098,9 @@
           player.on('ended', () => {
             //console.log('====> on ended video ');
             // virtualclass.videoUl.UI.onEnded(player, vidId, videoUrl);
-            virtualclass.videoUl.UI.onEnded(player, vidId);
+            if (roles.hasControls()) {
+              virtualclass.videoUl.UI.onEnded(player, vidId);
+            }
           });
         },
 
@@ -1129,6 +1152,7 @@
             if (virtualclass.videoUl.listEndPause) {
               //console.log('==== Video is paused');
               virtualclass.videoUl.player.pause();
+              // console.log('====> video event pause event ', virtualclass.videoUl.lastSeek);
               virtualclass.videoUl.listEndPause = false;
             }
           });

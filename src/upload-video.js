@@ -299,7 +299,7 @@
         }
         if (video) {
           video.addEventListener('click', () => {
-            console.log('====> VIDEO CLICK ');
+            // console.log('====> VIDEO CLICK ');
             virtualclass.videoUl.isPaused = false;
             if (vidObj.filetype === 'video_yts') {
               virtualclass.videoUl.yts = true;
@@ -425,7 +425,7 @@
 
        */
       onmessage(msg) {
-        console.log('====> receving message ', msg);
+        // console.log('====> receving message ', msg);
         if (typeof msg.videoUl === 'string') {
           if (msg.videoUl === 'play') {
             this.handlePlayEvent(msg, msg.play);
@@ -593,7 +593,7 @@
 
       playVideo(videoTime) {
         virtualclass.videoUl.lastSeek = videoTime || virtualclass.videoUl.lastSeek;
-        console.log('====> video event play event ', virtualclass.videoUl.lastSeek);
+        // console.log('====> video event play event ', virtualclass.videoUl.lastSeek);
         //console.log('====> seek play', virtualclass.videoUl.player.lastSeek / 60);
         //console.log('====> Video 1 play', virtualclass.videoUl.lastSeek);
         virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
@@ -601,7 +601,7 @@
       },
 
       pauseVideo() {
-        console.log('====> video event pause event ', virtualclass.videoUl.lastSeek);
+        // console.log('====> video event pause event ', virtualclass.videoUl.lastSeek);
         //console.log('====> Video 2 pause', virtualclass.videoUl.lastSeek);
         virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
         ////console.log('====> seek pause ', virtualclass.videoUl.player.lastSeek / 60);
@@ -1013,7 +1013,7 @@
 
         setPlayerUrl(player, videoUrl) {
           //console.log('====> Video 0 start');
-          console.log('====> loadstart set url  ', videoUrl);
+          // console.log('====> loadstart set url  ', videoUrl);
           if (player.poster_) {
             player.poster_ = '';
           }
@@ -1035,13 +1035,13 @@
           }
 
           player.any('loadstart', () => {
-            console.log('====> loadstart 2 ', virtualclass.videoUl.lastSeek);
+            // console.log('====> loadstart 2 ', virtualclass.videoUl.lastSeek);
             virtualclass.videoUl.alreadySetPlayerUrl = true;
             if (virtualclass.videoUl.isPaused) {
               if (virtualclass.videoUl.lastSeek) {
                 virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
               }
-              console.log('====> video event pause event ', virtualclass.videoUl.lastSeek);
+              // console.log('====> video event pause event ', virtualclass.videoUl.lastSeek);
 
               /* TODO, pause state isn't working with uploaded video on page refresh, however it's fine with youtube videos */
               player.pause();
@@ -1052,7 +1052,7 @@
                 virtualclass.videoUl.player.currentTime(virtualclass.videoUl.lastSeek);
               }
               player.play();
-              console.log('====> video event play event ', virtualclass.videoUl.lastSeek);
+              // console.log('====> video event play event ', virtualclass.videoUl.lastSeek);
               //console.log('====> Video 2 finished play');
             }
           });
@@ -1152,7 +1152,7 @@
             if (virtualclass.videoUl.listEndPause) {
               //console.log('==== Video is paused');
               virtualclass.videoUl.player.pause();
-              console.log('====> video event pause event ', virtualclass.videoUl.lastSeek);
+              // console.log('====> video event pause event ', virtualclass.videoUl.lastSeek);
               virtualclass.videoUl.listEndPause = false;
             }
           });

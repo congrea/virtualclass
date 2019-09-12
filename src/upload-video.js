@@ -936,7 +936,9 @@
             clearTimeout(virtualclass.videoUl.setPlayerUrlTime);
           }
           virtualclass.videoUl.setPlayerUrlTime = setTimeout(() => {
-            virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl);
+            if (typeof virtualclass.videoUl.player == 'object')  {
+              virtualclass.videoUl.UI.setPlayerUrl(virtualclass.videoUl.player, videoUrl);
+            }
           }, 100);
         },
 

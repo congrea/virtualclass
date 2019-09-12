@@ -183,6 +183,7 @@
       // this.playProgressBar(this.playTime, 0);
       this.playProgressBar(this.playTime);
       delete this.prvNum;
+      virtualclass.wbCommon.indexNav.init();
       this.init();
       delete virtualclass.ss;
       virtualclass.ss = "";

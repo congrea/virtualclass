@@ -90,14 +90,17 @@ const chatContainerEvent = {
   },
 
   elementFromShadowDom(selector, numOfElems, idStartFromNumber) {
-    if (virtualclass.gObj.testChatDiv != null) {
+    let result;
+    if (virtualclass.gObj.testChatDiv !== null) {
       const chat_div = virtualclass.gObj.testChatDiv.shadowRoot;
-      if (typeof numOfElems !== 'undefined' && numOfElems == 'all') {
-        return chat_div.querySelectorAll(selector);
-      } if (typeof idStartFromNumber !== 'undefined') {
-        return chat_div.getElementById(selector);
+      if (typeof numOfElems !== 'undefined' && numOfElems === 'all') {
+        result = chat_div.querySelectorAll(selector);
+      } else if (typeof idStartFromNumber !== 'undefined') {
+        result = chat_div.getElementById(selector);
+      } else {
+        result = chat_div.querySelector(selector);
       }
-      return chat_div.querySelector(selector);
+      return result;
     }
   },
 };

@@ -347,7 +347,7 @@
 
         init(e, etype) {
           if ((e.fromUser.role !== 's')
-            && ((e.fromUser.userid !== virtualclass.gObj.uid || wbUser.virtualclassPlay == '1')
+            && ((e.fromUser.userid !== virtualclass.gObj.uid || wbUser.virtualclassPlay === 1)
             || (!virtualclass.config.makeWebSocketReady))) {
             virtualclass.makeAppReady({ app: etype });
           }
@@ -362,7 +362,7 @@
 
           if ((!roles.hasControls())
             // allEdData when teacher in educator mode and reponse the data after page refresh
-            || (roles.hasControls() && e.fromUser.userid != virtualclass.gObj.uid) && (Object.prototype.hasOwnProperty.call(e.message, 'resFromUser') || Object.prototype.hasOwnProperty.call(e.message, 'allEdData'))) {
+            || (roles.hasControls() && e.fromUser.userid !== virtualclass.gObj.uid) && (Object.prototype.hasOwnProperty.call(e.message, 'resFromUser') || Object.prototype.hasOwnProperty.call(e.message, 'allEdData'))) {
             const doc = JSON.parse(e.message.data);
 
 
@@ -379,8 +379,8 @@
         },
 
         requestForEditorData(e) {
-          if (e.fromUser.userid != virtualclass.gObj.uid) {
-            if (typeof this.vcAdapter !== 'object' || this.vcAdapter.operations.length == 0) {
+          if (e.fromUser.userid !== virtualclass.gObj.uid) {
+            if (typeof this.vcAdapter !== 'object' || this.vcAdapter.operations.length === 0) {
               // TODO Check if it is required to send to all
               // TODO Check if it is possible avoid going through workerIO
               ioAdapter.mustSendAll({ eddata: 'noDataForEditor', cf: 'eddata' });

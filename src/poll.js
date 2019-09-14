@@ -347,10 +347,10 @@
         console.log('====> student submit poll ', this.count);
 
 
-        if (storedData.pollClosed != 'yes') {
+        if (storedData.pollClosed !== 'yes') {
           this.reloadTeacherPublish(storedData);
         }
-        if (typeof storedData.data.pollClosed !== 'undefined' && storedData.pollClosed != 'yes') {
+        if (typeof storedData.data.pollClosed !== 'undefined' && storedData.pollClosed !== 'yes') {
           this.UI.pollClosedUI();
           const msg = virtualclass.lang.getString('Pclosed');
           this.showMsg('resultLayoutHead', msg, 'alert-success');
@@ -487,13 +487,13 @@
       },
 
       reloadGraph() {
-        if (this.currResultView == 'bar') {
+        if (this.currResultView === 'bar') {
           this.showGraph();
           this.updateBarGraph();
-        } else if (this.currResultView == 'pi') {
+        } else if (this.currResultView === 'pi') {
           this.createPiChart();
           this.updatePiChart();
-        } else if (this.currResultView == 'list') {
+        } else if (this.currResultView === 'list') {
           this.listView();
         }
         const elem = document.getElementsByClassName('emptyList');
@@ -537,7 +537,7 @@
         const attachInit = function () {
           // console.log(this.id);
           virtualclass.poll.action(this.id, cb, index, pollType);
-          if (this.id == 'goBack' || this.id == 'cacelSetting') {
+          if (this.id === 'goBack' || this.id === 'cacelSetting') {
             virtualclass.modal.removeModal();
           }
         };

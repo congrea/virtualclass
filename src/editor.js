@@ -13,19 +13,20 @@
   // this is main class
   const editor = function (type, containerId, editorId) {
     this.etype = type;
-    // const that = this;
+    let editorType;
+    let editorToolbar;
 
     // TODO this should be dynamic
     if (type == 'editorRich') {
-      var editorType = { lineWrapping: true };
-      var editorToolbar = { richTextToolbar: true, richTextShortcuts: true, readOnly: false };
+      editorType = { lineWrapping: true };
+      editorToolbar = { richTextToolbar: true, richTextShortcuts: true, readOnly: false };
       // ------------------------------------------------------------------------------^---
       // By Default, readOnly need to be false, and perform the action according to need.
       // If we do readOnly : nocurosr by default then the bullet and number would not be generated on student window
       // for more info about bug https://github.com/vidyamantra/virtualclass/issues/119
     } else {
-      var editorType = { lineNumbers: true, mode: 'markdown', readOnly: false };
-      var editorToolbar = { defaultText: 'Markdown Editor ' };
+      editorType = { lineNumbers: true, mode: 'markdown', readOnly: false };
+      editorToolbar = { defaultText: 'Markdown Editor ' };
     }
 
     return {

@@ -242,7 +242,7 @@
 
 
         const browser = virtualclass.system.mybrowser.detection();
-        if (browser[0] == 'Firefox') {
+        if (browser[0] === 'Firefox') {
           this.removeScrollFromFireFox(this.etype);
         }
       },
@@ -312,7 +312,7 @@
        */
       readOnlyMode(mode, notcreateBox) {
         if (typeof this.cm === 'object') {
-          if (mode == 'enable') {
+          if (mode === 'enable') {
             if (!this.readonly) {
               this.cm.setOption('readOnly', 'nocursor');
               if (typeof notcreateBox === 'undefined') {

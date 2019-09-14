@@ -29,12 +29,9 @@
      * To check whether  webSocket is supported  or not
      *
      */
-    // TODO parameter passed are not being used
-    isWebSocketSupport(navigator, browser, version) {
-      if (typeof window.WebSocket !== 'undefined' && (typeof window.WebSocket === 'function' || typeof window.WebSocket === 'object') && Object.prototype.hasOwnProperty.call(window.WebSocket, 'OPEN')) {
-        return true;
-      }
-      return false;
+    isWebSocketSupport() {
+      return (window.WebSocket && (typeof window.WebSocket === 'function'
+      || typeof window.WebSocket === 'object') && Object.prototype.hasOwnProperty.call(window.WebSocket, 'OPEN'));
     },
     /*
      * To check whether local storage is supported or not

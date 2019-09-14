@@ -17,7 +17,7 @@
     let editorToolbar;
 
     // TODO this should be dynamic
-    if (type == 'editorRich') {
+    if (type === 'editorRich') {
       editorType = { lineWrapping: true };
       editorToolbar = { richTextToolbar: true, richTextShortcuts: true, readOnly: false };
       // ------------------------------------------------------------------------------^---
@@ -129,9 +129,7 @@
         const editorType = this.etype;
         const containerId = `all${editorType}Container`;
         if (document.getElementById(containerId) == null) {
-
-         let actionToPerform;
-
+          let actionToPerform;
           const editortemplate = virtualclass.getTemplate('edenableall', 'editor');
           const editorhtml = editortemplate({ type1: editorType });
           // $('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body').append(editorhtml);
@@ -186,7 +184,6 @@
         editorControllerAnch.classList.add('icon-collaboratecrose');
         editorControllerAnch.dataset.action = 'enable';
         editorControllerAnch.parentNode.setAttribute('data-title', virtualclass.lang.getString('oncollaboration'));
-
       },
 
       /**
@@ -619,7 +616,7 @@
         // Make ready the default docs for initialize the editor
         doc.revision = 0; // Does need every time page loads, else it would doubles.
         if ((this.cm)) {
-          if ((this.cm.getValue() !== doc.str) || (doc.str == '')) {
+          if ((this.cm.getValue() !== doc.str) || (doc.str === '')) {
             this.cmClient = '';
             this.vcAdapter = '';
             doc.operations = [];
@@ -673,7 +670,7 @@
         this.setReadMode(); // Setting the Editor read mode
 
         const currApp = virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp);
-        if (currApp == 'EditorRich' || currApp == 'EditorCode') {
+        if (currApp === 'EditorRich' || currApp === 'EditorCode') {
           virtualclass.previous = `virtualclass${virtualclass.currApp}`;
           virtualclass.system.setAppDimension(virtualclass.currApp);
         } else {
@@ -730,9 +727,9 @@
         // TODO remove setTimeout
         setTimeout(
           () => {
-            if (keycode == 90) {
+            if (keycode === 90) {
               document.querySelector('.vceditor-tb-undo').parentNode.click();
-            } else if (keycode == 89) {
+            } else if (keycode === 89) {
               document.querySelector('.vceditor-tb-redo').parentNode.click();
             }
           }, 0,

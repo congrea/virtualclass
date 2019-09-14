@@ -637,7 +637,7 @@
         }
 
         this.dispNewPollBtn('site', isAdmin);
-        if (this.pollState.currScreen != 'teacherPublish') {
+        if (this.pollState.currScreen !== 'teacherPublish') {
           this.pollState.currScreen = 'displaysitePollList';
         }
       },

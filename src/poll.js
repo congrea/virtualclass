@@ -593,7 +593,7 @@
         }
 
         this.dispNewPollBtn('course');
-        if (this.pollState.currScreen != 'teacherPublish') {
+        if (this.pollState.currScreen !== 'teacherPublish') {
           this.pollState.currScreen = 'displaycoursePollList';
         }
       },
@@ -621,7 +621,7 @@
         } else {
           var mszbox = document.querySelector('#mszBoxPoll');
           let message = virtualclass.lang.getString('noPoll');
-          if (isAdmin == 'false') {
+          if (isAdmin === 'false') {
             message = virtualclass.lang.getString('noPollNoAdmin');
           }
 

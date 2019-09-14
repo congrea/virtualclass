@@ -4,7 +4,7 @@
 if (!Array.indexOf) {
   Array.prototype.indexOf = function (obj) {
     for (let i = 0; i < this.length; i++) {
-      if (this[i] == obj) {
+      if (this[i] === obj) {
         return i;
       }
     }
@@ -50,7 +50,7 @@ const chatboxManager = (function () {
   const boxClosedCallback = function (id) {
     // close button in the titlebar is clicked
     const idx = showList.indexOf(id);
-    if (idx != -1) {
+    if (idx !== -1) {
       showList.splice(idx, 1);
       boxList.splice(idx, 1); // removed if tab is hidden
       const diff = config.width + config.gap;
@@ -68,9 +68,9 @@ const chatboxManager = (function () {
   const addBox = function (id, user, name) {
     const idx1 = showList.indexOf(id);
     const idx2 = boxList.indexOf(id);
-    if (idx1 != -1) {
+    if (idx1 !== -1) {
       // console.log('Do nothing');
-    } else if (idx2 != -1) {
+    } else if (idx2 !== -1) {
       // exists, but hidden
       // show it and put it back to showList
 
@@ -88,7 +88,7 @@ const chatboxManager = (function () {
 
       $('#tabs').tabs('show');
     } else {
-      if (user.last_name == undefined) {
+      if (typeof user.last_name === 'undefined') {
         user.last_name = '';
       }
       const elm = document.createElement('div');
@@ -120,12 +120,12 @@ const chatboxManager = (function () {
     //         }
     //     }
     // }
-    if (user.class == 'support') {
-      if (($(`#cb${id}.support`)).length == 0) {
+    if (user.class === 'support') {
+      if (($(`#cb${id}.support`)).length === 0) {
         $(`#cb${id}`).addClass('support').removeClass('privateChat');
       }
-    } else if (user.class == 'privateChat') {
-      if ($(`#cb${id}.privateChat`).length == 0) {
+    } else if (user.class === 'privateChat') {
+      if ($(`#cb${id}.privateChat`).length === 0) {
         $(`#cb${id}`).addClass('privateChat').removeClass('support');
       }
     }

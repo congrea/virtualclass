@@ -17,7 +17,7 @@
     let editorToolbar;
 
     // TODO this should be dynamic
-    if (type == 'editorRich') {
+    if (type === 'editorRich') {
       editorType = { lineWrapping: true };
       editorToolbar = { richTextToolbar: true, richTextShortcuts: true, readOnly: false };
       // ------------------------------------------------------------------------------^---
@@ -129,9 +129,7 @@
         const editorType = this.etype;
         const containerId = `all${editorType}Container`;
         if (document.getElementById(containerId) == null) {
-
-         let actionToPerform;
-
+          let actionToPerform;
           const editortemplate = virtualclass.getTemplate('edenableall', 'editor');
           const editorhtml = editortemplate({ type1: editorType });
           // $('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body').append(editorhtml);
@@ -186,7 +184,6 @@
         editorControllerAnch.classList.add('icon-collaboratecrose');
         editorControllerAnch.dataset.action = 'enable';
         editorControllerAnch.parentNode.setAttribute('data-title', virtualclass.lang.getString('oncollaboration'));
-
       },
 
       /**
@@ -242,7 +239,7 @@
 
 
         const browser = virtualclass.system.mybrowser.detection();
-        if (browser[0] == 'Firefox') {
+        if (browser[0] === 'Firefox') {
           this.removeScrollFromFireFox(this.etype);
         }
       },
@@ -312,7 +309,7 @@
        */
       readOnlyMode(mode, notcreateBox) {
         if (typeof this.cm === 'object') {
-          if (mode == 'enable') {
+          if (mode === 'enable') {
             if (!this.readonly) {
               this.cm.setOption('readOnly', 'nocursor');
               if (typeof notcreateBox === 'undefined') {
@@ -347,7 +344,7 @@
 
         init(e, etype) {
           if ((e.fromUser.role !== 's')
-            && ((e.fromUser.userid !== virtualclass.gObj.uid || wbUser.virtualclassPlay == '1')
+            && ((e.fromUser.userid !== virtualclass.gObj.uid || wbUser.virtualclassPlay === 1)
             || (!virtualclass.config.makeWebSocketReady))) {
             virtualclass.makeAppReady({ app: etype });
           }
@@ -362,7 +359,7 @@
 
           if ((!roles.hasControls())
             // allEdData when teacher in educator mode and reponse the data after page refresh
-            || (roles.hasControls() && e.fromUser.userid != virtualclass.gObj.uid) && (Object.prototype.hasOwnProperty.call(e.message, 'resFromUser') || Object.prototype.hasOwnProperty.call(e.message, 'allEdData'))) {
+            || (roles.hasControls() && e.fromUser.userid !== virtualclass.gObj.uid) && (Object.prototype.hasOwnProperty.call(e.message, 'resFromUser') || Object.prototype.hasOwnProperty.call(e.message, 'allEdData'))) {
             const doc = JSON.parse(e.message.data);
 
 
@@ -379,8 +376,8 @@
         },
 
         requestForEditorData(e) {
-          if (e.fromUser.userid != virtualclass.gObj.uid) {
-            if (typeof this.vcAdapter !== 'object' || this.vcAdapter.operations.length == 0) {
+          if (e.fromUser.userid !== virtualclass.gObj.uid) {
+            if (typeof this.vcAdapter !== 'object' || this.vcAdapter.operations.length === 0) {
               // TODO Check if it is required to send to all
               // TODO Check if it is possible avoid going through workerIO
               ioAdapter.mustSendAll({ eddata: 'noDataForEditor', cf: 'eddata' });
@@ -433,7 +430,7 @@
         // TODO this all if and else condition should be simplyfy
         this.receivedOperations[e.message.eddata].call(this, e, etype);
         if (typeof this.vcAdapter !== 'object') {
-          if (roles.hasAdmin() && e.message.eddata == 'virtualclass-editor-operation') {
+          if (roles.hasAdmin() && e.message.eddata === 'virtualclass-editor-operation') {
             // virtualclass.makeAppReady(etype);
             virtualclass.makeAppReady({ app: etype });
 
@@ -530,7 +527,7 @@
        * @returns {boolean}
        */
       isEidtorWithTeacher() {
-        return (roles.hasControls() && (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode'));
+        return (roles.hasControls() && (virtualclass.currApp === 'EditorRich' || virtualclass.currApp === 'EditorCode'));
       },
 
       /**
@@ -619,7 +616,7 @@
         // Make ready the default docs for initialize the editor
         doc.revision = 0; // Does need every time page loads, else it would doubles.
         if ((this.cm)) {
-          if ((this.cm.getValue() !== doc.str) || (doc.str == '')) {
+          if ((this.cm.getValue() !== doc.str) || (doc.str === '')) {
             this.cmClient = '';
             this.vcAdapter = '';
             doc.operations = [];
@@ -673,7 +670,7 @@
         this.setReadMode(); // Setting the Editor read mode
 
         const currApp = virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp);
-        if (currApp == 'EditorRich' || currApp == 'EditorCode') {
+        if (currApp === 'EditorRich' || currApp === 'EditorCode') {
           virtualclass.previous = `virtualclass${virtualclass.currApp}`;
           virtualclass.system.setAppDimension(virtualclass.currApp);
         } else {
@@ -730,9 +727,9 @@
         // TODO remove setTimeout
         setTimeout(
           () => {
-            if (keycode == 90) {
+            if (keycode === 90) {
               document.querySelector('.vceditor-tb-undo').parentNode.click();
-            } else if (keycode == 89) {
+            } else if (keycode === 89) {
               document.querySelector('.vceditor-tb-redo').parentNode.click();
             }
           }, 0,

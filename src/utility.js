@@ -940,12 +940,12 @@
 
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
-          if (virtualclass.connectedUsers[i].role == 't') {
+          if (virtualclass.connectedUsers[i].role === 't') {
             return virtualclass.connectedUsers[i].userid;
           }
         }
       }
-      return 0;
+      return undefined;
     },
 
 

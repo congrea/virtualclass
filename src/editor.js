@@ -433,7 +433,7 @@
         // TODO this all if and else condition should be simplyfy
         this.receivedOperations[e.message.eddata].call(this, e, etype);
         if (typeof this.vcAdapter !== 'object') {
-          if (roles.hasAdmin() && e.message.eddata == 'virtualclass-editor-operation') {
+          if (roles.hasAdmin() && e.message.eddata === 'virtualclass-editor-operation') {
             // virtualclass.makeAppReady(etype);
             virtualclass.makeAppReady({ app: etype });
 
@@ -530,7 +530,7 @@
        * @returns {boolean}
        */
       isEidtorWithTeacher() {
-        return (roles.hasControls() && (virtualclass.currApp == 'EditorRich' || virtualclass.currApp == 'EditorCode'));
+        return (roles.hasControls() && (virtualclass.currApp === 'EditorRich' || virtualclass.currApp === 'EditorCode'));
       },
 
       /**

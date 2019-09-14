@@ -26,7 +26,7 @@ function displayChatUserList(totUsers) {
       const tusers = [];
       tusers.push(virtualclass.vutil.getMySelf()); // User list can not skip myself
       for (let i = 0; i < virtualclass.gObj.userToBeDisplay; i++) {
-        if (totUsers[i].userid != virtualclass.gObj.uid) {
+        if (totUsers[i].userid !== virtualclass.gObj.uid) {
           tusers.push(totUsers[i]);
         }
       }
@@ -37,7 +37,7 @@ function displayChatUserList(totUsers) {
       if (typeof virtualclass.gObj.chatIconColors[users[i].userid] === 'undefined') {
         groupChatImgColor(users[i].name, users[i].userid);
       }
-      if (users[i].img == 'noimage') {
+      if (users[i].img === 'noimage') {
         virtualclass.gObj.chatIconColors[users[i].userid].savedImg = false;
       } else {
         virtualclass.gObj.chatIconColors[users[i].userid].savedImg = users[i].img;
@@ -48,7 +48,8 @@ function displayChatUserList(totUsers) {
       }
 
       // tmpmyDivResult = true, means user div is created already
-      if (typeof tmpmyDivResult !== 'boolean' && typeof tmpmyDivResult !== undefined && tmpmyDivResult != undefined) {
+      //if (typeof tmpmyDivResult !== 'boolean' && typeof tmpmyDivResult !== undefined && tmpmyDivResult != undefined) {
+      if (typeof tmpmyDivResult !== 'boolean' && typeof tmpmyDivResult !== 'undefined' && tmpmyDivResult != null) {
         myDivResult += tmpmyDivResult;
       }
     }
@@ -62,8 +63,10 @@ function displayChatUserList(totUsers) {
      * If we click on anchor tag inside the shadow dom, then it does not return current clicked tag(shadow dom)
      * but it returns shadow dom
      * * */
-    if (myDivResult != null && myDivResult != undefined && myDivResult != '' && typeof myDivResult !== 'boolean') {
-      if (chat_div.shadowRoot.innerHTML == ' ' || chat_div.shadowRoot.innerHTML == '') {
+    // if (myDivResult != null && myDivResult != undefined && myDivResult != '' && typeof myDivResult !== 'boolean') {
+    // if (chat_div.shadowRoot.innerHTML == ' ' || chat_div.shadowRoot.innerHTML == '') {
+    if (myDivResult != null && typeof myDivResult !== 'undefined' && myDivResult !== '' && typeof myDivResult !== 'boolean') {
+      if (chat_div.shadowRoot.innerHTML === ' ' || chat_div.shadowRoot.innerHTML === '') {
         const userRole = roles.hasControls() ? 'teacher' : 'student';
         if (virtualclass.isPlayMode) {
           chat_div.shadowRoot.innerHTML = `<link rel='stylesheet' type='text/css' href='${whiteboardPath}css/modules/chat-container.css'> <div id='subchat' class='playMode ${userRole}'>${myDivResult}</div>`;
@@ -79,9 +82,9 @@ function displayChatUserList(totUsers) {
     myDivResult = '';
 
     // to verify
-    if (virtualclass.gObj.uid == virtualclass.vutil.whoIsTeacher()) {
+    if (virtualclass.gObj.uid === virtualclass.vutil.whoIsTeacher()) {
       for (var i = 0; i < users.length; i++) {
-        if (virtualclass.gObj.uid != users[i].userid) {
+        if (virtualclass.gObj.uid !== users[i].userid) {
           virtualclass.user.initControlHandler(users[i].userid);
         }
       }
@@ -150,7 +153,7 @@ function updateOnlineUserText() {
 
 function memberUpdate(e, addType) {
   // TODO e.message now does not contain complete list of users. Function needs to be updated.
-  if (addType == 'removed') {
+  if (addType === 'removed') {
     // shadow dom
     const userUI = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(`#ml${e.removeUser}`);
     if (userUI != null) {
@@ -164,7 +167,7 @@ function memberUpdate(e, addType) {
     if (userlist.length > 0) {
       virtualclass.chat._showChatUserList(userlist);
 
-      if ((virtualclass.jId == virtualclass.gObj.uid)) {
+      if ((virtualclass.jId === virtualclass.gObj.uid)) {
         // openChatBox
         virtualclass.chat.openChatBox();
         virtualclass.media.dispAllVideo('chat_div');
@@ -174,7 +177,7 @@ function memberUpdate(e, addType) {
       displayChatUserList(userlist);
 
       for (let i = 0; i < userlist.length; i++) {
-        if (userlist[i].userid == io.cfg.userid && typeof addType !== 'undefined' && addType != 'removed') {
+        if (userlist[i].userid === io.cfg.userid && typeof addType !== 'undefined' && addType !== 'removed') {
           const vidTag = document.getElementById(`video${virtualclass.gObj.uid}`);
           if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable') && vidTag == null) {
             // console.log('Media _handleUserMedia');
@@ -204,17 +207,17 @@ function memberUpdate(e, addType) {
       }
     }
 
-    if ((roles.hasAdmin() && virtualclass.jId == virtualclass.gObj.uid)) {
+    if ((roles.hasAdmin() && virtualclass.jId === virtualclass.gObj.uid)) {
       virtualclass.chat.openChatBox();
       // Only invoke when member is added
-      if (addType == 'added') {
+      if (addType === 'added') {
         virtualclass.chat.fetchChatUsers();
       } else {
         // for handling if teacher refresh and user is left the session
         virtualclass.chat.showChatListUsers();
       }
       virtualclass.chat.setChatDisplay();
-    } else if (virtualclass.jId == virtualclass.gObj.uid) {
+    } else if (virtualclass.jId === virtualclass.gObj.uid) {
       virtualclass.chat.setChatDisplay();
     }
 
@@ -275,7 +278,7 @@ function memberUpdate(e, addType) {
   }
 
 
-  if (virtualclass.gObj.delayVid == 'display') {
+  if (virtualclass.gObj.delayVid === 'display') {
     // Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause()
     // By delaying 200 miliseconds we are ensuring that above error is not coming
     // TODO remove setTimeout
@@ -295,13 +298,13 @@ function messageUpdate(e) {
   const self = io.cfg.userid;
   const time = new Date().getTime();
   // common chat room
-  if (e.message.receiver == 'chatroom' && (to == '' || to == undefined)) {
+  if (e.message.receiver === 'chatroom' && (to === '' || to == null)) {
     // suman 25
     msg = { msg, time: e.message.time };
     if (virtualclass.chat.chatroombox) {
       $('#chat_room').chatroom('option').messageSent(from, msg);
     } else {
-      if ($('ul#chat_room').length == 0) {
+      if ($('ul#chat_room').length === 0) {
         const d = document.createElement('ul');
         d.id = 'chat_room';
         document.body.appendChild(d);
@@ -336,17 +339,17 @@ function messageUpdate(e) {
     // For exporting common chat
     virtualclass.chat.commonChat.push(cmsg);
 
-    if ($('#chatroom_bt2.active').length == 0 && virtualclass.config.makeWebSocketReady) {
+    if ($('#chatroom_bt2.active').length === 0 && virtualclass.config.makeWebSocketReady) {
       $('#chatroom_bt2').addClass('ui-state-highlight');
-     // console.log('====> Adding high light');
+      // console.log('====> Adding high light');
       $('#chatrm').removeClass('enable');
     }
-  } else if (to != undefined && to != '') { // private chat
-    if (self == to.userid && from.userid != self) {
+  } else if (to != null && to !== '') { // private chat
+    if (self === to.userid && from.userid !== self) {
       //            if($.inArray(from.userid, idList) == -1){
       //                counter++;
       //                idList.push(from.userid);
-      if ($.inArray(from.userid, virtualclass.chat.idList) == -1) {
+      if ($.inArray(from.userid, virtualclass.chat.idList) === -1) {
         virtualclass.chat.counter++;
         virtualclass.chat.idList.push(from.userid);
         if (!Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, from.userid)) {

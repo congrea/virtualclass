@@ -648,7 +648,7 @@
           mszbox.childNodes[0].parentNode.removeChild(mszbox.childNodes[0]);
         }
 
-        const hide = pollType == 'course' ? 'site' : 'course';
+        const hide = pollType === 'course' ? 'site' : 'course';
         this.hidePollList(hide);
         const listCont = document.getElementById(`listQnCont${pollType}`);
         if (listCont) {
@@ -669,7 +669,7 @@
       dispNewPollBtn(pollType, isAdmin) {
         this.attachEvent(`newPollBtn${pollType}`, 'click', this.newPollHandler, pollType);
         const btn = document.getElementById(`newPollBtn${pollType}`);
-        if (pollType == 'site') {
+        if (pollType === 'site') {
           if (typeof isAdmin !== 'undefined' && isAdmin == 'true') {
             btn.style.display = 'table';
           } else {

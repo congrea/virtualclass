@@ -91,7 +91,7 @@ const chatContainerEvent = {
 
   elementFromShadowDom(selector, numOfElems, idStartFromNumber) {
     let chatDiv;
-    if (virtualclass.gObj.testChatDiv !== null) {
+    if (virtualclass.gObj.testChatDiv != null) {
       chatDiv = virtualclass.gObj.testChatDiv.shadowRoot;
       if (typeof numOfElems !== 'undefined' && numOfElems === 'all') {
         chatDiv = chatDiv.querySelectorAll(selector);

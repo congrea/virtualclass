@@ -22,7 +22,7 @@ function displayChatUserList(totUsers) {
     /**
      * Below 'first if block' is  to restrict the update users in list after execeeding 500 users
      *** */
-    if (virtualclass.jId == virtualclass.gObj.uid && virtualclass.gObj.userToBeDisplay < totUsers.length) {
+    if (virtualclass.jId === virtualclass.gObj.uid && virtualclass.gObj.userToBeDisplay < totUsers.length) {
       const tusers = [];
       tusers.push(virtualclass.vutil.getMySelf()); // User list can not skip myself
       for (let i = 0; i < virtualclass.gObj.userToBeDisplay; i++) {

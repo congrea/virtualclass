@@ -894,14 +894,6 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   pointer-events: none;
 }
 
-#virtualclassCont.congrea #chat_div {
-  height: calc(100vh - 388px);
-}
-
-#virtualclassCont.congrea .vidHide #chat_div, #virtualclassCont.congrea.nowebcam.teacher #chat_div {
-  height: calc(100vh - 148px);
-}
-
 #virtualclassCont.congrea.teacher #chatroom_bt2 .inner_bt #chatroom_text {
   margin-left: 7px;
 }

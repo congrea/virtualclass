@@ -179,6 +179,7 @@ const receiveFunctions = new function () {
 
   // unshare schreen
   this.unshareScreen = function (e) {
+    virtualclass.gObj.studentSSstatus.shareToAll = false;
     const app = e.message.st;
     if (typeof virtualclass[app] === 'object') {
       // console.log('Unshare the screen at student');
@@ -462,12 +463,19 @@ const receiveFunctions = new function () {
 
   // Self view, but display none to others
   this.sview = function (e) {
-    virtualclass.ss.selfView(e.message);
+    virtualclass.gObj.studentSSstatus.shareToAll = false;
+    if (virtualclass.ss) {
+      virtualclass.ss.selfView(e.message);
+    }
   };
 
   // Share screenshare to all
   this.sToAll = function () {
-    virtualclass.ss.shareToAll();
+    virtualclass.gObj.studentSSstatus.shareToAll = true;
+    virtualclass.gObj.studentSSstatus.sharing = true;
+    if (virtualclass.ss) { // Only run when websocket is connected
+      virtualclass.ss.shareToAll();
+    }
   };
 
   /** This happens when student does page refresh during the share is being shared  * */

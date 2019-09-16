@@ -59,7 +59,7 @@ const preCheck = {
       var virtualclassPreCheck = document.getElementById('preCheckcontainer');
       virtualclassPreCheck.style.display = 'none';
       var virtualclassApp = document.getElementById('virtualclassApp');
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
       // virtualclass.videoHost._resetPrecheck();
       // virtualclass.media.audio.initAudiocontext();
     } else {
@@ -72,7 +72,7 @@ const preCheck = {
 
 
       var virtualclassApp = document.getElementById('virtualclassApp');
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
       localStorage.setItem('precheck', true);
       virtualclass.videoHost.afterSessionJoin();
     }
@@ -565,7 +565,7 @@ const preCheck = {
       virtualclassPreCheck.style.display = 'none';
 
       const virtualclassApp = document.getElementById('virtualclassApp');
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
       // localStorage.setItem('precheck', true);
       virtualclass.videoHost._resetPrecheck();
       virtualclass.precheck.afterComplete();
@@ -582,7 +582,7 @@ const preCheck = {
       virtualclassPreCheck.style.display = 'none';
 
       const virtualclassApp = document.getElementById('virtualclassApp');
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
       localStorage.setItem('precheck', true);
 
       virtualclass.videoHost.afterSessionJoin();
@@ -609,7 +609,7 @@ const preCheck = {
 
   startSession() {
     const virtualclassApp = document.getElementById('virtualclassApp');
-    virtualclassApp.style.display = 'block';
+    virtualclassApp.style.display = 'flex';
 
     const virtualclassPreCheck = document.getElementById('virtualclassPreCheck');
 

@@ -535,12 +535,12 @@ this["JST"]["dest_temp/templates/main.hbs"] = Handlebars.template({"1":function(
   return ((stack1 = container.invokePartial(partials.precheck,depth0,{"name":"precheck","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " "
     + ((stack1 = container.invokePartial(partials.joinclass,depth0,{"name":"joinclass","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + " <div id=\"virtualclassApp\" style=\"display: block;\" class=\"try-to-connect\"> "
+    + " <div id=\"virtualclassApp\" style=\"display: flex;\" class=\"try-to-connect\"> "
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.isPlay : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " "
-    + ((stack1 = container.invokePartial(partials.rightBar,depth0,{"name":"rightBar","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + " "
     + ((stack1 = container.invokePartial(partials.leftBar,depth0,{"name":"leftBar","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = container.invokePartial(partials.rightBar,depth0,{"name":"rightBar","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " "
     + ((stack1 = container.invokePartial(partials.popupCont,depth0,{"name":"popupCont","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " "

@@ -1,11 +1,11 @@
 {{> precheck}}
 {{> joinclass}}
-<div id="virtualclassApp" style="display: block;" class="try-to-connect">
+<div id="virtualclassApp" style="display: flex;" class="try-to-connect">
  {{#if isPlay}}
     {{> recordingControl}}
   {{/if}}
-  {{> rightBar }}
   {{> leftBar}}
+  {{> rightBar }}
   {{> popupCont}}
   {{> dashboardCont}}
 </div>

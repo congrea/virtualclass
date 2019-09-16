@@ -46,7 +46,7 @@ var videoHost = {
       canvas.id = 'dummyCanvas';
       canvas.width = 40;
       canvas.height = 40;
-      document.querySelector('#virtualclassApp').appendChild(canvas);
+      document.querySelector('#virtualclassCont').appendChild(canvas);
 
       WebPDecDemo('dummyCanvas');
 
@@ -552,7 +552,7 @@ var videoHost = {
         const virtualclassPreCheck = document.getElementById('preCheckcontainer');
         virtualclassPreCheck.style.display = 'none';
         const virtualclassApp = document.getElementById('virtualclassApp');
-        virtualclassApp.style.display = 'block';
+        virtualclassApp.style.display = 'flex';
         // localStorage.setItem('precheck', true);
         virtualclass.videoHost._resetPrecheck();
       });

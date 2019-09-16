@@ -83,6 +83,10 @@
 and (min-device-width: 368px)
 and (max-device-width: 1024px) {
 
+  #virtualclassCont[device="mobile"] #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
+    padding: 14px 1px;
+  }
+
   #virtualclassCont.congrea #virtualclassAppRightPanel {
     height: calc(100vh - var(--vh-offset));
   }

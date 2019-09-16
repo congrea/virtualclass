@@ -2398,6 +2398,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel {
+  position: relative;
   float: none;
   width: 100%;
   overflow: hidden;
@@ -2495,7 +2496,7 @@
 
 #virtualclassCont.congrea .modal {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #555558;
   margin-left: 0;
   z-index: 999;
 }
@@ -3249,7 +3250,7 @@
   position: absolute;
   bottom: 105px;
   z-index: 11;
-  right: 345px;
+  right: 27px;
 }
 
 #virtualclassCont.congrea.playMode.student .zoomControler {
@@ -4449,9 +4450,9 @@ and (max-device-width: 1024px) {
 }
 
 #virtualclassCont.congrea #fullScreenButton, #virtualclassCont.congrea #fullScreenExitButton {
-  position: fixed;
+  position: absolute;
   bottom: 0px;
-  right: 370px;
+  right: 51px;
   color: #fff;
   z-index: 1000;
   font-size: 22px;
@@ -4663,3 +4664,52 @@ and (max-device-width: 1024px) {
   position: relative;
   top: -14px;
 }
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel #sidebarButton {
+  display:inline-block;
+  }
+  
+  #virtualclassCont #virtualclassApp #virtualclassAppLeftPanel #sidebarButton {
+    position: absolute;
+    top: calc(50% - 25px);
+    right: 0;
+  cursor: pointer;
+  background-color: #fffff7;
+  /* background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%); */
+  /* background-image: linear-gradient(to bottom, rgba(1,7,9,.8) 0%,rgba(1,7,9,.8) 100%) !important; */
+  box-shadow: 0 0 4px rgb(132, 130, 130);
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+  z-index:1000;
+  }
+  
+  
+  #virtualclassCont.congrea.student #virtualclassApp #virtualclassAppLeftPanel #sidebarButton {
+  right: 0;
+  }
+  
+  #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
+  padding: 1.125rem 0.25rem;
+  right: 2px;
+  transform: rotate(90deg);
+  }
+  
+  #virtualclassCont #virtualclassApp.collapsedRightbar #sidebarButton .sidebarButton {
+  transform: rotate(270deg);
+  position: relative;
+  left: 5px;
+  top: -1px;
+  }
+  
+  
+  #virtualclassCont.congrea #virtualclassApp .collapsedRightbar #sidebarButton .congtooltip:hover:after {
+  bottom: 90px;
+  transform: rotate(90deg);
+  right: -40px;
+  }
+  
+  #virtualclassCont.congrea #virtualclassApp .openRightbar #sidebarButton .congtooltip:hover:after {
+  bottom: 90px;
+  transform: rotate(90deg);
+  right: -40px;
+  }

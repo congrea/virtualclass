@@ -38,7 +38,7 @@ body {
   height: calc(100% - 44px);
 }
 
-#virtualclassCont.congrea #rightSubContainer #chatWidget .chatBarTab {
+#virtualclassCont.congrea #chatWidget .chatBarTab {
   background-color: #4c5963;
   height: 44px;
   position: fixed;
@@ -606,11 +606,11 @@ body {
   display: none;
 }
 
-#virtualclassCont.congrea #rightSubContainer a.inner_bt span#usertab_text #onlineusertext {
+#virtualclassCont.congrea a.inner_bt span#usertab_text #onlineusertext {
   position: relative;
 }
 
-#virtualclassCont.congrea #rightSubContainer a.inner_bt span#usertab_text #onlineusertext:before {
+#virtualclassCont.congrea a.inner_bt span#usertab_text #onlineusertext:before {
   font-weight: normal;
   content: "\e971";
   font-size: 18px;
@@ -634,15 +634,15 @@ body {
   padding: 14.5px 8px 9.5px 14px;
 }
 
-#virtualclassCont.congrea #rightSubContainer a.inner_bt {
+#virtualclassCont.congrea a.inner_bt {
   padding: 12px 0;
 }
 
-#virtualclassCont.congrea #rightSubContainer #chatroom_bt2 a.inner_bt {
+#virtualclassCont.congrea #chatroom_bt2 a.inner_bt {
   padding: 15px 0 12px;
 }
 
-#virtualclassCont.congrea #rightSubContainer a.inner_bt span#usertab_text {
+#virtualclassCont.congrea a.inner_bt span#usertab_text {
   float: none;
 }
 

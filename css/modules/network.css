@@ -9,11 +9,11 @@
   /*    border-right: 1px solid rgba(254,254,254,0.2) !important;*/
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #proposedSpeed {
-  width: 30px;
-  height: 30px;
+#virtualclassCont.congrea #virtualclassAppFooterPanel #proposedSpeed {
+  width: 26px;
+  height: 26px;
   position: relative;
-  top: 9px;
+  top: 7px;
   padding: 4px;
   left: 9px;
 }

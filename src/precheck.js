@@ -88,6 +88,7 @@ const preCheck = {
 
     virtualclass.gObj.precheckScrn = false;
     virtualclass.precheck.afterComplete();
+    virtualclass.stickybarWidth();
   },
 
   cancelAudioGraph() {
@@ -569,6 +570,7 @@ const preCheck = {
       // localStorage.setItem('precheck', true);
       virtualclass.videoHost._resetPrecheck();
       virtualclass.precheck.afterComplete();
+      virtualclass.stickybarWidth();
     },
 
     joinSession() {

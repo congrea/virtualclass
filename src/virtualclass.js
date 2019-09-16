@@ -382,7 +382,8 @@
               chat_div.classList.add("collapsedRightbar");
               localStorage.setItem('hideRightbar',true);
               virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
-              virtualclass.zoom.fitToScreen(); 
+              virtualclass.zoom.fitToScreen();
+              virtualclass.stickybarWidth(); 
             } else {
               localStorage.removeItem('hideRightbar');
               localStorage.setItem('hideRightbar',false);
@@ -391,6 +392,7 @@
               elem.classList.add("openRightbar");
               chat_div.classList.remove("collapsedRightbar");
               virtualclass.zoom.fitToScreen();
+              virtualclass.stickybarWidth();
             }
           });
         }
@@ -413,6 +415,7 @@
           }
         };
       },
+
 
       makeReadySocket() {
         if (!virtualclass.vutil.isPlayMode() && virtualclass.config.makeWebSocketReady
@@ -1467,6 +1470,11 @@
           }
         }
         return false;
+      },
+
+      stickybarWidth() {
+        const leftBarWidth = (document.querySelector('#virtualclassApp #virtualclassAppLeftPanel').offsetWidth) + 'px';
+        document.querySelector('#stickybar').style.width = leftBarWidth;
       },
 
       removeSharingClass() {

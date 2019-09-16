@@ -853,7 +853,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 }
 
 #virtualclassCont.congrea #stickybar {
-  width: calc(100% - 320px); /*changed from 325px */
+  width: 100%; /*changed from 325px */
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel .ui-state-default .ui-tabs-anchor,

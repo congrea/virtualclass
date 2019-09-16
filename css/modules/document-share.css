@@ -484,7 +484,7 @@
 }
 
 #virtualclassCont.congrea .whiteboard .next {
-  right: 349px;
+  right: 25px;
 }
 
 #virtualclassCont.congrea .nvgt.next::after {
@@ -985,9 +985,8 @@
 
 #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher #docShareNav {
   display: block;
-  position: fixed;
-  bottom: 0px;
-  right: 428px;
+  position: absolute;
+  right: 109px;
   padding: 12.5px 16px 13.5px 16px;
   z-index: 1005;
 }

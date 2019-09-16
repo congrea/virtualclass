@@ -190,7 +190,9 @@
         formData.append('user', virtualclass.gObj.uid);
         virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_delete`, formData).then((msg) => {
           const getContent = msg.data;
-          that.interfaceToFetchList(getContent);
+          if (!msg.data && msg.data !== '') {
+            that.interfaceToFetchList(getContent);
+          }
         })
           .catch((error) => {
             console.error('Request failed with error ', error);
@@ -213,9 +215,8 @@
         formData.append('saveResult', JSON.stringify(data));
         formData.append('user', virtualclass.gObj.uid);
         virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_result`, formData).then((msg) => {
-          if (msg) {
-            const getContent = msg.data;
-            that.interfaceToFetchList(getContent);
+          if (!msg.data && msg.data !== '') {
+            that.interfaceToFetchList(msg.data);
           }
         })
           .catch((error) => {

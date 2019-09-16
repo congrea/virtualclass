@@ -18,14 +18,9 @@
         this.vmstorage = {};
         $('body').footerbar();
 
-        if (localStorage.getItem('init') == 'false') { // check footer is close
-          $('#stickybar').removeClass('maximize').addClass('minimize');
-          $('#hide_bar input').removeClass('close').addClass('expand');
-        }
-
         tabs = $('#tabs').tabs({ cache: true, activeOnAdd: true });
 
-        if (browserSupportsLocalStorage() == false) { // check browser for local storage
+        if (browserSupportsLocalStorage() === false) { // check browser for local storage
           alert(lang.sterror);
           return;
         }
@@ -83,7 +78,7 @@
 
         const chat = localStorage.getItem('chatWindow');
 
-        if (chat != null && chat == 'common') {
+        if (chat != null && chat === 'common') {
           virtualclass.chat.chatWindow = 'common';
           const chatroom = document.getElementById('chatrm');
           if (chatroom) {
@@ -116,7 +111,7 @@
               listBtn.classList.add('active');
             }
           }
-        } else if (chat != null && chat == 'support') {
+        } else if (chat != null && chat === 'support') {
           const supportBtn = document.getElementById('congreaSupport');
           if (supportBtn) {
             // support.style.display = "none";
@@ -190,7 +185,7 @@
           const data = JSON.parse(localStorage.getItem(wbUser.sid));
           displayPvtChatHistory(data);
           chatEnable = localStorage.getItem('chatEnable');
-          if (chatEnable != null && chatEnable == 'false') {
+          if (chatEnable != null && chatEnable === 'false') {
             virtualclass.user.control.disbaleAllChatBox();
           }
           this.vmstorage = JSON.parse(localStorage.getItem(wbUser.sid));
@@ -202,7 +197,7 @@
           displaycomChatHistory();
           virtualclass.chat.removeChatHighLight('chatrm');
           // if(typeof chatEnable != null && chatEnable == "false"){
-          if (chatEnable != null && chatEnable == 'false') {
+          if (chatEnable != null && chatEnable === 'false') {
             virtualclass.user.control.disableCommonChat();
           }
         }
@@ -241,7 +236,7 @@
             /* Hide box when click on user tab */
             const tabid = $(this).closest('li').attr('id').substring(5);
             $(`#${tabid}`).chatbox('toggleContentbox');
-            if (localStorage.getItem(tabid) == 'hidden') {
+            if (localStorage.getItem(tabid) === 'hidden') {
               localStorage.removeItem(tabid);
             } else {
               localStorage.setItem(tabid, 'hidden');
@@ -323,7 +318,7 @@
       isTechSupportExist(uid) {
         const techSupport = document.querySelector('#congreaSupport');
         if (techSupport != null) {
-          return ((+techSupport.dataset.tsid) == (+uid));
+          return ((+techSupport.dataset.tsid) === (+uid));
         }
       },
 
@@ -350,7 +345,7 @@
             const tobeClosed = document.querySelector('#tabs .ui-widget.ui-chatbox');
             if (tobeClosed != null) {
               const closeSpan = tobeClosed.querySelector('span.icon-close');
-              if (closeSpan !=  null) {
+              if (closeSpan != null) {
                 closeSpan.parentNode.click(); // Cliking on close button
               }
             }

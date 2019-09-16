@@ -2512,8 +2512,9 @@
 }
 
 #virtualclassCont.congrea #virtualclassApp[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea #virtualclassApp[data-currapp='Video'] .modal, #virtualclassCont.congrea #virtualclassApp[data-currapp='SharePresentation'] .modal {
-  width: calc(100% - 372px);
+  width: calc(100% - 53px);
   margin-left: 0;
+  position: absolute;
   /*background-color: rgba(0, 0, 0, 0.7);*/
   border-width: 0;
   border-radius: 0;
@@ -3433,6 +3434,7 @@
   width: 100%;
   height: 100%;
   position: fixed;
+  z-index: 10000;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="enable"],

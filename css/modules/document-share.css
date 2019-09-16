@@ -987,6 +987,7 @@
   display: block;
   position: absolute;
   right: 109px;
+  bottom: -1px;
   padding: 12.5px 16px 13.5px 16px;
   z-index: 1005;
 }
@@ -1090,10 +1091,6 @@
 
 #docShareNav.hide {
   display: none !important;
-}
-
-#docShareNav.show {
-  display: block !important;
 }
 
 #virtualclassCont.congrea .noteIndex, #virtualclassCont.congrea .pageNav {

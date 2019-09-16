@@ -347,10 +347,10 @@
         console.log('====> student submit poll ', this.count);
 
 
-        if (storedData.pollClosed != 'yes') {
+        if (storedData.pollClosed !== 'yes') {
           this.reloadTeacherPublish(storedData);
         }
-        if (typeof storedData.data.pollClosed !== 'undefined' && storedData.pollClosed != 'yes') {
+        if (typeof storedData.data.pollClosed !== 'undefined' && storedData.pollClosed !== 'yes') {
           this.UI.pollClosedUI();
           const msg = virtualclass.lang.getString('Pclosed');
           this.showMsg('resultLayoutHead', msg, 'alert-success');
@@ -487,13 +487,13 @@
       },
 
       reloadGraph() {
-        if (this.currResultView == 'bar') {
+        if (this.currResultView === 'bar') {
           this.showGraph();
           this.updateBarGraph();
-        } else if (this.currResultView == 'pi') {
+        } else if (this.currResultView === 'pi') {
           this.createPiChart();
           this.updatePiChart();
-        } else if (this.currResultView == 'list') {
+        } else if (this.currResultView === 'list') {
           this.listView();
         }
         const elem = document.getElementsByClassName('emptyList');
@@ -537,7 +537,7 @@
         const attachInit = function () {
           // console.log(this.id);
           virtualclass.poll.action(this.id, cb, index, pollType);
-          if (this.id == 'goBack' || this.id == 'cacelSetting') {
+          if (this.id === 'goBack' || this.id === 'cacelSetting') {
             virtualclass.modal.removeModal();
           }
         };
@@ -593,7 +593,7 @@
         }
 
         this.dispNewPollBtn('course');
-        if (this.pollState.currScreen != 'teacherPublish') {
+        if (this.pollState.currScreen !== 'teacherPublish') {
           this.pollState.currScreen = 'displaycoursePollList';
         }
       },
@@ -621,7 +621,7 @@
         } else {
           var mszbox = document.querySelector('#mszBoxPoll');
           let message = virtualclass.lang.getString('noPoll');
-          if (isAdmin == 'false') {
+          if (isAdmin === 'false') {
             message = virtualclass.lang.getString('noPollNoAdmin');
           }
 
@@ -637,7 +637,7 @@
         }
 
         this.dispNewPollBtn('site', isAdmin);
-        if (this.pollState.currScreen != 'teacherPublish') {
+        if (this.pollState.currScreen !== 'teacherPublish') {
           this.pollState.currScreen = 'displaysitePollList';
         }
       },
@@ -648,7 +648,7 @@
           mszbox.childNodes[0].parentNode.removeChild(mszbox.childNodes[0]);
         }
 
-        const hide = pollType == 'course' ? 'site' : 'course';
+        const hide = pollType === 'course' ? 'site' : 'course';
         this.hidePollList(hide);
         const listCont = document.getElementById(`listQnCont${pollType}`);
         if (listCont) {
@@ -669,7 +669,7 @@
       dispNewPollBtn(pollType, isAdmin) {
         this.attachEvent(`newPollBtn${pollType}`, 'click', this.newPollHandler, pollType);
         const btn = document.getElementById(`newPollBtn${pollType}`);
-        if (pollType == 'site') {
+        if (pollType === 'site') {
           if (typeof isAdmin !== 'undefined' && isAdmin == 'true') {
             btn.style.display = 'table';
           } else {
@@ -814,7 +814,9 @@
       },
       //* *****************
       popupFn(id, index, pollType) {
-        virtualclass.poll[id].call(virtualclass.poll, index, pollType, id);
+        if (id !== 'goBack') {
+          virtualclass.poll[id].call(virtualclass.poll, index, pollType, id);
+        }
       },
       next(index, pollType) {
         virtualclass.poll.pollSetting(pollType, index);

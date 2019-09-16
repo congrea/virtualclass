@@ -102,12 +102,13 @@ if (isset($_GET['id'])) {
 
 /** For demo recording purpose ***/
 
+/*
 $room = '3_27';
 $isplay = true;
 $session = 'a750392f-3895-4d54-b686-5fcec5fa37bd';
 $uid = 1930000000;
 $cont_class .= "playMode ";
-
+*/
 
 $uname = isset($_GET['name']) ? $_GET['name'] : 'Randy"';
 $lname = isset($_GET['lname']) ? $_GET['lname'] : ' ';
@@ -127,7 +128,7 @@ $meetingmode = 0;
 $cont_class .= 'normalmode ';
 
 // Set 1 to add source file else 0 to min file
-$info = 0;
+$info = 1;
 $audio_disabled_completely = true;
 $cmid = 5;
 

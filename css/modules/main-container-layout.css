@@ -2,10 +2,6 @@
   height: 100vh;
 }
 
-#virtualclassCont.teacher #virtualclassAppContainer {
-  width: calc(100vw - 372px);
-}
-
 #virtualclassCont.student #virtualclassAppContainer {
   width: calc(100vw - 320px);
 }

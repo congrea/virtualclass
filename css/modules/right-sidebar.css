@@ -139,6 +139,7 @@ body {
 
 #virtualclassCont.congrea .vidHide #rightSubContainer {
   height: calc(100% - 48px) !important;
+  width: 320px;
 }
 
 #virtualclassCont.congrea.playMode .vidHide #rightSubContainer {

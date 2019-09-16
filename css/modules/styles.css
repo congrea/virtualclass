@@ -2405,17 +2405,12 @@
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel {
   float: none;
-  width: auto;
+  width: 100%;
   overflow: hidden;
   /* background-color:#fff; */
 }
 
-#virtualclassCont.congrea.playMode #virtualclassAppLeftPanel {
-  float: left;
-}
-
 #virtualclassCont.congrea #virtualclassAppRightPanel {
-  float: right;
   width: 320px;
   height: 99.9vh;
   border-left: 1px solid #bbb;

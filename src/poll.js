@@ -814,7 +814,9 @@
       },
       //* *****************
       popupFn(id, index, pollType) {
-        virtualclass.poll[id].call(virtualclass.poll, index, pollType, id);
+        if (id !== 'goBack') {
+          virtualclass.poll[id].call(virtualclass.poll, index, pollType, id);
+        }
       },
       next(index, pollType) {
         virtualclass.poll.pollSetting(pollType, index);

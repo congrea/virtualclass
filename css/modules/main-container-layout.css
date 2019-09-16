@@ -10,8 +10,9 @@
   height: 100%;
 }
 
-#virtualclassCont.congrea #layoutPollBody, #virtualclassCont.congrea #layoutQuizBody {
+#virtualclassCont.congrea #layoutQuizBody {
   height: calc(100% - 48px);
+  position: relative;
 
 }
 
@@ -136,9 +137,9 @@ and (max-device-width: 1024px) {
     height: calc(100vh - 92px);
   }
 
-  #virtualclassCont.congrea #docMsgStudent {
+  /* #virtualclassCont.congrea #docMsgStudent {
     margin: calc(40vh - var(--vh-offset));
-  }
+  } */
 
   #virtualclassCont.congrea.fullscreenMode #docMsgStudent {
     margin: 40vh;
@@ -281,8 +282,78 @@ and (max-device-width: 1024px) {
 
   #virtualclassCont.congrea.student #layoutPollBody {
     overflow: auto;
+    height: calc(100% - 48px);
   }
 
+  #virtualclassCont.congrea[device="mobile"] .bootstrap .modal-dialog {
+    width: 90%;
+  }
+
+   #virtualclassCont.congrea[device="mobile"] .bootstrap .modal-body {
+    /* padding: 10px; */
+    position: relative;
+  }
+
+   #virtualclassCont.congrea[device="mobile"] #preCheckcontainer #precheckSkip .skip {
+    border-radius: 3px;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+   #virtualclassCont.congrea[device="mobile"] #preCheckcontainer .progressbar .screen2::before,
+  #virtualclassCont.congrea[device="mobile"] #preCheckcontainer .progressbar .screen4::before,
+  #virtualclassCont.congrea[device="mobile"] #preCheckcontainer .progressbar .screen5::before {
+    font-size: 28px;
+  }
+
+   #virtualclassCont.congrea[device="mobile"] #preCheckcontainer .progressbar .screen1::before {
+    font-size: 36px;
+  }
+
+   #virtualclassCont.congrea[device="mobile"] #preCheckcontainer .progressbar .screen3::before {
+    font-size: 42px;
+  }
+
+   #virtualclassCont.congrea[device="mobile"] #virtualclassPreCheck .testName {
+    /* height: 50px; */
+    font-size: 15px;
+    position: relative;
+    bottom: 25px;
+  }
+
+  #virtualclassCont.congrea[device="mobile"] #virtualclassPreCheck .result div,
+  #virtualclassCont.congrea[device="mobile"] .bootstrap #joinClassModal .modal-dialog button {
+    font-size: 12px;
+  }
+
+   #virtualclassCont.congrea[device="mobile"] #audioVisualaizerCont {
+    width: 50%;
+    position: absolute;
+    top: 100px;
+    left: 155px;
+  }
+
+   #virtualclassCont.congrea[device="mobile"] #preCheckcontainer #vcWebCamCheck .result {
+    display: none;
+  }
+
+   #virtualclassCont.congrea[device="mobile"] #preCheckcontainer #vcWebCamCheck .testName {
+    height: 50px;
+  }
+  #virtualclassCont.congrea[device="mobile"] #joinClass #joinClassModal .modal-dialog {
+    width: 48%;
+  }
+
+   #virtualclassCont.congrea[device="mobile"] #joinClass #joinClassModal .modal-body {
+    padding: 5px;
+  }
+
+   #virtualclassCont.congrea[device="mobile"] .bootstrap #joinClassModal .modal-dialog .textCont {
+    font-size: 17px;
+  }
+}	
   /* #virtualclassCont.congrea #virtualclassPoll #layoutPoll {
     height: 95%;
   }

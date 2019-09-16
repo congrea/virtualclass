@@ -2010,12 +2010,12 @@
   margin: 0 auto;
   padding: 30px 20px;
   position: absolute;
-  top: 40%;
-  width: 26%;
+  top: 50%;
+  width: 26%;	  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
   text-align: center;
   box-shadow: 0 0 8px #ddd;
-  left: 0;
-  right: 320px;
 }
 
 #virtualclassCont.congrea #docMsgStudent {
@@ -2023,10 +2023,12 @@
   border: 1px solid #c8ddb8;
   border-radius: 5px;
   color: #3a773c;
-  margin: 0 auto;
-  margin-top: 40vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 30px 20px;
-  width: 27%;
+  width: fit-content;
   text-align: center;
   box-shadow: 0 0 8px #ddd;
 }
@@ -2492,7 +2494,7 @@
 }
 
 #virtualclassCont.congrea .bootstrap .modal-dialog {
-  width: 800px !important;
+  width: 800px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -2648,6 +2650,11 @@
 
 #virtualclassCont.congrea #virtualclassVideo {
   /*margin:40px 20px!important;*/
+  position: relative;
+}
+
+#virtualclassCont.congrea #virtualclassSharePresentation {
+  position: relative;
 }
 
 #virtualclassCont.congrea .upload {
@@ -2777,21 +2784,22 @@
   pointer-events: none
 }
 
-#virtualclassCont.congrea #messageLayoutVideo {
+#virtualclassCont.congrea #messageLayoutVideo,
+#virtualclassCont.congrea.student #virtualclassPoll #stdPollMszLayout,
+#virtualclassCont.congrea.student #layoutQuizBody #stdQuizMszLayout {
   background-color: #f9f9f9;
   border: 1px solid #c8ddb8;
   border-radius: 5px;
   color: #3a773c;
-  margin: 0 auto;
   padding: 30px 20px;
   position: absolute;
-  top: 40%;
-  width: 26%;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
   text-align: center;
   box-shadow: 0 0 8px #ddd;
-  left: 0;
-  right: 320px;
-}
+ }
 
 #virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar .vjs-progress-control,
 #virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar .vjs-remaining-time,
@@ -4129,9 +4137,9 @@ span#usertab_text {
 
 }
 
-#virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog {
+#virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
   margin: 20% auto;
-  width: 400px !important;
+  width: 400px;
 }
 
 #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog .textCont {

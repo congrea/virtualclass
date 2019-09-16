@@ -72,7 +72,10 @@
 
 #virtualclassCont.congrea #documentScreen #docScreenContainer {
   overflow: hidden;
-  position: relative;
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
 }
 
 #virtualclassCont.congrea #documentSharing #listDocs {
@@ -170,6 +173,7 @@
 
 #virtualclassCont.congrea #virtualclassDocumentShare {
   margin: 25px 25px 25px 80px;
+  position: relative;
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container {
@@ -193,6 +197,7 @@
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #documentScreen {
   width: 100%;
   float: left;
+  height: 100%;
   margin: 0;
   padding: 0;
   border-width: 0;

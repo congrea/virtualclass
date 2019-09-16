@@ -298,7 +298,7 @@ function messageUpdate(e) {
   const self = io.cfg.userid;
   const time = new Date().getTime();
   // common chat room
-  if (e.message.receiver === 'chatroom' && (to === '' || to == null)) {
+  if (e.message.receiver === 'chatroom' && (!to || to === '')) {
     // suman 25
     msg = { msg, time: e.message.time };
     if (virtualclass.chat.chatroombox) {

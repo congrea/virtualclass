@@ -33,7 +33,7 @@ const preCheck = {
 
     const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
     if (virtualclassApp != null) {
-      virtualclassApp.style.display = 'none';
+      virtualclassApp.style.display = 'FLEX';
     }
 
     this.startToCheckWholeSytem();

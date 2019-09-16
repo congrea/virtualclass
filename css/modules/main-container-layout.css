@@ -42,7 +42,7 @@
 }
 
 #virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer {
-  margin-left: 53px;
+  flex:1;
 }
 
 #virtualclassCont.congrea.student #virtualclassScreenShare {

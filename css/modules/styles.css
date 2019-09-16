@@ -2400,9 +2400,15 @@
 #virtualclassCont.congrea #virtualclassAppLeftPanel {
   position: relative;
   float: none;
-  width: 100%;
+  flex:1;
   overflow: hidden;
+  display: flex;
+  flex-flow: row wrap;
   /* background-color:#fff; */
+}
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassAppOptionsCont {
+  flex-basis: 55px;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel {

@@ -91,6 +91,7 @@
         audioRecWorkerReady: false,
         wbTool: {},
         fullScreenMode: false,
+        hideRightbar : JSON.parse(localStorage.getItem('hideRightbar')),
         lastmousemovetime: null,
         CDTimer: null,
         wbData: {},
@@ -370,7 +371,41 @@
           fullScreenExitBtn.addEventListener('click', virtualclass.vutil.closeFullscreen);
         }
 
-        document.onfullscreenchange = function () {
+        var chat_div = document.getElementById("chat_div");
+        var rightSidebarBtn = document.getElementById("sidebarButton");
+        if(rightSidebarBtn != null) {
+          rightSidebarBtn.addEventListener('click', function () {
+            var elem = document.getElementById("virtualclassApp");
+            if (elem.classList.contains('openRightbar')) {
+              elem.classList.remove("openRightbar");
+              elem.classList.add("collapsedRightbar");
+              chat_div.classList.add("collapsedRightbar");
+              localStorage.setItem('hideRightbar',true);
+              virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
+              virtualclass.zoom.fitToScreen(); 
+            } else {
+              localStorage.removeItem('hideRightbar');
+              localStorage.setItem('hideRightbar',false);
+              virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
+              elem.classList.remove("collapsedRightbar");
+              elem.classList.add("openRightbar");
+              chat_div.classList.remove("collapsedRightbar");
+              virtualclass.zoom.fitToScreen();
+            }
+          });
+        }
+
+         var virtualclassApp = document.getElementById("virtualclassApp");
+          if(virtualclass.gObj.hideRightbar) {
+              virtualclassApp.classList.remove("openRightbar");
+              virtualclassApp.classList.add("collapsedRightbar");
+              chat_div.classList.add("collapsedRightbar");
+          } else {
+              console.log("Already Hide");
+          }
+
+
+         document.onfullscreenchange = function (event) {
           if (!virtualclass.gObj.fullScreenMode) {
             virtualclass.vutil.hideFullScreenButton();
           } else {
@@ -1349,6 +1384,7 @@
           rightBar: this.getTemplate('rightBar'),
           recordingControl: this.getTemplate('recordingControl'),
           leftBar: this.getTemplate('leftBar'),
+          footerBar: this.getTemplate('footerBar'),
           main: this.getTemplate('main'),
           whiteboard: this.getTemplate('main', 'whiteboard'),
           dashboardCont: this.getTemplate('dashboardCont'),

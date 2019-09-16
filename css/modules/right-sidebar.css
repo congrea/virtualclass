@@ -104,6 +104,10 @@ body {
   border-left-width: 0;
 }
 
+#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #virtualclassAppRightPanel {
+  display: none;
+}
+
 #virtualclassCont.congrea #rightSubContainer, #virtualclassCont #congreaChatMainCont {
   height: calc(100% - 287px);
 }

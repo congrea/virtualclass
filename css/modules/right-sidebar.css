@@ -8,18 +8,9 @@ body {
 }
 
 #audioWidget ul li a {
-  padding-top: 13px !important;
-  padding-bottom: 12px !important;
+  padding-top: 11px !important;
+  padding-bottom: 11px !important;
   text-align: center;
-}
-
-#virtualclassCont.congrea #appSettingCtrl :hover {
-  height: 55px !important;
-}
-
-#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget {
-  background: #4c5963 none;
-  height: 48px;
 }
 
 #virtualclassCont.congrea #audioWidget .settingActive {
@@ -123,10 +114,6 @@ body {
 
 #virtualclassCont.congrea.playMode #rightSubContainer, #virtualclassCont #congreaChatMainCont {
   height: calc(100% - 240px);
-}
-
-#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget {
-  background: #4c5863 none !important;
 }
 
 #virtualclassCont.congrea.videoff #rightSubContainer, #virtualclassCont.videoff #congreaChatMainCont {
@@ -835,13 +822,6 @@ body {
   padding: 0.2em 0.42em;
 }
 
-/* Responsive */
-
-@media (min-width: 368px) {
-  #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
-    height: 48px !important;
-  }
-}
 
 #virtualclassCont.congrea .nowebcam #videoSwitchCont {
   pointer-events: none !important;

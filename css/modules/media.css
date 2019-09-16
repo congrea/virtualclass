@@ -3,13 +3,6 @@
   left: 84px;
 }
 
-#virtualclassCont.congrea #audioWidget {
-  /*cursor: pointer;*/
-  float: left;
-  margin-left: 14px;
-  height: 45px;
-  overflow: hidden;
-}
 
 #virtualclassCont.congrea #audioWidget ul li {
   cursor: pointer;
@@ -273,6 +266,7 @@
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #audioWidget {
   margin: 0;
   width: 100%;
+  height: 48px;
 }
 
 #virtualclassCont.congrea .suggestion,
@@ -281,8 +275,8 @@
   padding: 1px;
 }
 
-#virtualclassCont.congrea #videoHostSource {
-  height: 240px;
+#virtualclassCont.congrea #videoHostContainer {
+  height: 239px;
 }
 
 #pollModalBody #chartMenuCont .col-sm-1 #barView, #pollModalBody #chartMenuCont .col-sm-1 #piView, #pollModalBody #chartMenuCont .col-sm-1 #listView {

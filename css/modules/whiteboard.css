@@ -37,14 +37,6 @@
   left: 40%;
 }
 
-#virtualclassCont.congrea.teacher.orginalTeacher[data-currapp="Whiteboard"] #audioWidget {
-  right: 0px;
-}
-
-#virtualclassCont.congrea.student.presenter[data-currapp="Whiteboard"] #audioWidget {
-  right: 0px;
-}
-
 #virtualclassCont.congrea #whiteBoardMsg {
   background-color: #f9f9f9;
   border: 1px solid #c8ddb8;

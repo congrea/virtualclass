@@ -1173,12 +1173,6 @@
   margin-right: -1px;
 }
 
-#virtualclassCont.congrea #speakerPressOnce {
-  width: 33.3%;
-  text-align: center !important;
-  height: 48px;
-}
-
 #virtualclassCont.congrea.student #speakerPressOnce {
   width: 25%;
   height: 48px;
@@ -2940,7 +2934,6 @@
 }
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel .prechk,
-#virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel .videoSwitchCont,
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
   height: 50px;
   /*width: 25%;*/
@@ -2968,7 +2961,6 @@
 @media (min-width: 368px) {
   #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
     float: none !important;
-    height: 45px !important;
   }
 }
 
@@ -3035,7 +3027,7 @@
 }
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a {
-  padding: 13px 30px 12px 30px !important;
+  padding: 12px 30px 12px 30px !important;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel .active #speakerPressingbtn {
@@ -4645,6 +4637,10 @@ and (max-device-width: 1024px) {
 
 #virtualclassCont.congrea #sessionEndMsgCont .endHeader {
   background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
+}
+
+#virtualclassCont.congrea.teacher .canvasWrapper::-webkit-scrollbar {
+  width: 6px;
 }
 
 /* ======== Firefox ========== */

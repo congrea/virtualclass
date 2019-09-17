@@ -4739,3 +4739,10 @@ and (max-device-width: 1024px) {
   html, body {
     height: 100%;
   }
+
+  #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-memblist, 
+  #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-memblist .ui-memblist-content, 
+  #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-chatroom, 
+  #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-chatroom .ui-chatbox-content {
+    height: 100%;
+  }

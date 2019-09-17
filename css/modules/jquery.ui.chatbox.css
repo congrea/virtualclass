@@ -670,14 +670,13 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 #virtualclassCont.congrea .ui-chatroom {
   top: 5px;
   left: 5px;
-  position: absolute !important;
 }
 
 #virtualclassCont.congrea #chat_div {
   overflow-y: auto;
   position: relative;
   padding-top: 51px;
-
+  height: 100%;
 }
 
 #virtualclassCont.congrea .ui-widget-content {
@@ -709,21 +708,12 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 }
 
 #virtualclassCont.congrea.teacher .vidHide #chat_room {
-  height: calc(100vh - 160px);
   margin: 0px;
   /*    pointer-events: none;*/
 }
 
-#virtualclassCont.congrea.student .vidHide #chat_room {
-  height: calc(100vh - 160px) !important;
-}
-
-#virtualclassCont.congrea.student #chat_room {
-  height: calc(100vh - 400px) !important;
-}
-
-#virtualclassCont.videoff.student #chat_room {
-  height: calc(100vh - 106px) !important;
+#virtualclassCont.congrea #chat_room {
+  height: 100% !important;
 }
 
 #virtualclassCont.congrea .usern span {

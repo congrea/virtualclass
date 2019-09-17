@@ -53,7 +53,7 @@ body {
 
 #virtualclassCont.congrea #rightSubContainer #congreaChatMainCont {
   border-left: 1px solid #dfdfdf;
-  height: 54px;
+  height: 100%;
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
@@ -108,8 +108,6 @@ body {
 
 
 #virtualclassCont .footerCtr {
-  position: absolute;
-  bottom: 49px;
   width: 100%;
   text-align: right;
   background: #fff;
@@ -459,9 +457,14 @@ body {
   display: none;
 }
 
-#virtualclassCont.congrea #chatWidget.active #congreaChatMainCont {
+#virtualclassCont.congrea #chatWidget #congreaChatMainCont {
   display: flex;
   flex-direction: column;
+}
+
+#virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont {
+  flex: 1;
+  height: 1px;
 }
 
 #virtualclassCont.congrea #WebRtcIoContainer {

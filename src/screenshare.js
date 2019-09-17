@@ -176,6 +176,10 @@ let globalImageData = {};
        */
       // TODO name of parameter d should be changed ,It also contains the property named d
       initStudentScreen(imgData, d, stype, stool, uid) {
+        const whoIsTeacher = virtualclass.vutil.whoIsTeacher();
+        if (whoIsTeacher == uid) {
+          virtualclass.gObj.studentSSstatus.shareToAll = true;
+        }
         app = stype;
         const screenCont = document.getElementById(`virtualclass${virtualclass.apps.ss}`);
 
@@ -1270,9 +1274,9 @@ let globalImageData = {};
         if (elem != null) {
           elem.style.display = 'block';
         }
-        virtualclass.gObj.studentSSstatus.shareToAll = true;
-        virtualclass.gObj.studentSSstatus.sharing = true;
-      }
+        // virtualclass.gObj.studentSSstatus.shareToAll = true;
+        // virtualclass.gObj.studentSSstatus.sharing = true;
+      },
     };
   };
   window.studentScreen = studentScreen;

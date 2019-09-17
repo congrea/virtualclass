@@ -292,7 +292,7 @@ and (max-device-width: 1024px) {
       width: 90%;
     }
   
-     #virtualclassCont.congrea #docMsgStudent,
+    #virtualclassCont.congrea #docMsgStudent,
     #virtualclassCont.congrea #messageLayoutVideo,
     #virtualclassCont.congrea.student #virtualclassPoll #stdPollMszLayout,
     #virtualclassCont.congrea.student #layoutQuizBody #stdQuizMszLayout,
@@ -301,18 +301,80 @@ and (max-device-width: 1024px) {
       padding: 20px 15px;
     }
   
-     #virtualclassCont.congrea #sessionEndMsgCont.popupWindow{
+    #virtualclassCont.congrea #sessionEndMsgCont.popupWindow {
       font-size: 12px;
     }
   
-     #virtualclassCont.congrea #preCheckProgress .progressbar {
+    #virtualclassCont.congrea #preCheckProgress .progressbar {
       margin: 0 0;
     }
   
-     #virtualclassCont.congrea a.stdRaiseHand, #virtualclassCont.congrea a.stdRaiseHand:hover {
+    #virtualclassCont.congrea a.stdRaiseHand, #virtualclassCont.congrea a.stdRaiseHand:hover {
       height: 44px;
       padding: 12px 8px;
-  }
+    }
+
+    #virtualclassCont.congrea .bootstrap .modal-body {
+    /* padding: 10px; */
+      position: relative;
+    }
+
+    #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip {
+      border-radius: 3px;
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+
+    #virtualclassCont.congrea #preCheckcontainer .progressbar .screen2::before,
+    #virtualclassCont.congrea #preCheckcontainer .progressbar .screen4::before,
+    #virtualclassCont.congrea #preCheckcontainer .progressbar .screen5::before {
+      font-size: 28px;
+    }
+
+    #virtualclassCont.congrea #preCheckcontainer .progressbar .screen1::before {
+      font-size: 36px;
+    }
+
+    #virtualclassCont.congrea #preCheckcontainer .progressbar .screen3::before {
+      font-size: 42px;
+    }
+
+    #virtualclassCont.congrea #virtualclassPreCheck .testName {
+      /* height: 50px; */
+      font-size: 15px;
+      position: relative;
+      bottom: 25px;
+    }
+
+    #virtualclassCont.congrea #virtualclassPreCheck .result div,
+    #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog button {
+      font-size: 12px;
+    }
+
+    #virtualclassCont.congrea #audioVisualaizerCont {
+      width: 50%;
+      position: absolute;
+      top: 100px;
+      left: 155px;
+    }
+
+    #virtualclassCont.congrea #preCheckcontainer #vcWebCamCheck .result {
+      display: none;
+    }
+
+    #virtualclassCont.congrea #preCheckcontainer #vcWebCamCheck .testName {
+      height: 50px;
+    }
+
+    #virtualclassCont.congrea #joinClass #joinClassModal .modal-body {
+      padding: 5px;
+    }
+
+    #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog .textCont {
+      font-size: 17px;
+    }
   }
   @media only screen
   and (min-device-width: 851px)
@@ -321,77 +383,11 @@ and (max-device-width: 1024px) {
       width: 75%;
     }
   
-     #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
+    #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
       width: 35%;
     }
-    #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
-      width: 48%;
-    }
   }
 
-   #virtualclassCont.congrea .bootstrap .modal-body {
-    /* padding: 10px; */
-    position: relative;
-  }
-
-   #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip {
-    border-radius: 3px;
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-  }
-
-   #virtualclassCont.congrea #preCheckcontainer .progressbar .screen2::before,
-  #virtualclassCont.congrea #preCheckcontainer .progressbar .screen4::before,
-  #virtualclassCont.congrea #preCheckcontainer .progressbar .screen5::before {
-    font-size: 28px;
-  }
-
-   #virtualclassCont.congrea #preCheckcontainer .progressbar .screen1::before {
-    font-size: 36px;
-  }
-
-   #virtualclassCont.congrea #preCheckcontainer .progressbar .screen3::before {
-    font-size: 42px;
-  }
-
-   #virtualclassCont.congrea #virtualclassPreCheck .testName {
-    /* height: 50px; */
-    font-size: 15px;
-    position: relative;
-    bottom: 25px;
-  }
-
-  #virtualclassCont.congrea #virtualclassPreCheck .result div,
-  #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog button {
-    font-size: 12px;
-  }
-
-   #virtualclassCont.congrea #audioVisualaizerCont {
-    width: 50%;
-    position: absolute;
-    top: 100px;
-    left: 155px;
-  }
-
-   #virtualclassCont.congrea #preCheckcontainer #vcWebCamCheck .result {
-    display: none;
-  }
-
-   #virtualclassCont.congrea #preCheckcontainer #vcWebCamCheck .testName {
-    height: 50px;
-  }
-  
-
-   #virtualclassCont.congrea #joinClass #joinClassModal .modal-body {
-    padding: 5px;
-  }
-
-   #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog .textCont {
-    font-size: 17px;
-  }
-}	
   /* #virtualclassCont.congrea #virtualclassPoll #layoutPoll {
     height: 95%;
   }

@@ -460,7 +460,8 @@ body {
 }
 
 #virtualclassCont.congrea #chatWidget.active #congreaChatMainCont {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 #virtualclassCont.congrea #WebRtcIoContainer {

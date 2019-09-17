@@ -1900,11 +1900,13 @@
             if (virtualclass.vutil.IsJsonString(response.data.Item.order.S)) {
               const responseData = JSON.parse(response.data.Item.order.S);
               // virtualclass.gObj.allOrder = responseData;
-              for (let key in responseData) {
-                if (key !== 'Whitebaord' && typeof virtualclass.orderList[key] != 'object') {
-                  virtualclass.orderList[key] = new OrderedList();
+              for (const key in responseData) {
+                if (key === 'SharePresentation' || key === 'DocumentShare' || key === 'Video') {
+                  if (typeof virtualclass.orderList[key] != 'object') {
+                    virtualclass.orderList[key] = new OrderedList();
+                  }
+                  virtualclass.orderList[key].ol = responseData[key].ol;
                 }
-                virtualclass.orderList[key].ol = responseData[key].ol;
               }
               cb('ok');
               //cb(responseData[apptype]);

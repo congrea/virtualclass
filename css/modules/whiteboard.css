@@ -78,6 +78,18 @@
   /*  border: 1px solid #e7eae7;*/
 }
 
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer,
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .canvasContainer,
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .canvasContainer .vcanvas {
+  height: 100%;
+}
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .canvasContainer .containerWb {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 #virtualclassCont.congrea #screen-docs .whiteboard {
   margin-left: 0px;
   /*margin-right: 20px;*/

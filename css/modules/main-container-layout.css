@@ -1,5 +1,5 @@
 #virtualclassCont.congrea {
-  height: 100vh;
+  height: 100%;
 }
 
 #virtualclassCont.student #virtualclassAppContainer {
@@ -7,7 +7,7 @@
 }
 
 #virtualclassCont #virtualclassAppContainer {
-  height: calc(100vh - 44px);
+  height: 100%;
 }
 
 #virtualclassCont.congrea #layoutPollBody, #virtualclassCont.congrea #layoutQuizBody {
@@ -54,9 +54,9 @@
   height: auto;
 }
 
-#virtualclassCont.congrea.teacher .canvasWrapper {
+/* #virtualclassCont.congrea.teacher .canvasWrapper {
   height: calc(100vh - 93px);
-}
+} */
 
 #virtualclassCont.congrea.teacher .canvasWrapper {
   width: 100%;
@@ -73,6 +73,7 @@
 #virtualclassCont.congrea .canvasWrapper {
   width: auto;
   overflow: auto;
+  flex: 1;
 }
 
 #virtualclassCont.congrea.teacher #virtualclassVideo, #virtualclassCont.congrea.teacher #virtualclassSharePresentation {

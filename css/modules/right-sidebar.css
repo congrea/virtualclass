@@ -52,7 +52,8 @@ body {
 }
 
 #virtualclassCont.congrea #rightSubContainer #congreaChatMainCont {
-  border-left: 1px solid #dfdfdf
+  border-left: 1px solid #dfdfdf;
+  height: 54px;
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {

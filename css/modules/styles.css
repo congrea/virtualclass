@@ -2383,6 +2383,7 @@
 
 #virtualclassCont.congrea #virtualclassApp {
   overflow: hidden;
+  height: calc(100% - 44px);
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #canvasWrapper {
@@ -2413,7 +2414,6 @@
 
 #virtualclassCont.congrea #virtualclassAppRightPanel {
   width: 320px;
-  height: 99.9vh;
   border-left: 1px solid #bbb;
 }
 
@@ -4720,4 +4720,8 @@ and (max-device-width: 1024px) {
   bottom: 90px;
   transform: rotate(90deg);
   right: -40px;
+  }
+
+  html, body {
+    height: 100%;
   }

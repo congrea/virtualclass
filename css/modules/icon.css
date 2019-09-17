@@ -859,9 +859,18 @@
   font-size: 13px;
 }
 
-#virtualclassApp .icon-sidebarButton:before {
-  content: "\e96f";
-    font-weight: normal;
-    font-family: 'icomoon';
-    font-size: 18px;
+#virtualclassApp.openRightbar .icon-sidebarButton:before {
+  content: "\e992";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 13px;
+  color: #fff !important;
+}
+
+#virtualclassApp.collapsedRightbar .icon-sidebarButton:before {
+  content: "\e98e";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 13px;
+  color: #fff !important;
 }

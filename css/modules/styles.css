@@ -524,32 +524,29 @@
 
 #virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after {
   border: #ccc solid 1px;
-  bottom: 215px;
-  width: 50px;
-  left: auto;
-  right: 395px;
+  bottom: -5px;
+  /* left: -30px; */
+  right: 46px;
   height: 18px;
-  position: fixed;
+  position: absolute;
 }
 
 #virtualclassCont.congrea .zoomOut .congtooltip:hover:after {
   border: #ccc solid 1px;
-  bottom: 116px;
-  width: 60px;
-  left: auto;
-  right: 395px;
+  bottom: -5px;
+  /* left: -30px; */
+  right: 46px;
   height: 18px;
-  position: fixed;
+  position: absolute;
 }
 
 #virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
   border: #ccc solid 1px;
-  bottom: 165px;
-  width: 78px;
-  left: auto;
-  right: 395px;
+  bottom: -5px;
+  /* left: -30px; */
+  right: 46px;
   height: 18px;
-  position: fixed;
+  position: absolute;
 }
 
 #virtualclassCont.congrea .reloadNote .congtooltip:hover:after {
@@ -3269,7 +3266,7 @@
 
 #virtualclassCont.congrea .zoomControler {
   position: absolute;
-  bottom: 105px;
+  bottom: 65px;
   z-index: 11;
   right: 27px;
 }
@@ -4696,8 +4693,8 @@ and (max-device-width: 1024px) {
     top: calc(50% - 25px);
     right: 0;
   cursor: pointer;
-  background-color: #fffff7;
-  /* background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%); */
+  /* background-color: #fffff7; */
+  background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%); */
   /* background-image: linear-gradient(to bottom, rgba(1,7,9,.8) 0%,rgba(1,7,9,.8) 100%) !important; */
   box-shadow: 0 0 4px rgb(132, 130, 130);
   border-bottom-left-radius: 15px;
@@ -4709,20 +4706,14 @@ and (max-device-width: 1024px) {
   #virtualclassCont.congrea.student #virtualclassApp #virtualclassAppLeftPanel #sidebarButton {
   right: 0;
   }
+
+  #virtualclassCont.congrea #virtualclassApp #virtualclassAppLeftPanel .sidebarButton:hover::after {
+    right: 30px;
+  }
   
   #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
-  padding: 1.125rem 0.25rem;
-  right: 2px;
-  transform: rotate(90deg);
+  padding: 1rem .375rem;
   }
-  
-  #virtualclassCont #virtualclassApp.collapsedRightbar #sidebarButton .sidebarButton {
-  transform: rotate(270deg);
-  position: relative;
-  left: 5px;
-  top: -1px;
-  }
-  
   
   #virtualclassCont.congrea #virtualclassApp .collapsedRightbar #sidebarButton .congtooltip:hover:after {
   bottom: 90px;

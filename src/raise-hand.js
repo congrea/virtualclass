@@ -16,7 +16,7 @@
         if (!roles.hasControls()) {
           this.attachHandlerAtStudent();
           // this.stdRhEnable=localStorage.getItem("stdRhEnable");
-          if (this.stdRhEnable && this.stdRhEnable == 'disabled') {
+          if (this.stdRhEnable && this.stdRhEnable === 'disabled') {
             const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
             rhElem.setAttribute('data-action', 'disable');
             const cont = document.querySelector('#virtualclassCont.congrea #congHr');
@@ -83,10 +83,10 @@
         const cont = anch.querySelector('.RaiseHandImg');
 
 
-        if (msg.action == 'enable') {
+        if (msg.action === 'enable') {
           this.enableRaiseHand(userid);
           this.moveUpInList();
-        } else if (msg.action == 'disable') {
+        } else if (msg.action === 'disable') {
           virtualclass.user.control.updateUser(userid, 'raiseHand', false);
           controlContainer.classList.remove('enabled');
           controlContainer.classList.add('disabled');
@@ -111,7 +111,7 @@
       },
 
       msgRecAtStudent(msg) {
-        if (msg.action == 'disable') {
+        if (msg.action === 'disable') {
           this.stdRhEnable = 'enabled';
           const stdR = document.getElementById('congHr');
           stdR.classList.remove('disable');
@@ -129,7 +129,7 @@
 
         for (let i = 0; i < ctrEn.length; i++) {
           if (ctrEn[i].classList.contains('enabled')) {
-            if (i != 0) {
+            if (i !== 0) {
               // to simplify
               ctrEn[i].closest('.ui-memblist-usr').parentNode.insertBefore(ctrEn[i].closest('.ui-memblist-usr'), ctrEn[0].closest('.ui-memblist-usr'));
             }
@@ -205,7 +205,7 @@
             cf: 'raiseHand',
           }, toUser);
 
-          if (rhElem.getAttribute('data-action') == 'enable') {
+          if (rhElem.getAttribute('data-action') === 'enable') {
             rhElem.setAttribute('data-action', 'disable');
             cont.classList.remove('enable');
             cont.classList.add('disable');

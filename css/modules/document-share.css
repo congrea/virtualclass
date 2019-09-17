@@ -72,6 +72,7 @@
 
 #virtualclassCont.congrea #documentScreen #docScreenContainer {
   overflow: hidden;
+  height: 100%;
   /* position: absolute;
   top: 50%;
   left: 50%;
@@ -88,6 +89,7 @@
 
 #virtualclassCont.congrea .pageContainer .note.current {
   display: block;
+  height: 100%;
 }
 
 /*#virtualclassCont.congrea #virtualclassDocumentShare.container, #virtualclassCont.congrea #virtualclassDocumentShare #documentScreen {*/
@@ -203,8 +205,9 @@
   border-width: 0;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #screen-docs {
-  /*height: auto;*/
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #screen-docs,
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #screen-docs #notesContainer {
+  height: 100%;
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container #newdocsBtnCont {

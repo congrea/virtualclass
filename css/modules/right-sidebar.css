@@ -810,14 +810,6 @@ body {
 }
 
 /* to verify */
-#virtualclassCont.congrea.student .videoff #rightSubContainer {
-  height: calc(100% - 284px);
-}
-
-#virtualclassCont.congrea.student #rightSubContainer #congreaChatMainCont {
-  height: calc(100% - 44px);
-}
-
 #virtualclassCont.congrea #chatWidget.deactive {
   height: 0;
 }

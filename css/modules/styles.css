@@ -2521,13 +2521,13 @@
 
 #virtualclassCont.congrea #virtualclassApp[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea #virtualclassApp[data-currapp='Video'] .modal, #virtualclassCont.congrea #virtualclassApp[data-currapp='SharePresentation'] .modal {
   width: calc(100% - 53px);
+  height: 100%;
   margin-left: 0;
   position: absolute;
   /*background-color: rgba(0, 0, 0, 0.7);*/
   border-width: 0;
   border-radius: 0;
   margin-left: 53px;
-  height: calc(100vh - 44px);
   background: none;
 }
 

@@ -2415,7 +2415,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel {
-  flex: 1 0 auto;
+  /* flex: 1 0 auto; */
   width: 35%;
   max-width: 320px;
   min-width: 190px;

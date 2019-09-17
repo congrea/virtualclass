@@ -105,9 +105,7 @@ and (max-device-width: 1024px) {
     height: 100%;
   }
 
-  #virtualclassCont.congrea #chat_div {
-    height: calc(100% - 388px);
-  }
+  
 
   #virtualclassCont.congrea.fullScreenMode #chat_div {
     height: calc(100% - 388px);
@@ -149,37 +147,20 @@ and (max-device-width: 1024px) {
     display: none;
   }
 
-  #virtualclassCont.congrea .vidHide #chat_div {
-    height: calc(100% - 148px);
-  }
 
   #virtualclassCont.congrea.fullScreenMode .vidHide #chat_div {
     height: calc(100% - 148px);
-  }
-
-  #virtualclassCont.congrea.student .vidHide #chat_room {
-    height: calc(100% - 160px) !important;
   }
 
   #virtualclassCont.congrea.student.fullScreenMode .vidHide #chat_room {
     height: calc(100% - 160px) !important;
   }
 
-  #virtualclassCont.congrea.student #chat_room {
-    height: calc(100% - 400px) !important;
-  }
-
-  #virtualclassCont.congrea.student.fullScreenMode #chat_room {
-    height: calc(100% - 400px) !important;
-  }
-
   #virtualclassCont.congrea #slickQuiz .quizArea {
     height: calc(100% - 300px);
   }
 
-  #virtualclassCont.congrea.fullScreenMode #slickQuiz .quizArea {
-    height: calc(100% - 300px);
-  }
+  
 
   #virtualclassCont.congrea.playMode #virtualclassApp {
     height: 100%;
@@ -215,11 +196,15 @@ and (max-device-width: 1024px) {
   }
 
   #virtualclassCont.congrea #slickQuiz .quizArea {
-    height: calc(100% - 255px);
+    height: calc(100% - 185px);
+  }
+
+  #virtualclassCont.congrea .collapsedRightbar #slickQuiz .quizArea {
+    height: calc(100% - 180px);
   }
 
   #virtualclassCont.congrea.fullScreenMode #slickQuiz .quizArea {
-    height: calc(100% - 336px);
+    height: calc(100% - 180px);
   }
 
   #virtualclassCont.congrea a.vceditor-btn {
@@ -349,7 +334,8 @@ and (max-device-width: 1024px) {
     }
 
     #virtualclassCont.congrea #virtualclassPreCheck .result div,
-    #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog button {
+    #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog button,
+    #virtualclassCont.congrea #layoutQuizBody #timeText {
       font-size: 12px;
     }
 
@@ -374,6 +360,9 @@ and (max-device-width: 1024px) {
 
     #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog .textCont {
       font-size: 17px;
+    }
+    #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
+      height: 26px;
     }
   }
   @media only screen

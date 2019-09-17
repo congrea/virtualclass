@@ -2100,8 +2100,8 @@
   padding: 22px;
   border-radius: 5px;
   text-align: center;
-  z-index: 1150;
-  max-width: 475px;
+  z-index: 1103;
+  max-width: fit-content;
   line-height: 1.5em;
   color: rgba(131, 14, 14, 0.93);
 }
@@ -2512,6 +2512,15 @@
   z-index: 999;
 }
 
+#virtualclassCont.congrea #virtualclassPoll #bootstrapCont #editPollModal {
+  background-color: rgba(0,0,0,.7);
+}
+#virtualclassCont.congrea #virtualclassQuiz #bootstrapQzCont #editQuizModal {
+  background-color: rgba(0,0,0,.7);
+}
+#virtualclassCont.congrea #virtualclassPoll #createPollCont #editPollModal {
+  background-color: rgba(0,0,0,.7);
+}
 #virtualclassCont.congrea #editPollModal.modal {
   z-index: 1104;
 }
@@ -3144,9 +3153,9 @@
   padding: 5px;
   border-radius: 20px;
   color: #ffffff;
-  position: relative;
-  top: -8px;
-  right: -4%;
+  position: absolute;
+  top: 5px;
+  right: 5px;
   font-family: sans-serif;
   cursor: pointer;
   float: right;

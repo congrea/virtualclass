@@ -13,8 +13,8 @@
 
 #virtualclassCont.congrea #virtualclassPoll #layoutPoll {
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
 }
 
 #virtualclassCont .icon-close-poll:before {
@@ -49,8 +49,8 @@
 
 #virtualclassCont.congrea #layoutPollBody {
   padding: 20px;
-  flex: 1;
   position: relative;
+  height: 100%;
   
 
   /*height: 85vh;*/
@@ -382,11 +382,11 @@
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList thead {
-  position: fixed;
-  top: 122px;
-  left: 73px;
+  position: absolute;
+  top: 74px;
+  left: 19px;
   right: 0;
-  width: calc(100% - 412px);
+  width: calc(100% - 39px);
   height: 41px;
   background: #eee;
   table-layout: fixed;
@@ -553,14 +553,15 @@
   }
 
   #virtualclassCont.congrea #virtualclassPoll #layoutPoll {
-    height: 90%;
+    height: 100%;
   }
 
   #virtualclassCont.congrea.student #resultLayout {
-    width: 67.4%;
-    position: fixed;
+    width: 100%;
+    position: absolute;
     top: 49px;
-    bottom: 60px;
+    bottom: 16%;
     overflow: auto;
+    height: 85%;
   }
 }

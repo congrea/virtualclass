@@ -72,6 +72,7 @@
             console.error('Request failed with error ', error);
           });
       },
+      // TODO in this function if confition and else if condition is not working
       setChatDisplay() {
         const chatInput = document.querySelector('#virtualclassCont.congrea  #ta_chrm2');
         var search = document.querySelector('#virtualclassCont.congrea #congreaUserSearch');
@@ -179,11 +180,11 @@
         });
       },
 
-      history() {
+      history() { // TODO evaluate this function
         let chatEnable = null;
         if (localStorage.getItem(wbUser.sid) != null) {
           const data = JSON.parse(localStorage.getItem(wbUser.sid));
-          displayPvtChatHistory(data);
+          displayPvtChatHistory(data); // TODO this function is not in use
           chatEnable = localStorage.getItem('chatEnable');
           if (chatEnable != null && chatEnable === 'false') {
             virtualclass.user.control.disbaleAllChatBox();
@@ -194,7 +195,7 @@
         // checking common chat local storage
         // Data stored inside sessionStorage variable
         if (localStorage.length > 0) {
-          displaycomChatHistory();
+          displaycomChatHistory(); // TODO this function is not in use
           virtualclass.chat.removeChatHighLight('chatrm');
           // if(typeof chatEnable != null && chatEnable == "false"){
           if (chatEnable != null && chatEnable === 'false') {
@@ -203,6 +204,7 @@
         }
       },
 
+      // TODO this function not in use
       exportCommonChat(startTime) {
         const chatHistory = [];
         const storedMsg = virtualclass.chat.commonChat;
@@ -244,6 +246,7 @@
           },
         },
       },
+      // TODO this function not in use
       removedPrvLoggedInDetail() {
         // if same user login multiple times then
         // remove previously logged in detail
@@ -315,6 +318,7 @@
         }
       },
 
+      // TODO this function not in use
       isTechSupportExist(uid) {
         const techSupport = document.querySelector('#congreaSupport');
         if (techSupport != null) {

@@ -30,13 +30,13 @@
         }
       },
 
-
+      // TODO this function not in use
       teacherIsAlreadyExist() {
         const allExistedUser = document.getElementById('chat_div').getElementsByClassName('ui-memblist-usr');
         let role;
         for (let i = 0; i < allExistedUser.length; i++) {
           role = allExistedUser[i].getAttribute('data-role');
-          if (role == 't' || role == 'e') {
+          if (role === 't' || role === 'e') {
             return true;
           }
         }
@@ -48,7 +48,7 @@
       //     var controlCont = document.createElement('div');
       //     this.createControlDivs(controlCont, userId, controls);
       // },
-
+      // TODO this function not in use
       createControl(userId, controls) {
         const controlCont = document.createElement('div');
         controlCont.id = `${userId}ControlContainer`;
@@ -105,7 +105,7 @@
         });
       },
 
-
+      // TODO this function not in use
       createControlDivs(controlCont, userId, controls) {
         const that = this;
         // var userObj = localStorage.getItem(userId);
@@ -116,7 +116,7 @@
           userObj = JSON.parse(userObj);
           if (Object.prototype.hasOwnProperty.call(userObj, 'currTeacher')) {
             virtualclass.gObj[`${userId}currTeacher`] = {};
-            if (userObj.currTeacher == true) {
+            if (userObj.currTeacher === true) {
               virtualclass.user.control.currTeacherAlready = true;
               var currTeacher = true;
               virtualclass.gObj[`${userId}currTeacher`].ct = true;
@@ -132,13 +132,13 @@
         const isUserTeacher = virtualclass.vutil.isUserTeacher(userId);
         // var this should be in normalize in function
         for (let i = 0; i < controls.length; i++) {
-          if (controls[i] == 'assign' && orginalTeacher) {
+          if (controls[i] === 'assign' && orginalTeacher) {
             if (typeof currTeacher !== 'undefined') {
               this.createAssignControl(controlCont, userId, aRoleEnable, currTeacher);
             } else {
               this.createAssignControl(controlCont, userId, aRoleEnable);
             }
-          } else if (controls[i] == 'audio') {
+          } else if (controls[i] === 'audio') {
             var elems = this.createControllerElement(userId, 'contrAud');
             var controller = elems[0];
             var audBlock = elems[1];
@@ -166,7 +166,7 @@
                 }
               }
             }
-          } else if (controls[i] == 'chat') {
+          } else if (controls[i] === 'chat') {
             var elems = this.createControllerElement(userId, 'contrChat');
 
             var controller = elems[0];
@@ -202,7 +202,7 @@
               controlCont.appendChild(controller);
 
 
-              if (virtualclass.currApp != virtualclass.vutil.capitalizeFirstLetter(controls[i])) {
+              if (virtualclass.currApp !== virtualclass.vutil.capitalizeFirstLetter(controls[i])) {
                 controller.style.display = 'none';
               }
 
@@ -212,7 +212,7 @@
                 editorBlock.addEventListener('click', that.closureEditor(that, editorBlock));
               }
             }
-          } else if (controls[i] == 'RaiseHand') {
+          } else if (controls[i] === 'RaiseHand') {
             if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'raiseHand')) {
               var rhEnable = !!(userObj.raiseHand);
             } else {
@@ -252,7 +252,7 @@
             writeModeBox.innerHTML = modeMessage;
           }
 
-          if (editorType == 'EditorRich') {
+          if (editorType === 'EditorRich') {
             this.tooglDisplayEditorToolBar(writeMode);
           }
         },
@@ -263,7 +263,7 @@
          */
         tooglDisplayEditorToolBar(writeMode) {
           // this.editorStatus = writeMode;
-          //console.log('====> editor Write mode ', writeMode);
+          // console.log('====> editor Write mode ', writeMode);
           virtualclass.editorRich.editorStatus = writeMode;
           const editorToolBars = document.getElementsByClassName('vceditor-toolbar');
           const editorToolBar = editorToolBars[0];
@@ -283,7 +283,7 @@
           let action;
           // If editor rich is enabled
           if (msg.status) {
-            if (virtualclass.gObj.uid == msg.toUser) {
+            if (virtualclass.gObj.uid === msg.toUser) {
               if (typeof virtualclass.editorRich.cm === 'object' && !virtualclass.isPlayMode) {
                 virtualclass.editorRich.cm.setOption('readOnly', false);
               }
@@ -300,7 +300,7 @@
             // localStorage.setItem('editorRich', action);
           } else {
             // If editor rich is disabled
-            if (virtualclass.gObj.uid == msg.toUser) {
+            if (virtualclass.gObj.uid === msg.toUser) {
               if (typeof virtualclass.editorRich.cm === 'object') {
                 virtualclass.editorRich.cm.setOption('readOnly', 'nocursor');
               }
@@ -316,7 +316,7 @@
             this.toggleDisplayWriteModeMsgBox('EditorRich', action);
           }
 
-          if ((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
+          if ((!roles.hasAdmin()) && virtualclass.system.mybrowser.name === 'iOS' && virtualclass.system.isIPad()) {
             if (msg.status) {
               virtualclass.editorRich.enableEditorByOuterLayer();
             } else {
@@ -350,7 +350,7 @@
             // localStorage.setItem('editorCode', action);
           } else {
             // If editor code is disabled
-            if (virtualclass.gObj.uid == msg.toUser) {
+            if (virtualclass.gObj.uid === msg.toUser) {
               if (typeof virtualclass.editorCode.cm === 'object') {
                 virtualclass.editorCode.cm.setOption('readOnly', 'nocursor');
               }
@@ -427,7 +427,7 @@
           elem.setAttribute(`data-${control}-disable`, 'true');
 
           elem.className = `icon-${control}Img block` + ` ${control}Img`;
-          if (control == 'assign') {
+          if (control === 'assign') { // TODO unused condition
             elem.parentNode.classList.remove('tooltip');
             this.addCurrTeacherToControl(elem.id);
             let userObj = localStorage.getItem(`virtualclass${userId}`);
@@ -437,10 +437,10 @@
               if (virtualclass.gObj[`${userId}currTeacher`].ct || (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'controlAssign') && virtualclass.gObj.controlAssign && userObj.currTeacher)) {
                 virtualclass.user.control.updateUser(userId, 'currTeacher', true);
               }
-            } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'controlAssign') && virtualclass.gObj.controlAssignId == userId) {
+            } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'controlAssign') && virtualclass.gObj.controlAssignId === userId) {
               virtualclass.user.control.updateUser(userId, 'currTeacher', true);
             }
-          } else if (control == 'audio' || control == 'chat') {
+          } else if (control === 'audio' || control === 'chat') {
             elem.className = `icon-${control}DisImg block` + ` ${control}DisImg`;
           }
 
@@ -466,7 +466,7 @@
           // }
           elem.setAttribute(`data-${control}-disable`, 'false');
           elem.className = `icon-${control}Img enable` + ` ${control}Img`;
-          if (control == 'RaiseHand') {
+          if (control === 'RaiseHand') {
             virtualclass.raiseHand._raiseHand(userId);
           }
           virtualclass.user.control.updateUser(userId, label, true);
@@ -495,12 +495,12 @@
 
           const control = restString.substring(0, imgPos);
           // TODO this function should be generalise
-          if (control == 'Assign') {
+          if (control === 'Assign') { // TODO unused
             // this condition only true when the app is not quiz, poll, docs, and video
             if (virtualclass.vutil.appIsForEducator(virtualclass.currApp)) {
               virtualclass.gObj.controlAssign = true;
               virtualclass.gObj.controlAssignId = userId;
-              const assignDisable = (tag.getAttribute('data-assign-disable') == 'true');
+              const assignDisable = (tag.getAttribute('data-assign-disable') === 'true');
               if (!assignDisable) {
                 this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
                 virtualclass.user.control._assign(userId);
@@ -515,34 +515,34 @@
             let action; let ctrType; let
               boolVal;
             // TODO this should be generalise
-            if (control == 'stdscreen') {
+            if (control === 'stdscreen') {
               // if teacher share his screen
-              if (roles.hasControls() && virtualclass.previous == 'virtualclassScreenShare') {
+              if (roles.hasControls() && virtualclass.previous === 'virtualclassScreenShare') {
                 virtualclass.vutil.initDefaultApp();
               }
               ctrType = 'stdscreen';
               this.control[`_${ctrType}`].call(this.control, userId);
-              if (virtualclass.currApp == 'Video' && virtualclass.videoUl.player) {
+              if (virtualclass.currApp === 'Video' && virtualclass.videoUl.player) {
                 ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
                 ioAdapter.mustSend({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' });
                 virtualclass.dashboard.init();
                 virtualclass.vutil.removeBackgroundVideoApp();
               }
             } else {
-              if (control == 'Chat') {
+              if (control === 'Chat') {
                 tag.className = 'contrChatBlock';
                 ctrType = 'chat';
-              } else if (control == 'Aud') {
+              } else if (control === 'Aud') {
                 ctrType = 'audio';
               } else {
                 ctrType = control;
               }
 
               if (typeof defaultAction !== 'undefined') {
-                boolVal = (defaultAction == 'enable');
+                boolVal = (defaultAction === 'enable');
 
                 action = (boolVal) ? 'enable' : 'block';
-              } else if (tag.getAttribute(`data-${ctrType}-disable`) == 'true') {
+              } else if (tag.getAttribute(`data-${ctrType}-disable`) === 'true') {
                 action = 'enable';
                 boolVal = true;
               } else {
@@ -551,7 +551,7 @@
               }
 
               this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
-              if (actSend == undefined) {
+              if (actSend == null) {
                 this.control[`_${ctrType}`].call(this.control, userId, action);
               }
             }
@@ -565,10 +565,10 @@
           const imgPos = restString.indexOf('Img');
           const control = restString.substring(0, imgPos);
           // TODO this function should be generalise
-          if (control == 'Assign') {
+          if (control === 'Assign') {
             virtualclass.gObj.controlAssign = true;
             virtualclass.gObj.controlAssignId = userId;
-            const assignDisable = (tag.getAttribute('data-assign-disable') == 'true');
+            const assignDisable = (tag.getAttribute('data-assign-disable') === 'true');
             if (!assignDisable) {
               this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
               virtualclass.user.control._assign(userId);
@@ -578,9 +578,9 @@
             if (!roles.hasAdmin()) {
               virtualclass.user.control.removeAudioFromParticipate(userId);
             }
-          } else if (control == 'Chat') {
+          } else if (control === 'Chat') {
             var action;
-            if (tag.getAttribute('data-chat-disable') == 'true') {
+            if (tag.getAttribute('data-chat-disable') === 'true') {
               tag.className = 'contrChatBlock';
               action = 'enable';
               this.control.changeAttribute(userId, tag, true, 'chat', 'chat');
@@ -589,9 +589,9 @@
               this.control.changeAttribute(userId, tag, false, 'chat', 'chat');
             }
             this.control._chat(userId, action);
-          } else if (control == 'Aud') {
+          } else if (control === 'Aud') {
             var action;
-            if (tag.getAttribute('data-audio-disable') == 'true') {
+            if (tag.getAttribute('data-audio-disable') === 'true') {
               action = 'enable';
               this.control.changeAttribute(userId, tag, true, 'audio', 'aud');
             } else {
@@ -617,7 +617,7 @@
         },
 
         _audioAll(userId, action) {
-          if (action == 'enable') {
+          if (action === 'enable') {
             virtualclass.vutil.beforeSend({ ena: true, toUser: userId, cf: 'ena' }, userId);
           } else {
             virtualclass.vutil.beforeSend({ dia: true, toUser: userId, cf: 'dia' }, userId);
@@ -625,7 +625,7 @@
         },
 
         _editorRich(userId, action) {
-          if (action == 'enable') {
+          if (action === 'enable') {
             virtualclass.vutil.beforeSend({
               status: true,
               control: 'editorRich',
@@ -644,7 +644,7 @@
 
 
         _editorCode(userId, action) {
-          if (action == 'enable') {
+          if (action === 'enable') {
             virtualclass.vutil.beforeSend({
               status: true,
               control: 'editorCode',
@@ -662,7 +662,7 @@
         },
 
         _audio(userId, action) {
-          if (action == 'enable') {
+          if (action === 'enable') {
             // virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
             virtualclass.settings.applySettings(true, 'studentaudio', userId);
           } else {
@@ -676,13 +676,13 @@
         },
 
         _stdscreen(userId) {
-          if (virtualclass.gObj.prvRequestScreenUser && (virtualclass.gObj.prvRequestScreenUser != userId) && virtualclass.config.makeWebSocketReady) {
+          if (virtualclass.gObj.prvRequestScreenUser && (virtualclass.gObj.prvRequestScreenUser !== userId) && virtualclass.config.makeWebSocketReady) {
             ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
           }
           virtualclass.vutil.beforeSend({ reqscreen: true, toUser: userId, cf: 'reqscreen' }, userId);
           virtualclass.gObj.prvRequestScreenUser = userId;
 
-          if (virtualclass.currApp === 'Video' && virtualclass.videoUl !=  null) {
+          if (virtualclass.currApp === 'Video' && virtualclass.videoUl != null) {
             ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
             virtualclass.videoUl.destroyPlayer();
 
@@ -712,10 +712,10 @@
           let aud = localStorage.getItem('audEnable');
           if (aud != null) {
             aud = JSON.parse(aud);
-            if (aud.ac != 'false' && typeof reason !== 'undefined') {
+            if (aud.ac !== 'false' && typeof reason !== 'undefined') {
               ad.r = reason;
             }
-          } else if (typeof reason !== 'unefined') {
+          } else if (typeof reason !== 'undefined') {
             ad.r = reason;
           }
 
@@ -783,7 +783,7 @@
         },
 
         makeElemDisable(elem) {
-          if (elem.id != 'chatrm') {
+          if (elem.id !== 'chatrm') {
             if (virtualclass.vutil.elemHasAnyClass(elem.id)) {
               elem.classList.remove('enable');
               elem.classList.add('disable');
@@ -877,7 +877,7 @@
               mutebtn.classList.remove('icon-all-audio-enable');
               mutebtn.classList.add('icon-all-audio-disable');
               mutebtn.setAttribute('data-title', virtualclass.lang.getString('muteAll'));
-              if (mutebtn.dataset.action == 'enable') {
+              if (mutebtn.dataset.action === 'enable') {
                 mutebtn.dataset.action = 'disable';
               }
             }
@@ -905,8 +905,8 @@
          * This funciton is used to control enable/disable all audio and enable/disable all video at teacher side
          */
         mediaSliderSetting(type) {
-          const lable = (type == 'audio') ? 'Audio' : 'Video';
-          const defaultMediaSetting = (type == 'audio') ? virtualclass.gObj.stdaudioEnable : virtualclass.gObj.stdvideoEnable;
+          const lable = (type === 'audio') ? 'Audio' : 'Video';
+          const defaultMediaSetting = (type === 'audio') ? virtualclass.gObj.stdaudioEnable : virtualclass.gObj.stdvideoEnable;
           const allAction = {
             action: defaultMediaSetting ? 'enable' : 'disable',
             enable: 'disable',
@@ -976,7 +976,7 @@
             }
           }
 
-          if (action == 'enable') {
+          if (action === 'enable') {
             virtualclass.vutil.beforeSend({ status: true, control: 'editorRich', cf: 'control' });
           } else {
             virtualclass.vutil.beforeSend({ status: false, control: 'editorRich', cf: 'control' });
@@ -1017,7 +1017,7 @@
         },
 
         audioSign2(user, action) {
-          if (action == 'create') {
+          if (action === 'create') {
             if (document.getElementById(`${user.id}AudEnableSign`) == null) {
               // important
               const audEnableSign = document.createElement('div');
@@ -1043,7 +1043,7 @@
         },
 
         audioSign(user, action) {
-          if (action == 'create') {
+          if (action === 'create') {
             this.iconAttrManupulate(user.id, 'icon-audioEnaGreen');
           } else if (user.aud) {
             this.iconAttrManupulate(user.id, 'icon-audioImg');
@@ -1056,7 +1056,7 @@
           const audioImg = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(`#ml${uid} .audioImg`);
           if (audioImg != null) {
             for (let i = 0; i < audioImg.classList.length; i++) {
-              if (audioImg.classList[i].substring(0, 5) == 'icon-') {
+              if (audioImg.classList[i].substring(0, 5) === 'icon-') {
                 audioImg.classList.remove(audioImg.classList[i]);
                 audioImg.classList.add(classToBeAdd);
                 break;
@@ -1080,7 +1080,7 @@
         changeAttrToAssign(action) {
           const allUserElem = document.getElementById('chatWidget').getElementsByClassName('assignImg');
           for (let i = 0; i < allUserElem.length; i++) {
-            if (action == 'enable') {
+            if (action === 'enable') {
               allUserElem[i].classList.remove('block');
               allUserElem[i].classList.add('enable');
               allUserElem[i].parentNode.classList.add('tooltip');
@@ -1228,7 +1228,7 @@
         // debugger;
         if (virtualclass.chat.chatroombox) {
           toggleCommonChatBox();
-        } else if ($('div#chat_room').length == 0) {
+        } else if ($('div#chat_room').length === 0) {
           const d = document.createElement('ul');
           d.id = 'chat_room';
           document.body.appendChild(d);
@@ -1302,7 +1302,7 @@
           userObj = JSON.parse(userObj);
           if (Object.prototype.hasOwnProperty.call(userObj, 'currTeacher')) {
             virtualclass.gObj[`${userId}currTeacher`] = {};
-            if (userObj.currTeacher == true) {
+            if (userObj.currTeacher === true) {
               virtualclass.user.control.currTeacherAlready = true;
               const currTeacher = true;
               virtualclass.gObj[`${userId}currTeacher`].ct = true;
@@ -1384,7 +1384,7 @@
             if (Object.prototype.hasOwnProperty.call(virtualclass.gObj.studentSSstatus, 'whoIsSharing')) {
               virtualclass.vutil.initssSharing(virtualclass.gObj.whoIsSharing);
             }
-          } else if (allSpans[i].className.indexOf('editorRich') > -1 && virtualclass.currApp == 'EditorRich') {
+          } else if (allSpans[i].className.indexOf('editorRich') > -1 && virtualclass.currApp === 'EditorRich') {
             const elem = document.querySelector('#alleditorRichContainerAnch');
             if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'editorRich')) {
               var edEnable = !!(userObj.editorRich);

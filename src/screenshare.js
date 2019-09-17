@@ -652,7 +652,9 @@ let globalImageData = {};
        */
       removeStream() {
         virtualclass.vutil.removeClass('audioWidget', 'fixed');
-        this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
+        if (this.localCont) {
+          this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
+        }
         this.clearScreenShare();
       },
       /**
@@ -1020,7 +1022,7 @@ let globalImageData = {};
           }
 
           if (changeonresize === 1) {
-            setTimeout(sendResizeWindow, 2000);
+            virtualclass.ss.sendResizeWindowTime = setTimeout(sendResizeWindow, 2000);
           } else {
             sendDataImageSlices();
           }
@@ -1129,6 +1131,9 @@ let globalImageData = {};
             const ss = document.querySelector('#virtualclassCont  #stopScreenShare');
             if (ss) {
               ss.addEventListener('click', () => {
+                if (virtualclass.ss && virtualclass.ss.sendResizeWindowTime) {
+                  clearTimeout(virtualclass.ss.sendResizeWindowTime);
+                }
                 virtualclass.vutil.initDefaultApp();
               });
             }

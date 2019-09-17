@@ -386,29 +386,37 @@
           let viewport;
           if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'diffrentDocumentWidth')) {
             canvas.width = virtualclass.zoom.diffrentDocumentWidth;
+            console.log('==== a canvas width ', canvas.width);
             delete virtualclass.zoom.diffrentDocumentWidth;
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
             // console.log('====> FIT to screen 1');
             canvas.width = canvas.parentNode.offsetWidth - 6;
             console.log('==== a canvas width fit to screen ', canvas.width);
             console.log('RIGHT SIDE BAR WIDTH ', virtualclass.zoom.getReduceValueForCanvas())
-            if (!roles.hasControls()) {
-              canvas.width += 50; // add left bar's width on canvas width for student
-            }
+            // if (!roles.hasControls()) {
+            //   canvas.width += 50; // add left bar's width on canvas width for student
+            // }
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'performZoom')) {
             canvas.width = virtualclass.zoom.canvasDimension.width;
+            console.log('==== a canvas width performZoom ', canvas.width);
             delete virtualclass.zoom.performZoom;
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'canvasDimension')) {
             console.log(`==== a canvas width dimension ${virtualclass.zoom.canvasDimension.width} scale=${virtualclass.zoom.canvasScale}`);
             canvas.width = virtualclass.zoom.canvasDimension.width;
-            //console.log('==== a canvas width fit to screen ', canvas.width);
+            console.log('==== a canvas width  ', canvas.width);
+            console.log("udit current ", canvas.width, canvas.id);
             // } else if(canvas.offsetWidth === 0 && document.querySelector('#virtualclassApp').style.display === "none"){
           } else if (canvas.offsetWidth === 0 || canvas.offsetWidth === 300 || virtualclass.isPlayMode) {
             // (53 + 320 + 10) = (left toolbar + rightbar + scroll of canvas)
             // canvas.width = (window.innerWidth - (roles.hasControls() ? 382 : 330));
             canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
             //console.log('==== a canvas width click to continue');
-            console.log('==== a canvas width fit to screen ', canvas.width, 'rightbar width ', document.querySelector('#chat_div').offsetWidth);
+            console.log("udit current ", canvas.width, canvas.id);
+
+            console.log('==== a canvas width ', canvas.width, 'rightbar width ', document.querySelector('#chat_div').offsetWidth);
+          } else {
+            canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
+            console.log('==== a canvas width ', canvas.width);
           }
 
           if (this.firstTime) {
@@ -446,6 +454,8 @@
           virtualclass.zoom.canvasDimension = {};
           virtualclass.zoom.canvasDimension.width = canvas.width;
           virtualclass.zoom.canvasDimension.height = canvas.height;
+
+          console.log('==== a canvas width ',  virtualclass.zoom.canvasDimension.width);
           //console.log('==== canvas dimension ', virtualclass.zoom.canvasDimension.width);
 
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {

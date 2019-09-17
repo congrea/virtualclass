@@ -336,6 +336,7 @@
     }
 
     virtualclass.chat.calculateViewPortForMessageBox();
+    virtualclass.stickybarWidth();
   };
 
   window.view = view;

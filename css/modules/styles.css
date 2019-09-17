@@ -4659,7 +4659,7 @@ and (max-device-width: 1024px) {
   background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
 }
 
-#virtualclassCont.congrea.teacher .canvasWrapper::-webkit-scrollbar {
+#virtualclassCont.congrea .canvasWrapper::-webkit-scrollbar {
   width: 6px;
 }
 

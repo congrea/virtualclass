@@ -915,11 +915,13 @@
                     virtualclass.wbCommon.hideElement();
                     const wnoteid = `note${id}`;
                     const wnote = document.querySelector(`#${wnoteid}`);
-                    if (wnote !== null) {
+                    if (wnote !== null) { 
+                      console.log("udit current ", id);
                       wnote.classList.add('canvasContainer', 'current');
                       wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
                       wnote.innerHTML = wbHtml;
                     } else {
+                      console.log("udit current ", id);
                       wbHtml = `<div id='${wnoteid}' data-wb-id='${id}' class='canvasContainer current'>${wbTemplate({
                         cn: id,
                         hasControl: roles.hasControls(),
@@ -936,6 +938,7 @@
                       }
                     }
                   } else {
+                    console.log("udit current no ", id);
                     //console.log('====> suman whiteboard canvas is created 2');
                     wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
                     whiteboardContainer.innerHTML = wbHtml;

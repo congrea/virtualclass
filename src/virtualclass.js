@@ -383,7 +383,8 @@
               localStorage.setItem('hideRightbar',true);
               virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
               virtualclass.zoom.fitToScreen();
-              virtualclass.stickybarWidth(); 
+              virtualclass.stickybarWidth();
+              virtualclass.chatBarTabWidth(); 
             } else {
               localStorage.removeItem('hideRightbar');
               localStorage.setItem('hideRightbar',false);
@@ -393,6 +394,7 @@
               chat_div.classList.remove("collapsedRightbar");
               virtualclass.zoom.fitToScreen();
               virtualclass.stickybarWidth();
+              virtualclass.chatBarTabWidth();
             }
           });
         }

@@ -2,6 +2,7 @@
   const settings = {
     info: {},
     user: {},
+    currentTime: 0,
     init() { // default settings applyed from here
       const coreSettings = virtualclassSetting.settings;
       virtualclass.settings.info = virtualclass.settings.parseSettings(coreSettings);
@@ -157,7 +158,7 @@
       localStorage.removeItem('userSettings');
       virtualclass.settings.info[settingName] = value;
       const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
-      ioAdapter.mustSend({ cf: 'settings', Hex: str });
+      ioAdapter.mustSend({ cf: 'settings', Hex: str, time: Date.now() });
       for (const propname in virtualclass.settings.user) {
         virtualclass.user.control.changeAttribute(propname,
           virtualclass.gObj.testChatDiv.shadowRoot.getElementById(`${propname}contrAudImg`),
@@ -184,7 +185,7 @@
         individualSetting[settingName] = value;
         specificSettings = virtualclass.settings.settingsToHex(individualSetting);
       }
-      ioAdapter.mustSendUser({ cf: 'settings', Hex: specificSettings, toUser: userId }, userId);
+      ioAdapter.mustSendUser({ cf: 'settings', Hex: specificSettings, toUser: userId, time: Date.now() }, userId);
       virtualclass.settings.user[userId] = specificSettings;
       localStorage.setItem('userSettings', JSON.stringify(virtualclass.settings.user));
     },
@@ -205,9 +206,9 @@
     },
 
     // Apply settings on student side
-    onMessage(msg) {
+    onMessage(msg, userId) {
       if (roles.hasControls()) {
-        if (typeof msg === 'string') {
+        if (typeof msg === 'string' && userId == null) {
           virtualclass.settings.info = virtualclass.settings.parseSettings(msg);
         }
       } else {

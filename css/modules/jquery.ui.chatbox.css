@@ -2,7 +2,7 @@
 /*css for chatbox*/
 #virtualclassCont.congrea .ui-chatbox {
   position: relative;
-  bottom: 328px;
+  bottom: 253px;
   padding: 0px;
   border-bottom: none;
   z-index: 10001;
@@ -286,7 +286,6 @@
 #virtualclassCont.congrea .ui-chatroom-titlebar, #virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header, #virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header {
   font-weight: normal;
   padding: 8px 0px;
-  height: 35px;
   border-color: #3f4b56;
 }
 
@@ -846,11 +845,12 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   width: 100%; /*changed from 325px */
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel .ui-state-default .ui-tabs-anchor,
-#virtualclassCont.congrea #virtualclassAppRightPanel .ui-state-default a.ui-corner-all,
-#virtualclassCont.congrea #virtualclassAppRightPanel .ui-state-default .icon-minus {
-  display: none;
+#virtualclassCont.congrea .ui-state-default .ui-tabs-anchor,
+#virtualclassCont.congrea .ui-state-default a.ui-corner-all,
+#virtualclassCont.congrea .ui-state-default .icon-minus {
+  display: none !important;
 }
+
 
 #virtualclassCont.congrea .chat_enabled #memlist.enable {
   display: block;

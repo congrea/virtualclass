@@ -262,11 +262,16 @@
   border-top: #5d6b76 solid 1px !important;
 }
 
-#virtualclassCont.congrea.teacher #virtualclassAppRightPanel #audioWidget,
-#virtualclassCont.congrea.student #virtualclassAppRightPanel #audioWidget {
+#virtualclassCont.congrea.teacher #virtualclassAppRightPanel #audioWidget {
   margin: 0;
   width: 100%;
   height: 48px;
+}
+
+#virtualclassCont.congrea.student #virtualclassAppRightPanel #audioWidget {
+  margin: 0;
+  width: 100%;
+  /* height: 48px; */
 }
 
 #virtualclassCont.congrea .suggestion,

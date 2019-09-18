@@ -155,7 +155,7 @@
 
 /*css for sticky footer bar*/
 #virtualclassCont.congrea #stickybar {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: bold;
   position: fixed;
   bottom: 0;

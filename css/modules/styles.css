@@ -477,7 +477,7 @@
 #virtualclassCont.congrea .congtooltip {
   /*	display : inline;*/
   position: relative;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 /*#virtualclassCont.congrea .user-details .controls .congtooltip  {*/
@@ -508,7 +508,7 @@
   color: #000;
   pointer-events: none;
   /*box-shadow : 0px 0px 1px #a4a4a4;*/
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: normal !important;
 }
 
@@ -1178,7 +1178,7 @@
 
 #virtualclassCont.congrea.student #speakerPressOnce {
   width: 25%;
-  height: 48px;
+  /* height: 48px; */
 }
 
 /*#virtualclassCont.congrea #chat_div .controleCont, #virtualclassCont.congrea #chat_div .controleCont {*/
@@ -2894,7 +2894,7 @@
 
 #virtualclassCont.congrea .vchead {
   margin: 12.5px 15px;
-  font-size: 1.2em;
+  font-size: 1.125rem;
   text-shadow: none;
   text-align: center;
 }
@@ -3065,7 +3065,13 @@
 }
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a {
-  padding: 12px 30px 12px 30px !important;
+  padding: 0.6875rem 1.875rem 0.75rem 1.875rem !important;
+}
+#virtualclassCont.congrea #audioWidget .nav > li.videoSwitchCont > a {
+  padding: 0.625rem 1.875rem 0.75rem 1.875rem !important;
+}
+#virtualclassCont.congrea #audioWidget .nav > li#appSettingCtrl > a {
+  padding: 0.625rem 1.875rem 0.75rem 1.875rem !important;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel .active #speakerPressingbtn {
@@ -3628,7 +3634,7 @@
 /*}*/
 #virtualclassCont.congrea #icHr:before {
   content: "\e962";
-  font-size: 21px;
+  font-size: 1.3125rem;
   color: #fdfafa;
 }
 
@@ -3656,7 +3662,7 @@
 #virtualclassCont.congrea #icHr {
   display: inline;
   position: absolute;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 /* border color     */
@@ -4494,7 +4500,7 @@ and (max-device-width: 1024px) {
   right: 51px;
   color: #fff;
   z-index: 1000;
-  font-size: 22px;
+  font-size: 1.375rem;
   margin: 0;
   display: inline-block;
   text-align: center;

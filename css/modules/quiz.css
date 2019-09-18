@@ -356,8 +356,10 @@
   font-size: medium;
 } */
 
-#virtualclassQuiz #layoutQuiz .nav.navbar, #virtualclassPoll #layoutPoll .nav.navbar {
-  max-height: 48px;
+#virtualclassCont.congrea.student #virtualclassQuiz #layoutQuiz .nav.navbar,
+#virtualclassCont.congrea.student #virtualclassPoll #layoutPoll .nav.navbar {
+  /* max-height: 48px; */
+  min-height: 0px !important;
 
 }
 

@@ -8,8 +8,8 @@ body {
 }
 
 #audioWidget ul li a {
-  padding-top: 11px !important;
-  padding-bottom: 11px !important;
+  /* padding-top: 0.6875rem !important;
+  padding-bottom: 0.6875rem !important; */
   text-align: center;
 }
 
@@ -496,7 +496,7 @@ body {
 #virtualclassCont.congrea .settingActive .setting-btn:before {
   content: "\e606";
   font-weight: normal;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-family: 'icomoon';
   color: white;
 }
@@ -504,7 +504,7 @@ body {
 #audioWidget .chatActive .setting-btn:before {
   content: "\e96f";
   font-weight: normal;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-family: 'icomoon';
   color: white;
   font-weight: normal;
@@ -587,7 +587,7 @@ body {
 #virtualclassCont.congrea a.inner_bt span#usertab_text #onlineusertext:before {
   font-weight: normal;
   content: "\e971";
-  font-size: 18px;
+  font-size: 1.125rem;
   font-family: 'icomoon';
   line-height: 19px;
   color: #fff;

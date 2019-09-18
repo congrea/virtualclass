@@ -407,13 +407,12 @@
             console.log("udit current ", canvas.width, canvas.id);
             // } else if(canvas.offsetWidth === 0 && document.querySelector('#virtualclassApp').style.display === "none"){
           } else if (canvas.offsetWidth === 0 || canvas.offsetWidth === 300 || virtualclass.isPlayMode) {
-            // (53 + 320 + 10) = (left toolbar + rightbar + scroll of canvas)
-            // canvas.width = (window.innerWidth - (roles.hasControls() ? 382 : 330));
-            canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
-            //console.log('==== a canvas width click to continue');
-            console.log("udit current ", canvas.width, canvas.id);
-
-            console.log('==== a canvas width ', canvas.width, 'rightbar width ', document.querySelector('#chat_div').offsetWidth);
+              if (wb === '_doc_0_0' && canvas.parentNode.offsetWidth === 0 || canvas.parentNode.offsetWidth === 300) {
+                const canvasContainer = document.querySelector('#virtualclassWhiteboard.canvasContainer.current');
+                canvas.width = canvasContainer.offsetWidth - 6; // Subtracting 6 of scrollbar width
+              } else {
+                canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
+              }
           } else {
             canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
             console.log('==== a canvas width ', canvas.width);

@@ -202,6 +202,7 @@
       // we are connecting the web socket
     }
     virtualclass.stickybarWidth();
+    virtualclass.chatBarTabWidth();
   };
 
   Bootstrap.prototype.readyToGo = async function () {

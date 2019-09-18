@@ -998,6 +998,7 @@
   bottom: 0px;
   padding: 12.5px 16px 13.5px 16px;
   z-index: 1005;
+  font-weight: 300;
 }
 
 #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav {
@@ -1022,7 +1023,7 @@
   position: absolute;
   bottom: 0px;
   right: 110px;
-  padding: 12.5px 18px 13.5px 34px;
+  padding: 12.5px 18px 13.5px 18px;
   z-index: 1005;
 }
 
@@ -1035,7 +1036,7 @@
 }
 
 #virtualclassCont.congrea.playMode[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea.playMode[data-currapp = 'Whiteboard'].student #docShareNav {
-  right: 380px;
+  right: 58px;
   z-index: 9;
 }
 

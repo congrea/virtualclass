@@ -3351,9 +3351,9 @@
   display: block;
 }
 
-#virtualclassCont.congrea.playMode #virtualclassApp {
+/* #virtualclassCont.congrea.playMode #virtualclassApp {
   height: 100vh;
-}
+} */
 
 #virtualclassCont.congrea .zoomControler div {
   font-size: 22px;
@@ -4496,7 +4496,7 @@ and (max-device-width: 1024px) {
 }
 
 #virtualclassCont.congrea.playMode #fullScreenButton, #virtualclassCont.congrea.playMode #fullScreenExitButton {
-  right: 320px;
+  right: 0px;
 }
 #virtualclassCont.congrea #fullScreenExitButton {
   display: none;
@@ -4602,6 +4602,7 @@ and (max-device-width: 1024px) {
   margin-left: 14px;
   line-height: 18px;
   font-size: 15px;
+  font-weight: 300;
 }
 
 @keyframes pulse {

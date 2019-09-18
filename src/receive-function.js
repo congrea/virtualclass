@@ -109,7 +109,11 @@ const receiveFunctions = new function () {
 
   this.settings = function (e) {
     if (Object.prototype.hasOwnProperty.call(e.message, 'Hex')) {
-      virtualclass.settings.onMessage(e.message.Hex);
+      const newTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(e.message.time);
+      if (newTime > virtualclass.settings.currentTime) {
+        virtualclass.settings.onMessage(e.message.Hex, e.message.toUser);
+        virtualclass.settings.currentTime = newTime;
+      }
     }
   };
 

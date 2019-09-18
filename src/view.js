@@ -87,7 +87,9 @@
       };
 
       const addBeforeElem = document.getElementById(addBefore);
-      addBeforeElem.parentNode.insertBefore(errorCont, addBeforeElem);
+      if (addBeforeElem !== null) {
+        addBeforeElem.parentNode.insertBefore(errorCont, addBeforeElem);
+      }
       return errorCont.id;
     },
     /**

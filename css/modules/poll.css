@@ -434,6 +434,9 @@
 
 #virtualclassCont.congrea.student .bootstrap .pollNavBar #stdPollHeader {
   font-size: 18px;
+  margin: 12.5px 15px;
+  text-align: center;
+  float: none;
 }
 
 #virtualclassCont.congrea.teacher #virtualclassPoll #resultLayoutHead .alert-success {

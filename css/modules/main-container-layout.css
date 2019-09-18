@@ -157,7 +157,7 @@ and (max-device-width: 1024px) {
   }
 
   #virtualclassCont.congrea #slickQuiz .quizArea {
-    height: calc(100% - 300px);
+    height: calc(100% - 55px);
   }
 
   
@@ -186,21 +186,22 @@ and (max-device-width: 1024px) {
     height: calc(100% - 48px);
   }
 
+  #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassQuiz #bootstrapQzCont {
+    height: 100%;
+  }
   #virtualclassCont.congrea.student #layoutQuizBody {
     padding-top: 5px;
-    padding-bottom: 5px;
+    /* padding-bottom: 5px; */
   }
 
   #virtualclassCont.congrea.student #layoutQuizBody #contQzBody {
     padding: 5px;
+    height: 100%;
   }
 
-  #virtualclassCont.congrea #slickQuiz .quizArea {
-    height: calc(100% - 185px);
-  }
 
   #virtualclassCont.congrea .collapsedRightbar #slickQuiz .quizArea {
-    height: calc(100% - 180px);
+    height: calc(100% - 48px);
   }
 
   #virtualclassCont.congrea.fullScreenMode #slickQuiz .quizArea {

@@ -3,9 +3,9 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 (function (window, document) {
-  const user = function (config) {
+  const user = function () {
     return {
-      readyLeftBar(role, app, toUser) {
+      readyLeftBar(role, app) {
         if (roles.hasControls()) {
           if (!roles.isEducator()) {
             virtualclass.html.leftAppBar();
@@ -670,20 +670,29 @@
             virtualclass.settings.applySettings(false, 'studentaudio', userId);
           }
         },
-        _RaiseHand(userId, action) {
+        _RaiseHand(userId) {
           // to disable only ..
           virtualclass.raiseHand.raisehand(userId);
         },
 
         _stdscreen(userId) {
           if (virtualclass.gObj.prvRequestScreenUser && (virtualclass.gObj.prvRequestScreenUser !== userId) && virtualclass.config.makeWebSocketReady) {
-            ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
+            ioAdapter.mustSendUser({cancel: true, cf: 'reqscreen'}, virtualclass.gObj.prvRequestScreenUser);
+            const prvReq = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.prvRequestScreenUser} .icon-stdscreenImg`);
+            if (prvReq !== null) {
+              prvReq.setAttribute('data-dcolor', 'black');
+            }
           }
-          virtualclass.vutil.beforeSend({ reqscreen: true, toUser: userId, cf: 'reqscreen' }, userId);
+          const currElem = chatContainerEvent.elementFromShadowDom(`#ml${userId} .icon-stdscreenImg`);
+          if (currElem !== null) {
+            currElem.setAttribute('data-dcolor', 'blue');
+          }
+
+          virtualclass.vutil.beforeSend({reqscreen: true, toUser: userId, cf: 'reqscreen'}, userId);
           virtualclass.gObj.prvRequestScreenUser = userId;
 
           if (virtualclass.currApp === 'Video' && virtualclass.videoUl != null) {
-            ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
+            ioAdapter.mustSend({videoUl: {init: 'destroyPlayer'}, cf: 'destroyPlayer'});
             virtualclass.videoUl.destroyPlayer();
 
           }

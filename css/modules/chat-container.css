@@ -267,11 +267,16 @@ span.icon-stdscreenImg[data-dcolor="orange"]::before {
 }
 
 span.icon-stdscreenImg[data-dcolor="green"]::before {
-  color: #006400;
+  color: #1c8003;
 }
 
+span.icon-stdscreenImg[data-dcolor="black"]::before {
+  color: #000;
+}
 
-
+span.icon-stdscreenImg[data-dcolor="blue"]::before {
+  color:#b3b31a;
+}
 .controllerRaiseH .icon-RaiseHandImg::before {
   font-family: 'icomoon';
   content: "\e962";

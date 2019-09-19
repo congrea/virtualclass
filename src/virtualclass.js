@@ -94,7 +94,7 @@
         lastmousemovetime: null,
         CDTimer: null,
         wbData: {},
-        screenShareVersion: '123',
+        screenShareVersion: 123,
       },
 
       enablePreCheck: true,

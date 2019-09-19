@@ -288,34 +288,13 @@
   font-weight: bold;
 }
 
-h4 span.nfqh {
-  margin-left: 20px;
-  color: #808080;
+#resultDiv h3 {
+  margin: 0;
+  color: #333;
 }
 
-h4 span.tth {
-  margin-left: 20px;
-  color: #808080;
-}
-
-h4 span.mmh {
-  margin-left: 20px;
-  color: #808080;
-}
-
-h4 span.cah {
-  margin-left: 20px;
-  color: #808080;
-}
-
-span.qah {
-  margin-left: 20px;
-  color: #808080;
-}
-
-span.sch {
-  margin-left: 20px;
-  color: #808080;
+#resultDiv h4 {
+  color: #333;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .icon-publish2 {

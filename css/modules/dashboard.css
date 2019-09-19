@@ -363,7 +363,7 @@
 }
 
 #virtualclassCont #dashboardContainer .modal .modal-content {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: none;
   max-height: none;
   padding: 0;
   height: 100%;

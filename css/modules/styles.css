@@ -2391,6 +2391,10 @@
   height: calc(100% - 44px);
 }
 
+#virtualclassCont.congrea.playMode #virtualclassApp {
+  height: calc(100% - 52px)
+}
+
 #virtualclassCont.congrea #virtualclassAppLeftPanel #canvasWrapper {
   margin-top: 5px;
   border: 1px solid #ddd;
@@ -4520,6 +4524,10 @@ and (max-device-width: 1024px) {
 #virtualclassCont.congrea #fullScreenButton span.congtooltip:hover:after, #virtualclassCont.congrea #fullScreenExitButton span.congtooltip:hover:after {
   bottom: 4.2em !important;
   left: -14px;
+}
+
+#virtualclassCont.congrea.playMode #fullScreenButton span.congtooltip:hover:after, #virtualclassCont.congrea.playMode #fullScreenExitButton span.congtooltip:hover:after {
+  left: -36px;
 }
 
 #virtualclassCont.loading {

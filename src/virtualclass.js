@@ -396,6 +396,10 @@
               virtualclass.stickybarWidth();
               virtualclass.chatBarTabWidth();
             }
+            if(virtualclass.currApp === "ScreenShare") {
+              virtualclass.zoom.zoomAction('fitToScreen');  
+            }
+
           });
         }
 

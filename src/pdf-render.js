@@ -408,8 +408,12 @@
             // } else if(canvas.offsetWidth === 0 && document.querySelector('#virtualclassApp').style.display === "none"){
           } else if (canvas.offsetWidth === 0 || canvas.offsetWidth === 300 || virtualclass.isPlayMode) {
               if (wb === '_doc_0_0' && canvas.parentNode.offsetWidth === 0 || canvas.parentNode.offsetWidth === 300) {
-                const canvasContainer = document.querySelector('#virtualclassWhiteboard.canvasContainer.current');
-                canvas.width = canvasContainer.offsetWidth - 6; // Subtracting 6 of scrollbar width
+                let canvasContainer;
+                if (virtualclass.currApp === 'Whiteboard') {
+                  canvasContainer = document.querySelector('#virtualclassWhiteboard.canvasContainer.current');
+                } else {
+                  canvasContainer = document.querySelector('#screen-docs.current');
+                }
               } else {
                 canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
               }

@@ -1159,7 +1159,7 @@ this["JST"]["dest_temp/templates/ssmainDiv.hbs"] = Handlebars.template({"1":func
 },"4":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
-  return " <div id=\"virtualclassScreenShareLocal\" class=\"Local \" style=\"position: relative; width: 1536px; height: 677px;\"><video id=\"virtualclassScreenShareLocalVideo\" autoplay=\"true\" src=\" \"></video></div><div id=\"virtualclassScreenShareLocalSmall\" class=\"Local \"><video id=\"virtualclassScreenShareLocalVideosmall\" autoplay=\"true\" src=\" \"></video><h3 id=\"screenShrMsg\" class=\"alert alert-info\">"
+  return " <div id=\"virtualclassScreenShareLocal\" class=\"Local \" style=\"position: relative;\"><video id=\"virtualclassScreenShareLocalVideo\" autoplay=\"true\" src=\" \"></video></div><div id=\"virtualclassScreenShareLocalSmall\" class=\"Local \"><video id=\"virtualclassScreenShareLocalVideosmall\" autoplay=\"true\" src=\" \"></video><h3 id=\"screenShrMsg\" class=\"alert alert-info\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(alias1,"screensharemsg",{"name":"getString","hash":{},"data":data}))
     + "</h3> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -1175,7 +1175,7 @@ this["JST"]["dest_temp/templates/ssmainDiv.hbs"] = Handlebars.template({"1":func
 },"7":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return " <div id=\"virtualclassScreenShareLocal\" class=\"Local\"><canvas id=\"virtualclassScreenShareLocalVideo\" width=\"886\" height=\"724\"></canvas></div> "
+  return " <div id=\"virtualclassScreenShareLocal\" class=\"Local\"><canvas id=\"virtualclassScreenShareLocalVideo\"></canvas></div> "
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " ";
 },"8":function(container,depth0,helpers,partials,data) {

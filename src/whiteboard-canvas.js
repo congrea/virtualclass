@@ -144,7 +144,7 @@
        */
       renderAll(ctx) {
         if (typeof ctx !== 'object') {
-           ctx = vcan.main.canvas.getContext('2d');
+          ctx = vcan.main.canvas.getContext('2d');
         }
         vcan.clearContext(ctx);
         this.displayPdfWhiteboard();
@@ -232,8 +232,8 @@
       // const rindex = vcan.ArrayIndexOf(vcan.main.children, pobj => pobj.id == obj.id && (pobj.mt == obj.mt || obj.multiuser == true));
       if (rindex >= 0) {
         // if (roles.hasControls()) {
-          vcan.main.children.splice(rindex, 1);
-          //console.log('====> whiteboard pushing deleting object');
+        vcan.main.children.splice(rindex, 1);
+        // console.log('====> whiteboard pushing deleting object');
         // }
       }
 
@@ -265,7 +265,7 @@
       if (!noTransform) {
         vcan.transform(ctx, obj, noScale);
       }
-      if (typeof obj.borderColor !== 'undefined') {
+      if (obj.borderColor) {
         ctx.strokeStyle = obj.borderColor;
       } else {
         ctx.strokeStyle = '#000000';

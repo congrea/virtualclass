@@ -269,21 +269,23 @@
         return;
       }
 
-      // changed by SUMAN
-
+      // Only display then cursor when websocket is connected
       const cursorCoords = this.cm.cursorCoords(cursorPos);
 
       const cursorEl = document.createElement('span');
       // console.log('Coords ' + cursorCoords);
-      cursorEl.className = 'other-client';
-      cursorEl.id = `cursorId${clientId}`;
-      cursorEl.style.borderLeftWidth = '3px';
-      cursorEl.style.borderLeftStyle = 'solid';
-      cursorEl.style.borderLeftColor = color;
-      cursorEl.style.marginLeft = cursorEl.style.marginRight = '-3px';
-      cursorEl.style.height = `${(cursorCoords.bottom - cursorCoords.top) * 0.9}px`;
-      cursorEl.setAttribute('data-clientname', virtualclass.vutil.getUserInfo('name', clientId, virtualclass.connectedUsers)); // display user name with cursor
-      cursorEl.setAttribute('data-clientid', clientId);
+      if (virtualclass.config.makeWebSocketReady) {
+        cursorEl.className = 'other-client';
+        cursorEl.id = `cursorId${clientId}`;
+        cursorEl.style.borderLeftWidth = '3px';
+        cursorEl.style.borderLeftStyle = 'solid';
+        cursorEl.style.borderLeftColor = color;
+        cursorEl.style.marginLeft = '-3px';
+        cursorEl.style.marginRight = '-3px';
+        cursorEl.style.height = `${(cursorCoords.bottom - cursorCoords.top) * 0.9}px`;
+        cursorEl.setAttribute('data-clientname', virtualclass.vutil.getUserInfo('name', clientId, virtualclass.connectedUsers)); // display user name with cursor
+        cursorEl.setAttribute('data-clientid', clientId);
+      }
       cursorEl.style.position = 'relative';
 
       const cursorTag = document.getElementById(`cursorId${clientId}`);

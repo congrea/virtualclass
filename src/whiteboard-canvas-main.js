@@ -633,7 +633,7 @@
             }
           }
 
-          if (!delObj) {
+          if (delObj) {
             vcan.main.children.push(delObj);
             // console.log('====> whiteboard pushing object');
             return true;

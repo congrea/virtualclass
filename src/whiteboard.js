@@ -20,7 +20,7 @@
     //
     if (typeof virtualclass.wb[currWb].vcan !== 'object') {
       virtualclass.wb[currWb].vcan = new window.Vcan();
-      //console.log('====> vcan is creating ', currWb);
+      // console.log('====> vcan is creating ', currWb);
 
       window.vcanUtility(currWb);
       window.vcanMain(currWb);
@@ -255,23 +255,23 @@
           return;
         }
 
-        if (anchorNode.parentNode.id == `t_color${wbId}`) {
+        if (anchorNode.parentNode.id === `t_color${wbId}`) {
           virtualclass.wb[wbId].closeElem(document.querySelector(`#shapes${virtualclass.gObj.currWb}`));
           virtualclass.wb[wbId].closeElem(document.querySelector(`#t_strk${wbId} .strkSizeList`));
           virtualclass.wb[wbId].closeElem(document.querySelector(`#t_font${wbId} .fontSizeList`));
 
           virtualclass.wb[wbId].toggleDisplay(anchorNode.parentNode.id, wbId);
           virtualclass.wb[wbId].initActiveElement(`#colorList${wbId}`, { type: 'color', prop: 'color' });
-        } else if (anchorNode.parentNode.id == `t_strk${wbId}`) {
+        } else if (anchorNode.parentNode.id === `t_strk${wbId}`) {
           virtualclass.wb[wbId].closeElem(document.querySelector(`#shapes${virtualclass.gObj.currWb}`));
           virtualclass.wb[wbId].toggleDisplay(anchorNode.parentNode.id, wbId);
           virtualclass.wb[wbId].initActiveElement(`#t_strk${wbId} ul`, { type: 'strk', prop: 'stroke' });
-        } else if (anchorNode.parentNode.id == `t_font${wbId}`) {
+        } else if (anchorNode.parentNode.id === `t_font${wbId}`) {
           virtualclass.wb[wbId].closeElem(document.querySelector(`#shapes${virtualclass.gObj.currWb}`));
           virtualclass.wb[wbId].toggleDisplay(anchorNode.parentNode.id, wbId);
           virtualclass.wb[wbId].initActiveElement(`#t_font${wbId} ul`, { type: 'font', prop: 'font' });
         } else {
-          if (typeof virtualclass.wb[virtualclass.gObj.currWb] !== 'undefined' && virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj != ''
+          if (typeof virtualclass.wb[virtualclass.gObj.currWb] !== 'undefined' && !virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj
             && typeof virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj !== 'undefined' && this.parentNode.id.indexOf('t_text') < 0) {
             // virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
             // virtualclass.vutil.removeAllTextWrapper();
@@ -284,7 +284,7 @@
           const { vcan } = virtualclass.wb[wbId];
 
           if (roles.hasControls()) {
-            if (this.parentNode.id != `t_clearall${wbId}`) {
+            if (this.parentNode.id !== `t_clearall${wbId}`) {
               // call back function should be used as second parameter
               // for action on reposnse of user, cancel, okay
               // virtualclass.wb[id].utility.makeActiveTool();
@@ -516,7 +516,7 @@
           // } else if (cmd == 't_replay') {
         } else if (cmd === `t_replay${wbId}`) {
           if (typeof multiuser === 'undefined') {
-            //console.log('====> setting vcan main = 0');
+            // console.log('====> setting vcan main = 0');
             vcan.setValInMain('id', 0);
           }
           if (typeof myfunc !== 'undefined') {
@@ -673,7 +673,7 @@
        * it replays all the object the user would drawn
        */
       t_replayInit(repMode, wid, myfunc) {
-         // const wid = virtualclass.gObj.currWb;
+        // const wid = virtualclass.gObj.currWb;
         // debugger;
         // virtual0class.wb.replay = virtualclass.wb[id]._replay();
         if (repMode === 'fromFile') {
@@ -681,7 +681,7 @@
           virtualclass.wb[wid].recordAudio = true;
           virtualclass.recorder.init();
         } else {
-          //console.log('=====> whiteboard ready 2 ', wid);
+          // console.log('=====> whiteboard ready 2 ', wid);
           virtualclass.wb[wid].replay = virtualclass.wb[wid]._replay();
 
           if (typeof myfunc !== 'undefined') {

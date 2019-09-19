@@ -1,14 +1,14 @@
 #virtualclassCont.congrea #networkStatusContainer {
   position: relative;
   top: -44px;
-  width: 50px;
+  width: 3.125rem;
   float: right;
   border-right: 0.05em solid #021317 !important;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #proposedSpeed {
-  width: 26px;
-  height: 26px;
+  width: 1.625rem;
+  height: 1.625rem;
   padding: 0.5625rem 0.811115rem;
 }
 
@@ -123,7 +123,7 @@
 }
 
 #virtualclassCont.congrea #proposedSpeed #svgContainer {
-  margin-top: -2px;
+  margin-top: 1px;
 }
 
 #virtualclassCont.congrea #virtualclassApp.try-to-connect #virtualclassAppLeftPanel #virtualclassAppContainer #virtualclassEditorRich #virtualclassEditorRichBody .vceditor .CodeMirror {

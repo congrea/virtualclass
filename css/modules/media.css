@@ -271,7 +271,8 @@
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #audioWidget {
   margin: 0;
   width: 100%;
-  /* height: 48px; */
+  max-height: 3rem;
+  overflow: hidden;
 }
 
 #virtualclassCont.congrea .suggestion,

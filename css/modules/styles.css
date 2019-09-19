@@ -1178,7 +1178,7 @@
 
 #virtualclassCont.congrea.student #speakerPressOnce {
   width: 25%;
-  /* height: 48px; */
+  /* height: 3rem; */
 }
 
 /*#virtualclassCont.congrea #chat_div .controleCont, #virtualclassCont.congrea #chat_div .controleCont {*/
@@ -2388,7 +2388,7 @@
 
 #virtualclassCont.congrea #virtualclassApp {
   overflow: hidden;
-  height: calc(100% - 44px);
+  height: calc(100% - 2.75rem);
 }
 
 #virtualclassCont.congrea.playMode #virtualclassApp {
@@ -2893,7 +2893,7 @@
 }
 
 #virtualclassCont.congrea .vchead {
-  margin: 12.5px 15px;
+  padding: 0.8125rem 0.5rem 0.8125rem 0.6875rem;
   font-size: 1.125rem;
   text-shadow: none;
   text-align: center;
@@ -3066,12 +3066,15 @@
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a {
   padding: 0.6875rem 1.875rem 0.75rem 1.875rem !important;
+  line-height: 1.25rem;
 }
 #virtualclassCont.congrea #audioWidget .nav > li.videoSwitchCont > a {
   padding: 0.625rem 1.875rem 0.75rem 1.875rem !important;
+  line-height: 1.25rem;
 }
 #virtualclassCont.congrea #audioWidget .nav > li#appSettingCtrl > a {
   padding: 0.625rem 1.875rem 0.75rem 1.875rem !important;
+  line-height: 1.25rem;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel .active #speakerPressingbtn {
@@ -3608,7 +3611,7 @@
 /*}*/
 
 #virtualclassCont.congrea #congHr.enable {
-  width: 20%;
+  width: 16%;
   position: relative;
   left: 0;
   top: 0;
@@ -3617,7 +3620,7 @@
 }
 
 #virtualclassCont.congrea #congHr.disable {
-  width: 20%;
+  width: 16%;
   position: relative;
   top: 0;
   left: 0;
@@ -4497,7 +4500,7 @@ and (max-device-width: 1024px) {
 #virtualclassCont.congrea #fullScreenButton, #virtualclassCont.congrea #fullScreenExitButton {
   position: absolute;
   bottom: 0px;
-  right: 51px;
+  right: 3.1875rem;
   color: #fff;
   z-index: 1000;
   font-size: 1.375rem;
@@ -4509,7 +4512,9 @@ and (max-device-width: 1024px) {
   border-left: 0.05em solid #021317 !important;
 }
 #virtualclassCont.congrea #fullScreenButton .fullScreen, #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
-  padding: 11px 18px 9px 18px;
+  padding: 0.6875rem 1.125rem 0.5625rem 1.125rem;
+  line-height: 1.25rem;
+  font-size: 1.25rem;
 }
 
 #virtualclassCont.congrea.playMode #fullScreenButton, #virtualclassCont.congrea.playMode #fullScreenExitButton {

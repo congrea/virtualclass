@@ -40,7 +40,7 @@ body {
 
 #virtualclassCont.congrea #chatWidget .chatBarTab {
   background-color: #4c5963;
-  height: 44px;
+  height: 2.75rem;
   position: fixed;
   width: 320px;
   bottom: 0;
@@ -83,9 +83,9 @@ body {
 }
 
 #virtualclassCont.congrea.student #rightSubContainer #stickycontainer #icHr:before {
-  margin-left: -8px;
+  margin-left: -0.5rem;
   float: left;
-  margin-top: -4px;
+  margin-top: -0.25rem;
 }
 
 #virtualclassCont.congrea.teacher.nowebcam #virtualclassAppRightPanel #videoHostSource {
@@ -112,7 +112,7 @@ body {
   text-align: right;
   background: #fff;
   margin: 0;
-  padding: 7px 0 7px;
+  padding: 0.4375rem 0 0.4375rem;
   z-index: 1000;
 }
 
@@ -133,9 +133,9 @@ body {
   box-sizing: border-box;
   border: 1px solid #4b5863b3;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 1rem;
   background-color: white;
-  padding: 7px;
+  padding: 0.4375rem;
   margin-left: 2.5%;
   margin-right: 2.5%;
 }
@@ -591,8 +591,7 @@ body {
   font-family: 'icomoon';
   line-height: 19px;
   color: #fff;
-  margin-right: 5px;
-  margin: 1px 0 -3px -23px;
+  margin: 0.0625rem 0 -0.1875rem -1.4375rem;
   position: absolute;
 }
 
@@ -601,11 +600,11 @@ body {
 }
 
 #virtualclassCont.congrea.student #rightSubContainer #user_list a.inner_bt {
-  padding: 11.5px 8px 12.5px 14px;
+  padding: 0.7187rem 0.5rem 0.7812rem 0.875rem;
 }
 
 #virtualclassCont.congrea.student #rightSubContainer #chatroom_bt2 a.inner_bt {
-  padding: 14.5px 8px 9.5px 14px;
+  padding: 0.9062rem 0.5rem 0.5937rem 0.875rem;
 }
 
 #virtualclassCont.congrea a.inner_bt {

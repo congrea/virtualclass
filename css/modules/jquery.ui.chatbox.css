@@ -261,7 +261,7 @@
 }
 
 #virtualclassCont.congrea.student .vmchat_room_bt {
-  width: 40%;
+  width: 42%;
 }
 
 #virtualclassCont.congrea #usertab_icon {
@@ -346,7 +346,7 @@
 #virtualclassCont.congrea .maximize {
   left: 0;
   width: 100%;
-  height: 44px; /* Changed from 41px */
+  height: 2.75rem; /* Changed from 41px */
 }
 
 /*custom css for chatroom*/
@@ -674,7 +674,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 #virtualclassCont.congrea #chat_div {
   overflow-y: auto;
   position: relative;
-  padding-top: 51px;
+  padding-top: 3.1875rem;
   height: 100%;
 }
 
@@ -791,7 +791,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 }
 
 #virtualclassCont.congrea.student .vmchat_bar_button {
-  width: 40%;
+  width: 42%;
 }
 
 #virtualclassCont.congrea a.inner_bt, #virtualclassCont.congrea a.inner_bt:hover {
@@ -828,8 +828,10 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 }
 
 #virtualclassCont.congrea a.stdRaiseHand, #virtualclassCont.congrea a.stdRaiseHand:hover {
-  height: 44px;
-  line-height: 27px;
+  height: 2.75rem;
+  line-height: 1.6875rem;
+  padding-top: 0.9375rem;
+  padding-bottom: 0.9375rem;
 }
 
 #virtualclasscont.congrea.student a.inner_bt:hover {

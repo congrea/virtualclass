@@ -11,7 +11,7 @@
 }
 
 #virtualclassCont.congrea #layoutQuizBody {
-  height: calc(100% - 48px);
+  height: calc(100% - 3rem);
   position: relative;
 
 }
@@ -268,8 +268,24 @@ and (max-device-width: 1024px) {
 
   #virtualclassCont.congrea.student #layoutPollBody {
     overflow: auto;
-    height: calc(100% - 48px);
+    height: calc(100% - 3rem);
   }
+  #virtualclassCont.congrea #virtualclassAppFooterPanel #proposedSpeed {
+    width: 1.25rem !important;
+    margin-top: 0.125rem !important;
+    height: 1.625rem !important;
+    padding: 0.5625rem 0.811115rem;
+  }
+  /* #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a {
+    padding: 11px 10px 6px 9px;
+    line-height: 15px;
+    line-height: 1.25rem;
+  }
+
+  #virtualclassCont.congrea #audioWidget .nav > li.videoSwitchCont > a {
+    padding: 8px 14px 8px 14px;
+    line-height: 15px;
+  } */
 
   @media only screen
   and (min-device-width: 368px)
@@ -283,8 +299,8 @@ and (max-device-width: 1024px) {
     #virtualclassCont.congrea.student #virtualclassPoll #stdPollMszLayout,
     #virtualclassCont.congrea.student #layoutQuizBody #stdQuizMszLayout,
     #virtualclassCont.congrea #pptMessageLayout {
-      font-size: 13px;
-      padding: 20px 15px;
+      font-size: 0.9375rem;
+      padding: 1.25rem 0.9375rem;
     }
   
     #virtualclassCont.congrea #sessionEndMsgCont.popupWindow {
@@ -296,8 +312,8 @@ and (max-device-width: 1024px) {
     }
   
     #virtualclassCont.congrea a.stdRaiseHand, #virtualclassCont.congrea a.stdRaiseHand:hover {
-      height: 44px;
-      padding: 12px 8px;
+      height: 2.75rem;
+      padding: 0.75rem 0.5rem;
     }
 
     #virtualclassCont.congrea .bootstrap .modal-body {
@@ -365,6 +381,11 @@ and (max-device-width: 1024px) {
     #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
       height: 26px;
     }
+
+    html,
+    body {
+      font-size: 13px;
+    }
   }
   @media only screen
   and (min-device-width: 851px)
@@ -375,6 +396,11 @@ and (max-device-width: 1024px) {
   
     #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
       width: 35%;
+    }
+    
+    html,
+    body {
+      font-size: 13px;
     }
   }
 

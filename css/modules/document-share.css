@@ -1058,6 +1058,7 @@
 #virtualclassCont.congrea[data-currapp = 'DocumentShare'] .showZoom #docShareNav,
 #virtualclassCont.congrea[data-currapp = 'Whiteboard'] .showZoom #docShareNav {
   display: block;
+  font-weight: 300;
 }
 
 #virtualclassCont.congrea.student #teacherCurrPage {

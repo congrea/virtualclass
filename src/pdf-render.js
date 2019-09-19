@@ -414,6 +414,7 @@
                 } else {
                   canvasContainer = document.querySelector('#screen-docs.current');
                 }
+                canvas.width = canvasContainer.offsetWidth - 6;
               } else {
                 canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
               }

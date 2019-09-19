@@ -90,6 +90,10 @@
   visibility: visible;
 }
 
+#virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassApp.openRightbar #virtualclassScreenShareLocalVideo {
+  margin-left: 55px;
+}
+
 #virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideoNew {
   display: none;
 }
@@ -216,6 +220,14 @@
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
   border-radius: 0px;
+}
+
+#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #stopScreenShare button {
+  right: 108px;
+}
+
+#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #screenController .share button {
+  right: 253px;
 }
 
 #virtualclassCont.congrea[data-recording="on"] #stopScreenShare button, #virtualclassCont.congrea[data-recording="off"] #stopScreenShare button {

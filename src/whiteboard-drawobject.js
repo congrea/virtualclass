@@ -96,7 +96,7 @@
       }
 
       // // console.log("====> mouse down ", ev.currX, ev.currY);
-      //console.log('=====> pointer start event x, y ',  ev.currX, ev.currY);
+      // console.log('=====> pointer start event x, y ',  ev.currX, ev.currY);
 
       var { vcan } = wb;
       virtualclass.gObj.lastmousemovetime = null;
@@ -111,12 +111,12 @@
       virtualclass.wb[wId].gObj.spy = tool.startPosY;
 
       const currState = vcan.getStates('action');
-      if (currState == 'create') {
+      if (currState === 'create') {
         const currTime = new Date().getTime();
-        if (objType != 'text' && wb.tool.cmd != `t_clearall${wId}`) {
+        if (objType !== 'text' && wb.tool.cmd !== `t_clearall${wId}`) {
           const currTransformState = vcan.getStates('currentTransform');
-          if (currTransformState == '' || currTransformState == null) {
-            //	if(!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && objType != 'freeDrawing'){
+          if (!currTransformState || currTransformState == null) {
+            // if(!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && objType != 'freeDrawing'){
             if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')) {
               // var currTime = new Date().getTime();
               vcan.optimize.calculatePackets(currTime, 'd', tool.startPosX, tool.startPosY);
@@ -125,10 +125,10 @@
           }
         } else {
           wb.obj.drawTextObj.muser = false;
-          if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && wb.tool.cmd != `t_clearall${wId}`) { // creating for other browser
+          if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && wb.tool.cmd !== `t_clearall${wId}`) { // creating for other browser
             if (wb.utility.clickOutSidebox(wb.obj.drawTextObj.textWriteMode)) {
               var { vcan } = virtualclass.wb[wId];
-              if (vcan.main.currentTransform != undefined && vcan.main.currentTransform != '') {
+              if (vcan.main.currentTransform != null && vcan.main.currentTransform) {
                 /** 'foundtext' is passed to notify that teacher clicks on text to edit on whiteboard * */
                 vcan.optimize.calculatePackets(currTime, 'd', tool.startPosX, tool.startPosY, 'foundtext');
               } else {
@@ -151,11 +151,11 @@
         }
       }
 
-      if (objType == 'freeDrawing' && wb.obj.freeDrawObj.freesvg == true) {
+      if (objType === 'freeDrawing' && wb.obj.freeDrawObj.freesvg === true) {
         wb.obj.freeDrawObj.drawStart(ev, wId);
         // console.log('free drawing start x=' +  ev.currX + ' drawing y=' + ev.currY);
       }
-  //    //console.log('=====> CANVAS SCALE ===== down, xy', virtualclass.zoom.canvasScale, ev.currX, ev.currY);
+      // console.log('=====> CANVAS SCALE ===== down, xy', virtualclass.zoom.canvasScale, ev.currX, ev.currY);
     };
 
     /**
@@ -176,9 +176,9 @@
         ev.currX = ev.detail.cevent.x;
         ev.currY = ev.detail.cevent.y;
       }
-      //console.log('=====> pointer move event x, y ',  ev.currX, ev.currY);
+      // console.log('=====> pointer move event x, y ',  ev.currX, ev.currY);
       if (tool.started && wb.tool.cmd !== 't_clearall') { // command code inserted after found the problem
-        if (wb.obj.freeDrawObj !== undefined && wb.obj.freeDrawObj.freesvg == true) {
+        if (wb.obj.freeDrawObj !== undefined && wb.obj.freeDrawObj.freesvg === true) {
           if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
             wb.obj.freeDrawObj.wb_draw(ev, wId);
             if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) {
@@ -225,7 +225,7 @@
           endPosY = ev.currY;
           //                     console.log('whiteboard create, move position x =' + ev.currX  + ' y = ' + ev.currY + ' scrollX='+virtualclass.leftPosX + ' scrollY='+virtualclass.topPosY);
 
-          if (wb.prvObj != '') {
+          if (wb.prvObj) {
             wb.canvas.removeObject(wb.prvObj);
           }
 
@@ -240,7 +240,7 @@
           if ((typeof virtualclass.gObj.lastmousemovetime === 'undefined') || (virtualclass.gObj.lastmousemovetime == null)) {
             virtualclass.gObj.lastmousemovetime = new Date().getTime();
             if ((!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
-                || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType != 'text' && wb.tool.cmd != 't_clearall') {
+                || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType !== 'text' && wb.tool.cmd !== 't_clearall') {
               vcan.optimize.calculatePackets(currTime, 'm', endPosX, endPosY);
             }
           }
@@ -248,16 +248,16 @@
           virtualclass.gObj.presentmousemovetime = new Date().getTime();
           if ((virtualclass.gObj.presentmousemovetime - virtualclass.gObj.lastmousemovetime) >= 2000) { // Optimized
             if ((!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
-                || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType != 'text' && wb.tool.cmd != 't_clearall') {
+                || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType !== 'text' && wb.tool.cmd !== 't_clearall') {
               vcan.optimize.calculatePackets(currTime, 'm', endPosX, endPosY);
             }
             virtualclass.gObj.lastmousemovetime = new Date().getTime();
           }
           wb.prvObj = rCurrObject.coreObj;
         }
-       //console.log('=====> CANVAS SCALE ===== move x/y', virtualclass.zoom.canvasScale, ' ', endPosX, endPosY);
-      } else if ((wb.vcan.main.action != 'move')
-            || ((vcan.main.currentTransform == '' || vcan.main.currentTransform == null) && wb.vcan.main.action == 'move')) {
+        // console.log('=====> CANVAS SCALE ===== move x/y', virtualclass.zoom.canvasScale, ' ', endPosX, endPosY);
+      } else if ((wb.vcan.main.action !== 'move')
+            || ((!vcan.main.currentTransform || vcan.main.currentTransform == null) && wb.vcan.main.action === 'move')) {
         const x = ev.currX / virtualclass.zoom.canvasScale;
         const y = ev.currY / virtualclass.zoom.canvasScale;
 
@@ -292,15 +292,15 @@
       endPosY = ev.currY;
 
       virtualclass.gObj.lastmousemovetime = null;
-      if (tool.started && objType != 'text') {
+      if (tool.started && objType !== 'text') {
         tool.mousemove(ev, wId, 'up');
         if ((!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
-            || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType != 'freeDrawing') {
+            || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType !== 'freeDrawing') {
           var currTime = new Date().getTime();
           vcan.optimize.calculatePackets(currTime, 'u', endPosX, endPosY);
         }
 
-        if ((wb.obj.freeDrawObj != undefined && wb.obj.freeDrawObj.freesvg == true)) {
+        if ((wb.obj.freeDrawObj != undefined && wb.obj.freeDrawObj.freesvg === true)) {
           if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
             wb.obj.freeDrawObj.finalizeDraw(ev, wId);
           }
@@ -328,7 +328,7 @@
           }
         }
 
-        if (wb.prvObj != '') {
+        if (wb.prvObj) {
           wb.prvObj = ''; // this should be into proper way
         }
 
@@ -340,7 +340,7 @@
         wb.vcan.wb.sentPack = false;
       }
 
-      //console.log('=====> CANVAS SCALE ===== up ', virtualclass.zoom.canvasScale);
+      // console.log('=====> CANVAS SCALE ===== up ', virtualclass.zoom.canvasScale);
     };
   };
   window.draw_object = draw_object;

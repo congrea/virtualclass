@@ -112,21 +112,21 @@
       const appNameUpper = previousApp.name;
 
       var appIs = appNameUpper.charAt(0).toUpperCase() + appNameUpper.slice(1);
-      if (previousApp.name == 'Yts' || (previousApp.name == 'DocumentShare')) {
+      if (previousApp.name === 'Yts' || (previousApp.name === 'DocumentShare')) {
         if (previousApp.metaData == null) {
           var videoObj = null;
         } else {
           var videoObj = previousApp.metaData;
           videoObj.fromReload = true;
         }
-      } else if (previousApp.name == 'Video') {
+      } else if (previousApp.name === 'Video') {
         if (previousApp.metaData == null || previousApp.metaData.init == null) {
           var videoObj = null;
         } else {
           var videoObj = previousApp.metaData;
           videoObj.fromReload = true;
         }
-      } else if (previousApp.name == 'Whiteboard') {
+      } else if (previousApp.name === 'Whiteboard') {
         if (wIds == null) {
           virtualclass.gObj.wbCount = previousApp.wbn;
         }

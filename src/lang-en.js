@@ -154,7 +154,7 @@
     notSupportIphone: "Sorry. Virtual class doesn't support mobile phones.",
     noPoll: 'There is no question available for poll. Go to ‘Add new’ to create question.',
     noPollNoAdmin: 'There is no question available for site poll .Only admin can create site level poll.',
-    noQuiz: 'No quiz available. Congrea supports only mutliple choice questions',
+    noQuiz: 'There is no Quiz available. Add quiz from your Moodle. <br /> Congrea Supports only multiple choice questions.',
     Novote: 'No vote received for this poll',
     nowebcam: 'Webcam is not available, or not connected properly.',
     nowebcamconnectedyet: 'Congrea does not receives any user input yet.',

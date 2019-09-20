@@ -958,3 +958,8 @@ body {
 #virtualclassCont.edge .chat_disabled .ui-memblist-usr.online {
   pointer-events: none;
 }
+
+#bootstrapQzCont {
+  text-align: center;
+  line-height: 140%;
+}

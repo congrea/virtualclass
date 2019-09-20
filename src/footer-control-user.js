@@ -303,6 +303,16 @@
             if (virtualclass.gObj.uid === msg.toUser) {
               if (typeof virtualclass.editorRich.cm === 'object') {
                 virtualclass.editorRich.cm.setOption('readOnly', 'nocursor');
+                const inputImageUrl = document.querySelector('#virtualclassEditorRichBody #overlay');
+                if (inputImageUrl) {
+                  inputImageUrl.parentNode.removeChild(inputImageUrl);
+                }
+
+                const openDialogBox = document.querySelector('#virtualclassEditorRichBody .vceditor-toolbar .open');
+                if (openDialogBox != null) {
+                  openDialogBox.classList.remove('open');
+                  openDialogBox.classList.add('close');
+                }
               }
             } else {
               // TODO this should be optimized

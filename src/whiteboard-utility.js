@@ -44,7 +44,7 @@
        *  returns that converted number
        */
       stringToNumber(pmdTime) {
-        if (!pmdTime[pmdTime.length - 1]) {
+        if (pmdTime[pmdTime.length - 1] == ' ') {
           pmdTime = pmdTime.substring(0, pmdTime.length - 1); // removing the space
         }
 

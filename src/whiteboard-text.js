@@ -23,7 +23,7 @@
           // earlier 1.3 it was
           obj.lineHeight = 1.3;
 
-          if (obj.fontSize == undefined) {
+          if (obj.fontSize == null) {
             obj.fontSize = 30;
           }
 

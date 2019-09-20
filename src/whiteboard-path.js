@@ -260,7 +260,7 @@
           let y;
 
           this.path.forEach(function (item, i) {
-            if (item[3] != ' ') {
+            if (item[3]) {
               // splice(3) is represented making time.
               var mdTime = item.splice(3);
             }
@@ -302,7 +302,7 @@
               aY.push(val);
             }
             // TODO this can be ticky
-            if (mdTime != undefined) {
+            if (mdTime != null) {
               if (mdTime.length >= 1) {
                 item.push(mdTime[0]);
               }

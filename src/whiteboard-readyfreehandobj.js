@@ -32,7 +32,7 @@
       drawStart(ev, wId) {
         const { vcan } = virtualclass.wb[wId];
         // if(vcan.main.freesvg == true){
-        if (virtualclass.wb[wId].obj.freeDrawObj.freesvg == true) {
+        if (virtualclass.wb[wId].obj.freeDrawObj.freesvg === true) {
           const ctx = vcan.main.canvas.getContext('2d');
           // borderColor = "red";
           // this.fdObj = vcan.main.freeHandDrawing(ev, {borderColor: borderColor});

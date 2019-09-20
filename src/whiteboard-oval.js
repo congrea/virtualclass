@@ -20,19 +20,19 @@
          * @param obj the properties would initates on it
          */
         init(obj) {
-          if (obj.width == undefined) {
+          if (obj.width == null) {
             obj.width = obj.rx * 2;
           }
 
-          if (obj.height == undefined) {
+          if (obj.height == null) {
             obj.height = obj.ry * 2;
           }
 
-          if (obj.borderColor == undefined) {
+          if (obj.borderColor == null) {
             obj.borderColor = '#000000';
           }
 
-          if (obj.fillColor != undefined) {
+          if (obj.fillColor != null) {
             obj.fillStyle = obj.fillColor;
           }
 
@@ -65,11 +65,11 @@
           ctx.arc(noTransform ? obj.x : 0, noTransform ? obj.y : 0, obj.rx, 0, endingPoint, counterClockWise);
           ctx.strokeStyle = obj.color;
           ctx.closePath();
-          if (obj.fillStyle != undefined) {
+          if (obj.fillStyle != null) {
             ctx.fillStyle = obj.fillStyle;
             ctx.fill();
           }
-          if (obj.borderColor != undefined) {
+          if (obj.borderColor != null) {
             ctx.fillStyle = obj.borderColor;
             ctx.stroke();
           }

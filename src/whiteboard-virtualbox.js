@@ -31,7 +31,7 @@
             continue;
           }
           // optimisation 3: vertical line case
-          if ((iLine.o.x == iLine.d.x) && (iLine.o.x >= ex)) {
+          if ((iLine.o.x === iLine.d.x) && (iLine.o.x >= ex)) {
             xi = iLine.o.x;
             yi = ey;
           }
@@ -51,7 +51,7 @@
             xcount += 1;
           }
           // optimisation 4: specific for square images
-          if (xcount == 2) {
+          if (xcount === 2) {
             break;
           }
         }

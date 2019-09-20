@@ -41,24 +41,24 @@
     }
     obj.type = objType;
 
-    if (objType == 'rectangle' || objType == 'triangle') {
+    if (objType === 'rectangle' || objType === 'triangle') {
       obj.sx = startPosX;
       obj.sy = startPosY;
       obj.ex = endPosX;
       obj.ey = endPosY;
     }
 
-    if (objType == 'line') {
+    if (objType === 'line') {
       obj.lineColor = '#424240';
       obj.lineWidth = lineWidth;
       obj.start = { x: startPosX, y: startPosY };
       obj.end = { x: endPosX, y: endPosY };
-    } else if (objType == 'rectangle') {
+    } else if (objType === 'rectangle') {
       obj.width = endPosX - startPosX;
       obj.height = endPosY - startPosY;
       obj.borderColor = '#424240';
       obj.lineWidth = lineWidth;
-    } else if (objType == 'oval') {
+    } else if (objType === 'oval') {
       obj.lineWidth = lineWidth;
       obj.borderColor = '#424240';
 
@@ -70,10 +70,10 @@
 
       obj.rx = (obj.width / 2);
       obj.ry = (obj.height / 2);
-    } else if (objType == 'triangle') {
+    } else if (objType === 'triangle') {
       obj.lineWidth = lineWidth;
       obj.borderColor = '#424240';
-    } else if (objType == 'text') {
+    } else if (objType === 'text') {
       return;
     }
     return obj;

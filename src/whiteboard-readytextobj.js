@@ -9,7 +9,7 @@
         // this.textId =  0;
         this.prevTextObj = '';
         this.currTextObjWrapper = '';
-        //						this.keyTyped = []; //the key typed by user this is used into finalizeText()
+        // this.keyTyped = []; //the key typed by user this is used into finalizeText()
         this.currObject = {};
         this.prvModTextObj = {};
         this.prvCurrTransform = {};
@@ -27,7 +27,7 @@
        * @returns nothing
        */
       textUtility(startPosX, startPosY, mtext, wId) {
-        //console.log('====> whiteboard text ', wId);
+        // console.log('====> whiteboard text ', wId);
         // console.log(`Text position x=${startPosX} y=${startPosY}`);
         this.startPosX = startPosX;
         this.startPosY = startPosY;
@@ -38,9 +38,9 @@
         this.textWriteMode++;
         this.wmode = true;
 
-        if (vcan.main.currentTransform != undefined && vcan.main.currentTransform != '') {
+        if (vcan.main.currentTransform != null && vcan.main.currentTransform) {
           this.currObject = vcan.main.currentTransform.target;
-          if (this.currObject != undefined && this.currObject.type == 'text') {
+          if (this.currObject != null && this.currObject.type === 'text') {
             obj = {
               width: 300,
               height: 100,
@@ -59,7 +59,7 @@
             virtualclass.wb[wId].obj.drawTextObj.renderText(this.prvCurrTransform, this.prvModTextObj, ctx, undefined, wId);
           }
 
-          if (this.currObject != undefined && this.currObject.type == 'text') {
+          if (this.currObject != null && this.currObject.type === 'text') {
             // the height and width shoudl be dyanamic
             obj = {
               width: 300,
@@ -125,7 +125,7 @@
         divNode.style.left = `${obj.x - virtualclass.leftPosX}px`;
         divNode.style.top = `${obj.y - virtualclass.topPosY}px`;
 
-        if (obj.x != undefined) {
+        if (obj.x != null) {
           var textNode = document.createElement('textarea');
 
           textNode.id = `${divNode.id}textarea`;
@@ -134,7 +134,7 @@
 
           textNode.rows = 8;
           textNode.cols = 41;
-          if (obj.text != undefined && obj.text != '') {
+          if (obj.text != null && obj.text) {
             textNode.value = obj.text;
           }
 
@@ -167,12 +167,12 @@
        */
       renderText(currObject, prvModTextObj, ctx, mtext, wId) {
         const { vcan } = virtualclass.wb[wId];
-        if (this.prevTextObj != '') {
+        if (this.prevTextObj) {
           if (!virtualclass.wb[wId].utility.IsObjEmpty(currObject)) {
             for (let i = 0; i < vcan.main.children.length; i++) {
-              if (currObject.id == vcan.main.children[i].id) {
+              if (currObject.id === vcan.main.children[i].id) {
                 vcan.main.children.splice(i, 1);
-                //console.log('====> whiteboard pushing deleting object');
+                // console.log('====> whiteboard pushing deleting object');
                 this.currObject = '';
                 break;
               }
@@ -209,7 +209,7 @@
         if (typeof mtext === 'undefined') {
           const textarea = prvNode.getElementsByTagName('textarea');
           for (var i = 0; i < textarea.length; i++) {
-            if (textarea[i].id == `${prvNode.id}textarea`) {
+            if (textarea[i].id === `${prvNode.id}textarea`) {
               userText = textarea[i].value;
               break;
             }
@@ -247,7 +247,7 @@
           mp: { x: txtWrapper.measure.x, y: txtWrapper.measure.y },
         };
 
-        if (virtualclass.wb[wId].obj.drawTextObj.muser == false) {
+        if (virtualclass.wb[wId].obj.drawTextObj.muser === false) {
           const obj = {
             mt: currTime,
             ac: 'd',
@@ -281,7 +281,7 @@
           let textBox = canvasWrapper.getElementsByClassName('whiteBoardTextBox');
           if (textBox.length > 0) {
             textBox = textBox[0];
-            if (typeof midReclaim === 'undefined' || (typeof midReclaim !== 'undefined') && virtualclass.wb[wId].obj.drawTextObj.textWriteMode % 2 != 0) {
+            if (typeof midReclaim === 'undefined' || (typeof midReclaim !== 'undefined') && virtualclass.wb[wId].obj.drawTextObj.textWriteMode % 2 !== 0) {
               virtualclass.wb[wId].obj.drawTextObj.textUtility(undefined, undefined, undefined, wId);
             }
           }
@@ -291,4 +291,3 @@
   };
   window.readyTextObj = readyTextObj;
 }(window));
-

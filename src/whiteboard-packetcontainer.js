@@ -18,12 +18,12 @@
       togglePacketCont(cthis) {
         const classes = this.className.split(' ');
         for (let i = 0; i < classes.length; i++) {
-          if (classes[i] == 'display') {
+          if (classes[i] === 'display') {
             this.className = 'hide';
             this.innerHTML = '+';
             cthis._togglePacketCont(classes[i]);
             break;
-          } else if (classes[i] == 'hide') {
+          } else if (classes[i] === 'hide') {
             this.className = 'display';
             this.innerHTML = '-';
             cthis._togglePacketCont(classes[i]);
@@ -32,7 +32,7 @@
         }
       },
       _togglePacketCont(label) {
-        const style = label == 'display' ? 'none' : 'block';
+        const style = label === 'display' ? 'none' : 'block';
         const heading = document.getElementById('dataInfoHeading');
         heading.style.display = style;
         var packCont = document.getElementById('packetContainer');

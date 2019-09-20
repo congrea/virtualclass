@@ -22,24 +22,24 @@
          */
         init(obj) {
           obj.fillStyle = obj.fillColor;
-          if (obj.dRoad == undefined) {
+          if (obj.dRoad == null) {
             obj.dRoad = 'ltr';
           }
 
-          if (obj.width == undefined) {
+          if (obj.width == null) {
             obj.width = obj.ex - obj.sx;
           }
 
-          if (obj.height == undefined) {
+          if (obj.height == null) {
             obj.height = obj.ey - obj.sy;
           }
 
-          if (obj.x == undefined) {
+          if (obj.x == null) {
             const absx = obj.ex - (obj.width / 2);
             obj.x = absx;
           }
 
-          if (obj.y == undefined) {
+          if (obj.y == null) {
             const absy = obj.ey - (obj.height / 2);
             obj.y = absy;
           }
@@ -54,7 +54,7 @@
         draw(ctx, obj, noTransform) {
           ctx.beginPath();
 
-          if (obj.dRoad == 't2b') { // TODO this condtion should be re thinkable
+          if (obj.dRoad === 't2b') { // TODO this condtion should be re thinkable
             var widthBy2 = obj.width / 2;
             var heightBy2 = obj.height / 2;
           } else {
@@ -64,7 +64,7 @@
           }
 
           ctx.lineWidth = obj.lineWidth;
-          if (obj.borderColor != undefined) {
+          if (obj.borderColor != null) {
             ctx.strokeStyle = obj.borderColor;
           }
 
@@ -79,7 +79,7 @@
           ctx.strokeStyle = obj.color;
           ctx.closePath();
 
-          if (obj.fillStyle != undefined) {
+          if (obj.fillStyle != null) {
             ctx.fillStyle = obj.fillStyle;
             ctx.fill();
           }

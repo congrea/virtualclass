@@ -33,7 +33,6 @@
       const obj = {};
       obj.mp = { x: eMessage.x * virtualclass.zoom.canvasScale, y: eMessage.y * virtualclass.zoom.canvasScale };
 
-      const wrapper = document.querySelector(`#canvasWrapper${wid}`);
       // virtualclass.posY = (obj.mp.y - wrapper.scrollTop);
       // virtualclass.posX = (obj.mp.x - wrapper.scrollLeft);
 

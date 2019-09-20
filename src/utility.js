@@ -2423,6 +2423,17 @@
         }
       });
     },
+
+    setScreenShareDefualtColor() {
+      if (virtualclass.gObj.prvRequestScreenUser) {
+        const prvReq = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.prvRequestScreenUser} .icon-stdscreenImg`);
+        if (prvReq !== null) {
+          prvReq.setAttribute('data-dcolor', 'black');
+          prvReq.parentNode.setAttribute('data-title', virtualclass.lang.getString('requestScreenShare'));
+        }
+      }
+    },
+
   };
   window.vutil = vutil;
 }(window));

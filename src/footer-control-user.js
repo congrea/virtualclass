@@ -678,14 +678,12 @@
         _stdscreen(userId) {
           if (virtualclass.gObj.prvRequestScreenUser && (virtualclass.gObj.prvRequestScreenUser !== userId) && virtualclass.config.makeWebSocketReady) {
             ioAdapter.mustSendUser({cancel: true, cf: 'reqscreen'}, virtualclass.gObj.prvRequestScreenUser);
-            const prvReq = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.prvRequestScreenUser} .icon-stdscreenImg`);
-            if (prvReq !== null) {
-              prvReq.setAttribute('data-dcolor', 'black');
-            }
+            virtualclass.vutil.setScreenShareDefualtColor();
           }
           const currElem = chatContainerEvent.elementFromShadowDom(`#ml${userId} .icon-stdscreenImg`);
           if (currElem !== null) {
             currElem.setAttribute('data-dcolor', 'blue');
+            currElem.parentNode.setAttribute('data-title', virtualclass.lang.getString('requestedScreenShare'));
           }
 
           virtualclass.vutil.beforeSend({reqscreen: true, toUser: userId, cf: 'reqscreen'}, userId);

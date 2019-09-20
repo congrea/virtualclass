@@ -622,6 +622,7 @@ let globalImageData = {};
         }
         virtualclass.vutil.beforeSend({ unshareScreen: true, st: this.type, cf: 'unshareScreen' });
         this.clearScreenShare();
+        virtualclass.vutil.setScreenShareDefualtColor();
       },
 
       clearScreenShare() {
@@ -1167,6 +1168,7 @@ let globalImageData = {};
                   cont.classList.remove('studentScreenSharing');
                   document.querySelector('#chat_div').classList.remove('studentScreenSharing');
                 }
+                virtualclass.vutil.setScreenShareDefualtColor();
                 // virtualclass.vutil.removeStudenScreenStatus();
               });
             }

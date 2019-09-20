@@ -322,7 +322,7 @@ var videoHost = {
   getMediaStream(stream) {
     this.videoHostSrc = document.getElementById('videoHostSource');
     this.videoHostSrc.width = this.width;
-    this.videoHostSrc.height = this.height;
+    // this.videoHostSrc.height = this.height;
 
     // virtualclass.vhAdpt.attachMediaStream(this.videoHostSrc, stream);
     virtualclass.adpt.attachMediaStream(this.videoHostSrc, stream);

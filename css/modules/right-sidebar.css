@@ -818,6 +818,14 @@ body {
     text-align: center;
   }
 
+  #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont {
+    min-height: 1px;
+  }
+  
+  #virtualclassCont.congrea #rightSubContainer {
+    min-height: 1px;
+  }  
+
 }
 
 #virtualclassCont.congrea #appSettingDetail #webRtcIoContainer .list-group .disable.audio-options:after {

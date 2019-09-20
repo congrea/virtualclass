@@ -276,7 +276,6 @@
 
 /* css for chat romm */
 #virtualclassCont.congrea .ui-chatroom {
-  position: absolute;
   bottom: 99px;
   padding: 2px 2px 2px 2px;
   padding: 2px 2px 2px 2px;
@@ -676,6 +675,11 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   position: relative;
   padding-top: 3.1875rem;
   height: 100%;
+}
+
+#virtualclassCont.congrea #chat_div::-webkit-scrollbar , 
+#virtualclassCont.congrea .ui-chatbox-log::-webkit-scrollbar {
+  width: 6px;
 }
 
 #virtualclassCont.congrea .ui-widget-content {

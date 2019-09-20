@@ -18,7 +18,7 @@
       user: null, // can be anything associated with this chatbox
       hidden: false,
       offset: 0, // relative to right edge of the browser window
-      width: 320, // width of the chatbox
+      // width: 320, // width of the chatbox
       userSent(user) {
         if (user.userid != '7') {
           // nirmala

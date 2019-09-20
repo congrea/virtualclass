@@ -1241,7 +1241,6 @@
 
 #virtualclassCont.congrea .ui-widget.enable {
   opacity: 1;
-  position: relative;
 }
 
 #virtualclassCont.congrea #virtualclassOptionsCont, .congtooltip {
@@ -4772,4 +4771,5 @@ and (max-device-width: 1024px) {
   #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-chatroom, 
   #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-chatroom .ui-chatbox-content {
     height: 100%;
+    width: 100%;
   }

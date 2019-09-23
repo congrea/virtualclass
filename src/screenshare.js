@@ -339,8 +339,8 @@ let globalImageData = {};
 
       setCanvasContainerDimension(width, height) {
         const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
-        // canvaScontainer.style.width = `${width}px`;
-        // canvaScontainer.style.height = `${height}px`;
+        canvaScontainer.style.width = `${width}px`;
+        canvaScontainer.style.height = `${height}px`;
       },
 
 
@@ -745,8 +745,8 @@ let globalImageData = {};
 
         const vidContainer = document.getElementById(this.local);
         // const dimension = this.html.getDimension(container);
-        // vidContainer.style.width = `${Math.round(container.width)}px`;
-        // vidContainer.style.height = `${Math.round(container.height)}px`;
+        vidContainer.style.width = `${Math.round(container.width)}px`;
+        vidContainer.style.height = `${Math.round(container.height)}px`;
 
         // setStyleToElement(vidContainer, width, height);
         /**

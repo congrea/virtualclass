@@ -955,12 +955,6 @@
   margin: 4px 7px 0 7px;
 }
 
-#virtualclassCont.congrea #virtualclassScreenShareLocal.Local {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
-
 #virtualclassCont.congrea #commonChatBoardLabel {
   position: relative;
   width: 140px;

@@ -761,9 +761,9 @@
   background-color: #f9f9f9;
 }
 
-#virtualclassCont.congrea .icon-zoonIn:before {
+#virtualclassCont.congrea .icon-zoonIn::before {
   content: "\e9a4";
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #464646;
   font-weight: 100;
   font-variant: normal;
@@ -771,9 +771,9 @@
   /* float:left; */
 }
 
-#virtualclassCont.congrea .icon-zoomOut:before {
+#virtualclassCont.congrea .icon-zoomOut::before {
   content: "\e9a5";
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #464646;
   font-weight: 100;
   font-variant: normal;
@@ -781,9 +781,9 @@
   /* float:left; */
 }
 
-#virtualclassCont.congrea .icon-fitScreen:before {
+#virtualclassCont.congrea .icon-fitScreen::before {
   content: "\e99b";
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: #464646;
   font-weight: 100;
   font-variant: normal;

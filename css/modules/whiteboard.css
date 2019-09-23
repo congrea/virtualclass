@@ -125,7 +125,8 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
-  bottom: 18px;
+  bottom: 11px;
+  right: 16px;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel a#congrealogo.disbaleOnmousedown img {

@@ -93,21 +93,22 @@
   font-size: 12px;
   padding: 3px 7px;
   list-style: none;
-  line-height: 18px;
+  line-height: 1.125rem;
 }
 
 #virtualclassCont.congrea.student .ui-chatbox-msg {
-  padding: 3px 7px;
+  padding: 0.1875rem 0.4375rem;
 }
 
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon {
-  font-size: 12px;
-  margin-top: 6px;
+  font-size: 0.75rem;
+  margin-top: 0.375rem;
 }
 
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon .text {
   word-break: break-word;
-  padding: 2px;
+  padding: 0.125rem;
+  margin: 0 0 0.3125rem;
 }
 
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon span {
@@ -767,7 +768,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 #virtualclassCont.congrea .commonChatCon .primary-font {
   color: #3585d5;
   letter-spacing: 0.5px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   text-transform: capitalize;
   text-decoration: none;
 }
@@ -781,7 +782,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 }
 
 #virtualclassCont.congrea .commonChatCon {
-  margin-left: 55px;
+  margin-left: 3.4375rem;
 }
 
 #virtualclassCont.congrea .Search {

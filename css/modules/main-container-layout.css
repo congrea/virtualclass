@@ -85,9 +85,9 @@
 and (min-device-width: 368px)
 and (max-device-width: 1024px) {
 
-  #virtualclassCont[device="mobile"] #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
+  /* #virtualclassCont[device="mobile"] #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
     padding: 14px 1px;
-  }
+  } */
 
   #virtualclassCont.congrea #virtualclassAppRightPanel {
     height: 100%;
@@ -276,6 +276,13 @@ and (max-device-width: 1024px) {
     height: 1.625rem !important;
     padding: 0.5625rem 0.811115rem;
   }
+
+  #virtualclassCont.congrea .zoomControler {
+    position: absolute;
+    bottom: 2.5rem;
+    z-index: 11;
+    right: 2.5rem;
+  }
   /* #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a {
     padding: 11px 10px 6px 9px;
     line-height: 15px;
@@ -345,7 +352,7 @@ and (max-device-width: 1024px) {
 
     #virtualclassCont.congrea #virtualclassPreCheck .testName {
       /* height: 50px; */
-      font-size: 15px;
+      font-size: 0.9375rem;
       position: relative;
       bottom: 25px;
     }
@@ -353,19 +360,20 @@ and (max-device-width: 1024px) {
     #virtualclassCont.congrea #virtualclassPreCheck .result div,
     #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog button,
     #virtualclassCont.congrea #layoutQuizBody #timeText {
-      font-size: 12px;
+      font-size: 0.75rem;
     }
 
     #virtualclassCont.congrea #audioVisualaizerCont {
       width: 50%;
       position: absolute;
-      top: 100px;
-      left: 155px;
+      top: 44%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
-    #virtualclassCont.congrea #preCheckcontainer #vcWebCamCheck .result {
+    /* #virtualclassCont.congrea #preCheckcontainer #vcWebCamCheck .result {
       display: none;
-    }
+    } */
 
     #virtualclassCont.congrea #preCheckcontainer #vcWebCamCheck .testName {
       height: 50px;
@@ -378,8 +386,35 @@ and (max-device-width: 1024px) {
     #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog .textCont {
       font-size: 17px;
     }
+
     #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
-      height: 26px;
+      height: 1.625rem;
+    }
+
+    #virtualclassCont.congrea #vcBandWidthCheck .result {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    #virtualclassCont.congrea #virtualclassPreCheck .result div{
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    #virtualclassCont.congrea #virtualclassPreCheck.bootstrap video {
+      height: 75px;
+    }
+
+    #virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard #svg-spinner {
+      width: 1.5625rem;
+    }
+
+    #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
+      width: 40%;
+    }
+
+    #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
+      margin-top: 1px;
     }
 
     html,
@@ -387,17 +422,36 @@ and (max-device-width: 1024px) {
       font-size: 13px;
     }
   }
-  @media only screen
-  and (min-device-width: 851px)
-  and (max-device-width: 1024px) {
+
+  @media only screen and (min-device-width: 851px) and (max-device-width: 1024px) {
     #virtualclassCont.congrea #virtualclassPreCheck #preCheckcontainer .modal-dialog.modal-lg {
       width: 75%;
     }
-  
+
+    #virtualclassCont.congrea #virtualclassPreCheck.bootstrap video {
+      height: 75px;
+    }
+
+    #virtualclassCont.congrea #virtualclassPreCheck .result div{
+      margin-top: 0;
+    }
+
     #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
       width: 35%;
     }
-    
+
+    #virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard #svg-spinner{
+      width: 1.5625rem;
+    }
+
+    #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon{
+      margin-bottom: 10px;
+    }
+
+    #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
+      height: 1.625rem;
+    }
+
     html,
     body {
       font-size: 13px;

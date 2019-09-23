@@ -19,8 +19,8 @@ div.ui-memblist-usr video {
 }
 
 div.ui-memblist-usr .userVideos {
-  width: 50px;
-  height: 38px;
+  width: 3.125rem;
+  height: 2.375rem;
   margin-top: 6px;
   outline: 1px solid #5a5757;
 }

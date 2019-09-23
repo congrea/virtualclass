@@ -70,13 +70,13 @@ body {
   flex: 1;
 }
 
-#virtualclassCont.congrea #rightSubContainer a.inner_bt, #virtualclassCont.congrea #rightSubContainer a.inner_bt:hover {
+/* #virtualclassCont.congrea #rightSubContainer a.inner_bt, #virtualclassCont.congrea #rightSubContainer a.inner_bt:hover {
   height: auto;
 }
 
 #virtualclassCont.congrea.student #rightSubContainer a.inner_bt, #virtualclassCont.congrea.student #rightSubContainer a.inner_bt:hover {
   height: auto;
-}
+} */
 
 #virtualclassCont.congrea.student #rightSubContainer a.inner_bt #chatroom_icon, #virtualclassCont.congrea.student #rightSubContainer a.inner_bt #chatroom_icon:hover {
   float: left;
@@ -90,6 +90,17 @@ body {
 
 #virtualclassCont.congrea.teacher.nowebcam #virtualclassAppRightPanel #videoHostSource {
   display: none !important;
+}
+
+#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel.techVideoShow #rightSubContainer .ui-widget-content.ui-memblist-content,
+#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel.techVideoShow #rightSubContainer .ui-widget-content.ui-chatbox-content,
+#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel.techVideoShow #rightSubContainer .footerCtr {
+  display: none;
+}
+
+#virtualclassCont.congrea.student[device="mobile"] #virtualclassApp #virtualclassAppRightPanel.showUserList #videoHostContainer, 
+#virtualclassCont.congrea.student[device="mobile"] #virtualclassApp #virtualclassAppRightPanel.showChatList #videoHostContainer {
+  display: none;
 }
 
 #virtualclassCont.congrea #chatWidget {
@@ -501,6 +512,22 @@ body {
   color: white;
 }
 
+#virtualclassCont.congrea #stickycontainer a.inner_bt span#tech_video:before {
+  font-weight: normal;
+  content: "\e966";
+  font-size: 1.25rem;
+  font-family: 'icomoon';
+  color: #fff;
+}
+
+#virtualclassCont.congrea #stickycontainer #techVideo {
+  display: none;
+}
+
+#virtualclassCont.congrea #stickycontainer a.inner_bt span#tech_video {
+  line-height: 10px;
+}
+
 #audioWidget .chatActive .setting-btn:before {
   content: "\e96f";
   font-weight: normal;
@@ -584,7 +611,7 @@ body {
   position: relative;
 }
 
-#virtualclassCont.congrea a.inner_bt span#usertab_text #onlineusertext:before {
+#virtualclassCont.congrea a.inner_bt #userlist_icon::before {
   font-weight: normal;
   content: "\e971";
   font-size: 1.125rem;

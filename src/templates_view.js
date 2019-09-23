@@ -271,17 +271,17 @@ this["JST"]["dest_temp/templates/chat/stickycont.hbs"] = Handlebars.template({"1
 
   return " <li class=\"vmchat_bar_button active\" id=\"user_list\"><a class=\"inner_bt congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userList",{"name":"getString","hash":{},"data":data}))
-    + "\"><span id=\"usertab_text\"><span id=\"onlineusertext\" class=\"cgText\">"
+    + "\"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span><span id=\"usertab_text\" class=\"cgText\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userList",{"name":"getString","hash":{},"data":data}))
-    + "</span></span></a><a class=\"rHandNotify hand_bt\"><span id=\"rhtab_text\"><span id=\"notifyText\" class=\"cgText\"></span></span></a></li> ";
+    + "</span></a><a class=\"rHandNotify hand_bt\"><span id=\"rhtab_text\"><span id=\"notifyText\" class=\"cgText\"></span></span></a></li> ";
 },"3":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
   return " <li class=\"vmchat_bar_button congtooltip active\" id=\"user_list\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userList",{"name":"getString","hash":{},"data":data}))
-    + "\"><a class=\"inner_bt \"><span id=\"usertab_text\"><span id=\"onlineusertext\" class=\"cgText\">"
+    + "\"><a class=\"inner_bt \"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span><span id=\"usertab_text\" class=\"cgText\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userList",{"name":"getString","hash":{},"data":data}))
-    + "</span></span></a></li> ";
+    + "</span></a></li> ";
 },"5":function(container,depth0,helpers,partials,data) {
     return " ";
 },"7":function(container,depth0,helpers,partials,data) {
@@ -291,7 +291,9 @@ this["JST"]["dest_temp/templates/chat/stickycont.hbs"] = Handlebars.template({"1
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<ul class=\"chatBarTab nav navbar-nav\"> "
+  return "<ul class=\"chatBarTab nav navbar-nav\"><li class=\"vmchat_bar_button\" id=\"techVideo\"><a class=\"inner_bt congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"instructorVideo",{"name":"getString","hash":{},"data":data}))
+    + "\"><span id=\"tech_video\"></span></a></li> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + " <li class=\"vmchat_room_bt congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChat",{"name":"getString","hash":{},"data":data}))
@@ -1137,7 +1139,7 @@ this["JST"]["dest_temp/templates/recordingControl.hbs"] = Handlebars.template({"
 this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing;
 
-  return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled\"> "
+  return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled showUserList\"> "
     + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || alias2).call(alias1,{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "  "
     + ((stack1 = container.invokePartial(partials.audioWidget,depth0,{"name":"audioWidget","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")

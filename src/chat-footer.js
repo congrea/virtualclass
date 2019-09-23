@@ -32,12 +32,18 @@
       const setting = document.querySelector('#appSettingCtrl');
       const settingD = document.querySelector('#virtualclassCont.congrea #appSettingDetail');
       const chat = document.querySelector('#virtualclassCont.congrea #chatWidget');
-
+      const techVideo = document.querySelector('#virtualclassCont.congrea #techVideo');
+      const virtualclassAppRight = document.querySelector("#virtualclassAppRightPanel");
 
       $('#chatroom_bt2 .inner_bt').click(() => {
         const vmchat_room_bt = document.querySelector('#chatwidget .vmchat_room_bt');
-        chatroom_bt2.classList.add('active');
+        // chatroom_bt2.classList.add('active');
         user_list.classList.remove('active');
+        techVideo.classList.remove('active');
+        chatroom_bt2.classList.add('active');
+        virtualclassAppRight.classList.add('showChatList');
+        virtualclassAppRight.classList.remove('techVideoShow');
+        virtualclassAppRight.classList.remove('showUserList');
 
         // $('#chatroom_bt2').addClass('active');
         // $('#user_list').removeClass('active');
@@ -115,12 +121,25 @@
         }
       });
 
+      $('#techVideo').click(function () {
+        chatroom_bt2.classList.remove('active');
+        user_list.classList.remove('active');
+        techVideo.classList.add('active');
+        virtualclassAppRight.classList.remove('showUserList');
+        virtualclassAppRight.classList.remove('showChatList');
+        virtualclassAppRight.classList.add("techVideoShow");
+      })
+
       $('#user_list').click(function () {
         // $('#chatroom_bt2').removeClass('active');
         chatroom_bt2.classList.remove('active');
+        techVideo.classList.remove('active');
         // $('#congreaSupport').removeClass('active');
         // $('#user_list').addClass('active');
         user_list.classList.add('active');
+        virtualclassAppRight.classList.add('showUserList');
+        virtualclassAppRight.classList.remove('techVideoShow');
+        virtualclassAppRight.classList.remove('showChatList');
         const setting = document.getElementById('appSettingCtrl');
         const chat = document.getElementById('chatWidget');
         const settingD = document.getElementById('appSettingDetail');

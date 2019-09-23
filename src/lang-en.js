@@ -301,6 +301,7 @@
     + ' or close this popup to start a new session.',
     usermissing: 'User is missing',
     userList: "User's list",
+    instructorVideo: 'Teacher Video',
     validateurlmsg: 'Invalid URL',
     VCE2: 'No permission to recording session',
     VCE4: 'Record data is missing',

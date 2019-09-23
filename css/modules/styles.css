@@ -1068,17 +1068,16 @@
 }
 
 #virtualclassCont.congrea .ui-dialog-header span:first-child {
-  font-size: 14px;
+  font-size: 0.875rem;
   padding-left: 3px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  line-height: 16px;
-  max-height: 32px;
-  color: #fff;
+  line-height: 1rem;
+  max-height: 2rem;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  width: 185px;
+  width: 11.5625rem;
 }
 
 /*#virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos {*/
@@ -2100,7 +2099,7 @@
   border-radius: 5px;
   text-align: center;
   z-index: 1103;
-  max-width: fit-content;
+  width: fit-content;
   line-height: 1.5em;
   color: rgba(131, 14, 14, 0.93);
 }
@@ -4742,7 +4741,7 @@ and (max-device-width: 1024px) {
   }
   
   #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
-  padding: 1rem .375rem;
+    padding: 15px 2px 13px 7px;
   }
   
   #virtualclassCont.congrea #virtualclassApp .collapsedRightbar #sidebarButton .congtooltip:hover:after {

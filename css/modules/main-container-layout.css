@@ -353,7 +353,7 @@ and (max-device-width: 1024px) {
       /* height: 50px; */
       font-size: 0.9375rem;
       position: relative;
-      bottom: 25px;
+      bottom: 1.125rem;
     }
 
     #virtualclassCont.congrea #virtualclassPreCheck .result div,
@@ -365,7 +365,7 @@ and (max-device-width: 1024px) {
     #virtualclassCont.congrea #audioVisualaizerCont {
       width: 50%;
       position: absolute;
-      top: 44%;
+      top: 42%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
@@ -414,6 +414,19 @@ and (max-device-width: 1024px) {
 
     #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
       margin-top: 1px;
+    }
+
+    #virtualclassCont.congrea .vceditor-dropdown-menu {
+      height: 13.4375rem;
+      overflow-y: auto;
+    }
+
+    #virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
+      font-size: 0.6875rem;
+    }
+
+    #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
+      padding: 0.875rem 0.1875rem 0.625rem 0.625rem;
     }
 
     html,
@@ -474,6 +487,17 @@ and (max-device-width: 1024px) {
 
     #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
       height: 1.625rem;
+    }
+
+    #virtualclassCont.congrea .vceditor-dropdown-menu {
+      height: 13.4375rem;
+      overflow-y: auto;
+    }
+    #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
+      padding: 0.875rem 0.1875rem 0.625rem 0.625rem;
+    }
+    #virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
+      font-size: 0.6875rem;
     }
 
     html,

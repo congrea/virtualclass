@@ -2,7 +2,7 @@
 /*css for chatbox*/
 #virtualclassCont.congrea .ui-chatbox {
   position: relative;
-  bottom: 253px;
+  bottom: 15.9375rem;
   padding: 0px;
   border-bottom: none;
   z-index: 10001;
@@ -13,7 +13,7 @@
 
 #virtualclassCont.congrea .ui-chatbox-titlebar {
   padding: 3px;
-  height: 20px;
+  height: 1.25rem;
 }
 
 #virtualclassCont.congrea .ui-chatbox-titlebar span {
@@ -45,7 +45,7 @@
 
 #virtualclassCont.congrea .ui-chatbox-log {
   border-width: 0;
-  height: 170px;
+  height: 10.625rem;
   overflow-y: auto;
 }
 
@@ -90,7 +90,7 @@
 #virtualclassCont.congrea .ui-chatbox-msg,
 #virtualclassCont.congrea.student .ui-chatbox-msg {
   clear: both;
-  font-size: 12px;
+  font-size: 0.75rem;
   padding: 3px 7px;
   list-style: none;
   line-height: 1.125rem;
@@ -208,13 +208,13 @@
   padding-right: 4px;
   padding-top: 3px;
   border: none;
-  font-size: 13px;
+  font-size: 0.8125rem;
   text-transform: capitalize;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  line-height: 20px;
-  max-height: 32px;
+  line-height: 1.125rem;
+  max-height: 2rem;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
@@ -286,7 +286,7 @@
 
 #virtualclassCont.congrea .ui-chatroom-titlebar, #virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header, #virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header {
   font-weight: normal;
-  padding: 8px 0px;
+  padding: 0.5rem 0;
   border-color: #3f4b56;
 }
 
@@ -471,9 +471,9 @@
 }
 
 #virtualclassCont.congrea .ui-chatbox-input textarea {
-  font-size: 15px;
+  font-size: 0.9375rem;
   border: 1px solid #ccc !important;
-  padding: 4px 0 0 5px;
+  padding: 0.25rem 0 0 0.3125rem;
 }
 
 #virtualclassCont.congrea .ui-widget-header .ui-corner-all {

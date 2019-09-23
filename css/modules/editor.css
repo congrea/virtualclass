@@ -386,3 +386,7 @@
   margin-left: -2px;
   z-index: 1000;
 }
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-dropdown-menu::-webkit-scrollbar {
+  width: 4px;
+}

@@ -263,6 +263,10 @@
   -moz-border-radius-topright: 6px;
 }
 
+#virtualclassCont.congrea .vceditor-toolbar-wrapper .undo-group .vceditor-btn {
+  padding: 4px;
+}
+
 #virtualclassCont.congrea .vceditor-dropdown {
   position: relative;
 }
@@ -274,8 +278,8 @@
   z-index: 1000;
   display: none;
   float: left;
-  padding: 4px 0;
-  margin: 4px 0 0;
+  padding: 0.25rem 0;
+  margin: 0.25rem 0 0;
   list-style: none;
   background-color: #ffffff;
   border: 1px solid #ccc;
@@ -431,10 +435,12 @@
 
 #virtualclassCont.congrea .vceditor-tb-undo:before {
   content: "\e00d";
+  font-size: 15px;
 }
 
 #virtualclassCont.congrea .vceditor-tb-redo:before {
   content: "\e00e";
+  font-size: 15px;
 }
 
 #virtualclassCont.congrea .vceditor-tb-box-add:before {

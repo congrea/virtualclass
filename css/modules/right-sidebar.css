@@ -518,10 +518,20 @@ body {
 
 #virtualclassCont.congrea #stickycontainer a.inner_bt span#tech_video:before {
   font-weight: normal;
-  content: "\e966";
+  content: "\e96c";
   font-size: 1.25rem;
   font-family: 'icomoon';
   color: #fff;
+}
+
+#virtualclassCont.congrea .vidShow #stickycontainer #techVideo a.inner_bt {
+  background-color: #53a93f;
+}
+
+#virtualclassCont.congrea #stickycontainer .active a.inner_bt span#tech_video::before {
+  content: "\e966";
+  position: relative;
+  bottom: 3px;
 }
 
 #virtualclassCont.congrea #stickycontainer #techVideo {
@@ -635,7 +645,7 @@ body {
 }
 
 #virtualclassCont.congrea.student #rightSubContainer #chatroom_bt2 a.inner_bt {
-  padding: 0.9062rem 0.5rem 0.5937rem 0.875rem;
+  padding: 0.78125rem 0.5rem 0.7187rem 0.5rem;
 }
 
 #virtualclassCont.congrea a.inner_bt {

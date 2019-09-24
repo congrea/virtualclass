@@ -3630,7 +3630,7 @@
 /*}*/
 #virtualclassCont.congrea #icHr:before {
   content: "\e962";
-  font-size: 1.3125rem;
+  font-size: 1.0625rem;
   color: #fdfafa;
 }
 
@@ -4766,4 +4766,8 @@ and (max-device-width: 1024px) {
   #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-chatroom .ui-chatbox-content {
     height: 100%;
     width: 100%;
+  }
+
+  #virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgText {
+    color: #fff;
   }

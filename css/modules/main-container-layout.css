@@ -447,7 +447,7 @@ and (max-device-width: 1024px) {
     #virtualclassCont.congrea.student .vmchat_bar_button,
     #virtualclassCont.congrea.student .vmchat_room_bt,
     #virtualclassCont.congrea #congHr {
-      width: 25%;
+      width: 25% !important;
     }
 
     #virtualclassCont.congrea a.inner_bt #userlist_icon::before {
@@ -558,4 +558,20 @@ and (max-device-width: 1024px) {
 
 #virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.vidShow.techVideoShow #videoHostContainer {
   display: block !important;
+}
+
+#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel #stickycontainer .active a.inner_bt #userlist_icon::before {
+  content: "\e9b3";
+}
+
+#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel #stickycontainer .active #chatroom_icon .icon-chatroom::before {
+  content: "\e9b7";
+}
+
+#virtualclassCont.congrea.student[device="mobile"] #rightSubContainer a.inner_bt {
+  padding: 0.875rem 0.6875rem 0.3438rem 0.6875rem;
+}
+
+#virtualclassCont.congrea.student[device="mobile"] #rightSubContainer #stickycontainer #icHr::before {
+  margin-top: 1px;
 }

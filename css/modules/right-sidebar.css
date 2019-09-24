@@ -528,6 +528,10 @@ body {
   background-color: #53a93f;
 }
 
+#virtualclassCont.congrea .vidShow #stickycontainer #techVideo.active a.inner_bt {
+  background-color: unset;
+}
+
 #virtualclassCont.congrea #stickycontainer .active a.inner_bt span#tech_video::before {
   content: "\e966";
   position: relative;
@@ -650,10 +654,6 @@ body {
 
 #virtualclassCont.congrea a.inner_bt {
   padding: 12px 0;
-}
-
-#virtualclassCont.congrea #chatroom_bt2 a.inner_bt {
-  padding: 15px 0 12px;
 }
 
 #virtualclassCont.congrea a.inner_bt span#usertab_text {

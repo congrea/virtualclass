@@ -421,7 +421,7 @@ and (max-device-width: 1024px) {
     }
 
     #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
-      padding: 0.875rem 0.1875rem 0.625rem 0.625rem;
+      padding: 0.9375rem 0.25rem 0.9375rem 0.5rem;
     }
 
     html,
@@ -488,9 +488,7 @@ and (max-device-width: 1024px) {
       height: 13.4375rem;
       overflow-y: auto;
     }
-    #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
-      padding: 0.875rem 0.1875rem 0.625rem 0.625rem;
-    }
+    
     #virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
       font-size: 0.6875rem;
     }

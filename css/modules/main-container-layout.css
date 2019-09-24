@@ -160,12 +160,6 @@ and (max-device-width: 1024px) {
     height: calc(100% - 55px);
   }
 
-  
-
-  #virtualclassCont.congrea.playMode #virtualclassApp {
-    height: 100%;
-  }
-
   #virtualclassCont.congrea.playMode.fullScreenMode #virtualclassApp {
     height: 100%;
   }
@@ -370,7 +364,7 @@ and (max-device-width: 1024px) {
     } */
 
     #virtualclassCont.congrea #preCheckcontainer #vcWebCamCheck .testName {
-      height: 50px;
+      height: 60px;
     }
 
     #virtualclassCont.congrea #joinClass #joinClassModal .modal-body {

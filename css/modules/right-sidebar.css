@@ -92,6 +92,10 @@ body {
   display: none !important;
 }
 
+#virtualclassCont.congrea.student[device="mobile"] #virtualclassAppRightPanel.vidShow #videoHostContainer {
+  display: none !important;
+}
+
 #virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel.techVideoShow #rightSubContainer .ui-widget-content.ui-memblist-content,
 #virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel.techVideoShow #rightSubContainer .ui-widget-content.ui-chatbox-content,
 #virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel.techVideoShow #rightSubContainer .footerCtr {

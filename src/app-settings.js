@@ -11,12 +11,17 @@
         const toggle = document.querySelector('#virtualclassCont.congrea #appSettingCtrl');
         const chat = document.querySelector('#virtualclassCont.congrea #chatWidget');
         const setting = document.querySelector('#virtualclassCont.congrea #appSettingDetail');
+        const virtualclassAppRight = document.querySelector('#virtualclassCont.congrea #virtualclassAppRightPanel');
 
-        const privateChatTab = document.querySelector('#virtualclassCont.congrea .vmchat_bar_button');
+        const privateChatTab = document.querySelector('#virtualclassCont.congrea .vmchat_bar_button#user_list');
         const commonChatTab = document.querySelector('#virtualclassCont.congrea .vmchat_room_bt');
 
         if (toggle) {
           toggle.addEventListener('click', () => {
+            if(virtualclassAppRight.classList.contains('techVideoShow')) {
+              virtualclassAppRight.classList.remove('techVideoShow');
+              document.querySelector("#techVideo").classList.remove("active");
+            }
             if (toggle.classList.contains('chatActive')) {
               toggle.classList.remove('chatActive');
               toggle.classList.add('settingActive');

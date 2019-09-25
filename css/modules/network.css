@@ -129,3 +129,10 @@
 #virtualclassCont.congrea #virtualclassApp.try-to-connect #virtualclassAppLeftPanel #virtualclassAppContainer #virtualclassEditorRich #virtualclassEditorRichBody .vceditor .CodeMirror {
   pointer-events: none;
 }
+
+#virtualclassCont.congrea #virtualclassAppFooterPanel #networkLatency:hover::after {
+  position: absolute;
+  bottom: 50px;
+  right: 1px;
+  /* z-index: 88888888888888888; */
+}

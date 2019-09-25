@@ -81,7 +81,7 @@ let msg;
           chatContainer.appendChild(msgElement);
           chatContainer.appendChild(msgTime);
           e.appendChild(chatContainer);
-          //console.log('====> chat time ', time);
+          // console.log('====> chat time ', time);
 
           // var msgCont = document.createElement('div');
           // msgCont.className = 'msgCont';
@@ -168,8 +168,8 @@ let msg;
       const uiChatbox = (self.uiChatbox = $('<div></div>'))
         .appendTo(document.getElementById('congreaChatCont'))
         .addClass(`${'ui-widget '
-            + 'ui-corner-top '
-            + 'ui-chatroom '}${
+        + 'ui-corner-top '
+        + 'ui-chatroom '}${
           'disable'}`)
         .prop('id', 'chatrm');
       uiChatboxContent = (self.uiChatboxContent = $('<div></div>'))
@@ -190,7 +190,7 @@ let msg;
         .prop('placeholder', 'Send message...')
         .appendTo(document.querySelector('.congrea #congchatBarInput'))
         .keydown(function (event) {
-          if (event.keyCode && event.keyCode == $.ui.keyCode.ENTER) {
+          if (event.keyCode && event.keyCode === $.ui.keyCode.ENTER) {
             msg = $.trim($(this).val());
             const time = new Date().getTime();
             const msgobj = {

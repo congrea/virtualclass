@@ -12,7 +12,7 @@ var micTesting = {
       }
 
       if (virtualclass.system.mediaDevices.hasMicrophone) {
-        if (this.audioCreatorNode == null || this.audioCreatorNode == undefined || typeof this.audioCreatorNode === 'undefined') {
+        if (this.audioCreatorNode == null || this.audioCreatorNode == null || typeof this.audioCreatorNode === 'undefined') {
           // console.log('processor intialize');
           this.audioInput = virtualclass.media.audioVisual.audioCtx.createMediaStreamSource(stream);
           this.audioCreatorNode = virtualclass.media.audioVisual.audioCtx.createScriptProcessor(this.bufferSize, 1, 1);
@@ -118,7 +118,7 @@ var micTesting = {
       if (this.audioCreatorNode) {
         this.audioCreatorNode.disconnect(virtualclass.media.audioVisual.audioCtx.destination);
         delete this.audioCreatorNode;
-        if (virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'iOS' || virtualclass.system.mybrowser.name == 'Safari') {
+        if (virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Safari') {
           virtualclass.media.audioVisual.audioCtx.close();
         }
 
@@ -130,7 +130,7 @@ var micTesting = {
         }
 
         /** Need for firefox and sarari on Mobile* */
-        if (virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'iOS' || virtualclass.system.mybrowser.name == 'Safari') {
+        if (virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Safari') {
           if (virtualclass.precheck.mic.graphContext != null) {
             virtualclass.precheck.mic.graphContext.close();
           }

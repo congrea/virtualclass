@@ -60,7 +60,7 @@
         // this.wbId = '_doc_' + currNote + '_' + currNote;
         this.wbId = currNote;
         this.canvas = canvas;
-        //console.log('====JAI, After PDF currNote' + currNote);
+        // console.log('====JAI, After PDF currNote' + currNote);
         // this.canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
         this.canvasWrapper = canvas.parentNode;
         const doc = {};
@@ -78,7 +78,7 @@
         pdf.wbId = this.wbId;
         this.shownPdf = pdf;
 
-        //console.log('====> shown pdf id 2 fp ', pdf.pdfInfo.fingerprint, ' wb', this.wbId);
+        // console.log('====> shown pdf id 2 fp ', pdf.pdfInfo.fingerprint, ' wb', this.wbId);
 
         if (virtualclass.gObj.myworker == null) {
           virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS
@@ -160,9 +160,9 @@
           // console.log("==== top position x" + this.leftPosX);
           return this.scrollPosition(elem, type);
         }
-        if (type == 'Y') {
+        if (type === 'Y') {
           var pos = topPosY;
-        } else if (type == 'X') {
+        } else if (type === 'X') {
           var pos = leftPosX;
         }
         this.updateScrollPosition(pos, type);
@@ -175,10 +175,10 @@
         const { canvas } = this;
         const tp = type;
 
-        if (tp == 'Y') {
+        if (tp === 'Y') {
           var pos = elem.scrollTop;
           var canvasM = canvas.height;
-        } else if (tp == 'X') {
+        } else if (tp === 'X') {
           var pos = elem.scrollLeft;
           var canvasM = canvas.width;
         }
@@ -218,9 +218,9 @@
           const wrapperId = `canvasWrapper${virtualclass.gObj.currWb}`;
           const studentWrapper = document.querySelector(`#${wrapperId}`);
           if (studentWrapper != null) {
-            if (this.type == 'X') {
+            if (this.type === 'X') {
               this[tp].b = studentWrapper.scrollLeft;
-            } else if (this.type == 'Y') {
+            } else if (this.type === 'Y') {
               // console.log('Scroll position Y ' + studentWrapper.scrollTop);
               this[tp].b = studentWrapper.scrollTop;
             }
@@ -284,7 +284,7 @@
           }
           // console.log('custom mouse up pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e + ' scrollPos=' + scrollPos);
           // var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
-          if (tp == 'Y') {
+          if (tp === 'Y') {
             this.canvasWrapper.scrollTop = this.canvasWrapper.scrollTop - scrollPos;
           } else {
             this.canvasWrapper.scrollLeft = this.canvasWrapper.scrollLeft - scrollPos;
@@ -310,9 +310,9 @@
           }
         }
 
-        if (tp == 'Y') {
+        if (tp === 'Y') {
           mousePointer.style.top = `${obj.y - this.scroll[tp].a}px`;
-        } else if (tp == 'X') {
+        } else if (tp === 'X') {
           mousePointer.style.left = `${obj.x - this.scroll[tp].a}px`;
         }
       },
@@ -526,7 +526,7 @@
           this[wb] = { pdfrender: true };
           virtualclass.vutil.showZoom();
 
-          if (firstTime != undefined && virtualclass.gObj.currWb != null) {
+          if (firstTime != null && virtualclass.gObj.currWb != null) {
             // this.initWhiteboardData(page.wbId);
             this.initWhiteboardData(page.wbId);
           }

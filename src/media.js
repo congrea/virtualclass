@@ -117,7 +117,7 @@
               childTag.className += ' hasVideo';
             }
             const videoWrapper = childTag.querySelector('.videoWrapper');
-            if (imgTag == null && imgTag == undefined && videoWrapper != null) {
+            if (imgTag == null && imgTag == null && videoWrapper != null) {
               childTag.removeChild(videoWrapper);
               childTag.appendChild(vidCont);
             } else {
@@ -193,7 +193,7 @@
          */
         init() {
           const isEnableAudio = document.getElementById('speakerPressOnce').dataset.audioPlaying;
-          virtualclass.gObj.audMouseDown = (isEnableAudio == 'true');
+          virtualclass.gObj.audMouseDown = (isEnableAudio === 'true');
 
 
           // This part in not being used
@@ -282,7 +282,7 @@
         },
 
         notifiyUnmuteAudioDom() {
-          //console.log('==== notify unmute audio');
+          // console.log('==== notify unmute audio');
           if (Object.prototype.hasOwnProperty.call(this, 'speakerPressOnce') && this.speakerPressOnce != null && this.speakerPressOnce.classList.contains('audioMute')) {
             this.speakerPressOnce.classList.remove('audioMute');
           }
@@ -301,7 +301,7 @@
 
         muteButtonToogle() {
           const speakerPressOnce = document.querySelector('#speakerPressOnce');
-          if (speakerPressOnce != null && (speakerPressOnce.dataset.audioPlaying && speakerPressOnce.dataset.audioPlaying == 'true')) {
+          if (speakerPressOnce != null && (speakerPressOnce.dataset.audioPlaying && speakerPressOnce.dataset.audioPlaying === 'true')) {
             speakerPressOnce.click();
           }
         },
@@ -381,7 +381,7 @@
             // var anchor = tag.getElementsByClassName('tooltip')[0];
             // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
             let action;
-            if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable === 'undefined') {
+            if (tag.getAttribute('data-audio-playing') === 'false' && typeof alwaysDisable === 'undefined') {
               virtualclass.vutil.audioStatus(tag, 'true');
               action = true;
             } else {
@@ -666,7 +666,7 @@
                   virtualclass.media.audio.playWithFallback(e.data.msg.uid);
                   break;
                 default:
-                  // console.log('do nothing');
+                // console.log('do nothing');
               }
             };
             workerAudioRecOnmessage = true;
@@ -690,7 +690,7 @@
 
 
                 if (virtualclass.system.mybrowser.name === 'Chrome') {
-                  //console.log('==== Chrome after change');
+                  // console.log('==== Chrome after change');
                   cthis.audio.bug_687574_callLocalPeers();
                 }
 
@@ -1212,7 +1212,7 @@
             id: virtualclass.gObj.uid,
           };
           if (io.webSocketConnected()) {
-           //  console.log('====> video by image ');
+            //  console.log('====> video by image ');
             // virtualclass.vutil.beforeSend({ videoByImage: user, cf: 'videoByImage' }, null, true);
             ioAdapter.sendBinary(sendimage);
           }
@@ -1267,11 +1267,11 @@
 
             if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
               var d = randomTime + (virtualclass.connectedUsers.length * 2500);
-              if (totalMembers != virtualclass.connectedUsers.length) {
+              if (totalMembers !== virtualclass.connectedUsers.length) {
                 totalMembers = virtualclass.connectedUsers.length;
                 let p = -1;
                 for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
-                  if (virtualclass.connectedUsers[0].userid == virtualclass.gObj.uid) {
+                  if (virtualclass.connectedUsers[0].userid === virtualclass.gObj.uid) {
                     p = i;
                   }
                 }
@@ -1370,7 +1370,7 @@
                 videoCont.appendChild(videoWrapper);
                 const newContHeight = videoCont.offsetHeight;
                 if (videoCont.offsetHeight >= maxHeight) {
-                  if (videoCont.style.overflowY != 'undefined' && videoCont.style.overflowY != 'scroll') {
+                  if (videoCont.style.overflowY != null && videoCont.style.overflowY !== 'scroll') {
                     videoCont.style.overflowY = 'scroll';
                     document.getElementById(virtualclass.gObj.chat.mainChatBoxId).style.borderTop = '3px solid #bbb';
                   }
@@ -1555,7 +1555,7 @@
           }
         }
 
-        if (webcam == false) {
+        if (webcam === false) {
           virtualclass.user.control.videoDisable();
           virtualclass.vutil.addClass('virtualclassCont', 'nowebcam');
           // virtualclass.videoHost.UI.hideVideo();
@@ -1604,7 +1604,7 @@
                 videoHostContainer.classList.add('displayInterrupt');
               }
 
-              ioAdapter.mustSend({cf: 'videoStop'});
+              ioAdapter.mustSend({ cf: 'videoStop' });
             }
 
             // virtualclass.media.audio.removeAudioFromLocalStorage();
@@ -1827,7 +1827,7 @@
         const context = new OfflineAudioContext(1, 1, 44100);
         return Boolean(
           context.audioWorklet
-            && typeof context.audioWorklet.addModule === 'function',
+          && typeof context.audioWorklet.addModule === 'function',
         );
       },
     };

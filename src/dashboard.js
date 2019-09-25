@@ -207,7 +207,10 @@ var dashboard = {
         }
       } else {
         this.readyDashboard();
-        //console.log('====> dashboard init ');
+        const moodleHeader = document.querySelector('#congdashboard .modal-header h4');
+        if (moodleHeader != null) {
+          moodleHeader.innerHTML = virtualclass.lang.getString(`${virtualclass.currApp}dbHeading`);
+        }
         const sharing = document.querySelector('.congrea .pptSharing');
         if (sharing) {
           virtualclass.dashboard.close();
@@ -224,7 +227,6 @@ var dashboard = {
 
   readyDashboard(currVideo) {
     const { currApp } = virtualclass;
-
     if (document.querySelector('#congdashboard') === null) {
       const dashboardTemp = virtualclass.getTemplate('dashboard');
       document.querySelector('#dashboardContainer').innerHTML = dashboardTemp({ app: currApp });

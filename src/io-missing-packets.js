@@ -69,9 +69,9 @@ var ioMissingPackets = {
     this.validateAllVariables(uid);
 
     // we would think about sesion clear only when the request would come from teacher
-    if (msg.user.role == 't' && Object.prototype.hasOwnProperty.call(msg.m, 'ping') && Object.prototype.hasOwnProperty.call(msg.m, 'session')) {
+    if (msg.user.role === 't' && Object.prototype.hasOwnProperty.call(msg.m, 'ping') && Object.prototype.hasOwnProperty.call(msg.m, 'session')) {
       const mySession = localStorage.getItem('mySession');
-      if (mySession != null && msg.m.session != mySession) {
+      if (mySession != null && msg.m.session !== mySession) {
         // TODO Finish Session and start gracefully
         if (!virtualclass.isPlayMode) {
           localStorage.removeItem('mySession');
@@ -87,10 +87,10 @@ var ioMissingPackets = {
       }
     }
 
-    if (msg.m.missedpackets == 1) {
+    if (msg.m.missedpackets === 1) {
       this.fillExecutedStore(msg);
     } else if (typeof msg.m.serial !== 'undefined' && msg.m.serial != null) {
-      if ((msg.m.serial == (this.executedSerial[uid] + 1)) || msg.m.serial === 0) {
+      if ((msg.m.serial === (this.executedSerial[uid] + 1)) || msg.m.serial === 0) {
         // Everything is good and in order
         // console.log(`UID ${uid} Object with Serial ${msg.m.serial}`);
         this.executedSerial[uid] = msg.m.serial;
@@ -123,10 +123,10 @@ var ioMissingPackets = {
     const uid = msg.user.userid;
     this.validateAllUserVariables(uid);
 
-    if (msg.m.missedpackets == 1) {
+    if (msg.m.missedpackets === 1) {
       this.fillExecutedStore(msg);
     } else if (typeof msg.m.userSerial !== 'undefined' && msg.m.userSerial != null) {
-      if ((msg.m.userSerial == (this.executedUserSerial[uid] + 1)) || msg.m.userSerial === 0) {
+      if ((msg.m.userSerial === (this.executedUserSerial[uid] + 1)) || msg.m.userSerial === 0) {
         // Everything is good and in order
         // console.log(`UID ${uid} Object with userSerial ${msg.m.userSerial}`);
         this.executedUserSerial[uid] = msg.m.userSerial;
@@ -153,7 +153,7 @@ var ioMissingPackets = {
     }
 
     'use strict';
-    if (this.missRequest[uid] == 0) {
+    if (this.missRequest[uid] === 0) {
       // Save current packet
       this.aheadPackets[uid].unshift(msg.m.serial);
       this.executedStore[uid][msg.m.serial] = msg;
@@ -181,7 +181,7 @@ var ioMissingPackets = {
     }
 
     'use strict';
-    if (this.missUserRequest[uid] == 0) {
+    if (this.missUserRequest[uid] === 0) {
       // Save current packet
       this.aheadUserPackets[uid].unshift(msg.m.userSerial);
       this.executedUserStore[uid][msg.m.userSerial] = msg;
@@ -292,7 +292,7 @@ var ioMissingPackets = {
           this.executedStore[uid][msg.m.data[i].m.serial] = msg.m.data[i];
           try {
             // console.log(`UID ${uid} Object with Serial ${msg.m.data[i].m.serial}`);
-            //console.log('====> missing packet ', i);
+            // console.log('====> missing packet ', i);
             io.onRecJson(msg.m.data[i]);
           } catch (error) {
             // console.log(`Error ${error}`);

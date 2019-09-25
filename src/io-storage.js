@@ -18,8 +18,8 @@ const ioStorage = {
 
   storeCacheOutData(data, key) {
     // if (data.m.cf !== 'eddata') {
-      const msg = ioStorage.addUserObj(data);
-      virtualclass.storage.storeCacheOut(JSON.stringify(msg), key);
+    const msg = ioStorage.addUserObj(data);
+    virtualclass.storage.storeCacheOut(JSON.stringify(msg), key);
     // }
   },
 
@@ -34,7 +34,7 @@ const ioStorage = {
         virtualclass.gObj.allUserObj[msg.user.userid].role = 's';
       }
 
-      if (virtualclass.gObj.allUserObj[msg.user.userid].userid == msg.user.userid) {
+      if (virtualclass.gObj.allUserObj[msg.user.userid].userid === msg.user.userid) {
         msg.user.lname = virtualclass.gObj.allUserObj[msg.user.userid].lname;
         msg.user.name = virtualclass.gObj.allUserObj[msg.user.userid].name;
         msg.user.role = virtualclass.gObj.allUserObj[msg.user.userid].role;
@@ -45,7 +45,7 @@ const ioStorage = {
 
   storeCacheInData(data, key) {
     // if (data.m.cf !== 'eddata') {
-      virtualclass.storage.storeCacheIn(JSON.stringify(data), key);
+    virtualclass.storage.storeCacheIn(JSON.stringify(data), key);
     // }
   },
 };

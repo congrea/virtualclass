@@ -8,7 +8,7 @@ function triggerInitShareScreen(sType, setTime) {
 
 function isAlreadyInPendingList(user) {
   if (virtualclass.gObj.memberlistpending.length > 0) {
-    const index = virtualclass.gObj.memberlistpending.findIndex(userObj => userObj.userid == user.userid);
+    const index = virtualclass.gObj.memberlistpending.findIndex(userObj => userObj.userid === user.userid);
     return (index > -1);
   }
 }
@@ -29,15 +29,15 @@ const removeAppsDom = function () {
 };
 
 function memberUpdateWithDelay(e, f) {
-  if (f == 'removed') {
+  if (f === 'removed') {
     /** Removing the disconnected user from queue(memberlistpending) and DOM * */
-    const index = virtualclass.gObj.memberlistpending.findIndex(x => x.userid == e.removeUser);
+    const index = virtualclass.gObj.memberlistpending.findIndex(x => x.userid === e.removeUser);
     if (index > -1) {
       virtualclass.gObj.memberlistpending.splice(index, 1);
-      //console.log('===== JOIN user left call');
+      // console.log('===== JOIN user left call');
     } else {
       setTimeout(() => {
-        //console.log('===== JOIN user left call');
+        // console.log('===== JOIN user left call');
         memberUpdate(e, f);
       }, 0);
     }
@@ -94,13 +94,13 @@ function memberUpdateWithDelay(e, f) {
  */
 
 const defaultOperation = function (e, sType) {
-  if ((virtualclass.jId == virtualclass.gObj.uid)) {
+  if ((virtualclass.jId === virtualclass.gObj.uid)) {
     // Override the roles for removing Class from virtualclass container.
-    if (virtualclass.joinUser.role != 't') {
+    if (virtualclass.joinUser.role !== 't') {
       virtualclass.vutil.overrideRoles(virtualclass.joinUser.role);
-      if (virtualclass.joinUser.role == 's') {
+      if (virtualclass.joinUser.role === 's') {
         removeAppsDom();
-      } else if (virtualclass.joinUser.role != 'e') {
+      } else if (virtualclass.joinUser.role !== 'e') {
         virtualclass.vutil.removeSessionEndTool(); // remove session tool if there is any
       }
     }
@@ -121,16 +121,15 @@ const defaultOperation = function (e, sType) {
   memberUpdateWithDelay(e, 'added');
 
   if (roles.hasAdmin()) {
-    if (virtualclass.gObj.uid == virtualclass.jId) {
+    if (virtualclass.gObj.uid === virtualclass.jId) {
       if (!virtualclass.gObj.studentSSstatus.mesharing) {
-
         // if (virtualclass.currApp.toUpperCase() == 'EDITORRICH' || virtualclass.currApp.toUpperCase() == 'EDITORCODE') {
         //   ioAdapter.mustSend({ eddata: 'currAppEditor', et: virtualclass.currApp });
         // }
 
         // On reload or new connection, make sure all students have same editor data
         if (virtualclass.editorRich.isVcAdapterIsReady('editorRich')) {
-         virtualclass.editorRich.responseToRequest();
+          virtualclass.editorRich.responseToRequest();
         } else {
           // console.log('Editor Rich vcAdapter is not ready');
         }
@@ -177,7 +176,7 @@ const defaultOperation = function (e, sType) {
   }
 
   // Greet new student with info, When other user join
-  if (roles.hasControls() && virtualclass.gObj.uid != virtualclass.jId) {
+  if (roles.hasControls() && virtualclass.gObj.uid !== virtualclass.jId) {
     // Greet new student with info
     virtualclass.vutil.sendCurrAppOnUserJoin();
 
@@ -216,7 +215,7 @@ const defaultOperation = function (e, sType) {
           // console.log('Document share send :- Complete slide');
         }
       } else {
-        //ioAdapter.mustSendUser({ dts: { init: 'studentlayout' }, cf: 'dts' }, virtualclass.jId);
+        // ioAdapter.mustSendUser({ dts: { init: 'studentlayout' }, cf: 'dts' }, virtualclass.jId);
         // console.log('Document share send :- Layout');
       }
     } else if (virtualclass.currApp === 'Video') {
@@ -240,7 +239,7 @@ const defaultOperation = function (e, sType) {
     if (typeof sType !== 'undefined' && sType !== null) {
       triggerInitShareScreen(sType, 6000); // There might need some time to executing missed packets
     }
-  } else if (roles.isStudent() && virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.studentSSstatus.mesharing) {
+  } else if (roles.isStudent() && virtualclass.gObj.uid !== virtualclass.jId && virtualclass.gObj.studentSSstatus.mesharing) {
     sType = 'ss';
     // There might need some time to executing missed packets
     triggerInitShareScreen(sType, 6000);

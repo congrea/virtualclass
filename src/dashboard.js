@@ -58,11 +58,7 @@ var dashboard = {
     }
 
     virtualclass.dashboard.actualCloseHandler();
-
-    const moodleHeader = document.querySelector('#congdashboard .modal-header h4');
-    if (moodleHeader != null) {
-      moodleHeader.innerHTML = virtualclass.lang.getString(`${currApp}dbHeading`);
-    }
+    this.displayHeaderText();
   },
 
   close() {
@@ -200,6 +196,7 @@ var dashboard = {
       } else if (virtualclass.currApp === 'Video') {
         if (typeof currVideo === 'undefined') {
           this.readyDashboard();
+          this.displayHeaderText();
         }
         const videoPlaying = document.querySelector('.congrea #listvideo .linkvideo.playing');
         if (!videoPlaying) {
@@ -207,10 +204,7 @@ var dashboard = {
         }
       } else {
         this.readyDashboard();
-        const moodleHeader = document.querySelector('#congdashboard .modal-header h4');
-        if (moodleHeader != null) {
-          moodleHeader.innerHTML = virtualclass.lang.getString(`${virtualclass.currApp}dbHeading`);
-        }
+        this.displayHeaderText();
         const sharing = document.querySelector('.congrea .pptSharing');
         if (sharing) {
           virtualclass.dashboard.close();
@@ -332,6 +326,13 @@ var dashboard = {
           virtualclass.modal.hideModal();
         });
       }
+    }
+  },
+
+  displayHeaderText() {
+    const moodleHeader = document.querySelector('#congdashboard .modal-header h4');
+    if (moodleHeader != null) {
+      moodleHeader.innerHTML = virtualclass.lang.getString(`${virtualclass.currApp}dbHeading`);
     }
   },
 };

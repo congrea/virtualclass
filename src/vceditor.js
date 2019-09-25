@@ -454,7 +454,7 @@ const Vceditor = (function (window) {
     RichTextCodeMirror.prototype.insertText = function (index, text, attributes, origin) {
       const cm = this.codeMirror;
       const cursor = cm.getCursor();
-      const resetCursor = origin == 'RTCMADAPTER' && !cm.somethingSelected() && index == cm.indexFromPos(cursor);
+      const resetCursor = origin === 'RTCMADAPTER' && !cm.somethingSelected() && index === cm.indexFromPos(cursor);
       this.replaceText(index, null, text, attributes, origin);
       if (resetCursor) cm.setCursor(cursor);
     };
@@ -567,9 +567,9 @@ const Vceditor = (function (window) {
         let newNodesLen = newNodes.length;
         while (newNodesLen--) {
           const newNode = newNodes[newNodesLen];
-          if (oldNode.pos == newNode.pos
+          if (oldNode.pos === newNode.pos
             && oldNode.annotation.attributes.ent
-            && oldNode.annotation.attributes.ent == newNode.annotation.attributes.ent) {
+            && oldNode.annotation.attributes.ent === newNode.annotation.attributes.ent) {
             const entityType = newNode.annotation.attributes.ent;
             if (this.entityManager_.entitySupportsUpdate(entityType)) {
               // Update it in place and remove the change from oldNodes / newNodes so we don't process it below.
@@ -648,7 +648,7 @@ const Vceditor = (function (window) {
                   ? dynStyle(val)
                   : `${dynStyle}: ${val}`;
 
-                const selector = (attr == ATTR.LINE_INDENT)
+                const selector = (attr === ATTR.LINE_INDENT)
                   ? `pre.${className}`
                   : `.${className}`;
 
@@ -1721,7 +1721,7 @@ const Vceditor = (function (window) {
 
       // Hack for IE8 to make font icons work more reliably.
       // http://stackoverflow.com/questions/9809351/ie8-css-font-face-fonts-only-working-for-before-content-on-over-and-sometimes
-      if (navigator.appName == 'Microsoft Internet Explorer' && navigator.userAgent.match(/MSIE 8\./)) {
+      if (navigator.appName === 'Microsoft Internet Explorer' && navigator.userAgent.match(/MSIE 8\./)) {
         window.onload = function () {
           const head = document.getElementsByTagName('head')[0];
           const style = document.createElement('style');

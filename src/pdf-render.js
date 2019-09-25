@@ -356,6 +356,11 @@
       },
 
       async renderPage(page, firstTime) {
+        if (virtualclass.currApp !== 'Whiteboard' && virtualclass.currApp !== 'DocumentShare') {
+          // Avoid this funciton in case of other app apart from Whiteboard and Document share
+          return; 
+        }
+        
         if (virtualclass.zoom.prvPdfDimension && virtualclass.zoom.prvPdfDimension[2] !== page.view[2]) {
           virtualclass.gObj.fitToScreen = true;
           if (this.firstTime) {

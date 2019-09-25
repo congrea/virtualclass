@@ -419,7 +419,7 @@ body {
   display: none !important;
 }
 
-#virtualclassCont.congrea.student #rightSubContainer .vmchat_bar_button.disable {
+#virtualclassCont.congrea.student #rightSubContainer #user_list.disable {
   pointer-events: none;
   opacity: 0.5;
 }

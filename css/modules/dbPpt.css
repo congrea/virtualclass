@@ -355,7 +355,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   /*-moz-transform:scale(1.008);*/
   /*-ms-transform:scale(.9);*/
   /*-o-transform:scale(.9);*/
-  transform: scale(1.0005);
+  /* transform: scale(1.0005); */
 }
 
 #virtualclassCont.congrea #listppt .linkppt {

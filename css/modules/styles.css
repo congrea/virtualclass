@@ -1241,7 +1241,7 @@
   outline-width: 0;
   z-index: 1103 !important;
   text-align: center;
-  line-height: 20px;
+  line-height: 1.25rem;
   display: block;
 }
 
@@ -4548,7 +4548,7 @@ and (max-device-width: 1024px) {
   left: 0;
   bottom: 0px;
   z-index: 1000;
-  padding: 12px 20px;
+  padding: 0.75rem 1.25rem;
   border-right: 0.01em solid #021317 !important;
   cursor: pointer;
 }
@@ -4574,12 +4574,12 @@ and (max-device-width: 1024px) {
 #virtualclassCont #virtualclassApp #virtualclassAppLeftPanel #recording[data-recording="on"] span.showStatus {
   float: left;
   margin-top: 1px;
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   font-size: 0;
   background-color: red;
   border: 0;
-  border-radius: 35px;
+  border-radius: 2.1875rem;
   outline: none;
   animation-name: pulse;
   animation-duration: 1.5s;
@@ -4591,12 +4591,12 @@ and (max-device-width: 1024px) {
 #virtualclassCont #virtualclassApp #virtualclassAppLeftPanel #recording[data-recording="off"] span.showStatus {
   float: left;
   margin-top: 1px;
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   font-size: 0;
   background-color: orange;
   border: 0;
-  border-radius: 35px;
+  border-radius: 2.1875rem;
   outline: none;
   animation-name: pulse-off;
   animation-duration: 1.5s;
@@ -4618,9 +4618,9 @@ and (max-device-width: 1024px) {
 } */
 
 #virtualclassCont #virtualclassAppLeftPanel #recording span.recordingText {
-  margin-left: 14px;
-  line-height: 18px;
-  font-size: 15px;
+  margin-left: 0.875rem;
+  line-height: 1.125rem;
+  font-size: 0.9375rem;
   font-weight: 300;
 }
 

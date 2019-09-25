@@ -1022,7 +1022,7 @@
   display: block;
   position: absolute;
   bottom: 0px;
-  right: 6.875rem;
+  right: 6.875rem !important;
   padding: 0.7812rem 1.125rem 0.8437rem 1.125rem;
   z-index: 1005;
 }

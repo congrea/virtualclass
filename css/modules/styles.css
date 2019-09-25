@@ -4050,7 +4050,7 @@ span#usertab_text {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
   height: 9px;
   background-color: #d9dbdc;
 }

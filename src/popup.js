@@ -129,7 +129,7 @@ const PopUp = (function (window, undefined) {
     mainModelCont.classList.remove('playPopup', 'loading');
 
     // console.log('close popup');
-    if (virtualclass.recorder.waitServer == false) {
+    if (virtualclass.recorder.waitServer === false) {
       const virtualclassToolCont = document.getElementById('virtualclassOptionsCont');
       if (virtualclassToolCont != null) {
         virtualclassToolCont.style.zIndex = 100;
@@ -175,7 +175,6 @@ const PopUp = (function (window, undefined) {
   },
 
   PopUp.prototype.waitBlock = function () {
-    //
     // alert('suman bogati');
     const element = document.getElementById('about-modal');
     virtualclass.popup.open(element);
@@ -274,10 +273,10 @@ const PopUp = (function (window, undefined) {
     this.hideAllPopups();
     let mszPopup; let
       popupClose;
-    if (type == 'video') {
+    if (type === 'video') {
       mszPopup = document.querySelector('#virtualclassCont.congrea #popupContainer #uploadvideourl');
       popupClose = document.querySelector('#virtualclassCont.congrea #popupContainer #vidPopupClose');
-    } else if (type == 'presentation') {
+    } else if (type === 'presentation') {
       mszPopup = document.querySelector('#virtualclassCont.congrea #popupContainer #uploadppturl');
       popupClose = document.querySelector('#virtualclassCont.congrea #popupContainer #pptPopupClose');
     } else {
@@ -420,7 +419,7 @@ const PopUp = (function (window, undefined) {
 
   PopUp.prototype.confirmInit = function (userInput, cb, label, type, index, id) {
     virtualclass.popup.closeElem();
-    const confirm = (userInput == 'confirmOk') ? virtualclass.popup.confirmOk() : virtualclass.popup.confirmCancel();
+    const confirm = (userInput === 'confirmOk') ? virtualclass.popup.confirmOk() : virtualclass.popup.confirmCancel();
     cb(confirm, label, type, index, id);
   };
 
@@ -526,7 +525,7 @@ const PopUp = (function (window, undefined) {
   PopUp.prototype.closePopup = function () {
     virtualclass.popup.closeElem();
     const sessionEndCont = document.getElementById('sessionEndMsgCont');
-    if (sessionEndCont.dataset.displaying == 'true') {
+    if (sessionEndCont.dataset.displaying === 'true') {
       this.sesseionEndWindow();
     }
   };

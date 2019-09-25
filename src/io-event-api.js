@@ -17,7 +17,7 @@ function processImage(msg, vtype) {
 
 function isAnyOnePresenter() {
   const isPresenter = parseInt(wbUser.anyonepresenter, 10);
-  return (isPresenter == 1);
+  return (isPresenter === 1);
 }
 
 function joinAsTeacher(jId) {
@@ -58,7 +58,7 @@ var overrideOperation = function (role) {
 
 
 function getPosition(connectedUsers, uid) {
-  const index = connectedUsers.findIndex(o => o.userid == uid);
+  const index = connectedUsers.findIndex(o => o.userid === uid);
   return index;
 }
 
@@ -70,7 +70,7 @@ const ioEventApi = {
       let i = 0;
 
       for (const key in e.joinUser) {
-        if (wbUser.id != key) {
+        if (wbUser.id !== key) {
           // console.log('Don t join');
           te.joinUser = { key };
           te.message = e.message[i];
@@ -87,13 +87,13 @@ const ioEventApi = {
   },
 
   member_added(e) {
-    //console.log('===== JOIN user ' + e.message.length);
-    //console.log('===== JOIN user ' + e.message);
+    // console.log('===== JOIN user ' + e.message.length);
+    // console.log('===== JOIN user ' + e.message);
     let sType;
     if (typeof virtualclass.connectedUsers === 'undefined') {
       virtualclass.connectedUsers = [];
     }
-    //console.log('===== JOIN user member_added call ');
+    // console.log('===== JOIN user member_added call ');
     if (Object.prototype.hasOwnProperty.call(e, 'user')) {
       const joinUserObj = e.message;
       virtualclass.jId = joinUserObj.userid;
@@ -102,7 +102,7 @@ const ioEventApi = {
 
 
       const upos = getPosition(virtualclass.connectedUsers, virtualclass.jId);
-      if (upos != -1) {
+      if (upos !== -1) {
         virtualclass.connectedUsers.splice(upos, 1);
       }
       virtualclass.gObj.allUserObj[virtualclass.jId] = joinUserObj;
@@ -156,7 +156,7 @@ const ioEventApi = {
     //   defaultOperation(e, sType);
     // }
 
-    //console.log('==== Add users');
+    // console.log('==== Add users');
     defaultOperation(e, sType);
 
     if (roles.hasControls()) {
@@ -175,16 +175,16 @@ const ioEventApi = {
       }
     }
 
-    if (virtualclass.joinUser.role == 's' && virtualclass.gObj.has_ts_capability) {
+    if (virtualclass.joinUser.role === 's' && virtualclass.gObj.has_ts_capability) {
       ioAdapter.mustSend({ uid: virtualclass.gObj.uid, ac: true, cf: 'tsr' });
     }
 
-    if (virtualclass.gObj.uid != virtualclass.jId && virtualclass.gObj.meetingMode) {
+    if (virtualclass.gObj.uid !== virtualclass.jId && virtualclass.gObj.meetingMode) {
       virtualclass.multiVideo.onUserJoin(virtualclass.jId);
     }
 
     if (!roles.hasControls()) {
-      if (e.message[0].role === 't' || ((virtualclass.gObj.uid == virtualclass.jId) && virtualclass.vutil.whoIsTeacher())) {
+      if (e.message[0].role === 't' || ((virtualclass.gObj.uid === virtualclass.jId) && virtualclass.vutil.whoIsTeacher())) {
         const vcCont = document.getElementById('virtualclassCont');
         if (!vcCont.classList.contains('tr_available')) {
           vcCont.classList.add('tr_available');
@@ -430,7 +430,7 @@ const ioEventApi = {
 
   getJoinUser(users, uid) {
     for (let i = 0; i < users.length; i++) {
-      if (users[i].userid == uid) {
+      if (users[i].userid === uid) {
         return users[i];
       }
     }

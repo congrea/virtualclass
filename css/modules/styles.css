@@ -4742,6 +4742,7 @@ and (max-device-width: 1024px) {
 
   #virtualclassCont.congrea #virtualclassApp #virtualclassAppLeftPanel .sidebarButton:hover::after {
     right: 30px;
+    bottom: 10px;
   }
   
   #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {

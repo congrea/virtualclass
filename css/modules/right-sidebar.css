@@ -35,7 +35,7 @@ body {
 }
 
 #virtualclassCont.congrea.student #rightSubContainer #appSettingDetail {
-  height: calc(100% - 2.75rem);
+  height: 100%;
 }
 
 #virtualclassCont.congrea #chatWidget .chatBarTab {

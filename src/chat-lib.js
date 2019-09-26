@@ -250,7 +250,7 @@ function memberUpdate(e, addType) {
       }
     }
 
-    const privateChat = document.querySelector('#virtualclassCont.congrea  .vmchat_bar_button');
+    const privateChat = document.querySelector('#virtualclassCont.congrea  #user_list.vmchat_bar_button');
     const search = document.querySelector('#virtualclassCont.congrea #congreaUserSearch');
     const chatInput = document.querySelector('#virtualclassCont.congrea  #ta_chrm2');
     if (privateChat.classList.contains('active')) {

@@ -242,7 +242,7 @@ const ioEventApi = {
 
 
     // virtualclass.media.video.removeUser(e.fromUser.userid);
-    virtualclass.media.video.removeUser(e.fromUser);
+   // virtualclass.media.video.removeUser(e.fromUser);
     // TODO this should be update accordiing to new user
 
     // if (virtualclass.chat.isTechSupportExist(e.fromUser)) {

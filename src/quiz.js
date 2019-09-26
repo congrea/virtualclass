@@ -1107,8 +1107,6 @@
          * @return
          */
         resultView(qz) {
-          const layout = document.getElementById('layoutQuiz');
-
           if (roles.hasControls()) {
             this.createResultLayout();
 

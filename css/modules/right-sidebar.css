@@ -30,7 +30,7 @@ body {
 #virtualclassCont.congrea #rightSubContainer #appSettingDetail {
   display: none;
   overflow: auto;
-  height: calc(100% - 44px);
+  height: 100%;
   font-family: Helvetica;
 }
 

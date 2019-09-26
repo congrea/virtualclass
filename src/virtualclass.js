@@ -1397,6 +1397,7 @@
           recordingControl: this.getTemplate('recordingControl'),
           leftBar: this.getTemplate('leftBar'),
           footerBar: this.getTemplate('footerBar'),
+          mobileLandscapeWarn: this.getTemplate('mobileLandscapeWarn'),
           main: this.getTemplate('main'),
           whiteboard: this.getTemplate('main', 'whiteboard'),
           dashboardCont: this.getTemplate('dashboardCont'),

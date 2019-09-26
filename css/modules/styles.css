@@ -4776,3 +4776,54 @@ and (max-device-width: 1024px) {
   #virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgText {
     color: #fff;
   }
+
+  #virtualclassCont .mobileLandscapeWarn {
+    display: none; 
+  }
+
+  #virtualclassCont.congrea .mobileLandscapeWarn .warningWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 70%;
+  }	 
+
+  #virtualclassCont.congrea .mobileLandscapeWarn .warningWrapper p {
+    font-size: 20px;
+    /* font-weight: 300; */
+    margin-top: 28px;
+    color: #c0c0c0;
+  }
+
+  #virtualclassCont.congrea .mobileLandscapeWarn .warningWrapper span.icon-mobileRotate:before {
+    content: "\e9c0";
+    font-weight: normal;
+    font-size: 100px;
+    font-family: 'icomoon';
+    color: white;
+    font-weight: normal;
+  }
+
+  /* #virtualclassCont.mobileWarning .ui-widget-content .ui-corner-all,
+  #virtualclassCont.mobileWarning #chatWidget .chatBarTab {
+    display: none;
+  } */
+
+  @media only screen and (orientation:portrait){
+
+    #virtualclassCont.congrea .mobileLandscapeWarn {
+      display:block;
+      height: 100%;
+      background-color: #000;
+      color: #fff;
+      z-index: 10000;
+      position: relative;
+    }
+  
+    #joinClass {
+      display:none;
+    }
+  
+  }

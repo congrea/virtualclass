@@ -545,6 +545,8 @@ this["JST"]["dest_temp/templates/main.hbs"] = Handlebars.template({"1":function(
   return ((stack1 = container.invokePartial(partials.precheck,depth0,{"name":"precheck","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " "
     + ((stack1 = container.invokePartial(partials.joinclass,depth0,{"name":"joinclass","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = container.invokePartial(partials.mobileLandscapeWarn,depth0,{"name":"mobileLandscapeWarn","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " <div id=\"virtualclassApp\" class=\"openRightbar\" style=\"display: flex;\" class=\"try-to-connect\"> "
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.isPlay : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " "
@@ -555,6 +557,10 @@ this["JST"]["dest_temp/templates/main.hbs"] = Handlebars.template({"1":function(
     + ((stack1 = container.invokePartial(partials.popupCont,depth0,{"name":"popupCont","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " </div>";
 },"usePartial":true,"useData":true});
+
+this["JST"]["dest_temp/templates/mobileLandscapeWarn.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"mobileLandscapeWarn\"><div class=\"warningWrapper\"><span class=\"icon-mobileRotate\"></span><p class=\"warning-message\">Please turn you device</p></div></div>";
+},"useData":true});
 
 this["JST"]["dest_temp/templates/multiVideo.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id=\"videoConfrence\"><div id=\"videosWrapper\"><div class=\"videoCont selfVideo\"><video class=\"videoBox multilocalVideo\" muted=\"muted\" autoplay></video></div></div></div>";

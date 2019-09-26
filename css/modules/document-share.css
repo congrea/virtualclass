@@ -442,7 +442,7 @@
 
 #virtualclassCont.congrea .nvgt {
   position: absolute;
-  top: 40vh;
+  top: calc(50vh - 48px);
   height: 50px;
   width: 30px;
   opacity: 0.6;

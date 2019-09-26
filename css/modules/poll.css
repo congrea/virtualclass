@@ -56,15 +56,11 @@
   padding: 20px;
   position: relative;
   height: 100%;
-  
-
-  /*height: 85vh;*/
-
 }
 
-/*#virtualclassCont.congrea.student #layoutPollBody {*/
-/*height: 93vh;*/
-/*}*/
+#virtualclassCont.congrea.student #layoutPollBody {
+  position: unset;
+}
 
 #virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont,
 #virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont {
@@ -356,9 +352,13 @@
   width: 480px;
   text-align: center;
   /* box-shadow: 0 0 8px #ddd; */
-  left: -230px;
+  left: 0;
   right: 0;
   font-size: medium;
+}
+
+#virtualclassCont.congrea.teacher #layoutPoll #mszBoxPoll {
+  top: 35%;
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive {
@@ -563,13 +563,13 @@
   #virtualclassCont.congrea #virtualclassPoll #layoutPoll {
     height: 100%;
   }
+}
 
-  #virtualclassCont.congrea.student #resultLayout {
-    width: 100%;
-    position: absolute;
-    top: 49px;
-    bottom: 16%;
-    overflow: auto;
-    height: 85%;
-  }
+#virtualclassCont.congrea.student #resultLayout {
+  width: 100%;
+  position: absolute;
+  top: 49px;
+  bottom: 16%;
+  overflow: auto;
+  height: 85%;
 }

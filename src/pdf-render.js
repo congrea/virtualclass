@@ -240,10 +240,11 @@
 
       // for student
       setScrollPosition(obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, 'scY') && obj.scY != null) {
+        if (Object.prototype.hasOwnProperty.call(obj, 'scY') && obj.scY != null && this.canvas != null) {
           this.scroll.caclculatePosition(obj.scY, this.canvas.height, 'Y');
         }
-        if (Object.prototype.hasOwnProperty.call(obj, 'scX') && obj.scX != null) {
+
+        if (Object.prototype.hasOwnProperty.call(obj, 'scX') && obj.scX != null && this.canvas != null) {
           this.scroll.caclculatePosition(obj.scX, this.canvas.width, 'X');
         }
       },
@@ -499,7 +500,7 @@
             io.globallock = false;
             virtualclass.vutil.removeClass('virtualclassCont', 'resizeWindow');
           }
-          if (this.firstTimeScroll && roles.isStudent()){
+          if (this.firstTimeScroll && roles.isStudent() && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] === 'object'){
             virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition({ scX: 0, scY: 0 });
             this.firstTimeScroll = false;
           }

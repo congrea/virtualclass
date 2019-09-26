@@ -762,9 +762,9 @@
 
           if (typeof this.orderList[virtualclass.currApp] === 'object'
             && this.orderList[virtualclass.currApp].ol.order.indexOf(virtualclass.gObj.currWb) <= -1
-            && virtualclass.currApp !== 'DocumentShare' && virtualclass.gObj.currWb.length < 10) {
+            && virtualclass.currApp !== 'DocumentShare' && virtualclass.gObj.currWb.length <= 10) {
             // virtualclass.gObj.currWb.length < 10, to check id is related to document sharing or not
-            // Find the better way to replace the condition virtualclass.gObj.currWb.length < 10
+            // Find the better way to replace the condition virtualclass.gObj.currWb.length <= 10
             if (position != undefined) {
               this.orderList[virtualclass.currApp].insert(virtualclass.gObj.currWb, null, position);
             } else {

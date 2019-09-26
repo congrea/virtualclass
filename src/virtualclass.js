@@ -613,8 +613,9 @@
             if (virtualclass.dts.noteExist()) {
               virtualclass.zoom.normalRender();
             }
+          } else if (!virtualclass.dts.noteExist()) {
+            virtualclass.vutil.hidePageNumber();
           }
-
           // virtualclass.zoom.zoomAction('fitToScreen');
         } else {
           if (app === 'Whiteboard') {

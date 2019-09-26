@@ -2434,6 +2434,13 @@
       }
     },
 
+    hidePageNumber() {
+      const nav = document.querySelector('#docShareNav');
+      if (nav !== null) {
+        nav.classList.add('hide');
+        nav.classList.remove('show');
+      }
+    },
   };
   window.vutil = vutil;
 }(window));

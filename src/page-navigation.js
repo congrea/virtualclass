@@ -57,7 +57,6 @@
 
   pageIndexNav.prototype.setTotalPages = function (length) {
 
-    //console.log('==== page, set total page ', length,  virtualclass.currApp);
     const cont = document.querySelector('#docShareNav #totalPages');
     if (cont) {
       cont.innerHTML = ` of ${length}`;
@@ -66,6 +65,7 @@
         nav.classList.add('hide');
         nav.classList.remove('show');
       } else {
+        console.log('Hide number show');
         nav.classList.add('show');
         nav.classList.remove('hide');
       }
@@ -357,11 +357,9 @@
         virtualclass.wbCommon.indexNav.setCurrentIndex(virtualclass.gObj.currIndex);
         virtualclass.wbCommon.indexNav.setTotalPages((virtualclass.orderList.Whiteboard.ol.order.length));
       }
-    } else {
-      if (virtualclass.currApp === 'DocumentShare') {
-        this.setCurrentIndex(virtualclass.gObj.currIndex);
-        this.setTotalPages((virtualclass.orderList.Documentshare.ol.order.length));
-      }
+    } else if (virtualclass.currApp === 'DocumentShare' && virtualclass.dts.noteExist()) {
+      this.setCurrentIndex(virtualclass.gObj.currIndex);
+      this.setTotalPages((virtualclass.orderList.Documentshare.ol.order.length));
     }
   };
 

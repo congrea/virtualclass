@@ -356,10 +356,10 @@
       },
 
       async renderPage(page, firstTime) {
-        if (virtualclass.currApp !== 'Whiteboard' && virtualclass.currApp !== 'DocumentShare') {
-          // Avoid this funciton in case of other app apart from Whiteboard and Document share
-          return; 
-        }
+        // if (virtualclass.currApp !== 'Whiteboard' && virtualclass.currApp !== 'DocumentShare') {
+        //   // Avoid this funciton in case of other app apart from Whiteboard and Document share
+        //   return; 
+        // }
         
         if (virtualclass.zoom.prvPdfDimension && virtualclass.zoom.prvPdfDimension[2] !== page.view[2]) {
           virtualclass.gObj.fitToScreen = true;
@@ -416,8 +416,10 @@
                 let canvasContainer;
                 if (virtualclass.currApp === 'Whiteboard') {
                   canvasContainer = document.querySelector('#virtualclassWhiteboard.canvasContainer.current');
-                } else {
+                } else if(virtualclass.currApp ==='DocumentShare') {
                   canvasContainer = document.querySelector('#screen-docs.current');
+                } else {
+                  canvasContainer = documennt.querySelector('#virtualclassAppContainer').offsetWidth - 6;
                 }
                 canvas.width = canvasContainer.offsetWidth - 6;
               } else {

@@ -12,7 +12,7 @@ const gesture = {
 
     const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
     if (virtualclassApp != null) {
-      virtualclassApp.style.display = 'none';
+      virtualclassApp.style.display = 'flex';
     }
     const joinClassButton = document.querySelector('#joinClassModal .joinClasscontainer button');
     if (joinClassModal) {
@@ -43,7 +43,7 @@ const gesture = {
   closeContinueWindow() {
     const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
     const joinClassModal = document.querySelector('#joinClassModal');
-    virtualclassApp.style.display = 'block';
+    virtualclassApp.style.display = 'flex';
     joinClassModal.style.display = 'none';
   },
 

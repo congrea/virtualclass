@@ -627,9 +627,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   display: none;
 }
 
-#virtualclassCont.congrea .linkvideo.links.video.enable.playing .controls.delete, #virtualclassCont.congrea .linkvideo.links.video_yts.enable.playing .controls.delete {
-  pointer-events: none;
-  opacity: .3;
+#virtualclassCont.congrea .linkvideo.links.video.enable.playing .controls.delete,
+#virtualclassCont.congrea .linkvideo.links.video_yts.enable.playing .controls.delete {
+  /* pointer-events: none;
+  opacity: .3; */
   cursor: auto;
 }
 
@@ -643,10 +644,6 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   #virtualclassCont.congrea #listvideo .linkvideo.links .controlCont {
     width: 16% !important;
   }
-}
-
-#virtualclassCont.congrea #VideoDashboard .playing .controls.delete {
-  pointer-events: none !important;
 }
 
 #virtualclassCont.congrea .vjs-seek-to-live-control {

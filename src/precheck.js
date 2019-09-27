@@ -33,7 +33,7 @@ const preCheck = {
 
     const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
     if (virtualclassApp != null) {
-      virtualclassApp.style.display = 'none';
+      virtualclassApp.style.display = 'FLEX';
     }
 
     this.startToCheckWholeSytem();
@@ -59,7 +59,7 @@ const preCheck = {
       var virtualclassPreCheck = document.getElementById('preCheckcontainer');
       virtualclassPreCheck.style.display = 'none';
       var virtualclassApp = document.getElementById('virtualclassApp');
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
       // virtualclass.videoHost._resetPrecheck();
       // virtualclass.media.audio.initAudiocontext();
     } else {
@@ -72,7 +72,7 @@ const preCheck = {
 
 
       var virtualclassApp = document.getElementById('virtualclassApp');
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
       localStorage.setItem('precheck', true);
       virtualclass.videoHost.afterSessionJoin();
     }
@@ -88,6 +88,8 @@ const preCheck = {
 
     virtualclass.gObj.precheckScrn = false;
     virtualclass.precheck.afterComplete();
+    virtualclass.stickybarWidth();
+    virtualclass.chatBarTabWidth();
   },
 
   cancelAudioGraph() {
@@ -565,10 +567,12 @@ const preCheck = {
       virtualclassPreCheck.style.display = 'none';
 
       const virtualclassApp = document.getElementById('virtualclassApp');
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
       // localStorage.setItem('precheck', true);
       virtualclass.videoHost._resetPrecheck();
       virtualclass.precheck.afterComplete();
+      virtualclass.stickybarWidth();
+      virtualclass.chatBarTabWidth();
     },
 
     joinSession() {
@@ -582,7 +586,7 @@ const preCheck = {
       virtualclassPreCheck.style.display = 'none';
 
       const virtualclassApp = document.getElementById('virtualclassApp');
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
       localStorage.setItem('precheck', true);
 
       virtualclass.videoHost.afterSessionJoin();
@@ -609,7 +613,7 @@ const preCheck = {
 
   startSession() {
     const virtualclassApp = document.getElementById('virtualclassApp');
-    virtualclassApp.style.display = 'block';
+    virtualclassApp.style.display = 'flex';
 
     const virtualclassPreCheck = document.getElementById('virtualclassPreCheck');
 

@@ -247,9 +247,9 @@
       openQuizPopup(item, index) {
         this.qzid = index; // store quiz id
         var cont = document.getElementById('layoutQuizBody');
-        const elem = document.createElement('div');
-        elem.className = 'container';
-        cont.appendChild(elem);
+        // const elem = document.createElement('div');
+        // elem.className = 'container';
+        // cont.appendChild(elem);
         const modal = document.getElementById('editQuizModal');
         if (modal) {
           modal.remove();

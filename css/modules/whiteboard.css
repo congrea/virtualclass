@@ -37,14 +37,6 @@
   left: 40%;
 }
 
-#virtualclassCont.congrea.teacher.orginalTeacher[data-currapp="Whiteboard"] #audioWidget {
-  right: 0px;
-}
-
-#virtualclassCont.congrea.student.presenter[data-currapp="Whiteboard"] #audioWidget {
-  right: 0px;
-}
-
 #virtualclassCont.congrea #whiteBoardMsg {
   background-color: #f9f9f9;
   border: 1px solid #c8ddb8;
@@ -86,26 +78,55 @@
   /*  border: 1px solid #e7eae7;*/
 }
 
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer,
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .canvasContainer,
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .canvasContainer .vcanvas {
+  height: 100%;
+}
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .canvasContainer .containerWb {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 #virtualclassCont.congrea #screen-docs .whiteboard {
   margin-left: 0px;
+  height: 100%;
   /*margin-right: 20px;*/
+}
+
+#virtualclassCont.congrea #screen-docs .whiteboard .vcanvas.socketon {
+  height: 100%;
+}
+
+#virtualclassCont.congrea #screen-docs .whiteboard .vcanvas.socketon .containerWb {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#virtualclassCont.congrea #screen-docs .whiteboard .vcanvas.socketon .containerWb .canvasWrapper {
+  flex: 1;
 }
 
 #virtualclassCont.congrea #docScreenContainer .pageContainer {
   /*border:1px dotted #dddddd;*/
+  height: 100%;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
   position: absolute;
   bottom: 50px;
-  right: 345px;
+  right: 27px;
   height: 35px;
   opacity: 0.5;
   z-index: 11;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
-  bottom: 58px;
+  bottom: 11px;
+  right: 16px;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel a#congrealogo.disbaleOnmousedown img {
@@ -317,8 +338,8 @@
   top: 100%;
   left: 195px;
   float: left;
-  padding: 4px 0;
-  margin: 4px 0 0;
+  padding: 0 0;
+  margin: 0 0 0;
   list-style: none;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-right-width: 2px;

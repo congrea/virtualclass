@@ -356,6 +356,11 @@
       },
 
       async renderPage(page, firstTime) {
+        if (virtualclass.currApp !== 'Whiteboard' && virtualclass.currApp !== 'DocumentShare') {
+          // Avoid this funciton in case of other app apart from Whiteboard and Document share
+          return; 
+        }
+        
         if (virtualclass.zoom.prvPdfDimension && virtualclass.zoom.prvPdfDimension[2] !== page.view[2]) {
           virtualclass.gObj.fitToScreen = true;
           if (this.firstTime) {
@@ -386,28 +391,41 @@
           let viewport;
           if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'diffrentDocumentWidth')) {
             canvas.width = virtualclass.zoom.diffrentDocumentWidth;
+            console.log('==== a canvas width ', canvas.width);
             delete virtualclass.zoom.diffrentDocumentWidth;
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
             // console.log('====> FIT to screen 1');
-            canvas.width = window.innerWidth - virtualclass.zoom.getReduceValueForCanvas();
+            canvas.width = canvas.parentNode.offsetWidth - 6;
             console.log('==== a canvas width fit to screen ', canvas.width);
             console.log('RIGHT SIDE BAR WIDTH ', virtualclass.zoom.getReduceValueForCanvas())
-            if (!roles.hasControls()) {
-              canvas.width += 50; // add left bar's width on canvas width for student
-            }
+            // if (!roles.hasControls()) {
+            //   canvas.width += 50; // add left bar's width on canvas width for student
+            // }
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'performZoom')) {
             canvas.width = virtualclass.zoom.canvasDimension.width;
+            console.log('==== a canvas width performZoom ', canvas.width);
             delete virtualclass.zoom.performZoom;
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'canvasDimension')) {
             console.log(`==== a canvas width dimension ${virtualclass.zoom.canvasDimension.width} scale=${virtualclass.zoom.canvasScale}`);
             canvas.width = virtualclass.zoom.canvasDimension.width;
-            //console.log('==== a canvas width fit to screen ', canvas.width);
+            console.log('==== a canvas width  ', canvas.width);
+            console.log("udit current ", canvas.width, canvas.id);
             // } else if(canvas.offsetWidth === 0 && document.querySelector('#virtualclassApp').style.display === "none"){
-          } else if (canvas.offsetWidth === 0 || virtualclass.isPlayMode) {
-            // (53 + 320 + 10) = (left toolbar + rightbar + scroll of canvas)
-            canvas.width = (window.innerWidth - (roles.hasControls() ? 382 : 330));
-            //console.log('==== a canvas width click to continue');
-            console.log('==== a canvas width fit to screen ', canvas.width, 'rightbar width ', document.querySelector('#chat_div').offsetWidth);
+          } else if (canvas.offsetWidth === 0 || canvas.offsetWidth === 300 || virtualclass.isPlayMode) {
+              if (wb === '_doc_0_0' && canvas.parentNode.offsetWidth === 0 || canvas.parentNode.offsetWidth === 300) {
+                let canvasContainer;
+                if (virtualclass.currApp === 'Whiteboard') {
+                  canvasContainer = document.querySelector('#virtualclassWhiteboard.canvasContainer.current');
+                } else {
+                  canvasContainer = document.querySelector('#screen-docs.current');
+                }
+                canvas.width = canvasContainer.offsetWidth - 6;
+              } else {
+                canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
+              }
+          } else {
+            canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
+            console.log('==== a canvas width ', canvas.width);
           }
 
           if (this.firstTime) {
@@ -445,6 +463,8 @@
           virtualclass.zoom.canvasDimension = {};
           virtualclass.zoom.canvasDimension.width = canvas.width;
           virtualclass.zoom.canvasDimension.height = canvas.height;
+
+          console.log('==== a canvas width ',  virtualclass.zoom.canvasDimension.width);
           //console.log('==== canvas dimension ', virtualclass.zoom.canvasDimension.width);
 
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {

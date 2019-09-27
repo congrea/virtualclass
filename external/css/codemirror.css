@@ -153,7 +153,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
   /* See overflow: hidden in .CodeMirror */
 
   margin-bottom: -30px;
-   margin-right: -9px;
+   margin-right: -10px;
   padding-bottom: 30px;
 
   height: 100%;

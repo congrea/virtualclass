@@ -3822,7 +3822,7 @@ span#usertab_text {
 
 #virtualclassCont.congrea .vjs-volume-control.vjs-control.vjs-volume-horizontal {
   position: relative;
-  bottom: 21px;
+  bottom: 0px;
 }
 
 #virtualclassCont.congrea .video-js .vjs-control:before {

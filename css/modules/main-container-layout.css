@@ -83,7 +83,7 @@
 }
 
 @media only screen
-and (min-device-width: 368px)
+and (min-device-width: 360px)
 and (max-device-width: 1024px) {
 
   /* #virtualclassCont[device="mobile"] #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
@@ -291,7 +291,7 @@ and (max-device-width: 1024px) {
     line-height: 15px;
   } */
 
-  @media only screen and (min-device-width: 368px) and (max-device-width: 850px) {
+  @media only screen and (min-device-width: 310px) and (max-device-width: 850px) {
 
     #virtualclassCont.congrea #virtualclassPreCheck #preCheckcontainer .modal-dialog.modal-lg {
       width: 90%;

@@ -1,8 +1,9 @@
 /* style sheets */
 /*css for chatbox*/
 #virtualclassCont.congrea .ui-chatbox {
-  position: relative;
-  bottom: 15.9375rem;
+  position: absolute;
+    /* bottom: 15.9375rem; */
+  bottom: 37px;
   padding: 0px;
   border-bottom: none;
   z-index: 10001;

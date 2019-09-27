@@ -68,6 +68,7 @@ body {
 #virtualclassCont.congrea #rightSubContainer {
   clear: both;
   flex: 1;
+  min-height: 1px;
 }
 
 /* #virtualclassCont.congrea #rightSubContainer a.inner_bt, #virtualclassCont.congrea #rightSubContainer a.inner_bt:hover {
@@ -557,6 +558,7 @@ body {
 
 #appSettingDetail .list-group {
   font-size: 15px !important;
+  margin-bottom: 0;
 }
 
 #appSettingDetail .list-group .lists-cont {

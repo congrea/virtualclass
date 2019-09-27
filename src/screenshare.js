@@ -470,6 +470,12 @@ let globalImageData = {};
         } else if (roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing) {
           this.readyTostart(screen.app);
         } else {
+          if (roles.isStudent()) {
+            const chromeExtMiss = document.getElementById('chromeExtClose');
+            if (chromeExtMiss) {
+              chromeExtMiss.click();
+            }
+          }
           this.initInternal();
         }
       },

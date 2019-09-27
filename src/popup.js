@@ -458,6 +458,7 @@ const PopUp = (function (window, undefined) {
 
 
   PopUp.prototype.chromeExtMissing = function () {
+
     const element = document.getElementById('about-modal');
     element.dataset.currPopup = 'chromeExt';
     virtualclass.popup.open(element);
@@ -465,12 +466,16 @@ const PopUp = (function (window, undefined) {
     const sessionEndMsg = document.getElementById('chromeExtMiss');
     sessionEndMsg.style.display = 'block';
 
+    if (roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing) {
+      virtualclass.gObj.studentSSstatus.mesharing = false;
+    }
+
     const sessionEndClose = document.getElementById('chromeExtClose');
     sessionEndClose.addEventListener('click',
       () => {
-        if (roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing) {
-          virtualclass.gObj.studentSSstatus.mesharing = false;
-        }
+        // if (roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing) {
+        //   virtualclass.gObj.studentSSstatus.mesharing = false;
+        // }
         virtualclass.popup.closeElem();
         element.dataset.currPopup = '';
       });

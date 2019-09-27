@@ -122,9 +122,9 @@
     RichTextToolbar.prototype.makeDropdown_ = function (title, eventName, items, value_suffix) {
       value_suffix = value_suffix || '';
       const self = this;
-      //const button = (title === 'Font') ? utils.elt('a', `${title} \u25be`, { class: 'vceditor-btn vceditor-dropdown' }) : utils.elt('a', null, { class: 'vceditor-btn vceditor-dropdown' });
-      const button = utils.elt('a', `${title} \u25be`, { class: 'vceditor-btn vceditor-dropdown' });
-      const list = utils.elt('ul', [], { class: 'vceditor-dropdown-menu' });
+      const toolTitle = virtualclass.vutil.smallizeFirstLetter(title);
+      const button = (title === 'Font') ? utils.elt('a', `${title} \u25be`, { class: 'vceditor-btn vceditor-dropdown' }) : utils.elt('a', null, { class: `vceditor-btn vceditor-dropdown ${toolTitle}` });
+      const list = utils.elt('ul', [], { class: `vceditor-dropdown-menu ${toolTitle}-menu` });
       button.appendChild(list);
 
       let isShown = false;

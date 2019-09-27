@@ -264,7 +264,7 @@
 }
 
 #virtualclassCont.congrea .vceditor-toolbar-wrapper .undo-group .vceditor-btn {
-  padding: 4px;
+  padding: 3.8px;
 }
 
 #virtualclassCont.congrea .vceditor-dropdown {
@@ -315,8 +315,8 @@
 }
 
 #virtualclassCont.congrea .vceditor-color-dropdown-item {
-  height: 25px;
-  width: 25px;
+  height: 1.5625rem;
+  width: 1.5625rem;
 }
 
 #virtualclassCont.congrea .vceditor-dialog {
@@ -330,26 +330,26 @@
 
 #virtualclassCont.congrea .vceditor-dialog-div {
   position: relative;
-  width: 400px;
-  height: 100px;
-  margin: 100px auto;
+  width: 25rem;
+  height: 6.25rem;
+  margin: 6.25rem auto;
   background-color: #fff;
   border: 1px solid #ccc;
-  padding: 15px;
+  padding: 0.9375rem;
 }
 
 #virtualclassCont.congrea .vceditor-dialog-input {
   width: 94%;
   display: block;
-  padding: 5px 5px;
-  margin: 10px 10px 10px 5px;
+  padding: 0.3125rem 0.3125rem;
+  margin: 0.625rem 0.625rem 0.625rem 0.3125rem;
   clear: both;
   font-weight: normal;
-  line-height: 25px;
+  line-height: 1.5625rem;
   color: #333333;
   white-space: nowrap;
   border: #ccc 1px solid;
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 /********************************************************************
@@ -435,12 +435,12 @@
 
 #virtualclassCont.congrea .vceditor-tb-undo:before {
   content: "\e00d";
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 #virtualclassCont.congrea .vceditor-tb-redo:before {
   content: "\e00e";
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 #virtualclassCont.congrea .vceditor-tb-box-add:before {
@@ -509,4 +509,37 @@
 
 #virtualclassCont.tr_available[data-currapp="EditorRich"] {
   pointer-events: visible;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.size {
+  padding: 5px 2px 1px 3px;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.color{
+  padding: 6px 5px 2px 5px;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.size::before {
+  font-family: 'icomoon';
+  content: "\e60e";
+  font-size: 1.4375rem;
+  color: white;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.color::before {
+  font-family: 'icomoon';
+  content: "\e993";
+  font-size: 1.125rem;
+  color: white;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.size::after,
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.color::after {
+  font-family: 'icomoon';
+  content: "\e967";
+  font-size: 1.0625rem;
+  color: white;
+  float: right;
+  position: relative;
+  top: 2px;
 }

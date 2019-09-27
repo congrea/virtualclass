@@ -2071,7 +2071,7 @@
       const virtualclassPreCheck = document.getElementById('preCheckcontainer');
       virtualclassPreCheck.style.display = 'none';
       const virtualclassApp = document.getElementById('virtualclassApp');
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
 
       if (localStorage.getItem('precheck')) {
         virtualclass.videoHost._resetPrecheck();
@@ -2422,6 +2422,24 @@
           }
         }
       });
+    },
+
+    setScreenShareDefualtColor() {
+      if (virtualclass.gObj.prvRequestScreenUser) {
+        const prvReq = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.prvRequestScreenUser} .icon-stdscreenImg`);
+        if (prvReq !== null) {
+          prvReq.setAttribute('data-dcolor', 'black');
+          prvReq.parentNode.setAttribute('data-title', virtualclass.lang.getString('requestScreenShare'));
+        }
+      }
+    },
+
+    hidePageNumber() {
+      const nav = document.querySelector('#docShareNav');
+      if (nav !== null) {
+        nav.classList.add('hide');
+        nav.classList.remove('show');
+      }
     },
   };
   window.vutil = vutil;

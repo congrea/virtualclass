@@ -60,7 +60,7 @@
        */
 
       clickOutSidebox(num) {
-        return (num % 2 != 1);
+        return (num % 2 !== 1);
       },
       /**
        * Through this function the selected object would be deleted
@@ -73,17 +73,18 @@
         // var currTime = new Date().getTime();
         // 8 is used for delete on mac
 
-        if (evt.keyCode == 8 || evt.keyCode == 46) {
+        if (evt.keyCode === 8 || evt.keyCode === 46) {
           const { vcan } = virtualclass.wb[id];
-          if (vcan.main.currObj != '') {
+          if (vcan.main.currObj) {
             if (roles.hasControls()) { // can not remove the object when user has not control
               // console.log('Delete whiteboard obj:- Invoke the command');
               const obj = virtualclass.wb[id].utility.removeSelectedItem(vcan.main.currObj);
               virtualclass.vutil.beforeSend({ repObj: [obj], cf: 'repObj' });
             }
           }
-        } else if (evt.keyCode == 27) { // escape key
-          if ((virtualclass.currApp == 'Whiteborad' || virtualclass.currApp == 'DocumentShare') && typeof virtualclass.wb[id] === 'object') {
+        } else if (evt.keyCode === 27) { // escape key
+          if ((virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare')
+              && typeof virtualclass.wb[id] === 'object' && virtualclass.wb[id].obj.drawTextObj) {
             virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny(undefined, id);
           }
         }
@@ -141,7 +142,7 @@
         virtualclass.wb[wId].activeToolColor = virtualclass.gObj.defaultcolor;
         const delRpNode = true;
         virtualclass.wb[wId].utility.clearAll(delRpNode, wId);
-        //console.log('====> whiteboard clear all');
+        // console.log('====> whiteboard clear all');
       },
       /**
        * By this function  all drawn object over the canvas would be erased
@@ -149,7 +150,7 @@
        * @param delRpNode
        */
       clearAll(delRpNode, wid) {
-        //console.log('====> whiteboard clear all');
+        // console.log('====> whiteboard clear all');
         // const wid = virtualclass.gObj.currWb;
         // console.log(`Whiteboard clear ${wid}`);
         // TODO this should be done in proper way
@@ -163,7 +164,7 @@
         }
 
         // removing all the elements from replayObjs
-        if (delRpNode == true) {
+        if (delRpNode === true) {
           /** ***
            This would I have disbaled can be critical
            virtualclass.wb[virtualclass.gObj.currWb].repObj.replayObjs.splice(0, virtualclass.wb[virtualclass.gObj.currWb].repObj.replayObjs);
@@ -171,7 +172,7 @@
           vcan.main.replayObjs.splice(0, vcan.main.replayObjs.length);
         }
 
-        if (virtualclass.wb[wid].replay != undefined) {
+        if (virtualclass.wb[wid].replay != null) {
           virtualclass.wb[wid].replay.objNo = 0;
         }
 
@@ -211,7 +212,7 @@
         const { vcan } = virtualclass.wb[wid];
         const allChildren = vcan.main.children;
         const currState = vcan.getStates('action');
-        if (currState == 'move') {
+        if (currState === 'move') {
           vcan.setValInMain('action', 'create');
           for (let i = 0; i < allChildren.length; i++) {
             // allChildren[i].draggable = false;
@@ -308,8 +309,8 @@
       },
 
       makeCanvasDisable() {
-        //console.log('====> Canvas count 1 ', virtualclass.gObj.currWb);
-        //console.log('====> Canvas Disbale ');
+        // console.log('====> Canvas count 1 ', virtualclass.gObj.currWb);
+        // console.log('====> Canvas Disbale ');
         const wid = virtualclass.gObj.currWb;
         const { vcan } = virtualclass.wb[wid];
         const canvasElement = vcan.main.canvas;
@@ -328,7 +329,7 @@
         }
       },
       removeToolBox(id) {
-        console.log("====> remove toolbar");
+        console.log('====> remove toolbar');
         const cmdWrapper = document.getElementById(`commandToolsWrapper${id}`);
         cmdWrapper.parentNode.removeChild(cmdWrapper);
       },
@@ -368,7 +369,7 @@
         // console.log('Whiteboard re-init queue');
         // const wid = virtualclass.gObj.currWb;
 
-        if (typeof cmd === 'undefined' || cmd != 't_clearall') {
+        if (typeof cmd === 'undefined' || cmd !== 't_clearall') {
           virtualclass.wb[wid].utility.makeDeActiveTool(wid);
         }
 
@@ -754,14 +755,14 @@
 
       checkCanvasHasParents() {
         let currentTag = document.getElementById('vcanvas');
-        while (currentTag.parentNode.tagName != 'BODY') {
-          if (currentTag.id != 'vcanvas') {
+        while (currentTag.parentNode.tagName !== 'BODY') {
+          if (currentTag.id !== 'vcanvas') {
             currentTag.style.margin = '0';
             currentTag.style.padding = '0';
           }
           currentTag = currentTag.parentNode;
         }
-        if (currentTag.id != 'vcanvas') {
+        if (currentTag.id !== 'vcanvas') {
           currentTag.style.margin = '0';
           currentTag.style.padding = '0';
         }
@@ -791,7 +792,7 @@
         const wid = virtualclass.gObj.currWb;
         const tag = document.getElementById(byReload);
         let classes;
-        if (Object.prototype.hasOwnProperty.call(virtualclass.wb[wid], 'prvTool') && virtualclass.wb[wid].prvTool != `t_reclaim${wid}`) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.wb[wid], 'prvTool') && virtualclass.wb[wid].prvTool !== `t_reclaim${wid}`) {
           // classes = virtualclass.wb[virtualclass.gObj.currWb].utility.removeClassFromElement(virtualclass.wb[virtualclass.gObj.currWb].prvTool, "active");
           classes = virtualclass.vutil.removeClassFromElement(virtualclass.wb[wid].prvTool, 'active');
 
@@ -809,7 +810,7 @@
       themeColorShapes(byReload) {
         const tool = byReload.split(/_doc_*/)[0];
         const shapesElem = document.querySelector(`#tool_wrapper${virtualclass.gObj.currWb}.shapesToolbox`);
-        if (tool == 't_line' || tool == 't_oval' || tool == 't_rectangle' || tool == 't_triangle') {
+        if (tool === 't_line' || tool === 't_oval' || tool === 't_rectangle' || tool === 't_triangle') {
           shapesElem.classList.add('active');
         } else {
           shapesElem.classList.remove('active');
@@ -868,7 +869,6 @@
                 }
               }
             }
-
           } else if (Object.prototype.hasOwnProperty.call(repObjs[i], 'color')) {
             virtualclass.wb[wid].activeToolColor = repObjs[i].color;
             if (roles.hasControls()) {
@@ -918,14 +918,24 @@
       },
 
       scaleCordinate(ev) {
-        //console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
+        if (!virtualclass.zoom.canvasScale) {
+          // Todo, there would come as offsetwidth of virtualclass
+          virtualclass.zoom.canvasScale = (window.innerWidth - (roles.hasControls() ? 385 : 360)) / 595;
+          // console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
+        }
+
         ev.detail.cevent.x = ev.detail.cevent.x * virtualclass.zoom.canvasScale;
         ev.detail.cevent.y = ev.detail.cevent.y * virtualclass.zoom.canvasScale;
         return ev;
       },
 
       scaleMoveCordinate(obj) {
-        //console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
+        if (!virtualclass.zoom.canvasScale) {
+          // Todo, there would come as offsetwidth of virtualclass
+          virtualclass.zoom.canvasScale = (window.innerWidth - (roles.hasControls() ? 385 : 360)) / 595;
+          // console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
+        }
+
         obj.x = ev.detail.cevent.x / virtualclass.zoom.canvasScale;
         obj.y = ev.detail.cevent.y / virtualclass.zoom.canvasScale;
         return obj;

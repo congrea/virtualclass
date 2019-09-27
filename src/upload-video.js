@@ -280,7 +280,7 @@
         virtualclass.vutil.makeElementActive('#listvideo');
         const video = document.querySelector('.congrea #listvideo .linkvideo.singleVideo');
         const link = document.querySelector('.congrea #listvideo .linkvideo');
-        if (virtualclass.serverData.rawData.video.length === 1 && !video) {
+        if (virtualclass.serverData.rawData.video.length === 1 && !video && link != null) {
           link.classList.add('singleVideo');
         } else if (virtualclass.serverData.rawData.video.length > 1 && video) {
           video.classList.remove('singleVideo');

@@ -1012,7 +1012,10 @@
             }
             // virtualclass.sharePt.afterPptSaved(pptObj);
           });
-          this.finallySendPptOrder(virtualclass.orderList[virtualclass.currApp].ol.order);
+
+          if (virtualclass.config.makeWebSocketReady) {
+            this.finallySendPptOrder(virtualclass.orderList[virtualclass.currApp].ol.order);
+          }
           // virtualclass.vutil.sendOrder('presentation', virtualclass.orderList[virtualclass.currApp].ol.order);
         }
 

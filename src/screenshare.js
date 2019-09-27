@@ -15,7 +15,7 @@ let globalImageData = {};
   // }
 
   function isNewerVersion(data) {
-    return (data == virtualclass.gObj.screenShareVersion);
+    return (data === virtualclass.gObj.screenShareVersion);
   }
 
   const renderImage = function renderImage(imgData) {
@@ -177,7 +177,7 @@ let globalImageData = {};
       // TODO name of parameter d should be changed ,It also contains the property named d
       initStudentScreen(imgData, d, stype, stool, uid) {
         const whoIsTeacher = virtualclass.vutil.whoIsTeacher();
-        if (whoIsTeacher == uid) {
+        if ((+whoIsTeacher) === uid) {
           virtualclass.gObj.studentSSstatus.shareToAll = true;
         }
         app = stype;
@@ -470,6 +470,12 @@ let globalImageData = {};
         } else if (roles.isStudent() && virtualclass.gObj.studentSSstatus.mesharing) {
           this.readyTostart(screen.app);
         } else {
+          if (roles.isStudent()) {
+            const chromeExtMiss = document.getElementById('chromeExtClose');
+            if (chromeExtMiss) {
+              chromeExtMiss.click();
+            }
+          }
           this.initInternal();
         }
       },
@@ -622,6 +628,7 @@ let globalImageData = {};
         }
         virtualclass.vutil.beforeSend({ unshareScreen: true, st: this.type, cf: 'unshareScreen' });
         this.clearScreenShare();
+        virtualclass.vutil.setScreenShareDefualtColor();
       },
 
       clearScreenShare() {
@@ -720,7 +727,7 @@ let globalImageData = {};
             } else {
               // Student unshares the screen by clicking stop button
               const teacherId = virtualclass.vutil.whoIsTeacher();
-              //console.log('====> me sharing rmStdScreen');
+              // console.log('====> me sharing rmStdScreen');
               ioAdapter.mustSendUser({ cf: 'rmStdScreen' }, teacherId);
             }
 
@@ -1167,6 +1174,7 @@ let globalImageData = {};
                   cont.classList.remove('studentScreenSharing');
                   document.querySelector('#chat_div').classList.remove('studentScreenSharing');
                 }
+                virtualclass.vutil.setScreenShareDefualtColor();
                 // virtualclass.vutil.removeStudenScreenStatus();
               });
             }

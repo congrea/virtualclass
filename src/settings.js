@@ -2,6 +2,7 @@
   const settings = {
     info: {},
     user: {},
+    currentTime: 0,
     init() { // default settings applyed from here
       const coreSettings = virtualclassSetting.settings;
       virtualclass.settings.info = virtualclass.settings.parseSettings(coreSettings);
@@ -157,7 +158,7 @@
       localStorage.removeItem('userSettings');
       virtualclass.settings.info[settingName] = value;
       const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
-      ioAdapter.mustSend({ cf: 'settings', Hex: str });
+      ioAdapter.mustSend({ cf: 'settings', Hex: str, time: Date.now() });
       for (const propname in virtualclass.settings.user) {
         virtualclass.user.control.changeAttribute(propname,
           virtualclass.gObj.testChatDiv.shadowRoot.getElementById(`${propname}contrAudImg`),
@@ -184,7 +185,7 @@
         individualSetting[settingName] = value;
         specificSettings = virtualclass.settings.settingsToHex(individualSetting);
       }
-      ioAdapter.mustSendUser({ cf: 'settings', Hex: specificSettings, toUser: userId }, userId);
+      ioAdapter.mustSendUser({ cf: 'settings', Hex: specificSettings, toUser: userId, time: Date.now() }, userId);
       virtualclass.settings.user[userId] = specificSettings;
       localStorage.setItem('userSettings', JSON.stringify(virtualclass.settings.user));
     },
@@ -205,9 +206,9 @@
     },
 
     // Apply settings on student side
-    onMessage(msg) {
+    onMessage(msg, userId) {
       if (roles.hasControls()) {
-        if (typeof msg === 'string') {
+        if (typeof msg === 'string' && userId == null) {
           virtualclass.settings.info = virtualclass.settings.parseSettings(msg);
         }
       } else {
@@ -295,15 +296,17 @@
         const userList = document.querySelector('#memlist');
         if (userList !== null) {
           const searchUserInput = document.querySelector('#congchatBarInput #congreaUserSearch');
-          const vmlist = document.querySelector('.vmchat_bar_button');
+          const vmlist = document.querySelector('#user_list.vmchat_bar_button');
           if (value === true) {
             userList.classList.remove('hideList');
             searchUserInput.classList.remove('hideInput');
             vmlist.classList.remove('disable');
+            document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${"<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
           } else {
             userList.classList.add('hideList');
             searchUserInput.classList.add('hideInput');
             vmlist.classList.add('disable');
+            document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${"<span class='cgText' id='onlineusertext'>" + 'Users'}</span>`;
             const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
             vmchat.click();
           }

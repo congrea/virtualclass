@@ -247,9 +247,9 @@
       openQuizPopup(item, index) {
         this.qzid = index; // store quiz id
         var cont = document.getElementById('layoutQuizBody');
-        const elem = document.createElement('div');
-        elem.className = 'container';
-        cont.appendChild(elem);
+        // const elem = document.createElement('div');
+        // elem.className = 'container';
+        // cont.appendChild(elem);
         const modal = document.getElementById('editQuizModal');
         if (modal) {
           modal.remove();
@@ -1107,8 +1107,6 @@
          * @return
          */
         resultView(qz) {
-          const layout = document.getElementById('layoutQuiz');
-
           if (roles.hasControls()) {
             this.createResultLayout();
 
@@ -1324,7 +1322,8 @@
          * @return null
          */
         displayStudentResultScreen(data) {
-          //console.log('====> Create message box 2');
+          const totalScore = (((+data.maxmarks) / data.noofqus) * data.correctans).toFixed(2);
+          // console.log('====> Create message box 2');
           // var resPage = document.querySelector("#slickQuiz .quizResults");
           const msgPage = document.getElementById('mszBoxQuiz');
 
@@ -1341,27 +1340,28 @@
             msgPage.appendChild(resPage);
 
             const noOfQ = document.createElement('h4');
-            noOfQ.innerHTML = `Total no of questions<span class='nfqh'>: ${data.noofqus}</span>`;
+            noOfQ.innerHTML = `Total no of questions: ${data.noofqus}</span>`;
             resPage.appendChild(noOfQ);
 
             const tt = document.createElement('h4');
-            tt.innerHTML = `Time taken<span class='tth'> : ${data.timetaken}</span>`;
+            tt.innerHTML = `Time taken: ${data.timetaken}</span>`;
             resPage.appendChild(tt);
 
             const mm = document.createElement('h4');
-            mm.innerHTML = `Maximum mark<span class='mmh'>: ${(+data.maxmarks).toFixed(2)}</span>`;
+            mm.innerHTML = `Maximum mark: ${(+data.maxmarks).toFixed(2)}</span>`;
             resPage.appendChild(mm);
 
             const ca = document.createElement('h4');
-            ca.innerHTML = `Correct answers<span class='cah'>: ${data.correctans}</span>`;
+            ca.innerHTML = `Correct answers: ${data.correctans}</span>`;
             resPage.appendChild(ca);
 
             const qa = document.createElement('h4');
-            qa.innerHTML = `Questions attempted<span class='qah'>: ${data.quesattemptd}</span>`;
+            qa.innerHTML = `Questions attempted: ${data.quesattemptd}</span>`;
             resPage.appendChild(qa);
 
             const sc = document.createElement('h3');
-            sc.innerHTML = `You Scored<span class='sch'>: <i>${data.score}</i></span>`;
+            sc.className = 'quizScore';
+            sc.innerHTML = `You Scored: <i>${totalScore} / ${(+data.maxmarks).toFixed(2)}</i></span>`;
             resPage.appendChild(sc);
 
             resPage.style.display = 'block';

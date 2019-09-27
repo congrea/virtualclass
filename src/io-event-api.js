@@ -138,7 +138,7 @@ const ioEventApi = {
       if (roles.hasControls()) { // settings send to students when teacher change his browser
         if (!localStorage.getItem('userSettings')) {
           const settings = virtualclass.settings.settingsToHex(virtualclass.settings.info);
-          ioAdapter.mustSend({ cf: 'settings', Hex: settings });
+          ioAdapter.mustSend({ cf: 'settings', Hex: settings, time: Date.now() });
         }
         const recordingButton = localStorage.getItem('recordingButton');
         if (recordingButton !== null) {
@@ -242,7 +242,7 @@ const ioEventApi = {
 
 
     // virtualclass.media.video.removeUser(e.fromUser.userid);
-    virtualclass.media.video.removeUser(e.fromUser);
+   // virtualclass.media.video.removeUser(e.fromUser);
     // TODO this should be update accordiing to new user
 
     // if (virtualclass.chat.isTechSupportExist(e.fromUser)) {

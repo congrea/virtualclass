@@ -79,18 +79,18 @@
         // "{border:0 !important;}"+
         + '#virtualclassCont.congrea #audioWidget li'
         + `{border-right:${border} !important;}`
-        + '#virtualclassCont.congrea #virtualclassAppRightPanel #chatWidget .chatBarTab, #virtualclassCont.congrea #audioWidget .audioTool, #virtualclassCont.congrea #networkStatusContainer, '
+        + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab, #virtualclassCont.congrea #audioWidget .audioTool, #virtualclassCont.congrea #networkStatusContainer, '
         + '#virtualclassCont.congrea #alleditorRichContainerAnch'
         + `{border-left:${border} !important;}`
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ,'
         + '#virtualclassCont.congrea #audioWidget li,'
-        + '#virtualclassCont.congrea #virtualclassAppRightPanel #chatWidget .chatBarTab li '
+        + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab li '
         + `{border-right: 0.01em solid ${allbg.fcolor}!important;}`
         + '#virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header'
         + `{border: 0.02em solid ${allbg.fcolor}!important;}`
         + '#virtualclassCont.congrea .btn.btn-default ,'
         + '#virtualclassCont.congrea .vceditor-toolbar ,'
-        + '#virtualclassCont.congrea #virtualclassAppRightPanel #chatWidget .chatBarTab,'
+        + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab,'
         + '#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search #congreaUserSearch ,'
         + '#virtualclassCont.congrea #layoutQuiz .navbar ,'
         + '#virtualclassCont.congrea button ,'

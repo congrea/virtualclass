@@ -7,10 +7,10 @@
  *
  */
 window.addEventListener('message', (event) => {
-  if (event.origin != window.location.origin) {
+  if (event.origin !== window.location.origin) {
     return;
   }
-  if (event.data.type == 'gotScreen') {
+  if (event.data.type === 'gotScreen') {
     // delete window.shouldChromExtInstall;
     let constraints;
     if (event.data.sourceId === '') { // user canceled
@@ -20,7 +20,7 @@ window.addEventListener('message', (event) => {
         virtualclass.ss.onError(error);
       }
 
-      if (virtualclass.currApp == 'SharePresentation' || virtualclass.currApp == 'DocumentShare') {
+      if (virtualclass.currApp === 'SharePresentation' || virtualclass.currApp === 'DocumentShare') {
         const dashboardnav = document.querySelector('#dashboardnav button');
         if (dashboardnav != null) {
           dashboardnav.click();
@@ -65,9 +65,9 @@ window.addEventListener('message', (event) => {
     if (elem) {
       elem.style.display = 'block';
     }
-  } else if (event.data.type == 'getScreenPending') {
+  } else if (event.data.type === 'getScreenPending') {
     window.clearTimeout(event.data.id);
-  } else if (event.data.type == 'yes') {
+  } else if (event.data.type === 'yes') {
     virtualclass.gObj.ext = true;
   }
 });

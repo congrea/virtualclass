@@ -91,10 +91,11 @@
         audioRecWorkerReady: false,
         wbTool: {},
         fullScreenMode: false,
+        hideRightbar : JSON.parse(localStorage.getItem('hideRightbar')),
         lastmousemovetime: null,
         CDTimer: null,
         wbData: {},
-        screenShareVersion: '123',
+        screenShareVersion: 123,
       },
 
       enablePreCheck: true,
@@ -370,7 +371,49 @@
           fullScreenExitBtn.addEventListener('click', virtualclass.vutil.closeFullscreen);
         }
 
-        document.onfullscreenchange = function () {
+        var chat_div = document.getElementById("chat_div");
+        var rightSidebarBtn = document.getElementById("sidebarButton");
+        if(rightSidebarBtn != null) {
+          rightSidebarBtn.addEventListener('click', function () {
+            var elem = document.getElementById("virtualclassApp");
+            if (elem.classList.contains('openRightbar')) {
+              elem.classList.remove("openRightbar");
+              elem.classList.add("collapsedRightbar");
+              chat_div.classList.add("collapsedRightbar");
+              localStorage.setItem('hideRightbar',true);
+              virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
+              virtualclass.zoom.fitToScreen();
+              virtualclass.stickybarWidth();
+              virtualclass.chatBarTabWidth(); 
+            } else {
+              localStorage.removeItem('hideRightbar');
+              localStorage.setItem('hideRightbar',false);
+              virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
+              elem.classList.remove("collapsedRightbar");
+              elem.classList.add("openRightbar");
+              chat_div.classList.remove("collapsedRightbar");
+              virtualclass.zoom.fitToScreen();
+              virtualclass.stickybarWidth();
+              virtualclass.chatBarTabWidth();
+            }
+            if(virtualclass.currApp === "ScreenShare") {
+              virtualclass.zoom.zoomAction('fitToScreen');  
+            }
+
+          });
+        }
+
+         var virtualclassApp = document.getElementById("virtualclassApp");
+          if(virtualclass.gObj.hideRightbar) {
+              virtualclassApp.classList.remove("openRightbar");
+              virtualclassApp.classList.add("collapsedRightbar");
+              chat_div.classList.add("collapsedRightbar");
+          } else {
+              console.log("Already Hide");
+          }
+
+
+         document.onfullscreenchange = function (event) {
           if (!virtualclass.gObj.fullScreenMode) {
             virtualclass.vutil.hideFullScreenButton();
           } else {
@@ -378,6 +421,7 @@
           }
         };
       },
+
 
       makeReadySocket() {
         if (!virtualclass.vutil.isPlayMode() && virtualclass.config.makeWebSocketReady
@@ -613,8 +657,9 @@
             if (virtualclass.dts.noteExist()) {
               virtualclass.zoom.normalRender();
             }
+          } else if (!virtualclass.dts.noteExist()) {
+            virtualclass.vutil.hidePageNumber();
           }
-
           // virtualclass.zoom.zoomAction('fitToScreen');
         } else {
           if (app === 'Whiteboard') {
@@ -761,9 +806,9 @@
 
           if (typeof this.orderList[virtualclass.currApp] === 'object'
             && this.orderList[virtualclass.currApp].ol.order.indexOf(virtualclass.gObj.currWb) <= -1
-            && virtualclass.currApp !== 'DocumentShare' && virtualclass.gObj.currWb.length < 10) {
+            && virtualclass.currApp !== 'DocumentShare' && virtualclass.gObj.currWb.length <= 10) {
             // virtualclass.gObj.currWb.length < 10, to check id is related to document sharing or not
-            // Find the better way to replace the condition virtualclass.gObj.currWb.length < 10
+            // Find the better way to replace the condition virtualclass.gObj.currWb.length <= 10
             if (position != undefined) {
               this.orderList[virtualclass.currApp].insert(virtualclass.gObj.currWb, null, position);
             } else {
@@ -876,11 +921,13 @@
                     virtualclass.wbCommon.hideElement();
                     const wnoteid = `note${id}`;
                     const wnote = document.querySelector(`#${wnoteid}`);
-                    if (wnote !== null) {
+                    if (wnote !== null) { 
+                      console.log("udit current ", id);
                       wnote.classList.add('canvasContainer', 'current');
                       wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
                       wnote.innerHTML = wbHtml;
                     } else {
+                      console.log("udit current ", id);
                       wbHtml = `<div id='${wnoteid}' data-wb-id='${id}' class='canvasContainer current'>${wbTemplate({
                         cn: id,
                         hasControl: roles.hasControls(),
@@ -897,6 +944,7 @@
                       }
                     }
                   } else {
+                    console.log("udit current no ", id);
                     //console.log('====> suman whiteboard canvas is created 2');
                     wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
                     whiteboardContainer.innerHTML = wbHtml;
@@ -1348,6 +1396,8 @@
           rightBar: this.getTemplate('rightBar'),
           recordingControl: this.getTemplate('recordingControl'),
           leftBar: this.getTemplate('leftBar'),
+          footerBar: this.getTemplate('footerBar'),
+          mobileLandscapeWarn: this.getTemplate('mobileLandscapeWarn'),
           main: this.getTemplate('main'),
           whiteboard: this.getTemplate('main', 'whiteboard'),
           dashboardCont: this.getTemplate('dashboardCont'),
@@ -1430,6 +1480,16 @@
           }
         }
         return false;
+      },
+
+      stickybarWidth() {
+        const leftBarWidth = (document.querySelector('#virtualclassApp #virtualclassAppLeftPanel').offsetWidth) + 'px';
+        document.querySelector('#stickybar').style.width = leftBarWidth;
+      },
+
+      chatBarTabWidth() {
+        const rightBarWidth = (document.querySelector('#virtualclassApp #virtualclassAppRightPanel').offsetWidth) + 'px';
+        document.querySelector('.chatBarTab').style.width = rightBarWidth;
       },
 
       removeSharingClass() {

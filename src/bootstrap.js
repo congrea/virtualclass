@@ -187,7 +187,7 @@
     virtualclass.gObj.testChatDiv.attachShadow({ mode: 'open' });
   };
 
-  Bootstrap.prototype.setUpMedia = async function () {
+  Bootstrap.prototype.setUpMedia = function () {
     if (roles.isStudent()) {
       const audioEnable = localStorage.getItem('audEnable');
       if (audioEnable !== null && audioEnable.ac === 'false') {
@@ -197,8 +197,12 @@
     }
 
     if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
-      await virtualclass.media.init();
+      virtualclass.media.init();
+      // we can not make this synchronous, because after this,
+      // we are connecting the web socket
     }
+    virtualclass.stickybarWidth();
+    virtualclass.chatBarTabWidth();
   };
 
   Bootstrap.prototype.readyToGo = async function () {

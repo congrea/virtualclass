@@ -32,19 +32,19 @@
           for (const type in types) {
             if (type === 'mousedown') {
               canvasElement.addEventListener(type, (ev) => { this._mousedown(ev, id) }, false);
-            } else if (type == 'mousemove') {
-              //canvasElement.addEventListener(type, this._mousemove, false);
+            } else if (type === 'mousemove') {
+              // canvasElement.addEventListener(type, this._mousemove, false);
               canvasElement.addEventListener(type, (ev) => { this._mousemove(ev, id) }, false);
-            } else if (type == 'mouseup') {
+            } else if (type === 'mouseup') {
               // canvasElement.addEventListener(type, this._mouseup, false);
               canvasElement.addEventListener(type, (ev) => { this._mouseup(ev, id) }, false);
-            } else if (type == 'touchstart') {
+            } else if (type === 'touchstart') {
               // canvasElement.addEventListener(type, this._touchstart, false);
               canvasElement.addEventListener(type, (ev) => { this._touchstart(ev, id) }, false);
-            } else if (type == 'touchmove') {
+            } else if (type === 'touchmove') {
               // canvasElement.addEventListener(type, this._touchmove, false);
               canvasElement.addEventListener(type, (ev) => { this._touchmove(ev, id) }, false);
-            } else if (type == 'touchend') {
+            } else if (type === 'touchend') {
               // canvasElement.addEventListener(type, this._touchend, false);
               canvasElement.addEventListener(type, (ev) => { this._touchend(ev, id) }, false);
 
@@ -87,7 +87,7 @@
           // var newpointer = vcan.utility.getReltivePoint(e);
           // console.log('Whiteboard position drag start x=' + e.offsetX + ' y=' + e.offsetY);
 
-          if (Object.prototype.hasOwnProperty.call(e.detail, 'cevent') && (vcan.main.action != 'create')) {
+          if (Object.prototype.hasOwnProperty.call(e.detail, 'cevent') && (vcan.main.action !== 'create')) {
             // console.log('Whiteboard drag start before scale x=' + (e.detail.cevent.x - vcan.main.offset.x) + ' y=' + ( e.detail.cevent.y - vcan.main.offset.y));
             e = virtualclass.wb[wId].utility.putScrollWithCevent(e); // Page refresh
             e.clientX = vcan.main.offset.x + e.detail.cevent.x;
@@ -105,7 +105,7 @@
           virtualclass.gObj.lastmousemovetime = null;
           this.moveChunk = []; // todo this should be remove
 
-          if (vcan.main.action == 'move') {
+          if (vcan.main.action === 'move') {
             const vcanmain = vcan.main;
             if (vcanmain.currentTransform) {
               return;
@@ -130,7 +130,7 @@
               vcan.deactivateAll();
             }
 
-            if (foundTarget != undefined) {
+            if (foundTarget != null) {
               vcan.renderAll();
             }
 
@@ -158,7 +158,7 @@
             }
 
             // these code run when user is trying to create particular object.
-          } else if (vcan.main.action == 'create') {
+          } else if (vcan.main.action === 'create') {
             if (Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
               /** If user click on text to edit, we need to map the position according to
                *  current scale so we called putScrollWithCevent, foundText represents teacher clicks on text. We don't need
@@ -185,7 +185,7 @@
 
             var foundTarget = vcan.events().findTarget(e, wId);
 
-            if (foundTarget && foundTarget.type == 'text' && virtualclass.wb[wId].tool.cmd == `t_text${wId}`) {
+            if (foundTarget && foundTarget.type === 'text' && virtualclass.wb[wId].tool.cmd === `t_text${wId}`) {
               foundTarget.setupCurrentTransform(e);
             }
           }
@@ -200,7 +200,7 @@
           // var newpointer = vcan.utility.getReltivePoint(e);
 
           if (Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
-            if (vcan.main.action == 'move') {
+            if (vcan.main.action === 'move') {
               e = virtualclass.wb[wId].utility.putScrollWithCevent(e);
               // e = virtualclass.wb[wId].utility.scaleCordinate(e);
             }
@@ -215,12 +215,12 @@
             e.currY = e.detail.cevent.y;
           }
 
-          //console.log('====> mouse x, y', e.currX, e.currY);
+          // console.log('====> mouse x, y', e.currX, e.currY);
 
           // this condition is set because of performance reason
           // we don't want to execute below code when user is
           // drawing the object
-          if (vcan.main.action == 'move') {
+          if (vcan.main.action === 'move') {
             // console.log('Whiteboard drag move x=' + newpointer.x + ' y=' + newpointer.y);
           //  let tempObj;// IMPORTANT this is the added during the UNIT TESTING, can be critical
             const obj = vcan.main;
@@ -269,7 +269,7 @@
                    * */
 
                 var tempTarget = vcan.extend({}, vcan.main.currentTransform.target);
-                if (obj.currentTransform.target.downObj == true) {
+                if (obj.currentTransform.target.downObj === true) {
                   vcan.main.dragMode = true;
 
                   /**
@@ -331,7 +331,7 @@
           }
 
           virtualclass.gObj.lastmousemovetime = null;
-          if (vcan.main.action == 'move') {
+          if (vcan.main.action === 'move') {
             vcan.activMouse.mousemove(e, wId);
             const mainCan = vcan.main;
             if (mainCan.currentTransform) {
@@ -355,7 +355,7 @@
 
             // every time(either the action in scale or drag mode) there would be checked that if the object is existing
             //  which have to be deleted duplicate object
-            if (vcan.main.dragMode == true || vcan.main.scaleMode == true) {
+            if (vcan.main.dragMode === true || vcan.main.scaleMode === true) {
               if (roles.hasControls()) {
                 e = vcan.utility.updateCordinate(e, wId);
               }

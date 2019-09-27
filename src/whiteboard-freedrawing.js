@@ -35,13 +35,13 @@
           this.freeDrawingYPoints = [];
           this.mdTime = [];
 
-          if (obj.borderColor == undefined) {
+          if (obj.borderColor == null) {
             this.freeDrawingColor = '#0000ff';
           } else {
-            this.freeDrawingColor = (virtualclass.wb[id].activeToolColor != undefined) ? virtualclass.wb[id].activeToolColor : '#0000ff';
+            this.freeDrawingColor = (virtualclass.wb[id].activeToolColor != null) ? virtualclass.wb[id].activeToolColor : '#0000ff';
           }
 
-          if (obj.lineWidth != undefined) {
+          if (obj.lineWidth != null) {
             this.freeDrawingLineWidth = virtualclass.wb[id].currStrkSize * virtualclass.zoom.canvasScale;
           } else {
             this.freeDrawingLineWidth = virtualclass.wb[id].currStrkSize * virtualclass.zoom.canvasScale;
@@ -59,7 +59,7 @@
          * @returns
          */
         fhdStart(ctx, pointer, crtMuser) {
-          //console.log('=====> pointer start x, y ', pointer.x, pointer.y);
+          // console.log('=====> pointer start x, y ', pointer.x, pointer.y);
           const currTime = new Date().getTime();
           const { canvas } = vcan.main;
 
@@ -88,7 +88,7 @@
         // captureDrawingPath: function(evt) {
         // fhRendering: function(evt) {
         fhRendering(pointer, crtMuser) {
-          //console.log('=====> pointer move x, y ', pointer.x, pointer.y);
+          // console.log('=====> pointer move x, y ', pointer.x, pointer.y);
           const currTime = new Date().getTime();
           this.freeDrawingXPoints.push(pointer.x);
           this.freeDrawingYPoints.push(pointer.y);
@@ -230,7 +230,7 @@
           },
           objAdd(obj) {
             vcan.main.children.push(obj);
-            //console.log('====> whiteboard pushing object');
+            // console.log('====> whiteboard pushing object');
             return this;
           },
         },

@@ -6,7 +6,7 @@
   const _replay = function () {
     return {
       init(repMode, wid, myfunc) {
-        //const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+        // const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
         const { vcan } = virtualclass.wb[wid];
         if (typeof myfunc !== 'undefined') {
           this.objs = vcan.getStates('replayObjs');
@@ -45,13 +45,13 @@
           return;
         }
 
-        //virtualclass.wb[virtualclass.gObj.currWb].drawMode = true; // TODO this should be removed
+        // virtualclass.wb[virtualclass.gObj.currWb].drawMode = true; // TODO this should be removed
         this.rendering = true;
         if (typeof myfunc !== 'undefined') {
           this.callBkfunc = myfunc;
         }
         if (Object.prototype.hasOwnProperty.call(this.objs[this.objNo], 'cmd')) {
-         // virtualclass.wb[virtualclass.gObj.currWb].toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
+        // virtualclass.wb[virtualclass.gObj.currWb].toolInit(this.objs[this.objNo].cmd, 'fromFile', true);
 
           const data = {
             cmd: this.objs[this.objNo].cmd,
@@ -62,17 +62,17 @@
           virtualclass.wb[wid].toolInit(data);
         } else {
           let event = '';
-          if (this.objs[this.objNo].ac == 'del') {
-            if (vcan.main.currObj != '') {
+          if (this.objs[this.objNo].ac === 'del') {
+            if (vcan.main.currObj) {
               virtualclass.wb[wid].utility.removeSelectedItem(vcan.main.currObj, true, true);
               // console.log('Whiteboard Delete:-  Performing delete operation:-');
             }
           } else {
-            if (this.objs[this.objNo].ac == 'd') {
+            if (this.objs[this.objNo].ac === 'd') {
               event = 'mousedown';
-            } else if ((this.objs[this.objNo].ac == 'm')) {
+            } else if ((this.objs[this.objNo].ac === 'm')) {
               event = 'mousemove';
-            } else if (this.objs[this.objNo].ac == 'u') {
+            } else if (this.objs[this.objNo].ac === 'u') {
               event = 'mouseup';
             }
 

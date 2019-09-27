@@ -17,11 +17,10 @@
        */
       addObject(obj) {
         if (typeof obj.coreObj === 'object') {
-          if (obj.coreObj.type != 'freehand') {
-            //console.log('====> all children sx', obj.coreObj.sx, ' sy', obj.coreObj.sy, ' ex ', obj.coreObj.ex, ' ey ', obj.coreObj.ey)
+          if (obj.coreObj.type !== 'freehand') {
+            // console.log('====> all children sx', obj.coreObj.sx, ' sy', obj.coreObj.sy, ' ex ', obj.coreObj.ex, ' ey ', obj.coreObj.ey)
             vcan.main.children.push(obj.coreObj); // containing all the objects into children array
-            //console.log('====> whiteboard pushing object');
-
+            // console.log('====> whiteboard pushing object');
           }
           const vcanvas = vcan.main.canvas;
           const ctx = vcanvas.getContext('2d');
@@ -66,7 +65,7 @@
         // I think it would be better if below condition would
         // obj.id == undefined is used for drawing free draw for multi user
         // if (replayObject != true && obj.id == undefined) {
-        if (obj.id == undefined) {
+        if (obj.id == null) {
           vcan.main.id++;
           obj.id = vcan.main.id;
         }
@@ -248,7 +247,7 @@
               lines = vcan.virtual_box.getImageLines(this.oCoords[i].corner, i);
               xpoints = vcan.virtual_box.findCrossPoints(ex, ey, lines);
 
-              if (xpoints % 2 == 1 && xpoints != 0) {
+              if (xpoints % 2 === 1 && xpoints !== 0) {
                 obj.corner = i;
                 return i;
               }
@@ -407,7 +406,7 @@
            *  sets the particular value either draggable and vice-versa
            */
         obj.dragDrop = function (boolVal) {
-          if (boolVal != undefined) {
+          if (boolVal != null) {
             this.draggable = boolVal;
           } else {
             this.draggable = false;
@@ -625,18 +624,18 @@
          */
         obj.setZindex = function () {
           for (let i = 0; i < vcan.main.children.length; i++) {
-            if (this.id == vcan.main.children[i].id) {
+            if (this.id === vcan.main.children[i].id) {
               var delObj = vcan.main.children[i];
-              //console.log('====> whiteboard removing object');
+              // console.log('====> whiteboard removing object');
               vcan.main.children.splice(i, 1);
-              //console.log('====> whiteboard pushing deleting object');
+              // console.log('====> whiteboard pushing deleting object');
               break;
             }
           }
 
-          if (delObj != ' ') {
+          if (delObj) {
             vcan.main.children.push(delObj);
-            //console.log('====> whiteboard pushing object');
+            // console.log('====> whiteboard pushing object');
             return true;
           }
 
@@ -694,7 +693,7 @@
          * @param y {Number} pointer's y coordinate
          */
 
-        if (obj.type != 'text') {
+        if (obj.type !== 'text') {
           obj.setCoords();
         }
 

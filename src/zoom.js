@@ -168,7 +168,8 @@
             var containerWidth = window.innerWidth;
           }
 
-          const wrapperWidth = (containerWidth - this.getReduceValueForCanvas());
+          // const wrapperWidth = (containerWidth - this.getReduceValueForCanvas());
+          const wrapperWidth = document.querySelector(".canvasWrapper").offsetWidth;
           // console.log(`==== wrapperWidth ${wrapperWidth}`);
           try {
             // const tempviewport = page.getViewport(1);

@@ -29,7 +29,7 @@
           const ex = obj.end.x;
           const ey = obj.end.y;
 
-          if (obj.width == undefined) {
+          if (obj.width == null) {
             obj.width = (ex - sx);
             obj.height = (ey - sy);
           }
@@ -55,7 +55,7 @@
           ctx.moveTo(sx, sy);
           ctx.lineTo(ex, ey);
           ctx.lineWidth = obj.stroke;
-          if (obj.lineColor != undefined) {
+          if (obj.lineColor != null) {
             ctx.strokeStyle = obj.lineColor;
           }
           ctx.strokeStyle = obj.color;

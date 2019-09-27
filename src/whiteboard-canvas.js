@@ -20,7 +20,7 @@
        * @returns {vcan.main}
        */
       create(canvasId) {
-        if (canvasId.charAt(0) == '#') {
+        if (canvasId.charAt(0) === '#') {
           const cid = canvasId.substring(1, canvasId.length);
           vcan.utility.canvasCalcOffset(cid);
 
@@ -144,7 +144,7 @@
        */
       renderAll(ctx) {
         if (typeof ctx !== 'object') {
-           ctx = vcan.main.canvas.getContext('2d');
+          ctx = vcan.main.canvas.getContext('2d');
         }
         vcan.clearContext(ctx);
         this.displayPdfWhiteboard();
@@ -166,9 +166,9 @@
           const ctx = vcan.main.canvas.getContext('2d');
           for (let i = 0; i < length; ++i) {
             // console.log('Whiteboard index ' + i);
-            if (vcan.main.children[i].type == 'pdf') {
+            if (vcan.main.children[i].type === 'pdf') {
               // console.log('Pdf, Render the data, that should not be a');
-            } else if (vcan.main.children[i].type == 'freeDrawing') {
+            } else if (vcan.main.children[i].type === 'freeDrawing') {
               vcan.fhdRender(ctx, vcan.main.children[i]);
             } else {
               vcan.render(ctx, vcan.main.children[i]);
@@ -232,8 +232,8 @@
       // const rindex = vcan.ArrayIndexOf(vcan.main.children, pobj => pobj.id == obj.id && (pobj.mt == obj.mt || obj.multiuser == true));
       if (rindex >= 0) {
         // if (roles.hasControls()) {
-          vcan.main.children.splice(rindex, 1);
-          //console.log('====> whiteboard pushing deleting object');
+        vcan.main.children.splice(rindex, 1);
+        // console.log('====> whiteboard pushing deleting object');
         // }
       }
 
@@ -265,7 +265,7 @@
       if (!noTransform) {
         vcan.transform(ctx, obj, noScale);
       }
-      if (obj.borderColor != undefined) {
+      if (obj.borderColor) {
         ctx.strokeStyle = obj.borderColor;
       } else {
         ctx.strokeStyle = '#000000';
@@ -290,15 +290,15 @@
      */
 
     var drawObject = function (ctx, obj, noTransform) {
-      if (obj.type == 'rectangle') {
+      if (obj.type === 'rectangle') {
         vcan.objRect.draw(ctx, obj, noTransform);
-      } else if (obj.type == 'line') {
+      } else if (obj.type === 'line') {
         vcan.objLine.draw(ctx, obj, noTransform);
-      } else if (obj.type == 'oval') {
+      } else if (obj.type === 'oval') {
         vcan.objOval.draw(ctx, obj, noTransform);
-      } else if (obj.type == 'triangle') {
+      } else if (obj.type === 'triangle') {
         vcan.objTri.draw(ctx, obj, noTransform);
-      } else if (obj.type == 'text') {
+      } else if (obj.type === 'text') {
         vcan.objTxt.draw(ctx, obj, noTransform);
       }
     };

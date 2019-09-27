@@ -109,7 +109,11 @@ const receiveFunctions = new function () {
 
   this.settings = function (e) {
     if (Object.prototype.hasOwnProperty.call(e.message, 'Hex')) {
-      virtualclass.settings.onMessage(e.message.Hex);
+      const newTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(e.message.time);
+      if (newTime > virtualclass.settings.currentTime) {
+        virtualclass.settings.onMessage(e.message.Hex, e.message.toUser);
+        virtualclass.settings.currentTime = newTime;
+      }
     }
   };
 
@@ -142,7 +146,7 @@ const receiveFunctions = new function () {
 
     const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
     if (virtualclassApp != null) {
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
     }
     await virtualclass.config.endSession();
     virtualclass.popup.sesseionEndWindow();
@@ -494,21 +498,24 @@ const receiveFunctions = new function () {
     virtualclass.raiseHand.onMsgRec(e);
   };
   this.colorIndicator = function (e) {
-    delete virtualclass.gObj.prvRequestScreenUser;
     const rMsg = e.message;
     const uid = e.fromUser.userid;
     if (rMsg.sd) {
       const elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
       if (elem !== null) {
         elem.setAttribute('data-dcolor', 'red'); // Cancelled the sharing the screen
+        elem.parentNode.dataset.title = virtualclass.lang.getString('screensharedenied');
       }
-    } else if (rMsg.ext) {
-      const color = Object.prototype.hasOwnProperty.call(rMsg, 'nosupport') ? 'nosupport' : 'orange'; // not support screen share
-      const elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
-      if (elem !== null) {
-        elem.setAttribute('data-dcolor', color);
-        if (color === 'nosupport') {
-          elem.parentNode.dataset.title = virtualclass.lang.getString('screensharenotsupport');
+    } else {
+      delete virtualclass.gObj.prvRequestScreenUser;
+      if (rMsg.ext) {
+        const color = Object.prototype.hasOwnProperty.call(rMsg, 'nosupport') ? 'nosupport' : 'orange'; // not support screen share
+        const elem = chatContainerEvent.elementFromShadowDom(`#ml${uid} .icon-stdscreenImg`);
+        if (elem !== null) {
+          elem.setAttribute('data-dcolor', color);
+          if (color === 'nosupport') {
+            elem.parentNode.dataset.title = virtualclass.lang.getString('screensharenotsupport');
+          }
         }
       }
     }

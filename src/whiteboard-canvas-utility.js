@@ -102,7 +102,7 @@ let newScrollVal = 0;
         // if (wId == undefined) {
         //   debugger;
         // }
-        //console.log('===> suman wb id ', wId);
+        // console.log('===> suman wb id ', wId);
         // TODO this method needs fixing
         // virtualclass.leftPosX defines the scroll position from left side
         // virtualclass.topPosY defines the scroll position from top side
@@ -139,11 +139,11 @@ let newScrollVal = 0;
         // is represented as COM object, with all the consequences, like "unknown" type and error on [[Get]]
         // need to investigate later
         // todo to simplify
-        if (ev == 'mouse') {
+        if (ev === 'mouse') {
           return ((typeof event.clientX !== 'undefined' ? event.clientX : 0)
           + (docElement.scrollLeft || body.scrollLeft)
           - (docElement.clientLeft || 0));
-        } if (event.type = 'touchend') {
+        } if (event.type === 'touchend') {
           return ((event.changedTouches[0] && typeof event.changedTouches[0].clientX !== 'undefined' ? event.changedTouches[0].clientX : 0)
             + (docElement.scrollLeft || body.scrollLeft)
             - (docElement.clientLeft || 0));
@@ -178,9 +178,9 @@ let newScrollVal = 0;
         // if(!roles.hasControls()){
         //     newScrollVal = 0;
         // }
-        if (ev == 'mouse') {
+        if (ev === 'mouse') {
           return (typeof event.clientY !== 'undefined' ? event.clientY : 0) + newScrollVal;
-        } if (event.type = 'touchend') {
+        } if (event.type === 'touchend') {
           return (event.changedTouches[0] && typeof event.changedTouches[0].clientY !== 'undefined' ? event.changedTouches[0].clientY : 0) + newScrollVal;
         }
         return (event.targetTouches[0] && typeof event.targetTouches[0].clientY !== 'undefined' ? event.targetTouches[0].clientY : 0) + newScrollVal;

@@ -48,6 +48,7 @@
 
 #virtualclassCont.congrea.student #virtualclassScreenShare {
   margin: 2px 0px 0px 3px;
+  overflow: auto;
 }
 
 #virtualclassCont.congrea #whiteboardContainer {
@@ -277,6 +278,8 @@ and (max-device-width: 1024px) {
     z-index: 11;
     right: 2.5rem;
   }
+
+}
   /* #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a {
     padding: 11px 10px 6px 9px;
     line-height: 15px;
@@ -572,7 +575,7 @@ and (max-device-width: 1024px) {
   float: right;
   margin-right: -10px;
   padding: 10px 14px 15px 17px;
-  border-radius: 3px;
+  z-index: 10;
   cursor: pointer;
 }
 /* #virtualclassCont.congrea[device="mobile"] a.stdRaiseHand, #virtualclassCont.congrea[device="mobile"] a.stdRaiseHand:hover {

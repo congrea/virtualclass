@@ -8,6 +8,13 @@
 
 #virtualclassCont.congrea #virtualclassPoll {
   margin-right: 6px;
+  position: relative;
+}
+
+#virtualclassCont.congrea #virtualclassPoll #layoutPoll {
+  height: 100%;
+  /* display: flex;
+  flex-direction: column; */
 }
 
 #virtualclassCont .icon-close-poll:before {
@@ -20,12 +27,17 @@
   margin-left: 20px;
 }
 
-#virtualclassCont.congrea .bootstrap .pollNavBar li {
+#virtualclassCont.congrea.teacher .bootstrap .pollNavBar li {
   margin-top: 12px;
   margin-right: 10px;
   font-size: 1.2em;
 }
 
+#virtualclassCont.congrea.student .bootstrap .pollNavBar li {
+  /* margin-top: 12px;
+  margin-right: 10px; */
+  font-size: 1.2em;
+}
 #virtualclassCont.congrea .bootstrap .pollNavBar > li > a {
   text-shadow: none;
   font-size: 16px;
@@ -42,14 +54,13 @@
 
 #virtualclassCont.congrea #layoutPollBody {
   padding: 20px;
-
-  /*height: 85vh;*/
-
+  position: relative;
+  height: 100%;
 }
 
-/*#virtualclassCont.congrea.student #layoutPollBody {*/
-/*height: 93vh;*/
-/*}*/
+#virtualclassCont.congrea.student #layoutPollBody {
+  position: unset;
+}
 
 #virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont,
 #virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont {
@@ -304,12 +315,12 @@
   margin: 0 auto;
   padding: 30px 20px;
   position: absolute;
-  top: 40%;
-  width: 26%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
   text-align: center;
   box-shadow: 0 0 8px #ddd;
-  left: 0;
-  right: 320px;
   font-size: medium;
 }
 
@@ -341,9 +352,13 @@
   width: 480px;
   text-align: center;
   /* box-shadow: 0 0 8px #ddd; */
-  left: -230px;
+  left: 0;
   right: 0;
   font-size: medium;
+}
+
+#virtualclassCont.congrea.teacher #layoutPoll #mszBoxPoll {
+  top: 35%;
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive {
@@ -372,11 +387,11 @@
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList thead {
-  position: fixed;
-  top: 122px;
-  left: 73px;
+  position: absolute;
+  top: 74px;
+  left: 19px;
   right: 0;
-  width: calc(100% - 412px);
+  width: calc(100% - 39px);
   height: 41px;
   background: #eee;
   table-layout: fixed;
@@ -419,11 +434,14 @@
 
 #virtualclassCont.congrea.student .bootstrap .pollNavBar > li {
   text-shadow: none;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 #virtualclassCont.congrea.student .bootstrap .pollNavBar #stdPollHeader {
-  font-size: 18px;
+  font-size: 1.25rem;
+  padding: 0.8125rem 0.5rem 0.8125rem 0.6875rem;
+  text-align: center;
+  float: none;
 }
 
 #virtualclassCont.congrea.teacher #virtualclassPoll #resultLayoutHead .alert-success {
@@ -543,14 +561,15 @@
   }
 
   #virtualclassCont.congrea #virtualclassPoll #layoutPoll {
-    height: 90%;
+    height: 100%;
   }
+}
 
-  #virtualclassCont.congrea.student #resultLayout {
-    width: 67.4%;
-    position: fixed;
-    top: 49px;
-    bottom: 60px;
-    overflow: auto;
-  }
+#virtualclassCont.congrea.student #resultLayout {
+  width: 100%;
+  position: absolute;
+  top: 49px;
+  bottom: 16%;
+  overflow: auto;
+  height: 85%;
 }

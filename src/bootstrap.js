@@ -201,6 +201,8 @@
       // we can not make this synchronous, because after this,
       // we are connecting the web socket
     }
+    virtualclass.stickybarWidth();
+    virtualclass.chatBarTabWidth();
   };
 
   Bootstrap.prototype.readyToGo = async function () {

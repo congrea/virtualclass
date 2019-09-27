@@ -129,14 +129,14 @@ function displayChatOfflineUserList(users) {
 function updateOnlineUserText() {
   if (roles.hasAdmin()) {
     if (virtualclass.chat.userList.length > 0) {
-      document.querySelector('#usertab_text').innerHTML = '';
+      document.querySelector('#usertab_text #onlineusertext').innerHTML = '';
       if (roles.hasAdmin()) {
         var text = `Users (${virtualclass.connectedUsers.length}/${virtualclass.chat.userList.length})`;
       } else {
         var text = ` Users (${count})`;
       }
 
-      const onlineUser = document.querySelector('#onlineusertext');
+      const onlineUser = document.querySelector('#usertab_text #onlineusertext');
 
       if (onlineUser == null) {
         document.querySelector('#usertab_text').innerHTML = `<span id='onlineusertext' class='cgText'>${text}</span>`;
@@ -250,7 +250,7 @@ function memberUpdate(e, addType) {
       }
     }
 
-    const privateChat = document.querySelector('#virtualclassCont.congrea  .vmchat_bar_button');
+    const privateChat = document.querySelector('#virtualclassCont.congrea  #user_list.vmchat_bar_button');
     const search = document.querySelector('#virtualclassCont.congrea #congreaUserSearch');
     const chatInput = document.querySelector('#virtualclassCont.congrea  #ta_chrm2');
     if (privateChat.classList.contains('active')) {

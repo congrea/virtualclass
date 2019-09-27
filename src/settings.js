@@ -296,7 +296,7 @@
         const userList = document.querySelector('#memlist');
         if (userList !== null) {
           const searchUserInput = document.querySelector('#congchatBarInput #congreaUserSearch');
-          const vmlist = document.querySelector('.vmchat_bar_button');
+          const vmlist = document.querySelector('#user_list.vmchat_bar_button');
           if (value === true) {
             userList.classList.remove('hideList');
             searchUserInput.classList.remove('hideInput');

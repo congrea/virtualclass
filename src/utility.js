@@ -2071,7 +2071,7 @@
       const virtualclassPreCheck = document.getElementById('preCheckcontainer');
       virtualclassPreCheck.style.display = 'none';
       const virtualclassApp = document.getElementById('virtualclassApp');
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
 
       if (localStorage.getItem('precheck')) {
         virtualclass.videoHost._resetPrecheck();

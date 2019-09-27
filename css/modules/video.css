@@ -21,6 +21,7 @@
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #videoHostContainer #videoParticipate {
   border-width: 0;
   padding: 0;
+  width: 100%;
 }
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #videoHostContainer canvas {

@@ -146,7 +146,7 @@ const receiveFunctions = new function () {
 
     const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
     if (virtualclassApp != null) {
-      virtualclassApp.style.display = 'block';
+      virtualclassApp.style.display = 'flex';
     }
     await virtualclass.config.endSession();
     virtualclass.popup.sesseionEndWindow();

@@ -6,7 +6,7 @@
         <canvas id="virtualclassScreenShareLocalTempVideo" width="1440" height="738"></canvas>
       </div>
     {{else}}
-      <div id="virtualclassScreenShareLocal" class="Local " style="position: relative; width: 1536px; height: 677px;">
+      <div id="virtualclassScreenShareLocal" class="Local " style="position: relative;">
         <video id="virtualclassScreenShareLocalVideo" autoplay="true" src=" "></video>
       </div>
 
@@ -24,7 +24,7 @@
 
   {{else}}
     <div id="virtualclassScreenShareLocal" class="Local">
-      <canvas id="virtualclassScreenShareLocalVideo" width="886" height="724"></canvas>
+      <canvas id="virtualclassScreenShareLocalVideo"></canvas>
     </div>
     {{#if scrctrl}}
       <div id="screenController">

@@ -4727,7 +4727,6 @@ and (max-device-width: 1024px) {
     right: 0;
   cursor: pointer;
   /* background-color: #fffff7; */
-  background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%); */
   /* background-image: linear-gradient(to bottom, rgba(1,7,9,.8) 0%,rgba(1,7,9,.8) 100%) !important; */
   box-shadow: 0 0 4px rgb(132, 130, 130);
   border-bottom-left-radius: 15px;

@@ -327,7 +327,8 @@
       }
 
       const css = `${'#virtualclassCont.congrea .ui-widget-header,'
-        + '#virtualclassCont.congrea #congdashboard .modal-header '
+        + '#virtualclassCont.congrea #congdashboard .modal-header,'
+        + '#virtualclassCont #virtualclassApp #virtualclassAppLeftPanel #sidebarButton'
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important}`
         + '#virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont:before, '
         + '#virtualclassCont.congrea #listvideo .linkvideo .controls .editanch:before, '

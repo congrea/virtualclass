@@ -1632,7 +1632,7 @@
   position: fixed;
   bottom: 0;
   z-index: 10;
-  height: 44px;
+  height: 2.75rem;
 }
 
 #virtualclassCont.congrea #playController #repTimeCont {
@@ -1640,7 +1640,7 @@
   float: left;
   color: #fff;
   font-size: 14px;
-  margin-top: 14px;
+  margin-top: .8rem;
   margin-left: 20px;
 }
 
@@ -2385,7 +2385,7 @@
 }
 
 #virtualclassCont.congrea.playMode #virtualclassApp {
-  height: calc(100% - 52px)
+  height: calc(100% - 3.25rem)
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #canvasWrapper {
@@ -4727,7 +4727,6 @@ and (max-device-width: 1024px) {
     right: 0;
   cursor: pointer;
   /* background-color: #fffff7; */
-  background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%); */
   /* background-image: linear-gradient(to bottom, rgba(1,7,9,.8) 0%,rgba(1,7,9,.8) 100%) !important; */
   box-shadow: 0 0 4px rgb(132, 130, 130);
   border-bottom-left-radius: 15px;
@@ -4781,7 +4780,7 @@ and (max-device-width: 1024px) {
     display: none; 
   }
 
-  #virtualclassCont.congrea .mobileLandscapeWarn .warningWrapper {
+  #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn .warningWrapper {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -4790,14 +4789,14 @@ and (max-device-width: 1024px) {
     width: 70%;
   }	 
 
-  #virtualclassCont.congrea .mobileLandscapeWarn .warningWrapper p {
+  #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn .warningWrapper p {
     font-size: 20px;
     /* font-weight: 300; */
     margin-top: 28px;
     color: #c0c0c0;
   }
 
-  #virtualclassCont.congrea .mobileLandscapeWarn .warningWrapper span.icon-mobileRotate:before {
+  #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn .warningWrapper span.icon-mobileRotate:before {
     content: "\e9c0";
     font-weight: normal;
     font-size: 100px;
@@ -4813,7 +4812,7 @@ and (max-device-width: 1024px) {
 
   @media only screen and (orientation:portrait){
 
-    #virtualclassCont.congrea .mobileLandscapeWarn {
+    #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn {
       display:block;
       height: 100%;
       background-color: #000;

@@ -305,8 +305,22 @@
 @media (max-height: 700px) {
   #virtualclassCont.congrea #dashboardnav {
     position: absolute;
-    top: 90%;
-    left: -5px;
+    top: unset;
+    bottom: 4px;
+    left: -3px;
+  }
+
+  #virtualclassCont #dashboardnav .btn-primary {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  #virtualclassCont.congrea i.dashboard-icon:before {
+    font-size: 19px;
+  }
+
+  #virtualclassCont.congrea #dashboardnav .clicked i.dashboard-icon:before  {
+    font-size: 21px;
   }
 
   #virtualclassCont.congrea.meetingmode #dashboardnav {
@@ -323,17 +337,17 @@
   }
 }
 
-@media (max-height: 768px) {
+@media (max-height: 805px) {
   #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassOptionsCont {
     position: absolute;
-    top: 80px; /* Changed from 73px */
+    top: 60px !important;
   }
 }
 
 @media (max-height: 700px) {
   #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassOptionsCont {
     position: absolute;
-    top: 80px;
+    top: 47px;
   }
 
   #virtualclassCont.congrea.meetingmode #virtualclassAppLeftPanel #virtualclassOptionsCont {

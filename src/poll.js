@@ -215,7 +215,7 @@
         formData.append('saveResult', JSON.stringify(data));
         formData.append('user', virtualclass.gObj.uid);
         virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_result`, formData).then((msg) => {
-          if (msg.data && msg.data !== '') {
+          if (msg.data !== '' || (msg.statusText === 'OK' && msg.data === 0)) {
             that.interfaceToFetchList(msg.data);
           }
         })

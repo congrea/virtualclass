@@ -210,7 +210,7 @@
         if (content != null && content.length > 0) {
           // virtualclass.orderList[this.appName].ol.order.length = 0;
           virtualclass.orderList[this.appName].ol.order = content;
-          console.log('====> DTS ORDER ', virtualclass.orderList[this.appName].ol.order);
+         // console.log('====> DTS ORDER ', virtualclass.orderList[this.appName].ol.order);
 
           const doc = this.getDocId(virtualclass.orderList[this.appName].ol.order[0]);
           if (Object.prototype.hasOwnProperty.call(virtualclass.dts.allDocs, doc)) {

@@ -197,10 +197,15 @@
           && virtualclass.zoom.canvasScale != null) {
           virtualclass.zoom.canvasDimension.width = virtualclass.zoom.canvasDimension.width / virtualclass.gObj.SCALE_FACTOR;
           virtualclass.zoom.canvasDimension.height = virtualclass.zoom.canvasDimension.height / virtualclass.gObj.SCALE_FACTOR;
-          virtualclass.zoom.zoomIn('normalRender');
+
+          if (virtualclass.gObj.normalZoomTime) {
+            clearTimeout(virtualclass.gObj.normalZoomTime);
+          }
+          virtualclass.gObj.normalZoomTime = setTimeout(() => {
+            virtualclass.zoom.zoomIn('normalRender');
+          }, 200);
         }
       },
-
 
       removeZoomController() {
         const zoomControler = document.querySelector('#virtualclassApp .zoomControler');

@@ -854,7 +854,7 @@
               }
 
               if (virtualclass.dts && virtualclass.dts.docs && virtualclass.dts.docs.currNote) {
-                 virtualclass.dts.identifyFirstAndLastNote('note'+virtualclass.dts.docs.currNote);
+                virtualclass.dts.identifyFirstAndLastNote(`note${virtualclass.dts.docs.currNote}`);
               }
             }
           };
@@ -1412,13 +1412,13 @@
 
       reArrangeNotes(order) {
         virtualclass.orderList[this.appName].ol.order = order;
-        // console.log('====> DTS ORDER ', virtualclass.orderList[this.appName].ol.order);
-        //console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
         this.reArrangeElements(order);
         if (roles.hasAdmin()) {
           this.sendOrder(virtualclass.orderList[this.appName].ol.order);
-          //console.log('==== dts must send norder');
           ioAdapter.mustSend({ dts: { norder: virtualclass.orderList[this.appName].ol.order }, cf: 'dts' });
+          if (virtualclass.dts && virtualclass.dts.docs && virtualclass.dts.docs.currNote) {
+            virtualclass.dts.identifyFirstAndLastNote(`note${virtualclass.dts.docs.currNote}`);
+          }
         }
       },
 

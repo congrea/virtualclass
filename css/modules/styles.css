@@ -522,30 +522,14 @@
   font-size: 11px;
 }
 
-#virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after {
-  border: #ccc solid 1px;
-  bottom: -5px;
-  /* left: -30px; */
-  right: 46px;
-  height: 18px;
-  position: absolute;
-}
-
-#virtualclassCont.congrea .zoomOut .congtooltip:hover:after {
-  border: #ccc solid 1px;
-  bottom: -5px;
-  /* left: -30px; */
-  right: 46px;
-  height: 18px;
-  position: absolute;
-}
-
+#virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after, 
+#virtualclassCont.congrea .zoomOut .congtooltip:hover:after,
 #virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
   border: #ccc solid 1px;
   bottom: -5px;
   /* left: -30px; */
-  right: 46px;
-  height: 18px;
+  right: 35px;
+  padding: 5px 7px;
   position: absolute;
 }
 

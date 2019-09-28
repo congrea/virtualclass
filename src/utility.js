@@ -2441,6 +2441,12 @@
         nav.classList.remove('show');
       }
     },
+
+    sendSpeedByMobile(speed) {
+      if (virtualclass.system.desktop === 'mobTab') {
+        ioAdapter.sendSpeed(speed);
+      }
+    },
   };
   window.vutil = vutil;
 }(window));

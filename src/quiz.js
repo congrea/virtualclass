@@ -443,6 +443,12 @@
        * @return null
        */
       quizDisplay(quiz) {
+        if (roles.isStudent()) {
+          const customResultForMobile = document.querySelector('#virtualclassCont.customResult');
+          if (customResultForMobile != null) {
+            customResultForMobile.classList.remove('customResult');
+          }
+        }
         // console.log("student side " + quiz.quizMsg);
         const msz = document.getElementById('mszBoxQuiz');
         if (msz) {
@@ -1365,6 +1371,10 @@
             resPage.appendChild(sc);
 
             resPage.style.display = 'block';
+          }
+          const virtualclassCont = document.querySelector("#virtualclassCont");
+          if(virtualclass.system.device === "mobTab") {
+            virtualclassCont.classList.add("customResult");
           }
         },
 

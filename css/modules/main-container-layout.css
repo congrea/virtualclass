@@ -184,6 +184,11 @@ and (max-device-width: 1024px) {
   #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassQuiz #bootstrapQzCont {
     height: 100%;
   }
+
+  #virtualclassCont.congrea.customResult[device="mobile"] #virtualclassAppLeftPanel #virtualclassQuiz #bootstrapQzCont {
+    display:none;
+  }
+
   #virtualclassCont.congrea.student #layoutQuizBody {
     padding-top: 5px;
     /* padding-bottom: 5px; */

@@ -18,10 +18,10 @@
   background: rgba(0, 128, 0, 0.01) none;
   border: 1px dotted rgba(0, 128, 0, 0.4);
   border-radius: 3px;
-  padding: 12px;
+  padding: 0.75rem;
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 15px;
+  margin-top: 1.25rem;
+  margin-bottom: 0.9375rem;
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck .result div.errorMsg {

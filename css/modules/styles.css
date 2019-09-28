@@ -2808,7 +2808,7 @@
   color: #3a773c;
   padding: 30px 20px;
   position: absolute;
-  top: 50%; 
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: fit-content;
@@ -3533,10 +3533,10 @@
   margin-right: auto;
   margin-left: auto;
 }
-
+/*
 #virtualclassCont.congrea.student #resultLayoutBody #chart svg {
   width: 100%;
-}
+}*/
 
 #virtualclassCont.congrea #resultLayoutBody .alert-error {
   background-color: #f2dede;
@@ -4720,7 +4720,7 @@ and (max-device-width: 1024px) {
 #virtualclassCont.congrea #virtualclassAppLeftPanel #sidebarButton {
   display:inline-block;
   }
-  
+
   #virtualclassCont #virtualclassApp #virtualclassAppLeftPanel #sidebarButton {
     position: absolute;
     top: calc(50% - 25px);
@@ -4733,8 +4733,8 @@ and (max-device-width: 1024px) {
   border-top-left-radius: 15px;
   z-index:1000;
   }
-  
-  
+
+
   #virtualclassCont.congrea.student #virtualclassApp #virtualclassAppLeftPanel #sidebarButton {
   right: 0;
   }
@@ -4743,17 +4743,17 @@ and (max-device-width: 1024px) {
     right: 30px;
     bottom: 10px;
   }
-  
+
   #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
     padding: 15px 2px 13px 7px;
   }
-  
+
   #virtualclassCont.congrea #virtualclassApp .collapsedRightbar #sidebarButton .congtooltip:hover:after {
   bottom: 90px;
   transform: rotate(90deg);
   right: -40px;
   }
-  
+
   #virtualclassCont.congrea #virtualclassApp .openRightbar #sidebarButton .congtooltip:hover:after {
   bottom: 90px;
   transform: rotate(90deg);
@@ -4764,9 +4764,9 @@ and (max-device-width: 1024px) {
     height: 100%;
   }
 
-  #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-memblist, 
-  #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-memblist .ui-memblist-content, 
-  #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-chatroom, 
+  #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-memblist,
+  #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-memblist .ui-memblist-content,
+  #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-chatroom,
   #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-chatroom .ui-chatbox-content {
     height: 100%;
     width: 100%;
@@ -4777,7 +4777,7 @@ and (max-device-width: 1024px) {
   }
 
   #virtualclassCont .mobileLandscapeWarn {
-    display: none; 
+    display: none;
   }
 
   #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn .warningWrapper {
@@ -4787,7 +4787,7 @@ and (max-device-width: 1024px) {
     transform: translate(-50%, -50%);
     text-align: center;
     width: 70%;
-  }	 
+  }
 
   #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn .warningWrapper p {
     font-size: 20px;
@@ -4820,9 +4820,9 @@ and (max-device-width: 1024px) {
       z-index: 10000;
       position: relative;
     }
-  
+
     #joinClass {
       display:none;
     }
-  
+
   }

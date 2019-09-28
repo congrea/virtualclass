@@ -299,16 +299,26 @@
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-style-group,
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-list-group,
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-indent-group,
-#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group,
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-undo-group {
   display: inline-block;
   border-radius: 3px;
   background-color: #28323c;
   border: 1px solid #555;
-  padding: 2px 2px 6px 2px;
+  padding: 2px 8px 6px 3px;
   cursor: pointer;
   margin-left: 7px;
 }
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group {
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #28323c;
+  border: 1px solid #555;
+  padding: 3px 8px 6px 4px;
+  cursor: pointer;
+  margin-left: 7px;
+}
+
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group {
   margin-right:8px;
 }
@@ -316,7 +326,7 @@
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-style-group::before {
   font-family: 'icomoon';
   content: "\e23c";
-  font-size: 18px;
+  font-size: 1.125rem;
   color: white;
   position: relative;
   top: 2px;
@@ -326,7 +336,7 @@
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-list-group::before {
   font-family: 'icomoon';
   content: "\e9bd";
-  font-size: 18px;
+  font-size: 1.125rem;
   color: white;
   position: relative;
   top: 4px;
@@ -336,20 +346,20 @@
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-indent-group::before {
   font-family: 'icomoon';
   content: "\e9bf";
-  font-size: 17px;
+  font-size: 1.0625rem;
   color: white;
   position: relative;
-  top: 4px;
+  top: 3px;
   left: 4px;
 }
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group::before {
   font-family: 'icomoon';
   content: "\e9be";
-  font-size: 16px;
+  font-size: 1rem;
   color: white;
   position: relative;
-  top: 4px;
+  top: 2px;
   left: 4px;
 }
 
@@ -359,12 +369,12 @@
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group::after {
   font-family: 'icomoon';
   content: "\e967";
-  font-size: 22px;
+  font-size: 1.0625rem;
   color: white;
   float: right;
   position: relative;
   top: 4px;
-  left: 4px;
+  left: 6px;
 }
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-style-group.close .vceditor-btn-group.style-group,

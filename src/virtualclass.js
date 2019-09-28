@@ -384,7 +384,7 @@
               virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
               virtualclass.zoom.fitToScreen();
               virtualclass.stickybarWidth();
-              virtualclass.chatBarTabWidth(); 
+              virtualclass.chatBarTabWidth();
             } else {
               localStorage.removeItem('hideRightbar');
               localStorage.setItem('hideRightbar',false);
@@ -397,7 +397,7 @@
               virtualclass.chatBarTabWidth();
             }
             if(virtualclass.currApp === "ScreenShare") {
-              virtualclass.zoom.zoomAction('fitToScreen');  
+              virtualclass.zoom.zoomAction('fitToScreen');
             }
 
           });
@@ -611,6 +611,9 @@
           if (this.previous === 'virtualclassEditorRich') {
             const editorType = this.previous.split('virtualclass')[1];
             this.user.control.toggleDisplayEditorController(editorType, 'none');
+          }
+          if (virtualclass.previous === 'virtualclassSharePresentation') {
+            virtualclass.sharePt.remvovePLayClass();
           }
         }
 
@@ -921,7 +924,7 @@
                     virtualclass.wbCommon.hideElement();
                     const wnoteid = `note${id}`;
                     const wnote = document.querySelector(`#${wnoteid}`);
-                    if (wnote !== null) { 
+                    if (wnote !== null) {
                       console.log("udit current ", id);
                       wnote.classList.add('canvasContainer', 'current');
                       wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });

@@ -1327,6 +1327,13 @@
         },
 
       },
+
+      remvovePLayClass() {
+        const listPpt = document.querySelector('#listppt .playing');
+        if (listPpt !== null) {
+          listPpt.classList.remove('playing');
+        }
+      },
     };
   };
   window.sharePt = sharePt;

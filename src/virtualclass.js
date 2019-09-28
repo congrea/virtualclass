@@ -385,6 +385,9 @@
               virtualclass.zoom.fitToScreen();
               virtualclass.stickybarWidth();
               virtualclass.chatBarTabWidth();
+              if (roles.isStudent()) {
+                ioAdapter.sendSpeed(3);
+              }
             } else {
               localStorage.removeItem('hideRightbar');
               localStorage.setItem('hideRightbar',false);
@@ -395,7 +398,18 @@
               virtualclass.zoom.fitToScreen();
               virtualclass.stickybarWidth();
               virtualclass.chatBarTabWidth();
+              if (roles.isStudent()) {
+                if (virtualclass.system.device === 'desktop') {
+                  ioAdapter.sendSpeed(1);
+                } else {
+                  const techVideo = document.querySelector('#techVideo.active');
+                  if (techVideo != null) {
+                    virtualclass.vutil.sendSpeedByMobile(1);
+                  }
+                }
+              }
             }
+
             if(virtualclass.currApp === "ScreenShare") {
               virtualclass.zoom.zoomAction('fitToScreen');
             }
@@ -404,12 +418,18 @@
         }
 
         var virtualclassApp = document.getElementById("virtualclassApp");
-        if(virtualclass.gObj.hideRightbar) {
+        if (virtualclass.gObj.hideRightbar) {
           virtualclassApp.classList.remove("openRightbar");
           virtualclassApp.classList.add("collapsedRightbar");
           chat_div.classList.add("collapsedRightbar");
+          ioAdapter.sendSpeed(3);
         } else {
-          console.log("Already Hide");
+          if (virtualclass.system.device === 'mobTab') {
+            const techVideo = document.querySelector('#techVideo.active');
+            if (techVideo == null) {
+              virtualclass.vutil.sendSpeedByMobile(3);
+            }
+          }
         }
 
         document.addEventListener('fullscreenchange', () => {

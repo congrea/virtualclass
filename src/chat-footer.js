@@ -36,6 +36,7 @@
       const virtualclassAppRight = document.querySelector("#virtualclassAppRightPanel");
 
       $('#chatroom_bt2 .inner_bt').click(() => {
+        virtualclass.vutil.sendSpeedByMobile(3);
         const vmchat_room_bt = document.querySelector('#chatwidget .vmchat_room_bt');
         // chatroom_bt2.classList.add('active');
         user_list.classList.remove('active');
@@ -128,9 +129,11 @@
         virtualclassAppRight.classList.remove('showUserList');
         virtualclassAppRight.classList.remove('showChatList');
         virtualclassAppRight.classList.add("techVideoShow");
+        virtualclass.vutil.sendSpeedByMobile(1);
       })
 
       $('#user_list').click(function () {
+        virtualclass.vutil.sendSpeedByMobile(3);
         // $('#chatroom_bt2').removeClass('active');
         chatroom_bt2.classList.remove('active');
         techVideo.classList.remove('active');

@@ -133,6 +133,7 @@ var ioAdapter = {
   },
 
   sendSpeed(msg) {
+    console.log('===send speed ', msg);
     ioAdapter.sendWithDelayAndDrop(msg, null, 'realSendSpeed', 'sendSpeed', 1000);
   },
 

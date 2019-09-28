@@ -506,10 +506,6 @@ and (max-device-width: 1024px) {
       display: block;
     }
 
-    #virtualclassCont.congrea[device="mobile"] #networkStatusContainer #connectingRoomIcon {
-      margin-top: 1px;
-      margin-right: 10px;
-    }
   }
 
   @media only screen and (min-device-width: 851px) and (max-device-width: 1024px) {

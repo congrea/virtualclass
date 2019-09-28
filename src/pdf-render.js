@@ -358,9 +358,9 @@
       async renderPage(page, firstTime) {
         // if (virtualclass.currApp !== 'Whiteboard' && virtualclass.currApp !== 'DocumentShare') {
         //   // Avoid this funciton in case of other app apart from Whiteboard and Document share
-        //   return; 
+        //   return;
         // }
-        
+
         if (virtualclass.zoom.prvPdfDimension && virtualclass.zoom.prvPdfDimension[2] !== page.view[2]) {
           virtualclass.gObj.fitToScreen = true;
           if (this.firstTime) {
@@ -395,39 +395,47 @@
             delete virtualclass.zoom.diffrentDocumentWidth;
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
             // console.log('====> FIT to screen 1');
-            canvas.width = canvas.parentNode.offsetWidth - 6;
-            console.log('==== a canvas width fit to screen ', canvas.width);
-            console.log('RIGHT SIDE BAR WIDTH ', virtualclass.zoom.getReduceValueForCanvas())
+            if (canvas.parentNode.offsetWidth === 300 || canvas.parentNode.offsetWidth === 0) {
+              // Todo, later, we have to use only offset width of virtualclassAppContainer for width
+              canvas.width = document.querySelector('#virtualclassAppContainer').offsetWidth;
+            } else {
+              canvas.width = canvas.parentNode.offsetWidth - 6;
+            }
+
+            // console.log('==== a canvas width fit to screen ', canvas.width);
+            // console.log('RIGHT SIDE BAR WIDTH ', virtualclass.zoom.getReduceValueForCanvas())
             // if (!roles.hasControls()) {
             //   canvas.width += 50; // add left bar's width on canvas width for student
             // }
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'performZoom')) {
             canvas.width = virtualclass.zoom.canvasDimension.width;
-            console.log('==== a canvas width performZoom ', canvas.width);
+            // console.log('==== a canvas width performZoom ', canvas.width);
             delete virtualclass.zoom.performZoom;
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'canvasDimension')) {
-            console.log(`==== a canvas width dimension ${virtualclass.zoom.canvasDimension.width} scale=${virtualclass.zoom.canvasScale}`);
+            // console.log(`==== a canvas width dimension ${virtualclass.zoom.canvasDimension.width} scale=${virtualclass.zoom.canvasScale}`);
             canvas.width = virtualclass.zoom.canvasDimension.width;
-            console.log('==== a canvas width  ', canvas.width);
-            console.log("udit current ", canvas.width, canvas.id);
+            // console.log('==== a canvas width  ', canvas.width);
+
             // } else if(canvas.offsetWidth === 0 && document.querySelector('#virtualclassApp').style.display === "none"){
           } else if (canvas.offsetWidth === 0 || canvas.offsetWidth === 300 || virtualclass.isPlayMode) {
-              if (wb === '_doc_0_0' && canvas.parentNode.offsetWidth === 0 || canvas.parentNode.offsetWidth === 300) {
-                let canvasContainer;
-                if (virtualclass.currApp === 'Whiteboard') {
-                  canvasContainer = document.querySelector('#virtualclassWhiteboard.canvasContainer.current');
-                } else if(virtualclass.currApp ==='DocumentShare') {
-                  canvasContainer = document.querySelector('#screen-docs.current');
-                } else {
-                  canvasContainer = document.querySelector('#virtualclassAppContainer');        
-                }
-                canvas.width = canvasContainer.offsetWidth - 6;
+            if (wb === '_doc_0_0' && (canvas.parentNode.offsetWidth === 0 || canvas.parentNode.offsetWidth === 300)) {
+              let canvasContainer;
+              if (virtualclass.currApp === 'Whiteboard') {
+                canvasContainer = document.querySelector('#virtualclassWhiteboard.canvasContainer.current');
+              } else if (virtualclass.currApp === 'DocumentShare') {
+                canvasContainer = document.querySelector('#screen-docs.current');
               } else {
-                canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
+                canvasContainer = document.querySelector('#virtualclassAppContainer');
               }
+              // console.log('==== a canvas width ', canvas.width);
+              canvas.width = canvasContainer.offsetWidth - 6;
+            } else {
+              canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
+              // console.log('==== a canvas width ', canvas.width)
+            }
           } else {
             canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
-            console.log('==== a canvas width ', canvas.width);
+            // console.log('==== a canvas width ', canvas.width);
           }
 
           if (this.firstTime) {
@@ -438,13 +446,16 @@
               viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
               //console.log('==== a jai canvas scale 1 ', canvas.width, ' ', page.getViewport(1.0).width);
               // virtualclass.zoom.canvasScale =  viewport.scale;
+              // console.log('==== a canvas width scale', canvas.width);
             } else {
               viewport = page.getViewport(scale);
               //console.log('==== a jai canvas scale 2');
+              // console.log('==== a canvas width scale', canvas.width);
             }
 
           } else {
             viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
+            // console.log('==== a canvas width scale', canvas.width);
             // console.log('====> FIT to screen 2');
             //console.log('==== a jai canvas scale 3 ', canvas.width, ' ', page.getViewport(1.0).width);
           }

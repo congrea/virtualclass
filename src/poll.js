@@ -2234,15 +2234,16 @@
 
         // On page refreseh, we need the width of parent node of #chart
         // displaying block #virtualclassApp is giving the correct width
-        if (!virtualclass.config.makeWebSocketReady) {
-          const virtualclassAppCont = document.querySelector('#virtualclassApp');
-          virtualclassAppCont.style.display = 'block';
-
-          virtualclass.poll.chart = c3.generate(graphData);
-          virtualclassAppCont.style.display = 'none';
-        } else {
-          virtualclass.poll.chart = c3.generate(graphData);
-        }
+        // if (!virtualclass.config.makeWebSocketReady) {
+        //   const virtualclassAppCont = document.querySelector('#virtualclassApp');
+        //   // virtualclassAppCont.style.display = 'block';
+        //   alert(virtualclassAppCont.offsetWidth);
+        //   virtualclass.poll.chart = c3.generate(graphData);
+        //   //virtualclassAppCont.style.display = 'none';
+        // } else {
+        //   virtualclass.poll.chart = c3.generate(graphData);
+        // }
+        virtualclass.poll.chart = c3.generate(graphData);
       },
 
       hideChart() {

@@ -14,6 +14,7 @@ window.addEventListener('message', (event) => {
     // delete window.shouldChromExtInstall;
     let constraints;
     if (event.data.sourceId === '') { // user canceled
+      virtualclass.vutil.beforeSend({ sd: true, cf: 'colorIndicator' });
       const error = new Error('NavigatorUserMediaError');
       error.name = 'PERMISSION_DENIED';
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'ss')) {

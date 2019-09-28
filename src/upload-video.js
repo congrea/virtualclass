@@ -263,11 +263,11 @@
             if (!Object.prototype.hasOwnProperty.call(vidObj, 'deleted')) {
               const elem = document.querySelector(`#linkvideo${vidObj.fileuuid}`);
               if (elem != null) {
-                elem.classList.remove('noVideo');
                 const playDisable = document.querySelector('.noVideo .playDisable');
                 if (playDisable != null) {
                   playDisable.title = virtualclass.lang.getString('Play');
                 }
+                elem.classList.remove('noVideo');
               }
               virtualclass.videoUl.afterUploadFile(vidObj);
             }

@@ -852,6 +852,10 @@
               } else {
                 virtualclass.vutil.removeFinishBtn();
               }
+
+              if (virtualclass.dts && virtualclass.dts.docs && virtualclass.dts.docs.currNote) {
+                 virtualclass.dts.identifyFirstAndLastNote('note'+virtualclass.dts.docs.currNote);
+              }
             }
           };
         },
@@ -972,6 +976,7 @@
           virtualclass.vutil.createWhiteBoard(wbid);
           virtualclass.previous = virtualclass.dtsConfig.id;
         },
+
 
         /**
          * @param thslide represents the slide/note
@@ -1214,29 +1219,7 @@
 
               virtualclass.vutil.updateCurrentDoc(this.currNote);
               virtualclass.dts.updateLinkNotes(this.currNote);
-              this.identifyFirstAndLastNote(note.id);
-
-            },
-
-            identifyFirstAndLastNote (noteId) {
-              const isFirstNote = virtualclass.dts.isFirstNote(noteId);
-              const isLastNote = virtualclass.dts.isLastNote(noteId);
-
-              const notesContainer = document.querySelector('#screen-docs .pageContainer');
-
-              if (isFirstNote && isLastNote) {
-                notesContainer.classList.add('firstNote');
-                notesContainer.classList.add('lastNote');
-              } else if (isFirstNote) {
-                notesContainer.classList.remove('lastNote');
-                notesContainer.classList.add('firstNote');
-              } else if (isLastNote) {
-                notesContainer.classList.remove('firstNote');
-                notesContainer.classList.add('lastNote');
-              } else {
-                notesContainer.classList.remove('firstNote');
-                notesContainer.classList.remove('lastNote');
-              }
+              virtualclass.dts.identifyFirstAndLastNote(note.id);
             },
 
             /**
@@ -1886,6 +1869,28 @@
 
       printOrderList() {
         console.log(virtualclass.orderList.DocumentShare.ol.order);
+      },
+
+      identifyFirstAndLastNote (noteId) {
+        const isFirstNote = virtualclass.dts.isFirstNote(noteId);
+        const isLastNote = virtualclass.dts.isLastNote(noteId);
+
+        const notesContainer = document.querySelector('#screen-docs .pageContainer');
+
+        if (isFirstNote && isLastNote) {
+          notesContainer.classList.add('firstNote');
+          notesContainer.classList.add('lastNote');
+        } else if (isFirstNote) {
+          notesContainer.classList.remove('lastNote');
+          notesContainer.classList.add('firstNote');
+        } else if (isLastNote) {
+          notesContainer.classList.remove('firstNote');
+          notesContainer.classList.add('lastNote');
+        } else {
+          notesContainer.classList.remove('firstNote');
+          notesContainer.classList.remove('lastNote');
+        }
+
       },
     };
   };

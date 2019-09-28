@@ -253,7 +253,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 .playControllerMainCont #playControllerCont #playController #recPause {
-  padding: 13.5px 30px;
+  padding: 0.84375rem 1.875rem;
 }
 
 /*#virtualclassCont .dashboardview #urlcontainer #presentationurl{*/

@@ -419,7 +419,7 @@
                 } else if(virtualclass.currApp ==='DocumentShare') {
                   canvasContainer = document.querySelector('#screen-docs.current');
                 } else {
-                  canvasContainer = documennt.querySelector('#virtualclassAppContainer').offsetWidth - 6;
+                  canvasContainer = document.querySelector('#virtualclassAppContainer');        
                 }
                 canvas.width = canvasContainer.offsetWidth - 6;
               } else {

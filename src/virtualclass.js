@@ -403,25 +403,39 @@
           });
         }
 
-         var virtualclassApp = document.getElementById("virtualclassApp");
-          if(virtualclass.gObj.hideRightbar) {
-              virtualclassApp.classList.remove("openRightbar");
-              virtualclassApp.classList.add("collapsedRightbar");
-              chat_div.classList.add("collapsedRightbar");
-          } else {
-              console.log("Already Hide");
-          }
+        var virtualclassApp = document.getElementById("virtualclassApp");
+        if(virtualclass.gObj.hideRightbar) {
+          virtualclassApp.classList.remove("openRightbar");
+          virtualclassApp.classList.add("collapsedRightbar");
+          chat_div.classList.add("collapsedRightbar");
+        } else {
+          console.log("Already Hide");
+        }
 
+        document.addEventListener('fullscreenchange', () => {
+          virtualclass.onfullscreenchange();
+        }, false);
 
-         document.onfullscreenchange = function (event) {
-          if (!virtualclass.gObj.fullScreenMode) {
-            virtualclass.vutil.hideFullScreenButton();
-          } else {
-            virtualclass.vutil.showFullScreenButton();
-          }
-        };
+        document.addEventListener('mozfullscreenchange', () => {
+          virtualclass.onfullscreenchange();
+        }, false);
+
+        document.addEventListener('webkitfullscreenchange', () => {
+          virtualclass.onfullscreenchange();
+        }, false);
+
+        document.addEventListener('msfullscreenchange', () => {
+          virtualclass.onfullscreenchange();
+        }, false);
       },
 
+      onfullscreenchange() {
+        if (!virtualclass.gObj.fullScreenMode) {
+          virtualclass.vutil.hideFullScreenButton();
+        } else {
+          virtualclass.vutil.showFullScreenButton();
+        }
+      },
 
       makeReadySocket() {
         if (!virtualclass.vutil.isPlayMode() && virtualclass.config.makeWebSocketReady

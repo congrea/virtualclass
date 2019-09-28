@@ -188,15 +188,19 @@ const ioEventApi = {
         const vcCont = document.getElementById('virtualclassCont');
         if (!vcCont.classList.contains('tr_available')) {
           vcCont.classList.add('tr_available');
-          if (virtualclass.gObj.editorAvailable) {
-            clearTimeout(virtualclass.gObj.editorAvailable);
+
+          if (virtualclass.gObj.teacherAvailableTime) {
+            clearTimeout(virtualclass.gObj.teacherAvailableTime);
           }
 
-          if (virtualclass.currApp === 'editorRich') {
-            virtualclass.gObj.editorAvailable = setTimeout(() => {
+          virtualclass.gObj.teacherAvailableTime = setTimeout(() => {
+            if (virtualclass.settings.info.raisehand) {
+              virtualclass.settings.raisehand(true);
+            }
+            if (virtualclass.currApp === 'editorRich') {
               virtualclass.editorRich.cm.setOption('readOnly', false);
-            }, 3000);
-          }
+            }
+          }, 3000);
         }
       }
     }
@@ -231,6 +235,7 @@ const ioEventApi = {
       // if teacher is log out
       if (virtualclass.gObj.whoIsTeacher === e.fromUser) {
         const vcCont = document.getElementById('virtualclassCont');
+        virtualclass.settings.raisehand(false);
         if (vcCont && vcCont.classList.contains('tr_available')) {
           vcCont.classList.remove('tr_available');
           if (virtualclass.currApp === 'EditorRich' && roles.isStudent()) {
@@ -242,7 +247,7 @@ const ioEventApi = {
 
 
     // virtualclass.media.video.removeUser(e.fromUser.userid);
-   // virtualclass.media.video.removeUser(e.fromUser);
+    // virtualclass.media.video.removeUser(e.fromUser);
     // TODO this should be update accordiing to new user
 
     // if (virtualclass.chat.isTechSupportExist(e.fromUser)) {

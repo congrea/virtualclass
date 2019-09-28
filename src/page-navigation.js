@@ -65,7 +65,7 @@
         nav.classList.add('hide');
         nav.classList.remove('show');
       } else {
-        console.log('Hide number show');
+        // console.log('Hide number show');
         nav.classList.add('show');
         nav.classList.remove('hide');
       }

@@ -8,7 +8,7 @@
 
 #virtualclassSharePresentation iframe {
   border: none;
-  min-height: calc(100vh - 44px);
+  min-height: 100%;
 }
 
 #virtualclassCont.congrea #virtualclassSharePresentation #urlcontainer, #virtualclassCont.congrea.student.presenter #virtualclassSharePresentation #urlcontainer {
@@ -84,11 +84,13 @@
   /*height : 94vh;*/
   /*width : 99%;*/
   display: block;
+  height: 100%;
   /*margin-top : 0.3%;*/
 }
 
 #virtualclassCont.congrea.student #iframecontainer {
   width: 100%;
+  height: 100%;
 }
 
 #virtualclassCont.congrea #pptiframe {

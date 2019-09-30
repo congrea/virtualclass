@@ -31,17 +31,11 @@
 }
 
 #virtualclassCont.congrea.playMode .vidHide #congreaChatCont .ui-chatbox-content {
-
   overflow-y: auto;
-  height: calc(100vh - 118px) !important;
-
 }
 
 #virtualclassCont.congrea.playMode .vidShow #congreaChatCont .ui-chatbox-content {
-
   overflow-y: auto;
-  height: calc(100vh - 350px) !important;
-
 }
 
 #virtualclassCont.congrea .ui-chatbox-log {
@@ -588,7 +582,6 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
   background-color: #395161;
   cursor: pointer;
-  height: 38px;
 }
 
 #virtualclassCont.congrea[data-currapp="Whiteboard"] .vmchat_bar_button {
@@ -704,7 +697,6 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 /*pointer-events: none;*/
 /*}*/
 #virtualclassCont.congrea.playMode #chat_room {
-  width: 302px;
   pointer-events: none;
 }
 

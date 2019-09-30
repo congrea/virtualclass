@@ -1623,7 +1623,7 @@
   margin-right: 0;
   float: left;
   color: #fff;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin-top: .8rem;
   margin-left: 20px;
 }
@@ -3547,7 +3547,7 @@
 #virtualclassCont.congrea.teacher #resultLayoutBody #nonVotTqn .opt,
 #virtualclassCont.congrea.student #stdPollContainer #stdOptionCont .opt {
   float: left;
-  margin-top: 4px;
+  margin-top: 3px;
   margin-right: 5px;
 }
 
@@ -4802,7 +4802,7 @@ and (max-device-width: 1024px) {
       height: 100%;
       background-color: #000;
       color: #fff;
-      z-index: 10000;
+      z-index: 100002;
       position: relative;
     }
 

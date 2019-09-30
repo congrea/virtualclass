@@ -42,9 +42,9 @@
       const fontSize = this.makeFontSizeDropdown_();
       const color = this.makeColorDropdown_();
       const toolbarOptions = [
-        utils.elt('div', [font], { class: 'vceditor-btn-group' }),
-        utils.elt('div', [fontSize], { class: 'vceditor-btn-group' }),
-        utils.elt('div', [color], { class: 'vceditor-btn-group' }),
+        utils.elt('div', [font], { class: 'vceditor-btn-group close' }),
+        utils.elt('div', [fontSize], { class: 'vceditor-btn-group close' }),
+        utils.elt('div', [color], { class: 'vceditor-btn-group close' }),
       ];
 
       const styleGroup = utils.elt('div', null, { class: 'vceditor-btn-style-group close' });
@@ -129,9 +129,20 @@
 
       let isShown = false;
 
+      function toggleDropdown() {
+        const elem = list.parentNode.parentNode;
+        if (isShown) {
+          elem.classList.remove('open');
+          elem.classList.add('close');
+        } else {
+          elem.classList.remove('close');
+          elem.classList.add('open');
+        }
+      }
+
       function showDropdown() {
         if (!isShown) {
-          list.style.display = 'block';
+          toggleDropdown();
           utils.on(document, 'click', hideDropdown, /* capture= */true);
           isShown = true;
         }
@@ -141,7 +152,7 @@
 
       function hideDropdown() {
         if (isShown) {
-          list.style.display = '';
+          toggleDropdown();
           utils.off(document, 'click', hideDropdown, /* capture= */true);
           isShown = false;
         }

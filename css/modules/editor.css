@@ -400,3 +400,11 @@
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-dropdown-menu::-webkit-scrollbar {
   width: 4px;
 }
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-group.close a ul {
+  display: none;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-group.open a ul {
+  display: block;
+}

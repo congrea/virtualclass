@@ -106,7 +106,7 @@ and (max-device-width: 1024px) {
     height: 100%;
   }
 
-  
+
 
   #virtualclassCont.congrea.fullScreenMode #chat_div {
     height: calc(100% - 388px);
@@ -523,7 +523,8 @@ and (max-device-width: 1024px) {
     }
 
     #virtualclassCont.congrea #virtualclassPreCheck .result div{
-      margin-top: 0;
+      margin-top: 0 !important;
+      
     }
 
     #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
@@ -546,7 +547,7 @@ and (max-device-width: 1024px) {
       height: 13.4375rem;
       overflow-y: auto;
     }
-    
+
     #virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
       font-size: 0.6875rem;
     }

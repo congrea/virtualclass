@@ -618,7 +618,7 @@
         const nextIndex = index;
         // var nextId = virtualclass.videoUl.order[index + 1];
         let currVideoObj = this.findNextObj(nextIndex);
-        if (typeof currVideoObj !== 'object') {
+        if (currVideoObj && typeof currVideoObj !== 'object') {
           const nxIndex = currVideoObj;
           if (nxIndex < videos.length) {
             currVideoObj = this.autoPlayList(nxIndex);
@@ -629,7 +629,7 @@
           toStd.title = currVideoObj.filename;
           toStd.type = currVideoObj.filetype;
 
-          if (!virtualclass.videoUl.listEnd) {
+          if (!virtualclass.videoUl.listEnd && currVideoObj) {
             if (currVideoObj.filetype === 'video_online') {
               virtualclass.videoUl.yts = false;
               virtualclass.videoUl.online = true;

@@ -1782,9 +1782,9 @@
         const errorMsg = (typeof error === 'object') ? virtualclass.lang.getString(error.name) : virtualclass.lang.getString(error);
 
         if (errorMsg == null) {
-          virtualclass.view.createErrorMsg(error, 'errorContainer', 'virtualclassAppOptionsCont');
+          virtualclass.view.createErrorMsg(error, 'errorContainer', 'virtualclassAppFooterPanel');
         } else {
-          virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'virtualclassAppOptionsCont');
+          virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'virtualclassAppFooterPanel');
         }
 
         virtualclass.user.control.mediaWidgetDisable('vd');

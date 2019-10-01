@@ -249,7 +249,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 .playControllerMainCont #playControllerCont #playController #recPauseCont.recordingPlay #recPause {
-  padding: 14px 28.5px;
+  padding: .875rem 1.78125rem;
 }
 
 .playControllerMainCont #playControllerCont #playController #recPause {

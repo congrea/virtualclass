@@ -405,7 +405,7 @@
       toggleSlideWithOrder(doc) {
         const linkDoc = document.querySelector(`#linkdocs${doc}`);
         if (linkDoc != null) {
-          if (linkDoc.dataset.selected === 1) {
+          if (linkDoc.dataset.selected === '1') {
             linkDoc.dataset.selected = 0;
             return false;
           }
@@ -445,7 +445,7 @@
         if (typeof docFetch !== 'undefined') {
           addSlide = +docFetch;
           if (roles.hasControls()) {
-            (docFetch === true) ? this.setLinkSelected(doc, 1) : this.setLinkSelected(doc, 0);
+            (docFetch === 1) ? this.setLinkSelected(doc, 1) : this.setLinkSelected(doc, 0);
           }
         } else if (roles.hasControls()) {
           addSlide = this.toggleSlideWithOrder(doc, slides);
@@ -1350,7 +1350,7 @@
             // controlContnotes31385ae3
             const elem = document.querySelector(`#controlContnotes${dts.note} .status`);
             const currObj = virtualclass.dts.notes[dts.note];
-            if (dts.noteSt === 0) {
+            if ((+dts.noteSt) === 0) {
               virtualclass.dts.notes[dts.note].UI.controller.events.disableElement(elem, currObj);
             } else {
               virtualclass.dts.notes[dts.note].UI.controller.events.enableElement(elem, currObj);
@@ -1366,7 +1366,7 @@
           }
         } else if (Object.prototype.hasOwnProperty.call(dts, 'norder')) {
           virtualclass.orderList[this.appName].ol.order = dts.norder;
-          // console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);
+          // console.log('====> ORDER is geneartThere is no pageing ', virtualclass.orderList[this.appName].ol.order);
           virtualclass.dts.indexNav.studentDocNavigation(this.docs.currNote);
         }
       },
@@ -1664,7 +1664,7 @@
         if (note != null) {
           if (typeof status === 'undefined') {
             var status = (1 - (+note.dataset.status));
-          } else if (status === true || status === 'true') {
+          } else if (status === 1 || status === '1') {
             status = 1;
           } else {
             status = 0;

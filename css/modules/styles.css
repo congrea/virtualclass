@@ -1213,7 +1213,6 @@
 
 #virtualclassCont.congrea .ui-widget.disable {
   opacity: 0.4;
-  position: relative;
 }
 
 #virtualclassCont.congrea .ui-widget.enable {
@@ -1459,10 +1458,9 @@
 
 #virtualclassCont.congrea #errorContainer {
   position: absolute;
-  bottom: 10%;
+  bottom: 5%;
   left: 50%;
   transform: translate(-50%);
-
   z-index: 10
 }
 
@@ -4444,7 +4442,7 @@ span#usertab_text {
 @media (max-width: 1100px) {
 
   #virtualclassCont.congrea #errorContainer {
-    bottom: 15%;
+    bottom: 5%;
   }
   #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay{
     width: 70px;

@@ -227,11 +227,11 @@
 
   Bootstrap.prototype.notifyAboutCPU = function () {
     if (!virtualclass.system.isCompatibleCPU()) {
-      virtualclass.view.createErrorMsg(virtualclass.lang.getString('notcompatiblecpu'), 'errorContainer', 'chatWidget', { className: 'notcompatiblecpu' });
+      virtualclass.view.createErrorMsg(virtualclass.lang.getString('notcompatiblecpu'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'notcompatiblecpu' });
     }
 
     if (!virtualclass.system.isCompatibleRAM()) {
-      virtualclass.view.createErrorMsg(virtualclass.lang.getString('notcompatibleram'), 'errorContainer', 'chatWidget', { className: 'notcompatiblecpu' });
+      virtualclass.view.createErrorMsg(virtualclass.lang.getString('notcompatibleram'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'notcompatiblecpu' });
     }
   }
 

@@ -203,7 +203,7 @@
           }
           virtualclass.gObj.normalZoomTime = setTimeout(() => {
             virtualclass.zoom.zoomIn('normalRender');
-          }, 200);
+          }, 100);
         }
       },
 

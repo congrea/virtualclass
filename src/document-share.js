@@ -247,7 +247,6 @@
               if (virtualclass.currApp === 'DocumentShare') {
                 virtualclass.dts.afterRequestOrder(virtualclass.orderList.DocumentShare.ol.order);
                 virtualclass.dts.createNoteNav();
-//                (virtualclass.dts.noteExist()) ? virtualclass.dashboard.close() : virtualclass.dashboard.open()
               }
             }
           }
@@ -501,7 +500,6 @@
               // localStorage.setItem('dtsdocs', JSON.stringify(docsObj));
             }
             if (roles.isStudent()) {
-              console.log('====> suman current whiteboard ', virtualclass.gObj.currWb);
               if (!virtualclass.dts.noteExist()) {
                 const docsContainer = document.querySelector('#docScreenContainer');
                 if (docsContainer != null) {
@@ -1363,6 +1361,9 @@
           this.docStatus(dts.doc, dts.docSt);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'order_recived')) {
           this.afterRequestOrder(dts.order_recived);
+          if (roles.hasControls() && !virtualclass.config.makeWebSocketReady) {
+            virtualclass.dts.createNoteNav();
+          }
         } else if (Object.prototype.hasOwnProperty.call(dts, 'norder')) {
           virtualclass.orderList[this.appName].ol.order = dts.norder;
           //console.log('====> ORDER is genearting ', virtualclass.orderList[this.appName].ol.order);

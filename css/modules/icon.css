@@ -417,7 +417,7 @@
 
 #virtualclassCont.congrea #playController .icon-pause:before {
   content: "\f04c";
-  font-size: 14px;
+  font-size: 0.875rem;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -441,7 +441,7 @@
 
 #virtualclassCont.congrea.playMode #recPauseCont.recButton .icon-pause:before {
   content: "\f04b";
-  font-size: 17px;
+  font-size: 1.0625rem;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -453,7 +453,7 @@
 
 #virtualclassCont.congrea.playMode #recPauseCont.recButton.recordingPlay .icon-pause:before {
   content: "\f04c";
-  font-size: 16px;
+  font-size: 1rem;
   -webkit-font-smoothing: antialiased;
 }
 

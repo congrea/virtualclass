@@ -47,7 +47,7 @@
     isSystemCompatible() {
       if (virtualclass.error.length > 0) {
         const errorMsg = (virtualclass.error.length > 1) ? (virtualclass.error.join('<br />')) : virtualclass.error[0];
-        virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'chatWidget');
+        virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'virtualclassAppFooterPanel');
 
         if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'errIE')) {
           virtualclass.vutil.disableVirtualClass();

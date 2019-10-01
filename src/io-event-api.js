@@ -295,29 +295,29 @@ const ioEventApi = {
   },
 
   Text_Limit_Exeed(e) {
-    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Text_Limit_Exeed'), 'errorContainer', 'chatWidget', { className: 'Text_Limit_Exeed' });
+    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Text_Limit_Exeed'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'Text_Limit_Exeed' });
   },
 
   Binary_Limit_Exeed(e) {
-    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Binary_Limit_Exeed'), 'errorContainer', 'chatWidget', { className: 'Binary_Limit_Exeed' });
+    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Binary_Limit_Exeed'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'Binary_Limit_Exeed' });
   },
 
   Unauthenticated(e) {
-    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Unauthenticated'), 'errorContainer', 'chatWidget', { className: 'Unauthenticated' });
+    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Unauthenticated'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'Unauthenticated' });
     virtualclass.vutil.stopConnection();
   },
 
   Multiple_login(e) {
-    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Multiple_login'), 'errorContainer', 'chatWidget', { className: 'Multiple_login' });
+    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Multiple_login'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'Multiple_login' });
     virtualclass.vutil.stopConnection();
   },
 
   Max_rooms(e) {
-    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Max_rooms'), 'errorContainer', 'chatWidget', { className: 'Max_rooms' });
+    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Max_rooms'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'Max_rooms' });
   },
 
   Max_users(e) {
-    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Max_users'), 'errorContainer', 'chatWidget', { className: 'Max_users' });
+    virtualclass.view.createErrorMsg(virtualclass.lang.getString('Max_users'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'Max_users' });
   },
 
   PONG(e) {

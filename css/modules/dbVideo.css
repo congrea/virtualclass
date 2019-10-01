@@ -629,8 +629,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea .linkvideo.links.video.enable.playing .controls.delete,
 #virtualclassCont.congrea .linkvideo.links.video_yts.enable.playing .controls.delete {
-  /* pointer-events: none;
-  opacity: .3; */
+  pointer-events: none;
+  opacity: 0.3;
   cursor: auto;
 }
 

@@ -264,7 +264,7 @@
 }
 
 #virtualclassCont.congrea .vceditor-toolbar-wrapper .undo-group .vceditor-btn {
-  padding: 3.8px;
+  padding: 4px 5px 3px 5px;
 }
 
 #virtualclassCont.congrea .vceditor-dropdown {
@@ -513,10 +513,11 @@
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.size {
   padding: 5px 2px 1px 3px;
+  line-height: 0.8125rem;
 }
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.color{
-  padding: 6px 5px 2px 5px;
+  padding: 5px 5px 2px 5px;
 }
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.size::before {
@@ -543,3 +544,7 @@
   position: relative;
   top: 2px;
 }
+
+/* #virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:first-child {
+  line-height: 15px;
+} */

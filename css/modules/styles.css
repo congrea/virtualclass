@@ -3045,11 +3045,11 @@
   line-height: 1.25rem;
 }
 #virtualclassCont.congrea #audioWidget .nav > li.videoSwitchCont > a {
-  padding: 0.625rem 1.875rem 0.75rem 1.875rem !important;
+  padding: 0.8125rem 0.9375rem 0.5rem 1.125rem !important;
   line-height: 1.25rem;
 }
 #virtualclassCont.congrea #audioWidget .nav > li#appSettingCtrl > a {
-  padding: 0.625rem 1.875rem 0.75rem 1.875rem !important;
+  padding: 0.875rem 0.9375rem 0.5rem 1.125rem !important;
   line-height: 1.25rem;
 }
 

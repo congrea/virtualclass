@@ -552,7 +552,8 @@
           //console.log('====> me sharing rmStdScreen');
           ioAdapter.mustSendUser({ cf: 'rmStdScreen' }, teacherId);
         } else if (roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing) {
-          virtualclass.vutil.beforeSend({ unshareScreen: true, st: 'ss', cf: 'unshareScreen' });
+          ioAdapter.mustSend(({ unshareScreen: true, st: 'ss', cf: 'unshareScreen' }));
+          ioAdapter.mustSend({ dispWhiteboard: true, cf: 'dispWhiteboard', d: '_doc_0_0' });
         }
 
         if ((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()) {

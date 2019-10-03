@@ -768,7 +768,7 @@
     getUserInfo(key, userId, users) {
       if (users != null) {
         for (let i = 0; i < users.length; i++) {
-          if (users[i].userid === userId) {
+          if ((+users[i].userid) === (+userId)) {
             return users[i][key];
           }
         }
@@ -779,7 +779,7 @@
     getUserAllInfo(userId, users) {
       if (typeof userId !== 'undefined' && typeof users !== 'undefined') {
         for (let i = 0; i < users.length; i++) {
-          if (users[i].userid === userId) {
+          if ((+users[i].userid) === (+userId)) {
             return users[i];
           }
         }

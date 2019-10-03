@@ -283,17 +283,7 @@ and (max-device-width: 1024px) {
     z-index: 11;
     right: 2.5rem;
   }
-
-  #virtualclassCont.congrea .vceditor-btn-group {
-    margin: 7px 4px 1px 0;
-    display: inline-block;
-  }
-  #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.size {
-    padding: 4px 1px 1px 3px;
-}
-#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.color {
-  padding: 6px 0px 2px 5px;
-}
+  
 #virtualclassCont.congrea .vceditor-toolbar-wrapper div:nth-child(3) {
   margin-right: -1px;
   padding-right: 6px;
@@ -469,7 +459,7 @@ and (max-device-width: 1024px) {
     }
 
     #virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
-      font-size: 0.6875rem;
+      font-size: 0.8125rem;
     }
 
     #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
@@ -631,6 +621,14 @@ and (max-device-width: 1024px) {
 #virtualclassCont.congrea.student[device="mobile"] .congtooltip:hover::after {
   display: none;
 }
+
+#virtualclassCont.congrea.student[device="mobile"] .vceditor-toolbar-wrapper {
+  display: inline-block;
+  line-height: 0.875rem;
+  position: relative;
+  left: -6px;
+}
+
 /* #virtualclassCont.congrea[device="mobile"] a.stdRaiseHand, #virtualclassCont.congrea[device="mobile"] a.stdRaiseHand:hover {
   padding: 0.625rem 1.1875rem;
 } */

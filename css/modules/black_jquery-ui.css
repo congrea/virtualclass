@@ -1995,6 +1995,8 @@ body .ui-tooltip {
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight {
   /*background: #d8e496 !important;*/
 }
-
+#virtualclassCont.playMode .ui-state-highlight {
+  background: linear-gradient(to bottom, #22880b 0%, #22880b 100%) !important;
+}
 
 

@@ -435,7 +435,7 @@
 
 #virtualclassCont.congrea .icon-play:before {
   content: "\f04b";
-  font-size: 18px;
+  font-size: 1.125rem;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -447,7 +447,7 @@
 
 #virtualclassCont.congrea.playMode #loadingWindowCont .askToPlay .icon-play:before {
   content: "\f04b";
-  font-size: 26px;
+  font-size: 1.625rem;
   -webkit-font-smoothing: antialiased;
 }
 

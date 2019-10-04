@@ -1623,8 +1623,8 @@
   float: left;
   color: #fff;
   font-size: 0.875rem;
-  margin-top: .8rem;
-  margin-left: 20px;
+  margin-top: 0.9375rem;
+  margin-left: 1.25rem;
 }
 
 #virtualclassCont.congrea #playController #recPlayCont #recPlay, #virtualclassCont.congrea #playController #recPauseCont #recPause, #virtualclassCont.congrea #playController #ff2Cont #ff2, #virtualclassCont.congrea #playController #ff8Cont #ff8, #virtualclassCont.congrea #playController #replayFromStart .icon-Replayfromstart {

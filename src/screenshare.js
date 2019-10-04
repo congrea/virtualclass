@@ -273,6 +273,7 @@ let globalImageData = {};
       },
 
       fitToScreen() {
+        console.log('====> FIT TO SCREEN');
         const canvasParentWidth = document.querySelector('#virtualclassScreenShare').offsetWidth;
         this.scale = virtualclass.ss.getScale(virtualclass.ss.canvasOriginalWidth, canvasParentWidth);
         virtualclass.ss.localCanvas.width = canvasParentWidth - 10;
@@ -1104,6 +1105,8 @@ let globalImageData = {};
           this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
           this.localCanvas.width = msg.d.w;
           this.localCanvas.height = msg.d.h;
+          this.canvasOriginalWidth = this.localCanvas.width;
+          this.canvasOriginalHeight = this.localCanvas.height;
         }
 
         // if (Object.prototype.hasOwnProperty.call(msg, 'vc')) {

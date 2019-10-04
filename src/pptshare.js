@@ -1,4 +1,5 @@
 /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -356,10 +357,9 @@
       },
 
       actualPptMessageEventHandler(event) {
-        //console.log('====> PPT SLIDE receive ', event.data);
-        //console.log('====> dashboard init 2');
         if (virtualclass.currApp === 'SharePresentation') {
           const pptData = (typeof event.data === 'string') ? JSON.parse(event.data) : event.data;
+          console.log('====> ppt event ', pptData.eventName);
           if (typeof pptData !== 'undefined') {
             if (Object.prototype.hasOwnProperty.call(pptData, 'namespace') && pptData.namespace === 'reveal') {
               this.state = pptData.state;
@@ -382,6 +382,8 @@
               this[pptData.eventName].call(this, pptData);
               this.state = pptData.state;
               delete this.lastSlideChanged;
+            } else if (roles.hasControls() && this[pptData.eventName]) {
+              this[pptData.eventName].call(this, pptData);
             }
           } else {
             const frame = document.getElementById('pptiframe');

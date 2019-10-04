@@ -62,7 +62,7 @@ let globalImageData = {};
           virtualclass.studentScreen.base.width = 0;
           virtualclass.studentScreen.setDimension();
           renderImage(imageData);
-          virtualclass.studentScreen.triggerFitToScreene(e.data.stype);
+          virtualclass.studentScreen.triggerFitToScreen(e.data.stype);
           const teacher = virtualclass.vutil.getUserAllInfo(e.data.uid, virtualclass.connectedUsers);
           if ((teacher && teacher.role !== 't' && roles.isStudent() && !virtualclass.gObj.studentSSstatus.shareToAll)) {
             receiveFunctions.sview({ message: 'firstSs' });
@@ -158,7 +158,7 @@ let globalImageData = {};
         }
       },
 
-      triggerFitToScreene(stype) {
+      triggerFitToScreen(stype) {
         if (stype === 'full' && virtualclass.studentScreen.scale === 1) {
           virtualclass.studentScreen.scale = 1;
           virtualclass.studentScreen.fitToScreen();
@@ -217,6 +217,8 @@ let globalImageData = {};
             if (virtualclass[app].localCanvas.width !== d.w || virtualclass[app].localCanvas.height !== d.h) {
               virtualclass[app].localCanvas.width = d.w;
               virtualclass[app].localCanvas.height = d.h;
+              virtualclass[app].canvasOriginalWidth = virtualclass[app].localCanvas.width;
+              virtualclass[app].canvasOriginalHeight = virtualclass[app].localCanvas.height;
             }
           }
           (typeof uid === 'undefined') ? virtualclass[app].drawImages(imgData) : virtualclass[app].drawImages(imgData, uid);
@@ -270,6 +272,16 @@ let globalImageData = {};
         this.addScroll();
       },
 
+      fitToScreen() {
+        const canvasParentWidth = document.querySelector('#virtualclassScreenShare').offsetWidth;
+        this.scale = virtualclass.ss.getScale(virtualclass.ss.canvasOriginalWidth, canvasParentWidth);
+        virtualclass.ss.localCanvas.width = canvasParentWidth - 10;
+        virtualclass.ss.localCanvas.height = Math.round(virtualclass.ss.canvasOriginalHeight * this.scale);
+        renderImage(globalImageData);
+        this.addScroll();
+      },
+
+
       zoomOut() {
         this.scale = this.scale / this.SCALE_FACTOR;
         virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * (1 / this.SCALE_FACTOR);
@@ -290,22 +302,22 @@ let globalImageData = {};
           virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
         }
       },
-
-      fitToScreen() {
-        const dimen = this.setDimension();
-        this.scale = virtualclass.ss.getScale(this.base.width, dimen.width);
-        if (this.scale >= 1) {
-          this.scale = 1;
-          virtualclass.ss.localCanvas.width = globalImageData.width;
-          virtualclass.ss.localCanvas.height = globalImageData.height;
-        } else {
-          virtualclass.ss.localCanvas.width = dimen.width;
-          virtualclass.ss.localCanvas.height = dimen.height;
-        }
-
-        renderImage(globalImageData);
-        virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
-      },
+      //
+      // fitToScreen() {
+      //   const dimen = this.setDimension();
+      //   this.scale = virtualclass.ss.getScale(this.base.width, dimen.width);
+      //   if (this.scale >= 1) {
+      //     this.scale = 1;
+      //     virtualclass.ss.localCanvas.width = globalImageData.width;
+      //     virtualclass.ss.localCanvas.height = globalImageData.height;
+      //   } else {
+      //     virtualclass.ss.localCanvas.width = dimen.width;
+      //     virtualclass.ss.localCanvas.height = dimen.height;
+      //   }
+      //
+      //   renderImage(globalImageData);
+      //   virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
+      // },
 
       setDimension() {
         const dimension = this.getCanvasContainerDimension();
@@ -313,7 +325,7 @@ let globalImageData = {};
         let { height } = dimension;
         width = virtualclass.vutil.getValueWithoutPixel(width);
         height = virtualclass.vutil.getValueWithoutPixel(height);
-        this.setCanvasContainerDimension(width, height);
+        // this.setCanvasContainerDimension(width, height);
         return { width, height };
       },
 
@@ -337,11 +349,12 @@ let globalImageData = {};
         return { width, height };
       },
 
-      setCanvasContainerDimension(width, height) {
-        const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
-        canvaScontainer.style.width = `${width}px`;
-        canvaScontainer.style.height = `${height}px`;
-      },
+      // setCanvasContainerDimension(width, height) {
+
+        // const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
+        // canvaScontainer.style.width = `${width}px`;
+        // canvaScontainer.style.height = `${height}px`;
+      // },
 
 
       drawImageThroughWorker(dataPack) {
@@ -743,10 +756,10 @@ let globalImageData = {};
         container.width = window.innerWidth;
         container.height = window.innerHeight - 140;
 
-        const vidContainer = document.getElementById(this.local);
-        // const dimension = this.html.getDimension(container);
-        vidContainer.style.width = `${Math.round(container.width)}px`;
-        vidContainer.style.height = `${Math.round(container.height)}px`;
+        // const vidContainer = document.getElementById(this.local);
+        // // const dimension = this.html.getDimension(container);
+        // vidContainer.style.width = `${Math.round(container.width)}px`;
+        // vidContainer.style.height = `${Math.round(container.height)}px`;
 
         // setStyleToElement(vidContainer, width, height);
         /**
@@ -1070,6 +1083,8 @@ let globalImageData = {};
       dimensionStudentScreen(cWidth, cHeight) {
         this.localCanvas = document.getElementById(`${virtualclass[app].local}Video`);
         this.localCont = virtualclass[app].localCanvas.getContext('2d');
+        this.canvasOriginalWidth = cWidth;
+        this.canvasOriginalHeight = cHeight;
         this.localCanvas.width = cWidth;
         this.localCanvas.height = cHeight;
       },
@@ -1091,11 +1106,11 @@ let globalImageData = {};
           this.localCanvas.height = msg.d.h;
         }
 
-        if (Object.prototype.hasOwnProperty.call(msg, 'vc')) {
-          const vc = document.getElementById(virtualclass[app].local);
-          vc.style.width = `${msg.vc.w}px`;
-          vc.style.height = `${msg.vc.h}px`;
-        }
+        // if (Object.prototype.hasOwnProperty.call(msg, 'vc')) {
+        //   const vc = document.getElementById(virtualclass[app].local);
+        //   vc.style.width = `${msg.vc.w}px`;
+        //   vc.style.height = `${msg.vc.h}px`;
+        // }
 
         if (virtualclass.previous === 'virtualclassScreenShare') {
           virtualclass.vutil.setScreenInnerTagsWidth(virtualclass.previous);

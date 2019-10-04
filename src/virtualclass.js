@@ -604,7 +604,6 @@
 
       // makeAppReady(app, cusEvent, data) {
       makeAppReady(setting) {
-        //console.log('====> My App =================================== ', setting.app);
         if (virtualclass.gObj.studentSSstatus.receivedScreenShareRequest){
           virtualclass.popup.closeElem();
           delete virtualclass.gObj.studentSSstatus.receivedScreenShareRequest;
@@ -645,9 +644,14 @@
           if (this.previous === 'virtualclassEditorRich') {
             const editorType = this.previous.split('virtualclass')[1];
             this.user.control.toggleDisplayEditorController(editorType, 'none');
-          }
-          if (virtualclass.previous === 'virtualclassSharePresentation') {
+          } else if (virtualclass.previous === 'virtualclassSharePresentation') {
             virtualclass.sharePt.remvovePLayClass();
+          } else if (virtualclass.previous === 'virtualclassVideo') {
+            let playingStripbar = document.querySelector('#listvideo .playing');
+            if (playingStripbar != null) {
+              playingStripbar.classList.remove('playing');
+            }
+            virtualclass.videoUl.videoUrl = '';
           }
         }
 

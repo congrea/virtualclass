@@ -486,6 +486,7 @@
           } else {
             vthis.quizSt.screen = 'stdPublish';
             this.quizDisplay(msg.quiz.data);
+            delete virtualclass.quiz.closeQuizId;
           }
         }
 
@@ -517,9 +518,9 @@
         // Quiz cose at student end
         if (msg.quiz.quizMsg === 'quizClosed') {
           // localStorage.removeItem('quizSt');
+          this.closeQuizId = msg.quiz.quizId;
+          console.log('hello  brother => ', this.closeQuizId);
           this.quizSt = {};
-        //  localStorage.removeItem('qRep');
-      //    virtualclass.storage.clearTableData('quizData');
           this.UI.defaultLayoutForStudent();
         }
 
@@ -586,10 +587,12 @@
               if (virtualclass.config.makeWebSocketReady) {
                 this.saveGradeInDb(msg.quiz.user, msg.quiz.timetaken, msg.quiz.score, msg.quiz.quesattemptd, msg.quiz.correctans);
               }
-
             }
-          } else {
-            if (this.submittedTime > this.publishedTime) {
+          } else if (this.submittedTime > this.publishedTime) {
+            if (this.closeQuizId && this.closeQuizId === msg.quiz.quizId) {
+              this.quizSt = {};
+              this.UI.defaultLayoutForStudent();
+            } else {
               const quizBodyContainer = document.getElementById('contQzBody');
               if (quizBodyContainer != null) {
                 quizBodyContainer.parentNode.removeChild(quizBodyContainer);
@@ -601,7 +604,6 @@
             }
           }
         }
-
       },
 
       /**
@@ -1342,6 +1344,7 @@
             if (resultDiv != null) {
               resultDiv.parentNode.removeChild(resultDiv);
             }
+            
             const resPage = virtualclass.view.customCreateElement('div', 'resultDiv');
             msgPage.appendChild(resPage);
 

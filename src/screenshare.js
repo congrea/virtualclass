@@ -1148,6 +1148,12 @@ let globalImageData = {};
 
           if (viewcontrol) {
             this.html.initScreenController();
+            if (virtualclass.gObj.studentSSstatus.shareToAll && virtualclass.gObj.studentSSstatus.mesharing) {
+              let element = document.querySelector('#screenController .selfView');
+              if (element) {
+                this.html.changeSsInfoSelf(element);
+              }
+            }
           }
           const mapp = document.querySelector('.congrea #virtualclassApp');
           if (!hascontrol) {

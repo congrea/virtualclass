@@ -320,9 +320,9 @@
       vhCheck();
     }
 
-    if ((virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare')
+    if (((virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare')
       && virtualclass.gObj.currWb != null && typeof virtualclass.gObj.currWb !== 'undefined'
-    ) {
+    ) || virtualclass.currApp === 'ScreenShare') {
       /** * Remove black screen on resizing of doucmet sharing window * */
       if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreenOnResize')) {
         clearTimeout(virtualclass.gObj.fitToScreenOnResize);

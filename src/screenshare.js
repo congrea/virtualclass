@@ -304,21 +304,6 @@ let globalImageData = {};
         }
       },
       //
-      // fitToScreen() {
-      //   const dimen = this.setDimension();
-      //   this.scale = virtualclass.ss.getScale(this.base.width, dimen.width);
-      //   if (this.scale >= 1) {
-      //     this.scale = 1;
-      //     virtualclass.ss.localCanvas.width = globalImageData.width;
-      //     virtualclass.ss.localCanvas.height = globalImageData.height;
-      //   } else {
-      //     virtualclass.ss.localCanvas.width = dimen.width;
-      //     virtualclass.ss.localCanvas.height = dimen.height;
-      //   }
-      //
-      //   renderImage(globalImageData);
-      //   virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
-      // },
 
       setDimension() {
         const dimension = this.getCanvasContainerDimension();
@@ -352,9 +337,9 @@ let globalImageData = {};
 
       // setCanvasContainerDimension(width, height) {
 
-        // const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
-        // canvaScontainer.style.width = `${width}px`;
-        // canvaScontainer.style.height = `${height}px`;
+      // const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
+      // canvaScontainer.style.width = `${width}px`;
+      // canvaScontainer.style.height = `${height}px`;
       // },
 
 

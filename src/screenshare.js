@@ -265,7 +265,7 @@ let globalImageData = {};
 
       zoomIn() {
         virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * this.SCALE_FACTOR;
-        virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * this.SCALE_FACTOR;
+        virtualclass.ss.localCanvas.height = ((+virtualclass.ss.localCanvas.height) * this.SCALE_FACTOR) + 5;
         this.scale = this.scale * this.SCALE_FACTOR;
         renderImage(globalImageData);
 
@@ -286,7 +286,7 @@ let globalImageData = {};
       zoomOut() {
         this.scale = this.scale / this.SCALE_FACTOR;
         virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * (1 / this.SCALE_FACTOR);
-        virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * (1 / this.SCALE_FACTOR);
+        virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * (1 / this.SCALE_FACTOR) + 5;
         renderImage(globalImageData);
         this.addScroll();
       },

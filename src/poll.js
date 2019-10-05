@@ -2205,12 +2205,17 @@
         //    chart.style.display = 'none';
         // }
 
-
+        let barWidth = 100;
+        if (Data.columns.length > 8 && Data.columns.length < 18) {
+          barWidth = 50;
+        } else if (Data.columns.length > 18) {
+          barWidth = 25;
+        }
 
         const graphData = {
           bindto: '#chart',
           data: Data,
-          bar: { width: 100 },
+          bar: { width: barWidth },
           axis: {
             y: {
               tick: {
@@ -2220,7 +2225,6 @@
               },
               label: 'Votes',
             },
-
           },
         };
 

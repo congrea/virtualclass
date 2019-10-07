@@ -1563,7 +1563,9 @@
             virtualclass.poll.showChart();
           }
         } else {
+
           this.noneVoted();
+
           const header = document.getElementById('resultLayoutHead');
           if (header) {
             for (var i = 0; i < header.childNodes.length; i++) {
@@ -1575,6 +1577,11 @@
 
           const chartMenu = document.getElementById('chartMenuCont');
           chartMenu.parentNode.removeChild(chartMenu);
+
+          const editPollModal = document.querySelector('#editPollModal');
+          if (virtualclass.poll.pollState.currScreen === 'teacherPublish'){
+            editPollModal.remove();
+          }
         }
       },
 
@@ -1706,6 +1713,7 @@
         }
       },
       noneVoted(pollType) {
+        console.log("====> No voted poll here");
         if (typeof virtualclass.poll.timer !== 'undefined') {
           clearInterval(virtualclass.poll.timer);
         }
@@ -1756,6 +1764,7 @@
               virtualclass.poll.pollState.currScreen = (pollType === 'course') ? 'displaycoursePollList' : 'displaysitePollList';
             }
           });
+
         }
       },
       showPollText(resulCont) {

@@ -939,6 +939,14 @@
   margin: 4px 7px 0 7px;
 }
 
+#virtualclassCont.congrea #virtualclassScreenShareLocal {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  margin: 0;
+  position: relative;
+}
+
 #virtualclassCont.congrea #commonChatBoardLabel {
   position: relative;
   width: 140px;
@@ -2390,7 +2398,6 @@
   overflow: hidden;
   display: flex;
   flex-flow: row wrap;
-  /* background-color:#fff; */
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassAppOptionsCont {

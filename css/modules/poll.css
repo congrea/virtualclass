@@ -363,6 +363,7 @@
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive {
   max-height: 80%;
+  min-height: 50%;
   margin-top: 61px;
   overflow: auto;
   overflow-x: hidden;
@@ -514,15 +515,18 @@
   position: relative !important;
 }
 
-#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:first-child td.qnText .popover-content {
-  top: 7%;
-  bottom: auto;
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:last-child td.qnText .popover-content {
+  bottom: 10%;
   overflow: auto;
 }
 
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr.lastNode td.qnText .popover-content {
+  bottom: 15%;
+}
 
-#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:last-child td.qnText .popover-content {
-  bottom: 10%;
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:first-child td.qnText .popover-content {
+  top: 7%;
+  bottom: auto;
   overflow: auto;
 }
 

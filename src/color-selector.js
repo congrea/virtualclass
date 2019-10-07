@@ -73,7 +73,9 @@
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapes_icon a ,'
         + '#virtualclassCont.congrea #virtualclassAppLeftPanel #docShareNav ,'
         + '#virtualclassCont.congrea #screenController .share button ,'
-        + '#virtualclassCont.congrea #stopScreenShare button '
+        + '#virtualclassCont.congrea #stopScreenShare button ,'
+        + '#virtualclassCont.congrea #fullScreenButton ,'
+        + '#virtualclassCont.congrea #fullScreenExitButton '
         + `{border-left: 0.01em solid ${allbg.fcolor}!important;}`
         // "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool" +
         // "{border:0 !important;}"+
@@ -84,7 +86,10 @@
         + `{border-left:${border} !important;}`
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ,'
         + '#virtualclassCont.congrea #audioWidget li,'
-        + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab li '
+        + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab li ,'
+        + '#virtualclassCont.congrea #networkStatusContainer ,'
+        + '#virtualclassCont.congrea.playMode #fullScreenButton ,'
+        + '#virtualclassCont.congrea.playMode #fullScreenExitButton '
         + `{border-right: 0.01em solid ${allbg.fcolor}!important;}`
         + '#virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header'
         + `{border: 0.02em solid ${allbg.fcolor}!important;}`

@@ -530,9 +530,14 @@ body {
 }
 
 #virtualclassCont.congrea .vidShow #stickycontainer #techVideo a.inner_bt {
-  background-color: #22880b;
+  background: linear-gradient(to bottom, #53a93f 0%, #53a93f 100%) !important;
+
 }
 
+#virtualclassCont.congrea.playMode .vidShow #stickycontainer #techVideo a.inner_bt {
+   background: linear-gradient(to bottom, #22880b 0%, #22880b 100%) !important;
+}
+  
 #virtualclassCont.congrea .vidShow #stickycontainer #techVideo.active a.inner_bt {
   background-color: unset;
 }

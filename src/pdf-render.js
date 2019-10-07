@@ -401,20 +401,15 @@
             } else {
               canvas.width = canvas.parentNode.offsetWidth - 6;
             }
-
-            // console.log('==== a canvas width fit to screen ', canvas.width);
-            // console.log('RIGHT SIDE BAR WIDTH ', virtualclass.zoom.getReduceValueForCanvas())
-            // if (!roles.hasControls()) {
-            //   canvas.width += 50; // add left bar's width on canvas width for student
-            // }
+            console.log('==== a canvas width fit to screen ', canvas.width);
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'performZoom')) {
             canvas.width = virtualclass.zoom.canvasDimension.width;
-            // console.log('==== a canvas width performZoom ', canvas.width);
+            console.log('==== a canvas width performZoom ', canvas.width);
             delete virtualclass.zoom.performZoom;
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'canvasDimension')) {
             // console.log(`==== a canvas width dimension ${virtualclass.zoom.canvasDimension.width} scale=${virtualclass.zoom.canvasScale}`);
             canvas.width = virtualclass.zoom.canvasDimension.width;
-            // console.log('==== a canvas width  ', canvas.width);
+            console.log('==== a canvas width  ', canvas.width);
 
             // } else if(canvas.offsetWidth === 0 && document.querySelector('#virtualclassApp').style.display === "none"){
           } else if (canvas.offsetWidth === 0 || canvas.offsetWidth === 300 || virtualclass.isPlayMode) {
@@ -446,7 +441,7 @@
               viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
               //console.log('==== a jai canvas scale 1 ', canvas.width, ' ', page.getViewport(1.0).width);
               // virtualclass.zoom.canvasScale =  viewport.scale;
-              // console.log('==== a canvas width scale', canvas.width);
+              console.log('==== a canvas width scale', canvas.width);
             } else {
               viewport = page.getViewport(scale);
               //console.log('==== a jai canvas scale 2');
@@ -455,7 +450,7 @@
 
           } else {
             viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
-            // console.log('==== a canvas width scale', canvas.width);
+            console.log('==== a canvas width scale', canvas.width);
             // console.log('====> FIT to screen 2');
             //console.log('==== a jai canvas scale 3 ', canvas.width, ' ', page.getViewport(1.0).width);
           }
@@ -513,21 +508,13 @@
           canvas.parentNode.dataset.pdfrender = true;
           this[wb] = { pdfrender: true };
 
-          // virtualclass.dts[virtualclass.gObj.currWb].showZoom();
-
           virtualclass.vutil.showZoom();
 
           if (firstTime != undefined && virtualclass.gObj.currWb != null) {
             // this.initWhiteboardData(page.wbId);
             this.initWhiteboardData(page.wbId);
           }
-
-          // if (virtualclass.zoom.prvCanvasScale !== virtualclass.zoom.canvasScale) {
-          //   this.fitWhiteboardAtScale(virtualclass.gObj.currWb);
-          // }
-          // virtualclass.wb[virtualclass.gOb.currWb].vcan.renderAll();
-
-
+          
           // displayCb();
           if (typeof this.shownPdf === 'object') {
             io.globallock = false;

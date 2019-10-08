@@ -71,7 +71,7 @@
       toolbarOptions.push(undo);
 
       if (self.imageInsertionUI) {
-        toolbarOptions.push(utils.elt('div', [self.makeButton_('insert-image')], { class: 'vceditor-btn-group' }));
+        toolbarOptions.push(utils.elt('div', [self.makeButton_('insert-image')], { class: 'vceditor-btn-group vceditor-btn-image' }));
       }
 
       const toolbarWrapper = utils.elt('div', toolbarOptions, { class: 'vceditor-toolbar-wrapper' });

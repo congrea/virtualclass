@@ -180,7 +180,7 @@ const otAdapter = (function () {
         }
       } else {
         // SW : 3
-        if (msg.edFrom == virtualclass.gObj.uid) {
+        if (msg.edFrom == virtualclass.gObj.uid && virtualclass.vutil.isRefreshMode()) {
           //    console.log('SW : 3a student ack');
           //  SW : 3a) Msg is received to student (self)
           if (msg.eddata == 'virtualclass-editor-operation') {

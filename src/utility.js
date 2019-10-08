@@ -2448,6 +2448,10 @@
         ioAdapter.sendSpeed(speed);
       }
     },
+
+    isRefreshMode() {
+      return virtualclass.config.makeWebSocketReady;
+    },
   };
   window.vutil = vutil;
 }(window));

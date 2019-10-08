@@ -3043,7 +3043,7 @@
 }
 
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a {
-  padding: 13.5px 19px 9.5px 19px !important;
+  padding: 0.6875rem 1.875rem 0.75rem 1.875rem !important;
   width: 100%;
   float: left;
 }
@@ -3052,12 +3052,14 @@
   padding: 0.6875rem 1.875rem 0.75rem 1.875rem !important;
   line-height: 1.25rem;
 }
+
 #virtualclassCont.congrea #audioWidget .nav > li.videoSwitchCont > a {
-  padding: 0.8125rem 0.9375rem 0.5rem 1.125rem !important;
+  padding: 0.625rem 1.875rem 0.75rem 1.875rem !important;
   line-height: 1.25rem;
 }
+
 #virtualclassCont.congrea #audioWidget .nav > li#appSettingCtrl > a {
-  padding: 0.8125rem 0.9375rem 0.5625rem 1.125rem !important;
+  padding: 0.6875rem 1.875rem 0.75rem 1.875rem !important;
   line-height: 1.25rem;
 }
 

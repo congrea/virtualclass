@@ -150,16 +150,16 @@ function updateOnlineUserText() {
         onlineUser.innerHTML = text;
       }
     } else {
-      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
-        "<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
+      // document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
+      //   "<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
     }
   } else {
     if (virtualclass.settings.info.userlist === true) {
-      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
-        "<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
+      // document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
+      //   "<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
     } else {
-      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
-        "<span class='cgText' id='onlineusertext'>" + 'Users'}</span>`;
+      // document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
+      //   "<span class='cgText' id='onlineusertext'>" + 'Users'}</span>`;
     }
   }
 }

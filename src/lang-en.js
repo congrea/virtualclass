@@ -144,6 +144,7 @@
     NAME: 'NAME',
     Next: 'Next',
     nomdlroot: 'There is no url for momodle root.',
+    normalView: 'Normal view',
     noResultStd: 'You are not permitted to see the result',
     NotAllowedError: 'Webcam is disabled',
     NotFoundError: 'Webcam is not available, or not connected properly.',

@@ -1788,7 +1788,7 @@ this["JST"]["dest_temp/templates/zoomControl.hbs"] = Handlebars.template({"compi
 
   return "<div class=\"zoomControler\"><div class=\"zoomIn\"><span class=\"congtooltip zoomctrtool\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomIn",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-zoonIn\"></i></span></div><div class=\"fitScreen\"><span class=\"congtooltip zoomctrtool\" data-title=\""
+    + "\"><i class=\"icon-zoonIn\"></i></span></div><div class=\"fitScreen\" data-currstate=\"fittoscreen\"><span class=\"congtooltip zoomctrtool\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"fitToScreen",{"name":"getString","hash":{},"data":data}))
     + "\"><i class=\"icon-fitScreen\"></i></span></div><div class=\"zoomOut\"><span class=\"congtooltip zoomctrtool\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomOut",{"name":"getString","hash":{},"data":data}))

@@ -522,7 +522,7 @@
   font-size: 11px;
 }
 
-#virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after, 
+#virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after,
 #virtualclassCont.congrea .zoomOut .congtooltip:hover:after,
 #virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
   border: #ccc solid 1px;
@@ -3323,7 +3323,6 @@
 }
 
 #virtualclassCont.congrea[data-currapp='Whiteboard'] .zoomControler,
-#virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler,
 #virtualclassCont.congrea[data-currapp='ScreenShare'] .zoomControler {
   display: block;
   background-image: none !important;
@@ -3826,14 +3825,14 @@ span#usertab_text {
   /*	margin-right: 5px;*/
 }
 
-#virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp.zoomCtrAdd .zoomControler {
-  display: block !important;
+#virtualclassCont.congrea[data-currapp="ScreenShare"] #virtualclassScreenShare .zoomControler {
+  display: none;
 
 }
 
-#virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp .zoomControler {
-  display: none;
-
+#virtualclassCont.congrea[data-currapp="ScreenShare"] .zoomCtrAdd #virtualclassScreenShare .zoomControler {
+  display: block;
+  background-image: none!important;
 }
 
 #virtualclassCont.congrea div.select {

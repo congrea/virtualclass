@@ -161,7 +161,8 @@ let globalImageData = {};
       triggerFitToScreen(stype) {
         if (stype === 'full' && virtualclass.studentScreen.scale === 1) {
           virtualclass.studentScreen.scale = 1;
-          virtualclass.studentScreen.fitToScreen();
+          // virtualclass.studentScreen.fitToScreen();
+          virtualclass.studentScreen.normalView();
         }
       },
       /**
@@ -255,11 +256,14 @@ let globalImageData = {};
 
           if (fitScreen != null) {
             fitScreen.onclick = function onclick() {
-              virtualclass.studentScreen.fitToScreen();
+              if (fitScreen.dataset.currstate === 'normalview') {
+                virtualclass.studentScreen.normalView();
+              } else {
+                virtualclass.studentScreen.fitToScreen();
+              }
             };
           }
         }
-
         this.szoom = true;
       },
 
@@ -273,7 +277,14 @@ let globalImageData = {};
       },
 
       fitToScreen() {
-        console.log('====> FIT TO SCREEN');
+        const fitToScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
+        if (fitToScreen) {
+          fitToScreen.dataset.currstate = 'normalview';
+          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen .congtooltip');
+          dataTitleElem.dataset.title = virtualclass.lang.getString('normalView');
+        }
+
+        this.setDimension();
         const canvasParentWidth = document.querySelector('#virtualclassScreenShare').offsetWidth;
         this.scale = virtualclass.ss.getScale(virtualclass.ss.canvasOriginalWidth, canvasParentWidth);
         virtualclass.ss.localCanvas.width = canvasParentWidth - 10;
@@ -282,6 +293,28 @@ let globalImageData = {};
         this.addScroll();
       },
 
+      normalView() {
+        const fitToScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
+        if (fitToScreen) {
+          fitToScreen.dataset.currstate = 'fittoscreen';
+          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen .congtooltip');
+          dataTitleElem.dataset.title = virtualclass.lang.getString('fitToScreen');
+        }
+
+        const dimen = this.setDimension();
+        this.scale = virtualclass.ss.getScale(this.base.width, dimen.width);
+        if (this.scale >= 1) {
+          this.scale = 1;
+          virtualclass.ss.localCanvas.width = globalImageData.width;
+          virtualclass.ss.localCanvas.height = globalImageData.height;
+        } else {
+          virtualclass.ss.localCanvas.width = dimen.width;
+          virtualclass.ss.localCanvas.height = dimen.height;
+        }
+
+        renderImage(globalImageData);
+        virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
+      },
 
       zoomOut() {
         this.scale = this.scale / this.SCALE_FACTOR;
@@ -306,12 +339,10 @@ let globalImageData = {};
       //
 
       setDimension() {
-        const dimension = this.getCanvasContainerDimension();
-        let { width } = dimension;
-        let { height } = dimension;
-        width = virtualclass.vutil.getValueWithoutPixel(width);
-        height = virtualclass.vutil.getValueWithoutPixel(height);
-        // this.setCanvasContainerDimension(width, height);
+        const virtualclassScreenShare = document.getElementById('virtualclassScreenShare');
+        const width = virtualclassScreenShare.offsetWidth;
+        const height = virtualclassScreenShare.offsetHeight;
+        this.setCanvasContainerDimension(width, height);
         return { width, height };
       },
 
@@ -335,12 +366,11 @@ let globalImageData = {};
         return { width, height };
       },
 
-      // setCanvasContainerDimension(width, height) {
-
-      // const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
-      // canvaScontainer.style.width = `${width}px`;
-      // canvaScontainer.style.height = `${height}px`;
-      // },
+      setCanvasContainerDimension(width, height) {
+        const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
+        canvaScontainer.style.width = `${width}px`;
+        canvaScontainer.style.height = `${height}px`;
+      },
 
 
       drawImageThroughWorker(dataPack) {

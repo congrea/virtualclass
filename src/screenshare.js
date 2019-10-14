@@ -377,7 +377,6 @@ let globalImageData = {};
         canvaScontainer.style.height = `${height}px`;
       },
 
-
       drawImageThroughWorker(dataPack) {
         if (window.Worker) {
           sdworker.postMessage({

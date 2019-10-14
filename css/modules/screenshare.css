@@ -85,6 +85,10 @@
   /*width: 100%;*/
 }
 
+#virtualclassCont.congrea.teacher video#virtualclassScreenShareLocalVideo {
+  left: -250px;
+}
+
 #virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideo {
   visibility: visible;
 }
@@ -146,8 +150,7 @@
 #virtualclassCont.congrea.student video#virtualclassScreenShareLocalVideo {
   position: absolute;
   visibility: hidden;
-  left: -2000;
-  width: 100%;
+  left: -250px;
 }
 
 #virtualclassCont.congrea #screenController .share button {
@@ -271,6 +274,6 @@
 }
 
 
-#virtualclassCont video#virtualclassScreenShareLocalVideo {
-  width: 100%;
-}
+/*#virtualclassCont video#virtualclassScreenShareLocalVideo {*/
+  /*width: 100%;*/
+/*}*/

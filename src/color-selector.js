@@ -66,7 +66,7 @@
       }
 
       const border = `0.05em solid ${allbg.fcolor}`;
-      const css = `${'#virtualclassCont.congrea #virtualclassOptionsCont .appOptions, #virtualclassCont.congrea #audioWidget'
+      const css = `${'#virtualclassCont.congrea #virtualclassOptionsCont .appOptions '
         + '{border-top:'}${border} !important;}`
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapesTool .tool a'
         + `{border-bottom:${border} !important;}`

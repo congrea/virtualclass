@@ -1159,9 +1159,10 @@
   margin-right: -1px;
 }
 
-#virtualclassCont.congrea.student #speakerPressOnce {
-  width: 25%;
-  /* height: 3rem; */
+#virtualclassCont.congrea.student #audioWidget #mainAudioPanel li {
+  width: 25%;	  width: 31%;
+  text-align: center;
+  display: inline-block;
 }
 
 /*#virtualclassCont.congrea #chat_div .controleCont, #virtualclassCont.congrea #chat_div .controleCont {*/
@@ -2978,8 +2979,10 @@
 }
 
 @media (min-width: 368px) {
-  #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
+  #virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget #mainAudioPanel {
     float: none !important;
+    padding: 0;
+    margin: 0;
   }
 }
 
@@ -3042,8 +3045,9 @@
 
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a {
   padding: 0.6875rem 1.875rem 0.75rem 1.875rem !important;
-  width: 100%;
+  /* width: 100%; */
   float: left;
+  border-left: 0.05em solid #021317 !important;
 }
 
 #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a {
@@ -3139,8 +3143,9 @@
 }
 
 #virtualclassCont.congrea.orginalTeacher #audioWidget #mainAudioPanel li {
-  width: 33.3%; /*changed from 20% as remove some controls */
+  width: 31.3%; /*changed from 20% as remove some controls */
   text-align: center !important;
+  display: inline-block;
 }
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel li {
@@ -3573,8 +3578,8 @@
 }
 
 #virtualclassCont.congrea #audioWidget .congtooltip:hover:after {
-  bottom: 5px;
-  left: 84px;
+  bottom: 55px;
+  left: 10px;
 }
 
 #virtualclassCont.congrea #audioWidget .latency.congtooltip:hover:after {

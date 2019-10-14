@@ -271,7 +271,7 @@
 
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel span#videoSwitch.video.on:before {
+#virtualclassCont.congrea #virtualclassAppFooterPanel span#videoSwitch.video.on:before {
   content: "\e985";
   font-weight: normal;
   font-size: 11px;
@@ -298,7 +298,7 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel .deactive #speakerPressingbtnIcon:before {
+#virtualclassCont.congrea #virtualclassAppFooterPanel .deactive #speakerPressingbtnIcon:before {
   content: "\e983";
   font-weight: normal;
   font-size: 1.25rem;
@@ -306,7 +306,7 @@
   color: red !important;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel .active #speakerPressingbtnIcon:before {
+#virtualclassCont.congrea #virtualclassAppFooterPanel .active #speakerPressingbtnIcon:before {
   content: "\e982";
   font-weight: normal;
   font-size: 1.25rem;
@@ -315,7 +315,7 @@
   z-index: -1;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .audioMute:before {
+#virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget .audioMute:before {
   content: "\e997";
   font-weight: normal;
   font-size: 16px;
@@ -335,7 +335,7 @@
   color: orange !important;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel .deactive #speakerPressingbtnIcon.silenceDetect[data-silence-detect="stop"]:before {
+#virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget #mainAudioPanel #speakerPressingbtnIcon.silenceDetect[data-silence-detect="stop"]:before {
   content: "\e983";
   font-weight: normal;
   font-size: 1.25rem;
@@ -675,7 +675,7 @@
   color: darkgray;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel span#videoSwitch.video.off:before {
+#virtualclassCont.congrea #virtualclassAppFooterPanel span#videoSwitch.video.off:before {
   content: "\e987";
   font-weight: normal;
   font-size: 11px;

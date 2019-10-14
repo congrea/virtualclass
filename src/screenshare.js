@@ -293,7 +293,7 @@ let globalImageData = {};
         const fitToScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
         if (fitToScreen) {
           fitToScreen.dataset.currstate = 'normalview';
-          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen .congtooltip');
+          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen.congtooltip');
           dataTitleElem.dataset.title = virtualclass.lang.getString('normalView');
         }
 
@@ -310,7 +310,7 @@ let globalImageData = {};
         const fitToScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
         if (fitToScreen) {
           fitToScreen.dataset.currstate = 'fittoscreen';
-          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen .congtooltip');
+          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen.congtooltip');
           dataTitleElem.dataset.title = virtualclass.lang.getString('fitToScreen');
         }
 
@@ -383,7 +383,7 @@ let globalImageData = {};
       },
 
       setCanvasContainerDimension(width, height) {
-        return;
+        
         const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
         canvaScontainer.style.width = `${width}px`;
         canvaScontainer.style.height = `${height}px`;

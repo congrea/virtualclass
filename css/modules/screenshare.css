@@ -82,7 +82,7 @@
 #virtualclassCont.congrea.teacher #virtualclassScreenShareLocalVideo {
   position: absolute;
   visibility: hidden;
-  width: 100%;
+  /*width: 100%;*/
 }
 
 #virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideo {

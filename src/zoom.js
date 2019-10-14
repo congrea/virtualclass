@@ -157,28 +157,10 @@
         delete virtualclass.zoom.performZoom;
         const wid = virtualclass.gObj.currWb;
         if (typeof virtualclass.pdfRender[wid] !== 'undefined') {
-          // console.log('--Pdf render start----------');
-          const { page } = virtualclass.pdfRender[wid];
           const { canvas } = virtualclass.wb[virtualclass.gObj.currWb].vcan.main;
-
-          const virtualclassCont = document.querySelector('#virtualclassCont');
-          if (virtualclassCont != null) {
-            var containerWidth = virtualclassCont.offsetWidth;
-          } else {
-            var containerWidth = window.innerWidth;
-          }
-
-          // const wrapperWidth = (containerWidth - this.getReduceValueForCanvas());
           const wrapperWidth = document.querySelector(".canvasWrapper").offsetWidth;
           // console.log(`==== wrapperWidth ${wrapperWidth}`);
           try {
-            // const tempviewport = page.getViewport(1);
-            // virtualclass.zoom.fitToScreenWidth = tempviewport.width;
-            // virtualclass.zoom.prvWhiteboard = virtualclass.gObj.currWb;
-
-            // const viewport = page.getViewport((+(wrapperWidth)) / page.getViewport(1.0).width);
-            // console.log(`==== PDF width => ${viewport.width} PDF height => ${viewport.height} scale => ${viewport.scale}`);
-            // console.log(`==== PDF temp width => ${tempviewport.width} PDF height => ${tempviewport.height} scale => ${tempviewport.scale}, after scale=${this.canvasScale}`);
             virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
           } catch (error) {
             // console.log(`Error ${error}`);

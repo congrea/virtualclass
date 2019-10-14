@@ -410,10 +410,9 @@
               }
             }
 
-            if(virtualclass.currApp === "ScreenShare") {
-              virtualclass.zoom.zoomAction('fitToScreen');
+            if (virtualclass.currApp === 'ScreenShare') {
+              virtualclass.ss.triggerFitToScreen();
             }
-
           });
         }
 

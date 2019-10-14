@@ -329,9 +329,13 @@
       }
       virtualclass.gObj.fitToScreenOnResize = setTimeout(
         () => {
-          const fitToscreen = document.querySelector('.zoomControler .fitScreen');
-          if (fitToscreen != null) {
-            fitToscreen.click();
+          if (virtualclass.currApp === 'ScreenShare') {
+            virtualclass.ss.triggerFitToScreen();
+          } else {
+            const fitToscreen = document.querySelector('.zoomControler .fitScreen');
+            if (fitToscreen != null) {
+              fitToscreen.click();
+            }
           }
         }, 700,
       );

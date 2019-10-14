@@ -62,7 +62,8 @@ let globalImageData = {};
           virtualclass.studentScreen.base.width = 0;
           virtualclass.studentScreen.setDimension();
           renderImage(imageData);
-          virtualclass.studentScreen.triggerFitToScreen(e.data.stype);
+          // virtualclass.studentScreen.triggerFitToScreen(e.data.stype);
+          virtualclass.studentScreen.triggerNormalView(e.data.stype);
           const teacher = virtualclass.vutil.getUserAllInfo(e.data.uid, virtualclass.connectedUsers);
           if ((teacher && teacher.role !== 't' && roles.isStudent() && !virtualclass.gObj.studentSSstatus.shareToAll)) {
             receiveFunctions.sview({ message: 'firstSs' });
@@ -158,7 +159,7 @@ let globalImageData = {};
         }
       },
 
-      triggerFitToScreen(stype) {
+      triggerNormalView(stype) {
         if (stype === 'full' && virtualclass.studentScreen.scale === 1) {
           virtualclass.studentScreen.scale = 1;
           // virtualclass.studentScreen.fitToScreen();
@@ -303,14 +304,17 @@ let globalImageData = {};
 
         const dimen = this.setDimension();
         this.scale = virtualclass.ss.getScale(this.base.width, dimen.width);
-        if (this.scale >= 1) {
-          this.scale = 1;
-          virtualclass.ss.localCanvas.width = globalImageData.width;
-          virtualclass.ss.localCanvas.height = globalImageData.height;
-        } else {
-          virtualclass.ss.localCanvas.width = dimen.width;
-          virtualclass.ss.localCanvas.height = dimen.height;
-        }
+        // if (this.scale >= 1) {
+        //   this.scale = 1;
+        //   virtualclass.ss.localCanvas.width = globalImageData.width;
+        //   virtualclass.ss.localCanvas.height = globalImageData.height;
+        // } else {
+        //   virtualclass.ss.localCanvas.width = dimen.width;
+        //   virtualclass.ss.localCanvas.height = dimen.height;
+        // }
+        this.scale = 1;
+        virtualclass.ss.localCanvas.width = globalImageData.width;
+        virtualclass.ss.localCanvas.height = globalImageData.height;
 
         renderImage(globalImageData);
         virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
@@ -367,6 +371,7 @@ let globalImageData = {};
       },
 
       setCanvasContainerDimension(width, height) {
+        return;
         const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
         canvaScontainer.style.width = `${width}px`;
         canvaScontainer.style.height = `${height}px`;
@@ -1328,6 +1333,13 @@ let globalImageData = {};
         }
         // virtualclass.gObj.studentSSstatus.shareToAll = true;
         // virtualclass.gObj.studentSSstatus.sharing = true;
+      },
+
+      triggerFitToScreen() {
+        const fitToScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
+        if (fitToScreen != null && fitToScreen.dataset.currstate === 'normalview'){
+          virtualclass.zoom.zoomAction('fitToScreen');
+        }
       },
     };
   };

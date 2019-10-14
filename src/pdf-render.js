@@ -365,6 +365,7 @@
           virtualclass.gObj.fitToScreen = true;
           if (this.firstTime) {
             virtualclass.gObj.pdfWidthChanged = true;
+            console.log('====> original ', virtualclass.zoom.prvPdfDimension);
           }
         }
 
@@ -514,7 +515,7 @@
             // this.initWhiteboardData(page.wbId);
             this.initWhiteboardData(page.wbId);
           }
-          
+
           // displayCb();
           if (typeof this.shownPdf === 'object') {
             io.globallock = false;

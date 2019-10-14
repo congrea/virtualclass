@@ -1536,10 +1536,10 @@
         document.querySelector('#stickybar').style.width = leftBarWidth;
       },
 
-      chatBarTabWidth() {
-        const rightBarWidth = (document.querySelector('#virtualclassApp #virtualclassAppRightPanel').offsetWidth) + 'px';
-        document.querySelector('.chatBarTab').style.width = rightBarWidth;
-      },
+      // chatBarTabWidth() {
+      //   const rightBarWidth = (document.querySelector('#virtualclassApp #virtualclassAppRightPanel').offsetWidth) + 'px';
+      //   document.querySelector('.chatBarTab').style.width = rightBarWidth;
+      // },
 
       removeSharingClass() {
         const virtualclassCont = document.querySelector('#virtualclassCont');

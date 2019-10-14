@@ -122,7 +122,8 @@
     },
 
     makeThemeReadyMainCont(frontColor, allbg, active, hover) {
-      const css = `${'#virtualclassCont.congrea .ui-widget-header'
+      const css = `${'#virtualclassCont.congrea .ui-widget-header, '
+        + '#virtualclassCont.congrea #virtualclassAppFooterPanel'
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
 
         + '#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn'
@@ -286,8 +287,6 @@
       const css = `${'#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText,'
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget'
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important}`
-        + '#virtualclassCont.congrea #chatWidget .chatBarTab'
-        + `{background: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important}`
 
         + '#virtualclassCont.congrea #stickycontainer .inner_bt:hover, '
         + '#virtualclassCont.congrea #stickycontainer .stdRaiseHand:hover, '

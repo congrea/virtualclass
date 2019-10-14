@@ -344,7 +344,7 @@
     }
 
     virtualclass.chat.calculateViewPortForMessageBox();
-    virtualclass.stickybarWidth();
+    // virtualclass.stickybarWidth();
     virtualclass.chatBarTabWidth();
   };
 

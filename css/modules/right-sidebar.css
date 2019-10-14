@@ -38,12 +38,9 @@ body {
   height: 100%;
 }
 
-#virtualclassCont.congrea #chatWidget .chatBarTab {
-  background-color: #4c5963;
-  height: 2.75rem;
-  position: fixed;
-  width: 320px;
-  bottom: 0;
+#virtualclassCont.congrea .chatBarTab {
+  margin: 0;
+  padding: 0;
   z-index: 1000;
 }
 
@@ -645,10 +642,7 @@ body {
   content: "\e971";
   font-size: 1.125rem;
   font-family: 'icomoon';
-  line-height: 19px;
   color: #fff;
-  margin: 0.0625rem 0 -0.1875rem -1.4375rem;
-  position: absolute;
 }
 
 #virtualclassCont.congrea.student #rightSubContainer a.inner_bt {
@@ -664,7 +658,7 @@ body {
 }
 
 #virtualclassCont.congrea a.inner_bt {
-  padding: 12px 0;
+  padding: 10.5px 14px;
 }
 
 #virtualclassCont.congrea a.inner_bt span#usertab_text {

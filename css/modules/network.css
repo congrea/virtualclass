@@ -1,6 +1,6 @@
 #virtualclassCont.congrea #networkStatusContainer {
-  position: relative;
-  top: -44px;
+  position: absolute;
+  top: 0;
   width: 3.125rem;
   float: right;
   border-right: 0.05em solid #021317 !important;

@@ -261,7 +261,7 @@
 }
 
 #virtualclassCont.congrea.student .vmchat_room_bt {
-  width: 42%;
+  width: 25%;
   height: 2.75rem
 }
 
@@ -567,7 +567,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea .vmchat_bar_button {
   border-right: none;
-  /*width:130px;*/
+  width: 33.3%;
   cursor: pointer;
   display: inline-block;
 }
@@ -788,7 +788,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 }
 
 #virtualclassCont.congrea.student .vmchat_bar_button {
-  width: 42%;
+  width: 25%;
   height: 2.75rem;
 }
 

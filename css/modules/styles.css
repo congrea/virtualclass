@@ -3559,6 +3559,7 @@
 
 #virtualclassCont.congrea .vmchat_room_bt.congtooltip {
   display: inline-block;
+  width: 33.3%;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .table-responsive {
@@ -3590,10 +3591,8 @@
 /*}*/
 
 #virtualclassCont.congrea #congHr.enable {
-  width: 16%;
-  position: relative;
-  left: 0;
-  top: 0;
+  width: 25%;
+  display: inline-block;
   cursor: pointer;
   border-radius: 0;
 }
@@ -3642,8 +3641,6 @@
 }
 
 #virtualclassCont.congrea #icHr {
-  display: inline;
-  position: absolute;
   font-size: 0.875rem;
 }
 
@@ -3786,7 +3783,8 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
-  width: 130px;
+  padding: 11px 14px;
+  display: block;
 }
 
 #virtualclassCont.congrea.playMode .vceditor-toolbar-wrapper {

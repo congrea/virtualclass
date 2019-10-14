@@ -553,7 +553,7 @@ body {
   line-height: 10px;
 }
 
-#audioWidget .chatActive .setting-btn:before {
+#appSettingCtrl #appSettingCtrlAnchor .setting-btn:before {
   content: "\e96f";
   font-weight: normal;
   font-size: 1.25rem;

@@ -42,6 +42,8 @@ body {
   margin: 0;
   padding: 0;
   z-index: 1000;
+  display: flex;
+  flex-direction: row;
 }
 
 #virtualclassCont.congrea.playMode #rightSubContainer #chatWidget .chatBarTab {
@@ -554,9 +556,9 @@ body {
 }
 
 #appSettingCtrl #appSettingCtrlAnchor .setting-btn:before {
-  content: "\e96f";
+  content: "\e9b0";
   font-weight: normal;
-  font-size: 1.25rem;
+  font-size: 1.0625rem;
   font-family: 'icomoon';
   color: white;
   font-weight: normal;
@@ -639,7 +641,7 @@ body {
 
 #virtualclassCont.congrea a.inner_bt #userlist_icon::before {
   font-weight: normal;
-  content: "\e971";
+  content: "\e9b3";
   font-size: 1.125rem;
   font-family: 'icomoon';
   color: #fff;
@@ -659,6 +661,7 @@ body {
 
 #virtualclassCont.congrea a.inner_bt {
   padding: 10.5px 14px;
+  display: block;
 }
 
 #virtualclassCont.congrea a.inner_bt span#usertab_text {

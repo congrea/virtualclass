@@ -75,10 +75,12 @@
         + '#virtualclassCont.congrea #screenController .share button ,'
         + '#virtualclassCont.congrea #stopScreenShare button ,'
         + '#virtualclassCont.congrea #fullScreenButton ,'
+        + '#virtualclassCont.congrea .vmchat_bar_button ,'
+        + '#virtualclassCont.congrea .vmchat_room_bt.congtooltip ,'
+        + '#virtualclassCont.congrea #congHr ,'
+        + '#virtualclassCont.congrea li#appSettingCtrl ,' 
         + '#virtualclassCont.congrea #fullScreenExitButton '
         + `{border-left: 0.01em solid ${allbg.fcolor}!important;}`
-        // "#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassWhiteboardTool" +
-        // "{border:0 !important;}"+
         + '#virtualclassCont.congrea #audioWidget li'
         + `{border-right:${border} !important;}`
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab, #virtualclassCont.congrea #audioWidget .audioTool, #virtualclassCont.congrea #networkStatusContainer, '
@@ -289,6 +291,7 @@
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important}`
 
         + '#virtualclassCont.congrea #stickycontainer .inner_bt:hover, '
+        + '#virtualclassCont.congrea li#appSettingCtrl a#appSettingCtrlAnchor:hover ,'
         + '#virtualclassCont.congrea #stickycontainer .stdRaiseHand:hover, '
         + '#virtualclassCont.congrea #stickycontainer #contrAudioAll:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel li:hover, '

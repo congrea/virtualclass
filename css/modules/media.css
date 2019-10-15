@@ -263,9 +263,11 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget {
+  height: 60px;
   margin: 0;
   position: absolute;
-  height: 2.75rem;
+  border-top-left-radius: 26px;
+  border-top-right-radius: 26px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

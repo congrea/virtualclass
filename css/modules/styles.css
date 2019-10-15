@@ -1471,7 +1471,7 @@
 
 #virtualclassCont.congrea #errorContainer {
   position: absolute;
-  bottom: 5%;
+  bottom: 50px;
   left: 50%;
   transform: translate(-50%);
   z-index: 10
@@ -2770,7 +2770,8 @@
 /* New CSS */
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a {
-  padding: 11px 18px 12px;
+  padding: 9px 12px 10px 15px;
+  /* color: #484848 !important; */
 }
 
 #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {
@@ -3686,10 +3687,10 @@
   border-bottom: 0px solid rgba(254, 254, 254, 0.2) !important;
 }
 
-#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {
-  border-right: 1px solid rgba(254, 254, 254, 0.2) !important;
+/* #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {
+  border-right: 0.5px solid #b5b5b5 !important;
   color: #fff;
-}
+} */
 
 #virtualclassCont.congrea a.vceditor-btn:active {
   background-color: #28323c;
@@ -4269,6 +4270,11 @@ span#usertab_text {
   border-bottom-left-radius: 5px;
 }
 
+#virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="clearAll"] a {
+  border-bottom-right-radius: 5px;
+  padding: 9px 14px 10px 15px !important;
+}
+
 #virtualclassCont.congrea #DocumentShareDashboard #docsListContainer #listdocs .controls.delete {
   margin-top: 0;
 }
@@ -4443,7 +4449,7 @@ span#usertab_text {
 @media (max-width: 1100px) {
 
   #virtualclassCont.congrea #errorContainer {
-    bottom: 5%;
+    bottom: 50px;
   }
   #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay{
     width: 4.375rem;
@@ -4817,4 +4823,10 @@ and (max-device-width: 1024px) {
   #stickycontainer {
     height: 100%;
     flex: 1;
+  }
+  /* #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover{
+    background-color: #e0e0e0 !important;
+  } */
+  #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool {
+    display: inline-block;
   }

@@ -990,7 +990,7 @@
 }
 
 #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher #docShareNav {
-  display: none;
+  display: block;
   position: absolute;
   right: 109px;
   bottom: 0px;

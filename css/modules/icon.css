@@ -212,6 +212,7 @@
 #virtualclassCont.congrea #chatroom_icon .icon-chatroom:before {
   content: "\e9b4";
   font-size: 1rem;
+  color: #ffffff;
 }
 
 #virtualclassCont.congrea .ui-memblist-usr .icon-assignImg:before {
@@ -353,6 +354,7 @@
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-freeDrawing:before {
   content: "\f040";
+  /* color: #484848 !important; */
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-oval:before {
@@ -365,6 +367,7 @@
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-text:before {
   content: "\e60e";
+  /* color: #484848 !important; */
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-activeAll:before {
@@ -813,6 +816,7 @@
 #virtualclassCont.congrea .icon-color:before {
   content: "\e254";
   font-size: 19px;
+  color: #444444 !important;
 }
 
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:before {
@@ -821,6 +825,7 @@
 
 #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon .icon-shapes.cgIcon:before {
   font-size: 21px;
+  /* color: #484848 !important; */
 }
 
 #virtualclassCont.congrea #fullScreenButton span .icon-fullScreen:before {

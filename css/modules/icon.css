@@ -303,7 +303,18 @@
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
+  color: #fff !important;
+}
+
+#virtualclassCont.congrea #virtualclassAppFooterPanel .deactive #speakerPressingbtnIcon::after {
+  content: "\f00e";
+  font-weight: normal;
+  font-size: 0.9375rem;
+  font-family: 'icomoon';
   color: red !important;
+  position: absolute;
+  bottom: 9px;
+  right: 20px;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel .active #speakerPressingbtnIcon:before {
@@ -311,7 +322,7 @@
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
-  color: #06cc08 !important;
+  color: #fff !important;
   z-index: -1;
 }
 
@@ -335,12 +346,12 @@
   color: orange !important;
 }
 
-#virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget #mainAudioPanel #speakerPressingbtnIcon.silenceDetect[data-silence-detect="stop"]:before {
-  content: "\e983";
+#virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget #mainAudioPanel .dactive #speakerPressingbtnIcon.silenceDetect[data-silence-detect="stop"]:before {
+  content: "\e979";
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
-  color: red !important;
+  color: white !important;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-rectangle:before {
@@ -682,7 +693,18 @@
   color: gray;
   font-family: 'icomoon';
   font-size: 1.4375rem;
-  color: red;
+  color: #fff;
+}
+
+#virtualclassCont.congrea #virtualclassAppFooterPanel span#videoSwitch.video.off::after {
+  content: "\f00e";
+  font-weight: normal;
+  font-size: 0.9375rem;
+  font-family: 'icomoon';
+  color: red !important;
+  position: absolute;
+  bottom: 9px;
+  right: 20px;
 }
 
 #virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel span#videoSwitch.video.on:before {

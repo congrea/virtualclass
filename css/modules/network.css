@@ -133,6 +133,5 @@
 #virtualclassCont.congrea #virtualclassAppFooterPanel #networkLatency:hover::after {
   position: absolute;
   bottom: 50px;
-  right: 1px;
-  /* z-index: 88888888888888888; */
+  /* right: 1px; */
 }

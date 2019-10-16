@@ -256,16 +256,28 @@ let globalImageData = {};
           }
 
           if (fitScreen != null) {
-            fitScreen.onclick = function onclick() {
-              if (fitScreen.dataset.currstate === 'normalview') {
-                virtualclass.studentScreen.normalView();
-              } else {
-                virtualclass.studentScreen.fitToScreen();
-              }
-            };
+            fitScreen.addEventListener('click', this.triggerFitControl.bind(this));
           }
         }
         this.szoom = true;
+      },
+
+      triggerFitControl() {
+        const fitScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
+        if (this.doOpposite) {
+          if (fitScreen.dataset.currstate === 'normalview') {
+            virtualclass.studentScreen.fitToScreen();
+          } else {
+            virtualclass.studentScreen.normalView();
+          }
+          delete this.doOpposite;
+        } else {
+          if (fitScreen.dataset.currstate === 'normalview') {
+            virtualclass.studentScreen.normalView();
+          } else {
+            virtualclass.studentScreen.fitToScreen();
+          }
+        }
       },
 
       zoomIn() {

@@ -382,9 +382,6 @@
               chat_div.classList.add("collapsedRightbar");
               localStorage.setItem('hideRightbar',true);
               virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
-              virtualclass.zoom.fitToScreen();
-              virtualclass.stickybarWidth();
-              virtualclass.chatBarTabWidth();
               if (roles.isStudent()) {
                 ioAdapter.sendSpeed(3);
               }
@@ -395,9 +392,6 @@
               elem.classList.remove("collapsedRightbar");
               elem.classList.add("openRightbar");
               chat_div.classList.remove("collapsedRightbar");
-              virtualclass.zoom.fitToScreen();
-              virtualclass.stickybarWidth();
-              virtualclass.chatBarTabWidth();
               if (roles.isStudent()) {
                 if (virtualclass.system.device === 'desktop') {
                   ioAdapter.sendSpeed(1);
@@ -409,6 +403,15 @@
                 }
               }
             }
+
+            if (virtualclass.currApp === 'ScreenShare') {
+              virtualclass.studentScreen.doOpposite = true;
+              virtualclass.studentScreen.triggerFitControl();
+            } else {
+              virtualclass.zoom.fitToScreen();
+            }
+            virtualclass.stickybarWidth();
+            virtualclass.chatBarTabWidth();
 
             if (virtualclass.currApp === 'ScreenShare') {
               virtualclass.ss.triggerFitToScreen();

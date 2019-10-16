@@ -50,13 +50,16 @@
 
         const fitScreen = elem.querySelector('.fitScreen');
         fitScreen.addEventListener('click', () => {
-          that.zoomAction('fitToScreen');
+          // that.zoomAction('fitToScreen');
+          const zoomControler = document.querySelector('#virtualclassAppLeftPanel .zoomControler .fitScreen');
+          if (zoomControler != null) {
+            if (zoomControler.dataset.currstate === 'fittopage') {
+              that.zoomAction('fitToPage');
+            } else {
+              that.zoomAction('fitToScreen');
+            }
+          }
         });
-
-        // var reload = elem.querySelector('.reloadNote');
-        // reload.addEventListener('click', function (){
-        //     that.zoomAction('reload');
-        // });
       },
 
 
@@ -127,7 +130,6 @@
         if (actualWidth <= wrapperWidth) {
           wrapper.classList.remove('scrollX');
         }
-
         virtualclass.pdfRender[wid]._zoomOut.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
 
         // if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
@@ -135,21 +137,6 @@
         //     zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height / virtualclass.gObj.SCALE_FACTOR;
         // }
         //
-      },
-
-      getReduceValueForCanvas() {
-        const withoutScroll = 382;
-        const withScroll = 372;
-        if (virtualclass.pdfRender[virtualclass.gObj.currWb].firstTime) {
-          return withoutScroll;
-        } else {
-          const canvas = document.querySelector(`#canvas${virtualclass.gObj.currWb}`);
-          if (canvas != null && canvas.parentNode != null) {
-            // 382 = rightside bar + scroll + left app bar
-            // 372 = rightside bar + left app bar
-            return (canvas.parentNode.scrollHeight > canvas.parentNode.clientHeight) ? withoutScroll : withScroll;
-          }
-        }
       },
 
       fitToScreen() {
@@ -166,6 +153,12 @@
             // console.log(`Error ${error}`);
           }
         }
+      },
+
+      fitToPage() {
+        virtualclass.zoom.performFitToPage = true;
+        const wid = virtualclass.gObj.currWb;
+        virtualclass.pdfRender[wid].innerFitToPage.call(virtualclass.pdfRender[wid], wid);
       },
 
       reload() {

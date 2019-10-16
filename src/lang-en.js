@@ -101,6 +101,7 @@
     filenotsave: 'Your file could not be saved.',
     filetsaveTS: 'The session is ready to save.',
     Finish: 'Finish',
+    fitToPage: 'Fit to page',
     fitToScreen: 'Fit to screen',
     Freehand: 'Free hand',
     general: 'General',

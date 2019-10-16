@@ -86,7 +86,7 @@
 }
 
 #virtualclassCont.congrea.teacher video#virtualclassScreenShareLocalVideo {
-  left: -250px;
+  left: -300px;
 }
 
 #virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideo {
@@ -150,7 +150,7 @@
 #virtualclassCont.congrea.student video#virtualclassScreenShareLocalVideo {
   position: absolute;
   visibility: hidden;
-  left: -250px;
+  left: 300px;
 }
 
 #virtualclassCont.congrea #screenController .share button {

@@ -1638,8 +1638,8 @@
 
         if (localStorage.getItem('prevApp') == null) {
           if (roles.hasControls()) {
-            // virtualclass.vutil.videoHandler();
-            virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off');
+            // true is passed, because, we don't want to pass video control on precheck
+            virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off', true);
           } else if (virtualclass.gObj.meetingMode) {
             virtualclass.vutil.videoHandler('off');
           }

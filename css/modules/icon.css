@@ -212,7 +212,6 @@
 #virtualclassCont.congrea #chatroom_icon .icon-chatroom:before {
   content: "\e9b4";
   font-size: 1rem;
-  color: #ffffff;
 }
 
 #virtualclassCont.congrea .ui-memblist-usr .icon-assignImg:before {
@@ -816,7 +815,7 @@
 #virtualclassCont.congrea .icon-color:before {
   content: "\e254";
   font-size: 19px;
-  color: #444444 !important;
+
 }
 
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:before {

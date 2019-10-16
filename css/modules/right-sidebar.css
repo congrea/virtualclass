@@ -895,13 +895,6 @@ body {
 
 #virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass.whiteboard .commandToolsWrapper {
   z-index: 100;
-  width: fit-content;
-  max-height: 44px;
-  box-shadow: 0px 1px 4px 1px #c3c3c3;
-  border-bottom: 1px solid #b5b5b5;
-  left: calc(50% - 213px);
-  /* background-image: linear-gradient(to bottom, #f5f5f5 0%,#f5f5f5 100%) !important; */
-  border-bottom-right-radius: 5px;
 }
 
 /*#virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioImg, #virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioDisImg {*/
@@ -979,8 +972,4 @@ body {
 
 #virtualclassCont.playMode .footerCtr {
   z-index: 0;
-}
-
-#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a{
-  border-right: 0.01em solid #afafaf!important;
 }

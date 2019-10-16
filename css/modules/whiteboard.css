@@ -206,12 +206,11 @@
 
 #virtualclassCont.congrea .shapesToolbox {
   color: #fff;
-  /* float: left; */
+  float: left;
   position: relative;
   z-index: 100000;
   border-right: 0.01em solid #021317 !important;
   cursor: pointer;
-  display: inline-block;
 }
 
 #virtualclassCont.congrea .shapesToolbox .shapes_icon .congtooltip:hover::after {
@@ -259,9 +258,8 @@
 }
 
 #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a {
-  padding: 9px 12px 10px 15px;
-  /* border-right: 0.01em solid #afafaf !important;
-  border-left: 0.01em solid #afafaf !important; */
+  padding: 12px 12px 11px 15px;
+  border-left: 0.01em solid #021317 !important;
 }
 
 /*#virtualclassCont.congrea .shapesToolbox .shapes_icon .icon-shapes.cgIcon:before {*/
@@ -282,7 +280,7 @@
 
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:after {
   content: "\e967";
-  color: #484848 !important;
+  color: #fff;
   font-size: 15px;
 }
 
@@ -376,7 +374,7 @@
 #virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="font"] a, #virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="stroke"] a {
   font-size: 17px;
   padding-top: 13px !important;
-  padding-bottom: 11px !important;
+  padding-bottom: 15px !important;
 }
 
 #virtualclassCont.congrea ul.fontSizeList span:hover {
@@ -483,7 +481,7 @@
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="color"] a {
-  padding: 5px 21px 14px 21px !important;
+  padding: 5px 21px 18px 21px !important;
 }
 
 /* CSS for Firefox only */

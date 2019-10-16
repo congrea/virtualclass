@@ -3159,15 +3159,15 @@
 }
 
 #virtualclassCont.congrea.orginalTeacher #audioWidget #mainAudioPanel li#speakerPressOnce {
-  margin: 6px 6px 6px 15px;
+  margin: 8px 6px 6px 15px;
 }
 
 #virtualclassCont.congrea.orginalTeacher #audioWidget #mainAudioPanel li.videoSwitchCont {
-  margin: 6px 15px 6px 6px;
+  margin: 8px 15px 6px 6px;
 }
 
 #virtualclassCont.congrea li#appSettingCtrl {
-  width: 33.3%;
+  width: 25%;
   text-align: center !important;
   cursor: pointer;
 }
@@ -3591,7 +3591,7 @@
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.congtooltip {
-  width: 33.3%;
+  width: 25%;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .table-responsive {
@@ -4822,7 +4822,9 @@ and (max-device-width: 1024px) {
 
   #stickycontainer {
     height: 100%;
-    flex: 1;
+    width: 35%;
+    max-width: 320px;
+    min-width: 190px;
   }
   /* #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover{
     background-color: #e0e0e0 !important;

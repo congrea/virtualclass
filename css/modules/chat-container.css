@@ -93,14 +93,11 @@ div.ui-memblist-usr .user-details .media-object {
   display: block;
   text-align: center;
   font-size: 14px;
-  opacity: 0.8;
-  border: solid 1px transparent;
-  border-radius: 20%;
-  width: 3.125rem;
-  height: auto;
+  border-radius: 30px;
+  width: 2.5rem;
+  height: 2.5rem;
   margin: 0.3125rem 0.3125rem 0.3125rem 0.125rem;
   object-fit: cover;
-  padding: 0.6875rem 0;
 }
 
 div.ui-memblist-usr .user-details img.media-object {
@@ -296,7 +293,7 @@ span.icon-stdscreenImg[data-dcolor="blue"]::before {
 /*** jquery.ui.chatbox. start HERE ***/
 
 .user-details .usern .media-heading {
-  color: #3585d5;
+  color: #1e2c30;
   letter-spacing: 0.5px;
 }
 
@@ -343,8 +340,9 @@ span.icon-stdscreenImg[data-dcolor="blue"]::before {
   pointer-events: none !important;
   position: absolute;
   top: 0;
-  width: 98%;
-  background-image: linear-gradient(120deg, #fff 0%, #d1e8f6 100%);
+  right: 0;
+  width: 99%;
+  background-color: #e5e7e7;
 }
 
 .text {
@@ -377,6 +375,7 @@ div.ui-memblist-usr {
 /** right-sidebar.css end **/
 div.ui-memblist-usr .user-details a .media-object {
   float: left;
+  line-height: 2.5rem;
 }
 
 .user-details a {

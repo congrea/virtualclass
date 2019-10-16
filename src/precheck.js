@@ -88,7 +88,7 @@ const preCheck = {
 
     virtualclass.gObj.precheckScrn = false;
     virtualclass.precheck.afterComplete();
-    virtualclass.stickybarWidth();
+    // virtualclass.stickybarWidth();
     // virtualclass.chatBarTabWidth();
   },
 
@@ -574,7 +574,7 @@ const preCheck = {
       // localStorage.setItem('precheck', true);
       virtualclass.videoHost._resetPrecheck();
       virtualclass.precheck.afterComplete();
-      virtualclass.stickybarWidth();
+      // virtualclass.stickybarWidth();
       // virtualclass.chatBarTabWidth();
     },
 

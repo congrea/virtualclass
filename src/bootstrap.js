@@ -202,7 +202,7 @@
       // we can not make this synchronous, because after this,
       // we are connecting the web socket
     }
-    virtualclass.stickybarWidth();
+    // virtualclass.stickybarWidth();
     // virtualclass.chatBarTabWidth();
   };
 

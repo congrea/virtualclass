@@ -567,8 +567,12 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea .vmchat_bar_button {
   border-right: none;
-  width: 33.3%;
+  width: 25%;
   cursor: pointer;
+}
+
+#virtualclassCont.congrea ul.chatBarTab li.active span:before {
+  text-shadow: #FFF 0px 0px 2px;
 }
 
 #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea[data-currapp="EditorCode"] .vmchat_bar_button {
@@ -836,6 +840,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 #virtualclassCont.congrea #stickybar {
   width: 100%; /*changed from 325px */
   position: relative;
+  flex: 1;
 }
 
 #virtualclassCont.congrea .ui-state-default .ui-tabs-anchor,
@@ -847,6 +852,32 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea .chat_enabled #memlist.enable {
   display: block;
+}
+
+#virtualclassCont.congrea .ui-widget-content.ui-memblist-content:before {
+  font-weight: normal;
+  content: "\e9b3";
+  font-size: 4.0625rem;
+  font-family: 'icomoon';
+  color: #000;
+  position: absolute;
+  top: 49%;
+  left: 36%;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+#virtualclassCont.congrea .ui-chatroom:before {
+  font-weight: normal;
+  content: "\e9b4";
+  font-size: 3.875rem;
+  font-family: 'icomoon';
+  color: #000;
+  position: absolute;
+  top: 50%;
+  left: 34%;
+  opacity: 0.1;
+  z-index: 1;
 }
 
 #virtualclassCont.congrea .chat_enabled #chatrm.enable {

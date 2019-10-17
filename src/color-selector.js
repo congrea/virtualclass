@@ -178,16 +178,7 @@
         + '#virtualclassCont.congrea .cgIcon:before'
         + `{color:${frontColor}!important}`
 
-        + '#virtualclassCont.congrea #docShareNav #totalPages'
-        + `{color:${frontColor}!important}`
-
-      //            "#virtualclassCont.congrea #dcPaging .noteIndex"+
-      //            "{color:"+frontColor+"!important}"+
-
         + '#virtualclassCont.congrea #docShareNav .pageNav'
-        + `{color:${frontColor}!important}`
-
-        + '#virtualclassCont.congrea #docShareNav #dcPaging #stdPageNo'
         + `{color:${frontColor}!important}`
 
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a'

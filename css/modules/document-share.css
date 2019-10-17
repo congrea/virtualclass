@@ -985,16 +985,20 @@
   display: none
 }
 
-#virtualclassCont.congrea #docShareNav {
-  display: none
+#virtualclassCont.congrea #docShareNav #addNewPage {
+  background-color: #0c1e22;
+  padding: 9px 10px 9px 10px;
+  border-radius: 20px;
+  box-shadow: 0px 2px 12px 0px #8a8a8a;
+  margin-right: 8px;
 }
 
 #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher #docShareNav {
   display: block;
   position: absolute;
-  right: 109px;
-  bottom: 0px;
-  padding: 13.5px 16px 14.5px 16px;
+  left: 13px;
+  bottom: 65px;
+  /* padding: 13.5px 16px 14.5px 16px; */
   z-index: 1005;
   font-weight: 300;
 }
@@ -1019,9 +1023,8 @@
 #virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
   display: block;
   position: absolute;
-  bottom: 0px;
-  right: 6.875rem !important;
-  padding: 0.7812rem 1.125rem 0.8437rem 1.125rem;
+  bottom: 54px;
+  left: 13px;
   z-index: 1005;
 }
 
@@ -1039,12 +1042,12 @@
 }
 
 .congrea #stdPageNo {
-  color: white;
+  color: #2c393d;
   font-size: 0.875rem;
 }
 
 .congrea #totalPages {
-  color: #fff;
+  color: #2c393d;
   font-size: 14px;
   margin-right: 13px;
 }
@@ -1107,8 +1110,8 @@
 
 #virtualclassCont.congrea .pageHead {
   position: relative;
-  color: #fff;
-  margin-right: 10px;
+  color: #2c393d;
+  margin-right: 6px;
   font-size: 0.875rem;
 }
 
@@ -1122,8 +1125,12 @@
   cursor: pointer;
 }
 
+#virtualclassCont.congrea .icon-newPage.congtooltip:hover::after {
+  left: 0px;
+}
+
 #virtualclassCont.congrea #pageAnc {
-  color: #fff;
+  color: #2c393d;
   font-size: 14px;
 }
 

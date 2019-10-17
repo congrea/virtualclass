@@ -299,7 +299,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel .deactive #speakerPressingbtnIcon:before {
-  content: "\e97a";
+  content: "\e9c2";
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
@@ -678,7 +678,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel span#videoSwitch.video.off:before {
-  content: "\e985";
+  content: "\e987";
   font-weight: normal;
   color: gray;
   font-family: 'icomoon';

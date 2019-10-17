@@ -11,16 +11,18 @@
 }
 
 div.ui-memblist-usr video {
-  width: 3.125rem;
-  height: 2.375rem;
+  width: 2.5rem;
+  height: 2.5rem;
   margin: 0;
+  border-radius: 30px;
   outline: 1px solid #5a5757;
   margin-left: 2px;
 }
 
 div.ui-memblist-usr .userVideos {
-  width: 3.125rem;
-  height: 2.375rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 30px;
   margin-top: 6px;
   outline: 1px solid #5a5757;
 }
@@ -37,7 +39,6 @@ div.ui-memblist-usr .userVideos {
 div.ui-memblist-usr video,
 div.ui-memblist-usr .userVideos {
   border: #797979 solid 0.5px;
-  border-radius: 20%;
   outline: none;
   margin: 0.3125rem 0.1875rem 0.3125rem 0.1875rem;
 }

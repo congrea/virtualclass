@@ -591,7 +591,14 @@
           } else if (this.submittedTime > this.publishedTime) {
             if (this.closeQuizId && this.closeQuizId === msg.quiz.quizId) {
               this.quizSt = {};
-              this.UI.defaultLayoutForStudent();
+              if (!virtualclass.config.makeWebSocketReady) {
+                if (virtualclass.currApp === 'Quiz') {
+                  this.UI.defaultLayoutForStudent();
+                }
+              } else {
+                this.UI.defaultLayoutForStudent();
+              }
+
             } else {
               const quizBodyContainer = document.getElementById('contQzBody');
               if (quizBodyContainer != null) {
@@ -1142,15 +1149,15 @@
              * Displays the timer in result view from local storage, with or without timer,
              * it was coming from timelimit earlier
              * * */
-            // let timerInfo = localStorage.getItem('quizSt');
-            // if (timerInfo != null) {
-            //   timerInfo = JSON.parse(timerInfo);
-            //   if (Object.keys(timerInfo).length > 0) {
-            //     const elTime = timerInfo.qtime;
-            //     const res = elTime.split(':');
-            //     qtime = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
-            //   }
-            // }
+              // let timerInfo = localStorage.getItem('quizSt');
+              // if (timerInfo != null) {
+              //   timerInfo = JSON.parse(timerInfo);
+              //   if (Object.keys(timerInfo).length > 0) {
+              //     const elTime = timerInfo.qtime;
+              //     const res = elTime.split(':');
+              //     qtime = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
+              //   }
+              // }
             const bodyHdCont = document.getElementById('resultQzLayout');
             if (order === 'asc') {
               bodyHdCont.classList.add('elapsedTime');
@@ -1183,7 +1190,7 @@
             elem.appendChild(btnInnerdiv);
             btnInnerdiv.addEventListener('click', virtualclass.quiz.closeQzBt);
 
-           // const storedData = JSON.parse(localStorage.getItem('quizSt'));
+            // const storedData = JSON.parse(localStorage.getItem('quizSt'));
 
             // if (storedData != null && (storedData.qClosed == 'true' || storedData.qClosed)) {
             //   // console.log("Don't run timer when quiz is closed");
@@ -1344,7 +1351,7 @@
             if (resultDiv != null) {
               resultDiv.parentNode.removeChild(resultDiv);
             }
-            
+
             const resPage = virtualclass.view.customCreateElement('div', 'resultDiv');
             msgPage.appendChild(resPage);
 
@@ -1588,7 +1595,7 @@
         if (quizArea != null) {
           quizArea.scrollTop  = 0;
         }
-    }
+      }
     };
     // return _quiz;
   };

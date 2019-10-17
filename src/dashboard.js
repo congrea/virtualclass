@@ -109,12 +109,13 @@ var dashboard = {
 
   dashBoardClickTooltip(Dtype) {
     const dashBoardButton = document.querySelector('#dashboardnav button');
+    const dt = 'data-title';
     if (virtualclass.currApp === 'Video') {
-      dashBoardButton.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${Dtype}videoDashboard`));
+      dashBoardButton.parentNode.setAttribute(dt, virtualclass.lang.getString(`${Dtype}videoDashboard`));
     } else if (virtualclass.currApp === 'SharePresentation') {
-      dashBoardButton.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${Dtype}SharePresentationdbHeading`));
+      dashBoardButton.parentNode.setAttribute(dt, virtualclass.lang.getString(`${Dtype}SharePresentationdbHeading`));
     } else if (virtualclass.currApp === 'DocumentShare') {
-      dashBoardButton.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${Dtype}dsDbheading`));
+      dashBoardButton.parentNode.setAttribute(dt, virtualclass.lang.getString(`${Dtype}dsDbheading`));
     } else {
       // console.log('dashboard tooltip not working properly');
     }

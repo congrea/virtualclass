@@ -428,9 +428,11 @@
       },
 
       pollModalClose(pollType) {
+        const pollList = 'displaycoursePollList';
+        const siteList = 'displaysitePollList';
         if (roles.hasControls() && virtualclass.poll.pollState.currScreen
           && virtualclass.poll.pollState.currScreen === 'teacherPublish') {
-          virtualclass.poll.pollState.currScreen = (pollType === 'course') ? 'displaycoursePollList' : 'displaysitePollList';
+          virtualclass.poll.pollState.currScreen = (pollType === 'course') ? pollList : siteList;
         }
 
         const message = virtualclass.lang.getString('pclosetag');
@@ -542,7 +544,8 @@
             virtualclass.modal.removeModal();
           }
         };
-        const modal = document.getElementById('editPollModal') ? document.getElementById('editPollModal') : document.getElementById('qnPopup');
+        const editPoll = document.getElementById('editPollModal');
+        const modal = document.getElementById('editPollModal') ? editPoll : document.getElementById('qnPopup');
         const controls = modal.querySelectorAll('#pollModalBody .controls');
         for (let i = 0; i < controls.length; i++) {
           controls[i].addEventListener('click', attachInit);
@@ -1752,6 +1755,8 @@
 
 
         const modalClose = document.getElementById('modalClose');
+        const dCoursePollList = 'displaycoursePollList';
+        const dSitePollList = 'displaysitePollList';
         if (modalClose) {
           modalClose.addEventListener('click', () => {
             const modal = document.querySelector('#editPollModal');
@@ -1761,7 +1766,7 @@
             if (roles.hasControls() && pollType && virtualclass.poll.pollState.currScreen
               && virtualclass.poll.pollState.currScreen === 'teacherPublish'
             ) {
-              virtualclass.poll.pollState.currScreen = (pollType === 'course') ? 'displaycoursePollList' : 'displaysitePollList';
+              virtualclass.poll.pollState.currScreen = (pollType === 'course') ? dCoursePollList : dSitePollList;
             }
           });
 
@@ -1853,7 +1858,8 @@
         virtualclass.poll.currResultView = 'bar';
 
         if (isTimer) {
-          const [hour, min, sec] = virtualclass.vutil.miliSecondsToFormatedTime(virtualclass.poll.setting.time.totalInSeconds * 1000);
+          const timeInSec = virtualclass.poll.setting.time.totalInSeconds;
+          const [hour, min, sec] = virtualclass.vutil.miliSecondsToFormatedTime(timeInSec * 1000);
           virtualclass.poll.remainingTimer({ hour, min, sec }); // not in ui
         } else {
           virtualclass.poll.elapsedTimer();

@@ -144,7 +144,9 @@
     for (const key in data) {
       form_data.append(key, data[key]);
     }
-    const method = (virtualclass.currApp !== 'SharePresentation') ? '&methodname=update_content' : '&methodname=update_content_video';
+    const updateContent = '&methodname=update_content';
+    const updateContentVideo = '&methodname=update_content_video';
+    const method = (virtualclass.currApp !== 'SharePresentation') ? updateContent : updateContentVideo;
     const path = `${window.webapi}&user=${virtualclass.gObj.uid}${method}`;
     await this.vxhr.post(path, form_data)
       .catch((error) => {
@@ -397,7 +399,8 @@
             virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
             virtualclass.vutil.makeElementActive('#listvideo');
           } else if (this.cthis.type === 'notes') {
-            virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+            const elemSelectors = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+            virtualclass.vutil.makeElementDeactive(elemSelectors);
             virtualclass.vutil.makeElementActive('#listnotes');
           }
 
@@ -425,7 +428,8 @@
             //  virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
             virtualclass.vutil.makeElementActive('#listvideo');
           } else if (cthis.type === 'notes') {
-            // virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+            // virtualclass.vutil.makeElementDeactive(
+            // '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
             virtualclass.vutil.makeElementActive('#listnotes');
           }
 
@@ -504,9 +508,11 @@
             if (cthis.type === 'video') {
               virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
             } else if (cthis.type === 'notes') {
-              virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+              const elemSelectors = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+              virtualclass.vutil.makeElementActive(elemSelectors);
             } else {
-              // virtualclass.vutil.makeElementActive('#SharePresentationDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+              // virtualclass.vutil.makeElementActive(
+              // '#SharePresentationDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
             }
 
             virtualclass.vutil.makeElementActive(`#list${cthis.type}`);

@@ -126,12 +126,12 @@
       },
       moveUpInList() {
         const ctrEn = chatContainerEvent.elementFromShadowDom('.controllerRaiseH', 'all');
-
+        const membList = '.ui-memblist-usr';
         for (let i = 0; i < ctrEn.length; i++) {
           if (ctrEn[i].classList.contains('enabled')) {
             if (i !== 0) {
               // to simplify
-              ctrEn[i].closest('.ui-memblist-usr').parentNode.insertBefore(ctrEn[i].closest('.ui-memblist-usr'), ctrEn[0].closest('.ui-memblist-usr'));
+              ctrEn[i].closest(membList).parentNode.insertBefore(ctrEn[i].closest(membList), ctrEn[0].closest(membList));
             }
           }
         }
@@ -140,8 +140,9 @@
         // var ctrEn = document.querySelectorAll("#virtualclassCont.congrea .controllerRaiseH.enabled")
         const ctrEn = chatContainerEvent.elementFromShadowDom('.controllerRaiseH.enabled', 'all');
         const userLink = virtualclass.gObj.testChatDiv.shadowRoot.getElementById(`${userid}contRaiseH`);
+        const membList = '.ui-memblist-usr';
         if (ctrEn.length > 0) {
-          userLink.closest('.ui-memblist-usr').parentNode.insertBefore(userLink.closest('.ui-memblist-usr'), ctrEn[ctrEn.length - 1].closest('.ui-memblist-usr').nextSibling);
+          userLink.closest(membList).parentNode.insertBefore(userLink.closest(membList), ctrEn[ctrEn.length - 1].closest(membList).nextSibling);
         }
       },
 

@@ -114,7 +114,8 @@ const preCheck = {
     const test = this[curr].next;
     virtualclass.precheck.currTest = test;
     virtualclass.precheck.updateProgressBar(test);
-    if ((!Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone') || Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone') && test === 'bandwidth')) {
+    if ((!Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone')
+      || Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone') && test === 'bandwidth')) {
       // Only perform the test if it's not already done
       this[test].perform();
     } else {
@@ -641,7 +642,8 @@ const preCheck = {
   },
 
   async afterComplete() {
-    if (Object.prototype.hasOwnProperty.call(virtualclass.precheck, 'mediaStream') && virtualclass.precheck.mediaStream != null) {
+    if (Object.prototype.hasOwnProperty.call(virtualclass.precheck, 'mediaStream')
+      && virtualclass.precheck.mediaStream != null) {
       const track = virtualclass.precheck.mediaStream.getTracks()[0]; // if only one media track
       track.stop();
     }
@@ -661,7 +663,9 @@ const preCheck = {
     }
 
     /** Need for safari for iOS ** */
-    if ((virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'Safari') && Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
+    if ((virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Firefox'
+      || virtualclass.system.mybrowser.name === 'Safari')
+      && Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
       && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
       && virtualclass.media.audio.Html5Audio.audioContext != null) {
       virtualclass.media.audio.Html5Audio.audioContext.close();

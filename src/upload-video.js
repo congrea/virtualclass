@@ -1311,7 +1311,8 @@
 
           const uploadMesssage = document.querySelector('#uploadMsz');
           /** Creating list (li) for displaying the upload video **/
-          const uploadMessageList = document.querySelector('#congreavideoContBody .qq-upload-list-selector.qq-upload-list');
+          const videoContBody = '#congreavideoContBody .qq-upload-list-selector.qq-upload-list';
+          const uploadMessageList = document.querySelector(videoContBody);
           uploadMessageList.style.display = 'block';
 
           let upMsz = document.querySelector('#uploadMsz div');

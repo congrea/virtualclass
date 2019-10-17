@@ -312,7 +312,8 @@
 
     isPacketInSerial(file) {
       if (this.prevFile != null) {
-        return (this.orginalListOfFiles[this.prevFile].next === file || this.orginalListOfFiles[this.prevFile].next === 'end');
+        return (this.orginalListOfFiles[this.prevFile].next === file
+        || this.orginalListOfFiles[this.prevFile].next === 'end');
       }
     },
 
@@ -481,7 +482,8 @@
       this.UIdownloadProgress();
 
       // Init to play after 3 minute or if last file is downloaded
-      if (((this.currentMin * 60 * 1000) >= PLAY_START_TIME || this.lastFile === file) && this.masterRecordings.length > 0) {
+      if (((this.currentMin * 60 * 1000) >= PLAY_START_TIME
+        || this.lastFile === file) && this.masterRecordings.length > 0) {
         if (this.playStart) {
           this.startToPlay();
         } else if (!this.alreadyAskForPlay) {
@@ -631,8 +633,8 @@
       }
     },
 
-    getCustomWidth() {
-      const widthPlayProgress = document.getElementById('downloadProgress').clientWidth - 1; // 1 is given to handle long session
+    getCustomWidth() { // 1 is given to handle long session
+      const widthPlayProgress = document.getElementById('downloadProgress').clientWidth - 1;
       return widthPlayProgress;
     },
 
@@ -641,7 +643,8 @@
       virtualclass.videoHost.UI.hideTeacherVideo();
       const index = this.getSeekPoint(seekPointPercent);
       // console.log('Total till play, Index val master index ' + index.master + ' sub index' + index.sub + ' in percent' + seekPointPercent);
-      if ((index.master < this.masterIndex) || (index.master === this.masterIndex && index.sub < this.subRecordingIndex)) {
+      if ((index.master < this.masterIndex)
+        || (index.master === this.masterIndex && index.sub < this.subRecordingIndex)) {
         await this.replayFromStart();
       }
       await this._seek(index);
@@ -703,7 +706,8 @@
             } else { // Binary
               this.msg = this.subRecordings[this.subRecordingIndex].recObjs;
 
-              if (this.msg[0] === 104 || this.msg[0] === 204 || this.msg[0] === 102 || this.msg[0] === 202) { // Full Image of screen share
+              if (this.msg[0] === 104 || this.msg[0] === 204 || this.msg[0] === 102
+                || this.msg[0] === 202) { // Full Image of screen share
                 if (this.msg[1] === 0 || this.msg[1] === 1) { // Either first packet or full packet
                   this.binarySyncMsg = {
                     data: {
@@ -715,7 +719,8 @@
               }
 
               if (virtualclass.currApp === 'ScreenShare') {
-                if (this.msg[0] === 104 || this.msg[0] === 204 || this.msg[0] === 103 || this.msg[0] === 203 || this.msg[0] === 102 || this.msg[0] === 202) {
+                if (this.msg[0] === 104 || this.msg[0] === 204 || this.msg[0] === 103
+                  || this.msg[0] === 203 || this.msg[0] === 102 || this.msg[0] === 202) {
                   // console.log('Screen type', this.msg[0] + ' masterIndex ' + this.masterIndex + ' secondaryIndex ' + this.subRecordingIndex);
                   io.onRecMessage(this.convertInto({ data: this.msg }));
                   this.binarySyncMsg = null;
@@ -747,7 +752,8 @@
     },
 
     handleSyncStringPacket() {
-      if (virtualclass.currApp === 'Poll' && typeof virtualclass.poll.pollState.data === 'object' && Object.prototype.hasOwnProperty.call(virtualclass.poll, 'recordStartTime')) {
+      if (virtualclass.currApp === 'Poll' && typeof virtualclass.poll.pollState.data === 'object'
+        && Object.prototype.hasOwnProperty.call(virtualclass.poll, 'recordStartTime')) {
         const pollStartTime = this.getTotalTimeInMilSeconds(virtualclass.poll.recordStartTime.data.masterIndex, virtualclass.poll.recordStartTime.data.subIndex);
         if (virtualclass.poll.dataRec.setting.timer) { // showTimer() for remaining time
           const pollData = virtualclass.poll.pollState;
@@ -828,7 +834,8 @@
             try {
               if (this.msg != null && this.msg.type === 'B') {
                 this.msg = this.msg.recObjs;
-                if (this.msg[0] === 104 || this.msg[0] === 204 || this.msg[0] === 103 || this.msg[0] === 203 || this.msg[0] === 102 || this.msg[0] === 202) {
+                if (this.msg[0] === 104 || this.msg[0] === 204 || this.msg[0] === 103
+                  || this.msg[0] === 203 || this.msg[0] === 102 || this.msg[0] === 202) {
                   io.onRecMessage(this.convertInto({ data: this.msg }));
                 }
               } else {
@@ -1110,8 +1117,10 @@
 
     isPlayFinished() {
       return ((typeof this.masterRecordings[this.masterIndex] === 'undefined')
-        && (typeof this.subRecordings === 'undefined' || typeof this.subRecordings[this.subRecordingIndex] === 'undefined')
-        || ((typeof this.subRecordings !== 'undefined' && typeof this.subRecordings[this.subRecordingIndex] !== 'undefined')
+        && (typeof this.subRecordings === 'undefined'
+        || typeof this.subRecordings[this.subRecordingIndex] === 'undefined')
+        || ((typeof this.subRecordings !== 'undefined'
+        && typeof this.subRecordings[this.subRecordingIndex] !== 'undefined')
         && this.subRecordings[this.subRecordingIndex].type === 'J'
         && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"sEnd"') > -1)
       );
@@ -1548,8 +1557,12 @@
         }
         this.setPlayProgressTime(this.seekValueInPercentage);
         const seekTimeInMilseconds = (this.seekTimeWithMove.m * 60 * 1000) + this.seekTimeWithMove.s * 1000;
-        virtualclass.pbar.renderProgressBar(this.totalTimeInMiliSeconds, seekTimeInMilseconds, 'playProgressBar', undefined);
-        document.querySelector('#tillRepTime').innerHTML = `${this.seekTimeWithMove.h}:${this.seekTimeWithMove.m}:${this.seekTimeWithMove.s}`;
+        const timeInMiliSec = this.totalTimeInMiliSeconds;
+        virtualclass.pbar.renderProgressBar(timeInMiliSec, seekTimeInMilseconds, 'playProgressBar', undefined);
+        const hour = this.seekTimeWithMove.h;
+        const min = this.seekTimeWithMove.m;
+        const sec = this.seekTimeWithMove.s;
+        document.querySelector('#tillRepTime').innerHTML = `${hour}:${min}:${sec}`;
         this.displayTimeInHover(ev, this.seekValueInPercentage);
       }
     },
@@ -1586,8 +1599,11 @@
       timeInHover.style.display = 'block';
 
       timeInHover.style.marginLeft = `${offset}px`;
+      const hour = this.seekTimeWithMove.h;
+      const min = this.seekTimeWithMove.m;
+      const sec = this.seekTimeWithMove.s;
 
-      document.getElementById('timeInHover').innerHTML = `${this.seekTimeWithMove.h}:${this.seekTimeWithMove.m}:${this.seekTimeWithMove.s}`;
+      document.getElementById('timeInHover').innerHTML = `${hour}:${min}:${sec}`;
       const virtualclassCont = document.querySelector('#virtualclassCont');
       virtualclassCont.classList.add('recordSeeking');
     },

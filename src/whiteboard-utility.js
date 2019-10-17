@@ -319,7 +319,8 @@
         const { vcan } = virtualclass.wb[wid];
         // debugger;
         if (roles.hasControls()) {
-          if (!Object.prototype.hasOwnProperty.call(virtualclass.wb[wid], 'canvasDisable') || !virtualclass.wb[wid].canvasDisable) {
+          if (!Object.prototype.hasOwnProperty.call(virtualclass.wb[wid], 'canvasDisable')
+            || !virtualclass.wb[wid].canvasDisable) {
             const canvasElement = vcan.main.canvas;
             canvasElement.style.pointerEvents = 'visible';
           }
@@ -789,7 +790,8 @@
         const wid = virtualclass.gObj.currWb;
         const tag = document.getElementById(byReload);
         let classes;
-        if (Object.prototype.hasOwnProperty.call(virtualclass.wb[wid], 'prvTool') && virtualclass.wb[wid].prvTool !== `t_reclaim${wid}`) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.wb[wid], 'prvTool')
+          && virtualclass.wb[wid].prvTool !== `t_reclaim${wid}`) {
           // classes = virtualclass.wb[virtualclass.gObj.currWb].utility.removeClassFromElement(virtualclass.wb[virtualclass.gObj.currWb].prvTool, "active");
           classes = virtualclass.vutil.removeClassFromElement(virtualclass.wb[wid].prvTool, 'active');
 

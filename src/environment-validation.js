@@ -364,18 +364,19 @@
         this.device = 'mobTab';
         addAttr.setAttribute('device', 'mobile');
         addAttr.classList.add('android');
+        const getString = virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion]);
 
         if (androidDevice) {
           if (bname === 'Chrome') {
             if (bversion < 40) {
-              virtualclass.error.push(virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion])));
+              virtualclass.error.push(virtualclass.error.push(getString));
               virtualclass.vutil.initDisableVirtualClass();
             } else if (bversion >= 40 && bversion < 67) {
               //     DO : Disable Audio Controls and Cam Support for this user
               virtualclass.vutil.initDisableAudVid();
             }
           } else {
-            virtualclass.error.push(virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion])));
+            virtualclass.error.push(virtualclass.error.push(getString));
 
             virtualclass.vutil.initDisableVirtualClass();
           }
@@ -442,7 +443,7 @@
           //  virtualclass.error.push(virtualclass.lang.getString('commonBrowserIssue', [bname, bversion]));
           //  virtualclass.vutil.initDisableVirtualClass();
         }
-        //                    virtualclass.error.push( bname +  ' ' + bversion + ' ' + virtualclass.lang.getString('commonBrowserIssue'));
+        // virtualclass.error.push( bname +  ' ' + bversion + ' ' + virtualclass.lang.getString('commonBrowserIssue'));
       }
     },
 

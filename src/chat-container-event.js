@@ -69,7 +69,8 @@ const chatContainerEvent = {
 
   onEvent(targetElem, chatboxManager) {
     const event = this.getEvent(targetElem);
-    if (targetElem.classList === 'userVideos' || targetElem.classList === 'videoSubWrapper' || event === 'init_chatBox') {
+    if (targetElem.classList === 'userVideos' || targetElem.classList === 'videoSubWrapper'
+      || event === 'init_chatBox') {
       if (targetElem.classList.contains('media-heading')) {
         targetElem = targetElem.parentNode.previousElementSibling;
       } else {

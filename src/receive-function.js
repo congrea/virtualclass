@@ -428,7 +428,8 @@ const receiveFunctions = new function () {
     } else {
       virtualclass.gObj.studentSSstatus.receivedScreenShareRequest = true;
       if (virtualclass.system.device !== 'mobTab'
-        && (virtualclass.system.mybrowser.name === 'Chrome' || virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'Edge')) {
+        && (virtualclass.system.mybrowser.name === 'Chrome' || virtualclass.system.mybrowser.name === 'Firefox'
+        || virtualclass.system.mybrowser.name === 'Edge')) {
         const message = virtualclass.lang.getString('stdscreenshare');
         if (virtualclass.gObj.precheckScrn) {
           virtualclass.vutil.prechkScrnShare();

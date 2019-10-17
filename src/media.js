@@ -232,7 +232,8 @@
             this.resampler = new Resampler(virtualclass.media.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
             virtualclass.gObj.isAudioContextReady = true;
             this.audioContextReady = true;
-            if (virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode && cthis.video.tempStream != null) {
+            if (virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode
+              && cthis.video.tempStream != null) {
               virtualclass.media.stream = cthis.video.tempStream;
               virtualclass.media.audio._maniPulateStream();
             }
@@ -260,7 +261,8 @@
           this.notifyAudioMute = true;
           if (virtualclass.gObj.audMouseDown) {
             if (virtualclass.gObj.mutedomop) {
-              if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'mutedomopto') || virtualclass.gObj.mutedomopto === null) {
+              if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'mutedomopto')
+                || virtualclass.gObj.mutedomopto === null) {
                 virtualclass.gObj.mutedomopto = setTimeout(() => {
                   cthis.audio.notifiyMuteAudioDom();
                 }, 2000);
@@ -283,7 +285,8 @@
 
         notifiyUnmuteAudioDom() {
           // console.log('==== notify unmute audio');
-          if (Object.prototype.hasOwnProperty.call(this, 'speakerPressOnce') && this.speakerPressOnce != null && this.speakerPressOnce.classList.contains('audioMute')) {
+          if (Object.prototype.hasOwnProperty.call(this, 'speakerPressOnce') && this.speakerPressOnce != null
+            && this.speakerPressOnce.classList.contains('audioMute')) {
             this.speakerPressOnce.classList.remove('audioMute');
           }
         },
@@ -301,7 +304,8 @@
 
         muteButtonToogle() {
           const speakerPressOnce = document.querySelector('#speakerPressOnce');
-          if (speakerPressOnce != null && (speakerPressOnce.dataset.audioPlaying && speakerPressOnce.dataset.audioPlaying === 'true')) {
+          if (speakerPressOnce != null && (speakerPressOnce.dataset.audioPlaying
+            && speakerPressOnce.dataset.audioPlaying === 'true')) {
             speakerPressOnce.click();
           }
         },
@@ -545,7 +549,8 @@
          */
         // varible button is not being used
         studentNotSpeak(elem) {
-          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audMouseDown') && virtualclass.gObj.audMouseDown) {
+          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audMouseDown')
+            && virtualclass.gObj.audMouseDown) {
             if (typeof elem !== 'undefined') {
               const button = document.getElementById(`${elem.id}Button`);
               elem.classList.remove('active');
@@ -763,7 +768,8 @@
 
         _playWithFallback() {
           const that = this;
-          if (virtualclass.media.audioPlayerNode === null || virtualclass.media.audioPlayerNode.context.state === 'closed') {
+          if (virtualclass.media.audioPlayerNode === null
+            || virtualclass.media.audioPlayerNode.context.state === 'closed') {
             // console.log('script processor node is created');
             if (virtualclass.media.audioPlayerNode !== null) {
               virtualclass.media.audioPlayerNode.disconnect();
@@ -959,7 +965,8 @@
 
             const audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
             cthis.audio.bufferSize = 4096;
-            // virtualclass.media.audioCreatorNode is being made global because recorderProcess with onaudioprocess is not triggered due to Garbage Collector
+            // virtualclass.media.audioCreatorNode is being made global because recorderProcess with
+            // onaudioprocess is not triggered due to Garbage Collector
             // https://code.google.com/p/chromium/issues/detail?id=360378
 
             virtualclass.media.audioCreatorNode = cthis.audio.Html5Audio.audioContext.createScriptProcessor(cthis.audio.bufferSize, 1, 1);
@@ -1000,7 +1007,7 @@
          */
         updateInfo() {
           this.audioStreamArr = [];
-          //  virtualclass.wb[virtualclass.gObj.currWb].pageEnteredTime = virtualclass.wb[virtualclass.gObj.currWb].recordStarted = new Date().getTime();
+          // virtualclass.wb[virtualclass.gObj.currWb].pageEnteredTime = virtualclass.wb[virtualclass.gObj.currWb].recordStarted = new Date().getTime();
           this.recordAudio = false;
           repMode = false;
         },
@@ -1255,7 +1262,8 @@
             }
 
             sendimage = virtualclass.videoHost.convertDataURIToBinary(sendimage);
-            if (!virtualclass.videoHost.gObj.stdStopSmallVid && !roles.hasControls() || (roles.hasControls() && virtualclass.videoHost.gObj.videoSwitch)) {
+            if (!virtualclass.videoHost.gObj.stdStopSmallVid && !roles.hasControls()
+              || (roles.hasControls() && virtualclass.videoHost.gObj.videoSwitch)) {
               const uid = breakintobytes(virtualclass.gObj.uid, 8);
               const scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3], vidType]);// First parameter represents  the protocol rest for user id
               const sendmsg = new Uint8ClampedArray(sendimage.length + scode.length);
@@ -1645,7 +1653,8 @@
           }
         }
 
-        if (cthis.audio.audioContextReady && !Object.prototype.hasOwnProperty.call(cthis.audio, 'triggermaniPulateStream')) {
+        if (cthis.audio.audioContextReady
+          && !Object.prototype.hasOwnProperty.call(cthis.audio, 'triggermaniPulateStream')) {
           cthis.stream = cthis.video.tempStream;
           cthis.audio._maniPulateStream();
         }
@@ -1779,7 +1788,8 @@
        * @param error error object
        */
       handleUserMediaError(error) {
-        const errorMsg = (typeof error === 'object') ? virtualclass.lang.getString(error.name) : virtualclass.lang.getString(error);
+        const errorString = virtualclass.lang.getString(error);
+        const errorMsg = (typeof error === 'object') ? virtualclass.lang.getString(error.name) : errorString;
 
         if (errorMsg == null) {
           virtualclass.view.createErrorMsg(error, 'errorContainer', 'virtualclassAppFooterPanel');

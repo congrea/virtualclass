@@ -980,7 +980,8 @@
          * @return
          */
         layout(divQuiz) {
-          const contQuiz = virtualclass.view.customCreateElement('div', 'layoutQuiz', 'bootstrap container-fluid quizLayout');
+          const quizLayoutCont = 'bootstrap container-fluid quizLayout';
+          const contQuiz = virtualclass.view.customCreateElement('div', 'layoutQuiz', quizLayoutCont);
           divQuiz.appendChild(contQuiz);
 
           const nav = document.createElement('nav');
@@ -1011,7 +1012,8 @@
             const mainQzDiv = document.createElement('div');
             mainQzDiv.className = 'table-responsive';
             ctr.appendChild(mainQzDiv);
-            var e = virtualclass.view.customCreateElement('table', 'listQzCont', 'table table-bordered table-striped quizList');
+            const quizListTable = 'table table-bordered table-striped quizList';
+            var e = virtualclass.view.customCreateElement('table', 'listQzCont', quizListTable);
             mainQzDiv.appendChild(e);
           }
         },

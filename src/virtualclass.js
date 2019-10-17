@@ -112,7 +112,8 @@
           }
         }
         await virtualclass.config.endSession(); // by Teacher
-        if (Object.prototype.hasOwnProperty.call(virtualclass, 'prevScreen') && Object.prototype.hasOwnProperty.call(virtualclass.prevScreen, 'currentStream')) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass, 'prevScreen')
+          && Object.prototype.hasOwnProperty.call(virtualclass.prevScreen, 'currentStream')) {
           virtualclass.prevScreen.unShareScreen();
         }
         virtualclass.previrtualclass = `virtualclass${virtualclass.gObj.defaultApp}`;
@@ -641,7 +642,8 @@
         }
 
         if ((roles.hasControls() && Object.prototype.hasOwnProperty.call(virtualclass, 'previrtualclass'))
-          && (app !== virtualclass.apps.ss || (virtualclass.gObj.studentSSstatus.mesharing && virtualclass.apps.ss === 'ScreenShare'))) {
+          && (app !== virtualclass.apps.ss
+          || (virtualclass.gObj.studentSSstatus.mesharing && virtualclass.apps.ss === 'ScreenShare'))) {
           virtualclass.vutil.makeActiveApp(`virtualclass${app}`, virtualclass.previrtualclass);
         }
         // hiding editor controllers from footer
@@ -675,7 +677,8 @@
           }
         }
 
-        if (typeof this.prevScreen !== 'undefined' && Object.prototype.hasOwnProperty.call(this.prevScreen, 'currentStream')) {
+        if (typeof this.prevScreen !== 'undefined'
+          && Object.prototype.hasOwnProperty.call(this.prevScreen, 'currentStream')) {
           this.prevScreen.unShareScreen();
         }
 
@@ -754,7 +757,8 @@
 
         if (roles.hasControls()) {
           const currVideo = Array.prototype.slice.call(arguments)[2];
-          if (app !== 'ScreenShare' && (virtualclass.currApp === 'SharePresentation' || (virtualclass.currApp === 'Video'))) {
+          if (app !== 'ScreenShare' && (virtualclass.currApp === 'SharePresentation'
+            || (virtualclass.currApp === 'Video'))) {
             virtualclass.dashboard.initDashboardNav(currVideo);
           } else if (virtualclass.currApp !== 'DocumentShare') {
             virtualclass.vutil.removeDashboardNav();
@@ -862,7 +866,7 @@
             }
           }
 
-          if (virtualclass.currApp === 'Whiteboard' ) {
+          if (virtualclass.currApp === 'Whiteboard') {
             virtualclass.gObj.currentWbSlide = virtualclass.gObj.currWb;
           }
 
@@ -1274,7 +1278,8 @@
               }
             }
 
-            if (virtualclass.gObj.currWb != null && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] !== 'undefined'
+            if (virtualclass.gObj.currWb != null
+              && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] !== 'undefined'
               && virtualclass.currApp === 'DocumentShare') {
               if (virtualclass.orderList.DocumentShare.ol.order.length > 0) {
                 // if (typeof virtualclass.dts.indexNav === 'undefined') {
@@ -1426,7 +1431,8 @@
             context = virtualclassSetting;
             context.isControl = roles.hasControls();
             context.isMettingMode = (virtualclass.gObj.meetingMode) && (roles.isStudent());
-          } else if (initTemplates[i] === 'teacherVideo' || initTemplates[i] === 'appTools' || initTemplates[i] === 'appSettingDetail') {
+          } else if (initTemplates[i] === 'teacherVideo' || initTemplates[i] === 'appTools'
+            || initTemplates[i] === 'appSettingDetail') {
             context = isControl;
           }
           this.makeReadyTemplate(initTemplates[i], context);

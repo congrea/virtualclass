@@ -142,7 +142,8 @@
     // Object's properties value true or false into binary
     applySettings(value, settingName, userId) {
       if (roles.hasControls()) {
-        if ((value === true || value === false) && Object.prototype.hasOwnProperty.call(virtualclass.settings.info, settingName)) {
+        if ((value === true || value === false)
+          && Object.prototype.hasOwnProperty.call(virtualclass.settings.info, settingName)) {
           if (typeof userId === 'undefined') {
             virtualclass.settings.applyPresentorGlobalSetting(value, settingName);
           } else {

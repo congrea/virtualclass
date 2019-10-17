@@ -72,7 +72,8 @@
        * there will be display the notes according to this
        */
       setScreenByOrder(currDoc) {
-        if (virtualclass.orderList[this.appName].ol.order != null && virtualclass.orderList[this.appName].ol.order.length > 0) {
+        if (virtualclass.orderList[this.appName].ol.order != null
+          && virtualclass.orderList[this.appName].ol.order.length > 0) {
           const allNotes = this.getAllNotes(virtualclass.orderList[this.appName].ol.order);
           let docId;
           for (var i = 0; i < allNotes.length; i++) {
@@ -86,7 +87,8 @@
 
           // TODO This should be improve at later, should handle at function createNoteNav
           for (var i = 0; i < virtualclass.orderList[this.appName].ol.order.length; i++) {
-            this.noteStatus(virtualclass.orderList[this.appName].ol.order[i], this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status);
+            const docStatus = this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status;
+            this.noteStatus(virtualclass.orderList[this.appName].ol.order[i], docStatus);
           }
         }
       },
@@ -209,7 +211,7 @@
         if (content != null && content.length > 0) {
           // virtualclass.orderList[this.appName].ol.order.length = 0;
           virtualclass.orderList[this.appName].ol.order = content;
-         // console.log('====> DTS ORDER ', virtualclass.orderList[this.appName].ol.order);
+          // console.log('====> DTS ORDER ', virtualclass.orderList[this.appName].ol.order);
 
           const doc = this.getDocId(virtualclass.orderList[this.appName].ol.order[0]);
           if (Object.prototype.hasOwnProperty.call(virtualclass.dts.allDocs, doc)) {
@@ -613,7 +615,8 @@
 
           if (document.querySelector('#docsDbCont') == null) {
             // Creating  DOC's Dashboard
-            document.querySelector('#DocumentShareDashboard').innerHTML = virtualclass.vutil.getDocsDashBoard('DocumentShare');
+            const docDashboard = virtualclass.vutil.getDocsDashBoard('DocumentShare');
+            document.querySelector('#DocumentShareDashboard').innerHTML = docDashboard;
             if (roles.hasControls()) {
               virtualclass.vutil.attachEventToUploadTab();
               if (document.querySelector('#DocumentShareDashboard .qq-gallery') == null) {
@@ -720,7 +723,8 @@
 
         for (let i = 0; i < virtualclass.orderList[this.appName].ol.order.length; i++) {
           if (typeof this.notes[virtualclass.orderList[this.appName].ol.order[i]] !== 'object') {
-            if (this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status === 'true' || (+this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status) === 1) {
+            if (this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status === 'true'
+              || (+this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status) === 1) {
               var status = 1;
             } else {
               var status = 0;
@@ -774,7 +778,8 @@
       createNoteNavAlt(fromReload) {
         // need to get all images from here
         for (let i = 0; i < virtualclass.orderList[this.appName].ol.order.length; i++) {
-          if (this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status === 'true' || (+this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status) === 1) {
+          if (this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status === 'true'
+            || (+this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status) === 1) {
             var status = 1;
           } else {
             var status = 0;
@@ -1104,7 +1109,8 @@
 
                   virtualclass.dts.indexNav.movePageIndex('left');
                 } else {
-                  virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'disable', 'enable');
+                  const leftNavPage = document.getElementById('leftNavPage');
+                  virtualclass.dts.indexNav.UI._setArrowStatusDocs(leftNavPage, 'disable', 'enable');
                 }
               }
             },
@@ -1160,7 +1166,8 @@
                 virtualclass.dts.indexNav.movePageIndex('right');
               } else {
                 // alert('There is no page');
-                virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'disable', 'enable');
+                const rightNavPage = document.getElementById('rightNavPage');
+                virtualclass.dts.indexNav.UI._setArrowStatusDocs(rightNavPage, 'disable', 'enable');
                 // virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
               }
             },
@@ -1774,7 +1781,8 @@
 
         const listnotes = document.querySelector('#listnotes');
         if (listnotes != null) {
-          virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+          const elemSelector = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+          virtualclass.vutil.makeElementDeactive(elemSelector);
           virtualclass.vutil.makeElementActive('#listnotes');
         } else {
           // console.log('List note is null');

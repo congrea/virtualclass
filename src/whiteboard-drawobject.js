@@ -181,9 +181,12 @@
         if (wb.obj.freeDrawObj !== undefined && wb.obj.freeDrawObj.freesvg === true) {
           if (wb.obj.freeDrawObj.fdObj.isCurrentlyDrawing) {
             wb.obj.freeDrawObj.wb_draw(ev, wId);
-            if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) {
+            if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
+              || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
+              && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) {
               if (typeof mouseup === 'undefined') {
-                if (((typeof virtualclass.gObj.lastmousemovetime === 'undefined') || (virtualclass.gObj.lastmousemovetime == null))) {
+                if (((typeof virtualclass.gObj.lastmousemovetime === 'undefined')
+                  || (virtualclass.gObj.lastmousemovetime == null))) {
                   virtualclass.gObj.lastmousemovetime = new Date().getTime();
                   vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', ev.currX, ev.currY);
                 }
@@ -196,12 +199,14 @@
               const evx = ev.currX / virtualclass.zoom.canvasScale;
               const evy = ev.currY / virtualclass.zoom.canvasScale;
               const obj = vcan.makeStackObj(currTime, 'm', evx, evy);
+              const presentMoveTime = virtualclass.gObj.presentmousemovetime;
+              const lastMoveTime = virtualclass.gObj.lastmousemovetime;
 
               dataChunk.push(obj);
 
               if (typeof mouseup === 'undefined') {
                 virtualclass.gObj.presentmousemovetime = new Date().getTime();
-                if ((virtualclass.gObj.presentmousemovetime - virtualclass.gObj.lastmousemovetime) >= 2000) {	 // Optimized
+                if ((presentMoveTime - lastMoveTime) >= 2000) {	 // Optimized
                   for (let i = 0; i < dataChunk.length; i++) {
                     wb.uid++;
                     dataChunk[i].uid = wb.uid;
@@ -237,10 +242,13 @@
 
           var currTime = new Date().getTime();
 
-          if ((typeof virtualclass.gObj.lastmousemovetime === 'undefined') || (virtualclass.gObj.lastmousemovetime == null)) {
+          if ((typeof virtualclass.gObj.lastmousemovetime === 'undefined')
+            || (virtualclass.gObj.lastmousemovetime == null)) {
             virtualclass.gObj.lastmousemovetime = new Date().getTime();
             if ((!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
-                || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType !== 'text' && wb.tool.cmd !== 't_clearall') {
+                || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
+                && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast')))
+                && objType !== 'text' && wb.tool.cmd !== 't_clearall') {
               vcan.optimize.calculatePackets(currTime, 'm', endPosX, endPosY);
             }
           }
@@ -248,7 +256,9 @@
           virtualclass.gObj.presentmousemovetime = new Date().getTime();
           if ((virtualclass.gObj.presentmousemovetime - virtualclass.gObj.lastmousemovetime) >= 2000) { // Optimized
             if ((!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
-                || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType !== 'text' && wb.tool.cmd !== 't_clearall') {
+                || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
+                && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast')))
+                && objType !== 'text' && wb.tool.cmd !== 't_clearall') {
               vcan.optimize.calculatePackets(currTime, 'm', endPosX, endPosY);
             }
             virtualclass.gObj.lastmousemovetime = new Date().getTime();
@@ -257,7 +267,8 @@
         }
         // console.log('=====> CANVAS SCALE ===== move x/y', virtualclass.zoom.canvasScale, ' ', endPosX, endPosY);
       } else if ((wb.vcan.main.action !== 'move')
-            || ((!vcan.main.currentTransform || vcan.main.currentTransform == null) && wb.vcan.main.action === 'move')) {
+            || ((!vcan.main.currentTransform || vcan.main.currentTransform == null)
+            && wb.vcan.main.action === 'move')) {
         const x = ev.currX / virtualclass.zoom.canvasScale;
         const y = ev.currY / virtualclass.zoom.canvasScale;
 
@@ -295,7 +306,8 @@
       if (tool.started && objType !== 'text') {
         tool.mousemove(ev, wId, 'up');
         if ((!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
-            || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType !== 'freeDrawing') {
+            || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
+            && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) && objType !== 'freeDrawing') {
           var currTime = new Date().getTime();
           vcan.optimize.calculatePackets(currTime, 'u', endPosX, endPosY);
         }
@@ -305,7 +317,9 @@
             wb.obj.freeDrawObj.finalizeDraw(ev, wId);
           }
 
-          if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent') && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) {
+          if (!Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
+            || (Object.prototype.hasOwnProperty.call(ev.detail, 'cevent')
+            && Object.prototype.hasOwnProperty.call(ev.detail, 'broadCast'))) {
             if (dataChunk.length > 0) {
               var currTime = new Date().getTime();
               const ex = endPosX / virtualclass.zoom.canvasScale;

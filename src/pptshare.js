@@ -121,9 +121,9 @@
       //           this.localStoragFlag = true;
       //           this.pptUrl = JSON.parse(localStorage.getItem('pptUrl'));
       //
-      //           // if (roles.hasControls()) {
-      //           //                                    ioAdapter.mustSend({pptMsg: this.pptUrl, cf: 'ppt', uid: wbUser.id, flag: "url", onrefresh: true});
-      //           //                                }
+      //           if (roles.hasControls()) {
+      //             ioAdapter.mustSend({pptMsg: this.pptUrl, cf: 'ppt', uid: wbUser.id, flag: "url", onrefresh: true});
+      //                                           }
       //
       //           if (mdata.startFrom != null) {
       //             virtualclass.sharePt.stateLocalStorage = mdata.startFrom;
@@ -155,7 +155,8 @@
       //   const iframeContainer = document.getElementById('iframecontainer');
       //   iframeContainer.style.display = 'block';
       //   const iframe = document.getElementById('pptiframe');
-      //   const pptUrl = (this.pptUrl.search('postMessage') < 0) ? `${this.pptUrl}?postMessage=true&postMessageEvents=true` : this.pptUrl;
+      //   const pptUrl = (this.pptUrl.search('postMessage') < 0)
+      // ? `${this.pptUrl}?postMessage=true&postMessageEvents=true` : this.pptUrl;
       //   iframe.setAttribute('src', pptUrl);
       //
       //   this.setAutoSlideConfig();
@@ -251,7 +252,8 @@
         });
 
 
-        // virtualclass.xhr.vxhr.postFormData(window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content_video", formData).then((msg) => {
+        // virtualclass.xhr.vxhr.postFormData(window.webapi + "&user=" +
+        // virtualclass.gObj.uid + "&methodname=update_content_video", formData).then((msg) => {
         //     if (msg != "ERROR") {
         //         var elem = document.getElementById("linkppt" + id);
         //         if (elem) {
@@ -376,7 +378,8 @@
                 this.state = pptData.state;
               }
               if (roles.isStudent()) this.removeControls();
-            } else if (pptData.eventName === 'slidechanged' && roles.hasControls() && virtualclass.config.makeWebSocketReady
+            } else if (pptData.eventName === 'slidechanged' && roles.hasControls()
+              && virtualclass.config.makeWebSocketReady
               && (this.isPptEventDefined(pptData) && (!this.lastSlideChanged
               || (this.lastSlideChanged && (this.isVerticalSlideChanged(pptData)
               || this.isHorizontalSlideChanged(pptData)))))) {
@@ -828,7 +831,8 @@
         virtualclass.vutil.requestOrder((response) => {
           if (virtualclass.vutil.isResponseAvailable(response)) {
             // virtualclass.orderList[virtualclass.currApp].ol.order = response;
-            if (virtualclass.orderList[virtualclass.currApp].ol.order && virtualclass.orderList[virtualclass.currApp].ol.order.length > 0) {
+            if (virtualclass.orderList[virtualclass.currApp].ol.order
+              && virtualclass.orderList[virtualclass.currApp].ol.order.length > 0) {
               virtualclass.sharePt.reArrangeElements(virtualclass.orderList[virtualclass.currApp].ol.order);
             }
           }
@@ -860,8 +864,8 @@
           pptObj.status = 1;
         }
 
-
-        this.pages[idPostfix] = new virtualclass.page('pptListContainer', 'ppt', 'virtualclassSharePresentation', 'sharePt', pptObj.status);
+        const shareppt = 'virtualclassSharePresentation';
+        this.pages[idPostfix] = new virtualclass.page('pptListContainer', 'ppt', shareppt, 'sharePt', pptObj.status);
         this.pages[idPostfix].init(idPostfix, pptObj.URL);
         this.pptClickHandler(pptObj);
         const ppt = document.getElementById(`linkppt${pptObj.fileuuid}`);

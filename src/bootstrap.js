@@ -196,7 +196,8 @@
       }
     }
 
-    if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
+    if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable')
+      && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
       virtualclass.media.init();
       // we can not make this synchronous, because after this,
       // we are connecting the web socket
@@ -233,9 +234,6 @@
     if (!virtualclass.system.isCompatibleRAM()) {
       virtualclass.view.createErrorMsg(virtualclass.lang.getString('notcompatibleram'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'notcompatiblecpu' });
     }
-  }
-
-
-
+  };
   window.Bootstrap = Bootstrap;
 }(window));

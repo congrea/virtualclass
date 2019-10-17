@@ -133,7 +133,8 @@
           const editortemplate = virtualclass.getTemplate('edenableall', 'editor');
           const editorhtml = editortemplate({ type1: editorType });
           // $('#virtualclass' + virtualclass.vutil.capitalizeFirstLetter(editorType) + 'Body').append(editorhtml);
-          const editor = document.querySelector(`#virtualclass${virtualclass.vutil.capitalizeFirstLetter(editorType)}Body`);
+          const editorTypeElem = `#virtualclass${virtualclass.vutil.capitalizeFirstLetter(editorType)}Body`;
+          const editor = document.querySelector(editorTypeElem);
           editor.insertAdjacentHTML('beforeend', editorhtml);
           const editorControllerAnch = document.getElementById(`${containerId}Anch`);
           // const editorModestatus = localStorage.getItem(`${editorType}mode`);
@@ -252,8 +253,9 @@
       disableEditorByOuterLayer() {
         // id virtualclassEditorRichBody
         // class CodeMirror cm-s-default CodeMirror-wrap
-
-        const editorElem = document.querySelector(`#virtualclass${virtualclass.vutil.capitalizeFirstLetter(this.etype)}Body .CodeMirror.cm-s-default`);
+        const disableEditor = virtualclass.vutil.capitalizeFirstLetter(this.etype);
+        const disableEditorSelector = `#virtualclass${disableEditor}Body .CodeMirror.cm-s-default`;
+        const editorElem = document.querySelector(disableEditorSelector);
         if (editorElem != null) {
           editorElem.style.pointerEvents = 'none';
         }
@@ -265,7 +267,9 @@
        * This should apply for iOS(ipad) only
        */
       enableEditorByOuterLayer() {
-        const editorElem = document.querySelector(`#virtualclass${virtualclass.vutil.capitalizeFirstLetter(this.etype)}Body .CodeMirror.cm-s-default`);
+        const enableEditor = virtualclass.vutil.capitalizeFirstLetter(this.etype);
+        const enableEditorSelector = `#virtualclass${enableEditor}Body .CodeMirror.cm-s-default`;
+        const editorElem = document.querySelector(enableEditorSelector);
         if (editorElem != null) {
           editorElem.style.pointerEvents = 'visible';
         }
@@ -328,7 +332,8 @@
 
       // Check if vcAdapter is ready for given Editor
       isVcAdapterIsReady(et) {
-        return (Object.prototype.hasOwnProperty.call(virtualclass[et], 'vcAdapter') && typeof virtualclass[et].vcAdapter === 'object');
+        return (Object.prototype.hasOwnProperty.call(virtualclass[et], 'vcAdapter')
+        && typeof virtualclass[et].vcAdapter === 'object');
       },
 
 
@@ -357,9 +362,9 @@
             }
           }
 
-          if ((!roles.hasControls())
-            // allEdData when teacher in educator mode and reponse the data after page refresh
-            || (roles.hasControls() && e.fromUser.userid !== virtualclass.gObj.uid) && (Object.prototype.hasOwnProperty.call(e.message, 'resFromUser') || Object.prototype.hasOwnProperty.call(e.message, 'allEdData'))) {
+          if ((!roles.hasControls()) || (roles.hasControls() && e.fromUser.userid !== virtualclass.gObj.uid)
+            && (Object.prototype.hasOwnProperty.call(e.message, 'resFromUser')
+            || Object.prototype.hasOwnProperty.call(e.message, 'allEdData'))) {
             const doc = JSON.parse(e.message.data);
 
 
@@ -527,7 +532,8 @@
        * @returns {boolean}
        */
       isEidtorWithTeacher() {
-        return (roles.hasControls() && (virtualclass.currApp === 'EditorRich' || virtualclass.currApp === 'EditorCode'));
+        return (roles.hasControls() && (virtualclass.currApp === 'EditorRich'
+        || virtualclass.currApp === 'EditorCode'));
       },
 
       /**
@@ -596,7 +602,8 @@
             this.cm.setOption('readOnly', 'nocursor');
             var writeMode = false;
           }
-          virtualclass.user.control.toggleDisplayWriteModeMsgBox(virtualclass.vutil.capitalizeFirstLetter(this.etype), writeMode);
+          const editorTypeCapitalize = virtualclass.vutil.capitalizeFirstLetter(this.etype);
+          virtualclass.user.control.toggleDisplayWriteModeMsgBox(editorTypeCapitalize, writeMode);
           virtualclass.vutil.setReadModeWhenTeacherIsDisConn(virtualclass.vutil.smallizeFirstLetter(this.etype));
 
           // For handle editor's read only mode on iPad
@@ -750,8 +757,10 @@
       },
 
       editorNavBar(ev) {
-        if (ev.target.classList[0] === 'vceditor-btn-style-group' || ev.target.classList[0] === 'vceditor-btn-list-group'
-        || ev.target.classList[0] === 'vceditor-btn-indent-group' || ev.target.classList[0] === 'vceditor-btn-paragraph-group') {
+        if (ev.target.classList[0] === 'vceditor-btn-style-group'
+          || ev.target.classList[0] === 'vceditor-btn-list-group'
+          || ev.target.classList[0] === 'vceditor-btn-indent-group'
+          || ev.target.classList[0] === 'vceditor-btn-paragraph-group') {
           const openElement = document.querySelector('.vceditor-toolbar-wrapper .open');
           const elem = document.querySelector(`.${ev.target.classList[0]}`);
           if (openElement == null || !ev.currentTarget.classList.contains(openElement.classList[0])) {

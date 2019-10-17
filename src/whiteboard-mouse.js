@@ -361,7 +361,9 @@
               }
 
               var currTime = new Date().getTime();
-              if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent') || (Object.prototype.hasOwnProperty.call(e.detail, 'cevent') && Object.prototype.hasOwnProperty.call(e.detail, 'broadCast'))) {
+              if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent')
+                || (Object.prototype.hasOwnProperty.call(e.detail, 'cevent')
+                && Object.prototype.hasOwnProperty.call(e.detail, 'broadCast'))) {
                 vcan.optimize.calculatePackets(currTime, 'u', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
               }
 
@@ -374,7 +376,9 @@
               if (vcan.main.scaleMode) {
                 vcan.main.scaleMode = false;
               }
-            } else if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent') && Object.prototype.hasOwnProperty.call(e.detail, 'cevent') && Object.prototype.hasOwnProperty.call(e.detail, 'broadCast')) {
+            } else if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent')
+              && Object.prototype.hasOwnProperty.call(e.detail, 'cevent')
+              && Object.prototype.hasOwnProperty.call(e.detail, 'broadCast')) {
               vcan.optimize.calculatePackets(currTime, 'u', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));
             }
             vcan.wb.sentPack = true;

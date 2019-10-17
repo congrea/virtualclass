@@ -271,8 +271,10 @@
           virtualclass.wb[wbId].toggleDisplay(anchorNode.parentNode.id, wbId);
           virtualclass.wb[wbId].initActiveElement(`#t_font${wbId} ul`, { type: 'font', prop: 'font' });
         } else {
-          if (typeof virtualclass.wb[virtualclass.gObj.currWb] !== 'undefined' && !virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj
-            && typeof virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj !== 'undefined' && this.parentNode.id.indexOf('t_text') < 0) {
+          if (typeof virtualclass.wb[virtualclass.gObj.currWb] !== 'undefined'
+            && !virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj
+            && typeof virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj !== 'undefined'
+            && this.parentNode.id.indexOf('t_text') < 0) {
             // virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny();
             // virtualclass.vutil.removeAllTextWrapper();
             const allTextWrapper = document.querySelectorAll('.canvasWrapper .textBoxContainer');

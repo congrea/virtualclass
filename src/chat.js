@@ -49,9 +49,9 @@
         //     document.querySelector('#chatWidget').classList.remove('chat_enabled');
         //   }
         // }
-        if (roles.isStudent()) {
-          virtualclass.settings.studentpc(virtualclass.settings.info.studentpc); // chat disable or eneble on refresh
-          virtualclass.settings.studentgc(virtualclass.settings.info.studentgc); // groupchat disable or eneble on refresh
+        if (roles.isStudent()) { // (chat or groupchat) disable or eneble on refresh
+          virtualclass.settings.studentpc(virtualclass.settings.info.studentpc);
+          virtualclass.settings.studentgc(virtualclass.settings.info.studentgc);
         }
       },
 
@@ -275,7 +275,8 @@
         display_error(e.message);
       },
       makeUserListEmpty() {
-        $('#user_list .inner_bt #usertab_icon').css({ background: `url(${window.whiteboardPath}images/offline.png)no-repeat top left` });
+        const url = `url(${window.whiteboardPath}images/offline.png)no-repeat top left`;
+        $('#user_list .inner_bt #usertab_icon').css({ background: url });
         $('#chatroom_bt .inner_bt #chatroom_text').text(`${lang.chatroom} (0)`);
         $('div#memlist').removeClass('enable');
       },

@@ -291,6 +291,10 @@
 
               virtualclass.wb[wbId].utility.makeActiveTool(this.parentNode.id);
             }
+
+            if (this.parentNode.id !== `t_text${wbId}`) {
+              virtualclass.vutil.triggerFinalizeTextIfAny(wbId);
+            }
           }
 
           /** important * */
@@ -332,11 +336,6 @@
             virtualclass.wb[wbId].prvTool = this.parentNode.id;
             virtualclass.wb[wbId].prvToolInfo = obj;
           }
-
-          if (roles.hasControls() && this.parentNode.id !== `t_text${wbId}`) {
-            virtualclass.vutil.triggerFinalizeTextIfAny(wbId);
-          }
-
 
           const fontTool = document.querySelector(`#t_font${wbId}`);
           const strkTool = document.querySelector(`#t_strk${wbId}`);

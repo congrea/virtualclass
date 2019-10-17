@@ -5,7 +5,7 @@ const ioPingPong = {
     if (e.type === 'member_added') {
       if (roles.hasAdmin()) {
         const session = this.sessionName();
-        const msg = { ping: 'pinsg', cf: 'pong', session };
+        const msg = { ping: 'ping', cf: 'pong', session };
         ioAdapter.sendWithDelayAndDrop(msg, null, 'mustSend', 'pingAll', 3000);
         // console.log('PING BROADCAST');
       }

@@ -83,10 +83,7 @@
             }
           }
         } else if (evt.keyCode === 27) { // escape key
-          if ((virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare')
-              && typeof virtualclass.wb[id] === 'object' && virtualclass.wb[id].obj.drawTextObj) {
-            virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny(undefined, id);
-          }
+          virtualclass.vutil.triggerFinalizeTextIfAny(id);
         }
       },
 

@@ -2452,6 +2452,14 @@
     isRefreshMode() {
       return virtualclass.config.makeWebSocketReady;
     },
+
+    triggerFinalizeTextIfAny(wbId) {
+      const id = wbId || virtualclass.gObj.currWb;
+      if ((virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare')
+        && typeof virtualclass.wb[id] === 'object' && virtualclass.wb[id].obj.drawTextObj) {
+        virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny(undefined, id);
+      }
+    },
   };
   window.vutil = vutil;
 }(window));

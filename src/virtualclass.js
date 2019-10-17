@@ -606,6 +606,9 @@
 
       // makeAppReady(app, cusEvent, data) {
       makeAppReady(setting) {
+        if (roles.hasControls()) {
+          virtualclass.vutil.triggerFinalizeTextIfAny();
+        }
         if (virtualclass.gObj.studentSSstatus.receivedScreenShareRequest){
           virtualclass.popup.closeElem();
           delete virtualclass.gObj.studentSSstatus.receivedScreenShareRequest;

@@ -1162,22 +1162,6 @@ this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler
     + "\"></div></div></div><div id=\"stickycontainer\"></div></div></div></div>";
 },"usePartial":true,"useData":true});
 
-this["JST"]["dest_temp/templates/screenShareButtons.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return " <div id=\"stopScreenShare\" class=\"ss\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssStop",{"name":"getString","hash":{},"data":data}))
-    + "\"><button type=\"button\"> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssBtn",{"name":"getString","hash":{},"data":data}))
-    + "</button></div><div id=\"screenController\"><div class=\"share selfView\"><button type=\"button\">"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"sharetoall",{"name":"getString","hash":{},"data":data}))
-    + "</button></div></div> ";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-},"useData":true});
-
 this["JST"]["dest_temp/templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -1788,7 +1772,7 @@ this["JST"]["dest_temp/templates/zoomControl.hbs"] = Handlebars.template({"compi
 
   return "<div class=\"zoomControler\"><div class=\"zoomIn\"><span class=\"congtooltip zoomctrtool\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomIn",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-zoonIn\"></i></span></div><div class=\"fitScreen\" data-currstate=\"fittoscreen\"><span class=\"congtooltip zoomctrtool\" data-title=\""
+    + "\"><i class=\"icon-zoonIn\"></i></span></div><div class=\"fitScreen\" data-currstate=\"normalview\"><span class=\"congtooltip zoomctrtool\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"fitToScreen",{"name":"getString","hash":{},"data":data}))
     + "\"><i class=\"icon-fitScreen\"></i></span></div><div class=\"zoomOut\"><span class=\"congtooltip zoomctrtool\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomOut",{"name":"getString","hash":{},"data":data}))

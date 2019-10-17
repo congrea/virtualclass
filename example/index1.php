@@ -129,7 +129,7 @@ $meetingmode = 0;
 $cont_class .= 'normalmode ';
 
 // Set 1 to add source file else 0 to min file
-$info = 1;
+$info = 0;
 $audio_disabled_completely = true;
 $cmid = 5;
 
@@ -187,11 +187,12 @@ if($info) {
 <?php
 } else {
 ?>
-	<link rel="stylesheet" type="text/css" href=  "https://cdn.congrea.net/build/css/modules.min.css?ver=<?php echo $version ?>" />
-	<link rel="stylesheet" type="text/css" href=  "https://cdn.congrea.net/build/css/external.min.css?ver=<?php echo $version ?>" />
-	<link rel="stylesheet" type="text/css" href=  "https://cdn.congrea.net/external/css/slickQuiz.min.css?ver=<?php echo $version ?>" />
-	<link rel="stylesheet" type="text/css" href=  "https://cdn.congrea.net/external/css/fine-uploader-gallery.min.css?ver=<?php echo $version ?>" />
-	<link rel="stylesheet" type="text/css" href=  "https://cdn.congrea.net/css/bootstrap/css/bootstrap.min.css?ver=<?php echo $version ?>" />
+	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/virtualclass/build/css/modules.min.css?ver=<?php echo $version ?>" />
+	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/virtualclass/build/css/external.min.css?ver=<?php echo $version ?>" />
+	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/virtualclass/external/css/slickQuiz.min.css?ver=<?php echo $version ?>" />
+	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/virtualclass/external/css/fine-uploader-gallery.min.css?ver=<?php echo $version ?>" />
+	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/virtualclass/css/bootstrap/css/bootstrap.min.css?ver=<?php echo $version ?>" />
+
   <?php
 }
 ?>

@@ -552,8 +552,10 @@
           //console.log('====> me sharing rmStdScreen');
           ioAdapter.mustSendUser({ cf: 'rmStdScreen' }, teacherId);
         } else if (roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing) {
-          ioAdapter.mustSend(({ unshareScreen: true, st: 'ss', cf: 'unshareScreen' }));
-          ioAdapter.mustSend({ dispWhiteboard: true, cf: 'dispWhiteboard', d: '_doc_0_0' });
+          const currElem = document.querySelector('#virtualclassWhiteboard .canvasContainer.current');
+          const wId = (currElem != null) ? currElem.dataset.wbId : '_doc_0_0';
+          await ioAdapter.mustSend({ dispWhiteboard: true, cf: 'dispWhiteboard', d: wId });
+          await ioAdapter.mustSend(({ unshareScreen: true, st: 'ss', cf: 'unshareScreen' }));
         }
 
         if ((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()) {

@@ -50,18 +50,26 @@
 
         const fitScreen = elem.querySelector('.fitScreen');
         fitScreen.addEventListener('click', () => {
-          // that.zoomAction('fitToScreen');
-          const zoomControler = document.querySelector('#virtualclassAppLeftPanel .zoomControler .fitScreen');
-          if (zoomControler != null) {
-            if (zoomControler.dataset.currstate === 'fittopage') {
-              that.zoomAction('fitToPage');
-            } else {
-              that.zoomAction('fitToScreen');
-            }
-          }
+          that.triggerFitToScreen();
         });
       },
 
+      triggerFitToScreen() {
+        const zoomControler = document.querySelector('#virtualclassAppLeftPanel .zoomControler .fitScreen');
+        if (zoomControler != null) {
+          if (virtualclass.currApp === 'Whiteboard') {
+            this.zoomAction('fitToScreen');
+          } else {
+            if (this.doOpposite) {
+              this.lastFitAction = (zoomControler.dataset.currstate === 'fittopage') ? 'fitToScreen' : 'fitToPage';
+            } else {
+              this.lastFitAction = (zoomControler.dataset.currstate === 'fittopage') ? 'fitToPage' : 'fitToScreen';
+            }
+            this.zoomAction(this.lastFitAction);
+            delete this.doOpposite;
+          }
+        }
+      },
 
       zoomAction(fnName) {
         if (virtualclass.currApp === 'ScreenShare') {
@@ -74,6 +82,7 @@
       },
 
       zoomIn(normalZoom) {
+        delete virtualclass.zoom.performFitToPage;
         const wid = virtualclass.gObj.currWb;
         if (typeof virtualclass.wb[wid] === 'object') {
           const { canvas } = virtualclass.wb[wid].vcan.main;
@@ -107,6 +116,7 @@
       },
 
       zoomOut() {
+        delete virtualclass.zoom.performFitToPage;
         const wid = virtualclass.gObj.currWb;
         // var wrapper = this.canvasWrapper;
         const { canvas } = virtualclass.wb[wid].vcan.main;
@@ -141,6 +151,7 @@
 
       fitToScreen() {
         virtualclass.gObj.fitToScreen = true;
+        delete virtualclass.zoom.performFitToPage;
         delete virtualclass.zoom.performZoom;
         const wid = virtualclass.gObj.currWb;
         if (typeof virtualclass.pdfRender[wid] !== 'undefined') {
@@ -148,7 +159,10 @@
           const wrapperWidth = document.querySelector(".canvasWrapper").offsetWidth;
           // console.log(`==== wrapperWidth ${wrapperWidth}`);
           try {
-            virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
+            virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth);
+            if (virtualclass.currApp === 'DocumentShare') {
+              this.fitToElementTooltip('fitToToPage');
+            }
           } catch (error) {
             // console.log(`Error ${error}`);
           }
@@ -159,6 +173,9 @@
         virtualclass.zoom.performFitToPage = true;
         const wid = virtualclass.gObj.currWb;
         virtualclass.pdfRender[wid].innerFitToPage.call(virtualclass.pdfRender[wid], wid);
+        if (virtualclass.currApp === 'DocumentShare') {
+          this.fitToElementTooltip('fitToScreen');
+        }
       },
 
       reload() {
@@ -186,6 +203,33 @@
         const zoomControler = document.querySelector('#virtualclassApp .zoomControler');
         if (zoomControler != null && virtualclass.gObj.studentSSstatus.mesharing) {
           zoomControler.parentNode.removeChild(zoomControler);
+        }
+      },
+
+      //fitElementToolTipChange(fitElement) {
+      fitToElementTooltip(fitElement) {
+        const fitScreenTooltip = document.querySelector('#virtualclassAppLeftPanel .zoomControler .fitScreen');
+        const notesContainer = document.getElementById('notesContainer');
+        if (fitElement === 'fitToScreen') {
+          if (fitScreenTooltip) {
+            fitScreenTooltip.dataset.currstate = 'fittoscreen';
+            const congtooltip = document.querySelector('#virtualclassAppLeftPanel .fitScreen .congtooltip');
+            congtooltip.dataset.title = 'Fit to Screen';
+          }
+
+          if (notesContainer) {
+            notesContainer.dataset.currstate = 'fittotpage';
+          }
+        } else {
+          if (fitScreenTooltip) {
+            fitScreenTooltip.dataset.currstate = 'fittopage';
+            const congtooltip = document.querySelector('#virtualclassAppLeftPanel .fitScreen .congtooltip');
+            congtooltip.dataset.title = virtualclass.lang.getString('fitToPage');
+          }
+
+          if (notesContainer) {
+            notesContainer.dataset.currstate = 'fittoscreen';
+          }
         }
       },
     };

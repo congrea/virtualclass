@@ -335,7 +335,8 @@
           } else {
             const fitToscreen = document.querySelector('.zoomControler .fitScreen');
             if (fitToscreen != null) {
-              fitToscreen.click();
+              // fitToscreen.click();
+              virtualclass.zoom.zoomAction('fitToScreen');
             }
           }
         }, 700,

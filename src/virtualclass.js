@@ -408,15 +408,13 @@
             if (virtualclass.currApp === 'ScreenShare') {
               virtualclass.studentScreen.doOpposite = true;
               virtualclass.studentScreen.triggerFitControl();
+              virtualclass.ss.triggerFitToScreen()
             } else {
-              virtualclass.zoom.fitToScreen();
+              virtualclass.zoom.doOpposite = true;
+              virtualclass.zoom.triggerFitToScreen();
             }
             virtualclass.stickybarWidth();
             virtualclass.chatBarTabWidth();
-
-            if (virtualclass.currApp === 'ScreenShare') {
-              virtualclass.ss.triggerFitToScreen();
-            }
           });
         }
 
@@ -720,6 +718,7 @@
             if (virtualclass.currApp === 'Whiteboard') {
               // To maintain the scale on whiteboard
               virtualclass.zoom.normalRender();
+              virtualclass.zoom.fitToElementTooltip('fitToScreen');
             }
           } else {
             let hidepopup;

@@ -1540,22 +1540,10 @@
       if (currApp === 'DocumentShare') {
         const currentNote = document.querySelector('#screen-docs .note.current');
         if (currentNote == null) {
-          if (typeof hidepopup === 'undefined') {
-            virtualclass.dashboard.init(currApp);
-          } else {
-            virtualclass.dashboard.init(currApp, hidepopup);
-          }
-        } else {
-          // virtualclass.zoom.zoomAction('fitToScreen');
-          // virtualclass.pdfRender[virtualclass.gObj.currWb].fitWhiteboardAtScale(virtualclass.gObj.currWb);
-          // virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale = virtualclass.zoom.canvasScale;
+          hidepopup ? virtualclass.dashboard.init(currApp, hidepopup) : virtualclass.dashboard.init(currApp);
         }
       } else if (currApp === 'Video') {
-        if (typeof hidepopup === 'undefined') {
-          virtualclass.dashboard.init(currApp);
-        } else {
-          virtualclass.dashboard.init(currApp, hidepopup);
-        }
+        hidepopup ? virtualclass.dashboard.init(currApp, hidepopup) : virtualclass.dashboard.init(currApp);
       } else {
         virtualclass.dashboard.init(currApp);
       }

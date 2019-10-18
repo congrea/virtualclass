@@ -11,7 +11,6 @@ var dashboard = {
   },
 
   init(currApp, hidepopup) {
-    const mainContainer = document.querySelector('#mainContainer');
     if (currApp === 'SharePresentation') {
       const dbcont = document.querySelector('#pptDbCont');
       if (!dbcont) {
@@ -37,7 +36,6 @@ var dashboard = {
     // console.log(`Dashboard is created for ${virtualclass.currApp}`);
     if (currApp === 'DocumentShare') {
       if (typeof hidepopup === 'undefined') {
-        // $('#congdashboard').modal();
         this.open();
       }
 
@@ -47,9 +45,6 @@ var dashboard = {
       //  virtualclass.vutil.attachEventToUploadTab();
     } else if (currApp === 'Video') {
       if (typeof hidepopup === 'undefined') {
-        //                    $('#congdashboard').modal({
-        //                        keyboard: false
-        //                    });
         virtualclass.modal.showModal();
       }
     } else {

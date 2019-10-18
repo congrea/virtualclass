@@ -1294,6 +1294,9 @@
           this.docs.studentExecuteScreen(dts);
           if (roles.hasControls() && !virtualclass.dts.noteExist()) {
             virtualclass.dashboard.open();
+            if (!virtualclass.config.makeWebsocketReady) {
+              virtualclass.vutil.triggerDashboard('DocumentShare', 'hidepopup');
+            }
           }
           // console.log('====> DOCUMENT SHARING  res ', dts);
           // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Layout initialized');

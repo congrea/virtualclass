@@ -2220,22 +2220,10 @@
         Data.type = 'bar';
         Data.columns = columns;
         virtualclass.poll.hideChart();
-        // const chart = document.getElementById('chart');
-        // if (chart) {
-        //    chart.style.display = 'none';
-        // }
-
-        let barWidth = 100;
-        if (Data.columns.length > 8 && Data.columns.length < 18) {
-          barWidth = 50;
-        } else if (Data.columns.length > 18) {
-          barWidth = 25;
-        }
-
         const graphData = {
           bindto: '#chart',
           data: Data,
-          bar: { width: {ratio:0.5}},
+          bar: { width: { ratio: 0.5 } },
           axis: {
             y: {
               tick: {

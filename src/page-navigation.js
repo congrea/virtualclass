@@ -196,9 +196,13 @@
     if (virtualclass.currApp === 'Whiteboard') {
       pages = virtualclass.gObj.wbCount + 1;
     } else if (virtualclass.currApp === 'DocumentShare') {
-      pages = virtualclass.orderList[virtualclass.dts.appName].ol.order.length;
-      const currPage = virtualclass.orderList[virtualclass.dts.appName].ol.order.indexOf(virtualclass.dts.docs.currNote);
-      this.setCurrentIndex(currPage + 1);
+      if (Array.isArray(virtualclass.orderList[virtualclass.dts.appName].ol.order)) {
+        pages = virtualclass.orderList[virtualclass.dts.appName].ol.order.length;
+        const currPage = virtualclass.orderList[virtualclass.dts.appName].ol.order.indexOf(virtualclass.dts.docs.currNote);
+        this.setCurrentIndex(currPage + 1);
+      } else {
+        pages = 1;
+      }
     }
     this.setTotalPages(pages);
   };

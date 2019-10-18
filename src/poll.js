@@ -2003,18 +2003,23 @@
         if (virtualclass.poll.chart) {
           // On page refreseh, we need the width of parent node of #chart
           // displaying block #virtualclassApp is giving the correct width
-          if (!virtualclass.config.makeWebSocketReady) {
-            const virtualclassAppCont = document.querySelector('#virtualclassApp');
-            virtualclassAppCont.style.display = 'block';
-            virtualclass.poll.chart.load({
-              columns,
-            });
-            virtualclassAppCont.style.display = 'none';
-          } else {
-            virtualclass.poll.chart.load({
-              columns,
-            });
-          }
+          // if (!virtualclass.config.makeWebSocketReady) {
+          //   const virtualclassAppCont = document.querySelector('#virtualclassApp');
+          //   virtualclassAppCont.style.display = 'block';
+          //   virtualclass.poll.chart.load({
+          //     columns,
+          //   });
+          //   virtualclassAppCont.style.display = 'none';
+          // } else {
+          //   virtualclass.poll.chart.load({
+          //     columns,
+          //   });
+          // }
+
+          // Enabling the above code would shifted the graph towards right side
+          virtualclass.poll.chart.load({
+            columns,
+          });
         }
         if (roles.hasControls()) {
           this.updateVotingInformation();
@@ -2230,7 +2235,7 @@
         const graphData = {
           bindto: '#chart',
           data: Data,
-          bar: { width: barWidth },
+          bar: { width: {ratio:0.5}},
           axis: {
             y: {
               tick: {

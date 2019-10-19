@@ -1435,7 +1435,9 @@
 
       sendOrder(order) {
         // console.log('====> virtualclass dts order 1', order);
-        virtualclass.vutil.sendOrder('docs', order);
+        if (Array.isArray(order)) {
+          virtualclass.vutil.sendOrder('docs', order);
+        }
       },
 
       reaArrangeThumbCount() {

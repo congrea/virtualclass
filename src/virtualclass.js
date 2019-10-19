@@ -406,9 +406,12 @@
             }
 
             if (virtualclass.currApp === 'ScreenShare') {
-              virtualclass.studentScreen.doOpposite = true;
-              virtualclass.studentScreen.triggerFitControl();
-              virtualclass.ss.triggerFitToScreen()
+              if ((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing)
+                || (roles.isTeacher() && virtualclass.gObj.studentSSstatus.mesharing)) {
+                virtualclass.studentScreen.doOpposite = true;
+                virtualclass.studentScreen.triggerFitControl();
+                virtualclass.ss.triggerFitToScreen();
+              }
             } else {
               virtualclass.zoom.doOpposite = true;
               virtualclass.zoom.triggerFitToScreen();

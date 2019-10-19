@@ -129,7 +129,7 @@ $meetingmode = 0;
 $cont_class .= 'normalmode ';
 
 // Set 1 to add source file else 0 to min file
-$info = 0;
+$info = 1;
 $audio_disabled_completely = true;
 $cmid = 5;
 

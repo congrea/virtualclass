@@ -34,6 +34,14 @@
       const chat = document.querySelector('#virtualclassCont.congrea #chatWidget');
       const techVideo = document.querySelector('#virtualclassCont.congrea #techVideo');
       const virtualclassAppRight = document.querySelector("#virtualclassAppRightPanel");
+      const virtualclassApp = document.querySelector("#virtualclassApp");
+      const rightbarTab = document.querySelector("#stickycontainer ul.chatBarTab");
+
+      rightbarTab.addEventListener('click', function() {
+        if(virtualclassApp.classList.contains('collapsedRightbar')) {
+          virtualclass.vutil.handleRightBar('open');
+        }
+      });
 
       $('#chatroom_bt2 .inner_bt').click(() => {
         virtualclass.vutil.sendSpeedByMobile(3);
@@ -41,6 +49,7 @@
         // chatroom_bt2.classList.add('active');
         user_list.classList.remove('active');
         techVideo.classList.remove('active');
+        setting.classList.remove('active');
         chatroom_bt2.classList.add('active');
         virtualclassAppRight.classList.add('showChatList');
         virtualclassAppRight.classList.remove('techVideoShow');
@@ -124,6 +133,7 @@
 
       $('#techVideo').click(function () {
         chatroom_bt2.classList.remove('active');
+        setting.classList.remove('active');
         user_list.classList.remove('active');
         techVideo.classList.add('active');
         virtualclassAppRight.classList.remove('showUserList');
@@ -137,13 +147,13 @@
         // $('#chatroom_bt2').removeClass('active');
         chatroom_bt2.classList.remove('active');
         techVideo.classList.remove('active');
+        setting.classList.remove('active');
         // $('#congreaSupport').removeClass('active');
         // $('#user_list').addClass('active');
         user_list.classList.add('active');
         virtualclassAppRight.classList.add('showUserList');
         virtualclassAppRight.classList.remove('techVideoShow');
         virtualclassAppRight.classList.remove('showChatList');
-        const setting = document.getElementById('appSettingCtrl');
         const chat = document.getElementById('chatWidget');
         const settingD = document.getElementById('appSettingDetail');
         if (setting.classList.contains('settingActive')) {

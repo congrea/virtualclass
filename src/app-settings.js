@@ -25,6 +25,7 @@
             if (toggle.classList.contains('chatActive')) {
               toggle.classList.remove('chatActive');
               toggle.classList.add('settingActive');
+              toggle.classList.add('active');
               chat.classList.remove('active');
               chat.classList.add('deactive');
               setting.classList.add('active');

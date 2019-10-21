@@ -368,6 +368,42 @@
       elem.classList.remove('fullScreenMode');
     },
 
+    closedRightbar() {
+      var elem = document.getElementById("virtualclassApp");
+      elem.classList.remove("openRightbar");
+      elem.classList.add("collapsedRightbar");
+      chat_div.classList.add("collapsedRightbar");
+      localStorage.setItem('hideRightbar',true);
+      virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
+      if (roles.isStudent()) {
+        ioAdapter.sendSpeed(3);
+      }
+      const rightbarTabs = document.querySelector("#stickycontainer .chatBarTab");
+      for(var i =0 ; i < rightbarTabs.children.length ; i++) {
+        rightbarTabs.children[i].classList.remove("active");
+      }
+    },
+
+    openRightbar() {
+      localStorage.removeItem('hideRightbar');
+      var elem = document.getElementById("virtualclassApp");
+      localStorage.setItem('hideRightbar',false);
+      virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
+      elem.classList.remove("collapsedRightbar");
+      elem.classList.add("openRightbar");
+      chat_div.classList.remove("collapsedRightbar");
+      if (roles.isStudent()) {
+        if (virtualclass.system.device === 'desktop') {
+          ioAdapter.sendSpeed(1);
+        } else {
+          const techVideo = document.querySelector('#techVideo.active');
+          if (techVideo != null) {
+            virtualclass.vutil.sendSpeedByMobile(1);
+          }
+        }
+      }
+    },
+
     // TODO
     /** *
      * Add class at body according to role
@@ -2444,6 +2480,31 @@
         virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny(undefined, id);
       }
     },
+
+    handleRightBar(action){
+      if (action) {
+        action === 'open' ? virtualclass.vutil.openRightbar() : virtualclass.vutil.closedRightbar();
+      } else {
+        var elem = document.getElementById("virtualclassApp");
+        if (elem.classList.contains('openRightbar')) {
+          virtualclass.vutil.closedRightbar();
+        } else {
+          virtualclass.vutil.openRightbar();
+        }
+      }
+
+      if (virtualclass.currApp === 'ScreenShare') {
+        if ((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing)
+          || (roles.isTeacher() && virtualclass.gObj.studentSSstatus.mesharing)) {
+          virtualclass.studentScreen.doOpposite = true;
+          virtualclass.studentScreen.triggerFitControl();
+          virtualclass.ss.triggerFitToScreen();
+        }
+      } else {
+        virtualclass.zoom.doOpposite = true;
+        virtualclass.zoom.triggerFitToScreen();
+      }
+    }
   };
   window.vutil = vutil;
 }(window));

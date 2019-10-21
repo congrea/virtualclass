@@ -369,6 +369,7 @@
 
         var chat_div = document.getElementById("chat_div");
         var rightSidebarBtn = document.getElementById("sidebarButton");
+        
         if(rightSidebarBtn != null) {
           rightSidebarBtn.addEventListener('click', function () {
             var elem = document.getElementById("virtualclassApp");

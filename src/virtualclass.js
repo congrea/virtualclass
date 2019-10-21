@@ -414,8 +414,6 @@
               virtualclass.zoom.doOpposite = true;
               virtualclass.zoom.triggerFitToScreen();
             }
-            virtualclass.stickybarWidth();
-            virtualclass.chatBarTabWidth();
           });
         }
 

@@ -678,7 +678,7 @@
 
 #virtualclassCont.congrea .commandToolsWrapper, #virtualclassCont.congrea #dataInfoHeading {
   padding-left: 0;
-  width: 100%;
+  width: 96%;
 }
 
 #virtualclassCont.congrea #videos #localVideo {
@@ -2070,7 +2070,7 @@
 #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
   padding-bottom: 0;
   padding-left: 0;
-  height: 48px;
+  height: 44px;
   box-shadow: none;
   border-radius: 0 0 0 5px;
 }
@@ -2770,8 +2770,9 @@
 /* New CSS */
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a {
-  padding: 11px 18px 12px;
-  /* color: #484848 !important; */
+  padding: 9px 18px 10px;
+  color: #404040 !important;
+  border-right: 0.01em solid #c7c7c7 !important;
 }
 
 #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {
@@ -4821,6 +4822,14 @@ and (max-device-width: 1024px) {
     width: 35%;
     max-width: 320px;
     min-width: 190px;
+  }
+
+  /* #virtualclassCont.congrea .commandToolsWrapper .tool.active:hover .cgIcon:before {
+    color: #000;
+  } */
+
+  #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover {
+    background-color: #e6e6e6;
   }
   /* #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover{
     background-color: #e0e0e0 !important;

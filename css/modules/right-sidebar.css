@@ -897,6 +897,14 @@ body {
   z-index: 100;
 }
 
+#virtualclassCont.congrea .commandToolsWrapper {
+  background-color: #fff;
+  border: 0.5px solid #929292;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 0 3px rgb(199, 199, 199);
+}
+
 /*#virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioImg, #virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioDisImg {*/
 /*margin-top:3px;*/
 /*}*/

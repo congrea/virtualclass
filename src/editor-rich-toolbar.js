@@ -123,7 +123,8 @@
       value_suffix = value_suffix || '';
       const self = this;
       const toolTitle = virtualclass.vutil.smallizeFirstLetter(title);
-      const button = (title === 'Font') ? utils.elt('a', `${title} \u25be`, { class: 'vceditor-btn vceditor-dropdown' }) : utils.elt('a', null, { class: `vceditor-btn vceditor-dropdown ${toolTitle}` });
+      // const button = (title === 'Font') ? utils.elt('a', `${title} \u25be`, { class: 'vceditor-btn vceditor-dropdown' }) : utils.elt('a', null, { class: `vceditor-btn vceditor-dropdown ${toolTitle}` });
+      const button = utils.elt('a', null, { class: `vceditor-btn vceditor-dropdown ${toolTitle}` });
       const list = utils.elt('ul', [], { class: `vceditor-dropdown-menu ${toolTitle}-menu` });
       button.appendChild(list);
 

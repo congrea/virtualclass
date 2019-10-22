@@ -178,6 +178,10 @@
             return userDiv;
           },
         });
+        const listHeader = document.createElement('div');
+        listHeader.id = 'listChatHeader';
+        const getMemblistElem = document.querySelector('#memlist .ui-widget-content');
+        getMemblistElem.insertAdjacentElement('afterbegin', listHeader)
       },
 
       history() { // TODO evaluate this function
@@ -355,6 +359,14 @@
               }
             }
           }
+        }
+      },
+      createCommonChatHeader() {
+        const commonChatHeader = document.createElement('div');
+        commonChatHeader.id = 'commonChatHeader';
+        const getCommonChatElem = document.querySelector('#chatrm .ui-widget-content');
+        if (getCommonChatElem != null) {
+          getCommonChatElem.insertAdjacentElement('afterbegin', commonChatHeader);
         }
       },
     };

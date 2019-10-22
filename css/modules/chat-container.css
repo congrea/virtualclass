@@ -343,7 +343,7 @@ span.icon-stdscreenImg[data-dcolor="blue"]::before {
   top: 0;
   right: 0;
   width: 99%;
-  background-color: #e5e7e7;
+  background-color: rgba(0, 0, 0, .1);
 }
 
 .text {

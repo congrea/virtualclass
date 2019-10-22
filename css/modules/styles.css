@@ -3162,11 +3162,11 @@
 }
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li#speakerPressOnce {
-  margin: 7px 6px 7px 15px;
+  margin: 7px 10px 7px 15px
 }
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li.videoSwitchCont {
-  margin: 7px 15px 7px 6px;
+  margin: 7px 15px 7px 10px;
 }
 
 #virtualclassCont.congrea li#appSettingCtrl {

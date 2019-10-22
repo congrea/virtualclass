@@ -180,7 +180,7 @@
         });
         const listHeader = document.createElement('div');
         listHeader.id = 'listChatHeader';
-        listHeader.innerHTML= `${"<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
+        listHeader.innerHTML= `${"<h5 id='onlineusertext'>" + 'Attendees ('}${virtualclass.connectedUsers.length})</h5>`;
         const getMemblistElem = document.querySelector('#memlist .ui-widget-content');
         getMemblistElem.insertAdjacentElement('afterbegin', listHeader)
       },

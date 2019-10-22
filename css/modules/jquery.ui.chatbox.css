@@ -674,6 +674,12 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   /*    border: none;*/
 }
 
+#virtualclassCont.congrea .ui-widget-content #listChatHeader {
+  background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%) !important;
+  padding: 5px 15px;
+  color: #fff;
+}
+
 #virtualclassCont.congrea .ui-tabs-active .ui-widget-content.ui-chatbox-log::-webkit-scrollbar {
   width: 6px;
   height: 8px;

@@ -180,6 +180,7 @@
         });
         const listHeader = document.createElement('div');
         listHeader.id = 'listChatHeader';
+        listHeader.innerHTML= `${"<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
         const getMemblistElem = document.querySelector('#memlist .ui-widget-content');
         getMemblistElem.insertAdjacentElement('afterbegin', listHeader)
       },
@@ -364,6 +365,7 @@
       createCommonChatHeader() {
         const commonChatHeader = document.createElement('div');
         commonChatHeader.id = 'commonChatHeader';
+        commonChatHeader.innerHTML = virtualclass.lang.getString("commonChat");
         const getCommonChatElem = document.querySelector('#chatrm .ui-widget-content');
         if (getCommonChatElem != null) {
           getCommonChatElem.insertAdjacentElement('afterbegin', commonChatHeader);

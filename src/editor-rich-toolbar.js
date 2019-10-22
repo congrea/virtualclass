@@ -42,7 +42,7 @@
       const fontSize = this.makeFontSizeDropdown_();
       const color = this.makeColorDropdown_();
       const toolbarOptions = [
-        utils.elt('div', [font], { class: 'vceditor-btn-group close' }),
+        utils.elt('div', [font], { class: 'vceditor-btn-group close editor-font' }),
         utils.elt('div', [fontSize], { class: 'vceditor-btn-group close' }),
         utils.elt('div', [color], { class: 'vceditor-btn-group close' }),
       ];

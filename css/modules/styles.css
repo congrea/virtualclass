@@ -2260,7 +2260,7 @@
   margin: 5px;
   display: inline-block;
   color: #fff;
-  border: 1px solid #fff;
+  border: 1px solid #a5a5a5;
   padding: 5px;
   font-size: 13px;
   border-radius: 4px;
@@ -3049,6 +3049,7 @@
 #virtualclassCont.congrea .dashboardContainer .modal-header h4 {
   margin-top: 5px;
   font-weight: normal;
+  color: #383838 !important;
 }
 
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a {
@@ -3938,6 +3939,13 @@ span#usertab_text {
   display: block;
   position: absolute;
   right: 10px;
+  color: black !important;
+  box-shadow: 0px 2px 5px 1px #cecece;
+  background-image: linear-gradient(to bottom, #ffffff 0%,#ffffff 100%) !important;
+}
+
+#virtualclassCont.congrea #dashboardContainer .modal-header button.enable:hover {
+  background-image: linear-gradient(to bottom, #e6e6e6 0%, #e6e6e6 100%) !important;
 }
 
 /* #virtualclassCont.congrea  #dashboardContainer .in .modal-header button{

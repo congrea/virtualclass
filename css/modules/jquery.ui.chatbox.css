@@ -575,11 +575,6 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   text-shadow: #FFF 0px 0px 2px;
 }
 
-#virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea[data-currapp="EditorCode"] .vmchat_bar_button {
-  width: 130px; /* add 100px , it was  218*/
-}
-
-
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
   background-color: #395161;
   cursor: pointer;

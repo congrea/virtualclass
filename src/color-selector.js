@@ -90,7 +90,6 @@
         + '#virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header'
         + `{border: 0.02em solid ${allbg.fcolor}!important;}`
         + '#virtualclassCont.congrea .btn.btn-default ,'
-        + '#virtualclassCont.congrea .vceditor-toolbar ,'
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab,'
         + '#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search #congreaUserSearch ,'
         + '#virtualclassCont.congrea #layoutQuiz .navbar ,'
@@ -242,15 +241,6 @@
 
         + '#virtualclassCont.congrea #alleditorRichContainer'
         + `{background-color: ${active.frontColor}} `
-
-        + '#virtualclassCont.congrea .vceditor-toolbar'
-        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
-
-        + '#virtualclassCont.congrea a.vceditor-btn:hover'
-        + `{color:${hover.frontColor}!important}`
-
-        + '#virtualclassCont.congrea a.vceditor-btn:hover'
-        + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%) !important}`
 
         + '#virtualclassCont.congrea .commandToolsWrapper .tool.active a'
         + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100% !important)} `

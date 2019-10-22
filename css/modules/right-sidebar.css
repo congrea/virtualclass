@@ -899,10 +899,10 @@ body {
 
 #virtualclassCont.congrea .commandToolsWrapper {
   background-color: #fff;
-  border: 0.5px solid #929292;
+  border: 0.5px solid #c7c7c7;
   border-top: none;
   border-radius: 0 0 5px 5px;
-  box-shadow: 0 0 3px rgb(199, 199, 199);
+  /* box-shadow: 0 0 3px rgb(199, 199, 199); */
 }
 
 /*#virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioImg, #virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioDisImg {*/

@@ -2491,6 +2491,17 @@
   min-height: 44px !important;
 }
 
+#virtualclassCont.congrea.student #layoutPoll #navigator,
+#virtualclassCont.congrea.student #layoutQuiz .navbar{
+  background-color: #fff !important;
+  border: 0.5px solid #c7c7c7 !important;
+  border-top: none !important;
+  width: 100%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  min-height: 44px !important;
+}
+
 #virtualclassCont.congrea .bootstrap .nav-tabs > li > a {
   border-radius: 6px 6px 0 0;
   padding: 6px 12px;
@@ -3074,7 +3085,7 @@
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a {
   /* padding: 0.75rem 1.5625rem 0.8125rem 1.5625rem !important;
   float: left; */
-  padding: 8px 8px 8px 7px;
+  padding: 0.5rem 0.5rem 0.5rem 0.4375rem;
 }
 
 /* #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a {
@@ -3084,12 +3095,12 @@
 
 #virtualclassCont.congrea #audioWidget .nav > li.videoSwitchCont > a {
   /* padding: 0.625rem 1.5625rem 0.75rem 1.5625rem !important; */
-  padding: 7px;
+  padding: 0.4375rem;
   /* line-height: 1.25rem; */
 }
 
 #virtualclassCont.congrea li#appSettingCtrl > a {
-  padding: 0.6875rem;
+  padding: 11px 12px 11px 14px;
   display: block;
 }
 
@@ -3173,19 +3184,19 @@
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li {
   text-align: center !important;
   display: inline-block;
-  width: 34px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  width: 2.125rem;
+  border: 0.125rem solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
-  height: 34px;
+  height: 2.125rem;
   overflow: hidden;
 }
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li#speakerPressOnce {
-  margin: 7px 10px 7px 15px
+  margin: 0.4375rem 0.625rem 0.4375rem 0.9375rem;
 }
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li.videoSwitchCont {
-  margin: 7px 15px 7px 10px;
+  margin: 0.4375rem 0.9375rem 0.4375rem 0.625rem;
 }
 
 #virtualclassCont.congrea li#appSettingCtrl {

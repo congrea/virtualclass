@@ -461,9 +461,10 @@
 
 #virtualclassCont.congrea.student .bootstrap .pollNavBar #stdPollHeader {
   font-size: 1.25rem;
-  padding: 0.8125rem 0.5rem 0.8125rem 0.6875rem;
+  padding: 0.6875rem 0.5rem 0.6875rem 0.6875rem;
   text-align: center;
   float: none;
+  color: #292929;
 }
 
 #virtualclassCont.congrea.teacher #virtualclassPoll #resultLayoutHead .alert-success {
@@ -597,4 +598,9 @@
   bottom: 16%;
   overflow: auto;
   height: 85%;
+}
+
+#virtualclassCont.congrea.student #virtualclassPoll #navigator #stdPollHeader:hover {
+  color: #292929 !important;
+  cursor: default;
 }

@@ -293,8 +293,6 @@ and (max-device-width: 1024px) {
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-style-group, #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-list-group, #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-indent-group, #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-undo-group {
   display: inline-block;
   border-radius: 3px;
-  background-color: #28323c;
-  border: 1px solid #555;
   padding: 2px 4px 6px 3px;
   cursor: pointer;
   margin-left: 5px;
@@ -302,8 +300,6 @@ and (max-device-width: 1024px) {
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group {
   display: inline-block;
   border-radius: 3px;
-  background-color: #28323c;
-  border: 1px solid #555;
   padding: 3px 5px 6px 4px;
   cursor: pointer;
   margin-left: 5px;

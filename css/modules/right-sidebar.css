@@ -172,10 +172,10 @@ body {
 /*height:50px;*/
 /*}*/
 #appSettingDetail label {
-  margin-top: 6px;
-  margin-bottom: 6px;
-  font-weight: 500;
-  font-size: 0.875rem;
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+  font-weight: 400;
+  font-size: 1rem;
   /* color: #3d454c; */
 }
 
@@ -664,6 +664,11 @@ body {
   display: block;
 }
 
+#virtualclassCont.congrea #techVideo a.inner_bt {
+  padding: 14px 12px 8px 13px;
+  display: block;
+}
+
 #virtualclassCont.congrea a.inner_bt span#usertab_text {
   float: none;
 }
@@ -746,7 +751,7 @@ body {
 }
 
 #virtualclassCont.congrea.student #appSettingDetail .setting-heading {
-  padding: 8.5px 15px;
+  padding: 0.5312rem 0.9375rem;
   color: #fff;
   margin-bottom: 10px;
 }

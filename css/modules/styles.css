@@ -678,7 +678,7 @@
 
 #virtualclassCont.congrea .commandToolsWrapper, #virtualclassCont.congrea #dataInfoHeading {
   padding-left: 0;
-  width: 96%;
+  width: calc(100% - 55px);
 }
 
 #virtualclassCont.congrea #videos #localVideo {
@@ -4783,6 +4783,8 @@ and (max-device-width: 1024px) {
   #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-chatroom .ui-chatbox-content {
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   #virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgText {

@@ -552,8 +552,12 @@
   background-color: #fff !important;
   border: 0.5px solid #bdbdbd;
   border-top: none;
-  width: 96%;
+  width: calc(100% - 55px);
   border-bottom-right-radius: 5px;
+}
+
+#virtualclassCont.congrea.student .vceditor-toolbar {
+  width: 100%;
 }
 
 #virtualclassCont.congrea .vceditor-btn-group.editor-font {

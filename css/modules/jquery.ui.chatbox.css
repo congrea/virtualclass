@@ -583,10 +583,6 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   right: -1px !important;
 }
 
-#virtualclassCont.congrea[data-currapp="ScreenShare"] .vmchat_bar_button {
-  width: 130px;
-}
-
 #virtualclassCont.congrea[data-currapp="Yts"] .ui-memblist {
   right: -1px !important;
 }

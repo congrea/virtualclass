@@ -303,7 +303,7 @@
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
-  color: #fff !important;
+  color: #ea0000 !important;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel .active #speakerPressingbtnIcon:before {
@@ -311,19 +311,19 @@
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
-  color: #fff !important;
+  color: #05e005 !important;
   z-index: -1;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget .audioMute:before {
-  content: "\e97a";
+  content: "\e997";
   font-weight: normal;
   font-size: 16px;
   font-family: 'icomoon';
   color: #de2626;
   position: absolute;
-  top: 4px;
-  left: 53px;
+  top: 5px;
+  left: 40px;
   z-index: 88888888888888;
 }
 
@@ -689,7 +689,7 @@
   color: gray;
   font-family: 'icomoon';
   font-size: 1.3125rem;
-  color: #fff;
+  color: #ea0000;
 }
 
 #virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel span#videoSwitch.video.on:before {

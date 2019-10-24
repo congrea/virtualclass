@@ -278,8 +278,7 @@
 /* css for chat romm */
 #virtualclassCont.congrea .ui-chatroom {
   bottom: 99px;
-  padding: 2px 2px 2px 2px;
-  padding: 2px 2px 2px 2px;
+  /* padding: 2px 2px 2px 2px; */
   z-index: 100;
 }
 
@@ -674,12 +673,21 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   /*    border: none;*/
 }
 
-#virtualclassCont.congrea .ui-widget-content #listChatHeader {
-  background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%) !important;
+#virtualclassCont.congrea .ui-widget-content #listChatHeader,
+#virtualclassCont #appSettingDetail .bulkUserActions .setting-heading {
   padding: 5px 15px;
   color: #fff;
 }
 
+#virtualclassCont.congrea .ui-widget-content #commonChatHeader {
+  padding: 14.5px 15px;
+  color: #fff;
+
+}
+#virtualclassCont.congrea .ui-widget-content #listChatHeader h5,
+#virtualclassCont.congrea .ui-widget-content #commonChatHeader {
+  font-size: 0.875rem;
+}
 #virtualclassCont.congrea .ui-tabs-active .ui-widget-content.ui-chatbox-log::-webkit-scrollbar {
   width: 6px;
   height: 8px;

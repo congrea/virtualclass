@@ -304,7 +304,7 @@
   display: inline-block;
   border-radius: 3px;
   background-color: #ffffff;
-  border: 1px solid #c7c7c7;
+  border: 0.5px solid #c7c7c7;
   cursor: pointer;
   margin-left: 7px;
 }

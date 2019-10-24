@@ -192,7 +192,7 @@
   background: -webkit-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Chrome10+,Safari5.1+ */
   background: -o-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Opera 11.10+ */
   background: -ms-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #0e1f24 0%, #112227 100%); /* W3C */
+  background: linear-gradient(to bottom, #fff 0%, #fff 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); /* IE6-9 */
   padding: 7px 10px;
   margin-right: 10px;
@@ -498,7 +498,7 @@
 
 #virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
   background-color: #ffffff;
-  border: 1px solid #c7c7c7 !important;
+  border: 0.5px solid #c7c7c7 !important;
   color: #404040 !important;
 }
 

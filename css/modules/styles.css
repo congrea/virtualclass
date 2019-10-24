@@ -2468,7 +2468,7 @@
 }
 
 #virtualclassCont.congrea #navigator, #layoutQuiz .navbar {
-  background: rgb(81, 94, 105); /* Old browsers */
+  /* background: rgb(81, 94, 105); Old browsers */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#515e69', endColorstr='#34404c', GradientType=0); /* IE6-9 */
   border-radius: 0;
   -webkit-border-bottom-left-radius: 6px;
@@ -2480,9 +2480,20 @@
   margin-bottom: 0;
 }
 
+#virtualclassCont.congrea #layoutPoll #navigator,
+#virtualclassCont.congrea #layoutQuiz .navbar {
+  background-color: #fff !important;
+  border: 0.5px solid #c7c7c7 !important;
+  border-top: none !important;
+  width: 96%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  min-height: 44px !important;
+}
+
 #virtualclassCont.congrea .bootstrap .nav-tabs > li > a {
   border-radius: 6px 6px 0 0;
-  padding: 7px 12px;
+  padding: 6px 12px;
   border: none !important;
 }
 
@@ -2887,6 +2898,14 @@
   font-size: 1.125rem;
   text-shadow: none;
   text-align: center;
+}
+
+#virtualclassCont.congrea #layoutQuiz .navbar .vchead{
+  padding: 0.6875rem 0.5rem 0.6875rem 0.6875rem;
+  font-size: 1.125rem;
+  text-shadow: none;
+  text-align: center;
+  color: #292929 !important;
 }
 
 /* congrea quiz end*/

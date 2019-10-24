@@ -46,7 +46,7 @@
         utils.elt('div', [fontSize], { class: 'vceditor-btn-group close' }),
         utils.elt('div', [color], { class: 'vceditor-btn-group close' }),
       ];
-
+   
       const styleGroup = utils.elt('div', null, { class: 'vceditor-btn-style-group close' });
       const styleGroupInner = utils.elt('div', [self.makeButton_('bold'), self.makeButton_('italic'), self.makeButton_('underline'), self.makeButton_('strike', 'strikethrough')], { class: 'vceditor-btn-group style-group' });
       styleGroup.appendChild(styleGroupInner);
@@ -123,8 +123,7 @@
       value_suffix = value_suffix || '';
       const self = this;
       const toolTitle = virtualclass.vutil.smallizeFirstLetter(title);
-      // const button = (title === 'Font') ? utils.elt('a', `${title} \u25be`, { class: 'vceditor-btn vceditor-dropdown' }) : utils.elt('a', null, { class: `vceditor-btn vceditor-dropdown ${toolTitle}` });
-      const button = utils.elt('a', null, { class: `vceditor-btn vceditor-dropdown ${toolTitle}` });
+      const button = (title === 'Font') ? utils.elt('a', `${title} \u25be`, { class: 'vceditor-btn vceditor-dropdown' }) : utils.elt('a', null, { class: `vceditor-btn vceditor-dropdown ${toolTitle}` });
       const list = utils.elt('ul', [], { class: `vceditor-dropdown-menu ${toolTitle}-menu` });
       button.appendChild(list);
 

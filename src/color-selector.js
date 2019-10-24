@@ -92,7 +92,6 @@
         + '#virtualclassCont.congrea .btn.btn-default ,'
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab,'
         + '#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search #congreaUserSearch ,'
-        + '#virtualclassCont.congrea #layoutQuiz .navbar ,'
         + '#virtualclassCont.congrea button ,'
         + '#virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch,'
         // "#virtualclassCont.congrea .btn.btn-default ,"+
@@ -117,18 +116,22 @@
 
     makeThemeReadyMainCont(frontColor, allbg, active, hover) {
       const css = `${'#virtualclassCont.congrea .ui-widget-header, '
-        + '#virtualclassCont.congrea #virtualclassAppFooterPanel'
+        + '#virtualclassCont.congrea #virtualclassAppFooterPanel, '
+        + '#virtualclassCont.congrea .ui-widget-content #listChatHeader, '
+        + '#virtualclassCont.congrea .ui-widget-content #commonChatHeader, '
+        + '#virtualclassCont.congrea.student #appSettingDetail .setting-heading, '
+        + '#virtualclassCont #appSettingDetail .bulkUserActions .setting-heading '
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
 
-        + '#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn'
+        + '#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn, '
+        + '#virtualclassCont.congrea .openRightbar #docShareNav #addNewPage, '
+        + '#virtualclassCont.congrea .collapsedRightbar #docShareNav #addNewPage '
         + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
 
         + '#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn.clicked'
         + `{background-image: linear-gradient(to bottom, ${active.fcolor} 0%,${active.scolor} 100%) !important} `
 
-        + '#virtualclassCont.congrea #navigator, '
-        + '#virtualclassCont.congrea #layoutQuiz .navbar, '
-        // + '#virtualclassCont.congrea .commandToolsWrapper ul.strkSizeList li:hover,'
+        // + '#virtualclassCont.congrea #navigator, '
         + '#virtualclassCont.congrea #sessionEndMsgCont .endHeader,'
         // + '#virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool ul.strkSizeList li.selected,'
         // + '#virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool ul.fontSizeList span.selected,'
@@ -141,7 +144,8 @@
         + `{background-image: linear-gradient(to right, ${allbg.fcolor} 0%,${allbg.scolor} 100%)} `
 
         + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active, '
-        + '#virtualclassCont.congrea .commandToolsWrapper .tool.active a '
+        + '#virtualclassCont.congrea .commandToolsWrapper .tool.active a, '
+        + '#virtualclassCont.congrea #virtualclassPoll .pollNavBar > li.active > a '
         + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100%);} `
         + '#virtualclassCont.congrea .tool.active a span:before '
         + `{color:${frontColor}!important}`

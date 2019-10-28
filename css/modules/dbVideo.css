@@ -285,7 +285,6 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont #listvideo {
   margin: 15px;
-  margin-right: 0px;
   overflow-y: auto;
 }
 

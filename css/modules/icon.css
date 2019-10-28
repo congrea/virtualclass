@@ -852,6 +852,7 @@
   font-weight: normal;
   font-family: 'icomoon';
   font-size: 13px;
+  color: #000;
 }
 
 #virtualclassApp.openRightbar .icon-sidebarButton:before {

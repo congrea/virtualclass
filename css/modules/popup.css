@@ -440,14 +440,18 @@
   content: "\e984";
   font-size: 17px;
   font-family: icomoon;
-  /* line-height: 1;
-  color: #fd0303; */
+  color: red;
 }
+
+/* #virtualclassCont.congrea #alleditorRichContainer:hover {
+  box-shadow: none;
+} */
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="disable"]:before {
   content: "\e97e";
   font-size: 17px;
   font-family: icomoon;
+  color: #22af00;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="disable"], #alleditorCodeContainer [data-action="disable"] {

@@ -987,10 +987,9 @@
 
 #virtualclassCont.congrea .openRightbar #docShareNav #addNewPage,
 #virtualclassCont.congrea .collapsedRightbar #docShareNav #addNewPage {
-  background-color: #0c1e22;
-  padding: 12px 13px 12px 13px;
+  padding: 11px 12px 11px 12px;
   border-radius: 20px;
-  box-shadow: 0 2px 12px 0 #b3b3b3;
+  box-shadow: 0px 2px 5px 1px #c3c3c3
 }
 
 #virtualclassCont.congrea .collapsedRightbar #docShareNav #addNewPage{

@@ -69,8 +69,6 @@
       const css = `${'#virtualclassCont.congrea #virtualclassOptionsCont .appOptions '
         + '{border-top:'}${border} !important;}`
         + '#virtualclassCont.congrea #virtualclassAppLeftPanel #docShareNav ,'
-        + '#virtualclassCont.congrea #screenController .share button ,'
-        + '#virtualclassCont.congrea #stopScreenShare button ,'
         + '#virtualclassCont.congrea #fullScreenButton ,'
         + '#virtualclassCont.congrea .vmchat_bar_button ,'
         + '#virtualclassCont.congrea .vmchat_room_bt.congtooltip ,'
@@ -92,13 +90,10 @@
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab,'
         + '#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search #congreaUserSearch ,'
         + '#virtualclassCont.congrea button ,'
-        + '#virtualclassCont.congrea #alleditorRichContainer,'
         // "#virtualclassCont.congrea .btn.btn-default ,"+
         + '#virtualclassCont.congrea .zoomControler ,'
         + '#virtualclassCont.congrea .btn-default '
-        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important;}`
-        + '#virtualclassCont.congrea #stopScreenShare button '
-        + `{border-right: 0.01em solid ${allbg.fcolor}!important;}`;
+        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important;}`;
 
       this.addCss(css);
     },
@@ -122,9 +117,7 @@
         + '#virtualclassCont #appSettingDetail .bulkUserActions .setting-heading '
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
 
-        + '#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn, '
-        + '#virtualclassCont.congrea .openRightbar #docShareNav #addNewPage, '
-        + '#virtualclassCont.congrea .collapsedRightbar #docShareNav #addNewPage '
+        + '#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn '
         + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
 
         + '#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn.clicked'
@@ -150,7 +143,6 @@
         + `{color:${frontColor}!important}`
         + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions:hover, '
         + '#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, '
-        + '#virtualclassCont.congrea #alleditorRichContainer:hover, '
         + '#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover'
         + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%) !important}`
 
@@ -223,9 +215,6 @@
         + `{border : 1px solid${allbg.fcolor}!important} `
         + `{background-image: linear-gradient(to bottom, ${active.fcolor} 0%,${active.scolor} 100%) !important ;color:${frontColor}!important} `
         + `{border-left: 1px solid ${allbg.fcolor}!important}`
-        + '#virtualclassCont.congrea #screenController .share button:hover,'
-        + '#virtualclassCont.congrea #stopScreenShare button:hover '
-        + `{background-image: linear-gradient(to bottom, ${hover.fcolor} 0%,${hover.scolor} 100%) !important;color:${frontColor}!important}`
         + '#virtualclassCont.congrea  #playController button'
         + `{background-image:none !important;color:${frontColor}!important; border-right: 1px solid ${allbg.fcolor}!important}`
         + '#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox.active'

@@ -676,7 +676,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 }
 
 #virtualclassCont.congrea .ui-widget-content #commonChatHeader {
-  padding: 0.9062rem 0.9375rem;
+  padding: 0.8125rem 0.9375rem;
   color: #fff;
 
 }
@@ -690,6 +690,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea .ui-widget-content #commonChatHeader{
   margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 #virtualclassCont.congrea .ui-tabs-active .ui-widget-content.ui-chatbox-log::-webkit-scrollbar {

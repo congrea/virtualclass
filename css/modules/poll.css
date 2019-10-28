@@ -461,7 +461,7 @@
 
 #virtualclassCont.congrea.student .bootstrap .pollNavBar #stdPollHeader {
   font-size: 1.25rem;
-  padding: 0.6875rem 0.5rem 0.6875rem 0.6875rem;
+  padding: 0.6875rem 0.5rem 0.625rem 0.6875rem;
   text-align: center;
   float: none;
   color: #292929;

@@ -328,7 +328,12 @@ and (max-device-width: 1024px) {
 }
 
 #virtualclassCont.congrea .vceditor-toolbar-wrapper .undo-group .vceditor-btn {
-  padding: 5px 5px 3px 5px;
+  padding: 5px 5px 2px 5px;
+}
+
+#virtualclassCont.congrea .ui-widget-content.ui-memblist-content:before,
+#virtualclassCont.congrea .ui-chatroom:before {
+  display: none;
 }
   
 }

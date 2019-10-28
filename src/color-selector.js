@@ -78,8 +78,7 @@
         + '#virtualclassCont.congrea li#appSettingCtrl ,' 
         + '#virtualclassCont.congrea #fullScreenExitButton '
         + `{border-left: 0.01em solid ${allbg.fcolor}!important;}`
-        + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab, #virtualclassCont.congrea #networkStatusContainer, '
-        + '#virtualclassCont.congrea #alleditorRichContainerAnch'
+        + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab, #virtualclassCont.congrea #networkStatusContainer'
         + `{border-left:${border} !important;}`
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ,'
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab li ,'
@@ -93,7 +92,7 @@
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab,'
         + '#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search #congreaUserSearch ,'
         + '#virtualclassCont.congrea button ,'
-        + '#virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch,'
+        + '#virtualclassCont.congrea #alleditorRichContainer,'
         // "#virtualclassCont.congrea .btn.btn-default ,"+
         + '#virtualclassCont.congrea .zoomControler ,'
         + '#virtualclassCont.congrea .btn-default '

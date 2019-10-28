@@ -597,8 +597,11 @@ var videoHost = {
         host.classList.add('show');
         host.classList.remove('hide');
         const rightbar = document.querySelector('.congrea #virtualclassAppRightPanel');
+        const footerBar = document.querySelector('#virtualclassCont.congrea #virtualclassAppFooterPanel');
         rightbar.classList.add('vidShow');
+        footerBar.classList.add('vidShow');
         rightbar.classList.remove('vidHide');
+        footerBar.classList.remove('vidHide');
       }
     },
 
@@ -608,8 +611,11 @@ var videoHost = {
         host.classList.remove('show');
         host.classList.add('hide');
         const rightbar = document.querySelector('.congrea #virtualclassAppRightPanel');
+        const footerBar = document.querySelector('#virtualclassCont.congrea #virtualclassAppFooterPanel');
         rightbar.classList.add('vidHide');
         rightbar.classList.remove('vidShow');
+        footerBar.classList.add('vidHide');
+        footerBar.classList.remove('vidShow');
       }
     },
   },

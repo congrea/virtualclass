@@ -990,8 +990,8 @@
   background-color: #0c1e22;
   padding: 12px 13px 12px 13px;
   border-radius: 20px;
-  box-shadow: 0px 2px 12px 0px #8a8a8a;
- }
+  box-shadow: 0 2px 12px 0 #b3b3b3;
+}
 
 #virtualclassCont.congrea .collapsedRightbar #docShareNav #addNewPage{
   position: fixed;

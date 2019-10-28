@@ -3517,12 +3517,6 @@
   z-index: 10000;
 }
 
-#virtualclassCont.congrea #alleditorRichContainer [data-action="enable"],
-#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"],
-#alleditorCodeContainer [data-action="enable"] {
-  padding: 0px !important;
-}
-
 #virtualclassCont.congrea #alleditorRichContainer [data-action="disable"] {
   /*background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);*/
   /*color:#fff !important;*/

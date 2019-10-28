@@ -680,9 +680,9 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   color: #fff;
 
 }
+
 #virtualclassCont.congrea .ui-widget-content #listChatHeader h5,
 #virtualclassCont.congrea .ui-widget-content #commonChatHeader {
-  font-size: 1rem;
   margin-top: 0.625rem;
   margin-bottom: 0.625rem;
   font-weight: 400;

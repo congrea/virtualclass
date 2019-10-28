@@ -51,7 +51,6 @@ body {
 }
 
 #virtualclassCont.congrea #rightSubContainer #congreaChatMainCont {
-  border-left: 1px solid #dfdfdf;
   height: 100%;
 }
 
@@ -115,6 +114,7 @@ body {
   border-left-width: 0;
   display: flex;
   flex-direction: column;
+  border-left: 1px solid #dfdfdf;
 }
 
 #virtualclassCont.congrea #virtualclassApp.collapsedRightbar #virtualclassAppRightPanel {

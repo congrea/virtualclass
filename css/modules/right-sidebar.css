@@ -860,8 +860,8 @@ body {
 
 #virtualclassCont.congrea .handRaise.congtooltip:hover:after {
   border-radius: 0.25em;
-  bottom: 3.8em;
-  right: 0.2em;
+  bottom: 47px;
+  right: -3px;
   left: auto;
   padding: 0.2em 0.42em;
 }

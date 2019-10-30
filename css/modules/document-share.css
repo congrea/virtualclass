@@ -1038,7 +1038,7 @@
 #virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
   display: block;
   position: absolute;
-  bottom: 54px;
+  bottom: 3.375rem;
   left: 13px;
   z-index: 1005;
   font-weight: 300;

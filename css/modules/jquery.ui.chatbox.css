@@ -812,11 +812,6 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 }
 */
 
-#virtualclassCont.congrea.teacher #audioWidget a#rightCtlr:hover,
-#virtualclassCont.congrea.student #audioWidget a#rightCtlr:hover {
-  background-image: radial-gradient(ellipse at center, #2c393d 0%,#4c5a5f 100%) !important;
-  /*    height: 40px; comment*/
-}
 
 #virtualclassCont.congrea #audioWidget a#videoPacketInfo:hover,
 #virtualclassCont.congrea #audioWidget .prechk a:hover {

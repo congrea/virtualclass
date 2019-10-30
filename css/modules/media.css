@@ -1,6 +1,8 @@
 #virtualclassCont.congrea #audioWidget .Tool .congtooltip:hover:after, #virtualclassCont.congrea #audioWidget .audioTool .congtooltip:hover:after {
-  bottom: 2px;
-  left: 84px;
+  position: fixed;
+  bottom: 63px;
+  left: 12px;
+  width: fit-content;
 }
 
 

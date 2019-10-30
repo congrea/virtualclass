@@ -22,9 +22,14 @@
   margin-left: 5px;
 }
 
-#virtualclassCont.congrea .bootstrap .pollNavBar {
+#virtualclassCont.congrea.teacher .bootstrap .pollNavBar {
   border-bottom: none !important;
   margin-left: 20px;
+}
+
+#virtualclassCont.congrea.student .bootstrap .pollNavBar {
+  margin-left: 0px;
+  border-bottom: none;
 }
 
 #virtualclassCont.congrea.teacher .bootstrap .pollNavBar li {

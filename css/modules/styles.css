@@ -1300,11 +1300,11 @@
 
 #virtualclassCont.congrea #appSettingCtrl.congtooltip:hover:after {
   bottom: 47px;
-  left: 24px;
+  left: 21px;
 }
 
 #virtualclassCont.congrea.student #appSettingCtrl.congtooltip:hover:after {
-  left: 10px;
+  left: 21px;
 }
 
 #virtualclass.congrea .handRaise.congtooltip:hover:after {
@@ -2493,9 +2493,9 @@
 
 #virtualclassCont.congrea.student #layoutPoll #navigator,
 #virtualclassCont.congrea.student #layoutQuiz .navbar{
-  background-image: linear-gradient(to top, #e6e6e6 0%,#ffffff 100%) !important;
+  background-image: linear-gradient(to top, #F2F2F2 0%,#F0F2F0 100%) !important;
   /* background-color: #fff !important; */
-  border: 0.5px solid #c7c7c7 !important;
+  border: 0.5px solid #dadada !important;
   border-top: none !important;
   width: 100%;
   border-bottom-left-radius: 5px;
@@ -3633,8 +3633,10 @@
 }
 
 #virtualclassCont.congrea #audioWidget .congtooltip:hover:after {
-  bottom: 55px;
-  left: 10px;
+  position: fixed;
+  bottom: 63px;
+  left: 58px;
+  width: fit-content;
 }
 
 #virtualclassCont.congrea #audioWidget .latency.congtooltip:hover:after {
@@ -3795,6 +3797,7 @@
 
 #virtualclassCont.congrea a.inner_bt.congtooltip:hover:after {
   bottom: 47px !important;
+  left: 2px;
 }
 
 #virtualclassCont.congrea .hand_bt.congtooltip:hover:after {
@@ -3964,8 +3967,9 @@ span#usertab_text {
   display: block;
   position: absolute;
   right: 10px;
-  color: black !important;
-  box-shadow: 0px 2px 5px 1px #cecece;
+  color: #272727 !important;
+  border: 0.5px solid #bbbbbb;
+  box-shadow: 1px 3px 4px -1px #a0a0a0;
   background-image: linear-gradient(to bottom, #ffffff 0%,#ffffff 100%) !important;
 }
 
@@ -4549,7 +4553,7 @@ and (max-device-width: 1024px) {
 
 
 #virtualclassCont.congrea #fullScreenButton span.congtooltip:hover:after, #virtualclassCont.congrea #fullScreenExitButton span.congtooltip:hover:after {
-  bottom: 4.2em !important;
+  bottom: 47px !important;
   left: -14px;
 }
 

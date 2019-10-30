@@ -335,6 +335,25 @@ and (max-device-width: 1024px) {
 #virtualclassCont.congrea .ui-chatroom:before {
   display: none;
 }
+
+#virtualclassCont.congrea .ui-widget-content #commonChatHeader {
+  font-size: 1rem;
+  padding: 0.8125rem 0.9375rem;
+  color: #fff;
+}
+
+#virtualclassCont.congrea.student #appSettingDetail .setting-heading {
+  padding: 0.4375rem 0.9375rem;
+}
+
+#appSettingDetail label{
+  font-size: 1rem;
+}
+
+#virtualclassCont.congrea .ui-widget-content #listChatHeader h5{
+  margin-top: 0.5625rem;
+  margin-bottom: 0.5rem;
+}
   
 }
   /* #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a {

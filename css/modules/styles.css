@@ -2493,7 +2493,8 @@
 
 #virtualclassCont.congrea.student #layoutPoll #navigator,
 #virtualclassCont.congrea.student #layoutQuiz .navbar{
-  background-color: #fff !important;
+  background-image: linear-gradient(to top, #e6e6e6 0%,#ffffff 100%) !important;
+  /* background-color: #fff !important; */
   border: 0.5px solid #c7c7c7 !important;
   border-top: none !important;
   width: 100%;

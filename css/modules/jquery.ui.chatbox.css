@@ -6,7 +6,7 @@
   bottom: 37px;
   padding: 0px;
   border-bottom: none;
-  z-index: 10001;
+  z-index: 1001;
   overflow: hidden;
   left: -3px;
   border: 1px solid #bbb;
@@ -676,7 +676,8 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 }
 
 #virtualclassCont.congrea .ui-widget-content #commonChatHeader {
-  padding: 0.8125rem 0.9375rem;
+  font-size: 0.875rem;
+  padding: 0.875rem 0.9375rem;
   color: #fff;
 
 }
@@ -684,7 +685,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 #virtualclassCont.congrea .ui-widget-content #listChatHeader h5,
 #virtualclassCont.congrea .ui-widget-content #commonChatHeader {
   margin-top: 0.625rem;
-  margin-bottom: 0.625rem;
+  margin-bottom: 0.5625rem;
   font-weight: 400;
 }
 

@@ -998,10 +998,14 @@
   right: 30px;
 }
 
-#virtualclassCont.congrea .openRightbar #docShareNav #addNewPage{
+#virtualclassCont.congrea .openRightbar #docShareNav #addNewPage {
   position: fixed;
   top: 55px;
   right: 350px;
+}
+
+#virtualclassCont.congrea .openRightbar #docShareNav #addNewPage:hover {
+  background-image: linear-gradient(to bottom, #fdfdfd 0%,#eaeaea 100%) !important;
 }
 
 #virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher #docShareNav {
@@ -1054,12 +1058,12 @@
 }
 
 .congrea #stdPageNo {
-  color: #2c393d;
+  color: #28323c;
   font-size: 0.875rem;
 }
 
 .congrea #totalPages {
-  color: #2c393d;
+  color: #28323c;
   font-size: 14px;
   margin-right: 13px;
 }

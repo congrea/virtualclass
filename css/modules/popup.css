@@ -438,7 +438,7 @@
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="enable"]:before {
   content: "\e984";
-  font-size: 17px;
+  font-size: 18px;
   font-family: icomoon;
   color: red;
 }
@@ -449,7 +449,7 @@
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="disable"]:before {
   content: "\e97e";
-  font-size: 17px;
+  font-size: 18px;
   font-family: icomoon;
   color: #22af00;
 }

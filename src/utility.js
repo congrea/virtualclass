@@ -379,9 +379,9 @@
         ioAdapter.sendSpeed(3);
       }
       const rightbarTabs = document.querySelector("#stickycontainer .chatBarTab");
-      for(var i =0 ; i < rightbarTabs.children.length ; i++) {
-        rightbarTabs.children[i].classList.remove("active");
-      }
+      // for(var i =0 ; i < rightbarTabs.children.length ; i++) {
+      //   rightbarTabs.children[i].classList.remove("active");
+      // }
     },
 
     openRightbar() {

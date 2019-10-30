@@ -1266,14 +1266,16 @@ let globalImageData = {};
         changeSsInfoSelf(elem) {
           elem.classList.remove('selfView');
           elem.classList.add('shareToAll');
-          elem.children[0].innerHTML = virtualclass.lang.getString('selfview'); // for next time
+          elem.setAttribute('data-title', virtualclass.lang.getString('selfview'));
+          // elem.children[0].innerHTML = virtualclass.lang.getString('selfview'); // for next time
           virtualclass.gObj.studentSSstatus.shareToAll = true;
         },
 
         changeSsInfoShareToAll(elem) {
           elem.classList.remove('shareToAll');
           elem.classList.add('selfView');
-          elem.children[0].innerHTML = virtualclass.lang.getString('sharetoall'); // for next time
+          elem.setAttribute('data-title', virtualclass.lang.getString('sharetoall'));
+          // elem.children[0].innerHTML = virtualclass.lang.getString('sharetoall'); // for next time
           virtualclass.gObj.studentSSstatus.shareToAll = false;
         },
 

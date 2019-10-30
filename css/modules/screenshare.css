@@ -137,30 +137,25 @@
   text-align: center;
 }
 
-/*#virtualclassCont.congrea #virtualclassScreenShareLocal, #virtualclassCont.congrea #virtualclassScreenShare{*/
-/*overflow : auto;*/
-/*}*/
-
-/*#virtualclassCont.congrea.student #virtualclassScreenShareLocal{*/
-/*overflow-x : auto;*/
-/*overflow-y : auto;*/
-/*}*/
-
 #virtualclassCont.congrea.student #virtualclassScreenShareLocal.scrollX {
   overflow-x: scroll;
 }
 
-/*#virtualclassCont.congrea.playMode #virtualclassScreenShare {*/
-/*height: 93vh;*/
-/*}*/
-
-#virtualclassCont.congrea #screenController .share button {
+#virtualclassCont.congrea #virtualclassScreenShare #screenController .share {
   right: 350px;
   top: 59px;
+  position: fixed;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShare #screenController .share.congtooltip:hover::after {
+  right: 50px;
+  top: 6px;
+  bottom: unset;
+}
+
+#virtualclassCont.congrea #screenController .share button {
   background-image: linear-gradient(to bottom, #fff 0%,#fff 100%) !important;
   border: none;
-  position: fixed;
-  z-index: 1001;
   cursor: pointer;
   background-color: transparent;
   padding: 10px 10.5px;
@@ -168,6 +163,10 @@
   letter-spacing: 1px;
   box-shadow: 0 2px 5px 1px #c3c3c3;
   border-radius: 50%;
+}
+
+#virtualclassCont.congrea #screenController .share button:hover {
+  background-image: linear-gradient(to bottom, #fdfdfd 0%,#eaeaea 100%) !important;
 }
 
 #virtualclassCont.congrea[data-recording="on"] #screenController .share button,
@@ -183,28 +182,20 @@
 }
 
 #virtualclassCont.congrea #stopScreenShare button {
-  right: 350px;
-  top: 7px;
   background-image: linear-gradient(to bottom, #fff 0%,#fff 100%) !important;
   color: #000;
   border: none;
-  position: fixed;
-  z-index: 1001;
   cursor: pointer;
   background-color: transparent;
-  padding: 10px 10.5px;
+  padding: 11px 10.5px 9px 10.5px;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
   border-radius: 50%;
   box-shadow: 0 2px 5px 1px #c3c3c3;
 }
 
-#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #stopScreenShare button {
-  right: 50px;
-}
-
-#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #screenController .share button {
-  right: 50px;
+#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #screenController .share {
+  right: 30px;
 }
 
 #virtualclassCont.congrea[data-recording="on"] #stopScreenShare button, #virtualclassCont.congrea[data-recording="off"] #stopScreenShare button {
@@ -222,7 +213,7 @@
 }
 
 #virtualclassCont.congrea #stopScreenShare button:before {
-  content: "\e98d";
+  content: "\e9c6";
   font-family: 'icomoon';
   font-size: 16px;
   color: red;
@@ -243,10 +234,22 @@
   display: none;
 }
 
-.teacher[data-currapp='ScreenShare'] #stopScreenShare{
+#virtualclassCont[data-currapp='ScreenShare'].teacher #stopScreenShare {
   display: block;
+  right: 350px;
+  top: 7px;
+  position: fixed;
 }
 
+#virtualclassCont[data-currapp='ScreenShare'].teacher #virtualclassApp.collapsedRightbar #stopScreenShare {
+  right: 30px;
+}
+
+#virtualclassCont[data-currapp='ScreenShare'] #stopScreenShare.congtooltip:hover::after {
+  right: 50px;
+  top: 6px;
+  bottom: unset;
+}
 
 /*#virtualclassCont video#virtualclassScreenShareLocalVideo {*/
   /*width: 100%;*/

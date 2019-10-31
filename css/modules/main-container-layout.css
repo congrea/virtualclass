@@ -358,6 +358,57 @@ and (max-device-width: 1024px) {
   margin-top: 0.5625rem;
   margin-bottom: 0.5rem;
 }
+
+#virtualclassCont.congrea #virtualclassPreCheck.bootstrap video {
+  height: 75px;
+}
+
+#virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
+  width: 35%;
+}
+
+#virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard #svg-spinner {
+  width: 1.5625rem;
+}
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
+  height: 1.625rem;
+}
+
+#virtualclassCont.congrea .vceditor-dropdown-menu {
+  height: 13.4375rem;
+  overflow-y: auto;
+}
+
+#virtualclassCont.congrea[device="mobile"] #stickycontainer #techVideo {
+  display: block;
+}
+
+#virtualclassCont.congrea a.inner_bt span#usertab_text,
+#virtualclassCont.congrea #chatroom_bt2 .inner_bt #chatroom_text {
+  display: none;
+}
+
+#virtualclassCont.congrea #rightSubContainer a.inner_bt #chatroom_icon,
+#virtualclassCont.congrea #rightSubContainer a.inner_bt #chatroom_icon:hover {
+  float: unset !important;
+}
+
+#virtualclassCont.congrea.student .vmchat_bar_button,
+#virtualclassCont.congrea.student .vmchat_room_bt,
+#virtualclassCont.congrea #congHr {
+  width: 25% !important;
+}
+
+
+#virtualclassCont.congrea a.inner_bt #userlist_icon::before {
+  margin: 0;
+  position: unset;
+}
+
+#virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
+  font-size: 1rem;
+}
   
 }
 
@@ -448,10 +499,6 @@ and (max-device-width: 1024px) {
       font-size: 17px;
     }
 
-    #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
-      height: 1.625rem;
-    }
-
     #virtualclassCont.congrea #vcBandWidthCheck .result {
       margin-bottom: 10px;
       text-align: center;
@@ -462,63 +509,21 @@ and (max-device-width: 1024px) {
       margin-bottom: 10px;
     }
 
-    #virtualclassCont.congrea #virtualclassPreCheck.bootstrap video {
-      height: 75px;
-    }
-
-    #virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard #svg-spinner {
-      width: 1.5625rem;
-    }
-
-    #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
-      width: 40%;
-    }
-
     #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
       margin-top: 1px;
-    }
-
-    #virtualclassCont.congrea .vceditor-dropdown-menu {
-      height: 13.4375rem;
-      overflow-y: auto;
-    }
-
-    #virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
-      font-size: 0.8125rem;
     }
 
     #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
       padding: 0.9375rem 0.25rem 0.9375rem 0.5rem;
     }
 
+    #virtualclassCont.congrea[device="mobile"] #stickycontainer #techVideo {
+      display: block;
+    }
+
     html,
     body {
       font-size: 13px;
-    }
-
-    #virtualclassCont.congrea a.inner_bt span#usertab_text,
-    #virtualclassCont.congrea #chatroom_bt2 .inner_bt #chatroom_text {
-      display: none;
-    }
-
-    #virtualclassCont.congrea #rightSubContainer a.inner_bt #chatroom_icon,
-    #virtualclassCont.congrea #rightSubContainer a.inner_bt #chatroom_icon:hover {
-      float: unset !important;
-    }
-
-    #virtualclassCont.congrea.student .vmchat_bar_button,
-    #virtualclassCont.congrea.student .vmchat_room_bt,
-    #virtualclassCont.congrea #congHr {
-      width: 25% !important;
-    }
-
-    #virtualclassCont.congrea a.inner_bt #userlist_icon::before {
-      margin: 0;
-      position: unset;
-    }
-
-    #virtualclassCont.congrea[device="mobile"] #stickycontainer #techVideo {
-      display: block;
     }
 
   }
@@ -533,68 +538,18 @@ and (max-device-width: 1024px) {
       margin-right: 10px;
     }
 
-    #virtualclassCont.congrea #virtualclassPreCheck.bootstrap video {
-      height: 75px;
-    }
-
     #virtualclassCont.congrea #virtualclassPreCheck .result div{
       margin-top: 0 !important;
 
     }
 
-    #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
-      width: 35%;
-    }
-
-    #virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard #svg-spinner{
-      width: 1.5625rem;
-    }
-
-    #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon{
+    #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
       margin-bottom: 10px;
-    }
-
-    #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
-      height: 1.625rem;
-    }
-
-    #virtualclassCont.congrea .vceditor-dropdown-menu {
-      height: 13.4375rem;
-      overflow-y: auto;
-    }
-
-    #virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
-      font-size: 0.6875rem;
     }
 
     html,
     body {
       font-size: 14px;
-    }
-
-    #virtualclassCont.congrea a.inner_bt span#usertab_text,
-    #virtualclassCont.congrea #chatroom_bt2 .inner_bt #chatroom_text {
-      display: none;
-    }
-
-    #virtualclassCont.congrea #rightSubContainer a.inner_bt #chatroom_icon,
-    #virtualclassCont.congrea #rightSubContainer a.inner_bt #chatroom_icon:hover {
-      float: unset !important;
-    }
-
-    #virtualclassCont.congrea.student .vmchat_bar_button,
-    #virtualclassCont.congrea.student .vmchat_room_bt,
-    #virtualclassCont.congrea #congHr {
-      width: 25% !important;
-    }
-
-    #virtualclassCont.congrea a.inner_bt #userlist_icon::before {
-      margin: 0;
-      position: unset;
-    }
-
-    #virtualclassCont.congrea #stickycontainer #techVideo {
-      display: block;
     }
 }
 

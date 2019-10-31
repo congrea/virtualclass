@@ -167,18 +167,8 @@
 
 #virtualclassCont.congrea .vceditor-btn-group {
 
-  margin: 9px 7px 9px 0;
+  margin: 0.6875rem 0.25rem 0.6875rem 0;
   display: inline-block;
-}
-
-@media (max-width: 1300px) {
-  #virtualclassCont.congrea .vceditor-btn-group {
-    margin: 0.6875rem 0.25rem 0.6875rem 0;
-  }
-
-  /* #virtualclassCont.congrea .vceditor-toolbar {
-    padding-left: 13px;
-  } */
 }
 
 #virtualclassCont.congrea .vceditor-dialog .vceditor-dialog-div .vceditor-btn-group {

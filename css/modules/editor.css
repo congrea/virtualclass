@@ -344,17 +344,17 @@
   font-size: 1.0625rem;
   color: #404040;
   position: relative;
-  top: 3px;
+  top: 4px;
   left: 4px;
 }
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group::before {
   font-family: 'icomoon';
-  content: "\e9be";
+  content: "\e9ca";
   font-size: 1rem;
   color: #404040;
   position: relative;
-  top: 2px;
+  top: 4px;
   left: 4px;
 }
 

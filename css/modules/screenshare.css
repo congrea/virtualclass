@@ -158,7 +158,7 @@
   border: none;
   cursor: pointer;
   background-color: transparent;
-  padding: 10px 10.5px;
+  padding: 9px 9.5px;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
   box-shadow: 0 2px 5px 1px #c3c3c3;
@@ -175,9 +175,17 @@
 }
 
 #virtualclassCont.congrea #screenController .share button:before {
-  content: "\e98b";
+  content: "\e9d0";
   font-family: 'icomoon';
-  font-size: 16px;
+  font-size: 18px;
+  color: #09b208;
+  font-weight: 600;
+}
+
+#virtualclassCont.congrea #screenController .share.shareToAll button:before {
+  content: "\e9cf";
+  font-family: 'icomoon';
+  font-size: 18px;
   color: #09b208;
 }
 

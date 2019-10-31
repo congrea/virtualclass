@@ -107,8 +107,6 @@ and (max-device-width: 1024px) {
     height: 100%;
   }
 
-
-
   #virtualclassCont.congrea.fullScreenMode #chat_div {
     height: calc(100% - 388px);
   }
@@ -271,6 +269,7 @@ and (max-device-width: 1024px) {
     overflow: auto;
     height: calc(100% - 3rem);
   }
+
   #virtualclassCont.congrea #virtualclassAppFooterPanel #proposedSpeed {
     width: 1.25rem !important;
     margin-top: 0.125rem !important;
@@ -290,6 +289,7 @@ and (max-device-width: 1024px) {
   padding-right: 6px;
   border-right: #ccc 1px solid;
 }
+
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-style-group, #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-list-group, #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-indent-group, #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-undo-group {
   display: inline-block;
   border-radius: 3px;
@@ -297,6 +297,7 @@ and (max-device-width: 1024px) {
   cursor: pointer;
   margin-left: 5px;
 }
+
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group {
   display: inline-block;
   border-radius: 3px;
@@ -304,9 +305,11 @@ and (max-device-width: 1024px) {
   cursor: pointer;
   margin-left: 5px;
 }
+
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group {
   margin-right: 4px;
 }
+
 #virtualclassCont.congrea .vceditor-dropdown-menu a {
   text-align: left;
   display: block;
@@ -317,6 +320,7 @@ and (max-device-width: 1024px) {
   color: #333333;
   white-space: nowrap;
 }
+
 #virtualclassCont.congrea .vceditor-color-dropdown-item {
   height: 1.25rem;
   width: 1.25rem;
@@ -356,16 +360,6 @@ and (max-device-width: 1024px) {
 }
   
 }
-  /* #virtualclassCont.congrea.student #audioWidget .nav > li#speakerPressOnce > a {
-    padding: 11px 10px 6px 9px;
-    line-height: 15px;
-    line-height: 1.25rem;
-  }
-
-  #virtualclassCont.congrea #audioWidget .nav > li.videoSwitchCont > a {
-    padding: 8px 14px 8px 14px;
-    line-height: 15px;
-  } */
 
   @media only screen and (min-device-width: 310px) and (max-device-width: 850px) {
 
@@ -523,7 +517,7 @@ and (max-device-width: 1024px) {
       position: unset;
     }
 
-    #virtualclassCont.congrea #stickycontainer #techVideo {
+    #virtualclassCont.congrea[device="mobile"] #stickycontainer #techVideo {
       display: block;
     }
 

@@ -353,7 +353,7 @@ and (max-device-width: 1024px) {
 }
 
 #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
-  width: 35%;
+  width: 40%;
 }
 
 #virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard #svg-spinner {

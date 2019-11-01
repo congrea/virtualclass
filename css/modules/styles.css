@@ -3969,7 +3969,7 @@ span#usertab_text {
   right: 10px;
   color: #272727 !important;
   border: 0.5px solid #bbbbbb;
-  box-shadow: 1px 3px 4px -1px #a0a0a0;
+  box-shadow: 1px 3px 2px -2px #a0a0a0;
   background-image: linear-gradient(to bottom, #ffffff 0%,#ffffff 100%) !important;
 }
 

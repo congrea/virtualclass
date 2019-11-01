@@ -415,9 +415,9 @@ body {
   display: block !important;
 }
 
-#virtualclassCont.congrea.student #congreaChatMainCont #congFooterCtr #congchatBarInput #congreaUserSearch.hideInput {
+/* #virtualclassCont.congrea.student #congreaChatMainCont #congFooterCtr #congchatBarInput #congreaUserSearch.hideInput {
   display: none !important;
-}
+} */
 
 #virtualclassCont.congrea.student #rightSubContainer #user_list.disable {
   pointer-events: none;
@@ -522,7 +522,7 @@ body {
 
 #virtualclassCont.congrea #stickycontainer a.inner_bt span#tech_video:before {
   font-weight: normal;
-  content: "\e96c";
+  content: "\e966";
   font-size: 1.25rem;
   font-family: 'icomoon';
   color: #fff;
@@ -541,11 +541,9 @@ body {
   background-color: unset;
 }
 
-#virtualclassCont.congrea #stickycontainer .active a.inner_bt span#tech_video::before {
+/* #virtualclassCont.congrea #stickycontainer .active a.inner_bt span#tech_video::before {
   content: "\e966";
-  position: relative;
-  bottom: 3px;
-}
+} */
 
 #virtualclassCont.congrea #stickycontainer #techVideo {
   display: none;
@@ -665,7 +663,7 @@ body {
 }
 
 #virtualclassCont.congrea #techVideo a.inner_bt {
-  padding: 14px 12px 8px 13px;
+  padding: 11px 12px 12px 13px;
   display: block;
 }
 

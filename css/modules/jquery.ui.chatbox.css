@@ -396,6 +396,12 @@
   padding: 0;
 }
 
+#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #stickybar .ui-tabs {
+  position: fixed;
+  left: 0;
+  width: 100%;
+}
+
 #virtualclassCont.congrea .ui-tabs .ui-tabs-nav li {
   float: right;
   white-space: normal;
@@ -671,7 +677,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea .ui-widget-content #listChatHeader,
 #virtualclassCont #appSettingDetail .bulkUserActions .setting-heading {
-  padding: 0.3125rem 0.9375rem;
+  /* padding: 0.3125rem 0.9375rem; */
   color: #fff;
 }
 
@@ -684,9 +690,12 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea .ui-widget-content #listChatHeader h5,
 #virtualclassCont.congrea .ui-widget-content #commonChatHeader {
-  margin-top: 0.625rem;
-  margin-bottom: 0.5625rem;
+  margin-top: 0;
+  margin-bottom: 0;
   font-weight: 400;
+  font-size: 0.9rem;
+  padding: 0.875rem 0.9375rem;
+  line-height: normal;
 }
 
 #virtualclassCont.congrea .ui-widget-content #commonChatHeader{

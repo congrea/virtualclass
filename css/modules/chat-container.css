@@ -339,10 +339,6 @@ span.icon-stdscreenImg[data-dcolor="blue"]::before {
 
 .ui-memblist-usr.mySelf {
   pointer-events: none !important;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 99%;
   background-color: rgba(0, 0, 0, .1);
 }
 

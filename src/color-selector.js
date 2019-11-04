@@ -111,8 +111,7 @@
     makeThemeReadyMainCont(frontColor, allbg, active, hover) {
       const css = `${'#virtualclassCont.congrea .ui-widget-header, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel, '
-        + '#virtualclassCont.congrea .ui-widget-content #listChatHeader, '
-        + '#virtualclassCont.congrea .ui-widget-content #commonChatHeader, '
+        + '#virtualclassCont.congrea #virtualclassAppRightPanel #rightBarHeader, '
         + '#virtualclassCont.congrea.student #appSettingDetail .setting-heading, '
         + '#virtualclassCont #appSettingDetail .bulkUserActions .setting-heading '
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `

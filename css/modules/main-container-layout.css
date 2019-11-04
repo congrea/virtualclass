@@ -392,7 +392,7 @@
 }
 
 /* To Target medium resolutions mobiles */
-@media only screen and (min-width: 310px) and (max-width: 850px) {
+@media only screen and (min-device-width: 310px) and (max-device-width: 850px) {
   #virtualclassCont.congrea #virtualclassPreCheck #preCheckcontainer .modal-dialog.modal-lg {
     width: 90%;
   }
@@ -504,7 +504,7 @@
 
 /* To Target high resolutions mobiles */
 
-@media only screen and (min-width: 851px) and (max-width: 1023px) {
+@media only screen and (min-device-width: 851px) and (max-device-width: 1023px) {
   #virtualclassCont.congrea #virtualclassPreCheck #preCheckcontainer .modal-dialog.modal-lg {
     width: 75%;
   }

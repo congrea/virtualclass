@@ -4874,10 +4874,6 @@ and (max-device-width: 1024px) {
     background-color: #e0e0e0 !important;
   } */
 
-#virtualclassCont.congrea #userListHeader #onlineusertext {
-  color: black !important;
-}
-
 #virtualclassCont.congrea #userListHeader.active,
 #virtualclassCont.congrea #commonChatHeader.active,
 #virtualclassCont.congrea #techVideoHeader.active {

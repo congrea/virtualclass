@@ -662,7 +662,6 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 #virtualclassCont.congrea #chat_div {
   overflow-y: auto;
   position: relative;
-  padding-top: 3.1875rem;
   height: 100%;
 }
 
@@ -675,7 +674,6 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   /*    border: none;*/
 }
 
-#virtualclassCont.congrea .ui-widget-content #listChatHeader,
 #virtualclassCont #appSettingDetail .bulkUserActions .setting-heading {
   /* padding: 0.3125rem 0.9375rem; */
   color: #fff;
@@ -688,14 +686,16 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 }
 
-#virtualclassCont.congrea .ui-widget-content #listChatHeader h5,
-#virtualclassCont.congrea .ui-widget-content #commonChatHeader {
+#virtualclassCont.congrea #virtualclassAppRightPanel #userListHeader,
+#virtualclassCont.congrea #virtualclassAppRightPanel #commonChatHeader,
+#virtualclassCont.congrea #virtualclassAppRightPanel #techVideoHeader {
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 400;
   font-size: 0.9rem;
   padding: 0.875rem 0.9375rem;
   line-height: normal;
+  color: #fff;
 }
 
 #virtualclassCont.congrea .ui-widget-content #commonChatHeader{

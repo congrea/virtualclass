@@ -701,7 +701,6 @@
                   data: { masterIndex: this.masterIndex, subIndex: this.subRecordingIndex },
                 };
               }
-
               io.onRecMessage(this.convertInto({ data: this.msg }));
             } else { // Binary
               this.msg = this.subRecordings[this.subRecordingIndex].recObjs;
@@ -972,7 +971,8 @@
       if (this.isPlayFinished()) {
         // Sometimes there would come session end packet before 1 or 2 towards end packets
         // In that case, let play time would be equal to total time
-        if (this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('"cf":"sEnd"') > -1) {
+        if ((this.masterRecordings[this.masterIndex]
+          && this.masterRecordings[this.masterIndex][this.subRecordingIndex].recObjs.indexOf('"cf":"sEnd"') > -1)) {
           this.playProgressBar(this.totalTimeInMiliSeconds);
         }
         if (this.allFileFound) {

@@ -139,18 +139,20 @@ const receiveFunctions = new function () {
   };
 
   // session end
-  this.sEnd = async function (e) {
+  this.sEnd = async function () {
     // #967
-    const joinClass = document.querySelector('#joinClassModal');
-    joinClass.style.display = 'none';
+    if (!virtualclass.isPlayMode) {
+      const joinClass = document.querySelector('#joinClassModal');
+      joinClass.style.display = 'none';
 
-    const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
-    if (virtualclassApp != null) {
-      virtualclassApp.style.display = 'flex';
+      const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
+      if (virtualclassApp != null) {
+        virtualclassApp.style.display = 'flex';
+      }
+      await virtualclass.config.endSession();
+      virtualclass.popup.sesseionEndWindow();
+      virtualclass.gObj.endSession = true;
     }
-    await virtualclass.config.endSession();
-    virtualclass.popup.sesseionEndWindow();
-    virtualclass.gObj.endSession = true;
   };
 
   // whiteboard ready

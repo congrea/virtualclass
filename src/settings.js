@@ -302,12 +302,10 @@
             userList.classList.remove('hideList');
             searchUserInput.classList.remove('hideInput');
             vmlist.classList.remove('disable');
-            document.querySelector('#listChatHeader').innerHTML = `${"<h5 id='onlineusertext'>" + 'Attendees ('}${virtualclass.connectedUsers.length})</h5>`;
           } else {
             userList.classList.add('hideList');
             searchUserInput.classList.add('hideInput');
             vmlist.classList.add('disable');
-             document.querySelector('#listChatHeader').innerHTML = `${"<h5 id='onlineusertext'>" + 'Attendees'}</h5>`;
             const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
             vmchat.click();
           }

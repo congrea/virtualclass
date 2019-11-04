@@ -432,7 +432,9 @@
     RaiseHand: 'raise hand',
     UserList: 'user list',
     uploading: 'Processing...',
-    commonChat: 'Chat Room',
+    userListHeader: 'Attendees',
+    commonChatHeader: 'Chat Room',
+    teacherVideoHeader: 'Teacher Video',
     /* For Chrome */
     PermissionDeniedErrorExt: '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'
     + 'Go to camera icon on top right of the screen <br /> '

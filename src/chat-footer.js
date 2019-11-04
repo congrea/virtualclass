@@ -75,7 +75,7 @@
         }
         $('#chatroom_bt2').removeClass('ui-state-highlight');
         virtualclass.chat.chatWindow = 'common';
-        virtualclass.chat.createCommonChatHeader();
+        virtualclass.chat.rightBarHeader('chatRoom');
         if ($('ul#chat_room').length === 0) {
           const d = document.createElement('ul');
           d.id = 'chat_room';
@@ -91,7 +91,6 @@
               $('#chat_room').chatroom('option', 'boxManager').addMsg(user.name, msg, userid);
             },
           });
-          virtualclass.chat.createCommonChatHeader();
 
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'chatEnable')) {
             if (!virtualclass.gObj.chatEnable) {
@@ -142,6 +141,7 @@
         virtualclassAppRight.classList.remove('showChatList');
         virtualclassAppRight.classList.add("techVideoShow");
         virtualclass.vutil.sendSpeedByMobile(1);
+        virtualclass.chat.rightBarHeader('techVideo');
       })
 
       $('#user_list').click(function () {
@@ -201,6 +201,7 @@
             memlist.classList.add('enable');
           }
         }
+        virtualclass.chat.rightBarHeader('userList');
       }),
 
       $('#congreaUserSearch').keyup(function () {

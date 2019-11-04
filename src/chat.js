@@ -178,14 +178,6 @@
             return userDiv;
           },
         });
-        const listchatElem = document.querySelector('#listChatHeader');
-        if (listchatElem == null) {
-          const listHeader = document.createElement('div');
-          listHeader.id = 'listChatHeader';
-          listHeader.innerHTML= `${"<h5 id='onlineusertext'>" + 'Attendees ('}${virtualclass.connectedUsers.length})</h5>`;
-          const getMemblistElem = document.querySelector('#memlist .ui-widget-content');
-          getMemblistElem.insertAdjacentElement('afterbegin', listHeader);
-        }
       },
 
       history() { // TODO evaluate this function
@@ -365,17 +357,27 @@
           }
         }
       },
-      createCommonChatHeader() {
+      rightBarHeader(headerType) {
+        const elem = document.querySelector('#rightBarHeader .active');
+        const userListElem = document.querySelector('#userListHeader');
         const commonchatElem = document.querySelector('#commonChatHeader');
-        if (commonchatElem == null) {
-          const commonChatHeader = document.createElement('div');
-          commonChatHeader.id = 'commonChatHeader';
-          commonChatHeader.innerHTML = virtualclass.lang.getString("commonChat");
-          const getCommonChatElem = document.querySelector('#chatrm .ui-widget-content');
-          if (getCommonChatElem != null) {
-            getCommonChatElem.insertAdjacentElement('afterbegin', commonChatHeader);
-          }
-      }
+        const teacherVideoElem = document.querySelector('#techVideoHeader');
+        if (headerType === 'userList') {
+          elem.classList.remove('active');
+          elem.classList.add('deactive');
+          userListElem.classList.remove('deactive');
+          userListElem.classList.add('active');
+        } else if (headerType === 'chatRoom') {
+          elem.classList.remove('active');
+          elem.classList.add('deactive');
+          commonchatElem.classList.remove('deactive');
+          commonchatElem.classList.add('active');
+        } else if (headerType === 'techVideo') {
+          elem.classList.remove('active');
+          elem.classList.add('deactive');
+          teacherVideoElem.classList.remove('deactive');
+          teacherVideoElem.classList.add('active');
+        }
       },
     };
   };

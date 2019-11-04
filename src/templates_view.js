@@ -1134,6 +1134,8 @@ this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing;
 
   return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled showUserList\"> "
+    + ((stack1 = container.invokePartial(partials.rightBarHeader,depth0,{"name":"rightBarHeader","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + " "
     + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || alias2).call(alias1,{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "   <div id=\"rightSubContainer\" class=\"\"> "
     + ((stack1 = container.invokePartial(partials.appSettingDetail,depth0,{"name":"appSettingDetail","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
@@ -1141,6 +1143,22 @@ this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Searchuser",{"name":"getString","hash":{},"data":data}))
     + "\"></div></div></div></div></div></div>";
 },"usePartial":true,"useData":true});
+
+this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return " <div id=\"techVideoHeader\" class=\"deactive\">"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"teacherVideoHeader",{"name":"getString","hash":{},"data":data}))
+    + "</div> ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<div id=\"rightBarHeader\"><div id=\"userListHeader\" class=\"active\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userListHeader",{"name":"getString","hash":{},"data":data}))
+    + "<span id='onlineusertext' class='cgText'></span></div><div id=\"commonChatHeader\" class=\"deactive\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChatHeader",{"name":"getString","hash":{},"data":data}))
+    + "</div> "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.std : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " </div>";
+},"useData":true});
 
 this["JST"]["dest_temp/templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;

@@ -522,7 +522,7 @@
   font-size: 11px;
 }
 
-#virtualclassCont.congrea .zoomControler .zoomIn.congtooltip:hover:after, 
+#virtualclassCont.congrea .zoomControler .zoomIn.congtooltip:hover:after,
 #virtualclassCont.congrea .zoomOut.congtooltip:hover:after,
 #virtualclassCont.congrea .fitScreen.congtooltip:hover:after {
   border: #ccc solid 1px;
@@ -4873,4 +4873,19 @@ and (max-device-width: 1024px) {
   /* #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover{
     background-color: #e0e0e0 !important;
   } */
-  
+
+#virtualclassCont.congrea #userListHeader #onlineusertext {
+  color: black !important;
+}
+
+#virtualclassCont.congrea #userListHeader.active,
+#virtualclassCont.congrea #commonChatHeader.active,
+#virtualclassCont.congrea #techVideoHeader.active {
+  display: block;
+}
+
+#virtualclassCont.congrea #userListHeader.deactive,
+#virtualclassCont.congrea #commonChatHeader.deactive,
+#virtualclassCont.congrea #techVideoHeader.deactive {
+  display: none;
+}

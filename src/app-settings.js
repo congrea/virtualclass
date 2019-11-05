@@ -22,6 +22,11 @@
               virtualclassAppRight.classList.remove('techVideoShow');
               document.querySelector("#techVideo").classList.remove("active");
             }
+            const rightBarHeader = document.querySelector('#rightBarHeader');
+            if (rightBarHeader.classList.contains('active')) {
+              rightBarHeader.classList.remove('active');
+              rightBarHeader.classList.add('deactive');
+            }
             if (toggle.classList.contains('chatActive')) {
               toggle.classList.remove('chatActive');
               toggle.classList.add('settingActive');

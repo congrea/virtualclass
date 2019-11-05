@@ -4876,12 +4876,15 @@ and (max-device-width: 1024px) {
 
 #virtualclassCont.congrea #userListHeader.active,
 #virtualclassCont.congrea #commonChatHeader.active,
-#virtualclassCont.congrea #techVideoHeader.active {
+#virtualclassCont.congrea #techVideoHeader.active,
+#virtualclassCont.congrea #rightBarHeader.active {
   display: block;
 }
 
 #virtualclassCont.congrea #userListHeader.deactive,
 #virtualclassCont.congrea #commonChatHeader.deactive,
-#virtualclassCont.congrea #techVideoHeader.deactive {
+#virtualclassCont.congrea #techVideoHeader.deactive,
+#virtualclassCont.congrea #rightBarHeader.deactive {
   display: none;
 }
+

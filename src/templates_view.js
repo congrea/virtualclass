@@ -1151,7 +1151,7 @@ this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1"
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div id=\"rightBarHeader\"><div id=\"userListHeader\" class=\"active\">"
+  return "<div id=\"rightBarHeader\" class=\"active\"><div id=\"userListHeader\" class=\"active\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userListHeader",{"name":"getString","hash":{},"data":data}))
     + "<span id='onlineusertext' class='cgText'></span></div><div id=\"commonChatHeader\" class=\"deactive\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChatHeader",{"name":"getString","hash":{},"data":data}))

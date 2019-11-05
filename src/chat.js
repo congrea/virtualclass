@@ -358,23 +358,26 @@
         }
       },
       rightBarHeader(headerType) {
-        const elem = document.querySelector('#rightBarHeader .active');
         const userListElem = document.querySelector('#userListHeader');
         const commonchatElem = document.querySelector('#commonChatHeader');
         const teacherVideoElem = document.querySelector('#techVideoHeader');
+        const rightBarHeader = document.querySelector('#rightBarHeader');
+        if (rightBarHeader.classList.contains('deactive')) {
+          rightBarHeader.classList.remove('deactive');
+          rightBarHeader.classList.add('active');
+        }
+        const activeElem = document.querySelector('#rightBarHeader .active');
+        if (activeElem != null) {
+          activeElem.classList.remove('active');
+          activeElem.classList.add('deactive');
+        }
         if (headerType === 'userList') {
-          elem.classList.remove('active');
-          elem.classList.add('deactive');
           userListElem.classList.remove('deactive');
           userListElem.classList.add('active');
         } else if (headerType === 'chatRoom') {
-          elem.classList.remove('active');
-          elem.classList.add('deactive');
           commonchatElem.classList.remove('deactive');
           commonchatElem.classList.add('active');
         } else if (headerType === 'techVideo') {
-          elem.classList.remove('active');
-          elem.classList.add('deactive');
           teacherVideoElem.classList.remove('deactive');
           teacherVideoElem.classList.add('active');
         }

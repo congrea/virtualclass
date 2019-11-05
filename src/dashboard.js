@@ -11,11 +11,9 @@ var dashboard = {
   },
 
   init(currApp, hidepopup) {
-    const mainContainer = document.querySelector('#mainContainer');
     if (currApp === 'SharePresentation') {
       const dbcont = document.querySelector('#pptDbCont');
       if (!dbcont) {
-
         if (document.querySelector('.docsDbCont') == null) {
           document.querySelector('#SharePresentationDashboard').innerHTML = virtualclass.vutil.getPptDashBoard('SharePresentation');
         }
@@ -28,7 +26,7 @@ var dashboard = {
     }
     const allDbContainer = document.querySelectorAll('#congdashboard .dbContainer');
     for (let i = 0; i < allDbContainer.length; i++) {
-      if (allDbContainer[i].dataset.app == virtualclass.currApp) {
+      if (allDbContainer[i].dataset.app === virtualclass.currApp) {
         allDbContainer[i].style.display = 'block';
       } else {
         allDbContainer[i].style.display = 'none';
@@ -38,7 +36,6 @@ var dashboard = {
     // console.log(`Dashboard is created for ${virtualclass.currApp}`);
     if (currApp === 'DocumentShare') {
       if (typeof hidepopup === 'undefined') {
-        // $('#congdashboard').modal();
         this.open();
       }
 
@@ -48,9 +45,6 @@ var dashboard = {
       //  virtualclass.vutil.attachEventToUploadTab();
     } else if (currApp === 'Video') {
       if (typeof hidepopup === 'undefined') {
-        //                    $('#congdashboard').modal({
-        //                        keyboard: false
-        //                    });
         virtualclass.modal.showModal();
       }
     } else {
@@ -110,12 +104,13 @@ var dashboard = {
 
   dashBoardClickTooltip(Dtype) {
     const dashBoardButton = document.querySelector('#dashboardnav button');
-    if (virtualclass.currApp == 'Video') {
-      dashBoardButton.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${Dtype}videoDashboard`));
-    } else if (virtualclass.currApp == 'SharePresentation') {
-      dashBoardButton.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${Dtype}SharePresentationdbHeading`));
-    } else if (virtualclass.currApp == 'DocumentShare') {
-      dashBoardButton.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${Dtype}dsDbheading`));
+    const dt = 'data-title';
+    if (virtualclass.currApp === 'Video') {
+      dashBoardButton.parentNode.setAttribute(dt, virtualclass.lang.getString(`${Dtype}videoDashboard`));
+    } else if (virtualclass.currApp === 'SharePresentation') {
+      dashBoardButton.parentNode.setAttribute(dt, virtualclass.lang.getString(`${Dtype}SharePresentationdbHeading`));
+    } else if (virtualclass.currApp === 'DocumentShare') {
+      dashBoardButton.parentNode.setAttribute(dt, virtualclass.lang.getString(`${Dtype}dsDbheading`));
     } else {
       // console.log('dashboard tooltip not working properly');
     }
@@ -184,9 +179,9 @@ var dashboard = {
       if (virtualclass.currApp === 'DocumentShare') {
         if (!virtualclass.dts.noteExist()) {
           this.readyDashboard();
-          //console.log('====> DOCUMENT SHARE SUMAN 10.00');
+          // console.log('====> DOCUMENT SHARE SUMAN 10.00');
         } else {
-          //console.log('====> DOCUMENT SHARE SUMAN 10.01');
+          // console.log('====> DOCUMENT SHARE SUMAN 10.01');
           if (!virtualclass.dts.isUploaderExist()) {
             virtualclass.vutil.modalPopup('docs', ['docsuploadContainer']);
           }
@@ -234,7 +229,7 @@ var dashboard = {
 
     // in any other application we can handle
     // dashoard content in own style
-    //console.log('====> DOCUMENT SHARE SUMAN 1.0');
+    // console.log('====> DOCUMENT SHARE SUMAN 1.0');
     if (currApp === 'DocumentShare') {
       var dtitle = document.getElementById('dashboardnav');
       dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
@@ -316,7 +311,7 @@ var dashboard = {
       const finish = document.querySelector('.congrea .dashboardContainer .modal-header .close');
       if (finish) {
         this.attachModalCloseHandler = true
-        //console.log('====> modal init handler');
+        // console.log('====> modal init handler');
         finish.addEventListener('click', () => {
           const app = document.querySelector('.congrea #virtualclassApp');
           if (app.classList.contains('dashboard')) {

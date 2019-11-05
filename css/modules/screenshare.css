@@ -82,17 +82,27 @@
 #virtualclassCont.congrea.teacher #virtualclassScreenShareLocalVideo {
   position: absolute;
   visibility: hidden;
+}
 
+#virtualclassCont.congrea.teacher video#virtualclassScreenShareLocalVideo {
+  position: relative;
+  left: -500px;
+  visibility: hidden;
+}
+
+#virtualclassCont.congrea.student video#virtualclassScreenShareLocalVideo {
+  position: absolute;
+  left: -1000px;
+  visibility: hidden;
 }
 
 #virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideo {
-  position: static; /* To add the scroll */
   visibility: visible;
 }
 
-#virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassApp #virtualclassScreenShareLocalVideo {
+/* #virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassApp #virtualclassScreenShareLocalVideo {
   margin-left: 55px;
-}
+} */
 
 #virtualclassCont.congrea.teacher.studentScreenSharing #virtualclassScreenShareLocalVideoNew {
   display: none;
@@ -107,10 +117,9 @@
   height: 300px;
   margin: 0 auto;
   position: absolute;
-  left: 45%;
   top: 50%;
-  margin-left: -250px;
-  margin-top: -250px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #virtualclassScreenShareLocalVideosmall {
@@ -144,12 +153,6 @@
 /*#virtualclassCont.congrea.playMode #virtualclassScreenShare {*/
 /*height: 93vh;*/
 /*}*/
-
-#virtualclassCont.congrea.student video#virtualclassScreenShareLocalVideo {
-  position: absolute;
-  visibility: hidden;
-  left: -2000;
-}
 
 #virtualclassCont.congrea #screenController .share button {
   right: 572px;
@@ -262,3 +265,16 @@
   }
 
 }
+
+.congrea #stopScreenShare {
+  display: none;
+}
+
+.teacher[data-currapp='ScreenShare'] #stopScreenShare{
+  display: block;
+}
+
+
+/*#virtualclassCont video#virtualclassScreenShareLocalVideo {*/
+  /*width: 100%;*/
+/*}*/

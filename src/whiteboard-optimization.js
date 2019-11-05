@@ -44,7 +44,8 @@
           }
         }
 
-        if (((typeof virtualclass.gObj.lastmousemovetime === 'undefined') || (virtualclass.gObj.lastmousemovetime == null))) {
+        if (((typeof virtualclass.gObj.lastmousemovetime === 'undefined')
+          || (virtualclass.gObj.lastmousemovetime == null))) {
           virtualclass.gObj.lastmousemovetime = new Date().getTime();
           if (!Object.prototype.hasOwnProperty.call(e.detail, 'cevent')) {
             vcan.optimize.calculatePackets(virtualclass.gObj.lastmousemovetime, 'm', (e.clientX - vcan.main.offset.x), (e.clientY - vcan.main.offset.y));

@@ -14,11 +14,6 @@
       <video id="virtualclassScreenShareLocalVideosmall" autoplay="true" src=" "></video>
 
       <h3 id="screenShrMsg" class="alert alert-info">{{getString 'screensharemsg'}}</h3>
-      {{#if scrctrl}}
-        <div id="stopScreenShare" class="ss" data-title="{{getString 'ssStop'}}">
-          <button type="button"> {{getString 'ssBtn'}}</button>
-        </div>
-      {{/if}}
     </div>
     {{/if}}
 
@@ -41,12 +36,5 @@
         <canvas id="virtualclassScreenShareLocalTempVideo" width="900" height="740"></canvas>
       </div>
     {{/unless}}
-
-    {{else}}
-      {{#if scrctrl}}
-        <div id="stopScreenShare" class="ss" data-title="{{getString 'ssStop'}}">
-          <button type="button"> {{getString 'ssBtn'}}</button>
-        </div>
-      {{/if}}
-    {{/if}}
+  {{/if}}
 </div>

@@ -112,21 +112,21 @@
       const appNameUpper = previousApp.name;
 
       var appIs = appNameUpper.charAt(0).toUpperCase() + appNameUpper.slice(1);
-      if (previousApp.name == 'Yts' || (previousApp.name == 'DocumentShare')) {
+      if (previousApp.name === 'Yts' || (previousApp.name === 'DocumentShare')) {
         if (previousApp.metaData == null) {
           var videoObj = null;
         } else {
           var videoObj = previousApp.metaData;
           videoObj.fromReload = true;
         }
-      } else if (previousApp.name == 'Video') {
+      } else if (previousApp.name === 'Video') {
         if (previousApp.metaData == null || previousApp.metaData.init == null) {
           var videoObj = null;
         } else {
           var videoObj = previousApp.metaData;
           videoObj.fromReload = true;
         }
-      } else if (previousApp.name == 'Whiteboard') {
+      } else if (previousApp.name === 'Whiteboard') {
         if (wIds == null) {
           virtualclass.gObj.wbCount = previousApp.wbn;
         }
@@ -196,7 +196,8 @@
       }
     }
 
-    if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
+    if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable')
+      && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
       virtualclass.media.init();
       // we can not make this synchronous, because after this,
       // we are connecting the web socket
@@ -233,9 +234,6 @@
     if (!virtualclass.system.isCompatibleRAM()) {
       virtualclass.view.createErrorMsg(virtualclass.lang.getString('notcompatibleram'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'notcompatiblecpu' });
     }
-  }
-
-
-
+  };
   window.Bootstrap = Bootstrap;
 }(window));

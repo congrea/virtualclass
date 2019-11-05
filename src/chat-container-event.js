@@ -17,7 +17,7 @@ const chatContainerEvent = {
     const str = $(cthis);
     let ahref;
     let id;
-    if (cthis.className == 'videoSubWrapper' || cthis.classList == 'userVideos') {
+    if (cthis.className === 'videoSubWrapper' || cthis.classList === 'userVideos') {
       ahref = str[0].id;
       id = ahref.replace('user', '');
     } else {
@@ -33,7 +33,7 @@ const chatContainerEvent = {
         var name = chat_div.shadowRoot.querySelector(`#ml${id} .usern a`).title;
       }
 
-      if ($.inArray(id, virtualclass.chat.idList) == -1) {
+      if ($.inArray(id, virtualclass.chat.idList) === -1) {
         virtualclass.chat.counter++;
         virtualclass.chat.idList.push(id);
         if (!Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, id)) {
@@ -69,7 +69,8 @@ const chatContainerEvent = {
 
   onEvent(targetElem, chatboxManager) {
     const event = this.getEvent(targetElem);
-    if (targetElem.classList == 'userVideos' || targetElem.classList == 'videoSubWrapper' || event == 'init_chatBox') {
+    if (targetElem.classList === 'userVideos' || targetElem.classList === 'videoSubWrapper'
+      || event === 'init_chatBox') {
       if (targetElem.classList.contains('media-heading')) {
         targetElem = targetElem.parentNode.previousElementSibling;
       } else {
@@ -77,11 +78,11 @@ const chatContainerEvent = {
       }
 
       this.init_chatBox(targetElem, chatboxManager);
-    } else if (event == 'footerControler') {
+    } else if (event === 'footerControler') {
       // If use click on achor tag than on span
-      if (targetElem.tagName == 'A') {
+      if (targetElem.tagName === 'A') {
         targetElem = targetElem.firstElementChild;
-        if (targetElem.tagName != 'SPAN') {
+        if (targetElem.tagName !== 'SPAN') {
           alert('no span tag is found');
         }
       }

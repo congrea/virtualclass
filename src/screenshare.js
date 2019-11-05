@@ -62,7 +62,8 @@ let globalImageData = {};
           virtualclass.studentScreen.base.width = 0;
           virtualclass.studentScreen.setDimension();
           renderImage(imageData);
-          virtualclass.studentScreen.triggerFitToScreene(e.data.stype);
+          // virtualclass.studentScreen.triggerFitToScreen(e.data.stype);
+          virtualclass.studentScreen.triggerNormalView(e.data.stype);
           const teacher = virtualclass.vutil.getUserAllInfo(e.data.uid, virtualclass.connectedUsers);
           if ((teacher && teacher.role !== 't' && roles.isStudent() && !virtualclass.gObj.studentSSstatus.shareToAll)) {
             receiveFunctions.sview({ message: 'firstSs' });
@@ -158,10 +159,11 @@ let globalImageData = {};
         }
       },
 
-      triggerFitToScreene(stype) {
+      triggerNormalView(stype) {
         if (stype === 'full' && virtualclass.studentScreen.scale === 1) {
           virtualclass.studentScreen.scale = 1;
-          virtualclass.studentScreen.fitToScreen();
+          // virtualclass.studentScreen.fitToScreen();
+          virtualclass.studentScreen.normalView();
         }
       },
       /**
@@ -217,6 +219,8 @@ let globalImageData = {};
             if (virtualclass[app].localCanvas.width !== d.w || virtualclass[app].localCanvas.height !== d.h) {
               virtualclass[app].localCanvas.width = d.w;
               virtualclass[app].localCanvas.height = d.h;
+              virtualclass[app].canvasOriginalWidth = virtualclass[app].localCanvas.width;
+              virtualclass[app].canvasOriginalHeight = virtualclass[app].localCanvas.height;
             }
           }
           (typeof uid === 'undefined') ? virtualclass[app].drawImages(imgData) : virtualclass[app].drawImages(imgData, uid);
@@ -252,28 +256,86 @@ let globalImageData = {};
           }
 
           if (fitScreen != null) {
-            fitScreen.onclick = function onclick() {
-              virtualclass.studentScreen.fitToScreen();
-            };
+            fitScreen.addEventListener('click', this.triggerFitControl.bind(this));
           }
         }
-
         this.szoom = true;
+      },
+
+      triggerFitControl() {
+        const fitScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
+        if (this.doOpposite) {
+          if (fitScreen.dataset.currstate === 'normalview') {
+            virtualclass.studentScreen.fitToScreen();
+          } else {
+            virtualclass.studentScreen.normalView();
+          }
+          delete this.doOpposite;
+        } else {
+          if (fitScreen.dataset.currstate === 'normalview') {
+            virtualclass.studentScreen.normalView();
+          } else {
+            virtualclass.studentScreen.fitToScreen();
+          }
+        }
       },
 
       zoomIn() {
         virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * this.SCALE_FACTOR;
-        virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * this.SCALE_FACTOR;
+        virtualclass.ss.localCanvas.height = ((+virtualclass.ss.localCanvas.height) * this.SCALE_FACTOR) + 5;
         this.scale = this.scale * this.SCALE_FACTOR;
         renderImage(globalImageData);
 
         this.addScroll();
       },
 
+      fitToScreen() {
+        const fitToScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
+        if (fitToScreen) {
+          fitToScreen.dataset.currstate = 'normalview';
+          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen .congtooltip');
+          dataTitleElem.dataset.title = virtualclass.lang.getString('normalView');
+        }
+
+        this.setDimension();
+        const canvasParentWidth = document.querySelector('#virtualclassScreenShare').offsetWidth;
+        this.scale = virtualclass.ss.getScale(virtualclass.ss.canvasOriginalWidth, canvasParentWidth);
+        virtualclass.ss.localCanvas.width = canvasParentWidth - 10;
+        virtualclass.ss.localCanvas.height = Math.round(virtualclass.ss.canvasOriginalHeight * this.scale);
+        renderImage(globalImageData);
+        this.addScroll();
+      },
+
+      normalView() {
+        const fitToScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
+        if (fitToScreen) {
+          fitToScreen.dataset.currstate = 'fittoscreen';
+          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen .congtooltip');
+          dataTitleElem.dataset.title = virtualclass.lang.getString('fitToScreen');
+        }
+
+        const dimen = this.setDimension();
+        this.scale = virtualclass.ss.getScale(this.base.width, dimen.width);
+        // if (this.scale >= 1) {
+        //   this.scale = 1;
+        //   virtualclass.ss.localCanvas.width = globalImageData.width;
+        //   virtualclass.ss.localCanvas.height = globalImageData.height;
+        // } else {
+        //   virtualclass.ss.localCanvas.width = dimen.width;
+        //   virtualclass.ss.localCanvas.height = dimen.height;
+        // }
+        this.scale = 1;
+        virtualclass.ss.localCanvas.width = globalImageData.width;
+        virtualclass.ss.localCanvas.height = globalImageData.height;
+
+        renderImage(globalImageData);
+        virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
+      },
+
       zoomOut() {
         this.scale = this.scale / this.SCALE_FACTOR;
         virtualclass.ss.localCanvas.width = (+virtualclass.ss.localCanvas.width) * (1 / this.SCALE_FACTOR);
-        virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * (1 / this.SCALE_FACTOR);
+        virtualclass.ss.localCanvas.height = (+virtualclass.ss.localCanvas.height) * (1 / this.SCALE_FACTOR) + 5;
         renderImage(globalImageData);
         this.addScroll();
       },
@@ -290,29 +352,12 @@ let globalImageData = {};
           virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
         }
       },
-
-      fitToScreen() {
-        const dimen = this.setDimension();
-        this.scale = virtualclass.ss.getScale(this.base.width, dimen.width);
-        if (this.scale >= 1) {
-          this.scale = 1;
-          virtualclass.ss.localCanvas.width = globalImageData.width;
-          virtualclass.ss.localCanvas.height = globalImageData.height;
-        } else {
-          virtualclass.ss.localCanvas.width = dimen.width;
-          virtualclass.ss.localCanvas.height = dimen.height;
-        }
-
-        renderImage(globalImageData);
-        virtualclass.ss.localCanvas.parentNode.classList.remove('scrollX');
-      },
+      //
 
       setDimension() {
-        const dimension = this.getCanvasContainerDimension();
-        let { width } = dimension;
-        let { height } = dimension;
-        width = virtualclass.vutil.getValueWithoutPixel(width);
-        height = virtualclass.vutil.getValueWithoutPixel(height);
+        const virtualclassScreenShare = document.getElementById('virtualclassScreenShare');
+        const width = virtualclassScreenShare.offsetWidth;
+        const height = virtualclassScreenShare.offsetHeight;
         this.setCanvasContainerDimension(width, height);
         return { width, height };
       },
@@ -338,11 +383,11 @@ let globalImageData = {};
       },
 
       setCanvasContainerDimension(width, height) {
+        return;
         const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
         canvaScontainer.style.width = `${width}px`;
         canvaScontainer.style.height = `${height}px`;
       },
-
 
       drawImageThroughWorker(dataPack) {
         if (window.Worker) {
@@ -743,10 +788,10 @@ let globalImageData = {};
         container.width = window.innerWidth;
         container.height = window.innerHeight - 140;
 
-        const vidContainer = document.getElementById(this.local);
-        // const dimension = this.html.getDimension(container);
-        vidContainer.style.width = `${Math.round(container.width)}px`;
-        vidContainer.style.height = `${Math.round(container.height)}px`;
+        // const vidContainer = document.getElementById(this.local);
+        // // const dimension = this.html.getDimension(container);
+        // vidContainer.style.width = `${Math.round(container.width)}px`;
+        // vidContainer.style.height = `${Math.round(container.height)}px`;
 
         // setStyleToElement(vidContainer, width, height);
         /**
@@ -1070,6 +1115,8 @@ let globalImageData = {};
       dimensionStudentScreen(cWidth, cHeight) {
         this.localCanvas = document.getElementById(`${virtualclass[app].local}Video`);
         this.localCont = virtualclass[app].localCanvas.getContext('2d');
+        this.canvasOriginalWidth = cWidth;
+        this.canvasOriginalHeight = cHeight;
         this.localCanvas.width = cWidth;
         this.localCanvas.height = cHeight;
       },
@@ -1089,13 +1136,15 @@ let globalImageData = {};
           this.localCont.clearRect(0, 0, this.localCanvas.width, this.localCanvas.height);
           this.localCanvas.width = msg.d.w;
           this.localCanvas.height = msg.d.h;
+          this.canvasOriginalWidth = this.localCanvas.width;
+          this.canvasOriginalHeight = this.localCanvas.height;
         }
 
-        if (Object.prototype.hasOwnProperty.call(msg, 'vc')) {
-          const vc = document.getElementById(virtualclass[app].local);
-          vc.style.width = `${msg.vc.w}px`;
-          vc.style.height = `${msg.vc.h}px`;
-        }
+        // if (Object.prototype.hasOwnProperty.call(msg, 'vc')) {
+        //   const vc = document.getElementById(virtualclass[app].local);
+        //   vc.style.width = `${msg.vc.w}px`;
+        //   vc.style.height = `${msg.vc.h}px`;
+        // }
 
         if (virtualclass.previous === 'virtualclassScreenShare') {
           virtualclass.vutil.setScreenInnerTagsWidth(virtualclass.previous);
@@ -1295,6 +1344,13 @@ let globalImageData = {};
         }
         // virtualclass.gObj.studentSSstatus.shareToAll = true;
         // virtualclass.gObj.studentSSstatus.sharing = true;
+      },
+
+      triggerFitToScreen() {
+        const fitToScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
+        if (fitToScreen != null && fitToScreen.dataset.currstate === 'normalview'){
+          virtualclass.zoom.zoomAction('fitToScreen');
+        }
       },
     };
   };

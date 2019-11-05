@@ -490,7 +490,13 @@ this["JST"]["dest_temp/templates/editor/messagebox.hbs"] = Handlebars.template({
 },"useData":true});
 
 this["JST"]["dest_temp/templates/footerBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"virtualclassAppFooterPanel\" class=\"footerBar\"><div id=\"stickybar\" class=\"maximize something-happend\"><div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\"><ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\"></ul></div><div id=\"networkStatusContainer\" class=\"connecting-room\"><div id=\"networkLatency\" class=\"congtooltip\"><div id=\"proposedSpeed\"><div id=\"svgContainer\"><svg version=\"1.1\" id=\"Capa_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 470.149 470.149\" style=\"enable-background:new 0 0 470.149 470.149;\" xml:space=\"preserve\"><path id=\"signalendpoint\" class=\"signal\" d=\"M202.775,383.825c0,17.567,14.167,31.733,31.733,31.733s31.733-14.167,31.733-31.733 c0-17.567-14.167-31.733-31.733-31.733C217.225,352.091,202.775,366.258,202.775,383.825z M236.775,383.825 c0,1.133-0.85,2.267-2.267,2.267c-1.133,0-2.267-0.85-2.267-2.267c0-1.133,0.85-2.267,2.267-2.267 C235.925,381.841,236.775,382.691,236.775,383.825z\"/><path id=\"mediumstepfst\" class=\"signalone\" d=\"M373.625,243.008c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-41.083-37.683-94.35-58.65-150.45-58.65c-55.25,0-108.233,20.4-149.033,57.517c-7.083,6.233-7.367,17-1.133,24.083 c6.233,7.083,17,7.367,24.083,1.133c34.567-31.45,79.617-48.733,126.367-48.733c47.317,0,92.65,17.567,127.217,49.583 C365.408,241.591,369.375,243.008,373.625,243.008z\"/><path id=\"lowstepfst\" class=\"signalfive\" d=\"M310.158,319.225c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083c-23.8-21.817-54.683-34-86.7-34 s-62.617,11.9-86.133,33.15c-7.083,6.233-7.367,17-1.133,24.083c6.233,7.083,17,7.367,24.083,1.133 c17.283-15.867,39.95-24.367,63.183-24.367c23.8,0,46.467,8.783,63.75,24.933C301.941,317.808,306.191,319.225,310.158,319.225z\"/><path id=\"highstepfst\" class=\"signalthree\" d=\"M453.241,173.875c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-62.9-58.083-144.783-89.817-230.35-89.817c-84.717,0-166.033,31.45-228.65,88.117c-7.083,6.233-7.367,17-1.133,24.083 s17,7.367,24.083,1.133c56.383-51.283,129.483-79.333,205.7-79.333c77.067,0,150.733,28.617,207.4,80.75 C445.025,172.175,449.275,173.875,453.241,173.875z\"/></svg></div></div></div><div id=\"connectingRoomIcon\"><span class=\"icon-whiteboard \"><svg id=\"svg-spinner\" xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" viewBox=\"0 0 48 48\"><circle cx=\"24\" cy=\"4\" r=\"4\" fill=\"#fff\"></circle><circle cx=\"12.19\" cy=\"7.86\" r=\"3.7\" fill=\"#fffbf2\"></circle><circle cx=\"5.02\" cy=\"17.68\" r=\"3.4\" fill=\"#fef7e4\"></circle><circle cx=\"5.02\" cy=\"30.32\" r=\"3.1\" fill=\"#fef3d7\"></circle><circle cx=\"12.19\" cy=\"40.14\" r=\"2.8\" fill=\"#feefc9\"></circle><circle cx=\"24\" cy=\"44\" r=\"2.5\" fill=\"#feebbc\"></circle><circle cx=\"35.81\" cy=\"40.14\" r=\"2.2\" fill=\"#fde7af\"></circle><circle cx=\"42.98\" cy=\"30.32\" r=\"1.9\" fill=\"#fde3a1\"></circle><circle cx=\"42.98\" cy=\"17.68\" r=\"1.6\" fill=\"#fddf94\"></circle><circle cx=\"35.81\" cy=\"7.86\" r=\"1.3\" fill=\"#fcdb86\"></circle></svg></span></div></div><div id=\"docShareNav\"></div><div id=\"fullScreenButton\"><span class=\"congtooltip fullScreen\" data-title=\"Full Screen\"><i class=\"icon-fullScreen cgIcon\"></i></span></div><div id=\"fullScreenExitButton\"><span class=\"congtooltip\" data-title=\"Exit Full Screen\"><i class=\"icon-exitScreen cgIcon\"></i></span></div></div></div>";
+    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<div id=\"virtualclassAppFooterPanel\" class=\"footerBar\"><div id=\"stickybar\" class=\"maximize something-happend\"><div id=\"stopScreenShare\" class=\"ss\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssStop",{"name":"getString","hash":{},"data":data}))
+    + "\"><button type=\"button\"> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssBtn",{"name":"getString","hash":{},"data":data}))
+    + "</button></div><div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\"><ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\"></ul></div><div id=\"networkStatusContainer\" class=\"connecting-room\"><div id=\"networkLatency\" class=\"congtooltip\"><div id=\"proposedSpeed\"><div id=\"svgContainer\"><svg version=\"1.1\" id=\"Capa_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 470.149 470.149\" style=\"enable-background:new 0 0 470.149 470.149;\" xml:space=\"preserve\"><path id=\"signalendpoint\" class=\"signal\" d=\"M202.775,383.825c0,17.567,14.167,31.733,31.733,31.733s31.733-14.167,31.733-31.733 c0-17.567-14.167-31.733-31.733-31.733C217.225,352.091,202.775,366.258,202.775,383.825z M236.775,383.825 c0,1.133-0.85,2.267-2.267,2.267c-1.133,0-2.267-0.85-2.267-2.267c0-1.133,0.85-2.267,2.267-2.267 C235.925,381.841,236.775,382.691,236.775,383.825z\"/><path id=\"mediumstepfst\" class=\"signalone\" d=\"M373.625,243.008c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-41.083-37.683-94.35-58.65-150.45-58.65c-55.25,0-108.233,20.4-149.033,57.517c-7.083,6.233-7.367,17-1.133,24.083 c6.233,7.083,17,7.367,24.083,1.133c34.567-31.45,79.617-48.733,126.367-48.733c47.317,0,92.65,17.567,127.217,49.583 C365.408,241.591,369.375,243.008,373.625,243.008z\"/><path id=\"lowstepfst\" class=\"signalfive\" d=\"M310.158,319.225c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083c-23.8-21.817-54.683-34-86.7-34 s-62.617,11.9-86.133,33.15c-7.083,6.233-7.367,17-1.133,24.083c6.233,7.083,17,7.367,24.083,1.133 c17.283-15.867,39.95-24.367,63.183-24.367c23.8,0,46.467,8.783,63.75,24.933C301.941,317.808,306.191,319.225,310.158,319.225z\"/><path id=\"highstepfst\" class=\"signalthree\" d=\"M453.241,173.875c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-62.9-58.083-144.783-89.817-230.35-89.817c-84.717,0-166.033,31.45-228.65,88.117c-7.083,6.233-7.367,17-1.133,24.083 s17,7.367,24.083,1.133c56.383-51.283,129.483-79.333,205.7-79.333c77.067,0,150.733,28.617,207.4,80.75 C445.025,172.175,449.275,173.875,453.241,173.875z\"/></svg></div></div></div><div id=\"connectingRoomIcon\"><span class=\"icon-whiteboard \"><svg id=\"svg-spinner\" xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" viewBox=\"0 0 48 48\"><circle cx=\"24\" cy=\"4\" r=\"4\" fill=\"#fff\"></circle><circle cx=\"12.19\" cy=\"7.86\" r=\"3.7\" fill=\"#fffbf2\"></circle><circle cx=\"5.02\" cy=\"17.68\" r=\"3.4\" fill=\"#fef7e4\"></circle><circle cx=\"5.02\" cy=\"30.32\" r=\"3.1\" fill=\"#fef3d7\"></circle><circle cx=\"12.19\" cy=\"40.14\" r=\"2.8\" fill=\"#feefc9\"></circle><circle cx=\"24\" cy=\"44\" r=\"2.5\" fill=\"#feebbc\"></circle><circle cx=\"35.81\" cy=\"40.14\" r=\"2.2\" fill=\"#fde7af\"></circle><circle cx=\"42.98\" cy=\"30.32\" r=\"1.9\" fill=\"#fde3a1\"></circle><circle cx=\"42.98\" cy=\"17.68\" r=\"1.6\" fill=\"#fddf94\"></circle><circle cx=\"35.81\" cy=\"7.86\" r=\"1.3\" fill=\"#fcdb86\"></circle></svg></span></div></div><div id=\"docShareNav\"></div><div id=\"fullScreenButton\"><span class=\"congtooltip fullScreen\" data-title=\"Full Screen\"><i class=\"icon-fullScreen cgIcon\"></i></span></div><div id=\"fullScreenExitButton\"><span class=\"congtooltip\" data-title=\"Exit Full Screen\"><i class=\"icon-exitScreen cgIcon\"></i></span></div></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/joinclass.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1165,52 +1171,34 @@ this["JST"]["dest_temp/templates/ssmainDiv.hbs"] = Handlebars.template({"1":func
 },"2":function(container,depth0,helpers,partials,data) {
     return " <div id=\"virtualclassScreenShareLocalTemp\"><canvas id=\"virtualclassScreenShareLocalTempVideo\" width=\"1440\" height=\"738\"></canvas></div> ";
 },"4":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
-
-  return " <div id=\"virtualclassScreenShareLocal\" class=\"Local \" style=\"position: relative;\"><video id=\"virtualclassScreenShareLocalVideo\" autoplay=\"true\" src=\" \"></video></div><div id=\"virtualclassScreenShareLocalSmall\" class=\"Local \"><video id=\"virtualclassScreenShareLocalVideosmall\" autoplay=\"true\" src=\" \"></video><h3 id=\"screenShrMsg\" class=\"alert alert-info\">"
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(alias1,"screensharemsg",{"name":"getString","hash":{},"data":data}))
-    + "</h3> "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " </div> ";
-},"5":function(container,depth0,helpers,partials,data) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return " <div id=\"stopScreenShare\" class=\"ss\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssStop",{"name":"getString","hash":{},"data":data}))
-    + "\"><button type=\"button\"> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssBtn",{"name":"getString","hash":{},"data":data}))
-    + "</button></div> ";
-},"7":function(container,depth0,helpers,partials,data) {
+    return " <div id=\"virtualclassScreenShareLocal\" class=\"Local \" style=\"position: relative;\"><video id=\"virtualclassScreenShareLocalVideo\" autoplay=\"true\" src=\" \"></video></div><div id=\"virtualclassScreenShareLocalSmall\" class=\"Local \"><video id=\"virtualclassScreenShareLocalVideosmall\" autoplay=\"true\" src=\" \"></video><h3 id=\"screenShrMsg\" class=\"alert alert-info\">"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"screensharemsg",{"name":"getString","hash":{},"data":data}))
+    + "</h3></div> ";
+},"6":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return " <div id=\"virtualclassScreenShareLocal\" class=\"Local\"><canvas id=\"virtualclassScreenShareLocalVideo\"></canvas></div> "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " ";
-},"8":function(container,depth0,helpers,partials,data) {
+},"7":function(container,depth0,helpers,partials,data) {
     return " <div id=\"screenController\"><div class=\"share selfView\"><button type=\"button\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"sharetoall",{"name":"getString","hash":{},"data":data}))
     + "</button></div></div> ";
+},"9":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return " "
+    + ((stack1 = helpers.unless.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.recImg : depth0),{"name":"unless","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " ";
 },"10":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return " "
-    + ((stack1 = helpers.unless.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.recImg : depth0),{"name":"unless","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " ";
-},"11":function(container,depth0,helpers,partials,data) {
     return " <div id=\"virtualclassScreenShareLocalTemp\"><canvas id=\"virtualclassScreenShareLocalTempVideo\" width=\"900\" height=\"740\"></canvas></div> ";
-},"13":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return " "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "<div id=\"virtualclassScreenShare\" class=\"virtualclass \"> "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(6, data, 0),"data":data})) != null ? stack1 : "")
     + " "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.program(13, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " </div>";
 },"useData":true});
 
@@ -1784,7 +1772,7 @@ this["JST"]["dest_temp/templates/zoomControl.hbs"] = Handlebars.template({"compi
 
   return "<div class=\"zoomControler\"><div class=\"zoomIn\"><span class=\"congtooltip zoomctrtool\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomIn",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-zoonIn\"></i></span></div><div class=\"fitScreen\"><span class=\"congtooltip zoomctrtool\" data-title=\""
+    + "\"><i class=\"icon-zoonIn\"></i></span></div><div class=\"fitScreen\" data-currstate=\"normalview\"><span class=\"congtooltip zoomctrtool\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"fitToScreen",{"name":"getString","hash":{},"data":data}))
     + "\"><i class=\"icon-fitScreen\"></i></span></div><div class=\"zoomOut\"><span class=\"congtooltip zoomctrtool\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomOut",{"name":"getString","hash":{},"data":data}))

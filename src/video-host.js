@@ -68,7 +68,7 @@ var videoHost = {
       rightPanel.classList.add(teacherVideo);
       if (roles.hasControls()) {
         var swVideo = localStorage.getItem('videoSwitch');
-        if (swVideo && swVideo == '0') {
+        if (swVideo && swVideo === '0') {
           if (virtualclass.connectedUsers && virtualclass.connectedUsers.length) {
             virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
           } else {
@@ -155,7 +155,7 @@ var videoHost = {
 
   toggleVideoMsg(action) {
     const videoSwitchCont = document.querySelector('#congCtrBar');
-    if (action == 'enable') {
+    if (action === 'enable') {
       videoSwitchCont.style.pointerEvents = 'visible';
       videoSwitchCont.style.opacity = '1';
       virtualclass.videoHost.gObj.allStdVideoOff = false;
@@ -168,7 +168,7 @@ var videoHost = {
   toggleStdVideoIcon(action) {
     const swCont = document.querySelector('.congrea .videoSwitchCont');
     const sw = document.querySelector('.congrea #rightCtlr #videoSwitch');
-    if (action == 'enable') {
+    if (action === 'enable') {
       sw.setAttribute('data-action', 'disable');
       sw.className = 'video on';
       swCont.setAttribute('data-title', 'Video off');
@@ -213,7 +213,7 @@ var videoHost = {
   removeUserIcon(userid) {
     const cthis = virtualclass.media;
     // console.log('Remove User icon');
-    if (virtualclass.gObj.uid == userid) { // for self
+    if (virtualclass.gObj.uid === userid) { // for self
       const vidContainer = cthis.video.createVideoElement();
 
       virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
@@ -438,7 +438,7 @@ var videoHost = {
     setTimeout(
       () => {
         if (virtualclass.isPlayMode || virtualclass.videoHost.gObj.MYSPEED < 3) {
-          if (virtualclass.system.webpSupport || (imgType == 'jpeg')) {
+          if (virtualclass.system.webpSupport || (imgType === 'jpeg')) {
             const img = new Image();
             img.onload = function () {
               that.videoPartCont.drawImage(img, d.x, d.y);
@@ -515,7 +515,7 @@ var videoHost = {
     virtualclass.videoHost.gObj.teacherVideoQuality = 16;
     const videoHostSource = document.querySelector('#virtualclassCont.teacher #videoHostSource');
     if (videoHostSource != null) {
-      if (videoHostSource.src == '') {
+      if (!videoHostSource.src) {
         virtualclass.videoHost.gObj.teacherVideoQuality = 0;
       }
     }
@@ -581,7 +581,7 @@ var videoHost = {
       if (virtualclass.precheck.totalTest) {
         virtualclass.precheck.totalTest.forEach((elem) => {
           if (typeof virtualclass.precheck[elem] !== 'undefined' && Object.prototype.hasOwnProperty.call(virtualclass.precheck[elem], 'alreadyDone')) {
-            if (elem == 'mic') {
+            if (elem === 'mic') {
               delete virtualclass.precheck[elem].alreadyDone;
             }
           }

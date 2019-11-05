@@ -217,7 +217,7 @@
   padding: 6px 6px 4px 6px;
   text-align: center;
   vertical-align: middle;
-  font-size: 16px;
+  /* font-size: 16px; */
   background-color: #fcfcfc;
   border: 1px solid #c9c9c9;
   border-bottom-width: 4px;
@@ -264,7 +264,7 @@
 }
 
 #virtualclassCont.congrea .vceditor-toolbar-wrapper .undo-group .vceditor-btn {
-  padding: 3.8px;
+  padding: 4px 5px 3px 5px;
 }
 
 #virtualclassCont.congrea .vceditor-dropdown {
@@ -512,17 +512,18 @@
 }
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.size {
-  padding: 5px 2px 1px 3px;
+  padding: 6px 2px 1px 3px;
+  line-height: 0.8125rem;
 }
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.color{
-  padding: 6px 5px 2px 5px;
+  padding: 5px 1px 2px 5px;
 }
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.size::before {
   font-family: 'icomoon';
   content: "\e60e";
-  font-size: 1.4375rem;
+  font-size: 1.375rem;
   color: white;
 }
 
@@ -543,3 +544,7 @@
   position: relative;
   top: 2px;
 }
+
+/* #virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:first-child {
+  line-height: 15px;
+} */

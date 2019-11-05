@@ -27,13 +27,13 @@ var io = {
   init(cfg) {
     this.cfg = cfg;
     'use strict';
-    //console.log('==== io init ');
+    // console.log('==== io init ');
     ioInit.sendToWorker({ cmd: 'init', msg: cfg });
   },
 
   send(msg, cfun, touser) {
     if (Object.prototype.hasOwnProperty.call(msg, 'm')) {
-      if (msg.m.user == 'all') {
+      if (msg.m.user === 'all') {
         alert('som packet are sending');
       }
     }
@@ -169,7 +169,7 @@ var io = {
     const chunks = new Array(numChunks);
     for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
       chunks[i] = str.substr(o, size);
-      if (i == 0) {
+      if (i === 0) {
         chunks[i] = `${prefix}1${chunks[i]}`;
       } else if (i < numChunks - 1) {
         chunks[i] = `${prefix}2${chunks[i]}`;
@@ -256,7 +256,7 @@ var io = {
           const recmsg = io.globalmsgjson.shift();
           io.onRecJsonIndividual(recmsg);
         }
-      } else if (receivemsg != null && io.globallock === false && io.globalmsgjson.length == 0) {
+      } else if (receivemsg != null && io.globallock === false && io.globalmsgjson.length === 0) {
         io.onRecJsonIndividual(receivemsg);
       } else if (receivemsg != null) {
         io.globalmsgjson.push(receivemsg);
@@ -272,7 +272,7 @@ var io = {
       case 'joinroom':
         if (Object.prototype.hasOwnProperty.call(receivemsg, 'users')) { // When self web socket is connected
           ioAdapter.setRecording();
-          //console.log('==== Member add, join room');
+          // console.log('==== Member add, join room');
         } else {
           // console.log('No users');
         }
@@ -283,7 +283,7 @@ var io = {
         var newuser = null;
         if (io.uniquesids != null) {
           for (const i in receivemsg.clientids) {
-            if (io.uniquesids[i] == undefined) {
+            if (io.uniquesids[i] == null) {
               newuser = i;
             }
           }
@@ -315,7 +315,7 @@ var io = {
       case 'broadcastToAll':
       case 'broadcast':
         if (receivemsg !== null) {
-          if (receivemsg.userto != undefined) {
+          if (receivemsg.userto != null) {
             userto = receivemsg.userto;
           }
 
@@ -330,7 +330,7 @@ var io = {
         break;
       case 'userleft':
 
-        if (receivemsg.userto != undefined) {
+        if (receivemsg.userto != null) {
           userto = receivemsg.userto;
         }
         if (io.uniquesids != null) {
@@ -437,7 +437,7 @@ var ioInit = {
               virtualclass.gObj.allUserObj[msg.user.userid].role = 's';
             }
 
-            if (virtualclass.gObj.allUserObj[msg.user.userid].userid == msg.user.userid) {
+            if (virtualclass.gObj.allUserObj[msg.user.userid].userid === msg.user.userid) {
               msg.user.lname = virtualclass.gObj.allUserObj[msg.user.userid].lname;
               msg.user.name = virtualclass.gObj.allUserObj[msg.user.userid].name;
               msg.user.role = virtualclass.gObj.allUserObj[msg.user.userid].role;
@@ -576,7 +576,7 @@ var ioInit = {
 
 
       default:
-        // console.log('Do nothing');
+      // console.log('Do nothing');
     }
   },
 };

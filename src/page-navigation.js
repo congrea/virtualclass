@@ -12,7 +12,7 @@
     this.app = app;
     // this.createContainer = false;
     // this.createWbNavigation = false;
-    //console.log('====> page init');
+    // console.log('====> page init');
   };
 
   /* Create the UI container and measure dimension(width) for navigation */
@@ -51,12 +51,11 @@
   };
 
   pageIndexNav.prototype.setCurrentIndex = function (index) {
-    //console.log('==== page, set current index');
+    // console.log('==== page, set current index');
     document.querySelector('#currIndex').innerHTML = index;
   },
 
   pageIndexNav.prototype.setTotalPages = function (length) {
-
     const cont = document.querySelector('#docShareNav #totalPages');
     if (cont) {
       cont.innerHTML = ` of ${length}`;
@@ -78,7 +77,7 @@
    * So, it adjusts page navigation
    */
   pageIndexNav.prototype.adjustPageNavigation = function (currIndex, dir) {
-    if (dir == 'right') {
+    if (dir === 'right') {
       var nodes = document.querySelectorAll('.noteIndex.shw');
       if (nodes.length) {
         var rl = nodes[nodes.length - 1];
@@ -86,7 +85,7 @@
       }
 
       for (var i = shw; i < currIndex; i++) {
-        if (virtualclass.currApp == 'DocumentShare') {
+        if (virtualclass.currApp === 'DocumentShare') {
           virtualclass.dts.indexNav.UI.setClassPrevNext();
         }
         var elem = document.querySelector('.noteIndex.hid.right');
@@ -101,7 +100,7 @@
         }
       }
 
-      if (virtualclass.currApp == 'DocumentShare') {
+      if (virtualclass.currApp === 'DocumentShare') {
         var curr = virtualclass.dts.docs.currNote;
         var index = document.querySelector(`.congrea #dcPaging #index${curr}`);
         if (index && !index.classList.contains('active')) {
@@ -115,7 +114,7 @@
       }
 
       for (var i = shw; i > currIndex; i--) {
-        if (virtualclass.currApp == 'DocumentShare') {
+        if (virtualclass.currApp === 'DocumentShare') {
           virtualclass.dts.indexNav.UI.setClassPrevNext();
         }
         var nodes = document.querySelectorAll('.noteIndex.hid.left');
@@ -135,7 +134,7 @@
           }
         }
       }
-      if (virtualclass.currApp == 'DocumentShare') {
+      if (virtualclass.currApp === 'DocumentShare') {
         var curr = virtualclass.dts.docs.currNote;
         var index = document.querySelector(`.congrea #dcPaging #index${curr}`);
         if (index && !index.classList.contains('active')) {
@@ -160,13 +159,13 @@
     const isNextNode = this.UI.isNodeAvailable('.noteIndex.shw.active', 'next');
     if (isNextNode) {
       if (rightNavPage != null) {
-        if (virtualclass.currApp == 'Whiteboard') {
+        if (virtualclass.currApp === 'Whiteboard') {
           this.UI.setArrowStatus('rightNavPage', 'enable');
         } else if (virtualclass.currApp === 'DocumentShare') {
           virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'enable', 'disable');
         }
       }
-    } else if (virtualclass.currApp == 'Whiteboard') {
+    } else if (virtualclass.currApp === 'Whiteboard') {
       this.UI.setArrowStatus('rightNavPage', 'disable');
     } else {
       virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'disable', 'enable');
@@ -177,7 +176,7 @@
     const isPrevNode = this.UI.isNodeAvailable('.noteIndex.shw.active', 'prev');
     if (isPrevNode) {
       if (leftNavPage != null) {
-        if (virtualclass.currApp == 'Whiteboard') {
+        if (virtualclass.currApp === 'Whiteboard') {
           this.UI.setArrowStatus('leftNavPage', 'enable');
         } else {
           virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'enable', 'disable');
@@ -197,9 +196,13 @@
     if (virtualclass.currApp === 'Whiteboard') {
       pages = virtualclass.gObj.wbCount + 1;
     } else if (virtualclass.currApp === 'DocumentShare') {
-      pages = virtualclass.orderList[virtualclass.dts.appName].ol.order.length;
-      const currPage = virtualclass.orderList[virtualclass.dts.appName].ol.order.indexOf(virtualclass.dts.docs.currNote);
-      this.setCurrentIndex(currPage + 1);
+      if (Array.isArray(virtualclass.orderList[virtualclass.dts.appName].ol.order)) {
+        pages = virtualclass.orderList[virtualclass.dts.appName].ol.order.length;
+        const currPage = virtualclass.orderList[virtualclass.dts.appName].ol.order.indexOf(virtualclass.dts.docs.currNote);
+        this.setCurrentIndex(currPage + 1);
+      } else {
+        pages = 1;
+      }
     }
     this.setTotalPages(pages);
   };
@@ -283,7 +286,7 @@
     const navHtml = template({ app: virtualclass.currApp, id: order, page: i + 1 });
     this.subCont.insertAdjacentHTML('beforeend', navHtml);
     const sn = document.querySelector(`#index${order}`);
-    if (virtualclass.dts.docs.currNote == order) {
+    if (virtualclass.dts.docs.currNote === order) {
       sn.classList.add('active');
       this.setCurrentIndex(i);
     }
@@ -336,7 +339,7 @@
   pageIndexNav.prototype.studentWBPagination = function (index) {
     const cont = document.getElementById('stdPageNo');
     if (cont) {
-      //console.log('==== student page navigation');
+      // console.log('==== student page navigation');
       // cont.innerHTML = parseInt(index) + 1;
       cont.innerHTML = +(index);
       this.setTotalPages(virtualclass.orderList.Whiteboard.ol.order.length);
@@ -450,7 +453,7 @@
     // },
 
     container() {
-      //console.log('===> create navigation');
+      // console.log('===> create navigation');
       const dc = document.getElementById('docShareNav');
       const template = virtualclass.getTemplate('navMain', 'navigation');
       const navHtml = template({ app: virtualclass.currApp, control: roles.hasControls()});
@@ -498,7 +501,7 @@
     },
 
     pageNavHandler(navType, that) {
-      if (navType == 'right') {
+      if (navType === 'right') {
         var elem = document.querySelector('.noteIndex.hid.right.active');
         if (elem) {
           elem.classList.remove('hid');
@@ -531,16 +534,16 @@
     },
 
     setArrowStatus(element, action) {
-      const removeClass = (action == 'disable') ? 'enable' : 'disable';
+      const removeClass = (action === 'disable') ? 'enable' : 'disable';
 
       const nr = document.getElementById(element);
-      if (virtualclass.currApp == 'Whiteboard') {
+      if (virtualclass.currApp === 'Whiteboard') {
         nr.classList.add(action);
         nr.classList.remove(removeClass);
       } else {
         const currNodeId = virtualclass.dts.docs.currNote;
         const lastElement = virtualclass.orderList['DocumentShare'].ol.order[virtualclass.orderList['DocumentShare'].ol.order.length - 1];
-        if (currNodeId == lastElement) {
+        if (currNodeId === lastElement) {
           this._setArrowStatusDocs(nr, action, removeClass);
         }
       }
@@ -552,7 +555,7 @@
     },
 
     isNodeAvailable(selector, whichNode) {
-      const nodeType = (whichNode == 'next') ? 'nextSibling' : 'previousSibling';
+      const nodeType = (whichNode === 'next') ? 'nextSibling' : 'previousSibling';
       const elem = document.querySelector(selector);
       return elem && elem[nodeType] != null;
     },

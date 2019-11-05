@@ -14,7 +14,8 @@
 
           // if (app === 'Whiteboard') {
           //   const { vcan } = window.virtualclass.wb[virtualclass.gObj.currWb];
-          //   window.virtualclass.wb[virtualclass.gObj.currWb].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[virtualclass.gObj.currWb], true, virtualclass.gObj.currWb);
+          //   window.virtualclass.wb[virtualclass.gObj.currWb].attachToolFunction(
+          // virtualclass.gObj.commandToolsWrapperId[virtualclass.gObj.currWb], true, virtualclass.gObj.currWb);
           // }
           // This is already Check at above, no need here
           if (Object.prototype.hasOwnProperty.call(virtualclass, 'previrtualclass')) {
@@ -238,7 +239,9 @@
          */
         toggleDisplayWriteModeMsgBox(editorType, writeMode) {
           let writeModeBox = document.getElementById(`${editorType}writeModeBox`);
-          const modeMessage = (writeMode) ? virtualclass.lang.getString('writemode') : virtualclass.lang.getString('readonlymode');
+          const getStringReadMode = virtualclass.lang.getString('readonlymode');
+          const getStringWriteMode = virtualclass.lang.getString('writemode');
+          const modeMessage = (writeMode) ? getStringWriteMode : getStringReadMode;
           const editorBody = document.getElementById(`virtualclass${editorType}Body`);
 
           if (writeModeBox == null && editorBody != null) {
@@ -374,7 +377,8 @@
           if (!roles.hasAdmin()) {
             this.toggleDisplayWriteModeMsgBox('EditorCode', action);
           }
-          // if((roles.isStudent() || roles.isEducator()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
+          // if((roles.isStudent() || roles.isEducator())
+          // && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
           if ((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
             if (msg.status) {
               virtualclass.editorCode.enableEditorByOuterLayer();
@@ -444,10 +448,13 @@
             userObj = JSON.parse(userObj);
 
             if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, `${userId}currTeacher`)) {
-              if (virtualclass.gObj[`${userId}currTeacher`].ct || (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'controlAssign') && virtualclass.gObj.controlAssign && userObj.currTeacher)) {
+              if (virtualclass.gObj[`${userId}currTeacher`].ct
+                || (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'controlAssign')
+                && virtualclass.gObj.controlAssign && userObj.currTeacher)) {
                 virtualclass.user.control.updateUser(userId, 'currTeacher', true);
               }
-            } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'controlAssign') && virtualclass.gObj.controlAssignId === userId) {
+            } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'controlAssign')
+              && virtualclass.gObj.controlAssignId === userId) {
               virtualclass.user.control.updateUser(userId, 'currTeacher', true);
             }
           } else if (control === 'audio' || control === 'chat') {
@@ -559,8 +566,8 @@
                 action = 'block';
                 boolVal = false;
               }
-
-              this.control.changeAttribute(userId, tag, boolVal, ctrType, virtualclass.vutil.smallizeFirstLetter(control));
+              const controlType = virtualclass.vutil.smallizeFirstLetter(control);
+              this.control.changeAttribute(userId, tag, boolVal, ctrType, controlType);
               if (actSend == null) {
                 this.control[`_${ctrType}`].call(this.control, userId, action);
               }
@@ -686,8 +693,9 @@
         },
 
         _stdscreen(userId) {
-          if (virtualclass.gObj.prvRequestScreenUser && (virtualclass.gObj.prvRequestScreenUser !== userId) && virtualclass.config.makeWebSocketReady) {
-            ioAdapter.mustSendUser({cancel: true, cf: 'reqscreen'}, virtualclass.gObj.prvRequestScreenUser);
+          if (virtualclass.gObj.prvRequestScreenUser && (virtualclass.gObj.prvRequestScreenUser !== userId)
+            && virtualclass.config.makeWebSocketReady) {
+            ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
             virtualclass.vutil.setScreenShareDefualtColor();
           }
           const currElem = chatContainerEvent.elementFromShadowDom(`#ml${userId} .icon-stdscreenImg`);
@@ -696,11 +704,11 @@
             currElem.parentNode.setAttribute('data-title', virtualclass.lang.getString('requestedScreenShare'));
           }
 
-          virtualclass.vutil.beforeSend({reqscreen: true, toUser: userId, cf: 'reqscreen'}, userId);
+          virtualclass.vutil.beforeSend({ reqscreen: true, toUser: userId, cf: 'reqscreen' }, userId);
           virtualclass.gObj.prvRequestScreenUser = userId;
 
           if (virtualclass.currApp === 'Video' && virtualclass.videoUl != null) {
-            ioAdapter.mustSend({videoUl: {init: 'destroyPlayer'}, cf: 'destroyPlayer'});
+            ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
             virtualclass.videoUl.destroyPlayer();
 
           }
@@ -923,7 +931,9 @@
          */
         mediaSliderSetting(type) {
           const lable = (type === 'audio') ? 'Audio' : 'Video';
-          const defaultMediaSetting = (type === 'audio') ? virtualclass.gObj.stdaudioEnable : virtualclass.gObj.stdvideoEnable;
+          const stdaudEnable = virtualclass.gObj.stdaudioEnable;
+          const stdvidEnable = virtualclass.gObj.stdvideoEnable;
+          const defaultMediaSetting = (type === 'audio') ? stdaudEnable : stdvidEnable;
           const allAction = {
             action: defaultMediaSetting ? 'enable' : 'disable',
             enable: 'disable',
@@ -948,7 +958,8 @@
           if (mediaIcon) {
             mediaIcon.className = `slider round congtooltip icon-all-${type}-${allAction[allAction.action]}`;
             mediaIcon.setAttribute('data-action', allAction[allAction.action]);
-            mediaIcon.setAttribute('data-title', virtualclass.lang.getString(`${allAction[allAction.action]}All${lable}`));
+            const dataTitleString = virtualclass.lang.getString(`${allAction[allAction.action]}All${lable}`);
+            mediaIcon.setAttribute('data-title', dataTitleString);
           }
         },
 

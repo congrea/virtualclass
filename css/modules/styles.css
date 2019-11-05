@@ -522,7 +522,7 @@
   font-size: 11px;
 }
 
-#virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after, 
+#virtualclassCont.congrea .zoomControler .zoomIn .congtooltip:hover:after,
 #virtualclassCont.congrea .zoomOut .congtooltip:hover:after,
 #virtualclassCont.congrea .fitScreen .congtooltip:hover:after {
   border: #ccc solid 1px;
@@ -937,6 +937,14 @@
 
 #virtualclassCont.congrea .Local {
   margin: 4px 7px 0 7px;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShareLocal {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  margin: 0;
+  position: relative;
 }
 
 #virtualclassCont.congrea #commonChatBoardLabel {
@@ -1553,6 +1561,7 @@
   position: relative;
   top: -3px;
   pointer-events: none;
+  z-index: 1115;
 }
 
 #virtualclassCont.congrea.playMode .ui-memblist-usr {
@@ -1622,8 +1631,8 @@
   float: left;
   color: #fff;
   font-size: 0.875rem;
-  margin-top: .8rem;
-  margin-left: 20px;
+  margin-top: 0.9375rem;
+  margin-left: 1.25rem;
 }
 
 #virtualclassCont.congrea #playController #recPlayCont #recPlay, #virtualclassCont.congrea #playController #recPauseCont #recPause, #virtualclassCont.congrea #playController #ff2Cont #ff2, #virtualclassCont.congrea #playController #ff8Cont #ff8, #virtualclassCont.congrea #playController #replayFromStart .icon-Replayfromstart {
@@ -2389,7 +2398,6 @@
   overflow: hidden;
   display: flex;
   flex-flow: row wrap;
-  /* background-color:#fff; */
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassAppOptionsCont {
@@ -3045,11 +3053,11 @@
   line-height: 1.25rem;
 }
 #virtualclassCont.congrea #audioWidget .nav > li.videoSwitchCont > a {
-  padding: 0.625rem 1.875rem 0.75rem 1.875rem !important;
+  padding: 0.8125rem 0.9375rem 0.5rem 1.125rem !important;
   line-height: 1.25rem;
 }
 #virtualclassCont.congrea #audioWidget .nav > li#appSettingCtrl > a {
-  padding: 0.625rem 1.875rem 0.75rem 1.875rem !important;
+  padding: 0.875rem 0.9375rem 0.5rem 1.125rem !important;
   line-height: 1.25rem;
 }
 
@@ -3315,15 +3323,9 @@
 }
 
 #virtualclassCont.congrea[data-currapp='Whiteboard'] .zoomControler,
-#virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler,
-#virtualclassCont.congrea[data-currapp='ScreenShare'] .zoomControler {
+#virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler {
   display: block;
   background-image: none !important;
-}
-
-#virtualclassCont.congrea.playMode #virtualclassSharePresentation {
-  height: 93vh;
-  padding: 7px;
 }
 
 #virtualclassCont.congrea.playMode #virtualclassSharePresentation {
@@ -3683,11 +3685,14 @@
   background: #fff;
 }
 
-#virtualclassCont.congrea .vmchat_room_bt,
 #virtualclassCont.congrea .vmchat_bar_button,
 #virtualclassCont.congrea .prechk,
 #virtualclassCont.congrea .videoSwitchCont {
   border-right: 1px solid rgba(254, 254, 254, 0.2) !important;
+}
+
+#virtualclassCont.congrea .vmchat_room_bt {
+border-right: 1px solid rgb(2, 19, 22) !important;
 }
 
 /*#chat_div .controleCont.ssSharing {*/
@@ -3820,14 +3825,14 @@ span#usertab_text {
   /*	margin-right: 5px;*/
 }
 
-#virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp.zoomCtrAdd .zoomControler {
-  display: block !important;
+#virtualclassCont.congrea[data-currapp="ScreenShare"] #virtualclassScreenShare .zoomControler {
+  display: none;
 
 }
 
-#virtualclassCont.congrea[data-currapp="ScreenShare"]  #virtualclassApp .zoomControler {
-  display: none;
-
+#virtualclassCont.congrea[data-currapp="ScreenShare"] .zoomCtrAdd #virtualclassScreenShare .zoomControler {
+  display: block;
+  background-image: none!important;
 }
 
 #virtualclassCont.congrea div.select {
@@ -4284,7 +4289,7 @@ span#usertab_text {
 #virtualclassCont.congrea #loadingWindowCont {
   width: 350px;
   height: 100px;
-  padding: 10px;
+  padding: 0.625rem;
 }
 
 #virtualclassCont.congrea #popupContainer.playPopup #loadingWindowCont {
@@ -4307,14 +4312,14 @@ span#usertab_text {
 }
 
 .loader-icon {
-  border: 5px solid #f3f3f3;
+  border: 4px solid #f3f3f3;
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
-  border-top: 5px solid #555;
+  border-top: 4px solid #555;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  margin: 22px auto;
+  width: 3.125rem;
+  height: 3.125rem;
+  margin: 1.375rem auto;
 }
 
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont, #virtualclassCont.congrea.playMode #popupContainer.loading #loadingWindowCont {
@@ -4326,7 +4331,7 @@ span#usertab_text {
 
 #virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .loading {
   position: relative;
-  bottom: 25px;
+  bottom: 1.5625rem;
 }
 
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay {
@@ -4334,21 +4339,21 @@ span#usertab_text {
   display: block;
   width: 80px;
   height: 80px;
-  padding-top: 14px;
-  padding-left: 8px;
-  line-height: 20px;
-  border: 3px solid #fff;
-  border-radius: 50%;
-  color: #f5f5f5;
-  text-align: center;
-  text-decoration: none;
-  background-color: rgba(0, 0, 0, 0.5);
-  font-size: 20px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  position: relative;
-  bottom: 25px;
-  cursor: pointer;
+  padding-top: 0.875rem;
+      padding-left: 0.5rem;
+      line-height: 1.25rem;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      color: #f5f5f5;
+      text-align: center;
+      text-decoration: none;
+      background-color: rgba(0, 0, 0, 0.5);
+      font-size: 1.25rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      position: relative;
+      bottom: 1.5625rem;
+      cursor: pointer;
 }
 
 #virtualclassCont.congrea.playMode #popupContainer.loading.playPopup #loadingWindowCont .askToPlay, #virtualclassCont.congrea.playMode #popupContainer.loading #loadingWindowCont .loading {
@@ -4445,13 +4450,13 @@ span#usertab_text {
     bottom: 5%;
   }
   #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay{
-    width: 70px;
-    height: 70px;
+    width: 4.375rem;
+    height: 4.375rem;
   }
   #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay span {
     position: absolute;
-    top: 19px;
-    left: 24px;
+    top: 1.125rem;
+    left: 1.5rem;
 }
 }
 
@@ -4809,3 +4814,8 @@ and (max-device-width: 1024px) {
     }
 
   }
+
+  #virtualclassCont.congrea.playMode #fullScreenButton,
+  #virtualclassCont.congrea.playMode #fullScreenExitButton {
+    border-right: 0.05em solid #021317 !important;
+}

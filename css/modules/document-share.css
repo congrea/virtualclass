@@ -148,9 +148,6 @@
   margin-top: -9px;
 }
 
-#virtualclassCont.congrea #docScreenContainer .note canvas {
-  /*margin: -7px;*/
-}
 
 #virtualclassCont.congrea #virtualclassDocumentShareTool {
   margin-bottom: -1px;
@@ -1136,10 +1133,9 @@
   bottom: 31px !important;
 }
 
-@-moz-document url-prefix() { 
-
+@-moz-document url-prefix() {
   #virtualclassCont.congrea[data-currapp="DocumentShare"].teacher #docShareNav, #virtualclassCont.congrea[data-currapp="Whiteboard"].teacher #docShareNav {
     padding: 11px 16px 12px 16px;
   }
-
 }
+

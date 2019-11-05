@@ -124,7 +124,7 @@
      */
     customCreateElement(tagName, id, className) {
       const tag = document.createElement(tagName);
-      if (typeof id !== 'undefined' && id != '') {
+      if (typeof id !== 'undefined' && id) {
         tag.id = id;
       }
 
@@ -167,11 +167,11 @@
      * @param classname class webRtc
      */
     multiMediaMsg(className) {
-      if (virtualclass.system.mybrowser.name == 'Firefox') {
+      if (virtualclass.system.mybrowser.name === 'Firefox') {
         var msg = virtualclass.lang.getString('wbrtcMsgFireFox');
         // Todo handle this is in better way
         // this.displayMessage(msg, "fireFoxWebrtcCont", this.msgBoxClass + className);
-      } else if (virtualclass.system.mybrowser.name == 'Chrome') {
+      } else if (virtualclass.system.mybrowser.name === 'Chrome') {
         var msg = virtualclass.lang.getString('wbrtcMsgChrome');
         // Todo handle this is in better way
         // this.displayMessage(msg, "chormeWebrtcCont", this.msgBoxClass + className);
@@ -184,10 +184,10 @@
     canvasDrawMsg(className, id) {
       const mainContainer = document.getElementById(`vcanvas${id}`);
       mainContainer.classList.add('canvasMsgBoxParent');
-      if (virtualclass.system.mybrowser.name == 'Firefox') {
+      if (virtualclass.system.mybrowser.name === 'Firefox') {
         var msg = virtualclass.lang.getString('canvasDrawMsg');
         this.displayMessage(msg, 'canvasDrawMsgContFirefox', this.msgBoxClass + className, 'containerWb');
-      } else if (virtualclass.system.mybrowser.name == 'Chrome') {
+      } else if (virtualclass.system.mybrowser.name === 'Chrome') {
         var msg = virtualclass.lang.getString('canvasDrawMsg');
         this.displayMessage(msg, 'canvasDrawMsgContChrome', this.msgBoxClass + className, 'containerWb', null, id);
       }
@@ -221,7 +221,7 @@
         window.location.reload();
       };
       div.appendChild(a);
-      const panelId = (id == 'divForReloadMsg') ? 'virtualclassCont' : 'virtualclassAppLeftPanel';
+      const panelId = (id === 'divForReloadMsg') ? 'virtualclassCont' : 'virtualclassAppLeftPanel';
       const virtualclassCont = document.getElementById(panelId);
       virtualclassCont.insertBefore(div, virtualclassCont.firstChild);
     },
@@ -285,7 +285,7 @@
   // Set container dimension (width and height)
   view.window.resize = function (wid) {
     const res = virtualclass.system.measureResoultion({ width: window.innerWidth, height: window.innerHeight });
-    if (virtualclass.currApp == 'DocumentShare') {
+    if (virtualclass.currApp === 'DocumentShare') {
       res.width -= 10;
       if (roles.hasControls()) {
         res.height -= 100;
@@ -299,7 +299,8 @@
     // console.log('Window resize event ');
 
     const cwb = virtualclass.gObj.currWb;
-    if (typeof cwb !== 'undefined' && (typeof virtualclass.wb[cwb] !== 'undefined') && Object.prototype.hasOwnProperty.call(virtualclass.wb[cwb], 'vcan')) {
+    if (typeof cwb !== 'undefined' && (typeof virtualclass.wb[cwb] !== 'undefined')
+      && Object.prototype.hasOwnProperty.call(virtualclass.wb[cwb], 'vcan')) {
       virtualclass.wb[cwb].vcan.renderAll();
     }
     view.windowResizeFinished();
@@ -316,22 +317,27 @@
   };
   // change by nirmala
   view._windowResizeFinished = function () {
-    if (virtualclass.system.device == 'mobTab') {
+    if (virtualclass.system.device === 'mobTab') {
       vhCheck();
     }
 
-    if ((virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare')
+    if (((virtualclass.currApp == 'Whiteboard' || virtualclass.currApp === 'DocumentShare')
       && virtualclass.gObj.currWb != null && typeof virtualclass.gObj.currWb !== 'undefined'
-    ) {
+    ) || virtualclass.currApp === 'ScreenShare') {
       /** * Remove black screen on resizing of doucmet sharing window * */
       if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreenOnResize')) {
         clearTimeout(virtualclass.gObj.fitToScreenOnResize);
       }
       virtualclass.gObj.fitToScreenOnResize = setTimeout(
         () => {
-          const fitToscreen = document.querySelector('.zoomControler .fitScreen');
-          if (fitToscreen != null) {
-            fitToscreen.click();
+          if (virtualclass.currApp === 'ScreenShare') {
+            virtualclass.ss.triggerFitToScreen();
+          } else {
+            const fitToscreen = document.querySelector('.zoomControler .fitScreen');
+            if (fitToscreen != null) {
+              // fitToscreen.click();
+              virtualclass.zoom.zoomAction('fitToScreen');
+            }
           }
         }, 700,
       );

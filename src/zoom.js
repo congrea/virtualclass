@@ -50,15 +50,26 @@
 
         const fitScreen = elem.querySelector('.fitScreen');
         fitScreen.addEventListener('click', () => {
-          that.zoomAction('fitToScreen');
+          that.triggerFitToScreen();
         });
-
-        // var reload = elem.querySelector('.reloadNote');
-        // reload.addEventListener('click', function (){
-        //     that.zoomAction('reload');
-        // });
       },
 
+      triggerFitToScreen() {
+        const zoomControler = document.querySelector('#virtualclassAppLeftPanel .zoomControler .fitScreen');
+        if (zoomControler != null) {
+          if (virtualclass.currApp === 'Whiteboard') {
+            this.zoomAction('fitToScreen');
+          } else {
+            if (this.doOpposite) {
+              this.lastFitAction = (zoomControler.dataset.currstate === 'fittopage') ? 'fitToScreen' : 'fitToPage';
+            } else {
+              this.lastFitAction = (zoomControler.dataset.currstate === 'fittopage') ? 'fitToPage' : 'fitToScreen';
+            }
+            this.zoomAction(this.lastFitAction);
+            delete this.doOpposite;
+          }
+        }
+      },
 
       zoomAction(fnName) {
         if (virtualclass.currApp === 'ScreenShare') {
@@ -71,6 +82,7 @@
       },
 
       zoomIn(normalZoom) {
+        delete virtualclass.zoom.performFitToPage;
         const wid = virtualclass.gObj.currWb;
         if (typeof virtualclass.wb[wid] === 'object') {
           const { canvas } = virtualclass.wb[wid].vcan.main;
@@ -104,6 +116,7 @@
       },
 
       zoomOut() {
+        delete virtualclass.zoom.performFitToPage;
         const wid = virtualclass.gObj.currWb;
         // var wrapper = this.canvasWrapper;
         const { canvas } = virtualclass.wb[wid].vcan.main;
@@ -127,7 +140,6 @@
         if (actualWidth <= wrapperWidth) {
           wrapper.classList.remove('scrollX');
         }
-
         virtualclass.pdfRender[wid]._zoomOut.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
 
         // if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
@@ -137,52 +149,32 @@
         //
       },
 
-      getReduceValueForCanvas() {
-        const withoutScroll = 382;
-        const withScroll = 372;
-        if (virtualclass.pdfRender[virtualclass.gObj.currWb].firstTime) {
-          return withoutScroll;
-        } else {
-          const canvas = document.querySelector(`#canvas${virtualclass.gObj.currWb}`);
-          if (canvas != null && canvas.parentNode != null) {
-            // 382 = rightside bar + scroll + left app bar
-            // 372 = rightside bar + left app bar
-            return (canvas.parentNode.scrollHeight > canvas.parentNode.clientHeight) ? withoutScroll : withScroll;
+      fitToScreen() {
+        virtualclass.gObj.fitToScreen = true;
+        delete virtualclass.zoom.performFitToPage;
+        delete virtualclass.zoom.performZoom;
+        const wid = virtualclass.gObj.currWb;
+        if (typeof virtualclass.pdfRender[wid] !== 'undefined') {
+          const { canvas } = virtualclass.wb[virtualclass.gObj.currWb].vcan.main;
+          const wrapperWidth = document.querySelector(".canvasWrapper").offsetWidth;
+          // console.log(`==== wrapperWidth ${wrapperWidth}`);
+          try {
+            virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth);
+            if (virtualclass.currApp === 'DocumentShare') {
+              this.fitToElementTooltip('fitToToPage');
+            }
+          } catch (error) {
+            // console.log(`Error ${error}`);
           }
         }
       },
 
-      fitToScreen() {
-        virtualclass.gObj.fitToScreen = true;
-        delete virtualclass.zoom.performZoom;
+      fitToPage() {
+        virtualclass.zoom.performFitToPage = true;
         const wid = virtualclass.gObj.currWb;
-        if (typeof virtualclass.pdfRender[wid] !== 'undefined') {
-          // console.log('--Pdf render start----------');
-          const { page } = virtualclass.pdfRender[wid];
-          const { canvas } = virtualclass.wb[virtualclass.gObj.currWb].vcan.main;
-
-          const virtualclassCont = document.querySelector('#virtualclassCont');
-          if (virtualclassCont != null) {
-            var containerWidth = virtualclassCont.offsetWidth;
-          } else {
-            var containerWidth = window.innerWidth;
-          }
-
-          // const wrapperWidth = (containerWidth - this.getReduceValueForCanvas());
-          const wrapperWidth = document.querySelector(".canvasWrapper").offsetWidth;
-          // console.log(`==== wrapperWidth ${wrapperWidth}`);
-          try {
-            // const tempviewport = page.getViewport(1);
-            // virtualclass.zoom.fitToScreenWidth = tempviewport.width;
-            // virtualclass.zoom.prvWhiteboard = virtualclass.gObj.currWb;
-
-            // const viewport = page.getViewport((+(wrapperWidth)) / page.getViewport(1.0).width);
-            // console.log(`==== PDF width => ${viewport.width} PDF height => ${viewport.height} scale => ${viewport.scale}`);
-            // console.log(`==== PDF temp width => ${tempviewport.width} PDF height => ${tempviewport.height} scale => ${tempviewport.scale}, after scale=${this.canvasScale}`);
-            virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth, canvas.height);
-          } catch (error) {
-            // console.log(`Error ${error}`);
-          }
+        virtualclass.pdfRender[wid].innerFitToPage.call(virtualclass.pdfRender[wid], wid);
+        if (virtualclass.currApp === 'DocumentShare') {
+          this.fitToElementTooltip('fitToScreen');
         }
       },
 
@@ -211,6 +203,33 @@
         const zoomControler = document.querySelector('#virtualclassApp .zoomControler');
         if (zoomControler != null && virtualclass.gObj.studentSSstatus.mesharing) {
           zoomControler.parentNode.removeChild(zoomControler);
+        }
+      },
+
+      //fitElementToolTipChange(fitElement) {
+      fitToElementTooltip(fitElement) {
+        const fitScreenTooltip = document.querySelector('#virtualclassAppLeftPanel .zoomControler .fitScreen');
+        const notesContainer = document.getElementById('notesContainer');
+        if (fitElement === 'fitToScreen') {
+          if (fitScreenTooltip) {
+            fitScreenTooltip.dataset.currstate = 'fittoscreen';
+            const congtooltip = document.querySelector('#virtualclassAppLeftPanel .fitScreen .congtooltip');
+            congtooltip.dataset.title = 'Fit to Screen';
+          }
+
+          if (notesContainer) {
+            notesContainer.dataset.currstate = 'fittotpage';
+          }
+        } else {
+          if (fitScreenTooltip) {
+            fitScreenTooltip.dataset.currstate = 'fittopage';
+            const congtooltip = document.querySelector('#virtualclassAppLeftPanel .fitScreen .congtooltip');
+            congtooltip.dataset.title = virtualclass.lang.getString('fitToPage');
+          }
+
+          if (notesContainer) {
+            notesContainer.dataset.currstate = 'fittoscreen';
+          }
         }
       },
     };

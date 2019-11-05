@@ -107,10 +107,10 @@
       const uiChatbox = (self.uiChatbox = $('<div></div>'))
         .appendTo(document.body)
         .addClass('ui-widget '
-            + 'ui-corner-top '
-            + 'ui-chatbox')
+          + 'ui-corner-top '
+          + 'ui-chatbox')
         .attr('id', `cb${self.options.id}`)
-      //            .attr('outline', 0) //html is not validated so
+        //            .attr('outline', 0) //html is not validated so
         .focusin(() => {
           // ui-state-highlight is not really helpful here
           // self.uiChatbox.removeClass('ui-state-highlight');
@@ -119,12 +119,12 @@
         .focusout(() => {
           self.uiChatboxTitlebar.removeClass('ui-state-focus');
         });
-        // titlebar
+      // titlebar
       const uiChatboxTitlebar = (self.uiChatboxTitlebar = $('<div></div>'))
         .addClass('ui-widget-header '
-            + 'ui-corner-top '
-            + 'ui-chatbox-titlebar '
-            + 'ui-dialog-header', // take advantage of dialog header style
+          + 'ui-corner-top '
+          + 'ui-chatbox-titlebar '
+          + 'ui-dialog-header', // take advantage of dialog header style
         )
         .click((event) => {
           // self.toggleContent(event);
@@ -144,7 +144,6 @@
         () => {
           uiChatboxTitlebarClose.removeClass('ui-state-hover');
         })
-
         .click((event) => {
           delete virtualclass.chat.vmstorage[self.options.id][0].box;
           uiChatbox.hide();
@@ -165,7 +164,7 @@
       const uiChatboxTitlebarCloseText = $('<span ></span>')
         .addClass('ui-icon ' + 'icon-close ' + 'cgIcon ')
         .text('')
-      // .text('close')
+        // .text('close')
         .appendTo(uiChatboxTitlebarClose);
       var uiChatboxTitlebarMinimize = (self.uiChatboxTitlebarMinimize = $('<a href = "#"></a>'))
         .addClass('ui-chatbox-icon')
@@ -191,7 +190,7 @@
         .addClass('ui-icon ' + 'icon-minus')
         .text('')
         .appendTo(uiChatboxTitlebarMinimize);
-        // content
+      // content
       const uiChatboxContent = (self.uiChatboxContent = $('<div></div>'))
         .addClass('ui-widget-content ' + 'ui-chatbox-content ')
         .appendTo(uiChatbox);
@@ -206,11 +205,11 @@
         .appendTo(uiChatboxContent);
       var uiChatboxInputBox = (self.uiChatboxInputBox = $('<textarea></textarea>'))
         .addClass('ui-widget-content '
-            + 'ui-chatbox-input-box ')
+          + 'ui-chatbox-input-box ')
         .prop('id', `ta${self.options.id}`)
         .appendTo(uiChatboxInput)
         .keypress(function (event) {
-          if (event.keyCode && event.keyCode == $.ui.keyCode.ENTER) {
+          if (event.keyCode && event.keyCode === $.ui.keyCode.ENTER) {
             const msg = $.trim($(this).val());
             if (msg.length > 0) {
               ioAdapter.mustSendUser({ msg, cf: 'msg' }, self.options.id); // userid=self.options.id

@@ -530,7 +530,7 @@ body {
 }
 
 #virtualclassCont.congrea .vidShow #stickycontainer #techVideo a.inner_bt {
-  background-color: #53a93f;
+  background-color: #22880b;
 }
 
 #virtualclassCont.congrea .vidShow #stickycontainer #techVideo.active a.inner_bt {
@@ -966,4 +966,8 @@ body {
 
 #bootstrapQzCont {
   line-height: 140%;
+}
+
+#virtualclassCont.playMode .footerCtr {
+  z-index: 0;
 }

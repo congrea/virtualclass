@@ -40,6 +40,7 @@
   width: 100%;
   height: 99%;
   margin-top: 3px;
+  overflow: auto;
 }
 
 #virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer {
@@ -284,16 +285,6 @@ and (max-device-width: 1024px) {
     right: 2.5rem;
   }
 
-  #virtualclassCont.congrea .vceditor-btn-group {
-    margin: 7px 4px 1px 0;
-    display: inline-block;
-  }
-  #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.size {
-    padding: 4px 1px 1px 3px;
-}
-#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper a.vceditor-btn.vceditor-dropdown.color {
-  padding: 6px 0px 2px 5px;
-}
 #virtualclassCont.congrea .vceditor-toolbar-wrapper div:nth-child(3) {
   margin-right: -1px;
   padding-right: 6px;
@@ -469,7 +460,7 @@ and (max-device-width: 1024px) {
     }
 
     #virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
-      font-size: 0.6875rem;
+      font-size: 0.8125rem;
     }
 
     #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
@@ -508,7 +499,7 @@ and (max-device-width: 1024px) {
 
   }
 
-  @media only screen and (min-device-width: 851px) and (max-device-width: 1024px) {
+@media only screen and (min-device-width: 851px) and (max-device-width: 1024px) {
     #virtualclassCont.congrea #virtualclassPreCheck #preCheckcontainer .modal-dialog.modal-lg {
       width: 75%;
     }
@@ -524,7 +515,7 @@ and (max-device-width: 1024px) {
 
     #virtualclassCont.congrea #virtualclassPreCheck .result div{
       margin-top: 0 !important;
-      
+
     }
 
     #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
@@ -581,27 +572,6 @@ and (max-device-width: 1024px) {
     #virtualclassCont.congrea #stickycontainer #techVideo {
       display: block;
     }
-  }
-
-  /* #virtualclassCont.congrea #virtualclassPoll #layoutPoll {
-    height: 95%;
-  }
-
-  #virtualclassCont.congrea.student #resultLayout {
-    width: 100%;
-    position: relative;
-    bottom: 315px;
-    overflow: auto;
-    height: 76%;
-  }
-  #virtualclassCont.congrea .modal-content #resultLayout {
-    position: relative;
-    bottom: 0;
-  }
-
-  #virtualclassCont.congrea.teacher #layoutPollBody {
-    overflow: hidden;
-  } */
 }
 
 #virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.vidShow #videoHostContainer {
@@ -631,6 +601,14 @@ and (max-device-width: 1024px) {
 #virtualclassCont.congrea.student[device="mobile"] .congtooltip:hover::after {
   display: none;
 }
+
+#virtualclassCont.congrea.student[device="mobile"] .vceditor-toolbar-wrapper {
+  display: inline-block;
+  line-height: 0.875rem;
+  position: relative;
+  left: -6px;
+}
+
 /* #virtualclassCont.congrea[device="mobile"] a.stdRaiseHand, #virtualclassCont.congrea[device="mobile"] a.stdRaiseHand:hover {
   padding: 0.625rem 1.1875rem;
 } */

@@ -66,7 +66,7 @@
         }
         $('#chatroom_bt2').removeClass('ui-state-highlight');
         virtualclass.chat.chatWindow = 'common';
-        if ($('ul#chat_room').length == 0) {
+        if ($('ul#chat_room').length === 0) {
           const d = document.createElement('ul');
           d.id = 'chat_room';
           document.body.appendChild(d);
@@ -199,7 +199,7 @@
       function searchUser() {
         const arr = [];
         virtualclass.connectedUsers.forEach((item) => {
-          if (item.userid != virtualclass.gObj.uid) {
+          if (item.userid !== virtualclass.gObj.uid) {
             const obj = {
               id: item.userid,
               name: item.name.toLowerCase(),
@@ -216,7 +216,7 @@
       function _searchUser(arr, search) {
         arr.forEach((obj, index) => {
           const userElem = chatContainerEvent.elementFromShadowDom(`ml${obj.id}`, null, true);
-          if (obj.name.indexOf(search) != -1) {
+          if (obj.name.indexOf(search) !== -1) {
             userElem.style.display = 'block';
             // $('#ml' + obj['id']).show();
           } else {

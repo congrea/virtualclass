@@ -307,6 +307,12 @@
   color: #555;
 }
 
+#virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .reportPreview a:hover, 
+#virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .questionPreview a:hover {
+  color: #f7f7f7;
+  background: #2d3741 !important;
+}
+
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal .nav .active a {
   font-weight: bold;
   background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;

@@ -2,7 +2,7 @@ const ioPingPong = {
 
   ping(e) {
     // When a new member is added, greet him with both broadcast and individual msg
-    if (e.type == 'member_added') {
+    if (e.type === 'member_added') {
       if (roles.hasAdmin()) {
         const session = this.sessionName();
         const msg = { ping: 'ping', cf: 'pong', session };
@@ -34,7 +34,7 @@ const ioPingPong = {
   },
   setSession() {
     const session = virtualclass.vutil.randomString(32);
-    //console.log('==== session, My session is created by setSession');
+    // console.log('==== session, My session is created by setSession');
     virtualclass.config.setNewSession(session);
     return session;
   },
@@ -48,7 +48,7 @@ const ioPingPong = {
         await this.sessionDestroy(session, e);
       }
     } else {
-      //console.log('==== session, start session');
+      // console.log('==== session, start session');
       // console.log('My session is created');
       virtualclass.config.setNewSession(session);
     }
@@ -59,7 +59,7 @@ const ioPingPong = {
   async sessionDestroy(session, e) {
     // TODO Finish Session and start gracefully
     if (!virtualclass.isPlayMode) {
-      //console.log('==== session, start session');
+      // console.log('==== session, start session');
       const uid = e.fromUser.userid;
       localStorage.removeItem('mySession');
       await virtualclass.config.endSession();
@@ -67,7 +67,7 @@ const ioPingPong = {
       ioMissingPackets.validateAllVariables(uid);
       // console.log('REFRESH SESSION');
     } else {
-      //console.log('==== session, end session');
+      // console.log('==== session, end session');
       // console.log('My session is created');
       virtualclass.config.setNewSession('thisismyplaymode');
     }

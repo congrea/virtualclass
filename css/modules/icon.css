@@ -435,7 +435,7 @@
 
 #virtualclassCont.congrea .icon-play:before {
   content: "\f04b";
-  font-size: 18px;
+  font-size: 1.125rem;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -447,7 +447,7 @@
 
 #virtualclassCont.congrea.playMode #loadingWindowCont .askToPlay .icon-play:before {
   content: "\f04b";
-  font-size: 26px;
+  font-size: 1.625rem;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -716,16 +716,6 @@
   color: white;
 }
 
-/*#virtualclassCont.congrea i.icon-savevideo:before{*/
-/*content : "\e90d";*/
-/*font-weight : normal;*/
-/*font-size : 11px;*/
-/*font-family: 'icomoon';*/
-/*font-size: 23px;*/
-/*color:white;*/
-/*line-height: 65% !important;*/
-/*}*/
-
 #virtualclassCont.congrea #dashboardnav .clicked i.dashboard-icon:before {
   content: "X";
 }
@@ -788,7 +778,17 @@
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
-  /* float:left; */
+}
+
+#virtualclassCont.congrea[data-currapp="DocumentShare"] .fitScreen[data-currstate="fittoscreen"] .icon-fitScreen::before,
+#virtualclassCont.congrea[data-currapp="ScreenShare"] .fitScreen[data-currstate="fittoscreen"] .icon-fitScreen::before {
+  content: "\e95e";
+  font-size: 1rem;
+}
+
+
+#virtualclassCont.congrea[data-currapp="Whiteboard"] .fitScreen[data-currstate="fittoscreen"] .icon-fitScreen::before{
+  content: "\e95e";
 }
 
 #virtualclassCont.congrea .icon-reloadDoc:before {
@@ -801,20 +801,6 @@
   text-shadow: 0 1px 0 #fff;
 }
 
-/*#virtualclassCont.congrea .icon-stdscreenImg.enable:before{*/
-/*content: "\e602";*/
-/*position: relative;*/
-/*font-size: 17px;*/
-/*color: black;*/
-/*margin-right: 5px;*/
-/*}*/
-
-/*#virtualclassCont.congrea .icon-raisehand:before {*/
-/*content: "\e962";*/
-/*font-size: 16px;*/
-/*display:none;*/
-
-/*}*/
 
 #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip:before {
   content: "\e986";

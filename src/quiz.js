@@ -169,7 +169,7 @@
         virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=congrea_quiz`, formData).then((data) => {
           this.initToFetch = true;
           const getContent = data.data;
-          if (getContent.status == 0) {
+          if (getContent.status === 0) {
             const cont = document.getElementById('bootstrapQzCont');
             cont.innerHTML = virtualclass.lang.getString('noQuiz');
           } else {
@@ -221,7 +221,7 @@
        */
       publishHandler(item, index) {
         const mszbox = document.getElementById('mszBoxQuiz');
-        //console.log('====> quiz removing mszBoxQuiz');
+        // console.log('====> quiz removing mszBoxQuiz');
         if (mszbox.childNodes.length > 0) {
           mszbox.childNodes[0].parentNode.removeChild(mszbox.childNodes[0]);
         }
@@ -453,7 +453,7 @@
         const msz = document.getElementById('mszBoxQuiz');
         if (msz) {
           msz.parentNode.removeChild(msz);
-          //console.log('====> quiz removing mszBoxQuiz');
+          // console.log('====> quiz removing mszBoxQuiz');
         }
         const cQzbody = document.getElementById('contQzBody');
         if (cQzbody) {
@@ -505,8 +505,8 @@
               document.querySelector('#timeText').textContent = 'Quiz has been closed';
             }
             const resPage = document.querySelector('#slickQuiz .quizResults');
-            //console.log('====> QUIZ IS CREATING');
-            if (resPage && resPage.style.display != 'block') {
+            // console.log('====> QUIZ IS CREATING');
+            if (resPage && resPage.style.display !== 'block') {
               // click submit button of student screen
               const arr = document.querySelectorAll('#slickQuiz .nextQuestion');
               const arrlength = arr.length - 1;
@@ -806,7 +806,7 @@
         function timer() {
           // get the number of seconds that have elapsed since
           // startTimer() was called
-          if (order == 'asc') {
+          if (order === 'asc') {
             diff = duration + (((Date.now() - start) / 1000) | 0);
           } else {
             diff = duration - (((Date.now() - start) / 1000) | 0);
@@ -826,7 +826,7 @@
           //  timeTakenQuiz = `${hours}:${minutes}:${seconds}`;
 
           if (diff <= 0) {
-            if (order != 'asc') {
+            if (order !== 'asc') {
               display.textContent = '00 : 00 : 00 ';
             }
 
@@ -980,7 +980,8 @@
          * @return
          */
         layout(divQuiz) {
-          const contQuiz = virtualclass.view.customCreateElement('div', 'layoutQuiz', 'bootstrap container-fluid quizLayout');
+          const quizLayoutCont = 'bootstrap container-fluid quizLayout';
+          const contQuiz = virtualclass.view.customCreateElement('div', 'layoutQuiz', quizLayoutCont);
           divQuiz.appendChild(contQuiz);
 
           const nav = document.createElement('nav');
@@ -1011,7 +1012,8 @@
             const mainQzDiv = document.createElement('div');
             mainQzDiv.className = 'table-responsive';
             ctr.appendChild(mainQzDiv);
-            var e = virtualclass.view.customCreateElement('table', 'listQzCont', 'table table-bordered table-striped quizList');
+            const quizListTable = 'table table-bordered table-striped quizList';
+            var e = virtualclass.view.customCreateElement('table', 'listQzCont', quizListTable);
             mainQzDiv.appendChild(e);
           }
         },
@@ -1458,7 +1460,7 @@
           qzheader.appendChild(qzheaderA);
 
           // alert('I am here. add result div');
-          //console.log('====> QUIZ IS CREATING');
+          // console.log('====> QUIZ IS CREATING');
           const qzResult = virtualclass.view.customCreateElement('div', '', 'quizResults');
           skQzCont.appendChild(qzResult);
 
@@ -1543,7 +1545,7 @@
       },
 
       createMessageBox() {
-        //console.log('=====> CREATE MESSAGE BOX');
+        // console.log('=====> CREATE MESSAGE BOX');
         const mszCont = document.getElementById('mszBoxQuiz');
         const messageLayoutId = 'stdQuizMszLayout';
         if (document.getElementById(messageLayoutId) == null) {
@@ -1575,7 +1577,7 @@
       calculateRemainingTime(totalTimeInSec) {
         if (typeof virtualclass.quiz.publishedTime !== 'undefined' && (roles.isStudent()
           || (roles.hasControls() && !virtualclass.config.makeWebSocketReady))) {
-          if (virtualclass.quiz.publishedTime == 0) {
+          if (virtualclass.quiz.publishedTime === 0) {
             return totalTimeInSec;
           } else {
             const totalDiff = (new Date().getTime() - virtualclass.quiz.publishedTime);
@@ -1593,11 +1595,10 @@
       scrollToTop() {
         const quizArea = document.querySelector('#slickQuiz .quizArea');
         if (quizArea != null) {
-          quizArea.scrollTop  = 0;
+          quizArea.scrollTop = 0;
         }
-      }
+      },
     };
-    // return _quiz;
   };
   window.quiz = quiz;
 }(window));

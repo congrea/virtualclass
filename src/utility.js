@@ -83,7 +83,7 @@
       }
 
       if (typeof virtualclass.previous !== 'undefined') {
-        if (`virtualclass${app}` != virtualclass.previous) {
+        if (`virtualclass${app}` !== virtualclass.previous) {
           appId = `virtualclass${app}`;
         } else {
           appId = virtualclass.previous;
@@ -111,11 +111,11 @@
 
         if (virtualclass.isPlayMode) {
           reduceHeight += 75;
-        } else if (app == 'SharePresentation') {
+        } else if (app === 'SharePresentation') {
           reduceHeight = (document.querySelector(`#virtualclass${app}.pptSharing`) != null) ? 80 : 28;
-        } else if (app == 'Video' || app == 'Yts') {
+        } else if (app === 'Video' || app === 'Yts') {
           reduceHeight = 28;
-        } else if (app == 'EditorRich' || app == 'Poll' || app == 'Quiz') {
+        } else if (app === 'EditorRich' || app === 'Poll' || app === 'Quiz') {
           reduceHeight = 50;
         } else {
           reduceHeight = 60;
@@ -125,7 +125,7 @@
 
         // console.log( ' leftSideBarWidth=' + leftSideBarWidth);
         let extraWidth = 20;
-        if (virtualclass.currApp == 'Whiteboard' || virtualclass.currApp == 'DocumentShare' || virtualclass.currApp == 'SharePresentation') {
+        if (virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare' || virtualclass.currApp === 'SharePresentation') {
           extraWidth = 20;
         }
         res.width = (extraWidth + res.width) - leftSideBarWidth;
@@ -133,14 +133,14 @@
         appCont.style.width = `${res.width}px`;
         appCont.style.height = `${res.height - reduceHeight}px`;
 
-        if (appId == 'virtualclassScreenShare') {
+        if (appId === 'virtualclassScreenShare') {
           // if(appId != 'virtualclassWhiteboard'){
           const ssType = document.getElementById(`${appId}Local`);
           res.width -= 10;
           appCont.style.width = res.width;
           ssType.style.width = `${res.width}px`;
           virtualclass.vutil.setScreenInnerTagsWidth(appId);
-        } else if (appId == 'virtualclassDocumentShare') {
+        } else if (appId === 'virtualclassDocumentShare') {
           const wb = virtualclass.gObj.currWb;
           if (wb != null) {
             // This dimension is setting when window is being resized
@@ -173,7 +173,7 @@
     },
 
     makeActiveApp(app, prvTool) {
-      if (app != prvTool && typeof prvTool !== 'undefined') {
+      if (app !== prvTool && typeof prvTool !== 'undefined') {
         prvTool += 'Tool';
         // document.getElementById(prvTool).className = virtualclass.wb[virtualclass.gObj.currWb].utility.removeClassFromElement(prvTool, 'active');
         document.getElementById(prvTool).className = virtualclass.vutil.removeClassFromElement(prvTool, 'active');
@@ -190,7 +190,7 @@
       document.getElementById(`${app}Tool`).className += ' active';
     },
     initInstallChromeExt(error) {
-      if (error.name == 'EXTENSION_UNAVAILABLE') {
+      if (error.name === 'EXTENSION_UNAVAILABLE') {
         // console.log('ask for inline installation');
         this._inlineChomeExtensionStore();
       }
@@ -229,7 +229,7 @@
     },
     initLocCanvasCont(tempVideoId) {
       let app;
-      if (virtualclass.currApp == 'ScreenShare') {
+      if (virtualclass.currApp === 'ScreenShare') {
         app = 'ss';
       } else {
         app = 'wss';
@@ -246,7 +246,7 @@
 
       const localVideo = document.getElementById(id);
 
-      if (localVideo != null && localVideo.tagName == 'VIDEO') {
+      if (localVideo != null && localVideo.tagName === 'VIDEO') {
         //    alert('this would not performed');
         const stCanvas = document.createElement('canvas');
         stCanvas.id = localVideo.id;
@@ -255,11 +255,11 @@
 
         const tempVid = localVideo;
         localVideo.parentNode.replaceChild(stCanvas, localVideo);
-        if (app == 'ScreenShare') {
+        if (app === 'ScreenShare') {
           app = 'ss';
         }
 
-        if (typeof notPutImage === 'undefined' && (typeof app !== 'undefined' && (app == 'ss' || app == 'wss'))) {
+        if (typeof notPutImage === 'undefined' && (typeof app !== 'undefined' && (app === 'ss' || app === 'wss'))) {
           virtualclass[app].localCanvas = stCanvas;
           virtualclass[app].localCont = virtualclass[app].localCanvas.getContext('2d');
 
@@ -301,7 +301,7 @@
       const sscElem = document.getElementById(ssc);
       if (sscElem != null) {
         const sscWidth = sscElem.offsetWidth + optionsContWidth;
-        return (sscWidth == wbcWidth);
+        return (sscWidth === wbcWidth);
       }
       return false;
     },
@@ -341,7 +341,7 @@
 
     Fullscreen() {
       /** Making virtualclassCont is fullScreen, displays the background is black on virtualclassCont **/
-      //const elem = document.getElementById('virtualclassCont');
+      // const elem = document.getElementById('virtualclassCont');
       const elem = document.documentElement;
 
       if (elem.requestFullscreen) {
@@ -357,7 +357,7 @@
     },
 
     closeFullscreen() {
-      //const elem = document.getElementById('virtualclassCont');
+      // const elem = document.getElementById('virtualclassCont');
       const elem = document.documentElement;
       if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -414,9 +414,9 @@
     },
     preNumValidateTwo(n) {
       const numstring = n.toString();
-      if (numstring.length == 1) {
+      if (numstring.length === 1) {
         return `0${numstring}`;
-      } if (numstring.length == 2) {
+      } if (numstring.length === 2) {
         return numstring;
       }
     },
@@ -465,7 +465,7 @@
       if (virtualclass.isPlayMode) {
         virtualclass.recorder.recDataSend();
         // We need to clear everything when user first play-recoring and join the live class
-        //console.log('==== Clear Session PlayMode');
+        // console.log('==== Clear Session PlayMode');
         return;
       }
 
@@ -480,7 +480,7 @@
         if (!roles.hasControls()) {
           const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
           const action = rhElem.getAttribute('data-action');
-          if (action == 'disable') {
+          if (action === 'disable') {
             const toUser = virtualclass.vutil.whoIsTeacher();
             ioAdapter.sendUser({
               data: {
@@ -507,7 +507,7 @@
       // When user does clear history by browser feature, some data are storing
       // in that case we are not saving the data by clearing all storage data.
 
-      if (localStorage.length == 0) {
+      if (localStorage.length === 0) {
         virtualclass.storage.clearStorageData();
         return;
       }
@@ -545,29 +545,31 @@
 
       var prvAppObj = { name: virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp) };
       // console.log(virtualclass.currApp);
-      if (virtualclass.currApp == 'ScreenShare') {
+      if (virtualclass.currApp === 'ScreenShare') {
         prvAppObj.name = virtualclass.gObj.defaultApp; // not saving screen share but show Editor Rich default window
         const teacherId = virtualclass.vutil.whoIsTeacher();
         if (virtualclass.gObj.studentSSstatus.mesharing && roles.isStudent()) {
-          //console.log('====> me sharing rmStdScreen');
+          // console.log('====> me sharing rmStdScreen');
           ioAdapter.mustSendUser({ cf: 'rmStdScreen' }, teacherId);
         } else if (roles.hasControls() && !virtualclass.gObj.studentSSstatus.mesharing) {
-          ioAdapter.mustSend(({ unshareScreen: true, st: 'ss', cf: 'unshareScreen' }));
-          ioAdapter.mustSend({ dispWhiteboard: true, cf: 'dispWhiteboard', d: '_doc_0_0' });
+          const currElem = document.querySelector('#virtualclassWhiteboard .canvasContainer.current');
+          const wId = (currElem != null) ? currElem.dataset.wbId : '_doc_0_0';
+          await ioAdapter.mustSend({ dispWhiteboard: true, cf: 'dispWhiteboard', d: wId });
+          await ioAdapter.mustSend(({ unshareScreen: true, st: 'ss', cf: 'unshareScreen' }));
         }
 
         if ((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing) || roles.hasControls()) {
           // console.log('screen-detail is saving into storage');
           // localStorage.setItem('studentSSstatus', JSON.stringify(virtualclass.gObj.studentSSstatus));
         }
-      } else if ((virtualclass.currApp == 'Yts')) {
+      } else if ((virtualclass.currApp === 'Yts')) {
         if (typeof virtualclass.yts.videoId !== 'undefined' && typeof virtualclass.yts.player === 'object') {
           prvAppObj.metaData = {
             init: virtualclass.yts.videoId,
             startFrom: virtualclass.yts.player.getCurrentTime(),
           };
         }
-      } else if ((virtualclass.currApp == 'SharePresentation')) {
+      } else if ((virtualclass.currApp === 'SharePresentation')) {
         // virtualclass.sharePt.saveIntoLocalStorage();
         if (typeof virtualclass.sharePt !== 'undefined' && typeof virtualclass.sharePt === 'object' && virtualclass.sharePt.pptUrl) {
           // console.log(`beforeloadS${virtualclass.sharePt.pptUrl}`);
@@ -581,10 +583,10 @@
         } else {
           prvAppObj.metaData = null; // if video is not started to share.
         }
-      } else if (virtualclass.currApp == 'Poll') {
+      } else if (virtualclass.currApp === 'Poll') {
         // virtualclass.poll.saveInLocalStorage();
         // console.log('currAppPoll');
-      } else if (virtualclass.currApp == 'Video') {
+      } else if (virtualclass.currApp === 'Video') {
         if (virtualclass.videoUl.player) {
           var start = virtualclass.videoUl.player.currentTime();
         }
@@ -601,9 +603,7 @@
           isAutoplay: virtualclass.videoUl.autoPlayFlag,
 
         };
-
-
-      } else if (virtualclass.currApp == 'DocumentShare') {
+      } else if (virtualclass.currApp === 'DocumentShare') {
         // console.log(`previous app success ${virtualclass.currApp}`);
         if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
           var { currDoc } = virtualclass.dts.docs;
@@ -635,16 +635,15 @@
           prvAppObj.metaData.docs = virtualclass.dts.pages;
         }
       } else if (virtualclass.currApp === 'Quiz') {
-        //virtualclass.quiz.saveInLocalStorage();
+        // virtualclass.quiz.saveInLocalStorage();
         // console.log('quiz data saved');
       } else if (virtualclass.currApp === 'Whiteboard') {
         // var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount, "wbcs"  : virtualclass.gObj.currSlide};
         var prvAppObj = { name: 'Whiteboard', wbn: virtualclass.gObj.wbCount };
       }
-
-      //if (virtualclass.gObj.wIds.length > 0) {
-        // localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
-      //}
+      // if (virtualclass.gObj.wIds.length > 0) {
+      //    localStorage.setItem('wIds', JSON.stringify(virtualclass.gObj.wIds));
+      // }
 
       if (roles.hasControls()) {
         // localStorage.setItem('wbOrder', JSON.stringify(virtualclass.wbCommon.order));
@@ -664,7 +663,7 @@
       // not storing the YouTube status on student's storage
       // Not showing the youtube video is at student if current app is not youtube
       if (roles.hasView()) {
-        if (virtualclass.currApp == 'Yts') {
+        if (virtualclass.currApp === 'Yts') {
           var prvAppObj = { name: 'Yts', metaData: null };
         }
       }
@@ -699,14 +698,14 @@
       if (virtualclass.isPlayMode) {
         localStorage.clear();
       }
-      if (virtualclass.currApp != 'DocumentShare') {
+      if (virtualclass.currApp !== 'DocumentShare') {
         io.disconnect();
       }
     },
 
     initOnBeforeUnload(bname) {
       // debugger;
-      if (bname == 'iOS') {
+      if (bname === 'iOS') {
         document.body.onunload = function () {
           virtualclass.vutil.beforeLoad();
         };
@@ -715,18 +714,18 @@
           const editor = virtualclass.vutil.smallizeFirstLetter(virtualclass.currApp);
           virtualclass.vutil.beforeLoad();
 
-          if (editor == 'editorRich' || editor == 'editorCode') {
+          if (editor === 'editorRich' || editor === 'editorCode') {
             const edState = virtualclass[editor].cmClient.state;
             // We with till editor is in Sync.
             // edState is an instance of constructor, to get the name of it
-            if (edState.constructor.name != 'Synchronized') {
+            if (edState.constructor.name !== 'Synchronized') {
               return virtualclass.lang.getString('editorinsync');
             }
           }
         };
       }
     },
-    isPlayMode() {
+    isPlayMode() { // TODO
       return (window.wbUser.virtualclassPlay == true);
     },
     progressBar(totalVal, portion, pbar, pval) {
@@ -735,7 +734,7 @@
         document.getElementById('askplayMessage').innerHTML = virtualclass.lang.getString('playsessionmsg');
       }
       let totalProgress;
-      if (totalVal == 0 && portion == 0) {
+      if (totalVal === 0 && portion === 0) {
         totalProgress = 0;
       } else {
         totalProgress = Math.round((portion * 100) / totalVal);
@@ -751,7 +750,7 @@
         prvScreen.style.display = 'none';
 
         // console.log(`Hide previous screen with display new ${app}`);
-        if (app == 'ss') {
+        if (app === 'ss') {
           if (typeof virtualclass[app] === 'object') {
             document.getElementById(virtualclass[app].id).style.display = 'block';
           }
@@ -769,7 +768,7 @@
     getUserInfo(key, userId, users) {
       if (users != null) {
         for (let i = 0; i < users.length; i++) {
-          if (users[i].userid == userId) {
+          if ((+users[i].userid) === (+userId)) {
             return users[i][key];
           }
         }
@@ -780,7 +779,7 @@
     getUserAllInfo(userId, users) {
       if (typeof userId !== 'undefined' && typeof users !== 'undefined') {
         for (let i = 0; i < users.length; i++) {
-          if (users[i].userid == userId) {
+          if ((+users[i].userid) === (+userId)) {
             return users[i];
           }
         }
@@ -895,7 +894,7 @@
       ancTag.className = 'tooltip';
 
       lDiv.appendChild(ancTag);
-      if (toolId == 't_reclaim') {
+      if (toolId === 't_reclaim') {
         // var virtualclassCont = document.getElementById(virtualclass.html.id);
 
         const virtualclassCont = document.getElementById('virtualclassAppLeftPanel');
@@ -964,7 +963,7 @@
     getMySelf() {
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
-          if (virtualclass.connectedUsers[i].userid == virtualclass.gObj.uid) {
+          if (virtualclass.connectedUsers[i].userid === virtualclass.gObj.uid) {
             return virtualclass.connectedUsers[i];
           }
         }
@@ -979,13 +978,13 @@
     getClassName(role) {
       let className;
 
-      if (role == 't') {
+      if (role === 't') {
         className = 'teacher';
-      } else if (role == 'e') {
+      } else if (role === 'e') {
         className = 'educator';
-      } else if (role == 's') {
+      } else if (role === 's') {
         className = 'student';
-      } else if (role == 'p') {
+      } else if (role === 'p') {
         className = 'presenter';
       }
       return className;
@@ -994,7 +993,7 @@
 
     isPresenterExist() {
       for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
-        if (virtualclass.connectedUsers[i].role == 'p') {
+        if (virtualclass.connectedUsers[i].role === 'p') {
           return true;
         }
       }
@@ -1029,7 +1028,7 @@
       const writeModeElem = document.getElementById(`${virtualclass.vutil.capitalizeFirstLetter(eType)}writeModeBox`);
       if (writeModeElem != null) {
         const writeMode = writeModeElem.getAttribute('data-write-mode');
-        if (writeMode == 'true') {
+        if (writeMode === 'true') {
           virtualclass[eType].cm.setOption('readOnly', false);
         } else {
           virtualclass[eType].cm.setOption('readOnly', 'nocursor');
@@ -1043,8 +1042,8 @@
     isTeacherAlreadyExist(joinId) {
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
-          if ((virtualclass.connectedUsers[i].role == 't' || virtualclass.connectedUsers[i].role == 'e')
-            && virtualclass.connectedUsers[i].userid != joinId) {
+          if ((virtualclass.connectedUsers[i].role === 't' || virtualclass.connectedUsers[i].role === 'e')
+            && virtualclass.connectedUsers[i].userid !== joinId) {
             // console.log(`joni Id ${joinId}`);
             return true;
           }
@@ -1061,7 +1060,7 @@
     getPresenterId() {
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
-          if ((virtualclass.connectedUsers[i].role == 'p')) {
+          if ((virtualclass.connectedUsers[i].role === 'p')) {
             return virtualclass.connectedUsers[i].userid;
             return true;
           }
@@ -1073,8 +1072,8 @@
     isEducatorAlreadyExist(joinId) {
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
-          if ((virtualclass.connectedUsers[i].role == 'e')
-            && virtualclass.connectedUsers[i].userid != joinId) {
+          if ((virtualclass.connectedUsers[i].role === 'e')
+            && virtualclass.connectedUsers[i].userid !== joinId) {
             // console.log(`joniId ${joinId}`);
             return true;
           }
@@ -1086,8 +1085,8 @@
     isOrginalTeacherExist(joinId) {
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
-          if ((virtualclass.connectedUsers[i].role == 't')
-            && virtualclass.connectedUsers[i].userid != joinId) {
+          if ((virtualclass.connectedUsers[i].role === 't')
+            && virtualclass.connectedUsers[i].userid !== joinId) {
             // console.log(`joniId ${joinId}`);
             return true;
           }
@@ -1180,20 +1179,20 @@
      */
 
     overrideRolesFromElem(elem, role) {
-      if (role == 's') {
+      if (role === 's') {
         elem.classList.remove('teacher');
         elem.classList.remove('orginalTeacher');
         elem.classList.remove('presenter');
         elem.classList.remove('educator');
         virtualclassCont.classList.add('student');
         // this.synchEditorTools();
-      } else if (role == 'p') {
+      } else if (role === 'p') {
         elem.classList.remove('teacher');
         elem.classList.remove('orginalTeacher');
         elem.classList.remove('educator');
         virtualclassCont.classList.add('student');
         virtualclassCont.classList.add('presenter');
-      } else if (role == 'e') {
+      } else if (role === 'e') {
         // By removing the teacher class would hide
         // the audio icon from footer control on reload
         // elem.classList.remove('teacher');
@@ -1202,7 +1201,7 @@
         elem.classList.remove('presenter');
         elem.classList.add('educator');
         elem.classList.add('orginalTeacher');
-      } else if (role == 't') {
+      } else if (role === 't') {
         elem.classList.remove('student');
         elem.classList.remove('educator');
         elem.classList.remove('presenter');
@@ -1214,7 +1213,7 @@
 
     sesionEndMsgBoxIsExisting() {
       const sessionEndCont = document.getElementById('sessionEndMsgCont');
-      return (sessionEndCont.hasAttribute('data-displaying') && sessionEndCont.dataset.displaying == 'true'); // do nothing if there is already sesion end box
+      return (sessionEndCont.hasAttribute('data-displaying') && sessionEndCont.dataset.displaying === 'true'); // do nothing if there is already sesion end box
     },
 
     removeVideoHostContainer() {
@@ -1298,7 +1297,7 @@
     applyHeight(elem) {
       const rightPanel = document.getElementById('virtualclassAppRightPanel');
       const rightPanelHeight = this.getVisibleHeightElem('virtualclassCont');
-      rightPanel.style.height = (rightPanelHeight != nul1) ? rightPanelHeight : window.innerHeight;
+      rightPanel.style.height = (rightPanelHeight != null) ? rightPanelHeight : window.innerHeight;
     },
 
     insertIntoLeftBar(tobeInsert) {
@@ -1377,7 +1376,7 @@
 
     modalPopup(type, elemArr) {
       const upload = {};
-      if (type == 'video') {
+      if (type === 'video') {
         const currPlayed = document.querySelector('#listvideo .playing');
         if (currPlayed) {
           const id = currPlayed.getAttribute('data-rid');
@@ -1409,7 +1408,7 @@
 
       virtualclass.fineUploader.uploaderFn(upload);
 
-      if (type != 'video') {
+      if (type !== 'video') {
         const cont = document.querySelector('#DocumentShareDashboard #docsUploadMsz');
         const upMsz = document.createElement('div');
         if (cont) {
@@ -1486,7 +1485,7 @@
 
     appIsForEducator(app) {
       for (const i in virtualclass.apps) {
-        if (virtualclass.apps[i] == app) {
+        if (virtualclass.apps[i] === app) {
           return false;
         }
       }
@@ -1538,25 +1537,13 @@
     },
 
     triggerDashboard(currApp, hidepopup) {
-      if (currApp == 'DocumentShare') {
+      if (currApp === 'DocumentShare') {
         const currentNote = document.querySelector('#screen-docs .note.current');
         if (currentNote == null) {
-          if (typeof hidepopup === 'undefined') {
-            virtualclass.dashboard.init(currApp);
-          } else {
-            virtualclass.dashboard.init(currApp, hidepopup);
-          }
-        } else {
-          // virtualclass.zoom.zoomAction('fitToScreen');
-          // virtualclass.pdfRender[virtualclass.gObj.currWb].fitWhiteboardAtScale(virtualclass.gObj.currWb);
-          // virtualclass.wb[virtualclass.gObj.currWb].prvCanvasScale = virtualclass.zoom.canvasScale;
+          hidepopup ? virtualclass.dashboard.init(currApp, hidepopup) : virtualclass.dashboard.init(currApp);
         }
-      } else if (currApp == 'Video') {
-        if (typeof hidepopup === 'undefined') {
-          virtualclass.dashboard.init(currApp);
-        } else {
-          virtualclass.dashboard.init(currApp, hidepopup);
-        }
+      } else if (currApp === 'Video') {
+        hidepopup ? virtualclass.dashboard.init(currApp, hidepopup) : virtualclass.dashboard.init(currApp);
       } else {
         virtualclass.dashboard.init(currApp);
       }
@@ -1583,7 +1570,7 @@
     /** Enable or Disable the Audio * */
     audioStatus(tag, status) {
       const anchor = tag.getElementsByClassName('congtooltip')[0];
-      if (status == 'true') {
+      if (status === 'true') {
         tag.setAttribute('data-audio-playing', 'true');
         anchor.setAttribute('data-title', virtualclass.lang.getString('audioEnable'));
         tag.className = 'audioTool active';
@@ -1610,7 +1597,7 @@
       const ctr = document.querySelector('.congrea .videoSwitchCont');
       if (ctr) {
         ctr.addEventListener('click', () => {
-          virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() == 'off') ? 'on' : 'off');
+          virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off');
         });
       }
     },
@@ -1620,7 +1607,7 @@
       const sw = document.querySelector('.congrea .videoSwitchCont #videoSwitch');
       // Action on means video is On or off means video is off
 
-      if (action == 'on') {
+      if (action === 'on') {
         sw.classList.remove('off');
         sw.classList.add('on');
 
@@ -1658,7 +1645,7 @@
             }, 100,
           );
         }
-      } else if (action == 'off') {
+      } else if (action === 'off') {
         sw.classList.remove('on');
         sw.classList.add('off');
         // virtualclass.videoHost.gObj.videoSwitch = 0;
@@ -1689,9 +1676,9 @@
 
       if (typeof notSend === 'undefined') {
         if (virtualclass.gObj.meetingMode) {
-          const vaction = action != 'off';
+          const vaction = action !== 'off';
           virtualclass.multiVideo.setVideoStatus(vaction);
-        } else if (virtualclass.gObj.uid == virtualclass.vutil.whoIsTeacher()) {
+        } else if (virtualclass.gObj.uid === virtualclass.vutil.whoIsTeacher()) {
           ioAdapter.mustSend({ congCtr: { videoSwitch: video }, cf: 'congController' });
         }
 
@@ -1717,7 +1704,7 @@
       // );
 
       window.addEventListener('message', (event) => {
-        if (event.data.type == 'yes') {
+        if (event.data.type === 'yes') {
           virtualclass.gObj.chromeExt = true;
         }
         // console.log('Chrome Extension:- is available');
@@ -1753,18 +1740,18 @@
 
 
     getElemM(wrapper, type) {
-      if (type == 'Y') {
+      if (type === 'Y') {
         var res = document.querySelector(`#${wrapper}`).offsetHeight;
-      } else if (type == 'X') {
+      } else if (type === 'X') {
         var res = document.querySelector(`#${wrapper}`).offsetWidth;
       }
       return this.getValueWithoutPixel(res);
     },
 
     getElemM2(wrapper, type) {
-      if (type == 'Y') {
+      if (type === 'Y') {
         var res = document.querySelector(`#${wrapper}`).offsetHeight;
-      } else if (type == 'X') {
+      } else if (type === 'X') {
         var res = document.querySelector(`#${wrapper}`).offsetWidth;
       }
       return this.getValueWithoutPixel(res);
@@ -1783,7 +1770,7 @@
     visibleElementHeighOldt(innerElem, wrapper) {
       let offset = 0;
       let node = document.getElementById(innerElem);
-      while (node.offsetParent && node.offsetParent.id != wrapper) {
+      while (node.offsetParent && node.offsetParent.id !== wrapper) {
         offset += node.offsetTop;
         node = node.offsetParent;
       }
@@ -1903,14 +1890,14 @@
               // virtualclass.gObj.allOrder = responseData;
               for (const key in responseData) {
                 if (key === 'SharePresentation' || key === 'DocumentShare' || key === 'Video') {
-                  if (typeof virtualclass.orderList[key] != 'object') {
+                  if (typeof virtualclass.orderList[key] !== 'object') {
                     virtualclass.orderList[key] = new OrderedList();
                   }
                   virtualclass.orderList[key].ol = responseData[key].ol;
                 }
               }
               cb('ok');
-              //cb(responseData[apptype]);
+              // cb(responseData[apptype]);
               // virtualclass.gObj.docOrder = responseData;
             }
           }
@@ -1938,10 +1925,10 @@
 
 
     initAcitveElement() {
-      if (virtualclass.currApp == 'Video') {
+      if (virtualclass.currApp === 'Video') {
         var activeElem = '#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
         var deactiveElem = '#listvideo';
-      } else if (virtualclass.currApp == 'DocumentShare') {
+      } else if (virtualclass.currApp === 'DocumentShare') {
         var activeElem = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
         var deactiveElem = '#listdocs';
       }
@@ -1956,7 +1943,7 @@
     },
 
     isResponseAvailable(reponse) {
-      return (reponse != undefined && reponse != 'undefined' && reponse != null);
+      return (reponse != null && typeof reponse !== 'undefined' && reponse != null);
     },
 
     navWhiteboard(cthis, func, dthis) {
@@ -2092,7 +2079,7 @@
         btn.classList.add('enable');
       }
 
-      if (virtualclass.currApp == 'DocumentShare') {
+      if (virtualclass.currApp === 'DocumentShare') {
         const virtualclassContainer = document.querySelector('#virtualclassAppLeftPanel');
         virtualclassContainer.classList.add('showZoom');
         virtualclassContainer.classList.remove('hideZoom');
@@ -2104,7 +2091,7 @@
       if (btn) {
         btn.classList.remove('enable');
       }
-      if (virtualclass.currApp == 'DocumentShare') {
+      if (virtualclass.currApp === 'DocumentShare') {
         const virtualclassContainer = document.querySelector('#virtualclassAppLeftPanel');
         virtualclassContainer.classList.add('hideZoom');
         virtualclassContainer.classList.remove('showZoom');
@@ -2160,7 +2147,7 @@
 
     sendCurrAppOnUserJoin() {
       return; // TODO remove this gracefully
-      if (typeof virtualclass.wb === 'object' && virtualclass.currApp == 'Whiteboard') {
+      if (typeof virtualclass.wb === 'object' && virtualclass.currApp === 'Whiteboard') {
         const objs = virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs;
         if (objs.length > 0) {
           ioAdapter.sendWithDelayAndDrop({ repObj: objs, cf: 'repObj' }, null, 'mustSend', 'repObj', 1500);
@@ -2181,7 +2168,7 @@
     },
 
     selfJoin(jId) {
-      if (jId == virtualclass.gObj.uid) {
+      if (jId === virtualclass.gObj.uid) {
         // The speed needs to send only when self joining
         ioAdapter.sendSpeed(virtualclass.videoHost.gObj.MYSPEED);
         return true;
@@ -2269,12 +2256,12 @@
 
         if (typeof virtualclass.videoUl.player === 'object' && virtualclass.videoUl.player.player_ != null
           && virtualclass.videoUl.player.paused()) {
-          //console.log('==== Video is paused');
+          // console.log('==== Video is paused');
           virtualclass.videoUl.player.pause();
         }
       }
       if (typeof virtualclass.videoUl.player === 'object') {
-        //console.log('=====> Video delete <==== ',  virtualclass.videoUl.player);
+        // console.log('=====> Video delete <==== ',  virtualclass.videoUl.player);
         delete (virtualclass.videoUl.player);
       }
     },
@@ -2311,7 +2298,7 @@
 
       if (window.Worker) {
         webpToPng.onmessage = function (e) {
-          if (e.data.canid == 'videoParticipate') {
+          if (e.data.canid === 'videoParticipate') {
             // Teacher's big video which is outside of the Shadow Dom
             var canvas = document.querySelector(`#${e.data.canid}`);
           } else {
@@ -2324,7 +2311,7 @@
           canvas.height = e.data.bh;
           canvas.width = e.data.bw;
 
-          //	output.data =  new Uint8ClampedArray(outputData);
+          // output.data =  new Uint8ClampedArray(outputData);
           output.data.set(e.data.vdata);
           context.putImageData(output, 0, 0);
           virtualclass.gObj.isReadyForVideo = true;
@@ -2451,6 +2438,14 @@
 
     isRefreshMode() {
       return virtualclass.config.makeWebSocketReady;
+    },
+
+    triggerFinalizeTextIfAny(wbId) {
+      const id = wbId || virtualclass.gObj.currWb;
+      if ((virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare')
+        && typeof virtualclass.wb[id] === 'object' && virtualclass.wb[id].obj.drawTextObj) {
+        virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny(undefined, id);
+      }
     },
   };
   window.vutil = vutil;

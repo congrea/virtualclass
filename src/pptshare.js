@@ -61,7 +61,7 @@
           elem.parentNode.removeChild(elem);
         }
 
-        //console.log('====> PPT SLIDE UI CREATE 1');
+        // console.log('====> PPT SLIDE UI CREATE 1');
         this.UI.container();
 
         const messageContainer = document.getElementById('pptMessageLayout');
@@ -89,7 +89,7 @@
         //   this.getPptList();
         // }
 
-        //console.log('====> PPT SLIDE UI CREATE 1.0 init');
+        // console.log('====> PPT SLIDE UI CREATE 1.0 init');
         virtualclass.sharePt.attachMessageEvent('message', virtualclass.sharePt.pptMessageEventHandler);
       },
 
@@ -121,9 +121,9 @@
       //           this.localStoragFlag = true;
       //           this.pptUrl = JSON.parse(localStorage.getItem('pptUrl'));
       //
-      //           // if (roles.hasControls()) {
-      //           //                                    ioAdapter.mustSend({pptMsg: this.pptUrl, cf: 'ppt', uid: wbUser.id, flag: "url", onrefresh: true});
-      //           //                                }
+      //           if (roles.hasControls()) {
+      //             ioAdapter.mustSend({pptMsg: this.pptUrl, cf: 'ppt', uid: wbUser.id, flag: "url", onrefresh: true});
+      //                                           }
       //
       //           if (mdata.startFrom != null) {
       //             virtualclass.sharePt.stateLocalStorage = mdata.startFrom;
@@ -155,7 +155,8 @@
       //   const iframeContainer = document.getElementById('iframecontainer');
       //   iframeContainer.style.display = 'block';
       //   const iframe = document.getElementById('pptiframe');
-      //   const pptUrl = (this.pptUrl.search('postMessage') < 0) ? `${this.pptUrl}?postMessage=true&postMessageEvents=true` : this.pptUrl;
+      //   const pptUrl = (this.pptUrl.search('postMessage') < 0)
+      // ? `${this.pptUrl}?postMessage=true&postMessageEvents=true` : this.pptUrl;
       //   iframe.setAttribute('src', pptUrl);
       //
       //   this.setAutoSlideConfig();
@@ -251,7 +252,8 @@
         });
 
 
-        // virtualclass.xhr.vxhr.postFormData(window.webapi + "&user=" + virtualclass.gObj.uid + "&methodname=update_content_video", formData).then((msg) => {
+        // virtualclass.xhr.vxhr.postFormData(window.webapi + "&user=" +
+        // virtualclass.gObj.uid + "&methodname=update_content_video", formData).then((msg) => {
         //     if (msg != "ERROR") {
         //         var elem = document.getElementById("linkppt" + id);
         //         if (elem) {
@@ -294,14 +296,14 @@
         // });
       },
       afterDeletePtCallback(msg, id) {
-        if (msg != 'ERROR') {
+        if (msg !== 'ERROR') {
           const elem = document.getElementById(`linkppt${id}`);
           if (elem) {
             elem.parentNode.removeChild(elem);
             // virtualclass.videoUl.order=[];
             if (virtualclass.sharePt.ppts.length) {
               virtualclass.sharePt.ppts.forEach((ppt, index) => {
-                if (ppt.fileuuid == id) {
+                if (ppt.fileuuid === id) {
                   var index = virtualclass.sharePt.ppts.indexOf(ppt);
                   if (index >= 0) {
                     virtualclass.sharePt.ppts.splice(index, 1);
@@ -323,7 +325,7 @@
                 virtualclass.vutil.removeFinishBtn();
               }
             }
-            if (virtualclass.sharePt.currId == id) {
+            if (virtualclass.sharePt.currId === id) {
               // if(type !="yts"){
               const ptCont = document.querySelector('#pptiframe');
               if (ptCont) {
@@ -357,6 +359,8 @@
       },
 
       actualPptMessageEventHandler(event) {
+        // console.log('====> PPT SLIDE receive ', event.data);
+        // console.log('====> dashboard init 2');
         if (virtualclass.currApp === 'SharePresentation') {
           const pptData = (typeof event.data === 'string') ? JSON.parse(event.data) : event.data;
           console.log('====> ppt event ', pptData.eventName);
@@ -374,7 +378,8 @@
                 this.state = pptData.state;
               }
               if (roles.isStudent()) this.removeControls();
-            } else if (pptData.eventName === 'slidechanged' && roles.hasControls() && virtualclass.config.makeWebSocketReady
+            } else if (pptData.eventName === 'slidechanged' && roles.hasControls()
+              && virtualclass.config.makeWebSocketReady
               && (this.isPptEventDefined(pptData) && (!this.lastSlideChanged
               || (this.lastSlideChanged && (this.isVerticalSlideChanged(pptData)
               || this.isHorizontalSlideChanged(pptData)))))) {
@@ -534,7 +539,7 @@
       removeControls() {
         setTimeout(() => {
           const frame = document.getElementById('pptiframe');
-          //console.log('====> PPT SLIDE POST');
+          // console.log('====> PPT SLIDE POST');
           frame.contentWindow.postMessage(JSON.stringify({
             method: 'configure',
             args: [{
@@ -550,7 +555,7 @@
         },
 
         setUrl(receivemsg) {
-          //console.log('====> PPT SLIDE SET URL 2');
+          // console.log('====> PPT SLIDE SET URL 2');
           // virtualclass.sharePt.localStoragFlag = 0;
           virtualclass.sharePt.stateLocalStorage = {};
           virtualclass.sharePt.state = { indexh: 0, indexv: 0, indexf: 0 };
@@ -560,7 +565,7 @@
             if (roles.hasView()) {
               if (frame.contentWindow != null) {
                 if (typeof receivemsg.pptMsg.state !== 'undefined') {
-                  //console.log('====> PPT SLIDE POST');
+                  // console.log('====> PPT SLIDE POST');
                   frame.contentWindow.postMessage(JSON.stringify({
                     method: 'setState',
                     args: [receivemsg.pptMsg.state],
@@ -588,14 +593,14 @@
 
 
       onPptMsgReceive(receivemsg) {
-        //console.log('====> PPT SLIDE ONRECEIVE MSG');
+        // console.log('====> PPT SLIDE ONRECEIVE MSG');
         const pptIframe = document.getElementById('pptiframe');
         const msgLayout = document.getElementById('pptMessageLayout');
 
         if (typeof receivemsg.ppt !== 'undefined' && typeof receivemsg.ppt.startFrom !== 'undefined') {
           virtualclass.sharePt.startFromFlag = 1;
           if (pptIframe !== null) {
-            //console.log('====> PPT SLIDE POST');
+            // console.log('====> PPT SLIDE POST');
             if (receivemsg.ppt.init.search('postMessage') < 0) {
               pptIframe.setAttribute('src', `${receivemsg.ppt.init}?postMessage=true&postMessageEvents=true`);
             } else {
@@ -620,7 +625,7 @@
             pptIframe.onload = function () {
               if (roles.hasView() || !virtualclass.gObj.makeWebSocketReady) {
                 if (pptIframe.contentWindow != null && typeof receivemsg.pptMsg.state !== 'undefined') {
-                  //console.log('====> PPT SLIDE POST ', receivemsg.pptMsg.state);
+                  // console.log('====> PPT SLIDE POST ', receivemsg.pptMsg.state);
                   pptIframe.contentWindow.postMessage(JSON.stringify({
                     method: 'setState',
                     args: [receivemsg.pptMsg.state],
@@ -646,7 +651,7 @@
        * @param  receivemsg ppt data recevied from the teacher
        */
       displayFrame() {
-        //console.log('====> PPT SLIDE UI CREATE 2');
+        // console.log('====> PPT SLIDE UI CREATE 2');
         // virtualclass.sharePt.localStoragFlag=0;
         const pptContainer = document.getElementById(virtualclass.sharePt.UI.id);
         if (!pptContainer.classList.contains('pptSharing')) {
@@ -660,7 +665,7 @@
        * @param receivemsg received message from the sender containg the url of the slide
        */
       setSlideUrl(receivemsg) {
-        if (receivemsg.pptMsg != null && receivemsg.pptMsg != '') {
+        if (receivemsg.pptMsg != null && receivemsg.pptMsg) {
           virtualclass.sharePt.studentPpt = 0;
           // console.log('PPT:- invoke setSlideUrl');
           this.viewFlag = 0;
@@ -675,7 +680,7 @@
           const elem = document.getElementById('iframecontainer');
           elem.style.display = 'block';
           const pptiframe = document.getElementById('pptiframe');
-          //console.log('====> PPT SLIDE POST');
+          // console.log('====> PPT SLIDE POST');
           pptiframe.setAttribute('src', (receivemsg.pptMsg.search('postMessage') < 0) ? `${receivemsg.pptMsg}?postMessage=true&postMessageEvents=true` : receivemsg.pptMsg);
           // console.log('test url is set');
           this.pptUrl = receivemsg.pptMsg;
@@ -690,12 +695,12 @@
 
        */
       setSlideState(msg) {
-        //console.log('====> PPT SLIDE set slide');
+        // console.log('====> PPT SLIDE set slide');
         const frame = document.getElementById('pptiframe').contentWindow;
         const indexArg = [msg.state.indexh, msg.state.indexv, msg.state.indexf];
         const stateArg = [msg.state];
         const eventReceived = msg.eventName;
-        //console.log('====> PPT SLIDE POST');
+        // console.log('====> PPT SLIDE POST');
         switch (eventReceived) {
           case 'ready':
             frame.postMessage(JSON.stringify({ method: 'setState', args: stateArg }), '*');
@@ -714,7 +719,7 @@
             frame.postMessage(JSON.stringify({ method: 'toggleAutoSlide' }), '*');
             break;
           case 'fragmentshown':
-            //console.log('====> PPT SLIDE CHANGED 2b v=', msg.state.indexv, ' =h', msg.state.indexh);
+            // console.log('====> PPT SLIDE CHANGED 2b v=', msg.state.indexv, ' =h', msg.state.indexh);
             frame.postMessage(JSON.stringify({ method: 'slide', args: indexArg }), '*');
             break;
           case 'fragmenthidden':
@@ -727,7 +732,7 @@
             frame.postMessage(JSON.stringify({ method: 'setState', args: stateArg }), '*');
             frame.postMessage(JSON.stringify({ method: 'slide', args: indexArg }), '*');
           default:
-            // console.log('There is no event is occured');
+          // console.log('There is no event is occured');
         }
       },
 
@@ -784,14 +789,14 @@
         virtualclass.xhrn.vxhrn.post(url, pptObj).then(() => {
           if (Object.prototype.hasOwnProperty.call(virtualclass.sharePt, 'activeppts')) {
             const ppts = virtualclass.sharePt.activeppts.map(ppt => ppt.fileuuid);
-            if (ppts.length != virtualclass.orderList[virtualclass.currApp].ol.order.length) {
-              //virtualclass.sharePt.order = ppts;
+            if (ppts.length !== virtualclass.orderList[virtualclass.currApp].ol.order.length) {
+              // virtualclass.sharePt.order = ppts;
               virtualclass.orderList[virtualclass.currApp].ol.order = ppts;
             }
           }
 
           virtualclass.orderList[virtualclass.currApp].ol.order.push(pptObj.uuid);
-         // virtualclass.vutil.sendOrder('presentation', virtualclass.orderList[virtualclass.currApp].ol.order);
+          // virtualclass.vutil.sendOrder('presentation', virtualclass.orderList[virtualclass.currApp].ol.order);
           that.finallySendPptOrder(virtualclass.orderList[virtualclass.currApp].ol.order);
           virtualclass.sharePt.getPptList();
           virtualclass.serverData.syncComplete = false;
@@ -826,7 +831,8 @@
         virtualclass.vutil.requestOrder((response) => {
           if (virtualclass.vutil.isResponseAvailable(response)) {
             // virtualclass.orderList[virtualclass.currApp].ol.order = response;
-            if (virtualclass.orderList[virtualclass.currApp].ol.order && virtualclass.orderList[virtualclass.currApp].ol.order.length > 0) {
+            if (virtualclass.orderList[virtualclass.currApp].ol.order
+              && virtualclass.orderList[virtualclass.currApp].ol.order.length > 0) {
               virtualclass.sharePt.reArrangeElements(virtualclass.orderList[virtualclass.currApp].ol.order);
             }
           }
@@ -858,8 +864,8 @@
           pptObj.status = 1;
         }
 
-
-        this.pages[idPostfix] = new virtualclass.page('pptListContainer', 'ppt', 'virtualclassSharePresentation', 'sharePt', pptObj.status);
+        const shareppt = 'virtualclassSharePresentation';
+        this.pages[idPostfix] = new virtualclass.page('pptListContainer', 'ppt', shareppt, 'sharePt', pptObj.status);
         this.pages[idPostfix].init(idPostfix, pptObj.URL);
         this.pptClickHandler(pptObj);
         const ppt = document.getElementById(`linkppt${pptObj.fileuuid}`);
@@ -894,7 +900,7 @@
             ppt.classList.add('enable');
           }
         }
-        if (virtualclass.sharePt.currId == pptObj.fileuuid) {
+        if (virtualclass.sharePt.currId === pptObj.fileuuid) {
           ppt.classList.add('playing');
         }
       },
@@ -947,7 +953,7 @@
 
         if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
           virtualclass.sharePt.ppts.forEach((elem, i) => {
-            if (elem.fileuuid == _id) {
+            if (elem.fileuuid === _id) {
               elem.disabled = 0;
               elem.status = 0;
             }
@@ -972,7 +978,7 @@
           ppt.style.pointerEvents = 'auto';
           if (virtualclass.sharePt.ppts && virtualclass.sharePt.ppts.length) {
             virtualclass.sharePt.ppts.forEach((elem, i) => {
-              if (elem.fileuuid == _id) {
+              if (elem.fileuuid === _id) {
                 delete (elem.disabled);
                 elem.status = 1;
               }
@@ -1100,7 +1106,7 @@
 
         const frame = document.getElementById('pptiframe');
         // console.log(`completeurl${urlValue}`);
-        //console.log('====> PPT SLIDE POST');
+        // console.log('====> PPT SLIDE POST');
         virtualclass.sharePt.pptUrl = `${urlValue}?postMessage=true&postMessageEvents=true`;
 
         frame.setAttribute('src', virtualclass.sharePt.pptUrl);
@@ -1196,7 +1202,7 @@
             configValues.autoSlide = autoSlideTime;
           }
 
-          //console.log('====> PPT SLIDE POST');
+          // console.log('====> PPT SLIDE POST');
 
           // frame.contentWindow.postMessage(JSON.stringify({method: "configure", args: [{controls: true,keyboard:true,progress:true,touch:true}]}), '*');
           frame.contentWindow.postMessage(JSON.stringify({ method: 'configure', args: [configValues] }), '*');
@@ -1222,10 +1228,10 @@
 
 
         if (document.getElementById('pptiframe') != null) {
-          if (frame.src != '') {
+          if (frame.src) {
             virtualclass.sharePt.hideElement('pptMessageLayout');
           }
-          //console.log('====> PPT SLIDE POST');
+          // console.log('====> PPT SLIDE POST');
           frame.contentWindow.postMessage(JSON.stringify({
             method: 'configure',
             args: [{

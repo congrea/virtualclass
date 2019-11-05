@@ -45,7 +45,7 @@
     var docNav = document.getElementById(listDtype);
     const lid = `link${this.type}${this.rid}`;
     const cthis = this;
-    const titleAction = (this.status == 1) ? 'Hide' : 'Show';
+    const titleAction = (this.status === 1) ? 'Hide' : 'Show';
     const context = {
       rid: cthis.rid,
       status: this.status,
@@ -55,7 +55,7 @@
       titleAction,
     };
 
-    if (cthis.type == 'video') {
+    if (cthis.type === 'video') {
       var docNav = document.getElementById('listvideo');
       if (docNav) {
         var elem = this.UI.createPageNavLink2.call(this, docNav);
@@ -69,12 +69,12 @@
         this.UI.controller.init(this, lid);
         // var mainpDiv = this.UI.mainPDiv.call(this);
       }
-    } else if (this.type == 'docs') {
+    } else if (this.type === 'docs') {
       const dsTemplate = virtualclass.getTemplate('docsNav', virtualclass.dts.tempFolder);
       context.title = virtualclass.vutil.trimExtension(context.title);
       docNav.insertAdjacentHTML('beforeend', dsTemplate(context));
       this.UI.controller.init(this, lid);
-    } else if (this.type == 'notes') {
+    } else if (this.type === 'notes') {
       const nstemplate = virtualclass.getTemplate('notesNav', virtualclass.dts.tempFolder);
       const note = virtualclass.dts.getNote(this.rid);
       context.content_path = note.thumbnail;
@@ -83,7 +83,7 @@
        * * */
       docNav.insertAdjacentHTML('beforeend', nstemplate(context));
       this.UI.controller.init(this, lid);
-    } else if (this.type == 'ppt') {
+    } else if (this.type === 'ppt') {
       const pptNav = document.getElementById('listppt');
       if (pptNav) {
         var elem = this.UI.createPageNavLink2.call(this, pptNav);
@@ -104,7 +104,7 @@
   /** Attching the event handler when user click on preview of Docs and Notes */
   // Todo, by this function the video's event should be attached
   page.prototype.createPageNavAttachEvent = function (linkNav) {
-    if (this.type == 'docs') {
+    if (this.type === 'docs') {
       // linkNav.onclick = virtualclass.dts.docs.goToDocs(this.rid);
 
       const cthis = virtualclass.dts;
@@ -115,7 +115,7 @@
       } else {
         alert('Element is null');
       }
-    } else if (this.type == 'notes') {
+    } else if (this.type === 'notes') {
       linkNav.onclick = virtualclass.dts.docs.goToNavs(this.rid);
     }
   };
@@ -144,7 +144,9 @@
     for (const key in data) {
       form_data.append(key, data[key]);
     }
-    const method = (virtualclass.currApp != 'SharePresentation') ? '&methodname=update_content' : '&methodname=update_content_video';
+    const updateContent = '&methodname=update_content';
+    const updateContentVideo = '&methodname=update_content_video';
+    const method = (virtualclass.currApp !== 'SharePresentation') ? updateContent : updateContentVideo;
     const path = `${window.webapi}&user=${virtualclass.gObj.uid}${method}`;
     await this.vxhr.post(path, form_data)
       .catch((error) => {
@@ -159,7 +161,7 @@
    */
 
   page.prototype.sendStatus = function (data) {
-    if (this.type == 'notes') {
+    if (this.type === 'notes') {
       const ids = this.rid.split('_');
       data.uuid = ids[0];
       data.page = parseInt(ids[1]);
@@ -189,7 +191,7 @@
     if (orders.length > 0) {
       const result = orders.toString();
       // this.sendUpdate({'content_order': result, content_order_type: this.type});
-      if (this.type == 'notes') {
+      if (this.type === 'notes') {
         virtualclass.dts.reArrangeNotes(orders);
       } else {
         virtualclass[this.module]._rearrange(orders);
@@ -200,7 +202,7 @@
   };
 
   page.prototype.disable = function (id) {
-    if (this.type == 'notes') {
+    if (this.type === 'notes') {
       virtualclass.dts._noteDisable(this.rid);
     } else {
       virtualclass[this.module]._disable(this.rid);
@@ -208,7 +210,7 @@
   };
 
   page.prototype.enable = function () {
-    if (this.type == 'notes') {
+    if (this.type === 'notes') {
       virtualclass.dts._noteEnable(this.rid);
     } else {
       virtualclass[this.module]._enable(this.rid);
@@ -230,7 +232,7 @@
       elem.id = `mainp${cthis.id}`;
       elem.className = 'mainpreview';
 
-      if (this.type == 'notes') {
+      if (this.type === 'notes') {
         elem.innerHTML = '';
         const thumbnail = document.createElement('img');
         thumbnail.className = 'thumbnail';
@@ -256,7 +258,7 @@
         thumbList.dataset.title = this.title;
         elem.appendChild(thumbnail);
         elem.appendChild(thumbList);
-      } else if (this.type == 'docs') {
+      } else if (this.type === 'docs') {
         elem.innerHTML = cthis.title;
         elem.dataset.title = cthis.title;
         elem.className += ' tooltip2';
@@ -278,7 +280,7 @@
       elem.type = cthis.type;
       elem.dataset.selected = 0;
       elem.dataset.status = this.status;
-      if (cthis.type == 'video') {
+      if (cthis.type === 'video') {
         elem.classList.add(cthis.videoClass);
       }
       return elem;
@@ -298,7 +300,7 @@
       elem.dataset.selected = 0;
       elem.dataset.status = this.status;
 
-      if (cthis.type == 'video') {
+      if (cthis.type === 'video') {
         elem.type = 'video';
         var template = virtualclass.getTemplate('linkvideo', 'videoupload');
         // $(docNav).append(template(elem))
@@ -336,10 +338,10 @@
         this.cthis = cthis;
         this.element(cthis, 'status', this.cthis.status);
         this.element(cthis, 'delete');
-        if (cthis.type == 'video') {
+        if (cthis.type === 'video') {
           this.element(cthis, 'edit');
         }
-        if (cthis.type != 'docs') {
+        if (cthis.type !== 'docs') {
           this.dragDrop.init(this.cthis);
         }
       },
@@ -380,7 +382,7 @@
 
         isBefore(a, b) {
           if (a && b) {
-            if (a.parentNode == b.parentNode) {
+            if (a.parentNode === b.parentNode) {
               for (let cur = a; cur; cur = cur.previousSibling) {
                 if (cur === b) {
                   return true;
@@ -397,7 +399,8 @@
             virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
             virtualclass.vutil.makeElementActive('#listvideo');
           } else if (this.cthis.type === 'notes') {
-            virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+            const elemSelectors = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+            virtualclass.vutil.makeElementDeactive(elemSelectors);
             virtualclass.vutil.makeElementActive('#listnotes');
           }
 
@@ -421,11 +424,12 @@
         },
 
         handleDragEnter(e, cthis) {
-          if (cthis.type == 'video') {
+          if (cthis.type === 'video') {
             //  virtualclass.vutil.makeElementDeactive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
             virtualclass.vutil.makeElementActive('#listvideo');
-          } else if (cthis.type == 'notes') {
-            // virtualclass.vutil.makeElementDeactive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+          } else if (cthis.type === 'notes') {
+            // virtualclass.vutil.makeElementDeactive(
+            // '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
             virtualclass.vutil.makeElementActive('#listnotes');
           }
 
@@ -441,7 +445,7 @@
             // if(this.cthis.type == 'video'){
             //
             // }
-            if (cthis.type == 'video' || cthis.type == 'notes' || cthis.type == 'ppt') {
+            if (cthis.type === 'video' || cthis.type === 'notes' || cthis.type === 'ppt') {
               var elem = document.querySelectorAll(`#virtualclassCont.congrea .link${cthis.type}.htn`);
               for (var i = 0; i < elem.length; i++) {
                 elem[i].classList.remove('htn');
@@ -470,7 +474,7 @@
               target.parentNode.insertBefore(this.source, target.nextSibling);
             }
 
-            if (cthis.type == 'video' || cthis.type == 'notes' || cthis.type == 'ppt') {
+            if (cthis.type === 'video' || cthis.type === 'notes' || cthis.type === 'ppt') {
               var elem = document.querySelectorAll(`#virtualclassCont.congrea .link${cthis.type}:not(.dragElem)`);
               for (var i = 0; i < elem.length; i++) {
                 elem[i].classList.add('opaq');
@@ -492,7 +496,7 @@
           }
         },
         handleDragEnd(e, cthis) {
-          if (virtualclass.currApp == 'DocumentShare') {
+          if (virtualclass.currApp === 'DocumentShare') {
             virtualclass.dts.indexNav.oldOrder = virtualclass.orderList.DocumentShare.ol.order;
           }
           cthis.rearrange();
@@ -500,13 +504,15 @@
           this.source.classList.remove('dragElem');
           // console.log('remove dragelem');
 
-          if (cthis.type == 'video' || cthis.type == 'notes' || cthis.type == 'ppt') {
-            if (cthis.type == 'video') {
+          if (cthis.type === 'video' || cthis.type === 'notes' || cthis.type === 'ppt') {
+            if (cthis.type === 'video') {
               virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-            } else if (cthis.type == 'notes') {
-              virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+            } else if (cthis.type === 'notes') {
+              const elemSelectors = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+              virtualclass.vutil.makeElementActive(elemSelectors);
             } else {
-              // virtualclass.vutil.makeElementActive('#SharePresentationDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
+              // virtualclass.vutil.makeElementActive(
+              // '#SharePresentationDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
             }
 
             virtualclass.vutil.makeElementActive(`#list${cthis.type}`);
@@ -527,8 +533,8 @@
       events: {
         status2(elem, cthis) {
           // alert(cthis.rid + ' from events');
-          if (+(elem.dataset.status) == 0) {
-            if (cthis.type == 'video' || cthis.type == 'ppt') {
+          if (+(elem.dataset.status) === 0) {
+            if (cthis.type === 'video' || cthis.type === 'ppt') {
               elem.title = 'Disable';
             } else {
               elem.title = 'Hide';
@@ -536,7 +542,7 @@
             cthis.status = 1;
             cthis.enable();
           } else {
-            if (cthis.type == 'video' || cthis.type == 'ppt') {
+            if (cthis.type === 'video' || cthis.type === 'ppt') {
               elem.title = 'Enable';
             } else {
               elem.title = 'Show';
@@ -555,7 +561,7 @@
         },
 
         status(elem, currObj) {
-          if (+(elem.dataset.status) == 0) {
+          if (+(elem.dataset.status) === 0) {
             this.enableElement(elem, currObj);
           } else {
             this.disableElement(elem, currObj);
@@ -565,7 +571,7 @@
 
 
         disableElement(elem, currObj) {
-          if (currObj.type == 'video' || currObj.currObj == 'ppt') {
+          if (currObj.type === 'video' || currObj.currObj === 'ppt') {
             elem.title = 'Enable';
           } else {
             elem.title = 'Show';
@@ -594,7 +600,7 @@
           elem.querySelector('.statusanch').innerHTML = `status${elem.dataset.status}`;
 
           // var data = {'action': 'status', 'status': elem.dataset.status};
-          const status = (currObj.status == 0) ? 'disable' : 'enable';
+          const status = (currObj.status === 0) ? 'disable' : 'enable';
           currObj.sendStatus({ action: status });
         },
 
@@ -607,7 +613,7 @@
 
           virtualclass.dashboard.userConfirmation(virtualclass.lang.getString('deletepopup'), (confirmation) => {
             if (confirmation) {
-              if (cthis.type == 'notes') {
+              if (cthis.type === 'notes') {
                 virtualclass[cthis.module]._deleteNote(cthis.rid, cthis.type);
               } else {
                 virtualclass[cthis.module]._delete(cthis.rid);
@@ -616,7 +622,7 @@
           });
 
 
-          if (virtualclass.currApp == 'DocumentShare') {
+          if (virtualclass.currApp === 'DocumentShare') {
             const evt = e || window.event;
             if (evt.stopPropagation) evt.stopPropagation();
             if (evt.cancelBubble != null) evt.cancelBubble = true;
@@ -626,7 +632,7 @@
         edit(elem, cthis) {
           const data = { action: 'edit' };
           if (!document.querySelector(`#titleCont${cthis.rid}`)) {
-            if (cthis.type == 'video') {
+            if (cthis.type === 'video') {
               const titleCont = document.querySelector(`#virtualclassCont.congrea #videoTitle${cthis.rid}`);
               const text = titleCont.innerHTML;
               titleCont.style.display = 'none';
@@ -658,7 +664,7 @@
 
               // remove jquery
               $(document).on('click', (e) => {
-                if (e.target.id != `temp${cthis.rid}` && e.target.id != `editVideoTitle${cthis.rid}`) {
+                if (e.target.id !== `temp${cthis.rid}` && e.target.id !== `editVideoTitle${cthis.rid}`) {
                   rmTxtBox();
                 }
               });
@@ -682,15 +688,15 @@
       },
 
       element2(cthis, eltype, dataSet) {
-        if (cthis.type == 'video') {
-          if (eltype == 'status') {
+        if (cthis.type === 'video') {
+          if (eltype === 'status') {
             var div = document.querySelector(`#controlCont${cthis.type}${cthis.rid} .status`);
             div.onclick = this.goToEvent(this.cthis, eltype);
           } else {
             var div = document.querySelector(`#controlCont${cthis.type}${cthis.rid} .delete`);
             div.onclick = this.goToEvent(this.cthis, eltype);
           }
-        } else if (eltype == 'status') {
+        } else if (eltype === 'status') {
           var div = document.querySelector('.controls.status');
           div.onclick = this.goToEvent(this.cthis, eltype);
         } else {
@@ -701,13 +707,13 @@
 
       element(cthis, eltype, dataSet) {
         const selector = `.${eltype}`;
-        if (eltype == 'status' || eltype == 'delete') {
+        if (eltype === 'status' || eltype === 'delete') {
           var div = document.querySelector(`#controlCont${cthis.type}${cthis.rid} ${selector}`);
           div.onclick = this.goToEvent(this.cthis, eltype);
-        } else if (eltype == 'edit') {
+        } else if (eltype === 'edit') {
           const edit = document.querySelector(`#${cthis.type}TitleCont${cthis.rid} ${selector}`);
           edit.onclick = this.goToEvent(this.cthis, eltype);
-          if (cthis.videoClass != 'video_yts') {
+          if (cthis.videoClass !== 'video_yts') {
             edit.style.pointerEvents = 'none';
             edit.classList.add('editDisable');
           }
@@ -730,9 +736,9 @@
 
       hoverHandler(cthis) {
         let div;
-        if (cthis.type == 'video') {
+        if (cthis.type === 'video') {
           div = document.querySelector(`#VideoDashboard #link${cthis.type}${cthis.rid} .controlCont`);
-        } else if (cthis.type == 'ppt') {
+        } else if (cthis.type === 'ppt') {
           div = document.querySelector(`#SharePresentationDashboard #link${cthis.type}${cthis.rid} .controlCont`);
         } else {
           div = document.querySelector(`#DocumentShareDashboard #link${cthis.type}${cthis.rid} .controlCont`);
@@ -743,10 +749,10 @@
       },
       hoverHandler1(cthis) {
         let div;
-        if (cthis.type == 'video') {
+        if (cthis.type === 'video') {
           div = document.querySelector(`#VideoDashboard #link${cthis.type}${cthis.rid} .controlCont`);
           div.classList.remove('showCtr');
-        } else if (cthis.type == 'ppt') {
+        } else if (cthis.type === 'ppt') {
           div = document.querySelector(`#SharePresentationDashboard #link${cthis.type}${cthis.rid} .controlCont`);
           div.classList.remove('showCtr');
         }

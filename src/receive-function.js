@@ -25,7 +25,7 @@ const receiveFunctions = new function () {
   this.eddata = function (e) {
     // virtualclass.editorRich.onmessage(e.message);
     if (Object.prototype.hasOwnProperty.call(e.message, 'et')) {
-      if (e.message.et == 'editorRich') {
+      if (e.message.et === 'editorRich') {
         virtualclass.editorRich.onmessage(e, 'EditorRich');
       } else {
         virtualclass.editorCode.onmessage(e, 'EditorCode');
@@ -54,7 +54,7 @@ const receiveFunctions = new function () {
     const editorRichWriteModeBox = document.getElementById('EditorRichwriteModeBox');
 
     if (editorRichWriteModeBox != null) {
-      if (editorRichWriteModeBox.dataset.writeMode == 'true') {
+      if (editorRichWriteModeBox.dataset.writeMode === 'true') {
         localStorage.removeItem('nEd');
       } else {
         e.message.cf = 'control';
@@ -84,7 +84,7 @@ const receiveFunctions = new function () {
   // youtube share
   this.yts = function (e) {
     // nothing to do with self received packet
-    if (e.fromUser.userid != virtualclass.gObj.uid) {
+    if (e.fromUser.userid !== virtualclass.gObj.uid) {
       virtualclass.yts.onmessage(e.message);
     }
   };
@@ -139,18 +139,20 @@ const receiveFunctions = new function () {
   };
 
   // session end
-  this.sEnd = async function (e) {
+  this.sEnd = async function () {
     // #967
-    const joinClass = document.querySelector('#joinClassModal');
-    joinClass.style.display = 'none';
+    if (!virtualclass.isPlayMode) {
+      const joinClass = document.querySelector('#joinClassModal');
+      joinClass.style.display = 'none';
 
-    const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
-    if (virtualclassApp != null) {
-      virtualclassApp.style.display = 'flex';
+      const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
+      if (virtualclassApp != null) {
+        virtualclassApp.style.display = 'flex';
+      }
+      await virtualclass.config.endSession();
+      virtualclass.popup.sesseionEndWindow();
+      virtualclass.gObj.endSession = true;
     }
-    await virtualclass.config.endSession();
-    virtualclass.popup.sesseionEndWindow();
-    virtualclass.gObj.endSession = true;
   };
 
   // whiteboard ready
@@ -223,7 +225,7 @@ const receiveFunctions = new function () {
 
   // Clear All
   this.clearAll = function (e) {
-    //console.log('====> WHITEBOARD APP DATA CLEAR ALL');
+    // console.log('====> WHITEBOARD APP DATA CLEAR ALL');
     // if (typeof virtualclass.wb !== 'object') {
     //   virtualclass.makeAppReady({ app: virtualclass.apps.wb });
     // }
@@ -263,8 +265,8 @@ const receiveFunctions = new function () {
   // documnetation sharing
   this.dts = function (e) {
     if (Object.prototype.hasOwnProperty.call(e.message.dts, 'init')) {
-      //console.log('====> final seek suman 4', e.message.dts);
-      //console.log('====> document shareing 1');
+      // console.log('====> final seek suman 4', e.message.dts);
+      // console.log('====> document shareing 1');
       virtualclass.gObj.screenRh = 100;
       // virtualclass.makeAppReady('DocumentShare', undefined, e.message.dts);
       virtualclass.makeAppReady({ app: 'DocumentShare', data: e.message.dts });
@@ -275,7 +277,7 @@ const receiveFunctions = new function () {
   };
   this.poll = function (e) {
     // console.log(e.message.poll.pollMsg);
-    if (e.message.poll.pollMsg == 'init') {
+    if (e.message.poll.pollMsg === 'init') {
       // virtualclass.makeAppReady('Poll');
       // virtualclass.makeAppReady({ app: 'Poll' });
       virtualclass.makeAppReady({ app: 'Poll' });
@@ -284,7 +286,7 @@ const receiveFunctions = new function () {
         // If virtualclass.ssharePt is not ready at participate side, then we
         // will create it first then only proceed to next ppt packet
         // virtualclass.makeAppReady('Poll');
-        virtualclass.makeAppReady({app: 'Poll'});
+        virtualclass.makeAppReady({ app: 'Poll' });
         virtualclass.poll.onmessage({ pollMsg: e.message.poll.init, cf: 'poll', user: 'all' });
       }
       virtualclass.poll.onmessage(e.message, e.fromUser);
@@ -315,7 +317,7 @@ const receiveFunctions = new function () {
   this.congController = function (e) {
     const videoMode = e.message.congCtr.videoSwitch;
 
-    if (e.fromUser.userid != virtualclass.gObj.uid) {
+    if (e.fromUser.userid !== virtualclass.gObj.uid) {
       virtualclass.videoHost.onmessage(videoMode);
     }
 
@@ -427,8 +429,9 @@ const receiveFunctions = new function () {
       virtualclass.popup.closeElem();
     } else {
       virtualclass.gObj.studentSSstatus.receivedScreenShareRequest = true;
-      if (virtualclass.system.device != 'mobTab'
-        && (virtualclass.system.mybrowser.name == 'Chrome' || virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Edge')) {
+      if (virtualclass.system.device !== 'mobTab'
+        && (virtualclass.system.mybrowser.name === 'Chrome' || virtualclass.system.mybrowser.name === 'Firefox'
+        || virtualclass.system.mybrowser.name === 'Edge')) {
         const message = virtualclass.lang.getString('stdscreenshare');
         if (virtualclass.gObj.precheckScrn) {
           virtualclass.vutil.prechkScrnShare();
@@ -522,7 +525,7 @@ const receiveFunctions = new function () {
   };
 
   this.stdVideoCtrl = function (e) {
-    if (e.fromUser.userid != virtualclass.gObj.uid) {
+    if (e.fromUser.userid !== virtualclass.gObj.uid) {
       virtualclass.videoHost.stdVideoCtrlMsg(e);
     }
   };
@@ -531,7 +534,7 @@ const receiveFunctions = new function () {
   };
 
   this.destroyPlayer = function (e) {
-    if (virtualclass.currApp == 'Video') {
+    if (virtualclass.currApp === 'Video') {
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'videoUl') && virtualclass.videoUl.videoUrl) {
         if (virtualclass.videoUl) {
           virtualclass.videoUl.destroyPlayer();
@@ -564,7 +567,7 @@ const receiveFunctions = new function () {
         }
 
         if (typeof virtualclass.videoUl.player === 'object') {
-          //console.log('====> Video player is destroyed  <======', virtualclass.videoUl.player);
+          // console.log('====> Video player is destroyed  <======', virtualclass.videoUl.player);
           delete (virtualclass.videoUl.player);
         }
       }
@@ -596,6 +599,6 @@ const receiveFunctions = new function () {
   };
 
   this.rawSyncData = function (e) {
-      virtualclass.serverData.onMessage(e.message);
+    virtualclass.serverData.onMessage(e.message);
   };
 }();

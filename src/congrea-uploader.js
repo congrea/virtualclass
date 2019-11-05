@@ -152,7 +152,7 @@
 
           callbacks: {
             onComplete(id, xhr, rawData) {
-              if (obj.cthis == 'video') {
+              if (obj.cthis === 'video') {
                 obj.cb.call(virtualclass.videoUl, id, xhr, rawData);
                 const msz = document.querySelector('#videoPopup .qq-upload-list-selector.qq-upload-list');
                 if (msz) {
@@ -173,7 +173,7 @@
                 }
                 virtualclass.vutil.removeChildrens('#VideoDashboard #uploadMsz .qq-upload-list-selector.qq-upload-list li');
                 var dashbaord = document.querySelector('#VideoDashboard');
-              } else if (obj.cthis == 'docs') {
+              } else if (obj.cthis === 'docs') {
                 obj.cb.call(virtualclass.dts, id, xhr, rawData);
 
                 virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
@@ -199,14 +199,14 @@
                 alertMsz.parentNode.removeChild(alertMsz);
               }
 
-              if (obj.cthis == 'video') {
+              if (obj.cthis === 'video') {
                 var msz = document.querySelector('#videoPopup .qq-upload-list-selector.qq-upload-list');
                 if (msz) {
                   msz.style.display = 'none';
                 }
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
-              } else if (obj.cthis == 'docs') {
+              } else if (obj.cthis === 'docs') {
                 var msz = document.querySelector('#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list');
                 if (msz) {
                   msz.style.display = 'none';
@@ -221,10 +221,10 @@
 
               /** It handles the rendering the progressbar after done once * */
 
-              if (obj.cthis == 'video') {
+              if (obj.cthis === 'video') {
                 var container = '#uploadMsz';
                 var selector = '#VideoDashboard';
-              } else if (obj.cthis == 'docs') {
+              } else if (obj.cthis === 'docs') {
                 var container = '#docsUploadMsz';
                 var selector = '#DocumentShareDashboard';
               }
@@ -260,11 +260,11 @@
 
       onDragEnter(e) {
         let tobeDeactive;
-        if (virtualclass.currApp == 'DocumentShare') {
+        if (virtualclass.currApp === 'DocumentShare') {
           tobeDeactive = '#listnotes';
           virtualclass.vutil.makeElementDeactive(tobeDeactive);
           virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
-        } else if (virtualclass.currApp == 'Video') {
+        } else if (virtualclass.currApp === 'Video') {
           tobeDeactive = '#listvideo';
           virtualclass.vutil.makeElementDeactive(tobeDeactive);
           virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');

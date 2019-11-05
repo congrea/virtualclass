@@ -48,7 +48,8 @@ function displayChatUserList(totUsers) {
       }
 
       // tmpmyDivResult = true, means user div is created already
-      //if (typeof tmpmyDivResult !== 'boolean' && typeof tmpmyDivResult !== undefined && tmpmyDivResult != undefined) {
+      // if (typeof tmpmyDivResult !== 'boolean' && typeof tmpmyDivResult !== undefined
+      // && tmpmyDivResult != undefined) {
       if (typeof tmpmyDivResult !== 'boolean' && typeof tmpmyDivResult !== 'undefined' && tmpmyDivResult != null) {
         myDivResult += tmpmyDivResult;
       }
@@ -65,13 +66,18 @@ function displayChatUserList(totUsers) {
      * * */
     // if (myDivResult != null && myDivResult != undefined && myDivResult != '' && typeof myDivResult !== 'boolean') {
     // if (chat_div.shadowRoot.innerHTML == ' ' || chat_div.shadowRoot.innerHTML == '') {
-    if (myDivResult != null && typeof myDivResult !== 'undefined' && myDivResult !== '' && typeof myDivResult !== 'boolean') {
+    if (myDivResult != null && typeof myDivResult !== 'undefined' && myDivResult !== ''
+      && typeof myDivResult !== 'boolean') {
       if (chat_div.shadowRoot.innerHTML === ' ' || chat_div.shadowRoot.innerHTML === '') {
         const userRole = roles.hasControls() ? 'teacher' : 'student';
         if (virtualclass.isPlayMode) {
-          chat_div.shadowRoot.innerHTML = `<link rel='stylesheet' type='text/css' href='${whiteboardPath}css/modules/chat-container.css'> <div id='subchat' class='playMode ${userRole}'>${myDivResult}</div>`;
+          chat_div.shadowRoot.innerHTML = `<link rel='stylesheet' type='text/css'
+          href='${whiteboardPath}css/modules/chat-container.css'>
+          <div id='subchat' class='playMode ${userRole}'>${myDivResult}</div>`;
         } else {
-          chat_div.shadowRoot.innerHTML = `<link rel='stylesheet' type='text/css' href='${whiteboardPath}css/modules/chat-container.css'> <div id='subchat' class='${userRole}'>${myDivResult}</div>`;
+          chat_div.shadowRoot.innerHTML = `<link rel='stylesheet' type='text/css' 
+          href='${whiteboardPath}css/modules/chat-container.css'>
+          <div id='subchat' class='${userRole}'>${myDivResult}</div>`;
         }
       } else {
         chat_div.shadowRoot.querySelector('#subchat').insertAdjacentHTML('beforeend', myDivResult);
@@ -144,13 +150,16 @@ function updateOnlineUserText() {
         onlineUser.innerHTML = text;
       }
     } else {
-      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${"<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
+      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
+        "<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
     }
   } else {
     if (virtualclass.settings.info.userlist === true) {
-      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${"<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
+      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
+        "<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
     } else {
-      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${"<span class='cgText' id='onlineusertext'>" + 'Users'}</span>`;
+      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
+        "<span class='cgText' id='onlineusertext'>" + 'Users'}</span>`;
     }
   }
 }
@@ -183,7 +192,8 @@ function memberUpdate(e, addType) {
       for (let i = 0; i < userlist.length; i++) {
         if (userlist[i].userid === io.cfg.userid && typeof addType !== 'undefined' && addType !== 'removed') {
           const vidTag = document.getElementById(`video${virtualclass.gObj.uid}`);
-          if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable') && vidTag == null) {
+          if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable')
+            && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable') && vidTag == null) {
             // console.log('Media _handleUserMedia');
             virtualclass.media._handleUserMedia(virtualclass.gObj.uid);
           }
@@ -237,6 +247,7 @@ function memberUpdate(e, addType) {
         chatrm.classList.add('disable');
       }
     } else {
+      // TODO memberlist null in recording play
       memList.classList.remove('enable');
       memList.classList.add('disable');
       const listTab = document.querySelector('#user_list');
@@ -377,7 +388,8 @@ function messageUpdate(e) {
             // you can add your own options too
           });
 
-        if (Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, from.userid) && virtualclass.chat.vmstorage[from.userid].length > 1) {
+        if (Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, from.userid)
+          && virtualclass.chat.vmstorage[from.userid].length > 1) {
           displayUserSinglePvtChatHistory(from.userid);
         }
       }

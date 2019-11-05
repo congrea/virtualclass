@@ -33,7 +33,7 @@ const gesture = {
 
       joinClassButton.addEventListener('keydown', (event) => {
         event.preventDefault();
-        if (event.keyCode == 13) {
+        if (event.keyCode === 13) {
           virtualclass.gesture.clickToContinue();
         }
       });

@@ -20,7 +20,7 @@
       offset: 0, // relative to right edge of the browser window
       // width: 320, // width of the chatbox
       userSent(user) {
-        if (user.userid != '7') {
+        if (user.userid !== '7') {
           // nirmala
           this.boxManager.addUsr(user.name);
         } else {
@@ -58,16 +58,16 @@
           mainUserDiv.id = 'tempId';
           // e.className = e.className + "userImg ui-memblist-usr offline";
           const usr = peer;
-          if (peer.userid != wbUser.id) {
+          if (peer.userid !== wbUser.id) {
             usr.notSelf = true;
           }
 
           if (roles.hasControls()) {
             usr.isTeacher = true;
           }
-          if (peer.role == 't') {
+          if (peer.role === 't') {
             usr.rl = 'teacher';
-          } else if (peer.role == 's') {
+          } else if (peer.role === 's') {
             usr.rl = 'student';
           }
           usr.chatIconColors = virtualclass.gObj.chatIconColors[peer.userid];
@@ -116,8 +116,8 @@
       const uiChatbox = (self.uiChatbox = $('<div></div>'))
         .appendTo(document.getElementById('congreaChatCont'))
         .addClass('ui-widget '
-            + 'ui-corner-top '
-            + 'ui-memblist')
+          + 'ui-corner-top '
+          + 'ui-memblist')
         .attr('id', 'memlist');
       uiChatboxContent = (self.uiChatboxContent = $('<div></div>'))
         .addClass('ui-widget-content '

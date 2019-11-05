@@ -93,7 +93,7 @@ const preCheck = {
   },
 
   cancelAudioGraph() {
-    if (this.graph != null && this.graph != undefined) {
+    if (this.graph != null && this.graph != null) {
       this.graph.microphone.stop();
     }
   },
@@ -105,7 +105,7 @@ const preCheck = {
   _next(curr, cb) {
     // console.log('Clicked next');
 
-    if (curr == 'browser') {
+    if (curr === 'browser') {
       virtualclass.media.audio.initAudiocontext();
     }
     virtualclass.precheck.cancelAudioGraph();
@@ -114,7 +114,8 @@ const preCheck = {
     const test = this[curr].next;
     virtualclass.precheck.currTest = test;
     virtualclass.precheck.updateProgressBar(test);
-    if ((!Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone') || Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone') && test == 'bandwidth')) {
+    if ((!Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone')
+      || Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone') && test === 'bandwidth')) {
       // Only perform the test if it's not already done
       this[test].perform();
     } else {
@@ -147,9 +148,9 @@ const preCheck = {
     document.querySelector(`#preCheckcontainer  #preCheckProgress .${curr}`).classList.remove('active', 'current');
     document.querySelector(`#preCheckcontainer  #preCheckProgress .${test}`).classList.add('current');
 
-    if (test == 'speaker') {
+    if (test === 'speaker') {
       this[test]._play(); // play the audio while previous button is clicked
-    } else if (test == 'mic') {
+    } else if (test === 'mic') {
       // virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(virtualclass.precheck.session).then(function (stream) {
       //     virtualclass.precheck.mediaStream = stream;
       //     micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
@@ -406,7 +407,7 @@ const preCheck = {
         document.querySelector(`${selectorId} .result`).appendChild(micLable);
       }
 
-      if (virtualclass.system.mybrowser.name == 'safari' || virtualclass.system.mybrowser.name == 'iOS') {
+      if (virtualclass.system.mybrowser.name === 'safari' || virtualclass.system.mybrowser.name === 'iOS') {
         // Safari 11 or newer automatically suspends new AudioContext's that aren't
         // created in response to a user-gesture, like a click or tap, so create one
         // here (inc. the script processor)
@@ -473,9 +474,9 @@ const preCheck = {
     },
 
     visualize() {
-      //if (this.graph != null && this.graph != undefined) {
-        // this.graph.microphone.start()
-      //}
+      // if (this.graph != null && this.graph != undefined) {
+      // this.graph.microphone.start()
+      // }
       virtualclass.precheck.initHandler((`#preCheckcontainer .precheck #${this.curr}Buttons .prev`), this.curr);
       virtualclass.precheck.initHandler((`#preCheckcontainer .precheck #${this.curr}Buttons .next`), this.curr);
     },
@@ -488,7 +489,7 @@ const preCheck = {
     prev: 'mic',
     curr: 'webcam',
 
-    currentStatus () {
+    currentStatus() {
       let msg ='';
       let wclassName;
       if (virtualclass.system.mediaDevices.hasWebcam) {
@@ -496,9 +497,9 @@ const preCheck = {
           msg = virtualclass.system.mediaDevices.webcamErr[virtualclass.system.mediaDevices.webcamErr.length - 1];
 
           // We want descriptive message only in pre check section
-          if (msg == 'PermissionDeniedError' || msg == 'SecurityError' || msg == 'nopermission') {
+          if (msg === 'PermissionDeniedError' || msg === 'SecurityError' || msg === 'nopermission') {
             msg += 'Ext';
-            if (virtualclass.system.mybrowser.name == 'Firefox') {
+            if (virtualclass.system.mybrowser.name === 'Firefox') {
               msg += 'FF';
             }
           }
@@ -596,7 +597,7 @@ const preCheck = {
     createVideo() {
       if (virtualclass.system.mediaDevices.hasWebcam && typeof virtualclass.precheck.mediaStream !== 'undefined') {
         const tempVideo = document.getElementById('webcamTempVideo');
-        if (virtualclass.system.device == 'mobTab') {
+        if (virtualclass.system.device === 'mobTab') {
           tempVideo.width = 320;
           tempVideo.height = 100;
         } else {
@@ -641,7 +642,8 @@ const preCheck = {
   },
 
   async afterComplete() {
-    if (Object.prototype.hasOwnProperty.call(virtualclass.precheck, 'mediaStream') && virtualclass.precheck.mediaStream != null) {
+    if (Object.prototype.hasOwnProperty.call(virtualclass.precheck, 'mediaStream')
+      && virtualclass.precheck.mediaStream != null) {
       const track = virtualclass.precheck.mediaStream.getTracks()[0]; // if only one media track
       track.stop();
     }
@@ -661,7 +663,9 @@ const preCheck = {
     }
 
     /** Need for safari for iOS ** */
-    if ((virtualclass.system.mybrowser.name == 'iOS' || virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'Safari') && Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
+    if ((virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Firefox'
+      || virtualclass.system.mybrowser.name === 'Safari')
+      && Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
       && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
       && virtualclass.media.audio.Html5Audio.audioContext != null) {
       virtualclass.media.audio.Html5Audio.audioContext.close();

@@ -1103,10 +1103,6 @@
 
                   /** to set the dimension of whiteboard during window is resized * */
                   const currWb = virtualclass.wb[`_doc_${cthis.docs.currNote}_${cthis.docs.currNote}`];
-                  if (typeof currWb === 'object') {
-                    system.setAppDimension(null, 'resize');
-                  }
-
                   virtualclass.dts.indexNav.movePageIndex('left');
                 } else {
                   const leftNavPage = document.getElementById('leftNavPage');

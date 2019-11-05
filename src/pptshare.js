@@ -425,7 +425,6 @@
           this.autoSlideTime = msg.autoSlide;
         }
         if (typeof virtualclass.sharePt !== 'undefined') {
-          virtualclass.system.setAppDimension(virtualclass.currApp);
           this.onPptMsgReceive(msg);
           const pptContainer = document.getElementById(virtualclass.sharePt.UI.id);
           if (!pptContainer.classList.contains('pptSharing')) {
@@ -1079,10 +1078,7 @@
         if (!pptContainer.classList.contains('pptSharing')) {
           pptContainer.classList.add('pptSharing');
         }
-
         virtualclass.sharePt.setPptUrl(vUrl);
-
-        virtualclass.system.setAppDimension(); // add just the height of screen container
       },
       /*
        * Removes unnessary characters from the entered url, url copied from slides.com may contain hash

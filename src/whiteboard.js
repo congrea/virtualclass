@@ -95,7 +95,6 @@
         // canvasObj.onkeydown = virtualclass.wb[mid].utility.keyOperation;
         onkeydown = virtualclass.wb[mid].utility.keyOperation;
 
-        virtualclass.system.setAppDimension(mid);
         // if (typeof (Storage) !== 'undefined') {
         //   // if (localStorage.repObjs) {
         //   //   // var replayObjs = JSON.parse(localStorage.repObjs);

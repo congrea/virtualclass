@@ -148,9 +148,6 @@
             canWrapper.style.width = `${res.width}px`;
             // canvas wrapper height 2
             canWrapper.style.height = `${res.height - virtualclass.gObj.screenRh}px`;
-
-            // console.log(`Canvas wrapper height ${canWrapper.style.height}`);
-            // virtualclass.system.setAppDimension(wb, true);
           }
         }
 

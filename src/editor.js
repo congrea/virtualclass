@@ -679,7 +679,6 @@
         const currApp = virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp);
         if (currApp === 'EditorRich' || currApp === 'EditorCode') {
           virtualclass.previous = `virtualclass${virtualclass.currApp}`;
-          virtualclass.system.setAppDimension(virtualclass.currApp);
         } else {
           // if current app is not editor and, there is displaying editor in browser
           // disable that editor

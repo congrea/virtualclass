@@ -136,26 +136,6 @@
       return virtualclass.gObj.measureDimension;
     },
 
-
-    /*
-     * setting dimension of the application
-     */
-    setAppDimension(id, canvasWrapper) {
-      return;
-      const measureRes = this.measureResoultion({ width: window.innerWidth, height: window.innerHeight });
-
-      // var mainWrapper =  document.getElementById('virtualclassCont');
-      virtualclass.vutil.setContainerWidth(measureRes, virtualclass.currApp);
-      if (virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentSharing') {
-        var id = virtualclass.gObj.currWb;
-        if (typeof canvasWrapper !== 'undefined') {
-          system.setCanvasWrapperDimension(measureRes, id);
-        } else {
-          system.setCanvasDimension(measureRes, id);
-        }
-      }
-    },
-
     setDocCanvasDimension(width, height, id) {
       const elem = document.querySelector(`#canvas${id}`);
       if (elem != null) {
@@ -201,65 +181,6 @@
       }
     },
 
-    /** Handle container dimension 1* */
-    setCanvasWrapperDimension(measureRes, id) {
-      // console.log('Width of canvas wrapper, not seeting ');
-      return;
-      const { vcan } = virtualclass.wb[id];
-      if (typeof vcan.main.canvas !== 'undefined') {
-        const { canvas } = vcan.main;
-        let { width } = measureRes;
-
-        const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
-
-        let reduceWidth = 50;
-
-
-        let reduceHeight = 40;
-        if (virtualclass.currApp === 'Whiteboard') {
-          reduceWidth = 40;
-        } else if (!roles.hasControls() && (virtualclass.currApp === 'DocumentShare')) {
-          reduceWidth = 0;
-          reduceHeight = 50;
-        }
-
-        width -= reduceWidth;
-
-        canvasWrapper.style.width = `${width}px`; // 37
-
-        const rHeight = (virtualclass.isPlayMode) ? 85 : reduceHeight;
-
-        let toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : rHeight;
-        if (virtualclass.currApp === 'DocumentShare') {
-          toolWrapperHeight += 40;
-        }
-
-        const canWrapperHeight = measureRes.height - (toolWrapperHeight + 20);
-
-        // canvas wrapper height 1
-        canvasWrapper.style.height = `${canWrapperHeight}px`;
-        // console.log(`canvasWrapper width${canvasWrapper.style.width}`);
-        // console.log(`canvasWrapper height${canvasWrapper.style.height}`);
-      }
-    },
-    // TODO this function is not being invoked
-    getResoultion(windowWidth) {
-      const resolution = {};
-      if (windowWidth < 1280) {
-        resolution.width = 1024;
-        resolution.height = 768;
-      } else if (windowWidth >= 1280 && windowWidth < 1366) {
-        resolution.width = 1280;
-        resolution.height = 1024;
-      } else if (windowWidth >= 1366 && windowWidth < 1920) {
-        resolution.width = 1366;
-        resolution.height = 768;
-      } else if (windowWidth >= 1920) {
-        resolution.width = 1920;
-        resolution.height = 1080;
-      }
-      return resolution;
-    },
     /*
      *Getting application support for the user and if there  are errors they will be pushed in an array error
      *@param user user role
@@ -344,16 +265,18 @@
       const iOS = this.isiOSDevice();
       this.device = 'desktop';
       const addAttr = document.getElementById('virtualclassCont');
-
+      let bname;
+      let bversion;
+      let androidDevice;
       if (iOS) {
-        var bname = 'iOS';
-        var bversion = iOS;
+        bname = 'iOS';
+        bversion = iOS;
         this.device = 'mobTab';
       } else {
-        var androidDevice = this.isAndroid();
+        androidDevice = this.isAndroid();
         const vendor = this.mybrowser.detection();
-        var bname = vendor[0];
-        var bversion = parseFloat(vendor[1]);
+        bname = vendor[0];
+        bversion = parseFloat(vendor[1]);
       }
 
       this.mybrowser.name = bname;
@@ -382,7 +305,7 @@
           }
         }
       } else if ((bname === 'Chrome' && bversion >= 40) || (bname === 'Firefox' && bversion >= 35)
-        || (roles.isStudent() && bname === bversion < 'OPR' >= 26)) {
+        || (roles.isStudent() && bname === bversion && 'OPR' >= 26)) {
         this.reportBrowser(virtualclass.gObj.uRole);
       } else if ((bname === 'Chrome' && bversion < 40) || (bname === 'Firefox' && bversion < 35)
         || (roles.isStudent() && bname === 'OPR' && bversion < 26)) {
@@ -414,23 +337,9 @@
         addAttr.setAttribute('device', 'mobile');
         addAttr.classList.add('ios');
         // var iPad = /(iPad)/g.test(navigator.userAgent);
-        if (this.isIPad()) {
-          if (roles.isStudent()) {
-            if (bversion >= 8) {
-              // console.log('do nothing');
-              // var audioWrapper = document.getElementById('audioWidget');
-              // audioWrapper.parentNode.insertBefore(iosAudTrigger, audioWrapper.nextSibling);
-            } else {
-              virtualclass.vutil.initDisableVirtualClass();
-              virtualclass.error.push(virtualclass.lang.getString('ios7support'));
-            }
-          } else {
-            // virtualclass.vutil.initDisableVirtualClass();
-            // virtualclass.error.push(virtualclass.lang.getString('supportDesktop'));
-          }
-        } else {
-          // virtualclass.vutil.initDisableVirtualClass();
-          // virtualclass.error.push(virtualclass.lang.getString('notSupportIphone'));
+        if (this.isIPad() && roles.isStudent() && bversion) {
+          virtualclass.vutil.initDisableVirtualClass();
+          virtualclass.error.push(virtualclass.lang.getString('ios7support'));
         }
         // here bversion is version of operating system
         // we have to disable the audio compability
@@ -439,11 +348,7 @@
           virtualclass.gObj.errIE = true;
           virtualclass.error.push(virtualclass.lang.getString('ieBrowserIssue'));
           virtualclass.vutil.initDisableVirtualClass();
-        } else {
-          //  virtualclass.error.push(virtualclass.lang.getString('commonBrowserIssue', [bname, bversion]));
-          //  virtualclass.vutil.initDisableVirtualClass();
         }
-        // virtualclass.error.push( bname +  ' ' + bversion + ' ' + virtualclass.lang.getString('commonBrowserIssue'));
       }
     },
 
@@ -592,14 +497,12 @@
 
       virtualclass.gObj.initResize = setTimeout(() => {
         virtualclass.vutil.addClass('virtualclassCont', 'resizeWindow');
-        system.setAppDimension(null, 'resize');
         virtualclass.view.window.resize();
       }, 50);
     },
 
     _initResize() {
       virtualclass.vutil.addClass('virtualclassCont', 'resizeWindow');
-      system.setAppDimension(null, 'resize');
       virtualclass.view.window.resize();
     },
   };
@@ -637,13 +540,8 @@
       return false;
     }
     return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
-
-
-    // other browser
-    return false;
   },
 
-  // TODO this function is not being invoked
   system.mybrowser.detection = function () {
     /**  The code is taking from
      https://stackoverflow.com/questions/5916900/how-can-you-detect-the-version-of-a-browser/5916928

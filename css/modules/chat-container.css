@@ -339,7 +339,11 @@ span.icon-stdscreenImg[data-dcolor="blue"]::before {
 
 .ui-memblist-usr.mySelf {
   pointer-events: none !important;
-  background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  width: 100%;
+  width: -webkit-fill-available;
+  top: 0;
 }
 
 .text {
@@ -373,6 +377,7 @@ div.ui-memblist-usr {
 div.ui-memblist-usr .user-details a .media-object {
   float: left;
   line-height: 2.5rem;
+  opacity: 0.9;
 }
 
 .user-details a {

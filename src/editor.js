@@ -607,13 +607,13 @@
           virtualclass.vutil.setReadModeWhenTeacherIsDisConn(virtualclass.vutil.smallizeFirstLetter(this.etype));
 
           // For handle editor's read only mode on iPad
-          if (virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
-            if (writeMode) {
-              this.enableEditorByOuterLayer();
-            } else {
-              this.disableEditorByOuterLayer();
-            }
-          }
+          // if (virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
+          //   if (writeMode) {
+          //     this.enableEditorByOuterLayer();
+          //   } else {
+          //     this.disableEditorByOuterLayer();
+          //   }
+          // }
         }
       },
 

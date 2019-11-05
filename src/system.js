@@ -4,7 +4,7 @@
  * This file looks for the environmment support for the virtual claas and its apis
  */
 (function (window) {
-  var system = {
+  let system = {
     /*
      * Initializing webRtc and browser
      * @return system object
@@ -17,9 +17,7 @@
     },
     // TODO function need to be revised
     isCanvasSupport(navigator, browserName, version) {
-      // console.log('is canvas support');
-      // console.log(navigator);
-      // console.log(browserName);
+
       if (browserName === 'MSIE') {
         return version === 9;
       }
@@ -77,6 +75,12 @@
      */
     isTypedArraySupport() {
       return !!('ArrayBuffer' in window);
+    },
+
+    isMobile() {
+      let check = false;
+      (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+      return check;
     },
     /*
      *
@@ -144,43 +148,6 @@
       }
     },
 
-    /*   TODO, this funciton should be merged with, setCanvasWrapperDimension
-     * Setting dimension of the canvas
-     */
-    setCanvasDimension(measureRes, id) {
-      if (typeof virtualclass.wb[id] === 'object') {
-        const { vcan } = virtualclass.wb[id];
-
-        if (typeof vcan.main.canvas !== 'undefined') {
-          const { canvas } = vcan.main;
-          ctx = vcan.main.canvas.getContext('2d');
-          canvas.width = measureRes.width;
-
-          const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
-
-          canvasWrapper.style.width = `${canvas.width}px`;
-
-          // for handle the scroll on whiteboard during the play mode
-          const rHeight = (virtualclass.isPlayMode) ? 85 : 15;
-
-          const toolWrapperHeight = (roles.hasControls() || roles.hasAdmin()) ? 100 : ((virtualclass.currApp === 'Whiteboard') ? rHeight + 30 : rHeight);
-          canvas.height = measureRes.height - toolWrapperHeight;
-
-          // canvas.parentNode.height = canvas.height + 'px';
-
-          canvasWrapper.style.height = `${canvas.height - 30}px`;
-          // console.log(`canvasWrapper height${canvasWrapper.style.height}`);
-
-          // console.log(`canvas width ${canvas.width}`);
-          // var element = document.getElementById('canvas');
-          const offset = vcan.utility.getElementOffset(document.getElementById(`canvas${id}`));
-
-          vcan.main.offset.x = offset.x;
-          // console.log(`canvas offset x=${vcan.main.offset.x} canvas offset y=${offset.y}`);
-        }
-      }
-    },
-
     /*
      *Getting application support for the user and if there  are errors they will be pushed in an array error
      *@param user user role
@@ -194,7 +161,7 @@
       }
     },
     /*
-     * Test for the apis availability and if test fails corresponding api error will be pused into an array called errors
+     * Test for the apis availability and if test fails corresponding api error will be pushed into an array called errors
      * @param user user role
      * @return errors : An array of generated errors if apis are not available
      */
@@ -213,46 +180,6 @@
       }
       return errors;
     },
-    /*
-     * To check Whether the device is apple device
-     * @return return apple device version
-     */
-    isiOSDevice() {
-      const iOSVersion = parseFloat(
-        (`${(/CPU.*OS ([0-9_]{1,5})|(CPU like).*AppleWebKit.*Mobile/i.exec(navigator.userAgent) || [0, ''])[1]}`)
-          .replace('undefined', '3_2').replace('_', '.').replace('_', ''),
-      ) || false;
-      return iOSVersion;
-    },
-    /*
-     * To test for the android device
-     * @return return true if the device is android device
-     */
-    isAndroid() {
-      const ua = navigator.userAgent.toLowerCase();
-      return ua.indexOf('android') > -1;
-    },
-
-    isIPad() {
-      return (/(iPad)/g.test(navigator.userAgent));
-    },
-
-    setBrowserDetails() {
-      const iOS = this.isiOSDevice();
-      this.device = 'desktop';
-      if (iOS) {
-        var bname = 'iOS';
-        var bversion = iOS;
-        this.device = 'mobTab';
-      } else {
-        const vendor = this.mybrowser.detection();
-        var bname = vendor[0];
-        var bversion = parseFloat(vendor[1]);
-      }
-
-      this.mybrowser.name = bname;
-      this.mybrowser.version = bversion;
-    },
 
     /*
      * to check for  the support of virtual class and it's api in  browsers and versions
@@ -261,94 +188,49 @@
      *
      */
     check() {
-      // TODO this should be normal
-      const iOS = this.isiOSDevice();
       this.device = 'desktop';
       const addAttr = document.getElementById('virtualclassCont');
-      let bname;
-      let bversion;
-      let androidDevice;
-      if (iOS) {
-        bname = 'iOS';
-        bversion = iOS;
-        this.device = 'mobTab';
-      } else {
-        androidDevice = this.isAndroid();
-        const vendor = this.mybrowser.detection();
-        bname = vendor[0];
-        bversion = parseFloat(vendor[1]);
-      }
-
+      const vendor = this.mybrowser.detection();
+      const bname = vendor[0];
+      const bversion = parseFloat(vendor[1]);
+      this.mobile = this.isMobile();
       this.mybrowser.name = bname;
       this.mybrowser.version = bversion;
-
       this.checkBrowserFunctions(bname, bversion);
-      if ((typeof androidDevice !== 'undefined' && androidDevice)) {
+      if (this.mobile) {
+        alert(true);
+        console.log('====> is mobile true');
         this.device = 'mobTab';
         addAttr.setAttribute('device', 'mobile');
-        addAttr.classList.add('android');
-        const getString = virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion]);
-
-        if (androidDevice) {
-          if (bname === 'Chrome') {
-            if (bversion < 40) {
-              virtualclass.error.push(virtualclass.error.push(getString));
-              virtualclass.vutil.initDisableVirtualClass();
-            } else if (bversion >= 40 && bversion < 67) {
-              //     DO : Disable Audio Controls and Cam Support for this user
-              virtualclass.vutil.initDisableAudVid();
-            }
-          } else {
+        if (bname === 'Chrome') {
+          if (bversion < 40) {
             virtualclass.error.push(virtualclass.error.push(getString));
-
             virtualclass.vutil.initDisableVirtualClass();
+          } else if (bversion >= 40 && bversion < 67) {
+            // DO : Disable Audio Controls and Cam Support for this user
+            virtualclass.vutil.initDisableAudVid();
           }
         }
       } else if ((bname === 'Chrome' && bversion >= 40) || (bname === 'Firefox' && bversion >= 35)
         || (roles.isStudent() && bname === bversion && 'OPR' >= 26)) {
+        console.log('====> is mobile false');
         this.reportBrowser(virtualclass.gObj.uRole);
       } else if ((bname === 'Chrome' && bversion < 40) || (bname === 'Firefox' && bversion < 35)
         || (roles.isStudent() && bname === 'OPR' && bversion < 26)) {
         this.reportBrowser(virtualclass.gObj.uRole);
-
         virtualclass.error.push(virtualclass.lang.getString('chFireBrowsersIssue', [bname, bversion]));
+        console.log('====> is mobile false');
       } else if (bname === 'OPR' && bversion >= 26) {
         this.reportBrowser(virtualclass.gObj.uRole);
         if (roles.hasControls()) {
           virtualclass.error.push(virtualclass.lang.getString('operaBrowserIssue', [bname, bversion]));
         }
-      } else if (bname === 'SafarisupportedOld') {
-        if (bversion >= 8) {
-          if (roles.hasControls()) {
-            virtualclass.vutil.initDisableVirtualClass();
-            virtualclass.error.push(virtualclass.lang.getString('teacherSafariBrowserIssue', [bname, bversion]));
-          } else {
-            virtualclass.vutil.initDisableAudVid();
-            virtualclass.error.push(virtualclass.lang.getString('studentSafariBrowserIssue', [bname, bversion]));
-            virtualclass.user.control.mediaWidgetDisable();
-          }
-        } else {
-          virtualclass.vutil.initDisableVirtualClass();
-          virtualclass.error.push(virtualclass.lang.getString('safariBrowserIssue', [bname, bversion]));
-        }
-
-        // DO : Disable Audio Controls and Cam Support for this user.
-      } else if (bname === 'iOS') {
-        addAttr.setAttribute('device', 'mobile');
-        addAttr.classList.add('ios');
-        // var iPad = /(iPad)/g.test(navigator.userAgent);
-        if (this.isIPad() && roles.isStudent() && bversion) {
-          virtualclass.vutil.initDisableVirtualClass();
-          virtualclass.error.push(virtualclass.lang.getString('ios7support'));
-        }
-        // here bversion is version of operating system
-        // we have to disable the audio compability
-      } else {
-        if (this.mybrowser.detectIE()) {
-          virtualclass.gObj.errIE = true;
-          virtualclass.error.push(virtualclass.lang.getString('ieBrowserIssue'));
-          virtualclass.vutil.initDisableVirtualClass();
-        }
+        console.log('====> is mobile false');
+      } else if (this.mybrowser.detectIE()) {
+        virtualclass.gObj.errIE = true;
+        virtualclass.error.push(virtualclass.lang.getString('ieBrowserIssue'));
+        virtualclass.vutil.initDisableVirtualClass();
+        console.log('====> is mobile false');
       }
     },
 
@@ -508,7 +390,7 @@
   };
 
   system = system.init();
-  // There could be the problem
+
   // TODO two event listener for the same event resize
   window.addEventListener('resize',
     () => {
@@ -516,7 +398,7 @@
     });
 
 
-  // TODO this function is not being invoked
+
   system.mybrowser.detectIE = function () {
     const ua = window.navigator.userAgent;
 
@@ -543,7 +425,7 @@
   },
 
   system.mybrowser.detection = function () {
-    /**  The code is taking from
+    /**  inspired from
      https://stackoverflow.com/questions/5916900/how-can-you-detect-the-version-of-a-browser/5916928
      answered by Brandon
      * */

@@ -230,11 +230,6 @@
         this.html.init(this);
         this.adapter = window.adapter;
 
-
-        if (!Object.prototype.hasOwnProperty.call(virtualclass.system.mybrowser, 'name')) {
-          this.system.setBrowserDetails();
-        }
-
         virtualclass.api = api;
 
         virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);

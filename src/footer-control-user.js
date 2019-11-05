@@ -329,13 +329,13 @@
             this.toggleDisplayWriteModeMsgBox('EditorRich', action);
           }
 
-          if ((!roles.hasAdmin()) && virtualclass.system.mybrowser.name === 'iOS' && virtualclass.system.isIPad()) {
-            if (msg.status) {
-              virtualclass.editorRich.enableEditorByOuterLayer();
-            } else {
-              virtualclass.editorRich.disableEditorByOuterLayer();
-            }
-          }
+          // if ((!roles.hasAdmin()) && virtualclass.system.mybrowser.name === 'iOS' && virtualclass.system.isIPad()) {
+          //   if (msg.status) {
+          //     virtualclass.editorRich.enableEditorByOuterLayer();
+          //   } else {
+          //     virtualclass.editorRich.disableEditorByOuterLayer();
+          //   }
+          // }
           // virtualclass.vutil.setReadModeWhenTeacherIsDisConn('editorRich');
         },
 
@@ -379,13 +379,13 @@
           }
           // if((roles.isStudent() || roles.isEducator())
           // && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()){
-          if ((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
-            if (msg.status) {
-              virtualclass.editorCode.enableEditorByOuterLayer();
-            } else {
-              virtualclass.editorCode.disableEditorByOuterLayer();
-            }
-          }
+          // if ((!roles.hasAdmin()) && virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
+          //   if (msg.status) {
+          //     virtualclass.editorCode.enableEditorByOuterLayer();
+          //   } else {
+          //     virtualclass.editorCode.disableEditorByOuterLayer();
+          //   }
+          // }
           virtualclass.vutil.setReadModeWhenTeacherIsDisConn('editorCode');
         },
 

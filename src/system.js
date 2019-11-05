@@ -197,10 +197,13 @@
       this.mobile = this.isMobile();
       this.mybrowser.name = bname;
       this.mybrowser.version = bversion;
+      console.log('====> is browser name ' + this.mybrowser.name);
+      console.log('====> is browser version ' + this.mybrowser.version);
       this.checkBrowserFunctions(bname, bversion);
       if (this.mobile) {
         console.log('====> is mobile true');
         this.device = 'mobTab';
+        addAttr.classList.add('mobTab');
         addAttr.setAttribute('device', 'mobile');
         if (bname === 'Chrome') {
           if (bversion < 40) {

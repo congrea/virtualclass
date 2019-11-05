@@ -3688,18 +3688,6 @@
   bottom: 35px !important;
 }
 
-/*#virtualclassCont.congrea .controleCont.controllerRaiseH.disabled{*/
-/*pointer-events: none;*/
-/*display:none;*/
-/*}*/
-/*#virtualclassCont.congrea .controllerRaiseH{*/
-/*margin-right: 8px;*/
-/*}*/
-
-#virtualclassCont.congrea #congHr {
-  border-radius: 3px;
-}
-
 #virtualclassCont.congrea #icHr {
   font-size: 0.875rem;
   padding: 12px 11.5px 15px 11.5px;
@@ -4319,7 +4307,7 @@ span#usertab_text {
 
 #virtualclassCont.congrea #audioVisualaizerCont {
   width: 50%;
-  margin: auto;
+  margin: 10px auto;
 }
 
 #virtualclassCont.congrea #loadingWindowCont {

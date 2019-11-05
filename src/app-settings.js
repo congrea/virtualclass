@@ -42,21 +42,21 @@
                 commonChatTab.classList.remove('active');
               }
             } else {
-              toggle.classList.add('chatActive');
-              toggle.classList.remove('settingActive');
-              chat.classList.remove('deactive');
-              chat.classList.add('active');
-              setting.classList.remove('active');
-              setting.classList.add('deactive');
+              // toggle.classList.add('chatActive');
+              // toggle.classList.remove('settingActive');
+              // chat.classList.remove('deactive');
+              // chat.classList.add('active');
+              // setting.classList.remove('active');
+              // setting.classList.add('deactive');
 
-              const memberList = document.querySelector('.congrea #memlist.enable');
-              if (memberList) {
-                privateChatTab.classList.add('active');
-              }
-              const commonChat = document.querySelector('.congrea #chatrm.enable');
-              if (commonChat) {
-                commonChatTab.classList.add('active');
-              }
+              // const memberList = document.querySelector('.congrea #memlist.enable');
+              // if (memberList) {
+              //   privateChatTab.classList.add('active');
+              // }
+              // const commonChat = document.querySelector('.congrea #chatrm.enable');
+              // if (commonChat) {
+              //   commonChatTab.classList.add('active');
+              // }
             }
           });
         }

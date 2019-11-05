@@ -54,13 +54,6 @@
         virtualclassAppRight.classList.add('showChatList');
         virtualclassAppRight.classList.remove('techVideoShow');
         virtualclassAppRight.classList.remove('showUserList');
-
-        // $('#chatroom_bt2').addClass('active');
-        // $('#user_list').removeClass('active');
-
-        // var setting = document.querySelector("#appSettingCtrl");
-        // var settingD = document.querySelector("#virtualclassCont.congrea #appSettingDetail");
-        // var chat = document.querySelector("#virtualclassCont.congrea #chatWidget");
         if (setting.classList.contains('settingActive')) {
           setting.classList.remove('settingActive');
           setting.classList.add('chatActive');

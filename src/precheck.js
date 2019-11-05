@@ -445,7 +445,7 @@ const preCheck = {
             audioContext: this.graphContext || null,
             audioScriptProcessor: this.graphProcessor || null,
             plugins: [WaveSurfer.microphone.create()],
-            height: 50,
+            height: 20,
             maxCanvasWidth: 500,
           });
 

@@ -429,14 +429,14 @@ const receiveFunctions = new function () {
       virtualclass.popup.closeElem();
     } else {
       virtualclass.gObj.studentSSstatus.receivedScreenShareRequest = true;
-      if (virtualclass.system.device !== 'mobTab'
+      if ((virtualclass.system.device !== 'mobTab'
         && (virtualclass.system.mybrowser.name === 'Chrome' || virtualclass.system.mybrowser.name === 'Firefox'
-        || virtualclass.system.mybrowser.name === 'Edge')) {
+        || virtualclass.system.mybrowser.name === 'Edge'))
+        || (virtualclass.system.device === 'mobTab' && virtualclass.system.mybrowser.name === 'Chrome')) {
         const message = virtualclass.lang.getString('stdscreenshare');
         if (virtualclass.gObj.precheckScrn) {
           virtualclass.vutil.prechkScrnShare();
         }
-
         virtualclass.gesture.closeContinueWindow();
         virtualclass.popup.confirmInput(message, (confirm) => {
           delete virtualclass.gObj.studentSSstatus.receivedScreenShareRequest;

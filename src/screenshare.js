@@ -621,27 +621,44 @@ let globalImageData = {};
           virtualclass.dashboard.init();
         }
       },
+
+      getScreenStream() {
+        const cnavigator = virtualclass.adpt.init(navigator);
+        const videoConstratints = { video: {
+          mandatory: {
+            maxWidth: 1440,
+            maxHeight: 9999,
+          }
+        }};
+
+        return cnavigator.mediaDevices.getDisplayMedia(videoConstratints);
+      },
+
       /**
        * To Get screen for Firefox and chrome,
        * in case of crome if desktop extension is added it is used otherwise
        * it is added from the crome webstore
        */
-      getScreen() {
+      async getScreen() {
         if (virtualclass.system.mybrowser.name === 'Chrome') {
-          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'ext') && virtualclass.gObj.ext) {
-            window.postMessage({ type: 'getScreen', id: 1 }, '*');
-          } else {
-            virtualclass.vutil.beforeSend({ ext: true, cf: 'colorIndicator' });
-            // const url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
-            virtualclass.popup.chromeExtMissing();
-            virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
-            if (roles.hasControls()) {
-              if (virtualclass.currApp === 'Video' || virtualclass.currApp === 'SharePresentation'
-                || virtualclass.currApp === 'DocumentShare') {
-                virtualclass.ss.showDashboard();
-              }
-            }
-          }
+          console.log('====> sharing the tab');
+          const mediaStream = await this.getScreenStream();
+          virtualclass.ss.initInternal();
+          virtualclass.ss.initializeRecorder.call(virtualclass.ss, mediaStream);
+          // if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'ext') && virtualclass.gObj.ext) {
+          //   window.postMessage({ type: 'getScreen', id: 1 }, '*');
+          // } else {
+          //   virtualclass.vutil.beforeSend({ ext: true, cf: 'colorIndicator' });
+          //   // const url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
+          //   virtualclass.popup.chromeExtMissing();
+          //   virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
+          //   if (roles.hasControls()) {
+          //     if (virtualclass.currApp === 'Video' || virtualclass.currApp === 'SharePresentation'
+          //       || virtualclass.currApp === 'DocumentShare') {
+          //       virtualclass.ss.showDashboard();
+          //     }
+          //   }
+          // }
         } else if (virtualclass.system.mybrowser.name === 'Firefox') {
           virtualclass.getSceenFirefox();
         } else if (virtualclass.system.mybrowser.name === 'Edge') {

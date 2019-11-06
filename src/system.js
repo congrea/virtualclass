@@ -13,7 +13,6 @@
       this.wbRtc = {};
       this.wbRtc.className = 'webrtcCont';
       this.mybrowser = {};
-      return this;
     },
     // TODO function need to be revised
     isCanvasSupport(navigator, browserName, version) {
@@ -387,7 +386,7 @@
     },
   };
 
-  system = system.init();
+  system.init();
 
   // TODO two event listener for the same event resize
   window.addEventListener('resize',

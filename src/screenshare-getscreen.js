@@ -4,7 +4,8 @@
  * messege is posted to desktop selector and and desktop selector
  * performes the task and posts a message back on receiving the message.
  * initializes user's screen and recorders
- *
+ * Todo, following file should be deleted in future,
+ * as there is no need of extension to share the screen
  */
 window.addEventListener('message', (event) => {
   if (event.origin !== window.location.origin) {

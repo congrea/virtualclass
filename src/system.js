@@ -389,10 +389,7 @@
   system.init();
 
   // TODO two event listener for the same event resize
-  window.addEventListener('resize',
-    () => {
-      system.initResize();
-    });
+  window.addEventListener('resize', () => { system.initResize(); });
 
   system.mybrowser.detectIE = function () {
     const ua = window.navigator.userAgent;

@@ -622,8 +622,7 @@ let globalImageData = {};
         }
       },
 
-      getScreenStream() {
-        const cnavigator = virtualclass.adpt.init(navigator);
+      getScreenStream(cnavigator) {
         const videoConstratints = { video: {
           mandatory: {
             maxWidth: 1440,
@@ -640,35 +639,26 @@ let globalImageData = {};
        * it is added from the crome webstore
        */
       async getScreen() {
-        if (virtualclass.system.mybrowser.name === 'Chrome') {
-          console.log('====> sharing the tab');
-          const mediaStream = await this.getScreenStream();
+        const cnavigator = virtualclass.adpt.init(navigator);
+        if (cnavigator.mediaDevices.getDisplayMedia) {
+          const mediaStream = await this.getScreenStream(cnavigator);
           virtualclass.ss.initInternal();
           virtualclass.ss.initializeRecorder.call(virtualclass.ss, mediaStream);
-          // if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'ext') && virtualclass.gObj.ext) {
-          //   window.postMessage({ type: 'getScreen', id: 1 }, '*');
-          // } else {
-          //   virtualclass.vutil.beforeSend({ ext: true, cf: 'colorIndicator' });
-          //   // const url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
-          //   virtualclass.popup.chromeExtMissing();
-          //   virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
-          //   if (roles.hasControls()) {
-          //     if (virtualclass.currApp === 'Video' || virtualclass.currApp === 'SharePresentation'
-          //       || virtualclass.currApp === 'DocumentShare') {
-          //       virtualclass.ss.showDashboard();
-          //     }
-          //   }
-          // }
+        } else if (virtualclass.system.mybrowser.name === 'Chrome') { // Fallback will be depricated in future
+          if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'ext') && virtualclass.gObj.ext) {
+            window.postMessage({ type: 'getScreen', id: 1 }, '*');
+          } else {
+            virtualclass.vutil.beforeSend({ ext: true, cf: 'colorIndicator' });
+            // const url = 'https://chrome.google.com/webstore/detail/' + 'ijhofagnokdeoghaohcekchijfeffbjl';
+            virtualclass.popup.chromeExtMissing();
+            virtualclass.vutil.setCurrApp(document.getElementById('virtualclassCont'), virtualclass.currApp);
+            if (roles.hasControls() && (virtualclass.currApp === 'Video' || virtualclass.currApp === 'SharePresentation'
+              || virtualclass.currApp === 'DocumentShare')) {
+              virtualclass.ss.showDashboard();
+            }
+          }
         } else if (virtualclass.system.mybrowser.name === 'Firefox') {
           virtualclass.getSceenFirefox();
-        } else if (virtualclass.system.mybrowser.name === 'Edge') {
-          navigator.getDisplayMedia().then((stream) => { // teacher share his screen using edge browser
-            virtualclass.ss.initInternal();
-            virtualclass.ss.initializeRecorder.call(virtualclass.ss, stream);
-          }, (error) => {
-            // TODO show error to user
-            // console.log('Unable to acquire screen capture', error);
-          });
         }
       },
       /**

@@ -454,14 +454,6 @@
     font-size: 0.75rem;
   }
 
-  #virtualclassCont.congrea #audioVisualaizerCont {
-    width: 50%;
-    position: absolute;
-    top: 42%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
   #virtualclassCont.congrea #preCheckcontainer #vcWebCamCheck .testName {
     height: 60px;
   }

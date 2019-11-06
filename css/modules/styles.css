@@ -2831,7 +2831,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: fit-content;
+  width: auto;
   text-align: center;
   box-shadow: 0 0 8px #ddd;
  }
@@ -4131,7 +4131,7 @@ span#usertab_text {
   display: none;
 }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+@media only screen and (min-device-width: 701px) and (max-device-width: 950px) {
 
   /* Scrollbar For Tablets */
   ::-webkit-scrollbar {
@@ -4307,7 +4307,7 @@ span#usertab_text {
 
 #virtualclassCont.congrea #audioVisualaizerCont {
   width: 50%;
-  margin: 10px auto;
+  margin: 0.625rem auto;
 }
 
 #virtualclassCont.congrea #loadingWindowCont {
@@ -4484,9 +4484,7 @@ span#usertab_text {
 }
 }
 
-@media only screen
-and (min-device-width: 768px)
-and (max-device-width: 1024px) {
+@media only screen and (min-device-width: 700px) and (max-device-width: 950px) {
   #virtualclassCont.congrea #virtualclassApp .playControllerMainCont {
     bottom: -1px !important;
     z-index: 10000 !important;

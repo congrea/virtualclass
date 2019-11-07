@@ -1714,7 +1714,7 @@
 }
 
 #virtualclassCont.congrea #replayContainer {
-  width: 300px;
+  width: 18.75rem;
   background: #ffffff;
 }
 
@@ -1815,7 +1815,7 @@
   margin-top: 10px;
   border-radius: 5px;
   clear: both;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 #sessionEndMsgCont {
@@ -1849,7 +1849,7 @@
 }
 
 #virtualclassCont.congrea #popupContainer #replayContainer.popupWindow {
-  padding: 15px;
+  padding: 0.9375rem;
   text-align: center;
 }
 
@@ -1858,7 +1858,7 @@
 }
 
 #virtualclassCont.congrea #popupContainer #replayContainer.popupWindow #replayMessage, #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #askPlay #playButton, #virtualclassCont.congrea #popupContainer #replayContainer.popupWindow {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 /* player box congtooltip*/
@@ -1924,9 +1924,9 @@
 
 #virtualclassCont.congrea #sessionEndMsgCont.popupWindow {
   color: #525252;
-  font-size: 14px;
-  padding-bottom: 8px;
-  padding-top: 36px;
+  font-size: 0.875rem;
+  padding-bottom: 0.5rem;
+  padding-top: 2.25rem;
 }
 
 #virtualclassCont.congrea #sessionEndMsgCont .endHeader {
@@ -4413,7 +4413,7 @@ span#usertab_text {
   padding: 6px 8px 6px 8px;
   float: left;
   margin: 0px;
-  margin-top: -50px;
+  margin-top: -52px;
   border-radius: 5px;
   pointer-events: none;
   z-index: 5000;
@@ -4478,12 +4478,6 @@ span#usertab_text {
 }
 }
 
-@media only screen and (min-device-width: 700px) and (max-device-width: 950px) {
-  #virtualclassCont.congrea #virtualclassApp .playControllerMainCont {
-    bottom: -1px !important;
-    z-index: 10000 !important;
-  }
-}
 
 #virtualclassCont.recordSeeking .whiteboardContainer .canvasWrapper {
   z-index: 0;
@@ -4866,5 +4860,9 @@ span#usertab_text {
 #virtualclassCont.congrea #techVideoHeader.deactive,
 #virtualclassCont.congrea #rightBarHeader.deactive {
   display: none;
+}
+
+#virtualclassCont.congrea #virtualclassApp .playControllerMainCont {
+  z-index: 10000 !important;
 }
 

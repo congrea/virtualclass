@@ -45,8 +45,8 @@
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .btn {
-  line-height: 1.684;
-  padding: 2px 12px;
+  padding: 4px 12px;
+  font-size: .875rem;
 }
 
 #virtualclassCont.congrea .bootstrap .progress {

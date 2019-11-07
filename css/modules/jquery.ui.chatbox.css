@@ -209,7 +209,6 @@
   border: none;
   font-size: 0.8125rem;
   text-transform: capitalize;
-  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   line-height: 1.125rem;

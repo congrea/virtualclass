@@ -441,23 +441,6 @@
     font-size: 42px;
   }
 
-  #virtualclassCont.congrea #virtualclassPreCheck .testName {
-    /* height: 50px; */
-    font-size: 0.9375rem;
-    position: relative;
-    bottom: 1.125rem;
-  }
-
-  #virtualclassCont.congrea #virtualclassPreCheck .result div,
-  #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog button,
-  #virtualclassCont.congrea #layoutQuizBody #timeText {
-    font-size: 0.75rem;
-  }
-
-  #virtualclassCont.congrea #preCheckcontainer #vcWebCamCheck .testName {
-    height: 60px;
-  }
-
   #virtualclassCont.congrea #joinClass #joinClassModal .modal-body {
     padding: 5px;
   }
@@ -495,6 +478,15 @@
 }
 
 /* To Target high resolutions mobiles */
+/* 
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) {
+  html,
+  body {
+    font-size:20px;
+  }
+} */
 
 @media only screen and (min-device-width: 701px) and (max-device-width: 950px) {
   #virtualclassCont.congrea #virtualclassPreCheck #preCheckcontainer .modal-dialog.modal-lg {

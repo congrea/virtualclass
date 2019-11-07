@@ -81,6 +81,7 @@
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ,'
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab li ,'
         + '#virtualclassCont.congrea #networkStatusContainer ,'
+        + '#virtualclassCont.congrea #fullScreenButton ,'
         + '#virtualclassCont.congrea.playMode #fullScreenButton ,'
         + '#virtualclassCont.congrea.playMode #fullScreenExitButton '
         + `{border-right: 0.01em solid ${allbg.fcolor}!important;}`

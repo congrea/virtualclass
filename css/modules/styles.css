@@ -4545,36 +4545,36 @@ span#usertab_text {
   display: none;
 }
 
-#virtualclassCont #virtualclassAppLeftPanel #recording {
+#virtualclassCont #virtualclassAppFooterPanel #recording {
   color: #fff;
-  position: fixed;
-  left: 0;
-  bottom: 0px;
+  position: absolute;
+  left: 3.1875rem;
+  bottom: -0.0625rem;
   z-index: 1000;
-  padding: 0.75rem 1.25rem;
+  padding: 0.78125rem 1.25rem;
   border-right: 0.01em solid #021317 !important;
   cursor: pointer;
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel #recording.congtooltip:hover:after {
+#virtualclassCont.congrea #virtualclassAppFooterPanel #recording.congtooltip:hover:after {
   bottom: 47px;
   left: 10px;
 }
 
-#virtualclassCont #virtualclassAppLeftPanel #recording.statusonly {
+#virtualclassCont #virtualclassAppFooterPanel #recording.statusonly {
   cursor: default;
 }
 
-#virtualclassCont #virtualclassAppLeftPanel #recording.show:hover {
+#virtualclassCont #virtualclassAppFooterPanel #recording.show:hover {
   background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%);
 }
 
-#virtualclassCont #virtualclassAppLeftPanel #recording.statusonly:hover {
+#virtualclassCont #virtualclassAppFooterPanel #recording.statusonly:hover {
   background-image: none;
 }
 
-#virtualclassCont[data-recording="on"] #virtualclassAppLeftPanel #recording span.showStatus,
-#virtualclassCont #virtualclassApp #virtualclassAppLeftPanel #recording[data-recording="on"] span.showStatus {
+#virtualclassCont[data-recording="on"] #virtualclassAppFooterPanel #recording span.showStatus,
+#virtualclassCont #virtualclassApp #virtualclassAppFooterPanel #recording[data-recording="on"] span.showStatus {
   float: left;
   margin-top: 1px;
   width: 1rem;
@@ -4590,8 +4590,8 @@ span#usertab_text {
   animation-timing-function: linear;
 }
 
-#virtualclassCont[data-recording="off"] #virtualclassAppLeftPanel #recording span.showStatus,
-#virtualclassCont #virtualclassApp #virtualclassAppLeftPanel #recording[data-recording="off"] span.showStatus {
+#virtualclassCont[data-recording="off"] #virtualclassAppFooterPanel #recording span.showStatus,
+#virtualclassCont #virtualclassApp #virtualclassAppFooterPanel #recording[data-recording="off"] span.showStatus {
   float: left;
   margin-top: 1px;
   width: 1rem;
@@ -4620,7 +4620,7 @@ span#usertab_text {
 	animation-name:none;
 } */
 
-#virtualclassCont #virtualclassAppLeftPanel #recording span.recordingText {
+#virtualclassCont #virtualclassAppFooterPanel #recording span.recordingText {
   margin-left: 0.875rem;
   line-height: 1.125rem;
   font-size: 0.9375rem;
@@ -4657,7 +4657,7 @@ span#usertab_text {
   }
 }
 
-#virtualclassCont #virtualclassAppLeftPanel.recordingStatus {
+#virtualclassCont #virtualclassAppFooterPanel.recordingStatus {
   width: 35px;
   height: 35px;
   font-size: 0;
@@ -4668,7 +4668,7 @@ span#usertab_text {
   outline: none;
 }
 
-#virtualclassCont.playMode #virtualclassAppLeftPanel #recording {
+#virtualclassCont.playMode #virtualclassAppFooterPanel #recording {
   display: none;
 }
 

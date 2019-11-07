@@ -248,14 +248,14 @@
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important}`
 
         + '#virtualclassCont.congrea #stickycontainer .inner_bt:hover, '
-        + '#virtualclassCont.congrea #audioWidget a#rightCtlr:hover, '
+        // + '#virtualclassCont.congrea #audioWidget a#rightCtlr:hover, '
         + '#virtualclassCont.congrea a.stdRaiseHand:hover, '
         + '#virtualclassCont.congrea li#appSettingCtrl a#appSettingCtrlAnchor:hover ,'
         + '#virtualclassCont.congrea #stickycontainer .stdRaiseHand:hover, '
         + '#virtualclassCont.congrea #stickycontainer #contrAudioAll:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel li:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel li a:hover,'
-        + '#virtualclassCont.congrea #audioWidget #speakerPressOnce:hover,'
+        // + '#virtualclassCont.congrea #audioWidget #speakerPressOnce:hover,'
         + '#virtualclassCont.congrea #audioTest-box:hover,'
         + '#virtualclassCont.congrea #playButton:hover, '
         + '#virtualclassCont.congrea #alwaysPress:hover,'

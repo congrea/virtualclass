@@ -3184,6 +3184,7 @@
   border-radius: 20px;
   height: 2.125rem;
   overflow: hidden;
+  background-image: linear-gradient(to bottom, #ffffff 0%,#e6e6e6 100%) !important;
 }
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li#speakerPressOnce {
@@ -4176,19 +4177,20 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog .textCont {
-  font-size: 20px;
-  margin-bottom: 15px;
+  font-size: 1.25rem;
+  margin-bottom: .9375rem;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
 }
 
 #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog button {
   line-height: 1.784;
-  padding: 5px 18px;
+  padding: .3125rem 1.125rem;
   letter-spacing: 1px;
   border-color: #c2c2c2;
   cursor: pointer;
   z-index: 10002;
+  font-size: .9rem;
 }
 
 /* For Safari Browser */

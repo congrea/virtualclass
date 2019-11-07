@@ -445,10 +445,6 @@
     padding: 5px;
   }
 
-  #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog .textCont {
-    font-size: 17px;
-  }
-
   #virtualclassCont.congrea #vcBandWidthCheck .result {
     margin-bottom: 10px;
     text-align: center;

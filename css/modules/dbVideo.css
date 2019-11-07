@@ -339,7 +339,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont {
   position: fixed;
-  bottom: 14px;
+  bottom: 20px;
   width: 90%;
   height: 42px;
   overflow: hidden;

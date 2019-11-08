@@ -148,9 +148,6 @@
             canWrapper.style.width = `${res.width}px`;
             // canvas wrapper height 2
             canWrapper.style.height = `${res.height - virtualclass.gObj.screenRh}px`;
-
-            // console.log(`Canvas wrapper height ${canWrapper.style.height}`);
-            // virtualclass.system.setAppDimension(wb, true);
           }
         }
 
@@ -463,7 +460,6 @@
 
     async beforeLoad() {
       if (virtualclass.isPlayMode) {
-        virtualclass.recorder.recDataSend();
         // We need to clear everything when user first play-recoring and join the live class
         // console.log('==== Clear Session PlayMode');
         return;
@@ -705,6 +701,17 @@
 
     initOnBeforeUnload(bname) {
       // debugger;
+      let unloading = false;
+      window.addEventListener('beforeunload', () => {
+        unloading = true;
+        virtualclass.recorder.recDataSend();
+      });
+
+      window.addEventListener('unload', () => {
+        if (!unloading) {
+          virtualclass.recorder.recDataSend();
+        }
+      });
       if (bname === 'iOS') {
         document.body.onunload = function () {
           virtualclass.vutil.beforeLoad();

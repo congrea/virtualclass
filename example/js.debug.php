@@ -48,7 +48,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang-en.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/view.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/environment-validation.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/system.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-packetcontainer.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-drawobject.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-make-object.js"></script>
@@ -152,7 +152,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modal.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-container-event.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/mic-testing.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/common-xhr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/idb.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user-join-operation.js"></script>

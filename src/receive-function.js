@@ -436,7 +436,6 @@ const receiveFunctions = new function () {
         if (virtualclass.gObj.precheckScrn) {
           virtualclass.vutil.prechkScrnShare();
         }
-
         virtualclass.gesture.closeContinueWindow();
         virtualclass.popup.confirmInput(message, (confirm) => {
           delete virtualclass.gObj.studentSSstatus.receivedScreenShareRequest;

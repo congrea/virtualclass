@@ -607,13 +607,13 @@
           virtualclass.vutil.setReadModeWhenTeacherIsDisConn(virtualclass.vutil.smallizeFirstLetter(this.etype));
 
           // For handle editor's read only mode on iPad
-          if (virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
-            if (writeMode) {
-              this.enableEditorByOuterLayer();
-            } else {
-              this.disableEditorByOuterLayer();
-            }
-          }
+          // if (virtualclass.system.mybrowser.name == 'iOS' && virtualclass.system.isIPad()) {
+          //   if (writeMode) {
+          //     this.enableEditorByOuterLayer();
+          //   } else {
+          //     this.disableEditorByOuterLayer();
+          //   }
+          // }
         }
       },
 
@@ -679,7 +679,6 @@
         const currApp = virtualclass.vutil.capitalizeFirstLetter(virtualclass.currApp);
         if (currApp === 'EditorRich' || currApp === 'EditorCode') {
           virtualclass.previous = `virtualclass${virtualclass.currApp}`;
-          virtualclass.system.setAppDimension(virtualclass.currApp);
         } else {
           // if current app is not editor and, there is displaying editor in browser
           // disable that editor

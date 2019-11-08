@@ -132,6 +132,7 @@
           timeStamp = this.recData[i];
         }
       }
+      this.recData.length = 0;
       console.log('====> sent data ', JSON.stringify(this.recViewData));
       navigator.sendBeacon('https://api.congrea.net/data/analytics/recording', JSON.stringify(this.recViewData));
     },

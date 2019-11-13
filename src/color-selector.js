@@ -90,6 +90,7 @@
         + '#virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header'
         + `{border: 0.02em solid ${allbg.fcolor}!important;}`
         + '#virtualclassCont.congrea .btn.btn-default ,'
+        + '#virtualclassCont.congrea .vceditor-toolbar, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab,'
         + '#virtualclassCont.congrea #stickybar .footerCtr .vmchat_search #congreaUserSearch ,'
         + '#virtualclassCont.congrea button ,'
@@ -113,6 +114,8 @@
 
     makeThemeReadyMainCont(frontColor, allbg, active, hover) {
       const css = `${'#virtualclassCont.congrea .ui-widget-header, '
+        + '#virtualclassCont.congrea .commandToolsWrapper, '
+        + '#virtualclassCont.congrea .shapesToolbox .shapesTool, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel, '
         + '#virtualclassCont.congrea.student #appSettingDetail .setting-heading, '
         + '#virtualclassCont #appSettingDetail .bulkUserActions .setting-heading '
@@ -143,6 +146,10 @@
         + '#virtualclassCont.congrea .tool.active a span:before '
         + `{color:${frontColor}!important}`
         + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions:hover, '
+        + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover, '
+        + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool ul.fontSizeList span:hover, '
+        + '#virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li:hover, '
+        + '#virtualclassCont.congrea #dashboardContainer .modal-header button.enable:hover, '
         + '#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, '
         + '#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover'
         + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%) !important}`
@@ -267,7 +274,6 @@
         + '#virtualclassCont.congrea .vmchat_support.active ,'
         + '#virtualclassCont.congrea .vmchat_room_bt.active,'
         + '#virtualclassCont.congrea .vmchat_bar_button.active, '
-        + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover, '
         + '#virtualclassCont.congrea li#appSettingCtrl.active, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .settingActive,'
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .handRaise.disable'
@@ -298,7 +304,9 @@
 
       const css = `${'#virtualclassCont.congrea .ui-widget-header,'
         + '#virtualclassCont.congrea #congdashboard .modal-header,'
-        + '#virtualclassCont #virtualclassApp #virtualclassAppLeftPanel #sidebarButton,'
+        + '#virtualclassCont #virtualclassApp #virtualclassAppLeftPanel #sidebarButton, '
+        + '#virtualclassCont.congrea #layoutPoll #navigator, '
+        + '#virtualclassCont.congrea #layoutQuiz .navbar, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget '
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important}`
         + '#virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont:before, '

@@ -272,13 +272,6 @@
   color: #fff !important;
 }
 
-#virtualclassCont.congrea .shapesToolbox.active[data-currtool="oval"] .shapesTool a span::before,
-#virtualclassCont.congrea .shapesToolbox.active[data-currtool="line"] .shapesTool a span::before,
-#virtualclassCont.congrea .shapesToolbox.active[data-currtool="rectangle"] .shapesTool a span::before,
-#virtualclassCont.congrea .shapesToolbox.active[data-currtool="triangle"] .shapesTool a span::before {
-  color: #000 !important;
-}
-
 #virtualclassCont.congrea .shapesToolbox.active[data-currtool="oval"] .shapesTool .active a span::before,
 #virtualclassCont.congrea .shapesToolbox.active[data-currtool="line"] .shapesTool .active a span::before,
 #virtualclassCont.congrea .shapesToolbox.active[data-currtool="rectangle"] .shapesTool .active a span::before,
@@ -296,14 +289,11 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Rectangle"], #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Line"], #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Oval"], #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Triangle"] {
-  padding: 7px 13px 8px;
-  border-top: 0.5px solid #929292;
-  border-bottom: 0.5px solid #929292;
+  padding: 7px 14px 8px;
+  /* border-top: 0.5px solid #929292; */
+   /* border-bottom: 0.5px solid #929292; */
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Rectangle"] {
-  border-left: 0.5px solid #c7c7c7 !important;
-}
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Rectangle"] span, #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Line"] span, #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Oval"] span, #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Triangle"] span {
   font-size: 23px;
@@ -454,12 +444,12 @@
   display: block;
 }
 
-#virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool ul li.selected span {
-  background-color: #fff !important;
+#virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool=stroke] ul.strkSizeList li:hover span {
+  background-color: #fff;
 }
 
-#virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li:hover {
-  background-color: #e6e6e6;
+#virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool ul li.selected span {
+  background-color: #fff !important;
 }
 
 #virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li.selected:hover {
@@ -502,7 +492,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="font"] ul.fontSizeList span:hover {
-  color: #404040;
+  color: #fff;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="color"] a {

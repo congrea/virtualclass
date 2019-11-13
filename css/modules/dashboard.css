@@ -144,14 +144,10 @@
 }
 
 #virtualclassCont.congrea #congdashboard.modal .modal-header {
-  width: calc(100% - 55px);
+  width: 100%;
   color: white;
   height: 44.5px;
-  background-image: linear-gradient(to bottom, #ffffff 0%,rgba(255, 255, 255, 0.8) 100%) !important;
-  border: 0.5px solid #c7c7c7;
   border-top: none;
-  border-radius: 0 0 5px 5px;
-  /* box-shadow: 0 0 3px rgb(199, 199, 199); */
 }
 
 /** for dashboard grid  view */

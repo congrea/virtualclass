@@ -2260,7 +2260,7 @@
   margin: 5px;
   display: inline-block;
   color: #fff;
-  border: 1px solid #a5a5a5;
+  border: 1px solid #fff;
   padding: 5px;
   font-size: 13px;
   border-radius: 4px;
@@ -2482,25 +2482,16 @@
 
 #virtualclassCont.congrea #layoutPoll #navigator,
 #virtualclassCont.congrea #layoutQuiz .navbar {
-  background-color: #fff !important;
-  border: 0.5px solid #c7c7c7 !important;
   border-top: none !important;
-  width: 96%;
+  width: 100%;
   border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
   min-height: 44px !important;
 }
 
 #virtualclassCont.congrea.student #layoutPoll #navigator,
 #virtualclassCont.congrea.student #layoutQuiz .navbar{
-  background-image: linear-gradient(to top, #F2F2F2 0%,#F0F2F0 100%) !important;
-  /* background-color: #fff !important; */
-  border: 0.5px solid #dadada !important;
   border-top: none !important;
   width: 100%;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  min-height: 44px !important;
 }
 
 #virtualclassCont.congrea .bootstrap .nav-tabs > li > a {
@@ -2915,7 +2906,6 @@
   font-size: 1.125rem;
   text-shadow: none;
   text-align: center;
-  color: #292929 !important;
 }
 
 /* congrea quiz end*/
@@ -3073,12 +3063,6 @@
 #virtualclassCont.congrea .modal-header h4 {
   text-align: center;
   margin-top: 5px;
-}
-
-#virtualclassCont.congrea .dashboardContainer .modal-header h4 {
-  margin-top: 5px;
-  font-weight: normal;
-  color: #383838 !important;
 }
 
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a {
@@ -3948,10 +3932,6 @@ span#usertab_text {
   display: block;
   position: absolute;
   right: 10px;
-  color: #272727 !important;
-  border: 0.5px solid #bbbbbb;
-  box-shadow: 1px 3px 2px -2px #a0a0a0;
-  background-image: linear-gradient(to bottom, #ffffff 0%,#ffffff 100%) !important;
 }
 
 #virtualclassCont.congrea #dashboardContainer .modal-header button.enable:hover {

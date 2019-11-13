@@ -3689,7 +3689,7 @@
 
 #virtualclassCont.congrea a.vceditor-btn:active {
   background-color: #28323c;
-  border: 1px solid rgba(254, 254, 254, 0.2) !important;
+  /* border: 1px solid rgba(254, 254, 254, 0.2) !important; */
   color: #fff;
 }
 

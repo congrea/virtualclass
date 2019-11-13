@@ -39,8 +39,7 @@
 }
 
 #virtualclassCont.congrea.teacher #virtualclassPoll #layoutPoll.bootstrap .pollNavBar li {
-  margin-top: 8px;
-  margin-right: -3px;
+  margin-top: 9px;
 }
 
 #virtualclassCont.congrea.student .bootstrap .pollNavBar li {
@@ -251,7 +250,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassPoll .nav > li > a:hover {
-  background: #eeeeee !important;
+  background: #e6e6e6 !important;
   color: #000;
   /*background: -moz-radial-gradient(center, ellipse cover, #ffffff);*/
   /*!* FF3.6+ *!*/
@@ -603,9 +602,4 @@
   bottom: 16%;
   overflow: auto;
   height: 85%;
-}
-
-#virtualclassCont.congrea.student #virtualclassPoll #navigator #stdPollHeader:hover {
-  color: #292929 !important;
-  cursor: default;
 }

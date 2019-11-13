@@ -1134,9 +1134,9 @@ this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing;
 
   return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled showUserList\"> "
-    + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || alias2).call(alias1,{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + " "
     + ((stack1 = container.invokePartial(partials.rightBarHeader,depth0,{"name":"rightBarHeader","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || alias2).call(alias1,{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "   <div id=\"rightSubContainer\" class=\"\"> "
     + ((stack1 = container.invokePartial(partials.appSettingDetail,depth0,{"name":"appSettingDetail","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " <div id=\"chatWidget\"><div id=\"congreaChatMainCont\"><div id=\"congreaChatCont\"></div><div class=\"footerCtr\" id=\"congFooterCtr\"><div class=\"vmchat_search\" id=\"congchatBarInput\"><input type=\"text\" id=\"congreaUserSearch\" class=\"search\" placeholder=\""

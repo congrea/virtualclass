@@ -345,42 +345,34 @@
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-rectangle:before {
   content: "\e60b";
-  color: #404040 !important;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-line:before {
   content: "\e607";
-  color: #404040 !important;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-freeDrawing:before {
   content: "\f040";
-  color: #404040 !important;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-oval:before {
   content: "\f1db";
-  color: #404040 !important;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-triangle:before {
   content: "\e603";
-  color: #404040 !important;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-text:before {
   content: "\e60e";
-  color: #404040 !important;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-activeAll:before {
   content: "\e600";
-  color: #404040 !important;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-clearAll:before {
   content: "\ea0f";
-  color: #404040 !important;
 }
 
 #virtualclassCont.congrea #speakerPressing .icon-speakerPressing:before {
@@ -821,7 +813,6 @@
 #virtualclassCont.congrea .commandToolsWrapper .icon-color:before {
   content: "\e254";
   font-size: 19px;
-  color: #404040 !important;
 }
 
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon:before {
@@ -830,7 +821,6 @@
 
 #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon .icon-shapes.cgIcon:before {
   font-size: 21px;
-  color: #404040 !important;
 }
 
 #virtualclassCont.congrea #fullScreenButton span .icon-fullScreen:before {

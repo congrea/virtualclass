@@ -73,12 +73,14 @@
         + '#virtualclassCont.congrea .vmchat_bar_button ,'
         + '#virtualclassCont.congrea .vmchat_room_bt.congtooltip ,'
         + '#virtualclassCont.congrea #congHr ,'
+        + '#virtualclassCont.congrea .shapesToolbox ,'
         + '#virtualclassCont.congrea li#appSettingCtrl ,' 
         + '#virtualclassCont.congrea #fullScreenExitButton '
         + `{border-left: 0.01em solid ${allbg.fcolor}!important;}`
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab, #virtualclassCont.congrea #networkStatusContainer'
         + `{border-left:${border} !important;}`
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ,'
+        + '#virtualclassCont.congrea .shapesToolbox ,'
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab li ,'
         + '#virtualclassCont.congrea #networkStatusContainer ,'
         + '#virtualclassCont.congrea #fullScreenButton ,'
@@ -112,7 +114,6 @@
     makeThemeReadyMainCont(frontColor, allbg, active, hover) {
       const css = `${'#virtualclassCont.congrea .ui-widget-header, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel, '
-        + '#virtualclassCont.congrea #virtualclassAppRightPanel #rightBarHeader, '
         + '#virtualclassCont.congrea.student #appSettingDetail .setting-heading, '
         + '#virtualclassCont #appSettingDetail .bulkUserActions .setting-heading '
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
@@ -266,6 +267,7 @@
         + '#virtualclassCont.congrea .vmchat_support.active ,'
         + '#virtualclassCont.congrea .vmchat_room_bt.active,'
         + '#virtualclassCont.congrea .vmchat_bar_button.active, '
+        + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover, '
         + '#virtualclassCont.congrea li#appSettingCtrl.active, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .settingActive,'
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .handRaise.disable'

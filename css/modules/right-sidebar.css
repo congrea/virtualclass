@@ -67,6 +67,7 @@ body {
   clear: both;
   flex: 1;
   min-height: 1px;
+  border-left: 1px solid #dfdfdf;
 }
 
 /* #virtualclassCont.congrea #rightSubContainer a.inner_bt, #virtualclassCont.congrea #rightSubContainer a.inner_bt:hover {
@@ -114,7 +115,6 @@ body {
   border-left-width: 0;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid #dfdfdf;
 }
 
 #virtualclassCont.congrea #virtualclassApp.collapsedRightbar #virtualclassAppRightPanel {
@@ -914,16 +914,9 @@ body {
 }
 
 #virtualclassCont.congrea .commandToolsWrapper {
-  background-color: #fff;
-  border: 0.5px solid #c7c7c7;
+  background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%) !important;
   border-top: none;
-  border-radius: 0 0 5px 5px;
-  /* box-shadow: 0 0 3px rgb(199, 199, 199); */
 }
-
-/*#virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioImg, #virtualclassCont.congrea.teacher #chat_div .controleCont .icon-audioDisImg {*/
-/*margin-top:3px;*/
-/*}*/
 
 /** CSS for chat div container start for EDGE browser  **/
 #virtualclassCont.edge.student .controleCont {

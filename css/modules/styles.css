@@ -678,7 +678,7 @@
 
 #virtualclassCont.congrea .commandToolsWrapper, #virtualclassCont.congrea #dataInfoHeading {
   padding-left: 0;
-  width: calc(100% - 55px);
+  width: 100%;
 }
 
 #virtualclassCont.congrea #videos #localVideo {
@@ -2794,8 +2794,6 @@
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a {
   padding: 9px 18px 10px;
-  color: #404040 !important;
-  border-right: 0.01em solid #c7c7c7 !important;
 }
 
 #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {
@@ -3043,7 +3041,7 @@
 }
 
 #virtualclassCont.congrea #videoHostSource {
-  margin-top: -1px;
+  margin-top: 0px;
   width: 100%;
 }
 
@@ -3184,7 +3182,7 @@
   border-radius: 20px;
   height: 2.125rem;
   overflow: hidden;
-  background-image: linear-gradient(to bottom, #ffffff 0%,#e6e6e6 100%) !important;
+  /* background-image: linear-gradient(to bottom, #ffffff 0%,#e6e6e6 100%) !important; */
 }
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li#speakerPressOnce {
@@ -4868,3 +4866,7 @@ span#usertab_text {
   z-index: 10000 !important;
 }
 
+#virtualclassCont.congrea #virtualclassAppRightPanel #rightBarHeader {
+  background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%) !important;
+  border-left: 1px solid;
+}

@@ -257,7 +257,7 @@
 }
 
 #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a {
-  padding: 10px 12px 9px 15px;
+  padding: 0.625rem 0.75rem 0.5625rem 0.9375rem;
 }
 
 #virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="line"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="rectangle"] .shapes_icon .icon-shapes.cgIcon:before, .shapesToolbox[data-currtool="triangle"] .shapes_icon .icon-shapes.cgIcon:before {
@@ -496,7 +496,7 @@
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="color"] a {
-  padding: 3px 21px 16px 21px !important;
+  padding: 0.1875rem 1.3125rem 1rem 1.3125rem !important;
 }
 
 /* CSS for Firefox only */
@@ -506,7 +506,7 @@
   }
 
   #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a {
-    padding: 12.5px 13px 11.5px 14px;
+    padding: 0.1875rem 1.3125rem 1rem 1.3125rem !important;
   }
 
   #virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapes_icon a {

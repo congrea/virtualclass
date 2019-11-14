@@ -2070,7 +2070,6 @@
 #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
   padding-bottom: 0;
   padding-left: 0;
-  height: 44px;
   box-shadow: none;
   border-radius: 0 0 0 5px;
 }
@@ -2784,7 +2783,7 @@
 /* New CSS */
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a {
-  padding: 9px 18px 10px;
+  padding: .5625rem 1.125rem .625rem;
 }
 
 #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {

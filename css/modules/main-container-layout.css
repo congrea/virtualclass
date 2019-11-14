@@ -201,7 +201,7 @@
     font-size: 11px;
   }
 
-  #virtualclassCont.congrea.teacher #virtualclassApp[data-currapp='DocumentShare'] .modal,
+  /* #virtualclassCont.congrea.teacher #virtualclassApp[data-currapp='DocumentShare'] .modal,
   #virtualclassCont.congrea #virtualclassApp[data-currapp='Video'] .modal,
   #virtualclassCont.congrea.teacher #virtualclassApp[data-currapp='SharePresentation'] .modal {
     height: calc(100% - 44px);
@@ -251,7 +251,7 @@
 
   #virtualclassCont.congrea.teacher #SharePresentationDashboard #submitpurl.btn-default {
     min-height: 44px;
-  }
+  } */
 
   #virtualclassCont.congrea #dashboardnav {
     top: 85%;

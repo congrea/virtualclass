@@ -8,10 +8,6 @@
   padding: 0;
 }
 
-#virtualclassCont #dashboardContainer .modal .modal-header {
-  height: 7%;
-}
-
 #virtualclassCont #dashboardContainer .modal-body {
   height: auto;
   padding: 0;
@@ -112,7 +108,6 @@
 }
 
 #virtualclassCont.congrea #docsListContainer {
-  height: 98vh;
   width: 21.5%;
 }
 
@@ -146,7 +141,6 @@
 #virtualclassCont.congrea #congdashboard.modal .modal-header {
   width: 100%;
   color: white;
-  height: 44px;
   border-top: none;
 }
 

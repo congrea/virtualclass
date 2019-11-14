@@ -1,15 +1,10 @@
-#virtualclassCont #dashboardContainer .modal-dialog {
-  /*width : 85% !important;*/
-}
-
-#virtualclassCont #dashboardContainer .modal .modal-header {
-  height: 70px;
-}
-
 #virtualclassCont #dashboardContainer .modal-body {
-  /*height : 92%;*/
   padding: 0;
   max-height: none;
+}
+
+#virtualclassCont #dashboardContainer .modal-body #DocumentShareDashboard {
+  height: 100%;
 }
 
 #virtualclassCont #listvideo {
@@ -96,7 +91,7 @@
 }
 
 #virtualclassCont.congrea #congdashboard.modal .modal-header {
-  padding: 2px;
+  padding: 0.8125rem;
   border-bottom-left-radius: 5px;
   border: none !important;
   position: relative;
@@ -584,7 +579,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 @media (max-height: 768px) {
   #virtualclassCont #dashboardContainer .modal .modal-content {
-    min-height: calc(100vh - 52px);
+    min-height: 100%;
   }
 }
 

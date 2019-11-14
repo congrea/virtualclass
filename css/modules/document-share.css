@@ -783,10 +783,6 @@
   opacity: 0.5;
 }
 
-#virtualclassCont.congrea[data-currapp='DocumentShare'] #congdashboard .modal-header {
-  height: 44px;
-}
-
 #virtualclassCont.congrea #listdocs {
   overflow: auto;
   height: calc(100vh - 150px);
@@ -1081,28 +1077,6 @@
 
 #virtualclassCont.congrea.student #teacherCurrPage {
   display: none;
-}
-
-@media (max-width: 1150px) {
-
-  .congrea #totalPages {
-    font-size: 0.875rem;
-    margin-right: 10px;
-  }
-
-  #virtualclassCont.congrea #dcPaging {
-    margin-left: 10px;
-    margin-right: 20px;
-  }
-
-  #virtualclassCont.congrea .noteIndex {
-    margin-left: 10px;
-    font-size: 12px;
-  }
-
-  #virtualclassCont.congrea #dcPaging .active {
-    font-size: 12px;
-  }
 }
 
 #virtualclassCont[data-currapp="DocumentShare"] .canvasWrapper .whiteboards {

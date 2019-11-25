@@ -383,7 +383,7 @@ let globalImageData = {};
       },
 
       setCanvasContainerDimension(width, height) {
-        
+        return;
         const canvaScontainer = document.querySelector('#virtualclassScreenShareLocal');
         canvaScontainer.style.width = `${width}px`;
         canvaScontainer.style.height = `${height}px`;

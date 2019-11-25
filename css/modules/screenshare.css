@@ -157,7 +157,7 @@
   background-image: linear-gradient(to bottom, #f7f7f7 0%,#f7f7f7 100%) !important;
   border: 0.5px solid #f2f2f2;
   cursor: pointer;
-  padding: 7px 7.5px 7px 7.5px;
+  padding: 7.5px 8px 7.5px 8px;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
   box-shadow: 0 3px 3px -3px #585858;
@@ -177,14 +177,14 @@
 #virtualclassCont.congrea #screenController .share button:before {
   content: "\e94d";
   font-family: 'icomoon';
-  font-size: 22px;
+  font-size: 21px;
   color: #868686;
 }
 
 #virtualclassCont.congrea #screenController .share.shareToAll button:before {
   content: "\e94e";
   font-family: 'icomoon';
-  font-size: 22px;
+  font-size: 21px;
   color: #292929;
 }
 

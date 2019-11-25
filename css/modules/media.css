@@ -264,21 +264,9 @@
   border-top: #5d6b76 solid 1px !important;
 }
 
-#virtualclassCont.congrea.Chrome #virtualclassAppFooterPanel #audioWidget {
-  height: 3.75rem;
-  margin: 0;
-  z-index: 1007;
-  position: absolute;
-  border-top-left-radius: 1.625rem;
-  border-top-right-radius: 1.625rem;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-#virtualclassCont.congrea.Safari #virtualclassAppFooterPanel #audioWidget {
-  height: 60px;
-  width: 110px;
+#virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget {
+  height: 3.625rem;
+  width: 8rem;
   margin: 0;
   z-index: 1002;
   position: absolute;

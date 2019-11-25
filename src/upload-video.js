@@ -1023,6 +1023,10 @@
             dispVideo.setAttribute('data-setup', '{ techOrder: [youtube],"preload": "auto"}');
             player.src({ type: 'video/youtube', src: videoUrl });
             // console.log('====> Video 1 b Finished youtube');
+            const playerElem = document.querySelector('#videoPlayerCont .vjs-error-display');
+            if (playerElem) {
+              playerElem.classList.add('vjs-hidden');
+            }
           } else if (virtualclass.videoUl.online) {
             dispVideo.setAttribute('data-setup', '{"preload": "auto" }');
             player.src({ type: 'video/webm', src: videoUrl });
@@ -1054,7 +1058,18 @@
               // console.log('====> video event play event ', virtualclass.videoUl.lastSeek);
               // console.log('====> Video 2 finished play');
             }
+
           });
+
+          player.on('error', () => {
+            const error = player.error();
+            if (error.code === 1150) { // Handling private video error
+              const playerElem = document.querySelector('#videoPlayerCont .vjs-error-display');
+              if (playerElem) {
+                playerElem.classList.remove('vjs-hidden');
+              }
+            }
+          })
         },
 
         //  todo  modify

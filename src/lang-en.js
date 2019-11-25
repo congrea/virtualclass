@@ -242,7 +242,7 @@
     screensharenotsupport: 'Screen share is not supported',
     screensharedenied: 'User denied to share screen',
     second: 'Second',
-    selfview: 'Self view',
+    selfview: 'Disable public view',
     SetTimer: 'Set timer',
     sesseionkeymissing: 'Session key is missing from Front End.', // from javascript
     sentPackets: 'Sent <br/><span>Packets</span>',
@@ -257,7 +257,7 @@
     shareAnotherYouTubeVideo: 'Share another YouTube video',
     SharePresentation: 'Share presentation',
     SharePresentationdbHeading: 'Presentation dashboard',
-    sharetoall: 'Share to all',
+    sharetoall: 'Enable public view',
     Showresulttostudents: 'Show result to students',
     sitePoll: 'Site level poll',
     Skip: 'Close',

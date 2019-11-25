@@ -998,6 +998,7 @@
   position: fixed;
   top: 55px;
   right: 350px;
+  background-color: #f7f7f7;
 }
 
 #virtualclassCont.congrea .openRightbar #docShareNav #addNewPage:hover {

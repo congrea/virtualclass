@@ -154,19 +154,19 @@
 }
 
 #virtualclassCont.congrea #screenController .share button {
-  background-image: linear-gradient(to bottom, #fff 0%,#fff 100%) !important;
-  border: none;
+  background-image: linear-gradient(to bottom, #f7f7f7 0%,#f7f7f7 100%) !important;
+  border: 0.5px solid #f2f2f2;
   cursor: pointer;
-  background-color: transparent;
-  padding: 9px 9.5px;
+  padding: 7px 7.5px 7px 7.5px;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
-  box-shadow: 0 2px 5px 1px #c3c3c3;
+  box-shadow: 0 3px 3px -3px #585858;
   border-radius: 50%;
 }
 
 #virtualclassCont.congrea #screenController .share button:hover {
-  background-image: linear-gradient(to bottom, #fdfdfd 0%,#eaeaea 100%) !important;
+  background-image: linear-gradient(to bottom, #eaeaea 0%,#eaeaea 100%) !important;
+  border: .5px solid #e0e0e0;
 }
 
 #virtualclassCont.congrea[data-recording="on"] #screenController .share button,
@@ -175,31 +175,30 @@
 }
 
 #virtualclassCont.congrea #screenController .share button:before {
-  content: "\e9d0";
+  content: "\e94d";
   font-family: 'icomoon';
-  font-size: 18px;
-  color: #09b208;
-  font-weight: 600;
+  font-size: 22px;
+  color: #868686;
 }
 
 #virtualclassCont.congrea #screenController .share.shareToAll button:before {
-  content: "\e9cf";
+  content: "\e94e";
   font-family: 'icomoon';
-  font-size: 18px;
-  color: #09b208;
+  font-size: 22px;
+  color: #292929;
 }
 
 #virtualclassCont.congrea #stopScreenShare button {
-  background-image: linear-gradient(to bottom, #fff 0%,#fff 100%) !important;
+  background-image: linear-gradient(to bottom, #f7f7f7 0%,#f7f7f7 100%) !important;
   color: #000;
-  border: none;
+  border: 0.5px solid #f2f2f2;
   cursor: pointer;
   background-color: transparent;
-  padding: 11px 10.5px 9px 10.5px;
+  padding: 8px 7.5px 7px 8.5px;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
   border-radius: 50%;
-  box-shadow: 0 2px 5px 1px #c3c3c3;
+  box-shadow: 0 3px 3px -3px #585858;
 }
 
 #virtualclassCont.congrea #virtualclassApp.collapsedRightbar #screenController .share {
@@ -217,15 +216,15 @@
 }
 
 #virtualclassCont.congrea #stopScreenShare button:hover {
-  background-image: linear-gradient(to bottom, #fdfdfd 0%,#eaeaea 100%) !important;
+  background-image: linear-gradient(to bottom, #eaeaea 0%,#eaeaea 100%) !important;
+  border: .5px solid #e0e0e0;
 }
 
 #virtualclassCont.congrea #stopScreenShare button:before {
-  content: "\e9c6";
+  content: "\e9d4";
   font-family: 'icomoon';
-  font-size: 16px;
-  color: red;
-  font-weight: 600;
+  font-size: 21px;
+  color: #5a5a5a;
 }
 
 @-moz-document url-prefix() {

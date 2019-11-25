@@ -6,7 +6,7 @@
   bottom: 37px;
   padding: 0px;
   border-bottom: none;
-  z-index: 1001;
+  z-index: 1006;
   overflow: hidden;
   left: -3px;
   border: 1px solid #bbb;
@@ -933,4 +933,16 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea .user-details.media-body a:hover {
   text-decoration: none;
+}
+
+#virtualclassCont.congrea.teacher #virtualclassAppRightPanel #rightBarHeader .setting-heading {
+  background-color: #0c1e22;
+  cursor: default;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 400;
+  font-size: 0.9rem;
+  padding: 0.875rem 0.9375rem;
+  line-height: normal;
+  color: #fff;
 }

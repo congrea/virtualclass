@@ -541,4 +541,5 @@ and (max-device-width : 667px) {
   line-height: 0.875rem;
   position: relative;
   left: -6px;
+  bottom: 0.125rem;
 }

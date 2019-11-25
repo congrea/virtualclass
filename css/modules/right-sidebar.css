@@ -150,9 +150,10 @@ body {
   border-radius: 4px;
   font-size: 1rem;
   background-color: white;
-  padding: 0.4375rem;
+  padding: 0.375rem;
   margin-left: 2.5%;
   margin-right: 2.5%;
+  line-height: 1.25rem;
 }
 
 #virtualclassCont .footerCtr input {

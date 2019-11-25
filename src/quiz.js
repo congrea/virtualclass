@@ -18,7 +18,7 @@
       quizJSON: {},
       attemptedUsers: {},
       cmid: 2, // TODO : courseid of moodle
-      exportfilepath: window.exportfilepath,
+      // exportfilepath: window.exportfilepath,
       quizSt: {}, // used for storage
       quizAttempted: {}, // used for storage
       // qGrade: [], // used for storage
@@ -26,7 +26,8 @@
       init() {
         virtualclass.previrtualclass = 'virtualclassQuiz';
         virtualclass.previous = 'virtualclassQuiz';
-        const urlquery = virtualclass.vutil.getUrlVars(exportfilepath);
+        // const urlquery = virtualclass.vutil.getUrlVars(exportfilepath);
+        const urlquery = virtualclass.vutil.getUrlVars(window.webapi);
         this.cmid = urlquery.cmid;
 
         if (!roles.hasAdmin() || (roles.isEducator())) {

@@ -29,13 +29,14 @@
       currResultView: 'bar',
       tStamp: [],
       pollState: {},
-      exportfilepath: window.exportfilepath,
+      // exportfilepath: window.exportfilepath,
       uniqueUsers: [],
       init() {
         this.pollState = {};
         virtualclass.previrtualclass = 'virtualclassPoll';
         virtualclass.previous = virtualclass.previrtualclass;
-        const urlquery = virtualclass.vutil.getUrlVars(exportfilepath);
+        // const urlquery = virtualclass.vutil.getUrlVars(exportfilepath);
+        const urlquery = virtualclass.vutil.getUrlVars(window.webapi);
         this.cmid = urlquery.cmid;
         if (this.timer) {
           clearInterval(this.timer);

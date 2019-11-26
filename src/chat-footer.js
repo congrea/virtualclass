@@ -40,6 +40,7 @@
       rightbarTab.addEventListener('click', function() {
         if(virtualclassApp.classList.contains('collapsedRightbar')) {
           virtualclass.vutil.handleRightBar('open');
+          virtualclass.chat.calculateViewPortForMessageBox();
         }
       });
 

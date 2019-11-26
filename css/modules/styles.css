@@ -3184,6 +3184,11 @@
   cursor: pointer;
 }
 
+#virtualclassCont.congrea.playMode li#appSettingCtrl {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 #virtualclassCont.congrea.student li#appSettingCtrl {
   width: 25%;
 }

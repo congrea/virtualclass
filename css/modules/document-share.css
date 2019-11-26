@@ -1062,8 +1062,8 @@
 
 .congrea #totalPages {
   color: #28323c;
-  font-size: 14px;
-  margin-right: 13px;
+  font-size: 0.875rem;
+  margin-right: 0.8125rem;
 }
 
 #virtualclassCont.congrea.student #totalPages, #virtualclassCont.congrea[data-currapp = 'DocumentShare'] #totalPages {
@@ -1123,7 +1123,7 @@
 
 #virtualclassCont.congrea #pageAnc {
   color: #2c393d;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 #virtualclassCont.congrea .icon-newPage:after {

@@ -815,7 +815,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   height: 2.75rem;
 }
 
-#virtualclassCont.congrea.student .vmchat_bar_button.disable {
+#virtualclassCont.congrea.student .vmchat_bar_button.disable#user_list {
   pointer-events: none;
   opacity: 0.5;
 }

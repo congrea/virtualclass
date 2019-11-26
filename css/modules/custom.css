@@ -24,6 +24,10 @@
   margin-bottom: 0.9375rem;
 }
 
+#virtualclassCont.congrea #virtualclassPreCheck .result div#micTest {
+  line-height: 1.3rem;
+}
+
 #virtualclassCont.congrea #virtualclassPreCheck .result div.errorMsg {
   text-align: left;
   padding-left: 15px;

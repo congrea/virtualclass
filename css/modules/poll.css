@@ -39,7 +39,7 @@
 }
 
 #virtualclassCont.congrea.teacher #virtualclassPoll #layoutPoll.bootstrap .pollNavBar li {
-  margin-top: 9px;
+  margin-top: 10px;
 }
 
 #virtualclassCont.congrea.student .bootstrap .pollNavBar li {
@@ -52,17 +52,17 @@
   font-size: 16px;
 }
 
-#virtualclassCont.congrea #virtualclassPoll .pollNavBar > li > a {
+/* #virtualclassCont.congrea #virtualclassPoll .pollNavBar > li > a {
   color: #000;
   background-color: #fff;
   border: 0.5px solid #c7c7c7 !important;
   border-bottom: none !important;
   font-size: 16px;
-}
+} */
 
 #virtualclassCont.congrea #virtualclassPoll .pollNavBar > li.active > a {
-  background-color: #000;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   font-size: 16px;
 }
 

@@ -141,8 +141,7 @@
         + `{background-image: linear-gradient(to right, ${allbg.fcolor} 0%,${allbg.scolor} 100%)} `
 
         + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active, '
-        + '#virtualclassCont.congrea .commandToolsWrapper .tool.active a, '
-        + '#virtualclassCont.congrea #virtualclassPoll .pollNavBar > li.active > a '
+        + '#virtualclassCont.congrea .commandToolsWrapper .tool.active a '
         + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100%);} `
         + '#virtualclassCont.congrea .tool.active a span:before '
         + `{color:${frontColor}!important}`

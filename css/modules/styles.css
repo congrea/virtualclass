@@ -3184,6 +3184,10 @@
   cursor: pointer;
 }
 
+#virtualclassCont.congrea.teacher li#appSettingCtrl {
+  width: 33.3%;
+}
+
 #virtualclassCont.congrea.playMode li#appSettingCtrl {
   pointer-events: none;
   opacity: 0.5;
@@ -3605,6 +3609,10 @@
   width: 25%;
 }
 
+#virtualclassCont.congrea.teacher .vmchat_room_bt.congtooltip {
+  width: 33.3%
+}
+
 #virtualclassCont.congrea #layoutQuizBody .table-responsive {
   overflow-y: auto;
   height: 100%;
@@ -3640,6 +3648,10 @@
   display: inline-block;
   cursor: pointer;
   border-radius: 0;
+}
+
+#virtualclassCont.congrea.teacher #congHr {
+  display: none;
 }
 
 #virtualclassCont.congrea #congHr.disable {

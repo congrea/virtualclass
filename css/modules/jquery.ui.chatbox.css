@@ -575,6 +575,10 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   cursor: pointer;
 }
 
+#virtualclassCont.congrea.teacher .vmchat_bar_button {
+  width: 33.3%;
+}
+
 #virtualclassCont.congrea ul.chatBarTab li.active span:before {
   text-shadow: #FFF 0px 0px 2px;
 }

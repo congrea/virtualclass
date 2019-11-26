@@ -201,58 +201,6 @@
     font-size: 11px;
   }
 
-  /* #virtualclassCont.congrea.teacher #virtualclassApp[data-currapp='DocumentShare'] .modal,
-  #virtualclassCont.congrea #virtualclassApp[data-currapp='Video'] .modal,
-  #virtualclassCont.congrea.teacher #virtualclassApp[data-currapp='SharePresentation'] .modal {
-    height: calc(100% - 44px);
-  }
-
-  #virtualclassCont.congrea.teacher.fullScreenMode #virtualclassApp[data-currapp='DocumentShare'] .modal, #virtualclassCont.congrea.fullScreenMode #virtualclassApp[data-currapp='Video'] .modal, #virtualclassCont.congrea.teacher #virtualclassApp[data-currapp='SharePresentation'] .modal {
-    height: calc(100% - 44px);
-  }
-
-  #virtualclassCont.congrea.teacher #dashboardContainer .modal .modal-content {
-    min-height: calc(100% - 52px);
-    height: 100%;
-  }
-
-  #virtualclassCont.congrea.teacher.fullScreenMode #dashboardContainer .modal .modal-content {
-    min-height: calc(100% - 52px);
-    height: 100%;
-  }
-
-  #virtualclassCont.congrea.teacher #docsListContainer {
-    height: 100%;
-  }
-
-  #virtualclassCont.congrea.teacher .dashboardview {
-    height: calc(100% - 118px);
-  }
-
-  #virtualclassCont.congrea.teacher.fullScreenMOde .dashboardview {
-    height: calc(100% - 118px);
-  }
-
-  #virtualclassCont.congrea.teacher #listdocs {
-    height: calc(100% - 145px);
-  }
-
-  #virtualclassCont.congrea.teacher.fullScreenMOde #listdocs {
-    height: calc(100% - 145px);
-  }
-
-  #virtualclassCont.congrea.teacher #pptListContainer {
-    height: calc(100% - 155px);
-  }
-
-  #virtualclassCont.congrea.teacher.fullScreenMode #pptListContainer {
-    height: calc(100% - 155px);
-  }
-
-  #virtualclassCont.congrea.teacher #SharePresentationDashboard #submitpurl.btn-default {
-    min-height: 44px;
-  } */
-
   #virtualclassCont.congrea #dashboardnav {
     top: 85%;
   }
@@ -329,7 +277,7 @@
 
   #virtualclassCont.congrea .ui-widget-content.ui-memblist-content:before,
   #virtualclassCont.congrea .ui-chatroom:before {
-    display: none;
+    color: #524d4d;
   }
 
   #virtualclassCont.congrea.student #appSettingDetail .setting-heading {

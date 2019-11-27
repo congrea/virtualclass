@@ -4497,7 +4497,7 @@ span#usertab_text {
   cursor: pointer;
 }
 #virtualclassCont.congrea #fullScreenButton .fullScreen, #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
-  padding: 0.5625rem 1.125rem 0.8125rem 1.125rem;
+  padding: 0.6875rem 1.125rem 0.6875rem 1.125rem;
   line-height: 1.25rem;
   font-size: 1.25rem;
 }

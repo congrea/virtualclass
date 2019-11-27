@@ -824,14 +824,14 @@
 }
 
 #virtualclassCont.congrea #fullScreenButton span .icon-fullScreen:before {
-  content: "\e9a1";
+  content: "\e95e";
   font-weight: normal;
   font-family: 'icomoon';
-  font-size: 1.03125rem;
+  font-size: 1.25rem;
 }
 
 #virtualclassCont.congrea #fullScreenExitButton span .icon-exitScreen:before {
-  content: "\e9d8";
+  content: "\e99b";
   font-weight: normal;
   font-family: 'icomoon';
   font-size: 1.125rem;

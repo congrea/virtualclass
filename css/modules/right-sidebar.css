@@ -679,6 +679,7 @@ body {
 }
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
+  display: none;
   padding: 2px 4px;
   position: relative;
   border-radius: 3px !important;

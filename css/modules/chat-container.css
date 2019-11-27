@@ -299,7 +299,7 @@ span.icon-stdscreenImg[data-dcolor="blue"]::before {
 }
 
 .ui-memblist-usr .user-details .usern {
-  width: 55%;
+  width: 48%;
   float: left;
   font-size: 0.875rem;
   text-transform: capitalize;

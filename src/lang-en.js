@@ -432,7 +432,7 @@
     RaiseHand: 'raise hand',
     UserList: 'user list',
     uploading: 'Processing...',
-    userListHeader: 'Attendees',
+    userListHeader: 'Users ',
     commonChatHeader: 'Chat Room',
     teacherVideoHeader: 'Teacher Video',
     /* For Chrome */

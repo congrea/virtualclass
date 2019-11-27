@@ -2692,6 +2692,19 @@
           }
         }
       },
+
+      makeGraphResponsive() {
+        if (virtualclass.poll.pollState && virtualclass.poll.pollState.currScreen === 'stdPublishResult'
+          && virtualclass.poll.currResultView) {
+          let graphElement;
+          if (virtualclass.poll.currResultView === 'bar') {
+            graphElement = document.querySelector('#chartMenuCont #bar');
+          } else {
+            graphElement = document.querySelector('#chartMenuCont #pi');
+          }
+          if (graphElement) graphElement.click();
+        }
+      },
     };
   };
   window.poll = poll;

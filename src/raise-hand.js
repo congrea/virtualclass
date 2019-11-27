@@ -170,18 +170,18 @@
         controlContainer.style.pointerEvents = 'visible';
         // count++;
 
-        // const handbt = document.querySelector('#user_list .hand_bt');
-        // if (!handbt.classList.contains('highlight')) {
-        //   handbt.classList.add('highlight');
-        // }
+        const handbt = document.querySelector('#user_list .hand_bt');
+        if (!handbt.classList.contains('highlight')) {
+          handbt.classList.add('highlight');
+        }
 
-        // const text = document.querySelector('#user_list .hand_bt  #notifyText');
-        // text.innerHTML = count;
-        // const tooltip = document.querySelector('#user_list .hand_bt');
-        // if (!tooltip.classList.contains('congtooltip')) {
-        //   tooltip.classList.add('congtooltip');
-        // }
-        // tooltip.setAttribute('data-title', virtualclass.lang.getString('raiseHandNotify'));
+        const text = document.querySelector('#user_list .hand_bt  #notifyText');
+        text.innerHTML = count;
+        const tooltip = document.querySelector('#user_list .hand_bt');
+        if (!tooltip.classList.contains('congtooltip')) {
+          tooltip.classList.add('congtooltip');
+        }
+        tooltip.setAttribute('data-title', virtualclass.lang.getString('raiseHandNotify'));
       },
       _raiseHand(userid) {
         this.rhCountR++;

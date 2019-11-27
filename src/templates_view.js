@@ -267,7 +267,7 @@ this["JST"]["dest_temp/templates/chat/chatuser.hbs"] = Handlebars.template({"1":
 this["JST"]["dest_temp/templates/chat/stickycont.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return " <li class=\"vmchat_bar_button active\" id=\"user_list\"><a class=\"inner_bt congtooltip\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"userList",{"name":"getString","hash":{},"data":data}))
-    + "\"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span>  </a>  </li> ";
+    + "\"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span>  </a><a class=\"rHandNotify hand_bt\"><span id=\"rhtab_text\"><span id=\"notifyText\" class=\"cgText\"></span></span></a></li> ";
 },"3":function(container,depth0,helpers,partials,data) {
     return " <li class=\"vmchat_bar_button congtooltip active\" id=\"user_list\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"userList",{"name":"getString","hash":{},"data":data}))

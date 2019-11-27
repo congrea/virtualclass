@@ -674,27 +674,27 @@ body {
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt.highlight {
   display: block;
-  border: solid white 1px;
   border-radius: 7px;
   color: #00ff10 !important;
 }
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
-  width: auto;
-  height: 22px;
-  right: 5px;
+  padding: 2px 4px;
   position: relative;
   border-radius: 3px !important;
-  bottom: 39px;
+  bottom: 41px;
+  font-size: 11px;
 }
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt.highlight {
-  background: rgba(251, 20, 20, 0.92) none !important;
-  border-width: 0 !important;
-  color: #fff !important;
+  padding: 2px 4px;
+  position: absolute;
+  border-radius: 3px !important;
+  bottom: 24px;
+  left: 64px;
+  background-color: #eb0000 !important;
   font-size: 11px;
-  padding: 1px 6px;
-  font-weight: 500;
+  line-height: inherit;
 }
 
 #virtualclassCont.congrea #rightSubContainer .hand_bt.congtooltip:hover:after {

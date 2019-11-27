@@ -3749,8 +3749,6 @@
 /*}*/
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
-  width: 29px;
-  height: 30px;
   position: relative;
   float: right;
   padding: 3px 7px;
@@ -3762,7 +3760,6 @@
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt.highlight {
   display: block;
-  border: solid white 1px;
   border-radius: 7px;
   color: #00ff10 !important;
 
@@ -3793,12 +3790,8 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
-  width: 26px;
-  height: 27px;
-  right: 18px;
   position: relative;
   bottom: 33px;
-
 }
 
 /* Handle edge browser issue start **/

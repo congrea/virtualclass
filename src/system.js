@@ -192,12 +192,10 @@
       const addAttr = document.getElementById('virtualclassCont');
       const vendor = this.mybrowser.detection();
       const bname = vendor[0];
-      const bversion = parseFloat(vendor[1]);
+      let bversion = parseFloat(vendor[1]);
       this.mobile = this.isMobile();
       this.mybrowser.name = bname;
       this.mybrowser.version = bversion;
-      console.log('====> is browser name ' + this.mybrowser.name);
-      console.log('====> is browser version ' + this.mybrowser.version);
       this.checkBrowserFunctions(bname, bversion);
       if (this.mobile) {
         console.log('====> is mobile true');
@@ -206,7 +204,8 @@
         addAttr.setAttribute('device', 'mobile');
         if (bname === 'Chrome') {
           if (bversion < 40) {
-            virtualclass.error.push(virtualclass.error.push(getString));
+            this.mybrowser.notSuppport = true;
+            virtualclass.error.push(virtualclass.lang.getString('commonBrowserIssue', [bname, bversion]));
             virtualclass.vutil.initDisableVirtualClass();
           } else if (bversion >= 40 && bversion < 67) {
             // DO : Disable Audio Controls and Cam Support for this user

@@ -230,10 +230,12 @@ const preCheck = {
         const errorMsg = (virtualclass.error.length > 1) ? (virtualclass.error.join('<br />')) : virtualclass.error[0];
         virtualclass.precheck.createMessage(msgSelector, errorMsg, 'error');
       }
+      if (!virtualclass.system.mybrowser.notSuppport) {
+        const msg = virtualclass.lang.getString('congreainchrome');
+        virtualclass.precheck.createMessage(msgSelector, msg, 'information');
+        virtualclass.precheck.initHandler((`${preCheck} #${this.curr}Buttons .next`), this.curr);
+      }
 
-      const msg = virtualclass.lang.getString('congreainchrome');
-      virtualclass.precheck.createMessage(msgSelector, msg, 'information');
-      virtualclass.precheck.initHandler((`${preCheck} #${this.curr}Buttons .next`), this.curr);
     },
   },
 

@@ -29,13 +29,14 @@
       currResultView: 'bar',
       tStamp: [],
       pollState: {},
-      exportfilepath: window.exportfilepath,
+      // exportfilepath: window.exportfilepath,
       uniqueUsers: [],
       init() {
         this.pollState = {};
         virtualclass.previrtualclass = 'virtualclassPoll';
         virtualclass.previous = virtualclass.previrtualclass;
-        const urlquery = virtualclass.vutil.getUrlVars(exportfilepath);
+        // const urlquery = virtualclass.vutil.getUrlVars(exportfilepath);
+        const urlquery = virtualclass.vutil.getUrlVars(window.webapi);
         this.cmid = urlquery.cmid;
         if (this.timer) {
           clearInterval(this.timer);
@@ -2689,6 +2690,19 @@
               }
             }
           }
+        }
+      },
+
+      makeGraphResponsive() {
+        if (virtualclass.poll.pollState && virtualclass.poll.pollState.currScreen === 'stdPublishResult'
+          && virtualclass.poll.currResultView) {
+          let graphElement;
+          if (virtualclass.poll.currResultView === 'bar') {
+            graphElement = document.querySelector('#chartMenuCont #bar');
+          } else {
+            graphElement = document.querySelector('#chartMenuCont #pi');
+          }
+          if (graphElement) graphElement.click();
         }
       },
     };

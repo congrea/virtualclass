@@ -223,8 +223,6 @@ if($info) {
     wbUser.meetingMode =  '<?php echo $meetingmode; ?>';
     wbUser.anyonepresenter =  '0';
     window.whiteboardPath =  '<?php echo $whiteboardpath; ?>';
-    window.importfilepath = "<?php echo $whiteboardpath . "impport.php" ?>";
-    window.exportfilepath = "<?php echo $whiteboardpath . "export.php" ?>";
     window.webapi = "<?php echo $whiteboardpath ."webapi.php?cmid=".$cmid; ?>";
     window.congCourse =  "<?php echo $cmid ?>";
 </script>

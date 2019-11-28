@@ -397,6 +397,9 @@
                     virtualclass.vutil.sendSpeedByMobile(1);
                   }
                 }
+                if (virtualclass.currApp === 'Poll') {
+                  virtualclass.poll.makeGraphResponsive();
+                }
               }
             }
 

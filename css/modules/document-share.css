@@ -785,7 +785,8 @@
 
 #virtualclassCont.congrea #listdocs {
   overflow: auto;
-  height: calc(100vh - 150px);
+  width: 100%;
+  height: 100%;
   border: 1px solid #ddd;
   border-bottom-width: 0;
   border-radius: 5px 5px 0 0;
@@ -812,12 +813,6 @@
 
 #virtualclassCont.congrea .linknotes[data-status='0'] .mainpreview {
   pointer-events: none;
-}
-
-@media (max-height: 768px) {
-  #virtualclassCont.congrea #listdocs {
-    height: calc(100vh - 145px);
-  }
 }
 
 @media (max-width: 1300px) {

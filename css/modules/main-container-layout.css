@@ -83,6 +83,14 @@
 }
 
 @media only screen and (min-device-width: 340px) and (max-device-width: 950px) {
+  #virtualclassCont.congrea #pptListContainer {
+    height: calc(100vh - var(--vh-offset) - 155px);
+  }
+
+  #virtualclassCont.congrea.fullScreenMode #pptListContainer {
+    height: calc(100vh - 155px);
+  }
+
   #virtualclassCont.congrea #virtualclassAppRightPanel {
     height: 100%;
   }

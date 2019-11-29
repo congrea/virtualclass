@@ -4860,4 +4860,5 @@ span#usertab_text {
 #virtualclassCont.congrea #virtualclassAppRightPanel #rightBarHeader {
   background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%) !important;
   border-left: 1px solid;
+  height: 2.75rem;
 }

@@ -824,17 +824,17 @@
 }
 
 #virtualclassCont.congrea #fullScreenButton span .icon-fullScreen:before {
-  content: "\e95e";
-  font-weight: normal;
+  content: "\e99e";
+  font-weight: 600;
   font-family: 'icomoon';
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 #virtualclassCont.congrea #fullScreenExitButton span .icon-exitScreen:before {
-  content: "\e99b";
-  font-weight: normal;
+  content: "\e9d9";
+  font-weight: 600;
   font-family: 'icomoon';
-  font-size: 1.125rem;
+  font-size: 1rem;
 }
 
 #virtualclassCont.congrea[data-currapp = 'Whiteboard'] #addNewPage span:before {

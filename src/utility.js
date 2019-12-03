@@ -700,18 +700,6 @@
     },
 
     initOnBeforeUnload(bname) {
-      // debugger;
-      let unloading = false;
-      window.addEventListener('beforeunload', () => {
-        unloading = true;
-        virtualclass.recorder.recDataSend();
-      });
-
-      window.addEventListener('unload', () => {
-        if (!unloading) {
-          virtualclass.recorder.recDataSend();
-        }
-      });
       if (bname === 'iOS') {
         document.body.onunload = function () {
           virtualclass.vutil.beforeLoad();
@@ -732,6 +720,8 @@
         };
       }
     },
+
+
     isPlayMode() { // TODO
       return (window.wbUser.virtualclassPlay == true);
     },

@@ -1099,25 +1099,25 @@ this["JST"]["dest_temp/templates/precheck.hbs"] = Handlebars.template({"compiler
 },"useData":true});
 
 this["JST"]["dest_temp/templates/recordingButton.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"recording\" class=\"show statusonly congtooltip\" data-title=\"Recording Stopped\" data-recording=\"off\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Recording</span></div></div> ";
+    return " <div id=\"recording\" class=\"show statusonly congtooltip\" data-title=\"Recording Stopped\" data-recording=\"off\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Rec</span></div></div> ";
 },"3":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.eleven : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.program(6, data, 0),"data":data})) != null ? stack1 : "");
 },"4":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"recording\" class=\"show congtooltip\" data-title=\"Recording Stopped\" data-recording=\"off\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Recording</span></div></div> ";
+    return " <div id=\"recording\" class=\"show congtooltip\" data-title=\"Recording Stopped\" data-recording=\"off\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Rec</span></div></div> ";
 },"6":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.twenty : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.program(9, data, 0),"data":data})) != null ? stack1 : "");
 },"7":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"recording\" class=\"show statusonly congtooltip\" data-title=\"Recording Started\" data-recording=\"on\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Recording</span></div></div> ";
+    return " <div id=\"recording\" class=\"show statusonly congtooltip\" data-title=\"Recording Started\" data-recording=\"on\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Rec</span></div></div> ";
 },"9":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.twentyone : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"10":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"recording\" class=\"show congtooltip\" data-title=\"Recording Started\" data-recording=\"on\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Recording</span></div></div> ";
+    return " <div id=\"recording\" class=\"show congtooltip\" data-title=\"Recording Started\" data-recording=\"on\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Rec</span></div></div> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 

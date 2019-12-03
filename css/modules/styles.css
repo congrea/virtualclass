@@ -2484,7 +2484,7 @@
   border-top: none !important;
   width: 100%;
   border-bottom-left-radius: 5px;
-  min-height: 44px !important;
+  min-height: 2.75rem !important;
 }
 
 #virtualclassCont.congrea.student #layoutPoll #navigator,
@@ -4860,5 +4860,4 @@ span#usertab_text {
 #virtualclassCont.congrea #virtualclassAppRightPanel #rightBarHeader {
   background-image: linear-gradient(to bottom, #021317 0%,#2c393d 100%) !important;
   border-left: 1px solid;
-  height: 2.75rem;
 }

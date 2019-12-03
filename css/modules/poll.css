@@ -39,7 +39,7 @@
 }
 
 #virtualclassCont.congrea.teacher #virtualclassPoll #layoutPoll.bootstrap .pollNavBar li {
-  margin-top: 10px;
+  margin-top: 0.625rem;
 }
 
 #virtualclassCont.congrea.student .bootstrap .pollNavBar li {
@@ -423,6 +423,10 @@
   table-layout: fixed;
   display: table;
   z-index: 8;
+}
+
+#virtualclassCont.congrea.teacher.Safari #layoutPollBody .table-responsive .pollList thead  {
+  width: 100%;
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .teacherTableHeader .pollList thead {

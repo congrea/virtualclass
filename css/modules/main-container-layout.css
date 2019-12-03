@@ -180,7 +180,11 @@
     height: calc(100% - 48px);
   }
 
-  #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassQuiz #bootstrapQzCont {
+  #virtualclassCont.congrea[device="mobile"] #virtualclassAppLeftPanel #virtualclassQuiz #bootstrapQzCont {
+    height: 100%;
+  }
+
+  #virtualclassCont.congrea.student #virtualclassAppLeftPanel #virtualclassQuiz #bootstrapQzCont {
     height: 100%;
   }
 

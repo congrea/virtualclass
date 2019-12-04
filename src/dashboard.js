@@ -126,11 +126,7 @@ var dashboard = {
         }
       }
     } else {
-      if (app) {
-        if (!app.classList.contains('dashboard')) {
-          app.classList.add('dashboard');
-        }
-      }
+      if (app && !app.classList.contains('dashboard')) app.classList.add('dashboard');
 
       virtualclass.dashboard.init(virtualclass.currApp);
       this.classList.add('clicked');
@@ -179,6 +175,8 @@ var dashboard = {
       if (virtualclass.currApp === 'DocumentShare') {
         if (!virtualclass.dts.noteExist()) {
           this.readyDashboard();
+          const virtualclassApp = document.getElementById('virtualclassApp');
+          if (virtualclassApp) virtualclassApp.classList.add('dashboard');
           // console.log('====> DOCUMENT SHARE SUMAN 10.00');
         } else {
           // console.log('====> DOCUMENT SHARE SUMAN 10.01');

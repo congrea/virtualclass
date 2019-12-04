@@ -1663,7 +1663,6 @@
     },
 
     initRecordViewHandler() {
-      console.log('Send recording view data 0');
       let alreadySend = false;
       window.addEventListener('unload', () => {
         if (!alreadySend) {
@@ -1675,6 +1674,7 @@
 
       document.addEventListener('visibilitychange', () => {
         if (!alreadySend && document.visibilityState === 'hidden') {
+          // sendData('visibilitychange___');
           virtualclass.recorder.recDataSend();
           console.log('Send recording view data 2');
           alreadySend = true;
@@ -1687,12 +1687,11 @@
       // To detect the back press button event on chrome of Android-Mobile
       // Using jQuery Plugin http://www.vvaves.net/jquery-backDetect/
       if (virtualclass.system.device === 'mobTab') {
-        $('body').backDetect(() => {
+        backDection.backDetect('#virtualclassCont', () => {
           if (!alreadySend) {
             virtualclass.recorder.recDataSend();
-            console.log('Send recording view data 3');
             alreadySend = true;
-            setTimeout(() => { virtualclassSetting.myWindowSuman.close(); }, 500);
+            setTimeout(() => { virtualclassSetting.congreaWindow.close(); }, 500);
           }
         });
       }

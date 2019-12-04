@@ -369,6 +369,7 @@
 
         var chat_div = document.getElementById("chat_div");
         var rightSidebarBtn = document.getElementById("sidebarButton");
+
         if(rightSidebarBtn != null) {
           rightSidebarBtn.addEventListener('click', function () {
             var elem = document.getElementById("virtualclassApp");
@@ -414,8 +415,6 @@
               virtualclass.zoom.doOpposite = true;
               virtualclass.zoom.triggerFitToScreen();
             }
-            virtualclass.stickybarWidth();
-            virtualclass.chatBarTabWidth();
           });
         }
 
@@ -1419,7 +1418,7 @@
         const contPara = { whiteboardPath };
 
         /** Registering the partials which have setting paramter * */
-        const initTemplates = ['precheck', 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting', 'appSettingDetail', 'joinclass'];
+        const initTemplates = ['precheck', 'rightBarHeader', 'teacherVideo', 'audioWidget', 'appTools', 'popupCont', 'appToolsMeeting', 'appSettingDetail', 'joinclass'];
 
         const isControl = { hasControl: roles.hasControls() };
         let context;
@@ -1434,6 +1433,8 @@
           } else if (initTemplates[i] === 'teacherVideo' || initTemplates[i] === 'appTools'
             || initTemplates[i] === 'appSettingDetail') {
             context = isControl;
+          } else if (initTemplates[i] === 'rightBarHeader') {
+            context = { std: roles.isStudent() };
           }
           this.makeReadyTemplate(initTemplates[i], context);
         }
@@ -1536,10 +1537,10 @@
         document.querySelector('#stickybar').style.width = leftBarWidth;
       },
 
-      chatBarTabWidth() {
-        const rightBarWidth = (document.querySelector('#virtualclassApp #virtualclassAppRightPanel').offsetWidth) + 'px';
-        document.querySelector('.chatBarTab').style.width = rightBarWidth;
-      },
+      // chatBarTabWidth() {
+      //   const rightBarWidth = (document.querySelector('#virtualclassApp #virtualclassAppRightPanel').offsetWidth) + 'px';
+      //   document.querySelector('.chatBarTab').style.width = rightBarWidth;
+      // },
 
       removeSharingClass() {
         const virtualclassCont = document.querySelector('#virtualclassCont');

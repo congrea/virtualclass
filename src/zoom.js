@@ -213,7 +213,7 @@
         if (fitElement === 'fitToScreen') {
           if (fitScreenTooltip) {
             fitScreenTooltip.dataset.currstate = 'fittoscreen';
-            const congtooltip = document.querySelector('#virtualclassAppLeftPanel .fitScreen .congtooltip');
+            const congtooltip = document.querySelector('#virtualclassAppLeftPanel .fitScreen.congtooltip');
             congtooltip.dataset.title = 'Fit to Screen';
           }
 
@@ -223,7 +223,7 @@
         } else {
           if (fitScreenTooltip) {
             fitScreenTooltip.dataset.currstate = 'fittopage';
-            const congtooltip = document.querySelector('#virtualclassAppLeftPanel .fitScreen .congtooltip');
+            const congtooltip = document.querySelector('#virtualclassAppLeftPanel .fitScreen.congtooltip');
             congtooltip.dataset.title = virtualclass.lang.getString('fitToPage');
           }
 

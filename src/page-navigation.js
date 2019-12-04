@@ -466,7 +466,7 @@
         const addCont = document.createElement('span');
         addCont.id = 'addNewPage';
         addCont.className = 'newPage';
-        cont.appendChild(addCont);
+        cont.insertBefore(addCont,cont.firstChild);
 
         const add = document.createElement('span');
         addCont.appendChild(add);

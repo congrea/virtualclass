@@ -161,7 +161,7 @@
 }
 
 /* For Tablets */
-@media only screen
+/* @media only screen
 and (min-device-width: 768px)
 and (max-device-width: 1024px) {
   #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #chat_div {
@@ -191,7 +191,7 @@ and (max-device-width: 1024px) {
   #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="one"] #congreaChatMainCont {
     height: calc(100% - 288px);
   }
-}
+} */
 
 #virtualclassCont.congrea.meetingmode .videoCont.selfVideo {
   z-index: 2000;

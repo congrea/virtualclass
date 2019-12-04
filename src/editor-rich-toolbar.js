@@ -42,11 +42,11 @@
       const fontSize = this.makeFontSizeDropdown_();
       const color = this.makeColorDropdown_();
       const toolbarOptions = [
-        utils.elt('div', [font], { class: 'vceditor-btn-group close' }),
+        utils.elt('div', [font], { class: 'vceditor-btn-group close editor-font' }),
         utils.elt('div', [fontSize], { class: 'vceditor-btn-group close' }),
         utils.elt('div', [color], { class: 'vceditor-btn-group close' }),
       ];
-
+   
       const styleGroup = utils.elt('div', null, { class: 'vceditor-btn-style-group close' });
       const styleGroupInner = utils.elt('div', [self.makeButton_('bold'), self.makeButton_('italic'), self.makeButton_('underline'), self.makeButton_('strike', 'strikethrough')], { class: 'vceditor-btn-group style-group' });
       styleGroup.appendChild(styleGroupInner);
@@ -71,7 +71,7 @@
       toolbarOptions.push(undo);
 
       if (self.imageInsertionUI) {
-        toolbarOptions.push(utils.elt('div', [self.makeButton_('insert-image')], { class: 'vceditor-btn-group' }));
+        toolbarOptions.push(utils.elt('div', [self.makeButton_('insert-image')], { class: 'vceditor-btn-group vceditor-btn-image' }));
       }
 
       const toolbarWrapper = utils.elt('div', toolbarOptions, { class: 'vceditor-toolbar-wrapper' });

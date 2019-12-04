@@ -783,13 +783,10 @@
   opacity: 0.5;
 }
 
-#virtualclassCont.congrea[data-currapp='DocumentShare'] #congdashboard .modal-header {
-  height: 44px;
-}
-
 #virtualclassCont.congrea #listdocs {
   overflow: auto;
-  height: calc(100vh - 150px);
+  width: 100%;
+  height: 100%;
   border: 1px solid #ddd;
   border-bottom-width: 0;
   border-radius: 5px 5px 0 0;
@@ -803,7 +800,7 @@
 }
 
 #virtualclassCont.congrea #congdashboard.modal .modal-header {
-  margin-left: 3px;
+  margin-left: 1px;
 }
 
 #virtualclassCont.congrea #docsUploadMsz {
@@ -816,12 +813,6 @@
 
 #virtualclassCont.congrea .linknotes[data-status='0'] .mainpreview {
   pointer-events: none;
-}
-
-@media (max-height: 768px) {
-  #virtualclassCont.congrea #listdocs {
-    height: calc(100vh - 145px);
-  }
 }
 
 @media (max-width: 1300px) {
@@ -985,21 +976,42 @@
   display: none
 }
 
-#virtualclassCont.congrea #docShareNav {
-  display: none
+#virtualclassCont.congrea #docShareNav #addNewPage {
+  padding: 11px 12px 11px 12px;
+  border-radius: 20px;
+  box-shadow: 0px 2px 5px 1px #c3c3c3
 }
 
-#virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav, #virtualclassCont.congrea[data-currapp = 'Whiteboard'].teacher #docShareNav {
+#virtualclassCont.congrea #docShareNav #addNewPage {
+  background-color: #f7f7f7;
+  position: absolute;
+  top: 45px;
+  right: 20px;
+}
+
+#virtualclassCont.congrea .openRightbar #docShareNav #addNewPage:hover {
+  background-image: linear-gradient(to bottom, #fdfdfd 0%,#eaeaea 100%) !important;
+}
+
+#virtualclassCont.congrea[data-currapp='DocumentShare'].teacher #docShareNav,
+#virtualclassCont.congrea[data-currapp='Whiteboard'].teacher #docShareNav,
+#virtualclassCont.congrea[data-currapp='DocumentShare'].student #docShareNav,
+#virtualclassCont.congrea[data-currapp='Whiteboard'].student #docShareNav {
   display: block;
   position: absolute;
-  right: 109px;
-  bottom: 0px;
-  padding: 12.5px 16px 13.5px 16px;
+  right: 0;
+  top: 12px;
   z-index: 1005;
   font-weight: 300;
 }
 
-#virtualclassCont.congrea[data-currapp = 'DocumentShare'].teacher #docShareNav {
+#virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav,
+#virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
+  top: 5px;
+}
+
+#virtualclassCont.congrea[data-currapp='DocumentShare'].teacher .dashboard #docShareNav,
+#virtualclassCont.congrea[data-currapp='DocumentShare'].teacher #docShareNav #addNewPage {
   display: none;
 }
 
@@ -1015,19 +1027,9 @@
   font-size: 14px;
 }
 
-#virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav,
-#virtualclassCont.congrea[data-currapp = 'Whiteboard'].student #docShareNav {
-  display: block;
-  position: absolute;
-  bottom: 0px;
-  right: 6.875rem !important;
-  padding: 0.7812rem 1.125rem 0.8437rem 1.125rem;
-  z-index: 1005;
-}
-
-#virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav {
+/* #virtualclassCont.congrea[data-currapp = 'DocumentShare'].student #docShareNav {
   display: none;
-}
+} */
 
 #virtualclassCont.congrea.teacher #dcPaging {
   display: none;
@@ -1035,22 +1037,24 @@
 
 #virtualclassCont.congrea.playMode[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea.playMode[data-currapp = 'Whiteboard'].student #docShareNav {
   right: 58px !important;
+  bottom: 3.75rem;
   z-index: 9;
 }
 
 .congrea #stdPageNo {
-  color: white;
-  font-size: 0.875rem;
+  color: #000;
+  font-size: 0.75rem;
 }
 
 .congrea #totalPages {
-  color: #fff;
-  font-size: 14px;
-  margin-right: 13px;
+  color: #ffffff;
+  font-size: 0.75rem;
+  margin-right: 0.8125rem;
 }
 
-#virtualclassCont.congrea.student #totalPages, #virtualclassCont.congrea[data-currapp = 'DocumentShare'] #totalPages {
-  margin-right: 0;
+#virtualclassCont.congrea.student #totalPages, #virtualclassCont.congrea.student[data-currapp = 'DocumentShare'] #totalPages {
+  margin-right: 0.8125rem;
+  color: #000;
 }
 
 #virtualclassCont.congrea[data-currapp = 'DocumentShare'] .showZoom #docShareNav,
@@ -1061,28 +1065,6 @@
 
 #virtualclassCont.congrea.student #teacherCurrPage {
   display: none;
-}
-
-@media (max-width: 1150px) {
-
-  .congrea #totalPages {
-    font-size: 0.875rem;
-    margin-right: 10px;
-  }
-
-  #virtualclassCont.congrea #dcPaging {
-    margin-left: 10px;
-    margin-right: 20px;
-  }
-
-  #virtualclassCont.congrea .noteIndex {
-    margin-left: 10px;
-    font-size: 12px;
-  }
-
-  #virtualclassCont.congrea #dcPaging .active {
-    font-size: 12px;
-  }
 }
 
 #virtualclassCont[data-currapp="DocumentShare"] .canvasWrapper .whiteboards {
@@ -1107,10 +1089,15 @@
 
 #virtualclassCont.congrea .pageHead {
   position: relative;
-  color: #fff;
-  margin-right: 10px;
-  font-size: 0.875rem;
+  color: #ffffff;
+  margin-right: 6px;
+  font-size: 0.75rem;
 }
+
+#virtualclassCont.congrea.student .pageHead {
+  color: #000;
+}
+
 
 #virtualclassCont.congrea #ancCont, #virtualclassCont.congrea #pageAnc {
   display: inline;
@@ -1122,9 +1109,16 @@
   cursor: pointer;
 }
 
+#virtualclassCont.congrea .icon-newPage.congtooltip:hover::after {
+  top: -5px;
+  right: 35px;
+  left: unset;
+  bottom: unset !important;
+}
+
 #virtualclassCont.congrea #pageAnc {
-  color: #fff;
-  font-size: 14px;
+  color: #ffffff;
+  font-size: 0.75rem;
 }
 
 #virtualclassCont.congrea .icon-newPage:after {

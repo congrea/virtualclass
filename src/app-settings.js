@@ -22,9 +22,15 @@
               virtualclassAppRight.classList.remove('techVideoShow');
               document.querySelector("#techVideo").classList.remove("active");
             }
+            const rightBarHeader = document.querySelector('#rightBarHeader');
+            if (rightBarHeader.classList.contains('active')) {
+              rightBarHeader.classList.remove('active');
+              rightBarHeader.classList.add('deactive');
+            }
             if (toggle.classList.contains('chatActive')) {
               toggle.classList.remove('chatActive');
               toggle.classList.add('settingActive');
+              toggle.classList.add('active');
               chat.classList.remove('active');
               chat.classList.add('deactive');
               setting.classList.add('active');
@@ -36,21 +42,21 @@
                 commonChatTab.classList.remove('active');
               }
             } else {
-              toggle.classList.add('chatActive');
-              toggle.classList.remove('settingActive');
-              chat.classList.remove('deactive');
-              chat.classList.add('active');
-              setting.classList.remove('active');
-              setting.classList.add('deactive');
+              // toggle.classList.add('chatActive');
+              // toggle.classList.remove('settingActive');
+              // chat.classList.remove('deactive');
+              // chat.classList.add('active');
+              // setting.classList.remove('active');
+              // setting.classList.add('deactive');
 
-              const memberList = document.querySelector('.congrea #memlist.enable');
-              if (memberList) {
-                privateChatTab.classList.add('active');
-              }
-              const commonChat = document.querySelector('.congrea #chatrm.enable');
-              if (commonChat) {
-                commonChatTab.classList.add('active');
-              }
+              // const memberList = document.querySelector('.congrea #memlist.enable');
+              // if (memberList) {
+              //   privateChatTab.classList.add('active');
+              // }
+              // const commonChat = document.querySelector('.congrea #chatrm.enable');
+              // if (commonChat) {
+              //   commonChatTab.classList.add('active');
+              // }
             }
           });
         }

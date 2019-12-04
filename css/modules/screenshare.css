@@ -137,37 +137,36 @@
   text-align: center;
 }
 
-/*#virtualclassCont.congrea #virtualclassScreenShareLocal, #virtualclassCont.congrea #virtualclassScreenShare{*/
-/*overflow : auto;*/
-/*}*/
-
-/*#virtualclassCont.congrea.student #virtualclassScreenShareLocal{*/
-/*overflow-x : auto;*/
-/*overflow-y : auto;*/
-/*}*/
-
 #virtualclassCont.congrea.student #virtualclassScreenShareLocal.scrollX {
   overflow-x: scroll;
 }
 
-/*#virtualclassCont.congrea.playMode #virtualclassScreenShare {*/
-/*height: 93vh;*/
-/*}*/
+#virtualclassCont.congrea #virtualclassScreenShare #screenController .share {
+  right: 350px;
+  top: 59px;
+  position: fixed;
+}
+
+#virtualclassCont.congrea #virtualclassScreenShare #screenController .share.congtooltip:hover::after {
+  right: 50px;
+  top: 6px;
+  bottom: unset;
+}
 
 #virtualclassCont.congrea #screenController .share button {
-  right: 572px;
-  color: #fff;
-  border: none;
-  position: fixed;
-  bottom: 0px;
-  z-index: 1001;
+  background-image: linear-gradient(to bottom, #f7f7f7 0%,#f7f7f7 100%) !important;
+  border: 0.5px solid #f2f2f2;
   cursor: pointer;
-  background-color: transparent;
-  padding: 14px;
-  border-right: 1px solid black;
+  padding: 7.5px 8px 7.5px 8px;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
-  border-radius: 0px;
+  box-shadow: 0 3px 3px -3px #585858;
+  border-radius: 50%;
+}
+
+#virtualclassCont.congrea #screenController .share button:hover {
+  background-image: linear-gradient(to bottom, #eaeaea 0%,#eaeaea 100%) !important;
+  border: .5px solid #e0e0e0;
 }
 
 #virtualclassCont.congrea[data-recording="on"] #screenController .share button,
@@ -175,62 +174,35 @@
   left: 295px;
 }
 
-#virtualclassCont.congrea #screenController .share button:hover {
-  background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%) !important;
-}
-
 #virtualclassCont.congrea #screenController .share button:before {
-  content: "\e98b";
+  content: "\e94d";
   font-family: 'icomoon';
-  font-size: 16px;
-  color: #09b208;
-  padding-right: 13px;
-  float: left;
+  font-size: 21px;
+  color: #868686;
 }
 
-/*#virtualclassCont.congrea.studentScreenSharing[data-currapp='ScreenShare'] #congreaChatCont span.icon-stdscreenImg{*/
-/*pointer-events: none;*/
-/*opacity: 0.5;*/
-/*}*/
-
-/*#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="red"]:before{*/
-/*color:#FF0000;*/
-/*}*/
-
-/*#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="orange"]:before{*/
-/*color:#FF8C00;*/
-/*}*/
-
-/*#virtualclassCont.congrea .controls .icon-stdscreenImg[data-dcolor="green"]:before{*/
-/*color:#006400;*/
-/*}*/
-
-/*#virtualclassCont.congrea #chat_div .controls span.enable.icon-stdscreenImg[data-dcolor="nosupport"]{*/
-/*pointer-events : none;*/
-/*opacity : 0.5;*/
-/*}*/
+#virtualclassCont.congrea #screenController .share.shareToAll button:before {
+  content: "\e94e";
+  font-family: 'icomoon';
+  font-size: 21px;
+  color: #292929;
+}
 
 #virtualclassCont.congrea #stopScreenShare button {
-  right: 427px;
-  color: #fff;
-  border: none;
-  position: fixed;
-  bottom: 0px;
-  z-index: 1001;
+  background-image: linear-gradient(to bottom, #f7f7f7 0%,#f7f7f7 100%) !important;
+  color: #000;
+  border: 0.5px solid #f2f2f2;
   cursor: pointer;
   background-color: transparent;
-  padding: 14px;
+  padding: 8px 7.5px 7px 8.5px;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
-  border-radius: 0px;
+  border-radius: 50%;
+  box-shadow: 0 3px 3px -3px #585858;
 }
 
-#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #stopScreenShare button {
-  right: 108px;
-}
-
-#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #screenController .share button {
-  right: 253px;
+#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #screenController .share {
+  right: 30px;
 }
 
 #virtualclassCont.congrea[data-recording="on"] #stopScreenShare button, #virtualclassCont.congrea[data-recording="off"] #stopScreenShare button {
@@ -244,16 +216,15 @@
 }
 
 #virtualclassCont.congrea #stopScreenShare button:hover {
-  background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%) !important;
+  background-image: linear-gradient(to bottom, #eaeaea 0%,#eaeaea 100%) !important;
+  border: .5px solid #e0e0e0;
 }
 
 #virtualclassCont.congrea #stopScreenShare button:before {
-  content: "\e98d";
+  content: "\e9d4";
   font-family: 'icomoon';
-  font-size: 16px;
-  color: red;
-  padding-right: 10px;
-  float: left;
+  font-size: 21px;
+  color: #5a5a5a;
 }
 
 @-moz-document url-prefix() {
@@ -270,10 +241,22 @@
   display: none;
 }
 
-.teacher[data-currapp='ScreenShare'] #stopScreenShare{
+#virtualclassCont[data-currapp='ScreenShare'].teacher #stopScreenShare {
   display: block;
+  right: 350px;
+  top: 7px;
+  position: fixed;
 }
 
+#virtualclassCont[data-currapp='ScreenShare'].teacher #virtualclassApp.collapsedRightbar #stopScreenShare {
+  right: 30px;
+}
+
+#virtualclassCont[data-currapp='ScreenShare'] #stopScreenShare.congtooltip:hover::after {
+  right: 50px;
+  top: 6px;
+  bottom: unset;
+}
 
 /*#virtualclassCont video#virtualclassScreenShareLocalVideo {*/
   /*width: 100%;*/

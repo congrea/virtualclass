@@ -1,7 +1,7 @@
 <div id="virtualclassAppFooterPanel" class="footerBar">
     <div id="stickybar" class="maximize something-happend">
-        <div id="stopScreenShare" class="ss" data-title="{{getString 'ssStop'}}">
-          <button type="button"> {{getString 'ssBtn'}}</button>
+        <div id="stopScreenShare" class="ss congtooltip" data-title="{{getString 'ssStop'}}">
+          <button type="button"> </button>
         </div>
 
         <div id="tabs" class="tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all">
@@ -51,7 +51,7 @@
             </span>
             </div>
         </div>
-        <div id="docShareNav"></div>
+        {{> audioWidget}}
         <div id="fullScreenButton">
             <span class="congtooltip fullScreen" data-title="Full Screen"><i class="icon-fullScreen cgIcon"></i></span>
         </div>
@@ -59,5 +59,7 @@
             <span class="congtooltip" data-title="Exit Full Screen"><i class="icon-exitScreen cgIcon"></i></span>
         </div>
     </div>
-
+    <div id="stickycontainer">
+        
+    </div>
 </div>

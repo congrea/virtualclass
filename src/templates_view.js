@@ -105,9 +105,7 @@ this["JST"]["dest_temp/templates/audioWidget.hbs"] = Handlebars.template({"compi
     + alias4(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))
     + "\" name=\"speakerPressonceAnch\"><span id=\"speakerPressingbtnIcon\" class=\"audioIcon silenceDetect cgIcon\" data-silence-detect=\"stop\"></span></a></li><li class=\"videoSwitchCont congtooltip\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"videooff",{"name":"getString","hash":{},"data":data}))
-    + "\" id=\"congCtrBar\"><a id=\"rightCtlr\"><span id=\"videoSwitch\" data-action=\"disable\" class=\"video on\"></span></a></li><li id=\"appSettingCtrl\" class=\"congtooltip chatActive\" data-title =\""
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"setting",{"name":"getString","hash":{},"data":data}))
-    + "\"><a id=\"appSettingCtrlAnchor\"><span class=\"setting-btn cgIcon\"></span></a></li></ul></div>";
+    + "\" id=\"congCtrBar\"><a id=\"rightCtlr\"><span id=\"videoSwitch\" data-action=\"disable\" class=\"video on\"></span></a></li></ul></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/chat/chatbox.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -267,27 +265,13 @@ this["JST"]["dest_temp/templates/chat/chatuser.hbs"] = Handlebars.template({"1":
 },"useData":true});
 
 this["JST"]["dest_temp/templates/chat/stickycont.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return " <li class=\"vmchat_bar_button active\" id=\"user_list\"><a class=\"inner_bt congtooltip\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userList",{"name":"getString","hash":{},"data":data}))
-    + "\"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span><span id=\"usertab_text\" class=\"cgText\">"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userList",{"name":"getString","hash":{},"data":data}))
-    + "</span></a><a class=\"rHandNotify hand_bt\"><span id=\"rhtab_text\"><span id=\"notifyText\" class=\"cgText\"></span></span></a></li> ";
+    return " <li class=\"vmchat_bar_button active\" id=\"user_list\"><a class=\"inner_bt congtooltip\" data-title=\""
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"userList",{"name":"getString","hash":{},"data":data}))
+    + "\"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span>  </a><a class=\"rHandNotify hand_bt\"><span id=\"rhtab_text\"><span id=\"notifyText\" class=\"cgText\"></span></span></a></li> ";
 },"3":function(container,depth0,helpers,partials,data) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
-
-  return " <li class=\"vmchat_bar_button congtooltip active\" id=\"user_list\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userList",{"name":"getString","hash":{},"data":data}))
-    + "\"><a class=\"inner_bt \"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span><span id=\"usertab_text\" class=\"cgText\">"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userList",{"name":"getString","hash":{},"data":data}))
-    + "</span></a></li> ";
-},"5":function(container,depth0,helpers,partials,data) {
-    return " ";
-},"7":function(container,depth0,helpers,partials,data) {
-    return " <li class=\"handRaise enable congtooltip \" id=\"congHr\" data-title =\""
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"RaiseHandStdEnabled",{"name":"getString","hash":{},"data":data}))
-    + "\"><a class=\"stdRaiseHand\"><span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\"></span></a></li> ";
+    return " <li class=\"vmchat_bar_button congtooltip active\" id=\"user_list\" data-title=\""
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"userList",{"name":"getString","hash":{},"data":data}))
+    + "\"><a class=\"inner_bt \"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span>  </a></li> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
@@ -297,11 +281,11 @@ this["JST"]["dest_temp/templates/chat/stickycont.hbs"] = Handlebars.template({"1
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + " <li class=\"vmchat_room_bt congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChat",{"name":"getString","hash":{},"data":data}))
-    + "\" id=\"chatroom_bt2\"><a class=\"inner_bt\"><span id=\"chatroom_icon\"><span class=\"icon-chatroom cgIcon\"></span></span><span id=\"chatroom_text\" class=\"cgText\">"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Chatroom",{"name":"getString","hash":{},"data":data}))
-    + "</span></a></li> "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "")
-    + " </ul>";
+    + "\" id=\"chatroom_bt2\"><a class=\"inner_bt\"><span id=\"chatroom_icon\"><span class=\"icon-chatroom cgIcon\"></span></span>  </a></li><li class=\"handRaise enable congtooltip \" id=\"congHr\" data-title =\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"RaiseHandStdEnabled",{"name":"getString","hash":{},"data":data}))
+    + "\"><a class=\"stdRaiseHand\"><span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\"></span></a></li><li id=\"appSettingCtrl\" class=\"congtooltip chatActive\" data-title =\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"setting",{"name":"getString","hash":{},"data":data}))
+    + "\"><a id=\"appSettingCtrlAnchor\"><span class=\"setting-btn cgIcon\"></span></a></li></ul>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/dashboard.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -466,9 +450,7 @@ this["JST"]["dest_temp/templates/editor/edenableall.hbs"] = Handlebars.template(
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"oncollaboration",{"name":"getString","hash":{},"data":data}))
     + "\"><a id=\"all"
     + alias4(((helper = (helper = helpers.type1 || (depth0 != null ? depth0.type1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type1","hash":{},"data":data}) : helper)))
-    + "ContainerAnch\" href=\"#\" data-action=\"enable\"><span class=\"cgText\"> "
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"collaborate",{"name":"getString","hash":{},"data":data}))
-    + "</span></a></div>";
+    + "ContainerAnch\" href=\"#\" data-action=\"enable\"></a></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/editor/editorrich.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -490,14 +472,14 @@ this["JST"]["dest_temp/templates/editor/messagebox.hbs"] = Handlebars.template({
 },"useData":true});
 
 this["JST"]["dest_temp/templates/footerBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+    var stack1;
 
-  return "<div id=\"virtualclassAppFooterPanel\" class=\"footerBar\"><div id=\"stickybar\" class=\"maximize something-happend\"><div id=\"stopScreenShare\" class=\"ss\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssStop",{"name":"getString","hash":{},"data":data}))
-    + "\"><button type=\"button\"> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssBtn",{"name":"getString","hash":{},"data":data}))
-    + "</button></div><div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\"><ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\"></ul></div><div id=\"networkStatusContainer\" class=\"connecting-room\"><div id=\"networkLatency\" class=\"congtooltip\"><div id=\"proposedSpeed\"><div id=\"svgContainer\"><svg version=\"1.1\" id=\"Capa_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 470.149 470.149\" style=\"enable-background:new 0 0 470.149 470.149;\" xml:space=\"preserve\"><path id=\"signalendpoint\" class=\"signal\" d=\"M202.775,383.825c0,17.567,14.167,31.733,31.733,31.733s31.733-14.167,31.733-31.733 c0-17.567-14.167-31.733-31.733-31.733C217.225,352.091,202.775,366.258,202.775,383.825z M236.775,383.825 c0,1.133-0.85,2.267-2.267,2.267c-1.133,0-2.267-0.85-2.267-2.267c0-1.133,0.85-2.267,2.267-2.267 C235.925,381.841,236.775,382.691,236.775,383.825z\"/><path id=\"mediumstepfst\" class=\"signalone\" d=\"M373.625,243.008c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-41.083-37.683-94.35-58.65-150.45-58.65c-55.25,0-108.233,20.4-149.033,57.517c-7.083,6.233-7.367,17-1.133,24.083 c6.233,7.083,17,7.367,24.083,1.133c34.567-31.45,79.617-48.733,126.367-48.733c47.317,0,92.65,17.567,127.217,49.583 C365.408,241.591,369.375,243.008,373.625,243.008z\"/><path id=\"lowstepfst\" class=\"signalfive\" d=\"M310.158,319.225c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083c-23.8-21.817-54.683-34-86.7-34 s-62.617,11.9-86.133,33.15c-7.083,6.233-7.367,17-1.133,24.083c6.233,7.083,17,7.367,24.083,1.133 c17.283-15.867,39.95-24.367,63.183-24.367c23.8,0,46.467,8.783,63.75,24.933C301.941,317.808,306.191,319.225,310.158,319.225z\"/><path id=\"highstepfst\" class=\"signalthree\" d=\"M453.241,173.875c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-62.9-58.083-144.783-89.817-230.35-89.817c-84.717,0-166.033,31.45-228.65,88.117c-7.083,6.233-7.367,17-1.133,24.083 s17,7.367,24.083,1.133c56.383-51.283,129.483-79.333,205.7-79.333c77.067,0,150.733,28.617,207.4,80.75 C445.025,172.175,449.275,173.875,453.241,173.875z\"/></svg></div></div></div><div id=\"connectingRoomIcon\"><span class=\"icon-whiteboard \"><svg id=\"svg-spinner\" xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" viewBox=\"0 0 48 48\"><circle cx=\"24\" cy=\"4\" r=\"4\" fill=\"#fff\"></circle><circle cx=\"12.19\" cy=\"7.86\" r=\"3.7\" fill=\"#fffbf2\"></circle><circle cx=\"5.02\" cy=\"17.68\" r=\"3.4\" fill=\"#fef7e4\"></circle><circle cx=\"5.02\" cy=\"30.32\" r=\"3.1\" fill=\"#fef3d7\"></circle><circle cx=\"12.19\" cy=\"40.14\" r=\"2.8\" fill=\"#feefc9\"></circle><circle cx=\"24\" cy=\"44\" r=\"2.5\" fill=\"#feebbc\"></circle><circle cx=\"35.81\" cy=\"40.14\" r=\"2.2\" fill=\"#fde7af\"></circle><circle cx=\"42.98\" cy=\"30.32\" r=\"1.9\" fill=\"#fde3a1\"></circle><circle cx=\"42.98\" cy=\"17.68\" r=\"1.6\" fill=\"#fddf94\"></circle><circle cx=\"35.81\" cy=\"7.86\" r=\"1.3\" fill=\"#fcdb86\"></circle></svg></span></div></div><div id=\"docShareNav\"></div><div id=\"fullScreenButton\"><span class=\"congtooltip fullScreen\" data-title=\"Full Screen\"><i class=\"icon-fullScreen cgIcon\"></i></span></div><div id=\"fullScreenExitButton\"><span class=\"congtooltip\" data-title=\"Exit Full Screen\"><i class=\"icon-exitScreen cgIcon\"></i></span></div></div></div>";
-},"useData":true});
+  return "<div id=\"virtualclassAppFooterPanel\" class=\"footerBar\"><div id=\"stickybar\" class=\"maximize something-happend\"><div id=\"stopScreenShare\" class=\"ss congtooltip\" data-title=\""
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"ssStop",{"name":"getString","hash":{},"data":data}))
+    + "\"><button type=\"button\"></button></div><div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\"><ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\"></ul></div><div id=\"networkStatusContainer\" class=\"connecting-room\"><div id=\"networkLatency\" class=\"congtooltip\"><div id=\"proposedSpeed\"><div id=\"svgContainer\"><svg version=\"1.1\" id=\"Capa_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 470.149 470.149\" style=\"enable-background:new 0 0 470.149 470.149;\" xml:space=\"preserve\"><path id=\"signalendpoint\" class=\"signal\" d=\"M202.775,383.825c0,17.567,14.167,31.733,31.733,31.733s31.733-14.167,31.733-31.733 c0-17.567-14.167-31.733-31.733-31.733C217.225,352.091,202.775,366.258,202.775,383.825z M236.775,383.825 c0,1.133-0.85,2.267-2.267,2.267c-1.133,0-2.267-0.85-2.267-2.267c0-1.133,0.85-2.267,2.267-2.267 C235.925,381.841,236.775,382.691,236.775,383.825z\"/><path id=\"mediumstepfst\" class=\"signalone\" d=\"M373.625,243.008c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-41.083-37.683-94.35-58.65-150.45-58.65c-55.25,0-108.233,20.4-149.033,57.517c-7.083,6.233-7.367,17-1.133,24.083 c6.233,7.083,17,7.367,24.083,1.133c34.567-31.45,79.617-48.733,126.367-48.733c47.317,0,92.65,17.567,127.217,49.583 C365.408,241.591,369.375,243.008,373.625,243.008z\"/><path id=\"lowstepfst\" class=\"signalfive\" d=\"M310.158,319.225c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083c-23.8-21.817-54.683-34-86.7-34 s-62.617,11.9-86.133,33.15c-7.083,6.233-7.367,17-1.133,24.083c6.233,7.083,17,7.367,24.083,1.133 c17.283-15.867,39.95-24.367,63.183-24.367c23.8,0,46.467,8.783,63.75,24.933C301.941,317.808,306.191,319.225,310.158,319.225z\"/><path id=\"highstepfst\" class=\"signalthree\" d=\"M453.241,173.875c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-62.9-58.083-144.783-89.817-230.35-89.817c-84.717,0-166.033,31.45-228.65,88.117c-7.083,6.233-7.367,17-1.133,24.083 s17,7.367,24.083,1.133c56.383-51.283,129.483-79.333,205.7-79.333c77.067,0,150.733,28.617,207.4,80.75 C445.025,172.175,449.275,173.875,453.241,173.875z\"/></svg></div></div></div><div id=\"connectingRoomIcon\"><span class=\"icon-whiteboard \"><svg id=\"svg-spinner\" xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" viewBox=\"0 0 48 48\"><circle cx=\"24\" cy=\"4\" r=\"4\" fill=\"#fff\"></circle><circle cx=\"12.19\" cy=\"7.86\" r=\"3.7\" fill=\"#fffbf2\"></circle><circle cx=\"5.02\" cy=\"17.68\" r=\"3.4\" fill=\"#fef7e4\"></circle><circle cx=\"5.02\" cy=\"30.32\" r=\"3.1\" fill=\"#fef3d7\"></circle><circle cx=\"12.19\" cy=\"40.14\" r=\"2.8\" fill=\"#feefc9\"></circle><circle cx=\"24\" cy=\"44\" r=\"2.5\" fill=\"#feebbc\"></circle><circle cx=\"35.81\" cy=\"40.14\" r=\"2.2\" fill=\"#fde7af\"></circle><circle cx=\"42.98\" cy=\"30.32\" r=\"1.9\" fill=\"#fde3a1\"></circle><circle cx=\"42.98\" cy=\"17.68\" r=\"1.6\" fill=\"#fddf94\"></circle><circle cx=\"35.81\" cy=\"7.86\" r=\"1.3\" fill=\"#fcdb86\"></circle></svg></span></div></div> "
+    + ((stack1 = container.invokePartial(partials.audioWidget,depth0,{"name":"audioWidget","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + " <div id=\"fullScreenButton\"><span class=\"congtooltip fullScreen\" data-title=\"Full Screen\"><i class=\"icon-fullScreen cgIcon\"></i></span></div><div id=\"fullScreenExitButton\"><span class=\"congtooltip\" data-title=\"Exit Full Screen\"><i class=\"icon-exitScreen cgIcon\"></i></span></div></div><div id=\"stickycontainer\"></div></div>";
+},"usePartial":true,"useData":true});
 
 this["JST"]["dest_temp/templates/joinclass.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id=\"joinClass\" class=\"bootstrap\"><div class=\"container \"><div class=\"modal fade\" id=\"joinClassModal\" role=\"dialog\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\"><div class=\"modal-body\"><div class=\"joinClasscontainer text-center\"><div class=\"textCont\">Click here to continue</div><button type=\"button\" class=\"btn btn-default\">Continue</button></div></div></div></div></div></div></div>";
@@ -532,9 +514,7 @@ this["JST"]["dest_temp/templates/leftBar.hbs"] = Handlebars.template({"1":functi
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " <div id=\"virtualclassAppContainer\"><div id=\"virtualclassWhiteboard\" class=\"virtualclass whiteboard\" style=\"display:none;\"><div class=\"whiteboardContainer\"></div> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControls : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " </div></div><a id=\"congrealogo\" href=\"https://www.congrea.com\" target=\"_blank\"><img src=\"https://cdn.congrea.net/resources/images/congrea_logo.svg\"></a><div id=\"sidebarButton\"><span class=\"congtooltip sidebarButton\" data-title=\"Move Sidebar\"><i class=\"icon-sidebarButton\"></i></span></div> "
-    + ((stack1 = container.invokePartial(partials.footerBar,depth0,{"name":"footerBar","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + " "
+    + " </div></div><a id=\"congrealogo\" href=\"https://www.congrea.com\" target=\"_blank\"><img src=\"https://cdn.congrea.net/resources/images/congrea_logo.svg\"></a><div id=\"docShareNav\"></div><div id=\"sidebarButton\"><span class=\"congtooltip sidebarButton\" data-title=\"Move Sidebar\"><i class=\"icon-sidebarButton\"></i></span></div> "
     + ((stack1 = container.invokePartial(partials.dashboardCont,depth0,{"name":"dashboardCont","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " </div>";
 },"usePartial":true,"useData":true});
@@ -559,6 +539,8 @@ this["JST"]["dest_temp/templates/main.hbs"] = Handlebars.template({"1":function(
     + ((stack1 = container.invokePartial(partials.leftBar,depth0,{"name":"leftBar","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " "
     + ((stack1 = container.invokePartial(partials.rightBar,depth0,{"name":"rightBar","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = container.invokePartial(partials.footerBar,depth0,{"name":"footerBar","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " "
     + ((stack1 = container.invokePartial(partials.popupCont,depth0,{"name":"popupCont","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " </div>";
@@ -1117,25 +1099,25 @@ this["JST"]["dest_temp/templates/precheck.hbs"] = Handlebars.template({"compiler
 },"useData":true});
 
 this["JST"]["dest_temp/templates/recordingButton.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"recording\" class=\"show statusonly congtooltip\" data-title=\"Recording Stopped\" data-recording=\"off\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Recording</span></div></div> ";
+    return " <div id=\"recording\" class=\"show statusonly congtooltip\" data-title=\"Recording Stopped\" data-recording=\"off\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Rec</span></div></div> ";
 },"3":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.eleven : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.program(6, data, 0),"data":data})) != null ? stack1 : "");
 },"4":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"recording\" class=\"show congtooltip\" data-title=\"Recording Stopped\" data-recording=\"off\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Recording</span></div></div> ";
+    return " <div id=\"recording\" class=\"show congtooltip\" data-title=\"Recording Stopped\" data-recording=\"off\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Rec</span></div></div> ";
 },"6":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.twenty : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.program(9, data, 0),"data":data})) != null ? stack1 : "");
 },"7":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"recording\" class=\"show statusonly congtooltip\" data-title=\"Recording Started\" data-recording=\"on\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Recording</span></div></div> ";
+    return " <div id=\"recording\" class=\"show statusonly congtooltip\" data-title=\"Recording Started\" data-recording=\"on\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Rec</span></div></div> ";
 },"9":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.twentyone : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"10":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"recording\" class=\"show congtooltip\" data-title=\"Recording Started\" data-recording=\"on\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Recording</span></div></div> ";
+    return " <div id=\"recording\" class=\"show congtooltip\" data-title=\"Recording Started\" data-recording=\"on\"><div class=\"status\"><span class=\"showStatus\"></span><span class=\"recordingText\">Rec</span></div></div> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -1153,14 +1135,30 @@ this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler
 
   return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled showUserList\"> "
     + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || alias2).call(alias1,{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "  "
-    + ((stack1 = container.invokePartial(partials.audioWidget,depth0,{"name":"audioWidget","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "  <div id=\"rightSubContainer\" class=\"\"> "
+    + " "
+    + ((stack1 = container.invokePartial(partials.rightBarHeader,depth0,{"name":"rightBarHeader","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "   <div id=\"rightSubContainer\" class=\"\"> "
     + ((stack1 = container.invokePartial(partials.appSettingDetail,depth0,{"name":"appSettingDetail","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " <div id=\"chatWidget\"><div id=\"congreaChatMainCont\"><div id=\"congreaChatCont\"></div><div class=\"footerCtr\" id=\"congFooterCtr\"><div class=\"vmchat_search\" id=\"congchatBarInput\"><input type=\"text\" id=\"congreaUserSearch\" class=\"search\" placeholder=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Searchuser",{"name":"getString","hash":{},"data":data}))
-    + "\"></div></div></div><div id=\"stickycontainer\"></div></div></div></div>";
+    + "\"></div></div></div></div></div></div>";
 },"usePartial":true,"useData":true});
+
+this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return " <div id=\"techVideoHeader\" class=\"deactive\">"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"teacherVideoHeader",{"name":"getString","hash":{},"data":data}))
+    + "</div> ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<div id=\"rightBarHeader\" class=\"active\"><div id=\"userListHeader\" class=\"active\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userListHeader",{"name":"getString","hash":{},"data":data}))
+    + "<span id='onlineusertext' class='cgText'></span></div><div id=\"commonChatHeader\" class=\"deactive\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChatHeader",{"name":"getString","hash":{},"data":data}))
+    + "</div> "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.std : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " </div>";
+},"useData":true});
 
 this["JST"]["dest_temp/templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
@@ -1181,9 +1179,9 @@ this["JST"]["dest_temp/templates/ssmainDiv.hbs"] = Handlebars.template({"1":func
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.scrctrl : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " ";
 },"7":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"screenController\"><div class=\"share selfView\"><button type=\"button\">"
+    return " <div id=\"screenController\"><div class=\"share selfView congtooltip\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"sharetoall",{"name":"getString","hash":{},"data":data}))
-    + "</button></div></div> ";
+    + "\"><button type=\"button\"></button></div></div> ";
 },"9":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -1770,11 +1768,11 @@ this["JST"]["dest_temp/templates/youtube/ytscontrol.hbs"] = Handlebars.template(
 this["JST"]["dest_temp/templates/zoomControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div class=\"zoomControler\"><div class=\"zoomIn\"><span class=\"congtooltip zoomctrtool\" data-title=\""
+  return "<div class=\"zoomControler\"><div class=\"zoomIn congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomIn",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-zoonIn\"></i></span></div><div class=\"fitScreen\" data-currstate=\"normalview\"><span class=\"congtooltip zoomctrtool\" data-title=\""
+    + "\"><span class=\"zoomctrtool\"><i class=\"icon-zoonIn\"></i></span></div><div class=\"fitScreen congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"fitToScreen",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-fitScreen\"></i></span></div><div class=\"zoomOut\"><span class=\"congtooltip zoomctrtool\" data-title=\""
+    + "\" data-currstate=\"normalview\"><span class=\"zoomctrtool\"><i class=\"icon-fitScreen\"></i></span></div><div class=\"zoomOut congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"zoomOut",{"name":"getString","hash":{},"data":data}))
-    + "\"><i class=\"icon-zoomOut\"></i></span></div>  </div>";
+    + "\"><span class=\"zoomctrtool\"><i class=\"icon-zoomOut\"></i></span></div>  </div>";
 },"useData":true});

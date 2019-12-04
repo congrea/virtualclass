@@ -22,15 +22,24 @@
   margin-left: 5px;
 }
 
-#virtualclassCont.congrea .bootstrap .pollNavBar {
+#virtualclassCont.congrea.teacher .bootstrap .pollNavBar {
   border-bottom: none !important;
   margin-left: 20px;
+}
+
+#virtualclassCont.congrea.student .bootstrap .pollNavBar {
+  margin-left: 0px;
+  border-bottom: none;
 }
 
 #virtualclassCont.congrea.teacher .bootstrap .pollNavBar li {
   margin-top: 12px;
   margin-right: 10px;
   font-size: 1.2em;
+}
+
+#virtualclassCont.congrea.teacher #virtualclassPoll #layoutPoll.bootstrap .pollNavBar li {
+  margin-top: 0.625rem;
 }
 
 #virtualclassCont.congrea.student .bootstrap .pollNavBar li {
@@ -43,7 +52,16 @@
   font-size: 16px;
 }
 
+/* #virtualclassCont.congrea #virtualclassPoll .pollNavBar > li > a {
+  color: #000;
+  background-color: #fff;
+  border: 0.5px solid #c7c7c7 !important;
+  border-bottom: none !important;
+  font-size: 16px;
+} */
+
 #virtualclassCont.congrea #virtualclassPoll .pollNavBar > li.active > a {
+  background-color: #fff;
   color: #000;
   font-size: 16px;
 }
@@ -231,8 +249,9 @@
   color: #000;
 }
 
-#virtualclassCont.congrea #virtualclassPoll .nav > li > a:hover, #virtualclassCont.congrea #virtualclassPoll .nav > li > a:focus {
-  background: white !important;
+#virtualclassCont.congrea #virtualclassPoll .nav > li > a:hover {
+  background: #e6e6e6 !important;
+  color: #000;
   /*background: -moz-radial-gradient(center, ellipse cover, #ffffff);*/
   /*!* FF3.6+ *!*/
   /*background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));*/
@@ -245,6 +264,12 @@
   /* IE10+ */
 
   /* W3C */
+}
+
+#virtualclassCont.congrea #virtualclassPoll .nav > li.active > a:hover {
+  background-color: black !important;
+  color: #fff !important;
+  cursor: pointer;
 }
 
 #virtualclassCont.congrea.teacher #virtualclassPoll .vcPollCont .qnText .pollPreview {
@@ -363,6 +388,7 @@
 
 #virtualclassCont.congrea.teacher #layoutPollBody .table-responsive {
   max-height: 80%;
+  min-height: 50%;
   margin-top: 61px;
   overflow: auto;
   overflow-x: hidden;
@@ -397,6 +423,10 @@
   table-layout: fixed;
   display: table;
   z-index: 8;
+}
+
+#virtualclassCont.congrea.teacher.Safari #layoutPollBody .table-responsive .pollList thead  {
+  width: 100%;
 }
 
 #virtualclassCont.congrea.teacher #layoutPollBody .teacherTableHeader .pollList thead {
@@ -439,9 +469,10 @@
 
 #virtualclassCont.congrea.student .bootstrap .pollNavBar #stdPollHeader {
   font-size: 1.25rem;
-  padding: 0.8125rem 0.5rem 0.8125rem 0.6875rem;
+  padding: 0.6875rem 0.5rem 0.625rem 0.6875rem;
   text-align: center;
   float: none;
+  color: #fff;
 }
 
 #virtualclassCont.congrea.teacher #virtualclassPoll #resultLayoutHead .alert-success {
@@ -514,15 +545,18 @@
   position: relative !important;
 }
 
-#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:first-child td.qnText .popover-content {
-  top: 7%;
-  bottom: auto;
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:last-child td.qnText .popover-content {
+  bottom: 10%;
   overflow: auto;
 }
 
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr.lastNode td.qnText .popover-content {
+  bottom: 15%;
+}
 
-#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:last-child td.qnText .popover-content {
-  bottom: 10%;
+#virtualclassCont.congrea.teacher #layoutPollBody .table-responsive .pollList tbody tr:first-child td.qnText .popover-content {
+  top: 7%;
+  bottom: auto;
   overflow: auto;
 }
 
@@ -552,7 +586,7 @@
   display: none;
 }
 /* ======== MEDIA FOR MOBILE ========== */
-@media only screen and (min-device-width: 320px) and (max-device-width: 1024px) {
+@media only screen and (min-device-width: 340px) and (max-device-width: 950px) {
   #virtualclassCont.congrea #layoutPollBody #mszBoxPoll .close {
     position: relative;
     top: -15px;
@@ -568,7 +602,7 @@
 #virtualclassCont.congrea.student #resultLayout {
   width: 100%;
   position: absolute;
-  top: 49px;
+  top: 40px;
   bottom: 16%;
   overflow: auto;
   height: 85%;

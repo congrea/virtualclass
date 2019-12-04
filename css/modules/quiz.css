@@ -309,8 +309,9 @@
 
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .reportPreview a:hover, 
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .questionPreview a:hover {
-  color: #f7f7f7;
-  background: #2d3741 !important;
+  color: #ffffff;
+  background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
+  opacity: 0.5;
 }
 
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal .nav .active a {
@@ -365,7 +366,7 @@
 #virtualclassCont.congrea.student #virtualclassQuiz #layoutQuiz .nav.navbar,
 #virtualclassCont.congrea.student #virtualclassPoll #layoutPoll .nav.navbar {
   /* max-height: 48px; */
-  min-height: 3rem !important;
+  min-height: 2.75rem !important;
 
 }
 
@@ -476,7 +477,7 @@
 }
 
 /* ======== MEDIA FOR MOBILE ========== */
-@media only screen and (min-device-width: 320px) and (max-device-width: 1024px) {
+@media only screen and (min-device-width: 340px) and (max-device-width: 950px) {
   #virtualclassCont.congrea #layoutQuizBody #timeText {
     position: relative;
     top: -26px;

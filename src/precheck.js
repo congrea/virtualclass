@@ -88,8 +88,8 @@ const preCheck = {
 
     virtualclass.gObj.precheckScrn = false;
     virtualclass.precheck.afterComplete();
-    virtualclass.stickybarWidth();
-    virtualclass.chatBarTabWidth();
+    // virtualclass.stickybarWidth();
+    // virtualclass.chatBarTabWidth();
   },
 
   cancelAudioGraph() {
@@ -445,7 +445,7 @@ const preCheck = {
             audioContext: this.graphContext || null,
             audioScriptProcessor: this.graphProcessor || null,
             plugins: [WaveSurfer.microphone.create()],
-            height: 50,
+            height: 20,
             maxCanvasWidth: 500,
           });
 
@@ -574,8 +574,8 @@ const preCheck = {
       // localStorage.setItem('precheck', true);
       virtualclass.videoHost._resetPrecheck();
       virtualclass.precheck.afterComplete();
-      virtualclass.stickybarWidth();
-      virtualclass.chatBarTabWidth();
+      // virtualclass.stickybarWidth();
+      // virtualclass.chatBarTabWidth();
     },
 
     joinSession() {

@@ -5,12 +5,7 @@
 }
 
 #virtualclassCont #dashboardContainer .modal .modal-content {
-  overflow-y: hidden;
   padding: 0;
-}
-
-#virtualclassCont #dashboardContainer .modal .modal-header {
-  height: 7%;
 }
 
 #virtualclassCont #dashboardContainer .modal-body {
@@ -25,7 +20,7 @@
 }
 
 #virtualclassCont.congrea .dashboardview {
-  height: calc(100vh - 118px);
+  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -113,8 +108,10 @@
 }
 
 #virtualclassCont.congrea #docsListContainer {
-  height: 98vh;
   width: 21.5%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 #virtualclassCont.congrea #listdocs .linkdocs .controls.delete {
@@ -140,15 +137,10 @@
   max-height: 42px;
 }
 
-#virtualclassCont.congrea #newdocsBtnCont {
-  height: 8%;
-}
-
 #virtualclassCont.congrea #congdashboard.modal .modal-header {
-  padding: 6px;
-  background: linear-gradient(to bottom, #34404c 0%, #515e69);
+  width: 100%;
   color: white;
-  height: 48px;
+  border-top: none;
 }
 
 /** for dashboard grid  view */

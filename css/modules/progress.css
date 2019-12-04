@@ -11,7 +11,7 @@ body {
 }
 
 #virtualclassCont.congrea .progressbar {
-  margin: 20px 0;
+  margin: 5px 0;
   padding: 0;
   counter-reset: step;
 
@@ -26,7 +26,7 @@ body {
   text-align: center;
   text-transform: uppercase;
   color: #7d7d7d;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.25rem;
 }
 
 #virtualclassCont.congrea .progressbar li:before {
@@ -39,7 +39,7 @@ body {
   line-height: 30px;
   display: block;
   text-align: center;
-  margin: 0 auto 20px auto;
+  margin: 0 auto 1.25rem auto;
   border-radius: 50%;
   background-color: white;
 }

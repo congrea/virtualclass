@@ -3483,8 +3483,7 @@
 
 #virtualclassCont.congrea.teacher .ui-widget-content textarea,
 #virtualclassCont.congrea.student .ui-widget-content textarea {
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 3px;
   resize: none;
 }
 
@@ -4050,7 +4049,7 @@ span#usertab_text {
 
 ::-webkit-scrollbar {
   width: 6px;
-  height: 9px;
+  height: 6px;
   background-color: #d9dbdc;
 }
 

@@ -68,7 +68,6 @@
       const border = `0.05em solid ${allbg.fcolor}`;
       const css = `${'#virtualclassCont.congrea #virtualclassOptionsCont .appOptions '
         + '{border-top:'}${border} !important;}`
-        + '#virtualclassCont.congrea #virtualclassAppLeftPanel #docShareNav ,'
         + '#virtualclassCont.congrea #fullScreenButton ,'
         + '#virtualclassCont.congrea .vmchat_bar_button ,'
         + '#virtualclassCont.congrea .vmchat_room_bt.congtooltip ,'

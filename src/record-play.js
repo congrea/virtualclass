@@ -72,6 +72,7 @@
     recordingOff: 0,
     init() {
       if (!this.attachSeekHandler) {
+        this.initRecordViewHandler();
         this.attachSeekHandler = true;
         const virtualclassApp = document.querySelector('#virtualclassCont');
         const downloadProgressBar = document.querySelector('#downloadProgressBar');
@@ -112,7 +113,7 @@
     recDataSend() { // data send to server when browser unload, beforeload and recording complete.
       let startTime = 0;
       let timeStamp = 0;
-      if (this.recData !== undefined) {
+      if (this.recData && this.recData.length > 0) {
         for (let i = 0; i <= this.recData.length; i++) {
           if (timeStamp !== this.recData[i] || this.recData[i] === undefined) {
             if (timeStamp !== 0 && timeStamp !== undefined && !this.recViewData.data.hasOwnProperty(timeStamp)) {
@@ -134,7 +135,11 @@
       }
       // this.recData.length = 0;
       console.log('====> sent data ', JSON.stringify(this.recViewData));
+      const recordingTottalTime = this.recViewData.data.rtt;
       navigator.sendBeacon('https://api.congrea.net/data/analytics/recording', JSON.stringify(this.recViewData));
+      delete this.recViewData.data;
+      this.recViewData.data = {};
+      this.recViewData.data.rtt = recordingTottalTime;
     },
 
     handlPageActiveness() {
@@ -1656,6 +1661,41 @@
         congrealogo.classList.remove('disbaleOnmousedown');
       }
     },
+
+    initRecordViewHandler() {
+      let alreadySend = false;
+      window.addEventListener('unload', () => {
+        if (!alreadySend) {
+          virtualclass.recorder.recDataSend();
+          console.log('Send recording view data 1');
+          alreadySend = true;
+        }
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (!alreadySend && document.visibilityState === 'hidden') {
+          // sendData('visibilitychange___');
+          virtualclass.recorder.recDataSend();
+          console.log('Send recording view data 2');
+          alreadySend = true;
+        }
+        if (document.visibilityState === 'visible') {
+          alreadySend = false;
+        }
+      });
+
+      // To detect the back press button event on chrome of Android-Mobile
+      // Using jQuery Plugin http://www.vvaves.net/jquery-backDetect/
+      if (virtualclass.system.device === 'mobTab') {
+        backDection.backDetect('#virtualclassCont', () => {
+          if (!alreadySend) {
+            virtualclass.recorder.recDataSend();
+            alreadySend = true;
+            setTimeout(() => { virtualclassSetting.congreaWindow.close(); }, 500);
+          }
+        });
+      }
+    }
   };
   window.recorder = recorder;
 }(window));

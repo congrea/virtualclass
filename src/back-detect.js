@@ -1,3 +1,7 @@
+/**
+ * This module is used to detect the back press button of browser,
+ * inspired from http://www.vvaves.net/jquery-backDetect/
+ */
 const backDection = {
   backDetectValues: {
     frameLoaded: 0,
@@ -13,50 +17,47 @@ const backDection = {
   },
 
   backDetect(selector, callback, delay) {
-    backDection.backDetectValues.frameThis = document.querySelector(selector);
-    backDection.window = window;
-    backDection.backDetectValues.frameCallBack = callback;
+    this.backDetectValues.frameThis = document.querySelector(selector);
+    this.window = window;
+    this.backDetectValues.frameCallBack = callback;
     if (delay !== null) {
-      backDection.backDetectValues.frameDelay = delay;
+      this.backDetectValues.frameDelay = delay;
     }
-    if (backDection.backDetectValues.frameNavigator.indexOf('MSIE ') > -1 || backDection.backDetectValues.frameNavigator.indexOf('Trident') > -1) {
-      setTimeout(function loadFrameIE() {
-        const iframeHtml = '<iframe src="' + backDection.backDetectValues.frameDataSrc + '?loading" style="display:none;" id="backDetectFrame" onload="backDection.frameInit();""></iframe>';
-        backDection.backDetectValues.frameThis.insertAdjacentHTM('beforeEnd', iframeHtml);
-      }, backDection.backDetectValues.frameDelay);
-    } else {
-      setTimeout(function loadFrame() {
-        const iframeHtml = "<iframe src='about:blank?loading' style='display:none;' id='backDetectFrame' onload='backDection.frameInit();'></iframe>";
-        backDection.backDetectValues.frameThis.insertAdjacentHTML('beforeEnd', iframeHtml);
-      }, backDection.backDetectValues.frameDelay);
+    let frameSrc = 'about:blank?loading';
+    if (this.backDetectValues.frameNavigator.indexOf('MSIE ') > -1
+      || this.backDetectValues.frameNavigator.indexOf('Trident') > -1) {
+      frameSrc = `${this.backDetectValues.frameDataSrc}?loading`;
     }
+    setTimeout(() => {
+      const iframeHtml = `<iframe src=${frameSrc} style='display:none;' id='backDetectFrame' onload='backDection.frameInit();'></iframe>`;
+      this.backDetectValues.frameThis.insertAdjacentHTML('beforeEnd', iframeHtml);
+    }, this.backDetectValues.frameDelay);
   },
 
   frameInit() {
-    backDection.backDetectValues.frameDetect = document.getElementById('backDetectFrame');
-    if (backDection.backDetectValues.frameLoaded > 1) {
-      if (backDection.backDetectValues.frameLoaded === 2) {
-        backDection.backDetectValues.frameCallBack.call(this);
-        backDection.window.history.go(-1);
-      }
+    this.backDetectValues.frameDetect = document.getElementById('backDetectFrame');
+    if (this.backDetectValues.frameLoaded === 2) {
+      this.backDetectValues.frameCallBack.call(this);
+      this.window.history.go(-1);
     }
-    backDection.backDetectValues.frameLoaded += 1;
-    if (backDection.backDetectValues.frameLoaded === 1) {
-      backDection.backDetectValues.frameTime = setTimeout(function beginFrameSetup() {
+    this.backDetectValues.frameLoaded += 1;
+    if (this.backDetectValues.frameLoaded === 1) {
+      this.backDetectValues.frameTime = setTimeout(() => {
         backDection.setupFrames();
       }, 500);
     }
   },
 
   setupFrames() {
-    clearTimeout(backDection.backDetectValues.frameTime);
-    backDection.backDetectValues.frameSrc = backDection.backDetectValues.frameDetect.src;
-    if (backDection.backDetectValues.frameLoaded === 1 && backDection.backDetectValues.frameSrc.indexOf('historyLoaded') === -1) {
-      if (backDection.backDetectValues.frameNavigator.indexOf('MSIE ') > -1 || backDection.backDetectValues.frameNavigator.indexOf('Trident') > -1) {
-        backDection.backDetectValues.frameDetect.src = backDection.backDetectValues.frameDataSrc + '?historyLoaded';
+    clearTimeout(this.backDetectValues.frameTime);
+    this.backDetectValues.frameSrc = this.backDetectValues.frameDetect.src;
+    if (this.backDetectValues.frameLoaded === 1 && this.backDetectValues.frameSrc.indexOf('historyLoaded') === -1) {
+      if (this.backDetectValues.frameNavigator.indexOf('MSIE ') > -1
+        || this.backDetectValues.frameNavigator.indexOf('Trident') > -1) {
+        this.backDetectValues.frameDetect.src = `${this.backDetectValues.frameDataSrc}'?historyLoaded`;
       } else {
-        backDection.backDetectValues.frameDetect.src = 'about:blank?historyLoaded';
+        this.backDetectValues.frameDetect.src = 'about:blank?historyLoaded';
       }
     }
   },
-}
+};

@@ -414,7 +414,7 @@
             return;
         }
         const temp = recordingButton(context);
-        const elem = document.querySelector('#docShareNav');
+        const elem = document.querySelector('#virtualclassAppFooterPanel #networkStatusContainer');
         // this.removeButton();
         elem.insertAdjacentHTML('afterend', temp);
         const recording = document.getElementById('recording');

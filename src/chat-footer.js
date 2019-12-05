@@ -37,12 +37,12 @@
       const virtualclassApp = document.querySelector("#virtualclassApp");
       const rightbarTab = document.querySelector("#stickycontainer ul.chatBarTab");
 
-      rightbarTab.addEventListener('click', function() {
-        if(virtualclassApp.classList.contains('collapsedRightbar')) {
+      rightbarTab.addEventListener('click', ((event) => {
+        if (virtualclassApp.classList.contains('collapsedRightbar') && event.target.id !== 'icHr') {
           virtualclass.vutil.handleRightBar('open');
           virtualclass.chat.calculateViewPortForMessageBox();
         }
-      });
+      }));
 
       $('#chatroom_bt2 .inner_bt').click(() => {
         virtualclass.vutil.sendSpeedByMobile(3);

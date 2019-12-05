@@ -821,7 +821,6 @@ let globalImageData = {};
           });
 
           that.sharing();
-          virtualclass.vutil.setContainerWidth(res, virtualclass.currApp);
 
           if (roles.hasControls()) {
             // TODO This should be invoke at one place

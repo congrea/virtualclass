@@ -186,7 +186,7 @@
         const wid = virtualclass.gObj.currWb;
         delete virtualclass.zoom.performZoom;
         if (virtualclass.pdfRender[wid] && typeof virtualclass.pdfRender[wid].shownPdf === 'object'
-          && virtualclass.zoom.canvasScale != null) {
+          && virtualclass.zoom.canvasScale != null && virtualclass.zoom.canvasDimension) {
           virtualclass.zoom.canvasDimension.width = virtualclass.zoom.canvasDimension.width / virtualclass.gObj.SCALE_FACTOR;
           virtualclass.zoom.canvasDimension.height = virtualclass.zoom.canvasDimension.height / virtualclass.gObj.SCALE_FACTOR;
 

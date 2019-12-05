@@ -841,16 +841,14 @@
               chatInput.disabled = false;
             }
           }
-
-        
+          
           const chatrm = document.querySelector('#virtualclassCont #chatrm.enable');
           const chatroomTab = document.querySelector('#chatroom_bt2');
-          
+
           if (chatrm) {
             if (!chatroomTab.classList.contains('active')) {
               chatroomTab.classList.add('active');
             }
-            listTab.classList.remove('active');
             virtualclass.chat.chatWindow = 'common';
           }
         },

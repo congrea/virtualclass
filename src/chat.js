@@ -174,6 +174,7 @@
           offset: '-1px',
           title: lang.online,
           userSent(user) {
+            console.log('====> UserList is created 1');
             const userDiv = $('#chat_div').memberlist('option', 'boxManager').addUsr(user);
             return userDiv;
           },

@@ -45,13 +45,15 @@ function displayChatUserList(totUsers) {
 
       if (document.getElementById(`video${users[i].userid}`) == null) {
         tmpmyDivResult = $('#chat_div').memberlist('option').userSent(users[i]);
+        console.log('====> UserList is created 1b');
       }
 
       // tmpmyDivResult = true, means user div is created already
       // if (typeof tmpmyDivResult !== 'boolean' && typeof tmpmyDivResult !== undefined
-      // && tmpmyDivResult != undefined) {
+      // && tmpmyDivResult != undefined) {.
       if (typeof tmpmyDivResult !== 'boolean' && typeof tmpmyDivResult !== 'undefined' && tmpmyDivResult != null) {
         myDivResult += tmpmyDivResult;
+        console.log('====> UserList is created 1c');
       }
     }
 
@@ -74,13 +76,16 @@ function displayChatUserList(totUsers) {
           chat_div.shadowRoot.innerHTML = `<link rel='stylesheet' type='text/css'
           href='${whiteboardPath}css/modules/chat-container.css'>
           <div id='subchat' class='playMode ${userRole}'>${myDivResult}</div>`;
+          console.log('====> UserList is created 1d finally');
         } else {
           chat_div.shadowRoot.innerHTML = `<link rel='stylesheet' type='text/css' 
           href='${whiteboardPath}css/modules/chat-container.css'>
           <div id='subchat' class='${userRole}'>${myDivResult}</div>`;
+          console.log('====> UserList is created 1d finally');
         }
       } else {
         chat_div.shadowRoot.querySelector('#subchat').insertAdjacentHTML('beforeend', myDivResult);
+        console.log('====> UserList is created 1d finally');
       }
     }
 
@@ -224,6 +229,7 @@ function memberUpdate(e, addType) {
       if ($('div#memlist').length) {
         // console.log(`member remove memlist ${$('div#memlist').length} addType=${addType}`);
         $('div#memlist').remove();
+        console.log('====> UserList is removed ');
       }
     }
 

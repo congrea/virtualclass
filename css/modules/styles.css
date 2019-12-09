@@ -3799,7 +3799,7 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
-  padding: 13px 13px 11px 13px;
+  padding: .8125rem .8125rem .6875rem .8125rem;
   display: block;
 }
 

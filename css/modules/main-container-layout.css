@@ -147,7 +147,6 @@
     display: none;
   }
 
-
   #virtualclassCont.congrea.fullScreenMode .vidHide #chat_div {
     height: calc(100% - 148px);
   }
@@ -224,7 +223,6 @@
 
   #virtualclassCont.congrea #virtualclassAppFooterPanel #proposedSpeed {
     width: 1.25rem !important;
-    margin-top: 0.125rem !important;
     height: 1.625rem !important;
     padding: 0.5625rem 0.811115rem;
   }
@@ -346,6 +344,26 @@
     position: unset;
   }
 
+  #virtualclassCont.congrea #techVideo a.inner_bt {
+    padding: 0.67857rem 0.8571rem 0.8571rem 0.9285rem;
+  }
+
+  #virtualclassCont.congrea a.inner_bt {
+    padding: 0.6785rem 1rem 0.6428rem 1rem;
+  }
+
+  #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
+    padding: 0.8125rem 0.8125rem 0.6875rem 0.8125rem;
+  }
+
+  #virtualclassCont.congrea #icHr {
+    padding: 0.7857rem 0.8214rem 1rem 0.8214rem;
+  }
+
+  #virtualclassCont.congrea li#appSettingCtrl > a {
+    padding: 0.7142rem 0.8571rem 0.6428rem 0.92857rem;
+  }
+
   #virtualclassCont.congrea a.vceditor-btn, #virtualclassCont.congrea a.vceditor-btn:visited, #virtualclassCont.congrea a.vceditor-btn:active {
     font-size: 1rem;
   }
@@ -431,18 +449,11 @@
   body {
     font-size: 12px;
   }
-}
 
-/* To Target high resolutions mobiles */
-/* 
-@media only screen 
-and (min-device-width : 375px) 
-and (max-device-width : 667px) {
-  html,
-  body {
-    font-size:20px;
+  #virtualclassCont.congrea.Safari #virtualclassAppFooterPanel #audioWidget {
+    height: unset;
   }
-} */
+}
 
 @media only screen and (min-device-width: 701px) and (max-device-width: 950px) {
   #virtualclassCont.congrea #virtualclassPreCheck #preCheckcontainer .modal-dialog.modal-lg {

@@ -1035,11 +1035,11 @@
   display: none;
 }
 
-#virtualclassCont.congrea.playMode[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea.playMode[data-currapp = 'Whiteboard'].student #docShareNav {
+/* #virtualclassCont.congrea.playMode[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea.playMode[data-currapp = 'Whiteboard'].student #docShareNav {
   right: 58px !important;
   bottom: 3.75rem;
   z-index: 9;
-}
+} */
 
 .congrea #stdPageNo {
   color: #000;

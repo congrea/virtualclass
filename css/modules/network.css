@@ -1,6 +1,6 @@
 #virtualclassCont.congrea #networkStatusContainer {
-  position: relative;
-  top: -44px;
+  position: absolute;
+  top: 0;
   width: 3.125rem;
   float: right;
   border-right: 0.05em solid #021317 !important;
@@ -132,7 +132,6 @@
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #networkLatency:hover::after {
   position: absolute;
-  bottom: 50px;
-  right: 1px;
-  /* z-index: 88888888888888888; */
+  bottom: 47px;
+  /* right: 1px; */
 }

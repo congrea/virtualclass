@@ -72,91 +72,6 @@
       return localStorage[property];
     },
 
-    // TODO very critical and important for remove return
-    /** Handle container dimension 1* */
-    setContainerWidth(res, app) {
-      return;
-      if (app != null) {
-        var appId = `virtualclass${app}`;
-      } else {
-        var appId = 'virtualclassWhiteboard';
-      }
-
-      if (typeof virtualclass.previous !== 'undefined') {
-        if (`virtualclass${app}` !== virtualclass.previous) {
-          appId = `virtualclass${app}`;
-        } else {
-          appId = virtualclass.previous;
-        }
-        //  appId = virtualclass.previous;
-      }
-
-      const appName = appId.split('virtualclass')[1];
-
-      appId = `virtualclass${virtualclass.vutil.capitalizeFirstLetter(appName)}`;
-
-      const appCont = document.getElementById(appId);
-
-      if (appCont != null) {
-        let rightOffSet; let leftSideBarWidth; let
-          reduceHeight;
-
-        const leftSideBar = document.getElementById('virtualclassOptionsCont');
-        if (leftSideBar != null) {
-          const offset = virtualclass.vutil.getElementOffset(leftSideBar);
-          leftSideBarWidth = (leftSideBar.offsetWidth + offset.x) + 4;
-        } else {
-          leftSideBarWidth = roles.hasControls() ? 60 : 5;
-        }
-
-        if (virtualclass.isPlayMode) {
-          reduceHeight += 75;
-        } else if (app === 'SharePresentation') {
-          reduceHeight = (document.querySelector(`#virtualclass${app}.pptSharing`) != null) ? 80 : 28;
-        } else if (app === 'Video' || app === 'Yts') {
-          reduceHeight = 28;
-        } else if (app === 'EditorRich' || app === 'Poll' || app === 'Quiz') {
-          reduceHeight = 50;
-        } else {
-          reduceHeight = 60;
-        }
-
-        const containerHeight = document.getElementById('commandToolsWrapper');
-
-        // console.log( ' leftSideBarWidth=' + leftSideBarWidth);
-        let extraWidth = 20;
-        if (virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare' || virtualclass.currApp === 'SharePresentation') {
-          extraWidth = 20;
-        }
-        res.width = (extraWidth + res.width) - leftSideBarWidth;
-
-        appCont.style.width = `${res.width}px`;
-        appCont.style.height = `${res.height - reduceHeight}px`;
-
-        if (appId === 'virtualclassScreenShare') {
-          // if(appId != 'virtualclassWhiteboard'){
-          const ssType = document.getElementById(`${appId}Local`);
-          res.width -= 10;
-          appCont.style.width = res.width;
-          ssType.style.width = `${res.width}px`;
-          virtualclass.vutil.setScreenInnerTagsWidth(appId);
-        } else if (appId === 'virtualclassDocumentShare') {
-          const wb = virtualclass.gObj.currWb;
-          if (wb != null) {
-            // This dimension is setting when window is being resized
-            const canWrapper = document.querySelector(`#canvasWrapper${wb}`);
-            canWrapper.style.width = `${res.width}px`;
-            // canvas wrapper height 2
-            canWrapper.style.height = `${res.height - virtualclass.gObj.screenRh}px`;
-          }
-        }
-
-        // console.log(`Container width ${appId} ${res.width}`);
-      } else {
-        // console.log(`${appCont} is not found `);
-      }
-    },
-
     setScreenInnerTagsWidth(currAppId) {
       const sId = currAppId;
       const screenShare = document.getElementById(sId);
@@ -366,6 +281,42 @@
         document.msExitFullscreen();
       }
       elem.classList.remove('fullScreenMode');
+    },
+
+    closedRightbar() {
+      var elem = document.getElementById("virtualclassApp");
+      elem.classList.remove("openRightbar");
+      elem.classList.add("collapsedRightbar");
+      chat_div.classList.add("collapsedRightbar");
+      localStorage.setItem('hideRightbar',true);
+      virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
+      if (roles.isStudent()) {
+        ioAdapter.sendSpeed(3);
+      }
+      const rightbarTabs = document.querySelector("#stickycontainer .chatBarTab");
+      // for(var i =0 ; i < rightbarTabs.children.length ; i++) {
+      //   rightbarTabs.children[i].classList.remove("active");
+      // }
+    },
+
+    openRightbar() {
+      localStorage.removeItem('hideRightbar');
+      var elem = document.getElementById("virtualclassApp");
+      localStorage.setItem('hideRightbar',false);
+      virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
+      elem.classList.remove("collapsedRightbar");
+      elem.classList.add("openRightbar");
+      chat_div.classList.remove("collapsedRightbar");
+      if (roles.isStudent()) {
+        if (virtualclass.system.device === 'desktop') {
+          ioAdapter.sendSpeed(1);
+        } else {
+          const techVideo = document.querySelector('#techVideo.active');
+          if (techVideo != null) {
+            virtualclass.vutil.sendSpeedByMobile(1);
+          }
+        }
+      }
     },
 
     // TODO
@@ -2444,6 +2395,31 @@
         virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny(undefined, id);
       }
     },
+
+    handleRightBar(action){
+      if (action) {
+        action === 'open' ? virtualclass.vutil.openRightbar() : virtualclass.vutil.closedRightbar();
+      } else {
+        var elem = document.getElementById("virtualclassApp");
+        if (elem.classList.contains('openRightbar')) {
+          virtualclass.vutil.closedRightbar();
+        } else {
+          virtualclass.vutil.openRightbar();
+        }
+      }
+
+      if (virtualclass.currApp === 'ScreenShare') {
+        if ((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing)
+          || (roles.isTeacher() && virtualclass.gObj.studentSSstatus.mesharing)) {
+          virtualclass.studentScreen.doOpposite = true;
+          virtualclass.studentScreen.triggerFitControl();
+          virtualclass.ss.triggerFitToScreen();
+        }
+      } else {
+        virtualclass.zoom.doOpposite = true;
+        virtualclass.zoom.triggerFitToScreen();
+      }
+    }
   };
   window.vutil = vutil;
 }(window));

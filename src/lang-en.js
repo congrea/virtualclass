@@ -242,7 +242,7 @@
     screensharenotsupport: 'Screen share is not supported',
     screensharedenied: 'User denied to share screen',
     second: 'Second',
-    selfview: 'Self view',
+    selfview: 'Disable public view',
     SetTimer: 'Set timer',
     sesseionkeymissing: 'Session key is missing from Front End.', // from javascript
     sentPackets: 'Sent <br/><span>Packets</span>',
@@ -257,7 +257,7 @@
     shareAnotherYouTubeVideo: 'Share another YouTube video',
     SharePresentation: 'Share presentation',
     SharePresentationdbHeading: 'Presentation dashboard',
-    sharetoall: 'Share to all',
+    sharetoall: 'Enable public view',
     Showresulttostudents: 'Show result to students',
     sitePoll: 'Site level poll',
     Skip: 'Close',
@@ -432,6 +432,9 @@
     RaiseHand: 'raise hand',
     UserList: 'user list',
     uploading: 'Processing...',
+    userListHeader: 'Users ',
+    commonChatHeader: 'Chat Room',
+    teacherVideoHeader: 'Teacher Video',
     /* For Chrome */
     PermissionDeniedErrorExt: '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'
     + 'Go to camera icon on top right of the screen <br /> '

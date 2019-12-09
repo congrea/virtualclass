@@ -11,8 +11,8 @@
 <style>
 	@font-face {
 		font-family: 'icomoon';
-		src:url('https://cdn.congrea.net/resources/fonts/icomoon.eot?-jjdyd0&ver=<?php echo $version ?>');
-		src:url('https://cdn.congrea.net/fonts/icomoon.eot?#iefix-jjdyd0&ver=<?php echo $version ?>') format('embedded-opentype'), url('https://cdn.congrea.net/resources/fonts/icomoon.woff?-jjdyd0&ver=<?php echo $version ?>') format('woff'), url('https://cdn.congrea.net/resources/fonts/icomoon.ttf?-jjdyd0&ver=<?php echo $version ?>') format('truetype'), url('https://cdn.congrea.net/resources/fonts/icomoon.svg?-jjdyd0#icomoon&ver=<?php echo $version ?>') format('svg');
+		src:url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.eot?-jjdyd0&ver=<?php echo $version ?>');
+		src:url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.eot?#iefix-jjdyd0&ver=<?php echo $version ?>') format('embedded-opentype'), url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.woff?-jjdyd0&ver=<?php echo $version ?>') format('woff'), url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0&ver=<?php echo $version ?>') format('truetype'), url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon&ver=<?php echo $version ?>') format('svg');
 		font-weight: normal;
 		font-style: normal;
 	}

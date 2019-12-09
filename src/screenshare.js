@@ -293,7 +293,7 @@ let globalImageData = {};
         const fitToScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
         if (fitToScreen) {
           fitToScreen.dataset.currstate = 'normalview';
-          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen .congtooltip');
+          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen.congtooltip');
           dataTitleElem.dataset.title = virtualclass.lang.getString('normalView');
         }
 
@@ -310,7 +310,7 @@ let globalImageData = {};
         const fitToScreen = document.querySelector('#virtualclassScreenShare .zoomControler .fitScreen');
         if (fitToScreen) {
           fitToScreen.dataset.currstate = 'fittoscreen';
-          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen .congtooltip');
+          const dataTitleElem = document.querySelector('#virtualclassScreenShare .fitScreen.congtooltip');
           dataTitleElem.dataset.title = virtualclass.lang.getString('fitToScreen');
         }
 
@@ -821,7 +821,6 @@ let globalImageData = {};
           });
 
           that.sharing();
-          virtualclass.vutil.setContainerWidth(res, virtualclass.currApp);
 
           if (roles.hasControls()) {
             // TODO This should be invoke at one place
@@ -1266,14 +1265,16 @@ let globalImageData = {};
         changeSsInfoSelf(elem) {
           elem.classList.remove('selfView');
           elem.classList.add('shareToAll');
-          elem.children[0].innerHTML = virtualclass.lang.getString('selfview'); // for next time
+          elem.setAttribute('data-title', virtualclass.lang.getString('selfview'));
+          // elem.children[0].innerHTML = virtualclass.lang.getString('selfview'); // for next time
           virtualclass.gObj.studentSSstatus.shareToAll = true;
         },
 
         changeSsInfoShareToAll(elem) {
           elem.classList.remove('shareToAll');
           elem.classList.add('selfView');
-          elem.children[0].innerHTML = virtualclass.lang.getString('sharetoall'); // for next time
+          elem.setAttribute('data-title', virtualclass.lang.getString('sharetoall'));
+          // elem.children[0].innerHTML = virtualclass.lang.getString('sharetoall'); // for next time
           virtualclass.gObj.studentSSstatus.shareToAll = false;
         },
 

@@ -294,10 +294,6 @@
       }
     }
 
-    // console.log('Container height ' + res.height);
-    virtualclass.vutil.setContainerWidth(res, virtualclass.currApp);
-    // console.log('Window resize event ');
-
     const cwb = virtualclass.gObj.currWb;
     if (typeof cwb !== 'undefined' && (typeof virtualclass.wb[cwb] !== 'undefined')
       && Object.prototype.hasOwnProperty.call(virtualclass.wb[cwb], 'vcan')) {
@@ -344,8 +340,8 @@
     }
 
     virtualclass.chat.calculateViewPortForMessageBox();
-    virtualclass.stickybarWidth();
-    virtualclass.chatBarTabWidth();
+    // virtualclass.stickybarWidth();
+    // virtualclass.chatBarTabWidth();
   };
 
   window.view = view;

@@ -841,25 +841,14 @@
               chatInput.disabled = false;
             }
           }
-
-          const userList = document.querySelector('#virtualclassCont #memlist.enable');
+          
           const chatrm = document.querySelector('#virtualclassCont #chatrm.enable');
-
-          const listTab = document.querySelector('#user_list');
           const chatroomTab = document.querySelector('#chatroom_bt2');
-          if (userList && !listTab.classList.contains('active')) {
-            if (!listTab.classList.contains('active')) {
-              listTab.classList.add('active');
-            }
-            chatroomTab.classList.remove('active');
-            virtualclass.chat.chatWindow = 'private';
-          }
 
           if (chatrm) {
             if (!chatroomTab.classList.contains('active')) {
               chatroomTab.classList.add('active');
             }
-            listTab.classList.remove('active');
             virtualclass.chat.chatWindow = 'common';
           }
         },

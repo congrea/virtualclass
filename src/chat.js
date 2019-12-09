@@ -174,6 +174,7 @@
           offset: '-1px',
           title: lang.online,
           userSent(user) {
+            console.log('====> UserList is created 1');
             const userDiv = $('#chat_div').memberlist('option', 'boxManager').addUsr(user);
             return userDiv;
           },
@@ -355,6 +356,31 @@
               }
             }
           }
+        }
+      },
+      rightBarHeader(headerType) {
+        const userListElem = document.querySelector('#userListHeader');
+        const commonchatElem = document.querySelector('#commonChatHeader');
+        const teacherVideoElem = document.querySelector('#techVideoHeader');
+        const rightBarHeader = document.querySelector('#rightBarHeader');
+        if (rightBarHeader.classList.contains('deactive')) {
+          rightBarHeader.classList.remove('deactive');
+          rightBarHeader.classList.add('active');
+        }
+        const activeElem = document.querySelector('#rightBarHeader .active');
+        if (activeElem != null) {
+          activeElem.classList.remove('active');
+          activeElem.classList.add('deactive');
+        }
+        if (headerType === 'userList') {
+          userListElem.classList.remove('deactive');
+          userListElem.classList.add('active');
+        } else if (headerType === 'chatRoom') {
+          commonchatElem.classList.remove('deactive');
+          commonchatElem.classList.add('active');
+        } else if (headerType === 'techVideo') {
+          teacherVideoElem.classList.remove('deactive');
+          teacherVideoElem.classList.add('active');
         }
       },
     };

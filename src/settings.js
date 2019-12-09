@@ -302,12 +302,10 @@
             userList.classList.remove('hideList');
             searchUserInput.classList.remove('hideInput');
             vmlist.classList.remove('disable');
-            document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${"<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
           } else {
             userList.classList.add('hideList');
             searchUserInput.classList.add('hideInput');
             vmlist.classList.add('disable');
-            document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${"<span class='cgText' id='onlineusertext'>" + 'Users'}</span>`;
             const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
             vmchat.click();
           }
@@ -416,7 +414,7 @@
             return;
         }
         const temp = recordingButton(context);
-        const elem = document.querySelector('#docShareNav');
+        const elem = document.querySelector('#virtualclassAppFooterPanel #networkStatusContainer');
         // this.removeButton();
         elem.insertAdjacentHTML('afterend', temp);
         const recording = document.getElementById('recording');

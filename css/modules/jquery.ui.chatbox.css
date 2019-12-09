@@ -6,7 +6,7 @@
   bottom: 37px;
   padding: 0px;
   border-bottom: none;
-  z-index: 10001;
+  z-index: 1000;
   overflow: hidden;
   left: -3px;
   border: 1px solid #bbb;
@@ -150,12 +150,16 @@
 }
 
 /*css for sticky footer bar*/
-#virtualclassCont.congrea #stickybar {
+#virtualclassCont.congrea #virtualclassAppFooterPanel {
   font-size: 0.875rem;
   font-weight: bold;
   position: fixed;
   bottom: 0;
   z-index: 1000;
+  width: 100%;
+  height: 2.75rem;
+  display: flex;
+  flex-direction: row;
 }
 
 #virtualclassCont.congrea #stickybar .footerCtr {
@@ -205,7 +209,6 @@
   border: none;
   font-size: 0.8125rem;
   text-transform: capitalize;
-  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   line-height: 1.125rem;
@@ -257,7 +260,7 @@
 }
 
 #virtualclassCont.congrea.student .vmchat_room_bt {
-  width: 42%;
+  width: 25%;
   height: 2.75rem
 }
 
@@ -274,8 +277,7 @@
 /* css for chat romm */
 #virtualclassCont.congrea .ui-chatroom {
   bottom: 99px;
-  padding: 2px 2px 2px 2px;
-  padding: 2px 2px 2px 2px;
+  /* padding: 2px 2px 2px 2px; */
   z-index: 100;
 }
 
@@ -391,6 +393,12 @@
 /* tab css */
 #virtualclassCont.congrea .ui-tabs, .ui-tabs .ui-tabs-nav {
   padding: 0;
+}
+
+#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #stickybar .ui-tabs {
+  position: fixed;
+  left: 0;
+  width: 100%;
 }
 
 #virtualclassCont.congrea .ui-tabs .ui-tabs-nav li {
@@ -563,34 +571,26 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea .vmchat_bar_button {
   border-right: none;
-  /*width:130px;*/
+  width: 25%;
   cursor: pointer;
 }
 
-#virtualclassCont.congrea .vmchat_bar_button.active {
-  background-color: rgba(0, 0, 0, 0.25);
+#virtualclassCont.congrea.teacher .vmchat_bar_button {
+  width: 33.3%;
+  position: relative;
 }
 
-#virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button, #virtualclassCont.congrea[data-currapp="EditorCode"] .vmchat_bar_button {
-  width: 130px; /* add 100px , it was  218*/
+#virtualclassCont.congrea ul.chatBarTab li.active span:before {
+  text-shadow: #FFF 0px 0px 2px;
 }
-
 
 #virtualclassCont.congrea .vmchat_room_bt.active, #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
   background-color: #395161;
   cursor: pointer;
 }
 
-#virtualclassCont.congrea[data-currapp="Whiteboard"] .vmchat_bar_button {
-  width: 130px;
-}
-
 #virtualclassCont.congrea[data-currapp="Whiteboard"] .ui-memblist {
   right: -1px !important;
-}
-
-#virtualclassCont.congrea[data-currapp="ScreenShare"] .vmchat_bar_button {
-  width: 130px;
 }
 
 #virtualclassCont.congrea[data-currapp="Yts"] .ui-memblist {
@@ -666,8 +666,8 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 #virtualclassCont.congrea #chat_div {
   overflow-y: auto;
   position: relative;
-  padding-top: 3.1875rem;
   height: 100%;
+  padding-top: 3.125rem;
 }
 
 #virtualclassCont.congrea #chat_div::-webkit-scrollbar , 
@@ -677,6 +677,35 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea .ui-widget-content {
   /*    border: none;*/
+}
+
+#virtualclassCont #appSettingDetail .bulkUserActions .setting-heading {
+  /* padding: 0.3125rem 0.9375rem; */
+  color: #fff;
+}
+
+#virtualclassCont.congrea .ui-widget-content #commonChatHeader {
+  font-size: 0.875rem;
+  padding: 0.875rem 0.9375rem;
+  color: #fff;
+
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #userListHeader,
+#virtualclassCont.congrea #virtualclassAppRightPanel #commonChatHeader,
+#virtualclassCont.congrea #virtualclassAppRightPanel #techVideoHeader {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 400;
+  font-size: 0.9rem;
+  padding: 0.875rem 0.9375rem;
+  line-height: normal;
+  color: #fff;
+}
+
+#virtualclassCont.congrea .ui-widget-content #commonChatHeader{
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 #virtualclassCont.congrea .ui-tabs-active .ui-widget-content.ui-chatbox-log::-webkit-scrollbar {
@@ -787,8 +816,13 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 }
 
 #virtualclassCont.congrea.student .vmchat_bar_button {
-  width: 42%;
+  width: 25%;
   height: 2.75rem;
+}
+
+#virtualclassCont.congrea.student .vmchat_bar_button.disable#user_list {
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 /*
@@ -797,9 +831,6 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 }
 */
 
-#virtualclassCont.congrea.teacher #audioWidget a#rightCtlr:hover {
-  /*    height: 40px; comment*/
-}
 
 #virtualclassCont.congrea #audioWidget a#videoPacketInfo:hover,
 #virtualclassCont.congrea #audioWidget .prechk a:hover {
@@ -837,6 +868,8 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea #stickybar {
   width: 100%; /*changed from 325px */
+  position: relative;
+  flex: 1;
 }
 
 #virtualclassCont.congrea .ui-state-default .ui-tabs-anchor,
@@ -848,6 +881,32 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea .chat_enabled #memlist.enable {
   display: block;
+}
+
+#virtualclassCont.congrea .ui-widget-content.ui-memblist-content:before {
+  font-weight: normal;
+  content: "\e9b3";
+  font-size: 4.0625rem;
+  font-family: 'icomoon';
+  color: #000;
+  position: absolute;
+  top: calc(50% - 33px);
+  left: calc(50% - 33px);
+  opacity: 0.1;
+  z-index: 1;
+}
+
+#virtualclassCont.congrea .ui-chatroom:before {
+  font-weight: normal;
+  content: "\e9b4";
+  font-size: 3.875rem;
+  font-family: 'icomoon';
+  color: #000;
+  position: absolute;
+  top: calc(50% - 31px);
+  left: calc(50% - 32px);
+  opacity: 0.1;
+  z-index: 1;
 }
 
 #virtualclassCont.congrea .chat_enabled #chatrm.enable {
@@ -884,4 +943,16 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea .user-details.media-body a:hover {
   text-decoration: none;
+}
+
+#virtualclassCont.congrea.teacher #virtualclassAppRightPanel #rightBarHeader .setting-heading {
+  background-color: #0c1e22;
+  cursor: default;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 400;
+  font-size: 0.9rem;
+  padding: 0.875rem 0.9375rem;
+  line-height: normal;
+  color: #fff;
 }

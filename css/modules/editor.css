@@ -70,33 +70,35 @@
 
 #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
   position: fixed;
-  bottom: 9px;
-  right: 429px;
+  top: 53px;
+  right: 350px;
   width: auto;
   max-height: 44px;
   font-size: 13px;
   font-weight: 200;
   z-index: 2000;
-  border-radius: 0;
+  padding: 8px 9px 5px 9px;
+  border-radius: 50%;
+  box-shadow: 0px 2px 5px 1px #c3c3c3
 }
 
 #virtualclassCont.congrea #virtualclassApp.collapsedRightbar #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
-  right:110px;
+  right: 30px;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch {
-  padding: 16px 14px 14px 14px !important;
+  /* padding: 16px 14px 14px 14px !important; */
   font-size: 14px;
-  background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
   border-radius: 0 !important;
 }
 
-#virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch:hover {
+/* #virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch:hover {
   background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%) !important;
-}
+} */
 
-#virtualclassCont.congrea #alleditorRichContainer.congtooltip:hover:after {
-  bottom: 3.1em !important;
+#virtualclassCont.congrea #alleditorRichContainer.congtooltip:hover::after {
+  bottom: 45px !important;
+  right: -29px;
 }
 
 @-moz-document url-prefix() {
@@ -127,19 +129,8 @@
   background: -webkit-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* Chrome10+,Safari5.1+ */
   background: -o-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* Opera 11.10+ */
   background: -ms-linear-gradient(top, #92b0ab 0%, #6f9b90 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #92b0ab 0%, #6f9b90 100%); /* W3C */
+  background: linear-gradient(to bottom, #fff 0%, #fff 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#92b0ab', endColorstr='#6f9b90', GradientType=0); /* IE6-9 */
-}
-
-#virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer {
-  background: #83c2b2; /* Old browsers */
-  background: -moz-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #83c2b2), color-stop(100%, #6cad9d)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#83c2b2', endColorstr='#6cad9d', GradientType=0); /* IE6-9 */
 }
 
 #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorCodeContainer:hover {
@@ -298,33 +289,29 @@
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-style-group,
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-list-group,
-#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-undo-group {
-  display: inline-block;
-  border-radius: 3px;
-  background-color: #28323c;
-  border: 1px solid #555;
-  padding: 1px 8px 6px 3px;
-  cursor: pointer;
-  margin-left: 7px;
-}
-
-#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-indent-group {
-  display: inline-block;
-  border-radius: 3px;
-  background-color: #28323c;
-  border: 1px solid #555;
-  padding: 2px 8px 6px 3px;
-  cursor: pointer;
-  margin-left: 7px;
-}
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-undo-group,
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-indent-group,
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group {
   display: inline-block;
   border-radius: 3px;
   background-color: #28323c;
-  border: 1px solid #555;
-  padding: 2px 8px 6px 4px;
+  border: 0.5px solid #555;
   cursor: pointer;
   margin-left: 7px;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-style-group,
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-list-group,
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-undo-group {
+  padding: 1px 8px 6px 3px;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-indent-group {
+  padding: 2px 8px 6px 3px;
+}
+
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group {
+  padding: 2px 8px 6px 4px;
 }
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group {
@@ -335,7 +322,7 @@
   font-family: 'icomoon';
   content: "\e23c";
   font-size: 1.125rem;
-  color: white;
+  color: #fff;
   position: relative;
   top: 2px;
   left: 4px;
@@ -345,7 +332,7 @@
   font-family: 'icomoon';
   content: "\e9bd";
   font-size: 1.125rem;
-  color: white;
+  color: #fff;
   position: relative;
   top: 4px;
   left: 4px;
@@ -355,19 +342,19 @@
   font-family: 'icomoon';
   content: "\e9bf";
   font-size: 1.0625rem;
-  color: white;
+  color: #fff;
   position: relative;
-  top: 3px;
+  top: 4px;
   left: 4px;
 }
 
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group::before {
   font-family: 'icomoon';
-  content: "\e9be";
+  content: "\e9ca";
   font-size: 1rem;
-  color: white;
+  color: #fff;
   position: relative;
-  top: 2px;
+  top: 4px;
   left: 4px;
 }
 
@@ -378,7 +365,7 @@
   font-family: 'icomoon';
   content: "\e967";
   font-size: 1.0625rem;
-  color: white;
+  color: #fff;
   float: right;
   position: relative;
   top: 4px;

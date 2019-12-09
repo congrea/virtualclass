@@ -45,13 +45,15 @@ function displayChatUserList(totUsers) {
 
       if (document.getElementById(`video${users[i].userid}`) == null) {
         tmpmyDivResult = $('#chat_div').memberlist('option').userSent(users[i]);
+        console.log('====> UserList is created 1b');
       }
 
       // tmpmyDivResult = true, means user div is created already
       // if (typeof tmpmyDivResult !== 'boolean' && typeof tmpmyDivResult !== undefined
-      // && tmpmyDivResult != undefined) {
+      // && tmpmyDivResult != undefined) {.
       if (typeof tmpmyDivResult !== 'boolean' && typeof tmpmyDivResult !== 'undefined' && tmpmyDivResult != null) {
         myDivResult += tmpmyDivResult;
+        console.log('====> UserList is created 1c');
       }
     }
 
@@ -74,13 +76,16 @@ function displayChatUserList(totUsers) {
           chat_div.shadowRoot.innerHTML = `<link rel='stylesheet' type='text/css'
           href='${whiteboardPath}css/modules/chat-container.css'>
           <div id='subchat' class='playMode ${userRole}'>${myDivResult}</div>`;
+          console.log('====> UserList is created 1d finally');
         } else {
           chat_div.shadowRoot.innerHTML = `<link rel='stylesheet' type='text/css' 
           href='${whiteboardPath}css/modules/chat-container.css'>
           <div id='subchat' class='${userRole}'>${myDivResult}</div>`;
+          console.log('====> UserList is created 1d finally');
         }
       } else {
         chat_div.shadowRoot.querySelector('#subchat').insertAdjacentHTML('beforeend', myDivResult);
+        console.log('====> UserList is created 1d finally');
       }
     }
 
@@ -135,31 +140,37 @@ function displayChatOfflineUserList(users) {
 function updateOnlineUserText() {
   if (roles.hasAdmin()) {
     if (virtualclass.chat.userList.length > 0) {
-      document.querySelector('#usertab_text #onlineusertext').innerHTML = '';
+      // document.querySelector('#usertab_text #onlineusertext').innerHTML = '';
+      document.querySelector('#userListHeader #onlineusertext').innerHTML = '';
       if (roles.hasAdmin()) {
         var text = `Users (${virtualclass.connectedUsers.length}/${virtualclass.chat.userList.length})`;
       } else {
         var text = ` Users (${count})`;
       }
 
-      const onlineUser = document.querySelector('#usertab_text #onlineusertext');
+      // const onlineUser = document.querySelector('#usertab_text #onlineusertext');
+      const onlineUser = document.querySelector('#userListHeader #onlineusertext');
 
       if (onlineUser == null) {
-        document.querySelector('#usertab_text').innerHTML = `<span id='onlineusertext' class='cgText'>${text}</span>`;
+        // document.querySelector('#usertab_text').innerHTML = `<span id='onlineusertext' class='cgText'>${text}</span>`;
+        onlineUser.innerHTML = `(${virtualclass.connectedUsers.length})`;
       } else {
-        onlineUser.innerHTML = text;
+        // onlineUser.innerHTML = text;
+        onlineUser.innerHTML = `(${virtualclass.connectedUsers.length})`;
       }
     } else {
-      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
-        "<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
+      document.querySelector('#userListHeader #onlineusertext').innerHTML = `(${virtualclass.connectedUsers.length})`;
+      // document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
+      //   "<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
     }
   } else {
+    document.querySelector('#userListHeader #onlineusertext').innerHTML = `(${virtualclass.connectedUsers.length})`;
     if (virtualclass.settings.info.userlist === true) {
-      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
-        "<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
+      // document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
+      //   "<span class='cgText' id='onlineusertext'>" + 'Users ('}${virtualclass.connectedUsers.length})</span>`;
     } else {
-      document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
-        "<span class='cgText' id='onlineusertext'>" + 'Users'}</span>`;
+      // document.querySelector('#user_list .inner_bt #usertab_text').innerHTML = `${
+      //   "<span class='cgText' id='onlineusertext'>" + 'Users'}</span>`;
     }
   }
 }
@@ -218,6 +229,7 @@ function memberUpdate(e, addType) {
       if ($('div#memlist').length) {
         // console.log(`member remove memlist ${$('div#memlist').length} addType=${addType}`);
         $('div#memlist').remove();
+        console.log('====> UserList is removed ');
       }
     }
 

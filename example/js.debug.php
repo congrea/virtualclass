@@ -160,6 +160,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/config.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/bootstrap.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/order-list.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ask-question.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/back-detect.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/index.js"></script>

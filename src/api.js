@@ -1,5 +1,6 @@
 const api = {
   access: 'https://api.congrea.net/data/access',
+  askQnsAccess: 'https://api.congrea.net/data/askqns-access',
   upload: 'https://api.congrea.net/t/upload',
   uploadSuccess: 'https://api.congrea.net/t/uploadSuccess',
   uploadMedia: 'https://uploadmedia.congrea.net',

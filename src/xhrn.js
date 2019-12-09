@@ -35,6 +35,11 @@
           }, 1000);
         });
     },
+
+    async getAskQnAccess() {
+      const result = await this.vxhrn.get(virtualclass.api.askQnsAccess);
+      return (result.data) ? result : false;
+    },
   };
   window.xhrn = xhrn;
 }(window));

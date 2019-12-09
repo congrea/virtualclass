@@ -47,7 +47,9 @@ module.exports = {
     sworker: 'writable',
     chatContainerEvent: 'writable',
     OrderedList: 'writeable',
-    receiveFunctions: 'writeable'
+    receiveFunctions: 'writeable',
+    firebase: 'writeable',
+    AskQuestion: 'writeable'
   },
   parserOptions: {
     ecmaVersion: 2017,

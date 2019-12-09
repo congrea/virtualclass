@@ -267,6 +267,8 @@
         virtualclass.videoHost = window.videoHost;
         virtualclass.precheck = preCheck;
         virtualclass.page = page;
+        virtualclass.askQuestion = new AskQuestion();
+        virtualclass.askQuestion.init();
         this.orderList = {};
         if (virtualclass.vutil.isSessionEnded()) {
           return true;

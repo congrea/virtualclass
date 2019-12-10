@@ -63,19 +63,8 @@ class AskQuestion {
   }
 
   sendToDatabase(data) {
-    const readyData = data || {
-      name: 'Los Angeles',
-      action: 'edit',
-      context: 'whiteboard',
-      userid: Math.floor(Math.random() * 10000),
-      content: 'What is the meaning of that thing ?',
-      mode: 'comment',
-      qid: '123_34324_cVzdyANmhNa4BNP4iN8pZzU9uExFLQ6z_VUkRDJ7L9tSW530tOPwl6pApWVpXEU3LqoR3jgup2dHkPDgr',
-      ansId: '1235_34324_cVzdyANmhNa4BNP4iN8pZzU9uExFLQ6z_VUkRDJ7L9tSW530tOPwl6pApWVpXEU3LqoR3jgup2dHkPDgr',
-    };
-
     const docName = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-    this.db.collection(this.collection).doc(docName.toString()).set(readyData)
+    this.db.collection(this.collection).doc(docName.toString()).set(data)
       .then(() => {
         console.log('ask question write, Document successfully written! ', data);
       })

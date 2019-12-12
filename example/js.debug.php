@@ -9,6 +9,10 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worklet-audio-rec.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/webptopng.js"></script>
 
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/axios.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave-mic.js"></script>

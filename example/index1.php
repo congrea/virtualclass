@@ -196,11 +196,6 @@ if($info) {
   <?php
 }
 ?>
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
-<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
 
 <script type="text/javascript">
    "user strict";

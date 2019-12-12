@@ -108,7 +108,7 @@ class AskQuestion extends AskQuestionEngine {
   }
 
   afterSignIn() {
-   // virtualclass.isPlayMode = true;
+    virtualclass.isPlayMode = true;
     if (virtualclass.isPlayMode) this.attachHandlerForRealTimeUpdate();
     if (virtualclass.isPlayMode) this.loadInitialData();
   }

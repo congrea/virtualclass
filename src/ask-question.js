@@ -3,8 +3,10 @@
  * @Copyright 2019  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
 */
-
+// This class is responsible to render HTML of each component of Ask Question
+// like html question, comment etc
 class AskQuestionRenderer {
+
   question(data) {
     //
     console.log('html renderer question ', data);
@@ -18,6 +20,10 @@ class AskQuestionRenderer {
     console.log('html renderer ', data);
   }
 
+  // This is reponsible to create main interface of ask question
+  coreInterface(data) {
+    console.log('html renderer ', data);
+  }
 }
 
 class AskQuestionEngine extends AskQuestionRenderer {
@@ -106,9 +112,8 @@ class AskQuestion extends AskQuestionEngine {
   }
 
   afterSignIn() {
-    //virtualclass.isPlayMode = true;
-     this.attachHandlerForRealTimeUpdate();
-    //this.loadInitialData();
+    // this.loadInitialData();
+    this.attachHandlerForRealTimeUpdate();
   }
 
   loadInitialData() {

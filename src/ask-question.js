@@ -3,7 +3,68 @@
  * @Copyright 2019  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
 */
-class AskQuestion {
+
+class AskQuestionRenderer {
+  constructor () { }
+
+  question (data) {
+    //
+    console.log('html renderer question ', data);
+  }
+
+  answer (data) {
+    console.log('html renderer ', data);
+  }
+
+  comment (data) {
+    console.log('html renderer ', data);
+  }
+
+}
+
+class AskQuestionEngine extends  AskQuestionRenderer {
+  constructor () {
+    super();
+    this.queue = [];
+  }
+
+  // TODO, find better way to perform this
+  perform () {
+    while (this.queue.length > 0) {
+      const data = this.queue.shift();
+      this[data.action].call(this, data);
+    }
+    this.queue.length = 0;
+  }
+
+  performWithQueue (data) {
+    this.queue.push(data);
+    this.perform();
+  }
+
+  queue(data) {
+    this.queue.push(data);
+  }
+
+  create(data) {
+    //  data.component = 'question'
+    //  data.id = q_userId_timetamp
+    //  data.action = 'create'
+    // perform your logic here related to create question
+     super.question(data);
+  }
+
+  delete(data) {
+    // perform your logic here related to delete question
+    console.log('Delete question',  data);
+  }
+
+  edit(data) {
+    console.log('Edit question',  data);
+  }
+}
+
+class AskQuestion extends AskQuestionEngine {
   async init() {
     const config = {
       apiKey: 'AIzaSyDx4OisyZGmbcAx57s0zlwRlopPNNDqxSs',
@@ -47,9 +108,9 @@ class AskQuestion {
   }
 
   afterSignIn() {
-    virtualclass.isPlayMode = true;
+   // virtualclass.isPlayMode = true;
     if (virtualclass.isPlayMode) this.attachHandlerForRealTimeUpdate();
-    this.loadInitialData();
+    if (virtualclass.isPlayMode) this.loadInitialData();
   }
 
   loadInitialData() {

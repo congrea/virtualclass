@@ -6,9 +6,7 @@
 // This class is responsible to render HTML of each component of Ask Question
 // like html question, comment etc
 class AskQuestionRenderer {
-
   question(data) {
-    //
     console.log('html renderer question ', data);
   }
 
@@ -23,6 +21,10 @@ class AskQuestionRenderer {
   // This is reponsible to create main interface of ask question
   coreInterface(data) {
     console.log('html renderer ', data);
+  }
+
+  upvote(data) {
+    console.log('Upvote the answer');
   }
 }
 

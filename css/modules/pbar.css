@@ -32,11 +32,11 @@
   position: relative;
 }
 
-#virtualclassCont.congrea ul.checkout-bar li:before {
-  -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+#virtualclassCont.congrea ul.checkout-bar li::before {
+  -webkit-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
   background: #ddd;
-  border: 2px solid #FFF;
+  border: 2px solid #fff;
   border-radius: 50%;
   color: #fff;
   font-size: 16px;
@@ -57,43 +57,43 @@
   font-weight: bold;
 }
 
-#virtualclassCont.congrea ul.checkout-bar li.active:before {
+#virtualclassCont.congrea ul.checkout-bar li.active::before {
   background: #8bc53f;
   z-index: 99999;
 }
 
 #virtualclassCont.congrea ul.checkout-bar li.visited {
-  background: #ECECEC;
+  background: #ececec;
   color: #57aed1;
   z-index: 99999;
 }
 
-#virtualclassCont.congrea ul.checkout-bar li.visited:before {
+#virtualclassCont.congrea ul.checkout-bar li.visited::before {
   background: #57aed1;
   z-index: 99999;
 }
 
-#virtualclassCont.congrea ul.checkout-bar li:nth-child(1):before {
+#virtualclassCont.congrea ul.checkout-bar li:nth-child(1)::before {
   content: "1";
 }
 
-#virtualclassCont.congrea ul.checkout-bar li:nth-child(2):before {
+#virtualclassCont.congrea ul.checkout-bar li:nth-child(2)::before {
   content: "2";
 }
 
-#virtualclassCont.congrea ul.checkout-bar li:nth-child(3):before {
+#virtualclassCont.congrea ul.checkout-bar li:nth-child(3)::before {
   content: "3";
 }
 
-#virtualclassCont.congrea ul.checkout-bar li:nth-child(4):before {
+#virtualclassCont.congrea ul.checkout-bar li:nth-child(4)::before {
   content: "4";
 }
 
-#virtualclassCont.congrea ul.checkout-bar li:nth-child(5):before {
+#virtualclassCont.congrea ul.checkout-bar li:nth-child(5)::before {
   content: "5";
 }
 
-#virtualclassCont.congrea ul.checkout-bar li:nth-child(6):before {
+#virtualclassCont.congrea ul.checkout-bar li:nth-child(6)::before {
   content: "6";
 }
 
@@ -107,23 +107,25 @@
 #virtualclassCont.congrea #playProgress {
   pointer-events: visible;
   position: absolute;
-  /*top: -14px;*/
+
+  /* top: -14px; */
 }
 
-#virtualclassCont.congrea #downloadProgressBar, #virtualclassCont.congrea #playProgressBar {
+#virtualclassCont.congrea #downloadProgressBar,
+#virtualclassCont.congrea #playProgressBar {
   cursor: pointer;
   pointer-events: visible;
 }
 
 @media all and (min-width: 800px) {
-  #virtualclassCont.congrea .checkout-bar li.active:after {
+  #virtualclassCont.congrea .checkout-bar li.active::after {
     -webkit-animation: myanimation 3s 0;
     background-size: 35px 35px;
     background-color: #8bc53f;
     background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
     background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
     content: "";
     height: 15px;
     width: 100%;
@@ -138,10 +140,10 @@
   }
 
   #virtualclassCont.congrea ul.checkout-bar {
-    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
     background-size: 35px 35px;
-    background-color: #EcEcEc;
+    background-color: #ececec;
     background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
     background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
     border-radius: 15px;
@@ -152,13 +154,13 @@
     width: 100%;
   }
 
-  #virtualclassCont.congrea ul.checkout-bar:before {
+  #virtualclassCont.congrea ul.checkout-bar::before {
     background-size: 35px 35px;
     background-color: #57aed1;
     background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
     background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
     border-radius: 15px;
     content: " ";
     height: 15px;
@@ -175,7 +177,7 @@
     width: 19%;
   }
 
-  #virtualclassCont.congrea ul.checkout-bar li:before {
+  #virtualclassCont.congrea ul.checkout-bar li::before {
     height: 45px;
     left: 40%;
     line-height: 45px;
@@ -189,13 +191,13 @@
     background: none;
   }
 
-  #virtualclassCont.congrea ul.checkout-bar li.visited:after {
+  #virtualclassCont.congrea ul.checkout-bar li.visited::after {
     background-size: 35px 35px;
     background-color: #57aed1;
     background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
     background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
     content: "";
     height: 15px;
     left: 50%;

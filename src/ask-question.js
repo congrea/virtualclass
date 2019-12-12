@@ -5,31 +5,29 @@
 */
 
 class AskQuestionRenderer {
-  constructor () { }
-
-  question (data) {
+  question(data) {
     //
     console.log('html renderer question ', data);
   }
 
-  answer (data) {
+  answer(data) {
     console.log('html renderer ', data);
   }
 
-  comment (data) {
+  comment(data) {
     console.log('html renderer ', data);
   }
 
 }
 
-class AskQuestionEngine extends  AskQuestionRenderer {
-  constructor () {
+class AskQuestionEngine extends AskQuestionRenderer {
+  constructor() {
     super();
     this.queue = [];
   }
 
   // TODO, find better way to perform this
-  perform () {
+  perform() {
     while (this.queue.length > 0) {
       const data = this.queue.shift();
       this[data.action].call(this, data);
@@ -37,7 +35,7 @@ class AskQuestionEngine extends  AskQuestionRenderer {
     this.queue.length = 0;
   }
 
-  performWithQueue (data) {
+  performWithQueue(data) {
     this.queue.push(data);
     this.perform();
   }
@@ -51,7 +49,7 @@ class AskQuestionEngine extends  AskQuestionRenderer {
     //  data.id = q_userId_timetamp
     //  data.action = 'create'
     // perform your logic here related to create question
-     super.question(data);
+    super.question(data);
   }
 
   delete(data) {
@@ -108,9 +106,9 @@ class AskQuestion extends AskQuestionEngine {
   }
 
   afterSignIn() {
-    virtualclass.isPlayMode = true;
-    if (virtualclass.isPlayMode) this.attachHandlerForRealTimeUpdate();
-    if (virtualclass.isPlayMode) this.loadInitialData();
+    //virtualclass.isPlayMode = true;
+     this.attachHandlerForRealTimeUpdate();
+    //this.loadInitialData();
   }
 
   loadInitialData() {

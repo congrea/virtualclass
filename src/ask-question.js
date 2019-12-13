@@ -6,25 +6,25 @@
 // This class is responsible to render HTML of each component of Ask Question
 // like html question, comment etc
 class AskQuestionRenderer {
-  question(data) {
-    console.log('html renderer question ', data);
+  question() {
+    console.log('html renderer question ');
   }
 
-  answer(data) {
-    console.log('html renderer ', data);
+  answer() {
+    console.log('html renderer answer');
   }
 
-  comment(data) {
-    console.log('html renderer ', data);
+  comment() {
+    console.log('html renderer comment');
   }
 
   // This is reponsible to create main interface of ask question
-  coreInterface(data) {
-    console.log('html renderer ', data);
+  coreInterface() {
+    console.log('html renderer core interface');
   }
 
-  upvote(data) {
-    console.log('Upvote the answer');
+  upvote() {
+    console.log('Upvote the answer upvote');
   }
 }
 
@@ -57,7 +57,8 @@ class AskQuestionEngine extends AskQuestionRenderer {
     //  data.id = q_userId_timetamp
     //  data.action = 'create'
     // perform your logic here related to create question
-    super.question(data);
+    // super.question(data);
+    this[data.component].call();
   }
 
   delete(data) {

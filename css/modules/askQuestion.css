@@ -1,0 +1,7 @@
+#virtualclassCont.congrea #askQuestionHeader.active {
+  display: block;
+}
+
+#virtualclassCont.congrea #askQuestionHeader.deactive {
+  display: none;
+}

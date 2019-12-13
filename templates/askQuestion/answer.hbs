@@ -1,0 +1,37 @@
+<div id= '{{id}}' class='answer' data-parent="{{questionId}}">
+  <div class="container">
+
+    <div class= 'header'>
+      <span class= 'userName'>{{userName}}</span>
+      <span class= 'lable'>{{getString 'answered'}}</span>
+      <span class= 'acceptedAnswer'></span>
+    </div>
+
+    <div class= 'content'>
+      <span class= 'more'></span>
+    </div>
+
+    <div class="footer">
+      <div class= 'controls'>
+        <div class= 'commentNavigation'>
+          <span class= 'button'></span>
+          <span class= 'total'></span>
+        </div>
+      </div>
+      <div class= 'reply'>
+        <span class= 'button'></span>
+      </div>
+      <div class= 'moreControls'>
+        <div class= 'item'>
+          {{#if hasControl}}
+            <span class= 'lable'>{{getString 'markAnswer'}}</span>
+          {{/if}}
+          <span class= 'edit'></span>
+          <span class= 'delete'></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="comments"></div>
+</div>

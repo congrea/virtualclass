@@ -23,9 +23,6 @@ class AskQuestionRenderer {
     console.log('html renderer core interface');
   }
 
-  upvote() {
-    console.log('Upvote the answer upvote');
-  }
 }
 
 class AskQuestionEngine extends AskQuestionRenderer {
@@ -69,6 +66,20 @@ class AskQuestionEngine extends AskQuestionRenderer {
   edit(data) {
     console.log('Edit question',  data);
   }
+
+  upvote(data) {
+    // const data = {};
+    // data.component = 'question';
+    // data.id = '12345';
+    // data.action = 'upvote';
+
+    // When user upvote first time this will be invoked
+    if (data.firstTime) {
+      this.sendToDatabase(data);
+    } else {
+      this.db.collection(this.collection).doc(data.id).update(data.action, firebase.firestore.FieldValue.increment(1));
+    }
+  }
 }
 
 class AskQuestion extends AskQuestionEngine {
@@ -107,6 +118,9 @@ class AskQuestion extends AskQuestionEngine {
         querySnapshot.docChanges().forEach((change) => {
           if (change.type === 'added') {
             console.log('ask question  ', change.doc.data());
+          }
+          if (change.type === 'modified') {
+            console.log('ask question modified ', change.doc.data());
           }
         });
       }, (error) => {

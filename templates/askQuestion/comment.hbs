@@ -1,0 +1,31 @@
+<div id= '{{id}}' class= 'comment' data-parent="{{id}}">
+  <div class="container">
+    <div class= 'header'>
+      <span class= 'userName'>{{userName}}</span>
+      <span class= 'lable'>{{getString 'comment'}}</span>
+    </div>
+    <div class= 'content'>
+      <span class= 'more'></span>
+    </div>
+    <div class="footer">
+      <div class= 'controls'>
+        <div class= 'commentNavigation'>
+          <span class= 'button'></span>
+          <span class= 'total'></span>
+        </div>
+      </div>
+      <div class= 'reply'>
+        <span class= 'button'></span>
+      </div>
+      <div class= 'moreControls'>
+        <div class= 'item'>
+          {{#if isStudent}}
+            <span class= 'edit'></span>
+          {{/if}}
+          <span class= 'delete'></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comments"></div>
+</div>

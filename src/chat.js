@@ -362,6 +362,7 @@
         const userListElem = document.querySelector('#userListHeader');
         const commonchatElem = document.querySelector('#commonChatHeader');
         const teacherVideoElem = document.querySelector('#techVideoHeader');
+        const askQuestionElem = document.querySelector('#askQuestionHeader');
         const rightBarHeader = document.querySelector('#rightBarHeader');
         if (rightBarHeader.classList.contains('deactive')) {
           rightBarHeader.classList.remove('deactive');
@@ -381,6 +382,9 @@
         } else if (headerType === 'techVideo') {
           teacherVideoElem.classList.remove('deactive');
           teacherVideoElem.classList.add('active');
+        } else if (headerType === 'askQuestion') {
+          askQuestionElem.classList.remove('deactive');
+          askQuestionElem.classList.add('active');
         }
       },
     };

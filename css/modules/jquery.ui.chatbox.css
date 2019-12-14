@@ -670,7 +670,7 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
   padding-top: 3.125rem;
 }
 
-#virtualclassCont.congrea #chat_div::-webkit-scrollbar , 
+#virtualclassCont.congrea #chat_div::-webkit-scrollbar ,
 #virtualclassCont.congrea .ui-chatbox-log::-webkit-scrollbar {
   width: 6px;
 }
@@ -693,7 +693,8 @@ virtualclassCont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #userListHeader,
 #virtualclassCont.congrea #virtualclassAppRightPanel #commonChatHeader,
-#virtualclassCont.congrea #virtualclassAppRightPanel #techVideoHeader {
+#virtualclassCont.congrea #virtualclassAppRightPanel #techVideoHeader,
+#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader {
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 400;

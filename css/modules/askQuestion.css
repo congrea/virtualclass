@@ -1,0 +1,35 @@
+#virtualclassCont.congrea #askQuestion .container #writeContent .text {
+  position: relative;
+  width: 318px;
+}
+
+#virtualclassCont.congrea #askQuestion .container #writeContent {
+  position: absolute;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .content p {
+  position: absolute;
+  width: 300px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .content {
+  position: relative;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question {
+  border: 1px solid black;
+  height: 100px;
+  width: 318px;
+}
+
+#virtualclassCont.congrea #askQuestion .container {
+  padding: 0px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item[data-close="close"] {
+  display: none;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item[data-open="open"] {
+  display: block;
+}

@@ -868,3 +868,75 @@
   font-size: 13px;
   color: #000;
 } */
+
+#virtualclassCont.congrea #rightBarHeader #askQuestionHeader .header .addQuestion-icon::before {
+  content: "\e9a3";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 18px;
+  color: #fff !important;
+}
+
+#virtualclassCont.congrea #rightBarHeader #askQuestionHeader .header .help-icon::before {
+  content: "\f29c";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 18px;
+  color: #fff !important;
+}
+
+#virtualclassCont.congrea #rightBarHeader #askQuestionHeader .header .fullScreen-icon.deactive::before {
+  content: "\e9da";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 18px;
+  color: #fff !important;
+}
+
+#virtualclassCont.congrea #rightBarHeader #askQuestionHeader .header .fullScreen-icon::before {
+  content: "\e9da";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 18px;
+  color: #fff !important;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .header .closed-icon::before {
+  content: "\e968";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 14px;
+  color: #000000 !important;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .upVote span.button::before {
+  content: "\e924";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 14px;
+  color: #000000 !important;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply span.button::before {
+  content: "\f112";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 14px;
+  color: #000000 !important;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .answersNavigation span.button::before {
+  content: "\e90c";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 14px;
+  color: #000000 !important;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls::before {
+  content: "\e976";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 14px;
+  color: #000000 !important;
+}

@@ -36,6 +36,7 @@
       const virtualclassAppRight = document.querySelector("#virtualclassAppRightPanel");
       const virtualclassApp = document.querySelector("#virtualclassApp");
       const rightbarTab = document.querySelector("#stickycontainer ul.chatBarTab");
+      const askQuestionTab = document.querySelector('#virtualclassCont.congrea #congHr');
 
       rightbarTab.addEventListener('click', ((event) => {
         if (virtualclassApp.classList.contains('collapsedRightbar') && event.target.id !== 'icHr') {
@@ -51,6 +52,7 @@
         user_list.classList.remove('active');
         techVideo.classList.remove('active');
         setting.classList.remove('active');
+        askQuestionTab.classList.remove('active');
         chatroom_bt2.classList.add('active');
         virtualclassAppRight.classList.add('showChatList');
         virtualclassAppRight.classList.remove('techVideoShow');
@@ -58,6 +60,12 @@
         if (setting.classList.contains('settingActive')) {
           setting.classList.remove('settingActive');
           setting.classList.add('chatActive');
+        }
+
+        const askQuestion = document.querySelector('#virtualclassCont.congrea #askQuestion');
+        askQuestion.classList.remove('active');
+        if (!askQuestion.classList.contains('deactive')) {
+          askQuestion.classList.add('deactive');
         }
         chat.classList.remove('deactive');
         if (!chat.classList.contains('active')) {
@@ -130,6 +138,7 @@
         chatroom_bt2.classList.remove('active');
         setting.classList.remove('active');
         user_list.classList.remove('active');
+        askQuestionTab.classList.remove('active');
         techVideo.classList.add('active');
         virtualclassAppRight.classList.remove('showUserList');
         virtualclassAppRight.classList.remove('showChatList');
@@ -144,6 +153,7 @@
         chatroom_bt2.classList.remove('active');
         techVideo.classList.remove('active');
         setting.classList.remove('active');
+        askQuestionTab.classList.remove('active');
         // $('#congreaSupport').removeClass('active');
         // $('#user_list').addClass('active');
         user_list.classList.add('active');
@@ -155,6 +165,12 @@
         if (setting.classList.contains('settingActive')) {
           setting.classList.remove('settingActive');
           setting.classList.add('chatActive');
+        }
+
+        const askQuestion = document.querySelector('#virtualclassCont.congrea #askQuestion');
+        askQuestion.classList.remove('active');
+        if (!askQuestion.classList.contains('deactive')) {
+          askQuestion.classList.add('deactive');
         }
 
         chat.classList.remove('deactive');

@@ -435,6 +435,8 @@
     userListHeader: 'Users ',
     commonChatHeader: 'Chat Room',
     teacherVideoHeader: 'Teacher Video',
+    askQuestionHeader: 'Ask a Qusetion',
+    questionlable: 'question',
     /* For Chrome */
     PermissionDeniedErrorExt: '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'
     + 'Go to camera icon on top right of the screen <br /> '

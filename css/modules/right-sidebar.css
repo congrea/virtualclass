@@ -102,7 +102,7 @@ body {
   display: none;
 }
 
-#virtualclassCont.congrea.student[device="mobile"] #virtualclassApp #virtualclassAppRightPanel.showUserList #videoHostContainer, 
+#virtualclassCont.congrea.student[device="mobile"] #virtualclassApp #virtualclassAppRightPanel.showUserList #videoHostContainer,
 #virtualclassCont.congrea.student[device="mobile"] #virtualclassApp #virtualclassAppRightPanel.showChatList #videoHostContainer {
   display: none;
 }
@@ -473,9 +473,9 @@ body {
   display: none;
 }
 
-#virtualclassCont.congrea #chatWidget.deactive #congreaChatMainCont {
-  display: none;
-}
+/*#virtualclassCont.congrea #chatWidget.deactive #congreaChatMainCont {*/
+  /*display: none;*/
+/*}*/
 
 #virtualclassCont.congrea #chatWidget #congreaChatMainCont {
   display: flex;
@@ -537,7 +537,7 @@ body {
 #virtualclassCont.congrea.playMode .vidShow #stickycontainer #techVideo a.inner_bt {
    background: linear-gradient(to bottom, #22880b 0%, #22880b 100%) !important;
 }
-  
+
 #virtualclassCont.congrea .vidShow #stickycontainer #techVideo.active a.inner_bt {
   background-color: unset;
 }
@@ -761,7 +761,7 @@ body {
   margin-bottom: 8px;
   color: #fff;
   font-size: 0.875rem;
-} 
+}
 
 /* Tool Tip */
 
@@ -888,10 +888,10 @@ body {
   #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont {
     min-height: 1px;
   }
-  
+
   #virtualclassCont.congrea #rightSubContainer {
     min-height: 1px;
-  }  
+  }
 
 }
 
@@ -990,4 +990,20 @@ body {
 
 #virtualclassCont.playMode .footerCtr {
   z-index: 0;
+}
+
+#virtualclassCont.congrea #askQuestionHeader.active,
+#virtualclassCont.congrea #rightSubContainer #askQuestion.active,
+#virtualclassCont.congrea #rightSubContainer #chatWidget.active {
+  display: block;
+}
+
+#virtualclassCont.congrea #askQuestionHeader.deactive,
+#virtualclassCont.congrea #rightSubContainer #askQuestion.deactive,
+#virtualclassCont.congrea #rightSubContainer #chatWidget.deactive {
+  display: none;
+}
+
+#virtualclassCont.congrea #congHr.active {
+  background-image: radial-gradient(ellipse at center, #000000 0%, #000000 100%) !important;
 }

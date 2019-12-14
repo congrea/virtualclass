@@ -3649,9 +3649,9 @@
   border-radius: 0;
 }
 
-#virtualclassCont.congrea.teacher #congHr {
-  display: none;
-}
+/*#virtualclassCont.congrea.teacher #congHr {*/
+  /*display: none;*/
+/*}*/
 
 #virtualclassCont.congrea #congHr.disable {
   width: 25%;

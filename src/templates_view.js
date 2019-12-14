@@ -113,7 +113,7 @@ this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template(
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/askQuestionMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='askQuestion' class=\"close\"><div class='container'></div></div>";
+    return "<div id='askQuestion' class=\"deactive\"><div class='container'></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -135,7 +135,7 @@ this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class='content'><textarea class='text'>"
+    return "<div id='writeContent'><textarea class='text'>"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.type : depth0),{"name":"getString","hash":{},"data":data}))
     + "</textarea></div>";
 },"useData":true});
@@ -149,7 +149,7 @@ this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.templat
     + alias4(((helper = (helper = helpers.userName || (depth0 != null ? depth0.userName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"userName","hash":{},"data":data}) : helper)))
     + "</span><span class='lable'>"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"questionlable",{"name":"getString","hash":{},"data":data}))
-    + "</span><span class='closed-icon'></span></div><div class='content'><p></p><span class='more'></span></div><div class=\"footer\"><div class='controls'><div class='upVote'><span class='button'></span><span class='total'></span></div><div class='answersNavigation'><span class='button'></span><span class='total'></span></div><div class='reply'><span class='button'></span></div></div><div class='moreControls'><div class='item'><span class='edit'> "
+    + "</span><span class='closed-icon'></span></div><div class='content'><p></p><span class='more'></span></div><div class=\"footer\"><div class='controls'><div class='upVote'><span class='button'></span><span class='total'></span></div><div class='answersNavigation'><span class='button'></span><span class='total'></span></div><div class='reply'><span class='button'></span></div></div><div class='moreControls'><div class='item' data-close=\"close\"><span class='edit'> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"edit",{"name":"getString","hash":{},"data":data}))
     + " </span><span class='delete'> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))

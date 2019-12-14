@@ -41,6 +41,15 @@
               if (commonChatTab.classList.contains('active')) {
                 commonChatTab.classList.remove('active');
               }
+
+              const askQuestion = document.querySelector('#virtualclassCont.congrea #askQuestion');
+              askQuestion.classList.remove('active');
+              if (!askQuestion.classList.contains('deactive')) {
+                askQuestion.classList.add('deactive');
+              }
+
+              const askQuestionTab = document.querySelector('#virtualclassCont.congrea #congHr');
+              askQuestionTab.classList.remove('active');
             } else {
               // toggle.classList.add('chatActive');
               // toggle.classList.remove('settingActive');

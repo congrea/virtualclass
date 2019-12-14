@@ -194,34 +194,34 @@
       },
 
       attachHandlerAtStudent() {
-        const cont = document.querySelector('#virtualclassCont.congrea #congHr');
-        cont.addEventListener('click', () => {
-          const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
-          const toUser = virtualclass.vutil.whoIsTeacher();
-          ioAdapter.mustSendUser({
-            data: {
-              user: wbUser.id,
-              action: rhElem.getAttribute('data-action'),
-            },
-            cf: 'raiseHand',
-          }, toUser);
-
-          if (rhElem.getAttribute('data-action') === 'enable') {
-            rhElem.setAttribute('data-action', 'disable');
-            cont.classList.remove('enable');
-            cont.classList.add('disable');
-            var handCont = document.querySelector('#virtualclassCont.congrea #congHr');
-            handCont.setAttribute('data-title', virtualclass.lang.getString('RaiseHandStdDisabled'));
-            virtualclass.raiseHand.stdRhEnable = 'disabled';
-          } else {
-            rhElem.setAttribute('data-action', 'enable');
-            cont.classList.add('enable');
-            cont.classList.remove('disable');
-            var handCont = document.querySelector('#virtualclassCont.congrea #congHr');
-            handCont.setAttribute('data-title', virtualclass.lang.getString('RaiseHandStdEnabled'));
-            virtualclass.raiseHand.stdRhEnable = 'enabled';
-          }
-        });
+        // const cont = document.querySelector('#virtualclassCont.congrea #congHr');
+        // cont.addEventListener('click', () => {
+        //   const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
+        //   const toUser = virtualclass.vutil.whoIsTeacher();
+        //   ioAdapter.mustSendUser({
+        //     data: {
+        //       user: wbUser.id,
+        //       action: rhElem.getAttribute('data-action'),
+        //     },
+        //     cf: 'raiseHand',
+        //   }, toUser);
+        //
+        //   if (rhElem.getAttribute('data-action') === 'enable') {
+        //     rhElem.setAttribute('data-action', 'disable');
+        //     cont.classList.remove('enable');
+        //     cont.classList.add('disable');
+        //     var handCont = document.querySelector('#virtualclassCont.congrea #congHr');
+        //     handCont.setAttribute('data-title', virtualclass.lang.getString('RaiseHandStdDisabled'));
+        //     virtualclass.raiseHand.stdRhEnable = 'disabled';
+        //   } else {
+        //     rhElem.setAttribute('data-action', 'enable');
+        //     cont.classList.add('enable');
+        //     cont.classList.remove('disable');
+        //     var handCont = document.querySelector('#virtualclassCont.congrea #congHr');
+        //     handCont.setAttribute('data-title', virtualclass.lang.getString('RaiseHandStdEnabled'));
+        //     virtualclass.raiseHand.stdRhEnable = 'enabled';
+        //   }
+        // });
         virtualclass.settings.raisehand(false);
       },
 

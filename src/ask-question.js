@@ -4,41 +4,91 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
 */
 // This class is responsible to render HTML of each component of Ask Question
-// like html question, comment etc
-class AskQuestionRenderer {
-  question() {
-    console.log('html renderer question ');
+
+class QAquestion {
+  create(data) {
+    console.log('Create ', data);
   }
 
-  answer() {
-    console.log('html renderer answer');
+  edit(data) {
+    console.log('Create ', data);
   }
 
-  comment() {
-    console.log('html renderer comment');
+  delete(data) {
+    console.log('Create ', data);
   }
 
-  // This is reponsible to create main interface of ask question
-  coreInterface() {
-    console.log('html renderer core interface');
+  upvote(data) {
+    if (data.firstTime) {
+      this.sendToDatabase(data);
+    } else {
+      this.db.collection(this.collection).doc(data.id).update(data.action, firebase.firestore.FieldValue.increment(1));
+    }
   }
 
+  renderer(data) {
+    console.log('Create ', data);
+  }
 }
 
-class AskQuestionEngine extends AskQuestionRenderer {
+class QAanswer {
+  create(data) {
+    console.log('Create ', data);
+  }
+
+  edit(data) {
+    console.log('Create ', data);
+  }
+
+  delete(data) {
+    console.log('Create ', data);
+  }
+
+  upvote(data) {
+    if (data.firstTime) {
+      this.sendToDatabase(data);
+    } else {
+      this.db.collection(this.collection).doc(data.id).update(data.action, firebase.firestore.FieldValue.increment(1));
+    }
+  }
+
+  renderer(data) {
+    console.log('Create ', data);
+  }
+}
+
+class QAcomment {
+  create(data) {
+    console.log('Create ', data);
+  }
+
+  edit(data) {
+    console.log('edit ', data);
+  }
+
+  delete(data) {
+    console.log('delete ', data);
+  }
+
+  renderer(data) {
+    console.log('renderer ', data);
+  }
+}
+
+class AskQuestionEngine {
   constructor() {
-    super();
     this.queue = [];
   }
 
-  // TODO, find better way to perform this
   perform() {
     while (this.queue.length > 0) {
       const data = this.queue.shift();
-      this[data.action].call(this, data);
+      this[data.component][data.action].call(this, data);
     }
     this.queue.length = 0;
   }
+
+  // virtualclass.askQuestion.performWithQueue({action:'create', component:'question'})
 
   performWithQueue(data) {
     this.queue.push(data);
@@ -48,41 +98,15 @@ class AskQuestionEngine extends AskQuestionRenderer {
   queue(data) {
     this.queue.push(data);
   }
-
-  create(data) {
-    //  data.component = 'question'
-    //  data.id = q_userId_timetamp
-    //  data.action = 'create'
-    // perform your logic here related to create question
-    // super.question(data);
-    this[data.component].call();
-  }
-
-  delete(data) {
-    // perform your logic here related to delete question
-    console.log('Delete question',  data);
-  }
-
-  edit(data) {
-    console.log('Edit question',  data);
-  }
-
-  upvote(data) {
-    // const data = {};
-    // data.component = 'question';
-    // data.id = '12345';
-    // data.action = 'upvote';
-
-    // When user upvote first time this will be invoked
-    if (data.firstTime) {
-      this.sendToDatabase(data);
-    } else {
-      this.db.collection(this.collection).doc(data.id).update(data.action, firebase.firestore.FieldValue.increment(1));
-    }
-  }
 }
 
 class AskQuestion extends AskQuestionEngine {
+  constructor () {
+    super();
+    this.question = new QAquestion();
+    this.answer = new QAanswer();
+    this.comment = new QAcomment();
+  }
   async init() {
     const config = {
       apiKey: 'AIzaSyDx4OisyZGmbcAx57s0zlwRlopPNNDqxSs',
@@ -152,5 +176,9 @@ class AskQuestion extends AskQuestionEngine {
       .catch((error) => {
         console.error('ask question write, Error writing document: ', error);
       });
+  }
+
+  renderer() {
+
   }
 }

@@ -74,7 +74,10 @@ class QAquestion extends BasicOperation {
 
   inputHandler(ev) {
     if (ev.keyCode === 13) {
-      const data = this.generateData({ component: 'question', text: ev.target.value, type: 'questionBox', action: 'create' });
+      const data = this.generateData({ component: 'question', text: ev.target.value, type: 'questionBox', action: 'create'});
+      if (virtualclass.currApp === 'Whiteboard') {
+        data.context = virtualclass.gObj.currWb;
+      }
       this.create(data);
       this.send(data);
     }
@@ -125,18 +128,24 @@ class QAcomment {
   }
 }
 
-class AskQuestionEngine {
+class AskQuestionContext {
   constructor() {
-    this.queue = [];
     this.question = new QAquestion();
     this.answer = new QAanswer();
     this.comment = new QAcomment();
+  }
+}
+
+class AskQuestionEngine {
+  constructor() {
+    this.queue = [];
+    this.context = {};
   }
 
   perform() {
     while (this.queue.length > 0) {
       const data = this.queue.shift();
-      this[data.component][data.action].call(this[data.component], data);
+      this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
     }
     this.queue.length = 0;
   }
@@ -175,6 +184,12 @@ class AskQuestion extends AskQuestionEngine {
     this.renderer();
   }
 
+  makeReadyContext(contextId) {
+    if (virtualclass.currApp !== 'Poll' && virtualclass.currApp !== 'Quiz' && !this.context[contextId]) {
+      this.context[contextId] = new AskQuestionContext();
+    }
+  }
+
   async authenticate(config) {
     firebase.initializeApp(config);
     if (!this.db) this.db = firebase.firestore();
@@ -191,7 +206,7 @@ class AskQuestion extends AskQuestionEngine {
           if (change.type === 'added') {
             // console.log('ask question  ', change.doc.data());
             const data = change.doc.data();
-            this[data.component][data.action].call(this[data.component], data);
+            this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
           }
           if (change.type === 'modified') {
             console.log('ask question modified ', change.doc.data());
@@ -299,7 +314,7 @@ class AskQuestion extends AskQuestionEngine {
     const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
     if (addQuestion) {
       addQuestion.addEventListener('click', () => {
-        this.performWithQueue({ component: 'question', action: 'renderer', type: 'input' });
+        this.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.gObj.currWb });
       });
     }
     // console.log('html renderer core interface');

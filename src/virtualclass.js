@@ -712,6 +712,7 @@
           // virtualclass.zoom.zoomAction('fitToScreen');
         } else {
           if (app === 'Whiteboard') {
+            virtualclass.askQuestion.makeReadyContext((virtualclass.gObj.currWb)? virtualclass.gObj.currWb : '_doc_0_0');
             if (typeof this.orderList[app] !== 'object') {
               this.orderList[app] = new OrderedList();
             }

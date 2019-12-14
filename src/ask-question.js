@@ -78,6 +78,9 @@ class QAcomment {
 class AskQuestionEngine {
   constructor() {
     this.queue = [];
+    this.question = new QAquestion();
+    this.answer = new QAanswer();
+    this.comment = new QAcomment();
   }
 
   perform() {
@@ -101,12 +104,6 @@ class AskQuestionEngine {
 }
 
 class AskQuestion extends AskQuestionEngine {
-  constructor () {
-    super();
-    this.question = new QAquestion();
-    this.answer = new QAanswer();
-    this.comment = new QAcomment();
-  }
   async init() {
     const config = {
       apiKey: 'AIzaSyDx4OisyZGmbcAx57s0zlwRlopPNNDqxSs',

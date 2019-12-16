@@ -219,7 +219,9 @@ class AskQuestion extends AskQuestionEngine {
           if (change.type === 'added') {
             // console.log('ask question  ', change.doc.data());
             const data = change.doc.data();
-            this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
+            if (virtualclass.gObj.uid !== data.userId) {
+              this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
+            }
           }
           if (change.type === 'modified') {
             console.log('ask question modified ', change.doc.data());

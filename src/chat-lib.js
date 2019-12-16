@@ -250,8 +250,8 @@ function memberUpdate(e, addType) {
     const memList = document.querySelector('#memlist');
     const chatrm = document.querySelector('#chatrm');
     if (memList != null && document.querySelector('#chatroom_bt2.active') == null) {
-      memList.classList.add('enable');
-      memList.classList.remove('disable');
+      // memList.classList.add('enable');
+      // memList.classList.remove('disable');
 
 
       if (chatrm != null) {

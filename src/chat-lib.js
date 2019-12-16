@@ -250,7 +250,7 @@ function memberUpdate(e, addType) {
     const memList = document.querySelector('#memlist');
     const chatrm = document.querySelector('#chatrm');
     if (memList != null && document.querySelector('#chatroom_bt2.active') == null) {
-      // memList.classList.add('enable');
+      // memList.classList.add('enable'); TODO handle on new user join some issue on other's side
       // memList.classList.remove('disable');
 
 

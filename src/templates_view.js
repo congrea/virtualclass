@@ -145,11 +145,11 @@ this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.templat
 
   return "<div id='"
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-    + "' class='question'><div class=\"container\"><div class='header'><span class='userName'>"
+    + "' class='question'><div class=\"container\"><div class='header'><div class=\"info\"><span class='userName'>"
     + alias4(((helper = (helper = helpers.userName || (depth0 != null ? depth0.userName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"userName","hash":{},"data":data}) : helper)))
     + "</span><span class='lable'>"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"questionlable",{"name":"getString","hash":{},"data":data}))
-    + "</span><span class='closed-icon'></span></div><div class='content'><p></p><span class='more'></span></div><div class=\"footer\"><div class='controls'><div class='upVote'><span class='button'></span><span class='total'></span></div><div class='answersNavigation'><span class='button'></span><span class='total'></span></div><div class='reply'><span class='button'></span></div></div><div class='moreControls'><div class='item' data-close=\"close\"><span class='edit'> "
+    + "</span><span class='closed-icon'></span></div></div><div class='content'><p></p><span class='more'></span></div><div class=\"footer\"><div class='controls'><div class='upVote'><span class='button'></span><span class='total'>0</span></div><div class='answersNavigation'><span class='button'></span><span class='total'>0</span></div><div class='reply'><span class='button'></span></div></div><div class='moreControls'><div class='item' data-close=\"close\"><span class='edit'> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"edit",{"name":"getString","hash":{},"data":data}))
     + " </span><span class='delete'> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))

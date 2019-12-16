@@ -68,11 +68,15 @@ class QAquestion extends BasicOperation {
         text.addEventListener('keyup', this.inputHandler.bind(this));
       }
     } else if (data.type === 'questionBox') {
-      const context = { id: data.id, userName: virtualclass.gObj.uName };
+      const context = { id: data.id, userName: data.uname };
       const qaTemp = virtualclass.getTemplate('question', 'askQuestion');
       const qtemp = qaTemp(context);
       document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', qtemp);
       document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+      const upVoteElem = document.querySelector('.upVote');
+      if (upVoteElem) {
+        upVoteElem.addEventListener('click', this.upvote.bind(this));
+      }
       // console.log('html renderer question ');
     }
   }
@@ -80,7 +84,14 @@ class QAquestion extends BasicOperation {
   inputHandler(ev) {
     console.log('Add input handler');
     if (ev.keyCode === 13) {
-      const data = this.generateData({ component: 'question', text: ev.target.value, type: 'questionBox', action: 'create'});
+      const data = this.generateData({
+        component: 'question',
+        text: ev.target.value,
+        type: 'questionBox',
+        action: 'create',
+        userid: virtualclass.uInfo.userid,
+        uname: virtualclass.uInfo.userobj.name,
+      });
       if (virtualclass.currApp === 'Whiteboard') {
         data.context = virtualclass.gObj.currWb;
       }
@@ -256,7 +267,7 @@ class AskQuestion extends AskQuestionEngine {
           if (change.type === 'added') {
             // console.log('ask question  ', change.doc.data());
             const data = change.doc.data();
-            if (virtualclass.gObj.uid !== data.userId) {
+            if (virtualclass.gObj.uid !== data.userid) {
               this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
             }
           }

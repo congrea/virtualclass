@@ -16,6 +16,10 @@ class BasicOperation {
 
   send(data) {
     const docName = data.timeStamp.toString();
+    if (!virtualclass.askQuestion.collection) {
+      virtualclass.askQuestion.setDbCollection();
+      virtualclass.askQuestion.attachHandlerForRealTimeUpdate();
+    }
     virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(docName.toString()).set(data)
       .then(() => {
         console.log('ask question write, Document successfully written! ', data);
@@ -45,7 +49,7 @@ class QAquestion extends BasicOperation {
 
   upvote(data) {
     if (data.firstTime) {
-      this.sendToDatabase(data);
+      this.send(data);
     } else {
       this.db.collection(this.collection).doc(data.id).update(data.action, firebase.firestore.FieldValue.increment(1));
     }
@@ -73,6 +77,7 @@ class QAquestion extends BasicOperation {
   }
 
   inputHandler(ev) {
+    console.log('Add input handler');
     if (ev.keyCode === 13) {
       const data = this.generateData({ component: 'question', text: ev.target.value, type: 'questionBox', action: 'create'});
       if (virtualclass.currApp === 'Whiteboard') {
@@ -99,7 +104,7 @@ class QAanswer {
 
   upvote(data) {
     if (data.firstTime) {
-      this.sendToDatabase(data);
+      this.send(data);
     } else {
       this.db.collection(this.collection).doc(data.id).update(data.action, firebase.firestore.FieldValue.increment(1));
     }
@@ -177,7 +182,6 @@ class AskQuestion extends AskQuestionEngine {
     const result = await this.authenticate(config);
     if (result && Object.prototype.hasOwnProperty.call(result, 'operationType')) {
       this.afterSignIn();
-      this.collection = `${wbUser.lkey}_${wbUser.session}_${wbUser.room}`;
     } else {
       console.log(`There is some error${result}`);
     }
@@ -192,11 +196,20 @@ class AskQuestion extends AskQuestionEngine {
 
   async authenticate(config) {
     firebase.initializeApp(config);
+    console.log('====> hi helllo 2');
     if (!this.db) this.db = firebase.firestore();
-    this.collection = `${wbUser.lkey}_${wbUser.session}_${wbUser.room}`;
+    this.setDbCollection();
     const result = await virtualclass.xhrn.getAskQnAccess();
     if (result) return firebase.auth().signInWithCustomToken(result.data);
     return false;
+  }
+
+  setDbCollection() {
+    if (virtualclass.isPlayMode) {
+      this.collection = `${wbUser.lkey}_${wbUser.session}_${wbUser.room}`;
+    } else if (localStorage.getItem('mySession') != null) {
+      this.collection = `${wbUser.lkey}_${localStorage.getItem('mySession')}_${wbUser.room}`;
+    }
   }
 
   attachHandlerForRealTimeUpdate() {
@@ -219,7 +232,7 @@ class AskQuestion extends AskQuestionEngine {
 
   afterSignIn() {
     // this.loadInitialData();
-    this.attachHandlerForRealTimeUpdate();
+    if (this.collection) this.attachHandlerForRealTimeUpdate();
   }
 
   loadInitialData() {
@@ -230,17 +243,6 @@ class AskQuestion extends AskQuestionEngine {
     }).catch((error) => {
       console.log('ask question read error ', error);
     });
-  }
-
-  sendToDatabase(data) {
-    const docName = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-    this.db.collection(this.collection).doc(docName.toString()).set(data)
-      .then(() => {
-        console.log('ask question write, Document successfully written! ', data);
-      })
-      .catch((error) => {
-        console.error('ask question write, Error writing document: ', error);
-      });
   }
 
   renderer() {

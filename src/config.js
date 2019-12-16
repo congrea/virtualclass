@@ -7,6 +7,7 @@
 function Config() {
 }
 Config.prototype.setNewSession = function (session) {
+  console.log('====> hi helllo 1');
   localStorage.setItem('mySession', session);
   if (!virtualclass.isPlayMode && roles.hasControls()) {
     const currTime = new Date().getTime();

@@ -458,6 +458,7 @@
                 args: [receivemsg.pptMsg.state],
               }), '*');
             }
+            virtualclass.askQuestion.makeReadyContext();
           };
         },
 
@@ -1006,6 +1007,8 @@
         if (!btn) {
           virtualclass.vutil.showFinishBtn();
         }
+        virtualclass.sharePt.currId = pptId;
+        virtualclass.askQuestion.makeReadyContext();
       },
       /*
        * Validate url

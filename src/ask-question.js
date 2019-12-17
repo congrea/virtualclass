@@ -188,9 +188,41 @@ class AskQuestion extends AskQuestionEngine {
     this.renderer();
   }
 
-  makeReadyContext(contextId) {
-    if (virtualclass.currApp !== 'Poll' && virtualclass.currApp !== 'Quiz' && !this.context[contextId]) {
-      this.context[contextId] = new AskQuestionContext();
+  makeReadyContext() {
+    let contextName;
+    switch (virtualclass.currApp) {
+      case 'Whiteboard':
+      case 'DocumentShare':
+        contextName = virtualclass.gObj.currWb;
+        break;
+      case 'EditorRich':
+        contextName = 'editor';
+        break;
+      case 'SharePresentation':
+        // indexh
+        // indexv
+        contextName = null;
+        if (virtualclass.sharePt.currId && virtualclass.sharePt.state) {
+          contextName = `${virtualclass.sharePt.currId}_${virtualclass.sharePt.state.indexv}_${virtualclass.sharePt.state.indexh}`;
+        }
+        break;
+      default:
+        contextName = null;
+    }
+
+    const askQuestoinContainer = document.getElementById('askQuestion');
+    if (askQuestoinContainer) {
+      if (!contextName) {
+        askQuestoinContainer.classList.remove('readyContext');
+      } else {
+        askQuestoinContainer.classList.add('readyContext');
+      }
+    }
+
+    this.currentContext = contextName;
+    if (virtualclass.currApp !== 'Poll' && virtualclass.currApp !== 'Quiz'
+      && this.currentContext && !this.context[contextName]) {
+      this.context[contextName] = new AskQuestionContext();
     }
   }
 
@@ -321,6 +353,5 @@ class AskQuestion extends AskQuestionEngine {
         this.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.gObj.currWb });
       });
     }
-    // console.log('html renderer core interface');
   }
 }

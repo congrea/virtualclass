@@ -600,4 +600,8 @@ const receiveFunctions = new function () {
   this.rawSyncData = function (e) {
     virtualclass.serverData.onMessage(e.message);
   };
+
+  this.screenShareId = function (e) {
+    virtualclass.gObj.screenShareId = e.message.id;
+  }
 }();

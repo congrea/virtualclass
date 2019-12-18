@@ -208,6 +208,9 @@ class AskQuestion extends AskQuestionEngine {
       case 'Video':
         if (virtualclass.videoUl.videoId) contextName = virtualclass.videoUl.videoId;
         break;
+      case 'ScreenShare':
+        if (virtualclass.gObj.screenShareId) contextName = virtualclass.gObj.screenShareId;
+        break;
       default:
         contextName = null;
     }

@@ -536,11 +536,10 @@
 }
 
 #virtualclassCont.congrea #docScreenContainer .mainpreview {
-  padding: 6px 8px 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 6px 8px 3px;
+  padding: 6px 8px 3px 8px;
 }
 
 #virtualclassCont.congrea #virtualclassVideo button#newVideoBtn {

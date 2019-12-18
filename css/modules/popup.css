@@ -103,7 +103,7 @@
 }
 
 .rv-vanilla-modal-title {
-  color: #414c46;
+  color: #fff;
   font-size: 15px;
   font-weight: 300;
   margin: 0;
@@ -142,7 +142,8 @@
 }
 
 #virtualclassCont.congrea .rv-vanilla-modal-header {
-  border-radius: 4px 4px 0 0;
+  border-radius: 10px 10px 0 0;
+  height: 42px;
 }
 
 #virtualclassCont.congrea #progress,
@@ -293,10 +294,6 @@
 
 #virtualclassCont.congrea .rv-vanilla-modal-title {
   font-size: 15px;
-}
-
-#virtualclassCont.congrea .rv-vanilla-modal-header {
-  height: 42px;
 }
 
 #virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-body div {
@@ -525,14 +522,6 @@
 }
 
 #virtualclassCont.congrea #speakerPressingAnch #speakerPressingtext {
-  color: #fff;
-}
-
-#virtualclassCont.congrea .rv-vanilla-modal-header {
-  border-radius: 10px 10px 0 0;
-}
-
-.rv-vanilla-modal-title {
   color: #fff;
 }
 

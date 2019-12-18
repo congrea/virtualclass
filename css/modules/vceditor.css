@@ -351,6 +351,7 @@
   white-space: nowrap;
   border: #ccc 1px solid;
   font-size: 0.9375rem;
+  border-radius: 6px;
 }
 
 /********************************************************************
@@ -507,10 +508,6 @@
 
 #virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:last-child:hover {
   background-color: #ff9f41;
-}
-
-#virtualclassCont.congrea .vceditor-dialog-input {
-  border-radius: 6px;
 }
 
 #virtualclassCont.congrea a.vceditor-btn:hover,

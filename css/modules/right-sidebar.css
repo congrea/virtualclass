@@ -777,6 +777,7 @@ body {
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .videoSwitchCont.congtooltip:hover::after {
   top: 209px;
+  right: 126px;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #appSettingCtrl.congtooltip:hover::after {
@@ -802,10 +803,6 @@ body {
 
 #virtualclassCont.congrea.meetingmode.nowebcam #virtualclassAppRightPanel #audioWidget .congtooltip:hover::after {
   top: 51px !important;
-}
-
-#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .videoSwitchCont.congtooltip:hover::after {
-  right: 126px;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .audioTool a.congtooltip:hover::after {

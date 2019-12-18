@@ -63,6 +63,7 @@ class QAquestion extends BasicOperation {
       const qaTemp = qaPostTemp(context);
       document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', qaTemp);
       const text = document.querySelector('#writeContent .text');
+
       if (text) {
         text.addEventListener('keyup', this.inputHandler.bind(this));
       }
@@ -199,12 +200,13 @@ class AskQuestion extends AskQuestionEngine {
         contextName = 'editor';
         break;
       case 'SharePresentation':
-        // indexh
-        // indexv
         contextName = null;
         if (virtualclass.sharePt.currId && virtualclass.sharePt.state) {
           contextName = `${virtualclass.sharePt.currId}_${virtualclass.sharePt.state.indexv}_${virtualclass.sharePt.state.indexh}`;
         }
+        break;
+      case 'Video':
+        if (virtualclass.videoUl.videoId) contextName = virtualclass.videoUl.videoId;
         break;
       default:
         contextName = null;

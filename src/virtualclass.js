@@ -1021,7 +1021,7 @@
                   virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
                 }
                 // console.log('====> jai 6 ', id, ' ', virtualclass.wb[id].vcan);
-                console.log('##==jai, whiteboard 2 ' + id);
+                console.log(`##==jai, whiteboard 2 ` + id);
                 if (app === 'DocumentShare') {
                   const { currNote } = virtualclass.dts.docs.note;
                   // console.log('##==jai.1', id, ' ', id, ' ', virtualclass.wb[id].vcan);
@@ -1103,6 +1103,7 @@
 
             virtualclass.wbCommon.indexNav.updateNavigation();
           }
+          virtualclass.askQuestion.makeReadyContext();
         },
 
         ScreenShare(setting) {

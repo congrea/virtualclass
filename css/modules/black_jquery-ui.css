@@ -75,14 +75,9 @@
   text-indent: -99999px;
   overflow: hidden;
   background-repeat: no-repeat;
-}
-
-/* states and images */
-.ui-icon {
-  display: block;
-  text-indent: -99999px;
-  overflow: hidden;
-  background-repeat: no-repeat;
+  width: 16px !important;
+  height: 16px !important;
+  background-image: none !important;
 }
 
 .ui-icon.icon-minus,
@@ -1123,41 +1118,25 @@ body .ui-tooltip {
 
 /* states and images */
 
-.ui-icon {
-  width: 16px !important;
-  height: 16px !important;
-}
-
-.ui-icon {
-  width: 16px !important;
-  height: 16px !important;
-}
-
-.ui-icon,
 .ui-widget-content .ui-icon,
 .ui-widget-header .ui-icon {
-  /* background-image: url(images/ui-icons_222222_256x240.png)/*{iconsContent}; */
   background-image: none !important;
 }
 
 .ui-state-default .ui-icon {
-  /* background-image: url(images/ui-icons_888888_256x240.png); */
   background-image: none;
 }
 
 .ui-state-hover .ui-icon,
 .ui-state-focus .ui-icon {
-  /* background-image: url(images/ui-icons_454545_256x240.png); */
   background-image: none;
 }
 
 .ui-state-active .ui-icon {
-  /* background-image: url(images/ui-icons_454545_256x240.png)/*{iconsActive}; */
   background-image: none;
 }
 
 .ui-state-highlight .ui-icon {
-  /* background-image: url(images/ui-icons_2e83ff_256x240.png){iconsHighlight}; */
   background-image: none;
 }
 

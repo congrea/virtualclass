@@ -124,14 +124,9 @@
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
   position: absolute;
-  bottom: 50px;
-  right: 27px;
   height: 35px;
   opacity: 0.5;
   z-index: 11;
-}
-
-#virtualclassCont.congrea #virtualclassAppLeftPanel #congrealogo img {
   bottom: 0.6875rem;
   right: 16px;
 }

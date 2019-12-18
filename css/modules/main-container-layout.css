@@ -61,10 +61,6 @@
   height: auto;
 }
 
-/* #virtualclassCont.congrea.teacher .canvasWrapper {
-  height: calc(100vh - 93px);
-} */
-
 #virtualclassCont.congrea.teacher .canvasWrapper {
   width: 100%;
 }
@@ -74,7 +70,7 @@
 }
 
 #virtualclassCont.congrea.student.playMode .canvasWrapper {
-  height: calc(100vh - 51px);
+  height: calc(100% - 48px);
 }
 
 #virtualclassCont.congrea .canvasWrapper {
@@ -133,17 +129,9 @@
     height: calc(100% - 44px);
   }
 
-  #virtualclassCont.congrea.student.playMode .canvasWrapper {
-    height: calc(100% - 92px);
-  }
-
   #virtualclassCont.congrea.student.playMode.fullScreenMode .canvasWrapper {
-    height: calc(100% - 92px);
+    height: calc(100% - 48px);
   }
-
-  /* #virtualclassCont.congrea #docMsgStudent {
-    margin: calc(40vh - var(--vh-offset));
-  } */
 
   #virtualclassCont.congrea.fullscreenMode #docMsgStudent {
     margin: 40vh;
@@ -175,14 +163,6 @@
 
   #virtualclassCont.congrea.playMode.fullScreenMOde #virtualclassAppRightPanel {
     height: 100%;
-  }
-
-  #virtualclassCont.congrea.student.playMode .canvasWrapper {
-    height: calc(100% - 48px);
-  }
-
-  #virtualclassCont.congrea.student.playMode.fullScreenMode .canvasWrapper {
-    height: calc(100% - 48px);
   }
 
   #virtualclassCont.congrea[device="mobile"] #virtualclassAppLeftPanel #virtualclassQuiz #bootstrapQzCont {
@@ -446,6 +426,7 @@
 
   #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
     margin-top: 1px;
+    margin-bottom: 10px;
   }
 
   #virtualclassCont #virtualclassAppLeftPanel #sidebarButton .sidebarButton {
@@ -478,10 +459,6 @@
 
   #virtualclassCont.congrea #virtualclassPreCheck .result div {
     margin-top: 0 !important;
-  }
-
-  #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
-    margin-bottom: 10px;
   }
 
   html,

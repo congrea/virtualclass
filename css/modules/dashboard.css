@@ -186,10 +186,6 @@
   border: 1px solid #ccc;
 }
 
-#virtualclassCont.congrea .currentNav .mainpreview {
-  box-shadow: 0 0 11px rgb(46, 219, 236);
-}
-
 #virtualclassCont.congrea #listnotes {
   position: absolute;
   height: 100%;
@@ -199,7 +195,6 @@
 
 #listdocs.listPages {
   list-style: none;
-  margin: 0;
   padding: 8px;
   margin: 0 auto;
 }

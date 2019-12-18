@@ -162,36 +162,6 @@
   left: 4px;
 }
 
-/* #virtualclassCont.congrea #speakerPressOnce #speakerPressonceAnch span#speakerPressonceLabel:before { */
-
-/* content: "Off"; */
-
-/* position: absolute; */
-
-/* top: -6px; */
-
-/* font-weight: normal; */
-
-/* font-size: 11px; */
-
-/* left: 13px; !* changed from 18px *! */
-
-/* } */
-
-/* #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #videSpeedNumber::before { */
-
-/* content: "\e907"; */
-
-/* font-family: 'icomoon'; */
-
-/* font-size: 22px; */
-
-/* padding-top: 0px; */
-
-/* color: #fff; */
-
-/* } */
-
 #virtualclassCont.congrea .ui-memblist-usr .icon-audioDisImg::before {
   content: "\f026";
   color: #7d7a7a;
@@ -242,8 +212,6 @@
   color: #7d7a7a;
   vertical-align: baseline;
   font-size: 120%;
-
-  /* margin-left: 4px; */
   font-weight: normal;
 }
 
@@ -255,44 +223,9 @@
   top: -1px;
 }
 
-/* #virtualclassCont .icon-chatImg.enable:before { */
-
-/* color: #94b532; */
-
-/* font-size: 14px; */
-
-/* position: relative; */
-
-/* top: -1px; */
-
-/* } */
-
-/* #virtualclassCont.congrea .icon-editorRichImg:before { */
-
-/* content: "\e605"; */
-
-/* font-size: 15px; */
-
-/* color: #535151; */
-
-/* } */
-
-/* bottom bar */
-
-/* #virtualclassCont.congrea #contrAudioAll .icon-all-audio-disable:before { */
-
-/* !*content: "\e610";*! */
-
-/* font-size: 17px; */
-
-/* color: rgba(255, 255, 255, 0.8); */
-
-/* } */
-
 #virtualclassCont.congrea #audioWidget #mainAudioPanel .prechk .precheck::before {
   content: "\e911";
   font-weight: bold;
-  font-size: 11px;
   font-family: 'icomoon';
   font-size: 23px;
   color: white;
@@ -301,7 +234,6 @@
 #virtualclassCont.congrea #virtualclassAppFooterPanel span#videoSwitch.video.on::before {
   content: "\e985";
   font-weight: normal;
-  font-size: 11px;
   font-family: 'icomoon';
   font-size: 1.3125rem;
   color: #09b208;
@@ -577,20 +509,6 @@
   color: #333;
 }
 
-/* .icon-sharePresentation:before{ */
-
-/* content: "\e904"; */
-
-/* font-size: 30px; */
-
-/* color:#444; */
-
-/* position: relative; */
-
-/* top: 2px; */
-
-/* } */
-
 #virtualclassCont.congrea #preCheckcontainer .screen1.browser::before {
   content: "\e903";
   font-family: 'icomoon';
@@ -615,7 +533,7 @@
 #virtualclassCont.congrea #preCheckcontainer .screen5.speaker::before {
   content: "\e901";
   font-family: 'icomoon';
-  font-size: 36px;
+  font-size: 2.25rem;
   padding-top: 4px;
 }
 
@@ -644,13 +562,6 @@
   content: "\e900";
   font-family: 'icomoon';
   font-size: 3.125rem;
-  padding-top: 4px;
-}
-
-#virtualclassCont.congrea #preCheckcontainer .screen5.speaker::before {
-  content: "\e901";
-  font-family: 'icomoon';
-  font-size: 2.25rem;
   padding-top: 4px;
 }
 
@@ -714,7 +625,6 @@
 #virtualclassCont.congrea #virtualclassAppFooterPanel span#videoSwitch.video.off::before {
   content: "\e987";
   font-weight: normal;
-  color: gray;
   font-family: 'icomoon';
   font-size: 1.3125rem;
   color: #ea0000;
@@ -723,8 +633,6 @@
 #virtualclassCont.congrea.nowebcam #virtualclassAppRightPanel span#videoSwitch.video.on::before {
   content: "\e987";
   font-weight: normal;
-  font-size: 11px;
-  color: gray;
   font-family: 'icomoon';
   font-size: 1.4375rem;
   color: red;
@@ -740,23 +648,10 @@
 
 #virtualclassCont.congrea i.dashboard-icon::before {
   content: "\f00a";
-
-  /* color: #34b532; */
-
-  /* font-size: 14px; */
-
-  /* position: relative; */
-
-  /* top: -1px; */
   font-weight: normal;
-  font-size: 11px;
   font-family: 'icomoon';
   font-size: 23px;
   color: white;
-}
-
-#virtualclassCont.congrea #dashboardnav .clicked i.dashboard-icon::before {
-  content: "X";
 }
 
 #virtualclassCont.congrea #virtualclassMultiVideoTool .icon-videoConfrence::before {
@@ -770,7 +665,6 @@
 #virtualclassCont.congrea #dashboardnav .clicked i.dashboard-icon::before {
   content: "\f00d";
   font-weight: normal;
-  font-size: 11px;
   font-family: 'icomoon';
   font-size: 26px;
   color: white;
@@ -797,8 +691,6 @@
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
-
-  /* float:left; */
 }
 
 #virtualclassCont.congrea .icon-zoomOut::before {
@@ -808,8 +700,6 @@
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
-
-  /* float:left; */
 }
 
 #virtualclassCont.congrea .icon-fitScreen::before {
@@ -843,7 +733,6 @@
 
 #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip::before {
   content: "\e986";
-  font-weight: normal;
   font-family: 'icomoon';
   font-size: 15px;
   color: dimgray;
@@ -900,14 +789,6 @@
   font-size: 13px;
   color: #fff !important;
 }
-
-/* #virtualclassCont.congrea .pageHead:before{
-  content: "\e99f";
-  font-weight: normal;
-  font-family: 'icomoon';
-  font-size: 13px;
-  color: #000;
-} */
 
 #virtualclassCont.congrea #rightBarHeader #askQuestionHeader .header .addQuestion-icon::before {
   content: "\e9a3";

@@ -84,12 +84,11 @@
   position: unset;
 }
 
-#virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont,
 #virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont {
   text-align: center;
+  line-height: 1.428571;
 }
 
-#virtualclassCont.congrea #layoutPollBody .vcPollCont .pollCtrCont,
 #virtualclassCont.congrea #layoutPollBody .vcPollCont .qnText,
 #virtualclassCont.congrea #layoutPollBody .vcPollCont .creator {
   line-height: 1.428571;

@@ -106,9 +106,9 @@
 }
 
 #virtualclassCont.congrea #listppt .linkppt .controlCont div[data-status="1"]::before {
-  content: "\e9ce";
+  content: "\e94e";
   font-family: 'icomoon';
-  font-size: 16px;
+  font-size: 18px;
   padding-top: 0;
   color: #606060;
 }
@@ -377,12 +377,6 @@ input[type="reset"] {
 
 #virtualclassCont.congrea #listppt .linkppt .controlCont div[data-status="0"]::before {
   content: "\e94d";
-  font-family: 'icomoon';
-  font-size: 18px;
-}
-
-#virtualclassCont.congrea #listppt .linkppt .controlCont div[data-status="1"]::before {
-  content: "\e94e";
   font-family: 'icomoon';
   font-size: 18px;
 }

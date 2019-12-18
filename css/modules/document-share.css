@@ -161,6 +161,13 @@
 
 #virtualclassCont.congrea #screen-docs .listPages {
   margin-top: -9px;
+  border: 1px solid #aaa;
+  height: 90px;
+  padding: 10px;
+  float: left;
+  width: 95%;
+  overflow-y: hidden;
+  display: inline-flex;
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShareTool {
@@ -450,16 +457,6 @@
 
 #virtualclassCont.congrea .linkdocs[data-selected='1'] .controlCont {
   display: none;
-}
-
-#virtualclassCont.congrea #screen-docs .listPages {
-  border: 1px solid #aaa;
-  height: 90px;
-  padding: 10px;
-  float: left;
-  width: 95%;
-  overflow-y: hidden;
-  display: inline-flex;
 }
 
 #virtualclassCont.congrea #screen-docs #listnotes {
@@ -1117,10 +1114,6 @@
 
 #virtualclassCont[data-currapp="DocumentShare"] #docScreenContainer .canvasWrapper .pdfs {
   z-index: -1;
-}
-
-#DocumentShareDashboard #docsListContainer #listdocs .controls.delete {
-  margin-top: 0;
 }
 
 #docShareNav.hide {

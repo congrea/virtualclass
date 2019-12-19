@@ -95,7 +95,7 @@ class QAquestion extends BasicOperation {
         }
       }
     } else if (data.type === 'questionBox') {
-      const chkContextElem = document.querySelector(`#context[data-context~=${data.context}]`);
+      const chkContextElem = document.querySelector(`.context[data-context~=${data.context}]`);
       if (chkContextElem) {
         const qaTemp = virtualclass.getTemplate('question', 'askQuestion');
         const qtemp = qaTemp({ id: data.id, userName: data.uname });

@@ -137,7 +137,7 @@ this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template
 this["JST"]["dest_temp/templates/askQuestion/context.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
-  return "<div class=\"context\" data-context=\""
+  return "<div id=\"context\" data-context=\""
     + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
     + "\"><div class=\"container\"></div></div>";
 },"useData":true});

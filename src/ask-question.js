@@ -95,14 +95,12 @@ class QAquestion extends BasicOperation {
         }
       }
     } else if (data.type === 'questionBox') {
-      const chkContextElem = document.querySelector('.context');
+      const chkContextElem = document.querySelector(`#context[data-context~=${data.context}]`);
       if (chkContextElem) {
-        if (data.context === chkContextElem.dataset.context) {
-          const qaTemp = virtualclass.getTemplate('question', 'askQuestion');
-          const qtemp = qaTemp({ id: data.id, userName: data.uname });
-          document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', qtemp);
-          document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
-        }
+        const qaTemp = virtualclass.getTemplate('question', 'askQuestion');
+        const qtemp = qaTemp({ id: data.id, userName: data.uname });
+        document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', qtemp);
+        document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
       } else {
         const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
         const cTemp = getContextTemp({ context: data.context });
@@ -110,6 +108,7 @@ class QAquestion extends BasicOperation {
         const qaTemp = virtualclass.getTemplate('question', 'askQuestion');
         const qtemp = qaTemp({ id: data.id, userName: data.uname });
         document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', qtemp);
+        document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
         document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
       }
 
@@ -147,9 +146,7 @@ class QAquestion extends BasicOperation {
         userid: virtualclass.uInfo.userid,
         uname: virtualclass.uInfo.userobj.name,
       });
-      if (virtualclass.currApp === 'Whiteboard') {
-        data.context = virtualclass.gObj.currWb;
-      }
+      data.context = virtualclass.askQuestion.currentContext;
       this.create(data);
       this.send(data);
     } else if (ev.keyCode === 13 && ev.target.parentNode.parentNode.id !== 'askQuestion') {
@@ -162,9 +159,6 @@ class QAquestion extends BasicOperation {
         uname: virtualclass.uInfo.userobj.name,
         questionId: ev.target.parentNode.parentNode.id,
       });
-      if (virtualclass.currApp === 'Whiteboard') {
-        data.context = virtualclass.gObj.currWb;
-      }
       data.context = virtualclass.askQuestion.currentContext;
       this.edit(data);
       this.send(data);
@@ -308,6 +302,10 @@ class AskQuestion extends AskQuestionEngine {
     }
 
     this.currentContext = contextName;
+    const getContextElem = document.querySelector('#askQuestion .current');
+    if (getContextElem && getContextElem.classList.contains('current')) {
+      getContextElem.classList.remove('current');
+    }
     if (virtualclass.currApp !== 'Poll' && virtualclass.currApp !== 'Quiz'
       && this.currentContext && !this.context[contextName]) {
       this.context[contextName] = new AskQuestionContext();

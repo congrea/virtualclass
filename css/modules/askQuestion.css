@@ -97,3 +97,11 @@
   position: absolute;
   top: 0;
 }
+
+#virtualclassCont.congrea #askQuestion #context {
+  display: none;
+}
+
+#virtualclassCont.congrea #askQuestion #context.current {
+  display: block;
+}

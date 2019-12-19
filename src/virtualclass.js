@@ -268,7 +268,11 @@
         virtualclass.precheck = preCheck;
         virtualclass.page = page;
         virtualclass.askQuestion = new AskQuestion();
-        virtualclass.askQuestion.init();
+        // For the realitme, it will be invoked from member_added
+        if (virtualclass.isPlayMode) {
+          virtualclass.askQuestion.init();
+        }
+
         this.orderList = {};
         if (virtualclass.vutil.isSessionEnded()) {
           return true;

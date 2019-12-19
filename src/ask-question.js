@@ -165,6 +165,7 @@ class QAquestion extends BasicOperation {
       if (virtualclass.currApp === 'Whiteboard') {
         data.context = virtualclass.gObj.currWb;
       }
+      data.context = virtualclass.askQuestion.currentContext;
       this.edit(data);
       this.send(data);
     }
@@ -251,6 +252,7 @@ class AskQuestionEngine {
 
 class AskQuestion extends AskQuestionEngine {
   async init() {
+    console.log('ask question init');
     const config = {
       apiKey: 'AIzaSyDx4OisyZGmbcAx57s0zlwRlopPNNDqxSs',
       authDomain: 'vidyamantra-congrea.firebaseapp.com',
@@ -310,6 +312,7 @@ class AskQuestion extends AskQuestionEngine {
       && this.currentContext && !this.context[contextName]) {
       this.context[contextName] = new AskQuestionContext();
     }
+
   }
 
   async authenticate(config) {
@@ -326,11 +329,13 @@ class AskQuestion extends AskQuestionEngine {
     if (virtualclass.isPlayMode) {
       this.collection = `${wbUser.lkey}_${wbUser.session}_${wbUser.room}`;
     } else if (localStorage.getItem('mySession') != null) {
+      console.log('====> hello guys');
       this.collection = `${wbUser.lkey}_${localStorage.getItem('mySession')}_${wbUser.room}`;
     }
   }
 
   attachHandlerForRealTimeUpdate() {
+    console.log('====> Attach Real time update ');
     this.db.collection(this.collection)
       .onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach((change) => {
@@ -355,6 +360,7 @@ class AskQuestion extends AskQuestionEngine {
   }
 
   afterSignIn() {
+    console.log('====> after sign in');
     // this.loadInitialData();
     if (this.collection) this.attachHandlerForRealTimeUpdate();
   }

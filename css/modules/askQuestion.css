@@ -92,6 +92,8 @@
   position: relative;
 }
 
-#virtualclassCont.congrea #askQuestion #writeContent {
+#virtualclassCont.congrea #askQuestion #writeContent,
+#virtualclassCont.congrea #askQuestion .question #writeContent {
   position: absolute;
+  top: 0;
 }

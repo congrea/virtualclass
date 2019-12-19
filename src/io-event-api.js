@@ -150,12 +150,6 @@ const ioEventApi = {
     // virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
     virtualclass.gObj.mySetTime = 2000;
 
-
-    // if (virtualclass.vutil.selfJoin(virtualclass.jId)) {
-    //   console.log('self join suman');
-    //   defaultOperation(e, sType);
-    // }
-
     // console.log('==== Add users');
     defaultOperation(e, sType);
 
@@ -203,6 +197,10 @@ const ioEventApi = {
           }, 3000);
         }
       }
+    }
+
+    if (virtualclass.vutil.selfJoin(virtualclass.jId)) {
+      virtualclass.askQuestion.init();
     }
   },
 

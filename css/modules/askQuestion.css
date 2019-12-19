@@ -1,9 +1,9 @@
-#virtualclassCont.congrea #askQuestion .container #writeContent .text {
+#virtualclassCont.congrea #askQuestion #writeContent .text {
   position: relative;
   width: 318px;
 }
 
-#virtualclassCont.congrea #askQuestion .container #writeContent {
+#virtualclassCont.congrea #askQuestion #writeContent {
   position: absolute;
 }
 
@@ -14,6 +14,7 @@
 
 #virtualclassCont.congrea #askQuestion .container .question .content {
   position: relative;
+  top: 25px;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question {
@@ -24,12 +25,73 @@
 
 #virtualclassCont.congrea #askQuestion .container {
   padding: 0px;
+  position: relative;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item[data-close="close"] {
-  display: none;
+/*#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item[data-close="close"] {*/
+  /*display: none;*/
+/*}*/
+
+/*#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item[data-open="open"] {*/
+  /*display: block;*/
+/*}*/
+
+#virtualclassCont.congrea #askQuestion .container .question .footer {
+  position: relative;
+  top: 0px;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item[data-open="open"] {
-  display: block;
+#virtualclassCont.congrea #askQuestion .container .question .header {
+  position: relative;
+  top: 0px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls {
+  position: absolute;
+  top: 68px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .header .info {
+  position: absolute;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .upVote,
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .answersNavigation,
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply,
+#virtualclassCont.congrea #askQuestion .container .question .header .info .userName,
+#virtualclassCont.congrea #askQuestion .container .question .header .info .lable,
+#virtualclassCont.congrea #askQuestion .container .question .header .info .closed-icon {
+  display: inline-block;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .button,
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .total {
+  font-family: Raleway, Helvetica, sans-serif;
+  border-radius: 5px;
+  border: none;
+  background: 0 0;
+  font-size: 15px;
+  padding: 5px 5px;
+  margin: 5px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls {
+  position: absolute;
+  top: 70px;
+  left: 185px;
+  right: 0;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item {
+  position: absolute;
+  top: 0px;
+  left: 25px;
+}
+
+#virtualclassCont.congrea #askQuestion {
+  position: relative;
+}
+
+#virtualclassCont.congrea #askQuestion #writeContent {
+  position: absolute;
 }

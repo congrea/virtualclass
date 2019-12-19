@@ -2,9 +2,11 @@
   <div class="container">
 
     <div class='header'>
-      <span class='userName'>{{userName}}</span>
-      <span class='lable'>{{getString 'questionlable'}}</span>
-      <span class='closed-icon'></span>
+      <div class="info">
+        <span class='userName'>{{userName}}</span>
+        <span class='lable'>{{getString 'questionlable'}}</span>
+        <span class='closed-icon'></span>
+      </div>
     </div>
 
     <div class= 'content'>
@@ -14,24 +16,22 @@
 
     <div class="footer">
       <div class= 'controls'>
-
-          <div class= 'upVote'>
-            <span class= 'button'></span>
-            <span class= 'total'></span>
-          </div>
-
-        <div class= 'answersNavigation'>
+        <div class= 'upVote' data-type="upvote">
           <span class= 'button'></span>
-          <span class= 'total'></span>
+          <span class= 'total'>0</span>
         </div>
-        <div class= 'reply'>
+        <div class= 'answersNavigation' data-type="answersNavigation">
+          <span class= 'button'></span>
+          <span class= 'total'>0</span>
+        </div>
+        <div class= 'reply' data-type="reply">
           <span class= 'button'></span>
         </div>
       </div>
       <div class= 'moreControls'>
-        <div class= 'item' data-close="close">
-          <span class= 'edit'> {{getString 'edit'}} </span>
-          <span class= 'delete'> {{getString 'delete'}} </span>
+        <div class= 'item' data-parentId="{{id}}">
+          <span class= 'edit' data-type="edit"> {{getString 'edit'}} </span>
+          <span class= 'delete' data-type="delete"> {{getString 'delete'}} </span>
         </div>
       </div>
     </div>

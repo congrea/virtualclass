@@ -1,9 +1,9 @@
-#virtualclassCont.congrea #askQuestion .container #writeContent .text {
+#virtualclassCont.congrea #askQuestion #writeContent .text {
   position: relative;
   width: 318px;
 }
 
-#virtualclassCont.congrea #askQuestion .container #writeContent {
+#virtualclassCont.congrea #askQuestion #writeContent {
   position: absolute;
 }
 
@@ -28,13 +28,13 @@
   position: relative;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item[data-close="close"] {
-  display: none;
-}
+/*#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item[data-close="close"] {*/
+  /*display: none;*/
+/*}*/
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item[data-open="open"] {
-  display: block;
-}
+/*#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item[data-open="open"] {*/
+  /*display: block;*/
+/*}*/
 
 #virtualclassCont.congrea #askQuestion .container .question .footer {
   position: relative;
@@ -76,11 +76,22 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls {
-  position: relative;
+  position: absolute;
+  top: 70px;
+  left: 185px;
+  right: 0;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item {
   position: absolute;
-  top: 68px;
-  left: 280px;
+  top: 0px;
+  left: 25px;
+}
+
+#virtualclassCont.congrea #askQuestion {
+  position: relative;
+}
+
+#virtualclassCont.congrea #askQuestion #writeContent {
+  position: absolute;
 }

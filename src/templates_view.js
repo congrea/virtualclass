@@ -113,7 +113,7 @@ this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template(
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/askQuestionMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='askQuestion' class=\"deactive\"><div class='container'></div></div>";
+    return "<div id='askQuestion' class=\"deactive\"></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -134,6 +134,14 @@ this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template
     + " <span class='delete'></span></div></div></div></div><div class=\"comments\"></div></div>";
 },"useData":true});
 
+this["JST"]["dest_temp/templates/askQuestion/context.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "<div class=\"context\" data-context=\""
+    + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
+    + "\"><div class=\"container\"></div></div>";
+},"useData":true});
+
 this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id='writeContent'><textarea class='text'>"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.type : depth0),{"name":"getString","hash":{},"data":data}))
@@ -149,9 +157,11 @@ this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.templat
     + alias4(((helper = (helper = helpers.userName || (depth0 != null ? depth0.userName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"userName","hash":{},"data":data}) : helper)))
     + "</span><span class='lable'>"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"questionlable",{"name":"getString","hash":{},"data":data}))
-    + "</span><span class='closed-icon'></span></div></div><div class='content'><p></p><span class='more'></span></div><div class=\"footer\"><div class='controls'><div class='upVote'><span class='button'></span><span class='total'>0</span></div><div class='answersNavigation'><span class='button'></span><span class='total'>0</span></div><div class='reply'><span class='button'></span></div></div><div class='moreControls'><div class='item' data-close=\"close\"><span class='edit'> "
+    + "</span><span class='closed-icon'></span></div></div><div class='content'><p></p><span class='more'></span></div><div class=\"footer\"><div class='controls'><div class='upVote' data-type=\"upvote\"><span class='button'></span><span class='total'>0</span></div><div class='answersNavigation' data-type=\"answersNavigation\"><span class='button'></span><span class='total'>0</span></div><div class='reply' data-type=\"reply\"><span class='button'></span></div></div><div class='moreControls'><div class='item' data-parentId=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\"><span class='edit' data-type=\"edit\"> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"edit",{"name":"getString","hash":{},"data":data}))
-    + " </span><span class='delete'> "
+    + " </span><span class='delete' data-type=\"delete\"> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))
     + " </span></div></div></div></div><div class=\"answers\"></div></div>";
 },"useData":true});

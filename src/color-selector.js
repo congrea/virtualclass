@@ -259,7 +259,7 @@
         // + '#virtualclassCont.congrea #audioWidget a#rightCtlr:hover, '
         + '#virtualclassCont.congrea a.stdRaiseHand:hover, '
         + '#virtualclassCont.congrea li#appSettingCtrl a#appSettingCtrlAnchor:hover ,'
-        + '#virtualclassCont.congrea #stickycontainer .stdRaiseHand:hover, '
+        + '#virtualclassCont.congrea #stickycontainer .stdRaiseHand #icHr:hover, '
         + '#virtualclassCont.congrea #stickycontainer #contrAudioAll:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel li:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel li a:hover,'

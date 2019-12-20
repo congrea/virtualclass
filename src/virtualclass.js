@@ -344,8 +344,8 @@
           virtualclass.precheck.init(virtualclass.precheck);
         });
 
-        this.raiseHand = window.raiseHand;
-        this.raiseHand.init();
+        // this.raiseHand = window.raiseHand;
+        // this.raiseHand.init();
 
         // this.rtcIo= window.rtcIo;
         // this.rtcIo.init();

@@ -216,7 +216,7 @@ function memberUpdate(e, addType) {
         }
       }
 
-      virtualclass.raiseHand.moveUpInList();
+      // virtualclass.raiseHand.moveUpInList();
       // TODO, this should enabled
       // if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()) {
       //     virtualclass.raiseHand.moveUpInList();

@@ -60,9 +60,9 @@ class QAquestion extends BasicOperation {
   }
 
   delete(data) {
-    const elem = document.querySelector(`[data-context~=${data.context}] #${data.id}`);
+    const elem = document.querySelector(`[data-context~=${data.context}] #${data.parent}`);
     elem.remove();
-    this.send(data);
+    // this.send(data);
     console.log('Create ', data);
   }
 
@@ -144,22 +144,15 @@ class QAquestion extends BasicOperation {
                 questionId: ev.target.parentNode.dataset.parentid,
               });
             } else {
-              // data.action = ev.target.dataset.type;
-              virtualclass.askQuestion.performWithQueue({
+              const data = this.generateData({
                 action: ev.target.dataset.type,
-                component: data.component,
-                context: data.context,
-                id: data.id,
-                text: data.text,
-                timeStamp: data.timeStamp,
-                uname: data.uname,
-                userid: data.userid,
+                component: ev.target.parentNode.parentNode.dataset.type,
+                parent: ev.target.parentNode.dataset.parentid,
               });
-              // this[ev.target.dataset.type](data);
+              this.send(data);
             }
           }
         });
-
       }
     }
   }

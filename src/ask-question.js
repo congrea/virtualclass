@@ -38,9 +38,9 @@ class QAquestion extends BasicOperation {
       textTemp.remove();
     }
     this.renderer(data);
-    const newData = { id: data.id, content: data.content, children: [], status: data.action, parent: null };
-    virtualclass.askQuestion[virtualclass.askQuestion.currentContext][newData.id] = newData;
-    // virtualclass.askQuestion[data.context][data.component] = {}
+    const question = { id: data.id, content: data.content, children: [], status: data.action, parent: null };
+    // TODO, this should not be here
+    virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][question.id] = question;
   }
 
   edit(data) {
@@ -57,6 +57,7 @@ class QAquestion extends BasicOperation {
         }
       }
     }
+    virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId].status = 'edited';
   }
 
   delete(data) {

@@ -83,11 +83,13 @@ class QAquestion extends BasicOperation {
       const qaPostTemp = virtualclass.getTemplate('qaPost', 'askQuestion');
       const qaTemp = qaPostTemp(context);
       if (typeof data.content !== 'undefined' && typeof data.questionId !== 'undefined') {
-        document.querySelector(`#${data.questionId}`).insertAdjacentHTML('beforeend', qaTemp);
-        const text = document.querySelector('#writeContent .text');
-        text.innerHTML = data.content;
-        if (text) {
-          text.addEventListener('keyup', this.inputHandler.bind(this));
+        if (data.userid === virtualclass.gObj.uid) {
+          document.querySelector(`#${data.questionId}`).insertAdjacentHTML('beforeend', qaTemp);
+          const text = document.querySelector('#writeContent .text');
+          text.innerHTML = data.content;
+          if (text) {
+            text.addEventListener('keyup', this.inputHandler.bind(this));
+          }
         }
       } else {
         document.querySelector('#askQuestion').insertAdjacentHTML('beforeend', qaTemp);
@@ -121,42 +123,13 @@ class QAquestion extends BasicOperation {
           if (ev.target.parentNode.dataset.type === 'upvote' || ev.target.parentNode.dataset.type === 'reply'
            || ev.target.parentNode.dataset.type === 'answersNavigation') {
             if (ev.target.parentNode.dataset.type === 'upvote') {
-              const parent = ev.target.parentNode.parentNode.dataset; // TODO improve removing parentNode
-
-              let data = this.generateData({ component: parent.type, action: ev.target.parentNode.dataset.type });
-              const upvoteCount = ev.target.nextSibling.innerHTML;
-              if (upvoteCount == '0') {
-                data.upvote = 1;
-                data.parent = parent.parent;
-                virtualclass.askQuestion.context[data.context][data.component].send(data);
-                // virtualclass.askQuestion[data.component].send(data);
-                virtualclass.askQuestion.firstid = data.id;
-              } else {
-                virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(virtualclass.askQuestion.firstid).update('upvote', firebase.firestore.FieldValue.increment(1));
-              }
+              this.upvoteOnQn(ev);
             }
           } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete') {
             if (ev.target.dataset.type === 'edit') {
-              const text = document.querySelector(`#${ev.target.parentNode.dataset.parent} .content p`).innerHTML;
-              const data = this.generateData({
-                component: 'question',
-                action: 'renderer',
-                type: 'input',
-                content: text,
-                questionId: ev.target.parentNode.dataset.parent,
-                userid: virtualclass.uInfo.userid,
-                parent: null,
-              });
-              this.send(data);
+              this.updateQn(ev);
             } else {
-              const data = this.generateData({
-                component: ev.target.parentNode.parentNode.dataset.type,
-                action: ev.target.dataset.type,
-                questionId: ev.target.parentNode.dataset.parent,
-                userid: virtualclass.uInfo.userid,
-                parent: null,
-              });
-              this.send(data);
+              this.deleteQn(ev);
             }
           }
         });
@@ -187,6 +160,46 @@ class QAquestion extends BasicOperation {
         questionId: ev.target.parentNode.parentNode.id,
       });
       this.send(data);
+    }
+  }
+
+  updateQn(ev) {
+    const text = document.querySelector(`#${ev.target.parentNode.dataset.parent} .content p`).innerHTML;
+    const data = this.generateData({
+      component: 'question',
+      action: 'renderer',
+      type: 'input',
+      content: text,
+      questionId: ev.target.parentNode.dataset.parent,
+      userid: virtualclass.uInfo.userid,
+      parent: null,
+    });
+    this.send(data);
+  }
+
+  deleteQn(ev) {
+    const data = this.generateData({
+      component: ev.target.parentNode.parentNode.dataset.type,
+      action: ev.target.dataset.type,
+      questionId: ev.target.parentNode.dataset.parent,
+      userid: virtualclass.uInfo.userid,
+      parent: null,
+    });
+    this.send(data);
+  }
+
+  upvoteOnQn(ev) {
+    const parent = ev.target.parentNode.parentNode.dataset; // TODO improve removing parentNode
+    const data = this.generateData({ component: parent.type, action: ev.target.parentNode.dataset.type });
+    const upvoteCount = ev.target.nextSibling.innerHTML;
+    if (upvoteCount == '0') {
+      data.upvote = 1;
+      data.parent = parent.parent;
+      virtualclass.askQuestion.context[data.context][data.component].send(data);
+      // virtualclass.askQuestion[data.component].send(data);
+      virtualclass.askQuestion.firstid = data.id;
+    } else {
+      virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(virtualclass.askQuestion.firstid).update('upvote', firebase.firestore.FieldValue.increment(1));
     }
   }
 }
@@ -310,11 +323,11 @@ class AskQuestion extends AskQuestionEngine {
       case 'SharePresentation':
         contextName = null;
         if (virtualclass.sharePt.currId && virtualclass.sharePt.state) {
-          contextName = `${virtualclass.sharePt.currId}_${virtualclass.sharePt.state.indexv}_${virtualclass.sharePt.state.indexh}`;
+          contextName = `sharePt-${virtualclass.sharePt.currId}_${virtualclass.sharePt.state.indexv}_${virtualclass.sharePt.state.indexh}`;
         }
         break;
       case 'Video':
-        if (virtualclass.videoUl.videoId) contextName = virtualclass.videoUl.videoId;
+        if (virtualclass.videoUl.videoId) contextName = `video-${virtualclass.videoUl.videoId}`;
         break;
       case 'ScreenShare':
         if (virtualclass.gObj.screenShareId) contextName = virtualclass.gObj.screenShareId;
@@ -340,9 +353,6 @@ class AskQuestion extends AskQuestionEngine {
       getContextElem.classList.remove('current');
       contextElem.classList.add('current');
     }
-    // else if (getContextElem && getContextElem.classList.contains('current')) {
-    //   getContextElem.classList.remove('current');
-    // }
 
     if (getContextElem && getContextElem.classList.contains('current')) {
       getContextElem.classList.remove('current');

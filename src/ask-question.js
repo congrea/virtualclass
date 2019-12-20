@@ -297,6 +297,11 @@ class AskQuestion extends AskQuestionEngine {
   }
 
   makeReadyContext() {
+    if (this.clearTimeMakeReady) clearTimeout(this.clearTimeMakeReady);
+    this.clearTimeMakeReady = setTimeout(() => { this.innerMakeReadyContext()}, 200);
+  }
+
+  innerMakeReadyContext() {
     console.log('====> ready context');
     let contextName;
     switch (virtualclass.currApp) {
@@ -353,6 +358,11 @@ class AskQuestion extends AskQuestionEngine {
       && this.currentContext && !this.context[contextName]) {
       this.context[contextName] = new AskQuestionContext();
     }
+
+    if (this.queue[this.currentContext] && this.queue[this.currentContext].length > 0) {
+      this.perform(this.currentContext);
+    }
+
   }
 
   async authenticate(config) {
@@ -486,6 +496,10 @@ class AskQuestion extends AskQuestionEngine {
       const taChrm = document.getElementById('ta_chrm2');
       if (taChrm) {
         taChrm.style.display = 'none';
+      }
+
+      if (this.queue[this.currentContext] && this.queue[this.currentContext].length > 0) {
+        this.perform(this.currentContext);
       }
     });
 

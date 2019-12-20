@@ -8,9 +8,10 @@
 class BasicOperation {
   generateData(data) {
     const qnCreateTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-    const qId = `q-${virtualclass.gObj.uid}-${qnCreateTime}`;
+    const qId = `${data.component}-${virtualclass.gObj.uid}-${qnCreateTime}`;
     data.id = qId;
     data.timeStamp = qnCreateTime;
+    data.context = virtualclass.askQuestion.currentContext;
     return data;
   }
 
@@ -44,7 +45,7 @@ class QAquestion extends BasicOperation {
     if (textTemp) {
       textTemp.remove();
     }
-    const chkContextElem = document.querySelector('.context');
+    const chkContextElem = document.querySelector(`.context[data-context~=${data.context}]`);
     if (chkContextElem) {
       if (data.context === chkContextElem.dataset.context) {
         if (data.action === 'edit') {
@@ -56,21 +57,26 @@ class QAquestion extends BasicOperation {
   }
 
   delete(data) {
+    const elem = document.querySelector(`[data-context~=${data.context}] #${data.id}`);
+    elem.remove();
+    this.send(data);
     console.log('Create ', data);
   }
 
   upvote(data) {
-    if (typeof data.upvote === 'undefined') {
-      data.upvote = 1;
-      this.send(data);
-    } else {
-      virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(data.id).update('upvote', firebase.firestore.FieldValue.increment(1));
+    if (data.click) {
+      if (data.first && !data.upvote) {
+        data.upvote = 1;
+        delete data.click;
+        this.send(data);
+        this.firstId = data.id;
+      } else {
+         virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(this.firstId).update('upvote', firebase.firestore.FieldValue.increment(1));
+      }
     }
-  }
 
-  updateQnUpvote(data) {
     if (data.upvote) {
-      document.querySelector(`#${data.id} .upVote .total`).innerHTML = data.upvote;
+      document.querySelector(`#${data.parent} .upVote .total`).innerHTML = data.upvote;
     }
   }
 
@@ -113,24 +119,51 @@ class QAquestion extends BasicOperation {
       }
 
 
-      const qnElem = document.querySelector('#askQuestion .question');
+      const qnElem = document.querySelector(`#${data.id}.question`);
       if (qnElem) {
         qnElem.addEventListener('click', (ev) => {
           if (ev.target.parentNode.dataset.type === 'upvote' || ev.target.parentNode.dataset.type === 'reply'
            || ev.target.parentNode.dataset.type === 'answersNavigation') {
-            this[ev.target.parentNode.dataset.type](data);
+            if (ev.target.parentNode.dataset.type === 'upvote') {
+              const parent = ev.target.parentNode.parentNode.dataset;  // improve removing parentNode
+
+              let data = this.generateData({component: parent.type, action: ev.target.parentNode.dataset.type});
+              const upvoteCount = ev.target.nextSibling.innerHTML;
+              if (upvoteCount == '0') {
+                data.first = true;
+              }
+              data.click = true;
+              data.parent = parent.parent;
+              virtualclass.askQuestion.performWithQueue(data);
+            }
           } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete') {
-            const text = document.querySelector(`#${ev.target.parentNode.dataset.parentid} .content p`).innerHTML;
-            virtualclass.askQuestion.performWithQueue({
-              component: 'question',
-              action: 'renderer',
-              type: 'input',
-              context: virtualclass.gObj.currWb,
-              content: text,
-              questionId: ev.target.parentNode.dataset.parentid,
-            });
+            if (ev.target.dataset.type === 'edit') {
+              const text = document.querySelector(`#${ev.target.parentNode.dataset.parentid} .content p`).innerHTML;
+              virtualclass.askQuestion.performWithQueue({
+                component: 'question',
+                action: 'renderer',
+                type: 'input',
+                context: virtualclass.gObj.currWb,
+                content: text,
+                questionId: ev.target.parentNode.dataset.parentid,
+              });
+            } else {
+              // data.action = ev.target.dataset.type;
+              virtualclass.askQuestion.performWithQueue({
+                action: ev.target.dataset.type,
+                component: data.component,
+                context: data.context,
+                id: data.id,
+                text: data.text,
+                timeStamp: data.timeStamp,
+                uname: data.uname,
+                userid: data.userid,
+              });
+              // this[ev.target.dataset.type](data);
+            }
           }
         });
+
       }
     }
   }
@@ -267,6 +300,7 @@ class AskQuestion extends AskQuestionEngine {
   }
 
   makeReadyContext() {
+    console.log('====> ready context');
     let contextName;
     switch (virtualclass.currApp) {
       case 'Whiteboard':
@@ -291,6 +325,7 @@ class AskQuestion extends AskQuestionEngine {
       default:
         contextName = null;
     }
+    if (contextName === this.currentContext) return;
 
     const askQuestoinContainer = document.getElementById('askQuestion');
     if (askQuestoinContainer) {
@@ -303,14 +338,24 @@ class AskQuestion extends AskQuestionEngine {
 
     this.currentContext = contextName;
     const getContextElem = document.querySelector('#askQuestion .current');
+    const contextElem = document.querySelector(`.context[data-context~=${this.currentContext}]`);
+    if (contextElem && !contextElem.classList.contains('current')) {
+      getContextElem.classList.remove('current');
+      contextElem.classList.add('current');
+    }
+    // else if (getContextElem && getContextElem.classList.contains('current')) {
+    //   getContextElem.classList.remove('current');
+    // }
+
     if (getContextElem && getContextElem.classList.contains('current')) {
       getContextElem.classList.remove('current');
     }
+
+
     if (virtualclass.currApp !== 'Poll' && virtualclass.currApp !== 'Quiz'
       && this.currentContext && !this.context[contextName]) {
       this.context[contextName] = new AskQuestionContext();
     }
-
   }
 
   async authenticate(config) {
@@ -347,7 +392,7 @@ class AskQuestion extends AskQuestionEngine {
           if (change.type === 'modified') {
             const data = change.doc.data();
             if (data.component === 'question') {
-              this.context[data.context][data.component].updateQnUpvote.call(this.context[data.context][data.component], data);
+              this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
             }
             // console.log('ask question modified ', change.doc.data());
           }

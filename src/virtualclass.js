@@ -770,7 +770,7 @@
           }
         }
 
-        virtualclass.askQuestion.makeReadyContext();
+        // virtualclass.askQuestion.makeReadyContext();
       },
 
       // TODO, this and app inittiator should be merged

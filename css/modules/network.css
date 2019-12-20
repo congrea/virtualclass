@@ -18,9 +18,8 @@
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='high'] svg path.signalsix,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='high'] svg path.signalone,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='high'] svg path.signaltwo,
-#virtualclassCont.congrea #proposedSpeed[data-suggestion='high'] svg path.signal,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='high'] svg path.signal {
-  fill: #00FF00;
+  fill: #0f0;
 }
 
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='medium'] svg path.signalfive,
@@ -28,26 +27,26 @@
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='medium'] svg path.signalone,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='medium'] svg path.signaltwo,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='medium'] svg path.signal {
-  fill: #E1E842;
+  fill: #e1e842;
 }
 
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='medium'] svg path.signalthree,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='medium'] svg path.signalfoure {
-  fill: #A9A9A9;
+  fill: #a9a9a9;
 }
 
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signalfive,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signalsix,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signal,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signal {
-  fill: #FB9C42;
+  fill: #fb9c42;
 }
 
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signalthree,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signalfoure,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signalone,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signaltwo {
-  fill: #A9A9A9;
+  fill: #a9a9a9;
 }
 
 #virtualclassCont.congrea #networkLatency[data-latency='slow'] svg path.signal,
@@ -57,7 +56,7 @@
 #virtualclassCont.congrea #networkLatency[data-latency='slow'] svg path.signalfoure,
 #virtualclassCont.congrea #networkLatency[data-latency='slow'] svg path.signalfive,
 #virtualclassCont.congrea #networkLatency[data-latency='slow'] svg path.signalsix {
-  fill: #ff0000;
+  fill: #f00;
 }
 
 #virtualclassCont.congrea #networkStatusContainer.connecting-room {
@@ -68,7 +67,8 @@
   width: 46px;
   height: 35px;
   border-radius: 5px;
-  /*background-color: white;*/
+
+  /* background-color: white; */
 }
 
 #virtualclassCont.congrea #networkStatusContainer.connecting-room #videoLatency {
@@ -109,6 +109,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -133,5 +134,6 @@
 #virtualclassCont.congrea #virtualclassAppFooterPanel #networkLatency:hover::after {
   position: absolute;
   bottom: 47px;
+
   /* right: 1px; */
 }

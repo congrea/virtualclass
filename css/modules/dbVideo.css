@@ -9,9 +9,12 @@
 
 #virtualclassCont #listvideo {
   height: calc(100vh - 180px);
-  /*overflow-y: auto;*/
-  /*margin-bottom :0;*/
-  /*margin: 15px;*/
+
+  /* overflow-y: auto; */
+
+  /* margin-bottom :0; */
+
+  /* margin: 15px; */
 }
 
 #virtualclassCont #listvideo .videoTitle {
@@ -24,7 +27,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 50%;
-  font-size: .9em
+  font-size: 0.9em;
 }
 
 #virtualclassCont.congrea .dashboardview {
@@ -44,26 +47,29 @@
   border: 1px solid #f1f1f1;
 }
 
-/*#virtualclassCont.congrea  #listdocs .linkdocs .mainpreview {*/
-/*float : right;*/
+/* #virtualclassCont.congrea  #listdocs .linkdocs .mainpreview { */
 
-/*}*/
+/* float : right; */
 
-#virtualclassCont.congrea .dbContainer .linkvideo .mainpreview, #virtualclassCont.congrea .dbContainer .linkvideo .controlCont {
+/* } */
+
+#virtualclassCont.congrea .dbContainer .linkvideo .mainpreview,
+#virtualclassCont.congrea .dbContainer .linkvideo .controlCont {
   cursor: pointer;
 }
 
 #virtualclassCont.congrea .linkvideo[data-selected='1'] {
   padding: 2px;
   border-radius: 3px;
-  /*background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);*/
+
+  /* background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%); */
   background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
   color: #fff;
   text-align: center;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.list-group-item:hover {
-  /*background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);*/
+  /* background: linear-gradient(to bottom, #515e69 0%, #34404c 100%); */
   background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);
   color: #fff;
 }
@@ -75,15 +81,16 @@
 }
 
 #virtualclassCont.congrea #VideoDashboard .btn-default:hover {
-  /*background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);*/
-  /*color:black;*/
+  /* background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%); */
+
+  /* color:black; */
 }
 
 #virtualclassCont.congrea #submitpurl.btn-default {
   width: 13%;
   border: 1px solid #bdbdbd;
   background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
-  border-radius: 6px;;
+  border-radius: 6px;
   padding: 8px;
   color: #fff;
   height: 71%;
@@ -97,13 +104,12 @@
   position: relative;
 }
 
-/*old*/
+/* old */
 
 #virtualclassCont.congrea #listvideo .linkvideo .controlCont div[data-status="0"]::before {
   content: "\e94d";
   font-family: 'icomoon';
   font-size: 18px;
-
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .controlCont div[data-status="1"]::before {
@@ -127,21 +133,22 @@
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.links {
-  /*width: 200px;*/
+  /* width: 200px; */
   position: relative;
-  background: #ffffff;
+  background: #fff;
   border-radius: 3px;
   height: 50px;
-  /*margin-left:35px;*/
-  /*display:inline-block;*/
-  padding: 8px;
 
+  /* margin-left:35px; */
+
+  /* display:inline-block; */
+  padding: 8px;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .mainpreview::before {
   content: "\ea15";
   font-family: 'icomoon';
-  opacity: .7;
+  opacity: 0.7;
   font-size: 15px;
 }
 
@@ -164,27 +171,24 @@
   opacity: 0.5;
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.links.video .videoTitleCont:before {
+#virtualclassCont.congrea #listvideo .linkvideo.links.video .videoTitleCont::before {
   content: "\e95d";
   font-family: 'icomoon';
-
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.links.video_yts .videoTitleCont:before {
+#virtualclassCont.congrea #listvideo .linkvideo.links.video_yts .videoTitleCont::before {
   content: "\f167";
   font-family: 'icomoon';
-
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.links.video_online .videoTitleCont:before {
+#virtualclassCont.congrea #listvideo .linkvideo.links.video_online .videoTitleCont::before {
   content: "\e957";
   font-family: 'icomoon';
-
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .controls::before {
   color: rgba(96, 96, 96, 0.81);
-  opacity: .7;
+  opacity: 0.7;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.links .controlCont {
@@ -197,27 +201,33 @@
 #virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="1"],
 #virtualclassCont.congrea #listvideo .linkvideo.links .controls.status[data-status="0"] {
   float: left;
-  font-size: 0px;
-  margin: -5px 1px 3px 0px;
+  font-size: 0;
+  margin: -5px 1px 3px 0;
   height: 20px;
   padding-top: 2px;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.links .controls.delete {
   float: left;
-  font-size: 0px;
+  font-size: 0;
   margin: -5px 1px 1px -3px;
   height: 20px;
   padding-top: 2px;
 }
 
-/*#virtualclassCont.congrea #listvideo .linkvideo.links .controls.delete {*/
-/*float: left;*/
-/*font-size: 0px;*/
-/*margin: -2px 3px 0 3px;*/
-/*height: 20px;*/
-/*padding-top:2px;*/
-/*}*/
+/* #virtualclassCont.congrea #listvideo .linkvideo.links .controls.delete { */
+
+/* float: left; */
+
+/* font-size: 0px; */
+
+/* margin: -2px 3px 0 3px; */
+
+/* height: 20px; */
+
+/* padding-top:2px; */
+
+/* } */
 
 #virtualclassCont #listvideo .linkvideo {
   padding: 2px;
@@ -225,16 +235,21 @@
 }
 
 #virtualclassCont #listvideo .linkvideo:hover {
-  /*border: 1px solid #ccc;*/
-  /*  box-shadow: 0 0 6px  #e3e3e3;;*/
+  /* border: 1px solid #ccc; */
+
+  /*  box-shadow: 0 0 6px  #e3e3e3;; */
 }
 
 #virtualclassCont #listvideo .controlCont:hover {
-  /*border: 1px solid #ccc;*/
+  /* border: 1px solid #ccc; */
   box-shadow: none;
 }
 
-button, input.form-submit, input[type="button"], input[type="submit"], input[type="reset"] {
+button,
+input.form-submit,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
   text-shadow: none !important;
   display: inline-block;
   padding: 4px 12px;
@@ -244,25 +259,29 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 .playControllerMainCont #playControllerCont #playController #recPauseCont.recordingPlay #recPause {
-  padding: .875rem 1.78125rem;
+  padding: 0.875rem 1.78125rem;
 }
 
 .playControllerMainCont #playControllerCont #playController #recPause {
   padding: 0.84375rem 1.875rem;
 }
 
-/*#virtualclassCont .dashboardview #urlcontainer #presentationurl{*/
-/*height: 46px;  width:300px;*/
-/*font-size: 14px;*/
-/*}*/
+/* #virtualclassCont .dashboardview #urlcontainer #presentationurl{ */
+
+/* height: 46px;  width:300px; */
+
+/* font-size: 14px; */
+
+/* } */
 #virtualclassCont #urlcontainer #presentationurl {
   vertical-align: top;
 }
 
-/*#virtualclassCont .dashboardview #urlcontainer{*/
+/* #virtualclassCont .dashboardview #urlcontainer{ */
 
-/*margin-top:10px;*/
-/*}*/
+/* margin-top:10px; */
+
+/* } */
 
 #virtualclassCont.congrea #VideoDashboard .dashboardview {
   width: 85%;
@@ -283,7 +302,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   overflow-y: auto;
 }
 
-#virtualclassCont .uploadSuccess #listvideo, #virtualclassCont #VideoDashboard.uploading #videoPopup #listvideo {
+#virtualclassCont .uploadSuccess #listvideo,
+#virtualclassCont #VideoDashboard.uploading #videoPopup #listvideo {
   height: calc(100vh - 227px);
 }
 
@@ -292,36 +312,38 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   z-index: 20;
   width: 85%;
   margin: 0 auto;
-
 }
 
-/*#virtualclassCont.congrea #videoUrlContainer {*/
-/*width:100%;*/
-/*height:100%;*/
-/*}*/
+/* #virtualclassCont.congrea #videoUrlContainer { */
+
+/* width:100%; */
+
+/* height:100%; */
+
+/* } */
 #virtualclassCont #congreavideoContBody .qq-uploader-selector.qq-uploader {
   width: 100%;
   height: 80vh;
   max-height: 80vh;
 }
 
-/*#virtualclassCont.congrea #videoUrlContainer #submitURL:hover {*/
-/*background-color: #4c4c4c;*/
-/*background-image: none;*/
-/*}*/
+/* #virtualclassCont.congrea #videoUrlContainer #submitURL:hover { */
+
+/* background-color: #4c4c4c; */
+
+/* background-image: none; */
+
+/* } */
 
 #videoUrlContainer {
   z-index: 40;
 }
 
 #virtualclassCont.congrea #videoUrlContainer {
-  /*position: relative;*/
+  /* position: relative; */
   text-align: right;
-  /*display:none;*/
-}
 
-#virtualclassCont.congrea.student.presenter #videoUrlContainer {
-  text-align: center;
+  /* display:none; */
 }
 
 #virtualclassCont.congrea.student.presenter #videoUrlContainer {
@@ -338,8 +360,8 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   width: 90%;
   height: 42px;
   overflow: hidden;
-  padding: 0px;
-  margin: 0px 5%;
+  padding: 0;
+  margin: 0 5%;
 }
 
 #virtualclassCont.congrea #VideoDashboard #uploadMsz .alert-success #congreaShareVideoUrlCont {
@@ -362,7 +384,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   font-family: inherit;
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.links .videoTitleCont:before {
+#virtualclassCont.congrea #listvideo .linkvideo.links .videoTitleCont::before {
   font-size: 24px;
   align-items: center;
   position: relative;
@@ -371,7 +393,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea #VideoDashboard .controlCont {
-  /*display:none;*/
+  /* display:none; */
 }
 
 #virtualclassCont.congrea #VideoDashboard .controlCont.showCtr {
@@ -386,7 +408,6 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea #VideoDashboard #uploadMsz li {
   width: 70%;
   margin-left: 10%;
-
 }
 
 #virtualclassCont.congrea #VideoDashboard #uploadMsz li .qq-thumbnail-wrapper {
@@ -402,7 +423,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea #videoUrlContainer {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 #virtualclassCont.congrea #videoUrlContainer .btn-default {
@@ -416,19 +437,24 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   right: 1px;
 }
 
-/*@media (min-width: 1270px) {*/
-/*#virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont .btn-default {*/
-/*width: 200px;*/
-/*}*/
-/*}*/
+/* @media (min-width: 1270px) { */
+
+/* #virtualclassCont.congrea #congreaShareVideoUrlCont #uploadBtnCont .btn-default { */
+
+/* width: 200px; */
+
+/* } */
+
+/* } */
 
 #virtualclassCont.congrea #congreavideoContBody .qq-uploader.qq-gallery {
-  border-radius: 0px;
-  border: 0px;
+  border-radius: 0;
+  border: 0;
 }
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #uploadBtnCont #uploadVideo {
   /* border-top: none; */
+
   /* border-right: none; */
   border-width: 0;
   border: 0;
@@ -455,11 +481,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea .linkvideo.opaq {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 #virtualclassCont.congrea .linkvideo.htn {
-
   border: solid #98c2ff 1px !important;
   opacity: 1;
 }
@@ -478,7 +503,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   top: 4px;
   margin-left: 8px;
   color: #777;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .edit.editDisable ::before {
@@ -489,7 +514,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   top: 4px;
   margin-left: 8px;
   color: #777;
-  opacity: .3
+  opacity: 0.3;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .edit:hover ::before {
@@ -525,11 +550,16 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 
 #virtualclassCont.congrea #listvideo .linkvideo:hover {
   background-color: #efefef;
-  /*-webkit-transform:scale(1.008);*/
-  /*-moz-transform:scale(1.008);*/
-  /*-ms-transform:scale(.9);*/
-  /*-o-transform:scale(.9);*/
-  /*  transform:scale(1.0005);*/
+
+  /* -webkit-transform:scale(1.008); */
+
+  /* -moz-transform:scale(1.008); */
+
+  /* -ms-transform:scale(.9); */
+
+  /* -o-transform:scale(.9); */
+
+  /*  transform:scale(1.0005); */
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo {
@@ -541,39 +571,33 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.playing {
-
   border: solid #98c2ff 1px;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.playDisable .videoTitleCont {
   opacity: 0.3;
-
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.playDisable:hover .status:before {
+#virtualclassCont.congrea #listvideo .linkvideo.playDisable:hover .status::before {
   opacity: 1 !important;
-
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.playDisable:hover .delete:before {
+#virtualclassCont.congrea #listvideo .linkvideo.playDisable:hover .delete::before {
   opacity: 1 !important;
-
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo .controls:hover:before {
-  /**font-size: 17px;**/
+#virtualclassCont.congrea #listvideo .linkvideo .controls:hover::before {
+  /**  font-size: 17px;  **/
   color: rgba(0, 0, 0, 0.81);
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo .controls.edit a:before {
+#virtualclassCont.congrea #listvideo .linkvideo .controls.edit a::before {
   padding-top: 3px !important;
   height: 20px !important;
   margin-top: 0 !important;
-
 }
 
 #listvideo {
-
   z-index: 0 !important;
 }
 
@@ -583,7 +607,7 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   }
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.playDisable .mainpreview:before {
+#virtualclassCont.congrea #listvideo .linkvideo.playDisable .mainpreview::before {
   cursor: default !important;
 }
 
@@ -591,17 +615,19 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
   margin-left: 20px;
 }
 
-#virtualclassCont.congrea .video-js .vjs-control:before {
+#virtualclassCont.congrea .video-js .vjs-control::before {
 
 }
 
-#virtualclassCont.congrea .video-js .vjs-control-bar .vjs-play-control:before, #virtualclassCont.congrea .video-js .vjs-fullscreen-control:before {
+#virtualclassCont.congrea .video-js .vjs-control-bar .vjs-play-control::before,
+#virtualclassCont.congrea .video-js .vjs-fullscreen-control::before {
   top: 7px;
 }
 
-#virtualclassCont.congrea .linkvideo.links.video.enable.playing .controls.status, #virtualclassCont.congrea .linkvideo.links.video_yts.enable.playing .controls.status {
+#virtualclassCont.congrea .linkvideo.links.video.enable.playing .controls.status,
+#virtualclassCont.congrea .linkvideo.links.video_yts.enable.playing .controls.status {
   pointer-events: none;
-  opacity: .3;
+  opacity: 0.3;
   cursor: auto;
 }
 
@@ -643,5 +669,3 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
 #virtualclassCont.congrea .vjs-seek-to-live-control {
   display: none;
 }
-
-

@@ -199,14 +199,14 @@ const ioEventApi = {
       }
     }
 
-    if (virtualclass.vutil.selfJoin(virtualclass.jId)) {
+    if (virtualclass.vutil.selfJoin(virtualclass.jId)
+      && (roles.hasControls() || localStorage.getItem('mySession') != null)) {
       virtualclass.askQuestion.init();
     }
   },
 
   newmessage(e) {
-    const recMsg = e.message; let
-      key;
+    const recMsg = e.message;
     if (Object.prototype.hasOwnProperty.call(recMsg, 'cf')) {
       if (typeof receiveFunctions[recMsg.cf] === 'function') {
         receiveFunctions[recMsg.cf](e);

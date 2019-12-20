@@ -180,7 +180,7 @@ class QAquestion extends BasicOperation {
         uname: virtualclass.uInfo.userobj.name,
       });
       data.context = virtualclass.askQuestion.currentContext;
-      this.create(data);
+      //this.create(data);
       this.send(data);
     } else if (ev.keyCode === 13 && ev.target.parentNode.parentNode.id !== 'askQuestion') {
       const data = this.generateData({
@@ -245,6 +245,7 @@ class QAcomment {
 
 class AskQuestionContext {
   constructor() {
+    this.actions = [];
     this.question = new QAquestion();
     this.answer = new QAanswer();
     this.comment = new QAcomment();
@@ -255,30 +256,34 @@ class AskQuestionEngine {
   constructor() {
     this.queue = [];
     this.context = {};
+    this.firstRealTime = true;
+    this.initialize = false;
   }
-
-  perform() {
-    while (this.queue.length > 0) {
-      const data = this.queue.shift();
-      this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
-    }
-    this.queue.length = 0;
-  }
-
-  // virtualclass.askQuestion.performWithQueue({action:'create', component:'question'})
 
   performWithQueue(data) {
-    this.queue.push(data);
-    this.perform();
+    this.makeQueue(data);
+    this.perform(data.context);
   }
 
-  queue(data) {
-    this.queue.push(data);
+  makeQueue(data) {
+    if (!this.queue[data.context]) this.queue[data.context] = [];
+    this.queue[data.context].push(data);
+  }
+
+  perform(context) {
+    let data;
+    for (let i = 0; i < this.queue[context].length; i++) {
+      data = this.queue[context][i];
+      this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
+    }
+    this.queue[context].length = 0;
   }
 }
 
 class AskQuestion extends AskQuestionEngine {
   async init() {
+    if (this.initialize) return;
+    this.initialize = true;
     console.log('ask question init');
     const config = {
       apiKey: 'AIzaSyDx4OisyZGmbcAx57s0zlwRlopPNNDqxSs',
@@ -378,25 +383,30 @@ class AskQuestion extends AskQuestionEngine {
   }
 
   attachHandlerForRealTimeUpdate() {
-    console.log('====> Attach Real time update ');
+    console.log('===> Attach Real time update ');
     this.db.collection(this.collection)
       .onSnapshot((querySnapshot) => {
-        querySnapshot.docChanges().forEach((change) => {
-          if (change.type === 'added') {
-            // console.log('ask question  ', change.doc.data());
-            const data = change.doc.data();
-            if (virtualclass.gObj.uid !== data.userid) {
+        // TODO,
+        if (this.firstRealTime) {
+          this.firstRealTime = false;
+        } else {
+          querySnapshot.docChanges().forEach((change) => {
+            if (change.type === 'added') {
+              console.log('====> added hello');
+              // console.log('ask question  ', change.doc.data());
+              const data = change.doc.data();
               this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
             }
-          }
-          if (change.type === 'modified') {
-            const data = change.doc.data();
-            if (data.component === 'question') {
-              this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
+            if (change.type === 'modified') {
+              const data = change.doc.data();
+              if (data.component === 'question') {
+                this.context[data.context][data.component].updateQnUpvote.call(this.context[data.context][data.component], data);
+              }
+              // console.log('ask question modified ', change.doc.data());
+
             }
-            // console.log('ask question modified ', change.doc.data());
-          }
-        });
+          });
+        }
       }, (error) => {
         console.log('ask question real time ', error);
       });
@@ -404,14 +414,15 @@ class AskQuestion extends AskQuestionEngine {
 
   afterSignIn() {
     console.log('====> after sign in');
-    // this.loadInitialData();
+    this.loadInitialData();
     if (this.collection) this.attachHandlerForRealTimeUpdate();
   }
 
   loadInitialData() {
     this.db.collection(this.collection).get().then((snapshot) => {
       snapshot.docs.forEach((doc) => {
-        console.log('ask question read data ', doc.data());
+        this.makeQueue(doc.data());
+        // this.context[data.context].actions.push(data);
       });
     }).catch((error) => {
       console.log('ask question read error ', error);

@@ -57,10 +57,8 @@ class QAquestion extends BasicOperation {
   }
 
   delete(data) {
-    const elem = document.querySelector(`[data-context~=${data.context}] #${data.parent}`);
+    const elem = document.querySelector(`[data-context~=${data.context}] #${data.questionId}`);
     elem.remove();
-    // this.send(data);
-    console.log('Create ', data);
   }
 
   upvote(data) {
@@ -115,7 +113,7 @@ class QAquestion extends BasicOperation {
           if (ev.target.parentNode.dataset.type === 'upvote' || ev.target.parentNode.dataset.type === 'reply'
            || ev.target.parentNode.dataset.type === 'answersNavigation') {
             if (ev.target.parentNode.dataset.type === 'upvote') {
-              const parent = ev.target.parentNode.parentNode.dataset;  // improve removing parentNode
+              const parent = ev.target.parentNode.parentNode.dataset; // TODO improve removing parentNode
 
               let data = this.generateData({ component: parent.type, action: ev.target.parentNode.dataset.type });
               const upvoteCount = ev.target.nextSibling.innerHTML;
@@ -131,20 +129,24 @@ class QAquestion extends BasicOperation {
             }
           } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete') {
             if (ev.target.dataset.type === 'edit') {
-              const text = document.querySelector(`#${ev.target.parentNode.dataset.parentid} .content p`).innerHTML;
-              virtualclass.askQuestion.performWithQueue({
+              const text = document.querySelector(`#${ev.target.parentNode.dataset.parent} .content p`).innerHTML;
+              const data = this.generateData({
                 component: 'question',
                 action: 'renderer',
                 type: 'input',
-                context: virtualclass.gObj.currWb,
                 content: text,
-                questionId: ev.target.parentNode.dataset.parentid,
+                questionId: ev.target.parentNode.dataset.parent,
+                userid: virtualclass.uInfo.userid,
+                parent: null,
               });
+              this.send(data);
             } else {
               const data = this.generateData({
-                action: ev.target.dataset.type,
                 component: ev.target.parentNode.parentNode.dataset.type,
-                parent: ev.target.parentNode.dataset.parentid,
+                action: ev.target.dataset.type,
+                questionId: ev.target.parentNode.dataset.parent,
+                userid: virtualclass.uInfo.userid,
+                parent: null,
               });
               this.send(data);
             }
@@ -165,8 +167,6 @@ class QAquestion extends BasicOperation {
         userid: virtualclass.uInfo.userid,
         uname: virtualclass.uInfo.userobj.name,
       });
-      data.context = virtualclass.askQuestion.currentContext;
-      //this.create(data);
       this.send(data);
     } else if (ev.keyCode === 13 && ev.target.parentNode.parentNode.id !== 'askQuestion') {
       const data = this.generateData({
@@ -178,8 +178,6 @@ class QAquestion extends BasicOperation {
         uname: virtualclass.uInfo.userobj.name,
         questionId: ev.target.parentNode.parentNode.id,
       });
-      data.context = virtualclass.askQuestion.currentContext;
-      this.edit(data);
       this.send(data);
     }
   }

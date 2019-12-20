@@ -1224,6 +1224,8 @@ this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1"
     return " <div id=\"techVideoHeader\" class=\"deactive\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"teacherVideoHeader",{"name":"getString","hash":{},"data":data}))
     + "</div> ";
+},"3":function(container,depth0,helpers,partials,data) {
+    return " <span class=\"viewAll\"></span> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
@@ -1233,9 +1235,11 @@ this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChatHeader",{"name":"getString","hash":{},"data":data}))
     + "</div> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.std : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " <div id=\"askQuestionHeader\" class=\"deactive\"><div class=\"header\"><span class=\"lable\">"
+    + " <div id=\"askQuestionHeader\" class=\"deactive\"><div class=\"header\"><div class=\"text\"><span class=\"lable\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"askQuestionHeader",{"name":"getString","hash":{},"data":data}))
-    + "</span><span class=\"addQuestion-icon\"></span><span class=\"help-icon\"></span><span class=\"fullScreen-icon\"></span></div></div></div>";
+    + "</span></div><div class=\"action\"><span class=\"addQuestion-icon\"></span><span class=\"help-icon\"></span><span class=\"fullScreen-icon\"></span> "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlayMode : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " </div></div></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

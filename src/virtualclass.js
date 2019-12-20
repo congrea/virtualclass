@@ -1443,7 +1443,7 @@
             || initTemplates[i] === 'appSettingDetail') {
             context = isControl;
           } else if (initTemplates[i] === 'rightBarHeader') {
-            context = { std: roles.isStudent() };
+            context = { std: roles.isStudent(), isPlayMode: virtualclass.isPlayMode };
           }
           this.makeReadyTemplate(initTemplates[i], context);
         }

@@ -794,15 +794,17 @@
   content: "\e9a3";
   font-weight: normal;
   font-family: 'icomoon';
-  font-size: 18px;
-  color: #fff !important;
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #rightBarHeader #askQuestionHeader .header .help-icon::before {
   content: "\f29c";
   font-weight: normal;
   font-family: 'icomoon';
-  font-size: 18px;
+  font-size: 1.125rem;
+  cursor: pointer;
   color: #fff !important;
 }
 
@@ -810,7 +812,8 @@
   content: "\e9da";
   font-weight: normal;
   font-family: 'icomoon';
-  font-size: 18px;
+  font-size: 1rem;
+  cursor: pointer;
   color: #fff !important;
 }
 
@@ -818,7 +821,8 @@
   content: "\e9da";
   font-weight: normal;
   font-family: 'icomoon';
-  font-size: 18px;
+  font-size: 0.9375rem;
+  cursor: pointer;
   color: #fff !important;
 }
 

@@ -3389,10 +3389,6 @@ div.ui-memblist-usr .userVideos {
   cursor: pointer;
 }
 
-#virtualclassCont.congrea.teacher li#appSettingCtrl {
-  width: 33.3%;
-}
-
 #virtualclassCont.congrea.playMode li#appSettingCtrl {
   pointer-events: none;
   opacity: 0.5;
@@ -3817,10 +3813,6 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea .vmchat_room_bt.congtooltip {
   width: 25%;
-}
-
-#virtualclassCont.congrea.teacher .vmchat_room_bt.congtooltip {
-  width: 33.3%;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .table-responsive {

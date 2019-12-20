@@ -1107,7 +1107,7 @@
 
             virtualclass.wbCommon.indexNav.updateNavigation();
           }
-          virtualclass.askQuestion.makeReadyContext();
+          if (virtualclass.currApp === 'Whiteboard') virtualclass.askQuestion.makeReadyContext();
         },
 
         ScreenShare(setting) {

@@ -1895,29 +1895,16 @@
     },
 
     navWhiteboard(cthis, func, dthis) {
-      // this.removeAllTextWrapper();
       if (virtualclass.vutil.isTextWrapperExist()) {
         virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny(undefined, virtualclass.gObj.currWb);
       }
-      // if(Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'wbNav')){
-      //     clearTimeout(virtualclass.gObj.wbNav);
-      // }
+      // virtualclass.askQuestion.makeReadyContext();
+
       if (typeof dthis !== 'undefined') {
         func.call(cthis, dthis);
       } else {
         func.call(cthis);
       }
-      // console.log(`whiteboard nav time${virtualclass.gObj.wbNavtime}`);
-      // virtualclass.gObj.wbNav = setTimeout(
-      //     function (){
-      //         if(typeof dthis != 'undefined'){
-      //             func.call(cthis, dthis);
-      //         }else {
-      //             func.call(cthis);
-      //         }
-      //         console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
-      //     }, virtualclass.gObj.wbNavtime
-      // )
     },
 
     removeAllTextWrapper() {

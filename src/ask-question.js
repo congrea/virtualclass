@@ -38,6 +38,9 @@ class QAquestion extends BasicOperation {
       textTemp.remove();
     }
     this.renderer(data);
+    const newData = { id: data.id, content: data.content, children: [], status: data.action, parent: null };
+    virtualclass.askQuestion[virtualclass.askQuestion.currentContext][newData.id] = newData;
+    // virtualclass.askQuestion[data.context][data.component] = {}
   }
 
   edit(data) {

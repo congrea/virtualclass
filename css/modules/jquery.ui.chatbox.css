@@ -673,7 +673,7 @@ virtualclasscont.congrea.playMode.student .ui-chatroom {
   margin-bottom: 0;
   font-weight: 400;
   font-size: 0.9rem;
-  padding: 0.875rem 0.9375rem;
+  padding: 0.875rem  0.75rem 0.875rem 0.9375rem;
   line-height: normal;
   color: #fff;
 }
@@ -904,4 +904,19 @@ virtualclasscont.congrea.playMode.student .ui-chatroom {
   padding: 0.875rem 0.9375rem;
   line-height: normal;
   color: #fff;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .text,
+#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action {
+  display: inline-block;
+  color: #fff;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action {
+  float: right;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action span {
+  line-height: 0;
+  padding: 0.75rem 0.625rem;
 }

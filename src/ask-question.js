@@ -38,7 +38,7 @@ class QAquestion extends BasicOperation {
       textTemp.remove();
     }
     this.renderer(data);
-    const question = { id: data.id, content: data.content, children: [], status: data.action, parent: null };
+    const question = { id: data.id, content: data.text, children: [], status: data.action, parent: null };
     // TODO, this should not be here
     virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][question.id] = question;
   }
@@ -58,10 +58,14 @@ class QAquestion extends BasicOperation {
       }
     }
     virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId].status = 'edited';
+    virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId].content = data.text;
   }
 
   delete(data) {
+    console.log('question deleted ', data);
+    delete virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId];
     const elem = document.querySelector(`[data-context~=${data.context}] #${data.questionId}`);
+    // TODO, we have to remove answers and related comments from inline structure
     elem.remove();
   }
 
@@ -491,5 +495,9 @@ class AskQuestion extends AskQuestionEngine {
         this.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.gObj.currWb });
       });
     }
+  }
+
+  getCurrentQuestions() {
+    return this.context[virtualclass.askQuestion.currentContext].question;
   }
 }

@@ -64,18 +64,8 @@ class QAquestion extends BasicOperation {
   }
 
   upvote(data) {
-    if (data.click) {
-      if (data.first && !data.upvote) {
-        data.upvote = 1;
-        delete data.click;
-        this.send(data);
-        this.firstId = data.id;
-      } else {
-         virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(this.firstId).update('upvote', firebase.firestore.FieldValue.increment(1));
-      }
-    }
-
     if (data.upvote) {
+      if (data.upvote == 1) virtualclass.askQuestion.firstid = data.id;
       document.querySelector(`#${data.parent} .upVote .total`).innerHTML = data.upvote;
     }
   }
@@ -127,14 +117,17 @@ class QAquestion extends BasicOperation {
             if (ev.target.parentNode.dataset.type === 'upvote') {
               const parent = ev.target.parentNode.parentNode.dataset;  // improve removing parentNode
 
-              let data = this.generateData({component: parent.type, action: ev.target.parentNode.dataset.type});
+              let data = this.generateData({ component: parent.type, action: ev.target.parentNode.dataset.type });
               const upvoteCount = ev.target.nextSibling.innerHTML;
               if (upvoteCount == '0') {
-                data.first = true;
+                data.upvote = 1;
+                data.parent = parent.parent;
+                virtualclass.askQuestion.context[data.context][data.component].send(data);
+                // virtualclass.askQuestion[data.component].send(data);
+                virtualclass.askQuestion.firstid = data.id;
+              } else {
+                virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(virtualclass.askQuestion.firstid).update('upvote', firebase.firestore.FieldValue.increment(1));
               }
-              data.click = true;
-              data.parent = parent.parent;
-              virtualclass.askQuestion.performWithQueue(data);
             }
           } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete') {
             if (ev.target.dataset.type === 'edit') {
@@ -399,8 +392,8 @@ class AskQuestion extends AskQuestionEngine {
             }
             if (change.type === 'modified') {
               const data = change.doc.data();
-              if (data.component === 'question') {
-                this.context[data.context][data.component].updateQnUpvote.call(this.context[data.context][data.component], data);
+              if (data.component === 'question' && data.upvote && data.upvote > 1) {
+                this.context[data.context][data.component].upvote.call(this.context[data.context][data.component], data);
               }
               // console.log('ask question modified ', change.doc.data());
 

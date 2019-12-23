@@ -105,3 +105,15 @@
 #virtualclassCont.congrea #askQuestion .context.current {
   display: block;
 }
+
+#virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"],
+#virtualclassCont.congrea[data-currapp='Poll'] #virtualclassApp #congHr,
+#virtualclassCont.congrea[data-currapp='Quiz'] #virtualclassApp #congHr {
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+}
+
+/*#virtualclassCont.congrea[data-currapp='Poll'] #virtualclassApp #askQuestion,*/
+/*#virtualclassCont.congrea[data-currapp='Quiz'] #virtualclassApp #askQuestion {*/
+  /*display: none !important;*/
+/*}*/

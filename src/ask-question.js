@@ -12,6 +12,7 @@ class BasicOperation {
     data.id = qId;
     data.timeStamp = qnCreateTime;
     data.context = virtualclass.askQuestion.currentContext;
+    data.uId = virtualclass.uInfo.userid;
     return data;
   }
 
@@ -74,6 +75,9 @@ class QAquestion extends BasicOperation {
     if (data.upvote) {
       if (data.upvote == 1) virtualclass.askQuestion.firstid = data.id;
       document.querySelector(`#${data.parent} .upVote .total`).innerHTML = data.upvote;
+      if (data.uId === virtualclass.uInfo.userid) {
+        document.querySelector(`#${data.parent} .upVote`).dataset.upvote = 'upvoted';
+      }
     }
   }
 
@@ -109,14 +113,16 @@ class QAquestion extends BasicOperation {
       } else {
         const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
         const cTemp = getContextTemp({ context: data.context });
-        document.querySelector('#askQuestion').insertAdjacentHTML('beforeend', cTemp);
+        document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
         const qaTemp = virtualclass.getTemplate('question', 'askQuestion');
         const qtemp = qaTemp({ id: data.id, userName: data.uname });
         document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', qtemp);
         document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
         document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
       }
-
+      if (data.uId === virtualclass.uInfo.userid) {
+        document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
+      }
 
       const qnElem = document.querySelector(`#${data.id}.question`);
       if (qnElem) {
@@ -345,7 +351,7 @@ class AskQuestion extends AskQuestionEngine {
       default:
         contextName = null;
     }
-
+    
     if (contextName === this.currentContext || !contextName) return;
 
     const askQuestoinContainer = document.getElementById('askQuestion');
@@ -358,7 +364,7 @@ class AskQuestion extends AskQuestionEngine {
     }
 
     this.currentContext = contextName;
-    const getContextElem = document.querySelector('#askQuestion .current');
+    const getContextElem = document.querySelector('#askQuestion .container .current');
     const contextElem = document.querySelector(`.context[data-context~=${this.currentContext}]`);
     if (contextElem && !contextElem.classList.contains('current')) {
       contextElem.classList.add('current');

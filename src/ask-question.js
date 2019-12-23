@@ -315,7 +315,6 @@ class AskQuestion extends AskQuestionEngine {
   }
 
   innerMakeReadyContext() {
-    console.log('====> ready context');
     let contextName;
     switch (virtualclass.currApp) {
       case 'Whiteboard':
@@ -372,7 +371,7 @@ class AskQuestion extends AskQuestionEngine {
     if (this.queue[this.currentContext] && this.queue[this.currentContext].length > 0) {
       this.perform(this.currentContext);
     }
-
+    console.log('====> ready context ', this.currentContext);
   }
 
   async authenticate(config) {
@@ -398,7 +397,7 @@ class AskQuestion extends AskQuestionEngine {
     console.log('===> Attach Real time update ');
     this.db.collection(this.collection)
       .onSnapshot((querySnapshot) => {
-        // TODO,
+        // TODO, we have to load the initial data from here
         if (this.firstRealTime) {
           this.firstRealTime = false;
         } else {
@@ -415,7 +414,6 @@ class AskQuestion extends AskQuestionEngine {
                 this.context[data.context][data.component].upvote.call(this.context[data.context][data.component], data);
               }
               // console.log('ask question modified ', change.doc.data());
-
             }
           });
         }
@@ -432,7 +430,8 @@ class AskQuestion extends AskQuestionEngine {
 
   loadInitialData() {
     this.db.collection(this.collection).get().then((snapshot) => {
-      snapshot.docs.forEach((doc) => {
+    // TODO, we have to store the inital data from attachHandlerForRealTimeUpdate
+    snapshot.docs.forEach((doc) => {
         this.makeQueue(doc.data());
         // this.context[data.context].actions.push(data);
       });

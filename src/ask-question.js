@@ -245,7 +245,7 @@ class QAcomment {
 
   renderer(data) {
     console.log('renderer ', data);
-  }
+  }upvote
 }
 
 class AskQuestionContext {
@@ -279,7 +279,11 @@ class AskQuestionEngine {
     let data;
     for (let i = 0; i < this.queue[context].length; i++) {
       data = this.queue[context][i];
-      this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
+      if (data.component === 'question' && data.upvote && data.upvote > 1) {
+        this.context[data.context][data.component].upvote.call(this.context[data.context][data.component], data);
+      } else {
+        this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
+      }
     }
     this.queue[context].length = 0;
   }
@@ -401,19 +405,7 @@ class AskQuestion extends AskQuestionEngine {
           this.firstRealTime = false;
         } else {
           querySnapshot.docChanges().forEach((change) => {
-            if (change.type === 'added') {
-              console.log('====> added hello');
-              // console.log('ask question  ', change.doc.data());
-              const data = change.doc.data();
-              this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
-            }
-            if (change.type === 'modified') {
-              const data = change.doc.data();
-              if (data.component === 'question' && data.upvote && data.upvote > 1) {
-                this.context[data.context][data.component].upvote.call(this.context[data.context][data.component], data);
-              }
-              // console.log('ask question modified ', change.doc.data());
-            }
+            if (change.type === 'added' || change.type === 'modified') this.performWithQueue(change.doc.data());
           });
         }
       }, (error) => {

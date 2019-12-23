@@ -57,6 +57,7 @@ class QAquestion extends BasicOperation {
         }
       }
     }
+    // TODO, this has to be simplified
     virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId].status = 'edited';
     virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId].content = data.text;
   }
@@ -282,6 +283,7 @@ class AskQuestionEngine {
       if (data.component === 'question' && data.upvote && data.upvote > 1) {
         this.context[data.context][data.component].upvote.call(this.context[data.context][data.component], data);
       } else {
+        // context = whiteboard 1/screen share, component = question/answer, action = create/edit
         this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
       }
     }
@@ -432,6 +434,7 @@ class AskQuestion extends AskQuestionEngine {
   }
 
   renderer() {
+    // TODO, this code needs to be finalized
     const toggle = document.querySelector('#virtualclassCont.congrea #congHr');
     const chatroombt2 = document.getElementById('chatroom_bt2');
     const useList = document.getElementById('user_list');
@@ -506,7 +509,7 @@ class AskQuestion extends AskQuestionEngine {
     const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
     if (addQuestion) {
       addQuestion.addEventListener('click', () => {
-        this.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.gObj.currWb });
+        this.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.askQuestion.currentContext });
       });
     }
   }

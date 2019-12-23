@@ -367,7 +367,6 @@ class AskQuestion extends AskQuestionEngine {
       getContextElem.classList.remove('current');
     }
 
-
     if (virtualclass.currApp !== 'Poll' && virtualclass.currApp !== 'Quiz'
       && this.currentContext && !this.context[contextName]) {
       this.context[contextName] = new AskQuestionContext();
@@ -381,7 +380,6 @@ class AskQuestion extends AskQuestionEngine {
 
   async authenticate(config) {
     firebase.initializeApp(config);
-    console.log('====> hi helllo 2');
     if (!this.db) this.db = firebase.firestore();
     this.setDbCollection();
     const result = await virtualclass.xhrn.getAskQnAccess();
@@ -434,7 +432,7 @@ class AskQuestion extends AskQuestionEngine {
   }
 
   renderer() {
-    // TODO, this code needs to be finalized
+    // TODO, this code needs to be simplified
     const toggle = document.querySelector('#virtualclassCont.congrea #congHr');
     const chatroombt2 = document.getElementById('chatroom_bt2');
     const useList = document.getElementById('user_list');
@@ -449,6 +447,7 @@ class AskQuestion extends AskQuestionEngine {
 
     toggle.addEventListener('click', () => {
       virtualclass.chat.rightBarHeader('askQuestion');
+      // Todo, get the active element, and remove active class from this element
       useList.classList.remove('active');
       techVideo.classList.remove('active');
       setting.classList.remove('active');

@@ -774,31 +774,11 @@
       },
 
       // TODO, this and app inittiator should be merged
-
       handleWhiteboardReady(app, cusEvent, data) {
         // console.log('=====> Handle whiteboard ');
         data = (data !== undefined) ? data : '_doc_0_0';
         const setting = { app: app, cusEvent: cusEvent, data: data, container: 'virtualclassWhiteboard' }
-        // this.appInitiator.Whiteboard.call(virtualclass, app, cusEvent, data, 'virtualclassWhiteboard');
         this.appInitiator.Whiteboard.call(virtualclass, setting);
-
-        // if (!virtualclass.gObj.wbRearrang) {
-        //   const wIds = this.orderList.Whiteboard.ol.order;
-        //   if (wIds !== null) {
-        //     if (wIds.length > 0) {
-        //       virtualclass.wbCommon.readyElements(wIds);
-        //       virtualclass.gObj.wbRearrang = true;
-        //     }
-        //   }
-        // }
-        // virtualclass.wbCommon.initNav(virtualclass.orderList.Whiteboard.ol.order);
-        // if (roles.hasControls()) {
-        //   if (virtualclass.gObj.wbRearrang) {
-        //     virtualclass.wbCommon.indexNav.addActiveNavigation(data);
-        //   }
-        //   virtualclass.wbCommon.identifyFirstNote(data);
-        //   virtualclass.wbCommon.identifyLastNote(data);
-        // }
       },
 
       whitboardWrapper(wbId) {
@@ -823,33 +803,13 @@
 
       // Helper functions for making the app is ready
       appInitiator: {
-        Whiteboard(setting){
+        Whiteboard(setting) {
           let app;
           let cusEvent;
           let id;
-          let container;
           let position;
-
-          if (setting.app) {
-            app = setting.app;
-          }
-
-          if (setting.cusEvent) {
-            cusEvent = setting.cusEvent;
-          }
-
-          if (setting.data) {
-            id = setting.data;
-          }
-
-          if (setting.container) {
-            container = setting.container;
-          }
-
-          if (setting.position) {
-            position = setting.position;
-          }
-
+          ({ app, cusEvent, position, ...setting } = setting);
+          if (setting.data) id = setting.data;
 
           console.log('##==jai 3c ', virtualclass.currApp, virtualclass.gObj.currWb);
 
@@ -1295,7 +1255,7 @@
                 // }
                 if (roles.hasControls()) {
                   virtualclass.dts.indexNav.createIndex();
-
+                  virtualclass.askQuestion.makeReadyContext();
                 } else {
                   virtualclass.dts.indexNav.studentDocNavigation(virtualclass.dts.docs.currNote);
                 }

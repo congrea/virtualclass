@@ -69,6 +69,7 @@ var dashboard = {
   },
 
   open() {
+    console.log('===> Dashboard Open');
     virtualclass.modal.showModal();
     virtualclass.dashboard.clickCloseButton();
   },

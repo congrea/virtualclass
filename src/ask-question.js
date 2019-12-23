@@ -345,7 +345,8 @@ class AskQuestion extends AskQuestionEngine {
       default:
         contextName = null;
     }
-    if (contextName === this.currentContext) return;
+
+    if (contextName === this.currentContext || virtualclass.currApp === 'Poll' || virtualclass.currApp === 'Quiz') return;
 
     const askQuestoinContainer = document.getElementById('askQuestion');
     if (askQuestoinContainer) {
@@ -367,8 +368,7 @@ class AskQuestion extends AskQuestionEngine {
       getContextElem.classList.remove('current');
     }
 
-    if (virtualclass.currApp !== 'Poll' && virtualclass.currApp !== 'Quiz'
-      && this.currentContext && !this.context[contextName]) {
+    if (this.currentContext && !this.context[contextName]) {
       this.context[contextName] = new AskQuestionContext();
     }
 

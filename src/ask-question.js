@@ -122,7 +122,7 @@ class QAquestion extends BasicOperation {
       if (qnElem) {
         qnElem.addEventListener('click', (ev) => {
           if (ev.target.parentNode.dataset.type === 'upvote' || ev.target.parentNode.dataset.type === 'reply'
-           || ev.target.parentNode.dataset.type === 'answersNavigation') {
+            || ev.target.parentNode.dataset.type === 'answersNavigation') {
             if (ev.target.parentNode.dataset.type === 'upvote') {
               this.upvoteOnQn(ev);
             }
@@ -346,7 +346,7 @@ class AskQuestion extends AskQuestionEngine {
         contextName = null;
     }
 
-    if (contextName === this.currentContext || virtualclass.currApp === 'Poll' || virtualclass.currApp === 'Quiz') return;
+    if (contextName === this.currentContext || !contextName) return;
 
     const askQuestoinContainer = document.getElementById('askQuestion');
     if (askQuestoinContainer) {
@@ -421,8 +421,8 @@ class AskQuestion extends AskQuestionEngine {
 
   loadInitialData() {
     this.db.collection(this.collection).get().then((snapshot) => {
-    // TODO, we have to store the inital data from attachHandlerForRealTimeUpdate
-    snapshot.docs.forEach((doc) => {
+      // TODO, we have to store the inital data from attachHandlerForRealTimeUpdate
+      snapshot.docs.forEach((doc) => {
         this.makeQueue(doc.data());
         // this.context[data.context].actions.push(data);
       });

@@ -355,7 +355,6 @@ class AskQuestion extends AskQuestionEngine {
     const getContextElem = document.querySelector('#askQuestion .current');
     const contextElem = document.querySelector(`.context[data-context~=${this.currentContext}]`);
     if (contextElem && !contextElem.classList.contains('current')) {
-      getContextElem.classList.remove('current');
       contextElem.classList.add('current');
     }
 

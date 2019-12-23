@@ -1126,10 +1126,19 @@
         },
 
         Poll() {
+          virtualclass.userListEnable();
           virtualclass.poll.init();
         },
         Quiz() {
+          virtualclass.userListEnable();
           virtualclass.quiz.init();
+        },
+
+        userListEnable() {
+          const userList = document.querySelector('#user_list');
+          if (userList) {
+            userList.click();
+          }
         },
 
         Video(app, custEvent, videoObj) {

@@ -248,7 +248,7 @@ class QAcomment {
 
   renderer(data) {
     console.log('renderer ', data);
-  }upvote
+  }
 }
 
 class AskQuestionContext {
@@ -292,10 +292,17 @@ class AskQuestionEngine {
 }
 
 class AskQuestion extends AskQuestionEngine {
-  async init() {
+  init() {
     if (this.initialize) return;
     this.initialize = true;
     console.log('ask question init');
+    this.renderer();
+  }
+
+  async initFirebaseOperatoin() {
+    if (this.initFirebase) return;
+    this.initFirebase = true;
+
     const config = {
       apiKey: 'AIzaSyDx4OisyZGmbcAx57s0zlwRlopPNNDqxSs',
       authDomain: 'vidyamantra-congrea.firebaseapp.com',
@@ -312,7 +319,6 @@ class AskQuestion extends AskQuestionEngine {
     } else {
       console.log(`There is some error${result}`);
     }
-    this.renderer();
   }
 
   makeReadyContext() {
@@ -401,20 +407,33 @@ class AskQuestion extends AskQuestionEngine {
     this.db.collection(this.collection)
       .onSnapshot((querySnapshot) => {
         // TODO, we have to load the initial data from here
-        if (this.firstRealTime) {
-          this.firstRealTime = false;
-        } else {
-          querySnapshot.docChanges().forEach((change) => {
-              if (change.type === 'added' || change.type === 'modified') {
-              const data = change.doc.data();
-              if (data.context === virtualclass.askQuestion.currentContext) {
-                this.performWithQueue(data);
-              } else {
-                this.makeQueue(data);
-              }
-            };
-          });
-        }
+
+        // if (this.firstRealTime) {
+        //   this.firstRealTime = false
+        // } else {
+        //   querySnapshot.docChanges().forEach((change) => {
+        //       if (change.type === 'added' || change.type === 'modified') {
+        //       const data = change.doc.data();
+        //       if (data.context === virtualclass.askQuestion.currentContext) {
+        //         this.performWithQueue(data);
+        //       } else {
+        //         this.makeQueue(data);
+        //       }
+        //     };
+        //   });
+        // }
+
+        querySnapshot.docChanges().forEach((change) => {
+          if (change.type === 'added' || change.type === 'modified') {
+            const data = change.doc.data();
+            if (data.context === virtualclass.askQuestion.currentContext) {
+              this.performWithQueue(data);
+            } else {
+              this.makeQueue(data);
+            }
+          };
+        });
+
       }, (error) => {
         console.log('ask question real time ', error);
       });
@@ -422,7 +441,7 @@ class AskQuestion extends AskQuestionEngine {
 
   afterSignIn() {
     console.log('====> after sign in');
-    this.loadInitialData();
+    // this.loadInitialData();
     if (this.collection) this.attachHandlerForRealTimeUpdate();
   }
 
@@ -441,75 +460,14 @@ class AskQuestion extends AskQuestionEngine {
   renderer() {
     // TODO, this code needs to be simplified
     const toggle = document.querySelector('#virtualclassCont.congrea #congHr');
-    const chatroombt2 = document.getElementById('chatroom_bt2');
-    const useList = document.getElementById('user_list');
-    const setting = document.querySelector('#appSettingCtrl');
-    const techVideo = document.querySelector('#virtualclassCont.congrea #techVideo');
-    const settingD = document.querySelector('#virtualclassCont.congrea #appSettingDetail');
-
     const context = {};
     const qaTemp = virtualclass.getTemplate('askQuestionMain', 'askQuestion');
     const qtemp = qaTemp(context);
     document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', qtemp);
 
     toggle.addEventListener('click', () => {
-      virtualclass.chat.rightBarHeader('askQuestion');
-      // Todo, get the active element, and remove active class from this element
-      useList.classList.remove('active');
-      techVideo.classList.remove('active');
-      setting.classList.remove('active');
-      chatroombt2.classList.remove('active');
-      toggle.classList.add('active');
-
-      const askQstn = document.querySelector('#virtualclassCont.congrea #askQuestion');
-      if (askQstn.classList.contains('deactive')) {
-        askQstn.classList.remove('deactive');
-        askQstn.classList.add('active');
-      }
-
-      const chat = document.querySelector('#virtualclassCont.congrea #chatWidget');
-      if (chat.classList.contains('active')) {
-        chat.classList.remove('active');
-        chat.classList.add('deactive');
-      }
-      settingD.classList.remove('active');
-      if (!settingD.classList.contains('deactive')) {
-        settingD.classList.add('deactive');
-      }
-
-      const chatbox = document.getElementById('ta_chrm2');
-      if (chatbox) {
-        chatbox.style.display = 'block';
-      }
-
-      const memlist = document.getElementById('memlist');
-      if (memlist) {
-        memlist.classList.remove('enable');
-        if (!memlist.classList.contains('disable')) {
-          memlist.classList.add('disable');
-        }
-      }
-
-      const searchbox = document.getElementById('congreaUserSearch');
-      if (searchbox) {
-        searchbox.style.display = 'none';
-      }
-
-      const chatroom = document.getElementById('chatrm');
-      if (chatroom) {
-        if (chatroom.classList.contains('enable')) {
-          chatroom.classList.remove('enable');
-          chatroom.classList.add('disable');
-        }
-      }
-      const taChrm = document.getElementById('ta_chrm2');
-      if (taChrm) {
-        taChrm.style.display = 'none';
-      }
-
-      if (this.queue[this.currentContext] && this.queue[this.currentContext].length > 0) {
-        this.perform(this.currentContext);
-      }
+      this.initFirebaseOperatoin();
+      this.renderMainContainer(toggle);
     });
 
     const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
@@ -517,6 +475,71 @@ class AskQuestion extends AskQuestionEngine {
       addQuestion.addEventListener('click', () => {
         this.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.askQuestion.currentContext });
       });
+    }
+  }
+
+  renderMainContainer(toggle) {
+    const chatroombt2 = document.getElementById('chatroom_bt2');
+    const useList = document.getElementById('user_list');
+    const setting = document.querySelector('#appSettingCtrl');
+    const techVideo = document.querySelector('#virtualclassCont.congrea #techVideo');
+    const settingD = document.querySelector('#virtualclassCont.congrea #appSettingDetail');
+    virtualclass.chat.rightBarHeader('askQuestion');
+    // Todo, get the active element, and remove active class from this element
+    useList.classList.remove('active');
+    techVideo.classList.remove('active');
+    setting.classList.remove('active');
+    chatroombt2.classList.remove('active');
+    toggle.classList.add('active');
+
+    const askQstn = document.querySelector('#virtualclassCont.congrea #askQuestion');
+    if (askQstn.classList.contains('deactive')) {
+      askQstn.classList.remove('deactive');
+      askQstn.classList.add('active');
+    }
+
+    const chat = document.querySelector('#virtualclassCont.congrea #chatWidget');
+    if (chat.classList.contains('active')) {
+      chat.classList.remove('active');
+      chat.classList.add('deactive');
+    }
+    settingD.classList.remove('active');
+    if (!settingD.classList.contains('deactive')) {
+      settingD.classList.add('deactive');
+    }
+
+    const chatbox = document.getElementById('ta_chrm2');
+    if (chatbox) {
+      chatbox.style.display = 'block';
+    }
+
+    const memlist = document.getElementById('memlist');
+    if (memlist) {
+      memlist.classList.remove('enable');
+      if (!memlist.classList.contains('disable')) {
+        memlist.classList.add('disable');
+      }
+    }
+
+    const searchbox = document.getElementById('congreaUserSearch');
+    if (searchbox) {
+      searchbox.style.display = 'none';
+    }
+
+    const chatroom = document.getElementById('chatrm');
+    if (chatroom) {
+      if (chatroom.classList.contains('enable')) {
+        chatroom.classList.remove('enable');
+        chatroom.classList.add('disable');
+      }
+    }
+    const taChrm = document.getElementById('ta_chrm2');
+    if (taChrm) {
+      taChrm.style.display = 'none';
+    }
+
+    if (this.queue[this.currentContext] && this.queue[this.currentContext].length > 0) {
+      this.perform(this.currentContext);
     }
   }
 

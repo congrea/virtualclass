@@ -400,8 +400,7 @@ body {
   pointer-events: visible !important;
 }
 
-#virtualclassCont.congrea.student #congHr.rsDisable,
-#virtualclassCont.congrea.playMode #congHr.handRaise {
+#virtualclassCont.congrea.student #congHr.rsDisable {
   opacity: 0.5;
   pointer-events: none !important;
 }

@@ -33,8 +33,9 @@ const ioPingPong = {
     return session;
   },
   setSession() {
-    const session = virtualclass.vutil.randomString(32);
-    // console.log('==== session, My session is created by setSession');
+    // const session = virtualclass.vutil.randomString(32);
+    const session = localStorage.mySession;
+    console.log('==== session 1, My session is created by setSession ', session, ' ', localStorage.mySession);
     virtualclass.config.setNewSession(session);
     return session;
   },

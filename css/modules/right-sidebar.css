@@ -991,7 +991,6 @@ body {
 }
 
 #virtualclassCont.congrea #askQuestionHeader.active,
-#virtualclassCont.congrea #rightSubContainer #askQuestion.active,
 #virtualclassCont.congrea #rightSubContainer #chatWidget.active {
   display: block;
 }

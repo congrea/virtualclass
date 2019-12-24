@@ -43,8 +43,8 @@
               }
 
               const askQuestion = document.querySelector('#virtualclassCont.congrea #askQuestion');
-              askQuestion.classList.remove('active');
-              if (!askQuestion.classList.contains('deactive')) {
+              if (askQuestion.classList.contains('active')) {
+                askQuestion.classList.remove('active');
                 askQuestion.classList.add('deactive');
               }
 

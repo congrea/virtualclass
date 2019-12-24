@@ -2,27 +2,34 @@
   <div class="container">
 
     <div class= 'header'>
-      <span class= 'userName'>{{userName}}</span>
-      <span class= 'lable'>{{getString 'answered'}}</span>
-      <span class= 'acceptedAnswer'></span>
+      <div class="info">
+        <span class= 'userName'>{{userName}}</span>
+        <span class= 'lable'>{{getString 'answerLable'}}</span>
+        <span class= 'acceptedAnswer'></span>
+      </div>
     </div>
 
     <div class= 'content'>
+      <p></p>
       <span class= 'more'></span>
     </div>
 
     <div class="footer">
-      <div class= 'controls'>
+      <div class= 'controls' data-type = 'answer' data-parent="{{id}}">
+        <div class= 'upVote' data-type="upvote">
+          <span class= 'button'></span>
+          <span class= 'total'>0</span>
+        </div>
         <div class= 'commentNavigation'>
           <span class= 'button'></span>
-          <span class= 'total'></span>
+          <span class= 'total'>0</span>
+        </div>
+        <div class= 'comment' data-type="comment">
+          <span class= 'button'></span>
         </div>
       </div>
-      <div class= 'reply'>
-        <span class= 'button'></span>
-      </div>
-      <div class= 'moreControls'>
-        <div class= 'item'>
+      <div class= 'moreControls' data-type = 'answer'>
+        <div class= 'item' data-parent="{{id}}">
           {{#if hasControl}}
             <span class= 'lable'>{{getString 'markAnswer'}}</span>
           {{/if}}

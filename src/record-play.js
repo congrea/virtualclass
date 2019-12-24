@@ -194,6 +194,7 @@
       delete virtualclass.ss;
       virtualclass.ss = "";
 
+      virtualclass.makeAppReady({ app: 'Whiteboard' });
     },
 
     // If binary, return buffer else return original value

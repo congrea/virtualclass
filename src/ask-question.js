@@ -279,9 +279,8 @@ class AskQuestionEngine {
   }
 
   perform(context) {
-    let data;
-    for (let i = 0; i < this.queue[context].length; i++) {
-      data = this.queue[context][i];
+    while (this.queue[context].length > 0) {
+      const data = this.queue[context].shift();
       if (data.component === 'question' && data.upvote && data.upvote > 1) {
         this.context[data.context][data.component].upvote.call(this.context[data.context][data.component], data);
       } else {
@@ -289,7 +288,6 @@ class AskQuestionEngine {
         this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
       }
     }
-    this.queue[context].length = 0;
   }
 }
 

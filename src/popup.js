@@ -167,8 +167,10 @@ const PopUp = (function (window, undefined) {
       }
 
       // remove connecting class
+      const virtualclassContConatiner = document.querySelector('#virtualclassCont');
       const networkStatusContainer = document.querySelector('#networkStatusContainer');
       networkStatusContainer.classList.remove('connecting-room');
+      virtualclassContConatiner.classList.remove('connecting');
       const connt = document.querySelector('#virtualclassApp');
       connt.classList.remove('try-to-connect');
     }

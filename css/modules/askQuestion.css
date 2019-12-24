@@ -131,3 +131,8 @@
   color: #717171;
   font-size: 13px;
 }
+
+#virtualclassCont.connecting #congHr {
+  opacity: 0.5;
+  pointer-events: none;
+}

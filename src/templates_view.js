@@ -113,7 +113,7 @@ this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template(
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/askQuestionMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='askQuestion' class=\"deactive\"></div>";
+    return "<div id='askQuestion' class=\"deactive\"><div class=\"container\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

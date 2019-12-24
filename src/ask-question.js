@@ -84,6 +84,10 @@ class QAquestion extends BasicOperation {
   renderer(data) {
     console.log('Create ', data);
     if (data.type === 'input') {
+      const text = document.querySelector('#writeContent .text');
+      if (text) {
+        return;
+      }
       const context = {};
       const qaPostTemp = virtualclass.getTemplate('qaPost', 'askQuestion');
       const qaTemp = qaPostTemp(context);
@@ -131,6 +135,14 @@ class QAquestion extends BasicOperation {
             || ev.target.parentNode.dataset.type === 'answersNavigation') {
             if (ev.target.parentNode.dataset.type === 'upvote') {
               this.upvoteOnQn(ev);
+            } else if (ev.target.parentNode.dataset.type === 'reply') {
+              virtualclass.askQuestion.performWithQueue({
+                component: 'answer',
+                action: 'renderer',
+                type: 'input',
+                context: virtualclass.askQuestion.currentContext,
+                parentid: ev.target.parentNode.parentNode.dataset.parent,
+              });
             }
           } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete') {
             if (ev.target.dataset.type === 'edit') {
@@ -207,8 +219,13 @@ class QAquestion extends BasicOperation {
   }
 }
 
-class QAanswer {
+class QAanswer extends BasicOperation {
   create(data) {
+    const textTemp = document.querySelector('#writeContent');
+    if (textTemp) {
+      textTemp.remove();
+    }
+    this.renderer(data);
     console.log('Create ', data);
   }
 
@@ -229,7 +246,36 @@ class QAanswer {
   }
 
   renderer(data) {
-    console.log('Create ', data);
+    if (data.type === 'input') {
+      const context = {};
+      const qaPostTemp = virtualclass.getTemplate('qaPost', 'askQuestion');
+      const postTemp = qaPostTemp(context);
+      document.querySelector(`#${data.parentid}`).insertAdjacentHTML('beforeend', postTemp);
+      const text = document.querySelector('#writeContent .text');
+      if (text) {
+        text.addEventListener('keyup', this.inputHandler.bind(this));
+      }
+    } else if (data.type === 'answerBox') {
+      const qaAnswerTemp = virtualclass.getTemplate('answer', 'askQuestion');
+      const context = { id: data.id, questionId: data.parentid, userName: data.uname };
+      const ansTemp = qaAnswerTemp(context);
+      document.querySelector(`#${data.parentid} .answers`).insertAdjacentHTML('beforeend', ansTemp);
+      document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+    }
+  }
+
+  inputHandler(ev) {
+    if (ev.keyCode === 13) {
+      const data = this.generateData({
+        component: 'answer',
+        text: ev.target.value,
+        type: 'answerBox',
+        action: 'create',
+        uname: virtualclass.uInfo.userobj.name,
+        parentid: ev.target.parentNode.parentNode.id,
+      });
+      this.send(data);
+    }
   }
 }
 
@@ -248,7 +294,7 @@ class QAcomment {
 
   renderer(data) {
     console.log('renderer ', data);
-  }upvote
+  }
 }
 
 class AskQuestionContext {
@@ -470,6 +516,8 @@ class AskQuestion extends AskQuestionEngine {
       const chat = document.querySelector('#virtualclassCont.congrea #chatWidget');
       if (chat.classList.contains('active')) {
         chat.classList.remove('active');
+        chat.classList.add('deactive');
+      } else if (!chat.classList.contains('active')) {
         chat.classList.add('deactive');
       }
       settingD.classList.remove('active');

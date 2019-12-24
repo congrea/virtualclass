@@ -834,7 +834,8 @@
   color: #00b100;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .upVote span.button::before {
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .upVote span.button::before,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .upVote span.button::before {
   content: "\e924";
   font-weight: normal;
   font-family: 'icomoon';
@@ -842,7 +843,8 @@
   color: #000000 !important;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply span.button::before {
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply span.button::before,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .comment span.button::before {
   content: "\f112";
   font-weight: normal;
   font-family: 'icomoon';
@@ -850,7 +852,8 @@
   color: #000000 !important;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .answersNavigation span.button::before {
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .answersNavigation span.button::before,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .commentNavigation span.button::before {
   content: "\e90c";
   font-weight: normal;
   font-family: 'icomoon';

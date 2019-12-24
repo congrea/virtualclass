@@ -107,7 +107,11 @@ this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template(
     + alias4(((helper = (helper = helpers.userName || (depth0 != null ? depth0.userName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"userName","hash":{},"data":data}) : helper)))
     + "</span><span class='lable'>"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"answered",{"name":"getString","hash":{},"data":data}))
-    + "</span><span class='acceptedAnswer'></span></div><div class='content'><span class='more'></span></div><div class=\"footer\"><div class='controls'><div class='commentNavigation'><span class='button'></span><span class='total'></span></div></div><div class='reply'><span class='button'></span></div><div class='moreControls'><div class='item'> "
+    + "</span><span class='acceptedAnswer'></span></div><div class='content'><span class='more'></span></div><div class=\"footer\"><div class='controls' data-type = 'answer' data-parent=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\"><div class='commentNavigation'><span class='button'></span><span class='total'></span></div><div class='reply'><span class='button'></span></div></div><div class='moreControls' data-type = 'answer'><div class='item' data-parent=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\"> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " <span class='edit'></span><span class='delete'></span></div></div></div></div><div class=\"comments\"></div></div>";
 },"useData":true});

@@ -12,17 +12,17 @@
     </div>
 
     <div class="footer">
-      <div class= 'controls'>
+      <div class= 'controls' data-type = 'answer' data-parent="{{id}}">
         <div class= 'commentNavigation'>
           <span class= 'button'></span>
           <span class= 'total'></span>
         </div>
+        <div class= 'reply'>
+          <span class= 'button'></span>
+        </div>
       </div>
-      <div class= 'reply'>
-        <span class= 'button'></span>
-      </div>
-      <div class= 'moreControls'>
-        <div class= 'item'>
+      <div class= 'moreControls' data-type = 'answer'>
+        <div class= 'item' data-parent="{{id}}">
           {{#if hasControl}}
             <span class= 'lable'>{{getString 'markAnswer'}}</span>
           {{/if}}

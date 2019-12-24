@@ -12,7 +12,7 @@ class BasicOperation {
     data.id = qId;
     data.timeStamp = qnCreateTime;
     data.context = virtualclass.askQuestion.currentContext;
-    data.uId = virtualclass.uInfo.userid;
+    data.userId = virtualclass.uInfo.userid;
     return data;
   }
 
@@ -75,7 +75,7 @@ class QAquestion extends BasicOperation {
     if (data.upvote) {
       if (data.upvote == 1) virtualclass.askQuestion.firstid = data.id;
       document.querySelector(`#${data.parent} .upVote .total`).innerHTML = data.upvote;
-      if (data.uId === virtualclass.uInfo.userid) {
+      if (data.userId === virtualclass.uInfo.userid) {
         document.querySelector(`#${data.parent} .upVote`).dataset.upvote = 'upvoted';
       }
     }
@@ -88,7 +88,7 @@ class QAquestion extends BasicOperation {
       const qaPostTemp = virtualclass.getTemplate('qaPost', 'askQuestion');
       const qaTemp = qaPostTemp(context);
       if (typeof data.content !== 'undefined' && typeof data.questionId !== 'undefined') {
-        if (data.userid === virtualclass.gObj.uid) {
+        if (data.userId === virtualclass.gObj.uid) {
           document.querySelector(`#${data.questionId}`).insertAdjacentHTML('beforeend', qaTemp);
           const text = document.querySelector('#writeContent .text');
           text.innerHTML = data.content;
@@ -120,7 +120,7 @@ class QAquestion extends BasicOperation {
         document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
         document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
       }
-      if (data.uId === virtualclass.uInfo.userid) {
+      if (data.userId === virtualclass.uInfo.userid) {
         document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
       }
 
@@ -152,7 +152,6 @@ class QAquestion extends BasicOperation {
         text: ev.target.value,
         type: 'questionBox',
         action: 'create',
-        userid: virtualclass.uInfo.userid,
         uname: virtualclass.uInfo.userobj.name,
       });
       this.send(data);
@@ -162,7 +161,6 @@ class QAquestion extends BasicOperation {
         text: ev.target.value,
         type: 'questionBox',
         action: 'edit',
-        userid: virtualclass.uInfo.userid,
         uname: virtualclass.uInfo.userobj.name,
         questionId: ev.target.parentNode.parentNode.id,
       });
@@ -178,7 +176,6 @@ class QAquestion extends BasicOperation {
       type: 'input',
       content: text,
       questionId: ev.target.parentNode.dataset.parent,
-      userid: virtualclass.uInfo.userid,
       parent: null,
     });
     this.send(data);
@@ -189,7 +186,6 @@ class QAquestion extends BasicOperation {
       component: ev.target.parentNode.parentNode.dataset.type,
       action: ev.target.dataset.type,
       questionId: ev.target.parentNode.dataset.parent,
-      userid: virtualclass.uInfo.userid,
       parent: null,
     });
     this.send(data);
@@ -351,7 +347,7 @@ class AskQuestion extends AskQuestionEngine {
       default:
         contextName = null;
     }
-    
+
     if (contextName === this.currentContext || !contextName) return;
 
     const askQuestoinContainer = document.getElementById('askQuestion');

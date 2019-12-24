@@ -36,7 +36,8 @@
   top: 0;
 } */
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls {
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls {
   float: left;
 }
 
@@ -45,12 +46,20 @@
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply,
 #virtualclassCont.congrea #askQuestion .container .question .header .info .userName,
 #virtualclassCont.congrea #askQuestion .container .question .header .info .lable,
-#virtualclassCont.congrea #askQuestion .container .question .header .info .closed-icon {
+#virtualclassCont.congrea #askQuestion .container .question .header .info .closed-icon,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .upVote,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .commentNavigation,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .comment,
+#virtualclassCont.congrea #askQuestion .container .answer .header .info .userName,
+#virtualclassCont.congrea #askQuestion .container .answer .header .info .lable,
+#virtualclassCont.congrea #askQuestion .container .answer .header .info .acceptedAnswer {
   display: inline-block;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .button,
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .total {
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .total,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .button,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .total {
   font-family: Raleway, Helvetica, sans-serif;
   border-radius: 5px;
   border: none;
@@ -59,7 +68,8 @@
   padding: 5px 13px 5px 2px;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls {
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .moreControls {
   float: right;
 }
 

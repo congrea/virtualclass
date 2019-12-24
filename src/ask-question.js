@@ -84,6 +84,10 @@ class QAquestion extends BasicOperation {
   renderer(data) {
     console.log('Create ', data);
     if (data.type === 'input') {
+      const text = document.querySelector('#writeContent .text');
+      if (text) {
+        return;
+      }
       const context = {};
       const qaPostTemp = virtualclass.getTemplate('qaPost', 'askQuestion');
       const qaTemp = qaPostTemp(context);
@@ -253,9 +257,10 @@ class QAanswer extends BasicOperation {
       }
     } else if (data.type === 'answerBox') {
       const qaAnswerTemp = virtualclass.getTemplate('answer', 'askQuestion');
-      const context = { questionId: data.parentid };
+      const context = { id: data.id, questionId: data.parentid, userName: data.uname };
       const ansTemp = qaAnswerTemp(context);
       document.querySelector(`#${data.parentid} .answers`).insertAdjacentHTML('beforeend', ansTemp);
+      document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
     }
   }
 
@@ -511,6 +516,8 @@ class AskQuestion extends AskQuestionEngine {
       const chat = document.querySelector('#virtualclassCont.congrea #chatWidget');
       if (chat.classList.contains('active')) {
         chat.classList.remove('active');
+        chat.classList.add('deactive');
+      } else if (!chat.classList.contains('active')) {
         chat.classList.add('deactive');
       }
       settingD.classList.remove('active');

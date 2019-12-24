@@ -103,13 +103,13 @@ this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template(
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "' class='answer' data-parent=\""
     + alias4(((helper = (helper = helpers.questionId || (depth0 != null ? depth0.questionId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"questionId","hash":{},"data":data}) : helper)))
-    + "\"><div class=\"container\"><div class='header'><span class='userName'>"
+    + "\"><div class=\"container\"><div class='header'><div class=\"info\"><span class='userName'>"
     + alias4(((helper = (helper = helpers.userName || (depth0 != null ? depth0.userName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"userName","hash":{},"data":data}) : helper)))
     + "</span><span class='lable'>"
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"answered",{"name":"getString","hash":{},"data":data}))
-    + "</span><span class='acceptedAnswer'></span></div><div class='content'><span class='more'></span></div><div class=\"footer\"><div class='controls' data-type = 'answer' data-parent=\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"answerLable",{"name":"getString","hash":{},"data":data}))
+    + "</span><span class='acceptedAnswer'></span></div></div><div class='content'><p></p><span class='more'></span></div><div class=\"footer\"><div class='controls' data-type = 'answer' data-parent=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\"><div class='commentNavigation'><span class='button'></span><span class='total'></span></div><div class='reply'><span class='button'></span></div></div><div class='moreControls' data-type = 'answer'><div class='item' data-parent=\""
+    + "\"><div class='upVote' data-type=\"upvote\"><span class='button'></span><span class='total'>0</span></div><div class='commentNavigation'><span class='button'></span><span class='total'>0</span></div><div class='comment' data-type=\"comment\"><span class='button'></span></div></div><div class='moreControls' data-type = 'answer'><div class='item' data-parent=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\"> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -160,7 +160,7 @@ this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.templat
     + "' class='question'><div class=\"container\"><div class='header'><div class=\"info\"><span class='userName'>"
     + alias4(((helper = (helper = helpers.userName || (depth0 != null ? depth0.userName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"userName","hash":{},"data":data}) : helper)))
     + "</span><span class='lable'>"
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"questionlable",{"name":"getString","hash":{},"data":data}))
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"questionLable",{"name":"getString","hash":{},"data":data}))
     + "</span><span class='closed-icon'></span></div></div><div class='content'><p></p><span class='more'></span></div><div class=\"footer\"><div class='controls' data-type = 'question' data-parent=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\"><div class='upVote' data-type=\"upvote\"><span class='button'></span><span class='total'>0</span></div><div class='answersNavigation' data-type=\"answersNavigation\"><span class='button'></span><span class='total'>0</span></div><div class='reply' data-type=\"reply\"><span class='button'></span></div></div><div class='moreControls' data-type = 'question'><div class='item' data-parent=\""

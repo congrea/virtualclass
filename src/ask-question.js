@@ -405,7 +405,14 @@ class AskQuestion extends AskQuestionEngine {
           this.firstRealTime = false;
         } else {
           querySnapshot.docChanges().forEach((change) => {
-            if (change.type === 'added' || change.type === 'modified') this.performWithQueue(change.doc.data());
+              if (change.type === 'added' || change.type === 'modified') {
+              const data = change.doc.data();
+              if (data.context === virtualclass.askQuestion.currentContext) {
+                this.performWithQueue(data);
+              } else {
+                this.makeQueue(data);
+              }
+            };
           });
         }
       }, (error) => {

@@ -1,14 +1,14 @@
 #virtualclassCont.congrea #askQuestion .container .question .content p {
-  font-size: 15px;
+  font-size: 0.8125rem;
   color: #353535;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .content {
-  padding-top: 5px;
-  height: fit-content;
+  max-height: 60px;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question {
@@ -20,7 +20,6 @@
   display: flex;
   flex-direction: column;
   box-shadow: 1px 2px 4px #7b7b7b;
-  border-left: 3px solid red;
 }
 
 #virtualclassCont.congrea #askQuestion .container.askContainer {
@@ -75,6 +74,29 @@
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item {
   display: none;
+  font-size: 12px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .edit {
+  padding: 5px 25px 4px 6px;
+  display: block;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .delete {
+  padding: 3px 10px 3px 6px;
+  margin-top: 2px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .edit,
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .delete {
+  background-color: #f1f1f1;
+  cursor: pointer;
+  border: 1px solid #bbb;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .edit:hover,
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .delete:hover {
+  background-color: #dadada;
 }
 
 #virtualclassCont.congrea #askQuestion {
@@ -87,6 +109,7 @@
 #virtualclassCont.congrea #askQuestion #writeContent .text {
   border-radius: 4px;
   width: 100%;
+  resize: none;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent {
@@ -119,17 +142,20 @@
 }
 
 #virtualclassCont.congrea #askQuestion .question .container {
-  padding: 5px;
+  padding: 8px;
+  border-left: 3px solid red;
 }
 
 #virtualclassCont.congrea #askQuestion .question .container .header .info {
   color: #1e2c30;
+  text-transform: capitalize;
+  font-size: 0.875rem;
 }
 
 #virtualclassCont.congrea #askQuestion .question .container .header .info .lable {
   margin-left: 8px;
   color: #717171;
-  font-size: 13px;
+  font-size: 0.6875rem;
 }
 
 #virtualclassCont.connecting #congHr {

@@ -862,9 +862,9 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls::before {
-  content: "\e976";
+  content: "\e9dc";
   font-weight: normal;
   font-family: 'icomoon';
-  font-size: 14px;
-  color: #000000 !important;
+  font-size: 0.75rem;
+  color: #3e3e3e;
 }

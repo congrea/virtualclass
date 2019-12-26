@@ -180,3 +180,16 @@
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item.close {
   display: none;
 }
+
+
+.askQuestionFetching #askQuestion {
+  opacity: 0.8;
+}
+
+.askQuestionFetching #askQuestionHeader {
+  pointer-events: none;
+}
+
+.askQuestionFetching #askQuestion .loading:after{
+  content: "LOADING.....";
+}

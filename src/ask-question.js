@@ -579,9 +579,10 @@ class AskQuestion extends AskQuestionEngine {
 
   async initFirebaseOperatoin() {
     if (this.initFirebase) return;
+    const virtualclassCont = document.getElementById('virtualclassCont');
+    if (virtualclassCont) virtualclassCont.classList.add('askQuestionFetching');
     this.initFirebase = true;
-
-    const config = {
+     const config = {
       apiKey: 'AIzaSyDx4OisyZGmbcAx57s0zlwRlopPNNDqxSs',
       authDomain: 'vidyamantra-congrea.firebaseapp.com',
       databaseURL: 'https://vidyamantra-congrea.firebaseio.com',
@@ -694,6 +695,12 @@ class AskQuestion extends AskQuestionEngine {
             }
           };
         });
+
+        if (this.firstRealTime) {
+          const virtualclassCont = document.getElementById('virtualclassCont');
+          if (virtualclassCont) virtualclassCont.classList.remove('askQuestionFetching');
+          this.firstRealTime  = false;
+        }
       }, (error) => {
         console.log('ask question real time ', error);
       });

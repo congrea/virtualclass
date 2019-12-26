@@ -193,7 +193,8 @@ class QAquestion extends BasicOperation {
       const qaTemp = qaPostTemp(context);
       if (typeof data.content !== 'undefined' && typeof data.questionId !== 'undefined') {
         if (data.userId === virtualclass.gObj.uid) {
-          document.querySelector(`#${data.questionId}`).insertAdjacentHTML('beforeend', qaTemp);
+          document.querySelector(`#${data.questionId} .content p`).innerHTML = '';
+          document.querySelector(`#${data.questionId} .content p`).insertAdjacentHTML('beforeend', qaTemp);
           const text = document.querySelector('#writeContent .text');
           text.innerHTML = data.content;
           if (text) {
@@ -245,12 +246,16 @@ class QAquestion extends BasicOperation {
               });
             }
           } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete' || ev.target.className === 'moreControls') {
+            const getMoreCntrl = document.querySelector(`#${ev.target.dataset.parent}.question .moreControls .item`);
             if (ev.target.dataset.type === 'edit') {
               this.updateQn(ev);
+              getMoreCntrl.classList.remove('open');
+              getMoreCntrl.classList.add('close');
             } else if (ev.target.dataset.type === 'delete') {
               this.deleteQn(ev);
+              getMoreCntrl.classList.remove('open');
+              getMoreCntrl.classList.add('close');
             } else if (ev.target.className === 'moreControls' && ev.target.dataset.type === 'question') {
-              const getMoreCntrl = document.querySelector('.question .moreControls .item')
               if (getMoreCntrl.classList.contains('close')) {
                 getMoreCntrl.classList.remove('close');
                 getMoreCntrl.classList.add('open');
@@ -283,7 +288,7 @@ class QAquestion extends BasicOperation {
         type: 'questionBox',
         action: 'edit',
         uname: virtualclass.uInfo.userobj.name,
-        questionId: ev.target.parentNode.parentNode.id,
+        questionId: ev.target.parentNode.parentNode.dataset.parent,
       });
       this.send(data);
     }
@@ -364,22 +369,35 @@ class QAanswer extends BasicOperation {
 
   renderer(data) {
     if (data.type === 'input') {
+      const text = document.querySelector('#writeContent .text');
+      if (text) {
+        return;
+      }
       const context = {};
       const qaPostTemp = virtualclass.getTemplate('qaPost', 'askQuestion');
       const postTemp = qaPostTemp(context);
       if (data.answerid) {
-        document.querySelector(`#${data.answerid}`).insertAdjacentHTML('beforeend', postTemp);
+        if (data.userId === virtualclass.gObj.uid) {
+          document.querySelector(`#${data.answerid} .content p`).innerHTML = '';
+          document.querySelector(`#${data.answerid} .content p`).insertAdjacentHTML('beforeend', postTemp);
+          const text = document.querySelector('#writeContent .text');
+          text.innerHTML = data.content;
+          if (text) {
+            text.addEventListener('keyup', this.inputHandler.bind(this));
+          }
+        }
       } else {
         document.querySelector(`#${data.parentid}`).insertAdjacentHTML('beforeend', postTemp);
-      }
-      const text = document.querySelector('#writeContent .text');
-      if (text) {
-        text.addEventListener('keyup', this.inputHandler.bind(this));
+        const text = document.querySelector('#writeContent .text');
+        if (text) {
+          text.addEventListener('keyup', this.inputHandler.bind(this));
+        }
       }
     } else if (data.type === 'answerBox') {
       const getAnsElem = document.querySelector(`#${data.answerid} .content p`);
+      const ansElem = document.querySelector(`#${data.answerid}`);
       if (getAnsElem) {
-        getAnsElem.dataset.status = data.status;
+        ansElem.dataset.status = data.status;
         getAnsElem.innerHTML = data.text;
       } else {
         const qaAnswerTemp = virtualclass.getTemplate('answer', 'askQuestion');
@@ -388,6 +406,7 @@ class QAanswer extends BasicOperation {
         document.querySelector(`#${data.parentid} .answers`).insertAdjacentHTML('beforeend', ansTemp);
         document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
         document.querySelector(`#${data.id}`).dataset.status = data.status;
+        document.querySelector(`#${data.id} .content p`).dataset.status = data.status;
       }
     }
 
@@ -413,12 +432,16 @@ class QAanswer extends BasicOperation {
           }
         } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete'
           || ev.target.className === 'moreControls' || ev.target.dataset.type === 'mark') {
+          const getMoreCntrl = document.querySelector(`#${ev.target.dataset.parent}.answer .moreControls .item`);
           if (ev.target.dataset.type === 'edit') {
             this.updateAns(ev);
+            getMoreCntrl.classList.remove('open');
+            getMoreCntrl.classList.add('close');
           } else if (ev.target.dataset.type === 'delete') {
             this.deleteAns(ev);
+            getMoreCntrl.classList.remove('open');
+            getMoreCntrl.classList.add('close');
           } else if (ev.target.className === 'moreControls' && ev.target.dataset.type === 'answer') {
-            const getMoreCntrl = document.querySelector('.answer .moreControls .item');
             if (getMoreCntrl.classList.contains('close')) {
               getMoreCntrl.classList.remove('close');
               getMoreCntrl.classList.add('open');
@@ -428,6 +451,8 @@ class QAanswer extends BasicOperation {
             }
           } else if (ev.target.dataset.type === 'mark') {
             this.markOnAns(ev);
+            getMoreCntrl.classList.remove('open');
+            getMoreCntrl.classList.add('close');
           }
         }
       });
@@ -453,8 +478,8 @@ class QAanswer extends BasicOperation {
         type: 'answerBox',
         action: 'edit',
         uname: virtualclass.uInfo.userobj.name,
-        answerid: ev.target.parentNode.parentNode.id,
-        parentid: ev.target.parentNode.parentNode.parentNode.id,
+        answerid: ev.target.parentNode.parentNode.dataset.parent,
+        parentid: ev.target.parentNode.parentNode.dataset.qid,
         status: 'edited',
       });
       this.send(data);

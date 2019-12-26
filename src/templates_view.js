@@ -93,7 +93,7 @@ this["JST"]["dest_temp/templates/appToolsMeeting.hbs"] = Handlebars.template({"c
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " <span class='lable'>"
+    return " <span class='mark' data-type=\"mark\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"markAnswer",{"name":"getString","hash":{},"data":data}))
     + "</span> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -109,11 +109,19 @@ this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template(
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"answerLable",{"name":"getString","hash":{},"data":data}))
     + "</span><span class='acceptedAnswer'></span></div></div><div class='content'><p></p><span class='more'></span></div><div class=\"footer\"><div class='controls' data-type = 'answer' data-parent=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\"><div class='upVote' data-type=\"upvote\"><span class='button'></span><span class='total'>0</span></div><div class='commentNavigation'><span class='button'></span><span class='total'>0</span></div><div class='comment' data-type=\"comment\"><span class='button'></span></div></div><div class='moreControls' data-type = 'answer'><div class='item' data-parent=\""
+    + "\" data-qid=\""
+    + alias4(((helper = (helper = helpers.questionId || (depth0 != null ? depth0.questionId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"questionId","hash":{},"data":data}) : helper)))
+    + "\"><div class='upVote' data-type=\"upvote\"><span class='button'></span><span class='total'>0</span></div><div class='commentsNavigation'><span class='button'></span><span class='total'>0</span></div><div class='comment' data-type=\"comment\"><span class='button'></span></div></div><div class='moreControls' data-type = 'answer'><div class='item close' data-parent=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\"> "
+    + "\" data-qid=\""
+    + alias4(((helper = (helper = helpers.questionId || (depth0 != null ? depth0.questionId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"questionId","hash":{},"data":data}) : helper)))
+    + "\"><span class='edit' data-type=\"edit\"> "
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"edit",{"name":"getString","hash":{},"data":data}))
+    + " </span><span class='delete' data-type=\"delete\"> "
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))
+    + " </span> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " <span class='edit'></span><span class='delete'></span></div></div></div></div><div class=\"comments\"></div></div>";
+    + " </div></div></div></div><div class=\"comments\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/askQuestionMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -163,7 +171,7 @@ this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.templat
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"questionLable",{"name":"getString","hash":{},"data":data}))
     + "</span><span class='closed-icon'></span></div></div><div class='content'><p></p><span class='more'></span></div><div class=\"footer\"><div class='controls' data-type = 'question' data-parent=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\"><div class='upVote' data-type=\"upvote\"><span class='button'></span><span class='total'>0</span></div><div class='answersNavigation' data-type=\"answersNavigation\"><span class='button'></span><span class='total'>0</span></div><div class='reply' data-type=\"reply\"><span class='button'></span></div></div><div class='moreControls' data-type = 'question'><div class='item' data-parent=\""
+    + "\"><div class='upVote' data-type=\"upvote\"><span class='button'></span><span class='total'>0</span></div><div class='answersNavigation' data-type=\"answersNavigation\"><span class='button'></span><span class='total'>0</span></div><div class='reply' data-type=\"reply\"><span class='button'></span></div></div><div class='moreControls' data-type = 'question'><div class='item close' data-parent=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\"><span class='edit' data-type=\"edit\"> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"edit",{"name":"getString","hash":{},"data":data}))

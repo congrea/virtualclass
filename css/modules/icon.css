@@ -871,3 +871,11 @@
   font-size: 0.75rem;
   color: #3e3e3e;
 }
+
+#virtualclassCont.congrea #askQuestion .answer .footer .moreControls .item .marked::before {
+  content: "\e996";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 0.75rem;
+  color: #3e3e3e;
+}

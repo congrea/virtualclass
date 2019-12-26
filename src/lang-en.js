@@ -438,6 +438,7 @@
     askQuestionHeader: 'Ask a Qusetion',
     questionLable: 'question',
     answerLable: 'answer',
+    markAnswer: 'markAsAnswer',
     /* For Chrome */
     PermissionDeniedErrorExt: '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'
     + 'Go to camera icon on top right of the screen <br /> '

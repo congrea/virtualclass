@@ -40,18 +40,23 @@
   float: left;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .upVote,
+/* #virtualclassCont.congrea #askQuestion .container .footer .controls div,
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .answersNavigation,
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply,
-#virtualclassCont.congrea #askQuestion .container .question .header .info .userName,
+#virtualclassCont.congrea #askQuestion .container .header .info span,
 #virtualclassCont.congrea #askQuestion .container .question .header .info .lable,
 #virtualclassCont.congrea #askQuestion .container .question .header .info .closed-icon,
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .upVote,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .commentNavigation,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .commentsNavigation,
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .comment,
 #virtualclassCont.congrea #askQuestion .container .answer .header .info .userName,
 #virtualclassCont.congrea #askQuestion .container .answer .header .info .lable,
 #virtualclassCont.congrea #askQuestion .container .answer .header .info .acceptedAnswer {
+  display: inline-block;
+} */
+
+#virtualclassCont.congrea #askQuestion .container .header .info span,
+#virtualclassCont.congrea #askQuestion .container .footer .controls div {
   display: inline-block;
 }
 
@@ -72,8 +77,8 @@
   cursor: pointer;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item {
-  display: none;
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item.open {
+  display: block;
   font-size: 12px;
   width: fit-content;
   border: 1px solid #dadada;
@@ -90,6 +95,7 @@
   display: block;
   cursor: pointer;
   color: #002442;
+  background-color: unset;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .moreControls .item span:hover {
@@ -171,13 +177,6 @@
   margin-left: 6px;
 }
 
-#virtualclassCont.congrea #askQuestion .question .footer .moreControls .item.close,
-#virtualclassCont.congrea #askQuestion .answer .footer .moreControls .item.close {
+#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item.close {
   display: none;
 }
-
-#virtualclassCont.congrea #askQuestion .question .footer .moreControls .item.open,
-#virtualclassCont.congrea #askQuestion .answer .footer .moreControls .item.open {
-  display: block;
-}
-

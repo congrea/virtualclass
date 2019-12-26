@@ -855,7 +855,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .answersNavigation span.button::before,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .commentNavigation span.button::before {
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .commentsNavigation span.button::before {
   content: "\e90c";
   font-weight: normal;
   font-family: 'icomoon';

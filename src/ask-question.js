@@ -38,10 +38,13 @@ class QAquestion extends BasicOperation {
     if (textTemp) {
       textTemp.remove();
     }
+    data.questionId = data.id;
     this.renderer(data);
-    const question = { id: data.id, content: data.text, children: [], status: data.action, parent: null };
+    // const question = { id: data.id, content: data.text, children: [], status: data.action, parent: null };
+    this.updateStatus(data, 'editable');
+
     // TODO, this should not be here
-    virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][question.id] = question;
+    // virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][question.id] = question;
   }
 
   edit(data) {
@@ -58,22 +61,37 @@ class QAquestion extends BasicOperation {
         }
       }
     }
-    // TODO, this has to be simplified
-    virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId].status = 'edited';
-    virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId].content = data.text;
+    this.updateStatus(data, 'edited');
   }
 
   delete(data) {
     console.log('question deleted ', data);
-    delete virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId];
     const elem = document.querySelector(`[data-context~=${data.context}] #${data.questionId}`);
     // TODO, we have to remove answers and related comments from inline structure
     elem.remove();
+    this.updateStatus(data, 'delete');
+
+    // TODO, will have to delete all the answer children from here
+  }
+
+  updateStatus(data, status) {
+    if (status === 'delete') {
+      delete virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId];
+    } else {
+      let question = data;
+      if (status === 'create') {
+        question = { id: data.id, content: data.text, children: [], status, parent: null, questionId: data.id };
+      } else if (status === 'edit') {
+        question.content = data.txt;
+      }
+      question.status = status;
+      virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId] = question;
+    }
   }
 
   upvote(data) {
     if (data.upvote) {
-      if (data.upvote == 1) virtualclass.askQuestion.firstid = data.id;
+      if (data.upvote === 1) virtualclass.askQuestion.firstid = data.id;
       document.querySelector(`#${data.parent} .upVote .total`).innerHTML = data.upvote;
       if (data.userId === virtualclass.uInfo.userid) {
         document.querySelector(`#${data.parent} .upVote`).dataset.upvote = 'upvoted';

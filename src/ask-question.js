@@ -8,8 +8,7 @@
 class BasicOperation {
   generateData(data) {
     const qnCreateTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-    const qId = `${data.component}-${virtualclass.gObj.uid}-${qnCreateTime}`;
-    data.id = qId;
+    data.id = `${data.component}-${virtualclass.gObj.uid}-${qnCreateTime}`;
     data.timeStamp = qnCreateTime;
     data.context = virtualclass.askQuestion.currentContext;
     data.userId = virtualclass.uInfo.userid;
@@ -17,7 +16,6 @@ class BasicOperation {
   }
 
   send(data) {
-    // const docName = data.timeStamp.toString();
     if (!virtualclass.askQuestion.collection) {
       virtualclass.askQuestion.setDbCollection();
       virtualclass.askQuestion.attachHandlerForRealTimeUpdate();
@@ -29,6 +27,90 @@ class BasicOperation {
       .catch((error) => {
         console.error('ask question write, Error writing document: ', error);
       });
+  }
+}
+
+
+class QAnote extends BasicOperation {
+  create(data) {
+    this.render(data);
+    this.udpateStatus(data);
+  }
+
+  udpateStatus(data) {
+    if (data.action === 'create') {
+      virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext].notes[data.userId] = data.content;
+    } else if (data.action === 'delete') {
+      delete virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext].notes[data.userId];
+    }
+  }
+
+  delete() {
+    const data = {};
+    data.action = 'delete';
+    // TODO, we have to delete the note from element,
+    this.udpateStatus(data);
+  }
+
+  render(data) {
+    if (data.type === 'noteCreate') {
+      console.log('This interface by which we will create the note');
+    } else if (data.type === 'afterCreatingNote') {
+      console.log('This interface by which we will render note');
+    }
+  }
+
+  inputHandler() {
+    //  we will get this from user
+    const note = 'This is very important';
+    const data = this.generateData({
+      component: 'note',
+      content: note,
+      type: 'afterCreatingNote',
+      action: 'create'
+    });
+    this.create(data);
+    this.send(data);
+  }
+}
+
+
+class QAmark extends BasicOperation {
+  create(data) {
+    this.render(data);
+    this.udpateStatus(data);
+  }
+
+  udpateStatus(data) {
+    if (data.action === 'create') {
+      virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext].marks[data.userId] = true;
+    } else if (data.action === 'delete') {
+      delete virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext].marks[data.userId];
+    }
+  }
+
+  delete() {
+    const data = {};
+    data.action = 'delete';
+    // TODO, We have to unmark the context from here
+    this.udpateStatus(data);
+  }
+
+  render(data) {
+    if (data.type === 'noteCreate') {
+      console.log('This interface by which we will create the note');
+    } else if (data.type === 'afterCreatingNote') {
+      console.log('This interface by which we will render note');
+    }
+  }
+
+  inputHandler() {
+    //  we will get this from user
+    const data = this.generateData({
+      action: 'create'
+    });
+    this.create(data);
+    this.send(data);
   }
 }
 
@@ -315,12 +397,14 @@ class QAcomment {
   }
 }
 
-class AskQuestionContext {
+class QAcontext {
   constructor() {
     this.actions = [];
     this.question = new QAquestion();
     this.answer = new QAanswer();
     this.comment = new QAcomment();
+    this.note = new QAnote();
+    this.mark = new QAmark();
   }
 }
 
@@ -439,7 +523,7 @@ class AskQuestion extends AskQuestionEngine {
     }
 
     if (this.currentContext && !this.context[contextName]) {
-      this.context[contextName] = new AskQuestionContext();
+      this.context[contextName] = new QAcontext();
     }
 
     if (this.queue[this.currentContext] && this.queue[this.currentContext].length > 0) {
@@ -470,23 +554,6 @@ class AskQuestion extends AskQuestionEngine {
     console.log('===> Attach Real time update ');
     this.db.collection(this.collection)
       .onSnapshot((querySnapshot) => {
-        // TODO, we have to load the initial data from here
-
-        // if (this.firstRealTime) {
-        //   this.firstRealTime = false
-        // } else {
-        //   querySnapshot.docChanges().forEach((change) => {
-        //       if (change.type === 'added' || change.type === 'modified') {
-        //       const data = change.doc.data();
-        //       if (data.context === virtualclass.askQuestion.currentContext) {
-        //         this.performWithQueue(data);
-        //       } else {
-        //         this.makeQueue(data);
-        //       }
-        //     };
-        //   });
-        // }
-
         querySnapshot.docChanges().forEach((change) => {
           if (change.type === 'added' || change.type === 'modified') {
             const data = change.doc.data();
@@ -497,7 +564,6 @@ class AskQuestion extends AskQuestionEngine {
             }
           };
         });
-
       }, (error) => {
         console.log('ask question real time ', error);
       });

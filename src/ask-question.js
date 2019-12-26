@@ -9,7 +9,7 @@ class BasicOperation {
   generateData(data) {
     const qnCreateTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
     data.id = `${data.component}-${virtualclass.gObj.uid}-${qnCreateTime}`;
-    data.timeStamp = qnCreateTime;
+    data.timestamp = qnCreateTime;
     data.context = virtualclass.askQuestion.currentContext;
     data.userId = virtualclass.uInfo.userid;
     return data;
@@ -682,7 +682,7 @@ class AskQuestion extends AskQuestionEngine {
 
   attachHandlerForRealTimeUpdate() {
     console.log('===> Attach Real time update ');
-    this.db.collection(this.collection)
+    this.db.collection(this.collection).orderBy('timestamp', 'asc')
       .onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach((change) => {
           if (change.type === 'added' || change.type === 'modified') {

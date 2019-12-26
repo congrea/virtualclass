@@ -4,7 +4,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .content {
-  max-height: 60px;
+  max-height: 50px;
   overflow-y: auto;
   overflow-x: hidden;
   margin-bottom: 5px;
@@ -67,8 +67,7 @@
   padding: 5px 13px 5px 2px;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .moreControls {
+#virtualclassCont.congrea #askQuestion .container .footer .moreControls {
   float: right;
   cursor: pointer;
 }
@@ -76,28 +75,25 @@
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item {
   display: none;
   font-size: 12px;
+  width: fit-content;
+  border: 1px solid #dadada;
+  box-shadow: 0 4px 7px -2px #c1c1c1;
+  background-color: #fbfbfb;
+  border-radius: 2px;
+  position: absolute;
+  bottom: 25px;
+  right: 2px;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .edit {
-  padding: 5px 25px 4px 6px;
+#virtualclassCont.congrea #askQuestion .container .footer .moreControls .item span {
+  padding: 3px 6px;
   display: block;
-}
-
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .delete {
-  padding: 3px 10px 3px 6px;
-  margin-top: 2px;
-}
-
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .edit,
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .delete {
-  background-color: #f1f1f1;
   cursor: pointer;
-  border: 1px solid #bbb;
+  color: #002442;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .edit:hover,
-#virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item .delete:hover {
-  background-color: #dadada;
+#virtualclassCont.congrea #askQuestion .container .footer .moreControls .item span:hover {
+  background-color: #e6ebf1;
 }
 
 #virtualclassCont.congrea #askQuestion {
@@ -143,8 +139,9 @@
 }
 
 #virtualclassCont.congrea #askQuestion .question .container {
-  padding: 8px;
+  padding: 4px 8px;
   border-left: 3px solid red;
+  position: relative;
 }
 
 #virtualclassCont.congrea #askQuestion .answers .container {

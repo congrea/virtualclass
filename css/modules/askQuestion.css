@@ -70,6 +70,7 @@
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls,
 #virtualclassCont.congrea #askQuestion .container .answer .footer .moreControls {
   float: right;
+  cursor: pointer;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item {
@@ -146,6 +147,12 @@
   border-left: 3px solid red;
 }
 
+#virtualclassCont.congrea #askQuestion .answers .container {
+  padding: 4px 8px;
+  border-left: 3px solid green;
+  margin-top: 5px;
+}
+
 #virtualclassCont.congrea #askQuestion .question .container .header .info {
   color: #1e2c30;
   text-transform: capitalize;
@@ -161,4 +168,8 @@
 #virtualclassCont.connecting #congHr {
   opacity: 0.5;
   pointer-events: none;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .answers {
+  margin-left: 6px;
 }

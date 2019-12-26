@@ -15,12 +15,12 @@
     </div>
 
     <div class="footer">
-      <div class= 'controls' data-type = 'answer' data-parent="{{id}}">
+      <div class= 'controls' data-type = 'answer' data-parent="{{id}}" data-qid="{{questionId}}">
         <div class= 'upVote' data-type="upvote">
           <span class= 'button'></span>
           <span class= 'total'>0</span>
         </div>
-        <div class= 'commentNavigation'>
+        <div class= 'commentsNavigation'>
           <span class= 'button'></span>
           <span class= 'total'>0</span>
         </div>
@@ -29,12 +29,12 @@
         </div>
       </div>
       <div class= 'moreControls' data-type = 'answer'>
-        <div class= 'item' data-parent="{{id}}">
+        <div class= 'item close' data-parent="{{id}}" data-qid="{{questionId}}">
+          <span class= 'edit' data-type="edit"> {{getString 'edit'}} </span>
+          <span class= 'delete' data-type="delete"> {{getString 'delete'}} </span>
           {{#if hasControl}}
-            <span class= 'lable'>{{getString 'markAnswer'}}</span>
+            <span class= 'mark' data-type="mark">{{getString 'markAnswer'}}</span>
           {{/if}}
-          <span class= 'edit'></span>
-          <span class= 'delete'></span>
         </div>
       </div>
     </div>

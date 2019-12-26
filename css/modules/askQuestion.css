@@ -173,3 +173,14 @@
 #virtualclassCont.congrea #askQuestion .container .question .answers {
   margin-left: 6px;
 }
+
+#virtualclassCont.congrea #askQuestion .question .footer .moreControls .item.close,
+#virtualclassCont.congrea #askQuestion .answer .footer .moreControls .item.close {
+  display: none;
+}
+
+#virtualclassCont.congrea #askQuestion .question .footer .moreControls .item.open,
+#virtualclassCont.congrea #askQuestion .answer .footer .moreControls .item.open {
+  display: block;
+}
+

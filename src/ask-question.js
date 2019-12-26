@@ -244,11 +244,20 @@ class QAquestion extends BasicOperation {
                 parentid: ev.target.parentNode.parentNode.dataset.parent,
               });
             }
-          } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete') {
+          } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete' || ev.target.className === 'moreControls') {
             if (ev.target.dataset.type === 'edit') {
               this.updateQn(ev);
-            } else {
+            } else if (ev.target.dataset.type === 'delete') {
               this.deleteQn(ev);
+            } else if (ev.target.className === 'moreControls' && ev.target.dataset.type === 'question') {
+              const getMoreCntrl = document.querySelector('.question .moreControls .item')
+              if (getMoreCntrl.classList.contains('close')) {
+                getMoreCntrl.classList.remove('close');
+                getMoreCntrl.classList.add('open');
+              } else {
+                getMoreCntrl.classList.remove('open');
+                getMoreCntrl.classList.add('close');
+              }
             }
           }
         });
@@ -330,6 +339,12 @@ class QAanswer extends BasicOperation {
   }
 
   edit(data) {
+    const textTemp = document.querySelector('#writeContent');
+    if (textTemp) {
+      textTemp.remove();
+    }
+    const getElem = document.querySelector(`#${data.answerid} .content p`);
+    getElem.innerHTML = data.text;
     console.log('Create ', data);
   }
 
@@ -338,10 +353,12 @@ class QAanswer extends BasicOperation {
   }
 
   upvote(data) {
-    if (data.firstTime) {
-      this.send(data);
-    } else {
-      this.db.collection(this.collection).doc(data.id).update(data.action, firebase.firestore.FieldValue.increment(1));
+    if (data.upvote) {
+      if (data.upvote == 1) virtualclass.askQuestion.firstid = data.id;
+      document.querySelector(`#${data.parent} .upVote .total`).innerHTML = data.upvote;
+      if (data.userId === virtualclass.uInfo.userid) {
+        document.querySelector(`#${data.parent} .upVote`).dataset.upvote = 'upvoted';
+      }
     }
   }
 
@@ -350,22 +367,75 @@ class QAanswer extends BasicOperation {
       const context = {};
       const qaPostTemp = virtualclass.getTemplate('qaPost', 'askQuestion');
       const postTemp = qaPostTemp(context);
-      document.querySelector(`#${data.parentid}`).insertAdjacentHTML('beforeend', postTemp);
+      if (data.answerid) {
+        document.querySelector(`#${data.answerid}`).insertAdjacentHTML('beforeend', postTemp);
+      } else {
+        document.querySelector(`#${data.parentid}`).insertAdjacentHTML('beforeend', postTemp);
+      }
       const text = document.querySelector('#writeContent .text');
       if (text) {
         text.addEventListener('keyup', this.inputHandler.bind(this));
       }
     } else if (data.type === 'answerBox') {
-      const qaAnswerTemp = virtualclass.getTemplate('answer', 'askQuestion');
-      const context = { id: data.id, questionId: data.parentid, userName: data.uname };
-      const ansTemp = qaAnswerTemp(context);
-      document.querySelector(`#${data.parentid} .answers`).insertAdjacentHTML('beforeend', ansTemp);
-      document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+      const getAnsElem = document.querySelector(`#${data.answerid} .content p`);
+      if (getAnsElem) {
+        getAnsElem.dataset.status = data.status;
+        getAnsElem.innerHTML = data.text;
+      } else {
+        const qaAnswerTemp = virtualclass.getTemplate('answer', 'askQuestion');
+        const context = { id: data.id, questionId: data.parentid, userName: data.uname, hasControl: roles.hasControls() };
+        const ansTemp = qaAnswerTemp(context);
+        document.querySelector(`#${data.parentid} .answers`).insertAdjacentHTML('beforeend', ansTemp);
+        document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+        document.querySelector(`#${data.id}`).dataset.status = data.status;
+      }
+    }
+
+    if (data.userId === virtualclass.uInfo.userid) {
+      document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
+    }
+
+    const ansElem = document.querySelector(`#${data.id}.answer`);
+    if (ansElem) {
+      ansElem.addEventListener('click', (ev) => {
+        if (ev.target.parentNode.dataset.type === 'upvote' || ev.target.parentNode.dataset.type === 'reply'
+          || ev.target.parentNode.dataset.type === 'commentsNavigation') {
+          if (ev.target.parentNode.dataset.type === 'upvote') {
+            this.upvoteOnAns(ev);
+          } else if (ev.target.parentNode.dataset.type === 'comment') {
+            virtualclass.askQuestion.performWithQueue({
+              component: 'comment',
+              action: 'renderer',
+              type: 'input',
+              context: virtualclass.askQuestion.currentContext,
+              parentid: ev.target.parentNode.parentNode.dataset.parent,
+            });
+          }
+        } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete'
+          || ev.target.className === 'moreControls' || ev.target.dataset.type === 'mark') {
+          if (ev.target.dataset.type === 'edit') {
+            this.updateAns(ev);
+          } else if (ev.target.dataset.type === 'delete') {
+            this.deleteAns(ev);
+          } else if (ev.target.className === 'moreControls' && ev.target.dataset.type === 'answer') {
+            const getMoreCntrl = document.querySelector('.answer .moreControls .item');
+            if (getMoreCntrl.classList.contains('close')) {
+              getMoreCntrl.classList.remove('close');
+              getMoreCntrl.classList.add('open');
+            } else {
+              getMoreCntrl.classList.remove('open');
+              getMoreCntrl.classList.add('close');
+            }
+          } else if (ev.target.dataset.type === 'mark') {
+            this.markOnAns(ev);
+          }
+        }
+      });
     }
   }
 
   inputHandler(ev) {
-    if (ev.keyCode === 13) {
+    if (ev.keyCode === 13 && !ev.target.parentNode.parentNode.dataset.status) {
       const data = this.generateData({
         component: 'answer',
         text: ev.target.value,
@@ -373,9 +443,67 @@ class QAanswer extends BasicOperation {
         action: 'create',
         uname: virtualclass.uInfo.userobj.name,
         parentid: ev.target.parentNode.parentNode.id,
+        status: 'created',
+      });
+      this.send(data);
+    } else if (ev.keyCode === 13 && ev.target.parentNode.parentNode.dataset.status) {
+      const data = this.generateData({
+        component: 'answer',
+        text: ev.target.value,
+        type: 'answerBox',
+        action: 'edit',
+        uname: virtualclass.uInfo.userobj.name,
+        answerid: ev.target.parentNode.parentNode.id,
+        parentid: ev.target.parentNode.parentNode.parentNode.id,
+        status: 'edited',
       });
       this.send(data);
     }
+  }
+
+  deleteAns(ev) {}
+
+  updateAns(ev) {
+    const text = document.querySelector(`#${ev.target.parentNode.dataset.parent} .content p`).innerHTML;
+    const data = this.generateData({
+      component: 'answer',
+      action: 'renderer',
+      type: 'input',
+      content: text,
+      answerid: ev.target.parentNode.dataset.parent,
+      parentid: ev.target.parentNode.dataset.qid,
+    });
+    this.send(data);
+  }
+
+  upvoteOnAns(ev) {
+    const parent = ev.target.parentNode.parentNode.dataset; // TODO improve removing parentNode
+    const data = this.generateData({ component: parent.type, action: ev.target.parentNode.dataset.type });
+    const upvoteCount = ev.target.nextSibling.innerHTML;
+    if (upvoteCount == '0') {
+      data.upvote = 1;
+      data.parent = parent.parent;
+      virtualclass.askQuestion.context[data.context][data.component].send(data);
+      // virtualclass.askQuestion[data.component].send(data);
+      virtualclass.askQuestion.firstid = data.id;
+    } else {
+      virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(virtualclass.askQuestion.firstid).update('upvote', firebase.firestore.FieldValue.increment(1));
+    }
+  }
+
+  markOnAns(ev) {
+    const data = this.generateData({
+      component: ev.target.parentNode.parentNode.dataset.type,
+      action: ev.target.dataset.type,
+      answerid: ev.target.parentNode.dataset.parent,
+      parentid: ev.target.parentNode.dataset.qid,
+    });
+    this.send(data);
+  }
+
+  mark(data) {
+    const getMarkElem = document.querySelector(`#${data.answerid} .footer .mark`);
+    getMarkElem.classList.add('marked');
   }
 }
 
@@ -430,6 +558,8 @@ class AskQuestionEngine {
     while (this.queue[context].length > 0) {
       const data = this.queue[context].shift();
       if (data.component === 'question' && data.upvote && data.upvote > 1) {
+        this.context[data.context][data.component].upvote.call(this.context[data.context][data.component], data);
+      } else if (data.component === 'answer' && data.upvote && data.upvote > 1) {
         this.context[data.context][data.component].upvote.call(this.context[data.context][data.component], data);
       } else {
         // context = whiteboard 1/screen share, component = question/answer, action = create/edit

@@ -6,6 +6,10 @@
 // This class is responsible to render HTML of each component of Ask Question
 
 class BasicOperation {
+  constructor () {
+    this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation', 'createInput'];
+  }
+
   generateData(data) {
     const qnCreateTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
     data.id = `${data.component}-${virtualclass.gObj.uid}-${qnCreateTime}`;
@@ -28,91 +32,164 @@ class BasicOperation {
         console.error('ask question write, Error writing document: ', error);
       });
   }
-}
 
+  handler(ev) {
+    let event;
+    let componentId = null;
+    const target = ev.target;
+    if ((this.events.includes(target.dataset.event))) {
+      event = target.dataset.event;
+      parent = target.parentNode;
+    } else if (this.events.includes(target.parentNode.dataset.event)) {
+      event = target.parentNode.dataset.event;
+      parent = target.parentNode.parentNode;
+    } else if (this.events.includes(target.parentNode.parentNode.dataset.event)) {
+      event = target.parentNode.parentNode.dataset.event;
+      parent = target.parentNode.parentNode.parentNode;
+    }
 
-class QAnote extends BasicOperation {
-  create(data) {
-    this.render(data);
-    this.udpateStatus(data);
+    if (event) {
+      const component = parent.dataset.component;
+      if (parent.dataset.componentId) componentId = parent.dataset.componentId;
+      this.execute({event, component, componentId});
+    }
+
   }
 
-  udpateStatus(data) {
-    if (data.action === 'create') {
-      virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext].notes[data.userId] = data.content;
-    } else if (data.action === 'delete') {
-      delete virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext].notes[data.userId];
+  execute (data) {
+    if (data.event === 'reply') {
+      data = {
+        component: data.component,
+        action: 'renderer',
+        type: 'input',
+        context: virtualclass.askQuestion.currentContext,
+        componentId: data.componentId,
+      };
+      virtualclass.askQuestion.performWithQueue(data);
+    } else if (data.event === 'edit'){
+
+      const text = document.querySelector(`#${data.componentId} .content p`).innerHTML;
+      data = this.generateData({
+        action: 'renderer',
+        type: 'input',
+        content: text,
+        componentId: data.componentId,
+        parent: data.component === 'question' ? null : null,
+      });
+    } else if (data.event === 'moreControls') {
+      data.action = 'moreControls';
+    }
+    this[data.action].call(this, data);
+  }
+
+  renderer(data) {
+    if (data.type === 'input') {
+      let text = document.querySelector('#writeContent .text');
+      if (text) { return; }
+      const context = {};
+      const userInput = virtualclass.getTemplate(data.type, 'askQuestion');
+      const userInputTemplate = userInput(context);
+      if (typeof data.content !== 'undefined' && typeof data.componentId !== 'undefined') {
+        if (data.userId === virtualclass.gObj.uid) {
+          document.querySelector(`#${data.componentId} .content p`).innerHTML = '';
+          document.querySelector(`#${data.componentId} .content p`).insertAdjacentHTML('beforeend', userInputTemplate);
+          text = document.querySelector('#writeContent .text');
+          if (text) {
+            text.innerHTML = data.content;
+            // text.addEventListener('keyup', this.inputHandler.bind(this));
+          }
+        }
+      } else {
+        document.querySelector('#askQuestion').insertAdjacentHTML('beforeend', userInputTemplate);
+        text = document.querySelector('#writeContent .text');
+      }
+
+      if (text) {
+        text.addEventListener('keyup', this.inputHandler.bind(this));
+      }
+
+    } else if (data.type === 'contentBox') {
+      const chkContextElem = document.querySelector(`.context[data-context~=${data.context}]`);
+      if (chkContextElem) {
+        const componentTemplate = virtualclass.getTemplate(data.component, 'askQuestion');
+        document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemplate({ id: data.id, userName: data.uname }));
+        document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+      } else {
+        const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
+        const cTemp = getContextTemp({ context: data.context });
+        document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
+
+        const componentTemp = virtualclass.getTemplate(data.component, 'askQuestion');
+        document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({ id: data.id, userName: data.uname }));
+        document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
+        document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+      }
+
+      if (data.userId === virtualclass.uInfo.userid) {
+        document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
+      }
+
+      if (data.component === 'question') {
+        const qnElem = document.querySelector(`#${data.id}.question`);
+        if (qnElem) {
+          qnElem.addEventListener('click', (ev) => {
+            this.handler(ev);
+          });
+        }
+      }
     }
   }
 
-  delete() {
-    const data = {};
-    data.action = 'delete';
-    // TODO, we have to delete the note from element,
-    this.udpateStatus(data);
-  }
-
-  render(data) {
-    if (data.type === 'noteCreate') {
-      console.log('This interface by which we will create the note');
-    } else if (data.type === 'afterCreatingNote') {
-      console.log('This interface by which we will render note');
+  inputHandler(ev) {
+    console.log('Add input handler');
+    if (ev.keyCode === 13 && ev.target.parentNode.parentNode.id === 'askQuestion') {
+      const data = this.generateData({
+        component: 'question',
+        text: ev.target.value,
+        type: 'contentBox',
+        action: 'create',
+        uname: virtualclass.uInfo.userobj.name,
+      });
+      this.send(data);
+    } else if (ev.keyCode === 13 && ev.target.parentNode.parentNode.id !== 'askQuestion') {
+      const data = this.generateData({
+        component: 'question',
+        text: ev.target.value,
+        type: 'contentBox',
+        action: 'edit',
+        uname: virtualclass.uInfo.userobj.name,
+        componentId: ev.target.parentNode.parentNode.dataset.componentId,
+      });
+      this.send(data);
     }
   }
 
-  inputHandler() {
-    //  we will get this from user
-    const note = 'This is very important';
+  updateQn(ev) {
+    const text = document.querySelector(`#${ev.target.parentNode.dataset.component} .content p`).innerHTML;
     const data = this.generateData({
-      component: 'note',
-      content: note,
-      type: 'afterCreatingNote',
-      action: 'create'
+      component: 'question',
+      action: 'renderer',
+      type: 'input',
+      content: text,
+      componentId: ev.target.parentNode.dataset.component,
+      parent: null,
     });
-    this.create(data);
     this.send(data);
   }
-}
 
-
-class QAmark extends BasicOperation {
-  create(data) {
-    this.render(data);
-    this.udpateStatus(data);
-  }
-
-  udpateStatus(data) {
-    if (data.action === 'create') {
-      virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext].marks[data.userId] = true;
-    } else if (data.action === 'delete') {
-      delete virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext].marks[data.userId];
+  moreControls (data) {
+    const selector = '#' + data.componentId +  ' .moreControls .item';
+    const getMoreCntrl = document.querySelector(selector);
+    if (getMoreCntrl.classList.contains('close')) {
+      getMoreCntrl.classList.remove('close');
+      getMoreCntrl.classList.add('open');
+    } else {
+      getMoreCntrl.classList.remove('open');
+      getMoreCntrl.classList.add('close');
     }
   }
-
-  delete() {
-    const data = {};
-    data.action = 'delete';
-    // TODO, We have to unmark the context from here
-    this.udpateStatus(data);
-  }
-
-  render(data) {
-    if (data.type === 'noteCreate') {
-      console.log('This interface by which we will create the note');
-    } else if (data.type === 'afterCreatingNote') {
-      console.log('This interface by which we will render note');
-    }
-  }
-
-  inputHandler() {
-    //  we will get this from user
-    const data = this.generateData({
-      action: 'create'
-    });
-    this.create(data);
-    this.send(data);
-  }
 }
+
 
 class QAquestion extends BasicOperation {
   create(data) {
@@ -120,7 +197,7 @@ class QAquestion extends BasicOperation {
     if (textTemp) {
       textTemp.remove();
     }
-    data.questionId = data.id;
+    data.componentId = data.id;
     this.renderer(data);
     // const question = { id: data.id, content: data.text, children: [], status: data.action, parent: null };
     this.updateStatus(data, 'editable');
@@ -138,7 +215,7 @@ class QAquestion extends BasicOperation {
     if (chkContextElem) {
       if (data.context === chkContextElem.dataset.context) {
         if (data.action === 'edit') {
-          const questionTemp = document.querySelector(`[data-context~=${data.context}] #${data.questionId} .content p`);
+          const questionTemp = document.querySelector(`[data-context~=${data.context}] #${data.componentId} .content p`);
           questionTemp.innerHTML = data.text;
         }
       }
@@ -148,7 +225,7 @@ class QAquestion extends BasicOperation {
 
   delete(data) {
     console.log('question deleted ', data);
-    const elem = document.querySelector(`[data-context~=${data.context}] #${data.questionId}`);
+    const elem = document.querySelector(`[data-context~=${data.context}] #${data.componentId}`);
     // TODO, we have to remove answers and related comments from inline structure
     elem.remove();
     this.updateStatus(data, 'delete');
@@ -158,16 +235,16 @@ class QAquestion extends BasicOperation {
 
   updateStatus(data, status) {
     if (status === 'delete') {
-      delete virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId];
+      delete virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId];
     } else {
       let question = data;
       if (status === 'create') {
-        question = { id: data.id, content: data.text, children: [], status, parent: null, questionId: data.id };
+        question = { id: data.id, content: data.text, children: [], status, parent: null, componentId: data.id };
       } else if (status === 'edit') {
         question.content = data.txt;
       }
       question.status = status;
-      virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.questionId] = question;
+      virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId] = question;
     }
   }
 
@@ -180,128 +257,96 @@ class QAquestion extends BasicOperation {
       }
     }
   }
-
-  renderer(data) {
-    console.log('Create ', data);
-    if (data.type === 'input') {
-      const text = document.querySelector('#writeContent .text');
-      if (text) {
-        return;
-      }
-      const context = {};
-      const qaPostTemp = virtualclass.getTemplate('qaPost', 'askQuestion');
-      const qaTemp = qaPostTemp(context);
-      if (typeof data.content !== 'undefined' && typeof data.questionId !== 'undefined') {
-        if (data.userId === virtualclass.gObj.uid) {
-          document.querySelector(`#${data.questionId} .content p`).innerHTML = '';
-          document.querySelector(`#${data.questionId} .content p`).insertAdjacentHTML('beforeend', qaTemp);
-          const text = document.querySelector('#writeContent .text');
-          text.innerHTML = data.content;
-          if (text) {
-            text.addEventListener('keyup', this.inputHandler.bind(this));
-          }
-        }
-      } else {
-        document.querySelector('#askQuestion').insertAdjacentHTML('beforeend', qaTemp);
-        const text = document.querySelector('#writeContent .text');
-        if (text) {
-          text.addEventListener('keyup', this.inputHandler.bind(this));
-        }
-      }
-    } else if (data.type === 'questionBox') {
-      const chkContextElem = document.querySelector(`.context[data-context~=${data.context}]`);
-      if (chkContextElem) {
-        const qaTemp = virtualclass.getTemplate('question', 'askQuestion');
-        const qtemp = qaTemp({ id: data.id, userName: data.uname });
-        document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', qtemp);
-        document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
-      } else {
-        const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
-        const cTemp = getContextTemp({ context: data.context });
-        document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
-        const qaTemp = virtualclass.getTemplate('question', 'askQuestion');
-        const qtemp = qaTemp({ id: data.id, userName: data.uname });
-        document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', qtemp);
-        document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
-        document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
-      }
-      if (data.userId === virtualclass.uInfo.userid) {
-        document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
-      }
-
-      const qnElem = document.querySelector(`#${data.id}.question`);
-      if (qnElem) {
-        qnElem.addEventListener('click', (ev) => {
-          if (ev.target.parentNode.dataset.type === 'upvote' || ev.target.parentNode.dataset.type === 'reply'
-            || ev.target.parentNode.dataset.type === 'answersNavigation') {
-            if (ev.target.parentNode.dataset.type === 'upvote') {
-              this.upvoteOnQn(ev);
-            } else if (ev.target.parentNode.dataset.type === 'reply') {
-              virtualclass.askQuestion.performWithQueue({
-                component: 'answer',
-                action: 'renderer',
-                type: 'input',
-                context: virtualclass.askQuestion.currentContext,
-                parentid: ev.target.parentNode.parentNode.dataset.parent,
-              });
-            }
-          } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete' || ev.target.className === 'moreControls') {
-            const getMoreCntrl = document.querySelector(`#${ev.target.dataset.parent}.question .moreControls .item`);
-            if (ev.target.dataset.type === 'edit') {
-              this.updateQn(ev);
-              getMoreCntrl.classList.remove('open');
-              getMoreCntrl.classList.add('close');
-            } else if (ev.target.dataset.type === 'delete') {
-              this.deleteQn(ev);
-              getMoreCntrl.classList.remove('open');
-              getMoreCntrl.classList.add('close');
-            } else if (ev.target.className === 'moreControls' && ev.target.dataset.type === 'question') {
-              if (getMoreCntrl.classList.contains('close')) {
-                getMoreCntrl.classList.remove('close');
-                getMoreCntrl.classList.add('open');
-              } else {
-                getMoreCntrl.classList.remove('open');
-                getMoreCntrl.classList.add('close');
-              }
-            }
-          }
-        });
-      }
-    }
-  }
-
-  inputHandler(ev) {
-    console.log('Add input handler');
-    if (ev.keyCode === 13 && ev.target.parentNode.parentNode.id === 'askQuestion') {
-      const data = this.generateData({
-        component: 'question',
-        text: ev.target.value,
-        type: 'questionBox',
-        action: 'create',
-        uname: virtualclass.uInfo.userobj.name,
-      });
-      this.send(data);
-    } else if (ev.keyCode === 13 && ev.target.parentNode.parentNode.id !== 'askQuestion') {
-      const data = this.generateData({
-        component: 'question',
-        text: ev.target.value,
-        type: 'questionBox',
-        action: 'edit',
-        uname: virtualclass.uInfo.userobj.name,
-        questionId: ev.target.parentNode.parentNode.dataset.parent,
-      });
-      this.send(data);
-    }
-  }
+  //
+  // renderer(data) {
+  //   console.log('Create ', data);
+  //   if (data.type === 'input') {
+  //     const text = document.querySelector('#writeContent .text');
+  //     if (text) {
+  //       return;
+  //     }
+  //     const context = {};
+  //     const qaPostTemp = virtualclass.getTemplate('qaPost', 'askQuestion');
+  //     const qaTemp = qaPostTemp(context);
+  //     if (typeof data.content !== 'undefined' && typeof data.itemId !== 'undefined') {
+  //       if (data.userId === virtualclass.gObj.uid) {
+  //         document.querySelector(`#${data.itemId} .content p`).innerHTML = '';
+  //         document.querySelector(`#${data.itemId} .content p`).insertAdjacentHTML('beforeend', qaTemp);
+  //         const text = document.querySelector('#writeContent .text');
+  //         text.innerHTML = data.content;
+  //         if (text) {
+  //           text.addEventListener('keyup', this.inputHandler.bind(this));
+  //         }
+  //       }
+  //     } else {
+  //       document.querySelector('#askQuestion').insertAdjacentHTML('beforeend', qaTemp);
+  //       const text = document.querySelector('#writeContent .text');
+  //       if (text) {
+  //         text.addEventListener('keyup', this.inputHandler.bind(this));
+  //       }
+  //     }
+  //   } else if (data.type === 'contentBox') {
+  //     const chkContextElem = document.querySelector(`.context[data-context~=${data.context}]`);
+  //     if (chkContextElem) {
+  //       const qaTemp = virtualclass.getTemplate('question', 'askQuestion');
+  //       const qtemp = qaTemp({ id: data.id, userName: data.uname });
+  //       document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', qtemp);
+  //       document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+  //     } else {
+  //       const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
+  //       const cTemp = getContextTemp({ context: data.context });
+  //       document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
+  //       const qaTemp = virtualclass.getTemplate('question', 'askQuestion');
+  //       const qtemp = qaTemp({ id: data.id, userName: data.uname });
+  //       document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', qtemp);
+  //       document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
+  //       document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+  //     }
+  //     if (data.userId === virtualclass.uInfo.userid) {
+  //       document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
+  //     }
+  //
+  //     const qnElem = document.querySelector(`#${data.id}.question`);
+  //     if (qnElem) {
+  //       qnElem.addEventListener('click', (ev) => {
+  //         this.handler(ev);
+  //       });
+  //     }
+  //   }
+  // }
+  //
+  // inputHandler(ev) {
+  //   console.log('Add input handler');
+  //   if (ev.keyCode === 13 && ev.target.parentNode.parentNode.id === 'askQuestion') {
+  //     const data = this.generateData({
+  //       component: 'question',
+  //       text: ev.target.value,
+  //       type: 'contentBox',
+  //       action: 'create',
+  //       uname: virtualclass.uInfo.userobj.name,
+  //     });
+  //     this.send(data);
+  //   } else if (ev.keyCode === 13 && ev.target.parentNode.parentNode.id !== 'askQuestion') {
+  //     const data = this.generateData({
+  //       component: 'question',
+  //       text: ev.target.value,
+  //       type: 'contentBox',
+  //       action: 'edit',
+  //       uname: virtualclass.uInfo.userobj.name,
+  //       itemId: ev.target.parentNode.parentNode.dataset.component,
+  //     });
+  //     this.send(data);
+  //   }
+  // }
 
   updateQn(ev) {
-    const text = document.querySelector(`#${ev.target.parentNode.dataset.parent} .content p`).innerHTML;
+    const text = document.querySelector(`#${ev.target.parentNode.dataset.component} .content p`).innerHTML;
     const data = this.generateData({
       component: 'question',
       action: 'renderer',
       type: 'input',
       content: text,
-      questionId: ev.target.parentNode.dataset.parent,
+      componentId: ev.target.parentNode.dataset.component,
       parent: null,
     });
     this.send(data);
@@ -311,7 +356,7 @@ class QAquestion extends BasicOperation {
     const data = this.generateData({
       component: ev.target.parentNode.parentNode.dataset.type,
       action: ev.target.dataset.type,
-      questionId: ev.target.parentNode.dataset.parent,
+      componentId: ev.target.parentNode.dataset.component,
       parent: null,
     });
     this.send(data);
@@ -348,7 +393,7 @@ class QAanswer extends BasicOperation {
     if (textTemp) {
       textTemp.remove();
     }
-    const getElem = document.querySelector(`#${data.answerid} .content p`);
+    const getElem = document.querySelector(`#${data.componentId} .content p`);
     getElem.innerHTML = data.text;
     console.log('Create ', data);
   }
@@ -367,97 +412,97 @@ class QAanswer extends BasicOperation {
     }
   }
 
-  renderer(data) {
-    if (data.type === 'input') {
-      const text = document.querySelector('#writeContent .text');
-      if (text) {
-        return;
-      }
-      const context = {};
-      const qaPostTemp = virtualclass.getTemplate('qaPost', 'askQuestion');
-      const postTemp = qaPostTemp(context);
-      if (data.answerid) {
-        if (data.userId === virtualclass.gObj.uid) {
-          document.querySelector(`#${data.answerid} .content p`).innerHTML = '';
-          document.querySelector(`#${data.answerid} .content p`).insertAdjacentHTML('beforeend', postTemp);
-          const text = document.querySelector('#writeContent .text');
-          text.innerHTML = data.content;
-          if (text) {
-            text.addEventListener('keyup', this.inputHandler.bind(this));
-          }
-        }
-      } else {
-        document.querySelector(`#${data.parentid}`).insertAdjacentHTML('beforeend', postTemp);
-        const text = document.querySelector('#writeContent .text');
-        if (text) {
-          text.addEventListener('keyup', this.inputHandler.bind(this));
-        }
-      }
-    } else if (data.type === 'answerBox') {
-      const getAnsElem = document.querySelector(`#${data.answerid} .content p`);
-      const ansElem = document.querySelector(`#${data.answerid}`);
-      if (getAnsElem) {
-        ansElem.dataset.status = data.status;
-        getAnsElem.innerHTML = data.text;
-      } else {
-        const qaAnswerTemp = virtualclass.getTemplate('answer', 'askQuestion');
-        const context = { id: data.id, questionId: data.parentid, userName: data.uname, hasControl: roles.hasControls() };
-        const ansTemp = qaAnswerTemp(context);
-        document.querySelector(`#${data.parentid} .answers`).insertAdjacentHTML('beforeend', ansTemp);
-        document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
-        document.querySelector(`#${data.id}`).dataset.status = data.status;
-        document.querySelector(`#${data.id} .content p`).dataset.status = data.status;
-      }
-    }
-
-    if (data.userId === virtualclass.uInfo.userid) {
-      document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
-    }
-
-    const ansElem = document.querySelector(`#${data.id}.answer`);
-    if (ansElem) {
-      ansElem.addEventListener('click', (ev) => {
-        if (ev.target.parentNode.dataset.type === 'upvote' || ev.target.parentNode.dataset.type === 'reply'
-          || ev.target.parentNode.dataset.type === 'commentsNavigation') {
-          if (ev.target.parentNode.dataset.type === 'upvote') {
-            this.upvoteOnAns(ev);
-          } else if (ev.target.parentNode.dataset.type === 'comment') {
-            virtualclass.askQuestion.performWithQueue({
-              component: 'comment',
-              action: 'renderer',
-              type: 'input',
-              context: virtualclass.askQuestion.currentContext,
-              parentid: ev.target.parentNode.parentNode.dataset.parent,
-            });
-          }
-        } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete'
-          || ev.target.className === 'moreControls' || ev.target.dataset.type === 'mark') {
-          const getMoreCntrl = document.querySelector(`#${ev.target.dataset.parent}.answer .moreControls .item`);
-          if (ev.target.dataset.type === 'edit') {
-            this.updateAns(ev);
-            getMoreCntrl.classList.remove('open');
-            getMoreCntrl.classList.add('close');
-          } else if (ev.target.dataset.type === 'delete') {
-            this.deleteAns(ev);
-            getMoreCntrl.classList.remove('open');
-            getMoreCntrl.classList.add('close');
-          } else if (ev.target.className === 'moreControls' && ev.target.dataset.type === 'answer') {
-            if (getMoreCntrl.classList.contains('close')) {
-              getMoreCntrl.classList.remove('close');
-              getMoreCntrl.classList.add('open');
-            } else {
-              getMoreCntrl.classList.remove('open');
-              getMoreCntrl.classList.add('close');
-            }
-          } else if (ev.target.dataset.type === 'mark') {
-            this.markOnAns(ev);
-            getMoreCntrl.classList.remove('open');
-            getMoreCntrl.classList.add('close');
-          }
-        }
-      });
-    }
-  }
+  // renderer(data) {
+  //   if (data.type === 'input') {
+  //     const text = document.querySelector('#writeContent .text');
+  //     if (text) {
+  //       return;
+  //     }
+  //     const context = {};
+  //     const qaPostTemp = virtualclass.getTemplate('qaPost', 'askQuestion');
+  //     const postTemp = qaPostTemp(context);
+  //     if (data.itemId) {
+  //       if (data.userId === virtualclass.gObj.uid) {
+  //         document.querySelector(`#${data.itemId} .content p`).innerHTML = '';
+  //         document.querySelector(`#${data.itemId} .content p`).insertAdjacentHTML('beforeend', postTemp);
+  //         const text = document.querySelector('#writeContent .text');
+  //         text.innerHTML = data.content;
+  //         if (text) {
+  //           text.addEventListener('keyup', this.inputHandler.bind(this));
+  //         }
+  //       }
+  //     } else {
+  //       document.querySelector(`#${data.componentId}`).insertAdjacentHTML('beforeend', postTemp);
+  //       const text = document.querySelector('#writeContent .text');
+  //       if (text) {
+  //         text.addEventListener('keyup', this.inputHandler.bind(this));
+  //       }
+  //     }
+  //   } else if (data.type === 'answerBox') {
+  //     const getAnsElem = document.querySelector(`#${data.itemId} .content p`);
+  //     const ansElem = document.querySelector(`#${data.itemId}`);
+  //     if (getAnsElem) {
+  //       ansElem.dataset.status = data.status;
+  //       getAnsElem.innerHTML = data.text;
+  //     } else {
+  //       const qaAnswerTemp = virtualclass.getTemplate('answer', 'askQuestion');
+  //       const context = { id: data.id, itemId: data.componentId, userName: data.uname, hasControl: roles.hasControls() };
+  //       const ansTemp = qaAnswerTemp(context);
+  //       document.querySelector(`#${data.componentId} .answers`).insertAdjacentHTML('beforeend', ansTemp);
+  //       document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+  //       document.querySelector(`#${data.id}`).dataset.status = data.status;
+  //       document.querySelector(`#${data.id} .content p`).dataset.status = data.status;
+  //     }
+  //   }
+  //
+  //   if (data.userId === virtualclass.uInfo.userid) {
+  //     document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
+  //   }
+  //
+  //   const ansElem = document.querySelector(`#${data.id}.answer`);
+  //   if (ansElem) {
+  //     ansElem.addEventListener('click', (ev) => {
+  //       if (ev.target.parentNode.dataset.type === 'upvote' || ev.target.parentNode.dataset.type === 'reply'
+  //         || ev.target.parentNode.dataset.type === 'commentsNavigation') {
+  //         if (ev.target.parentNode.dataset.type === 'upvote') {
+  //           this.upvoteOnAns(ev);
+  //         } else if (ev.target.parentNode.dataset.type === 'comment') {
+  //           virtualclass.askQuestion.performWithQueue({
+  //             component: 'comment',
+  //             action: 'renderer',
+  //             type: 'input',
+  //             context: virtualclass.askQuestion.currentContext,
+  //             componentId: ev.target.parentNode.parentNode.dataset.component,
+  //           });
+  //         }
+  //       } else if (ev.target.dataset.type === 'edit' || ev.target.dataset.type === 'delete'
+  //         || ev.target.className === 'moreControls' || ev.target.dataset.type === 'mark') {
+  //         const getMoreCntrl = document.querySelector(`#${ev.target.dataset.component}.answer .moreControls .item`);
+  //         if (ev.target.dataset.type === 'edit') {
+  //           this.updateAns(ev);
+  //           getMoreCntrl.classList.remove('open');
+  //           getMoreCntrl.classList.add('close');
+  //         } else if (ev.target.dataset.type === 'delete') {
+  //           this.deleteAns(ev);
+  //           getMoreCntrl.classList.remove('open');
+  //           getMoreCntrl.classList.add('close');
+  //         } else if (ev.target.className === 'moreControls' && ev.target.dataset.type === 'answer') {
+  //           if (getMoreCntrl.classList.contains('close')) {
+  //             getMoreCntrl.classList.remove('close');
+  //             getMoreCntrl.classList.add('open');
+  //           } else {
+  //             getMoreCntrl.classList.remove('open');
+  //             getMoreCntrl.classList.add('close');
+  //           }
+  //         } else if (ev.target.dataset.type === 'mark') {
+  //           this.markOnAns(ev);
+  //           getMoreCntrl.classList.remove('open');
+  //           getMoreCntrl.classList.add('close');
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
 
   inputHandler(ev) {
     if (ev.keyCode === 13 && !ev.target.parentNode.parentNode.dataset.status) {
@@ -467,7 +512,7 @@ class QAanswer extends BasicOperation {
         type: 'answerBox',
         action: 'create',
         uname: virtualclass.uInfo.userobj.name,
-        parentid: ev.target.parentNode.parentNode.id,
+        componentId: ev.target.parentNode.parentNode.id,
         status: 'created',
       });
       this.send(data);
@@ -478,8 +523,8 @@ class QAanswer extends BasicOperation {
         type: 'answerBox',
         action: 'edit',
         uname: virtualclass.uInfo.userobj.name,
-        answerid: ev.target.parentNode.parentNode.dataset.parent,
-        parentid: ev.target.parentNode.parentNode.dataset.qid,
+        componentId: ev.target.parentNode.parentNode.dataset.parent,
+        componentId: ev.target.parentNode.parentNode.dataset.qid,
         status: 'edited',
       });
       this.send(data);
@@ -495,8 +540,8 @@ class QAanswer extends BasicOperation {
       action: 'renderer',
       type: 'input',
       content: text,
-      answerid: ev.target.parentNode.dataset.parent,
-      parentid: ev.target.parentNode.dataset.qid,
+      componentId: ev.target.parentNode.dataset.parent,
+      componentId: ev.target.parentNode.dataset.qid,
     });
     this.send(data);
   }
@@ -520,14 +565,14 @@ class QAanswer extends BasicOperation {
     const data = this.generateData({
       component: ev.target.parentNode.parentNode.dataset.type,
       action: ev.target.dataset.type,
-      answerid: ev.target.parentNode.dataset.parent,
-      parentid: ev.target.parentNode.dataset.qid,
+      componentId: ev.target.parentNode.dataset.parent,
+      componentId: ev.target.parentNode.dataset.qid,
     });
     this.send(data);
   }
 
   mark(data) {
-    const getMarkElem = document.querySelector(`#${data.answerid} .footer .mark`);
+    const getMarkElem = document.querySelector(`#${data.componentId} .footer .mark`);
     getMarkElem.classList.add('marked');
   }
 }
@@ -556,8 +601,8 @@ class QAcontext {
     this.question = new QAquestion();
     this.answer = new QAanswer();
     this.comment = new QAcomment();
-    this.note = new QAnote();
-    this.mark = new QAmark();
+    // this.note = new QAnote();
+    // this.mark = new QAmark();
   }
 }
 

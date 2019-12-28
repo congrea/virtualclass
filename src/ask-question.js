@@ -119,24 +119,24 @@ class BasicOperation {
         const chkContextElem = document.querySelector(`.context[data-context~=${data.context}]`);
         if ('question' && chkContextElem) {
           const componentTemplate = virtualclass.getTemplate(data.component, 'askQuestion');
-          document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemplate({ id: data.id, userName: data.uname, content:data.text }));
-          // document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+          const htmlContent = componentTemplate({ id: data.id, userName: data.uname, content: data.content });
+          document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', htmlContent);
+          // document.querySelector(`#${data.id} .content p`).innerHTML = data.content;
         } else {
           const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
           const cTemp = getContextTemp({ context: data.context });
           document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
 
           const componentTemp = virtualclass.getTemplate(data.component, 'askQuestion');
-          document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({ id: data.id, userName: data.uname }));
+          document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({ id: data.id, userName: data.uname, content: data.content }));
           document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
-          document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+
         }
       } else if (data.component === 'answer') {
         const qaAnswerTemp = virtualclass.getTemplate(data.component, 'askQuestion');
-        const context = { id: data.id, itemId: data.componentId, userName: data.uname, hasControl: roles.hasControls() };
+        const context = { id: data.id, itemId: data.componentId, userName: data.uname, hasControl: roles.hasControls(), content: data.content };
         const ansTemp = qaAnswerTemp(context);
         document.querySelector(`#${data.parent} .answers`).insertAdjacentHTML('beforeend', ansTemp);
-        document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
         document.querySelector(`#${data.id}`).dataset.status = data.status;
         document.querySelector(`#${data.id} .content p`).dataset.status = data.status;
       }
@@ -161,7 +161,7 @@ class BasicOperation {
     if (ev.keyCode === 13 && ev.target.parentNode.parentNode.id === 'askQuestion') {
       const data = this.generateData({
         component: 'question',
-        text: ev.target.value,
+        content: ev.target.value,
         type: 'contentBox',
         action: 'create',
         uname: virtualclass.uInfo.userobj.name,
@@ -170,7 +170,7 @@ class BasicOperation {
     } else if (ev.keyCode === 13 && ev.target.parentNode.parentNode.id !== 'askQuestion') {
       const data = this.generateData({
         component: 'question',
-        text: ev.target.value,
+        content: ev.target.value,
         type: 'contentBox',
         action: 'edit',
         uname: virtualclass.uInfo.userobj.name,
@@ -215,7 +215,7 @@ class QAquestion extends BasicOperation {
     }
     data.componentId = data.id;
     this.renderer(data);
-    // const question = { id: data.id, content: data.text, children: [], status: data.action, parent: null };
+    // const question = { id: data.id, content: data.content, children: [], status: data.action, parent: null };
     this.updateStatus(data, 'editable');
 
     // TODO, this should not be here
@@ -232,7 +232,7 @@ class QAquestion extends BasicOperation {
       if (data.context === chkContextElem.dataset.context) {
         if (data.action === 'edit') {
           const questionTemp = document.querySelector(`[data-context~=${data.context}] #${data.componentId} .content p`);
-          questionTemp.innerHTML = data.text;
+          questionTemp.innerHTML = data.content;
         }
       }
     }
@@ -255,7 +255,7 @@ class QAquestion extends BasicOperation {
     } else {
       let question = data;
       if (status === 'create') {
-        question = { id: data.id, content: data.text, children: [], status, parent: null, componentId: data.id };
+        question = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id };
       } else if (status === 'edit') {
         question.content = data.txt;
       }
@@ -307,7 +307,7 @@ class QAquestion extends BasicOperation {
   //       const qaTemp = virtualclass.getTemplate('question', 'askQuestion');
   //       const qtemp = qaTemp({ id: data.id, userName: data.uname });
   //       document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', qtemp);
-  //       document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+  //       document.querySelector(`#${data.id} .content p`).innerHTML = data.content;
   //     } else {
   //       const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
   //       const cTemp = getContextTemp({ context: data.context });
@@ -316,7 +316,7 @@ class QAquestion extends BasicOperation {
   //       const qtemp = qaTemp({ id: data.id, userName: data.uname });
   //       document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', qtemp);
   //       document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
-  //       document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+  //       document.querySelector(`#${data.id} .content p`).innerHTML = data.content;
   //     }
   //     if (data.userId === virtualclass.uInfo.userid) {
   //       document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
@@ -410,7 +410,7 @@ class QAanswer extends BasicOperation {
       textTemp.remove();
     }
     const getElem = document.querySelector(`#${data.componentId} .content p`);
-    getElem.innerHTML = data.text;
+    getElem.innerHTML = data.content;
     console.log('Create ', data);
   }
 
@@ -459,13 +459,13 @@ class QAanswer extends BasicOperation {
   //     const ansElem = document.querySelector(`#${data.itemId}`);
   //     if (getAnsElem) {
   //       ansElem.dataset.status = data.status;
-  //       getAnsElem.innerHTML = data.text;
+  //       getAnsElem.innerHTML = data.content;
   //     } else {
   //       const qaAnswerTemp = virtualclass.getTemplate('answer', 'askQuestion');
   //       const context = { id: data.id, itemId: data.componentId, userName: data.uname, hasControl: roles.hasControls() };
   //       const ansTemp = qaAnswerTemp(context);
   //       document.querySelector(`#${data.componentId} .answers`).insertAdjacentHTML('beforeend', ansTemp);
-  //       document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+  //       document.querySelector(`#${data.id} .content p`).innerHTML = data.content;
   //       document.querySelector(`#${data.id}`).dataset.status = data.status;
   //       document.querySelector(`#${data.id} .content p`).dataset.status = data.status;
   //     }
@@ -524,7 +524,7 @@ class QAanswer extends BasicOperation {
     if (ev.keyCode === 13 && !ev.target.parentNode.parentNode.dataset.status) {
       const data = this.generateData({
         component: 'answer',
-        text: ev.target.value,
+        content: ev.target.value,
         type: 'contentBox',
         action: 'create',
         uname: virtualclass.uInfo.userobj.name,
@@ -535,7 +535,7 @@ class QAanswer extends BasicOperation {
     } else if (ev.keyCode === 13 && ev.target.parentNode.parentNode.dataset.status) {
       const data = this.generateData({
         component: 'answer',
-        text: ev.target.value,
+        content: ev.target.value,
         type: 'contentBox',
         action: 'edit',
         uname: virtualclass.uInfo.userobj.name,
@@ -668,7 +668,7 @@ class AskQuestion extends AskQuestionEngine {
     const virtualclassCont = document.getElementById('virtualclassCont');
     if (virtualclassCont) virtualclassCont.classList.add('askQuestionFetching');
     this.initFirebase = true;
-     const config = {
+      const config = {
       apiKey: 'AIzaSyDx4OisyZGmbcAx57s0zlwRlopPNNDqxSs',
       authDomain: 'vidyamantra-congrea.firebaseapp.com',
       databaseURL: 'https://vidyamantra-congrea.firebaseio.com',

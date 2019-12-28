@@ -53,7 +53,6 @@ class BasicOperation {
       if (parent.dataset.componentId) componentId = parent.dataset.componentId;
       this.execute({event, component, componentId});
     }
-
   }
 
   execute (data) {
@@ -84,6 +83,13 @@ class BasicOperation {
 
   renderer(data) {
     if (data.type === 'input') {
+      let insertId;
+      if (data.component === 'question') {
+        insertId = '#askQuestion';
+      } else {
+        insertId = data.componentId;
+      }
+
       let text = document.querySelector('#writeContent .text');
       if (text) { return; }
       const context = {};
@@ -100,7 +106,7 @@ class BasicOperation {
           }
         }
       } else {
-        document.querySelector('#askQuestion').insertAdjacentHTML('beforeend', userInputTemplate);
+        document.querySelector(insertId).insertAdjacentHTML('beforeend', userInputTemplate);
         text = document.querySelector('#writeContent .text');
       }
 
@@ -533,18 +539,18 @@ class QAanswer extends BasicOperation {
 
   deleteAns(ev) {}
 
-  updateAns(ev) {
-    const text = document.querySelector(`#${ev.target.parentNode.dataset.parent} .content p`).innerHTML;
-    const data = this.generateData({
-      component: 'answer',
-      action: 'renderer',
-      type: 'input',
-      content: text,
-      componentId: ev.target.parentNode.dataset.parent,
-      componentId: ev.target.parentNode.dataset.qid,
-    });
-    this.send(data);
-  }
+  // updateAns(ev) {
+  //   const text = document.querySelector(`#${ev.target.parentNode.dataset.parent} .content p`).innerHTML;
+  //   const data = this.generateData({
+  //     component: 'answer',
+  //     action: 'renderer',
+  //     type: 'input',
+  //     content: text,
+  //     componentId: ev.target.parentNode.dataset.parent,
+  //     componentId: ev.target.parentNode.dataset.qid,
+  //   });
+  //   this.send(data);
+  // }
 
   upvoteOnAns(ev) {
     const parent = ev.target.parentNode.parentNode.dataset; // TODO improve removing parentNode

@@ -58,7 +58,7 @@ class BasicOperation {
   execute (data) {
     if (data.event === 'reply') {
       data = {
-        component: data.component,
+        component: data.component === 'question' ? 'answer' : data.component,
         action: 'renderer',
         type: 'input',
         context: virtualclass.askQuestion.currentContext,
@@ -82,12 +82,12 @@ class BasicOperation {
   }
 
   renderer(data) {
+    let insertId;
     if (data.type === 'input') {
-      let insertId;
       if (data.component === 'question') {
         insertId = '#askQuestion';
       } else {
-        insertId = data.componentId;
+        insertId = '#' + data.componentId;
       }
 
       let text = document.querySelector('#writeContent .text');
@@ -115,20 +115,30 @@ class BasicOperation {
       }
 
     } else if (data.type === 'contentBox') {
-      const chkContextElem = document.querySelector(`.context[data-context~=${data.context}]`);
-      if (chkContextElem) {
-        const componentTemplate = virtualclass.getTemplate(data.component, 'askQuestion');
-        document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemplate({ id: data.id, userName: data.uname }));
-        document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
-      } else {
-        const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
-        const cTemp = getContextTemp({ context: data.context });
-        document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
+      if (data.component === 'question') {
+        const chkContextElem = document.querySelector(`.context[data-context~=${data.context}]`);
+        if ('question' && chkContextElem) {
+          const componentTemplate = virtualclass.getTemplate(data.component, 'askQuestion');
+          document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemplate({ id: data.id, userName: data.uname, content:data.text }));
+          // document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+        } else {
+          const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
+          const cTemp = getContextTemp({ context: data.context });
+          document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
 
-        const componentTemp = virtualclass.getTemplate(data.component, 'askQuestion');
-        document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({ id: data.id, userName: data.uname }));
-        document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
+          const componentTemp = virtualclass.getTemplate(data.component, 'askQuestion');
+          document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({ id: data.id, userName: data.uname }));
+          document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
+          document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+        }
+      } else if (data.component === 'answer') {
+        const qaAnswerTemp = virtualclass.getTemplate(data.component, 'askQuestion');
+        const context = { id: data.id, itemId: data.componentId, userName: data.uname, hasControl: roles.hasControls() };
+        const ansTemp = qaAnswerTemp(context);
+        document.querySelector(`#${data.parent} .answers`).insertAdjacentHTML('beforeend', ansTemp);
         document.querySelector(`#${data.id} .content p`).innerHTML = data.text;
+        document.querySelector(`#${data.id}`).dataset.status = data.status;
+        document.querySelector(`#${data.id} .content p`).dataset.status = data.status;
       }
 
       if (data.userId === virtualclass.uInfo.userid) {
@@ -515,10 +525,10 @@ class QAanswer extends BasicOperation {
       const data = this.generateData({
         component: 'answer',
         text: ev.target.value,
-        type: 'answerBox',
+        type: 'contentBox',
         action: 'create',
         uname: virtualclass.uInfo.userobj.name,
-        componentId: ev.target.parentNode.parentNode.id,
+        parent: ev.target.parentNode.parentNode.id,
         status: 'created',
       });
       this.send(data);
@@ -526,11 +536,11 @@ class QAanswer extends BasicOperation {
       const data = this.generateData({
         component: 'answer',
         text: ev.target.value,
-        type: 'answerBox',
+        type: 'contentBox',
         action: 'edit',
         uname: virtualclass.uInfo.userobj.name,
-        componentId: ev.target.parentNode.parentNode.dataset.parent,
-        componentId: ev.target.parentNode.parentNode.dataset.qid,
+        // componentId: ev.target.parentNode.parentNode.dataset.parent,
+        parent: ev.target.parentNode.parentNode.dataset.parent,
         status: 'edited',
       });
       this.send(data);

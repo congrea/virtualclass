@@ -10,11 +10,11 @@
     </div>
 
     <div class= 'content'>
-      <p data-parent="{{id}}" data-qid="{{questionId}}" > {{content}} </p>
+        <p data-parent="{{id}}" data-qid="{{questionId}}" > {{content}}</p>
       <span class= 'more'></span>
     </div>
 
-    <div class="footer">
+    <div class="footer" data-component = 'answer' data-component-id="{{id}}">
       <div class= 'controls' data-type = 'answer' data-parent="{{id}}" data-qid="{{questionId}}">
         <div class= 'upVote' data-type="upvote">
           <span class= 'button'></span>
@@ -28,15 +28,17 @@
           <span class= 'button'></span>
         </div>
       </div>
-      <div class= 'moreControls' data-type = 'answer' data-parent="{{id}}">
-        <div class= 'item close' data-parent="{{id}}" data-qid="{{questionId}}">
-          <span class= 'edit' data-type="edit"> {{getString 'edit'}} </span>
-          <span class= 'delete' data-type="delete"> {{getString 'delete'}} </span>
+
+      <div class= 'moreControls' data-event = 'moreControls' >
+        <div class= 'item close' data-component = 'answer' data-component-id="{{id}}" >
+          <span class= 'edit' data-event="edit"> {{getString 'edit'}} </span>
+          <span class= 'delete' data-event="delete"> {{getString 'delete'}} </span>
           {{#if hasControl}}
             <span class= 'mark' data-type="mark">{{getString 'markAnswer'}}</span>
           {{/if}}
         </div>
       </div>
+
     </div>
 
   </div>

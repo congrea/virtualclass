@@ -170,18 +170,18 @@ class BasicOperation {
     }
   }
 
-  updateQn(ev) {
-    const text = document.querySelector(`#${ev.target.parentNode.dataset.component} .content p`).innerHTML;
-    const data = this.generateData({
-      component: 'question',
-      action: 'renderer',
-      type: 'input',
-      content: text,
-      componentId: ev.target.parentNode.dataset.component,
-      parent: null,
-    });
-    this.send(data);
-  }
+  // updateQn(ev) {
+  //   const text = document.querySelector(`#${ev.target.parentNode.dataset.component} .content p`).innerHTML;
+  //   const data = this.generateData({
+  //     component: 'question',
+  //     action: 'renderer',
+  //     type: 'input',
+  //     content: text,
+  //     componentId: ev.target.parentNode.dataset.component,
+  //     parent: null,
+  //   });
+  //   this.send(data);
+  // }
 
   moreControls (data) {
     const selector = '#' + data.componentId +  ' .moreControls .item';
@@ -345,18 +345,18 @@ class QAquestion extends BasicOperation {
   //   }
   // }
 
-  updateQn(ev) {
-    const text = document.querySelector(`#${ev.target.parentNode.dataset.component} .content p`).innerHTML;
-    const data = this.generateData({
-      component: 'question',
-      action: 'renderer',
-      type: 'input',
-      content: text,
-      componentId: ev.target.parentNode.dataset.component,
-      parent: null,
-    });
-    this.send(data);
-  }
+  // updateQn(ev) {
+  //   const text = document.querySelector(`#${ev.target.parentNode.dataset.component} .content p`).innerHTML;
+  //   const data = this.generateData({
+  //     component: 'question',
+  //     action: 'renderer',
+  //     type: 'input',
+  //     content: text,
+  //     componentId: ev.target.parentNode.dataset.component,
+  //     parent: null,
+  //   });
+  //   this.send(data);
+  // }
 
   deleteQn(ev) {
     const data = this.generateData({

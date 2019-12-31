@@ -7,7 +7,7 @@
 
 class BasicOperation {
   constructor () {
-    this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation', 'createInput'];
+    this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation', 'createInput', 'save', 'cancel'];
   }
 
   generateData(data) {
@@ -49,9 +49,33 @@ class BasicOperation {
     }
 
     if (event) {
+      let data;
+      let text;
+      let action;
+      let parentId = null;
       const component = parent.dataset.component;
-      if (parent.dataset.componentId) componentId = parent.dataset.componentId;
-      this.execute({event, component, componentId});
+      if (parent.dataset.componentId && event !== 'save') {
+        componentId = parent.dataset.componentId;
+        if (event === 'reply') {
+          componentId = null;
+          parentId = parent.dataset.componentId;
+        }
+        data = { event, component, componentId, parentId };
+      }
+
+      if (event === 'save') {
+        text = parent.previousSibling.value;
+        if (parent.dataset.componentId === null || parent.dataset.componentId === '') {
+          action = 'create';
+        } else {
+          action = 'edit';
+        }
+        componentId = parent.dataset.componentId;
+        parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
+        data = { event, component, componentId, text, action, parentId };
+      }
+
+      this.execute(data);
     }
   }
 
@@ -63,22 +87,53 @@ class BasicOperation {
         type: 'input',
         context: virtualclass.askQuestion.currentContext,
         componentId: data.componentId,
+        parentId: data.parentId,
       };
       virtualclass.askQuestion.performWithQueue(data);
-    } else if (data.event === 'edit'){
-
+    } else if (data.event === 'edit') {
+      const editElem = document.querySelector(`#${data.componentId} .moreControls .item`);
+      if (editElem.classList.contains('open')) {
+        editElem.classList.remove('open');
+        editElem.classList.add('close');
+      }
       const text = document.querySelector(`#${data.componentId} .content p`).innerHTML;
+      const component = document.querySelector(`#${data.componentId} .content p`).dataset.component;
       data = this.generateData({
         action: 'renderer',
         type: 'input',
         content: text,
+        component: component,
         componentId: data.componentId,
         parent: data.component === 'question' ? null : null,
       });
+    } else if (data.event === 'delete') {
+      data = this.generateData({
+        component: data.component,
+        action: data.event,
+        componentId: data.componentId,
+        parent: null,
+      });
+      this.send(data);
     } else if (data.event === 'moreControls') {
       data.action = 'moreControls';
+    } else if (data.event === 'save') {
+      const obj = this.generateData({
+        component: data.component,
+        content: data.text,
+        type: 'contentBox',
+        action: data.action,
+        uname: virtualclass.uInfo.userobj.name,
+        componentId: data.componentId,
+        parentId: data.parentId,
+      });
+      if (data.action === 'create') {
+        obj.componentId = obj.id;
+      }
+      this.send(obj);
     }
-    this[data.action].call(this, data);
+    if (data.event !== 'save' || data.event !== 'delete') {
+      this[data.action].call(this, data);
+    }
   }
 
   renderer(data) {
@@ -87,12 +142,14 @@ class BasicOperation {
       if (data.component === 'question') {
         insertId = '#askQuestion';
       } else {
-        insertId = '#' + data.componentId;
+        insertId = '#' + ((data.componentId === null) ? data.parentId : data.componentId);
+        // insertId = '#' + data.componentId;
       }
 
       let text = document.querySelector('#writeContent .text');
       if (text) { return; }
-      const context = {};
+
+      const context = { componentId: data.componentId, component: data.component, parent: data.parentId };
       const userInput = virtualclass.getTemplate(data.type, 'askQuestion');
       const userInputTemplate = userInput(context);
       if (typeof data.content !== 'undefined' && typeof data.componentId !== 'undefined') {
@@ -102,16 +159,16 @@ class BasicOperation {
           text = document.querySelector('#writeContent .text');
           if (text) {
             text.innerHTML = data.content;
-            // text.addEventListener('keyup', this.inputHandler.bind(this));
           }
         }
       } else {
         document.querySelector(insertId).insertAdjacentHTML('beforeend', userInputTemplate);
-        text = document.querySelector('#writeContent .text');
       }
-
-      if (text) {
-        text.addEventListener('keyup', this.inputHandler.bind(this));
+      if (data.component === 'question') {
+        const inputAction = document.querySelector('#writeContent');
+        if (inputAction) {
+          inputAction.addEventListener('click', this.handler.bind(this));
+        }
       }
 
     } else if (data.type === 'contentBox') {
@@ -136,9 +193,7 @@ class BasicOperation {
         const qaAnswerTemp = virtualclass.getTemplate(data.component, 'askQuestion');
         const context = { id: data.id, itemId: data.componentId, userName: data.uname, hasControl: roles.hasControls(), content: data.content };
         const ansTemp = qaAnswerTemp(context);
-        document.querySelector(`#${data.parent} .answers`).insertAdjacentHTML('beforeend', ansTemp);
-        document.querySelector(`#${data.id}`).dataset.status = data.status;
-        document.querySelector(`#${data.id} .content p`).dataset.status = data.status;
+        document.querySelector(`#${data.parentId} .answers`).insertAdjacentHTML('beforeend', ansTemp);
       }
 
       if (data.userId === virtualclass.uInfo.userid) {
@@ -241,11 +296,13 @@ class QAquestion extends BasicOperation {
 
   delete(data) {
     console.log('question deleted ', data);
-    const elem = document.querySelector(`[data-context~=${data.context}] #${data.componentId}`);
+    // const elem = document.querySelector(`[data-context~=${data.context}] #${data.componentId}`);
+    const elem = document.querySelector(`#${data.componentId}`);
     // TODO, we have to remove answers and related comments from inline structure
-    elem.remove();
-    this.updateStatus(data, 'delete');
-
+    if (elem) {
+      elem.remove();
+      this.updateStatus(data, 'delete');
+    }
     // TODO, will have to delete all the answer children from here
   }
 
@@ -415,6 +472,8 @@ class QAanswer extends BasicOperation {
   }
 
   delete(data) {
+    const elem = document.querySelector(`#${data.componentId}`);
+    elem.remove();
     console.log('Create ', data);
   }
 

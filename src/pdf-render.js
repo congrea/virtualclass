@@ -561,7 +561,7 @@
       },
 
       async innerFitToPage(wid) {
-        if (this.shownPdf !== ' ') {
+        if (this.shownPdf !== ' ' && this.shownPdf !== '') {
           await virtualclass.pdfRender[wid].displayPage(this.shownPdf, 1);
           for (const wid in virtualclass.pdfRender) {
             this.fitToScreenWhiteboardObjects(wid);

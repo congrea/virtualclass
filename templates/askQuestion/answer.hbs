@@ -10,31 +10,31 @@
     </div>
 
     <div class= 'content'>
-        <p data-parent="{{id}}" data-qid="{{questionId}}" > {{content}}</p>
+        <p data-component = 'answer' data-component-id="{{id}}" data-parent="{{questionId}}">{{content}}</p>
       <span class= 'more'></span>
     </div>
 
     <div class="footer" data-component = 'answer' data-component-id="{{id}}">
-      <div class= 'controls' data-type = 'answer' data-parent="{{id}}" data-qid="{{questionId}}">
-        <div class= 'upVote' data-type="upvote">
+      <div class= 'controls' data-component = 'answer' data-component-id="{{id}}" data-parent="{{questionId}}">
+        <div class= 'upVote' data-event="upvote">
           <span class= 'button'></span>
           <span class= 'total'>0</span>
         </div>
-        <div class= 'commentsNavigation' data-type="commentsNavigation">
+        <div class= 'commentsNavigation' data-event="navigation">
           <span class= 'button'></span>
           <span class= 'total'>0</span>
         </div>
-        <div class= 'comment' data-type="comment">
+        <div class= 'comment' data-event="comment">
           <span class= 'button'></span>
         </div>
       </div>
 
       <div class= 'moreControls' data-event = 'moreControls' >
-        <div class= 'item close' data-component = 'answer' data-component-id="{{id}}" >
+        <div class= 'item close' data-component = 'answer' data-component-id="{{id}}" data-parent="{{questionId}}">
           <span class= 'edit' data-event="edit"> {{getString 'edit'}} </span>
           <span class= 'delete' data-event="delete"> {{getString 'delete'}} </span>
           {{#if hasControl}}
-            <span class= 'mark' data-type="mark">{{getString 'markAnswer'}}</span>
+            <span class= 'mark' data-event="markAnswer">{{getString 'markAnswer'}}</span>
           {{/if}}
         </div>
       </div>

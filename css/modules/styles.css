@@ -5117,3 +5117,23 @@ body {
   background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
   border-left: 1px solid;
 }
+
+#virtualclassCont.congrea #virtualclassAppFooterPanel #allMarksIinformation {
+  position: fixed;
+  bottom: 43px;
+  z-index: 15000;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#virtualclassCont.congrea #virtualclassAppFooterPanel .markContainer {
+  position: relative;
+}
+
+#virtualclassCont.congrea #virtualclassAppFooterPanel .markContainer.context {
+  width: 5px;
+  border: 2px solid #e80bd7;
+  height: 5px;
+  cursor: pointer;
+}

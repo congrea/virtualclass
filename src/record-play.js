@@ -75,11 +75,11 @@
         this.initRecordViewHandler();
         this.attachSeekHandler = true;
         const virtualclassApp = document.querySelector('#virtualclassCont');
-        const downloadProgressBar = document.querySelector('#downloadProgressBar');
-        const playProgressBar = document.querySelector('#playProgressBar');
+        const downloadProgressBar = document.querySelector('#allMarksIinformation');
+        // const playProgressBar = document.querySelector('#playProgressBar');
 
         downloadProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
-        playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
+        // playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
         virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
         window.addEventListener('mouseup', this.finalSeek.bind(this));
         // window.addEventListener('onunload', this.recDataSend(this));
@@ -89,15 +89,15 @@
 
         /** For iPad and mobile * */
         downloadProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
-        playProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
+        // playProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
         virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
         virtualclassApp.addEventListener('touchend', this.finalSeek.bind(this));
 
         downloadProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
-        playProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
+        // playProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
 
         downloadProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, downloadProgressBar));
-        playProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, playProgressBar));
+        // playProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, playProgressBar));
         virtualclass.pageVisible(this.handlPageActiveness.bind(this));
       }
 
@@ -370,6 +370,32 @@
       return chunk;
     },
 
+    parseContextForAllMarks(data) {
+      if (data.indexOf('"m":{"cf":"cwb"') > -1 || data.indexOf('"cf":"dispWhiteboard","d":"') > -1) {
+        this.renderContextElement();
+      } else if (data.indexOf('"m":{"dts":{"slideTo":') > -1) {
+        this.renderContextElement();
+      } else if (data.indexOf('"m":{"videoUl":{"content_path') > -1) {
+        this.renderContextElement();
+      } else if (data.indexOf('"m":{"eddata":"init"') > -1) {
+        this.renderContextElement();
+      } else if (data.indexOf('"m":{"cf":"screenShareId"') > -1) {
+        this.renderContextElement();
+      } else if (data.indexOf('"m":{"pptMsg":"//') > -1 || data.indexOf('"eventName":"slidechanged","state":{"indexh"') > -1) {
+        this.renderContextElement();
+      }
+    },
+
+    renderContextElement() {
+      const currentMin = ((Math.floor(this.refrenceTime / 1000)) - this.firstTimeInSeconds) / 60;
+      const totalMin = (this.totalTimeInMiliSeconds) / 1000 / 60;
+      const markPoint = Math.floor((currentMin * 100) / totalMin);
+      console.log('=== total minute 2 ref', (this.refrenceTime / 1000), ' firstTime', this.firstTimeInSeconds, ' total time in miliseconds ', this.totalTimeInMiliSeconds)
+      const contextMark = virtualclass.getTemplate('context-mark');
+      const contextMarkHtml = contextMark({ id: 'ctime'+markPoint, width: markPoint });
+      document.getElementById('allMarksIinformation').insertAdjacentHTML('beforeend', contextMarkHtml);
+    },
+
     makeRecordingQueue(file, rawData) {
       // console.log(`File formatting ${file}`);
       let data; let
@@ -448,6 +474,7 @@
               }
             }
             this.refrenceTime = time;
+            this.parseContextForAllMarks(data);
           }
         }
       }
@@ -487,6 +514,7 @@
 
       this.updateTotalTime();
       this.UIdownloadProgress();
+
 
       // Init to play after 3 minute or if last file is downloaded
       if (((this.currentMin * 60 * 1000) >= PLAY_START_TIME

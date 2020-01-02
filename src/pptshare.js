@@ -452,7 +452,6 @@
           const frame = document.getElementById('pptiframe');
           frame.onload = function () {
             if (roles.hasView() && frame.contentWindow != null && (typeof receivemsg.pptMsg.state !== 'undefined')) {
-              // console.log('====> PPT SLIDE POST');
               frame.contentWindow.postMessage(JSON.stringify({
                 method: 'setState',
                 args: [receivemsg.pptMsg.state],

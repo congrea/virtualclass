@@ -1,4 +1,8 @@
 <div id="virtualclassAppFooterPanel" class="footerBar">
+    {{#if isPlay}}
+      <div id="allMarksIinformation"> </div>
+      {{> recordingControl}}
+    {{/if}}
     <div id="stickybar" class="maximize something-happend">
         <div id="stopScreenShare" class="ss congtooltip" data-title="{{getString 'ssStop'}}">
           <button type="button"> </button>
@@ -59,7 +63,6 @@
             <span class="congtooltip" data-title="Exit Full Screen"><i class="icon-exitScreen cgIcon"></i></span>
         </div>
     </div>
-    <div id="stickycontainer">
-        
-    </div>
+    <div id="stickycontainer"> </div>
+
 </div>

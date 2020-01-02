@@ -93,7 +93,7 @@ this["JST"]["dest_temp/templates/appToolsMeeting.hbs"] = Handlebars.template({"c
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " <span class='mark' data-event=\"mark\">"
+    return " <span class='mark' data-event=\"markAnswer\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"markAnswer",{"name":"getString","hash":{},"data":data}))
     + "</span> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

@@ -854,7 +854,7 @@
   color: #757575 !important;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .answersNavigation span.button::before {
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .navigation span.button::before {
   content: "\e9e3";
   font-family: 'icomoon';
   font-weight: 600;
@@ -863,7 +863,7 @@
   color: #484848 !important;
 }
 
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .commentsNavigation span.button::before {
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .navigation span.button::before {
   content: "\e9e4";
   font-weight: 500;
   font-family: 'icomoon';

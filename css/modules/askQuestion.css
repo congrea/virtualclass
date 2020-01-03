@@ -223,7 +223,7 @@
   display: none;
 }
 
-#virtualclassCont.congrea #askQuestion .container .footer {
+#virtualclassCont.congrea #askQuestion .container .footer.show {
   display: flex;
   flex-direction: row;
   margin-bottom: 3px;
@@ -244,4 +244,8 @@
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .comment .button {
   display: inline-block;
   padding: 5px 5px 1px 15px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .footer.hide {
+  display: none;
 }

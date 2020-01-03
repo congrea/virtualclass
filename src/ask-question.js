@@ -942,7 +942,7 @@ class AskQuestion extends AskQuestionEngine {
         if (!this.allMarks[data.context].question) this.allMarks[data.context].question = [];
         this.allMarks[data.context][data.component].push(data.componentId);
       } else if (data.action === 'delete') {
-        this.allMarks[data.context][data.component] = this.allMarks[data.context][data.component].filter(e => e.componentId !== data.componentId);
+        this.allMarks[data.context][data.component] = this.allMarks[data.context][data.component].filter(e => e !== data.componentId);
       }
     }
   }
@@ -978,6 +978,9 @@ class AskQuestion extends AskQuestionEngine {
     console.log('====> after sign in');
     // this.loadInitialData();
     if (this.collection) this.attachHandlerForRealTimeUpdate();
+    if (virtualclass.isPlayMode) {
+      virtualclass.recorder.requestListOfFiles();
+    }
   }
 
   loadInitialData() {

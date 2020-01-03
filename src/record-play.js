@@ -370,29 +370,14 @@
       return chunk;
     },
 
-    parseContextForAllMarks(data) {
-      if (data.indexOf('"m":{"cf":"cwb"') > -1 || data.indexOf('"cf":"dispWhiteboard","d":"') > -1) {
-        this.renderContextElement();
-      } else if (data.indexOf('"m":{"dts":{"slideTo":') > -1) {
-        this.renderContextElement();
-      } else if (data.indexOf('"m":{"videoUl":{"content_path') > -1) {
-        this.renderContextElement();
-      } else if (data.indexOf('"m":{"eddata":"init"') > -1) {
-        this.renderContextElement();
-      } else if (data.indexOf('"m":{"cf":"screenShareId"') > -1) {
-        this.renderContextElement();
-      } else if (data.indexOf('"m":{"pptMsg":"//') > -1 || data.indexOf('"eventName":"slidechanged","state":{"indexh"') > -1) {
-        this.renderContextElement();
-      }
-    },
-
-    renderContextElement() {
+    renderContextElement(allmark) {
       const currentMin = ((Math.floor(this.refrenceTime / 1000)) - this.firstTimeInSeconds) / 60;
       const totalMin = (this.totalTimeInMiliSeconds) / 1000 / 60;
       const markPoint = Math.floor((currentMin * 100) / totalMin);
       console.log('=== total minute 2 ref', (this.refrenceTime / 1000), ' firstTime', this.firstTimeInSeconds, ' total time in miliseconds ', this.totalTimeInMiliSeconds)
       const contextMark = virtualclass.getTemplate('context-mark');
-      const contextMarkHtml = contextMark({ id: 'ctime'+markPoint, width: markPoint });
+      const data = Object.assign({}, allmark, { id: 'ctime'+markPoint, width: markPoint });
+      const contextMarkHtml = contextMark(data);
       document.getElementById('allMarksIinformation').insertAdjacentHTML('beforeend', contextMarkHtml);
     },
 
@@ -477,9 +462,20 @@
             if (data.indexOf('"m":{"cf":"readyContext"') > -1) {
               const msg = JSON.parse(io.cleanRecJson(data));
               console.log('====> ready context ', msg.m.context);
-              this.renderContextElement();
+              const allMark = { question: false, note: false, bookmark: false };
+              if (virtualclass.askQuestion.allMarks[msg.m.context].question && virtualclass.askQuestion.allMarks[msg.m.context].question.length > 0) {
+                allMark.question = true;
+              }
+
+              if (virtualclass.askQuestion.allMarks[msg.m.context].note && virtualclass.askQuestion.allMarks[msg.m.context].note.length > 0) {
+                allMark.note = true;
+              }
+
+              if (virtualclass.askQuestion.allMarks[msg.m.context].bookmark && virtualclass.askQuestion.allMarks[msg.m.context].bookmark.length > 0) {
+                allMark.bookmark = true;
+              }
+              this.renderContextElement(allMark);
             }
-            // this.parseContextForAllMarks(data);
           }
         }
       }
@@ -1510,7 +1506,7 @@
       this.fetchRecViewData();
       this.actualTotalPlayTime = 0;
       this.session = wbUser.session;
-      virtualclass.popup.loadingWindow();
+      // virtualclass.popup.loadingWindow();
       virtualclass.xhrn.vxhrn.post(virtualclass.api.recordingFiles, { session: virtualclass.recorder.session })
         .then((response) => {
           this.afterDownloadingList(response.data);

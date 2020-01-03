@@ -242,8 +242,10 @@
         virtualclass.xhrn.init();
 
         virtualclass.xhrn.getAccess();
+
         if (virtualclass.vutil.isPlayMode()) {
-          virtualclass.recorder.requestListOfFiles();
+          // virtualclass.recorder.requestListOfFiles();
+          virtualclass.popup.loadingWindow();
         }
         // virtualclass.chat = new Chat();
 

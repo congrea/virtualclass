@@ -5137,3 +5137,10 @@ body {
   height: 5px;
   cursor: pointer;
 }
+
+#virtualclassCont.congrea .markContainer[data-question='true'] .question{
+  width: 8px;
+  margin-left: 9px;
+  background: orange;
+  height: 7px;
+}

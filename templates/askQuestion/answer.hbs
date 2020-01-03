@@ -1,4 +1,4 @@
-<div id= '{{id}}' class='answer' data-parent="{{questionId}}">
+<div id= '{{id}}' class='answer' data-parent="{{parent}}">
   <div class="container">
 
     <div class= 'header'>
@@ -10,12 +10,12 @@
     </div>
 
     <div class= 'content'>
-        <p data-component = 'answer' data-component-id="{{id}}" data-parent="{{questionId}}">{{content}}</p>
+        <p data-component = 'answer' data-component-id="{{id}}" data-parent="{{parent}}">{{content}}</p>
       <span class= 'more'></span>
     </div>
 
-    <div class="footer" data-component = 'answer' data-component-id="{{id}}">
-      <div class= 'controls' data-component = 'answer' data-component-id="{{id}}" data-parent="{{questionId}}">
+    <div class="footer show" data-component = 'answer' data-component-id="{{id}}">
+      <div class= 'controls' data-component = 'answer' data-component-id="{{id}}" data-parent="{{parent}}">
         <div class= 'upVote' data-event="upvote">
           <span class= 'button'></span>
           <span class= 'total'>0</span>
@@ -30,7 +30,7 @@
       </div>
 
       <div class= 'moreControls' data-event = 'moreControls' >
-        <div class= 'item close' data-component = 'answer' data-component-id="{{id}}" data-parent="{{questionId}}" data-timestamp="{{timestamp}}">
+        <div class= 'item close' data-component = 'answer' data-component-id="{{id}}" data-parent="{{parent}}" data-timestamp="{{timestamp}}">
           <span class= 'edit' data-event="edit"> {{getString 'edit'}} </span>
           <span class= 'delete' data-event="delete"> {{getString 'delete'}} </span>
           {{#if hasControl}}

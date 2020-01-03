@@ -841,17 +841,17 @@
   font-family: 'icomoon';
   font-size: 15px;
   cursor: pointer;
-  color: #545454 !important;
+  color: #6b6b6b !important;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply span.button::before,
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .comment span.button::before {
-  content: "\e9eb";
+  content: "\e9e5";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 19px;
+  font-size: 14px;
   cursor: pointer;
-  color: #757575 !important;
+  color: #313131 !important;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .navigation span.button::before {
@@ -864,12 +864,12 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .navigation span.button::before {
-  content: "\e9e4";
+  content: "\e9f0";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 13.5px;
+  font-size: 16px;
   cursor: pointer;
-  color: #333333 !important;
+  color: #383838 !important;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls::before {

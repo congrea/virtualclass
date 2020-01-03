@@ -20,7 +20,7 @@
           <span class= 'button'></span>
           <span class= 'total'>0</span>
         </div>
-        <div class= 'commentsNavigation' data-event="navigation">
+        <div class= 'navigation' data-event="navigation">
           <span class= 'button'></span>
           <span class= 'total'>0</span>
         </div>
@@ -30,7 +30,7 @@
       </div>
 
       <div class= 'moreControls' data-event = 'moreControls' >
-        <div class= 'item close' data-component = 'answer' data-component-id="{{id}}" data-parent="{{questionId}}">
+        <div class= 'item close' data-component = 'answer' data-component-id="{{id}}" data-parent="{{questionId}}" data-timestamp="{{timestamp}}">
           <span class= 'edit' data-event="edit"> {{getString 'edit'}} </span>
           <span class= 'delete' data-event="delete"> {{getString 'delete'}} </span>
           {{#if hasControl}}

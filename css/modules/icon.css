@@ -836,32 +836,40 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote span.button::before {
-  content: "\e924";
-  font-weight: normal;
+  content: "\e9ed";
+  font-weight: 500;
   font-family: 'icomoon';
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
-  color: #000000 !important;
+  color: #545454 !important;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply span.button::before,
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .comment span.button::before {
-  content: "\f112";
-  font-weight: normal;
+  content: "\e9eb";
+  font-weight: 500;
   font-family: 'icomoon';
-  font-size: 14px;
+  font-size: 19px;
   cursor: pointer;
-  color: #000000 !important;
+  color: #757575 !important;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .answersNavigation span.button::before,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .commentsNavigation span.button::before {
-  content: "\e90c";
-  font-weight: normal;
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .navigation span.button::before {
+  content: "\e9e3";
   font-family: 'icomoon';
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 13px;
   cursor: pointer;
-  color: #000000 !important;
+  color: #484848 !important;
+}
+
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .navigation span.button::before {
+  content: "\e9e4";
+  font-weight: 500;
+  font-family: 'icomoon';
+  font-size: 13.5px;
+  cursor: pointer;
+  color: #333333 !important;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls::before {
@@ -883,7 +891,7 @@
 #virtualclassCont.congrea.askQuestionFetching #askQuestion .loading::after {
   content: ' .';
   animation: dots 1s steps(5, end) infinite;
-  font-size: 30px;
+  font-size: 28px;
   color: grey;
 }
 

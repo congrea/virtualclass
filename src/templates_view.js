@@ -119,10 +119,12 @@ this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template(
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" data-parent=\""
     + alias4(((helper = (helper = helpers.questionId || (depth0 != null ? depth0.questionId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"questionId","hash":{},"data":data}) : helper)))
-    + "\"><div class='upVote' data-event=\"upvote\"><span class='button'></span><span class='total'>0</span></div><div class='commentsNavigation' data-event=\"navigation\"><span class='button'></span><span class='total'>0</span></div><div class='comment' data-event=\"comment\"><span class='button'></span></div></div><div class='moreControls' data-event = 'moreControls'><div class='item close' data-component = 'answer' data-component-id=\""
+    + "\"><div class='upVote' data-event=\"upvote\"><span class='button'></span><span class='total'>0</span></div><div class='navigation' data-event=\"navigation\"><span class='button'></span><span class='total'>0</span></div><div class='comment' data-event=\"comment\"><span class='button'></span></div></div><div class='moreControls' data-event = 'moreControls'><div class='item close' data-component = 'answer' data-component-id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\" data-parent=\""
     + alias4(((helper = (helper = helpers.questionId || (depth0 != null ? depth0.questionId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"questionId","hash":{},"data":data}) : helper)))
+    + "\" data-timestamp=\""
+    + alias4(((helper = (helper = helpers.timestamp || (depth0 != null ? depth0.timestamp : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"timestamp","hash":{},"data":data}) : helper)))
     + "\"><span class='edit' data-event=\"edit\"> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"edit",{"name":"getString","hash":{},"data":data}))
     + " </span><span class='delete' data-event=\"delete\"> "
@@ -203,8 +205,10 @@ this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.templat
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\"><div class='controls' data-component = 'question' data-component-id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\"><div class='upVote' data-event=\"upvote\"><span class='button'></span><span class='total'>0</span></div><div class='answersNavigation' data-event=\"navigation\"><span class='button'></span><span class='total'>0</span></div><div class='reply' data-event=\"reply\"><span class='button'></span></div></div><div class='moreControls' data-event = 'moreControls'><div class='item close' data-component = 'question' data-component-id=\""
+    + "\"><div class='upVote' data-event=\"upvote\"><span class='button'></span><span class='total'>0</span></div><div class='navigation' data-event=\"navigation\"><span class='button'></span><span class='total'>0</span></div><div class='reply' data-event=\"reply\"><span class='button'></span></div></div><div class='moreControls' data-event = 'moreControls'><div class='item close' data-component = 'question' data-component-id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-timestamp=\""
+    + alias4(((helper = (helper = helpers.timestamp || (depth0 != null ? depth0.timestamp : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"timestamp","hash":{},"data":data}) : helper)))
     + "\"><span class='edit' data-event=\"edit\"> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"edit",{"name":"getString","hash":{},"data":data}))
     + " </span><span class='delete' data-event=\"delete\"> "

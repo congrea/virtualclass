@@ -3383,7 +3383,8 @@ div.ui-memblist-usr .userVideos {
   margin: 0.4375rem 0.8125rem 0.4375rem 0.75rem;
 }
 
-#virtualclassCont.congrea li#appSettingCtrl {
+#virtualclassCont.congrea li#appSettingCtrl,
+#virtualclassCont.congrea li#virtualclassnote {
   width: 25%;
   text-align: center !important;
   cursor: pointer;

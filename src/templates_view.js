@@ -403,7 +403,7 @@ this["JST"]["dest_temp/templates/chat/stickycont.hbs"] = Handlebars.template({"1
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChat",{"name":"getString","hash":{},"data":data}))
     + "\" id=\"chatroom_bt2\"><a class=\"inner_bt\"><span id=\"chatroom_icon\"><span class=\"icon-chatroom cgIcon\"></span></span>  </a></li><li class=\"handRaise enable congtooltip \" id=\"congHr\" data-title =\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"RaiseHandStdEnabled",{"name":"getString","hash":{},"data":data}))
-    + "\"><a class=\"stdRaiseHand\"><span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\"></span></a></li><li id=\"appSettingCtrl\" class=\"congtooltip chatActive\" data-title =\""
+    + "\"><a class=\"stdRaiseHand\"><span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\"></span></a></li><li id=\"virtualclassnote\" class=\"congtooltip \" data-title =\"Note\"><a><span class=\"icon-whiteboard cgIcon\"></span></a></li><li id=\"appSettingCtrl\" class=\"congtooltip chatActive\" data-title =\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"setting",{"name":"getString","hash":{},"data":data}))
     + "\"><a id=\"appSettingCtrlAnchor\"><span class=\"setting-btn cgIcon\"></span></a></li></ul>";
 },"useData":true});
@@ -732,6 +732,18 @@ this["JST"]["dest_temp/templates/navigation/wbIndex.hbs"] = Handlebars.template(
     + "\">"
     + alias4(((helper = (helper = helpers.order || (depth0 != null ? depth0.order : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"order","hash":{},"data":data}) : helper)))
     + "</span>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/notes/content-area.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "<div class=\"context note\" data-context=\""
+    + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
+    + "\"><textarea class='text' placeholder=\"Type your content\"></textarea></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/notes/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id='noteContainer'><div class=\"container \"></div><div class=\"loading\">Loading</div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/poll/edit-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

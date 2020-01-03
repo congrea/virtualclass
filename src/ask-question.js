@@ -5,6 +5,38 @@
  */
 // This class is responsible to render HTML of each component of Ask Question
 
+class NoteMain {
+  init() {
+    this.attachHandler();
+  }
+
+  attachHandler() {
+    const note = document.getElementById('virtualclassnote');
+    note.addEventListener('click', this.handler.bind(this));
+  }
+
+  handler() {
+    this.renderMainContainer();
+  }
+
+  renderMainContainer() {
+    let note = document.getElementById('noteContainer');
+    if (note == null) {
+      const noteMainContainer = virtualclass.getTemplate('note', 'notes');
+      const noteMainContainerHtml = noteMainContainer({ context: virtualclass.askQuestion.currentContext });
+      document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
+    }
+
+    const activeElement = document.querySelector('#rightSubContainer .active');
+    if (activeElement) {
+      activeElement.classList.remove('active');
+      activeElement.classList.add('deactive');
+    }
+    note = document.getElementById('noteContainer');
+    note.classList.add('active');
+  }
+}
+
 class BasicOperation {
   constructor () {
     this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation', 'createInput', 'save', 'cancel'];
@@ -376,12 +408,18 @@ class QAcomment {
 
 }
 
+class Note {
+
+}
+
+
 class QAcontext {
   constructor() {
     this.actions = [];
     this.question = new QAquestion();
     this.answer = new QAanswer();
     this.comment = new QAcomment();
+    this.note = new Note();
     // this.note = new QAnote();
     // this.mark = new QAmark();
   }
@@ -427,6 +465,8 @@ class AskQuestion extends AskQuestionEngine {
     console.log('ask question init');
     this.renderer();
     this.allMarks = {};
+    this.mainNote = new NoteMain();
+    this.mainNote.init();
   }
 
   async initFirebaseOperatoin() {

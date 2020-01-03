@@ -271,6 +271,7 @@
         // For the realitme, it will be invoked from member_added
         if (virtualclass.isPlayMode) {
           virtualclass.askQuestion.init();
+          virtualclass.askQuestion.initFirebaseOperatoin();
         }
 
         this.orderList = {};

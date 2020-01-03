@@ -474,7 +474,12 @@
               }
             }
             this.refrenceTime = time;
-            this.parseContextForAllMarks(data);
+            if (data.indexOf('"m":{"cf":"readyContext"') > -1) {
+              const msg = JSON.parse(io.cleanRecJson(data));
+              console.log('====> ready context ', msg.m.context);
+              this.renderContextElement();
+            }
+            // this.parseContextForAllMarks(data);
           }
         }
       }

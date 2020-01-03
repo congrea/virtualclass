@@ -604,4 +604,8 @@ const receiveFunctions = new function () {
   this.screenShareId = function (e) {
     virtualclass.gObj.screenShareId = e.message.id;
   }
+
+  this.readyContext = function () {
+    console.log('===> do nothing ready context');
+  }
 }();

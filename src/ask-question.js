@@ -803,6 +803,7 @@ class AskQuestion extends AskQuestionEngine {
     this.initialize = true;
     console.log('ask question init');
     this.renderer();
+    this.allMarks = {};
   }
 
   async initFirebaseOperatoin() {
@@ -888,7 +889,9 @@ class AskQuestion extends AskQuestionEngine {
     if (this.queue[this.currentContext] && this.queue[this.currentContext].length > 0) {
       this.perform(this.currentContext);
     }
+
     console.log('====> ready context ', this.currentContext);
+    ioAdapter.mustSend({ cf: 'readyContext', context: this.currentContext });
   }
 
   async authenticate(config) {
@@ -909,6 +912,21 @@ class AskQuestion extends AskQuestionEngine {
     }
   }
 
+  buildAllMarksStatus (data) {
+    if (!this.allMarks[data.context]) {
+      this.allMarks[data.context] = {};
+    }
+
+    if ((data.component === 'question' || data.component === 'note' || data.component === 'bookmark')) {
+      if (data.action === 'create') {
+        if (!this.allMarks[data.context].question) this.allMarks[data.context].question = [];
+        this.allMarks[data.context][data.component].push(data.componentId);
+      } else if (data.action === 'delete') {
+        this.allMarks[data.context][data.component] = this.allMarks[data.context][data.component].filter(e => e.componentId !== data.componentId);
+      }
+    }
+  }
+
   attachHandlerForRealTimeUpdate() {
     console.log('===> Attach Real time update ');
     this.db.collection(this.collection).orderBy('timestamp', 'asc')
@@ -918,8 +936,10 @@ class AskQuestion extends AskQuestionEngine {
             const data = change.doc.data();
             if (data.context === virtualclass.askQuestion.currentContext) {
               this.performWithQueue(data);
+              if (virtualclass.isPlayMode && data.context === '_doc_0_0') this.buildAllMarksStatus(data);
             } else {
               this.makeQueue(data);
+              if (virtualclass.isPlayMode) this.buildAllMarksStatus(data);
             }
           };
         });

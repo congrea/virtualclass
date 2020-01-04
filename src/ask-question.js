@@ -92,15 +92,12 @@ class BasicOperation {
         if (event === 'reply') {
           componentId = null;
           parentId = parent.dataset.componentId;
-        } else if (event === 'edit' || event === 'markAnswer') {
-          parentId = parent.dataset.parent;
+        } else if (event === 'edit' || event === 'markAnswer' || event === 'delete') {
+          parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
         }
-        if (event === 'cancel') {
-          text = parent.previousSibling.value;
-          data = { event, component, text, componentId, parentId };
-        } else {
-          data = { event, component, componentId, parentId };
-        }
+        data = { event, component, componentId, parentId };
+      } else if (parent.dataset.componentId === '' && event === 'cancel') {
+        data = { event, component, componentId, parentId };
       }
 
       if (event === 'save') {
@@ -138,45 +135,58 @@ class BasicOperation {
         moreControlElem.classList.remove('open');
         moreControlElem.classList.add('close');
       }
-      const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-      const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
-      const getActualTime = Math.floor((currentEditTime - (+previousTime)) / 60);
-      if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0) {
-        return;
-      }
-      const footerElem = document.querySelector(`#${data.componentId} .footer`);
-      if (footerElem && footerElem.classList.contains('show')) {
-        footerElem.classList.remove('show');
-        footerElem.classList.add('hide');
-      }
-      const text = document.querySelector(`#${data.componentId} .content p`).innerHTML;
-      const component = document.querySelector(`#${data.componentId} .content p`).dataset.component;
-      data = this.generateData({
-        action: 'renderer',
-        type: 'input',
-        content: text,
-        component: component,
-        componentId: data.componentId,
-        parent: data.component === 'question' ? null : null,
-      });
-    } else if (data.event === 'delete') {
-      if (contextData[currentContext][data.component][data.componentId].children.length > 0) {
-        const moreControlElem = document.querySelector(`#${data.componentId} .moreControls .item`);
-        if (moreControlElem.classList.contains('open')) {
-          moreControlElem.classList.remove('open');
-          moreControlElem.classList.add('close');
+      const userId = (data.componentId).split('-')[1];
+      if (userId === virtualclass.uInfo.userid || roles.hasControls()) {
+        const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
+        const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
+        const getActualTime = Math.floor((currentEditTime - (+previousTime)) / 60);
+        if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0) {
+          return;
         }
+
+        const footerElem = document.querySelector(`#${data.componentId} .footer`);
+        if (footerElem && footerElem.classList.contains('show')) {
+          footerElem.classList.remove('show');
+          footerElem.classList.add('hide');
+        }
+        const text = document.querySelector(`#${data.componentId} .content p`).innerHTML;
+        const component = document.querySelector(`#${data.componentId} .content p`).dataset.component;
+        data = this.generateData({
+          action: 'renderer',
+          type: 'input',
+          content: text,
+          component: component,
+          componentId: data.componentId,
+          parent: data.component === 'question' ? null : null,
+        });
+      } else {
         return;
       }
-      data = this.generateData({
-        component: data.component,
-        action: data.event,
-        componentId: data.componentId,
-        parent: null,
-      });
-      this.send(data);
+    } else if (data.event === 'delete') {
+      const moreControlElem = document.querySelector(`#${data.componentId} .moreControls .item`);
+      if (moreControlElem.classList.contains('open')) {
+        moreControlElem.classList.remove('open');
+        moreControlElem.classList.add('close');
+      }
+      const userId = (data.componentId).split('-')[1];
+      if (userId === virtualclass.uInfo.userid || roles.hasControls()) {
+        const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
+        const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
+        const getActualTime = Math.floor((currentEditTime - (+previousTime)) / 60);
+        if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0) {
+          return;
+        }
+        data = this.generateData({
+          component: data.component,
+          action: data.event,
+          componentId: data.componentId,
+          parent: data.parentId,
+        });
+        this.send(data);
+      } else {
+        return;
+      }
     } else if (data.event === 'upvote') {
-      // const parent = data.componentId;
       const obj = this.generateData({ component: data.component, action: data.event });
       const upvoteCount = document.querySelector(`#${data.componentId} .upVote .total`).innerHTML;
       if (upvoteCount == '0') {
@@ -225,17 +235,26 @@ class BasicOperation {
       });
       this.send(obj);
     } else if (data.event === 'cancel') {
-      const footerElem = document.querySelector(`#${data.componentId} .footer`);
-      if (footerElem && footerElem.classList.contains('hide')) {
-        footerElem.classList.remove('hide');
-        footerElem.classList.add('show');
+
+      if (data.componentId) {
+        const text = document.querySelector('#writeContent .text');
+        if (text) {
+          text.remove();
+        }
+
+        const footerElem = document.querySelector(`#${data.componentId} .footer`);
+        if (footerElem && footerElem.classList.contains('hide')) {
+          footerElem.classList.remove('hide');
+          footerElem.classList.add('show');
+        }
+        const elem = document.querySelector(`#${data.componentId} .content p`);
+        elem.innerHTML = contextData[currentContext][data.component][data.componentId].content;
+      } else {
+        const text = document.querySelector('#writeContent');
+        if (text) {
+          text.remove();
+        }
       }
-      const text = document.querySelector('#writeContent .text');
-      if (text) {
-        text.remove();
-      }
-      const elem = document.querySelector(`#${data.componentId} .content p`);
-      elem.innerHTML = contextData[currentContext][data.component][data.componentId].content;
     }
     if (data.event !== 'save' && data.event !== 'delete' && data.event !== 'upvote'
       && data.event !== 'markAnswer' && data.event !== 'cancel') {
@@ -340,31 +359,44 @@ class BasicOperation {
 
   delete(data) {
     const elem = document.querySelector(`#${data.componentId}`);
-    elem.remove();
-    this.updateStatus(data, 'delete');
+    if (elem) {
+      elem.remove();
+      this.updateStatus(data, 'delete');
+    }
   }
 
   updateStatus(data, status) {
     const contextObj = virtualclass.askQuestion.context;
     if (status === 'delete') {
+      this.updateCount(data, status);
       delete contextObj[virtualclass.askQuestion.currentContext][data.component][data.componentId];
     } else {
       let question = data;
       if (status === 'editable') {
         question = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id };
-        if (Object.prototype.hasOwnProperty.call(contextObj[data.context]['question'], data.parent)) {
-          if (data.component === 'answer' || data.component === 'comment') {
-            contextObj[data.context]['question'][data.parent].children.push(data.componentId);
-            const parentElem = document.querySelector(`#${data.parent} .navigation .total`);
-            parentElem.innerHTML = contextObj[data.context]['question'][data.parent].children.length;
-          }
-        }
+        this.updateCount(data, status);
       } else if (status === 'edited') {
         question.children = contextObj[virtualclass.askQuestion.currentContext][data.component][data.componentId].children;
         question.content = data.content;
       }
       question.status = status;
       contextObj[virtualclass.askQuestion.currentContext][data.component][data.componentId] = question;
+    }
+  }
+
+  updateCount(data, status) {
+    const contextObj = virtualclass.askQuestion.context;
+    if (Object.prototype.hasOwnProperty.call(contextObj[data.context]['question'], data.parent) && data.component !== 'question') {
+      const children = contextObj[data.context]['question'][data.parent].children;
+      if (data.component === 'answer' || data.component === 'comment') {
+        if (status === 'editable') {
+          children.push(data.componentId);
+        } else {
+          children.splice(children.indexOf(data.componentId), 1);
+        }
+        const parentElem = document.querySelector(`#${data.parent} .navigation .total`);
+        parentElem.innerHTML = contextObj[data.context]['question'][data.parent].children.length;
+      }
     }
   }
 

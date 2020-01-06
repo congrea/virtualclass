@@ -131,7 +131,7 @@ this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template(
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))
     + " </span> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " </div></div></div></div><div class=\"comments\"></div></div>";
+    + " </div></div></div></div><div class=\"comments open\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/askQuestionMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -184,6 +184,10 @@ this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({
     + "\"><span class=\"save\" data-event=\"save\">save</span><span class=\"cancel\" data-event=\"cancel\">cancel</span></div></div>";
 },"useData":true});
 
+this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id='writeContent'><textarea class='text'></textarea><div class=\"action\"><span class=\"save\">save</span><span class=\"cancel\">cancel</span></div></div>";
+},"useData":true});
+
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
@@ -209,7 +213,7 @@ this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.templat
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"edit",{"name":"getString","hash":{},"data":data}))
     + " </span><span class='delete' data-event=\"delete\"> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))
-    + " </span></div></div></div></div><div class=\"answers\"></div></div>";
+    + " </span></div></div></div></div><div class=\"answers open\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/audioWidget.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

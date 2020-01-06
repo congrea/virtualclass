@@ -244,7 +244,9 @@
   padding: 5px 5px 1px 15px;
 }
 
-#virtualclassCont.congrea #askQuestion .container .footer.hide {
+#virtualclassCont.congrea #askQuestion .container .footer.hide,
+#virtualclassCont.congrea #askQuestion .container .question .answers.close,
+#virtualclassCont.congrea #askQuestion .container .answer .comments.close {
   display: none;
 }
 
@@ -252,6 +254,8 @@
   display: none;
 }
 
-#virtualclassCont.congrea #noteContainer .context.active {
+#virtualclassCont.congrea #noteContainer .context.active,
+#virtualclassCont.congrea #askQuestion .container .question .answers.open,
+#virtualclassCont.congrea #askQuestion .container .answer .comments.open {
   display: block;
 }

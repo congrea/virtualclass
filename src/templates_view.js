@@ -156,6 +156,14 @@ this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template
     + " <span class='delete'></span></div></div></div></div><div class=\"comments\"></div></div>";
 },"useData":true});
 
+this["JST"]["dest_temp/templates/askQuestion/content-area.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "<div class=\"context note\" data-context=\""
+    + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
+    + "\"><textarea class='text content' placeholder=\"Type your content\"></textarea></div>";
+},"useData":true});
+
 this["JST"]["dest_temp/templates/askQuestion/context.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
@@ -184,8 +192,8 @@ this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({
     + "\"><span class=\"save\" data-event=\"save\">save</span><span class=\"cancel\" data-event=\"cancel\">cancel</span></div></div>";
 },"useData":true});
 
-this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='writeContent'><textarea class='text'></textarea><div class=\"action\"><span class=\"save\">save</span><span class=\"cancel\">cancel</span></div></div>";
+this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id='noteContainer'><div class=\"container \"></div><div class=\"loading\">Loading</div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -743,7 +751,7 @@ this["JST"]["dest_temp/templates/notes/content-area.hbs"] = Handlebars.template(
 
   return "<div class=\"context note\" data-context=\""
     + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
-    + "\"><textarea class='text' placeholder=\"Type your content\"></textarea></div>";
+    + "\" data-component=\"note\"><textarea class='text content' data-event=\"save\" placeholder=\"Type your content\"></textarea></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/notes/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

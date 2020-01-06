@@ -118,7 +118,8 @@
         + '#virtualclassCont.congrea .shapesToolbox .shapesTool, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel, '
         + '#virtualclassCont.congrea.student #appSettingDetail .setting-heading, '
-        + '#virtualclassCont #appSettingDetail .bulkUserActions .setting-heading '
+        + '#virtualclassCont #appSettingDetail .bulkUserActions .setting-heading, '
+        + '#virtualclassCont.congrea #askQuestion #writeContent .action .save '
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
 
         + '#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn '
@@ -267,7 +268,8 @@
         + '#virtualclassCont.congrea #audioTest-box:hover,'
         + '#virtualclassCont.congrea #playButton:hover, '
         + '#virtualclassCont.congrea #alwaysPress:hover,'
-        + '#virtualclassCont.congrea .recButton:hover'
+        + '#virtualclassCont.congrea .recButton:hover, '
+        + '#virtualclassCont.congrea #askQuestion #writeContent .action .save:hover '
         + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%) !important}`
 
         + '#virtualclassCont.congrea .vmchat_support.active ,'

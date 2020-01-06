@@ -5,7 +5,7 @@
  */
 class BasicOperation {
   constructor () {
-    this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation', 'createInput', 'save', 'cancel'];
+    this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation', 'createInput', 'save', 'cancel', 'navigation'];
   }
 
   generateData(data) {
@@ -106,7 +106,8 @@ class BasicOperation {
         const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
         const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
         const getActualTime = Math.floor((currentEditTime - (+previousTime)) / 60);
-        if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0) {
+        if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
+        || contextData[currentContext][data.component][data.componentId].upvote > 0) {
           return;
         }
 
@@ -139,7 +140,8 @@ class BasicOperation {
         const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
         const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
         const getActualTime = Math.floor((currentEditTime - (+previousTime)) / 60);
-        if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0) {
+        if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
+        || contextData[currentContext][data.component][data.componentId].upvote > 0) {
           return;
         }
         data = this.generateData({
@@ -221,9 +223,18 @@ class BasicOperation {
           text.remove();
         }
       }
+    } else if (data.event === 'navigation') {
+      const ElemNavigate = document.querySelector(`#${data.componentId} .answers`);
+      if (ElemNavigate.classList.contains('open')) {
+        ElemNavigate.classList.remove('open');
+        ElemNavigate.classList.add('close');
+      } else {
+        ElemNavigate.classList.remove('close');
+        ElemNavigate.classList.add('open');
+      }
     }
     if (data.event !== 'save' && data.event !== 'delete' && data.event !== 'upvote'
-      && data.event !== 'markAnswer' && data.event !== 'cancel') {
+      && data.event !== 'markAnswer' && data.event !== 'cancel' && data.event !== 'navigation') {
       this[data.action].call(this, data);
     }
   }
@@ -333,20 +344,33 @@ class BasicOperation {
 
   updateStatus(data, status) {
     const contextObj = virtualclass.askQuestion.context;
+    const currentContext = virtualclass.askQuestion.currentContext;
+    let question;
     if (status === 'delete') {
       this.updateCount(data, status);
-      delete contextObj[virtualclass.askQuestion.currentContext][data.component][data.componentId];
-    } else {
-      let question = data;
+      // const childrenArr = contextObj[currentContext][data.component][data.componentId].children;
+      // if (childrenArr.length > 0 && roles.hasControls()) {
+      //   for (let i = 0; i < childrenArr.length; i++) {
+      //     // const getChildrenElem = document.querySelector(`#${childrenArr[i]}`);
+      //     delete contextObj[currentContext]['answer'][childrenArr[i]];
+      //   }
+      // }
+      delete contextObj[currentContext][data.component][data.componentId];
+    } else if (status === 'editable' || status === 'edited') {
+      question = data;
       if (status === 'editable') {
-        question = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id };
+        question = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id, upvote: 0 };
         this.updateCount(data, status);
       } else if (status === 'edited') {
-        question.children = contextObj[virtualclass.askQuestion.currentContext][data.component][data.componentId].children;
+        question.children = contextObj[currentContext][data.component][data.componentId].children;
         question.content = data.content;
       }
       question.status = status;
-      contextObj[virtualclass.askQuestion.currentContext][data.component][data.componentId] = question;
+      contextObj[currentContext][data.component][data.componentId] = question;
+    } else if (status === 'upvote') {
+      question = { id: data.id, children: [], status, parent: null, componentId: data.id, upvote: data.upvote };
+      question.status = status;
+      contextObj[currentContext][data.component][data.componentId] = question;
     }
   }
 
@@ -383,6 +407,7 @@ class BasicOperation {
       if (data.userId === virtualclass.uInfo.userid) {
         document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
       }
+      this.updateStatus(data, 'upvote');
     }
   }
 

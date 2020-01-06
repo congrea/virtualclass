@@ -3,83 +3,6 @@
  * @Copyright 2019  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
-// This class is responsible to render HTML of each component of Ask Question
-
-class MainNote {
-  init() {
-    this.attachHandler();
-  }
-
-  generateData(value) {
-    const data = {componenet: note};
-    const qnCreateTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-    data.id = `${data.component}-${virtualclass.gObj.uid}-${qnCreateTime}`;
-    data.timestamp = qnCreateTime;
-    data.context = virtualclass.askQuestion.currentContext;
-    data.userId = virtualclass.uInfo.userid;
-    data.content = value;
-    return data;
-  }
-
-  attachHandler() {
-    const note = document.getElementById('virtualclassnote');
-    note.addEventListener('click', this.handler.bind(this));
-  }
-
-  handler() {
-    this.renderMainContainer();
-  }
-
-
-  contentHandler(ev) {
-    if (this.sendToDatabaseTime) {
-      clearTimeout(this.sendToDatabaseTime);
-    } else {
-      this.sendToDatabaseTime = setTimeout(() => {
-        this.generateData(ev.currentTarget.value);
-        this.send();
-      });
-    }
-  }
-
-  renderNote(currentContext) {
-    let contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
-    if (contextDivElement === null) {
-      const contentArea = virtualclass.getTemplate('content-area', 'notes');
-      const contentAreaHtml = contentArea({ context: currentContext });
-      const noteContainer = document.querySelector('#noteContainer .container');
-      if (noteContainer != null) noteContainer.insertAdjacentHTML('beforeEnd', contentAreaHtml);
-      const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
-      textArea.addEventListener('change', this.contentHandler);
-    }
-
-    const activeNote = document.querySelector('#noteContainer .context.active');
-    if (activeNote) activeNote.classList.remove('active');
-
-    contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
-    contextDivElement.classList.add('active');
-  }
-
-  renderMainContainer() {
-    let note = document.getElementById('noteContainer');
-    if (note == null) {
-      const noteMainContainer = virtualclass.getTemplate('note', 'notes');
-      const noteMainContainerHtml = noteMainContainer({ context: virtualclass.askQuestion.currentContext });
-      document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
-    }
-
-    this.renderNote(virtualclass.askQuestion.currentContext);
-
-    const activeElement = document.querySelector('#rightSubContainer .active');
-    if (activeElement) {
-      activeElement.classList.remove('active');
-      activeElement.classList.add('deactive');
-    }
-    note = document.getElementById('noteContainer');
-    note.classList.add('active');
-  }
-}
-
 class BasicOperation {
   constructor () {
     this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation', 'createInput', 'save', 'cancel'];
@@ -470,6 +393,84 @@ class BasicOperation {
     markParentElem.dataset.markAnswer = 'marked';
   }
 }
+
+// This class is responsible to render HTML of each component of Ask Question
+
+class MainNote {
+  init() {
+    this.attachHandler();
+  }
+
+  generateData(value) {
+    const data = {componenet: note};
+    const qnCreateTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
+    data.id = `${data.component}-${virtualclass.gObj.uid}-${qnCreateTime}`;
+    data.timestamp = qnCreateTime;
+    data.context = virtualclass.askQuestion.currentContext;
+    data.userId = virtualclass.uInfo.userid;
+    data.content = value;
+    return data;
+  }
+
+  attachHandler() {
+    const note = document.getElementById('virtualclassnote');
+    note.addEventListener('click', this.handler.bind(this));
+  }
+
+  handler() {
+    this.renderMainContainer();
+  }
+
+
+  contentHandler(ev) {
+    if (this.sendToDatabaseTime) {
+      clearTimeout(this.sendToDatabaseTime);
+    } else {
+      this.sendToDatabaseTime = setTimeout(() => {
+        this.generateData(ev.currentTarget.value);
+        this.send();
+      });
+    }
+  }
+
+  renderNote(currentContext) {
+    let contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
+    if (contextDivElement === null) {
+      const contentArea = virtualclass.getTemplate('content-area', 'notes');
+      const contentAreaHtml = contentArea({ context: currentContext });
+      const noteContainer = document.querySelector('#noteContainer .container');
+      if (noteContainer != null) noteContainer.insertAdjacentHTML('beforeEnd', contentAreaHtml);
+      const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
+      textArea.addEventListener('change', this.contentHandler);
+    }
+
+    const activeNote = document.querySelector('#noteContainer .context.active');
+    if (activeNote) activeNote.classList.remove('active');
+
+    contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
+    contextDivElement.classList.add('active');
+  }
+
+  renderMainContainer() {
+    let note = document.getElementById('noteContainer');
+    if (note == null) {
+      const noteMainContainer = virtualclass.getTemplate('note', 'notes');
+      const noteMainContainerHtml = noteMainContainer({ context: virtualclass.askQuestion.currentContext });
+      document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
+    }
+
+    this.renderNote(virtualclass.askQuestion.currentContext);
+
+    const activeElement = document.querySelector('#rightSubContainer .active');
+    if (activeElement) {
+      activeElement.classList.remove('active');
+      activeElement.classList.add('deactive');
+    }
+    note = document.getElementById('noteContainer');
+    note.classList.add('active');
+  }
+}
+
 
 class QAquestion extends BasicOperation {
 

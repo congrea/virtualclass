@@ -146,6 +146,9 @@
 }
 
 #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"],
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .upVote,
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .reply,
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .moreControls,
 #virtualclassCont.congrea[data-currapp='Poll'] #virtualclassApp #congHr,
 #virtualclassCont.congrea[data-currapp='Quiz'] #virtualclassApp #congHr {
   opacity: 0.5 !important;

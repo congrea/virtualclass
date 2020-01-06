@@ -5,9 +5,20 @@
  */
 // This class is responsible to render HTML of each component of Ask Question
 
-class NoteMain {
+class MainNote {
   init() {
     this.attachHandler();
+  }
+
+  generateData(value) {
+    const data = {componenet: note};
+    const qnCreateTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
+    data.id = `${data.component}-${virtualclass.gObj.uid}-${qnCreateTime}`;
+    data.timestamp = qnCreateTime;
+    data.context = virtualclass.askQuestion.currentContext;
+    data.userId = virtualclass.uInfo.userid;
+    data.content = value;
+    return data;
   }
 
   attachHandler() {
@@ -19,6 +30,36 @@ class NoteMain {
     this.renderMainContainer();
   }
 
+
+  contentHandler(ev) {
+    if (this.sendToDatabaseTime) {
+      clearTimeout(this.sendToDatabaseTime);
+    } else {
+      this.sendToDatabaseTime = setTimeout(() => {
+        this.generateData(ev.currentTarget.value);
+        this.send();
+      });
+    }
+  }
+
+  renderNote(currentContext) {
+    let contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
+    if (contextDivElement === null) {
+      const contentArea = virtualclass.getTemplate('content-area', 'notes');
+      const contentAreaHtml = contentArea({ context: currentContext });
+      const noteContainer = document.querySelector('#noteContainer .container');
+      if (noteContainer != null) noteContainer.insertAdjacentHTML('beforeEnd', contentAreaHtml);
+      const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
+      textArea.addEventListener('change', this.contentHandler);
+    }
+
+    const activeNote = document.querySelector('#noteContainer .context.active');
+    if (activeNote) activeNote.classList.remove('active');
+
+    contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
+    contextDivElement.classList.add('active');
+  }
+
   renderMainContainer() {
     let note = document.getElementById('noteContainer');
     if (note == null) {
@@ -26,6 +67,8 @@ class NoteMain {
       const noteMainContainerHtml = noteMainContainer({ context: virtualclass.askQuestion.currentContext });
       document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
     }
+
+    this.renderNote(virtualclass.askQuestion.currentContext);
 
     const activeElement = document.querySelector('#rightSubContainer .active');
     if (activeElement) {
@@ -497,7 +540,7 @@ class AskQuestion extends AskQuestionEngine {
     console.log('ask question init');
     this.renderer();
     this.allMarks = {};
-    this.mainNote = new NoteMain();
+    this.mainNote = new MainNote();
     this.mainNote.init();
   }
 
@@ -583,6 +626,10 @@ class AskQuestion extends AskQuestionEngine {
 
     if (this.queue[this.currentContext] && this.queue[this.currentContext].length > 0) {
       this.perform(this.currentContext);
+    }
+
+    if (this.mainNote) {
+      this.mainNote.renderNote(this.currentContext);
     }
 
     console.log('====> ready context ', this.currentContext);

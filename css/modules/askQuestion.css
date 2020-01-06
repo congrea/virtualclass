@@ -247,3 +247,11 @@
 #virtualclassCont.congrea #askQuestion .container .footer.hide {
   display: none;
 }
+
+#virtualclassCont.congrea #noteContainer .context {
+  display: none;
+}
+
+#virtualclassCont.congrea #noteContainer .context.active {
+  display: block;
+}

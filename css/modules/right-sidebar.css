@@ -991,7 +991,8 @@ body {
 }
 
 #virtualclassCont.congrea #askQuestionHeader.active,
-#virtualclassCont.congrea #rightSubContainer #chatWidget.active {
+#virtualclassCont.congrea #rightSubContainer #chatWidget.active,
+#virtualclassCont.congrea #rightSubContainer #noteContainer {
   display: block;
 }
 
@@ -1003,4 +1004,8 @@ body {
 
 #virtualclassCont.congrea #congHr.active {
   background-image: radial-gradient(ellipse at center, #000000 0%, #000000 100%) !important;
+}
+
+#virtualclassCont.congrea #noteContainer .loading {
+  display: none;
 }

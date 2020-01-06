@@ -158,8 +158,10 @@
   flex: 1;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .header .info .closed-icon {
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .header .info .closed-icon,
+#virtualclassCont.congrea #askQuestion .container .question .answer[data-mark-answer="marked"] .header .info .acceptedAnswer {
   float: right;
+  margin-top: 2px;
 }
 
 #virtualclassCont.congrea #askQuestion .question .container {
@@ -255,6 +257,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action {
+  margin-top: 3px;
   margin-bottom: 5px;
   font-size: 0.9rem;
 }
@@ -296,4 +299,8 @@
 #virtualclassCont.congrea #askQuestion .container .question .answers.open,
 #virtualclassCont.congrea #askQuestion .container .answer .comments.open {
   display: block;
+}
+
+#virtualclassCont.congrea #askQuestion .content p #writeContent {
+  margin: 5px 5px 12px 5px;
 }

@@ -90,9 +90,15 @@ class BasicOperation {
   execute (data) {
     const contextData = virtualclass.askQuestion.context;
     const currentContext = virtualclass.askQuestion.currentContext;
+    let component;
     if (data.event === 'reply') {
+      if (data.component === 'question' || data.component === 'answer') {
+        component = data.component === 'question' ? 'answer' : 'comment';
+      } else {
+        component = data.component;
+      }
       data = {
-        component: data.component === 'question' ? 'answer' : data.component,
+        component: component,
         action: 'renderer',
         type: 'input',
         context: virtualclass.askQuestion.currentContext,
@@ -111,9 +117,12 @@ class BasicOperation {
         const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
         const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
         const getActualTime = Math.floor((currentEditTime - (+previousTime)) / 60);
-        if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
-        || contextData[currentContext][data.component][data.componentId].upvote > 0) {
-          return;
+
+        if (!roles.hasControls()) {
+          if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
+            || contextData[currentContext][data.component][data.componentId].upvote > 0) {
+            return;
+          }
         }
 
         const footerElem = document.querySelector(`#${data.componentId} .footer`);
@@ -145,9 +154,11 @@ class BasicOperation {
         const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
         const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
         const getActualTime = Math.floor((currentEditTime - (+previousTime)) / 60);
-        if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
-        || contextData[currentContext][data.component][data.componentId].upvote > 0) {
-          return;
+        if (!roles.hasControls()) {
+          if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
+            || contextData[currentContext][data.component][data.componentId].upvote > 0) {
+            return;
+          }
         }
         data = this.generateData({
           component: data.component,
@@ -193,6 +204,10 @@ class BasicOperation {
         obj.componentId = obj.id;
       }
       this.send(obj);
+      if (roles.hasControls() && data.component === 'answer') {
+        obj.action = 'markAnswer';
+        this.send(obj);
+      }
     } else if (data.event === 'markAnswer') {
       const moreControlElem = document.querySelector(`#${data.componentId} .moreControls .item`);
       if (moreControlElem.classList.contains('open')) {
@@ -229,7 +244,8 @@ class BasicOperation {
         }
       }
     } else if (data.event === 'navigation') {
-      const ElemNavigate = document.querySelector(`#${data.componentId} .answers`);
+      const navigateComponent = (data.component === 'question') ? 'answers' : 'comments';
+      const ElemNavigate = document.querySelector(`#${data.componentId} .${navigateComponent}`);
       if (ElemNavigate.classList.contains('open')) {
         ElemNavigate.classList.remove('open');
         ElemNavigate.classList.add('close');
@@ -239,7 +255,7 @@ class BasicOperation {
       }
     }
     if (data.event !== 'save' && data.event !== 'delete' && data.event !== 'upvote'
-      && data.event !== 'markAnswer' && data.event !== 'cancel' && data.event !== 'navigation') {
+      && data.event !== 'markAnswer' && data.event !== 'cancel' && data.event !== 'navigation') { // TODO
       this[data.action].call(this, data);
     }
   }
@@ -255,9 +271,11 @@ class BasicOperation {
       }
 
       let text = document.querySelector('#writeContent .text');
-      if (text) { return; }
+      if (text) {
+        return;
+      }
 
-      const context = { componentId: data.componentId, component: data.component, parent: data.parent };
+      const context = {componentId: data.componentId, component: data.component, parent: data.parent};
       const userInput = virtualclass.getTemplate(data.type, 'askQuestion');
       const userInputTemplate = userInput(context);
       if (typeof data.content !== 'undefined' && typeof data.componentId !== 'undefined') {
@@ -283,32 +301,65 @@ class BasicOperation {
         const chkContextElem = document.querySelector(`.context[data-context~=${data.context}]`);
         if ('question' && chkContextElem) {
           const componentTemplate = virtualclass.getTemplate(data.component, 'askQuestion');
-          const htmlContent = componentTemplate({ id: data.id, userName: data.uname, content: data.content });
+          const htmlContent = componentTemplate({id: data.id, userName: data.uname, content: data.content});
           document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', htmlContent);
           // document.querySelector(`#${data.id} .content p`).innerHTML = data.content;
         } else {
           const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
-          const cTemp = getContextTemp({ context: data.context });
+          const cTemp = getContextTemp({context: data.context});
           document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
 
           const componentTemp = virtualclass.getTemplate(data.component, 'askQuestion');
-          document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({ id: data.id, userName: data.uname, content: data.content }));
+          document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({
+            id: data.id,
+            userName: data.uname,
+            content: data.content
+          }));
           document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
         }
-      } else if (data.component === 'answer') {
+      } else if (data.component === 'answer' || data.component === 'comment') {
         const qaAnswerTemp = virtualclass.getTemplate(data.component, 'askQuestion');
-        const context = { id: data.id, itemId: data.componentId, userName: data.uname, hasControl: roles.hasControls(), content: data.content, parent: data.parent };
+        const context = {
+          id: data.id,
+          itemId: data.componentId,
+          userName: data.uname,
+          hasControl: roles.hasControls(),
+          content: data.content,
+          parent: data.parent
+        };
         const ansTemp = qaAnswerTemp(context);
-        document.querySelector(`#${data.parent} .answers`).insertAdjacentHTML('beforeend', ansTemp);
+        if (data.component === 'answer') {
+          document.querySelector(`#${data.parent} .answers`).insertAdjacentHTML('beforeend', ansTemp);
+        } else if (data.component === 'comment') {
+          document.querySelector(`#${data.parent} .comments`).insertAdjacentHTML('beforeend', ansTemp);
+        }
       }
+
       if (data.userId === virtualclass.uInfo.userid) {
         if (data.component === 'note') {
           this.renderNote(data.context);
           const textArea = document.querySelector(`#noteContainer .context[data-context="${data.context}"] textarea.content`);
           textArea.value = data.content;
-        } else {
+        } else if (data.component !== 'comment') {
           document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
         }
+      } else if (data.type === 'noteContainer') {
+        let note = document.getElementById('noteContainer');
+        if (note == null) {
+          const noteMainContainer = virtualclass.getTemplate('note', 'askQuestion');
+          const noteMainContainerHtml = noteMainContainer({context: virtualclass.askQuestion.currentContext});
+          document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
+        }
+
+        this.renderNote(virtualclass.askQuestion.currentContext);
+
+        const activeElement = document.querySelector('#rightSubContainer .active');
+        if (activeElement) {
+          activeElement.classList.remove('active');
+          activeElement.classList.add('deactive');
+        }
+        note = document.getElementById('noteContainer');
+        note.classList.add('active');
       }
 
       if (data.component === 'question') {
@@ -319,25 +370,10 @@ class BasicOperation {
           });
         }
       }
-    } else if (data.type === 'noteContainer') {
-      let note = document.getElementById('noteContainer');
-      if (note == null) {
-        const noteMainContainer = virtualclass.getTemplate('note', 'askQuestion');
-        const noteMainContainerHtml = noteMainContainer({ context: virtualclass.askQuestion.currentContext });
-        document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
-      }
-
-      this.renderNote(virtualclass.askQuestion.currentContext);
-
-      const activeElement = document.querySelector('#rightSubContainer .active');
-      if (activeElement) {
-        activeElement.classList.remove('active');
-        activeElement.classList.add('deactive');
-      }
-      note = document.getElementById('noteContainer');
-      note.classList.add('active');
     }
   }
+
+
 
   renderNote(currentContext) {
     let attachFunction = false;
@@ -409,13 +445,13 @@ class BasicOperation {
     let question;
     if (status === 'delete') {
       this.updateCount(data, status);
-      // const childrenArr = contextObj[currentContext][data.component][data.componentId].children;
-      // if (childrenArr.length > 0 && roles.hasControls()) {
-      //   for (let i = 0; i < childrenArr.length; i++) {
-      //     // const getChildrenElem = document.querySelector(`#${childrenArr[i]}`);
-      //     delete contextObj[currentContext]['answer'][childrenArr[i]];
-      //   }
-      // }
+      const component = data.component === 'question' ? 'answer' : 'comment';
+      const childrenArr = contextObj[currentContext][data.component][data.componentId].children;
+      if (childrenArr.length > 0 && roles.hasControls()) {
+        for (let i = 0; i < childrenArr.length; i++) {
+          delete contextObj[currentContext][component][childrenArr[i]];
+        }
+      }
       delete contextObj[currentContext][data.component][data.componentId];
     } else if (status === 'editable' || status === 'edited') {
       question = data;
@@ -437,8 +473,12 @@ class BasicOperation {
 
   updateCount(data, status) {
     const contextObj = virtualclass.askQuestion.context;
-    if (Object.prototype.hasOwnProperty.call(contextObj[data.context]['question'], data.parent) && data.component !== 'question') {
-      const children = contextObj[data.context]['question'][data.parent].children;
+    let component = data.component === 'answer' ? 'question' : 'answer';
+    if (data.parent != null && (data.parent).split('-')[0] === 'comment') {
+      component = 'comment';
+    }
+    if (Object.prototype.hasOwnProperty.call(contextObj[data.context][component], data.parent) && data.component !== 'question') {
+      const children = contextObj[data.context][component][data.parent].children;
       if (data.component === 'answer' || data.component === 'comment') {
         if (status === 'editable') {
           children.push(data.componentId);
@@ -446,7 +486,7 @@ class BasicOperation {
           children.splice(children.indexOf(data.componentId), 1);
         }
         const parentElem = document.querySelector(`#${data.parent} .navigation .total`);
-        parentElem.innerHTML = contextObj[data.context]['question'][data.parent].children.length;
+        parentElem.innerHTML = contextObj[data.context][component][data.parent].children.length;
       }
     }
   }
@@ -475,10 +515,13 @@ class BasicOperation {
   markAnswer(data) {
     const markElem = document.querySelector(`#${data.componentId}`);
     const markParentElem = document.querySelector(`#${data.parent}`);
-    markElem.dataset.markAnswer = 'marked';
-    markParentElem.dataset.markAnswer = 'marked';
+    if (!markParentElem.dataset.markAnswer && markParentElem && markElem) {
+      markElem.dataset.markAnswer = 'marked';
+      markParentElem.dataset.markAnswer = 'marked';
+    }
   }
 }
+
 
 // This class is responsible to render HTML of each component of Ask Question
 
@@ -552,7 +595,7 @@ class QAanswer extends BasicOperation {
 
 }
 
-class QAcomment {
+class QAcomment extends BasicOperation{
 
 }
 

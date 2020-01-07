@@ -254,43 +254,53 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply .button,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .comment .button {
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .reply .button,
+#virtualclassCont.congrea #askQuestion .container .comment .footer .controls .reply .button {
   display: inline-block;
   padding: 4px 5px 1px 12px;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action {
-  margin-top: 3px;
-  margin-bottom: 5px;
-  font-size: 0.9rem;
+  font-size: 12px;
+  float: right;
+  padding: 3px 0 5px 0;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action span {
-  padding: 2px 6px;
-  border-radius: 2px;
+  padding: 2px 8px 3px 8px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action .save {
   color: #fff;
-  margin-right: 2px;
-  border: 0.5px solid #1b292d;
+  margin-right: 5px;
+  border: 0.5px solid #0487c5;
+  text-transform: capitalize;
+  background-color: #0293d8;
+}
+
+#virtualclassCont.congrea #askQuestion #writeContent .action .save:hover {
+  background-color: #03a0ea;
+  border: 0.5px solid #02a0ea;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action .cancel {
   background-color: white;
-  color: #5d5d5d;
-  border: 0.5px solid #cecece;
+  color: #000;
+  border: 0.5px solid #d4d4d4;
+  text-transform: capitalize;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action .cancel:hover {
-  background-color: #e2e2e2;
-  color: #2f2f2f;
+  background-color: #f3f3f3;
+  color: #000;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer.hide,
 #virtualclassCont.congrea #askQuestion .container .question .answers.close,
-#virtualclassCont.congrea #askQuestion .container .answer .comments.close {
+#virtualclassCont.congrea #askQuestion .container .answer .comments.close,
+#virtualclassCont.congrea #askQuestion .container .comment .comments.close {
   display: none;
 }
 
@@ -300,10 +310,15 @@
 
 #virtualclassCont.congrea #noteContainer .context.active,
 #virtualclassCont.congrea #askQuestion .container .question .answers.open,
-#virtualclassCont.congrea #askQuestion .container .answer .comments.open {
+#virtualclassCont.congrea #askQuestion .container .answer .comments.open,
+#virtualclassCont.congrea #askQuestion .container .comment .comments.open {
   display: block;
 }
 
 #virtualclassCont.congrea #askQuestion .content p #writeContent {
-  margin: 5px 5px 12px 5px;
+  margin: 5px 4px 2px 5px;
+}
+
+#virtualclassCont.congrea #askQuestion .content p #writeContent .action {
+  padding: 4px 0 6px 0;
 }

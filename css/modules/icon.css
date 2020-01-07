@@ -854,8 +854,9 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply span.button::before,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .comment span.button::before {
-  content: "\e9e5";
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .reply span.button::before,
+#virtualclassCont.congrea #askQuestion .container .comment .footer .controls .reply span.button::before {
+  content: "\e9eb";
   font-weight: 500;
   font-family: 'icomoon';
   font-size: 14px;

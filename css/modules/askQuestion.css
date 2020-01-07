@@ -254,7 +254,8 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply .button,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .comment .button {
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .reply .button,
+#virtualclassCont.congrea #askQuestion .container .comment .footer .controls .reply .button {
   display: inline-block;
   padding: 4px 5px 1px 12px;
 }
@@ -290,7 +291,8 @@
 
 #virtualclassCont.congrea #askQuestion .container .footer.hide,
 #virtualclassCont.congrea #askQuestion .container .question .answers.close,
-#virtualclassCont.congrea #askQuestion .container .answer .comments.close {
+#virtualclassCont.congrea #askQuestion .container .answer .comments.close,
+#virtualclassCont.congrea #askQuestion .container .comment .comments.close {
   display: none;
 }
 
@@ -300,7 +302,8 @@
 
 #virtualclassCont.congrea #noteContainer .context.active,
 #virtualclassCont.congrea #askQuestion .container .question .answers.open,
-#virtualclassCont.congrea #askQuestion .container .answer .comments.open {
+#virtualclassCont.congrea #askQuestion .container .answer .comments.open,
+#virtualclassCont.congrea #askQuestion .container .comment .comments.open {
   display: block;
 }
 

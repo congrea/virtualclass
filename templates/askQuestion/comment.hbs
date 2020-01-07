@@ -1,31 +1,33 @@
-<div id= '{{id}}' class= 'comment' data-parent="{{id}}">
+<div id= '{{id}}' class= 'comment' data-parent="{{parent}}">
   <div class="container">
+
     <div class= 'header'>
       <span class= 'userName'>{{userName}}</span>
-      <span class= 'lable'>{{getString 'comment'}}</span>
+      <span class= 'lable'>{{getString 'commentLable'}}</span>
     </div>
     <div class= 'content'>
+      <p data-component = 'comment' data-component-id="{{id}}" data-parent="{{parent}}">{{content}}</p>
       <span class= 'more'></span>
     </div>
-    <div class="footer">
-      <div class= 'controls'>
-        <div class= 'commentNavigation'>
+    <div class="footer show" data-component = 'comment' data-component-id="{{id}}">
+      <div class= 'controls' data-component = 'comment' data-component-id="{{id}}" data-parent="{{parent}}">
+        <div class= 'navigation' data-event="navigation">
           <span class= 'button'></span>
-          <span class= 'total'></span>
+          <span class= 'total'>0</span>
+        </div>
+        <div class= 'reply' data-event="reply">
+          <span class= 'button'></span>
         </div>
       </div>
-      <div class= 'reply'>
-        <span class= 'button'></span>
-      </div>
-      <div class= 'moreControls'>
-        <div class= 'item'>
-          {{#if isStudent}}
-            <span class= 'edit'></span>
-          {{/if}}
-          <span class= 'delete'></span>
+      <div class= 'moreControls' data-event = 'moreControls'>
+        <div class= 'item close' data-component = 'comment' data-component-id="{{id}}" data-parent="{{parent}}" data-timestamp="{{timestamp}}">
+          <span class= 'edit' data-event="edit"> {{getString 'edit'}} </span>
+          <span class= 'delete' data-event="delete"> {{getString 'delete'}} </span>
         </div>
       </div>
     </div>
+
   </div>
-  <div class="comments"></div>
+
+  <div class="comments open"></div>
 </div>

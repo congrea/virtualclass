@@ -574,7 +574,9 @@ class QAcontext {
 
 class AskQuestionEngine {
   constructor() {
-    this.queue = [];
+    this.queue = {};
+    this.queue.note = [];
+    this.queue.question = [];
     this.context = {};
     this.firstRealTime = true;
     this.initialize = false;
@@ -582,17 +584,21 @@ class AskQuestionEngine {
 
   performWithQueue(data) {
     this.makeQueue(data);
-    this.perform(data.context);
+    const type = (data.component === 'note' ? data.component : 'question');
+    this.perform(data.context, type);
   }
 
   makeQueue(data) {
-    if (!this.queue[data.context]) this.queue[data.context] = [];
-    this.queue[data.context].push(data);
+    const type = (data.component === 'note') ? data.component : 'question';
+    if (!this.queue[type][data.context]) {
+      this.queue[type][data.context] = [];
+    }
+    this.queue[type][data.context].push(data);
   }
 
-  perform(context) {
-    while (this.queue[context].length > 0) {
-      const data = this.queue[context].shift();
+  perform(context, type) {
+    while (this.queue[type][context].length > 0) {
+      const data = this.queue[type][context].shift();
       if (data.component === 'question' && data.upvote && data.upvote > 1) {
         this.context[data.context][data.component].upvote.call(this.context[data.context][data.component], data);
       } else if (data.component === 'answer' && data.upvote && data.upvote > 1) {
@@ -642,6 +648,16 @@ class AskQuestion extends AskQuestionEngine {
   makeReadyContext() {
     if (this.clearTimeMakeReady) clearTimeout(this.clearTimeMakeReady);
     this.clearTimeMakeReady = setTimeout(() => { this.innerMakeReadyContext()}, 200);
+  }
+
+  getActiveTab() {
+    if (document.querySelector('#congHr.active') !=  null) {
+      return 'question';
+    } else if (document.querySelector('#virtualclassnote.active') !=  null) {
+      return 'note';
+    } else {
+      return false;
+    }
   }
 
   innerMakeReadyContext() {
@@ -696,14 +712,15 @@ class AskQuestion extends AskQuestionEngine {
       this.context[contextName] = new QAcontext();
     }
 
-    if (this.queue[this.currentContext] && this.queue[this.currentContext].length > 0) {
-      this.perform(this.currentContext);
+    const type = this.getActiveTab();
+    if (type && this.queue[type] && this.queue[type][this.currentContext] && this.queue[type][this.currentContext].length > 0) {
+      this.perform(this.currentContext, type);
     }
 
-    const noteContainerActive = document.querySelector('#noteContainer.active');
-    if (this.context[contextName] && this.initFirebase && noteContainerActive) {
-      this.context[contextName].note.renderNote(this.currentContext);
-    }
+    // const noteContainerActive = document.querySelector('#noteContainer.active');
+    // if (this.context[contextName] && this.initFirebase && noteContainerActive) {
+    //   this.context[contextName].note.renderNote(this.currentContext);
+    // }
 
     console.log('====> ready context ', this.currentContext);
     ioAdapter.mustSend({ cf: 'readyContext', context: this.currentContext });

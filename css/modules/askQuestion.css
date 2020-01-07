@@ -280,8 +280,8 @@
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action .save:hover {
-  background-color: #0aaffd;
-  border: 0.5px solid #0aaffd;
+  background-color: #03a0ea;
+  border: 0.5px solid #02a0ea;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action .cancel {
@@ -292,7 +292,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action .cancel:hover {
-  background-color: #e2e2e2;
+  background-color: #f3f3f3;
   color: #000;
 }
 

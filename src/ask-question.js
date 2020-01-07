@@ -700,7 +700,8 @@ class AskQuestion extends AskQuestionEngine {
       this.perform(this.currentContext);
     }
 
-    if (this.context[contextName]) {
+    const noteContainerActive = document.querySelector('#noteContainer.active');
+    if (this.context[contextName] && this.initFirebase && noteContainerActive) {
       this.context[contextName].note.renderNote(this.currentContext);
     }
 

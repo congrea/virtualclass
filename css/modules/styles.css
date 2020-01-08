@@ -3879,7 +3879,8 @@ div.ui-memblist-usr .userVideos {
 /* content: "\e962"; */
 
 /* } */
-#virtualclassCont.congrea #icHr::before {
+#virtualclassCont.congrea #icHr::before,
+#virtualclassCont.congrea #virtualclassnote a::before {
   content: "\e9b1";
   font-size: 1rem;
   color: #fdfafa;

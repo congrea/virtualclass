@@ -54,7 +54,7 @@ body {
   height: 100%;
 }
 
-#virtualclassCont.congrea .vmchat_room_bt.active,
+#virtualclassCont.congrea .bottomright.active,
 #virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
   background: #2d3741 none;
   height: auto;
@@ -991,21 +991,50 @@ body {
 }
 
 #virtualclassCont.congrea #askQuestionHeader.active,
-#virtualclassCont.congrea #rightSubContainer #chatWidget.active,
-#virtualclassCont.congrea #rightSubContainer #noteContainer {
+#virtualclassCont.congrea #rightSubContainer #chatWidget.active{
   display: block;
 }
 
-#virtualclassCont.congrea #askQuestionHeader.deactive,
-#virtualclassCont.congrea #rightSubContainer #askQuestion.deactive,
-#virtualclassCont.congrea #rightSubContainer #chatWidget.deactive {
-  display: none;
-}
+/*#virtualclassCont.congrea #askQuestionHeader.deactive,*/
+/*#virtualclassCont.congrea #rightSubContainer #askQuestion.deactive,*/
+/*#virtualclassCont.congrea #rightSubContainer #chatWidget.deactive {*/
+  /*display: none;*/
+/*}*/
 
-#virtualclassCont.congrea #congHr.active {
+#virtualclassCont.congrea .bottomright.active {
   background-image: radial-gradient(ellipse at center, #000000 0%, #000000 100%) !important;
 }
 
 #virtualclassCont.congrea #noteContainer .loading {
   display: none;
 }
+
+
+#virtualclassCont.congrea #appSettingCtrl {
+  top: -30px;
+}
+
+#virtualclassCont.congrea .rightBarHeader {
+  display: none;
+}
+
+#virtualclassCont.congrea #chatWidget #appSettingCtrl {
+  display: none;
+}
+
+#virtualclassCont.congrea #chatWidget.active #appSettingCtrl {
+  display: block;
+}
+
+#virtualclassCont.congrea .rightBarHeader.active {
+  display: block;
+}
+
+#virtualclassCont.congrea .rightContainer {
+  display: none;
+}
+
+#virtualclassCont.congrea .rightContainer.active {
+  display: block;
+}
+

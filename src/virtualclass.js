@@ -276,6 +276,8 @@
           virtualclass.askQuestion.initFirebaseOperatoin();
         }
 
+        virtualclass.rightbar = new Rightbar();
+
         this.orderList = {};
         if (virtualclass.vutil.isSessionEnded()) {
           return true;

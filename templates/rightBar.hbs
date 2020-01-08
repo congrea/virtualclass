@@ -4,10 +4,15 @@
   {{!-- {{> ('getVideoType') }} --}}
   {{!-- Chat widget --}}
 
-  <div id="rightSubContainer" class="">
-      {{> appSettingDetail}}
-      <div id="chatWidget">
+  <div id="rightSubContainer">
+      <div id="chatWidget" class="rightContainer">
           <div id="congreaChatMainCont">
+            <div id="appSettingCtrl" class="congtooltip chatActive" data-title ="{{getString 'setting'}}">
+              <a id="appSettingCtrlAnchor">
+                <span class="setting-btn cgIcon"></span>
+              </a>
+            </div>
+            {{> appSettingDetail}}
             <div id="congreaChatCont"> </div>
 
             <div class="footerCtr" id="congFooterCtr">
@@ -17,6 +22,6 @@
               </div>
             </div>
         </div>
+      </div>
   </div>
-</div>
 </div>

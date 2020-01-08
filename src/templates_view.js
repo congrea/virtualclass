@@ -135,7 +135,7 @@ this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template(
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/askQuestionMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='askQuestion' class=\"deactive\"><div class=\"container askContainer\"></div><div class=\"loading\">Loading</div></div>";
+    return "<div id='askQuestion' class=\"rightContainer\"><div class=\"container askContainer\"></div><div class=\"loading\">Loading</div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -212,10 +212,6 @@ this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({
 
 this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id='noteContainer'><div class=\"container \"></div><div class=\"loading\">Loading</div></div>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='writeContent'><textarea class='text'></textarea><div class=\"action\"><span class=\"save\">save</span><span class=\"cancel\">cancel</span></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -419,27 +415,25 @@ this["JST"]["dest_temp/templates/chat/chatuser.hbs"] = Handlebars.template({"1":
 },"useData":true});
 
 this["JST"]["dest_temp/templates/chat/stickycont.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " <li class=\"vmchat_bar_button active\" id=\"user_list\"><a class=\"inner_bt congtooltip\" data-title=\""
+    return " <li class=\"vmchat_bar_button active bottomright\" id=\"user_list\" data-headerid=\"userListHeader\"><a class=\"inner_bt congtooltip\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"userList",{"name":"getString","hash":{},"data":data}))
     + "\"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span>  </a><a class=\"rHandNotify hand_bt\"><span id=\"rhtab_text\"><span id=\"notifyText\" class=\"cgText\"></span></span></a></li> ";
 },"3":function(container,depth0,helpers,partials,data) {
-    return " <li class=\"vmchat_bar_button congtooltip active\" id=\"user_list\" data-title=\""
+    return " <li class=\"vmchat_bar_button congtooltip active bottomright\" id=\"user_list\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"userList",{"name":"getString","hash":{},"data":data}))
-    + "\"><a class=\"inner_bt \"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span>  </a></li> ";
+    + "\" data-headerid=\"userListHeader\"><a class=\"inner_bt \"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span>  </a></li> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<ul class=\"chatBarTab nav navbar-nav\"><li class=\"vmchat_bar_button\" id=\"techVideo\"><a class=\"inner_bt congtooltip\" data-title=\""
+  return "<ul class=\"chatBarTab nav navbar-nav\"><li class=\"vmchat_bar_button bottomright\" id=\"techVideo\" data-headerid=\"techVideo\"><a class=\"inner_bt congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"instructorVideo",{"name":"getString","hash":{},"data":data}))
     + "\"><span id=\"tech_video\"></span></a></li> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + " <li class=\"vmchat_room_bt congtooltip\" data-title=\""
+    + " <li class=\"vmchat_room_bt congtooltip bottomright\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChat",{"name":"getString","hash":{},"data":data}))
-    + "\" id=\"chatroom_bt2\"><a class=\"inner_bt\"><span id=\"chatroom_icon\"><span class=\"icon-chatroom cgIcon\"></span></span>  </a></li><li class=\"handRaise enable congtooltip \" id=\"congHr\" data-title =\""
+    + "\" id=\"chatroom_bt2\" data-headerid=\"commonChatHeader\"><a class=\"inner_bt\"><span id=\"chatroom_icon\"><span class=\"icon-chatroom cgIcon\"></span></span>  </a></li><li class=\"handRaise enable congtooltip bottomright\" id=\"congHr\" data-title =\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"RaiseHandStdEnabled",{"name":"getString","hash":{},"data":data}))
-    + "\"><a class=\"stdRaiseHand\"><span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\"></span></a></li><li id=\"virtualclassnote\" class=\"congtooltip \" data-title =\"Note\"><a><span class=\"icon-whiteboard cgIcon\"></span></a></li><li id=\"appSettingCtrl\" class=\"congtooltip chatActive\" data-title =\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"setting",{"name":"getString","hash":{},"data":data}))
-    + "\"><a id=\"appSettingCtrlAnchor\"><span class=\"setting-btn cgIcon\"></span></a></li></ul>";
+    + "\" data-headerid=\"askQuestionHeader\"><a class=\"stdRaiseHand\"><span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\"></span></a></li><li id=\"virtualclassnote\" class=\"congtooltip bottomright\" data-title =\"Note\"><a><span class=\"icon-whiteboard icon-hr-enable\"></span></a></li></ul>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/context-mark.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1313,21 +1307,23 @@ this["JST"]["dest_temp/templates/recordingControl.hbs"] = Handlebars.template({"
 },"useData":true});
 
 this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing;
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
   return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled showUserList\"> "
     + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || alias2).call(alias1,{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " "
     + ((stack1 = container.invokePartial(partials.rightBarHeader,depth0,{"name":"rightBarHeader","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "   <div id=\"rightSubContainer\" class=\"\"> "
+    + "   <div id=\"rightSubContainer\"><div id=\"chatWidget\" class=\"rightContainer\"><div id=\"congreaChatMainCont\"><div id=\"appSettingCtrl\" class=\"congtooltip chatActive\" data-title =\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"setting",{"name":"getString","hash":{},"data":data}))
+    + "\"><a id=\"appSettingCtrlAnchor\"><span class=\"setting-btn cgIcon\"></span></a></div> "
     + ((stack1 = container.invokePartial(partials.appSettingDetail,depth0,{"name":"appSettingDetail","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + " <div id=\"chatWidget\"><div id=\"congreaChatMainCont\"><div id=\"congreaChatCont\"></div><div class=\"footerCtr\" id=\"congFooterCtr\"><div class=\"vmchat_search\" id=\"congchatBarInput\"><input type=\"text\" id=\"congreaUserSearch\" class=\"search\" placeholder=\""
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Searchuser",{"name":"getString","hash":{},"data":data}))
+    + " <div id=\"congreaChatCont\"></div><div class=\"footerCtr\" id=\"congFooterCtr\"><div class=\"vmchat_search\" id=\"congchatBarInput\"><input type=\"text\" id=\"congreaUserSearch\" class=\"search\" placeholder=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Searchuser",{"name":"getString","hash":{},"data":data}))
     + "\"></div></div></div></div></div></div>";
 },"usePartial":true,"useData":true});
 
 this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"techVideoHeader\" class=\"deactive\">"
+    return " <div id=\"techVideoHeader\" class=\"rightBarHeader\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"teacherVideoHeader",{"name":"getString","hash":{},"data":data}))
     + "</div> ";
 },"3":function(container,depth0,helpers,partials,data) {
@@ -1335,13 +1331,13 @@ this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1"
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div id=\"rightBarHeader\" class=\"active\"><div id=\"userListHeader\" class=\"active\">"
+  return "<div id=\"rightBarHeader\" class=\"active\"><div id=\"userListHeader\" class=\"rightBarHeader active\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userListHeader",{"name":"getString","hash":{},"data":data}))
-    + "<span id='onlineusertext' class='cgText'></span></div><div id=\"commonChatHeader\" class=\"deactive\">"
+    + "<span id='onlineusertext' class='cgText'></span></div><div id=\"commonChatHeader\" class=\"rightBarHeader\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChatHeader",{"name":"getString","hash":{},"data":data}))
     + "</div> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.std : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " <div id=\"askQuestionHeader\" class=\"deactive\"><div class=\"header\"><div class=\"text\"><span class=\"lable\">"
+    + " <div id=\"askQuestionHeader\" class=\"rightBarHeader\"><div class=\"header\"><div class=\"text\"><span class=\"lable\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"askQuestionHeader",{"name":"getString","hash":{},"data":data}))
     + "</span></div><div class=\"action\"><span class=\"addQuestion-icon\"></span><span class=\"help-icon\"></span><span class=\"fullScreen-icon\"></span> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlayMode : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")

@@ -271,9 +271,7 @@ class BasicOperation {
       }
 
       let text = document.querySelector('#writeContent .text');
-      if (text) {
-        return;
-      }
+      if (text) { return; }
 
       const context = {componentId: data.componentId, component: data.component, parent: data.parent};
       const userInput = virtualclass.getTemplate(data.type, 'askQuestion');
@@ -343,25 +341,7 @@ class BasicOperation {
         } else if (data.component !== 'comment') {
           document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
         }
-      } else if (data.type === 'noteContainer') {
-        let note = document.getElementById('noteContainer');
-        if (note == null) {
-          const noteMainContainer = virtualclass.getTemplate('note', 'askQuestion');
-          const noteMainContainerHtml = noteMainContainer({context: virtualclass.askQuestion.currentContext});
-          document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
-        }
-
-        this.renderNote(virtualclass.askQuestion.currentContext);
-
-        const activeElement = document.querySelector('#rightSubContainer .active');
-        if (activeElement) {
-          activeElement.classList.remove('active');
-          activeElement.classList.add('deactive');
-        }
-        note = document.getElementById('noteContainer');
-        note.classList.add('active');
       }
-
       if (data.component === 'question') {
         const qnElem = document.querySelector(`#${data.id}.question`);
         if (qnElem) {
@@ -370,9 +350,25 @@ class BasicOperation {
           });
         }
       }
+    } else if (data.type === 'noteContainer') {
+      let note = document.getElementById('noteContainer');
+      if (note == null) {
+        const noteMainContainer = virtualclass.getTemplate('note', 'askQuestion');
+        const noteMainContainerHtml = noteMainContainer({context: virtualclass.askQuestion.currentContext});
+        document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
+      }
+
+      this.renderNote(virtualclass.askQuestion.currentContext);
+
+      const activeElement = document.querySelector('#rightSubContainer .active');
+      if (activeElement) {
+        activeElement.classList.remove('active');
+        // activeElement.classList.add('deactive');
+      }
+      note = document.getElementById('noteContainer');
+      note.classList.add('active');
     }
   }
-
 
 
   renderNote(currentContext) {
@@ -525,83 +521,14 @@ class BasicOperation {
 
 // This class is responsible to render HTML of each component of Ask Question
 
-class QaNote extends BasicOperation {
-  // handler() {
-  //   // virtualclass.askQuestion.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
-  //   this.renderMainContainer();
-  // }
-
-  // contentHandler(ev) {
-  //   if (this.sendToDatabaseTime) {
-  //     clearTimeout(this.sendToDatabaseTime);
-  //   } else {
-  //     this.sendToDatabaseTime = setTimeout(() => {
-  //       this.generateData(ev.currentTarget.value);
-  //       this.send();
-  //     });
-  //   }
-  // }
-
-  // renderNote(currentContext) {
-  //   let attachFunction = false;
-  //   let contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
-  //   if (contextDivElement === null) {
-  //     const contentArea = virtualclass.getTemplate('content-area', 'notes');
-  //     const contentAreaHtml = contentArea({ context: currentContext });
-  //     const noteContainer = document.querySelector('#noteContainer .container');
-  //     if (noteContainer != null) noteContainer.insertAdjacentHTML('beforeEnd', contentAreaHtml);
-  //     attachFunction = true;
-  //   }
-  //
-  //   const activeNote = document.querySelector('#noteContainer .context.active');
-  //   if (activeNote) activeNote.classList.remove('active');
-  //
-  //   contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
-  //   contextDivElement.classList.add('active');
-  //
-  //   if (attachFunction) {
-  //     const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
-  //     textArea.addEventListener('change', this.contentHandler);
-  //   }
-  // }
-
-  // renderMainContainer() {
-  //   const activeElement = document.querySelector('#rightSubContainer .active');
-  //   if (activeElement) {
-  //     activeElement.classList.remove('active');
-  //     activeElement.classList.add('deactive');
-  //   }
-  //
-  //   let note = document.getElementById('noteContainer');
-  //   if (note == null) {
-  //     const noteMainContainer = virtualclass.getTemplate('note', 'askQuestion');
-  //     const noteMainContainerHtml = noteMainContainer({ context: virtualclass.askQuestion.currentContext });
-  //     document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
-  //   }
-  //
-  //
-  //   this.renderNote(virtualclass.askQuestion.currentContext);
-  //   note = document.getElementById('noteContainer');
-  //   note.classList.add('active');
-  // }
-}
+class QaNote extends BasicOperation { }
 
 
-class QAquestion extends BasicOperation {
+class QAquestion extends BasicOperation {}
 
-}
+class QAanswer extends BasicOperation {}
 
-class QAanswer extends BasicOperation {
-
-}
-
-class QAcomment extends BasicOperation{
-
-}
-
-class Note {
-
-}
+class QAcomment extends BasicOperation {}
 
 
 class QAcontext {
@@ -861,9 +788,9 @@ class AskQuestion extends AskQuestionEngine {
       const qtemp = qaTemp(context);
       document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', qtemp);
 
-      toggle.addEventListener('click', () => {
+      toggle.addEventListener('click', (elem) => {
         this.initFirebaseOperatoin();
-        this.renderMainContainer(toggle);
+        this.renderMainContainer(elem.currentTarget);
       });
 
       const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
@@ -874,77 +801,18 @@ class AskQuestion extends AskQuestionEngine {
       }
 
       const note = document.getElementById('virtualclassnote');
-      note.addEventListener('click', () => {
+      note.addEventListener('click', (event) => {
         // this.handler.bind(this)
         this.initFirebaseOperatoin();
+        virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
         this.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
       });
     }
   }
 
-  renderMainContainer(toggle) {
-    const chatroombt2 = document.getElementById('chatroom_bt2');
-    const useList = document.getElementById('user_list');
-    const setting = document.querySelector('#appSettingCtrl');
-    const techVideo = document.querySelector('#virtualclassCont.congrea #techVideo');
-    const settingD = document.querySelector('#virtualclassCont.congrea #appSettingDetail');
-    virtualclass.chat.rightBarHeader('askQuestion');
-    // Todo, get the active element, and remove active class from this element
-    useList.classList.remove('active');
-    techVideo.classList.remove('active');
-    setting.classList.remove('active');
-    chatroombt2.classList.remove('active');
-    toggle.classList.add('active');
-
-    const askQstn = document.querySelector('#virtualclassCont.congrea #askQuestion');
-    if (askQstn.classList.contains('deactive')) {
-      askQstn.classList.remove('deactive');
-      askQstn.classList.add('active');
-    }
-
-    const chat = document.querySelector('#virtualclassCont.congrea #chatWidget');
-    if (chat.classList.contains('active')) {
-      chat.classList.remove('active');
-      chat.classList.add('deactive');
-    } else if (!chat.classList.contains('active')) {
-      chat.classList.add('deactive');
-    }
-
-    settingD.classList.remove('active');
-    if (!settingD.classList.contains('deactive')) {
-      settingD.classList.add('deactive');
-    }
-
-    const chatbox = document.getElementById('ta_chrm2');
-    if (chatbox) {
-      chatbox.style.display = 'block';
-    }
-
-    const memlist = document.getElementById('memlist');
-    if (memlist) {
-      memlist.classList.remove('enable');
-      if (!memlist.classList.contains('disable')) {
-        memlist.classList.add('disable');
-      }
-    }
-
-    const searchbox = document.getElementById('congreaUserSearch');
-    if (searchbox) {
-      searchbox.style.display = 'none';
-    }
-
-    const chatroom = document.getElementById('chatrm');
-    if (chatroom) {
-      if (chatroom.classList.contains('enable')) {
-        chatroom.classList.remove('enable');
-        chatroom.classList.add('disable');
-      }
-    }
-    const taChrm = document.getElementById('ta_chrm2');
-    if (taChrm) {
-      taChrm.style.display = 'none';
-    }
-
+  renderMainContainer(elem) {
+    virtualclass.rightbar.handleDisplayRightBar('#askQuestion');
+    virtualclass.rightbar.handleDisplayBottomRightBar(elem);
     if (this.queue[this.currentContext] && this.queue[this.currentContext].length > 0) {
       this.perform(this.currentContext);
     }

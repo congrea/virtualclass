@@ -167,5 +167,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/ask-question.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/back-detect.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/rightbar.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/index.js"></script>
 

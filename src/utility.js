@@ -2381,32 +2381,8 @@
         && typeof virtualclass.wb[id] === 'object' && virtualclass.wb[id].obj.drawTextObj) {
         virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny(undefined, id);
       }
-    },
-
-    handleRightBar(action){
-      if (action) {
-        action === 'open' ? virtualclass.vutil.openRightbar() : virtualclass.vutil.closedRightbar();
-      } else {
-        var elem = document.getElementById("virtualclassApp");
-        if (elem.classList.contains('openRightbar')) {
-          virtualclass.vutil.closedRightbar();
-        } else {
-          virtualclass.vutil.openRightbar();
-        }
-      }
-
-      if (virtualclass.currApp === 'ScreenShare') {
-        if ((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing)
-          || (roles.isTeacher() && virtualclass.gObj.studentSSstatus.mesharing)) {
-          virtualclass.studentScreen.doOpposite = true;
-          virtualclass.studentScreen.triggerFitControl();
-          virtualclass.ss.triggerFitToScreen();
-        }
-      } else {
-        virtualclass.zoom.doOpposite = true;
-        virtualclass.zoom.triggerFitToScreen();
-      }
     }
+
   };
   window.vutil = vutil;
 }(window));

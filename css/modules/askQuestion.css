@@ -126,10 +126,13 @@
   resize: none;
   color: #434343;
   font-size: 13px;
+  flex: 1;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent {
   margin: 5px 5px 3px 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 #virtualclassCont.congrea #askQuestion .context {
@@ -167,27 +170,41 @@
   margin-top: 2px;
 }
 
-#virtualclassCont.congrea #askQuestion .question .container {
+#virtualclassCont.congrea #askQuestion .question .container,
+#virtualclassCont.congrea #askQuestion .answers .container,
+#virtualclassCont.congrea #askQuestion .comments .container {
   padding: 4px 8px 1px 8px;
-  border-left: 2px solid red;
-  position: relative;
   border-radius: 3px;
+  position: relative;
+}
+
+#virtualclassCont.congrea #askQuestion .question .container {
+  border-left: 2px solid red;
 }
 
 #virtualclassCont.congrea #askQuestion .answers .container {
-  padding: 2px 8px 0 8px;
   border-left: 2px solid green;
   margin-top: 3px;
 }
 
-#virtualclassCont.congrea #askQuestion .question .container .header .info {
+#virtualclassCont.congrea #askQuestion .comments .container {
+  border-left: 2px solid #1464f6;
+  margin-top: 3px;
+}
+
+/* #virtualclassCont.congrea #askQuestion .comments .container {
+  border-left: 2px solid yellow;
+  margin-top: 3px;
+} */
+
+#virtualclassCont.congrea #askQuestion .question .container .header {
   color: #000;
   text-transform: capitalize;
   font-size: 13px;
   letter-spacing: 0.6px;
 }
 
-#virtualclassCont.congrea #askQuestion .question .container .header .info .lable {
+#virtualclassCont.congrea #askQuestion .question .container .header .lable {
   margin-left: 8px;
   color: #5a5a5a;
   font-size: 0.6875rem;
@@ -196,7 +213,8 @@
   letter-spacing: 1px;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .answers {
+#virtualclassCont.congrea #askQuestion .container .question .answers,
+#virtualclassCont.congrea #askQuestion .container .question .comments {
   margin-left: 6px;
 }
 
@@ -253,17 +271,24 @@
   padding: 3px 5px 0 12px;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply .button,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .reply .button,
-#virtualclassCont.congrea #askQuestion .container .comment .footer .controls .reply .button {
+/* #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply#virtualclassCont.congrea #askQuestion .comments .container {
+  border-left: 2px solid #1464f6;
+  margin-top: 3px;
+} .button,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .reply .#virtualclassCont.congrea #askQuestion .comments .container {
+  border-left: 2px solid #1464f6;
+  margin-top: 3px;
+}button, */
+
+#virtualclassCont.congrea #askQuestion .container .footer .controls .reply .button {
   display: inline-block;
   padding: 4px 5px 1px 12px;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action {
   font-size: 12px;
-  float: right;
-  padding: 3px 0 5px 0;
+  padding: 5px 0 5px 0;
+  align-self: flex-end;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action span {
@@ -315,10 +340,15 @@
   display: block;
 }
 
-#virtualclassCont.congrea #askQuestion .content p #writeContent {
+/* #virtualclassCont.congrea #askQuestion .content p #writeContent {
   margin: 5px 4px 2px 5px;
-}
+} */
 
-#virtualclassCont.congrea #askQuestion .content p #writeContent .action {
+/* #virtualclassCont.congrea #askQuestion .content p #writeContent .action {
   padding: 4px 0 6px 0;
+} */
+
+#virtualclassCont.congrea #askQuestion .container .comments .footer .controls .navigation .button {
+  display: inline-block;
+  padding: 3px 5px 0 1px;
 }

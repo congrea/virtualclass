@@ -1030,11 +1030,11 @@ body {
   display: block;
 }
 
-#virtualclassCont.congrea .rightContainer {
+#virtualclassCont.congrea #rightSubContainer .rightContainer {
   display: none;
 }
 
-#virtualclassCont.congrea .rightContainer.active {
+#virtualclassCont.congrea #rightSubContainer .rightContainer.active {
   display: block;
 }
 

@@ -222,7 +222,7 @@
   height: 40px;
   margin: 0;
   padding: 0;
-  white-space: pre-wrap; 
+  white-space: pre-wrap;
   outline: 0;
 }
 
@@ -665,10 +665,7 @@ virtualclasscont.congrea.playMode.student .ui-chatroom {
   color: #fff;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #userListHeader,
-#virtualclassCont.congrea #virtualclassAppRightPanel #commonChatHeader,
-#virtualclassCont.congrea #virtualclassAppRightPanel #techVideoHeader,
-#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader {
+#virtualclassCont.congrea #virtualclassAppRightPanel .rightBarHeader {
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 400;

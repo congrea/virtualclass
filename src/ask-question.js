@@ -61,9 +61,6 @@ class BasicOperation {
         } else if (event === 'edit' || event === 'markAnswer' || event === 'delete') {
           parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
         }
-        data = { event, component, componentId, parentId };
-      } else if (parent.dataset.componentId === '' && event === 'cancel') {
-        data = { event, component, componentId, parentId };
       }
 
       if (event === 'save') {
@@ -71,18 +68,29 @@ class BasicOperation {
           text = target.value;
           action = 'create';
         } else {
-          text = parent.previousSibling.value;
+          if (parent.previousSibling.value != null && parent.previousSibling.value !== '') {
+            text = parent.previousSibling.value;
+          } else {
+            alert('Please enter text here'); // TODO add popup for display msg
+            return;
+          }
           if (parent.dataset.componentId === null || parent.dataset.componentId === '') {
             action = 'create';
           } else {
             action = 'edit';
             componentId = parent.dataset.componentId;
+            if (!roles.hasControls()) {
+              const editElem = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][component][componentId].upvote;
+              if (editElem !== 0) {
+                componentId = parent.dataset.componentId;
+                event = 'cancel';
+              }
+            }
           }
         }
         parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
-        data = { event, component, componentId, text, action, parentId };
       }
-
+      data = { event, component, componentId, text, action, parentId };
       this.execute(data);
     }
   }
@@ -173,13 +181,15 @@ class BasicOperation {
     } else if (data.event === 'upvote') {
       const obj = this.generateData({ component: data.component, action: data.event });
       const upvoteCount = document.querySelector(`#${data.componentId} .upVote .total`).innerHTML;
-      if (upvoteCount == '0') {
+      if (upvoteCount === '0') {
         obj.upvote = 1;
         obj.componentId = data.componentId;
+        obj.content = virtualclass.askQuestion.context[obj.context][data.component][data.componentId].content;
         virtualclass.askQuestion.context[obj.context][data.component].send(obj);
         virtualclass.askQuestion.firstid = obj.id;
       } else {
         virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(virtualclass.askQuestion.firstid).update('upvote', firebase.firestore.FieldValue.increment(1));
+        this.upvote(data);// TODO
       }
     } else if (data.event === 'moreControls') {
       data.action = 'moreControls';
@@ -223,7 +233,6 @@ class BasicOperation {
       });
       this.send(obj);
     } else if (data.event === 'cancel') {
-
       if (data.componentId) {
         const text = document.querySelector('#writeContent .text');
         if (text) {
@@ -267,7 +276,6 @@ class BasicOperation {
         insertId = '#askQuestion';
       } else {
         insertId = '#' + ((data.componentId === null) ? data.parent : data.componentId);
-        // insertId = '#' + data.componentId;
       }
 
       let text = document.querySelector('#writeContent .text');
@@ -299,7 +307,7 @@ class BasicOperation {
         const chkContextElem = document.querySelector(`.context[data-context~=${data.context}]`);
         if ('question' && chkContextElem) {
           const componentTemplate = virtualclass.getTemplate(data.component, 'askQuestion');
-          const htmlContent = componentTemplate({id: data.id, userName: data.uname, content: data.content});
+          const htmlContent = componentTemplate({ id: data.id, userName: data.uname, content: data.content });
           document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', htmlContent);
           // document.querySelector(`#${data.id} .content p`).innerHTML = data.content;
         } else {
@@ -311,7 +319,7 @@ class BasicOperation {
           document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({
             id: data.id,
             userName: data.uname,
-            content: data.content
+            content: data.content,
           }));
           document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
         }
@@ -370,7 +378,6 @@ class BasicOperation {
     }
   }
 
-
   renderNote(currentContext) {
     let attachFunction = false;
     let contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
@@ -418,9 +425,11 @@ class BasicOperation {
   }
 
   create(data) {
-    const textTemp = document.querySelector('#writeContent');
-    if (textTemp) {
-      textTemp.remove();
+    if (data.userId === virtualclass.uInfo.userid) {
+      const textTemp = document.querySelector('#writeContent');
+      if (textTemp) {
+        textTemp.remove();
+      }
     }
     data.componentId = data.id;
     this.renderer(data);
@@ -461,7 +470,7 @@ class BasicOperation {
       question.status = status;
       contextObj[currentContext][data.component][data.componentId] = question;
     } else if (status === 'upvote') {
-      question = { id: data.id, children: [], status, parent: null, componentId: data.id, upvote: data.upvote };
+      question = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id, upvote: data.upvote };
       question.status = status;
       contextObj[currentContext][data.component][data.componentId] = question;
     }
@@ -505,6 +514,9 @@ class BasicOperation {
         document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
       }
       this.updateStatus(data, 'upvote');
+    } else {
+      // TODO
+      document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
     }
   }
 

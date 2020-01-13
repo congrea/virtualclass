@@ -313,6 +313,7 @@
     videooff: 'Video off',
     videoon: 'Video on',
     videoquality: 'Video quality',
+    virtualclassnoteHeader: 'Note',
     VotedSoFar: 'Votes received so far',
     votesuccess: 'Your vote has been submitted successfully. Result will be displayed shortly.',
     votesuccessPbt: 'Vote submitted successfully, you are not permitted to see the result.',

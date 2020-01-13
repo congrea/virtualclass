@@ -43,6 +43,7 @@
           virtualclass.rightbar.handleRightBar('open');
           virtualclass.chat.calculateViewPortForMessageBox();
         }
+        // virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
       }));
 
       $('#chatroom_bt2 .inner_bt').click(() => {
@@ -155,7 +156,7 @@
 
       })
 
-      $('#user_list').click(function () {
+      $('#user_list').click(function (event) {
         virtualclass.vutil.sendSpeedByMobile(3);
         // $('#chatroom_bt2').removeClass('active');
         // chatroom_bt2.classList.remove('active');
@@ -166,6 +167,7 @@
         // $('#congreaSupport').removeClass('active');
         // $('#user_list').addClass('active');
         virtualclass.rightbar.handleDisplayRightBar('#chatWidget');
+        virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
 
         user_list.classList.add('active');
         virtualclassAppRight.classList.add('showUserList');

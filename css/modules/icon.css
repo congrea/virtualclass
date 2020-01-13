@@ -856,7 +856,7 @@
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply span.button::before,
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .reply span.button::before,
 #virtualclassCont.congrea #askQuestion .container .comment .footer .controls .reply span.button::before {
-  content: "\e9eb";
+  content: "\e9e5";
   font-weight: 500;
   font-family: 'icomoon';
   font-size: 14px;
@@ -877,7 +877,7 @@
   content: "\e9f4";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 15px;
+  font-size: 14px;
   cursor: pointer;
   color: #383838 !important;
 }

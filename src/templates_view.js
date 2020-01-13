@@ -25,7 +25,7 @@ this["JST"]["dest_temp/templates/appSettingDetail.hbs"] = Handlebars.template({"
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div id=\"appSettingDetail\"> "
+  return "<div id=\"appSettingDetail\" class=\"rightContainer\"> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " <div id=\"settingGeneral\" class=\"app-settings-rbs\"><div class=\"setting-heading\"><label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"general",{"name":"getString","hash":{},"data":data}))
@@ -1313,9 +1313,9 @@ this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler
     + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || alias2).call(alias1,{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " "
     + ((stack1 = container.invokePartial(partials.rightBarHeader,depth0,{"name":"rightBarHeader","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "   <div id=\"rightSubContainer\"><div id=\"chatWidget\" class=\"rightContainer\"> "
+    + "   <div id=\"rightSubContainer\"> "
     + ((stack1 = container.invokePartial(partials.appSettingDetail,depth0,{"name":"appSettingDetail","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + " <div id=\"congreaChatMainCont\"><div id=\"congreaChatCont\"></div><div class=\"footerCtr\" id=\"congFooterCtr\"><div class=\"vmchat_search\" id=\"congchatBarInput\"><input type=\"text\" id=\"congreaUserSearch\" class=\"search\" placeholder=\""
+    + " <div id=\"chatWidget\" class=\"rightContainer\"><div id=\"congreaChatMainCont\"><div id=\"congreaChatCont\"></div><div class=\"footerCtr\" id=\"congFooterCtr\"><div class=\"vmchat_search\" id=\"congchatBarInput\"><input type=\"text\" id=\"congreaUserSearch\" class=\"search\" placeholder=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Searchuser",{"name":"getString","hash":{},"data":data}))
     + "\"></div></div></div></div></div></div>";
 },"usePartial":true,"useData":true});

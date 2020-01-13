@@ -471,9 +471,9 @@ body {
   display: none;
 }
 
-#virtualclassCont.congrea #rightSubContainer #appSettingDetail.deactive {
-  display: none;
-}
+/*#virtualclassCont.congrea #rightSubContainer #appSettingDetail.deactive {*/
+  /*display: none;*/
+/*}*/
 
 /*#virtualclassCont.congrea #chatWidget.deactive #congreaChatMainCont {*/
   /*display: none;*/
@@ -1037,5 +1037,9 @@ body {
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #appSettingCtrl,
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #appSettingCtrl {
+  display: block;
+}
+
+#virtualclassCont.congrea #appSettingDetail.active {
   display: block;
 }

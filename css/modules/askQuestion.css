@@ -170,26 +170,39 @@
   margin-top: 2px;
 }
 
-#virtualclassCont.congrea #askQuestion .question .container,
-#virtualclassCont.congrea #askQuestion .answers .container,
-#virtualclassCont.congrea #askQuestion .comments .container {
+#virtualclassCont.congrea #askQuestion .question .container {
   padding: 4px 8px 1px 8px;
-  border-radius: 3px;
   position: relative;
 }
 
-#virtualclassCont.congrea #askQuestion .question .container {
-  border-left: 2px solid red;
-}
-
-#virtualclassCont.congrea #askQuestion .answers .container {
-  border-left: 2px solid green;
-  margin-top: 3px;
-}
-
+#virtualclassCont.congrea #askQuestion .answers .container,
 #virtualclassCont.congrea #askQuestion .comments .container {
-  border-left: 2px solid #1464f6;
-  margin-top: 3px;
+  padding: 1px 8px 1px 8px;
+  position: relative;
+}
+
+/* #virtualclassCont.congrea #askQuestion .question .container {
+  border-left: 2px solid red;
+} */
+
+#virtualclassCont.congrea #askQuestion .answers .container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 2px;
+  height: 91%;
+  background: green;
+}
+
+#virtualclassCont.congrea #askQuestion .comments .comment .container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 2px;
+  height: 91%;
+  background: #007eff;
 }
 
 /* #virtualclassCont.congrea #askQuestion .comments .container {
@@ -351,4 +364,14 @@
 #virtualclassCont.congrea #askQuestion .container .comments .footer .controls .navigation .button {
   display: inline-block;
   padding: 3px 5px 0 1px;
+}
+
+#virtualclassCont.congrea #askQuestion .question .container[data-type="question"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 93%;
+  background: red;
 }

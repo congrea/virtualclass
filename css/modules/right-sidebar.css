@@ -1010,9 +1010,6 @@ body {
 }
 
 
-#virtualclassCont.congrea #appSettingCtrl {
-  top: -30px;
-}
 
 #virtualclassCont.congrea .rightBarHeader {
   display: none;
@@ -1020,10 +1017,6 @@ body {
 
 #virtualclassCont.congrea #chatWidget #appSettingCtrl {
   display: none;
-}
-
-#virtualclassCont.congrea #chatWidget.active #appSettingCtrl {
-  display: block;
 }
 
 #virtualclassCont.congrea .rightBarHeader.active {
@@ -1038,3 +1031,11 @@ body {
   display: block;
 }
 
+#virtualclassCont.congrea #virtualclassAppRightPanel #appSettingCtrl {
+  display: none;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #appSettingCtrl,
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #appSettingCtrl {
+  display: block;
+}

@@ -1,4 +1,4 @@
-<div id="virtualclassAppRightPanel" class="rightbar bootstrap chat_enabled showUserList">
+<div id="virtualclassAppRightPanel" class="rightbar bootstrap chat_enabled showUserList" dataset="userListHeader">
   {{> ('getVideoType') }}
   {{> rightBarHeader}}
   {{!-- {{> ('getVideoType') }} --}}
@@ -6,15 +6,9 @@
 
   <div id="rightSubContainer">
       <div id="chatWidget" class="rightContainer">
+          {{> appSettingDetail}}
           <div id="congreaChatMainCont">
-            <div id="appSettingCtrl" class="congtooltip chatActive" data-title ="{{getString 'setting'}}">
-              <a id="appSettingCtrlAnchor">
-                <span class="setting-btn cgIcon"></span>
-              </a>
-            </div>
-            {{> appSettingDetail}}
             <div id="congreaChatCont"> </div>
-
             <div class="footerCtr" id="congFooterCtr">
               <div class="vmchat_search" id="congchatBarInput">
                 <input type="text" id="congreaUserSearch" class="search"

@@ -72,6 +72,8 @@ class Rightbar {
     if (stickycontainer) stickycontainer.classList.remove('active');
     element.classList.add('active');
     this.handlerHeader(element.dataset.headerid);
+    const virtualclassAppRightPanel = document.getElementById('virtualclassAppRightPanel');
+    if (virtualclassAppRightPanel != null) virtualclassAppRightPanel.dataset.currwindow = element.dataset.headerid;
   }
 
   handlerHeader(selector) {

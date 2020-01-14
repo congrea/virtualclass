@@ -5,7 +5,8 @@
  */
 class BasicOperation {
   constructor () {
-    this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation', 'createInput', 'save', 'cancel', 'navigation'];
+    this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation',
+      'createInput', 'save', 'cancel', 'navigation'];
   }
 
   generateData(data) {
@@ -204,30 +205,44 @@ class BasicOperation {
     } else if (data.event === 'moreControls') {
       data.action = 'moreControls';
     } else if (data.event === 'save') {
-      if (data.componentId) {
-        const footerElem = document.querySelector(`#${data.componentId} .footer`);
-        if (footerElem && footerElem.classList.contains('hide')) {
-          footerElem.classList.remove('hide');
-          footerElem.classList.add('show');
+      if (data.component === 'note') {
+        const obj = this.generateData({
+          component: data.component,
+          content: data.text,
+          type: 'noteWithContent',
+          action: data.action,
+          uname: virtualclass.uInfo.userobj.name,
+          componentId: data.componentId,
+          parent: data.parentId,
+        });
+        this.send(obj);
+      } else {
+        if (data.componentId) {
+          const footerElem = document.querySelector(`#${data.componentId} .footer`);
+          if (footerElem && footerElem.classList.contains('hide')) {
+            footerElem.classList.remove('hide');
+            footerElem.classList.add('show');
+          }
+        }
+        const obj = this.generateData({
+          component: data.component,
+          content: data.text,
+          type: 'contentBox',
+          action: data.action,
+          uname: virtualclass.uInfo.userobj.name,
+          componentId: data.componentId,
+          parent: data.parentId,
+        });
+        if (data.action === 'create') {
+          obj.componentId = obj.id;
+        }
+        this.send(obj);
+        if (roles.hasControls() && data.component === 'answer') {
+          obj.action = 'markAnswer';
+          this.send(obj); // todo, why we are seding more than one time data
         }
       }
-      const obj = this.generateData({
-        component: data.component,
-        content: data.text,
-        type: 'contentBox',
-        action: data.action,
-        uname: virtualclass.uInfo.userobj.name,
-        componentId: data.componentId,
-        parent: data.parentId,
-      });
-      if (data.action === 'create') {
-        obj.componentId = obj.id;
-      }
-      this.send(obj);
-      if (roles.hasControls() && data.component === 'answer') {
-        obj.action = 'markAnswer';
-        this.send(obj);
-      }
+
     } else if (data.event === 'markAnswer') {
       const moreControlElem = document.querySelector(`#${data.componentId} .moreControls .item`);
       if (moreControlElem.classList.contains('open')) {
@@ -274,7 +289,7 @@ class BasicOperation {
       }
     }
     if (data.event !== 'save' && data.event !== 'delete' && data.event !== 'upvote'
-      && data.event !== 'markAnswer' && data.event !== 'cancel' && data.event !== 'navigation') { // TODO
+      && data.event !== 'markAnswer' && data.event !== 'cancel' && data.event !== 'navigation') { // TODO, this has to be simplified
       this[data.action].call(this, data);
     }
   }
@@ -385,6 +400,13 @@ class BasicOperation {
       }
       note = document.getElementById('noteContainer');
       note.classList.add('active');
+    } else if (data.type === 'noteWithContent') {
+      let noteTextContainer = document.querySelector(`#noteContainer [data-context~=${data.context}] .content`);
+      if (!noteTextContainer) {
+        virtualclass.askQuestion.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: data.context });
+        noteTextContainer = document.querySelector(`#noteContainer [data-context~=${data.context}] .content`);
+      }
+      noteTextContainer.value = data.content;
     }
   }
 
@@ -407,19 +429,21 @@ class BasicOperation {
 
     if (attachFunction) {
       const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
-      textArea.addEventListener('change', this.noteHandler.bind(this));
+      textArea.addEventListener('input', this.noteHandler.bind(this));
     }
   }
 
+  // TODO, let see how can this be improve more
   noteHandler(ev) {
     if (this.sendToDatabaseTime) {
       clearTimeout(this.sendToDatabaseTime);
+      delete this.sendToDatabaseTime;
     } else {
       const self = this;
       this.sendToDatabaseTime = setTimeout(() => {
         console.log('===> send note data on 700');
         self.handler(ev);
-      }, 700);
+      }, 1000);
     }
   }
 
@@ -708,6 +732,9 @@ class AskQuestion extends AskQuestionEngine {
     const type = this.getActiveTab();
     if (type && this.queue[type] && this.queue[type][this.currentContext] && this.queue[type][this.currentContext].length > 0) {
       this.perform(this.currentContext, type);
+    } else if (type === 'note') {
+      // Create blank structure for note
+      this.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
     }
 
     // const noteContainerActive = document.querySelector('#noteContainer.active');
@@ -808,8 +835,13 @@ class AskQuestion extends AskQuestionEngine {
       // TODO, we have to store the inital data from attachHandlerForRealTimeUpdate
       self.initCollectionMark = true;
       snapshot.docs.forEach((doc) => {
-        this.makeQueue(doc.data());
-        // this.context[data.context].actions.push(data);
+        const data = doc.data();
+        const currentActiveTab = self.getActiveTab();
+        if (currentActiveTab === 'note' && self.currentContext === data.context) {
+          self.performWithQueue(data);
+        } else {
+          this.makeQueue(data);
+        }
       });
     }).catch((error) => {
       console.log('ask question read error ', error);

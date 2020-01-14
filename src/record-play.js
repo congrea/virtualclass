@@ -375,11 +375,13 @@
       const currentMin = ((Math.floor(this.refrenceTime / 1000)) - this.firstTimeInSeconds) / 60;
       const totalMin = (this.totalTimeInMiliSeconds) / 1000 / 60;
       const markPoint = Math.floor((currentMin * 100) / totalMin);
+
       console.log('=== total minute 2 ref', (this.refrenceTime / 1000), ' firstTime', this.firstTimeInSeconds, ' total time in miliseconds ', this.totalTimeInMiliSeconds)
       const contextMark = virtualclass.getTemplate('context-mark');
       const data = Object.assign({}, allmark, { id: 'ctime'+markPoint, width: markPoint });
       const contextMarkHtml = contextMark(data);
       document.getElementById('allMarksinformation').insertAdjacentHTML('beforeend', contextMarkHtml);
+
     },
 
     makeRecordingQueue(file, rawData) {
@@ -477,8 +479,8 @@
                 if (virtualclass.askQuestion.allMarks[msg.m.context].bookmark && virtualclass.askQuestion.allMarks[msg.m.context].bookmark.length > 0) {
                   allMark.bookmark = true;
                 }
+                this.renderContextElement(allMark);
               }
-              this.renderContextElement(allMark);
             }
           }
         }

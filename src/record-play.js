@@ -286,7 +286,8 @@
               setTimeout(() => {
                 virtualclass.recorder.requestDataFromServer(file, xhr);
               }, 1000);
-            });
+            }
+            );
 
           // virtualclass.recorder.xhr[file] = new XHR();
           // virtualclass.recorder.xhr[file].init();
@@ -463,16 +464,19 @@
               const msg = JSON.parse(io.cleanRecJson(data));
               console.log('====> ready context ', msg.m.context);
               const allMark = { question: false, note: false, bookmark: false };
-              if (virtualclass.askQuestion.allMarks[msg.m.context].question && virtualclass.askQuestion.allMarks[msg.m.context].question.length > 0) {
-                allMark.question = true;
-              }
+              // TODO, we need to check why there is missing context during live session _doc_0_2
+              if (virtualclass.askQuestion.allMarks[msg.m.context]) {
+                if (virtualclass.askQuestion.allMarks[msg.m.context].question && virtualclass.askQuestion.allMarks[msg.m.context].question.length > 0) {
+                  allMark.question = true;
+                }
 
-              if (virtualclass.askQuestion.allMarks[msg.m.context].note && virtualclass.askQuestion.allMarks[msg.m.context].note.length > 0) {
-                allMark.note = true;
-              }
+                if (virtualclass.askQuestion.allMarks[msg.m.context].note && virtualclass.askQuestion.allMarks[msg.m.context].note.length > 0) {
+                  allMark.note = true;
+                }
 
-              if (virtualclass.askQuestion.allMarks[msg.m.context].bookmark && virtualclass.askQuestion.allMarks[msg.m.context].bookmark.length > 0) {
-                allMark.bookmark = true;
+                if (virtualclass.askQuestion.allMarks[msg.m.context].bookmark && virtualclass.askQuestion.allMarks[msg.m.context].bookmark.length > 0) {
+                  allMark.bookmark = true;
+                }
               }
               this.renderContextElement(allMark);
             }

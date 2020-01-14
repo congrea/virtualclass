@@ -22,13 +22,23 @@ class BasicOperation {
       virtualclass.askQuestion.setDbCollection();
       virtualclass.askQuestion.attachHandlerForRealTimeUpdate();
     }
-    virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(data.id).set(data)
-      .then(() => {
+
+    if (data.component === 'note') {
+      virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collectionMark).doc(data.id).set(data).then(() => {
         console.log('ask question write, Document successfully written! ', data);
       })
-      .catch((error) => {
-        console.error('ask question write, Error writing document: ', error);
-      });
+        .catch((error) => {
+          console.error('ask question write, Error writing document: ', error);
+        });
+    } else {
+      virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(data.id).set(data)
+        .then(() => {
+          console.log('ask question write, Document successfully written! ', data);
+        })
+        .catch((error) => {
+          console.error('ask question write, Error writing document: ', error);
+        });
+    }
   }
 
   handler(ev) {
@@ -407,8 +417,9 @@ class BasicOperation {
     } else {
       const self = this;
       this.sendToDatabaseTime = setTimeout(() => {
+        console.log('===> send note data on 700');
         self.handler(ev);
-      });
+      }, 700);
     }
   }
 
@@ -721,12 +732,14 @@ class AskQuestion extends AskQuestionEngine {
     if (virtualclass.isPlayMode) {
       this.collection = `${wbUser.lkey}_${wbUser.session}_${wbUser.room}`;
     } else if (localStorage.getItem('mySession') != null) {
-      console.log('====> hello guys');
       this.collection = `${wbUser.lkey}_${localStorage.getItem('mySession')}_${wbUser.room}`;
     }
+
+    this.collectionMark = `${this.collection}_${virtualclass.gObj.uid}`;
   }
 
   buildAllMarksStatus (data) {
+
     if (!this.allMarks[data.context]) {
       this.allMarks[data.context] = {};
     }
@@ -746,9 +759,10 @@ class AskQuestion extends AskQuestionEngine {
     this.db.collection(this.collection).orderBy('timestamp', 'asc')
       .onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach((change) => {
+          const askQuestion = document.getElementById('askQuestion');
           if (change.type === 'added' || change.type === 'modified') {
             const data = change.doc.data();
-            if (data.context === virtualclass.askQuestion.currentContext) {
+            if (askQuestion.classList.contains('active') && data.context === virtualclass.askQuestion.currentContext) {
               this.performWithQueue(data);
               if (virtualclass.isPlayMode && data.context === '_doc_0_0') this.buildAllMarksStatus(data);
             } else {
@@ -770,16 +784,29 @@ class AskQuestion extends AskQuestionEngine {
 
   afterSignIn() {
     console.log('====> after sign in');
-    // this.loadInitialData();
     if (this.collection) this.attachHandlerForRealTimeUpdate();
     if (virtualclass.isPlayMode) {
       virtualclass.recorder.requestListOfFiles();
     }
+    // if (this.collectionMark) this.loadInitialDataMark();
   }
 
-  loadInitialData() {
-    this.db.collection(this.collection).get().then((snapshot) => {
+  loadInitialDataMark() {
+    if (this.initCollectionMark) return;
+    // this.db.collection(this.collection).get().then((snapshot) => {
+    //   // TODO, we have to store the inital data from attachHandlerForRealTimeUpdate
+    //   snapshot.docs.forEach((doc) => {
+    //     this.makeQueue(doc.data());
+    //     // this.context[data.context].actions.push(data);
+    //   });
+    // }).catch((error) => {
+    //   console.log('ask question read error ', error);
+    // });
+    console.log('===> trigger initial data');
+    const self = this;
+    this.db.collection(this.collectionMark).get().then((snapshot) => {
       // TODO, we have to store the inital data from attachHandlerForRealTimeUpdate
+      self.initCollectionMark = true;
       snapshot.docs.forEach((doc) => {
         this.makeQueue(doc.data());
         // this.context[data.context].actions.push(data);
@@ -815,11 +842,16 @@ class AskQuestion extends AskQuestionEngine {
       const note = document.getElementById('virtualclassnote');
       note.addEventListener('click', (event) => {
         // this.handler.bind(this)
-        this.initFirebaseOperatoin();
+        this.triggerInitFirebaseOperation();
         virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
         this.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
       });
     }
+  }
+
+  async triggerInitFirebaseOperation() {
+    await this.initFirebaseOperatoin();
+    if (this.initFirebase) { this.loadInitialDataMark(); }
   }
 
   renderMainContainer(elem) {

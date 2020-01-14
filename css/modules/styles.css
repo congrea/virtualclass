@@ -5120,9 +5120,9 @@ body {
   border-left: 1px solid;
 }
 
-#virtualclassCont.congrea #virtualclassAppFooterPanel #allMarksIinformation {
+#virtualclassCont.congrea #virtualclassAppFooterPanel #allMarksinformation {
   position: fixed;
-  bottom: 43px;
+  bottom: 44px;
   z-index: 15000;
   width: 100%;
   display: flex;
@@ -5133,16 +5133,15 @@ body {
   position: relative;
 }
 
-#virtualclassCont.congrea #virtualclassAppFooterPanel .markContainer.context {
-  width: 5px;
-  border: 2px solid #e80bd7;
-  height: 5px;
+#virtualclassCont.congrea #virtualclassAppFooterPanel #allMarksinformation .markContainer.context {
+  border-left: 2px solid #000;
   cursor: pointer;
+
+  /* flex: 1; */
 }
 
-#virtualclassCont.congrea .markContainer[data-question='true'] .question{
+#virtualclassCont.congrea .markContainer[data-question='true'] .question {
   width: 8px;
-  margin-left: 9px;
-  background: orange;
+  background: #e8002b;
   height: 7px;
 }

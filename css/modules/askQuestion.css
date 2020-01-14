@@ -36,6 +36,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   /* background-color: #efefef; */
+  height: 90%;
 }
 
 /* #virtualclassCont.congrea #askQuestion .container .question .footer {
@@ -374,4 +375,24 @@
   width: 2px;
   height: 93%;
   background: red;
+}
+
+#virtualclassCont.congrea #noteContainer .loading {
+  display: none;
+}
+
+#virtualclassCont.congrea #noteContainer .contentContainer {
+  display: none;
+}
+
+#virtualclassCont.congrea #noteContainer .contentContainer.active {
+  display: block;
+}
+
+#virtualclassCont.congrea #noteContainer .content {
+  height: 100%
+}
+
+#virtualclassCont.congrea #noteContainer .loading.active {
+  display: block;
 }

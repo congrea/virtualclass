@@ -25,6 +25,7 @@ class BasicOperation {
     }
 
     if (data.component === 'note') {
+      console.log('send note data ', data);
       virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collectionMark).doc(data.id).set(data).then(() => {
         console.log('ask question write, Document successfully written! ', data);
       })
@@ -414,14 +415,14 @@ class BasicOperation {
   }
 
   renderNote(currentContext) {
-    let attachFunction = false;
+    // let attachFunction = false;
     let contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
     if (contextDivElement === null) {
       const contentArea = virtualclass.getTemplate('content-area', 'askQuestion');
       const contentAreaHtml = contentArea({ context: currentContext });
       const noteContainer = document.querySelector('#noteContainer .container');
       if (noteContainer != null) noteContainer.insertAdjacentHTML('beforeEnd', contentAreaHtml);
-      attachFunction = true;
+     // attachFunction = true;
     }
 
     const activeNote = document.querySelector('#noteContainer .context.active');
@@ -430,24 +431,26 @@ class BasicOperation {
     contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
     contextDivElement.classList.add('active');
 
-    if (attachFunction) {
+    //if (attachFunction) {
       const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
       textArea.addEventListener('input', this.noteHandler.bind(this));
-    }
+    // }
   }
 
   // TODO, let see how can this be improve more
   noteHandler(ev) {
+    console.log('====> note event generate ');
     if (this.sendToDatabaseTime) {
       clearTimeout(this.sendToDatabaseTime);
-      delete this.sendToDatabaseTime;
-    } else {
-      const self = this;
-      this.sendToDatabaseTime = setTimeout(() => {
-        console.log('===> send note data on 700');
-        self.handler(ev);
-      }, 1000);
     }
+
+    const self = this;
+    this.sendToDatabaseTime = setTimeout(() => {
+      console.log('====> note event send ');
+      console.log('===> send note data on 700');
+      // send note to database
+      self.handler(ev);
+    }, 700);
   }
 
   moreControls (data) {
@@ -850,6 +853,8 @@ class AskQuestion extends AskQuestionEngine {
           this.makeQueue(data);
         }
       });
+
+      // const loading = document.querySelector();
     }).catch((error) => {
       console.log('ask question read error ', error);
     });
@@ -891,6 +896,15 @@ class AskQuestion extends AskQuestionEngine {
   async triggerInitFirebaseOperation() {
     await this.initFirebaseOperatoin();
     if (this.initFirebase) { this.loadInitialDataMark(); }
+    const loadingActive = document.querySelector('#noteContainer .loading.active');
+    if (loadingActive) {
+      loadingActive.classList.remove('active');
+    }
+
+    const contentActive = document.querySelector('#noteContainer .contentContainer');
+    if (contentActive) {
+      contentActive.classList.add('active');
+    }
   }
 
   renderMainContainer(elem) {

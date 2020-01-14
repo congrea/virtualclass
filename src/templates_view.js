@@ -211,7 +211,7 @@ this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='noteContainer'><div class=\"container note\"></div><div id=\"noteNavigation\">Note navigation</div><div class=\"loading\">Loading</div></div>";
+    return "<div id='noteContainer'><div class=\"contentContainer\"><div class=\"container note\"></div><div id=\"noteNavigation\">Note navigation</div></div><div class=\"loading active\">Loading</div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

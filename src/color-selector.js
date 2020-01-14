@@ -117,8 +117,7 @@
         + '#virtualclassCont.congrea .commandToolsWrapper, '
         + '#virtualclassCont.congrea .shapesToolbox .shapesTool, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel, '
-        + '#virtualclassCont.congrea.student #appSettingDetail .setting-heading, '
-        + '#virtualclassCont #appSettingDetail .bulkUserActions .setting-heading '
+        + '#virtualclassCont.congrea.student #appSettingDetail .setting-heading '
         + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
 
         + '#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn '

@@ -114,7 +114,8 @@
   background-color: #e6ebf1;
 }
 
-#virtualclassCont.congrea #askQuestion, #virtualclassCont.congrea #noteContainer {
+#virtualclassCont.congrea #askQuestion.active,
+#virtualclassCont.congrea #noteContainer.active {
   height: 100%;
   display: flex;
   flex-direction: column;

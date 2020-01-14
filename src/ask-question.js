@@ -403,7 +403,10 @@ class BasicOperation {
     } else if (data.type === 'noteWithContent') {
       let noteTextContainer = document.querySelector(`#noteContainer [data-context~=${data.context}] .content`);
       if (!noteTextContainer) {
-        virtualclass.askQuestion.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: data.context });
+        // virtualclass.askQuestion.renderer({ component: 'note', action: 'renderer', type: 'noteContainer', context: data.context });
+        // virtualclass.askQuestion.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: data.context });
+        virtualclass.askQuestion.performWithPassData({ component: 'note', action: 'renderer', type: 'noteContainer', context: data.context });
+
         noteTextContainer = document.querySelector(`#noteContainer [data-context~=${data.context}] .content`);
       }
       noteTextContainer.value = data.content;
@@ -625,6 +628,10 @@ class AskQuestionEngine {
         this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
       }
     }
+  }
+
+  performWithPassData(data) {
+    this.context[data.context][data.component][data.action].call(this.context[data.context][data.component], data);
   }
 }
 

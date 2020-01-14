@@ -314,11 +314,11 @@ class BasicOperation {
       }
     } else if (data.type === 'contentBox') {
       if (data.component === 'question') {
-        const chkContextElem = document.querySelector(`.context[data-context~=${data.context}]`);
+        const chkContextElem = document.querySelector(`#askQuestion .context[data-context~=${data.context}]`);
         if ('question' && chkContextElem) {
           const componentTemplate = virtualclass.getTemplate(data.component, 'askQuestion');
           const htmlContent = componentTemplate({ id: data.id, userName: data.uname, content: data.content });
-          document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', htmlContent);
+          document.querySelector(`#askQuestion [data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', htmlContent);
           // document.querySelector(`#${data.id} .content p`).innerHTML = data.content;
         } else {
           const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
@@ -326,12 +326,12 @@ class BasicOperation {
           document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
 
           const componentTemp = virtualclass.getTemplate(data.component, 'askQuestion');
-          document.querySelector(`[data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({
+          document.querySelector(`#askQuestion [data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({
             id: data.id,
             userName: data.uname,
             content: data.content,
           }));
-          document.querySelector(`[data-context~=${data.context}]`).classList.add('current');
+          document.querySelector(`#askQuestion [data-context~=${data.context}]`).classList.add('current');
         }
       } else if (data.component === 'answer' || data.component === 'comment') {
         const qaAnswerTemp = virtualclass.getTemplate(data.component, 'askQuestion');
@@ -392,7 +392,7 @@ class BasicOperation {
     let attachFunction = false;
     let contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
     if (contextDivElement === null) {
-      const contentArea = virtualclass.getTemplate('content-area', 'notes');
+      const contentArea = virtualclass.getTemplate('content-area', 'askQuestion');
       const contentAreaHtml = contentArea({ context: currentContext });
       const noteContainer = document.querySelector('#noteContainer .container');
       if (noteContainer != null) noteContainer.insertAdjacentHTML('beforeEnd', contentAreaHtml);
@@ -857,8 +857,8 @@ class AskQuestion extends AskQuestionEngine {
   renderMainContainer(elem) {
     virtualclass.rightbar.handleDisplayRightBar('#askQuestion');
     virtualclass.rightbar.handleDisplayBottomRightBar(elem);
-    if (this.queue[this.currentContext] && this.queue[this.currentContext].length > 0) {
-      this.perform(this.currentContext);
+    if (this.queue.question[this.currentContext] && this.queue.question[this.currentContext].length > 0) {
+      this.perform(this.currentContext, 'question');
     }
   }
 

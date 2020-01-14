@@ -75,7 +75,7 @@
         this.initRecordViewHandler();
         this.attachSeekHandler = true;
         const virtualclassApp = document.querySelector('#virtualclassCont');
-        const downloadProgressBar = document.querySelector('#allMarksIinformation');
+        const downloadProgressBar = document.querySelector('#allMarksinformation');
         // const playProgressBar = document.querySelector('#playProgressBar');
 
         downloadProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
@@ -378,7 +378,7 @@
       const contextMark = virtualclass.getTemplate('context-mark');
       const data = Object.assign({}, allmark, { id: 'ctime'+markPoint, width: markPoint });
       const contextMarkHtml = contextMark(data);
-      document.getElementById('allMarksIinformation').insertAdjacentHTML('beforeend', contextMarkHtml);
+      document.getElementById('allMarksinformation').insertAdjacentHTML('beforeend', contextMarkHtml);
     },
 
     makeRecordingQueue(file, rawData) {

@@ -36,6 +36,7 @@
       virtualclass.gObj.role = 's';
       localStorage.removeItem('teacherId');
       wbUser.rid = wbUser.id;
+      virtualclass.gObj.orginalUserId = wbUser.id;
       wbUser.id = 99955551230;
       virtualclass.gObj.uid = wbUser.id;
     }

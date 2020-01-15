@@ -859,25 +859,30 @@ class AskQuestion extends AskQuestionEngine {
   setDbCollection() {
     if (virtualclass.isPlayMode) {
       this.collection = `${wbUser.lkey}_${wbUser.session}_${wbUser.room}`;
+      this.collectionMark = `${this.collection}_${virtualclass.gObj.orginalUserId}`;
     } else if (localStorage.getItem('mySession') != null) {
       this.collection = `${wbUser.lkey}_${localStorage.getItem('mySession')}_${wbUser.room}`;
+      this.collectionMark = `${this.collection}_${virtualclass.gObj.uid}`;
     }
-
-    this.collectionMark = `${this.collection}_${virtualclass.gObj.uid}`;
   }
 
-  buildAllMarksStatus (data) {
-
+  buildAllMarksStatus(data) {
     if (!this.allMarks[data.context]) {
       this.allMarks[data.context] = {};
     }
-
     if ((data.component === 'question' || data.component === 'note' || data.component === 'bookmark')) {
-      if (data.action === 'create') {
-        if (!this.allMarks[data.context].question) this.allMarks[data.context].question = [];
-        this.allMarks[data.context][data.component].push(data.componentId);
-      } else if (data.action === 'delete') {
-        this.allMarks[data.context][data.component] = this.allMarks[data.context][data.component].filter(e => e !== data.componentId);
+      if (data.component === 'question') {
+        if (data.action === 'create') {
+          if (!this.allMarks[data.context].question) this.allMarks[data.context].question = [];
+          this.allMarks[data.context][data.component].push(data.componentId);
+        } else if (data.action === 'delete') {
+          this.allMarks[data.context][data.component] = this.allMarks[data.context][data.component].filter(e => e !== data.componentId);
+        }
+      } else if (data.component === 'note') {
+        this.allMarks[data.context][data.component] = true;
+        if (data.content.trim() === '' || data.content.trim() === '') {
+          delete this.allMarks[data.context][data.component];
+        }
       }
     }
   }
@@ -903,7 +908,7 @@ class AskQuestion extends AskQuestionEngine {
         if (this.firstRealTime) {
           const virtualclassCont = document.getElementById('virtualclassCont');
           if (virtualclassCont) virtualclassCont.classList.remove('askQuestionFetching');
-          this.firstRealTime  = false;
+          this.firstRealTime = false;
         }
       }, (error) => {
         console.log('ask question real time ', error);
@@ -915,6 +920,7 @@ class AskQuestion extends AskQuestionEngine {
     if (this.collection) this.attachHandlerForRealTimeUpdate();
     if (virtualclass.isPlayMode) {
       virtualclass.recorder.requestListOfFiles();
+      if (this.collectionMark) this.loadInitialDataMark();
     }
     // if (this.collectionMark) this.loadInitialDataMark();
   }
@@ -943,6 +949,7 @@ class AskQuestion extends AskQuestionEngine {
         } else {
           this.makeQueue(data);
         }
+        if (virtualclass.isPlayMode) this.buildAllMarksStatus(data);
       });
 
       // const loading = document.querySelector();

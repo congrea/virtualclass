@@ -5140,8 +5140,17 @@ body {
   /* flex: 1; */
 }
 
-#virtualclassCont.congrea .markContainer[data-question='true'] .question {
+#virtualclassCont.congrea .markContainer[data-question='true'] .question,
+#virtualclassCont.congrea .markContainer[data-note='true'] .note,
+#virtualclassCont.congrea .markContainer[data-bookmark='true'] .note {
   width: 8px;
-  background: #e8002b;
   height: 7px;
+}
+
+#virtualclassCont.congrea .markContainer[data-question='true'] .question {
+  background: #e8002b;
+}
+
+#virtualclassCont.congrea .markContainer[data-note='true'] .note {
+  background: #e8c623;
 }

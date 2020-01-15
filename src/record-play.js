@@ -371,17 +371,17 @@
       return chunk;
     },
 
-    renderContextElement(allmark) {
+    renderContextElement(allmark, context) {
+      console.log('my context ', context);
       const currentMin = ((Math.floor(this.refrenceTime / 1000)) - this.firstTimeInSeconds) / 60;
       const totalMin = (this.totalTimeInMiliSeconds) / 1000 / 60;
-      const markPoint = Math.floor((currentMin * 100) / totalMin);
-
+      // const markPoint = Math.floor((currentMin * 100) / totalMin);
+      const markPoint = (currentMin * 100) / totalMin;
       console.log('=== total minute 2 ref', (this.refrenceTime / 1000), ' firstTime', this.firstTimeInSeconds, ' total time in miliseconds ', this.totalTimeInMiliSeconds)
       const contextMark = virtualclass.getTemplate('context-mark');
-      const data = Object.assign({}, allmark, { id: 'ctime'+markPoint, width: markPoint });
+      const data = Object.assign({}, allmark, { id: 'ctime'+markPoint, width: markPoint, context });
       const contextMarkHtml = contextMark(data);
       document.getElementById('allMarksinformation').insertAdjacentHTML('beforeend', contextMarkHtml);
-
     },
 
     makeRecordingQueue(file, rawData) {
@@ -461,8 +461,8 @@
                 nextMinus = (Math.trunc(nextMiliSeconds / 1000) * 1000);
               }
             }
-            this.refrenceTime = time;
-            if (data.indexOf('"m":{"cf":"readyContext"') > -1) {
+            // if (data.indexOf('"m":{"cf":"readyContext"') > -1) {
+            if (data.indexOf('readyContext') > -1) {
               const msg = JSON.parse(io.cleanRecJson(data));
               console.log('====> ready context ', msg.m.context);
               const allMark = { question: false, note: false, bookmark: false };
@@ -472,16 +472,21 @@
                   allMark.question = true;
                 }
 
-                if (virtualclass.askQuestion.allMarks[msg.m.context].note && virtualclass.askQuestion.allMarks[msg.m.context].note.length > 0) {
+                if (virtualclass.askQuestion.allMarks[msg.m.context].note) {
+                  console.log('This context has note ', msg.m.context);
                   allMark.note = true;
                 }
 
-                if (virtualclass.askQuestion.allMarks[msg.m.context].bookmark && virtualclass.askQuestion.allMarks[msg.m.context].bookmark.length > 0) {
+                if (virtualclass.askQuestion.allMarks[msg.m.context].bookmark) {
                   allMark.bookmark = true;
                 }
-                this.renderContextElement(allMark);
               }
+
+              // Todo, related ask qeustion
+              // TODO, there is bit time difference between actual and context point time
+              this.renderContextElement(allMark, msg.m.context);
             }
+            this.refrenceTime = time;
           }
         }
       }

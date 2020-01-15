@@ -196,10 +196,6 @@ this["JST"]["dest_temp/templates/askQuestion/context.hbs"] = Handlebars.template
     + "\"><div class=\"container\"></div></div>";
 },"useData":true});
 
-this["JST"]["dest_temp/templates/askQuestion/ellipsestext.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "";
-},"useData":true});
-
 this["JST"]["dest_temp/templates/askQuestion/ellipsisText.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
@@ -230,10 +226,6 @@ this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({
 
 this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id='noteContainer'><div class=\"contentContainer\"><div class=\"container note\"></div><div id=\"noteNavigation\">Note navigation</div></div><div class=\"loading active\">Loading</div></div>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='writeContent'><textarea class='text'></textarea><div class=\"action\"><span class=\"save\">save</span><span class=\"cancel\">cancel</span></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -473,7 +465,9 @@ this["JST"]["dest_temp/templates/context-mark.hbs"] = Handlebars.template({"comp
     + alias4(((helper = (helper = helpers.bookmark || (depth0 != null ? depth0.bookmark : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"bookmark","hash":{},"data":data}) : helper)))
     + "\" data-note=\""
     + alias4(((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"note","hash":{},"data":data}) : helper)))
-    + "\"><div class=\"context\"></div><div class=\"question\"></div><div class=\"bookmark\"></div><div class=\"note\"></div></div>";
+    + "\" data-context"
+    + alias4(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"context","hash":{},"data":data}) : helper)))
+    + "><div class=\"context\"></div><div class=\"question\"></div><div class=\"note\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/dashboard.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

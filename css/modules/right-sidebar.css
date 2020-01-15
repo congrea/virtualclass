@@ -1060,14 +1060,11 @@ body {
   display: block;
 }
 
-<<<<<<< HEAD
 #virtualclassCont.congrea #appSettingDetail.active {
   display: block;
 }
-=======
+
 #virtualclassCont.congrea .rightContainer.deactive,
 #virtualclassCont.congrea #askQuestionHeader.deactive {
   display: none;
 }
-
->>>>>>> Textarea autosize and content show or hide

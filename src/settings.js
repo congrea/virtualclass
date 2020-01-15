@@ -32,7 +32,7 @@
       localSettings[12] = +s.showAttendeeRecordingStatus;
       localSettings[13] = +s.trimRecordings;
       localSettings[14] = +s.attendeerecording;
-      localSettings[15] = +s.x6;
+      localSettings[15] = +s.markNotes;
       return virtualclass.settings.binaryToHex(localSettings.join(''));
     },
 
@@ -57,7 +57,7 @@
       parsedSettings.showAttendeeRecordingStatus = !!+localSettings[12];
       parsedSettings.trimRecordings = !!+localSettings[13];
       parsedSettings.attendeerecording = !!+localSettings[14];
-      parsedSettings.x6 = !!+localSettings[15];
+      parsedSettings.markNotes = !!+localSettings[15];
       return parsedSettings;
     },
 
@@ -292,6 +292,7 @@
         }
       }
     },
+
     userlist(value) {
       if (roles.isStudent()) {
         const userList = document.querySelector('#memlist');
@@ -341,8 +342,8 @@
       virtualclass.settings.recordingSettings(obj);
     },
 
-    x6() {
-      console.log('TO DO');
+    markNotes() {
+      // TODO disable marks & notes function here
     },
 
     recordingSettings(obj) {

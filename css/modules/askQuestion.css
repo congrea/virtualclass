@@ -124,10 +124,11 @@
 #virtualclassCont.congrea #askQuestion #writeContent .text {
   border-radius: 4px;
   width: 100%;
-  resize: none;
   color: #434343;
   font-size: 13px;
-  flex: 1;
+  flex: 1;;
+  display: block;
+  resize: unset;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent {
@@ -394,5 +395,40 @@
 }
 
 #virtualclassCont.congrea #noteContainer .loading.active {
+  display: block;
+}
+
+#virtualclassCont.congrea.student #askQuestion .container .footer .moreControls.disable {
+  display: none;
+}
+
+#virtualclassCont.congrea #askQuestion .content .more,
+#virtualclassCont.congrea #askQuestion .content .less {
+  color: #0487c5;
+  margin-right: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#virtualclassCont.congrea #askQuestion .content p .btn.open,
+#virtualclassCont.congrea #askQuestion .content p .btn.open {
+  display: block;
+}
+
+#virtualclassCont.congrea #askQuestion .content p .btn.close,
+#virtualclassCont.congrea #askQuestion .content p .btn.close,
+#virtualclassCont.congrea #askQuestion .content .moreelipses.close {
+  display: none;
+}
+
+#virtualclassCont.congrea #askQuestion .content .moreelipses.open {
+  display: inline;
+}
+
+#virtualclassCont.congrea #askQuestion .content .morecontent.close {
+  display: none;
+}
+
+#virtualclassCont.congrea #askQuestion .content .morecontent.open {
   display: block;
 }

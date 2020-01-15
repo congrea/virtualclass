@@ -5,8 +5,7 @@
  */
 class BasicOperation {
   constructor () {
-    this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation',
-      'createInput', 'save', 'cancel', 'navigation'];
+    this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation', 'createInput', 'save', 'cancel', 'navigation', 'more', 'less'];
   }
 
   generateData(data) {
@@ -80,7 +79,8 @@ class BasicOperation {
           text = target.value;
           action = 'create';
         } else {
-          if (parent.previousSibling.value != null && parent.previousSibling.value !== '') {
+          if (parent.previousSibling != null && parent.previousSibling.value != null
+            && parent.previousSibling.value !== '') {
             text = parent.previousSibling.value;
           } else {
             alert('Please enter text here'); // TODO add popup for display msg
@@ -93,7 +93,7 @@ class BasicOperation {
             componentId = parent.dataset.componentId;
             if (!roles.hasControls()) {
               const editElem = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][component][componentId].upvote;
-              if (editElem !== 0) {
+              if (editElem !== 0 && editElem != null) {
                 componentId = parent.dataset.componentId;
                 event = 'cancel';
               }
@@ -134,6 +134,7 @@ class BasicOperation {
       }
       const userId = (data.componentId).split('-')[1];
       if (userId === virtualclass.uInfo.userid || roles.hasControls()) {
+        let text;
         const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
         const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
         const getActualTime = Math.floor((currentEditTime - (+previousTime)) / 60);
@@ -141,6 +142,9 @@ class BasicOperation {
         if (!roles.hasControls()) {
           if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
             || contextData[currentContext][data.component][data.componentId].upvote > 0) {
+            if (getActualTime > 30) {
+              // TODO add popup
+            }
             return;
           }
         }
@@ -150,7 +154,15 @@ class BasicOperation {
           footerElem.classList.remove('show');
           footerElem.classList.add('hide');
         }
-        const text = document.querySelector(`#${data.componentId} .content p`).innerHTML;
+        const content = (document.querySelector(`#${data.componentId} .content p`).innerText).replace('...more', '');
+        let moreContent = document.querySelector(`#${data.componentId} .content .morecontent`);
+        if (moreContent) {
+          moreContent = moreContent.innerHTML;
+          text = content + moreContent;
+        } else {
+          text = content;
+        }
+
         const component = document.querySelector(`#${data.componentId} .content p`).dataset.component;
         data = this.generateData({
           action: 'renderer',
@@ -177,6 +189,9 @@ class BasicOperation {
         if (!roles.hasControls()) {
           if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
             || contextData[currentContext][data.component][data.componentId].upvote > 0) {
+            if (getActualTime > 30) {
+              // TODO add popup
+            }
             return;
           }
         }
@@ -270,8 +285,8 @@ class BasicOperation {
           footerElem.classList.remove('hide');
           footerElem.classList.add('show');
         }
-        const elem = document.querySelector(`#${data.componentId} .content p`);
-        elem.innerHTML = contextData[currentContext][data.component][data.componentId].content;
+        const mainContent = contextData[currentContext][data.component][data.componentId].content;
+        this.separatedContent({ componentId: data.componentId, content: mainContent, action: data.event });
       } else {
         const text = document.querySelector('#writeContent');
         if (text) {
@@ -288,9 +303,29 @@ class BasicOperation {
         ElemNavigate.classList.remove('close');
         ElemNavigate.classList.add('open');
       }
+    } else if (data.event === 'more' || data.event === 'less') {
+      const moreText = document.querySelector(`#${data.componentId} .morecontent`);
+      const action = data.event === 'more' ? 'less' : 'more';
+      const btn = document.querySelector(`#${data.componentId} .content .btn`);
+      const str = action === 'more' ? '...more' : 'less';
+      btn.innerHTML = str;
+      btn.dataset.event = action;
+      if (moreText.classList.contains('close')) {
+        moreText.classList.remove('close');
+        moreText.classList.add('open');
+      } else {
+        moreText.classList.remove('open');
+        moreText.classList.add('close');
+      }
+      if (btn.dataset.event === action) {
+        btn.classList.remove('close');
+        btn.classList.add('open');
+      }
     }
+
     if (data.event !== 'save' && data.event !== 'delete' && data.event !== 'upvote'
-      && data.event !== 'markAnswer' && data.event !== 'cancel' && data.event !== 'navigation') { // TODO, this has to be simplified
+      && data.event !== 'markAnswer' && data.event !== 'cancel' && data.event !== 'navigation'
+      && data.event !== 'more' && data.event !== 'less') { // TODO
       this[data.action].call(this, data);
     }
   }
@@ -307,7 +342,7 @@ class BasicOperation {
       let text = document.querySelector('#writeContent .text');
       if (text) { return; }
 
-      const context = {componentId: data.componentId, component: data.component, parent: data.parent};
+      const context = { componentId: data.componentId, component: data.component, parent: data.parent };
       const userInput = virtualclass.getTemplate(data.type, 'askQuestion');
       const userInputTemplate = userInput(context);
       if (typeof data.content !== 'undefined' && typeof data.componentId !== 'undefined') {
@@ -326,26 +361,27 @@ class BasicOperation {
         const inputAction = document.querySelector('#writeContent');
         if (inputAction) {
           inputAction.addEventListener('click', this.handler.bind(this));
+          inputAction.addEventListener('input', this.autosize.bind(this));
         }
       }
     } else if (data.type === 'contentBox') {
+      const text = this.separatedContent(data);
       if (data.component === 'question') {
         const chkContextElem = document.querySelector(`#askQuestion .context[data-context~=${data.context}]`);
         if ('question' && chkContextElem) {
           const componentTemplate = virtualclass.getTemplate(data.component, 'askQuestion');
-          const htmlContent = componentTemplate({ id: data.id, userName: data.uname, content: data.content });
+          const htmlContent = componentTemplate({ id: data.id, userName: data.uname, content: text.content, morecontent: text.moreContent });
           document.querySelector(`#askQuestion [data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', htmlContent);
-          // document.querySelector(`#${data.id} .content p`).innerHTML = data.content;
         } else {
           const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
-          const cTemp = getContextTemp({context: data.context});
+          const cTemp = getContextTemp({ context: data.context });
           document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
-
           const componentTemp = virtualclass.getTemplate(data.component, 'askQuestion');
           document.querySelector(`#askQuestion [data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({
             id: data.id,
             userName: data.uname,
-            content: data.content,
+            content: text.content,
+            morecontent: text.moreContent,
           }));
           document.querySelector(`#askQuestion [data-context~=${data.context}]`).classList.add('current');
         }
@@ -356,8 +392,9 @@ class BasicOperation {
           itemId: data.componentId,
           userName: data.uname,
           hasControl: roles.hasControls(),
-          content: data.content,
-          parent: data.parent
+          content: text.content,
+          morecontent: text.moreContent,
+          parent: data.parent,
         };
         const ansTemp = qaAnswerTemp(context);
         if (data.component === 'answer') {
@@ -366,6 +403,7 @@ class BasicOperation {
           document.querySelector(`#${data.parent} .comments`).insertAdjacentHTML('beforeend', ansTemp);
         }
       }
+      this.displayMore(data);
 
       if (data.userId === virtualclass.uInfo.userid) {
         if (data.component === 'note') {
@@ -374,6 +412,12 @@ class BasicOperation {
           textArea.value = data.content;
         } else if (data.component !== 'comment') {
           document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
+        }
+        if (!roles.hasControls()) {
+          const currentElem = document.querySelector(`#${data.componentId}`);
+          if (currentElem) {
+            currentElem.classList.add('mySelf');
+          }
         }
       }
       if (data.component === 'question') {
@@ -531,6 +575,14 @@ class BasicOperation {
         } else {
           children.splice(children.indexOf(data.componentId), 1);
         }
+        if (!roles.hasControls()) {
+          const moreControlElem = document.querySelector(`#${data.parent} .moreControls`);
+          if (moreControlElem && moreControlElem.classList.contains('disable')) {
+            moreControlElem.classList.remove('disable');
+          } else {
+            moreControlElem.classList.add('disable');
+          }
+        }
         const parentElem = document.querySelector(`#${data.parent} .navigation .total`);
         parentElem.innerHTML = contextObj[data.context][component][data.parent].children.length;
       }
@@ -538,12 +590,12 @@ class BasicOperation {
   }
 
   edit(data) {
+    this.separatedContent(data);
+    document.querySelector(`#${data.componentId} .lable`).innerHTML = `${data.component} (edited)`;
     const textTemp = document.querySelector('#writeContent');
     if (textTemp) {
       textTemp.remove();
     }
-    const getElem = document.querySelector(`#${data.componentId} .content p`);
-    getElem.innerHTML = data.content;
     this.updateStatus(data, 'edited');
   }
 
@@ -553,6 +605,9 @@ class BasicOperation {
       document.querySelector(`#${data.componentId} .upVote .total`).innerHTML = data.upvote;
       if (data.userId === virtualclass.uInfo.userid) {
         document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
+      }
+      if (!roles.hasControls()) {
+        document.querySelector(`#${data.componentId} .moreControls`).classList.add('disable');
       }
       this.updateStatus(data, 'upvote');
     } else {
@@ -564,18 +619,55 @@ class BasicOperation {
   markAnswer(data) {
     const markElem = document.querySelector(`#${data.componentId}`);
     const markParentElem = document.querySelector(`#${data.parent}`);
-    if (!markParentElem.dataset.markAnswer && markParentElem && markElem) {
+    if (markParentElem && markElem && !markParentElem.dataset.markAnswer) {
       markElem.dataset.markAnswer = 'marked';
       markParentElem.dataset.markAnswer = 'marked';
     }
   }
-}
 
+  autosize(ev) {
+    ev.target.style.cssText = 'height:auto; padding:0';
+    ev.target.style.cssText = 'height:' + ev.target.scrollHeight + 'px';
+  }
+
+  displayMore(data) {
+    const componentId = (data.action === 'create') ? data.id : data.componentId;
+    const btn = document.querySelector(`#${componentId} .content p .btn`);
+    if (data.content.length > 120 && btn) {
+      if (btn.classList.contains('close')) {
+        btn.classList.remove('close');
+        btn.classList.add('open');
+      }
+    }
+  }
+
+  separatedContent(data) {
+    let content;
+    let moreContent;
+    if (data.content.length > 120) {
+      content = data.content.slice(0, 120);
+      moreContent = data.content.slice(120, data.content.length);
+    } else {
+      content = data.content;
+    }
+    if (data.action === 'edit' || data.action === 'cancel') {
+      const getContentElem = document.querySelector(`#${data.componentId} .content p`);
+      const ellipsisTemp = virtualclass.getTemplate('ellipsisText', 'askQuestion');
+      getContentElem.innerHTML = content;
+      if (data.content.length > 120) {
+        const ellipsisTextTemp = ellipsisTemp({ morecontent: moreContent }); // TODO use this template in question, answer, comment
+        document.querySelector(`#${data.componentId} .content p`).insertAdjacentHTML('beforeend', ellipsisTextTemp);
+      }
+      this.displayMore(data);
+    } else if (data.action === 'create') {
+      return { content: content, moreContent: moreContent};
+    }
+  }
+}
 
 // This class is responsible to render HTML of each component of Ask Question
 
 class QaNote extends BasicOperation { }
-
 
 class QAquestion extends BasicOperation {}
 
@@ -646,7 +738,6 @@ class AskQuestion extends AskQuestionEngine {
     this.renderer();
     this.allMarks = {};
     // this.qaNote = new QaNote();
-
   }
 
   async initFirebaseOperatoin() {
@@ -678,9 +769,9 @@ class AskQuestion extends AskQuestionEngine {
   }
 
   getActiveTab() {
-    if (document.querySelector('#congHr.active') !=  null) {
+    if (document.querySelector('#congHr.active') != null) {
       return 'question';
-    } else if (document.querySelector('#virtualclassnote.active') !=  null) {
+    } else if (document.querySelector('#virtualclassnote.active') != null) {
       return 'note';
     } else {
       return false;

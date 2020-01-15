@@ -6,8 +6,10 @@
       <span class= 'lable'>{{getString 'commentLable'}}</span>
     </div>
     <div class= 'content'>
-      <p data-component = 'comment' data-component-id="{{id}}" data-parent="{{parent}}">{{content}}</p>
-      <span class= 'more'></span>
+      <p data-component = 'comment' data-component-id="{{id}}" data-parent="{{parent}}">{{content}}
+        <span class="morecontent close">{{morecontent}}</span>
+        <span class='btn close' data-event="more">...more</span>
+      </p>
     </div>
     <div class="footer show" data-component = 'comment' data-component-id="{{id}}">
       <div class= 'controls' data-component = 'comment' data-component-id="{{id}}" data-parent="{{parent}}">

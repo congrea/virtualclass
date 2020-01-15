@@ -395,6 +395,26 @@ body {
   color: #464646;
 }
 
+#virtualclassCont #appSettingDetail .disable #usersMarkNotesSwitch::before {
+  content: "\e971";
+  font-weight: normal;
+  font-size: 17px;
+  margin-top: 3px;
+  float: left;
+  font-family: 'icomoon';
+  color: #464646;
+}
+
+#virtualclassCont #appSettingDetail .enable #usersMarkNotesSwitch::before {
+  content: "\e9b8";
+  font-weight: normal;
+  font-size: 18px;
+  margin-top: 3px;
+  float: left;
+  font-family: 'icomoon';
+  color: #464646;
+}
+
 #virtualclassCont.congrea #congHr.rsEnable {
   opacity: 1;
   pointer-events: visible !important;
@@ -1040,6 +1060,14 @@ body {
   display: block;
 }
 
+<<<<<<< HEAD
 #virtualclassCont.congrea #appSettingDetail.active {
   display: block;
 }
+=======
+#virtualclassCont.congrea .rightContainer.deactive,
+#virtualclassCont.congrea #askQuestionHeader.deactive {
+  display: none;
+}
+
+>>>>>>> Textarea autosize and content show or hide

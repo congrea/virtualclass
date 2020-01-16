@@ -225,7 +225,7 @@ this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='noteContainer'><div class=\"contentContainer\"><div class=\"container note\"></div><div id=\"noteNavigation\">Note navigation</div></div><div class=\"loading active\">Loading</div></div>";
+    return "<div id='noteContainer'><div class=\"contentContainer\"><div class=\"container note children\"></div><div id=\"noteNavigationContainer\" class=\"children\"><div class=\"clearAll\" component=\"note\"><span data-event=\"clearall\"> Clear All </span></div><div id=\"noteNavigation\" class=\"navigation\"><div class=\"previous\" data-component=\"note\"><span data-event=\"previous\"> Previous </span></div><div class=\"notenumber\"><span class=\"current\">0 / </span><span class=\"total\"> 0</span></div><div class=\"next\" data-component=\"note\"><span data-event=\"next\"> Next </span></div></div></div></div><div class=\"loading active\">Loading</div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

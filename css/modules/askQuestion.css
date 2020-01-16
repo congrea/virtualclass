@@ -432,3 +432,16 @@
 #virtualclassCont.congrea #askQuestion .content .morecontent.open {
   display: block;
 }
+
+#virtualclassCont.congrea #noteNavigation div{
+  float: left;
+  width: 70px;
+}
+
+#virtualclassCont.congrea #noteNavigationContainer .clearAll {
+  float: left;
+}
+
+#virtualclassCont.congrea #noteNavigationContainer .navigation {
+  float: right;
+}

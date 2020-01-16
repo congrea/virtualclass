@@ -5,7 +5,8 @@
  */
 class BasicOperation {
   constructor () {
-    this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation', 'createInput', 'save', 'cancel', 'navigation', 'more', 'less'];
+    this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation',
+      'createInput', 'save', 'cancel', 'navigation', 'more', 'less', 'clearall'];
   }
 
   generateData(data) {
@@ -101,8 +102,18 @@ class BasicOperation {
           }
         }
         parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
+      } else if (event === 'clearall') {
+        const contentElement = document.querySelector(`#noteContainer .context[data-context~=${virtualclass.askQuestion.currentContext}] textarea`);
+        if (contentElement) {
+          contentElement.value = '';
+          text = '';
+          action = 'create';
+          event = 'save';
+        }
       }
-      data = { event, component, componentId, text, action, parentId };
+      data = {
+        event, component, componentId, text, action, parentId
+      };
       this.execute(data);
     }
   }
@@ -321,6 +332,8 @@ class BasicOperation {
         btn.classList.remove('close');
         btn.classList.add('open');
       }
+    } else if (data.event === 'clearall') {
+
     }
 
     if (data.event !== 'save' && data.event !== 'delete' && data.event !== 'upvote'
@@ -466,7 +479,6 @@ class BasicOperation {
       const contentAreaHtml = contentArea({ context: currentContext });
       const noteContainer = document.querySelector('#noteContainer .container');
       if (noteContainer != null) noteContainer.insertAdjacentHTML('beforeEnd', contentAreaHtml);
-     // attachFunction = true;
     }
 
     const activeNote = document.querySelector('#noteContainer .context.active');
@@ -475,26 +487,32 @@ class BasicOperation {
     contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
     contextDivElement.classList.add('active');
 
-    //if (attachFunction) {
-      const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
-      textArea.addEventListener('input', this.noteHandler.bind(this));
-    // }
+    const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
+    textArea.addEventListener('input', this.noteHandler.bind(this));
+
+    const noteNavigationContainer = document.getElementById('noteNavigationContainer');
+    noteNavigationContainer.addEventListener('click', this.noteHandler2.bind(this));
+  }
+
+  noteHandler2(ev) {
+    if (ev) {
+      this.handler(ev);
+    }
   }
 
   // TODO, let see how can this be improve more
-  noteHandler(ev) {
-    console.log('====> note event generate ');
-    if (this.sendToDatabaseTime) {
-      clearTimeout(this.sendToDatabaseTime);
+  noteHandler(ev, eventType) {
+    if (eventType) {
+      this.handler(ev);
+    } else {
+      if (this.sendToDatabaseTime) {
+        clearTimeout(this.sendToDatabaseTime);
+      }
+      const self = this;
+      this.sendToDatabaseTime = setTimeout(() => {
+        self.handler(ev); // send note to database
+      }, 700);
     }
-
-    const self = this;
-    this.sendToDatabaseTime = setTimeout(() => {
-      console.log('====> note event send ');
-      console.log('===> send note data on 700');
-      // send note to database
-      self.handler(ev);
-    }, 700);
   }
 
   moreControls (data) {

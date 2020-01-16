@@ -1723,7 +1723,7 @@ div.ui-memblist-usr .userVideos {
   position: relative;
   top: -3px;
   pointer-events: none;
-  z-index: 1115;
+  z-index: 1117;
 }
 
 #virtualclassCont.congrea.playMode .ui-memblist-usr {
@@ -5123,7 +5123,7 @@ body {
 #virtualclassCont.congrea #virtualclassAppFooterPanel #allMarksinformation {
   position: fixed;
   bottom: 44px;
-  z-index: 15000;
+  z-index: 1116;
   width: 100%;
   display: flex;
   flex-direction: row;

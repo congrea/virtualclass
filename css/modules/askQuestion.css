@@ -454,3 +454,8 @@
 #virtualclassCont.congrea #noteNavigationContainer .navigation {
   float: right;
 }
+
+
+#virtualclassCont.congrea #noteNavigationContainer {
+  cursor: pointer;
+}

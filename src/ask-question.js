@@ -491,13 +491,11 @@ class BasicOperation {
     textArea.addEventListener('input', this.noteHandler.bind(this));
 
     const noteNavigationContainer = document.getElementById('noteNavigationContainer');
-    noteNavigationContainer.addEventListener('click', this.noteHandler2.bind(this));
+    noteNavigationContainer.addEventListener('click', this.noteHandlerImmediate.bind(this));
   }
 
-  noteHandler2(ev) {
-    if (ev) {
-      this.handler(ev);
-    }
+  noteHandlerImmediate(ev) {
+    this.handler(ev);
   }
 
   // TODO, let see how can this be improve more
@@ -696,7 +694,7 @@ class QaNote extends BasicOperation {
     }
   }
 
-  navigateNotes (side) {
+  navigateNotes(side) {
     if (side === 'previous') {
       if (this.currentNavigation) this.currentNavigation = this.currentNavigation - 1;
     } else {
@@ -705,8 +703,12 @@ class QaNote extends BasicOperation {
     this.displayContext(this.this.navigationQueue[this.currentNavigation]);
   }
 
-  navigateNumbers () {
-    
+  upateNavigateNumbers () {
+    const currentNumberElem = document.querySelector('#noteNavigation .notenumber .current');
+    if (currentNumberElem) currentNumberElem.innerHTML = this.currentNavigation;
+
+    const totalNumberElem = document.querySelector('#noteNavigation .notenumber .current');
+    if (totalNumberElem) totalNumberElem.innerHTML = this.navigationQueue.length;
   }
 
   queueHasEmptyElement() {

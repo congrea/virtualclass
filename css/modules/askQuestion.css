@@ -115,11 +115,15 @@
 }
 
 #virtualclassCont.congrea #askQuestion.active,
-#virtualclassCont.congrea #noteContainer.active {
+#virtualclassCont.congrea .contentContainer.active {
   height: 100%;
   display: flex;
   flex-direction: column;
   background-color: #f1f1f1;
+}
+
+#virtualclassCont.congrea #noteContainer.active {
+  height: 100%;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .text {
@@ -127,7 +131,7 @@
   width: 100%;
   color: #434343;
   font-size: 13px;
-  flex: 1;;
+  flex: 1;
   display: block;
   resize: unset;
 }
@@ -383,13 +387,9 @@
   display: none;
 }
 
-#virtualclassCont.congrea #noteContainer .contentContainer {
+/* #virtualclassCont.congrea #noteContainer .contentContainer {
   display: none;
-}
-
-#virtualclassCont.congrea #noteContainer .contentContainer.active {
-  display: block;
-}
+} */
 
 #virtualclassCont.congrea #noteContainer .content {
   height: 100%;

@@ -685,7 +685,46 @@ class BasicOperation {
 
 // This class is responsible to render HTML of each component of Ask Question
 
-class QaNote extends BasicOperation { }
+class QaNote extends BasicOperation {
+  handleQueue(context) {
+    this.navigationQueue = [];
+    if (!this.queueHasEmptyElement()) {
+      this.navigationQueue.push(null);
+      // Todo  change the note navigation number
+    }  else {
+      this.navigationQueue[this.navigationQueue.length - 1] = context;
+    }
+  }
+
+  navigateNotes (side) {
+    if (side === 'previous') {
+      if (this.currentNavigation) this.currentNavigation = this.currentNavigation - 1;
+    } else {
+      if (this.currentNavigation <= this.navigationQueue.length) this.currentNavigation = this.currentNavigation + 1;
+    }
+    this.displayContext(this.this.navigationQueue[this.currentNavigation]);
+  }
+
+  navigateNumbers () {
+    
+  }
+
+  queueHasEmptyElement() {
+    if (this.navigationQueue.length > 0) {
+      return this.navigationQueue[this.navigationQueue.length - 1] === null;
+    }
+  }
+
+  displayNoteBy(context) {
+    const activeNotecontainer = document.querySelector('#noteContainer .context.active');
+    if (activeNotecontainer) {
+      activeNotecontainer.style.display = 'none';
+    } else {
+      const noteContainer = document.querySelector(`#noteContainer .context[data-context~=${context}]`);
+      noteContainer.style.display = 'block';
+    }
+  }
+}
 
 class QAquestion extends BasicOperation {}
 

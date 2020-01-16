@@ -378,9 +378,9 @@
   display: none;
 }
 
-#virtualclassCont.congrea #noteContainer {
+/* #virtualclassCont.congrea #noteContainer {
   display: none;
-}
+} */
 
 #virtualclassCont.congrea #noteContainer .content {
   height: 100%;

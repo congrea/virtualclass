@@ -5136,8 +5136,8 @@ body {
 #virtualclassCont.congrea #virtualclassAppFooterPanel #allMarksinformation .markContainer.context {
   border-left: 2px solid #000;
   cursor: pointer;
-
-  /* flex: 1; */
+  display: flex;
+  flex-direction: row;
 }
 
 #virtualclassCont.congrea .markContainer[data-question='true'] .question,

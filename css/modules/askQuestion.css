@@ -35,14 +35,7 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  /* background-color: #efefef; */
-  height: 90%;
 }
-
-/* #virtualclassCont.congrea #askQuestion .container .question .footer {
-  position: relative;
-  top: 0;
-} */
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls {
   flex: 1;
@@ -115,7 +108,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion.active,
-#virtualclassCont.congrea .contentContainer.active {
+#virtualclassCont.congrea #noteContainer .contentContainer.active {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -131,9 +124,7 @@
   width: 100%;
   color: #434343;
   font-size: 13px;
-  flex: 1;
   display: block;
-  /*resize: unset;*/
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent {
@@ -387,9 +378,9 @@
   display: none;
 }
 
-/* #virtualclassCont.congrea #noteContainer .contentContainer {
+#virtualclassCont.congrea #noteContainer {
   display: none;
-} */
+}
 
 #virtualclassCont.congrea #noteContainer .content {
   height: 100%;
@@ -416,8 +407,7 @@
   padding: 1px 6px 1px 6px;
   margin-left: 6px;
   font-size: 12px;
-  color: #3e3e3e;
-  background-color: #e4e4e4;
+  color: #0e65d4;
   text-transform: capitalize;
 }
 

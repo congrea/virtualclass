@@ -204,12 +204,6 @@ this["JST"]["dest_temp/templates/askQuestion/ellipsisText.hbs"] = Handlebars.tem
     + "</span><span class='btn close' data-event=\"more\">...more</span>";
 },"useData":true});
 
-this["JST"]["dest_temp/templates/askQuestion/inpput.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='writeContent'><textarea class='text'>"
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.type : depth0),{"name":"getString","hash":{},"data":data}))
-    + "</textarea></div>";
-},"useData":true});
-
 this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression, alias4="function";
 
@@ -226,6 +220,12 @@ this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({
 
 this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id='noteContainer'><div class=\"contentContainer\"><div class=\"container note children\"></div><div id=\"noteNavigationContainer\" class=\"children\"><div class=\"clearAll\" component=\"note\"><span data-event=\"clearall\"> Clear All </span></div><div id=\"noteNavigation\" class=\"navigation\"><div class=\"previous\" data-component=\"note\"><span data-event=\"previous\"> Previous </span></div><div class=\"notenumber\"><span class=\"current\">0 / </span><span class=\"total\"> 0</span></div><div class=\"next\" data-component=\"note\"><span data-event=\"next\"> Next </span></div></div></div></div><div class=\"loading active\">Loading</div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id='writeContent'><textarea class='text'>"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.type : depth0),{"name":"getString","hash":{},"data":data}))
+    + "</textarea></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -656,7 +656,7 @@ this["JST"]["dest_temp/templates/editor/messagebox.hbs"] = Handlebars.template({
 this["JST"]["dest_temp/templates/footerBar.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return " <div id=\"allMarksinformation\"></div> "
+  return " "
     + ((stack1 = container.invokePartial(partials.recordingControl,depth0,{"name":"recordingControl","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -778,18 +778,6 @@ this["JST"]["dest_temp/templates/navigation/wbIndex.hbs"] = Handlebars.template(
     + "\">"
     + alias4(((helper = (helper = helpers.order || (depth0 != null ? depth0.order : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"order","hash":{},"data":data}) : helper)))
     + "</span>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/notes/content-area.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper;
-
-  return "<div class=\"context note\" data-context=\""
-    + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
-    + "\" data-component=\"note\"><textarea class='text content' data-event=\"save\" placeholder=\"Type your content\"></textarea></div>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/notes/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='noteContainer'><div class=\"container note\"></div><div class=\"loading\">Loading</div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/poll/edit-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -1319,7 +1307,7 @@ this["JST"]["dest_temp/templates/recordingButton.hbs"] = Handlebars.template({"1
 },"useData":true});
 
 this["JST"]["dest_temp/templates/recordingControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"playControllerMainCont\"><div id=\"playControllerCont\"><div id=\"playController\"><div id=\"playProgress\"><div id=\"playProgressBar\" class=\"progressBar\" style=\"width: 0%;\"><div id=\"playCircle\" class=\"circle\"></div></div><div id=\"downloadProgress\"><div id=\"downloadProgressBar\" class=\"progressBar\"></div><div id=\"downloadProgressValue\" class=\"progressValue\"></div></div><div id=\"timeInHover\">0</div></div><div id=\"recPauseCont\" class=\"recButton recordingPlay\"><button id=\"recPause\" class=\"icon-pause congtooltip\" data-title=\""
+    return "<div class=\"playControllerMainCont\"><div id=\"playControllerCont\"><div id=\"playController\"><div id=\"playProgress\"><div id=\"playProgressBar\" class=\"progressBar\" style=\"width: 0%;\"><div id=\"allMarksinformation\"></div><div id=\"playCircle\" class=\"circle\"></div></div><div id=\"downloadProgress\"><div id=\"downloadProgressBar\" class=\"progressBar\"></div><div id=\"downloadProgressValue\" class=\"progressValue\"></div></div><div id=\"timeInHover\">0</div></div><div id=\"recPauseCont\" class=\"recButton recordingPlay\"><button id=\"recPause\" class=\"icon-pause congtooltip\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Pause",{"name":"getString","hash":{},"data":data}))
     + "\"></button></div><div id=\"repTimeCont\"><span id=\"tillRepTime\">00:00:00</span> / <span id=\"totalRepTime\">00:00:00</span></div></div></div></div>";
 },"useData":true});

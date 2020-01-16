@@ -176,14 +176,6 @@ body {
 /* height:50px; */
 
 /* } */
-#appSettingDetail label {
-  margin-top: 0.375rem;
-  margin-bottom: 0.375rem;
-  font-weight: 400;
-  font-size: 0.875rem;
-
-  /* color: #3d454c; */
-}
 
 #virtualclassCont #appSettingDetail .switch {
   position: relative;
@@ -581,7 +573,7 @@ body {
   font-size: 1.0625rem;
   font-family: 'icomoon';
   color: white;
-  font-weight: normal;
+  cursor: pointer;
 }
 
 #appSettingDetail .list-group {
@@ -767,20 +759,23 @@ body {
 
 #virtualclassCont.congrea.teacher #appSettingDetail .setting-heading {
   border-bottom: 1px solid #e8e8e8;
-  padding: 6px 14px;
+  border-top: 1px solid #e8e8e8;
+  padding: 6px 13px;
   margin-bottom: 10px;
 }
 
 #virtualclassCont.congrea.student #appSettingDetail .setting-heading {
   padding: 0.5rem 0.9375rem;
-  color: #fff;
   margin-bottom: 10px;
+  border-bottom: 1px solid #e8e8e8;
 }
 
-#virtualclassCont #appSettingDetail .bulkUserActions .setting-heading .bulk {
-  margin-top: 7px;
-  margin-bottom: 8px;
-  color: #fff;
+#virtualclassCont.congrea #appSettingDetail .bulkUserActions .setting-heading .bulk,
+#appSettingDetail label {
+  color: #070707;
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+  font-weight: 400;
   font-size: 0.875rem;
 }
 
@@ -1048,20 +1043,24 @@ body {
 }
 
 #virtualclassCont.congrea #rightSubContainer .rightContainer.active {
-  display: block;
+  display: flex;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #appSettingCtrl {
   display: none;
 }
 
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #userListHeader,
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #appSettingCtrl,
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #commonChatHeader,
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #appSettingCtrl {
-  display: block;
+  display: inline-block;
 }
 
-#virtualclassCont.congrea #appSettingDetail.active {
-  display: block;
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #appSettingCtrl,
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #appSettingCtrl {
+  float: right;
+  padding: 0.6875rem 0.9375rem;
 }
 
 #virtualclassCont.congrea .rightContainer.deactive,

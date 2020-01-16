@@ -114,11 +114,16 @@
   background-color: #e6ebf1;
 }
 
-#virtualclassCont.congrea #askQuestion, #virtualclassCont.congrea #noteContainer {
+#virtualclassCont.congrea #askQuestion.active,
+#virtualclassCont.congrea .contentContainer.active {
   height: 100%;
   display: flex;
   flex-direction: column;
   background-color: #f1f1f1;
+}
+
+#virtualclassCont.congrea #noteContainer.active {
+  height: 100%;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .text {
@@ -126,7 +131,7 @@
   width: 100%;
   color: #434343;
   font-size: 13px;
-  flex: 1;;
+  flex: 1;
   display: block;
   resize: unset;
 }
@@ -382,16 +387,12 @@
   display: none;
 }
 
-#virtualclassCont.congrea #noteContainer .contentContainer {
+/* #virtualclassCont.congrea #noteContainer .contentContainer {
   display: none;
-}
-
-#virtualclassCont.congrea #noteContainer .contentContainer.active {
-  display: block;
-}
+} */
 
 #virtualclassCont.congrea #noteContainer .content {
-  height: 100%
+  height: 100%;
 }
 
 #virtualclassCont.congrea #noteContainer .loading.active {
@@ -410,12 +411,20 @@
   font-size: 12px;
 }
 
-#virtualclassCont.congrea #askQuestion .content p .btn.open,
 #virtualclassCont.congrea #askQuestion .content p .btn.open {
-  display: block;
+  display: inline;
+  padding: 1px 6px 1px 6px;
+  margin-left: 6px;
+  font-size: 12px;
+  color: #3e3e3e;
+  background-color: #e4e4e4;
+  text-transform: capitalize;
 }
 
-#virtualclassCont.congrea #askQuestion .content p .btn.close,
+#virtualclassCont.congrea #askQuestion .content p .btn.open:active {
+  box-shadow: none;
+}
+
 #virtualclassCont.congrea #askQuestion .content p .btn.close,
 #virtualclassCont.congrea #askQuestion .content .moreelipses.close {
   display: none;
@@ -430,7 +439,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .content .morecontent.open {
-  display: block;
+  display: inline;
 }
 
 #virtualclassCont.congrea #noteNavigation div{

@@ -33,6 +33,24 @@ class NoteNavigation {
 
     const totalNumberElem = document.querySelector('#noteNavigation .notenumber .total');
     if (totalNumberElem) totalNumberElem.innerHTML = this.queue.length;
+    const next = document.querySelector('#noteNavigation .next');
+    const previous = document.querySelector('#noteNavigation .previous');
+
+    if (this.current === 0) {
+      previous.classList.add('deactive');
+    }
+
+    if (this.current > 0) {
+      previous.classList.remove('deactive');
+    }
+
+    if (this.current + 1 === this.queue.length) {
+      next.classList.add('deactive');
+    }
+
+    if (this.current + 1 < this.queue.length) {
+      next.classList.remove('deactive');
+    }
   }
 
   displayNoteBy(context) {

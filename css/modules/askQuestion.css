@@ -455,7 +455,12 @@
   float: right;
 }
 
-
 #virtualclassCont.congrea #noteNavigationContainer {
   cursor: pointer;
+}
+
+#virtualclassCont.congrea #noteNavigationContainer .previous.deactive,
+#virtualclassCont.congrea #noteNavigationContainer .next.deactive {
+  pointer-events: none;
+  opacity: 0.5;
 }

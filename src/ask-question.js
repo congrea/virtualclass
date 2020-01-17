@@ -751,8 +751,14 @@ class BasicOperation {
   }
 
   markAnswer(data) {
-    const markElem = document.querySelector(`#${data.componentId}`);
+    const parent = document.querySelector(`#${data.parent} .answers [data-markAnswer="marked"]`);
     const markParentElem = document.querySelector(`#${data.parent}`);
+    if (parent && markParentElem.dataset.markAnswer) {
+      delete parent.dataset.markAnswer;
+      delete markParentElem.dataset.markAnswer;
+    }
+    const markElem = document.querySelector(`#${data.componentId}`);
+    // const markParentElem = document.querySelector(`#${data.parent}`);
     if (markParentElem && markElem && !markParentElem.dataset.markAnswer) {
       markElem.dataset.markAnswer = 'marked';
       markParentElem.dataset.markAnswer = 'marked';

@@ -59,6 +59,14 @@ class NoteNavigation {
     }
     this.updateNavigateNumbers();
   }
+
+  deleteElementFromQueue(context) {
+    const pos = this.queue.indexOf(context);
+    if (pos >= -1) {
+      alert('hello how r u');
+      this.queue.splice(pos, 1);
+    }
+  }
 }
 
 class BasicOperation {
@@ -81,14 +89,20 @@ class BasicOperation {
       virtualclass.askQuestion.setDbCollection();
       virtualclass.askQuestion.attachHandlerForRealTimeUpdate();
     }
+
     if (data.component === 'note') {
-      console.log('send note data ', data);
-      virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collectionMark).doc(data.id).set(data).then(() => {
-        console.log('ask question write, Document successfully written! ', data);
-      })
-        .catch((error) => {
-          console.error('ask question write, Error writing document: ', error);
-        });
+      const content = data.content.trim();
+      if (content !== '') {
+        console.log('send note data ', data);
+        virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collectionMark).doc(data.id).set(data).then(() => {
+          console.log('ask question write, Document successfully written! ', data);
+        })
+          .catch((error) => {
+            console.error('ask question write, Error writing document: ', error);
+          });
+      } else {
+        virtualclass.askQuestion.noteNavigation.deleteElementFromQueue();
+      }
     } else {
       virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(data.id).set(data)
         .then(() => {

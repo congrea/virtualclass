@@ -14,9 +14,6 @@ class NoteNavigation {
   handleQueue(context) {
     if (this.queue.indexOf(context) <= -1) {
       this.queue[this.queue.length - 1] = context;
-      // this.queue.push(null);
-      //this.current = this.queue.length - 1;
-      // this.updateNavigateNumbers();
     }
   }
 
@@ -84,7 +81,6 @@ class BasicOperation {
       virtualclass.askQuestion.setDbCollection();
       virtualclass.askQuestion.attachHandlerForRealTimeUpdate();
     }
-
     if (data.component === 'note') {
       console.log('send note data ', data);
       virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collectionMark).doc(data.id).set(data).then(() => {
@@ -223,6 +219,7 @@ class BasicOperation {
           }
         }
 
+
         const footerElem = document.querySelector(`#${data.componentId} .footer`);
         if (footerElem && footerElem.classList.contains('show')) {
           footerElem.classList.remove('show');
@@ -304,6 +301,7 @@ class BasicOperation {
           uname: virtualclass.uInfo.userobj.name,
           componentId: data.componentId,
           parent: data.parentId,
+          navigation: virtualclass.askQuestion.noteNavigation.queue,
         });
         this.send(obj);
       } else {
@@ -576,9 +574,8 @@ class BasicOperation {
       }
       const self = this;
       this.sendToDatabaseTime = setTimeout(() => {
-        self.handler(ev); // send note to database
-        // self.noteHandleQueue(virtualclass.askQuestion.currentContext);
         virtualclass.askQuestion.noteNavigation.handleQueue(virtualclass.askQuestion.currentContext);
+        self.handler(ev); // send note to database
       }, 700);
     }
   }
@@ -964,6 +961,7 @@ class AskQuestion extends AskQuestionEngine {
     const type = this.getActiveTab();
     if (type && this.queue[type] && this.queue[type][this.currentContext] && this.queue[type][this.currentContext].length > 0) {
       this.perform(this.currentContext, type);
+      if (type === 'note') this.noteNavigation.afterChangeContext(virtualclass.askQuestion.currentContext);
     } else if (type === 'note') {
       // Create blank structure for note
       this.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
@@ -1057,7 +1055,7 @@ class AskQuestion extends AskQuestionEngine {
     // if (this.collectionMark) this.loadInitialDataMark();
   }
 
-  loadInitialDataMark() {
+    loadInitialDataMark() {
     if (this.initCollectionMark) return;
     // this.db.collection(this.collection).get().then((snapshot) => {
     //   // TODO, we have to store the inital data from attachHandlerForRealTimeUpdate
@@ -1076,12 +1074,14 @@ class AskQuestion extends AskQuestionEngine {
       snapshot.docs.forEach((doc) => {
         const data = doc.data();
         const currentActiveTab = self.getActiveTab();
+        virtualclass.askQuestion.noteNavigation.queue = data.navigation;
         if (currentActiveTab === 'note' && self.currentContext === data.context) {
           self.performWithQueue(data);
         } else {
           this.makeQueue(data);
         }
         if (virtualclass.isPlayMode) this.buildAllMarksStatus(data);
+        virtualclass.askQuestion.noteNavigation.afterChangeContext(virtualclass.askQuestion.currentContext);
       });
 
       // const loading = document.querySelector();

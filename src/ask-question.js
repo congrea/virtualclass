@@ -81,7 +81,6 @@ class NoteNavigation {
   deleteElementFromQueue(context) {
     const pos = this.queue.indexOf(context);
     if (pos >= -1) {
-      alert('hello how r u');
       this.queue.splice(pos, 1);
     }
   }
@@ -110,15 +109,15 @@ class BasicOperation {
 
     if (data.component === 'note') {
       const content = data.content.trim();
-      if (content !== '') {
-        console.log('send note data ', data);
-        virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collectionMark).doc(data.id).set(data).then(() => {
-          console.log('ask question write, Document successfully written! ', data);
-        })
-          .catch((error) => {
-            console.error('ask question write, Error writing document: ', error);
-          });
-      } else {
+      console.log('send note data ', data);
+      virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collectionMark).doc(data.id).set(data).then(() => {
+        console.log('ask question write, Document successfully written! ', data);
+      })
+        .catch((error) => {
+          console.error('ask question write, Error writing document: ', error);
+        });
+
+      if (content === '') {
         virtualclass.askQuestion.noteNavigation.deleteElementFromQueue();
       }
     } else {

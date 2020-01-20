@@ -172,7 +172,7 @@ class BasicOperation {
             && parent.previousSibling.value !== '') {
             text = parent.previousSibling.value;
           } else {
-            alert('Please enter text here'); // TODO add popup for display msg
+            virtualclass.popup.infoMsg(virtualclass.lang.getString('enterText'));
             return;
           }
           if (parent.dataset.componentId === null || parent.dataset.componentId === '') {
@@ -185,6 +185,7 @@ class BasicOperation {
               if (editElem !== 0 && editElem != null) {
                 componentId = parent.dataset.componentId;
                 event = 'cancel';
+                virtualclass.popup.infoMsg(virtualclass.lang.getString('upvoted'));
               }
             }
           }
@@ -228,23 +229,24 @@ class BasicOperation {
       };
       virtualclass.askQuestion.performWithQueue(data);
     } else if (data.event === 'edit') {
-      const moreControlElem = document.querySelector(`#${data.componentId} .moreControls .item`);
-      if (moreControlElem.classList.contains('open')) {
-        moreControlElem.classList.remove('open');
-        moreControlElem.classList.add('close');
+      const moreControls = document.querySelector(`#${data.componentId} .moreControls .item`);
+      if (moreControls.classList.contains('open')) {
+        moreControls.classList.remove('open');
+        moreControls.classList.add('close');
       }
       const userId = (data.componentId).split('-')[1];
       if (userId === virtualclass.uInfo.userid || roles.hasControls()) {
         let text;
-        const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-        const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
-        const getActualTime = Math.floor((currentEditTime - (+previousTime)) / 60);
-
+        const time = this.elapsedComponentTime({ componentId: data.componentId, component: data.component });
         if (!roles.hasControls()) {
-          if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
+          if (time > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
             || contextData[currentContext][data.component][data.componentId].upvote > 0) {
-            if (getActualTime > 30) {
-              // TODO add popup
+            if (time > 30) {
+              virtualclass.popup.infoMsg(virtualclass.lang.getString('askQuestionTimeExceed'));
+              const moreElem = document.querySelector(`#${data.componentId} .moreControls`);
+              if (moreElem && !moreElem.classList.contains('disable')) {
+                moreElem.classList.add('disable');
+              }
             }
             return;
           }
@@ -256,7 +258,8 @@ class BasicOperation {
           footerElem.classList.remove('show');
           footerElem.classList.add('hide');
         }
-        const content = (document.querySelector(`#${data.componentId} .content p`).innerText).replace('...more', '');
+        const str = virtualclass.lang.getString('more');
+        const content = (document.querySelector(`#${data.componentId} .content p`).innerText).replace(str, '');
         let moreContent = document.querySelector(`#${data.componentId} .content .morecontent`);
         if (moreContent) {
           moreContent = moreContent.innerHTML;
@@ -278,21 +281,23 @@ class BasicOperation {
         return;
       }
     } else if (data.event === 'delete') {
-      const moreControlElem = document.querySelector(`#${data.componentId} .moreControls .item`);
-      if (moreControlElem.classList.contains('open')) {
-        moreControlElem.classList.remove('open');
-        moreControlElem.classList.add('close');
+      const moreControls = document.querySelector(`#${data.componentId} .moreControls .item`);
+      if (moreControls.classList.contains('open')) {
+        moreControls.classList.remove('open');
+        moreControls.classList.add('close');
       }
       const userId = (data.componentId).split('-')[1];
       if (userId === virtualclass.uInfo.userid || roles.hasControls()) {
-        const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-        const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
-        const getActualTime = Math.floor((currentEditTime - (+previousTime)) / 60);
+        const time = this.elapsedComponentTime({ componentId: data.componentId, component: data.component });
         if (!roles.hasControls()) {
-          if (getActualTime > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
+          if (time > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
             || contextData[currentContext][data.component][data.componentId].upvote > 0) {
-            if (getActualTime > 30) {
-              // TODO add popup
+            if (time > 30) {
+              virtualclass.popup.infoMsg(virtualclass.lang.getString('askQuestionTimeExceed'));
+              const moreElem = document.querySelector(`#${data.componentId} .moreControls`);
+              if (moreElem && !moreElem.classList.contains('disable')) {
+                moreElem.classList.add('disable');
+              }
             }
             return;
           }
@@ -410,7 +415,7 @@ class BasicOperation {
       const moreText = document.querySelector(`#${data.componentId} .morecontent`);
       const action = data.event === 'more' ? 'less' : 'more';
       const btn = document.querySelector(`#${data.componentId} .content .btn`);
-      const str = action === 'more' ? '...more' : 'less';
+      const str = action === 'more' ? virtualclass.lang.getString('more') : virtualclass.lang.getString('less');
       btn.innerHTML = str;
       btn.dataset.event = action;
       if (moreText.classList.contains('close')) {
@@ -683,18 +688,22 @@ class BasicOperation {
     }
     if (Object.prototype.hasOwnProperty.call(contextObj[data.context][component], data.parent) && data.component !== 'question') {
       const children = contextObj[data.context][component][data.parent].children;
+      const moreControlElem = document.querySelector(`#${data.parent} .moreControls`);
       if (data.component === 'answer' || data.component === 'comment') {
         if (status === 'editable') {
           children.push(data.componentId);
+          if (!roles.hasControls()) {
+            moreControlElem.classList.add('disable');
+          }
         } else {
           children.splice(children.indexOf(data.componentId), 1);
-        }
-        if (!roles.hasControls()) {
-          const moreControlElem = document.querySelector(`#${data.parent} .moreControls`);
-          if (moreControlElem && moreControlElem.classList.contains('disable')) {
+          const userId = (data.parent).split('-')[1];
+          const time = this.elapsedComponentTime({ componentId: data.parent, component: component });
+          const componentUpvote = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][component][data.parent].upvote;
+          const getParentElem = document.querySelector(`#${data.parent} .upVote .total`); // TODO handle using component data
+          if (!roles.hasControls() && (time < 30 && getParentElem && componentUpvote === 0)
+            || (component === 'comment' && userId === virtualclass.uInfo.userid)) {
             moreControlElem.classList.remove('disable');
-          } else {
-            moreControlElem.classList.add('disable');
           }
         }
         const parentElem = document.querySelector(`#${data.parent} .navigation .total`);
@@ -740,8 +749,10 @@ class BasicOperation {
   }
 
   autosize(ev) {
-    ev.target.style.cssText = 'height:auto; padding:0';
-    ev.target.style.cssText = 'height:' + ev.target.scrollHeight + 'px';
+    setTimeout(() => {
+      ev.target.style.cssText = 'height:auto; padding:0';
+      ev.target.style.cssText = 'height:' + ev.target.scrollHeight + 'px';
+    }, 1000);
   }
 
   displayMore(data) {
@@ -774,8 +785,14 @@ class BasicOperation {
       }
       this.displayMore(data);
     } else if (data.action === 'create') {
-      return { content: content, moreContent: moreContent};
+      return { content: content, moreContent: moreContent };
     }
+  }
+
+  elapsedComponentTime(data) {
+    const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
+    const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
+    return Math.floor((currentEditTime - (+previousTime)) / 60);
   }
 }
 

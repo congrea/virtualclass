@@ -502,6 +502,24 @@ const PopUp = (function (window, undefined) {
       });
   };
 
+  PopUp.prototype.infoMsg = function (msg) {
+    const element = document.getElementById('about-modal');
+    virtualclass.popup.open(element);
+    this.hideAllPopups();
+    const sessionEndMsg = document.getElementById('infoMessage');
+    sessionEndMsg.style.display = 'block';
+    const msgCont = document.querySelector('#infoMessageMsg');
+    msgCont.innerHTML = msg;
+    const displayBtn = document.getElementById('infoMessageOk');
+    displayBtn.innerHTML = 'ok';
+    const generalMessageClose = document.getElementById('infoMessageOk');
+
+    generalMessageClose.addEventListener('click',
+      () => {
+        virtualclass.popup.closeElem();
+      });
+  };
+
   PopUp.prototype.generalMsgButton = function (msg) {
     const element = document.getElementById('about-modal');
     virtualclass.popup.open(element);

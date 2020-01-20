@@ -133,7 +133,7 @@
   font-size: 13px;
   flex: 1;
   display: block;
-  resize: unset;
+  /*resize: unset;*/
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent {
@@ -425,8 +425,14 @@
   box-shadow: none;
 }
 
+#virtualclassCont.congrea #askQuestion .content p .btn.open,
+#virtualclassCont.congrea #askQuestion .content .morecontent.open {
+  display: block;
+}
+
 #virtualclassCont.congrea #askQuestion .content p .btn.close,
-#virtualclassCont.congrea #askQuestion .content .moreelipses.close {
+#virtualclassCont.congrea #askQuestion .content .moreelipses.close,
+#virtualclassCont.congrea #askQuestion .content .morecontent.close {
   display: none;
 }
 

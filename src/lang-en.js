@@ -442,6 +442,11 @@
     commentLable: 'comment',
     markAnswer: 'Mark As Answer',
     markNotes: 'Marks & Notes',
+    askQuestionTimeExceed: 'Your time is exceed 30 editable minute',
+    upvoted: 'You can not edit ',
+    enterText: 'Please Enter Text Here',
+    more: '...More',
+    less: 'Less',
     /* For Chrome */
     PermissionDeniedErrorExt: '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'
     + 'Go to camera icon on top right of the screen <br /> '

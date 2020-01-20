@@ -117,7 +117,9 @@ this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template(
     + alias4(((helper = (helper = helpers.content || (depth0 != null ? depth0.content : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"content","hash":{},"data":data}) : helper)))
     + " <span class=\"morecontent close\">"
     + alias4(((helper = (helper = helpers.morecontent || (depth0 != null ? depth0.morecontent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"morecontent","hash":{},"data":data}) : helper)))
-    + "</span><span class='btn close' data-event=\"more\">...more</span></p></div><div class=\"footer show\" data-component = 'answer' data-component-id=\""
+    + "</span><span class='btn close' data-event=\"more\">"
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"more",{"name":"getString","hash":{},"data":data}))
+    + "</span></p></div><div class=\"footer show\" data-component = 'answer' data-component-id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\"><div class='controls' data-component = 'answer' data-component-id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
@@ -161,7 +163,9 @@ this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template
     + alias4(((helper = (helper = helpers.content || (depth0 != null ? depth0.content : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"content","hash":{},"data":data}) : helper)))
     + " <span class=\"morecontent close\">"
     + alias4(((helper = (helper = helpers.morecontent || (depth0 != null ? depth0.morecontent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"morecontent","hash":{},"data":data}) : helper)))
-    + "</span><span class='btn close' data-event=\"more\">...more</span></p></div><div class=\"footer show\" data-component = 'comment' data-component-id=\""
+    + "</span><span class='btn close' data-event=\"more\">"
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"more",{"name":"getString","hash":{},"data":data}))
+    + "</span></p></div><div class=\"footer show\" data-component = 'comment' data-component-id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\"><div class='controls' data-component = 'comment' data-component-id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
@@ -197,11 +201,13 @@ this["JST"]["dest_temp/templates/askQuestion/context.hbs"] = Handlebars.template
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/ellipsisText.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper;
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
   return "<span class=\"morecontent close\">"
-    + container.escapeExpression(((helper = (helper = helpers.morecontent || (depth0 != null ? depth0.morecontent : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"morecontent","hash":{},"data":data}) : helper)))
-    + "</span><span class='btn close' data-event=\"more\">...more</span>";
+    + alias3(((helper = (helper = helpers.morecontent || (depth0 != null ? depth0.morecontent : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"morecontent","hash":{},"data":data}) : helper)))
+    + "</span><span class='btn close' data-event=\"more\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"more",{"name":"getString","hash":{},"data":data}))
+    + "</span>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/inpput.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -243,7 +249,9 @@ this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.templat
     + alias4(((helper = (helper = helpers.content || (depth0 != null ? depth0.content : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"content","hash":{},"data":data}) : helper)))
     + " <span class=\"morecontent close\">"
     + alias4(((helper = (helper = helpers.morecontent || (depth0 != null ? depth0.morecontent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"morecontent","hash":{},"data":data}) : helper)))
-    + "</span><span class='btn close' data-event=\"more\">...more</span></p></div><div class=\"footer show\" data-component = 'question' data-component-id=\""
+    + "</span><span class='btn close' data-event=\"more\">"
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"more",{"name":"getString","hash":{},"data":data}))
+    + "</span></p></div><div class=\"footer show\" data-component = 'question' data-component-id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\"><div class='controls' data-component = 'question' data-component-id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
@@ -789,7 +797,7 @@ this["JST"]["dest_temp/templates/notes/content-area.hbs"] = Handlebars.template(
 },"useData":true});
 
 this["JST"]["dest_temp/templates/notes/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='noteContainer'><div class=\"container note\"></div><div class=\"loading\">Loading</div></div>";
+    return "<div id='noteContainer'><div class=\"container \"></div><div class=\"loading\">Loading</div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/poll/edit-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -1162,7 +1170,7 @@ this["JST"]["dest_temp/templates/popupCont.hbs"] = Handlebars.template({"compile
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"validateurlmsg",{"name":"getString","hash":{},"data":data}))
     + " </span></div>  <div id=\"waitMsgCont\" class=\"popupWindow\"><span id=\"waitMsg\" class=\"cgText\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"waitmsgconnect",{"name":"getString","hash":{},"data":data}))
-    + " </span></div><div id=\"loadingWindowCont\" class=\"popupWindow\"><div class=\"loading\"><div class=\"loader-icon\"></div></div><div class=\"askToPlay\"><span class=\"icon-play btn\"></span></div></div><div id=\"chromeExtMiss\" class=\"popupWindow\"><span id=\"chromeExtClose\" class=\"icon-close\"></span><span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugin to share the Screen.<br/>You can download the plugin <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a> After installing the plugin, please <a onclick=\"location.reload()\">reload </a> the page. </span></div><div id=\"generalMessage\" class=\"popupWindow\"><span id=\"generalMessageMsg\"></span><span id=\"generalMessageClose\"></span></div><div id=\"generalMessageButton\" class=\"popupWindow\"><span class=\"button\"> "
+    + " </span></div><div id=\"loadingWindowCont\" class=\"popupWindow\"><div class=\"loading\"><div class=\"loader-icon\"></div></div><div class=\"askToPlay\"><span class=\"icon-play btn\"></span></div></div><div id=\"chromeExtMiss\" class=\"popupWindow\"><span id=\"chromeExtClose\" class=\"icon-close\"></span><span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugin to share the Screen.<br/>You can download the plugin <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a> After installing the plugin, please <a onclick=\"location.reload()\">reload </a> the page. </span></div><div id=\"generalMessage\" class=\"popupWindow\"><span id=\"generalMessageMsg\"></span><span id=\"generalMessageClose\"></span></div><div id=\"infoMessage\" class=\"popupWindow\"><span id=\"infoMessageMsg\"></span><span id=\"infoMessageOk\"></span></div><div id=\"generalMessageButton\" class=\"popupWindow\"><span class=\"button\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"JoinClassMsg",{"name":"getString","hash":{},"data":data}))
     + " </span><br/></div></div></div>";
 },"useData":true});

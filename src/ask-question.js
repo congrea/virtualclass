@@ -655,6 +655,7 @@ class BasicOperation {
   }
 
   updateStatus(data, status) {
+    let getChildren;
     const contextObj = virtualclass.askQuestion.context;
     const currentContext = virtualclass.askQuestion.currentContext;
     let question;
@@ -680,7 +681,12 @@ class BasicOperation {
       question.status = status;
       contextObj[currentContext][data.component][data.componentId] = question;
     } else if (status === 'upvote') {
-      question = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id, upvote: data.upvote };
+      if (data.component === 'question') {
+        getChildren = contextObj[currentContext][data.component][data.componentId].children;
+      } else {
+        getChildren = [];
+      }
+      question = { id: data.id, content: data.content, children: getChildren, status, parent: null, componentId: data.id, upvote: data.upvote };
       question.status = status;
       contextObj[currentContext][data.component][data.componentId] = question;
     }
@@ -751,7 +757,7 @@ class BasicOperation {
   }
 
   markAnswer(data) {
-    const parent = document.querySelector(`#${data.parent} .answers [data-markAnswer="marked"]`);
+    const parent = document.querySelector(`#askQuestion #${data.parent} .answers .answer[data-mark-answer="marked"]`);
     const markParentElem = document.querySelector(`#${data.parent}`);
     if (parent && markParentElem.dataset.markAnswer) {
       delete parent.dataset.markAnswer;
@@ -820,7 +826,6 @@ class BasicOperation {
     if (data.component === 'answer') {
       getChildren = context[currentContext]['question'][data.parent].children;
     }
-    // const obj = data.component === 'question' ? context[currentContext][data.component] : context[currentContext][data.component][data.parent];
     for (const component in context[currentContext][data.component]) {
       if (component !== 'events' && component !== 'orderdByUpvoted') {
         const obj = {
@@ -838,7 +843,6 @@ class BasicOperation {
       }
     }
     arr.sort((a, b) => b.upvote - a.upvote);
-    // const arrange = data.component === 'question' ? 'orderdByUpvoted' : data.parent;
     if (data.component === 'question') {
       context[currentContext][data.component].orderdByUpvoted = arr;
     } else {
@@ -847,8 +851,6 @@ class BasicOperation {
       }
       context[currentContext][data.component].orderdByUpvoted[data.parent] = arr;
     }
-    // context[currentContext][data.component][arrange] = arr;
-
     const container = document.createElement('div');
     container.className = data.component === 'question' ? 'container' : 'answers open';
     if (data.component === 'question') {

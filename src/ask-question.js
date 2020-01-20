@@ -594,6 +594,7 @@ class BasicOperation {
 
     const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
     textArea.addEventListener('input', this.noteHandler.bind(this));
+    textArea.addEventListener('focus', this.inputFocusHandler.bind(this));
 
     const noteNavigationContainer = document.getElementById('noteNavigationContainer');
     if (!virtualclass.askQuestion.noteNavigation.attachImmediateHandler) {
@@ -620,6 +621,13 @@ class BasicOperation {
         virtualclass.askQuestion.noteNavigation.handleQueue(virtualclass.askQuestion.currentContext);
         self.handler(ev); // send note to database
       }, 700);
+    }
+  }
+
+  // text area focus input element
+  inputFocusHandler() {
+    if (virtualclass.isPlayMode && virtualclass.recorder.playStart && !virtualclass.recorder.controller.pause) {
+      virtualclass.recorder.initRecPause();
     }
   }
 

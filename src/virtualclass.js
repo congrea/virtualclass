@@ -271,8 +271,8 @@
         virtualclass.page = page;
         virtualclass.askQuestion = new AskQuestion();
         // For the realitme, it will be invoked from member_added
+        virtualclass.askQuestion.init();
         if (virtualclass.isPlayMode) {
-          virtualclass.askQuestion.init();
           virtualclass.askQuestion.initFirebaseOperatoin();
         }
 

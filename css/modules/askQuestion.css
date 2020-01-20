@@ -78,8 +78,21 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .moreControls {
-  align-self: flex-end;
   cursor: pointer;
+}
+#virtualclassCont.congrea.student #askQuestion .container .footer .moreControls,
+#virtualclassCont.congrea.student #askQuestion .container .question.mySelf.noneditable .container[data-type="question"] .footer .moreControls.disable,
+#virtualclassCont.congrea.student #askQuestion .container .answer.mySelf.noneditable .footer .moreControls.disable,
+#virtualclassCont.congrea.student #askQuestion .container .comment.mySelf.noneditable .container .footer .moreControls {
+  display: none;
+}
+
+#virtualclassCont.congrea.student #askQuestion .container .question.mySelf.editable .container[data-type="question"] .footer .moreControls,
+#virtualclassCont.congrea.student #askQuestion .container .answer.mySelf.editable .footer .moreControls,
+#virtualclassCont.congrea.student #askQuestion .container .comment.mySelf.editable .footer .moreControls,
+#virtualclassCont.congrea.student #askQuestion .container .comment.mySelf.noneditable .comment.mySelf.editable .footer .moreControls {
+  display: block;
+  align-self: flex-end;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item.open {
@@ -102,6 +115,11 @@
   color: #002442;
   background-color: unset;
 }
+
+/* #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container .footer .moreControls .item span.mark {
+  pointer-events: none;
+  color: #bbb;
+} */
 
 #virtualclassCont.congrea #askQuestion .container .footer .moreControls .item span:hover {
   background-color: #e6ebf1;
@@ -147,9 +165,10 @@
 }
 
 #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"],
-#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .upVote,
-#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .reply,
-#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .moreControls,
+#virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .upVote,
+#virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .reply,
+#virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .moreControls,
+#virtualclassCont.congrea.teacher #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply,
 #virtualclassCont.congrea[data-currapp='Poll'] #virtualclassApp #congHr,
 #virtualclassCont.congrea[data-currapp='Quiz'] #virtualclassApp #congHr {
   opacity: 0.5 !important;
@@ -388,10 +407,6 @@
 
 #virtualclassCont.congrea #noteContainer .loading.active {
   display: block;
-}
-
-#virtualclassCont.congrea.student #askQuestion .container .footer .moreControls.disable {
-  display: none;
 }
 
 #virtualclassCont.congrea #askQuestion .content .more,

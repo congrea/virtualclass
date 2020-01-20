@@ -199,6 +199,8 @@ class BasicOperation {
           action = 'create';
           event = 'save';
         }
+      } else if (event === 'upvote') {
+        parentId = parent.dataset.parent;
       }
       data = {
         event, component, componentId, text, action, parentId
@@ -313,15 +315,19 @@ class BasicOperation {
         return;
       }
     } else if (data.event === 'upvote') {
-      const obj = this.generateData({ component: data.component, action: data.event });
       const upvoteCount = document.querySelector(`#${data.componentId} .upVote .total`).innerHTML;
       if (upvoteCount === '0') {
+        const obj = this.generateData({ component: data.component, action: data.event });
+        if (data.component !== 'question') {
+          obj.parent = data.parentId;
+        }
         obj.upvote = 1;
         obj.componentId = data.componentId;
         obj.content = virtualclass.askQuestion.context[obj.context][data.component][data.componentId].content;
         virtualclass.askQuestion.context[obj.context][data.component].send(obj);
         virtualclass.askQuestion.firstid = obj.id;
       } else {
+        virtualclass.askQuestion.firstid = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].id;
         virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(virtualclass.askQuestion.firstid).update('upvote', firebase.firestore.FieldValue.increment(1));
         this.upvote(data);// TODO
       }
@@ -705,6 +711,10 @@ class BasicOperation {
             || (component === 'comment' && userId === virtualclass.uInfo.userid)) {
             moreControlElem.classList.remove('disable');
           }
+          if (data.component === 'answer') {
+            const markParentElem = document.querySelector(`#${data.parent}`);
+            markParentElem.dataset.markAnswer = '';
+          }
         }
         const parentElem = document.querySelector(`#${data.parent} .navigation .total`);
         parentElem.innerHTML = contextObj[data.context][component][data.parent].children.length;
@@ -733,6 +743,7 @@ class BasicOperation {
         document.querySelector(`#${data.componentId} .moreControls`).classList.add('disable');
       }
       this.updateStatus(data, 'upvote');
+      this.mostUpvotedOnTop(data);
     } else {
       // TODO
       document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
@@ -793,6 +804,61 @@ class BasicOperation {
     const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
     const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
     return Math.floor((currentEditTime - (+previousTime)) / 60);
+  }
+
+  mostUpvotedOnTop(data) {
+    let getChildren;
+    const arr = [];
+    const context = virtualclass.askQuestion.context;
+    const currentContext = virtualclass.askQuestion.currentContext;
+    if (data.component === 'answer') {
+      getChildren = context[currentContext]['question'][data.parent].children;
+    }
+    // const obj = data.component === 'question' ? context[currentContext][data.component] : context[currentContext][data.component][data.parent];
+    for (const component in context[currentContext][data.component]) {
+      if (component !== 'events' && component !== 'orderdByUpvoted') {
+        const obj = {
+          componentId: component,
+          upvote: context[currentContext][data.component][component].upvote,
+        };
+        if (data.component === 'answer') {
+          const checkAns = getChildren.indexOf(component);
+          if (checkAns !== -1) {
+            arr.push(obj);
+          }
+        } else if (data.component === 'question') {
+          arr.push(obj);
+        }
+      }
+    }
+    arr.sort((a, b) => b.upvote - a.upvote);
+    // const arrange = data.component === 'question' ? 'orderdByUpvoted' : data.parent;
+    if (data.component === 'question') {
+      context[currentContext][data.component].orderdByUpvoted = arr;
+    } else {
+      if (!context[currentContext][data.component].hasOwnProperty('orderdByUpvoted')) {
+        context[currentContext][data.component].orderdByUpvoted = { };
+      }
+      context[currentContext][data.component].orderdByUpvoted[data.parent] = arr;
+    }
+    // context[currentContext][data.component][arrange] = arr;
+
+    const container = document.createElement('div');
+    container.className = data.component === 'question' ? 'container' : 'answers open';
+    if (data.component === 'question') {
+      for (let i = 0; i < context[currentContext][data.component]['orderdByUpvoted'].length; i++) {
+        container.appendChild(document.querySelector(`#${context[currentContext][data.component]['orderdByUpvoted'][i].componentId}`));
+      }
+    } else {
+      const ansObj = context[currentContext][data.component].orderdByUpvoted;
+      for (let i = 0; i < ansObj[data.parent].length; i++) {
+        container.appendChild(document.querySelector(`#${ansObj[data.parent][i].componentId}`));
+      }
+    }
+
+    const replaceContainer = data.component === 'question' ? '.container' : `#${data.parent} .answers`;
+    const elem = document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`);
+    document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`).parentNode.replaceChild(container, elem);
   }
 }
 

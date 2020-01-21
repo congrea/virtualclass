@@ -898,7 +898,8 @@
   color: #3e3e3e;
 }
 
-#virtualclassCont.congrea.askQuestionFetching #askQuestion .loading::after {
+#virtualclassCont.congrea.askQuestionFetching #askQuestion .loading::after,
+#virtualclassCont.congrea.askQuestionFetching #noteContainer .loading::after {
   content: ' .';
   animation: dots 1s steps(5, end) infinite;
   font-size: 28px;
@@ -933,4 +934,20 @@
       0.25em 0 0 black,
       0.5em 0 0 black;
   }
+}
+
+#virtualclassCont.congrea #noteContainer #noteNavigation .previous .event::before {
+  content: "\e98e";
+  font-family: 'icomoon';
+  font-size: 1rem;
+  color: #606060;
+  cursor: pointer;
+}
+
+#virtualclassCont.congrea #noteContainer #noteNavigation .next .event::after {
+  content: "\e992";
+  font-family: 'icomoon';
+  font-size: 1rem;
+  color: #606060;
+  cursor: pointer;
 }

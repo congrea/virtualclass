@@ -4729,7 +4729,8 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea #fullScreenButton,
-#virtualclassCont.congrea #fullScreenExitButton {
+#virtualclassCont.congrea #fullScreenExitButton,
+#virtualclassCont.congrea .bookmarks {
   position: absolute;
   bottom: 0;
   right: -1px;
@@ -4741,6 +4742,15 @@ span#usertab_text {
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
+}
+
+#virtualclassCont.congrea .bookmarks .icon-whiteboard::before {
+  content: "\e604";
+  font-size: 34px;
+}
+
+#virtualclassCont.congrea .bookmarks {
+  right: 60px;
 }
 
 #virtualclassCont.congrea #fullScreenButton .fullScreen,
@@ -5153,4 +5163,16 @@ body {
 
 #virtualclassCont.congrea .markContainer[data-note='true'] .note {
   background: #e8c623;
+}
+
+#virtualclassCont.congrea #bookmark .bookmarks[data-value='1'] .icon-whiteboard::before {
+  border: 4px solid green;
+}
+
+#virtualclassCont.congrea .bookmarks {
+  display: none;
+}
+
+#virtualclassCont.congrea .bookmarks.active {
+  display: block;
 }

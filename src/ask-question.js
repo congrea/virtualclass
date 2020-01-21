@@ -29,7 +29,7 @@ class NoteNavigation {
 
   updateNavigateNumbers() {
     const currentNumberElem = document.querySelector('#noteNavigation .notenumber .current');
-    if (currentNumberElem) currentNumberElem.innerHTML = this.current + 1;
+    if (currentNumberElem) currentNumberElem.innerHTML = `${this.current + 1} /`;
 
     const totalNumberElem = document.querySelector('#noteNavigation .notenumber .total');
     if (totalNumberElem) totalNumberElem.innerHTML = this.queue.length;

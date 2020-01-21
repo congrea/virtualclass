@@ -88,6 +88,48 @@ class NoteNavigation {
   }
 }
 
+class AskQuestionUtility {
+  elapsedComponentTime(data) {
+    const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
+    const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
+    return Math.floor((currentEditTime - (+previousTime)) / 60);
+  }
+
+  separatedContent(data) {
+    let content;
+    let moreContent;
+    if (data.content.length > 128) {
+      content = data.content.slice(0, 128);
+      moreContent = data.content.slice(128, data.content.length);
+    } else {
+      content = data.content;
+    }
+    if (data.action === 'edit' || data.action === 'cancel') {
+      const getContentElem = document.querySelector(`#${data.componentId} .content p`);
+      const ellipsisTemp = virtualclass.getTemplate('ellipsisText', 'askQuestion');
+      getContentElem.innerHTML = content;
+      if (data.content.length > 128) {
+        const ellipsisTextTemp = ellipsisTemp({ morecontent: moreContent }); // TODO use this template in question, answer, comment
+        document.querySelector(`#${data.componentId} .content p`).insertAdjacentHTML('beforeend', ellipsisTextTemp);
+      }
+      this.displayMore(data);
+    } else if (data.action === 'create') {
+      return { content: content, moreContent: moreContent };
+    }
+  }
+
+  displayMore(data) {
+    const componentId = (data.action === 'create') ? data.id : data.componentId;
+    const btn = document.querySelector(`#${componentId} .content p .btn`);
+    if (data.content.length > 128 && btn) {
+      if (btn.classList.contains('close')) {
+        btn.classList.remove('close');
+        btn.classList.add('open');
+      }
+    }
+  }
+}
+
 class AskQuestionEvents {
   constructor() {
     this.values = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation',
@@ -122,7 +164,7 @@ class AskQuestionEvents {
     const userId = (data.componentId).split('-')[1];
     if (userId === virtualclass.uInfo.userid || roles.hasControls()) {
       let text;
-      const time = this.elapsedComponentTime({ componentId: data.componentId, component: data.component });
+      const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: data.component });
       if (!roles.hasControls()) {
         if (time > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
           || contextData[currentContext][data.component][data.componentId].upvote > 0) {
@@ -153,7 +195,7 @@ class AskQuestionEvents {
       }
 
       const component = document.querySelector(`#${data.componentId} .content p`).dataset.component;
-      data = this.generateData({
+      data = virtualclass.askQuestion.generateData({ // todo, this should be moved to utility
         action: 'renderer',
         type: 'input',
         content: text,
@@ -175,7 +217,7 @@ class AskQuestionEvents {
     }
     const userId = (data.componentId).split('-')[1];
     if (userId === virtualclass.uInfo.userid || roles.hasControls()) {
-      const time = this.elapsedComponentTime({ componentId: data.componentId, component: data.component });
+      const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: data.component });
       if (!roles.hasControls()) {
         if (time > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
           || contextData[currentContext][data.component][data.componentId].upvote > 0) {
@@ -189,13 +231,13 @@ class AskQuestionEvents {
           return;
         }
       }
-      data = this.generateData({
+      data = virtualclass.askQuestion.generateData({
         component: data.component,
         action: data.event,
         componentId: data.componentId,
         parent: data.parentId,
       });
-      this.send(data);
+      virtualclass.askQuestion.send(data);
     } else {
       return;
     }
@@ -204,14 +246,14 @@ class AskQuestionEvents {
   upvote(data) {
     const upvoteCount = document.querySelector(`#${data.componentId} .upVote .total`).innerHTML;
     if (upvoteCount === '0') {
-      const obj = this.generateData({ component: data.component, action: data.event });
+      const obj = virtualclass.askQuestion.generateData({ component: data.component, action: data.event });
       if (data.component !== 'question') {
         obj.parent = data.parentId;
       }
       obj.upvote = 1;
       obj.componentId = data.componentId;
       obj.content = virtualclass.askQuestion.context[obj.context][data.component][data.componentId].content;
-      virtualclass.askQuestion.context[obj.context][data.component].send(obj);
+      virtualclass.askQuestion.send(obj);
       virtualclass.askQuestion.firstid = obj.id;
     } else {
       virtualclass.askQuestion.firstid = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].id;
@@ -279,7 +321,7 @@ class AskQuestionEvents {
       moreControlElem.classList.remove('open');
       moreControlElem.classList.add('close');
     }
-    const obj = this.generateData({
+    const obj = virtualclass.askQuestion.generateData({
       component: data.component,
       action: data.event,
       uname: virtualclass.uInfo.userobj.name,
@@ -302,7 +344,7 @@ class AskQuestionEvents {
         footerElem.classList.add('show');
       }
       const mainContent = contextData[currentContext][data.component][data.componentId].content;
-      this.separatedContent({ componentId: data.componentId, content: mainContent, action: data.event });
+      virtualclass.askQuestion.util.separatedContent({ componentId: data.componentId, content: mainContent, action: data.event });
     } else {
       const text = document.querySelector('#writeContent');
       if (text) {
@@ -366,6 +408,39 @@ class AskQuestionEvents {
 }
 
 class AskQuestionRenderer {
+  mainInterface(data) {
+    if (data && data.component === 'note') {
+      // this.qaNote.renderMainContainer();
+    } else {
+      // TODO, this code needs to be simplified
+      const toggle = document.querySelector('#virtualclassCont.congrea #congHr');
+      const context = {};
+      const qaTemp = virtualclass.getTemplate('askQuestionMain', 'askQuestion');
+      const qtemp = qaTemp(context);
+      document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', qtemp);
+
+      toggle.addEventListener('click', (elem) => {
+        virtualclass.askQuestion.initFirebaseOperatoin();
+        virtualclass.askQuestion.renderMainContainer(elem.currentTarget);
+      });
+
+      const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
+      if (addQuestion) {
+        addQuestion.addEventListener('click', () => {
+          virtualclass.askQuestion.engine.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.askQuestion.currentContext });
+        });
+      }
+
+      const note = document.getElementById('virtualclassnote');
+      note.addEventListener('click', (event) => {
+        // this.handler.bind(this)
+        virtualclass.askQuestion.triggerInitFirebaseOperation();
+        virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
+        virtualclass.askQuestion.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
+      });
+    }
+  }
+
   input(data) {
     let insertId;
     if (data.component === 'question') {
@@ -402,7 +477,7 @@ class AskQuestionRenderer {
   }
 
   contentBox(data) {
-    const text = this.separatedContent(data);
+    const text = virtualclass.askQuestion.util.separatedContent(data);
     if (data.component === 'question') {
       const chkContextElem = document.querySelector(`#askQuestion .context[data-context~=${data.context}]`);
       if ('question' && chkContextElem) {
@@ -440,7 +515,7 @@ class AskQuestionRenderer {
         document.querySelector(`#${data.parent} .comments`).insertAdjacentHTML('beforeend', ansTemp);
       }
     }
-    this.displayMore(data);
+    virtualclass.askQuestion.util.displayMore(data);
 
     if (data.userId === virtualclass.uInfo.userid) {
       if (data.component === 'note') {
@@ -559,54 +634,9 @@ class AskQuestionRenderer {
       ev.target.style.cssText = 'height:' + ev.target.scrollHeight + 'px';
     }, 1000);
   }
-
-  displayMore(data) {
-    const componentId = (data.action === 'create') ? data.id : data.componentId;
-    const btn = document.querySelector(`#${componentId} .content p .btn`);
-    if (data.content.length > 128 && btn) {
-      if (btn.classList.contains('close')) {
-        btn.classList.remove('close');
-        btn.classList.add('open');
-      }
-    }
-  }
-
-  separatedContent(data) {
-    let content;
-    let moreContent;
-    if (data.content.length > 128) {
-      content = data.content.slice(0, 128);
-      moreContent = data.content.slice(128, data.content.length);
-    } else {
-      content = data.content;
-    }
-    if (data.action === 'edit' || data.action === 'cancel') {
-      const getContentElem = document.querySelector(`#${data.componentId} .content p`);
-      const ellipsisTemp = virtualclass.getTemplate('ellipsisText', 'askQuestion');
-      getContentElem.innerHTML = content;
-      if (data.content.length > 128) {
-        const ellipsisTextTemp = ellipsisTemp({ morecontent: moreContent }); // TODO use this template in question, answer, comment
-        document.querySelector(`#${data.componentId} .content p`).insertAdjacentHTML('beforeend', ellipsisTextTemp);
-      }
-      this.displayMore(data);
-    } else if (data.action === 'create') {
-      return { content: content, moreContent: moreContent };
-    }
-  }
-
-  elapsedComponentTime(data) {
-    const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-    const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
-    return Math.floor((currentEditTime - (+previousTime)) / 60);
-  }
 }
 
 class BasicOperation {
-  // constructor() {
-  //   this.events = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation',
-  //     'createInput', 'save', 'cancel', 'navigation', 'more', 'less', 'clearall', 'previous', 'next'];
-  // }
-
   generateData(data) {
     const qnCreateTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
     data.id = `${data.component}-${virtualclass.gObj.uid}-${qnCreateTime}`;
@@ -726,202 +756,7 @@ class BasicOperation {
 
   renderer(data) {
     this.rendererObj[data.type].call(this.rendererObj, data);
-    return;
-    let insertId;
-    if (data.type === 'input') {
-      // if (data.component === 'question') {
-      //   insertId = '#askQuestion';
-      // } else {
-      //   insertId = '#' + ((data.componentId === null) ? data.parent : data.componentId);
-      // }
-      //
-      // let text = document.querySelector('#writeContent .text');
-      // if (text) { return; }
-      //
-      // const context = { componentId: data.componentId, component: data.component, parent: data.parent };
-      // const userInput = virtualclass.getTemplate(data.type, 'askQuestion');
-      // const userInputTemplate = userInput(context);
-      // if (typeof data.content !== 'undefined' && typeof data.componentId !== 'undefined') {
-      //   if (data.userId === virtualclass.gObj.uid) {
-      //     document.querySelector(`#${data.componentId} .content p`).innerHTML = '';
-      //     document.querySelector(`#${data.componentId} .content p`).insertAdjacentHTML('beforeend', userInputTemplate);
-      //     text = document.querySelector('#writeContent .text');
-      //     if (text) {
-      //       text.innerHTML = data.content;
-      //     }
-      //   }
-      // } else {
-      //   document.querySelector(insertId).insertAdjacentHTML('beforeend', userInputTemplate);
-      // }
-      // if (data.component === 'question') {
-      //   const inputAction = document.querySelector('#writeContent');
-      //   if (inputAction) {
-      //     inputAction.addEventListener('click', this.handler.bind(this));
-      //     inputAction.addEventListener('input', this.autosize.bind(this));
-      //   }
-      // }
-    } else if (data.type === 'contentBox') {
-      // const text = this.separatedContent(data);
-      // if (data.component === 'question') {
-      //   const chkContextElem = document.querySelector(`#askQuestion .context[data-context~=${data.context}]`);
-      //   if ('question' && chkContextElem) {
-      //     const componentTemplate = virtualclass.getTemplate(data.component, 'askQuestion');
-      //     const htmlContent = componentTemplate({ id: data.id, userName: data.uname, content: text.content, morecontent: text.moreContent });
-      //     document.querySelector(`#askQuestion [data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', htmlContent);
-      //   } else {
-      //     const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
-      //     const cTemp = getContextTemp({ context: data.context });
-      //     document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
-      //     const componentTemp = virtualclass.getTemplate(data.component, 'askQuestion');
-      //     document.querySelector(`#askQuestion [data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({
-      //       id: data.id,
-      //       userName: data.uname,
-      //       content: text.content,
-      //       morecontent: text.moreContent,
-      //     }));
-      //     document.querySelector(`#askQuestion [data-context~=${data.context}]`).classList.add('current');
-      //   }
-      // } else if (data.component === 'answer' || data.component === 'comment') {
-      //   const qaAnswerTemp = virtualclass.getTemplate(data.component, 'askQuestion');
-      //   const context = {
-      //     id: data.id,
-      //     itemId: data.componentId,
-      //     userName: data.uname,
-      //     hasControl: roles.hasControls(),
-      //     content: text.content,
-      //     morecontent: text.moreContent,
-      //     parent: data.parent,
-      //   };
-      //   const ansTemp = qaAnswerTemp(context);
-      //   if (data.component === 'answer') {
-      //     document.querySelector(`#${data.parent} .answers`).insertAdjacentHTML('beforeend', ansTemp);
-      //   } else if (data.component === 'comment') {
-      //     document.querySelector(`#${data.parent} .comments`).insertAdjacentHTML('beforeend', ansTemp);
-      //   }
-      // }
-      // this.displayMore(data);
-      //
-      // if (data.userId === virtualclass.uInfo.userid) {
-      //   if (data.component === 'note') {
-      //     this.renderNote(data.context);
-      //     const textArea = document.querySelector(`#noteContainer .context[data-context="${data.context}"] textarea.content`);
-      //     textArea.value = data.content;
-      //   } else if (data.component !== 'comment') {
-      //     document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
-      //   }
-      //   if (!roles.hasControls()) {
-      //     const currentElem = document.querySelector(`#${data.componentId}`);
-      //     if (currentElem) {
-      //       currentElem.classList.add('mySelf');
-      //     }
-      //   }
-      // }
-      // if (data.component === 'question') {
-      //   const qnElem = document.querySelector(`#${data.id}.question`);
-      //   if (qnElem) {
-      //     qnElem.addEventListener('click', (ev) => {
-      //       this.handler(ev);
-      //     });
-      //   }
-      // }
-    } else if (data.type === 'noteContainer') {
-
-      // let note = document.getElementById('noteContainer');
-      // if (note == null) {
-      //   const noteMainContainer = virtualclass.getTemplate('note', 'askQuestion');
-      //   const noteMainContainerHtml = noteMainContainer({context: virtualclass.askQuestion.currentContext});
-      //   document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
-      // }
-      //
-      // this.renderNote(virtualclass.askQuestion.currentContext);
-      //
-      // const activeElement = document.querySelector('#rightSubContainer .active');
-      // if (activeElement) {
-      //   activeElement.classList.remove('active');
-      //   // activeElement.classList.add('deactive');
-      // }
-      // note = document.getElementById('noteContainer');
-      // note.classList.add('active');
-    } else if (data.type === 'noteWithContent') {
-
-      // let noteTextContainer = document.querySelector(`#noteContainer [data-context~=${data.context}] .content`);
-      // if (!noteTextContainer) {
-      //   // virtualclass.askQuestion.renderer({ component: 'note', action: 'renderer', type: 'noteContainer', context: data.context });
-      //   // virtualclass.askQuestion.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: data.context });
-      //   virtualclass.askQuestion.engine.performWithPassData({ component: 'note', action: 'renderer', type: 'noteContainer', context: data.context });
-      //
-      //   noteTextContainer = document.querySelector(`#noteContainer [data-context~=${data.context}] .content`);
-      // }
-      // noteTextContainer.value = data.content;
-    }
   }
-
-  // renderNote(currentContext) {
-  //   // let attachFunction = false;
-  //   let contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
-  //   if (contextDivElement === null) {
-  //     const contentArea = virtualclass.getTemplate('content-area', 'askQuestion');
-  //     const contentAreaHtml = contentArea({ context: currentContext });
-  //     const noteContainer = document.querySelector('#noteContainer .container');
-  //     if (noteContainer != null) noteContainer.insertAdjacentHTML('beforeEnd', contentAreaHtml);
-  //   }
-  //
-  //   const activeNote = document.querySelector('#noteContainer .context.active');
-  //   if (activeNote) activeNote.classList.remove('active');
-  //
-  //   contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
-  //   contextDivElement.classList.add('active');
-  //
-  //   const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
-  //   textArea.addEventListener('input', this.noteHandler.bind(this));
-  //   textArea.addEventListener('focus', this.inputFocusHandler.bind(this));
-  //
-  //   const noteNavigationContainer = document.getElementById('noteNavigationContainer');
-  //   if (!virtualclass.askQuestion.noteNavigation.attachImmediateHandler) {
-  //     virtualclass.askQuestion.noteNavigation.attachImmediateHandler = true;
-  //     noteNavigationContainer.addEventListener('click', this.noteHandlerImmediate.bind(this));
-  //   }
-  // }
-
-  // noteHandlerImmediate(ev) {
-  //   console.log('====> handler ', ev.target.className);
-  //   this.handler(ev);
-  // }
-  //
-  // // TODO, let see how can this be improve more
-  // noteHandler(ev, eventType) {
-  //   if (eventType) {
-  //     this.handler(ev);
-  //   } else {
-  //     if (this.sendToDatabaseTime) {
-  //       clearTimeout(this.sendToDatabaseTime);
-  //     }
-  //     const self = this;
-  //     this.sendToDatabaseTime = setTimeout(() => {
-  //       virtualclass.askQuestion.noteNavigation.handleQueue(virtualclass.askQuestion.currentContext);
-  //       self.handler(ev); // send note to database
-  //     }, 700);
-  //   }
-  // }
-  //
-  // // text area focus input element
-  // inputFocusHandler() {
-  //   if (virtualclass.isPlayMode && virtualclass.recorder.playStart && !virtualclass.recorder.controller.pause) {
-  //     virtualclass.recorder.initRecPause();
-  //   }
-  // }
-
-  // moreControls (data) {
-  //   const selector = '#' + data.componentId +  ' .moreControls .item';
-  //   const getMoreCntrl = document.querySelector(selector);
-  //   if (getMoreCntrl.classList.contains('close')) {
-  //     getMoreCntrl.classList.remove('close');
-  //     getMoreCntrl.classList.add('open');
-  //   } else {
-  //     getMoreCntrl.classList.remove('open');
-  //     getMoreCntrl.classList.add('close');
-  //   }
-  // }
 
   create(data) {
     if (data.userId === virtualclass.uInfo.userid) {
@@ -999,7 +834,7 @@ class BasicOperation {
         } else {
           children.splice(children.indexOf(data.componentId), 1);
           const userId = (data.parent).split('-')[1];
-          const time = this.elapsedComponentTime({ componentId: data.parent, component: component });
+          const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.parent, component: component });
           const componentUpvote = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][component][data.parent].upvote;
           const getParentElem = document.querySelector(`#${data.parent} .upVote .total`); // TODO handle using component data
           if (!roles.hasControls() && (time < 30 && getParentElem && componentUpvote === 0)
@@ -1018,7 +853,7 @@ class BasicOperation {
   }
 
   edit(data) {
-    this.separatedContent(data);
+    virtualclass.askQuestion.util.separatedContent(data);
     document.querySelector(`#${data.componentId} .lable`).innerHTML = `${data.component} (edited)`;
     const textTemp = document.querySelector('#writeContent');
     if (textTemp) {
@@ -1059,53 +894,6 @@ class BasicOperation {
       markParentElem.dataset.markAnswer = 'marked';
     }
   }
-
-  // autosize(ev) {
-  //   setTimeout(() => {
-  //     ev.target.style.cssText = 'height:auto; padding:0';
-  //     ev.target.style.cssText = 'height:' + ev.target.scrollHeight + 'px';
-  //   }, 1000);
-  // }
-  //
-  // displayMore(data) {
-  //   const componentId = (data.action === 'create') ? data.id : data.componentId;
-  //   const btn = document.querySelector(`#${componentId} .content p .btn`);
-  //   if (data.content.length > 128 && btn) {
-  //     if (btn.classList.contains('close')) {
-  //       btn.classList.remove('close');
-  //       btn.classList.add('open');
-  //     }
-  //   }
-  // }
-  //
-  // separatedContent(data) {
-  //   let content;
-  //   let moreContent;
-  //   if (data.content.length > 128) {
-  //     content = data.content.slice(0, 128);
-  //     moreContent = data.content.slice(128, data.content.length);
-  //   } else {
-  //     content = data.content;
-  //   }
-  //   if (data.action === 'edit' || data.action === 'cancel') {
-  //     const getContentElem = document.querySelector(`#${data.componentId} .content p`);
-  //     const ellipsisTemp = virtualclass.getTemplate('ellipsisText', 'askQuestion');
-  //     getContentElem.innerHTML = content;
-  //     if (data.content.length > 128) {
-  //       const ellipsisTextTemp = ellipsisTemp({ morecontent: moreContent }); // TODO use this template in question, answer, comment
-  //       document.querySelector(`#${data.componentId} .content p`).insertAdjacentHTML('beforeend', ellipsisTextTemp);
-  //     }
-  //     this.displayMore(data);
-  //   } else if (data.action === 'create') {
-  //     return { content: content, moreContent: moreContent };
-  //   }
-  // }
-  //
-  // elapsedComponentTime(data) {
-  //   const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-  //   const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
-  //   return Math.floor((currentEditTime - (+previousTime)) / 60);
-  // }
 
   mostUpvotedOnTop(data) {
     let getChildren;
@@ -1170,15 +958,6 @@ class QAcontext {
 }
 
 class AskQuestionEngine {
-  // constructor() {
-  //   this.queue = {};
-  //   this.queue.note = [];
-  //   this.queue.question = [];
-  //   this.context = {};
-  //   this.firstRealTime = true;
-  //   this.initialize = false;
-  // }
-
   performWithQueue(data) {
     this.makeQueue(data);
     const type = (data.component === 'note' ? data.component : 'question');
@@ -1223,12 +1002,13 @@ class AskQuestion extends BasicOperation {
     this.initialize = false;
     this.initialize = true;
     console.log('ask question init');
-    this.mainRenderer();
     this.allMarks = {};
     this.noteNavigation = new NoteNavigation();
     this.event = new AskQuestionEvents();
     this.engine = new AskQuestionEngine();
     this.rendererObj = new AskQuestionRenderer();
+    this.rendererObj.mainInterface();
+    this.util = new AskQuestionUtility();
   }
 
   async initFirebaseOperatoin() {
@@ -1330,12 +1110,6 @@ class AskQuestion extends BasicOperation {
       this.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
       this.noteNavigation.afterChangeContext(virtualclass.askQuestion.currentContext);
     }
-
-    // const noteContainerActive = document.querySelector('#noteContainer.active');
-    // if (this.context[contextName] && this.initFirebase && noteContainerActive) {
-    //   this.context[contextName].note.renderNote(this.currentContext);
-    // }
-
     console.log('====> ready context ', this.currentContext);
     ioAdapter.mustSend({ cf: 'readyContext', context: this.currentContext });
   }
@@ -1418,17 +1192,9 @@ class AskQuestion extends BasicOperation {
     // if (this.collectionMark) this.loadInitialDataMark();
   }
 
-    loadInitialDataMark() {
+  loadInitialDataMark() {
     if (this.initCollectionMark) return;
-    // this.db.collection(this.collection).get().then((snapshot) => {
-    //   // TODO, we have to store the inital data from attachHandlerForRealTimeUpdate
-    //   snapshot.docs.forEach((doc) => {
-    //     this.makeQueue(doc.data());
-    //     // this.context[data.context].actions.push(data);
-    //   });
-    // }).catch((error) => {
-    //   console.log('ask question read error ', error);
-    // });
+
     console.log('===> trigger initial data');
     const self = this;
     this.db.collection(this.collectionMark).get().then((snapshot) => {
@@ -1447,45 +1213,11 @@ class AskQuestion extends BasicOperation {
         virtualclass.askQuestion.noteNavigation.afterChangeContext(virtualclass.askQuestion.currentContext);
       });
 
-      // const loading = document.querySelector();
     })
     // .catch((error) => {
     //   console.log('ask question read error ', error);
     // });
     // todo, this has to be enable in production
-  }
-
-  mainRenderer(data) {
-    if (data && data.component === 'note') {
-      // this.qaNote.renderMainContainer();
-    } else {
-      // TODO, this code needs to be simplified
-      const toggle = document.querySelector('#virtualclassCont.congrea #congHr');
-      const context = {};
-      const qaTemp = virtualclass.getTemplate('askQuestionMain', 'askQuestion');
-      const qtemp = qaTemp(context);
-      document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', qtemp);
-
-      toggle.addEventListener('click', (elem) => {
-        this.initFirebaseOperatoin();
-        this.renderMainContainer(elem.currentTarget);
-      });
-
-      const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
-      if (addQuestion) {
-        addQuestion.addEventListener('click', () => {
-          this.engine.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.askQuestion.currentContext });
-        });
-      }
-
-      const note = document.getElementById('virtualclassnote');
-      note.addEventListener('click', (event) => {
-        // this.handler.bind(this)
-        this.triggerInitFirebaseOperation();
-        virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
-        this.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
-      });
-    }
   }
 
   async triggerInitFirebaseOperation() {

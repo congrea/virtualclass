@@ -143,6 +143,8 @@
   color: #434343;
   font-size: 13px;
   display: block;
+  resize: none;
+  max-height: 90px;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent {
@@ -262,16 +264,20 @@
   pointer-events: none;
 }
 
-#virtualclassCont.congrea.askQuestionFetching #askQuestion .container.askContainer {
+#virtualclassCont.congrea.askQuestionFetching #askQuestion .container.askContainer,
+#virtualclassCont.congrea.askQuestionFetching #noteContainer {
   opacity: 0.7;
   background-color: #a9a9a9;
 }
 
-#virtualclassCont.congrea #askQuestion .loading {
+#virtualclassCont.congrea #askQuestion .loading,
+#virtualclassCont.congrea #noteContainer .loading,
+#virtualclassCont.congrea.askQuestionFetching #noteContainer .contentContainer {
   display: none;
 }
 
-#virtualclassCont.congrea.askQuestionFetching #askQuestion .loading {
+#virtualclassCont.congrea.askQuestionFetching #askQuestion .loading,
+#virtualclassCont.congrea.askQuestionFetching #noteContainer .loading {
   display: block;
   position: absolute;
   font-size: 15px;
@@ -402,6 +408,22 @@
 } */
 
 #virtualclassCont.congrea #noteContainer .content {
+  width: 100%;
+  height: 100%;
+  resize: unset;
+  color: #462502;
+  font-size: 13px;
+  line-height: 1.5rem;
+  background-image: -webkit-linear-gradient(left, #fff 0, #daca0900 0), -webkit-linear-gradient(right, #fff 0, #fff28fc2 0), -webkit-linear-gradient(white 23px, #000 18px, #0000008c 16px, #000000 36px);
+  background-repeat: repeat-y;
+  background-size: 100% 100%, 100% 100%, 100% 1.5rem;
+  overflow: auto;
+  border: 1px solid #d2d2d2;
+  letter-spacing: 0.03125rem;
+  padding-left: 8px;
+}
+
+#virtualclassCont.congrea #noteContainer .context.active {
   height: 100%;
 }
 
@@ -432,7 +454,7 @@
 
 #virtualclassCont.congrea #askQuestion .content p .btn.open,
 #virtualclassCont.congrea #askQuestion .content .morecontent.open {
-  display: block;
+  display: inline;
 }
 
 #virtualclassCont.congrea #askQuestion .content p .btn.close,
@@ -453,25 +475,49 @@
   display: inline;
 }
 
-#virtualclassCont.congrea #noteNavigation div{
-  float: left;
-  width: 70px;
+#virtualclassCont.congrea #noteNavigation div {
+  display: inline-block;
+  color: #444;
+}
+
+#virtualclassCont.congrea #noteContainer #noteNavigationContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 8px 5px 10px 10px;
 }
 
 #virtualclassCont.congrea #noteNavigationContainer .clearAll {
-  float: left;
-}
-
-#virtualclassCont.congrea #noteNavigationContainer .navigation {
-  float: right;
-}
-
-#virtualclassCont.congrea #noteNavigationContainer {
-  cursor: pointer;
+  flex: 1;
 }
 
 #virtualclassCont.congrea #noteNavigationContainer .previous.deactive,
 #virtualclassCont.congrea #noteNavigationContainer .next.deactive {
   pointer-events: none;
   opacity: 0.5;
+}
+
+#virtualclassCont.congrea #noteNavigation .notenumber span {
+  display: inline-block;
+}
+
+#virtualclassCont.congrea #noteNavigationContainer .clearAll .event {
+  padding: 4px 8px;
+  font-size: 13px;
+  background-color: #ffff;
+  color: #484848;
+  border-radius: 6px;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  box-shadow: 0 4px 3px -2px #949494;
+  cursor: pointer;
+}
+
+#virtualclassCont.congrea #noteNavigationContainer .clearAll .event:hover {
+  background-color: #f7f7f7;
+}
+
+#virtualclassCont.congrea #noteContainer #noteNavigationContainer #noteNavigation .event {
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
 }

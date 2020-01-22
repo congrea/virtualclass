@@ -370,7 +370,7 @@
       return chunk;
     },
 
-    renderContextElement(allmark, context) {
+    renderContextMark(allmark, context) {
       console.log('my context ', context);
       const currentMin = ((Math.floor(this.refrenceTime / 1000)) - this.firstTimeInSeconds) / 60;
       const totalMin = (this.totalTimeInMiliSeconds) / 1000 / 60;
@@ -470,6 +470,7 @@
               if (virtualclass.askQuestion.allMarks[msg.m.context]) {
                 if (virtualclass.askQuestion.allMarks[msg.m.context].question && virtualclass.askQuestion.allMarks[msg.m.context].question.length > 0) {
                   allMark.question = true;
+                  console.log('====> I have a question ', msg.m.context);
                 }
 
                 if (virtualclass.askQuestion.allMarks[msg.m.context].note) {
@@ -485,7 +486,7 @@
               // Todo, related ask qeustion
               // TODO, there is bit time difference between actual and context point time
               // console.log('hello guys duplicate ', msg.m.serial, msg.m.context);
-              this.renderContextElement(allMark, msg.m.context, msg.m.serial);
+              this.renderContextMark(allMark, msg.m.context, msg.m.serial);
             }
             this.refrenceTime = time;
           }

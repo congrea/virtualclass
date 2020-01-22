@@ -525,3 +525,7 @@
 #virtualclassCont.congrea #allMarksinformation .markContainer {
   pointer-events: none;
 }
+
+#virtualclassCont.congrea #askQuestion.viewAll .context {
+  display: block;
+}

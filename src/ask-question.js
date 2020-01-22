@@ -1070,7 +1070,6 @@ class AskQuestion extends BasicOperation {
     this.queue.bookmark = [];
     this.context = {};
     this.firstRealTime = true;
-    this.initialize = false;
     this.initialize = true;
     this.allMarks = {};
     this.noteNavigation = new NoteNavigation();
@@ -1080,7 +1079,30 @@ class AskQuestion extends BasicOperation {
     this.rendererObj.mainInterface();
     this.util = new AskQuestionUtility();
     this.bookmarkUi = new BookMarkUserInterface();
+    this.attachHandler();
+  }
+
+  attachHandler() {
     this.bookmarkUi.attachHandler();
+    if (virtualclass.isPlayMode) {
+      const viewAllQuestion = document.getElementById('viewAllQuestion');
+      viewAllQuestion.addEventListener('click', this.viewAllQuestion.bind(this));
+    }
+  }
+
+  viewAllQuestion(ev) {
+    const viewAllQuestion = document.getElementById('viewAllQuestion');
+    const viewAllAction = ev.currentTarget.dataset.viewall;
+    const askQuestion = document.getElementById('askQuestion');
+    if (askQuestion != null) {
+      if (viewAllAction === 'enable') {
+        askQuestion.classList.add('viewAll');
+        viewAllQuestion.dataset.viewall = 'disable';
+      } else {
+        askQuestion.classList.remove('viewAll');
+        viewAllQuestion.dataset.viewall = 'enable';
+      }
+    }
   }
 
 

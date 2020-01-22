@@ -206,8 +206,8 @@ class AskQuestionEvents {
       let text;
       const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: data.component });
       if (!roles.hasControls()) {
-        if (time > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
-          || contextData[currentContext][data.component][data.componentId].upvote > 0) {
+        if (time > 30 || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].children.length > 0
+          || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].upvote > 0) {
           if (time > 30) {
             virtualclass.popup.infoMsg(virtualclass.lang.getString('askQuestionTimeExceed'));
             const moreElem = document.querySelector(`#${data.componentId}`);
@@ -260,8 +260,8 @@ class AskQuestionEvents {
     if (userId === virtualclass.uInfo.userid || roles.hasControls()) {
       const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: data.component });
       if (!roles.hasControls()) {
-        if (time > 30 || contextData[currentContext][data.component][data.componentId].children.length > 0
-          || contextData[currentContext][data.component][data.componentId].upvote > 0) {
+        if (time > 30 || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].children.length > 0
+          || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].upvote > 0) {
           if (time > 30) {
             virtualclass.popup.infoMsg(virtualclass.lang.getString('askQuestionTimeExceed'));
             const moreElem = document.querySelector(`#${data.componentId}`);
@@ -396,7 +396,7 @@ class AskQuestionEvents {
         footerElem.classList.remove('hide');
         footerElem.classList.add('show');
       }
-      const mainContent = contextData[currentContext][data.component][data.componentId].content;
+      const mainContent = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].content;
       virtualclass.askQuestion.util.separatedContent({ componentId: data.componentId, content: mainContent, action: data.event });
     } else {
       const text = document.querySelector('#writeContent');
@@ -515,6 +515,7 @@ class AskQuestionRenderer {
         text = document.querySelector('#writeContent .text');
         if (text) {
           text.innerHTML = data.content;
+          this.autosize();
         }
       }
     } else {
@@ -870,10 +871,8 @@ class BasicOperation {
       question.status = status;
       contextObj[currentContext][data.component][data.componentId] = question;
     } else if (status === 'upvote') {
-      if (data.component === 'question') {
+      if (data.component === 'question' || data.component === 'answer') {
         getChildren = contextObj[currentContext][data.component][data.componentId].children;
-      } else {
-        getChildren = [];
       }
       question = { id: data.id, content: data.content, children: getChildren, status, parent: null, componentId: data.id, upvote: data.upvote };
       question.status = status;
@@ -905,8 +904,10 @@ class BasicOperation {
           const getParentElem = document.querySelector(`#${data.parent} .upVote .total`); // TODO handle using component data
           if (!roles.hasControls() && (time < 30 && getParentElem && componentUpvote === 0)
             || (component === 'comment' && userId === virtualclass.uInfo.userid)) {
-            moreControlElem.classList.remove('noneditable');
-            moreControlElem.classList.add('editable');
+            if (children.length === 0) {
+              moreControlElem.classList.remove('noneditable');
+              moreControlElem.classList.add('editable');
+            }
           }
           if (data.component === 'answer') {
             const markParentElem = document.querySelector(`#${data.parent}`);
@@ -957,10 +958,16 @@ class BasicOperation {
       delete markParentElem.dataset.markAnswer;
     }
     const markElem = document.querySelector(`#${data.componentId}`);
-    // const markParentElem = document.querySelector(`#${data.parent}`);
     if (markParentElem && markElem && !markParentElem.dataset.markAnswer) {
       markElem.dataset.markAnswer = 'marked';
       markParentElem.dataset.markAnswer = 'marked';
+      const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
+      for (let i = 0; i < answersElem.length; i++) {
+        if (answersElem[i].classList.contains('editable')) {
+          answersElem[i].classList.remove('editable');
+        }
+        answersElem[i].classList.add('noneditable');
+      }
     }
   }
 

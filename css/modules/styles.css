@@ -3879,8 +3879,7 @@ div.ui-memblist-usr .userVideos {
 /* content: "\e962"; */
 
 /* } */
-#virtualclassCont.congrea #icHr::before,
-#virtualclassCont.congrea #virtualclassnote a::before {
+#virtualclassCont.congrea #icHr::before {
   content: "\e9b1";
   font-size: 1rem;
   color: #fdfafa;
@@ -3895,10 +3894,14 @@ div.ui-memblist-usr .userVideos {
   bottom: 35px !important;
 }
 
-#virtualclassCont.congrea #icHr {
+#virtualclassCont.congrea #icHr, #virtualclassCont.congrea #virtualclassnote .icon-whiteboard {
   font-size: 0.875rem;
-  padding: 12px 11.5px 15px 11.5px;
+  padding: 13px 11.5px 15px 11.5px;
   display: block;
+}
+
+#virtualclassCont.congrea #virtualclassnote .icon-whiteboard {
+  padding: 13px 11.5px 15px 11.5px;
 }
 
 /* border color     */
@@ -4021,7 +4024,7 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
-  padding: 0.8125rem 0.8125rem 0.6875rem 0.8125rem;
+  padding: 0.875rem 0.8125rem 0.6562rem 0.8125rem;
   display: block;
 }
 

@@ -131,7 +131,7 @@ class BookMarkUserInterface {
 class AskQuestionUtility {
   elapsedComponentTime(data) {
     const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-    const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];https://live.congrea.net/virtualclass/example/index1.php?id=1114&role=t&name=raj&room=158#
+    const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
     return Math.floor((currentEditTime - (+previousTime)) / 60);
   }
 

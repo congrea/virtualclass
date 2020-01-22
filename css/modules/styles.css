@@ -5137,6 +5137,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: row;
+  height: 7px;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel .markContainer {

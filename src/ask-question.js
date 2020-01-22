@@ -1187,7 +1187,9 @@ class AskQuestion extends BasicOperation {
     this.bookmarkUi.afterChangeContext(virtualclass.askQuestion.currentContext);
 
     console.log('====> ready context ', this.currentContext);
-    ioAdapter.mustSend({ cf: 'readyContext', context: this.currentContext });
+    if (roles.hasControls()) {
+      ioAdapter.mustSend({ cf: 'readyContext', context: this.currentContext });
+    }
   }
 
   async authenticate(config) {

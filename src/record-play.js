@@ -2,7 +2,6 @@
 /** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
-
 (function (window) {
   const TIME_TO_REQUEST = 3 * 60 * 1000; // every request would be performeed in given milisecond
   const RECORDING_TIME = 15 * 60 * 1000; // If elapsed time goes beyond the
@@ -379,7 +378,8 @@
       const markPoint = (currentMin * 100) / totalMin;
       console.log('=== total minute 2 ref', (this.refrenceTime / 1000), ' firstTime', this.firstTimeInSeconds, ' total time in miliseconds ', this.totalTimeInMiliSeconds)
       const contextMark = virtualclass.getTemplate('context-mark');
-      const data = Object.assign({}, allmark, { id: 'ctime'+markPoint, width: markPoint, context });
+      const ctimeId = 'ctime' + markPoint;
+      const data = Object.assign({}, allmark, { id: ctimeId, width: markPoint, context });
       const contextMarkHtml = contextMark(data);
       document.getElementById('allMarksinformation').insertAdjacentHTML('beforeend', contextMarkHtml);
     },
@@ -463,8 +463,8 @@
             }
             // if (data.indexOf('"m":{"cf":"readyContext"') > -1) {
             if (data.indexOf('readyContext') > -1) {
+              console.log('====> recording ready context');
               const msg = JSON.parse(io.cleanRecJson(data));
-              console.log('====> ready context ', msg.m.context);
               const allMark = { question: false, note: false, bookmark: false };
               // TODO, we need to check why there is missing context during live session _doc_0_2
               if (virtualclass.askQuestion.allMarks[msg.m.context]) {
@@ -484,7 +484,8 @@
 
               // Todo, related ask qeustion
               // TODO, there is bit time difference between actual and context point time
-              this.renderContextElement(allMark, msg.m.context);
+              // console.log('hello guys duplicate ', msg.m.serial, msg.m.context);
+              this.renderContextElement(allMark, msg.m.context, msg.m.serial);
             }
             this.refrenceTime = time;
           }

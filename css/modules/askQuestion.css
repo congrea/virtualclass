@@ -521,3 +521,7 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+
+#virtualclassCont.congrea #allMarksinformation .markContainer {
+  pointer-events: none;
+}

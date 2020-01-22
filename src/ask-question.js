@@ -1230,7 +1230,7 @@ class AskQuestion extends BasicOperation {
       }
     } else if (data.component === 'bookmark') {
       this.allMarks[data.context][data.component] = true;
-      if (+(data.value) === 0) {
+      if (+(data.content) === 0) {
         delete this.allMarks[data.context][data.component];
       }
     }

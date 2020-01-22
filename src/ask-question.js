@@ -887,7 +887,7 @@ class BasicOperation {
     if (data.parent != null && (data.parent).split('-')[0] === 'comment') {
       component = 'comment';
     }
-    if (Object.prototype.hasOwnProperty.call(contextObj[data.context][component], data.parent) && data.component !== 'question') {
+    if (contextObj[data.context] && contextObj[data.context][component] && Object.prototype.hasOwnProperty.call(contextObj[data.context][component], data.parent) && data.component !== 'question') {
       const children = contextObj[data.context][component][data.parent].children;
       const moreControlElem = document.querySelector(`#${data.parent}`);
       if (data.component === 'answer' || data.component === 'comment') {
@@ -1098,11 +1098,15 @@ class AskQuestion extends BasicOperation {
       if (viewAllAction === 'enable') {
         askQuestion.classList.add('viewAll');
         viewAllQuestion.dataset.viewall = 'disable';
+        for (const context in virtualclass.askQuestion.queue.question) {
+          this.engine.perform(context, 'question');
+        }
       } else {
         askQuestion.classList.remove('viewAll');
         viewAllQuestion.dataset.viewall = 'enable';
       }
     }
+
   }
 
 

@@ -5161,7 +5161,8 @@ body {
   background: #e8002b;
 }
 
-#virtualclassCont.congrea .markContainer[data-note='true'] .note {
+#virtualclassCont.congrea .markContainer[data-note='true'] .note,
+#virtualclassCont.congrea .markContainer[data-bookmark='true'] .note {
   background: #e8c623;
 }
 

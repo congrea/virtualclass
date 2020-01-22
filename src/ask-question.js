@@ -1213,19 +1213,23 @@ class AskQuestion extends BasicOperation {
     if (!this.allMarks[data.context]) {
       this.allMarks[data.context] = {};
     }
-    if ((data.component === 'question' || data.component === 'note' || data.component === 'bookmark')) {
-      if (data.component === 'question') {
-        if (data.action === 'create') {
-          if (!this.allMarks[data.context].question) this.allMarks[data.context].question = [];
-          this.allMarks[data.context][data.component].push(data.componentId);
-        } else if (data.action === 'delete') {
-          this.allMarks[data.context][data.component] = this.allMarks[data.context][data.component].filter(e => e !== data.componentId);
-        }
-      } else if (data.component === 'note') {
-        this.allMarks[data.context][data.component] = true;
-        if (data.content.trim() === '' || data.content.trim() === '') {
-          delete this.allMarks[data.context][data.component];
-        }
+
+    if (data.component === 'question') {
+      if (data.action === 'create') {
+        if (!this.allMarks[data.context].question) this.allMarks[data.context].question = [];
+        this.allMarks[data.context][data.component].push(data.componentId);
+      } else if (data.action === 'delete') {
+        this.allMarks[data.context][data.component] = this.allMarks[data.context][data.component].filter(e => e !== data.componentId);
+      }
+    } else if (data.component === 'note') {
+      this.allMarks[data.context][data.component] = true;
+      if (data.content.trim() === '' || data.content.trim() === '') {
+        delete this.allMarks[data.context][data.component];
+      }
+    } else if (data.component === 'bookmark') {
+      this.allMarks[data.context][data.component] = true;
+      if (+(data.value) === 0) {
+        delete this.allMarks[data.context][data.component];
       }
     }
   }

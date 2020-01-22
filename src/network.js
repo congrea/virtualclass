@@ -168,7 +168,7 @@ Network.prototype.netWorkElementIsReady = function () {
     );
   } else {
     networkStatusContainer.classList.add('connecting-room');
-    virtualclassContConatiner.classList.add('connecting');
+    if (!virtualclass.isPlayMode) virtualclassContConatiner.classList.add('connecting');
     clearTimeout(virtualclass.gObj.connectingRoom);
   }
 };

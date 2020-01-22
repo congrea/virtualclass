@@ -165,7 +165,7 @@ const PopUp = (function (window, undefined) {
         // console.log('zIndex performing');
         chatRoom.style.zIndex = 1;
       }
-
+      console.log('====> Removing connecting class');
       // remove connecting class
       const virtualclassContConatiner = document.querySelector('#virtualclassCont');
       const networkStatusContainer = document.querySelector('#networkStatusContainer');
@@ -173,6 +173,7 @@ const PopUp = (function (window, undefined) {
       virtualclassContConatiner.classList.remove('connecting');
       const connt = document.querySelector('#virtualclassApp');
       connt.classList.remove('try-to-connect');
+      virtualclass.askQuestion.triggerInitFirebaseOperation();
     }
   },
 

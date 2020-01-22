@@ -5176,3 +5176,8 @@ body {
 #virtualclassCont.congrea .bookmarks.active {
   display: block;
 }
+
+#virtualclassCont.connecting .bookmarks, #virtualclassCont.askQuestionFetching .bookmarks{
+  pointer-events: none;
+  opacity: 0.5;
+}

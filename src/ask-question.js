@@ -113,7 +113,7 @@ class BookMarkUserInterface {
   }
 
   async bookMarkHandler(event) {
-    await virtualclass.askQuestion.triggerInitFirebaseOperation('bookmark');
+    // await virtualclass.askQuestion.triggerInitFirebaseOperation('bookmark');
     virtualclass.askQuestion.handler(event);
     const parentNode = event.target.parentNode;
     if (+(parentNode.dataset.value) === 1) {
@@ -210,9 +210,10 @@ class AskQuestionEvents {
           || contextData[currentContext][data.component][data.componentId].upvote > 0) {
           if (time > 30) {
             virtualclass.popup.infoMsg(virtualclass.lang.getString('askQuestionTimeExceed'));
-            const moreElem = document.querySelector(`#${data.componentId} .moreControls`);
-            if (moreElem && !moreElem.classList.contains('disable')) {
-              moreElem.classList.add('disable');
+            const moreElem = document.querySelector(`#${data.componentId}`);
+            if (moreElem) {
+              moreElem.classList.remove('editable');
+              moreElem.classList.add('noneditable');
             }
           }
           return;
@@ -263,9 +264,10 @@ class AskQuestionEvents {
           || contextData[currentContext][data.component][data.componentId].upvote > 0) {
           if (time > 30) {
             virtualclass.popup.infoMsg(virtualclass.lang.getString('askQuestionTimeExceed'));
-            const moreElem = document.querySelector(`#${data.componentId} .moreControls`);
-            if (moreElem && !moreElem.classList.contains('disable')) {
-              moreElem.classList.add('disable');
+            const moreElem = document.querySelector(`#${data.componentId}`);
+            if (moreElem) {
+              moreElem.classList.remove('editable');
+              moreElem.classList.add('noneditable');
             }
           }
           return;
@@ -580,6 +582,7 @@ class AskQuestionRenderer {
         const currentElem = document.querySelector(`#${data.componentId}`);
         if (currentElem) {
           currentElem.classList.add('mySelf');
+          currentElem.classList.add('editable');
         }
       }
     }
@@ -886,12 +889,13 @@ class BasicOperation {
     }
     if (Object.prototype.hasOwnProperty.call(contextObj[data.context][component], data.parent) && data.component !== 'question') {
       const children = contextObj[data.context][component][data.parent].children;
-      const moreControlElem = document.querySelector(`#${data.parent} .moreControls`);
+      const moreControlElem = document.querySelector(`#${data.parent}`);
       if (data.component === 'answer' || data.component === 'comment') {
         if (status === 'editable') {
           children.push(data.componentId);
           if (!roles.hasControls()) {
-            moreControlElem.classList.add('disable');
+            moreControlElem.classList.remove('editable');
+            moreControlElem.classList.add('noneditable');
           }
         } else {
           children.splice(children.indexOf(data.componentId), 1);
@@ -901,7 +905,8 @@ class BasicOperation {
           const getParentElem = document.querySelector(`#${data.parent} .upVote .total`); // TODO handle using component data
           if (!roles.hasControls() && (time < 30 && getParentElem && componentUpvote === 0)
             || (component === 'comment' && userId === virtualclass.uInfo.userid)) {
-            moreControlElem.classList.remove('disable');
+            moreControlElem.classList.remove('noneditable');
+            moreControlElem.classList.add('editable');
           }
           if (data.component === 'answer') {
             const markParentElem = document.querySelector(`#${data.parent}`);
@@ -932,7 +937,9 @@ class BasicOperation {
         document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
       }
       if (!roles.hasControls()) {
-        document.querySelector(`#${data.componentId} .moreControls`).classList.add('disable');
+        const upvoteElement = document.querySelector(`#${data.componentId}`);
+        upvoteElement.classList.remove('editable');
+        upvoteElement.classList.add('noneditable');
       }
       this.updateStatus(data, 'upvote');
       this.mostUpvotedOnTop(data);
@@ -1263,8 +1270,7 @@ class AskQuestion extends BasicOperation {
 
   loadInitialDataMark() {
     if (this.initCollectionMark) return;
-
-    console.log('===> trigger initial data');
+    console.log('===> trigger note initial data');
     const self = this;
     this.db.collection(this.collectionMark).get().then((snapshot) => {
       // TODO, we have to store the inital data from attachHandlerForRealTimeUpdate
@@ -1273,7 +1279,7 @@ class AskQuestion extends BasicOperation {
         const data = doc.data();
         const currentActiveTab = self.getActiveTab();
         console.log('====> total data type ', data.type);
-        if (currentActiveTab === 'note' && self.currentContext === data.context) {
+        if ((currentActiveTab === 'note' || data.component === 'bookmark') && self.currentContext === data.context) {
           self.engine.performWithQueue(data);
         } else {
           self.engine.makeQueue(data);

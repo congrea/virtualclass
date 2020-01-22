@@ -81,8 +81,8 @@
   cursor: pointer;
 }
 #virtualclassCont.congrea.student #askQuestion .container .footer .moreControls,
-#virtualclassCont.congrea.student #askQuestion .container .question.mySelf.noneditable .container[data-type="question"] .footer .moreControls.disable,
-#virtualclassCont.congrea.student #askQuestion .container .answer.mySelf.noneditable .footer .moreControls.disable,
+#virtualclassCont.congrea.student #askQuestion .container .question.mySelf.noneditable .container[data-type="question"] .footer .moreControls,
+#virtualclassCont.congrea.student #askQuestion .container .answer.mySelf.noneditable .footer .moreControls,
 #virtualclassCont.congrea.student #askQuestion .container .comment.mySelf.noneditable .container .footer .moreControls {
   display: none;
 }
@@ -168,9 +168,7 @@
 
 #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"],
 #virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .upVote,
-#virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .reply,
-#virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .moreControls,
-#virtualclassCont.congrea.teacher #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply,
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply,
 #virtualclassCont.congrea[data-currapp='Poll'] #virtualclassApp #congHr,
 #virtualclassCont.congrea[data-currapp='Quiz'] #virtualclassApp #congHr {
   opacity: 0.5 !important;

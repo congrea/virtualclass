@@ -957,3 +957,14 @@
   font-size: 0.9375rem;
   color: #fdfafa;
 }
+
+#virtualclassCont.congrea .bookmarks[data-value="0"] .icon-whiteboard::before {
+  content: "\e9f9";
+  font-size: 17px;
+}
+
+#virtualclassCont.congrea .bookmarks[data-value="1"] .icon-whiteboard::before {
+  content: "\e9f8";
+  font-size: 17px;
+  color: #30b2ff !important;
+}

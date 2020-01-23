@@ -75,7 +75,8 @@
         + '#virtualclassCont.congrea .shapesToolbox ,'
         + '#virtualclassCont.congrea li#appSettingCtrl ,' 
         + '#virtualclassCont.congrea #fullScreenExitButton, '
-        + '#virtualclassCont.congrea li#virtualclassnote '
+        + '#virtualclassCont.congrea li#virtualclassnote, '
+        + '#virtualclassCont.congrea #bookmark '
         + `{border-left: 0.01em solid ${allbg.fcolor}!important;}`
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab, #virtualclassCont.congrea #networkStatusContainer'
         + `{border-left:${border} !important;}`

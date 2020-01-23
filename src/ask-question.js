@@ -549,7 +549,9 @@ class AskQuestionRenderer {
           content: text.content,
           morecontent: text.moreContent,
         }));
+        console.log('====> adding current ');
         document.querySelector(`#askQuestion [data-context~=${data.context}]`).classList.add('current');
+
       }
     } else if (data.component === 'answer' || data.component === 'comment') {
       const qaAnswerTemp = virtualclass.getTemplate(data.component, 'askQuestion');
@@ -566,7 +568,9 @@ class AskQuestionRenderer {
       if (data.component === 'answer') {
         document.querySelector(`#${data.parent} .answers`).insertAdjacentHTML('beforeend', ansTemp);
       } else if (data.component === 'comment') {
-        document.querySelector(`#${data.parent} .comments`).insertAdjacentHTML('beforeend', ansTemp);
+        const comment = document.querySelector(`#${data.parent} .comments`);
+        if (comment) { comment.insertAdjacentHTML('beforeend', ansTemp); };
+        // document.querySelector(`#${data.parent} .comments`).insertAdjacentHTML('beforeend', ansTemp);
       }
     }
     virtualclass.askQuestion.util.displayMore(data);
@@ -678,9 +682,7 @@ class AskQuestionRenderer {
 
   // text area focus input element
   inputFocusHandler() {
-    if (virtualclass.isPlayMode && virtualclass.recorder.playStart && !virtualclass.recorder.controller.pause) {
-      virtualclass.recorder.initRecPause();
-    }
+    virtualclass.askQuestion.triggerPause();
   }
 
   autosize(ev) {
@@ -975,7 +977,7 @@ class BasicOperation {
     let getChildren;
     const arr = [];
     const context = virtualclass.askQuestion.context;
-    const currentContext = virtualclass.askQuestion.currentContext;
+    const currentContext = data.context
     if (data.component === 'answer') {
       getChildren = context[currentContext]['question'][data.parent].children;
     }
@@ -1050,7 +1052,7 @@ class AskQuestionEngine {
   }
 
   perform(context, type) {
-    while (virtualclass.askQuestion.queue[type][context].length > 0) {
+    while (virtualclass.askQuestion.queue[type][context] && virtualclass.askQuestion.queue[type][context].length > 0) {
       const data = virtualclass.askQuestion.queue[type][context].shift();
       if (data.component === 'question' && data.upvote && data.upvote > 1) {
         virtualclass.askQuestion.upvote.call(virtualclass.askQuestion, data);
@@ -1087,6 +1089,7 @@ class AskQuestion extends BasicOperation {
     this.util = new AskQuestionUtility();
     this.bookmarkUi = new BookMarkUserInterface();
     this.attachHandler();
+    this.viewAllMode = false;
   }
 
   attachHandler() {
@@ -1098,24 +1101,35 @@ class AskQuestion extends BasicOperation {
   }
 
   viewAllQuestion(ev) {
+    this.triggerPause();
     const viewAllQuestion = document.getElementById('viewAllQuestion');
     const viewAllAction = ev.currentTarget.dataset.viewall;
     const askQuestion = document.getElementById('askQuestion');
     if (askQuestion != null) {
       if (viewAllAction === 'enable') {
+        const currentContext = document.querySelector('#askQuestion .container .current');
+        currentContext.classList.remove('current');
         askQuestion.classList.add('viewAll');
         viewAllQuestion.dataset.viewall = 'disable';
-        for (const context in virtualclass.askQuestion.queue.question) {
-          this.engine.perform(context, 'question');
+        if (!this.viewAllTriggered) {
+          for (const context in virtualclass.askQuestion.queue.question) {
+            if (!this.context[context]) {
+              this.context[context] = new QAcontext();
+            }
+            this.triggerPerform(context);
+          }
+          this.viewAllMode = true;
         }
+        this.viewAllTriggered = true;
       } else {
         askQuestion.classList.remove('viewAll');
         viewAllQuestion.dataset.viewall = 'enable';
+        const currentContext = document.querySelector(`#askQuestion .context[data-context~=${virtualclass.askQuestion.currentContext}]`);
+        currentContext.classList.add('current');
+        this.viewAllMode = false;
       }
     }
-
   }
-
 
   async initFirebaseOperatoin() {
     if (this.initFirebase) return;
@@ -1180,9 +1194,16 @@ class AskQuestion extends BasicOperation {
       default:
         contextName = null;
     }
-
     if (contextName === this.currentContext || !contextName) return;
+    this.triggerPerform(contextName);
 
+    console.log('====> ready context ', this.currentContext);
+    if (roles.hasControls()) {
+      ioAdapter.mustSend({ cf: 'readyContext', context: this.currentContext });
+    }
+  }
+
+  triggerPerform(contextName) {
     const askQuestoinContainer = document.getElementById('askQuestion');
     if (askQuestoinContainer) {
       if (!contextName) {
@@ -1216,13 +1237,8 @@ class AskQuestion extends BasicOperation {
       this.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
       this.noteNavigation.afterChangeContext(virtualclass.askQuestion.currentContext);
     }
-
     this.bookmarkUi.afterChangeContext(virtualclass.askQuestion.currentContext);
 
-    console.log('====> ready context ', this.currentContext);
-    if (roles.hasControls()) {
-      ioAdapter.mustSend({ cf: 'readyContext', context: this.currentContext });
-    }
   }
 
   async authenticate(config) {
@@ -1331,7 +1347,7 @@ class AskQuestion extends BasicOperation {
           virtualclass.askQuestion.noteNavigation.afterChangeContext(virtualclass.askQuestion.currentContext);
         }
       });
-    })
+    });
     // .catch((error) => {
     //   console.log('ask question read error ', error);
     // });
@@ -1364,5 +1380,11 @@ class AskQuestion extends BasicOperation {
 
   getCurrentQuestions() {
     return this.context[virtualclass.askQuestion.currentContext].question;
+  }
+
+  triggerPause() {
+    if (virtualclass.isPlayMode && virtualclass.recorder.playStart && !virtualclass.recorder.controller.pause) {
+      virtualclass.recorder.initRecPause();
+    }
   }
 }

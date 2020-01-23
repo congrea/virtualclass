@@ -517,7 +517,7 @@ class AskQuestionRenderer {
         text = document.querySelector('#writeContent .text');
         if (text) {
           text.innerHTML = data.content;
-          this.autosize();
+          this.autosize({target: text});
         }
       }
     } else {
@@ -744,6 +744,10 @@ class BasicOperation {
   }
 
   handler(ev) {
+    const questionElement = ev.target.closest('div.context');
+    if (questionElement && questionElement.dataset) {
+      virtualclass.askQuestion.currentContext = ev.target.closest('div.context').dataset.context;
+    }
     let event;
     let parent;
     let componentId = null;
@@ -1108,9 +1112,12 @@ class AskQuestion extends BasicOperation {
     const viewAllAction = ev.currentTarget.dataset.viewall;
     const askQuestion = document.getElementById('askQuestion');
     if (askQuestion != null) {
+      const rightPanel = document.getElementById('virtualclassAppRightPanel');
+      const currentContext = document.querySelector('#askQuestion .container .current');
+      if (currentContext) { currentContext.classList.remove('current'); }
+
       if (viewAllAction === 'enable') {
-        const currentContext = document.querySelector('#askQuestion .container .current');
-        currentContext.classList.remove('current');
+        if (rightPanel) { rightPanel.classList.add('viewAllMode'); }
         askQuestion.classList.add('viewAll');
         viewAllQuestion.dataset.viewall = 'disable';
         if (!this.viewAllTriggered) {
@@ -1120,14 +1127,16 @@ class AskQuestion extends BasicOperation {
             }
             this.triggerPerform(context);
           }
-          this.viewAllMode = true;
         }
         this.viewAllTriggered = true;
+        this.viewAllMode = true;
       } else {
+        virtualclass.askQuestion.currentContext = virtualclass.askQuestion.readyContextActual();
+        if (rightPanel) { rightPanel.classList.remove('viewAllMode'); }
         askQuestion.classList.remove('viewAll');
         viewAllQuestion.dataset.viewall = 'enable';
-        const currentContext = document.querySelector(`#askQuestion .context[data-context~=${virtualclass.askQuestion.currentContext}]`);
-        currentContext.classList.add('current');
+        const currentContextElement = document.querySelector(`#askQuestion .context[data-context~=${virtualclass.askQuestion.currentContext}]`);
+        currentContextElement.classList.add('current');
         this.viewAllMode = false;
       }
     }
@@ -1171,7 +1180,7 @@ class AskQuestion extends BasicOperation {
     }
   }
 
-  innerMakeReadyContext() {
+  readyContextActual() {
     let contextName;
     switch (virtualclass.currApp) {
       case 'Whiteboard':
@@ -1196,9 +1205,13 @@ class AskQuestion extends BasicOperation {
       default:
         contextName = null;
     }
+    return contextName;
+  }
+
+  innerMakeReadyContext() {
+    const contextName = this.readyContextActual();
     if (contextName === this.currentContext || !contextName) return;
     this.triggerPerform(contextName);
-
     console.log('====> ready context ', this.currentContext);
     if (roles.hasControls()) {
       ioAdapter.mustSend({ cf: 'readyContext', context: this.currentContext });
@@ -1295,7 +1308,7 @@ class AskQuestion extends BasicOperation {
           const askQuestion = document.getElementById('askQuestion');
           if (change.type === 'added' || change.type === 'modified') {
             const data = change.doc.data();
-            if (askQuestion.classList.contains('active') && data.context === virtualclass.askQuestion.currentContext) {
+            if (askQuestion.classList.contains('active') && (data.context === virtualclass.askQuestion.currentContext || virtualclass.askQuestion.viewAllMode)) {
               this.engine.performWithQueue(data);
               if (virtualclass.isPlayMode && data.context === '_doc_0_0') this.buildAllMarksStatus(data);
             } else {

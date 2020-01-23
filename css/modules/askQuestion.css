@@ -539,3 +539,8 @@
 #virtualclassCont.congrea #noteNavigationContainer #noteNavigation {
   padding-top: 2px;
 }
+
+#virtualclassCont.congrea #virtualclassAppRightPanel.viewAllMode .addQuestion-icon {
+  pointer-events: none;
+  opacity: 0.5;
+}

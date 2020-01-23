@@ -81,8 +81,8 @@
   cursor: pointer;
 }
 #virtualclassCont.congrea.student #askQuestion .container .footer .moreControls,
-#virtualclassCont.congrea.student #askQuestion .container .question.mySelf.noneditable .container[data-type="question"] .footer .moreControls.disable,
-#virtualclassCont.congrea.student #askQuestion .container .answer.mySelf.noneditable .footer .moreControls.disable,
+#virtualclassCont.congrea.student #askQuestion .container .question.mySelf.noneditable .container[data-type="question"] .footer .moreControls,
+#virtualclassCont.congrea.student #askQuestion .container .answer.mySelf.noneditable .footer .moreControls,
 #virtualclassCont.congrea.student #askQuestion .container .comment.mySelf.noneditable .container .footer .moreControls {
   display: none;
 }
@@ -168,9 +168,7 @@
 
 #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"],
 #virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .upVote,
-#virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .reply,
-#virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .moreControls,
-#virtualclassCont.congrea.teacher #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply,
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply,
 #virtualclassCont.congrea[data-currapp='Poll'] #virtualclassApp #congHr,
 #virtualclassCont.congrea[data-currapp='Quiz'] #virtualclassApp #congHr {
   opacity: 0.5 !important;
@@ -247,7 +245,7 @@
 
 #virtualclassCont.congrea #askQuestion .container .question .answers,
 #virtualclassCont.congrea #askQuestion .container .question .comments {
-  margin-left: 6px;
+  margin-left: 4px;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item.close {
@@ -411,15 +409,15 @@
   width: 100%;
   height: 100%;
   resize: unset;
-  color: #462502;
+  color: #4a2600;
   font-size: 13px;
   line-height: 1.5rem;
-  background-image: -webkit-linear-gradient(left, #fff 0, #daca0900 0), -webkit-linear-gradient(right, #fff 0, #fff28fc2 0), -webkit-linear-gradient(white 23px, #000 18px, #0000008c 16px, #000000 36px);
+  background-image: -webkit-linear-gradient(left, #fff 0, #daca0900 0), -webkit-linear-gradient(right, #fff 0, #fff28f73 0), -webkit-linear-gradient(white 23px, #000 18px, #00000054 16px, #000000 36px);
   background-repeat: repeat-y;
   background-size: 100% 100%, 100% 100%, 100% 1.5rem;
   overflow: auto;
   border: 1px solid #d2d2d2;
-  letter-spacing: 0.03125rem;
+  letter-spacing: 1px;
   padding-left: 8px;
 }
 
@@ -480,10 +478,16 @@
   color: #444;
 }
 
+#virtualclassCont.congrea #noteNavigation .notenumber {
+  font-size: 0.9375rem;
+}
+
 #virtualclassCont.congrea #noteContainer #noteNavigationContainer {
   display: flex;
   flex-direction: row;
-  padding: 8px 5px 10px 10px;
+  background-color: #fff9cc;
+  border-top: 1px solid #fff;
+  padding: 0.625rem 0 0.75rem 0.9375rem;
 }
 
 #virtualclassCont.congrea #noteNavigationContainer .clearAll {
@@ -501,23 +505,21 @@
 }
 
 #virtualclassCont.congrea #noteNavigationContainer .clearAll .event {
-  padding: 4px 8px;
-  font-size: 13px;
-  background-color: #ffff;
-  color: #484848;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: #3a3a3a;
+  font-weight: 500;
+  background-color: #fffbdd;
   border-radius: 6px;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  box-shadow: 0 4px 3px -2px #949494;
+  border: 1px solid #ababab;
   cursor: pointer;
 }
 
 #virtualclassCont.congrea #noteNavigationContainer .clearAll .event:hover {
-  background-color: #f7f7f7;
+  background-color: #fff7b0;
 }
 
 #virtualclassCont.congrea #noteContainer #noteNavigationContainer #noteNavigation .event {
-  cursor: pointer;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -528,6 +530,14 @@
 
 #virtualclassCont.congrea #askQuestion.viewAll .context {
   display: block;
+}
+
+#virtualclassCont.congrea #noteContainer .note.container {
+  padding: 0;
+}
+
+#virtualclassCont.congrea #noteNavigationContainer #noteNavigation {
+  padding-top: 2px;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel.viewAllMode .addQuestion-icon {

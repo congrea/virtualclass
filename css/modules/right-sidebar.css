@@ -881,6 +881,14 @@ body {
   padding: 0.2em 0.42em;
 }
 
+#virtualclassCont.congrea #virtualclassnote.congtooltip:hover::after {
+  border-radius: 0.25em;
+  bottom: 47px;
+  right: 1px;
+  left: auto;
+  padding: 0.2em 0.42em;
+}
+
 #virtualclassCont.congrea .nowebcam #videoSwitchCont {
   pointer-events: none !important;
 }

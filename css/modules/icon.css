@@ -939,7 +939,7 @@
 #virtualclassCont.congrea #noteContainer #noteNavigation .previous .event::before {
   content: "\e98e";
   font-family: 'icomoon';
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: #606060;
   cursor: pointer;
 }
@@ -947,7 +947,24 @@
 #virtualclassCont.congrea #noteContainer #noteNavigation .next .event::after {
   content: "\e992";
   font-family: 'icomoon';
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: #606060;
   cursor: pointer;
+}
+
+#virtualclassCont.congrea #virtualclassnote .icon-whiteboard::before {
+  content: "\e9f6";
+  font-size: 0.9375rem;
+  color: #fdfafa;
+}
+
+#virtualclassCont.congrea .bookmarks[data-value="0"] .icon-whiteboard::before {
+  content: "\e9f9";
+  font-size: 17px;
+}
+
+#virtualclassCont.congrea .bookmarks[data-value="1"] .icon-whiteboard::before {
+  content: "\e9f8";
+  font-size: 17px;
+  color: #30b2ff !important;
 }

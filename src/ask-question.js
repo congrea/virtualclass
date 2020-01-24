@@ -401,10 +401,7 @@ class AskQuestionEvents {
       const mainContent = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].content;
       virtualclass.askQuestion.util.separatedContent({ componentId: data.componentId, content: mainContent, action: data.event });
     } else {
-      const text = document.querySelector('#writeContent');
-      if (text) {
-        text.remove();
-      }
+      virtualclass.askQuestion.rendererObj.removeWriteContainer();
     }
   }
 
@@ -523,13 +520,14 @@ class AskQuestionRenderer {
     } else {
       document.querySelector(insertId).insertAdjacentHTML('beforeend', userInputTemplate);
     }
+
+    const inputAction = document.querySelector('#writeContent');
     if (data.component === 'question') {
-      const inputAction = document.querySelector('#writeContent');
       if (inputAction) {
         inputAction.addEventListener('click', virtualclass.askQuestion.handler.bind(virtualclass.askQuestion));
-        inputAction.addEventListener('input', this.autosize.bind(this));
       }
     }
+    inputAction.addEventListener('input', virtualclass.askQuestion.userInputHandler.bind(this, data.component));
   }
 
   contentBox(data) {
@@ -700,6 +698,13 @@ class AskQuestionRenderer {
       bookmark.dataset.value = data.content;
     }
   }
+
+  removeWriteContainer() {
+    const text = document.querySelector('#writeContent');
+    if (text) {
+      text.remove();
+    }
+  }
 }
 
 class BasicOperation {
@@ -821,10 +826,46 @@ class BasicOperation {
       } else if (event === 'upvote') {
         parentId = parent.dataset.parent;
       }
+
       data = {
         event, component, componentId, text, action, parentId
       };
       this.event.execute(data);
+      if (event === 'cancel' || event === 'save') {
+        this.inputGenerating = false;
+        if (this.pollInputGeneratingTime) {
+          clearTimeout(this.pollInputGeneratingTime);
+          console.log('I have cleared my polling time');
+        }
+        virtualclass.askQuestion.rendererObj.removeWriteContainer();
+        if (roles.isStudent() && this.donotChangeContext && this.donotChangeContext !== this.currentContext) {
+          console.log('Triggered performed 1');
+          this.triggerPerform(this.donotChangeContext);
+          delete this.donotChangeContext;
+        }
+      }
+    }
+  }
+
+  userInputHandler(component) {
+    if (roles.isStudent()) {
+      virtualclass.askQuestion.inputGenerating = true;
+      console.log('====> Input is generating ', virtualclass.askQuestion.inputGenerating);
+      if (this.pollInputGeneratingTime) clearTimeout(this.pollInputGeneratingTime);
+      this.pollInputGeneratingTime = setTimeout(() => {
+        virtualclass.askQuestion.inputGenerating = false;
+        console.log('====> Input is generating ', virtualclass.askQuestion.inputGenerating);
+        if (virtualclass.askQuestion.donotChangeContext) {
+          console.log('Triggered performed 2');
+          virtualclass.askQuestion.triggerPerform(virtualclass.askQuestion.donotChangeContext);
+          delete virtualclass.askQuestion.donotChangeContext;
+          document.querySelector('#writeContent .cancel').click();
+        }
+      }, 7000);
+    }
+
+    if (component === 'question') {
+      this.autosize.bind(this);
     }
   }
 
@@ -1096,6 +1137,7 @@ class AskQuestion extends BasicOperation {
     this.bookmarkUi = new BookMarkUserInterface();
     this.attachHandler();
     this.viewAllMode = false;
+    this.inputGenerating = false;
   }
 
   attachHandler() {
@@ -1167,7 +1209,18 @@ class AskQuestion extends BasicOperation {
 
   makeReadyContext() {
     if (this.clearTimeMakeReady) clearTimeout(this.clearTimeMakeReady);
-    this.clearTimeMakeReady = setTimeout(() => { this.innerMakeReadyContext()}, 200);
+    this.clearTimeMakeReady = setTimeout(() => {
+      if (roles.hasControls()) {
+        this.displayContext();
+      } else {
+        if (!this.inputGenerating) {
+          this.displayContext();
+        } else {
+          this.donotChangeContext = this.readyContextActual();
+          console.log('====> Input is generating ', this.donotChangeContext);
+        }
+      }
+    }, 200);
   }
 
   getActiveTab() {
@@ -1175,9 +1228,8 @@ class AskQuestion extends BasicOperation {
       return 'question';
     } else if (document.querySelector('#virtualclassnote.active') != null) {
       return 'note';
-    } else {
-      return false;
     }
+    return false;
   }
 
   readyContextActual() {
@@ -1208,11 +1260,14 @@ class AskQuestion extends BasicOperation {
     return contextName;
   }
 
-  innerMakeReadyContext() {
+  displayContext() {
+    this.rendererObj.removeWriteContainer();
     const contextName = this.readyContextActual();
     if (contextName === this.currentContext || !contextName) return;
+    console.log('===> context before ', this.currentContext);
     this.triggerPerform(contextName);
-    console.log('====> ready context ', this.currentContext);
+    console.log('===> context after ', this.currentContext);
+
     if (roles.hasControls()) {
       ioAdapter.mustSend({ cf: 'readyContext', context: this.currentContext });
     }

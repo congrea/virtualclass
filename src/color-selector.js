@@ -98,7 +98,8 @@
         + '#virtualclassCont.congrea button ,'
         // "#virtualclassCont.congrea .btn.btn-default ,"+
         + '#virtualclassCont.congrea .zoomControler ,'
-        + '#virtualclassCont.congrea .btn-default '
+        + '#virtualclassCont.congrea .btn-default, '
+        + '#virtualclassCont.congrea #virtualclassAppRightPanel #infoMessage #infoMessageOk '
         + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important;}`;
 
       this.addCss(css);
@@ -150,7 +151,8 @@
         + '#virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li:hover, '
         + '#virtualclassCont.congrea #dashboardContainer .modal-header button.enable:hover, '
         + '#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, '
-        + '#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover'
+        + '#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, '
+        + '#virtualclassCont.congrea #virtualclassAppRightPanel #infoMessage #infoMessageOk:hover '
         + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%) !important}`
 
         + '#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,'

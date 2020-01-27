@@ -5153,17 +5153,25 @@ body {
   display: flex;
   flex-direction: row;
   height: 7px;
+  left: -2px;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel .markContainer {
-  position: relative;
+  position: absolute;
+  width: 8px;
+  height: 7px;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #allMarksinformation .markContainer.context {
-  border-left: 2px solid #000;
   cursor: pointer;
   display: flex;
   flex-direction: row;
+}
+
+#virtualclassCont.congrea #virtualclassAppFooterPanel #allMarksinformation .markContainer.context .context {
+  width: 7px;
+  height: 7px;
+  background: #0e0c0ced;
 }
 
 #virtualclassCont.congrea .markContainer[data-question='true'] .question,

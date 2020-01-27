@@ -53,6 +53,7 @@
     totalRecordingTime: 0,
     actualPlayRecordingTime: 0,
     timeStamp: null,
+    totalTimeTillNow: 0,
     recViewData: {
       'x-api-key': wbUser.lkey,
       'x-congrea-authuser': wbUser.auth_user,
@@ -356,6 +357,7 @@
       let playTime = 0;
       if (!isNaN(totalSeconds) && totalSeconds >= 1 && !this.isTrimRecordingNow) {
         playTime = 1000;
+
         const data = {
           playTime,
           recObjs: '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ',
@@ -363,21 +365,23 @@
         };
 
         for (let s = 0; s < totalSeconds; s++) {
-          // this.totalTimeInMiliSeconds += playTime;
           chunk.push(data);
+          this.totalTimeTillNow += 1000;
         }
       }
       return chunk;
     },
 
     renderContextMark(allmark, context) {
-      console.log('my context ', context);
-      const currentMin = ((Math.floor(this.refrenceTime / 1000)) - this.firstTimeInSeconds) / 60;
-      const totalMin = (this.totalTimeInMiliSeconds) / 1000 / 60;
+
+      // const currentMin = ((Math.floor(this.refrenceTime / 1000)) - this.firstTimeInSeconds);
+      // const totalMin = (this.totalTimeInMiliSeconds) / 1000;
       // const markPoint = Math.floor((currentMin * 100) / totalMin);
-      const markPoint = (currentMin * 100) / totalMin;
+      const markPoint = (this.totalTimeTillNow * 100) / this.totalTimeInMiliSeconds;
       console.log('=== total minute 2 ref', (this.refrenceTime / 1000), ' firstTime', this.firstTimeInSeconds, ' total time in miliseconds ', this.totalTimeInMiliSeconds)
       const contextMark = virtualclass.getTemplate('context-mark');
+
+      virtualclass.gObj.lastContext = context;
       const ctimeId = 'ctime' + markPoint;
       const data = Object.assign({}, allmark, { id: ctimeId, width: markPoint, context });
       const contextMarkHtml = contextMark(data);
@@ -448,22 +452,15 @@
                 this.trimontime = time;
               } else {
                 chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
+                this.totalTimeTillNow += this.tempPlayTime;
               }
             } else {
               this.recordingTotalTime(data, time);
               chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
+              this.totalTimeTillNow += this.tempPlayTime;
             }
 
-            if (typeof allRecordigns[i + 1] !== 'undefined') {
-              const nextMiliSeconds = this.calculateNextTime(time, allRecordigns[i + 1]);
-              chunk = this.insertPacketInto(chunk, nextMiliSeconds, true);
-              if (nextMiliSeconds >= 1000) {
-                nextMinus = (Math.trunc(nextMiliSeconds / 1000) * 1000);
-              }
-            }
-            // if (data.indexOf('"m":{"cf":"readyContext"') > -1) {
             if (data.indexOf('readyContext') > -1) {
-              console.log('====> recording ready context');
               const msg = JSON.parse(io.cleanRecJson(data));
               const allMark = { question: false, note: false, bookmark: false };
               // TODO, we need to check why there is missing context during live session _doc_0_2
@@ -482,11 +479,23 @@
                   allMark.bookmark = true;
                 }
               }
+              console.log('====> recording ready context ', msg.m.context);
 
               // Todo, related ask qeustion
               // TODO, there is bit time difference between actual and context point time
               // console.log('hello guys duplicate ', msg.m.serial, msg.m.context);
               this.renderContextMark(allMark, msg.m.context, msg.m.serial);
+            }
+
+            if (typeof allRecordigns[i + 1] !== 'undefined') {
+              const nextMiliSeconds = this.calculateNextTime(time, allRecordigns[i + 1]);
+              chunk = this.insertPacketInto(chunk, nextMiliSeconds, i, time, allRecordigns[i + 1].substring(0, 21));
+              // console.log('====> chunck length ', nextMiliSeconds);
+
+              if (nextMiliSeconds >= 1000) {
+                nextMinus = (Math.trunc(nextMiliSeconds / 1000) * 1000);
+                console.log('previous app', nextMiliSeconds, nextMinus);
+              }
             }
             this.refrenceTime = time;
           }

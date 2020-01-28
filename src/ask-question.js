@@ -961,6 +961,20 @@ class BasicOperation {
               moreControlElem.classList.add('editable');
             }
           }
+
+          if (component === 'question' && !roles.hasControls()) {
+            const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
+            for (let i = 0; i < answersElem.length; i++) {
+              const anstime = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: 'answer' });
+              const ansUpvote = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext]['answer'][data.componentId].upvote;
+              const ansChildren = contextObj[data.context]['answer'][data.componentId].children;
+              if (answersElem[i].classList.contains('noneditable') && ansUpvote === 0 && ansChildren.length === 0 && anstime < 30) {
+                answersElem[i].classList.remove('noneditable');
+                answersElem[i].classList.add('editable');
+              }
+            }
+          }
+
           if (data.component === 'answer') {
             const markParentElem = document.querySelector(`#${data.parent}`);
             markParentElem.dataset.markAnswer = '';
@@ -1015,12 +1029,14 @@ class BasicOperation {
       markElem.dataset.markAnswer = 'marked';
       markParentElem.dataset.markAnswer = 'marked';
       markedAnswer.insertBefore(markElem, markedAnswer.firstChild);
-      const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
-      for (let i = 0; i < answersElem.length; i++) {
-        if (answersElem[i].classList.contains('editable')) {
-          answersElem[i].classList.remove('editable');
+      if (!roles.hasControls()) {
+        const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
+        for (let i = 0; i < answersElem.length; i++) {
+          if (answersElem[i].classList.contains('editable')) {
+            answersElem[i].classList.remove('editable');
+          }
+          answersElem[i].classList.add('noneditable');
         }
-        answersElem[i].classList.add('noneditable');
       }
     }
   }

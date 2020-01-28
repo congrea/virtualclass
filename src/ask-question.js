@@ -897,35 +897,38 @@ class BasicOperation {
     let getChildren;
     const contextObj = virtualclass.askQuestion.context;
     const currentContext = virtualclass.askQuestion.currentContext;
-    let question;
+    let component;
+    let parent = null;
     if (status === 'delete') {
       this.updateCount(data, status);
-      const component = data.component === 'question' ? 'answer' : 'comment';
+      const filterComponent = data.component === 'question' ? 'answer' : 'comment';
       const childrenArr = contextObj[currentContext][data.component][data.componentId].children;
       if (childrenArr.length > 0 && roles.hasControls()) {
         for (let i = 0; i < childrenArr.length; i++) {
-          delete contextObj[currentContext][component][childrenArr[i]];
+          delete contextObj[currentContext][filterComponent][childrenArr[i]];
         }
       }
       delete contextObj[currentContext][data.component][data.componentId];
     } else if (status === 'editable' || status === 'edited') {
-      question = data;
+      component = data;
       if (status === 'editable') {
-        question = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id, upvote: 0 };
+        // component = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id, upvote: 0 };
+        component.upvote = 0;
+        component.children = [];
         this.updateCount(data, status);
       } else if (status === 'edited') {
-        question.children = contextObj[currentContext][data.component][data.componentId].children;
-        question.content = data.content;
+        component.children = contextObj[currentContext][data.component][data.componentId].children;
+        component.content = data.content;
       }
-      question.status = status;
-      contextObj[currentContext][data.component][data.componentId] = question;
+      component.status = status;
+      contextObj[currentContext][data.component][data.componentId] = component;
     } else if (status === 'upvote') {
       if (data.component === 'question' || data.component === 'answer') {
         getChildren = contextObj[currentContext][data.component][data.componentId].children;
       }
-      question = { id: data.id, content: data.content, children: getChildren, status, parent: null, componentId: data.id, upvote: data.upvote };
-      question.status = status;
-      contextObj[currentContext][data.component][data.componentId] = question;
+      component = { id: data.id, content: data.content, children: getChildren, status, parent: data.parent, componentId: data.id, upvote: data.upvote };
+      component.status = status;
+      contextObj[currentContext][data.component][data.componentId] = component;
     }
   }
 

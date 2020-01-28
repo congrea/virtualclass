@@ -1075,3 +1075,17 @@ body {
 #virtualclassCont.congrea #askQuestionHeader.deactive {
   display: none;
 }
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #rightBarHeader span#askFullscreen {
+  padding: 0.75rem;
+  display: none;
+}
+
+#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel #rightBarHeader span#askFullscreen {
+  display: block;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel.showUserList #rightBarHeader span#askFullscreen,
+#virtualclassCont.congrea #virtualclassAppRightPanel.techVideoShow #rightBarHeader span#askFullscreen {
+  display: none;
+}

@@ -378,6 +378,11 @@
           fullScreenExitBtn.addEventListener('click', virtualclass.vutil.closeFullscreen);
         }
 
+        const askfullScreenBtn = document.getElementById('askFullscreen');
+        if (askfullScreenBtn != null) {
+          askfullScreenBtn.addEventListener('click', virtualclass.vutil.Fullscreen);
+        }
+
         var chat_div = document.getElementById("chat_div");
         var rightSidebarBtn = document.getElementById("sidebarButton");
 

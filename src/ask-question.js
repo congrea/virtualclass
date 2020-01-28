@@ -1002,6 +1002,7 @@ class BasicOperation {
   markAnswer(data) {
     const parent = document.querySelector(`#askQuestion #${data.parent} .answers .answer[data-mark-answer="marked"]`);
     const markParentElem = document.querySelector(`#${data.parent}`);
+    const markedAnswer = document.querySelector(`#askQuestion #${data.parent} .answers`);
     if (parent && markParentElem.dataset.markAnswer) {
       delete parent.dataset.markAnswer;
       delete markParentElem.dataset.markAnswer;
@@ -1010,6 +1011,7 @@ class BasicOperation {
     if (markParentElem && markElem && !markParentElem.dataset.markAnswer) {
       markElem.dataset.markAnswer = 'marked';
       markParentElem.dataset.markAnswer = 'marked';
+      markedAnswer.insertBefore(markElem, markedAnswer.firstChild);
       const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
       for (let i = 0; i < answersElem.length; i++) {
         if (answersElem[i].classList.contains('editable')) {

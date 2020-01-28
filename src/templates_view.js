@@ -229,7 +229,7 @@ this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({
     + alias3(((helper = (helper = helpers.componentId || (depth0 != null ? depth0.componentId : depth0)) != null ? helper : alias2),(typeof helper === alias4 ? helper.call(alias1,{"name":"componentId","hash":{},"data":data}) : helper)))
     + "\" data-parent=\""
     + alias3(((helper = (helper = helpers.parent || (depth0 != null ? depth0.parent : depth0)) != null ? helper : alias2),(typeof helper === alias4 ? helper.call(alias1,{"name":"parent","hash":{},"data":data}) : helper)))
-    + "\"><span class=\"save\" data-event=\"save\">save</span><span class=\"cancel\" data-event=\"cancel\">cancel</span></div></div>";
+    + "\"><span class=\"cancel\" data-event=\"cancel\"></span><span class=\"save\" data-event=\"save\"></span></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

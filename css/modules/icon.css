@@ -968,3 +968,21 @@
   font-size: 17px;
   color: #30b2ff !important;
 }
+
+#virtualclassCont.congrea #askQuestion #writeContent .action .cancel::before {
+  content: "\e986";
+  font-family: 'icomoon';
+  font-size: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #000;
+}
+
+#virtualclassCont.congrea #askQuestion #writeContent .action .save::before {
+  content: "\e9fa";
+  font-family: 'icomoon';
+  font-size: 19px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #3a88ff;
+}

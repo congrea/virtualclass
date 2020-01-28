@@ -518,7 +518,18 @@ class AskQuestionRenderer {
         }
       }
     } else {
-      document.querySelector(insertId).insertAdjacentHTML('beforeend', userInputTemplate);
+      if (data.component === 'question') {
+        document.querySelector(insertId).insertAdjacentHTML('beforeend', userInputTemplate);
+      } else {
+        document.querySelector(`${insertId} .${data.component}s`).insertAdjacentHTML('beforebegin', userInputTemplate);
+        const bounding = document.querySelector(`#${data.parent}`).getBoundingClientRect();
+        if (bounding.top >= 0 && bounding.left >= 0 && bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+          && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+          // console.log('In the viewport!'); TODO
+        } else {
+          document.querySelector(`#${data.parent}`).scrollIntoView();
+        }
+      }
     }
 
     const inputAction = document.querySelector('#writeContent');

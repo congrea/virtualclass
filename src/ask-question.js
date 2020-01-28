@@ -926,6 +926,15 @@ class BasicOperation {
         // component = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id, upvote: 0 };
         component.upvote = 0;
         component.children = [];
+        if (data.component === 'comment' && !component.hasOwnProperty('level') && !contextObj[currentContext][data.component][data.parent]) {
+          component.level = 1;
+        } else if (data.component === 'comment') {
+          if (contextObj[currentContext][data.component][data.parent].level < 3) {
+            let levelCount = contextObj[currentContext][data.component][data.parent].level;
+            levelCount++;
+            component.level = levelCount;
+          }
+        }
         this.updateCount(data, status);
       } else if (status === 'edited') {
         component.children = contextObj[currentContext][data.component][data.componentId].children;

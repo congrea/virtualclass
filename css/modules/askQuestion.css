@@ -144,13 +144,26 @@
   font-size: 13px;
   display: block;
   resize: none;
+  min-height: 45px;
   max-height: 90px;
+  border: none;
+}
+
+#virtualclassCont.congrea #askQuestion #writeContent .text::-webkit-scrollbar {
+  width: 0;
+}
+
+#virtualclassCont.congrea #askQuestion #writeContent .text:hover::-webkit-scrollbar {
+  width: 2px;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent {
   margin: 5px 5px 3px 5px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  border: 1px solid grey;
+  border-radius: 4px;
+  background-color: #fff;
 }
 
 #virtualclassCont.congrea #askQuestion .context {
@@ -321,34 +334,25 @@
 
 #virtualclassCont.congrea #askQuestion #writeContent .action {
   font-size: 12px;
-  padding: 5px 0 5px 0;
-  align-self: flex-end;
-}
-
-#virtualclassCont.congrea #askQuestion #writeContent .action span {
-  padding: 2px 8px 3px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#virtualclassCont.congrea #askQuestion #writeContent .action .save {
-  color: #fff;
-  margin-right: 5px;
-  border: 0.5px solid #0487c5;
-  text-transform: capitalize;
-  background-color: #0293d8;
-}
-
-#virtualclassCont.congrea #askQuestion #writeContent .action .save:hover {
-  background-color: #03a0ea;
-  border: 0.5px solid #02a0ea;
+  padding: 0 0 0 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action .cancel {
+  padding: 1px 7px 1px 7px;
+  border-radius: 4px;
+  cursor: pointer;
   background-color: white;
+  align-self: flex-end;
   color: #000;
-  border: 0.5px solid #d4d4d4;
-  text-transform: capitalize;
+  border-left: 0.5px solid #d4d4d4;
+  border-bottom: 0.5px solid #d4d4d4;
+}
+
+#virtualclassCont.congrea #askQuestion #writeContent .action .save {
+  padding: 4px 3px 1px 6px;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action .cancel:hover {

@@ -972,6 +972,12 @@ class BasicOperation {
             let levelCount = contextObj[currentContext][data.component][data.parent].level;
             levelCount++;
             component.level = levelCount;
+            if (levelCount === 3) {
+              const commentElem = document.querySelector(`#${data.componentId}`);
+              if (commentElem) {
+                commentElem.dataset.status = 'reachMaxLimit';
+              }
+            }
           }
         }
         this.updateCount(data, status);
@@ -1004,8 +1010,10 @@ class BasicOperation {
         if (status === 'editable') {
           children.push(data.componentId);
           if (!roles.hasControls()) {
-            moreControlElem.classList.remove('editable');
-            moreControlElem.classList.add('noneditable');
+            if (moreControlElem) {
+              moreControlElem.classList.remove('editable');
+              moreControlElem.classList.add('noneditable');
+            }
           }
         } else {
           children.splice(children.indexOf(data.componentId), 1);
@@ -1016,8 +1024,10 @@ class BasicOperation {
           if (!roles.hasControls() && (time < 30 && getParentElem && componentUpvote === 0)
             || (component === 'comment' && userId === virtualclass.uInfo.userid)) {
             if (children.length === 0) {
-              moreControlElem.classList.remove('noneditable');
-              moreControlElem.classList.add('editable');
+              if (moreControlElem) {
+                moreControlElem.classList.remove('noneditable');
+                moreControlElem.classList.add('editable');
+              }
             }
           }
 
@@ -1040,7 +1050,9 @@ class BasicOperation {
           }
         }
         const parentElem = document.querySelector(`#${data.parent} .navigation .total`);
-        parentElem.innerHTML = contextObj[data.context][component][data.parent].children.length;
+        if (parentElem) {
+          parentElem.innerHTML = contextObj[data.context][component][data.parent].children.length;
+        }
       }
     }
   }

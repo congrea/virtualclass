@@ -518,7 +518,18 @@ class AskQuestionRenderer {
         }
       }
     } else {
-      document.querySelector(insertId).insertAdjacentHTML('beforeend', userInputTemplate);
+      if (data.component === 'question') {
+        document.querySelector(insertId).insertAdjacentHTML('beforeend', userInputTemplate);
+      } else {
+        document.querySelector(`${insertId} .${data.component}s`).insertAdjacentHTML('beforebegin', userInputTemplate);
+        const bounding = document.querySelector(`#${data.parent}`).getBoundingClientRect();
+        if (bounding.top >= 0 && bounding.left >= 0 && bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+          && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+          // console.log('In the viewport!'); TODO
+        } else {
+          document.querySelector(`#${data.parent}`).scrollIntoView();
+        }
+      }
     }
 
     const inputAction = document.querySelector('#writeContent');
@@ -954,6 +965,15 @@ class BasicOperation {
         // component = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id, upvote: 0 };
         component.upvote = 0;
         component.children = [];
+        if (data.component === 'comment' && !component.hasOwnProperty('level') && !contextObj[currentContext][data.component][data.parent]) {
+          component.level = 1;
+        } else if (data.component === 'comment') {
+          if (contextObj[currentContext][data.component][data.parent].level < 3) {
+            let levelCount = contextObj[currentContext][data.component][data.parent].level;
+            levelCount++;
+            component.level = levelCount;
+          }
+        }
         this.updateCount(data, status);
       } else if (status === 'edited') {
         component.children = contextObj[currentContext][data.component][data.componentId].children;
@@ -1000,6 +1020,20 @@ class BasicOperation {
               moreControlElem.classList.add('editable');
             }
           }
+
+          if (component === 'question' && !roles.hasControls()) {
+            const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
+            for (let i = 0; i < answersElem.length; i++) {
+              const anstime = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: 'answer' });
+              const ansUpvote = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext]['answer'][data.componentId].upvote;
+              const ansChildren = contextObj[data.context]['answer'][data.componentId].children;
+              if (answersElem[i].classList.contains('noneditable') && ansUpvote === 0 && ansChildren.length === 0 && anstime < 30) {
+                answersElem[i].classList.remove('noneditable');
+                answersElem[i].classList.add('editable');
+              }
+            }
+          }
+
           if (data.component === 'answer') {
             const markParentElem = document.querySelector(`#${data.parent}`);
             markParentElem.dataset.markAnswer = '';
@@ -1054,12 +1088,14 @@ class BasicOperation {
       markElem.dataset.markAnswer = 'marked';
       markParentElem.dataset.markAnswer = 'marked';
       markedAnswer.insertBefore(markElem, markedAnswer.firstChild);
-      const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
-      for (let i = 0; i < answersElem.length; i++) {
-        if (answersElem[i].classList.contains('editable')) {
-          answersElem[i].classList.remove('editable');
+      if (!roles.hasControls()) {
+        const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
+        for (let i = 0; i < answersElem.length; i++) {
+          if (answersElem[i].classList.contains('editable')) {
+            answersElem[i].classList.remove('editable');
+          }
+          answersElem[i].classList.add('noneditable');
         }
-        answersElem[i].classList.add('noneditable');
       }
     }
   }

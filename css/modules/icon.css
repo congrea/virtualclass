@@ -986,3 +986,43 @@
   cursor: pointer;
   color: #3a88ff;
 }
+
+#virtualclassCont.congrea #askQuestion .container .question #writeContent .action .cancel::before {
+  content: "Cancel";
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 100;
+  cursor: pointer;
+  text-transform: capitalize;
+  color: #3e3e3e;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question #writeContent .action .save::before {
+  content: "Save";
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 100;
+  cursor: pointer;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="enable"] .slider::before,
+#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="disable"] .slider::before {
+  position: absolute;
+  content: "";
+  cursor: pointer;
+  background-color: #fff;
+  width: 11px;
+  height: 11px;
+  vertical-align: middle;
+  margin: auto;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  border-radius: 20px;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="disable"] .slider::before {
+  transform: translateX(11px);
+}

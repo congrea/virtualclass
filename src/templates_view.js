@@ -1341,7 +1341,7 @@ this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"teacherVideoHeader",{"name":"getString","hash":{},"data":data}))
     + "</div> ";
 },"3":function(container,depth0,helpers,partials,data) {
-    return " <label class=\"switch\" id=\"viewAllQuestion\" data-viewall=\"enable\"><input type=\"checkbox\"><span class=\"slider round icon-all-audio-disable enable congtooltip cgIcon\" data-title=\"View All\"></span></label> ";
+    return " <label class=\"switch\" id=\"viewAllQuestion\" data-viewall=\"enable\"><span class=\"slider round icon-all-audio-disable enable congtooltip cgIcon\" data-title=\"View All\"></span></label> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 

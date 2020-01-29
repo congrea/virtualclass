@@ -633,3 +633,36 @@
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="disable"] .slider {
   background-color: #56b249;
 }
+
+#virtualclassCont.congrea .bookmarks {
+  right: 60px;
+}
+
+#virtualclassCont.congrea #bookmark .bookmarks span.congtooltip:hover::after {
+  bottom: 47px !important;
+  left: -25px;
+}
+
+#virtualclassCont.congrea .bookmarks {
+  display: none;
+}
+
+#virtualclassCont.congrea .bookmarks.active {
+  display: block;
+}
+
+#virtualclassCont #bookmark,
+#virtualclassCont.connecting #bookmark,
+#virtualclassCont.askQuestionFetching #bookmark,
+#virtualclassCont #virtualclassnote,
+#virtualclassCont.connecting #virtualclassnote,
+#virtualclassCont.askQuestionFetching #virtualclassnote {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+#virtualclassCont.readyForNote #bookmark,
+#virtualclassCont.readyForNote #virtualclassnote {
+  pointer-events: visible;
+  opacity: 1;
+}

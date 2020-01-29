@@ -173,7 +173,11 @@ const PopUp = (function (window, undefined) {
       virtualclassContConatiner.classList.remove('connecting');
       const connt = document.querySelector('#virtualclassApp');
       connt.classList.remove('try-to-connect');
-      virtualclass.askQuestion.triggerInitFirebaseOperation();
+      if (roles.hasControls()) {
+        virtualclass.askQuestion.triggerInitFirebaseOperation();
+      } else {
+        if (localStorage.getItem('mySession') != null) virtualclass.askQuestion.triggerInitFirebaseOperation();
+      }
     }
   },
 

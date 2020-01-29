@@ -1561,9 +1561,14 @@ class AskQuestion extends BasicOperation {
   }
 
   loadInitialDataMark() {
+    if (!this.collectionMark) return;
     if (this.initCollectionMark) return;
     console.log('===> trigger note initial data');
     const self = this;
+    console.log('===> collection mark ', this.collectionMark);
+    const virtualclassCont = document.getElementById('virtualclassCont');
+    virtualclassCont.classList.add('readyForNote');
+
     this.db.collection(this.collectionMark).get().then((snapshot) => {
       // TODO, we have to store the inital data from attachHandlerForRealTimeUpdate
       self.initCollectionMark = true;
@@ -1585,6 +1590,7 @@ class AskQuestion extends BasicOperation {
         }
       });
     });
+
     // .catch((error) => {
     //   console.log('ask question read error ', error);
     // });

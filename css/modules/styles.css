@@ -4765,9 +4765,6 @@ span#usertab_text {
   right: 52px;
 }
 
-#virtualclassCont.congrea .bookmarks {
-  right: 60px;
-}
 
 #virtualclassCont.congrea #fullScreenButton .fullScreen,
 #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
@@ -4776,11 +4773,7 @@ span#usertab_text {
   font-size: 1.25rem;
 }
 
-#virtualclassCont.congrea #bookmark .bookmarks .icon-whiteboard {
-  padding: 0.6875rem 1.0938rem 0.6875rem 1.0938rem;
-  line-height: 1.3125rem;
-  font-size: 1.25rem;
-}
+
 
 #virtualclassCont.congrea.playMode #fullScreenButton,
 #virtualclassCont.congrea.playMode #fullScreenExitButton {
@@ -4805,10 +4798,6 @@ span#usertab_text {
   left: -14px;
 }
 
-#virtualclassCont.congrea #bookmark .bookmarks span.congtooltip:hover::after {
-  bottom: 47px !important;
-  left: -25px;
-}
 
 #virtualclassCont.congrea.playMode #fullScreenButton span.congtooltip:hover::after,
 #virtualclassCont.congrea.playMode #fullScreenExitButton span.congtooltip:hover::after {
@@ -5202,18 +5191,4 @@ body {
 #virtualclassCont.congrea .markContainer[data-note='true'] .note,
 #virtualclassCont.congrea .markContainer[data-bookmark='true'] .note {
   background: #e8c623;
-}
-
-#virtualclassCont.congrea .bookmarks {
-  display: none;
-}
-
-#virtualclassCont.congrea .bookmarks.active {
-  display: block;
-}
-
-#virtualclassCont.connecting .bookmarks,
-#virtualclassCont.askQuestionFetching .bookmarks {
-  pointer-events: none;
-  opacity: 0.5;
 }

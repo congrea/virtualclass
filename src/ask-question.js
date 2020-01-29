@@ -912,34 +912,95 @@ class BasicOperation {
     this.deleteComponentVariable(component, componentId);
   }
 
-  deleteComponentVariable(component, componentId, parent, parentId) {
-    if (!this.tobeDeleted) {
-      return;
+  // deleteComponentVariable(component, componentId, parent, parentId) {
+  //   if (!this.tobeDeleted) {
+  //     return;
+  //   }
+  //   const contextObj = virtualclass.askQuestion.context;
+  //   const currentContext = virtualclass.askQuestion.currentContext;
+  //   let childrenArr = contextObj[currentContext][component][componentId].children;
+  //
+  //   if (childrenArr.length <= 0) {
+  //     delete contextObj[currentContext][component][componentId];
+  //     if (parent) {
+  //       childrenArr = contextObj[currentContext][parent][parentId].children;
+  //     }
+  //   }
+  //
+  //   if (childrenArr.length > 0) {
+  //     const removedId = childrenArr.shift();
+  //     let newComponent;
+  //     if (component === 'question') {
+  //       newComponent = 'answer';
+  //     } else if (component === 'answer') {
+  //       newComponent = 'comment';
+  //     } else {
+  //       newComponent = 'comment';
+  //     }
+  //     this.deleteComponentVariable(newComponent, removedId, component, parentId);
+  //   }
+  // }
+
+  deleteComponentVariableHelper(data) {
+    if (data.component === 'question') {
+      this.deleteQuestionVariable(data.componentId);
     }
+  }
+
+  // TODO, This whole deleting process should be simplified, It can not be ignored
+  deleteQuestionVariable(componentId) {
+    const component = 'question';
     const contextObj = virtualclass.askQuestion.context;
     const currentContext = virtualclass.askQuestion.currentContext;
-    let childrenArr = contextObj[currentContext][component][componentId].children;
-
-    if (childrenArr.length <= 0) {
-      // console.log('deleting ',  contextObj[currentContext][component][componentId]);
-      delete contextObj[currentContext][component][componentId];
-      if (parent) {
-        childrenArr = contextObj[currentContext][parent][parentId].children;
-      }
+    const childrenArr = contextObj[currentContext][component][componentId].children;
+    for (let i = 0; i < childrenArr.length; i++) {
+      this.deleteAnswerVariable(childrenArr[i]);
     }
+    delete contextObj[currentContext][component][componentId];
+  }
 
-    if (childrenArr.length > 0) {
-      const removedId = childrenArr.shift();
-      let newComponent;
-      if (component === 'question') {
-        newComponent = 'answer';
-      } else if (component === 'answer') {
-        newComponent = 'comment';
-      } else {
-        newComponent = 'comment';
-      }
-      this.deleteComponentVariable(newComponent, removedId, component, parentId);
+  deleteAnswerVariable(componentId) {
+    const component = 'answer';
+    const contextObj = virtualclass.askQuestion.context;
+    const currentContext = virtualclass.askQuestion.currentContext;
+    const childrenArr = contextObj[currentContext][component][componentId].children;
+    for (let i = 0; i < childrenArr.length; i++) {
+      this.deleteCommentLevel1Variable(childrenArr[i]);
     }
+    delete contextObj[currentContext][component][componentId];
+  }
+
+  deleteCommentLevel1Variable(componentId) {
+    const component = 'comment';
+    const contextObj = virtualclass.askQuestion.context;
+    const currentContext = virtualclass.askQuestion.currentContext;
+    const childrenArr = contextObj[currentContext][component][componentId].children;
+    for (let i = 0; i < childrenArr.length; i++) {
+      this.deleteCommentLevel2Variable(childrenArr[i]);
+    }
+    delete contextObj[currentContext][component][componentId];
+  }
+
+  deleteCommentLevel2Variable(componentId) {
+    const component = 'comment';
+    const contextObj = virtualclass.askQuestion.context;
+    const currentContext = virtualclass.askQuestion.currentContext;
+    const childrenArr = contextObj[currentContext][component][componentId].children;
+    for (let i = 0; i < childrenArr.length; i++) {
+      this.deleteCommentLevel3Variable(childrenArr[i]);
+    }
+    delete contextObj[currentContext][component][componentId];
+  }
+
+  deleteCommentLevel3Variable(componentId) {
+    const component = 'comment';
+    const contextObj = virtualclass.askQuestion.context;
+    const currentContext = virtualclass.askQuestion.currentContext;
+    const childrenArr = contextObj[currentContext][component][componentId].children;
+    for (let i = 0; i < childrenArr.length; i++) {
+      delete contextObj[currentContext][component][childrenArr[i]];
+    }
+    delete contextObj[currentContext][component][componentId];
   }
 
   updateStatus(data, status) {
@@ -950,15 +1011,15 @@ class BasicOperation {
     let parent = null;
     if (status === 'delete') {
       this.updateCount(data, status);
-      const filterComponent = data.component === 'question' ? 'answer' : 'comment';
-      const childrenArr = contextObj[currentContext][data.component][data.componentId].children;
-      if (childrenArr.length > 0 && roles.hasControls()) {
-        for (let i = 0; i < childrenArr.length; i++) {
-          delete contextObj[currentContext][filterComponent][childrenArr[i]];
-        }
-      }
-      delete contextObj[currentContext][data.component][data.componentId];
-     // this.deleteComponentVariableHelper(data.component, data.componentId);
+      // const filterComponent = data.component === 'question' ? 'answer' : 'comment';
+      // const childrenArr = contextObj[currentContext][data.component][data.componentId].children;
+      // if (childrenArr.length > 0 && roles.hasControls()) {
+      //   for (let i = 0; i < childrenArr.length; i++) {
+      //     delete contextObj[currentContext][filterComponent][childrenArr[i]];
+      //   }
+      // }
+      // delete contextObj[currentContext][data.component][data.componentId];
+      this.deleteComponentVariableHelper(data);
     } else if (status === 'editable' || status === 'edited') {
       component = data;
       if (status === 'editable') {

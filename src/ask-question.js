@@ -281,6 +281,10 @@ class AskQuestionEvents {
         componentId: data.componentId,
         parent: data.parentId,
       });
+      if (data.component === 'comment') {
+        data.level = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].level
+      }
+      console.log('level === ', JSON.stringify(data));
       virtualclass.askQuestion.send(data);
     } else {
       return;
@@ -304,6 +308,24 @@ class AskQuestionEvents {
       virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(virtualclass.askQuestion.firstid).update('upvote', firebase.firestore.FieldValue.increment(1));
       virtualclass.askQuestion.upvote(data);// TODO
     }
+  }
+
+  knowCommentLevel(id) {
+    let foundRoot = null;
+    let commentLevel = 1;
+    const component = 'comment';
+
+    while (!foundRoot && commentLevel < 4) {
+      const contextObj = virtualclass.askQuestion.context;
+      const currentContext = virtualclass.askQuestion.currentContext;
+      if (contextObj[currentContext][component][id]){
+        id = contextObj[currentContext][component][id].parent;
+        commentLevel += 1;
+      } else {
+        foundRoot = true;
+      }
+    }
+    return commentLevel;
   }
 
   save(data) {
@@ -349,6 +371,10 @@ class AskQuestionEvents {
       });
       if (data.action === 'create') {
         obj.componentId = obj.id;
+        if (data.component === 'comment') {
+          const commentLevel = this.knowCommentLevel(data.parentId);
+          obj.level = commentLevel;
+        }
       }
       virtualclass.askQuestion.send(obj);
       if (roles.hasControls() && data.component === 'answer') {
@@ -904,14 +930,6 @@ class BasicOperation {
     }
   }
 
-  deleteComponentVariableHelper(component, componentId) {
-    const contextObj = virtualclass.askQuestion.context;
-    const currentContext = virtualclass.askQuestion.currentContext;
-    // const childrenArr = contextObj[currentContext][component][componentId].children;
-    this.tobeDeleted = contextObj[currentContext][component][componentId];
-    this.deleteComponentVariable(component, componentId);
-  }
-
   // deleteComponentVariable(component, componentId, parent, parentId) {
   //   if (!this.tobeDeleted) {
   //     return;
@@ -941,13 +959,17 @@ class BasicOperation {
   //   }
   // }
 
+  // TODO, This whole deleting process should be simplified, It can not be ignored
   deleteComponentVariableHelper(data) {
     if (data.component === 'question') {
       this.deleteQuestionVariable(data.componentId);
+    } else if (data.component === 'answer') {
+      this.deleteAnswerVariable(data.componentId);
+    } else if (data.component === 'comment') {
+      this[`deleteCommentVariableLevel${data.level}`](data.componentId);
     }
   }
 
-  // TODO, This whole deleting process should be simplified, It can not be ignored
   deleteQuestionVariable(componentId) {
     const component = 'question';
     const contextObj = virtualclass.askQuestion.context;
@@ -965,34 +987,34 @@ class BasicOperation {
     const currentContext = virtualclass.askQuestion.currentContext;
     const childrenArr = contextObj[currentContext][component][componentId].children;
     for (let i = 0; i < childrenArr.length; i++) {
-      this.deleteCommentLevel1Variable(childrenArr[i]);
+      this.deleteCommentVariableLevel1(childrenArr[i]);
     }
     delete contextObj[currentContext][component][componentId];
   }
 
-  deleteCommentLevel1Variable(componentId) {
+  deleteCommentVariableLevel1(componentId) {
     const component = 'comment';
     const contextObj = virtualclass.askQuestion.context;
     const currentContext = virtualclass.askQuestion.currentContext;
     const childrenArr = contextObj[currentContext][component][componentId].children;
     for (let i = 0; i < childrenArr.length; i++) {
-      this.deleteCommentLevel2Variable(childrenArr[i]);
+      this.deleteCommentVariableLevel2(childrenArr[i]);
     }
     delete contextObj[currentContext][component][componentId];
   }
 
-  deleteCommentLevel2Variable(componentId) {
+  deleteCommentVariableLevel2(componentId) {
     const component = 'comment';
     const contextObj = virtualclass.askQuestion.context;
     const currentContext = virtualclass.askQuestion.currentContext;
     const childrenArr = contextObj[currentContext][component][componentId].children;
     for (let i = 0; i < childrenArr.length; i++) {
-      this.deleteCommentLevel3Variable(childrenArr[i]);
+      this.deleteCommentVariableLevel3(childrenArr[i]);
     }
     delete contextObj[currentContext][component][componentId];
   }
 
-  deleteCommentLevel3Variable(componentId) {
+  deleteCommentVariableLevel3(componentId) {
     const component = 'comment';
     const contextObj = virtualclass.askQuestion.context;
     const currentContext = virtualclass.askQuestion.currentContext;
@@ -1026,19 +1048,11 @@ class BasicOperation {
         // component = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id, upvote: 0 };
         component.upvote = 0;
         component.children = [];
-        if (data.component === 'comment' && !component.hasOwnProperty('level') && !contextObj[currentContext][data.component][data.parent]) {
-          component.level = 1;
-        } else if (data.component === 'comment') {
-          if (contextObj[currentContext][data.component][data.parent].level < 3) {
-            let levelCount = contextObj[currentContext][data.component][data.parent].level;
-            levelCount++;
-            component.level = levelCount;
-            if (levelCount === 3) {
-              const commentElem = document.querySelector(`#${data.componentId}`);
-              if (commentElem) {
-                commentElem.dataset.status = 'reachMaxLimit';
-              }
-            }
+
+        if (data.component === 'comment' && data.level >= 3) {
+          const commentElem = document.querySelector(`#${data.componentId}`);
+          if (commentElem) {
+            commentElem.dataset.status = 'reachMaxLimit';
           }
         }
         this.updateCount(data, status);

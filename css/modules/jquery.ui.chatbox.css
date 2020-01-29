@@ -673,6 +673,7 @@ virtualclasscont.congrea.playMode.student .ui-chatroom {
   padding: 0.875rem  0.75rem 0.875rem 0.9375rem;
   line-height: normal;
   color: #fff;
+  flex: 1;
 }
 
 #virtualclassCont.congrea .ui-widget-content #commonChatHeader {
@@ -911,9 +912,4 @@ virtualclasscont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action {
   float: right;
-}
-
-#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action span {
-  line-height: 0;
-  padding: 0.75rem 0.625rem;
 }

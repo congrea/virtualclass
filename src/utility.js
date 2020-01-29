@@ -254,7 +254,11 @@
     Fullscreen() {
       /** Making virtualclassCont is fullScreen, displays the background is black on virtualclassCont **/
       // const elem = document.getElementById('virtualclassCont');
-      const elem = document.documentElement;
+      if (event.target.id == "askFullscreen") {
+        var elem = document.getElementById('virtualclassAppRightPanel');
+      } else {
+        var elem = document.documentElement;
+      }
 
       if (elem.requestFullscreen) {
         elem.requestFullscreen();

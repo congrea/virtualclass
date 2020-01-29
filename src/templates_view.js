@@ -236,12 +236,6 @@ this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"
     return "<div id='noteContainer'><div class=\"contentContainer\"><div class=\"container note children\"></div><div id=\"noteNavigationContainer\" class=\"children\"><div class=\"clearAll\" data-component=\"note\"><span class=\"event\" data-event=\"clearall\"> Clear All </span></div><div id=\"noteNavigation\" class=\"navigation\"><div class=\"previous deactive\" data-component=\"note\"><span class=\"event\" data-event=\"previous\"></span></div><div class=\"notenumber\"><span class=\"current\">1 /</span><span class=\"total\"> 1</span></div><div class=\"next deactive\" data-component=\"note\"><span class=\"event\" data-event=\"next\"></span></div></div></div></div><div class=\"loading active\">Loading</div></div>";
 },"useData":true});
 
-this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='writeContent'><textarea class='text'>"
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.type : depth0),{"name":"getString","hash":{},"data":data}))
-    + "</textarea></div>";
-},"useData":true});
-
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
@@ -1359,13 +1353,13 @@ this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.std : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " <div id=\"askQuestionHeader\" class=\"rightBarHeader\"><div class=\"header\"><div class=\"text\"><span class=\"lable\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"askQuestionHeader",{"name":"getString","hash":{},"data":data}))
-    + "</span></div><div class=\"action\"><span class=\"addQuestion-icon\"></span><span class=\"help-icon\"></span><span class=\"fullScreen-icon\"></span> "
+    + "</span></div><div class=\"action\"><span class=\"addQuestion-icon\"></span><span class=\"help-icon\"></span> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlayMode : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " </div></div></div><div id=\"virtualclassnoteHeader\" class=\"rightBarHeader\"><div class='header'>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"virtualclassnoteHeader",{"name":"getString","hash":{},"data":data}))
     + "</div></div><div id=\"appSettingCtrl\" class=\"congtooltip chatActive\" data-title =\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"setting",{"name":"getString","hash":{},"data":data}))
-    + "\"><a id=\"appSettingCtrlAnchor\"><span class=\"setting-btn cgIcon\"></span></a></div></div>";
+    + "\"><a id=\"appSettingCtrlAnchor\"><span class=\"setting-btn cgIcon\"></span></a></div><span id=\"askFullscreen\" class=\"fullScreen-icon\"></span></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

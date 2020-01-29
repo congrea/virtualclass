@@ -548,3 +548,7 @@
   pointer-events: none;
   opacity: 0.5;
 }
+
+#virtualclassCont.congrea #askQuestion .question .answers .comment[data-status="reachMaxLimit"] .footer .controls {
+  display: none;
+}

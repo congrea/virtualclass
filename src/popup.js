@@ -176,7 +176,11 @@ const PopUp = (function (window, undefined) {
       if (roles.hasControls()) {
         virtualclass.askQuestion.triggerInitFirebaseOperation();
       } else {
-        if (localStorage.getItem('mySession') != null) virtualclass.askQuestion.triggerInitFirebaseOperation();
+        if (localStorage.getItem('mySession') != null) {
+          const virtualclassCont = document.getElementById('virtualclassCont');
+          virtualclassCont.classList.add('readyForNote');
+          virtualclass.askQuestion.triggerInitFirebaseOperation();
+        }
       }
     }
   },

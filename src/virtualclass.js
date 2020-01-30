@@ -91,6 +91,7 @@
         audioRecWorkerReady: false,
         wbTool: {},
         fullScreenMode: false,
+        rightbarFullScreenMode: false,
         hideRightbar : JSON.parse(localStorage.getItem('hideRightbar')),
         lastmousemovetime: null,
         CDTimer: null,
@@ -383,6 +384,11 @@
           askfullScreenBtn.addEventListener('click', virtualclass.vutil.Fullscreen);
         }
 
+        const askfullScreenExitBtn = document.getElementById('askExitFullscreen');
+        if (askfullScreenExitBtn != null) {
+          askfullScreenExitBtn.addEventListener('click', virtualclass.vutil.closeFullscreen);
+        }
+
         var chat_div = document.getElementById("chat_div");
         var rightSidebarBtn = document.getElementById("sidebarButton");
 
@@ -466,11 +472,24 @@
         }, false);
       },
 
-      onfullscreenchange() {
-        if (!virtualclass.gObj.fullScreenMode) {
-          virtualclass.vutil.hideFullScreenButton();
+      onfullscreenchange() {   
+        // On fullscreenchange for rightbarfullscreen
+        if(event.target.id == "virtualclassAppRightPanel") {
+          if (!virtualclass.gObj.rightbarFullScreenMode) {
+            virtualclass.gObj.rightbarFullScreenMode = true;
+          } else {
+            if(document.getElementById("virtualclassAppRightPanel").classList.contains("fullScreenMode")) {
+              document.getElementById("virtualclassAppRightPanel").classList.remove("fullScreenMode");
+            }
+            virtualclass.gObj.rightbarFullScreenMode = false;
+          }
         } else {
-          virtualclass.vutil.showFullScreenButton();
+          // On fullscreenchange for full application
+          if (!virtualclass.gObj.fullScreenMode) {
+            virtualclass.vutil.hideFullScreenButton();
+          } else {
+            virtualclass.vutil.showFullScreenButton();
+          }
         }
       },
 

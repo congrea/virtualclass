@@ -274,7 +274,11 @@
 
     closeFullscreen() {
       // const elem = document.getElementById('virtualclassCont');
-      const elem = document.documentElement;
+      if (event.target.id == "askExitFullscreen") {
+        var elem = document.getElementById('virtualclassAppRightPanel');
+      } else {
+        var elem = document.documentElement;
+      }
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.mozCancelFullScreen) {

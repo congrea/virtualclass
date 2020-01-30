@@ -826,6 +826,15 @@
   color: #fff !important;
 }
 
+#virtualclassCont.congrea #rightBarHeader .exitFullScreen-icon::before {
+  content: "\e9db";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 0.9375rem;
+  cursor: pointer;
+  color: #fff !important;
+}
+
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .header .closed-icon::before {
   content: "\e968";
   font-weight: normal;

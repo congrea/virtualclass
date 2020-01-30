@@ -1076,16 +1076,24 @@ body {
   display: none;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #rightBarHeader span#askFullscreen {
+#virtualclassCont.congrea #virtualclassAppRightPanel #rightBarHeader span#askFullscreen,
+#virtualclassCont.congrea #virtualclassAppRightPanel #rightBarHeader span#askExitFullscreen {
   padding: 0.75rem;
   display: none;
 }
 
-#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel #rightBarHeader span#askFullscreen {
+#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel #rightBarHeader span#askFullscreen,
+#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.fullScreenMode #rightBarHeader span#askExitFullscreen {
   display: block;
 }
 
+#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.fullScreenMode #rightBarHeader span#askFullscreen {
+  display: none;
+}
+
 #virtualclassCont.congrea #virtualclassAppRightPanel.showUserList #rightBarHeader span#askFullscreen,
-#virtualclassCont.congrea #virtualclassAppRightPanel.techVideoShow #rightBarHeader span#askFullscreen {
+#virtualclassCont.congrea #virtualclassAppRightPanel.techVideoShow #rightBarHeader span#askFullscreen,
+#virtualclassCont.congrea #virtualclassAppRightPanel.showUserList #rightBarHeader span#askExitFullscreen,
+#virtualclassCont.congrea #virtualclassAppRightPanel.techVideoShow #rightBarHeader span#askExitFullscreen {
   display: none;
 }

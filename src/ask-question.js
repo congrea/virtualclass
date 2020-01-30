@@ -24,14 +24,10 @@ class NoteNavigation {
       if (this.current <= this.queue.length) this.current = this.current + 1;
     }
 
-
-    const context = this.queue[this.current];
+    let context = this.queue[this.current];
+    context = (context == null) ? virtualclass.askQuestion.currentContext : context;
     if (virtualclass.askQuestion.context[context]) {
-      if (this.queue[this.current] != null) {
-        this.displayNoteBy(context);
-      } else {
-        this.displayNoteBy(virtualclass.askQuestion.currentContext);
-      }
+      this.displayNoteBy(context);
     } else {
       virtualclass.askQuestion.triggerPerform(context);
     }

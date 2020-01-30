@@ -51,13 +51,14 @@
         virtualclass.vutil.sendSpeedByMobile(3);
         //const vmchat_room_bt = document.querySelector('#chatwidget .vmchat_room_bt');
         // chatroom_bt2.classList.add('active');
-        techVideo.classList.remove('active');
+        // techVideo.classList.remove('active');
 
         // user_list.classList.remove('active');
         // setting.classList.remove('active');
         // askQuestionTab.classList.remove('active');
         // chatroom_bt2.classList.add('active');
 
+        virtualclass.rightbar.handleDisplayRightBar('#chatWidget');
         virtualclass.rightbar.handleDisplayBottomRightBar(chatroom_bt2);
 
         // virtualclassAppRight.classList.add('showChatList');

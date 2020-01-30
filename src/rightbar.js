@@ -68,7 +68,7 @@ class Rightbar {
   }
 
   handleDisplayBottomRightBar(element) {
-    console.log('====> click right bar ', element.id);
+    console.log('====> click right bar ');
     const stickycontainer = document.querySelector('#stickycontainer .bottomright.active');
     if (stickycontainer) stickycontainer.classList.remove('active');
     element.classList.add('active');

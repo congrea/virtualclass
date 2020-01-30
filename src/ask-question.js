@@ -23,7 +23,18 @@ class NoteNavigation {
     } else {
       if (this.current <= this.queue.length) this.current = this.current + 1;
     }
-    this.displayNoteBy(this.queue[this.current]);
+
+
+    const context = this.queue[this.current];
+    if (virtualclass.askQuestion.context[context]) {
+      if (this.queue[this.current] != null) {
+        this.displayNoteBy(context);
+      } else {
+        this.displayNoteBy(virtualclass.askQuestion.currentContext);
+      }
+    } else {
+      virtualclass.askQuestion.triggerPerform(context);
+    }
     this.updateNavigateNumbers();
   }
 
@@ -51,6 +62,7 @@ class NoteNavigation {
     if (this.current + 1 < this.queue.length) {
       next.classList.remove('deactive');
     }
+    console.log('Update ');
   }
 
   displayNoteBy(context) {
@@ -515,6 +527,7 @@ class AskQuestionRenderer {
         virtualclass.askQuestion.triggerInitFirebaseOperation('note');
         virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
         virtualclass.askQuestion.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
+        virtualclass.askQuestion.noteNavigation.updateNavigateNumbers();
       });
     }
   }
@@ -643,7 +656,7 @@ class AskQuestionRenderer {
     // let attachFunction = false;
     let contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
     if (contextDivElement === null) {
-      const contentArea = virtualclass.getTemplate('content-area', 'askQuestion');
+      const contentArea = virtualclass.getTemplate('note-content-area', 'askQuestion');
       const contentAreaHtml = contentArea({ context: currentContext });
       const noteContainer = document.querySelector('#noteContainer .container');
       if (noteContainer != null) noteContainer.insertAdjacentHTML('beforeEnd', contentAreaHtml);
@@ -1470,6 +1483,11 @@ class AskQuestion extends BasicOperation {
   }
 
   triggerPerform(contextName) {
+    this.currentContext = contextName;
+    this.triggerPerformActual(contextName);
+  }
+
+  triggerPerformActual(contextName) {
     const askQuestoinContainer = document.getElementById('askQuestion');
     if (askQuestoinContainer) {
       if (!contextName) {
@@ -1479,7 +1497,6 @@ class AskQuestion extends BasicOperation {
       }
     }
 
-    this.currentContext = contextName;
     const getContextElem = document.querySelector('#askQuestion .container .current');
     const contextElem = document.querySelector(`.context[data-context~=${this.currentContext}]`);
     if (contextElem && !contextElem.classList.contains('current')) {
@@ -1490,21 +1507,20 @@ class AskQuestion extends BasicOperation {
       getContextElem.classList.remove('current');
     }
 
-    if (this.currentContext && !this.context[contextName]) {
+    if (contextName && !this.context[contextName]) {
       this.context[contextName] = new QAcontext();
     }
 
     const type = this.getActiveTab();
-    if (type && this.queue[type] && this.queue[type][this.currentContext] && this.queue[type][this.currentContext].length > 0) {
-      this.engine.perform(this.currentContext, type);
-      if (type === 'note') this.noteNavigation.afterChangeContext(virtualclass.askQuestion.currentContext);
+    if (type && this.queue[type] && this.queue[type][contextName] && this.queue[type][contextName].length > 0) {
+      this.engine.perform(contextName, type);
+      if (type === 'note') this.noteNavigation.afterChangeContext(contextName);
     } else if (type === 'note') {
       // Create blank structure for note
-      this.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
-      this.noteNavigation.afterChangeContext(virtualclass.askQuestion.currentContext);
+      this.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: contextName });
+      this.noteNavigation.afterChangeContext(contextName);
     }
-    this.bookmarkUi.afterChangeContext(virtualclass.askQuestion.currentContext);
-
+    this.bookmarkUi.afterChangeContext(contextName);
   }
 
   async authenticate(config) {

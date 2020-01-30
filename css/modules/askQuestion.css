@@ -271,7 +271,7 @@
   color: #5a5a5a;
   font-size: 0.6875rem;
   text-transform: none;
-  font-weight: 100;
+  font-weight: 400;
   letter-spacing: 1px;
 }
 
@@ -670,7 +670,17 @@
 
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .answers.close .answer[data-mark-answer] {
   display: block;
-  font-weight: 100;
+  font-weight: 400;
   font-size: 16px;
   line-height: 16px;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #noteContainer {
+  display: none;
+}
+
+#virtualclassCont.congrea #bookmark .bookmarks .icon-bookmark {
+  padding: 0.6875rem 1.0938rem 0.6875rem 1.0938rem;
+  line-height: 1.3125rem;
+  font-size: 1.25rem;
 }

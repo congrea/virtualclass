@@ -149,7 +149,7 @@ this["JST"]["dest_temp/templates/askQuestion/bookmark.hbs"] = Handlebars.templat
 
   return "<div class=\"bookmarks active\" data-context='"
     + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
-    + "' data-component=\"bookmark\" data-value=\"0\"><span class=\"congtooltip icon-whiteboard cgIcon\" data-event=\"save\" data-title=\"Add bookmark\"></span></div>";
+    + "' data-component=\"bookmark\" data-value=\"0\"><span class=\"congtooltip icon-bookmark cgIcon\" data-event=\"save\" data-title=\"Add bookmark\"></span></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -256,6 +256,12 @@ this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"
 
 this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id='writeContent'><textarea class='text'></textarea><div class=\"action\"><span class=\"save\">save</span><span class=\"cancel\">cancel</span></div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id='writeContent'><textarea class='text'>"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.type : depth0),{"name":"getString","hash":{},"data":data}))
+    + "</textarea></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

@@ -503,7 +503,8 @@ class AskQuestionRenderer {
       // this.qaNote.renderMainContainer();
     } else {
       // TODO, this code needs to be simplified
-      const toggle = document.querySelector('#virtualclassCont.congrea #congHr');
+      // const toggle = document.querySelector('#virtualclassCont.congrea #congHr');
+      const toggle = document.querySelector('#virtualclassCont.congrea #congAskQuestion');
       const context = {};
       const qaTemp = virtualclass.getTemplate('askQuestionMain', 'askQuestion');
       const qtemp = qaTemp(context);
@@ -1175,8 +1176,11 @@ class BasicOperation {
           }
 
           if (data.component === 'answer') {
-            const markParentElem = document.querySelector(`#${data.parent}`);
-            markParentElem.dataset.markAnswer = '';
+            const checkMarkElem = document.querySelector(`#askQuestion #${data.parent} .answers .answer[data-mark-answer="marked"]`);
+            if (!checkMarkElem) {
+              const markParentElem = document.querySelector(`#${data.parent}`);
+              markParentElem.dataset.markAnswer = '';
+            }
           }
         }
         const parentElem = document.querySelector(`#${data.parent} .navigation .total`);
@@ -1230,8 +1234,8 @@ class BasicOperation {
       markElem.dataset.markAnswer = 'marked';
       markParentElem.dataset.markAnswer = 'marked';
       if (markedAnswer.classList.contains('open')) {
-        markedAnswer.classList.remove('open')
-        markedAnswer.classList.add('close')
+        markedAnswer.classList.remove('open');
+        markedAnswer.classList.add('close');
       }
       markedAnswer.insertBefore(markElem, markedAnswer.firstChild);
       if (!roles.hasControls()) {
@@ -1450,7 +1454,7 @@ class AskQuestion extends BasicOperation {
   }
 
   getActiveTab() {
-    if (document.querySelector('#congHr.active') != null) {
+    if (document.querySelector('#congAskQuestion.active') != null) {
       return 'question';
     } else if (document.querySelector('#virtualclassnote.active') != null) {
       return 'note';

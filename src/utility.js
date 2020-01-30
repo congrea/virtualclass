@@ -630,7 +630,7 @@
        */
 
       if (!roles.hasControls()) {
-        const elem = document.querySelector('#virtualclassCont.congrea #congHr.disable');
+        const elem = document.querySelector('#virtualclassCont.congrea #congAskQuestion.disable');
         if (elem) {
           elem.click();
         }

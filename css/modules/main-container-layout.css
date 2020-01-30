@@ -324,7 +324,7 @@
 
   #virtualclassCont.congrea.student .vmchat_bar_button,
   #virtualclassCont.congrea.student .vmchat_room_bt,
-  #virtualclassCont.congrea #congHr {
+  #virtualclassCont.congrea #congAskQuestion {
     width: 25% !important;
   }
 
@@ -345,7 +345,8 @@
     padding: 0.8125rem 0.8125rem 0.6875rem 0.8125rem;
   }
 
-  #virtualclassCont.congrea #icHr {
+  /*#virtualclassCont.congrea #icHr {*/
+  #virtualclassCont.congrea #iconAskQuestion {
     padding: 0.7857rem 0.8214rem 1rem 0.8214rem;
   }
 
@@ -487,7 +488,8 @@
   padding: 0.875rem 0.6875rem 0.3438rem 0.6875rem;
 }
 
-#virtualclassCont.congrea.student[device="mobile"] #rightSubContainer #stickycontainer #icHr::before {
+/*#virtualclassCont.congrea.student[device="mobile"] #rightSubContainer #stickycontainer #icHr::before {*/
+#virtualclassCont.congrea.student[device="mobile"] #rightSubContainer #stickycontainer #iconAskQuestion::before {
   margin-top: -0.08125rem;
 }
 

@@ -684,3 +684,17 @@
   line-height: 1.3125rem;
   font-size: 1.25rem;
 }
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action .addQuestion-icon {
+  padding: 0.71875rem 1.03125rem;
+  cursor: pointer;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action .addQuestion-icon.congtooltip:hover::after {
+  bottom: -30px;
+  right: 0;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #askQuestionHeader {
+  padding: 0;
+}

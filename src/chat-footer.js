@@ -36,10 +36,11 @@
       const virtualclassAppRight = document.querySelector("#virtualclassAppRightPanel");
       const virtualclassApp = document.querySelector("#virtualclassApp");
       const rightbarTab = document.querySelector("#stickycontainer ul.chatBarTab");
-      const askQuestionTab = document.querySelector('#virtualclassCont.congrea #congHr');
+      const askQuestionTab = document.querySelector('#virtualclassCont.congrea #congAskQuestion');
 
       rightbarTab.addEventListener('click', ((event) => {
-        if (virtualclassApp.classList.contains('collapsedRightbar') && event.target.id !== 'icHr') {
+        if (virtualclassApp.classList.contains('collapsedRightbar') && event.target.id !== 'congAskQuestion') {
+          // if (virtualclassApp.classList.contains('collapsedRightbar') && event.target.id !== 'icHr') {
           virtualclass.rightbar.handleRightBar('open');
           virtualclass.chat.calculateViewPortForMessageBox();
         }

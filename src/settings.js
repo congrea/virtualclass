@@ -22,7 +22,7 @@
       localSettings[2] = +s.studentvideo;
       localSettings[3] = +s.studentpc;
       localSettings[4] = +s.studentgc;
-      localSettings[5] = +s.raisehand;
+      localSettings[5] = +s.askQuestion;
       localSettings[6] = +s.userlist;
       localSettings[7] = +s.enableRecording;
       localSettings[8] = +s.recAllowpresentorAVcontrol;
@@ -47,7 +47,7 @@
       parsedSettings.studentvideo = !!+localSettings[2];
       parsedSettings.studentpc = !!+localSettings[3];
       parsedSettings.studentgc = !!+localSettings[4];
-      parsedSettings.raisehand = !!+localSettings[5];
+      parsedSettings.askQuestion = !!+localSettings[5];
       parsedSettings.userlist = !!+localSettings[6];
       parsedSettings.enableRecording = !!+localSettings[7];
       parsedSettings.recAllowpresentorAVcontrol = !!+localSettings[8];
@@ -280,15 +280,16 @@
       }
     },
 
-    raisehand(value) {
+    askQuestion(value) {
       if (roles.isStudent()) {
-        const raiseHand = document.querySelector('#congHr');
+        const askQuestion = document.querySelector('#congAskQuestion');
         if (value === true) {
-          raiseHand.classList.remove('rsDisable');
-          raiseHand.classList.add('rsEnable');
+          askQuestion.classList.remove('askQuestionDisable');
+          askQuestion.classList.add('askQuestionEnable');
         } else {
-          raiseHand.classList.remove('rsEnable');
-          raiseHand.classList.add('rsDisable');
+          document.querySelector('#user_list').click();
+          askQuestion.classList.remove('askQuestionEnable');
+          askQuestion.classList.add('askQuestionDisable');
         }
       }
     },

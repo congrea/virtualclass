@@ -13,9 +13,9 @@ this["JST"]["dest_temp/templates/appSettingDetail.hbs"] = Handlebars.template({"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Chat",{"name":"getString","hash":{},"data":data}))
     + " <label class=\"switch chat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-chat-enable congtooltip\" id=\"contrChatAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrGroupChatAll\"><div class=\"appSettingIcons\" id=\"usersGroupChatSwitch\"></div> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"GroupChat",{"name":"getString","hash":{},"data":data}))
-    + " <label class=\"switch GroupChat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-groupChat-enable congtooltip\" id=\"contrGroupChatAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrRaisehandAll\"><div class=\"appSettingIcons\" id=\"usersRaisehandSwitch\"></div> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"RaiseHand",{"name":"getString","hash":{},"data":data}))
-    + " <label class=\"switch Raisehand_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-raisehand-enable congtooltip\" id=\"contrRaisehandAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrUserlistAll\"><div class=\"appSettingIcons\" id=\"usersUserlistSwitch\"></div> "
+    + " <label class=\"switch GroupChat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-groupChat-enable congtooltip\" id=\"contrGroupChatAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrAskQuestionAll\"><div class=\"appSettingIcons\" id=\"usersAskQuestionSwitch\"></div> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"askQuestion",{"name":"getString","hash":{},"data":data}))
+    + " <label class=\"switch AskQuestion_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-askQuestion-enable congtooltip\" id=\"contrAskQuestionAllImg\"></span></label></li>.congrea .bulkUserActions #contr${lable}All` <li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrUserlistAll\"><div class=\"appSettingIcons\" id=\"usersUserlistSwitch\"></div> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"UserList",{"name":"getString","hash":{},"data":data}))
     + " <label class=\"switch Userlist_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-userlist-enable congtooltip\" id=\"contrUserlistAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrMarkNotesAll\"><div class=\"appSettingIcons\" id=\"usersMarkNotesSwitch\"></div> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"MarkNotes",{"name":"getString","hash":{},"data":data}))
@@ -197,7 +197,7 @@ this["JST"]["dest_temp/templates/askQuestion/content-area.hbs"] = Handlebars.tem
 
   return "<div class=\"context note\" data-context=\""
     + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
-    + "\" data-component=\"note\"><textarea class='text content' placeholder=\"Write your note here\" data-event=\"save\"></textarea></div>";
+    + "\" data-component=\"note\"><textarea class='text content' placeholder=\"Type your content\" data-event=\"save\"></textarea></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/context.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -206,6 +206,10 @@ this["JST"]["dest_temp/templates/askQuestion/context.hbs"] = Handlebars.template
   return "<div class=\"context\" data-context=\""
     + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
     + "\"><div class=\"container\"></div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/ellipsestext.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/ellipsisText.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -248,6 +252,10 @@ this["JST"]["dest_temp/templates/askQuestion/note-content-area.hbs"] = Handlebar
 
 this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id='noteContainer' class='rightContainer'><div class=\"contentContainer\"><div class=\"container note children\"></div><div id=\"noteNavigationContainer\" class=\"children\"><div class=\"clearAll\" data-component=\"note\"><span class=\"event\" data-event=\"clearall\"> Clear All </span></div><div id=\"noteNavigation\" class=\"navigation\"><div class=\"previous deactive\" data-component=\"note\"><span class=\"event\" data-event=\"previous\"></span></div><div class=\"notenumber\"><span class=\"current\">1 /</span><span class=\"total\"> 1</span></div><div class=\"next deactive\" data-component=\"note\"><span class=\"event\" data-event=\"next\"></span></div></div></div></div><div class=\"loading active\">Loading</div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id='writeContent'><textarea class='text'></textarea><div class=\"action\"><span class=\"save\">save</span><span class=\"cancel\">cancel</span></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -471,9 +479,9 @@ this["JST"]["dest_temp/templates/chat/stickycont.hbs"] = Handlebars.template({"1
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + " <li class=\"vmchat_room_bt congtooltip bottomright\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChat",{"name":"getString","hash":{},"data":data}))
-    + "\" id=\"chatroom_bt2\" data-headerid=\"commonChatHeader\"><a class=\"inner_bt\"><span id=\"chatroom_icon\"><span class=\"icon-chatroom cgIcon\"></span></span>  </a></li><li class=\"handRaise enable congtooltip bottomright\" id=\"congHr\" data-title =\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"RaiseHandStdEnabled",{"name":"getString","hash":{},"data":data}))
-    + "\" data-headerid=\"askQuestionHeader\"><a class=\"stdRaiseHand\"><span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\"></span></a></li><li id=\"virtualclassnote\" class=\"congtooltip bottomright\" data-title =\"Note\" data-headerid=\"virtualclassnoteHeader\"><a><span class=\"icon-whiteboard icon-hr-enable\"></span></a></li></ul>";
+    + "\" id=\"chatroom_bt2\" data-headerid=\"commonChatHeader\"><a class=\"inner_bt\"><span id=\"chatroom_icon\"><span class=\"icon-chatroom cgIcon\"></span></span>  </a></li><li class=\"askQuestion_btn enable congtooltip bottomright\" id=\"congAskQuestion\" data-title =\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ankQuestionEnabled",{"name":"getString","hash":{},"data":data}))
+    + "\" data-headerid=\"askQuestionHeader\"><a class=\"stdAskQuestion\"><span id=\"iconAskQuestion\" data-action=\"enable\" class=\"icon-askQuestion-enable\"></span></a></li><li id=\"virtualclassnote\" class=\"congtooltip bottomright\" data-title =\"Note\" data-headerid=\"virtualclassnoteHeader\"><a><span class=\"icon-whiteboard icon-note-enable\"></span></a></li></ul>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/context-mark.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -813,7 +821,7 @@ this["JST"]["dest_temp/templates/notes/content-area.hbs"] = Handlebars.template(
 },"useData":true});
 
 this["JST"]["dest_temp/templates/notes/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='noteContainer'><div class=\"container note\"></div><div class=\"loading\">Loading</div></div>";
+    return "<div id='noteContainer'><div class=\"container \"></div><div class=\"loading\">Loading</div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/poll/edit-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

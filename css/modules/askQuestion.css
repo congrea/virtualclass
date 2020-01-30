@@ -165,6 +165,10 @@
   width: 0;
 }
 
+#virtualclassCont.congrea #askQuestion .container .question #writeContent .text::-webkit-scrollbar {
+  width: 4px;
+}
+
 #virtualclassCont.congrea #askQuestion #writeContent .text:hover::-webkit-scrollbar {
   width: 2px;
 }
@@ -254,11 +258,6 @@
   height: 91%;
   background: #0270e1;
 }
-
-/* #virtualclassCont.congrea #askQuestion .comments .container {
-  border-left: 2px solid yellow;
-  margin-top: 3px;
-} */
 
 #virtualclassCont.congrea #askQuestion .question .container .header {
   color: #000;
@@ -415,7 +414,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer.hide,
-#virtualclassCont.congrea #askQuestion .container .question .answers.close,
+#virtualclassCont.congrea #askQuestion .container .question .answers.close .answer,
 #virtualclassCont.congrea #askQuestion .container .answer .comments.close,
 #virtualclassCont.congrea #askQuestion .container .comment .comments.close {
   display: none;
@@ -603,9 +602,11 @@
   opacity: 0.5;
 }
 
-#virtualclassCont.congrea #askQuestion .question .answers .comment[data-status="reachMaxLimit"] .footer .controls {
-  display: none;
+#virtualclassCont.congrea #askQuestion .question .answers .comment[data-status="reachMaxLimit"] .footer .controls div {
+  pointer-events: none;
+  opacity: 0.3;
 }
+
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch {
   width: 22px;
   height: 9px;
@@ -665,4 +666,11 @@
 #virtualclassCont.readyForNote #virtualclassnote {
   pointer-events: visible;
   opacity: 1;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .answers.close .answer[data-mark-answer] {
+  display: block;
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 16px;
 }

@@ -472,7 +472,7 @@
         }, false);
       },
 
-      onfullscreenchange() {   
+      onfullscreenchange() {
         // On fullscreenchange for rightbarfullscreen
         if(event.target.id == "virtualclassAppRightPanel") {
           if (!virtualclass.gObj.rightbarFullScreenMode) {
@@ -1155,20 +1155,14 @@
         },
 
         Poll() {
-          virtualclass.userListEnable();
+          this.userListEnable();
           virtualclass.poll.init();
         },
         Quiz() {
-          virtualclass.userListEnable();
+          this.userListEnable();
           virtualclass.quiz.init();
         },
 
-        userListEnable() {
-          const userList = document.querySelector('#user_list');
-          if (userList) {
-            userList.click();
-          }
-        },
 
         Video(app, custEvent, videoObj) {
           if (typeof videoObj !== 'undefined' && videoObj != null) {
@@ -1573,6 +1567,13 @@
           }
         }
       },
+      userListEnable() {
+        const userList = document.querySelector('#user_list');
+        if (userList) {
+          userList.click();
+        }
+      },
+
     };
 
     function capitalizeFirstLetter(string) {

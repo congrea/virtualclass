@@ -29,7 +29,7 @@ class NoteNavigation {
     if (virtualclass.askQuestion.context[context]) {
       this.displayNoteBy(context);
     } else {
-      virtualclass.askQuestion.triggerPerform(context);
+      virtualclass.askQuestion.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context });
     }
     this.updateNavigateNumbers();
   }
@@ -91,7 +91,11 @@ class NoteNavigation {
   deleteElementFromQueue(context) {
     const pos = this.queue.indexOf(context);
     if (pos >= -1) {
-      this.queue.splice(pos, 1);
+      if (pos + 1 === this.queue.length) {
+        this.queue[pos] = null;
+      } else {
+        this.queue.splice(pos, 1);
+      }
     }
   }
 }
@@ -675,15 +679,22 @@ class AskQuestionRenderer {
     }
   }
 
-  noteContainer() {
+  noteContainer(data) {
+    let context;
+    if (data) {
+      context = data.context;
+    } else {
+      context = virtualclass.askQuestion.currentContext;
+    }
+
     let note = document.getElementById('noteContainer');
     if (note == null) {
       const noteMainContainer = virtualclass.getTemplate('note', 'askQuestion');
-      const noteMainContainerHtml = noteMainContainer({context: virtualclass.askQuestion.currentContext});
+      const noteMainContainerHtml = noteMainContainer({ context });
       document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
     }
 
-    this.renderNote(virtualclass.askQuestion.currentContext);
+    this.renderNote(data.context);
 
     const activeElement = document.querySelector('#rightSubContainer .active');
     if (activeElement) {
@@ -780,7 +791,7 @@ class BasicOperation {
       if (data.component === 'note') {
         const content = data.content.trim();
         if (content === '') {
-          virtualclass.askQuestion.noteNavigation.deleteElementFromQueue();
+          virtualclass.askQuestion.noteNavigation.deleteElementFromQueue(data.context);
         }
       }
     } else {

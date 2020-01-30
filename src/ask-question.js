@@ -786,6 +786,12 @@ class BasicOperation {
   }
 
   handler(ev) {
+    if (ev.target.dataset.event === 'edit') {
+      const writeTemp = document.querySelector('#writeContent .action .cancel');
+      if (writeTemp) {
+        writeTemp.click();
+      }
+    }
     const questionElement = ev.target.closest('div.context');
     if (questionElement && questionElement.dataset) {
       virtualclass.askQuestion.currentContext = ev.target.closest('div.context').dataset.context;
@@ -810,13 +816,31 @@ class BasicOperation {
       let text;
       let action;
       let parentId = null;
-      const component = parent.dataset.component;
+      let component = parent.dataset.component;
       if (parent.dataset.componentId && event !== 'save') {
         componentId = parent.dataset.componentId;
         if (event === 'reply') {
           componentId = null;
           parentId = parent.dataset.componentId;
         } else if (event === 'edit' || event === 'markAnswer' || event === 'delete') {
+          // if (event === 'edit') {
+          //   const writeTemp = document.querySelector('#writeContent');
+          //   const text = document.querySelector('#writeContent .text');
+          //   if (writeTemp && writeTemp.firstElementChild.dataset.parent == null && text.nextElementSibling.dataset.component === 'question') {
+          //     writeTemp.remove();
+          //   } else if (writeTemp) {
+          //     componentId = text.nextElementSibling.dataset.componentId;
+          //     component = text.nextElementSibling.dataset.component;
+          //     event = 'cancel';
+          //     this.event.execute({
+          //       event, component, componentId, text, action, parentId,
+          //     });
+          //   }
+          // }
+
+          // component = parent.dataset.component;
+          // componentId = parent.dataset.componentId;
+          // event = 'edit';
           parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
         }
       }
@@ -902,7 +926,8 @@ class BasicOperation {
     }
 
     if (component === 'question') {
-      this.autosize.bind(this);
+      const textarea = document.querySelector('#writeContent .text');
+      virtualclass.askQuestion.rendererObj.autosize.call(this, {target: textarea});
     }
   }
 
@@ -1174,6 +1199,10 @@ class BasicOperation {
     if (markParentElem && markElem && !markParentElem.dataset.markAnswer) {
       markElem.dataset.markAnswer = 'marked';
       markParentElem.dataset.markAnswer = 'marked';
+      if (markedAnswer.classList.contains('open')) {
+        markedAnswer.classList.remove('open')
+        markedAnswer.classList.add('close')
+      }
       markedAnswer.insertBefore(markElem, markedAnswer.firstChild);
       if (!roles.hasControls()) {
         const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);

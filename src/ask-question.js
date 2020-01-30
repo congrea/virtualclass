@@ -517,6 +517,11 @@ class AskQuestionRenderer {
       const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
       if (addQuestion) {
         addQuestion.addEventListener('click', () => {
+          const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
+          if (moreElemClose) {
+            moreElemClose.classList.remove('open');
+            moreElemClose.classList.add('close');
+          }
           virtualclass.askQuestion.engine.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.askQuestion.currentContext });
         });
       }
@@ -806,6 +811,11 @@ class BasicOperation {
   }
 
   handler(ev) {
+    const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
+    if (moreElemClose && ev.target.dataset.event !== 'moreControls') {
+      moreElemClose.classList.remove('open');
+      moreElemClose.classList.add('close');
+    }
     if (ev.target.dataset.event === 'edit') {
       const writeTemp = document.querySelector('#writeContent .action .cancel');
       if (writeTemp) {

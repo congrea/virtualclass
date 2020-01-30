@@ -71,9 +71,9 @@
         + '#virtualclassCont.congrea #fullScreenButton ,'
         + '#virtualclassCont.congrea .vmchat_bar_button ,'
         + '#virtualclassCont.congrea .vmchat_room_bt.congtooltip ,'
-        + '#virtualclassCont.congrea #congHr ,'
+        + '#virtualclassCont.congrea #congAskQuestion ,'
         + '#virtualclassCont.congrea .shapesToolbox ,'
-        + '#virtualclassCont.congrea li#appSettingCtrl ,' 
+        + '#virtualclassCont.congrea li#appSettingCtrl ,'
         + '#virtualclassCont.congrea #fullScreenExitButton, '
         + '#virtualclassCont.congrea li#virtualclassnote, '
         + '#virtualclassCont.congrea #bookmark '
@@ -180,7 +180,7 @@
         + '#virtualclassCont.congrea .shapesToolbox a'
         + `{color:${frontColor}!important}`
 
-       
+
         + '#virtualclassCont.congrea .cgText'
         + `{color:${frontColor}!important}`
 
@@ -259,9 +259,9 @@
 
         + '#virtualclassCont.congrea #stickycontainer .inner_bt:hover, '
         // + '#virtualclassCont.congrea #audioWidget a#rightCtlr:hover, '
-        + '#virtualclassCont.congrea a.stdRaiseHand:hover, '
+        + '#virtualclassCont.congrea a.stdAskQuestion:hover, '
         + '#virtualclassCont.congrea li#appSettingCtrl a#appSettingCtrlAnchor:hover ,'
-        + '#virtualclassCont.congrea #stickycontainer .stdRaiseHand #icHr:hover, '
+        + '#virtualclassCont.congrea #stickycontainer .stdAskQuestion #iconAskQuestion:hover, '
         + '#virtualclassCont.congrea #stickycontainer #contrAudioAll:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel li:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel li a:hover,'
@@ -278,7 +278,7 @@
         + '#virtualclassCont.congrea .vmchat_bar_button.active, '
         + '#virtualclassCont.congrea li#appSettingCtrl.active, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .settingActive,'
-        + '#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .handRaise.disable'
+        + '#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .askQuestion_btn.disable'
         + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100%) !important}`
 
         + '#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgIcon:before'
@@ -290,7 +290,7 @@
         + '#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgText'
         + `{color:${hover.frontColor}!important}`
 
-        + '#virtualclassCont.congrea #virtualclassAppRightPanel .handRaise.enable #icHr:before'
+        + '#virtualclassCont.congrea #virtualclassAppRightPanel .askQuestion_btn.enable #iconAskQuestion:before'
         + `{color:${frontColor}!important}`
 
         + '#virtualclassCont.congrea #virtualclassAppRightPanel .pre-check-btn'

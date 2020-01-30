@@ -32,15 +32,22 @@
       {{!-- <span id="chatroom_text" class="cgText">{{getString 'Chatroom'}}</span> --}}
     </a>
   </li>
-  <li class = "handRaise enable congtooltip bottomright" id ="congHr" data-title ="{{getString 'RaiseHandStdEnabled'}}" data-headerid="askQuestionHeader">
-      <a class="stdRaiseHand">
-        <span id="icHr" data-action="enable" class="icon-hr-enable" >
+  <!--<li class = "handRaise enable congtooltip bottomright" id ="congHr" data-title ="{{getString 'RaiseHandStdEnabled'}}" data-headerid="askQuestionHeader">-->
+      <!--<a class="stdRaiseHand">-->
+        <!--<span id="icHr" data-action="enable" class="icon-hr-enable" >-->
+        <!--</span>-->
+      <!--</a>-->
+  <!--</li>-->
+
+  <li class = "askQuestion_btn enable congtooltip bottomright" id ="congAskQuestion" data-title ="{{getString 'ankQuestionEnabled'}}" data-headerid="askQuestionHeader">
+    <a class="stdAskQuestion">
+        <span id="iconAskQuestion" data-action="enable" class="icon-askQuestion-enable" >
         </span>
-      </a>
+    </a>
   </li>
 
   <li id="virtualclassnote" class="congtooltip bottomright" data-title ="Note" data-headerid="virtualclassnoteHeader">
-    <a><span class="icon-whiteboard icon-hr-enable"></span> </a>
+    <a><span class="icon-whiteboard icon-note-enable"></span> </a>
   </li>
 
 </ul>

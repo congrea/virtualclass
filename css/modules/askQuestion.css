@@ -198,7 +198,7 @@
   display: block;
 }
 
-#virtualclassCont.connecting #congHr {
+#virtualclassCont.connecting #congAskQuestion {
   opacity: 0.5;
   pointer-events: none;
 }
@@ -206,8 +206,8 @@
 #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"],
 #virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .upVote,
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply,
-#virtualclassCont.congrea[data-currapp='Poll'] #virtualclassApp #congHr,
-#virtualclassCont.congrea[data-currapp='Quiz'] #virtualclassApp #congHr {
+#virtualclassCont.congrea[data-currapp='Poll'] #virtualclassApp #congAskQuestion,
+#virtualclassCont.congrea[data-currapp='Quiz'] #virtualclassApp #congAskQuestion {
   opacity: 0.5 !important;
   pointer-events: none !important;
 }

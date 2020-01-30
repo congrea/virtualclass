@@ -84,7 +84,8 @@ body {
   float: left;
 }
 
-#virtualclassCont.congrea.student #rightSubContainer #stickycontainer #icHr::before {
+/*#virtualclassCont.congrea.student #rightSubContainer #stickycontainer #icHr::before {*/
+#virtualclassCont.congrea.student #rightSubContainer #stickycontainer #iconAskQuestion::before {
   margin-left: -0.5rem;
   float: left;
   margin-top: -0.25rem;
@@ -346,7 +347,7 @@ body {
   color: #464646;
 }
 
-#virtualclassCont #appSettingDetail .disable #usersRaisehandSwitch::before {
+#virtualclassCont #appSettingDetail .disable #usersAskQuestionSwitch::before {
   content: "\e962";
   font-weight: normal;
   font-size: 17px;
@@ -356,7 +357,7 @@ body {
   color: #464646;
 }
 
-#virtualclassCont #appSettingDetail .enable #usersRaisehandSwitch::before {
+#virtualclassCont #appSettingDetail .enable #usersAskQuestionSwitch::before {
   content: "\e9ba";
   font-weight: normal;
   font-size: 17px;
@@ -407,12 +408,14 @@ body {
   color: #464646;
 }
 
-#virtualclassCont.congrea #congHr.rsEnable {
+/*#virtualclassCont.congrea #congHr.rsEnable {*/
+#virtualclassCont.congrea #congAskQuestion.askQuestionEnable {
   opacity: 1;
   pointer-events: visible !important;
 }
 
-#virtualclassCont.congrea.student #congHr.rsDisable {
+/*#virtualclassCont.congrea.student #congHr.rsDisable {askQuestion*/
+#virtualclassCont.congrea.student #congAskQuestion.askQuestionDisable {
   opacity: 0.5;
   pointer-events: none !important;
 }
@@ -873,10 +876,10 @@ body {
   display: none;
 }
 
-#virtualclassCont.congrea .handRaise.congtooltip:hover::after {
+#virtualclassCont.congrea .askQuestion_btn.congtooltip:hover::after {
   border-radius: 0.25em;
   bottom: 47px;
-  right: -3px;
+  right: -30px;
   left: auto;
   padding: 0.2em 0.42em;
 }

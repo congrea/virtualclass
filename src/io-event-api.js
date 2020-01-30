@@ -188,8 +188,8 @@ const ioEventApi = {
           }
 
           virtualclass.gObj.teacherAvailableTime = setTimeout(() => {
-            if (virtualclass.settings.info.raisehand) {
-              virtualclass.settings.raisehand(true);
+            if (virtualclass.settings.info.askQuestion) {
+              virtualclass.settings.askQuestion(true);
             }
             if (virtualclass.currApp === 'editorRich') {
               virtualclass.editorRich.cm.setOption('readOnly', false);
@@ -233,7 +233,7 @@ const ioEventApi = {
       // if teacher is log out
       if (virtualclass.gObj.whoIsTeacher === e.fromUser) {
         const vcCont = document.getElementById('virtualclassCont');
-        virtualclass.settings.raisehand(false);
+        virtualclass.settings.askQuestion(false);
         if (vcCont && vcCont.classList.contains('tr_available')) {
           vcCont.classList.remove('tr_available');
           if (virtualclass.currApp === 'EditorRich' && roles.isStudent()) {

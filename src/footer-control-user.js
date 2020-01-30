@@ -1177,7 +1177,7 @@
           action = type;
         }
 
-        if (type === 'raisehand' || type === 'userlist' || type === 'markNotes') {
+        if (type === 'askQuestion' || type === 'userlist' || type === 'markNotes') {
           getMediaAction = virtualclass.settings.info[type];
         } else {
           getMediaAction = virtualclass.settings.info[`student${action}`];
@@ -1219,7 +1219,7 @@
               typeSend = 'pc';
             } else if (type === 'groupChat') {
               typeSend = 'gc';
-            } else if (type === 'raisehand' || type === 'userlist' || type === 'markNotes') {
+            } else if (type === 'askQuestion' || type === 'userlist' || type === 'markNotes') {
               virtualclass.settings.applySettings(act, type);
             } else {
               typeSend = type;

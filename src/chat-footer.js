@@ -59,9 +59,9 @@
 
         virtualclass.rightbar.handleDisplayBottomRightBar(chatroom_bt2);
 
-        virtualclassAppRight.classList.add('showChatList');
-        virtualclassAppRight.classList.remove('techVideoShow');
-        virtualclassAppRight.classList.remove('showUserList');
+        // virtualclassAppRight.classList.add('showChatList');
+        // virtualclassAppRight.classList.remove('techVideoShow');
+        // virtualclassAppRight.classList.remove('showUserList');
         if (setting.classList.contains('settingActive')) {
           setting.classList.remove('settingActive');
           setting.classList.add('chatActive');
@@ -147,11 +147,12 @@
         user_list.classList.remove('active');
         askQuestionTab.classList.remove('active');
         techVideo.classList.add('active');
-        virtualclassAppRight.classList.remove('showUserList');
-        virtualclassAppRight.classList.remove('showChatList');
-        virtualclassAppRight.classList.add("techVideoShow");
+        // virtualclassAppRight.classList.remove('showUserList');
+        // virtualclassAppRight.classList.remove('showChatList');
+        // virtualclassAppRight.classList.add("techVideoShow");
         virtualclass.vutil.sendSpeedByMobile(1);
         // virtualclass.chat.rightBarHeader('techVideo');
+        virtualclass.rightbar.handleDisplayBottomRightBar(document.getElementById('techVideo'));
         virtualclass.rightbar.handlerHeader('techVideo');
 
       })
@@ -170,9 +171,11 @@
         virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
 
         user_list.classList.add('active');
-        virtualclassAppRight.classList.add('showUserList');
-        virtualclassAppRight.classList.remove('techVideoShow');
-        virtualclassAppRight.classList.remove('showChatList');
+        // virtualclassAppRight.classList.add('showUserList');
+        // virtualclassAppRight.classList.remove('techVideoShow');
+        // virtualclassAppRight.classList.remove('showChatList');
+        virtualclass.rightbar.handleDisplayBottomRightBar(document.getElementById('user_list'));
+
         const chat = document.getElementById('chatWidget');
         const settingD = document.getElementById('appSettingDetail');
         if (setting.classList.contains('settingActive')) {

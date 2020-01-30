@@ -247,7 +247,7 @@ this["JST"]["dest_temp/templates/askQuestion/note-content-area.hbs"] = Handlebar
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='noteContainer'><div class=\"contentContainer\"><div class=\"container note children\"></div><div id=\"noteNavigationContainer\" class=\"children\"><div class=\"clearAll\" data-component=\"note\"><span class=\"event\" data-event=\"clearall\"> Clear All </span></div><div id=\"noteNavigation\" class=\"navigation\"><div class=\"previous deactive\" data-component=\"note\"><span class=\"event\" data-event=\"previous\"></span></div><div class=\"notenumber\"><span class=\"current\">1 /</span><span class=\"total\"> 1</span></div><div class=\"next deactive\" data-component=\"note\"><span class=\"event\" data-event=\"next\"></span></div></div></div></div><div class=\"loading active\">Loading</div></div>";
+    return "<div id='noteContainer' class='rightContainer'><div class=\"contentContainer\"><div class=\"container note children\"></div><div id=\"noteNavigationContainer\" class=\"children\"><div class=\"clearAll\" data-component=\"note\"><span class=\"event\" data-event=\"clearall\"> Clear All </span></div><div id=\"noteNavigation\" class=\"navigation\"><div class=\"previous deactive\" data-component=\"note\"><span class=\"event\" data-event=\"previous\"></span></div><div class=\"notenumber\"><span class=\"current\">1 /</span><span class=\"total\"> 1</span></div><div class=\"next deactive\" data-component=\"note\"><span class=\"event\" data-event=\"next\"></span></div></div></div></div><div class=\"loading active\">Loading</div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1351,7 +1351,7 @@ this["JST"]["dest_temp/templates/recordingControl.hbs"] = Handlebars.template({"
 this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing;
 
-  return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled showUserList\" dataset=\"userListHeader\"> "
+  return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled \" dataset=\"userListHeader\" data-currwindow=\"userListHeader\"> "
     + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || alias2).call(alias1,{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " "
     + ((stack1 = container.invokePartial(partials.rightBarHeader,depth0,{"name":"rightBarHeader","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")

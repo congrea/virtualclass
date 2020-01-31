@@ -609,8 +609,8 @@
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch {
   width: 22px;
-  height: 9px;
   margin-bottom: 0;
+  margin-right: 10px;
   position: relative;
 }
 
@@ -623,16 +623,19 @@
   bottom: 0;
   top: 0;
   left: 0;
+  margin: auto;
   right: 0;
   transition: 0.3s;
 }
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="enable"] .slider {
   background-color: #5d6b76;
+  height: 9px;
 }
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="disable"] .slider {
   background-color: #56b249;
+  height: 9px;
 }
 
 #virtualclassCont.congrea .bookmarks {
@@ -693,6 +696,15 @@
 #virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action .addQuestion-icon.congtooltip:hover::after {
   bottom: -30px;
   right: 0;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch .slider.congtooltip:hover::after {
+  bottom: -47px;
+  right: -18px;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="enable"] .slider:hover {
+  background-color: #a7a7a7;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #askQuestionHeader {

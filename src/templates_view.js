@@ -1367,9 +1367,9 @@ this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.std : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " <div id=\"askQuestionHeader\" class=\"rightBarHeader\"><div class=\"header\"><div class=\"text\"><span class=\"lable\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"askQuestionHeader",{"name":"getString","hash":{},"data":data}))
-    + "</span></div><div class=\"action\"><span class=\"addQuestion-icon congtooltip\" data-title=\"Add question\"></span><span class=\"help-icon\"></span> "
+    + "</span></div><div class=\"action\"> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlayMode : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " </div></div></div><div id=\"virtualclassnoteHeader\" class=\"rightBarHeader\"><div class='header'>"
+    + " <span class=\"addQuestion-icon congtooltip\" data-title=\"Add question\"></span><span class=\"help-icon\"></span></div></div></div><div id=\"virtualclassnoteHeader\" class=\"rightBarHeader\"><div class='header'>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"virtualclassnoteHeader",{"name":"getString","hash":{},"data":data}))
     + "</div></div><div id=\"appSettingCtrl\" class=\"congtooltip chatActive\" data-title =\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"setting",{"name":"getString","hash":{},"data":data}))

@@ -912,4 +912,6 @@ virtualclasscont.congrea.playMode.student .ui-chatroom {
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action {
   float: right;
+  display: flex;
+  flex-direction: row;
 }

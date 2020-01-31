@@ -1921,20 +1921,20 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea #popupContainer #about-modal #confirm #confirmMessage,
-#virtualclassCont.congrea #virtualclassAppRightPanel #infoMessage #infoMessageMsg {
+#virtualclassCont.congrea #popupContainer #about-modal #infoMessage #infoMessageMsg {
   color: #666;
   font-size: 14px;
   margin-bottom: 20px;
   line-height: 22px;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel #infoMessage #infoMessageOk {
+#virtualclassCont.congrea #popupContainer #about-modal #infoMessage #infoMessageOk {
   display: block;
   text-align: center;
   margin: 12px auto -5px;
-  padding: 5px 18px 8px 18px;
+  padding: 4px 17px 7px 17px;
   width: fit-content;
-  border-radius: 20px;
+  border-radius: 8px;
   color: #fff;
   cursor: pointer;
   font-size: 15px;

@@ -472,7 +472,7 @@
   display: none !important;
 }
 
-#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.vidShow.techVideoShow #videoHostContainer {
+#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.vidShow[data-currwindow="techVideo"] #videoHostContainer {
   display: block !important;
 }
 

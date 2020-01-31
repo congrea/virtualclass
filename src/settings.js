@@ -33,6 +33,10 @@
       localSettings[13] = +s.trimRecordings;
       localSettings[14] = +s.attendeerecording;
       localSettings[15] = +s.markNotes;
+      localSettings[16] = +s.answer;
+      localSettings[17] = +s.comment;
+      localSettings[18] = +s.upvote;
+      localSettings[19] = +s.upcomingSetting;
       return virtualclass.settings.binaryToHex(localSettings.join(''));
     },
 
@@ -58,6 +62,10 @@
       parsedSettings.trimRecordings = !!+localSettings[13];
       parsedSettings.attendeerecording = !!+localSettings[14];
       parsedSettings.markNotes = !!+localSettings[15];
+      parsedSettings.answer = !!+localSettings[16];
+      parsedSettings.comment = !!+localSettings[17];
+      parsedSettings.upvote = !!+localSettings[18];
+      parsedSettings.upcomingSetting = !!+localSettings[19];
       return parsedSettings;
     },
 
@@ -343,8 +351,55 @@
       virtualclass.settings.recordingSettings(obj);
     },
 
-    markNotes() {
-      // TODO disable marks & notes function here
+    markNotes(value) {
+      if (roles.isStudent()) {
+        const notesElem = document.querySelector('#virtualclassnote');
+        if (value === true) {
+          notesElem.classList.remove('notesDisable');
+          notesElem.classList.add('notesEnable');
+        } else {
+          document.querySelector('#user_list').click();
+          notesElem.classList.remove('notesEnable');
+          notesElem.classList.add('notesDisable');
+        }
+      }
+    },
+
+    answer(value) {
+      const controlsElem = document.querySelector('#askQuestion');
+      if (controlsElem) {
+        if (value === true) {
+          document.querySelector('#askQuestion').dataset.answer = 'enable';
+        } else if (value === false) {
+          document.querySelector('#askQuestion').dataset.answer = 'disable';
+        }
+      }
+    },
+
+    comment(value) {
+      const controlsElem = document.querySelector('#askQuestion');
+      if (controlsElem) {
+        if (value === true) {
+          document.querySelector('#askQuestion').dataset.comment = 'enable';
+        } else if (value === false) {
+          document.querySelector('#askQuestion').dataset.comment = 'disable';
+        }
+      }
+    },
+
+    upvote(value) {
+      const controlsElem = document.querySelector('#askQuestion');
+      if (controlsElem) {
+        if (value === true) {
+          document.querySelector('#askQuestion').dataset.upvote = 'enable';
+        } else if (value === false) {
+          document.querySelector('#askQuestion').dataset.upvote = 'disable';
+        }
+      }
+    },
+
+    upcomingSetting() {
+      // nothing to do
     },
 
     recordingSettings(obj) {

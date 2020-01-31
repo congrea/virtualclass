@@ -1,8 +1,9 @@
 #virtualclassCont.congrea #askQuestion .container .question .content p {
-  font-size: 12px;
-  color: #3a3a3a;
-  line-height: 16px;
+  font-size: 0.75rem;
+  color: #404040;
+  line-height: 0.9375rem;
   margin-bottom: -1px;
+  -webkit-font-smoothing: antialiased;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .content {
@@ -66,15 +67,15 @@
 #virtualclassCont.congrea #askQuestion .container .footer .controls .total {
   font-family: Raleway, Helvetica, sans-serif;
   border: none;
-  font-size: 14px;
+  font-size: 0.875rem;
   background-color: unset;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .total {
   float: right;
-  padding-top: 4px;
-  color: #232323;
-  font-size: 12px;
+  padding-top: 0.25rem;
+  color: #4e4e4e !important;
+  font-size: 0.75rem;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .moreControls {
@@ -330,13 +331,13 @@
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote .button {
   display: inline-block;
-  padding: 3px 5px 0 0;
+  padding: 0.0625rem 0.125rem 0 0;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .navigation .button,
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .navigation .button {
   display: inline-block;
-  padding: 3px 5px 0 12px;
+  padding: 0.1875rem 0.3125rem 0 0.75rem;
 }
 
 /* #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply#virtualclassCont.congrea #askQuestion .comments .container {
@@ -350,7 +351,7 @@
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .reply .button {
   display: inline-block;
-  padding: 4px 5px 1px 12px;
+  padding: 0.25rem 0.3125rem 0.0625rem 0.75rem;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action {

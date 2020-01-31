@@ -359,6 +359,10 @@
   #virtualclassCont.congrea a.vceditor-btn:active {
     font-size: 1rem;
   }
+
+  #virtualclassCont.congrea #askQuestion .container .question .content p {
+    font-size: 0.8125rem;
+  }
 }
 
 /* To Target medium resolutions mobiles */
@@ -472,7 +476,7 @@
   display: none !important;
 }
 
-#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.vidShow.techVideoShow #videoHostContainer {
+#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.vidShow[data-currwindow="techVideo"] #videoHostContainer {
   display: block !important;
 }
 

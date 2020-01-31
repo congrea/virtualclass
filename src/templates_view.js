@@ -15,7 +15,7 @@ this["JST"]["dest_temp/templates/appSettingDetail.hbs"] = Handlebars.template({"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"GroupChat",{"name":"getString","hash":{},"data":data}))
     + " <label class=\"switch GroupChat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-groupChat-enable congtooltip\" id=\"contrGroupChatAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrAskQuestionAll\"><div class=\"appSettingIcons\" id=\"usersAskQuestionSwitch\"></div> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"askQuestion",{"name":"getString","hash":{},"data":data}))
-    + " <label class=\"switch AskQuestion_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-askQuestion-enable congtooltip\" id=\"contrAskQuestionAllImg\"></span></label></li>.congrea .bulkUserActions #contr${lable}All` <li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrUserlistAll\"><div class=\"appSettingIcons\" id=\"usersUserlistSwitch\"></div> "
+    + " <label class=\"switch AskQuestion_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-askQuestion-enable congtooltip\" id=\"contrAskQuestionAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrUserlistAll\"><div class=\"appSettingIcons\" id=\"usersUserlistSwitch\"></div> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"UserList",{"name":"getString","hash":{},"data":data}))
     + " <label class=\"switch Userlist_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-userlist-enable congtooltip\" id=\"contrUserlistAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrMarkNotesAll\"><div class=\"appSettingIcons\" id=\"usersMarkNotesSwitch\"></div> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"MarkNotes",{"name":"getString","hash":{},"data":data}))
@@ -149,7 +149,7 @@ this["JST"]["dest_temp/templates/askQuestion/bookmark.hbs"] = Handlebars.templat
 
   return "<div class=\"bookmarks active\" data-context='"
     + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
-    + "' data-component=\"bookmark\" data-value=\"0\"><span class=\"congtooltip icon-whiteboard cgIcon\" data-event=\"save\" data-title=\"Add bookmark\"></span></div>";
+    + "' data-component=\"bookmark\" data-value=\"0\"><span class=\"congtooltip icon-bookmark cgIcon\" data-event=\"save\" data-title=\"Add bookmark\"></span></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1379,9 +1379,9 @@ this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.std : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " <div id=\"askQuestionHeader\" class=\"rightBarHeader\"><div class=\"header\"><div class=\"text\"><span class=\"lable\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"askQuestionHeader",{"name":"getString","hash":{},"data":data}))
-    + "</span></div><div class=\"action\"><span class=\"addQuestion-icon\"></span><span class=\"help-icon\"></span> "
+    + "</span></div><div class=\"action\"> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlayMode : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " </div></div></div><div id=\"virtualclassnoteHeader\" class=\"rightBarHeader\"><div class='header'>"
+    + " <span class=\"addQuestion-icon congtooltip\" data-title=\"Add question\"></span><span class=\"help-icon\"></span></div></div></div><div id=\"virtualclassnoteHeader\" class=\"rightBarHeader\"><div class='header'>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"virtualclassnoteHeader",{"name":"getString","hash":{},"data":data}))
     + "</div></div><div id=\"appSettingCtrl\" class=\"congtooltip chatActive\" data-title =\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"setting",{"name":"getString","hash":{},"data":data}))

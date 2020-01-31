@@ -10,13 +10,13 @@
         <span class="lable">{{getString 'askQuestionHeader'}}</span>
       </div>
       <div class="action">
-        <span class="addQuestion-icon"></span>
-        <span class="help-icon"></span>
-        {{#if isPlayMode}}
+         {{#if isPlayMode}}
           <label class="switch" id="viewAllQuestion" data-viewall="enable">
             <span class="slider round icon-all-audio-disable enable congtooltip cgIcon" data-title="View All"></span>
           </label>
         {{/if}}
+        <span class="addQuestion-icon congtooltip" data-title="Add question"></span>
+        <span class="help-icon"></span>
       </div>
     </div>
   </div>

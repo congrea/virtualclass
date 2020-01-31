@@ -197,7 +197,7 @@ this["JST"]["dest_temp/templates/askQuestion/content-area.hbs"] = Handlebars.tem
 
   return "<div class=\"context note\" data-context=\""
     + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
-    + "\" data-component=\"note\"><textarea class='text content' placeholder=\"Type your content\" data-event=\"save\"></textarea></div>";
+    + "\" data-component=\"note\"><textarea class='text content' placeholder=\"Write your note here\" data-event=\"save\"></textarea></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/context.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -206,10 +206,6 @@ this["JST"]["dest_temp/templates/askQuestion/context.hbs"] = Handlebars.template
   return "<div class=\"context\" data-context=\""
     + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
     + "\"><div class=\"container\"></div></div>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/askQuestion/ellipsestext.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/ellipsisText.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -252,10 +248,6 @@ this["JST"]["dest_temp/templates/askQuestion/note-content-area.hbs"] = Handlebar
 
 this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id='noteContainer' class='rightContainer'><div class=\"contentContainer\"><div class=\"container note children\"></div><div id=\"noteNavigationContainer\" class=\"children\"><div class=\"clearAll\" data-component=\"note\"><span class=\"event\" data-event=\"clearall\"> Clear All </span></div><div id=\"noteNavigation\" class=\"navigation\"><div class=\"previous deactive\" data-component=\"note\"><span class=\"event\" data-event=\"previous\"></span></div><div class=\"notenumber\"><span class=\"current\">1 /</span><span class=\"total\"> 1</span></div><div class=\"next deactive\" data-component=\"note\"><span class=\"event\" data-event=\"next\"></span></div></div></div></div><div class=\"loading active\">Loading</div></div>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='writeContent'><textarea class='text'></textarea><div class=\"action\"><span class=\"save\">save</span><span class=\"cancel\">cancel</span></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -821,7 +813,7 @@ this["JST"]["dest_temp/templates/notes/content-area.hbs"] = Handlebars.template(
 },"useData":true});
 
 this["JST"]["dest_temp/templates/notes/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id='noteContainer'><div class=\"container \"></div><div class=\"loading\">Loading</div></div>";
+    return "<div id='noteContainer'><div class=\"container note\"></div><div class=\"loading\">Loading</div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/poll/edit-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

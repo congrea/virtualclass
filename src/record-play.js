@@ -54,6 +54,7 @@
     actualPlayRecordingTime: 0,
     timeStamp: null,
     totalTimeTillNow: 0,
+    markData: [],
     recViewData: {
       'x-api-key': wbUser.lkey,
       'x-congrea-authuser': wbUser.auth_user,
@@ -372,13 +373,8 @@
       return chunk;
     },
 
-    renderContextMark(allmark, context) {
-
-      // const currentMin = ((Math.floor(this.refrenceTime / 1000)) - this.firstTimeInSeconds);
-      // const totalMin = (this.totalTimeInMiliSeconds) / 1000;
-      // const markPoint = Math.floor((currentMin * 100) / totalMin);
-      const markPoint = (this.totalTimeTillNow * 100) / this.totalTimeInMiliSeconds;
-      console.log('=== total minute 2 ref', (this.refrenceTime / 1000), ' firstTime', this.firstTimeInSeconds, ' total time in miliseconds ', this.totalTimeInMiliSeconds)
+    renderContextMark(tilNowTime, allmark, context) {
+      const markPoint = (tilNowTime * 100) / this.totalTimeInMiliSeconds;
       const contextMark = virtualclass.getTemplate('context-mark');
 
       virtualclass.gObj.lastContext = context;
@@ -433,6 +429,7 @@
               this.lastFileTime = time;
             }
 
+            // virtualclass.settings.info.trimRecordings = true;
             if (virtualclass.settings.info.trimRecordings) {
               if (this.isTrimRecordingNow) { // Recording off
                 chunk.push({ playTime: 0, recObjs: data, type });
@@ -457,36 +454,10 @@
             } else {
               this.recordingTotalTime(data, time);
               chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
+              // this.totalTimeTillNow += this.tempPlayTime;
               this.totalTimeTillNow += this.tempPlayTime;
             }
-
-            if (data.indexOf('readyContext') > -1) {
-              const msg = JSON.parse(io.cleanRecJson(data));
-              const allMark = { question: false, note: false, bookmark: false };
-              // TODO, we need to check why there is missing context during live session _doc_0_2
-              if (virtualclass.askQuestion.allMarks[msg.m.context]) {
-                if (virtualclass.askQuestion.allMarks[msg.m.context].question && virtualclass.askQuestion.allMarks[msg.m.context].question.length > 0) {
-                  allMark.question = true;
-                  console.log('====> I have a question ', msg.m.context);
-                }
-
-                if (virtualclass.askQuestion.allMarks[msg.m.context].note) {
-                  console.log('This context has note ', msg.m.context);
-                  allMark.note = true;
-                }
-
-                if (virtualclass.askQuestion.allMarks[msg.m.context].bookmark) {
-                  allMark.bookmark = true;
-                }
-              }
-              console.log('====> recording ready context ', msg.m.context);
-
-              // Todo, related ask qeustion
-              // TODO, there is bit time difference between actual and context point time
-              // console.log('hello guys duplicate ', msg.m.serial, msg.m.context);
-              this.renderContextMark(allMark, msg.m.context, msg.m.serial);
-            }
-
+            this.handleMarkSign(data);
             if (typeof allRecordigns[i + 1] !== 'undefined') {
               const nextMiliSeconds = this.calculateNextTime(time, allRecordigns[i + 1]);
               chunk = this.insertPacketInto(chunk, nextMiliSeconds, i, time, allRecordigns[i + 1].substring(0, 21));
@@ -551,6 +522,45 @@
       }
     },
 
+    handleMarkSign(data) {
+      if (data.indexOf('readyContext') > -1) {
+        if (virtualclass.settings.info.trimRecordings) {
+          this.markData.push({ data, totalTimeTillNow: this.totalTimeTillNow });
+        } else {
+          this.initDisplayContextMark(data, this.totalTimeTillNow);
+        }
+      }
+    },
+
+    initDisplayContextMark(data, totalTimeTillNow) {
+      const msg = JSON.parse(io.cleanRecJson(data));
+      const allMark = { question: false, note: false, bookmark: false };
+
+      if (virtualclass.askQuestion.allMarks[msg.m.context]) {
+        if (virtualclass.askQuestion.allMarks[msg.m.context].question && virtualclass.askQuestion.allMarks[msg.m.context].question.length > 0) {
+          allMark.question = true;
+        }
+
+        if (virtualclass.askQuestion.allMarks[msg.m.context].note) {
+          console.log('This context has note ', msg.m.context);
+          allMark.note = true;
+        }
+
+        if (virtualclass.askQuestion.allMarks[msg.m.context].bookmark) {
+          allMark.bookmark = true;
+        }
+      }
+
+      this.renderContextMark(totalTimeTillNow, allMark, msg.m.context);
+    },
+
+    disaplayAllMarkSign() {
+      document.getElementById('allMarksinformation').innerHTML = "";
+      for (let i = 0; i < this.markData.length; i++) {
+        this.initDisplayContextMark(this.markData[i].data, this.markData[i].totalTimeTillNow);
+      }
+    },
+
     recordingTotalTime(data, time) { // check if recording turned off or on
       if (data.indexOf('{"ac":11,"cf":"recs"') > -1) {
         this.recordingOff = time;
@@ -576,6 +586,7 @@
 
     startToPlay() {
       if (!this.playStart) {
+        if (virtualclass.settings.info.trimRecordings) this.disaplayAllMarkSign();
         this.playStart = true;
         this.playInt();
         virtualclass.popup.closeElem();
@@ -596,6 +607,7 @@
     },
     finishRequestDataFromServer(singleFileTime) {
       if (this.isDownloadedAllRecordings(singleFileTime)) {
+        if (virtualclass.settings.info.trimRecordings) this.disaplayAllMarkSign();
         virtualclass.recorder.allFileFound = true;
         if (!virtualclass.recorder.alreadyAskForPlay) {
           // virtualclass.recorder.askToPlay("completed");

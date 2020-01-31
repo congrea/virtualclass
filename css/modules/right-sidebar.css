@@ -1055,8 +1055,8 @@ body {
   display: none;
 }
 
-#virtualclassCont.congrea #rightSubContainer .rightContainer.active {
-  display: flex;
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="virtualclassnoteHeader"] #rightSubContainer .rightContainer.active {
+  display: block;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #appSettingCtrl {

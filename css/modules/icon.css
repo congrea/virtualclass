@@ -854,12 +854,12 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote span.button::before {
-  content: "\e9ed";
+  content: "\e9e0";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 15px;
+  font-size: 1.15625rem;
   cursor: pointer;
-  color: #6b6b6b !important;
+  color: #000 !important;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply span.button::before,
@@ -868,18 +868,17 @@
   content: "\e9e5";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 14px;
+  font-size: 0.875rem;
   cursor: pointer;
-  color: #313131 !important;
+  color: #4e4e4e !important;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .navigation span.button::before {
   content: "\e9e3";
   font-family: 'icomoon';
-  font-weight: 600;
   font-size: 13px;
   cursor: pointer;
-  color: #484848 !important;
+  color: #4e4e4e !important;
 }
 
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .navigation span.button::before {
@@ -999,8 +998,8 @@
 #virtualclassCont.congrea #askQuestion .container .question #writeContent .action .cancel::before {
   content: "Cancel";
   font-family: inherit;
-  font-size: 12px;
-  font-weight: 100;
+  font-size: 0.75rem;
+  font-weight: 400;
   cursor: pointer;
   text-transform: capitalize;
   color: #3e3e3e;
@@ -1009,8 +1008,8 @@
 #virtualclassCont.congrea #askQuestion .container .question #writeContent .action .save::before {
   content: "Post";
   font-family: inherit;
-  font-size: 12px;
-  font-weight: 100;
+  font-size: 0.75rem;
+  font-weight: 400;
   cursor: pointer;
   text-transform: capitalize;
   color: #fff;

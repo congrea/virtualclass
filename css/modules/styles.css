@@ -5154,7 +5154,7 @@ body {
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel .markContainer {
   position: absolute;
-  width: 8px;
+  width: auto;
   height: 7px;
 }
 
@@ -5165,7 +5165,7 @@ body {
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #allMarksinformation .markContainer.context .context {
-  width: 7px;
+  width: 2px;
   height: 7px;
   background: #0e0c0ced;
 }

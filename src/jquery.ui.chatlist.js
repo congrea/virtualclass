@@ -236,7 +236,7 @@
         virtualclass.user.mediaSliderUI('groupChat');
         virtualclass.user.mediaSliderUI('askQuestion');
         virtualclass.user.mediaSliderUI('userlist');
-        // virtualclass.user.mediaSliderUI('markNotes'); // TODO add mark & notes setting
+        virtualclass.user.mediaSliderUI('markNotes');
       }
     },
     _setOption(option, value) {

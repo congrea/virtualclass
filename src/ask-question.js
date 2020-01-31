@@ -509,6 +509,11 @@ class AskQuestionRenderer {
       const qaTemp = virtualclass.getTemplate('askQuestionMain', 'askQuestion');
       const qtemp = qaTemp(context);
       document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', qtemp);
+      if (!roles.hasControls()) {
+        virtualclass.settings.answer(virtualclass.settings.info.answer);
+        virtualclass.settings.comment(virtualclass.settings.info.comment);
+        virtualclass.settings.upvote(virtualclass.settings.info.upvote);
+      }
 
       toggle.addEventListener('click', (elem) => {
         virtualclass.askQuestion.initFirebaseOperatoin();
@@ -813,7 +818,7 @@ class BasicOperation {
 
   handler(ev) {
     const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
-    if (moreElemClose && ev.target.dataset.event !== 'moreControls') {
+    if (moreElemClose) {
       moreElemClose.classList.remove('open');
       moreElemClose.classList.add('close');
     }

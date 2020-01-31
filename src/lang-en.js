@@ -426,6 +426,8 @@
     enableAllRaisehand: 'Enable raise hand',
     disableAllAskQuestion: 'Disable ask question',
     enableAllAskQuestion: 'Enable ask question',
+    disableAllMarkNotes: 'Disable marks & notes',
+    enableAllMarkNotes: 'Enable marks & notes',
     disableAllUserlist: 'Disable user list',
     enableAllUserlist: 'Enable user list',
     Audio: 'audio',
@@ -451,7 +453,8 @@
     less: 'Less',
     ankQuestionEnabled: 'Ask Question Enable',
     ankQuestionDisabled: 'Ask Question Disable',
-    askQuestion: 'Ask Question',
+    askQuestion: 'Ask question',
+    MarksAndNotes: 'Marks & Notes',
     /* For Chrome */
     PermissionDeniedErrorExt: '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'
     + 'Go to camera icon on top right of the screen <br /> '

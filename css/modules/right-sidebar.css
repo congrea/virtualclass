@@ -391,17 +391,16 @@ body {
 }
 
 #virtualclassCont #appSettingDetail .disable #usersMarkNotesSwitch::before {
-  content: "\e971";
+  content: "\e97e";
   font-weight: normal;
   font-size: 17px;
-  margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
 }
 
 #virtualclassCont #appSettingDetail .enable #usersMarkNotesSwitch::before {
-  content: "\e9b8";
+  content: "\e984";
   font-weight: normal;
   font-size: 18px;
   margin-top: 3px;
@@ -410,14 +409,14 @@ body {
   color: #464646;
 }
 
-/*#virtualclassCont.congrea #congHr.rsEnable {*/
-#virtualclassCont.congrea #congAskQuestion.askQuestionEnable {
+#virtualclassCont.congrea #congAskQuestion.askQuestionEnable,
+#virtualclassCont.congrea #virtualclassnote.notesEnable {
   opacity: 1;
   pointer-events: visible !important;
 }
 
-/*#virtualclassCont.congrea.student #congHr.rsDisable {askQuestion*/
-#virtualclassCont.congrea.student #congAskQuestion.askQuestionDisable {
+#virtualclassCont.congrea.student #congAskQuestion.askQuestionDisable,
+#virtualclassCont.congrea #virtualclassnote.notesDisable {
   opacity: 0.5;
   pointer-events: none !important;
 }

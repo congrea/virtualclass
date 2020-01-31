@@ -1072,6 +1072,7 @@ body {
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #appSettingCtrl {
   float: right;
   padding: 0.6875rem 0.9375rem;
+  cursor: pointer;
 }
 
 #virtualclassCont.congrea .rightContainer.deactive,

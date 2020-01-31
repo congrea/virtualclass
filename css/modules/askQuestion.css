@@ -271,7 +271,7 @@
   color: #5a5a5a;
   font-size: 0.6875rem;
   text-transform: none;
-  font-weight: 100;
+  font-weight: 400;
   letter-spacing: 1px;
 }
 
@@ -609,8 +609,8 @@
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch {
   width: 22px;
-  height: 9px;
   margin-bottom: 0;
+  margin-right: 10px;
   position: relative;
 }
 
@@ -623,16 +623,19 @@
   bottom: 0;
   top: 0;
   left: 0;
+  margin: auto;
   right: 0;
   transition: 0.3s;
 }
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="enable"] .slider {
   background-color: #5d6b76;
+  height: 9px;
 }
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="disable"] .slider {
   background-color: #56b249;
+  height: 9px;
 }
 
 #virtualclassCont.congrea .bookmarks {
@@ -670,7 +673,40 @@
 
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .answers.close .answer[data-mark-answer] {
   display: block;
-  font-weight: 100;
+  font-weight: 400;
   font-size: 16px;
   line-height: 16px;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #noteContainer {
+  display: none;
+}
+
+#virtualclassCont.congrea #bookmark .bookmarks .icon-bookmark {
+  padding: 0.6875rem 1.0938rem 0.6875rem 1.0938rem;
+  line-height: 1.3125rem;
+  font-size: 1.25rem;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action .addQuestion-icon {
+  padding: 0.71875rem 1.03125rem;
+  cursor: pointer;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action .addQuestion-icon.congtooltip:hover::after {
+  bottom: -30px;
+  right: 0;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch .slider.congtooltip:hover::after {
+  bottom: -47px;
+  right: -18px;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="enable"] .slider:hover {
+  background-color: #a7a7a7;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #askQuestionHeader {
+  padding: 0;
 }

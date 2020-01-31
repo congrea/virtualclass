@@ -967,12 +967,12 @@
   color: #fdfafa;
 }
 
-#virtualclassCont.congrea .bookmarks[data-value="0"] .icon-whiteboard::before {
+#virtualclassCont.congrea .bookmarks[data-value="0"] .icon-bookmark::before {
   content: "\e9f9";
   font-size: 17px;
 }
 
-#virtualclassCont.congrea .bookmarks[data-value="1"] .icon-whiteboard::before {
+#virtualclassCont.congrea .bookmarks[data-value="1"] .icon-bookmark::before {
   content: "\e9f8";
   font-size: 17px;
   color: #30b2ff !important;
@@ -1007,7 +1007,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .question #writeContent .action .save::before {
-  content: "Save";
+  content: "Post";
   font-family: inherit;
   font-size: 12px;
   font-weight: 100;

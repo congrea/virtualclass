@@ -25,18 +25,25 @@ class NoteNavigation {
     }
 
     let context = this.queue[this.current];
-    context = (context == null) ? virtualclass.askQuestion.currentContext : context;
+    if (context == null) {
+      console.log('==== suman bogati ', this.queue[virtualclass.askQuestion.currentContext]);
+      context = virtualclass.askQuestion.currentContext;
+    }
+
     if (virtualclass.askQuestion.context[context]) {
       this.displayNoteBy(context);
     } else {
       virtualclass.askQuestion.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context });
     }
-    this.updateNavigateNumbers();
+    this.updateNavigateNumbers(context);
   }
 
-  updateNavigateNumbers() {
+  updateNavigateNumbers(context) {
     const currentNumberElem = document.querySelector('#noteNavigation .notenumber .current');
     if (currentNumberElem) currentNumberElem.innerHTML = `${this.current + 1} /`;
+
+    const clearAll = document.querySelector('#noteNavigationContainer .clearAll');
+    clearAll.dataset.currentContext = context;
 
     const totalNumberElem = document.querySelector('#noteNavigation .notenumber .total');
     if (totalNumberElem) totalNumberElem.innerHTML = this.queue.length;
@@ -85,16 +92,26 @@ class NoteNavigation {
     }
 
     const currentActiveTab = virtualclass.askQuestion.getActiveTab();
-    if (currentActiveTab === 'note') this.updateNavigateNumbers();
+    if (currentActiveTab === 'note') this.updateNavigateNumbers(context);
   }
 
   deleteElementFromQueue(context) {
+    console.log('====> clear context ', context);
     const pos = this.queue.indexOf(context);
     if (pos >= -1) {
       if (pos + 1 === this.queue.length) {
         this.queue[pos] = null;
       } else {
         this.queue.splice(pos, 1);
+        if(this.queue.length > 0) {
+          if (this.queue[this.queue.length - 1] != null) {
+            this.queue.push(null);
+          }
+        } else {
+          this.queue[0] = null;
+        }
+        this.current = this.queue.length - 1;
+        this.updateNavigateNumbers(context);
       }
     }
   }
@@ -351,7 +368,12 @@ class AskQuestionEvents {
         componentId: data.componentId,
         parent: data.parentId,
         navigation: virtualclass.askQuestion.noteNavigation.queue,
+
       });
+
+      const currentContext = document.querySelector('#noteNavigationContainer .clearAll').dataset.currentContext;
+      if (currentContext) obj.context = currentContext;
+
       virtualclass.askQuestion.send(obj);
     } else if (data.component === 'bookmark') {
       const obj = virtualclass.askQuestion.generateData({
@@ -538,7 +560,7 @@ class AskQuestionRenderer {
         virtualclass.askQuestion.triggerInitFirebaseOperation('note');
         virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
         virtualclass.askQuestion.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.askQuestion.currentContext });
-        virtualclass.askQuestion.noteNavigation.updateNavigateNumbers();
+        virtualclass.askQuestion.noteNavigation.updateNavigateNumbers(virtualclass.askQuestion.currentContext);
       });
     }
   }
@@ -802,12 +824,12 @@ class BasicOperation {
           console.error('ask question write, Error writing document: ', error);
         });
 
-      if (data.component === 'note') {
-        const content = data.content.trim();
-        if (content === '') {
-          virtualclass.askQuestion.noteNavigation.deleteElementFromQueue(data.context);
-        }
-      }
+      // if (data.component === 'note') {
+      //   const content = data.content.trim();
+      //   if (content === '') {
+      //     virtualclass.askQuestion.noteNavigation.deleteElementFromQueue(data.context);
+      //   }
+      // }
     } else {
       virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(data.id).set(data)
         .then(() => {
@@ -916,7 +938,11 @@ class BasicOperation {
         }
         parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
       } else if (event === 'clearall') {
-        const contentElement = document.querySelector(`#noteContainer .context[data-context~=${virtualclass.askQuestion.currentContext}] textarea`);
+        const currentContextElement = document.querySelector('#noteNavigationContainer .clearAll');
+        let currentContext = currentContextElement.dataset.currentContext;
+        if (currentContextElement.dataset.currentContext) currentContext = currentContextElement.dataset.currentContext;
+
+        const contentElement = document.querySelector(`#noteContainer .context[data-context~=${currentContext}] textarea`);
         if (contentElement) {
           contentElement.value = '';
           text = '';

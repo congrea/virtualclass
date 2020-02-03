@@ -711,3 +711,13 @@
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #askQuestionHeader {
   padding: 0;
 }
+
+#virtualclassCont.congrea[data-currapp='Quiz'] #virtualclassnote,
+#virtualclassCont.congrea[data-currapp='Quiz'] #bookmark,
+#virtualclassCont.congrea[data-currapp='Quiz'] #askQuestion,
+#virtualclassCont.congrea[data-currapp='Poll'] #virtualclassnote,
+#virtualclassCont.congrea[data-currapp='Poll'] #bookmark,
+#virtualclassCont.congrea[data-currapp='Poll'] #askQuestion {
+  pointer-events: none;
+  opacity: 0.5;
+}

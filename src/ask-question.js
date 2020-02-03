@@ -147,10 +147,10 @@ class BookMarkUserInterface {
     const parentNode = event.target.parentNode;
     if (+(parentNode.dataset.value) === 1) {
       parentNode.dataset.value = 0;
-      event.target.dataset.title = 'Add bookmark';
+      event.target.dataset.title = 'Add Bookmark';
     } else {
       parentNode.dataset.value = 1;
-      event.target.dataset.title = 'Remove bookmark';
+      event.target.dataset.title = 'Remove Bookmark';
     }
   }
 

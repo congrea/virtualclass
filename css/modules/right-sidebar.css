@@ -274,7 +274,6 @@ body {
   font-weight: normal;
   font-size: 17px;
   font-family: 'icomoon';
-  margin-top: 3px;
   float: left;
   color: #464646;
 }
@@ -283,7 +282,6 @@ body {
   content: "\e972";
   font-weight: normal;
   font-size: 17px;
-  margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
@@ -293,7 +291,6 @@ body {
   content: "\e96c";
   font-weight: normal;
   font-size: 17px;
-  margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
@@ -304,7 +301,6 @@ body {
   font-weight: normal;
   font-size: 17px;
   float: left;
-  margin-top: 3px;
   font-family: 'icomoon';
   color: #464646;
 }
@@ -313,7 +309,6 @@ body {
   content: "\e9aa";
   font-weight: normal;
   font-size: 15px;
-  margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
@@ -323,7 +318,6 @@ body {
   content: "\e9bb";
   font-weight: normal;
   font-size: 15px;
-  margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
@@ -333,7 +327,6 @@ body {
   content: "\f0e6";
   font-weight: normal;
   font-size: 17px;
-  margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
@@ -343,7 +336,6 @@ body {
   content: "\e9b9";
   font-weight: normal;
   font-size: 17px;
-  margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
@@ -353,7 +345,6 @@ body {
   content: "\e962";
   font-weight: normal;
   font-size: 17px;
-  margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
@@ -363,7 +354,6 @@ body {
   content: "\e9ba";
   font-weight: normal;
   font-size: 17px;
-  margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
@@ -374,7 +364,6 @@ body {
   content: "\e971";
   font-weight: normal;
   font-size: 17px;
-  margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
@@ -384,39 +373,39 @@ body {
   content: "\e9b8";
   font-weight: normal;
   font-size: 18px;
-  margin-top: 3px;
   float: left;
   font-family: 'icomoon';
   color: #464646;
 }
 
 #virtualclassCont #appSettingDetail .disable #usersMarkNotesSwitch::before {
-  content: "\e97e";
-  font-weight: normal;
-  font-size: 17px;
+  content: "\e9fe";
+  font-weight: 400;
+  font-size: 1rem;
   float: left;
   font-family: 'icomoon';
-  color: #464646;
+  color: #1d1d1d;
 }
 
 #virtualclassCont #appSettingDetail .enable #usersMarkNotesSwitch::before {
-  content: "\e984";
+  content: "\e9fe";
   font-weight: normal;
-  font-size: 18px;
-  margin-top: 3px;
+  font-size: 1rem;
   float: left;
   font-family: 'icomoon';
-  color: #464646;
+  color: #989898;
 }
 
 #virtualclassCont.congrea #congAskQuestion.askQuestionEnable,
-#virtualclassCont.congrea #virtualclassnote.notesEnable {
+#virtualclassCont.congrea #virtualclassnote.notesEnable,
+#virtualclassCont.congrea #bookmark.bookmarkEnable {
   opacity: 1;
   pointer-events: visible !important;
 }
 
 #virtualclassCont.congrea.student #congAskQuestion.askQuestionDisable,
-#virtualclassCont.congrea #virtualclassnote.notesDisable {
+#virtualclassCont.congrea #virtualclassnote.notesDisable,
+#virtualclassCont.congrea #bookmark.bookmarkDisable {
   opacity: 0.5;
   pointer-events: none !important;
 }
@@ -750,6 +739,7 @@ body {
   display: inline-block;
   width: 1.375rem;
   height: 1rem;
+  padding-top: 2px;
 }
 
 #virtualclassCont #appSettingDetail .app-settings-rbs {

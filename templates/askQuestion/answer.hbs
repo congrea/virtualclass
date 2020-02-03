@@ -18,15 +18,15 @@
 
     <div class="footer show" data-component = 'answer' data-component-id="{{id}}">
       <div class= 'controls' data-component = 'answer' data-component-id="{{id}}" data-parent="{{parent}}">
-        <div class= 'upVote' data-event="upvote">
+        <div class= "upVote congtooltip" data-event="upvote" data-title ="{{getString 'upvote'}}">
           <span class= 'button'></span>
           <span class= 'total'>0</span>
         </div>
-        <div class= 'navigation' data-event="navigation">
+        <div class= "navigation congtooltip" data-event="navigation" data-title ="{{getString 'comment'}}">
           <span class= 'button'></span>
           <span class= 'total'>0</span>
         </div>
-        <div class= 'reply' data-event="reply">
+        <div class= "reply congtooltip" data-event="reply" data-title ="{{getString 'reply'}}">
           <span class= 'button'></span>
         </div>
       </div>

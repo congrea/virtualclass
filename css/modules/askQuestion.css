@@ -337,7 +337,7 @@
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .navigation .button,
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .navigation .button {
   display: inline-block;
-  padding: 0.1875rem 0.3125rem 0 0.75rem;
+  padding: 0.1875rem 0.3125rem 0 0.125rem;
 }
 
 /* #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply#virtualclassCont.congrea #askQuestion .comments .container {
@@ -716,4 +716,46 @@
 #virtualclassCont.congrea[data-currapp='Poll'] #askQuestion {
   pointer-events: none;
   opacity: 0.5;
+}
+
+#virtualclassCont.congrea #askQuestion .container .footer .controls .upVote,
+#virtualclassCont.congrea #askQuestion .container .footer .controls .navigation {
+  cursor: pointer;
+  line-height: 1rem;
+}
+
+#virtualclassCont.congrea #askQuestion .container .footer .controls .reply {
+  line-height: 1rem;
+}
+
+#virtualclassCont.congrea #askQuestion .container .footer .controls .navigation {
+  margin-left: 0.625rem;
+}
+
+#virtualclassCont.congrea #askQuestion .container .footer .controls .upVote.congtooltip:hover::after,
+#virtualclassCont.congrea #askQuestion .container .footer .controls .reply.congtooltip:hover::after {
+  bottom: 22px;
+  font-size: 0.6875rem;
+}
+
+#virtualclassCont.congrea #askQuestion .container .footer .controls .navigation.congtooltip:hover::after {
+  bottom: 22px;
+  font-size: 0.6875rem;
+  right: -16px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .comment .footer .controls .navigation.congtooltip:hover::after {
+  bottom: 22px;
+  font-size: 0.6875rem;
+  right: -40px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .comment .footer .moreControls.congtooltip:hover::after {
+  bottom: 22px;
+  font-size: 0.6875rem;
+  right: -40px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .comment .footer .controls .navigation {
+  margin-left: 0;
 }

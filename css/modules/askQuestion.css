@@ -98,14 +98,14 @@
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls .item.open {
   display: block;
-  font-size: 12px;
+  font-size: 0.75rem;
   width: fit-content;
   border: 1px solid #dadada;
   box-shadow: 0 4px 7px -2px #c1c1c1;
   background-color: #fbfbfb;
   border-radius: 2px;
   position: absolute;
-  bottom: 25px;
+  bottom: 1.5625rem;
   right: 2px;
 }
 
@@ -178,7 +178,7 @@
   margin: 5px 5px 3px 5px;
   display: flex;
   flex-direction: row;
-  border: 1px solid grey;
+  border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #fff;
 }
@@ -226,7 +226,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .question .container {
-  padding: 4px 8px 1px 8px;
+  padding: 0.25rem 0.5rem 1px 0.5rem;
   position: relative;
 }
 
@@ -263,7 +263,7 @@
 #virtualclassCont.congrea #askQuestion .question .container .header {
   color: #000;
   text-transform: capitalize;
-  font-size: 13px;
+  font-size: 0.8125rem;
   letter-spacing: 0.6px;
 }
 
@@ -468,7 +468,7 @@
   height: 100%;
   resize: unset;
   color: #4a2600;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.5rem;
   background-image: -webkit-linear-gradient(left, #fff 0, #daca0900 0), -webkit-linear-gradient(right, #fff 0, #fff28f73 0), -webkit-linear-gradient(white 23px, #000 18px, #00000054 16px, #000000 36px);
   background-repeat: repeat-y;
@@ -499,7 +499,7 @@
   display: inline;
   padding: 1px 6px 1px 6px;
   margin-left: 6px;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #0e65d4;
   text-transform: capitalize;
 }
@@ -639,10 +639,6 @@
   height: 9px;
 }
 
-#virtualclassCont.congrea .bookmarks {
-  right: 60px;
-}
-
 #virtualclassCont.congrea #bookmark .bookmarks span.congtooltip:hover::after {
   bottom: 47px !important;
   left: -25px;
@@ -684,7 +680,7 @@
 }
 
 #virtualclassCont.congrea #bookmark .bookmarks .icon-bookmark {
-  padding: 0.6875rem 1.0938rem 0.6875rem 1.0938rem;
+  padding: 0.65625rem 1.0938rem 0.65625rem 1.0938rem;
   line-height: 1.3125rem;
   font-size: 1.25rem;
 }

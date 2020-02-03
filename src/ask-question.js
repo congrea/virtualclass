@@ -958,7 +958,7 @@ class BasicOperation {
           delete virtualclass.askQuestion.donotChangeContext;
           document.querySelector('#writeContent .cancel').click();
         }
-      }, 7000);
+      }, 17000);
     }
 
     if (component === 'question') {

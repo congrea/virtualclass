@@ -876,7 +876,7 @@
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .navigation span.button::before {
   content: "\e9e3";
   font-family: 'icomoon';
-  font-size: 13px;
+  font-size: 0.8125rem;
   cursor: pointer;
   color: #4e4e4e !important;
 }
@@ -885,7 +885,7 @@
   content: "\e9f4";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 14px;
+  font-size: 0.875rem;
   cursor: pointer;
   color: #383838 !important;
 }
@@ -968,12 +968,12 @@
 
 #virtualclassCont.congrea .bookmarks[data-value="0"] .icon-bookmark::before {
   content: "\e9f9";
-  font-size: 17px;
+  font-size: 1.0625rem;
 }
 
 #virtualclassCont.congrea .bookmarks[data-value="1"] .icon-bookmark::before {
   content: "\e9f8";
-  font-size: 17px;
+  font-size: 1.0625rem;
   color: #30b2ff !important;
 }
 

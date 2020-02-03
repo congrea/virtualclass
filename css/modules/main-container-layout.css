@@ -324,8 +324,9 @@
 
   #virtualclassCont.congrea.student .vmchat_bar_button,
   #virtualclassCont.congrea.student .vmchat_room_bt,
-  #virtualclassCont.congrea #congAskQuestion {
-    width: 25% !important;
+  #virtualclassCont.congrea #congAskQuestion,
+  #virtualclassCont.congrea li#virtualclassnote {
+    width: 20% !important;
   }
 
   #virtualclassCont.congrea a.inner_bt #userlist_icon::before {
@@ -362,6 +363,14 @@
 
   #virtualclassCont.congrea #askQuestion .container .question .content p {
     font-size: 0.8125rem;
+  }
+
+  #virtualclassCont.congrea #askQuestion .question .container .header {
+    font-size: 0.875rem;
+  }
+
+  #virtualclassCont.congrea #askQuestion .question .container .header .lable {
+    font-size: 0.75rem;
   }
 }
 

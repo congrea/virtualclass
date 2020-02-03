@@ -449,6 +449,10 @@
         io.disconnect();
       }
 
+      if (virtualclass.askQuestion.rendererObj.noteEvent) {
+        console.log('====> send note on page load');
+        virtualclass.askQuestion.handler(virtualclass.askQuestion.rendererObj.noteEvent);
+      }
       // console.log('====> BEFORE LOAD dts order ', virtualclass.orderList[virtualclass.dts.appName].ol.order);
       //
       // console.log("whiteboard --=-=-=- DISCONNECT IO");

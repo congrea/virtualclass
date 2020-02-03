@@ -738,13 +738,15 @@ class AskQuestionRenderer {
     if (eventType) {
       this.handler(ev);
     } else {
+      this.noteEvent = ev;
       if (this.sendToDatabaseTime) {
         clearTimeout(this.sendToDatabaseTime);
       }
       this.sendToDatabaseTime = setTimeout(() => {
         virtualclass.askQuestion.noteNavigation.handleQueue(virtualclass.askQuestion.currentContext);
         virtualclass.askQuestion.handler(ev); // send note to database
-      }, 700);
+        delete this.noteEvent;
+      }, 400);
     }
   }
 
@@ -792,6 +794,7 @@ class BasicOperation {
     }
 
     if (data.component === 'note' || data.component === 'bookmark') {
+      console.log('====> sending note data ', JSON.stringify(data));
       virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collectionMark).doc(data.id).set(data).then(() => {
         console.log('ask question write, Document successfully written! ', data);
       })

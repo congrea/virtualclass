@@ -99,11 +99,11 @@ body {
   display: none !important;
 }
 
-#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel[data-currwindow="techVideo"] #rightSubContainer .ui-widget-content.ui-memblist-content,
-#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel[data-currwindow="techVideo"] #rightSubContainer .ui-widget.ui-memblist::before,
-#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel[data-currwindow="techVideo"] #rightSubContainer .ui-widget-content.ui-chatbox-content,
-#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel[data-currwindow="techVideo"] #rightSubContainer .ui-widget.ui-chatroom::before,
-#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel[data-currwindow="techVideo"] #rightSubContainer .footerCtr {
+#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel[data-currwindow="techVideoHeader"] #rightSubContainer .ui-widget-content.ui-memblist-content,
+#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel[data-currwindow="techVideoHeader"] #rightSubContainer .ui-widget.ui-memblist::before,
+#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel[data-currwindow="techVideoHeader"] #rightSubContainer .ui-widget-content.ui-chatbox-content,
+#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel[data-currwindow="techVideoHeader"] #rightSubContainer .ui-widget.ui-chatroom::before,
+#virtualclassCont.congrea[device="mobile"] #virtualclassApp #virtualclassAppRightPanel[data-currwindow="techVideoHeader"] #rightSubContainer .footerCtr {
   display: none;
 }
 
@@ -483,7 +483,7 @@ body {
   /* border-left: 1px solid #dfdfdf; */
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="techVideo"] #rightSubContainer #appSettingDetail.active {
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="techVideoHeader"] #rightSubContainer #appSettingDetail.active {
   display: none;
 }
 
@@ -1097,7 +1097,7 @@ body {
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="userListHeader"] #rightBarHeader span#askFullscreen,
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="techVideo"] #rightBarHeader span#askFullscreen,
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="techVideoHeader"] #rightBarHeader span#askFullscreen,
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="userListHeader"] #rightBarHeader span#askExitFullscreen,
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="techVideo"] #rightBarHeader span#askExitFullscreen {
   display: none;

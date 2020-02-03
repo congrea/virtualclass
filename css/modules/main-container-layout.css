@@ -485,7 +485,7 @@
   display: none !important;
 }
 
-#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.vidShow[data-currwindow="techVideo"] #videoHostContainer {
+#virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.vidShow[data-currwindow="techVideoHeader"] #videoHostContainer {
   display: block !important;
 }
 

@@ -611,6 +611,8 @@ class AskQuestionRenderer {
       }
     }
     inputAction.addEventListener('input', virtualclass.askQuestion.userInputHandler.bind(this, data.component));
+    const textArea = document.querySelector('#writeContent .text')
+    textArea.addEventListener('focus', this.inputFocusHandler.bind(this));
   }
 
   contentBox(data) {
@@ -774,6 +776,7 @@ class AskQuestionRenderer {
 
   // text area focus input element
   inputFocusHandler() {
+    console.log('==== handler focous');
     virtualclass.askQuestion.triggerPause();
   }
 

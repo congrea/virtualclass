@@ -162,7 +162,7 @@
           setting.classList.remove('settingActive');
           setting.classList.add('chatActive');
         }
-        
+
         if (!chat.classList.contains('active')) {
           chat.classList.add('active');
         }
@@ -207,6 +207,11 @@
         const text = this.value;
         searchUser(text);
       });
+
+      $('#congreaUserSearch').focusin(() => { virtualclass.vutil.inputFocusHandler(); });
+
+      $('#congreaUserSearch').focusout(() => { virtualclass.vutil.inputFocusOutHandler();});
+
       // todo to change this code later
       function searchUser() {
         const arr = [];

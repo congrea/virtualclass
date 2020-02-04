@@ -228,7 +228,7 @@ let msg;
         })
         .focusout(() => {
           uiChatboxInputBox.removeClass('ui-chatbox-input-focus');
-          virtualclass.vutil.inputFocusOuttHandler();
+          virtualclass.vutil.inputFocusOutHandler();
         });
 
       uiChatboxContent.children().click(() => {

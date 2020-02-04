@@ -2397,12 +2397,13 @@
 
     // text area focus input element
     inputFocusHandler() {
-      console.log('==== handler focous');
-      virtualclass.askQuestion.triggerPause();
+      console.log('==== handler focous in');
+      if (virtualclass.isPlayMode) virtualclass.askQuestion.triggerPause();
       document.getElementById('virtualclassCont').classList.add('focusInput');
     },
 
-    inputFocusOuttHandler() {
+    inputFocusOutHandler() {
+      console.log('==== handler focous out');
       document.getElementById('virtualclassCont').classList.remove('focusInput');
     },
   };

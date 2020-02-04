@@ -1752,7 +1752,6 @@
       // Using jQuery Plugin http://www.vvaves.net/jquery-backDetect/
       if (virtualclass.system.device === 'mobTab') {
         backDection.backDetect('#virtualclassCont', () => {
-          virtualclass.vutil.inputFocusOuttHandler();
           if (!alreadySend) {
             virtualclass.recorder.recDataSend();
             alreadySend = true;

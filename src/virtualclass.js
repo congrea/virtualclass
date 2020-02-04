@@ -470,6 +470,12 @@
         document.addEventListener('msfullscreenchange', () => {
           virtualclass.onfullscreenchange();
         }, false);
+
+        if (!virtualclass.isPlayMode && virtualclass.system.device === 'mobTab') {
+          backDection.backDetect('#virtualclassCont', () => {
+            virtualclass.vutil.inputFocusOuttHandler();
+          });
+        }
       },
 
       onfullscreenchange() {

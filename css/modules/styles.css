@@ -2572,6 +2572,10 @@ div.ui-memblist-usr .userVideos {
   height: calc(100% - 3.25rem);
 }
 
+#virtualclassCont.congrea.focusInput #virtualclassApp {
+  height: 100%;
+}
+
 #virtualclassCont.congrea #virtualclassAppLeftPanel #canvasWrapper {
   margin-top: 5px;
   border: 1px solid #ddd;

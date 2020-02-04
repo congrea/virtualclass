@@ -612,7 +612,8 @@ class AskQuestionRenderer {
     }
     inputAction.addEventListener('input', virtualclass.askQuestion.userInputHandler.bind(this, data.component));
     const textArea = document.querySelector('#writeContent .text')
-    textArea.addEventListener('focus', this.inputFocusHandler.bind(this));
+    textArea.addEventListener('focus', virtualclass.vutil.inputFocusHandler);
+    textArea.addEventListener('focusout', virtualclass.vutil.inputFocusOuttHandler);
   }
 
   contentBox(data) {
@@ -705,7 +706,8 @@ class AskQuestionRenderer {
 
     const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
     textArea.addEventListener('input', this.noteHandler.bind(this));
-    textArea.addEventListener('focus', this.inputFocusHandler.bind(this));
+    textArea.addEventListener('focus', virtualclass.vutil.inputFocusHandler.bind(this));
+    textArea.addEventListener('focusout', virtualclass.vutil.inputFocusOuttHandler.bind(this));
 
     const noteNavigationContainer = document.getElementById('noteNavigationContainer');
     if (!virtualclass.askQuestion.noteNavigation.attachImmediateHandler) {
@@ -772,12 +774,6 @@ class AskQuestionRenderer {
         delete this.noteEvent;
       }, 400);
     }
-  }
-
-  // text area focus input element
-  inputFocusHandler() {
-    console.log('==== handler focous');
-    virtualclass.askQuestion.triggerPause();
   }
 
   autosize(ev) {

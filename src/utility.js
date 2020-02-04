@@ -2393,8 +2393,18 @@
         && typeof virtualclass.wb[id] === 'object' && virtualclass.wb[id].obj.drawTextObj) {
         virtualclass.wb[id].obj.drawTextObj.finalizeTextIfAny(undefined, id);
       }
-    }
+    },
 
+    // text area focus input element
+    inputFocusHandler() {
+      console.log('==== handler focous');
+      virtualclass.askQuestion.triggerPause();
+      document.getElementById('virtualclassAppRightPanel').classList.add('focusInput');
+    },
+
+    inputFocusOuttHandler() {
+      document.getElementById('virtualclassAppRightPanel').classList.remove('focusInput');
+    },
   };
   window.vutil = vutil;
 }(window));

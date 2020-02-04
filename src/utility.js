@@ -2399,11 +2399,11 @@
     inputFocusHandler() {
       console.log('==== handler focous');
       virtualclass.askQuestion.triggerPause();
-      document.getElementById('virtualclassAppRightPanel').classList.add('focusInput');
+      document.getElementById('virtualclassCont').classList.add('focusInput');
     },
 
     inputFocusOuttHandler() {
-      document.getElementById('virtualclassAppRightPanel').classList.remove('focusInput');
+      document.getElementById('virtualclassCont').classList.remove('focusInput');
     },
   };
   window.vutil = vutil;

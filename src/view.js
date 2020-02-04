@@ -326,6 +326,11 @@
       }
       virtualclass.gObj.fitToScreenOnResize = setTimeout(
         () => {
+
+          const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
+          if (virtualclassCont) {
+            virtualclass.vutil.inputFocusOutHandler();
+          }
           if (virtualclass.currApp === 'ScreenShare') {
             virtualclass.ss.triggerFitToScreen();
           } else {

@@ -473,6 +473,7 @@
       },
 
       onfullscreenchange() {
+        console.log('====> on full screen change')
         // On fullscreenchange for rightbarfullscreen
         if(event.target.id == "virtualclassAppRightPanel") {
           if (!virtualclass.gObj.rightbarFullScreenMode) {
@@ -492,10 +493,7 @@
           }
         }
 
-        const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
-        if (virtualclassCont) {
-          virtualclass.vutil.inputFocusOutHandler();
-        }
+
       },
 
       makeReadySocket() {

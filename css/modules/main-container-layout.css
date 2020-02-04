@@ -322,10 +322,10 @@
     float: unset !important;
   }
 
-  #virtualclassCont.congrea.student .vmchat_bar_button,
-  #virtualclassCont.congrea.student .vmchat_room_bt,
-  #virtualclassCont.congrea #congAskQuestion,
-  #virtualclassCont.congrea li#virtualclassnote {
+  #virtualclassCont.congrea.student[device="mobile"] .vmchat_bar_button,
+  #virtualclassCont.congrea.student[device="mobile"] .vmchat_room_bt,
+  #virtualclassCont.congrea[device="mobile"] #congAskQuestion,
+  #virtualclassCont.congrea[device="mobile"] li#virtualclassnote {
     width: 20% !important;
   }
 

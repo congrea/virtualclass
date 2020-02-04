@@ -1934,6 +1934,7 @@ div.ui-memblist-usr .userVideos {
   margin: 12px auto -5px;
   padding: 4px 17px 7px 17px;
   width: fit-content;
+  width: -moz-fit-content;
   border-radius: 8px;
   color: #fff;
   cursor: pointer;

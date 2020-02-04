@@ -857,7 +857,9 @@
   content: "\e9e0";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 1.15625rem;
+
+  /* font-size: 1.15625rem; */
+  font-size: 1.1875rem;
   cursor: pointer;
   color: #000 !important;
 }

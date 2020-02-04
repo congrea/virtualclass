@@ -461,8 +461,8 @@
     enterText: 'Please Enter Text Here',
     more: '...More',
     less: 'Less',
-    ankQuestionEnabled: 'Ask Question Enable',
-    ankQuestionDisabled: 'Ask Question Disable',
+    ankQuestionEnabled: 'Ask Question',
+    ankQuestionDisabled: 'Ask Question',
     askQuestion: 'Ask question',
     MarksAndNotes: 'Marks & Notes',
     /* For Chrome */

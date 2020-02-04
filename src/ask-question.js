@@ -204,7 +204,7 @@ class AskQuestionUtility {
 class AskQuestionEvents {
   constructor() {
     this.values = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation',
-      'createInput', 'save', 'cancel', 'navigation', 'more', 'less', 'clearall', 'previous', 'next'];
+      'createInput', 'save', 'cancel', 'more', 'less', 'clearall', 'previous', 'next'];
   }
 
   reply(data) {
@@ -329,12 +329,17 @@ class AskQuestionEvents {
       }
       obj.upvote = 1;
       obj.componentId = data.componentId;
+      obj.upvoteBy = [virtualclass.gObj.uid];
       obj.content = virtualclass.askQuestion.context[obj.context][data.component][data.componentId].content;
       virtualclass.askQuestion.send(obj);
       virtualclass.askQuestion.firstid = obj.id;
     } else {
+      virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].upvoteBy.push(virtualclass.gObj.uid);
       virtualclass.askQuestion.firstid = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].id;
-      virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(virtualclass.askQuestion.firstid).update('upvote', firebase.firestore.FieldValue.increment(1));
+      virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(virtualclass.askQuestion.firstid).update({
+        'upvote': firebase.firestore.FieldValue.increment(1),
+        'upvoteBy': virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].upvoteBy,
+      });
       virtualclass.askQuestion.upvote(data);// TODO
     }
   }
@@ -535,6 +540,7 @@ class AskQuestionRenderer {
         virtualclass.settings.answer(virtualclass.settings.info.answer);
         virtualclass.settings.comment(virtualclass.settings.info.comment);
         virtualclass.settings.upvote(virtualclass.settings.info.upvote);
+        virtualclass.settings.markNotes(virtualclass.settings.info.markNotes);
       }
 
       toggle.addEventListener('click', (elem) => {
@@ -988,11 +994,8 @@ class BasicOperation {
         }
       }, 17000);
     }
-
-    if (component === 'question') {
-      const textarea = document.querySelector('#writeContent .text');
-      virtualclass.askQuestion.rendererObj.autosize.call(this, {target: textarea});
-    }
+    const textarea = document.querySelector('#writeContent .text');
+    virtualclass.askQuestion.rendererObj.autosize.call(this, {target: textarea});
   }
 
   renderer(data) {
@@ -1143,6 +1146,12 @@ class BasicOperation {
           if (commentElem) {
             commentElem.dataset.status = 'reachMaxLimit';
           }
+        } else if (data.component === 'answer') {
+          const answerElem = document.querySelector(`#askQuestion #${data.parent} .answers`);
+          if (answerElem.classList.contains('close')) {
+            answerElem.classList.remove('close');
+            answerElem.classList.add('open');
+          }
         }
         this.updateCount(data, status);
       } else if (status === 'edited') {
@@ -1155,7 +1164,7 @@ class BasicOperation {
       if (data.component === 'question' || data.component === 'answer') {
         getChildren = contextObj[currentContext][data.component][data.componentId].children;
       }
-      component = { id: data.id, content: data.content, children: getChildren, status, parent: data.parent, componentId: data.id, upvote: data.upvote };
+      component = { id: data.id, content: data.content, children: getChildren, status, parent: data.parent, componentId: data.componentId, upvote: data.upvote, upvoteBy: data.upvoteBy };
       component.status = status;
       contextObj[currentContext][data.component][data.componentId] = component;
     }
@@ -1238,8 +1247,13 @@ class BasicOperation {
     if (data.upvote) {
       if (data.upvote === 1) virtualclass.askQuestion.firstid = data.id;
       document.querySelector(`#${data.componentId} .upVote .total`).innerHTML = data.upvote;
-      if (data.userId === virtualclass.uInfo.userid) {
+      if (data.upvoteBy[data.upvoteBy.length - 1] === virtualclass.uInfo.userid) {
         document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
+      } else {
+        const checkIndex = data.upvoteBy.indexOf(virtualclass.gObj.uid);
+        if (checkIndex > -1) {
+          document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
+        }
       }
       if (!roles.hasControls()) {
         const upvoteElement = document.querySelector(`#${data.componentId}`);
@@ -1258,9 +1272,31 @@ class BasicOperation {
     const parent = document.querySelector(`#askQuestion #${data.parent} .answers .answer[data-mark-answer="marked"]`);
     const markParentElem = document.querySelector(`#${data.parent}`);
     const markedAnswer = document.querySelector(`#askQuestion #${data.parent} .answers`);
+    const changeElemName = document.querySelector(`#askQuestion #${data.parent} .answers #${data.componentId} .moreControls .mark`);
+    const checkElemDataset = document.querySelector(`#askQuestion #${data.parent} .answers #${data.componentId}`);
     if (parent && markParentElem.dataset.markAnswer) {
+      if (parent && checkElemDataset.dataset.markAnswer !== 'marked') {
+        // TODO display message first unmark your marked answer after that mark other answer
+        return;
+      }
       delete parent.dataset.markAnswer;
       delete markParentElem.dataset.markAnswer;
+      if (markedAnswer.classList.contains('close')) {
+        markedAnswer.classList.remove('close');
+        markedAnswer.classList.add('open');
+      }
+      if (changeElemName) {
+        changeElemName.innerHTML = 'Mark As Answer';
+        return;
+      } else if (!changeElemName) {
+        return;
+      }
+    } else {
+      if (changeElemName) {
+        if (changeElemName.innerHTML === 'Mark As Answer') {
+          changeElemName.innerHTML = 'Unmark';
+        }
+      }
     }
     const markElem = document.querySelector(`#${data.componentId}`);
     if (markParentElem && markElem && !markParentElem.dataset.markAnswer) {

@@ -7,6 +7,7 @@
    */
   const message = {
     ActiveAll: 'Active all',
+    addcontext: 'Add Context',
     Addoption: 'Add option',
     addnew: 'Add new',
     adminusr: 'Admin user',
@@ -224,6 +225,7 @@
     RaiseHandStdEnabled: 'Raise hand',
     readonlymode: 'Read only',
     receivedVotes: 'Received votes',
+    removecontext: 'Remove Context',
     reclaim: 'Reclaim',
     Rectangle: 'Rectangle',
     rejected: 'Another application on your computer might be using your webcam. Kindly close all other applications',

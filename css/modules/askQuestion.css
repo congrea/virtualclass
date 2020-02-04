@@ -250,6 +250,7 @@
   width: 2px;
   height: 91%;
   background: green;
+  display: inline-block;
 }
 
 #virtualclassCont.congrea #askQuestion .comments .comment .container::after {
@@ -260,6 +261,7 @@
   width: 2px;
   height: 91%;
   background: #0270e1;
+  display: inline-block;
 }
 
 #virtualclassCont.congrea #askQuestion .question .container .header {
@@ -455,6 +457,7 @@
   width: 2px;
   height: 93%;
   background: red;
+  display: inline-block;
 }
 
 #virtualclassCont.congrea #noteContainer .loading {
@@ -682,7 +685,7 @@
 }
 
 #virtualclassCont.congrea #bookmark .bookmarks .icon-bookmark {
-  padding: 0.65625rem 1.0938rem 0.65625rem 1.0938rem;
+  padding: 0.65625rem 1.0938rem 0.71875rem 1.0938rem;
   line-height: 1.3125rem;
   font-size: 1.25rem;
 }

@@ -147,7 +147,7 @@
   font-size: 13px;
   display: block;
   resize: none;
-  min-height: 45px;
+  min-height: 50px;
   max-height: 90px;
   border: none;
 }
@@ -160,7 +160,7 @@
   display: block;
   resize: none;
   border: 0.5px solid #b1b1b1;
-  min-height: 45px;
+  min-height: 50px;
   max-height: 90px;
 }
 
@@ -738,26 +738,18 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote.congtooltip:hover::after,
-#virtualclassCont.congrea #askQuestion .container .footer .controls .reply.congtooltip:hover::after {
+#virtualclassCont.congrea #askQuestion .container .footer .controls .reply.congtooltip:hover::after,
+#virtualclassCont.congrea #askQuestion .container .footer .controls .navigation.congtooltip:hover::after,
+#virtualclassCont.congrea #askQuestion .container .comment .footer .controls .navigation.congtooltip:hover::after {
   bottom: 22px;
   font-size: 0.6875rem;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .navigation.congtooltip:hover::after {
-  bottom: 22px;
-  font-size: 0.6875rem;
   right: -16px;
 }
 
 #virtualclassCont.congrea #askQuestion .container .comment .footer .controls .navigation.congtooltip:hover::after {
-  bottom: 22px;
-  font-size: 0.6875rem;
-  right: -40px;
-}
-
-#virtualclassCont.congrea #askQuestion .container .comment .footer .moreControls.congtooltip:hover::after {
-  bottom: 22px;
-  font-size: 0.6875rem;
   right: -40px;
 }
 

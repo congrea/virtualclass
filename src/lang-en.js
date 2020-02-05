@@ -311,7 +311,7 @@
     + ' or close this popup to start a new session.',
     usermissing: 'User is missing',
     userList: "User's list",
-    upvote: 'Upote',
+    upvote: 'Upvote',
     instructorVideo: 'Teacher Video',
     validateurlmsg: 'Invalid URL',
     VCE2: 'No permission to recording session',

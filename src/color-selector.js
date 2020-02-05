@@ -270,7 +270,7 @@
         + '#virtualclassCont.congrea #playButton:hover, '
         + '#virtualclassCont.congrea #alwaysPress:hover,'
         + '#virtualclassCont.congrea .recButton:hover,'
-        + '#virtualclassCont.congrea #virtualclassnote .icon-whiteboard:hover, '
+        + '#virtualclassCont.congrea li#virtualclassnote a:hover , '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #appSettingCtrl:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action .addQuestion-icon:hover '
         + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%) !important}`

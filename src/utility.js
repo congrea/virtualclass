@@ -2397,9 +2397,16 @@
 
     // text area focus input element
     inputFocusHandler() {
-      console.log('==== handler focous in');
       if (virtualclass.isPlayMode) virtualclass.askQuestion.triggerPause();
-      document.getElementById('virtualclassCont').classList.add('focusInput');
+      if (virtualclass.system.desktop === 'mobTab') {
+        document.getElementById('virtualclassCont').classList.add('focusInput');
+        if (!this.attachBackDectionForMobile) {
+          this.attachBackDectionForMobile = true;
+          backDection.backDetect('#virtualclassAppRightPanel', () => {
+            virtualclass.vutil.inputFocusOutHandler();
+          });
+        }
+      }
     },
 
     inputFocusOutHandler() {

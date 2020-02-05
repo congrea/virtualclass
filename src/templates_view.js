@@ -501,7 +501,7 @@ this["JST"]["dest_temp/templates/chat/stickycont.hbs"] = Handlebars.template({"1
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ankQuestionEnabled",{"name":"getString","hash":{},"data":data}))
     + "\" data-headerid=\"askQuestionHeader\"><a class=\"stdAskQuestion\"><span id=\"iconAskQuestion\" data-action=\"enable\" class=\"icon-askQuestion-enable\"></span></a></li><li id=\"virtualclassnote\" class=\"congtooltip bottomright\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"note",{"name":"getString","hash":{},"data":data}))
-    + "\" data-headerid=\"virtualclassnoteHeader\"><a><span class=\"icon-whiteboard icon-note-enable\"></span></a></li></ul>";
+    + "\" data-headerid=\"virtualclassnoteHeader\"><a><span class=\"icon-note icon-note-enable\"></span></a></li></ul>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/context-mark.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

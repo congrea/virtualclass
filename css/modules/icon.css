@@ -962,7 +962,7 @@
   cursor: pointer;
 }
 
-#virtualclassCont.congrea #virtualclassnote .icon-whiteboard::before {
+#virtualclassCont.congrea #virtualclassnote .icon-note::before {
   content: "\e9f6";
   font-size: 0.9375rem;
   color: #fdfafa;

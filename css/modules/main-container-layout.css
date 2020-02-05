@@ -322,10 +322,10 @@
     float: unset !important;
   }
 
-  #virtualclassCont.congrea.student .vmchat_bar_button,
-  #virtualclassCont.congrea.student .vmchat_room_bt,
-  #virtualclassCont.congrea #congAskQuestion,
-  #virtualclassCont.congrea li#virtualclassnote {
+  #virtualclassCont.congrea.student[device="mobile"] .vmchat_bar_button,
+  #virtualclassCont.congrea.student[device="mobile"] .vmchat_room_bt,
+  #virtualclassCont.congrea[device="mobile"] #congAskQuestion,
+  #virtualclassCont.congrea[device="mobile"] li#virtualclassnote {
     width: 20% !important;
   }
 
@@ -338,18 +338,13 @@
     padding: 0.67857rem 0.8571rem 0.8571rem 0.9285rem;
   }
 
-  #virtualclassCont.congrea a.inner_bt {
+  /* #virtualclassCont.congrea a.inner_bt {
     padding: 0.6785rem 1rem 0.6428rem 1rem;
-  }
+  } */
 
-  #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
+  /* #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
     padding: 0.8125rem 0.8125rem 0.6875rem 0.8125rem;
-  }
-
-  /*#virtualclassCont.congrea #icHr {*/
-  #virtualclassCont.congrea #iconAskQuestion {
-    padding: 0.7857rem 0.8214rem 1rem 0.8214rem;
-  }
+  } */
 
   #virtualclassCont.congrea li#appSettingCtrl > a {
     padding: 0.7142rem 0.8571rem 0.6428rem 0.92857rem;

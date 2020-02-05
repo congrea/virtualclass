@@ -160,6 +160,10 @@
   flex-direction: row;
 }
 
+#virtualclassCont.focusInput #virtualclassAppFooterPanel {
+  display: none;
+}
+
 #virtualclassCont.congrea #stickybar .footerCtr {
   float: right;
   width: auto;

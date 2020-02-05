@@ -1934,6 +1934,7 @@ div.ui-memblist-usr .userVideos {
   margin: 12px auto -5px;
   padding: 4px 17px 7px 17px;
   width: fit-content;
+  width: -moz-fit-content;
   border-radius: 8px;
   color: #fff;
   cursor: pointer;
@@ -2569,6 +2570,10 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea.playMode #virtualclassApp {
   height: calc(100% - 3.25rem);
+}
+
+#virtualclassCont.congrea.focusInput #virtualclassApp {
+  height: 100%;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #canvasWrapper {
@@ -3863,7 +3868,6 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #congAskQuestion.enable {
   width: 25%;
-  display: inline-block;
   cursor: pointer;
   border-radius: 0;
 }
@@ -3900,22 +3904,10 @@ div.ui-memblist-usr .userVideos {
   bottom: 35px !important;
 }
 
-#virtualclassCont.congrea #iconAskQuestion, #virtualclassCont.congrea #virtualclassnote .icon-whiteboard {
+#virtualclassCont.congrea li#congAskQuestion a.stdAskQuestion, #virtualclassCont.congrea li#virtualclassnote a {
   font-size: 0.875rem;
-  padding: 13px 11.5px 15px 11.5px;
   display: block;
-}
-
-#virtualclassCont.congrea #virtualclassnote .icon-whiteboard {
-  padding: 13px 11.5px 15px 11.5px;
-}
-
-/* border color     */
-
-#virtualclassCont.congrea #virtualclassOptionsCont .appOptions {
-  /* border: 1px solid rgba(254,254,254,0.2) !important; */
-
-  /* border-left-width: 0 !important; */
+  padding: 0.8125rem 0.875rem 0.6875rem 0.875rem;
 }
 
 #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
@@ -4030,7 +4022,7 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
-  padding: 0.875rem 0.8125rem 0.6562rem 0.8125rem;
+  padding: 0.84375rem 0.875rem .65625rem 0.875rem;
   display: block;
 }
 

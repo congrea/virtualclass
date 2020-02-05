@@ -415,11 +415,24 @@ class AskQuestionEvents {
           obj.level = commentLevel;
         }
       }
-      virtualclass.askQuestion.send(obj);
-      if (roles.hasControls() && data.component === 'answer') {
-        obj.action = 'markAnswer';
-        virtualclass.askQuestion.send(obj); // todo, why we are seding more than one time data
+      this.trggerSend(obj);
+    }
+  }
+
+  async trggerSend(obj) {
+    await virtualclass.askQuestion.send(obj);
+    if (roles.hasControls() && obj.component === 'answer') {
+      const dataMark = {
+        event: 'markAnswer',
+        component: 'answer',
+        componentId: obj.componentId,
+        parentId: obj.parent,
+        text: undefined,
+        action: undefined,
       }
+      // this.execute(dataMark);
+      obj.action = 'markAnswer';
+      virtualclass.askQuestion.event.execute(dataMark);
     }
   }
 
@@ -816,7 +829,7 @@ class BasicOperation {
     return data;
   }
 
-  send(data) {
+  async send(data) {
     if (!virtualclass.askQuestion.collection) {
       virtualclass.askQuestion.setDbCollection();
       virtualclass.askQuestion.attachHandlerForRealTimeUpdate();
@@ -824,7 +837,7 @@ class BasicOperation {
 
     if (data.component === 'note' || data.component === 'bookmark') {
       console.log('====> sending note data ', JSON.stringify(data));
-      virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collectionMark).doc(data.id).set(data).then(() => {
+      await virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collectionMark).doc(data.id).set(data).then(() => {
         console.log('ask question write, Document successfully written! ', data);
       })
         .catch((error) => {
@@ -838,7 +851,7 @@ class BasicOperation {
       //   }
       // }
     } else {
-      virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(data.id).set(data)
+      await virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(data.id).set(data)
         .then(() => {
           console.log('ask question write, Document successfully written! ', data);
         })

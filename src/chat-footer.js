@@ -208,7 +208,7 @@
         searchUser(text);
       });
 
-      $('#congreaUserSearch').focusin(() => { virtualclass.vutil.inputFocusHandler(); });
+      $('#congreaUserSearch').focusin(() => { virtualclass.vutil.inputFocusHandler('searchuser'); });
 
       $('#congreaUserSearch').focusout(() => { virtualclass.vutil.inputFocusOutHandler();});
 

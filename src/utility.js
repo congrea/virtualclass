@@ -2396,8 +2396,11 @@
     },
 
     // text area focus input element
-    inputFocusHandler() {
-      if (virtualclass.isPlayMode) virtualclass.askQuestion.triggerPause();
+    inputFocusHandler(searchUser) {
+      if (searchUser && typeof searchUser !== 'string') {
+        if (virtualclass.isPlayMode) virtualclass.askQuestion.triggerPause();
+      }
+
       if (virtualclass.system.desktop === 'mobTab') document.getElementById('virtualclassCont').classList.add('focusInput');
     },
 

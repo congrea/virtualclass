@@ -224,7 +224,7 @@ let msg;
         })
         .focusin(() => {
           uiChatboxInputBox.addClass('ui-chatbox-input-focus');
-          virtualclass.vutil.inputFocusHandler('searchuser');
+          virtualclass.vutil.inputFocusHandler();
         })
         .focusout(() => {
           uiChatboxInputBox.removeClass('ui-chatbox-input-focus');

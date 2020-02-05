@@ -168,6 +168,7 @@
       },
 
       init(urole, app) {
+        virtualclass.gObj.initHeight = window.innerHeight;
         const vcContainer = document.getElementById('virtualclassCont');
         vcContainer.classList.add('loading');
         const { wbUser } = window;

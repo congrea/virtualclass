@@ -2401,11 +2401,20 @@
         if (virtualclass.isPlayMode) virtualclass.askQuestion.triggerPause();
       }
 
-      if (virtualclass.system.desktop === 'mobTab') document.getElementById('virtualclassCont').classList.add('focusInput');
+      if (virtualclass.system.device === 'mobTab') {
+        console.log('====> focus input');
+        document.getElementById('virtualclassCont').classList.add('focusInput');
+      }
+
+    
     },
 
     inputFocusOutHandler() {
-      if (virtualclass.system.desktop === 'mobTab') document.getElementById('virtualclassCont').classList.remove('focusInput');
+      if (virtualclass.system.device === 'mobTab') {
+        console.log('====> focus input');
+        document.getElementById('virtualclassCont').classList.remove('focusInput');
+      }
+      
     },
   };
   window.vutil = vutil;

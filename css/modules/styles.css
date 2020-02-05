@@ -5136,7 +5136,7 @@ body {
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #allMarksinformation {
   position: fixed;
-  bottom: 44px;
+  bottom: 2.75rem;
   z-index: 1116;
   width: 100%;
   display: flex;

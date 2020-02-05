@@ -1406,6 +1406,7 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea .vmchat_room_bt.congtooltip:hover::after,
 #virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover::after {
   bottom: 47px;
+  right: -11px;
 }
 
 #virtualclassCont.congrea #appSettingCtrl.congtooltip:hover::after {

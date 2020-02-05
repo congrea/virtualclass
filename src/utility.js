@@ -2327,6 +2327,11 @@
     attachWhiteboardPopupHandler(wId) {
       window.addEventListener('mouseup', (ev) => {
         const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
+        const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
+        if (moreElemClose) {
+          moreElemClose.classList.remove('open');
+          moreElemClose.classList.add('close');
+        }
         if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare')) {
           if (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke') || Object.prototype.hasOwnProperty.call(ev.target.dataset, 'font')) {
             const dropDown = (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke')) ? document.querySelector(`#t_strk${wId} .strkSizeList`) : document.querySelector(`#t_font${wId} .fontSizeList`);

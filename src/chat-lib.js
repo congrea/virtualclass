@@ -105,13 +105,25 @@ function displayChatUserList(totUsers) {
   virtualclass.gObj.insertUser = !((virtualclass.connectedUsers.length >= virtualclass.gObj.userToBeDisplay));
   if (roles.isStudent()) {
     virtualclass.settings.userlist(virtualclass.settings.info.userlist);
+    // TODO remove commented code
     // const gcElem = document.querySelector('#chatrm');
-    if (virtualclass.settings.info.userlist === false) {
-      const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
-      const vmlist = document.querySelector('.vmchat_bar_button');
-      vmchat.click();
-      vmlist.classList.add('disable');
-    }
+    // if (virtualclass.settings.info.userlist === false) {
+    //   const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
+    //   const vmlist = document.querySelector('.vmchat_bar_button');
+    //   vmchat.click();
+    //   vmlist.classList.add('disable');
+    // }
+  }
+}
+
+function handleCommonChat() {
+  const askQuestionElem = document.querySelector('#congAskQuestion');
+  const notesElem = document.querySelector('#virtualclassnote');
+  if (!askQuestionElem.classList.contains('active') && !notesElem.classList.contains('active')) {
+    const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
+    const vmlist = document.querySelector('.vmchat_bar_button');
+    vmchat.click();
+    vmlist.classList.add('disable');
   }
 }
 
@@ -319,6 +331,12 @@ function memberUpdate(e, addType) {
 }
 
 function messageUpdate(e) {
+  if (e.message.receiver === 'askQuestion') {
+    if (e.message.userId !== virtualclass.gObj.uid) {
+      document.querySelector('#congAskQuestion').classList.add('askQuestion-highlight');
+    }
+    return;
+  }
   let msg = $.isPlainObject(e.message) ? e.message.msg : e.message;
   const to = e.toUser;
   const from = e.fromUser;

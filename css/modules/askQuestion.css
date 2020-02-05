@@ -764,3 +764,8 @@
 #virtualclassCont.congrea #askQuestion .container .comment .footer .controls .navigation {
   margin-left: 0;
 }
+
+#virtualclassCont.congrea #askQuestion .container .footer .controls .navigation.disable {
+  opacity: 0.5;
+  pointer-events: none;
+}

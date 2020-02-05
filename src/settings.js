@@ -308,6 +308,8 @@
         if (userList !== null) {
           const searchUserInput = document.querySelector('#congchatBarInput #congreaUserSearch');
           const vmlist = document.querySelector('#user_list.vmchat_bar_button');
+          const askQuestionElem = document.querySelector('#congAskQuestion');
+          const notesElem = document.querySelector('#virtualclassnote');
           if (value === true) {
             userList.classList.remove('hideList');
             searchUserInput.classList.remove('hideInput');
@@ -316,8 +318,12 @@
             userList.classList.add('hideList');
             searchUserInput.classList.add('hideInput');
             vmlist.classList.add('disable');
-            const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
-            vmchat.click();
+            // TODO remove commented code
+            // if (!askQuestionElem.classList.contains('active') && !notesElem.classList.contains('active')) {
+            //   const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
+            //   vmchat.click();
+            // }
+            handleCommonChat();
           }
         }
       }
@@ -352,6 +358,7 @@
     },
 
     markNotes(value) {
+      // TODO handle on default settings
       if (roles.isStudent()) {
         const notesElem = document.querySelector('#virtualclassnote');
         const bookmarkElem = document.querySelector('#bookmark');
@@ -361,7 +368,6 @@
           bookmarkElem.classList.remove('bookmarkDisable');
           bookmarkElem.classList.add('bookmarkEnable');
         } else {
-          document.querySelector('#user_list').click();
           notesElem.classList.remove('notesEnable');
           notesElem.classList.add('notesDisable');
           bookmarkElem.classList.remove('bookmarkEnable');

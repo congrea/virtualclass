@@ -240,7 +240,7 @@ class AskQuestionEvents {
         if (time > 30 || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].children.length > 0
           || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].upvote > 0) {
           if (time > 30) {
-            virtualclass.popup.infoMsg(virtualclass.lang.getString('askQuestionTimeExceed'));
+            virtualclass.view.createErrorMsg(virtualclass.lang.getString('askQuestionTimeExceed'), 'errorContainer', 'videoHostContainer');
             const moreElem = document.querySelector(`#${data.componentId}`);
             if (moreElem) {
               moreElem.classList.remove('editable');
@@ -294,7 +294,7 @@ class AskQuestionEvents {
         if (time > 30 || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].children.length > 0
           || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].upvote > 0) {
           if (time > 30) {
-            virtualclass.popup.infoMsg(virtualclass.lang.getString('askQuestionTimeExceed'));
+            virtualclass.view.createErrorMsg(virtualclass.lang.getString('askQuestionTimeExceed'), 'errorContainer', 'videoHostContainer');
             const moreElem = document.querySelector(`#${data.componentId}`);
             if (moreElem) {
               moreElem.classList.remove('editable');
@@ -540,12 +540,14 @@ class AskQuestionRenderer {
         virtualclass.settings.answer(virtualclass.settings.info.answer);
         virtualclass.settings.comment(virtualclass.settings.info.comment);
         virtualclass.settings.upvote(virtualclass.settings.info.upvote);
-        virtualclass.settings.markNotes(virtualclass.settings.info.markNotes);
       }
 
       toggle.addEventListener('click', (elem) => {
         virtualclass.askQuestion.initFirebaseOperatoin();
         virtualclass.askQuestion.renderMainContainer(elem.currentTarget);
+        if (toggle.classList.contains('askQuestion-highlight')) {
+          toggle.classList.remove('askQuestion-highlight');
+        }
       });
 
       const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
@@ -889,29 +891,12 @@ class BasicOperation {
           componentId = null;
           parentId = parent.dataset.componentId;
         } else if (event === 'edit' || event === 'markAnswer' || event === 'delete') {
-          // if (event === 'edit') {
-          //   const writeTemp = document.querySelector('#writeContent');
-          //   const text = document.querySelector('#writeContent .text');
-          //   if (writeTemp && writeTemp.firstElementChild.dataset.parent == null && text.nextElementSibling.dataset.component === 'question') {
-          //     writeTemp.remove();
-          //   } else if (writeTemp) {
-          //     componentId = text.nextElementSibling.dataset.componentId;
-          //     component = text.nextElementSibling.dataset.component;
-          //     event = 'cancel';
-          //     this.event.execute({
-          //       event, component, componentId, text, action, parentId,
-          //     });
-          //   }
-          // }
-
-          // component = parent.dataset.component;
-          // componentId = parent.dataset.componentId;
-          // event = 'edit';
           parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
         }
       }
 
       if (event === 'save') {
+        // this.askQuestionActive();
         if (component === 'note') {
           text = target.value;
           action = 'create';
@@ -923,7 +908,7 @@ class BasicOperation {
             && parent.previousSibling.value !== '') {
             text = parent.previousSibling.value;
           } else {
-            virtualclass.popup.infoMsg(virtualclass.lang.getString('enterText'));
+            virtualclass.view.createErrorMsg(virtualclass.lang.getString('enterText'), 'errorContainer', 'videoHostContainer');
             return;
           }
           if (parent.dataset.componentId === null || parent.dataset.componentId === '') {
@@ -936,7 +921,7 @@ class BasicOperation {
               if (editElem !== 0 && editElem != null) {
                 componentId = parent.dataset.componentId;
                 event = 'cancel';
-                virtualclass.popup.infoMsg(virtualclass.lang.getString('upvoted'));
+                virtualclass.view.createErrorMsg(virtualclass.lang.getString('upvoted'), 'errorContainer', 'videoHostContainer');
               }
             }
           }
@@ -976,6 +961,14 @@ class BasicOperation {
         }
       }
     }
+  }
+
+  askQuestionActive() {
+    const time = new Date().getTime();
+    const msgobj = {
+      receiver: 'askQuestion', cf: 'msg', time, userId: virtualclass.gObj.uid,
+    };
+    ioAdapter.mustSend(msgobj);
   }
 
   userInputHandler(component) {
@@ -1154,6 +1147,7 @@ class BasicOperation {
           }
         }
         this.updateCount(data, status);
+        virtualclass.vutil.attachWhiteboardPopupHandler();
       } else if (status === 'edited') {
         component.children = contextObj[currentContext][data.component][data.componentId].children;
         component.content = data.content;
@@ -1179,6 +1173,7 @@ class BasicOperation {
     if (contextObj[data.context] && contextObj[data.context][component] && Object.prototype.hasOwnProperty.call(contextObj[data.context][component], data.parent) && data.component !== 'question') {
       const children = contextObj[data.context][component][data.parent].children;
       const moreControlElem = document.querySelector(`#${data.parent}`);
+      const controlNavigation = document.querySelector(`#${data.parent} .footer .navigation`);
       if (data.component === 'answer' || data.component === 'comment') {
         if (status === 'editable') {
           children.push(data.componentId);
@@ -1187,6 +1182,9 @@ class BasicOperation {
               moreControlElem.classList.remove('editable');
               moreControlElem.classList.add('noneditable');
             }
+          }
+          if (controlNavigation && controlNavigation.classList.contains('disable')) {
+            controlNavigation.classList.remove('disable');
           }
         } else {
           children.splice(children.indexOf(data.componentId), 1);
@@ -1201,6 +1199,12 @@ class BasicOperation {
                 moreControlElem.classList.remove('noneditable');
                 moreControlElem.classList.add('editable');
               }
+            }
+          }
+
+          if (children.length === 0) {
+            if (!controlNavigation.classList.contains('disable')) {
+              controlNavigation.classList.add('disable');
             }
           }
 
@@ -1275,8 +1279,8 @@ class BasicOperation {
     const changeElemName = document.querySelector(`#askQuestion #${data.parent} .answers #${data.componentId} .moreControls .mark`);
     const checkElemDataset = document.querySelector(`#askQuestion #${data.parent} .answers #${data.componentId}`);
     if (parent && markParentElem.dataset.markAnswer) {
-      if (parent && checkElemDataset.dataset.markAnswer !== 'marked') {
-        // TODO display message first unmark your marked answer after that mark other answer
+      if (parent && checkElemDataset && checkElemDataset.dataset.markAnswer !== 'marked') {
+        virtualclass.view.createErrorMsg(virtualclass.lang.getString('markAnswerUnmark'), 'errorContainer', 'videoHostContainer');
         return;
       }
       delete parent.dataset.markAnswer;

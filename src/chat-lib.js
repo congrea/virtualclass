@@ -331,12 +331,6 @@ function memberUpdate(e, addType) {
 }
 
 function messageUpdate(e) {
-  if (e.message.receiver === 'askQuestion') {
-    if (e.message.userId !== virtualclass.gObj.uid) {
-      document.querySelector('#congAskQuestion').classList.add('askQuestion-highlight');
-    }
-    return;
-  }
   let msg = $.isPlainObject(e.message) ? e.message.msg : e.message;
   const to = e.toUser;
   const from = e.fromUser;

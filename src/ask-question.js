@@ -534,7 +534,6 @@ class AskQuestionEvents {
   execute(data){
     this[data.event].call(this, data);
   }
-
 }
 
 class AskQuestionRenderer {
@@ -560,9 +559,10 @@ class AskQuestionRenderer {
       toggle.addEventListener('click', (elem) => {
         virtualclass.askQuestion.initFirebaseOperatoin();
         virtualclass.askQuestion.renderMainContainer(elem.currentTarget);
-        if (toggle.classList.contains('askQuestion-highlight')) {
-          toggle.classList.remove('askQuestion-highlight');
-        }
+        // if (toggle.classList.contains('highlight-new-question')) {
+        //   toggle.classList.remove('highlight-new-question');
+        // }
+        virtualclass.askQuestion.rendererObj.removeHighlightQuestion();
       });
 
       const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
@@ -817,6 +817,23 @@ class AskQuestionRenderer {
     const text = document.querySelector('#writeContent');
     if (text) {
       text.remove();
+    }
+  }
+
+  addHighLightNewQuestion(data) {
+    if (data.component === 'question' && (data.action === 'create' || data.action === 'edit')
+    && (virtualclass.askQuestion.getActiveTab() !== 'question')
+    ) {
+      this.addHighLightNewQuestionActual();
+    }
+  }
+  addHighLightNewQuestionActual() {
+    document.getElementById('congAskQuestion').classList.add('highlight-new-question');
+  }
+  removeHighlightQuestion() {
+    const element = document.getElementById('congAskQuestion');
+    if (element.classList.contains('highlight-new-question')) {
+      element.classList.remove('highlight-new-question');
     }
   }
 }
@@ -1583,6 +1600,14 @@ class AskQuestion extends BasicOperation {
     const contextName = this.readyContextActual();
     if (contextName === this.currentContext || !contextName) return;
     console.log('===> context before ', this.currentContext);
+    const activeTab = this.getActiveTab();
+    if (activeTab !== 'question') {
+      if (this.queue.question[contextName] && this.queue.question[contextName].length > 0) {
+        this.rendererObj.addHighLightNewQuestionActual();
+      } else {
+        this.rendererObj.removeHighlightQuestion();
+      }
+    }
     this.triggerPerform(contextName);
     console.log('===> context after ', this.currentContext);
 
@@ -1704,6 +1729,7 @@ class AskQuestion extends BasicOperation {
               if (virtualclass.isPlayMode && data.context === '_doc_0_0') this.buildAllMarksStatus(data);
             } else {
               this.engine.makeQueue(data);
+              this.rendererObj.addHighLightNewQuestion(data);
               if (virtualclass.isPlayMode) this.buildAllMarksStatus(data);
             }
           };

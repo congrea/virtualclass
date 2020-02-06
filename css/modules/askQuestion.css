@@ -761,3 +761,9 @@
   opacity: 0.5;
   pointer-events: none;
 }
+
+.highlight-new-question {
+  background: green !important;
+  border: 2px solid green;
+  padding: 5px;
+}

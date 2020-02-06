@@ -671,8 +671,13 @@
       if (e.type === 'touchend') {
         e = this.lastEvent;
       } else {
-        e.offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
-        e.offsetY = e.touches[0].pageY - e.touches[0].target.offsetTop;
+        if(e.touches) {
+          e.offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
+          e.offsetY = e.touches[0].pageY - e.touches[0].target.offsetTop;
+        } else {
+          e = 0;
+        }
+
       }
       this.lastEvent = e;
       return e;

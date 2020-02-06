@@ -295,7 +295,7 @@
           askQuestion.classList.remove('askQuestionDisable');
           askQuestion.classList.add('askQuestionEnable');
         } else {
-          document.querySelector('#user_list').click();
+          // document.querySelector('#user_list').click();
           askQuestion.classList.remove('askQuestionEnable');
           askQuestion.classList.add('askQuestionDisable');
         }
@@ -308,8 +308,8 @@
         if (userList !== null) {
           const searchUserInput = document.querySelector('#congchatBarInput #congreaUserSearch');
           const vmlist = document.querySelector('#user_list.vmchat_bar_button');
-          const askQuestionElem = document.querySelector('#congAskQuestion');
-          const notesElem = document.querySelector('#virtualclassnote');
+          // const askQuestionElem = document.querySelector('#congAskQuestion');
+          // const notesElem = document.querySelector('#virtualclassnote');
           if (value === true) {
             userList.classList.remove('hideList');
             searchUserInput.classList.remove('hideInput');

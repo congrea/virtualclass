@@ -2411,7 +2411,7 @@
         document.getElementById('virtualclassCont').classList.add('focusInput');
       }
 
-    
+
     },
 
     inputFocusOutHandler() {
@@ -2419,7 +2419,15 @@
         console.log('====> focus input');
         document.getElementById('virtualclassCont').classList.remove('focusInput');
       }
-      
+
+    },
+
+    checkActualUser() {
+      if (virtualclass.isPlayMode) {
+        return (wbUser.orginalUserRole === 't');
+      } else {
+        return (virtualclass.gObj.uRole === 't' || virtualclass.gObj.uRole === 'p');
+      }
     },
   };
   window.vutil = vutil;

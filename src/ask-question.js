@@ -233,7 +233,7 @@ class AskQuestionEvents {
       moreControls.classList.add('close');
     }
     const userId = (data.componentId).split('-')[1];
-    if (userId === virtualclass.uInfo.userid || roles.hasControls()) {
+    if (+(userId) === +(virtualclass.uInfo.userid) || roles.hasControls()) {
       let text;
       const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: data.component });
       if (!roles.hasControls()) {
@@ -288,7 +288,7 @@ class AskQuestionEvents {
       moreControls.classList.add('close');
     }
     const userId = (data.componentId).split('-')[1];
-    if (userId === virtualclass.uInfo.userid || roles.hasControls()) {
+    if (+(userId) === +(virtualclass.uInfo.userid) || roles.hasControls()) {
       const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: data.component });
       if (!roles.hasControls()) {
         if (time > 30 || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].children.length > 0
@@ -553,6 +553,8 @@ class AskQuestionRenderer {
         virtualclass.settings.answer(virtualclass.settings.info.answer);
         virtualclass.settings.comment(virtualclass.settings.info.comment);
         virtualclass.settings.upvote(virtualclass.settings.info.upvote);
+        virtualclass.settings.askQuestion(virtualclass.settings.info.askQuestion);
+        virtualclass.settings.markNotes(virtualclass.settings.info.markNotes);
       }
 
       toggle.addEventListener('click', (elem) => {

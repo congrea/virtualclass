@@ -478,6 +478,7 @@ class AskQuestionEvents {
       ElemNavigate.classList.remove('close');
       ElemNavigate.classList.add('open');
     }
+    document.querySelector(`#${data.componentId} .container`).scrollIntoView();
   }
 
   moreOrLess(data) {
@@ -663,6 +664,7 @@ class AskQuestionRenderer {
       }
     }
     virtualclass.askQuestion.util.displayMore(data);
+    document.querySelector(`#${data.componentId}`).scrollIntoView();
 
     if (+(data.userId) === +(virtualclass.gObj.orginalUserId)) {
       if (data.component === 'note') {

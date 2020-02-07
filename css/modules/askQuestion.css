@@ -773,3 +773,40 @@
 #virtualclassCont.congrea #virtualclassAppFooterPanel #stickycontainer .chatBarTab .askQuestion_btn.highlight-new-question {
   background: #53a83f !important;
 }
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #errorContainer {
+  background-color: #fff;
+  box-shadow: #d2d2d2 0 3px 8px;
+  padding: 1.125rem;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1105;
+  width: fit-content;
+  color: #9c9c9c;
+  border: 0.5px solid #e69024;
+  position: absolute;
+  animation: myfirst 3s;
+  bottom: 58px;
+  left: unset;
+  right: 0;
+  transform: translate(0%);
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #errorContainer [classname="error"] {
+  font-size: 13px;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #errorContainer #closeMsg {
+  background-color: unset;
+  color: #797979;
+  font-size: 1.125rem;
+  padding: 0.3125rem 0.4375rem;
+  top: 0;
+  right: 1px;
+  line-height: 0.875rem;
+}
+
+@keyframes myfirst {
+  0% { left: 100%; right: 0; bottom: 58px; }
+  100% { right: 50%; left: 0; bottom: 58px; }
+}

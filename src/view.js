@@ -77,7 +77,7 @@
       if (closebutton == null) {
         var closebutton = document.createElement('span');
         closebutton.id = 'closeMsg';
-        closebutton.innerHTML = 'X';
+        closebutton.innerHTML = 'x';
         errorCont.appendChild(closebutton);
       }
 

@@ -528,17 +528,13 @@ ul.fontSizeList span {
     width: 212px;
   }
 
-  #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a {
-    padding: 0.1875rem 1.3125rem 1rem 1.3125rem !important;
-  }
-
   #virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapes_icon a {
     border-left: none !important;
   }
 
   #virtualclassCont.congrea #virtualclassOptionsCont,
   .congtooltip {
-    line-height: 19px;
+    line-height: 1.1875rem;
   }
 
   .shapesToolbox .shapes_icon .icon-shapes.cgIcon {

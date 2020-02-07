@@ -38,4 +38,23 @@ class QuestionAnswer {
       }
     }
   }
+
+  addHighLight(data) { //  question part
+    if (data.component === 'question' && (data.action === 'create' || data.action === 'edit')
+      && (virtualclass.userInteractivity.getActiveTab() !== 'question')
+    ) {
+      this.addHighLightNewActual();
+    }
+  }
+
+  addHighLightNewActual() {  //  question part
+    document.getElementById('congAskQuestion').classList.add('highlight-new-question');
+  }
+
+  removeHighlight() {  //  question part
+    const element = document.getElementById('congAskQuestion');
+    if (element.classList.contains('highlight-new-question')) {
+      element.classList.remove('highlight-new-question');
+    }
+  }
 }

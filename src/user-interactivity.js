@@ -720,9 +720,9 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     const activeTab = this.getActiveTab();
     if (activeTab !== 'question') {
       if (this.queue.question[contextName] && this.queue.question[contextName].length > 0) {
-        this.rendererObj.addHighLightNewQuestionActual();
+        this.questionAnswer.addHighLight();
       } else {
-        this.rendererObj.removeHighlightQuestion();
+        this.questionAnswer.removeHighlight();
       }
     }
     this.triggerPerform(contextName);
@@ -846,7 +846,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
               if (virtualclass.isPlayMode && data.context === '_doc_0_0') this.buildAllMarksStatus(data);
             } else {
               this.engine.makeQueue(data);
-              this.rendererObj.addHighLightNewQuestion(data);
+              this.questionAnswer.addHighLight(data);
               if (virtualclass.isPlayMode) this.buildAllMarksStatus(data);
             }
           };

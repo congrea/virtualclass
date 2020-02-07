@@ -24,7 +24,7 @@ class UserInteractivityRenderer { // Main Part
         // if (toggle.classList.contains('highlight-new-question')) {
         //   toggle.classList.remove('highlight-new-question');
         // }
-        virtualclass.userInteractivity.rendererObj.removeHighlightQuestion();
+        virtualclass.userInteractivity.questionAnswer.removeHighlight();
       });
 
       const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
@@ -166,7 +166,6 @@ class UserInteractivityRenderer { // Main Part
     }
   }
 
-
   renderNote(currentContext) { // Note Part
     // let attachFunction = false;
     let contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
@@ -273,23 +272,6 @@ class UserInteractivityRenderer { // Main Part
     const text = document.querySelector('#writeContent');
     if (text) {
       text.remove();
-    }
-  }
-
-  addHighLightNewQuestion(data) { //  question part
-    if (data.component === 'question' && (data.action === 'create' || data.action === 'edit')
-      && (virtualclass.userInteractivity.getActiveTab() !== 'question')
-    ) {
-      this.addHighLightNewQuestionActual();
-    }
-  }
-  addHighLightNewQuestionActual() {  //  question part
-    document.getElementById('congAskQuestion').classList.add('highlight-new-question');
-  }
-  removeHighlightQuestion() {  //  question part
-    const element = document.getElementById('congAskQuestion');
-    if (element.classList.contains('highlight-new-question')) {
-      element.classList.remove('highlight-new-question');
     }
   }
 }

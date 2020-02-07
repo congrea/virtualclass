@@ -2332,7 +2332,7 @@
           moreElemClose.classList.remove('open');
           moreElemClose.classList.add('close');
         }
-        if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare')) {
+        if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare') && wId) {
           if (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke') || Object.prototype.hasOwnProperty.call(ev.target.dataset, 'font')) {
             const dropDown = (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke')) ? document.querySelector(`#t_strk${wId} .strkSizeList`) : document.querySelector(`#t_font${wId} .fontSizeList`);
             virtualclass.wb[wId].closeElem(dropDown);
@@ -2422,7 +2422,7 @@
 
     },
 
-    checkActualUser() {
+    checkUserRole() {
       if (virtualclass.isPlayMode) {
         return (wbUser.orginalUserRole === 't');
       } else {

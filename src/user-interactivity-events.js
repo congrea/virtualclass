@@ -20,7 +20,7 @@ class UserInteractivityEvents { // main Part
       parent: data.parentId,
     };
     virtualclass.userInteractivity.engine.performWithQueue(data);
-    virtualclass.userInteractivity[data.action].call(virtualclass.userInteractivity, data);
+    // virtualclass.userInteractivity[data.action].call(virtualclass.userInteractivity, data);
   }
 
   edit(data) {
@@ -80,14 +80,14 @@ class UserInteractivityEvents { // main Part
       if (!virtualclass.vutil.checkUserRole()) {
         if (time > 30 || virtualclass.userInteractivity.context[virtualclass.userInteractivity.currentContext][data.component][data.componentId].children.length > 0
           || virtualclass.userInteractivity.context[virtualclass.userInteractivity.currentContext][data.component][data.componentId].upvote > 0) {
-          if (time > 30) {
-            virtualclass.view.createErrorMsg(virtualclass.lang.getString('askQuestionTimeExceed'), 'errorContainer', 'videoHostContainer');
-            const moreElem = document.querySelector(`#${data.componentId}`);
-            if (moreElem) {
-              moreElem.classList.remove('editable');
-              moreElem.classList.add('noneditable');
-            }
+          // if (time > 30) {
+          virtualclass.view.createErrorMsg(virtualclass.lang.getString('askQuestionTimeExceed'), 'errorContainer', 'videoHostContainer');
+          const moreElem = document.querySelector(`#${data.componentId}`);
+          if (moreElem) {
+            moreElem.classList.remove('editable');
+            moreElem.classList.add('noneditable');
           }
+          // }
           return;
         }
       }
@@ -197,9 +197,13 @@ class UserInteractivityEvents { // main Part
       });
       if (data.action === 'create') {
         obj.componentId = obj.id;
+      }
+      if (data.action === 'edit' || data.action === 'create') {
         if (data.component === 'comment') {
           const commentLevel = this.knowCommentLevel(data.parentId);
           obj.level = commentLevel;
+        } else {
+          obj.level = this.knowCommentLevel(data.componentId);
         }
       }
       this.trggerSend(obj);

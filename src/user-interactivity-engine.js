@@ -23,6 +23,7 @@ class UserInteractivityEngine { // main part
       } else {
         // context = whiteboard 1/screen share, component = question/answer, action = create/edit
         virtualclass.userInteractivity[data.action].call(virtualclass.userInteractivity, data);
+        console.log('=====> perform ', data);
       }
     }
   }

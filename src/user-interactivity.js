@@ -34,12 +34,16 @@ class UserInteractivityBasicOperation {
   }
 
   handler(ev) {
-    if (ev.target.dataset.event === 'edit') {
-      const writeTemp = document.querySelector('#writeContent .action .cancel');
-      if (writeTemp) {
-        writeTemp.click();
-      }
+    let editContent;
+    if (ev.target.id === 'userInteractivity-content') return;
+    if (ev.target.dataset.event == 'save')  {
+      editContent = document.getElementById('userInteractivity-content').value;
     }
+    const writeTemp = document.querySelector('#writeContent .cancel');
+    if (writeTemp && ev.target.id !== 'userInteractivity-content') {
+      writeTemp.click();
+    }
+
     const questionElement = ev.target.closest('div.context');
     if (questionElement && questionElement.dataset) {
       virtualclass.userInteractivity.currentContext = ev.target.closest('div.context').dataset.context;
@@ -84,9 +88,10 @@ class UserInteractivityBasicOperation {
           text = (+(parent.dataset.value) === 0 ? 1 : 0);
           action = 'create';
         } else {
-          if (parent.previousSibling != null && parent.previousSibling.value != null
-            && parent.previousSibling.value !== '') {
-            text = parent.previousSibling.value;
+          // if (parent.previousSibling != null && parent.previousSibling.value != null
+          //   && parent.previousSibling.value !== '') {
+          if (editContent) {
+            text = editContent;
           } else {
             virtualclass.view.createErrorMsg(virtualclass.lang.getString('enterText'), 'errorContainer', 'videoHostContainer');
             return;

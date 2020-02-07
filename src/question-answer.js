@@ -17,7 +17,9 @@ class QuestionAnswer {
     if (data.action === 'edit' || data.action === 'cancel') {
       const getContentElem = document.querySelector(`#${data.componentId} .content p`);
       const ellipsisTemp = virtualclass.getTemplate('ellipsisText', 'askQuestion');
-      getContentElem.innerHTML = content;
+      if (getContentElem) {
+        getContentElem.innerHTML = content;
+      }
       if (data.content.length > 128) {
         const ellipsisTextTemp = ellipsisTemp({ morecontent: moreContent }); // TODO use this template in question, answer, comment
         document.querySelector(`#${data.componentId} .content p`).insertAdjacentHTML('beforeend', ellipsisTextTemp);

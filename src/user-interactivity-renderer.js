@@ -165,100 +165,19 @@ class UserInteractivityRenderer { // Main Part
       }
     }
   }
-
-  renderNote(currentContext) { // Note Part
-    // let attachFunction = false;
-    let contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
-    if (contextDivElement === null) {
-      const contentArea = virtualclass.getTemplate('note-content-area', 'askQuestion');
-      const contentAreaHtml = contentArea({ context: currentContext });
-      const noteContainer = document.querySelector('#noteContainer .container');
-      if (noteContainer != null) noteContainer.insertAdjacentHTML('beforeEnd', contentAreaHtml);
-    }
-
-    const activeNote = document.querySelector('#noteContainer .context.active');
-    if (activeNote) activeNote.classList.remove('active');
-
-    contextDivElement = document.querySelector(`#noteContainer .context[data-context="${currentContext}"]`);
-    contextDivElement.classList.add('active');
-
-    const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
-    textArea.addEventListener('input', this.noteHandler.bind(this));
-    textArea.addEventListener('focus', virtualclass.vutil.inputFocusHandler.bind(this));
-    textArea.addEventListener('focusout', virtualclass.vutil.inputFocusOutHandler.bind(this));
-
-    const noteNavigationContainer = document.getElementById('noteNavigationContainer');
-    if (!virtualclass.userInteractivity.note.attachImmediateHandler) {
-      virtualclass.userInteractivity.note.attachImmediateHandler = true;
-      noteNavigationContainer.addEventListener('click', this.noteHandlerImmediate.bind(this));
-    }
-  }
-
-  noteContainer(data) { // Note Part
-    let context;
-    if (data) {
-      context = data.context;
-    } else {
-      context = virtualclass.userInteractivity.currentContext;
-    }
-
-    let note = document.getElementById('noteContainer');
-    if (note == null) {
-      const noteMainContainer = virtualclass.getTemplate('note', 'askQuestion');
-      const noteMainContainerHtml = noteMainContainer({ context });
-      document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', noteMainContainerHtml);
-    }
-
-    this.renderNote(data.context);
-
-    const activeElement = document.querySelector('#rightSubContainer .active');
-    if (activeElement) {
-      activeElement.classList.remove('active');
-      // activeElement.classList.add('deactive');
-    }
-    note = document.getElementById('noteContainer');
-    note.classList.add('active');
-  }
-
-  noteWithContent(data) { // Note part
-    let noteTextContainer = document.querySelector(`#noteContainer [data-context~=${data.context}] .content`);
-    if (!noteTextContainer) {
-      // virtualclass.userInteractivity.renderer({ component: 'note', action: 'renderer', type: 'noteContainer', context: data.context });
-      // virtualclass.userInteractivity.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: data.context });
-      virtualclass.userInteractivity.engine.performWithPassData({ component: 'note', action: 'renderer', type: 'noteContainer', context: data.context });
-
-      noteTextContainer = document.querySelector(`#noteContainer [data-context~=${data.context}] .content`);
-    }
-    noteTextContainer.value = data.content;
-  }
-
-  noteHandlerImmediate(ev) { // Note part
-    console.log('====> handler ', ev.target.className);
-    virtualclass.userInteractivity.handler(ev);
-  }
-
-  // TODO, let see how can this be improve more
-  noteHandler(ev, eventType) { // Note part
-    if (eventType) {
-      this.handler(ev);
-    } else {
-      this.noteEvent = ev;
-      if (this.sendToDatabaseTime) {
-        clearTimeout(this.sendToDatabaseTime);
-      }
-      this.sendToDatabaseTime = setTimeout(() => {
-        virtualclass.userInteractivity.note.handleQueue(virtualclass.userInteractivity.currentContext);
-        virtualclass.userInteractivity.handler(ev); // send note to database
-        delete this.noteEvent;
-      }, 400);
-    }
-  }
-
   autosize(ev) { // main part
     setTimeout(() => {
       ev.target.style.cssText = 'height:auto; padding:0';
       ev.target.style.cssText = 'height:' + ev.target.scrollHeight + 'px';
     }, 1000);
+  }
+
+  noteContainer(data) {
+    virtualclass.userInteractivity.note.container(data);
+  }
+
+  noteWithContent(data) {
+    virtualclass.userInteractivity.note.displayWithContent(data);
   }
 
   bookmark(data) { // book mark

@@ -596,43 +596,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     this.bookmark.attachHandler();
     if (virtualclass.isPlayMode) {
       const viewAllQuestion = document.getElementById('viewAllQuestion');
-      viewAllQuestion.addEventListener('click', this.viewAllQuestion.bind(this));
-    }
-  }
-
-  viewAllQuestion(ev) { // Question part
-    this.triggerPause();
-    const viewAllQuestion = document.getElementById('viewAllQuestion');
-    const viewAllAction = ev.currentTarget.dataset.viewall;
-    const askQuestion = document.getElementById('askQuestion');
-    if (askQuestion != null) {
-      const rightPanel = document.getElementById('virtualclassAppRightPanel');
-      const currentContext = document.querySelector('#askQuestion .container .current');
-      if (currentContext) { currentContext.classList.remove('current'); }
-
-      if (viewAllAction === 'enable') {
-        if (rightPanel) { rightPanel.classList.add('viewAllMode'); }
-        askQuestion.classList.add('viewAll');
-        viewAllQuestion.dataset.viewall = 'disable';
-        if (!this.viewAllTriggered) {
-          for (const context in virtualclass.userInteractivity.queue.question) {
-            if (!this.context[context]) {
-              this.context[context] = new QAcontext();
-            }
-            this.triggerPerform(context);
-          }
-        }
-        this.viewAllTriggered = true;
-        this.viewAllMode = true;
-      } else {
-        virtualclass.userInteractivity.currentContext = virtualclass.userInteractivity.readyContextActual();
-        if (rightPanel) { rightPanel.classList.remove('viewAllMode'); }
-        askQuestion.classList.remove('viewAll');
-        viewAllQuestion.dataset.viewall = 'enable';
-        const currentContextElement = document.querySelector(`#askQuestion .context[data-context~=${virtualclass.userInteractivity.currentContext}]`);
-        currentContextElement.classList.add('current');
-        this.viewAllMode = false;
-      }
+      viewAllQuestion.addEventListener('click', this.questionAnswer.viewAllQuestion.bind(this));
     }
   }
 

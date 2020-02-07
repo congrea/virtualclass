@@ -2422,7 +2422,7 @@
 
     },
 
-    checkActualUser() {
+    checkUserRole() {
       if (virtualclass.isPlayMode) {
         return (wbUser.orginalUserRole === 't');
       } else {

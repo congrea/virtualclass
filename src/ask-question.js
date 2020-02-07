@@ -228,10 +228,10 @@ class AskQuestionEvents {
 
   edit(data) {
     const userId = (data.componentId).split('-')[1];
-    if (+(userId) === +(virtualclass.uInfo.orginalUserId) || virtualclass.vutil.checkActualUser()) {
+    if (+(userId) === +(virtualclass.gObj.orginalUserId) || virtualclass.vutil.checkUserRole()) {
       let text;
       const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: data.component });
-      if (!virtualclass.vutil.checkActualUser()) {
+      if (!virtualclass.vutil.checkUserRole()) {
         if (time > 30 || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].children.length > 0
           || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].upvote > 0) {
           if (time > 30) {
@@ -278,9 +278,9 @@ class AskQuestionEvents {
 
   delete(data) {
     const userId = (data.componentId).split('-')[1];
-    if (+(userId) === +(virtualclass.uInfo.orginalUserId) || virtualclass.vutil.checkActualUser()) {
+    if (+(userId) === +(virtualclass.gObj.orginalUserId) || virtualclass.vutil.checkUserRole()) {
       const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: data.component });
-      if (!virtualclass.vutil.checkActualUser()) {
+      if (!virtualclass.vutil.checkUserRole()) {
         if (time > 30 || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].children.length > 0
           || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].upvote > 0) {
           if (time > 30) {
@@ -411,7 +411,7 @@ class AskQuestionEvents {
 
   async trggerSend(obj) {
     await virtualclass.askQuestion.send(obj);
-    if (virtualclass.vutil.checkActualUser() && obj.component === 'answer') {
+    if (virtualclass.vutil.checkUserRole() && obj.component === 'answer') {
       const dataMark = {
         event: 'markAnswer',
         component: 'answer',
@@ -533,7 +533,7 @@ class AskQuestionRenderer {
       const qaTemp = virtualclass.getTemplate('askQuestionMain', 'askQuestion');
       const qtemp = qaTemp(context);
       document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', qtemp);
-      if (!virtualclass.vutil.checkActualUser()) {
+      if (!virtualclass.vutil.checkUserRole()) {
         virtualclass.settings.answer(virtualclass.settings.info.answer);
         virtualclass.settings.comment(virtualclass.settings.info.comment);
         virtualclass.settings.upvote(virtualclass.settings.info.upvote);
@@ -648,7 +648,7 @@ class AskQuestionRenderer {
         id: data.id,
         itemId: data.componentId,
         userName: data.uname,
-        hasControl: virtualclass.vutil.checkActualUser(),
+        hasControl: virtualclass.vutil.checkUserRole(),
         content: text.content,
         morecontent: text.moreContent,
         parent: data.parent,
@@ -672,7 +672,7 @@ class AskQuestionRenderer {
       } else if (data.component !== 'comment') {
         document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
       }
-      if (!virtualclass.vutil.checkActualUser()) {
+      if (!virtualclass.vutil.checkUserRole()) {
         const currentElem = document.querySelector(`#${data.componentId}`);
         if (currentElem) {
           currentElem.classList.add('mySelf');
@@ -923,7 +923,7 @@ class BasicOperation {
           } else {
             action = 'edit';
             componentId = parent.dataset.componentId;
-            if (!virtualclass.vutil.checkActualUser()) {
+            if (!virtualclass.vutil.checkUserRole()) {
               const editElem = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][component][componentId].upvote;
               if (editElem !== 0 && editElem != null) {
                 componentId = parent.dataset.componentId;
@@ -1003,7 +1003,7 @@ class BasicOperation {
   }
 
   create(data) {
-    if (data.userId === virtualclass.uInfo.orginalUserId) {
+    if (data.userId === virtualclass.gObj.orginalUserId) {
       const textTemp = document.querySelector('#writeContent');
       if (textTemp) {
         textTemp.remove();
@@ -1184,7 +1184,7 @@ class BasicOperation {
       if (data.component === 'answer' || data.component === 'comment') {
         if (status === 'editable') {
           children.push(data.componentId);
-          if (!virtualclass.vutil.checkActualUser()) {
+          if (!virtualclass.vutil.checkUserRole()) {
             if (moreControlElem) {
               moreControlElem.classList.remove('editable');
               moreControlElem.classList.add('noneditable');
@@ -1199,8 +1199,8 @@ class BasicOperation {
           const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.parent, component: component });
           const componentUpvote = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][component][data.parent].upvote;
           const getParentElem = document.querySelector(`#${data.parent} .upVote .total`); // TODO handle using component data
-          if (!virtualclass.vutil.checkActualUser() && (time < 30 && getParentElem && componentUpvote === 0)
-            || (component === 'comment' && userId === virtualclass.uInfo.orginalUserId)) {
+          if (!virtualclass.vutil.checkUserRole() && (time < 30 && getParentElem && componentUpvote === 0)
+            || (component === 'comment' && userId === virtualclass.gObj.orginalUserId)) {
             if (children.length === 0) {
               if (moreControlElem) {
                 moreControlElem.classList.remove('noneditable');
@@ -1215,7 +1215,7 @@ class BasicOperation {
             }
           }
 
-          if (component === 'question' && !virtualclass.vutil.checkActualUser()) {
+          if (component === 'question' && !virtualclass.vutil.checkUserRole()) {
             const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
             for (let i = 0; i < answersElem.length; i++) {
               const anstime = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: 'answer' });
@@ -1258,7 +1258,7 @@ class BasicOperation {
     if (data.upvote) {
       if (data.upvote === 1) virtualclass.askQuestion.firstid = data.id;
       document.querySelector(`#${data.componentId} .upVote .total`).innerHTML = data.upvote;
-      if (data.upvoteBy[data.upvoteBy.length - 1] === virtualclass.uInfo.orginalUserId) {
+      if (data.upvoteBy[data.upvoteBy.length - 1] === virtualclass.gObj.orginalUserId) {
         document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
       } else {
         const checkIndex = data.upvoteBy.indexOf(virtualclass.gObj.orginalUserId);
@@ -1266,7 +1266,7 @@ class BasicOperation {
           document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
         }
       }
-      if (!virtualclass.vutil.checkActualUser()) {
+      if (!virtualclass.vutil.checkUserRole()) {
         const upvoteElement = document.querySelector(`#${data.componentId}`);
         upvoteElement.classList.remove('editable');
         upvoteElement.classList.add('noneditable');
@@ -1287,7 +1287,9 @@ class BasicOperation {
     const checkElemDataset = document.querySelector(`#askQuestion #${data.parent} .answers #${data.componentId}`);
     if (parent && markParentElem.dataset.markAnswer) {
       if (parent && checkElemDataset && checkElemDataset.dataset.markAnswer !== 'marked') {
-        virtualclass.view.createErrorMsg(virtualclass.lang.getString('markAnswerUnmark'), 'errorContainer', 'videoHostContainer');
+        if (virtualclass.vutil.checkUserRole()) {
+          // virtualclass.view.createErrorMsg(virtualclass.lang.getString('markAnswerUnmark'), 'errorContainer', 'videoHostContainer');
+        }
         return;
       }
       delete parent.dataset.markAnswer;
@@ -1318,7 +1320,7 @@ class BasicOperation {
         markedAnswer.classList.add('close');
       }
       markedAnswer.insertBefore(markElem, markedAnswer.firstChild);
-      if (!virtualclass.vutil.checkActualUser()) {
+      if (!virtualclass.vutil.checkUserRole()) {
         const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
         for (let i = 0; i < answersElem.length; i++) {
           if (answersElem[i].classList.contains('editable')) {
@@ -1520,7 +1522,7 @@ class AskQuestion extends BasicOperation {
   makeReadyContext() {
     if (this.clearTimeMakeReady) clearTimeout(this.clearTimeMakeReady);
     this.clearTimeMakeReady = setTimeout(() => {
-      if (virtualclass.vutil.checkActualUser()) {
+      if (virtualclass.vutil.checkUserRole()) {
         this.displayContext();
       } else {
         if (!this.inputGenerating) {
@@ -1586,7 +1588,7 @@ class AskQuestion extends BasicOperation {
     this.triggerPerform(contextName);
     console.log('===> context after ', this.currentContext);
 
-    if (virtualclass.vutil.checkActualUser()) {
+    if (virtualclass.vutil.checkUserRole()) {
       ioAdapter.mustSend({ cf: 'readyContext', context: this.currentContext });
     }
   }

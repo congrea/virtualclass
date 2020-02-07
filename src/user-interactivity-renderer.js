@@ -46,6 +46,7 @@ class UserInteractivityRenderer { // Main Part
   }
 
   input(data) { // Main Part
+    console.log('=== input handle ', data.component);
     let insertId;
     if (data.component === 'question') {
       insertId = '#askQuestion';
@@ -54,7 +55,7 @@ class UserInteractivityRenderer { // Main Part
     }
 
     let text = document.querySelector('#writeContent .text');
-    if (text) { return; }
+    // if (text) { return; }
 
     const context = { componentId: data.componentId, component: data.component, parent: data.parent };
     const userInput = virtualclass.getTemplate(data.type, 'askQuestion');

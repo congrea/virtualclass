@@ -243,7 +243,7 @@ this["JST"]["dest_temp/templates/askQuestion/inpput.hbs"] = Handlebars.template(
 this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression, alias4="function";
 
-  return "<div id='writeContent'><textarea class='text'>"
+  return "<div id='writeContent'><textarea id=\"userInteractivity-content\" class='text'>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,(depth0 != null ? depth0.type : depth0),{"name":"getString","hash":{},"data":data}))
     + "</textarea><div class=\"action\" data-component=\""
     + alias3(((helper = (helper = helpers.component || (depth0 != null ? depth0.component : depth0)) != null ? helper : alias2),(typeof helper === alias4 ? helper.call(alias1,{"name":"component","hash":{},"data":data}) : helper)))

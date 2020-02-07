@@ -1016,7 +1016,7 @@
 }
 
 #virtualclassCont.congrea #docShareNav #addNewPage {
-  padding: 11px 12px 11px 12px;
+  padding: 11px 12px 9px 12px;
   border-radius: 20px;
   box-shadow: 0 2px 5px 1px #c3c3c3;
 }
@@ -1165,8 +1165,15 @@
 }
 
 @-moz-document url-prefix() {
-  #virtualclassCont.congrea[data-currapp="DocumentShare"].teacher #docShareNav,
+  /* #virtualclassCont.congrea[data-currapp="DocumentShare"].teacher #docShareNav,
   #virtualclassCont.congrea[data-currapp="Whiteboard"].teacher #docShareNav {
-    padding: 11px 16px 12px 16px;
+    padding: 11px 16px 12px 16px; */
+
+  #virtualclassCont.congrea #docShareNav #addNewPage {
+    padding: 9px 12px 8px 12px;
+  }
+
+  #virtualclassCont.congrea #virtualclassAppRightPanel #rightBarHeader {
+    height: 2.75rem;
   }
 }

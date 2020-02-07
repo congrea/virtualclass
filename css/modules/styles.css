@@ -2283,6 +2283,7 @@ div.ui-memblist-usr .userVideos {
   text-align: center;
   z-index: 1103;
   width: fit-content;
+  width: -moz-fit-content;
   line-height: 1.5em;
   color: rgba(131, 14, 14, 0.93);
 }

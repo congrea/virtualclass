@@ -82,11 +82,19 @@
 #virtualclassCont.congrea #askQuestion .container .footer .moreControls {
   cursor: pointer;
 }
+
 #virtualclassCont.congrea.student #askQuestion .container .footer .moreControls,
 #virtualclassCont.congrea.student #askQuestion .container .question.mySelf.noneditable .container[data-type="question"] .footer .moreControls,
 #virtualclassCont.congrea.student #askQuestion .container .answer.mySelf.noneditable .footer .moreControls,
 #virtualclassCont.congrea.student #askQuestion .container .comment.mySelf.noneditable .container .footer .moreControls {
   display: none;
+}
+
+#virtualclassCont.congrea.student.orginalTeacher #askQuestion .container .footer .moreControls,
+#virtualclassCont.congrea.student.orginalTeacher #askQuestion .container .question.mySelf.noneditable .container[data-type="question"] .footer .moreControls,
+#virtualclassCont.congrea.student #askQuestion.orginalTeacher .container .answer.mySelf.noneditable .footer .moreControls,
+#virtualclassCont.congrea.student #askQuestion.orginalTeacher .container .comment.mySelf.noneditable .container .footer .moreControls {
+  display: block;
 }
 
 #virtualclassCont.congrea.student #askQuestion .container .question.mySelf.editable .container[data-type="question"] .footer .moreControls,

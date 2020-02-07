@@ -30,13 +30,12 @@
     virtualclass.gObj.docs = 'init';
     await virtualclass.system.mediaDevices.getMediaDeviceInfo();
     wbUser.virtualclassPlay = +wbUser.virtualclassPlay;
-
+    virtualclass.gObj.orginalUserId = wbUser.id;
     if (wbUser.virtualclassPlay) {
       // virtualclass.gObj.sessionClear = true;
       virtualclass.gObj.role = 's';
       localStorage.removeItem('teacherId');
       wbUser.rid = wbUser.id;
-      virtualclass.gObj.orginalUserId = wbUser.id;
       wbUser.id = 99955551230;
       virtualclass.gObj.uid = wbUser.id;
     }

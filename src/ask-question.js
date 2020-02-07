@@ -162,7 +162,7 @@ class BookMarkUserInterface {
 class AskQuestionUtility {
   elapsedComponentTime(data) {
     const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-    const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
+    const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.gObj.orginalUserId}-`))[1];
     return Math.floor((currentEditTime - (+previousTime)) / 60);
   }
 
@@ -227,13 +227,8 @@ class AskQuestionEvents {
   }
 
   edit(data) {
-    const moreControls = document.querySelector(`#${data.componentId} .moreControls .item`);
-    if (moreControls.classList.contains('open')) {
-      moreControls.classList.remove('open');
-      moreControls.classList.add('close');
-    }
     const userId = (data.componentId).split('-')[1];
-    if (+(userId) === +(virtualclass.uInfo.userid) || virtualclass.vutil.checkActualUser()) {
+    if (+(userId) === +(virtualclass.uInfo.orginalUserId) || virtualclass.vutil.checkActualUser()) {
       let text;
       const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: data.component });
       if (!virtualclass.vutil.checkActualUser()) {
@@ -282,13 +277,8 @@ class AskQuestionEvents {
   }
 
   delete(data) {
-    const moreControls = document.querySelector(`#${data.componentId} .moreControls .item`);
-    if (moreControls.classList.contains('open')) {
-      moreControls.classList.remove('open');
-      moreControls.classList.add('close');
-    }
     const userId = (data.componentId).split('-')[1];
-    if (+(userId) === +(virtualclass.uInfo.userid) || virtualclass.vutil.checkActualUser()) {
+    if (+(userId) === +(virtualclass.uInfo.orginalUserId) || virtualclass.vutil.checkActualUser()) {
       const time = virtualclass.askQuestion.util.elapsedComponentTime({ componentId: data.componentId, component: data.component });
       if (!virtualclass.vutil.checkActualUser()) {
         if (time > 30 || virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].children.length > 0
@@ -329,12 +319,12 @@ class AskQuestionEvents {
       }
       obj.upvote = 1;
       obj.componentId = data.componentId;
-      obj.upvoteBy = [virtualclass.gObj.uid];
+      obj.upvoteBy = [virtualclass.gObj.orginalUserId];
       obj.content = virtualclass.askQuestion.context[obj.context][data.component][data.componentId].content;
       virtualclass.askQuestion.send(obj);
       virtualclass.askQuestion.firstid = obj.id;
     } else {
-      virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].upvoteBy.push(virtualclass.gObj.uid);
+      virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].upvoteBy.push(virtualclass.gObj.orginalUserId);
       virtualclass.askQuestion.firstid = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][data.component][data.componentId].id;
       virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(virtualclass.askQuestion.firstid).update({
         'upvote': firebase.firestore.FieldValue.increment(1),
@@ -449,11 +439,6 @@ class AskQuestionEvents {
   }
 
   markAnswer(data) {
-    const moreControlElem = document.querySelector(`#${data.componentId} .moreControls .item`);
-    if (moreControlElem.classList.contains('open')) {
-      moreControlElem.classList.remove('open');
-      moreControlElem.classList.add('close');
-    }
     const obj = virtualclass.askQuestion.generateData({
       component: data.component,
       action: data.event,
@@ -568,11 +553,6 @@ class AskQuestionRenderer {
       const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
       if (addQuestion) {
         addQuestion.addEventListener('click', () => {
-          const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
-          if (moreElemClose) {
-            moreElemClose.classList.remove('open');
-            moreElemClose.classList.add('close');
-          }
           virtualclass.askQuestion.engine.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.askQuestion.currentContext });
         });
       }
@@ -603,7 +583,7 @@ class AskQuestionRenderer {
     const userInput = virtualclass.getTemplate(data.type, 'askQuestion');
     const userInputTemplate = userInput(context);
     if (typeof data.content !== 'undefined' && typeof data.componentId !== 'undefined') {
-      if (data.userId === virtualclass.gObj.uid) {
+      if (data.userId === virtualclass.gObj.orginalUserId) {
         document.querySelector(`#${data.componentId} .content p`).innerHTML = '';
         document.querySelector(`#${data.componentId} .content p`).insertAdjacentHTML('beforeend', userInputTemplate);
         text = document.querySelector('#writeContent .text');
@@ -684,7 +664,7 @@ class AskQuestionRenderer {
     }
     virtualclass.askQuestion.util.displayMore(data);
 
-    if (data.userId === virtualclass.uInfo.userid) {
+    if (+(data.userId) === +(virtualclass.gObj.orginalUserId)) {
       if (data.component === 'note') {
         this.renderNote(data.context);
         const textArea = document.querySelector(`#noteContainer .context[data-context="${data.context}"] textarea.content`);
@@ -841,10 +821,10 @@ class AskQuestionRenderer {
 class BasicOperation {
   generateData(data) {
     const qnCreateTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-    data.id = `${data.component}-${virtualclass.gObj.uid}-${qnCreateTime}`;
+    data.id = `${data.component}-${virtualclass.gObj.orginalUserId}-${qnCreateTime}`;
     data.timestamp = qnCreateTime;
     data.context = virtualclass.askQuestion.currentContext;
-    data.userId = virtualclass.uInfo.userid;
+    data.userId = virtualclass.gObj.orginalUserId;
     return data;
   }
 
@@ -881,11 +861,6 @@ class BasicOperation {
   }
 
   handler(ev) {
-    const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
-    if (moreElemClose) {
-      moreElemClose.classList.remove('open');
-      moreElemClose.classList.add('close');
-    }
     if (ev.target.dataset.event === 'edit') {
       const writeTemp = document.querySelector('#writeContent .action .cancel');
       if (writeTemp) {
@@ -1028,7 +1003,7 @@ class BasicOperation {
   }
 
   create(data) {
-    if (data.userId === virtualclass.uInfo.userid) {
+    if (data.userId === virtualclass.uInfo.orginalUserId) {
       const textTemp = document.querySelector('#writeContent');
       if (textTemp) {
         textTemp.remove();
@@ -1225,7 +1200,7 @@ class BasicOperation {
           const componentUpvote = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][component][data.parent].upvote;
           const getParentElem = document.querySelector(`#${data.parent} .upVote .total`); // TODO handle using component data
           if (!virtualclass.vutil.checkActualUser() && (time < 30 && getParentElem && componentUpvote === 0)
-            || (component === 'comment' && userId === virtualclass.uInfo.userid)) {
+            || (component === 'comment' && userId === virtualclass.uInfo.orginalUserId)) {
             if (children.length === 0) {
               if (moreControlElem) {
                 moreControlElem.classList.remove('noneditable');
@@ -1283,10 +1258,10 @@ class BasicOperation {
     if (data.upvote) {
       if (data.upvote === 1) virtualclass.askQuestion.firstid = data.id;
       document.querySelector(`#${data.componentId} .upVote .total`).innerHTML = data.upvote;
-      if (data.upvoteBy[data.upvoteBy.length - 1] === virtualclass.uInfo.userid) {
+      if (data.upvoteBy[data.upvoteBy.length - 1] === virtualclass.uInfo.orginalUserId) {
         document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
       } else {
-        const checkIndex = data.upvoteBy.indexOf(virtualclass.gObj.uid);
+        const checkIndex = data.upvoteBy.indexOf(virtualclass.gObj.orginalUserId);
         if (checkIndex > -1) {
           document.querySelector(`#${data.componentId} .upVote`).dataset.upvote = 'upvoted';
         }
@@ -1687,7 +1662,7 @@ class AskQuestion extends BasicOperation {
       this.collectionMark = `${this.collection}_${virtualclass.gObj.orginalUserId}`;
     } else if (localStorage.getItem('mySession') != null) {
       this.collection = `${wbUser.lkey}_${localStorage.getItem('mySession')}_${wbUser.room}`;
-      this.collectionMark = `${this.collection}_${virtualclass.gObj.uid}`;
+      this.collectionMark = `${this.collection}_${virtualclass.gObj.orginalUserId}`;
     }
   }
 

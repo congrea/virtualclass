@@ -167,6 +167,9 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/note.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/bookmark.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/question-answer.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user-interactivity-engine.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user-interactivity-events.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user-interactivity-renderer.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user-interactivity.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/back-detect.js"></script>

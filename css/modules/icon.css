@@ -982,7 +982,7 @@
 #virtualclassCont.congrea #askQuestion #writeContent .action .cancel::before {
   content: "\e986";
   font-family: 'icomoon';
-  font-size: 0.5rem;
+  font-size: 0.625rem;
   font-weight: 600;
   cursor: pointer;
   color: #000;
@@ -994,7 +994,11 @@
   font-size: 19px;
   font-weight: 600;
   cursor: pointer;
-  color: #3a88ff;
+  color: #5f5f5f;
+}
+
+#virtualclassCont.congrea #askQuestion #writeContent .action .save:hover::before {
+  color: #101213;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question #writeContent .action .cancel::before {

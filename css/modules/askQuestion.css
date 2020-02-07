@@ -82,11 +82,19 @@
 #virtualclassCont.congrea #askQuestion .container .footer .moreControls {
   cursor: pointer;
 }
+
 #virtualclassCont.congrea.student #askQuestion .container .footer .moreControls,
 #virtualclassCont.congrea.student #askQuestion .container .question.mySelf.noneditable .container[data-type="question"] .footer .moreControls,
 #virtualclassCont.congrea.student #askQuestion .container .answer.mySelf.noneditable .footer .moreControls,
 #virtualclassCont.congrea.student #askQuestion .container .comment.mySelf.noneditable .container .footer .moreControls {
   display: none;
+}
+
+#virtualclassCont.congrea.student.orginalTeacher #askQuestion .container .footer .moreControls,
+#virtualclassCont.congrea.student.orginalTeacher #askQuestion .container .question.mySelf.noneditable .container[data-type="question"] .footer .moreControls,
+#virtualclassCont.congrea.student #askQuestion.orginalTeacher .container .answer.mySelf.noneditable .footer .moreControls,
+#virtualclassCont.congrea.student #askQuestion.orginalTeacher .container .comment.mySelf.noneditable .container .footer .moreControls {
+  display: block;
 }
 
 #virtualclassCont.congrea.student #askQuestion .container .question.mySelf.editable .container[data-type="question"] .footer .moreControls,
@@ -502,8 +510,7 @@
 
 #virtualclassCont.congrea #askQuestion .content p .btn.open {
   display: inline;
-  padding: 1px 6px 1px 6px;
-  margin-left: 6px;
+  padding: 1px 6px 1px 0;
   font-size: 0.75rem;
   color: #0e65d4;
   text-transform: capitalize;
@@ -534,6 +541,7 @@
 
 #virtualclassCont.congrea #askQuestion .content .morecontent.open {
   display: inline;
+  margin-right: 0.375rem;
 }
 
 #virtualclassCont.congrea #noteNavigation div {
@@ -762,8 +770,6 @@
   pointer-events: none;
 }
 
-.highlight-new-question {
-  background: green !important;
-  border: 2px solid green;
-  padding: 5px;
+#virtualclassCont.congrea #virtualclassAppFooterPanel #stickycontainer .chatBarTab .askQuestion_btn.highlight-new-question {
+  background: #53a83f !important;
 }

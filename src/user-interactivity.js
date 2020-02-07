@@ -275,6 +275,7 @@ class UserInteractivityEvents { // main Part
       ElemNavigate.classList.remove('close');
       ElemNavigate.classList.add('open');
     }
+    document.querySelector(`#${data.componentId} .container`).scrollIntoView();
   }
 
   moreOrLess(data) {
@@ -460,7 +461,6 @@ class UserInteractivityRenderer { // Main Part
       }
     }
     virtualclass.userInteractivity.questionAnswer.displayMore(data);
-
     if (+(data.userId) === +(virtualclass.gObj.orginalUserId)) {
       if (data.component === 'note') {
         this.renderNote(data.context);

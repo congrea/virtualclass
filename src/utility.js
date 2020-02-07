@@ -449,9 +449,9 @@
         io.disconnect();
       }
 
-      if (virtualclass.askQuestion.rendererObj.noteEvent) {
+      if (virtualclass.userInteractivity.rendererObj.noteEvent) {
         console.log('====> send note on page load');
-        virtualclass.askQuestion.handler(virtualclass.askQuestion.rendererObj.noteEvent);
+        virtualclass.userInteractivity.handler(virtualclass.userInteractivity.rendererObj.noteEvent);
       }
       // console.log('====> BEFORE LOAD dts order ', virtualclass.orderList[virtualclass.dts.appName].ol.order);
       //
@@ -1910,7 +1910,7 @@
       if (virtualclass.vutil.isTextWrapperExist()) {
         virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny(undefined, virtualclass.gObj.currWb);
       }
-      // virtualclass.askQuestion.makeReadyContext();
+      // virtualclass.userInteractivity.makeReadyContext();
 
       if (typeof dthis !== 'undefined') {
         func.call(cthis, dthis);
@@ -2403,7 +2403,7 @@
     // text area focus input element
     inputFocusHandler(searchUser) {
       if (searchUser && typeof searchUser !== 'string') {
-        if (virtualclass.isPlayMode) virtualclass.askQuestion.triggerPause();
+        if (virtualclass.isPlayMode) virtualclass.userInteractivity.triggerPause();
       }
 
       if (virtualclass.system.device === 'mobTab') {

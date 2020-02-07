@@ -271,11 +271,11 @@
         virtualclass.videoHost = window.videoHost;
         virtualclass.precheck = preCheck;
         virtualclass.page = page;
-        virtualclass.askQuestion = new AskQuestion();
+        virtualclass.userInteractivity = new UserInteractivity();
         // For the realitme, it will be invoked from member_added
-        virtualclass.askQuestion.init();
+        virtualclass.userInteractivity.init();
         if (virtualclass.isPlayMode) {
-          virtualclass.askQuestion.initFirebaseOperatoin();
+          virtualclass.userInteractivity.initFirebaseOperatoin();
         }
 
         virtualclass.rightbar = new Rightbar();
@@ -803,7 +803,7 @@
           }
         }
 
-        // virtualclass.askQuestion.makeReadyContext();
+        // virtualclass.userInteractivity.makeReadyContext();
       },
 
       // TODO, this and app inittiator should be merged
@@ -1100,7 +1100,7 @@
 
             virtualclass.wbCommon.indexNav.updateNavigation();
           }
-          if (virtualclass.currApp === 'Whiteboard') virtualclass.askQuestion.makeReadyContext();
+          if (virtualclass.currApp === 'Whiteboard') virtualclass.userInteractivity.makeReadyContext();
         },
 
         ScreenShare(setting) {
@@ -1291,7 +1291,7 @@
                 // }
                 if (roles.hasControls()) {
                   virtualclass.dts.indexNav.createIndex();
-                  virtualclass.askQuestion.makeReadyContext();
+                  virtualclass.userInteractivity.makeReadyContext();
                 } else {
                   virtualclass.dts.indexNav.studentDocNavigation(virtualclass.dts.docs.currNote);
                 }

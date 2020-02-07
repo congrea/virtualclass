@@ -283,7 +283,7 @@
           }
 
           if (pptData.eventName === 'slidechanged') {
-            virtualclass.askQuestion.makeReadyContext();
+            virtualclass.userInteractivity.makeReadyContext();
           }
         }
       },
@@ -457,7 +457,7 @@
                 args: [receivemsg.pptMsg.state],
               }), '*');
             }
-            virtualclass.askQuestion.makeReadyContext();
+            virtualclass.userInteractivity.makeReadyContext();
           };
         },
 
@@ -1007,7 +1007,7 @@
           virtualclass.vutil.showFinishBtn();
         }
         virtualclass.sharePt.currId = pptId;
-        virtualclass.askQuestion.makeReadyContext();
+        virtualclass.userInteractivity.makeReadyContext();
       },
       /*
        * Validate url

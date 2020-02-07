@@ -174,12 +174,12 @@ const PopUp = (function (window, undefined) {
       const connt = document.querySelector('#virtualclassApp');
       connt.classList.remove('try-to-connect');
       if (roles.hasControls()) {
-        virtualclass.askQuestion.triggerInitFirebaseOperation();
+        virtualclass.userInteractivity.triggerInitFirebaseOperation();
       } else {
         if (localStorage.getItem('mySession') != null) {
           const virtualclassCont = document.getElementById('virtualclassCont');
           virtualclassCont.classList.add('readyForNote');
-          virtualclass.askQuestion.triggerInitFirebaseOperation();
+          virtualclass.userInteractivity.triggerInitFirebaseOperation();
         }
       }
     }

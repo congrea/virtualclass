@@ -52,7 +52,7 @@ const ioPingPong = {
       // console.log('==== session, start session');
       // console.log('My session is created');
       virtualclass.config.setNewSession(session);
-      // if (roles.isStudent()) virtualclass.askQuestion.init();
+      // if (roles.isStudent()) virtualclass.userInteractivity.init();
     }
   },
   /**

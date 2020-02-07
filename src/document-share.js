@@ -1220,7 +1220,7 @@
               virtualclass.vutil.updateCurrentDoc(this.currNote);
               virtualclass.dts.updateLinkNotes(this.currNote);
               virtualclass.dts.identifyFirstAndLastNote(note.id);
-              virtualclass.askQuestion.makeReadyContext();
+              virtualclass.userInteractivity.makeReadyContext();
             },
 
             /**

@@ -17,7 +17,7 @@ Config.prototype.setNewSession = function (session) {
       localStorage.setItem('myConfig', configData);
     } else {
       console.log('Invoke firebase operation');
-      virtualclass.askQuestion.triggerInitFirebaseOperation('note');
+      virtualclass.userInteractivity.triggerInitFirebaseOperation('note');
     }
   }
 };

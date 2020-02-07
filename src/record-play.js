@@ -536,17 +536,17 @@
       const msg = JSON.parse(io.cleanRecJson(data));
       const allMark = { question: false, note: false, bookmark: false };
 
-      if (virtualclass.askQuestion.allMarks[msg.m.context]) {
-        if (virtualclass.askQuestion.allMarks[msg.m.context].question && virtualclass.askQuestion.allMarks[msg.m.context].question.length > 0) {
+      if (virtualclass.userInteractivity.allMarks[msg.m.context]) {
+        if (virtualclass.userInteractivity.allMarks[msg.m.context].question && virtualclass.userInteractivity.allMarks[msg.m.context].question.length > 0) {
           allMark.question = true;
         }
 
-        if (virtualclass.askQuestion.allMarks[msg.m.context].note) {
+        if (virtualclass.userInteractivity.allMarks[msg.m.context].note) {
           console.log('This context has note ', msg.m.context);
           allMark.note = true;
         }
 
-        if (virtualclass.askQuestion.allMarks[msg.m.context].bookmark) {
+        if (virtualclass.userInteractivity.allMarks[msg.m.context].bookmark) {
           allMark.bookmark = true;
         }
       }

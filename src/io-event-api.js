@@ -201,7 +201,7 @@ const ioEventApi = {
 
     // if (virtualclass.vutil.selfJoin(virtualclass.jId)
     //   && (roles.hasControls() || localStorage.getItem('mySession') != null)) {
-    //   virtualclass.askQuestion.init();
+    //   virtualclass.userInteractivity.init();
     // }
   },
 

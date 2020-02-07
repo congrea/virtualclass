@@ -76,7 +76,7 @@
        * @param operations expect operations of docs
        */
       init(revision, clients, docs, operations) {
-        virtualclass.askQuestion.makeReadyContext();
+        virtualclass.userInteractivity.makeReadyContext();
         const docsInfo = {};
         if (typeof revision !== 'undefined') {
           docsInfo.revision = revision;

@@ -231,7 +231,7 @@ let globalImageData = {};
         if (!this.szoom) this.initZoom();
         screenCont = document.getElementById(`virtualclass${virtualclass.apps.ss}`);
         if (virtualclass.gObj.screenShareId) screenCont.dataset.screenshareid = virtualclass.gObj.screenShareId;
-        virtualclass.askQuestion.makeReadyContext();
+        virtualclass.userInteractivity.makeReadyContext();
 
       },
 
@@ -813,7 +813,7 @@ let globalImageData = {};
           const date = new Date();
           const timeInMiliseconds = date.getTime();
           virtualclass.gObj.screenShareId = `ss_${timeInMiliseconds}`;
-          virtualclass.askQuestion.makeReadyContext();
+          virtualclass.userInteractivity.makeReadyContext();
           ioAdapter.mustSend({ cf: 'screenShareId', id: virtualclass.gObj.screenShareId});
           that.width = container.width;
           that.height = container.height;

@@ -1036,3 +1036,12 @@
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="disable"] .slider::before {
   transform: translateX(11px);
 }
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #errorContainer [classname="error"]::before {
+  content: "\e997";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 1rem;
+  color: #ffae48;
+  margin-right: 0.4375rem;
+}

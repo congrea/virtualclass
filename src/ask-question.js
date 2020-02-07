@@ -4,7 +4,7 @@
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
 
-class NoteNavigation {
+class NoteNavigation { // Part of Note
   constructor() {
     this.queue = [null];
     this.current = 0;
@@ -103,7 +103,7 @@ class NoteNavigation {
         this.queue[pos] = null;
       } else {
         this.queue.splice(pos, 1);
-        if(this.queue.length > 0) {
+        if (this.queue.length > 0) {
           if (this.queue[this.queue.length - 1] != null) {
             this.queue.push(null);
           }
@@ -131,7 +131,7 @@ class BookMarkUserInterface {
       const bookMarkContainer = document.querySelector('#bookmark .container');
       if (bookMarkContainer && !newBookmarkElem) {
         const bookmarkHtml = virtualclass.getTemplate('bookmark', 'askQuestion');
-        bookMarkContainer.insertAdjacentHTML('beforeEnd', bookmarkHtml({context: virtualclass.askQuestion.currentContext}));
+        bookMarkContainer.insertAdjacentHTML('beforeEnd', bookmarkHtml( { context: virtualclass.askQuestion.currentContext } ));
       }
     }
 
@@ -159,7 +159,7 @@ class BookMarkUserInterface {
   }
 }
 
-class AskQuestionUtility {
+class AskQuestionUtility { // Part of Question class
   elapsedComponentTime(data) {
     const currentEditTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
     const previousTime = ((data.componentId).split(`${data.component}-${virtualclass.uInfo.userid}-`))[1];
@@ -862,13 +862,6 @@ class BasicOperation {
         .catch((error) => {
           console.error('ask question write, Error writing document: ', error);
         });
-
-      // if (data.component === 'note') {
-      //   const content = data.content.trim();
-      //   if (content === '') {
-      //     virtualclass.askQuestion.noteNavigation.deleteElementFromQueue(data.context);
-      //   }
-      // }
     } else {
       await virtualclass.askQuestion.db.collection(virtualclass.askQuestion.collection).doc(data.id).set(data)
         .then(() => {
@@ -947,11 +940,11 @@ class BasicOperation {
             action = 'create';
           } else {
             action = 'edit';
-            componentId = parent.dataset.componentId;
+            ({ componentId } = parent.dataset);
             if (!virtualclass.vutil.checkActualUser()) {
               const editElem = virtualclass.askQuestion.context[virtualclass.askQuestion.currentContext][component][componentId].upvote;
               if (editElem !== 0 && editElem != null) {
-                componentId = parent.dataset.componentId;
+                ({ componentId } = parent.dataset);
                 event = 'cancel';
                 virtualclass.view.createErrorMsg(virtualclass.lang.getString('upvoted'), 'errorContainer', 'videoHostContainer');
               }
@@ -1416,9 +1409,9 @@ class QAcontext {
     this.note = {};
     this.bookmark = {};
   }
-}
+} // main part
 
-class AskQuestionEngine {
+class AskQuestionEngine { // main part
   performWithQueue(data) {
     this.makeQueue(data);
     const type = (data.component === 'note' ||  data.component === 'bookmark') ? data.component : 'question';
@@ -1453,7 +1446,7 @@ class AskQuestionEngine {
 }
 
 class AskQuestion extends BasicOperation {
-  init() {
+  init() {  // Main part
     if (this.initialize) return;
     this.queue = {};
     this.queue.note = [];
@@ -1469,13 +1462,13 @@ class AskQuestion extends BasicOperation {
     this.rendererObj = new AskQuestionRenderer();
     this.rendererObj.mainInterface();
     this.util = new AskQuestionUtility();
-    this.bookmarkUi = new BookMarkUserInterface();
+    this.bookmarkUi = new BookMarkUserInterface(); // Bookmark  ()
     this.attachHandler();
     this.viewAllMode = false;
     this.inputGenerating = false;
   }
 
-  attachHandler() {
+  attachHandler() { // Main part
     this.bookmarkUi.attachHandler();
     if (virtualclass.isPlayMode) {
       const viewAllQuestion = document.getElementById('viewAllQuestion');
@@ -1483,7 +1476,7 @@ class AskQuestion extends BasicOperation {
     }
   }
 
-  viewAllQuestion(ev) {
+  viewAllQuestion(ev) { // Question part
     this.triggerPause();
     const viewAllQuestion = document.getElementById('viewAllQuestion');
     const viewAllAction = ev.currentTarget.dataset.viewall;
@@ -1519,7 +1512,7 @@ class AskQuestion extends BasicOperation {
     }
   }
 
-  async initFirebaseOperatoin() {
+  async initFirebaseOperatoin() { // main part
     if (this.initFirebase) return;
     const virtualclassCont = document.getElementById('virtualclassCont');
     if (virtualclassCont) virtualclassCont.classList.add('askQuestionFetching');
@@ -1542,7 +1535,7 @@ class AskQuestion extends BasicOperation {
     }
   }
 
-  makeReadyContext() {
+  makeReadyContext() { // main part
     if (this.clearTimeMakeReady) clearTimeout(this.clearTimeMakeReady);
     this.clearTimeMakeReady = setTimeout(() => {
       if (virtualclass.vutil.checkActualUser()) {
@@ -1567,7 +1560,7 @@ class AskQuestion extends BasicOperation {
     return false;
   }
 
-  readyContextActual() {
+  readyContextActual() { // main part
     let contextName;
     switch (virtualclass.currApp) {
       case 'Whiteboard':
@@ -1595,7 +1588,7 @@ class AskQuestion extends BasicOperation {
     return contextName;
   }
 
-  displayContext() {
+  displayContext() { // main part
     this.rendererObj.removeWriteContainer();
     const contextName = this.readyContextActual();
     if (contextName === this.currentContext || !contextName) return;
@@ -1616,12 +1609,12 @@ class AskQuestion extends BasicOperation {
     }
   }
 
-  triggerPerform(contextName) {
+  triggerPerform(contextName) { // main part
     this.currentContext = contextName;
     this.triggerPerformActual(contextName);
   }
 
-  triggerPerformActual(contextName) {
+  triggerPerformActual(contextName) { // main part
     const askQuestoinContainer = document.getElementById('askQuestion');
     if (askQuestoinContainer) {
       if (!contextName) {
@@ -1657,7 +1650,7 @@ class AskQuestion extends BasicOperation {
     this.bookmarkUi.afterChangeContext(contextName);
   }
 
-  async authenticate(config) {
+  async authenticate(config) { // main part
     firebase.initializeApp(config);
     if (!this.db) this.db = firebase.firestore();
     this.setDbCollection();
@@ -1681,7 +1674,7 @@ class AskQuestion extends BasicOperation {
     return false;
   }
 
-  setDbCollection() {
+  setDbCollection() { // main part
     if (virtualclass.isPlayMode) {
       this.collection = `${wbUser.lkey}_${wbUser.session}_${wbUser.room}`;
       this.collectionMark = `${this.collection}_${virtualclass.gObj.orginalUserId}`;
@@ -1691,7 +1684,7 @@ class AskQuestion extends BasicOperation {
     }
   }
 
-  buildAllMarksStatus(data) {
+  buildAllMarksStatus(data) { // main part
     if (!this.allMarks[data.context]) {
       this.allMarks[data.context] = {};
     }
@@ -1716,7 +1709,7 @@ class AskQuestion extends BasicOperation {
     }
   }
 
-  attachHandlerForRealTimeUpdate() {
+  attachHandlerForRealTimeUpdate() { // main part
     console.log('===> Attach Real time update ');
     this.db.collection(this.collection).orderBy('timestamp', 'asc')
       .onSnapshot((querySnapshot) => {
@@ -1745,7 +1738,7 @@ class AskQuestion extends BasicOperation {
       });
   }
 
-  afterSignIn() {
+  afterSignIn() { // main part
     console.log('====> after sign in');
     if (this.collection) this.attachHandlerForRealTimeUpdate();
     if (virtualclass.isPlayMode) {
@@ -1755,7 +1748,7 @@ class AskQuestion extends BasicOperation {
     // if (this.collectionMark) this.loadInitialDataMark();
   }
 
-  loadInitialDataMark() {
+  loadInitialDataMark() { // part of note and book mark
     if (!this.collectionMark) return;
     if (this.initCollectionMark) return;
     console.log('===> trigger note initial data');
@@ -1792,7 +1785,7 @@ class AskQuestion extends BasicOperation {
     // todo, this has to be enable in production
   }
 
-  async triggerInitFirebaseOperation(from) {
+  async triggerInitFirebaseOperation(from) { // main part
     await this.initFirebaseOperatoin();
     if (this.initFirebase) { this.loadInitialDataMark(); }
     if (from === 'note') {
@@ -1808,7 +1801,7 @@ class AskQuestion extends BasicOperation {
     }
   }
 
-  renderMainContainer(elem) {
+  renderMainContainer(elem) { // main part
     virtualclass.rightbar.handleDisplayRightBar('#askQuestion');
     virtualclass.rightbar.handleDisplayBottomRightBar(elem);
     if (this.queue.question[this.currentContext] && this.queue.question[this.currentContext].length > 0) {
@@ -1816,11 +1809,11 @@ class AskQuestion extends BasicOperation {
     }
   }
 
-  getCurrentQuestions() {
+  getCurrentQuestions() { // main part
     return this.context[virtualclass.askQuestion.currentContext].question;
   }
 
-  triggerPause() {
+  triggerPause() { // main part
     if (virtualclass.isPlayMode && virtualclass.recorder.playStart && !virtualclass.recorder.controller.pause) {
       virtualclass.recorder.initRecPause();
     }

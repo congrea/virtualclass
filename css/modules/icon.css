@@ -841,7 +841,7 @@
   font-family: 'icomoon';
   font-size: 13px;
   cursor: pointer;
-  color: #004ee0;
+  color: #0170e1;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .answer[data-mark-answer="marked"] .header .info .acceptedAnswer::before {
@@ -857,11 +857,9 @@
   content: "\e9e0";
   font-weight: 500;
   font-family: 'icomoon';
-
-  /* font-size: 1.15625rem; */
   font-size: 1.1875rem;
   cursor: pointer;
-  color: #000 !important;
+  color: #0c0c0c;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply span.button::before,
@@ -872,7 +870,7 @@
   font-family: 'icomoon';
   font-size: 0.875rem;
   cursor: pointer;
-  color: #4e4e4e !important;
+  color: #525252;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .navigation span.button::before {
@@ -880,16 +878,16 @@
   font-family: 'icomoon';
   font-size: 0.8125rem;
   cursor: pointer;
-  color: #4e4e4e !important;
+  color: #252525;
 }
 
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .navigation span.button::before {
-  content: "\e9f4";
+  content: "\e9fd";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   cursor: pointer;
-  color: #383838 !important;
+  color: #252525;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls::before {

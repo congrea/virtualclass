@@ -456,6 +456,7 @@
                 method: 'setState',
                 args: [receivemsg.pptMsg.state],
               }), '*');
+
             }
             virtualclass.userInteractivity.makeReadyContext();
           };
@@ -515,6 +516,7 @@
                     method: 'setState',
                     args: [receivemsg.pptMsg.state],
                   }), '*');
+                  virtualclass.userInteractivity.makeReadyContext();
                 }
               }
             };

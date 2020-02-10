@@ -861,3 +861,11 @@
 #virtualclassCont #askQuestion.tempDown #writeContent {
   pointer-events: visible;
 }
+
+@media only screen and (min-device-width: 340px) and (max-device-width: 950px) {
+  #virtualclassCont.congrea #bookmark .bookmarks .icon-bookmark {
+    padding: 0.59375rem 1.0938rem 0.71875rem 1.0938rem;
+    line-height: 1.3125rem;
+    font-size: 1.25rem;
+  }
+}

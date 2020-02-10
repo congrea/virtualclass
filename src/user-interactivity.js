@@ -37,7 +37,8 @@ class UserInteractivityBasicOperation {
     let editContent;
     if (ev.target.id === 'userInteractivity-content') return;
     if (ev.target.dataset.event == 'save')  {
-      editContent = document.getElementById('userInteractivity-content').value;
+      const userInput = document.getElementById('userInteractivity-content');
+      if (userInput) { editContent = userInput.value; }
     }
     const writeTemp = document.querySelector('#writeContent .cancel');
     if (writeTemp && ev.target.id !== 'userInteractivity-content') {
@@ -689,7 +690,8 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     const activeTab = this.getActiveTab();
     if (activeTab !== 'question') {
       if (this.queue.question[contextName] && this.queue.question[contextName].length > 0) {
-        this.questionAnswer.addHighLight();
+        // this.questionAnswer.addHighLight();
+        this.questionAnswer.addHighLightNewActual();
       } else {
         this.questionAnswer.removeHighlight();
       }

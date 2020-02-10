@@ -30,9 +30,10 @@ class Rightbar {
 
   handleDisplayRightBar(selector){
     console.log('====> selector', selector);
-    const activeElement = document.querySelector('#rightSubContainer .rightContainer.active');
-    if (activeElement) activeElement.classList.remove('active');
-
+    const activeElement = document.querySelectorAll('#rightSubContainer .rightContainer.active');
+    for (let i = 0; i < activeElement.length; i++) {
+      if (activeElement[i]) activeElement[i].classList.remove('active');
+    }
     // const element = document.querySelector('#virtualclassCont.congrea #askQuestion');
     const element = document.querySelector(selector);
     if (element) element.classList.add('active');

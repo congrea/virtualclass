@@ -92,6 +92,54 @@
       }
       return errorCont.id;
     },
+
+    createAskQuestionMsg(msg, contId, addBefore, attribute) {
+      const cpuNotCompatible = document.querySelector('#msgContainer');
+      if (cpuNotCompatible !== null) { // HIGH PRIORITY ERROR
+        return;
+      }
+      let classes = 'askQuestionMsg';
+      let cont = document.getElementById(contId);
+      if (cont == null) {
+        cont = document.createElement('div');
+        cont.id = contId;
+        cont.innerHTML = `<span className="${classes}">${msg}</span>`;
+      } else {
+        if (attribute != null) {
+          if (Object.prototype.hasOwnProperty.call(attribute, 'className')) {
+            const elem = document.querySelector(`#${contId}.${attribute.className}`);
+            if (elem != null) {
+              elem.parentNode.removeChild(elem);
+            }
+            classes += ` ${attribute.className}`;
+          }
+        }
+        const spanMsg = `<span className="${classes}">${msg}</span>`;
+
+        cont.innerHTML = spanMsg;
+      }
+
+      const msgId = 'closeAskQuestionMsg';
+      let closebutton = document.querySelector(`#${msgId}`);
+
+      if (closebutton == null) {
+        closebutton = document.createElement('span');
+        closebutton.id = 'closeAskQuestionMsg';
+        closebutton.innerHTML = 'X';
+        cont.appendChild(closebutton);
+      }
+
+      closebutton.onclick = function () {
+        const parentelem = document.querySelector(`#${contId}`);
+        parentelem.parentNode.removeChild(parentelem);
+      };
+
+      const addBeforeElem = document.querySelector(`.${addBefore}`);
+      if (addBeforeElem !== null) {
+        addBeforeElem.parentNode.insertBefore(cont, addBeforeElem);
+      }
+      return cont.id;
+    },
     /**
      * Removes the error message
      * @param  id of the error container

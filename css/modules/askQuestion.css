@@ -813,41 +813,37 @@
   background: #53a83f !important;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #errorContainer {
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer {
   background-color: #fff;
-  box-shadow: #d2d2d2 0 3px 8px;
-  padding: 1.125rem;
-  border-radius: 5px;
+  box-shadow: #b5b5b5 0 3px 8px;
+  padding: 0.5rem 0.125rem 0.5rem 0.625rem;
+  border-radius: 0.3125rem;
   text-align: center;
   z-index: 1105;
   width: fit-content;
   color: #9c9c9c;
   border: 0.5px solid #e69024;
   position: absolute;
-  animation: myfirst 3s;
-  bottom: 58px;
-  left: unset;
+  animation: myfirst 1s;
+  bottom: 3.625rem;
   right: 0;
-  transform: translate(0%);
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #errorContainer [classname="error"] {
-  font-size: 13px;
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer [classname="askQuestionMsg"] {
+  font-size: 0.75rem;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #errorContainer #closeMsg {
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer #closeAskQuestionMsg {
   background-color: unset;
-  color: #797979;
-  font-size: 1.125rem;
+  color: #505050;
+  font-size: 0.75rem;
   padding: 0.3125rem 0.4375rem;
-  top: 0;
-  right: 1px;
-  line-height: 0.875rem;
+  cursor: pointer;
 }
 
 @keyframes myfirst {
-  0% { left: 100%; right: 0; bottom: 58px; }
-  100% { right: 50%; left: 0; bottom: 58px; }
+  0% { right: -65%; bottom: 3.625rem; }
+  100% { right: 0; bottom: 3.625rem; }
 }
 
 #virtualclassCont #askQuestion .container .content p {

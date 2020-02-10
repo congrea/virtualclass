@@ -1039,11 +1039,11 @@
   transform: translateX(11px);
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #errorContainer [classname="error"]::before {
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer::before {
   content: "\e997";
   font-weight: normal;
   font-family: 'icomoon';
-  font-size: 1rem;
+  font-size: 0.9375rem;
   color: #ffae48;
   margin-right: 0.4375rem;
 }

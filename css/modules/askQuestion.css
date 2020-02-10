@@ -810,3 +810,7 @@
   0% { left: 100%; right: 0; bottom: 58px; }
   100% { right: 50%; left: 0; bottom: 58px; }
 }
+
+#virtualclassCont #askQuestion .container .content p {
+  white-space: pre-line;
+}

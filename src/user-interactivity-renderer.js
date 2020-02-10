@@ -182,10 +182,7 @@ class UserInteractivityRenderer { // Main Part
   }
 
   bookmark(data) { // book mark
-    const bookmark = document.querySelector(`#bookmark .bookmarks[data-context~=${data.context}]`);
-    if (bookmark) {
-      bookmark.dataset.value = data.content;
-    }
+    virtualclass.userInteractivity.bookmark.updateOnPageRefresh(data);
   }
 
   removeWriteContainer() { // main part

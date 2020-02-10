@@ -38,4 +38,17 @@ class Bookmark { // Part of bookmark
   attachHandler() {
     document.getElementById('bookmark').addEventListener('click', this.bookMarkHandler);
   }
+
+  updateOnPageRefresh(data) {
+    const bookmark = document.querySelector(`#bookmark .bookmarks[data-context~=${data.context}]`);
+    if (bookmark) {
+      let toolTip = bookmark.querySelector('.congtooltip');
+      bookmark.dataset.value = data.content;
+      if (data.content === 1) {
+        toolTip.dataset.title = virtualclass.lang.getString('removeContext');
+      } else {
+        toolTip.dataset.title = virtualclass.lang.getString('addContext');
+      }
+    }
+  }
 }

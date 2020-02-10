@@ -31,14 +31,14 @@ class UserInteractivityEvents { // main Part
       if (!virtualclass.vutil.checkUserRole()) {
         if (time > 30 || virtualclass.userInteractivity.context[virtualclass.userInteractivity.currentContext][data.component][data.componentId].children.length > 0
           || virtualclass.userInteractivity.context[virtualclass.userInteractivity.currentContext][data.component][data.componentId].upvote > 0) {
-          if (time > 30) {
-            virtualclass.view.createErrorMsg(virtualclass.lang.getString('askQuestionTimeExceed'), 'errorContainer', 'videoHostContainer');
-            const moreElem = document.querySelector(`#${data.componentId}`);
-            if (moreElem) {
-              moreElem.classList.remove('editable');
-              moreElem.classList.add('noneditable');
-            }
+          // if (time > 30) { TODO check condition on time
+          virtualclass.view.createAskQuestionMsg(virtualclass.lang.getString('askQuestionTimeExceed'), 'msgContainer', 'loading');
+          const moreElem = document.querySelector(`#${data.componentId}`);
+          if (moreElem) {
+            moreElem.classList.remove('editable');
+            moreElem.classList.add('noneditable');
           }
+          // }
           return;
         }
       }
@@ -80,8 +80,8 @@ class UserInteractivityEvents { // main Part
       if (!virtualclass.vutil.checkUserRole()) {
         if (time > 30 || virtualclass.userInteractivity.context[virtualclass.userInteractivity.currentContext][data.component][data.componentId].children.length > 0
           || virtualclass.userInteractivity.context[virtualclass.userInteractivity.currentContext][data.component][data.componentId].upvote > 0) {
-          // if (time > 30) {
-          virtualclass.view.createErrorMsg(virtualclass.lang.getString('askQuestionTimeExceed'), 'errorContainer', 'videoHostContainer');
+          // if (time > 30) { TODO check condition on time
+          virtualclass.view.createAskQuestionMsg(virtualclass.lang.getString('askQuestionTimeExceed'), 'msgContainer', 'loading');
           const moreElem = document.querySelector(`#${data.componentId}`);
           if (moreElem) {
             moreElem.classList.remove('editable');

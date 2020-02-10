@@ -210,8 +210,9 @@ class UserInteractivityEvents { // main Part
     }
   }
 
-  async trggerSend(obj) {
+  async trggerSend(obj) { // TODO improve handle without setTimeout
     await virtualclass.userInteractivity.send(obj);
+
     if (virtualclass.vutil.checkUserRole() && obj.component === 'answer') {
       const dataMark = {
         event: 'markAnswer',
@@ -223,7 +224,9 @@ class UserInteractivityEvents { // main Part
       }
       // this.execute(dataMark);
       obj.action = 'markAnswer';
-      virtualclass.userInteractivity.event.execute(dataMark);
+      setTimeout(() => {
+        virtualclass.userInteractivity.event.execute(dataMark);
+      }, 1000);
     }
   }
 

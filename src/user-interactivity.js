@@ -459,6 +459,7 @@ class UserInteractivityBasicOperation {
   }
 
   markAnswer(data) { // question part
+    const commentElem = document.querySelector(`#${data.parent} .comments`);
     const parent = document.querySelector(`#askQuestion #${data.parent} .answers .answer[data-mark-answer="marked"]`);
     const markParentElem = document.querySelector(`#${data.parent}`);
     const markedAnswer = document.querySelector(`#askQuestion #${data.parent} .answers`);
@@ -466,9 +467,6 @@ class UserInteractivityBasicOperation {
     const checkElemDataset = document.querySelector(`#askQuestion #${data.parent} .answers #${data.componentId}`);
     if (parent && markParentElem.dataset.markAnswer) {
       if (parent && checkElemDataset && checkElemDataset.dataset.markAnswer !== 'marked') {
-        if (virtualclass.vutil.checkUserRole()) {
-          // virtualclass.view.createErrorMsg(virtualclass.lang.getString('markAnswerUnmark'), 'errorContainer', 'videoHostContainer');
-        }
         return;
       }
       delete parent.dataset.markAnswer;
@@ -497,6 +495,12 @@ class UserInteractivityBasicOperation {
       if (markedAnswer.classList.contains('open')) {
         markedAnswer.classList.remove('open');
         markedAnswer.classList.add('close');
+      }
+      if (commentElem) {
+        if (commentElem.classList.contains('open')) {
+          commentElem.classList.remove('open');
+          commentElem.classList.add('close');
+        }
       }
       markedAnswer.insertBefore(markElem, markedAnswer.firstChild);
       if (!virtualclass.vutil.checkUserRole()) {

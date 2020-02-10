@@ -141,6 +141,7 @@ class UserInteractivityRenderer { // Main Part
       }
     }
     virtualclass.userInteractivity.questionAnswer.displayMore(data);
+    document.querySelector(`#${data.componentId}`).scrollIntoView();
     if (+(data.userId) === +(virtualclass.gObj.orginalUserId)) {
       if (data.component === 'note') {
         this.renderNote(data.context);

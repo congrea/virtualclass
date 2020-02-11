@@ -9,6 +9,7 @@ class Note { // Part of Note
     this.queue = [null];
     this.current = 0;
     this.attachImmediateHandler = false;
+    this.attachFocusHandler = {};
   }
 
   handleQueue(context) {
@@ -133,9 +134,12 @@ class Note { // Part of Note
     contextDivElement.classList.add('active');
 
     const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
-    textArea.addEventListener('input', this.noteHandler.bind(this));
-    textArea.addEventListener('focus', virtualclass.vutil.inputFocusHandler.bind(this));
-    textArea.addEventListener('focusout', virtualclass.vutil.inputFocusOutHandler.bind(this));
+    if (!this.attachFocusHandler[currentContext]) {
+      textArea.addEventListener('input', this.noteHandler.bind(this));
+      textArea.addEventListener('focus', virtualclass.vutil.inputFocusHandler.bind(this));
+      textArea.addEventListener('focusout', virtualclass.vutil.inputFocusOutHandler.bind(this));
+      this.attachFocusHandler[currentContext] = true;
+    }
 
     const noteNavigationContainer = document.getElementById('noteNavigationContainer');
     if (!virtualclass.userInteractivity.note.attachImmediateHandler) {

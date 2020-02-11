@@ -243,6 +243,13 @@ class UserInteractivityEvents { // main Part
   }
 
   markAnswer(data) {
+    const markedAnsElem = document.querySelector(`#askQuestion #${data.parentId} .answers .answer[data-mark-answer="marked"]`);
+    const checkElemUnmark = document.querySelector(`#askQuestion #${data.parentId} .answers .moreControls .mark`);
+    if (markedAnsElem && checkElemUnmark && checkElemUnmark.innerHTML === 'Unmark'
+      && checkElemUnmark.parentNode.dataset.componentId !== data.componentId) {
+      virtualclass.view.createAskQuestionMsg(virtualclass.lang.getString('markAnswerUnmark'), 'msgContainer', 'loading');
+      return;
+    }
     const obj = virtualclass.userInteractivity.generateData({
       component: data.component,
       action: data.event,

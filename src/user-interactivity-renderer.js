@@ -83,14 +83,9 @@ class UserInteractivityRenderer { // Main Part
           && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
           // console.log('In the viewport!'); TODO
         } else {
-
-          document.querySelector(`#${data.parent}`).scrollIntoView();
-          // todo, need to handle in proper way
-          if (virtualclass.system.device === 'mobTab') {
-            const askQuestion = document.getElementById('askQuestion');
-            if (askQuestion) {
-              askQuestion.classList.add('tempDown');
-            }
+          // Todo, need to handle in mobile also
+          if (virtualclass.system.device !== 'mobTab') {
+            document.querySelector(`#${data.parent}`).scrollIntoView();
           }
         }
       }

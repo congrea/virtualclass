@@ -2418,7 +2418,7 @@
       if (virtualclass.system.device === 'mobTab') {
         console.log('====> focus input');
         document.getElementById('virtualclassCont').classList.remove('focusInput');
-        const askQuestion = virtualclass.getElementById('askQuestion');
+        const askQuestion = document.getElementById('askQuestion');
         if (askQuestion) {
           askQuestion.classList.remove('tempDown');
         }

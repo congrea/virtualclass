@@ -2402,6 +2402,7 @@
 
     // text area focus input element
     inputFocusHandler(searchUser) {
+      return;
       if (searchUser && typeof searchUser !== 'string') {
         if (virtualclass.isPlayMode) virtualclass.userInteractivity.triggerPause();
       }
@@ -2415,6 +2416,7 @@
     },
 
     inputFocusOutHandler() {
+      return;
       if (virtualclass.system.device === 'mobTab') {
         console.log('====> focus input');
         document.getElementById('virtualclassCont').classList.remove('focusInput');

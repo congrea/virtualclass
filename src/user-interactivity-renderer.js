@@ -43,6 +43,10 @@ class UserInteractivityRenderer { // Main Part
         virtualclass.userInteractivity.triggerInitFirebaseOperation('note');
         virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
         virtualclass.userInteractivity.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.userInteractivity.currentContext });
+        const positionNote = virtualclass.userInteractivity.note.queue.indexOf(virtualclass.userInteractivity.currentContext).indexOf;
+        if (positionNote >= 0) {
+          virtualclass.userInteractivity.note.current = virtualclass.userInteractivity.note.queue.indexOf(virtualclass.userInteractivity.currentContext);
+        }
         virtualclass.userInteractivity.note.updateNavigateNumbers(virtualclass.userInteractivity.currentContext);
       });
     }

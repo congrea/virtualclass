@@ -83,12 +83,14 @@ class UserInteractivityRenderer { // Main Part
           && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
           // console.log('In the viewport!'); TODO
         } else {
-          if (bounding.top < 100) {
-            document.querySelector(`#${data.parent}`).scrollIntoView();
-          } else {
-            virtualclass.userInteractivity.rendererObj.scrollToBottom();
-            // document.querySelector(`#${data.parent}`).scrollIntoView();
-            // By doing above statement, there a is problem on mobile browser
+
+          document.querySelector(`#${data.parent}`).scrollIntoView();
+          // todo, need to handle in proper way
+          if (virtualclass.system.device === 'mobTab') {
+            const askQuestion = virtualclass.getElementById('askQuestion');
+            if (askQuestion) {
+              askQuestion.classList.add('tempDown');
+            }
           }
         }
       }

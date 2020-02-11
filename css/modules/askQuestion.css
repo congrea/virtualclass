@@ -455,7 +455,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .question #writeContent .action .cancel:hover {
-  
+
 }
 
 #virtualclassCont.congrea #askQuestion .container .question #writeContent .action span.save:hover {
@@ -852,4 +852,12 @@
 
 #virtualclassCont #askQuestion .container .content p {
   white-space: pre-line;
+}
+
+#virtualclassCont #askQuestion.tempDown {
+  pointer-events: none;
+}
+
+#virtualclassCont #askQuestion.tempDown #writeContent {
+  pointer-events: visible;
 }

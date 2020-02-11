@@ -79,18 +79,19 @@ class UserInteractivityRenderer { // Main Part
       } else {
         document.querySelector(`${insertId} .${data.component}s`).insertAdjacentHTML('beforebegin', userInputTemplate);
         const bounding = document.querySelector(`#${data.parent}`).getBoundingClientRect();
+        const askQuestion = document.getElementById('askQuestion');
         if (bounding.top >= 0 && bounding.left >= 0 && bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
           && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
           // console.log('In the viewport!'); TODO
+          askQuestion.classList.remove('tempDown');
         } else {
-          document.querySelector(`#${data.parent}`).scrollIntoView();
-          // todo, need to handle in proper way
           if (virtualclass.system.device !== 'mobTab') {
-            const askQuestion = document.getElementById('askQuestion');
             if (askQuestion) {
               askQuestion.classList.add('tempDown');
             }
           }
+          document.querySelector(`#${data.parent}`).scrollIntoView();
+          // todo, need to handle in proper way
         }
       }
     }

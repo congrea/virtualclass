@@ -11,11 +11,11 @@ class UserInteractivityRenderer { // Main Part
       const qtemp = qaTemp(context);
       document.querySelector('#rightSubContainer').insertAdjacentHTML('beforeend', qtemp);
       if (!virtualclass.vutil.checkUserRole()) {
-        virtualclass.settings.answer(virtualclass.settings.info.answer);
-        virtualclass.settings.comment(virtualclass.settings.info.comment);
-        virtualclass.settings.upvote(virtualclass.settings.info.upvote);
+        virtualclass.settings.qaAnswer(virtualclass.settings.info.qaAnswer);
+        virtualclass.settings.qaComment(virtualclass.settings.info.qaComment);
+        virtualclass.settings.qaUpvote(virtualclass.settings.info.qaUpvote);
         virtualclass.settings.askQuestion(virtualclass.settings.info.askQuestion);
-        virtualclass.settings.markNotes(virtualclass.settings.info.markNotes);
+        virtualclass.settings.qaMarkNotes(virtualclass.settings.info.qaMarkNotes);
       }
 
       toggle.addEventListener('click', (elem) => {

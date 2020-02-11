@@ -32,10 +32,10 @@
       localSettings[12] = +s.showAttendeeRecordingStatus;
       localSettings[13] = +s.trimRecordings;
       localSettings[14] = +s.attendeerecording;
-      localSettings[15] = +s.markNotes;
-      localSettings[16] = +s.answer;
-      localSettings[17] = +s.comment;
-      localSettings[18] = +s.upvote;
+      localSettings[15] = +s.qaMarkNotes;
+      localSettings[16] = +s.qaAnswer;
+      localSettings[17] = +s.qaComment;
+      localSettings[18] = +s.qaUpvote;
       localSettings[19] = +s.upcomingSetting;
       return virtualclass.settings.binaryToHex(localSettings.join(''));
     },
@@ -61,10 +61,10 @@
       parsedSettings.showAttendeeRecordingStatus = !!+localSettings[12];
       parsedSettings.trimRecordings = !!+localSettings[13];
       parsedSettings.attendeerecording = !!+localSettings[14];
-      parsedSettings.markNotes = !!+localSettings[15];
-      parsedSettings.answer = !!+localSettings[16];
-      parsedSettings.comment = !!+localSettings[17];
-      parsedSettings.upvote = !!+localSettings[18];
+      parsedSettings.qaMarkNotes = !!+localSettings[15];
+      parsedSettings.qaAnswer = !!+localSettings[16];
+      parsedSettings.qaComment = !!+localSettings[17];
+      parsedSettings.qaUpvote = !!+localSettings[18];
       parsedSettings.upcomingSetting = !!+localSettings[19];
       return parsedSettings;
     },
@@ -357,7 +357,7 @@
       virtualclass.settings.recordingSettings(obj);
     },
 
-    markNotes(value) {
+    qaMarkNotes(value) {
       // TODO handle on default settings
       if (roles.isStudent()) {
         const notesElem = document.querySelector('#virtualclassnote');
@@ -376,7 +376,7 @@
       }
     },
 
-    answer(value) {
+    qaAnswer(value) {
       const controlsElem = document.querySelector('#askQuestion');
       if (controlsElem) {
         if (value === true) {
@@ -387,7 +387,7 @@
       }
     },
 
-    comment(value) {
+    qaComment(value) {
       const controlsElem = document.querySelector('#askQuestion');
       if (controlsElem) {
         if (value === true) {
@@ -398,7 +398,7 @@
       }
     },
 
-    upvote(value) {
+    qaUpvote(value) {
       const controlsElem = document.querySelector('#askQuestion');
       if (controlsElem) {
         if (value === true) {

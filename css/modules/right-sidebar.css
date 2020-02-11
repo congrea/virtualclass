@@ -378,7 +378,7 @@ body {
   color: #464646;
 }
 
-#virtualclassCont #appSettingDetail .disable #usersMarkNotesSwitch::before {
+#virtualclassCont #appSettingDetail .disable #usersQaMarkNotesSwitch::before {
   content: "\e9fe";
   font-weight: 400;
   font-size: 1rem;
@@ -387,7 +387,7 @@ body {
   color: #1d1d1d;
 }
 
-#virtualclassCont #appSettingDetail .enable #usersMarkNotesSwitch::before {
+#virtualclassCont #appSettingDetail .enable #usersQaMarkNotesSwitch::before {
   content: "\e9fe";
   font-weight: normal;
   font-size: 1rem;

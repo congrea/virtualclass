@@ -898,6 +898,13 @@
   color: #3e3e3e;
 }
 
+#virtualclassCont.congrea #askQuestion .container .footer .controls .reply:hover span.button::before,
+#virtualclassCont.congrea #askQuestion .container .footer .controls .navigation:hover span.button::before,
+#virtualclassCont.congrea #askQuestion .container .footer .controls .navigation:hover span.total,
+#virtualclassCont.congrea #askQuestion .container .footer .controls .upVote:hover span.total,
+#virtualclassCont.congrea #askQuestion .container .footer .controls .upVote:hover span.button::before {
+  color: #000;
+}
 #virtualclassCont.congrea #askQuestion .answer .footer .moreControls .item .marked::before {
   content: "\e996";
   font-weight: normal;

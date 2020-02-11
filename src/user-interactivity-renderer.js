@@ -30,7 +30,10 @@ class UserInteractivityRenderer { // Main Part
       const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
       if (addQuestion) {
         addQuestion.addEventListener('click', () => {
-          virtualclass.userInteractivity.engine.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.userInteractivity.currentContext });
+          const writeContent = document.getElementById('writeContent');
+          if (!writeContent) {
+            virtualclass.userInteractivity.engine.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.userInteractivity.currentContext });
+          }
         });
       }
 

@@ -87,7 +87,7 @@ class UserInteractivityRenderer { // Main Part
           document.querySelector(`#${data.parent}`).scrollIntoView();
           // todo, need to handle in proper way
           if (virtualclass.system.device === 'mobTab') {
-            const askQuestion = virtualclass.getElementById('askQuestion');
+            const askQuestion = document.getElementById('askQuestion');
             if (askQuestion) {
               askQuestion.classList.add('tempDown');
             }
@@ -118,7 +118,7 @@ class UserInteractivityRenderer { // Main Part
     if (data.component === 'question') {
       const chkContextElem = document.querySelector(`#askQuestion .context[data-context~=${data.context}]`);
       if ('question' && chkContextElem) {
-        const componentTemplate = document.getTemplate(data.component, 'askQuestion');
+        const componentTemplate = virtualclass.getTemplate(data.component, 'askQuestion');
         const htmlContent = componentTemplate({ id: data.id, userName: data.uname, content: text.content, morecontent: text.moreContent });
         document.querySelector(`#askQuestion [data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', htmlContent);
       } else {

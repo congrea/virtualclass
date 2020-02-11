@@ -2402,23 +2402,19 @@
 
     // text area focus input element
     inputFocusHandler(searchUser) {
-      return;
+      console.log('====> focus input');
       if (searchUser && typeof searchUser !== 'string') {
         if (virtualclass.isPlayMode) virtualclass.userInteractivity.triggerPause();
       }
 
       if (virtualclass.system.device === 'mobTab') {
-        console.log('====> focus input');
         document.getElementById('virtualclassCont').classList.add('focusInput');
       }
-
-
     },
 
     inputFocusOutHandler() {
-      return;
+      console.log('====> focus output');
       if (virtualclass.system.device === 'mobTab') {
-        console.log('====> focus input');
         document.getElementById('virtualclassCont').classList.remove('focusInput');
         const askQuestion = document.getElementById('askQuestion');
         if (askQuestion) {

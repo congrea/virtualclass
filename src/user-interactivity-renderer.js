@@ -79,19 +79,12 @@ class UserInteractivityRenderer { // Main Part
       } else {
         document.querySelector(`${insertId} .${data.component}s`).insertAdjacentHTML('beforebegin', userInputTemplate);
         const bounding = document.querySelector(`#${data.parent}`).getBoundingClientRect();
-        const askQuestion = document.getElementById('askQuestion');
         if (bounding.top >= 0 && bounding.left >= 0 && bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
           && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
           // console.log('In the viewport!'); TODO
           // askQuestion.classList.remove('tempDown');
         } else {
-          // if (virtualclass.system.device === 'mobTab') {
-          //   // if (askQuestion) {
-          //   //   askQuestion.classList.add('tempDown');
-          //   // }
-          // }
-          // document.querySelector(`#${data.parent}`).scrollIntoView();
-          // todo, need to handle in proper way
+          document.querySelector(`#${data.parent}`).scrollIntoView();
         }
       }
     }
@@ -104,13 +97,8 @@ class UserInteractivityRenderer { // Main Part
     }
     inputAction.addEventListener('input', virtualclass.userInteractivity.userInputHandler.bind(this, data.component));
     const textArea = document.querySelector('#writeContent .text')
-    textArea.addEventListener('focus', virtualclass.vutil.inputFocusHandler);
-    textArea.addEventListener('focusout', virtualclass.vutil.inputFocusOutHandler);
-  }
-
-  scrollToBottom() {
-    const scrollingElement = (document.querySelector('#askQuestion .container.askContainer'))
-    scrollingElement.scrollTop = scrollingElement.scrollHeight;
+    // textArea.addEventListener('focus', virtualclass.vutil.inputFocusHandler);
+    // textArea.addEventListener('focusout', virtualclass.vutil.inputFocusOutHandler);
   }
 
   contentBox(data) { // Main Part

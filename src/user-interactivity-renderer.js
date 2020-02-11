@@ -80,7 +80,13 @@ class UserInteractivityRenderer { // Main Part
           && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
           // console.log('In the viewport!'); TODO
         } else {
-          document.querySelector(`#${data.parent}`).scrollIntoView();
+          if (bounding.top < 100) {
+            document.querySelector(`#${data.parent}`).scrollIntoView();
+          } else {
+            virtualclass.userInteractivity.rendererObj.scrollToBottom();
+            // document.querySelector(`#${data.parent}`).scrollIntoView();
+            // By doing above statement, there a is problem on mobile browser
+          }
         }
       }
     }
@@ -95,6 +101,11 @@ class UserInteractivityRenderer { // Main Part
     const textArea = document.querySelector('#writeContent .text')
     textArea.addEventListener('focus', virtualclass.vutil.inputFocusHandler);
     textArea.addEventListener('focusout', virtualclass.vutil.inputFocusOutHandler);
+  }
+
+  scrollToBottom() {
+    const scrollingElement = (document.querySelector('#askQuestion .container.askContainer'))
+    scrollingElement.scrollTop = scrollingElement.scrollHeight;
   }
 
   contentBox(data) { // Main Part

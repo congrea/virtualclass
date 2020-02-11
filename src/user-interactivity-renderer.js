@@ -85,7 +85,7 @@ class UserInteractivityRenderer { // Main Part
           // console.log('In the viewport!'); TODO
           askQuestion.classList.remove('tempDown');
         } else {
-          if (virtualclass.system.device !== 'mobTab') {
+          if (virtualclass.system.device === 'mobTab') {
             if (askQuestion) {
               askQuestion.classList.add('tempDown');
             }

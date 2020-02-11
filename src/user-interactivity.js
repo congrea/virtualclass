@@ -94,7 +94,7 @@ class UserInteractivityBasicOperation {
           if (editContent) {
             text = editContent;
           } else {
-            virtualclass.view.createErrorMsg(virtualclass.lang.getString('enterText'), 'errorContainer', 'videoHostContainer');
+            virtualclass.view.createAskQuestionMsg(virtualclass.lang.getString('enterText'), 'msgContainer', 'loading');
             return;
           }
           if (parent.dataset.componentId === null || parent.dataset.componentId === '') {
@@ -107,7 +107,7 @@ class UserInteractivityBasicOperation {
               if (editElem !== 0 && editElem != null) {
                 ({ componentId } = parent.dataset);
                 event = 'cancel';
-                virtualclass.view.createErrorMsg(virtualclass.lang.getString('upvoted'), 'errorContainer', 'videoHostContainer');
+                virtualclass.view.createAskQuestionMsg(virtualclass.lang.getString('upvoted'), 'msgContainer', 'loading');
               }
             }
           }

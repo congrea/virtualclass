@@ -83,13 +83,13 @@ class UserInteractivityRenderer { // Main Part
         if (bounding.top >= 0 && bounding.left >= 0 && bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
           && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
           // console.log('In the viewport!'); TODO
-          askQuestion.classList.remove('tempDown');
+          // askQuestion.classList.remove('tempDown');
         } else {
-          if (virtualclass.system.device === 'mobTab') {
-            if (askQuestion) {
-              askQuestion.classList.add('tempDown');
-            }
-          }
+          // if (virtualclass.system.device === 'mobTab') {
+          //   // if (askQuestion) {
+          //   //   askQuestion.classList.add('tempDown');
+          //   // }
+          // }
           document.querySelector(`#${data.parent}`).scrollIntoView();
           // todo, need to handle in proper way
         }

@@ -2408,9 +2408,8 @@
         if (virtualclass.isPlayMode) virtualclass.userInteractivity.triggerPause();
       }
 
-
       const isFocusElement = document.querySelector('#tabs .ui-state-focus');
-      if (virtualclass.system.device === 'mobTab' && isFocusElement == null) {
+      if (virtualclass.system.device === 'mobTab' && isFocusElement == null && virtualclass.system.mybrowser.name != 'Safari') {
         document.getElementById('virtualclassCont').classList.add('focusInput');
       }
     },

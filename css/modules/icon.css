@@ -853,24 +853,49 @@
   color: #0b9114;
 }
 
-#virtualclassCont.congrea #askQuestion .container .footer .controls .upVote span.button::before {
-  content: "\e9e0";
+#virtualclassCont.congrea #askQuestion .container .question.mySelf .container[data-type="question"] .footer .controls .upVote span.button::before,
+#virtualclassCont.congrea #askQuestion .container .answer.mySelf .container .footer .controls .upVote span.button::before,
+#virtualclassCont.congrea #askQuestion[data-mark-answer="marked"] .container .footer .controls .upVote span.button::before {
+  color: #000;
+  content: "\ea01";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 1.1875rem;
-  cursor: pointer;
-  color: #0c0c0c;
+  font-size: 1.25rem;
+  opacity: .5;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply span.button::before,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .reply span.button::before,
-#virtualclassCont.congrea #askQuestion .container .comment .footer .controls .reply span.button::before {
+#virtualclassCont.congrea #askQuestion .container .question .footer .controls .upVote span.button::before,
+#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .upVote span.button::before,
+#virtualclassCont.congrea #askQuestion .container .comment .footer .controls .upVote span.button::before {
+  content: "\ea01";
+  font-weight: 500;
+  font-family: 'icomoon';
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: #000;
+}
+
+#virtualclassCont.congrea #askQuestion .container .footer .controls .upVote[data-upvote="upvoted"] span.button::before {
+  content: "\ea00";
+  font-weight: 500;
+  font-family: 'icomoon';
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: #2695ff;
+  text-shadow: #0170e1 0 0 2px;
+}
+
+#virtualclassCont.congrea #askQuestion .container .footer .controls .reply span.button::before {
   content: "\e9e5";
   font-weight: 500;
   font-family: 'icomoon';
   font-size: 0.875rem;
   cursor: pointer;
   color: #525252;
+}
+
+#virtualclassCont.congrea #askQuestion .container .footer .controls .reply:hover span.button::before {
+  color: #000;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .navigation span.button::before {

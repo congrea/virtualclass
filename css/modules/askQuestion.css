@@ -1,15 +1,15 @@
 #virtualclassCont.congrea #askQuestion .container .question .content p {
-  font-size: 0.815rem;
-  color: #212121;
+  font-size: .84375rem;
+  color: #3a3a3a;
   line-height: 1rem;
   margin-bottom: -1px;
   -webkit-font-smoothing: antialiased;
-  letter-spacing: .78px;
+  letter-spacing: 1px;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question .content p[data-component="question"] {
+/* #virtualclassCont.congrea #askQuestion .container .question .content p[data-component="question"] {
   color: #212121;
-}
+} */
 
 #virtualclassCont.congrea #askQuestion .container .question .content {
   /* max-height: 50px;
@@ -83,6 +83,17 @@
   padding-top: 0.25rem;
   color: #4e4e4e;
   font-size: 0.75rem;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question.mySelf .container[data-type="question"] .footer .controls .upVote span.total, 
+#virtualclassCont.congrea #askQuestion .container .answer.mySelf .container .footer .controls .upVote span.total,
+#virtualclassCont.congrea #askQuestion[data-mark-answer="marked"] .container .footer .controls .upVote span.total {
+  color: #000;
+  opacity: .5;
+}
+
+#virtualclassCont.congrea #askQuestion .container .footer .controls .upVote[data-upvote="upvoted"] span.total {
+  color: #2695ff;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .moreControls {
@@ -223,13 +234,19 @@
 
 #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"],
 #virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .upVote,
-#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply,
-#virtualclassCont.congrea[data-currapp='Poll'] #virtualclassApp #congAskQuestion,
-#virtualclassCont.congrea[data-currapp='Quiz'] #virtualclassApp #congAskQuestion,
-#virtualclassCont.congrea.student #askQuestion[data-upvote="disable"] .container .footer .controls .upVote {
-  opacity: 0.5 !important;
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply {
   pointer-events: none !important;
 }
+
+#virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .upVote,
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply {
+  opacity: .5;
+}
+
+/* #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"] span.button::before, 
+#virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"] span.total {
+  color: red !important;
+} */
 
 #virtualclassCont.congrea #askQuestion .context .container {
   padding: 0;
@@ -249,7 +266,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .question .container[data-type="question"] {
-  border-left: 2px solid #ff3838;
+  border-left: 2px solid #0170e1;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
@@ -268,7 +285,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .comments .container {
-  border-left: 2px solid #0170e1;
+  border-left: 2px solid #ff5200;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   margin-top: 4px;
@@ -305,7 +322,8 @@
   font-weight: 600;
   text-transform: capitalize;
   font-size: 0.8125rem;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.5px;
+  line-height: 1rem;
 }
 
 /* #virtualclassCont.congrea #askQuestion .question .container[data-type="question"] .header span.userName {
@@ -381,6 +399,14 @@
   display: flex;
   flex-direction: row;
 }
+
+/* #virtualclassCont.congrea #askQuestion .container .footer.show {
+  opacity: .5;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question:hover .footer.show {
+  opacity :1;
+} */
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote .button {
   display: inline-block;
@@ -463,13 +489,6 @@
   color: #000;
 }
 
-<<<<<<< HEAD
-#virtualclassCont.congrea #askQuestion .container .question #writeContent .action .cancel:hover {
-
-}
-
-=======
->>>>>>> design footer's icons on hover
 #virtualclassCont.congrea #askQuestion .container .question #writeContent .action span.save:hover {
   background-color: #4184da;
 }

@@ -41,7 +41,7 @@ class UserInteractivityBasicOperation {
       if (userInput) { editContent = userInput.value; }
     }
     const writeTemp = document.querySelector('#writeContent .cancel');
-    if (writeTemp && ev.target.id !== 'userInteractivity-content') {
+    if (writeTemp && ev.target.id !== 'userInteractivity-content' && editContent !== '') {
       writeTemp.click();
     }
 
@@ -93,7 +93,7 @@ class UserInteractivityBasicOperation {
           //   && parent.previousSibling.value !== '') {
           if (editContent) {
             text = editContent;
-          } else {
+          } else if (editContent != null) {
             virtualclass.view.createAskQuestionMsg(virtualclass.lang.getString('enterText'), 'msgContainer', 'loading');
             return;
           }
@@ -196,6 +196,9 @@ class UserInteractivityBasicOperation {
   delete(data) {
     const elem = document.querySelector(`#${data.componentId}`);
     if (elem) {
+      if (data.component === 'answer') {
+        virtualclass.userInteractivity.navigationHandler(data, 'removeNavigation');
+      }
       elem.remove();
       this.updateStatus(data, 'delete');
     }
@@ -477,6 +480,7 @@ class UserInteractivityBasicOperation {
       }
       if (changeElemName) {
         changeElemName.innerHTML = 'Mark As Answer';
+        this.navigationHandler(data, 'Mark As Answer');
         return;
       } else if (!changeElemName) {
         return;
@@ -502,6 +506,7 @@ class UserInteractivityBasicOperation {
           commentElem.classList.add('close');
         }
       }
+      this.navigationHandler(data, 'Unmark');
       markedAnswer.insertBefore(markElem, markedAnswer.firstChild);
       if (!virtualclass.vutil.checkUserRole()) {
         const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
@@ -515,19 +520,33 @@ class UserInteractivityBasicOperation {
     }
   }
 
+  navigationHandler(data, str) {
+    const allContext = virtualclass.userInteractivity.context;
+    const currContext = virtualclass.userInteractivity.currentContext;
+    const markParentElem = document.querySelector(`#${data.parent}`);
+    const getChildrenLength = allContext[currContext]['question'][data.parent].children.length;
+    if (getChildrenLength === 1) {
+      if (str === 'Mark As Answer' || str === 'removeNavigation') {
+        delete markParentElem.dataset.navigation;
+      } else if (str === 'Unmark') {
+        markParentElem.dataset.navigation = 'disable';
+      }
+    }
+  }
+
   mostUpvotedOnTop(data) { // main part
     let getChildren;
     const arr = [];
-    const context = virtualclass.userInteractivity.context;
-    const currentContext = data.context
+    const allContext = virtualclass.userInteractivity.context;
+    const currentContext = data.context;
     if (data.component === 'answer') {
-      getChildren = context[currentContext]['question'][data.parent].children;
+      getChildren = allContext[currentContext]['question'][data.parent].children;
     }
-    for (const component in context[currentContext][data.component]) {
+    for (const component in allContext[currentContext][data.component]) {
       if (component !== 'events' && component !== 'orderdByUpvoted') {
         const obj = {
           componentId: component,
-          upvote: context[currentContext][data.component][component].upvote,
+          upvote: allContext[currentContext][data.component][component].upvote,
         };
         if (data.component === 'answer') {
           const checkAns = getChildren.indexOf(component);
@@ -541,29 +560,40 @@ class UserInteractivityBasicOperation {
     }
     arr.sort((a, b) => b.upvote - a.upvote);
     if (data.component === 'question') {
-      context[currentContext][data.component].orderdByUpvoted = arr;
+      allContext[currentContext][data.component].orderdByUpvoted = arr;
     } else {
-      if (!context[currentContext][data.component].hasOwnProperty('orderdByUpvoted')) {
-        context[currentContext][data.component].orderdByUpvoted = { };
+      if (!allContext[currentContext][data.component].hasOwnProperty('orderdByUpvoted')) {
+        allContext[currentContext][data.component].orderdByUpvoted = { };
       }
-      context[currentContext][data.component].orderdByUpvoted[data.parent] = arr;
+      allContext[currentContext][data.component].orderdByUpvoted[data.parent] = arr;
     }
+    if (this.executeRearrangement) {
+      this.triggerRearrangeUpvotedElem(data);
+    }
+    // this.triggerRearrangeUpvotedElem(data);
+  }
+
+  triggerRearrangeUpvotedElem(data) {
+    const allContext = virtualclass.userInteractivity.context;
+    const currentContext = data.context
     const container = document.createElement('div');
     container.className = data.component === 'question' ? 'container' : 'answers open';
-    if (data.component === 'question') {
-      for (let i = 0; i < context[currentContext][data.component]['orderdByUpvoted'].length; i++) {
-        container.appendChild(document.querySelector(`#${context[currentContext][data.component]['orderdByUpvoted'][i].componentId}`));
+    if (allContext[currentContext][data.component].orderdByUpvoted) {
+      if (data.component === 'question') {
+        for (let i = 0; i < allContext[currentContext][data.component]['orderdByUpvoted'].length; i++) {
+          container.appendChild(document.querySelector(`#${allContext[currentContext][data.component]['orderdByUpvoted'][i].componentId}`));
+        }
+      } else {
+        const ansObj = allContext[currentContext][data.component].orderdByUpvoted;
+        for (let i = 0; i < ansObj[data.parent].length; i++) {
+          container.appendChild(document.querySelector(`#${ansObj[data.parent][i].componentId}`));
+        }
       }
-    } else {
-      const ansObj = context[currentContext][data.component].orderdByUpvoted;
-      for (let i = 0; i < ansObj[data.parent].length; i++) {
-        container.appendChild(document.querySelector(`#${ansObj[data.parent][i].componentId}`));
-      }
-    }
 
-    const replaceContainer = data.component === 'question' ? '.container' : `#${data.parent} .answers`;
-    const elem = document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`);
-    document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`).parentNode.replaceChild(container, elem);
+      const replaceContainer = data.component === 'question' ? '.container' : `#${data.parent} .answers`;
+      const elem = document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`);
+      document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`).parentNode.replaceChild(container, elem);
+    }
   }
 }
 
@@ -600,6 +630,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     this.attachHandler();
     this.viewAllMode = false;
     this.inputGenerating = false;
+    this.executeRearrangement = true;
   }
 
   attachHandler() { // Main part

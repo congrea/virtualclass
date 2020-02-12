@@ -25,6 +25,8 @@ class UserInteractivityRenderer { // Main Part
         //   toggle.classList.remove('highlight-new-question');
         // }
         virtualclass.userInteractivity.questionAnswer.removeHighlight();
+        virtualclass.userInteractivity.executeRearrangement = false;
+
       });
 
       const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
@@ -142,6 +144,7 @@ class UserInteractivityRenderer { // Main Part
       const ansTemp = qaAnswerTemp(context);
       if (data.component === 'answer') {
         document.querySelector(`#${data.parent} .answers`).insertAdjacentHTML('beforeend', ansTemp);
+        virtualclass.userInteractivity.navigationHandler(data, 'removeNavigation');
       } else if (data.component === 'comment') {
         const comment = document.querySelector(`#${data.parent} .comments`);
         if (comment) { comment.insertAdjacentHTML('beforeend', ansTemp); };
@@ -174,6 +177,9 @@ class UserInteractivityRenderer { // Main Part
         });
       }
     }
+    // if (data.component === 'question' || data.component === 'answer') {
+    //   virtualclass.userInteractivity.triggerRearrangeUpvotedElem(data);
+    // }
   }
   autosize(ev) { // main part
     setTimeout(() => {

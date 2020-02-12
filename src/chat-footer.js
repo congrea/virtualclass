@@ -208,9 +208,9 @@
         searchUser(text);
       });
 
-      // $('#congreaUserSearch').focusin(() => { virtualclass.vutil.inputFocusHandler('searchuser'); });
-      //
-      // $('#congreaUserSearch').focusout(() => { virtualclass.vutil.inputFocusOutHandler();});
+      $('#congreaUserSearch').focusin(() => { virtualclass.vutil.inputFocusHandler('searchuser'); });
+
+      $('#congreaUserSearch').focusout(() => { virtualclass.vutil.inputFocusOutHandler();});
 
       // todo to change this code later
       function searchUser() {

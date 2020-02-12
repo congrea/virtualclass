@@ -85,7 +85,7 @@
   font-size: 0.75rem;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question.mySelf .container[data-type="question"] .footer .controls .upVote span.total, 
+#virtualclassCont.congrea #askQuestion .container .question.mySelf .container[data-type="question"] .footer .controls .upVote span.total,
 #virtualclassCont.congrea #askQuestion .container .answer.mySelf .container .footer .controls .upVote span.total,
 #virtualclassCont.congrea #askQuestion[data-mark-answer="marked"] .container .footer .controls .upVote span.total {
   color: #000;
@@ -243,7 +243,7 @@
   opacity: .5;
 }
 
-/* #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"] span.button::before, 
+/* #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"] span.button::before,
 #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"] span.total {
   color: red !important;
 } */

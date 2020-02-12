@@ -2403,11 +2403,14 @@
     // text area focus input element
     inputFocusHandler(searchUser) {
       console.log('====> focus input');
+
       if (searchUser && typeof searchUser !== 'string') {
         if (virtualclass.isPlayMode) virtualclass.userInteractivity.triggerPause();
       }
 
-      if (virtualclass.system.device === 'mobTab') {
+
+      const isFocusElement = document.querySelector('#tabs .ui-state-focus');
+      if (virtualclass.system.device === 'mobTab' && isFocusElement == null) {
         document.getElementById('virtualclassCont').classList.add('focusInput');
       }
     },
@@ -2416,12 +2419,7 @@
       console.log('====> focus output');
       if (virtualclass.system.device === 'mobTab') {
         document.getElementById('virtualclassCont').classList.remove('focusInput');
-        const askQuestion = document.getElementById('askQuestion');
-        if (askQuestion) {
-          askQuestion.classList.remove('tempDown');
-        }
       }
-
     },
 
     checkUserRole() {
@@ -2431,6 +2429,7 @@
         return (virtualclass.gObj.uRole === 't' || virtualclass.gObj.uRole === 'p');
       }
     },
+
   };
   window.vutil = vutil;
 }(window));

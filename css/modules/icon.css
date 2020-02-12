@@ -842,6 +842,7 @@
   font-size: 13px;
   cursor: pointer;
   color: #0170e1;
+  margin-left: 5px;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .answer[data-mark-answer="marked"] .header .info .acceptedAnswer::before {
@@ -857,11 +858,11 @@
 #virtualclassCont.congrea #askQuestion .container .answer.mySelf .container .footer .controls .upVote span.button::before,
 #virtualclassCont.congrea #askQuestion[data-mark-answer="marked"] .container .footer .controls .upVote span.button::before {
   color: #000;
-  content: "\ea01";
+  content: "\ea00";
   font-weight: 500;
   font-family: 'icomoon';
   font-size: 1.25rem;
-  opacity: .5;
+  opacity: .3;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .upVote span.button::before,
@@ -872,7 +873,7 @@
   font-family: 'icomoon';
   font-size: 1.25rem;
   cursor: pointer;
-  color: #000;
+  color: #6c6c6c;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote[data-upvote="upvoted"] span.button::before {
@@ -882,7 +883,6 @@
   font-size: 1.25rem;
   cursor: pointer;
   color: #2695ff;
-  text-shadow: #0170e1 0 0 2px;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .reply span.button::before {
@@ -891,7 +891,16 @@
   font-family: 'icomoon';
   font-size: 0.875rem;
   cursor: pointer;
-  color: #525252;
+  color: #7b848c;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply span.button::before {
+  content: "\ea04";
+  font-weight: 500;
+  font-family: 'icomoon';
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: #6a6a6a;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .reply:hover span.button::before {
@@ -903,7 +912,7 @@
   font-family: 'icomoon';
   font-size: 0.8125rem;
   cursor: pointer;
-  color: #252525;
+  color: #7b848c;
 }
 
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .navigation span.button::before {
@@ -912,7 +921,7 @@
   font-family: 'icomoon';
   font-size: 0.8125rem;
   cursor: pointer;
-  color: #252525;
+  color: #7b848c;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .moreControls::before {
@@ -928,8 +937,25 @@
 #virtualclassCont.congrea #askQuestion .container .footer .controls .navigation:hover span.total,
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote:hover span.total,
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote:hover span.button::before {
-  color: #000;
+  color: #0170e1;
 }
+
+#virtualclassCont.congrea #askQuestion .answer .container .footer .controls .reply:hover span.button::before,
+#virtualclassCont.congrea #askQuestion .answer .container .footer .controls .navigation:hover span.button::before,
+#virtualclassCont.congrea #askQuestion .answer .container .footer .controls .navigation:hover span.total,
+#virtualclassCont.congrea #askQuestion .answer .container .footer .controls .upVote:hover span.total,
+#virtualclassCont.congrea #askQuestion .answer .container .footer .controls .upVote:hover span.button::before {
+  color: #199d1b;
+}
+
+#virtualclassCont.congrea #askQuestion .comment .container .footer .controls .reply:hover span.button::before,
+#virtualclassCont.congrea #askQuestion .comment .container .footer .controls .navigation:hover span.button::before,
+#virtualclassCont.congrea #askQuestion .comment .container .footer .controls .navigation:hover span.total,
+#virtualclassCont.congrea #askQuestion .comment .container .footer .controls .upVote:hover span.total,
+#virtualclassCont.congrea #askQuestion .comment .container .footer .controls .upVote:hover span.button::before {
+  color: #ff5100;
+}
+
 #virtualclassCont.congrea #askQuestion .answer .footer .moreControls .item .marked::before {
   content: "\e996";
   font-weight: normal;

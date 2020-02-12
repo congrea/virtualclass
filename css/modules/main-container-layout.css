@@ -470,6 +470,37 @@
     margin-top: 0 !important;
   }
 
+  #virtualclassCont.congrea.Safari #bookmark .bookmarks .icon-bookmark {
+    padding: 0.53125rem 1.0938rem 0.78125rem 1.0938rem;
+    line-height: 1.3125rem;
+    font-size: 1.25rem;
+  }
+
+  #virtualclassCont.congrea.Safari .bookmarks[data-value="0"] .icon-bookmark::before {
+    content: "\e9f9";
+    font-size: 1rem;
+  }
+
+  #virtualclassCont.congrea.Safari .bookmarks[data-value="1"] .icon-bookmark::before {
+    content: "\e9f8";
+    font-size: 1rem;
+    color: #30b2ff !important;
+  }
+
+  #virtualclassCont.congrea.Safari #fullScreenButton .fullScreen,
+  #virtualclassCont.congrea.Safari #fullScreenExitButton [data-title="Exit Full Screen"] {
+    padding: 0.75rem 1.125rem 0.75rem 1.125rem;
+    line-height: 1.25rem;
+    font-size: 1rem;
+  }
+
+  #virtualclassCont.congrea.Safari #fullScreenButton span .icon-fullScreen::before {
+    content: "\e99e";
+    font-weight: 600;
+    font-family: 'icomoon';
+    font-size: 0.9375rem;
+  }
+
   html,
   body {
     font-size: 14px;

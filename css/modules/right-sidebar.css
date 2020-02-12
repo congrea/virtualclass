@@ -877,7 +877,7 @@ body {
 #virtualclassCont.congrea #virtualclassnote.congtooltip:hover::after {
   border-radius: 0.25em;
   bottom: 47px;
-  right: 1px;
+  right: 20px;
   left: auto;
   padding: 0.2em 0.42em;
 }

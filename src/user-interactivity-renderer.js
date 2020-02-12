@@ -158,13 +158,13 @@ class UserInteractivityRenderer { // Main Part
       } else if (data.component !== 'comment') {
         document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
       }
-      if (!virtualclass.vutil.checkUserRole()) {
+      // if (!virtualclass.vutil.checkUserRole()) {
         const currentElem = document.querySelector(`#${data.componentId}`);
         if (currentElem) {
           currentElem.classList.add('mySelf');
           currentElem.classList.add('editable');
         }
-      }
+      // }
     }
     if (data.component === 'question') {
       const qnElem = document.querySelector(`#${data.id}.question`);

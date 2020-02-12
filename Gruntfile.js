@@ -14,8 +14,9 @@ module.exports = function (grunt) {
           'css/modules/icon.css', 'css/modules/media.css', 'css/modules/poll.css', 'css/modules/quiz.css', 'css/modules/screenshare.css',
           'css/modules/sharepresentation.css', 'css/modules/video.css', 'css/modules/peervideo.css', 'css/modules/whiteboard.css', 'css/modules/youtube.css',
           'css/modules/black_jquery-ui.css', 'css/modules/progress.css', 'css/modules/pbar.css', 'css/modules/dashboard.css', 'css/modules/dashboard.css',
-          'css/modules/dbPpt.css', 'css/modules/dbVideo.css', 'css/modules/multivideo.css',
-          'css/modules/right-sidebar.css', 'css/modules/network.css', 'css/modules/main-container-layout.css', 'css/modules/color.css', 'css/modules/custom.css', 'css/modules/jquery.ui.chatbox.css'],
+          'css/modules/dbPpt.css', 'css/modules/dbVideo.css', 'css/modules/multivideo.css', 'ask-question.css',
+          'css/modules/right-sidebar.css', 'css/modules/network.css', 'css/modules/main-container-layout.css', 'css/modules/color.css',
+          'css/modules/custom.css', 'css/modules/jquery.ui.chatbox.css', 'css/modules/askQuestion.css'],
 
         dest: 'build/css/modules.min.css',
       },

@@ -1,4 +1,5 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>build/src/audio-g711-and-resampler.min.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>build/src/firebase-7.3.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/screendecode.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/screenworker.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/storage-array-base64-converter.js"></script>
@@ -8,10 +9,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worklet-audio-send.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/worklet-audio-rec.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/webptopng.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/axios.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/wave.js"></script>

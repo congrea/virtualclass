@@ -228,6 +228,12 @@
   display: block;
 }
 
+
+/* #virtualclassCont.congrea.askQuestionFetching #congAskQuestion, */
+
+#virtualclassCont.congrea.connecting #congAskQuestion.askQuestionEnable,
+#virtualclassCont.congrea.connecting #virtualclassnote.notesEnable,
+#virtualclassCont.congrea.connecting #bookmark.bookmarkEnable,
 #virtualclassCont.connecting #congAskQuestion {
   opacity: 0.5;
   pointer-events: none;
@@ -352,7 +358,7 @@
   letter-spacing: .5px;
 }
 
-#virtualclassCont.congrea #askQuestion .answer .container .header .lable, 
+#virtualclassCont.congrea #askQuestion .answer .container .header .lable,
 #virtualclassCont.congrea #askQuestion .comment .container .header .lable {
   display: none;
 }

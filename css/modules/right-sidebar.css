@@ -400,7 +400,7 @@ body {
 #virtualclassCont.congrea #virtualclassnote.notesEnable,
 #virtualclassCont.congrea #bookmark.bookmarkEnable {
   opacity: 1;
-  pointer-events: visible !important;
+  pointer-events: visible;
 }
 
 #virtualclassCont.congrea.student #congAskQuestion.askQuestionDisable,

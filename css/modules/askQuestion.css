@@ -266,7 +266,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .question .container[data-type="question"] {
-  border-left: 2px solid #ff861f;
+  border-left: 2px solid #0170e1;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
@@ -285,7 +285,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .comments .container {
-  border-left: 2px solid #0170e1;
+  border-left: 2px solid #ff5200;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   margin-top: 4px;

@@ -722,35 +722,20 @@
   opacity: 0.3;
 }
 
-#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch {
-  width: 22px;
-  margin-bottom: 0;
-  margin-right: 10px;
-  position: relative;
-}
-
-#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="enable"] .slider,
-#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="disable"] .slider {
-  padding: 0;
-  border-radius: 30px;
-  position: absolute;
+#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch .slider {
+  padding: 0.3125rem 0.5rem;
+  font-size: 0.75rem;
+  border: 0.5px solid #fff;
+  line-height: 1;
+  border-radius: 8px;
+  font-family: inherit;
   cursor: pointer;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  margin: auto;
-  right: 0;
-  transition: 0.3s;
-}
-
-#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="enable"] .slider {
-  background-color: #5d6b76;
-  height: 9px;
+  letter-spacing: 1px;
 }
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="disable"] .slider {
-  background-color: #56b249;
-  height: 9px;
+  box-shadow: 0 2px #757575;
+  font-weight: 700;
 }
 
 #virtualclassCont.congrea #bookmark .bookmarks span.congtooltip:hover::after {
@@ -810,13 +795,14 @@
 }
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch .slider.congtooltip:hover::after {
-  bottom: -47px;
-  right: -18px;
+  bottom: -41px;
+  right: 0;
+  padding: 0.40625rem;
 }
 
-#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="enable"] .slider:hover {
-  background-color: #a7a7a7;
-}
+/* #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch .slider:hover {
+  text-shadow: #fff 0 0 2px;
+} */
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #askQuestionHeader {
   padding: 0;
@@ -879,7 +865,7 @@
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer {
   background-color: #fff;
   box-shadow: #b5b5b5 0 3px 8px;
-  padding: 0.5rem 0.125rem 0.5rem 0.625rem;
+  padding: 0.625rem 0.125rem 0.625rem 0.625rem;
   border-radius: 0.3125rem;
   text-align: center;
   z-index: 1105;
@@ -888,7 +874,8 @@
   border: 0.5px solid #e69024;
   position: absolute;
   animation: myfirst 1s;
-  bottom: 3.625rem;
+  bottom: 4.5rem;
+  letter-spacing: 1.5px;
   right: 0;
 }
 
@@ -899,15 +886,15 @@
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer #closeAskQuestionMsg {
   background-color: unset;
-  color: #505050;
+  color: #000;
   font-size: 0.75rem;
   padding: 0.3125rem 0.4375rem;
   cursor: pointer;
 }
 
 @keyframes myfirst {
-  0% { right: -65%; bottom: 3.625rem; }
-  100% { right: 0; bottom: 3.625rem; }
+  0% { right: -65%; bottom: 4.5rem; }
+  100% { right: 0; bottom: 4.5rem; }
 }
 
 #virtualclassCont #askQuestion .container .content p {
@@ -943,4 +930,10 @@
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote {
   padding: 0.125rem 0.3125rem;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .viewtext {
+  margin-bottom: 0;
+  color: #fff;
+  padding: 0.625rem 0.5rem 0.625rem 0.125rem;
 }

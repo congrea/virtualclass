@@ -877,10 +877,10 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote[data-upvote="upvoted"] span.button::before {
-  content: "\ea00";
+  content: "\ea05";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 1.25rem;
+  font-size: .8125rem;
   cursor: pointer;
   color: #2695ff;
 }

@@ -1,7 +1,7 @@
 #virtualclassCont.congrea #askQuestion .container .question .content p {
   font-size: .84375rem;
   color: #3a3a3a;
-  line-height: 1.3;
+  line-height: 1.2;
   margin-bottom: -1px;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
@@ -15,8 +15,8 @@
   /* max-height: 50px;
   overflow-y: auto;
   overflow-x: hidden; */
-  margin-bottom: 4px;
-  margin-top: 4px;
+  margin-bottom: 0.3125rem;
+  margin-top: 0.3125rem;
   padding-left: 1px;
 }
 
@@ -81,9 +81,10 @@
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .total {
   float: right;
-  padding-top: 0.25rem;
+  padding-top: 0;
   color: #4e4e4e;
   font-size: 0.75rem;
+  margin-left: 4px;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question.mySelf .container[data-type="question"] .footer .controls .upVote span.total,
@@ -245,7 +246,6 @@
   pointer-events: none !important;
 }
 
-#virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .upVote,
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply {
   opacity: .5;
 }
@@ -263,8 +263,7 @@
 
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .header .info .closed-icon,
 #virtualclassCont.congrea #askQuestion .container .question .answer[data-mark-answer="marked"] .header .info .acceptedAnswer {
-  float: right;
-  margin-top: 2px;
+  margin-bottom: -1px;
 }
 
 #virtualclassCont.congrea #askQuestion .question .container {
@@ -273,7 +272,7 @@
 }
 
 #virtualclassCont.congrea #askQuestion .question .container[data-type="question"] {
-  border-left: 2px solid #0170e1;
+  border-left: 2px solid #0146e1;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
@@ -426,13 +425,13 @@
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote .button {
   display: inline-block;
-  padding: 0.125rem 0.125rem 0 0;
+  padding: 0 0;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .navigation .button,
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .navigation .button {
   display: inline-block;
-  padding: 3px 7px 2px 5px;
+  padding: 0;
 }
 
 /* #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply#virtualclassCont.congrea #askQuestion .comments .container {
@@ -446,7 +445,7 @@
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .reply .button {
   display: inline-block;
-  padding: 3px 7px 2px 5px;
+  padding: 0;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .reply:hover,
@@ -551,7 +550,7 @@
 
 #virtualclassCont.congrea #askQuestion .container .comments .footer .controls .navigation .button {
   display: inline-block;
-  padding: 3px 5px 0 1px;
+  padding: 0;
 }
 
 /* #virtualclassCont.congrea #askQuestion .question .container[data-type="question"]::after {
@@ -841,12 +840,11 @@
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .reply {
   line-height: 1rem;
-  margin-left: 5px;
+  padding: 0.125rem 0.3125rem;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .navigation {
-  margin-left: 5px;
-  padding: 0 5px 1px 2px;
+  padding: 0.125rem 0.3125rem;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote.congtooltip:hover::after,
@@ -943,5 +941,5 @@
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote {
-  padding: 0 4px 1px 1px;
+  padding: 0.125rem 0.3125rem;
 }

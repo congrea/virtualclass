@@ -858,20 +858,20 @@
 #virtualclassCont.congrea #askQuestion .container .answer.mySelf .container .footer .controls .upVote span.button::before,
 #virtualclassCont.congrea #askQuestion[data-mark-answer="marked"] .container .footer .controls .upVote span.button::before {
   color: #000;
-  content: "\ea00";
+  content: "\ea05";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 1.25rem;
+  font-size: 0.8125rem;
   opacity: .3;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .upVote span.button::before,
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .upVote span.button::before,
 #virtualclassCont.congrea #askQuestion .container .comment .footer .controls .upVote span.button::before {
-  content: "\ea01";
+  content: "\ea06";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 1.25rem;
+  font-size: 0.8125rem;
   cursor: pointer;
   color: #6c6c6c;
 }

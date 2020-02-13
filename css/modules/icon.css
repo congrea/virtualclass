@@ -197,6 +197,36 @@
   font-size: 1rem;
 }
 
+#virtualclassCont.congrea li.ui-state-highlight #chatroom_icon::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  padding: 5px 5px;
+  border-radius: 50%;
+  background: #28a900;
+  color: white;
+  outline: none;
+  animation-name: notify;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+#virtualclassCont.congrea li.highlight-new-question a.stdAskQuestion #iconAskQuestion::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  padding: 5px 5px;
+  border-radius: 50%;
+  background: #28a900;
+  color: white;
+  outline: none;
+  animation-name: notify;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
 #virtualclassCont.congrea .ui-memblist-usr .icon-assignImg::before {
   content: "\f064";
   color: #535151;

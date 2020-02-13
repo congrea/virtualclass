@@ -4032,6 +4032,10 @@ span#usertab_text {
   display: block;
 }
 
+#virtualclassCont.congrea li.vmchat_room_bt.ui-state-highlight {
+  background: none !important;
+}
+
 #virtualclassCont.congrea.playMode .vceditor-toolbar-wrapper {
   display: inline-block;
   position: relative;
@@ -4920,6 +4924,25 @@ span#usertab_text {
     box-shadow: 0 0 5px 10px rgba(150, 98, 1, 0);
   }
 }
+
+@keyframes notify {
+  0% {
+    box-shadow: 0 0 5px 0 rgba(64, 167, 5, 0.4);
+  }
+
+  65% {
+    box-shadow: 0 0 3px 5px rgba(64, 167, 5, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 3px 5px rgba(64, 167, 5, 0.3);
+  }
+
+  100% {
+    box-shadow: 0 0 3px 5px rgba(64, 167, 5, 0);
+  }
+}
+
 
 #virtualclassCont #virtualclassAppFooterPanel.recordingStatus {
   width: 35px;

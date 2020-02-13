@@ -551,6 +551,7 @@ class UserInteractivityBasicOperation {
         if (data.component === 'answer') {
           const checkAns = getChildren.indexOf(component);
           if (checkAns !== -1) {
+            obj.parent = data.parent;
             arr.push(obj);
           }
         } else if (data.component === 'question') {
@@ -559,21 +560,11 @@ class UserInteractivityBasicOperation {
       }
     }
     arr.sort((a, b) => b.upvote - a.upvote);
-    if (data.component === 'question') {
-      allContext[currentContext][data.component].orderdByUpvoted = arr;
-    } else {
-      if (!allContext[currentContext][data.component].hasOwnProperty('orderdByUpvoted')) {
-        allContext[currentContext][data.component].orderdByUpvoted = { };
-      }
-      allContext[currentContext][data.component].orderdByUpvoted[data.parent] = arr;
-    }
-    if (this.executeRearrangement) {
-      this.triggerRearrangeUpvotedElem(data);
-    }
-    // this.triggerRearrangeUpvotedElem(data);
+    allContext[currentContext][data.component].orderdByUpvoted = arr;
   }
 
   triggerRearrangeUpvotedElem(data) {
+    let parent;
     const allContext = virtualclass.userInteractivity.context;
     const currentContext = data.context
     const container = document.createElement('div');
@@ -585,12 +576,18 @@ class UserInteractivityBasicOperation {
         }
       } else {
         const ansObj = allContext[currentContext][data.component].orderdByUpvoted;
-        for (let i = 0; i < ansObj[data.parent].length; i++) {
-          container.appendChild(document.querySelector(`#${ansObj[data.parent][i].componentId}`));
+        for (let i = 0; i < ansObj.length; i++) {
+          parent = ansObj[i].parent;
+          container.appendChild(document.querySelector(`#${ansObj[i].componentId}`));
         }
+
+        // const ansObj = allContext[currentContext][data.component].orderdByUpvoted;
+        // for (let i = 0; i < ansObj[data.parent].length; i++) {
+        //   container.appendChild(document.querySelector(`#${ansObj[data.parent][i].componentId}`));
+        // }
       }
 
-      const replaceContainer = data.component === 'question' ? '.container' : `#${data.parent} .answers`;
+      const replaceContainer = data.component === 'question' ? '.container' : `#${parent} .answers`;
       const elem = document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`);
       document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`).parentNode.replaceChild(container, elem);
     }
@@ -630,7 +627,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     this.attachHandler();
     this.viewAllMode = false;
     this.inputGenerating = false;
-    this.executeRearrangement = true;
+
   }
 
   attachHandler() { // Main part
@@ -744,7 +741,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     this.triggerPerformActual(contextName);
   }
 
-  triggerPerformActual(contextName) { // main part
+  async triggerPerformActual(contextName) { // main part
     const askQuestoinContainer = document.getElementById('askQuestion');
     if (askQuestoinContainer) {
       if (!contextName) {
@@ -770,7 +767,9 @@ class UserInteractivity extends UserInteractivityBasicOperation {
 
     const type = this.getActiveTab();
     if (type && this.queue[type] && this.queue[type][contextName] && this.queue[type][contextName].length > 0) {
-      this.engine.perform(contextName, type);
+      await this.engine.perform(contextName, type);
+      this.triggerRearrangeUpvotedElem({ context: contextName, component: 'question' });
+      this.triggerRearrangeUpvotedElem({ context: contextName, component: 'answer' });
       if (type === 'note') this.note.afterChangeContext(contextName);
     } else if (type === 'note') {
       // Create blank structure for note

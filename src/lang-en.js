@@ -7,7 +7,7 @@
    */
   const message = {
     ActiveAll: 'Active all',
-    addcontext: 'Add Context',
+    addcontext: 'Add Bookmark',
     Addoption: 'Add option',
     addnew: 'Add new',
     adminusr: 'Admin user',
@@ -22,7 +22,7 @@
     audioDisable: 'Unmute',
     audioEnable: 'Mute',
     addQuestion: 'Add question',
-    addContext: 'Add context',
+    addContext: 'Add Bookmark',
     answer: 'Answers',
     action: 'Actions',
     audioTest: 'Your voice will be recorded and played back to you. \n Press Ok and speak something for few seconds.',
@@ -230,7 +230,7 @@
     rejected: 'Another application on your computer might be using your webcam. Kindly close all other applications',
     reload: 'Reload',
     reloadDoc: 'Reload document',
-    removeContext: 'Remove context',
+    removeContext: 'Remove Bookmark',
     replay: 'Re-play',
     Replay: 'Replay from start.',
     replay_message: 'Thanks for watching.',

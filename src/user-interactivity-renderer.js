@@ -25,8 +25,6 @@ class UserInteractivityRenderer { // Main Part
         //   toggle.classList.remove('highlight-new-question');
         // }
         virtualclass.userInteractivity.questionAnswer.removeHighlight();
-        virtualclass.userInteractivity.executeRearrangement = false;
-
       });
 
       const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');

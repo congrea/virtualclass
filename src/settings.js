@@ -14,6 +14,11 @@
       // virtualclass.settings.info.trimRecordings = true;
     },
 
+    triggerSettingsForTeacher() {
+      this.qaMarkNotes(virtualclass.settings.info.qaMarkNotes);
+      this.askQuestion(virtualclass.settings.info.askQuestion);
+    },
+
     // settings object values assign to array for get a hax code
     settingsToHex(s) {
       const localSettings = [];
@@ -154,6 +159,9 @@
           && Object.prototype.hasOwnProperty.call(virtualclass.settings.info, settingName)) {
           if (typeof userId === 'undefined') {
             virtualclass.settings.applyPresentorGlobalSetting(value, settingName);
+            if (settingName === 'askQuestion' || settingName === 'qaMarkNotes') {
+              this.triggerSettingsForTeacher(value);
+            }
           } else {
             virtualclass.settings.applySpecificAttendeeSetting(value, settingName, userId);
           }

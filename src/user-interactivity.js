@@ -936,6 +936,8 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     if (this.queue.question[this.currentContext] && this.queue.question[this.currentContext].length > 0) {
       this.engine.perform(this.currentContext, 'question');
     }
+
+    if (roles.hasControls()) { virtualclass.settings.triggerSettingsForTeacher(); }
   }
 
   getCurrentQuestions() { // main part

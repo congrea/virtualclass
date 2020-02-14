@@ -14,7 +14,7 @@
       // virtualclass.settings.info.trimRecordings = true;
     },
 
-    triggerSettingsForTeacher() {
+    triggerSettings() {
       this.qaMarkNotes(virtualclass.settings.info.qaMarkNotes);
       this.askQuestion(virtualclass.settings.info.askQuestion);
     },
@@ -160,7 +160,7 @@
           if (typeof userId === 'undefined') {
             virtualclass.settings.applyPresentorGlobalSetting(value, settingName);
             if (settingName === 'askQuestion' || settingName === 'qaMarkNotes') {
-              this.triggerSettingsForTeacher(value);
+              this.triggerSettings(value);
             }
           } else {
             virtualclass.settings.applySpecificAttendeeSetting(value, settingName, userId);
@@ -216,7 +216,13 @@
           if (propname !== 'trimRecordings') { // avoid trim recordings
             const recSettings = rec.indexOf(propname);
             const value = (recSettings !== -1) ? obj : obj[propname];
-            virtualclass.settings[propname](value);
+            if (virtualclass.isPlayMode) {
+              if (propname !== 'qaMarkNotes' && propname !== 'askQuestion') {
+                virtualclass.settings[propname](value);
+              }
+            } else {
+              virtualclass.settings[propname](value);
+            }
           }
         }
       }

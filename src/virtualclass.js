@@ -471,8 +471,12 @@
         document.addEventListener('msfullscreenchange', () => {
           virtualclass.onfullscreenchange();
         }, false);
+        if (virtualclass.isPlayMode) {
+          virtualclass.settings.triggerSettings();
+        } else {
+          if (virtualclass.vutil.checkUserRole()) { virtualclass.settings.triggerSettings(); }
+        }
 
-        if (virtualclass.vutil.checkUserRole()) { virtualclass.settings.triggerSettingsForTeacher(); }
       },
 
       onfullscreenchange() {

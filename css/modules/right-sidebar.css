@@ -403,7 +403,7 @@ body {
   pointer-events: visible;
 }
 
-#virtualclassCont.congrea #congAskQuestion.askQuestionDisable,
+#virtualclassCont.congrea.student #congAskQuestion.askQuestionDisable,
 #virtualclassCont.congrea #virtualclassnote.notesDisable,
 #virtualclassCont.congrea #bookmark.bookmarkDisable {
   opacity: 0.5;
@@ -1053,18 +1053,16 @@ body {
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #userListHeader,
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #appSettingCtrl,
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #commonChatHeader {
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #commonChatHeader,
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #appSettingCtrl {
   display: inline-block;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #appSettingCtrl {
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #appSettingCtrl,
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #appSettingCtrl {
   float: right;
   padding: 0.6875rem 0.9375rem;
   cursor: pointer;
-}
-
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #appSettingCtrl {
-  display: none;
 }
 
 #virtualclassCont.congrea .rightContainer.deactive,

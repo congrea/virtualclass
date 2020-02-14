@@ -472,7 +472,7 @@
           virtualclass.onfullscreenchange();
         }, false);
 
-        if (roles.hasControls()) { virtualclass.settings.triggerSettingsForTeacher(); }
+        if (virtualclass.vutil.checkUserRole()) { virtualclass.settings.triggerSettingsForTeacher(); }
       },
 
       onfullscreenchange() {

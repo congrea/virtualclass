@@ -403,7 +403,7 @@ body {
   pointer-events: visible;
 }
 
-#virtualclassCont.congrea.student #congAskQuestion.askQuestionDisable,
+#virtualclassCont.congrea #congAskQuestion.askQuestionDisable,
 #virtualclassCont.congrea #virtualclassnote.notesDisable,
 #virtualclassCont.congrea #bookmark.bookmarkDisable {
   opacity: 0.5;

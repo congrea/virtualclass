@@ -212,7 +212,14 @@
         'recallowattendeeAVcontrol', 'showAttendeeRecordingStatus', 'attendeerecording'];
       for (const propname in obj) {
         if (virtualclass.settings.info[propname] !== obj[propname]) {
-          virtualclass.settings.info[propname] = obj[propname];
+          if (virtualclass.isPlayMode) {
+            if (propname !== 'qaMarkNotes' && propname !== 'askQuestion') {
+              virtualclass.settings.info[propname] = obj[propname];
+            }
+          } else {
+            virtualclass.settings.info[propname] = obj[propname];
+          }
+
           if (propname !== 'trimRecordings') { // avoid trim recordings
             const recSettings = rec.indexOf(propname);
             const value = (recSettings !== -1) ? obj : obj[propname];

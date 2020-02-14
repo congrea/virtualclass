@@ -25,6 +25,14 @@ class UserInteractivityRenderer { // Main Part
         //   toggle.classList.remove('highlight-new-question');
         // }
         virtualclass.userInteractivity.questionAnswer.removeHighlight();
+        this.reArrangeUpvoteCallback = () => {
+          console.log('====> one');
+          if (!virtualclass.userInteractivity.rearrangeUpvoteDone) {
+            virtualclass.userInteractivity.triggerRearrangeUpvotedElem({ context: virtualclass.userInteractivity.currentContext, component: 'question' });
+            virtualclass.userInteractivity.triggerRearrangeUpvotedElem({ context: virtualclass.userInteractivity.currentContext, component: 'answer' });
+          }
+        }
+        this.reArrangeUpvoteCallback();
       });
 
       const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');

@@ -580,16 +580,12 @@ class UserInteractivityBasicOperation {
           parent = ansObj[i].parent;
           container.appendChild(document.querySelector(`#${ansObj[i].componentId}`));
         }
-
-        // const ansObj = allContext[currentContext][data.component].orderdByUpvoted;
-        // for (let i = 0; i < ansObj[data.parent].length; i++) {
-        //   container.appendChild(document.querySelector(`#${ansObj[data.parent][i].componentId}`));
-        // }
       }
 
       const replaceContainer = data.component === 'question' ? '.container' : `#${parent} .answers`;
       const elem = document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`);
       document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`).parentNode.replaceChild(container, elem);
+      this.rearrangeUpvoteDone = true;
     }
   }
 }
@@ -861,19 +857,24 @@ class UserInteractivity extends UserInteractivityBasicOperation {
           const virtualclassCont = document.getElementById('virtualclassCont');
           if (virtualclassCont) virtualclassCont.classList.remove('askQuestionFetching');
           this.firstRealTime = false;
+          if (this.rendererObj.reArrangeUpvoteCallback) {
+            this.rendererObj.reArrangeUpvoteCallback();
+          }
         }
       }, (error) => {
         console.log('ask question real time ', error);
       });
   }
 
-  afterSignIn() { // main part
+  async afterSignIn() { // main part
     console.log('====> after sign in');
-    if (this.collection) this.attachHandlerForRealTimeUpdate();
+    console.log('====> one 1');
+    if (this.collection) await this.attachHandlerForRealTimeUpdate();
     if (virtualclass.isPlayMode) {
       virtualclass.recorder.requestListOfFiles();
       if (this.collectionMark) this.loadInitialDataMark();
     }
+    console.log('====> one 3');
     // if (this.collectionMark) this.loadInitialDataMark();
   }
 
@@ -887,7 +888,6 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     virtualclassCont.classList.add('readyForNote');
 
     this.db.collection(this.collectionMark).get().then((snapshot) => {
-      // TODO, we have to store the inital data from attachHandlerForRealTimeUpdate
       self.initCollectionMark = true;
       snapshot.docs.forEach((doc) => {
         const data = doc.data();

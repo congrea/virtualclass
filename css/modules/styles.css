@@ -3884,10 +3884,10 @@ div.ui-memblist-usr .userVideos {
   cursor: pointer;
 }
 
-#virtualclassCont.congrea.playMode #congAskQuestion {
-  pointer-events: none !important;
-  opacity: 0.5;
-}
+/*#virtualclassCont.congrea.playMode #congAskQuestion {*/
+  /*pointer-events: none !important;*/
+  /*opacity: 0.5;*/
+/*}*/
 
 /* #virtualclassCont.congrea .controllerRaiseH .icon-RaiseHandImg:before { */
 

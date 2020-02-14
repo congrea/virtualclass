@@ -289,17 +289,17 @@
     },
 
     askQuestion(value) {
-      if (roles.isStudent()) {
-        const askQuestion = document.querySelector('#congAskQuestion');
-        if (value === true) {
-          askQuestion.classList.remove('askQuestionDisable');
-          askQuestion.classList.add('askQuestionEnable');
-        } else {
-          // document.querySelector('#user_list').click();
-          askQuestion.classList.remove('askQuestionEnable');
-          askQuestion.classList.add('askQuestionDisable');
-        }
+      //if (roles.isStudent()) {
+      const askQuestion = document.querySelector('#congAskQuestion');
+      if (value === true) {
+        askQuestion.classList.remove('askQuestionDisable');
+        askQuestion.classList.add('askQuestionEnable');
+      } else {
+        // document.querySelector('#user_list').click();
+        askQuestion.classList.remove('askQuestionEnable');
+        askQuestion.classList.add('askQuestionDisable');
       }
+      // }
     },
 
     userlist(value) {
@@ -359,21 +359,21 @@
 
     qaMarkNotes(value) {
       // TODO handle on default settings
-      if (roles.isStudent()) {
-        const notesElem = document.querySelector('#virtualclassnote');
-        const bookmarkElem = document.querySelector('#bookmark');
-        if (value === true) {
-          notesElem.classList.remove('notesDisable');
-          notesElem.classList.add('notesEnable');
-          bookmarkElem.classList.remove('bookmarkDisable');
-          bookmarkElem.classList.add('bookmarkEnable');
-        } else {
-          notesElem.classList.remove('notesEnable');
-          notesElem.classList.add('notesDisable');
-          bookmarkElem.classList.remove('bookmarkEnable');
-          bookmarkElem.classList.add('bookmarkDisable');
-        }
+      //if (roles.isStudent()) {
+      const notesElem = document.querySelector('#virtualclassnote');
+      const bookmarkElem = document.querySelector('#bookmark');
+      if (value === true) {
+        notesElem.classList.remove('notesDisable');
+        notesElem.classList.add('notesEnable');
+        bookmarkElem.classList.remove('bookmarkDisable');
+        bookmarkElem.classList.add('bookmarkEnable');
+      } else {
+        notesElem.classList.remove('notesEnable');
+        notesElem.classList.add('notesDisable');
+        bookmarkElem.classList.remove('bookmarkEnable');
+        bookmarkElem.classList.add('bookmarkDisable');
       }
+      //}
     },
 
     qaAnswer(value) {

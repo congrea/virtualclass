@@ -1107,26 +1107,6 @@
   color: #fff;
 }
 
-#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="enable"] .slider::before,
-#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="disable"] .slider::before {
-  position: absolute;
-  content: "";
-  cursor: pointer;
-  background-color: #fff;
-  width: 11px;
-  height: 11px;
-  vertical-align: middle;
-  margin: auto;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  border-radius: 20px;
-}
-
-#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action label.switch[data-viewall="disable"] .slider::before {
-  transform: translateX(11px);
-}
-
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer::before {
   content: "\e997";
   font-weight: normal;

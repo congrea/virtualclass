@@ -197,32 +197,19 @@
   font-size: 1rem;
 }
 
+#virtualclassCont.congrea .vidShow #stickycontainer #techVideo a.inner_bt #tech_video::after,
+#virtualclassCont.congrea li.highlight-new-question a.stdAskQuestion #iconAskQuestion::after,
 #virtualclassCont.congrea li.ui-state-highlight #chatroom_icon::after {
   content: "";
   position: absolute;
-  top: 3px;
-  padding: 5px 5px;
+  top: 0.4375rem;
+  padding: 0.3125rem;
   border-radius: 50%;
-  background: #28a900;
+  background: #228f00;
   color: white;
   outline: none;
   animation-name: notify;
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-#virtualclassCont.congrea li.highlight-new-question a.stdAskQuestion #iconAskQuestion::after {
-  content: "";
-  position: absolute;
-  top: 3px;
-  padding: 5px 5px;
-  border-radius: 50%;
-  background: #28a900;
-  color: white;
-  outline: none;
-  animation-name: notify;
-  animation-duration: 1.5s;
+  animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
@@ -872,7 +859,7 @@
   font-size: 13px;
   cursor: pointer;
   color: #0170e1;
-  margin-left: 5px;
+  margin-left: 8px;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .answer[data-mark-answer="marked"] .header .info .acceptedAnswer::before {
@@ -971,7 +958,7 @@
 #virtualclassCont.congrea #askQuestion .container .footer .controls .navigation:hover span.total,
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote:hover span.total,
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote:hover span.button::before {
-  color: #0170e1;
+  color: #0146e1;
 }
 
 #virtualclassCont.congrea #askQuestion .answer .container .footer .controls .reply:hover span.button::before,

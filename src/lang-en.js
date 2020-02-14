@@ -328,6 +328,7 @@
     votesuccess: 'Your vote has been submitted successfully. Result will be displayed shortly.',
     votesuccessPbt: 'Vote submitted successfully, you are not permitted to see the result.',
     Vwllbshrshortly: 'Video will be shared shortly',
+    viewall: 'View all',
     waitmsgconnect: 'Please wait a while. Application is trying to connect.',
     watstdrespo: 'Waiting for student’s response',
     wbrtcMsgChrome: 'You can click the deny button for not sharing your microphone and camera  with Congrea.' + 'or click allow button to share them.',

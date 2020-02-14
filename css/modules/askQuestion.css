@@ -91,7 +91,7 @@
 #virtualclassCont.congrea #askQuestion .container .answer.mySelf .container .footer .controls .upVote span.total,
 #virtualclassCont.congrea #askQuestion[data-mark-answer="marked"] .container .footer .controls .upVote span.total {
   color: #000;
-  opacity: .5;
+  opacity: 0.2;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote[data-upvote="upvoted"] span.total {
@@ -354,6 +354,7 @@
   color: #616161;
   font-size: 0.6875rem;
   text-transform: none;
+  margin-right: 0;
   font-weight: 400;
   letter-spacing: .5px;
 }
@@ -825,6 +826,10 @@
   line-height: 1rem;
 }
 
+#virtualclassCont.congrea.student #askQuestion[data-upvote="disable"] .container .footer .controls .upVote {
+  pointer-events: none;
+}
+
 #virtualclassCont.congrea #askQuestion .container .footer .controls .reply {
   line-height: 1rem;
   padding: 0.125rem 0.3125rem;
@@ -911,7 +916,7 @@
 
 #virtualclassCont.congrea.student #askQuestion[data-answer="disable"] .container .question .container[data-type="question"] .reply {
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.2;
 }
 
 #virtualclassCont.congrea.student #askQuestion[data-comment="disable"] .answers .answer .container .reply,
@@ -936,4 +941,12 @@
   margin-bottom: 0;
   color: #fff;
   padding: 0.625rem 0.5rem 0.625rem 0.125rem;
+}
+
+#virtualclassCont.congrea #askQuestion .container .question .answers.close {
+  cursor: unset;
+}
+
+#virtualclassCont.congrea.student #askQuestion[data-upvote="disable"] .container .footer .controls .upVote .total {
+  color: #b3b3b3;
 }

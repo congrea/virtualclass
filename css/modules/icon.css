@@ -886,13 +886,14 @@
 
 #virtualclassCont.congrea #askQuestion .container .question.mySelf .container[data-type="question"] .footer .controls .upVote span.button::before,
 #virtualclassCont.congrea #askQuestion .container .answer.mySelf .container .footer .controls .upVote span.button::before,
-#virtualclassCont.congrea #askQuestion[data-mark-answer="marked"] .container .footer .controls .upVote span.button::before {
+#virtualclassCont.congrea #askQuestion .container [data-mark-answer="marked"] .container .footer .controls .upVote span.button::before,
+#virtualclassCont.congrea.student #askQuestion[data-upvote="disable"] .container .footer .controls .upVote span.button::before {
   color: #000;
   content: "\ea05";
   font-weight: 500;
   font-family: 'icomoon';
   font-size: 0.8125rem;
-  opacity: .3;
+  opacity: .2;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .upVote span.button::before,
@@ -924,13 +925,16 @@
   color: #7b848c;
 }
 
-#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply span.button::before {
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply span.button::before,
+#virtualclassCont.congrea.student #askQuestion[data-answer="disable"] .container .question .container[data-type="question"] .reply .button::before,
+#virtualclassCont.congrea.student #askQuestion[data-comment="disable"] .answers .answer .container .reply .button::before,
+#virtualclassCont.congrea.student #askQuestion[data-comment="disable"] .comments .comment .container .reply .button::before {
   content: "\ea04";
   font-weight: 500;
   font-family: 'icomoon';
   font-size: 0.875rem;
   cursor: pointer;
-  color: #6a6a6a;
+  color: #000;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .reply:hover span.button::before {

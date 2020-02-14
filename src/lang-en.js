@@ -213,7 +213,7 @@
     PSetting: 'Poll setting',
     Publish: 'Publish',
     QClosed: 'Quiz closed',
-    Question: 'Asked',
+    Question: 'Question',
     Quiz: 'Quiz',
     'Quiz/page': 'Quiz / page',
     Quizes: 'Quizzes',

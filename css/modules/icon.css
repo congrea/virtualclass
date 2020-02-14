@@ -197,6 +197,36 @@
   font-size: 1rem;
 }
 
+#virtualclassCont.congrea li.ui-state-highlight #chatroom_icon::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  padding: 5px 5px;
+  border-radius: 50%;
+  background: #28a900;
+  color: white;
+  outline: none;
+  animation-name: notify;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+#virtualclassCont.congrea li.highlight-new-question a.stdAskQuestion #iconAskQuestion::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  padding: 5px 5px;
+  border-radius: 50%;
+  background: #28a900;
+  color: white;
+  outline: none;
+  animation-name: notify;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
 #virtualclassCont.congrea .ui-memblist-usr .icon-assignImg::before {
   content: "\f064";
   color: #535151;
@@ -858,29 +888,29 @@
 #virtualclassCont.congrea #askQuestion .container .answer.mySelf .container .footer .controls .upVote span.button::before,
 #virtualclassCont.congrea #askQuestion[data-mark-answer="marked"] .container .footer .controls .upVote span.button::before {
   color: #000;
-  content: "\ea00";
+  content: "\ea05";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 1.25rem;
+  font-size: 0.8125rem;
   opacity: .3;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .upVote span.button::before,
 #virtualclassCont.congrea #askQuestion .container .answer .footer .controls .upVote span.button::before,
 #virtualclassCont.congrea #askQuestion .container .comment .footer .controls .upVote span.button::before {
-  content: "\ea01";
+  content: "\ea06";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 1.25rem;
+  font-size: 0.8125rem;
   cursor: pointer;
   color: #6c6c6c;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote[data-upvote="upvoted"] span.button::before {
-  content: "\ea00";
+  content: "\ea05";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: 1.25rem;
+  font-size: .8125rem;
   cursor: pointer;
   color: #2695ff;
 }

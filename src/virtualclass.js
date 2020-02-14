@@ -471,6 +471,8 @@
         document.addEventListener('msfullscreenchange', () => {
           virtualclass.onfullscreenchange();
         }, false);
+
+        if (roles.hasControls()) { virtualclass.settings.triggerSettingsForTeacher(); }
       },
 
       onfullscreenchange() {

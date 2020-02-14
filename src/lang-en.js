@@ -7,7 +7,7 @@
    */
   const message = {
     ActiveAll: 'Active all',
-    addcontext: 'Add Bookmark',
+    addcontext: 'Add bookmark',
     Addoption: 'Add option',
     addnew: 'Add new',
     adminusr: 'Admin user',
@@ -323,7 +323,7 @@
     videooff: 'Video off',
     videoon: 'Video on',
     videoquality: 'Video quality',
-    virtualclassnoteHeader: 'Note',
+    virtualclassnoteHeader: 'Add Note',
     VotedSoFar: 'Votes received so far',
     votesuccess: 'Your vote has been submitted successfully. Result will be displayed shortly.',
     votesuccessPbt: 'Vote submitted successfully, you are not permitted to see the result.',
@@ -451,7 +451,7 @@
     userListHeader: 'Users ',
     commonChatHeader: 'Chat Room',
     teacherVideoHeader: 'Teacher Video',
-    askQuestionHeader: 'Ask a Question',
+    askQuestionHeader: 'Raise Question',
     questionLable: 'Question',
     answerLable: 'Answer',
     commentLable: 'Comment',
@@ -462,9 +462,7 @@
     enterText: 'Please Enter Text Here',
     more: '...More',
     less: 'Less',
-    ankQuestionEnabled: 'Ask Question',
-    ankQuestionDisabled: 'Ask Question',
-    askQuestion: 'Ask question',
+    askQuestion: 'Raise question',
     MarksAndNotes: 'Marks & Notes',
     markAnswerUnmark: 'Unmark your privous marked answer',
     /* For Chrome */

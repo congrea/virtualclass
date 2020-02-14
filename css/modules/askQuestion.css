@@ -90,7 +90,7 @@
 
 #virtualclassCont.congrea #askQuestion .container .question.mySelf .container[data-type="question"] .footer .controls .upVote span.total,
 #virtualclassCont.congrea #askQuestion .container .answer.mySelf .container .footer .controls .upVote span.total,
-#virtualclassCont.congrea #askQuestion[data-mark-answer="marked"] .container .footer .controls .upVote span.total {
+#virtualclassCont.congrea #askQuestion .container [data-mark-answer="marked"] .container .footer .controls .upVote span.total {
   color: #000;
   opacity: 0.2;
 }
@@ -242,13 +242,13 @@
 }
 
 #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"],
-#virtualclassCont.congrea.student #askQuestion .container .question[data-mark-answer="marked"] .upVote,
+#virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .upVote,
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply {
   pointer-events: none !important;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply {
-  opacity: .5;
+  opacity: .2;
 }
 
 /* #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"] span.button::before,
@@ -826,7 +826,8 @@
   line-height: 1rem;
 }
 
-#virtualclassCont.congrea.student #askQuestion[data-upvote="disable"] .container .footer .controls .upVote {
+#virtualclassCont.congrea.student #askQuestion[data-upvote="disable"] .container .footer .controls .upVote,
+#virtualclassCont.congrea #askQuestion[data-upvote="disable"] .container .footer .controls .upVote {
   pointer-events: none;
 }
 
@@ -923,7 +924,7 @@
 #virtualclassCont.congrea.student #askQuestion[data-comment="disable"] .answers .answer .container .reply,
 #virtualclassCont.congrea.student #askQuestion[data-comment="disable"] .comments .comment .container .reply {
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.2;
 }
 
 @media only screen and (min-device-width: 340px) and (max-device-width: 950px) {

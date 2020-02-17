@@ -670,10 +670,10 @@ body {
   display: block;
 }
 
-#virtualclassCont.congrea #virtualclassAppFooterPanel li#techVideo a.inner_bt {
+/* #virtualclassCont.congrea #virtualclassAppFooterPanel li#techVideo a.inner_bt {
   padding: 0.75rem 0.8571rem 0.75rem 0.9285rem;
   display: block;
-}
+} */
 
 #virtualclassCont.congrea a.inner_bt span#usertab_text {
   float: none;

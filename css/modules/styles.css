@@ -4927,19 +4927,19 @@ span#usertab_text {
 
 @keyframes notify {
   0% {
-    box-shadow: 0 0 5px 0 rgba(64, 167, 5, 0.4);
+    box-shadow: 0 0 5px 0 rgba(55, 146, 2, 0.4);
   }
 
   65% {
-    box-shadow: 0 0 3px 5px rgba(64, 167, 5, 0.4);
+    box-shadow: 0 0 3px 5px rgba(57, 151, 2, 0.4);
   }
 
   70% {
-    box-shadow: 0 0 3px 5px rgba(64, 167, 5, 0.3);
+    box-shadow: 0 0 3px 5px rgba(56, 150, 2, 0.3);
   }
 
   100% {
-    box-shadow: 0 0 3px 5px rgba(64, 167, 5, 0);
+    box-shadow: 0 0 3px 5px rgba(55, 150, 0, 0);
   }
 }
 

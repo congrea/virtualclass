@@ -168,11 +168,16 @@ class UserInteractivityRenderer { // Main Part
         document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
       }
       // if (!virtualclass.vutil.checkUserRole()) {
-        const currentElem = document.querySelector(`#${data.componentId}`);
-        if (currentElem) {
-          currentElem.classList.add('mySelf');
+      const currentElem = document.querySelector(`#${data.componentId}`);
+      if (currentElem) {
+        currentElem.classList.add('mySelf');
+        const time = virtualclass.userInteractivity.questionAnswer.elapsedComponentTime({ componentId: data.componentId, component: data.component });
+        if (time < 30 && !virtualclass.vutil.checkUserRole()) {
+          currentElem.classList.add('editable');
+        } else if (virtualclass.vutil.checkUserRole()) {
           currentElem.classList.add('editable');
         }
+      }
       // }
     }
     if (data.component === 'question') {

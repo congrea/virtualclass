@@ -957,3 +957,8 @@
 #virtualclassCont.congrea.student #askQuestion[data-upvote="disable"] .container .footer .controls .upVote .total {
   color: #b3b3b3;
 }
+
+#virtualclassCont.congrea #contrAskQuestionAll,
+#virtualclassCont.congrea #contrQaMarkNotesAll {
+  text-transform: lowercase;
+}

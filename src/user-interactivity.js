@@ -15,7 +15,7 @@ class UserInteractivityBasicOperation {
     }
 
     if (data.component === 'note' || data.component === 'bookmark') {
-      console.log('====> sending note data ', JSON.stringify(data));
+      // console.log('====> sending note data ', JSON.stringify(data));
       await virtualclass.userInteractivity.db.collection(virtualclass.userInteractivity.collectionMark).doc(data.id).set(data).then(() => {
         console.log('ask question write, Document successfully written! ', data);
       })
@@ -25,10 +25,10 @@ class UserInteractivityBasicOperation {
     } else {
       await virtualclass.userInteractivity.db.collection(virtualclass.userInteractivity.collection).doc(data.id).set(data)
         .then(() => {
-          console.log('ask question write, Document successfully written! ', data);
+          // console.log('ask question write, Document successfully written! ', data);
         })
         .catch((error) => {
-          console.error('ask question write, Error writing document: ', error);
+          // console.error('ask question write, Error writing document: ', error);
         });
     }
   }
@@ -137,11 +137,11 @@ class UserInteractivityBasicOperation {
         this.inputGenerating = false;
         if (this.pollInputGeneratingTime) {
           clearTimeout(this.pollInputGeneratingTime);
-          console.log('I have cleared my polling time');
+          // console.log('I have cleared my polling time');
         }
         virtualclass.userInteractivity.rendererObj.removeWriteContainer();
         if (roles.isStudent() && this.donotChangeContext && this.donotChangeContext !== this.currentContext) {
-          console.log('Triggered performed 1');
+          // console.log('Triggered performed 1');
           this.triggerPerform(this.donotChangeContext);
           delete this.donotChangeContext;
         }
@@ -160,13 +160,13 @@ class UserInteractivityBasicOperation {
   userInputHandler(component) {
     if (roles.isStudent()) {
       virtualclass.userInteractivity.inputGenerating = true;
-      console.log('====> Input is generating ', virtualclass.userInteractivity.inputGenerating);
+      // console.log('====> Input is generating ', virtualclass.userInteractivity.inputGenerating);
       if (this.pollInputGeneratingTime) clearTimeout(this.pollInputGeneratingTime);
       this.pollInputGeneratingTime = setTimeout(() => {
         virtualclass.userInteractivity.inputGenerating = false;
-        console.log('====> Input is generating ', virtualclass.userInteractivity.inputGenerating);
+        // console.log('====> Input is generating ', virtualclass.userInteractivity.inputGenerating);
         if (virtualclass.userInteractivity.donotChangeContext) {
-          console.log('Triggered performed 2');
+          // console.log('Triggered performed 2');
           virtualclass.userInteractivity.triggerPerform(virtualclass.userInteractivity.donotChangeContext);
           delete virtualclass.userInteractivity.donotChangeContext;
           document.querySelector('#writeContent .cancel').click();
@@ -653,7 +653,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     if (result && Object.prototype.hasOwnProperty.call(result, 'operationType')) {
       this.afterSignIn();
     } else {
-      console.log(`There is some error${result}`);
+      // console.log(`There is some error${result}`);
     }
   }
 
@@ -667,7 +667,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
           this.displayContext();
         } else {
           this.donotChangeContext = this.readyContextActual();
-          console.log('====> Input is generating ', this.donotChangeContext);
+          // console.log('====> Input is generating ', this.donotChangeContext);
         }
       }
     }, 200);
@@ -714,7 +714,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     this.rendererObj.removeWriteContainer();
     const contextName = this.readyContextActual();
     if (contextName === this.currentContext || !contextName) return;
-    console.log('===> context before ', this.currentContext);
+    // console.log('===> context before ', this.currentContext);
     const activeTab = this.getActiveTab();
     if (activeTab !== 'question') {
       if (this.queue.question[contextName] && this.queue.question[contextName].length > 0) {
@@ -725,7 +725,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
       }
     }
     this.triggerPerform(contextName);
-    console.log('===> context after ', this.currentContext);
+    // console.log('===> context after ', this.currentContext);
 
     if (virtualclass.vutil.checkUserRole()) {
       ioAdapter.mustSend({ cf: 'readyContext', context: this.currentContext });
@@ -788,12 +788,12 @@ class UserInteractivity extends UserInteractivityBasicOperation {
           // Multiple tabs open, persistence can only be enabled
           // in one tab at a a time.
           // ...
-          console.log('====> here is some error');
+          // console.log('====> here is some error');
         } else if (err.code == 'unimplemented') {
           // The current browser does not support all of the
           // features required to enable persistence
           // ...
-          console.log('====> here is another error');
+          // console.log('====> here is another error');
         }
       });
     return false;
@@ -835,7 +835,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
   }
 
   attachHandlerForRealTimeUpdate() { // main part
-    console.log('===> Attach Real time update ');
+    // console.log('===> Attach Real time update ');
     this.db.collection(this.collection).orderBy('timestamp', 'asc')
       .onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach((change) => {
@@ -867,23 +867,23 @@ class UserInteractivity extends UserInteractivityBasicOperation {
   }
 
   async afterSignIn() { // main part
-    console.log('====> after sign in');
-    console.log('====> one 1');
+    // console.log('====> after sign in');
+    // console.log('====> one 1');
     if (this.collection) await this.attachHandlerForRealTimeUpdate();
     if (virtualclass.isPlayMode) {
       virtualclass.recorder.requestListOfFiles();
       if (this.collectionMark) this.loadInitialDataMark();
     }
-    console.log('====> one 3');
+    // console.log('====> one 3');
     // if (this.collectionMark) this.loadInitialDataMark();
   }
 
   loadInitialDataMark() { // part of note and book mark
     if (!this.collectionMark) return;
     if (this.initCollectionMark) return;
-    console.log('===> trigger note initial data');
+    // console.log('===> trigger note initial data');
     const self = this;
-    console.log('===> collection mark ', this.collectionMark);
+    // console.log('===> collection mark ', this.collectionMark);
     const virtualclassCont = document.getElementById('virtualclassCont');
     virtualclassCont.classList.add('readyForNote');
 
@@ -892,7 +892,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
       snapshot.docs.forEach((doc) => {
         const data = doc.data();
         const currentActiveTab = self.getActiveTab();
-        console.log('====> total data type ', data.type);
+        // console.log('====> total data type ', data.type);
         if ((currentActiveTab === 'note' || data.component === 'bookmark') && self.currentContext === data.context) {
           self.engine.performWithQueue(data);
         } else {

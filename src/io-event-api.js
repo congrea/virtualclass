@@ -135,10 +135,10 @@ const ioEventApi = {
       virtualclass.videoHost.setDefaultValue(speed);
       virtualclass.vutil.setDefaultScroll();
 
-      if (localStorage.getItem('settings') != null) {
-        console.log('====> settings apply mark and note');
-        if (virtualclass.vutil.checkUserRole()) { virtualclass.settings.triggerSettings(); }
-      }
+      // if (localStorage.getItem('settings') != null) {
+      //   console.log('====> settings apply mark and note');
+      //   if (virtualclass.vutil.checkUserRole()) { virtualclass.settings.triggerSettings(); }
+      // }
 
       if (roles.hasControls()) { // settings send to students when teacher change his browser
         if (!virtualclass.gObj.toBeSendSession && !localStorage.getItem('userSettings')) {
@@ -147,6 +147,7 @@ const ioEventApi = {
         } else if (virtualclass.gObj.toBeSendSession) {
           ioAdapter.mustSend({ cf: 'settings', Hex: virtualclassSetting.settings, time: Date.now() });
           console.log('====> Settings send', virtualclassSetting.settings);
+          virtualclass.settings.info = virtualclass.settings.parseSettings(virtualclassSetting.settings);
           delete virtualclass.gObj.toBeSendSession;
         } else {
           console.log('====> Settings current, not sending', virtualclassSetting.settings);
@@ -155,7 +156,12 @@ const ioEventApi = {
         if (recordingButton !== null) {
           ioAdapter.mustSend({ ac: JSON.parse(recordingButton), cf: 'recs' });
         }
-        virtualclass.setPrvUser();
+
+        if (localStorage.getItem('prvUser') != null) {
+          console.log('====> settings apply mark and note');
+          if (virtualclass.vutil.checkUserRole()) { virtualclass.settings.triggerSettings(); }
+        }
+        // virtualclass.setPrvUser();
       }
 
     }

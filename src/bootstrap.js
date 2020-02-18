@@ -76,7 +76,7 @@
         virtualclass.gObj.toBeSendSession = virtualclassSetting.settings;
         // ioAdapter.mustSend({ cf: 'settings', Hex: virtualclassSetting.settings, time: Date.now() });
         // console.log('setting prv ', prvUser.settings, ' new ', virtualclassSetting.settings);
-        // virtualclass.setPrvUser();
+        virtualclass.setPrvUser(); // we need to set this every time it comes from moodle
         console.log('====> Settings previous  ', prvUser.settings, ' new ', virtualclassSetting.settings);
       }
       console.log('Previous user ', JSON.stringify(prvUser));

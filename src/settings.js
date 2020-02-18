@@ -49,6 +49,7 @@
     // return data into true, false
     // student side
     parseSettings(s) {
+      console.log('====> settings parse');
       const parsedSettings = {};
       let localSettings = virtualclass.settings.hexToBinary(s);
       localSettings = localSettings.split('');
@@ -163,7 +164,7 @@
             if (settingName === 'askQuestion' || settingName === 'qaMarkNotes') {
               this.triggerSettings(value);
             }
-            virtualclass.setPrvUser();
+            // virtualclass.setPrvUser();
           } else {
             virtualclass.settings.applySpecificAttendeeSetting(value, settingName, userId);
           }

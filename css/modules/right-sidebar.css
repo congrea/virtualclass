@@ -342,22 +342,23 @@ body {
 }
 
 #virtualclassCont #appSettingDetail .disable #usersAskQuestionSwitch::before {
-  content: "\e962";
+  content: "\ea08";
   font-weight: normal;
   font-size: 17px;
   float: left;
   font-family: 'icomoon';
-  color: #464646;
+  color: #6c6c6c;
 }
 
 #virtualclassCont #appSettingDetail .enable #usersAskQuestionSwitch::before {
-  content: "\e9ba";
+  content: "\ea07";
   font-weight: normal;
-  font-size: 17px;
+  font-size: 18.5px;
   float: left;
   font-family: 'icomoon';
-  color: #464646;
+  color: #6c6c6c;
   border: white;
+  margin-left: -1px;
 }
 
 #virtualclassCont #appSettingDetail .disable #usersUserlistSwitch::before {
@@ -379,21 +380,21 @@ body {
 }
 
 #virtualclassCont #appSettingDetail .disable #usersQaMarkNotesSwitch::before {
-  content: "\e9fe";
+  content: "\ea10";
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 18px;
   float: left;
   font-family: 'icomoon';
-  color: #1d1d1d;
+  color: #333;
 }
 
 #virtualclassCont #appSettingDetail .enable #usersQaMarkNotesSwitch::before {
-  content: "\e9fe";
-  font-weight: normal;
-  font-size: 1rem;
+  content: "\ea0e";
+  font-weight: 400;
+  font-size: 18px;
   float: left;
   font-family: 'icomoon';
-  color: #989898;
+  color: #333;
 }
 
 #virtualclassCont.congrea #congAskQuestion.askQuestionEnable,
@@ -669,10 +670,10 @@ body {
   display: block;
 }
 
-#virtualclassCont.congrea #virtualclassAppFooterPanel li#techVideo a.inner_bt {
+/* #virtualclassCont.congrea #virtualclassAppFooterPanel li#techVideo a.inner_bt {
   padding: 0.75rem 0.8571rem 0.75rem 0.9285rem;
   display: block;
-}
+} */
 
 #virtualclassCont.congrea a.inner_bt span#usertab_text {
   float: none;

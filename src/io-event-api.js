@@ -135,16 +135,29 @@ const ioEventApi = {
       virtualclass.videoHost.setDefaultValue(speed);
       virtualclass.vutil.setDefaultScroll();
 
+      if (localStorage.getItem('settings') != null) {
+        console.log('====> settings apply mark and note');
+        if (virtualclass.vutil.checkUserRole()) { virtualclass.settings.triggerSettings(); }
+      }
+
       if (roles.hasControls()) { // settings send to students when teacher change his browser
-        if (!localStorage.getItem('userSettings')) {
+        if (!virtualclass.gObj.toBeSendSession && !localStorage.getItem('userSettings')) {
           const settings = virtualclass.settings.settingsToHex(virtualclass.settings.info);
           ioAdapter.mustSend({ cf: 'settings', Hex: settings, time: Date.now() });
+        } else if (virtualclass.gObj.toBeSendSession) {
+          ioAdapter.mustSend({ cf: 'settings', Hex: virtualclassSetting.settings, time: Date.now() });
+          console.log('====> Settings send', virtualclassSetting.settings);
+          delete virtualclass.gObj.toBeSendSession;
+        } else {
+          console.log('====> Settings current, not sending', virtualclassSetting.settings);
         }
         const recordingButton = localStorage.getItem('recordingButton');
         if (recordingButton !== null) {
           ioAdapter.mustSend({ ac: JSON.parse(recordingButton), cf: 'recs' });
         }
+        virtualclass.setPrvUser();
       }
+
     }
 
     // virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);

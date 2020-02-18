@@ -471,6 +471,7 @@
         document.addEventListener('msfullscreenchange', () => {
           virtualclass.onfullscreenchange();
         }, false);
+
         if (virtualclass.isPlayMode) {
           virtualclass.settings.triggerSettings();
         } else {
@@ -1423,6 +1424,7 @@
         };
         // console.log('previosu user');
         localStorage.setItem('prvUser', JSON.stringify(prvUser));
+        console.log('====> Settings store', virtualclassSetting.settings);
       },
 
       registerPartial() {

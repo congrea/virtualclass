@@ -69,9 +69,17 @@
     } else if (prvUser !== null) {
       prvUser = JSON.parse(prvUser);
       if (prvUser.id !== wbUser.id || prvUser.room !== wbUser.room
-        || wbUser.role !== prvUser.role || prvUser.settings !== virtualclassSetting.settings) {
+        || wbUser.role !== prvUser.role) {
         await virtualclass.config.endSession();
+      } else if (prvUser.settings !== virtualclassSetting.settings) {
+        virtualclass.gObj.refreshSession = true;
+        virtualclass.gObj.toBeSendSession = virtualclassSetting.settings;
+        // ioAdapter.mustSend({ cf: 'settings', Hex: virtualclassSetting.settings, time: Date.now() });
+        // console.log('setting prv ', prvUser.settings, ' new ', virtualclassSetting.settings);
+        // virtualclass.setPrvUser();
+        console.log('====> Settings previous  ', prvUser.settings, ' new ', virtualclassSetting.settings);
       }
+      console.log('Previous user ', JSON.stringify(prvUser));
     } else if (virtualclass.gObj.myConfig !== null) {
       config = JSON.parse(virtualclass.gObj.myConfig);
       const roomCreatedTime = config.createdDate;

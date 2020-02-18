@@ -8,6 +8,7 @@
       virtualclass.settings.info = virtualclass.settings.parseSettings(coreSettings);
       const userSetting = localStorage.getItem('userSettings');
       if (userSetting) {
+        console.log('setting ', userSetting);
         virtualclass.settings.user = JSON.parse(userSetting);
       }
       this.recording.init();
@@ -162,6 +163,7 @@
             if (settingName === 'askQuestion' || settingName === 'qaMarkNotes') {
               this.triggerSettings(value);
             }
+            virtualclass.setPrvUser();
           } else {
             virtualclass.settings.applySpecificAttendeeSetting(value, settingName, userId);
           }
@@ -176,6 +178,8 @@
       virtualclass.settings.info[settingName] = value;
       const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
       ioAdapter.mustSend({ cf: 'settings', Hex: str, time: Date.now() });
+      virtualclassSetting.settings = str;
+      console.log('====> Settings ', str);
       for (const propname in virtualclass.settings.user) {
         virtualclass.user.control.changeAttribute(propname,
           virtualclass.gObj.testChatDiv.shadowRoot.getElementById(`${propname}contrAudImg`),
@@ -208,6 +212,7 @@
     },
 
     applyAttendeeSetting(obj) {
+      console.log('my setting change ', JSON.stringify(obj));
       const rec = ['enableRecording', 'recAllowpresentorAVcontrol', 'recShowPresentorRecordingStatus', 'attendeeAV',
         'recallowattendeeAVcontrol', 'showAttendeeRecordingStatus', 'attendeerecording'];
       for (const propname in obj) {
@@ -239,11 +244,16 @@
     onMessage(msg, userId) {
       if (roles.hasControls()) {
         if (typeof msg === 'string' && userId == null) {
-          virtualclass.settings.info = virtualclass.settings.parseSettings(msg);
+          if (!virtualclass.gObj.refreshSession) {
+            virtualclass.settings.info = virtualclass.settings.parseSettings(msg);
+          }
+          delete virtualclass.gObj.refreshSession;
+          // virtualclass.settings.info = virtualclass.settings.parseSettings(msg);
         }
       } else {
         if (typeof msg === 'string') {
           if (roles.isStudent()) {
+            console.log('====> Settings received ', msg);
             const stdSettings = virtualclass.settings.parseSettings(msg);
             this.applyAttendeeSetting(stdSettings);
           }
@@ -398,6 +408,7 @@
     },
 
     qaAnswer(value) {
+      console.log('setting comp qA ', value);
       const controlsElem = document.querySelector('#askQuestion');
       if (controlsElem) {
         if (value === true) {

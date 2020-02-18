@@ -81,7 +81,6 @@ class UserInteractivityBasicOperation {
       }
 
       if (event === 'save') {
-        // this.askQuestionActive();
         if (component === 'note') {
           text = target.value;
           action = 'create';
@@ -89,8 +88,6 @@ class UserInteractivityBasicOperation {
           text = (+(parent.dataset.value) === 0 ? 1 : 0);
           action = 'create';
         } else {
-          // if (parent.previousSibling != null && parent.previousSibling.value != null
-          //   && parent.previousSibling.value !== '') {
           if (editContent) {
             text = editContent;
           } else if (editContent != null) {
@@ -147,14 +144,6 @@ class UserInteractivityBasicOperation {
         }
       }
     }
-  }
-
-  askQuestionActive() {
-    const time = new Date().getTime();
-    const msgobj = {
-      receiver: 'askQuestion', cf: 'msg', time, userId: virtualclass.gObj.uid,
-    };
-    ioAdapter.mustSend(msgobj);
   }
 
   userInputHandler(component) {

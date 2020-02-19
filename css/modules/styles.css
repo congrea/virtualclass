@@ -4806,7 +4806,7 @@ span#usertab_text {
   right: 6.5rem;
   bottom: -0.0625rem;
   z-index: 1000;
-  padding: 0.71875rem 1.125rem 0.78125rem 1.125rem;
+  padding: 0.71875rem 0.9375rem 0.78125rem 0.9375rem;
   cursor: pointer;
 }
 
@@ -4818,6 +4818,10 @@ span#usertab_text {
   z-index: 1000;
   padding: 0.6875rem 0.9375rem;
   cursor: pointer;
+}
+
+#virtualclassCont.congrea.playMode #virtualclassAppFooterPanel #precheckBtn {
+  display: none;
 }
 
 #virtualclassCont #virtualclassAppFooterPanel #precheckBtn #settingPrecheck .prechk::before {

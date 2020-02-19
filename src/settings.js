@@ -394,17 +394,20 @@
       // TODO handle on default settings
       //if (roles.isStudent()) {
       const notesElem = document.querySelector('#virtualclassnote');
+      const rightSubContainer = document.getElementById('virtualclassAppRightPanel');
       const bookmarkElem = document.querySelector('#bookmark');
       if (value === true) {
         notesElem.classList.remove('notesDisable');
         notesElem.classList.add('notesEnable');
         bookmarkElem.classList.remove('bookmarkDisable');
         bookmarkElem.classList.add('bookmarkEnable');
+        rightSubContainer.dataset.qaNote = 'enable';
       } else {
         notesElem.classList.remove('notesEnable');
         notesElem.classList.add('notesDisable');
         bookmarkElem.classList.remove('bookmarkEnable');
         bookmarkElem.classList.add('bookmarkDisable');
+        rightSubContainer.dataset.qaNote = 'disbale';
       }
       //}
     },

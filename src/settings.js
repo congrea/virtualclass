@@ -321,17 +321,18 @@
     },
 
     askQuestion(value) {
-      //if (roles.isStudent()) {
       const askQuestion = document.querySelector('#congAskQuestion');
+      const rightSubContainer = document.getElementById('virtualclassAppRightPanel');
       if (value === true) {
         askQuestion.classList.remove('askQuestionDisable');
         askQuestion.classList.add('askQuestionEnable');
+        rightSubContainer.dataset.askQuestion = 'askQuestionEnable';
       } else {
         // document.querySelector('#user_list').click();
         askQuestion.classList.remove('askQuestionEnable');
         askQuestion.classList.add('askQuestionDisable');
+        rightSubContainer.dataset.askQuestion = 'askQuestionDisable';
       }
-      // }
     },
 
     userlist(value) {

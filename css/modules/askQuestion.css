@@ -137,6 +137,7 @@
   position: absolute;
   bottom: 1.5625rem;
   right: 2px;
+  z-index: 100;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .moreControls .item span {

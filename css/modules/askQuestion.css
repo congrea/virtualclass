@@ -962,3 +962,9 @@
 #virtualclassCont.congrea #contrQaMarkNotesAll {
   text-transform: lowercase;
 }
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"][data-ask-question="askQuestionDisable"],
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="virtualclassnoteHeader"][data-qa-note="disbale"] {
+  pointer-events: none;
+  opacity: 0.5;
+}

@@ -104,7 +104,9 @@ class UserInteractivityRenderer { // Main Part
     const inputAction = document.querySelector('#writeContent');
     if (data.component === 'question') {
       if (inputAction) {
-        inputAction.addEventListener('click', virtualclass.userInteractivity.handler.bind(virtualclass.userInteractivity));
+        if (inputAction.parentNode.id === 'askQuestion') {
+          inputAction.addEventListener('click', virtualclass.userInteractivity.handler.bind(virtualclass.userInteractivity));
+        }
       }
     }
     inputAction.addEventListener('input', virtualclass.userInteractivity.userInputHandler.bind(this, data.component));

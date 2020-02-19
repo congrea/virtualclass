@@ -1404,7 +1404,8 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.congtooltip:hover::after,
-#virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover::after {
+#virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover::after,
+#virtualclassCont #virtualclassAppFooterPanel #precheckBtn.congtooltip:hover::after {
   bottom: 47px;
   right: -11px;
 }
@@ -4779,14 +4780,6 @@ span#usertab_text {
   display: none;
 }
 
-#virtualclassCont.congrea #fullScreenButton:hover,
-#virtualclassCont.congrea #fullScreenExitButton:hover,
-#virtualclassCont.congrea #bookmark:hover {
-  background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%) !important;
-}
-
-/* For FullScreen */
-
 #virtualclassCont.congrea #fullScreenButton span.congtooltip:hover::after,
 #virtualclassCont.congrea #fullScreenExitButton span.congtooltip:hover::after {
   bottom: 47px !important;
@@ -4810,12 +4803,36 @@ span#usertab_text {
 #virtualclassCont #virtualclassAppFooterPanel #recording {
   color: #fff;
   position: absolute;
-  left: 3.1875rem;
+  right: 6.5rem;
   bottom: -0.0625rem;
   z-index: 1000;
-  padding: 0.78125rem 1.25rem;
-  border-right: 0.01em solid #021317 !important;
+  padding: 0.75rem 1.125rem;
   cursor: pointer;
+}
+
+#virtualclassCont #virtualclassAppFooterPanel #precheckBtn {
+  color: #fff;
+  position: absolute;
+  left: 3.125rem;
+  bottom: -0.0625rem;
+  z-index: 1000;
+  padding: 0.6875rem 0.9375rem;
+  cursor: pointer;
+}
+
+#virtualclassCont #virtualclassAppFooterPanel #precheckBtn #settingPrecheck .prechk::before {
+  content: "\e915";
+  font-weight: normal;
+  font-family: 'icomoon';
+  font-size: 1.0625rem;
+}
+
+#virtualclassCont #virtualclassAppFooterPanel #precheckBtn #settingPrecheck .prechk span.precheck {
+  font-weight: normal;
+  font-size: 0.8125rem;
+  margin-left: 0.5rem;
+  /* margin-top: 0.125rem; */
+  float: right;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #recording.congtooltip:hover::after {
@@ -4827,10 +4844,6 @@ span#usertab_text {
   cursor: default;
 }
 
-#virtualclassCont #virtualclassAppFooterPanel #recording.show:hover {
-  background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%);
-}
-
 #virtualclassCont #virtualclassAppFooterPanel #recording.statusonly:hover {
   background-image: none;
 }
@@ -4838,9 +4851,9 @@ span#usertab_text {
 #virtualclassCont[data-recording="on"] #virtualclassAppFooterPanel #recording span.showStatus,
 #virtualclassCont #virtualclassApp #virtualclassAppFooterPanel #recording[data-recording="on"] span.showStatus {
   float: left;
-  margin-top: 1px;
-  width: 1rem;
-  height: 1rem;
+  margin-top: 0.1875rem;
+  width: 0.875rem;
+  height: 0.875rem;
   font-size: 0;
   background-color: red;
   border: 0;
@@ -4855,9 +4868,9 @@ span#usertab_text {
 #virtualclassCont[data-recording="off"] #virtualclassAppFooterPanel #recording span.showStatus,
 #virtualclassCont #virtualclassApp #virtualclassAppFooterPanel #recording[data-recording="off"] span.showStatus {
   float: left;
-  margin-top: 1px;
-  width: 1rem;
-  height: 1rem;
+  margin-top: 0.1875rem;
+  width: 0.875rem;
+  height: 0.875rem;
   font-size: 0;
   background-color: orange;
   border: 0;

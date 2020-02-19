@@ -1,48 +1,53 @@
 <ul class="chatBarTab nav navbar-nav">
-    <li class="vmchat_bar_button" id="techVideo" >
-      <a class="inner_bt congtooltip"  data-title="{{getString 'instructorVideo'}}">
-        <span id="tech_video">
-        </span>
-      </a>
-    </li>
+  <li class="vmchat_bar_button bottomright" id="techVideo"  data-headerid="techVideoHeader">
+    <a class="inner_bt congtooltip"  data-title="{{getString 'instructorVideo'}}">
+      <span id="tech_video">
+      </span>
+    </a>
+  </li>
     {{#if control}}
-    <li class="vmchat_bar_button  active" id="user_list" >
-      <a class="inner_bt congtooltip"  data-title="{{getString 'userList'}}">
-        <span id="userlist_icon"><span id="onlineusertext" class="icon-userlist cgIcon"></span></span>
-        {{!-- <span id="usertab_text" class="cgText">{{getString 'userList'}}</span> --}}
-      </a>
-      <a class="rHandNotify hand_bt">
-        <span id="rhtab_text"><span id="notifyText" class="cgText"></span></span>
-      </a>
+  <li class="vmchat_bar_button  active bottomright" id="user_list" data-headerid="userListHeader">
+    <a class="inner_bt congtooltip"  data-title="{{getString 'userList'}}">
+      <span id="userlist_icon"><span id="onlineusertext" class="icon-userlist cgIcon"></span></span>
+      {{!-- <span id="usertab_text" class="cgText">{{getString 'userList'}}</span> --}}
+    </a>
+    <a class="rHandNotify hand_bt">
+      <span id="rhtab_text"><span id="notifyText" class="cgText"></span></span>
+    </a>
 
-    </li>
+  </li>
       {{else}}
-      <li class="vmchat_bar_button congtooltip  active" id="user_list" data-title="{{getString 'userList'}}">
+  <li class="vmchat_bar_button congtooltip  active bottomright" id="user_list" data-title="{{getString 'userList'}}" data-headerid="userListHeader">
 
-        <a class="inner_bt "  >
-          <span id="userlist_icon"><span id="onlineusertext" class="icon-userlist cgIcon"></span></span>
-          {{!-- <span id="usertab_text" class="cgText">{{getString 'userList'}}</span> --}}
-        </a>
+    <a class="inner_bt "  >
+      <span id="userlist_icon"><span id="onlineusertext" class="icon-userlist cgIcon"></span></span>
+      {{!-- <span id="usertab_text" class="cgText">{{getString 'userList'}}</span> --}}
+    </a>
 
-      </li>
+  </li>
     {{/if}}
-  <li class="vmchat_room_bt congtooltip" data-title="{{getString 'commonChat'}}" id="chatroom_bt2">
+  <li class="vmchat_room_bt congtooltip bottomright" data-title="{{getString 'commonChat'}}" id="chatroom_bt2" data-headerid="commonChatHeader">
     <a class="inner_bt">
       <span id="chatroom_icon"><span class="icon-chatroom cgIcon"></span></span>
       {{!-- <span id="chatroom_text" class="cgText">{{getString 'Chatroom'}}</span> --}}
     </a>
   </li>
-  <li class = "handRaise enable congtooltip " id ="congHr" data-title ="{{getString 'RaiseHandStdEnabled'}}">
+  <!--<li class = "handRaise enable congtooltip bottomright" id ="congHr" data-title ="{{getString 'RaiseHandStdEnabled'}}" data-headerid="askQuestionHeader">-->
+      <!--<a class="stdRaiseHand">-->
+        <!--<span id="icHr" data-action="enable" class="icon-hr-enable" >-->
+        <!--</span>-->
+      <!--</a>-->
+  <!--</li>-->
 
-      <a class="stdRaiseHand">
-        <span id="icHr" data-action="enable" class="icon-hr-enable" >
+  <li class = "askQuestion_btn enable congtooltip bottomright" id ="congAskQuestion" data-title ="{{getString 'askQuestion'}}" data-headerid="askQuestionHeader">
+    <a class="stdAskQuestion">
+        <span id="iconAskQuestion" data-action="enable" class="icon-askQuestion-enable" >
         </span>
-      </a>
-  </li>
-  <li id="appSettingCtrl" class="congtooltip chatActive" data-title ="{{getString 'setting'}}">
-    <a id="appSettingCtrlAnchor">
-    <span class="setting-btn cgIcon"></span>
     </a>
+  </li>
+
+  <li id="virtualclassnote" class="congtooltip bottomright" data-title="{{getString 'note'}}" data-headerid="virtualclassnoteHeader">
+    <a><span class="icon-note icon-note-enable"></span> </a>
   </li>
 
 </ul>

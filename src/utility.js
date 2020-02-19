@@ -254,7 +254,11 @@
     Fullscreen() {
       /** Making virtualclassCont is fullScreen, displays the background is black on virtualclassCont **/
       // const elem = document.getElementById('virtualclassCont');
-      const elem = document.documentElement;
+      if (event.target.id == "askFullscreen") {
+        var elem = document.getElementById('virtualclassAppRightPanel');
+      } else {
+        var elem = document.documentElement;
+      }
 
       if (elem.requestFullscreen) {
         elem.requestFullscreen();
@@ -270,7 +274,12 @@
 
     closeFullscreen() {
       // const elem = document.getElementById('virtualclassCont');
-      const elem = document.documentElement;
+      if (event.target.id == "askExitFullscreen") {
+        var elem = document.getElementById('virtualclassAppRightPanel');
+        virtualclass.gObj.ignoreFullScreen = true;
+      } else {
+        var elem = document.documentElement;
+      }
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.mozCancelFullScreen) {
@@ -441,6 +450,10 @@
         io.disconnect();
       }
 
+      if (virtualclass.userInteractivity.rendererObj.noteEvent) {
+        console.log('====> send note on page load');
+        virtualclass.userInteractivity.handler(virtualclass.userInteractivity.rendererObj.noteEvent);
+      }
       // console.log('====> BEFORE LOAD dts order ', virtualclass.orderList[virtualclass.dts.appName].ol.order);
       //
       // console.log("whiteboard --=-=-=- DISCONNECT IO");
@@ -622,7 +635,7 @@
        */
 
       if (!roles.hasControls()) {
-        const elem = document.querySelector('#virtualclassCont.congrea #congHr.disable');
+        const elem = document.querySelector('#virtualclassCont.congrea #congAskQuestion.disable');
         if (elem) {
           elem.click();
         }
@@ -1895,29 +1908,16 @@
     },
 
     navWhiteboard(cthis, func, dthis) {
-      // this.removeAllTextWrapper();
       if (virtualclass.vutil.isTextWrapperExist()) {
         virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny(undefined, virtualclass.gObj.currWb);
       }
-      // if(Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'wbNav')){
-      //     clearTimeout(virtualclass.gObj.wbNav);
-      // }
+      // virtualclass.userInteractivity.makeReadyContext();
+
       if (typeof dthis !== 'undefined') {
         func.call(cthis, dthis);
       } else {
         func.call(cthis);
       }
-      // console.log(`whiteboard nav time${virtualclass.gObj.wbNavtime}`);
-      // virtualclass.gObj.wbNav = setTimeout(
-      //     function (){
-      //         if(typeof dthis != 'undefined'){
-      //             func.call(cthis, dthis);
-      //         }else {
-      //             func.call(cthis);
-      //         }
-      //         console.log('whiteboard nav time' + virtualclass.gObj.wbNavtime);
-      //     }, virtualclass.gObj.wbNavtime
-      // )
     },
 
     removeAllTextWrapper() {
@@ -2299,13 +2299,14 @@
     },
 
     hideFullScreenButton() {
+      console.log('=====> full screen show hide');
       document.querySelector('#fullScreenButton').style.display = 'none';
       document.querySelector('#fullScreenExitButton').style.display = 'block';
       virtualclass.gObj.fullScreenMode = true;
     },
 
     showFullScreenButton() {
-      console.log('====> show video full screen 2');
+      console.log('=====> full screen show show');
       document.querySelector('#fullScreenButton').style.display = 'block';
       document.querySelector('#fullScreenExitButton').style.display = 'none';
       virtualclass.gObj.fullScreenMode = false;
@@ -2328,7 +2329,12 @@
     attachWhiteboardPopupHandler(wId) {
       window.addEventListener('mouseup', (ev) => {
         const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
-        if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare')) {
+        const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
+        if (moreElemClose) {
+          moreElemClose.classList.remove('open');
+          moreElemClose.classList.add('close');
+        }
+        if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare') && wId) {
           if (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke') || Object.prototype.hasOwnProperty.call(ev.target.dataset, 'font')) {
             const dropDown = (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke')) ? document.querySelector(`#t_strk${wId} .strkSizeList`) : document.querySelector(`#t_font${wId} .fontSizeList`);
             virtualclass.wb[wId].closeElem(dropDown);
@@ -2396,30 +2402,35 @@
       }
     },
 
-    handleRightBar(action){
-      if (action) {
-        action === 'open' ? virtualclass.vutil.openRightbar() : virtualclass.vutil.closedRightbar();
-      } else {
-        var elem = document.getElementById("virtualclassApp");
-        if (elem.classList.contains('openRightbar')) {
-          virtualclass.vutil.closedRightbar();
-        } else {
-          virtualclass.vutil.openRightbar();
-        }
+    // text area focus input element
+    inputFocusHandler(searchUser) {
+      console.log('====> focus input');
+
+      if (searchUser && typeof searchUser !== 'string') {
+        if (virtualclass.isPlayMode) virtualclass.userInteractivity.triggerPause();
       }
 
-      if (virtualclass.currApp === 'ScreenShare') {
-        if ((roles.isStudent() && !virtualclass.gObj.studentSSstatus.mesharing)
-          || (roles.isTeacher() && virtualclass.gObj.studentSSstatus.mesharing)) {
-          virtualclass.studentScreen.doOpposite = true;
-          virtualclass.studentScreen.triggerFitControl();
-          virtualclass.ss.triggerFitToScreen();
-        }
-      } else {
-        virtualclass.zoom.doOpposite = true;
-        virtualclass.zoom.triggerFitToScreen();
+      const isFocusElement = document.querySelector('#tabs .ui-state-focus');
+      if (virtualclass.system.device === 'mobTab' && isFocusElement == null && virtualclass.system.mybrowser.name != 'Safari') {
+        document.getElementById('virtualclassCont').classList.add('focusInput');
       }
-    }
+    },
+
+    inputFocusOutHandler() {
+      console.log('====> focus output');
+      if (virtualclass.system.device === 'mobTab') {
+        document.getElementById('virtualclassCont').classList.remove('focusInput');
+      }
+    },
+
+    checkUserRole() {
+      if (virtualclass.isPlayMode) {
+        return (wbUser.orginalUserRole === 't');
+      } else {
+        return (virtualclass.gObj.uRole === 't' || virtualclass.gObj.uRole === 'p');
+      }
+    },
+
   };
   window.vutil = vutil;
 }(window));

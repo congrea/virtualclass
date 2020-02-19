@@ -1,0 +1,46 @@
+<div id= '{{id}}' class= 'question'>
+  <div class="container" data-type="question">
+
+    <div class='header'>
+      <div class="info">
+        <span class='userName'>{{userName}}</span>
+        <span class='lable'>{{getString 'questionLable'}}</span>
+        <span class='closed-icon'></span>
+      </div>
+    </div>
+
+    <div class= 'content'>
+      <p data-component='question' data-component-id="{{id}}">{{content}}
+       <span class="morecontent close">{{morecontent}}</span>
+       <span class='btn close' data-event="more">{{getString 'more'}}</span>
+      </p>
+    </div>
+
+    <div class="footer show" data-component = 'question' data-component-id="{{id}}">
+      <div class= 'controls' data-component = 'question' data-component-id="{{id}}">
+        <div class= "upVote congtooltip" data-event="upvote" data-title ="{{getString 'upvote'}}">
+          <span class= 'button'></span>
+          <span class= 'total'>0</span>
+        </div>
+        <div class= "navigation disable congtooltip" data-event="navigation" data-title ="{{getString 'answer'}}">
+          <span class= 'button'></span>
+          <span class= 'total'>0</span>
+        </div>
+        <div class= "reply congtooltip" data-event="reply" data-title ="{{getString 'reply'}}">
+          <span class= 'button'></span>
+        </div>
+      </div>
+
+      <div class= 'moreControls' data-event = 'moreControls' >
+        <div class= 'item close' data-component = 'question' data-component-id="{{id}}" data-timestamp="{{timestamp}}">
+          <span class= 'edit' data-event="edit"> {{getString 'edit'}} </span>
+          <span class= 'delete' data-event="delete"> {{getString 'delete'}} </span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="answers open"></div>
+</div>

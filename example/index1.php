@@ -183,6 +183,7 @@ if($info) {
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/network.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/main-container-layout.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/color.css" ?> />
+	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/askQuestion.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
 <?php
 } else {
@@ -200,7 +201,7 @@ if($info) {
 <script type="text/javascript">
    "user strict";
     let virtualclassSetting = {};
-    virtualclassSetting.settings = "7E00";
+    virtualclassSetting.settings = "fffff";
     virtualclassSetting.classes = "audioTool deactive";
     virtualclassSetting.audio_tooltip = '<?php echo get_string('audioEnable','congrea'); ?>';
     virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';

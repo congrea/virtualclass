@@ -1217,10 +1217,10 @@
               } else {
                 virtualclass.zoom.normalRender();
               }
-
               virtualclass.vutil.updateCurrentDoc(this.currNote);
               virtualclass.dts.updateLinkNotes(this.currNote);
               virtualclass.dts.identifyFirstAndLastNote(note.id);
+              virtualclass.userInteractivity.makeReadyContext();
             },
 
             /**

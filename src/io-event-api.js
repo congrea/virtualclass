@@ -135,26 +135,39 @@ const ioEventApi = {
       virtualclass.videoHost.setDefaultValue(speed);
       virtualclass.vutil.setDefaultScroll();
 
+      // if (localStorage.getItem('settings') != null) {
+      //   console.log('====> settings apply mark and note');
+      //   if (virtualclass.vutil.checkUserRole()) { virtualclass.settings.triggerSettings(); }
+      // }
+
       if (roles.hasControls()) { // settings send to students when teacher change his browser
-        if (!localStorage.getItem('userSettings')) {
+        if (!virtualclass.gObj.toBeSendSession && !localStorage.getItem('userSettings')) {
           const settings = virtualclass.settings.settingsToHex(virtualclass.settings.info);
           ioAdapter.mustSend({ cf: 'settings', Hex: settings, time: Date.now() });
+        } else if (virtualclass.gObj.toBeSendSession) {
+          ioAdapter.mustSend({ cf: 'settings', Hex: virtualclassSetting.settings, time: Date.now() });
+          console.log('====> Settings send', virtualclassSetting.settings);
+          virtualclass.settings.info = virtualclass.settings.parseSettings(virtualclassSetting.settings);
+          delete virtualclass.gObj.toBeSendSession;
+        } else {
+          console.log('====> Settings current, not sending', virtualclassSetting.settings);
         }
         const recordingButton = localStorage.getItem('recordingButton');
         if (recordingButton !== null) {
           ioAdapter.mustSend({ ac: JSON.parse(recordingButton), cf: 'recs' });
         }
+
+        if (localStorage.getItem('prvUser') != null) {
+          console.log('====> settings apply mark and note');
+          if (virtualclass.vutil.checkUserRole()) { virtualclass.settings.triggerSettings(); }
+        }
+        // virtualclass.setPrvUser();
       }
+
     }
 
     // virtualclass.gObj.mySetTime = virtualclass.vutil.getMySetTime(virtualclass.connectedUsers);
     virtualclass.gObj.mySetTime = 2000;
-
-
-    // if (virtualclass.vutil.selfJoin(virtualclass.jId)) {
-    //   console.log('self join suman');
-    //   defaultOperation(e, sType);
-    // }
 
     // console.log('==== Add users');
     defaultOperation(e, sType);
@@ -194,8 +207,8 @@ const ioEventApi = {
           }
 
           virtualclass.gObj.teacherAvailableTime = setTimeout(() => {
-            if (virtualclass.settings.info.raisehand) {
-              virtualclass.settings.raisehand(true);
+            if (virtualclass.settings.info.askQuestion) {
+              virtualclass.settings.askQuestion(true);
             }
             if (virtualclass.currApp === 'editorRich') {
               virtualclass.editorRich.cm.setOption('readOnly', false);
@@ -204,11 +217,15 @@ const ioEventApi = {
         }
       }
     }
+
+    // if (virtualclass.vutil.selfJoin(virtualclass.jId)
+    //   && (roles.hasControls() || localStorage.getItem('mySession') != null)) {
+    //   virtualclass.userInteractivity.init();
+    // }
   },
 
   newmessage(e) {
-    const recMsg = e.message; let
-      key;
+    const recMsg = e.message;
     if (Object.prototype.hasOwnProperty.call(recMsg, 'cf')) {
       if (typeof receiveFunctions[recMsg.cf] === 'function') {
         receiveFunctions[recMsg.cf](e);
@@ -235,7 +252,7 @@ const ioEventApi = {
       // if teacher is log out
       if (virtualclass.gObj.whoIsTeacher === e.fromUser) {
         const vcCont = document.getElementById('virtualclassCont');
-        virtualclass.settings.raisehand(false);
+        virtualclass.settings.askQuestion(false);
         if (vcCont && vcCont.classList.contains('tr_available')) {
           vcCont.classList.remove('tr_available');
           if (virtualclass.currApp === 'EditorRich' && roles.isStudent()) {

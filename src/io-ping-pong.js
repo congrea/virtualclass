@@ -33,8 +33,9 @@ const ioPingPong = {
     return session;
   },
   setSession() {
-    const session = virtualclass.vutil.randomString(32);
-    // console.log('==== session, My session is created by setSession');
+    // const session = virtualclass.vutil.randomString(32);
+    const session = localStorage.mySession;
+    console.log('==== session 1, My session is created by setSession ', session, ' ', localStorage.mySession);
     virtualclass.config.setNewSession(session);
     return session;
   },
@@ -51,6 +52,7 @@ const ioPingPong = {
       // console.log('==== session, start session');
       // console.log('My session is created');
       virtualclass.config.setNewSession(session);
+      // if (roles.isStudent()) virtualclass.userInteractivity.init();
     }
   },
   /**

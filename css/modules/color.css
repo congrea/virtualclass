@@ -1,3 +1,5 @@
-#virtualclassCont.congrea .bootstrap .nav > li > a:hover, #virtualclassCont.congrea .bootstrap .nav > li > a:hover:active, #virtualclassCont.congrea .bootstrap .nav > li > a:focus {
+#virtualclassCont.congrea .bootstrap .nav > li > a:hover,
+#virtualclassCont.congrea .bootstrap .nav > li > a:hover:active,
+#virtualclassCont.congrea .bootstrap .nav > li > a:focus {
   background: #2d3741 none !important;
 }

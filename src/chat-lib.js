@@ -105,13 +105,25 @@ function displayChatUserList(totUsers) {
   virtualclass.gObj.insertUser = !((virtualclass.connectedUsers.length >= virtualclass.gObj.userToBeDisplay));
   if (roles.isStudent()) {
     virtualclass.settings.userlist(virtualclass.settings.info.userlist);
+    // TODO remove commented code
     // const gcElem = document.querySelector('#chatrm');
-    if (virtualclass.settings.info.userlist === false) {
-      const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
-      const vmlist = document.querySelector('.vmchat_bar_button');
-      vmchat.click();
-      vmlist.classList.add('disable');
-    }
+    // if (virtualclass.settings.info.userlist === false) {
+    //   const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
+    //   const vmlist = document.querySelector('.vmchat_bar_button');
+    //   vmchat.click();
+    //   vmlist.classList.add('disable');
+    // }
+  }
+}
+
+function handleCommonChat() {
+  const askQuestionElem = document.querySelector('#congAskQuestion');
+  const notesElem = document.querySelector('#virtualclassnote');
+  if (!askQuestionElem.classList.contains('active') && !notesElem.classList.contains('active')) {
+    const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
+    const vmlist = document.querySelector('.vmchat_bar_button');
+    vmchat.click();
+    vmlist.classList.add('disable');
   }
 }
 
@@ -216,7 +228,7 @@ function memberUpdate(e, addType) {
         }
       }
 
-      virtualclass.raiseHand.moveUpInList();
+      // virtualclass.raiseHand.moveUpInList();
       // TODO, this should enabled
       // if(virtualclass.gObj.uid ==   virtualclass.vutil.whoIsTeacher()) {
       //     virtualclass.raiseHand.moveUpInList();
@@ -249,8 +261,8 @@ function memberUpdate(e, addType) {
     const memList = document.querySelector('#memlist');
     const chatrm = document.querySelector('#chatrm');
     if (memList != null && document.querySelector('#chatroom_bt2.active') == null) {
-      memList.classList.add('enable');
-      memList.classList.remove('disable');
+      // memList.classList.add('enable'); TODO handle on new user join some issue on other's side
+      // memList.classList.remove('disable');
 
 
       if (chatrm != null) {

@@ -5,10 +5,10 @@
 }
 
 #virtualclassCont.congrea .button {
-  color: #3CB3E7;
+  color: #3cb3e7;
   font-family: Raleway, Helvetica, sans-serif;
   border-radius: 4px;
-  border: 1px solid #3CB3E7;
+  border: 1px solid #3cb3e7;
   background: 0 0;
   font-size: 14px;
   padding: 15px 25px;
@@ -21,7 +21,7 @@
 
 #virtualclassCont.congrea .button:hover {
   color: #fff;
-  background: #3CB3E7;
+  background: #3cb3e7;
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck .button:hover {
@@ -39,17 +39,21 @@
 
 #virtualclassCont.congrea .rv-vanilla-modal {
   position: absolute;
+
   /* top:-100%; */
+
   /* left:55%; */
   width: 27%;
   min-height: auto;
   background: #fff;
   z-index: 10;
+
   /* -webkit-transition:.3s all ease-out;
     transition:.3s all ease-out; */
   border-radius: 4px;
-  -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, .3);
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, .3);
+  -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
+
   /* margin:-300px 0 0 -22.5%; */
   z-index: 1000000;
 }
@@ -72,9 +76,10 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   opacity: 0;
   display: none;
+
   /* -webkit-transition:.4s opacity linear;
     transition:.4s opacity linear; */
   z-index: 100000;
@@ -98,7 +103,7 @@
 }
 
 .rv-vanilla-modal-title {
-  color: #414C46;
+  color: #fff;
   font-size: 15px;
   font-weight: 300;
   margin: 0;
@@ -114,7 +119,7 @@
 
 .rv-vanilla-modal-close:hover {
   color: #1996cd;
-  background: rgba(255, 255, 255, .5);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 #virtualclassCont.congrea .hidden {
@@ -122,12 +127,13 @@
   visibility: hidden;
 }
 
-#virtualclassCont.congrea .group:after, #virtualclassCont.congrea .group:before {
+#virtualclassCont.congrea .group::after,
+#virtualclassCont.congrea .group::before {
   content: "";
   display: table;
 }
 
-#virtualclassCont.congrea .group:after {
+#virtualclassCont.congrea .group::after {
   clear: both;
 }
 
@@ -136,22 +142,33 @@
 }
 
 #virtualclassCont.congrea .rv-vanilla-modal-header {
-  border-radius: 4px 4px 0 0;
+  border-radius: 10px 10px 0 0;
+  height: 42px;
 }
 
-#virtualclassCont.congrea #progress, #virtualclassCont.congrea #indProgress, #virtualclassCont.congrea #downloadProgress {
-  /*width:100%;*/
-  /*height:15px;*/
-  /*border:1px solid #000;*/
-  /*overflow:hidden;*/
+#virtualclassCont.congrea #progress,
+#virtualclassCont.congrea #indProgress,
+#virtualclassCont.congrea #downloadProgress {
+  /* width:100%; */
+
+  /* height:15px; */
+
+  /* border:1px solid #000; */
+
+  /* overflow:hidden; */
 }
 
-/*#virtualclassCont.congrea .progressBar {*/
-/*width:0;*/
-/*height:15px;*/
-/*border-right: 1px solid #000000;*/
-/*background: #46D65D;*/
-/*}*/
+/* #virtualclassCont.congrea .progressBar { */
+
+/* width:0; */
+
+/* height:15px; */
+
+/* border-right: 1px solid #000000; */
+
+/* background: #46D65D; */
+
+/* } */
 
 #virtualclassCont.congrea .progressValue {
   color: #fff;
@@ -161,7 +178,7 @@
   left: 10px;
   position: relative;
   top: -25px;
-  text-shadow: #333 0px 0px 3px;
+  text-shadow: #333 0 0 3px;
 }
 
 #virtualclassCont.congrea #indProgressBar {
@@ -178,28 +195,40 @@
   min-width: 400px;
 }
 
-/*Hasan css start*/
+/* Hasan css start */
 
-/*#virtualclassCont.congrea #downloadProgress {*/
-/*background-color: #f5f5f5;*/
-/*border-radius: 4px;*/
-/*-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);*/
-/*box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);*/
-/*height: 16px;*/
-/*border:none;*/
-/*}*/
+/* #virtualclassCont.congrea #downloadProgress { */
+
+/* background-color: #f5f5f5; */
+
+/* border-radius: 4px; */
+
+/* -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1); */
+
+/* box-shadow: inset 0 1px 2px rgba(0,0,0,0.1); */
+
+/* height: 16px; */
+
+/* border:none; */
+
+/* } */
+
 /* modify this  in  moodle css  ***    */
 #virtualclassCont.congrea .progressBar {
   background-color: #56b349;
-  /*-webkit-transition: width .6s ease;*/
-  /*transition: width .6s ease;*/
+
+  /* -webkit-transition: width .6s ease; */
+
+  /* transition: width .6s ease; */
   height: 20px;
   border: none;
 }
 
-/*#virtualclassCont.congrea #playProgressBar.progressBar {*/
-/*height:5px;*/
-/*}*/
+/* #virtualclassCont.congrea #playProgressBar.progressBar { */
+
+/* height:5px; */
+
+/* } */
 #virtualclassCont.congrea #askplayMessage {
   font-size: 14px;
   text-align: center;
@@ -209,19 +238,20 @@
   padding-right: 15px;
 }
 
-#virtualclassCont.congrea #downloadSessionText, #virtualclassCont.congrea #downloadPrgressLabel {
+#virtualclassCont.congrea #downloadSessionText,
+#virtualclassCont.congrea #downloadPrgressLabel {
   font-size: 13px;
 }
 
 #virtualclassCont.congrea #playButton {
-  background: #eeeeee; /* Old browsers */
-  background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #dddddd)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #eeeeee 0%, #dddddd 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#dddddd', GradientType=0); /* IE6-9 */
+  background: #eee; /* Old browsers */
+  background: -moz-linear-gradient(top, #eee 0%, #ddd 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eee), color-stop(100%, #ddd)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #eee 0%, #ddd 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #eee 0%, #ddd 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #eee 0%, #ddd 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #eee 0%, #ddd 100%); /* W3C */
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#eeeeee', endColorstr='#dddddd', GradientType=0); /* IE6-9 */
   padding: 9px 30px;
   border-radius: 5px;
   border: none;
@@ -233,14 +263,14 @@
 }
 
 #virtualclassCont.congrea #playButton:hover {
-  background: #dddddd; /* Old browsers */
-  background: -moz-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #eeeeee)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #dddddd 0%, #eeeeee 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #dddddd 0%, #eeeeee 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#eeeeee', GradientType=0); /* IE6-9 */
+  background: #ddd; /* Old browsers */
+  background: -moz-linear-gradient(top, #ddd 0%, #eee 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ddd), color-stop(100%, #eee)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ddd 0%, #eee 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ddd 0%, #eee 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #ddd 0%, #eee 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #ddd 0%, #eee 100%); /* W3C */
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#dddddd', endColorstr='#eeeeee', GradientType=0); /* IE6-9 */
   padding: 9px 30px;
   border-radius: 5px;
   border: none;
@@ -250,7 +280,7 @@
   border: #ddd 1px solid;
 }
 
-/*Hasan css start student*/
+/* Hasan css start student */
 
 #virtualclassCont.congrea .rv-vanilla-modal {
   min-height: auto;
@@ -266,17 +296,14 @@
   font-size: 15px;
 }
 
-#virtualclassCont.congrea .rv-vanilla-modal-header {
-  height: 42px;
-}
-
 #virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-body div {
   border-radius: 4px;
   font-size: 13px;
   margin-bottom: 7px;
 }
 
-#virtualclassCont.congrea #progress, #virtualclassCont.congrea #indProgress {
+#virtualclassCont.congrea #progress,
+#virtualclassCont.congrea #indProgress {
   height: 20px;
   border: none;
 }
@@ -305,7 +332,7 @@
 }
 
 #virtualclassCont.congrea #about-modal #recordPlay .rv-vanilla-modal-body {
-  padding: 0px;
+  padding: 0;
   border-radius: 10px;
 }
 
@@ -324,19 +351,25 @@
   margin-right: 20px;
 }
 
-/*#virtualclassCont.congrea #downloadProgress {*/
-/*margin-left: 20px;*/
-/*margin-right: 20px;*/
-/*}*/
+/* #virtualclassCont.congrea #downloadProgress { */
+
+/* margin-left: 20px; */
+
+/* margin-right: 20px; */
+
+/* } */
 
 #virtualclassCont.congrea #downloadPcCont #downloadPrgressLabel {
-  padding: 15px 0px 9px 3px;
+  padding: 15px 0 9px 3px;
 }
 
-/*#virtualclassCont.congrea #downloadPcCont #downloadProgress {*/
-/*width: 90%;*/
-/*margin-bottom: 15px;*/
-/*}*/
+/* #virtualclassCont.congrea #downloadPcCont #downloadProgress { */
+
+/* width: 90%; */
+
+/* margin-bottom: 15px; */
+
+/* } */
 
 #virtualclassCont.congrea #recordingContainer .rv-vanilla-modal-title {
   float: left;
@@ -347,16 +380,19 @@
 }
 
 #virtualclassCont.congrea #youtubeurl::-webkit-input-placeholder {
-  opacity: 0.8
+  opacity: 0.8;
 }
 
-/*Gray color */
+/* Gray color */
 
 #virtualclassCont.congrea .vceditor-toolbar {
   background-color: #3c4955;
 }
 
-#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton, #virtualclassCont.congrea #confirmCancelButton, #virtualclassCont.congrea #popupContainer #replayContainer #replayButton, #virtualclassCont.congrea #playButton {
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
+#virtualclassCont.congrea #confirmCancelButton,
+#virtualclassCont.congrea #popupContainer #replayContainer #replayButton,
+#virtualclassCont.congrea #playButton {
   background-image: none;
   background-color: #34404c;
   color: #fff;
@@ -365,21 +401,31 @@
   border: none;
 }
 
-#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, #virtualclassCont.congrea #confirmCancelButton:hover, #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover, #virtualclassCont.congrea #popupContainer #replayContainer #replayButton:hover, #virtualclassCont.congrea #playButton:hover {
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover,
+#virtualclassCont.congrea #confirmCancelButton:hover,
+#virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover,
+#virtualclassCont.congrea #popupContainer #replayContainer #replayButton:hover,
+#virtualclassCont.congrea #playButton:hover {
   border-radius: 20px;
 }
 
-#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, #virtualclassCont.congrea #confirmCancelButton:hover, #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover, #virtualclassCont.congrea #popupContainer #replayContainer #replayButton:hover {
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover,
+#virtualclassCont.congrea #confirmCancelButton:hover,
+#virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover,
+#virtualclassCont.congrea #popupContainer #replayContainer #replayButton:hover {
   background-image: none;
 }
 
-#confirm #confirmOk #confirmOkButton:hover, #virtualclassCont.congrea #playButton:hover, #virtualclassCont.congrea #playButton:hover {
+#confirm #confirmOk #confirmOkButton:hover,
+#virtualclassCont.congrea #playButton:hover,
+#virtualclassCont.congrea #playButton:hover {
   background-image: none;
   background-color: #515e69 !important;
   border: none;
 }
 
-#virtualclassCont.congrea #confirm.popupWindow #confirmCancel #confirmCancelButton:before, #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:before {
+#virtualclassCont.congrea #confirm.popupWindow #confirmCancel #confirmCancelButton::before,
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton::before {
   color: #fff;
 }
 
@@ -396,8 +442,9 @@
   background-color: #515e69 !important;
 }
 
-.rv-vanilla-modal-body, .rv-vanilla-modal-body {
-  color: #3C3C3C !important;
+.rv-vanilla-modal-body,
+.rv-vanilla-modal-body {
+  color: #3c3c3c !important;
 }
 
 #virtualclassCont.congrea #popupContainer .rv-vanilla-modal-is-open {
@@ -413,30 +460,39 @@
   box-shadow: 2px 5px 9px #4c4c4c;
 }
 
-#virtualclassCont.congrea.playMode #popupContainer.playPopup #about-modal, #virtualclassCont.congrea.playMode #popupContainer.loading #about-modal {
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #about-modal,
+#virtualclassCont.congrea.playMode #popupContainer.loading #about-modal {
   background-color: transparent;
   border: none;
   box-shadow: none;
 }
 
-#virtualclassCont.congrea #about-modal #recordPlay .rv-vanilla-modal-body, #virtualclassCont.congrea .rv-vanilla-modal, #virtualclassCont.congrea #confirm.popupWindow.simple-box {
+#virtualclassCont.congrea #about-modal #recordPlay .rv-vanilla-modal-body,
+#virtualclassCont.congrea .rv-vanilla-modal,
+#virtualclassCont.congrea #confirm.popupWindow.simple-box {
   border-radius: 13px !important;
 }
 
-/*#virtualclassCont.congrea #downloadProgress{*/
-/*background-color: #eee;*/
-/*}*/
-/*#virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorCodeContainer:hover{*/
-/*background-image: none;*/
-/*}*/
+/* #virtualclassCont.congrea #downloadProgress{ */
 
-#virtualclassCont.congrea #alleditorRichContainer [data-action="enable"], #alleditorCodeContainer [data-action="enable"] {
+/* background-color: #eee; */
+
+/* } */
+
+/* #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorCodeContainer:hover{ */
+
+/* background-image: none; */
+
+/* } */
+
+#virtualclassCont.congrea #alleditorRichContainer [data-action="enable"],
+#alleditorCodeContainer [data-action="enable"] {
   font-weight: normal;
   border-radius: 5px !important;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
-#virtualclassCont.congrea #alleditorRichContainer [data-action="enable"]:before {
+#virtualclassCont.congrea #alleditorRichContainer [data-action="enable"]::before {
   content: "\e984";
   font-size: 18px;
   font-family: icomoon;
@@ -447,14 +503,15 @@
   box-shadow: none;
 } */
 
-#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"]:before {
+#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"]::before {
   content: "\e97e";
   font-size: 18px;
   font-family: icomoon;
   color: #22af00;
 }
 
-#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"], #alleditorCodeContainer [data-action="disable"] {
+#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"],
+#alleditorCodeContainer [data-action="disable"] {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
@@ -462,19 +519,9 @@
   position: relative;
   top: -2px;
   margin-left: 5px;
-
 }
 
 #virtualclassCont.congrea #speakerPressingAnch #speakerPressingtext {
-  color: #fff;
-}
-
-#virtualclassCont.congrea .rv-vanilla-modal-header {
-  border-radius: 10px 10px 0 0;
-
-}
-
-.rv-vanilla-modal-title {
   color: #fff;
 }
 

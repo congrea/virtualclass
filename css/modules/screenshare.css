@@ -5,16 +5,21 @@
 
 #virtualclassCont.congrea #virtualclassScreenShare {
   float: left;
-  /*height: 100%;*/
+
+  /* height: 100%; */
 }
 
-/*#virtualclassCont.congrea #virtualclassScreenShare {*/
-/*margin-left: 55px;*/
-/*}*/
+/* #virtualclassCont.congrea #virtualclassScreenShare { */
 
-/*#virtualclassCont.congrea #virtualclassScreenShare {*/
-/*width: 99%;*/
-/*}*/
+/* margin-left: 55px; */
+
+/* } */
+
+/* #virtualclassCont.congrea #virtualclassScreenShare { */
+
+/* width: 99%; */
+
+/* } */
 
 #virtualclassCont.congrea.student #virtualclassScreenShare {
   margin-left: 5px;
@@ -29,18 +34,24 @@
 }
 
 #virtualclassScreenShareTool {
-  /*padding: 10px 5px;*/ /* microsoft edge **/
+  /* padding: 10px 5px; */
+
+  /* microsoft edge **/
 }
 
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool.appOptions.active {
   border-top-right-radius: 0;
 }
 
-/*#virtualclassCont.congrea #virtualclassScreenShareTool .icon-screenshare:before {*/
-/*content: "\e602";*/
-/*font-size: 32px;*/
-/*margin-right: 5px;*/
-/*}*/
+/* #virtualclassCont.congrea #virtualclassScreenShareTool .icon-screenshare:before { */
+
+/* content: "\e602"; */
+
+/* font-size: 32px; */
+
+/* margin-right: 5px; */
+
+/* } */
 
 #virtualclassCont.congrea.educator #virtualclassScreenShare {
   margin-left: 9px;
@@ -49,35 +60,42 @@
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool.active:hover {
   background: #28323c; /* Old browsers */
   background: -moz-radial-gradient(center, ellipse cover, #323e49 0%, #28323c 100%); /* FF3.6+ */
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #323e49), color-stop(100%, #28323c)); /* Chrome,Safari4+ */
+  background: -webkit-gradient(radial, center center, 0, center center, 100%, color-stop(0%, #323e49), color-stop(100%, #28323c)); /* Chrome,Safari4+ */
   background: -webkit-radial-gradient(center, ellipse cover, #323e49 0%, #28323c 100%); /* Chrome10+,Safari5.1+ */
   background: -o-radial-gradient(center, ellipse cover, #323e49 0%, #28323c 100%); /* Opera 12+ */
   background: -ms-radial-gradient(center, ellipse cover, #323e49 0%, #28323c 100%); /* IE10+ */
   background: radial-gradient(ellipse at center, #323e49 0%, #28323c 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#323e49', endColorstr='#28323c', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#323e49', endColorstr='#28323c', GradientType=1); /* IE6-9 fallback on horizontal gradient */
 }
 
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool:hover {
   background: #8d98a4; /* Old browsers */
   background: -moz-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* FF3.6+ */
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #8d98a4), color-stop(100%, #646d76)); /* Chrome,Safari4+ */
+  background: -webkit-gradient(radial, center center, 0, center center, 100%, color-stop(0%, #8d98a4), color-stop(100%, #646d76)); /* Chrome,Safari4+ */
   background: -webkit-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* Chrome10+,Safari5.1+ */
   background: -o-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* Opera 12+ */
   background: -ms-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* IE10+ */
   background: radial-gradient(ellipse at center, #8d98a4 0%, #646d76 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8d98a4', endColorstr='#646d76', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#8d98a4', endColorstr='#646d76', GradientType=1); /* IE6-9 fallback on horizontal gradient */
 }
 
-/*#virtualclassCont.congrea #virtualclassScreenShare {*/
-/*height: 95vh;*/
-/*}*/
+/* #virtualclassCont.congrea #virtualclassScreenShare { */
 
-/*#virtualclassCont.congrea #virtualclassScreenShareLocal  #screenShrMsg {*/
-/*width: 250px;*/
-/*margin-left: 10%;*/
-/*font-weight: normal;*/
-/*text-align: center;*/
-/*}*/
+/* height: 95vh; */
+
+/* } */
+
+/* #virtualclassCont.congrea #virtualclassScreenShareLocal  #screenShrMsg { */
+
+/* width: 250px; */
+
+/* margin-left: 10%; */
+
+/* font-weight: normal; */
+
+/* text-align: center; */
+
+/* } */
 
 #virtualclassCont.congrea.teacher #virtualclassScreenShareLocalVideo {
   position: absolute;
@@ -154,7 +172,7 @@
 }
 
 #virtualclassCont.congrea #screenController .share button {
-  background-image: linear-gradient(to bottom, #f7f7f7 0%,#f7f7f7 100%) !important;
+  background-image: linear-gradient(to bottom, #f7f7f7 0%, #f7f7f7 100%) !important;
   border: 0.5px solid #f2f2f2;
   cursor: pointer;
   padding: 7.5px 8px 7.5px 8px;
@@ -165,8 +183,8 @@
 }
 
 #virtualclassCont.congrea #screenController .share button:hover {
-  background-image: linear-gradient(to bottom, #eaeaea 0%,#eaeaea 100%) !important;
-  border: .5px solid #e0e0e0;
+  background-image: linear-gradient(to bottom, #eaeaea 0%, #eaeaea 100%) !important;
+  border: 0.5px solid #e0e0e0;
 }
 
 #virtualclassCont.congrea[data-recording="on"] #screenController .share button,
@@ -174,14 +192,14 @@
   left: 295px;
 }
 
-#virtualclassCont.congrea #screenController .share button:before {
+#virtualclassCont.congrea #screenController .share button::before {
   content: "\e94d";
   font-family: 'icomoon';
   font-size: 21px;
   color: #868686;
 }
 
-#virtualclassCont.congrea #screenController .share.shareToAll button:before {
+#virtualclassCont.congrea #screenController .share.shareToAll button::before {
   content: "\e94e";
   font-family: 'icomoon';
   font-size: 21px;
@@ -189,7 +207,7 @@
 }
 
 #virtualclassCont.congrea #stopScreenShare button {
-  background-image: linear-gradient(to bottom, #f7f7f7 0%,#f7f7f7 100%) !important;
+  background-image: linear-gradient(to bottom, #f7f7f7 0%, #f7f7f7 100%) !important;
   color: #000;
   border: 0.5px solid #f2f2f2;
   cursor: pointer;
@@ -205,22 +223,24 @@
   right: 30px;
 }
 
-#virtualclassCont.congrea[data-recording="on"] #stopScreenShare button, #virtualclassCont.congrea[data-recording="off"] #stopScreenShare button {
+#virtualclassCont.congrea[data-recording="on"] #stopScreenShare button,
+#virtualclassCont.congrea[data-recording="off"] #stopScreenShare button {
   left: 148px;
 }
 
 @-moz-document url-prefix() {
-  #virtualclassCont.congrea #stopScreenShare button, #virtualclassCont.congrea #screenController .share button {
+  #virtualclassCont.congrea #stopScreenShare button,
+  #virtualclassCont.congrea #screenController .share button {
     bottom: -2px;
   }
 }
 
 #virtualclassCont.congrea #stopScreenShare button:hover {
-  background-image: linear-gradient(to bottom, #eaeaea 0%,#eaeaea 100%) !important;
-  border: .5px solid #e0e0e0;
+  background-image: linear-gradient(to bottom, #eaeaea 0%, #eaeaea 100%) !important;
+  border: 0.5px solid #e0e0e0;
 }
 
-#virtualclassCont.congrea #stopScreenShare button:before {
+#virtualclassCont.congrea #stopScreenShare button::before {
   content: "\e9d4";
   font-family: 'icomoon';
   font-size: 21px;
@@ -228,13 +248,11 @@
 }
 
 @-moz-document url-prefix() {
-
   #virtualclassCont.congrea #screenController .share button,
   #virtualclassCont.congrea #stopScreenShare button {
     bottom: 0;
     padding: 11px 14px 14px 14px;
   }
-
 }
 
 .congrea #stopScreenShare {
@@ -258,6 +276,8 @@
   bottom: unset;
 }
 
-/*#virtualclassCont video#virtualclassScreenShareLocalVideo {*/
-  /*width: 100%;*/
-/*}*/
+/* #virtualclassCont video#virtualclassScreenShareLocalVideo { */
+
+/* width: 100%; */
+
+/* } */

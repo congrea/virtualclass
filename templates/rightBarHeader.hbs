@@ -1,7 +1,31 @@
 <div id= "rightBarHeader" class="active">
-  <div id="userListHeader" class= "active">{{getString "userListHeader"}}<span id='onlineusertext' class='cgText'></span></div>
-  <div id="commonChatHeader" class= "deactive">{{getString "commonChatHeader"}}</div>
+  <div id="userListHeader" class= "rightBarHeader active" >{{getString "userListHeader"}}<span id='onlineusertext' class='cgText'></span></div>
+  <div id="commonChatHeader" class= "rightBarHeader">{{getString "commonChatHeader"}}</div>
   {{#if std}}
-    <div id="techVideoHeader" class= "deactive">{{getString "teacherVideoHeader"}}</div>
+    <div id="techVideoHeader" class= "rightBarHeader">{{getString "teacherVideoHeader"}}</div>
   {{/if}}
+  <div id="askQuestionHeader" class= "rightBarHeader">
+    <div class="header">
+      <div class="text">
+        <span class="lable">{{getString 'askQuestionHeader'}}</span>
+      </div>
+      <div class="action">
+        <span class="addQuestion-icon congtooltip" data-title="{{getString 'addQuestion'}}"></span>
+        <span class="help-icon"></span>
+        {{#if isPlayMode}}
+          <label class="switch viewtext" id="viewAllQuestion" data-viewall="enable">
+            <span class="slider round icon-all-audio-disable enable congtooltip cgIcon" data-title="View All">{{getString 'viewall'}}</span>
+          </label>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div id="virtualclassnoteHeader" class= "rightBarHeader" ><div class='header'>{{getString "virtualclassnoteHeader"}}</div></div>
+  <div id="appSettingCtrl" class="congtooltip chatActive" data-title ="{{getString 'setting'}}">
+    <a id="appSettingCtrlAnchor">
+      <span class="setting-btn cgIcon"></span>
+    </a>
+  </div>
+  <span id="askFullscreen" class="fullScreen-icon"></span>
+  <span id="askExitFullscreen" class="exitFullScreen-icon"></span>
 </div>

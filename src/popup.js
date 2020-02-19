@@ -165,12 +165,23 @@ const PopUp = (function (window, undefined) {
         // console.log('zIndex performing');
         chatRoom.style.zIndex = 1;
       }
-
+      console.log('====> Removing connecting class');
       // remove connecting class
+      const virtualclassContConatiner = document.querySelector('#virtualclassCont');
       const networkStatusContainer = document.querySelector('#networkStatusContainer');
       networkStatusContainer.classList.remove('connecting-room');
+      virtualclassContConatiner.classList.remove('connecting');
       const connt = document.querySelector('#virtualclassApp');
       connt.classList.remove('try-to-connect');
+      if (roles.hasControls()) {
+        virtualclass.userInteractivity.triggerInitFirebaseOperation();
+      } else {
+        if (localStorage.getItem('mySession') != null) {
+          const virtualclassCont = document.getElementById('virtualclassCont');
+          virtualclassCont.classList.add('readyForNote');
+          virtualclass.userInteractivity.triggerInitFirebaseOperation();
+        }
+      }
     }
   },
 
@@ -493,6 +504,24 @@ const PopUp = (function (window, undefined) {
     msgCont.innerHTML = msg;
 
     const generalMessageClose = document.getElementById('generalMessageClose');
+
+    generalMessageClose.addEventListener('click',
+      () => {
+        virtualclass.popup.closeElem();
+      });
+  };
+
+  PopUp.prototype.infoMsg = function (msg) {
+    const element = document.getElementById('about-modal');
+    virtualclass.popup.open(element);
+    this.hideAllPopups();
+    const sessionEndMsg = document.getElementById('infoMessage');
+    sessionEndMsg.style.display = 'block';
+    const msgCont = document.querySelector('#infoMessageMsg');
+    msgCont.innerHTML = msg;
+    const displayBtn = document.getElementById('infoMessageOk');
+    displayBtn.innerHTML = 'ok';
+    const generalMessageClose = document.getElementById('infoMessageOk');
 
     generalMessageClose.addEventListener('click',
       () => {

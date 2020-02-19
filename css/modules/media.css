@@ -1,10 +1,10 @@
-#virtualclassCont.congrea #audioWidget .Tool .congtooltip:hover:after, #virtualclassCont.congrea #audioWidget .audioTool .congtooltip:hover:after {
+#virtualclassCont.congrea #audioWidget .Tool .congtooltip:hover::after,
+#virtualclassCont.congrea #audioWidget .audioTool .congtooltip:hover::after {
   position: fixed;
   bottom: 63px;
   left: 12px;
   width: fit-content;
 }
-
 
 #virtualclassCont.congrea #audioWidget ul li {
   cursor: pointer;
@@ -29,24 +29,24 @@
   height: 15px;
 }
 
-#virtualclassCont.congrea #audioWidget #audioTest #virtualclassCont.congrea.student #audioWidget .audioTool a#speakerPressonceAnch img, #virtualclassCont.congrea.student #audioWidget .audioTool a#speakerPressingAnch img {
+#virtualclassCont.congrea #audioWidget #audioTest #virtualclassCont.congrea.student #audioWidget .audioTool a#speakerPressonceAnch img,
+#virtualclassCont.congrea.student #audioWidget .audioTool a#speakerPressingAnch img {
   margin-left: -5px;
   padding: 1px;
   padding-left: 2px;
   border: transparent solid 1px;
 }
 
-#virtualclassCont.congrea.teacher #audioWidget .active a img, #virtualclassCont.congrea.teacher #audioWidget .deactive a img, #virtualclassCont.congrea.student #audioWidget .audioTool.active a img, #virtualclassCont.congrea.student #audioWidget .audioTool.deactive a img {
-  border: #006CA6 solid 1px !important;
+#virtualclassCont.congrea.teacher #audioWidget .active a img,
+#virtualclassCont.congrea.teacher #audioWidget .deactive a img,
+#virtualclassCont.congrea.student #audioWidget .audioTool.active a img,
+#virtualclassCont.congrea.student #audioWidget .audioTool.deactive a img {
+  border: #41aa45 solid 1px !important;
   padding: 1px;
   border-radius: 4px;
   padding-right: 0;
   padding-left: 2px;
   margin-left: -3px;
-}
-
-#virtualclassCont.congrea.teacher #audioWidget .active a img, #virtualclassCont.congrea.teacher #audioWidget .deactive a img, #virtualclassCont.congrea.student #audioWidget .audioTool.active a img, #virtualclassCont.congrea.student #audioWidget .audioTool.deactive a img {
-  border: #41AA45 solid 1px !important;
 }
 
 #virtualclassCont.congrea .ui-memblist-usr.student .controls .controleCont img.audioImg.block {
@@ -68,7 +68,8 @@
   top: 15px;
 }
 
-#virtualclassCont.congrea #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
+#virtualclassCont.congrea #alwaysPress .audioTool.deactive,
+#audioTest-box .audioTool {
   padding-bottom: 0;
   border-bottom-left-radius: 5px;
 }
@@ -77,30 +78,30 @@
   position: relative;
   z-index: 0;
   border-top: none !important;
+  border-bottom-right-radius: 8px;
+  padding: 14px 8px 8px;
 }
 
 #virtualclassCont.congrea #alwaysPress .audioTool.active {
   color: #fff;
-  border-bottom-left-radius: 0px;
-  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 
-#virtualclassCont.congrea #audioTest-box .audioTool.audioIsTesting:before {
+#virtualclassCont.congrea #audioTest-box .audioTool.audioIsTesting::before {
   color: #fff;
 }
 
-#virtualclassCont.congrea #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
+#virtualclassCont.congrea #alwaysPress .audioTool.active,
+#alwaysPress .audioTool.deactive,
+#audioTest-box .audioTool {
   text-align: center;
   padding: 0 13px 0;
   border-radius: 0;
 }
 
-#virtualclassCont.congrea #audioTest-box .audioTool {
-  border-bottom-right-radius: 8px;
-  padding: 14px 8px 8px;
-}
-
-#virtualclassCont.congrea #alwaysPress .audioTool.active, #alwaysPress .audioTool.deactive {
+#virtualclassCont.congrea #alwaysPress .audioTool.active,
+#alwaysPress .audioTool.deactive {
   padding: 6px 12px 0;
 }
 
@@ -114,70 +115,22 @@
   border-top: none;
 }
 
-#virtualclassCont.congrea #audioTest .congtooltip:hover:after {
+#virtualclassCont.congrea #audioTest .congtooltip:hover::after {
   line-height: 16px;
 }
 
-#virtualclassCont.congrea #ui-memblist .icon-chatImg:before, #virtualclassCont.congrea #ui-memblist .icon-audioEnaGreen:before, #virtualclassCont.congrea #ui-memblist .icon-audioImg:before, #virtualclassCont.congrea #ui-memblist .icon-audioDisImg:before {
+#virtualclassCont.congrea #ui-memblist .icon-chatImg::before,
+#virtualclassCont.congrea #ui-memblist .icon-audioEnaGreen::before,
+#virtualclassCont.congrea #ui-memblist .icon-audioImg::before,
+#virtualclassCont.congrea #ui-memblist .icon-audioDisImg::before {
   font-weight: 100;
   font-variant: normal;
 }
 
-#virtualclassCont.congrea #audioTest .icon-audiotest:before {
+#virtualclassCont.congrea #audioTest .icon-audiotest::before {
   content: "\e60d";
   font-size: 40px;
 }
-
-/*#virtualclassCont.congrea.student .icon-audioImg.enable:before {*/
-/*content: "\f026";*/
-/*color: #7d7a7a;*/
-/*padding-right: 0px;*/
-/*margin-right: 7px;*/
-/*font-size: 120%;*/
-/*}*/
-
-/*#virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen:before {*/
-/*content: "\ea27";*/
-/*color: #94b532;*/
-/*font-variant: normal;*/
-/*font-style: normal;*/
-/*font-size: 118%;*/
-/*margin-right:7px;*/
-/*font-weight: normal;*/
-/*}*/
-
-/*#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioEnaGreen:before{*/
-/*margin-right:3px;*/
-/*}*/
-
-/*#virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaOrange:before {*/
-/*content: "\ea27";*/
-/*color: #e55e0d;*/
-/*font-variant: normal;*/
-/*font-style: normal;*/
-/*font-size: 112%;*/
-/*font-weight: normal;*/
-/*}*/
-
-/*#virtualclassCont.congrea.student .ui-memblist-usr .icon-audioEnaOrange:before {*/
-/*margin-right : 7px;*/
-/*}*/
-
-/*#virtualclassCont.congrea .ui-memblist-usr .icon-audioDisImg:before {*/
-/*content: "\f026";*/
-/*color: #7d7a7a;*/
-/*font-size: 112%;*/
-/*margin-right:7px;*/
-/*font-weight: normal;*/
-/*}*/
-
-/*#virtualclassCont.congrea.teacher .ui-memblist-usr .icon-audioDisImg:before {*/
-/*content: "\ea2a";*/
-/*color: #7d7a7a;*/
-/*font-size: 120%;*/
-/*font-weight: normal;*/
-/*margin-right:1px;*/
-/*}*/
 
 #virtualclassCont.congrea #alwaysPress .audioTool a {
   text-transform: uppercase;
@@ -185,19 +138,20 @@
   text-align: center;
 }
 
-#virtualclassCont.congrea #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
-  border-bottom-left-radius: 0px;
+#virtualclassCont.congrea #alwaysPress .audioTool.deactive,
+#audioTest-box .audioTool {
+  border-bottom-left-radius: 0;
 }
 
 #virtualclassCont.congrea #iosAudioTrigger {
-  background: #ffffff; /* Old browsers */
-  background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #f6f6f6)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0); /* IE6-9 */
+  background: #fff; /* Old browsers */
+  background: -moz-linear-gradient(top, #fff 0%, #f6f6f6 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #f6f6f6)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #fff 0%, #f6f6f6 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #fff 0%, #f6f6f6 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #fff 0%, #f6f6f6 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #fff 0%, #f6f6f6 100%); /* W3C */
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0); /* IE6-9 */
   clear: both;
   position: absolute;
   top: 88%;
@@ -205,44 +159,37 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 15px;
-  -webkit-box-shadow: 0px 0px 12px 1px rgba(22, 131, 199, 0.18);
-  -moz-box-shadow: 0px 0px 12px 1px rgba(22, 131, 199, 0.18);
-  box-shadow: 0px 0px 12px 1px rgba(22, 131, 199, 0.18);
+  -webkit-box-shadow: 0 0 12px 1px rgba(22, 131, 199, 0.18);
+  -moz-box-shadow: 0 0 12px 1px rgba(22, 131, 199, 0.18);
+  box-shadow: 0 0 12px 1px rgba(22, 131, 199, 0.18);
 }
 
 #virtualclassCont.congrea.playMode #audioWidget {
   display: none;
 }
 
-/*#virtualclassCont.congrea #contrAudioAll .icon-all-audio-disable:before{*/
-/*!*content: "\e610";*!*/
-/*font-size: 18px;*/
-/*}*/
-
-/*#virtualclassCont.congrea #contrAudioAll .icon-all-audio-enable:before {*/
-/*!*content: "\e611";*!*/
-/*font-size: 18px;*/
-/*}*/
-
-#virtualclassCont.congrea a#contrAudioAll, #virtualclassCont.congrea a#contrAudioAll:hover {
+#virtualclassCont.congrea a#contrAudioAll,
+#virtualclassCont.congrea a#contrAudioAll:hover {
   text-decoration: none;
   line-height: 28px;
   height: 52px;
 }
 
 #virtualclassCont.congrea.student.presenter #mainAudioPanel {
-  border-right: 0px;
+  border-right: 0;
 }
 
 #virtualclassCont.congrea.student.presenter #audioTest-box {
-  border-right: 0px;
+  border-right: 0;
 }
 
-#virtualclassCont.congrea.student.presenter #alwaysPress .audioTool.deactive, #virtualclassCont.congrea.student.presenter #audioTest-box .audioTool {
-  border-right: 0px;
+#virtualclassCont.congrea.student.presenter #alwaysPress .audioTool.deactive,
+#virtualclassCont.congrea.student.presenter #audioTest-box .audioTool {
+  border-right: 0;
 }
 
-#virtualclassCont.congrea #alwaysPress .audioTool.deactive, #audioTest-box .audioTool {
+#virtualclassCont.congrea #alwaysPress .audioTool.deactive,
+#audioTest-box .audioTool {
   border: #a4a4a4 solid 1px;
 }
 
@@ -251,12 +198,12 @@
   border-radius: 0 0 8px 0;
 }
 
-#virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:before {
+#virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart::before {
   top: 5px;
 }
 
-#virtualclassCont.congrea .ui-dialog-header #contrAudioAll .icon-all-audio-disable:before,
-#virtualclassCont.congrea .ui-dialog-header #contrAudioAll .icon-all-audio-enable:before {
+#virtualclassCont.congrea .ui-dialog-header #contrAudioAll .icon-all-audio-disable::before,
+#virtualclassCont.congrea .ui-dialog-header #contrAudioAll .icon-all-audio-enable::before {
   color: #d5dee7;
 }
 
@@ -277,30 +224,24 @@
   transform: translate(-50%, -50%);
 }
 
-/* #virtualclassCont.congrea.student #virtualclassAppRightPanel #audioWidget {
-  margin: 0;
-  width: 100%;
-  max-height: 3rem;
-  overflow: hidden;
-} */
-
 #virtualclassCont.congrea .suggestion,
 #virtualclassCont.congrea .latency,
 #virtualclassCont.congrea .quality {
   padding: 1px;
 }
 
-#pollModalBody #chartMenuCont .col-sm-1 #barView, #pollModalBody #chartMenuCont .col-sm-1 #piView, #pollModalBody #chartMenuCont .col-sm-1 #listView {
+#pollModalBody #chartMenuCont .col-sm-1 #barView,
+#pollModalBody #chartMenuCont .col-sm-1 #piView,
+#pollModalBody #chartMenuCont .col-sm-1 #listView {
   color: #337ab7;
 }
 
-
 #virtualclassCont.congrea #videoHostContainer .videoInterrupt {
-  display:none;
+  display: none;
 }
 
 #virtualclassCont.congrea #videoHostContainer.displayInterrupt .videoInterrupt {
-  display:block;
+  display: block;
 }
 
 #videoHostContainer.displayInterrupt {
@@ -313,6 +254,6 @@
   font-weight: bold;
   top: 120px;
   left: 30px;
-  background: #000000;
+  background: #000;
   padding: 10px;
 }

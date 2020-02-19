@@ -6,6 +6,8 @@
 #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .btn {
   border-color: #c2c2c2;
   float: right;
+  padding: 4px 12px;
+  font-size: 0.875rem;
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck .testName {
@@ -48,16 +50,11 @@
   border-color: #aaa !important;
 }
 
-#virtualclassCont.congrea #virtualclassPreCheck.bootstrap .btn {
-  padding: 4px 12px;
-  font-size: .875rem;
-}
-
 #virtualclassCont.congrea .bootstrap .progress {
   background-color: #f5f5f5;
   border-radius: 3px;
-  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12) inset;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12) inset;
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.12) inset;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.12) inset;
   color: #666;
   font-size: 12px;
   height: 26px;
@@ -77,31 +74,3 @@
   float: left;
   cursor: pointer;
 }
-
-/*  ===== FOR MOBILES ====== */
-
-/* @media only screen and (min-device-width: 320px) and (max-device-width: 850px) {
-  #virtualclassCont.congrea #virtualclassPreCheck .testName {
-    margin-bottom: 0.75rem;
-  }
-
-  #virtualclassCont.congrea #preCheckcontainer .progressbar {
-    margin: 0;
-  }
-
-  #virtualclassCont.congrea #preCheckcontainer .progressbar li {
-    margin-bottom: 15px;
-  }
-
-  #virtualclassCont.congrea #preCheckcontainer .screen1.browser::before {
-    font-size: 32px;
-  }
-
-  #virtualclassCont.congrea #preCheckcontainer .progressbar li::before {
-    margin: 0 auto 15px auto;
-  }
-
-  #virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget #mainAudioPanel {
-    z-index: 1001;
-  }
-} */

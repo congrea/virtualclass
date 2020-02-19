@@ -6,12 +6,19 @@
 
 function Config() {
 }
+
 Config.prototype.setNewSession = function (session) {
+  console.log('====> hi helllo 1');
   localStorage.setItem('mySession', session);
-  if (!virtualclass.isPlayMode && roles.hasControls()) {
-    const currTime = new Date().getTime();
-    const configData = JSON.stringify({ createdDate: currTime });
-    localStorage.setItem('myConfig', configData);
+  if (!virtualclass.isPlayMode) {
+    if (roles.hasControls()) {
+      const currTime = new Date().getTime();
+      const configData = JSON.stringify({ createdDate: currTime });
+      localStorage.setItem('myConfig', configData);
+    } else {
+      console.log('Invoke firebase operation');
+      virtualclass.userInteractivity.triggerInitFirebaseOperation('note');
+    }
   }
 };
 

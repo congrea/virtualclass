@@ -13,11 +13,13 @@ this["JST"]["dest_temp/templates/appSettingDetail.hbs"] = Handlebars.template({"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Chat",{"name":"getString","hash":{},"data":data}))
     + " <label class=\"switch chat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-chat-enable congtooltip\" id=\"contrChatAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrGroupChatAll\"><div class=\"appSettingIcons\" id=\"usersGroupChatSwitch\"></div> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"GroupChat",{"name":"getString","hash":{},"data":data}))
-    + " <label class=\"switch GroupChat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-groupChat-enable congtooltip\" id=\"contrGroupChatAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrRaisehandAll\"><div class=\"appSettingIcons\" id=\"usersRaisehandSwitch\"></div> "
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"RaiseHand",{"name":"getString","hash":{},"data":data}))
-    + " <label class=\"switch Raisehand_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-raisehand-enable congtooltip\" id=\"contrRaisehandAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrUserlistAll\"><div class=\"appSettingIcons\" id=\"usersUserlistSwitch\"></div> "
+    + " <label class=\"switch GroupChat_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-groupChat-enable congtooltip\" id=\"contrGroupChatAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrAskQuestionAll\"><div class=\"appSettingIcons\" id=\"usersAskQuestionSwitch\"></div> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"askQuestion",{"name":"getString","hash":{},"data":data}))
+    + " <label class=\"switch AskQuestion_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-askQuestion-enable congtooltip\" id=\"contrAskQuestionAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrUserlistAll\"><div class=\"appSettingIcons\" id=\"usersUserlistSwitch\"></div> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"UserList",{"name":"getString","hash":{},"data":data}))
-    + " <label class=\"switch Userlist_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-userlist-enable congtooltip\" id=\"contrUserlistAllImg\"></span></label></li></ul></div> ";
+    + " <label class=\"switch Userlist_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-userlist-enable congtooltip\" id=\"contrUserlistAllImg\"></span></label></li><li class=\"lists-cont d-flex justify-content-between align-items-center\" id=\"contrQaMarkNotesAll\"><div class=\"appSettingIcons\" id=\"usersQaMarkNotesSwitch\"></div> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"MarksAndNotes",{"name":"getString","hash":{},"data":data}))
+    + " <label class=\"switch QaMarkNotes_toggle\"><input type=\"checkbox\"><span class=\"slider round icon-all-qaMarkNotes-enable congtooltip\" id=\"contrQaMarkNotesAllImg\"></span></label></li></ul></div> ";
 },"3":function(container,depth0,helpers,partials,data) {
     return " <div class=\"uiMuteAll\"><a id=\"contrAudioAll\"><span class=\"cgIcon\"id=\"contrAudioAllImg\" data-action=\"disable\" class=\"icon-all-audio-disable cgIcon\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"muteAll",{"name":"getString","hash":{},"data":data}))
@@ -25,17 +27,13 @@ this["JST"]["dest_temp/templates/appSettingDetail.hbs"] = Handlebars.template({"
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div id=\"appSettingDetail\"> "
+  return "<div id=\"appSettingDetail\" class=\"rightContainer\"> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " <div id=\"settingGeneral\" class=\"app-settings-rbs\"><div class=\"setting-heading\"><label>"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"general",{"name":"getString","hash":{},"data":data}))
     + "</label></div><ul class=\"list-group\"><li class=\"lists-cont d-flex justify-content-between align-items-center\"><div class=\"appSettingIcons\" id=\"validate-precheck\"></div> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"appPrerequites",{"name":"getString","hash":{},"data":data}))
-    + " <span class=\"pre-check-btn\" id=\"precheckBtn\"><div id=\"settingPrecheck\"><div class=\"prechk\" data-title=\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"precheck",{"name":"getString","hash":{},"data":data}))
-    + "\" id=\"precheckTest\"><span class=\"precheck cgIcon\" id=\"precheckSetting\">"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"precheckStart",{"name":"getString","hash":{},"data":data}))
-    + "</span></div></div></span></li></ul></div><div id=\"settingAudioVideo\" style=\"display:none;\"> "
+    + " </li></ul></div><div id=\"settingAudioVideo\" style=\"display:none;\"> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " </div><div id=\"settingMedia\" class=\"app-settings-rbs\"><div id=\"webRtcIo\" class=\"io\" data-suggestion=\"\"></div></div></div>";
 },"useData":true});
@@ -90,6 +88,198 @@ this["JST"]["dest_temp/templates/appToolsMeeting.hbs"] = Handlebars.template({"c
     + "\" href=\"#\"><span class=\"icon-sharePresentation cgIcon\"></span></a></div><div class=\"appOptions\" id=\"virtualclassMultiVideoTool\"><a class=\"congtooltip\" data-title=\"Video Confrence\" href=\"#\"><span class=\"icon-videoConfrence\"></span></a></div><div class=\"appOptions\" id=\"virtualclassSessionEndTool\"><a class=\"congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"SessionEnd",{"name":"getString","hash":{},"data":data}))
     + "\" href=\"#\"><span class=\"icon-sessionend cgIcon\"></span></a></div></div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/answer.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return " <span class='mark' data-event=\"markAnswer\">"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"markAnswer",{"name":"getString","hash":{},"data":data}))
+    + "</span> ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id='"
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "' class='answer' data-parent=\""
+    + alias4(((helper = (helper = helpers.parent || (depth0 != null ? depth0.parent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parent","hash":{},"data":data}) : helper)))
+    + "\"><div class=\"container\"><div class='header'><div class=\"info\"><span class='userName'>"
+    + alias4(((helper = (helper = helpers.userName || (depth0 != null ? depth0.userName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"userName","hash":{},"data":data}) : helper)))
+    + "</span><span class='lable'>"
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"answerLable",{"name":"getString","hash":{},"data":data}))
+    + "</span><span class='acceptedAnswer'></span></div></div><div class='content'><p data-component = 'answer' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-parent=\""
+    + alias4(((helper = (helper = helpers.parent || (depth0 != null ? depth0.parent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parent","hash":{},"data":data}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.content || (depth0 != null ? depth0.content : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"content","hash":{},"data":data}) : helper)))
+    + " <span class=\"morecontent close\">"
+    + alias4(((helper = (helper = helpers.morecontent || (depth0 != null ? depth0.morecontent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"morecontent","hash":{},"data":data}) : helper)))
+    + "</span><span class='btn close' data-event=\"more\">"
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"more",{"name":"getString","hash":{},"data":data}))
+    + "</span></p></div><div class=\"footer show\" data-component = 'answer' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\"><div class='controls' data-component = 'answer' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-parent=\""
+    + alias4(((helper = (helper = helpers.parent || (depth0 != null ? depth0.parent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parent","hash":{},"data":data}) : helper)))
+    + "\"><div class=\"upVote congtooltip\" data-event=\"upvote\" data-title =\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"upvote",{"name":"getString","hash":{},"data":data}))
+    + "\"><span class='button'></span><span class='total'>0</span></div><div class=\"navigation disable congtooltip\" data-event=\"navigation\" data-title =\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"comment",{"name":"getString","hash":{},"data":data}))
+    + "\"><span class='button'></span><span class='total'>0</span></div><div class=\"reply congtooltip\" data-event=\"reply\" data-title =\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"reply",{"name":"getString","hash":{},"data":data}))
+    + "\"><span class='button'></span></div></div><div class='moreControls' data-event = 'moreControls'><div class='item close' data-component = 'answer' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-parent=\""
+    + alias4(((helper = (helper = helpers.parent || (depth0 != null ? depth0.parent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parent","hash":{},"data":data}) : helper)))
+    + "\" data-timestamp=\""
+    + alias4(((helper = (helper = helpers.timestamp || (depth0 != null ? depth0.timestamp : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"timestamp","hash":{},"data":data}) : helper)))
+    + "\"><span class='edit' data-event=\"edit\"> "
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"edit",{"name":"getString","hash":{},"data":data}))
+    + " </span><span class='delete' data-event=\"delete\"> "
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))
+    + " </span> "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " </div></div></div></div><div class=\"comments open\"></div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/askQuestionMain.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id='askQuestion' class=\"rightContainer\"><div class=\"container askContainer\"></div><div class=\"loading\">Loading</div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/bookmark.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<div class=\"bookmarks active\" data-context='"
+    + alias3(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"context","hash":{},"data":data}) : helper)))
+    + "' data-component=\"bookmark\" data-value=\"0\"><span class=\"congtooltip icon-bookmark cgIcon\" data-event=\"save\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"addContext",{"name":"getString","hash":{},"data":data}))
+    + "\"></span></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id='"
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "' class='comment' data-parent=\""
+    + alias4(((helper = (helper = helpers.parent || (depth0 != null ? depth0.parent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parent","hash":{},"data":data}) : helper)))
+    + "\"><div class=\"container\"><div class='header'><span class='userName'>"
+    + alias4(((helper = (helper = helpers.userName || (depth0 != null ? depth0.userName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"userName","hash":{},"data":data}) : helper)))
+    + "</span><span class='lable'>"
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commentLable",{"name":"getString","hash":{},"data":data}))
+    + "</span></div><div class='content'><p data-component = 'comment' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-parent=\""
+    + alias4(((helper = (helper = helpers.parent || (depth0 != null ? depth0.parent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parent","hash":{},"data":data}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.content || (depth0 != null ? depth0.content : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"content","hash":{},"data":data}) : helper)))
+    + " <span class=\"morecontent close\">"
+    + alias4(((helper = (helper = helpers.morecontent || (depth0 != null ? depth0.morecontent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"morecontent","hash":{},"data":data}) : helper)))
+    + "</span><span class='btn close' data-event=\"more\">"
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"more",{"name":"getString","hash":{},"data":data}))
+    + "</span></p></div><div class=\"footer show\" data-component = 'comment' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\"><div class='controls' data-component = 'comment' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-parent=\""
+    + alias4(((helper = (helper = helpers.parent || (depth0 != null ? depth0.parent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parent","hash":{},"data":data}) : helper)))
+    + "\"><div class=\"navigation disable congtooltip\" data-event=\"navigation\" data-title =\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"comment",{"name":"getString","hash":{},"data":data}))
+    + "\"><span class='button'></span><span class='total'>0</span></div><div class=\"reply congtooltip\" data-event=\"reply\" data-title =\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"reply",{"name":"getString","hash":{},"data":data}))
+    + "\"><span class='button'></span></div></div><div class='moreControls' data-event = 'moreControls'><div class='item close' data-component = 'comment' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-parent=\""
+    + alias4(((helper = (helper = helpers.parent || (depth0 != null ? depth0.parent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parent","hash":{},"data":data}) : helper)))
+    + "\" data-timestamp=\""
+    + alias4(((helper = (helper = helpers.timestamp || (depth0 != null ? depth0.timestamp : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"timestamp","hash":{},"data":data}) : helper)))
+    + "\"><span class='edit' data-event=\"edit\"> "
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"edit",{"name":"getString","hash":{},"data":data}))
+    + " </span><span class='delete' data-event=\"delete\"> "
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))
+    + " </span></div></div></div></div><div class=\"comments open\"></div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/context.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "<div class=\"context\" data-context=\""
+    + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
+    + "\"><div class=\"container\"></div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/ellipsisText.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<span class=\"morecontent close\">"
+    + alias3(((helper = (helper = helpers.morecontent || (depth0 != null ? depth0.morecontent : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"morecontent","hash":{},"data":data}) : helper)))
+    + "</span><span class='btn close' data-event=\"more\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"more",{"name":"getString","hash":{},"data":data}))
+    + "</span>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression, alias4="function";
+
+  return "<div id='writeContent'><textarea id=\"userInteractivity-content\" class='text'>"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,(depth0 != null ? depth0.type : depth0),{"name":"getString","hash":{},"data":data}))
+    + "</textarea><div class=\"action\" data-component=\""
+    + alias3(((helper = (helper = helpers.component || (depth0 != null ? depth0.component : depth0)) != null ? helper : alias2),(typeof helper === alias4 ? helper.call(alias1,{"name":"component","hash":{},"data":data}) : helper)))
+    + "\" data-component-id=\""
+    + alias3(((helper = (helper = helpers.componentId || (depth0 != null ? depth0.componentId : depth0)) != null ? helper : alias2),(typeof helper === alias4 ? helper.call(alias1,{"name":"componentId","hash":{},"data":data}) : helper)))
+    + "\" data-parent=\""
+    + alias3(((helper = (helper = helpers.parent || (depth0 != null ? depth0.parent : depth0)) != null ? helper : alias2),(typeof helper === alias4 ? helper.call(alias1,{"name":"parent","hash":{},"data":data}) : helper)))
+    + "\"><span class=\"cancel\" data-event=\"cancel\"></span><span class=\"save\" data-event=\"save\"></span></div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/note-content-area.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "<div class=\"context note\" data-context=\""
+    + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
+    + "\" data-component=\"note\"><textarea class='text content' placeholder=\"Write your note here\" data-event=\"save\"></textarea></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id='noteContainer' class='rightContainer'><div class=\"contentContainer\"><div class=\"container note children\"></div><div id=\"noteNavigationContainer\" class=\"children\"><div class=\"clearAll\" data-component=\"note\"><span class=\"event\" data-event=\"clearall\"> Clear All </span></div><div id=\"noteNavigation\" class=\"navigation\"><div class=\"previous deactive\" data-component=\"note\"><span class=\"event\" data-event=\"previous\"></span></div><div class=\"notenumber\"><span class=\"current\">1 /</span><span class=\"total\"> 1</span></div><div class=\"next deactive\" data-component=\"note\"><span class=\"event\" data-event=\"next\"></span></div></div></div></div><div class=\"loading active\">Loading</div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id='"
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "' class='question'><div class=\"container\" data-type=\"question\"><div class='header'><div class=\"info\"><span class='userName'>"
+    + alias4(((helper = (helper = helpers.userName || (depth0 != null ? depth0.userName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"userName","hash":{},"data":data}) : helper)))
+    + "</span><span class='lable'>"
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"questionLable",{"name":"getString","hash":{},"data":data}))
+    + "</span><span class='closed-icon'></span></div></div><div class='content'><p data-component='question' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.content || (depth0 != null ? depth0.content : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"content","hash":{},"data":data}) : helper)))
+    + " <span class=\"morecontent close\">"
+    + alias4(((helper = (helper = helpers.morecontent || (depth0 != null ? depth0.morecontent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"morecontent","hash":{},"data":data}) : helper)))
+    + "</span><span class='btn close' data-event=\"more\">"
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"more",{"name":"getString","hash":{},"data":data}))
+    + "</span></p></div><div class=\"footer show\" data-component = 'question' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\"><div class='controls' data-component = 'question' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\"><div class=\"upVote congtooltip\" data-event=\"upvote\" data-title =\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"upvote",{"name":"getString","hash":{},"data":data}))
+    + "\"><span class='button'></span><span class='total'>0</span></div><div class=\"navigation disable congtooltip\" data-event=\"navigation\" data-title =\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"answer",{"name":"getString","hash":{},"data":data}))
+    + "\"><span class='button'></span><span class='total'>0</span></div><div class=\"reply congtooltip\" data-event=\"reply\" data-title =\""
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"reply",{"name":"getString","hash":{},"data":data}))
+    + "\"><span class='button'></span></div></div><div class='moreControls' data-event = 'moreControls'><div class='item close' data-component = 'question' data-component-id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-timestamp=\""
+    + alias4(((helper = (helper = helpers.timestamp || (depth0 != null ? depth0.timestamp : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"timestamp","hash":{},"data":data}) : helper)))
+    + "\"><span class='edit' data-event=\"edit\"> "
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"edit",{"name":"getString","hash":{},"data":data}))
+    + " </span><span class='delete' data-event=\"delete\"> "
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))
+    + " </span></div></div></div></div><div class=\"answers open\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/audioWidget.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -265,27 +455,45 @@ this["JST"]["dest_temp/templates/chat/chatuser.hbs"] = Handlebars.template({"1":
 },"useData":true});
 
 this["JST"]["dest_temp/templates/chat/stickycont.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " <li class=\"vmchat_bar_button active\" id=\"user_list\"><a class=\"inner_bt congtooltip\" data-title=\""
+    return " <li class=\"vmchat_bar_button active bottomright\" id=\"user_list\" data-headerid=\"userListHeader\"><a class=\"inner_bt congtooltip\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"userList",{"name":"getString","hash":{},"data":data}))
     + "\"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span>  </a><a class=\"rHandNotify hand_bt\"><span id=\"rhtab_text\"><span id=\"notifyText\" class=\"cgText\"></span></span></a></li> ";
 },"3":function(container,depth0,helpers,partials,data) {
-    return " <li class=\"vmchat_bar_button congtooltip active\" id=\"user_list\" data-title=\""
+    return " <li class=\"vmchat_bar_button congtooltip active bottomright\" id=\"user_list\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"userList",{"name":"getString","hash":{},"data":data}))
-    + "\"><a class=\"inner_bt \"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span>  </a></li> ";
+    + "\" data-headerid=\"userListHeader\"><a class=\"inner_bt \"><span id=\"userlist_icon\"><span id=\"onlineusertext\" class=\"icon-userlist cgIcon\"></span></span>  </a></li> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<ul class=\"chatBarTab nav navbar-nav\"><li class=\"vmchat_bar_button\" id=\"techVideo\"><a class=\"inner_bt congtooltip\" data-title=\""
+  return "<ul class=\"chatBarTab nav navbar-nav\"><li class=\"vmchat_bar_button bottomright\" id=\"techVideo\" data-headerid=\"techVideoHeader\"><a class=\"inner_bt congtooltip\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"instructorVideo",{"name":"getString","hash":{},"data":data}))
     + "\"><span id=\"tech_video\"></span></a></li> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + " <li class=\"vmchat_room_bt congtooltip\" data-title=\""
+    + " <li class=\"vmchat_room_bt congtooltip bottomright\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChat",{"name":"getString","hash":{},"data":data}))
-    + "\" id=\"chatroom_bt2\"><a class=\"inner_bt\"><span id=\"chatroom_icon\"><span class=\"icon-chatroom cgIcon\"></span></span>  </a></li><li class=\"handRaise enable congtooltip \" id=\"congHr\" data-title =\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"RaiseHandStdEnabled",{"name":"getString","hash":{},"data":data}))
-    + "\"><a class=\"stdRaiseHand\"><span id=\"icHr\" data-action=\"enable\" class=\"icon-hr-enable\"></span></a></li><li id=\"appSettingCtrl\" class=\"congtooltip chatActive\" data-title =\""
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"setting",{"name":"getString","hash":{},"data":data}))
-    + "\"><a id=\"appSettingCtrlAnchor\"><span class=\"setting-btn cgIcon\"></span></a></li></ul>";
+    + "\" id=\"chatroom_bt2\" data-headerid=\"commonChatHeader\"><a class=\"inner_bt\"><span id=\"chatroom_icon\"><span class=\"icon-chatroom cgIcon\"></span></span>  </a></li><li class=\"askQuestion_btn enable congtooltip bottomright\" id=\"congAskQuestion\" data-title =\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"askQuestion",{"name":"getString","hash":{},"data":data}))
+    + "\" data-headerid=\"askQuestionHeader\"><a class=\"stdAskQuestion\"><span id=\"iconAskQuestion\" data-action=\"enable\" class=\"icon-askQuestion-enable\"></span></a></li><li id=\"virtualclassnote\" class=\"congtooltip bottomright\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"note",{"name":"getString","hash":{},"data":data}))
+    + "\" data-headerid=\"virtualclassnoteHeader\"><a><span class=\"icon-note icon-note-enable\"></span></a></li></ul>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/context-mark.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" class=\"markContainer context\" style=\"left:"
+    + alias4(((helper = (helper = helpers.width || (depth0 != null ? depth0.width : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"width","hash":{},"data":data}) : helper)))
+    + "%\" data-question=\""
+    + alias4(((helper = (helper = helpers.question || (depth0 != null ? depth0.question : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"question","hash":{},"data":data}) : helper)))
+    + "\" data-bookmark=\""
+    + alias4(((helper = (helper = helpers.bookmark || (depth0 != null ? depth0.bookmark : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"bookmark","hash":{},"data":data}) : helper)))
+    + "\" data-note=\""
+    + alias4(((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"note","hash":{},"data":data}) : helper)))
+    + "\" data-context"
+    + alias4(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"context","hash":{},"data":data}) : helper)))
+    + "><div class=\"context\"></div><div class=\"question\"></div><div class=\"note\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/dashboard.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -471,14 +679,28 @@ this["JST"]["dest_temp/templates/editor/messagebox.hbs"] = Handlebars.template({
     + "</p></div>";
 },"useData":true});
 
-this["JST"]["dest_temp/templates/footerBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["JST"]["dest_temp/templates/footerBar.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div id=\"virtualclassAppFooterPanel\" class=\"footerBar\"><div id=\"stickybar\" class=\"maximize something-happend\"><div id=\"stopScreenShare\" class=\"ss congtooltip\" data-title=\""
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"ssStop",{"name":"getString","hash":{},"data":data}))
-    + "\"><button type=\"button\"></button></div><div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\"><ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\"></ul></div><div id=\"networkStatusContainer\" class=\"connecting-room\"><div id=\"networkLatency\" class=\"congtooltip\"><div id=\"proposedSpeed\"><div id=\"svgContainer\"><svg version=\"1.1\" id=\"Capa_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 470.149 470.149\" style=\"enable-background:new 0 0 470.149 470.149;\" xml:space=\"preserve\"><path id=\"signalendpoint\" class=\"signal\" d=\"M202.775,383.825c0,17.567,14.167,31.733,31.733,31.733s31.733-14.167,31.733-31.733 c0-17.567-14.167-31.733-31.733-31.733C217.225,352.091,202.775,366.258,202.775,383.825z M236.775,383.825 c0,1.133-0.85,2.267-2.267,2.267c-1.133,0-2.267-0.85-2.267-2.267c0-1.133,0.85-2.267,2.267-2.267 C235.925,381.841,236.775,382.691,236.775,383.825z\"/><path id=\"mediumstepfst\" class=\"signalone\" d=\"M373.625,243.008c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-41.083-37.683-94.35-58.65-150.45-58.65c-55.25,0-108.233,20.4-149.033,57.517c-7.083,6.233-7.367,17-1.133,24.083 c6.233,7.083,17,7.367,24.083,1.133c34.567-31.45,79.617-48.733,126.367-48.733c47.317,0,92.65,17.567,127.217,49.583 C365.408,241.591,369.375,243.008,373.625,243.008z\"/><path id=\"lowstepfst\" class=\"signalfive\" d=\"M310.158,319.225c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083c-23.8-21.817-54.683-34-86.7-34 s-62.617,11.9-86.133,33.15c-7.083,6.233-7.367,17-1.133,24.083c6.233,7.083,17,7.367,24.083,1.133 c17.283-15.867,39.95-24.367,63.183-24.367c23.8,0,46.467,8.783,63.75,24.933C301.941,317.808,306.191,319.225,310.158,319.225z\"/><path id=\"highstepfst\" class=\"signalthree\" d=\"M453.241,173.875c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-62.9-58.083-144.783-89.817-230.35-89.817c-84.717,0-166.033,31.45-228.65,88.117c-7.083,6.233-7.367,17-1.133,24.083 s17,7.367,24.083,1.133c56.383-51.283,129.483-79.333,205.7-79.333c77.067,0,150.733,28.617,207.4,80.75 C445.025,172.175,449.275,173.875,453.241,173.875z\"/></svg></div></div></div><div id=\"connectingRoomIcon\"><span class=\"icon-whiteboard \"><svg id=\"svg-spinner\" xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" viewBox=\"0 0 48 48\"><circle cx=\"24\" cy=\"4\" r=\"4\" fill=\"#fff\"></circle><circle cx=\"12.19\" cy=\"7.86\" r=\"3.7\" fill=\"#fffbf2\"></circle><circle cx=\"5.02\" cy=\"17.68\" r=\"3.4\" fill=\"#fef7e4\"></circle><circle cx=\"5.02\" cy=\"30.32\" r=\"3.1\" fill=\"#fef3d7\"></circle><circle cx=\"12.19\" cy=\"40.14\" r=\"2.8\" fill=\"#feefc9\"></circle><circle cx=\"24\" cy=\"44\" r=\"2.5\" fill=\"#feebbc\"></circle><circle cx=\"35.81\" cy=\"40.14\" r=\"2.2\" fill=\"#fde7af\"></circle><circle cx=\"42.98\" cy=\"30.32\" r=\"1.9\" fill=\"#fde3a1\"></circle><circle cx=\"42.98\" cy=\"17.68\" r=\"1.6\" fill=\"#fddf94\"></circle><circle cx=\"35.81\" cy=\"7.86\" r=\"1.3\" fill=\"#fcdb86\"></circle></svg></span></div></div> "
+  return " "
+    + ((stack1 = container.invokePartial(partials.recordingControl,depth0,{"name":"recordingControl","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + " ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<div id=\"virtualclassAppFooterPanel\" class=\"footerBar\"> "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlay : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " <div id=\"stickybar\" class=\"maximize something-happend\"><div id=\"stopScreenShare\" class=\"ss congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ssStop",{"name":"getString","hash":{},"data":data}))
+    + "\"><button type=\"button\"></button></div><div id=\"tabs\" class=\"tabs-bottom ui-tabs ui-widget ui-widget-content ui-corner-all\"><ul class=\"tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\"></ul></div><div id=\"networkStatusContainer\" class=\"connecting-room\"><div id=\"networkLatency\" class=\"congtooltip\"><div id=\"proposedSpeed\"><div id=\"svgContainer\"><svg version=\"1.1\" id=\"Capa_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 470.149 470.149\" style=\"enable-background:new 0 0 470.149 470.149;\" xml:space=\"preserve\"><path id=\"signalendpoint\" class=\"signal\" d=\"M202.775,383.825c0,17.567,14.167,31.733,31.733,31.733s31.733-14.167,31.733-31.733 c0-17.567-14.167-31.733-31.733-31.733C217.225,352.091,202.775,366.258,202.775,383.825z M236.775,383.825 c0,1.133-0.85,2.267-2.267,2.267c-1.133,0-2.267-0.85-2.267-2.267c0-1.133,0.85-2.267,2.267-2.267 C235.925,381.841,236.775,382.691,236.775,383.825z\"/><path id=\"mediumstepfst\" class=\"signalone\" d=\"M373.625,243.008c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-41.083-37.683-94.35-58.65-150.45-58.65c-55.25,0-108.233,20.4-149.033,57.517c-7.083,6.233-7.367,17-1.133,24.083 c6.233,7.083,17,7.367,24.083,1.133c34.567-31.45,79.617-48.733,126.367-48.733c47.317,0,92.65,17.567,127.217,49.583 C365.408,241.591,369.375,243.008,373.625,243.008z\"/><path id=\"lowstepfst\" class=\"signalfive\" d=\"M310.158,319.225c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083c-23.8-21.817-54.683-34-86.7-34 s-62.617,11.9-86.133,33.15c-7.083,6.233-7.367,17-1.133,24.083c6.233,7.083,17,7.367,24.083,1.133 c17.283-15.867,39.95-24.367,63.183-24.367c23.8,0,46.467,8.783,63.75,24.933C301.941,317.808,306.191,319.225,310.158,319.225z\"/><path id=\"highstepfst\" class=\"signalthree\" d=\"M453.241,173.875c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083 c-62.9-58.083-144.783-89.817-230.35-89.817c-84.717,0-166.033,31.45-228.65,88.117c-7.083,6.233-7.367,17-1.133,24.083 s17,7.367,24.083,1.133c56.383-51.283,129.483-79.333,205.7-79.333c77.067,0,150.733,28.617,207.4,80.75 C445.025,172.175,449.275,173.875,453.241,173.875z\"/></svg></div></div></div><div id=\"connectingRoomIcon\"><span class=\"icon-whiteboard \"><svg id=\"svg-spinner\" xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" viewBox=\"0 0 48 48\"><circle cx=\"24\" cy=\"4\" r=\"4\" fill=\"#fff\"></circle><circle cx=\"12.19\" cy=\"7.86\" r=\"3.7\" fill=\"#fffbf2\"></circle><circle cx=\"5.02\" cy=\"17.68\" r=\"3.4\" fill=\"#fef7e4\"></circle><circle cx=\"5.02\" cy=\"30.32\" r=\"3.1\" fill=\"#fef3d7\"></circle><circle cx=\"12.19\" cy=\"40.14\" r=\"2.8\" fill=\"#feefc9\"></circle><circle cx=\"24\" cy=\"44\" r=\"2.5\" fill=\"#feebbc\"></circle><circle cx=\"35.81\" cy=\"40.14\" r=\"2.2\" fill=\"#fde7af\"></circle><circle cx=\"42.98\" cy=\"30.32\" r=\"1.9\" fill=\"#fde3a1\"></circle><circle cx=\"42.98\" cy=\"17.68\" r=\"1.6\" fill=\"#fddf94\"></circle><circle cx=\"35.81\" cy=\"7.86\" r=\"1.3\" fill=\"#fcdb86\"></circle></svg></span></div></div><span class=\"pre-check-btn congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"appPrerequites",{"name":"getString","hash":{},"data":data}))
+    + "\" id=\"precheckBtn\"><div id=\"settingPrecheck\"><div class=\"prechk\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"precheck",{"name":"getString","hash":{},"data":data}))
+    + "\" id=\"precheckTest\"><span class=\"precheck cgIcon\" id=\"precheckSetting\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"precheckStart",{"name":"getString","hash":{},"data":data}))
+    + "</span></div></div></span> "
     + ((stack1 = container.invokePartial(partials.audioWidget,depth0,{"name":"audioWidget","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + " <div id=\"fullScreenButton\"><span class=\"congtooltip fullScreen\" data-title=\"Full Screen\"><i class=\"icon-fullScreen cgIcon\"></i></span></div><div id=\"fullScreenExitButton\"><span class=\"congtooltip\" data-title=\"Exit Full Screen\"><i class=\"icon-exitScreen cgIcon\"></i></span></div></div><div id=\"stickycontainer\"></div></div>";
+    + " <div id=\"fullScreenButton\"><span class=\"congtooltip fullScreen\" data-title=\"Full Screen\"><i class=\"icon-fullScreen cgIcon\"></i></span></div><div id=\"fullScreenExitButton\"><span class=\"congtooltip\" data-title=\"Exit Full Screen\"><i class=\"icon-exitScreen cgIcon\"></i></span></div><div id=\"bookmark\"><div class=\"container\"></div></div></div><div id=\"stickycontainer\"></div></div>";
 },"usePartial":true,"useData":true});
 
 this["JST"]["dest_temp/templates/joinclass.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -519,13 +741,7 @@ this["JST"]["dest_temp/templates/leftBar.hbs"] = Handlebars.template({"1":functi
     + " </div>";
 },"usePartial":true,"useData":true});
 
-this["JST"]["dest_temp/templates/main.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return " "
-    + ((stack1 = container.invokePartial(partials.recordingControl,depth0,{"name":"recordingControl","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + " ";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["JST"]["dest_temp/templates/main.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = container.invokePartial(partials.precheck,depth0,{"name":"precheck","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
@@ -534,8 +750,6 @@ this["JST"]["dest_temp/templates/main.hbs"] = Handlebars.template({"1":function(
     + " "
     + ((stack1 = container.invokePartial(partials.mobileLandscapeWarn,depth0,{"name":"mobileLandscapeWarn","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " <div id=\"virtualclassApp\" class=\"openRightbar\" style=\"display: flex;\" class=\"try-to-connect\"> "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.isPlay : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " "
     + ((stack1 = container.invokePartial(partials.leftBar,depth0,{"name":"leftBar","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " "
     + ((stack1 = container.invokePartial(partials.rightBar,depth0,{"name":"rightBar","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
@@ -968,7 +1182,7 @@ this["JST"]["dest_temp/templates/popupCont.hbs"] = Handlebars.template({"compile
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"validateurlmsg",{"name":"getString","hash":{},"data":data}))
     + " </span></div>  <div id=\"waitMsgCont\" class=\"popupWindow\"><span id=\"waitMsg\" class=\"cgText\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"waitmsgconnect",{"name":"getString","hash":{},"data":data}))
-    + " </span></div><div id=\"loadingWindowCont\" class=\"popupWindow\"><div class=\"loading\"><div class=\"loader-icon\"></div></div><div class=\"askToPlay\"><span class=\"icon-play btn\"></span></div></div><div id=\"chromeExtMiss\" class=\"popupWindow\"><span id=\"chromeExtClose\" class=\"icon-close\"></span><span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugin to share the Screen.<br/>You can download the plugin <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a> After installing the plugin, please <a onclick=\"location.reload()\">reload </a> the page. </span></div><div id=\"generalMessage\" class=\"popupWindow\"><span id=\"generalMessageMsg\"></span><span id=\"generalMessageClose\"></span></div><div id=\"generalMessageButton\" class=\"popupWindow\"><span class=\"button\"> "
+    + " </span></div><div id=\"loadingWindowCont\" class=\"popupWindow\"><div class=\"loading\"><div class=\"loader-icon\"></div></div><div class=\"askToPlay\"><span class=\"icon-play btn\"></span></div></div><div id=\"chromeExtMiss\" class=\"popupWindow\"><span id=\"chromeExtClose\" class=\"icon-close\"></span><span id=\"chromeExtMissMsg\"> Congrea needs 'Desktop Selector' pugin to share the Screen.<br/>You can download the plugin <a href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>HERE.</a> After installing the plugin, please <a onclick=\"location.reload()\">reload </a> the page. </span></div><div id=\"generalMessage\" class=\"popupWindow\"><span id=\"generalMessageMsg\"></span><span id=\"generalMessageClose\"></span></div><div id=\"infoMessage\" class=\"popupWindow\"><span id=\"infoMessageMsg\"></span><span id=\"infoMessageOk\"></span></div><div id=\"generalMessageButton\" class=\"popupWindow\"><span class=\"button\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"JoinClassMsg",{"name":"getString","hash":{},"data":data}))
     + " </span><br/></div></div></div>";
 },"useData":true});
@@ -1125,7 +1339,7 @@ this["JST"]["dest_temp/templates/recordingButton.hbs"] = Handlebars.template({"1
 },"useData":true});
 
 this["JST"]["dest_temp/templates/recordingControl.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"playControllerMainCont\"><div id=\"playControllerCont\"><div id=\"playController\"><div id=\"playProgress\"><div id=\"playProgressBar\" class=\"progressBar\" style=\"width: 0%;\"><div id=\"playCircle\" class=\"circle\"></div></div><div id=\"downloadProgress\"><div id=\"downloadProgressBar\" class=\"progressBar\"></div><div id=\"downloadProgressValue\" class=\"progressValue\"></div></div><div id=\"timeInHover\">0</div></div><div id=\"recPauseCont\" class=\"recButton recordingPlay\"><button id=\"recPause\" class=\"icon-pause congtooltip\" data-title=\""
+    return "<div class=\"playControllerMainCont\"><div id=\"playControllerCont\"><div id=\"playController\"><div id=\"playProgress\"><div id=\"playProgressBar\" class=\"progressBar\" style=\"width: 0%;\"><div id=\"allMarksinformation\"></div><div id=\"playCircle\" class=\"circle\"></div></div><div id=\"downloadProgress\"><div id=\"downloadProgressBar\" class=\"progressBar\"></div><div id=\"downloadProgressValue\" class=\"progressValue\"></div></div><div id=\"timeInHover\">0</div></div><div id=\"recPauseCont\" class=\"recButton recordingPlay\"><button id=\"recPause\" class=\"icon-pause congtooltip\" data-title=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Pause",{"name":"getString","hash":{},"data":data}))
     + "\"></button></div><div id=\"repTimeCont\"><span id=\"tillRepTime\">00:00:00</span> / <span id=\"totalRepTime\">00:00:00</span></div></div></div></div>";
 },"useData":true});
@@ -1133,31 +1347,45 @@ this["JST"]["dest_temp/templates/recordingControl.hbs"] = Handlebars.template({"
 this["JST"]["dest_temp/templates/rightBar.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing;
 
-  return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled showUserList\"> "
+  return "<div id=\"virtualclassAppRightPanel\" class=\"rightbar bootstrap chat_enabled \" dataset=\"userListHeader\" data-currwindow=\"userListHeader\"> "
     + ((stack1 = container.invokePartial((helpers.getVideoType || (depth0 && depth0.getVideoType) || alias2).call(alias1,{"name":"getVideoType","hash":{},"data":data}),depth0,{"data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " "
     + ((stack1 = container.invokePartial(partials.rightBarHeader,depth0,{"name":"rightBarHeader","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "   <div id=\"rightSubContainer\" class=\"\"> "
+    + "   <div id=\"rightSubContainer\"> "
     + ((stack1 = container.invokePartial(partials.appSettingDetail,depth0,{"name":"appSettingDetail","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + " <div id=\"chatWidget\"><div id=\"congreaChatMainCont\"><div id=\"congreaChatCont\"></div><div class=\"footerCtr\" id=\"congFooterCtr\"><div class=\"vmchat_search\" id=\"congchatBarInput\"><input type=\"text\" id=\"congreaUserSearch\" class=\"search\" placeholder=\""
+    + " <div id=\"chatWidget\" class=\"rightContainer active\"><div id=\"congreaChatMainCont\"><div id=\"congreaChatCont\"></div><div class=\"footerCtr\" id=\"congFooterCtr\"><div class=\"vmchat_search\" id=\"congchatBarInput\"><input type=\"text\" id=\"congreaUserSearch\" class=\"search\" placeholder=\""
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Searchuser",{"name":"getString","hash":{},"data":data}))
     + "\"></div></div></div></div></div></div>";
 },"usePartial":true,"useData":true});
 
 this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"techVideoHeader\" class=\"deactive\">"
+    return " <div id=\"techVideoHeader\" class=\"rightBarHeader\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"teacherVideoHeader",{"name":"getString","hash":{},"data":data}))
     + "</div> ";
+},"3":function(container,depth0,helpers,partials,data) {
+    return " <label class=\"switch viewtext\" id=\"viewAllQuestion\" data-viewall=\"enable\"><span class=\"slider round icon-all-audio-disable enable congtooltip cgIcon\" data-title=\"View All\">"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"viewall",{"name":"getString","hash":{},"data":data}))
+    + "</span></label> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
-  return "<div id=\"rightBarHeader\" class=\"active\"><div id=\"userListHeader\" class=\"active\">"
+  return "<div id=\"rightBarHeader\" class=\"active\"><div id=\"userListHeader\" class=\"rightBarHeader active\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"userListHeader",{"name":"getString","hash":{},"data":data}))
-    + "<span id='onlineusertext' class='cgText'></span></div><div id=\"commonChatHeader\" class=\"deactive\">"
+    + "<span id='onlineusertext' class='cgText'></span></div><div id=\"commonChatHeader\" class=\"rightBarHeader\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"commonChatHeader",{"name":"getString","hash":{},"data":data}))
     + "</div> "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.std : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " </div>";
+    + " <div id=\"askQuestionHeader\" class=\"rightBarHeader\"><div class=\"header\"><div class=\"text\"><span class=\"lable\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"askQuestionHeader",{"name":"getString","hash":{},"data":data}))
+    + "</span></div><div class=\"action\"><span class=\"addQuestion-icon congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"addQuestion",{"name":"getString","hash":{},"data":data}))
+    + "\"></span><span class=\"help-icon\"></span> "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isPlayMode : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " </div></div></div><div id=\"virtualclassnoteHeader\" class=\"rightBarHeader\"><div class='header'>"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"virtualclassnoteHeader",{"name":"getString","hash":{},"data":data}))
+    + "</div></div><div id=\"appSettingCtrl\" class=\"congtooltip chatActive\" data-title =\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"setting",{"name":"getString","hash":{},"data":data}))
+    + "\"><a id=\"appSettingCtrlAnchor\"><span class=\"setting-btn cgIcon\"></span></a></div><span id=\"askFullscreen\" class=\"fullScreen-icon\"></span><span id=\"askExitFullscreen\" class=\"exitFullScreen-icon\"></span></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/ssmainDiv.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

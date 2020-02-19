@@ -326,6 +326,7 @@
               virtualclass.videoUl.videoId = vidObj.fileuuid;
               virtualclass.vutil.showFinishBtn();
               virtualclass.dashboard.close();
+              virtualclass.userInteractivity.makeReadyContext();
             }
           });
         }
@@ -500,12 +501,14 @@
             virtualclass.videoUl.videoId = msg.videoUl.init.id;
             virtualclass.videoUl.videoUrl = msg.videoUl.init.videoUrl;
             virtualclass.videoUl.UI.displayVideo(msg.videoUl.init.id, msg.videoUl.init.videoUrl);
+            virtualclass.userInteractivity.makeReadyContext();
           }
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'content_path')) {
           virtualclass.videoUl.videoId = msg.videoUl.id;
           virtualclass.videoUl.videoUrl = msg.videoUl.content_path;
           virtualclass.videoUl.title = msg.videoUl.title;
           virtualclass.videoUl.UI.displayVideo(msg.videoUl.id, virtualclass.videoUl.videoUrl);
+          virtualclass.userInteractivity.makeReadyContext();
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'play')) {
           this.handlePlayEvent(msg, msg.videoUl.play);
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'order')) {
@@ -904,6 +907,7 @@
           virtualclass.videoUl.UI.videojsPlayer(videoUrl, vidId);
           // virtualclass.modal.hideModal();
           virtualclass.dashboard.close();
+          virtualclass.userInteractivity.makeReadyContext();
         },
 
         videojsPlayer(videoUrl, vidId) {

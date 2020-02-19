@@ -171,9 +171,10 @@ var ioAdapter = {
   },
 
   initSetSession(session) {
-    const localSession = localStorage.getItem('serverSession');
+    const localSession = localStorage.getItem('mySession');
     if (localSession === null) {
-      localStorage.setItem('serverSession', session);
+      console.log('====> hi helllo 1 set session');
+      localStorage.setItem('mySession', session);
       io.sessionSet = true;
     } else if (localSession !== session) {
       this.setSession(localSession);

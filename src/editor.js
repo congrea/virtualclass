@@ -76,7 +76,7 @@
        * @param operations expect operations of docs
        */
       init(revision, clients, docs, operations) {
-        //console.log('====> Process Editor 1');
+        virtualclass.userInteractivity.makeReadyContext();
         const docsInfo = {};
         if (typeof revision !== 'undefined') {
           docsInfo.revision = revision;

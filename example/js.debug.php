@@ -1,4 +1,5 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>build/src/audio-g711-and-resampler.min.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>build/src/firebase-7.3.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/screendecode.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/screenworker.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/storage-array-base64-converter.js"></script>
@@ -160,7 +161,15 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/config.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/bootstrap.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/order-list.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/note.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/bookmark.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/question-answer.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user-interactivity-engine.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user-interactivity-events.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user-interactivity-renderer.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/user-interactivity.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/templates_view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/back-detect.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/rightbar.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/index.js"></script>
 

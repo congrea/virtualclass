@@ -234,8 +234,9 @@
         virtualclass.user.mediaSliderUI('video');
         virtualclass.user.mediaSliderUI('chat');
         virtualclass.user.mediaSliderUI('groupChat');
-        virtualclass.user.mediaSliderUI('raisehand');
+        virtualclass.user.mediaSliderUI('askQuestion');
         virtualclass.user.mediaSliderUI('userlist');
+        virtualclass.user.mediaSliderUI('qaMarkNotes');
       }
     },
     _setOption(option, value) {

@@ -2,7 +2,6 @@
 /** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
-
 (function (window) {
   const TIME_TO_REQUEST = 3 * 60 * 1000; // every request would be performeed in given milisecond
   const RECORDING_TIME = 15 * 60 * 1000; // If elapsed time goes beyond the
@@ -54,6 +53,8 @@
     totalRecordingTime: 0,
     actualPlayRecordingTime: 0,
     timeStamp: null,
+    totalTimeTillNow: 0,
+    markData: [],
     recViewData: {
       'x-api-key': wbUser.lkey,
       'x-congrea-authuser': wbUser.auth_user,
@@ -75,11 +76,11 @@
         this.initRecordViewHandler();
         this.attachSeekHandler = true;
         const virtualclassApp = document.querySelector('#virtualclassCont');
-        const downloadProgressBar = document.querySelector('#downloadProgressBar');
-        const playProgressBar = document.querySelector('#playProgressBar');
+        const downloadProgressBar = document.querySelector('#allMarksinformation');
+        // const playProgressBar = document.querySelector('#playProgressBar');
 
         downloadProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
-        playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
+        // playProgressBar.addEventListener('mousedown', this.seekHandler.bind(this));
         virtualclassApp.addEventListener('mousemove', this.seekWithMouseMove.bind(this));
         window.addEventListener('mouseup', this.finalSeek.bind(this));
         // window.addEventListener('onunload', this.recDataSend(this));
@@ -89,15 +90,15 @@
 
         /** For iPad and mobile * */
         downloadProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
-        playProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
+        // playProgressBar.addEventListener('touchstart', this.seekHandler.bind(this));
         virtualclassApp.addEventListener('touchmove', this.seekWithMouseMove.bind(this));
         virtualclassApp.addEventListener('touchend', this.finalSeek.bind(this));
 
         downloadProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
-        playProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
+        // playProgressBar.addEventListener('mousemove', this.handlerDisplayTime.bind(this));
 
         downloadProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, downloadProgressBar));
-        playProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, playProgressBar));
+        // playProgressBar.addEventListener('mouseleave', this.removeHandler.bind(this, playProgressBar));
         virtualclass.pageVisible(this.handlPageActiveness.bind(this));
       }
 
@@ -194,6 +195,7 @@
       delete virtualclass.ss;
       virtualclass.ss = "";
 
+      virtualclass.makeAppReady({ app: 'Whiteboard' });
     },
 
     // If binary, return buffer else return original value
@@ -285,7 +287,8 @@
               setTimeout(() => {
                 virtualclass.recorder.requestDataFromServer(file, xhr);
               }, 1000);
-            });
+            }
+            );
 
           // virtualclass.recorder.xhr[file] = new XHR();
           // virtualclass.recorder.xhr[file].init();
@@ -355,6 +358,7 @@
       let playTime = 0;
       if (!isNaN(totalSeconds) && totalSeconds >= 1 && !this.isTrimRecordingNow) {
         playTime = 1000;
+
         const data = {
           playTime,
           recObjs: '{"0{"user":{"userid":"2"},"m":{"app":"nothing","cf":"sync"}} ',
@@ -362,11 +366,22 @@
         };
 
         for (let s = 0; s < totalSeconds; s++) {
-          // this.totalTimeInMiliSeconds += playTime;
           chunk.push(data);
+          this.totalTimeTillNow += 1000;
         }
       }
       return chunk;
+    },
+
+    renderContextMark(tilNowTime, allmark, context) {
+      const markPoint = (tilNowTime * 100) / this.totalTimeInMiliSeconds;
+      const contextMark = virtualclass.getTemplate('context-mark');
+
+      virtualclass.gObj.lastContext = context;
+      const ctimeId = 'ctime' + markPoint;
+      const data = Object.assign({}, allmark, { id: ctimeId, width: markPoint, context });
+      const contextMarkHtml = contextMark(data);
+      document.getElementById('allMarksinformation').insertAdjacentHTML('beforeend', contextMarkHtml);
     },
 
     makeRecordingQueue(file, rawData) {
@@ -414,6 +429,7 @@
               this.lastFileTime = time;
             }
 
+            // virtualclass.settings.info.trimRecordings = true;
             if (virtualclass.settings.info.trimRecordings) {
               if (this.isTrimRecordingNow) { // Recording off
                 chunk.push({ playTime: 0, recObjs: data, type });
@@ -433,15 +449,20 @@
                 this.trimontime = time;
               } else {
                 chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
+                this.totalTimeTillNow += this.tempPlayTime;
               }
             } else {
               this.recordingTotalTime(data, time);
               chunk.push({ playTime: this.tempPlayTime, recObjs: data, type });
+              // this.totalTimeTillNow += this.tempPlayTime;
+              this.totalTimeTillNow += this.tempPlayTime;
             }
-
+            this.handleMarkSign(data);
             if (typeof allRecordigns[i + 1] !== 'undefined') {
               const nextMiliSeconds = this.calculateNextTime(time, allRecordigns[i + 1]);
-              chunk = this.insertPacketInto(chunk, nextMiliSeconds, true);
+              chunk = this.insertPacketInto(chunk, nextMiliSeconds, i, time, allRecordigns[i + 1].substring(0, 21));
+              // console.log('====> chunck length ', nextMiliSeconds);
+
               if (nextMiliSeconds >= 1000) {
                 nextMinus = (Math.trunc(nextMiliSeconds / 1000) * 1000);
               }
@@ -487,6 +508,7 @@
       this.updateTotalTime();
       this.UIdownloadProgress();
 
+
       // Init to play after 3 minute or if last file is downloaded
       if (((this.currentMin * 60 * 1000) >= PLAY_START_TIME
         || this.lastFile === file) && this.masterRecordings.length > 0) {
@@ -496,6 +518,45 @@
           this.alreadyAskForPlay = true;
           this.askToPlay();
         }
+      }
+    },
+
+    handleMarkSign(data) {
+      if (data.indexOf('readyContext') > -1) {
+        if (virtualclass.settings.info.trimRecordings) {
+          this.markData.push({ data, totalTimeTillNow: this.totalTimeTillNow });
+        } else {
+          this.initDisplayContextMark(data, this.totalTimeTillNow);
+        }
+      }
+    },
+
+    initDisplayContextMark(data, totalTimeTillNow) {
+      const msg = JSON.parse(io.cleanRecJson(data));
+      const allMark = { question: false, note: false, bookmark: false };
+
+      if (virtualclass.userInteractivity.allMarks[msg.m.context]) {
+        if (virtualclass.userInteractivity.allMarks[msg.m.context].question && virtualclass.userInteractivity.allMarks[msg.m.context].question.length > 0) {
+          allMark.question = true;
+        }
+
+        if (virtualclass.userInteractivity.allMarks[msg.m.context].note) {
+          console.log('This context has note ', msg.m.context);
+          allMark.note = true;
+        }
+
+        if (virtualclass.userInteractivity.allMarks[msg.m.context].bookmark) {
+          allMark.bookmark = true;
+        }
+      }
+
+      this.renderContextMark(totalTimeTillNow, allMark, msg.m.context);
+    },
+
+    disaplayAllMarkSign() {
+      document.getElementById('allMarksinformation').innerHTML = "";
+      for (let i = 0; i < this.markData.length; i++) {
+        this.initDisplayContextMark(this.markData[i].data, this.markData[i].totalTimeTillNow);
       }
     },
 
@@ -524,6 +585,7 @@
 
     startToPlay() {
       if (!this.playStart) {
+        if (virtualclass.settings.info.trimRecordings) this.disaplayAllMarkSign();
         this.playStart = true;
         this.playInt();
         virtualclass.popup.closeElem();
@@ -544,6 +606,7 @@
     },
     finishRequestDataFromServer(singleFileTime) {
       if (this.isDownloadedAllRecordings(singleFileTime)) {
+        if (virtualclass.settings.info.trimRecordings) this.disaplayAllMarkSign();
         virtualclass.recorder.allFileFound = true;
         if (!virtualclass.recorder.alreadyAskForPlay) {
           // virtualclass.recorder.askToPlay("completed");
@@ -607,8 +670,13 @@
       if (e.type === 'touchend') {
         e = this.lastEvent;
       } else {
-        e.offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
-        e.offsetY = e.touches[0].pageY - e.touches[0].target.offsetTop;
+        if(e.touches) {
+          e.offsetX = e.touches[0].pageX - e.touches[0].target.offsetLeft;
+          e.offsetY = e.touches[0].pageY - e.touches[0].target.offsetTop;
+        } else {
+          e = 0;
+        }
+
       }
       this.lastEvent = e;
       return e;
@@ -1476,7 +1544,7 @@
       this.fetchRecViewData();
       this.actualTotalPlayTime = 0;
       this.session = wbUser.session;
-      virtualclass.popup.loadingWindow();
+      // virtualclass.popup.loadingWindow();
       virtualclass.xhrn.vxhrn.post(virtualclass.api.recordingFiles, { session: virtualclass.recorder.session })
         .then((response) => {
           this.afterDownloadingList(response.data);

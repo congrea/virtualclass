@@ -1,4 +1,7 @@
 <div id="virtualclassAppFooterPanel" class="footerBar">
+    {{#if isPlay}}
+      {{> recordingControl}}
+    {{/if}}
     <div id="stickybar" class="maximize something-happend">
         <div id="stopScreenShare" class="ss congtooltip" data-title="{{getString 'ssStop'}}">
           <button type="button"> </button>
@@ -23,7 +26,7 @@
                             c6.233,7.083,17,7.367,24.083,1.133c34.567-31.45,79.617-48.733,126.367-48.733c47.317,0,92.65,17.567,127.217,49.583
                             C365.408,241.591,369.375,243.008,373.625,243.008z"/>
                         <path id = "lowstepfst" class = "signalfive" d="M310.158,319.225c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083c-23.8-21.817-54.683-34-86.7-34
-                            s-62.617,11.9-86.133,33.15c-7.083,6.233-7.367,17-1.133,24.083c6.233,7.083,17,7.367,24.083,1.133
+                              s-62.617,11.9-86.133,33.15c-7.083,6.233-7.367,17-1.133,24.083c6.233,7.083,17,7.367,24.083,1.133
                             c17.283-15.867,39.95-24.367,63.183-24.367c23.8,0,46.467,8.783,63.75,24.933C301.941,317.808,306.191,319.225,310.158,319.225z"/>
                         <path id = "highstepfst" class = "signalthree" d="M453.241,173.875c4.533,0,9.067-1.983,12.467-5.383c6.233-6.8,5.95-17.567-1.133-24.083
                             c-62.9-58.083-144.783-89.817-230.35-89.817c-84.717,0-166.033,31.45-228.65,88.117c-7.083,6.233-7.367,17-1.133,24.083
@@ -51,6 +54,13 @@
             </span>
             </div>
         </div>
+        <span class="pre-check-btn congtooltip" data-title="{{getString 'appPrerequites'}}" id="precheckBtn">
+            <div id="settingPrecheck">
+            <div class="prechk" data-title="{{getString 'precheck'}}" id="precheckTest">
+                <span class="precheck cgIcon"  id="precheckSetting" >{{getString 'precheckStart'}}</span>
+            </div>
+            </div>
+        </span>
         {{> audioWidget}}
         <div id="fullScreenButton">
             <span class="congtooltip fullScreen" data-title="Full Screen"><i class="icon-fullScreen cgIcon"></i></span>
@@ -58,8 +68,11 @@
         <div id="fullScreenExitButton">
             <span class="congtooltip" data-title="Exit Full Screen"><i class="icon-exitScreen cgIcon"></i></span>
         </div>
+
+        <div id="bookmark">
+          <div class="container"> </div>
+        </div>
     </div>
-    <div id="stickycontainer">
-        
-    </div>
+    <div id="stickycontainer"> </div>
+
 </div>

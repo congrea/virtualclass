@@ -158,6 +158,7 @@ Network.prototype.resetVariations = function () {
 
 Network.prototype.netWorkElementIsReady = function () {
   const networkStatusContainer = document.querySelector('#networkStatusContainer');
+  const virtualclassContConatiner = document.querySelector('#virtualclassCont');
   if (networkStatusContainer == null) {
     const that = this;
     virtualclass.gObj.connectingRoom = setTimeout(
@@ -167,6 +168,7 @@ Network.prototype.netWorkElementIsReady = function () {
     );
   } else {
     networkStatusContainer.classList.add('connecting-room');
+    if (!virtualclass.isPlayMode) virtualclassContConatiner.classList.add('connecting');
     clearTimeout(virtualclass.gObj.connectingRoom);
   }
 };

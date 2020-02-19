@@ -1,6 +1,8 @@
-/*#virtualclassCont.congrea.teacher #virtualclassVideo, #virtualclassCont.congrea.student.presenter #virtualclassVideo {*/
-/*margin-left: 45px;*/
-/*}*/
+/* #virtualclassCont.congrea.teacher #virtualclassVideo, #virtualclassCont.congrea.student.presenter #virtualclassVideo { */
+
+/* margin-left: 45px; */
+
+/* } */
 
 #virtualclassCont.congrea.educator #virtualclassVideo {
   margin-left: 7px;
@@ -24,11 +26,15 @@
   margin-left: 22px;
 }
 
-/*#virtualclassCont.congrea  #videoUrlContainer, #virtualclassCont.congrea.student.educator  #videoUrlContainer {*/
-/*top: 0;*/
-/*text-align: left;*/
-/*margin-left: 22px;*/
-/*}*/
+/* #virtualclassCont.congrea  #videoUrlContainer, #virtualclassCont.congrea.student.educator  #videoUrlContainer { */
+
+/* top: 0; */
+
+/* text-align: left; */
+
+/* margin-left: 22px; */
+
+/* } */
 
 #virtualclassCont.congrea #virtualclassVideo iframe#player {
   width: 90%;
@@ -38,15 +44,15 @@
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassYtsTool:hover {
   background: #8d98a4; /* Old browsers */
   background: -moz-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* FF3.6+ */
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #8d98a4), color-stop(100%, #646d76)); /* Chrome,Safari4+ */
+  background: -webkit-gradient(radial, center center, 0, center center, 100%, color-stop(0%, #8d98a4), color-stop(100%, #646d76)); /* Chrome,Safari4+ */
   background: -webkit-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* Chrome10+,Safari5.1+ */
   background: -o-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* Opera 12+ */
   background: -ms-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* IE10+ */
   background: radial-gradient(ellipse at center, #8d98a4 0%, #646d76 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8d98a4', endColorstr='#646d76', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#8d98a4', endColorstr='#646d76', GradientType=1); /* IE6-9 fallback on horizontal gradient */
 }
 
-#virtualclassCont.congrea #virtualclassYtsTool .icon-youtubeshare:before {
+#virtualclassCont.congrea #virtualclassYtsTool .icon-youtubeshare::before {
   font-size: 30px;
   content: "\ea99";
 }
@@ -59,18 +65,27 @@
   margin-top: 7%;
 }
 
-/*#virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer{*/
-/*left: 0;*/
-/*margin-top: 10px;*/
-/*right: 0;*/
-/*text-align: center;*/
-/*top: 40%;*/
-/*}*/
+/* #virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer{ */
 
-/*#virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer {*/
-/*top: 0;*/
-/*text-align: left;*/
-/*}*/
+/* left: 0; */
+
+/* margin-top: 10px; */
+
+/* right: 0; */
+
+/* text-align: center; */
+
+/* top: 40%; */
+
+/* } */
+
+/* #virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer { */
+
+/* top: 0; */
+
+/* text-align: left; */
+
+/* } */
 
 #virtualclassCont.congrea #videoUrlContainer #videourl {
   height: 35px;
@@ -78,6 +93,8 @@
   color: #777;
 }
 
-/*#virtualclassCont.congrea #virtualclassVideo {*/
-/*margin-top : 5px;*/
-/*}*/
+/* #virtualclassCont.congrea #virtualclassVideo { */
+
+/* margin-top : 5px; */
+
+/* } */

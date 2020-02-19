@@ -183,7 +183,7 @@ let globalImageData = {};
           virtualclass.gObj.studentSSstatus.shareToAll = true;
         }
         app = stype;
-        const screenCont = document.getElementById(`virtualclass${virtualclass.apps.ss}`);
+        let screenCont = document.getElementById(`virtualclass${virtualclass.apps.ss}`);
 
         if (typeof virtualclass[app] !== 'object' || screenCont == null) {
           if (typeof vtype !== 'undefined') {
@@ -228,9 +228,11 @@ let globalImageData = {};
 
         virtualclass.previous = virtualclass[app].id;
 
-        if (!this.szoom) {
-          this.initZoom();
-        }
+        if (!this.szoom) this.initZoom();
+        screenCont = document.getElementById(`virtualclass${virtualclass.apps.ss}`);
+        if (virtualclass.gObj.screenShareId) screenCont.dataset.screenshareid = virtualclass.gObj.screenShareId;
+        virtualclass.userInteractivity.makeReadyContext();
+
       },
 
       initZoom() {
@@ -808,6 +810,11 @@ let globalImageData = {};
          * making screenshare active application and removing previous application
          */
         this.video.onloadedmetadata = function onloadedmetadata() {
+          const date = new Date();
+          const timeInMiliseconds = date.getTime();
+          virtualclass.gObj.screenShareId = `ss_${timeInMiliseconds}`;
+          virtualclass.userInteractivity.makeReadyContext();
+          ioAdapter.mustSend({ cf: 'screenShareId', id: virtualclass.gObj.screenShareId});
           that.width = container.width;
           that.height = container.height;
 

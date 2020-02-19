@@ -1,15 +1,14 @@
-<div id="virtualclassAppRightPanel" class="rightbar bootstrap chat_enabled showUserList">
+<div id="virtualclassAppRightPanel" class="rightbar bootstrap chat_enabled " dataset="userListHeader" data-currwindow="userListHeader">
   {{> ('getVideoType') }}
   {{> rightBarHeader}}
   {{!-- {{> ('getVideoType') }} --}}
   {{!-- Chat widget --}}
 
-  <div id="rightSubContainer" class="">
-      {{> appSettingDetail}}
-      <div id="chatWidget">
+  <div id="rightSubContainer">
+    {{> appSettingDetail}}
+      <div id="chatWidget" class="rightContainer active">
           <div id="congreaChatMainCont">
             <div id="congreaChatCont"> </div>
-
             <div class="footerCtr" id="congFooterCtr">
               <div class="vmchat_search" id="congchatBarInput">
                 <input type="text" id="congreaUserSearch" class="search"
@@ -17,6 +16,6 @@
               </div>
             </div>
         </div>
+      </div>
   </div>
-</div>
 </div>

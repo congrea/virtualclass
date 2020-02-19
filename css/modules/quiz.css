@@ -1,6 +1,9 @@
-/*#virtualclassCont.congrea.teacher #virtualclassQuiz{*/
-/*margin-left: 60px;*/
-/*}*/
+/* #virtualclassCont.congrea.teacher #virtualclassQuiz{ */
+
+/* margin-left: 60px; */
+
+/* } */
+
 /* congrea quiz */
 #virtualclassQuiz {
   margin-right: 6px;
@@ -29,6 +32,7 @@
 
 #virtualclassCont.congrea #layoutQuizBody {
   padding: 20px;
+
   /*
     border: 1px solid #ccc;
     border-width: 0 1px 1px 1px;
@@ -41,7 +45,6 @@
 }
 
 #virtualclassCont.congrea #layoutQuizBody h4#quizListHead {
-
   color: #969696;
   letter-spacing: 1px;
   font-size: 15px;
@@ -51,7 +54,7 @@
 }
 
 #virtualclassCont.congrea #layoutQuizBody .vcQuizCont {
-  /*background-color: #eee;*/
+  /* background-color: #eee; */
   border: 1px solid #ccccccab;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -64,18 +67,20 @@
 #virtualclassCont.congrea #layoutQuizBody .vcQuizCont .quizCtrCont,
 #virtualclassCont.congrea #layoutQuizBody .vcQuizCont .quizCtrCont .col-md-4 {
   padding: 0;
-  /*text-align: center;*/
+
+  /* text-align: center; */
 }
 
 #virtualclassCont.congrea #layoutQuizBody .vcQuizCont .quizCtrCont,
 #virtualclassCont.congrea #layoutQuizBody .vcQuizCont .qnText,
 #virtualclassCont.congrea #layoutQuizBody .vcQuizCont .creator {
-  /*padding-top: 10px;*/
-  /*padding-bottom: 10px;*/
+  /* padding-top: 10px; */
+
+  /* padding-bottom: 10px; */
   padding: 10px;
 }
 
-#virtualclassCont.congrea #layoutQuizBody .vcQuizCont a span[data-toggle="congtooltip"]:before {
+#virtualclassCont.congrea #layoutQuizBody .vcQuizCont a span[data-toggle="congtooltip"]::before {
   font-size: 18px !important;
 }
 
@@ -102,7 +107,6 @@
 
 #virtualclassCont.congrea #stdQuizContainer {
   margin: 70px !important;
-
 }
 
 #virtualclassCont.congrea #virtuaclassQuiz i {
@@ -112,7 +116,7 @@
 #virtualclassCont.congrea .quizList .quizPreview {
   max-width: 90%;
   width: 500px; /* Max Width of the popover (depending on the container!) */
-  padding: 10px
+  padding: 10px;
 }
 
 #virtualclassCont.congrea .quizList #popupCont {
@@ -132,7 +136,8 @@
   margin-right: -12px;
 }
 
-#virtualclassCont.congrea #layoutQuizBody.quizMainCont input[type="radio"] + label, #layoutQuizBody.quizMainCont input[type="checkbox"] + label {
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont input[type="radio"] + label,
+#layoutQuizBody.quizMainCont input[type="checkbox"] + label {
   padding-left: 0.5em;
 }
 
@@ -140,8 +145,8 @@
   margin: 6px 3px;
 }
 
-#virtualclassCont.congrea #layoutQuizBody.quizMainCont #settingCont.row input[type="radio"], #layoutQuizBody.quizMainCont
-#virtualclassCont.congrea #layoutQuizBody.quizMainCont #settingCont.row .form-group {
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #settingCont.row input[type="radio"],
+#layoutQuizBody.quizMainCont #virtualclassCont.congrea #layoutQuizBody.quizMainCont #settingCont.row .form-group {
   margin-top: 5px;
   margin-bottom: 10px;
 }
@@ -169,8 +174,8 @@
   margin: 10px 0;
 }
 
-#virtualclassCont.congrea #layoutQuizBody.quizMainCont #stdOptionCont.row, #virtualclassCont.congrea #layoutQuizBody.quizMainCont
-#virtualclassCont.congrea #layoutQuizBody.quizMainCont #stdContBody.row {
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #stdOptionCont.row,
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont #virtualclassCont.congrea #layoutQuizBody.quizMainCont #stdContBody.row {
   border-top: 1px solid #e5e5e5;
   width: auto;
   margin-top: 12px;
@@ -184,19 +189,20 @@
   margin: 20px 0;
 }
 
-#virtualclassCont.congrea .bootstrap #layoutQuizBody #stdQuizContainer .row, #virtualclassCont.congrea .bootstrap #layoutQuizBody.quizMainCont .row {
+#virtualclassCont.congrea .bootstrap #layoutQuizBody #stdQuizContainer .row,
+#virtualclassCont.congrea .bootstrap #layoutQuizBody.quizMainCont .row {
   margin-left: 0;
   margin-right: 0;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .table > tr > th {
   padding: 8px;
-  letter-spacing: 0.020em;
+  letter-spacing: 0.02em;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .table > tr > td {
   padding: 11px;
-  letter-spacing: 0.020em;
+  letter-spacing: 0.02em;
 }
 
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody .modal-body {
@@ -213,7 +219,7 @@
 }
 
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody #contQzBody.modal-body {
-  border: 0px;
+  border: 0;
 }
 
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody {
@@ -237,8 +243,8 @@
 .bootstrap #rsQzHead .col-md-3,
 .bootstrap #rsQzHead.col-md-12,
 .bootstrap #rsQzHead .col-md-4 {
-  padding-left: 0px !important;
-  padding-right: 0px !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   margin-top: 15px;
   margin-bottom: 15px;
 }
@@ -263,7 +269,7 @@
 #virtualclassCont.congrea #layoutQuizBody .q-area div,
 #virtualclassCont.congrea #layoutQuizBody button#closeQzBt,
 #virtualclassCont.congrea #layoutQuizBody div#QstnName {
-  letter-spacing: 0.020em;
+  letter-spacing: 0.02em;
 }
 
 #virtualclassCont.congrea #layoutQuizBody #resultQzLayout.alert {
@@ -300,16 +306,15 @@
 
 #virtualclassCont.congrea #layoutQuizBody .icon-publish2 {
   color: #505050;
-
 }
 
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal .nav a {
   color: #555;
 }
 
-#virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .reportPreview a:hover, 
+#virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .reportPreview a:hover,
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .questionPreview a:hover {
-  color: #ffffff;
+  color: #fff;
   background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
   opacity: 0.5;
 }
@@ -329,16 +334,18 @@
   font-size: 15px;
 }
 
-/*#virtualclassCont.congrea #virtualclassQuiz{*/
-/*margin-top : 5px;*/
-/*}*/
+/* #virtualclassCont.congrea #virtualclassQuiz{ */
+
+/* margin-top : 5px; */
+
+/* } */
 
 .path-mod-congrea-quiz ul.answers {
-  padding: 0px;
+  padding: 0;
 }
 
 #virtualclassCont.congrea #slickQuiz ol.questions {
-  padding: 0px;
+  padding: 0;
 }
 
 #virtualclassCont.congrea #slickQuiz {
@@ -367,10 +374,10 @@
 #virtualclassCont.congrea.student #virtualclassPoll #layoutPoll .nav.navbar {
   /* max-height: 48px; */
   min-height: 2.75rem !important;
-
 }
 
-#virtualclassCont.congrea.student #virtualclassQuiz #layoutQuiz .nav.navbar, #virtualclassCont.congrea.student #virtualclassPoll #layoutPoll .nav.navbar {
+#virtualclassCont.congrea.student #virtualclassQuiz #layoutQuiz .nav.navbar,
+#virtualclassCont.congrea.student #virtualclassPoll #layoutPoll .nav.navbar {
   border-radius: 0;
 }
 
@@ -406,7 +413,6 @@
   left: -230px;
   right: 0;
   font-size: medium;
-
 }
 
 #virtualclassCont.congrea.student #slickQuiz .quizArea ol.questions > li:first-child {
@@ -417,8 +423,10 @@
   margin-bottom: 0;
 }
 
-#virtualclassCont.congrea #quizModalBody #contQzBody #slickQuiz .quizArea .questions li h3, #virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody .q-area h3, .path-mod-congrea-quiz span.questext h3 {
-  letter-spacing: .020em;
+#virtualclassCont.congrea #quizModalBody #contQzBody #slickQuiz .quizArea .questions li h3,
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody .q-area h3,
+.path-mod-congrea-quiz span.questext h3 {
+  letter-spacing: 0.02em;
   font-size: 16px;
   margin: 0;
   display: inline;
@@ -456,11 +464,13 @@
   }
 }
 
-#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover, #virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover:active {
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover,
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover:active {
   background-color: #fff;
 }
 
-#virtualclassCont.congrea .path-mod-congrea-quiz .navblock::-webkit-scrollbar, #virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody::-webkit-scrollbar {
+#virtualclassCont.congrea .path-mod-congrea-quiz .navblock::-webkit-scrollbar,
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody::-webkit-scrollbar {
   width: 8px;
   height: 8px;
   background-color: #d9dbdc;
@@ -491,23 +501,24 @@
   }
 
   #virtualclassCont.congrea #slickQuiz .quizArea {
-    margin-top: 5px;	    margin-top: -14px;
+    margin-top: 5px;
+    margin-top: -14px;
   }
 
-   .path-mod-congrea-quiz .qnbutton.thispage {
+  .path-mod-congrea-quiz .qnbutton.thispage {
     line-height: 1.2em !important;
   }
 
-   #virtualclassCont.congrea #slickQuiz {
+  #virtualclassCont.congrea #slickQuiz {
     font-size: 10px;
     height: 100%;
   }
 
-   .path-mod-congrea-quiz div.quesname {
+  .path-mod-congrea-quiz div.quesname {
     padding: 10px;
   }
 
-   .path-mod-congrea-quiz span.questext,
+  .path-mod-congrea-quiz span.questext,
   #virtualclassCont.congrea #virtualclassQuiz #layoutQuizBody .quizResults h4 {
     font-size: 15px;
   }
@@ -517,21 +528,21 @@
     font-size: inherit !important;
   }
 
-   #virtualclassCont.congrea #virtualclassQuiz .path-mod-congrea-quiz .questions .answers span {
+  #virtualclassCont.congrea #virtualclassQuiz .path-mod-congrea-quiz .questions .answers span {
     font-family: inherit !important;
     font-size: 12px;
-  }	
-   #virtualclassCont.congrea #virtualclassQuiz #layoutQuizBody .quizResults h3 {
+  }
+
+  #virtualclassCont.congrea #virtualclassQuiz #layoutQuizBody .quizResults h3 {
     font-size: 20px;
   }
 
-   #virtualclassCont.congrea #virtualclassQuiz #layoutQuizBody .quizResults {
+  #virtualclassCont.congrea #virtualclassQuiz #layoutQuizBody .quizResults {
     position: absolute;
     top: 0;
-  }	
+  }
 
-  #virtualclassCont.congrea #resultQzLayout.elapsedTime .timilimit{
-    display : none;
- }
-
+  #virtualclassCont.congrea #resultQzLayout.elapsedTime .timilimit {
+    display: none;
+  }
 }

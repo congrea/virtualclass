@@ -1,0 +1,35 @@
+<div id= '{{id}}' class= 'comment' data-parent="{{parent}}">
+  <div class="container">
+
+    <div class= 'header'>
+      <span class= 'userName'>{{userName}}</span>
+      <span class= 'lable'>{{getString 'commentLable'}}</span>
+    </div>
+    <div class= 'content'>
+      <p data-component = 'comment' data-component-id="{{id}}" data-parent="{{parent}}">{{content}}
+        <span class="morecontent close">{{morecontent}}</span>
+        <span class='btn close' data-event="more">{{getString 'more'}}</span>
+      </p>
+    </div>
+    <div class="footer show" data-component = 'comment' data-component-id="{{id}}">
+      <div class= 'controls' data-component = 'comment' data-component-id="{{id}}" data-parent="{{parent}}">
+        <div class= "navigation disable congtooltip" data-event="navigation" data-title ="{{getString 'comment'}}">
+          <span class= 'button'></span>
+          <span class= 'total'>0</span>
+        </div>
+        <div class= "reply congtooltip" data-event="reply" data-title ="{{getString 'reply'}}">
+          <span class= 'button'></span>
+        </div>
+      </div>
+      <div class= 'moreControls' data-event = 'moreControls' >
+        <div class= 'item close' data-component = 'comment' data-component-id="{{id}}" data-parent="{{parent}}" data-timestamp="{{timestamp}}">
+          <span class= 'edit' data-event="edit"> {{getString 'edit'}} </span>
+          <span class= 'delete' data-event="delete"> {{getString 'delete'}} </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="comments open"></div>
+</div>

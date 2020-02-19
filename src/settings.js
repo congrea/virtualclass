@@ -8,10 +8,19 @@
       virtualclass.settings.info = virtualclass.settings.parseSettings(coreSettings);
       const userSetting = localStorage.getItem('userSettings');
       if (userSetting) {
+        console.log('setting ', userSetting);
         virtualclass.settings.user = JSON.parse(userSetting);
       }
       this.recording.init();
       // virtualclass.settings.info.trimRecordings = true;
+    },
+
+    triggerSettings() {
+      this.qaMarkNotes(virtualclass.settings.info.qaMarkNotes);
+      this.askQuestion(virtualclass.settings.info.askQuestion);
+      this.qaAnswer(virtualclass.settings.info.qaAnswer);
+      this.qaComment(virtualclass.settings.info.qaComment);
+      this.qaUpvote(virtualclass.settings.info.qaUpvote);
     },
 
     // settings object values assign to array for get a hax code
@@ -22,7 +31,7 @@
       localSettings[2] = +s.studentvideo;
       localSettings[3] = +s.studentpc;
       localSettings[4] = +s.studentgc;
-      localSettings[5] = +s.raisehand;
+      localSettings[5] = +s.askQuestion;
       localSettings[6] = +s.userlist;
       localSettings[7] = +s.enableRecording;
       localSettings[8] = +s.recAllowpresentorAVcontrol;
@@ -32,13 +41,18 @@
       localSettings[12] = +s.showAttendeeRecordingStatus;
       localSettings[13] = +s.trimRecordings;
       localSettings[14] = +s.attendeerecording;
-      localSettings[15] = +s.x6;
+      localSettings[15] = +s.qaMarkNotes;
+      localSettings[16] = +s.qaAnswer;
+      localSettings[17] = +s.qaComment;
+      localSettings[18] = +s.qaUpvote;
+      localSettings[19] = +s.upcomingSetting;
       return virtualclass.settings.binaryToHex(localSettings.join(''));
     },
 
     // return data into true, false
     // student side
     parseSettings(s) {
+      console.log('====> settings parse');
       const parsedSettings = {};
       let localSettings = virtualclass.settings.hexToBinary(s);
       localSettings = localSettings.split('');
@@ -47,7 +61,7 @@
       parsedSettings.studentvideo = !!+localSettings[2];
       parsedSettings.studentpc = !!+localSettings[3];
       parsedSettings.studentgc = !!+localSettings[4];
-      parsedSettings.raisehand = !!+localSettings[5];
+      parsedSettings.askQuestion = !!+localSettings[5];
       parsedSettings.userlist = !!+localSettings[6];
       parsedSettings.enableRecording = !!+localSettings[7];
       parsedSettings.recAllowpresentorAVcontrol = !!+localSettings[8];
@@ -57,7 +71,11 @@
       parsedSettings.showAttendeeRecordingStatus = !!+localSettings[12];
       parsedSettings.trimRecordings = !!+localSettings[13];
       parsedSettings.attendeerecording = !!+localSettings[14];
-      parsedSettings.x6 = !!+localSettings[15];
+      parsedSettings.qaMarkNotes = !!+localSettings[15];
+      parsedSettings.qaAnswer = !!+localSettings[16];
+      parsedSettings.qaComment = !!+localSettings[17];
+      parsedSettings.qaUpvote = !!+localSettings[18];
+      parsedSettings.upcomingSetting = !!+localSettings[19];
       return parsedSettings;
     },
 
@@ -146,6 +164,10 @@
           && Object.prototype.hasOwnProperty.call(virtualclass.settings.info, settingName)) {
           if (typeof userId === 'undefined') {
             virtualclass.settings.applyPresentorGlobalSetting(value, settingName);
+            if (settingName === 'askQuestion' || settingName === 'qaMarkNotes') {
+              this.triggerSettings(value);
+            }
+            // virtualclass.setPrvUser();
           } else {
             virtualclass.settings.applySpecificAttendeeSetting(value, settingName, userId);
           }
@@ -160,6 +182,8 @@
       virtualclass.settings.info[settingName] = value;
       const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
       ioAdapter.mustSend({ cf: 'settings', Hex: str, time: Date.now() });
+      virtualclassSetting.settings = str;
+      console.log('====> Settings ', str);
       for (const propname in virtualclass.settings.user) {
         virtualclass.user.control.changeAttribute(propname,
           virtualclass.gObj.testChatDiv.shadowRoot.getElementById(`${propname}contrAudImg`),
@@ -192,15 +216,31 @@
     },
 
     applyAttendeeSetting(obj) {
+      console.log('my setting change ', JSON.stringify(obj));
       const rec = ['enableRecording', 'recAllowpresentorAVcontrol', 'recShowPresentorRecordingStatus', 'attendeeAV',
         'recallowattendeeAVcontrol', 'showAttendeeRecordingStatus', 'attendeerecording'];
       for (const propname in obj) {
         if (virtualclass.settings.info[propname] !== obj[propname]) {
-          virtualclass.settings.info[propname] = obj[propname];
+          if (virtualclass.isPlayMode) {
+            if (propname !== 'qaMarkNotes' && propname !== 'askQuestion' && propname !== 'qaAnswer'
+              && propname !== 'qaUpvote' && propname !== 'qaComment') {
+              virtualclass.settings.info[propname] = obj[propname];
+            }
+          } else {
+            virtualclass.settings.info[propname] = obj[propname];
+          }
+
           if (propname !== 'trimRecordings') { // avoid trim recordings
             const recSettings = rec.indexOf(propname);
             const value = (recSettings !== -1) ? obj : obj[propname];
-            virtualclass.settings[propname](value);
+            if (virtualclass.isPlayMode) {
+              if (propname !== 'qaMarkNotes' && propname !== 'askQuestion' && propname !== 'qaAnswer'
+                && propname !== 'qaUpvote' && propname !== 'qaComment') {
+                virtualclass.settings[propname](value);
+              }
+            } else {
+              virtualclass.settings[propname](value);
+            }
           }
         }
       }
@@ -210,11 +250,16 @@
     onMessage(msg, userId) {
       if (roles.hasControls()) {
         if (typeof msg === 'string' && userId == null) {
-          virtualclass.settings.info = virtualclass.settings.parseSettings(msg);
+          if (!virtualclass.gObj.refreshSession) {
+            virtualclass.settings.info = virtualclass.settings.parseSettings(msg);
+          }
+          delete virtualclass.gObj.refreshSession;
+          // virtualclass.settings.info = virtualclass.settings.parseSettings(msg);
         }
       } else {
         if (typeof msg === 'string') {
           if (roles.isStudent()) {
+            console.log('====> Settings received ', msg);
             const stdSettings = virtualclass.settings.parseSettings(msg);
             this.applyAttendeeSetting(stdSettings);
           }
@@ -280,24 +325,29 @@
       }
     },
 
-    raisehand(value) {
-      if (roles.isStudent()) {
-        const raiseHand = document.querySelector('#congHr');
-        if (value === true) {
-          raiseHand.classList.remove('rsDisable');
-          raiseHand.classList.add('rsEnable');
-        } else {
-          raiseHand.classList.remove('rsEnable');
-          raiseHand.classList.add('rsDisable');
-        }
+    askQuestion(value) {
+      const askQuestion = document.querySelector('#congAskQuestion');
+      const rightSubContainer = document.getElementById('virtualclassAppRightPanel');
+      if (value === true) {
+        askQuestion.classList.remove('askQuestionDisable');
+        askQuestion.classList.add('askQuestionEnable');
+        rightSubContainer.dataset.askQuestion = 'askQuestionEnable';
+      } else {
+        // document.querySelector('#user_list').click();
+        askQuestion.classList.remove('askQuestionEnable');
+        askQuestion.classList.add('askQuestionDisable');
+        rightSubContainer.dataset.askQuestion = 'askQuestionDisable';
       }
     },
+
     userlist(value) {
       if (roles.isStudent()) {
         const userList = document.querySelector('#memlist');
         if (userList !== null) {
           const searchUserInput = document.querySelector('#congchatBarInput #congreaUserSearch');
           const vmlist = document.querySelector('#user_list.vmchat_bar_button');
+          // const askQuestionElem = document.querySelector('#congAskQuestion');
+          // const notesElem = document.querySelector('#virtualclassnote');
           if (value === true) {
             userList.classList.remove('hideList');
             searchUserInput.classList.remove('hideInput');
@@ -306,8 +356,12 @@
             userList.classList.add('hideList');
             searchUserInput.classList.add('hideInput');
             vmlist.classList.add('disable');
-            const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
-            vmchat.click();
+            // TODO remove commented code
+            // if (!askQuestionElem.classList.contains('active') && !notesElem.classList.contains('active')) {
+            //   const vmchat = document.querySelector('.vmchat_room_bt .inner_bt');
+            //   vmchat.click();
+            // }
+            handleCommonChat();
           }
         }
       }
@@ -341,8 +395,70 @@
       virtualclass.settings.recordingSettings(obj);
     },
 
-    x6() {
-      console.log('TO DO');
+    qaMarkNotes(value) {
+      // TODO handle on default settings
+      //if (roles.isStudent()) {
+      const notesElem = document.querySelector('#virtualclassnote');
+      const rightSubContainer = document.getElementById('virtualclassAppRightPanel');
+      const bookmarkElem = document.querySelector('#bookmark');
+      if (value === true) {
+        notesElem.classList.remove('notesDisable');
+        notesElem.classList.add('notesEnable');
+        bookmarkElem.classList.remove('bookmarkDisable');
+        bookmarkElem.classList.add('bookmarkEnable');
+        rightSubContainer.dataset.qaNote = 'enable';
+      } else {
+        notesElem.classList.remove('notesEnable');
+        notesElem.classList.add('notesDisable');
+        bookmarkElem.classList.remove('bookmarkEnable');
+        bookmarkElem.classList.add('bookmarkDisable');
+        rightSubContainer.dataset.qaNote = 'disbale';
+      }
+      //}
+    },
+
+    qaAnswer(value) {
+      if (!virtualclass.vutil.checkUserRole()) {
+        console.log('setting comp qA ', value);
+        const controlsElem = document.querySelector('#askQuestion');
+        if (controlsElem) {
+          if (value === true) {
+            document.querySelector('#askQuestion').dataset.answer = 'enable';
+          } else if (value === false) {
+            document.querySelector('#askQuestion').dataset.answer = 'disable';
+          }
+        }
+      }
+    },
+
+    qaComment(value) {
+      if (!virtualclass.vutil.checkUserRole()) {
+        const controlsElem = document.querySelector('#askQuestion');
+        if (controlsElem) {
+          if (value === true) {
+            document.querySelector('#askQuestion').dataset.comment = 'enable';
+          } else if (value === false) {
+            document.querySelector('#askQuestion').dataset.comment = 'disable';
+          }
+        }
+      }
+    },
+
+    qaUpvote(value) {
+      if (!virtualclass.vutil.checkUserRole()) {
+        const controlsElem = document.querySelector('#askQuestion');
+        if (controlsElem) {
+          if (value === true) {
+            document.querySelector('#askQuestion').dataset.upvote = 'enable';
+          } else if (value === false) {
+            document.querySelector('#askQuestion').dataset.upvote = 'disable';
+          }
+        }
+      }
+    },
+
+    upcomingSetting() {
+      // nothing to do
     },
 
     recordingSettings(obj) {

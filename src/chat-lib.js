@@ -45,7 +45,7 @@ function displayChatUserList(totUsers) {
 
       if (document.getElementById(`video${users[i].userid}`) == null) {
         tmpmyDivResult = $('#chat_div').memberlist('option').userSent(users[i]);
-        console.log('====> UserList is created 1b');
+        // console.log('====> UserList is created 1b');
       }
 
       // tmpmyDivResult = true, means user div is created already
@@ -53,7 +53,7 @@ function displayChatUserList(totUsers) {
       // && tmpmyDivResult != undefined) {.
       if (typeof tmpmyDivResult !== 'boolean' && typeof tmpmyDivResult !== 'undefined' && tmpmyDivResult != null) {
         myDivResult += tmpmyDivResult;
-        console.log('====> UserList is created 1c');
+       // console.log('====> UserList is created 1c');
       }
     }
 
@@ -76,16 +76,16 @@ function displayChatUserList(totUsers) {
           chat_div.shadowRoot.innerHTML = `<link rel='stylesheet' type='text/css'
           href='${whiteboardPath}css/modules/chat-container.css'>
           <div id='subchat' class='playMode ${userRole}'>${myDivResult}</div>`;
-          console.log('====> UserList is created 1d finally');
+          // console.log('====> UserList is created 1d finally');
         } else {
           chat_div.shadowRoot.innerHTML = `<link rel='stylesheet' type='text/css' 
           href='${whiteboardPath}css/modules/chat-container.css'>
           <div id='subchat' class='${userRole}'>${myDivResult}</div>`;
-          console.log('====> UserList is created 1d finally');
+          // console.log('====> UserList is created 1d finally');
         }
       } else {
         chat_div.shadowRoot.querySelector('#subchat').insertAdjacentHTML('beforeend', myDivResult);
-        console.log('====> UserList is created 1d finally');
+        // console.log('====> UserList is created 1d finally');
       }
     }
 
@@ -238,11 +238,10 @@ function memberUpdate(e, addType) {
        remove userlist box
        */
 
-      if ($('div#memlist').length) {
-        // console.log(`member remove memlist ${$('div#memlist').length} addType=${addType}`);
-        $('div#memlist').remove();
-        console.log('====> UserList is removed ');
-      }
+      // if ($('div#memlist').length) {
+      //   $('div#memlist').remove();
+      // }
+      console.log('====> Chat div is not removing when one user is left the room ');
     }
 
     if ((roles.hasAdmin() && virtualclass.jId === virtualclass.gObj.uid)) {
@@ -272,8 +271,10 @@ function memberUpdate(e, addType) {
       }
     } else {
       // TODO memberlist null in recording play
-      memList.classList.remove('enable');
-      memList.classList.add('disable');
+      if (memList) {
+        memList.classList.remove('enable');
+        memList.classList.add('disable');
+      }
       const listTab = document.querySelector('#user_list');
       const chatroomTab = document.querySelector('#chatroom_bt2');
 

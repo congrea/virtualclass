@@ -564,7 +564,7 @@ body {
 #appSettingCtrl #appSettingCtrlAnchor .setting-btn::before {
   content: "\ea13";
   font-weight: normal;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-family: 'icomoon';
   color: white;
   cursor: pointer;
@@ -1054,14 +1054,11 @@ body {
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #userListHeader,
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #appSettingCtrl,
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #commonChatHeader,
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #appSettingCtrl {
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #appSettingCtrl {
   display: inline-block;
 }
 
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #appSettingCtrl,
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='commonChatHeader'] #appSettingCtrl {
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow='userListHeader'] #appSettingCtrl {
   float: right;
   padding: 0.6875rem 0.9375rem;
   cursor: pointer;

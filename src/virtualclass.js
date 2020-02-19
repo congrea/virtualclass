@@ -502,7 +502,7 @@
           if (!virtualclass.gObj.fullScreenMode) {
             virtualclass.vutil.hideFullScreenButton();
           } else {
-           
+
             virtualclass.vutil.showFullScreenButton();
           }
         }
@@ -841,7 +841,7 @@
         if (elem != null) {
           elem.insertBefore(whiteboard, elem.firstChild);
           // console.log('====> suman whiteboard canvas is created');
-          console.log('##==jai 3b ', slide);
+          // console.log('##==jai 3b ', slide);
           // virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
         }
       },
@@ -856,7 +856,7 @@
           ({ app, cusEvent, position, ...setting } = setting);
           if (setting.data) id = setting.data;
 
-          console.log('##==jai 3c ', virtualclass.currApp, virtualclass.gObj.currWb);
+          // console.log('##==jai 3c ', virtualclass.currApp, virtualclass.gObj.currWb);
 
           virtualclass.gObj.currWb = id;
 
@@ -932,7 +932,7 @@
             return;
           }
 
-          console.log('##==jai, whiteboard actual ' + id);
+          // console.log('##==jai, whiteboard actual ' + id);
 
           let vcan;
           if (typeof this.ss === 'object') {
@@ -1030,7 +1030,7 @@
                   virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
                 }
                 // console.log('====> jai 6 ', id, ' ', virtualclass.wb[id].vcan);
-                console.log(`##==jai, whiteboard 2 ` + id);
+                // console.log(`##==jai, whiteboard 2 ` + id);
                 if (app === 'DocumentShare') {
                   const { currNote } = virtualclass.dts.docs.note;
                   // console.log('##==jai.1', id, ' ', id, ' ', virtualclass.wb[id].vcan);
@@ -1429,7 +1429,7 @@
         };
         // console.log('previosu user');
         localStorage.setItem('prvUser', JSON.stringify(prvUser));
-        console.log('====> Settings store', virtualclassSetting.settings);
+        // console.log('====> Settings store', virtualclassSetting.settings);
       },
 
       registerPartial() {

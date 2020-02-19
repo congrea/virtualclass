@@ -520,7 +520,7 @@
           // } else if (cmd == 't_replay') {
         } else if (cmd === `t_replay${wbId}`) {
           if (typeof multiuser === 'undefined') {
-            // console.log('====> setting vcan main = 0');
+            // // console.log('====> Setting vcan main = 0');
             vcan.setValInMain('id', 0);
           }
           if (typeof myfunc !== 'undefined') {

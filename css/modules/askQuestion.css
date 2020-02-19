@@ -968,3 +968,7 @@
   pointer-events: none;
   opacity: 0.5;
 }
+
+#virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action {
+  border-left: unset !important;
+}

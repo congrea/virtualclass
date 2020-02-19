@@ -18,6 +18,9 @@
     triggerSettings() {
       this.qaMarkNotes(virtualclass.settings.info.qaMarkNotes);
       this.askQuestion(virtualclass.settings.info.askQuestion);
+      this.qaAnswer(virtualclass.settings.info.qaAnswer);
+      this.qaComment(virtualclass.settings.info.qaComment);
+      this.qaUpvote(virtualclass.settings.info.qaUpvote);
     },
 
     // settings object values assign to array for get a hax code
@@ -219,7 +222,8 @@
       for (const propname in obj) {
         if (virtualclass.settings.info[propname] !== obj[propname]) {
           if (virtualclass.isPlayMode) {
-            if (propname !== 'qaMarkNotes' && propname !== 'askQuestion') {
+            if (propname !== 'qaMarkNotes' && propname !== 'askQuestion' && propname !== 'qaAnswer'
+              && propname !== 'qaUpvote' && propname !== 'qaComment') {
               virtualclass.settings.info[propname] = obj[propname];
             }
           } else {
@@ -230,7 +234,8 @@
             const recSettings = rec.indexOf(propname);
             const value = (recSettings !== -1) ? obj : obj[propname];
             if (virtualclass.isPlayMode) {
-              if (propname !== 'qaMarkNotes' && propname !== 'askQuestion') {
+              if (propname !== 'qaMarkNotes' && propname !== 'askQuestion' && propname !== 'qaAnswer'
+                && propname !== 'qaUpvote' && propname !== 'qaComment') {
                 virtualclass.settings[propname](value);
               }
             } else {
@@ -413,35 +418,41 @@
     },
 
     qaAnswer(value) {
-      console.log('setting comp qA ', value);
-      const controlsElem = document.querySelector('#askQuestion');
-      if (controlsElem) {
-        if (value === true) {
-          document.querySelector('#askQuestion').dataset.answer = 'enable';
-        } else if (value === false) {
-          document.querySelector('#askQuestion').dataset.answer = 'disable';
+      if (!virtualclass.vutil.checkUserRole()) {
+        console.log('setting comp qA ', value);
+        const controlsElem = document.querySelector('#askQuestion');
+        if (controlsElem) {
+          if (value === true) {
+            document.querySelector('#askQuestion').dataset.answer = 'enable';
+          } else if (value === false) {
+            document.querySelector('#askQuestion').dataset.answer = 'disable';
+          }
         }
       }
     },
 
     qaComment(value) {
-      const controlsElem = document.querySelector('#askQuestion');
-      if (controlsElem) {
-        if (value === true) {
-          document.querySelector('#askQuestion').dataset.comment = 'enable';
-        } else if (value === false) {
-          document.querySelector('#askQuestion').dataset.comment = 'disable';
+      if (!virtualclass.vutil.checkUserRole()) {
+        const controlsElem = document.querySelector('#askQuestion');
+        if (controlsElem) {
+          if (value === true) {
+            document.querySelector('#askQuestion').dataset.comment = 'enable';
+          } else if (value === false) {
+            document.querySelector('#askQuestion').dataset.comment = 'disable';
+          }
         }
       }
     },
 
     qaUpvote(value) {
-      const controlsElem = document.querySelector('#askQuestion');
-      if (controlsElem) {
-        if (value === true) {
-          document.querySelector('#askQuestion').dataset.upvote = 'enable';
-        } else if (value === false) {
-          document.querySelector('#askQuestion').dataset.upvote = 'disable';
+      if (!virtualclass.vutil.checkUserRole()) {
+        const controlsElem = document.querySelector('#askQuestion');
+        if (controlsElem) {
+          if (value === true) {
+            document.querySelector('#askQuestion').dataset.upvote = 'enable';
+          } else if (value === false) {
+            document.querySelector('#askQuestion').dataset.upvote = 'disable';
+          }
         }
       }
     },

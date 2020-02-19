@@ -465,7 +465,6 @@
 
               if (nextMiliSeconds >= 1000) {
                 nextMinus = (Math.trunc(nextMiliSeconds / 1000) * 1000);
-                console.log('previous app', nextMiliSeconds, nextMinus);
               }
             }
             this.refrenceTime = time;

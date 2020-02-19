@@ -38,7 +38,11 @@ class UserInteractivityRenderer { // Main Part
       const addQuestion = document.querySelector('#virtualclassCont.congrea .addQuestion-icon');
       if (addQuestion) {
         addQuestion.addEventListener('click', () => {
-          const writeContent = document.getElementById('writeContent');
+          let writeContent = document.getElementById('writeContent');
+          if (writeContent) {
+            writeContent.childNodes[1].childNodes[0].click();
+            writeContent = null;
+          }
           if (!writeContent) {
             virtualclass.userInteractivity.engine.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.userInteractivity.currentContext });
           }

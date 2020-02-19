@@ -562,7 +562,7 @@ body {
 }
 
 #appSettingCtrl #appSettingCtrlAnchor .setting-btn::before {
-  content: "\e9b0";
+  content: "\ea13";
   font-weight: normal;
   font-size: 1.0625rem;
   font-family: 'icomoon';
@@ -746,6 +746,7 @@ body {
 #virtualclassCont #appSettingDetail .app-settings-rbs {
   /* margin-top: 0.9375rem; */
   margin-bottom: 0.9375rem;
+  display: none;
 }
 
 #virtualclassCont #appSettingDetail .bulkUserActions {
@@ -1064,6 +1065,10 @@ body {
   float: right;
   padding: 0.6875rem 0.9375rem;
   cursor: pointer;
+}
+
+#virtualclassCont.congrea.student #virtualclassAppRightPanel #appSettingCtrl {
+  display: none;
 }
 
 #virtualclassCont.congrea .rightContainer.deactive,

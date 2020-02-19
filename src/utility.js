@@ -276,6 +276,7 @@
       // const elem = document.getElementById('virtualclassCont');
       if (event.target.id == "askExitFullscreen") {
         var elem = document.getElementById('virtualclassAppRightPanel');
+        virtualclass.gObj.ignoreFullScreen = true;
       } else {
         var elem = document.documentElement;
       }
@@ -2298,13 +2299,14 @@
     },
 
     hideFullScreenButton() {
+      console.log('=====> full screen show hide');
       document.querySelector('#fullScreenButton').style.display = 'none';
       document.querySelector('#fullScreenExitButton').style.display = 'block';
       virtualclass.gObj.fullScreenMode = true;
     },
 
     showFullScreenButton() {
-      console.log('====> show video full screen 2');
+      console.log('=====> full screen show show');
       document.querySelector('#fullScreenButton').style.display = 'block';
       document.querySelector('#fullScreenExitButton').style.display = 'none';
       virtualclass.gObj.fullScreenMode = false;

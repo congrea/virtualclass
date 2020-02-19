@@ -204,7 +204,7 @@
     PQuestions: 'Poll questions',
     PQuiz: 'Publish quiz',
     Precheck: 'Precheck',
-    precheckStart: 'Start',
+    precheckStart: 'Pre-Check',
     prechkcmplt: 'Precheck complete',
     Presult: 'Poll result',
     preWllBshortly: 'Presentation will be shared shortly',

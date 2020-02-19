@@ -90,7 +90,7 @@ class QuestionAnswer {
         askQuestion.classList.remove('viewAll');
         viewAllQuestion.dataset.viewall = 'enable';
         const currentContextElement = document.querySelector(`#askQuestion .context[data-context~=${virtualclass.userInteractivity.currentContext}]`);
-        currentContextElement.classList.add('current');
+        if (currentContextElement) currentContextElement.classList.add('current');
         this.viewAllMode = false;
       }
     }

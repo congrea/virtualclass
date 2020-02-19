@@ -1404,10 +1404,14 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.congtooltip:hover::after,
-#virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover::after,
-#virtualclassCont #virtualclassAppFooterPanel #precheckBtn.congtooltip:hover::after {
+#virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover::after{
   bottom: 47px;
   right: -11px;
+}
+
+#virtualclassCont #virtualclassAppFooterPanel #precheckBtn.congtooltip:hover::after {
+  bottom: 47px;
+  left: -80px;
 }
 
 #virtualclassCont.congrea #appSettingCtrl.congtooltip:hover::after {
@@ -4803,7 +4807,7 @@ span#usertab_text {
 #virtualclassCont #virtualclassAppFooterPanel #recording {
   color: #fff;
   position: absolute;
-  right: 6.5rem;
+  left: 0;
   bottom: -0.0625rem;
   z-index: 1000;
   padding: 0.71875rem 0.9375rem 0.78125rem 0.9375rem;
@@ -4813,7 +4817,7 @@ span#usertab_text {
 #virtualclassCont #virtualclassAppFooterPanel #precheckBtn {
   color: #fff;
   position: absolute;
-  left: 3.125rem;
+  left: 8.375rem;
   bottom: -0.0625rem;
   z-index: 1000;
   padding: 0.6875rem 0.9375rem;
@@ -4825,7 +4829,7 @@ span#usertab_text {
 }
 
 #virtualclassCont #virtualclassAppFooterPanel #precheckBtn #settingPrecheck .prechk::before {
-  content: "\e915";
+  content: "\ea18";
   font-weight: normal;
   font-family: 'icomoon';
   font-size: 1.0625rem;

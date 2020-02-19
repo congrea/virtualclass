@@ -137,6 +137,7 @@
   position: absolute;
   bottom: 1.5625rem;
   right: 2px;
+  z-index: 100;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .moreControls .item span {
@@ -811,10 +812,10 @@
 
 #virtualclassCont.congrea[data-currapp='Quiz'] #virtualclassnote,
 #virtualclassCont.congrea[data-currapp='Quiz'] #bookmark,
-#virtualclassCont.congrea[data-currapp='Quiz'] #askQuestion,
+#virtualclassCont.congrea[data-currapp='Quiz'] #congAskQuestion,
 #virtualclassCont.congrea[data-currapp='Poll'] #virtualclassnote,
 #virtualclassCont.congrea[data-currapp='Poll'] #bookmark,
-#virtualclassCont.congrea[data-currapp='Poll'] #askQuestion {
+#virtualclassCont.congrea[data-currapp='Poll'] #congAskQuestion {
   pointer-events: none;
   opacity: 0.5;
 }

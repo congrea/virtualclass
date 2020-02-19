@@ -1,14 +1,15 @@
 #virtualclassCont.congrea #networkStatusContainer {
   position: absolute;
   top: 0;
+  left: 5.25rem;
   width: 3.125rem;
   float: right;
   border-right: 0.05em solid #021317 !important;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #proposedSpeed {
-  width: 1.625rem;
-  height: 1.625rem;
+  width: 1.375rem;
+  height: 1.375rem;
   padding: 0.5625rem 0.811115rem;
 }
 

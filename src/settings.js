@@ -52,7 +52,7 @@
     // return data into true, false
     // student side
     parseSettings(s) {
-      console.log('====> settings parse');
+      // console.log('====> Settings parse');
       const parsedSettings = {};
       let localSettings = virtualclass.settings.hexToBinary(s);
       localSettings = localSettings.split('');
@@ -183,7 +183,7 @@
       const str = virtualclass.settings.settingsToHex(virtualclass.settings.info);
       ioAdapter.mustSend({ cf: 'settings', Hex: str, time: Date.now() });
       virtualclassSetting.settings = str;
-      console.log('====> Settings ', str);
+      // console.log('====> Settings ', str);
       for (const propname in virtualclass.settings.user) {
         virtualclass.user.control.changeAttribute(propname,
           virtualclass.gObj.testChatDiv.shadowRoot.getElementById(`${propname}contrAudImg`),
@@ -259,7 +259,7 @@
       } else {
         if (typeof msg === 'string') {
           if (roles.isStudent()) {
-            console.log('====> Settings received ', msg);
+            // console.log('====> Settings received ', msg);
             const stdSettings = virtualclass.settings.parseSettings(msg);
             this.applyAttendeeSetting(stdSettings);
           }

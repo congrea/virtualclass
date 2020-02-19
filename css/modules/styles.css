@@ -1411,7 +1411,7 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont #virtualclassAppFooterPanel #precheckBtn.congtooltip:hover::after {
   bottom: 47px;
-  left: -80px;
+  left: -44px;
 }
 
 #virtualclassCont.congrea #appSettingCtrl.congtooltip:hover::after {
@@ -4807,17 +4807,18 @@ span#usertab_text {
 #virtualclassCont #virtualclassAppFooterPanel #recording {
   color: #fff;
   position: absolute;
-  left: 0;
+  left: 6.625rem;
   bottom: -0.0625rem;
   z-index: 1000;
   padding: 0.71875rem 0.9375rem 0.78125rem 0.9375rem;
   cursor: pointer;
+  border-right: 0.01em solid #021317!important;
 }
 
 #virtualclassCont #virtualclassAppFooterPanel #precheckBtn {
   color: #fff;
   position: absolute;
-  left: 8.375rem;
+  left: 3.125rem;
   bottom: -0.0625rem;
   z-index: 1000;
   padding: 0.6875rem 0.9375rem;

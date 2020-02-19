@@ -200,6 +200,14 @@ this["JST"]["dest_temp/templates/askQuestion/comment.hbs"] = Handlebars.template
     + " </span></div></div></div></div><div class=\"comments open\"></div></div>";
 },"useData":true});
 
+this["JST"]["dest_temp/templates/askQuestion/content-area.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "<div class=\"context note\" data-context=\""
+    + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
+    + "\" data-component=\"note\"><textarea class='text content' placeholder=\"Write your note here\" data-event=\"save\"></textarea></div>";
+},"useData":true});
+
 this["JST"]["dest_temp/templates/askQuestion/context.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper;
 
@@ -242,6 +250,12 @@ this["JST"]["dest_temp/templates/askQuestion/note-content-area.hbs"] = Handlebar
 
 this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id='noteContainer' class='rightContainer'><div class=\"contentContainer\"><div class=\"container note children\"></div><div id=\"noteNavigationContainer\" class=\"children\"><div class=\"clearAll\" data-component=\"note\"><span class=\"event\" data-event=\"clearall\"> Clear All </span></div><div id=\"noteNavigation\" class=\"navigation\"><div class=\"previous deactive\" data-component=\"note\"><span class=\"event\" data-event=\"previous\"></span></div><div class=\"notenumber\"><span class=\"current\">1 /</span><span class=\"total\"> 1</span></div><div class=\"next deactive\" data-component=\"note\"><span class=\"event\" data-event=\"next\"></span></div></div></div></div><div class=\"loading active\">Loading</div></div>";
+},"useData":true});
+
+this["JST"]["dest_temp/templates/askQuestion/qaPost.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id='writeContent'><textarea class='text'>"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.type : depth0),{"name":"getString","hash":{},"data":data}))
+    + "</textarea></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/question.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -696,9 +710,7 @@ this["JST"]["dest_temp/templates/footerBar.hbs"] = Handlebars.template({"1":func
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"appPrerequites",{"name":"getString","hash":{},"data":data}))
     + "\" id=\"precheckBtn\"><div id=\"settingPrecheck\"><div class=\"prechk\" data-title=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"precheck",{"name":"getString","hash":{},"data":data}))
-    + "\" id=\"precheckTest\"><span class=\"precheck cgIcon\" id=\"precheckSetting\">"
-    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"precheckStart",{"name":"getString","hash":{},"data":data}))
-    + "</span></div></div></span> "
+    + "\" id=\"precheckTest\"><span class=\"precheck cgIcon\" id=\"precheckSetting\"></span></div></div></span> "
     + ((stack1 = container.invokePartial(partials.audioWidget,depth0,{"name":"audioWidget","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + " <div id=\"fullScreenButton\"><span class=\"congtooltip fullScreen\" data-title=\"Full Screen\"><i class=\"icon-fullScreen cgIcon\"></i></span></div><div id=\"fullScreenExitButton\"><span class=\"congtooltip\" data-title=\"Exit Full Screen\"><i class=\"icon-exitScreen cgIcon\"></i></span></div><div id=\"bookmark\"><div class=\"container\"></div></div></div><div id=\"stickycontainer\"></div></div>";
 },"usePartial":true,"useData":true});

@@ -76,6 +76,7 @@
         + '#virtualclassCont.congrea li#appSettingCtrl ,'
         + '#virtualclassCont.congrea #fullScreenExitButton, '
         + '#virtualclassCont.congrea li#virtualclassnote, '
+        + '#virtualclassCont #virtualclassAppFooterPanel #recording, '
         + '#virtualclassCont.congrea #bookmark '
         + `{border-left: 0.01em solid ${allbg.fcolor}!important;}`
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab, #virtualclassCont.congrea #networkStatusContainer'
@@ -87,6 +88,7 @@
         + '#virtualclassCont.congrea #fullScreenButton ,'
         + '#virtualclassCont.congrea #fullScreenExitButton, '
         + '#virtualclassCont.congrea.playMode #fullScreenButton ,'
+        + '#virtualclassCont #virtualclassAppFooterPanel #precheckBtn, '
         + '#virtualclassCont.congrea.playMode #fullScreenExitButton '
         + `{border-right: 0.01em solid ${allbg.fcolor}!important;}`
         + '#virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header'
@@ -272,6 +274,11 @@
         + '#virtualclassCont.congrea .recButton:hover,'
         + '#virtualclassCont.congrea li#virtualclassnote a:hover , '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #appSettingCtrl:hover, '
+        + '#virtualclassCont #virtualclassAppFooterPanel #precheckBtn:hover, '
+        + '#virtualclassCont #virtualclassAppFooterPanel #recording.show:hover, '
+        + '#virtualclassCont.congrea #virtualclassAppFooterPanel #bookmark:hover, '
+        + '#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenExitButton:hover, '
+        + '#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenButton:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action .addQuestion-icon:hover '
         + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%) !important}`
 

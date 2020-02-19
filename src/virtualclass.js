@@ -486,22 +486,27 @@
         if(event.target.id == "virtualclassAppRightPanel") {
           if (!virtualclass.gObj.rightbarFullScreenMode) {
             virtualclass.gObj.rightbarFullScreenMode = true;
+            console.log('=====> full screen show ask show exit ');
           } else {
             if(document.getElementById("virtualclassAppRightPanel").classList.contains("fullScreenMode")) {
               document.getElementById("virtualclassAppRightPanel").classList.remove("fullScreenMode");
             }
+            console.log('=====> full screen show ask hide exit');
             virtualclass.gObj.rightbarFullScreenMode = false;
+            if (!virtualclass.gObj.ignoreFullScreen) {
+              virtualclass.vutil.showFullScreenButton();
+            }
           }
         } else {
           // On fullscreenchange for full application
           if (!virtualclass.gObj.fullScreenMode) {
             virtualclass.vutil.hideFullScreenButton();
           } else {
+           
             virtualclass.vutil.showFullScreenButton();
           }
         }
-
-
+        delete virtualclass.gObj.ignoreFullScreen;
       },
 
       makeReadySocket() {

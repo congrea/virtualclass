@@ -562,7 +562,7 @@ body {
 }
 
 #appSettingCtrl #appSettingCtrlAnchor .setting-btn::before {
-  content: "\e9b0";
+  content: "\ea13";
   font-weight: normal;
   font-size: 1.0625rem;
   font-family: 'icomoon';

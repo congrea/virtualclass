@@ -374,8 +374,8 @@
       }
 
       if (document.getElementById('virtualclassCont').dataset.currwindow === 'normal') {
-        const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
-        if (window.innerHeight >= virtualclass.gObj.initHeight && virtualclassCont) {
+        // const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
+        if (window.innerHeight >= virtualclass.gObj.initHeight) {
           virtualclass.vutil.inputFocusOutHandler();
         } else {
           virtualclass.vutil.inputFocusHandler();

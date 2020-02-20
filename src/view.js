@@ -373,15 +373,6 @@
         clearTimeout(virtualclass.gObj.fitToScreenOnResize);
       }
 
-      if (document.getElementById('virtualclassCont').dataset.currwindow === 'normal') {
-        // const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
-        if (window.innerHeight >= virtualclass.gObj.initHeight) {
-          virtualclass.vutil.inputFocusOutHandler();
-        } else {
-          virtualclass.vutil.inputFocusHandler();
-        }
-      }
-
       virtualclass.gObj.fitToScreenOnResize = setTimeout(
         () => {
           if (virtualclass.currApp === 'ScreenShare') {
@@ -398,6 +389,19 @@
     }
 
     virtualclass.chat.calculateViewPortForMessageBox();
+
+    if (document.getElementById('virtualclassCont').dataset.currwindow === 'normal') {
+      // const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
+      if (window.innerHeight >= virtualclass.gObj.initHeight) {
+        virtualclass.vutil.inputFocusOutHandler();
+      } else {
+        virtualclass.vutil.inputFocusHandler();
+      }
+    }
+
+    if (window.innerWidth > window.innerHeight) { // Apply only on landscape mode
+      virtualclass.gObj.initHeight = window.innerHeight;
+    }
     // virtualclass.stickybarWidth();
     // virtualclass.chatBarTabWidth();
   };

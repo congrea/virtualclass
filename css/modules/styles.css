@@ -4806,20 +4806,15 @@ span#usertab_text {
 
 #virtualclassCont #virtualclassAppFooterPanel #recording {
   color: #fff;
-  position: absolute;
-  left: 6.625rem;
-  bottom: -0.0625rem;
+  order: 1;
   z-index: 1000;
   padding: 0.71875rem 0.9375rem 0.78125rem 0.9375rem;
   cursor: pointer;
-  border-right: 0.01em solid #021317!important;
 }
 
 #virtualclassCont #virtualclassAppFooterPanel #precheckBtn {
   color: #fff;
-  position: absolute;
-  left: 3.125rem;
-  bottom: -0.0625rem;
+  order: 3;
   z-index: 1000;
   padding: 0.6875rem 0.9375rem;
   cursor: pointer;
@@ -5227,4 +5222,8 @@ body {
 #virtualclassCont.congrea .markContainer[data-note='true'] .note,
 #virtualclassCont.congrea .markContainer[data-bookmark='true'] .note {
   background: #e8c623;
+}
+
+#virtualclassCont.congrea #virtualclassAppFooterPanel #stickybar {
+  display: flex;
 }

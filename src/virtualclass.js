@@ -168,6 +168,9 @@
       },
 
       init(urole, app) {
+        if (window.innerWidth > window.innerHeight) { // Apply only on landscape mode
+          virtualclass.gObj.initHeight = window.innerHeight;
+        }
         const vcContainer = document.getElementById('virtualclassCont');
         vcContainer.classList.add('loading');
         const { wbUser } = window;

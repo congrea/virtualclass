@@ -5,6 +5,7 @@ const gesture = {
     const joinClassModal = document.querySelector('#joinClassModal');
     if (joinClassModal != null) {
       joinClassModal.style.display = 'block';
+      document.getElementById('virtualclassCont').dataset.currwindow = 'precheck';
     }
     // $('#joinClassModal').modal({backdrop: 'static', keyboard: false});
     const joinClass = document.querySelector('#joinClassModal');
@@ -45,6 +46,7 @@ const gesture = {
     const joinClassModal = document.querySelector('#joinClassModal');
     virtualclassApp.style.display = 'flex';
     joinClassModal.style.display = 'none';
+    document.getElementById('virtualclassCont').dataset.currwindow = 'normal';
   },
 
   clickToContinue() {

@@ -16,14 +16,16 @@ class UserInteractivityBasicOperation {
 
     if (data.component === 'note' || data.component === 'bookmark') {
       // console.log('====> sending note data ', JSON.stringify(data));
-      await virtualclass.userInteractivity.db.collection(virtualclass.userInteractivity.collectionMark).doc(data.id).set(data).then(() => {
-        console.log('ask question write, Document successfully written! ', data);
-      })
+      await virtualclass.userInteractivity.db.collection(virtualclass.userInteractivity.collectionMark)
+        .doc(data.id).set(data).then(() => {
+          console.log('ask question write, Document successfully written! ', data);
+        })
         .catch((error) => {
           console.error('ask question write, Error writing document: ', error);
         });
     } else {
-      await virtualclass.userInteractivity.db.collection(virtualclass.userInteractivity.collection).doc(data.id).set(data)
+      await virtualclass.userInteractivity.db.collection(virtualclass.userInteractivity.collection)
+        .doc(data.id).set(data)
         .then(() => {
           // console.log('ask question write, Document successfully written! ', data);
         })
@@ -36,7 +38,7 @@ class UserInteractivityBasicOperation {
   handler(ev) {
     let editContent;
     if (ev.target.id === 'userInteractivity-content') return;
-    if (ev.target.dataset.event == 'save')  {
+    if (ev.target.dataset.event === 'save')  {
       const userInput = document.getElementById('userInteractivity-content');
       if (userInput) { editContent = userInput.value; }
     }
@@ -146,7 +148,7 @@ class UserInteractivityBasicOperation {
     }
   }
 
-  userInputHandler(component) {
+  userInputHandler() {
     if (roles.isStudent()) {
       virtualclass.userInteractivity.inputGenerating = true;
       // console.log('====> Input is generating ', virtualclass.userInteractivity.inputGenerating);
@@ -236,7 +238,8 @@ class UserInteractivityBasicOperation {
   deleteQuestionVariable(componentId) {
     const component = 'question';
     const contextObj = virtualclass.userInteractivity.context;
-    const currentContext = virtualclass.userInteractivity.currentContext;
+    // const currentContext = virtualclass.userInteractivity.currentContext;
+    const { currentContext } = virtualclass.userInteractivity;
     const childrenArr = contextObj[currentContext][component][componentId].children;
     for (let i = 0; i < childrenArr.length; i++) {
       this.deleteAnswerVariable(childrenArr[i]);
@@ -247,7 +250,7 @@ class UserInteractivityBasicOperation {
   deleteAnswerVariable(componentId) {
     const component = 'answer';
     const contextObj = virtualclass.userInteractivity.context;
-    const currentContext = virtualclass.userInteractivity.currentContext;
+    const { currentContext } = virtualclass.userInteractivity;
     const childrenArr = contextObj[currentContext][component][componentId].children;
     for (let i = 0; i < childrenArr.length; i++) {
       this.deleteCommentVariableLevel1(childrenArr[i]);
@@ -258,7 +261,7 @@ class UserInteractivityBasicOperation {
   deleteCommentVariableLevel1(componentId) {
     const component = 'comment';
     const contextObj = virtualclass.userInteractivity.context;
-    const currentContext = virtualclass.userInteractivity.currentContext;
+    const { currentContext } = virtualclass.userInteractivity;
     const childrenArr = contextObj[currentContext][component][componentId].children;
     for (let i = 0; i < childrenArr.length; i++) {
       this.deleteCommentVariableLevel2(childrenArr[i]);
@@ -269,7 +272,7 @@ class UserInteractivityBasicOperation {
   deleteCommentVariableLevel2(componentId) {
     const component = 'comment';
     const contextObj = virtualclass.userInteractivity.context;
-    const currentContext = virtualclass.userInteractivity.currentContext;
+    const { currentContext } = virtualclass.userInteractivity;
     const childrenArr = contextObj[currentContext][component][componentId].children;
     for (let i = 0; i < childrenArr.length; i++) {
       this.deleteCommentVariableLevel3(childrenArr[i]);
@@ -280,7 +283,7 @@ class UserInteractivityBasicOperation {
   deleteCommentVariableLevel3(componentId) {
     const component = 'comment';
     const contextObj = virtualclass.userInteractivity.context;
-    const currentContext = virtualclass.userInteractivity.currentContext;
+    const { currentContext } = virtualclass.userInteractivity;
     const childrenArr = contextObj[currentContext][component][componentId].children;
     for (let i = 0; i < childrenArr.length; i++) {
       delete contextObj[currentContext][component][childrenArr[i]];
@@ -291,7 +294,7 @@ class UserInteractivityBasicOperation {
   updateStatus(data, status) {
     let getChildren;
     const contextObj = virtualclass.userInteractivity.context;
-    const currentContext = virtualclass.userInteractivity.currentContext;
+    const { currentContext } = virtualclass.userInteractivity;
     let component;
     let parent = null;
     if (status === 'delete') {
@@ -348,8 +351,9 @@ class UserInteractivityBasicOperation {
     if (data.parent != null && (data.parent).split('-')[0] === 'comment') {
       component = 'comment';
     }
-    if (contextObj[data.context] && contextObj[data.context][component] && Object.prototype.hasOwnProperty.call(contextObj[data.context][component], data.parent) && data.component !== 'question') {
-      const children = contextObj[data.context][component][data.parent].children;
+    if (contextObj[data.context] && contextObj[data.context][component] && data.component !== 'question'
+      && Object.prototype.hasOwnProperty.call(contextObj[data.context][component], data.parent)) {
+      const { children } = contextObj[data.context][component][data.parent].children;
       const moreControlElem = document.querySelector(`#${data.parent}`);
       const controlNavigation = document.querySelector(`#${data.parent} .footer .navigation`);
       if (data.component === 'answer' || data.component === 'comment') {
@@ -367,16 +371,14 @@ class UserInteractivityBasicOperation {
         } else {
           children.splice(children.indexOf(data.componentId), 1);
           const userId = (data.parent).split('-')[1];
-          const time = virtualclass.userInteractivity.questionAnswer.elapsedComponentTime({ componentId: data.parent, component: component });
+          const time = virtualclass.userInteractivity.questionAnswer.elapsedComponentTime({ componentId: data.parent, component });
           const componentUpvote = virtualclass.userInteractivity.context[virtualclass.userInteractivity.currentContext][component][data.parent].upvote;
           const getParentElem = document.querySelector(`#${data.parent} .upVote .total`); // TODO handle using component data
-          if (!virtualclass.vutil.checkUserRole() && (time < 30 && getParentElem && componentUpvote === 0)
+          if ((!virtualclass.vutil.checkUserRole() && time < 30 && getParentElem && componentUpvote === 0)
             || (component === 'comment' && userId === virtualclass.gObj.orginalUserId)) {
-            if (children.length === 0) {
-              if (moreControlElem) {
-                moreControlElem.classList.remove('noneditable');
-                moreControlElem.classList.add('editable');
-              }
+            if (children.length === 0 && moreControlElem) {
+              moreControlElem.classList.remove('noneditable');
+              moreControlElem.classList.add('editable');
             }
           }
 

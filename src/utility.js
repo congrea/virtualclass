@@ -2410,9 +2410,12 @@
         if (virtualclass.isPlayMode) virtualclass.userInteractivity.triggerPause();
       }
 
-      const isFocusElement = document.querySelector('#tabs .ui-state-focus');
-      if (virtualclass.system.device === 'mobTab' && isFocusElement == null && virtualclass.system.mybrowser.name != 'Safari') {
-        document.getElementById('virtualclassCont').classList.add('focusInput');
+      if (window.innerWidth > window.innerHeight) { // Apply only on landscape mode
+        virtualclass.gObj.initHeight = window.innerHeight;
+        const isFocusElement = document.querySelector('#tabs .ui-state-focus');
+        if (virtualclass.system.device === 'mobTab' && isFocusElement == null && virtualclass.system.mybrowser.name != 'Safari') {
+          document.getElementById('virtualclassCont').classList.add('focusInput');
+        }
       }
     },
 

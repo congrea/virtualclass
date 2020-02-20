@@ -380,6 +380,7 @@
         } else {
           virtualclass.vutil.inputFocusHandler();
         }
+        virtualclass.gObj.initHeight = window.innerHeight;
       }
 
       virtualclass.gObj.fitToScreenOnResize = setTimeout(

@@ -373,7 +373,7 @@
         clearTimeout(virtualclass.gObj.fitToScreenOnResize);
       }
 
-      if (document.getElementById('virtualclassCon').dataset.currwindow === 'normal') {
+      if (document.getElementById('virtualclassCont').dataset.currwindow === 'normal') {
         const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
         if (window.innerHeight >= virtualclass.gObj.initHeight && virtualclassCont) {
           virtualclass.vutil.inputFocusOutHandler();

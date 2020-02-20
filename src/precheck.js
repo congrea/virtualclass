@@ -29,6 +29,7 @@ const preCheck = {
 
     if (preCheckContainer != null) {
       preCheckContainer.style.display = 'block';
+      document.getElementById('virtualclassCont').dataset.currwindow = 'precheck';
     }
 
     const virtualclassApp = document.querySelector('#virtualclassCont #virtualclassApp');
@@ -76,6 +77,8 @@ const preCheck = {
       localStorage.setItem('precheck', true);
       virtualclass.videoHost.afterSessionJoin();
     }
+
+    document.getElementById('virtualclassCont').dataset.currwindow = 'normal';
 
     // virtualclass.media.audio.initAudiocontext();
 

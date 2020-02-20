@@ -457,14 +457,14 @@
     commentLable: 'Comment',
     markAnswer: 'Mark As Answer',
     markNotes: 'Marks & Notes',
-    askQuestionTimeExceed: 'Your time is exceed 30 editable minute',
-    upvoted: 'You can not edit ',
-    enterText: 'Please Enter Text Here',
+    askQuestionTimeExceed: 'Unable to edit/delete as you have exceeded the time limit',
+    upvoted: 'Unable to edit/delete as upvote has been added',
+    enterText: 'Enter the text before posting',
     more: '...More',
     less: 'Less',
     askQuestion: 'Raise question',
     MarksAndNotes: 'Marks & Notes',
-    markAnswerUnmark: 'Unmark your privous marked answer',
+    markAnswerUnmark: 'You need to first unmark the already marked answer',
     /* For Chrome */
     PermissionDeniedErrorExt: '<div class="errorMsg"> Camera access has been blocked.To provide webcam access, kindly follow below procedure <br />'
     + 'Go to camera icon on top right of the screen <br /> '

@@ -77,7 +77,6 @@
         + '#virtualclassCont.congrea #fullScreenExitButton, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action, '
         + '#virtualclassCont.congrea li#virtualclassnote, '
-        + '#virtualclassCont #virtualclassAppFooterPanel #recording, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #appSettingCtrl, '
         + '#virtualclassCont.congrea #bookmark '
         + `{border-left: 0.01em solid ${allbg.fcolor}!important;}`

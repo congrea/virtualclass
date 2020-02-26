@@ -21,7 +21,8 @@ class QuestionAnswer {
         getContentElem.innerHTML = content;
       }
       if (data.content.length > 128) {
-        const ellipsisTextTemp = ellipsisTemp({ morecontent: moreContent }); // TODO use this template in question, answer, comment
+        // TODO use this template in question, answer, comment
+        const ellipsisTextTemp = ellipsisTemp({ morecontent: moreContent });
         document.querySelector(`#${data.componentId} .content p`).insertAdjacentHTML('beforeend', ellipsisTextTemp);
       }
       this.displayMore(data);
@@ -62,6 +63,7 @@ class QuestionAnswer {
 
   viewAllQuestion(ev) { // Question part
     this.triggerPause();
+    const selector;
     const viewAllQuestion = document.getElementById('viewAllQuestion');
     const viewAllAction = ev.currentTarget.dataset.viewall;
     const askQuestion = document.getElementById('askQuestion');
@@ -89,7 +91,8 @@ class QuestionAnswer {
         if (rightPanel) { rightPanel.classList.remove('viewAllMode'); }
         askQuestion.classList.remove('viewAll');
         viewAllQuestion.dataset.viewall = 'enable';
-        const currentContextElement = document.querySelector(`#askQuestion .context[data-context~=${virtualclass.userInteractivity.currentContext}]`);
+        selector = `#askQuestion .context[data-context~=${virtualclass.userInteractivity.currentContext}]`;
+        const currentContextElement = document.querySelector(selector);
         if (currentContextElement) currentContextElement.classList.add('current');
         this.viewAllMode = false;
       }

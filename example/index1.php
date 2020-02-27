@@ -6,7 +6,17 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="https://live.congrea.net/virtualclass/example/manifest.json">
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
+<!-- CODELAB: Add iOS meta tags and icons -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Weather PWA">
+<link rel="apple-touch-icon" href="/images/icons/icon-152x152.png">
+<!-- CODELAB: Add description here -->
+<meta name="description" content="A sample weather app">
+<!-- CODELAB: Add meta theme-color -->
+<meta name="theme-color" content="#2F3BA2" />
 
 <style>
 	@font-face {

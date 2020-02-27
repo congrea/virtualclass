@@ -1,0 +1,21 @@
+{
+    "short_name": "Congrea",
+    "name": "Udit's Congrea",
+    "icons": [
+      {
+        "src": "/images/icons-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/images/icons-512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "background_color": "#3367D6",
+    "display": "fullscreen",
+    "orientation": "landscape",
+    "scope": "/maps/",
+    "theme_color": "#3367D6"
+  }

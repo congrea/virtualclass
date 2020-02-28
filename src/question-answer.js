@@ -6,19 +6,20 @@ class QuestionAnswer {
   }
 
   separatedContent(data) {
-    let content;
+    let writeContent;
     let moreContent;
+    let content;
     if (data.content.length > 128) {
-      content = data.content.slice(0, 128);
+      writeContent = data.content.slice(0, 128);
       moreContent = data.content.slice(128, data.content.length);
     } else {
-      content = data.content;
+      writeContent = data.content;
     }
     if (data.action === 'edit' || data.action === 'cancel') {
       const getContentElem = document.querySelector(`#${data.componentId} .content p`);
       const ellipsisTemp = virtualclass.getTemplate('ellipsisText', 'askQuestion');
       if (getContentElem) {
-        getContentElem.innerHTML = content;
+        getContentElem.innerHTML = writeContent;
       }
       if (data.content.length > 128) {
         // TODO use this template in question, answer, comment
@@ -27,6 +28,7 @@ class QuestionAnswer {
       }
       this.displayMore(data);
     } else if (data.action === 'create') {
+      content = writeContent;
       return { content, moreContent };
     }
   }
@@ -50,11 +52,11 @@ class QuestionAnswer {
     }
   }
 
-  addHighLightNewActual() {  //  question part
+  addHighLightNewActual() { // question part
     document.getElementById('congAskQuestion').classList.add('highlight-new-question');
   }
 
-  removeHighlight() {  //  question part
+  removeHighlight() { // question part
     const element = document.getElementById('congAskQuestion');
     if (element.classList.contains('highlight-new-question')) {
       element.classList.remove('highlight-new-question');
@@ -63,7 +65,7 @@ class QuestionAnswer {
 
   viewAllQuestion(ev) { // Question part
     this.triggerPause();
-    const selector;
+    let selector;
     const viewAllQuestion = document.getElementById('viewAllQuestion');
     const viewAllAction = ev.currentTarget.dataset.viewall;
     const askQuestion = document.getElementById('askQuestion');

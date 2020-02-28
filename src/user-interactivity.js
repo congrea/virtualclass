@@ -38,7 +38,7 @@ class UserInteractivityBasicOperation {
 
   handler(ev) {
     let editContent;
-    let allContext = virtualclass.userInteractivity;
+    const allContext = virtualclass.userInteractivity;
     if (ev.target.id === 'userInteractivity-content') return;
     if (ev.target.dataset.event === 'save')  {
       const userInput = document.getElementById('userInteractivity-content');
@@ -53,41 +53,42 @@ class UserInteractivityBasicOperation {
     if (questionElement && questionElement.dataset) {
       allContext.currentContext = ev.target.closest('div.context').dataset.context;
     }
-    let customEvent;
+    let event;
     let parent;
-    let customComponentId = null;
-    const target = ev.target;
-    if ((this.event.values.includes(target.dataset.event))) {
-      customEvent = target.dataset.event;
-      parent = target.parentNode;
-    } else if (this.event.values.includes(target.parentNode.dataset.event)) {
-      customEvent = target.parentNode.dataset.event;
-      parent = target.parentNode.parentNode;
-    } else if (this.event.values.includes(target.parentNode.parentNode.dataset.event)) {
-      customEvent = target.parentNode.parentNode.dataset.event;
-      parent = target.parentNode.parentNode.parentNode;
+    let componentId = null;
+    const currentTarget = ev.target;
+    if ((this.event.values.includes(currentTarget.dataset.event))) {
+      event = currentTarget.dataset.event;
+      parent = currentTarget.parentNode;
+    } else if (this.event.values.includes(currentTarget.parentNode.dataset.event)) {
+      event = currentTarget.parentNode.dataset.event;
+      parent = currentTarget.parentNode.parentNode;
+    } else if (this.event.values.includes(currentTarget.parentNode.parentNode.dataset.event)) {
+      event = currentTarget.parentNode.parentNode.dataset.event;
+      parent = currentTarget.parentNode.parentNode.parentNode;
     }
 
-    if (customEvent) {
-      let data;
+    if (event) {
+      // const data;
       let text;
       let action;
       let parentId = null;
       let component = parent.dataset.component;
       let editElem;
+      let str;
       if (parent.dataset.componentId && event !== 'save') {
-        customComponentId = parent.dataset.componentId;
-        if (customEvent === 'reply') {
-          customComponentId = null;
+        componentId = parent.dataset.componentId;
+        if (event === 'reply') {
+          componentId = null;
           parentId = parent.dataset.componentId;
-        } else if (customEvent === 'edit' || customEvent === 'markAnswer' || customEvent === 'delete') {
+        } else if (event === 'edit' || event === 'markAnswer' || event === 'delete') {
           parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
         }
       }
 
-      if (customEvent === 'save') {
+      if (event === 'save') {
         if (component === 'note') {
-          text = target.value;
+          text = currentTarget.value;
           action = 'create';
         } else if (component === 'bookmark') {
           text = (+(parent.dataset.value) === 0 ? 1 : 0);
@@ -103,39 +104,40 @@ class UserInteractivityBasicOperation {
             action = 'create';
           } else {
             action = 'edit';
-            ({ customComponentId } = parent.dataset);
+            ({ componentId } = parent.dataset);
             if (!virtualclass.vutil.checkUserRole()) {
-              editElem = allContext.context[allContext.currentContext][component][customComponentId].upvote;
+              editElem = allContext.context[allContext.currentContext][component][componentId].upvote;
               if (editElem !== 0 && editElem != null) {
-                ({ customComponentId } = parent.dataset);
-                customEvent = 'cancel';
-                virtualclass.view.createAskQuestionMsg(virtualclass.lang.getString('upvoted'), 'msgContainer', 'loading');
+                ({ componentId } = parent.dataset);
+                event = 'cancel';
+                str = virtualclass.lang.getString('upvoted');
+                virtualclass.view.createAskQuestionMsg(str, 'msgContainer', 'loading');
               }
             }
           }
         }
         parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
-      } else if (customEvent === 'clearall') {
+      } else if (event === 'clearall') {
         const currentContextElement = document.querySelector('#noteNavigationContainer .clearAll');
-        let currentContext = currentContextElement.dataset.currentContext;
-        if (currentContextElement.dataset.currentContext) currentContext = currentContextElement.dataset.currentContext;
+        let currContext = currentContextElement.dataset.currentContext;
+        if (currentContextElement.dataset.currentContext) currContext = currentContextElement.dataset.currentContext;
 
-        const contentElement = document.querySelector(`#noteContainer .context[data-context~=${currentContext}] textarea`);
+        const contentElement = document.querySelector(`#noteContainer .context[data-context~=${currContext}] textarea`);
         if (contentElement) {
           contentElement.value = '';
           text = '';
           action = 'create';
-          customEvent = 'save';
+          event = 'save';
         }
-      } else if (customEvent === 'upvote') {
+      } else if (event === 'upvote') {
         parentId = parent.dataset.parent;
       }
 
       const data = {
-        customEvent, component, customComponentId, text, action, parentId
+        event, component, componentId, text, action, parentId,
       };
       this.event.execute(data);
-      if (customEvent === 'cancel' || customEvent === 'save') {
+      if (event === 'cancel' || event === 'save') {
         this.inputGenerating = false;
         if (this.pollInputGeneratingTime) {
           clearTimeout(this.pollInputGeneratingTime);
@@ -168,7 +170,7 @@ class UserInteractivityBasicOperation {
       }, 17000);
     }
     const textarea = document.querySelector('#writeContent .text');
-    virtualclass.userInteractivity.rendererObj.autosize.call(this, {target: textarea});
+    virtualclass.userInteractivity.rendererObj.autosize.call(this, { target: textarea });
   }
 
   renderer(data) {
@@ -191,7 +193,7 @@ class UserInteractivityBasicOperation {
     const elem = document.querySelector(`#${data.componentId}`);
     if (elem) {
       if (data.component === 'answer') {
-        virtualclass.userInteractivity.navigationHandler(data, 'removeNavigation');
+        // virtualclass.userInteractivity.navigationHandler(data, 'removeNavigation');
       }
       elem.remove();
       this.updateStatus(data, 'delete');
@@ -314,7 +316,6 @@ class UserInteractivityBasicOperation {
     } else if (status === 'editable' || status === 'edited') {
       component = data;
       if (status === 'editable') {
-        // component = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id, upvote: 0 };
         component.upvote = 0;
         component.children = [];
 
@@ -358,14 +359,14 @@ class UserInteractivityBasicOperation {
   }
 
   updateCount(data, status) {
-    let allContext = virtualclass.userInteractivity;
+    const allContext = virtualclass.userInteractivity;
     let component = data.component === 'answer' ? 'question' : 'answer';
     if (data.parent != null && (data.parent).split('-')[0] === 'comment') {
       component = 'comment';
     }
     if (allContext.context[data.context] && allContext.context[data.context][component] && data.component !== 'question'
       && Object.prototype.hasOwnProperty.call(allContext.context[data.context][component], data.parent)) {
-      const { children } = allContext.context[data.context][component][data.parent].children;
+      const children = allContext.context[data.context][component][data.parent].children;
       const moreControlElem = document.querySelector(`#${data.parent}`);
       const controlNavigation = document.querySelector(`#${data.parent} .footer .navigation`);
       if (data.component === 'answer' || data.component === 'comment') {
@@ -387,7 +388,8 @@ class UserInteractivityBasicOperation {
             componentId: data.parent, component,
           });
           const componentUpvote = allContext.context[allContext.currentContext][component][data.parent].upvote;
-          const getParentElem = document.querySelector(`#${data.parent} .upVote .total`); // TODO handle using component data
+          // TODO handle using component data
+          const getParentElem = document.querySelector(`#${data.parent} .upVote .total`);
           if ((!virtualclass.vutil.checkUserRole() && time < 30 && getParentElem && componentUpvote === 0)
             || (component === 'comment' && userId === virtualclass.gObj.orginalUserId)) {
             if (children.length === 0 && moreControlElem) {
@@ -412,7 +414,7 @@ class UserInteractivityBasicOperation {
               const ansUpvote = allContext.context[allContext.currentContext][component][data.componentId].upvote;
               const ansChildren = allContext.context[data.context][component][data.componentId].children;
               if (answersElem[i].classList.contains('noneditable') && ansUpvote === 0
-              && ansChildren.length === 0 && anstime < 30) {
+                && ansChildren.length === 0 && anstime < 30) {
                 answersElem[i].classList.remove('noneditable');
                 answersElem[i].classList.add('editable');
               }
@@ -491,7 +493,7 @@ class UserInteractivityBasicOperation {
       }
       if (changeElemName) {
         changeElemName.innerHTML = 'Mark As Answer';
-        this.navigationHandler(data, 'Mark As Answer');
+        // this.navigationHandler(data, 'Mark As Answer');
         return;
       } else if (!changeElemName) {
         return;
@@ -517,7 +519,7 @@ class UserInteractivityBasicOperation {
           commentElem.classList.add('close');
         }
       }
-      this.navigationHandler(data, 'Unmark');
+      // this.navigationHandler(data, 'Unmark');
       markedAnswer.insertBefore(markElem, markedAnswer.firstChild);
       if (!virtualclass.vutil.checkUserRole()) {
         const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
@@ -532,17 +534,17 @@ class UserInteractivityBasicOperation {
   }
 
   navigationHandler(data, str) {
-    const allContext = virtualclass.userInteractivity;
-    const markParentElem = document.querySelector(`#${data.parent}`);
-    const component = 'question';
-    const getChildrenLength = allContext.context[allContext.currContext][component][data.parent].children.length;
-    if (getChildrenLength === 1) {
-      if (str === 'Mark As Answer' || str === 'removeNavigation') {
-        delete markParentElem.dataset.navigation;
-      } else if (str === 'Unmark') {
-        markParentElem.dataset.navigation = 'disable';
-      }
-    }
+    // const allContext = virtualclass.userInteractivity;
+    // const markParentElem = document.querySelector(`#${data.parent}`);
+    // const component = 'question';
+    // const getChildrenLength = allContext.context[allContext.currContext][component][data.parent].children.length;
+    // if (getChildrenLength === 1) {
+    //   if (str === 'Mark As Answer' || str === 'removeNavigation') {
+    //     delete markParentElem.dataset.navigation;
+    //   } else if (str === 'Unmark') {
+    //     markParentElem.dataset.navigation = 'disable';
+    //   }
+    // }
   }
 
   mostUpvotedOnTop(data) { // main part
@@ -861,7 +863,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
           if (change.type === 'added' || change.type === 'modified') {
             const data = change.doc.data();
             if (askQuestion.classList.contains('active')
-            && (data.context === virtualclass.userInteractivity.currentContext
+              && (data.context === virtualclass.userInteractivity.currentContext
               || virtualclass.userInteractivity.viewAllMode)) {
               this.engine.performWithQueue(data);
               if (virtualclass.isPlayMode && data.context === '_doc_0_0') this.buildAllMarksStatus(data);
@@ -914,7 +916,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
         const currentActiveTab = self.getActiveTab();
         // console.log('====> total data type ', data.type);
         if ((currentActiveTab === 'note' || data.component === 'bookmark')
-        && self.currentContext === data.context) {
+          && self.currentContext === data.context) {
           self.engine.performWithQueue(data);
         } else {
           self.engine.makeQueue(data);

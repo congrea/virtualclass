@@ -1,5 +1,6 @@
 class UserInteractivityRenderer { // Main Part
   mainInterface(data) { // Main Part
+    const userInteractive = virtualclass.userInteractivity;
     if (data && data.component === 'note') {
       // this.qaNote.renderMainContainer();
     } else {
@@ -19,19 +20,23 @@ class UserInteractivityRenderer { // Main Part
       }
 
       toggle.addEventListener('click', (elem) => {
-        virtualclass.userInteractivity.initFirebaseOperatoin();
-        virtualclass.userInteractivity.renderMainContainer(elem.currentTarget);
+        userInteractive.initFirebaseOperatoin();
+        userInteractive.renderMainContainer(elem.currentTarget);
         // if (toggle.classList.contains('highlight-new-question')) {
         //   toggle.classList.remove('highlight-new-question');
         // }
-        virtualclass.userInteractivity.questionAnswer.removeHighlight();
+        userInteractive.questionAnswer.removeHighlight();
         this.reArrangeUpvoteCallback = () => {
-          console.log('====> one');
-          if (!virtualclass.userInteractivity.rearrangeUpvoteDone) {
-            virtualclass.userInteractivity.triggerRearrangeUpvotedElem({ context: virtualclass.userInteractivity.currentContext, component: 'question' });
-            virtualclass.userInteractivity.triggerRearrangeUpvotedElem({ context: virtualclass.userInteractivity.currentContext, component: 'answer' });
+          // console.log('====> one');
+          if (!userInteractive.rearrangeUpvoteDone) {
+            userInteractive.triggerRearrangeUpvotedElem({
+              context: userInteractive.currentContext, component: 'question',
+            });
+            userInteractive.triggerRearrangeUpvotedElem({
+              context: userInteractive.currentContext, component: 'answer',
+            });
           }
-        }
+        };
         this.reArrangeUpvoteCallback();
       });
 
@@ -44,7 +49,12 @@ class UserInteractivityRenderer { // Main Part
             writeContent = null;
           }
           if (!writeContent) {
-            virtualclass.userInteractivity.engine.performWithQueue({ component: 'question', action: 'renderer', type: 'input', context: virtualclass.userInteractivity.currentContext });
+            userInteractive.engine.performWithQueue({
+              component: 'question',
+              action: 'renderer',
+              type: 'input',
+              context: userInteractive.currentContext,
+            });
           }
         });
       }
@@ -52,25 +62,31 @@ class UserInteractivityRenderer { // Main Part
       const note = document.getElementById('virtualclassnote');
       note.addEventListener('click', (event) => {
         // this.handler.bind(this)
-        virtualclass.userInteractivity.triggerInitFirebaseOperation('note');
+        userInteractive.triggerInitFirebaseOperation('note');
         virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
-        virtualclass.userInteractivity.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: virtualclass.userInteractivity.currentContext });
-        const positionNote = virtualclass.userInteractivity.note.queue.indexOf(virtualclass.userInteractivity.currentContext).indexOf;
+        userInteractive.engine.performWithQueue({
+          component: 'note',
+          action: 'renderer',
+          type: 'noteContainer',
+          context: userInteractive.currentContext,
+        });
+        const positionNote = userInteractive.note.queue.indexOf(userInteractive.currentContext).indexOf;
         if (positionNote >= 0) {
-          virtualclass.userInteractivity.note.current = virtualclass.userInteractivity.note.queue.indexOf(virtualclass.userInteractivity.currentContext);
+          userInteractive.note.current = userInteractive.note.queue.indexOf(userInteractive.currentContext);
         }
-        virtualclass.userInteractivity.note.updateNavigateNumbers(virtualclass.userInteractivity.currentContext);
+        userInteractive.note.updateNavigateNumbers(userInteractive.currentContext);
       });
     }
   }
 
   input(data) { // Main Part
     console.log('=== input handle ', data.component);
+    const userInteractive = virtualclass.userInteractivity;
     let insertId;
     if (data.component === 'question') {
       insertId = '#askQuestion';
     } else {
-      insertId = '#' + ((data.componentId === null) ? data.parent : data.componentId);
+      insertId = `#${((data.componentId === null) ? data.parent : data.componentId)}`;
     }
 
     let text = document.querySelector('#writeContent .text');
@@ -86,7 +102,9 @@ class UserInteractivityRenderer { // Main Part
         text = document.querySelector('#writeContent .text');
         if (text) {
           text.innerHTML = data.content;
-          this.autosize({target: text});
+          this.autosize({
+            target: text,
+          });
         }
       }
     } else {
@@ -95,7 +113,8 @@ class UserInteractivityRenderer { // Main Part
       } else {
         document.querySelector(`${insertId} .${data.component}s`).insertAdjacentHTML('beforebegin', userInputTemplate);
         const bounding = document.querySelector(`#${data.parent}`).getBoundingClientRect();
-        if (bounding.top >= 0 && bounding.left >= 0 && bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+        if (bounding.top >= 0 && bounding.left >= 0
+          && bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
           && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
           // console.log('In the viewport!'); TODO
           // askQuestion.classList.remove('tempDown');
@@ -109,30 +128,36 @@ class UserInteractivityRenderer { // Main Part
     if (data.component === 'question') {
       if (inputAction) {
         if (inputAction.parentNode.id === 'askQuestion') {
-          inputAction.addEventListener('click', virtualclass.userInteractivity.handler.bind(virtualclass.userInteractivity));
+          inputAction.addEventListener('click', userInteractive.handler.bind(userInteractive));
         }
       }
     }
-    inputAction.addEventListener('input', virtualclass.userInteractivity.userInputHandler.bind(this, data.component));
-    const textArea = document.querySelector('#writeContent .text')
+    inputAction.addEventListener('input', userInteractive.userInputHandler.bind(this, data.component));
+    // const textArea = document.querySelector('#writeContent .text')
     // textArea.addEventListener('focus', virtualclass.vutil.inputFocusHandler);
     // textArea.addEventListener('focusout', virtualclass.vutil.inputFocusOutHandler);
   }
 
   contentBox(data) { // Main Part
     const text = virtualclass.userInteractivity.questionAnswer.separatedContent(data);
+    const selector = `#askQuestion [data-context~=${data.context}] .container`;
     if (data.component === 'question') {
       const chkContextElem = document.querySelector(`#askQuestion .context[data-context~=${data.context}]`);
       if ('question' && chkContextElem) {
         const componentTemplate = virtualclass.getTemplate(data.component, 'askQuestion');
-        const htmlContent = componentTemplate({ id: data.id, userName: data.uname, content: text.content, morecontent: text.moreContent });
-        document.querySelector(`#askQuestion [data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', htmlContent);
+        const htmlContent = componentTemplate({
+          id: data.id,
+          userName: data.uname,
+          content: text.content,
+          morecontent: text.moreContent,
+        });
+        document.querySelector(selector).insertAdjacentHTML('beforeend', htmlContent);
       } else {
         const getContextTemp = virtualclass.getTemplate('context', 'askQuestion');
         const cTemp = getContextTemp({ context: data.context });
         document.querySelector('#askQuestion .container').insertAdjacentHTML('beforeend', cTemp);
         const componentTemp = virtualclass.getTemplate(data.component, 'askQuestion');
-        document.querySelector(`#askQuestion [data-context~=${data.context}] .container`).insertAdjacentHTML('beforeend', componentTemp({
+        document.querySelector(selector).insertAdjacentHTML('beforeend', componentTemp({
           id: data.id,
           userName: data.uname,
           content: text.content,
@@ -140,7 +165,6 @@ class UserInteractivityRenderer { // Main Part
         }));
         console.log('====> adding current ');
         document.querySelector(`#askQuestion [data-context~=${data.context}]`).classList.add('current');
-
       }
     } else if (data.component === 'answer' || data.component === 'comment') {
       const qaAnswerTemp = virtualclass.getTemplate(data.component, 'askQuestion');
@@ -156,7 +180,7 @@ class UserInteractivityRenderer { // Main Part
       const ansTemp = qaAnswerTemp(context);
       if (data.component === 'answer') {
         document.querySelector(`#${data.parent} .answers`).insertAdjacentHTML('beforeend', ansTemp);
-        virtualclass.userInteractivity.navigationHandler(data, 'removeNavigation');
+        // virtualclass.userInteractivity.navigationHandler(data, 'removeNavigation');
       } else if (data.component === 'comment') {
         const comment = document.querySelector(`#${data.parent} .comments`);
         if (comment) { comment.insertAdjacentHTML('beforeend', ansTemp); };
@@ -168,7 +192,8 @@ class UserInteractivityRenderer { // Main Part
     if (+(data.userId) === +(virtualclass.gObj.orginalUserId)) {
       if (data.component === 'note') {
         this.renderNote(data.context);
-        const textArea = document.querySelector(`#noteContainer .context[data-context="${data.context}"] textarea.content`);
+        const textareaSelector = `#noteContainer .context[data-context="${data.context}"] textarea.content`;
+        const textArea = document.querySelector(textareaSelector);
         textArea.value = data.content;
       } else if (data.component !== 'comment') {
         document.querySelector(`#${data.id} .upVote`).dataset.upvote = 'upvoted';
@@ -177,7 +202,10 @@ class UserInteractivityRenderer { // Main Part
       const currentElem = document.querySelector(`#${data.componentId}`);
       if (currentElem) {
         currentElem.classList.add('mySelf');
-        const time = virtualclass.userInteractivity.questionAnswer.elapsedComponentTime({ componentId: data.componentId, component: data.component });
+        const time = virtualclass.userInteractivity.questionAnswer.elapsedComponentTime({
+          componentId: data.componentId,
+          component: data.component,
+        });
         if (time < 30 && !virtualclass.vutil.checkUserRole()) {
           currentElem.classList.add('editable');
         } else if (virtualclass.vutil.checkUserRole()) {
@@ -201,7 +229,7 @@ class UserInteractivityRenderer { // Main Part
   autosize(ev) { // main part
     setTimeout(() => {
       ev.target.style.cssText = 'height:auto; padding:0';
-      ev.target.style.cssText = 'height:' + ev.target.scrollHeight + 'px';
+      ev.target.style.cssText = `height: ${ev.target.scrollHeight} px`;
     }, 1000);
   }
 

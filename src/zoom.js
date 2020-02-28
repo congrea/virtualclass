@@ -55,6 +55,7 @@
       },
 
       triggerFitToScreen() {
+        return;
         const zoomControler = document.querySelector('#virtualclassAppLeftPanel .zoomControler .fitScreen');
         if (zoomControler != null) {
           if (virtualclass.currApp === 'Whiteboard') {

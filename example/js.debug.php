@@ -32,6 +32,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/vhcheck.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/chroma.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/fabric-3.6.2.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>/build/src/shadow-dom.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io.js"></script>
@@ -44,6 +45,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-ping-pong.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-wrapper.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-utility.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang-en.js"></script>

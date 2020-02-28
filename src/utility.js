@@ -2328,6 +2328,7 @@
 
     attachWhiteboardPopupHandler(wId) {
       window.addEventListener('mouseup', (ev) => {
+        return;
         const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
         const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
         if (moreElemClose) {
@@ -2339,7 +2340,7 @@
             const dropDown = (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke')) ? document.querySelector(`#t_strk${wId} .strkSizeList`) : document.querySelector(`#t_font${wId} .fontSizeList`);
             virtualclass.wb[wId].closeElem(dropDown);
           } else if (ev.target.classList.contains('icon-color') || ev.target.classList.contains('selected') || ev.target.classList.contains('congtooltip')) {
-            virtualclass.wb[wId].closeElem(document.querySelector(`#shapes${wId}`));
+//            virtualclass.wb[wId].closeElem(document.querySelector(`#shapes${wId}`));
           } else if (ev.target.classList.contains('icon-rectangle') || ev.target.classList.contains('icon-line')
             || ev.target.classList.contains('icon-oval') || ev.target.classList.contains('icon-triangle')) {
             virtualclass.wb[wId].closeElem(document.querySelector(`#shapes${wId}`));
@@ -2434,6 +2435,12 @@
       }
     },
 
+    closeElement(elem)  {
+      if (elem.classList.contains('open')) {
+        elem.classList.remove('open');
+        elem.classList.add('close');
+      }
+    }
   };
   window.vutil = vutil;
 }(window));

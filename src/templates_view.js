@@ -1584,7 +1584,7 @@ this["JST"]["dest_temp/templates/whiteboard/main.hbs"] = Handlebars.template({"1
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"canvasWrapper\"><canvas id=\"canvas"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" tabindex=\"0\"> "
+    + "\" tabindex=\"0\" width=\"900\", height=\"900\"> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"canvasmissing",{"name":"getString","hash":{},"data":data}))
     + " </canvas></div></div></div>";
 },"usePartial":true,"useData":true});
@@ -1600,11 +1600,9 @@ this["JST"]["dest_temp/templates/whiteboard/toolbar.hbs"] = Handlebars.template(
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Freehand",{"name":"getString","hash":{},"data":data}))
     + "\" class=\"congtooltip\"><span class=\"icon-freeDrawing cgIcon\"></span></a></div><div id=\"tool_wrapper"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"shapesToolbox\" data-currTool=\"shapes\"><div id=\"shapeIcon"
-    + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"shapes_icon\"><a href=\"#\" data-title=\""
+    + "\" class=\"shapesToolbox tool\" data-tool=\"shapes\" data-currTool=\"shapes\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Shapes",{"name":"getString","hash":{},"data":data}))
-    + "\" class=\"congtooltip\"><span class=\"icon-shapes cgIcon\"></span></a></div><div id=\"shapes"
+    + "\" class=\"congtooltip shapes_icon\"><span class=\"icon-shapes cgIcon\"></span></a><div id=\"shapes"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"shapesTool\"><div id=\"t_rectangle"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))

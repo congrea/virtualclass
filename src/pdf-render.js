@@ -50,7 +50,8 @@
             .catch((error) => {
               console.error('Request failed with error ', error);
               setTimeout(() => {
-                virtualclass.pdfRender[currWhiteBoard].loadPdf(url, canvas, currWhiteBoard);
+              // TODO, this has to be enabled
+                // virtualclass.pdfRender[currWhiteBoard].loadPdf(url, canvas, currWhiteBoard);
               }, 1000);
             });
         }

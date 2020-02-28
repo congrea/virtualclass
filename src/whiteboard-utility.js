@@ -558,7 +558,6 @@
       },
 
       displayCanvas(id) {
-        console.log('====> display canvas');
         const { vcan } = virtualclass.wb[id];
         vcan.canvasWrapperId = `canvasWrapper${id}`;
         if (document.getElementById(`canvas${id}`) == null) {

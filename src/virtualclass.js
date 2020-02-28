@@ -227,6 +227,8 @@
           clearInterval(virtualclass.gObj.CDTimer != null);
         }
 
+        this.wbWrapper = new WhiteboardWrapper();
+
         virtualclass.modernizr = Modernizr;
         this.system.webpInit();
 
@@ -331,7 +333,7 @@
 
         vcContainer.classList.remove('loading');
 
-        virtualclass.gObj.precheckScrn = false;
+         virtualclass.gObj.precheckScrn = false;
 
 
         // For initialize the Teacher Video
@@ -842,9 +844,6 @@
         const elem = document.querySelector(query);
         if (elem != null) {
           elem.insertBefore(whiteboard, elem.firstChild);
-          // console.log('====> suman whiteboard canvas is created');
-          // console.log('##==jai 3b ', slide);
-          // virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
         }
       },
 
@@ -964,7 +963,8 @@
               virtualclass.gObj.tempReplayObjs[id] = [];
               // console.log('====> vcan is creating', id, ' ', id, ' ', virtualclass.wb[id].vcan);
               // console.log('====> jai 1 ', id, ' ', virtualclass.wb[id].vcan);
-              this.wb[id] = new window.whiteboard(this.wbConfig, id);
+              this.wb[id] = new Whiteboard(this.wbConfig, id);
+
               // console.log('=====> whiteboard ready 1');
               let wbHtml;
               let canvas;
@@ -980,57 +980,60 @@
 
               if (whiteboardContainer !== null) {
                 if (document.querySelector(`vcanvas${id}`) === null) {
-                  const wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
-                  if (app === 'Whiteboard') {
-                    virtualclass.wbCommon.hideElement();
-                    const wnoteid = `note${id}`;
-                    const wnote = document.querySelector(`#${wnoteid}`);
-                    if (wnote !== null) {
-                      console.log("udit current ", id);
-                      wnote.classList.add('canvasContainer', 'current');
-                      wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
-                      wnote.innerHTML = wbHtml;
-                    } else {
-                      console.log("udit current ", id);
-                      wbHtml = `<div id='${wnoteid}' data-wb-id='${id}' class='canvasContainer current'>${wbTemplate({
-                        cn: id,
-                        hasControl: roles.hasControls(),
-                      })}</div>`;
-
-                      if (id !== '_doc_0_0') {
-                        whiteboardContainer.insertAdjacentHTML('beforeend', wbHtml);
-                      } else {
-                        whiteboardContainer.innerHTML = wbHtml;
-                        const vcanvasDoc = document.querySelector('#note_doc_0_0');
-                        if (vcanvasDoc !== null) {
-                          vcanvasDoc.classList.add('current');
-                        }
-                      }
-                    }
-                  } else {
-                    wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
-                    whiteboardContainer.innerHTML = wbHtml;
-                  }
+                  // const wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
+                  //
+                  // if (app === 'Whiteboard') {
+                  //   virtualclass.wbCommon.hideElement();
+                  //   const wnoteid = `note${id}`;
+                  //   const wnote = document.querySelector(`#${wnoteid}`);
+                  //   if (wnote !== null) {
+                  //     console.log("udit current ", id);
+                  //     wnote.classList.add('canvasContainer', 'current');
+                  //     wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
+                  //     wnote.innerHTML = wbHtml;
+                  //   } else {
+                  //     console.log("udit current ", id);
+                  //     wbHtml = `<div id='${wnoteid}' data-wb-id='${id}' class='canvasContainer current'>${wbTemplate({
+                  //       cn: id,
+                  //       hasControl: roles.hasControls(),
+                  //     })}</div>`;
+                  //
+                  //     if (id !== '_doc_0_0') {
+                  //       whiteboardContainer.insertAdjacentHTML('beforeend', wbHtml);
+                  //     } else {
+                  //       whiteboardContainer.innerHTML = wbHtml;
+                  //       const vcanvasDoc = document.querySelector('#note_doc_0_0');
+                  //       if (vcanvasDoc !== null) {
+                  //         vcanvasDoc.classList.add('current');
+                  //       }
+                  //     }
+                  //   }
+                  // } else {
+                  //   wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
+                  //   whiteboardContainer.innerHTML = wbHtml;
+                  // }
+                  this.wbWrapper.init(id, app);
                   canvas = document.querySelector(`#canvas${id}`);
                 }
                 // console.log('====> jai 4 ', id, ' ', virtualclass.wb[id].vcan);
 
-                this.wb[id].utility = new window.utility();
-                this.wb[id].alreadyReplay = false;
-                this.wb[id].packContainer = new window.packContainer();
-                this.wb[id].draw_object = window.draw_object;
-                this.wb[id].makeobj = window.makeobj;
-                this.wb[id].readyFreeHandObj = window.readyFreeHandObj;
-                this.wb[id]._replay = _replay;
-                this.wb[id].readyTextObj = window.readyTextObj;
-                this.wb[id].bridge = window.bridge;
-                this.wb[id].response = window.response;
-                virtualclass.wb[id].utility.displayCanvas(id);
-                // console.log('====> jai 5 ', id, ' ', virtualclass.wb[id].vcan);
+                // this.wb[id].utility = new window.utility();
+                // this.wb[id].alreadyReplay = false;
+                // this.wb[id].packContainer = new window.packContainer();
+                // this.wb[id].draw_object = window.draw_object;
+                // this.wb[id].makeobj = window.makeobj;
+                // this.wb[id].readyFreeHandObj = window.readyFreeHandObj;
+                // this.wb[id]._replay = _replay;
+                // this.wb[id].readyTextObj = window.readyTextObj;
+                // this.wb[id].bridge = window.bridge;
+                // this.wb[id].response = window.response;
+                // virtualclass.wb[id].utility.displayCanvas(id);
 
-                if (roles.hasControls()) {
-                  virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
-                }
+                virtualclass.wb[id].init(id);
+
+                // if (roles.hasControls()) {
+                //   virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
+                // }
                 // console.log('====> jai 6 ', id, ' ', virtualclass.wb[id].vcan);
                 // console.log(`##==jai, whiteboard 2 ` + id);
                 if (app === 'DocumentShare') {
@@ -1071,10 +1074,10 @@
           }
 
           if (roles.hasControls()) {
-            if (document.getElementById(`canvas${id}`) !== null) {
-              vcan.utility.canvasCalcOffset(vcan.main.canid);
-              virtualclass.wb[id].utility.makeCanvasEnable();
-            }
+            // if (document.getElementById(`canvas${id}`) !== null) {
+            //   vcan.utility.canvasCalcOffset(vcan.main.canid);
+            //   virtualclass.wb[id].utility.makeCanvasEnable();
+            // }
 
             /** TODO, move code to utilit.js and should not be invoked from here **/
             console.log("=====> whiteboard mouse up ");
@@ -1085,7 +1088,7 @@
             }
           }
 
-          // if (typeof virtualclass.wb.indexNav === 'undefined') {
+          // if   (typeof virtualclass.wb.indexNav === 'undefined') {
           //   virtualclass.wb.indexNav = new virtualclass.pageIndexNav('WB');
           // }
 

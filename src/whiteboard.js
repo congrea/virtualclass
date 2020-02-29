@@ -10,8 +10,6 @@ class WhiteboardShape {
   constructor(shape) {
     this.name = shape;
     this.coreObj = {
-      originX: 'left',
-      originY: 'top',
       angle: 0,
       selectable: false,
       fill: '#ffffff',
@@ -20,7 +18,7 @@ class WhiteboardShape {
       width: 0,
       height: 0,
       strokeWidth: 2,
-    }
+    };
   }
 
   mouseDown(o, whiteboard) {
@@ -30,8 +28,8 @@ class WhiteboardShape {
     this.startTop = pointer.y;
     this.coreObj.left = this.startLeft;
     this.coreObj.top = this.startTop;
-    this.coreObj.width = 0;
-    this.coreObj.height = 0;
+    this.coreObj.width = 1;
+    this.coreObj.height = 1;
 
     // this.tri = new fabric.Triangle(this.coreObj);
     this[this.name] = new fabric[shapeName[this.name]](this.coreObj);
@@ -39,7 +37,7 @@ class WhiteboardShape {
   }
 
   mouseMove() {
-    if (!this.mousedown) return;
+    // if (!this.mousedown) return;
   }
 
   mouseUp() {
@@ -47,6 +45,7 @@ class WhiteboardShape {
     this[this.name].setCoords();
   }
 }
+
 
 class WhiteboardRectangle extends WhiteboardShape {
   constructor(name) {
@@ -57,17 +56,28 @@ class WhiteboardRectangle extends WhiteboardShape {
   mouseMove(o, whiteboard) {
     if (!this.mousedown) return;
     const pointer = whiteboard.canvas.getPointer(o.e);
+    const newLeft = pointer.x;
+    const newTop = pointer.y;
+    const width = newLeft - this.startLeft;
+    const height = newTop - this.startTop;
 
-    if (this.startLeft > pointer.x) {
-      this.rectangle.set({ left: Math.abs(pointer.x) });
+    if (width > 0) { // Draw from left to right
+      console.log('====> rectangle Draw from left to right');
+      this.rectangle.set('width', width);
+    } else {
+      this.rectangle.set('left', newLeft); // Draw from right to left
+      console.log('====> rectangle Draw from right to left');
+      this.rectangle.set('width', width * -1);
     }
 
-    if (this.startTop > pointer.y) {
-      this.rectangle.set({ top: Math.abs(pointer.y) });
+    if (height > 0) {
+      console.log('====> rectangle  Draw from top to bottom');
+      this.rectangle.set('height', height); // Draw from top to bottom
+    } else {
+      console.log('====> rectangle  Draw from bottom to top');
+      this.rectangle.set('top', newTop); // Draw from bottom to top
+      this.rectangle.set('height', height * -1);
     }
-
-    this.rectangle.set({ width: Math.abs(this.startLeft - pointer.x) });
-    this.rectangle.set({ height: Math.abs(this.startTop - pointer.y) });
     whiteboard.canvas.renderAll();
   }
 }

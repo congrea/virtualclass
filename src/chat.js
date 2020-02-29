@@ -75,7 +75,9 @@
       // TODO in this function if confition and else if condition is not working
       setChatDisplay() {
         const chatInput = document.querySelector('#virtualclassCont.congrea  #ta_chrm2');
-        var search = document.querySelector('#virtualclassCont.congrea #congreaUserSearch');
+        const search = document.querySelector('#virtualclassCont.congrea #congreaUserSearch');
+        const list = document.getElementById('memlist');
+        let listBtn = document.getElementById('user_list');
 
         const chat = localStorage.getItem('chatWindow');
 
@@ -88,27 +90,24 @@
 
             const chatroomBtn = document.getElementById('chatroom_bt2');
             chatroomBtn.classList.add('active');
-
-            var list = document.getElementById('memlist');
             if (list) {
               list.classList.remove('enable');
               if (!list.classList.contains('disable')) {
                 list.classList.add('disable');
               }
-              var listBtn = document.getElementById('user_list');
+              listBtn = document.getElementById('user_list');
               listBtn.classList.remove('active');
             }
-            var search = document.querySelector('#virtualclassCont.congrea #congreaUserSearch');
+            // var search = document.querySelector('#virtualclassCont.congrea #congreaUserSearch');
             if (search) {
               search.style.display = 'none';
             }
           } else {
-            var list = document.getElementById('memlist');
             if (list) {
               list.classList.add('enable');
               list.classList.remove('disable');
 
-              var listBtn = document.getElementById('user_list');
+              listBtn = document.getElementById('user_list');
               listBtn.classList.add('active');
             }
           }
@@ -119,10 +118,9 @@
             supportBtn.classList.add('active');
           }
         } else {
-          var list = document.getElementById('memlist');
           if (list) {
             list.classList.add('enable');
-            var listBtn = document.getElementById('user_list');
+            listBtn = document.getElementById('user_list');
             listBtn.classList.add('active');
             virtualclass.chat.chatWindow = 'private';
           }
@@ -345,7 +343,6 @@
           for (; i < allNodes.length; i++) {
             totalWidth += allNodes[i].offsetWidth;
           }
-
           const mainContaineridth = document.getElementById('virtualclassAppContainer').offsetWidth;
           if (totalWidth > mainContaineridth) {
             const tobeClosed = document.querySelector('#tabs .ui-widget.ui-chatbox');
@@ -357,7 +354,7 @@
             }
           }
         }
-      }
+      },
     };
   };
   window.Chat = Chat;

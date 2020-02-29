@@ -6,6 +6,113 @@ const shapeName = {
   text: 'Text',
 }
 
+class WhiteboardReplay {
+  init(wid) {
+    this.objs = virtualclass.wb[wid].vcanMainReplayObjs;
+    this.objNo = 0;
+  }
+
+  renderObj(wid) {
+    let event;
+    if (this.objs[this.objNo].cmd) {
+      virtualclass.wb[wid].selectedTool = this.objs[this.objNo].cmd;
+    } else {
+      if (this.objs[this.objNo].ac === 'd') {
+        event = 'mouseDown';
+      } else if ((this.objs[this.objNo].ac === 'm')) {
+        event = 'mouseMove';
+      } else if (this.objs[this.objNo].ac === 'u') {
+        event = 'mouseUp';
+      }
+      const data = this.objs[this.objNo];
+      // virtualclass.wb[wid][virtualclass.wb[wid].selectedTool][event](data, virtualclass.wb[wid]);
+      if (event == 'mouseMove') {
+        virtualclass.wb[wid].rectangleObj.innerMouseMove(data, virtualclass.wb[wid]);
+      } else {
+        virtualclass.wb[wid].rectangleObj[event](data, virtualclass.wb[wid]);
+      }
+
+    }
+  }
+}
+
+class WhiteboardUtility {
+  applyCommand(data, wid) {
+    // for (let i = 0; i < data.length; i += 1) {
+    //   if (Object.prototype.hasOwnProperty.call(data[i], 'cmd')) {
+    //     if (data[i].cmd === 'clearAll') {
+    //       if (typeof virtualclass.wb !== 'object') {
+    //         virtualclass.makeAppReady({ app: virtualclass.apps.wb });
+    //       }
+    //       virtualclass.wb[wid].response.clearAll(wid);
+    //     } else {
+    //       if (roles.hasControls()) {
+    //         const tool = data[i].cmd.slice(2, data[i].cmd.length);
+    //         const currentShapeTool = document.querySelector(`${'#' + 'tool_wrapper'}${wid}`);
+    //         const shapesElem = document.querySelector(`#tool_wrapper${wid}.shapesToolbox`);
+    //         if (tool === 'triangle' || tool === 'line' || tool === 'oval' || tool === 'rectangle') {
+    //           document.querySelector(`#shapeIcon${wid} a`).dataset.title = tool.charAt(0).toUpperCase() + tool.slice(1);
+    //           currentShapeTool.dataset.currtool = tool;
+    //           shapesElem.classList.add('active');
+    //         } else {
+    //           document.querySelector(`#shapeIcon${wid} a`).dataset.title = 'Shapes';
+    //           currentShapeTool.dataset.currtool = 'shapes';
+    //           shapesElem.classList.remove('active');
+    //         }
+    //       }
+    //     }
+    //   } else if (Object.prototype.hasOwnProperty.call(data[i], 'shapeColor')) {
+    //     virtualclass.wb[wid].shapeColor = data[i].shapeColor;
+    //     if (roles.hasControls()) {
+    //       document.querySelector(`#shapeColor${wid} .disActiveColor`).style.backgroundColor = virtualclass.wb[wid].shapeColor;
+    //       virtualclass.wb[wid].utility.selectElem(`#shapeColor${wid}`, data[i].elem);
+    //     }
+    //   } else if (Object.prototype.hasOwnProperty.call(data[i], 'strokeSize')) {
+    //     virtualclass.wb[wid].strokeSize = data[i].strokeSize;
+    //     if (roles.hasControls()) {
+    //       document.querySelector(`#strokeSize${wid} ul`).dataset.stroke = virtualclass.wb[wid].strokeSize;
+    //       virtualclass.wb[wid].utility.selectElem(`#strokeSize${wid}`, data[i].elem);
+    //     }
+    //   } else if (Object.prototype.hasOwnProperty.call(data[i], 'fontSize')) {
+    //     virtualclass.wb[wid].fontSize = data[i].fontSize;
+    //     if (roles.hasControls()) {
+    //       document.querySelector(`#fontSize${wid} ul`).dataset.font = virtualclass.wb[wid].fontSize;
+    //       virtualclass.wb[wid].utility.selectElem(`#fontSize${wid}`, data[i].elem);
+    //     }
+    //   }
+    //   virtualclass.wb[wid].uid = data[i].uid;
+    //   this.executeData(data[i], wid);
+    // }
+
+    for (let i = 0; i < data.length; i += 1) {
+      this.executeData(data[i], wid);
+    }
+  }
+
+  executeData(data, wId) {
+    if (!virtualclass.wb[wId].replayObjs) virtualclass.wb[wId].replayObjs = [];
+    virtualclass.wb[wId].replayObjs.push(data);
+    this.replayData([data], wId);
+  }
+
+  replayData(data, wId) {
+    virtualclass.wb[wId].vcanMainReplayObjs = [];
+    if (data.length > 0) {
+      virtualclass.wb[wId].vcanMainReplayObjs = data;
+      this.replayInit(wId);
+    }
+  }
+
+  // toolInit(wId) {
+  //   this.replayInit(wId);
+  // }
+
+  replayInit(wId) {
+    virtualclass.wbReplay.init(wId);
+    virtualclass.wbReplay.renderObj(wId);
+  }
+}
+
 class WhiteboardShape {
   constructor(shape) {
     this.name = shape;
@@ -21,9 +128,14 @@ class WhiteboardShape {
     };
   }
 
-  mouseDown(o, whiteboard) {
+  mouseDown(event, whiteboard) {
+    const pointer = whiteboard.canvas.getPointer(event);
+    this.innerMouseDown(pointer, whiteboard);
+    ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
+  }
+
+  innerMouseDown(pointer, whiteboard) {
     this.mousedown = true;
-    const pointer = whiteboard.canvas.getPointer(o.e);
     this.startLeft = pointer.x;
     this.startTop = pointer.y;
     this.coreObj.left = this.startLeft;
@@ -31,7 +143,6 @@ class WhiteboardShape {
     this.coreObj.width = 1;
     this.coreObj.height = 1;
 
-    // this.tri = new fabric.Triangle(this.coreObj);
     this[this.name] = new fabric[shapeName[this.name]](this.coreObj);
     whiteboard.canvas.add(this[this.name]);
   }
@@ -43,6 +154,7 @@ class WhiteboardShape {
   mouseUp() {
     this.mousedown = false;
     this[this.name].setCoords();
+    ioAdapter.mustSend({ wb: [{ ac: 'u' }], cf: 'wb' });
   }
 }
 
@@ -53,9 +165,13 @@ class WhiteboardRectangle extends WhiteboardShape {
     this.name = name;
   }
 
-  mouseMove(o, whiteboard) {
+  mouseMove(event, whiteboard) {
+    const pointer = whiteboard.canvas.getPointer(event.e);
+    this.innerMouseMove(pointer, whiteboard);
+  }
+
+  innerMouseMove(pointer, whiteboard) {
     if (!this.mousedown) return;
-    const pointer = whiteboard.canvas.getPointer(o.e);
     const newLeft = pointer.x;
     const newTop = pointer.y;
     const width = newLeft - this.startLeft;
@@ -78,7 +194,10 @@ class WhiteboardRectangle extends WhiteboardShape {
       this.rectangle.set('top', newTop); // Draw from bottom to top
       this.rectangle.set('height', height * -1);
     }
+
     whiteboard.canvas.renderAll();
+    // ioAdapter.mustSend([{ wb: { ac: 'm', x: pointer.x, y: pointer.y }, cf: 'wb' }]);
+    ioAdapter.mustSend({ wb: [{ ac: 'm', x: pointer.x, y: pointer.y }], cf: 'wb' });
   }
 }
 
@@ -119,7 +238,7 @@ class Whiteboard {
   }
 
   handlerMouseDown(o) {
-    if (this.selectedTool !== 'freeDrawing') {
+    if (this.selectedTool && this.selectedTool !== 'freeDrawing') {
       this.mousedown = true;
       this[`${this.selectedTool}Obj`].mouseDown(o, this);
     }
@@ -130,13 +249,14 @@ class Whiteboard {
   }
 
   handlerMouseUp(o) {
-    if (this.selectedTool !== 'freeDrawing') this[`${this.selectedTool}Obj`].mouseUp(o, this);
+    if (this.selectedTool && this.selectedTool !== 'freeDrawing') this[`${this.selectedTool}Obj`].mouseUp(o, this);
   }
 
   toolbarHandler(ev) {
     this.canvas.isDrawingMode = false;
     const currentTool = ev.currentTarget.parentNode.dataset.tool;
     this.selectedTool = currentTool;
+    ioAdapter.mustSend({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
     if (this.selectedTool !== 'rectangle' && this.selectedTool !== 'oval' && this.selectedTool !== 'triangle') {
       this[currentTool]();
     }

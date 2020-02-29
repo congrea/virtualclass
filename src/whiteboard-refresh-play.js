@@ -21,7 +21,7 @@
 
       makeCustomEvent(obj, broadCast) {
         if (Object.prototype.hasOwnProperty.call(obj, 'mtext')) {
-          var eventObj = { detail: { cevent: { x: obj.x, y: obj.y, mtext: obj.mtext } } };
+          var eventObj = { detail: { z: { x: obj.x, y: obj.y, mtext: obj.mtext } } };
         } else {
           var eventObj = { detail: { cevent: { x: obj.x, y: obj.y } } };
         }

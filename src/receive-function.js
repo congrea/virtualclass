@@ -242,19 +242,24 @@ const receiveFunctions = new function () {
   };
 
   // Display Whiteboard Data
-  this.repObj = function (e) {
-    if (typeof virtualclass.gObj.currWb !== 'undefined') {
-      if (typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object' && e.fromUser.role === 't') {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.repObj, virtualclass.gObj.currWb);
-      }
-    }
+  // this.repObj = function (e) {
+  //   if (typeof virtualclass.gObj.currWb !== 'undefined') {
+  //     if (typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object' && e.fromUser.role === 't') {
+  //       virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.repObj, virtualclass.gObj.currWb);
+  //     }
+  //   }
+  //   virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
+  // };
 
-    // let i = 0;
-    // for (; i < e.message.repObj.length; i++) {
-    //   virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
-    // }
-    virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
-  };
+  this.wb = (e) => {
+    if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
+      && e.fromUser.role === 't') {
+      // virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.wb, virtualclass.gObj.currWb);
+      virtualclass.wbUtil.applyCommand(e.message.wb, virtualclass.gObj.currWb);
+    }
+    // virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
+    virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
+  }
 
   // Replay All, TODO, need to do verify
   this.replayAll = function (e) {

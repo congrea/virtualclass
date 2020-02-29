@@ -1013,6 +1013,8 @@
                   //   whiteboardContainer.innerHTML = wbHtml;
                   // }
                   this.wbWrapper.init(id, app);
+                  this.wbReplay = new WhiteboardReplay();
+                  this.wbUtil = new WhiteboardUtility();
                   canvas = document.querySelector(`#canvas${id}`);
                 }
                 // console.log('====> jai 4 ', id, ' ', virtualclass.wb[id].vcan);

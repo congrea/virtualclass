@@ -3,7 +3,7 @@
  * for following features Document, Video and Presentation Sharing
  * */
 
-var dashboard = {
+const dashboard = {
   userConfirmation(msg, cb) {
     virtualclass.popup.confirmInput(msg, (confirm) => {
       cb(confirm);
@@ -213,6 +213,9 @@ var dashboard = {
   },
 
   readyDashboard(currVideo) {
+    let dashboardNavgation;
+    let createElem;
+    let cont;
     const { currApp } = virtualclass;
     if (document.querySelector('#congdashboard') === null) {
       const dashboardTemp = virtualclass.getTemplate('dashboard');
@@ -224,18 +227,18 @@ var dashboard = {
     }
 
     this.modalCloseHandler();
+    dashboardNavgation = document.getElementById('dashboardnav');
 
     // in any other application we can handle
     // dashoard content in own style
     // console.log('====> DOCUMENT SHARE SUMAN 1.0');
     if (currApp === 'DocumentShare') {
-      var dtitle = document.getElementById('dashboardnav');
-      dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
+      dashboardNavgation.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
       if (document.querySelector(`#${currApp}Dashboard`) == null) {
-        var elem = document.createElement('div');
-        var cont = document.querySelector('#congdashboard .modal-body');
-        cont.appendChild(elem);
-        elem.id = `${currApp}Dashboard`;
+        createElem = document.createElement('div');
+        cont = document.querySelector('#congdashboard .modal-body');
+        cont.appendChild(createElem);
+        createElem.id = `${currApp}Dashboard`;
       }
       const docsDbCont = document.querySelector('#docsDbCont');
       if (docsDbCont) {
@@ -251,12 +254,11 @@ var dashboard = {
       virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
       virtualclass.vutil.makeElementActive('#listnotes');
     } else if (currApp === 'Video') {
-      var dtitle = document.getElementById('dashboardnav');
       if (document.querySelector(`#${currApp}Dashboard`) == null) {
-        var elem = document.createElement('div');
-        var cont = document.querySelector('#congdashboard .modal-body');
-        cont.appendChild(elem);
-        elem.id = `${currApp}Dashboard`;
+        createElem = document.createElement('div');
+        cont = document.querySelector('#congdashboard .modal-body');
+        cont.appendChild(createElem);
+        createElem.id = `${currApp}Dashboard`;
       }
 
       const videocont = document.querySelector('#videoPopup');
@@ -288,7 +290,6 @@ var dashboard = {
         dashboardnav.click();
       }
     } else if (currApp === 'SharePresentation') {
-      const dashboardNavgation = document.getElementById('dashboardnav');
       dashboardNavgation.setAttribute('data-title', virtualclass.lang.getString('SharePresentationdbHeading'));
       if (document.querySelector(`#${currApp}Dashboard`) == null) {
         const dashboard = document.createElement('div');

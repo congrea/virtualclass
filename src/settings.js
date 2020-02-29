@@ -216,7 +216,7 @@
     },
 
     applyAttendeeSetting(obj) {
-      console.log('my setting change ', JSON.stringify(obj));
+      // console.log('my setting change ', JSON.stringify(obj));
       const rec = ['enableRecording', 'recAllowpresentorAVcontrol', 'recShowPresentorRecordingStatus', 'attendeeAV',
         'recallowattendeeAVcontrol', 'showAttendeeRecordingStatus', 'attendeerecording'];
       for (const propname in obj) {

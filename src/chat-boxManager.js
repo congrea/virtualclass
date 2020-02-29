@@ -134,8 +134,8 @@ const chatboxManager = (function () {
     }
   };
 
-  var messageSentCallback = function (id, user, msg) {
-    const idx = boxList.indexOf(user.userid);
+  const messageSentCallback = function (id, user, msg) {
+    // const idx = boxList.indexOf(user.userid);
     config.messageSent(id, user, msg);
   };
 

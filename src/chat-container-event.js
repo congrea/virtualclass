@@ -17,6 +17,7 @@ const chatContainerEvent = {
     const str = $(cthis);
     let ahref;
     let id;
+    let name;
     if (cthis.className === 'videoSubWrapper' || cthis.classList === 'userVideos') {
       ahref = str[0].id;
       id = ahref.replace('user', '');
@@ -27,10 +28,10 @@ const chatContainerEvent = {
 
     if (typeof ahref !== 'undefined') {
       if (str.parent('.usern').length > 0) {
-        var name = str.html();
+        name = str.html();
       } else {
         // var name = str.siblings('.usern').find('a').html();
-        var name = chat_div.shadowRoot.querySelector(`#ml${id} .usern a`).title;
+        name = chat_div.shadowRoot.querySelector(`#ml${id} .usern a`).title;
       }
 
       if ($.inArray(id, virtualclass.chat.idList) === -1) {

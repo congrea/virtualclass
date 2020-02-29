@@ -248,8 +248,8 @@
       if (seconds < 10) {
         seconds = `0${seconds}`;
       }
-
-      return { h: hour, m: minutes, s: seconds };
+      const obj = { h: hour, m: minutes, s: seconds };
+      return obj;
     },
 
     displayWaitPopupIfNot() {
@@ -327,7 +327,7 @@
     },
 
     formatRecording(file) {
-      if (this.isFirstPacket(file) || this.isPacketInSerial(file) && Object.keys(this.rawDataQueue).length > 0) {
+      if ((this.isFirstPacket(file) || this.isPacketInSerial(file)) && Object.keys(this.rawDataQueue).length > 0) {
         const recording = this.rawDataQueue[file];
         if (recording != null) {
           this.makeRecordingQueue(recording.file, recording.data);
@@ -1030,7 +1030,8 @@
               }
             }
             // console.log(`Seek index i = ${i} j=${j} totalTime=${totalTimeMil}`);
-            return { master: i, sub: j };
+            const obj = { master: i, sub: j };
+            return obj;
           }
         }
       }

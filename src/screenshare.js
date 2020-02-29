@@ -1102,7 +1102,9 @@ let globalImageData = {};
        */
       getContainerDimension() {
         const vidCont = document.getElementById(`${this.id}Local`);
-        return { width: vidCont.offsetWidth, height: vidCont.offsetHeight };
+        // apply codacy rule
+        const obj = { width: vidCont.offsetWidth, height: vidCont.offsetHeight };
+        return obj;
       },
       /**
        * Drawing the image over the canvas

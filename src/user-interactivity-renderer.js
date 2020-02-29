@@ -227,9 +227,10 @@ class UserInteractivityRenderer { // Main Part
     // }
   }
   autosize(ev) { // main part
+    const event = ev;
     setTimeout(() => {
-      ev.target.style.cssText = 'height:auto; padding:0';
-      ev.target.style.cssText = `height: ${ev.target.scrollHeight} px`;
+      event.target.style.cssText = 'height:auto; padding:0';
+      event.target.style.cssText = `height: ${event.target.scrollHeight} px`;
     }, 1000);
   }
 

@@ -29,7 +29,6 @@ class Rightbar {
   }
 
   handleDisplayRightBar(selector){
-    console.log('====> selector', selector);
     const activeElement = document.querySelectorAll('#rightSubContainer .rightContainer.active');
     for (let i = 0; i < activeElement.length; i++) {
       if (activeElement[i]) activeElement[i].classList.remove('active');

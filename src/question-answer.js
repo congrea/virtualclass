@@ -9,6 +9,7 @@ class QuestionAnswer {
     let writeContent;
     let moreContent;
     let content;
+    let obj;
     if (data.content.length > 128) {
       writeContent = data.content.slice(0, 128);
       moreContent = data.content.slice(128, data.content.length);
@@ -29,7 +30,8 @@ class QuestionAnswer {
       this.displayMore(data);
     } else if (data.action === 'create') {
       content = writeContent;
-      return { content, moreContent };
+      obj = { content, moreContent };
+      return obj;
     }
   }
 

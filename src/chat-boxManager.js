@@ -143,10 +143,11 @@ const chatboxManager = (function () {
     $(`#${user.userid}`).chatbox('option', 'boxManager').addMsg(user.name, msg);
   };
 
-  return {
+  const obj = {
     init,
     addBox,
     delBox,
     dispatch,
   };
+  return obj;
 }());

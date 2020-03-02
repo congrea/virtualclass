@@ -395,11 +395,13 @@
       if (window.innerHeight >= virtualclass.gObj.initHeight) {
         virtualclass.vutil.inputFocusOutHandler();
       } else {
-        virtualclass.vutil.inputFocusHandler();
+        if (!virtualclass.gObj.fullScreenMode) {
+          virtualclass.vutil.inputFocusHandler();
+        }
       }
     }
 
-    if (!virtualclass.gObj.fullScreenMode  && window.innerWidth > window.innerHeight) { // Apply only on landscape mode
+    if (!virtualclass.gObj.fullScreenMode && window.innerWidth > window.innerHeight) { // Apply only on landscape mode
       virtualclass.gObj.initHeight = window.innerHeight;
     }
     // virtualclass.stickybarWidth();

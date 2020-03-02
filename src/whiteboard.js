@@ -1,3 +1,4 @@
+let myWhiteboardData = 0;
 const shapeName = {
   triangle: 'Triangle',
   oval: 'Circle',
@@ -22,7 +23,7 @@ class WhiteboardReplay {
       } else if ((this.objs[this.objNo].ac === 'm')) {
         event = 'innerMouseMove';
       } else if (this.objs[this.objNo].ac === 'u') {
-        event = 'mouseUp';
+        event = 'innerMouseUp';
       }
       const data = this.objs[this.objNo];
       virtualclass.wb[wid].rectangleObj[event](data, virtualclass.wb[wid]);
@@ -101,6 +102,13 @@ class WhiteboardUtility {
     virtualclass.wbReplay.init(wId);
     virtualclass.wbReplay.renderObj(wId);
   }
+
+  sendOptimizeData(data) {
+    if (roles.hasControls()) {
+      ioAdapter.mustSend(data);
+      console.log('====> sending data ', data);
+    }
+  }
 }
 
 class WhiteboardShape {
@@ -121,7 +129,8 @@ class WhiteboardShape {
   mouseDown(event, whiteboard) {
     const pointer = whiteboard.canvas.getPointer(event);
     this.innerMouseDown(pointer, whiteboard);
-    ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
+    // ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
+    virtualclass.wbUtil.sendOptimizeData({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
   }
 
   innerMouseDown(pointer, whiteboard) {
@@ -135,6 +144,8 @@ class WhiteboardShape {
 
     this[this.name] = new fabric[shapeName[this.name]](this.coreObj);
     whiteboard.canvas.add(this[this.name]);
+    myWhiteboardData++;
+    console.log('====> create whiteboard ===DOWN===', myWhiteboardData);
   }
 
   mouseMove() {
@@ -142,9 +153,16 @@ class WhiteboardShape {
   }
 
   mouseUp() {
+    // this.mousedown = false;
+    // this[this.name].setCoords();
+    this.innerMouseUp();
+    virtualclass.wbUtil.sendOptimizeData({ wb: [{ ac: 'u' }], cf: 'wb' });
+  }
+
+  innerMouseUp() {
+    console.log('====> create whiteboard ===UP===', myWhiteboardData);
     this.mousedown = false;
     this[this.name].setCoords();
-    ioAdapter.mustSend({ wb: [{ ac: 'u' }], cf: 'wb' });
   }
 }
 
@@ -158,6 +176,7 @@ class WhiteboardRectangle extends WhiteboardShape {
   mouseMove(event, whiteboard) {
     const pointer = whiteboard.canvas.getPointer(event.e);
     this.innerMouseMove(pointer, whiteboard);
+    virtualclass.wbUtil.sendOptimizeData({ wb: [{ ac: 'm', x: pointer.x, y: pointer.y }], cf: 'wb' });
   }
 
   innerMouseMove(pointer, whiteboard) {
@@ -187,7 +206,9 @@ class WhiteboardRectangle extends WhiteboardShape {
 
     whiteboard.canvas.renderAll();
     // ioAdapter.mustSend([{ wb: { ac: 'm', x: pointer.x, y: pointer.y }, cf: 'wb' }]);
-    ioAdapter.mustSend({ wb: [{ ac: 'm', x: pointer.x, y: pointer.y }], cf: 'wb' });
+    // virtualclass.wbUtil.sendOptimizeData({ wb: [{ ac: 'm', x: pointer.x, y: pointer.y }], cf: 'wb' });
+    myWhiteboardData++;
+    console.log('====> create whiteboard ===MOVE===', myWhiteboardData);
   }
 }
 
@@ -246,7 +267,8 @@ class Whiteboard {
     this.canvas.isDrawingMode = false;
     const currentTool = ev.currentTarget.parentNode.dataset.tool;
     this.selectedTool = currentTool;
-    ioAdapter.mustSend({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
+    // ioAdapter.mustSend({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
+    virtualclass.wbUtil.sendOptimizeData({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
     if (this.selectedTool !== 'rectangle' && this.selectedTool !== 'oval' && this.selectedTool !== 'triangle') {
       this[currentTool]();
     }

@@ -151,6 +151,7 @@
       },
 
       fitToScreen() {
+        return;
         virtualclass.gObj.fitToScreen = true;
         delete virtualclass.zoom.performFitToPage;
         delete virtualclass.zoom.performZoom;

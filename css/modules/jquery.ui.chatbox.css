@@ -400,6 +400,11 @@
   width: 100%;
 }
 
+#virtualclassCont.congrea #virtualclassApp.openRightbar #stickybar .ui-tabs {
+  position: absolute;
+  width: 100%;
+}
+
 #virtualclassCont.congrea .ui-tabs .ui-tabs-nav li {
   float: right;
   white-space: normal;

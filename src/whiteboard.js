@@ -18,20 +18,14 @@ class WhiteboardReplay {
       virtualclass.wb[wid].selectedTool = this.objs[this.objNo].cmd;
     } else {
       if (this.objs[this.objNo].ac === 'd') {
-        event = 'mouseDown';
+        event = 'innerMouseDown';
       } else if ((this.objs[this.objNo].ac === 'm')) {
-        event = 'mouseMove';
+        event = 'innerMouseMove';
       } else if (this.objs[this.objNo].ac === 'u') {
         event = 'mouseUp';
       }
       const data = this.objs[this.objNo];
-      // virtualclass.wb[wid][virtualclass.wb[wid].selectedTool][event](data, virtualclass.wb[wid]);
-      if (event == 'mouseMove') {
-        virtualclass.wb[wid].rectangleObj.innerMouseMove(data, virtualclass.wb[wid]);
-      } else {
-        virtualclass.wb[wid].rectangleObj[event](data, virtualclass.wb[wid]);
-      }
-
+      virtualclass.wb[wid].rectangleObj[event](data, virtualclass.wb[wid]);
     }
   }
 }
@@ -102,10 +96,6 @@ class WhiteboardUtility {
       this.replayInit(wId);
     }
   }
-
-  // toolInit(wId) {
-  //   this.replayInit(wId);
-  // }
 
   replayInit(wId) {
     virtualclass.wbReplay.init(wId);

@@ -2303,6 +2303,7 @@
       document.querySelector('#fullScreenButton').style.display = 'none';
       document.querySelector('#fullScreenExitButton').style.display = 'block';
       virtualclass.gObj.fullScreenMode = true;
+      virtualclass.gObj.notHandleInputFocusHandler = true;
     },
 
     showFullScreenButton() {
@@ -2310,6 +2311,7 @@
       document.querySelector('#fullScreenButton').style.display = 'block';
       document.querySelector('#fullScreenExitButton').style.display = 'none';
       virtualclass.gObj.fullScreenMode = false;
+      virtualclass.gObj.notHandleInputFocusHandler = true;
     },
 
     showFullScreenButtonIfNeed() {

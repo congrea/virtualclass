@@ -390,20 +390,22 @@
 
     virtualclass.chat.calculateViewPortForMessageBox();
 
-    if (document.getElementById('virtualclassCont').dataset.currwindow === 'normal') {
-      // const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
-      if (window.innerHeight >= virtualclass.gObj.initHeight) {
-        virtualclass.vutil.inputFocusOutHandler();
-      } else {
-        if (!virtualclass.gObj.fullScreenMode) {
+    if (!virtualclass.gObj.notHandleInputFocusHandler) {
+      if (document.getElementById('virtualclassCont').dataset.currwindow === 'normal') {
+        // const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
+        if (window.innerHeight >= virtualclass.gObj.initHeight) {
+          virtualclass.vutil.inputFocusOutHandler();
+        } else {
           virtualclass.vutil.inputFocusHandler();
         }
       }
-    }
 
-    if (!virtualclass.gObj.fullScreenMode && window.innerWidth > window.innerHeight) { // Apply only on landscape mode
-      virtualclass.gObj.initHeight = window.innerHeight;
+      if (window.innerWidth > window.innerHeight) { // Apply only on landscape mode
+        virtualclass.gObj.initHeight = window.innerHeight;
+      }
     }
+    delete virtualclass.gObj.notHandleInputFocusHandler;
+
     // virtualclass.stickybarWidth();
     // virtualclass.chatBarTabWidth();
   };

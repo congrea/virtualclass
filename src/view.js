@@ -390,9 +390,13 @@
 
     virtualclass.chat.calculateViewPortForMessageBox();
 
+    if (virtualclass.gObj.inputFocusHandler) {
+      clearTimeout(virtualclass.gObj.inputFocusHandler);
+    }
     virtualclass.gObj.inputFocusHandler = setTimeout(() => {
+      console.log('===> triger input focus');
       if (!virtualclass.gObj.notHandleInputFocusHandler) {
-        console.log('===> triger input focus');
+
         if (document.getElementById('virtualclassCont').dataset.currwindow === 'normal') {
           // const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
           if (window.innerHeight >= virtualclass.gObj.initHeight) {
@@ -406,7 +410,7 @@
         }
       }
       delete virtualclass.gObj.notHandleInputFocusHandler;
-    }, 1000);
+    }, 1100);
 
     // virtualclass.stickybarWidth();
     // virtualclass.chatBarTabWidth();

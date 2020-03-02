@@ -406,7 +406,7 @@
         }
       }
       delete virtualclass.gObj.notHandleInputFocusHandler;
-    }, 200);
+    }, 1000);
 
     // virtualclass.stickybarWidth();
     // virtualclass.chatBarTabWidth();

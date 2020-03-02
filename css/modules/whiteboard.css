@@ -541,3 +541,7 @@ ul.fontSizeList span {
     border-left: none !important;
   }
 }
+
+#virtualclassCont.student .canvas-container .upper-canvas {
+  pointer-events: none;
+}

@@ -57,9 +57,7 @@ var ioAdapter = {
   },
 
   mustSend(msg) {
-    if (!virtualclass.config.makeWebSocketReady) {
-      return;
-    }
+    if (!virtualclass.config.makeWebSocketReady) return;
     this.serial++;
     msg.serial = this.serial;
     this.adapterMustData[this.serial] = { type: 'broadcast', m: msg };

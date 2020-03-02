@@ -2396,6 +2396,7 @@
     },
 
     triggerFinalizeTextIfAny(wbId) {
+      return;
       const id = wbId || virtualclass.gObj.currWb;
       if ((virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare')
         && typeof virtualclass.wb[id] === 'object' && virtualclass.wb[id].obj.drawTextObj) {

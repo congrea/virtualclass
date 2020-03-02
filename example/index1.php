@@ -184,7 +184,8 @@ if($info) {
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/main-container-layout.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/color.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/askQuestion.css" ?> />
-	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
+
 <?php
 } else {
 ?>

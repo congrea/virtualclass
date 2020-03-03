@@ -78,6 +78,7 @@
         virtualclass.wb[wId].uid++;
         obj.uid = virtualclass.wb[wId].uid;
         vcan.main.replayObjs.push(obj);
+        console.log('====> sending data whiteboard object ');
         virtualclass.vutil.beforeSend({ repObj: [obj], cf: 'repObj' });
       },
     };

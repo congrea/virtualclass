@@ -103,10 +103,9 @@ class WhiteboardUtility {
     virtualclass.wbReplay.renderObj(wId);
   }
 
-  sendOptimizeData(data) {
+  sendWhiteboardData(data) {
     if (roles.hasControls()) {
       ioAdapter.mustSend(data);
-      console.log('====> sending data ', data);
     }
   }
 }
@@ -129,8 +128,9 @@ class WhiteboardShape {
   mouseDown(event, whiteboard) {
     const pointer = whiteboard.canvas.getPointer(event);
     this.innerMouseDown(pointer, whiteboard);
+    virtualclass.gObj.lastSendDataTime = new Date().getTime();
     // ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
-    virtualclass.wbUtil.sendOptimizeData({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
+    virtualclass.wbUtil.sendWhiteboardData({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
   }
 
   innerMouseDown(pointer, whiteboard) {
@@ -156,7 +156,12 @@ class WhiteboardShape {
     // this.mousedown = false;
     // this[this.name].setCoords();
     this.innerMouseUp();
-    virtualclass.wbUtil.sendOptimizeData({ wb: [{ ac: 'u' }], cf: 'wb' });
+    if (this.previousShape) {
+      virtualclass.wbUtil.sendWhiteboardData(this.previousShape);
+      delete this.previousShape;
+    }
+    virtualclass.wbUtil.sendWhiteboardData({ wb: [{ ac: 'u' }], cf: 'wb' });
+    delete virtualclass.gObj.lastSendDataTime;
   }
 
   innerMouseUp() {
@@ -176,7 +181,20 @@ class WhiteboardRectangle extends WhiteboardShape {
   mouseMove(event, whiteboard) {
     const pointer = whiteboard.canvas.getPointer(event.e);
     this.innerMouseMove(pointer, whiteboard);
-    virtualclass.wbUtil.sendOptimizeData({ wb: [{ ac: 'm', x: pointer.x, y: pointer.y }], cf: 'wb' });
+    if (!virtualclass.gObj.lastSendDataTime) {
+      virtualclass.gObj.lastSendDataTime = new Date().getTime();
+    }
+
+    virtualclass.gObj.presentSendDataTime = new Date().getTime();
+
+    const timeDifference = (virtualclass.gObj.presentSendDataTime - virtualclass.gObj.lastSendDataTime);
+    console.log('====> total time difference ', timeDifference);
+    const currentCordination = { wb: [{ ac: 'm', x: pointer.x, y: pointer.y }], cf: 'wb' };
+    this.previousShape = currentCordination;
+    if (timeDifference > 2000) {
+      virtualclass.wbUtil.sendWhiteboardData(currentCordination);
+      virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime;
+    }
   }
 
   innerMouseMove(pointer, whiteboard) {
@@ -206,7 +224,7 @@ class WhiteboardRectangle extends WhiteboardShape {
 
     whiteboard.canvas.renderAll();
     // ioAdapter.mustSend([{ wb: { ac: 'm', x: pointer.x, y: pointer.y }, cf: 'wb' }]);
-    // virtualclass.wbUtil.sendOptimizeData({ wb: [{ ac: 'm', x: pointer.x, y: pointer.y }], cf: 'wb' });
+    // virtualclass.wbUtil.sendWhiteboardData({ wb: [{ ac: 'm', x: pointer.x, y: pointer.y }], cf: 'wb' });
     myWhiteboardData++;
     console.log('====> create whiteboard ===MOVE===', myWhiteboardData);
   }
@@ -261,6 +279,7 @@ class Whiteboard {
 
   handlerMouseUp(o) {
     if (this.selectedTool && this.selectedTool !== 'freeDrawing') this[`${this.selectedTool}Obj`].mouseUp(o, this);
+    this.mousedown = false;
   }
 
   toolbarHandler(ev) {
@@ -268,7 +287,7 @@ class Whiteboard {
     const currentTool = ev.currentTarget.parentNode.dataset.tool;
     this.selectedTool = currentTool;
     // ioAdapter.mustSend({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
-    virtualclass.wbUtil.sendOptimizeData({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
+    virtualclass.wbUtil.sendWhiteboardData({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
     if (this.selectedTool !== 'rectangle' && this.selectedTool !== 'oval' && this.selectedTool !== 'triangle') {
       this[currentTool]();
     }

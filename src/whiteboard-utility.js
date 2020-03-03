@@ -642,6 +642,7 @@
         }
       },
 
+      // TODO, not using any more
       replayFromLocalStroage(allRepObjs, wid) {
         if (typeof (Storage) !== 'undefined') {
           virtualclass.wb[wid].utility.clearAll(false, wid);

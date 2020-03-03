@@ -1,3 +1,4 @@
+let myCount = 0;
 class WhiteboardReplay {
   init(wid) {
     this.objs = virtualclass.wb[wid].vcanMainReplayObjs;
@@ -16,6 +17,7 @@ class WhiteboardReplay {
 }
 
 class WhiteboardUtility {
+  // earlier it waas drawInWhiteboards
   applyCommand(data, wid) {
     // for (let i = 0; i < data.length; i += 1) {
     //   if (Object.prototype.hasOwnProperty.call(data[i], 'cmd')) {
@@ -92,6 +94,49 @@ class WhiteboardUtility {
       ioAdapter.mustSend(data);
     }
   }
+
+  createFabricNewInstance(wId) {
+    if (virtualclass.wb[wId].canvas && virtualclass.wb[wId].canvas.lowerCanvasEl) {
+      virtualclass.wb[wId].canvas.dispose();
+    }
+    virtualclass.wb[wId].canvas = new fabric.Canvas(`canvas${wId}`, { selection: false });
+    virtualclass.wb[wId].attachMouseMovementHandlers();
+    this.createCanvasPdfInstance(wId, virtualclass.wb[wId].canvas.upperCanvasEl);
+  }
+
+  createCanvasPdfInstance(wId, mainCanvas) {
+    const canvasPdf = document.createElement('canvas');
+    canvasPdf.id = `canvas${wId}_pdf`;
+    canvasPdf.className = 'pdfs';
+    canvasPdf.width = mainCanvas.width;
+    canvasPdf.height = mainCanvas.height;
+
+    mainCanvas.parentNode.insertBefore(canvasPdf, mainCanvas);
+    // virtualclass.vutil.insertAfter(canvasPdf, mainCanvas);
+  }
+
+  replayFromLocalStroage(allRepObjs, wid) {
+    if (typeof (Storage) !== 'undefined') {
+      virtualclass.wb[wid].gObj.tempRepObjs = allRepObjs;
+      if (allRepObjs.length > 0) {
+        this.applyCommand(allRepObjs, wid);
+      }
+
+      if (roles.hasControls()) {
+        const fontTool = document.querySelector(`#t_font${wid}`);
+        const strkTool = document.querySelector(`#t_strk${wid}`);
+        if (virtualclass.wb[wid].tool.cmd === `t_text${wid}`) {
+          if (fontTool.classList.contains('hide')) {
+            fontTool.classList.remove('hide');
+            fontTool.classList.add('show');
+          }
+          strkTool.classList.add('hide');
+        } else if (!fontTool.classList.contains('hide')) {
+          fontTool.classList.add('hide');
+        }
+      }
+    }
+  }
 }
 
 class WhiteboardShape {
@@ -108,6 +153,7 @@ class WhiteboardShape {
       strokeWidth: 2,
     };
   }
+
   mouseDown(event, whiteboard) {
     const pointer = whiteboard.canvas.getPointer(event);
     this.innerMouseDown(pointer, whiteboard);
@@ -127,6 +173,9 @@ class WhiteboardShape {
     const toolName = virtualclass.wbWrapper.keyMap[this.name];
     this[this.name] = new fabric[toolName](this.coreObj);
     whiteboard.canvas.add(this[this.name]);
+    myCount++;
+    console.log('====> create whiteboard ', myCount);
+    console.log('==== coordination down x, y ', pointer.x, pointer.y);
   }
 
   mouseMove() {
@@ -148,6 +197,8 @@ class WhiteboardShape {
   innerMouseUp() {
     this.mousedown = false;
     this[this.name].setCoords();
+    myCount++;
+    console.log('====> create whiteboard ', myCount);
   }
 }
 
@@ -174,6 +225,7 @@ class WhiteboardRectangle extends WhiteboardShape {
     if (timeDifference > 2000) { // Optmize the sending data
       virtualclass.wbWrapper.util.sendWhiteboardData(currentCordination);
       virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime;
+      myCount++;
     }
   }
 
@@ -199,6 +251,7 @@ class WhiteboardRectangle extends WhiteboardShape {
     }
 
     whiteboard.canvas.renderAll();
+    console.log('====> create whiteboard ', myCount);
   }
 }
 
@@ -207,14 +260,15 @@ class Whiteboard {
     this.canvas = null;
     this.selectedTool = null;
     this.rectangleObj = new WhiteboardRectangle('rectangle');
+    this.gObj = {};
   }
 
   init(id) {
     this.wbId = id;
     this.attachToolbarHandler(id);
     console.log('====> canvas id ', `canvas${id}`);
-    this.canvas = new fabric.Canvas(`canvas${id}`, { selection: false });
-    this.attachMouseMovementHandlers();
+    virtualclass.wbWrapper.util.createFabricNewInstance(id);
+    // this.attachMouseMovementHandlers();
   }
 
   attachToolbarHandler(id) {

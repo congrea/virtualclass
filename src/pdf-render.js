@@ -356,8 +356,10 @@
         }
       },
 
+      // TODO, this should be moved into whiteboard code
       setDefaultCanvasWidth(wb, canvas) {
-        if (wb === '_doc_0_0' && (canvas.parentNode.offsetWidth === 0 || canvas.parentNode.offsetWidth === 300)) {
+        if (wb === '_doc_0_0' && (canvas.parentNode.parentNode.offsetWidth === 0
+          || canvas.parentNode.parentNode.offsetWidth === 300)) {
           let canvasContainer;
           if (virtualclass.currApp === 'Whiteboard') {
             canvasContainer = document.querySelector('#virtualclassWhiteboard.canvasContainer.current');
@@ -367,8 +369,10 @@
             canvasContainer = document.querySelector('#virtualclassAppContainer');
           }
           canvas.width = canvasContainer.offsetWidth - 6;
+          virtualclass.wbWrapper.util.createFabricNewInstance(wb);
         } else {
-          canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
+          canvas.width = canvas.parentNode.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
+          virtualclass.wbWrapper.util.createFabricNewInstance(wb);
         }
       },
 
@@ -411,7 +415,7 @@
             wb = page.wbId;
           }
 
-          const { canvas } = virtualclass.wb[wb].vcan.main;
+          const canvas = virtualclass.wb[wb].canvas.lowerCanvasEl;
           let viewport;
           if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'diffrentDocumentWidth')) {
             canvas.width = virtualclass.zoom.diffrentDocumentWidth;
@@ -473,6 +477,7 @@
           virtualclass.zoom.canvasDimension = {};
           virtualclass.zoom.canvasDimension.width = canvas.width;
           virtualclass.zoom.canvasDimension.height = canvas.height;
+          virtualclass.wbWrapper.util.createFabricNewInstance(wb);
 
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
             const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
@@ -539,7 +544,7 @@
       async initWhiteboardData(wb) {
         if (typeof virtualclass.gObj.wbData[wb] === 'object' && virtualclass.gObj.wbData[wb]
           && virtualclass.gObj.wbData[wb].length > 0) {
-          virtualclass.wb[wb].utility.replayFromLocalStroage(virtualclass.gObj.wbData[wb], wb);
+          virtualclass.wbWrapper.util.replayFromLocalStroage(virtualclass.gObj.wbData[wb], wb);
         }
       },
 

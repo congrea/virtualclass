@@ -1584,7 +1584,7 @@ this["JST"]["dest_temp/templates/whiteboard/main.hbs"] = Handlebars.template({"1
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"canvasWrapper\"><canvas id=\"canvas"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" tabindex=\"0\" width=\"900\", height=\"900\"> "
+    + "\" tabindex=\"0\"> "
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"canvasmissing",{"name":"getString","hash":{},"data":data}))
     + " </canvas></div></div></div>";
 },"usePartial":true,"useData":true});

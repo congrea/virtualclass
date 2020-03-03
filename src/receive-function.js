@@ -255,7 +255,7 @@ const receiveFunctions = new function () {
     if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
       && e.fromUser.role === 't') {
       // virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.wb, virtualclass.gObj.currWb);
-      virtualclass.wbUtil.applyCommand(e.message.wb, virtualclass.gObj.currWb);
+      virtualclass.wbWrapper.util.applyCommand(e.message.wb, virtualclass.gObj.currWb);
     }
     // virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
     virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);

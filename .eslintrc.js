@@ -46,10 +46,14 @@ module.exports = {
     sdworker: 'writable',
     sworker: 'writable',
     chatContainerEvent: 'writable',
-    OrderedList: 'writeable',
-    receiveFunctions: 'writeable',
-    firebase: 'writeable',
-    AskQuestion: 'writeable'
+    OrderedList: 'writable',
+    receiveFunctions: 'writable',
+    firebase: 'writable',
+    AskQuestion: 'writable',
+    WhiteboardReplay: 'writable',
+    WhiteboardUtility: 'writable',
+    WhiteboardReplay: 'writable',
+    WhiteboardWrapper: 'writable',
   },
   parserOptions: {
     ecmaVersion: 2017,

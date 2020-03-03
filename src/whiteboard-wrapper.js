@@ -1,10 +1,25 @@
 class WhiteboardWrapper {
   constructor() {
-    this.canvas = null;
-    this.selectedTool = null;
+    this.gObj = null;
+    this.keyMap = {
+      triangle: 'Triangle',
+      oval: 'Circle',
+      rectangle: 'Rect',
+      line: 'Line',
+      text: 'Text',
+      d: 'innerMouseDown',
+      m: 'innerMouseMove',
+      u: 'innerMouseUp',
+    };
   }
 
   init(id, app) {
+    this.createWhiteboardContainerHtml(id, app);
+    this.replay = new WhiteboardReplay();
+    this.util = new WhiteboardUtility();
+  }
+
+  createWhiteboardContainerHtml(id, app) {
     let whiteboardContainer;
     let wbHtml;
     const wbTemplate = virtualclass.getTemplate('main', 'whiteboard');

@@ -189,8 +189,8 @@ let globalImageData = {};
           if (typeof vtype !== 'undefined') {
             virtualclass.recorder.recImgPlay = true;
           }
-          var stool = 'ScreenShare';
-          virtualclass.makeAppReady({app: stool});
+          const shtool = 'ScreenShare';
+          virtualclass.makeAppReady({ app: shtool });
 
         } else {
           if (virtualclass.currApp !== 'ScreenShare') {

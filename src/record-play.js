@@ -825,6 +825,7 @@
     },
 
     handleSyncStringPacket() {
+      let quizElapsedTime;
       if (virtualclass.currApp === 'Poll' && typeof virtualclass.poll.pollState.data === 'object'
         && Object.prototype.hasOwnProperty.call(virtualclass.poll, 'recordStartTime')) {
         const pollStartTime = this.getTotalTimeInMilSeconds(virtualclass.poll.recordStartTime.data.masterIndex, virtualclass.poll.recordStartTime.data.subIndex);
@@ -863,10 +864,10 @@
         const quizStartTime = this.getTotalTimeInMilSeconds(virtualclass.quiz.quizStartTime.data.masterIndex, virtualclass.quiz.quizStartTime.data.subIndex);
         if (+(virtualclass.quiz.plugin.config.quizTime) > 0) {
           const quizTimeInMiliSeconds = virtualclass.quiz.plugin.config.quizTime * 1000;
-          var quizElapsedTime = (quizTimeInMiliSeconds - (this.elapsedPlayTime - quizStartTime));
+          quizElapsedTime = (quizTimeInMiliSeconds - (this.elapsedPlayTime - quizStartTime));
           virtualclass.quiz.plugin.method.startTimer(quizElapsedTime / 1000, timeDisplayInto, 'desc', 'vmQuiz');
         } else {
-          var quizElapsedTime = (this.elapsedPlayTime - quizStartTime) / 1000;
+          quizElapsedTime = (this.elapsedPlayTime - quizStartTime) / 1000;
           virtualclass.quiz.plugin.method.startTimer(quizElapsedTime, timeDisplayInto, 'asc', 'vmQuiz');
         }
       }

@@ -380,17 +380,16 @@
       },
 
       async _editTitle(id, title, videotype) {
-        var form_data = new FormData();
+        const formData = new FormData();
         const data = {
           lc_content_id: id, action: 'edit', title, user: virtualclass.gObj.uid,
         };
-        var form_data = new FormData();
         for (const key in data) {
-          form_data.append(key, data[key]);
+          formData.append(key, data[key]);
           // console.log(data[key]);
         }
 
-        await this.vxhr.post(`${window.webapi}&user=${virtualclass.gObj.uid}&methodname=update_content_video`, form_data)
+        await this.vxhr.post(`${window.webapi}&user=${virtualclass.gObj.uid}&methodname=update_content_video`, formData)
           .then((response) => {
             const elem = document.getElementById(`videoTitle${id}`);
             if (elem) {
@@ -811,7 +810,7 @@
             if (!virtualclass.serverData.rawData.video.length) {
               virtualclass.vutil.removeFinishBtn();
             } else if (virtualclass.serverData.rawData.video.length === 1) {
-              var video = document.querySelector('.congrea #listvideo .linkvideo');
+              const video = document.querySelector('.congrea #listvideo .linkvideo');
               if (video) {
                 video.classList.add('singleVideo');
               }
@@ -1210,10 +1209,10 @@
           const upload = document.querySelector('.congrea #newVideoBtn');
           if (upload) {
             upload.addEventListener('click', () => {
-              var uploader = document.querySelector('.congrea #congreavideoContBody');
-              uploader.style.display = 'block';
-              var uploader = document.querySelector('.congrea #listvideo');
-              uploader.style.display = 'none';
+              const uploaderVideoCont = document.querySelector('.congrea #congreavideoContBody');
+              uploaderVideoCont.style.display = 'block';
+              const uploaderListvideo = document.querySelector('.congrea #listvideo');
+              uploaderListvideo.style.display = 'none';
             });
           }
         },

@@ -499,10 +499,8 @@ class UserInteractivityBasicOperation {
         return;
       }
     } else {
-      if (changeElemName) {
-        if (changeElemName.innerHTML === 'Mark As Answer') {
-          changeElemName.innerHTML = 'Unmark';
-        }
+      if (changeElemName && changeElemName.innerHTML === 'Mark As Answer') {
+        changeElemName.innerHTML = 'Unmark';
       }
     }
     const markElem = document.querySelector(`#${data.componentId}`);
@@ -513,11 +511,9 @@ class UserInteractivityBasicOperation {
         markedAnswer.classList.remove('open');
         markedAnswer.classList.add('close');
       }
-      if (commentElem) {
-        if (commentElem.classList.contains('open')) {
-          commentElem.classList.remove('open');
-          commentElem.classList.add('close');
-        }
+      if (commentElem && commentElem.classList.contains('open')) {
+        commentElem.classList.remove('open');
+        commentElem.classList.add('close');
       }
       // this.navigationHandler(data, 'Unmark');
       markedAnswer.insertBefore(markElem, markedAnswer.firstChild);

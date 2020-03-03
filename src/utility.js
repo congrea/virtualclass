@@ -252,12 +252,13 @@
     },
 
     Fullscreen() {
+      let elem;
       /** Making virtualclassCont is fullScreen, displays the background is black on virtualclassCont **/
       // const elem = document.getElementById('virtualclassCont');
       if (event.target.id == "askFullscreen") {
-        var elem = document.getElementById('virtualclassAppRightPanel');
+        elem = document.getElementById('virtualclassAppRightPanel');
       } else {
-        var elem = document.documentElement;
+        elem = document.documentElement;
       }
 
       if (elem.requestFullscreen) {
@@ -273,12 +274,13 @@
     },
 
     closeFullscreen() {
+      let elem;
       // const elem = document.getElementById('virtualclassCont');
       if (event.target.id == "askExitFullscreen") {
-        var elem = document.getElementById('virtualclassAppRightPanel');
+        elem = document.getElementById('virtualclassAppRightPanel');
         virtualclass.gObj.ignoreFullScreen = true;
       } else {
-        var elem = document.documentElement;
+        elem = document.documentElement;
       }
       if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -293,7 +295,7 @@
     },
 
     closedRightbar() {
-      var elem = document.getElementById("virtualclassApp");
+      const elem = document.getElementById("virtualclassApp");
       elem.classList.remove("openRightbar");
       elem.classList.add("collapsedRightbar");
       chat_div.classList.add("collapsedRightbar");
@@ -310,7 +312,7 @@
 
     openRightbar() {
       localStorage.removeItem('hideRightbar');
-      var elem = document.getElementById("virtualclassApp");
+      const elem = document.getElementById("virtualclassApp");
       localStorage.setItem('hideRightbar',false);
       virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
       elem.classList.remove("collapsedRightbar");
@@ -432,23 +434,23 @@
         ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
       }
 
-      if (virtualclass.currApp === 'DocumentShare') {
-        if (!roles.hasControls()) {
-          const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
-          const action = rhElem.getAttribute('data-action');
-          if (action === 'disable') {
-            const toUser = virtualclass.vutil.whoIsTeacher();
-            ioAdapter.sendUser({
-              data: {
-                user: wbUser.id,
-                action,
-              },
-              cf: 'raiseHand',
-            }, toUser);
-          }
-        }
-        io.disconnect();
-      }
+      // if (virtualclass.currApp === 'DocumentShare') {
+      //   if (!roles.hasControls()) {
+      //     const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
+      //     const action = rhElem.getAttribute('data-action');
+      //     if (action === 'disable') {
+      //       const toUser = virtualclass.vutil.whoIsTeacher();
+      //       ioAdapter.sendUser({
+      //         data: {
+      //           user: wbUser.id,
+      //           action,
+      //         },
+      //         cf: 'raiseHand',
+      //       }, toUser);
+      //     }
+      //   }
+      //   io.disconnect();
+      // }
 
       if (virtualclass.userInteractivity.rendererObj.noteEvent) {
         console.log('====> send note on page load');
@@ -837,7 +839,7 @@
     createDiv(toolId, text, cmdToolsWrapper, cmdClass) {
       // console.log('class name ' + text);
       const toolName = text;
-      var text = virtualclass.lang.getString(text);
+      const str = virtualclass.lang.getString(text);
       const ancTag = document.createElement('a');
       ancTag.href = '#';
 
@@ -852,7 +854,7 @@
       const iconButton = document.createElement('span');
       iconButton.className = `icon-${toolName}`;
       ancTag.appendChild(iconButton);
-      ancTag.dataset.title = text;
+      ancTag.dataset.title = str;
       ancTag.className = 'tooltip';
 
       lDiv.appendChild(ancTag);
@@ -1381,13 +1383,14 @@
 
     async xhrSendWithForm(data, methodname) {
       const form_data = new FormData();
+      let path;
       for (const key in data) {
         form_data.append(key, data[key]);
       }
       if (typeof methodname === 'undefined') {
-        var path = window.webapi;
+        path = window.webapi;
       } else {
-        var path = `${window.webapi}&methodname=${methodname}&user=${virtualclass.gObj.uid}`;
+        path = `${window.webapi}&methodname=${methodname}&user=${virtualclass.gObj.uid}`;
       }
 
       return await this.vxhr.post(path, form_data);
@@ -1412,9 +1415,10 @@
     // removejquery
     setChatHeight(height) {
       return;
-      var height = height - 40;
+      let chatHeight;
+      chatHeight = height - 40;
       if (virtualclass.isPlayMode) {
-        var height = height + 64;
+        chatHeight = height + 64;
       }
       $('#chat_div').height(height);
     },
@@ -1566,6 +1570,7 @@
 
     videoHandler(action, notSend) {
       let video;
+      let tooltip;
       const sw = document.querySelector('.congrea .videoSwitchCont #videoSwitch');
       // Action on means video is On or off means video is off
 
@@ -1574,7 +1579,7 @@
         sw.classList.add('on');
 
         video = 'on';
-        var tooltip = document.querySelector('.videoSwitchCont');
+        tooltip = document.querySelector('.videoSwitchCont');
         tooltip.dataset.title = 'Video off';
         if (roles.hasControls()) {
           virtualclass.videoHost.gObj.videoSwitch = 1;
@@ -1612,7 +1617,7 @@
         sw.classList.add('off');
         // virtualclass.videoHost.gObj.videoSwitch = 0;
         video = 'off';
-        var tooltip = document.querySelector('.videoSwitchCont');
+        tooltip = document.querySelector('.videoSwitchCont');
         tooltip.dataset.title = 'Video on';
         if (virtualclass.videoHost) {
           if (roles.hasControls()) {
@@ -1674,13 +1679,13 @@
     },
 
     setWidth(wbId, canvas, width) {
-      var canvas = document.querySelector(`#canvas${wbId}`);
-      canvas.width = width;
+      const canvasElem = document.querySelector(`#canvas${wbId}`);
+      canvasElem.width = width;
     },
 
     setHeight(wbId, canvas, height) {
-      var canvas = document.querySelector(`#canvas${wbId}`);
-      canvas.height = height;
+      const canvasElem = document.querySelector(`#canvas${wbId}`);
+      canvasElem.height = height;
       // virtualclass.wb[wbId].vcan.renderAll();
     },
 
@@ -1702,19 +1707,21 @@
 
 
     getElemM(wrapper, type) {
+      let res;
       if (type === 'Y') {
-        var res = document.querySelector(`#${wrapper}`).offsetHeight;
+        res = document.querySelector(`#${wrapper}`).offsetHeight;
       } else if (type === 'X') {
-        var res = document.querySelector(`#${wrapper}`).offsetWidth;
+        res = document.querySelector(`#${wrapper}`).offsetWidth;
       }
       return this.getValueWithoutPixel(res);
     },
 
     getElemM2(wrapper, type) {
+      let res;
       if (type === 'Y') {
-        var res = document.querySelector(`#${wrapper}`).offsetHeight;
+        res = document.querySelector(`#${wrapper}`).offsetHeight;
       } else if (type === 'X') {
-        var res = document.querySelector(`#${wrapper}`).offsetWidth;
+        res = document.querySelector(`#${wrapper}`).offsetWidth;
       }
       return this.getValueWithoutPixel(res);
     },
@@ -1887,12 +1894,14 @@
 
 
     initAcitveElement() {
+      let activeElem;
+      let deactiveElem;
       if (virtualclass.currApp === 'Video') {
-        var activeElem = '#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
-        var deactiveElem = '#listvideo';
+        activeElem = '#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+        deactiveElem = '#listvideo';
       } else if (virtualclass.currApp === 'DocumentShare') {
-        var activeElem = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
-        var deactiveElem = '#listdocs';
+        activeElem = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+        deactiveElem = '#listdocs';
       }
 
       const elem = document.querySelector(`#${virtualclass.currApp}Dashboard`);
@@ -1929,8 +1938,8 @@
     },
 
     isDashboardOpened(navButton) {
-      var navButton = document.querySelector('#dashboardnav button');
-      return (navButton != null && navButton.classList.contains('clicked'));
+      const navButtonElem = document.querySelector('#dashboardnav button');
+      return (navButtonElem != null && navButtonElem.classList.contains('clicked'));
     },
 
     stopConnection() {

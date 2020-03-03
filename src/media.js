@@ -337,8 +337,9 @@
          * @param  audStatus audio status such sending , notsending or stop
          */
         setAudioStatus(audStatus) {
+          let silenceDetectElem;
           if (typeof silenceDetectElem === 'undefined') {
-            var silenceDetectElem = document.getElementById('audioWidget').getElementsByClassName(this.sdElem)[0];
+            silenceDetectElem = document.getElementById('audioWidget').getElementsByClassName(this.sdElem)[0];
           }
           silenceDetectElem.setAttribute('data-silence-detect', audStatus);
         },
@@ -781,12 +782,12 @@
               const output = event.outputBuffer.getChannelData(0);
               const newAud = that.getMergedAudio();
               if (newAud !== null && newAud !== undefined) {
-                for (var i = 0; i < newAud.length; i++) {
+                for (let i = 0; i < newAud.length; i++) {
                   output[i] = newAud[i];
                 }
                 snNodePak = newAud[4095];
               } else {
-                for (var i = 0; i < output.length; i++) {
+                for (let i = 0; i < output.length; i++) {
                   output[i] = snNodePak;
                 }
               }
@@ -1231,6 +1232,8 @@
           }
           const cvideo = this;
           let frame;
+          let sendimage;
+          let vidType;
           randomTime = Math.floor(Math.random() * (8000 - 3000 + 1) + 3000); // Random number between 3000 & 8000
           let totalMembers = -1;
           const that = this;
@@ -1250,20 +1253,20 @@
               user.role = virtualclass.gObj.uRole;
             }
 
-            var d = { x: 0, y: 0 };
+            // const d = { x: 0, y: 0 };
             // you increase the the value, increase the quality
             // 0.4 and 9 need 400 to 500 kb/persecond
             if (virtualclass.system.webpSupport) {
-              var sendimage = cvideo.tempVid.toDataURL('image/webp', 0.6);
-              var vidType = 1;
+              sendimage = cvideo.tempVid.toDataURL('image/webp', 0.6);
+              vidType = 1;
             } else {
-              var sendimage = cvideo.tempVid.toDataURL('image/jpeg', 0.3);
-              var vidType = 0;
+              sendimage = cvideo.tempVid.toDataURL('image/jpeg', 0.3);
+              vidType = 0;
             }
 
             sendimage = virtualclass.videoHost.convertDataURIToBinary(sendimage);
-            if (!virtualclass.videoHost.gObj.stdStopSmallVid && !roles.hasControls()
-              || (roles.hasControls() && virtualclass.videoHost.gObj.videoSwitch)) {
+            if (!virtualclass.videoHost.gObj.stdStopSmallVid && (!roles.hasControls()
+              || (roles.hasControls()) && virtualclass.videoHost.gObj.videoSwitch)) {
               const uid = breakintobytes(virtualclass.gObj.uid, 8);
               const scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3], vidType]);// First parameter represents  the protocol rest for user id
               const sendmsg = new Uint8ClampedArray(sendimage.length + scode.length);
@@ -1274,7 +1277,7 @@
             clearInterval(virtualclass.media.smallVid);
 
             if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
-              var d = randomTime + (virtualclass.connectedUsers.length * 2500);
+              const d = randomTime + (virtualclass.connectedUsers.length * 2500);
               if (totalMembers !== virtualclass.connectedUsers.length) {
                 totalMembers = virtualclass.connectedUsers.length;
                 let p = -1;
@@ -1433,6 +1436,8 @@
          */
 
         process(msg) {
+          let b64encoded;
+          let imgType;
           const data_pack = new Uint8ClampedArray(msg);
           const uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
 
@@ -1443,11 +1448,11 @@
           const recmsg = data_pack.subarray(6, data_pack.length);
 
           if (data_pack[5] === 1) {
-            var b64encoded = `data:image/webp;base64,${btoa(virtualclass.videoHost.Uint8ToString(recmsg))}`;
-            var imgType = 'webp';
+            b64encoded = `data:image/webp;base64,${btoa(virtualclass.videoHost.Uint8ToString(recmsg))}`;
+            imgType = 'webp';
           } else {
-            var b64encoded = `data:image/jpeg;base64,${btoa(virtualclass.videoHost.Uint8ToString(recmsg))}`;
-            var imgType = 'jpeg';
+            b64encoded = `data:image/jpeg;base64,${btoa(virtualclass.videoHost.Uint8ToString(recmsg))}`;
+            imgType = 'jpeg';
           }
 
           virtualclass.media.video.drawReceivedImage(b64encoded, imgType, { x: 0, y: 0 }, uid);
@@ -1455,7 +1460,7 @@
       },
 
       sessionConstraints() {
-        var webcam = !!virtualclass.system.mediaDevices.hasWebcam;
+        let webcam = !!virtualclass.system.mediaDevices.hasWebcam;
 
         /**
          * Reduce the resolution and video frame rate to optimization CPU resource
@@ -1465,9 +1470,9 @@
         if (virtualclass.gObj.meetingMode && webcam) {
           if (virtualclass.system.device === 'mobTab' && virtualclass.system.mybrowser.name === 'iOS'
             || virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'Safari') {
-            var webcam = true;
+            webcam = true;
           } else {
-            var webcam = {
+            webcam = {
               width: { max: 268 },
               height: { max: 142 },
               frameRate: { max: 6 },
@@ -1671,9 +1676,10 @@
         // Fixed it, now need to validate it
         // That userDiv is passing while creating container in displayUserChatList with member Update
         // var userDiv = document.getElementById("ml" + id);
+        let userType;
         userDiv.dataset.role = role;
         if (typeof role !== 'undefined') {
-          var userType = (role === 's') ? 'student' : 'teacher';
+          userType = (role === 's') ? 'student' : 'teacher';
           userDiv.classList.add(userType);
         } else {
           userDiv.classList.add('student');

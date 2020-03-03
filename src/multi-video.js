@@ -148,15 +148,16 @@
     },
 
     updateVideoLength() {
+      let users;
       const allVideos = document.querySelectorAll('#videoConfrence .videoCont');
 
-      var users = 'one';
+      users = 'one';
       if (allVideos.length > 4) {
-        var users = 'morethanfour';
+        users = 'morethanfour';
       } else if (allVideos.length > 2) {
-        var users = 'four';
+        users = 'four';
       } else if (allVideos.length > 1) {
-        var users = 'two';
+        users = 'two';
       }
 
       const virtualclassCont = document.querySelector('#virtualclassCont');

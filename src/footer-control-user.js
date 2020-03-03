@@ -109,6 +109,16 @@
       // TODO this function not in use
       createControlDivs(controlCont, userId, controls) {
         const that = this;
+        let currTeacher;
+        let elems;
+        let controller;
+        let audBlock;
+        let chatBlock;
+        let audEnable;
+        let chEnable;
+        let editorBlockEnable;
+        let rhEnable;
+        let editorBlock;
         // var userObj = localStorage.getItem(userId);
         let uObj = false;
         let userObj = localStorage.getItem(`virtualclass${userId}`);
@@ -119,7 +129,7 @@
             virtualclass.gObj[`${userId}currTeacher`] = {};
             if (userObj.currTeacher === true) {
               virtualclass.user.control.currTeacherAlready = true;
-              var currTeacher = true;
+              currTeacher = true;
               virtualclass.gObj[`${userId}currTeacher`].ct = true;
             } else {
               virtualclass.gObj[`${userId}currTeacher`].ct = false;
@@ -130,7 +140,7 @@
 
         const aRoleEnable = !roles.isEducator();
         const orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
-        const isUserTeacher = virtualclass.vutil.isUserTeacher(userId);
+        // const isUserTeacher = virtualclass.vutil.isUserTeacher(userId);
         // var this should be in normalize in function
         for (let i = 0; i < controls.length; i++) {
           if (controls[i] === 'assign' && orginalTeacher) {
@@ -140,15 +150,15 @@
               this.createAssignControl(controlCont, userId, aRoleEnable);
             }
           } else if (controls[i] === 'audio') {
-            var elems = this.createControllerElement(userId, 'contrAud');
-            var controller = elems[0];
-            var audBlock = elems[1];
+            elems = this.createControllerElement(userId, 'contrAud');
+            controller = elems[0];
+            audBlock = elems[1];
             controlCont.appendChild(controller);
 
             if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'aud')) {
-              var audEnable = !!(userObj.aud);
+              audEnable = !!(userObj.aud);
             } else {
-              var audEnable = true;
+              audEnable = true;
             }
 
             virtualclass.user.control.changeAttribute(userId, audBlock, audEnable, 'audio', 'aud');
@@ -168,10 +178,9 @@
               }
             }
           } else if (controls[i] === 'chat') {
-            var elems = this.createControllerElement(userId, 'contrChat');
-
-            var controller = elems[0];
-            var chatBlock = elems[1];
+            elems = this.createControllerElement(userId, 'contrChat');
+            controller = elems[0];
+            chatBlock = elems[1];
 
             controlCont.appendChild(controller);
 
@@ -182,22 +191,22 @@
             }
 
             if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'chat')) {
-              var chEnable = !!(userObj.chat);
+              chEnable = !!(userObj.chat);
             } else {
-              var chEnable = true;
+              chEnable = true;
             }
             virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'chat');
           } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')) {
             if (roles.hasAdmin()) {
               if (uObj && Object.prototype.hasOwnProperty.call(userObj, controls[i])) {
-                var editorBlockEnable = !!(userObj[controls[i]]);
+                editorBlockEnable = !!(userObj[controls[i]]);
               } else {
-                var editorBlockEnable = false; // By default it would be false
+                editorBlockEnable = false; // By default it would be false
               }
 
-              var elems = this.createControllerElement(userId, `contr${controls[i]}`);
-              var controller = elems[0];
-              const editorBlock = elems[1];
+              elems = this.createControllerElement(userId, `contr${controls[i]}`);
+              controller = elems[0];
+              editorBlock = elems[1];
               controller.className += ` controller${controls[i]}`;
 
               controlCont.appendChild(controller);
@@ -215,9 +224,9 @@
             }
           } else if (controls[i] === 'RaiseHand') {
             if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'raiseHand')) {
-              var rhEnable = !!(userObj.raiseHand);
+              rhEnable = !!(userObj.raiseHand);
             } else {
-              var rhEnable = true;
+              rhEnable = true;
             }
             virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'RaiseHand', 'RaiseHand');
           }
@@ -581,6 +590,7 @@
           const restString = compId.split('contr')[1];
           const imgPos = restString.indexOf('Img');
           const control = restString.substring(0, imgPos);
+          let action;
           // TODO this function should be generalise
           if (control === 'Assign') {
             virtualclass.gObj.controlAssign = true;
@@ -596,7 +606,6 @@
               virtualclass.user.control.removeAudioFromParticipate(userId);
             }
           } else if (control === 'Chat') {
-            var action;
             if (tag.getAttribute('data-chat-disable') === 'true') {
               tag.className = 'contrChatBlock';
               action = 'enable';
@@ -607,7 +616,6 @@
             }
             this.control._chat(userId, action);
           } else if (control === 'Aud') {
-            var action;
             if (tag.getAttribute('data-audio-disable') === 'true') {
               action = 'enable';
               this.control.changeAttribute(userId, tag, true, 'audio', 'aud');
@@ -1006,11 +1014,10 @@
          * @param action show or hidden
          */
         toggleDisplayEditorController(editor, action) {
-          var editor = virtualclass.vutil.smallizeFirstLetter(editor);
-
+          const editorType = virtualclass.vutil.smallizeFirstLetter(editor);
           // var allEditorController = document.getElementsByClassName('controller' + editor);
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'testChatDiv')) {
-            const allEditorController = chatContainerEvent.elementFromShadowDom(`.controller${editor}`, 'all');
+            const allEditorController = chatContainerEvent.elementFromShadowDom(`.controller${editorType}`, 'all');
             for (let i = 0; i < allEditorController.length; i++) {
               allEditorController[i].style.display = action;
             }
@@ -1304,12 +1311,14 @@
       },
 
       initControlHandler(userId) {
-        const orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
+        // const orginalTeacher = virtualclass.vutil.userIsOrginalTeacher(userId);
         // Assign event handler
-        const that = this;
+        // const that = this;
 
         // shadow dom
-
+        let edcEnable;
+        let edEnable;
+        let rhEnable;
         const allSpans = chatContainerEvent.elementFromShadowDom(`#ml${userId} .contImg`, 'all');
 
         let uObj = false;
@@ -1321,7 +1330,7 @@
             virtualclass.gObj[`${userId}currTeacher`] = {};
             if (userObj.currTeacher === true) {
               virtualclass.user.control.currTeacherAlready = true;
-              const currTeacher = true;
+              // const currTeacher = true;
               virtualclass.gObj[`${userId}currTeacher`].ct = true;
             } else {
               virtualclass.gObj[`${userId}currTeacher`].ct = false;
@@ -1392,9 +1401,9 @@
             }
           } else if (allSpans[i].className.indexOf('RaiseHand') > -1) {
             if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'raiseHand')) {
-              var rhEnable = !!(userObj.raiseHand);
+              rhEnable = !!(userObj.raiseHand);
             } else {
-              var rhEnable = false;
+              rhEnable = false;
             }
             virtualclass.user.control.changeAttribute(userId, allSpans[i], rhEnable, 'RaiseHand', 'RaiseHand');
           } else if (allSpans[i].className.indexOf('stdscreen') > -1) {
@@ -1402,18 +1411,18 @@
               virtualclass.vutil.initssSharing(virtualclass.gObj.whoIsSharing);
             }
           } else if (allSpans[i].className.indexOf('editorRich') > -1 && virtualclass.currApp === 'EditorRich') {
-            const elem = document.querySelector('#alleditorRichContainerAnch');
+            // const elem = document.querySelector('#alleditorRichContainerAnch');
             if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'editorRich')) {
-              var edEnable = !!(userObj.editorRich);
+              edEnable = !!(userObj.editorRich);
             } else {
-              var edEnable = false;
+              edEnable = false;
             }
             virtualclass.user.control.changeAttribute(userId, allSpans[i], edEnable, 'editorRich', 'editorRich');
           } else if (allSpans[i].className.indexOf('editorCode') > -1) {
             if (uObj && Object.prototype.hasOwnProperty.call(userObj, 'editorCode')) {
-              var edcEnable = !!(userObj.editorCode);
+              edcEnable = !!(userObj.editorCode);
             } else {
-              var edcEnable = false;
+              edcEnable = false;
             }
             virtualclass.user.control.changeAttribute(userId, allSpans[i], edcEnable, 'editorCode', 'editorCode');
           }

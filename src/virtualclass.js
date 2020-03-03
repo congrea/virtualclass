@@ -347,7 +347,7 @@
         // }
         // nirmala
         // var precheckBtn = document.getElementsByClassName('pre-check-btn');
-        var precheck = document.getElementById('precheckBtn');
+        const precheck = document.getElementById('precheckBtn');
         precheck.addEventListener('click', () => {
           virtualclass.gObj.precheckScrn = true;
           virtualclass.precheck.init(virtualclass.precheck);
@@ -392,12 +392,12 @@
           askfullScreenExitBtn.addEventListener('click', virtualclass.vutil.closeFullscreen);
         }
 
-        var chat_div = document.getElementById("chat_div");
-        var rightSidebarBtn = document.getElementById("sidebarButton");
+        const chat_div = document.getElementById("chat_div");
+        const rightSidebarBtn = document.getElementById("sidebarButton");
 
         if(rightSidebarBtn != null) {
           rightSidebarBtn.addEventListener('click', function () {
-            var elem = document.getElementById("virtualclassApp");
+            const elem = document.getElementById('virtualclassApp');
             if (elem.classList.contains('openRightbar')) {
               elem.classList.remove("openRightbar");
               elem.classList.add("collapsedRightbar");
@@ -443,7 +443,7 @@
           });
         }
 
-        var virtualclassApp = document.getElementById("virtualclassApp");
+        const virtualclassApp = document.getElementById("virtualclassApp");
         if (virtualclass.gObj.hideRightbar) {
           virtualclassApp.classList.remove("openRightbar");
           virtualclassApp.classList.add("collapsedRightbar");
@@ -590,7 +590,7 @@
           lDiv.appendChild(ancTag);
 
           if (typeof toBeReplace !== 'undefined') {
-            var toBeReplace = document.getElementById('virtualclassScreenShareTool');
+            const toBeReplace = document.getElementById('virtualclassScreenShareTool');
             cmdToolsWrapper.replaceChild(lDiv, toBeReplace);
           } else {
             cmdToolsWrapper.appendChild(lDiv);
@@ -1337,12 +1337,13 @@
       },
 
       attachFunction() {
+        let that;
         const allAppOptions = document.getElementsByClassName('appOptions');
         for (let i = 0; i < allAppOptions.length; i++) {
           const anchTag = allAppOptions[i].getElementsByTagName('a')[0];
           // DON'T attach editor code tool
           if (allAppOptions[i].id !== 'virtualclassEditorCodeTool') {
-            var that = this;
+            that = this;
             anchTag.onclick = function () {
               // console.log('==== DST init click');
               that.initlizer(this);
@@ -1533,10 +1534,11 @@
        *  submodule expects the sub folder
        */
       getTemplate(name, submodule) {
+        let template;
         if (typeof submodule === 'undefined') {
-          var template = JST[`${virtualclass.gObj.tempPrefix}/${name}.hbs`];
+          template = JST[`${virtualclass.gObj.tempPrefix}/${name}.hbs`];
         } else {
-          var template = JST[`${virtualclass.gObj.tempPrefix}/${submodule}/${name}.hbs`];
+          template = JST[`${virtualclass.gObj.tempPrefix}/${submodule}/${name}.hbs`];
         }
         return template;
       },

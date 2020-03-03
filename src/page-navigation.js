@@ -78,13 +78,13 @@
    */
   pageIndexNav.prototype.adjustPageNavigation = function (currIndex, dir) {
     if (dir === 'right') {
-      var nodes = document.querySelectorAll('.noteIndex.shw');
+      const nodes = document.querySelectorAll('.noteIndex.shw');
       if (nodes.length) {
         var rl = nodes[nodes.length - 1];
         var shw = parseInt(rl.getAttribute('data-set'));
       }
 
-      for (var i = shw; i < currIndex; i++) {
+      for (let i = shw; i < currIndex; i++) {
         if (virtualclass.currApp === 'DocumentShare') {
           virtualclass.dts.indexNav.UI.setClassPrevNext();
         }
@@ -113,7 +113,7 @@
         var shw = parseInt(nodes.getAttribute('data-set'));
       }
 
-      for (var i = shw; i > currIndex; i--) {
+      for (let i = shw; i > currIndex; i--) {
         if (virtualclass.currApp === 'DocumentShare') {
           virtualclass.dts.indexNav.UI.setClassPrevNext();
         }
@@ -217,17 +217,17 @@
       if (tmpdiv != null) {
         const old = [];
         if (this.oldOrder) {
-          for (var i = 0; i < this.oldOrder.length; i++) {
-            var j = this.oldOrder[i];
+          for (let i = 0; i < this.oldOrder.length; i++) {
+            const j = this.oldOrder[i];
             old[j] = document.getElementById(`index${this.oldOrder[i]}`).className;
           }
         }
 
-        for (var i = 0; i < order.length; i++) {
+        for (let i = 0; i < order.length; i++) {
           const tempElem = document.getElementById(`index${order[i]}`);
           if (this.oldOrder) {
             // move eleement but retain old class
-            var j = this.oldOrder[i];
+            const j = this.oldOrder[i];
             tempElem.className = old[j];
           }
 
@@ -483,11 +483,13 @@
 
     /** Set enable/disable class for previous or next button when required */
     setClassPrevNext() {
+      let prevSlide;
+      let nxtSlide;
       const currNodeId = virtualclass.dts.docs.currNote;
       const currElem = document.querySelector(`#documentScreen #note${currNodeId}`);
       if (currElem != null) {
-        var prevSlide = currElem.previousElementSibling;
-        var nxtSlide = currElem.nextElementSibling;
+        prevSlide = currElem.previousElementSibling;
+        nxtSlide = currElem.nextElementSibling;
       }
       const lna = document.querySelector('#leftNavPage');
       if (lna) {
@@ -501,8 +503,8 @@
     },
 
     pageNavHandler(navType, that) {
-      if (navType === 'right') {
-        var elem = document.querySelector('.noteIndex.hid.right.active');
+      let elem;
+      if (navType === 'right') {elem = document.querySelector('.noteIndex.hid.right.active');
         if (elem) {
           elem.classList.remove('hid');
           elem.classList.remove('right');
@@ -514,14 +516,15 @@
           }
         }
       } else {
-        var elem = document.querySelector('.noteIndex.hid.left.active');
+        let rl;
+        elem = document.querySelector('.noteIndex.hid.left.active');
         if (elem) {
           elem.classList.remove('hid');
           elem.classList.remove('left');
           elem.classList.add('shw');
           const nodes = document.querySelectorAll('.noteIndex.shw');
           if (nodes.length) {
-            var rl = nodes[nodes.length - 1];
+            rl = nodes[nodes.length - 1];
           }
 
           if (rl) {

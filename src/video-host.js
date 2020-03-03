@@ -30,6 +30,7 @@ var videoHost = {
     this.gObj.stdStopSmallVid = false;
     this.domReady = false;
     this.allStdVideoOff = false;
+    let swVideo;
     if (roles.hasAdmin()) {
       this._init();
       // var session = { audio: false, video: { width: width, height: height } };
@@ -67,7 +68,7 @@ var videoHost = {
       }
       rightPanel.classList.add(teacherVideo);
       if (roles.hasControls()) {
-        var swVideo = localStorage.getItem('videoSwitch');
+        swVideo = localStorage.getItem('videoSwitch');
         if (swVideo && swVideo === '0') {
           if (virtualclass.connectedUsers && virtualclass.connectedUsers.length) {
             virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
@@ -77,7 +78,7 @@ var videoHost = {
           virtualclass.videoHost.UI.hideTeacherVideo();
         }
       } else {
-        var swVideo = JSON.parse(localStorage.getItem('stdVideoSwitch'));
+        swVideo = JSON.parse(localStorage.getItem('stdVideoSwitch'));
         if (swVideo) {
           if (virtualclass.connectedUsers && virtualclass.connectedUsers.length) {
             virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
@@ -180,6 +181,7 @@ var videoHost = {
   },
 
   setUserIcon(userid) {
+    let img;
     const isVideo = chatContainerEvent.elementFromShadowDom(`#ml${userid} .user-details a .videoWrapper`);
     if (isVideo) {
       isVideo.parentNode.removeChild(isVideo);
@@ -190,7 +192,7 @@ var videoHost = {
     const imgElem = chatContainerEvent.elementFromShadowDom(`#ml${userid} .user-details a span`) || chatContainerEvent.elementFromShadowDom(`#ml${userid} .user-details a img`);
     if (!imgElem && imgCont != null) {
       if (virtualclass.gObj.chatIconColors[userid] && !virtualclass.gObj.chatIconColors[userid].savedImg) {
-        var img = document.createElement('span');
+        img = document.createElement('span');
         img.innerHTML = virtualclass.gObj.chatIconColors[userid].initial;
         img.style.backgroundColor = virtualclass.gObj.chatIconColors[userid].bgColor;
         img.style.color = virtualclass.gObj.chatIconColors[userid].textColor;
@@ -198,7 +200,7 @@ var videoHost = {
         img.classList.add('chat-img', 'media-object');
         imgCont.appendChild(img);
       } else if (virtualclass.gObj.chatIconColors[userid] && virtualclass.gObj.chatIconColors[userid].savedImg) {
-        var img = document.createElement('img');
+        img = document.createElement('img');
         img.setAttribute('src', virtualclass.gObj.chatIconColors[userid].savedImg);
         img.classList.add('chat-img', 'media-object');
         imgCont.appendChild(img);
@@ -234,12 +236,13 @@ var videoHost = {
   // todo to modify later
   fromLocalStorage() {
     let videoSwitch = '';
+    let stdVideoSwitch;
     if (roles.hasControls()) {
       videoSwitch = localStorage.getItem('videoSwitch');
       localStorage.removeItem('videoSwitch');
     } else {
       const stdSwitch = localStorage.getItem('stdVideoSwitch');
-      var stdVideoSwitch = (stdSwitch != null && (stdSwitch != 'undefined')) ? JSON.parse(stdSwitch) : false;
+      stdVideoSwitch = (stdSwitch != null && (stdSwitch != 'undefined')) ? JSON.parse(stdSwitch) : false;
 
       localStorage.removeItem('stdVideoSwitch');
 

@@ -1,5 +1,5 @@
 /*
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -188,9 +188,9 @@
             if (virtualclass.sharePt.ppts.length) {
               virtualclass.sharePt.ppts.forEach((ppt, index) => {
                 if (ppt.fileuuid === id) {
-                  var index = virtualclass.sharePt.ppts.indexOf(ppt);
-                  if (index >= 0) {
-                    virtualclass.sharePt.ppts.splice(index, 1);
+                  const pptIndex = virtualclass.sharePt.ppts.indexOf(ppt);
+                  if (pptIndex >= 0) {
+                    virtualclass.sharePt.ppts.splice(pptIndex, 1);
                     // console.log(virtualclass.sharePt.ppts);
                   }
                 }
@@ -974,11 +974,12 @@
        * @param hashedUrl url entered by the user
        */
       cleanupUrl(hashedUrl) {
-        const hashPos = hashedUrl.search('#');
+        let url = hashedUrl;
+        const hashPos = url.search('#');
         if (hashPos > 0) {
-          var hashedUrl = hashedUrl.slice(0, hashPos);
+          url = url.slice(0, hashPos);
         }
-        return hashedUrl;
+        return url;
       },
       /*
        * Assign frame's src as the url of the slide
@@ -1154,8 +1155,7 @@
 
 
       attachEvent(id, eventName, handler) {
-        var elem = document.getElementById(id);
-        var elem = document.getElementById(id);
+        const elem = document.getElementById(id);
         if (elem != null) {
           elem.addEventListener(eventName, handler);
         }

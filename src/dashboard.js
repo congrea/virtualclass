@@ -216,6 +216,8 @@ const dashboard = {
     let dashboardNavgation;
     let createElem;
     let cont;
+    let dbHtml;
+    let hidepopup;
     const { currApp } = virtualclass;
     if (document.querySelector('#congdashboard') === null) {
       const dashboardTemp = virtualclass.getTemplate('dashboard');
@@ -264,7 +266,7 @@ const dashboard = {
       const videocont = document.querySelector('#videoPopup');
       if (!videocont) {
         const videoDashboard = virtualclass.getTemplate('popup', 'videoupload');
-        var dbHtml = videoDashboard();
+        dbHtml = videoDashboard();
         const videodb = document.querySelector('#VideoDashboard');
         videodb.insertAdjacentHTML('beforeend', dbHtml);
         // $('#VideoDashboard').append(dbHtml);
@@ -282,7 +284,7 @@ const dashboard = {
       virtualclass.vutil.makeElementActive('#listvideo');
 
       if (currVideo && currVideo.init.videoUrl) {
-        var hidepopup = true;
+        hidepopup = true;
       }
 
       const dashboardnav = document.querySelector('#dashboardnav button');
@@ -292,10 +294,10 @@ const dashboard = {
     } else if (currApp === 'SharePresentation') {
       dashboardNavgation.setAttribute('data-title', virtualclass.lang.getString('SharePresentationdbHeading'));
       if (document.querySelector(`#${currApp}Dashboard`) == null) {
-        const dashboard = document.createElement('div');
+        const dashboardContainer = document.createElement('div');
         const congdashboardModal = document.querySelector('#congdashboard .modal-body');
-        congdashboardModal.appendChild(dashboard);
-        dashboard.id = `${currApp}Dashboard`;
+        congdashboardModal.appendChild(dashboardContainer);
+        dashboardContainer.id = `${currApp}Dashboard`;
       }
       const dashboardnav = document.querySelector('#dashboardnav button');
       if (dashboardnav != null && !virtualclass.vutil.isDashboardOpened()) {

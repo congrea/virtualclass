@@ -122,19 +122,20 @@ class WhiteboardUtility {
         this.applyCommand(allRepObjs, wid);
       }
 
-      if (roles.hasControls()) {
-        const fontTool = document.querySelector(`#t_font${wid}`);
-        const strkTool = document.querySelector(`#t_strk${wid}`);
-        if (virtualclass.wb[wid].tool.cmd === `t_text${wid}`) {
-          if (fontTool.classList.contains('hide')) {
-            fontTool.classList.remove('hide');
-            fontTool.classList.add('show');
-          }
-          strkTool.classList.add('hide');
-        } else if (!fontTool.classList.contains('hide')) {
-          fontTool.classList.add('hide');
-        }
-      }
+      // Todo, this is need to be re-enable
+      // if (roles.hasControls()) {
+      //   const fontTool = document.querySelector(`#t_font${wid}`);
+      //   const strkTool = document.querySelector(`#t_strk${wid}`);
+      //   if (virtualclass.wb[wid].tool.cmd === `t_text${wid}`) {
+      //     if (fontTool.classList.contains('hide')) {
+      //       fontTool.classList.remove('hide');
+      //       fontTool.classList.add('show');
+      //     }
+      //     strkTool.classList.add('hide');
+      //   } else if (!fontTool.classList.contains('hide')) {
+      //     fontTool.classList.add('hide');
+      //   }
+      // }
     }
   }
 }

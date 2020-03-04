@@ -545,3 +545,7 @@ ul.fontSizeList span {
 #virtualclassCont.student .canvas-container .upper-canvas {
   pointer-events: none;
 }
+
+#virtualclassCont .whiteboardContainer .canvas-container {
+  width: 100% !important;
+}

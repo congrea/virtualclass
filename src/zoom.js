@@ -55,7 +55,6 @@
       },
 
       triggerFitToScreen() {
-        return;
         const zoomControler = document.querySelector('#virtualclassAppLeftPanel .zoomControler .fitScreen');
         if (zoomControler != null) {
           if (virtualclass.currApp === 'Whiteboard') {
@@ -86,7 +85,8 @@
         delete virtualclass.zoom.performFitToPage;
         const wid = virtualclass.gObj.currWb;
         if (typeof virtualclass.wb[wid] === 'object') {
-          const { canvas } = virtualclass.wb[wid].vcan.main;
+          // const { canvas } = virtualclass.wb[wid].vcan.main;
+          const canvas = virtualclass.wb[wid].canvas.lowerCanvasEl;
           // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
           const wrapperWidth = canvas.parentNode.offsetWidth;
 
@@ -151,13 +151,13 @@
       },
 
       fitToScreen() {
-        return;
         virtualclass.gObj.fitToScreen = true;
         delete virtualclass.zoom.performFitToPage;
         delete virtualclass.zoom.performZoom;
         const wid = virtualclass.gObj.currWb;
         if (typeof virtualclass.pdfRender[wid] !== 'undefined') {
-          const { canvas } = virtualclass.wb[virtualclass.gObj.currWb].vcan.main;
+          // const { canvas } = virtualclass.wb[virtualclass.gObj.currWb].vcan.main;
+          const canvas = virtualclass.wb[virtualclass.gObj.currWb].canvas.lowerCanvasEl;
           const wrapperWidth = document.querySelector(".canvasWrapper").offsetWidth;
           // console.log(`==== wrapperWidth ${wrapperWidth}`);
           try {

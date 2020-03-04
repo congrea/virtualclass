@@ -47,13 +47,13 @@
             .then(async (response) => {
               await virtualclass.pdfRender[currWhiteBoard].afterPdfLoad(canvas, currWhiteBoard, response.data);
             })
-            .catch((error) => {
-              console.error('Request failed with error ', error);
-              setTimeout(() => {
-              // TODO, this has to be enabled
-                // virtualclass.pdfRender[currWhiteBoard].loadPdf(url, canvas, currWhiteBoard);
-              }, 1000);
-            });
+            // .catch((error) => {
+            //   console.error('Request failed with error ', error);
+            //   setTimeout(() => {
+            //   // TODO, this has to be enabled
+            //     // virtualclass.pdfRender[currWhiteBoard].loadPdf(url, canvas, currWhiteBoard);
+            //   }, 1000);
+            // });
         }
       },
 
@@ -469,14 +469,14 @@
           virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
           virtualclass.zoom.canvasScale = viewport.scale;
           virtualclass.zoom.prvPdfDimension = page.view;
-
-          const pdfCanvas = canvas.nextSibling;
+          const pdfCanvas = document.getElementById(`${canvas.id}_pdf`);
           pdfCanvas.width = canvas.width;
           pdfCanvas.height = canvas.height;
 
           virtualclass.zoom.canvasDimension = {};
           virtualclass.zoom.canvasDimension.width = canvas.width;
           virtualclass.zoom.canvasDimension.height = canvas.height;
+
           virtualclass.wbWrapper.util.createFabricNewInstance(wb);
 
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
@@ -579,7 +579,8 @@
         // console.log("## WHITEBOARD SCALE CALLED", wId);
         if (typeof virtualclass.wb[wId] === 'object') {
           const { vcan } = virtualclass.wb[wId];
-          const objects = vcan.main.children;
+          // const objects = vcan.main.children;
+          const objects = virtualclass.wb[wId].canvas.getObjects();
           if (objects.length > 0) {
             // console.log('====> FIT to screen 3 whiteboard ', wId);
             for (const i in objects) {
@@ -614,15 +615,15 @@
 
 
       zoomwhiteboardObjects(wId) {
-        this.fitWhiteboardAtScale(wId);
+        virtualclass.wbWrapper.util.fitWhiteboardAtScale(wId);
       },
 
       zoomOutWhiteboardObjects(wid) {
         this.fitWhiteboardAtScale(wid);
       },
 
-      fitToScreenWhiteboardObjects(wid) {
-        this.fitWhiteboardAtScale(wid);
+      fitToScreenWhiteboardObjects(wId) {
+        virtualclass.wbWrapper.util.fitWhiteboardAtScale(wId);
       },
 
       normalViewWhiteboardObjects(wid) {

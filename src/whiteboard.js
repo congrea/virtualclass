@@ -138,6 +138,46 @@ class WhiteboardUtility {
       // }
     }
   }
+
+  fitWhiteboardAtScale(wId) {
+    if (typeof virtualclass.wb[wId] === 'object') {
+      // const { vcan } = virtualclass.wb[wId];
+      // const objects = vcan.main.children;
+      // const objects = virtualclass.wb[wId].canvas.getObjects();
+      // if (objects.length > 0) {
+      //   // console.log('====> FIT to screen 3 whiteboard ', wId);
+      //   for (const i in objects) {
+      //     const { scaleX } = objects[i];
+      //     const { scaleY } = objects[i];
+      //
+      //     const left = objects[i].x;
+      //     const top = objects[i].y;
+      //
+      //     const orginalX = left / objects[i].scaleX;
+      //     const orginalY = top / objects[i].scaleY;
+      //
+      //     const tempScaleX = ((scaleX / virtualclass.zoom.prvCanvasScale) * virtualclass.zoom.canvasScale);
+      //     const tempScaleY = ((scaleY / virtualclass.zoom.prvCanvasScale) * virtualclass.zoom.canvasScale);
+      //
+      //     const tempLeft = tempScaleX * orginalX;
+      //     const tempTop = tempScaleY * orginalY;
+      //
+      //     objects[i].scaleX = tempScaleX;
+      //     objects[i].scaleY = tempScaleY;
+      //
+      //     objects[i].x = tempLeft;
+      //     objects[i].y = tempTop;
+      //
+      //     objects[i].setCoords();
+      //     // console.log("## WHITEBOARD scaleX", objects[i].scaleX)
+      //   }
+      // }
+      virtualclass.wb[wId].canvas.setZoom(virtualclass.wb[wId].canvas.getZoom() * virtualclass.gObj.SCALE_FACTOR);
+      // canvas.setHeight(canvas.getHeight() * virtualclass.gObj.SCALE_FACTOR);
+      // canvas.setWidth(canvas.getWidth() * virtualclass.gObj.SCALE_FACTOR);
+      virtualclass.wb[wId].canvas.renderAll();
+    }
+  }
 }
 
 class WhiteboardShape {

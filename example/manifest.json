@@ -3,12 +3,12 @@
     "name": "Udit's Congrea",
     "icons": [
       {
-        "src": "/images/icons-192.png",
+        "src": "https://live.congrea.net/virtualclass/images/maskable_icon.png",
         "type": "image/png",
         "sizes": "192x192"
       },
       {
-        "src": "/images/icons-512.png",
+        "src": "/virtualclass/images/maskable_icon.png",
         "type": "image/png",
         "sizes": "512x512"
       }

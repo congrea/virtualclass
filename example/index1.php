@@ -11,12 +11,13 @@
 <!-- CODELAB: Add iOS meta tags and icons -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Weather PWA">
-<link rel="apple-touch-icon" href="/images/icons/icon-152x152.png">
+<meta name="apple-mobile-web-app-title" content="Congrea">
+<link rel="apple-touch-icon" href="https://cdn.glitch.com/49d34dc6-8fbd-46bb-8221-b99ffd36f1af%2Fapple-touch-icon.png?v=1566861131254">
+<!-- <link rel="apple-touch-icon" href="https://live.congrea.net/virtualclass/images/maskable_icon.png" sizes="180x180"> -->
 <!-- CODELAB: Add description here -->
-<meta name="description" content="A sample weather app">
+<meta name="description" content="Congrea">
 <!-- CODELAB: Add meta theme-color -->
-<meta name="theme-color" content="#2F3BA2" />
+<meta name="theme-color" content="#3367D6" />
 
 <style>
 	@font-face {

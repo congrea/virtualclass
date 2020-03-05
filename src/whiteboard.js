@@ -70,10 +70,15 @@ class WhiteboardUtility {
     }
   }
 
+  // executeWhiteboardData
   executeData(data, wId) {
+    this.storeAtMemory(wId, data);
+    this.replayData([data], wId);
+  }
+
+  storeAtMemory(wId, data) {
     if (!virtualclass.wb[wId].replayObjs) virtualclass.wb[wId].replayObjs = [];
     virtualclass.wb[wId].replayObjs.push(data);
-    this.replayData([data], wId);
   }
 
   replayData(data, wId) {
@@ -92,6 +97,7 @@ class WhiteboardUtility {
   sendWhiteboardData(data) {
     if (roles.hasControls()) {
       ioAdapter.mustSend(data);
+      this.storeAtMemory(virtualclass.gObj.currWb, data);
     }
   }
 
@@ -172,7 +178,7 @@ class WhiteboardUtility {
       //     // console.log("## WHITEBOARD scaleX", objects[i].scaleX)
       //   }
       // }
-      virtualclass.wb[wId].canvas.setZoom(virtualclass.wb[wId].canvas.getZoom() * virtualclass.gObj.SCALE_FACTOR);
+      virtualclass.wb[wId].canvas.setZoom(virtualclass.wb[wId].canvas.getZoom() * virtualclass.zoom.canvasScale);
       // canvas.setHeight(canvas.getHeight() * virtualclass.gObj.SCALE_FACTOR);
       // canvas.setWidth(canvas.getWidth() * virtualclass.gObj.SCALE_FACTOR);
       virtualclass.wb[wId].canvas.renderAll();

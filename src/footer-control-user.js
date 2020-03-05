@@ -1184,7 +1184,7 @@
           action = type;
         }
 
-        if (type = 'askQuestion' || type === 'userlist' || type === 'qaMarkNotes') {
+        if (type === 'askQuestion' || type === 'userlist' || type === 'qaMarkNotes') {
           getMediaAction = virtualclass.settings.info[type];
         } else {
           getMediaAction = virtualclass.settings.info[`student${action}`];

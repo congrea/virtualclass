@@ -72,11 +72,11 @@ class WhiteboardUtility {
 
   // executeWhiteboardData
   executeData(data, wId) {
-    this.storeAtMemory(wId, data);
+    this.storeAtMemory([data], (wId));
     this.replayData([data], wId);
   }
 
-  storeAtMemory(wId, data) {
+  storeAtMemory(data, wId) {
     if (!virtualclass.wb[wId].replayObjs) virtualclass.wb[wId].replayObjs = [];
     virtualclass.wb[wId].replayObjs.push(data);
   }
@@ -97,7 +97,7 @@ class WhiteboardUtility {
   sendWhiteboardData(data) {
     if (roles.hasControls()) {
       ioAdapter.mustSend(data);
-      this.storeAtMemory(virtualclass.gObj.currWb, data);
+      this.storeAtMemory(data.wb, virtualclass.gObj.currWb);
     }
   }
 
@@ -146,41 +146,16 @@ class WhiteboardUtility {
   }
 
   fitWhiteboardAtScale(wId) {
-    if (typeof virtualclass.wb[wId] === 'object') {
-      // const { vcan } = virtualclass.wb[wId];
-      // const objects = vcan.main.children;
-      // const objects = virtualclass.wb[wId].canvas.getObjects();
-      // if (objects.length > 0) {
-      //   // console.log('====> FIT to screen 3 whiteboard ', wId);
-      //   for (const i in objects) {
-      //     const { scaleX } = objects[i];
-      //     const { scaleY } = objects[i];
-      //
-      //     const left = objects[i].x;
-      //     const top = objects[i].y;
-      //
-      //     const orginalX = left / objects[i].scaleX;
-      //     const orginalY = top / objects[i].scaleY;
-      //
-      //     const tempScaleX = ((scaleX / virtualclass.zoom.prvCanvasScale) * virtualclass.zoom.canvasScale);
-      //     const tempScaleY = ((scaleY / virtualclass.zoom.prvCanvasScale) * virtualclass.zoom.canvasScale);
-      //
-      //     const tempLeft = tempScaleX * orginalX;
-      //     const tempTop = tempScaleY * orginalY;
-      //
-      //     objects[i].scaleX = tempScaleX;
-      //     objects[i].scaleY = tempScaleY;
-      //
-      //     objects[i].x = tempLeft;
-      //     objects[i].y = tempTop;
-      //
-      //     objects[i].setCoords();
-      //     // console.log("## WHITEBOARD scaleX", objects[i].scaleX)
-      //   }
-      // }
-      virtualclass.wb[wId].canvas.setZoom(virtualclass.wb[wId].canvas.getZoom() * virtualclass.zoom.canvasScale);
-      // canvas.setHeight(canvas.getHeight() * virtualclass.gObj.SCALE_FACTOR);
-      // canvas.setWidth(canvas.getWidth() * virtualclass.gObj.SCALE_FACTOR);
+    if (typeof virtualclass.wb[wId] === 'object' && virtualclass.wb[wId].replayObjs
+      && virtualclass.wb[wId].replayObjs.length > 0) {
+      const tempArrays = virtualclass.wb[wId].replayObjs;
+      virtualclass.wb[wId].replayObjs = [];
+      virtualclass.wb[wId].canvas.clear();
+      for (let i = 0; i < tempArrays.length; i++) {
+        this.applyCommand(tempArrays[i], wId);
+      }
+      console.log('====> canvas scale ', virtualclass.zoom.canvasScale);
+      virtualclass.wb[wId].canvas.setZoom(virtualclass.zoom.canvasScale);
       virtualclass.wb[wId].canvas.renderAll();
     }
   }

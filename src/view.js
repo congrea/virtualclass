@@ -217,16 +217,16 @@
      * @param classname class webRtc
      */
     multiMediaMsg(className) {
-      let msg;
-      if (virtualclass.system.mybrowser.name === 'Firefox') {
-        msg = virtualclass.lang.getString('wbrtcMsgFireFox');
-        // Todo handle sthis is in better way
-        // this.displayMessage(msg, "fireFoxWebrtcCont", this.msgBoxClass + className);
-      } else if (virtualclass.system.mybrowser.name === 'Chrome') {
-        msg = virtualclass.lang.getString('wbrtcMsgChrome');
-        // Todo handle this is in better way
-        // this.displayMessage(msg, "chormeWebrtcCont", this.msgBoxClass + className);
-      }
+      // let msg;
+      // if (virtualclass.system.mybrowser.name === 'Firefox') {
+      //   msg = virtualclass.lang.getString('wbrtcMsgFireFox');
+      //   Todo handle sthis is in better way
+      //   this.displayMessage(msg, "fireFoxWebrtcCont", this.msgBoxClass + className);
+      // } else if (virtualclass.system.mybrowser.name === 'Chrome') {
+      //   msg = virtualclass.lang.getString('wbrtcMsgChrome');
+      //   Todo handle this is in better way
+      //   this.displayMessage(msg, "chormeWebrtcCont", this.msgBoxClass + className);
+      // }
     },
     /**
      * displaying the message on canvas drawing
@@ -400,7 +400,6 @@
     virtualclass.gObj.inputFocusHandler = setTimeout(() => {
       console.log('===> triger input focus');
       if (!virtualclass.gObj.notHandleInputFocusHandler) {
-
         if (document.getElementById('virtualclassCont').dataset.currwindow === 'normal') {
           // const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
           if (window.innerHeight >= virtualclass.gObj.initHeight) {

@@ -40,7 +40,7 @@ class UserInteractivityBasicOperation {
     let editContent;
     const allContext = virtualclass.userInteractivity;
     if (ev.target.id === 'userInteractivity-content') return;
-    if (ev.target.dataset.event === 'save')  {
+    if (ev.target.dataset.event === 'save') {
       const userInput = document.getElementById('userInteractivity-content');
       if (userInput) { editContent = userInput.value; }
     }
@@ -301,7 +301,7 @@ class UserInteractivityBasicOperation {
     const contextObj = virtualclass.userInteractivity.context;
     const { currentContext } = virtualclass.userInteractivity;
     let component;
-    let parent = null;
+    // let parent = null;
     if (status === 'delete') {
       this.updateCount(data, status);
       // const filterComponent = data.component === 'question' ? 'answer' : 'comment';
@@ -697,6 +697,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
 
   readyContextActual() { // main part
     let contextName;
+    let shareppt;
     switch (virtualclass.currApp) {
       case 'Whiteboard':
       case 'DocumentShare':
@@ -707,7 +708,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
         break;
       case 'SharePresentation':
         contextName = null;
-        const shareppt = virtualclass.sharePt;
+        shareppt = virtualclass.sharePt;
         if (shareppt.currId && shareppt.state) {
           contextName = `sharePt-${shareppt.currId}_${shareppt.state.indexv}_${shareppt.state.indexh}`;
         }

@@ -814,7 +814,7 @@ let globalImageData = {};
           const timeInMiliseconds = date.getTime();
           virtualclass.gObj.screenShareId = `ss_${timeInMiliseconds}`;
           virtualclass.userInteractivity.makeReadyContext();
-          ioAdapter.mustSend({ cf: 'screenShareId', id: virtualclass.gObj.screenShareId});
+          ioAdapter.mustSend({ cf: 'screenShareId', id: virtualclass.gObj.screenShareId });
           that.width = container.width;
           that.height = container.height;
 

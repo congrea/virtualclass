@@ -253,11 +253,11 @@
       }
     },
 
-    Fullscreen() {
+    Fullscreen(event) {
       let elem;
       /* Making virtualclassCont is fullScreen, displays the background is black on virtualclassCont */
       // const elem = document.getElementById('virtualclassCont');
-      if (event.target.id == 'askFullscreen') {
+      if (event.target.id === 'askFullscreen') {
         elem = document.getElementById('virtualclassAppRightPanel');
       } else {
         elem = document.documentElement;
@@ -275,10 +275,10 @@
       elem.classList.add('fullScreenMode');
     },
 
-    closeFullscreen() {
+    closeFullscreen(event) {
       let elem;
       // const elem = document.getElementById('virtualclassCont');
-      if (event.target.id == 'askExitFullscreen') {
+      if (event.target.id === 'askExitFullscreen') {
         elem = document.getElementById('virtualclassAppRightPanel');
         virtualclass.gObj.ignoreFullScreen = true;
       } else {
@@ -301,12 +301,12 @@
       elem.classList.remove('openRightbar');
       elem.classList.add('collapsedRightbar');
       chat_div.classList.add('collapsedRightbar');
-      localStorage.setItem('hideRightbar',true);
+      localStorage.setItem('hideRightbar', true);
       virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
       if (roles.isStudent()) {
         ioAdapter.sendSpeed(3);
       }
-      const rightbarTabs = document.querySelector('#stickycontainer .chatBarTab');
+      // const rightbarTabs = document.querySelector('#stickycontainer .chatBarTab');
       // for(var i =0 ; i < rightbarTabs.children.length ; i++) {
       //   rightbarTabs.children[i].classList.remove("active");
       // }
@@ -315,7 +315,7 @@
     openRightbar() {
       localStorage.removeItem('hideRightbar');
       const elem = document.getElementById('virtualclassApp');
-      localStorage.setItem('hideRightbar',false);
+      localStorage.setItem('hideRightbar', false);
       virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
       elem.classList.remove('collapsedRightba');
       elem.classList.add('openRightbar');

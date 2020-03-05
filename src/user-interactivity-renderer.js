@@ -183,7 +183,7 @@ class UserInteractivityRenderer { // Main Part
         // virtualclass.userInteractivity.navigationHandler(data, 'removeNavigation');
       } else if (data.component === 'comment') {
         const comment = document.querySelector(`#${data.parent} .comments`);
-        if (comment) { comment.insertAdjacentHTML('beforeend', ansTemp); };
+        if (comment) { comment.insertAdjacentHTML('beforeend', ansTemp); }
         // document.querySelector(`#${data.parent} .comments`).insertAdjacentHTML('beforeend', ansTemp);
       }
     }

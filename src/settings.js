@@ -397,7 +397,6 @@
 
     qaMarkNotes(value) {
       // TODO handle on default settings
-      //if (roles.isStudent()) {
       const notesElem = document.querySelector('#virtualclassnote');
       const rightSubContainer = document.getElementById('virtualclassAppRightPanel');
       const bookmarkElem = document.querySelector('#bookmark');
@@ -414,7 +413,6 @@
         bookmarkElem.classList.add('bookmarkDisable');
         rightSubContainer.dataset.qaNote = 'disbale';
       }
-      //}
     },
 
     qaAnswer(value) {

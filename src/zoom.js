@@ -193,8 +193,8 @@
         const canvasDim = virtualclass.zoom.canvasDimension;
         if (virtualclass.pdfRender[wid] && typeof virtualclass.pdfRender[wid].shownPdf === 'object'
           && virtualclass.zoom.canvasScale != null && virtualclass.zoom.canvasDimension) {
-          canvasDim.width = canvasDim.width / virtualclass.gObj.SCALE_FACTOR;
-          canvasDim.height = canvasDim.height / virtualclass.gObj.SCALE_FACTOR;
+          canvasDim.width = virtualclass.zoom.canvasDimension.width / virtualclass.gObj.SCALE_FACTOR;
+          canvasDim.height = virtualclass.zoom.canvasDimension.height / virtualclass.gObj.SCALE_FACTOR;
 
           if (virtualclass.gObj.normalZoomTime) {
             clearTimeout(virtualclass.gObj.normalZoomTime);

@@ -238,7 +238,7 @@ class UserInteractivityEvents { // main Part
         parentId: obj.parent,
         text: undefined,
         action: undefined,
-      }
+      };
       // this.execute(dataMark);
       obj.action = 'markAnswer';
       setTimeout(() => {

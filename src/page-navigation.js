@@ -53,7 +53,7 @@
   pageIndexNav.prototype.setCurrentIndex = function (index) {
     // console.log('==== page, set current index');
     document.querySelector('#currIndex').innerHTML = index;
-  },
+  };
 
   pageIndexNav.prototype.setTotalPages = function (length) {
     const cont = document.querySelector('#docShareNav #totalPages');
@@ -128,7 +128,7 @@
           if (nodes.length) {
             var rl = nodes[nodes.length - 1];
           }
-          if (rl) {
+          if (rl) {AnnotationList
             rl.classList.remove('shw');
             rl.classList.add('hid', 'right');
           }
@@ -162,15 +162,14 @@
         if (virtualclass.currApp === 'Whiteboard') {
           this.UI.setArrowStatus('rightNavPage', 'enable');
         } else if (virtualclass.currApp === 'DocumentShare') {
-          virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'enable', 'disable');
+          virtualclass.dts.indexNav.UI.setArrowStatusDocs(document.getElementById('rightNavPage'), 'enable', 'disable');
         }
       }
     } else if (virtualclass.currApp === 'Whiteboard') {
       this.UI.setArrowStatus('rightNavPage', 'disable');
     } else {
-      virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('rightNavPage'), 'disable', 'enable');
+      virtualclass.dts.indexNav.UI.setArrowStatusDocs(document.getElementById('rightNavPage'), 'disable', 'enable');
     }
-
 
     const leftNavPage = document.querySelector('#leftNavPage.disable');
     const isPrevNode = this.UI.isNodeAvailable('.noteIndex.shw.active', 'prev');
@@ -179,13 +178,13 @@
         if (virtualclass.currApp === 'Whiteboard') {
           this.UI.setArrowStatus('leftNavPage', 'enable');
         } else {
-          virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'enable', 'disable');
+          virtualclass.dts.indexNav.UI.setArrowStatusDocs(document.getElementById('leftNavPage'), 'enable', 'disable');
         }
       }
     } else if (virtualclass.currApp === 'Whiteboard') {
       this.UI.setArrowStatus('leftNavPage', 'disable');
     } else if (virtualclass.currApp === 'DocumentShare') {
-      virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'disable', 'enable');
+      virtualclass.dts.indexNav.UI.setArrowStatusDocs(document.getElementById('leftNavPage'), 'disable', 'enable');
     }
   };
 
@@ -547,12 +546,12 @@
         const currNodeId = virtualclass.dts.docs.currNote;
         const lastElement = virtualclass.orderList['DocumentShare'].ol.order[virtualclass.orderList['DocumentShare'].ol.order.length - 1];
         if (currNodeId === lastElement) {
-          this._setArrowStatusDocs(nr, action, removeClass);
+          this.setArrowStatusDocs(nr, action, removeClass);
         }
       }
     },
 
-    _setArrowStatusDocs(nr, action, removeClass) {
+    setArrowStatusDocs(nr, action, removeClass) {
       nr.classList.add(action);
       nr.classList.remove(removeClass);
     },

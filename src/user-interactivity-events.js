@@ -74,9 +74,10 @@ class UserInteractivityEvents { // main Part
         parent: data.component === 'question' ? null : null,
       });
       virtualclass.userInteractivity[data.action].call(virtualclass.userInteractivity, data);
-    } else {
-      return;
     }
+    // else {
+    //   return;
+    // }
   }
 
   delete(data) {
@@ -114,9 +115,10 @@ class UserInteractivityEvents { // main Part
       }
       console.log('level === ', JSON.stringify(data));
       userInteractive.send(data);
-    } else {
-      return;
     }
+    // else {
+    //   return;
+    // }
   }
 
   upvote(data) {

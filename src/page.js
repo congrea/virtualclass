@@ -143,15 +143,15 @@
    *  formData.append('username', 'Vidyamantra');
    */
   page.prototype.xhrSend = async function (data) {
-    const form_data = new FormData();
+    const formData = new FormData();
     for (const key in data) {
-      form_data.append(key, data[key]);
+      formData.append(key, data[key]);
     }
     const updateContent = '&methodname=update_content';
     const updateContentVideo = '&methodname=update_content_video';
     const method = (virtualclass.currApp !== 'SharePresentation') ? updateContent : updateContentVideo;
     const path = `${window.webapi}&user=${virtualclass.gObj.uid}${method}`;
-    await this.vxhr.post(path, form_data)
+    await this.vxhr.post(path, formData)
       .catch((error) => {
         console.error('Request failed with error ', error);
       });
@@ -206,17 +206,17 @@
 
   page.prototype.disable = function (id) {
     if (this.type === 'notes') {
-      virtualclass.dts._noteDisable(this.rid);
+      virtualclass.dts.noteDisable(this.rid);
     } else {
-      virtualclass[this.module]._disable(this.rid);
+      virtualclass[this.module].disable(this.rid);
     }
   };
 
   page.prototype.enable = function () {
     if (this.type === 'notes') {
-      virtualclass.dts._noteEnable(this.rid);
+      virtualclass.dts.noteEnable(this.rid);
     } else {
-      virtualclass[this.module]._enable(this.rid);
+      virtualclass[this.module].enable(this.rid);
     }
   };
 
@@ -358,7 +358,7 @@
           const dthis = this;
           this.cthis = cthis;
 
-          const id_ = `list${this.cthis.type}`;
+          // const id_ = `list${this.cthis.type}`;
           const listLinks = `link${this.cthis.type}${this.cthis.rid}`;
 
 
@@ -619,9 +619,9 @@
           virtualclass.dashboard.userConfirmation(virtualclass.lang.getString('deletepopup'), (confirmation) => {
             if (confirmation) {
               if (cthis.type === 'notes') {
-                virtualclass[cthis.module]._deleteNote(cthis.rid, cthis.type);
+                virtualclass[cthis.module].deleteNote(cthis.rid, cthis.type);
               } else {
-                virtualclass[cthis.module]._delete(cthis.rid);
+                virtualclass[cthis.module].delete(cthis.rid);
               }
             }
           });
@@ -681,7 +681,7 @@
                     ttext.value = cthis.title;
                   }
                   if (ttext.value) {
-                    virtualclass.videoUl._editTitle(cthis.rid, ttext.value, cthis.videoClass);
+                    virtualclass.videoUl.editTitle(cthis.rid, ttext.value, cthis.videoClass);
                     const cont = document.querySelector(`#virtualclassCont.congrea #titleCont${cthis.rid}`);
                     cont.parentNode.removeChild(cont);
                   }

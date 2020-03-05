@@ -157,7 +157,7 @@
       },
 
 
-      _delete(id) {
+      delete(id) {
         // var form_data = new FormData();
         // var data = {lc_content_id: id, action: 'delete', user: virtualclass.gObj.uid};
         // var form_data = new FormData();
@@ -778,12 +778,12 @@
         titleCont.setAttribute('title', pptObj.URL);
 
         if (Object.prototype.hasOwnProperty.call(pptObj, 'disabled')) {
-          this._disable(pptObj.fileuuid);
+          this.disable(pptObj.fileuuid);
           if (ppt) {
             ppt.classList.add('disable');
           }
         } else {
-          this._enable(pptObj.fileuuid);
+          this.enable(pptObj.fileuuid);
           if (ppt) {
             ppt.classList.add('enable');
           }
@@ -827,7 +827,7 @@
         }
       },
 
-      _disable(_id) {
+      disable(_id) {
         const ppt = document.getElementById(`mainpppt${_id}`);
         ppt.style.opacity = 0.3;
         ppt.style.pointerEvents = 'none';
@@ -852,7 +852,7 @@
       /*
        * to enable  ppt in the pptlist
        */
-      _enable(_id) {
+      enable(_id) {
         const link = document.querySelector(`#linkppt${_id}`);
         if (link.classList.contains('disable')) {
           link.classList.remove('diable');

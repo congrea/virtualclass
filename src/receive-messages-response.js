@@ -65,7 +65,8 @@
           myfunc: virtualclass.wb[wId].utility.triggerCanvasEnable,
           wbId: wId,
         };
-        //         virtualclass.wb[virtualclass.gObj.currWb].toolInit('t_replay', 'fromBrowser', true, virtualclass.wb[virtualclass.gObj.currWb].utility.triggerCanvasEnable);
+        // virtualclass.wb[virtualclass.gObj.currWb].toolInit(
+        // 't_replay', 'fromBrowser', true, virtualclass.wb[virtualclass.gObj.currWb].utility.triggerCanvasEnable);
 
         virtualclass.wb[wId].toolInit(data);
         // virtualclass.wb[virtualclass.gObj.currWb].utility.triggerCanvasEnable();

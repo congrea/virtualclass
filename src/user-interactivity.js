@@ -868,7 +868,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
               this.questionAnswer.addHighLight(data);
               if (virtualclass.isPlayMode) this.buildAllMarksStatus(data);
             }
-          };
+          }
         });
 
         if (this.firstRealTime) {

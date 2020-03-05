@@ -170,7 +170,7 @@
       },
 
       disableCollaborateTool() {
-        console.log("showing enable editor controller");
+        console.log('showing enable editor controller');
         const editorControllerAnch = document.getElementById('alleditorRichContainerAnch');
         editorControllerAnch.dataset.action = 'disable';
         editorControllerAnch.classList.remove('icon-collaboratecrose');
@@ -179,7 +179,7 @@
       },
 
       enableCollaborateTool() {
-        console.log("showing disable editor controller");
+        console.log('showing disable editor controller');
         const editorControllerAnch = document.getElementById('alleditorRichContainerAnch');
         editorControllerAnch.classList.remove('icon-collaborate');
         editorControllerAnch.classList.add('icon-collaboratecrose');

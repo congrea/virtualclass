@@ -193,7 +193,7 @@
       virtualclass.wbCommon.indexNav.init();
       this.init();
       delete virtualclass.ss;
-      virtualclass.ss = "";
+      virtualclass.ss = '';
 
       virtualclass.makeAppReady({ app: 'Whiteboard' });
     },
@@ -269,8 +269,8 @@
         if (!this.alreadyRequested[file]) {
           // console.log(`requested file ${file}`);
           // this.displayWaitPopupIfNot(virtualclass.lang.getString("plswaitwhile"));
-
-          const fileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${virtualclass.recorder.session}/${file}`;
+          const recorderSession = virtualclass.recorder.session;
+          const fileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${recorderSession}/${file}`;
 
           if (virtualclass.gObj.readyToCommunicate !== true) {
             setTimeout(() => {
@@ -283,11 +283,11 @@
               virtualclass.recorder.afterDownloading(file, response.data, xhr);
             })
             .catch((error) => {
-              console.error('Request failed with error ', error);
-              setTimeout(() => {
-                virtualclass.recorder.requestDataFromServer(file, xhr);
-              }, 1000);
-            }
+                console.error('Request failed with error ', error);
+                setTimeout(() => {
+                  virtualclass.recorder.requestDataFromServer(file, xhr);
+                }, 1000);
+              }
             );
 
           // virtualclass.recorder.xhr[file] = new XHR();
@@ -536,7 +536,8 @@
       const allMark = { question: false, note: false, bookmark: false };
 
       if (virtualclass.userInteractivity.allMarks[msg.m.context]) {
-        if (virtualclass.userInteractivity.allMarks[msg.m.context].question && virtualclass.userInteractivity.allMarks[msg.m.context].question.length > 0) {
+        if (virtualclass.userInteractivity.allMarks[msg.m.context].question
+          && virtualclass.userInteractivity.allMarks[msg.m.context].question.length > 0) {
           allMark.question = true;
         }
 
@@ -561,12 +562,17 @@
     },
 
     recordingTotalTime(data, time) { // check if recording turned off or on
+      let trimtime;
+      let totalTimeInMiliSec;
+      let totalRecTime;
       if (data.indexOf('{"ac":11,"cf":"recs"') > -1) {
         this.recordingOff = time;
       } else if (data.indexOf('{"ac":21,"cf":"recs"') > -1) {
         this.recordingOn = time;
-        const trimtime = this.recordingOn - this.recordingOff;
-        this.totalRecordingTime = (!this.totalRecordingTime) ? this.totalTimeInMiliSeconds - trimtime : this.totalRecordingTime - trimtime;
+        trimtime = this.recordingOn - this.recordingOff;
+        totalTimeInMiliSec = this.totalTimeInMiliSeconds - trimtime;
+        totalRecTime = this.totalRecordingTime - trimtime;
+        this.totalRecordingTime = (!this.totalRecordingTime) ? totalTimeInMiliSec : totalRecTime;
         this.recordingOff = 0;
         this.recordingOn = 0;
       }
@@ -641,13 +647,13 @@
 
 
     askToPlay() {
-      const loadingWindow = document.querySelector('#loadingWindowCont .loading');
-      //            loadingWindow.style.display = 'none';
-
-      const askToPlay = document.querySelector('#loadingWindowCont .askToPlay');
+      // const loadingWindow = document.querySelector('#loadingWindowCont .loading');
+      //             loadingWindow.style.display = 'none';
+      //
+      // const askToPlay = document.querySelector('#loadingWindowCont .askToPlay');
       //            askToPlay.style.display = 'block';
-
-      const loadingWindowCont = document.querySelector('#loadingWindowCont');
+      //
+      // const loadingWindowCont = document.querySelector('#loadingWindowCont');
       const ContinueBtn = document.querySelector('.rv-vanilla-modal-overlay.is-shown');
       ContinueBtn.addEventListener('click', this.handleStartToPlay.bind(this));
 
@@ -716,7 +722,8 @@
       // console.log('====> final seek suman 2', this.seekValueInPercentage);
       virtualclass.videoHost.UI.hideTeacherVideo();
       const index = this.getSeekPoint(seekPointPercent);
-      // console.log('Total till play, Index val master index ' + index.master + ' sub index' + index.sub + ' in percent' + seekPointPercent);
+      // console.log('Total till play, Index val master index ' +
+      // index.master + ' sub index' + index.sub + ' in percent' + seekPointPercent);
       if ((index.master < this.masterIndex)
         || (index.master === this.masterIndex && index.sub < this.subRecordingIndex)) {
         await this.replayFromStart();
@@ -794,7 +801,8 @@
               if (virtualclass.currApp === 'ScreenShare') {
                 if (this.msg[0] === 104 || this.msg[0] === 204 || this.msg[0] === 103
                   || this.msg[0] === 203 || this.msg[0] === 102 || this.msg[0] === 202) {
-                  // console.log('Screen type', this.msg[0] + ' masterIndex ' + this.masterIndex + ' secondaryIndex ' + this.subRecordingIndex);
+                  // console.log('Screen type', this.msg[0] + ' masterIndex ' +
+                  // this.masterIndex + ' secondaryIndex ' + this.subRecordingIndex);
                   io.onRecMessage(this.convertInto({ data: this.msg }));
                   this.binarySyncMsg = null;
                 }
@@ -826,9 +834,13 @@
 
     handleSyncStringPacket() {
       let quizElapsedTime;
+      let subInd;
+      let masterInd;
       if (virtualclass.currApp === 'Poll' && typeof virtualclass.poll.pollState.data === 'object'
         && Object.prototype.hasOwnProperty.call(virtualclass.poll, 'recordStartTime')) {
-        const pollStartTime = this.getTotalTimeInMilSeconds(virtualclass.poll.recordStartTime.data.masterIndex, virtualclass.poll.recordStartTime.data.subIndex);
+        subInd = virtualclass.poll.recordStartTime.data.subIndex;
+        masterInd = virtualclass.poll.recordStartTime.data.masterIndex;
+        const pollStartTime = this.getTotalTimeInMilSeconds(masterInd, subInd);
         if (virtualclass.poll.dataRec.setting.timer) { // showTimer() for remaining time
           const pollData = virtualclass.poll.pollState;
           this.pollUpdateTime(pollStartTime, pollData);
@@ -842,8 +854,10 @@
         }
       } else if (virtualclass.currApp === 'Video' && typeof virtualclass.videoUl === 'object'
         && Object.prototype.hasOwnProperty.call(virtualclass.videoUl, 'videoStartTime')) {
-        const videoStartTime = this.getTotalTimeInMilSeconds(virtualclass.videoUl.videoStartTime.data.masterIndex, virtualclass.videoUl.videoStartTime.data.subIndex);
-        const videoElapsedtime = (this.elapsedPlayTime - videoStartTime);
+        subInd = virtualclass.videoUl.videoStartTime.data.subIndex;
+        masterInd = virtualclass.videoUl.videoStartTime.data.masterIndex;
+        const videoStartTime = this.getTotalTimeInMilSeconds(masterInd, subInd);
+        // const videoElapsedtime = (this.elapsedPlayTime - videoStartTime);
         const videoSeekTime = (this.elapsedPlayTime - videoStartTime) / 1000;
 
         if (typeof virtualclass.videoUl.player === 'object') {
@@ -858,10 +872,12 @@
           virtualclass.videoUl.startTime = videoSeekTime;
         }
       } else if (virtualclass.currApp === 'Quiz' && typeof virtualclass.quiz === 'object') {
-        // virtualclass.quiz.plugin.method.completeQuiz({callback: virtualclass.quiz.plugin.config.animationCallbacks.completeQuiz});
-
-        const timeDisplayInto = document.querySelector('#qztime');
-        const quizStartTime = this.getTotalTimeInMilSeconds(virtualclass.quiz.quizStartTime.data.masterIndex, virtualclass.quiz.quizStartTime.data.subIndex);
+        // virtualclass.quiz.plugin.method.completeQuiz(
+        // {callback: virtualclass.quiz.plugin.config.animationCallbacks.completeQuiz});
+        subInd = virtualclass.quiz.quizStartTime.data.subIndex;
+        masterInd = virtualclass.quiz.quizStartTime.data.masterIndex;
+        const timeDisplayInto = document.querySelector('#qztime');s
+        const quizStartTime = this.getTotalTimeInMilSeconds(masterInd, subInd);
         if (+(virtualclass.quiz.plugin.config.quizTime) > 0) {
           const quizTimeInMiliSeconds = virtualclass.quiz.plugin.config.quizTime * 1000;
           quizElapsedTime = (quizTimeInMiliSeconds - (this.elapsedPlayTime - quizStartTime));
@@ -887,7 +903,8 @@
 
     handleSyncPacket() {
       if (this.binarySyncMsg) {
-        // if(this.binarySyncMsg != null && syncMsg.app == 'ss' && !Object.prototype.hasOwnProperty.call(this.binarySyncMsg, 'unshareScreen')){
+        // if(this.binarySyncMsg != null && syncMsg.app == 'ss' &&
+        // !Object.prototype.hasOwnProperty.call(this.binarySyncMsg, 'unshareScreen')){
         // console.log('Get full screen share');
         let startSubIndex = this.binarySyncMsg.data.subIndex;
         let startMindex = this.binarySyncMsg.data.masterIndex;
@@ -1192,18 +1209,17 @@
     },
 
     isPlayFinished() {
-      return ((typeof this.masterRecordings[this.masterIndex] === 'undefined')
-        && (typeof this.subRecordings === 'undefined'
-        || typeof this.subRecordings[this.subRecordingIndex] === 'undefined')
-        || ((typeof this.subRecordings !== 'undefined'
-        && typeof this.subRecordings[this.subRecordingIndex] !== 'undefined')
-        && this.subRecordings[this.subRecordingIndex].type === 'J'
-        && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"sEnd"') > -1)
-      );
+      return (typeof this.masterRecordings[this.masterIndex] === 'undefined'
+      && (typeof this.subRecordings === 'undefined'
+      || typeof this.subRecordings[this.subRecordingIndex] === 'undefined'
+      || typeof this.subRecordings !== 'undefined')
+      && typeof this.subRecordings[this.subRecordingIndex] !== 'undefined'
+      && this.subRecordings[this.subRecordingIndex].type === 'J'
+      && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"sEnd"') > -1);
     },
 
     triggerPauseVideo() {
-      const playAct = document.querySelector('#dispVideo');
+      // const playAct = document.querySelector('#dispVideo');
       if (virtualclass.videoUl && virtualclass.videoUl.player) {
         // console.log('VIDEO IS PAUSED');
         virtualclass.videoUl.player.pause();
@@ -1489,6 +1505,8 @@
     },
 
     afterDownloadingList(rawData) {
+      let recSession;
+      let recFile;
       if (rawData != null && Object.prototype.hasOwnProperty.call(rawData, 'Item')) {
         const sessionStart = +(rawData.Item.time.N);
         const currentTime = new Date().getTime();
@@ -1518,7 +1536,9 @@
           this.requestDataFromServer(fileName, this.firstxhr);
 
           for (const nfile in this.totalRecordingFiles) {
-            const nfileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${virtualclass.recorder.session}/${this.totalRecordingFiles[nfile]}`;
+            recSession = virtualclass.recorder.session;
+            recFile = this.totalRecordingFiles[nfile];
+            const nfileUrl = `https://recording.congrea.net/${wbUser.lkey}/${wbUser.room}/${recSession}/${recFile}`;
             virtualclass.createPrefetchLink(nfileUrl);
           }
 
@@ -1554,8 +1574,9 @@
     },
 
     calculateTotalPlayTime() {
-      const firstTime = Math.trunc(+(virtualclass.recorder.totalRecordingFiles[0].split('-')[0]) / 1000000); // converting nano to seconds
-      const lastTime = Math.trunc(+(virtualclass.recorder.totalRecordingFiles[virtualclass.recorder.totalRecordingFiles.length - 1].split('-')[1].split('.')[0]) / 1000000);
+      const totalRecFiles = virtualclass.recorder.totalRecordingFiles;
+      const firstTime = Math.trunc(+(totalRecFiles[0].split('-')[0]) / 1000000); // converting nano to seconds
+      const lastTime = Math.trunc(+(totalRecFiles[totalRecFiles.length - 1].split('-')[1].split('.')[0]) / 1000000);
       // converting nano to seconds
 
       this.totalTimeInMiliSeconds = (lastTime - firstTime);
@@ -1765,7 +1786,7 @@
           }
         });
       }
-    }
+    },
   };
   window.recorder = recorder;
 }(window));

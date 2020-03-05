@@ -291,7 +291,7 @@
         },
 
         // TODO this funciton should be improved with received_editorCode
-        received_editorRich(msg) {
+        receivedEditorRich(msg) {
           let action;
           // If editor rich is enabled
           if (msg.status) {
@@ -353,7 +353,7 @@
          * @param msg infomration about control
          */
         // TODO this function should be improved with received_editorRich
-        received_editorCode(msg) {
+        receivedEditorCode(msg) {
           let action;
           // If editor code is enabled
           if (msg.status) {
@@ -402,7 +402,8 @@
           if (!Object.prototype.hasOwnProperty.call(e.message, 'toUser')) {
             e.message.toUser = virtualclass.gObj.uid;
           }
-          this[`received_${e.message.control}`](e.message);
+          const capitalizeFirstLetter = virtualclass.vutil.capitalizeFirstLetter(e.message.control);
+          this[`received${capitalizeFirstLetter}`](e.message);
         },
 
         addCurrTeacherToControl(id) {
@@ -433,23 +434,23 @@
           }
         },
 
-        disable(toUser, control, contIdPart, label) {
-          const selector = `.${control}Control${toUser} ` + ' .contImg';
-          const elem = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(selector);
-          // var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
-          if (elem == null) {
-            return;
-          }
-          virtualclass.user.control._disable(elem, control, toUser, label);
-        },
+        // disable(toUser, control, contIdPart, label) {
+        //   const selector = `.${control}Control${toUser} ` + ' .contImg';
+        //   const elem = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(selector);
+        //   // var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
+        //   if (elem == null) {
+        //     return;
+        //   }
+        //   virtualclass.user.control._disable(elem, control, toUser, label);
+        // },
 
 
-        _disable(elem, control, userId, label) {
+        disable(elem, control, userId, label) {
           elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${control}Disable`));
           // elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "On"));
           elem.setAttribute(`data-${control}-disable`, 'true');
 
-          elem.className = `icon-${control}Img block` + ` ${control}Img`;
+          elem.className = `icon-${control}Img block ${control}Img`;
           if (control === 'assign') { // TODO unused condition
             elem.parentNode.classList.remove('tooltip');
             this.addCurrTeacherToControl(elem.id);
@@ -467,31 +468,31 @@
               virtualclass.user.control.updateUser(userId, 'currTeacher', true);
             }
           } else if (control === 'audio' || control === 'chat') {
-            elem.className = `icon-${control}DisImg block` + ` ${control}DisImg`;
+            elem.className = `icon-${control}DisImg block ${control}DisImg`;
           }
 
           virtualclass.user.control.updateUser(userId, label, false);
         },
 
 
-        enable(toUser, control, contIdPart, label) {
-          // var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
-          const selector = `.${control}Control${toUser} .contImg`;
-          const elem = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(selector);
-
-          if (elem == null) {
-            // console.log('Element is Null');
-            return;
-          }
-          virtualclass.user.control._enable(elem, control, toUser, label);
-        },
-        _enable(elem, control, userId, label) {
+        // enable(toUser, control, contIdPart, label) {
+        //   // var elem = document.getElementById(toUser + 'contr' + contIdPart + 'Img');
+        //   const selector = `.${control}Control${toUser} .contImg`;
+        //   const elem = virtualclass.gObj.testChatDiv.shadowRoot.querySelector(selector);
+        //
+        //   if (elem == null) {
+        //     // console.log('Element is Null');
+        //     return;
+        //   }
+        //   virtualclass.user.control._enable(elem, control, toUser, label);
+        // },
+        enable(elem, control, userId, label) {
           elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${control}Enable`));
           // if (control == 'audio') {
           //     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Off"));
           // }
           elem.setAttribute(`data-${control}-disable`, 'false');
-          elem.className = `icon-${control}Img enable` + ` ${control}Img`;
+          elem.className = `icon-${control}Img enable ${control}Img`;
           if (control === 'RaiseHand') {
             virtualclass.raiseHand._raiseHand(userId);
           }
@@ -501,9 +502,9 @@
 
         changeAttribute(userId, elem, elemEnable, control, label) {
           if (elemEnable) {
-            virtualclass.user.control._enable(elem, control, userId, label);
+            virtualclass.user.control.enable(elem, control, userId, label);
           } else {
-            virtualclass.user.control._disable(elem, control, userId, label);
+            virtualclass.user.control.disable(elem, control, userId, label);
           }
         },
 
@@ -547,7 +548,7 @@
                 virtualclass.vutil.initDefaultApp();
               }
               ctrType = 'stdscreen';
-              this.control[`_${ctrType}`].call(this.control, userId);
+              this.control[`${ctrType}`].call(this.control, userId);
               if (virtualclass.currApp === 'Video' && virtualclass.videoUl.player) {
                 ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
                 ioAdapter.mustSend({ videoUl: { init: 'studentlayout' }, cf: 'videoUl' });
@@ -578,7 +579,7 @@
               const controlType = virtualclass.vutil.smallizeFirstLetter(control);
               this.control.changeAttribute(userId, tag, boolVal, ctrType, controlType);
               if (actSend == null) {
-                this.control[`_${ctrType}`].call(this.control, userId, action);
+                this.control[`${ctrType}`].call(this.control, userId, action);
               }
             }
           }
@@ -632,11 +633,11 @@
         },
 
 
-        _chat(userId, action) {
+        chat(userId, action) {
           if (action === 'enable') {
             virtualclass.settings.applySettings(true, 'studentpc', userId);
           } else {
-            const user = virtualclass.user.control.updateUser(userId, 'chat', false);
+            // const user = virtualclass.user.control.updateUser(userId, 'chat', false);
             virtualclass.settings.applySettings(false, 'studentpc', userId);
           }
         },
@@ -649,7 +650,7 @@
           }
         },
 
-        _editorRich(userId, action) {
+        editorRich(userId, action) {
           if (action === 'enable') {
             virtualclass.vutil.beforeSend({
               status: true,
@@ -668,7 +669,7 @@
         },
 
 
-        _editorCode(userId, action) {
+        editorCode(userId, action) {
           if (action === 'enable') {
             virtualclass.vutil.beforeSend({
               status: true,
@@ -686,7 +687,7 @@
           }
         },
 
-        _audio(userId, action) {
+        audio(userId, action) {
           if (action === 'enable') {
             // virtualclass.vutil.beforeSend({'ena': true, toUser: userId, 'cf': 'ena'}, userId);
             virtualclass.settings.applySettings(true, 'studentaudio', userId);
@@ -695,12 +696,12 @@
             virtualclass.settings.applySettings(false, 'studentaudio', userId);
           }
         },
-        _RaiseHand(userId) {
+        RaiseHand(userId) {
           // to disable only ..
           virtualclass.raiseHand.raisehand(userId);
         },
 
-        _stdscreen(userId) {
+        stdscreen(userId) {
           if (virtualclass.gObj.prvRequestScreenUser && (virtualclass.gObj.prvRequestScreenUser !== userId)
             && virtualclass.config.makeWebSocketReady) {
             ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
@@ -718,7 +719,6 @@
           if (virtualclass.currApp === 'Video' && virtualclass.videoUl != null) {
             ioAdapter.mustSend({ videoUl: { init: 'destroyPlayer' }, cf: 'destroyPlayer' });
             virtualclass.videoUl.destroyPlayer();
-
           }
         },
 

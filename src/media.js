@@ -206,11 +206,11 @@
               const cvideo = cthis.video;
               if (roles.hasControls()) {
                 const avg = this.height - (this.height * this.average) / 100;
-                this._display(cvideo.tempVidCont, avg);
+                this.initDisplay(cvideo.tempVidCont, avg);
               }
             },
 
-            _display(context, avg) {
+            initDisplay(context, avg) {
               context.beginPath();
               context.moveTo(this.width, this.height);
               context.lineTo(this.width, avg);
@@ -235,7 +235,7 @@
             if (virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode
               && cthis.video.tempStream != null) {
               virtualclass.media.stream = cthis.video.tempStream;
-              virtualclass.media.audio._maniPulateStream();
+              virtualclass.media.audio.actualManiPulateStream();
             }
           }
         },
@@ -243,7 +243,7 @@
         /** Iniates the script processor node to play the audio * */
         initScriptNode() {
           for (let i = 0; i < this.snode.length; i++) {
-            this._playWithFallback(this.snode[i]);
+            this.innerPlayWithFallback(this.snode[i]);
           }
           this.snode = [];
         },
@@ -760,14 +760,14 @@
               }, 2000);
             }
           } else {
-            this._playWithFallback();
+            this.innerPlayWithFallback();
             if (this.audioSuspendTime) {
               delete this.audioSuspendTime;
             }
           }
         },
 
-        _playWithFallback() {
+        innerPlayWithFallback() {
           const that = this;
           if (virtualclass.media.audioPlayerNode === null
             || virtualclass.media.audioPlayerNode.context.state === 'closed') {
@@ -876,7 +876,7 @@
         },
 
 
-        _maniPulateStream() {
+        actualManiPulateStream() {
           // console.log('Manipulate stream');
           this.triggermaniPulateStream = true;
           const cthis = virtualclass.media;
@@ -1020,9 +1020,9 @@
          * @returns {Array} userid received with the  message plus rest of the msz data
          */
         extractData(msg) {
-          const data_pack = new Int8Array(msg);
-          const uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
-          return [uid, data_pack.subarray(5, data_pack.length)];
+          const dataPack = new Int8Array(msg);
+          const uid = virtualclass.vutil.numValidateFour(dataPack[1], dataPack[2], dataPack[3], dataPack[4]);
+          return [uid, dataPack.subarray(5, dataPack.length)];
         },
 
         removeAudioFromLocalStorage() {
@@ -1438,16 +1438,16 @@
         process(msg) {
           let b64encoded;
           let imgType;
-          const data_pack = new Uint8ClampedArray(msg);
-          const uid = virtualclass.vutil.numValidateFour(data_pack[1], data_pack[2], data_pack[3], data_pack[4]);
+          const dataPack = new Uint8ClampedArray(msg);
+          const uid = virtualclass.vutil.numValidateFour(dataPack[1], dataPack[2], dataPack[3], dataPack[4]);
 
           const userInfo = { id: uid };
           if (!virtualclass.media.existVideoContainer(userInfo)) {
             virtualclass.media.video.createElement(userInfo);
           }
-          const recmsg = data_pack.subarray(6, data_pack.length);
+          const recmsg = dataPack.subarray(6, dataPack.length);
 
-          if (data_pack[5] === 1) {
+          if (dataPack[5] === 1) {
             b64encoded = `data:image/webp;base64,${btoa(virtualclass.videoHost.Uint8ToString(recmsg))}`;
             imgType = 'webp';
           } else {
@@ -1634,7 +1634,7 @@
         if (userDiv != null) {
           const vidTag = userDiv.getElementsByTagName('video');
           if (vidTag != null) {
-            cthis._handleUserMedia(virtualclass.gObj.uid);
+            cthis.innerHandleUserMedia(virtualclass.gObj.uid);
           }
         }
 
@@ -1661,7 +1661,7 @@
         if (cthis.audio.audioContextReady
           && !Object.prototype.hasOwnProperty.call(cthis.audio, 'triggermaniPulateStream')) {
           cthis.stream = cthis.video.tempStream;
-          cthis.audio._maniPulateStream();
+          cthis.audio.actualManiPulateStream();
         }
       },
 
@@ -1697,7 +1697,7 @@
        * and sends the video
        * @param string userid
        */
-      _handleUserMedia(userid) {
+      innerHandleUserMedia(userid) {
         if (typeof cthis !== 'undefined') {
           const stream = cthis.video.tempStream;
 

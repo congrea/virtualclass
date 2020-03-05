@@ -64,7 +64,8 @@
         const formData = new FormData();
         formData.append('dataToSave', JSON.stringify(data));
         formData.append('user', virtualclass.gObj.uid);
-        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_save`, formData).then((msg) => { // TODO Handle more situations
+        // TODO Handle more situations
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_save`, formData).then((msg) => {
           const getContent = msg.data;
           const { options } = getContent;
           const obj = {};
@@ -113,7 +114,8 @@
         const formData = new FormData();
         formData.append('editdata', JSON.stringify(data));
         formData.append('user', virtualclass.gObj.uid);
-        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_update`, formData).then((msg) => { // TODO Handle more situations
+        // TODO Handle more situations
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_update`, formData).then((msg) => {
           const getContent = msg.data;
           // console.log(getContent);
           that.updatePollList(getContent);
@@ -159,7 +161,8 @@
         formData.append('category', JSON.stringify(category));
         formData.append('user', virtualclass.gObj.uid);
         virtualclass.recorder.items = []; // empty on each chunk sent
-        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_data_retrieve`, formData).then((msg) => { // TODO Handle more situations
+        // TODO Handle more situations
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_data_retrieve`, formData).then((msg) => {
           // console.log("fetched" + msg);
           //  later in php file
           const getContent = msg.data;
@@ -1725,7 +1728,7 @@
         }
       },
       noneVoted(pollType) {
-        console.log("====> No voted poll here");
+        console.log('====> No voted poll here');
         if (typeof virtualclass.poll.timer !== 'undefined') {
           clearInterval(virtualclass.poll.timer);
         }

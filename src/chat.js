@@ -153,13 +153,13 @@
         const userlist = virtualclass.chat.userList;
 
         if (userlist.length > 0) {
-          this._showChatUserList(userlist);
+          this.showChatUserList(userlist);
           displayChatOfflineUserList(userlist);
           // $("div#memlist").css({display: 'block'});
           document.querySelector('div#memlist').classList.add('enable');
         }
       },
-      _showChatUserList(userlist) { // 13%
+      showChatUserList(userlist) { // 13%
         if (!document.getElementById('chat_div')) { // prevent creating div on each update
           const cd = document.createElement('div');
           cd.id = 'chat_div';

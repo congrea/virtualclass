@@ -164,7 +164,8 @@ function updateOnlineUserText() {
       const onlineUser = document.querySelector('#userListHeader #onlineusertext');
 
       if (onlineUser == null) {
-        // document.querySelector('#usertab_text').innerHTML = `<span id='onlineusertext' class='cgText'>${text}</span>`;
+        // document.querySelector('#usertab_text').innerHTML
+        // = `<span id='onlineusertext' class='cgText'>${text}</span>`;
         onlineUser.innerHTML = `(${virtualclass.connectedUsers.length})`;
       } else {
         // onlineUser.innerHTML = text;
@@ -201,7 +202,7 @@ function memberUpdate(e, addType) {
     virtualclass.gObj.memberlistpending = [];
     // console.log('member list pending(memberlistpending) empty ');
     if (userlist.length > 0) {
-      virtualclass.chat._showChatUserList(userlist);
+      virtualclass.chat.showChatUserList(userlist);
 
       if ((virtualclass.jId === virtualclass.gObj.uid)) {
         // openChatBox
@@ -218,7 +219,7 @@ function memberUpdate(e, addType) {
           if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable')
             && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable') && vidTag == null) {
             // console.log('Media _handleUserMedia');
-            virtualclass.media._handleUserMedia(virtualclass.gObj.uid);
+            virtualclass.media.innerHandleUserMedia(virtualclass.gObj.uid);
           }
 
           const userDiv = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid}`);
@@ -453,7 +454,7 @@ function statusUpdate(from, msg, prop) {
   }
 }
 
-function common_chatbox_update(from, msg) {
+function commonChatboxUpdate(from, msg) {
   if ($('ul#chat_room').length) {
     $('#chat_room').chatroom('option').messageSent(from, msg);
   }
@@ -463,7 +464,7 @@ function newStatus(e) {
   $.each(e.message, (k, u) => {
     if (e.newuser != null && u.userid == e.newuser) {
       statusUpdate(u, 'Online', false);
-      common_chatbox_update(u, 'Online');
+      commonChatboxUpdate(u, 'Online');
     }
   });
 }
@@ -595,11 +596,13 @@ function displayPvtChatHistory(data) {
 /*
  Dialog box to display error messages
  */
-function display_error(msg) {
+function displayError(msg) {
   // $("<div id = 'dialog' title = 'VmChat Error:'></div>").prependTo("#stickybar");
   // $("#dialog").html(msg);
   // $('#dialog').dialog();
-  virtualclass.view.createErrorMsg(msg, 'errorContainer', 'virtualclassAppFooterPanel', { className: 'Unauthenticated' });
+  virtualclass.view.createErrorMsg(msg, 'errorContainer', 'virtualclassAppFooterPanel', {
+    className: 'Unauthenticated',
+  });
 }
 
 

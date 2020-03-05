@@ -211,13 +211,13 @@
         const controlElem = vid.getElementsByClassName('status')[0];
 
         if (Object.prototype.hasOwnProperty.call(vidObj, 'disabled')) {
-          this._disable(vidObj.fileuuid);
+          this.disable(vidObj.fileuuid);
           if (vid) {
             vid.classList.add('disable');
             vid.dataset.status = 0;
           }
         } else {
-          this._enable(vidObj.fileuuid);
+          this.enable(vidObj.fileuuid);
           if (vid) {
             vid.classList.add('enable');
             vid.dataset.status = 1;
@@ -379,7 +379,7 @@
         // this.sendOrder(this.order);
       },
 
-      async _editTitle(id, title, videotype) {
+      async editTitle(id, title, videotype) {
         const formData = new FormData();
         const data = {
           lc_content_id: id, action: 'edit', title, user: virtualclass.gObj.uid,
@@ -699,7 +699,7 @@
        * to disable  video in the videolist
        */
 
-      _disable(_id) {
+      disable(_id) {
         const linkvideo = document.querySelector(`#linkvideo${_id}`);
         linkvideo.classList.add('playDisable');
         const video = document.getElementById(`mainpvideo${_id}`);
@@ -719,7 +719,7 @@
       /*
        * to enable  video in the videolist
        */
-      _enable(_id) {
+      enable(_id) {
         const linkvideo = document.querySelector(`#linkvideo${_id}`);
         linkvideo.classList.remove('playDisable');
 
@@ -742,7 +742,7 @@
       /*
        * to delete  video from list and from the database
        */
-      _delete(id) {
+      delete(id) {
         const data = {
           uuid: id,
           action: 'delete',

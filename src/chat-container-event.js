@@ -1,7 +1,7 @@
 
 
 const chatContainerEvent = {
-  ub: 'init_chatBox', // User Box(When user lick on link, it will opened new chat user box)
+  ub: 'initChatBox', // User Box(When user lick on link, it will opened new chat user box)
   ac: 'footerControler', // audio controller
   ch: 'footerControler', // Chat controller
   er: 'footerControler', // Editor rich controller
@@ -13,7 +13,7 @@ const chatContainerEvent = {
     return this[event];
   },
 
-  init_chatBox(cthis, chatboxManager) {
+  initChatBox(cthis, chatboxManager) {
     const str = $(cthis);
     let ahref;
     let id;
@@ -71,14 +71,14 @@ const chatContainerEvent = {
   onEvent(targetElem, chatboxManager) {
     const event = this.getEvent(targetElem);
     if (targetElem.classList === 'userVideos' || targetElem.classList === 'videoSubWrapper'
-      || event === 'init_chatBox') {
+      || event === 'initChatBox') {
       if (targetElem.classList.contains('media-heading')) {
         targetElem = targetElem.parentNode.previousElementSibling;
       } else {
         targetElem = targetElem.parentNode;
       }
 
-      this.init_chatBox(targetElem, chatboxManager);
+      this.initChatBox(targetElem, chatboxManager);
     } else if (event === 'footerControler') {
       // If use click on achor tag than on span
       if (targetElem.tagName === 'A') {

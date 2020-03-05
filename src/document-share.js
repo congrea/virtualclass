@@ -339,7 +339,7 @@
         // console.log('====> Note remove UI');
         const notes = this.getNotes(doc);
         for (let i = 0; i < notes.length; i++) {
-          this._removePageUI(notes[i].id);
+          this.removePageUI(notes[i].id);
         }
         if (virtualclass.orderList[this.appName].ol.order.length <= 0) {
           firstTime = true;
@@ -349,7 +349,7 @@
         }
       },
 
-      _removePageUI(noteId) {
+      removePageUI(noteId) {
         // console.log('====> DOCUMENT SHARING removing node', noteId);
 
         // console.log('JAI 2b');
@@ -1026,7 +1026,7 @@
             },
 
             slideTo(note, fromReload) {
-              console.log("hello 3");
+              console.log('hello 3');
               const noteId = note.dataset.slide;
               virtualclass.vutil.updateCurrentDoc(noteId);
 
@@ -1091,7 +1091,7 @@
                       // alert('There is no page');
                       // virtualclass.dts.indexNav.UI.setArrowStatus('leftNavPage', 'disable');
 
-                      virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'disable', 'enable');
+                      virtualclass.dts.indexNav.UI.setArrowStatusDocs(document.getElementById('leftNavPage'), 'disable', 'enable');
                     } else {
                       // by true, know the event is performed real user
                       this.getScreen(activeSlide, true);
@@ -1109,7 +1109,7 @@
                   virtualclass.dts.indexNav.movePageIndex('left');
                 } else {
                   const leftNavPage = document.getElementById('leftNavPage');
-                  virtualclass.dts.indexNav.UI._setArrowStatusDocs(leftNavPage, 'disable', 'enable');
+                  virtualclass.dts.indexNav.UI.setArrowStatusDocs(leftNavPage, 'disable', 'enable');
                 }
               }
             },
@@ -1167,7 +1167,7 @@
               } else {
                 // alert('There is no page');
                 const rightNavPage = document.getElementById('rightNavPage');
-                virtualclass.dts.indexNav.UI._setArrowStatusDocs(rightNavPage, 'disable', 'enable');
+                virtualclass.dts.indexNav.UI.setArrowStatusDocs(rightNavPage, 'disable', 'enable');
                 // virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
               }
             },
@@ -1290,7 +1290,7 @@
         if (Object.prototype.hasOwnProperty.call(dts, 'fallDocs')) {
           virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'dres')) {
-          console.log("====> document share res");
+          console.log('====> document share res');
           this.docs.studentExecuteScreen(dts);
           if (roles.hasControls() && !virtualclass.dts.noteExist()) {
             virtualclass.dashboard.open();
@@ -1301,7 +1301,7 @@
           // console.log('====> DOCUMENT SHARING  res ', dts);
           // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Layout initialized');
         } else if (Object.prototype.hasOwnProperty.call(dts, 'slideTo')) {
-          console.log("====> document share res slideTo");
+          console.log('====> document share res slideTo');
           if (typeof this.docs.note !== 'object') {
             const cthis = this;
             this.docs.executeScreen(dts.docn, undefined, () => {
@@ -1349,10 +1349,10 @@
             this.docs.displayScreen(doc);
           }
         } else if (Object.prototype.hasOwnProperty.call(dts, 'rmnote')) {
-          this._delete(dts.rmnote);
+          this.delete(dts.rmnote);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'rmsnote')) { // remove single note
-          this._removePageUI(dts.rmsnote);
-          this._removePageFromStructure(dts.rmsnote);
+          this.removePageUI(dts.rmsnote);
+          this.removePageFromStructure(dts.rmsnote);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'noteSt')) {
           if (roles.isStudent()) {
             this.noteStatus(dts.note, dts.noteSt);
@@ -1478,7 +1478,7 @@
         // // });
       },
 
-      _delete(id) {
+      delete(id) {
         this.deleteNotesFromOrder(id);
         const data = {
           uuid: id,
@@ -1512,9 +1512,9 @@
         this.removePagesFromStructure(id);
       },
 
-      _deleteNote(id, typeDoc) {
-        this._removePageUI(id, typeDoc);
-        this._removePageFromStructure(id, typeDoc);
+      deleteNote(id, typeDoc) {
+        this.removePageUI(id, typeDoc);
+        this.removePageFromStructure(id, typeDoc);
         if (roles.hasControls()) {
           // console.log('==== dts must send ');
           ioAdapter.mustSend({ dts: { rmsnote: id }, cf: 'dts' });
@@ -1551,7 +1551,7 @@
           }
         }
         if (!noteExit) {
-          this._delete(doc);
+          this.delete(doc);
         }
         if (roles.hasControls()) {
           this.indexNav.createIndex();
@@ -1564,7 +1564,7 @@
         let i;
         for (i in this.allNotes) {
           if (this.allNotes[i].id.indexOf(id) > -1) {
-            this._removePageFromStructure(this.allNotes[i].id);
+            this.removePageFromStructure(this.allNotes[i].id);
           }
         }
       },
@@ -1585,18 +1585,18 @@
         }
       },
 
-      _removePageFromStructure(id) {
+      removePageFromStructure(id) {
         // delete this.allNotes[id];
         this.allNotes[id].deletedn = id;
         // new pages save into docs
         this.updateInAllDocs(id);
       },
 
-      _disable(id) {
+      disable(id) {
         this.docStatus(id);
       },
 
-      _enable(id) {
+      enable(id) {
         this.docStatus(id);
       },
 
@@ -1642,12 +1642,12 @@
       },
 
 
-      _noteDisable(id) {
+      noteDisable(id) {
         this.noteStatus(id);
         this.sendNoteStatus(id);
       },
 
-      _noteEnable(id) {
+      noteEnable(id) {
         this.noteStatus(id);
         this.sendNoteStatus(id);
       },
@@ -1876,7 +1876,7 @@
           } else {
             // this.deleteNotesFromOrder(this.allDocs[key].fileuuid);
             // this.deleteDocElement(this.allDocs[key].fileuuid);
-            this._delete(this.allDocs[key].fileuuid);
+            this.delete(this.allDocs[key].fileuuid);
           }
         }
       },

@@ -463,7 +463,6 @@ const PopUp = (function (window, undefined) {
 
 
   PopUp.prototype.chromeExtMissing = function () {
-
     const element = document.getElementById('about-modal');
     element.dataset.currPopup = 'chromeExt';
     virtualclass.popup.open(element);

@@ -16,6 +16,25 @@ class WhiteboardReplay {
   }
 }
 
+// This class is to handle the selection of object with mouse down, move, and up
+class ActiveAll {
+  mouseDown(event, whiteboard) {
+    const pointer = whiteboard.canvas.getPointer(event);
+    console.log('=====> drag mouse down x, y', pointer.x, pointer.y);
+  }
+
+  mouseMove(event, whiteboard) {
+    const pointer = whiteboard.canvas.getPointer(event);
+    console.log('=====> drag mouse move x, y', pointer.x, pointer.y);
+  }
+
+  mouseUp(event, whiteboard) {
+    const pointer = whiteboard.canvas.getPointer(event);
+    console.log('=====> drag mouse up x, y', pointer.x, pointer.y);
+  }
+}
+
+// This class is to handle the utility functions of whiteboard
 class WhiteboardUtility {
   // earlier it waas drawInWhiteboards
   applyCommand(data, wid) {
@@ -161,6 +180,7 @@ class WhiteboardUtility {
   }
 }
 
+// This class is responsible to create various shapes, eg:, rectangle, oval and triangle
 class WhiteboardShape {
   constructor(shape) {
     this.name = shape;
@@ -224,7 +244,7 @@ class WhiteboardShape {
   }
 }
 
-
+// This is responsible to create the whiteboard shape
 class WhiteboardRectangle extends WhiteboardShape {
   constructor(name) {
     super(name);
@@ -282,6 +302,8 @@ class Whiteboard {
     this.canvas = null;
     this.selectedTool = null;
     this.rectangleObj = new WhiteboardRectangle('rectangle');
+    this.activeAllObj = new ActiveAll();
+    this.activeAll = false;
     this.gObj = {};
   }
 
@@ -359,5 +381,10 @@ class Whiteboard {
   freeDrawing() {
     this.canvas.isDrawingMode = true;
     this.canvas.freeDrawingBrush.width = 1;
+  }
+
+  activeAll() {
+    this.activeAll = true;
+    console.log('====> I am being active here ');
   }
 }

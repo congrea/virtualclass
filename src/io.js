@@ -314,6 +314,7 @@ var io = {
         break;
       case 'broadcastToAll':
       case 'broadcast':
+      case 'b':
         if (receivemsg !== null) {
           if (receivemsg.userto != null) {
             userto = receivemsg.userto;

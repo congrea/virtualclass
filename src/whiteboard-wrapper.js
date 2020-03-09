@@ -10,6 +10,19 @@ class WhiteboardWrapper {
       d: 'innerMouseDown',
       m: 'innerMouseMove',
       u: 'innerMouseUp',
+      sp: 'shape',
+      ac: 'action',
+      cl: 'color',
+      cw: 'clear',
+      mousedown: 'd',
+      mousemove: 'm',
+      mouseup: 'u',
+      r: 'rectangle',
+      ovalShort: 'o',
+      rectangleShort: 'r',
+      lineShort: 'l',
+      textShort: 't',
+      triangleShort: 'tr',
     };
   }
 
@@ -17,6 +30,7 @@ class WhiteboardWrapper {
     this.createWhiteboardContainerHtml(id, app);
     this.replay = new WhiteboardReplay();
     this.util = new WhiteboardUtility();
+    this.protocol = new WhiteboardProtocol();
   }
 
   createWhiteboardContainerHtml(id, app) {

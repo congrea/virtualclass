@@ -6,13 +6,19 @@ class WhiteboardReplay {
   }
 
   renderObj(wid) {
-    if (this.objs[this.objNo].cmd) {
-      virtualclass.wb[wid].selectedTool = this.objs[this.objNo].cmd;
-    } else {
-      const eventType = virtualclass.wbWrapper.keyMap[this.objs[this.objNo].ac];
-      const data = this.objs[this.objNo];
-      virtualclass.wb[wid].rectangleObj[eventType](data, virtualclass.wb[wid]);
-    }
+    // if (this.objs[this.objNo].cmd) {
+    //   virtualclass.wb[wid].selectedTool = this.objs[this.objNo].cmd;
+    // } else {
+    //   const eventType = virtualclass.wbWrapper.keyMap[this.objs[this.objNo].ac];
+    //   const data = this.objs[this.objNo];
+    //   virtualclass.wb[wid].rectangleObj[eventType](data, virtualclass.wb[wid]);
+    // }
+
+    const data = virtualclass.wbWrapper.protocol.decode(this.objs[this.objNo]);
+    virtualclass.wb[wid].selectedTool = data.tool;
+    const eventType = data.event;
+    const shape = `${data.shape}Obj`;
+    virtualclass.wb[wid][shape][eventType](data.actual, virtualclass.wb[wid]);
   }
 }
 
@@ -178,6 +184,14 @@ class WhiteboardUtility {
       virtualclass.wb[wId].canvas.renderAll();
     }
   }
+
+  onMessage(e) {
+    if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
+      && e.fromUser.role === 't') {
+      virtualclass.wbWrapper.util.applyCommand(e.message.wb, virtualclass.gObj.currWb);
+    }
+    virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
+  }
 }
 
 // This class is responsible to create various shapes, eg:, rectangle, oval and triangle
@@ -201,7 +215,14 @@ class WhiteboardShape {
     this.innerMouseDown(pointer, whiteboard);
     virtualclass.gObj.lastSendDataTime = new Date().getTime();
     // ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
-    virtualclass.wbWrapper.util.sendWhiteboardData({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
+    const newData = {
+      event: 'd',
+      name: this.name,
+      x: pointer.x,
+      y: pointer.y,
+    };
+    const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
+    virtualclass.wbWrapper.util.sendWhiteboardData(data);
   }
 
   innerMouseDown(pointer, whiteboard) {
@@ -228,11 +249,21 @@ class WhiteboardShape {
     // this.mousedown = false;
     // this[this.name].setCoords();
     this.innerMouseUp();
+
     if (this.previousShape) {
-      virtualclass.wbWrapper.util.sendWhiteboardData(this.previousShape);
-      delete this.previousShape;
+      const data = virtualclass.wbWrapper.protocol.encode('sp', this.previousShape);
+      virtualclass.wbWrapper.util.sendWhiteboardData(data);
     }
-    virtualclass.wbWrapper.util.sendWhiteboardData({ wb: [{ ac: 'u' }], cf: 'wb' });
+
+    const newData = {
+      event: 'u',
+      name: this.name,
+      x: this.previousShape.x,
+      y: this.previousShape.y,
+    };
+    const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
+    virtualclass.wbWrapper.util.sendWhiteboardData(data);
+    delete this.previousShape;
     delete virtualclass.gObj.lastSendDataTime;
   }
 
@@ -262,10 +293,18 @@ class WhiteboardRectangle extends WhiteboardShape {
 
     const timeDifference = (virtualclass.gObj.presentSendDataTime - virtualclass.gObj.lastSendDataTime);
     console.log('====> total time difference ', timeDifference);
-    const currentCordination = { wb: [{ ac: 'm', x: pointer.x, y: pointer.y }], cf: 'wb' };
-    this.previousShape = currentCordination;
+
+    const newData = {
+      event: 'm',
+      name: this.name,
+      x: pointer.x,
+      y: pointer.y,
+    };
+
+    this.previousShape = newData;
     if (timeDifference > 2000) { // Optmize the sending data
-      virtualclass.wbWrapper.util.sendWhiteboardData(currentCordination);
+      const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
+      virtualclass.wbWrapper.util.sendWhiteboardData(data);
       virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime;
       myCount++;
     }
@@ -356,7 +395,7 @@ class Whiteboard {
     this.canvas.isDrawingMode = false;
     const currentTool = ev.currentTarget.parentNode.dataset.tool;
     this.selectedTool = currentTool;
-    virtualclass.wbWrapper.util.sendWhiteboardData({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
+    // virtualclass.wbWrapper.util.sendWhiteboardData({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
     if (this.selectedTool !== 'rectangle' && this.selectedTool !== 'oval' && this.selectedTool !== 'triangle') {
       this[currentTool]();
     }

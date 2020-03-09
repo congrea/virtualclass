@@ -252,13 +252,15 @@ const receiveFunctions = new function () {
   // };
 
   this.wb = (e) => {
-    if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
-      && e.fromUser.role === 't') {
-      // virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.wb, virtualclass.gObj.currWb);
-      virtualclass.wbWrapper.util.applyCommand(e.message.wb, virtualclass.gObj.currWb);
-    }
-    // virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
-    virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
+    // if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
+    //   && e.fromUser.role === 't') {
+    //   // virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.wb, virtualclass.gObj.currWb);
+    //   virtualclass.wbWrapper.util.applyCommand(e.message.wb, virtualclass.gObj.currWb);
+    // }
+    // // virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
+    // virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
+
+    virtualclass.wbWrapper.util.onMessage(e);
   }
 
   // Replay All, TODO, need to do verify

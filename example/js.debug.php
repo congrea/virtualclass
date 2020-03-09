@@ -44,9 +44,12 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-ping-pong.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-protocol.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-wrapper.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-utility.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang-en.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang.js"></script>

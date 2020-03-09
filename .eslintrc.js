@@ -54,6 +54,7 @@ module.exports = {
     WhiteboardUtility: 'writable',
     WhiteboardReplay: 'writable',
     WhiteboardWrapper: 'writable',
+    WhiteboardProtocol: 'writable',
   },
   parserOptions: {
     ecmaVersion: 2017,

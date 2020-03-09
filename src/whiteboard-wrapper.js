@@ -2,27 +2,27 @@ class WhiteboardWrapper {
   constructor() {
     this.gObj = null;
     this.keyMap = {
-      triangle: 'Triangle',
+      triangle: 'Triangle', // for instaniating fabric object
       oval: 'Circle',
       rectangle: 'Rect',
       line: 'Line',
       text: 'Text',
-      d: 'innerMouseDown',
+      d: 'innerMouseDown', // For triggering the mouse event on student side
       m: 'innerMouseMove',
       u: 'innerMouseUp',
-      sp: 'shape',
-      ac: 'action',
-      cl: 'color',
-      cw: 'clear',
       mousedown: 'd',
       mousemove: 'm',
       mouseup: 'u',
       r: 'rectangle',
-      ovalShort: 'o',
+      ovalShort: 'o', // For sending the shapes name in short form
       rectangleShort: 'r',
       lineShort: 'l',
       textShort: 't',
       triangleShort: 'tr',
+      sp: 'shape',
+      ac: 'action',
+      cl: 'color',
+      cw: 'clear',
     };
   }
 

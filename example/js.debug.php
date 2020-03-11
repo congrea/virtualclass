@@ -79,7 +79,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/webrtc-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pptshare.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-optimization.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/receive-messages-response.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lzstring.js"></script>

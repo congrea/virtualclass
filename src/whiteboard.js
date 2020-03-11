@@ -15,28 +15,86 @@ class WhiteboardReplay {
     // }
 
     const data = virtualclass.wbWrapper.protocol.decode(this.objs[this.objNo]);
-    virtualclass.wb[wid].selectedTool = data.tool;
-    const eventType = data.event;
-    const shape = `${data.shape}Obj`;
-    virtualclass.wb[wid][shape][eventType](data.actual, virtualclass.wb[wid]);
+
+    switch(data.action){
+      case 'sp':
+        virtualclass.wb[wid].selectedTool = data.tool;
+        const eventType = data.event;
+        const shape = `${data.shape}Obj`;
+        virtualclass.wb[wid][shape][eventType](data.actual, virtualclass.wb[wid]);
+        break;
+      case 'ac':
+        // todo innerMouseDown has to removed later
+        if (data.tool && data.tool == 'd' || data.tool == 'innerMouseDown') {
+          const evt = new MouseEvent("mousedown", {
+            clientX: data.x,
+            clientY: data.y,
+          });
+          virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+        }
+
+        break;
+      default:
+        console.log('====> do nothing');
+
+    }
   }
 }
 
 // This class is to handle the selection of object with mouse down, move, and up
 class ActiveAll {
+  generateData(event, whiteboard, type) {
+    const pointer = whiteboard.canvas.getPointer(event, whiteboard);
+    const newData = {
+      event: type,
+      x: pointer.x,
+      y: pointer.y,
+    };
+    return virtualclass.wbWrapper.protocol.encode('ac', newData);
+  }
+
+  enable(wId) {
+    const allObjects = virtualclass.wb[wId].canvas.getObjects();
+    for (let i = 0; i < allObjects.length; i += 1) {
+      allObjects[i].set('selectable', true);
+    }
+  }
+
+  disable(wId) {
+    const allObjects = virtualclass.wb[wId].canvas.getObjects();
+    for (let i = 0; i < allObjects.length; i += 1) {
+      allObjects[i].set('selectable', false);
+    }
+  }
+
   mouseDown(event, whiteboard) {
-    const pointer = whiteboard.canvas.getPointer(event);
-    console.log('=====> drag mouse down x, y', pointer.x, pointer.y);
+    this.down = true;
+    console.log('====> mouse down for activeness 2');
+    if (this.activeDown) {
+      virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime = new Date().getTime();
+      const newData = this.generateData(event, whiteboard, 'd');
+      virtualclass.wbWrapper.util.sendWhiteboardData(newData);
+    }
   }
 
   mouseMove(event, whiteboard) {
-    const pointer = whiteboard.canvas.getPointer(event);
-    console.log('=====> drag mouse move x, y', pointer.x, pointer.y);
+    if (this.activeDown && this.down) {
+      const newData = this.generateData(event, whiteboard, 'm')
+      virtualclass.gObj.presentSendDataTime = new Date().getTime();
+      const timeDifference = (virtualclass.gObj.presentSendDataTime - virtualclass.gObj.lastSendDataTime);
+      if (timeDifference > 2000) { // Optmize the sending data
+        virtualclass.wbWrapper.util.sendWhiteboardData(newData);
+        virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime;
+      }
+    }
   }
 
   mouseUp(event, whiteboard) {
-    const pointer = whiteboard.canvas.getPointer(event);
-    console.log('=====> drag mouse up x, y', pointer.x, pointer.y);
+    if (this.activeDown && this.down) {
+      this.down = false;
+      const newData = this.generateData(event, whiteboard, 'u');
+      virtualclass.wbWrapper.util.sendWhiteboardData(newData);
+    }
   }
 }
 
@@ -192,6 +250,10 @@ class WhiteboardUtility {
     }
     virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
   }
+
+  activeAllOn() {
+
+  }
 }
 
 // This class is responsible to create various shapes, eg:, rectangle, oval and triangle
@@ -251,18 +313,17 @@ class WhiteboardShape {
     this.innerMouseUp();
 
     if (this.previousShape) {
-      const data = virtualclass.wbWrapper.protocol.encode('sp', this.previousShape);
+      let data = virtualclass.wbWrapper.protocol.encode('sp', this.previousShape);
+      virtualclass.wbWrapper.util.sendWhiteboardData(data);
+      const newData = {
+        event: 'u',
+        name: this.name,
+        x: this.previousShape.x,
+        y: this.previousShape.y,
+      };
+      data = virtualclass.wbWrapper.protocol.encode('sp', newData);
       virtualclass.wbWrapper.util.sendWhiteboardData(data);
     }
-
-    const newData = {
-      event: 'u',
-      name: this.name,
-      x: this.previousShape.x,
-      y: this.previousShape.y,
-    };
-    const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
-    virtualclass.wbWrapper.util.sendWhiteboardData(data);
     delete this.previousShape;
     delete virtualclass.gObj.lastSendDataTime;
   }
@@ -289,11 +350,6 @@ class WhiteboardRectangle extends WhiteboardShape {
       virtualclass.gObj.lastSendDataTime = new Date().getTime();
     }
 
-    virtualclass.gObj.presentSendDataTime = new Date().getTime();
-
-    const timeDifference = (virtualclass.gObj.presentSendDataTime - virtualclass.gObj.lastSendDataTime);
-    console.log('====> total time difference ', timeDifference);
-
     const newData = {
       event: 'm',
       name: this.name,
@@ -302,6 +358,9 @@ class WhiteboardRectangle extends WhiteboardShape {
     };
 
     this.previousShape = newData;
+    virtualclass.gObj.presentSendDataTime = new Date().getTime();
+    const timeDifference = (virtualclass.gObj.presentSendDataTime - virtualclass.gObj.lastSendDataTime);
+    console.log('====> total time difference ', timeDifference);
     if (timeDifference > 2000) { // Optmize the sending data
       const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
       virtualclass.wbWrapper.util.sendWhiteboardData(data);
@@ -342,7 +401,6 @@ class Whiteboard {
     this.selectedTool = null;
     this.rectangleObj = new WhiteboardRectangle('rectangle');
     this.activeAllObj = new ActiveAll();
-    this.activeAll = false;
     this.gObj = {};
   }
 
@@ -362,6 +420,8 @@ class Whiteboard {
   }
 
   attachMouseMovementHandlers() {
+    this.canvas.on('selection:created', this.handlerSelection.bind(this));
+    this.canvas.on('selection:cleared', this.handlerSelection.bind(this));
     this.canvas.on('mouse:down', this.handlerMouseDown.bind(this));
     this.canvas.on('mouse:move', this.handlerMouseMove.bind(this));
     this.canvas.on('mouse:up', this.handlerMouseUp.bind(this));
@@ -373,6 +433,15 @@ class Whiteboard {
     this.canvas.off('mouse:up', this.handlerMouseUp);
     this.canvas.isDrawingMode = false;
     this.canvas.selection = false;
+  }
+
+  handlerSelection(event) {
+    if (event.selected) {
+      console.log('====> mouse down for activeness');
+      this.activeAllObj.activeDown = true;
+    } else if (event.deselected) {
+      this.activeAllObj.activeDown = false;
+    }
   }
 
   handlerMouseDown(o) {
@@ -398,6 +467,8 @@ class Whiteboard {
     // virtualclass.wbWrapper.util.sendWhiteboardData({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
     if (this.selectedTool !== 'rectangle' && this.selectedTool !== 'oval' && this.selectedTool !== 'triangle') {
       this[currentTool]();
+    } else {
+      this.activeAllObj.disable(virtualclass.gObj.currWb);
     }
   }
 
@@ -412,7 +483,7 @@ class Whiteboard {
         shapesElem.classList.remove('close');
       }
       shapesElem.classList.add('open');
-      virtualclass. vutil.closeElement(document.querySelector(`#t_strk${this.wbId} .strkSizeList`));
+      virtualclass.vutil.closeElement(document.querySelector(`#t_strk${this.wbId} .strkSizeList`));
       virtualclass.vutil.closeElement(document.querySelector(`#t_font${this.wbId} .fontSizeList`));
     }
   }
@@ -423,7 +494,7 @@ class Whiteboard {
   }
 
   activeAll() {
-    this.activeAll = true;
+    this.activeAllObj.enable(virtualclass.gObj.currWb);
     console.log('====> I am being active here ');
   }
 }

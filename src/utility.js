@@ -692,7 +692,7 @@
 
     isPlayMode() { // TODO
       // apply codacy rule
-      return (+window.wbUser.virtualclassPlay);
+      return (window.wbUser.virtualclassPlay == true);
     },
     progressBar(totalVal, portion, pbar, pval) {
       if (portion > totalVal) {

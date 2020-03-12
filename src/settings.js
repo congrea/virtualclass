@@ -8,7 +8,7 @@
       virtualclass.settings.info = virtualclass.settings.parseSettings(coreSettings);
       const userSetting = localStorage.getItem('userSettings');
       if (userSetting) {
-        console.log('setting ', userSetting);
+        // console.log('setting ', userSetting);
         virtualclass.settings.user = JSON.parse(userSetting);
       }
       this.recording.init();
@@ -210,7 +210,12 @@
         individualSetting[settingName] = value;
         specificSettings = virtualclass.settings.settingsToHex(individualSetting);
       }
-      ioAdapter.mustSendUser({ cf: 'settings', Hex: specificSettings, toUser: userId, time: Date.now() }, userId);
+      ioAdapter.mustSendUser({
+        cf: 'settings',
+        Hex: specificSettings,
+        toUser: userId,
+        time: Date.now(),
+      }, userId);
       virtualclass.settings.user[userId] = specificSettings;
       localStorage.setItem('userSettings', JSON.stringify(virtualclass.settings.user));
     },
@@ -257,12 +262,10 @@
           // virtualclass.settings.info = virtualclass.settings.parseSettings(msg);
         }
       } else {
-        if (typeof msg === 'string') {
-          if (roles.isStudent()) {
-            // console.log('====> Settings received ', msg);
-            const stdSettings = virtualclass.settings.parseSettings(msg);
-            this.applyAttendeeSetting(stdSettings);
-          }
+        if (typeof msg === 'string' && roles.isStudent()) {
+          // console.log('====> Settings received ', msg);
+          const stdSettings = virtualclass.settings.parseSettings(msg);
+          this.applyAttendeeSetting(stdSettings);
         } else {
           this.recording.triggerSetting(msg);
         }
@@ -417,7 +420,7 @@
 
     qaAnswer(value) {
       if (!virtualclass.vutil.checkUserRole()) {
-        console.log('setting comp qA ', value);
+        // console.log('setting comp qA ', value);
         const controlsElem = document.querySelector('#askQuestion');
         if (controlsElem) {
           if (value === true) {
@@ -658,7 +661,8 @@
         virtualclass.vutil.videoHandler('off');
         virtualclass.user.control.videoDisable();
       } else {
-        if (roles.isStudent() && virtualclass.settings.info.studentvideo !== true) { // todo, check it properly on page refresh
+        // todo, check it properly on page refresh
+        if (roles.isStudent() && virtualclass.settings.info.studentvideo !== true) {
           if (virtualclass.settings.info.studentvideo !== undefined) {
             virtualclass.vutil.videoHandler('off');
             virtualclass.videoHost.toggleVideoMsg('disable');

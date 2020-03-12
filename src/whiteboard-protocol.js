@@ -40,7 +40,7 @@ class WhiteboardProtocol {
       newData.action = data[0];
       newData.tool = virtualclass.wbWrapper.keyMap[data[1]];
       if (data.length > 3) {
-        newData.event = virtualclass.wbWrapper.keyMap[data[2]];
+        newData.event = virtualclass.wbWrapper.keyMap[`ac${data[1]}`];
         newData.actual = { x: +data[2], y: +data[3] };
       }
     }

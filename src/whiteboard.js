@@ -15,28 +15,51 @@ class WhiteboardReplay {
     // }
 
     const data = virtualclass.wbWrapper.protocol.decode(this.objs[this.objNo]);
-
-    switch(data.action){
+    let eventType;
+    let shape;
+    let evt;
+    switch (data.action) {
       case 'sp':
         virtualclass.wb[wid].selectedTool = data.tool;
-        const eventType = data.event;
-        const shape = `${data.shape}Obj`;
+        eventType = data.event;
+        shape = `${data.shape}Obj`;
         virtualclass.wb[wid][shape][eventType](data.actual, virtualclass.wb[wid]);
         break;
       case 'ac':
         // todo innerMouseDown has to removed later
-        if (data.tool && data.tool == 'd' || data.tool == 'innerMouseDown') {
-          const evt = new MouseEvent("mousedown", {
-            clientX: data.x,
-            clientY: data.y,
-          });
-          virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+        if (data.event && (data.event === 'mousedown')) {
+          virtualclass.wb[wid].innerToolbarHandler(virtualclass.wbWrapper.keyMap[data.action]);
         }
+
+        evt = new MouseEvent(data.event, {
+          clientX: data.actual.x,
+          clientY: data.actual.y,
+          buttons: 1,
+          bubbles: true,
+          which: 1,
+          detail: 1,
+          composed: true,
+          isTrusted: true,
+        });
+
+        // if (data.event === 'mousedown') {
+        //   virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+        // } else if (data.event === 'mousemove') {
+        //   // virtualclass.wb[wid].canvas._onMouseMove(evt);
+        //   virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+        // } else if (data.event === 'mouseup') {
+        //   virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+        // }
+
+        //virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+
+        virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+
+        console.log('====> Mouse active all student', JSON.stringify(data));
 
         break;
       default:
         console.log('====> do nothing');
-
     }
   }
 }
@@ -50,6 +73,7 @@ class ActiveAll {
       x: pointer.x,
       y: pointer.y,
     };
+    // console.log('====> mouse active all ', JSON.stringify(newData));
     return virtualclass.wbWrapper.protocol.encode('ac', newData);
   }
 
@@ -68,19 +92,23 @@ class ActiveAll {
   }
 
   mouseDown(event, whiteboard) {
+    if (!roles.hasControls()) return;
     this.down = true;
-    console.log('====> mouse down for activeness 2');
     if (this.activeDown) {
       virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime = new Date().getTime();
-      const newData = this.generateData(event, whiteboard, 'd');
-      virtualclass.wbWrapper.util.sendWhiteboardData(newData);
     }
+    const newData = this.generateData(event, whiteboard, 'd');
+    this.previousActiveData = newData;
+    console.log('====> mouse ac down for activeness ', JSON.stringify(newData));
+    virtualclass.wbWrapper.util.sendWhiteboardData(newData);
   }
 
   mouseMove(event, whiteboard) {
+    if (!roles.hasControls()) return;
     if (this.activeDown && this.down) {
       const newData = this.generateData(event, whiteboard, 'm')
       virtualclass.gObj.presentSendDataTime = new Date().getTime();
+      this.previousActiveData = newData;
       const timeDifference = (virtualclass.gObj.presentSendDataTime - virtualclass.gObj.lastSendDataTime);
       if (timeDifference > 2000) { // Optmize the sending data
         virtualclass.wbWrapper.util.sendWhiteboardData(newData);
@@ -90,11 +118,14 @@ class ActiveAll {
   }
 
   mouseUp(event, whiteboard) {
+    if (!roles.hasControls()) return;
     if (this.activeDown && this.down) {
       this.down = false;
+      virtualclass.wbWrapper.util.sendWhiteboardData(this.previousActiveData);
       const newData = this.generateData(event, whiteboard, 'u');
       virtualclass.wbWrapper.util.sendWhiteboardData(newData);
     }
+
   }
 }
 
@@ -249,10 +280,6 @@ class WhiteboardUtility {
       virtualclass.wbWrapper.util.applyCommand(e.message.wb, virtualclass.gObj.currWb);
     }
     virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
-  }
-
-  activeAllOn() {
-
   }
 }
 
@@ -420,6 +447,7 @@ class Whiteboard {
   }
 
   attachMouseMovementHandlers() {
+    console.log('====> init whiteboard add ');
     this.canvas.on('selection:created', this.handlerSelection.bind(this));
     this.canvas.on('selection:cleared', this.handlerSelection.bind(this));
     this.canvas.on('mouse:down', this.handlerMouseDown.bind(this));
@@ -428,6 +456,7 @@ class Whiteboard {
   }
 
   removeMouseMovementHandlers() {
+    console.log('====> init whiteboard remove');
     this.canvas.off('mouse:down', this.handlerMouseDown);
     this.canvas.off('mouse:move', this.handlerMouseMove);
     this.canvas.off('mouse:up', this.handlerMouseUp);
@@ -461,10 +490,22 @@ class Whiteboard {
   }
 
   toolbarHandler(ev) {
+    // this.canvas.isDrawingMode = false;
+    // const currentTool = ev.currentTarget.parentNode.dataset.tool;
+    // this.selectedTool = currentTool;
+    // // virtualclass.wbWrapper.util.sendWhiteboardData({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
+    // if (this.selectedTool !== 'rectangle' && this.selectedTool !== 'oval' && this.selectedTool !== 'triangle') {
+    //   this[currentTool]();
+    // } else {
+    //   this.activeAllObj.disable(virtualclass.gObj.currWb);
+    // }
+    this.innerToolbarHandler(ev.currentTarget.parentNode.dataset.tool);
+  }
+
+  innerToolbarHandler(tool) {
     this.canvas.isDrawingMode = false;
-    const currentTool = ev.currentTarget.parentNode.dataset.tool;
+    const currentTool = tool;
     this.selectedTool = currentTool;
-    // virtualclass.wbWrapper.util.sendWhiteboardData({ wb: [{ cmd: this.selectedTool }], cf: 'wb' });
     if (this.selectedTool !== 'rectangle' && this.selectedTool !== 'oval' && this.selectedTool !== 'triangle') {
       this[currentTool]();
     } else {

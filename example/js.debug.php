@@ -67,7 +67,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-oval.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-triangle.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-line.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-text.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-freedrawing.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-path.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-mouse.js"></script>

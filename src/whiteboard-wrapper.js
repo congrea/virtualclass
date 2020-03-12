@@ -23,6 +23,10 @@ class WhiteboardWrapper {
       ac: 'action',
       cl: 'color',
       cw: 'clear',
+      ac: 'activeAll',
+      acd: 'mousedown',
+      acm: 'mousemove',
+      acu: 'mouseup',
     };
   }
 

@@ -966,11 +966,11 @@
   }
 
   #virtualclassCont.congrea #noteContainer .content {
-    background-image: -webkit-linear-gradient(left, #fff 0, #daca0900 0), -webkit-linear-gradient(right, #fff 0, #fff28f73 0), -webkit-linear-gradient(white 20px, #000 18px, #00000054 16px, #000000 36px);
+    background-image: -webkit-linear-gradient(left, #fff 0, #daca0900 0), -webkit-linear-gradient(right, #fff 0, #fff28f73 0), -webkit-linear-gradient(white 20px, #000 18px, #00000054 16px, #000 36px);
   }
 }
 
-#virtualclassCont.congrea #askQuestion .container .footer .controls .upVote {
+#virtualclassCont.congrea #rightSubContainer #askQuestion .container .footer .controls .upVote {
   padding: 0.125rem 0.3125rem;
   margin-right: 1px;
 }

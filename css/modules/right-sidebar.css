@@ -84,7 +84,7 @@ body {
   float: left;
 }
 
-/*#virtualclassCont.congrea.student #rightSubContainer #stickycontainer #icHr::before {*/
+/* #virtualclassCont.congrea.student #rightSubContainer #stickycontainer #icHr::before { */
 #virtualclassCont.congrea.student #rightSubContainer #stickycontainer #iconAskQuestion::before {
   margin-left: -0.5rem;
   float: left;
@@ -477,13 +477,17 @@ body {
   display: none;
 }
 
-/*#virtualclassCont.congrea #rightSubContainer #appSettingDetail.deactive {*/
-  /*display: none;*/
-/*}*/
+/* #virtualclassCont.congrea #rightSubContainer #appSettingDetail.deactive { */
 
-/*#virtualclassCont.congrea #chatWidget.deactive #congreaChatMainCont {*/
-  /*display: none;*/
-/*}*/
+/* display: none; */
+
+/* } */
+
+/* #virtualclassCont.congrea #chatWidget.deactive #congreaChatMainCont { */
+
+/* display: none; */
+
+/* } */
 
 #virtualclassCont.congrea #chatWidget #congreaChatMainCont {
   display: flex;
@@ -1009,25 +1013,27 @@ body {
 }
 
 #virtualclassCont.congrea #askQuestionHeader.active,
-#virtualclassCont.congrea #rightSubContainer #chatWidget.active{
+#virtualclassCont.congrea #rightSubContainer #chatWidget.active {
   display: block;
 }
 
-/*#virtualclassCont.congrea #askQuestionHeader.deactive,*/
-/*#virtualclassCont.congrea #rightSubContainer #askQuestion.deactive,*/
-/*#virtualclassCont.congrea #rightSubContainer #chatWidget.deactive {*/
-  /*display: none;*/
-/*}*/
+/* #virtualclassCont.congrea #askQuestionHeader.deactive, */
+
+/* #virtualclassCont.congrea #rightSubContainer #askQuestion.deactive, */
+
+/* #virtualclassCont.congrea #rightSubContainer #chatWidget.deactive { */
+
+/* display: none; */
+
+/* } */
 
 #virtualclassCont.congrea .bottomright.active {
-  background-image: radial-gradient(ellipse at center, #000000 0%, #000000 100%) !important;
+  background-image: radial-gradient(ellipse at center, #000 0%, #000 100%) !important;
 }
 
 #virtualclassCont.congrea #noteContainer .loading {
   display: none;
 }
-
-
 
 #virtualclassCont.congrea .rightBarHeader {
   display: none;

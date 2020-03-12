@@ -527,7 +527,7 @@
   padding: 0.875rem 0.6875rem 0.3438rem 0.6875rem;
 }
 
-/*#virtualclassCont.congrea.student[device="mobile"] #rightSubContainer #stickycontainer #icHr::before {*/
+/* #virtualclassCont.congrea.student[device="mobile"] #rightSubContainer #stickycontainer #icHr::before { */
 #virtualclassCont.congrea.student[device="mobile"] #rightSubContainer #stickycontainer #iconAskQuestion::before {
   margin-top: -0.08125rem;
 }

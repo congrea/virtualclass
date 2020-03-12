@@ -1404,7 +1404,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea .vmchat_room_bt.congtooltip:hover::after,
-#virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover::after{
+#virtualclassCont.congrea .vmchat_bar_button.congtooltip:hover::after {
   bottom: 47px;
   right: -11px;
 }
@@ -3890,10 +3890,13 @@ div.ui-memblist-usr .userVideos {
   cursor: pointer;
 }
 
-/*#virtualclassCont.congrea.playMode #congAskQuestion {*/
-  /*pointer-events: none !important;*/
-  /*opacity: 0.5;*/
-/*}*/
+/* #virtualclassCont.congrea.playMode #congAskQuestion { */
+
+/* pointer-events: none !important; */
+
+/* opacity: 0.5; */
+
+/* } */
 
 /* #virtualclassCont.congrea .controllerRaiseH .icon-RaiseHandImg:before { */
 
@@ -3916,7 +3919,8 @@ div.ui-memblist-usr .userVideos {
   bottom: 35px !important;
 }
 
-#virtualclassCont.congrea li#congAskQuestion a.stdAskQuestion, #virtualclassCont.congrea li#virtualclassnote a {
+#virtualclassCont.congrea li#congAskQuestion a.stdAskQuestion,
+#virtualclassCont.congrea li#virtualclassnote a {
   font-size: 0.875rem;
   display: block;
   padding: 0.7812rem 0.875rem 0.7187rem 0.875rem;
@@ -4034,7 +4038,7 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
-  padding: 0.84375rem 0.875rem .65625rem 0.875rem;
+  padding: 0.84375rem 0.875rem 0.65625rem 0.875rem;
   display: block;
 }
 
@@ -4766,15 +4770,12 @@ span#usertab_text {
   right: 3.25rem;
 }
 
-
 #virtualclassCont.congrea #fullScreenButton .fullScreen,
 #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
   padding: 0.6875rem 1.125rem 0.6875rem 1.125rem;
   line-height: 1.25rem;
   font-size: 1.25rem;
 }
-
-
 
 #virtualclassCont.congrea.playMode #fullScreenButton,
 #virtualclassCont.congrea.playMode #fullScreenExitButton {
@@ -4790,7 +4791,6 @@ span#usertab_text {
   bottom: 47px !important;
   left: -14px;
 }
-
 
 #virtualclassCont.congrea.playMode #fullScreenButton span.congtooltip:hover::after,
 #virtualclassCont.congrea.playMode #fullScreenExitButton span.congtooltip:hover::after {
@@ -4836,6 +4836,7 @@ span#usertab_text {
   font-weight: normal;
   font-size: 0.8125rem;
   margin-left: 0.5rem;
+
   /* margin-top: 0.125rem; */
   float: right;
 }
@@ -4960,7 +4961,6 @@ span#usertab_text {
     box-shadow: 0 0 3px 5px rgba(55, 150, 0, 0);
   }
 }
-
 
 #virtualclassCont #virtualclassAppFooterPanel.recordingStatus {
   width: 35px;

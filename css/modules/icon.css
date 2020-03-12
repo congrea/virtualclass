@@ -880,7 +880,7 @@
   font-weight: 500;
   font-family: 'icomoon';
   font-size: 0.8125rem;
-  opacity: .2;
+  opacity: 0.2;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question .footer .controls .upVote span.button::before,
@@ -898,7 +898,7 @@
   content: "\ea05";
   font-weight: 500;
   font-family: 'icomoon';
-  font-size: .8125rem;
+  font-size: 0.8125rem;
   cursor: pointer;
   color: #2695ff;
 }

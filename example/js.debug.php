@@ -45,36 +45,13 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-ping-pong.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-protocol.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas.js"></script>
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-wrapper.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
-
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-utility.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang-en.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/system.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-packetcontainer.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-drawobject.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-make-object.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas-utility.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas-main.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-events.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-virtualbox.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-interact.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-rectangle.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-oval.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-triangle.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-line.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-freedrawing.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-path.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-mouse.js"></script>
 
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-readyfreehandobj.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-refresh-play.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-readytextobj.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-keyboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/webrtc-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pptshare.js"></script>

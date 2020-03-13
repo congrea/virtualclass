@@ -42,6 +42,10 @@ class WhiteboardProtocol {
       if (data.length > 3) {
         newData.event = virtualclass.wbWrapper.keyMap[`ac${data[1]}`];
         newData.actual = { x: +data[2], y: +data[3] };
+        if (roles.hasControls()) {
+          const toolBar = document.getElementById(`commandToolsWrapper${virtualclass.gObj.currwb}`);
+          newData.actual.y += toolBar ? toolBar.offsetHeight : 44;
+        }
       }
     }
     return newData;

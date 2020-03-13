@@ -37,21 +37,22 @@ class WhiteboardReplay {
           buttons: 1,
           bubbles: true,
           which: 1,
-          detail: 1,
           composed: true,
-          isTrusted: true,
         });
+
+
+
+        console.log('==== actives all actual' + data.event + ' ,', data.actual.x, data.actual.y);
 
         // if (data.event === 'mousedown') {
         //   virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
         // } else if (data.event === 'mousemove') {
-        //   // virtualclass.wb[wid].canvas._onMouseMove(evt);
-        //   virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+        //   virtualclass.wb[wid].canvas._onMouseMove(evt);
+        //   // virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
         // } else if (data.event === 'mouseup') {
-        //   virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+        //   //virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+        //   virtualclass.wb[wid].canvas._onMouseUp(evt);
         // }
-
-        //virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
 
         virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
 
@@ -92,7 +93,10 @@ class ActiveAll {
   }
 
   mouseDown(event, whiteboard) {
-    if (!roles.hasControls()) return;
+    const myPointer = whiteboard.canvas.getPointer(event, whiteboard)
+    console.log('==== actives all mouse down', myPointer.x, myPointer.y);
+    if (!event.e.isTrusted) return;
+    console.log('====> shoud not invoke is trusted ', event.e.isTrusted);
     this.down = true;
     if (this.activeDown) {
       virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime = new Date().getTime();
@@ -104,8 +108,12 @@ class ActiveAll {
   }
 
   mouseMove(event, whiteboard) {
-    if (!roles.hasControls()) return;
+    const myPointer = whiteboard.canvas.getPointer(event, whiteboard);
+    console.log('==== actives all mouse move', myPointer.x, myPointer.y, ' orginal x, y', event.e.clientX, event.e.clientY);
+    if (!event.e.isTrusted) return;
+    console.log('====> shoud not invoke');
     if (this.activeDown && this.down) {
+      whiteboard.canvas.renderAll();
       const newData = this.generateData(event, whiteboard, 'm')
       virtualclass.gObj.presentSendDataTime = new Date().getTime();
       this.previousActiveData = newData;
@@ -118,7 +126,10 @@ class ActiveAll {
   }
 
   mouseUp(event, whiteboard) {
-    if (!roles.hasControls()) return;
+    const myPointer = whiteboard.canvas.getPointer(event, whiteboard)
+    console.log('==== actives all mouse up', myPointer.x, myPointer.y);
+    if (!event.e.isTrusted) return;
+    console.log('====> shoud not invoke');
     if (this.activeDown && this.down) {
       this.down = false;
       virtualclass.wbWrapper.util.sendWhiteboardData(this.previousActiveData);
@@ -195,11 +206,11 @@ class WhiteboardUtility {
     virtualclass.wb[wId].replayObjs.push(data);
   }
 
-  replayData(data, wId) {
+  async replayData(data, wId) {
     virtualclass.wb[wId].vcanMainReplayObjs = [];
     if (data.length > 0) {
       virtualclass.wb[wId].vcanMainReplayObjs = data;
-      this.replayInit(wId);
+      await this.replayInit(wId);
     }
   }
 
@@ -210,6 +221,7 @@ class WhiteboardUtility {
 
   sendWhiteboardData(data) {
     if (roles.hasControls()) {
+      console.log('sending the data here guys ', JSON.stringify(data));
       ioAdapter.mustSend(data);
       this.storeAtMemory(data.wb, virtualclass.gObj.currWb);
     }
@@ -237,6 +249,7 @@ class WhiteboardUtility {
 
   replayFromLocalStroage(allRepObjs, wid) {
     if (typeof (Storage) !== 'undefined') {
+      virtualclass.wb[wid].clear(wid);
       virtualclass.wb[wid].gObj.tempRepObjs = allRepObjs;
       if (allRepObjs.length > 0) {
         this.applyCommand(allRepObjs, wid);
@@ -537,5 +550,11 @@ class Whiteboard {
   activeAll() {
     this.activeAllObj.enable(virtualclass.gObj.currWb);
     console.log('====> I am being active here ');
+  }
+
+  clear() {
+    const wId = virtualclass.gObj.currWb;
+    virtualclass.wb[wId].canvas.clear();
+    virtualclass.wb[wId].replayObjs =[];
   }
 }

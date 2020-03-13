@@ -7,7 +7,7 @@ class Rightbar {
     if (action) {
       action === 'open' ? virtualclass.vutil.openRightbar() : virtualclass.vutil.closedRightbar();
     } else {
-      var elem = document.getElementById("virtualclassApp");
+      const elem = document.getElementById('virtualclassApp');
       if (elem.classList.contains('openRightbar')) {
         virtualclass.vutil.closedRightbar();
       } else {
@@ -29,7 +29,6 @@ class Rightbar {
   }
 
   handleDisplayRightBar(selector){
-    console.log('====> selector', selector);
     const activeElement = document.querySelectorAll('#rightSubContainer .rightContainer.active');
     for (let i = 0; i < activeElement.length; i++) {
       if (activeElement[i]) activeElement[i].classList.remove('active');

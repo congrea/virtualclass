@@ -109,6 +109,7 @@
       displayQuizList() {
         console.log('===> quiz display questions');
         let isQuiz = false;
+        let mszBoxQuiz;
         virtualclass.quiz.dispList('course');
         const listcont = document.getElementById('listquizcourse');
         if (Object.keys(this.coursequiz).length > 0) {
@@ -127,14 +128,14 @@
               header.classList.add('show');
             }
           } else {
-            var mszBoxQuiz = document.querySelector('#virtualclassCont.congrea #layoutQuiz #mszBoxQuiz');
+            mszBoxQuiz = document.querySelector('#virtualclassCont.congrea #layoutQuiz #mszBoxQuiz');
             if (mszBoxQuiz) {
               mszBoxQuiz.classList.add('show');
               mszBoxQuiz.innerHTML = virtualclass.lang.getString('noQuiz');
             }
           }
         } else {
-          var mszBoxQuiz = document.querySelector('#virtualclassCont.congrea #layoutQuiz #mszBoxQuiz');
+          mszBoxQuiz = document.querySelector('#virtualclassCont.congrea #layoutQuiz #mszBoxQuiz');
           if (mszBoxQuiz) {
             mszBoxQuiz.classList.add('show');
             mszBoxQuiz.innerHTML = virtualclass.lang.getString('noQuiz');
@@ -247,7 +248,7 @@
        */
       openQuizPopup(item, index) {
         this.qzid = index; // store quiz id
-        var cont = document.getElementById('layoutQuizBody');
+        // var cont = document.getElementById('layoutQuizBody');
         // const elem = document.createElement('div');
         // elem.className = 'container';
         // cont.appendChild(elem);
@@ -256,10 +257,10 @@
           modal.remove();
         }
         // to change this to
-        var cont = document.getElementById('bootstrapQzCont');
+        const cont = document.getElementById('bootstrapQzCont');
         virtualclass.quiz.UI.generateModal('editQuizModal', cont);
-
       },
+
       showQn(qnCont) {
         if (roles.hasControls()) {
           qnCont.innerHTML = 'quiz question';
@@ -476,6 +477,7 @@
        */
       onmessage(msg, fromUser) {
         // localStorage.removeItem('quizSt');
+        let attemptPercent;
         const vthis = virtualclass.quiz;
         if (msg.quiz.quizMsg === 'stdPublish') {
           vthis.publishedTime = virtualclass.vutil.UTCtoLocalTimeToSeconds(msg.quiz.timestamp);
@@ -547,9 +549,9 @@
               }
             }
             document.getElementById(`usA_${msg.quiz.questionId}`).innerHTML = totalAttptedUsers;
-            var attemptPercent = 0;
+            attemptPercent = 0;
             if (correctAns > 0) {
-              var attemptPercent = (correctAns / totalAttptedUsers) * 100;
+              attemptPercent = (correctAns / totalAttptedUsers) * 100;
             }
             const pBar = document.getElementById(`qPb_${msg.quiz.questionId}`);
             pBar.innerHTML = `${attemptPercent}% correct`;
@@ -1008,13 +1010,13 @@
         layout2(contQuiz) {
           const ctr = document.getElementById(contQuiz);
           const text = 'Available Quizes';
-          var e = document.getElementById('listQzCont');
-          if (e == null) {
+          const cont = document.getElementById('listQzCont');
+          if (cont == null) {
             const mainQzDiv = document.createElement('div');
             mainQzDiv.className = 'table-responsive';
             ctr.appendChild(mainQzDiv);
             const quizListTable = 'table table-bordered table-striped quizList';
-            var e = virtualclass.view.customCreateElement('table', 'listQzCont', quizListTable);
+            const e = virtualclass.view.customCreateElement('table', 'listQzCont', quizListTable);
             mainQzDiv.appendChild(e);
           }
         },
@@ -1029,37 +1031,37 @@
           headCont.id = 'headerContainer';
 
           cont.insertBefore(headCont, cont.firstChild);
-          var elem = document.createElement('th');
-          elem.classList.add('controlsHeader');
-          elem.innerHTML = virtualclass.lang.getString('Controls');
-          headCont.appendChild(elem);
+          const controlsHeaderElem = document.createElement('th');
+          controlsHeaderElem.classList.add('controlsHeader');
+          controlsHeaderElem.innerHTML = virtualclass.lang.getString('Controls');
+          headCont.appendChild(controlsHeaderElem);
 
           const iconCtr = document.createElement('i');
           iconCtr.className = 'icon-setting';
-          elem.appendChild(iconCtr);
+          controlsHeaderElem.appendChild(iconCtr);
 
-          var elem = document.createElement('th');
-          elem.classList.add('qnTextHeader');
-          elem.innerHTML = virtualclass.lang.getString('Quizes');
-          headCont.appendChild(elem);
+          const qnTextHeaderElem = document.createElement('th');
+          qnTextHeaderElem.classList.add('qnTextHeader');
+          qnTextHeaderElem.innerHTML = virtualclass.lang.getString('Quizes');
+          headCont.appendChild(qnTextHeaderElem);
 
           const iconHelp = document.createElement('i');
           iconHelp.className = 'icon-help';
-          elem.appendChild(iconHelp);
+          qnTextHeaderElem.appendChild(iconHelp);
 
-          var elem = document.createElement('th');
-          elem.classList.add('timeHeader');
-          elem.innerHTML = virtualclass.lang.getString('Time');
-          headCont.appendChild(elem);
+          const timeHeaderElem = document.createElement('th');
+          timeHeaderElem.classList.add('timeHeader');
+          timeHeaderElem.innerHTML = virtualclass.lang.getString('Time');
+          headCont.appendChild(timeHeaderElem);
 
           const iconCreator = document.createElement('i');
           iconCreator.className = 'icon-creator';
-          elem.appendChild(iconCreator);
+          timeHeaderElem.appendChild(iconCreator);
 
-          var elem = document.createElement('th');
-          elem.classList.add('qperpageHeader');
-          elem.innerHTML = virtualclass.lang.getString('Quiz/page');
-          headCont.appendChild(elem);
+          const qperpageHeaderElem = document.createElement('th');
+          qperpageHeaderElem.classList.add('qperpageHeader');
+          qperpageHeaderElem.innerHTML = virtualclass.lang.getString('Quiz/page');
+          headCont.appendChild(qperpageHeaderElem);
         },
 
         /**
@@ -1125,26 +1127,28 @@
          * @return
          */
         resultView(qz) {
+          let order;
+          let timeHeader;
           if (roles.hasControls()) {
             this.createResultLayout();
 
             const contQzHead = document.querySelector('#contQzHead');
-            var QstnName = document.querySelector('#QstnName');
+            const QstnName = document.querySelector('#QstnName');
             if (QstnName == null) {
-              var QstnName = document.createElement('div');
-              QstnName.id = 'QstnName';
-              QstnName.innerHTML = qz.name;
+              const QstnNameElem = document.createElement('div');
+              QstnNameElem.id = 'QstnName';
+              QstnNameElem.innerHTML = qz.name;
               if (contQzHead != null) {
-                contQzHead.appendChild(QstnName);
+                contQzHead.appendChild(QstnNameElem);
               }
             }
 
             let qtime = parseInt(qz.timelimit);
             if (qtime > 0) {
-              var order = 'desc';
-              var timeHeader = 'Time remaining';
+              order = 'desc';
+              timeHeader = 'Time remaining';
             } else {
-              var order = 'asc';
+              order = 'asc';
               timeHeader = 'Elapsed time';
             }
 
@@ -1152,15 +1156,15 @@
              * Displays the timer in result view from local storage, with or without timer,
              * it was coming from timelimit earlier
              * * */
-              // let timerInfo = localStorage.getItem('quizSt');
-              // if (timerInfo != null) {
-              //   timerInfo = JSON.parse(timerInfo);
-              //   if (Object.keys(timerInfo).length > 0) {
-              //     const elTime = timerInfo.qtime;
-              //     const res = elTime.split(':');
-              //     qtime = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
-              //   }
-              // }
+            // let timerInfo = localStorage.getItem('quizSt');
+            // if (timerInfo != null) {
+            //   timerInfo = JSON.parse(timerInfo);
+            //   if (Object.keys(timerInfo).length > 0) {
+            //     const elTime = timerInfo.qtime;
+            //     const res = elTime.split(':');
+            //     qtime = parseInt(res[2]) + (parseInt(res[1]) * 60) + (parseInt(res[0]) * 3600);
+            //   }
+            // }
             const bodyHdCont = document.getElementById('resultQzLayout');
             if (order === 'asc') {
               bodyHdCont.classList.add('elapsedTime');
@@ -1350,7 +1354,7 @@
             if (sqm) {
               msgPage.removeChild(sqm);
             }
-            var resultDiv = document.getElementById('resultDiv');
+            const resultDiv = document.getElementById('resultDiv');
             if (resultDiv != null) {
               resultDiv.parentNode.removeChild(resultDiv);
             }
@@ -1385,9 +1389,9 @@
 
             resPage.style.display = 'block';
           }
-          const virtualclassCont = document.querySelector("#virtualclassCont");
-          if(virtualclass.system.device === "mobTab") {
-            virtualclassCont.classList.add("customResult");
+          const virtualclassCont = document.querySelector('#virtualclassCont');
+          if(virtualclass.system.device === 'mobTab') {
+            virtualclassCont.classList.add('customResult');
           }
         },
 
@@ -1511,26 +1515,27 @@
         qzTextCont(item, index) {
           const e = document.getElementById(`contQz${index}`);
           const qzCont = document.createElement('td');
+          let tLimit;
           qzCont.classList.add('qnText');
           qzCont.innerHTML = item.name;
           e.appendChild(qzCont);
 
-          var elem = document.createElement('td');
-          elem.classList.add('creator');
+          const creatorElem = document.createElement('td');
+          creatorElem.classList.add('creator');
 
           if (item.timelimit > 0) {
-            var tLimit = virtualclass.quiz.convertSecToTime(item.timelimit);
+            tLimit = virtualclass.quiz.convertSecToTime(item.timelimit);
           } else {
-            var tLimit = item.timelimit;
+            tLimit = item.timelimit;
           }
-          elem.innerHTML = tLimit;
-          e.appendChild(elem);
+          creatorElem.innerHTML = tLimit;
+          e.appendChild(creatorElem);
 
-          var elem = document.createElement('td');
-          elem.classList.add('qperpage');
+          const qperpageElem = document.createElement('td');
+          qperpageElem.classList.add('qperpage');
 
-          elem.innerHTML = item.questionsperpage;
-          e.appendChild(elem);
+          qperpageElem.innerHTML = item.questionsperpage;
+          e.appendChild(qperpageElem);
         },
 
         defaultLayoutForStudent() {

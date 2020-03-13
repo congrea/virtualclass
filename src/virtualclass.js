@@ -347,7 +347,7 @@
         // }
         // nirmala
         // var precheckBtn = document.getElementsByClassName('pre-check-btn');
-        var precheck = document.getElementById('precheckBtn');
+        const precheck = document.getElementById('precheckBtn');
         precheck.addEventListener('click', () => {
           virtualclass.gObj.precheckScrn = true;
           virtualclass.precheck.init(virtualclass.precheck);
@@ -392,16 +392,16 @@
           askfullScreenExitBtn.addEventListener('click', virtualclass.vutil.closeFullscreen);
         }
 
-        var chat_div = document.getElementById("chat_div");
-        var rightSidebarBtn = document.getElementById("sidebarButton");
+        const chat_div = document.getElementById('chat_div');
+        const rightSidebarBtn = document.getElementById('sidebarButton');
 
         if(rightSidebarBtn != null) {
           rightSidebarBtn.addEventListener('click', function () {
-            var elem = document.getElementById("virtualclassApp");
+            const elem = document.getElementById('virtualclassApp');
             if (elem.classList.contains('openRightbar')) {
-              elem.classList.remove("openRightbar");
-              elem.classList.add("collapsedRightbar");
-              chat_div.classList.add("collapsedRightbar");
+              elem.classList.remove('openRightbar');
+              elem.classList.add('collapsedRightbar');
+              chat_div.classList.add('collapsedRightbar');
               localStorage.setItem('hideRightbar',true);
               virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
               if (roles.isStudent()) {
@@ -411,9 +411,9 @@
               localStorage.removeItem('hideRightbar');
               localStorage.setItem('hideRightbar',false);
               virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
-              elem.classList.remove("collapsedRightbar");
-              elem.classList.add("openRightbar");
-              chat_div.classList.remove("collapsedRightbar");
+              elem.classList.remove('collapsedRightbar');
+              elem.classList.add('openRightbar');
+              chat_div.classList.remove('collapsedRightbar');
               if (roles.isStudent()) {
                 if (virtualclass.system.device === 'desktop') {
                   ioAdapter.sendSpeed(1);
@@ -443,11 +443,11 @@
           });
         }
 
-        var virtualclassApp = document.getElementById("virtualclassApp");
+        const virtualclassApp = document.getElementById('virtualclassApp');
         if (virtualclass.gObj.hideRightbar) {
-          virtualclassApp.classList.remove("openRightbar");
-          virtualclassApp.classList.add("collapsedRightbar");
-          chat_div.classList.add("collapsedRightbar");
+          virtualclassApp.classList.remove('openRightbar');
+          virtualclassApp.classList.add('collapsedRightbar');
+          chat_div.classList.add('collapsedRightbar');
           ioAdapter.sendSpeed(3);
         } else {
           if (virtualclass.system.device === 'mobTab') {
@@ -485,13 +485,13 @@
       onfullscreenchange() {
         console.log('====> on full screen change')
         // On fullscreenchange for rightbarfullscreen
-        if(event.target.id == "virtualclassAppRightPanel") {
+        if(event.target.id == 'virtualclassAppRightPanel') {
           if (!virtualclass.gObj.rightbarFullScreenMode) {
             virtualclass.gObj.rightbarFullScreenMode = true;
             console.log('=====> full screen show ask show exit ');
           } else {
-            if(document.getElementById("virtualclassAppRightPanel").classList.contains("fullScreenMode")) {
-              document.getElementById("virtualclassAppRightPanel").classList.remove("fullScreenMode");
+            if(document.getElementById('virtualclassAppRightPanel').classList.contains('fullScreenMode')) {
+              document.getElementById('virtualclassAppRightPanel').classList.remove('fullScreenMode');
             }
             console.log('=====> full screen show ask hide exit');
             virtualclass.gObj.rightbarFullScreenMode = false;
@@ -590,7 +590,7 @@
           lDiv.appendChild(ancTag);
 
           if (typeof toBeReplace !== 'undefined') {
-            var toBeReplace = document.getElementById('virtualclassScreenShareTool');
+            const toBeReplace = document.getElementById('virtualclassScreenShareTool');
             cmdToolsWrapper.replaceChild(lDiv, toBeReplace);
           } else {
             cmdToolsWrapper.appendChild(lDiv);
@@ -986,12 +986,12 @@
                     const wnoteid = `note${id}`;
                     const wnote = document.querySelector(`#${wnoteid}`);
                     if (wnote !== null) {
-                      console.log("udit current ", id);
+                      console.log('udit current ', id);
                       wnote.classList.add('canvasContainer', 'current');
                       wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
                       wnote.innerHTML = wbHtml;
                     } else {
-                      console.log("udit current ", id);
+                      console.log('udit current ', id);
                       wbHtml = `<div id='${wnoteid}' data-wb-id='${id}' class='canvasContainer current'>${wbTemplate({
                         cn: id,
                         hasControl: roles.hasControls(),
@@ -1077,7 +1077,7 @@
             }
 
             /** TODO, move code to utilit.js and should not be invoked from here **/
-            console.log("=====> whiteboard mouse up ");
+            console.log('=====> whiteboard mouse up ');
             virtualclass.vutil.attachWhiteboardPopupHandler(id);
           } else {
             if (roles.isStudent() && app === 'Whiteboard') {
@@ -1337,12 +1337,13 @@
       },
 
       attachFunction() {
+        let that;
         const allAppOptions = document.getElementsByClassName('appOptions');
         for (let i = 0; i < allAppOptions.length; i++) {
           const anchTag = allAppOptions[i].getElementsByTagName('a')[0];
           // DON'T attach editor code tool
           if (allAppOptions[i].id !== 'virtualclassEditorCodeTool') {
-            var that = this;
+            that = this;
             anchTag.onclick = function () {
               // console.log('==== DST init click');
               that.initlizer(this);
@@ -1533,10 +1534,11 @@
        *  submodule expects the sub folder
        */
       getTemplate(name, submodule) {
+        let template;
         if (typeof submodule === 'undefined') {
-          var template = JST[`${virtualclass.gObj.tempPrefix}/${name}.hbs`];
+          template = JST[`${virtualclass.gObj.tempPrefix}/${name}.hbs`];
         } else {
-          var template = JST[`${virtualclass.gObj.tempPrefix}/${submodule}/${name}.hbs`];
+          template = JST[`${virtualclass.gObj.tempPrefix}/${submodule}/${name}.hbs`];
         }
         return template;
       },

@@ -6,23 +6,23 @@
 (function (window) {
   const modal = () => ({
     show(elem) {
-      var elem = document.querySelector(elem);
-      if (elem != null) {
-        elem.classList.add('in');
+      const element = document.querySelector(elem);
+      if (element != null) {
+        element.classList.add('in');
       }
     },
 
     hide() {
-      var elem = document.querySelector(elem);
+      const elem = document.querySelector(elem);
       if (elem != null) {
         elem.classList.add('fade');
       }
     },
 
     removeModal() {
-      const modal = document.querySelector('#editPollModal');
-      if (modal) {
-        modal.parentNode.removeChild(modal);
+      const modalElem = document.querySelector('#editPollModal');
+      if (modalElem) {
+        modalElem.parentNode.removeChild(modalElem);
       }
     },
     closeModalHandler(id) {

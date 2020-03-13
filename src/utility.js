@@ -87,7 +87,8 @@
     makeActiveApp(app, prvTool) {
       if (app !== prvTool && typeof prvTool !== 'undefined') {
         prvTool += 'Tool';
-        // document.getElementById(prvTool).className = virtualclass.wb[virtualclass.gObj.currWb].utility.removeClassFromElement(prvTool, 'active');
+        // document.getElementById(prvTool).className =
+        // virtualclass.wb[virtualclass.gObj.currWb].utility.removeClassFromElement(prvTool, 'active');
         document.getElementById(prvTool).className = virtualclass.vutil.removeClassFromElement(prvTool, 'active');
       } else {
         // If there is remaining any active class on tool
@@ -225,7 +226,8 @@
     },
     // isMiniFileIncluded(src) {
     //   //                var filePatt = new RegExp(src+".js$");
-    //   const filePatt = new RegExp(`${src}.js?=\*([0-9]*)`); // matched when src is mid of path, todo find it at end of path
+    //   const filePatt = new RegExp(`${src}.js?=\*([0-9]*)`);
+    // matched when src is mid of path, todo find it at end of path
     //   const scripts = document.getElementsByTagName('script');
     //   for (let i = 0; i < scripts.length; i++) {
     //     if (filePatt.test(scripts[i].src)) {
@@ -251,13 +253,14 @@
       }
     },
 
-    Fullscreen() {
-      /** Making virtualclassCont is fullScreen, displays the background is black on virtualclassCont **/
+    Fullscreen(event) {
+      let elem;
+      /* Making virtualclassCont is fullScreen, displays the background is black on virtualclassCont */
       // const elem = document.getElementById('virtualclassCont');
-      if (event.target.id == "askFullscreen") {
-        var elem = document.getElementById('virtualclassAppRightPanel');
+      if (event.target.id === 'askFullscreen') {
+        elem = document.getElementById('virtualclassAppRightPanel');
       } else {
-        var elem = document.documentElement;
+        elem = document.documentElement;
       }
 
       if (elem.requestFullscreen) {
@@ -272,13 +275,14 @@
       elem.classList.add('fullScreenMode');
     },
 
-    closeFullscreen() {
+    closeFullscreen(event) {
+      let elem;
       // const elem = document.getElementById('virtualclassCont');
-      if (event.target.id == "askExitFullscreen") {
-        var elem = document.getElementById('virtualclassAppRightPanel');
+      if (event.target.id === 'askExitFullscreen') {
+        elem = document.getElementById('virtualclassAppRightPanel');
         virtualclass.gObj.ignoreFullScreen = true;
       } else {
-        var elem = document.documentElement;
+        elem = document.documentElement;
       }
       if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -293,16 +297,16 @@
     },
 
     closedRightbar() {
-      var elem = document.getElementById("virtualclassApp");
-      elem.classList.remove("openRightbar");
-      elem.classList.add("collapsedRightbar");
-      chat_div.classList.add("collapsedRightbar");
-      localStorage.setItem('hideRightbar',true);
+      const elem = document.getElementById('virtualclassApp');
+      elem.classList.remove('openRightbar');
+      elem.classList.add('collapsedRightbar');
+      chat_div.classList.add('collapsedRightbar');
+      localStorage.setItem('hideRightbar', true);
       virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
       if (roles.isStudent()) {
         ioAdapter.sendSpeed(3);
       }
-      const rightbarTabs = document.querySelector("#stickycontainer .chatBarTab");
+      // const rightbarTabs = document.querySelector('#stickycontainer .chatBarTab');
       // for(var i =0 ; i < rightbarTabs.children.length ; i++) {
       //   rightbarTabs.children[i].classList.remove("active");
       // }
@@ -310,12 +314,12 @@
 
     openRightbar() {
       localStorage.removeItem('hideRightbar');
-      var elem = document.getElementById("virtualclassApp");
-      localStorage.setItem('hideRightbar',false);
+      const elem = document.getElementById('virtualclassApp');
+      localStorage.setItem('hideRightbar', false);
       virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
-      elem.classList.remove("collapsedRightbar");
-      elem.classList.add("openRightbar");
-      chat_div.classList.remove("collapsedRightbar");
+      elem.classList.remove('collapsedRightba');
+      elem.classList.add('openRightbar');
+      chat_div.classList.remove('collapsedRightbar');
       if (roles.isStudent()) {
         if (virtualclass.system.device === 'desktop') {
           ioAdapter.sendSpeed(1);
@@ -432,23 +436,23 @@
         ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
       }
 
-      if (virtualclass.currApp === 'DocumentShare') {
-        if (!roles.hasControls()) {
-          const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
-          const action = rhElem.getAttribute('data-action');
-          if (action === 'disable') {
-            const toUser = virtualclass.vutil.whoIsTeacher();
-            ioAdapter.sendUser({
-              data: {
-                user: wbUser.id,
-                action,
-              },
-              cf: 'raiseHand',
-            }, toUser);
-          }
-        }
-        io.disconnect();
-      }
+      // if (virtualclass.currApp === 'DocumentShare') {
+      //   if (!roles.hasControls()) {
+      //     const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
+      //     const action = rhElem.getAttribute('data-action');
+      //     if (action === 'disable') {
+      //       const toUser = virtualclass.vutil.whoIsTeacher();
+      //       ioAdapter.sendUser({
+      //         data: {
+      //           user: wbUser.id,
+      //           action,
+      //         },
+      //         cf: 'raiseHand',
+      //       }, toUser);
+      //     }
+      //   }
+      //   io.disconnect();
+      // }
 
       if (virtualclass.userInteractivity.rendererObj.noteEvent) {
         console.log('====> send note on page load');
@@ -687,6 +691,7 @@
 
 
     isPlayMode() { // TODO
+      // apply codacy rule
       return (window.wbUser.virtualclassPlay == true);
     },
     progressBar(totalVal, portion, pbar, pval) {
@@ -836,7 +841,7 @@
     createDiv(toolId, text, cmdToolsWrapper, cmdClass) {
       // console.log('class name ' + text);
       const toolName = text;
-      var text = virtualclass.lang.getString(text);
+      const str = virtualclass.lang.getString(text);
       const ancTag = document.createElement('a');
       ancTag.href = '#';
 
@@ -851,7 +856,7 @@
       const iconButton = document.createElement('span');
       iconButton.className = `icon-${toolName}`;
       ancTag.appendChild(iconButton);
-      ancTag.dataset.title = text;
+      ancTag.dataset.title = str;
       ancTag.className = 'tooltip';
 
       lDiv.appendChild(ancTag);
@@ -933,8 +938,8 @@
     enablePresentatorEditors(touser) {
       const msg = { toUser: touser, status: true };
 
-      virtualclass.user.control.received_editorRich(msg);
-      virtualclass.user.control.received_editorCode(msg);
+      virtualclass.user.control.receivedEditorRich(msg);
+      virtualclass.user.control.receivedEditorCode(msg);
     },
     getClassName(role) {
       let className;
@@ -1379,17 +1384,18 @@
     },
 
     async xhrSendWithForm(data, methodname) {
-      const form_data = new FormData();
+      const formData = new FormData();
+      let path;
       for (const key in data) {
-        form_data.append(key, data[key]);
+        formData.append(key, data[key]);
       }
       if (typeof methodname === 'undefined') {
-        var path = window.webapi;
+        path = window.webapi;
       } else {
-        var path = `${window.webapi}&methodname=${methodname}&user=${virtualclass.gObj.uid}`;
+        path = `${window.webapi}&methodname=${methodname}&user=${virtualclass.gObj.uid}`;
       }
 
-      return await this.vxhr.post(path, form_data);
+      return await this.vxhr.post(path, formData);
     },
 
     createSaveButton() {
@@ -1411,11 +1417,12 @@
     // removejquery
     setChatHeight(height) {
       return;
-      var height = height - 40;
+      let chatHeight;
+      chatHeight = height - 40;
       if (virtualclass.isPlayMode) {
-        var height = height + 64;
+        chatHeight = height + 64;
       }
-      $('#chat_div').height(height);
+      $('#chat_div').height(chatHeight);
     },
 
     alreadyConnected(userId) {
@@ -1565,6 +1572,7 @@
 
     videoHandler(action, notSend) {
       let video;
+      let tooltip;
       const sw = document.querySelector('.congrea .videoSwitchCont #videoSwitch');
       // Action on means video is On or off means video is off
 
@@ -1573,7 +1581,7 @@
         sw.classList.add('on');
 
         video = 'on';
-        var tooltip = document.querySelector('.videoSwitchCont');
+        tooltip = document.querySelector('.videoSwitchCont');
         tooltip.dataset.title = 'Video off';
         if (roles.hasControls()) {
           virtualclass.videoHost.gObj.videoSwitch = 1;
@@ -1582,7 +1590,8 @@
           virtualclass.videoHost.gObj.stdStopSmallVid = false;
         }
 
-        // var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a span")||document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
+        // var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a span")
+        // ||document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
 
         const hasImg = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid} .user-details a span`) || chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid} .user-details a img`);
 
@@ -1611,7 +1620,7 @@
         sw.classList.add('off');
         // virtualclass.videoHost.gObj.videoSwitch = 0;
         video = 'off';
-        var tooltip = document.querySelector('.videoSwitchCont');
+        tooltip = document.querySelector('.videoSwitchCont');
         tooltip.dataset.title = 'Video on';
         if (virtualclass.videoHost) {
           if (roles.hasControls()) {
@@ -1673,13 +1682,13 @@
     },
 
     setWidth(wbId, canvas, width) {
-      var canvas = document.querySelector(`#canvas${wbId}`);
-      canvas.width = width;
+      const canvasElem = document.querySelector(`#canvas${wbId}`);
+      canvasElem.width = width;
     },
 
     setHeight(wbId, canvas, height) {
-      var canvas = document.querySelector(`#canvas${wbId}`);
-      canvas.height = height;
+      const canvasElem = document.querySelector(`#canvas${wbId}`);
+      canvasElem.height = height;
       // virtualclass.wb[wbId].vcan.renderAll();
     },
 
@@ -1701,19 +1710,21 @@
 
 
     getElemM(wrapper, type) {
+      let res;
       if (type === 'Y') {
-        var res = document.querySelector(`#${wrapper}`).offsetHeight;
+        res = document.querySelector(`#${wrapper}`).offsetHeight;
       } else if (type === 'X') {
-        var res = document.querySelector(`#${wrapper}`).offsetWidth;
+        res = document.querySelector(`#${wrapper}`).offsetWidth;
       }
       return this.getValueWithoutPixel(res);
     },
 
     getElemM2(wrapper, type) {
+      let res;
       if (type === 'Y') {
-        var res = document.querySelector(`#${wrapper}`).offsetHeight;
+        res = document.querySelector(`#${wrapper}`).offsetHeight;
       } else if (type === 'X') {
-        var res = document.querySelector(`#${wrapper}`).offsetWidth;
+        res = document.querySelector(`#${wrapper}`).offsetWidth;
       }
       return this.getValueWithoutPixel(res);
     },
@@ -1777,9 +1788,10 @@
     },
 
     setDefaultScroll() {
-      if (roles.hasControls() && virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare') {
+      if (roles.hasControls() && (virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare')) {
         const wb = virtualclass.gObj.currWb;
-        if (wb != null && typeof virtualclass.pdfRender[wb] === 'object' && virtualclass.pdfRender[wb].canvasWrapper != null) {
+        if (wb != null && typeof virtualclass.pdfRender[wb] === 'object'
+          && virtualclass.pdfRender[wb].canvasWrapper != null) {
           // Defualt scroll trigger
           virtualclass.pdfRender[wb].canvasWrapper.scrollTop = 1;
         }
@@ -1788,7 +1800,9 @@
 
     createWhiteBoard(wId, position) {
       // virtualclass.appInitiator.Whiteboard.call(virtualclass, { app: 'Whiteboard', cusEvent: 'byclick', data: wId });
-      virtualclass.appInitiator.Whiteboard.call(virtualclass, { app: virtualclass.currApp, cusEvent: 'byclick', data: wId, position});
+      virtualclass.appInitiator.Whiteboard.call(virtualclass, {
+        app: virtualclass.currApp, cusEvent: 'byclick', data: wId, position,
+      });
     },
 
     createHashString(str) {
@@ -1886,12 +1900,14 @@
 
 
     initAcitveElement() {
+      let activeElem;
+      let deactiveElem;
       if (virtualclass.currApp === 'Video') {
-        var activeElem = '#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
-        var deactiveElem = '#listvideo';
+        activeElem = '#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+        deactiveElem = '#listvideo';
       } else if (virtualclass.currApp === 'DocumentShare') {
-        var activeElem = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
-        var deactiveElem = '#listdocs';
+        activeElem = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+        deactiveElem = '#listdocs';
       }
 
       const elem = document.querySelector(`#${virtualclass.currApp}Dashboard`);
@@ -1928,8 +1944,8 @@
     },
 
     isDashboardOpened(navButton) {
-      var navButton = document.querySelector('#dashboardnav button');
-      return (navButton != null && navButton.classList.contains('clicked'));
+      const navButtonElem = document.querySelector('#dashboardnav button');
+      return (navButtonElem != null && navButtonElem.classList.contains('clicked'));
     },
 
     stopConnection() {

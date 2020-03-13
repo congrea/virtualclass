@@ -76,7 +76,7 @@
           && virtualclass.orderList[this.appName].ol.order.length > 0) {
           const allNotes = this.getAllNotes(virtualclass.orderList[this.appName].ol.order);
           let docId;
-          for (var i = 0; i < allNotes.length; i++) {
+          for (let i = 0; i < allNotes.length; i++) {
             docId = allNotes[i].id.split('_')[0];
             this.setLinkSelected(docId, 1);
           }
@@ -86,7 +86,7 @@
           this.reArrangeNotes(virtualclass.orderList[this.appName].ol.order);
 
           // TODO This should be improve at later, should handle at function createNoteNav
-          for (var i = 0; i < virtualclass.orderList[this.appName].ol.order.length; i++) {
+          for (let i = 0; i < virtualclass.orderList[this.appName].ol.order.length; i++) {
             const docStatus = this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status;
             this.noteStatus(virtualclass.orderList[this.appName].ol.order[i], docStatus);
           }
@@ -339,7 +339,7 @@
         // console.log('====> Note remove UI');
         const notes = this.getNotes(doc);
         for (let i = 0; i < notes.length; i++) {
-          this._removePageUI(notes[i].id);
+          this.removePageUI(notes[i].id);
         }
         if (virtualclass.orderList[this.appName].ol.order.length <= 0) {
           firstTime = true;
@@ -349,7 +349,7 @@
         }
       },
 
-      _removePageUI(noteId) {
+      removePageUI(noteId) {
         // console.log('====> DOCUMENT SHARING removing node', noteId);
 
         // console.log('JAI 2b');
@@ -425,6 +425,7 @@
       },
 
       onResponseFiles(doc, slides, docFetch, slide, fromReload) {
+        let docId;
         if (firstTime) {
           if (typeof slide !== 'undefined'){
             this.docs.currNote = slide;
@@ -462,11 +463,11 @@
           this.addPages(slides);
 
           if (typeof doc !== 'string') {
-            var docId = `docs${doc}`;
+            docId = `docs${doc}`;
           } else if (doc.indexOf('docs') >= 0) {
-            var docId = doc;
+            docId = doc;
           } else {
-            var docId = `docs${doc}`;
+            docId = `docs${doc}`;
           }
 
           this.createNoteLayout(slides, docId);
@@ -717,6 +718,7 @@
       },
 
       createNoteNav(fromReload) {
+        let status;
         if (virtualclass.orderList[this.appName].ol.order) {
           this.indexNav.init();
         }
@@ -725,9 +727,9 @@
           if (typeof this.notes[virtualclass.orderList[this.appName].ol.order[i]] !== 'object') {
             if (this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status === 'true'
               || (+this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status) === 1) {
-              var status = 1;
+              status = 1;
             } else {
-              var status = 0;
+              status = 0;
             }
             this.notes[virtualclass.orderList[this.appName].ol.order[i]] = new virtualclass.page('screen-docs', 'notes', 'virtualclassDocumentShare', 'dts', status);
             this.notes[virtualclass.orderList[this.appName].ol.order[i]].init(virtualclass.orderList[this.appName].ol.order[i], `note_${this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].lc_content_id}_${virtualclass.orderList[this.appName].ol.order[i]}`);
@@ -776,13 +778,14 @@
       },
 
       createNoteNavAlt(fromReload) {
+        let status;
         // need to get all images from here
         for (let i = 0; i < virtualclass.orderList[this.appName].ol.order.length; i++) {
           if (this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status === 'true'
             || (+this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].status) === 1) {
-            var status = 1;
+            status = 1;
           } else {
-            var status = 0;
+            status = 0;
           }
           this.notes[virtualclass.orderList[this.appName].ol.order[i]] = new virtualclass.page('screen-docs', 'notes', 'virtualclassDocumentShare', 'dts', status);
           this.notes[virtualclass.orderList[this.appName].ol.order[i]].init(virtualclass.orderList[this.appName].ol.order[i], `note_${this.allNotes[virtualclass.orderList[this.appName].ol.order[i]].lc_content_id}_${virtualclass.orderList[this.appName].ol.order[i]}`);
@@ -992,9 +995,9 @@
             currSlide: (typeof thslide !== 'undefined') ? thslide : 0, // TODO this should be removed
             currNote: (typeof thslide !== 'undefined') ? thslide : 0,
             doc: 1,
-            init(screen) {
+            init() {
               const cthis = virtualclass.dts;
-              var screen = '#screen-docs';
+              const screen = '#screen-docs';
 
               const docScreen = document.querySelector(`${screen} .notes`);
 
@@ -1023,7 +1026,7 @@
             },
 
             slideTo(note, fromReload) {
-              console.log("hello 3");
+              console.log('hello 3');
               const noteId = note.dataset.slide;
               virtualclass.vutil.updateCurrentDoc(noteId);
 
@@ -1088,7 +1091,7 @@
                       // alert('There is no page');
                       // virtualclass.dts.indexNav.UI.setArrowStatus('leftNavPage', 'disable');
 
-                      virtualclass.dts.indexNav.UI._setArrowStatusDocs(document.getElementById('leftNavPage'), 'disable', 'enable');
+                      virtualclass.dts.indexNav.UI.setArrowStatusDocs(document.getElementById('leftNavPage'), 'disable', 'enable');
                     } else {
                       // by true, know the event is performed real user
                       this.getScreen(activeSlide, true);
@@ -1106,18 +1109,19 @@
                   virtualclass.dts.indexNav.movePageIndex('left');
                 } else {
                   const leftNavPage = document.getElementById('leftNavPage');
-                  virtualclass.dts.indexNav.UI._setArrowStatusDocs(leftNavPage, 'disable', 'enable');
+                  virtualclass.dts.indexNav.UI.setArrowStatusDocs(leftNavPage, 'disable', 'enable');
                 }
               }
             },
 
             getActiveSlide(cthis, id, which) {
+              let activeSlide;
               const currElem = document.querySelector(`#documentScreen #note${id}`);
               if (currElem != null) {
                 if (which === 'next') {
-                  var activeSlide = currElem.nextElementSibling;
+                  activeSlide = currElem.nextElementSibling;
                 } else {
-                  var activeSlide = currElem.previousElementSibling;
+                  activeSlide = currElem.previousElementSibling;
                 }
 
                 if (activeSlide != null) {
@@ -1163,7 +1167,7 @@
               } else {
                 // alert('There is no page');
                 const rightNavPage = document.getElementById('rightNavPage');
-                virtualclass.dts.indexNav.UI._setArrowStatusDocs(rightNavPage, 'disable', 'enable');
+                virtualclass.dts.indexNav.UI.setArrowStatusDocs(rightNavPage, 'disable', 'enable');
                 // virtualclass.zoom.adjustScreenOnDifferentPdfWidth();
               }
             },
@@ -1286,7 +1290,7 @@
         if (Object.prototype.hasOwnProperty.call(dts, 'fallDocs')) {
           virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'dres')) {
-          console.log("====> document share res");
+          console.log('====> document share res');
           this.docs.studentExecuteScreen(dts);
           if (roles.hasControls() && !virtualclass.dts.noteExist()) {
             virtualclass.dashboard.open();
@@ -1297,7 +1301,7 @@
           // console.log('====> DOCUMENT SHARING  res ', dts);
           // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Layout initialized');
         } else if (Object.prototype.hasOwnProperty.call(dts, 'slideTo')) {
-          console.log("====> document share res slideTo");
+          console.log('====> document share res slideTo');
           if (typeof this.docs.note !== 'object') {
             const cthis = this;
             this.docs.executeScreen(dts.docn, undefined, () => {
@@ -1345,10 +1349,10 @@
             this.docs.displayScreen(doc);
           }
         } else if (Object.prototype.hasOwnProperty.call(dts, 'rmnote')) {
-          this._delete(dts.rmnote);
+          this.delete(dts.rmnote);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'rmsnote')) { // remove single note
-          this._removePageUI(dts.rmsnote);
-          this._removePageFromStructure(dts.rmsnote);
+          this.removePageUI(dts.rmsnote);
+          this.removePageFromStructure(dts.rmsnote);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'noteSt')) {
           if (roles.isStudent()) {
             this.noteStatus(dts.note, dts.noteSt);
@@ -1396,9 +1400,10 @@
       // },
 
       sendCurrentDoc() {
+        let doc;
         if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
           if (doc != null) {
-            var doc = virtualclass.dts.docs.currDoc;
+            doc = virtualclass.dts.docs.currDoc;
             // console.log('==== dts must send ');
             ioAdapter.mustSend({ dts: { doc: doc = virtualclass.dts.docs.currDoc }, cf: 'dts' });
             // console.log('Document share send current doc only');
@@ -1473,7 +1478,7 @@
         // // });
       },
 
-      _delete(id) {
+      delete(id) {
         this.deleteNotesFromOrder(id);
         const data = {
           uuid: id,
@@ -1507,9 +1512,9 @@
         this.removePagesFromStructure(id);
       },
 
-      _deleteNote(id, typeDoc) {
-        this._removePageUI(id, typeDoc);
-        this._removePageFromStructure(id, typeDoc);
+      deleteNote(id, typeDoc) {
+        this.removePageUI(id, typeDoc);
+        this.removePageFromStructure(id, typeDoc);
         if (roles.hasControls()) {
           // console.log('==== dts must send ');
           ioAdapter.mustSend({ dts: { rmsnote: id }, cf: 'dts' });
@@ -1546,7 +1551,7 @@
           }
         }
         if (!noteExit) {
-          this._delete(doc);
+          this.delete(doc);
         }
         if (roles.hasControls()) {
           this.indexNav.createIndex();
@@ -1559,7 +1564,7 @@
         let i;
         for (i in this.allNotes) {
           if (this.allNotes[i].id.indexOf(id) > -1) {
-            this._removePageFromStructure(this.allNotes[i].id);
+            this.removePageFromStructure(this.allNotes[i].id);
           }
         }
       },
@@ -1580,18 +1585,18 @@
         }
       },
 
-      _removePageFromStructure(id) {
+      removePageFromStructure(id) {
         // delete this.allNotes[id];
         this.allNotes[id].deletedn = id;
         // new pages save into docs
         this.updateInAllDocs(id);
       },
 
-      _disable(id) {
+      disable(id) {
         this.docStatus(id);
       },
 
-      _enable(id) {
+      enable(id) {
         this.docStatus(id);
       },
 
@@ -1599,25 +1604,23 @@
 
       docStatus(id, status) {
         const note = document.querySelector(`#linkdocs${id} .controls.status`);
+        let docStatus;
         if (note != null) {
-          if (typeof status === 'undefined') {
-            var status = (1 - (+note.dataset.status));
-          } else {
-            var status = status;
-          }
+          docStatus = (typeof status === 'undefined') ? (1 - (+note.dataset.status)) : status;
         } else {
+          docStatus = status;
           // console.log(`document share:- there is no element ${id}`);
         }
 
         const allNotes = this.getDocs(id);
         for (let i = 0; i < allNotes.length; i++) {
           const nid = allNotes[i].id;
-          this.noteStatus(nid, status);
-          this.updatePageNavStatus(nid, status);
+          this.noteStatus(nid, docStatus);
+          this.updatePageNavStatus(nid, docStatus);
         }
         if (roles.hasControls()) {
           // console.log('==== dts must send ');
-          ioAdapter.mustSend({ dts: { docSt: status, doc: id }, cf: 'dts' });
+          ioAdapter.mustSend({ dts: { docSt: docStatus, doc: id }, cf: 'dts' });
         }
       },
 
@@ -1639,12 +1642,12 @@
       },
 
 
-      _noteDisable(id) {
+      noteDisable(id) {
         this.noteStatus(id);
         this.sendNoteStatus(id);
       },
 
-      _noteEnable(id) {
+      noteEnable(id) {
         this.noteStatus(id);
         this.sendNoteStatus(id);
       },
@@ -1668,16 +1671,17 @@
        */
       noteStatus(id, status) {
         // console.log('====> note status ', id, status);
+        let docStatus;
         const note = document.querySelector(`#note${id}`);
         if (note != null) {
           if (typeof status === 'undefined') {
-            var status = (1 - (+note.dataset.status));
+            docStatus = (1 - (+note.dataset.status));
           } else if (status === 1 || status === '1') {
-            status = 1;
+            docStatus = 1;
           } else {
-            status = 0;
+            docStatus = 0;
           }
-          note.dataset.status = status;
+          note.dataset.status = docStatus;
           const noteObj = this.allNotes[id];
           noteObj.status = note.dataset.status;
           this.allNotes[id] = noteObj;
@@ -1872,7 +1876,7 @@
           } else {
             // this.deleteNotesFromOrder(this.allDocs[key].fileuuid);
             // this.deleteDocElement(this.allDocs[key].fileuuid);
-            this._delete(this.allDocs[key].fileuuid);
+            this.delete(this.allDocs[key].fileuuid);
           }
         }
       },

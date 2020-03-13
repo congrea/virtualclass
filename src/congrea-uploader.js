@@ -152,6 +152,8 @@
 
           callbacks: {
             onComplete(id, xhr, rawData) {
+              let ul;
+              let dashboard;
               if (obj.cthis === 'video') {
                 obj.cb.call(virtualclass.videoUl, id, xhr, rawData);
                 const msz = document.querySelector('#videoPopup .qq-upload-list-selector.qq-upload-list');
@@ -161,7 +163,7 @@
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
 
-                var ul = document.querySelector('#uploadMsz .qq-upload-list-selector.qq-upload-list');
+                ul = document.querySelector('#uploadMsz .qq-upload-list-selector.qq-upload-list');
                 if (ul != null) {
                   ul.style.display = 'block';
                 }
@@ -172,42 +174,42 @@
                   }
                 }
                 virtualclass.vutil.removeChildrens('#VideoDashboard #uploadMsz .qq-upload-list-selector.qq-upload-list li');
-                var dashbaord = document.querySelector('#VideoDashboard');
+                dashboard = document.querySelector('#VideoDashboard');
               } else if (obj.cthis === 'docs') {
                 obj.cb.call(virtualclass.dts, id, xhr, rawData);
 
                 virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listdocs');
 
-                var ul = document.querySelector('#docsuploadContainer #docsUploadMsz .qq-upload-list-selector.qq-upload-list');
+                ul = document.querySelector('#docsuploadContainer #docsUploadMsz .qq-upload-list-selector.qq-upload-list');
                 if (ul != null) {
                   ul.style.display = 'block';
                 }
 
                 virtualclass.vutil.removeChildrens('#docsUploadMsz .qq-upload-list-selector.qq-upload-list li');
-
-                var dashbaord = document.querySelector('#DocumentShareDashboard');
+                dashboard = document.querySelector('#DocumentShareDashboard');
               }
-              if (dashbaord != null) {
-                dashbaord.classList.remove('uploading');
+              if (dashboard != null) {
+                dashboard.classList.remove('uploading');
               }
             },
 
             onError() {
+              let msz;
               const alertMsz = document.querySelector('.dbContainer .alert');
               if (alertMsz) {
                 alertMsz.parentNode.removeChild(alertMsz);
               }
 
               if (obj.cthis === 'video') {
-                var msz = document.querySelector('#videoPopup .qq-upload-list-selector.qq-upload-list');
+                msz = document.querySelector('#videoPopup .qq-upload-list-selector.qq-upload-list');
                 if (msz) {
                   msz.style.display = 'none';
                 }
                 virtualclass.vutil.makeElementActive('#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
                 virtualclass.vutil.makeElementActive('#listvideo');
               } else if (obj.cthis === 'docs') {
-                var msz = document.querySelector('#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list');
+                msz = document.querySelector('#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list');
                 if (msz) {
                   msz.style.display = 'none';
                 }
@@ -217,16 +219,18 @@
             },
 
             onSubmitted(id, name) {
+              let container;
+              let selector;
               this.setName(id, name.toLowerCase());
 
               /** It handles the rendering the progressbar after done once * */
 
               if (obj.cthis === 'video') {
-                var container = '#uploadMsz';
-                var selector = '#VideoDashboard';
+                container = '#uploadMsz';
+                selector = '#VideoDashboard';
               } else if (obj.cthis === 'docs') {
-                var container = '#docsUploadMsz';
-                var selector = '#DocumentShareDashboard';
+                container = '#docsUploadMsz';
+                selector = '#DocumentShareDashboard';
               }
 
               const dashboard = document.querySelector(selector);

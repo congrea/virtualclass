@@ -228,12 +228,7 @@ const PopUp = (function (window, undefined) {
       }
     }
 
-    var audioWidget = document.getElementById('audioWidget');
-    if (audioWidget != null) {
-      audioWidget.style.zIndex = 0;
-    }
-
-    var audioWidget = document.getElementById('audioWidget');
+    const audioWidget = document.getElementById('audioWidget');
     if (audioWidget != null) {
       audioWidget.style.zIndex = 0;
     }
@@ -468,7 +463,6 @@ const PopUp = (function (window, undefined) {
 
 
   PopUp.prototype.chromeExtMissing = function () {
-
     const element = document.getElementById('about-modal');
     element.dataset.currPopup = 'chromeExt';
     virtualclass.popup.open(element);

@@ -12,7 +12,9 @@ class Bookmark { // Part of bookmark
       const bookMarkContainer = document.querySelector('#bookmark .container');
       if (bookMarkContainer && !newBookmarkElem) {
         const bookmarkHtml = virtualclass.getTemplate('bookmark', 'askQuestion');
-        bookMarkContainer.insertAdjacentHTML('beforeEnd', bookmarkHtml( { context: virtualclass.userInteractivity.currentContext } ));
+        bookMarkContainer.insertAdjacentHTML('beforeEnd', bookmarkHtml({
+          context: virtualclass.userInteractivity.currentContext,
+        }));
       }
     }
 
@@ -24,14 +26,15 @@ class Bookmark { // Part of bookmark
 
   async bookMarkHandler(event) {
     // await virtualclass.userInteractivity.triggerInitFirebaseOperation('bookmark');
-    virtualclass.userInteractivity.handler(event);
-    const parentNode = event.target.parentNode;
-    if (+(parentNode.dataset.value) === 1) {
-      parentNode.dataset.value = 0;
-      event.target.dataset.title = virtualclass.lang.getString('addContext');
+    const ev = event;
+    virtualclass.userInteractivity.handler(ev);
+    const parentNodeElem = ev.target.parentNode;
+    if (+(parentNodeElem.dataset.value) === 1) {
+      parentNodeElem.dataset.value = 0;
+      ev.target.dataset.title = virtualclass.lang.getString('addContext');
     } else {
-      parentNode.dataset.value = 1;
-      event.target.dataset.title = virtualclass.lang.getString('removeContext');
+      parentNodeElem.dataset.value = 1;
+      ev.target.dataset.title = virtualclass.lang.getString('removeContext');
     }
   }
 
@@ -42,7 +45,7 @@ class Bookmark { // Part of bookmark
   updateOnPageRefresh(data) {
     const bookmark = document.querySelector(`#bookmark .bookmarks[data-context~=${data.context}]`);
     if (bookmark) {
-      let toolTip = bookmark.querySelector('.congtooltip');
+      const toolTip = bookmark.querySelector('.congtooltip');
       bookmark.dataset.value = data.content;
       if (data.content === 1) {
         toolTip.dataset.title = virtualclass.lang.getString('removeContext');

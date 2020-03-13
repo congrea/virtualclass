@@ -95,6 +95,8 @@
 
 
   Bootstrap.prototype.loadData = function () {
+    let appIs;
+    let videoObj;
     if (roles.hasControls()) {
       localStorage.setItem('uRole', virtualclass.gObj.uRole);
     }
@@ -119,19 +121,19 @@
       virtualclass.previousApp = previousApp;
       const appNameUpper = previousApp.name;
 
-      var appIs = appNameUpper.charAt(0).toUpperCase() + appNameUpper.slice(1);
+      appIs = appNameUpper.charAt(0).toUpperCase() + appNameUpper.slice(1);
       if (previousApp.name === 'Yts' || (previousApp.name === 'DocumentShare')) {
         if (previousApp.metaData == null) {
-          var videoObj = null;
+          videoObj = null;
         } else {
-          var videoObj = previousApp.metaData;
+          videoObj = previousApp.metaData;
           videoObj.fromReload = true;
         }
       } else if (previousApp.name === 'Video') {
         if (previousApp.metaData == null || previousApp.metaData.init == null) {
-          var videoObj = null;
+          videoObj = null;
         } else {
-          var videoObj = previousApp.metaData;
+          videoObj = previousApp.metaData;
           videoObj.fromReload = true;
         }
       } else if (previousApp.name === 'Whiteboard') {
@@ -145,15 +147,15 @@
         }
       }
     } else {
-      var appIs = virtualclass.gObj.defaultApp;
+      appIs = virtualclass.gObj.defaultApp;
     }
 
     if (typeof videoObj === 'undefined') {
-      var videoObj = null;
+      videoObj = null;
     }
 
     virtualclass.precheck = localStorage.getItem('precheck');
-    var isPrecheck = localStorage.getItem('precheck');
+    const isPrecheck = localStorage.getItem('precheck');
     if (isPrecheck != null) {
       virtualclass.isPrecheck = JSON.parse(isPrecheck);
     }
@@ -235,12 +237,18 @@
   };
 
   Bootstrap.prototype.notifyAboutCPU = function () {
+    const strCpu = virtualclass.lang.getString('notcompatiblecpu');
+    const strRam = virtualclass.lang.getString('notcompatibleram');
     if (!virtualclass.system.isCompatibleCPU()) {
-      virtualclass.view.createErrorMsg(virtualclass.lang.getString('notcompatiblecpu'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'notcompatiblecpu' });
+      virtualclass.view.createErrorMsg(strCpu, 'errorContainer', 'virtualclassAppFooterPanel', {
+        className: 'notcompatiblecpu',
+      });
     }
 
     if (!virtualclass.system.isCompatibleRAM()) {
-      virtualclass.view.createErrorMsg(virtualclass.lang.getString('notcompatibleram'), 'errorContainer', 'virtualclassAppFooterPanel', { className: 'notcompatiblecpu' });
+      virtualclass.view.createErrorMsg(strRam, 'errorContainer', 'virtualclassAppFooterPanel', {
+        className: 'notcompatiblecpu',
+      });
     }
   };
   window.Bootstrap = Bootstrap;

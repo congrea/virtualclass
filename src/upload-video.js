@@ -211,13 +211,13 @@
         const controlElem = vid.getElementsByClassName('status')[0];
 
         if (Object.prototype.hasOwnProperty.call(vidObj, 'disabled')) {
-          this._disable(vidObj.fileuuid);
+          this.disable(vidObj.fileuuid);
           if (vid) {
             vid.classList.add('disable');
             vid.dataset.status = 0;
           }
         } else {
-          this._enable(vidObj.fileuuid);
+          this.enable(vidObj.fileuuid);
           if (vid) {
             vid.classList.add('enable');
             vid.dataset.status = 1;
@@ -379,18 +379,17 @@
         // this.sendOrder(this.order);
       },
 
-      async _editTitle(id, title, videotype) {
-        var form_data = new FormData();
+      async editTitle(id, title, videotype) {
+        const formData = new FormData();
         const data = {
           lc_content_id: id, action: 'edit', title, user: virtualclass.gObj.uid,
         };
-        var form_data = new FormData();
         for (const key in data) {
-          form_data.append(key, data[key]);
+          formData.append(key, data[key]);
           // console.log(data[key]);
         }
 
-        await this.vxhr.post(`${window.webapi}&user=${virtualclass.gObj.uid}&methodname=update_content_video`, form_data)
+        await this.vxhr.post(`${window.webapi}&user=${virtualclass.gObj.uid}&methodname=update_content_video`, formData)
           .then((response) => {
             const elem = document.getElementById(`videoTitle${id}`);
             if (elem) {
@@ -700,7 +699,7 @@
        * to disable  video in the videolist
        */
 
-      _disable(_id) {
+      disable(_id) {
         const linkvideo = document.querySelector(`#linkvideo${_id}`);
         linkvideo.classList.add('playDisable');
         const video = document.getElementById(`mainpvideo${_id}`);
@@ -720,7 +719,7 @@
       /*
        * to enable  video in the videolist
        */
-      _enable(_id) {
+      enable(_id) {
         const linkvideo = document.querySelector(`#linkvideo${_id}`);
         linkvideo.classList.remove('playDisable');
 
@@ -743,7 +742,7 @@
       /*
        * to delete  video from list and from the database
        */
-      _delete(id) {
+      delete(id) {
         const data = {
           uuid: id,
           action: 'delete',
@@ -811,7 +810,7 @@
             if (!virtualclass.serverData.rawData.video.length) {
               virtualclass.vutil.removeFinishBtn();
             } else if (virtualclass.serverData.rawData.video.length === 1) {
-              var video = document.querySelector('.congrea #listvideo .linkvideo');
+              const video = document.querySelector('.congrea #listvideo .linkvideo');
               if (video) {
                 video.classList.add('singleVideo');
               }
@@ -1210,10 +1209,10 @@
           const upload = document.querySelector('.congrea #newVideoBtn');
           if (upload) {
             upload.addEventListener('click', () => {
-              var uploader = document.querySelector('.congrea #congreavideoContBody');
-              uploader.style.display = 'block';
-              var uploader = document.querySelector('.congrea #listvideo');
-              uploader.style.display = 'none';
+              const uploaderVideoCont = document.querySelector('.congrea #congreavideoContBody');
+              uploaderVideoCont.style.display = 'block';
+              const uploaderListvideo = document.querySelector('.congrea #listvideo');
+              uploaderListvideo.style.display = 'none';
             });
           }
         },

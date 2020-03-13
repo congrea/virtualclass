@@ -5068,6 +5068,11 @@ body {
   height: 100%;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #b3b3b3 #eceaea;
+}
+
 #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-memblist,
 #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-memblist .ui-memblist-content,
 #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-chatroom,

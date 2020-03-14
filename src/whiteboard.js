@@ -19,13 +19,13 @@ class WhiteboardReplay {
     let shape;
     let evt;
     switch (data.action) {
-      case 'sp':
+      case 'sp': // shape, like, rectangle
         virtualclass.wb[wid].selectedTool = data.tool;
         eventType = data.event;
         shape = `${data.shape}Obj`;
         virtualclass.wb[wid][shape][eventType](data.actual, virtualclass.wb[wid]);
         break;
-      case 'ac':
+      case 'ac': // active all
         // todo innerMouseDown has to removed later
         if (data.event && (data.event === 'mousedown')) {
           virtualclass.wb[wid].innerToolbarHandler(virtualclass.wbWrapper.keyMap[data.action]);
@@ -39,25 +39,10 @@ class WhiteboardReplay {
           which: 1,
           composed: true,
         });
-
-
-
-        console.log('==== actives all actual' + data.event + ' ,', data.actual.x, data.actual.y);
-
-        // if (data.event === 'mousedown') {
-        //   virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
-        // } else if (data.event === 'mousemove') {
-        //   virtualclass.wb[wid].canvas._onMouseMove(evt);
-        //   // virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
-        // } else if (data.event === 'mouseup') {
-        //   //virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
-        //   virtualclass.wb[wid].canvas._onMouseUp(evt);
-        // }
-
         virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
-
-        console.log('====> Mouse active all student', JSON.stringify(data));
-
+        break;
+      case 'cr': // clear whiteboard
+        virtualclass.wb[data.actual].clear();
         break;
       default:
         console.log('====> do nothing');
@@ -552,9 +537,19 @@ class Whiteboard {
     console.log('====> I am being active here ');
   }
 
+  clearAll() {
+    const cofirmMessage = virtualclass.lang.getString('clearAllWarnMessageW');
+    virtualclass.popup.confirmInput(cofirmMessage, (confirm) => {
+      if (confirm){
+        this.clear();
+        const encodeData = virtualclass.wbWrapper.protocol.encode('cr', virtualclass.gObj.currWb);
+        virtualclass.wbWrapper.util.sendWhiteboardData(encodeData);
+      }
+    });
+  }
+
   clear() {
-    const wId = virtualclass.gObj.currWb;
-    virtualclass.wb[wId].canvas.clear();
-    virtualclass.wb[wId].replayObjs = [];
+    this.canvas.clear();
+    this.replayObjs = [];
   }
 }

@@ -81,10 +81,6 @@
   height: 50px;
 }
 
-#virtualclassCont.congrea .currentNav .mainpreview {
-  box-shadow: 0 0 6px rgb(96, 96, 97);
-}
-
 #virtualclassCont.congrea #listppt .linkppt .controlCont div[data-status="0"]::before {
   content: "\e9d1";
   font-family: 'icomoon';

@@ -113,7 +113,7 @@ class ActiveAll {
     if (!event.e.isTrusted) return;
     console.log('====> shoud not invoke');
     if (this.activeDown && this.down) {
-      whiteboard.canvas.renderAll();
+      // whiteboard.canvas.renderAll();
       const newData = this.generateData(event, whiteboard, 'm')
       virtualclass.gObj.presentSendDataTime = new Date().getTime();
       this.previousActiveData = newData;
@@ -206,11 +206,11 @@ class WhiteboardUtility {
     virtualclass.wb[wId].replayObjs.push(data);
   }
 
-  async replayData(data, wId) {
+  replayData(data, wId) {
     virtualclass.wb[wId].vcanMainReplayObjs = [];
     if (data.length > 0) {
       virtualclass.wb[wId].vcanMainReplayObjs = data;
-      await this.replayInit(wId);
+      this.replayInit(wId);
     }
   }
 
@@ -555,6 +555,6 @@ class Whiteboard {
   clear() {
     const wId = virtualclass.gObj.currWb;
     virtualclass.wb[wId].canvas.clear();
-    virtualclass.wb[wId].replayObjs =[];
+    virtualclass.wb[wId].replayObjs = [];
   }
 }

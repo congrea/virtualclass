@@ -3292,7 +3292,7 @@ div.ui-memblist-usr .userVideos {
   text-align: center;
   margin-top: 0;
   font-size: 1rem;
-  line-height: unset;
+  line-height: 1.125rem;
 }
 
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a {

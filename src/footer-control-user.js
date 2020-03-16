@@ -117,7 +117,7 @@
         let audEnable;
         let chEnable;
         let editorBlockEnable;
-        let rhEnable;
+        // let rhEnable;
         let editorBlock;
         // var userObj = localStorage.getItem(userId);
         let uObj = false;
@@ -196,7 +196,7 @@
               chEnable = true;
             }
             virtualclass.user.control.changeAttribute(userId, chatBlock, chEnable, 'chat', 'chat');
-          } else if (controls[i] == 'editorRich' || (controls[i] == 'editorCode')) {
+          } else if (controls[i] === 'editorRich' || (controls[i] === 'editorCode')) {
             if (roles.hasAdmin()) {
               if (uObj && Object.prototype.hasOwnProperty.call(userObj, controls[i])) {
                 editorBlockEnable = !!(userObj[controls[i]]);
@@ -216,7 +216,8 @@
                 controller.style.display = 'none';
               }
 
-              virtualclass.user.control.changeAttribute(userId, editorBlock, editorBlockEnable, controls[i], controls[i]);
+              virtualclass.user.control.changeAttribute(userId,
+                editorBlock, editorBlockEnable, controls[i], controls[i]);
 
               if (orginalTeacher) {
                 editorBlock.addEventListener('click', that.closureEditor(that, editorBlock));
@@ -487,15 +488,16 @@
         //   virtualclass.user.control._enable(elem, control, toUser, label);
         // },
         enable(elem, control, userId, label) {
-          elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${control}Enable`));
+          const getElem = elem;
+          getElem.parentNode.setAttribute('data-title', virtualclass.lang.getString(`${control}Enable`));
           // if (control == 'audio') {
           //     elem.parentNode.setAttribute('data-title', virtualclass.lang.getString(control + "Off"));
           // }
-          elem.setAttribute(`data-${control}-disable`, 'false');
-          elem.className = `icon-${control}Img enable ${control}Img`;
-          if (control === 'RaiseHand') {
-            virtualclass.raiseHand._raiseHand(userId);
-          }
+          getElem.setAttribute(`data-${control}-disable`, 'false');
+          getElem.className = `icon-${control}Img enable ${control}Img`;
+          // if (control === 'RaiseHand') {
+          //   virtualclass.raiseHand._raiseHand(userId);
+          // }
           virtualclass.user.control.updateUser(userId, label, true);
         },
 
@@ -509,16 +511,17 @@
         },
 
         init(tag, defaultAction, searchBy, actSend) {
+          let searchByPos = searchBy;
           if (typeof searchBy !== 'undefined') {
-            searchBy = searchBy;
+            searchByPos = searchBy;
           } else {
-            searchBy = 'Img';
+            searchByPos = 'Img';
           }
           const compId = tag.id;
           const ep = compId.indexOf('contr');
           const userId = compId.substring(0, ep);
           const restString = compId.split('contr')[1];
-          const imgPos = restString.indexOf(searchBy);
+          const imgPos = restString.indexOf(searchByPos);
 
           const control = restString.substring(0, imgPos);
           // TODO this function should be generalise
@@ -530,7 +533,7 @@
               const assignDisable = (tag.getAttribute('data-assign-disable') === 'true');
               if (!assignDisable) {
                 this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
-                virtualclass.user.control._assign(userId);
+                // virtualclass.user.control._assign(userId);
                 virtualclass.user.control.changeAttrToAssign('block');
               }
 
@@ -599,7 +602,7 @@
             const assignDisable = (tag.getAttribute('data-assign-disable') === 'true');
             if (!assignDisable) {
               this.control.changeAttribute(userId, tag, assignDisable, 'assign', 'aRole');
-              virtualclass.user.control._assign(userId);
+              // virtualclass.user.control._assign(userId);
               virtualclass.user.control.changeAttrToAssign('block');
             }
 
@@ -628,9 +631,9 @@
           }
         },
 
-        _assign(userId, notsent, fromUserId) {
-
-        },
+        // _assign(userId, notsent, fromUserId) {
+        //
+        // },
 
 
         chat(userId, action) {
@@ -1218,7 +1221,7 @@
         } else {
           const that = this;
           spanTag.addEventListener('click', () => {
-            const setLable = virtualclass.vutil.capitalizeFirstLetter(type);
+            // const setLable = virtualclass.vutil.capitalizeFirstLetter(type);
             const actionToPerform = that.toogleIcon(type);
             const act = (actionToPerform === 'enable');
             let typeSend;

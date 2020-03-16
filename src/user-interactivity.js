@@ -332,7 +332,7 @@ class UserInteractivityBasicOperation {
           }
         }
         this.updateCount(data, status);
-        virtualclass.vutil.attachWhiteboardPopupHandler();
+        // virtualclass.vutil.attachWhiteboardPopupHandler();
       } else if (status === 'edited') {
         component.children = contextObj[currentContext][data.component][data.componentId].children;
         component.content = data.content;

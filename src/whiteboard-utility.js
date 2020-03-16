@@ -921,6 +921,7 @@
         if (!virtualclass.zoom.canvasScale) {
           // Todo, there would come as offsetwidth of virtualclass
           virtualclass.zoom.canvasScale = (window.innerWidth - (roles.hasControls() ? 385 : 360)) / 595;
+          console.log('==== a suman Scale change');
           // console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
         }
 
@@ -933,7 +934,7 @@
         if (!virtualclass.zoom.canvasScale) {
           // Todo, there would come as offsetwidth of virtualclass
           virtualclass.zoom.canvasScale = (window.innerWidth - (roles.hasControls() ? 385 : 360)) / 595;
-          // console.log('==== a jai SCAle change ', virtualclass.zoom.canvasScale);
+          console.log('==== a suman SCAle change ', virtualclass.zoom.canvasScale);
         }
 
         obj.x = ev.detail.cevent.x / virtualclass.zoom.canvasScale;

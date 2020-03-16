@@ -31,6 +31,7 @@ class WhiteboardReplay {
           virtualclass.wb[wid].innerToolbarHandler(virtualclass.wbWrapper.keyMap[data.action]);
         }
 
+        console.log('====> I am being active here before ', data.actual.x, data.actual.y);
         evt = new MouseEvent(data.event, {
           clientX: data.actual.x,
           clientY: data.actual.y,
@@ -40,6 +41,7 @@ class WhiteboardReplay {
           composed: true,
         });
         virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+
         break;
       case 'cr': // clear whiteboard
         virtualclass.wb[data.actual].clear();
@@ -79,7 +81,8 @@ class ActiveAll {
 
   mouseDown(event, whiteboard) {
     const myPointer = whiteboard.canvas.getPointer(event, whiteboard)
-    console.log('==== actives all mouse down', myPointer.x, myPointer.y);
+    console.log('==== convert actives all mouse down', myPointer.x, myPointer.y);
+    console.log('==== CONVERT MOUSE ======================================');
     if (!event.e.isTrusted) return;
     console.log('====> shoud not invoke is trusted ', event.e.isTrusted);
     this.down = true;
@@ -96,7 +99,7 @@ class ActiveAll {
     const myPointer = whiteboard.canvas.getPointer(event, whiteboard);
     console.log('==== actives all mouse move', myPointer.x, myPointer.y, ' orginal x, y', event.e.clientX, event.e.clientY);
     if (!event.e.isTrusted) return;
-    console.log('====> shoud not invoke');
+    // console.log('====> shoud not invoke');
     if (this.activeDown && this.down) {
       // whiteboard.canvas.renderAll();
       const newData = this.generateData(event, whiteboard, 'm')
@@ -266,10 +269,10 @@ class WhiteboardUtility {
       for (let i = 0; i < tempArrays.length; i++) {
         this.applyCommand(tempArrays[i], wId);
       }
-      console.log('====> canvas scale ', virtualclass.zoom.canvasScale);
-      virtualclass.wb[wId].canvas.setZoom(virtualclass.zoom.canvasScale);
-      virtualclass.wb[wId].canvas.renderAll();
     }
+    console.log('====> canvas scale ', virtualclass.zoom.canvasScale);
+    virtualclass.wb[wId].canvas.setZoom(virtualclass.zoom.canvasScale);
+    // virtualclass.wb[wId].canvas.renderAll();
   }
 
   onMessage(e) {

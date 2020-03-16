@@ -28,23 +28,43 @@ class WhiteboardProtocol {
     return newData;
   }
 
+  convertAccordingToScale(type, data) {
+    const result = {}
+    if (type === 'divide') {
+      result.x = data.x / virtualclass.zoom.canvasScale;
+      result.y = data.y / virtualclass.zoom.canvasScale;
+    } else {
+      if (!virtualclass.zoom.canvasScale) virtualclass.zoom.canvasScale = 1.5008403361344538;
+      result.x = (+data[2]) * virtualclass.zoom.canvasScale;
+      result.y = (+data[3]) * virtualclass.zoom.canvasScale;
+    }
+    return result;
+  }
+
   ac(data, type) {
-    let newData;
+    const newData = {};
     if (type === 'encode') {
-      newData = {
-        wb: [`ac_${data.event}_${Math.round(data.x * 100) / 100}_${Math.round(data.y * 100) / 100}`],
-        cf: 'wb',
-      };
+      console.log('==== sending before encode ', data.x, data.y);
+      const newCord = this.convertAccordingToScale('divide', data);
+      // const newCord = data;
+      // newData.y = data.y / virtualclass.zoom.canvasScale;
+      // newData.wb = [`ac_${data.event}_${Math.round(newData.x * 100) / 100}_${Math.round(newData.y * 100) / 100}`];
+      newData.wb = [`ac_${data.event}_${newCord.x}_${newCord.y}`];
+      newData.cf = 'wb';
     } else if (type === 'decode') {
-      newData = {};
       newData.action = data[0];
       newData.tool = virtualclass.wbWrapper.keyMap[data[1]];
       if (data.length > 3) {
         newData.event = virtualclass.wbWrapper.keyMap[`ac${data[1]}`];
-        newData.actual = { x: +data[2], y: +data[3] };
+        console.log('==== convert, before convert x, y ', newData.event, data[2], data[3]);
+        const newCord = this.convertAccordingToScale('multiply', data);
+        // const newCord = { x: +data[2], y: +data[3] };
+        newData.actual = { x: newCord.x, y: newCord.y };
         if (roles.hasControls()) {
           const toolBar = document.getElementById(`commandToolsWrapper${virtualclass.gObj.currwb}`);
           newData.actual.y += toolBar ? toolBar.offsetHeight : 44;
+          const appOptionsToolbar = document.getElementById('virtualclassAppOptionsCont');
+          newData.actual.x += appOptionsToolbar ? appOptionsToolbar.offsetWidth : 55;
         }
       }
     }

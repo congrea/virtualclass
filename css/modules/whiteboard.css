@@ -546,6 +546,6 @@ ul.fontSizeList span {
   pointer-events: none;
 }
 
-/*#virtualclassCont .whiteboardContainer .canvas-container {*/
-  /*width: 100% !important;*/
-/*}*/
+#virtualclassCont .whiteboardContainer .canvas-container {
+  width: 100% !important;
+}

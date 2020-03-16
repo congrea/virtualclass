@@ -317,7 +317,7 @@
       const elem = document.getElementById('virtualclassApp');
       localStorage.setItem('hideRightbar', false);
       virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
-      elem.classList.remove('collapsedRightba');
+      elem.classList.remove('collapsedRightbar');
       elem.classList.add('openRightbar');
       chat_div.classList.remove('collapsedRightbar');
       if (roles.isStudent()) {

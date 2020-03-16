@@ -230,7 +230,7 @@ class UserInteractivityRenderer { // Main Part
     const event = ev;
     setTimeout(() => {
       event.target.style.cssText = 'height:auto; padding:0';
-      event.target.style.cssText = `height: ${event.target.scrollHeight} px`;
+      event.target.style.cssText = `height: ${event.target.scrollHeight}px`;
     }, 1000);
   }
 

@@ -104,12 +104,6 @@
   position: relative;
 }
 
-@-moz-document url-prefix() {
-  #virtualclassCont.congrea #congdashboard.modal .modal-header {
-    height: 2.75rem;
-  }
-}
-
 /* old */
 
 #virtualclassCont.congrea #listvideo .linkvideo .controlCont div[data-status="0"]::before {

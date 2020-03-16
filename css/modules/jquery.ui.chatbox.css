@@ -657,6 +657,8 @@ virtualclasscont.congrea.playMode.student .ui-chatroom {
   position: relative;
   height: 100%;
   padding-top: 3.125rem;
+  scrollbar-width: thin;
+  overflow-x: hidden;
 }
 
 #virtualclassCont.congrea #chat_div::-webkit-scrollbar ,

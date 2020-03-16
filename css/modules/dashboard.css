@@ -183,7 +183,8 @@
 }
 
 #virtualclassCont #listnotes .mainpreview:hover {
-  border: 1px solid #ccc;
+  box-shadow: 0 0 6px rgb(96, 96, 97);
+  border: none;
 }
 
 #virtualclassCont.congrea #listnotes {
@@ -201,6 +202,11 @@
 
 .bootstrap #listdocs.listPages .list-group-item.links {
   border: none;
+}
+
+#virtualclassCont.congrea .currentNav .mainpreview {
+  box-shadow: 0 0 6px rgb(96, 96, 97);
+  border: unset;
 }
 
 #virtualclassCont.congrea .linkdocs {
@@ -368,9 +374,10 @@
   }
 }
 
-#virtualclassCont.congrea .currentNav .mainpreview {
+#virtualclassCont.congrea .dashboardview #listnotes .currentNav .mainpreview {
   box-shadow: 0 0 6px rgb(96, 96, 97);
   pointer-events: none;
+  border: unset;
 }
 
 #virtualclassCont #dashboardContainer .modal .modal-content {

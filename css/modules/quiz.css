@@ -374,6 +374,7 @@
 #virtualclassCont.congrea.student #virtualclassPoll #layoutPoll .nav.navbar {
   /* max-height: 48px; */
   min-height: 2.75rem !important;
+  max-height: 2.75rem;
 }
 
 #virtualclassCont.congrea.student #virtualclassQuiz #layoutQuiz .nav.navbar,

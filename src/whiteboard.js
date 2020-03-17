@@ -376,12 +376,13 @@ class WhiteboardShape {
     this.coreObj = {
       angle: 0,
       selectable: false,
-      fill: '#ffffff',
+      fill: 'none',
       stroke: '#0a0a0a',
       transparentCorners: false,
       width: 0,
       height: 0,
       strokeWidth: 2,
+      backgroundColor: 'transparent',
     };
   }
 

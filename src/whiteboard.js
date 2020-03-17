@@ -407,6 +407,8 @@ class WhiteboardShape {
     this.coreObj.width = 1;
     this.coreObj.height = 1;
     this.coreObj.rotatingPointOffset = 40 * virtualclass.zoom.canvasScale;
+    this.coreObj.cornerSize = 13 * virtualclass.zoom.canvasScale;
+    this.coreObj.strokeWidth = 1 * virtualclass.zoom.canvasScale;
     const toolName = virtualclass.wbWrapper.keyMap[this.name];
     this[this.name] = new fabric[toolName](this.coreObj); // add object
     whiteboard.canvas.add(this[this.name]);

@@ -465,7 +465,7 @@
 
           canvas.height = viewport.height;
           canvas.width = viewport.width;
-
+          console.log('=====> whiteboard pdf suman calc canvas scale');
           virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
           virtualclass.zoom.canvasScale = viewport.scale;
           console.log('==== a suman SCAle change ', virtualclass.zoom.canvasScale);

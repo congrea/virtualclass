@@ -1032,7 +1032,7 @@
                 // virtualclass.wb[id].utility.displayCanvas(id);
 
                 virtualclass.wb[id].init(id);
-
+                console.log('=====> whiteboard pdf suman wb init');
                 // if (roles.hasControls()) {
                 //   virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
                 // }

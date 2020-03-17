@@ -34,6 +34,7 @@ class WhiteboardProtocol {
       result.x = data.x / virtualclass.zoom.canvasScale;
       result.y = data.y / virtualclass.zoom.canvasScale;
     } else {
+      console.log('====> whiteboard pdf suman change coords');
       // if (!virtualclass.zoom.canvasScale) virtualclass.zoom.canvasScale = 1.5008403361344538;
       result.x = (+data[2]) * virtualclass.zoom.canvasScale;
       result.y = (+data[3]) * virtualclass.zoom.canvasScale;

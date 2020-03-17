@@ -263,6 +263,7 @@ class WhiteboardUtility {
   }
 
   replayFromLocalStroage(allRepObjs, wid) {
+     console.log('====> whiteboard pdf suman draw whiteboard')
     if (typeof (Storage) !== 'undefined') {
       virtualclass.wb[wid].clear(wid);
       virtualclass.wb[wid].gObj.tempRepObjs = allRepObjs;
@@ -303,11 +304,12 @@ class WhiteboardUtility {
   }
 
   onMessage(e) {
+    virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
+    if (!virtualclass.zoom.canvasScale) return;
     if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
       && e.fromUser.role === 't') {
       virtualclass.wbWrapper.util.applyCommand(e.message.wb, virtualclass.gObj.currWb);
     }
-    virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
   }
 
   handleArrow(event) {

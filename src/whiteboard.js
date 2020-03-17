@@ -45,6 +45,9 @@ class WhiteboardReplay {
         break;
       case 'cr': // clear whiteboard
         virtualclass.wb[data.actual].clear();
+
+      case 'an': // clear whiteboard
+        virtualclass.wb[data.actual].clear();
         break;
       default:
         console.log('====> do nothing');
@@ -131,6 +134,17 @@ class ActiveAll {
 // This class is to handle the utility functions of whiteboard
 class WhiteboardUtility {
   // earlier it waas drawInWhiteboards
+  initArrowImage() {
+    if (!this.arrImg) {
+      this.arrImg = new Image();
+      this.arrImg.src = 'https://cdn.congrea.net/resources/images/arrow.png';
+      this.arrImgDraw = false;
+      this.arrImg.onload = function () {
+        this.arrImgDraw = true;
+      };
+    }
+  }
+
   applyCommand(data, wid) {
     // for (let i = 0; i < data.length; i += 1) {
     //   if (Object.prototype.hasOwnProperty.call(data[i], 'cmd')) {
@@ -215,6 +229,19 @@ class WhiteboardUtility {
     }
   }
 
+  sendArrow(msg) {
+    const time = 10;
+    if (!this.lastarrowtime) {
+      this.lastarrowtime = new Date().getTime();
+    }
+    this.presentarrowtime = new Date().getTime();
+    if ((this.presentarrowtime - this.lastarrowtime) >= time) {
+      console.log('====> creating arrow ', JSON.stringify(msg));
+      ioAdapter.send(msg);
+      this.lastarrowtime = new Date().getTime();
+    }
+  }
+
   createFabricNewInstance(wId) {
     if (virtualclass.wb[wId].canvas && virtualclass.wb[wId].canvas.lowerCanvasEl) {
       virtualclass.wb[wId].canvas.dispose();
@@ -282,6 +309,62 @@ class WhiteboardUtility {
     }
     virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
   }
+
+  handleArrow(event) {
+    const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
+    const pointer = whiteboard.canvas.getPointer(event, whiteboard);
+    pointer.x = pointer.x / virtualclass.zoom.canvasScale;
+    pointer.y = pointer.y / virtualclass.zoom.canvasScale;
+    this.sendArrow({ msg: `${pointer.x}_${pointer.y}`, cf: 'ca' });
+  }
+
+  onArrowMessageReceived(message) {
+    const pointer = {};
+    const dataArr = message.msg.split('_');
+    pointer.x = dataArr[0];
+    pointer.y = dataArr[1];
+    this.createArrow(pointer);
+  }
+
+  createArrow(eMessage) {
+    const wid = virtualclass.gObj.currWb;
+    console.log('====> creating arrow ', JSON.stringify(eMessage));
+    const obj = { x: eMessage.x * virtualclass.zoom.canvasScale, y: eMessage.y * virtualclass.zoom.canvasScale };
+
+    virtualclass.posY = (obj.y);
+    virtualclass.posX = (obj.x);
+
+    // console.log('vm mouse cursor y=' + (virtualclass.posY));
+
+    this.drawArrowImage(obj, wid);
+
+
+    // if (virtualclass.pdfRender[wid].scroll.Y != null) {
+    //   virtualclass.pdfRender[wid].customMoustPointer({ y: virtualclass.posY }, 'Y', virtualclass.posY);
+    // }
+    //
+    // if (virtualclass.pdfRender[wid].scroll.X != null) {
+    //   virtualclass.pdfRender[wid].customMoustPointer({ x: virtualclass.posX }, 'X', virtualclass.posX);
+    // }
+    // console.log('Mouse cursor x=' + obj.mp.x  + ' y=' + obj.mp.y);
+  }
+
+  drawArrowImage(obj, wId) {
+    const img = this.arrImg;
+    const ctx = virtualclass.wb[wId].canvas.getContext('2d');
+    ctx.clearRect(0, 0, virtualclass.wb[wId].canvas.width, virtualclass.wb[wId].canvas.height);
+    virtualclass.wb[wId].canvas.renderAll();
+    ctx.save();
+    ctx.beginPath();
+    ctx.translate(obj.x, obj.y);
+    ctx.drawImage(img, -3, -3, 18, 24);
+    ctx.closePath();
+    ctx.restore();
+  }
+
+  sendAngle(object){
+
+  }
 }
 
 // This class is responsible to create various shapes, eg:, rectangle, oval and triangle
@@ -323,8 +406,9 @@ class WhiteboardShape {
     this.coreObj.top = this.startTop;
     this.coreObj.width = 1;
     this.coreObj.height = 1;
+    this.coreObj.rotatingPointOffset = 40 * virtualclass.zoom.canvasScale;
     const toolName = virtualclass.wbWrapper.keyMap[this.name];
-    this[this.name] = new fabric[toolName](this.coreObj);
+    this[this.name] = new fabric[toolName](this.coreObj); // add object
     whiteboard.canvas.add(this[this.name]);
     myCount++;
     console.log('====> create whiteboard ', myCount);
@@ -483,6 +567,7 @@ class Whiteboard {
 
   handlerMouseMove(o) {
     if (this.mousedown && this.selectedTool !== 'freeDrawing') { this[`${this.selectedTool}Obj`].mouseMove(o, this); }
+    virtualclass.wbWrapper.util.handleArrow(o);
   }
 
   handlerMouseUp(o) {

@@ -34,14 +34,14 @@ class WhiteboardProtocol {
       result.x = data.x / virtualclass.zoom.canvasScale;
       result.y = data.y / virtualclass.zoom.canvasScale;
     } else {
-      if (!virtualclass.zoom.canvasScale) virtualclass.zoom.canvasScale = 1.5008403361344538;
+      // if (!virtualclass.zoom.canvasScale) virtualclass.zoom.canvasScale = 1.5008403361344538;
       result.x = (+data[2]) * virtualclass.zoom.canvasScale;
       result.y = (+data[3]) * virtualclass.zoom.canvasScale;
     }
     return result;
   }
 
-  ac(data, type) {
+  ac(data, type) { // active all
     const newData = {};
     if (type === 'encode') {
       console.log('==== sending before encode ', data.x, data.y);
@@ -80,6 +80,19 @@ class WhiteboardProtocol {
     } else {
       const whiteboardId = `_doc_${data[data.length - 1]}_${data[data.length - 1]}`;
       newData = { action: data[0], actual: whiteboardId};
+    }
+    return newData;
+  }
+
+  an (data, type) { // encode, decode angle object
+    let newData;
+    if (type === 'encode') {
+      newData = {
+        wb: [`an_${data.angle}`],
+        cf: 'wb',
+      };
+    } else {
+      newData = { action: 'an', angle: +data[1] };
     }
     return newData;
   }

@@ -233,11 +233,18 @@ const receiveFunctions = new function () {
   };
 
   // Create mouse
-  this.createArrow = function (e) {
-    if (typeof virtualclass.wb === 'object') {
-      if (!roles.hasControls() && virtualclass.wb[virtualclass.gObj.currWb]) {
-        virtualclass.wb[virtualclass.gObj.currWb].response.createArrow(e.message);
-      }
+  // this.createArrow = function (e) {
+  //   if (typeof virtualclass.wb === 'object') {
+  //     if (!roles.hasControls() && virtualclass.wb[virtualclass.gObj.currWb]) {
+  //       virtualclass.wb[virtualclass.gObj.currWb].response.createArrow(e.message);
+  //     }
+  //   }
+  // };
+
+  // Create mouse arrow
+  this.ca = function (e) {
+    if (typeof virtualclass.wb === 'object' && !roles.hasControls() && virtualclass.wb[virtualclass.gObj.currWb]) {
+      virtualclass.wbWrapper.util.onArrowMessageReceived(e.message);
     }
   };
 

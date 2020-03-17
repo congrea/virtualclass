@@ -63,7 +63,7 @@
         this.canvas = canvas;
         // console.log('====JAI, After PDF currNote' + currNote);
         // this.canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
-        this.canvasWrapper = canvas.parentNode;
+        this.canvasWrapper = canvas.closest('.canvasWrapper');
         const doc = {};
         doc.data = data;
         // doc.currwb = virtualclass.gObj.currWb;
@@ -252,7 +252,7 @@
 
 
       customMoustPointer(obj, tp, pos) {
-        // console.log('custom mouse pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e);
+        console.log('custom mouse pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e);
         this.scroll[tp].e = pos;
         //  e is mouse's position
         // console.log('Scroll '  + tp + ' a ' + this.scroll[tp].a);
@@ -270,6 +270,7 @@
           // var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
           if (tp == 'Y') {
             this.canvasWrapper.scrollTop = scrollPos;
+            console.log('====> scroll top');
           } else {
             this.canvasWrapper.scrollLeft = scrollPos;
             // console.log(`Scroll left ${this.canvasWrapper.scrollLeft}`);
@@ -287,6 +288,7 @@
           // var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
           if (tp === 'Y') {
             this.canvasWrapper.scrollTop = this.canvasWrapper.scrollTop - scrollPos;
+            console.log('====> scroll top');
           } else {
             this.canvasWrapper.scrollLeft = this.canvasWrapper.scrollLeft - scrollPos;
           }

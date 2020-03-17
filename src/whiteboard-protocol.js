@@ -34,10 +34,11 @@ class WhiteboardProtocol {
       result.x = data.x / virtualclass.zoom.canvasScale;
       result.y = data.y / virtualclass.zoom.canvasScale;
     } else {
-      console.log('====> whiteboard pdf suman change coords');
       // if (!virtualclass.zoom.canvasScale) virtualclass.zoom.canvasScale = 1.5008403361344538;
+
       result.x = (+data[2]) * virtualclass.zoom.canvasScale;
       result.y = (+data[3]) * virtualclass.zoom.canvasScale;
+      console.log('====> whiteboard pdf ========================== active mouse', result.x, result.y);
     }
     return result;
   }
@@ -62,10 +63,15 @@ class WhiteboardProtocol {
         // const newCord = { x: +data[2], y: +data[3] };
         newData.actual = { x: newCord.x, y: newCord.y };
         if (roles.hasControls()) {
-          const toolBar = document.getElementById(`commandToolsWrapper${virtualclass.gObj.currwb}`);
+          const toolBar = document.getElementById(`commandToolsWrapper${virtualclass.gObj.currWb}`);
           newData.actual.y += toolBar ? toolBar.offsetHeight : 44;
           const appOptionsToolbar = document.getElementById('virtualclassAppOptionsCont');
           newData.actual.x += appOptionsToolbar ? appOptionsToolbar.offsetWidth : 55;
+
+        } else {
+          const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
+          newData.actual.x -= canvasWrapper.scrollLeft;
+          newData.actual.y -= canvasWrapper.scrollTop;
         }
       }
     }

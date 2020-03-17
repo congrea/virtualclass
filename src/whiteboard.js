@@ -31,7 +31,8 @@ class WhiteboardReplay {
           virtualclass.wb[wid].innerToolbarHandler(virtualclass.wbWrapper.keyMap[data.action]);
         }
 
-        console.log('====> I am being active here before ', data.actual.x, data.actual.y);
+        console.log('====> whiteboard pdf ========================== before active', data.actual.x, data.actual.y);
+
         evt = new MouseEvent(data.event, {
           clientX: data.actual.x,
           clientY: data.actual.y,
@@ -40,7 +41,9 @@ class WhiteboardReplay {
           which: 1,
           composed: true,
         });
+
         virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+
 
         break;
       case 'cr': // clear whiteboard
@@ -84,8 +87,8 @@ class ActiveAll {
 
   mouseDown(event, whiteboard) {
     const myPointer = whiteboard.canvas.getPointer(event, whiteboard)
+    console.log('====> whiteboard pdf ========================== active mouse trigger', myPointer.x, myPointer.y);
     console.log('==== convert actives all mouse down', myPointer.x, myPointer.y);
-    console.log('==== CONVERT MOUSE ======================================');
     if (!event.e.isTrusted) return;
     console.log('====> shoud not invoke is trusted ', event.e.isTrusted);
     this.down = true;
@@ -332,6 +335,7 @@ class WhiteboardUtility {
     const wid = virtualclass.gObj.currWb;
     console.log('====> creating arrow ', JSON.stringify(eMessage));
     const obj = { x: eMessage.x * virtualclass.zoom.canvasScale, y: eMessage.y * virtualclass.zoom.canvasScale };
+    console.log('====> whiteboard pdf create mouse mouse', obj.x, obj.y);
 
     virtualclass.posY = (obj.y);
     virtualclass.posX = (obj.x);
@@ -341,13 +345,13 @@ class WhiteboardUtility {
     this.drawArrowImage(obj, wid);
 
 
-    // if (virtualclass.pdfRender[wid].scroll.Y != null) {
-    //   virtualclass.pdfRender[wid].customMoustPointer({ y: virtualclass.posY }, 'Y', virtualclass.posY);
-    // }
-    //
-    // if (virtualclass.pdfRender[wid].scroll.X != null) {
-    //   virtualclass.pdfRender[wid].customMoustPointer({ x: virtualclass.posX }, 'X', virtualclass.posX);
-    // }
+    if (virtualclass.pdfRender[wid].scroll.Y != null) {
+      virtualclass.pdfRender[wid].customMoustPointer({ y: virtualclass.posY }, 'Y', virtualclass.posY);
+    }
+
+    if (virtualclass.pdfRender[wid].scroll.X != null) {
+      virtualclass.pdfRender[wid].customMoustPointer({ x: virtualclass.posX }, 'X', virtualclass.posX);
+    }
     // console.log('Mouse cursor x=' + obj.mp.x  + ' y=' + obj.mp.y);
   }
 

@@ -910,19 +910,32 @@
         },
 
         videojsPlayer(videoUrl, vidId) {
+
+
+
           if (!virtualclass.videoUl.player) {
-            virtualclass.videoUl.player = videojs('dispVideo', {
-              html5: {
-                nativeAudioTracks: false,
-                nativeVideoTracks: false,
-                hls: {
-                  overrideNative: true,
+            // if android
+            if (virtualclass.system.device === 'mobTab' && (virtualclass.system.mybrowser.name !== 'iOS'
+              && virtualclass.system.mybrowser.name !== 'Safari')) {
+              virtualclass.videoUl.player = videojs('dispVideo', {
+                html5: {
+                  nativeAudioTracks: false,
+                  nativeVideoTracks: false,
+                  hls: {
+                    overrideNative: true,
+                  },
                 },
-              },
-              controlBar: {
-                pictureInPictureToggle: false,
-              },
-            }); // TODO, generating error need to handle
+                controlBar: {
+                  pictureInPictureToggle: false,
+                },
+              }); // TODO, generating error need to handle
+            } else {
+              virtualclass.videoUl.player = videojs('dispVideo', {
+                controlBar: {
+                  pictureInPictureToggle: false,
+                },
+              }); // TODO, generating error need to handle
+            }
             // console.log('====> Video player is ready <====== 0');
             if (roles.hasControls()) {
               if (!($('.vjs-autoPlay-button').length)) {

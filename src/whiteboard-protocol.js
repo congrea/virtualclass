@@ -8,7 +8,7 @@ class WhiteboardProtocol {
     return this[dataArr[0]](dataArr, 'decode');
   }
 
-  sp(data, type) {
+  sp(data, type) { // decode data for creating the objects
     let newData = {};
     if (type === 'encode') {
       const shortShapeName = virtualclass.wbWrapper.keyMap[`${data.name}Short`];
@@ -91,16 +91,7 @@ class WhiteboardProtocol {
     return newData;
   }
 
-  an (data, type) { // encode, decode angle object
-    let newData;
-    if (type === 'encode') {
-      newData = {
-        wb: [`an_${data.angle}`],
-        cf: 'wb',
-      };
-    } else {
-      newData = { action: 'an', angle: +data[1] };
-    }
-    return newData;
+  sf() { // shape free drawing
+
   }
 }

@@ -19,7 +19,7 @@ class WhiteboardReplay {
     let shape;
     let evt;
     switch (data.action) {
-      case 'sp': // shape, like, rectangle
+      case 'sp': // display / render shape, like, rectangle
         virtualclass.wb[wid].selectedTool = data.tool;
         eventType = data.event;
         shape = `${data.shape}Obj`;
@@ -407,8 +407,7 @@ class WhiteboardShape {
       cwhiteboard.canvas.isDrawingMode = true;
       const event = virtualclass.wbWrapper.util.readyMouseEvent('mousedown', pointer);
       whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
-      // const cpointer = cwhiteboard.canvas.getPointer(event);
-      // cwhiteboard.canvas.freeDrawingBrush.onMouseDown(cpointer);
+
     } else {
       this.startLeft = pointer.x;
       this.startTop = pointer.y;
@@ -471,6 +470,7 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
   constructor(name) {
     super(name);
     this.name = name;
+    this.chunks = [];
   }
 
   innerMouseMove(pointer, whiteboard) {
@@ -501,7 +501,7 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
     if (timeDifference > 10) { // Optmize the sending data
       const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
       // Club and send
-        virtualclass.wbWrapper.util.sendWhiteboardData(data);
+      virtualclass.wbWrapper.util.sendWhiteboardData(data);
       // Club and send
       virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime;
     }

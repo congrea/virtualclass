@@ -876,7 +876,7 @@
         // {callback: virtualclass.quiz.plugin.config.animationCallbacks.completeQuiz});
         subInd = virtualclass.quiz.quizStartTime.data.subIndex;
         masterInd = virtualclass.quiz.quizStartTime.data.masterIndex;
-        const timeDisplayInto = document.querySelector('#qztime');s
+        const timeDisplayInto = document.querySelector('#qztime');
         const quizStartTime = this.getTotalTimeInMilSeconds(masterInd, subInd);
         if (+(virtualclass.quiz.plugin.config.quizTime) > 0) {
           const quizTimeInMiliSeconds = virtualclass.quiz.plugin.config.quizTime * 1000;

@@ -913,6 +913,8 @@
           if (!virtualclass.videoUl.player) {
             virtualclass.videoUl.player = videojs('dispVideo', {
               html5: {
+                nativeAudioTracks: false,
+                nativeVideoTracks: false,
                 hls: {
                   overrideNative: true,
                 },

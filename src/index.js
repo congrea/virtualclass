@@ -13,6 +13,14 @@ $.uiBackCompat = false;
     await bootStraper.setUpMedia();
     await bootStraper.readyToGo();
     await bootStraper.cache();
+
+    if ('serviceWorker' in navigator) { 
+      navigator.serviceWorker.register('https://live.congrea.net/virtualclass/example/service-worker.js', { scope: 'https://live.congrea.net/virtualclass/example/index1.php'})
+          .then((reg) => {
+            console.log('Service worker registered.', reg);
+          });
+    }
+
     virtualclass.serverData.syncComplete = false;
     await virtualclass.serverData.syncAllData().then(() => {
       if (virtualclass.currApp === 'DocumentShare' && virtualclass.dts) {
@@ -30,9 +38,5 @@ $.uiBackCompat = false;
     if (virtualclass.isPlayMode) {
       virtualclass.settings.triggerSettings();
     }
-    navigator.serviceWorker.register('https://live.congrea.net/virtualclass/example/service-worker.js', { scope: 'https://live.congrea.net/virtualclass/example/index1.php?id=45&role=t&name=suman&room=500&play=false&themecolor=gray&pushtotalk=1&anyonepresenter=0#'})
-        .then((reg) => {
-          console.log('Service worker registered.', reg);
-        });
   };
 }(window));

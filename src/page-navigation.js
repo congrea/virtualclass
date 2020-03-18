@@ -128,7 +128,7 @@
           if (nodes.length) {
             var rl = nodes[nodes.length - 1];
           }
-          if (rl) {AnnotationList
+          if (rl) {
             rl.classList.remove('shw');
             rl.classList.add('hid', 'right');
           }

@@ -622,8 +622,8 @@
         virtualclass.wbWrapper.util.fitWhiteboardAtScale(wId);
       },
 
-      zoomOutWhiteboardObjects(wid) {
-        this.fitWhiteboardAtScale(wid);
+      zoomOutWhiteboardObjects(wId) {
+        virtualclass.wbWrapper.util.fitWhiteboardAtScale(wId);
       },
 
       fitToScreenWhiteboardObjects(wId) {

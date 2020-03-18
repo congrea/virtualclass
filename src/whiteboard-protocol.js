@@ -28,16 +28,15 @@ class WhiteboardProtocol {
     return newData;
   }
 
-  convertAccordingToScale(type, data) {
+  // Change co-ordination/coordination X,Y with scale
+  changeWithScale(type, data) {
     const result = {}
     if (type === 'divide') {
       result.x = data.x / virtualclass.zoom.canvasScale;
       result.y = data.y / virtualclass.zoom.canvasScale;
     } else {
-      // if (!virtualclass.zoom.canvasScale) virtualclass.zoom.canvasScale = 1.5008403361344538;
-
-      result.x = (+data[2]) * virtualclass.zoom.canvasScale;
-      result.y = (+data[3]) * virtualclass.zoom.canvasScale;
+      result.x = (+data.x) * virtualclass.zoom.canvasScale;
+      result.y = (+data.y) * virtualclass.zoom.canvasScale;
       console.log('====> whiteboard pdf ========================== active mouse', result.x, result.y);
     }
     return result;
@@ -47,7 +46,7 @@ class WhiteboardProtocol {
     const newData = {};
     if (type === 'encode') {
       console.log('==== sending before encode ', data.x, data.y);
-      const newCord = this.convertAccordingToScale('divide', data);
+      const newCord = this.changeWithScale('divide', data);
       // const newCord = data;
       // newData.y = data.y / virtualclass.zoom.canvasScale;
       // newData.wb = [`ac_${data.event}_${Math.round(newData.x * 100) / 100}_${Math.round(newData.y * 100) / 100}`];
@@ -59,7 +58,7 @@ class WhiteboardProtocol {
       if (data.length > 3) {
         newData.event = virtualclass.wbWrapper.keyMap[`ac${data[1]}`];
         console.log('==== convert, before convert x, y ', newData.event, data[2], data[3]);
-        const newCord = this.convertAccordingToScale('multiply', data);
+        const newCord = this.changeWithScale('multiply', { x: data[2], y: data[3] });
         // const newCord = { x: +data[2], y: +data[3] };
         newData.actual = { x: newCord.x, y: newCord.y };
         if (roles.hasControls()) {

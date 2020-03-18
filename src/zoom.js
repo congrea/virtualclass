@@ -88,7 +88,7 @@
           // const { canvas } = virtualclass.wb[wid].vcan.main;
           const canvas = virtualclass.wb[wid].canvas.lowerCanvasEl;
           // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
-          const wrapperWidth = canvas.parentNode.offsetWidth;
+          //const wrapperWidth = canvas.parentNode.offsetWidth;
 
 
           // this.canvasScale = this.canvasScale * virtualclass.gObj.SCALE_FACTOR;
@@ -120,7 +120,8 @@
         delete virtualclass.zoom.performFitToPage;
         const wid = virtualclass.gObj.currWb;
         // var wrapper = this.canvasWrapper;
-        const { canvas } = virtualclass.wb[wid].vcan.main;
+        const canvas = virtualclass.wb[wid].canvas.lowerCanvasEl;
+        // const { canvas } = virtualclass.wb[wid].vcan.main;
         const wrapper = canvas.parentNode;
         // var canvas = this.canvas;
         // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);

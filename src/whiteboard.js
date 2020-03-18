@@ -233,7 +233,7 @@ class WhiteboardUtility {
   }
 
   sendArrow(msg) {
-    const time = 10;
+    const time = 300;
     if (!this.lastarrowtime) {
       this.lastarrowtime = new Date().getTime();
     }
@@ -318,9 +318,8 @@ class WhiteboardUtility {
   handleArrow(event) {
     const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
     const pointer = whiteboard.canvas.getPointer(event, whiteboard);
-    pointer.x = pointer.x / virtualclass.zoom.canvasScale;
-    pointer.y = pointer.y / virtualclass.zoom.canvasScale;
-    this.sendArrow({ msg: `${pointer.x}_${pointer.y}`, cf: 'ca' });
+    const afterChange = virtualclass.wbWrapper.protocol.changeWithScale('divide', pointer);
+    this.sendArrow({ msg: `${afterChange.x}_${afterChange.y}`, cf: 'ca' });
   }
 
   onArrowMessageReceived(message) {
@@ -366,10 +365,6 @@ class WhiteboardUtility {
     ctx.drawImage(img, -3, -3, 18, 24);
     ctx.closePath();
     ctx.restore();
-  }
-
-  sendAngle(object){
-
   }
 }
 

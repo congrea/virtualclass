@@ -294,12 +294,35 @@ class WhiteboardUtility {
     // virtualclass.wb[wId].canvas.renderAll();
   }
 
+  generateFreeDrawingData(msg) {
+    const result = [];
+    let msgArr;
+    for (let i = 0; i < msg.length; i += 1){
+      msgArr = msg[i].split('_');
+      if (msgArr.length > 2) {
+        // 3 -> down/up, 1 -> x, 2 -> y
+        result.push([`sp_f_${msgArr[2]}_${msgArr[0]}_${msgArr[1]}`]);
+      } else {
+        result.push([`sp_f_m_${msgArr[0]}_${msgArr[1]}`]);
+      }
+    }
+    return result;
+  }
+
   onMessage(e) {
+    let executeData;
+    const whiteboardShape = e.message.wb[0].substring(0, 2);
+    if (whiteboardShape === 'sf') {
+      e.message.wb = this.generateFreeDrawingData(e.message.v);
+      executeData = e.message.wb[0];
+    } else {
+      executeData = e.message.wb;
+    }
     virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
     if (!virtualclass.zoom.canvasScale) return;
     if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
       && e.fromUser.role === 't') {
-      virtualclass.wbWrapper.util.applyCommand(e.message.wb, virtualclass.gObj.currWb);
+      virtualclass.wbWrapper.util.applyCommand(executeData, virtualclass.gObj.currWb);
     }
   }
 
@@ -386,17 +409,22 @@ class WhiteboardShape {
 
   mouseDown(event, whiteboard) {
     const pointer = whiteboard.canvas.getPointer(event);
-    this.innerMouseDown(pointer, whiteboard, event.e);
-    virtualclass.gObj.lastSendDataTime = new Date().getTime();
-    // ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
-    const newData = {
-      event: 'd',
-      name: this.name,
-      x: pointer.x,
-      y: pointer.y,
-    };
-    const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
-    virtualclass.wbWrapper.util.sendWhiteboardData(data);
+    if (this.name === 'freeDrawing') {
+      virtualclass.gObj.startTime = new Date().getTime();
+      this.chunks.push(`${pointer.x}_${pointer.y}_d`);
+    } else {
+      this.innerMouseDown(pointer, whiteboard, event.e);
+      virtualclass.gObj.lastSendDataTime = new Date().getTime();
+      // ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
+      const newData = {
+        event: 'd',
+        name: this.name,
+        x: pointer.x,
+        y: pointer.y,
+      };
+      const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
+      virtualclass.wbWrapper.util.sendWhiteboardData(data);
+    }
   }
 
   innerMouseDown(pointer, whiteboard, actualEvent) {
@@ -481,32 +509,27 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
   }
 
   mouseMove(event, whiteboard) {
-    console.log('=====> move free');
     const pointer = whiteboard.canvas.getPointer(event.e);
-    if (!virtualclass.gObj.lastSendDataTime) {
-      virtualclass.gObj.lastSendDataTime = new Date().getTime();
-    }
+    this.chunks.push(`${pointer.x}_${pointer.y}`);
+    virtualclass.gObj.currentTime = new Date().getTime();
 
     const newData = {
-      event: 'm',
-      name: this.name,
       x: pointer.x,
       y: pointer.y,
     };
 
     this.previousShape = newData;
-    console.log('=====> setting previous data ', JSON.stringify(this.previousShape));
-    virtualclass.gObj.presentSendDataTime = new Date().getTime();
-    const timeDifference = (virtualclass.gObj.presentSendDataTime - virtualclass.gObj.lastSendDataTime);
-    if (timeDifference > 10) { // Optmize the sending data
-      const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
+
+    const timeDifference = (virtualclass.gObj.currentTime - virtualclass.gObj.startTime);
+
+    if (timeDifference > 300) {
+      const data = virtualclass.wbWrapper.protocol.encode('sf', this.chunks);
       // Club and send
       virtualclass.wbWrapper.util.sendWhiteboardData(data);
       // Club and send
-      virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime;
+      virtualclass.gObj.startTime = new Date().getTime();
     }
   }
-
 }
 
 // This is responsible to create the whiteboard shape

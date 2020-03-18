@@ -5,6 +5,7 @@ class WhiteboardProtocol {
 
   decode(data) {
     const dataArr = data.split('_');
+
     return this[dataArr[0]](dataArr, 'decode');
   }
 
@@ -91,7 +92,17 @@ class WhiteboardProtocol {
     return newData;
   }
 
-  sf() { // shape free drawing
+  sf(data, type) { // shape free drawing
+    let newData;
+    if (type === 'encode') {
+      newData = {
+        wb: ['sf'],
+        cf: 'wb',
+        v: data,
+      };
+    } else {
 
+    }
+    return newData;
   }
 }

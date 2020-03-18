@@ -310,19 +310,23 @@ class WhiteboardUtility {
   }
 
   onMessage(e) {
-    let executeData;
     const whiteboardShape = e.message.wb[0].substring(0, 2);
     if (whiteboardShape === 'sf') {
-      e.message.wb = this.generateFreeDrawingData(e.message.v);
-      executeData = e.message.wb[0];
+      const fromUserRole = e.fromUser.role;
+      const result = this.generateFreeDrawingData(e.message.v);
+      let event;
+      for (let i = 0; i < result.length; i += 1) {
+        event = { message: { wb: result[i] },  fromUser: { role : fromUserRole} };
+        this.onMessage(event);
+      }
     } else {
-      executeData = e.message.wb;
-    }
-    virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
-    if (!virtualclass.zoom.canvasScale) return;
-    if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
-      && e.fromUser.role === 't') {
-      virtualclass.wbWrapper.util.applyCommand(executeData, virtualclass.gObj.currWb);
+      const executeData = e.message.wb;
+      virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
+      if (!virtualclass.zoom.canvasScale) return;
+      if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
+        && e.fromUser.role === 't') {
+        virtualclass.wbWrapper.util.applyCommand(executeData, virtualclass.gObj.currWb);
+      }
     }
   }
 
@@ -463,20 +467,30 @@ class WhiteboardShape {
   mouseUp(event, whiteboard) {
     // this.mousedown = false;
     // this[this.name].setCoords();
-    this.innerMouseUp(event, whiteboard, true);
+    if (this.name === 'freeDrawing') {
+      if (this.previousShape) {
+        virtualclass.gObj.startTime = new Date().getTime();
+        this.chunks.push(`${this.previousShape.x}_${this.previousShape.y}_u`);
+        const data = virtualclass.wbWrapper.protocol.encode('sf', this.chunks);
+        this.chunks.length = 0;
+        if (event.e.isTrusted) virtualclass.wbWrapper.util.sendWhiteboardData(data);
+      }
+    } else {
+      this.innerMouseUp(event, whiteboard, true);
 
-    if (this.previousShape) {
-      let data = virtualclass.wbWrapper.protocol.encode('sp', this.previousShape);
-      virtualclass.wbWrapper.util.sendWhiteboardData(data);
-      const newData = {
-        event: 'u',
-        name: this.name,
-        x: this.previousShape.x,
-        y: this.previousShape.y,
-      };
-      data = virtualclass.wbWrapper.protocol.encode('sp', newData);
-      virtualclass.wbWrapper.util.sendWhiteboardData(data);
-      console.log('sending the data here guys ==== MOUSE UP', JSON.stringify(data));
+      if (this.previousShape) {
+        let data = virtualclass.wbWrapper.protocol.encode('sp', this.previousShape);
+        virtualclass.wbWrapper.util.sendWhiteboardData(data);
+        const newData = {
+          event: 'u',
+          name: this.name,
+          x: this.previousShape.x,
+          y: this.previousShape.y,
+        };
+        data = virtualclass.wbWrapper.protocol.encode('sp', newData);
+        virtualclass.wbWrapper.util.sendWhiteboardData(data);
+        console.log('sending the data here guys ==== MOUSE UP', JSON.stringify(data));
+      }
     }
     delete this.previousShape;
     delete virtualclass.gObj.lastSendDataTime;
@@ -488,6 +502,7 @@ class WhiteboardShape {
       this[this.name].setCoords();
     } else {
       if (eventTrust) return true;
+      console.log('====> free drawing mouse up');
       const event = virtualclass.wbWrapper.util.readyMouseEvent('mouseup', pointer);
       whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
     }
@@ -509,6 +524,7 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
   }
 
   mouseMove(event, whiteboard) {
+    if (!event.e.isTrusted) return;
     const pointer = whiteboard.canvas.getPointer(event.e);
     this.chunks.push(`${pointer.x}_${pointer.y}`);
     virtualclass.gObj.currentTime = new Date().getTime();
@@ -528,6 +544,7 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
       virtualclass.wbWrapper.util.sendWhiteboardData(data);
       // Club and send
       virtualclass.gObj.startTime = new Date().getTime();
+      this.chunks.length = 0;
     }
   }
 }

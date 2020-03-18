@@ -1,6 +1,6 @@
 class UserInteractivityEvents { // main Part
   constructor() {
-    this.values = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation',
+    this.values = ['edit', 'delete', 'upvote', 'markAnswer', 'reply', 'navigation',
       'createInput', 'save', 'cancel', 'more', 'less', 'clearall', 'previous', 'next'];
   }
 
@@ -75,9 +75,6 @@ class UserInteractivityEvents { // main Part
       });
       virtualclass.userInteractivity[data.action].call(virtualclass.userInteractivity, data);
     }
-    // else {
-    //   return;
-    // }
   }
 
   delete(data) {
@@ -92,7 +89,6 @@ class UserInteractivityEvents { // main Part
         if (time > 30
           || allContext[userInteractive.currentContext][data.component][data.componentId].children.length > 0
           || allContext[userInteractive.currentContext][data.component][data.componentId].upvote > 0) {
-          // if (time > 30) { TODO check condition on time
           const str = virtualclass.lang.getString('askQuestionTimeExceed');
           virtualclass.view.createAskQuestionMsg(str, 'msgContainer', 'loading');
           const moreElem = document.querySelector(`#${data.componentId}`);
@@ -100,7 +96,6 @@ class UserInteractivityEvents { // main Part
             moreElem.classList.remove('editable');
             moreElem.classList.add('noneditable');
           }
-          // }
           return;
         }
       }
@@ -113,12 +108,9 @@ class UserInteractivityEvents { // main Part
       if (data.component === 'comment') {
         data.level = userInteractive.context[userInteractive.currentContext][data.component][data.componentId].level;
       }
-      console.log('level === ', JSON.stringify(data));
+      // console.log('level === ', JSON.stringify(data));
       userInteractive.send(data);
     }
-    // else {
-    //   return;
-    // }
   }
 
   upvote(data) {
@@ -239,7 +231,6 @@ class UserInteractivityEvents { // main Part
         text: undefined,
         action: undefined,
       };
-      // this.execute(dataMark);
       obj.action = 'markAnswer';
       setTimeout(() => {
         virtualclass.userInteractivity.event.execute(dataMark);
@@ -247,15 +238,20 @@ class UserInteractivityEvents { // main Part
     }
   }
 
-  moreControls(data) {
-    const selector = `#${data.componentId} .moreControls .item`;
-    const getMoreCntrl = document.querySelector(selector);
-    if (getMoreCntrl.classList.contains('close')) {
-      getMoreCntrl.classList.remove('close');
-      getMoreCntrl.classList.add('open');
-    } else {
-      getMoreCntrl.classList.remove('open');
-      getMoreCntrl.classList.add('close');
+  moreControls(ev) {
+    let elemId;
+    let moreControlElemOpen;
+    const moreControlElemClose = document.querySelector('#askQuestion .moreControls .item.open');
+    if (moreControlElemClose) {
+      moreControlElemClose.classList.remove('open');
+      moreControlElemClose.classList.add('close');
+    } else if (ev.target.firstChild && ev.target.firstChild.dataset != null) {
+      elemId = ev.target.firstChild.dataset.componentId;
+      moreControlElemOpen = document.querySelector(`#${elemId} .moreControls .item.close`);
+      if (moreControlElemOpen && ev.target.dataset.event === 'moreControls') {
+        moreControlElemOpen.classList.remove('close');
+        moreControlElemOpen.classList.add('open');
+      }
     }
   }
 

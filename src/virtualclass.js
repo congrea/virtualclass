@@ -1077,14 +1077,13 @@
             }
 
             /** TODO, move code to utilit.js and should not be invoked from here **/
-            console.log('=====> whiteboard mouse up ');
-            virtualclass.vutil.attachWhiteboardPopupHandler(id);
+            console.log('=====> whiteboard mouse up');
           } else {
             if (roles.isStudent() && app === 'Whiteboard') {
               virtualclass.wbCommon.setCurrSlideNumber(id);
             }
           }
-
+          virtualclass.vutil.attachWhiteboardPopupHandler(id);
           // if (typeof virtualclass.wb.indexNav === 'undefined') {
           //   virtualclass.wb.indexNav = new virtualclass.pageIndexNav('WB');
           // }

@@ -912,6 +912,11 @@
         videojsPlayer(videoUrl, vidId) {
           if (!virtualclass.videoUl.player) {
             virtualclass.videoUl.player = videojs('dispVideo', {
+              html5: {
+                hls: {
+                  overrideNative: true,
+                },
+              },
               controlBar: {
                 pictureInPictureToggle: false,
               },

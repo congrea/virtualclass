@@ -394,6 +394,9 @@
         while (j < slides.length) {
           if (!Object.prototype.hasOwnProperty.call(slides[j], 'deletedn')) {
             if (virtualclass.orderList[this.appName].ol.order != null) {
+              if (!Array.isArray(virtualclass.orderList[this.appName].ol.order)) {
+                virtualclass.orderList[this.appName].ol.order = [];
+              }
               if (virtualclass.orderList[this.appName].ol.order.indexOf(slides[j].id) <= -1) {
                 virtualclass.orderList[this.appName].insert(slides[j].id);
                 // console.log('====> ORDER is generating');

@@ -14,8 +14,10 @@ class WhiteboardWrapper {
       mousemove: 'm',
       mouseup: 'u',
       r: 'rectangle',
+      f: 'freeDrawing',
       ovalShort: 'o', // For sending the shapes name in short form
       rectangleShort: 'r',
+      freeDrawingShort: 'f',
       lineShort: 'l',
       textShort: 't',
       triangleShort: 'tr',

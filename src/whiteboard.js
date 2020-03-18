@@ -33,18 +33,8 @@ class WhiteboardReplay {
 
         console.log('====> whiteboard pdf ========================== before active', data.actual.x, data.actual.y);
 
-        evt = new MouseEvent(data.event, {
-          clientX: data.actual.x,
-          clientY: data.actual.y,
-          buttons: 1,
-          bubbles: true,
-          which: 1,
-          composed: true,
-        });
-
+        evt = virtualclass.wbWrapper.util.readyMouseEvent(data.event, data.actual);
         virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
-
-
         break;
       case 'cr': // clear whiteboard
         virtualclass.wb[data.actual].clear();
@@ -90,7 +80,6 @@ class ActiveAll {
     console.log('====> whiteboard pdf ========================== active mouse trigger', myPointer.x, myPointer.y);
     console.log('==== convert actives all mouse down', myPointer.x, myPointer.y);
     if (!event.e.isTrusted) return;
-    console.log('====> shoud not invoke is trusted ', event.e.isTrusted);
     this.down = true;
     if (this.activeDown) {
       virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime = new Date().getTime();
@@ -130,7 +119,6 @@ class ActiveAll {
       const newData = this.generateData(event, whiteboard, 'u');
       virtualclass.wbWrapper.util.sendWhiteboardData(newData);
     }
-
   }
 }
 
@@ -238,7 +226,7 @@ class WhiteboardUtility {
       this.lastarrowtime = new Date().getTime();
     }
     this.presentarrowtime = new Date().getTime();
-    if ((this.presentarrowtime - this.lastarrowtime) >= time) {
+    if (((this.presentarrowtime - this.lastarrowtime) >= time) && !virtualclass.wb[virtualclass.gObj.currWb].mousedown) {
       console.log('====> creating arrow ', JSON.stringify(msg));
       ioAdapter.send(msg);
       this.lastarrowtime = new Date().getTime();
@@ -366,6 +354,17 @@ class WhiteboardUtility {
     ctx.closePath();
     ctx.restore();
   }
+
+  readyMouseEvent(event, pointer) {
+    return new MouseEvent(event, {
+      clientX: pointer.x,
+      clientY: pointer.y,
+      buttons: 1,
+      bubbles: true,
+      which: 1,
+      composed: true,
+    });
+  }
 }
 
 // This class is responsible to create various shapes, eg:, rectangle, oval and triangle
@@ -387,7 +386,7 @@ class WhiteboardShape {
 
   mouseDown(event, whiteboard) {
     const pointer = whiteboard.canvas.getPointer(event);
-    this.innerMouseDown(pointer, whiteboard);
+    this.innerMouseDown(pointer, whiteboard, event.e);
     virtualclass.gObj.lastSendDataTime = new Date().getTime();
     // ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
     const newData = {
@@ -400,21 +399,32 @@ class WhiteboardShape {
     virtualclass.wbWrapper.util.sendWhiteboardData(data);
   }
 
-  innerMouseDown(pointer, whiteboard) {
+  innerMouseDown(pointer, whiteboard, actualEvent) {
     this.mousedown = true;
-    this.startLeft = pointer.x;
-    this.startTop = pointer.y;
-    this.coreObj.left = this.startLeft;
-    this.coreObj.top = this.startTop;
-    this.coreObj.width = 1;
-    this.coreObj.height = 1;
-    this.coreObj.rotatingPointOffset = 40 * virtualclass.zoom.canvasScale;
-    this.coreObj.cornerSize = 13 * virtualclass.zoom.canvasScale;
-    this.coreObj.strokeWidth = 1 * virtualclass.zoom.canvasScale;
-    const toolName = virtualclass.wbWrapper.keyMap[this.name];
-    this[this.name] = new fabric[toolName](this.coreObj); // add object
-    whiteboard.canvas.add(this[this.name]);
-    myCount++;
+    if (this.name === 'freeDrawing') {
+      if (actualEvent) return;
+      const cwhiteboard = whiteboard;
+      cwhiteboard.canvas.isDrawingMode = true;
+      const event = virtualclass.wbWrapper.util.readyMouseEvent('mousedown', pointer);
+      whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
+      // const cpointer = cwhiteboard.canvas.getPointer(event);
+      // cwhiteboard.canvas.freeDrawingBrush.onMouseDown(cpointer);
+    } else {
+      this.startLeft = pointer.x;
+      this.startTop = pointer.y;
+      this.coreObj.left = this.startLeft;
+      this.coreObj.top = this.startTop;
+      this.coreObj.width = 1;
+      this.coreObj.height = 1;
+      this.coreObj.rotatingPointOffset = 40 * virtualclass.zoom.canvasScale;
+      this.coreObj.cornerSize = 13 * virtualclass.zoom.canvasScale;
+      this.coreObj.strokeWidth = 1 * virtualclass.zoom.canvasScale;
+      const toolName = virtualclass.wbWrapper.keyMap[this.name];
+      this[this.name] = new fabric[toolName](this.coreObj); // add object
+      whiteboard.canvas.add(this[this.name]);
+      myCount++;
+    }
+
     console.log('====> create whiteboard ', myCount);
     console.log('==== coordination down x, y ', pointer.x, pointer.y);
   }
@@ -423,10 +433,10 @@ class WhiteboardShape {
     // if (!this.mousedown) return;
   }
 
-  mouseUp() {
+  mouseUp(event, whiteboard) {
     // this.mousedown = false;
     // this[this.name].setCoords();
-    this.innerMouseUp();
+    this.innerMouseUp(event, whiteboard, true);
 
     if (this.previousShape) {
       let data = virtualclass.wbWrapper.protocol.encode('sp', this.previousShape);
@@ -439,17 +449,64 @@ class WhiteboardShape {
       };
       data = virtualclass.wbWrapper.protocol.encode('sp', newData);
       virtualclass.wbWrapper.util.sendWhiteboardData(data);
+      console.log('sending the data here guys ==== MOUSE UP', JSON.stringify(data));
     }
     delete this.previousShape;
     delete virtualclass.gObj.lastSendDataTime;
   }
 
-  innerMouseUp() {
+  innerMouseUp (pointer, whiteboard, eventTrust) {
     this.mousedown = false;
-    this[this.name].setCoords();
-    myCount++;
-    console.log('====> create whiteboard ', myCount);
+    if (this.name !== 'freeDrawing') {
+      this[this.name].setCoords();
+    } else {
+      if (eventTrust) return true;
+      const event = virtualclass.wbWrapper.util.readyMouseEvent('mouseup', pointer);
+      whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
+    }
   }
+}
+
+class WhiteboardFreeDrawing extends WhiteboardShape {
+  constructor(name) {
+    super(name);
+    this.name = name;
+  }
+
+  innerMouseMove(pointer, whiteboard) {
+    const event = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
+    whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
+    //const mypointer = whiteboard.canvas.getPointer(event);
+    // whiteboard.canvas.freeDrawingBrush.onMouseMove(mypointer);
+  }
+
+  mouseMove(event, whiteboard) {
+    console.log('=====> move free');
+    const pointer = whiteboard.canvas.getPointer(event.e);
+    if (!virtualclass.gObj.lastSendDataTime) {
+      virtualclass.gObj.lastSendDataTime = new Date().getTime();
+    }
+
+    const newData = {
+      event: 'm',
+      name: this.name,
+      x: pointer.x,
+      y: pointer.y,
+    };
+
+    this.previousShape = newData;
+    console.log('=====> setting previous data ', JSON.stringify(this.previousShape));
+    virtualclass.gObj.presentSendDataTime = new Date().getTime();
+    const timeDifference = (virtualclass.gObj.presentSendDataTime - virtualclass.gObj.lastSendDataTime);
+    if (timeDifference > 10) { // Optmize the sending data
+      const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
+      // Club and send
+        virtualclass.wbWrapper.util.sendWhiteboardData(data);
+      // Club and send
+      virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime;
+    }
+  }
+
 }
 
 // This is responsible to create the whiteboard shape
@@ -517,6 +574,7 @@ class Whiteboard {
     this.selectedTool = null;
     this.rectangleObj = new WhiteboardRectangle('rectangle');
     this.activeAllObj = new ActiveAll();
+    this.freeDrawingObj = new WhiteboardFreeDrawing('freeDrawing');
     this.gObj = {};
   }
 
@@ -563,19 +621,21 @@ class Whiteboard {
   }
 
   handlerMouseDown(o) {
-    if (this.selectedTool && this.selectedTool !== 'freeDrawing') {
+    if (this.selectedTool) {
       this.mousedown = true;
       this[`${this.selectedTool}Obj`].mouseDown(o, this);
     }
   }
 
   handlerMouseMove(o) {
-    if (this.mousedown && this.selectedTool !== 'freeDrawing') { this[`${this.selectedTool}Obj`].mouseMove(o, this); }
+    if (this.mousedown && this.selectedTool) {
+      this[`${this.selectedTool}Obj`].mouseMove(o, this);
+    }
     virtualclass.wbWrapper.util.handleArrow(o);
   }
 
   handlerMouseUp(o) {
-    if (this.selectedTool && this.selectedTool !== 'freeDrawing') this[`${this.selectedTool}Obj`].mouseUp(o, this);
+    if (this.selectedTool) this[`${this.selectedTool}Obj`].mouseUp(o, this);
     this.mousedown = false;
   }
 

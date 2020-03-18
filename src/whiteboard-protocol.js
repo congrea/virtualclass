@@ -13,7 +13,8 @@ class WhiteboardProtocol {
     if (type === 'encode') {
       const shortShapeName = virtualclass.wbWrapper.keyMap[`${data.name}Short`];
       newData = {
-        wb: [`sp_${shortShapeName}_${data.event}_${Math.round(data.x * 100) / 100}_${Math.round(data.y * 100) / 100}`],
+        //wb: [`sp_${shortShapeName}_${data.event}_${Math.round(data.x * 100) / 100}_${Math.round(data.y * 100) / 100}`],
+        wb: [`sp_${shortShapeName}_${data.event}_${data.x}_${data.y}`],
         cf: 'wb',
       };
     } else if (type === 'decode') {

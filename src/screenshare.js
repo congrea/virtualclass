@@ -189,8 +189,8 @@ let globalImageData = {};
           if (typeof vtype !== 'undefined') {
             virtualclass.recorder.recImgPlay = true;
           }
-          var stool = 'ScreenShare';
-          virtualclass.makeAppReady({app: stool});
+          const shtool = 'ScreenShare';
+          virtualclass.makeAppReady({ app: shtool });
 
         } else {
           if (virtualclass.currApp !== 'ScreenShare') {
@@ -814,7 +814,7 @@ let globalImageData = {};
           const timeInMiliseconds = date.getTime();
           virtualclass.gObj.screenShareId = `ss_${timeInMiliseconds}`;
           virtualclass.userInteractivity.makeReadyContext();
-          ioAdapter.mustSend({ cf: 'screenShareId', id: virtualclass.gObj.screenShareId});
+          ioAdapter.mustSend({ cf: 'screenShareId', id: virtualclass.gObj.screenShareId });
           that.width = container.width;
           that.height = container.height;
 
@@ -1102,7 +1102,9 @@ let globalImageData = {};
        */
       getContainerDimension() {
         const vidCont = document.getElementById(`${this.id}Local`);
-        return { width: vidCont.offsetWidth, height: vidCont.offsetHeight };
+        // apply codacy rule
+        const obj = { width: vidCont.offsetWidth, height: vidCont.offsetHeight };
+        return obj;
       },
       /**
        * Drawing the image over the canvas

@@ -42,10 +42,14 @@
    */
   page.prototype.createPageNav = function (elem) {
     const listDtype = `list${this.type}`;
-    var docNav = document.getElementById(listDtype);
+    const docNav = document.getElementById(listDtype);
     const lid = `link${this.type}${this.rid}`;
     const cthis = this;
     const titleAction = (this.status === 1) ? 'Hide' : 'Show';
+    let listVideoNav;
+    let navElem;
+    let template;
+    let label;
     const context = {
       rid: cthis.rid,
       status: this.status,
@@ -56,14 +60,13 @@
     };
 
     if (cthis.type === 'video') {
-      var docNav = document.getElementById('listvideo');
-      if (docNav) {
-        var elem = this.UI.createPageNavLink2.call(this, docNav);
-        var template = virtualclass.getTemplate('linkvideo', 'videoupload');
+      listVideoNav = document.getElementById('listvideo');
+      if (listVideoNav) {
+        navElem = this.UI.createPageNavLink2.call(this, listVideoNav);
+        template = virtualclass.getTemplate('linkvideo', 'videoupload');
         // $(docNav).append(template(elem));
-        docNav.insertAdjacentHTML('beforeend', template(elem));
-
-        var label = document.getElementById(`${this.type}Title${this.rid}`);
+        docNav.insertAdjacentHTML('beforeend', template(navElem));
+        label = document.getElementById(`${this.type}Title${this.rid}`);
         label.innerHTML = this.title;
         label.dataset.title = this.title;
         this.UI.controller.init(this, lid);
@@ -86,11 +89,11 @@
     } else if (this.type === 'ppt') {
       const pptNav = document.getElementById('listppt');
       if (pptNav) {
-        var elem = this.UI.createPageNavLink2.call(this, pptNav);
-        var template = virtualclass.getTemplate('linkPpt', 'ppt');
+        navElem = this.UI.createPageNavLink2.call(this, pptNav);
+        template = virtualclass.getTemplate('linkPpt', 'ppt');
         // $(pptNav).append(template(elem));
-        pptNav.insertAdjacentHTML('beforeend', template(elem));
-        var label = document.getElementById(`${this.type}Title${this.rid}`);
+        pptNav.insertAdjacentHTML('beforeend', template(navElem));
+        label = document.getElementById(`${this.type}Title${this.rid}`);
         label.innerHTML = this.title;
         label.dataset.title = this.title;
         this.UI.controller.init(this, lid);
@@ -140,15 +143,15 @@
    *  formData.append('username', 'Vidyamantra');
    */
   page.prototype.xhrSend = async function (data) {
-    const form_data = new FormData();
+    const formData = new FormData();
     for (const key in data) {
-      form_data.append(key, data[key]);
+      formData.append(key, data[key]);
     }
     const updateContent = '&methodname=update_content';
     const updateContentVideo = '&methodname=update_content_video';
     const method = (virtualclass.currApp !== 'SharePresentation') ? updateContent : updateContentVideo;
     const path = `${window.webapi}&user=${virtualclass.gObj.uid}${method}`;
-    await this.vxhr.post(path, form_data)
+    await this.vxhr.post(path, formData)
       .catch((error) => {
         console.error('Request failed with error ', error);
       });
@@ -203,17 +206,17 @@
 
   page.prototype.disable = function (id) {
     if (this.type === 'notes') {
-      virtualclass.dts._noteDisable(this.rid);
+      virtualclass.dts.noteDisable(this.rid);
     } else {
-      virtualclass[this.module]._disable(this.rid);
+      virtualclass[this.module].disable(this.rid);
     }
   };
 
   page.prototype.enable = function () {
     if (this.type === 'notes') {
-      virtualclass.dts._noteEnable(this.rid);
+      virtualclass.dts.noteEnable(this.rid);
     } else {
-      virtualclass[this.module]._enable(this.rid);
+      virtualclass[this.module].enable(this.rid);
     }
   };
 
@@ -226,6 +229,7 @@
     // this function should be removed
     mainPDiv() {
       // cthis represents main document object like
+      let thumCount;
       const cthis = this;
       const elem = document.createElement('div');
       elem.className = `mainp${cthis.type}`;
@@ -248,9 +252,9 @@
 
         const allThumbnail = document.querySelectorAll(`#list${this.type} .link${this.type}`);
         if (allThumbnail != null) {
-          var thumCount = allThumbnail.length;
+          thumCount = allThumbnail.length;
         } else {
-          var thumCount = 1;
+          thumCount = 1;
         }
         const thumbList = document.createElement('span');
         thumbList.className = 'thumbList tooltip2';
@@ -290,6 +294,7 @@
     createPageNavLink(docNav) {
       const cthis = this;
       const elem = {};
+      let template;
       elem.type = cthis.type;
       elem.className = `link${cthis.type}`;
       elem.id = `link${cthis.id}`;
@@ -302,18 +307,18 @@
 
       if (cthis.type === 'video') {
         elem.type = 'video';
-        var template = virtualclass.getTemplate('linkvideo', 'videoupload');
+        template = virtualclass.getTemplate('linkvideo', 'videoupload');
         // $(docNav).append(template(elem))
         docNav.insertAdjacentHTML('beforeend', template(elem));
       } else {
-        var template = JST['templates/linkdoc.hbs'];
+        template = JST['templates/linkdoc.hbs'];
         docNav.insertAdjacentHTML('beforeend', template(elem));
       }
     },
 
     mainView(createMainCont) {
       const cthis = this;
-      var pageScreenContainer = document.getElementById(this.parent);
+      let pageScreenContainer = document.getElementById(this.parent);
 
       const screenId = `screen-${this.type}`;
       const screenElem = document.getElementById(screenId);
@@ -325,7 +330,7 @@
         const docScreen = document.querySelector('#documentScreen');
         docScreen.insertAdjacentHTML('beforeend', template(obj));
       }
-      var pageScreenContainer = document.querySelector(`#screen${cthis.id}   .pageContainer`);
+      pageScreenContainer = document.querySelector(`#screen${cthis.id}   .pageContainer`);
       return pageScreenContainer;
     },
     /**
@@ -353,7 +358,7 @@
           const dthis = this;
           this.cthis = cthis;
 
-          const id_ = `list${this.cthis.type}`;
+          // const id_ = `list${this.cthis.type}`;
           const listLinks = `link${this.cthis.type}${this.cthis.rid}`;
 
 
@@ -441,13 +446,13 @@
           if (this.source) {
             this.source.classList.add('dragElem');
             // console.log('add dragelem');
-            var elem;
+            // var elem;
             // if(this.cthis.type == 'video'){
             //
             // }
             if (cthis.type === 'video' || cthis.type === 'notes' || cthis.type === 'ppt') {
-              var elem = document.querySelectorAll(`#virtualclassCont.congrea .link${cthis.type}.htn`);
-              for (var i = 0; i < elem.length; i++) {
+              const elem = document.querySelectorAll(`#virtualclassCont.congrea .link${cthis.type}.htn`);
+              for (let i = 0; i < elem.length; i++) {
                 elem[i].classList.remove('htn');
               }
             }
@@ -475,8 +480,8 @@
             }
 
             if (cthis.type === 'video' || cthis.type === 'notes' || cthis.type === 'ppt') {
-              var elem = document.querySelectorAll(`#virtualclassCont.congrea .link${cthis.type}:not(.dragElem)`);
-              for (var i = 0; i < elem.length; i++) {
+              const elem = document.querySelectorAll(`#virtualclassCont.congrea .link${cthis.type}:not(.dragElem)`);
+              for (let i = 0; i < elem.length; i++) {
                 elem[i].classList.add('opaq');
               }
             }
@@ -518,12 +523,12 @@
             virtualclass.vutil.makeElementActive(`#list${cthis.type}`);
 
             const elems = document.querySelectorAll(` #virtualclassCont.congrea .link${cthis.type}.opaq`);
-            for (var i = 0; i < elems.length; i++) {
+            for (let i = 0; i < elems.length; i++) {
               elems[i].classList.remove('opaq');
             }
 
             const elem = document.querySelectorAll(` #virtualclassCont.congrea .link${cthis.type}.htn`);
-            for (var i = 0; i < elem.length; i++) {
+            for (let i = 0; i < elem.length; i++) {
               elem[i].classList.remove('htn');
             }
           }
@@ -614,9 +619,9 @@
           virtualclass.dashboard.userConfirmation(virtualclass.lang.getString('deletepopup'), (confirmation) => {
             if (confirmation) {
               if (cthis.type === 'notes') {
-                virtualclass[cthis.module]._deleteNote(cthis.rid, cthis.type);
+                virtualclass[cthis.module].deleteNote(cthis.rid, cthis.type);
               } else {
-                virtualclass[cthis.module]._delete(cthis.rid);
+                virtualclass[cthis.module].delete(cthis.rid);
               }
             }
           });
@@ -676,7 +681,7 @@
                     ttext.value = cthis.title;
                   }
                   if (ttext.value) {
-                    virtualclass.videoUl._editTitle(cthis.rid, ttext.value, cthis.videoClass);
+                    virtualclass.videoUl.editTitle(cthis.rid, ttext.value, cthis.videoClass);
                     const cont = document.querySelector(`#virtualclassCont.congrea #titleCont${cthis.rid}`);
                     cont.parentNode.removeChild(cont);
                   }
@@ -688,19 +693,20 @@
       },
 
       element2(cthis, eltype, dataSet) {
+        let div;
         if (cthis.type === 'video') {
           if (eltype === 'status') {
-            var div = document.querySelector(`#controlCont${cthis.type}${cthis.rid} .status`);
+            div = document.querySelector(`#controlCont${cthis.type}${cthis.rid} .status`);
             div.onclick = this.goToEvent(this.cthis, eltype);
           } else {
-            var div = document.querySelector(`#controlCont${cthis.type}${cthis.rid} .delete`);
+            div = document.querySelector(`#controlCont${cthis.type}${cthis.rid} .delete`);
             div.onclick = this.goToEvent(this.cthis, eltype);
           }
         } else if (eltype === 'status') {
-          var div = document.querySelector('.controls.status');
+          div = document.querySelector('.controls.status');
           div.onclick = this.goToEvent(this.cthis, eltype);
         } else {
-          var div = document.querySelector('.controls.delete');
+          div = document.querySelector('.controls.delete');
           div.onclick = this.goToEvent(this.cthis, eltype);
         }
       },
@@ -708,8 +714,8 @@
       element(cthis, eltype, dataSet) {
         const selector = `.${eltype}`;
         if (eltype === 'status' || eltype === 'delete') {
-          var div = document.querySelector(`#controlCont${cthis.type}${cthis.rid} ${selector}`);
-          div.onclick = this.goToEvent(this.cthis, eltype);
+          const elem = document.querySelector(`#controlCont${cthis.type}${cthis.rid} ${selector}`);
+          elem.onclick = this.goToEvent(this.cthis, eltype);
         } else if (eltype === 'edit') {
           const edit = document.querySelector(`#${cthis.type}TitleCont${cthis.rid} ${selector}`);
           edit.onclick = this.goToEvent(this.cthis, eltype);
@@ -721,7 +727,7 @@
 
         const that = this;
 
-        var div = document.querySelector(`#link${cthis.type}${cthis.rid}`);
+        const div = document.querySelector(`#link${cthis.type}${cthis.rid}`);
         if (div) {
           that.hoverHandler(cthis); //
           div.classList.add('showCtr'); // edit by shubham

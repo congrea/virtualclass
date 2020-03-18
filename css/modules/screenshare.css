@@ -248,10 +248,10 @@
 }
 
 @-moz-document url-prefix() {
-  #virtualclassCont.congrea #screenController .share button,
-  #virtualclassCont.congrea #stopScreenShare button {
+  #virtualclassCont.congrea #stopScreenShare button,
+  #virtualclassCont.congrea #screenController .share button {
     bottom: 0;
-    padding: 11px 14px 14px 14px;
+    padding: 7px 7.5px 6px 8.5px;
   }
 }
 

@@ -49,7 +49,8 @@ module.exports = {
     OrderedList: 'writeable',
     receiveFunctions: 'writeable',
     firebase: 'writeable',
-    AskQuestion: 'writeable'
+    AskQuestion: 'writeable',
+    $: 'writable'
   },
   parserOptions: {
     ecmaVersion: 2017,

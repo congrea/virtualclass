@@ -170,7 +170,7 @@
       },
 
       disableCollaborateTool() {
-        console.log("showing enable editor controller");
+        console.log('showing enable editor controller');
         const editorControllerAnch = document.getElementById('alleditorRichContainerAnch');
         editorControllerAnch.dataset.action = 'disable';
         editorControllerAnch.classList.remove('icon-collaboratecrose');
@@ -179,7 +179,7 @@
       },
 
       enableCollaborateTool() {
-        console.log("showing disable editor controller");
+        console.log('showing disable editor controller');
         const editorControllerAnch = document.getElementById('alleditorRichContainerAnch');
         editorControllerAnch.classList.remove('icon-collaborate');
         editorControllerAnch.classList.add('icon-collaboratecrose');
@@ -588,19 +588,20 @@
 
       setReadMode() {
         // const cmReadOnly = JSON.parse(localStorage.getItem(this.etype));
+        let writeMode;
         const cmReadOnly = this.editorStatus;
         if (!roles.hasAdmin()) {
           if (cmReadOnly != null) {
             if (!cmReadOnly) {
               this.cm.setOption('readOnly', 'nocursor');
-              var writeMode = false;
+              writeMode = false;
             } else {
               this.cm.setOption('readOnly', false);
-              var writeMode = true;
+              writeMode = true;
             }
           } else {
             this.cm.setOption('readOnly', 'nocursor');
-            var writeMode = false;
+            writeMode = false;
           }
           const editorTypeCapitalize = virtualclass.vutil.capitalizeFirstLetter(this.etype);
           virtualclass.user.control.toggleDisplayWriteModeMsgBox(editorTypeCapitalize, writeMode);
@@ -791,14 +792,14 @@
   };
 
   // Turns the Array of operation Objects into an Array of JSON stringifyable objects
-  var serialiseOps = function (operations) {
+  const serialiseOps = function (operations) {
     return operations.map(op => ({
       operation: op.wrapped.toJSON(),
     }));
   };
 
   // Turns the JSON form of the Array of operations into ot.TextOperations
-  var deserialiseOps = function (operations) {
+  const deserialiseOps = function (operations) {
     const vceditor = Vceditor.getvcEditor();
     return operations.map(op => new vceditor.WrappedOperation(
       vceditor.TextOperation.fromJSON(op.operation),

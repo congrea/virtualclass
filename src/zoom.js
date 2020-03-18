@@ -4,7 +4,8 @@
     return {
       init() {
         // Incase of not setting canvasScale = 1, there will be NaN value for drawn object on page refresh
-        // this.canvasScale = this.canvasScale || 1; // At very first, there is no canvas scale to draw the shapes on whiteboard
+        // At very first, there is no canvas scale to draw the shapes on whiteboard
+        // this.canvasScale = this.canvasScale || 1;
         if (document.querySelector('.zoomControler') == null) {
           const parent = document.querySelector('#virtualclassAppLeftPanel');
           if (parent != null) {
@@ -109,8 +110,10 @@
             virtualclass.pdfRender[wid]._zoom.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
           }
           // if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
-          //     zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width * virtualclass.gObj.SCALE_FACTOR;
-          //     zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height *  virtualclass.gObj.SCALE_FACTOR;
+          // zoomScaleWidth = document.querySelector(
+          // '#canvas' + virtualclass.gObj.currWb).width * virtualclass.gObj.SCALE_FACTOR;
+          // zoomScaleHeight = document.querySelector(
+          // '#canvas' + virtualclass.gObj.currWb).height *  virtualclass.gObj.SCALE_FACTOR;
           // }
         }
       },
@@ -143,8 +146,10 @@
         virtualclass.pdfRender[wid]._zoomOut.call(virtualclass.pdfRender[wid], canvas, actualWidth, actualHeight);
 
         // if(document.querySelector('#canvas' + virtualclass.gObj.currWb) != null){
-        //     zoomScaleWidth = document.querySelector('#canvas' + virtualclass.gObj.currWb).width / virtualclass.gObj.SCALE_FACTOR;
-        //     zoomScaleHeight = document.querySelector('#canvas' + virtualclass.gObj.currWb).height / virtualclass.gObj.SCALE_FACTOR;
+        // zoomScaleWidth = document.querySelector(
+        // '#canvas' + virtualclass.gObj.currWb).width / virtualclass.gObj.SCALE_FACTOR;
+        // zoomScaleHeight = document.querySelector(
+        // '#canvas' + virtualclass.gObj.currWb).height / virtualclass.gObj.SCALE_FACTOR;
         // }
         //
       },
@@ -185,10 +190,11 @@
       normalRender() {
         const wid = virtualclass.gObj.currWb;
         delete virtualclass.zoom.performZoom;
+        const canvasDim = virtualclass.zoom.canvasDimension;
         if (virtualclass.pdfRender[wid] && typeof virtualclass.pdfRender[wid].shownPdf === 'object'
           && virtualclass.zoom.canvasScale != null && virtualclass.zoom.canvasDimension) {
-          virtualclass.zoom.canvasDimension.width = virtualclass.zoom.canvasDimension.width / virtualclass.gObj.SCALE_FACTOR;
-          virtualclass.zoom.canvasDimension.height = virtualclass.zoom.canvasDimension.height / virtualclass.gObj.SCALE_FACTOR;
+          canvasDim.width = virtualclass.zoom.canvasDimension.width / virtualclass.gObj.SCALE_FACTOR;
+          canvasDim.height = virtualclass.zoom.canvasDimension.height / virtualclass.gObj.SCALE_FACTOR;
 
           if (virtualclass.gObj.normalZoomTime) {
             clearTimeout(virtualclass.gObj.normalZoomTime);
@@ -206,7 +212,7 @@
         }
       },
 
-      //fitElementToolTipChange(fitElement) {
+      // fitElementToolTipChange(fitElement) {
       fitToElementTooltip(fitElement) {
         const fitScreenTooltip = document.querySelector('#virtualclassAppLeftPanel .zoomControler .fitScreen');
         const notesContainer = document.getElementById('notesContainer');

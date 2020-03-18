@@ -133,7 +133,7 @@
       const uiChatboxTitle = (self.uiChatboxTitle = $('<span class="cgText"></span>'))
         .html(title)
         .appendTo(uiChatboxTitlebar);
-      var uiChatboxTitlebarClose = (self.uiChatboxTitlebarClose = $('<a href="#"></a>'))
+      const uiChatboxTitlebarClose = (self.uiChatboxTitlebarClose = $('<a href="#"></a>'))
         .addClass(
           'ui-chatbox-icon ',
         )
@@ -166,7 +166,7 @@
         .text('')
         // .text('close')
         .appendTo(uiChatboxTitlebarClose);
-      var uiChatboxTitlebarMinimize = (self.uiChatboxTitlebarMinimize = $('<a href = "#"></a>'))
+      const uiChatboxTitlebarMinimize = (self.uiChatboxTitlebarMinimize = $('<a href = "#"></a>'))
         .addClass('ui-chatbox-icon')
         .attr('role', 'button')
         .hover(() => {
@@ -203,7 +203,7 @@
           // anything?
         })
         .appendTo(uiChatboxContent);
-      var uiChatboxInputBox = (self.uiChatboxInputBox = $('<textarea></textarea>'))
+      const uiChatboxInputBox = (self.uiChatboxInputBox = $('<textarea></textarea>'))
         .addClass('ui-widget-content '
           + 'ui-chatbox-input-box ')
         .prop('id', `ta${self.options.id}`)

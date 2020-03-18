@@ -1,7 +1,7 @@
 class UserInteractivityEngine { // main part
   performWithQueue(data) {
     this.makeQueue(data);
-    const type = (data.component === 'note' ||  data.component === 'bookmark') ? data.component : 'question';
+    const type = (data.component === 'note' || data.component === 'bookmark') ? data.component : 'question';
     this.perform(data.context, type);
   }
 

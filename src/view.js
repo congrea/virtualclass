@@ -24,10 +24,11 @@
      * @param  imageTag  boolean value
      */
     displayMessage(msg, id, className, intoAppend, imageTag, wid) {
+      let msgBox;
       if (typeof imageTag === 'undefined') {
-        var msgBox = this.createMsgBox(msg, id, className);
+        msgBox = this.createMsgBox(msg, id, className);
       } else {
-        var msgBox = this.createMsgBox(msg, id, className, imageTag);
+        msgBox = this.createMsgBox(msg, id, className, imageTag);
       }
       const parTag = document.getElementById(`vcanvas${wid}`);
       if (typeof intoAppend !== 'undefined') {
@@ -50,6 +51,7 @@
       }
       let classes = 'error';
       let errorCont = document.getElementById(contId);
+      let closebutton;
       if (errorCont == null) {
         errorCont = document.createElement('div');
         errorCont.id = contId;
@@ -75,7 +77,7 @@
       closebutton = document.querySelector(`#${msgId}`);
 
       if (closebutton == null) {
-        var closebutton = document.createElement('span');
+        closebutton = document.createElement('span');
         closebutton.id = 'closeMsg';
         closebutton.innerHTML = 'x';
         errorCont.appendChild(closebutton);
@@ -215,28 +217,30 @@
      * @param classname class webRtc
      */
     multiMediaMsg(className) {
-      if (virtualclass.system.mybrowser.name === 'Firefox') {
-        var msg = virtualclass.lang.getString('wbrtcMsgFireFox');
-        // Todo handle this is in better way
-        // this.displayMessage(msg, "fireFoxWebrtcCont", this.msgBoxClass + className);
-      } else if (virtualclass.system.mybrowser.name === 'Chrome') {
-        var msg = virtualclass.lang.getString('wbrtcMsgChrome');
-        // Todo handle this is in better way
-        // this.displayMessage(msg, "chormeWebrtcCont", this.msgBoxClass + className);
-      }
+      // let msg;
+      // if (virtualclass.system.mybrowser.name === 'Firefox') {
+      //   msg = virtualclass.lang.getString('wbrtcMsgFireFox');
+      //   Todo handle sthis is in better way
+      //   this.displayMessage(msg, "fireFoxWebrtcCont", this.msgBoxClass + className);
+      // } else if (virtualclass.system.mybrowser.name === 'Chrome') {
+      //   msg = virtualclass.lang.getString('wbrtcMsgChrome');
+      //   Todo handle this is in better way
+      //   this.displayMessage(msg, "chormeWebrtcCont", this.msgBoxClass + className);
+      // }
     },
     /**
      * displaying the message on canvas drawing
      * @param  className
      */
     canvasDrawMsg(className, id) {
+      let msg;
       const mainContainer = document.getElementById(`vcanvas${id}`);
       mainContainer.classList.add('canvasMsgBoxParent');
       if (virtualclass.system.mybrowser.name === 'Firefox') {
-        var msg = virtualclass.lang.getString('canvasDrawMsg');
+        msg = virtualclass.lang.getString('canvasDrawMsg');
         this.displayMessage(msg, 'canvasDrawMsgContFirefox', this.msgBoxClass + className, 'containerWb');
       } else if (virtualclass.system.mybrowser.name === 'Chrome') {
-        var msg = virtualclass.lang.getString('canvasDrawMsg');
+        msg = virtualclass.lang.getString('canvasDrawMsg');
         this.displayMessage(msg, 'canvasDrawMsgContChrome', this.msgBoxClass + className, 'containerWb', null, id);
       }
     },
@@ -396,7 +400,6 @@
     virtualclass.gObj.inputFocusHandler = setTimeout(() => {
       console.log('===> triger input focus');
       if (!virtualclass.gObj.notHandleInputFocusHandler) {
-
         if (document.getElementById('virtualclassCont').dataset.currwindow === 'normal') {
           // const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
           if (window.innerHeight >= virtualclass.gObj.initHeight) {

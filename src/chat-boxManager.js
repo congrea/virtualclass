@@ -31,23 +31,23 @@ const chatboxManager = (function () {
     },
   };
 
-  const init = function (options) {
+  function init(options) {
     $.extend(config, options);
-  };
+  }
 
-  const delBox = function (id) {
+  function delBox(id) {
     // TODO
     const remove = id;
     showList = $.grep(showList, id => remove != id);
     boxList = $.grep(boxList, id => remove != id);
     // boxList.remove(id);
-  };
+  }
 
-  const getNextOffset = function () {
+  function getNextOffset() {
     return 285 + (config.width + config.gap) * showList.length;
-  };
+  }
 
-  const boxClosedCallback = function (id) {
+  function boxClosedCallback(id) {
     // close button in the titlebar is clicked
     const idx = showList.indexOf(id);
     if (idx !== -1) {
@@ -62,10 +62,10 @@ const chatboxManager = (function () {
     } else {
       alert(`There is some error: ${id}`);
     }
-  };
+  }
 
   // caller should guarantee the uniqueness of id
-  const addBox = function (id, user, name) {
+  function addBox(id, user, name) {
     const idx1 = showList.indexOf(id);
     const idx2 = boxList.indexOf(id);
     if (idx1 !== -1) {
@@ -132,21 +132,22 @@ const chatboxManager = (function () {
     if (Object.prototype.hasOwnProperty.call(virtualclass.chat.vmstorage, id)) {
       virtualclass.chat.vmstorage[id][0].box = 'opened';
     }
-  };
+  }
 
-  var messageSentCallback = function (id, user, msg) {
-    const idx = boxList.indexOf(user.userid);
+  function messageSentCallback(id, user, msg) {
+    // const idx = boxList.indexOf(user.userid);
     config.messageSent(id, user, msg);
-  };
+  }
 
-  const dispatch = function (user, msg) {
+  function dispatch(user, msg) {
     $(`#${user.userid}`).chatbox('option', 'boxManager').addMsg(user.name, msg);
-  };
+  }
 
-  return {
+  const obj = {
     init,
     addBox,
     delBox,
     dispatch,
   };
+  return obj;
 }());

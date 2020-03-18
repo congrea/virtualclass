@@ -33,9 +33,9 @@
       const settingD = document.querySelector('#virtualclassCont.congrea #appSettingDetail');
       const chat = document.querySelector('#virtualclassCont.congrea #chatWidget');
       const techVideo = document.querySelector('#virtualclassCont.congrea #techVideo');
-      const virtualclassAppRight = document.querySelector("#virtualclassAppRightPanel");
-      const virtualclassApp = document.querySelector("#virtualclassApp");
-      const rightbarTab = document.querySelector("#stickycontainer ul.chatBarTab");
+      const virtualclassAppRight = document.querySelector('#virtualclassAppRightPanel');
+      const virtualclassApp = document.querySelector('#virtualclassApp');
+      const rightbarTab = document.querySelector('#stickycontainer ul.chatBarTab');
       const askQuestionTab = document.querySelector('#virtualclassCont.congrea #congAskQuestion');
 
       rightbarTab.addEventListener('click', ((event) => {
@@ -49,7 +49,7 @@
 
       $('#chatroom_bt2 .inner_bt').click(() => {
         virtualclass.vutil.sendSpeedByMobile(3);
-        //const vmchat_room_bt = document.querySelector('#chatwidget .vmchat_room_bt');
+        // const vmchat_room_bt = document.querySelector('#chatwidget .vmchat_room_bt');
         // chatroom_bt2.classList.add('active');
         // techVideo.classList.remove('active');
 
@@ -112,7 +112,8 @@
             }
           }
           // TODO this need to be enable
-          // document.querySelector('#chatwidget .vmchat_room_bt').dataSet.dataTitle = virtualclass.lang.getString('commonChat');
+          // document.querySelector('#chatwidget .vmchat_room_bt').dataSet.dataTitle
+          // = virtualclass.lang.getString('commonChat');
         }
 
         const chatbox = document.getElementById('ta_chrm2');
@@ -146,7 +147,7 @@
       $('#techVideo').click(function () {
         virtualclass.vutil.sendSpeedByMobile(1);
         virtualclass.rightbar.handleDisplayBottomRightBar(document.getElementById('techVideo'));
-      })
+      });
 
       $('#user_list').click(function (event) {
         virtualclass.vutil.sendSpeedByMobile(3);
@@ -156,20 +157,20 @@
         user_list.classList.add('active');
         virtualclass.rightbar.handleDisplayBottomRightBar(document.getElementById('user_list'));
 
-        const chat = document.getElementById('chatWidget');
-        const settingD = document.getElementById('appSettingDetail');
+        const chatCont = document.getElementById('chatWidget');
+        const settingDetail = document.getElementById('appSettingDetail');
         if (setting.classList.contains('settingActive')) {
           setting.classList.remove('settingActive');
           setting.classList.add('chatActive');
         }
 
-        if (!chat.classList.contains('active')) {
-          chat.classList.add('active');
+        if (!chatCont.classList.contains('active')) {
+          chatCont.classList.add('active');
         }
 
-        settingD.classList.remove('active');
-        if (!settingD.classList.contains('deactive')) {
-          settingD.classList.add('deactive');
+        settingDetail.classList.remove('active');
+        if (!settingDetail.classList.contains('deactive')) {
+          settingDetail.classList.add('deactive');
         }
 
         virtualclass.chat.chatWindow = 'private';
@@ -201,7 +202,7 @@
           }
         }
         // virtualclass.chat.rightBarHeader('userList');
-      }),
+      });
 
       $('#congreaUserSearch').keyup(function () {
         const text = this.value;
@@ -227,10 +228,10 @@
         });
 
         const text = document.getElementById('congreaUserSearch').value;
-        _searchUser(arr, text.toLowerCase());
+        innerSearchUser(arr, text.toLowerCase());
       }
 
-      function _searchUser(arr, search) {
+      function innerSearchUser(arr, search) {
         arr.forEach((obj, index) => {
           const userElem = chatContainerEvent.elementFromShadowDom(`ml${obj.id}`, null, true);
           if (obj.name.indexOf(search) !== -1) {

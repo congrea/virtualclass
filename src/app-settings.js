@@ -5,13 +5,12 @@
    * eg:- creating, storing and replaying the objects
    */
 
-  const appSetting = function (config) {
+  const appSetting = function () {
     return {
       init() {
         const toggle = document.getElementById('appSettingCtrl');
         if (toggle) {
           toggle.addEventListener('click', () => {
-
             const appSettingDetail = document.getElementById('appSettingDetail');
             if (appSettingDetail.classList.contains('active')) {
               appSettingDetail.classList.remove('active');

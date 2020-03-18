@@ -180,6 +180,7 @@
   min-height: 65px;
   max-height: 90px;
   border: none;
+  scrollbar-width: none;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question #writeContent .text {
@@ -190,7 +191,7 @@
   display: block;
   resize: none;
   border: 0.5px solid #b1b1b1;
-  min-height: 50px;
+  min-height: 53px;
   max-height: 90px;
 }
 
@@ -972,4 +973,8 @@
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action {
   border-left: unset !important;
+}
+
+#virtualclassCont.congrea #askQuestion #writeContent .text:hover {
+  scrollbar-width: thin;
 }

@@ -30,5 +30,9 @@ $.uiBackCompat = false;
     if (virtualclass.isPlayMode) {
       virtualclass.settings.triggerSettings();
     }
+    navigator.serviceWorker.register('https://live.congrea.net/virtualclass/example/service-worker.js', { scope: 'https://live.congrea.net/virtualclass/example/index1.php?id=45&role=t&name=suman&room=500&play=false&themecolor=gray&pushtotalk=1&anyonepresenter=0#'})
+        .then((reg) => {
+          console.log('Service worker registered.', reg);
+        });
   };
 }(window));

@@ -10,3 +10,4 @@ css/theme/gray.css.map
 example/play.php
 dest_temp/*
 .DS_Store
+example/.DS_Store

@@ -12,10 +12,10 @@
       }
     },
 
-    hide() {
-      const elem = document.querySelector(elem);
-      if (elem != null) {
-        elem.classList.add('fade');
+    hide(elem) {
+      const celem = document.querySelector(elem);
+      if (celem != null) {
+        celem.classList.add('fade');
       }
     },
 

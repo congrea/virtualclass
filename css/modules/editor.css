@@ -10,8 +10,14 @@
 
 /* } */
 
-#virtualclassCont.congrea.student #virtualclassCont.congrea #virtualclassEditorRich {
-  margin-left: 35px;
+#virtualclassEditorRich,
+#virtualclassEditorCode {
+  margin-top: 0;
+}
+
+#virtualclassEditorRich,
+#virtualclassEditorBody {
+  height: 100%;
 }
 
 #virtualclassCont.congrea .icon-editorCodeImg::before {
@@ -43,35 +49,6 @@
   z-index: 5;
 }
 
-#virtualclassCont.congrea #EditorRichwriteModeBox .writeModeBox {
-  /* bottom: 15px; */
-
-  /* right: 372px; */
-
-  /* position: fixed; */
-
-  /* text-align: center; */
-
-  /* text-transform: uppercase; */
-
-  /* width: 85px; */
-
-  /* border-top-left-radius: 5px; */
-
-  /* z-index:2000; */
-  dispaly: none;
-}
-
-#virtualclassEditorRich,
-#virtualclassEditorCode {
-  margin-top: 0;
-}
-
-#virtualclassEditorRich,
-#virtualclassEditorBody {
-  height: 100%;
-}
-
 #virtualclassCont.congrea div.CodeMirror-cursors {
   visibility: visible !important;
 }
@@ -99,9 +76,10 @@
   box-shadow: 0 2px 5px 1px #c3c3c3;
 }
 
-#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #alleditorRichContainer,
-#virtualclassCont.congrea #alleditorCodeContainer {
-  right: 30px;
+#virtualclassCont.congrea #alleditorRichContainerAnch {
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch {
@@ -130,12 +108,6 @@
   border-bottom: none !important;
 }
 
-#virtualclassCont.congrea #alleditorRichContainerAnch {
-  color: #fff;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
 #virtualclassCont.congrea #virtualclassEditorRichBody {
   position: relative;
 
@@ -153,10 +125,20 @@
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#92b0ab', endColorstr='#6f9b90', GradientType=0); /* IE6-9 */
 }
 
+#virtualclassCont.congrea #alleditorCodeContainer {
+  border-radius: 5px !important;
+  top: 6px;
+  right: 6px;
+}
+
 #virtualclassCont.congrea #alleditorRichContainer:hover,
 #virtualclassCont.congrea #alleditorCodeContainer:hover {
   /* background-image: none; */
   opacity: 0.9;
+}
+
+#virtualclassCont.congrea #virtualclassApp.collapsedRightbar #alleditorRichContainer {
+  right: 30px;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer a,
@@ -187,17 +169,18 @@
   margin-right: 0;
 }
 
-#virtualclassCont.congrea.educator #virtualclassEditorRich,
+/* #virtualclassCont.congrea.educator #virtualclassEditorRich,
 #virtualclassCont.congrea.educator #virtualclassEditorCode {
   margin-left: 9px;
-}
+} */
 
 #virtualclassCont.congrea div#virtualclassOptionsCont div#virtualclassEditorRichTool {
   border-bottom: none;
 }
 
-#virtualclassCont.congrea.teacher.orginalTeacher.educator[data-currapp="EditorRich"] #audioWidget {
-  right: 0;
+#virtualclassCont.congrea.studentplayMode[data-currapp="EditorRich"] #audioWidget {
+  top: 170px;
+  right: 10px;
 }
 
 #virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] #audioWidget,
@@ -205,13 +188,12 @@
   right: 10px;
 }
 
-#virtualclassCont.congrea.student[data-currapp="EditorRich"] {
+#virtualclassCont.congrea.teacher.orginalTeacher.educator[data-currapp="EditorRich"] #audioWidget {
   right: 0;
 }
 
-#virtualclassCont.congrea.studentplayMode[data-currapp="EditorRich"] #audioWidget {
-  top: 170px;
-  right: 10px;
+#virtualclassCont.congrea.student[data-currapp="EditorRich"] {
+  right: 0;
 }
 
 #virtualclassEditorCode.studentplayMode[data-currapp="EditorCode"] #virtualclassEditorCode {
@@ -226,14 +208,14 @@
   margin-top: 0;
 }
 
-#virtualclassCont.congrea.student[data-currapp="EditorCode"] #beTeacher {
-  right: 13%;
-  top: 5%;
-}
-
 #virtualclassCont.congrea[data-currapp="EditorRich"] #beTeacher {
   right: 13%;
   top: 3%;
+}
+
+#virtualclassCont.congrea.student[data-currapp="EditorCode"] #beTeacher {
+  right: 13%;
+  top: 5%;
 }
 
 /* #virtualclassCont.congrea #virtualclassEditorRich { */
@@ -273,12 +255,6 @@
 #virtualclassCont.congrea.playMode.student #virtualclassEditorCode,
 #virtualclassCont.congrea.playMode.student[data-currapp="Yts"] #virtualclassEditorCode {
   margin-top: 70px;
-}
-
-#virtualclassCont.congrea #alleditorCodeContainer {
-  border-radius: 5px !important;
-  top: 6px;
-  right: 6px;
 }
 
 #virtualclassCont.congrea.student[data-currapp="EditorCode"] #EditorCodewriteModeBox {

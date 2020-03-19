@@ -39,22 +39,6 @@
   margin: 0;
 }
 
-#virtualclassCont.congrea .image_slider li {
-  position: relative;
-  float: left;
-}
-
-#virtualclassCont.congrea #pager {
-  /* firefox has different center method. this doesn't work for fire fox */
-
-  /* not in the center */
-  padding: 0;
-  position: relative;
-  height: 50px;
-  margin: auto;
-  margin-top: 10px;
-}
-
 #pager li {
   padding: 0;
   margin: 5px;
@@ -71,6 +55,22 @@
 
 #pager li:hover {
   opacity: 0.9;
+}
+
+#virtualclassCont.congrea .image_slider li {
+  position: relative;
+  float: left;
+}
+
+#virtualclassCont.congrea #pager {
+  /* firefox has different center method. this doesn't work for fire fox */
+
+  /* not in the center */
+  padding: 0;
+  position: relative;
+  height: 50px;
+  margin: auto;
+  margin-top: 10px;
 }
 
 #virtualclassCont.congrea #documentScreen #docScreenContainer {
@@ -182,6 +182,10 @@
   top: 2px;
 }
 
+#virtualclassCont.congrea.pdfRendering .commandToolsWrapper {
+  pointer-events: none;
+}
+
 #virtualclassCont.congrea #virtualclassCont.congrea #virtualclassDocumentShare .commandToolsWrapper {
   border-radius: 5px;
 }
@@ -241,24 +245,6 @@
   border-radius: 3px 3px 0 0;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container #newdocsBtnCont button#newVideoBtn {
-  background: transparent none;
-  border-width: 0;
-  box-shadow: none;
-  line-height: 18px;
-  margin: 0;
-  font-weight: 500;
-}
-
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container #newdocsBtnCont button#newVideoBtn::before {
-  content: "\e9c3";
-  font-family: 'icomoon';
-  font-size: 36px;
-  padding-top: 0;
-  margin: 4px 30% 8px;
-  float: left;
-}
-
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #docsListContainer {
   width: auto;
   max-width: 92px;
@@ -271,6 +257,17 @@
   overflow: auto;
 }
 
+#virtualclassCont.congrea #listdocs {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ddd;
+  border-bottom-width: 0;
+  border-radius: 5px 5px 0 0;
+  margin-top: 5px;
+  margin-left: 3px;
+}
+
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #newdocsBtnCont #listdocs {
   width: auto;
   max-width: 150px;
@@ -281,10 +278,6 @@
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs {
   float: none;
-  margin: 10px 0;
-}
-
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs {
   border: 1px solid #ddd;
   margin: 3px 0 10px;
   border-radius: 2px;
@@ -292,29 +285,6 @@
 
 #virtualclassCont.congrea #virtualclassDocumentShareTool .appOptions.active a span::before {
   text-shadow: #fff 0 0 1px;
-}
-
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controlCont {
-  width: 100%;
-  margin: 4px 0 0;
-  border-top: 1px solid #ddd;
-  height: 16px;
-}
-
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.status[data-status="0"]::before {
-  content: "\e9d1";
-  font-family: 'icomoon';
-  font-size: 16px;
-  padding-top: 0;
-  color: #606060;
-}
-
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.status[data-status="1"]::before {
-  content: "\e9ce";
-  font-family: 'icomoon';
-  font-size: 16px;
-  padding-top: 0;
-  color: #606060;
 }
 
 /* #virtualclassCont.congrea #listdocs .linkdocs .controls.delete::before { */
@@ -331,22 +301,19 @@
 
 /* } */
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controlCont {
-  width: 100%;
-  margin: 4px 0 0;
-  border-top: 1px solid #ddd;
-  height: 16px;
-  padding: 5px 0;
-}
-
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .mainpreview {
-  padding: 4px 0;
-}
-
 #virtualclassCont.congrea #virtualclassVideo button#newVideoBtn {
   background: transparent none;
   border-width: 0;
   box-shadow: none;
+  font-weight: 500;
+}
+
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container #newdocsBtnCont button#newVideoBtn {
+  background: transparent none;
+  border-width: 0;
+  box-shadow: none;
+  line-height: 18px;
+  margin: 0;
   font-weight: 500;
 }
 
@@ -359,17 +326,13 @@
   float: left;
 }
 
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.status[data-status="1"],
-#virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.status[data-status="0"] {
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container #newdocsBtnCont button#newVideoBtn::before {
+  content: "\e9c3";
+  font-family: 'icomoon';
+  font-size: 36px;
+  padding-top: 0;
+  margin: 4px 30% 8px;
   float: left;
-  font-size: 0;
-  margin: 0 10px 0 16px;
-}
-
-#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.delete {
-  float: left;
-  font-size: 0;
-  margin: 0 0 0 7px;
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #screen-docs .note .imageContainer {
@@ -384,20 +347,45 @@
   height: auto;
 }
 
+#virtualclassCont.congrea .linkdocs[data-selected='1'] .controlCont {
+  display: none;
+}
+
+#virtualclassCont.congrea #DocumentShareDashboard .controlCont {
+  display: none;
+}
+
 #virtualclassCont.congrea #listnotes .linknotes.links .controlCont {
   float: left;
-  border: 1px solid #eee;
-
-  /* padding: 3px 2px 0px 0px; */
-
-  /* border-radius: 20px; */
-  margin: -2px 3px 3px;
-  background: #fff;
+  border-width: 0;
+  background: transparent none;
   position: absolute;
-  bottom: 1px;
-  right: -9px;
-  box-shadow: 0 0 3px rgb(96, 96, 97);
-  width: 45px;
+  bottom: 3px;
+  right: -3px;
+  box-shadow: none;
+  width: 125px;
+  margin: -2px 3px 3px;
+}
+
+#virtualclassCont.congrea #listnotes .linknotes.links.currentNav .controlCont {
+  display: none;
+}
+
+#virtualclassCont.congrea #listnotes .linknotes.links .controlCont:hover {
+  cursor: pointer;
+  pointer-events: visible;
+}
+
+#virtualclassCont.congrea #listnotes .linknotes.links[data-status='0'] .controlCont:hover {
+  cursor: default;
+}
+
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controlCont {
+  width: 100%;
+  margin: 4px 0 0;
+  border-top: 1px solid #ddd;
+  height: 16px;
+  padding: 5px 0;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links span.thumbList {
@@ -419,10 +407,6 @@
   border-radius: 0;
   width: 100%;
   height: 100%;
-}
-
-#virtualclassCont.congrea #listnotes .linknotes.links.currentNav .controlCont {
-  display: none;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links.currentNav span.thumbList {
@@ -455,10 +439,6 @@
   }
 }
 
-#virtualclassCont.congrea .linkdocs[data-selected='1'] .controlCont {
-  display: none;
-}
-
 #virtualclassCont.congrea #screen-docs #listnotes {
   margin-top: -73px;
 }
@@ -467,8 +447,6 @@
   position: absolute;
   top: calc(50vh - 48px);
   height: 50px;
-  width: 30px;
-  opacity: 0.6;
   cursor: pointer;
   right: 23px;
 
@@ -535,45 +513,12 @@
   margin-left: 4px;
 }
 
-#virtualclassCont.congrea #docScreenContainer .mainpreview {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 6px 8px 3px 8px;
-}
-
-#virtualclassCont.congrea #virtualclassVideo button#newVideoBtn {
-  background: transparent none;
-  border-width: 0;
-  box-shadow: none;
-  font-weight: 500;
-}
-
-#virtualclassCont.congrea #virtualclassVideo button#newVideoBtn::before {
-  content: "\e9c3";
-  font-family: 'icomoon';
-  font-size: 36px;
-  padding-top: 0;
-  margin: 2px 36% 6px;
-  float: left;
+#virtualclassCont.congrea .linknotes[data-selected='1'] .mainpreview {
+  border: 3px solid green;
 }
 
 #screen-docs .pageContainer {
   margin: auto;
-}
-
-#virtualclassCont.congrea .note canvas {
-  /* position: absolute; */
-
-  /* top:0; */
-
-  /* bottom: 0; */
-
-  /* left: 0; */
-
-  /* right: 0; */
-
-  /* margin:auto; */
 }
 
 #virtualclassCont .qq-upload-button-selector.qq-upload-button {
@@ -585,11 +530,8 @@
 }
 
 #virtualclassCont #docsuploadContainer {
-  position: absolute;
-}
-
-#virtualclassCont #docsuploadContainer {
   pointer-events: none;
+  position: absolute;
 }
 
 #virtualclassCont .dashboardview .qq-uploader-selector.qq-uploader {
@@ -603,12 +545,8 @@
   display: none;
 }
 
-#virtualclassCont #docsListContainer .controlCont .controls.status {
-  display: none;
-}
-
-#virtualclassCont.congrea .linknotes[data-selected='1'] .mainpreview {
-  border: 3px solid green;
+#virtualclassCont.congrea #DocumentShareDashboard .controlCont.showCtr {
+  display: block !important;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controlCont.showCtr {
@@ -623,19 +561,10 @@
   display: none !important;
 }
 
-#virtualclassCont.congrea #listnotes .linknotes.links .controlCont {
+#virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.status[data-status="0"] {
   float: left;
-  border-width: 0;
-  background: transparent none;
-  position: absolute;
-  bottom: 3px;
-  right: -3px;
-  box-shadow: none;
-  width: 125px;
-}
-
-#virtualclassCont.congrea #DocumentShareDashboard .controlCont {
-  display: none;
+  font-size: 0;
+  margin: 0 10px 0 16px;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"],
@@ -643,6 +572,12 @@
   float: left;
   font-size: 0;
   height: 14px;
+}
+
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.status[data-status="1"] {
+  float: left;
+  font-size: 0;
+  margin: 0 10px 0 16px;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.delete {
@@ -653,8 +588,10 @@
   width: 13px;
 }
 
-#virtualclassCont.congrea #DocumentShareDashboard .controlCont.showCtr {
-  display: block !important;
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.delete {
+  float: left;
+  font-size: 0;
+  margin: 0 0 0 7px;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="1"]::before {
@@ -670,6 +607,14 @@
   border: 1px solid #ccc;
 }
 
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.status[data-status="1"]::before {
+  content: "\e9ce";
+  font-family: 'icomoon';
+  font-size: 16px;
+  padding-top: 0;
+  color: #606060;
+}
+
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.status[data-status="0"]::before {
   background: #fafafa none;
   content: "\e9d1";
@@ -681,6 +626,14 @@
   margin-top: -3px;
   color: #606060;
   float: right;
+}
+
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.status[data-status="0"]::before {
+  content: "\e9d1";
+  font-family: 'icomoon';
+  font-size: 16px;
+  padding-top: 0;
+  color: #606060;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controls.delete::before {
@@ -716,14 +669,29 @@
   color: #444;
 }
 
-@media (min-width: 1400px) {
-  #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
-    max-width: 150px;
-  }
+#virtualclassCont.congrea .linknotes[data-status='0'] .mainpreview {
+  pointer-events: none;
 }
 
 #virtualclassCont.congrea .dbContainer .linkdocs[data-selected="1"] .mainpreview {
   color: #3490de;
+}
+
+#virtualclassCont.congrea #docScreenContainer .mainpreview {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 6px 8px 3px 8px;
+}
+
+#virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .mainpreview {
+  padding: 4px 0;
+}
+
+@media (min-width: 1400px) {
+  #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
+    max-width: 150px;
+  }
 }
 
 #virtualclassCont.congrea .dbContainer .linkdocs[data-selected="1"] .mainpreview::before {
@@ -738,6 +706,10 @@
 
 #virtualclassCont.congrea .qq-upload-list-selector.qq-upload-list {
   display: none;
+}
+
+#virtualclassCont.congrea #docsUploadMsz {
+  height: auto;
 }
 
 #virtualclassCont.congrea #DocumentShareDashboard #docsUploadMsz {
@@ -757,11 +729,6 @@
   margin-left: 15%;
 }
 
-#virtualclassCont.congrea #listnotes .linknotes.links .controlCont:hover {
-  cursor: pointer;
-  pointer-events: visible;
-}
-
 #virtualclassCont.congrea #listnotes .linknotes.links .controlCont .controls:hover::before {
   color: #302f2f;
 }
@@ -779,10 +746,16 @@
   pointer-events: none;
 }
 
+#virtualclassCont.congrea.pdfRendering .nvgt.next,
+#virtualclassCont.congrea.pdfRendering .nvgt.prev {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboard.lastNote .nvgt.next,
 #virtualclassCont.congrea #screen-docs .pageContainer.lastNote .nvgt.next,
-#virtualclassCont.congrea #screen-docs .pageContainer.firstNote .nvgt.prev,
 #virtualclassCont.congrea #virtualclassWhiteboard.firstNote .nvgt.prev,
-#virtualclassCont.congrea #virtualclassWhiteboard.lastNote .nvgt.next {
+#virtualclassCont.congrea #screen-docs .pageContainer.firstNote .nvgt.prev {
   pointer-events: none;
   opacity: 0.5;
 }
@@ -802,7 +775,6 @@
 #virtualclassCont.congrea #dashboardnav input[type="submit"]:focus,
 #virtualclassCont.congrea #dashboardnav input[type="reset"]:focus {
   outline: none;
-  outline: none;
   outline-offset: 0;
 }
 
@@ -815,17 +787,6 @@
   opacity: 0.5;
 }
 
-#virtualclassCont.congrea #listdocs {
-  overflow: auto;
-  width: 100%;
-  height: 100%;
-  border: 1px solid #ddd;
-  border-bottom-width: 0;
-  border-radius: 5px 5px 0 0;
-  margin-top: 5px;
-  margin-left: 3px;
-}
-
 #virtualclassCont.congrea #DocumentShareDashboard #newDocBtn {
   float: right;
   width: calc(100% - 3px);
@@ -835,32 +796,14 @@
   margin-left: 1px;
 }
 
-#virtualclassCont.congrea #docsUploadMsz {
-  height: auto;
-}
-
 #virtualclassCont.congrea[data-currapp='DocumentShare'] #dashboardContainer .modal-body {
   height: calc(100% - 57px);
-}
-
-#virtualclassCont.congrea .linknotes[data-status='0'] .mainpreview {
-  pointer-events: none;
 }
 
 @media (max-width: 1300px) {
   #virtualclassCont.congrea #listnotes .linknotes.links .controlCont {
     left: 5px;
   }
-}
-
-#virtualclassCont.congrea.pdfRendering .nvgt.next,
-#virtualclassCont.congrea.pdfRendering .nvgt.prev {
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-#virtualclassCont.congrea.pdfRendering .commandToolsWrapper {
-  pointer-events: none;
 }
 
 #virtualclassCont.congrea .docPdfLoader {
@@ -913,10 +856,6 @@
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .hideZoom .zoomControler {
   display: none;
-}
-
-#virtualclassCont.congrea #listnotes .linknotes.links[data-status='0'] .controlCont:hover {
-  cursor: default;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links[data-status='0'] .controlCont .status:hover {
@@ -1001,24 +940,8 @@
   display: inline-block;
 }
 
-#virtualclassCont.congrea .noteIndex[status="0"] {
-  pointer-event: none;
-  opacity: 0.3;
-}
-
-#virtualclassCont.congrea .noteIndex[status="1"] {
-  pointer-event: visible;
-  opacity: 1;
-}
-
 #virtualclassCont.congrea #docShareNav {
   display: none;
-}
-
-#virtualclassCont.congrea #docShareNav #addNewPage {
-  padding: 11px 12px 9px 12px;
-  border-radius: 20px;
-  box-shadow: 0 2px 5px 1px #c3c3c3;
 }
 
 #virtualclassCont.congrea #docShareNav #addNewPage {
@@ -1026,6 +949,9 @@
   position: absolute;
   top: 45px;
   right: 20px;
+  padding: 11px 12px 9px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px 1px #c3c3c3;
 }
 
 #virtualclassCont.congrea .openRightbar #docShareNav #addNewPage:hover {
@@ -1047,11 +973,6 @@
 #virtualclassCont.congrea[data-currapp='DocumentShare'].student #docShareNav,
 #virtualclassCont.congrea[data-currapp='Whiteboard'].student #docShareNav {
   top: 5px;
-}
-
-#virtualclassCont.congrea[data-currapp='DocumentShare'].teacher .dashboard #docShareNav,
-#virtualclassCont.congrea[data-currapp='DocumentShare'].teacher #docShareNav #addNewPage {
-  display: none;
 }
 
 #virtualclassCont.congrea #docShareNav #leftNavPage::before {
@@ -1101,6 +1022,11 @@
 #virtualclassCont.congrea[data-currapp='Whiteboard'] .showZoom #docShareNav {
   display: block;
   font-weight: 400;
+}
+
+#virtualclassCont.congrea[data-currapp='DocumentShare'].teacher .dashboard #docShareNav,
+#virtualclassCont.congrea[data-currapp='DocumentShare'].teacher #docShareNav #addNewPage {
+  display: none;
 }
 
 #virtualclassCont.congrea.student #teacherCurrPage {

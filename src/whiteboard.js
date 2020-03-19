@@ -215,6 +215,7 @@ class WhiteboardUtility {
   sendWhiteboardData(data) {
     if (roles.hasControls()) {
       console.log('sending the data here guys ', JSON.stringify(data));
+      console.log('====> free drawing ', JSON.stringify(data));
       ioAdapter.mustSend(data);
       this.storeAtMemory(data.wb, virtualclass.gObj.currWb);
     }
@@ -397,13 +398,14 @@ class WhiteboardShape {
   }
 
   mouseDown(event, whiteboard) {
-    const pointer = whiteboard.canvas.getPointer(event, true);
-    this.previousShape = pointer;
+    let pointer;
     if (this.name === 'freeDrawing') {
+      pointer = whiteboard.canvas.getPointer(event, true);
       this.mousedown = true;
       virtualclass.gObj.startTime = new Date().getTime();
       this.chunks.push(`${pointer.x}_${pointer.y}_d`);
     } else {
+      pointer = whiteboard.canvas.getPointer(event);
       this.innerMouseDown(pointer, whiteboard, event.e);
       virtualclass.gObj.lastSendDataTime = new Date().getTime();
       // ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
@@ -416,6 +418,7 @@ class WhiteboardShape {
       const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
       virtualclass.wbWrapper.util.sendWhiteboardData(data);
     }
+    this.previousShape = pointer;
   }
 
   innerMouseDown(pointer, whiteboard, actualEvent) {
@@ -426,10 +429,7 @@ class WhiteboardShape {
       cwhiteboard.canvas.isDrawingMode = true;
       const event = virtualclass.wbWrapper.util.readyMouseEvent('mousedown', pointer);
       whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
-
-      const event2 = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
-      whiteboard.canvas.upperCanvasEl.dispatchEvent(event2);
-
+      console.log('====> free drawing mousedown', JSON.stringify(pointer));
     } else {
       this.startLeft = pointer.x;
       this.startTop = pointer.y;
@@ -499,7 +499,7 @@ class WhiteboardShape {
       this[this.name].setCoords();
     } else {
       if (eventTrust) return true;
-      console.log('====> free drawing mouse up');
+      console.log('====> free drawing up', JSON.stringify(pointer));
       // const eventMove = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
       // whiteboard.canvas.upperCanvasEl.dispatchEvent(eventMove);
 
@@ -517,6 +517,7 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
   }
 
   innerMouseMove(pointer, whiteboard) {
+    console.log('====> free drawing mousemove', JSON.stringify(pointer));
     const event = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
     whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
   }
@@ -564,7 +565,7 @@ class WhiteboardRectangle extends WhiteboardShape {
   }
 
   mouseMove(event, whiteboard) {
-    const pointer = whiteboard.canvas.getPointer(event.e, true);
+    const pointer = whiteboard.canvas.getPointer(event.e);
     this.innerMouseMove(pointer, whiteboard);
     if (!virtualclass.gObj.lastSendDataTime) {
       virtualclass.gObj.lastSendDataTime = new Date().getTime();

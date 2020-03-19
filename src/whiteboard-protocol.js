@@ -15,6 +15,7 @@ class WhiteboardProtocol {
       const shortShapeName = virtualclass.wbWrapper.keyMap[`${data.name}Short`];
       newData = {
         //wb: [`sp_${shortShapeName}_${data.event}_${Math.round(data.x * 100) / 100}_${Math.round(data.y * 100) / 100}`],
+        // wb: [`sp_${shortShapeName}_${data.event}_${data.x * virtualclass.zoom.canvasScale}_${data.y * virtualclass.zoom.canvasScale}`],
         wb: [`sp_${shortShapeName}_${data.event}_${data.x}_${data.y}`],
         cf: 'wb',
       };
@@ -114,8 +115,8 @@ class WhiteboardProtocol {
     let y;
     for (let i = 0; i < msg.length; i += 1){
       msgArr = msg[i].split('_');
-      x = +(msgArr[0]) * +(scale);
-      y = +(msgArr[1]) * +(scale);
+      x = (+(msgArr[0]) / +(scale));
+      y = (+(msgArr[1]) / +(scale));
       if (msgArr.length > 2) {
         // 2 -> down/up, 0 -> x, 1 -> y
         result.push([`sp_f_${msgArr[2]}_${x}_${y}`]);

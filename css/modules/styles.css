@@ -1129,7 +1129,7 @@ div.ui-memblist-usr .userVideos {
   text-align: center;
   display: inline-block;
   width: 2.125rem;
-  border: 0.125rem solid rgba(255, 255, 255, 0.2);
+  border: 0.125rem solid #2c393d;
   border-radius: 20px;
   height: 2.125rem;
   overflow: hidden;

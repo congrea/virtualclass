@@ -939,8 +939,15 @@
 }
 
 @keyframes myfirst {
-  0% { right: -65%; bottom: 4.5rem; }
-  100% { right: 0; bottom: 4.5rem; }
+  0% {
+    right: -65%;
+    bottom: 4.5rem;
+  }
+
+  100% {
+    right: 0;
+    bottom: 4.5rem;
+  }
 }
 
 #virtualclassCont #askQuestion.tempDown {

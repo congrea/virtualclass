@@ -22,7 +22,7 @@ class WhiteboardProtocol {
       newData = {};
       // dataArr { shape, too, event, x, y} = data.split('_');
       newData.action = data[0];
-      newData.tool = virtualclass.wbWrapper.keyMap[data[1]];
+      newData.tool =  virtualclass.wbWrapper.keyMap[data[1]];
       newData.shape = virtualclass.wbWrapper.keyMap[data[1]];
       newData.event = virtualclass.wbWrapper.keyMap[data[2]];
       newData.actual = { x: +data[3], y: +data[4] };

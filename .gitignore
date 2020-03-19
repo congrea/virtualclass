@@ -11,3 +11,4 @@ example/play.php
 dest_temp/*
 .DS_Store
 example/.DS_Store
+.htaccess

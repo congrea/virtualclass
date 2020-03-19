@@ -20,6 +20,16 @@ $.uiBackCompat = false;
             console.log('Service worker registered.', reg);
           });
     }
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+      // Update UI notify the user they can install the PWA
+      showInstallPromotion();
+    });
 
     virtualclass.serverData.syncComplete = false;
     await virtualclass.serverData.syncAllData().then(() => {

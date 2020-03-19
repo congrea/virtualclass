@@ -41,6 +41,8 @@ class WhiteboardProtocol {
       result.y = (+data.y) * virtualclass.zoom.canvasScale;
       console.log('====> whiteboard pdf ========================== active mouse', result.x, result.y);
     }
+    // result.x = Math.round(result.x * 100) / 10000;
+    // result.y = Math.round(result.y * 100) / 10000;
     return result;
   }
 
@@ -98,11 +100,29 @@ class WhiteboardProtocol {
       newData = {
         wb: ['sf'],
         cf: 'wb',
-        v: data,
+        v: data, // values,
+        s: virtualclass.zoom.canvasScale, // scale
       };
-    } else {
-
     }
     return newData;
+  }
+
+  generateFreeDrawingData(msg, scale) {
+    const result = [];
+    let msgArr;
+    let x;
+    let y;
+    for (let i = 0; i < msg.length; i += 1){
+      msgArr = msg[i].split('_');
+      x = +(msgArr[0]) * +(scale);
+      y = +(msgArr[1]) * +(scale);
+      if (msgArr.length > 2) {
+        // 2 -> down/up, 0 -> x, 1 -> y
+        result.push([`sp_f_${msgArr[2]}_${x}_${y}`]);
+      } else {
+        result.push([`sp_f_m_${x}_${y}`]);
+      }
+    }
+    return result;
   }
 }

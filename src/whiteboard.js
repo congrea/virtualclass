@@ -51,7 +51,7 @@ class WhiteboardReplay {
 // This class is to handle the selection of object with mouse down, move, and up
 class ActiveAll {
   generateData(event, whiteboard, type) {
-    const pointer = whiteboard.canvas.getPointer(event, whiteboard);
+    const pointer = whiteboard.canvas.getPointer(event, true);
     const newData = {
       event: type,
       x: pointer.x,
@@ -76,7 +76,7 @@ class ActiveAll {
   }
 
   mouseDown(event, whiteboard) {
-    const myPointer = whiteboard.canvas.getPointer(event, whiteboard)
+    const myPointer = whiteboard.canvas.getPointer(event, true)
     console.log('====> whiteboard pdf ========================== active mouse trigger', myPointer.x, myPointer.y);
     console.log('==== convert actives all mouse down', myPointer.x, myPointer.y);
     if (!event.e.isTrusted) return;
@@ -91,7 +91,7 @@ class ActiveAll {
   }
 
   mouseMove(event, whiteboard) {
-    const myPointer = whiteboard.canvas.getPointer(event, whiteboard);
+    const myPointer = whiteboard.canvas.getPointer(event, true);
     console.log('==== actives all mouse move', myPointer.x, myPointer.y, ' orginal x, y', event.e.clientX, event.e.clientY);
     if (!event.e.isTrusted) return;
     // console.log('====> shoud not invoke');
@@ -109,7 +109,7 @@ class ActiveAll {
   }
 
   mouseUp(event, whiteboard) {
-    const myPointer = whiteboard.canvas.getPointer(event, whiteboard)
+    const myPointer = whiteboard.canvas.getPointer(event, true)
     console.log('==== actives all mouse up', myPointer.x, myPointer.y);
     if (!event.e.isTrusted) return;
     console.log('====> shoud not invoke');
@@ -221,7 +221,7 @@ class WhiteboardUtility {
   }
 
   sendArrow(msg) {
-    const time = 300;
+    const time = 100;
     if (!this.lastarrowtime) {
       this.lastarrowtime = new Date().getTime();
     }
@@ -294,26 +294,11 @@ class WhiteboardUtility {
     // virtualclass.wb[wId].canvas.renderAll();
   }
 
-  generateFreeDrawingData(msg) {
-    const result = [];
-    let msgArr;
-    for (let i = 0; i < msg.length; i += 1){
-      msgArr = msg[i].split('_');
-      if (msgArr.length > 2) {
-        // 3 -> down/up, 1 -> x, 2 -> y
-        result.push([`sp_f_${msgArr[2]}_${msgArr[0]}_${msgArr[1]}`]);
-      } else {
-        result.push([`sp_f_m_${msgArr[0]}_${msgArr[1]}`]);
-      }
-    }
-    return result;
-  }
-
   onMessage(e) {
     const whiteboardShape = e.message.wb[0].substring(0, 2);
     if (whiteboardShape === 'sf') {
       const fromUserRole = e.fromUser.role;
-      const result = this.generateFreeDrawingData(e.message.v);
+      const result = virtualclass.wbWrapper.protocol.generateFreeDrawingData(e.message.v, e.message.s);
       let event;
       for (let i = 0; i < result.length; i += 1) {
         event = { message: { wb: result[i] },  fromUser: { role : fromUserRole} };
@@ -332,7 +317,7 @@ class WhiteboardUtility {
 
   handleArrow(event) {
     const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
-    const pointer = whiteboard.canvas.getPointer(event, whiteboard);
+    const pointer = whiteboard.canvas.getPointer(event, true);
     const afterChange = virtualclass.wbWrapper.protocol.changeWithScale('divide', pointer);
     this.sendArrow({ msg: `${afterChange.x}_${afterChange.y}`, cf: 'ca' });
   }
@@ -412,7 +397,8 @@ class WhiteboardShape {
   }
 
   mouseDown(event, whiteboard) {
-    const pointer = whiteboard.canvas.getPointer(event);
+    const pointer = whiteboard.canvas.getPointer(event, true);
+    this.previousShape = pointer;
     if (this.name === 'freeDrawing') {
       virtualclass.gObj.startTime = new Date().getTime();
       this.chunks.push(`${pointer.x}_${pointer.y}_d`);
@@ -440,6 +426,9 @@ class WhiteboardShape {
       const event = virtualclass.wbWrapper.util.readyMouseEvent('mousedown', pointer);
       whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
 
+      const event2 = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
+      whiteboard.canvas.upperCanvasEl.dispatchEvent(event2);
+
     } else {
       this.startLeft = pointer.x;
       this.startTop = pointer.y;
@@ -455,7 +444,6 @@ class WhiteboardShape {
       whiteboard.canvas.add(this[this.name]);
       myCount++;
     }
-
     console.log('====> create whiteboard ', myCount);
     console.log('==== coordination down x, y ', pointer.x, pointer.y);
   }
@@ -470,11 +458,17 @@ class WhiteboardShape {
     if (this.name === 'freeDrawing') {
       if (this.previousShape) {
         virtualclass.gObj.startTime = new Date().getTime();
-        this.chunks.push(`${this.previousShape.x}_${this.previousShape.y}_u`);
+        this.chunks.push(`${this.previousShape.x}_${this.previousShape.y}_m`);
+        // this.chunks.push(`${this.previousShape.x}_${this.previousShape.y+0.5}_m`);
+        // this.chunks.push(`${this.previousShape.x}_${this.previousShape.y + 25}_m`);
+        // this.chunks.push(`${this.previousShape.x}_${this.previousShape.y + 35}_m`);
+        const pointer = whiteboard.canvas.getPointer(event.e, true);
+        this.chunks.push(`${pointer.x}_${pointer.y}_u`);
         const data = virtualclass.wbWrapper.protocol.encode('sf', this.chunks);
-        this.chunks.length = 0;
         if (event.e.isTrusted) virtualclass.wbWrapper.util.sendWhiteboardData(data);
+        this.chunks.length = 0;
       }
+      this.mousedown = false;
     } else {
       this.innerMouseUp(event, whiteboard, true);
 
@@ -503,6 +497,9 @@ class WhiteboardShape {
     } else {
       if (eventTrust) return true;
       console.log('====> free drawing mouse up');
+      const eventMove = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
+      whiteboard.canvas.upperCanvasEl.dispatchEvent(eventMove);
+
       const event = virtualclass.wbWrapper.util.readyMouseEvent('mouseup', pointer);
       whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
     }
@@ -525,20 +522,20 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
 
   mouseMove(event, whiteboard) {
     if (!event.e.isTrusted) return;
-    const pointer = whiteboard.canvas.getPointer(event.e);
-    this.chunks.push(`${pointer.x}_${pointer.y}`);
+    const pointer = whiteboard.canvas.getPointer(event.e, true);
+    // this.chunks.push(`${pointer.x}_${pointer.y}`);
     virtualclass.gObj.currentTime = new Date().getTime();
 
-    const newData = {
-      x: pointer.x,
-      y: pointer.y,
-    };
-
-    this.previousShape = newData;
+    // const newData = {
+    //   x: pointer.x,
+    //   y: pointer.y,
+    // };
+    // this.previousShape = newData;
+    this.collectingData(pointer);
 
     const timeDifference = (virtualclass.gObj.currentTime - virtualclass.gObj.startTime);
 
-    if (timeDifference > 300) {
+    if (timeDifference > 3000) {
       const data = virtualclass.wbWrapper.protocol.encode('sf', this.chunks);
       // Club and send
       virtualclass.wbWrapper.util.sendWhiteboardData(data);
@@ -546,6 +543,29 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
       virtualclass.gObj.startTime = new Date().getTime();
       this.chunks.length = 0;
     }
+  }
+
+  collectingData(pointer) {
+    const newData = {
+      x: pointer.x,
+      y: pointer.y,
+    };
+
+    if ((Math.abs(newData.x - this.previousShape.x) > 1) || (Math.abs(newData.x - this.previousShape.x) > 1)) {
+     // this.chunks.push(`${newData.x}_${newData.y}`);
+    }
+
+    this.previousShape = newData;
+
+    // if (!this.moveChunksResolutionTime) {
+    //   this.moveChunksResolutionTime = new Date().getTime();
+    // } else {
+    //   this.currentResolutionTime = new Date().getTime();
+    //   if ((this.currentResolutionTime - this.moveChunksResolutionTime) > 5) {
+    //     this.chunks.push(`${newData.x}_${newData.y}`);
+    //   }
+    //   this.moveChunksResolutionTime = new Date().getTime();
+    // }
   }
 }
 
@@ -557,7 +577,7 @@ class WhiteboardRectangle extends WhiteboardShape {
   }
 
   mouseMove(event, whiteboard) {
-    const pointer = whiteboard.canvas.getPointer(event.e);
+    const pointer = whiteboard.canvas.getPointer(event.e, true);
     this.innerMouseMove(pointer, whiteboard);
     if (!virtualclass.gObj.lastSendDataTime) {
       virtualclass.gObj.lastSendDataTime = new Date().getTime();

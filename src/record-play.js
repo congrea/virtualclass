@@ -283,13 +283,11 @@
               virtualclass.recorder.afterDownloading(file, response.data, xhr);
             })
             .catch((error) => {
-                console.error('Request failed with error ', error);
-                setTimeout(() => {
-                  virtualclass.recorder.requestDataFromServer(file, xhr);
-                }, 1000);
-              }
-            );
-
+              console.error('Request failed with error ', error);
+              setTimeout(() => {
+                virtualclass.recorder.requestDataFromServer(file, xhr);
+              }, 1000);
+            });
           // virtualclass.recorder.xhr[file] = new XHR();
           // virtualclass.recorder.xhr[file].init();
           // virtualclass.recorder.xhr[file].loadData(fileUrl, this.afterDownloading.bind(this, file));
@@ -1209,13 +1207,14 @@
     },
 
     isPlayFinished() {
-      return (typeof this.masterRecordings[this.masterIndex] === 'undefined'
-      && (typeof this.subRecordings === 'undefined'
-      || typeof this.subRecordings[this.subRecordingIndex] === 'undefined'
-      || typeof this.subRecordings !== 'undefined')
-      && typeof this.subRecordings[this.subRecordingIndex] !== 'undefined'
-      && this.subRecordings[this.subRecordingIndex].type === 'J'
-      && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"sEnd"') > -1);
+      return ((typeof this.masterRecordings[this.masterIndex] === 'undefined'
+        && (typeof this.subRecordings === 'undefined'
+        || typeof this.subRecordings[this.subRecordingIndex] === 'undefined'))
+        || (typeof this.subRecordings !== 'undefined'
+        && typeof this.subRecordings[this.subRecordingIndex] !== 'undefined'
+        && this.subRecordings[this.subRecordingIndex].type === 'J'
+        && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"sEnd"') > -1)
+      );
     },
 
     triggerPauseVideo() {
@@ -1495,7 +1494,7 @@
             this.askAgainToPlay();
           }
         } else {
-          virtualclass.xhrn.vxhrn.post(virtualclass.api.recordingFiles, data).then((response) => {
+          virtualclass.xhrn.vxhrn.post(virtualclass.api.recordingFiles).then((response) => {
             this.afterDownloadingList(response.data);
           });
         }

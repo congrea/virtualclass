@@ -29,6 +29,9 @@ class Rightbar {
   }
 
   handleDisplayRightBar(selector){
+    // if (selector === '#chatWidget') {
+    //   window.removeEventListener('mouseup', virtualclass.vutil.attachAskQuestionOptionHandler());
+    // }
     const activeElement = document.querySelectorAll('#rightSubContainer .rightContainer.active');
     for (let i = 0; i < activeElement.length; i++) {
       if (activeElement[i]) activeElement[i].classList.remove('active');

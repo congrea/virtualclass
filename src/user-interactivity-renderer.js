@@ -63,6 +63,7 @@ class UserInteractivityRenderer { // Main Part
       const note = document.getElementById('virtualclassnote');
       note.addEventListener('click', (event) => {
         // this.handler.bind(this)
+        window.removeEventListener('mouseup', virtualclass.vutil.attachAskQuestionOpetionHandler());
         userInteractive.triggerInitFirebaseOperation('note');
         virtualclass.rightbar.handleDisplayBottomRightBar(event.currentTarget);
         userInteractive.engine.performWithQueue({

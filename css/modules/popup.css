@@ -14,14 +14,14 @@
   padding: 15px 25px;
 }
 
-#virtualclassCont.congrea #virtualclassPreCheck .button {
-  border-width: 0;
-  padding: 0;
-}
-
 #virtualclassCont.congrea .button:hover {
   color: #fff;
   background: #3cb3e7;
+}
+
+#virtualclassCont.congrea #virtualclassPreCheck .button {
+  border-width: 0;
+  padding: 0;
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck .button:hover {
@@ -37,37 +37,8 @@
   min-height: 80px;
 }
 
-#virtualclassCont.congrea .rv-vanilla-modal {
-  position: absolute;
-
-  /* top:-100%; */
-
-  /* left:55%; */
-  width: 27%;
-  min-height: auto;
-  background: #fff;
-  z-index: 10;
-
-  /* -webkit-transition:.3s all ease-out;
-    transition:.3s all ease-out; */
-  border-radius: 4px;
-  -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
-
-  /* margin:-300px 0 0 -22.5%; */
-  z-index: 1000000;
-}
-
-#virtualclassCont.congrea .rv-vanilla-modal-is-open {
-  /* top: 55%; */
-}
-
 #virtualclassCont.congrea #popupContainer div#about-modal[data-curr-popup="chromeExt"] {
   left: 45% !important;
-}
-
-.rv-vanilla-modal-is-open {
-  /* top: 55%; */
 }
 
 .rv-vanilla-modal-overlay {
@@ -93,8 +64,9 @@
 
 .rv-vanilla-modal-body {
   overflow: auto;
-  color: #555;
+  color: #3c3c3c !important;
   padding: 23px 25px 10px;
+  min-width: 400px;
 }
 
 .rv-vanilla-modal-body p {
@@ -146,30 +118,6 @@
   height: 42px;
 }
 
-#virtualclassCont.congrea #progress,
-#virtualclassCont.congrea #indProgress,
-#virtualclassCont.congrea #downloadProgress {
-  /* width:100%; */
-
-  /* height:15px; */
-
-  /* border:1px solid #000; */
-
-  /* overflow:hidden; */
-}
-
-/* #virtualclassCont.congrea .progressBar { */
-
-/* width:0; */
-
-/* height:15px; */
-
-/* border-right: 1px solid #000000; */
-
-/* background: #46D65D; */
-
-/* } */
-
 #virtualclassCont.congrea .progressValue {
   color: #fff;
   font-size: 12px;
@@ -189,10 +137,6 @@
   width: 300px;
   margin-top: 32px;
   margin-left: 22px;
-}
-
-.rv-vanilla-modal-body {
-  min-width: 400px;
 }
 
 /* Hasan css start */
@@ -262,6 +206,18 @@
   cursor: pointer;
 }
 
+#virtualclassCont.congrea #playButton,
+#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
+#virtualclassCont.congrea #confirmCancelButton,
+#virtualclassCont.congrea #popupContainer #replayContainer #replayButton {
+  background-image: none;
+  background-color: #34404c;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 20px;
+  border: none;
+}
+
 #virtualclassCont.congrea #playButton:hover {
   background: #ddd; /* Old browsers */
   background: -moz-linear-gradient(top, #ddd 0%, #eee 100%); /* FF3.6+ */
@@ -285,11 +241,8 @@
 #virtualclassCont.congrea .rv-vanilla-modal {
   min-height: auto;
   width: auto;
+  background: #fff;
   display: none;
-}
-
-#virtualclassCont.congrea .rv-vanilla-modal-body {
-  padding: 30px 25px 30px;
 }
 
 #virtualclassCont.congrea .rv-vanilla-modal-title {
@@ -308,19 +261,12 @@
   border: none;
 }
 
-#virtualclassCont.congrea #indProgress #indProgressValue {
-}
-
 #virtualclassCont.congrea #progress .progressValue {
   top: -25px;
 }
 
 #virtualclassCont.congrea .rv-vanilla-modal-body {
   padding: 18px 25px 18px;
-}
-
-#virtualclassCont.congrea #totProgressCont {
-  margin-bottom: 15px;
 }
 
 #virtualclassCont.congrea #totProgressCont {
@@ -389,18 +335,6 @@
   background-color: #3c4955;
 }
 
-#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,
-#virtualclassCont.congrea #confirmCancelButton,
-#virtualclassCont.congrea #popupContainer #replayContainer #replayButton,
-#virtualclassCont.congrea #playButton {
-  background-image: none;
-  background-color: #34404c;
-  color: #fff;
-  font-weight: bold;
-  border-radius: 20px;
-  border: none;
-}
-
 #virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover,
 #virtualclassCont.congrea #confirmCancelButton:hover,
 #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover,
@@ -414,14 +348,6 @@
 #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart:hover,
 #virtualclassCont.congrea #popupContainer #replayContainer #replayButton:hover {
   background-image: none;
-}
-
-#confirm #confirmOk #confirmOkButton:hover,
-#virtualclassCont.congrea #playButton:hover,
-#virtualclassCont.congrea #playButton:hover {
-  background-image: none;
-  background-color: #515e69 !important;
-  border: none;
 }
 
 #virtualclassCont.congrea #confirm.popupWindow #confirmCancel #confirmCancelButton::before,
@@ -440,11 +366,6 @@
 #virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover {
   background-image: none;
   background-color: #515e69 !important;
-}
-
-.rv-vanilla-modal-body,
-.rv-vanilla-modal-body {
-  color: #3c3c3c !important;
 }
 
 #virtualclassCont.congrea #popupContainer .rv-vanilla-modal-is-open {
@@ -485,8 +406,8 @@
 
 /* } */
 
-#virtualclassCont.congrea #alleditorRichContainer [data-action="enable"],
-#alleditorCodeContainer [data-action="enable"] {
+#alleditorCodeContainer [data-action="enable"],
+#virtualclassCont.congrea #alleditorRichContainer [data-action="enable"] {
   font-weight: normal;
   border-radius: 5px !important;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
@@ -510,8 +431,8 @@
   color: #22af00;
 }
 
-#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"],
-#alleditorCodeContainer [data-action="disable"] {
+#alleditorCodeContainer [data-action="disable"],
+#virtualclassCont.congrea #alleditorRichContainer [data-action="disable"] {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 

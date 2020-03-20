@@ -236,6 +236,10 @@
   width: 0;
 }
 
+#virtualclassCont.congrea #askQuestion #writeContent .text:hover {
+  scrollbar-width: thin;
+}
+
 #virtualclassCont.congrea #askQuestion #writeContent .text:hover::-webkit-scrollbar {
   width: 2px;
 }
@@ -1009,8 +1013,4 @@
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action {
   border-left: unset !important;
-}
-
-#virtualclassCont.congrea #askQuestion #writeContent .text:hover {
-  scrollbar-width: thin;
 }

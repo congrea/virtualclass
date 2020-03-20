@@ -64,6 +64,21 @@
   margin-bottom: 20px;
 }
 
+.bootstrap #rsQzHead .col-md-3,
+.bootstrap #rsQzHead.col-md-12,
+.bootstrap #rsQzHead .col-md-4 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.bootstrap #rsQzHead .col-md-3,
+.bootstrap #rsQzHead .col-md-4 {
+  line-height: 4px;
+  font-weight: bold;
+}
+
 #virtualclassCont.congrea #layoutQuizBody .vcQuizCont .quizCtrCont,
 #virtualclassCont.congrea #layoutQuizBody .vcQuizCont .quizCtrCont .col-md-4 {
   padding: 0;
@@ -136,9 +151,22 @@
   margin-right: -12px;
 }
 
-#virtualclassCont.congrea #layoutQuizBody.quizMainCont input[type="radio"] + label,
 #layoutQuizBody.quizMainCont input[type="checkbox"] + label {
+  padding-left: 0.5rem;
+}
+
+#virtualclassCont.congrea #layoutQuizBody .quizArea label {
+  font-weight: normal;
+}
+
+#virtualclassCont.congrea #layoutQuizBody.quizMainCont input[type="radio"] + label {
   padding-left: 0.5em;
+}
+
+.bootstrap #rsQzHead .col-md-3 span,
+.bootstrap #rsQzHead .col-md-4 span,
+#virtualclassCont.congrea #layoutQuizBody #timeText span {
+  font-weight: normal;
 }
 
 #virtualclassCont.congrea #layoutQuizBody.quizMainCont #mode label {
@@ -189,8 +217,8 @@
   margin: 20px 0;
 }
 
-#virtualclassCont.congrea .bootstrap #layoutQuizBody #stdQuizContainer .row,
-#virtualclassCont.congrea .bootstrap #layoutQuizBody.quizMainCont .row {
+#virtualclassCont.congrea .bootstrap #layoutQuizBody.quizMainCont .row,
+#virtualclassCont.congrea .bootstrap #layoutQuizBody #stdQuizContainer .row {
   margin-left: 0;
   margin-right: 0;
 }
@@ -238,28 +266,6 @@
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody button#publishQzBt:hover {
   background-color: #337ab7 !important;
   color: white;
-}
-
-.bootstrap #rsQzHead .col-md-3,
-.bootstrap #rsQzHead.col-md-12,
-.bootstrap #rsQzHead .col-md-4 {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
-.bootstrap #rsQzHead .col-md-3,
-.bootstrap #rsQzHead .col-md-4 {
-  line-height: 4px;
-  font-weight: bold;
-}
-
-.bootstrap #rsQzHead .col-md-3 span,
-.bootstrap #rsQzHead .col-md-4 span,
-#virtualclassCont.congrea #layoutQuizBody #timeText span,
-#virtualclassCont.congrea #layoutQuizBody .quizArea label {
-  font-weight: normal;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .quizArea label,

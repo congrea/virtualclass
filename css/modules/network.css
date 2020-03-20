@@ -33,7 +33,6 @@
 
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signalfive,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signalsix,
-#virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signal,
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='low'] svg path.signal {
   fill: #fb9c42;
 }
@@ -55,10 +54,6 @@
   fill: #f00;
 }
 
-#virtualclassCont.congrea #networkStatusContainer.connecting-room {
-  paddin-left: 2px;
-}
-
 #virtualclassCont.congrea #networkStatusContainer #videoLatency {
   width: 46px;
   height: 35px;
@@ -71,6 +66,11 @@
   display: none;
 }
 
+#virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
+  float: right;
+  margin: 0.5rem 0.5625rem;
+}
+
 #virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon {
   display: block;
 }
@@ -81,11 +81,6 @@
 
 #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon .icon-whiteboard #svg-spinner {
   display: none;
-}
-
-#virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
-  float: right;
-  margin: 0.5rem 0.5625rem;
 }
 
 #virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon .icon-whiteboard #svg-spinner {

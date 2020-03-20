@@ -144,7 +144,6 @@
   box-shadow: 0 0 6px rgb(96, 96, 97);
   border: unset;
   pointer-events: none;
-  border: unset;
 }
 
 #virtualclassCont.congrea .dbContainer .linkdocs .mainpreview {
@@ -182,10 +181,6 @@
   margin: 0 auto;
 }
 
-.bootstrap #listdocs.listPages .list-group-item.links {
-  border: none;
-}
-
 #virtualclassCont.congrea .linkdocs:hover {
   background-color: #fff;
   color: black;
@@ -212,6 +207,7 @@
 
 .bootstrap #listdocs.listPages .list-group-item.links {
   height: auto;
+  border: none;
 }
 
 #virtualclassCont.congrea .linkdocs[data-selected='1'] {

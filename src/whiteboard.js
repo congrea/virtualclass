@@ -192,9 +192,16 @@ class WhiteboardUtility {
     this.replayData([data], wId);
   }
 
-  storeAtMemory(data, wId) {
+  storeAtMemory(data, wId, freeDrawing) {
     if (!virtualclass.wb[wId].replayObjs) virtualclass.wb[wId].replayObjs = [];
-    virtualclass.wb[wId].replayObjs.push(data);
+    if (freeDrawing) {
+      const freeDrawingData = virtualclass.wbWrapper.protocol.generateFreeDrawingData(freeDrawing);
+      for (let i = 0; i < freeDrawingData.length; i += 1) {
+        virtualclass.wb[wId].replayObjs.push(freeDrawingData[i]);
+      }
+    } else {
+      virtualclass.wb[wId].replayObjs.push(data);
+    }
   }
 
   replayData(data, wId) {
@@ -215,7 +222,11 @@ class WhiteboardUtility {
       console.log('sending the data here guys ', JSON.stringify(data));
       console.log('====> free drawing ', JSON.stringify(data));
       ioAdapter.mustSend(data);
-      this.storeAtMemory(data.wb, virtualclass.gObj.currWb);
+      if (data.wb[0].substring(0, 2) === 'sf') {
+        this.storeAtMemory(data.wb, virtualclass.gObj.currWb, data.v);
+      } else {
+        this.storeAtMemory(data.wb, virtualclass.gObj.currWb);
+      }
     }
   }
 
@@ -302,7 +313,7 @@ class WhiteboardUtility {
     const whiteboardShape = e.message.wb[0].substring(0, 2);
     if (whiteboardShape === 'sf') {
       const fromUserRole = e.fromUser.role;
-      const result = virtualclass.wbWrapper.protocol.generateFreeDrawingData(e.message.v, e.message.s);
+      const result = virtualclass.wbWrapper.protocol.generateFreeDrawingData(e.message.v, e.message.s, true);
       let event;
       for (let i = 0; i < result.length; i += 1) {
         event = { message: { wb: result[i] },  fromUser: { role : fromUserRole} };
@@ -322,7 +333,6 @@ class WhiteboardUtility {
   handleArrow(event) {
     const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
     const pointer = whiteboard.canvas.getPointer(event, true);
-    console.log('====> actual x, y sendin before scale ', pointer.x, pointer.y);
     const afterChange = virtualclass.wbWrapper.protocol.changeWithScale('divide', pointer);
     this.sendArrow({ msg: `${afterChange.x}_${afterChange.y}`, cf: 'ca' });
   }

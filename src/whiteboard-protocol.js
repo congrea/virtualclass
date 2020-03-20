@@ -109,16 +109,18 @@ class WhiteboardProtocol {
     return newData;
   }
 
-  generateFreeDrawingData(msg, scale) {
+  generateFreeDrawingData(msg, scaleMultiply) {
     const result = [];
     let msgArr;
     let x;
     let y;
+    let scaleFreeDrawing = 1;
+    if (scaleMultiply) scaleFreeDrawing = virtualclass.zoom.canvasScale;
     const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
-    for (let i = 0; i < msg.length; i += 1){
+    for (let i = 0; i < msg.length; i += 1) {
       msgArr = msg[i].split('_');
-      x = ((+(msgArr[0])) * virtualclass.zoom.canvasScale) - canvasWrapper.scrollLeft;
-      y = ((+(msgArr[1])) * virtualclass.zoom.canvasScale) - canvasWrapper.scrollTop;
+      x = ((+(msgArr[0])) * scaleFreeDrawing) - canvasWrapper.scrollLeft;
+      y = ((+(msgArr[1])) * scaleFreeDrawing) - canvasWrapper.scrollTop;
       if (msgArr.length > 2) {
         // 2 -> down/up, 0 -> x, 1 -> y
         result.push([`sp_f_${msgArr[2]}_${x}_${y}`]);

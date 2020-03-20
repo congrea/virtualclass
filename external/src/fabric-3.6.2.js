@@ -8688,9 +8688,9 @@ fabric.BaseBrush = fabric.util.createClass(/** @lends fabric.BaseBrush.prototype
      * @param {Object} pointer
      */
     onMouseMove: function(pointer, options) {
-      if (!this.canvas._isMainEvent(options.e)) {
-        return;
-      }
+      // if (!this.canvas._isMainEvent(options.e)) {
+      //   return;
+      // }
       if (this._captureDrawingPath(pointer) && this._points.length > 1) {
         if (this.needsFullRender()) {
           // redraw curve
@@ -8717,9 +8717,9 @@ fabric.BaseBrush = fabric.util.createClass(/** @lends fabric.BaseBrush.prototype
      * Invoked on mouse up
      */
     onMouseUp: function(options) {
-      if (!this.canvas._isMainEvent(options.e)) {
-        return true;
-      }
+      // if (!this.canvas._isMainEvent(options.e)) {
+      //   return true;
+      // }
       this.oldEnd = undefined;
       this._finalizeAndAddPath();
       return false;

@@ -460,8 +460,8 @@ class WhiteboardShape {
         whiteboard.myPencil.onMouseDown(pointer, event);
       } else {
         const mevent = virtualclass.wbWrapper.util.readyMouseEvent('mousedown', pointer);
-        whiteboard.canvas.fire('mouse:down', { e: mevent, target: null});
-        // whiteboard.myPencil.onMouseDown(pointer);
+        // whiteboard.canvas.fire('mouse:down', { e: mevent, target: null});
+        whiteboard.myPencil.onMouseDown(pointer, { e: {isPrimary: true} } );
       }
     } else {
       this.startLeft = pointer.x;
@@ -544,9 +544,9 @@ class WhiteboardShape {
       if (event) {
         whiteboard.myPencil.onMouseUp(event);
       } else {
-        // whiteboard.myPencil.onMouseUp(pointer);
+        whiteboard.myPencil.onMouseMove(pointer, { e: {isPrimary: true} } );
         const mevent = virtualclass.wbWrapper.util.readyMouseEvent('mouseup', pointer);
-        whiteboard.canvas.fire('mouse:up', { e: mevent, target: null});
+        // whiteboard.canvas.fire('mouse:up', { e: mevent, target: null});
       }
     }
     delete whiteboard.myPencil;
@@ -568,8 +568,9 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
       whiteboard.myPencil.onMouseMove(pointer, event);
     } else {
       // whiteboard.myPencil.onMouseMove(pointer);
+      whiteboard.myPencil.onMouseMove(pointer, { e: {isPrimary: true} } );
       const mevent = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
-      whiteboard.canvas.fire('mouse:move', { e: mevent, target: null});
+     // whiteboard.canvas.fire('mouse:move', { e: mevent, target: null});
     }
   }
 

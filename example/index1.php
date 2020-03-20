@@ -202,6 +202,7 @@ if($info) {
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dashboard.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dbPpt.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dbVideo.css" ?> />
+	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/test.css" ?> />
 
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/multivideo.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/right-sidebar.css" ?> />
@@ -225,6 +226,7 @@ if($info) {
 ?>
 
 <script type="text/javascript">
+	
    "user strict";
     let virtualclassSetting = {};
     virtualclassSetting.settings = "FFFFF";

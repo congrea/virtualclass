@@ -1209,13 +1209,14 @@
     },
 
     isPlayFinished() {
-      return (typeof this.masterRecordings[this.masterIndex] === 'undefined'
-      && (typeof this.subRecordings === 'undefined'
-      || typeof this.subRecordings[this.subRecordingIndex] === 'undefined'
-      || typeof this.subRecordings !== 'undefined')
-      && typeof this.subRecordings[this.subRecordingIndex] !== 'undefined'
-      && this.subRecordings[this.subRecordingIndex].type === 'J'
-      && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"sEnd"') > -1);
+      return ((typeof this.masterRecordings[this.masterIndex] === 'undefined'
+        && (typeof this.subRecordings === 'undefined'
+        || typeof this.subRecordings[this.subRecordingIndex] === 'undefined'))
+        || (typeof this.subRecordings !== 'undefined'
+        && typeof this.subRecordings[this.subRecordingIndex] !== 'undefined'
+        && this.subRecordings[this.subRecordingIndex].type === 'J'
+        && this.subRecordings[this.subRecordingIndex].recObjs.indexOf('{"sEnd"') > -1)
+      );
     },
 
     triggerPauseVideo() {

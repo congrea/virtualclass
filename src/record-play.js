@@ -283,13 +283,11 @@
               virtualclass.recorder.afterDownloading(file, response.data, xhr);
             })
             .catch((error) => {
-                console.error('Request failed with error ', error);
-                setTimeout(() => {
-                  virtualclass.recorder.requestDataFromServer(file, xhr);
-                }, 1000);
-              }
-            );
-
+              console.error('Request failed with error ', error);
+              setTimeout(() => {
+                virtualclass.recorder.requestDataFromServer(file, xhr);
+              }, 1000);
+            });
           // virtualclass.recorder.xhr[file] = new XHR();
           // virtualclass.recorder.xhr[file].init();
           // virtualclass.recorder.xhr[file].loadData(fileUrl, this.afterDownloading.bind(this, file));

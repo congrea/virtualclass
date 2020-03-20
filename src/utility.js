@@ -2358,6 +2358,11 @@
         let activeElem;
         let toolOptions;
         const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
+        const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
+        if (moreElemClose) {
+          moreElemClose.classList.remove('open');
+          moreElemClose.classList.add('close');
+        }
         if (currApp && (currApp === 'Whiteboard' || currApp === 'DocumentShare') && wId && roles.hasControls()) {
           activeElem = document.querySelector('.commandToolsWrapper .active');
           if (activeElem && !ev.target.classList.contains('icon-shapes') && !ev.target.classList.contains('congtooltip')
@@ -2373,11 +2378,11 @@
       });
     },
 
-    attachAskQuestionOpetionHandler() {
-      window.addEventListener('mouseup', (ev) => {
-        virtualclass.userInteractivity.event.moreControls(ev);
-      });
-    },
+    // attachAskQuestionOptionHandler() {
+    //   window.addEventListener('mouseup', (ev) => {
+    //     virtualclass.userInteractivity.event.moreControls(ev);
+    //   });
+    // },
 
     setScreenShareDefualtColor() {
       const pvrScreenUser = virtualclass.gObj.prvRequestScreenUser;

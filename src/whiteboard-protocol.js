@@ -115,7 +115,7 @@ class WhiteboardProtocol {
     let x;
     let y;
     let scaleFreeDrawing = 1;
-    if (scaleMultiply) scaleFreeDrawing = virtualclass.zoom.canvasScale;
+    // if (scaleMultiply) scaleFreeDrawing = virtualclass.zoom.canvasScale;
     const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
     for (let i = 0; i < msg.length; i += 1) {
       msgArr = msg[i].split('_');
@@ -123,9 +123,9 @@ class WhiteboardProtocol {
       y = ((+(msgArr[1])) * scaleFreeDrawing) - canvasWrapper.scrollTop;
       if (msgArr.length > 2) {
         // 2 -> down/up, 0 -> x, 1 -> y
-        result.push([`sp_f_${msgArr[2]}_${x}_${y}`]);
+        result.push(`sp_f_${msgArr[2]}_${x}_${y}`);
       } else {
-        result.push([`sp_f_m_${x}_${y}`]);
+        result.push(`sp_f_m_${x}_${y}`);
       }
       console.log('====> creating arrow =============== free drawing before scale ', x, y);
     }

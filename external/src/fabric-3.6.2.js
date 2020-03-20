@@ -303,6 +303,9 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
    * @chainable
    */
   function fire(eventName, options) {
+    // if (eventName == 'mouse:down') {
+    //   debugger;
+    // }
     if (!this.__eventListeners) {
       return this;
     }

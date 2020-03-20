@@ -26,6 +26,7 @@ class WhiteboardProtocol {
       newData.tool =  virtualclass.wbWrapper.keyMap[data[1]];
       newData.shape = virtualclass.wbWrapper.keyMap[data[1]];
       newData.event = virtualclass.wbWrapper.keyMap[data[2]];
+      console.log('====> creating arrow befor rect before scale ', data[3], data[4]);
       newData.actual = { x: +data[3], y: +data[4] };
     }
     return newData;
@@ -113,16 +114,18 @@ class WhiteboardProtocol {
     let msgArr;
     let x;
     let y;
+    const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
     for (let i = 0; i < msg.length; i += 1){
       msgArr = msg[i].split('_');
-      x = (+(msgArr[0]) / +(scale));
-      y = (+(msgArr[1]) / +(scale));
+      x = ((+(msgArr[0])) * virtualclass.zoom.canvasScale) - canvasWrapper.scrollLeft;
+      y = ((+(msgArr[1])) * virtualclass.zoom.canvasScale) - canvasWrapper.scrollTop;
       if (msgArr.length > 2) {
         // 2 -> down/up, 0 -> x, 1 -> y
         result.push([`sp_f_${msgArr[2]}_${x}_${y}`]);
       } else {
         result.push([`sp_f_m_${x}_${y}`]);
       }
+      console.log('====> creating arrow =============== free drawing before scale ', x, y);
     }
     return result;
   }

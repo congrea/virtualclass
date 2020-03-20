@@ -501,6 +501,7 @@
           // }
 
           virtualclass.wb[wb].canvas.setZoom(virtualclass.zoom.canvasScale);
+          console.log('====> canvas set zoom', virtualclass.zoom.canvasScale);
           delete virtualclass.gObj.fitToScreen;
 
           const context = pdfCanvas.getContext('2d');

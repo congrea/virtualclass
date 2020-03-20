@@ -2358,7 +2358,6 @@
         let activeElem;
         let toolOptions;
         const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
-        virtualclass.userInteractivity.event.moreControls(ev);
         if (currApp && (currApp === 'Whiteboard' || currApp === 'DocumentShare') && wId && roles.hasControls()) {
           activeElem = document.querySelector('.commandToolsWrapper .active');
           if (activeElem && !ev.target.classList.contains('icon-shapes') && !ev.target.classList.contains('congtooltip')
@@ -2371,6 +2370,12 @@
             virtualclass.wb[wId].closeElem(toolOptions);
           }
         }
+      });
+    },
+
+    attachAskQuestionOpetionHandler() {
+      window.addEventListener('mouseup', (ev) => {
+        virtualclass.userInteractivity.event.moreControls(ev);
       });
     },
 

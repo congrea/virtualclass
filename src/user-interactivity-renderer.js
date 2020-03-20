@@ -22,6 +22,7 @@ class UserInteractivityRenderer { // Main Part
       toggle.addEventListener('click', (elem) => {
         userInteractive.initFirebaseOperatoin();
         userInteractive.renderMainContainer(elem.currentTarget);
+        virtualclass.vutil.attachAskQuestionOpetionHandler();
         // if (toggle.classList.contains('highlight-new-question')) {
         //   toggle.classList.remove('highlight-new-question');
         // }

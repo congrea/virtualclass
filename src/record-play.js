@@ -1495,7 +1495,7 @@
             this.askAgainToPlay();
           }
         } else {
-          virtualclass.xhrn.vxhrn.post(virtualclass.api.recordingFiles, data).then((response) => {
+          virtualclass.xhrn.vxhrn.post(virtualclass.api.recordingFiles).then((response) => {
             this.afterDownloadingList(response.data);
           });
         }

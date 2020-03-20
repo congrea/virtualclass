@@ -76,7 +76,9 @@ class Note { // Part of Note
     }
     console.log('context ===> ', context, this.current);
     const noteContainer = document.querySelector(`#noteContainer .context[data-context~=${context}]`);
-    noteContainer.classList.add('active');
+    if (noteContainer) {
+      noteContainer.classList.add('active');
+    }
   }
 
   afterChangeContext(context) {

@@ -356,11 +356,11 @@
   view.windowResizeFinished = function () {
     clearTimeout(doit);
     doit = setTimeout(() => {
-      view._windowResizeFinished();
+      view.windowResizingFinished();
     }, 100);
   };
   // change by nirmala
-  view._windowResizeFinished = function () {
+  view.windowResizingFinished = function () {
     if (virtualclass.system.device === 'mobTab') {
       vhCheck();
     }

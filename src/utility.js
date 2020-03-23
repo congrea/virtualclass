@@ -366,13 +366,13 @@
       const num3 = this.preNumValidateTwo(n3);
       const num4 = this.preNumValidateTwo(n4);
       const nres = num1 + num2 + num3 + num4;
-      return parseInt(nres);
+      return (+nres);
     },
     numValidateTwo(n1, n2) {
       const num1 = this.preNumValidateTwo(n1);
       const num2 = this.preNumValidateTwo(n2);
       const nres = num1 + num2;
-      return parseInt(nres);
+      return (+nres);
     },
     preNumValidateTwo(n) {
       const numstring = n.toString();

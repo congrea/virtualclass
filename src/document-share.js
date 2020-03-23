@@ -486,7 +486,7 @@
           virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
           virtualclass.vutil.addNoteClass();
         } else {
-          console.log('====> document share nav remove ');
+          // console.log('====> document share nav remove ');
           // this.removePagesUI(doc);
           this.deleteNotesFromOrder(doc);
           this.removePagesUI(doc);
@@ -647,7 +647,7 @@
 
           const cthis = virtualclass.dts;
           for (let i = 0; i < allNotes.length; i++) {
-            const noteId = `note${allNotes[i].id}`;
+            // const noteId = `note${allNotes[i].id}`;
             if (document.querySelector(`#note${allNotes[i].id}`) == null) {
               const note = document.createElement('div');
               note.id = `note${allNotes[i].id}`;

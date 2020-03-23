@@ -1024,6 +1024,7 @@
     },
 
     getSeekPoint(seekPointPercent) {
+      let obj;
       const seekVal = Math.trunc((this.totalTimeInMiliSeconds * seekPointPercent) / 100);
       this.count = Math.floor(seekVal / 5000);
       // console.log(`Seek index ${seekVal}`);
@@ -1033,7 +1034,7 @@
         for (let j = 0; j < this.masterRecordings[i].length; j++) {
           totalTimeMil += this.masterRecordings[i][j].playTime;
           if (totalTimeMil === seekVal) {
-            return { master: i, sub: j };
+           obj = { master: i, sub: j };
             // console.log(`Seek index i = ${i} j=${j} totalTime=${totalTimeMil}`);
           } if (totalTimeMil >= seekVal) {
             if (j > 0) {
@@ -1047,11 +1048,11 @@
               }
             }
             // console.log(`Seek index i = ${i} j=${j} totalTime=${totalTimeMil}`);
-            const obj = { master: i, sub: j };
-            return obj;
+            obj = { master: i, sub: j };
           }
         }
       }
+      return obj;
     },
 
 
@@ -1197,10 +1198,10 @@
           const property = prop;
           const val = this.viewPoint.data[prop];
           for (let i = 0; i < val.length; i++) {
-            const dataProp = (parseInt(Object.keys(val[i])[0]));
+            const dataProp = (+Object.keys(val[i])[0]);
             const value = (Object.values(val[i])[0]);
             for (let j = dataProp; j < value; j++) {
-              this.recData.splice(j, 1, parseInt(property));
+              this.recData.splice(j, 1, (+property));
             }
           }
         }

@@ -727,9 +727,6 @@
         });
 
         // virtualclass.sharePt.retrieveOrder();
-
-
-
         // console.log(videos);
         // virtualclass.videoUl.videos = videos;
 

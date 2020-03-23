@@ -62,6 +62,7 @@ class ActiveAll {
   enable(wId) {
     const allObjects = virtualclass.wb[wId].canvas.getObjects();
     for (let i = 0; i < allObjects.length; i += 1) {
+      console.log('====> active all');
       allObjects[i].set('selectable', true);
     }
   }
@@ -417,6 +418,8 @@ class WhiteboardShape {
       height: 0,
       strokeWidth: 1,
       backgroundColor: 'transparent',
+      rotatingPointOffset: 40,
+      cornerSize: 13,
     };
   }
 
@@ -549,10 +552,17 @@ class WhiteboardShape {
       if (event) {
         whiteboard.myPencil.onMouseUp(event);
       } else {
-        whiteboard.myPencil.onMouseMove(pointer, { e: {isPrimary: true} } );
+        whiteboard.myPencil.onMouseUp(pointer, { e: {isPrimary: true} } );
         const mevent = virtualclass.wbWrapper.util.readyMouseEvent('mouseup', pointer);
         // whiteboard.canvas.fire('mouse:up', { e: mevent, target: null});
       }
+
+      const allObjects = whiteboard.canvas.getObjects();
+      const lastObject = allObjects[allObjects.length - 1];
+      lastObject.set({
+        rotatingPointOffset: this.coreObj.rotatingPointOffset * virtualclass.zoom.canvasScale,
+        cornerSize: this.coreObj.cornerSize * virtualclass.zoom.canvasScale
+      });
     }
     delete whiteboard.myPencil;
   }

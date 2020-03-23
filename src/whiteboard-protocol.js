@@ -72,13 +72,16 @@ class WhiteboardProtocol {
           newData.actual.y += toolBar ? toolBar.offsetHeight : 44;
           const appOptionsToolbar = document.getElementById('virtualclassAppOptionsCont');
           newData.actual.x += appOptionsToolbar ? appOptionsToolbar.offsetWidth : 55;
-
         } else {
-          const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
-          newData.actual.x -= canvasWrapper.scrollLeft;
-          newData.actual.y -= canvasWrapper.scrollTop;
+          // const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
+          // newData.actual.x -= canvasWrapper.scrollLeft;
+          // newData.actual.y -= canvasWrapper.scrollTop;
         }
+        const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
+        newData.actual.x -= canvasWrapper.scrollLeft;
+        newData.actual.y -= canvasWrapper.scrollTop;
       }
+      console.log('====> active data suman here ', JSON.stringify(newData));
     }
     return newData;
   }

@@ -414,6 +414,10 @@ class WhiteboardUtility {
 class WhiteboardShape {
   constructor(shape) {
     this.name = shape;
+    this.default = {
+      rotatingPointOffset: 40,
+      cornerSize: 13,
+    }
     this.coreObj = {
       angle: 0,
       selectable: false,
@@ -424,8 +428,6 @@ class WhiteboardShape {
       height: 0,
       strokeWidth: 1,
       backgroundColor: 'transparent',
-      rotatingPointOffset: 40,
-      cornerSize: 13,
     };
   }
 
@@ -484,8 +486,8 @@ class WhiteboardShape {
       this.coreObj.top = this.startTop;
       this.coreObj.width = 1;
       this.coreObj.height = 1;
-      this.coreObj.rotatingPointOffset *= virtualclass.zoom.canvasScale;
-      this.coreObj.cornerSize *= virtualclass.zoom.canvasScale;
+      this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
+      this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
       this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
       const toolName = virtualclass.wbWrapper.keyMap[this.name];
       this[this.name] = new fabric[toolName](this.coreObj); // add object
@@ -558,7 +560,7 @@ class WhiteboardShape {
       if (event) {
         whiteboard.myPencil.onMouseUp(event);
       } else {
-        whiteboard.myPencil.onMouseUp(pointer, { e: {isPrimary: true} } );
+        whiteboard.myPencil.onMouseUp({ e: {isPrimary: true} } );
         const mevent = virtualclass.wbWrapper.util.readyMouseEvent('mouseup', pointer);
         // whiteboard.canvas.fire('mouse:up', { e: mevent, target: null});
       }
@@ -566,8 +568,8 @@ class WhiteboardShape {
       const allObjects = whiteboard.canvas.getObjects();
       const lastObject = allObjects[allObjects.length - 1];
       lastObject.set({
-        rotatingPointOffset: this.coreObj.rotatingPointOffset * virtualclass.zoom.canvasScale,
-        cornerSize: this.coreObj.cornerSize * virtualclass.zoom.canvasScale
+        rotatingPointOffset: this.default.rotatingPointOffset * virtualclass.zoom.canvasScale,
+        cornerSize: this.default.cornerSize * virtualclass.zoom.canvasScale
       });
     }
     delete whiteboard.myPencil;
@@ -590,7 +592,7 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
     } else {
       // whiteboard.myPencil.onMouseMove(pointer);
       whiteboard.myPencil.onMouseMove(pointer, { e: {isPrimary: true} } );
-      const mevent = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
+      // const mevent = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
      // whiteboard.canvas.fire('mouse:move', { e: mevent, target: null});
     }
   }
@@ -742,10 +744,11 @@ class Whiteboard {
   }
 
   handlerMouseDown(o) {
-    if (this.selectedTool) {
+    // We do not need to invoke on clearAll
+    if (this.selectedTool && this[`${this.selectedTool}Obj`]) {
+      console.log('=====> SUMAN BOGATI MOUSE 1');
       this.mousedown = true;
       const pointer = virtualclass.wb[virtualclass.gObj.currWb].canvas.getPointer(o.e);
-
       this[`${this.selectedTool}Obj`].mouseDown(pointer, this, o);
     }
   }
@@ -753,6 +756,7 @@ class Whiteboard {
   handlerMouseMove(o) {
     const pointer = virtualclass.wb[virtualclass.gObj.currWb].canvas.getPointer(o.e);
     if (this.mousedown && this.selectedTool) {
+      console.log('=====> SUMAN BOGATI MOUSE 2');
       this[`${this.selectedTool}Obj`].mouseMove(pointer, this, o);
     }
     virtualclass.wbWrapper.util.handleArrow(pointer);
@@ -760,8 +764,9 @@ class Whiteboard {
 
   handlerMouseUp(o) {
     const pointer = virtualclass.wb[virtualclass.gObj.currWb].canvas.getPointer(o.e);
-    if (this.selectedTool) this[`${this.selectedTool}Obj`].mouseUp(pointer, this, o);
+    if (this.mousedown && this.selectedTool) this[`${this.selectedTool}Obj`].mouseUp(pointer, this, o);
     this.mousedown = false;
+    console.log('=====> SUMAN BOGATI MOUSE 3');
   }
 
   toolbarHandler(ev) {
@@ -806,6 +811,8 @@ class Whiteboard {
 
   freeDrawing() {
     this.canvas.isDrawingMode = false;
+    // this.disable(virtualclass.gObj.currWb);
+    this.activeAllObj.disable(virtualclass.gObj.currWb);
     // this.isDrawingMode = true;
   }
 

@@ -73,7 +73,12 @@ class ActiveAll {
     }
   }
 
-  mouseDown(event, whiteboard) {
+  disableLastElement(wId) {
+    const allObjects = virtualclass.wb[wId].canvas.getObjects();
+    allObjects[allObjects.length - 1].set('selectable', false);
+  }
+
+  mouseDown(pointer, whiteboard, event) {
     const myPointer = whiteboard.canvas.getPointer(event, true)
     console.log('====> whiteboard pdf ========================== active mouse trigger', myPointer.x, myPointer.y);
     console.log('==== convert actives all mouse down', myPointer.x, myPointer.y);
@@ -88,7 +93,7 @@ class ActiveAll {
     virtualclass.wbWrapper.util.sendWhiteboardData(newData);
   }
 
-  mouseMove(event, whiteboard) {
+  mouseMove(pointer, whiteboard, event) {
     const myPointer = whiteboard.canvas.getPointer(event, true);
     console.log('==== actives all mouse move', myPointer.x, myPointer.y, ' orginal x, y', event.e.clientX, event.e.clientY);
     if (!event.e.isTrusted) return;
@@ -106,7 +111,7 @@ class ActiveAll {
     }
   }
 
-  mouseUp(event, whiteboard) {
+  mouseUp(pointer, whiteboard, event) {
     const myPointer = whiteboard.canvas.getPointer(event, true)
     console.log('==== actives all mouse up', myPointer.x, myPointer.y);
     if (!event.e.isTrusted) return;
@@ -505,7 +510,7 @@ class WhiteboardShape {
         this.chunks.length = 0;
       }
       this.mousedown = false;
-
+      whiteboard.activeAllObj.disableLastElement(virtualclass.gObj.currWb);
     } else {
       this.innerMouseUp(pointer, whiteboard, true);
       if (!event.e.isTrusted) return;

@@ -119,8 +119,8 @@ class WhiteboardProtocol {
     const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
     for (let i = 0; i < msg.length; i += 1) {
       msgArr = msg[i].split('_');
-      x = ((+(msgArr[0])) * scaleFreeDrawing) - canvasWrapper.scrollLeft;
-      y = ((+(msgArr[1])) * scaleFreeDrawing) - canvasWrapper.scrollTop;
+      x = ((+(msgArr[0])) * scaleFreeDrawing);
+      y = ((+(msgArr[1])) * scaleFreeDrawing);
       if (msgArr.length > 2) {
         // 2 -> down/up, 0 -> x, 1 -> y
         result.push(`sp_f_${msgArr[2]}_${x}_${y}`);

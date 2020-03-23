@@ -200,14 +200,20 @@ class WhiteboardUtility {
 
   storeAtMemory(data, wId, freeDrawing) {
     if (!virtualclass.wb[wId].replayObjs) virtualclass.wb[wId].replayObjs = [];
+    let toBeSendData;
     if (freeDrawing) {
-      const freeDrawingData = virtualclass.wbWrapper.protocol.generateFreeDrawingData(freeDrawing);
-      for (let i = 0; i < freeDrawingData.length; i += 1) {
-        virtualclass.wb[wId].replayObjs.push(freeDrawingData[i]);
+      toBeSendData = virtualclass.wbWrapper.protocol.generateFreeDrawingData(freeDrawing);
+    } else {
+      toBeSendData = data;
+    }
+    if (Array.isArray(data)) {
+      for (let i = 0; i < toBeSendData.length; i += 1) {
+        virtualclass.wb[wId].replayObjs.push(toBeSendData[i]);
       }
     } else {
       virtualclass.wb[wId].replayObjs.push(data);
     }
+    
   }
 
   replayData(data, wId) {
@@ -478,9 +484,9 @@ class WhiteboardShape {
       this.coreObj.top = this.startTop;
       this.coreObj.width = 1;
       this.coreObj.height = 1;
-      this.coreObj.rotatingPointOffset = 40 * virtualclass.zoom.canvasScale;
-      this.coreObj.cornerSize = 13 * virtualclass.zoom.canvasScale;
-      this.coreObj.strokeWidth = 1 * virtualclass.zoom.canvasScale;
+      this.coreObj.rotatingPointOffset *= virtualclass.zoom.canvasScale;
+      this.coreObj.cornerSize *= virtualclass.zoom.canvasScale;
+      this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
       const toolName = virtualclass.wbWrapper.keyMap[this.name];
       this[this.name] = new fabric[toolName](this.coreObj); // add object
       whiteboard.canvas.add(this[this.name]);

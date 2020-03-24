@@ -225,6 +225,15 @@ if($info) {
 }
 ?>
 
+<noscript>
+	<h2>JavaScript is disabled! Why you want to do so? 
+	Please enable JavaScript in your web browser!</h2>
+
+	<style type="text/css">
+		#main-content { display:none; }
+	</style>
+</noscript>
+
 <script type="text/javascript">
 	
    "user strict";

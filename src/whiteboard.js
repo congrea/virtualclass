@@ -324,7 +324,7 @@ class WhiteboardUtility {
 
   onMessage(e) {
     const whiteboardShape = e.message.wb[0].substring(0, 2);
-    if (whiteboardShape === 'sf') {
+    if (whiteboardShape === 'sf') { // free drawing packet
       const fromUserRole = e.fromUser.role;
       const result = virtualclass.wbWrapper.protocol.generateFreeDrawingData(e.message.v, e.message.s, true);
       let event;
@@ -333,9 +333,7 @@ class WhiteboardUtility {
         this.onMessage(event);
       }
     } else {
-      if (!Array.isArray(e.message.wb)) {
-        e.message.wb = [e.message.wb];
-      }
+      if (!Array.isArray(e.message.wb)) e.message.wb = [e.message.wb];
       const executeData = e.message.wb;
       virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
       if (!virtualclass.zoom.canvasScale) return;

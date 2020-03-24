@@ -105,10 +105,18 @@ class WhiteboardProtocol {
       newData = {
         wb: ['sf'],
         cf: 'wb',
-        v: data, // values,
         s: virtualclass.zoom.canvasScale, // scale
+        v: [],
       };
+      
+      // Assigning the direct values with data to v 
+      // would empty the adapter must send data after 
+      // truncate the sent free drawing data
+      for (let i = 0; i < data.length; i++){
+        newData.v.push(data[i]);
+      }
     }
+
     return newData;
   }
 

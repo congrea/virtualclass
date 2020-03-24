@@ -78,11 +78,10 @@ class ActiveAll {
     if (!event.e.isTrusted) return;
     this.down = true;
     if (this.activeDown) {
-      virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime = new Date().getTime();
+      virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
     }
     const newData = this.generateData(event, whiteboard, 'd');
-    this.previousActiveData = newData;
-    console.log('====> mouse ac down for activeness ', JSON.stringify(newData));
+    virtualclass.wbWrapper.gObj.previousData = newData;
     virtualclass.wbWrapper.util.sendWhiteboardData(newData);
   }
 
@@ -94,13 +93,17 @@ class ActiveAll {
     if (this.activeDown && this.down) {
       // whiteboard.canvas.renderAll();
       const newData = this.generateData(event, whiteboard, 'm')
+      //this.previousData = newData
+      virtualclass.wbWrapper.util.sendOptimizeData(newData, 2000);
+
+      /*
       virtualclass.gObj.presentSendDataTime = new Date().getTime();
-      this.previousActiveData = newData;
+      this.previousData = newData;
       const timeDifference = (virtualclass.gObj.presentSendDataTime - virtualclass.gObj.lastSendDataTime);
-      if (timeDifference > 2000) { // Optmize the sending data
+      if (timeDifference > 2000) { // Optimize the sending data
         virtualclass.wbWrapper.util.sendWhiteboardData(newData);
         virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime;
-      }
+      } */
     }
   }
 
@@ -111,7 +114,7 @@ class ActiveAll {
     console.log('====> shoud not invoke');
     if (this.activeDown && this.down) {
       this.down = false;
-      virtualclass.wbWrapper.util.sendWhiteboardData(this.previousActiveData);
+      virtualclass.wbWrapper.util.sendWhiteboardData(virtualclass.wbWrapper.gObj.previousData);
       const newData = this.generateData(event, whiteboard, 'u');
       virtualclass.wbWrapper.util.sendWhiteboardData(newData);
     }
@@ -350,6 +353,22 @@ class WhiteboardUtility {
       composed: true,
     });
   }
+
+  sendOptimizeData(data, time, type) {
+    virtualclass.wbWrapper.gObj.previousData = data;
+    virtualclass.wbWrapper.gObj.presentSendDataTime = new Date().getTime();
+    const timeDifference = (virtualclass.wbWrapper.gObj.presentSendDataTime - virtualclass.wbWrapper.gObj.lastSentDataTime);
+    if (timeDifference > time) {
+      if (type) {
+        data = virtualclass.wbWrapper.protocol.encode(type, data);
+      } 
+      virtualclass.wbWrapper.util.sendWhiteboardData(data);
+      virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
+      if (type === 'sf') {
+        virtualclass.wb[virtualclass.gObj.currWb].freeDrawingObj.chunks.length = 0; // empty the free drarwing after bulk
+      } 
+    }
+  }
 }
 
 // This class is responsible to create various shapes, eg:, rectangle, oval and triangle
@@ -378,9 +397,9 @@ class WhiteboardShape {
     if (!event.e.isTrusted) return;
     if (this.name === 'freeDrawing') {
       whiteboard.canvas.freeDrawingBrush.width = this.coreObj.strokeWidth * virtualclass.zoom.canvasScale;
-
       this.mousedown = true;
-      virtualclass.gObj.startTime = new Date().getTime();
+      virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
+      // virtualclass.gObj.startTime = new Date().getTime();
       this.chunks.push(`${pointer.x}_${pointer.y}_d`);
       console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', pointer.x, pointer.y);
     } else {
@@ -396,7 +415,7 @@ class WhiteboardShape {
       virtualclass.wbWrapper.util.sendWhiteboardData(data);
     }
 
-    this.previousShape = pointer;
+    virtualclass.wbWrapper.gObj.previousData = pointer;
   }
 
   innerMouseDown(pointer, whiteboard, event) {
@@ -445,8 +464,8 @@ class WhiteboardShape {
     if (this.name === 'freeDrawing') {
       this.innerMouseUp(pointer, whiteboard, event);
       if (!event.e.isTrusted) return;
-      if (this.previousShape) {
-        virtualclass.gObj.startTime = new Date().getTime();
+      if (virtualclass.wbWrapper.gObj.previousData) {
+        virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
         this.chunks.push(`${pointer.x}_${pointer.y}_u`);
         const data = virtualclass.wbWrapper.protocol.encode('sf', this.chunks);
         virtualclass.wbWrapper.util.sendWhiteboardData(data);
@@ -457,14 +476,14 @@ class WhiteboardShape {
     } else {
       this.innerMouseUp(pointer, whiteboard, true);
       if (!event.e.isTrusted) return;
-      if (this.previousShape) {
-        let data = virtualclass.wbWrapper.protocol.encode('sp', this.previousShape);
+      if (virtualclass.wbWrapper.gObj.previousData) {
+        let data = virtualclass.wbWrapper.protocol.encode('sp', virtualclass.wbWrapper.gObj.previousData);
         virtualclass.wbWrapper.util.sendWhiteboardData(data);
         const newData = {
           event: 'u',
           name: this.name,
-          x: this.previousShape.x,
-          y: this.previousShape.y,
+          x: virtualclass.wbWrapper.gObj.previousData.x,
+          y: virtualclass.wbWrapper.gObj.previousData.y,
         };
         data = virtualclass.wbWrapper.protocol.encode('sp', newData);
         virtualclass.wbWrapper.util.sendWhiteboardData(data);
@@ -473,7 +492,7 @@ class WhiteboardShape {
       }
     }
     console.log(" DELETE==JAI ");
-    delete this.previousShape;
+    delete virtualclass.wbWrapper.gObj.previousData;
     delete this.freeDrawPrevious;
     delete virtualclass.gObj.lastSendDataTime;
   }
@@ -514,18 +533,8 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
   mouseMove(pointer, whiteboard, event) {
     this.innerMouseMove(pointer, whiteboard, event);
     if (!event.e.isTrusted) return;
-    virtualclass.gObj.currentTime = new Date().getTime();
-
     this.collectingData(pointer);
-    const timeDifference = (virtualclass.gObj.currentTime - virtualclass.gObj.startTime);
-
-    if (timeDifference > 3000) {
-      const data = virtualclass.wbWrapper.protocol.encode('sf', this.chunks);
-      // Club and send
-      virtualclass.wbWrapper.util.sendWhiteboardData(data);
-      virtualclass.gObj.startTime = new Date().getTime();
-      this.chunks.length = 0;
-    }
+    virtualclass.wbWrapper.util.sendOptimizeData(this.chunks, 3000, 'sf');
   }
 
   collectingData(pointer) {
@@ -541,7 +550,7 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
       console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', newData.x, newData.y);
     }
 
-    this.previousShape = newData;
+    virtualclass.wbWrapper.gObj.previousData = newData;
   }
 }
 
@@ -563,17 +572,7 @@ class WhiteboardRectangle extends WhiteboardShape {
       x: pointer.x,
       y: pointer.y,
     };
-
-    this.previousShape = newData;
-    virtualclass.gObj.presentSendDataTime = new Date().getTime();
-    const timeDifference = (virtualclass.gObj.presentSendDataTime - virtualclass.gObj.lastSendDataTime);
-    console.log('====> total time difference ', timeDifference);
-    if (timeDifference > 2000) { // Optmize the sending data
-      const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
-      virtualclass.wbWrapper.util.sendWhiteboardData(data);
-      virtualclass.gObj.lastSendDataTime = virtualclass.gObj.presentSendDataTime;
-      myCount++;
-    }
+    virtualclass.wbWrapper.util.sendOptimizeData(newData, 2000, 'sp');
     this.innerMouseMove(pointer, whiteboard);
   }
 

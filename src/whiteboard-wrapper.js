@@ -1,6 +1,6 @@
 class WhiteboardWrapper {
   constructor() {
-    this.gObj = null;
+    this.gObj = {};
     this.keyMap = {
       triangle: 'Triangle', // for instaniating fabric object
       oval: 'Circle',

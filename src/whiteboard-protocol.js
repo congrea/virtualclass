@@ -5,7 +5,6 @@ class WhiteboardProtocol {
 
   decode(data) {
     const dataArr = data.split('_');
-
     return this[dataArr[0]](dataArr, 'decode');
   }
 
@@ -41,7 +40,6 @@ class WhiteboardProtocol {
     } else {
       result.x = (+data.x) * virtualclass.zoom.canvasScale;
       result.y = (+data.y) * virtualclass.zoom.canvasScale;
-      console.log('====> whiteboard pdf ========================== active mouse', result.x, result.y);
     }
     // result.x = Math.round(result.x * 100) / 10000;
     // result.y = Math.round(result.y * 100) / 10000;

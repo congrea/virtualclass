@@ -6,14 +6,6 @@ class WhiteboardReplay {
   }
 
   renderObj(wid) {
-    // if (this.objs[this.objNo].cmd) {
-    //   virtualclass.wb[wid].selectedTool = this.objs[this.objNo].cmd;
-    // } else {
-    //   const eventType = virtualclass.wbWrapper.keyMap[this.objs[this.objNo].ac];
-    //   const data = this.objs[this.objNo];
-    //   virtualclass.wb[wid].rectangleObj[eventType](data, virtualclass.wb[wid]);
-    // }
-
     const data = virtualclass.wbWrapper.protocol.decode(this.objs[this.objNo]);
     let eventType;
     let shape;
@@ -141,52 +133,6 @@ class WhiteboardUtility {
   }
 
   applyCommand(data, wid) {
-    // for (let i = 0; i < data.length; i += 1) {
-    //   if (Object.prototype.hasOwnProperty.call(data[i], 'cmd')) {
-    //     if (data[i].cmd === 'clearAll') {
-    //       if (typeof virtualclass.wb !== 'object') {
-    //         virtualclass.makeAppReady({ app: virtualclass.apps.wb });
-    //       }
-    //       virtualclass.wb[wid].response.clearAll(wid);
-    //     } else {
-    //       if (roles.hasControls()) {
-    //         const tool = data[i].cmd.slice(2, data[i].cmd.length);
-    //         const currentShapeTool = document.querySelector(`${'#' + 'tool_wrapper'}${wid}`);
-    //         const shapesElem = document.querySelector(`#tool_wrapper${wid}.shapesToolbox`);
-    //         if (tool === 'triangle' || tool === 'line' || tool === 'oval' || tool === 'rectangle') {
-    //           document.querySelector(`#shapeIcon${wid} a`).dataset.title = tool.charAt(0).toUpperCase() + tool.slice(1);
-    //           currentShapeTool.dataset.currtool = tool;
-    //           shapesElem.classList.add('active');
-    //         } else {
-    //           document.querySelector(`#shapeIcon${wid} a`).dataset.title = 'Shapes';
-    //           currentShapeTool.dataset.currtool = 'shapes';
-    //           shapesElem.classList.remove('active');
-    //         }
-    //       }
-    //     }
-    //   } else if (Object.prototype.hasOwnProperty.call(data[i], 'shapeColor')) {
-    //     virtualclass.wb[wid].shapeColor = data[i].shapeColor;
-    //     if (roles.hasControls()) {
-    //       document.querySelector(`#shapeColor${wid} .disActiveColor`).style.backgroundColor = virtualclass.wb[wid].shapeColor;
-    //       virtualclass.wb[wid].utility.selectElem(`#shapeColor${wid}`, data[i].elem);
-    //     }
-    //   } else if (Object.prototype.hasOwnProperty.call(data[i], 'strokeSize')) {
-    //     virtualclass.wb[wid].strokeSize = data[i].strokeSize;
-    //     if (roles.hasControls()) {
-    //       document.querySelector(`#strokeSize${wid} ul`).dataset.stroke = virtualclass.wb[wid].strokeSize;
-    //       virtualclass.wb[wid].utility.selectElem(`#strokeSize${wid}`, data[i].elem);
-    //     }
-    //   } else if (Object.prototype.hasOwnProperty.call(data[i], 'fontSize')) {
-    //     virtualclass.wb[wid].fontSize = data[i].fontSize;
-    //     if (roles.hasControls()) {
-    //       document.querySelector(`#fontSize${wid} ul`).dataset.font = virtualclass.wb[wid].fontSize;
-    //       virtualclass.wb[wid].utility.selectElem(`#fontSize${wid}`, data[i].elem);
-    //     }
-    //   }
-    //   virtualclass.wb[wid].uid = data[i].uid;
-    //   this.executeData(data[i], wid);
-    // }
-
     for (let i = 0; i < data.length; i += 1) {
       this.executeData(data[i], wid);
     }
@@ -213,7 +159,6 @@ class WhiteboardUtility {
     } else {
       virtualclass.wb[wId].replayObjs.push(data);
     }
-    
   }
 
   replayData(data, wId) {
@@ -372,7 +317,6 @@ class WhiteboardUtility {
 
     this.drawArrowImage(obj, wid);
 
-
     if (virtualclass.pdfRender[wid].scroll.Y != null) {
       virtualclass.pdfRender[wid].customMoustPointer({ y: virtualclass.posY }, 'Y', virtualclass.posY);
     }
@@ -456,7 +400,6 @@ class WhiteboardShape {
   }
 
   innerMouseDown(pointer, whiteboard, event) {
-
     this.mousedown = true;
     if (this.name === 'freeDrawing') {
       whiteboard.canvas.freeDrawingBrush.width = this.coreObj.strokeWidth * virtualclass.zoom.canvasScale;
@@ -470,13 +413,8 @@ class WhiteboardShape {
         whiteboard.myPencil = new fabric.PencilBrush(whiteboard.canvas);
       }
 
-      if (event) {
-        whiteboard.myPencil.onMouseDown(pointer, event);
-      } else {
-        const mevent = virtualclass.wbWrapper.util.readyMouseEvent('mousedown', pointer);
-        // whiteboard.canvas.fire('mouse:down', { e: mevent, target: null});
-        whiteboard.myPencil.onMouseDown(pointer, { e: {isPrimary: true} } );
-      }
+      if (!event)  event = { e: {isPrimary: true} };
+      whiteboard.myPencil.onMouseDown(pointer, event);
     } else {
       this.startLeft = pointer.x;
       this.startTop = pointer.y;
@@ -509,10 +447,6 @@ class WhiteboardShape {
       if (!event.e.isTrusted) return;
       if (this.previousShape) {
         virtualclass.gObj.startTime = new Date().getTime();
-        // this.chunks.push(`${this.previousShape.x}_${this.previousShape.y}_m`);
-        // this.chunks.push(`${this.previousShape.x}_${this.previousShape.y+0.5}_m`);
-        // this.chunks.push(`${this.previousShape.x}_${this.previousShape.y + 25}_m`);
-        // this.chunks.push(`${this.previousShape.x}_${this.previousShape.y + 35}_m`);
         this.chunks.push(`${pointer.x}_${pointer.y}_u`);
         const data = virtualclass.wbWrapper.protocol.encode('sf', this.chunks);
         virtualclass.wbWrapper.util.sendWhiteboardData(data);
@@ -549,20 +483,10 @@ class WhiteboardShape {
     if (this.name !== 'freeDrawing') {
       this[this.name].setCoords();
     } else {
-      // if (isTrusted) return true;
       console.log('====> free drawing up', JSON.stringify(pointer));
-      // const eventMove = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
-      // whiteboard.canvas.upperCanvasEl.dispatchEvent(eventMove);
-
       // whiteboard.canvas.upperCanvasEl.dispatchEvent(virtualclass.wbWrapper.util.readyMouseEvent('mouseup', pointer));
-      if (event) {
-        whiteboard.myPencil.onMouseUp(event);
-      } else {
-        whiteboard.myPencil.onMouseUp({ e: {isPrimary: true} } );
-        const mevent = virtualclass.wbWrapper.util.readyMouseEvent('mouseup', pointer);
-        // whiteboard.canvas.fire('mouse:up', { e: mevent, target: null});
-      }
-
+      if (!event) event = {isPrimary: true};
+      whiteboard.myPencil.onMouseUp(event);
       const allObjects = whiteboard.canvas.getObjects();
       const lastObject = allObjects[allObjects.length - 1];
       lastObject.set({
@@ -583,20 +507,11 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
 
   innerMouseMove(pointer, whiteboard, event) {
     console.log('====> free drawing mousemove', JSON.stringify(pointer));
-    // const event = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
-    // whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
-    if (event) {
-      whiteboard.myPencil.onMouseMove(pointer, event);
-    } else {
-      // whiteboard.myPencil.onMouseMove(pointer);
-      whiteboard.myPencil.onMouseMove(pointer, { e: {isPrimary: true} } );
-      // const mevent = virtualclass.wbWrapper.util.readyMouseEvent('mousemove', pointer);
-     // whiteboard.canvas.fire('mouse:move', { e: mevent, target: null});
-    }
+    if (!event) event = { e: {isPrimary: true}};
+    whiteboard.myPencil.onMouseMove(pointer, event);
   }
 
   mouseMove(pointer, whiteboard, event) {
-    // this.chunks.push(`${pointer.x}_${pointer.y}`);
     this.innerMouseMove(pointer, whiteboard, event);
     if (!event.e.isTrusted) return;
     virtualclass.gObj.currentTime = new Date().getTime();
@@ -608,7 +523,6 @@ class WhiteboardFreeDrawing extends WhiteboardShape {
       const data = virtualclass.wbWrapper.protocol.encode('sf', this.chunks);
       // Club and send
       virtualclass.wbWrapper.util.sendWhiteboardData(data);
-      // Club and send
       virtualclass.gObj.startTime = new Date().getTime();
       this.chunks.length = 0;
     }

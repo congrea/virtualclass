@@ -34,7 +34,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/chroma.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/fabric-3.6.2.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>/build/src/shadow-dom.js"></script>
-
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>/build/src/shadow-dom.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
@@ -44,8 +44,14 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-ping-pong.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-active.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-replay.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-protocol.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-wrapper.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-utility.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-common-shape.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-freedrawing.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-rectangle.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang-en.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang.js"></script>

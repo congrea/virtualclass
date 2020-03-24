@@ -1,0 +1,142 @@
+
+class WhiteboardCommonShape {
+    constructor(shape) {
+      this.name = shape;
+      this.default = {
+        rotatingPointOffset: 40,
+        cornerSize: 13,
+      }
+      this.coreObj = {
+        angle: 0,
+        selectable: false,
+        fill: 'none',
+        stroke: '#0a0a0a',
+        transparentCorners: false,
+        width: 0,
+        height: 0,
+        strokeWidth: 1,
+        backgroundColor: 'transparent',
+      };
+    }
+  
+    mouseDown(pointer, whiteboard, event) {
+      this.innerMouseDown(pointer, whiteboard, event);
+      if (!event.e.isTrusted) return;
+      if (this.name === 'freeDrawing') {
+        whiteboard.canvas.freeDrawingBrush.width = this.coreObj.strokeWidth * virtualclass.zoom.canvasScale;
+        this.mousedown = true;
+        virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
+        // virtualclass.gObj.startTime = new Date().getTime();
+        this.chunks.push(`${pointer.x}_${pointer.y}_d`);
+        console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', pointer.x, pointer.y);
+      } else {
+        virtualclass.gObj.lastSendDataTime = new Date().getTime();
+        // ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
+        const newData = {
+          event: 'd',
+          name: this.name,
+          x: pointer.x,
+          y: pointer.y,
+        };
+        const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
+        virtualclass.wbWrapper.util.sendWhiteboardData(data);
+      }
+  
+      virtualclass.wbWrapper.gObj.previousData = pointer;
+    }
+  
+    innerMouseDown(pointer, whiteboard, event) {
+      this.mousedown = true;
+      if (this.name === 'freeDrawing') {
+        whiteboard.canvas.freeDrawingBrush.width = this.coreObj.strokeWidth * virtualclass.zoom.canvasScale;
+        // if (actualEvent) return;
+        const cwhiteboard = whiteboard;
+        // cwhiteboard.canvas.isDrawingMode = true;
+        // const event = virtualclass.wbWrapper.util.readyMouseEvent('mousedown', pointer);
+        // whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
+        console.log('====> free drawing mousedown', JSON.stringify(pointer));
+        if (!whiteboard.myPencil) {
+          whiteboard.myPencil = new fabric.PencilBrush(whiteboard.canvas);
+        }
+  
+        if (!event)  event = { e: {isPrimary: true} };
+        whiteboard.myPencil.onMouseDown(pointer, event);
+      } else {
+        this.startLeft = pointer.x;
+        this.startTop = pointer.y;
+        this.coreObj.left = this.startLeft;
+        this.coreObj.top = this.startTop;
+        this.coreObj.width = 1;
+        this.coreObj.height = 1;
+        this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
+        this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
+        this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
+        const toolName = virtualclass.wbWrapper.keyMap[this.name];
+        this[this.name] = new fabric[toolName](this.coreObj); // add object
+        whiteboard.canvas.add(this[this.name]);
+      }
+    }
+  
+    mouseMove() {
+      // if (!this.mousedown) return;
+    }
+  
+    mouseUp(pointer, whiteboard, event) {
+  
+      // this.mousedown = false;
+      // this[this.name].setCoords();
+      if (this.name === 'freeDrawing') {
+        this.innerMouseUp(pointer, whiteboard, event);
+        if (!event.e.isTrusted) return;
+        if (virtualclass.wbWrapper.gObj.previousData) {
+          virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
+          this.chunks.push(`${pointer.x}_${pointer.y}_u`);
+          const data = virtualclass.wbWrapper.protocol.encode('sf', this.chunks);
+          virtualclass.wbWrapper.util.sendWhiteboardData(data);
+          this.chunks.length = 0;
+        }
+        this.mousedown = false;
+        whiteboard.activeAllObj.disableLastElement(virtualclass.gObj.currWb);
+      } else {
+        this.innerMouseUp(pointer, whiteboard, true);
+        if (!event.e.isTrusted) return;
+        if (virtualclass.wbWrapper.gObj.previousData) {
+          let data = virtualclass.wbWrapper.protocol.encode('sp', virtualclass.wbWrapper.gObj.previousData);
+          virtualclass.wbWrapper.util.sendWhiteboardData(data);
+          const newData = {
+            event: 'u',
+            name: this.name,
+            x: virtualclass.wbWrapper.gObj.previousData.x,
+            y: virtualclass.wbWrapper.gObj.previousData.y,
+          };
+          data = virtualclass.wbWrapper.protocol.encode('sp', newData);
+          virtualclass.wbWrapper.util.sendWhiteboardData(data);
+          console.log('sending the data here guys ==== MOUSE UP', JSON.stringify(data));
+  
+        }
+      }
+      console.log(" DELETE==JAI ");
+      delete virtualclass.wbWrapper.gObj.previousData;
+      delete this.freeDrawPrevious;
+      delete virtualclass.gObj.lastSendDataTime;
+    }
+  
+    innerMouseUp (pointer, whiteboard, event) {
+      this.mousedown = false;
+      if (this.name !== 'freeDrawing') {
+        this[this.name].setCoords();
+      } else {
+        console.log('====> free drawing up', JSON.stringify(pointer));
+        // whiteboard.canvas.upperCanvasEl.dispatchEvent(virtualclass.wbWrapper.util.readyMouseEvent('mouseup', pointer));
+        if (!event) event = {isPrimary: true};
+        whiteboard.myPencil.onMouseUp(event);
+        const allObjects = whiteboard.canvas.getObjects();
+        const lastObject = allObjects[allObjects.length - 1];
+        lastObject.set({
+          rotatingPointOffset: this.default.rotatingPointOffset * virtualclass.zoom.canvasScale,
+          cornerSize: this.default.cornerSize * virtualclass.zoom.canvasScale
+        });
+      }
+      delete whiteboard.myPencil;
+    }
+  }

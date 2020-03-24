@@ -1,94 +1,46 @@
-// This file is part of Vidyamantra - http:www.vidyamantra.com/
-/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
- * @author  Suman Bogati <http://www.vidyamantra.com>
- */
-(function (window) {
-  /**
-   * @Class defined rectangle for rectangle
-   *  methods initilized for creating rectangle object
-   *  in future there can be more properties than one
-   */
-
-  function Rectangle(id) {
-    const { vcan } = virtualclass.wb[id];
-    // var vcan = virtualclass.wb[id];
-    vcan.rectangle = function () {
-      return {
-        type: 'rectangle',
-        /**
-         * TOD0 we need to extend this function in future
-         * initiates the properties of object
-         * @param obj the properties would initates on it
-         */
-        init(obj) {
-          if (obj.x == null) {
-            const absx = obj.ex - (obj.width / 2);
-            obj.x = absx;
-          }
-
-          if (obj.y == null) {
-            const absy = obj.ey - (obj.height / 2);
-            obj.y = absy;
-          }
-
-          return obj;
-        },
-        /**
-         * it draws the object according to information passed by object
-         * the funciton does not use the rect() funciton to create
-         * rectangle object but uses the moveTo/lineTo object
-         * @param ctx current context
-         * @param obj would be drawn
-         */
-        draw(ctx, obj, noTransform) {
-          // console.log('====> whiteboard data actual sx=', obj.sx, ' sy=', obj.sy, ' ex=', obj.ex, ' ey=', obj.ey);
-          const x = -obj.width / 2;
-          const y = -obj.height / 2;
-          const w = obj.width;
-          const h = obj.height;
-
-          ctx.beginPath();
-
-          ctx.strokeStyle = (obj.borderColor != null) ? `"${obj.strokeColor}"` : '#000';
-
-          // alert(ctx.strokeStyle);
-
-          ctx.moveTo(x, y);
-          ctx.stroke();
-
-          ctx.strokeStyle = obj.color;
-          ctx.stroke();
-
-          ctx.lineWidth = obj.stroke;
-          ctx.stroke();
-
-          ctx.lineTo(x + w, y);
-          ctx.stroke();
-
-          ctx.lineTo(x + w, y + h);
-          ctx.stroke();
-
-          ctx.lineTo(x, y + h);
-          ctx.stroke();
-
-          ctx.lineTo(x, y);
-          ctx.stroke();
-
-          ctx.fillStyle = (obj.fillColor != null) ? obj.fillColor : ' ';
-          ctx.closePath();
-          ctx.stroke();
-          // todo this should be enable
-          if (obj.fillColor != null) {
-            ctx.fillStyle = obj.fillColor;
-            ctx.fill();
-          }
-
-          // console.log('=====> whiteboard ', virtualclass.gObj.currWb);
-          // console.log('=====> whiteboard length', virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs.length);
-        },
-      };
-    };
+// This is responsible to create the whiteboard shape
+class WhiteboardRectangle extends WhiteboardCommonShape {
+  constructor(name) {
+    super(name);
+    this.name = name;
   }
 
-  window.Rectangle = Rectangle;
-}(window));
+  mouseMove(pointer, whiteboard) {
+    if (!virtualclass.gObj.lastSendDataTime) {
+      virtualclass.gObj.lastSendDataTime = new Date().getTime();
+    }
+
+    const newData = {
+      event: 'm',
+      name: this.name,
+      x: pointer.x,
+      y: pointer.y,
+    };
+    virtualclass.wbWrapper.util.sendOptimizeData(newData, 2000, 'sp');
+    this.innerMouseMove(pointer, whiteboard);
+  }
+
+  innerMouseMove(pointer, whiteboard) {
+    if (!this.mousedown) return;
+    const newLeft = pointer.x;
+    const newTop = pointer.y;
+    const width = newLeft - this.startLeft;
+    const height = newTop - this.startTop;
+
+    if (width > 0) { // Draw from left to right
+      this.rectangle.set('width', width);
+    } else {
+      this.rectangle.set('left', newLeft); // Draw from right to left
+      this.rectangle.set('width', width * -1);
+    }
+
+    if (height > 0) {
+      this.rectangle.set('height', height); // Draw from top to bottom
+    } else {
+      this.rectangle.set('top', newTop); // Draw from bottom to top
+      this.rectangle.set('height', height * -1);
+    }
+
+    whiteboard.canvas.renderAll();
+  }
+}

@@ -267,7 +267,7 @@ const receiveFunctions = new function () {
     // // virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
     // virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
 
-    virtualclass.wbWrapper.util.onMessage(e);
+    virtualclass.wbWrapper.msg.onMessage(e);
   }
 
   // Replay All, TODO, need to do verify

@@ -128,7 +128,7 @@ class Whiteboard {
         // const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
         // whiteboard.myPencil = new fabric.PencilBrush(whiteboard.canvas);
         const encodeData = virtualclass.wbWrapper.protocol.encode('cr', virtualclass.gObj.currWb);
-        virtualclass.wbWrapper.util.sendWhiteboardData(encodeData);
+        virtualclass.wbWrapper.msg.send(encodeData);
       }
     });
   }

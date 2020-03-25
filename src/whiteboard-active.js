@@ -41,7 +41,7 @@ class WhiteboardActiveAll {
     }
     const newData = this.generateData(event, whiteboard, 'd');
     virtualclass.wbWrapper.gObj.previousData = newData;
-    virtualclass.wbWrapper.util.sendWhiteboardData(newData);
+    virtualclass.wbWrapper.msg.send(newData);
   }
 
   mouseMove(pointer, whiteboard, event) {
@@ -64,9 +64,9 @@ class WhiteboardActiveAll {
     console.log('====> shoud not invoke');
     if (this.activeDown && this.down) {
       this.down = false;
-      virtualclass.wbWrapper.util.sendWhiteboardData(virtualclass.wbWrapper.gObj.previousData);
+      virtualclass.wbWrapper.msg.send(virtualclass.wbWrapper.gObj.previousData);
       const newData = this.generateData(event, whiteboard, 'u');
-      virtualclass.wbWrapper.util.sendWhiteboardData(newData);
+      virtualclass.wbWrapper.msg.send(newData);
     }
   }
 }

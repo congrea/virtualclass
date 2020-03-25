@@ -16,7 +16,7 @@ class WhiteboardRectangle extends WhiteboardCommonShape {
       x: pointer.x,
       y: pointer.y,
     };
-    virtualclass.wbWrapper.util.sendOptimizeData(newData, 2000, 'sp');
+    virtualclass.wbWrapper.msg.optimizeToSend(newData, 2000, 'sp');
     this.innerMouseMove(pointer, whiteboard);
   }
 

@@ -4,7 +4,7 @@ class WhiteboardCursor {
         this.arrImg = new Image();
         this.arrImg.src = 'https://cdn.congrea.net/resources/images/arrow.png';
         this.arrImgDraw = false;
-        this.arrImg.onload = function () {
+        this.arrImg.onload = () => {
           this.arrImgDraw = true;
         };
       }
@@ -46,8 +46,6 @@ class WhiteboardCursor {
 
         virtualclass.posY = (obj.y);
         virtualclass.posX = (obj.x);
-
-        // console.log('vm mouse cursor y=' + (virtualclass.posY));
 
         this.draw(obj, wid);
 

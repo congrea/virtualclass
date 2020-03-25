@@ -53,7 +53,7 @@ class WhiteboardActiveAll {
       // whiteboard.canvas.renderAll();
       const newData = this.generateData(event, whiteboard, 'm')
       //this.previousData = newData
-      virtualclass.wbWrapper.util.sendOptimizeData(newData, 2000);
+      virtualclass.wbWrapper.msg.optimizeToSend(newData, 2000);
     }
   }
 

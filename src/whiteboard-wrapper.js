@@ -39,6 +39,7 @@ class WhiteboardWrapper {
     this.protocol = new WhiteboardProtocol();
     this.cursor = new WhiteboardCursor();
     this.cursor.init();
+    this.msg = new WhiteboardMessage();
   }
 
   createWhiteboardContainerHtml(id, app) {

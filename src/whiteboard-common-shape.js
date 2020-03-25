@@ -82,7 +82,6 @@ class WhiteboardCommonShape {
     }
   
     mouseUp(pointer, whiteboard, event) {
-  
       // this.mousedown = false;
       // this[this.name].setCoords();
       if (this.name === 'freeDrawing') {

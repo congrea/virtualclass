@@ -284,8 +284,6 @@ if ($info) {
 
 ?>
 
-<script type="text/javascipt" src="https://live.congrea.net/virtualclass/src/installPrompt.js"></script>
-
 <!-- Fine Uploader JS file
 ====================================================================== -->
 <script type="text/template" id="qq-template-gallery"> <?php include('../fine-upload.php'); ?> </script>

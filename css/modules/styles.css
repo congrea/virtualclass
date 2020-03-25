@@ -4525,6 +4525,15 @@ body {
   width: 70%;
 }
 
+#virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer button {
+  background-color: inherit;
+  border-radius: 8px;
+  border: 1px solid white;
+  color: white;
+  font-size: 1em;
+  padding: 0.75em;
+}
+
 #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn .warningWrapper p {
   font-size: 20px;
 

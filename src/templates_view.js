@@ -773,7 +773,7 @@ this["JST"]["dest_temp/templates/main.hbs"] = Handlebars.template({"compiler":[7
 },"usePartial":true,"useData":true});
 
 this["JST"]["dest_temp/templates/mobileLandscapeWarn.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"mobileLandscapeWarn\"><div class=\"warningWrapper\"><span class=\"icon-mobileRotate\"></span><p class=\"warning-message\">Please turn your device orientation</p></div></div>";
+    return "<div class=\"mobileLandscapeWarn\"><div class=\"warningWrapper\"><span class=\"icon-mobileRotate\"></span><p class=\"warning-message\">Please turn your device orientation</p><div id=\"installContainer\" class=\"\"><button id=\"butInstall\" type=\"button\"> Install </button></div></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/multiVideo.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

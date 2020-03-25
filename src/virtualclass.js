@@ -396,8 +396,33 @@
           askfullScreenExitBtn.addEventListener('click', virtualclass.vutil.closeFullscreen);
         }
 
-        const chat_div = document.getElementById('chat_div');
-        const rightSidebarBtn = document.getElementById('sidebarButton');
+        const divInstall = document.getElementById('installContainer');
+        const butInstall = document.getElementById('butInstall');
+
+          if (divInstall != null) {
+            butInstall.addEventListener('click', () => {
+              console.log('👍', 'butInstall-clicked');
+              const promptEvent = window.deferredPrompt;
+              if (!promptEvent) {
+                // The deferred prompt isn't available.
+                return;
+              }
+              // Show the install prompt.
+              promptEvent.prompt();
+              // Log the result
+              promptEvent.userChoice.then((result) => {
+                console.log('👍', 'userChoice', result);
+                // Reset the deferred prompt variable, since
+                // prompt() can only be called once.
+                window.deferredPrompt = null;
+                // Hide the install button.
+                // divInstall.classList.toggle('hidden', true);
+              });
+            });
+          }
+
+        var chat_div = document.getElementById("chat_div");
+        var rightSidebarBtn = document.getElementById("sidebarButton");
 
         if(rightSidebarBtn != null) {
           rightSidebarBtn.addEventListener('click', function () {

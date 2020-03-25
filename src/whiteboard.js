@@ -78,7 +78,6 @@ class Whiteboard {
   }
 
   toolbarHandler(ev) {
-   
     this.innerToolbarHandler(ev.currentTarget.parentNode.dataset.tool);
   }
 

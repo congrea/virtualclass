@@ -1,5 +1,5 @@
 class WhiteboardCursor {
-    initCursorImage() {
+    init() {
       if (!this.arrImg) {
         this.arrImg = new Image();
         this.arrImg.src = 'https://cdn.congrea.net/resources/images/arrow.png';
@@ -10,7 +10,7 @@ class WhiteboardCursor {
       }
     }
 
-    sendCursor(msg) {
+    send(msg) {
         const time = 100;
         if (!this.lastarrowtime) {
             this.lastarrowtime = new Date().getTime();
@@ -23,22 +23,22 @@ class WhiteboardCursor {
         }
     }
 
-    handleCursor(event) {
+    handle(event) {
         const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
         const pointer = whiteboard.canvas.getPointer(event, true);
         const afterChange = virtualclass.wbWrapper.protocol.changeWithScale('divide', pointer);
-        this.sendCursor({ msg: `${afterChange.x}_${afterChange.y}`, cf: 'ca' });
+        this.send({ msg: `${afterChange.x}_${afterChange.y}`, cf: 'ca' });
     }
 
-    onCursorMessageReceived(message) {
+    onMessage(message) {
         const pointer = {};
         const dataArr = message.msg.split('_');
         pointer.x = dataArr[0];
         pointer.y = dataArr[1];
-        this.createCursor(pointer);
+        this.create(pointer);
     }
 
-    createCursor(eMessage) {
+    create(eMessage) {
         const wid = virtualclass.gObj.currWb;
         console.log('====> creating arrow before scale ', eMessage.x, eMessage.y);
         const obj = { x: eMessage.x * virtualclass.zoom.canvasScale, y: eMessage.y * virtualclass.zoom.canvasScale };
@@ -49,7 +49,7 @@ class WhiteboardCursor {
 
         // console.log('vm mouse cursor y=' + (virtualclass.posY));
 
-        this.drawCursorImage(obj, wid);
+        this.draw(obj, wid);
 
         if (virtualclass.pdfRender[wid].scroll.Y != null) {
             virtualclass.pdfRender[wid].customMoustPointer({ y: virtualclass.posY }, 'Y', virtualclass.posY);
@@ -61,7 +61,7 @@ class WhiteboardCursor {
     // console.log('Mouse cursor x=' + obj.mp.x  + ' y=' + obj.mp.y);
     }
 
-    drawCursorImage(obj, wId) {
+    draw(obj, wId) {
         const img = this.arrImg;
         const ctx = virtualclass.wb[wId].canvas.getContext('2d');
         ctx.clearRect(0, 0, virtualclass.wb[wId].canvas.width, virtualclass.wb[wId].canvas.height);

@@ -37,7 +37,8 @@ class WhiteboardWrapper {
     this.replay = new WhiteboardReplay();
     this.util = new WhiteboardUtility();
     this.protocol = new WhiteboardProtocol();
-    this.util.initArrowImage();
+    this.cursor = new WhiteboardCursor();
+    this.cursor.init();
   }
 
   createWhiteboardContainerHtml(id, app) {

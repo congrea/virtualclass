@@ -115,11 +115,6 @@ class WhiteboardUtility {
     // virtualclass.wb[wId].canvas.renderAll();
   }
 
-  handleGetPointer(event, whiteboard){
-    const pointer = whiteboard.canvas.getPointer(event, true);
-    return pointer;
-  }
-
   onMessage(e) {
     const whiteboardShape = e.message.wb[0].substring(0, 2);
     if (whiteboardShape === 'sf') { // free drawing packet

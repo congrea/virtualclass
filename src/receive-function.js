@@ -244,7 +244,7 @@ const receiveFunctions = new function () {
   // Create mouse arrow
   this.ca = function (e) {
     if (typeof virtualclass.wb === 'object' && !roles.hasControls() && virtualclass.wb[virtualclass.gObj.currWb]) {
-      virtualclass.wbWrapper.util.onArrowMessageReceived(e.message);
+      virtualclass.wbWrapper.cursor.onMessage(e.message);
     }
   };
 

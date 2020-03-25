@@ -225,14 +225,16 @@ if($info) {
 }
 ?>
 
-<noscript>
-	<h2>JavaScript is disabled! Why you want to do so? 
-	Please enable JavaScript in your web browser!</h2>
-
-	<style type="text/css">
-		#main-content { display:none; }
-	</style>
-</noscript>
+<script type="text/javascript"> 
+	if ('serviceWorker' in navigator) { 
+		window.addEventListener('load', ()=> {
+			navigator.serviceWorker.register('../service-worker.js')
+				.then((reg) => {
+					console.log('Service worker registered.', reg);
+				});
+			});
+	}
+</script>
 
 <script type="text/javascript">
 	
@@ -264,6 +266,14 @@ if($info) {
     window.webapi = "<?php echo $whiteboardpath ."webapi.php?cmid=".$cmid; ?>";
     window.congCourse =  "<?php echo $cmid ?>";
 </script>
+<noscript>
+	<h2>JavaScript is disabled! Why you want to do so? 
+	Please enable JavaScript in your web browser!</h2>
+
+	<style type="text/css">
+		#main-content { display:none; }
+	</style>
+</noscript>
 <?php
 
 if ($info) {
@@ -273,6 +283,8 @@ if ($info) {
 }
 
 ?>
+
+<script type="text/javascipt" src="https://live.congrea.net/virtualclass/src/installPrompt.js"></script>
 
 <!-- Fine Uploader JS file
 ====================================================================== -->

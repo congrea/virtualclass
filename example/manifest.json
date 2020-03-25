@@ -1,8 +1,12 @@
 {
     "short_name": "Congrea",
     "name": "Udit's Congrea",
-    "start_url": "https://live.congrea.net/virtualclass/example/index1.php?id=55&role=s&name=udit&room=020&play=false&themecolor=gray&pushtotalk=1&anyonepresenter=0#",
     "icons": [
+      {
+        "src": "https://live.congrea.net/virtualclass/images/maskable_icon144x144.png",
+        "type": "image/png",
+        "sizes": "144x144"
+      },
       {
         "src": "https://live.congrea.net/virtualclass/images/maskable_icon192x192.png",
         "type": "image/png",
@@ -17,6 +21,7 @@
     "background_color": "#3367D6",
     "display": "fullscreen",
     "orientation": "landscape",
-    "scope": "/",
+    "start_url": "https://live.congrea.net/virtualclass/example/index1.php?id=55&role=s&name=suman&room=4000&play=false&themecolor=gray&pushtotalk=1&anyonepresenter=0#",
+    "scope": ".",
     "theme_color": "#3367D6"
   }

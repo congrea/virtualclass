@@ -165,5 +165,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/back-detect.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/rightbar.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/index.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>/service-worker.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>service-worker.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/installPrompt.js"></script>
 

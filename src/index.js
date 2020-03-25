@@ -14,12 +14,6 @@ $.uiBackCompat = false;
     await bootStraper.readyToGo();
     await bootStraper.cache();
 
-    if ('serviceWorker' in navigator) { 
-      navigator.serviceWorker.register('https://live.congrea.net/virtualclass/service-worker.js', { scope: 'https://live.congrea.net/virtualclass/example/index1.php'})
-          .then((reg) => {
-            console.log('Service worker registered.', reg);
-          });
-    }
     virtualclass.serverData.syncComplete = false;
     await virtualclass.serverData.syncAllData().then(() => {
       if (virtualclass.currApp === 'DocumentShare' && virtualclass.dts) {

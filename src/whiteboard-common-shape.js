@@ -72,7 +72,13 @@ class WhiteboardCommonShape {
         this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
         this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
         const toolName = virtualclass.wbWrapper.keyMap[this.name];
-        this[this.name] = new fabric[toolName](this.coreObj); // add object
+        if (this.name === 'line') {
+          this.coreObj.points = [pointer.x, pointer.y, pointer.x, pointer.y]
+          this[this.name] = new fabric[toolName](this.coreObj.points, this.coreObj); // add object
+        } else {
+          this[this.name] = new fabric[toolName](this.coreObj); // add object
+        }
+        
         whiteboard.canvas.add(this[this.name]);
       }
     }

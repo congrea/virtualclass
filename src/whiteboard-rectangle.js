@@ -40,7 +40,6 @@ class WhiteboardRectangle extends WhiteboardCommonShape {
       this.rectangle.set('top', newTop); // Draw from bottom to top
       this.rectangle.set('height', height * -1);
     }
-
     whiteboard.canvas.renderAll();
   }
 }

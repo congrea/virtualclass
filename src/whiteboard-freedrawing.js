@@ -15,7 +15,7 @@ class WhiteboardFreeDrawing extends WhiteboardCommonShape {
     this.innerMouseMove(pointer, whiteboard, event);
     if (!event.e.isTrusted) return;
     this.collectingData(pointer);
-    virtualclass.wbWrapper.msg.send(this.chunks, 3000, 'sf');
+    virtualclass.wbWrapper.msg.optimizeToSend(this.chunks, 3000, 'sf');
   }
 
   collectingData(pointer) {

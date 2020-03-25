@@ -13,6 +13,10 @@ class WhiteboardProtocol {
     let newData = {};
     if (type === 'encode') {
       const shortShapeName = virtualclass.wbWrapper.keyMap[`${data.name}Short`];
+      if (!shortShapeName) {
+        alert('ssss');
+        debugger;
+      }
       newData = {
         wb: [`sp_${shortShapeName}_${data.event}_${data.x}_${data.y}`],
         cf: 'wb',

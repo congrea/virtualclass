@@ -8,6 +8,7 @@ class Whiteboard {
     this.freeDrawingObj = new WhiteboardFreeDrawing('freeDrawing');
     this.lineObj = new WhiteboardLine('line');
     this.triangleObj = new WhiteboardTriangle('triangle');
+    this.circleObj = new WhiteboardCircle('circle');
     this.gObj = {};
   }
 
@@ -87,7 +88,7 @@ class Whiteboard {
     this.canvas.isDrawingMode = false;
     const currentTool = tool;
     this.selectedTool = currentTool;
-    if (this.selectedTool !== 'rectangle' &&  this.selectedTool !== 'line' && this.selectedTool !== 'oval' && this.selectedTool !== 'triangle') {
+    if (this.selectedTool !== 'rectangle' &&  this.selectedTool !== 'line' && this.selectedTool !== 'circle' && this.selectedTool !== 'triangle') {
       this[currentTool]();
     } else {
       this.activeAllObj.disable(virtualclass.gObj.currWb);

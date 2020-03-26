@@ -54,6 +54,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-rectangle.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-line.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-triangle.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-circle.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-cursor.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-message.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>

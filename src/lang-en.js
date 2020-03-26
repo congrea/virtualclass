@@ -41,6 +41,7 @@
     canvasmissing: 'Canvas is missing in your browser. Please update your browser to the latest version.',
     chatEnable: 'Disable chat',
     Chatroom: 'Chatroom',
+    Circle: 'Circle',
     ClearAll: 'Clear all',
     clickheretoplay: 'Click Here To Play',
     clicktoplay: 'Play',

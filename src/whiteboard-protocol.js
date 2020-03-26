@@ -11,7 +11,7 @@ class WhiteboardProtocol {
   // Creating the shapes/objects, rectangle, oval, etc
   sp(data, type) { 
     let newData = {};
-    if (type === 'encode') {
+    if (type === 'encode') {  
       const shortShapeName = virtualclass.wbWrapper.keyMap[`${data.name}Short`];
       if (!shortShapeName) {
         alert('Capture the problem with ', JSON.stringify(data));

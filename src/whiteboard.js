@@ -7,6 +7,7 @@ class Whiteboard {
     this.activeAllObj = new WhiteboardActiveAll();
     this.freeDrawingObj = new WhiteboardFreeDrawing('freeDrawing');
     this.lineObj = new WhiteboardLine('line');
+    this.triangleObj = new WhiteboardTriangle('triangle');
     this.gObj = {};
   }
 

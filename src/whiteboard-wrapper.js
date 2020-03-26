@@ -7,6 +7,7 @@ class WhiteboardWrapper {
       rectangle: 'Rect',
       line: 'Line',
       text: 'Text',
+      triangle: 'Triangle',
       d: 'innerMouseDown', // For triggering the mouse event on student side
       m: 'innerMouseMove',
       u: 'innerMouseUp',
@@ -16,6 +17,7 @@ class WhiteboardWrapper {
       r: 'rectangle',
       f: 'freeDrawing',
       l: 'line', 
+      tr: 'triangle',
       ovalShort: 'o', // For sending the shapes name in short form
       rectangleShort: 'r',
       freeDrawingShort: 'f',

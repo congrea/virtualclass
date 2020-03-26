@@ -29,6 +29,7 @@ class WhiteboardCommonShape {
         // virtualclass.gObj.startTime = new Date().getTime();
         this.chunks.push(`${pointer.x}_${pointer.y}_d`);
         console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', pointer.x, pointer.y);
+        virtualclass.wbWrapper.gObj.previousData = pointer;
       } else {
         virtualclass.gObj.lastSendDataTime = new Date().getTime();
         // ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
@@ -40,9 +41,8 @@ class WhiteboardCommonShape {
         };
         const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
         virtualclass.wbWrapper.msg.send(data);
+        virtualclass.wbWrapper.gObj.previousData = newData;
       }
-  
-      virtualclass.wbWrapper.gObj.previousData = pointer;
     }
   
     innerMouseDown(pointer, whiteboard, event) {

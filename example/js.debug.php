@@ -50,7 +50,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-wrapper.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-utility.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-common-shape.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-freedrawing.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-freedrawing.js"></script>	
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-rectangle.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-line.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-cursor.js"></script>

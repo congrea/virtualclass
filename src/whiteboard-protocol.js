@@ -14,7 +14,7 @@ class WhiteboardProtocol {
     if (type === 'encode') {
       const shortShapeName = virtualclass.wbWrapper.keyMap[`${data.name}Short`];
       if (!shortShapeName) {
-        alert('ssss');
+        alert('Capture the problem with ', JSON.stringify(data));
         debugger;
       }
       newData = {

@@ -11,7 +11,7 @@ class UserInteractivityEvents { // main Part
     } else {
       component = data.component;
     }
-    data = {
+    const obj = {
       component,
       action: 'renderer',
       type: 'input',
@@ -19,7 +19,7 @@ class UserInteractivityEvents { // main Part
       componentId: data.componentId,
       parent: data.parentId,
     };
-    virtualclass.userInteractivity.engine.performWithQueue(data);
+    virtualclass.userInteractivity.engine.performWithQueue(obj);
     // virtualclass.userInteractivity[data.action].call(virtualclass.userInteractivity, data);
   }
 
@@ -64,16 +64,16 @@ class UserInteractivityEvents { // main Part
         text = content;
       }
 
-      const component = document.querySelector(`#${data.componentId} .content p`).dataset.component;
-      data = virtualclass.userInteractivity.generateData({ // todo, this should be moved to utility
+      const componentType = document.querySelector(`#${data.componentId} .content p`).dataset.component;
+      const obj = virtualclass.userInteractivity.generateData({ // todo, this should be moved to utility
         action: 'renderer',
         type: 'input',
         content: text,
-        component: component,
+        component: componentType,
         componentId: data.componentId,
         parent: data.component === 'question' ? null : null,
       });
-      virtualclass.userInteractivity[data.action].call(virtualclass.userInteractivity, data);
+      virtualclass.userInteractivity[obj.action].call(virtualclass.userInteractivity, obj);
     }
   }
 
@@ -99,7 +99,7 @@ class UserInteractivityEvents { // main Part
           return;
         }
       }
-      data = userInteractive.generateData({
+      const obj = userInteractive.generateData({
         component: data.component,
         action: data.event,
         componentId: data.componentId,
@@ -109,7 +109,7 @@ class UserInteractivityEvents { // main Part
         data.level = userInteractive.context[userInteractive.currentContext][data.component][data.componentId].level;
       }
       // console.log('level === ', JSON.stringify(data));
-      userInteractive.send(data);
+      userInteractive.send(obj);
     }
   }
 
@@ -239,7 +239,7 @@ class UserInteractivityEvents { // main Part
   }
 
   moreControls(data) {
-    const selector = '#' + data.componentId +  ' .moreControls .item';
+    const selector = `#${data.componentId} .moreControls .item`;
     const getMoreCntrl = document.querySelector(selector);
     if (getMoreCntrl.classList.contains('close')) {
       getMoreCntrl.classList.remove('close');

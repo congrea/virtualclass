@@ -122,7 +122,7 @@
       uiChatboxContent = (self.uiChatboxContent = $('<div></div>'))
         .addClass('ui-widget-content '
           + 'ui-memblist-content ')
-        .appendTo(uiChatbox),
+        .appendTo(uiChatbox);
       uiChatboxLog = (self.uiChatboxLog = self.element)
         .addClass('ui-widget-content '
             + 'ui-memblist-log')

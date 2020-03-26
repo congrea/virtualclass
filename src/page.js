@@ -317,7 +317,7 @@
       }
     },
 
-    mainView(createMainCont) {
+    mainView() { // createMainCont assign as a param but never used
       const cthis = this;
       let pageScreenContainer = document.getElementById(this.parent);
 

@@ -156,6 +156,8 @@ let globalImageData = {};
               this.initStudentScreen(recmsg, dimObj, stype, sTool);
             }
             break;
+            default:
+              break;
         }
       },
 

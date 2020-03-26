@@ -132,14 +132,15 @@
       toBeRemove.parentNode.removeChild(toBeRemove);
     },
     createLocalTempVideo(mainCont, localTemp) {
+      let cont;
       if (typeof mainCont === 'string' || typeof mainCont === 'String') {
-        mainCont = document.getElementById(mainCont);
+        cont = document.getElementById(mainCont);
       }
       // var mainCont = document.getElementById(mcId);
       const locVidContTemp = virtualclass.vutil.createDOM('div', localTemp);
       const vidContTemp = virtualclass.vutil.createDOM('canvas', `${localTemp}Video`);
       locVidContTemp.appendChild(vidContTemp);
-      mainCont.appendChild(locVidContTemp);
+      cont.appendChild(locVidContTemp);
     },
     initLocCanvasCont(tempVideoId) {
       let app;

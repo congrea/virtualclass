@@ -358,7 +358,7 @@
           let action;
           // If editor code is enabled
           if (msg.status) {
-            if (virtualclass.gObj.uid == msg.toUser) {
+            if (virtualclass.gObj.uid === msg.toUser) {
               if (typeof virtualclass.editorCode.cm === 'object' && !virtualclass.isPlayMode) {
                 virtualclass.editorCode.cm.setOption('readOnly', false);
               }

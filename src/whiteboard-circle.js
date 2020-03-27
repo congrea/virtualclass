@@ -35,13 +35,10 @@ class WhiteboardCircle  extends WhiteboardCommonShape {
     if (rx > this.circle.strokeWidth) {
       rx -= this.circle.strokeWidth / 2;
     }
-
     if (ry > this.circle.strokeWidth) {
       ry -= this.circle.strokeWidth / 2
     }
-
     this.circle.set({ rx: rx, ry: ry});
-    
     if(this.startLeft > pointer.x){
         this.circle.set({originX: 'right' });
     } else {

@@ -67,10 +67,6 @@ class WhiteboardCommonShape {
     this.mousedown = true;
     if (this.name === 'freeDrawing') {
       whiteboard.canvas.freeDrawingBrush.width = this.coreObj.strokeWidth * virtualclass.zoom.canvasScale;
-      // if (actualEvent) return;
-      // cwhiteboard.canvas.isDrawingMode = true;
-      // const event = virtualclass.wbWrapper.util.readyMouseEvent('mousedown', pointer);
-      // whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
       console.log('====> free drawing mousedown', JSON.stringify(pointer));
       if (!whiteboard.myPencil) {
         whiteboard.myPencil = new fabric.PencilBrush(whiteboard.canvas);
@@ -88,16 +84,11 @@ class WhiteboardCommonShape {
       this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
       this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
       this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
-      let toolName = virtualclass.wbWrapper.keyMap[this.name];
+      const toolName = virtualclass.wbWrapper.keyMap[this.name];
       if (this.name === 'line') {
         this.coreObj.points = [pointer.x, pointer.y, pointer.x, pointer.y]
         this[this.name] = new fabric[toolName](this.coreObj.points, this.coreObj); // add object
       } else {
-        if (this.name === 'circle') {
-          delete this.coreObj.width;
-          delete this.coreObj.width;
-          this.coreObj.radius = 1;
-        }
         this[this.name] = new fabric[toolName](this.coreObj); // add object
       }
       whiteboard.canvas.add(this[this.name]);
@@ -159,7 +150,7 @@ class WhiteboardCommonShape {
       const lastObject = allObjects[allObjects.length - 1];
       lastObject.set({
         rotatingPointOffset: this.default.rotatingPointOffset * virtualclass.zoom.canvasScale,
-        cornerSize: this.default.cornerSize * virtualclass.zoom.canvasScale
+        cornerSize: this.default.cornerSize * virtualclass.zoom.canvasScale,
       });
     }
     delete whiteboard.myPencil;

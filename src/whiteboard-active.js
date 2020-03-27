@@ -29,7 +29,6 @@ class WhiteboardActiveAll {
     const allObjects = virtualclass.wb[wId].canvas.getObjects();
     allObjects[allObjects.length - 1].set('selectable', false);
   }
-
   mouseDown(pointer, whiteboard, event) {
     const myPointer = whiteboard.canvas.getPointer(event, true)
     console.log('====> whiteboard pdf ========================== active mouse trigger', myPointer.x, myPointer.y);

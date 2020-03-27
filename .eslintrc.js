@@ -55,6 +55,11 @@ module.exports = {
     WhiteboardReplay: 'writable',
     WhiteboardWrapper: 'writable',
     WhiteboardProtocol: 'writable',
+    WhiteboardCircle: 'writeable',
+    WhiteboardCommonShape: 'writeable',
+    WhiteboardLine: 'writeable',
+    WhiteboardFreeDrawing: 'writeable',
+    WhiteboardTriangle: 'writeable',
   },
   parserOptions: {
     ecmaVersion: 2017,
@@ -63,7 +68,7 @@ module.exports = {
     }
   },
   rules: {
-    'max-len': [1, { "code": 120 }]
+    'max-len': [1, { "code": 120 }],
+    'linebreak-style': ["error", "windows"],
   },
-
 };

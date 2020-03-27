@@ -85,6 +85,7 @@ class Whiteboard {
   }
 
   innerToolbarHandler(tool) {
+    virtualclass.wbWrapper.util.closeShapeContainer();
     this.canvas.isDrawingMode = false;
     const currentTool = tool;
     this.selectedTool = currentTool;
@@ -99,12 +100,9 @@ class Whiteboard {
     this.selectedTool = null;
     const shapesElem = document.querySelector(`#shapes${this.wbId}`);
     if (shapesElem.classList.contains('open')) {
-      shapesElem.classList.remove('open');
-      shapesElem.classList.add('close');
+      virtualclass.wbWrapper.util.closeShapeContainer(shapesElem);
     } else {
-      if (shapesElem.classList.contains('close')) {
-        shapesElem.classList.remove('close');
-      }
+      virtualclass.wbWrapper.util.openShapeContainer(shapesElem);
       shapesElem.classList.add('open');
       virtualclass.vutil.closeElement(document.querySelector(`#t_strk${this.wbId} .strkSizeList`));
       virtualclass.vutil.closeElement(document.querySelector(`#t_font${this.wbId} .fontSizeList`));

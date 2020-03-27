@@ -99,4 +99,22 @@ class WhiteboardUtility {
       composed: true,
     });
   }
+
+  closeShapeContainer(elem) {
+    this.selectedTool = null;
+    const shapeContainer = elem ? elem : document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
+    if (shapeContainer) {
+      shapeContainer.classList.remove('open');
+      shapeContainer.classList.add('close');
+    }
+  }
+
+  openShapeContainer(elem) {
+    this.selectedTool = null;
+    const shapeContainer = elem ? elem : document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
+    if (shapeContainer) {
+      shapeContainer.classList.remove('close');
+      shapeContainer.classList.add('open');
+    }
+  }
 }

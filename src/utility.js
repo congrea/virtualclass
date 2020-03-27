@@ -2328,42 +2328,42 @@
 
     attachWhiteboardPopupHandler(wId) {
       window.addEventListener('mouseup', (ev) => {
-        return;
-        const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
-        const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
-        if (moreElemClose) {
-          moreElemClose.classList.remove('open');
-          moreElemClose.classList.add('close');
-        }
-        if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare') && wId) {
-          if (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke') || Object.prototype.hasOwnProperty.call(ev.target.dataset, 'font')) {
-            const dropDown = (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke')) ? document.querySelector(`#t_strk${wId} .strkSizeList`) : document.querySelector(`#t_font${wId} .fontSizeList`);
-            virtualclass.wb[wId].closeElem(dropDown);
-          } else if (ev.target.classList.contains('icon-color') || ev.target.classList.contains('selected') || ev.target.classList.contains('congtooltip')) {
-//            virtualclass.wb[wId].closeElem(document.querySelector(`#shapes${wId}`));
-          } else if (ev.target.classList.contains('icon-rectangle') || ev.target.classList.contains('icon-line')
-            || ev.target.classList.contains('icon-oval') || ev.target.classList.contains('icon-triangle')) {
-            virtualclass.wb[wId].closeElem(document.querySelector(`#shapes${wId}`));
-          } else {
-            const stroke = document.querySelector(`#t_strk${wId} .strkSizeList`);
-            const font = document.querySelector(`#t_font${wId} .fontSizeList`);
-            const colorList = document.querySelector(`#colorList${wId}`);
-            if (stroke !== null && stroke.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
-              virtualclass.wb[wId].closeElem(stroke);
-            } else if (font !== null && font.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
-              virtualclass.wb[wId].closeElem(font);
-            } else if (colorList !== null && colorList.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
-              virtualclass.wb[wId].closeElem(colorList);
-            }
+        if (roles.hasControls()) virtualclass.wbWrapper.util.closeShapeContainer();
+//         const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
+//         const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
+//         if (moreElemClose) {
+//           moreElemClose.classList.remove('open');
+//           moreElemClose.classList.add('close');
+//         }
+//         if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare') && wId) {
+//           if (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke') || Object.prototype.hasOwnProperty.call(ev.target.dataset, 'font')) {
+//             const dropDown = (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke')) ? document.querySelector(`#t_strk${wId} .strkSizeList`) : document.querySelector(`#t_font${wId} .fontSizeList`);
+//             virtualclass.wb[wId].closeElem(dropDown);
+//           } else if (ev.target.classList.contains('icon-color') || ev.target.classList.contains('selected') || ev.target.classList.contains('congtooltip')) {
+// //            virtualclass.wb[wId].closeElem(document.querySelector(`#shapes${wId}`));
+//           } else if (ev.target.classList.contains('icon-rectangle') || ev.target.classList.contains('icon-line')
+//             || ev.target.classList.contains('icon-oval') || ev.target.classList.contains('icon-triangle')) {
+//             virtualclass.wb[wId].closeElem(document.querySelector(`#shapes${wId}`));
+//           } else {
+//             const stroke = document.querySelector(`#t_strk${wId} .strkSizeList`);
+//             const font = document.querySelector(`#t_font${wId} .fontSizeList`);
+//             const colorList = document.querySelector(`#colorList${wId}`);
+//             if (stroke !== null && stroke.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+//               virtualclass.wb[wId].closeElem(stroke);
+//             } else if (font !== null && font.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+//               virtualclass.wb[wId].closeElem(font);
+//             } else if (colorList !== null && colorList.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+//               virtualclass.wb[wId].closeElem(colorList);
+//             }
 
-            if (!ev.target.classList.contains('icon-shapes') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
-              const shapes = document.querySelector(`#shapes${wId}`);
-              if (shapes !== null && shapes.classList.contains('open')) {
-                virtualclass.wb[wId].closeElem(shapes);
-              }
-            }
-          }
-        }
+//             if (!ev.target.classList.contains('icon-shapes') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+//               const shapes = document.querySelector(`#shapes${wId}`);
+//               if (shapes !== null && shapes.classList.contains('open')) {
+//                 virtualclass.wb[wId].closeElem(shapes);
+//               }
+//             }
+//           }
+//         }
       });
     },
 

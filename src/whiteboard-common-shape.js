@@ -19,29 +19,47 @@ class WhiteboardCommonShape {
     };
   }
 
+  sendMouseDownData(pointer) {
+    virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
+    const newData = {
+      event: 'd',
+      name: this.name,
+      x: pointer.x,
+      y: pointer.y,
+    };
+    const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
+    virtualclass.wbWrapper.msg.send(data);
+    virtualclass.wbWrapper.gObj.previousData = newData;
+  }
+
+  sendMouseMoveData(pointer) {
+    if (!virtualclass.gObj.lastSendDataTime) {
+      virtualclass.gObj.lastSendDataTime = new Date().getTime();
+    }
+    const newData = {
+      event: 'm',
+      name: this.name,
+      x: pointer.x,
+      y: pointer.y
+    };
+    virtualclass.wbWrapper.msg.optimizeToSend(newData, 2000, 'sp');
+  }
+
   mouseDown(pointer, whiteboard, event) {
     this.innerMouseDown(pointer, whiteboard, event);
     if (!event.e.isTrusted) return;
+    virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
     if (this.name === 'freeDrawing') {
       whiteboard.canvas.freeDrawingBrush.width = this.coreObj.strokeWidth * virtualclass.zoom.canvasScale;
       this.mousedown = true;
-      virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
+      
       // virtualclass.gObj.startTime = new Date().getTime();
       this.chunks.push(`${pointer.x}_${pointer.y}_d`);
       console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', pointer.x, pointer.y);
       virtualclass.wbWrapper.gObj.previousData = pointer;
     } else {
-      virtualclass.gObj.lastSendDataTime = new Date().getTime();
       // ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
-      const newData = {
-        event: 'd',
-        name: this.name,
-        x: pointer.x,
-        y: pointer.y,
-      };
-      const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
-      virtualclass.wbWrapper.msg.send(data);
-      virtualclass.wbWrapper.gObj.previousData = newData;
+      this.sendMouseDownData(pointer);
     }
   }
 
@@ -50,7 +68,6 @@ class WhiteboardCommonShape {
     if (this.name === 'freeDrawing') {
       whiteboard.canvas.freeDrawingBrush.width = this.coreObj.strokeWidth * virtualclass.zoom.canvasScale;
       // if (actualEvent) return;
-      const cwhiteboard = whiteboard;
       // cwhiteboard.canvas.isDrawingMode = true;
       // const event = virtualclass.wbWrapper.util.readyMouseEvent('mousedown', pointer);
       // whiteboard.canvas.upperCanvasEl.dispatchEvent(event);
@@ -121,7 +138,6 @@ class WhiteboardCommonShape {
         data = virtualclass.wbWrapper.protocol.encode('sp', newData);
         virtualclass.wbWrapper.msg.send(data);
         console.log('sending the data here guys ==== MOUSE UP', JSON.stringify(data));
-
       }
     }
     console.log(" DELETE==JAI ");

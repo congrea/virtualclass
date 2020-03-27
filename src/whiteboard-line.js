@@ -5,17 +5,7 @@ class WhiteboardLine extends WhiteboardCommonShape {
   }
 
   mouseMove(pointer, whiteboard) {
-    if (!virtualclass.gObj.lastSendDataTime) {
-      virtualclass.gObj.lastSendDataTime = new Date().getTime();
-    }
-
-    const newData = {
-      event: 'm',
-      name: this.name,
-      x: pointer.x,
-      y: pointer.y,
-    };
-    virtualclass.wbWrapper.msg.optimizeToSend(newData, 2000, 'sp');
+    this.sendMouseMoveData(pointer);
     this.innerMouseMove(pointer, whiteboard);
   }
 

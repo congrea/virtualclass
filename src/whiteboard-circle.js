@@ -4,42 +4,54 @@ class WhiteboardCircle  extends WhiteboardCommonShape {
     this.name = name;
   }
 
-  mouseMove(pointer, whiteboard) {
-    if (!virtualclass.gObj.lastSendDataTime) {
-      virtualclass.gObj.lastSendDataTime = new Date().getTime();
-    }
+  mouseDown(pointer, whiteboard, event) {
+    this.innerMouseDown(pointer, whiteboard, event);
+    if (!event.e.isTrusted) return;
+    this.sendMouseDownData(pointer);
+  }
 
-    const newData = {
-      event: 'm',
-      name: this.name,
-      x: pointer.x,
-      y: pointer.y
-    };
-    virtualclass.wbWrapper.msg.optimizeToSend(newData, 2000, 'sp');
+  innerMouseDown(pointer, whiteboard) {
+    this.mousedown = true;
+    this.startLeft = pointer.x;
+    this.startTop = pointer.y;
+    this.coreObj.left = this.startLeft;
+    this.coreObj.top = this.startTop;
+    this.coreObj.rx = pointer.x - this.startLet;
+    this.coreObj.ry = pointer.y - this.startTop;
+    this.coreObj.angle = 0;
+
+    this[this.name] = new fabric.Ellipse(this.coreObj); // add object
+    whiteboard.canvas.add(this[this.name]);
+  }
+
+  mouseMove(pointer, whiteboard) {
+    this.sendMouseMoveData(pointer);
     this.innerMouseMove(pointer, whiteboard);
   }
 
   innerMouseMove(pointer, whiteboard) {
-    if (!this.mousedown) return;
-    const newLeft = pointer.x;
-    const newTop = pointer.y;
-
-    const radius = Math.abs(this.startTop - newTop) / 2;
-    console.log('====> my radius ', radius);
-
-    this.circle.set({ radius : radius});
-
-    if ( this.startLeft > newLeft) {
-      this.circle.set({originX: 'right' });
-    } else {
-      this.circle.set({originX: 'left' });
+    let rx = Math.abs(this.startLeft - pointer.x) / 2;
+    let ry = Math.abs(this.startTop - pointer.y) / 2;
+    if (rx > this.circle.strokeWidth) {
+      rx -= this.circle.strokeWidth / 2;
     }
 
-    if (this.startTop > newTop) {
-      this.circle.set({originY: 'bottom'  });
-    } else {
-      this.circle.set({originY: 'top'  });
+    if (ry > this.circle.strokeWidth) {
+      ry -= this.circle.strokeWidth / 2
     }
-     whiteboard.canvas.renderAll();
+
+    this.circle.set({ rx: rx, ry: ry});
+    
+    if(this.startLeft > pointer.x){
+        this.circle.set({originX: 'right' });
+    } else {
+        this.circle.set({originX: 'left' });
+    }
+    if(this.startTop > pointer.y){
+        this.circle.set({originY: 'bottom'  });
+    } else {
+        this.circle.set({originY: 'top'  });
+    }
+    whiteboard.canvas.renderAll();
   }
 }

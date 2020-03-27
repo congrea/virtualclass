@@ -9,6 +9,7 @@ class Whiteboard {
     this.lineObj = new WhiteboardLine('line');
     this.triangleObj = new WhiteboardTriangle('triangle');
     this.circleObj = new WhiteboardCircle('circle');
+    this.textObj = new WhiteboardText('text');
     this.gObj = {};
   }
 
@@ -34,6 +35,9 @@ class Whiteboard {
     this.canvas.on('mouse:down', this.handlerMouseDown.bind(this));
     this.canvas.on('mouse:move', this.handlerMouseMove.bind(this));
     this.canvas.on('mouse:up', this.handlerMouseUp.bind(this));
+    this.canvas.on('text:editing:exited', () => {
+      setTimeout(() => { virtualclass.wbWrapper.gObj.textEditing = false; }, 0);
+    });
   }
 
   removeMouseMovementHandlers() {
@@ -51,6 +55,7 @@ class Whiteboard {
       this.activeAllObj.activeDown = true;
     } else if (event.deselected) {
       this.activeAllObj.activeDown = false;
+      virtualclass.wbWrapper.gObj.textSelected = false;
     }
   }
 
@@ -89,7 +94,8 @@ class Whiteboard {
     this.canvas.isDrawingMode = false;
     const currentTool = tool;
     this.selectedTool = currentTool;
-    if (this.selectedTool !== 'rectangle' &&  this.selectedTool !== 'line' && this.selectedTool !== 'circle' && this.selectedTool !== 'triangle') {
+    if (this.selectedTool !== 'rectangle' &&  this.selectedTool !== 'line' && 
+    this.selectedTool !== 'circle' && this.selectedTool !== 'triangle' && this.selectedTool !== 'text') {
       this[currentTool]();
     } else {
       this.activeAllObj.disable(virtualclass.gObj.currWb);

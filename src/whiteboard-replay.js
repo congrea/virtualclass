@@ -25,8 +25,11 @@ class WhiteboardReplay {
         evt = virtualclass.wbWrapper.util.readyMouseEvent(data.event, data.actual);
         virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
         break;
-      case 'cr': // clear whiteboard
+      case 'cr': // Clear whiteboard
         virtualclass.wb[data.actual].clear();
+      
+      case 'tx': // Create text
+        virtualclass.wb[wid].textObj.renderText(data.actual, virtualclass.wb[wid]);
 
       default:
         console.log('====> do nothing');

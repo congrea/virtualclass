@@ -35,8 +35,8 @@ class Whiteboard {
     this.canvas.on('mouse:down', this.handlerMouseDown.bind(this));
     this.canvas.on('mouse:move', this.handlerMouseMove.bind(this));
     this.canvas.on('mouse:up', this.handlerMouseUp.bind(this));
-    this.canvas.on('text:editing:exited', () => {
-      setTimeout(() => { virtualclass.wbWrapper.gObj.textEditing = false; }, 0);
+    this.canvas.on('text:editing:exited', (textObj) => { // TODO, this need to be removed
+      setTimeout(() => { this.textObj.finalizeText(textObj); }, 0);
     });
   }
 
@@ -50,7 +50,7 @@ class Whiteboard {
   }
 
   handlerSelection(event) {
-    if (event.selected) {
+    if (event.selected && this.selectedTool === 'activeAll') {
       console.log('====> mouse down for activeness');
       this.activeAllObj.activeDown = true;
     } else if (event.deselected) {

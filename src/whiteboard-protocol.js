@@ -67,7 +67,7 @@ class WhiteboardProtocol {
           newData.actual.y += toolBar ? toolBar.offsetHeight : 44;
           const appOptionsToolbar = document.getElementById('virtualclassAppOptionsCont');
           newData.actual.x += appOptionsToolbar ? appOptionsToolbar.offsetWidth : 55;
-        } 
+        }
         const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
         newData.actual.x -= canvasWrapper.scrollLeft;
         newData.actual.y -= canvasWrapper.scrollTop;
@@ -131,4 +131,23 @@ class WhiteboardProtocol {
     }
     return result;
   }
+
+  tx(data, type) { // Creating the text
+    let newData;
+    if (type === 'encode') {
+      newData = {
+        wb: [`tx_${data.left}_${data.top}_${data.text}`],
+        cf: 'wb',
+      };
+    } else {
+      newData = {
+        action: 'tx',
+        tool: 'text',
+        shape: 'text',
+        event: 'mousedown',
+        actual: { x: +data[1], y: +data[2], value: data[3] },
+      };
+    }
+    return newData;
+  } 
 }

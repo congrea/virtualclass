@@ -38,11 +38,11 @@ class WhiteboardMessage {
     virtualclass.wbWrapper.gObj.previousData = data;
     virtualclass.wbWrapper.gObj.presentSendDataTime = new Date().getTime();
     const timeDifference = (virtualclass.wbWrapper.gObj.presentSendDataTime - virtualclass.wbWrapper.gObj.lastSentDataTime);
-    if (timeDifference > time) {
+    if (timeDifference >= time) {
       if (type) {
-        data = virtualclass.wbWrapper.protocol.encode(type, data);
-      } 
-      this.send(data);
+        const newData = virtualclass.wbWrapper.protocol.encode(type, data);
+        this.send(newData);
+      }
       virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
       if (type === 'sf') {
         virtualclass.wb[virtualclass.gObj.currWb].freeDrawingObj.chunks.length = 0; // empty the free drarwing after bulk

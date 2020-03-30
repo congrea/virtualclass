@@ -10576,6 +10576,9 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
         }
       }
       var target = this._searchPossibleTargets(this._objects, pointer);
+      if (target) {
+        console.log('found traget suman without zoom ', JSON.stringify(pointer),  ' orginal ', e.clientX, ' ', e.clientY);
+      }
       if (e[this.altSelectionKey] && target && activeTarget && target !== activeTarget) {
         target = activeTarget;
         this.targets = activeTargetSubs;

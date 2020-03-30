@@ -4517,17 +4517,23 @@ body {
 }
 
 #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn .warningWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 70%;
+  padding: 5rem;
+  flex: 1;
+}
+
+#virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer {
+  padding: 5rem;
+}
+
+#virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer p {
+  font-size: 19px;
+  color: #c0c0c0;
 }
 
 #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer button {
-  background-color: inherit;
+  background-image: none !important;
   border-radius: 8px;
+  background-color: transparent;
   border: 1px solid white;
   color: white;
   font-size: 1em;
@@ -4536,9 +4542,6 @@ body {
 
 #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn .warningWrapper p {
   font-size: 20px;
-
-  /* font-weight: 300; */
-  margin-top: 28px;
   color: #c0c0c0;
 }
 
@@ -4572,7 +4575,8 @@ body {
 
 @media only screen and (orientation: portrait) {
   #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn {
-    display: block;
+    display: flex;
+    flex-direction: column;
     height: 100%;
     background-color: #000;
     color: #fff;

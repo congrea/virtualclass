@@ -405,6 +405,7 @@
               const promptEvent = window.deferredPrompt;
               if (!promptEvent) {
                 // The deferred prompt isn't available.
+                // divInstall.classList.toggle('hidden', true);
                 return;
               }
               // Show the install prompt.
@@ -417,6 +418,12 @@
                 window.deferredPrompt = null;
                 // Hide the install button.
                 // divInstall.classList.toggle('hidden', true);
+                if (result.outcome === 'accepted') {
+                  console.log('User accepted the install prompt');
+                  divInstall.classList.toggle('hidden', true);
+                } else {
+                  console.log('User dismissed the install prompt');
+                }
               });
             });
           }

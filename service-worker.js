@@ -20,7 +20,7 @@ self.addEventListener('install', (event) => {
   });
   
   self.addEventListener('fetch', (event) => {
-    console.log('Inside the fetch handler:', event);
+    console.log('Inside the fetch handler:',event);
     // event.respondWith(event.request);
     // event.respondWith(
     //   caches.match(event.request)

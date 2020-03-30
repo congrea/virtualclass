@@ -136,7 +136,7 @@ class WhiteboardProtocol {
     let newData;
     if (type === 'encode') {
       newData = {
-        wb: [`tx_${data.left}_${data.top}_${data.text}`],
+        wb:  (data.index != null) ? [`tx_${data.x}_${data.y}_${data.text}_${data.index}`] : [`tx_${data.x}_${data.y}_${data.text}`],
         cf: 'wb',
       };
     } else {
@@ -147,6 +147,7 @@ class WhiteboardProtocol {
         event: 'mousedown',
         actual: { x: +data[1], y: +data[2], value: data[3] },
       };
+      if (data[4]) newData.actual.index = data[4];
     }
     return newData;
   } 

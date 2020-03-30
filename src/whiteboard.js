@@ -53,6 +53,8 @@ class Whiteboard {
     if (event.selected && this.selectedTool === 'activeAll') {
       console.log('====> mouse down for activeness');
       this.activeAllObj.activeDown = true;
+    } else if (event.selected && event.selected[0].type === 'i-text') {
+      virtualclass.wbWrapper.gObj.textSelected = event.selected[0];
     } else if (event.deselected) {
       this.activeAllObj.activeDown = false;
       virtualclass.wbWrapper.gObj.textSelected = false;
@@ -97,7 +99,7 @@ class Whiteboard {
     if (this.selectedTool !== 'rectangle' &&  this.selectedTool !== 'line' && 
     this.selectedTool !== 'circle' && this.selectedTool !== 'triangle' && this.selectedTool !== 'text') {
       this[currentTool]();
-    } else {
+    } else if (currentTool !== 'text') {
       this.activeAllObj.disable(virtualclass.gObj.currWb);
     }
   }

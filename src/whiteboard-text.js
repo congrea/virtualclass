@@ -59,6 +59,7 @@ class WhiteboardText {
   }
 
   createText(textObj, whiteboard) {
+    if (this.isEmptyText(whiteboard)) return;
     console.log('found traget suman receive ', JSON.stringify(textObj));
     this.startLeft = textObj.x;
     this.startTop = textObj.y;
@@ -68,6 +69,16 @@ class WhiteboardText {
     this[this.name] = new fabric.IText(textValue, this.coreObj); // add object
     //this[this.name].on('selected', this.afterSelected.bind(this));
     whiteboard.canvas.add(this[this.name]);
+  }
+
+  isEmptyText (whiteboard) {
+    const allText = whiteboard.canvas.getObjects('i-text');
+    for (let i = 0; i < allText.length; i++) {
+      if (allText[i].text === 'Enter your text') {
+        return true;
+      }
+    }
+    return false;
   }
 
   finalizeText(textObj) {

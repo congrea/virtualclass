@@ -28,6 +28,10 @@ class WhiteboardReplay {
       case 'cr': // Clear whiteboard
         virtualclass.wb[data.actual].clear();
         break;
+      case 'ds': // Discard selection / Discard active object
+        virtualclass.wb[data.actual].canvas.discardActiveObject();
+        virtualclass.wb[data.actual].canvas.renderAll();
+        break;
       case 'tx': // Create text
         virtualclass.wb[wid].textObj.renderText(data.actual, virtualclass.wb[wid]);
 

@@ -150,5 +150,18 @@ class WhiteboardProtocol {
       if (data[4]) newData.actual.index = data[4];
     }
     return newData;
-  } 
+  }
+  
+  ds(data, type) { // discard selection
+    let newData;
+    if (type === 'encode') {
+      const dataArr = data.split('_');
+      const whiteboardId = dataArr[dataArr.length - 1];
+      newData = { wb: [`ds_${whiteboardId}`], cf: 'wb' };
+    } else {
+      const whiteboardId = `_doc_${data[data.length - 1]}_${data[data.length - 1]}`;
+      newData = { action: data[0], actual: whiteboardId};
+    }
+    return newData;
+  }
 }

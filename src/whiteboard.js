@@ -89,6 +89,13 @@ class Whiteboard {
 
   toolbarHandler(ev) {
     this.innerToolbarHandler(ev.currentTarget.parentNode.dataset.tool);
+    const activeObject = virtualclass.wb[virtualclass.gObj.currWb].canvas.getActiveObjects();
+    if (activeObject.length > 0) {
+      virtualclass.wb[virtualclass.gObj.currWb].canvas.discardActiveObject();
+      virtualclass.wb[virtualclass.gObj.currWb].canvas.renderAll();
+      const encodeData = virtualclass.wbWrapper.protocol.encode('ds', virtualclass.gObj.currWb);
+      virtualclass.wbWrapper.msg.send(encodeData);
+    }
   }
 
   innerToolbarHandler(tool) {

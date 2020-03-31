@@ -41,6 +41,9 @@
 #virtualclassCont.congrea .vceditor-toolbar {
   height: 2.75rem;
   line-height: 2.6875rem;
+  background-color: #fff !important;
+  border-top: none;
+  width: 100%;
 
   /* padding-left: 1.25rem; */
 
@@ -54,11 +57,6 @@
   -ms-user-select: none;
   user-select: none;
   border-bottom-left-radius: 5px;
-}
-
-#virtualclassCont.congrea.student .vceditor-toolbar {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
 }
 
 #virtualclassCont.congrea .vceditor-toolbar-wrapper {
@@ -183,6 +181,13 @@
   float: right;
 }
 
+#virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  margin-left: -1px;
+}
+
 #virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn {
   background: #83c2b2; /* Old browsers */
   background: -moz-linear-gradient(top, #83c2b2 0%, #6cad9d 100%); /* FF3.6+ */
@@ -198,11 +203,6 @@
   color: #fff;
   border: none;
   font-weight: 400;
-}
-
-#virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:hover {
-  background-image: none;
-  background-color: #68a697;
 }
 
 #virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:last-child {
@@ -221,8 +221,8 @@
   vertical-align: middle;
 
   /* font-size: 16px; */
-  background-color: #fcfcfc;
-  border: 1px solid #c9c9c9;
+  background-color: #28323c;
+  border: 0.5px solid #555;
   border-bottom-width: 4px;
   color: #535151;
 }
@@ -241,13 +241,6 @@
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 } */
 
-#virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  margin-left: -1px;
-}
-
 #virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:first-child {
   border-bottom-left-radius: 6px;
   border-top-left-radius: 6px;
@@ -258,21 +251,8 @@
   margin-left: 0;
 }
 
-#virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:last-child {
-  border-bottom-right-radius: 6px;
-  border-top-right-radius: 6px;
-  -webkit-border-bottom-right-radius: 6px;
-  -webkit-border-top-right-radius: 6px;
-  -moz-border-radius-bottomright: 6px;
-  -moz-border-radius-topright: 6px;
-}
-
 #virtualclassCont.congrea .vceditor-toolbar-wrapper .undo-group .vceditor-btn {
   padding: 4px 5px 3px 5px;
-}
-
-#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-image .vceditor-btn {
-  padding: 4px 4px 3px 6px;
 }
 
 #virtualclassCont.congrea .vceditor-dropdown {
@@ -499,6 +479,7 @@
 /* Gray color */
 
 #virtualclassCont.congrea .vceditor-dialog-div .vceditor-btn-group .vceditor-btn:hover {
+  background-image: none;
   background-color: #62e47d;
 }
 
@@ -510,6 +491,10 @@
   background-color: #ff9f41;
 }
 
+#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-image .vceditor-btn {
+  padding: 4px 4px 3px 6px;
+}
+
 #virtualclassCont.congrea a.vceditor-btn:hover,
 #virtualclassCont.congrea .vceditor-dropdown-menu a:hover,
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-style-group:hover,
@@ -518,13 +503,6 @@
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group:hover {
   background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%) !important;
   border-color: #6f9b90;
-}
-
-#virtualclassCont.congrea a.vceditor-btn,
-#virtualclassCont.congrea a.vceditor-btn:visited,
-#virtualclassCont.congrea a.vceditor-btn:active {
-  background-color: #28323c;
-  border: 0.5px solid #555;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassEditorRich #EditorRichwriteModeBox {
@@ -573,14 +551,10 @@
   top: 2px;
 }
 
-#virtualclassCont.congrea .vceditor-toolbar {
-  background-color: #fff !important;
-  border-top: none;
-  width: 100%;
-}
-
 #virtualclassCont.congrea.student .vceditor-toolbar {
   width: 100%;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 #virtualclassCont.congrea .vceditor-btn-group.editor-font {

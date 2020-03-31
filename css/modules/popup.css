@@ -198,7 +198,6 @@
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#eeeeee', endColorstr='#dddddd', GradientType=0); /* IE6-9 */
   padding: 9px 30px;
   border-radius: 5px;
-  border: none;
   margin-left: 160px;
   margin-top: 10px;
   margin-bottom: 15px;
@@ -229,7 +228,6 @@
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#dddddd', endColorstr='#eeeeee', GradientType=0); /* IE6-9 */
   padding: 9px 30px;
   border-radius: 5px;
-  border: none;
   margin-left: 160px;
   margin-top: 10px;
   margin-bottom: 15px;

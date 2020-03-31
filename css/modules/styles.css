@@ -60,6 +60,10 @@
   clear: both;
 }
 
+#virtualclassCont.congrea .commandToolsWrapper a img {
+  padding: 13px 20px;
+}
+
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions a img {
   padding: 12px;
   opacity: 0.699999988079071044921875;
@@ -81,8 +85,17 @@
   border-bottom-right-radius: 8px;
 }
 
-#virtualclassCont.congrea.student #videoMinMize,
 #virtualclassCont.congrea #videoMinMize {
+  height: 16px;
+  position: absolute;
+  width: 16px;
+  right: -1px;
+  border-left: none;
+  border-bottom: none;
+}
+
+#virtualclassCont.congrea #videoMinMize,
+#virtualclassCont.congrea.student #videoMinMize {
   background-image: url('/virtualclass/images/min.png') !important;
   background-position: left top;
   background-repeat: no-repeat;
@@ -92,11 +105,39 @@
   z-index: 100;
 }
 
-#virtualclassCont.congrea.student #videoMaxMize,
 #virtualclassCont.congrea #videoMaxMize {
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-right: none;
+  height: 16px;
+  right: 0;
+  top: -33px;
+  width: 16px;
+}
+
+#virtualclassCont.congrea #videoMaxMize,
+#virtualclassCont.congrea.student #videoMaxMize {
   background-image: url('/virtualclass/images/max.png') !important;
   background-position: left top;
   background-repeat: no-repeat;
+}
+
+#virtualclassCont.congrea #videos {
+  margin: 0;
+  width: 930px;
+  margin-top: 20px;
+  padding: 15px;
+  clear: both;
+}
+
+#virtualclassCont.congrea.student #videos #videoMaxMize {
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-right: none;
+  height: 16px;
+  right: 0;
+  top: -33px;
+  width: 16px;
 }
 
 #virtualclassCont.congrea.student #videos #videoMinMize,
@@ -108,25 +149,13 @@
   right: -1px;
 }
 
-#virtualclassCont.congrea.student #videos #videoMinMize,
-#virtualclassCont.congrea #videoMinMize {
+#virtualclassCont.congrea.student #videos #videoMinMize {
   height: 16px;
   position: absolute;
   width: 16px;
   right: -1px;
   border-left: none;
   border-bottom: none;
-}
-
-#virtualclassCont.congrea.student #videos #videoMaxMize,
-#virtualclassCont.congrea #videoMaxMize {
-  border-left: 1px solid #ccc;
-  border-top: 1px solid #ccc;
-  border-right: none;
-  height: 16px;
-  right: 0;
-  top: -33px;
-  width: 16px;
 }
 
 #virtualclassCont.congrea.student #videos {
@@ -157,6 +186,14 @@
   box-shadow: 0 0 4px #222;
 }
 
+#virtualclassCont.congrea .commandToolsWrapper a,
+#virtualclassCont.congrea video,
+#virtualclassCont.congrea canvas,
+#virtualclassCont.congrea #allVideosCont,
+#virtualclassCont.congrea {
+  float: left;
+}
+
 #virtualclassCont.congrea #t_assign.controlCmd a {
   background-image: none;
   padding-right: 15px;
@@ -180,18 +217,6 @@
   margin-top: 0;
 }
 
-#virtualclassCont.congrea .commandToolsWrapper a,
-#virtualclassCont.congrea video,
-#virtualclassCont.congrea canvas,
-#virtualclassCont.congrea #allVideosCont,
-#virtualclassCont.congrea {
-  float: left;
-}
-
-#virtualclassCont.congrea .commandToolsWrapper a img {
-  padding: 13px 20px;
-}
-
 #virtualclassCont.congrea #canvasDrawMsgContFirefox {
   left: 510px;
   position: absolute;
@@ -201,7 +226,8 @@
 #virtualclassCont.congrea #canvas {
   border: black solid 1px;
   display: block;
-  border: none;
+
+  /* border: none; */
 }
 
 #virtualclassCont.congrea .numbers {
@@ -220,15 +246,6 @@
   padding: 5px;
   min-height: 62px;
   text-align: left;
-}
-
-#virtualclassCont.congrea #videos {
-  margin: 0;
-  padding: 0;
-  width: 930px;
-  margin-top: 20px;
-  padding: 15px;
-  clear: both;
 }
 
 #virtualclassCont.congrea #localVideo {
@@ -463,13 +480,18 @@
   margin-left: 0;
 }
 
+#virtualclassCont.congrea .commandToolsWrapper #t_connectionoff a {
+  background-image: url(/virtualclass/images/border-img.png);
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+
 #virtualclassCont.congrea .commandToolsWrapper #t_assign.controlCmd a {
   background-image: none;
   padding-right: 15px;
 }
 
 #virtualclassCont.congrea .teacher .commandToolsWrapper #t_assign.controlCmd a,
-#virtualclassCont.congrea .commandToolsWrapper #t_connectionoff a,
 .con.controlCmd,
 .controlCmd.coff {
   background-image: url(/virtualclass/images/border-img.png);

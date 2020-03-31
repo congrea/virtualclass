@@ -159,6 +159,16 @@
   font-weight: normal;
 }
 
+#virtualclassCont.congrea #layoutQuizBody .quizArea label,
+#virtualclassCont.congrea #layoutQuizBody span.questext,
+#virtualclassCont.congrea #layoutQuizBody #timeText,
+#virtualclassCont.congrea #layoutQuizBody .qscolor,
+#virtualclassCont.congrea #layoutQuizBody .q-area div,
+#virtualclassCont.congrea #layoutQuizBody button#closeQzBt,
+#virtualclassCont.congrea #layoutQuizBody div#QstnName {
+  letter-spacing: 0.02em;
+}
+
 #virtualclassCont.congrea #layoutQuizBody.quizMainCont input[type="radio"] + label {
   padding-left: 0.5em;
 }
@@ -268,16 +278,6 @@
   color: white;
 }
 
-#virtualclassCont.congrea #layoutQuizBody .quizArea label,
-#virtualclassCont.congrea #layoutQuizBody span.questext,
-#virtualclassCont.congrea #layoutQuizBody #timeText,
-#virtualclassCont.congrea #layoutQuizBody .qscolor,
-#virtualclassCont.congrea #layoutQuizBody .q-area div,
-#virtualclassCont.congrea #layoutQuizBody button#closeQzBt,
-#virtualclassCont.congrea #layoutQuizBody div#QstnName {
-  letter-spacing: 0.02em;
-}
-
 #virtualclassCont.congrea #layoutQuizBody #resultQzLayout.alert {
   margin-top: 10px;
 }
@@ -301,6 +301,13 @@
   font-weight: bold;
 }
 
+.path-mod-congrea-quiz span.questext h3 {
+  letter-spacing: 0.02em;
+  font-size: 16px;
+  margin: 0;
+  display: inline;
+}
+
 #resultDiv h3 {
   margin: 0;
   color: #333;
@@ -316,13 +323,6 @@
 
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal .nav a {
   color: #555;
-}
-
-#virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .reportPreview a:hover,
-#virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .questionPreview a:hover {
-  color: #fff;
-  background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
-  opacity: 0.5;
 }
 
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal .nav .active a {
@@ -381,10 +381,6 @@
   /* max-height: 48px; */
   min-height: 2.75rem !important;
   max-height: 2.75rem;
-}
-
-#virtualclassCont.congrea.student #virtualclassQuiz #layoutQuiz .nav.navbar,
-#virtualclassCont.congrea.student #virtualclassPoll #layoutPoll .nav.navbar {
   border-radius: 0;
 }
 
@@ -402,9 +398,6 @@
 
 #virtualclassCont.congrea.teacher #layoutQuiz #mszBoxQuiz.show {
   display: block;
-}
-
-#virtualclassCont.congrea.teacher #layoutQuiz #mszBoxQuiz.show {
   border: 1px solid #c8ddb8;
   border-radius: 5px;
 
@@ -431,8 +424,7 @@
 }
 
 #virtualclassCont.congrea #quizModalBody #contQzBody #slickQuiz .quizArea .questions li h3,
-#virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody .q-area h3,
-.path-mod-congrea-quiz span.questext h3 {
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #qzOverv #attemptQzBody .q-area h3 {
   letter-spacing: 0.02em;
   font-size: 16px;
   margin: 0;
@@ -471,7 +463,17 @@
   }
 }
 
-#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover,
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover {
+  background-color: #fff;
+}
+
+#virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .reportPreview a:hover,
+#virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .questionPreview a:hover {
+  color: #fff;
+  background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
+  opacity: 0.5;
+}
+
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover:active {
   background-color: #fff;
 }
@@ -530,14 +532,14 @@
     font-size: 15px;
   }
 
-  #virtualclassCont.congrea #virtualclassQuiz .path-mod-congrea-quiz .questions span.questext span {
-    font-family: inherit !important;
-    font-size: inherit !important;
-  }
-
   #virtualclassCont.congrea #virtualclassQuiz .path-mod-congrea-quiz .questions .answers span {
     font-family: inherit !important;
     font-size: 12px;
+  }
+
+  #virtualclassCont.congrea #virtualclassQuiz .path-mod-congrea-quiz .questions span.questext span {
+    font-family: inherit !important;
+    font-size: inherit !important;
   }
 
   #virtualclassCont.congrea #virtualclassQuiz #layoutQuizBody .quizResults h3 {

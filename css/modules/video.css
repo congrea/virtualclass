@@ -2,34 +2,6 @@
   margin: 0;
 }
 
-/* #virtualclassCont.congrea.teacher #videoHostContainer { */
-
-/* border: 2px solid #ddd !important; */
-
-/* padding: 5px; */
-
-/* width: auto; */
-
-/* margin-left: 15px; */
-
-/* } */
-
-/* #virtualclassCont.congrea.teacher #virtualclassAppRightPanel #videoHostContainer, */
-
-/* #virtualclassCont.congrea.teacher #virtualclassAppRightPanel #videoHostContainer #videoHostSource, */
-
-/* #virtualclassCont.congrea.student #virtualclassAppRightPanel #videoHostContainer, */
-
-/* #virtualclassCont.congrea.student #virtualclassAppRightPanel #videoHostContainer #videoHostSource { */
-
-/* margin: 0; */
-
-/* padding: 0; */
-
-/* border-width: 0 !important; */
-
-/* } */
-
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #videoHostContainer #videoParticipate {
   border-width: 0;
   padding: 0;
@@ -44,18 +16,6 @@
   float: right;
   width: 320px;
   height: 65px;
-}
-
-#virtualclassCont.congrea #dispVideo {
-  /* width: 97%; */
-
-  /* height: 90vh; */
-
-  /* width: 96%; */
-
-  /* height: 93vh; */
-
-  /* margin-left : 20px; */
 }
 
 #virtualclassCont.congrea #videourl {

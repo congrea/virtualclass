@@ -1,5 +1,6 @@
 #virtualclassCont.congrea #networkStatusContainer {
   order: 2;
+  cursor: pointer;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #proposedSpeed {

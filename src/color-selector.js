@@ -287,6 +287,7 @@
         + '#virtualclassCont #virtualclassAppFooterPanel #recording.show:hover, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #bookmark:hover, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenExitButton:hover, '
+        + '#virtualclassCont.congrea #networkStatusContainer:hover, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenButton:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action .addQuestion-icon:hover '
         + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%)}`

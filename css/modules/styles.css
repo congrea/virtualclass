@@ -3028,11 +3028,11 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li#speakerPressOnce {
-  margin: 0.4375rem 0.625rem 0.4375rem 0.9375rem;
+  margin: 0.375rem 0.625rem 0.5rem 0.9375rem;
 }
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li.videoSwitchCont {
-  margin: 0.4375rem 0.8125rem 0.4375rem 0.75rem;
+  margin: 0.375rem 0.8125rem 0.5rem 0.75rem;
 }
 
 #virtualclassCont.congrea li#appSettingCtrl,
@@ -4343,8 +4343,8 @@ span#usertab_text {
 #virtualclassCont #virtualclassAppFooterPanel #recording span.recordingText {
   margin-left: 0.875rem;
   line-height: 1.125rem;
-  font-size: 0.9375rem;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 @keyframes pulse {

@@ -458,8 +458,7 @@
   }
 
   #virtualclassCont.congrea[device="mobile"] #networkStatusContainer #connectingRoomIcon {
-    margin-top: 1px;
-    margin-right: 10px;
+    margin: 0.3rem 0.8rem
   }
 
   #virtualclassCont.congrea #virtualclassPreCheck .result div {

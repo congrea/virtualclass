@@ -4197,6 +4197,13 @@ span#usertab_text {
   right: 3.25rem;
 }
 
+#virtualclassCont.congrea #fullScreenButton .fullScreen,
+#virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
+  padding: 0.6875rem 1.125rem 0.75rem 1.125rem;
+  line-height: 1.25rem;
+  font-size: 1.25rem;
+}
+
 #virtualclassCont.congrea #fullScreenExitButton {
   display: none;
 }
@@ -4233,7 +4240,7 @@ span#usertab_text {
   color: #fff;
   order: 1;
   z-index: 1000;
-  padding: 0.71875rem 0.9375rem 0.78125rem 0.9375rem;
+  padding: 0.71875rem 1rem 0.78125rem 1rem;
   cursor: pointer;
 }
 
@@ -4341,7 +4348,7 @@ span#usertab_text {
 } */
 
 #virtualclassCont #virtualclassAppFooterPanel #recording span.recordingText {
-  margin-left: 0.875rem;
+  margin-left: 0.625rem;
   line-height: 1.125rem;
   font-size: 12px;
   font-weight: 500;
@@ -4349,19 +4356,19 @@ span#usertab_text {
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 5px 0 rgba(196, 2, 2, 0.4);
+    box-shadow: 0 0 3px 0 rgba(196, 2, 2, 0.4);
   }
 
   65% {
-    box-shadow: 0 0 5px 10px rgba(173, 0, 0, 0.4);
+    box-shadow: 0 0 5px 8px rgba(173, 0, 0, 0.4);
   }
 
   70% {
-    box-shadow: 0 0 5px 10px rgba(173, 0, 0, 0.3);
+    box-shadow: 0 0 5px 8px rgba(173, 0, 0, 0.3);
   }
 
   100% {
-    box-shadow: 0 0 5px 10px rgba(173, 0, 0, 0);
+    box-shadow: 0 0 5px 8px rgba(173, 0, 0, 0);
   }
 }
 
@@ -4371,15 +4378,15 @@ span#usertab_text {
   }
 
   65% {
-    box-shadow: 0 0 5px 10px rgba(136, 88, 0, 0.4);
+    box-shadow: 0 0 5px 8px rgba(136, 88, 0, 0.4);
   }
 
   70% {
-    box-shadow: 0 0 5px 10px rgba(136, 88, 0, 0.3);
+    box-shadow: 0 0 5px 8px rgba(136, 88, 0, 0.3);
   }
 
   100% {
-    box-shadow: 0 0 5px 10px rgba(150, 98, 1, 0);
+    box-shadow: 0 0 5px 8px rgba(150, 98, 1, 0);
   }
 }
 

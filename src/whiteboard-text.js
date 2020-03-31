@@ -1,13 +1,17 @@
 class WhiteboardText {
   constructor(name) {
+    this.default = {
+      rotatingPointOffset: 40,
+      cornerSize: 13,
+    }
     this.name = name;
     // this.selected = false,
     this.coreObj = {
       fill: '#333',
       fontWeight: 'normal',
-      fontSize: 30,
+      // fontSize: 30,
       fontFamily: 'arial',
-      padding: 10 ,
+      padding: 7 ,
     };
   }
 
@@ -66,6 +70,9 @@ class WhiteboardText {
     this.coreObj.left = this.startLeft;
     this.coreObj.top = this.startTop;
     const textValue = (textObj.value) ? textObj.value : 'Enter your text';
+    this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
+    this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
+    this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
     this[this.name] = new fabric.IText(textValue, this.coreObj); // add object
     //this[this.name].on('selected', this.afterSelected.bind(this));
     whiteboard.canvas.add(this[this.name]);

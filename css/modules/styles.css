@@ -4663,3 +4663,12 @@ body {
 #virtualclassCont.congrea #editPollModal #pollModalBody #contBody #enTimer label select {
   cursor: pointer;
 }
+
+html.pwa #virtualclassCont.congrea #fullScreenButton,
+html.pwa #virtualclassCont.congrea #fullScreenExitButton {
+  display: none;
+}
+
+html.pwa #virtualclassCont.congrea #bookmark {
+  right: 0;
+}

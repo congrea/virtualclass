@@ -164,4 +164,17 @@ class WhiteboardProtocol {
     }
     return newData;
   }
+
+  da(data, type) { // delete active, todo, da should be merge with ds
+    let newData;
+    if (type === 'encode') {
+      const dataArr = data.split('_');
+      const whiteboardId = dataArr[dataArr.length - 1];
+      newData = { wb: [`da_${whiteboardId}`], cf: 'wb' };
+    } else {
+      const whiteboardId = `_doc_${data[data.length - 1]}_${data[data.length - 1]}`;
+      newData = { action: data[0], actual: whiteboardId};
+    }
+    return newData;
+  }
 }

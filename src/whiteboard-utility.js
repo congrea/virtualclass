@@ -117,4 +117,13 @@ class WhiteboardUtility {
       shapeContainer.classList.add('open');
     }
   }
+
+  deleteActiveObject(event){
+    const whitebaord = virtualclass.wb[virtualclass.gObj.currWb];
+    whitebaord.canvas.remove(whitebaord.canvas.getActiveObject());
+    if (event) {
+      const encodeData = virtualclass.wbWrapper.protocol.encode('da', virtualclass.gObj.currWb);
+      virtualclass.wbWrapper.msg.send(encodeData);
+    }
+  }
 }

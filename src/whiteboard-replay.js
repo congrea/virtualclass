@@ -32,6 +32,9 @@ class WhiteboardReplay {
         virtualclass.wb[data.actual].canvas.discardActiveObject();
         virtualclass.wb[data.actual].canvas.renderAll();
         break;
+      case 'da': // Delete active object
+      virtualclass.wbWrapper.util.deleteActiveObject();
+      break;
       case 'tx': // Create text
         virtualclass.wb[wid].textObj.renderText(data.actual, virtualclass.wb[wid]);
 

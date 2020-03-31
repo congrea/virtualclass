@@ -235,8 +235,9 @@
         this.dirtyCorner = window.dirtyCorner;
         this.html.init(this);
         this.adapter = window.adapter;
-
+        
         virtualclass.api = api;
+        this.keyboard = new VirtualclassKeyboard();
 
         virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
         virtualclass.xhr = window.xhr;

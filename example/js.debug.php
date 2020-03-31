@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/keyboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>build/src/audio-g711-and-resampler.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>build/src/firebase-7.3.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/screendecode.js"></script>
@@ -44,6 +45,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-ping-pong.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
+
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-active.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-replay.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-protocol.js"></script>

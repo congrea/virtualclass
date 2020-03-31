@@ -19,6 +19,7 @@ class Whiteboard {
     console.log('====> canvas id ', `canvas${id}`);
     virtualclass.wbWrapper.util.createFabricNewInstance(id);
     // this.attachMouseMovementHandlers();
+    virtualclass.keyboard.init(id);
   }
 
   attachToolbarHandler(id) {

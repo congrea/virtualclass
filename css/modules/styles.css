@@ -2881,7 +2881,7 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea input#congreaUserSearch::-webkit-input-placeholder,
 #virtualclassCont.congrea input#ta_chrm2::-webkit-input-placeholder {
-  text-align: center;
+  text-align: left;
   opacity: 0.9;
   letter-spacing: 0.02em;
   font-size: 15px;

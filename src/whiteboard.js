@@ -145,5 +145,7 @@ class Whiteboard {
   clear() {
     this.canvas.clear();
     this.replayObjs = [];
+    this.canvas._objects = [];
+    
   }
 }

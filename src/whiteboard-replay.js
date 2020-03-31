@@ -27,7 +27,7 @@ class WhiteboardReplay {
         break;
       case 'cr': // Clear whiteboard
         virtualclass.wb[data.actual].clear();
-      
+        break;
       case 'tx': // Create text
         virtualclass.wb[wid].textObj.renderText(data.actual, virtualclass.wb[wid]);
 

@@ -99,7 +99,10 @@ class Whiteboard {
     if (this.selectedTool !== 'rectangle' &&  this.selectedTool !== 'line' && 
     this.selectedTool !== 'circle' && this.selectedTool !== 'triangle' && this.selectedTool !== 'text') {
       this[currentTool]();
-    } else if (currentTool !== 'text') {
+    } else if (currentTool === 'text') {
+      this.activeAllObj.enable(virtualclass.gObj.currWb, 'i-text');
+      this.activeAllObj.disableBut(virtualclass.gObj.currWb, 'i-text');
+    } else {
       this.activeAllObj.disable(virtualclass.gObj.currWb);
     }
   }
@@ -146,5 +149,6 @@ class Whiteboard {
     this.canvas.clear();
     this.replayObjs = [];
     this.canvas._objects = [];
+    
   }
 }

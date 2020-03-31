@@ -10,8 +10,14 @@ class WhiteboardActiveAll {
     return virtualclass.wbWrapper.protocol.encode('ac', newData);
   }
 
-  enable(wId) {
-    const allObjects = virtualclass.wb[wId].canvas.getObjects();
+  enable(wId, component) {
+    let allObjects;
+    if (component) {
+      allObjects = virtualclass.wb[wId].canvas.getObjects(component);
+    } else {
+      allObjects = virtualclass.wb[wId].canvas.getObjects();
+    }
+    
     for (let i = 0; i < allObjects.length; i += 1) {
       console.log('====> active all');
       allObjects[i].set('selectable', true);
@@ -22,6 +28,15 @@ class WhiteboardActiveAll {
     const allObjects = virtualclass.wb[wId].canvas.getObjects();
     for (let i = 0; i < allObjects.length; i += 1) {
       allObjects[i].set('selectable', false);
+    }
+  }
+
+  disableBut(wId, component) {
+    const allObjects = virtualclass.wb[wId].canvas.getObjects();
+    for (let i = 0; i < allObjects.length; i += 1) {
+      if (allObjects[i].type !== component) {
+        allObjects[i].set('selectable', false);
+      }
     }
   }
 

@@ -82,14 +82,19 @@ class WhiteboardText {
   }
 
   finalizeText(textObj) {
-    console.log('is text editing ', this.editingIndex);
     this.textEditing = false;
+    if (this.isDefault(textObj.target)) return;
+    console.log('is text editing ', this.editingIndex);
     virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
     console.log('found traget suman without zoom send x, y ', textObj.target.left, textObj.target.top);
     let data = {x: textObj.target.left, y: textObj.target.top, text: textObj.target.text};
     if (this.editingIndex != null) data.index = this.editingIndex;
     virtualclass.wbWrapper.msg.optimizeToSend(data, 0, 'tx');
     delete this.editingIndex;
+  }
+
+  isDefault(textObj) {
+    return (textObj.text.trim() == 'Enter your text');
   }
 
   afterSelected(obj) {

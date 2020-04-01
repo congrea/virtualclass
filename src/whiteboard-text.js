@@ -4,11 +4,11 @@ class WhiteboardText {
       rotatingPointOffset: 40,
       cornerSize: 13,
       fontSize: 20,
+      fill: '#337ab7',
     }
     this.name = name;
     // this.selected = false,
     this.coreObj = {
-      fill: '#333',
       fontWeight: 'normal',
       // fontSize: 30,
       fontFamily: 'arial',
@@ -78,6 +78,12 @@ class WhiteboardText {
     if (whiteboard.textFontSize) {
       this.coreObj.fontSize = +(whiteboard.textFontSize);
     }
+
+    this.coreObj.fill = this.default.fill;
+    if (whiteboard.activeToolColor) {
+      this.coreObj.fill =  whiteboard.activeToolColor;
+    }
+
     this[this.name] = new fabric.IText(textValue, this.coreObj); // add object
     //this[this.name].on('selected', this.afterSelected.bind(this));
     whiteboard.canvas.add(this[this.name]);

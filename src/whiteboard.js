@@ -157,6 +157,12 @@ class Whiteboard {
     virtualclass.wbWrapper.util.initActiveElement(`#t_font${this.wbId} ul`, { type: 'font', prop: 'font' });
   }
 
+  color() {
+    const colorElem = document.querySelector(`#commandToolsWrapper${this.wbId} .table`);
+    virtualclass.wbWrapper.util.handleTrayDisplay(colorElem);
+    virtualclass.wbWrapper.util.initActiveElement(`#colorList${this.wbId}`, { type: 'color', prop: 'color' });
+  }
+
 
 
   freeDrawing() {

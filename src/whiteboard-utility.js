@@ -173,6 +173,9 @@ class WhiteboardUtility {
     if (currElementValue != null) {
       ev.target.classList.add('selected');
       this.changeToolProperty(tool.type, currElementValue);
+      if (tool.type === 'color') {
+        document.querySelector(`#t_color${virtualclass.gObj.currWb} .disActiveColor`).style.backgroundColor = virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+      }
       const encodeData = virtualclass.wbWrapper.protocol.encode('ot', {type: tool.type, value : currElementValue});
       virtualclass.wbWrapper.msg.send(encodeData);
     }

@@ -5,13 +5,13 @@ class WhiteboardCommonShape {
     this.default = {
       rotatingPointOffset: 40,
       cornerSize: 13,
-      stroke: 1,
+      strokeWidth: 1,
+      stroke: '#337ab7',
     }
     this.coreObj = {
       angle: 0,
       selectable: false,
       fill: 'none',
-      stroke: '#0a0a0a',
       transparentCorners: false,
       width: 0,
       height: 0,
@@ -83,10 +83,16 @@ class WhiteboardCommonShape {
       this.coreObj.height = 1;
       this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
       this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
-      // this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
+      this.coreObj.strokeWidth = this.default.strokeWidth;
+      this.coreObj.stroke  = this.default.stroke;
       if (whiteboard.currStrkSize) {
         this.coreObj.strokeWidth =  +(whiteboard.currStrkSize);
       }
+
+      if (whiteboard.activeToolColor) {
+        this.coreObj.stroke =  whiteboard.activeToolColor;
+      }
+
       const toolName = virtualclass.wbWrapper.keyMap[this.name];
       if (this.name === 'line') {
         this.coreObj.points = [pointer.x, pointer.y, pointer.x, pointer.y]

@@ -109,6 +109,26 @@ class WhiteboardUtility {
     }
   }
 
+  closeTray() {
+   // this.selectedTool = null;
+    const elem = document.querySelector(`#commandToolsWrapper${virtualclass.gObj.currWb} .openTray`);
+    if (elem) elem.classList.remove('openTray')
+  }
+
+  openTray(elem) {
+    // this.selectedTool = null;
+    if (elem) elem.classList.add('openTray');
+  }
+
+  handleTrayDisplay(element) {
+    if (element.classList.contains('openTray')) {
+      this.selectedTool = null;
+      virtualclass.wbWrapper.util.closeTray();
+    } else {
+      virtualclass.wbWrapper.util.openTray(element);
+    }
+  }
+
   openShapeContainer(elem) {
     this.selectedTool = null;
     const shapeContainer = elem ? elem : document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
@@ -125,5 +145,70 @@ class WhiteboardUtility {
       const encodeData = virtualclass.wbWrapper.protocol.encode('da', virtualclass.gObj.currWb);
       virtualclass.wbWrapper.msg.send(encodeData);
     }
+  }
+
+  initActiveElement(selector, tool) {
+    const elem = document.querySelector(selector);
+    if (typeof virtualclass.gObj.wbTool[virtualclass.gObj.currWb] === 'undefined') {
+      virtualclass.gObj.wbTool[virtualclass.gObj.currWb] = {};
+    }
+    if (typeof virtualclass.gObj.wbTool[virtualclass.gObj.currWb][tool.type] === 'undefined') {
+      elem.addEventListener('click', this.activeElementHandler.bind(this, tool));
+      virtualclass.gObj.wbTool[virtualclass.gObj.currWb][tool.type] = true;
+    }
+  }
+
+  activeElementHandler(tool, ev) {
+    // console.log('many times clicked');
+    this.activeElement(ev, tool);
+  }
+
+  activeElement(ev, tool) {
+    const prevSelectedTool = document.querySelector(`#t_${tool.type}${virtualclass.gObj.currWb} .selected`);
+    if (prevSelectedTool != null) {
+      prevSelectedTool.classList.remove('selected');
+    }
+
+    const currElementValue = ev.target.dataset[tool.prop];
+    if (currElementValue != null) {
+      ev.target.classList.add('selected');
+      this.changeToolProperty(tool.type, currElementValue);
+      const encodeData = virtualclass.wbWrapper.protocol.encode('ot', {type: tool.type, value : currElementValue});
+      virtualclass.wbWrapper.msg.send(encodeData);
+    }
+  }
+
+  changeToolProperty(attr, value) { //
+    if (attr === 'color') {
+      virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = value;
+    } else if (attr === 'strk') {
+      virtualclass.wb[virtualclass.gObj.currWb].currStrkSize = value;
+    } else if (attr === 'font') {
+      virtualclass.wb[virtualclass.gObj.currWb].textFontSize = value;
+    }
+
+    // const currTime = new Date().getTime();
+    // let selectElem;
+    // let obj;
+    // if (attr === 'color') {
+    //   selectElem = document.querySelector(`#colorList${virtualclass.gObj.currWb} .selected`).id;
+    //   virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = value;
+    //   document.querySelector(`#t_color${virtualclass.gObj.currWb} .disActiveColor`).style.backgroundColor = virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+    //   obj = { color: value, elem: selectElem, mt: currTime };
+    // } else if (attr === 'strk') {
+    //   selectElem = document.querySelector(`#t_strk${virtualclass.gObj.currWb} .selected`).id;
+    //   virtualclass.wb[virtualclass.gObj.currWb].currStrkSize = value;
+    //   obj = { strkSize: value, elem: selectElem, mt: currTime };
+    // } else if (attr === 'font') {
+    //   selectElem = document.querySelector(`#t_font${virtualclass.gObj.currWb} .selected`).id;
+    //   virtualclass.wb[virtualclass.gObj.currWb].textFontSize = value;
+    //   obj = { fontSize: value, elem: selectElem, mt: currTime };
+    // }
+
+    // const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
+    // virtualclass.wb[virtualclass.gObj.currWb].uid++;
+    // obj.uid = virtualclass.wb[virtualclass.gObj.currWb].uid;
+    // vcan.main.replayObjs.push(obj);
+    //virtualclass.vutil.beforeSend({ repObj: [obj], cf: 'repObj' });
   }
 }

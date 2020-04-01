@@ -99,13 +99,20 @@ class Whiteboard {
     }
   }
 
+  selectTool(tool) { // todo, need to improve
+    if (tool === 'rectangle' ||  tool === 'line' || tool === 'circle' || tool === 'triangle' || tool === 'text'
+      || tool === 'activeAll' ||  tool === 'freeDrawing') {
+        this.selectedTool = tool;
+    }
+  }
+
   innerToolbarHandler(tool) {
-    virtualclass.wbWrapper.util.closeShapeContainer();
+    virtualclass.wbWrapper.util.closeTray();
     this.canvas.isDrawingMode = false;
     const currentTool = tool;
-    this.selectedTool = currentTool;
-    if (this.selectedTool !== 'rectangle' &&  this.selectedTool !== 'line' && 
-    this.selectedTool !== 'circle' && this.selectedTool !== 'triangle' && this.selectedTool !== 'text') {
+    this.selectTool(tool);
+    
+    if (tool !== 'rectangle' &&  tool !== 'line' &&  tool !== 'circle' && tool !== 'triangle' && tool !== 'text') {
       this[currentTool]();
     } else if (currentTool === 'text') {
       this.activeAllObj.enable(virtualclass.gObj.currWb, 'i-text');
@@ -116,16 +123,24 @@ class Whiteboard {
   }
 
   shapes() {
-    this.selectedTool = null;
+    // this.selectedTool = null;
     const shapesElem = document.querySelector(`#shapes${this.wbId}`);
-    if (shapesElem.classList.contains('open')) {
-      virtualclass.wbWrapper.util.closeShapeContainer(shapesElem);
-    } else {
-      virtualclass.wbWrapper.util.openShapeContainer(shapesElem);
-      shapesElem.classList.add('open');
-      virtualclass.vutil.closeElement(document.querySelector(`#t_strk${this.wbId} .strkSizeList`));
-      virtualclass.vutil.closeElement(document.querySelector(`#t_font${this.wbId} .fontSizeList`));
-    }
+    virtualclass.wbWrapper.util.handleTrayDisplay(shapesElem);
+    // const shapesElem = document.querySelector(`#shapes${this.wbId}`);
+    // if (shapesElem.classList.contains('openopenTray')) {
+    //   //virtualclass.wbWrapper.util.closeShapeContainer(shapesElem);
+    //   virtualclass.wbWrapper.util.closeTray(shapesElem);
+    // } else {
+    //   virtualclass.wbWrapper.util.openTray(shapesElem);
+    //   // openShapeContainer
+    //   //shapesElem.classList.add('open', 'openTray');
+    // }
+  }
+
+  stroke(){
+    const shapesElem = document.querySelector(`#commandToolsWrapper${this.wbId} .strkSizeList`);
+    virtualclass.wbWrapper.util.handleTrayDisplay(shapesElem);
+    virtualclass.wbWrapper.util.initActiveElement(`#t_strk${this.wbId} ul`, { type: 'strk', prop: 'stroke' });
   }
 
   freeDrawing() {

@@ -412,6 +412,7 @@ ul.fontSizeList span {
   color: #fff;
 }
 
+/*
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper table.open,
 #virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer table.open,
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper ul.open,
@@ -423,6 +424,8 @@ ul.fontSizeList span {
   display: block !important;
   z-index: inherit;
 }
+*/
+
 
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper table.close,
 #virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer table.close,
@@ -439,6 +442,12 @@ ul.fontSizeList span {
   display: none !important;
 }
 
+#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .strkSizeList.openTray,
+#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .strkSizeList.openTray,
+#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .openTray {
+  display: block !important;
+  z-index: inherit; 
+}
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Font size"] {
   font-size: 17px;
 }

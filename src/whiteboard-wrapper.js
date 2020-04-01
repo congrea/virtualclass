@@ -35,9 +35,16 @@ class WhiteboardWrapper {
       acd: 'mousedown',
       acm: 'mousemove',
       acu: 'mouseup',
+      cl: 'color',
+      sk: 'strk',
+      ft: 'font',
+      font: 'ft',
+      strk: 'sk',
+      color: 'cl',
+      font: 'ft',
     };
   }
-
+ 
   init(id, app) {
     this.createWhiteboardContainerHtml(id, app);
     this.replay = new WhiteboardReplay();

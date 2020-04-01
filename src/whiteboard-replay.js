@@ -33,8 +33,13 @@ class WhiteboardReplay {
         virtualclass.wb[data.actual].canvas.renderAll();
         break;
       case 'da': // Delete active object
-      virtualclass.wbWrapper.util.deleteActiveObject();
-      break;
+        virtualclass.wbWrapper.util.deleteActiveObject();
+        break;
+
+      case 'ot': // other setting, font size, stroke size and color
+        virtualclass.wbWrapper.util.changeToolProperty(data.tool, data.actual.value);
+        break;
+
       case 'tx': // Create text
         virtualclass.wb[wid].textObj.renderText(data.actual, virtualclass.wb[wid]);
 

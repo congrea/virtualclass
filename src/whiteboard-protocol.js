@@ -177,4 +177,18 @@ class WhiteboardProtocol {
     }
     return newData;
   }
+
+  ot(data, type) { // other data, 
+    let newData;
+    if (type === 'encode') {
+       newData = { wb: [`ot_${virtualclass.wbWrapper.keyMap[data.type]}_${data.value}`], cf: 'wb' };
+    } else {
+      newData = {
+        action: data[0],
+        tool: virtualclass.wbWrapper.keyMap[data[1]],
+        actual: {value: data[2] },
+      }
+    }
+    return newData;
+  }
 }

@@ -5,6 +5,7 @@ class WhiteboardCommonShape {
     this.default = {
       rotatingPointOffset: 40,
       cornerSize: 13,
+      stroke: 1,
     }
     this.coreObj = {
       angle: 0,
@@ -84,6 +85,9 @@ class WhiteboardCommonShape {
       this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
       this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
       this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
+      if (whiteboard.currStrkSize) {
+        this.coreObj.strokeWidth =  +(whiteboard.currStrkSize);
+      }
       const toolName = virtualclass.wbWrapper.keyMap[this.name];
       if (this.name === 'line') {
         this.coreObj.points = [pointer.x, pointer.y, pointer.x, pointer.y]

@@ -19,7 +19,10 @@ class WhiteboardCircle  extends WhiteboardCommonShape {
     this.coreObj.rx = pointer.x - this.startLet;
     this.coreObj.ry = pointer.y - this.startTop;
     this.coreObj.angle = 0;
-
+    this.coreObj.stroke = this.default.stroke;
+    if (whiteboard.activeToolColor) {
+      this.coreObj.stroke =  whiteboard.activeToolColor;
+    }
     this[this.name] = new fabric.Ellipse(this.coreObj); // add object
     whiteboard.canvas.add(this[this.name]);
   }

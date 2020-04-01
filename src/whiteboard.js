@@ -101,8 +101,16 @@ class Whiteboard {
 
   selectTool(tool) { // todo, need to improve
     if (tool === 'rectangle' ||  tool === 'line' || tool === 'circle' || tool === 'triangle' || tool === 'text'
-      || tool === 'activeAll' ||  tool === 'freeDrawing') {
+      || tool === 'activeAll' ||  tool === 'text') {
         this.selectedTool = tool;
+    }
+
+    if (tool !== 'stroke' && tool !== 'font') {
+      if (tool !== 'activeAll' && tool !== 'text') {
+        virtualclass.wbWrapper.util.strokeSizeSelector();
+      } else if (tool === 'text') {
+        virtualclass.wbWrapper.util.fontSizeSelector();
+      }
     }
   }
 
@@ -142,6 +150,14 @@ class Whiteboard {
     virtualclass.wbWrapper.util.handleTrayDisplay(shapesElem);
     virtualclass.wbWrapper.util.initActiveElement(`#t_strk${this.wbId} ul`, { type: 'strk', prop: 'stroke' });
   }
+
+  font() {
+    const fontElem = document.querySelector(`#commandToolsWrapper${this.wbId} .fontSizeList`);
+    virtualclass.wbWrapper.util.handleTrayDisplay(fontElem);
+    virtualclass.wbWrapper.util.initActiveElement(`#t_font${this.wbId} ul`, { type: 'font', prop: 'font' });
+  }
+
+
 
   freeDrawing() {
     this.canvas.isDrawingMode = false;

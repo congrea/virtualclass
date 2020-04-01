@@ -211,4 +211,33 @@ class WhiteboardUtility {
     // vcan.main.replayObjs.push(obj);
     //virtualclass.vutil.beforeSend({ repObj: [obj], cf: 'repObj' });
   }
+
+  strokeSizeSelector(){
+    const fontElement = document.querySelector(`#t_font${virtualclass.gObj.currWb}`);
+    if (fontElement != null) {
+      fontElement.classList.remove('show');
+      fontElement.classList.add('hide');
+    }
+
+    const strokeElement = document.querySelector(`#t_strk${virtualclass.gObj.currWb}`);
+    if (strokeElement != null) {
+      strokeElement.classList.remove('hide');
+      strokeElement.classList.add('show');
+    }
+  }
+
+  fontSizeSelector(){
+    const strokeElement = document.querySelector(`#t_strk${virtualclass.gObj.currWb}`);
+    if (strokeElement != null) {
+      strokeElement.classList.remove('show');
+      strokeElement.classList.add('hide');
+    }
+
+    const fontElement = document.querySelector(`#t_font${virtualclass.gObj.currWb}`);
+    if (fontElement != null) {
+      fontElement.classList.remove('hide');
+      fontElement.classList.add('show');
+    }
+  }
+  
 }

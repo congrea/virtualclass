@@ -15,7 +15,6 @@ class WhiteboardCommonShape {
       transparentCorners: false,
       width: 0,
       height: 0,
-      strokeWidth: 1,
       backgroundColor: 'transparent',
     };
   }
@@ -84,7 +83,7 @@ class WhiteboardCommonShape {
       this.coreObj.height = 1;
       this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
       this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
-      this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
+      // this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
       if (whiteboard.currStrkSize) {
         this.coreObj.strokeWidth =  +(whiteboard.currStrkSize);
       }

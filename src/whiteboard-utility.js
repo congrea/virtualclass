@@ -242,5 +242,30 @@ class WhiteboardUtility {
       fontElement.classList.add('show');
     }
   }
-  
+
+  makeActiveTool(byReload) {
+    const wId = virtualclass.gObj.currWb;
+    let activeElement =  document.querySelectorAll(`#commandToolsWrapper${wId} .tool.active`);
+    for (let i = 0; i < activeElement.length; i++) {
+      activeElement[i].classList.remove('active');
+    }
+
+    // if (activeElement != null) {
+    //   activeElement.classList.remove('active');
+    // }
+   this.themeColorShapes(byReload);
+    const selectedElement = document.getElementById(byReload);
+    selectedElement.classList.add('active');
+    localStorage.activeTool = selectedElement.id;
+  }
+
+  themeColorShapes(byReload) {
+    const tool = byReload.split(/_doc_*/)[0];
+    const shapesElem = document.querySelector(`#tool_wrapper${virtualclass.gObj.currWb}.shapesToolbox`);
+    if (tool === 't_line' || tool === 't_circle' || tool === 't_rectangle' || tool === 't_triangle') {
+      shapesElem.classList.add('active');
+    } else {
+      shapesElem.classList.remove('active');
+    }
+  }
 }

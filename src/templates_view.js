@@ -1570,13 +1570,13 @@ this["JST"]["dest_temp/templates/whiteboard/toolbar.hbs"] = Handlebars.template(
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"commandToolsWrapper\"><div id=\"t_freeDrawing"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"freeDrawing\"><a href=\"#\" data-title=\""
+    + "\" class=\"tool notshape\" data-tool=\"freeDrawing\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Freehand",{"name":"getString","hash":{},"data":data}))
     + "\" class=\"congtooltip\"><span class=\"icon-freeDrawing cgIcon\"></span></a></div><div id=\"tool_wrapper"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"shapesToolbox tool\" data-tool=\"shapes\" data-currTool=\"shapes\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Shapes",{"name":"getString","hash":{},"data":data}))
-    + "\" class=\"congtooltip shapes_icon\"><span class=\"icon-shapes cgIcon\"></span></a><div id=\"shapes"
+    + "\" class=\"shape_anchor congtooltip shapes_icon\"><span class=\"icon-shapes cgIcon\"></span></a><div id=\"shapes"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"shapesTool\"><div id=\"t_rectangle"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
@@ -1596,7 +1596,7 @@ this["JST"]["dest_temp/templates/whiteboard/toolbar.hbs"] = Handlebars.template(
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Triangle",{"name":"getString","hash":{},"data":data}))
     + "\" class=\"congtooltip\"><span class=\"icon-triangle cgIcon\"></span></a></div></div></div><div id=\"t_text"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"text\"><a href=\"#\" data-title=\""
+    + "\" class=\"tool notshape\" data-tool=\"text\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Text",{"name":"getString","hash":{},"data":data}))
     + "\" class=\"congtooltip\"><span class=\"icon-text cgIcon\"></span></a></div><div id=\"t_strk"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
@@ -1954,7 +1954,7 @@ this["JST"]["dest_temp/templates/whiteboard/toolbar.hbs"] = Handlebars.template(
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-magenta-3",{"name":"getString","hash":{},"data":data}))
     + "\" data-color=\"#4c1130\" bgcolor=\"#4c1130\"></td></tr></tbody></table></div><div id=\"t_activeall"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
-    + "\" class=\"tool\" data-tool=\"activeAll\"><a href=\"#\" data-title=\""
+    + "\" class=\"tool notshape\" data-tool=\"activeAll\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ActiveAll",{"name":"getString","hash":{},"data":data}))
     + "\" class=\"congtooltip\"><span class=\"icon-activeAll cgIcon\"></span></a></div><div id=\"t_clearall"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))

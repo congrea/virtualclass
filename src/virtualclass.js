@@ -1069,11 +1069,12 @@
           virtualclass.zoom.init();
           const activeWbTool = localStorage.getItem('activeTool');
           if (activeWbTool !== null) {
-            const activeWbToolElem = document.querySelector(`#${activeWbTool}`);
-            if (activeWbToolElem !== null) {
-              activeWbToolElem.classList.add('active');
-              virtualclass.wb[wid].prvTool = activeWbTool;
-            }
+            // const activeWbToolElem = document.querySelector(`#${activeWbTool}`);
+            // if (activeWbToolElem !== null) {
+            //   activeWbToolElem.classList.add('active');
+            //   virtualclass.wb[wid].prvTool = activeWbTool;
+            // }
+            virtualclass.wbWrapper.util.makeActiveTool(activeWbTool);
           }
 
           if (roles.hasControls()) {

@@ -43,6 +43,7 @@ class WhiteboardWrapper {
       color: 'cl',
       font: 'ft',
     };
+    this.shapes = ['rectangle', 'triangle', 'text', 'freeDrawing', 'circle', 'line'];
   }
  
   init(id, app) {

@@ -8,7 +8,7 @@ class WhiteboardCircle  extends WhiteboardCommonShape {
     this.innerMouseDown(pointer, whiteboard, event);
     if (!event.e.isTrusted) return;
     this.sendMouseDownData(pointer);
-  }
+  } 
 
   innerMouseDown(pointer, whiteboard) {
     this.mousedown = true;

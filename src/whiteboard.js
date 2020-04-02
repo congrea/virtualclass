@@ -89,13 +89,17 @@ class Whiteboard {
   }
 
   toolbarHandler(ev) {
-    this.innerToolbarHandler(ev.currentTarget.parentNode.dataset.tool);
+    const parentNode = ev.currentTarget.parentNode;
+    this.innerToolbarHandler(parentNode.dataset.tool);
     const activeObject = virtualclass.wb[virtualclass.gObj.currWb].canvas.getActiveObjects();
     if (activeObject.length > 0) {
       virtualclass.wb[virtualclass.gObj.currWb].canvas.discardActiveObject();
       virtualclass.wb[virtualclass.gObj.currWb].canvas.renderAll();
       const encodeData = virtualclass.wbWrapper.protocol.encode('ds', virtualclass.gObj.currWb);
       virtualclass.wbWrapper.msg.send(encodeData);
+    }
+    if (virtualclass.wbWrapper.shapes.includes(parentNode.dataset.tool) || parentNode.dataset.tool === 'activeAll') {
+      virtualclass.wbWrapper.util.makeActiveTool(parentNode.id);
     }
   }
 

@@ -172,7 +172,7 @@ class WhiteboardUtility {
     const currElementValue = ev.target.dataset[tool.prop];
     if (currElementValue != null) {
       ev.target.classList.add('selected');
-      this.changeToolProperty(tool.type, currElementValue);
+      this.changeToolProperty(tool.type, currElementValue, virtualclass.gObj.currWb);
       if (tool.type === 'color') {
         document.querySelector(`#t_color${virtualclass.gObj.currWb} .disActiveColor`).style.backgroundColor = virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
       }
@@ -180,14 +180,15 @@ class WhiteboardUtility {
       virtualclass.wbWrapper.msg.send(encodeData);
     }
   }
-
-  changeToolProperty(attr, value) { //
+  // fabric.js, whiteboard changes, new changes, critical whiteboard, critical changes
+  changeToolProperty(attr, value, wId) { //
+    if (!wId) wId = virtualclass.gObj.currWb;
     if (attr === 'color') {
-      virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = value;
+      virtualclass.wb[wId].activeToolColor = value;
     } else if (attr === 'strk') {
-      virtualclass.wb[virtualclass.gObj.currWb].currStrkSize = value;
+      virtualclass.wb[wId].currStrkSize = value;
     } else if (attr === 'font') {
-      virtualclass.wb[virtualclass.gObj.currWb].textFontSize = value;
+      virtualclass.wb[wId].textFontSize = value;
     }
 
     // const currTime = new Date().getTime();

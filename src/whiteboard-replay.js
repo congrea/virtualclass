@@ -37,7 +37,7 @@ class WhiteboardReplay {
         break;
 
       case 'ot': // other setting, font size, stroke size and color
-        virtualclass.wbWrapper.util.changeToolProperty(data.tool, data.actual.value);
+        virtualclass.wbWrapper.util.changeToolProperty(data.tool, data.actual.value, wid);
         break;
 
       case 'tx': // Create text

@@ -101,7 +101,7 @@ class Whiteboard {
 
   selectTool(tool) { // todo, need to improve
     if (tool === 'rectangle' ||  tool === 'line' || tool === 'circle' || tool === 'triangle' || tool === 'text'
-      || tool === 'activeAll' ||  tool === 'text') {
+      || tool === 'activeAll' ||  tool === 'text' || tool === 'freeDrawing') {
         this.selectedTool = tool;
     }
 

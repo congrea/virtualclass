@@ -50,9 +50,7 @@ class WhiteboardCommonShape {
     if (!event.e.isTrusted) return;
     virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
     if (this.name === 'freeDrawing') {
-      whiteboard.canvas.freeDrawingBrush.width = this.coreObj.strokeWidth * virtualclass.zoom.canvasScale;
       this.mousedown = true;
-      
       // virtualclass.gObj.startTime = new Date().getTime();
       this.chunks.push(`${pointer.x}_${pointer.y}_d`);
       console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', pointer.x, pointer.y);
@@ -66,10 +64,18 @@ class WhiteboardCommonShape {
   innerMouseDown(pointer, whiteboard, event) {
     this.mousedown = true;
     if (this.name === 'freeDrawing') {
-      whiteboard.canvas.freeDrawingBrush.width = this.coreObj.strokeWidth * virtualclass.zoom.canvasScale;
       console.log('====> free drawing mousedown', JSON.stringify(pointer));
       if (!whiteboard.myPencil) {
         whiteboard.myPencil = new fabric.PencilBrush(whiteboard.canvas);
+        whiteboard.myPencil.width = this.default.strokeWidth;
+        if (whiteboard.currStrkSize) {
+          whiteboard.myPencil.width =  +(whiteboard.currStrkSize);
+        }
+
+        whiteboard.myPencil.color = this.default.stroke;
+        if (whiteboard.activeToolColor) {
+          whiteboard.myPencil.color =  whiteboard.activeToolColor;
+        }
       }
 
       if (!event)  event = { e: {isPrimary: true} };

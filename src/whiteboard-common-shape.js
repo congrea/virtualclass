@@ -6,7 +6,7 @@ class WhiteboardCommonShape {
       rotatingPointOffset: 40,
       cornerSize: 13,
       strokeWidth: 1,
-      stroke: '#337ab7',
+      stroke: '#00f',
     }
     this.coreObj = {
       angle: 0,

@@ -244,6 +244,8 @@ class WhiteboardUtility {
   }
 
   makeActiveTool(byReload) {
+    const selectedElement = document.getElementById(byReload);
+    if (!selectedElement) return;
     const wId = virtualclass.gObj.currWb;
     let activeElement =  document.querySelectorAll(`#commandToolsWrapper${wId} .tool.active`);
     for (let i = 0; i < activeElement.length; i++) {
@@ -253,8 +255,7 @@ class WhiteboardUtility {
     // if (activeElement != null) {
     //   activeElement.classList.remove('active');
     // }
-   this.themeColorShapes(byReload);
-    const selectedElement = document.getElementById(byReload);
+    this.themeColorShapes(byReload);
     selectedElement.classList.add('active');
     localStorage.activeTool = selectedElement.id;
   }

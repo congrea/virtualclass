@@ -4,7 +4,7 @@ class WhiteboardText {
       rotatingPointOffset: 40,
       cornerSize: 13,
       fontSize: 20,
-      fill: '#337ab7',
+      fill: '#00f',
     }
     this.name = name;
     // this.selected = false,

@@ -82,6 +82,7 @@
       if (prevElem != null) {
         // console.log('Whiteboard slide remove');
         prevElem.classList.remove('current');
+        console.log('suman hide element 1 ', virtualclass.gObj.currWb);
       }
     },
 

@@ -367,7 +367,9 @@
             canvasContainer = document.querySelector('#virtualclassWhiteboard.canvasContainer.current');
           } else if (virtualclass.currApp === 'DocumentShare') {
             canvasContainer = document.querySelector('#screen-docs.current');
-          } else {
+          } 
+          // fabric.js, whiteboard changes, new changes, critical whiteboard, critical changes
+          if (!canvasContainer) {
             canvasContainer = document.querySelector('#virtualclassAppContainer');
           }
           canvas.width = canvasContainer.offsetWidth - 6;

@@ -75,6 +75,7 @@ class WhiteboardCommonShape {
         whiteboard.myPencil.color = this.default.stroke;
         if (whiteboard.activeToolColor) {
           whiteboard.myPencil.color =  whiteboard.activeToolColor;
+          console.log('====> stroke color ', whiteboard.myPencil.color);
         }
       }
 

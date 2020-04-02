@@ -64,6 +64,7 @@ class WhiteboardText {
   }
 
   createText(textObj, whiteboard) {
+    if (textObj.value == '') return;
     if (this.isEmptyText(whiteboard)) return;
     console.log('found traget suman receive ', JSON.stringify(textObj));
     this.startLeft = textObj.x;

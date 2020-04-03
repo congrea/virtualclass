@@ -18,6 +18,7 @@ class WhiteboardReplay {
         virtualclass.wb[wid][shape][eventType](data.actual, virtualclass.wb[wid]);
         break;
       case 'ac': // Active all
+        virtualclass.wb[wid].selectedTool = data.tool;
         // todo innerMouseDown has to removed later
         if (data.event && (data.event === 'mousedown')) {
           virtualclass.wb[wid].innerToolbarHandler(virtualclass.wbWrapper.keyMap[data.action]);
@@ -41,6 +42,7 @@ class WhiteboardReplay {
         break;
 
       case 'tx': // Create text
+        virtualclass.wb[wid].selectedTool = data.tool;
         virtualclass.wb[wid].textObj.renderText(data.actual, virtualclass.wb[wid]);
 
       default:

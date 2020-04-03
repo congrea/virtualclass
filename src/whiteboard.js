@@ -15,6 +15,8 @@ class Whiteboard {
 
   init(id) {
     this.wbId = id;
+    delete virtualclass.wbWrapper.gObj.textSelected;
+    this.textObj.textEditing = false;
     this.attachToolbarHandler(id);
     console.log('====> canvas id ', `canvas${id}`);
     virtualclass.wbWrapper.util.createFabricNewInstance(id);
@@ -105,8 +107,9 @@ class Whiteboard {
 
   selectTool(tool) { // todo, need to improve
     if (tool === 'rectangle' ||  tool === 'line' || tool === 'circle' || tool === 'triangle' || tool === 'text'
-      || tool === 'activeAll' ||  tool === 'text' || tool === 'freeDrawing') {
+      || tool === 'activeAll'  || tool === 'freeDrawing') {
         this.selectedTool = tool;
+        console.log('Selected tool ', this.selectedTool);
     }
 
     if (tool !== 'stroke' && tool !== 'font') {
@@ -129,6 +132,8 @@ class Whiteboard {
     } else if (currentTool === 'text') {
       this.activeAllObj.enable(virtualclass.gObj.currWb, 'i-text');
       this.activeAllObj.disableBut(virtualclass.gObj.currWb, 'i-text');
+      delete virtualclass.wbWrapper.gObj.textSelected; // Clear text selection if there is any
+      this.textObj.textEditing = false;
     } else {
       this.activeAllObj.disable(virtualclass.gObj.currWb);
     }
@@ -198,6 +203,7 @@ class Whiteboard {
     this.canvas.clear();
     this.replayObjs = [];
     this.canvas._objects = [];
-    
+    delete virtualclass.wbWrapper.gObj.textSelected;
+    this.textObj.textEditing = false;
   }
 }

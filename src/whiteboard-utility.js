@@ -56,9 +56,6 @@ class WhiteboardUtility {
      mainCanvas.parentNode.parentNode.insertBefore(canvasPdf, mainCanvas.parentNode.nextSibling);
 
     }
-    
-
-    
     // virtualclass.vutil.insertAfter(canvasPdf, mainCanvas);
     
   }

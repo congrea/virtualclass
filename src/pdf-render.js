@@ -373,11 +373,13 @@
             canvasContainer = document.querySelector('#virtualclassAppContainer');
           }
           canvas.width = canvasContainer.offsetWidth - 6;
-          virtualclass.wbWrapper.util.createFabricNewInstance(wb);
+          // as width and height change for canvas, we need to create new fabric canvas object
+          // virtualclass.wbWrapper.util.createFabricNewInstance(wb);
         } else {
           canvas.width = canvas.parentNode.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
-          virtualclass.wbWrapper.util.createFabricNewInstance(wb);
         }
+        // as width and height change for canvas, we need to create new fabric canvas object
+        virtualclass.wbWrapper.util.createFabricNewInstance(wb); 
       },
 
       calculateViewPort(canvas, page) {
@@ -481,7 +483,7 @@
           virtualclass.zoom.canvasDimension = {};
           virtualclass.zoom.canvasDimension.width = canvas.width;
           virtualclass.zoom.canvasDimension.height = canvas.height;
-
+          // as width and height change for canvas, we need to create new fabric canvas object
           virtualclass.wbWrapper.util.createFabricNewInstance(wb);
 
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {

@@ -555,6 +555,10 @@ ul.fontSizeList span {
   pointer-events: none;
 }
 
-#virtualclassCont .whiteboardContainer .canvas-container {
+#virtualclassCont .canvasWrapper .canvas-container {
   width: 100% !important;
+}
+
+#virtualclassCont .canvasWrapper canvas.pdfs {
+  z-index: -1;
 }

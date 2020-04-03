@@ -40,14 +40,27 @@ class WhiteboardUtility {
   }
 
   createCanvasPdfInstance(wId, mainCanvas) {
-    const canvasPdf = document.createElement('canvas');
-    canvasPdf.id = `canvas${wId}_pdf`;
-    canvasPdf.className = 'pdfs';
-    canvasPdf.width = mainCanvas.width;
-    canvasPdf.height = mainCanvas.height;
+    const alreadCreateCanvas = document.querySelector(`#canvas${wId}_pdf`);
+    if (alreadCreateCanvas != null) {
+      // alreadCreateCanvas.width = mainCanvas.width;
+      // alreadCreateCanvas.height = mainCanvas.height;
+    } else {
+      console.log('suman create pdf canvas ', wId);
+      const canvasPdf = document.createElement('canvas');
+      canvasPdf.id = `canvas${wId}_pdf`;
+      canvasPdf.className = 'pdfs';
+      canvasPdf.width = mainCanvas.width;
+      canvasPdf.height = mainCanvas.height;
+     // mainCanvas.parentNode.insertBefore(canvasPdf, mainCanvas);
+     //mainCanvas.parentNode.insertAdjacentElement('after', canvasPdf);
+     mainCanvas.parentNode.parentNode.insertBefore(canvasPdf, mainCanvas.parentNode.nextSibling);
 
-    mainCanvas.parentNode.insertBefore(canvasPdf, mainCanvas);
+    }
+    
+
+    
     // virtualclass.vutil.insertAfter(canvasPdf, mainCanvas);
+    
   }
 
   replayFromLocalStroage(allRepObjs, wid) {

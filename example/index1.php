@@ -25,6 +25,7 @@
         margin : 0;
         padding : 0;
     }
+    
 </style>
 
 <?php
@@ -241,7 +242,6 @@ if ($info) {
 <!-- Fine Uploader JS file
 ====================================================================== -->
 <script type="text/template" id="qq-template-gallery"> <?php include('../fine-upload.php'); ?> </script>
-
 </head>
 <body>
     <div id="virtualclassCont" class="<?php echo $cont_class; ?>"> </div>

@@ -63,14 +63,16 @@ class WhiteboardUtility {
     
   }
 
-  replayFromLocalStroage(allRepObjs, wid) {
+  replayFromLocalStroage(allRepObjs, wId) {
      console.log('====> whiteboard pdf suman draw whiteboard')
     if (typeof (Storage) !== 'undefined') {
-      virtualclass.wb[wid].clear(wid);
-      virtualclass.wb[wid].replayObjs = [];
-      virtualclass.wb[wid].gObj.tempRepObjs = allRepObjs;
+      virtualclass.wb[wId].clear(wId);
+      virtualclass.wb[wId].replayObjs = [];
+      delete virtualclass.wb[wId].currStrkSize;
+      delete virtualclass.wb[wId].activeToolColor;
+      virtualclass.wb[wId].gObj.tempRepObjs = allRepObjs;
       if (allRepObjs.length > 0) {
-        this.applyCommand(allRepObjs, wid);
+        this.applyCommand(allRepObjs, wId);
       }
 
       // Todo, this is need to be re-enable

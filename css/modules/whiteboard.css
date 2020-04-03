@@ -427,7 +427,7 @@ ul.fontSizeList span {
 */
 
 
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper table.close,
+/* #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper table.close,
 #virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer table.close,
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper ul.close,
 #virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer ul.close,
@@ -440,11 +440,31 @@ ul.fontSizeList span {
 #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .shapesTool.close,
 #virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .shapesTool.close {
   display: none !important;
+} */
+
+/* #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper table.close,
+#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer table.close,
+#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper ul.close,
+#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer ul.close,
+#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .hide,
+#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .hide,
+#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .strkSizeList,
+#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .strkSizeList,
+#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .fontSizeList,
+#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .fontSizeList,
+#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .shapesTool.close,
+#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .shapesTool.close {
+  display: none !important;
+} */
+#virtualclassCont.congrea .commandToolsWrapper .hide,
+#virtualclassCont.congrea  .commandToolsWrapper .shapesTool.close,
+#virtualclassCont.congrea .commandToolsWrapper table.close,
+#virtualclassCont.congrea  .commandToolsWrapper .fontSizeList, 
+#virtualclassCont.congrea  .commandToolsWrapper .strkSizeList {
+  display: none !important  ;
 }
 
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .strkSizeList.openTray,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .strkSizeList.openTray,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .openTray {
+#virtualclassCont.congrea .commandToolsWrapper .openTray {
   display: block !important;
   z-index: inherit; 
 }

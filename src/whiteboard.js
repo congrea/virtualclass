@@ -58,6 +58,7 @@ class Whiteboard {
       this.activeAllObj.activeDown = true;
     } else if (event.selected && event.selected[0].type === 'i-text') {
       virtualclass.wbWrapper.gObj.textSelected = event.selected[0];
+      console.log('====> selected text ', virtualclass.wbWrapper.gObj.textSelected);
     } else if (event.deselected) {
       this.activeAllObj.activeDown = false;
       virtualclass.wbWrapper.gObj.textSelected = false;

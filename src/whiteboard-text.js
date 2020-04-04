@@ -15,15 +15,25 @@ class WhiteboardText {
       padding: 7 ,
     };
   }
+  isObjectInEditingMode(whiteboard) {
+     const allObjects = whiteboard.canvas.getObjects('i-text');
+     for(let i=0; i < allObjects.length; i++) {
+      if (allObjects[i].isEditing) {
+        whiteboard.canvas.trigger('text:editing:exited', {target: allObjects[i]});
+      }
+     }
+  }
 
   mouseDown(pointer, whiteboard) {
     if (!virtualclass.wbWrapper.gObj.textSelected && !this.textEditing) {
       this.renderText(pointer, whiteboard);
     } else if (virtualclass.wbWrapper.gObj.textSelected && !whiteboard.activeAllObj.activeDown) {
       virtualclass.wbWrapper.gObj.textSelected.enterEditing();
+      let  allTexts = whiteboard.canvas.getObjects('i-text');
       if (virtualclass.wbWrapper.gObj.textSelected.text.trim() != 'Enter your text') {
-        this.editingIndex = whiteboard.canvas.getObjects('i-text').indexOf(virtualclass.wbWrapper.gObj.textSelected);
+        this.editingIndex = allTexts.indexOf(virtualclass.wbWrapper.gObj.textSelected);
       }
+      whiteboard.activeAllObj.disable(virtualclass.gObj.currWb, 'i-text');
       this.textEditing = true;
     }
   }
@@ -110,6 +120,8 @@ class WhiteboardText {
     if (this.editingIndex != null) data.index = this.editingIndex;
     virtualclass.wbWrapper.msg.optimizeToSend(data, 0, 'tx');
     delete this.editingIndex;
+    let allTexts = virtualclass.wb[virtualclass.gObj.currWb].canvas.getObjects('i-text');
+    virtualclass.wb[virtualclass.gObj.currWb].activeAllObj.enable(virtualclass.gObj.currWb, 'i-text');
   }
 
   isDefault(textObj) {

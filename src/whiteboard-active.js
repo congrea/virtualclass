@@ -24,8 +24,8 @@ class WhiteboardActiveAll {
     }
   }
 
-  disable(wId) {
-    const allObjects = virtualclass.wb[wId].canvas.getObjects();
+  disable(wId, component) {
+    let allObjects = component ? virtualclass.wb[wId].canvas.getObjects(component) : virtualclass.wb[wId].canvas.getObjects();
     for (let i = 0; i < allObjects.length; i += 1) {
       allObjects[i].set('selectable', false);
     }

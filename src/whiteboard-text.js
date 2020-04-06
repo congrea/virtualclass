@@ -39,7 +39,13 @@ class WhiteboardText {
   }
 
   updateText(textObj, whiteboard, foundObject) {
-    foundObject.set('text', textObj.value);
+    if (textObj.text) {
+      foundObject.set('text', textObj.text);
+    } else {
+      foundObject.set('text', textObj.value);
+    }
+    if (textObj.fontSize)  foundObject.set('fontSize', textObj.fontSize);
+    if (textObj.fontColor)  foundObject.set('fill', textObj.fontColor);
     whiteboard.canvas.renderAll();
   }
   
@@ -111,6 +117,7 @@ class WhiteboardText {
   }
 
   finalizeText(textObj) {
+    const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
     this.textEditing = false;
     if (this.isDefault(textObj.target)) return;
     console.log('is text editing ', this.editingIndex);
@@ -118,10 +125,22 @@ class WhiteboardText {
     console.log('found traget suman without zoom send x, y ', textObj.target.left, textObj.target.top);
     let data = {x: textObj.target.left, y: textObj.target.top, text: textObj.target.text};
     if (this.editingIndex != null) data.index = this.editingIndex;
+
+    if (+whiteboard.textFontSize && textObj.target.fontSize !== +(whiteboard.textFontSize)) {
+      data.fontSize = whiteboard.textFontSize;
+    }
+
+    if (whiteboard.activeToolColor && textObj.target.fill !== whiteboard.activeToolColor) {
+      data.fontColor = whiteboard.activeToolColor;
+    }
+
+    
     virtualclass.wbWrapper.msg.optimizeToSend(data, 0, 'tx');
     delete this.editingIndex;
-    let allTexts = virtualclass.wb[virtualclass.gObj.currWb].canvas.getObjects('i-text');
-    virtualclass.wb[virtualclass.gObj.currWb].activeAllObj.enable(virtualclass.gObj.currWb, 'i-text');
+    whiteboard.activeAllObj.enable(virtualclass.gObj.currWb, 'i-text');
+    if (data.fontColor || data.fontSize) {
+      this.updateText(data, whiteboard, textObj.target);
+    }
   }
 
   isDefault(textObj) {

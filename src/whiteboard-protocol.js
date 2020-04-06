@@ -140,8 +140,27 @@ class WhiteboardProtocol {
   tx(data, type) { // Creating the text
     let newData;
     if (type === 'encode') {
+      let encData = `tx_${data.x}_${data.y}_${data.text}`;
+      if (data.index != null) {
+        encData += `_${data.index}`;
+      } else {
+        encData += '_-1';
+      } 
+
+      if (data.fontSize) {
+        encData += `_${data.fontSize}`;
+      } else {
+        encData += `_0`;
+      }
+
+      if (data.fontColor) {
+        encData += `_${data.fontColor}`;
+      } else {
+        encData += `_0`;
+      }
+
       newData = {
-        wb:  (data.index != null) ? [`tx_${data.x}_${data.y}_${data.text}_${data.index}`] : [`tx_${data.x}_${data.y}_${data.text}`],
+        wb:  [encData],
         cf: 'wb',
       };
     } else {
@@ -152,7 +171,17 @@ class WhiteboardProtocol {
         event: 'mousedown',
         actual: { x: +data[1], y: +data[2], value: data[3] },
       };
-      if (data[4]) newData.actual.index = data[4];
+      if (+data[4] !== -1) {
+        newData.actual.index = data[4];
+      }
+
+      if (+data[5] !== 0) {
+        newData.actual.fontSize = +data[5];
+      }
+
+      if (+data[6] !== 0) {
+        newData.actual.fontColor = data[6];
+      }
     }
     return newData;
   }

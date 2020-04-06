@@ -55,7 +55,7 @@ class WhiteboardProtocol {
       newData.cf = 'wb';
     } else if (type === 'decode') {
       newData.action = data[0];
-      newData.tool = virtualclass.wbWrapper.keyMap[data[1]];
+      newData.tool = virtualclass.wbWrapper.keyMap[data[0]];
       if (data.length > 3) {
         newData.event = virtualclass.wbWrapper.keyMap[`ac${data[1]}`];
         console.log('==== convert, before convert x, y ', newData.event, data[2], data[3]);

@@ -21,7 +21,7 @@
     "background_color": "#3367D6",
     "display": "fullscreen",
     "orientation": "landscape",
-    "start_url": "https://live.congrea.net/virtualclass/example/index1.php?id=55&role=s&name=suman&room=4000&play=false&themecolor=gray&pushtotalk=1&anyonepresenter=0#",
+    "start_url": "/virtualclass/",
     "scope": ".",
     "theme_color": "#021317"
   }

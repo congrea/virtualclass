@@ -3059,8 +3059,20 @@ div.ui-memblist-usr .userVideos {
   width: 20%;
 }
 
-#virtualclassCont.congrea #errorContainer #closeMsg {
-  padding: 0 4px;
+#virtualclassCont.congrea .errorContainer .close {
+  background: #717070;
+  padding: 5px;
+  border-radius: 20px;
+  color: #fff;
+  position: absolute;
+  top: -11px;
+  right: -4px;
+  font-family: sans-serif;
+  cursor: pointer;
+  pointer-events: auto;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
 }
 
 #virtualclassCont.congrea #popupContainer .popupWindow.urlValidation {
@@ -4143,9 +4155,6 @@ span#usertab_text {
 /* } */
 
 @media (max-width: 1100px) {
-  #virtualclassCont.congrea #errorContainer {
-    bottom: 50px;
-  }
 
   #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay {
     width: 4.375rem;
@@ -4351,6 +4360,7 @@ span#usertab_text {
   margin-left: 0.625rem;
   line-height: 1.125rem;
   font-size: 12px;
+  letter-spacing: 1.4px;
   font-weight: 500;
 }
 

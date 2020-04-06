@@ -81,15 +81,22 @@ class WhiteboardProtocol {
   cr(data, type) {
     let newData;
     if (type === 'encode') {
+      let whiteboardId;
       const dataArr = data.split('_');
-      const whiteboardId = dataArr[dataArr.length - 1];
+      if (data.length > 10) { // document's id
+        whiteboardId = `${dataArr[dataArr.length - 2]}::${dataArr[dataArr.length - 1]}`;
+      } else {
+        whiteboardId = dataArr[dataArr.length - 1]; // whiteboard id
+      }
       newData = { wb: [`cr_${whiteboardId}`], cf: 'wb' };
     } else {
       let whiteboardId;
-      if (virtualclass.currApp === 'Whiteboard') {
-        whiteboardId = `_doc_0_${data[data.length - 1]}`;
+      if (data[data.length - 1].length > 10) {
+        const idInChunks = data[data.length - 1].split("::");
+        const docId = `${idInChunks[idInChunks.length - 2]}_${idInChunks[idInChunks.length - 1]}`;
+        whiteboardId = `_doc_${docId}_${docId}`; // document id
       } else {
-        whiteboardId = `_doc_${data[data.length - 1]}_${data[data.length - 1]}`;
+        whiteboardId = `_doc_0_${data[data.length - 1]}`; // whiteboard id
       }
       newData = { action: data[0], actual: whiteboardId};
     }

@@ -5,7 +5,9 @@ class WhiteboardReplay {
   }
 
   renderObj(wid) {
-    const data = virtualclass.wbWrapper.protocol.decode(this.objs[this.objNo]);
+    // virtualclass.gObj.currWb = wid;
+    // virtualclass.gObj.currWb  = wid;
+    const data = virtualclass.wbWrapper.protocol.decode(this.objs[this.objNo], wid);
     let eventType;
     let shape;
     let evt;
@@ -21,9 +23,10 @@ class WhiteboardReplay {
         virtualclass.wb[wid].selectedTool = data.tool;
         // todo innerMouseDown has to removed later
         if (data.event && (data.event === 'mousedown')) {
-          virtualclass.wb[wid].innerToolbarHandler(virtualclass.wbWrapper.keyMap[data.action]);
+          virtualclass.wb[wid].innerToolbarHandler(virtualclass.wbWrapper.keyMap[data.action], wid);
         }
         evt = virtualclass.wbWrapper.util.readyMouseEvent(data.event, data.actual);
+        evt.wId = wid;
         virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
         break;
       case 'cr': // Clear whiteboard

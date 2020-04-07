@@ -3,9 +3,9 @@ class WhiteboardProtocol {
     return this[action](data, 'encode');
   }
 
-  decode(data) {
+  decode(data, wId) {
     const dataArr = data.split('_');
-    return this[dataArr[0]](dataArr, 'decode');
+    return this[dataArr[0]](dataArr, 'decode', wId);
   }
 
   // Creating the shapes/objects, rectangle, oval, etc
@@ -46,7 +46,7 @@ class WhiteboardProtocol {
   }
 
   // Active All, for Drag, Drop and Move the objects
-  ac(data, type) {
+  ac(data, type, wId) {
     const newData = {};
     if (type === 'encode') {
       console.log('==== sending before encode ', data.x, data.y);
@@ -63,12 +63,15 @@ class WhiteboardProtocol {
         // const newCord = { x: +data[2], y: +data[3] };
         newData.actual = { x: newCord.x, y: newCord.y };
         if (roles.hasControls()) {
-          const toolBar = document.getElementById(`commandToolsWrapper${virtualclass.gObj.currWb}`);
+          const toolBar = document.getElementById(`commandToolsWrapper${wId}`);
           newData.actual.y += toolBar ? toolBar.offsetHeight : 44;
           const appOptionsToolbar = document.getElementById('virtualclassAppOptionsCont');
           newData.actual.x += appOptionsToolbar ? appOptionsToolbar.offsetWidth : 55;
         }
-        const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
+        const canvasWrapper = document.querySelector(`#canvasWrapper${wId}`);
+        if (!canvasWrapper) {
+          debugger;
+        }
         newData.actual.x -= canvasWrapper.scrollLeft;
         newData.actual.y -= canvasWrapper.scrollTop;
       }

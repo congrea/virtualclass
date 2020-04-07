@@ -21,6 +21,10 @@ class WhiteboardCircle  extends WhiteboardCommonShape {
     this.coreObj.angle = 0;
     this.coreObj.stroke = this.default.stroke;
     this.coreObj.strokeWidth = this.default.strokeWidth;
+    this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
+    this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
+    this.coreObj.strokeWidth = this.default.strokeWidth;
+    
     if (whiteboard.activeToolColor) {
       this.coreObj.stroke =  whiteboard.activeToolColor;
     }

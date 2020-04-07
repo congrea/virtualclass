@@ -398,7 +398,7 @@ const receiveFunctions = new function () {
     if (Object.prototype.hasOwnProperty.call(e.message, 'diswb')) {
       const { wid } = e.message;
       virtualclass.gObj.currWb = wid;
-
+      console.log('====> whiteboard apply ', virtualclass.gObj.currWb);
       const idn = wid.split('_');
       if (idn.length > 0) {
         virtualclass.gObj.currSlide = idn[idn.length - 1];

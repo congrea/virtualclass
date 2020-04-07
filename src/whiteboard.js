@@ -64,19 +64,23 @@ class Whiteboard {
       virtualclass.wbWrapper.gObj.textSelected = false;
     }
   }
-
+  triiggerGetPointer(e) {
+    const wId = e.wId ? e.wId : virtualclass.gObj.currWb;
+    const pointer = virtualclass.wb[wId].canvas.getPointer(e);
+    return pointer;
+  }
   handlerMouseDown(o) {
     // We do not need to invoke on clearAll
     if (this.selectedTool && this[`${this.selectedTool}Obj`]) {
       console.log('=====> SUMAN BOGATI MOUSE 1');
       this.mousedown = true;
-      const pointer = virtualclass.wb[virtualclass.gObj.currWb].canvas.getPointer(o.e);
+      const pointer = this.triiggerGetPointer(o.e);
       this[`${this.selectedTool}Obj`].mouseDown(pointer, this, o);
     }
   }
 
   handlerMouseMove(o) {
-    const pointer = virtualclass.wb[virtualclass.gObj.currWb].canvas.getPointer(o.e);
+    const pointer = this.triiggerGetPointer(o.e);
     if (this.mousedown && this.selectedTool) {
       console.log('=====> SUMAN BOGATI MOUSE 2');
       this[`${this.selectedTool}Obj`].mouseMove(pointer, this, o);
@@ -85,7 +89,7 @@ class Whiteboard {
   }
 
   handlerMouseUp(o) {
-    const pointer = virtualclass.wb[virtualclass.gObj.currWb].canvas.getPointer(o.e);
+    const pointer = this.triiggerGetPointer(o.e);
     if (this.mousedown && this.selectedTool) this[`${this.selectedTool}Obj`].mouseUp(pointer, this, o);
     this.mousedown = false;
     console.log('=====> SUMAN BOGATI MOUSE 3');
@@ -93,7 +97,7 @@ class Whiteboard {
 
   toolbarHandler(ev) {
     const parentNode = ev.currentTarget.parentNode;
-    this.innerToolbarHandler(parentNode.dataset.tool);
+    this.innerToolbarHandler(parentNode.dataset.tool, virtualclass.gObj.currWb);
     const activeObject = virtualclass.wb[virtualclass.gObj.currWb].canvas.getActiveObjects();
     if (activeObject.length > 0) {
       virtualclass.wb[virtualclass.gObj.currWb].canvas.discardActiveObject();
@@ -122,21 +126,21 @@ class Whiteboard {
     }
   }
 
-  innerToolbarHandler(tool) {
+  innerToolbarHandler(tool, wId) {
     virtualclass.wbWrapper.util.closeTray();
     this.canvas.isDrawingMode = false;
     const currentTool = tool;
     this.selectTool(tool);
     
     if (tool !== 'rectangle' &&  tool !== 'line' &&  tool !== 'circle' && tool !== 'triangle' && tool !== 'text') {
-      this[currentTool]();
+      this[currentTool](wId);
     } else if (currentTool === 'text') {
-      this.activeAllObj.enable(virtualclass.gObj.currWb, 'i-text');
-      this.activeAllObj.disableBut(virtualclass.gObj.currWb, 'i-text');
+      this.activeAllObj.enable(wId, 'i-text');
+      this.activeAllObj.disableBut(wId, 'i-text');
       delete virtualclass.wbWrapper.gObj.textSelected; // Clear text selection if there is any
       this.textObj.textEditing = false;
     } else {
-      this.activeAllObj.disable(virtualclass.gObj.currWb);
+      this.activeAllObj.disable(wId);
     }
   }
 
@@ -175,26 +179,26 @@ class Whiteboard {
 
 
 
-  freeDrawing() {
+  freeDrawing(wId) {
     this.canvas.isDrawingMode = false;
     // this.disable(virtualclass.gObj.currWb);
-    this.activeAllObj.disable(virtualclass.gObj.currWb);
+    this.activeAllObj.disable(wId);
     // this.isDrawingMode = true;
   }
 
-  activeAll() {
-    this.activeAllObj.enable(virtualclass.gObj.currWb);
+  activeAll(wId) {
+    this.activeAllObj.enable(wId);
     console.log('====> I am being active here ');
   }
 
-  clearAll() {
+  clearAll(wId) {
     const cofirmMessage = virtualclass.lang.getString('clearAllWarnMessageW');
     virtualclass.popup.confirmInput(cofirmMessage, (confirm) => {
       if (confirm){
         this.clear();
         // const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
         // whiteboard.myPencil = new fabric.PencilBrush(whiteboard.canvas);
-        const encodeData = virtualclass.wbWrapper.protocol.encode('cr', virtualclass.gObj.currWb);
+        const encodeData = virtualclass.wbWrapper.protocol.encode('cr', wId);
         virtualclass.wbWrapper.msg.send(encodeData);
       }
     });

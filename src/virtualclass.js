@@ -861,7 +861,7 @@
           // console.log('##==jai 3c ', virtualclass.currApp, virtualclass.gObj.currWb);
 
           virtualclass.gObj.currWb = id;
-
+          console.log('====> whiteboard apply ', virtualclass.gObj.currWb);
           /**
            *  We can not use passed app, because from document share app, it will pass the whiteboard as app
            *  and we require the object orderList according to app, like  orderList.Whiteboard and orderList.DocumentShare
@@ -947,6 +947,7 @@
           }
 
           virtualclass.gObj.currWb = id;
+          console.log('====> whiteboard apply ', virtualclass.gObj.currWb);
           const wid = id;
 
           if (typeof this.pdfRender[wid] !== 'object') {

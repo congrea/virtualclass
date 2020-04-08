@@ -398,6 +398,43 @@
         return viewport;
       },
 
+      // Apply canvas width through css for view port, its NOT logical width
+      // it's always lesser than logical canvas width
+      getAppearanceCanvasWidth(wb, canvas) {
+        let appearanceCanvasWidth;
+        if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'diffrentDocumentWidth')) {
+          appearanceCanvasWidth = virtualclass.zoom.diffrentDocumentWidth;
+          console.log('==== a canvas width ', canvas.width);
+          delete virtualclass.zoom.diffrentDocumentWidth;
+        } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
+          if (canvas.parentNode.offsetWidth === 300 || canvas.parentNode.offsetWidth === 0) {
+            // Todo, later, we have to use only offset width of virtualclassAppContainer for width
+            // canvas.width = document.querySelector('#virtualclassAppContainer').offsetWidth;
+            appearanceCanvasWidth = document.querySelector('#virtualclassAppContainer').offsetWidth;
+          } else {
+            // canvas.width = canvas.parentNode.offsetWidth - 6;
+            appearanceCanvasWidth = canvas.parentNode.offsetWidth - 6;
+          }
+          if (virtualclass.currApp === 'DocumentShare') virtualclass.zoom.fitToElementTooltip('fitToToPage');
+        } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'performZoom')) {
+          // canvas.width = virtualclass.zoom.canvasDimension.width;
+          appearanceCanvasWidth = virtualclass.zoom.canvasDimension.width;
+          console.log('==== a canvas width performZoom ', canvas.width);
+          delete virtualclass.zoom.performZoom;
+        } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'canvasDimension')) {
+          // canvas.width = virtualclass.zoom.canvasDimension.width;
+          appearanceCanvasWidth = virtualclass.zoom.canvasDimension.width;
+          console.log('==== a canvas width  ', canvas.width);
+        } else if (canvas.offsetWidth === 0 || canvas.offsetWidth === 300 || virtualclass.isPlayMode) {
+          this.setDefaultCanvasWidth(wb, canvas);
+          appearanceCanvasWidth = virtualclass.vutil.canvasDimensionFromPixel(canvas).width;
+        } else {
+          // canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
+          appearanceCanvasWidth = canvas.parentNode.offsetWidth - 6;
+        }
+        return appearanceCanvasWidth;
+      },
+
       async renderPage(page, firstTime) {
         // In case of changing the different pdf width
 
@@ -421,49 +458,14 @@
           } else {
             wb = page.wbId;
           }
-
-          const canvas = virtualclass.wb[wb].canvas.lowerCanvasEl;
-          let canvasDimension = virtualclass.vutil.canvasDimensionFromPixel(canvas);
-          let canvasWidth;
           let viewport;
-          if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'diffrentDocumentWidth')) {
-            canvas.width = virtualclass.zoom.diffrentDocumentWidth;
-            console.log('==== a canvas width ', canvas.width);
-            delete virtualclass.zoom.diffrentDocumentWidth;
-          } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
-            if (canvas.parentNode.offsetWidth === 300 || canvas.parentNode.offsetWidth === 0) {
-              // Todo, later, we have to use only offset width of virtualclassAppContainer for width
-              // canvas.width = document.querySelector('#virtualclassAppContainer').offsetWidth;
-              canvasWidth = document.querySelector('#virtualclassAppContainer').offsetWidth;
-            } else {
-              // canvas.width = canvas.parentNode.offsetWidth - 6;
-              canvasWidth = canvas.parentNode.offsetWidth - 6;
-            }
-            if (virtualclass.currApp === 'DocumentShare') {
-              virtualclass.zoom.fitToElementTooltip('fitToToPage');
-            }
-          } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'performZoom')) {
-            // canvas.width = virtualclass.zoom.canvasDimension.width;
-            canvasWidth = virtualclass.zoom.canvasDimension.width;
-            console.log('==== a canvas width performZoom ', canvas.width);
-            delete virtualclass.zoom.performZoom;
-          } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'canvasDimension')) {
-            // canvas.width = virtualclass.zoom.canvasDimension.width;
-            canvasWidth = virtualclass.zoom.canvasDimension.width;
-            console.log('==== a canvas width  ', canvas.width);
-          } else if (canvas.offsetWidth === 0 || canvas.offsetWidth === 300 || virtualclass.isPlayMode) {
-            this.setDefaultCanvasWidth(wb, canvas);
-            canvasWidth = virtualclass.vutil.canvasDimensionFromPixel(canvas).width;
-          } else {
-            // canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
-            canvasWidth = canvas.parentNode.offsetWidth - 6;
-          }
+          const canvas = virtualclass.wb[wb].canvas.lowerCanvasEl;
+          let appearanceCanvasWidth = this.getAppearanceCanvasWidth(wb, canvas);
 
           if (this.firstTime) {
             this.firstTime = false;
             if (virtualclass.zoom.canvasScale == null || virtualclass.gObj.fitToScreen) {
-              viewport = page.getViewport((canvasWidth) / page.getViewport(1.0).width);
-              console.log('==== a canvas width, scale', canvas.width, viewport.scale);
+              viewport = page.getViewport((appearanceCanvasWidth) / page.getViewport(1.0).width);
               console.log('==== view port 1', viewport.width);
             } else {
               viewport = page.getViewport(scale);
@@ -479,7 +481,7 @@
             // delete virtualclass.zoom.performFitToPage;
           } else {
            // canvasDimension = virtualclass.vutil.canvasDimensionFromPixel(canvas);
-            viewport = page.getViewport((canvasWidth) / page.getViewport(1.0).width);
+            viewport = page.getViewport((appearanceCanvasWidth) / page.getViewport(1.0).width);
             console.log('==== view port 4', viewport.width);
           }
 

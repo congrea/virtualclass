@@ -12,3 +12,5 @@ dest_temp/*
 .DS_Store
 example/.DS_Store
 .htaccess
+.DS_Store
+example/.DS_Store

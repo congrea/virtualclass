@@ -379,20 +379,21 @@
           canvas.width = canvas.parentNode.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
         }
         // as width and height change for canvas, we need to create new fabric canvas object
-        virtualclass.wbWrapper.util.createFabricNewInstance(wb); 
+        virtualclass.wbWrapper.util.createFabricNewInstance(wb, {width: canvas.width, height: canvas.height}); 
       },
 
       calculateViewPort(canvas, page) {
         let viewport;
         const container = document.getElementById('virtualclassAppContainer');
-        const pageWidthScale = container.clientWidth / canvas.width * virtualclass.zoom.canvasScale;
-        const pageHeightScale = container.clientHeight / canvas.height * virtualclass.zoom.canvasScale;
+        const canvasDimension = virtualclass.vutil.canvasDimensionFromPixel(canvas);
+        const pageWidthScale = container.clientWidth / canvasDimension.width * virtualclass.zoom.canvasScale;
+        const pageHeightScale = container.clientHeight / canvasDimension.height * virtualclass.zoom.canvasScale;
         const tempScale = Math.min(pageWidthScale, pageHeightScale);
         const tempViewport = page.getViewport(tempScale);
         if (tempViewport.width < container.offsetWidth) {
           viewport = tempViewport;
         } else {
-          viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
+          viewport = page.getViewport((canvasDimension.width) / page.getViewport(1.0).width);
         }
         return viewport;
       },
@@ -422,6 +423,8 @@
           }
 
           const canvas = virtualclass.wb[wb].canvas.lowerCanvasEl;
+          let canvasDimension = virtualclass.vutil.canvasDimensionFromPixel(canvas);
+          let canvasWidth;
           let viewport;
           if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'diffrentDocumentWidth')) {
             canvas.width = virtualclass.zoom.diffrentDocumentWidth;
@@ -430,33 +433,41 @@
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
             if (canvas.parentNode.offsetWidth === 300 || canvas.parentNode.offsetWidth === 0) {
               // Todo, later, we have to use only offset width of virtualclassAppContainer for width
-              canvas.width = document.querySelector('#virtualclassAppContainer').offsetWidth;
+              // canvas.width = document.querySelector('#virtualclassAppContainer').offsetWidth;
+              canvasWidth = document.querySelector('#virtualclassAppContainer').offsetWidth;
             } else {
-              canvas.width = canvas.parentNode.offsetWidth - 6;
+              // canvas.width = canvas.parentNode.offsetWidth - 6;
+              canvasWidth = canvas.parentNode.offsetWidth - 6;
             }
             if (virtualclass.currApp === 'DocumentShare') {
               virtualclass.zoom.fitToElementTooltip('fitToToPage');
             }
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'performZoom')) {
-            canvas.width = virtualclass.zoom.canvasDimension.width;
+            // canvas.width = virtualclass.zoom.canvasDimension.width;
+            canvasWidth = virtualclass.zoom.canvasDimension.width;
             console.log('==== a canvas width performZoom ', canvas.width);
             delete virtualclass.zoom.performZoom;
           } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'canvasDimension')) {
-            canvas.width = virtualclass.zoom.canvasDimension.width;
+            // canvas.width = virtualclass.zoom.canvasDimension.width;
+            canvasWidth = virtualclass.zoom.canvasDimension.width;
             console.log('==== a canvas width  ', canvas.width);
           } else if (canvas.offsetWidth === 0 || canvas.offsetWidth === 300 || virtualclass.isPlayMode) {
             this.setDefaultCanvasWidth(wb, canvas);
+            canvasWidth = virtualclass.vutil.canvasDimensionFromPixel(canvas).width;
           } else {
-            canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
+            // canvas.width = canvas.parentNode.offsetWidth - 6; // Subtracting 6 of scrollbar width
+            canvasWidth = canvas.parentNode.offsetWidth - 6;
           }
 
           if (this.firstTime) {
             this.firstTime = false;
             if (virtualclass.zoom.canvasScale == null || virtualclass.gObj.fitToScreen) {
-              viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
+              viewport = page.getViewport((canvasWidth) / page.getViewport(1.0).width);
               console.log('==== a canvas width, scale', canvas.width, viewport.scale);
+              console.log('==== view port 1', viewport.width);
             } else {
               viewport = page.getViewport(scale);
+              console.log('==== view port 2', viewport.width);
             }
 
             // virtualclass.zoom.doOpposite = true;
@@ -464,27 +475,35 @@
           } else if (virtualclass.zoom.performFitToPage) {
             // this.fitElementToolTipChange('fitToScreen');
             viewport = this.calculateViewPort(canvas, page);
+            console.log('==== view port 3', viewport.width);
             // delete virtualclass.zoom.performFitToPage;
           } else {
-            viewport = page.getViewport((canvas.width) / page.getViewport(1.0).width);
+           // canvasDimension = virtualclass.vutil.canvasDimensionFromPixel(canvas);
+            viewport = page.getViewport((canvasWidth) / page.getViewport(1.0).width);
+            console.log('==== view port 4', viewport.width);
           }
 
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
+          // canvas.height = viewport.height;
+          // canvas.width = viewport.width;
+          
           console.log('=====> whiteboard pdf suman calc canvas scale');
           virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
           virtualclass.zoom.canvasScale = viewport.scale;
           console.log('==== a suman SCAle change ', virtualclass.zoom.canvasScale);
           virtualclass.zoom.prvPdfDimension = page.view;
           const pdfCanvas = document.getElementById(`${canvas.id}_pdf`);
-          pdfCanvas.width = canvas.width;
-          pdfCanvas.height = canvas.height;
+
+          // pdfCanvas.width = canvas.width;
+          // pdfCanvas.height = canvas.height;
+          pdfCanvas.width = viewport.width;
+          pdfCanvas.height = viewport.height;
 
           virtualclass.zoom.canvasDimension = {};
-          virtualclass.zoom.canvasDimension.width = canvas.width;
-          virtualclass.zoom.canvasDimension.height = canvas.height;
+          virtualclass.zoom.canvasDimension.width = viewport.width;
+          virtualclass.zoom.canvasDimension.height = viewport.height;
           // as width and height change for canvas, we need to create new fabric canvas object
-          virtualclass.wbWrapper.util.createFabricNewInstance(wb);
+         // virtualclass.wbWrapper.util.createFabricNewInstance(wb);
+         virtualclass.wbWrapper.util.createFabricNewInstance(wb, {width: viewport.width, height: viewport.height});
 
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
             const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);

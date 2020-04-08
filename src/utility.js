@@ -2442,7 +2442,15 @@
         elem.classList.remove('open');
         elem.classList.add('close');
       }
+    },
+
+    // this width in pixel is to handle width for retina/hdpi devices
+    canvasDimensionFromPixel(canvas) {
+      const canvasWidth = parseFloat(window.getComputedStyle(canvas).width); 
+      const canvasHeight = parseFloat(window.getComputedStyle(canvas).height);
+      return { width: canvasWidth, height: canvasHeight };
     }
   };
   window.vutil = vutil;
 }(window));
+

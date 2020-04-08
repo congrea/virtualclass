@@ -85,7 +85,7 @@ class Whiteboard {
       console.log('=====> SUMAN BOGATI MOUSE 2');
       this[`${this.selectedTool}Obj`].mouseMove(pointer, this, o);
     }
-    virtualclass.wbWrapper.cursor.handle(pointer);
+    virtualclass.wbWrapper.cursor.handle(o.e);
   }
 
   handlerMouseUp(o) {

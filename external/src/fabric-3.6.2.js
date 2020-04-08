@@ -6888,6 +6888,7 @@ fabric.ElementsParser = function(elements, callback, options, reviver, parsingOp
      * @private
      */
     _initRetinaScaling: function() {
+      //return;
       if (!this._isRetinaScaling()) {
         return;
       }
@@ -10756,6 +10757,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
       this.cacheCanvasEl = this._createCanvasElement();
       this.cacheCanvasEl.setAttribute('width', this.width);
       this.cacheCanvasEl.setAttribute('height', this.height);
+      console.log('suman canvas width ', this.width);
       this.contextCache = this.cacheCanvasEl.getContext('2d');
     },
 
@@ -10793,6 +10795,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
       });
       element.width = width;
       element.height = height;
+      console.log('suman canvas width ', width);
       fabric.util.makeElementUnselectable(element);
     },
 
@@ -12508,6 +12511,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
       this.interactive = originalInteractive;
       this.enableRetinaScaling = originalRetina;
       this.contextTop = originalContextTop;
+      console.log('suman canvas width ', this.width);
       return canvasEl;
     },
   });
@@ -14539,7 +14543,7 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, /** @lends fabric.Stati
       canvas._objects = [];
       canvas.dispose();
       canvas = null;
-
+      console.log('suman canvas width ', el.width);
       return canvasEl;
     },
 

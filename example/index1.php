@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="https://live.congrea.net/manifest.json">
+<link rel="manifest" href="https://live.congrea.net/virtualclass/manifest.json">
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
 <!-- CODELAB: Add iOS meta tags and icons -->
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -228,7 +228,7 @@ if($info) {
 <script type="text/javascript"> 
 	if ('serviceWorker' in navigator) { 
 		window.addEventListener('load', ()=> {
-			navigator.serviceWorker.register('../../service-worker.js')
+			navigator.serviceWorker.register('../service-worker.js')
 				.then((reg) => {
 					console.log('Service worker registered.', reg);
 				});

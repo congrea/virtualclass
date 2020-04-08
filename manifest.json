@@ -1,0 +1,27 @@
+{
+    "short_name": "Congrea",
+    "name": "Udit's Congrea",
+    "icons": [
+      {
+        "src": "https://live.congrea.net/virtualclass/images/maskable_icon144x144.png",
+        "type": "image/png",
+        "sizes": "144x144"
+      },
+      {
+        "src": "https://live.congrea.net/virtualclass/images/maskable_icon192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/virtualclass/images/maskable_icon512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "background_color": "#3367D6",
+    "display": "fullscreen",
+    "orientation": "landscape",
+    "start_url": "/virtualclass/",
+    "scope": ".",
+    "theme_color": "#021317"
+  }

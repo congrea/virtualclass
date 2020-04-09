@@ -614,7 +614,7 @@ input[type="reset"] {
   font-size: 0;
   margin: -5px 1px 1px -3px;
   height: 20px;
-  padding-top: 2px;
+  padding-top: 4px;
 }
 
 @media (min-width: 1300px) {

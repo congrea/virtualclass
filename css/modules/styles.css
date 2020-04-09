@@ -4680,7 +4680,7 @@ span#usertab_text {
 
   #virtualclassCont.congrea #fullScreenButton .fullScreen,
   #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
-    padding: 11px 18px 10px 18px;
+    padding: 11px 18px 11.5px 18px;
   }
 
   #virtualclassCont.congrea #editPollModal #pollModalBody #contBody #enTimer label select {

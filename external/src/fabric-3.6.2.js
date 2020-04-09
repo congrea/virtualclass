@@ -11424,7 +11424,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
      */
     _onTouchStart: function(e) {
       // suman changed to handle the scrolling on mobile
-      // more about issue can be found at https://github.com/fabricjs/fabric.js/issues/5903
+      // more about issue can be found at https://github.com/fabricjs/fabric.js/issues/5904
       !this.allowTouchScrolling && e.preventDefault && e.preventDefault();
       if (this.mainTouchId === null) {
         this.mainTouchId = this.getPointerId(e);

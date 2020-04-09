@@ -80,20 +80,16 @@ class WhiteboardProtocol {
     return newData;
   }
 
-  // Clear Whiteboard
-  cr(data, type) {
-    let newData;
+  generateWhiteboardId(data, type) {
+    let whiteboardId;
     if (type === 'encode') {
-      let whiteboardId;
       const dataArr = data.split('_');
       if (data.length > 10) { // document's id
         whiteboardId = `${dataArr[dataArr.length - 2]}::${dataArr[dataArr.length - 1]}`;
       } else {
         whiteboardId = dataArr[dataArr.length - 1]; // whiteboard id
       }
-      newData = { wb: [`cr_${whiteboardId}`], cf: 'wb' };
     } else {
-      let whiteboardId;
       if (data[data.length - 1].length > 10) {
         const idInChunks = data[data.length - 1].split("::");
         const docId = `${idInChunks[idInChunks.length - 2]}_${idInChunks[idInChunks.length - 1]}`;
@@ -101,6 +97,17 @@ class WhiteboardProtocol {
       } else {
         whiteboardId = `_doc_0_${data[data.length - 1]}`; // whiteboard id
       }
+    }
+    return whiteboardId;
+  }
+
+  // Clear Whiteboard
+  cr(data, type) {
+    let newData;
+    const whiteboardId = this.generateWhiteboardId(data, type);
+    if (type === 'encode') {
+      newData = { wb: [`cr_${whiteboardId}`], cf: 'wb' };
+    } else {
       newData = { action: data[0], actual: whiteboardId};
     }
     return newData;
@@ -142,7 +149,6 @@ class WhiteboardProtocol {
       } else {
         result.push(`sp_f_m_${x}_${y}`);
       }
-      console.log('====> creating arrow =============== free drawing before scale ', x, y);
     }
     return result;
   }
@@ -198,12 +204,10 @@ class WhiteboardProtocol {
   
   ds(data, type) { // discard selection
     let newData;
+    const whiteboardId = this.generateWhiteboardId(data, type);
     if (type === 'encode') {
-      const dataArr = data.split('_');
-      const whiteboardId = dataArr[dataArr.length - 1];
       newData = { wb: [`ds_${whiteboardId}`], cf: 'wb' };
     } else {
-      const whiteboardId = `_doc_${data[data.length - 1]}_${data[data.length - 1]}`;
       newData = { action: data[0], actual: whiteboardId};
     }
     return newData;
@@ -211,12 +215,10 @@ class WhiteboardProtocol {
 
   da(data, type) { // delete active, todo, da should be merge with ds
     let newData;
+    const whiteboardId = this.generateWhiteboardId(data, type);
     if (type === 'encode') {
-      const dataArr = data.split('_');
-      const whiteboardId = dataArr[dataArr.length - 1];
       newData = { wb: [`da_${whiteboardId}`], cf: 'wb' };
     } else {
-      const whiteboardId = `_doc_${data[data.length - 1]}_${data[data.length - 1]}`;
       newData = { action: data[0], actual: whiteboardId};
     }
     return newData;

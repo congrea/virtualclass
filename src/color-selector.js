@@ -143,9 +143,7 @@
         + '#virtualclassCont.congrea #virtualclassOptionsCont:first-child '
         + `{background-image: linear-gradient(to right, ${allbg.fcolor} 0%,${allbg.scolor} 100%)} `
 
-        + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active, '
-        // + '#virtualclassCont.congrea .commandToolsWrapper .shapesTool .tool.active a, '
-
+        + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active '
         + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100%) !important;} `
         + '#virtualclassCont.congrea .tool.active a span:before '
         + `{color:${frontColor}!important}`

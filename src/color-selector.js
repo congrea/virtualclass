@@ -177,7 +177,7 @@
         + `{color:${frontColor}!important}`
 
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a,'
-        + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool.active a:hover'
+        + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool.active a:hover,'
         + `{color:${frontColor}!important}`
 
         + '#virtualclassCont.congrea .shapesToolbox a'

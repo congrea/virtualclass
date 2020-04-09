@@ -572,7 +572,7 @@ ul.fontSizeList span {
 }
 
 #virtualclassCont.student .canvas-container .upper-canvas {
-  pointer-events: none;
+  pointer-events: visible;
 }
 
 #virtualclassCont .canvasWrapper .canvas-container {

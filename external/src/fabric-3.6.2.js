@@ -11423,7 +11423,9 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
      * @param {Event} e Event object fired on mousedown
      */
     _onTouchStart: function(e) {
-      e.preventDefault();
+      // suman changed to handle the scrolling on mobile
+      // more about issue can be found at https://github.com/fabricjs/fabric.js/issues/5903
+      !this.allowTouchScrolling && e.preventDefault && e.preventDefault();
       if (this.mainTouchId === null) {
         this.mainTouchId = this.getPointerId(e);
       }

@@ -17,7 +17,7 @@ class WhiteboardCursor {
         }
         this.presentarrowtime = new Date().getTime();
         if (((this.presentarrowtime - this.lastarrowtime) >= time) && !virtualclass.wb[virtualclass.gObj.currWb].mousedown) {
-            console.log('====> creating arrow ', JSON.stringify(msg));
+            console.log('====> creating arrow ',    JSON.stringify(msg));
             ioAdapter.send(msg);
             this.lastarrowtime = new Date().getTime();
         }

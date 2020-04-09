@@ -34,15 +34,19 @@ class WhiteboardUtility {
       virtualclass.wb[wId].canvas.dispose();
     }
     delete virtualclass.wb[wId].canvas;
-    if (canvasDimension) {
-      const canvasWidth = canvasDimension.width;
-      console.log('===> suman width ', canvasWidth);
-      virtualclass.wb[wId].canvas = new fabric.Canvas(`canvas${wId}`, { selection: false, width: canvasWidth, height:  canvasDimension.height});
-    } else {
-      virtualclass.wb[wId].canvas = new fabric.Canvas(`canvas${wId}`, { selection: false});
+    const options = {
+       allowTouchScrolling: true,
+       selection: false,
     }
-    
-    virtualclass.wb[wId].attachMouseMovementHandlers();
+    if (canvasDimension) {
+      options.width = canvasDimension.width;
+      options.height = canvasDimension.height;
+    }
+    // alert(JSON.stringify(options))
+    virtualclass.wb[wId].canvas = new fabric.Canvas(`canvas${wId}`, options);
+    if (roles.hasControls()) {
+      virtualclass.wb[wId].attachMouseMovementHandlers();
+    }
     this.createCanvasPdfInstance(wId, virtualclass.wb[wId].canvas.upperCanvasEl);
   }
 

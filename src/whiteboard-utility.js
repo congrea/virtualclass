@@ -46,6 +46,7 @@ class WhiteboardUtility {
     virtualclass.wb[wId].canvas = new fabric.Canvas(`canvas${wId}`, options);
     if (roles.hasControls()) {
       virtualclass.wb[wId].attachMouseMovementHandlers();
+      console.log('=====> attach handlers with whiteboard id ', wId);
     }
     this.createCanvasPdfInstance(wId, virtualclass.wb[wId].canvas.upperCanvasEl);
   }

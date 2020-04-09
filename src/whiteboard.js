@@ -70,6 +70,7 @@ class Whiteboard {
     return pointer;
   }
   handlerMouseDown(o) {
+    if (!o.e.isTrusted) return;
     // We do not need to invoke on clearAll
     if (this.selectedTool && this[`${this.selectedTool}Obj`]) {
       console.log('=====> SUMAN BOGATI MOUSE 1');
@@ -80,6 +81,7 @@ class Whiteboard {
   }
 
   handlerMouseMove(o) {
+    if (!o.e.isTrusted) return;
     const pointer = this.triiggerGetPointer(o.e);
     if (this.mousedown && this.selectedTool) {
       console.log('=====> SUMAN BOGATI MOUSE 2');
@@ -89,6 +91,7 @@ class Whiteboard {
   }
 
   handlerMouseUp(o) {
+    if (!o.e.isTrusted) return;
     const pointer = this.triiggerGetPointer(o.e);
     if (this.mousedown && this.selectedTool) this[`${this.selectedTool}Obj`].mouseUp(pointer, this, o);
     this.mousedown = false;

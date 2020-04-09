@@ -64,7 +64,6 @@ class WhiteboardCommonShape {
   innerMouseDown(pointer, whiteboard, event) {
     this.mousedown = true;
     if (this.name === 'freeDrawing') {
-      console.log('====> free drawing mousedown', JSON.stringify(pointer));
       if (!whiteboard.myPencil) {
         whiteboard.myPencil = new fabric.PencilBrush(whiteboard.canvas);
         whiteboard.myPencil.width = this.default.strokeWidth;
@@ -81,6 +80,7 @@ class WhiteboardCommonShape {
 
       if (!event)  event = { e: {isPrimary: true} };
       whiteboard.myPencil.onMouseDown(pointer, event);
+      console.log('====> free drawing mouse down true ', whiteboard.canvas.lowerCanvasEl.id);
     } else {
       this.startLeft = pointer.x;
       this.startTop = pointer.y;
@@ -129,6 +129,7 @@ class WhiteboardCommonShape {
         this.chunks.length = 0;
       }
       this.mousedown = false;
+   
       whiteboard.activeAllObj.disableLastElement(virtualclass.gObj.currWb);
     } else {
       this.innerMouseUp(pointer, whiteboard, true);
@@ -155,6 +156,7 @@ class WhiteboardCommonShape {
 
   innerMouseUp (pointer, whiteboard, event) {
     this.mousedown = false;
+    console.log('====> free drawing mouse down /up false ', whiteboard.canvas.lowerCanvasEl.id);
     if (this.name !== 'freeDrawing') {
       this[this.name].setCoords();
     } else {

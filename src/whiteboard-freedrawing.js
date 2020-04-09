@@ -6,7 +6,8 @@ class WhiteboardFreeDrawing extends WhiteboardCommonShape {
   }
 
   innerMouseMove(pointer, whiteboard, event) {
-    console.log('====> free drawing mousemove', JSON.stringify(pointer));
+    // console.log('====> free drawing mousemove', JSON.stringify(pointer));
+    // console.log('====> free drawing mouse move true');
     if (!event) event = { e: {isPrimary: true}};
     whiteboard.myPencil.onMouseMove(pointer, event);
   }
@@ -15,6 +16,7 @@ class WhiteboardFreeDrawing extends WhiteboardCommonShape {
     this.innerMouseMove(pointer, whiteboard, event);
     if (!event.e.isTrusted) return;
     this.collectingData(pointer);
+    
     virtualclass.wbWrapper.msg.optimizeToSend(this.chunks, 3000, 'sf');
   }
 

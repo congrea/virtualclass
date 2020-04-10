@@ -92,8 +92,6 @@
           this.leftPosX = 0;
         }
         this.scrollEvent();
-
-
         if (typeof this.wbId !== 'undefined' && this.wbId != null) {
           const cN = currNote.split('_');
           const note = document.querySelector(`#note${cN[2]}_${cN[3]}`);
@@ -124,7 +122,6 @@
         // using for text box wrapper on whiteboard
         virtualclass.topPosY = topPosY;
         virtualclass.leftPosX = leftPosX;
-
         this.topPosY = topPosY;
         this.leftPosX = leftPosX;
 
@@ -187,7 +184,6 @@
 
         this[`scrollPos${tp}`] = (pos / canvasM) * 100;
 
-        const canvasInner = `canvas${virtualclass.gObj.currWb}`;
         const wrapper = `canvasWrapper${virtualclass.gObj.currWb}`;
 
         const viewPortM = virtualclass.vutil.getElemM(wrapper, tp);
@@ -241,12 +237,13 @@
 
       // for student
       setScrollPosition(obj) {
+        const canvasDimension = virtualclass.vutil.canvasDimensionFromPixel(this.canvas);
         if (Object.prototype.hasOwnProperty.call(obj, 'scY') && obj.scY != null && this.canvas != null) {
-          this.scroll.caclculatePosition(obj.scY, this.canvas.height, 'Y');
+          this.scroll.caclculatePosition(obj.scY, canvasDimension.height, 'Y');
         }
 
         if (Object.prototype.hasOwnProperty.call(obj, 'scX') && obj.scX != null && this.canvas != null) {
-          this.scroll.caclculatePosition(obj.scX, this.canvas.width, 'X');
+          this.scroll.caclculatePosition(obj.scX, canvasDimension.width, 'X');
         }
       },
 

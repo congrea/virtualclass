@@ -35,7 +35,6 @@ class WhiteboardUtility {
     }
     delete virtualclass.wb[wId].canvas;
     const options = {
-       allowTouchScrolling: true,
        selection: false,
     }
     if (canvasDimension) {
@@ -65,7 +64,7 @@ class WhiteboardUtility {
       canvasPdf.height = mainCanvas.height;
      // mainCanvas.parentNode.insertBefore(canvasPdf, mainCanvas);
      //mainCanvas.parentNode.insertAdjacentElement('after', canvasPdf);
-     mainCanvas.parentNode.parentNode.insertBefore(canvasPdf, mainCanvas.parentNode.nextSibling);
+     mainCanvas.parentNode.parentNode.insertBefore(canvasPdf, mainCanvas.parentNode);
 
     }
     // virtualclass.vutil.insertAfter(canvasPdf, mainCanvas);

@@ -1111,9 +1111,9 @@
   z-index: auto !important;
 }
 
-#virtualclassCont[data-currapp="DocumentShare"] #docScreenContainer .canvasWrapper .pdfs {
+/* #virtualclassCont[data-currapp="DocumentShare"] #docScreenContainer .canvasWrapper .pdfs {
   z-index: -1;
-}
+} */
 
 #docShareNav.hide {
   display: none !important;

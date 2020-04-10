@@ -572,13 +572,17 @@ ul.fontSizeList span {
 }
 
 #virtualclassCont.student .canvas-container .upper-canvas {
-  pointer-events: visible;
+  pointer-events: none;
 }
 
 #virtualclassCont .canvasWrapper .canvas-container {
   width: 100% !important;
 }
-
-#virtualclassCont .canvasWrapper canvas.pdfs {
-  z-index: -1;
+/** Handlling scroll on mobile by element's visibility **/
+#virtualclassCont.student .canvas-container, #virtualclassCont .canvasWrapper .pdfs {
+  z-index : -1;
 }
+
+/* #virtualclassCont .canvasWrapper canvas.pdfs {
+  z-index: -1;
+} */

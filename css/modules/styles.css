@@ -4284,12 +4284,6 @@ span#usertab_text {
   bottom: 1.5625rem;
 }
 
-#virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .loading,
-#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .loading,
-#virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .askToPlay {
-  display: none;
-}
-
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay {
   box-sizing: border-box;
   display: block;
@@ -4315,6 +4309,12 @@ span#usertab_text {
 #virtualclassCont.congrea.playMode #popupContainer.loading.playPopup #loadingWindowCont .askToPlay,
 #virtualclassCont.congrea.playMode #popupContainer.loading #loadingWindowCont .loading {
   display: block;
+}
+
+#virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .loading,
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .loading,
+#virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .askToPlay {
+  display: none;
 }
 
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay:hover {

@@ -1,4 +1,11 @@
-// This class is to handle the utility functions of whiteboard
+/**
+ * This class is used to represent a new instance of Whiteboard.
+ * Every action performs on whiteboard, eg: selecting tool for creating, clearing and deleting shapes;
+ * changing the font size, stroke size and color, all action start to execute from this file
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
+
 class Whiteboard {
   constructor() {
     this.canvas = null;
@@ -38,18 +45,9 @@ class Whiteboard {
     this.canvas.on('mouse:down', this.handlerMouseDown.bind(this));
     this.canvas.on('mouse:move', this.handlerMouseMove.bind(this));
     this.canvas.on('mouse:up', this.handlerMouseUp.bind(this));
-    this.canvas.on('text:editing:exited', (textObj) => { // TODO, this need to be removed
+    this.canvas.on('text:editing:exited', (textObj) => { // TODO, Settimeout needs to be removed
       setTimeout(() => { this.textObj.finalizeText(textObj); }, 0);
     });
-  }
-
-  removeMouseMovementHandlers() {
-    console.log('====> init whiteboard remove');
-    this.canvas.off('mouse:down', this.handlerMouseDown);
-    this.canvas.off('mouse:move', this.handlerMouseMove);
-    this.canvas.off('mouse:up', this.handlerMouseUp);
-    this.canvas.isDrawingMode = false;
-    this.canvas.selection = false;
   }
 
   handlerSelection(event) {
@@ -64,25 +62,27 @@ class Whiteboard {
       virtualclass.wbWrapper.gObj.textSelected = false;
     }
   }
-  triiggerGetPointer(e) {
+
+  triggerGetPointer(e) {
     const wId = e.wId ? e.wId : virtualclass.gObj.currWb;
     const pointer = virtualclass.wb[wId].canvas.getPointer(e);
     return pointer;
   }
+
   handlerMouseDown(o) {
     if (!o.e.isTrusted) return;
     // We do not need to invoke on clearAll
     if (this.selectedTool && this[`${this.selectedTool}Obj`]) {
       console.log('=====> SUMAN BOGATI MOUSE 1');
       this.mousedown = true;
-      const pointer = this.triiggerGetPointer(o.e);
+      const pointer = this.triggerGetPointer(o.e);
       this[`${this.selectedTool}Obj`].mouseDown(pointer, this, o);
     }
   }
 
   handlerMouseMove(o) {
     if (!o.e.isTrusted) return;
-    const pointer = this.triiggerGetPointer(o.e);
+    const pointer = this.triggerGetPointer(o.e);
     if (this.mousedown && this.selectedTool) {
       console.log('=====> SUMAN BOGATI MOUSE 2');
       this[`${this.selectedTool}Obj`].mouseMove(pointer, this, o);
@@ -92,7 +92,7 @@ class Whiteboard {
 
   handlerMouseUp(o) {
     if (!o.e.isTrusted) return;
-    const pointer = this.triiggerGetPointer(o.e);
+    const pointer = this.triggerGetPointer(o.e);
     if (this.mousedown && this.selectedTool) this[`${this.selectedTool}Obj`].mouseUp(pointer, this, o);
     this.mousedown = false;
     console.log('=====> SUMAN BOGATI MOUSE 3');
@@ -151,15 +151,6 @@ class Whiteboard {
     // this.selectedTool = null;
     const shapesElem = document.querySelector(`#shapes${this.wbId}`);
     virtualclass.wbWrapper.util.handleTrayDisplay(shapesElem);
-    // const shapesElem = document.querySelector(`#shapes${this.wbId}`);
-    // if (shapesElem.classList.contains('openopenTray')) {
-    //   //virtualclass.wbWrapper.util.closeShapeContainer(shapesElem);
-    //   virtualclass.wbWrapper.util.closeTray(shapesElem);
-    // } else {
-    //   virtualclass.wbWrapper.util.openTray(shapesElem);
-    //   // openShapeContainer
-    //   //shapesElem.classList.add('open', 'openTray');
-    // }
   }
 
   stroke(){
@@ -180,13 +171,9 @@ class Whiteboard {
     virtualclass.wbWrapper.util.initActiveElement(`#colorList${this.wbId}`, { type: 'color', prop: 'color' });
   }
 
-
-
   freeDrawing(wId) {
     this.canvas.isDrawingMode = false;
-    // this.disable(virtualclass.gObj.currWb);
     this.activeAllObj.disable(wId);
-    // this.isDrawingMode = true;
   }
 
   activeAll(wId) {
@@ -199,8 +186,6 @@ class Whiteboard {
     virtualclass.popup.confirmInput(cofirmMessage, (confirm) => {
       if (confirm){
         this.clear();
-        // const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
-        // whiteboard.myPencil = new fabric.PencilBrush(whiteboard.canvas);
         const encodeData = virtualclass.wbWrapper.protocol.encode('cr', wId);
         virtualclass.wbWrapper.msg.send(encodeData);
       }

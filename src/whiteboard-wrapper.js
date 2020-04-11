@@ -1,3 +1,11 @@
+/**
+ * This class is used to represent a new instance of Whiteboard.
+ * Every action performs on whiteboard, eg: selecting tool for creating, clearing and deleting shapes;
+ * changing the font size, stroke size and color, all action start to execute from this file
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
+
 class WhiteboardWrapper {
   constructor() {
     this.gObj = {};
@@ -9,17 +17,21 @@ class WhiteboardWrapper {
       text: 'Text',
       triangle: 'Triangle',
       circle: 'Circle',
+      r: 'rectangle',
+      f: 'freeDrawing',
+      l: 'line',
+      c: 'circle',
+      tr: 'triangle',
       d: 'innerMouseDown', // For triggering the mouse event on student side
       m: 'innerMouseMove',
       u: 'innerMouseUp',
       mousedown: 'd',
       mousemove: 'm',
       mouseup: 'u',
-      r: 'rectangle',
-      f: 'freeDrawing',
-      l: 'line',
-      c: 'circle',
-      tr: 'triangle',
+      ac: 'activeAll',
+      acd: 'mousedown',
+      acm: 'mousemove',
+      acu: 'mouseup',
       ovalShort: 'o', // For sending the shapes name in short form
       rectangleShort: 'r',
       freeDrawingShort: 'f',
@@ -31,11 +43,6 @@ class WhiteboardWrapper {
       ac: 'action',
       cl: 'color',
       cw: 'clear',
-      ac: 'activeAll',
-      acd: 'mousedown',
-      acm: 'mousemove',
-      acu: 'mouseup',
-      cl: 'color',
       sk: 'strk',
       ft: 'font',
       font: 'ft',

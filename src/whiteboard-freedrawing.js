@@ -1,3 +1,11 @@
+/**
+ * This class is responsible to create free drawing image.
+ * As mouse move data received, fbaric's pencil instance draws the move image here.
+ * Sending the mouse move cordinates from here.
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
+
 class WhiteboardFreeDrawing extends WhiteboardCommonShape {
   constructor(name) {
     super(name);
@@ -6,8 +14,6 @@ class WhiteboardFreeDrawing extends WhiteboardCommonShape {
   }
 
   innerMouseMove(pointer, whiteboard, event) {
-    // console.log('====> free drawing mousemove', JSON.stringify(pointer));
-    // console.log('====> free drawing mouse move true');
     if (!event) event = { e: {isPrimary: true}};
     whiteboard.myPencil.onMouseMove(pointer, event);
   }
@@ -16,7 +22,6 @@ class WhiteboardFreeDrawing extends WhiteboardCommonShape {
     this.innerMouseMove(pointer, whiteboard, event);
     if (!event.e.isTrusted) return;
     this.collectingData(pointer);
-    
     virtualclass.wbWrapper.msg.optimizeToSend(this.chunks, 3000, 'sf');
   }
 
@@ -32,7 +37,6 @@ class WhiteboardFreeDrawing extends WhiteboardCommonShape {
       this.chunks.push(`${newData.x}_${newData.y}`);
       console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', newData.x, newData.y);
     }
-
     virtualclass.wbWrapper.gObj.previousData = newData;
   }
 }

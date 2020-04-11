@@ -6,7 +6,6 @@ class WhiteboardUtility {
     }
   }
 
-  // executeWhiteboardData
   executeData(data, wId) {
     this.storeAtMemory(data, (wId));
     virtualclass.wbWrapper.replay.replayData([data], wId);
@@ -14,12 +13,11 @@ class WhiteboardUtility {
 
   storeAtMemory(data, wId, freeDrawing) {
     if (!virtualclass.wb[wId].replayObjs) virtualclass.wb[wId].replayObjs = [];
-    let toBeSendData;
+    let toBeSendData = data;
     if (freeDrawing) {
       toBeSendData = virtualclass.wbWrapper.protocol.generateFreeDrawingData(freeDrawing);
-    } else {
-      toBeSendData = data;
     }
+
     if (Array.isArray(data)) {
       for (let i = 0; i < toBeSendData.length; i += 1) {
         virtualclass.wb[wId].replayObjs.push(toBeSendData[i]);
@@ -52,10 +50,7 @@ class WhiteboardUtility {
 
   createCanvasPdfInstance(wId, mainCanvas) {
     const alreadCreateCanvas = document.querySelector(`#canvas${wId}_pdf`);
-    if (alreadCreateCanvas != null) {
-      // alreadCreateCanvas.width = mainCanvas.width;
-      // alreadCreateCanvas.height = mainCanvas.height;
-    } else {
+    if (alreadCreateCanvas == null) {
       console.log('suman create pdf canvas ', wId);
       const canvasPdf = document.createElement('canvas');
       canvasPdf.id = `canvas${wId}_pdf`;
@@ -64,39 +59,19 @@ class WhiteboardUtility {
       canvasPdf.height = mainCanvas.height;
      // mainCanvas.parentNode.insertBefore(canvasPdf, mainCanvas);
      //mainCanvas.parentNode.insertAdjacentElement('after', canvasPdf);
-     mainCanvas.parentNode.parentNode.insertBefore(canvasPdf, mainCanvas.parentNode);
-
+     mainCanvas.parentNode.parentNode.insertBefore(canvasPdf, mainCanvas.parentNode);;
     }
-    // virtualclass.vutil.insertAfter(canvasPdf, mainCanvas);
-    
   }
 
   replayFromLocalStroage(allRepObjs, wId) {
-     console.log('====> whiteboard pdf suman draw whiteboard')
+    console.log('====> whiteboard pdf suman draw whiteboard')
     if (typeof (Storage) !== 'undefined') {
       virtualclass.wb[wId].clear(wId);
       virtualclass.wb[wId].replayObjs = [];
       delete virtualclass.wb[wId].currStrkSize;
       delete virtualclass.wb[wId].activeToolColor;
       virtualclass.wb[wId].gObj.tempRepObjs = allRepObjs;
-      if (allRepObjs.length > 0) {
-        this.applyCommand(allRepObjs, wId);
-      }
-
-      // Todo, this is need to be re-enable
-      // if (roles.hasControls()) {
-      //   const fontTool = document.querySelector(`#t_font${wid}`);
-      //   const strkTool = document.querySelector(`#t_strk${wid}`);
-      //   if (virtualclass.wb[wid].tool.cmd === `t_text${wid}`) {
-      //     if (fontTool.classList.contains('hide')) {
-      //       fontTool.classList.remove('hide');
-      //       fontTool.classList.add('show');
-      //     }
-      //     strkTool.classList.add('hide');
-      //   } else if (!fontTool.classList.contains('hide')) {
-      //     fontTool.classList.add('hide');
-      //   }
-      // }
+      if (allRepObjs.length > 0) this.applyCommand(allRepObjs, wId);
     }
   }
 
@@ -182,7 +157,6 @@ class WhiteboardUtility {
   }
 
   activeElementHandler(tool, ev) {
-    // console.log('many times clicked');
     this.activeElement(ev, tool);
   }
 
@@ -203,6 +177,7 @@ class WhiteboardUtility {
       virtualclass.wbWrapper.msg.send(encodeData);
     }
   }
+
   // fabric.js, whiteboard changes, new changes, critical whiteboard, critical changes
   changeToolProperty(attr, value, wId) { //
     if (!wId) wId = virtualclass.gObj.currWb;
@@ -213,30 +188,6 @@ class WhiteboardUtility {
     } else if (attr === 'font') {
       virtualclass.wb[wId].textFontSize = value;
     }
-
-    // const currTime = new Date().getTime();
-    // let selectElem;
-    // let obj;
-    // if (attr === 'color') {
-    //   selectElem = document.querySelector(`#colorList${virtualclass.gObj.currWb} .selected`).id;
-    //   virtualclass.wb[virtualclass.gObj.currWb].activeToolColor = value;
-    //   document.querySelector(`#t_color${virtualclass.gObj.currWb} .disActiveColor`).style.backgroundColor = virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
-    //   obj = { color: value, elem: selectElem, mt: currTime };
-    // } else if (attr === 'strk') {
-    //   selectElem = document.querySelector(`#t_strk${virtualclass.gObj.currWb} .selected`).id;
-    //   virtualclass.wb[virtualclass.gObj.currWb].currStrkSize = value;
-    //   obj = { strkSize: value, elem: selectElem, mt: currTime };
-    // } else if (attr === 'font') {
-    //   selectElem = document.querySelector(`#t_font${virtualclass.gObj.currWb} .selected`).id;
-    //   virtualclass.wb[virtualclass.gObj.currWb].textFontSize = value;
-    //   obj = { fontSize: value, elem: selectElem, mt: currTime };
-    // }
-
-    // const { vcan } = virtualclass.wb[virtualclass.gObj.currWb];
-    // virtualclass.wb[virtualclass.gObj.currWb].uid++;
-    // obj.uid = virtualclass.wb[virtualclass.gObj.currWb].uid;
-    // vcan.main.replayObjs.push(obj);
-    //virtualclass.vutil.beforeSend({ repObj: [obj], cf: 'repObj' });
   }
 
   strokeSizeSelector(){
@@ -276,9 +227,6 @@ class WhiteboardUtility {
       activeElement[i].classList.remove('active');
     }
 
-    // if (activeElement != null) {
-    //   activeElement.classList.remove('active');
-    // }
     this.themeColorShapes(byReload);
     selectedElement.classList.add('active');
     localStorage.activeTool = selectedElement.id;

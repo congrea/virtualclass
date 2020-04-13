@@ -13,7 +13,7 @@ class WhiteboardLine extends WhiteboardCommonShape {
     if (!this.mousedown) return;
     this.line.set({
       x2: pointer.x,
-      y2: pointer.y
+      y2: pointer.y,
     });
     whiteboard.canvas.renderAll();
   }

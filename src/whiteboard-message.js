@@ -45,7 +45,8 @@ class WhiteboardMessage {
       }
       virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
       if (type === 'sf') {
-        virtualclass.wb[virtualclass.gObj.currWb].freeDrawingObj.chunks.length = 0; // empty the free drarwing after bulk
+        // empty the free drarwing after bulk
+        virtualclass.wb[virtualclass.gObj.currWb].freeDrawingObj.chunks.length = 0;
       }
     }
   }

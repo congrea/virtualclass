@@ -16,7 +16,7 @@ class VirtualclassKeyboard {
     // var currTime = new Date().getTime();
     // 8 is used for delete on mac
     if (evt.keyCode === 8 || evt.keyCode === 46) {
-      virtualclass.wbWrapper.util.deleteActiveObject(event);
+      virtualclass.wbWrapper.util.deleteActiveObject(event, virtualclass.gObj.currWb);
     } 
   }
 }

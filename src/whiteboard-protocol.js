@@ -49,7 +49,7 @@ class WhiteboardProtocol {
   ac(data, type, wId) {
     const newData = {};
     if (type === 'encode') {
-      console.log('==== sending before encode ', data.x, data.y);
+      // console.log('==== sending before encode ', data.x, data.y);
       const newCord = this.changeWithScale('divide', data);
       newData.wb = [`ac_${data.event}_${newCord.x}_${newCord.y}`];
       newData.cf = 'wb';
@@ -58,7 +58,7 @@ class WhiteboardProtocol {
       newData.tool = virtualclass.wbWrapper.keyMap[data[0]];
       if (data.length > 3) {
         newData.event = virtualclass.wbWrapper.keyMap[`ac${data[1]}`];
-        console.log('==== convert, before convert x, y ', newData.event, data[2], data[3]);
+        // console.log('==== convert, before convert x, y ', newData.event, data[2], data[3]);
         const newCord = this.changeWithScale('multiply', { x: data[2], y: data[3] });
         // const newCord = { x: +data[2], y: +data[3] };
         newData.actual = { x: newCord.x, y: newCord.y };
@@ -69,13 +69,10 @@ class WhiteboardProtocol {
           newData.actual.x += appOptionsToolbar ? appOptionsToolbar.offsetWidth : 55;
         }
         const canvasWrapper = document.querySelector(`#canvasWrapper${wId}`);
-        if (!canvasWrapper) {
-          debugger;
-        }
         newData.actual.x -= canvasWrapper.scrollLeft;
         newData.actual.y -= canvasWrapper.scrollTop;
       }
-      console.log('====> active data suman here ', JSON.stringify(newData));
+      // console.log('====> active data suman here ', JSON.stringify(newData));
     }
     return newData;
   }
@@ -208,7 +205,7 @@ class WhiteboardProtocol {
     if (type === 'encode') {
       newData = { wb: [`ds_${whiteboardId}`], cf: 'wb' };
     } else {
-      newData = { action: data[0], actual: whiteboardId};
+      newData = { action: data[0], actual: whiteboardId };
     }
     return newData;
   }
@@ -219,7 +216,7 @@ class WhiteboardProtocol {
     if (type === 'encode') {
       newData = { wb: [`da_${whiteboardId}`], cf: 'wb' };
     } else {
-      newData = { action: data[0], actual: whiteboardId};
+      newData = { action: data[0], actual: whiteboardId };
     }
     return newData;
   }

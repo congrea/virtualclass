@@ -61,7 +61,8 @@
           virtualclass.user.control.mediaWidgetDisable();
           virtualclass.vutil.disableVirtualClass();
         }
-      } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') || Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
+      } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable')
+        || Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
         virtualclass.user.control.mediaWidgetDisable();
       }
     },
@@ -87,7 +88,8 @@
     makeActiveApp(app, prvTool) {
       if (app !== prvTool && typeof prvTool !== 'undefined') {
         prvTool += 'Tool';
-        // document.getElementById(prvTool).className = virtualclass.wb[virtualclass.gObj.currWb].utility.removeClassFromElement(prvTool, 'active');
+        // document.getElementById(prvTool).className =
+        // virtualclass.wb[virtualclass.gObj.currWb].utility.removeClassFromElement(prvTool, 'active');
         document.getElementById(prvTool).className = virtualclass.vutil.removeClassFromElement(prvTool, 'active');
       } else {
         // If there is remaining any active class on tool
@@ -225,7 +227,8 @@
     },
     // isMiniFileIncluded(src) {
     //   //                var filePatt = new RegExp(src+".js$");
-    //   const filePatt = new RegExp(`${src}.js?=\*([0-9]*)`); // matched when src is mid of path, todo find it at end of path
+    //   const filePatt = new RegExp(`${src}.js?=\*([0-9]*)`);
+    // matched when src is mid of path, todo find it at end of path
     //   const scripts = document.getElementsByTagName('script');
     //   for (let i = 0; i < scripts.length; i++) {
     //     if (filePatt.test(scripts[i].src)) {
@@ -251,13 +254,14 @@
       }
     },
 
-    Fullscreen() {
-      /** Making virtualclassCont is fullScreen, displays the background is black on virtualclassCont **/
+    Fullscreen(event) {
+      let elem;
+      /* Making virtualclassCont is fullScreen, displays the background is black on virtualclassCont */
       // const elem = document.getElementById('virtualclassCont');
-      if (event.target.id == "askFullscreen") {
-        var elem = document.getElementById('virtualclassAppRightPanel');
+      if (event.target.id === 'askFullscreen') {
+        elem = document.getElementById('virtualclassAppRightPanel');
       } else {
-        var elem = document.documentElement;
+        elem = document.documentElement;
       }
 
       if (elem.requestFullscreen) {
@@ -272,13 +276,14 @@
       elem.classList.add('fullScreenMode');
     },
 
-    closeFullscreen() {
+    closeFullscreen(event) {
+      let elem;
       // const elem = document.getElementById('virtualclassCont');
-      if (event.target.id == "askExitFullscreen") {
-        var elem = document.getElementById('virtualclassAppRightPanel');
+      if (event.target.id === 'askExitFullscreen') {
+        elem = document.getElementById('virtualclassAppRightPanel');
         virtualclass.gObj.ignoreFullScreen = true;
       } else {
-        var elem = document.documentElement;
+        elem = document.documentElement;
       }
       if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -293,16 +298,16 @@
     },
 
     closedRightbar() {
-      var elem = document.getElementById("virtualclassApp");
-      elem.classList.remove("openRightbar");
-      elem.classList.add("collapsedRightbar");
-      chat_div.classList.add("collapsedRightbar");
-      localStorage.setItem('hideRightbar',true);
+      const elem = document.getElementById('virtualclassApp');
+      elem.classList.remove('openRightbar');
+      elem.classList.add('collapsedRightbar');
+      chat_div.classList.add('collapsedRightbar');
+      localStorage.setItem('hideRightbar', true);
       virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
       if (roles.isStudent()) {
         ioAdapter.sendSpeed(3);
       }
-      const rightbarTabs = document.querySelector("#stickycontainer .chatBarTab");
+      // const rightbarTabs = document.querySelector('#stickycontainer .chatBarTab');
       // for(var i =0 ; i < rightbarTabs.children.length ; i++) {
       //   rightbarTabs.children[i].classList.remove("active");
       // }
@@ -310,12 +315,12 @@
 
     openRightbar() {
       localStorage.removeItem('hideRightbar');
-      var elem = document.getElementById("virtualclassApp");
-      localStorage.setItem('hideRightbar',false);
+      const elem = document.getElementById('virtualclassApp');
+      localStorage.setItem('hideRightbar', false);
       virtualclass.gObj.hideRightbar = localStorage.getItem('hideRightbar');
-      elem.classList.remove("collapsedRightbar");
-      elem.classList.add("openRightbar");
-      chat_div.classList.remove("collapsedRightbar");
+      elem.classList.remove('collapsedRightbar');
+      elem.classList.add('openRightbar');
+      chat_div.classList.remove('collapsedRightbar');
       if (roles.isStudent()) {
         if (virtualclass.system.device === 'desktop') {
           ioAdapter.sendSpeed(1);
@@ -356,17 +361,17 @@
       return numstring.match(/[\S]{1,2}/g) || [];
     },
     numValidateFour(n1, n2, n3, n4) {
-      n1 = this.preNumValidateTwo(n1);
-      n2 = this.preNumValidateTwo(n2);
-      n3 = this.preNumValidateTwo(n3);
-      n4 = this.preNumValidateTwo(n4);
-      const nres = n1 + n2 + n3 + n4;
+      const num1 = this.preNumValidateTwo(n1);
+      const num2 = this.preNumValidateTwo(n2);
+      const num3 = this.preNumValidateTwo(n3);
+      const num4 = this.preNumValidateTwo(n4);
+      const nres = num1 + num2 + num3 + num4;
       return parseInt(nres);
     },
     numValidateTwo(n1, n2) {
-      n1 = this.preNumValidateTwo(n1);
-      n2 = this.preNumValidateTwo(n2);
-      const nres = n1 + n2;
+      const num1 = this.preNumValidateTwo(n1);
+      const num2 = this.preNumValidateTwo(n2);
+      const nres = num1 + num2;
       return parseInt(nres);
     },
     preNumValidateTwo(n) {
@@ -424,31 +429,31 @@
         // console.log('==== Clear Session PlayMode');
         return;
       }
-
-      if (roles.hasControls() && document.querySelector('#virtualclassAppRightPanel.vidShow') !== null) { // if teacher video is enabled
+      // if teacher video is enabled
+      if (roles.hasControls() && document.querySelector('#virtualclassAppRightPanel.vidShow') !== null) {
         ioAdapter.mustSend({ congCtr: { videoSwitch: 'off' }, cf: 'congController' });
       }
       if (virtualclass.gObj.prvRequestScreenUser && virtualclass.config.makeWebSocketReady) {
         ioAdapter.mustSendUser({ cancel: true, cf: 'reqscreen' }, virtualclass.gObj.prvRequestScreenUser);
       }
 
-      if (virtualclass.currApp === 'DocumentShare') {
-        if (!roles.hasControls()) {
-          const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
-          const action = rhElem.getAttribute('data-action');
-          if (action === 'disable') {
-            const toUser = virtualclass.vutil.whoIsTeacher();
-            ioAdapter.sendUser({
-              data: {
-                user: wbUser.id,
-                action,
-              },
-              cf: 'raiseHand',
-            }, toUser);
-          }
-        }
-        io.disconnect();
-      }
+      // if (virtualclass.currApp === 'DocumentShare') {
+      //   if (!roles.hasControls()) {
+      //     const rhElem = document.querySelector('#virtualclassCont.congrea #icHr');
+      //     const action = rhElem.getAttribute('data-action');
+      //     if (action === 'disable') {
+      //       const toUser = virtualclass.vutil.whoIsTeacher();
+      //       ioAdapter.sendUser({
+      //         data: {
+      //           user: wbUser.id,
+      //           action,
+      //         },
+      //         cf: 'raiseHand',
+      //       }, toUser);
+      //     }
+      //   }
+      //   io.disconnect();
+      // }
 
       if (virtualclass.userInteractivity.rendererObj.noteEvent) {
         console.log('====> send note on page load');
@@ -531,7 +536,8 @@
         }
       } else if ((virtualclass.currApp === 'SharePresentation')) {
         // virtualclass.sharePt.saveIntoLocalStorage();
-        if (typeof virtualclass.sharePt !== 'undefined' && typeof virtualclass.sharePt === 'object' && virtualclass.sharePt.pptUrl) {
+        if (typeof virtualclass.sharePt !== 'undefined' && typeof virtualclass.sharePt === 'object'
+          && virtualclass.sharePt.pptUrl) {
           // console.log(`beforeloadS${virtualclass.sharePt.pptUrl}`);
           prvAppObj.metaData = {
             init: virtualclass.sharePt.pptUrl,
@@ -598,7 +604,8 @@
         // virtualclass.quiz.saveInLocalStorage();
         // console.log('quiz data saved');
       } else if (virtualclass.currApp === 'Whiteboard') {
-        // var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount, "wbcs"  : virtualclass.gObj.currSlide};
+        // var prvAppObj = {"name": "Whiteboard", "wbn": virtualclass.gObj.wbCount,
+        // "wbcs"  : virtualclass.gObj.currSlide};
         var prvAppObj = { name: 'Whiteboard', wbn: virtualclass.gObj.wbCount };
       }
       // if (virtualclass.gObj.wIds.length > 0) {
@@ -687,6 +694,7 @@
 
 
     isPlayMode() { // TODO
+      // apply codacy rule
       return (window.wbUser.virtualclassPlay == true);
     },
     progressBar(totalVal, portion, pbar, pval) {
@@ -758,7 +766,8 @@
     },
 
     // initDefaultInfo(role, appIs) {
-    //   if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable') && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
+    //   if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable')
+    // && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
     //     setTimeout(
     //       () => {
     //         virtualclass.media.init();
@@ -787,10 +796,11 @@
      */
     beforeSend(msg, toUser, notMust) {
       const wbId = virtualclass.gObj.currWb;
+      let jobj;
       // //debugger;
       // when we are in replay mode we don't need send the object to other user
       if (Object.prototype.hasOwnProperty.call(msg, 'createArrow')) {
-        var jobj = JSON.stringify(msg);
+        jobj = JSON.stringify(msg);
         virtualclass.wb[wbId].vcan.optimize.sendPacketWithOptimization(jobj, 300);
       } else {
         if (Object.prototype.hasOwnProperty.call(msg, 'repObj')) { // For Whiteboard
@@ -801,9 +811,7 @@
           // virtualclass.wb[wbId].gObj.displayedObjId = virtualclass.wb[wbId].gObj.rcvdPackId;
           //            console.log('Last send data ' + virtualclass.wb[wbId].gObj.rcvdPackId);
         }
-
-        var jobj = JSON.stringify(msg);
-
+        jobj = JSON.stringify(msg);
         if (typeof notMust !== 'undefined' && notMust === true) {
           if (typeof toUser === 'undefined' || toUser === false || toUser === null) {
             ioAdapter.send(msg);
@@ -836,7 +844,7 @@
     createDiv(toolId, text, cmdToolsWrapper, cmdClass) {
       // console.log('class name ' + text);
       const toolName = text;
-      var text = virtualclass.lang.getString(text);
+      const str = virtualclass.lang.getString(text);
       const ancTag = document.createElement('a');
       ancTag.href = '#';
 
@@ -851,7 +859,7 @@
       const iconButton = document.createElement('span');
       iconButton.className = `icon-${toolName}`;
       ancTag.appendChild(iconButton);
-      ancTag.dataset.title = text;
+      ancTag.dataset.title = str;
       ancTag.className = 'tooltip';
 
       lDiv.appendChild(ancTag);
@@ -897,7 +905,8 @@
     },
 
     whoIsTeacher() {
-      // TODO this function should call less frequently and may be called on member add function, status could be saved in a variable.
+      // TODO this function should call less frequently and may be called ==>
+      // TODO ==> on member add function, status could be saved in a variable.
 
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
         for (let i = 0; i < virtualclass.connectedUsers.length; i++) {
@@ -933,8 +942,8 @@
     enablePresentatorEditors(touser) {
       const msg = { toUser: touser, status: true };
 
-      virtualclass.user.control.received_editorRich(msg);
-      virtualclass.user.control.received_editorCode(msg);
+      virtualclass.user.control.receivedEditorRich(msg);
+      virtualclass.user.control.receivedEditorCode(msg);
     },
     getClassName(role) {
       let className;
@@ -1174,7 +1183,8 @@
 
     sesionEndMsgBoxIsExisting() {
       const sessionEndCont = document.getElementById('sessionEndMsgCont');
-      return (sessionEndCont.hasAttribute('data-displaying') && sessionEndCont.dataset.displaying === 'true'); // do nothing if there is already sesion end box
+      return (sessionEndCont.hasAttribute('data-displaying')
+      && sessionEndCont.dataset.displaying === 'true'); // do nothing if there is already sesion end box
     },
 
     removeVideoHostContainer() {
@@ -1185,18 +1195,19 @@
     },
 
     createDummyUser(usersLength) {
-      if (usersLength) {
-        usersLength = usersLength;
+      let dummyUsersLength = usersLength;
+      if (dummyUsersLength) {
+        dummyUsersLength = usersLength;
       } else {
-        var usersLength = 5000;
+        dummyUsersLength = 5000;
       }
 
       let msg;
       let i = 0;
       let userId = 31;
-      var createUser = setInterval(
+      const createUser = setInterval(
         () => {
-          if (i > usersLength) {
+          if (i > dummyUsersLength) {
             clearInterval(createUser);
             return;
           }
@@ -1310,7 +1321,8 @@
     },
 
     _attachEventToUploadTab() {
-      const element = document.querySelector('#DocumentShareDashboard .qq-upload-button-selector.qq-upload-button input');
+      const selector = '#DocumentShareDashboard .qq-upload-button-selector.qq-upload-button input';
+      const element = document.querySelector(selector);
       if (element != null) {
         element.click(); // This function triggers funtion attached on fine-uploader 'Upoad button'
         const msz = document.querySelector('#DocumentShareDashboard .qq-upload-list-selector.qq-upload-list');
@@ -1379,17 +1391,18 @@
     },
 
     async xhrSendWithForm(data, methodname) {
-      const form_data = new FormData();
+      const formData = new FormData();
+      let path;
       for (const key in data) {
-        form_data.append(key, data[key]);
+        formData.append(key, data[key]);
       }
       if (typeof methodname === 'undefined') {
-        var path = window.webapi;
+        path = window.webapi;
       } else {
-        var path = `${window.webapi}&methodname=${methodname}&user=${virtualclass.gObj.uid}`;
+        path = `${window.webapi}&methodname=${methodname}&user=${virtualclass.gObj.uid}`;
       }
 
-      return await this.vxhr.post(path, form_data);
+      return await this.vxhr.post(path, formData);
     },
 
     createSaveButton() {
@@ -1411,11 +1424,12 @@
     // removejquery
     setChatHeight(height) {
       return;
-      var height = height - 40;
+      let chatHeight;
+      chatHeight = height - 40;
       if (virtualclass.isPlayMode) {
-        var height = height + 64;
+        chatHeight = height + 64;
       }
-      $('#chat_div').height(height);
+      $('#chat_div').height(chatHeight);
     },
 
     alreadyConnected(userId) {
@@ -1436,7 +1450,7 @@
     localToUTC() {
       const date = new Date();
       const nowUtc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
-      date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+        date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
       return new Date(nowUtc);
     },
 
@@ -1565,6 +1579,7 @@
 
     videoHandler(action, notSend) {
       let video;
+      let tooltip;
       const sw = document.querySelector('.congrea .videoSwitchCont #videoSwitch');
       // Action on means video is On or off means video is off
 
@@ -1573,7 +1588,7 @@
         sw.classList.add('on');
 
         video = 'on';
-        var tooltip = document.querySelector('.videoSwitchCont');
+        tooltip = document.querySelector('.videoSwitchCont');
         tooltip.dataset.title = 'Video off';
         if (roles.hasControls()) {
           virtualclass.videoHost.gObj.videoSwitch = 1;
@@ -1582,9 +1597,11 @@
           virtualclass.videoHost.gObj.stdStopSmallVid = false;
         }
 
-        // var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a span")||document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
-
-        const hasImg = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid} .user-details a span`) || chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid} .user-details a img`);
+        // var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a span")
+        // ||document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a img")
+        const spanElem = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid} .user-details a span`);
+        const imgElem = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid} .user-details a img`);
+        const hasImg = spanElem || imgElem;
 
         if (hasImg) {
           virtualclass.videoHost.removeUserIcon(virtualclass.gObj.uid);
@@ -1611,7 +1628,7 @@
         sw.classList.add('off');
         // virtualclass.videoHost.gObj.videoSwitch = 0;
         video = 'off';
-        var tooltip = document.querySelector('.videoSwitchCont');
+        tooltip = document.querySelector('.videoSwitchCont');
         tooltip.dataset.title = 'Video on';
         if (virtualclass.videoHost) {
           if (roles.hasControls()) {
@@ -1621,8 +1638,8 @@
           }
         }
 
-
-        const hasVideo = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid} .user-details a .videoWrapper`);
+        const videoSelector = `#ml${virtualclass.gObj.uid} .user-details a .videoWrapper`;
+        const hasVideo = chatContainerEvent.elementFromShadowDom(videoSelector);
 
         if (hasVideo) {
           virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
@@ -1673,13 +1690,13 @@
     },
 
     setWidth(wbId, canvas, width) {
-      var canvas = document.querySelector(`#canvas${wbId}`);
-      canvas.width = width;
+      const canvasElem = document.querySelector(`#canvas${wbId}`);
+      canvasElem.width = width;
     },
 
     setHeight(wbId, canvas, height) {
-      var canvas = document.querySelector(`#canvas${wbId}`);
-      canvas.height = height;
+      const canvasElem = document.querySelector(`#canvas${wbId}`);
+      canvasElem.height = height;
       // virtualclass.wb[wbId].vcan.renderAll();
     },
 
@@ -1701,19 +1718,21 @@
 
 
     getElemM(wrapper, type) {
+      let res;
       if (type === 'Y') {
-        var res = document.querySelector(`#${wrapper}`).offsetHeight;
+        res = document.querySelector(`#${wrapper}`).offsetHeight;
       } else if (type === 'X') {
-        var res = document.querySelector(`#${wrapper}`).offsetWidth;
+        res = document.querySelector(`#${wrapper}`).offsetWidth;
       }
       return this.getValueWithoutPixel(res);
     },
 
     getElemM2(wrapper, type) {
+      let res;
       if (type === 'Y') {
-        var res = document.querySelector(`#${wrapper}`).offsetHeight;
+        res = document.querySelector(`#${wrapper}`).offsetHeight;
       } else if (type === 'X') {
-        var res = document.querySelector(`#${wrapper}`).offsetWidth;
+        res = document.querySelector(`#${wrapper}`).offsetWidth;
       }
       return this.getValueWithoutPixel(res);
     },
@@ -1777,9 +1796,10 @@
     },
 
     setDefaultScroll() {
-      if (roles.hasControls() && virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare') {
+      if (roles.hasControls() && (virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare')) {
         const wb = virtualclass.gObj.currWb;
-        if (wb != null && typeof virtualclass.pdfRender[wb] === 'object' && virtualclass.pdfRender[wb].canvasWrapper != null) {
+        if (wb != null && typeof virtualclass.pdfRender[wb] === 'object'
+          && virtualclass.pdfRender[wb].canvasWrapper != null) {
           // Defualt scroll trigger
           virtualclass.pdfRender[wb].canvasWrapper.scrollTop = 1;
         }
@@ -1788,7 +1808,9 @@
 
     createWhiteBoard(wId, position) {
       // virtualclass.appInitiator.Whiteboard.call(virtualclass, { app: 'Whiteboard', cusEvent: 'byclick', data: wId });
-      virtualclass.appInitiator.Whiteboard.call(virtualclass, { app: virtualclass.currApp, cusEvent: 'byclick', data: wId, position});
+      virtualclass.appInitiator.Whiteboard.call(virtualclass, {
+        app: virtualclass.currApp, cusEvent: 'byclick', data: wId, position,
+      });
     },
 
     createHashString(str) {
@@ -1886,12 +1908,14 @@
 
 
     initAcitveElement() {
+      let activeElem;
+      let deactiveElem;
       if (virtualclass.currApp === 'Video') {
-        var activeElem = '#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
-        var deactiveElem = '#listvideo';
+        activeElem = '#VideoDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+        deactiveElem = '#listvideo';
       } else if (virtualclass.currApp === 'DocumentShare') {
-        var activeElem = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
-        var deactiveElem = '#listdocs';
+        activeElem = '#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery';
+        deactiveElem = '#listdocs';
       }
 
       const elem = document.querySelector(`#${virtualclass.currApp}Dashboard`);
@@ -1908,8 +1932,9 @@
     },
 
     navWhiteboard(cthis, func, dthis) {
+      const currentWb = virtualclass.gObj.currWb;
       if (virtualclass.vutil.isTextWrapperExist()) {
-        virtualclass.wb[virtualclass.gObj.currWb].obj.drawTextObj.finalizeTextIfAny(undefined, virtualclass.gObj.currWb);
+        virtualclass.wb[currentWb].obj.drawTextObj.finalizeTextIfAny(undefined, currentWb);
       }
       // virtualclass.userInteractivity.makeReadyContext();
 
@@ -1928,8 +1953,8 @@
     },
 
     isDashboardOpened(navButton) {
-      var navButton = document.querySelector('#dashboardnav button');
-      return (navButton != null && navButton.classList.contains('clicked'));
+      const navButtonElem = document.querySelector('#dashboardnav button');
+      return (navButtonElem != null && navButtonElem.classList.contains('clicked'));
     },
 
     stopConnection() {
@@ -1998,7 +2023,7 @@
     // }
 
     insertAppLayout: (html) => {
-      const appContainer = document.querySelector('#virtualclassAppContainer');
+      // const appContainer = document.querySelector('#virtualclassAppContainer');
       // appContainer.insertAdjacentHTML('beforeend',html)
       $('#virtualclassAppContainer').append(html);
     },
@@ -2058,8 +2083,11 @@
 
     calcBrightness(color) {
       const rgb = chroma(color).rgb();
-      const c = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
-      const brightness = Math.round(((parseInt(rgb[0]) * 299) + (parseInt(rgb[1]) * 587) + (parseInt(rgb[2]) * 114)) / 1000);
+      // const c = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+      const rgb1 = (+(rgb[0]) * 299);
+      const rgb2 = (+(rgb[1]) * 587);
+      const rgb3 = (+(rgb[2]) * 114);
+      const brightness = Math.round(((rgb1 + rgb2 + rgb3) / 1000));
       // console.log(`brightne${brightness}`);
       // alert(brightness);
       return brightness;
@@ -2281,20 +2309,16 @@
     },
 
     getCurrentFormattedTime(time) {
-      time = this.UTCtoLocalTimeToSeconds(time);
-
-      const date = new Date(time);
-
+      const timeUtc = this.UTCtoLocalTimeToSeconds(time);
+      const date = new Date(timeUtc);
       // Hours part from the timestamp
       const hours = date.getHours();
       // Minutes part from the timestamp
       const minutes = `0${date.getMinutes()}`;
       // Seconds part from the timestamp
       // var seconds = "0" + date.getSeconds();
-
       // Will display time in 10:30:23 format
       const formattedTime = `${hours}:${minutes.substr(-2)}`;
-
       return formattedTime;
     },
 
@@ -2303,6 +2327,7 @@
       document.querySelector('#fullScreenButton').style.display = 'none';
       document.querySelector('#fullScreenExitButton').style.display = 'block';
       virtualclass.gObj.fullScreenMode = true;
+      virtualclass.gObj.notHandleInputFocusHandler = true;
     },
 
     showFullScreenButton() {
@@ -2310,6 +2335,7 @@
       document.querySelector('#fullScreenButton').style.display = 'block';
       document.querySelector('#fullScreenExitButton').style.display = 'none';
       virtualclass.gObj.fullScreenMode = false;
+      virtualclass.gObj.notHandleInputFocusHandler = true;
     },
 
     showFullScreenButtonIfNeed() {
@@ -2320,10 +2346,11 @@
     },
 
     storeWhiteboardAtInlineMemory(repObj) {
-      if (typeof virtualclass.gObj.wbData[virtualclass.gObj.currWb] !== 'object') {
-        virtualclass.gObj.wbData[virtualclass.gObj.currWb] = [];
+      const currWbId = virtualclass.gObj.currWb;
+      if (typeof virtualclass.gObj.wbData[currWbId] !== 'object') {
+        virtualclass.gObj.wbData[currWbId] = [];
       }
-      virtualclass.gObj.wbData[virtualclass.gObj.currWb] = virtualclass.gObj.wbData[virtualclass.gObj.currWb].concat(repObj);
+      virtualclass.gObj.wbData[currWbId] = virtualclass.gObj.wbData[currWbId].concat(repObj);
     },
 
     attachWhiteboardPopupHandler(wId) {
@@ -2368,9 +2395,16 @@
       });
     },
 
+    // attachAskQuestionOptionHandler() {
+    //   window.addEventListener('mouseup', (ev) => {
+    //     virtualclass.userInteractivity.event.moreControls(ev);
+    //   });
+    // },
+
     setScreenShareDefualtColor() {
+      const pvrScreenUser = virtualclass.gObj.prvRequestScreenUser;
       if (virtualclass.gObj.prvRequestScreenUser) {
-        const prvReq = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.prvRequestScreenUser} .icon-stdscreenImg`);
+        const prvReq = chatContainerEvent.elementFromShadowDom(`#ml${pvrScreenUser} .icon-stdscreenImg`);
         if (prvReq !== null) {
           prvReq.setAttribute('data-dcolor', 'black');
           prvReq.parentNode.setAttribute('data-title', virtualclass.lang.getString('requestScreenShare'));
@@ -2416,7 +2450,8 @@
       if (window.innerWidth > window.innerHeight) { // Apply only on landscape mode
         virtualclass.gObj.initHeight = window.innerHeight;
         const isFocusElement = document.querySelector('#tabs .ui-state-focus');
-        if (virtualclass.system.device === 'mobTab' && isFocusElement == null && virtualclass.system.mybrowser.name != 'Safari') {
+        if (virtualclass.system.device === 'mobTab' && isFocusElement == null
+          && virtualclass.system.mybrowser.name != 'Safari') {
           document.getElementById('virtualclassCont').classList.add('focusInput');
         }
       }

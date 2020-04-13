@@ -27,22 +27,26 @@ class OrderedList {
 
   getNext(position) {
     position += 1;
-    return { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+    const obj = { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+    return obj;
   }
 
   getPrevious(position) {
     position -= 1;
-    return { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+    const obj = { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+    return obj;
   }
 
   getNextByID(id) {
     const position = this.ol.order.indexOf(id) + 1;
-    return { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+    const obj = { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+    return obj;
   }
 
   getPreviousByID(id) {
     const position = this.ol.order.indexOf(id) - 1;
-    return { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+    const obj = { id: this.ol.order[position], data: this.ol.list[this.ol.order[position]] };
+    return obj;
   }
 
   getOrder() {

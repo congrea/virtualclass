@@ -2693,6 +2693,7 @@ div.ui-memblist-usr .userVideos {
   width: 100%;
   border-bottom-left-radius: 5px;
   min-height: 2.75rem !important;
+  max-height: 2.75rem;
 }
 
 #virtualclassCont.congrea.student #layoutPoll #navigator,
@@ -3291,7 +3292,7 @@ div.ui-memblist-usr .userVideos {
   text-align: center;
   margin-top: 0;
   font-size: 1rem;
-  line-height: unset;
+  line-height: 1.125rem;
 }
 
 #virtualclassCont.congrea #audioWidget .nav > li#speakerPressOnce > a {
@@ -4903,7 +4904,7 @@ span#usertab_text {
   margin-left: 0.875rem;
   line-height: 1.125rem;
   font-size: 0.9375rem;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 @keyframes pulse {
@@ -5012,6 +5013,14 @@ span#usertab_text {
   #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
     padding: 11px 18px 10px 18px;
   }
+
+  #virtualclassCont.congrea #editPollModal #pollModalBody #contBody #enTimer label select {
+    scrollbar-width: auto;
+  }
+
+  #virtualclassCont.congrea #messageLayout, #virtualclassCont.congrea #pptMessageLayout {
+    width: auto;;
+  }
 }
 
 #playProgress #downloadProgress {
@@ -5066,6 +5075,11 @@ span#usertab_text {
 html,
 body {
   height: 100%;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #b3b3b3 #eceaea;
 }
 
 #virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-memblist,
@@ -5174,8 +5188,6 @@ body {
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #rightBarHeader {
-  background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
-  border-left: 1px solid;
   display: flex;
 }
 
@@ -5226,4 +5238,8 @@ body {
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #stickybar {
   display: flex;
+}
+
+#virtualclassCont.congrea #editPollModal #pollModalBody #contBody #enTimer label select {
+  cursor: pointer;;
 }

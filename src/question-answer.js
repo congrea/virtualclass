@@ -6,27 +6,32 @@ class QuestionAnswer {
   }
 
   separatedContent(data) {
-    let content;
+    let writeContent;
     let moreContent;
+    let content;
+    let obj;
     if (data.content.length > 128) {
-      content = data.content.slice(0, 128);
+      writeContent = data.content.slice(0, 128);
       moreContent = data.content.slice(128, data.content.length);
     } else {
-      content = data.content;
+      writeContent = data.content;
     }
     if (data.action === 'edit' || data.action === 'cancel') {
       const getContentElem = document.querySelector(`#${data.componentId} .content p`);
       const ellipsisTemp = virtualclass.getTemplate('ellipsisText', 'askQuestion');
       if (getContentElem) {
-        getContentElem.innerHTML = content;
+        getContentElem.innerHTML = writeContent;
       }
       if (data.content.length > 128) {
-        const ellipsisTextTemp = ellipsisTemp({ morecontent: moreContent }); // TODO use this template in question, answer, comment
+        // TODO use this template in question, answer, comment
+        const ellipsisTextTemp = ellipsisTemp({ morecontent: moreContent });
         document.querySelector(`#${data.componentId} .content p`).insertAdjacentHTML('beforeend', ellipsisTextTemp);
       }
       this.displayMore(data);
     } else if (data.action === 'create') {
-      return { content, moreContent };
+      content = writeContent;
+      obj = { content, moreContent };
+      return obj;
     }
   }
 
@@ -49,11 +54,11 @@ class QuestionAnswer {
     }
   }
 
-  addHighLightNewActual() {  //  question part
+  addHighLightNewActual() { // question part
     document.getElementById('congAskQuestion').classList.add('highlight-new-question');
   }
 
-  removeHighlight() {  //  question part
+  removeHighlight() { // question part
     const element = document.getElementById('congAskQuestion');
     if (element.classList.contains('highlight-new-question')) {
       element.classList.remove('highlight-new-question');
@@ -62,6 +67,7 @@ class QuestionAnswer {
 
   viewAllQuestion(ev) { // Question part
     this.triggerPause();
+    let selector;
     const viewAllQuestion = document.getElementById('viewAllQuestion');
     const viewAllAction = ev.currentTarget.dataset.viewall;
     const askQuestion = document.getElementById('askQuestion');
@@ -89,7 +95,8 @@ class QuestionAnswer {
         if (rightPanel) { rightPanel.classList.remove('viewAllMode'); }
         askQuestion.classList.remove('viewAll');
         viewAllQuestion.dataset.viewall = 'enable';
-        const currentContextElement = document.querySelector(`#askQuestion .context[data-context~=${virtualclass.userInteractivity.currentContext}]`);
+        selector = `#askQuestion .context[data-context~=${virtualclass.userInteractivity.currentContext}]`;
+        const currentContextElement = document.querySelector(selector);
         if (currentContextElement) currentContextElement.classList.add('current');
         this.viewAllMode = false;
       }

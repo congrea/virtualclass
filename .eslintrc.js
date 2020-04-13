@@ -60,6 +60,11 @@ module.exports = {
     WhiteboardLine: 'writeable',
     WhiteboardFreeDrawing: 'writeable',
     WhiteboardTriangle: 'writeable',
+    OrderedList: 'writeable',
+    receiveFunctions: 'writeable',
+    firebase: 'writeable',
+    AskQuestion: 'writeable',
+    $: 'writable'
   },
   parserOptions: {
     ecmaVersion: 2017,

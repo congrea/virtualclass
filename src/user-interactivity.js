@@ -1,11 +1,12 @@
 class UserInteractivityBasicOperation {
   generateData(data) {
+    const dataObj = data;
     const qnCreateTime = firebase.firestore.Timestamp.fromDate(new Date()).seconds;
-    data.id = `${data.component}-${virtualclass.gObj.orginalUserId}-${qnCreateTime}`;
-    data.timestamp = qnCreateTime;
-    data.context = virtualclass.userInteractivity.currentContext;
-    data.userId = virtualclass.gObj.orginalUserId;
-    return data;
+    dataObj.id = `${data.component}-${virtualclass.gObj.orginalUserId}-${qnCreateTime}`;
+    dataObj.timestamp = qnCreateTime;
+    dataObj.context = virtualclass.userInteractivity.currentContext;
+    dataObj.userId = virtualclass.gObj.orginalUserId;
+    return dataObj;
   }
 
   async send(data) {
@@ -29,7 +30,7 @@ class UserInteractivityBasicOperation {
         .then(() => {
           // console.log('ask question write, Document successfully written! ', data);
         })
-        .catch((error) => {
+        .catch(() => {
           // console.error('ask question write, Error writing document: ', error);
         });
     }
@@ -37,8 +38,9 @@ class UserInteractivityBasicOperation {
 
   handler(ev) {
     let editContent;
+    const allContext = virtualclass.userInteractivity;
     if (ev.target.id === 'userInteractivity-content') return;
-    if (ev.target.dataset.event === 'save')  {
+    if (ev.target.dataset.event === 'save') {
       const userInput = document.getElementById('userInteractivity-content');
       if (userInput) { editContent = userInput.value; }
     }
@@ -49,29 +51,31 @@ class UserInteractivityBasicOperation {
 
     const questionElement = ev.target.closest('div.context');
     if (questionElement && questionElement.dataset) {
-      virtualclass.userInteractivity.currentContext = ev.target.closest('div.context').dataset.context;
+      allContext.currentContext = ev.target.closest('div.context').dataset.context;
     }
     let event;
     let parent;
     let componentId = null;
-    const target = ev.target;
-    if ((this.event.values.includes(target.dataset.event))) {
-      event = target.dataset.event;
-      parent = target.parentNode;
-    } else if (this.event.values.includes(target.parentNode.dataset.event)) {
-      event = target.parentNode.dataset.event;
-      parent = target.parentNode.parentNode;
-    } else if (this.event.values.includes(target.parentNode.parentNode.dataset.event)) {
-      event = target.parentNode.parentNode.dataset.event;
-      parent = target.parentNode.parentNode.parentNode;
+    const currentTarget = ev.target;
+    if ((this.event.values.includes(currentTarget.dataset.event))) {
+      event = currentTarget.dataset.event;
+      parent = currentTarget.parentNode;
+    } else if (this.event.values.includes(currentTarget.parentNode.dataset.event)) {
+      event = currentTarget.parentNode.dataset.event;
+      parent = currentTarget.parentNode.parentNode;
+    } else if (this.event.values.includes(currentTarget.parentNode.parentNode.dataset.event)) {
+      event = currentTarget.parentNode.parentNode.dataset.event;
+      parent = currentTarget.parentNode.parentNode.parentNode;
     }
 
     if (event) {
-      let data;
+      // const data;
       let text;
       let action;
       let parentId = null;
       let component = parent.dataset.component;
+      let editElem;
+      let str;
       if (parent.dataset.componentId && event !== 'save') {
         componentId = parent.dataset.componentId;
         if (event === 'reply') {
@@ -84,7 +88,7 @@ class UserInteractivityBasicOperation {
 
       if (event === 'save') {
         if (component === 'note') {
-          text = target.value;
+          text = currentTarget.value;
           action = 'create';
         } else if (component === 'bookmark') {
           text = (+(parent.dataset.value) === 0 ? 1 : 0);
@@ -102,11 +106,12 @@ class UserInteractivityBasicOperation {
             action = 'edit';
             ({ componentId } = parent.dataset);
             if (!virtualclass.vutil.checkUserRole()) {
-              const editElem = virtualclass.userInteractivity.context[virtualclass.userInteractivity.currentContext][component][componentId].upvote;
+              editElem = allContext.context[allContext.currentContext][component][componentId].upvote;
               if (editElem !== 0 && editElem != null) {
                 ({ componentId } = parent.dataset);
                 event = 'cancel';
-                virtualclass.view.createAskQuestionMsg(virtualclass.lang.getString('upvoted'), 'msgContainer', 'loading');
+                str = virtualclass.lang.getString('upvoted');
+                virtualclass.view.createAskQuestionMsg(str, 'msgContainer', 'loading');
               }
             }
           }
@@ -114,10 +119,10 @@ class UserInteractivityBasicOperation {
         parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
       } else if (event === 'clearall') {
         const currentContextElement = document.querySelector('#noteNavigationContainer .clearAll');
-        let currentContext = currentContextElement.dataset.currentContext;
-        if (currentContextElement.dataset.currentContext) currentContext = currentContextElement.dataset.currentContext;
+        let currContext = currentContextElement.dataset.currentContext;
+        if (currentContextElement.dataset.currentContext) currContext = currentContextElement.dataset.currentContext;
 
-        const contentElement = document.querySelector(`#noteContainer .context[data-context~=${currentContext}] textarea`);
+        const contentElement = document.querySelector(`#noteContainer .context[data-context~=${currContext}] textarea`);
         if (contentElement) {
           contentElement.value = '';
           text = '';
@@ -128,8 +133,8 @@ class UserInteractivityBasicOperation {
         parentId = parent.dataset.parent;
       }
 
-      data = {
-        event, component, componentId, text, action, parentId
+      const data = {
+        event, component, componentId, text, action, parentId,
       };
       this.event.execute(data);
       if (event === 'cancel' || event === 'save') {
@@ -138,7 +143,7 @@ class UserInteractivityBasicOperation {
           clearTimeout(this.pollInputGeneratingTime);
           // console.log('I have cleared my polling time');
         }
-        virtualclass.userInteractivity.rendererObj.removeWriteContainer();
+        allContext.rendererObj.removeWriteContainer();
         if (roles.isStudent() && this.donotChangeContext && this.donotChangeContext !== this.currentContext) {
           // console.log('Triggered performed 1');
           this.triggerPerform(this.donotChangeContext);
@@ -165,7 +170,7 @@ class UserInteractivityBasicOperation {
       }, 17000);
     }
     const textarea = document.querySelector('#writeContent .text');
-    virtualclass.userInteractivity.rendererObj.autosize.call(this, {target: textarea});
+    virtualclass.userInteractivity.rendererObj.autosize.call(this, { target: textarea });
   }
 
   renderer(data) {
@@ -188,7 +193,7 @@ class UserInteractivityBasicOperation {
     const elem = document.querySelector(`#${data.componentId}`);
     if (elem) {
       if (data.component === 'answer') {
-        virtualclass.userInteractivity.navigationHandler(data, 'removeNavigation');
+        // virtualclass.userInteractivity.navigationHandler(data, 'removeNavigation');
       }
       elem.remove();
       this.updateStatus(data, 'delete');
@@ -296,7 +301,7 @@ class UserInteractivityBasicOperation {
     const contextObj = virtualclass.userInteractivity.context;
     const { currentContext } = virtualclass.userInteractivity;
     let component;
-    let parent = null;
+    // let parent = null;
     if (status === 'delete') {
       this.updateCount(data, status);
       // const filterComponent = data.component === 'question' ? 'answer' : 'comment';
@@ -311,7 +316,6 @@ class UserInteractivityBasicOperation {
     } else if (status === 'editable' || status === 'edited') {
       component = data;
       if (status === 'editable') {
-        // component = { id: data.id, content: data.content, children: [], status, parent: null, componentId: data.id, upvote: 0 };
         component.upvote = 0;
         component.children = [];
 
@@ -339,21 +343,30 @@ class UserInteractivityBasicOperation {
       if (data.component === 'question' || data.component === 'answer') {
         getChildren = contextObj[currentContext][data.component][data.componentId].children;
       }
-      component = { id: data.id, content: data.content, children: getChildren, status, parent: data.parent, componentId: data.componentId, upvote: data.upvote, upvoteBy: data.upvoteBy };
+      component = {
+        id: data.id,
+        content: data.content,
+        children: getChildren,
+        status,
+        parent: data.parent,
+        componentId: data.componentId,
+        upvote: data.upvote,
+        upvoteBy: data.upvoteBy,
+      };
       component.status = status;
       contextObj[currentContext][data.component][data.componentId] = component;
     }
   }
 
   updateCount(data, status) {
-    const contextObj = virtualclass.userInteractivity.context;
+    const allContext = virtualclass.userInteractivity;
     let component = data.component === 'answer' ? 'question' : 'answer';
     if (data.parent != null && (data.parent).split('-')[0] === 'comment') {
       component = 'comment';
     }
-    if (contextObj[data.context] && contextObj[data.context][component] && data.component !== 'question'
-      && Object.prototype.hasOwnProperty.call(contextObj[data.context][component], data.parent)) {
-      const { children } = contextObj[data.context][component][data.parent].children;
+    if (allContext.context[data.context] && allContext.context[data.context][component] && data.component !== 'question'
+      && Object.prototype.hasOwnProperty.call(allContext.context[data.context][component], data.parent)) {
+      const children = allContext.context[data.context][component][data.parent].children;
       const moreControlElem = document.querySelector(`#${data.parent}`);
       const controlNavigation = document.querySelector(`#${data.parent} .footer .navigation`);
       if (data.component === 'answer' || data.component === 'comment') {
@@ -371,9 +384,12 @@ class UserInteractivityBasicOperation {
         } else {
           children.splice(children.indexOf(data.componentId), 1);
           const userId = (data.parent).split('-')[1];
-          const time = virtualclass.userInteractivity.questionAnswer.elapsedComponentTime({ componentId: data.parent, component });
-          const componentUpvote = virtualclass.userInteractivity.context[virtualclass.userInteractivity.currentContext][component][data.parent].upvote;
-          const getParentElem = document.querySelector(`#${data.parent} .upVote .total`); // TODO handle using component data
+          const time = allContext.questionAnswer.elapsedComponentTime({
+            componentId: data.parent, component,
+          });
+          const componentUpvote = allContext.context[allContext.currentContext][component][data.parent].upvote;
+          // TODO handle using component data
+          const getParentElem = document.querySelector(`#${data.parent} .upVote .total`);
           if ((!virtualclass.vutil.checkUserRole() && time < 30 && getParentElem && componentUpvote === 0)
             || (component === 'comment' && userId === virtualclass.gObj.orginalUserId)) {
             if (children.length === 0 && moreControlElem) {
@@ -391,10 +407,14 @@ class UserInteractivityBasicOperation {
           if (component === 'question' && !virtualclass.vutil.checkUserRole()) {
             const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
             for (let i = 0; i < answersElem.length; i++) {
-              const anstime = virtualclass.userInteractivity.questionAnswer.elapsedComponentTime({ componentId: data.componentId, component: 'answer' });
-              const ansUpvote = virtualclass.userInteractivity.context[virtualclass.userInteractivity.currentContext]['answer'][data.componentId].upvote;
-              const ansChildren = contextObj[data.context]['answer'][data.componentId].children;
-              if (answersElem[i].classList.contains('noneditable') && ansUpvote === 0 && ansChildren.length === 0 && anstime < 30) {
+              const anstime = allContext.questionAnswer.elapsedComponentTime({
+                componentId: data.componentId, component: 'answer',
+              });
+              const component = 'answer';
+              const ansUpvote = allContext.context[allContext.currentContext][component][data.componentId].upvote;
+              const ansChildren = allContext.context[data.context][component][data.componentId].children;
+              if (answersElem[i].classList.contains('noneditable') && ansUpvote === 0
+                && ansChildren.length === 0 && anstime < 30) {
                 answersElem[i].classList.remove('noneditable');
                 answersElem[i].classList.add('editable');
               }
@@ -402,7 +422,8 @@ class UserInteractivityBasicOperation {
           }
 
           if (data.component === 'answer') {
-            const checkMarkElem = document.querySelector(`#askQuestion #${data.parent} .answers .answer[data-mark-answer="marked"]`);
+            const selector = `#askQuestion #${data.parent} .answers .answer[data-mark-answer="marked"]`;
+            const checkMarkElem = document.querySelector(selector);
             if (!checkMarkElem) {
               const markParentElem = document.querySelector(`#${data.parent}`);
               markParentElem.dataset.markAnswer = '';
@@ -411,7 +432,7 @@ class UserInteractivityBasicOperation {
         }
         const parentElem = document.querySelector(`#${data.parent} .navigation .total`);
         if (parentElem) {
-          parentElem.innerHTML = contextObj[data.context][component][data.parent].children.length;
+          parentElem.innerHTML = allContext.context[data.context][component][data.parent].children.length;
         }
       }
     }
@@ -453,12 +474,13 @@ class UserInteractivityBasicOperation {
   }
 
   markAnswer(data) { // question part
+    const selector = `#askQuestion #${data.parent} .answers`;
     const commentElem = document.querySelector(`#${data.parent} .comments`);
-    const parent = document.querySelector(`#askQuestion #${data.parent} .answers .answer[data-mark-answer="marked"]`);
+    const parent = document.querySelector(`${selector} .answer[data-mark-answer="marked"]`);
     const markParentElem = document.querySelector(`#${data.parent}`);
-    const markedAnswer = document.querySelector(`#askQuestion #${data.parent} .answers`);
-    const changeElemName = document.querySelector(`#askQuestion #${data.parent} .answers #${data.componentId} .moreControls .mark`);
-    const checkElemDataset = document.querySelector(`#askQuestion #${data.parent} .answers #${data.componentId}`);
+    const markedAnswer = document.querySelector(selector);
+    const changeElemName = document.querySelector(`${selector} #${data.componentId} .moreControls .mark`);
+    const checkElemDataset = document.querySelector(`${selector} #${data.componentId}`);
     if (parent && markParentElem.dataset.markAnswer) {
       if (parent && checkElemDataset && checkElemDataset.dataset.markAnswer !== 'marked') {
         return;
@@ -471,16 +493,14 @@ class UserInteractivityBasicOperation {
       }
       if (changeElemName) {
         changeElemName.innerHTML = 'Mark As Answer';
-        this.navigationHandler(data, 'Mark As Answer');
+        // this.navigationHandler(data, 'Mark As Answer');
         return;
       } else if (!changeElemName) {
         return;
       }
     } else {
-      if (changeElemName) {
-        if (changeElemName.innerHTML === 'Mark As Answer') {
-          changeElemName.innerHTML = 'Unmark';
-        }
+      if (changeElemName && changeElemName.innerHTML === 'Mark As Answer') {
+        changeElemName.innerHTML = 'Unmark';
       }
     }
     const markElem = document.querySelector(`#${data.componentId}`);
@@ -491,13 +511,11 @@ class UserInteractivityBasicOperation {
         markedAnswer.classList.remove('open');
         markedAnswer.classList.add('close');
       }
-      if (commentElem) {
-        if (commentElem.classList.contains('open')) {
-          commentElem.classList.remove('open');
-          commentElem.classList.add('close');
-        }
+      if (commentElem && commentElem.classList.contains('open')) {
+        commentElem.classList.remove('open');
+        commentElem.classList.add('close');
       }
-      this.navigationHandler(data, 'Unmark');
+      // this.navigationHandler(data, 'Unmark');
       markedAnswer.insertBefore(markElem, markedAnswer.firstChild);
       if (!virtualclass.vutil.checkUserRole()) {
         const answersElem = document.querySelectorAll(`#askQuestion #${data.parent} .answers .answer`);
@@ -512,26 +530,27 @@ class UserInteractivityBasicOperation {
   }
 
   navigationHandler(data, str) {
-    const allContext = virtualclass.userInteractivity.context;
-    const currContext = virtualclass.userInteractivity.currentContext;
-    const markParentElem = document.querySelector(`#${data.parent}`);
-    const getChildrenLength = allContext[currContext]['question'][data.parent].children.length;
-    if (getChildrenLength === 1) {
-      if (str === 'Mark As Answer' || str === 'removeNavigation') {
-        delete markParentElem.dataset.navigation;
-      } else if (str === 'Unmark') {
-        markParentElem.dataset.navigation = 'disable';
-      }
-    }
+    // const allContext = virtualclass.userInteractivity;
+    // const markParentElem = document.querySelector(`#${data.parent}`);
+    // const component = 'question';
+    // const getChildrenLength = allContext.context[allContext.currContext][component][data.parent].children.length;
+    // if (getChildrenLength === 1) {
+    //   if (str === 'Mark As Answer' || str === 'removeNavigation') {
+    //     delete markParentElem.dataset.navigation;
+    //   } else if (str === 'Unmark') {
+    //     markParentElem.dataset.navigation = 'disable';
+    //   }
+    // }
   }
 
   mostUpvotedOnTop(data) { // main part
     let getChildren;
     const arr = [];
     const allContext = virtualclass.userInteractivity.context;
+    const customComponent = 'question';
     const currentContext = data.context;
     if (data.component === 'answer') {
-      getChildren = allContext[currentContext]['question'][data.parent].children;
+      getChildren = allContext[currentContext][customComponent][data.parent].children;
     }
     for (const component in allContext[currentContext][data.component]) {
       if (component !== 'events' && component !== 'orderdByUpvoted') {
@@ -555,15 +574,18 @@ class UserInteractivityBasicOperation {
   }
 
   triggerRearrangeUpvotedElem(data) {
+    let selector;
     let parent;
+    const arr = 'orderdByUpvoted';
     const allContext = virtualclass.userInteractivity.context;
     const currentContext = data.context
     const container = document.createElement('div');
     container.className = data.component === 'question' ? 'container' : 'answers open';
     if (allContext[currentContext][data.component].orderdByUpvoted) {
       if (data.component === 'question') {
-        for (let i = 0; i < allContext[currentContext][data.component]['orderdByUpvoted'].length; i++) {
-          container.appendChild(document.querySelector(`#${allContext[currentContext][data.component]['orderdByUpvoted'][i].componentId}`));
+        for (let i = 0; i < allContext[currentContext][data.component][arr].length; i++) {
+          selector = `#${allContext[currentContext][data.component][arr][i].componentId}`;
+          container.appendChild(document.querySelector(selector));
         }
       } else {
         const ansObj = allContext[currentContext][data.component].orderdByUpvoted;
@@ -574,8 +596,9 @@ class UserInteractivityBasicOperation {
       }
 
       const replaceContainer = data.component === 'question' ? '.container' : `#${parent} .answers`;
-      const elem = document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`);
-      document.querySelector(`#askQuestion [data-context~=${currentContext}] ${replaceContainer}`).parentNode.replaceChild(container, elem);
+      selector = `#askQuestion [data-context~=${currentContext}] ${replaceContainer}`;
+      const elem = document.querySelector(selector);
+      elem.parentNode.replaceChild(container, elem);
       this.rearrangeUpvoteDone = true;
     }
   }
@@ -614,7 +637,6 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     this.attachHandler();
     this.viewAllMode = false;
     this.inputGenerating = false;
-
   }
 
   attachHandler() { // Main part
@@ -669,6 +691,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
 
   readyContextActual() { // main part
     let contextName;
+    let shareppt;
     switch (virtualclass.currApp) {
       case 'Whiteboard':
       case 'DocumentShare':
@@ -679,8 +702,9 @@ class UserInteractivity extends UserInteractivityBasicOperation {
         break;
       case 'SharePresentation':
         contextName = null;
-        if (virtualclass.sharePt.currId && virtualclass.sharePt.state) {
-          contextName = `sharePt-${virtualclass.sharePt.currId}_${virtualclass.sharePt.state.indexv}_${virtualclass.sharePt.state.indexh}`;
+        shareppt = virtualclass.sharePt;
+        if (shareppt.currId && shareppt.state) {
+          contextName = `sharePt-${shareppt.currId}_${shareppt.state.indexv}_${shareppt.state.indexh}`;
         }
         break;
       case 'Video':
@@ -754,7 +778,9 @@ class UserInteractivity extends UserInteractivityBasicOperation {
       if (type === 'note') this.note.afterChangeContext(contextName);
     } else if (type === 'note') {
       // Create blank structure for note
-      this.engine.performWithQueue({ component: 'note', action: 'renderer', type: 'noteContainer', context: contextName });
+      this.engine.performWithQueue({
+        component: 'note', action: 'renderer', type: 'noteContainer', context: contextName,
+      });
       this.note.afterChangeContext(contextName);
     }
     this.bookmark.afterChangeContext(contextName);
@@ -827,7 +853,9 @@ class UserInteractivity extends UserInteractivityBasicOperation {
           const askQuestion = document.getElementById('askQuestion');
           if (change.type === 'added' || change.type === 'modified') {
             const data = change.doc.data();
-            if (askQuestion.classList.contains('active') && (data.context === virtualclass.userInteractivity.currentContext || virtualclass.userInteractivity.viewAllMode)) {
+            if (askQuestion.classList.contains('active')
+              && (data.context === virtualclass.userInteractivity.currentContext
+              || virtualclass.userInteractivity.viewAllMode)) {
               this.engine.performWithQueue(data);
               if (virtualclass.isPlayMode && data.context === '_doc_0_0') this.buildAllMarksStatus(data);
             } else {
@@ -835,7 +863,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
               this.questionAnswer.addHighLight(data);
               if (virtualclass.isPlayMode) this.buildAllMarksStatus(data);
             }
-          };
+          }
         });
 
         if (this.firstRealTime) {
@@ -878,7 +906,8 @@ class UserInteractivity extends UserInteractivityBasicOperation {
         const data = doc.data();
         const currentActiveTab = self.getActiveTab();
         // console.log('====> total data type ', data.type);
-        if ((currentActiveTab === 'note' || data.component === 'bookmark') && self.currentContext === data.context) {
+        if ((currentActiveTab === 'note' || data.component === 'bookmark')
+          && self.currentContext === data.context) {
           self.engine.performWithQueue(data);
         } else {
           self.engine.makeQueue(data);

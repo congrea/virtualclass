@@ -203,7 +203,7 @@ if($info) {
 <script type="text/javascript">
    "user strict";
     let virtualclassSetting = {};
-    virtualclassSetting.settings = "000000";
+    virtualclassSetting.settings = "00000";
     virtualclassSetting.classes = "audioTool deactive";
     virtualclassSetting.audio_tooltip = '<?php echo get_string('audioEnable','congrea'); ?>';
     virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';

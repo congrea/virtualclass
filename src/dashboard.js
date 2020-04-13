@@ -3,7 +3,7 @@
  * for following features Document, Video and Presentation Sharing
  * */
 
-var dashboard = {
+const dashboard = {
   userConfirmation(msg, cb) {
     virtualclass.popup.confirmInput(msg, (confirm) => {
       cb(confirm);
@@ -69,7 +69,6 @@ var dashboard = {
   },
 
   open() {
-    console.log('===> Dashboard Open');
     virtualclass.modal.showModal();
     virtualclass.dashboard.clickCloseButton();
   },
@@ -214,6 +213,11 @@ var dashboard = {
   },
 
   readyDashboard(currVideo) {
+    let dashboardNavgation;
+    let createElem;
+    let cont;
+    let dbHtml;
+    let hidepopup;
     const { currApp } = virtualclass;
     if (document.querySelector('#congdashboard') === null) {
       const dashboardTemp = virtualclass.getTemplate('dashboard');
@@ -225,18 +229,18 @@ var dashboard = {
     }
 
     this.modalCloseHandler();
+    dashboardNavgation = document.getElementById('dashboardnav');
 
     // in any other application we can handle
     // dashoard content in own style
     // console.log('====> DOCUMENT SHARE SUMAN 1.0');
     if (currApp === 'DocumentShare') {
-      var dtitle = document.getElementById('dashboardnav');
-      dtitle.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
+      dashboardNavgation.setAttribute('data-title', virtualclass.lang.getString('DocumentSharedbHeading'));
       if (document.querySelector(`#${currApp}Dashboard`) == null) {
-        var elem = document.createElement('div');
-        var cont = document.querySelector('#congdashboard .modal-body');
-        cont.appendChild(elem);
-        elem.id = `${currApp}Dashboard`;
+        createElem = document.createElement('div');
+        cont = document.querySelector('#congdashboard .modal-body');
+        cont.appendChild(createElem);
+        createElem.id = `${currApp}Dashboard`;
       }
       const docsDbCont = document.querySelector('#docsDbCont');
       if (docsDbCont) {
@@ -252,18 +256,17 @@ var dashboard = {
       virtualclass.vutil.makeElementActive('#DocumentShareDashboard .qq-uploader-selector.qq-uploader.qq-gallery');
       virtualclass.vutil.makeElementActive('#listnotes');
     } else if (currApp === 'Video') {
-      var dtitle = document.getElementById('dashboardnav');
       if (document.querySelector(`#${currApp}Dashboard`) == null) {
-        var elem = document.createElement('div');
-        var cont = document.querySelector('#congdashboard .modal-body');
-        cont.appendChild(elem);
-        elem.id = `${currApp}Dashboard`;
+        createElem = document.createElement('div');
+        cont = document.querySelector('#congdashboard .modal-body');
+        cont.appendChild(createElem);
+        createElem.id = `${currApp}Dashboard`;
       }
 
       const videocont = document.querySelector('#videoPopup');
       if (!videocont) {
         const videoDashboard = virtualclass.getTemplate('popup', 'videoupload');
-        var dbHtml = videoDashboard();
+        dbHtml = videoDashboard();
         const videodb = document.querySelector('#VideoDashboard');
         videodb.insertAdjacentHTML('beforeend', dbHtml);
         // $('#VideoDashboard').append(dbHtml);
@@ -281,7 +284,7 @@ var dashboard = {
       virtualclass.vutil.makeElementActive('#listvideo');
 
       if (currVideo && currVideo.init.videoUrl) {
-        var hidepopup = true;
+        hidepopup = true;
       }
 
       const dashboardnav = document.querySelector('#dashboardnav button');
@@ -289,13 +292,12 @@ var dashboard = {
         dashboardnav.click();
       }
     } else if (currApp === 'SharePresentation') {
-      const dashboardNavgation = document.getElementById('dashboardnav');
       dashboardNavgation.setAttribute('data-title', virtualclass.lang.getString('SharePresentationdbHeading'));
       if (document.querySelector(`#${currApp}Dashboard`) == null) {
-        const dashboard = document.createElement('div');
+        const dashboardContainer = document.createElement('div');
         const congdashboardModal = document.querySelector('#congdashboard .modal-body');
-        congdashboardModal.appendChild(dashboard);
-        dashboard.id = `${currApp}Dashboard`;
+        congdashboardModal.appendChild(dashboardContainer);
+        dashboardContainer.id = `${currApp}Dashboard`;
       }
       const dashboardnav = document.querySelector('#dashboardnav button');
       if (dashboardnav != null && !virtualclass.vutil.isDashboardOpened()) {

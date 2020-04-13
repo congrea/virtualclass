@@ -400,6 +400,11 @@
   width: 100%;
 }
 
+#virtualclassCont.congrea #virtualclassApp.openRightbar #stickybar .ui-tabs {
+  position: absolute;
+  width: 100%;
+}
+
 #virtualclassCont.congrea .ui-tabs .ui-tabs-nav li {
   float: right;
   white-space: normal;
@@ -652,6 +657,8 @@ virtualclasscont.congrea.playMode.student .ui-chatroom {
   position: relative;
   height: 100%;
   padding-top: 3.125rem;
+  scrollbar-width: thin;
+  overflow-x: hidden;
 }
 
 #virtualclassCont.congrea #chat_div::-webkit-scrollbar ,

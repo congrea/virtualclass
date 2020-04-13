@@ -1,4 +1,4 @@
-var micTesting = {
+const micTesting = {
   audioPlayerNode: false,
   manipulateStreamFallback(stream) {
     this.playAudio = true;
@@ -7,12 +7,14 @@ var micTesting = {
     this.bufferSize = 16384;
     if (stream != null) {
       if (!Object.prototype.hasOwnProperty.call(virtualclass.media.audioVisual, 'audioCtx')
-        || (Object.prototype.hasOwnProperty.call(virtualclass.media.audioVisual, 'audioCtx') && virtualclass.media.audioVisual.audioCtx == null)) {
+        || (Object.prototype.hasOwnProperty.call(virtualclass.media.audioVisual, 'audioCtx')
+        && virtualclass.media.audioVisual.audioCtx == null)) {
         virtualclass.media.audioVisual.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
 
       if (virtualclass.system.mediaDevices.hasMicrophone) {
-        if (this.audioCreatorNode == null || this.audioCreatorNode == null || typeof this.audioCreatorNode === 'undefined') {
+        if (this.audioCreatorNode == null || this.audioCreatorNode == null
+          || typeof this.audioCreatorNode === 'undefined') {
           // console.log('processor intialize');
           this.audioInput = virtualclass.media.audioVisual.audioCtx.createMediaStreamSource(stream);
           this.audioCreatorNode = virtualclass.media.audioVisual.audioCtx.createScriptProcessor(this.bufferSize, 1, 1);
@@ -33,7 +35,8 @@ var micTesting = {
   recorderProcessFallback(e) {
     if (this.playAudio) {
       /** for edge browser * */
-      if (!Object.prototype.hasOwnProperty.call(virtualclass.precheck.mic.graph.microphone, 'localAudioBuffer') || virtualclass.precheck.mic.graph.microphone.localAudioBuffer == null) {
+      if (!Object.prototype.hasOwnProperty.call(virtualclass.precheck.mic.graph.microphone, 'localAudioBuffer')
+        || virtualclass.precheck.mic.graph.microphone.localAudioBuffer == null) {
         virtualclass.precheck.mic.graph.microphone.localAudioBuffer = virtualclass.media.audioVisual.audioCtx.createBuffer(1, this.bufferSize, virtualclass.media.audioVisual.audioCtx.sampleRate);
       }
 
@@ -56,12 +59,13 @@ var micTesting = {
 
   playWithFallback() {
     const that = this;
+    let output;
     if (!this.audioPlayerNode) {
       this.audioPlayerNode = virtualclass.media.audioVisual.audioCtx.createScriptProcessor(this.bufferSize, 1, 1);
       const snNodePak = 0;
       this.audioPlayerNode.onaudioprocess = function (event) {
         if (micTesting.playAudio) {
-          var output = event.outputBuffer.getChannelData(0);
+          output = event.outputBuffer.getChannelData(0);
           const newAud = that.getAudioChunks();
           if (newAud != null) {
             for (let i = 0; i < newAud.length; i++) {
@@ -69,7 +73,7 @@ var micTesting = {
             }
           }
         } else {
-          var output = event.outputBuffer.getChannelData(0);
+          output = event.outputBuffer.getChannelData(0);
           for (let i = 0; i < output.length; i++) {
             output[i] = 0;
           }
@@ -118,7 +122,8 @@ var micTesting = {
       if (this.audioCreatorNode) {
         this.audioCreatorNode.disconnect(virtualclass.media.audioVisual.audioCtx.destination);
         delete this.audioCreatorNode;
-        if (virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Safari') {
+        if (virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'iOS'
+          || virtualclass.system.mybrowser.name === 'Safari') {
           virtualclass.media.audioVisual.audioCtx.close();
         }
 
@@ -130,7 +135,8 @@ var micTesting = {
         }
 
         /** Need for firefox and sarari on Mobile* */
-        if (virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Safari') {
+        if (virtualclass.system.mybrowser.name === 'Firefox' || virtualclass.system.mybrowser.name === 'iOS'
+          || virtualclass.system.mybrowser.name === 'Safari') {
           if (virtualclass.precheck.mic.graphContext != null) {
             virtualclass.precheck.mic.graphContext.close();
           }
@@ -156,7 +162,8 @@ var micTesting = {
     //     }
     //
     //     /** Need for firefox and sarari on Mobile**/
-    //     if(virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'iOS' || virtualclass.system.mybrowser.name == 'Safari' ){
+    //     if(virtualclass.system.mybrowser.name == 'Firefox' || virtualclass.system.mybrowser.name == 'iOS'
+    // || virtualclass.system.mybrowser.name == 'Safari' ){
     //         virtualclass.gObj.video.audioVisual.audioCtx.close();
     //         virtualclass.precheck.mic.graphContext.close();
     //     }

@@ -31,6 +31,7 @@ let msg;
           this.elem = elem;
         },
         addMsg(peer, msgObj, userid) {
+          let Img;
           if (typeof virtualclass.gObj.chatIconColors[userid] === 'undefined') {
             groupChatImgColor(peer, userid);
           }
@@ -49,7 +50,7 @@ let msg;
           if (virtualclass.gObj.chatIconColors[userid]) {
             chatCont.style.backgroundColor = virtualclass.gObj.chatIconColors[userid].bgColor;
             chatCont.style.color = virtualclass.gObj.chatIconColors[userid].textColor;
-            var Img = document.createElement('span');
+            Img = document.createElement('span');
             Img.className = 'chat-img ';
             Img.innerHTML = virtualclass.gObj.chatIconColors[userid].initial;
           }
@@ -161,6 +162,7 @@ let msg;
     },
     _create() {
       const self = this;
+      let cmsg;
       const { options } = self;
       const { offset } = options;
       const title = options.title || 'No Title';
@@ -205,13 +207,13 @@ let msg;
               // store data on browser
               if (localStorage.getItem('chatroom') != null) {
                 const chatroom = JSON.parse(localStorage.getItem('chatroom'));
-                var cmsg = {
+                cmsg = {
                   userid: io.cfg.userid, name: io.cfg.userobj.name, msg, time,
                 };
                 chatroom.push(cmsg);
                 // localStorage.setItem('chatroom', JSON.stringify(chatroom));
               } else {
-                var cmsg = {
+                cmsg = {
                   userid: io.cfg.userid, name: io.cfg.userobj.name, msg, time,
                 };
                 // localStorage.setItem('chatroom', JSON.stringify([cmsg]));

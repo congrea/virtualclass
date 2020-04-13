@@ -64,7 +64,8 @@
         const formData = new FormData();
         formData.append('dataToSave', JSON.stringify(data));
         formData.append('user', virtualclass.gObj.uid);
-        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_save`, formData).then((msg) => { // TODO Handle more situations
+        // TODO Handle more situations
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_save`, formData).then((msg) => {
           const getContent = msg.data;
           const { options } = getContent;
           const obj = {};
@@ -113,7 +114,8 @@
         const formData = new FormData();
         formData.append('editdata', JSON.stringify(data));
         formData.append('user', virtualclass.gObj.uid);
-        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_update`, formData).then((msg) => { // TODO Handle more situations
+        // TODO Handle more situations
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_update`, formData).then((msg) => {
           const getContent = msg.data;
           // console.log(getContent);
           that.updatePollList(getContent);
@@ -159,7 +161,8 @@
         formData.append('category', JSON.stringify(category));
         formData.append('user', virtualclass.gObj.uid);
         virtualclass.recorder.items = []; // empty on each chunk sent
-        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_data_retrieve`, formData).then((msg) => { // TODO Handle more situations
+        // TODO Handle more situations
+        virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=poll_data_retrieve`, formData).then((msg) => {
           // console.log("fetched" + msg);
           //  later in php file
           const getContent = msg.data;
@@ -502,7 +505,7 @@
         }
         const elem = document.getElementsByClassName('emptyList');
         if (this.list.length > 0) {
-          for (var i = 0; i < elem.length; i++) {
+          for (let i = 0; i < elem.length; i++) {
             elem[i].style.display = 'none';
           }
         } else {
@@ -512,7 +515,7 @@
         }
         const menu = document.querySelectorAll('#chartMenuCont button');
         if (menu) {
-          for (var i = 0; i < menu.length; i++) {
+          for (let i = 0; i < menu.length; i++) {
             menu[i].classList.remove('disabled');
           }
         }
@@ -561,6 +564,7 @@
       },
       // to gerealize later for course and site
       displaycoursePollList() {
+        let mszbox;
         const that = this;
         this.dispList('course');
         const listcont = document.querySelector('#listQnContcourse tbody');
@@ -577,13 +581,13 @@
             list.style.display = 'block';
           }
 
-          var mszbox = document.querySelector('#mszBoxPoll');
+          mszbox = document.querySelector('#mszBoxPoll');
           mszbox.style.display = 'none';
           this.coursePoll.forEach((item, index) => {
             that.forEachPoll(item, index, 'course');
           });
         } else {
-          var mszbox = document.querySelector('#mszBoxPoll');
+          mszbox = document.querySelector('#mszBoxPoll');
           const message = virtualclass.lang.getString('noPoll');
           mszbox.style.display = 'block';
           mszbox.innerHTML = message;
@@ -604,6 +608,7 @@
       },
 
       displaysitePollList(isAdmin) {
+        let mszbox;
         const that = this;
         this.dispList('site');
         const listcont = document.querySelector('#listQnContsite tbody');
@@ -621,10 +626,10 @@
           if (list) {
             list.style.display = 'block';
           }
-          var mszbox = document.querySelector('#mszBoxPoll');
+          mszbox = document.querySelector('#mszBoxPoll');
           mszbox.style.display = 'none';
         } else {
-          var mszbox = document.querySelector('#mszBoxPoll');
+          mszbox = document.querySelector('#mszBoxPoll');
           let message = virtualclass.lang.getString('noPoll');
           if (isAdmin === 'false') {
             message = virtualclass.lang.getString('noPollNoAdmin');
@@ -674,28 +679,30 @@
       dispNewPollBtn(pollType, isAdmin) {
         this.attachEvent(`newPollBtn${pollType}`, 'click', this.newPollHandler, pollType);
         const btn = document.getElementById(`newPollBtn${pollType}`);
+        let siteHead;
+        let elem;
         if (pollType === 'site') {
           if (typeof isAdmin !== 'undefined' && isAdmin === 'true') {
             btn.style.display = 'table';
           } else {
             btn.style.display = 'none';
             if (roles.hasControls) {
-              var siteHead = document.getElementById('listQnContsite');
+              siteHead = document.getElementById('listQnContsite');
               siteHead.classList.add('teacherTableHeader');
             }
           }
 
-          var elem = document.getElementById('newPollBtncourse');
+          elem = document.getElementById('newPollBtncourse');
           if (elem) {
             elem.style.display = 'none';
           }
         } else {
           if (roles.hasControls) {
-            var siteHead = document.getElementById('listQnContsite');
+            siteHead = document.getElementById('listQnContsite');
             siteHead.classList.remove('teacherTableHeader');
           }
           btn.style.display = 'table';
-          var elem = document.getElementById('newPollBtnsite');
+          elem = document.getElementById('newPollBtnsite');
           if (elem) {
             elem.style.display = 'none';
           }
@@ -703,6 +710,7 @@
       },
       forEachPoll(item, index, pollType, isAdmin) {
         const pollQn = {};
+        let link1;
         pollQn.questiontext = item.questiontext;
         const name = (Object.prototype.hasOwnProperty.call(item, 'creatorfname')) ? virtualclass.poll.capitalizeFirstLetterFnameLname(item.creatorfname) : virtualclass.poll.capitalizeFirstLetterFnameLname(item.creatorname);
         pollQn.creator = name;
@@ -717,7 +725,7 @@
           if (!item.isPublished) {
             this.attachEvent(`editQn${pollType}${index}`, 'click', this.editHandler, item, pollType, index, item.createdby, item.questionid);
           } else {
-            var link1 = document.querySelector(`#editQn${pollType}${index} span`);
+            link1 = document.querySelector(`#editQn${pollType}${index} span`);
             if (link1) {
               link1.setAttribute('title', virtualclass.lang.getString('etDisabledA'));
               link1.style.cursor = 'default';
@@ -726,7 +734,7 @@
           }
           this.attachEvent(`deleteQn${pollType}${index}`, 'click', this.deleteHandler, item, pollType, index);
         } else {
-          var link1 = document.querySelector(`#editQn${pollType}${index} span`);
+          link1 = document.querySelector(`#editQn${pollType}${index} span`);
           if (link1) {
             link1.setAttribute('title', virtualclass.lang.getString('etDisabledCr'));
             link1.style.cursor = 'default';
@@ -740,8 +748,8 @@
         }
         const poll = pollType == 'course' ? virtualclass.poll.coursePoll : virtualclass.poll.sitePoll;
         if (index === poll.length - 1 || index === poll.length - 2 || index === poll.length - 3) {
-          var link1 = document.querySelector(`#contQn${pollType}${index}`);
-          link1.classList.add('lastNode');
+          const link = document.querySelector(`#contQn${pollType}${index}`);
+          link.classList.add('lastNode');
         }
 
 
@@ -834,8 +842,8 @@
 
       // cmid  later
       etSave(qIndex, pollType, id) {
-        var flag = virtualclass.poll.isBlank();
-        if (!flag) {
+        const flagStatus = virtualclass.poll.isBlank();
+        if (!flagStatus) {
           return 0;
         }
         const poll = (pollType === 'course') ? virtualclass.poll.coursePoll[qIndex] : virtualclass.poll.sitePoll[qIndex];
@@ -855,7 +863,7 @@
           };
           virtualclass.poll.interfaceToEdit(saveQn, category);
         } else {
-          var flag = virtualclass.poll.newPollSave('undefined', pollType);
+          const flag = virtualclass.poll.newPollSave('undefined', pollType);
           if (!flag) {
             return 0;
           }
@@ -885,11 +893,12 @@
         const temp = [];
         let j = 0;
         let t;
+        let i;
         const poll = (pollType === 'course') ? this.coursePoll[qIndex] : this.sitePoll[qIndex];
         const optsCont = document.getElementById('optsTxCont');
         const opts = optsCont.querySelectorAll('#virtualclassCont #optsTxCont .opt');
 
-        for (var i = 0; i < opts.length; i++) {
+        for (i = 0; i < opts.length; i++) {
           temp[i] = opts[i].value;
         }
         for (const prop in poll.options) {
@@ -913,6 +922,7 @@
         const item = {};
         const option = [];
         const flag = virtualclass.poll.isBlank();
+        let n;
         if (!flag) {
           return 0;
         }
@@ -929,11 +939,11 @@
         item.options = option;
         if (pollType === 'course') {
           // virtualclass.poll.coursePoll.push(item);
-          var n = virtualclass.poll.coursePoll.length - 1;
+          n = virtualclass.poll.coursePoll.length - 1;
           category = virtualclass.poll.cmid;
         } else {
           // virtualclass.poll.sitePoll.push(item);
-          var n = virtualclass.poll.sitePoll.length - 1;
+          n = virtualclass.poll.sitePoll.length - 1;
         }
         const saveQn = {
           question: q.value,
@@ -975,62 +985,62 @@
         return 1;
       },
       saveNdPublish(index, type) {
-        var flag = virtualclass.poll.isBlank();
-        if (!flag) {
+        const flagSatus = virtualclass.poll.isBlank();
+        if (!flagSatus) {
           return 0;
         }
         const pollType = `${type}Poll`;
-        var { length } = virtualclass.poll[pollType];
-        var optsCont = document.getElementById('optsTxCont');
-        var opt = optsCont.querySelectorAll('#virtualclassCont #optsTxCont .opt');
+        const { length } = virtualclass.poll[pollType];
+        const optsCont = document.getElementById('optsTxCont');
+        const opt = optsCont.querySelectorAll('#virtualclassCont #optsTxCont .opt');
 
         if (typeof index === 'undefined') {
-          var { length } = virtualclass.poll[pollType];
+          const { length } = virtualclass.poll[pollType];
 
-          const obj = virtualclass.poll[pollType];
+          // const obj = virtualclass.poll[pollType];
 
-          var question = document.getElementById('q').value;
-          var opts = {};
-          var optsCont = document.getElementById('optsTxCont');
-          var opt = optsCont.querySelectorAll('#virtualclassCont #optsTxCont .opt');
-          for (var i = 0; i < opt.length; i++) {
+          const question = document.getElementById('q').value;
+          const opts = {};
+          // const optsCont = document.getElementById('optsTxCont');
+          // const opt = optsCont.querySelectorAll('#virtualclassCont #optsTxCont .opt');
+          for (let i = 0; i < opt.length; i++) {
             opts[i] = opt[i].value;
           }
           // datatoStd change
-          var obj1 = {
+          const obj1 = {
             question,
             options: opts,
 
           };
           virtualclass.poll.dataToStd.question = obj1.question;
           virtualclass.poll.dataToStd.options = obj1.options;
-          var setting = true;
-          var flag = virtualclass.poll.newPollSave(length, type, setting);
+          const setting = true;
+          const flag = virtualclass.poll.newPollSave(length, type, setting);
           if (flag) {
-            var next = true;
+            const next = true;
             virtualclass.poll.pollSetting(type, length, next);
           }
         } else {
-          var next = true;
+          const next = true;
           const poll = virtualclass.poll[pollType][index];
-          var question = document.getElementById('q').value;
+          const question = document.getElementById('q').value;
           poll.question = question;
 
           let j = 0;
-          for (var i in poll.options) {
+          for (let i in poll.options) {
             poll.options[i] = opt[j].value;
             j++;
           }
-          var obj1 = {
-            question,
-            options: opts,
-
-          };
+          // var obj1 = {
+          //   question,
+          //   options: opts,
+          //
+          // };
           virtualclass.poll[pollType][index].questiontext = document.getElementById('q').value;
 
           virtualclass.poll.dataToStd.question = virtualclass.poll[pollType][index].questiontext;
           virtualclass.poll.dataToStd.options = virtualclass.poll[pollType][index].options;
-          var flag = virtualclass.poll.etSave(index, type, setting);
+          const flag = virtualclass.poll.etSave(index, type, setting);
           if (flag) {
             virtualclass.poll.pollSetting(type, index, next);
           }
@@ -1211,7 +1221,7 @@
           clearInterval(virtualclass.poll.timer);
           virtualclass.poll.timer = 0;
           let flagnonzero = 0;
-          for (var i in virtualclass.poll.count) {
+          for (let i in virtualclass.poll.count) {
             if (virtualclass.poll.count[i]) {
               flagnonzero = 1;
             }
@@ -1231,7 +1241,7 @@
             // virtualclass.poll.UI.createResultLayout();
             const header = document.getElementById('resultLayoutHead');
             if (header) {
-              for (var i = 0; i < header.childNodes.length; i++) {
+              for (let i = 0; i < header.childNodes.length; i++) {
                 header.childNodes[i].parentNode.removeChild(header.childNodes[i]);
               }
             }
@@ -1430,7 +1440,8 @@
       saveSelected() {
         const optsCont = document.getElementById('stdOptionCont');
         const elem = optsCont.querySelectorAll('#stdOptionCont .opt');
-        for (var i = 0; i < elem.length; i++) {
+        let i;
+        for (i = 0; i < elem.length; i++) {
           if (elem[i].checked) {
             virtualclass.poll.responseId = elem[i].id;
             return 1;
@@ -1572,7 +1583,7 @@
 
           const header = document.getElementById('resultLayoutHead');
           if (header) {
-            for (var i = 0; i < header.childNodes.length; i++) {
+            for (let i = 0; i < header.childNodes.length; i++) {
               header.childNodes[i].parentNode.removeChild(header.childNodes[i]);
             }
           }
@@ -1644,21 +1655,21 @@
         // var layout = document.getElementById("layoutPoll");
         // layout.style.display = "none";
 
-        var cont = document.querySelector('.congrea #stdPollContainer');
+        const cont = document.querySelector('.congrea #stdPollContainer');
         if (cont) {
           cont.style.display = 'none';
         }
-        var resultLayout = document.getElementById('resultLayout');
-        if (resultLayout) {
-          resultLayout.parentNode.removeChild(resultLayout);
+        const resultLayoutelem = document.getElementById('resultLayout');
+        if (resultLayoutelem) {
+          resultLayoutelem.parentNode.removeChild(resultLayoutelem);
         }
         virtualclass.poll.UI.createResultLayout();
-        var resultLayout = document.getElementById('resultLayout');
+        // const resultLayout2 = document.getElementById('resultLayout');
         // if (!resultLayout) {
         const timer = document.getElementById('timerWrapper');
         timer.parentNode.removeChild(timer);
-        var cont = document.getElementById(('resultLayout'));
-        cont.classList.add('bootstrap', 'container');
+        const contLayout = document.getElementById(('resultLayout'));
+        contLayout.classList.add('bootstrap', 'container');
         virtualclass.poll.count = count;
         console.log('====> student submit poll ', virtualclass.poll.count);
         // console.log('====> Poll count ', virtualclass.poll.count)
@@ -1672,8 +1683,8 @@
           }
         }
 
-        var cont = document.getElementById('chartMenuCont');
-        if (cont) {
+        const contElem = document.getElementById('chartMenuCont');
+        if (contElem) {
           virtualclass.poll.UI.chartMenu(cont);
         }
         let flagnonzero = 0;
@@ -1705,19 +1716,19 @@
         virtualclass.poll.UI.createResultLayout();
         const header = document.getElementById('resultLayoutHead');
         if (header) {
-          for (var i = 0; i < header.childNodes.length; i++) {
+          for (let i = 0; i < header.childNodes.length; i++) {
             header.childNodes[i].parentNode.removeChild(header.childNodes[i]);
           }
         }
         const cont = document.getElementById('resultLayoutBody');
         if (cont) {
-          for (var i = 0; i < cont.childNodes.length; i++) {
+          for (let i = 0; i < cont.childNodes.length; i++) {
             cont.childNodes[i].parentNode.removeChild(cont.childNodes[i]);
           }
         }
       },
       noneVoted(pollType) {
-        console.log("====> No voted poll here");
+        console.log('====> No voted poll here');
         if (typeof virtualclass.poll.timer !== 'undefined') {
           clearInterval(virtualclass.poll.timer);
         }
@@ -1980,7 +1991,7 @@
         const msz = document.getElementById('pollResultMsz');
         const columns = [];
         const data = roles.hasControls() ? virtualclass.poll.dataToStd : virtualclass.poll.dataRec;
-        for (var i in virtualclass.poll.count) {
+        for (const i in virtualclass.poll.count) {
           const optedVal = data.options[i];
           columns.push([optedVal, virtualclass.poll.count[i]]);
           if (virtualclass.poll.count[i]) {
@@ -1994,7 +2005,7 @@
           }
         }
 
-        for (var i in data.options) {
+        for (const i in data.options) {
           if (!Object.prototype.hasOwnProperty.call(virtualclass.poll.count, i)) {
             columns.push([data.options[i], '0']);
             virtualclass.poll.count[i] = 0;
@@ -2032,7 +2043,7 @@
         this.updateVotingInformation();
         const data = roles.hasControls() ? virtualclass.poll.dataToStd : virtualclass.poll.dataRec;
         const columns = [];
-        for (var i in virtualclass.poll.count) {
+        for (const i in virtualclass.poll.count) {
           const optedVal = data.options[i];
           columns.push([optedVal, virtualclass.poll.count[i]]);
           if (virtualclass.poll.count[i]) {
@@ -2046,7 +2057,7 @@
           }
         }
 
-        for (var i in data.options) {
+        for (const i in data.options) {
           if (!Object.prototype.hasOwnProperty.call(virtualclass.poll.count, i)) {
             columns.push([data.options[i], '0']);
             virtualclass.poll.count[i] = 0;
@@ -2118,12 +2129,13 @@
         }
       },
       listView() {
+        let list;
         virtualclass.poll.currResultView = 'list';
         // const chart = document.getElementById('chart');
         // chart.style.display = 'none';
         virtualclass.poll.hideChart();
         const cont = document.getElementById('resultLayoutBody');
-        var list = document.getElementById('listCont');
+        list = document.getElementById('listCont');
 
         if (list.hasChildNodes()) {
           list.removeChild(list.childNodes[0]);
@@ -2135,7 +2147,7 @@
             msz.parentNode.removeChild(msz);
           }
         }
-        var list = document.getElementById('listCont');
+        list = document.getElementById('listCont');
         if (list) {
           list.style.display = 'block';
         }
@@ -2155,29 +2167,32 @@
         }
       },
       addResultListItem(item) {
+        let elem;
+        let val;
         const optedVal = virtualclass.poll.dataToStd.options;
         const tbody = document.getElementById('resultList');
         for (const j in item) {
           if (j !== 'username') {
-            const prop = j;
-            var val = item[j];
+            // const prop = j;
+            val = item[j];
           }
         }
 
         const listItem = document.createElement('tr');
         tbody.appendChild(listItem);
 
-        var elem = document.createElement('td');
+        elem = document.createElement('td');
         const name = virtualclass.poll.capitalizeFirstLetterFnameLname(item.username);
         elem.innerHTML = name;
         listItem.appendChild(elem);
 
-        var elem = document.createElement('td');
+        elem = document.createElement('td');
         elem.innerHTML = optedVal[val];
         listItem.appendChild(elem);
       },
 
       capitalizeFirstLetterFnameLname(name) {
+        let str;
         if (!name || name == null) {
           return;
         }
@@ -2272,7 +2287,7 @@
         if (chart) {
           chart.style.display = 'block';
         }
-      //  console.log('====> chat graph show ', document.querySelector('#chart').offsetWidth);
+        //  console.log('====> chat graph show ', document.querySelector('#chart').offsetWidth);
       },
 
       UI: {
@@ -2323,14 +2338,15 @@
         },
 
         resultView(istimer, pollType) {
+          let btn;
           // console.log('====> Poll result view 1B ');
           if (roles.hasControls()) {
             this.createResultLayout();
             if (!istimer) {
               const head = document.getElementById('resultLayoutHead');
-              var btn = document.getElementById('closePoll');
+              btn = document.getElementById('closePoll');
               if (!btn) {
-                var btn = document.createElement('button');
+                btn = document.createElement('button');
                 btn.id = 'closePoll';
                 btn.className = 'btn btn-default col-md-2';
                 head.appendChild(btn);
@@ -2358,6 +2374,7 @@
         },
 
         createResultLayout() {
+          let template;
           const resultLayout = document.getElementById('resultLayout');
           if (resultLayout) {
             resultLayout.parentNode.removeChild(resultLayout);
@@ -2370,7 +2387,7 @@
             obj.question = virtualclass.poll.dataToStd.question;
             obj.options = virtualclass.poll.dataToStd.options;
 
-            var template = virtualclass.getTemplate('result-modal', 'poll');
+            template = virtualclass.getTemplate('result-modal', 'poll');
             const modal = document.querySelector('#editPollModal');
             if (modal) {
               modal.remove();
@@ -2384,7 +2401,7 @@
             }
           } else {
             obj.question = virtualclass.poll.dataRec.question;
-            var template = virtualclass.getTemplate('stdResult', 'poll');
+            template = virtualclass.getTemplate('stdResult', 'poll');
             const vcPoll = document.querySelector('#virtualclassPoll');
             vcPoll.insertAdjacentHTML('beforeend', template({ obj }));
           }
@@ -2392,19 +2409,20 @@
           this.resultLayoutBody();
         },
         resultNotShownUI(header) {
+          let mszbox;
           const resultMain = document.querySelector('#resultLayoutBody');
           if (resultMain) {
             resultMain.style.display = 'none';
           }
 
-          var mszbox = document.getElementById('mszBoxPoll');
+          mszbox = document.getElementById('mszBoxPoll');
           const i = 0;
           if (mszbox) {
             while (mszbox.childNodes.length > 0) {
               mszbox.removeChild(mszbox.childNodes[i]);
             }
           } else {
-            var mszbox = document.createElement('div');
+            mszbox = document.createElement('div');
             mszbox.id = 'mszBoxPoll';
             resultMain.appendChild(mszbox);
           }
@@ -2445,25 +2463,25 @@
             closeBtn.parentNode.removeChild(closeBtn);
           }
 
-          var elem = document.getElementById('congreaPollVoters');
-          if (elem) {
-            elem.innerHTML = virtualclass.lang.getString('rvtu');
+          const votersElem = document.getElementById('congreaPollVoters');
+          if (votersElem) {
+            votersElem.innerHTML = virtualclass.lang.getString('rvtu');
           }
 
-          var elem = document.getElementById('pollResultMsz');
-          if (elem) {
-            elem.parentNode.removeChild(elem);
+          const mszElem = document.getElementById('pollResultMsz');
+          if (mszElem) {
+            mszElem.parentNode.removeChild(mszElem);
           }
         },
         chartMenu(cont) {
-          var elem = document.querySelector('#chartMenuCont #bar');
-          elem.addEventListener('click', virtualclass.poll.barGraph);
+          const barElem = document.querySelector('#chartMenuCont #bar');
+          barElem.addEventListener('click', virtualclass.poll.barGraph);
 
           const pi = document.querySelector('#chartMenuCont #pi');
           pi.addEventListener('click', virtualclass.poll.createPiChart);
 
           if (roles.hasControls()) {
-            var elem = document.querySelector('#chartMenuCont #rList');
+            const elem = document.querySelector('#chartMenuCont #rList');
             elem.addEventListener('click', virtualclass.poll.listView);
           }
         },
@@ -2491,20 +2509,22 @@
         },
 
         createOption(qIndex, type) {
+          let x;
+          let y;
           const optsCont = document.getElementById('optsTxCont');
           const elem = optsCont.querySelectorAll('#optsTxCont .opt');
           let count = 0;
           for (let i = 0; i < elem.length; i++) {
             count++;
-            var x = elem[i].id;
+            x = elem[i].id;
           }
           const newIndex = count;
           if (x) {
-            var y = newIndex;
+            y = newIndex;
           } else {
             y = '0';
           }
-          var close = {};
+          const close = {};
           close.index = y;
           close.closeBtn = y > 1;
           const template = virtualclass.getTemplate('optioninput', 'poll');
@@ -2512,20 +2532,20 @@
 
           const addMore = document.querySelector('#addMoreCont');
           addMore.insertAdjacentHTML('beforebegin', html);
-          var close = document.getElementById(`remove${y}`);
-          close.addEventListener('click', () => {
+          const closeElem = document.getElementById(`remove${y}`);
+          closeElem.addEventListener('click', () => {
             virtualclass.poll.removeOption(type, qIndex, `remove${y}`);
           });
         },
         hidePrevious(index) {
-          var cont = document.getElementById('optsTxCont');
-          if (cont) {
-            cont.parentNode.removeChild(cont);
+          const optsTxCont = document.getElementById('optsTxCont');
+          if (optsTxCont) {
+            optsTxCont.parentNode.removeChild(optsTxCont);
           }
 
-          var cont = document.getElementById('reset');
-          if (cont) {
-            cont.style.display = 'none';
+          const resetElem = document.getElementById('reset');
+          if (resetElem) {
+            resetElem.style.display = 'none';
           }
           const footer = document.getElementById('footerCtrCont');
           footer.parentNode.removeChild(footer);
@@ -2543,13 +2563,13 @@
           opts = poll.options;
           let optsCount = 0;
           if (typeof opts === 'object') {
-            for (var i in opts) {
+            for (const i in opts) {
               // console.log(i);
               optsCount++;
               virtualclass.poll.UI.editOptions(pollType, index, i, optsCount);
             }
           } else {
-            for (var i = 0; i < opts.length; i++) {
+            for (let i = 0; i < opts.length; i++) {
               virtualclass.poll.UI.editOptions(pollType, index, i, optsCount);
             }
           }

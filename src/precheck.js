@@ -54,12 +54,14 @@ const preCheck = {
   },
 
   initSkip() {
+    let virtualclassPreCheck;
+    let virtualclassApp;
     // console.log('Skip clicked');
     micTesting.makeAudioEmpty();
     if (localStorage.getItem('precheck')) {
-      var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+      virtualclassPreCheck = document.getElementById('preCheckcontainer');
       virtualclassPreCheck.style.display = 'none';
-      var virtualclassApp = document.getElementById('virtualclassApp');
+      virtualclassApp = document.getElementById('virtualclassApp');
       virtualclassApp.style.display = 'flex';
       // virtualclass.videoHost._resetPrecheck();
       // virtualclass.media.audio.initAudiocontext();
@@ -67,12 +69,9 @@ const preCheck = {
       // virtualclass.media.audio.initAudiocontext();
       virtualclass.popup.waitMsg();
       virtualclass.makeReadySocket();
-
-      var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+      virtualclassPreCheck = document.getElementById('preCheckcontainer');
       virtualclassPreCheck.style.display = 'none';
-
-
-      var virtualclassApp = document.getElementById('virtualclassApp');
+      virtualclassApp = document.getElementById('virtualclassApp');
       virtualclassApp.style.display = 'flex';
       localStorage.setItem('precheck', true);
       virtualclass.videoHost.afterSessionJoin();
@@ -585,10 +584,7 @@ const preCheck = {
       virtualclass.popup.waitMsg();
       virtualclass.makeReadySocket();
 
-      var virtualclassPreCheck = document.getElementById('preCheckcontainer');
-      virtualclassPreCheck.style.display = 'none';
-
-      var virtualclassPreCheck = document.getElementById('preCheckcontainer');
+      const virtualclassPreCheck = document.getElementById('preCheckcontainer');
       virtualclassPreCheck.style.display = 'none';
 
       const virtualclassApp = document.getElementById('virtualclassApp');

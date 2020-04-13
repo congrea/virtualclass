@@ -13,7 +13,23 @@
   min-height: 100%;
 }
 
-#virtualclassCont.congrea #virtualclassSharePresentation #urlcontainer,
+#virtualclassCont.congrea #virtualclassSharePresentation #urlcontainer {
+  position: absolute;
+  margin-top: 10px;
+  text-align: center;
+  top: 40%;
+  left: 0;
+  right: 0;
+}
+
+#virtualclassCont.congrea #virtualclassSharePresentation.pptSharing #urlcontainer {
+  top: auto;
+  left: 55px;
+  right: auto;
+  z-index: 7;
+  margin-bottom: 35px;
+}
+
 #virtualclassCont.congrea.student.presenter #virtualclassSharePresentation #urlcontainer {
   position: absolute;
   margin-top: 10px;
@@ -23,7 +39,6 @@
   right: 0;
 }
 
-#virtualclassCont.congrea #virtualclassSharePresentation.pptSharing #urlcontainer,
 #virtualclassCont.congrea.student.presenter #virtualclassSharePresentation.pptSharing #urlcontainer {
   top: auto;
   left: 55px;
@@ -76,9 +91,9 @@
   border-bottom: medium none;
 }
 
-#virtualclassCont.congrea.educator #virtualclassSharePresentation {
+/* #virtualclassCont.congrea.educator #virtualclassSharePresentation {
   margin-left: 7px;
-}
+} */
 
 #virtualclassCont.congrea #iframecontainer {
   /* height : 94vh; */
@@ -109,10 +124,6 @@
 
 #virtualclassCont.congrea #presentationurl.form-control::placeholder {
   text-align: center;
-}
-
-embed-footer {
-  display: none !important;
 }
 
 #virtualclassCont.congrea[data-currapp="SharePresentation"] #virtualclassAppLeftPanel #congrealogo img {

@@ -2,12 +2,12 @@
   height: 100%;
 }
 
-#virtualclassCont.student #virtualclassAppContainer {
-  width: 100%;
-}
-
 #virtualclassCont #virtualclassAppContainer {
   height: 100%;
+}
+
+#virtualclassCont.student #virtualclassAppContainer {
+  width: 100%;
 }
 
 #virtualclassCont.congrea #layoutQuizBody {
@@ -61,6 +61,12 @@
   height: auto;
 }
 
+#virtualclassCont.congrea .canvasWrapper {
+  width: auto;
+  overflow: auto;
+  flex: 1;
+}
+
 #virtualclassCont.congrea.teacher .canvasWrapper {
   width: 100%;
 }
@@ -71,12 +77,6 @@
 
 #virtualclassCont.congrea.student.playMode .canvasWrapper {
   height: calc(100% - 48px);
-}
-
-#virtualclassCont.congrea .canvasWrapper {
-  width: auto;
-  overflow: auto;
-  flex: 1;
 }
 
 #virtualclassCont.congrea.teacher #virtualclassVideo,
@@ -243,9 +243,6 @@
     padding: 3px 5px 6px 4px;
     cursor: pointer;
     margin-left: 5px;
-  }
-
-  #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group {
     margin-right: 4px;
   }
 
@@ -265,13 +262,13 @@
     width: 1.25rem;
   }
 
+  #virtualclassCont.congrea .vceditor-toolbar-wrapper .undo-group .vceditor-btn {
+    padding: 5px 5px 2px 5px;
+  }
+
   #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-image .vceditor-btn {
     padding: 5px 5px 4px 6px;
     font-size: 12px;
-  }
-
-  #virtualclassCont.congrea .vceditor-toolbar-wrapper .undo-group .vceditor-btn {
-    padding: 5px 5px 2px 5px;
   }
 
   #virtualclassCont.congrea .ui-widget-content.ui-memblist-content::before,
@@ -527,7 +524,7 @@
   padding: 0.875rem 0.6875rem 0.3438rem 0.6875rem;
 }
 
-/*#virtualclassCont.congrea.student[device="mobile"] #rightSubContainer #stickycontainer #icHr::before {*/
+/* #virtualclassCont.congrea.student[device="mobile"] #rightSubContainer #stickycontainer #icHr::before { */
 #virtualclassCont.congrea.student[device="mobile"] #rightSubContainer #stickycontainer #iconAskQuestion::before {
   margin-top: -0.08125rem;
 }

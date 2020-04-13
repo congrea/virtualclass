@@ -4,39 +4,30 @@
   width: 100%;
 }
 
-#virtualclassCont.congrea #virtualclassWhiteboardCont {
-  height: 100%;
-  width: 100%;
-}
-
 #virtualclassCont.congrea #virtualclassWhiteboard {
   float: left;
 }
 
-#virtualclassCont.congrea #virtualclassWhiteboardToo.active a span {
-  color: #fff !important;
+#virtualclassCont.congrea ul.strkSizeList li,
+ul.fontSizeList span {
+  text-align: left;
+  display: block;
+  padding: 5px 14px;
+  clear: both;
+  font-weight: normal;
+  line-height: 18px;
+  color: #333;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
 #virtualclassCont.congrea #virtualclassWhiteboardTool a img {
   border: none;
 }
 
-#virtualclassCont.congrea #alwaysPress .audioTool.active span.icon-whiteboard::before,
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active span.icon-whiteboard::before,
 #virtualclassCont.congrea #alwaysPress .audioTool.active span.icon-whiteboard::before {
   color: #fff;
-}
-
-#virtualclassCont.congrea #virtualclassWhiteboardTool {
-  /* padding: 10px 5px; */
-
-  /** suman microsoft edge ***/
-}
-
-#virtualclassCont.congrea #vcanvas #whiteBoardMsg {
-  position: absolute;
-  top: 40%;
-  left: 40%;
 }
 
 #virtualclassCont.congrea #whiteBoardMsg {
@@ -46,6 +37,12 @@
   color: #3a773c;
   border-radius: 5px;
   box-shadow: #ddd 0 0 5px;
+}
+
+#virtualclassCont.congrea #vcanvas #whiteBoardMsg {
+  position: absolute;
+  top: 40%;
+  left: 40%;
 }
 
 #virtualclassCont.congrea[data-currapp="Whiteboard"] #beTeacher {
@@ -90,6 +87,7 @@
   height: 100%;
 }
 
+#virtualclassCont.congrea #screen-docs .whiteboard .vcanvas.socketon .containerWb,
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .canvasContainer .containerWb {
   height: 100%;
   display: flex;
@@ -105,12 +103,6 @@
 
 #virtualclassCont.congrea #screen-docs .whiteboard .vcanvas.socketon {
   height: 100%;
-}
-
-#virtualclassCont.congrea #screen-docs .whiteboard .vcanvas.socketon .containerWb {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 #virtualclassCont.congrea #screen-docs .whiteboard .vcanvas.socketon .containerWb .canvasWrapper {
@@ -176,19 +168,30 @@
   cursor: default;
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer table tr td,
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer table tr td {
+  width: 15px;
+  height: 15px;
+  border: 1px solid #fff;
+}
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer table tr td:hover {
+  border: 0.5px solid #434343;
+}
+
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .table .spacing td {
+  margin-bottom: 6px;
+}
+
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer table tr td {
   width: 15px;
   height: 15px;
   border: 1px solid #fff;
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer table tr td:hover,
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer table tr td:hover {
   border: 0.5px solid #434343;
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .table .spacing td,
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer .table .spacing td {
   margin-bottom: 6px;
 }
@@ -219,12 +222,22 @@
   left: 0;
 }
 
+.shapesToolbox[data-currtool="line"] .shapes_icon a,
+.shapesToolbox[data-currtool="rectangle"] .shapes_icon a,
+.shapesToolbox[data-currtool="triangle"] .shapes_icon a {
+  padding: 8px 13px 9px 14px !important;
+}
+
 #virtualclassCont.congrea .shapesToolbox a {
   color: #fff;
 }
 
 #virtualclassCont.congrea .shapesToolbox a:hover {
   color: #00a0ba;
+}
+
+#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon a {
+  padding: 8px 13px 9px 14px !important;
 }
 
 /* #virtualclassCont.congrea .shapesToolbox:hover .shapesTool { */
@@ -267,10 +280,10 @@
   padding: 0.625rem 0.75rem 0.5625rem 0.9375rem;
 }
 
-#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon .icon-shapes.cgIcon::before,
 .shapesToolbox[data-currtool="line"] .shapes_icon .icon-shapes.cgIcon::before,
 .shapesToolbox[data-currtool="rectangle"] .shapes_icon .icon-shapes.cgIcon::before,
-.shapesToolbox[data-currtool="triangle"] .shapes_icon .icon-shapes.cgIcon::before {
+.shapesToolbox[data-currtool="triangle"] .shapes_icon .icon-shapes.cgIcon::before,
+#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon .icon-shapes.cgIcon::before {
   font-size: 24px;
 }
 
@@ -289,13 +302,6 @@
   color: #fff !important;
 }
 
-#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon a,
-.shapesToolbox[data-currtool="line"] .shapes_icon a,
-.shapesToolbox[data-currtool="rectangle"] .shapes_icon a,
-.shapesToolbox[data-currtool="triangle"] .shapes_icon a {
-  padding: 8px 13px 9px 14px !important;
-}
-
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon::after {
   content: "\e967";
   font-size: 15px;
@@ -310,6 +316,15 @@
   /* border-top: 0.5px solid #929292; */
 
   /* border-bottom: 0.5px solid #929292; */
+}
+
+#virtualclassCont.congrea ul.fontSizeList span:hover {
+  background-color: #e6e6e6;
+  color: #fff;
+}
+
+#virtualclassCont.congrea #virtualclassWhiteboardToo.active a span {
+  color: #fff !important;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Rectangle"] span,
@@ -385,19 +400,6 @@ ul.fontSizeList {
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .disActiveColor {
   background-color: #00f;
-}
-
-#virtualclassCont.congrea ul.strkSizeList li,
-ul.fontSizeList span {
-  text-align: left;
-  display: block;
-  padding: 5px 14px;
-  clear: both;
-  font-weight: normal;
-  line-height: 18px;
-  color: #333;
-  white-space: nowrap;
-  cursor: pointer;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="font"] a,
@@ -490,22 +492,19 @@ ul.fontSizeList span {
   padding-bottom: 12px;
 }
 
-#virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li span {
-  background-color: #404040;
-  pointer-events: none;
-  display: block;
-}
-
-#virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool=stroke] ul.strkSizeList li:hover span {
-  background-color: #fff;
-}
-
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool ul li.selected span {
   background-color: #fff !important;
 }
 
-#virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li.selected:hover {
-  background-color: #000;
+#virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="font"] ul.fontSizeList span {
+  text-align: left;
+  display: block;
+  padding: 4px 15px;
+  clear: both;
+  font-weight: normal;
+  line-height: 18px;
+  color: #333;
+  white-space: nowrap;
 }
 
 #virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li.selected:hover {
@@ -522,17 +521,6 @@ ul.fontSizeList span {
   width: 85px;
 }
 
-#virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="font"] ul.fontSizeList span {
-  text-align: left;
-  display: block;
-  padding: 4px 15px;
-  clear: both;
-  font-weight: normal;
-  line-height: 18px;
-  color: #333;
-  white-space: nowrap;
-}
-
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="font"] ul.fontSizeList span.selected {
   background-color: #000;
   color: #fff !important;
@@ -545,6 +533,16 @@ ul.fontSizeList span {
 
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="font"] ul.fontSizeList span:hover {
   color: #fff;
+}
+
+#virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li span {
+  background-color: #404040;
+  pointer-events: none;
+  display: block;
+}
+
+#virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool=stroke] ul.strkSizeList li:hover span {
+  background-color: #fff;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .tool[data-tool="color"] a {

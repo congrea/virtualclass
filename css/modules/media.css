@@ -1,3 +1,7 @@
+#virtualclassCont.congrea #audioTest .congtooltip:hover::after {
+  line-height: 16px;
+}
+
 #virtualclassCont.congrea #audioWidget .Tool .congtooltip:hover::after,
 #virtualclassCont.congrea #audioWidget .audioTool .congtooltip:hover::after {
   position: fixed;
@@ -12,6 +16,18 @@
 
 #virtualclassCont.congrea #audioWidget.fixed {
   position: fixed;
+}
+
+#virtualclassCont.congrea.teacher #audioWidget .active a img,
+#virtualclassCont.congrea.teacher #audioWidget .deactive a img,
+#virtualclassCont.congrea.student #audioWidget .audioTool.active a img,
+#virtualclassCont.congrea.student #audioWidget .audioTool.deactive a img {
+  border: #41aa45 solid 1px !important;
+  padding: 1px;
+  border-radius: 4px;
+  padding-right: 0;
+  padding-left: 2px;
+  margin-left: -3px;
 }
 
 #virtualclassCont.congrea #audioWidget #speakerPressOnce .speakerPressonceAnch img {
@@ -29,24 +45,16 @@
   height: 15px;
 }
 
-#virtualclassCont.congrea #audioWidget #audioTest #virtualclassCont.congrea.student #audioWidget .audioTool a#speakerPressonceAnch img,
-#virtualclassCont.congrea.student #audioWidget .audioTool a#speakerPressingAnch img {
+#virtualclassCont.congrea.student #audioWidget .audioTool a#speakerPressingAnch img,
+#virtualclassCont.congrea #audioWidget #audioTest #virtualclassCont.congrea.student #audioWidget .audioTool a#speakerPressonceAnch img {
   margin-left: -5px;
   padding: 1px;
   padding-left: 2px;
   border: transparent solid 1px;
 }
 
-#virtualclassCont.congrea.teacher #audioWidget .active a img,
-#virtualclassCont.congrea.teacher #audioWidget .deactive a img,
-#virtualclassCont.congrea.student #audioWidget .audioTool.active a img,
-#virtualclassCont.congrea.student #audioWidget .audioTool.deactive a img {
-  border: #41aa45 solid 1px !important;
-  padding: 1px;
-  border-radius: 4px;
-  padding-right: 0;
-  padding-left: 2px;
-  margin-left: -3px;
+#virtualclassCont.congrea .controls .controleCont img.audioImg.block {
+  margin-bottom: 0;
 }
 
 #virtualclassCont.congrea .ui-memblist-usr.student .controls .controleCont img.audioImg.block {
@@ -57,15 +65,17 @@
   margin-bottom: 0;
 }
 
-#virtualclassCont.congrea .controls .controleCont img.audioImg.block {
-  margin-bottom: 0;
+#virtualclassCont.congrea #alwaysPress .audioTool.active,
+#alwaysPress .audioTool.deactive,
+#audioTest-box .audioTool {
+  text-align: center;
+  padding: 0 13px 0;
+  border-radius: 0;
 }
 
-#virtualclassCont.congrea #alwaysPress .audioTool a {
-  text-align: center;
-  font-size: 12px;
-  position: relative;
-  top: 15px;
+#alwaysPress .audioTool.deactive,
+#virtualclassCont.congrea #alwaysPress .audioTool.active {
+  padding: 6px 12px 0;
 }
 
 #virtualclassCont.congrea #alwaysPress .audioTool.deactive,
@@ -92,19 +102,6 @@
   color: #fff;
 }
 
-#virtualclassCont.congrea #alwaysPress .audioTool.active,
-#alwaysPress .audioTool.deactive,
-#audioTest-box .audioTool {
-  text-align: center;
-  padding: 0 13px 0;
-  border-radius: 0;
-}
-
-#virtualclassCont.congrea #alwaysPress .audioTool.active,
-#alwaysPress .audioTool.deactive {
-  padding: 6px 12px 0;
-}
-
 #virtualclassCont.congrea #audioTest-box {
   border-radius: 8px;
   text-align: center;
@@ -113,10 +110,6 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-top: none;
-}
-
-#virtualclassCont.congrea #audioTest .congtooltip:hover::after {
-  line-height: 16px;
 }
 
 #virtualclassCont.congrea #ui-memblist .icon-chatImg::before,
@@ -130,17 +123,6 @@
 #virtualclassCont.congrea #audioTest .icon-audiotest::before {
   content: "\e60d";
   font-size: 40px;
-}
-
-#virtualclassCont.congrea #alwaysPress .audioTool a {
-  text-transform: uppercase;
-  font-size: 10px;
-  text-align: center;
-}
-
-#virtualclassCont.congrea #alwaysPress .audioTool.deactive,
-#audioTest-box .audioTool {
-  border-bottom-left-radius: 0;
 }
 
 #virtualclassCont.congrea #iosAudioTrigger {
@@ -188,16 +170,6 @@
   border-right: 0;
 }
 
-#virtualclassCont.congrea #alwaysPress .audioTool.deactive,
-#audioTest-box .audioTool {
-  border: #a4a4a4 solid 1px;
-}
-
-#virtualclassCont.congrea #audioTest-box {
-  border-width: 0;
-  border-radius: 0 0 8px 0;
-}
-
 #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart::before {
   top: 5px;
 }
@@ -205,10 +177,6 @@
 #virtualclassCont.congrea .ui-dialog-header #contrAudioAll .icon-all-audio-disable::before,
 #virtualclassCont.congrea .ui-dialog-header #contrAudioAll .icon-all-audio-enable::before {
   color: #d5dee7;
-}
-
-#virtualclassCont.congrea.pt_disable #audioTest-box .audioTool {
-  border-top: #5d6b76 solid 1px !important;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget {
@@ -236,6 +204,16 @@
   color: #337ab7;
 }
 
+#videoHostContainer.displayInterrupt .videoInterrupt {
+  position: absolute;
+  color: #f9f9f9;
+  font-weight: bold;
+  top: 120px;
+  left: 30px;
+  background: #000;
+  padding: 10px;
+}
+
 #virtualclassCont.congrea #videoHostContainer .videoInterrupt {
   display: none;
 }
@@ -246,14 +224,4 @@
 
 #videoHostContainer.displayInterrupt {
   position: relative;
-}
-
-#videoHostContainer.displayInterrupt .videoInterrupt {
-  position: absolute;
-  color: #f9f9f9;
-  font-weight: bold;
-  top: 120px;
-  left: 30px;
-  background: #000;
-  padding: 10px;
 }

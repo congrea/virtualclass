@@ -452,7 +452,7 @@
     userListHeader: 'Users ',
     commonChatHeader: 'Chat Room',
     teacherVideoHeader: 'Teacher Video',
-    askQuestionHeader: 'Raise Question',
+    askQuestionHeader: 'Ask Question',
     questionLable: 'Question',
     answerLable: 'Answer',
     commentLable: 'Comment',
@@ -463,7 +463,7 @@
     enterText: 'Enter the text before posting',
     more: '...More',
     less: 'Less',
-    askQuestion: 'Raise question',
+    askQuestion: 'Ask question',
     MarksAndNotes: 'Marks & Notes',
     markAnswerUnmark: 'You need to first unmark the already marked answer',
     /* For Chrome */

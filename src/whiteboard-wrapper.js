@@ -14,7 +14,6 @@ class WhiteboardWrapper {
       rectangle: 'Rect',
       line: 'Line',
       text: 'Text',
-      triangle: 'Triangle',
       circle: 'Circle',
       r: 'rectangle',
       f: 'freeDrawing',
@@ -46,11 +45,10 @@ class WhiteboardWrapper {
       font: 'ft',
       strk: 'sk',
       color: 'cl',
-      font: 'ft',
     };
     this.shapes = ['rectangle', 'triangle', 'text', 'freeDrawing', 'circle', 'line'];
   }
- 
+
   init(id, app) {
     this.createWhiteboardContainerHtml(id, app);
     this.replay = new WhiteboardReplay();

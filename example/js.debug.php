@@ -137,7 +137,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/raise-hand.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/color-selector.js"></script>
 
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/network.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/gesture.js"></script>

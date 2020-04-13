@@ -19,7 +19,7 @@ class WhiteboardMessage {
       const result = virtualclass.wbWrapper.protocol.generateFreeDrawingData(e.message.v, e.message.s, true);
       let event;
       for (let i = 0; i < result.length; i += 1) {
-        event = { message: { wb: result[i] },  fromUser: { role : fromUserRole} };
+        event = { message: { wb: result[i] }, fromUser: { role: fromUserRole } };
         this.onMessage(event);
       }
     } else {
@@ -46,7 +46,7 @@ class WhiteboardMessage {
       virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
       if (type === 'sf') {
         virtualclass.wb[virtualclass.gObj.currWb].freeDrawingObj.chunks.length = 0; // empty the free drarwing after bulk
-      } 
+      }
     }
   }
 }

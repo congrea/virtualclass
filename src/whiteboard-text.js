@@ -48,21 +48,6 @@ class WhiteboardText {
     if (textObj.fontColor)  foundObject.set('fill', textObj.fontColor);
     whiteboard.canvas.renderAll();
   }
-  
-  // renderText(textObj, whiteboard) {
-  //   const textChildren = whiteboard.canvas.getObjects('i-text');
-  //   console.log('====> text coordination ', JSON.stringify(textObj));
-  //   if (textChildren.length > 0) {
-  //     const foundObject = whiteboard.canvas._searchPossibleTargets(textChildren, {x: textObj.x, y: textObj.y});
-  //     if (foundObject) {
-  //       this.updateText(textObj, whiteboard, foundObject);
-  //     } else {
-  //       this.createText(textObj, whiteboard);
-  //     }
-  //   } else {
-  //     this.createText(textObj, whiteboard);
-  //   }
-  // }
 
   renderText(textObj, whiteboard) {
     const textChildren = whiteboard.canvas.getObjects('i-text');

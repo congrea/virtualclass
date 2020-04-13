@@ -1,7 +1,6 @@
 /**
- * This class is used to represent a new instance of Whiteboard.
- * Every action performs on whiteboard, eg: selecting tool for creating, clearing and deleting shapes;
- * changing the font size, stroke size and color, all action start to execute from this file
+ * This class is responsible to create container for whiteboard/canvas.
+ * It contains the key mapping words that used to encode and decode the data.
  * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
  * @author Suman Bogati <http://www.vidyamantra.com>
  */

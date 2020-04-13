@@ -5,8 +5,6 @@ class WhiteboardReplay {
   }
 
   renderObj(wid) {
-    // virtualclass.gObj.currWb = wid;
-    // virtualclass.gObj.currWb  = wid;
     const data = virtualclass.wbWrapper.protocol.decode(this.objs[this.objNo], wid);
     let eventType;
     let shape;

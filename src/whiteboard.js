@@ -1,7 +1,7 @@
 /**
  * This class is used to represent a new instance of Whiteboard.
  * Every action performs on whiteboard, eg: selecting tool for creating, clearing and deleting shapes;
- * changing the font size, stroke size and color, all action start to execute from this file
+ * changing the font size, stroke size and color, all actions start to execute from this file
  * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
  * @author Suman Bogati <http://www.vidyamantra.com>
  */
@@ -25,7 +25,6 @@ class Whiteboard {
     delete virtualclass.wbWrapper.gObj.textSelected;
     this.textObj.textEditing = false;
     this.attachToolbarHandler(id);
-    console.log('====> canvas id ', `canvas${id}`);
     virtualclass.wbWrapper.util.createFabricNewInstance(id);
     // this.attachMouseMovementHandlers();
     virtualclass.keyboard.init(id);
@@ -33,13 +32,12 @@ class Whiteboard {
 
   attachToolbarHandler(id) {
     const allTools = document.querySelectorAll(`#commandToolsWrapper${id} .tool a`);
-    for (let i = 0; i < allTools.length; i++) {
+    for (let i = 0; i < allTools.length; i += 1) {
       allTools[i].addEventListener('click', this.toolbarHandler.bind(this));
     }
   }
 
   attachMouseMovementHandlers() {
-    console.log('====> init whiteboard add ');
     this.canvas.on('selection:created', this.handlerSelection.bind(this));
     this.canvas.on('selection:cleared', this.handlerSelection.bind(this));
     this.canvas.on('mouse:down', this.handlerMouseDown.bind(this));
@@ -52,7 +50,6 @@ class Whiteboard {
 
   handlerSelection(event) {
     if (event.selected && this.selectedTool === 'activeAll') {
-      console.log('====> mouse down for activeness');
       this.activeAllObj.activeDown = true;
     } else if (event.selected && event.selected[0].type === 'i-text') {
       virtualclass.wbWrapper.gObj.textSelected = event.selected[0];
@@ -73,7 +70,6 @@ class Whiteboard {
     if (!o.e.isTrusted) return;
     // We do not need to invoke on clearAll
     if (this.selectedTool && this[`${this.selectedTool}Obj`]) {
-      console.log('=====> SUMAN BOGATI MOUSE 1');
       this.mousedown = true;
       const pointer = this.triggerGetPointer(o.e);
       this[`${this.selectedTool}Obj`].mouseDown(pointer, this, o);
@@ -84,7 +80,7 @@ class Whiteboard {
     if (!o.e.isTrusted) return;
     const pointer = this.triggerGetPointer(o.e);
     if (this.mousedown && this.selectedTool) {
-      console.log('=====> SUMAN BOGATI MOUSE 2');
+      // console.log('=====> SUMAN BOGATI MOUSE 2');
       this[`${this.selectedTool}Obj`].mouseMove(pointer, this, o);
     }
     virtualclass.wbWrapper.cursor.handle(o.e);
@@ -95,11 +91,11 @@ class Whiteboard {
     const pointer = this.triggerGetPointer(o.e);
     if (this.mousedown && this.selectedTool) this[`${this.selectedTool}Obj`].mouseUp(pointer, this, o);
     this.mousedown = false;
-    console.log('=====> SUMAN BOGATI MOUSE 3');
+    // console.log('=====> SUMAN BOGATI MOUSE 3');
   }
 
   toolbarHandler(ev) {
-    const parentNode = ev.currentTarget.parentNode;
+    const { parentNode } = ev.currentTarget;
     this.innerToolbarHandler(parentNode.dataset.tool, virtualclass.gObj.currWb);
     const activeObject = virtualclass.wb[virtualclass.gObj.currWb].canvas.getActiveObjects();
     if (activeObject.length > 0) {
@@ -114,10 +110,9 @@ class Whiteboard {
   }
 
   selectTool(tool) { // todo, need to improve
-    if (tool === 'rectangle' ||  tool === 'line' || tool === 'circle' || tool === 'triangle' || tool === 'text'
-      || tool === 'activeAll'  || tool === 'freeDrawing') {
-        this.selectedTool = tool;
-        console.log('Selected tool ', this.selectedTool);
+    if (tool === 'rectangle' || tool === 'line' || tool === 'circle' || tool === 'triangle' || tool === 'text'
+      || tool === 'activeAll' || tool === 'freeDrawing') {
+      this.selectedTool = tool;
     }
 
     if (tool !== 'stroke' && tool !== 'font') {
@@ -134,8 +129,8 @@ class Whiteboard {
     this.canvas.isDrawingMode = false;
     const currentTool = tool;
     this.selectTool(tool);
-    
-    if (tool !== 'rectangle' &&  tool !== 'line' &&  tool !== 'circle' && tool !== 'triangle' && tool !== 'text') {
+
+    if (tool !== 'rectangle' && tool !== 'line' && tool !== 'circle' && tool !== 'triangle' && tool !== 'text') {
       this[currentTool](wId);
     } else if (currentTool === 'text') {
       this.activeAllObj.enable(wId, 'i-text');
@@ -153,7 +148,7 @@ class Whiteboard {
     virtualclass.wbWrapper.util.handleTrayDisplay(shapesElem);
   }
 
-  stroke(){
+  stroke() {
     const shapesElem = document.querySelector(`#commandToolsWrapper${this.wbId} .strkSizeList`);
     virtualclass.wbWrapper.util.handleTrayDisplay(shapesElem);
     virtualclass.wbWrapper.util.initActiveElement(`#t_strk${this.wbId} ul`, { type: 'strk', prop: 'stroke' });

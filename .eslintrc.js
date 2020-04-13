@@ -60,6 +60,9 @@ module.exports = {
     WhiteboardLine: 'writable',
     WhiteboardFreeDrawing: 'writable',
     WhiteboardTriangle: 'writable',
+    WhiteboardRectangle: 'writable',
+    WhiteboardActiveAll: 'writable',
+    WhiteboardText: 'writable',
     OrderedList: 'writable',
     receiveFunctions: 'writable',
     firebase: 'writable',
@@ -68,6 +71,7 @@ module.exports = {
     WhiteboardCursor: 'writable',
     WhiteboardMessage: 'writable',
     fabric: 'writable',
+
   },
   parserOptions: {
     ecmaVersion: 2017,

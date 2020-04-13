@@ -29,7 +29,7 @@ class WhiteboardCircle  extends WhiteboardCommonShape {
       this.coreObj.stroke =  whiteboard.activeToolColor;
     }
     if (whiteboard.currStrkSize) {
-      this.coreObj.strokeWidth =  +(whiteboard.currStrkSize);
+      this.coreObj.strokeWidth = +(whiteboard.currStrkSize);
     }
     this[this.name] = new fabric.Ellipse(this.coreObj); // add object
     whiteboard.canvas.add(this[this.name]);
@@ -47,18 +47,18 @@ class WhiteboardCircle  extends WhiteboardCommonShape {
       rx -= this.circle.strokeWidth / 2;
     }
     if (ry > this.circle.strokeWidth) {
-      ry -= this.circle.strokeWidth / 2
+      ry -= this.circle.strokeWidth / 2;
     }
-    this.circle.set({ rx: rx, ry: ry});
-    if(this.startLeft > pointer.x){
-        this.circle.set({originX: 'right' });
+    this.circle.set({ rx, ry });
+    if (this.startLeft > pointer.x) {
+      this.circle.set({ originX: 'right' });
     } else {
-        this.circle.set({originX: 'left' });
+      this.circle.set({ originX: 'left' });
     }
-    if(this.startTop > pointer.y){
-        this.circle.set({originY: 'bottom'  });
+    if (this.startTop > pointer.y) {
+      this.circle.set({ originY: 'bottom' });
     } else {
-        this.circle.set({originY: 'top'  });
+      this.circle.set({ originY: 'top' });
     }
     whiteboard.canvas.renderAll();
   }

@@ -40,7 +40,7 @@ class WhiteboardCommonShape {
       event: 'm',
       name: this.name,
       x: pointer.x,
-      y: pointer.y
+      y: pointer.y,
     };
     virtualclass.wbWrapper.msg.optimizeToSend(newData, 2000, 'sp');
   }
@@ -53,7 +53,7 @@ class WhiteboardCommonShape {
       this.mousedown = true;
       // virtualclass.gObj.startTime = new Date().getTime();
       this.chunks.push(`${pointer.x}_${pointer.y}_d`);
-      console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', pointer.x, pointer.y);
+      // console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', pointer.x, pointer.y);
       virtualclass.wbWrapper.gObj.previousData = pointer;
     } else {
       // ioAdapter.mustSend({ wb: [{ ac: 'd', x: pointer.x, y: pointer.y }], cf: 'wb' });
@@ -77,10 +77,9 @@ class WhiteboardCommonShape {
           console.log('====> stroke color ', whiteboard.myPencil.color);
         }
       }
-
-      if (!event)  event = { e: {isPrimary: true} };
+      if (!event) event = { e: { isPrimary: true } };
       whiteboard.myPencil.onMouseDown(pointer, event);
-      console.log('====> free drawing mouse down true ', whiteboard.canvas.lowerCanvasEl.id);
+      // console.log('====> free drawing mouse down true ', whiteboard.canvas.lowerCanvasEl.id);
     } else {
       this.startLeft = pointer.x;
       this.startTop = pointer.y;
@@ -112,7 +111,7 @@ class WhiteboardCommonShape {
   }
 
   mouseMove() {
-    // if (!this.mousedown) return;
+    // if (!this.mousedown) return; // this abstrct method
   }
 
   mouseUp(pointer, whiteboard, event) {
@@ -129,7 +128,6 @@ class WhiteboardCommonShape {
         this.chunks.length = 0;
       }
       this.mousedown = false;
-   
       whiteboard.activeAllObj.disableLastElement(virtualclass.gObj.currWb);
     } else {
       this.innerMouseUp(pointer, whiteboard, true);
@@ -145,24 +143,24 @@ class WhiteboardCommonShape {
         };
         data = virtualclass.wbWrapper.protocol.encode('sp', newData);
         virtualclass.wbWrapper.msg.send(data);
-        console.log('sending the data here guys ==== MOUSE UP', JSON.stringify(data));
+        // console.log('sending the data here guys ==== MOUSE UP', JSON.stringify(data));
       }
     }
-    console.log(" DELETE==JAI ");
+    // console.log(" DELETE==JAI ");
     delete virtualclass.wbWrapper.gObj.previousData;
     delete this.freeDrawPrevious;
     delete virtualclass.gObj.lastSendDataTime;
   }
 
-  innerMouseUp (pointer, whiteboard, event) {
+  innerMouseUp(pointer, whiteboard, event) {
     this.mousedown = false;
-    console.log('====> free drawing mouse down /up false ', whiteboard.canvas.lowerCanvasEl.id);
+    // console.log('====> free drawing mouse down /up false ', whiteboard.canvas.lowerCanvasEl.id);
     if (this.name !== 'freeDrawing') {
       this[this.name].setCoords();
     } else {
-      console.log('====> free drawing up', JSON.stringify(pointer));
+      // console.log('====> free drawing up', JSON.stringify(pointer));
       // whiteboard.canvas.upperCanvasEl.dispatchEvent(virtualclass.wbWrapper.util.readyMouseEvent('mouseup', pointer));
-      if (!event) event = {isPrimary: true};
+      if (!event) event = { isPrimary: true };
       whiteboard.myPencil.onMouseUp(event);
       const allObjects = whiteboard.canvas.getObjects();
       const lastObject = allObjects[allObjects.length - 1];

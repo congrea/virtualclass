@@ -3064,18 +3064,10 @@ div.ui-memblist-usr .userVideos {
   padding: 5px;
   border-radius: 20px;
   color: #fff;
-<<<<<<< HEAD
   position: absolute;
   top: -11px;
   right: -4px;
   font-family: sans-serif;
-=======
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background-color: #ed595a;
-  border: none;
-  border-radius: 4px;
->>>>>>> Manifest and service-worker move to the root director
   cursor: pointer;
   pointer-events: auto;
   display: inline-block;

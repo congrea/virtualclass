@@ -33,8 +33,9 @@ class WhiteboardUtility {
     }
     delete virtualclass.wb[wId].canvas;
     const options = {
-       selection: false,
-    }
+      selection: false,
+    };
+
     if (canvasDimension) {
       options.width = canvasDimension.width;
       options.height = canvasDimension.height;
@@ -108,13 +109,11 @@ class WhiteboardUtility {
   }
 
   closeTray() {
-   // this.selectedTool = null;
     const elem = document.querySelector(`#commandToolsWrapper${virtualclass.gObj.currWb} .openTray`);
     if (elem) elem.classList.remove('openTray')
   }
 
   openTray(elem) {
-    // this.selectedTool = null;
     if (elem) elem.classList.add('openTray');
   }
 
@@ -222,8 +221,8 @@ class WhiteboardUtility {
     const selectedElement = document.getElementById(byReload);
     if (!selectedElement) return;
     const wId = virtualclass.gObj.currWb;
-    let activeElement =  document.querySelectorAll(`#commandToolsWrapper${wId} .tool.active`);
-    for (let i = 0; i < activeElement.length; i++) {
+    const activeElement = document.querySelectorAll(`#commandToolsWrapper${wId} .tool.active`);
+    for (let i = 0; i < activeElement.length; i += 1) {
       activeElement[i].classList.remove('active');
     }
 

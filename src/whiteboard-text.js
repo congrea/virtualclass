@@ -5,19 +5,19 @@ class WhiteboardText {
       cornerSize: 13,
       fontSize: 20,
       fill: '#00f',
-    }
+    };
     this.name = name;
     // this.selected = false,
     this.coreObj = {
       fontWeight: 'normal',
       // fontSize: 30,
       fontFamily: 'arial',
-      padding: 7 ,
+      padding: 7,
     };
   }
   isObjectInEditingMode(whiteboard) {
      const allObjects = whiteboard.canvas.getObjects('i-text');
-     for(let i=0; i < allObjects.length; i++) {
+     for(let i=0; i < allObjects.length; i += 1) {
       if (allObjects[i].isEditing) {
         whiteboard.canvas.trigger('text:editing:exited', {target: allObjects[i]});
       }
@@ -29,7 +29,7 @@ class WhiteboardText {
       this.renderText(pointer, whiteboard);
     } else if (virtualclass.wbWrapper.gObj.textSelected && !whiteboard.activeAllObj.activeDown) {
       virtualclass.wbWrapper.gObj.textSelected.enterEditing();
-      let  allTexts = whiteboard.canvas.getObjects('i-text');
+      const allTexts = whiteboard.canvas.getObjects('i-text');
       if (virtualclass.wbWrapper.gObj.textSelected.text.trim() != 'Enter your text') {
         this.editingIndex = allTexts.indexOf(virtualclass.wbWrapper.gObj.textSelected);
       }
@@ -51,7 +51,6 @@ class WhiteboardText {
 
   renderText(textObj, whiteboard) {
     const textChildren = whiteboard.canvas.getObjects('i-text');
-    console.log('====> text coordination ', JSON.stringify(textObj));
     if (textChildren.length > 0 && textObj.index != null) {
       const foundObject = textChildren[textObj.index];
       if (foundObject) {
@@ -65,9 +64,8 @@ class WhiteboardText {
   }
 
   createText(textObj, whiteboard) {
-    if (textObj.value == '') return;
+    if (textObj.value === '') return;
     if (this.isEmptyText(whiteboard)) return;
-    console.log('found traget suman receive ', JSON.stringify(textObj));
     this.startLeft = textObj.x;
     this.startTop = textObj.y;
     this.coreObj.left = this.startLeft;
@@ -85,9 +83,7 @@ class WhiteboardText {
     if (whiteboard.activeToolColor) {
       this.coreObj.fill =  whiteboard.activeToolColor;
     }
-
     this[this.name] = new fabric.IText(textValue, this.coreObj); // add object
-    //this[this.name].on('selected', this.afterSelected.bind(this));
     whiteboard.canvas.add(this[this.name]);
   }
 
@@ -105,10 +101,8 @@ class WhiteboardText {
     const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
     this.textEditing = false;
     if (this.isDefault(textObj.target)) return;
-    console.log('is text editing ', this.editingIndex);
     virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
-    console.log('found traget suman without zoom send x, y ', textObj.target.left, textObj.target.top);
-    let data = {x: textObj.target.left, y: textObj.target.top, text: textObj.target.text};
+    const data = { x: textObj.target.left, y: textObj.target.top, text: textObj.target.text };
     if (this.editingIndex != null) data.index = this.editingIndex;
 
     if (+whiteboard.textFontSize && textObj.target.fontSize !== +(whiteboard.textFontSize)) {
@@ -119,7 +113,6 @@ class WhiteboardText {
       data.fontColor = whiteboard.activeToolColor;
     }
 
-    
     virtualclass.wbWrapper.msg.optimizeToSend(data, 0, 'tx');
     delete this.editingIndex;
     whiteboard.activeAllObj.enable(virtualclass.gObj.currWb, 'i-text');

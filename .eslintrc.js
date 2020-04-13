@@ -66,7 +66,8 @@ module.exports = {
     AskQuestion: 'writable',
     $: 'writable',
     WhiteboardCursor: 'writable',
-    WhiteboardMessage: 'writable'
+    WhiteboardMessage: 'writable',
+    fabric: 'writable',
   },
   parserOptions: {
     ecmaVersion: 2017,

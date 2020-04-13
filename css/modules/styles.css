@@ -2213,6 +2213,8 @@ div.ui-memblist-usr .userVideos {
   border-left: 0;
   border-bottom-right-radius: 8px;
   border-top-right-radius: 8px;
+  position: absolute;
+  top: 130px;
   background: #34404c; /* Old browsers */
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#34404c', endColorstr='#515e69', GradientType=1); /* IE6-9 */
 }

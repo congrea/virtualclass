@@ -44,6 +44,7 @@ class WhiteboardActiveAll {
     const allObjects = virtualclass.wb[wId].canvas.getObjects();
     allObjects[allObjects.length - 1].set('selectable', false);
   }
+  
   mouseDown(pointer, whiteboard, event) {
     const myPointer = whiteboard.canvas.getPointer(event, true)
     console.log('====> whiteboard pdf ========================== active mouse trigger', myPointer.x, myPointer.y);
@@ -60,7 +61,7 @@ class WhiteboardActiveAll {
 
   mouseMove(pointer, whiteboard, event) {
     const myPointer = whiteboard.canvas.getPointer(event, true);
-    console.log('==== actives all mouse move', myPointer.x, myPointer.y, ' orginal x, y', event.e.clientX, event.e.clientY);
+    // console.log('==== actives all mouse move', myPointer.x, myPointer.y, ' orginal x, y', event.e.clientX, event.e.clientY);
     if (!event.e.isTrusted) return;
     // console.log('====> shoud not invoke');
     if (this.activeDown && this.down) {

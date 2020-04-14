@@ -43,9 +43,19 @@ class Whiteboard {
     this.canvas.on('mouse:down', this.handlerMouseDown.bind(this));
     this.canvas.on('mouse:move', this.handlerMouseMove.bind(this));
     this.canvas.on('mouse:up', this.handlerMouseUp.bind(this));
+    this.canvas.on('text:editing:entered', this.handlePlaceHolder.bind(this));
     this.canvas.on('text:editing:exited', (textObj) => { // TODO, Settimeout needs to be removed
       setTimeout(() => { this.textObj.finalizeText(textObj); }, 0);
     });
+  }
+
+  handlePlaceHolder(e) {
+    if (e.target.type === 'i-text' && e.target.text === 'Enter your text') {
+      // this.textObj.updateText({ text: 'a' }, this, e.target);
+      e.target.text = '';
+      e.target.hiddenTextarea.value = '';
+      this.canvas.renderAll();
+    }
   }
 
   handlerSelection(event) {

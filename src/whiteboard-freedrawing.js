@@ -35,7 +35,7 @@ class WhiteboardFreeDrawing extends WhiteboardCommonShape {
       || (((Math.abs(newData.x - this.freeDrawPrevious.x) > 1) || (Math.abs(newData.y - this.freeDrawPrevious.y) > 1)))) {
       this.freeDrawPrevious = newData;
       this.chunks.push(`${newData.x}_${newData.y}`);
-      console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', newData.x, newData.y);
+      // console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', newData.x, newData.y);
     }
     virtualclass.wbWrapper.gObj.previousData = newData;
   }

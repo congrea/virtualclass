@@ -13,6 +13,7 @@ class WhiteboardText {
       // fontSize: 30,
       fontFamily: 'arial',
       padding: 7,
+      editingBorderColor: '#08518f',
     };
   }
   isObjectInEditingMode(whiteboard) {
@@ -50,6 +51,7 @@ class WhiteboardText {
   }
 
   renderText(textObj, whiteboard) {
+    console.log('====> render text suman');
     const textChildren = whiteboard.canvas.getObjects('i-text');
     if (textChildren.length > 0 && textObj.index != null) {
       const foundObject = textChildren[textObj.index];
@@ -136,7 +138,7 @@ class WhiteboardText {
   }
 
   mouseMove() {
-    console.log('mouse move');
+    // console.log('mouse move');
   }
 
   mouseUp() {

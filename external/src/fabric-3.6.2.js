@@ -10577,9 +10577,9 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
         }
       }
       var target = this._searchPossibleTargets(this._objects, pointer);
-      if (target) {
-        console.log('found traget suman without zoom ', JSON.stringify(pointer),  ' orginal ', e.clientX, ' ', e.clientY);
-      }
+      // if (target) {
+      //   console.log('found traget suman without zoom ', JSON.stringify(pointer),  ' orginal ', e.clientX, ' ', e.clientY);
+      // }
       if (e[this.altSelectionKey] && target && activeTarget && target !== activeTarget) {
         target = activeTarget;
         this.targets = activeTargetSubs;
@@ -10757,7 +10757,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
       this.cacheCanvasEl = this._createCanvasElement();
       this.cacheCanvasEl.setAttribute('width', this.width);
       this.cacheCanvasEl.setAttribute('height', this.height);
-      console.log('suman canvas width ', this.width);
+      // console.log('suman canvas width ', this.width);
       this.contextCache = this.cacheCanvasEl.getContext('2d');
     },
 
@@ -10795,7 +10795,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
       });
       element.width = width;
       element.height = height;
-      console.log('suman canvas width ', width);
+      // console.log('suman canvas width ', width);
       fabric.util.makeElementUnselectable(element);
     },
 
@@ -12514,7 +12514,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
       this.interactive = originalInteractive;
       this.enableRetinaScaling = originalRetina;
       this.contextTop = originalContextTop;
-      console.log('suman canvas width ', this.width);
+      // console.log('suman canvas width ', this.width);
       return canvasEl;
     },
   });
@@ -14546,7 +14546,7 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, /** @lends fabric.Stati
       canvas._objects = [];
       canvas.dispose();
       canvas = null;
-      console.log('suman canvas width ', el.width);
+      // console.log('suman canvas width ', el.width);
       return canvasEl;
     },
 

@@ -1,8 +1,8 @@
 class WhiteboardMessage {
   send(data) {
     if (roles.hasControls()) {
-      console.log('sending the data here guys ', JSON.stringify(data));
-      console.log('====> free drawing ', JSON.stringify(data));
+      // console.log('sending the data here guys ', JSON.stringify(data));
+      // console.log('====> free drawing ', JSON.stringify(data));
       ioAdapter.mustSend(data);
       if (data.wb[0].substring(0, 2) === 'sf') {
         virtualclass.wbWrapper.util.storeAtMemory(data.wb, virtualclass.gObj.currWb, data.v);

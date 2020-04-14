@@ -194,7 +194,8 @@
       this.init();
       delete virtualclass.ss;
       virtualclass.ss = '';
-
+      delete virtualclass.gObj.wbData;
+      virtualclass.gObj.wbData = {};
       virtualclass.makeAppReady({ app: 'Whiteboard' });
     },
 

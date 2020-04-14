@@ -137,7 +137,9 @@ class WhiteboardUtility {
 
   deleteActiveObject(event, wId){
     const whitebaord = virtualclass.wb[wId];
-    whitebaord.canvas.remove(whitebaord.canvas.getActiveObject());
+    const activeObject = whitebaord.canvas.getActiveObject();
+    whitebaord.canvas.discardActiveObject();
+    whitebaord.canvas.remove(activeObject);
     if (event) {
       const encodeData = virtualclass.wbWrapper.protocol.encode('da', virtualclass.gObj.currWb);
       virtualclass.wbWrapper.msg.send(encodeData);

@@ -50,7 +50,7 @@ class Whiteboard {
   }
 
   handlePlaceHolder(e) {
-    if (e.target.type === 'i-text' && e.target.text === 'Enter your text') {
+    if (e.target.type === 'i-text' && e.target.text === this.textObj.placeHolder) {
       // this.textObj.updateText({ text: 'a' }, this, e.target);
       e.target.text = '';
       e.target.hiddenTextarea.value = '';

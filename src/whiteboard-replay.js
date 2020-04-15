@@ -12,9 +12,9 @@ class WhiteboardReplay {
     switch (data.action) {
       case 'sp': // display/render/create shape, like, rectangle
         virtualclass.wb[wid].selectedTool = data.tool;
+        console.log('====> selected id suman for  ', wid, virtualclass.wb[wid].selectedTool);
         eventType = data.event;
         shape = `${data.shape}Obj`;
-        // mouseDown, mouseMove and mouseUp
         virtualclass.wb[wid][shape][eventType](data.actual, virtualclass.wb[wid]);
         break;
       case 'ac': // Active all
@@ -37,7 +37,6 @@ class WhiteboardReplay {
       case 'da': // Delete active object
         virtualclass.wbWrapper.util.deleteActiveObject(false, wid);
         break;
-
       case 'ot': // other setting, font size, stroke size and color
         virtualclass.wbWrapper.util.changeToolProperty(data.tool, data.actual.value, wid);
         break;
@@ -45,9 +44,10 @@ class WhiteboardReplay {
       case 'tx': // Create text
         virtualclass.wb[wid].selectedTool = data.tool;
         virtualclass.wb[wid].textObj.renderText(data.actual, virtualclass.wb[wid]);
-
+        break;
       default:
         console.log('====> do nothing');
+
     }
   }
 

@@ -219,27 +219,41 @@ class WhiteboardUtility {
     }
   }
 
-  makeActiveTool(byReload) {
+  makeActiveTool(byReload, wbId) {
     const selectedElement = document.getElementById(byReload);
     if (!selectedElement) return;
-    const wId = virtualclass.gObj.currWb;
+    const wId = wbId || virtualclass.gObj.currWb;
     const activeElement = document.querySelectorAll(`#commandToolsWrapper${wId} .tool.active`);
     for (let i = 0; i < activeElement.length; i += 1) {
       activeElement[i].classList.remove('active');
     }
 
-    this.themeColorShapes(byReload);
+    this.themeColorShapes(byReload, wId);
     selectedElement.classList.add('active');
     localStorage.activeTool = selectedElement.id;
   }
 
-  themeColorShapes(byReload) {
+  themeColorShapes(byReload, wId) {
     const tool = byReload.split(/_doc_*/)[0];
-    const shapesElem = document.querySelector(`#tool_wrapper${virtualclass.gObj.currWb}.shapesToolbox`);
+    const shapesElem = document.querySelector(`#tool_wrapper${wId}.shapesToolbox`);
+    if (!shapesElem) {
+      debugger;
+    }
     if (tool === 't_line' || tool === 't_circle' || tool === 't_rectangle' || tool === 't_triangle') {
       shapesElem.classList.add('active');
     } else {
       shapesElem.classList.remove('active');
+    }
+  }
+
+  handleActiviteTool(wbId) {
+    const activeWbTool = localStorage.getItem('activeTool');
+    if (activeWbTool !== null) {
+      this.makeActiveTool(activeWbTool, wbId);
+      virtualclass.wb[wbId].selectedTool = activeWbTool.split('_')[1];
+      if (virtualclass.wb[wbId].selectedTool !== 'activeall') {
+        virtualclass.wb[wbId].activeAllObj.disable(wbId);
+      }
     }
   }
 }

@@ -108,6 +108,7 @@ class WhiteboardCommonShape {
       }
       whiteboard.canvas.add(this[this.name]);
     }
+    // console.log('====> invoke handle active tool, add object');
   }
 
   mouseMove() {
@@ -167,7 +168,8 @@ class WhiteboardCommonShape {
         rotatingPointOffset: this.default.rotatingPointOffset * virtualclass.zoom.canvasScale,
         cornerSize: this.default.cornerSize * virtualclass.zoom.canvasScale,
       });
-      whiteboard.activeAllObj.disableLastElement(virtualclass.gObj.currWb);
+      const wId = whiteboard.wbId ? whiteboard.wbId : virtualclass.gObj.currWb;
+      whiteboard.activeAllObj.disableLastElement(wId);
     }
     delete whiteboard.myPencil;
   }

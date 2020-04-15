@@ -296,6 +296,7 @@
     Text: 'Text',
     Text_Limit_Exeed: 'Warning: High TX usage',
     TextEditor: 'Text editor',
+    textPlaceholder: 'Enter text here',
     Time: 'Time',
     Tmyclose: 'Teacher may close this poll at any time',
     total: 'Total',

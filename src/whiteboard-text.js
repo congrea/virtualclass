@@ -1,21 +1,30 @@
+/**
+ * This class is used to create Text on whiteboard
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
+
 class WhiteboardText {
   constructor(name) {
-    this.default = {
+    this.placeHolder = virtualclass.lang.getString('textPlaceholder');
+    this.name = name;
+    // this changes according to
+    this.default = {  
       rotatingPointOffset: 40,
       cornerSize: 13,
       fontSize: 20,
       fill: '#00f',
     };
-    this.name = name;
-    // this.selected = false,
+
+    // this does not change
     this.coreObj = {
       fontWeight: 'normal',
-      // fontSize: 30,
       fontFamily: 'arial',
       padding: 7,
       editingBorderColor: '#08518f',
     };
   }
+
   isObjectInEditingMode(whiteboard) {
      const allObjects = whiteboard.canvas.getObjects('i-text');
      for(let i=0; i < allObjects.length; i += 1) {
@@ -31,8 +40,9 @@ class WhiteboardText {
     } else if (virtualclass.wbWrapper.gObj.textSelected && !whiteboard.activeAllObj.activeDown) {
       virtualclass.wbWrapper.gObj.textSelected.enterEditing();
       const allTexts = whiteboard.canvas.getObjects('i-text');
-      if (virtualclass.wbWrapper.gObj.textSelected.text.trim() != 'Enter your text') {
+      if (virtualclass.wbWrapper.gObj.textSelected.text.trim() !== this.placeHolder) {
         this.editingIndex = allTexts.indexOf(virtualclass.wbWrapper.gObj.textSelected);
+        // Todo, improve this condition
       }
       whiteboard.activeAllObj.disable(virtualclass.gObj.currWb, 'i-text');
       this.textEditing = true;
@@ -51,7 +61,6 @@ class WhiteboardText {
   }
 
   renderText(textObj, whiteboard) {
-    console.log('====> render text suman');
     const textChildren = whiteboard.canvas.getObjects('i-text');
     if (textChildren.length > 0 && textObj.index != null) {
       const foundObject = textChildren[textObj.index];
@@ -67,12 +76,11 @@ class WhiteboardText {
 
   createText(textObj, whiteboard) {
     if (textObj.value === '') return;
-    if (this.isEmptyText(whiteboard)) return;
     this.startLeft = textObj.x;
     this.startTop = textObj.y;
     this.coreObj.left = this.startLeft;
     this.coreObj.top = this.startTop;
-    const textValue = (textObj.value) ? textObj.value : 'Enter your text';
+    const textValue = (textObj.value) ? textObj.value : this.placeHolder;
     this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
     this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
     // this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
@@ -83,20 +91,10 @@ class WhiteboardText {
 
     this.coreObj.fill = this.default.fill;
     if (whiteboard.activeToolColor) {
-      this.coreObj.fill =  whiteboard.activeToolColor;
+      this.coreObj.fill = whiteboard.activeToolColor;
     }
     this[this.name] = new fabric.IText(textValue, this.coreObj); // add object
     whiteboard.canvas.add(this[this.name]);
-  }
-
-  isEmptyText (whiteboard) {
-    const allText = whiteboard.canvas.getObjects('i-text');
-    for (let i = 0; i < allText.length; i++) {
-      if (allText[i].text === 'Enter your text') {
-        return true;
-      }
-    }
-    return false;
   }
 
   finalizeText(textObj) {
@@ -124,7 +122,7 @@ class WhiteboardText {
   }
 
   isDefault(textObj) {
-    return (textObj.text.trim() == 'Enter your text');
+    return (textObj.text.trim() === this.placeHolder);
   }
 
   afterSelected(obj) {

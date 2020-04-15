@@ -25,6 +25,7 @@
         margin : 0;
         padding : 0;
     }
+    
 </style>
 
 <?php
@@ -184,7 +185,8 @@ if($info) {
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/main-container-layout.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/color.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/askQuestion.css" ?> />
-	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
+  <link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/bootstrap/css/bootstrap.css" ?> />
+
 <?php
 } else {
 ?>
@@ -240,7 +242,6 @@ if ($info) {
 <!-- Fine Uploader JS file
 ====================================================================== -->
 <script type="text/template" id="qq-template-gallery"> <?php include('../fine-upload.php'); ?> </script>
-
 </head>
 <body>
     <div id="virtualclassCont" class="<?php echo $cont_class; ?>"> </div>

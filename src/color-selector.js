@@ -146,9 +146,8 @@
         + '#virtualclassCont.congrea #virtualclassOptionsCont:first-child '
         + `{background-image: linear-gradient(to right, ${allbg.fcolor} 0%,${allbg.scolor} 100%)} `
 
-        + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active, '
-        + '#virtualclassCont.congrea .commandToolsWrapper .tool.active a '
-        + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100%);} `
+        + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active '
+        + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100%) !important;} `
         + '#virtualclassCont.congrea .tool.active a span:before '
         + `{color:${frontColor}!important}`
         + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions:hover, '
@@ -180,7 +179,8 @@
         + '#virtualclassCont.congrea #docShareNav .pageNav'
         + `{color:${frontColor}!important}`
 
-        + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a'
+        + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a,'
+        + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool.active a:hover,'
         + `{color:${frontColor}!important}`
 
         + '#virtualclassCont.congrea .shapesToolbox a'
@@ -232,7 +232,9 @@
         + `{border-left: 1px solid ${allbg.fcolor}!important}`
         + '#virtualclassCont.congrea  #playController button'
         + `{background-image:none !important;color:${frontColor}!important; border-right: 1px solid ${allbg.fcolor}!important}`
-        + '#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox.active'
+        + '#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox.active a.shape_anchor, '
+        + '#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .notshape.active a, '
+        + '#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesTool .tool.active a '
         + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100%);} `;
       this.addCss(css);
     },

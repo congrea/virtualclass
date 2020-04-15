@@ -227,14 +227,17 @@
           clearInterval(virtualclass.gObj.CDTimer != null);
         }
 
+        this.wbWrapper = new WhiteboardWrapper();
+
         virtualclass.modernizr = Modernizr;
         this.system.webpInit();
 
         this.dirtyCorner = window.dirtyCorner;
         this.html.init(this);
         this.adapter = window.adapter;
-
+        
         virtualclass.api = api;
+        this.keyboard = new VirtualclassKeyboard();
 
         virtualclass.vutil.initOnBeforeUnload(virtualclass.system.mybrowser.name);
         virtualclass.xhr = window.xhr;
@@ -331,7 +334,7 @@
 
         vcContainer.classList.remove('loading');
 
-        virtualclass.gObj.precheckScrn = false;
+         virtualclass.gObj.precheckScrn = false;
 
 
         // For initialize the Teacher Video
@@ -842,9 +845,6 @@
         const elem = document.querySelector(query);
         if (elem != null) {
           elem.insertBefore(whiteboard, elem.firstChild);
-          // console.log('====> suman whiteboard canvas is created');
-          // console.log('##==jai 3b ', slide);
-          // virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
         }
       },
 
@@ -861,7 +861,7 @@
           // console.log('##==jai 3c ', virtualclass.currApp, virtualclass.gObj.currWb);
 
           virtualclass.gObj.currWb = id;
-
+          console.log('====> whiteboard apply ', virtualclass.gObj.currWb);
           /**
            *  We can not use passed app, because from document share app, it will pass the whiteboard as app
            *  and we require the object orderList according to app, like  orderList.Whiteboard and orderList.DocumentShare
@@ -947,6 +947,7 @@
           }
 
           virtualclass.gObj.currWb = id;
+          console.log('====> whiteboard apply ', virtualclass.gObj.currWb);
           const wid = id;
 
           if (typeof this.pdfRender[wid] !== 'object') {
@@ -964,7 +965,8 @@
               virtualclass.gObj.tempReplayObjs[id] = [];
               // console.log('====> vcan is creating', id, ' ', id, ' ', virtualclass.wb[id].vcan);
               // console.log('====> jai 1 ', id, ' ', virtualclass.wb[id].vcan);
-              this.wb[id] = new window.whiteboard(this.wbConfig, id);
+              this.wb[id] = new Whiteboard(this.wbConfig, id);
+
               // console.log('=====> whiteboard ready 1');
               let wbHtml;
               let canvas;
@@ -977,60 +979,13 @@
                 }
               }
               // console.log('====> jai 3 ', id, ' ', virtualclass.wb[id].vcan);
-
               if (whiteboardContainer !== null) {
                 if (document.querySelector(`vcanvas${id}`) === null) {
-                  const wbTemplate = virtualclass.getTemplate('main', 'whiteboard');
-                  if (app === 'Whiteboard') {
-                    virtualclass.wbCommon.hideElement();
-                    const wnoteid = `note${id}`;
-                    const wnote = document.querySelector(`#${wnoteid}`);
-                    if (wnote !== null) {
-                      console.log('udit current ', id);
-                      wnote.classList.add('canvasContainer', 'current');
-                      wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
-                      wnote.innerHTML = wbHtml;
-                    } else {
-                      console.log('udit current ', id);
-                      wbHtml = `<div id='${wnoteid}' data-wb-id='${id}' class='canvasContainer current'>${wbTemplate({
-                        cn: id,
-                        hasControl: roles.hasControls(),
-                      })}</div>`;
-
-                      if (id !== '_doc_0_0') {
-                        whiteboardContainer.insertAdjacentHTML('beforeend', wbHtml);
-                      } else {
-                        whiteboardContainer.innerHTML = wbHtml;
-                        const vcanvasDoc = document.querySelector('#note_doc_0_0');
-                        if (vcanvasDoc !== null) {
-                          vcanvasDoc.classList.add('current');
-                        }
-                      }
-                    }
-                  } else {
-                    wbHtml = wbTemplate({ cn: id, hasControl: roles.hasControls() });
-                    whiteboardContainer.innerHTML = wbHtml;
-                  }
+                  this.wbWrapper.init(id, app);
                   canvas = document.querySelector(`#canvas${id}`);
                 }
-                // console.log('====> jai 4 ', id, ' ', virtualclass.wb[id].vcan);
-
-                this.wb[id].utility = new window.utility();
-                this.wb[id].alreadyReplay = false;
-                this.wb[id].packContainer = new window.packContainer();
-                this.wb[id].draw_object = window.draw_object;
-                this.wb[id].makeobj = window.makeobj;
-                this.wb[id].readyFreeHandObj = window.readyFreeHandObj;
-                this.wb[id]._replay = _replay;
-                this.wb[id].readyTextObj = window.readyTextObj;
-                this.wb[id].bridge = window.bridge;
-                this.wb[id].response = window.response;
-                virtualclass.wb[id].utility.displayCanvas(id);
-                // console.log('====> jai 5 ', id, ' ', virtualclass.wb[id].vcan);
-
-                if (roles.hasControls()) {
-                  virtualclass.wb[id].attachToolFunction(virtualclass.gObj.commandToolsWrapperId[id], true, id);
-                }
+                virtualclass.wb[id].init(id);
+                console.log('=====> whiteboard pdf suman wb init');
                 // console.log('====> jai 6 ', id, ' ', virtualclass.wb[id].vcan);
                 // console.log(`##==jai, whiteboard 2 ` + id);
                 if (app === 'DocumentShare') {
@@ -1063,18 +1018,22 @@
           virtualclass.zoom.init();
           const activeWbTool = localStorage.getItem('activeTool');
           if (activeWbTool !== null) {
-            const activeWbToolElem = document.querySelector(`#${activeWbTool}`);
-            if (activeWbToolElem !== null) {
-              activeWbToolElem.classList.add('active');
-              virtualclass.wb[wid].prvTool = activeWbTool;
-            }
+            // const activeWbToolElem = document.querySelector(`#${activeWbTool}`);
+            // if (activeWbToolElem !== null) {
+            //   activeWbToolElem.classList.add('active');
+            //   virtualclass.wb[wid].prvTool = activeWbTool;
+            // }
+            virtualclass.wbWrapper.util.makeActiveTool(activeWbTool);
           }
 
           if (roles.hasControls()) {
-            if (document.getElementById(`canvas${id}`) !== null) {
-              vcan.utility.canvasCalcOffset(vcan.main.canid);
-              virtualclass.wb[id].utility.makeCanvasEnable();
-            }
+            // if (document.getElementById(`canvas${id}`) !== null) {
+            //   vcan.utility.canvasCalcOffset(vcan.main.canid);
+            //   virtualclass.wb[id].utility.makeCanvasEnable();
+            // }
+
+            /** TODO, move code to utilit.js and should not be invoked from here **/
+            console.log("=====> whiteboard mouse up ");
             virtualclass.vutil.attachWhiteboardPopupHandler(id);
             /** TODO, move code to utilit.js and should not be invoked from here **/
             console.log('=====> whiteboard mouse up');

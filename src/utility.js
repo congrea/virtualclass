@@ -2355,26 +2355,43 @@
 
     attachWhiteboardPopupHandler(wId) {
       window.addEventListener('mouseup', (ev) => {
-        let activeElem;
-        let toolOptions;
-        const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
-        const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
-        if (moreElemClose) {
-          moreElemClose.classList.remove('open');
-          moreElemClose.classList.add('close');
-        }
-        if (currApp && (currApp === 'Whiteboard' || currApp === 'DocumentShare') && wId && roles.hasControls()) {
-          activeElem = document.querySelector('.commandToolsWrapper .active');
-          if (activeElem && !ev.target.classList.contains('icon-shapes') && !ev.target.classList.contains('congtooltip')
-            && !ev.target.classList.contains('whiteboards') && ev.target.classList.length !== 0
-            && !ev.target.classList.contains('whiteBoardTextBox')) {
-            activeElem.classList.remove('active');
-          }
-          toolOptions = document.querySelector('.commandToolsWrapper .open');
-          if (toolOptions) {
-            virtualclass.wb[wId].closeElem(toolOptions);
-          }
-        }
+        if (roles.hasControls()) virtualclass.wbWrapper.util.closeTray();
+        //if (roles.hasControls()) virtualclass.wbWrapper.util.closeShapeContainer();
+//         const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
+//         const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
+//         if (moreElemClose) {
+//           moreElemClose.classList.remove('open');
+//           moreElemClose.classList.add('close');
+//         }
+//         if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare') && wId) {
+//           if (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke') || Object.prototype.hasOwnProperty.call(ev.target.dataset, 'font')) {
+//             const dropDown = (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke')) ? document.querySelector(`#t_strk${wId} .strkSizeList`) : document.querySelector(`#t_font${wId} .fontSizeList`);
+//             virtualclass.wb[wId].closeElem(dropDown);
+//           } else if (ev.target.classList.contains('icon-color') || ev.target.classList.contains('selected') || ev.target.classList.contains('congtooltip')) {
+// //            virtualclass.wb[wId].closeElem(document.querySelector(`#shapes${wId}`));
+//           } else if (ev.target.classList.contains('icon-rectangle') || ev.target.classList.contains('icon-line')
+//             || ev.target.classList.contains('icon-oval') || ev.target.classList.contains('icon-triangle')) {
+//             virtualclass.wb[wId].closeElem(document.querySelector(`#shapes${wId}`));
+//           } else {
+//             const stroke = document.querySelector(`#t_strk${wId} .strkSizeList`);
+//             const font = document.querySelector(`#t_font${wId} .fontSizeList`);
+//             const colorList = document.querySelector(`#colorList${wId}`);
+//             if (stroke !== null && stroke.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+//               virtualclass.wb[wId].closeElem(stroke);
+//             } else if (font !== null && font.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+//               virtualclass.wb[wId].closeElem(font);
+//             } else if (colorList !== null && colorList.classList.contains('open') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+//               virtualclass.wb[wId].closeElem(colorList);
+//             }
+
+//             if (!ev.target.classList.contains('icon-shapes') && !document.querySelector('#virtualclassApp').classList.contains('dashboard')) {
+//               const shapes = document.querySelector(`#shapes${wId}`);
+//               if (shapes !== null && shapes.classList.contains('open')) {
+//                 virtualclass.wb[wId].closeElem(shapes);
+//               }
+//             }
+//           }
+//         }
       });
     },
 
@@ -2414,6 +2431,7 @@
     },
 
     triggerFinalizeTextIfAny(wbId) {
+      return;
       const id = wbId || virtualclass.gObj.currWb;
       if ((virtualclass.currApp === 'Whiteboard' || virtualclass.currApp === 'DocumentShare')
         && typeof virtualclass.wb[id] === 'object' && virtualclass.wb[id].obj.drawTextObj) {
@@ -2454,6 +2472,20 @@
       }
     },
 
+    closeElement(elem)  {
+      if (elem.classList.contains('open')) {
+        elem.classList.remove('open');
+        elem.classList.add('close');
+      }
+    },
+
+    // this width in pixel is to handle width for retina/hdpi devices
+    canvasDimensionFromPixel(canvas) {
+      const canvasWidth = parseFloat(window.getComputedStyle(canvas).width); 
+      const canvasHeight = parseFloat(window.getComputedStyle(canvas).height);
+      return { width: canvasWidth, height: canvasHeight };
+    }
   };
   window.vutil = vutil;
 }(window));
+

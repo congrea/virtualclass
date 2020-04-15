@@ -1,3 +1,8 @@
+#virtualclassCont.congrea .dashboardview {
+  margin: 0;
+  padding: 0;
+}
+
 #virtualclassCont.congrea #SharePresentationDashboard .dashboardview {
   margin-top: 10px;
   width: 100%;
@@ -20,11 +25,6 @@
   max-height: none;
 }
 
-#virtualclassCont.congrea .dashboardview {
-  margin: 0;
-  padding: 0;
-}
-
 #virtualclassCont.congrea #pptuploadContainer {
   margin: 0;
   padding: 0;
@@ -39,10 +39,6 @@
   max-width: 120px;
 }
 
-#virtualclassCont.congrea #listppt .linkppt .controlCont:hover {
-  background: #ad0505;
-}
-
 #virtualclassCont.congrea #listppt .list-group-item {
   padding: 13px 0 13px 0;
 }
@@ -51,9 +47,17 @@
   border: 1px solid #f1f1f1;
 }
 
+#virtualclassCont.congrea .currentNav .mainpreview {
+  box-shadow: 0 0 6px rgb(96, 96, 97);
+}
+
 #virtualclassCont.congrea .dbContainer .linkppt .mainpreview,
 #virtualclassCont.congrea .dbContainer .linkppt .controlCont {
   cursor: pointer;
+}
+
+#virtualclassCont.congrea #listppt .linkppt .controlCont:hover {
+  background: #ad0505;
 }
 
 #virtualclassCont.congrea .linkppt[data-selected='1'] {
@@ -82,23 +86,13 @@
 }
 
 #virtualclassCont.congrea #listppt .linkppt .controlCont div[data-status="0"]::before {
-  content: "\e9d1";
+  content: "\e94d";
   font-family: 'icomoon';
-  font-size: 16px;
-  padding-top: 0;
-  color: #606060;
+  font-size: 18px;
 }
 
 #virtualclassCont.congrea #listppt .linkppt .controlCont div[data-status="1"]::before {
   content: "\e94e";
-  font-family: 'icomoon';
-  font-size: 18px;
-  padding-top: 0;
-  color: #606060;
-}
-
-#virtualclassCont.congrea #listppt .linkppt .controls.delete::before {
-  content: "\ea0f";
   font-family: 'icomoon';
   font-size: 18px;
   padding-top: 0;
@@ -155,15 +149,15 @@ input[type="reset"] {
   text-shadow: none !important;
 }
 
+#virtualclassCont #urlcontainer #presentationurl {
+  vertical-align: top;
+}
+
 #virtualclassCont .dashboardview #urlcontainer #presentationurl {
   height: 70% !important;
   width: 50%;
   font-size: 16px;
   padding: 10px;
-}
-
-#virtualclassCont #urlcontainer #presentationurl {
-  vertical-align: top;
 }
 
 #virtualclassCont.congrea #SharePresentationDashboard .controlCont.showCtr {
@@ -215,18 +209,8 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea #listppt .linkppt .controlCont .controls {
-  margin-left: 18px !important;
+  margin-left: 16px !important;
   padding-right: 5px;
-}
-
-#virtualclassCont.congrea #listppt .linkppt:nth-child(odd) {
-  background-color: #9ba1a71f;
-}
-
-#virtualclassCont.congrea #listppt .linkppt .controlCont div[data-status="0"]::before {
-  content: "\e94d";
-  font-family: 'icomoon';
-  font-size: 18px;
 }
 
 #virtualclassCont.congrea #listppt .linkppt .controls.delete::before {
@@ -241,10 +225,6 @@ input[type="reset"] {
   font-size: 15px;
   color: rgba(96, 96, 96, 0.81);
   opacity: 0.7;
-}
-
-#virtualclassCont.congrea #listppt .linkppt:hover {
-  background-color: #efefef;
 }
 
 #virtualclassCont.congrea #listppt .linkppt {
@@ -262,6 +242,14 @@ input[type="reset"] {
 #virtualclassCont #listppt .linkppt:hover {
   padding: 2px;
   cursor: move;
+}
+
+#virtualclassCont.congrea #listppt .linkppt:nth-child(odd) {
+  background-color: #9ba1a71f;
+}
+
+#virtualclassCont.congrea #listppt .linkppt:hover {
+  background-color: #efefef;
 }
 
 @media (max-height: 956px) {

@@ -86,9 +86,10 @@
         delete virtualclass.zoom.performFitToPage;
         const wid = virtualclass.gObj.currWb;
         if (typeof virtualclass.wb[wid] === 'object') {
-          const { canvas } = virtualclass.wb[wid].vcan.main;
+          // const { canvas } = virtualclass.wb[wid].vcan.main;
+          const canvas = virtualclass.wb[wid].canvas.lowerCanvasEl;
           // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
-          const wrapperWidth = canvas.parentNode.offsetWidth;
+          //const wrapperWidth = canvas.parentNode.offsetWidth;
 
 
           // this.canvasScale = this.canvasScale * virtualclass.gObj.SCALE_FACTOR;
@@ -122,7 +123,8 @@
         delete virtualclass.zoom.performFitToPage;
         const wid = virtualclass.gObj.currWb;
         // var wrapper = this.canvasWrapper;
-        const { canvas } = virtualclass.wb[wid].vcan.main;
+        const canvas = virtualclass.wb[wid].canvas.lowerCanvasEl;
+        // const { canvas } = virtualclass.wb[wid].vcan.main;
         const wrapper = canvas.parentNode;
         // var canvas = this.canvas;
         // var wrapperWidth = virtualclass.vutil.getValueWithoutPixel(canvas.parentNode.style.width);
@@ -160,7 +162,8 @@
         delete virtualclass.zoom.performZoom;
         const wid = virtualclass.gObj.currWb;
         if (typeof virtualclass.pdfRender[wid] !== 'undefined') {
-          const { canvas } = virtualclass.wb[virtualclass.gObj.currWb].vcan.main;
+          // const { canvas } = virtualclass.wb[virtualclass.gObj.currWb].vcan.main;
+          const canvas = virtualclass.wb[virtualclass.gObj.currWb].canvas.lowerCanvasEl;
           const wrapperWidth = document.querySelector(".canvasWrapper").offsetWidth;
           // console.log(`==== wrapperWidth ${wrapperWidth}`);
           try {

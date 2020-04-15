@@ -654,13 +654,7 @@ class UserInteractivity extends UserInteractivityBasicOperation {
     this.initFirebase = true;
     const config = {
       apiKey: 'AIzaSyDx4OisyZGmbcAx57s0zlwRlopPNNDqxSs',
-      authDomain: 'vidyamantra-congrea.firebaseapp.com',
-      databaseURL: 'https://vidyamantra-congrea.firebaseio.com',
-      projectId: 'vidyamantra-congrea',
-      storageBucket: 'vidyamantra-congrea.appspot.com',
-      messagingSenderId: '1041362522462',
-      appId: '1:1041362522462:web:19396cecc1c79a6dea7fcf',
-      measurementId: 'G-PDLZDWQ06W',
+      projectId: 'vidyamantra-congrea'
     };
     const result = await this.authenticate(config);
     if (result && Object.prototype.hasOwnProperty.call(result, 'operationType')) {

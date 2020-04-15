@@ -233,28 +233,42 @@ const receiveFunctions = new function () {
   };
 
   // Create mouse
-  this.createArrow = function (e) {
-    if (typeof virtualclass.wb === 'object') {
-      if (!roles.hasControls() && virtualclass.wb[virtualclass.gObj.currWb]) {
-        virtualclass.wb[virtualclass.gObj.currWb].response.createArrow(e.message);
-      }
+  // this.createArrow = function (e) {
+  //   if (typeof virtualclass.wb === 'object') {
+  //     if (!roles.hasControls() && virtualclass.wb[virtualclass.gObj.currWb]) {
+  //       virtualclass.wb[virtualclass.gObj.currWb].response.createArrow(e.message);
+  //     }
+  //   }
+  // };
+
+  // Create mouse arrow
+  this.ca = function (e) {
+    if (typeof virtualclass.wb === 'object' && !roles.hasControls() && virtualclass.wb[virtualclass.gObj.currWb]) {
+      virtualclass.wbWrapper.cursor.onMessage(e.message);
     }
   };
 
   // Display Whiteboard Data
-  this.repObj = function (e) {
-    if (typeof virtualclass.gObj.currWb !== 'undefined') {
-      if (typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object' && e.fromUser.role === 't') {
-        virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.repObj, virtualclass.gObj.currWb);
-      }
-    }
+  // this.repObj = function (e) {
+  //   if (typeof virtualclass.gObj.currWb !== 'undefined') {
+  //     if (typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object' && e.fromUser.role === 't') {
+  //       virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.repObj, virtualclass.gObj.currWb);
+  //     }
+  //   }
+  //   virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
+  // };
 
-    // let i = 0;
-    // for (; i < e.message.repObj.length; i++) {
-    //   virtualclass.gObj.wbData[virtualclass.gObj.currWb].push(e.message.repObj[i]);
+  this.wb = (e) => {
+    // if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
+    //   && e.fromUser.role === 't') {
+    //   // virtualclass.wb[virtualclass.gObj.currWb].utility.drawInWhiteboards(e.message.wb, virtualclass.gObj.currWb);
+    //   virtualclass.wbWrapper.util.applyCommand(e.message.wb, virtualclass.gObj.currWb);
     // }
-    virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
-  };
+    // // virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.repObj);
+    // virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
+
+    virtualclass.wbWrapper.msg.onMessage(e);
+  }
 
   // Replay All, TODO, need to do verify
   this.replayAll = function (e) {
@@ -384,7 +398,7 @@ const receiveFunctions = new function () {
     if (Object.prototype.hasOwnProperty.call(e.message, 'diswb')) {
       const { wid } = e.message;
       virtualclass.gObj.currWb = wid;
-
+      console.log('====> whiteboard apply ', virtualclass.gObj.currWb);
       const idn = wid.split('_');
       if (idn.length > 0) {
         virtualclass.gObj.currSlide = idn[idn.length - 1];

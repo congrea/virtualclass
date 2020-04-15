@@ -62,6 +62,7 @@
       if (whiteboardContainer != null) {
         whiteboardContainer.classList.add('current');
         virtualclass.gObj.currWb = wid;
+        console.log('====> whiteboard apply ', virtualclass.gObj.currWb);
       }
       this.identifyFirstNote(wid);
       this.identifyLastNote(wid);
@@ -82,6 +83,7 @@
       if (prevElem != null) {
         // console.log('Whiteboard slide remove');
         prevElem.classList.remove('current');
+        console.log('suman hide element 1 ', virtualclass.gObj.currWb);
       }
     },
 
@@ -98,6 +100,7 @@
 
         this.identifyLastNote(wid);
         virtualclass.gObj.currWb = wid;
+        console.log('====> whiteboard apply ', virtualclass.gObj.currWb);
         virtualclass.gObj.currIndex = currIndex + 1;
         virtualclass.wbCommon.indexNav.setCurrentIndex(virtualclass.gObj.currIndex);
         virtualclass.vutil.beforeSend({
@@ -289,6 +292,7 @@
           this.displaySlide(wid);
           virtualclass.gObj.currWb = wid;
         }
+        console.log('====> whiteboard apply ', virtualclass.gObj.currWb);
       } else {
         alert('Elemennt is NULL');
       }

@@ -57,14 +57,12 @@ var ioAdapter = {
   },
 
   mustSend(msg) {
-    if (!virtualclass.config.makeWebSocketReady) {
-      return;
-    }
+    if (!virtualclass.config.makeWebSocketReady) return;
     this.serial++;
     msg.serial = this.serial;
     this.adapterMustData[this.serial] = { type: 'broadcast', m: msg };
     this.send(msg);
-    if (msg.cf && msg.cf === 'repObj') {
+    if (msg.cf && msg.cf === 'wb') {
       // this is for storing the whiteboards data while unslecting and selecting the document
       virtualclass.vutil.storeWhiteboardAtInlineMemory(msg.repObj);
     }

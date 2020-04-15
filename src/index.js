@@ -25,6 +25,7 @@ $.uiBackCompat = false;
 
       virtualclass.vutil.requestOrder(() => {});
     });
+
     bootStraper.notifyAboutCPU();
     if (virtualclass.isPlayMode) {
       virtualclass.settings.triggerSettings();

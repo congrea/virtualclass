@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/keyboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>build/src/audio-g711-and-resampler.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>build/src/firebase-7.3.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/worker/screendecode.js"></script>
@@ -32,8 +33,9 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/pdf.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/vhcheck.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/chroma.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>external/src/fabric-3.6.2.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>/build/src/shadow-dom.js"></script>
-
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>/build/src/shadow-dom.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/modernizr.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/roles.js"></script>
@@ -43,39 +45,29 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/io-ping-pong.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/virtualclass.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-utility.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-active.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-replay.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-protocol.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-wrapper.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-common-shape.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-freedrawing.js"></script>	
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-rectangle.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-line.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-triangle.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-circle.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-cursor.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-message.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-text.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang-en.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/system.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-packetcontainer.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-drawobject.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-make-object.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas-utility.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-canvas-main.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-events.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-virtualbox.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-interact.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-rectangle.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-oval.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-triangle.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-line.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-text.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-freedrawing.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-path.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-mouse.js"></script>
 
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-readyfreehandobj.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-refresh-play.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-readytextobj.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-keyboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/webrtc-adapter.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pptshare.js"></script>
-
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-optimization.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/receive-messages-response.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lzstring.js"></script>
 
@@ -145,7 +137,6 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/raise-hand.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/color-selector.js"></script>
 
-
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/app-settings.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/network.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/gesture.js"></script>
@@ -172,4 +163,3 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/back-detect.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/rightbar.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/index.js"></script>
-

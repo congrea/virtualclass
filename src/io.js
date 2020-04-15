@@ -86,6 +86,10 @@ var io = {
     switch (obj.cfun) {
       case 'broadcastToAll':
         if (typeof obj.arg.touser === 'undefined') {
+          const tempUserObj = {
+            user: {userid: userObj.userid},
+            m: obj.arg.msg,
+          };
           sobj = {
             // type: 'broadcastToAll',
             user: userObj,
@@ -94,7 +98,7 @@ var io = {
           if (Object.prototype.hasOwnProperty.call(obj.arg.msg, 'serial')) {
             ioStorage.storeCacheAllData(sobj, [virtualclass.gObj.uid, obj.arg.msg.serial]);
           }
-          jobj = `F-BR-{"0${JSON.stringify(sobj)}`;
+          jobj = `F-BR-{"0${JSON.stringify(tempUserObj)}`;
         } else {
           sobj = {
             // type: 'broadcastToAll',
@@ -314,6 +318,7 @@ var io = {
         break;
       case 'broadcastToAll':
       case 'broadcast':
+      case 'b':
         if (receivemsg !== null) {
           if (receivemsg.userto != null) {
             userto = receivemsg.userto;

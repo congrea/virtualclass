@@ -46,11 +46,32 @@ module.exports = {
     sdworker: 'writable',
     sworker: 'writable',
     chatContainerEvent: 'writable',
-    OrderedList: 'writeable',
-    receiveFunctions: 'writeable',
-    firebase: 'writeable',
-    AskQuestion: 'writeable',
-    $: 'writable'
+    OrderedList: 'writable',
+    receiveFunctions: 'writable',
+    firebase: 'writable',
+    AskQuestion: 'writable',
+    WhiteboardReplay: 'writable',
+    WhiteboardUtility: 'writable',
+    WhiteboardReplay: 'writable',
+    WhiteboardWrapper: 'writable',
+    WhiteboardProtocol: 'writable',
+    WhiteboardCircle: 'writable',
+    WhiteboardCommonShape: 'writable',
+    WhiteboardLine: 'writable',
+    WhiteboardFreeDrawing: 'writable',
+    WhiteboardTriangle: 'writable',
+    WhiteboardRectangle: 'writable',
+    WhiteboardActiveAll: 'writable',
+    WhiteboardText: 'writable',
+    OrderedList: 'writable',
+    receiveFunctions: 'writable',
+    firebase: 'writable',
+    AskQuestion: 'writable',
+    $: 'writable',
+    WhiteboardCursor: 'writable',
+    WhiteboardMessage: 'writable',
+    fabric: 'writable',
+
   },
   parserOptions: {
     ecmaVersion: 2017,
@@ -59,7 +80,7 @@ module.exports = {
     }
   },
   rules: {
-    'max-len': [1, { "code": 120 }]
-  },
-
+    'max-len': [1, { "code": 120 }],
+    'linebreak-style': ["error", "unix"],
+   },
 };

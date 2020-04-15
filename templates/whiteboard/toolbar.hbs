@@ -1,13 +1,11 @@
 <div id="commandToolsWrapper{{cn}}" class="commandToolsWrapper">
 
-  <div id="t_freeDrawing{{cn}}" class="tool" data-tool="freeDrawing">
+  <div id="t_freeDrawing{{cn}}" class="tool notshape" data-tool="freeDrawing">
     <a href="#" data-title="{{getString 'Freehand'}}" class="congtooltip"> <span class="icon-freeDrawing cgIcon"></span></a>
   </div>
 
-  <div id="tool_wrapper{{cn}}" class="shapesToolbox" data-currTool="shapes">
-    <div id="shapeIcon{{cn}}" class="shapes_icon">
-      <a href="#" data-title="{{getString 'Shapes'}}" class="congtooltip"><span class="icon-shapes cgIcon"></span></a>
-    </div>
+  <div id="tool_wrapper{{cn}}" class="shapesToolbox tool" data-tool="shapes" data-currTool="shapes">
+    <a href="#" data-title="{{getString 'Shapes'}}" class="shape_anchor congtooltip shapes_icon"><span class="icon-shapes cgIcon"></span></a>
 
     <div id="shapes{{cn}}" class="shapesTool">
       <div id="t_rectangle{{cn}}" class="tool" data-tool="rectangle">
@@ -18,8 +16,8 @@
         <a href="#" data-title="{{getString 'Line'}}" class="congtooltip"> <span class="icon-line cgIcon"></span></a>
       </div>
 
-      <div id="t_oval{{cn}}" class="tool" data-tool="oval">
-        <a href="#" data-title="{{getString 'Oval'}}" class="congtooltip"> <span class="icon-oval cgIcon"></span></a>
+      <div id="t_circle{{cn}}" class="tool" data-tool="circle">
+        <a href="#" data-title="{{getString 'Circle'}}" class="congtooltip"> <span class="icon-oval cgIcon"></span></a>
       </div>
 
       <div id="t_triangle{{cn}}" class="tool" data-tool="triangle">
@@ -28,7 +26,7 @@
     </div>
   </div>
 
-  <div id="t_text{{cn}}" class="tool" data-tool="text">
+  <div id="t_text{{cn}}" class="tool notshape" data-tool="text">
     <a href="#" data-title="{{getString 'Text'}}" class="congtooltip"> <span class="icon-text cgIcon"></span></a>
   </div>
 
@@ -160,7 +158,7 @@
     </table>
   </div>
 
-  <div id="t_activeall{{cn}}" class="tool" data-tool="activeAll">
+  <div id="t_activeall{{cn}}" class="tool notshape" data-tool="activeAll">
     <a href="#" data-title="{{getString 'ActiveAll'}}" class="congtooltip"> <span class="icon-activeAll cgIcon"></span></a>
   </div>
 

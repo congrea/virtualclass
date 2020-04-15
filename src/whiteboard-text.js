@@ -1,95 +1,147 @@
-// This file is part of Vidyamantra - http:www.vidyamantra.com/
-/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
- * @author  Suman Bogati <http://www.vidyamantra.com>
- */
-(function (window) {
-  // var vcan = window.vcan;
-  /**
-   * @Class defined text for drawing text
-   *  methods initilized for creating line object
-   *  in future there can be more properties than now
-   */
-  function Text(id) {
-    const { vcan } = virtualclass.wb[id];
-
-    vcan.text = function () {
-      return {
-        type: 'text',
-        /**
-         * initiates the properties to object
-         * @param obj the properties would initates on it
-         */
-        init(obj) {
-          // earlier 1.3 it was
-          obj.lineHeight = 1.3;
-
-          if (obj.fontSize == null) {
-            obj.fontSize = 30;
-          }
-
-          obj.fontSize *= virtualclass.zoom.canvasScale;
-          // change during the unit testing
-          obj.font = `${obj.fontSize}px Times New Roman`;
-          return obj;
-        },
-        /**
-         * it draws the text object as passed parameter obj
-         * @param ctx current context
-         * @param obj would be drawn
-         */
-        draw(ctx, obj, noTransform) {
-          const { fontSize } = obj;
-          ctx.font = `${fontSize}px Times New Roman`;
-          ctx.fillStyle = obj.color;
-          const textLines = obj.text.split(/\r?\n/);
-          // obj.height = obj.fontSize * obj.textLines.length * obj.lineHeight;
-
-          obj.height = this.getTextHeight(ctx, textLines, obj);
-          obj.width = this.getTextWidth(ctx, textLines);
-
-          ctx.beginPath();
-          for (let i = 0, len = textLines.length; i < len; i++) {
-            const tempHeight = (-obj.height / 2) + (i * obj.fontSize * obj.lineHeight) + obj.fontSize;
-            ctx.fillText(textLines[i], -obj.width / 2, tempHeight);
-          }
-          ctx.closePath();
-          obj.setCoords();
-        },
-        /** *
-         * It gets the width of text which is passed by textLines
-         * @param ctx the context is current canvas context
-         * @param textLines this is the texts
-         * @returns returns width of text
-         */
-        getTextWidth(ctx, textLines) {
-          let maxWidth = ctx.measureText(textLines[0]).width;
-
-          for (let i = 1, len = textLines.length; i < len; i++) {
-            const currentLineWidth = ctx.measureText(textLines[i]).width;
-            if (currentLineWidth > maxWidth) {
-              maxWidth = currentLineWidth;
-            }
-          }
-          return maxWidth;
-        },
-        /** *
-         * It gets the height of text which is passed by textLines
-         * @param ctx the context is current canvas context
-         * @param textLines this is the texts the heigth of which is calcualted
-         * @returns returns height
-         */
-        getTextHeight(ctx, textLines, obj) {
-          return obj.fontSize * textLines.length * obj.lineHeight;
-        },
-        removeTextNode() {
-          const allTextContainer = document.getElementsByClassName('textBoxContainer');
-          for (let i = 0; i < allTextContainer.length; i++) {
-            allTextContainer[i].parentNode.removeChild(allTextContainer[i]);
-          }
-        },
-      };
+class WhiteboardText {
+  constructor(name) {
+    this.default = {
+      rotatingPointOffset: 40,
+      cornerSize: 13,
+      fontSize: 20,
+      fill: '#00f',
+    };
+    this.name = name;
+    // this.selected = false,
+    this.coreObj = {
+      fontWeight: 'normal',
+      // fontSize: 30,
+      fontFamily: 'arial',
+      padding: 7,
+      editingBorderColor: '#08518f',
     };
   }
+  isObjectInEditingMode(whiteboard) {
+     const allObjects = whiteboard.canvas.getObjects('i-text');
+     for(let i=0; i < allObjects.length; i += 1) {
+      if (allObjects[i].isEditing) {
+        whiteboard.canvas.trigger('text:editing:exited', {target: allObjects[i]});
+      }
+     }
+  }
 
-  window.Text = Text;
-}(window));
+  mouseDown(pointer, whiteboard) {
+    if (!virtualclass.wbWrapper.gObj.textSelected && !this.textEditing) {
+      this.renderText(pointer, whiteboard);
+    } else if (virtualclass.wbWrapper.gObj.textSelected && !whiteboard.activeAllObj.activeDown) {
+      virtualclass.wbWrapper.gObj.textSelected.enterEditing();
+      const allTexts = whiteboard.canvas.getObjects('i-text');
+      if (virtualclass.wbWrapper.gObj.textSelected.text.trim() != 'Enter your text') {
+        this.editingIndex = allTexts.indexOf(virtualclass.wbWrapper.gObj.textSelected);
+      }
+      whiteboard.activeAllObj.disable(virtualclass.gObj.currWb, 'i-text');
+      this.textEditing = true;
+    }
+  }
+
+  updateText(textObj, whiteboard, foundObject) {
+    if (textObj.text) {
+      foundObject.set('text', textObj.text);
+    } else {
+      foundObject.set('text', textObj.value);
+    }
+    if (textObj.fontSize)  foundObject.set('fontSize', textObj.fontSize);
+    if (textObj.fontColor)  foundObject.set('fill', textObj.fontColor);
+    whiteboard.canvas.renderAll();
+  }
+
+  renderText(textObj, whiteboard) {
+    console.log('====> render text suman');
+    const textChildren = whiteboard.canvas.getObjects('i-text');
+    if (textChildren.length > 0 && textObj.index != null) {
+      const foundObject = textChildren[textObj.index];
+      if (foundObject) {
+        this.updateText(textObj, whiteboard, foundObject);
+      } else {
+        this.createText(textObj, whiteboard);
+      }
+    } else {
+      this.createText(textObj, whiteboard);
+    }
+  }
+
+  createText(textObj, whiteboard) {
+    if (textObj.value === '') return;
+    if (this.isEmptyText(whiteboard)) return;
+    this.startLeft = textObj.x;
+    this.startTop = textObj.y;
+    this.coreObj.left = this.startLeft;
+    this.coreObj.top = this.startTop;
+    const textValue = (textObj.value) ? textObj.value : 'Enter your text';
+    this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
+    this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
+    // this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
+    this.coreObj.fontSize = this.default.fontSize;
+    if (whiteboard.textFontSize) {
+      this.coreObj.fontSize = +(whiteboard.textFontSize);
+    }
+
+    this.coreObj.fill = this.default.fill;
+    if (whiteboard.activeToolColor) {
+      this.coreObj.fill =  whiteboard.activeToolColor;
+    }
+    this[this.name] = new fabric.IText(textValue, this.coreObj); // add object
+    whiteboard.canvas.add(this[this.name]);
+  }
+
+  isEmptyText (whiteboard) {
+    const allText = whiteboard.canvas.getObjects('i-text');
+    for (let i = 0; i < allText.length; i++) {
+      if (allText[i].text === 'Enter your text') {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  finalizeText(textObj) {
+    const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
+    this.textEditing = false;
+    if (this.isDefault(textObj.target)) return;
+    virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
+    const data = { x: textObj.target.left, y: textObj.target.top, text: textObj.target.text };
+    if (this.editingIndex != null) data.index = this.editingIndex;
+
+    if (+whiteboard.textFontSize && textObj.target.fontSize !== +(whiteboard.textFontSize)) {
+      data.fontSize = whiteboard.textFontSize;
+    }
+
+    if (whiteboard.activeToolColor && textObj.target.fill !== whiteboard.activeToolColor) {
+      data.fontColor = whiteboard.activeToolColor;
+    }
+
+    virtualclass.wbWrapper.msg.optimizeToSend(data, 0, 'tx');
+    delete this.editingIndex;
+    whiteboard.activeAllObj.enable(virtualclass.gObj.currWb, 'i-text');
+    if (data.fontColor || data.fontSize) {
+      this.updateText(data, whiteboard, textObj.target);
+    }
+  }
+
+  isDefault(textObj) {
+    return (textObj.text.trim() == 'Enter your text');
+  }
+
+  afterSelected(obj) {
+    console.log('selected 1');
+    virtualclass.wbWrapper.gObj.textSelected = obj;
+  }
+
+  afterDeSelected() {
+    console.log('deselected 1');
+    virtualclass.wbWrapper.gObj.textSelected = null;
+  }
+
+  mouseMove() {
+    // console.log('mouse move');
+  }
+
+  mouseUp() {
+    console.log('mouse up');
+  }
+}

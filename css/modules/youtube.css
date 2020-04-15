@@ -20,6 +20,10 @@
   margin-top: 8px;
 }
 
+#virtualclassCont.congrea #player {
+  margin-top: 7%;
+}
+
 #virtualclassCont.congrea #virtualclassVideo #player {
   display: inline;
   margin-top: 1%;
@@ -59,10 +63,6 @@
 
 #virtualclassCont.congrea .youTubeSharing {
   text-align: left;
-}
-
-#virtualclassCont.congrea #player {
-  margin-top: 7%;
 }
 
 /* #virtualclassCont.congrea #videoUrlContainer, #virtualclassCont.congrea.student.presenter #videoUrlContainer{ */

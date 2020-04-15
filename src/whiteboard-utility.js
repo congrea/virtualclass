@@ -248,7 +248,7 @@ class WhiteboardUtility {
 
   handleActiviteTool(wbId) {
     const activeWbTool = localStorage.getItem('activeTool');
-    if (activeWbTool !== null) {
+    if (activeWbTool !== null && activeWbTool.indexOf(wbId) > -1) {
       this.makeActiveTool(activeWbTool, wbId);
       virtualclass.wb[wbId].selectedTool = activeWbTool.split('_')[1];
       if (virtualclass.wb[wbId].selectedTool !== 'activeall') {

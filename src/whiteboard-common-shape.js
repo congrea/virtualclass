@@ -128,7 +128,6 @@ class WhiteboardCommonShape {
         this.chunks.length = 0;
       }
       this.mousedown = false;
-      whiteboard.activeAllObj.disableLastElement(virtualclass.gObj.currWb);
     } else {
       this.innerMouseUp(pointer, whiteboard, true);
       if (!event.e.isTrusted) return;
@@ -168,6 +167,7 @@ class WhiteboardCommonShape {
         rotatingPointOffset: this.default.rotatingPointOffset * virtualclass.zoom.canvasScale,
         cornerSize: this.default.cornerSize * virtualclass.zoom.canvasScale,
       });
+      whiteboard.activeAllObj.disableLastElement(virtualclass.gObj.currWb);
     }
     delete whiteboard.myPencil;
   }

@@ -115,7 +115,7 @@ class Whiteboard {
       virtualclass.wbWrapper.msg.send(encodeData);
     }
     if (virtualclass.wbWrapper.shapes.includes(parentNode.dataset.tool) || parentNode.dataset.tool === 'activeAll') {
-      virtualclass.wbWrapper.util.makeActiveTool(parentNode.id);
+      virtualclass.wbWrapper.util.makeActiveTool(parentNode.id, virtualclass.gObj.currWb);
     }
   }
 
@@ -136,7 +136,7 @@ class Whiteboard {
 
   innerToolbarHandler(tool, wId) {
     virtualclass.wbWrapper.util.closeTray();
-    this.canvas.isDrawingMode = false;
+    // this.canvas.isDrawingMode = false;
     const currentTool = tool;
     this.selectTool(tool);
 
@@ -177,7 +177,7 @@ class Whiteboard {
   }
 
   freeDrawing(wId) {
-    this.canvas.isDrawingMode = false;
+    // this.canvas.isDrawingMode = false;
     this.activeAllObj.disable(wId);
   }
 

@@ -13,7 +13,7 @@ class WhiteboardActiveAll {
   enable(wId, component) {
     let allObjects;
     if (component) {
-      allObjects = virtualclass.wb[wId].canvas.getObjects(component );
+      allObjects = virtualclass.wb[wId].canvas.getObjects(component);
     } else {
       allObjects = virtualclass.wb[wId].canvas.getObjects();
     }

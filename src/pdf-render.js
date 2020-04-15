@@ -540,9 +540,14 @@
 
           if (firstTime != null && virtualclass.gObj.currWb != null) {
             // this.initWhiteboardData(page.wbId);
-            this.initWhiteboardData(page.wbId);
+            await this.initWhiteboardData(page.wbId);
+            // after final load of page
+            if (roles.hasControls()) {
+              console.log('====> invoke handle active tool');
+              virtualclass.wbWrapper.util.handleActiviteTool(page.wbId);
+            }
           }
-
+          
           // displayCb();
           if (typeof this.shownPdf === 'object') {
             io.globallock = false;
@@ -571,7 +576,7 @@
       async initWhiteboardData(wb) {
         if (typeof virtualclass.gObj.wbData[wb] === 'object' && virtualclass.gObj.wbData[wb]
           && virtualclass.gObj.wbData[wb].length > 0) {
-          virtualclass.wbWrapper.util.replayFromLocalStroage(virtualclass.gObj.wbData[wb], wb);
+          await virtualclass.wbWrapper.util.replayFromLocalStroage(virtualclass.gObj.wbData[wb], wb);
         }
       },
 
@@ -694,6 +699,10 @@
 
         } else {
           // console.log('ERROR : shown pdf is not available');
+        }
+        if (roles.hasControls()) {
+          console.log('====> invoke handle active tool');
+          virtualclass.wbWrapper.util.handleActiviteTool(this.shownPdf.wbId);
         }
       },
 

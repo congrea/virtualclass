@@ -227,7 +227,10 @@ class WhiteboardUtility {
     for (let i = 0; i < activeElement.length; i += 1) {
       activeElement[i].classList.remove('active');
     }
-
+    if (roles.hasControls()) {
+      const shape = document.getElementById(byReload).dataset.tool;
+      document.querySelector(`#tool_wrapper${wbId}`).dataset.currtool = shape;
+    }
     this.themeColorShapes(byReload, wId);
     selectedElement.classList.add('active');
     localStorage.activeTool = selectedElement.id;

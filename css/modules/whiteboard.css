@@ -236,7 +236,7 @@ ul.fontSizeList span {
   color: #00a0ba;
 }
 
-#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon a {
+#virtualclassCont.congrea .shapesToolbox[data-currtool="circle"] .shapes_icon a {
   padding: 8px 13px 9px 14px !important;
 }
 
@@ -283,11 +283,11 @@ ul.fontSizeList span {
 .shapesToolbox[data-currtool="line"] .shapes_icon .icon-shapes.cgIcon::before,
 .shapesToolbox[data-currtool="rectangle"] .shapes_icon .icon-shapes.cgIcon::before,
 .shapesToolbox[data-currtool="triangle"] .shapes_icon .icon-shapes.cgIcon::before,
-#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon .icon-shapes.cgIcon::before {
+#virtualclassCont.congrea .shapesToolbox[data-currtool="circle"] .shapes_icon .icon-shapes.cgIcon::before {
   font-size: 24px;
 }
 
-#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon a span::after,
+#virtualclassCont.congrea .shapesToolbox[data-currtool="circle"] .shapes_icon a span::after,
 #virtualclassCont.congrea .shapesToolbox[data-currtool="line"] .shapes_icon a span::after,
 #virtualclassCont.congrea .shapesToolbox[data-currtool="rectangle"] .shapes_icon a span::after,
 #virtualclassCont.congrea .shapesToolbox[data-currtool="triangle"] .shapes_icon a span::after {
@@ -295,7 +295,7 @@ ul.fontSizeList span {
   color: #fff !important;
 }
 
-#virtualclassCont.congrea .shapesToolbox.active[data-currtool="oval"] .shapesTool .active a span::before,
+#virtualclassCont.congrea .shapesToolbox.active[data-currtool="circle"] .shapesTool .active a span::before,
 #virtualclassCont.congrea .shapesToolbox.active[data-currtool="line"] .shapesTool .active a span::before,
 #virtualclassCont.congrea .shapesToolbox.active[data-currtool="rectangle"] .shapesTool .active a span::before,
 #virtualclassCont.congrea .shapesToolbox.active[data-currtool="triangle"] .shapesTool .active a span::before {
@@ -342,7 +342,7 @@ ul.fontSizeList span {
   content: "\e607";
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="oval"] .icon-shapes.cgIcon::before {
+#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="circle"] .icon-shapes.cgIcon::before {
   content: "\f1db";
 }
 
@@ -356,7 +356,7 @@ ul.fontSizeList span {
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="rectangle"],
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="line"],
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="oval"],
+#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="circle"],
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox[data-currTool="triangle"],
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper[data-currTool="freeDrawing"],
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper[data-currTool="text"],

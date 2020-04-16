@@ -249,14 +249,17 @@ class WhiteboardUtility {
     }
   }
 
-  handleActiviteTool(wbId) {
-    const activeWbTool = localStorage.getItem('activeTool');
+  handleActivateTool(wbId) {
+    let activeWbTool = localStorage.getItem('activeTool');
     if (activeWbTool !== null && activeWbTool.indexOf(wbId) > -1) {
       this.makeActiveTool(activeWbTool, wbId);
       virtualclass.wb[wbId].selectedTool = activeWbTool.split('_')[1];
       if (virtualclass.wb[wbId].selectedTool !== 'activeall') {
         virtualclass.wb[wbId].activeAllObj.disable(wbId);
       }
+    } else if (virtualclass.wb[wbId].selectedTool) {
+      activeWbTool = `t_${virtualclass.wb[wbId].selectedTool}${wbId}`;
+      this.makeActiveTool(activeWbTool, wbId);
     }
   }
 }

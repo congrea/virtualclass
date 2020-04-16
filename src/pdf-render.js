@@ -544,10 +544,13 @@
             // after final load of page
             if (roles.hasControls()) {
               console.log('====> invoke handle active tool');
-              virtualclass.wbWrapper.util.handleActiviteTool(page.wbId);
+              virtualclass.wbWrapper.util.handleActivateTool(page.wbId);
             }
           }
-          
+          //  else if (roles.hasControls() && virtualclass.wb[page.wbId].selectedTool) {
+          //   virtualclass.wbWrapper.util.makeActiveTool(virtualclass.wb[page.wbId].selectedTool, page.wbId);
+          // }
+
           // displayCb();
           if (typeof this.shownPdf === 'object') {
             io.globallock = false;
@@ -702,7 +705,7 @@
         }
         if (roles.hasControls()) {
           console.log('====> invoke handle active tool');
-          virtualclass.wbWrapper.util.handleActiviteTool(this.shownPdf.wbId);
+          virtualclass.wbWrapper.util.handleActivateTool(this.shownPdf.wbId);
         }
       },
 

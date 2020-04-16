@@ -24,12 +24,12 @@ class WhiteboardMessage {
       }
     } else {
       if (!Array.isArray(e.message.wb)) e.message.wb = [e.message.wb];
-      const executeData = e.message.wb;
+      const dataToPlay = e.message.wb;
       virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
       if (!virtualclass.zoom.canvasScale) return;
       if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
         && e.fromUser.role === 't') {
-        virtualclass.wbWrapper.util.applyCommand(executeData, virtualclass.gObj.currWb);
+        virtualclass.wbWrapper.replay.triggerReplay(dataToPlay, virtualclass.gObj.currWb);
       }
     }
   }
@@ -45,7 +45,7 @@ class WhiteboardMessage {
       }
       virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
       if (type === 'sf') {
-        // empty the free drarwing after bulk
+        // Empty the free drarwing after bulk data sent
         virtualclass.wb[virtualclass.gObj.currWb].freeDrawingObj.chunks.length = 0;
       }
     }

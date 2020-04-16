@@ -47,7 +47,6 @@ class WhiteboardReplay {
         break;
       default:
         console.log('====> do nothing');
-
     }
   }
 
@@ -61,6 +60,24 @@ class WhiteboardReplay {
     if (data.length > 0) {
       virtualclass.wb[wId].vcanMainReplayObjs = data;
       this.replayInit(wId);
+    }
+  }
+
+  replayFromLocalStroage(allRepObjs, wId) {
+    if (typeof (Storage) !== 'undefined') {
+      virtualclass.wb[wId].clear(wId);
+      virtualclass.wb[wId].replayObjs = [];
+      delete virtualclass.wb[wId].currStrkSize;
+      delete virtualclass.wb[wId].activeToolColor;
+      virtualclass.wb[wId].gObj.tempRepObjs = allRepObjs;
+      if (allRepObjs.length > 0) this.triggerReplay(allRepObjs, wId);
+    }
+  }
+
+  triggerReplay(data, wId) {
+    for (let i = 0; i < data.length; i += 1) {
+      virtualclass.wbWrapper.util.storeAtMemory([data[i]], (wId));
+      this.replayData([data[i]], wId);
     }
   }
 }

@@ -579,7 +579,7 @@
       async initWhiteboardData(wb) {
         if (typeof virtualclass.gObj.wbData[wb] === 'object' && virtualclass.gObj.wbData[wb]
           && virtualclass.gObj.wbData[wb].length > 0) {
-          await virtualclass.wbWrapper.util.replayFromLocalStroage(virtualclass.gObj.wbData[wb], wb);
+          await virtualclass.wbWrapper.replay.replayFromLocalStroage(virtualclass.gObj.wbData[wb], wb);
         }
       },
 

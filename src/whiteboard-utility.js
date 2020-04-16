@@ -1,22 +1,9 @@
 class WhiteboardUtility {
   // earlier it waas drawInWhiteboards
-  applyCommand(data, wid) {
-    for (let i = 0; i < data.length; i += 1) {
-      this.executeData(data[i], wid);
-    }
-  }
-
-  executeData(data, wId) {
-    this.storeAtMemory(data, (wId));
-    virtualclass.wbWrapper.replay.replayData([data], wId);
-  }
-
   storeAtMemory(data, wId, freeDrawing) {
     if (!virtualclass.wb[wId].replayObjs) virtualclass.wb[wId].replayObjs = [];
     let toBeSendData = data;
-    if (freeDrawing) {
-      toBeSendData = virtualclass.wbWrapper.protocol.generateFreeDrawingData(freeDrawing);
-    }
+    if (freeDrawing) toBeSendData = virtualclass.wbWrapper.protocol.generateFreeDrawingData(freeDrawing);
 
     if (Array.isArray(data)) {
       for (let i = 0; i < toBeSendData.length; i += 1) {
@@ -58,34 +45,19 @@ class WhiteboardUtility {
       canvasPdf.className = 'pdfs';
       canvasPdf.width = mainCanvas.width;
       canvasPdf.height = mainCanvas.height;
-     // mainCanvas.parentNode.insertBefore(canvasPdf, mainCanvas);
-     //mainCanvas.parentNode.insertAdjacentElement('after', canvasPdf);
-     mainCanvas.parentNode.parentNode.insertBefore(canvasPdf, mainCanvas.parentNode);;
-    }
-  }
-
-  replayFromLocalStroage(allRepObjs, wId) {
-    console.log('====> whiteboard pdf suman draw whiteboard')
-    if (typeof (Storage) !== 'undefined') {
-      virtualclass.wb[wId].clear(wId);
-      virtualclass.wb[wId].replayObjs = [];
-      delete virtualclass.wb[wId].currStrkSize;
-      delete virtualclass.wb[wId].activeToolColor;
-      virtualclass.wb[wId].gObj.tempRepObjs = allRepObjs;
-      if (allRepObjs.length > 0) this.applyCommand(allRepObjs, wId);
+      mainCanvas.parentNode.parentNode.insertBefore(canvasPdf, mainCanvas.parentNode);
     }
   }
 
   fitWhiteboardAtScale(wid) {
-    console.log('====> canvas set zoom scale ', virtualclass.zoom.canvasScale);
+    // console.log('====> canvas set zoom scale ', virtualclass.zoom.canvasScale);
     virtualclass.wb[wid].canvas.setZoom(virtualclass.zoom.canvasScale);
     if (typeof virtualclass.wb[wid] === 'object') {
       delete virtualclass.wb[wid].myPencil;
       if (virtualclass.wb[wid].replayObjs && virtualclass.wb[wid].replayObjs.length > 0) {
-        this.replayFromLocalStroage(virtualclass.wb[wid].replayObjs, wid);
+        virtualclass.wbWrapper.replay.replayFromLocalStroage(virtualclass.wb[wid].replayObjs, wid);
       }
     }
-    // virtualclass.wb[wId].canvas.renderAll();
   }
 
   readyMouseEvent(event, pointer) {
@@ -120,9 +92,9 @@ class WhiteboardUtility {
   handleTrayDisplay(element) {
     if (element.classList.contains('openTray')) {
       this.selectedTool = null;
-      virtualclass.wbWrapper.util.closeTray();
+      this.closeTray();
     } else {
-      virtualclass.wbWrapper.util.openTray(element);
+      this.openTray(element);
     }
   }
 
@@ -162,7 +134,8 @@ class WhiteboardUtility {
   }
 
   activeElement(ev, tool) {
-    const prevSelectedTool = document.querySelector(`#t_${tool.type}${virtualclass.gObj.currWb} .selected`);
+    const wbId = virtualclass.gObj.currWb;
+    const prevSelectedTool = document.querySelector(`#t_${tool.type}${wbId} .selected`);
     if (prevSelectedTool != null) {
       prevSelectedTool.classList.remove('selected');
     }
@@ -170,11 +143,11 @@ class WhiteboardUtility {
     const currElementValue = ev.target.dataset[tool.prop];
     if (currElementValue != null) {
       ev.target.classList.add('selected');
-      this.changeToolProperty(tool.type, currElementValue, virtualclass.gObj.currWb);
+      this.changeToolProperty(tool.type, currElementValue, wbId);
       if (tool.type === 'color') {
-        document.querySelector(`#t_color${virtualclass.gObj.currWb} .disActiveColor`).style.backgroundColor = virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+        document.querySelector(`#t_color${wbId} .disActiveColor`).style.backgroundColor = virtualclass.wb[wbId].activeToolColor;
       }
-      const encodeData = virtualclass.wbWrapper.protocol.encode('ot', {type: tool.type, value : currElementValue});
+      const encodeData = virtualclass.wbWrapper.protocol.encode('ot', { type: tool.type, value: currElementValue });
       virtualclass.wbWrapper.msg.send(encodeData);
     }
   }
@@ -197,7 +170,6 @@ class WhiteboardUtility {
       fontElement.classList.remove('show');
       fontElement.classList.add('hide');
     }
-
     const strokeElement = document.querySelector(`#t_strk${virtualclass.gObj.currWb}`);
     if (strokeElement != null) {
       strokeElement.classList.remove('hide');
@@ -205,7 +177,7 @@ class WhiteboardUtility {
     }
   }
 
-  fontSizeSelector(){
+  fontSizeSelector() {
     const strokeElement = document.querySelector(`#t_strk${virtualclass.gObj.currWb}`);
     if (strokeElement != null) {
       strokeElement.classList.remove('show');
@@ -239,9 +211,6 @@ class WhiteboardUtility {
   themeColorShapes(byReload, wId) {
     const tool = byReload.split(/_doc_*/)[0];
     const shapesElem = document.querySelector(`#tool_wrapper${wId}.shapesToolbox`);
-    if (!shapesElem) {
-      debugger;
-    }
     if (tool === 't_line' || tool === 't_circle' || tool === 't_rectangle' || tool === 't_triangle') {
       shapesElem.classList.add('active');
     } else {
@@ -253,7 +222,8 @@ class WhiteboardUtility {
     let activeWbTool = localStorage.getItem('activeTool');
     if (activeWbTool !== null && activeWbTool.indexOf(wbId) > -1) {
       this.makeActiveTool(activeWbTool, wbId);
-      virtualclass.wb[wbId].selectedTool = activeWbTool.split('_')[1];
+      const selectedTool = activeWbTool.split('_')[1];
+      virtualclass.wb[wbId].selectedTool = selectedTool;
       if (virtualclass.wb[wbId].selectedTool !== 'activeall') {
         virtualclass.wb[wbId].activeAllObj.disable(wbId);
       }

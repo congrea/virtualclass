@@ -610,59 +610,16 @@
         }
       },
 
-      fitWhiteboardAtScale(wId) {
-        // console.log("## WHITEBOARD SCALE CALLED", wId);
-        if (typeof virtualclass.wb[wId] === 'object') {
-          const { vcan } = virtualclass.wb[wId];
-          // const objects = vcan.main.children;
-          const objects = virtualclass.wb[wId].canvas.getObjects();
-          if (objects.length > 0) {
-            // console.log('====> FIT to screen 3 whiteboard ', wId);
-            for (const i in objects) {
-              const { scaleX } = objects[i];
-              const { scaleY } = objects[i];
-
-              const left = objects[i].x;
-              const top = objects[i].y;
-
-              const orginalX = left / objects[i].scaleX;
-              const orginalY = top / objects[i].scaleY;
-
-              const tempScaleX = ((scaleX / virtualclass.zoom.prvCanvasScale) * virtualclass.zoom.canvasScale);
-              const tempScaleY = ((scaleY / virtualclass.zoom.prvCanvasScale) * virtualclass.zoom.canvasScale);
-
-              const tempLeft = tempScaleX * orginalX;
-              const tempTop = tempScaleY * orginalY;
-
-              objects[i].scaleX = tempScaleX;
-              objects[i].scaleY = tempScaleY;
-
-              objects[i].x = tempLeft;
-              objects[i].y = tempTop;
-
-              objects[i].setCoords();
-              // console.log("## WHITEBOARD scaleX", objects[i].scaleX)
-            }
-          }
-          vcan.renderAll();
-        }
-      },
-
-
       zoomwhiteboardObjects(wId) {
-        virtualclass.wbWrapper.util.fitWhiteboardAtScale(wId);
+        WhiteboardUtility.fitWhiteboardAtScale(wId);
       },
 
       zoomOutWhiteboardObjects(wId) {
-        virtualclass.wbWrapper.util.fitWhiteboardAtScale(wId);
+        WhiteboardUtility.fitWhiteboardAtScale(wId);
       },
 
       fitToScreenWhiteboardObjects(wId) {
-        virtualclass.wbWrapper.util.fitWhiteboardAtScale(wId);
-      },
-
-      normalViewWhiteboardObjects(wid) {
-        this.fitWhiteboardAtScale(wid);
+        WhiteboardUtility.fitWhiteboardAtScale(wId);
       },
 
       async _zoomOut(canvas, actualWidth, actualHeight) {

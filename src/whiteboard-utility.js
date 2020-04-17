@@ -1,6 +1,6 @@
 class WhiteboardUtility {
   // earlier it waas drawInWhiteboards
-  storeAtMemory(data, wId, freeDrawing) {
+  static storeAtMemory(data, wId, freeDrawing) {
     if (!virtualclass.wb[wId].replayObjs) virtualclass.wb[wId].replayObjs = [];
     let toBeSendData = data;
     if (freeDrawing) toBeSendData = virtualclass.wbWrapper.protocol.generateFreeDrawingData(freeDrawing);
@@ -32,13 +32,12 @@ class WhiteboardUtility {
       virtualclass.wb[wId].attachMouseMovementHandlers();
       console.log('=====> attach handlers with whiteboard id ', wId);
     }
-    this.createCanvasPdfInstance(wId, virtualclass.wb[wId].canvas.upperCanvasEl);
+    this.constructor.createCanvasPdfInstance(wId, virtualclass.wb[wId].canvas.upperCanvasEl);
   }
 
-  createCanvasPdfInstance(wId, mainCanvas) {
+  static createCanvasPdfInstance(wId, mainCanvas) {
     const alreadCreateCanvas = document.querySelector(`#canvas${wId}_pdf`);
     if (alreadCreateCanvas == null) {
-      console.log('suman create pdf canvas ', wId);
       const canvasPdf = document.createElement('canvas');
       canvasPdf.id = `canvas${wId}_pdf`;
       canvasPdf.className = 'pdfs';
@@ -48,7 +47,7 @@ class WhiteboardUtility {
     }
   }
 
-  fitWhiteboardAtScale(wid) {
+  static fitWhiteboardAtScale(wid) {
     // console.log('====> canvas set zoom scale ', virtualclass.zoom.canvasScale);
     virtualclass.wb[wid].canvas.setZoom(virtualclass.zoom.canvasScale);
     if (typeof virtualclass.wb[wid] === 'object') {
@@ -59,7 +58,7 @@ class WhiteboardUtility {
     }
   }
 
-  readyMouseEvent(event, pointer) {
+  static readyMouseEvent(event, pointer) {
     return new MouseEvent(event, {
       clientX: pointer.x,
       clientY: pointer.y,
@@ -99,7 +98,7 @@ class WhiteboardUtility {
 
   openShapeContainer(elem) {
     this.selectedTool = null;
-    const shapeContainer = elem ? elem : document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
+    const shapeContainer = elem || document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
     if (shapeContainer) {
       shapeContainer.classList.remove('close');
       shapeContainer.classList.add('open');
@@ -142,7 +141,7 @@ class WhiteboardUtility {
     const currElementValue = ev.target.dataset[tool.prop];
     if (currElementValue != null) {
       ev.target.classList.add('selected');
-      this.changeToolProperty(tool.type, currElementValue, wbId);
+      this.constructor.changeToolProperty(tool.type, currElementValue, wbId);
       if (tool.type === 'color') {
         document.querySelector(`#t_color${wbId} .disActiveColor`).style.backgroundColor = virtualclass.wb[wbId].activeToolColor;
       }
@@ -152,7 +151,7 @@ class WhiteboardUtility {
   }
 
   // fabric.js, whiteboard changes, new changes, critical whiteboard, critical changes
-  changeToolProperty(attr, value, wId) { //
+  static changeToolProperty(attr, value, wId) { //
     if (!wId) wId = virtualclass.gObj.currWb;
     if (attr === 'color') {
       virtualclass.wb[wId].activeToolColor = value;
@@ -163,7 +162,7 @@ class WhiteboardUtility {
     }
   }
 
-  strokeSizeSelector(){
+  static strokeSizeSelector() {
     const fontElement = document.querySelector(`#t_font${virtualclass.gObj.currWb}`);
     if (fontElement != null) {
       fontElement.classList.remove('show');
@@ -176,7 +175,7 @@ class WhiteboardUtility {
     }
   }
 
-  fontSizeSelector() {
+  static fontSizeSelector() {
     const strokeElement = document.querySelector(`#t_strk${virtualclass.gObj.currWb}`);
     if (strokeElement != null) {
       strokeElement.classList.remove('show');
@@ -202,12 +201,12 @@ class WhiteboardUtility {
       const shape = document.getElementById(byReload).dataset.tool;
       document.querySelector(`#tool_wrapper${wbId}`).dataset.currtool = shape;
     }
-    this.themeColorShapes(byReload, wId);
+    this.constructor.themeColorShapes(byReload, wId);
     selectedElement.classList.add('active');
     localStorage.activeTool = selectedElement.id;
   }
 
-  themeColorShapes(byReload, wId) {
+  static themeColorShapes(byReload, wId) {
     const tool = byReload.split(/_doc_*/)[0];
     const shapesElem = document.querySelector(`#tool_wrapper${wId}.shapesToolbox`);
     if (tool === 't_line' || tool === 't_circle' || tool === 't_rectangle' || tool === 't_triangle') {

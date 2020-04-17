@@ -23,7 +23,7 @@ class WhiteboardReplay {
         if (data.event && (data.event === 'mousedown')) {
           virtualclass.wb[wid].innerToolbarHandler(virtualclass.wbWrapper.keyMap[data.action], wid);
         }
-        evt = virtualclass.wbWrapper.util.readyMouseEvent(data.event, data.actual);
+        evt = WhiteboardUtility.readyMouseEvent(data.event, data.actual);
         evt.wId = wid;
         virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
         break;
@@ -38,7 +38,7 @@ class WhiteboardReplay {
         WhiteboardUtility.deleteActiveObject(false, wid);
         break;
       case 'ot': // other setting, font size, stroke size and color
-        virtualclass.wbWrapper.util.changeToolProperty(data.tool, data.actual.value, wid);
+        WhiteboardUtility.changeToolProperty(data.tool, data.actual.value, wid);
         break;
 
       case 'tx': // Create text
@@ -76,7 +76,7 @@ class WhiteboardReplay {
 
   triggerReplay(data, wId) {
     for (let i = 0; i < data.length; i += 1) {
-      virtualclass.wbWrapper.util.storeAtMemory([data[i]], (wId));
+      WhiteboardUtility.storeAtMemory([data[i]], (wId));
       this.replayData([data[i]], wId);
     }
   }

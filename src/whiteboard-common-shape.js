@@ -159,7 +159,6 @@ class WhiteboardCommonShape {
       this[this.name].setCoords();
     } else {
       // console.log('====> free drawing up', JSON.stringify(pointer));
-      // whiteboard.canvas.upperCanvasEl.dispatchEvent(virtualclass.wbWrapper.util.readyMouseEvent('mouseup', pointer));
       if (!event) event = { isPrimary: true };
       whiteboard.myPencil.onMouseUp(event);
       const allObjects = whiteboard.canvas.getObjects();

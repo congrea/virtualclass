@@ -5,9 +5,9 @@ class WhiteboardMessage {
       // console.log('====> free drawing ', JSON.stringify(data));
       ioAdapter.mustSend(data);
       if (data.wb[0].substring(0, 2) === 'sf') {
-        virtualclass.wbWrapper.util.storeAtMemory(data.wb, virtualclass.gObj.currWb, data.v);
+        WhiteboardUtility.storeAtMemory(data.wb, virtualclass.gObj.currWb, data.v);
       } else {
-        virtualclass.wbWrapper.util.storeAtMemory(data.wb, virtualclass.gObj.currWb);
+        WhiteboardUtility.storeAtMemory(data.wb, virtualclass.gObj.currWb);
       }
     }
   }

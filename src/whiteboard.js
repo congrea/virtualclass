@@ -62,8 +62,9 @@ class Whiteboard {
     if (event.selected && this.selectedTool === 'activeAll') {
       this.activeAllObj.activeDown = true;
     } else if (event.selected && event.selected[0].type === 'i-text') {
-      virtualclass.wbWrapper.gObj.textSelected = event.selected[0];
-      console.log('====> selected text ', virtualclass.wbWrapper.gObj.textSelected);
+      const foundText = event.selected[0];
+      virtualclass.wbWrapper.gObj.textSelected = foundText;
+      // console.log('====> selected text ', virtualclass.wbWrapper.gObj.textSelected);
     } else if (event.deselected) {
       this.activeAllObj.activeDown = false;
       virtualclass.wbWrapper.gObj.textSelected = false;
@@ -71,9 +72,7 @@ class Whiteboard {
   }
 
   triggerGetPointer(e) {
-    const wId = e.wId ? e.wId : virtualclass.gObj.currWb;
-    const pointer = virtualclass.wb[wId].canvas.getPointer(e);
-    return pointer;
+    return this.canvas.getPointer(e);
   }
 
   handlerMouseDown(o) {
@@ -189,7 +188,7 @@ class Whiteboard {
   clearAll(wId) {
     const cofirmMessage = virtualclass.lang.getString('clearAllWarnMessageW');
     virtualclass.popup.confirmInput(cofirmMessage, (confirm) => {
-      if (confirm){
+      if (confirm) {
         this.clear();
         const encodeData = virtualclass.wbWrapper.protocol.encode('cr', wId);
         WhiteboardMessage.send(encodeData);

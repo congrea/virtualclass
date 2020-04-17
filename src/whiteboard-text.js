@@ -140,6 +140,6 @@ class WhiteboardText {
   }
 
   mouseUp() {
-    console.log('mouse up');
+    // console.log('mouse up');
   }
 }

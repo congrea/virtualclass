@@ -71,7 +71,7 @@ class WhiteboardUtility {
 
   closeShapeContainer(elem) {
     this.selectedTool = null;
-    const shapeContainer = elem ? elem : document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
+    const shapeContainer = elem || document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
     if (shapeContainer) {
       shapeContainer.classList.remove('open');
       shapeContainer.classList.add('close');

@@ -119,16 +119,13 @@ class Whiteboard {
   }
 
   selectTool(tool) { // todo, need to improve
-    if (tool === 'rectangle' || tool === 'line' || tool === 'circle' || tool === 'triangle' || tool === 'text'
-      || tool === 'activeAll' || tool === 'freeDrawing') {
-      this.selectedTool = tool;
-    }
+    if (virtualclass.wbWrapper.mouseTool.indexOf(tool) > -1) this.selectedTool = tool;
 
-    if (tool !== 'stroke' && tool !== 'font') {
-      if (tool !== 'activeAll' && tool !== 'text') {
-        WhiteboardUtility.strokeSizeSelector();
-      } else if (tool === 'text') {
+    if (tool !== 'stroke' && tool !== 'font' && tool !== 'activeAll') {
+      if (tool === 'text') {
         WhiteboardUtility.fontSizeSelector();
+      } else {
+        WhiteboardUtility.strokeSizeSelector();
       }
     }
   }

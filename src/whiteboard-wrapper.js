@@ -50,7 +50,7 @@ class WhiteboardWrapper {
   }
 
   init(id, app) {
-    this.createWhiteboardContainerHtml(id, app);
+    this.constructor.createWhiteboardContainerHtml(id, app);
     this.replay = new WhiteboardReplay();
     this.util = new WhiteboardUtility();
     this.protocol = new WhiteboardProtocol();
@@ -59,7 +59,7 @@ class WhiteboardWrapper {
     this.msg = new WhiteboardMessage();
   }
 
-  createWhiteboardContainerHtml(id, app) {
+  static createWhiteboardContainerHtml(id, app) {
     let whiteboardContainer;
     let wbHtml;
     const wbTemplate = virtualclass.getTemplate('main', 'whiteboard');

@@ -15,7 +15,7 @@ class WhiteboardMessage {
     const whiteboardShape = e.message.wb[0].substring(0, 2);
     if (whiteboardShape === 'sf') { // free drawing packet
       const fromUserRole = e.fromUser.role;
-      const result = virtualclass.wbWrapper.protocol.generateFreeDrawingData(e.message.v, e.message.s, true);
+      const result = WhiteboardProtocol.generateFreeDrawingData(e.message.v, e.message.s, true);
       let event;
       for (let i = 0; i < result.length; i += 1) {
         event = { message: { wb: result[i] }, fromUser: { role: fromUserRole } };

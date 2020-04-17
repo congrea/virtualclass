@@ -3,7 +3,7 @@ class WhiteboardUtility {
   static storeAtMemory(data, wId, freeDrawing) {
     if (!virtualclass.wb[wId].replayObjs) virtualclass.wb[wId].replayObjs = [];
     let toBeSendData = data;
-    if (freeDrawing) toBeSendData = virtualclass.wbWrapper.protocol.generateFreeDrawingData(freeDrawing);
+    if (freeDrawing) toBeSendData = WhiteboardProtocol.generateFreeDrawingData(freeDrawing);
 
     if (Array.isArray(data)) {
       for (let i = 0; i < toBeSendData.length; i += 1) {

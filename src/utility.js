@@ -2355,7 +2355,7 @@
 
     attachWhiteboardPopupHandler(wId) {
       window.addEventListener('mouseup', (ev) => {
-        if (roles.hasControls()) virtualclass.wbWrapper.util.closeTray();
+        if (roles.hasControls()) WhiteboardUtility.closeTray();
         //if (roles.hasControls()) virtualclass.wbWrapper.util.closeShapeContainer();
 //         const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
 //         const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');

@@ -27,7 +27,6 @@ class WhiteboardUtility {
       options.width = canvasDimension.width;
       options.height = canvasDimension.height;
     }
-    // alert(JSON.stringify(options))
     virtualclass.wb[wId].canvas = new fabric.Canvas(`canvas${wId}`, options);
     if (roles.hasControls()) {
       virtualclass.wb[wId].attachMouseMovementHandlers();
@@ -80,21 +79,21 @@ class WhiteboardUtility {
     }
   }
 
-  closeTray() {
+  static closeTray() {
     const elem = document.querySelector(`#commandToolsWrapper${virtualclass.gObj.currWb} .openTray`);
-    if (elem) elem.classList.remove('openTray')
+    if (elem) elem.classList.remove('openTray');
   }
 
-  openTray(elem) {
+  static openTray(elem) {
     if (elem) elem.classList.add('openTray');
   }
 
   handleTrayDisplay(element) {
     if (element.classList.contains('openTray')) {
       this.selectedTool = null;
-      this.closeTray();
+      this.constructor.closeTray();
     } else {
-      this.openTray(element);
+      this.constructor.openTray(element);
     }
   }
 
@@ -107,7 +106,7 @@ class WhiteboardUtility {
     }
   }
 
-  deleteActiveObject(event, wId){
+  static deleteActiveObject(event, wId) {
     const whitebaord = virtualclass.wb[wId];
     const activeObject = whitebaord.canvas.getActiveObject();
     whitebaord.canvas.discardActiveObject();

@@ -135,7 +135,7 @@ class Whiteboard {
   }
 
   innerToolbarHandler(tool, wId) {
-    virtualclass.wbWrapper.util.closeTray();
+    WhiteboardUtility.closeTray();
     // this.canvas.isDrawingMode = false;
     const currentTool = tool;
     this.selectTool(tool);

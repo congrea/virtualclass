@@ -28,7 +28,7 @@ class WhiteboardCommonShape {
       y: pointer.y,
     };
     const data = virtualclass.wbWrapper.protocol.encode('sp', newData);
-    virtualclass.wbWrapper.msg.send(data);
+    WhiteboardMessage.send(data);
     virtualclass.wbWrapper.gObj.previousData = newData;
   }
 
@@ -125,7 +125,7 @@ class WhiteboardCommonShape {
         virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
         this.chunks.push(`${pointer.x}_${pointer.y}_u`);
         const data = virtualclass.wbWrapper.protocol.encode('sf', this.chunks);
-        virtualclass.wbWrapper.msg.send(data);
+        WhiteboardMessage.send(data);
         this.chunks.length = 0;
       }
       this.mousedown = false;
@@ -134,7 +134,7 @@ class WhiteboardCommonShape {
       if (!event.e.isTrusted) return;
       if (virtualclass.wbWrapper.gObj.previousData) {
         let data = virtualclass.wbWrapper.protocol.encode('sp', virtualclass.wbWrapper.gObj.previousData);
-        virtualclass.wbWrapper.msg.send(data);
+        WhiteboardMessage.send(data);
         const newData = {
           event: 'u',
           name: this.name,
@@ -142,7 +142,7 @@ class WhiteboardCommonShape {
           y: virtualclass.wbWrapper.gObj.previousData.y,
         };
         data = virtualclass.wbWrapper.protocol.encode('sp', newData);
-        virtualclass.wbWrapper.msg.send(data);
+        WhiteboardMessage.send(data);
         // console.log('sending the data here guys ==== MOUSE UP', JSON.stringify(data));
       }
     }

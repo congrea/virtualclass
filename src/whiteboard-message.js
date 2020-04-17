@@ -1,8 +1,7 @@
 class WhiteboardMessage {
-  send(data) {
+  static send(data) {
     if (roles.hasControls()) {
       // console.log('sending the data here guys ', JSON.stringify(data));
-      // console.log('====> free drawing ', JSON.stringify(data));
       ioAdapter.mustSend(data);
       if (data.wb[0].substring(0, 2) === 'sf') {
         WhiteboardUtility.storeAtMemory(data.wb, virtualclass.gObj.currWb, data.v);
@@ -41,7 +40,7 @@ class WhiteboardMessage {
     if (timeDifference >= time) {
       if (type) {
         const newData = virtualclass.wbWrapper.protocol.encode(type, data);
-        this.send(newData);
+        this.constructor.send(newData);
       }
       virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
       if (type === 'sf') {

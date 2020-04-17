@@ -112,7 +112,7 @@ class WhiteboardUtility {
     whitebaord.canvas.remove(activeObject);
     if (event) {
       const encodeData = virtualclass.wbWrapper.protocol.encode('da', virtualclass.gObj.currWb);
-      virtualclass.wbWrapper.msg.send(encodeData);
+      WhiteboardMessage.send(encodeData);
     }
   }
 
@@ -146,7 +146,7 @@ class WhiteboardUtility {
         document.querySelector(`#t_color${wbId} .disActiveColor`).style.backgroundColor = virtualclass.wb[wbId].activeToolColor;
       }
       const encodeData = virtualclass.wbWrapper.protocol.encode('ot', { type: tool.type, value: currElementValue });
-      virtualclass.wbWrapper.msg.send(encodeData);
+      WhiteboardMessage.send(encodeData);
     }
   }
 

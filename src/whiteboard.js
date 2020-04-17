@@ -112,7 +112,7 @@ class Whiteboard {
       virtualclass.wb[virtualclass.gObj.currWb].canvas.discardActiveObject();
       virtualclass.wb[virtualclass.gObj.currWb].canvas.renderAll();
       const encodeData = virtualclass.wbWrapper.protocol.encode('ds', virtualclass.gObj.currWb);
-      virtualclass.wbWrapper.msg.send(encodeData);
+      WhiteboardMessage.send(encodeData);
     }
     if (virtualclass.wbWrapper.shapes.includes(parentNode.dataset.tool) || parentNode.dataset.tool === 'activeAll') {
       virtualclass.wbWrapper.util.makeActiveTool(parentNode.id, virtualclass.gObj.currWb);
@@ -192,7 +192,7 @@ class Whiteboard {
       if (confirm){
         this.clear();
         const encodeData = virtualclass.wbWrapper.protocol.encode('cr', wId);
-        virtualclass.wbWrapper.msg.send(encodeData);
+        WhiteboardMessage.send(encodeData);
       }
     });
   }

@@ -105,17 +105,6 @@ class WhiteboardUtility {
     }
   }
 
-  static deleteActiveObject(event, wId) {
-    const whitebaord = virtualclass.wb[wId];
-    const activeObject = whitebaord.canvas.getActiveObject();
-    whitebaord.canvas.discardActiveObject();
-    whitebaord.canvas.remove(activeObject);
-    if (event) {
-      const encodeData = virtualclass.wbWrapper.protocol.encode('da', virtualclass.gObj.currWb);
-      WhiteboardMessage.send(encodeData);
-    }
-  }
-
   initActiveElement(selector, tool) {
     const elem = document.querySelector(selector);
     if (typeof virtualclass.gObj.wbTool[virtualclass.gObj.currWb] === 'undefined') {
@@ -141,24 +130,57 @@ class WhiteboardUtility {
     const currElementValue = ev.target.dataset[tool.prop];
     if (currElementValue != null) {
       ev.target.classList.add('selected');
-      this.constructor.changeToolProperty(tool.type, currElementValue, wbId);
+      this.constructor.updateToolStyle(tool.type, currElementValue, wbId);
       if (tool.type === 'color') {
-        document.querySelector(`#t_color${wbId} .disActiveColor`).style.backgroundColor = virtualclass.wb[wbId].activeToolColor;
+        document.querySelector(`#t_color${wbId} .disActiveColor`).style.backgroundColor = virtualclass.wb[wbId].toolColor;
       }
       const encodeData = virtualclass.wbWrapper.protocol.encode('ot', { type: tool.type, value: currElementValue });
       WhiteboardMessage.send(encodeData);
     }
   }
 
+  makeActiveTool(byReload, wbId) {
+    const selectedElement = document.getElementById(byReload);
+    if (!selectedElement) return;
+    const wId = wbId || virtualclass.gObj.currWb;
+    const activeElement = document.querySelectorAll(`#commandToolsWrapper${wId} .tool.active`);
+    for (let i = 0; i < activeElement.length; i += 1) {
+      activeElement[i].classList.remove('active');
+    }
+    if (roles.hasControls()) {
+      const shape = document.getElementById(byReload).dataset.tool;
+      document.querySelector(`#tool_wrapper${wbId}`).dataset.currtool = shape;
+    }
+    this.constructor.themeColorShapes(byReload, wId);
+    selectedElement.classList.add('active');
+    localStorage.activeTool = selectedElement.id;
+  }
+
+  handleActivateTool(wbId) {
+    let activeWbTool = localStorage.getItem('activeTool');
+    if (activeWbTool !== null && activeWbTool.indexOf(wbId) > -1) {
+      this.makeActiveTool(activeWbTool, wbId);
+      const selectedTool = activeWbTool.split('_')[1];
+      virtualclass.wb[wbId].selectedTool = selectedTool;
+      if (virtualclass.wb[wbId].selectedTool !== 'activeall') {
+        virtualclass.wb[wbId].activeAllObj.disable(wbId);
+      }
+    } else if (virtualclass.wb[wbId].selectedTool) {
+      activeWbTool = `t_${virtualclass.wb[wbId].selectedTool}${wbId}`;
+      this.makeActiveTool(activeWbTool, wbId);
+    }
+  }
+
   // fabric.js, whiteboard changes, new changes, critical whiteboard, critical changes
-  static changeToolProperty(attr, value, wId) { //
+  static updateToolStyle(attr, value, whiteboardId) { //
+    let wId = whiteboardId;
     if (!wId) wId = virtualclass.gObj.currWb;
     if (attr === 'color') {
-      virtualclass.wb[wId].activeToolColor = value;
+      virtualclass.wb[wId].toolColor = value;
     } else if (attr === 'strk') {
-      virtualclass.wb[wId].currStrkSize = value;
+      virtualclass.wb[wId].strokeSize = value;
     } else if (attr === 'font') {
-      virtualclass.wb[wId].textFontSize = value;
+      virtualclass.wb[wId].fontSize = value;
     }
   }
 
@@ -189,23 +211,6 @@ class WhiteboardUtility {
     }
   }
 
-  makeActiveTool(byReload, wbId) {
-    const selectedElement = document.getElementById(byReload);
-    if (!selectedElement) return;
-    const wId = wbId || virtualclass.gObj.currWb;
-    const activeElement = document.querySelectorAll(`#commandToolsWrapper${wId} .tool.active`);
-    for (let i = 0; i < activeElement.length; i += 1) {
-      activeElement[i].classList.remove('active');
-    }
-    if (roles.hasControls()) {
-      const shape = document.getElementById(byReload).dataset.tool;
-      document.querySelector(`#tool_wrapper${wbId}`).dataset.currtool = shape;
-    }
-    this.constructor.themeColorShapes(byReload, wId);
-    selectedElement.classList.add('active');
-    localStorage.activeTool = selectedElement.id;
-  }
-
   static themeColorShapes(byReload, wId) {
     const tool = byReload.split(/_doc_*/)[0];
     const shapesElem = document.querySelector(`#tool_wrapper${wId}.shapesToolbox`);
@@ -216,18 +221,14 @@ class WhiteboardUtility {
     }
   }
 
-  handleActivateTool(wbId) {
-    let activeWbTool = localStorage.getItem('activeTool');
-    if (activeWbTool !== null && activeWbTool.indexOf(wbId) > -1) {
-      this.makeActiveTool(activeWbTool, wbId);
-      const selectedTool = activeWbTool.split('_')[1];
-      virtualclass.wb[wbId].selectedTool = selectedTool;
-      if (virtualclass.wb[wbId].selectedTool !== 'activeall') {
-        virtualclass.wb[wbId].activeAllObj.disable(wbId);
-      }
-    } else if (virtualclass.wb[wbId].selectedTool) {
-      activeWbTool = `t_${virtualclass.wb[wbId].selectedTool}${wbId}`;
-      this.makeActiveTool(activeWbTool, wbId);
+  static deleteActiveObject(event, wId) {
+    const whitebaord = virtualclass.wb[wId];
+    const activeObject = whitebaord.canvas.getActiveObject();
+    whitebaord.canvas.discardActiveObject();
+    whitebaord.canvas.remove(activeObject);
+    if (event) {
+      const encodeData = virtualclass.wbWrapper.protocol.encode('da', virtualclass.gObj.currWb);
+      WhiteboardMessage.send(encodeData);
     }
   }
 }

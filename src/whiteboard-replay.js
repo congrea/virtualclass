@@ -38,7 +38,7 @@ class WhiteboardReplay {
         WhiteboardUtility.deleteActiveObject(false, wid);
         break;
       case 'ot': // other setting, font size, stroke size and color
-        WhiteboardUtility.changeToolProperty(data.tool, data.actual.value, wid);
+        WhiteboardUtility.updateToolStyle(data.tool, data.actual.value, wid);
         break;
 
       case 'tx': // Create text
@@ -67,8 +67,8 @@ class WhiteboardReplay {
     if (typeof (Storage) !== 'undefined') {
       virtualclass.wb[wId].clear(wId);
       virtualclass.wb[wId].replayObjs = [];
-      delete virtualclass.wb[wId].currStrkSize;
-      delete virtualclass.wb[wId].activeToolColor;
+      delete virtualclass.wb[wId].strokeSize;
+      delete virtualclass.wb[wId].toolColor;
       virtualclass.wb[wId].gObj.tempRepObjs = allRepObjs;
       if (allRepObjs.length > 0) this.triggerReplay(allRepObjs, wId);
     }

@@ -69,13 +69,13 @@ class WhiteboardCommonShape {
       if (!whiteboard.myPencil) {
         whiteboard.myPencil = new fabric.PencilBrush(whiteboard.canvas);
         whiteboard.myPencil.width = this.default.strokeWidth;
-        if (whiteboard.currStrkSize) {
-          whiteboard.myPencil.width = +(whiteboard.currStrkSize);
+        if (whiteboard.strokeSize) {
+          whiteboard.myPencil.width = +(whiteboard.strokeSize);
         }
 
         whiteboard.myPencil.color = this.default.stroke;
-        if (whiteboard.activeToolColor) {
-          whiteboard.myPencil.color = whiteboard.activeToolColor;
+        if (whiteboard.toolColor) {
+          whiteboard.myPencil.color = whiteboard.toolColor;
           // console.log('====> stroke color ', whiteboard.myPencil.color);
         }
       }
@@ -92,12 +92,12 @@ class WhiteboardCommonShape {
       this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
       this.coreObj.strokeWidth = this.default.strokeWidth;
       this.coreObj.stroke = this.default.stroke;
-      if (whiteboard.currStrkSize) {
-        this.coreObj.strokeWidth = +(whiteboard.currStrkSize);
+      if (whiteboard.strokeSize) {
+        this.coreObj.strokeWidth = +(whiteboard.strokeSize);
       }
 
-      if (whiteboard.activeToolColor) {
-        this.coreObj.stroke = whiteboard.activeToolColor;
+      if (whiteboard.toolColor) {
+        this.coreObj.stroke = whiteboard.toolColor;
       }
 
       const toolName = virtualclass.wbWrapper.keyMap[this.name];

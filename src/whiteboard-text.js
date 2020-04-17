@@ -85,13 +85,13 @@ class WhiteboardText {
     this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
     // this.coreObj.strokeWidth = virtualclass.zoom.canvasScale;
     this.coreObj.fontSize = this.default.fontSize;
-    if (whiteboard.textFontSize) {
-      this.coreObj.fontSize = +(whiteboard.textFontSize);
+    if (whiteboard.fontSize) {
+      this.coreObj.fontSize = +(whiteboard.fontSize);
     }
 
     this.coreObj.fill = this.default.fill;
-    if (whiteboard.activeToolColor) {
-      this.coreObj.fill = whiteboard.activeToolColor;
+    if (whiteboard.toolColor) {
+      this.coreObj.fill = whiteboard.toolColor;
     }
     this[this.name] = new fabric.IText(textValue, this.coreObj); // add object
     whiteboard.canvas.add(this[this.name]);
@@ -105,12 +105,12 @@ class WhiteboardText {
     const data = { x: textObj.target.left, y: textObj.target.top, text: textObj.target.text };
     if (this.editingIndex != null) data.index = this.editingIndex;
 
-    if (+whiteboard.textFontSize && textObj.target.fontSize !== +(whiteboard.textFontSize)) {
-      data.fontSize = whiteboard.textFontSize;
+    if (+whiteboard.fontSize && textObj.target.fontSize !== +(whiteboard.fontSize)) {
+      data.fontSize = whiteboard.fontSize;
     }
 
-    if (whiteboard.activeToolColor && textObj.target.fill !== whiteboard.activeToolColor) {
-      data.fontColor = whiteboard.activeToolColor;
+    if (whiteboard.toolColor && textObj.target.fill !== whiteboard.toolColor) {
+      data.fontColor = whiteboard.toolColor;
     }
 
     virtualclass.wbWrapper.msg.optimizeToSend(data, 0, 'tx');

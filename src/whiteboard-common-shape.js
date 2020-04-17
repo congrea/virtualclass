@@ -7,7 +7,7 @@ class WhiteboardCommonShape {
       cornerSize: 13,
       strokeWidth: 1,
       stroke: '#00f',
-    }
+    };
     this.coreObj = {
       angle: 0,
       selectable: false,
@@ -61,25 +61,26 @@ class WhiteboardCommonShape {
     }
   }
 
-  innerMouseDown(pointer, whiteboard, event) {
+  innerMouseDown(pointer, wb, ev) {
+    let event = ev;
+    const whiteboard = wb;
     this.mousedown = true;
     if (this.name === 'freeDrawing') {
       if (!whiteboard.myPencil) {
         whiteboard.myPencil = new fabric.PencilBrush(whiteboard.canvas);
         whiteboard.myPencil.width = this.default.strokeWidth;
         if (whiteboard.currStrkSize) {
-          whiteboard.myPencil.width =  +(whiteboard.currStrkSize);
+          whiteboard.myPencil.width = +(whiteboard.currStrkSize);
         }
 
         whiteboard.myPencil.color = this.default.stroke;
         if (whiteboard.activeToolColor) {
-          whiteboard.myPencil.color =  whiteboard.activeToolColor;
-          console.log('====> stroke color ', whiteboard.myPencil.color);
+          whiteboard.myPencil.color = whiteboard.activeToolColor;
+          // console.log('====> stroke color ', whiteboard.myPencil.color);
         }
       }
-      if (!event) event = { e: { isPrimary: true } };
+      if (!ev) event = { e: { isPrimary: true } };
       whiteboard.myPencil.onMouseDown(pointer, event);
-      // console.log('====> free drawing mouse down true ', whiteboard.canvas.lowerCanvasEl.id);
     } else {
       this.startLeft = pointer.x;
       this.startTop = pointer.y;
@@ -90,18 +91,18 @@ class WhiteboardCommonShape {
       this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
       this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
       this.coreObj.strokeWidth = this.default.strokeWidth;
-      this.coreObj.stroke  = this.default.stroke;
+      this.coreObj.stroke = this.default.stroke;
       if (whiteboard.currStrkSize) {
-        this.coreObj.strokeWidth =  +(whiteboard.currStrkSize);
+        this.coreObj.strokeWidth = +(whiteboard.currStrkSize);
       }
 
       if (whiteboard.activeToolColor) {
-        this.coreObj.stroke =  whiteboard.activeToolColor;
+        this.coreObj.stroke = whiteboard.activeToolColor;
       }
 
       const toolName = virtualclass.wbWrapper.keyMap[this.name];
       if (this.name === 'line') {
-        this.coreObj.points = [pointer.x, pointer.y, pointer.x, pointer.y]
+        this.coreObj.points = [pointer.x, pointer.y, pointer.x, pointer.y];
         this[this.name] = new fabric[toolName](this.coreObj.points, this.coreObj); // add object
       } else {
         this[this.name] = new fabric[toolName](this.coreObj); // add object
@@ -109,10 +110,6 @@ class WhiteboardCommonShape {
       whiteboard.canvas.add(this[this.name]);
     }
     // console.log('====> invoke handle active tool, add object');
-  }
-
-  mouseMove() {
-    // if (!this.mousedown) return; // this abstrct method
   }
 
   mouseUp(pointer, whiteboard, event) {
@@ -152,14 +149,16 @@ class WhiteboardCommonShape {
     delete virtualclass.gObj.lastSendDataTime;
   }
 
-  innerMouseUp(pointer, whiteboard, event) {
+  innerMouseUp(pointer, wb, ev) {
+    let event = ev;
+    const whiteboard = wb;
     this.mousedown = false;
     // console.log('====> free drawing mouse down /up false ', whiteboard.canvas.lowerCanvasEl.id);
     if (this.name !== 'freeDrawing') {
       this[this.name].setCoords();
     } else {
       // console.log('====> free drawing up', JSON.stringify(pointer));
-      if (!event) event = { isPrimary: true };
+      if (!ev) event = { isPrimary: true };
       whiteboard.myPencil.onMouseUp(event);
       const allObjects = whiteboard.canvas.getObjects();
       const lastObject = allObjects[allObjects.length - 1];

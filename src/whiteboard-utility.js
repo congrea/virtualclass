@@ -160,9 +160,10 @@ class WhiteboardUtility {
     let activeWbTool = localStorage.getItem('activeTool');
     if (activeWbTool !== null && activeWbTool.indexOf(wbId) > -1) {
       this.makeActiveTool(activeWbTool, wbId);
-      const selectedTool = activeWbTool.split('_')[1];
+      let selectedTool = activeWbTool.split('_')[1];
+      if (selectedTool === 'activeall') selectedTool = 'activeAll';
       virtualclass.wb[wbId].selectedTool = selectedTool;
-      if (virtualclass.wb[wbId].selectedTool !== 'activeall') {
+      if (virtualclass.wb[wbId].selectedTool !== 'activeAll') {
         virtualclass.wb[wbId].activeAllObj.disable(wbId);
       }
     } else if (virtualclass.wb[wbId].selectedTool) {

@@ -171,6 +171,10 @@ class WhiteboardUtility {
       this.makeActiveTool(activeWbTool, wbId);
     }
 
+    if (virtualclass.wb[wbId].selectedTool && virtualclass.wb[wbId].selectedTool === 'text') {
+      WhiteboardUtility.fontSizeSelector(wbId);
+    }
+
     if (virtualclass.wb[wbId].toolColor) {
       console.log('====> apply color background')
       document.querySelector(`#t_color${wbId} .disActiveColor`).style.backgroundColor = virtualclass.wb[wbId].toolColor;
@@ -203,14 +207,15 @@ class WhiteboardUtility {
     }
   }
 
-  static fontSizeSelector() {
-    const strokeElement = document.querySelector(`#t_strk${virtualclass.gObj.currWb}`);
+  static fontSizeSelector(wId) {
+    const wbId = wId || virtualclass.gObj.currWb;
+    const strokeElement = document.querySelector(`#t_strk${wbId}`);
     if (strokeElement != null) {
       strokeElement.classList.remove('show');
       strokeElement.classList.add('hide');
     }
 
-    const fontElement = document.querySelector(`#t_font${virtualclass.gObj.currWb}`);
+    const fontElement = document.querySelector(`#t_font${wbId}`);
     if (fontElement != null) {
       fontElement.classList.remove('hide');
       fontElement.classList.add('show');

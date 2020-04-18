@@ -74,8 +74,19 @@ class WhiteboardText {
     }
   }
 
+  isEmptyText(whiteboard) {
+    const allText = whiteboard.canvas.getObjects('i-text');
+    for (let i = 0; i < allText.length; i += 1) {
+      if (allText[i].text === this.placeHolder) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   createText(textObj, whiteboard) {
     if (textObj.value === '') return;
+    if (this.isEmptyText(whiteboard)) return;
     this.startLeft = textObj.x;
     this.startTop = textObj.y;
     this.coreObj.left = this.startLeft;

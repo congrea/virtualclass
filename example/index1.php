@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Congrea">
-<link rel="apple-touch-icon" href="https://cdn.glitch.com/49d34dc6-8fbd-46bb-8221-b99ffd36f1af%2Fapple-touch-icon.png?v=1566861131254">
+<link rel="apple-touch-icon" href="https://live.congrea.net/virtualclass/images/Congrea192x192.png">
 <!-- iPhone X (1125px x 2436px) SPLASH IMAGE -->
 <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="https://live.congrea.net/virtualclass/images/launch-750x1294.png">
 <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) SPLASH IMAGE -->
@@ -30,7 +30,7 @@
 <!-- CODELAB: Add description here -->
 <meta name="description" content="Congrea">
 <!-- CODELAB: Add meta theme-color -->
-<meta name="theme-color" content="#3367D6" />
+<meta name="theme-color" content="#fff" />
 
 <style>
 	@font-face {

@@ -169,6 +169,11 @@ class WhiteboardUtility {
       activeWbTool = `t_${virtualclass.wb[wbId].selectedTool}${wbId}`;
       this.makeActiveTool(activeWbTool, wbId);
     }
+
+    if (virtualclass.wb[wbId].toolColor) {
+      console.log('====> apply color background')
+      document.querySelector(`#t_color${wbId} .disActiveColor`).style.backgroundColor = virtualclass.wb[wbId].toolColor;
+    }
   }
 
   // fabric.js, whiteboard changes, new changes, critical whiteboard, critical changes

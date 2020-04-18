@@ -46,6 +46,7 @@ class WhiteboardWrapper {
       strk: 'sk',
       color: 'cl',
     };
+    this.shapes = ['rectangle', 'triangle', 'text', 'freeDrawing', 'circle', 'line'];
     this.mouseTool = ['rectangle', 'triangle', 'circle', 'line', 'freeDrawing', 'activeAll', 'text'];
   }
 

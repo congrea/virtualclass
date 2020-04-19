@@ -28,7 +28,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #graphCanvas {
-  top: -5px !important;
+  top: -5px;
 }
 
 .ui-memblist-usr:first-child {
@@ -67,7 +67,7 @@ div.ui-memblist-usr .userVideos {
   z-index: 100;
   color: #000;
   font-size: 12px;
-  font-weight: normal !important;
+  font-weight: normal;
 }
 
 .controls .controleCont a.congtooltip:hover::after {
@@ -79,7 +79,7 @@ div.ui-memblist-usr .userVideos {
 .ui-memblist-usr a.congtooltip[data-title="Disable Writing"]:hover::after,
 #virtualclassCont.congrea .ui-memblist-usr a.congtooltip[data-title="Enable Writing"]:hover::after {
   bottom: -30px;
-  left: -40px !important;
+  left: -40px;
 }
 
 .ui-memblist-content .ui-memblist-log .ui-memblist-usr .controls a.congtooltip:hover::after {
@@ -121,11 +121,16 @@ div.ui-memblist-usr .user-details img.media-object {
   font-weight: 200;
   float: left;
   margin-top: 3px;
-  margin-right: 3px;
+  margin-right: 6px;
+}
+
+.controleCont .icon-audioImg,
+.controleCont .icon-audioDisImg {
+  margin-top: 4px;
 }
 
 .controleCont .icon-stdscreenImg {
-  margin-top: 3px !important;
+  margin-top: 3px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
@@ -248,7 +253,7 @@ span.icon-stdscreenImg.enable::before {
 }
 
 .ui-memblist-usr .controllerRaiseH.enabled span {
-  color: green !important;
+  color: green;
   opacity: 1;
 }
 
@@ -339,7 +344,7 @@ span.icon-stdscreenImg[data-dcolor="blue"]::before {
 }
 
 .ui-memblist-usr.mySelf {
-  pointer-events: none !important;
+  pointer-events: none;
   background-color: rgba(0, 0, 0, 0.1);
   position: absolute;
   width: 100%;
@@ -358,7 +363,7 @@ span.icon-stdscreenImg[data-dcolor="blue"]::before {
 }
 
 .icon-chatImg.chatImg {
-  margin-right: 6px !important;
+  margin-right: 6px;
 }
 
 /*** jquery.ui.chatbox. END HERE ***/
@@ -367,11 +372,6 @@ span.icon-stdscreenImg[data-dcolor="blue"]::before {
 div.ui-memblist-usr {
   height: 3.125rem;
   clear: both;
-}
-
-.controleCont .icon-audioImg,
-.controleCont .icon-audioDisImg {
-  margin-top: 4px !important;
 }
 
 /** right-sidebar.css end **/
@@ -471,7 +471,6 @@ div.ui-memblist-usr .user-details a .media-object {
   color: #7d7a7a;
   font-size: 118%;
   font-weight: normal;
-  margin-right: 2px;
   position: relative;
   top: -1px;
 }
@@ -490,7 +489,7 @@ div.ui-memblist-usr .user-details a .media-object {
 /** After :host-context is supported in all browser, we don't need to put current app on chat_div element **/
 
 :host(.studentScreenSharing[data-currapp='ScreenShare']) span.icon-stdscreenImg {
-  pointer-events: none !important;
+  pointer-events: none;
   opacity: 0.5;
 }
 
@@ -503,7 +502,7 @@ div.ui-memblist-usr .user-details a .media-object {
 }
 
 :host([data-currapp="Whiteboard"]) .user-details .usern .media-heading {
-  right: -1px !important;
+  right: -1px;
 }
 
 :host([data-currapp="EditorRich"]) .ui-memblist-usr .user-details .usern {
@@ -511,5 +510,5 @@ div.ui-memblist-usr .user-details a .media-object {
 }
 
 :host([data-currapp="EditorRich"]) .icon-chatImg.chatImg {
-  margin-right: 7px !important;
+  margin-right: 7px;
 }

@@ -320,7 +320,7 @@
 #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"],
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .upVote,
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply {
-  pointer-events: none !important;
+  pointer-events: none;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote,
@@ -353,11 +353,6 @@
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply {
   opacity: 0.2;
 }
-
-/* #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"] span.button::before,
-#virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"] span.total {
-  color: red !important;
-} */
 
 #virtualclassCont.congrea #askQuestion .context .container {
   padding: 0;
@@ -817,7 +812,7 @@
 }
 
 #virtualclassCont.congrea #bookmark .bookmarks span.congtooltip:hover::after {
-  bottom: 47px !important;
+  bottom: 47px;
   left: -25px;
 }
 
@@ -911,14 +906,6 @@
 #virtualclassCont.congrea #askQuestion .container .comment .footer .controls .navigation.congtooltip:hover::after {
   right: -42px;
 }
-
-/* #virtualclassCont.congrea #askQuestion .container .footer .controls .navigation.disable {
-  pointer-events: none;
-} */
-
-/* #virtualclassCont.congrea #virtualclassAppFooterPanel #stickycontainer .chatBarTab .askQuestion_btn.highlight-new-question {
-  background: #53a83f !important;
-} */
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer {
   background-color: #fff;
@@ -1020,5 +1007,5 @@
 }
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action {
-  border-left: unset !important;
+  border-left: unset;
 }

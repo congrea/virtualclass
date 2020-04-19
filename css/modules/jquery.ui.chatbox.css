@@ -76,7 +76,7 @@
 */
 
 #virtualclassCont.congrea .ui-chatbox-icon {
-  float: right !important;
+  float: right;
   margin-top: -18px;
 }
 
@@ -163,7 +163,7 @@
 }
 
 #virtualclassCont.congrea .ui-memblist-log div.teacher:last-child {
-  margin-bottom: 0 !important;
+  margin-bottom: 0;
 }
 
 /* css for sticky footer bar */
@@ -234,7 +234,7 @@
 
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight a,
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight a {
-  color: #333 !important;
+  color: #333;
 }
 
 #virtualclassCont.congrea .user-details.media-body a:hover {
@@ -329,7 +329,7 @@
 
 #virtualclassCont.congrea .ui-chatbox.support .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header {
   border-color: green;
-  background: green none !important;
+  background: green none;
 }
 
 #virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-memblist-titlebar.ui-dialog-header {
@@ -402,7 +402,7 @@
 }
 
 #virtualclassCont.congrea .ui-widget-header {
-  padding-left: 2px !important;
+  padding-left: 2px;
 }
 
 #virtualclassCont.congrea .mainContainer .ui-widget-header {
@@ -513,7 +513,7 @@
 
 #virtualclassCont.congrea .ui-chatbox-input textarea {
   font-size: 0.9375rem;
-  border: 1px solid #ccc !important;
+  border: 1px solid #ccc;
   padding: 0.25rem 0 0 0.3125rem;
 }
 
@@ -554,8 +554,8 @@
 }
 
 #virtualclassCont.congrea .ui-tabs .ui-tabs-nav li.ui-state-active {
-  position: relative !important;
-  top: -1px !important;
+  position: relative;
+  top: -1px;
 }
 
 #virtualclassCont.congrea .ui-tabs .ui-tabs-nav li.ui-tabs-active {
@@ -573,7 +573,7 @@
 
 #virtualclassCont.congrea a.ui-tabs-anchor {
   width: 160px;
-  cursor: pointer !important;
+  cursor: pointer;
 }
 
 #virtualclassCont.congrea #chatroom_bt2 .inner_bt #chatroom_text {
@@ -582,7 +582,7 @@
 
 #virtualclasscont.congrea.playMode.student .ui-chatroom {
   overflow-y: auto;
-  z-index: 0 !important;
+  z-index: 0;
 }
 
 #virtualclassCont.congrea #stickybar {
@@ -592,7 +592,7 @@
 }
 
 #virtualclassCont.congrea.playMode.student #stickybar {
-  z-index: 1 !important;
+  z-index: 1;
 }
 
 #usertab_text.tooltip.close,
@@ -621,11 +621,11 @@
 }
 
 #virtualclassCont.congrea[data-currapp="Whiteboard"] .ui-memblist {
-  right: -1px !important;
+  right: -1px;
 }
 
 #virtualclassCont.congrea[data-currapp="Yts"] .ui-memblist {
-  right: -1px !important;
+  right: -1px;
 }
 
 #virtualclassCont.congrea[data-currapp="Yts"] .vmchat_bar_button {
@@ -633,15 +633,15 @@
 }
 
 #virtualclassCont.congrea[data-currapp="EditorCode"] .ui-memblist {
-  right: -1px !important;
+  right: -1px;
 }
 
 #virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] .ui-memblist {
-  right: 15px !important;
+  right: 15px;
 }
 
 #virtualclassCont.congrea.student.presenter[data-currapp="EditorRich"] #virtualclassAppRightPanel .ui-memblist {
-  right: -1px !important;
+  right: -1px;
 }
 
 /*
@@ -657,7 +657,7 @@
 /* Gray color */
 
 #page-mod-congrea-classroom #virtualclassCont .vmchat_room_bt .inner_bt #chatroom_text {
-  padding-left: 3px !important;
+  padding-left: 3px;
 }
 
 #virtualclassCont.congrea .vmchat_support {
@@ -667,7 +667,7 @@
 }
 
 #page-mod-congrea-classroom #virtualclassCont #usertab_icon {
-  margin: 7px 4px 0 0 !important;
+  margin: 7px 4px 0 0;
 }
 
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active .ui-corner-all.ui-chatbox-icon .ui-icon.ui-icon-close.icon-remove::before {
@@ -718,7 +718,7 @@
 }
 
 #virtualclassCont.congrea #chat_room {
-  height: 100% !important;
+  height: 100%;
 }
 
 #virtualclassCont.congrea.playMode #chat_room {
@@ -748,7 +748,7 @@
 }
 
 #virtualclassCont.congrea #chat_div .ui-memblist-usr.mySelf {
-  pointer-events: none !important;
+  pointer-events: none;
   position: absolute;
   top: 0;
   width: 100%;
@@ -805,7 +805,7 @@
 }
 
 #virtualclassCont.congrea #congreaChatCont .icon-chatImg.chatImg {
-  margin-right: 6px !important;
+  margin-right: 6px;
 }
 
 #virtualclassCont.congrea a.stdRaiseHand,
@@ -827,7 +827,7 @@
 #virtualclassCont.congrea .ui-state-default .ui-tabs-anchor,
 #virtualclassCont.congrea .ui-state-default a.ui-corner-all,
 #virtualclassCont.congrea .ui-state-default .icon-minus {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont.congrea .chat_enabled #memlist.enable {

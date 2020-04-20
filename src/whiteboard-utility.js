@@ -172,6 +172,8 @@ class WhiteboardUtility {
 
     if (virtualclass.wb[wbId].selectedTool && virtualclass.wb[wbId].selectedTool === 'text') {
       WhiteboardUtility.fontSizeSelector(wbId);
+    } else if (virtualclass.wbWrapper.shapes.indexOf(virtualclass.wb[wbId].selectedTool) > -1) {
+      WhiteboardUtility.strokeSizeSelector(wbId);
     }
 
     if (virtualclass.wb[wbId].toolColor) {
@@ -193,16 +195,32 @@ class WhiteboardUtility {
     }
   }
 
-  static strokeSizeSelector() {
-    const fontElement = document.querySelector(`#t_font${virtualclass.gObj.currWb}`);
+  static strokeSizeSelector(wId) {
+    const wbId = wId || virtualclass.gObj.currWb;
+    const fontElement = document.querySelector(`#t_font${wbId}`);
     if (fontElement != null) {
       fontElement.classList.remove('show');
       fontElement.classList.add('hide');
     }
-    const strokeElement = document.querySelector(`#t_strk${virtualclass.gObj.currWb}`);
+    const strokeElement = document.querySelector(`#t_strk${wbId}`);
     if (strokeElement != null) {
       strokeElement.classList.remove('hide');
       strokeElement.classList.add('show');
+    }
+    WhiteboardUtility.fontAndStrokeSizeUi('strk', wbId, 'stroke', 'li', virtualclass.wb[wbId].strokeSize);
+  }
+
+  static fontAndStrokeSizeUi(tool, wbId, type, elementType, size) {
+    const selector = `#t_${tool}${wbId} ${elementType}.selected`;
+    const element = document.querySelector(selector);
+    if (element != null) {
+      element.classList.remove('selected');
+    }
+
+    const nextSelector = `#t_${tool}${wbId} ${elementType}[data-${type}='${size}']`;
+    const nextElement = document.querySelector(nextSelector);
+    if (nextElement != null) {
+      nextElement.classList.add('selected');
     }
   }
 
@@ -219,6 +237,7 @@ class WhiteboardUtility {
       fontElement.classList.remove('hide');
       fontElement.classList.add('show');
     }
+    WhiteboardUtility.fontAndStrokeSizeUi('font', wbId, 'font', 'span', virtualclass.wb[wbId].fontSize);
   }
 
   static themeColorShapes(byReload, wId) {

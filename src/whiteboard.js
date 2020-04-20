@@ -121,7 +121,7 @@ class Whiteboard {
   selectTool(tool) { // todo, need to improve
     if (virtualclass.wbWrapper.mouseTool.indexOf(tool) > -1) this.selectedTool = tool;
 
-    if (tool !== 'stroke' && tool !== 'font' && tool !== 'activeAll') {
+    if (tool !== 'stroke' && tool !== 'font' && tool !== 'activeAll' && tool !== 'color') {
       if (tool === 'text') {
         WhiteboardUtility.fontSizeSelector();
       } else {

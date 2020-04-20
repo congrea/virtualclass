@@ -149,7 +149,7 @@ class Whiteboard {
 
     if (tool === 'activeAll') {
       this.activeAllObj.makeTextUnEditable(wId);
-    } else {
+    } else if (tool === 'text') {
       this.activeAllObj.makeTextEditable(wId);
     }
   }

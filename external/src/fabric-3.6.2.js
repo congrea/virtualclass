@@ -27665,12 +27665,21 @@ fabric.Image.filters.BaseFilter.fromObject = function(object, callback) {
           },
           retinaScaling = this.canvas.getRetinaScaling(),
           upperCanvas = this.canvas.upperCanvasEl,
+          canvasContainer = document.getElementById('canvasWrapper' + virtualclass.gObj.currWb), // suman change 1
           upperCanvasWidth = upperCanvas.width / retinaScaling,
-          upperCanvasHeight = upperCanvas.height / retinaScaling,
+          // upperCanvasHeight = upperCanvas.height / retinaScaling,
+          upperCanvasHeight = canvasContainer.height / retinaScaling, // suman change 2
           maxWidth = upperCanvasWidth - charHeight,
           maxHeight = upperCanvasHeight - charHeight,
           scaleX = upperCanvas.clientWidth / upperCanvasWidth,
-          scaleY = upperCanvas.clientHeight / upperCanvasHeight;
+          //scaleY = upperCanvas.clientHeight / upperCanvasHeight; 
+          scaleY = canvasContainer.clientHeight / upperCanvasHeight; // suman change 3
+          scaleY = scaleY - 30;
+          /**
+            SUMAN CHANGED HERE BECAUSE
+            While writing the text at bottom of viewport of Congrea, and if the canvas' height is greater
+            than viewport's height, there was appearing a problem on UI of congrea.
+          **/
 
       p = fabric.util.transformPoint(p, m);
       p = fabric.util.transformPoint(p, this.canvas.viewportTransform);

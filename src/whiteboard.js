@@ -62,8 +62,9 @@ class Whiteboard {
     if (event.selected && this.selectedTool === 'activeAll') {
       this.activeAllObj.activeDown = true;
     } else if (event.selected && event.selected[0].type === 'i-text') {
-      virtualclass.wbWrapper.gObj.textSelected = event.selected[0];
-      console.log('====> selected text ', virtualclass.wbWrapper.gObj.textSelected);
+      const foundText = event.selected[0];
+      virtualclass.wbWrapper.gObj.textSelected = foundText;
+      // console.log('====> selected text ', virtualclass.wbWrapper.gObj.textSelected);
     } else if (event.deselected) {
       this.activeAllObj.activeDown = false;
       virtualclass.wbWrapper.gObj.textSelected = false;
@@ -71,9 +72,7 @@ class Whiteboard {
   }
 
   triggerGetPointer(e) {
-    const wId = e.wId ? e.wId : virtualclass.gObj.currWb;
-    const pointer = virtualclass.wb[wId].canvas.getPointer(e);
-    return pointer;
+    return this.canvas.getPointer(e);
   }
 
   handlerMouseDown(o) {
@@ -112,7 +111,7 @@ class Whiteboard {
       virtualclass.wb[virtualclass.gObj.currWb].canvas.discardActiveObject();
       virtualclass.wb[virtualclass.gObj.currWb].canvas.renderAll();
       const encodeData = virtualclass.wbWrapper.protocol.encode('ds', virtualclass.gObj.currWb);
-      virtualclass.wbWrapper.msg.send(encodeData);
+      WhiteboardMessage.send(encodeData);
     }
     if (virtualclass.wbWrapper.shapes.includes(parentNode.dataset.tool) || parentNode.dataset.tool === 'activeAll') {
       virtualclass.wbWrapper.util.makeActiveTool(parentNode.id, virtualclass.gObj.currWb);
@@ -120,22 +119,19 @@ class Whiteboard {
   }
 
   selectTool(tool) { // todo, need to improve
-    if (tool === 'rectangle' || tool === 'line' || tool === 'circle' || tool === 'triangle' || tool === 'text'
-      || tool === 'activeAll' || tool === 'freeDrawing') {
-      this.selectedTool = tool;
-    }
+    if (virtualclass.wbWrapper.mouseTool.indexOf(tool) > -1) this.selectedTool = tool;
 
-    if (tool !== 'stroke' && tool !== 'font') {
-      if (tool !== 'activeAll' && tool !== 'text') {
-        virtualclass.wbWrapper.util.strokeSizeSelector();
-      } else if (tool === 'text') {
-        virtualclass.wbWrapper.util.fontSizeSelector();
+    if (tool !== 'stroke' && tool !== 'font' && tool !== 'activeAll' && tool !== 'color') {
+      if (tool === 'text') {
+        WhiteboardUtility.fontSizeSelector();
+      } else {
+        WhiteboardUtility.strokeSizeSelector();
       }
     }
   }
 
   innerToolbarHandler(tool, wId) {
-    virtualclass.wbWrapper.util.closeTray();
+    WhiteboardUtility.closeTray();
     // this.canvas.isDrawingMode = false;
     const currentTool = tool;
     this.selectTool(tool);
@@ -149,6 +145,12 @@ class Whiteboard {
       this.textObj.textEditing = false;
     } else {
       this.activeAllObj.disable(wId);
+    }
+
+    if (tool === 'activeAll') {
+      this.activeAllObj.makeTextUnEditable(wId);
+    } else {
+      this.activeAllObj.makeTextEditable(wId);
     }
   }
 
@@ -189,10 +191,10 @@ class Whiteboard {
   clearAll(wId) {
     const cofirmMessage = virtualclass.lang.getString('clearAllWarnMessageW');
     virtualclass.popup.confirmInput(cofirmMessage, (confirm) => {
-      if (confirm){
+      if (confirm) {
         this.clear();
         const encodeData = virtualclass.wbWrapper.protocol.encode('cr', wId);
-        virtualclass.wbWrapper.msg.send(encodeData);
+        WhiteboardMessage.send(encodeData);
       }
     });
   }

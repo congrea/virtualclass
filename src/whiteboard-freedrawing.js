@@ -14,7 +14,7 @@ class WhiteboardFreeDrawing extends WhiteboardCommonShape {
   }
 
   innerMouseMove(pointer, whiteboard, event) {
-    if (!event) event = { e: {isPrimary: true}};
+    if (!event) event = { e: { isPrimary: true }};
     whiteboard.myPencil.onMouseMove(pointer, event);
   }
 
@@ -31,8 +31,8 @@ class WhiteboardFreeDrawing extends WhiteboardCommonShape {
       y: pointer.y,
     };
 
-    if ((!this.freeDrawPrevious)
-      || (((Math.abs(newData.x - this.freeDrawPrevious.x) > 1) || (Math.abs(newData.y - this.freeDrawPrevious.y) > 1)))) {
+    if ((!this.freeDrawPrevious) || (((Math.abs(newData.x - this.freeDrawPrevious.x) > 1)
+    || (Math.abs(newData.y - this.freeDrawPrevious.y) > 1)))) {
       this.freeDrawPrevious = newData;
       this.chunks.push(`${newData.x}_${newData.y}`);
       // console.log('====> actual x, y sendin =============FREE DRAWING==== before scale ', newData.x, newData.y);

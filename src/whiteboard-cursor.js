@@ -28,7 +28,7 @@ class WhiteboardCursor {
     if (!event.isTrusted) return;
     const whiteboard = virtualclass.wb[virtualclass.gObj.currWb];
     const pointer = whiteboard.canvas.getPointer(event, true);
-    const afterChange = virtualclass.wbWrapper.protocol.changeWithScale('divide', pointer);
+    const afterChange = WhiteboardProtocol.changeWithScale('divide', pointer);
     this.send({ msg: `${afterChange.x}_${afterChange.y}`, cf: 'ca' });
   }
 

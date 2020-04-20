@@ -429,6 +429,11 @@
         // console.log('==== Clear Session PlayMode');
         return;
       }
+      
+      if (virtualclass.wb[virtualclass.gObj.currWb] && virtualclass.wb[virtualclass.gObj.currWb].selectedTool) {
+        localStorage.activeTool = `t_${virtualclass.wb[virtualclass.gObj.currWb].selectedTool}${virtualclass.gObj.currWb}`;
+        console.log('====> suman selected tool ', localStorage.activeTool);
+      }
       // if teacher video is enabled
       if (roles.hasControls() && document.querySelector('#virtualclassAppRightPanel.vidShow') !== null) {
         ioAdapter.mustSend({ congCtr: { videoSwitch: 'off' }, cf: 'congController' });
@@ -2355,7 +2360,7 @@
 
     attachWhiteboardPopupHandler(wId) {
       window.addEventListener('mouseup', (ev) => {
-        if (roles.hasControls()) virtualclass.wbWrapper.util.closeTray();
+        if (roles.hasControls()) WhiteboardUtility.closeTray();
         //if (roles.hasControls()) virtualclass.wbWrapper.util.closeShapeContainer();
 //         const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
 //         const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');

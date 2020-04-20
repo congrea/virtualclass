@@ -1,22 +1,9 @@
 class WhiteboardUtility {
   // earlier it waas drawInWhiteboards
-  applyCommand(data, wid) {
-    for (let i = 0; i < data.length; i += 1) {
-      this.executeData(data[i], wid);
-    }
-  }
-
-  executeData(data, wId) {
-    this.storeAtMemory(data, (wId));
-    virtualclass.wbWrapper.replay.replayData([data], wId);
-  }
-
-  storeAtMemory(data, wId, freeDrawing) {
+  static storeAtMemory(data, wId, freeDrawing) {
     if (!virtualclass.wb[wId].replayObjs) virtualclass.wb[wId].replayObjs = [];
     let toBeSendData = data;
-    if (freeDrawing) {
-      toBeSendData = virtualclass.wbWrapper.protocol.generateFreeDrawingData(freeDrawing);
-    }
+    if (freeDrawing) toBeSendData = WhiteboardProtocol.generateFreeDrawingData(freeDrawing);
 
     if (Array.isArray(data)) {
       for (let i = 0; i < toBeSendData.length; i += 1) {
@@ -40,55 +27,38 @@ class WhiteboardUtility {
       options.width = canvasDimension.width;
       options.height = canvasDimension.height;
     }
-    // alert(JSON.stringify(options))
     virtualclass.wb[wId].canvas = new fabric.Canvas(`canvas${wId}`, options);
     if (roles.hasControls()) {
       virtualclass.wb[wId].attachMouseMovementHandlers();
       console.log('=====> attach handlers with whiteboard id ', wId);
     }
-    this.createCanvasPdfInstance(wId, virtualclass.wb[wId].canvas.upperCanvasEl);
+    this.constructor.createCanvasPdfInstance(wId, virtualclass.wb[wId].canvas.upperCanvasEl);
   }
 
-  createCanvasPdfInstance(wId, mainCanvas) {
+  static createCanvasPdfInstance(wId, mainCanvas) {
     const alreadCreateCanvas = document.querySelector(`#canvas${wId}_pdf`);
     if (alreadCreateCanvas == null) {
-      console.log('suman create pdf canvas ', wId);
       const canvasPdf = document.createElement('canvas');
       canvasPdf.id = `canvas${wId}_pdf`;
       canvasPdf.className = 'pdfs';
       canvasPdf.width = mainCanvas.width;
       canvasPdf.height = mainCanvas.height;
-     // mainCanvas.parentNode.insertBefore(canvasPdf, mainCanvas);
-     //mainCanvas.parentNode.insertAdjacentElement('after', canvasPdf);
-     mainCanvas.parentNode.parentNode.insertBefore(canvasPdf, mainCanvas.parentNode);;
+      mainCanvas.parentNode.parentNode.insertBefore(canvasPdf, mainCanvas.parentNode);
     }
   }
 
-  replayFromLocalStroage(allRepObjs, wId) {
-    console.log('====> whiteboard pdf suman draw whiteboard')
-    if (typeof (Storage) !== 'undefined') {
-      virtualclass.wb[wId].clear(wId);
-      virtualclass.wb[wId].replayObjs = [];
-      delete virtualclass.wb[wId].currStrkSize;
-      delete virtualclass.wb[wId].activeToolColor;
-      virtualclass.wb[wId].gObj.tempRepObjs = allRepObjs;
-      if (allRepObjs.length > 0) this.applyCommand(allRepObjs, wId);
-    }
-  }
-
-  fitWhiteboardAtScale(wid) {
-    console.log('====> canvas set zoom scale ', virtualclass.zoom.canvasScale);
+  static fitWhiteboardAtScale(wid) {
+    // console.log('====> canvas set zoom scale ', virtualclass.zoom.canvasScale);
     virtualclass.wb[wid].canvas.setZoom(virtualclass.zoom.canvasScale);
     if (typeof virtualclass.wb[wid] === 'object') {
       delete virtualclass.wb[wid].myPencil;
       if (virtualclass.wb[wid].replayObjs && virtualclass.wb[wid].replayObjs.length > 0) {
-        this.replayFromLocalStroage(virtualclass.wb[wid].replayObjs, wid);
+        virtualclass.wbWrapper.replay.replayFromLocalStroage(virtualclass.wb[wid].replayObjs, wid);
       }
     }
-    // virtualclass.wb[wId].canvas.renderAll();
   }
 
-  readyMouseEvent(event, pointer) {
+  static readyMouseEvent(event, pointer) {
     return new MouseEvent(event, {
       clientX: pointer.x,
       clientY: pointer.y,
@@ -101,48 +71,37 @@ class WhiteboardUtility {
 
   closeShapeContainer(elem) {
     this.selectedTool = null;
-    const shapeContainer = elem ? elem : document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
+    const shapeContainer = elem || document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
     if (shapeContainer) {
       shapeContainer.classList.remove('open');
       shapeContainer.classList.add('close');
     }
   }
 
-  closeTray() {
+  static closeTray() {
     const elem = document.querySelector(`#commandToolsWrapper${virtualclass.gObj.currWb} .openTray`);
-    if (elem) elem.classList.remove('openTray')
+    if (elem) elem.classList.remove('openTray');
   }
 
-  openTray(elem) {
+  static openTray(elem) {
     if (elem) elem.classList.add('openTray');
   }
 
   handleTrayDisplay(element) {
     if (element.classList.contains('openTray')) {
       this.selectedTool = null;
-      virtualclass.wbWrapper.util.closeTray();
+      this.constructor.closeTray();
     } else {
-      virtualclass.wbWrapper.util.openTray(element);
+      this.constructor.openTray(element);
     }
   }
 
   openShapeContainer(elem) {
     this.selectedTool = null;
-    const shapeContainer = elem ? elem : document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
+    const shapeContainer = elem || document.querySelector(`#shapes${virtualclass.gObj.currWb}`);
     if (shapeContainer) {
       shapeContainer.classList.remove('close');
       shapeContainer.classList.add('open');
-    }
-  }
-
-  deleteActiveObject(event, wId){
-    const whitebaord = virtualclass.wb[wId];
-    const activeObject = whitebaord.canvas.getActiveObject();
-    whitebaord.canvas.discardActiveObject();
-    whitebaord.canvas.remove(activeObject);
-    if (event) {
-      const encodeData = virtualclass.wbWrapper.protocol.encode('da', virtualclass.gObj.currWb);
-      virtualclass.wbWrapper.msg.send(encodeData);
     }
   }
 
@@ -162,7 +121,8 @@ class WhiteboardUtility {
   }
 
   activeElement(ev, tool) {
-    const prevSelectedTool = document.querySelector(`#t_${tool.type}${virtualclass.gObj.currWb} .selected`);
+    const wbId = virtualclass.gObj.currWb;
+    const prevSelectedTool = document.querySelector(`#t_${tool.type}${wbId} .selected`);
     if (prevSelectedTool != null) {
       prevSelectedTool.classList.remove('selected');
     }
@@ -170,52 +130,12 @@ class WhiteboardUtility {
     const currElementValue = ev.target.dataset[tool.prop];
     if (currElementValue != null) {
       ev.target.classList.add('selected');
-      this.changeToolProperty(tool.type, currElementValue, virtualclass.gObj.currWb);
+      this.constructor.updateToolStyle(tool.type, currElementValue, wbId);
       if (tool.type === 'color') {
-        document.querySelector(`#t_color${virtualclass.gObj.currWb} .disActiveColor`).style.backgroundColor = virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+        document.querySelector(`#t_color${wbId} .disActiveColor`).style.backgroundColor = virtualclass.wb[wbId].toolColor;
       }
-      const encodeData = virtualclass.wbWrapper.protocol.encode('ot', {type: tool.type, value : currElementValue});
-      virtualclass.wbWrapper.msg.send(encodeData);
-    }
-  }
-
-  // fabric.js, whiteboard changes, new changes, critical whiteboard, critical changes
-  changeToolProperty(attr, value, wId) { //
-    if (!wId) wId = virtualclass.gObj.currWb;
-    if (attr === 'color') {
-      virtualclass.wb[wId].activeToolColor = value;
-    } else if (attr === 'strk') {
-      virtualclass.wb[wId].currStrkSize = value;
-    } else if (attr === 'font') {
-      virtualclass.wb[wId].textFontSize = value;
-    }
-  }
-
-  strokeSizeSelector(){
-    const fontElement = document.querySelector(`#t_font${virtualclass.gObj.currWb}`);
-    if (fontElement != null) {
-      fontElement.classList.remove('show');
-      fontElement.classList.add('hide');
-    }
-
-    const strokeElement = document.querySelector(`#t_strk${virtualclass.gObj.currWb}`);
-    if (strokeElement != null) {
-      strokeElement.classList.remove('hide');
-      strokeElement.classList.add('show');
-    }
-  }
-
-  fontSizeSelector(){
-    const strokeElement = document.querySelector(`#t_strk${virtualclass.gObj.currWb}`);
-    if (strokeElement != null) {
-      strokeElement.classList.remove('show');
-      strokeElement.classList.add('hide');
-    }
-
-    const fontElement = document.querySelector(`#t_font${virtualclass.gObj.currWb}`);
-    if (fontElement != null) {
-      fontElement.classList.remove('hide');
-      fontElement.classList.add('show');
+      const encodeData = virtualclass.wbWrapper.protocol.encode('ot', { type: tool.type, value: currElementValue });
+      WhiteboardMessage.send(encodeData);
     }
   }
 
@@ -231,17 +151,98 @@ class WhiteboardUtility {
       const shape = document.getElementById(byReload).dataset.tool;
       document.querySelector(`#tool_wrapper${wbId}`).dataset.currtool = shape;
     }
-    this.themeColorShapes(byReload, wId);
+    this.constructor.themeColorShapes(byReload, wId);
     selectedElement.classList.add('active');
-    localStorage.activeTool = selectedElement.id;
+    // localStorage.activeTool = selectedElement.id;
   }
 
-  themeColorShapes(byReload, wId) {
+  handleActivateTool(wbId) {
+    let activeWbTool = localStorage.getItem('activeTool');
+    if (activeWbTool !== null && activeWbTool.indexOf(wbId) > -1) {
+      this.makeActiveTool(activeWbTool, wbId);
+      const selectedTool = activeWbTool.split('_')[1];
+      virtualclass.wb[wbId].selectedTool = selectedTool;
+      if (virtualclass.wb[wbId].selectedTool !== 'activeAll') {
+        virtualclass.wb[wbId].activeAllObj.disable(wbId);
+      }
+    } else if (virtualclass.wb[wbId].selectedTool) {
+      activeWbTool = `t_${virtualclass.wb[wbId].selectedTool}${wbId}`;
+      this.makeActiveTool(activeWbTool, wbId);
+    }
+
+    if (virtualclass.wb[wbId].selectedTool && virtualclass.wb[wbId].selectedTool === 'text') {
+      WhiteboardUtility.fontSizeSelector(wbId);
+    } else if (virtualclass.wbWrapper.shapes.indexOf(virtualclass.wb[wbId].selectedTool) > -1) {
+      WhiteboardUtility.strokeSizeSelector(wbId);
+    }
+
+    if (virtualclass.wb[wbId].toolColor) {
+      console.log('====> apply color background')
+      document.querySelector(`#t_color${wbId} .disActiveColor`).style.backgroundColor = virtualclass.wb[wbId].toolColor;
+    }
+  }
+
+  // fabric.js, whiteboard changes, new changes, critical whiteboard, critical changes
+  static updateToolStyle(attr, value, whiteboardId) { //
+    let wId = whiteboardId;
+    if (!wId) wId = virtualclass.gObj.currWb;
+    if (attr === 'color') {
+      virtualclass.wb[wId].toolColor = value;
+    } else if (attr === 'strk') {
+      virtualclass.wb[wId].strokeSize = value;
+    } else if (attr === 'font') {
+      virtualclass.wb[wId].fontSize = value;
+    }
+  }
+
+  static strokeSizeSelector(wId) {
+    const wbId = wId || virtualclass.gObj.currWb;
+    const fontElement = document.querySelector(`#t_font${wbId}`);
+    if (fontElement != null) {
+      fontElement.classList.remove('show');
+      fontElement.classList.add('hide');
+    }
+    const strokeElement = document.querySelector(`#t_strk${wbId}`);
+    if (strokeElement != null) {
+      strokeElement.classList.remove('hide');
+      strokeElement.classList.add('show');
+    }
+    WhiteboardUtility.fontAndStrokeSizeUi('strk', wbId, 'stroke', 'li', virtualclass.wb[wbId].strokeSize);
+  }
+
+  static fontAndStrokeSizeUi(tool, wbId, type, elementType, size) {
+    const selector = `#t_${tool}${wbId} ${elementType}.selected`;
+    const element = document.querySelector(selector);
+    if (element != null) {
+      element.classList.remove('selected');
+    }
+
+    const nextSelector = `#t_${tool}${wbId} ${elementType}[data-${type}='${size}']`;
+    const nextElement = document.querySelector(nextSelector);
+    if (nextElement != null) {
+      nextElement.classList.add('selected');
+    }
+  }
+
+  static fontSizeSelector(wId) {
+    const wbId = wId || virtualclass.gObj.currWb;
+    const strokeElement = document.querySelector(`#t_strk${wbId}`);
+    if (strokeElement != null) {
+      strokeElement.classList.remove('show');
+      strokeElement.classList.add('hide');
+    }
+
+    const fontElement = document.querySelector(`#t_font${wbId}`);
+    if (fontElement != null) {
+      fontElement.classList.remove('hide');
+      fontElement.classList.add('show');
+    }
+    WhiteboardUtility.fontAndStrokeSizeUi('font', wbId, 'font', 'span', virtualclass.wb[wbId].fontSize);
+  }
+
+  static themeColorShapes(byReload, wId) {
     const tool = byReload.split(/_doc_*/)[0];
     const shapesElem = document.querySelector(`#tool_wrapper${wId}.shapesToolbox`);
-    if (!shapesElem) {
-      debugger;
-    }
     if (tool === 't_line' || tool === 't_circle' || tool === 't_rectangle' || tool === 't_triangle') {
       shapesElem.classList.add('active');
     } else {
@@ -249,17 +250,14 @@ class WhiteboardUtility {
     }
   }
 
-  handleActivateTool(wbId) {
-    let activeWbTool = localStorage.getItem('activeTool');
-    if (activeWbTool !== null && activeWbTool.indexOf(wbId) > -1) {
-      this.makeActiveTool(activeWbTool, wbId);
-      virtualclass.wb[wbId].selectedTool = activeWbTool.split('_')[1];
-      if (virtualclass.wb[wbId].selectedTool !== 'activeall') {
-        virtualclass.wb[wbId].activeAllObj.disable(wbId);
-      }
-    } else if (virtualclass.wb[wbId].selectedTool) {
-      activeWbTool = `t_${virtualclass.wb[wbId].selectedTool}${wbId}`;
-      this.makeActiveTool(activeWbTool, wbId);
+  static deleteActiveObject(event, wId) {
+    const whitebaord = virtualclass.wb[wId];
+    const activeObject = whitebaord.canvas.getActiveObject();
+    whitebaord.canvas.discardActiveObject();
+    whitebaord.canvas.remove(activeObject);
+    if (event) {
+      const encodeData = virtualclass.wbWrapper.protocol.encode('da', virtualclass.gObj.currWb);
+      WhiteboardMessage.send(encodeData);
     }
   }
 }

@@ -28,9 +28,9 @@ class WhiteboardTriangle extends WhiteboardCommonShape {
       this.triangle.set('angle', 0);
       this.triangle.set('height', height); // Top to bottom
       if (width > 0) {
-        this.triangle.set('left', newLeft - width); 
+        this.triangle.set('left', newLeft - width);
       } else {
-        this.triangle.set('left', newLeft); 
+        this.triangle.set('left', newLeft);
       }
     } else {
       this.triangle.set('angle', 180);

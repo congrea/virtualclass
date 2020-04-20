@@ -300,7 +300,7 @@ Config.prototype.endSession = async function (onlyStoredData) {
   virtualclass.gObj.wbCount = 0;
   virtualclass.wbCommon.clearNavigation();
   if (typeof virtualclass.wb === 'object') {
-    delete virtualclass.wb[virtualclass.gObj.currWb].activeToolColor;
+    delete virtualclass.wb[virtualclass.gObj.currWb].toolColor;
   }
   virtualclass.gObj.currIndex = 1;
 };

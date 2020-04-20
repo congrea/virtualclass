@@ -1952,7 +1952,7 @@ this["JST"]["dest_temp/templates/whiteboard/toolbar.hbs"] = Handlebars.template(
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dark-magenta-3",{"name":"getString","hash":{},"data":data}))
-    + "\" data-color=\"#4c1130\" bgcolor=\"#4c1130\"></td></tr></tbody></table></div><div id=\"t_activeall"
+    + "\" data-color=\"#4c1130\" bgcolor=\"#4c1130\"></td></tr></tbody></table></div><div id=\"t_activeAll"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"tool notshape\" data-tool=\"activeAll\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"ActiveAll",{"name":"getString","hash":{},"data":data}))

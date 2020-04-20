@@ -1,4 +1,4 @@
-class WhiteboardCircle  extends WhiteboardCommonShape {
+class WhiteboardCircle extends WhiteboardCommonShape {
   constructor(name) {
     super(name);
     this.name = name;
@@ -8,7 +8,7 @@ class WhiteboardCircle  extends WhiteboardCommonShape {
     this.innerMouseDown(pointer, whiteboard, event);
     if (!event.e.isTrusted) return;
     this.sendMouseDownData(pointer);
-  } 
+  }
 
   innerMouseDown(pointer, whiteboard) {
     this.mousedown = true;
@@ -24,12 +24,12 @@ class WhiteboardCircle  extends WhiteboardCommonShape {
     this.coreObj.rotatingPointOffset = this.default.rotatingPointOffset * virtualclass.zoom.canvasScale;
     this.coreObj.cornerSize = this.default.cornerSize * virtualclass.zoom.canvasScale;
     this.coreObj.strokeWidth = this.default.strokeWidth;
-    
-    if (whiteboard.activeToolColor) {
-      this.coreObj.stroke =  whiteboard.activeToolColor;
+
+    if (whiteboard.toolColor) {
+      this.coreObj.stroke = whiteboard.toolColor;
     }
-    if (whiteboard.currStrkSize) {
-      this.coreObj.strokeWidth = +(whiteboard.currStrkSize);
+    if (whiteboard.strokeSize) {
+      this.coreObj.strokeWidth = +(whiteboard.strokeSize);
     }
     this[this.name] = new fabric.Ellipse(this.coreObj); // add object
     whiteboard.canvas.add(this[this.name]);

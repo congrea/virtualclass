@@ -17,15 +17,29 @@ class WhiteboardActiveAll {
     } else {
       allObjects = virtualclass.wb[wId].canvas.getObjects();
     }
-    
     for (let i = 0; i < allObjects.length; i += 1) {
       console.log('====> active all');
       allObjects[i].set('selectable', true);
     }
   }
 
+  makeTextUnEditable(wId) {
+    let allObjects = virtualclass.wb[wId].canvas.getObjects('i-text');
+    for (let i = 0; i < allObjects.length; i += 1) {
+      console.log('====> active all');
+      allObjects[i].set('editable', false);
+    }
+  }
+
+  makeTextEditable(wId) {
+    let allObjects = virtualclass.wb[wId].canvas.getObjects('i-text');
+    for (let i = 0; i < allObjects.length; i += 1) {
+      allObjects[i].set('editable', true);
+    }
+  }
+
   disable(wId, component) {
-    let allObjects = component ? virtualclass.wb[wId].canvas.getObjects(component) : virtualclass.wb[wId].canvas.getObjects();
+    const allObjects = component ? virtualclass.wb[wId].canvas.getObjects(component) : virtualclass.wb[wId].canvas.getObjects();
     for (let i = 0; i < allObjects.length; i += 1) {
       allObjects[i].set('selectable', false);
     }
@@ -44,10 +58,9 @@ class WhiteboardActiveAll {
     const allObjects = virtualclass.wb[wId].canvas.getObjects();
     allObjects[allObjects.length - 1].set('selectable', false);
   }
-  
+
   mouseDown(pointer, whiteboard, event) {
     const myPointer = whiteboard.canvas.getPointer(event, true)
-    console.log('====> whiteboard pdf ========================== active mouse trigger', myPointer.x, myPointer.y);
     console.log('==== convert actives all mouse down', myPointer.x, myPointer.y);
     if (!event.e.isTrusted) return;
     this.down = true;
@@ -56,18 +69,15 @@ class WhiteboardActiveAll {
     }
     const newData = this.generateData(event, whiteboard, 'd');
     virtualclass.wbWrapper.gObj.previousData = newData;
-    virtualclass.wbWrapper.msg.send(newData);
+    WhiteboardMessage.send(newData);
   }
 
   mouseMove(pointer, whiteboard, event) {
-    const myPointer = whiteboard.canvas.getPointer(event, true);
-    // console.log('==== actives all mouse move', myPointer.x, myPointer.y, ' orginal x, y', event.e.clientX, event.e.clientY);
     if (!event.e.isTrusted) return;
     // console.log('====> shoud not invoke');
     if (this.activeDown && this.down) {
       // whiteboard.canvas.renderAll();
-      const newData = this.generateData(event, whiteboard, 'm')
-      //this.previousData = newData
+      const newData = this.generateData(event, whiteboard, 'm');
       virtualclass.wbWrapper.msg.optimizeToSend(newData, 2000);
     }
   }
@@ -76,12 +86,11 @@ class WhiteboardActiveAll {
     const myPointer = whiteboard.canvas.getPointer(event, true)
     console.log('==== actives all mouse up', myPointer.x, myPointer.y);
     if (!event.e.isTrusted) return;
-    console.log('====> shoud not invoke');
     if (this.activeDown && this.down) {
       this.down = false;
-      virtualclass.wbWrapper.msg.send(virtualclass.wbWrapper.gObj.previousData);
+      WhiteboardMessage.send(virtualclass.wbWrapper.gObj.previousData);
       const newData = this.generateData(event, whiteboard, 'u');
-      virtualclass.wbWrapper.msg.send(newData);
+      WhiteboardMessage.send(newData);
     }
   }
 }

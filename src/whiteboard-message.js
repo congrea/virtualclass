@@ -1,13 +1,12 @@
 class WhiteboardMessage {
-  send(data) {
+  static send(data) {
     if (roles.hasControls()) {
       // console.log('sending the data here guys ', JSON.stringify(data));
-      // console.log('====> free drawing ', JSON.stringify(data));
       ioAdapter.mustSend(data);
       if (data.wb[0].substring(0, 2) === 'sf') {
-        virtualclass.wbWrapper.util.storeAtMemory(data.wb, virtualclass.gObj.currWb, data.v);
+        WhiteboardUtility.storeAtMemory(data.wb, virtualclass.gObj.currWb, data.v);
       } else {
-        virtualclass.wbWrapper.util.storeAtMemory(data.wb, virtualclass.gObj.currWb);
+        WhiteboardUtility.storeAtMemory(data.wb, virtualclass.gObj.currWb);
       }
     }
   }
@@ -16,7 +15,7 @@ class WhiteboardMessage {
     const whiteboardShape = e.message.wb[0].substring(0, 2);
     if (whiteboardShape === 'sf') { // free drawing packet
       const fromUserRole = e.fromUser.role;
-      const result = virtualclass.wbWrapper.protocol.generateFreeDrawingData(e.message.v, e.message.s, true);
+      const result = WhiteboardProtocol.generateFreeDrawingData(e.message.v, e.message.s, true);
       let event;
       for (let i = 0; i < result.length; i += 1) {
         event = { message: { wb: result[i] }, fromUser: { role: fromUserRole } };
@@ -24,12 +23,12 @@ class WhiteboardMessage {
       }
     } else {
       if (!Array.isArray(e.message.wb)) e.message.wb = [e.message.wb];
-      const executeData = e.message.wb;
+      const dataToPlay = e.message.wb;
       virtualclass.vutil.storeWhiteboardAtInlineMemory(e.message.wb);
       if (!virtualclass.zoom.canvasScale) return;
       if (virtualclass.gObj.currWb && typeof virtualclass.wb[virtualclass.gObj.currWb] === 'object'
         && e.fromUser.role === 't') {
-        virtualclass.wbWrapper.util.applyCommand(executeData, virtualclass.gObj.currWb);
+        virtualclass.wbWrapper.replay.triggerReplay(dataToPlay, virtualclass.gObj.currWb);
       }
     }
   }
@@ -41,11 +40,11 @@ class WhiteboardMessage {
     if (timeDifference >= time) {
       if (type) {
         const newData = virtualclass.wbWrapper.protocol.encode(type, data);
-        this.send(newData);
+        this.constructor.send(newData);
       }
       virtualclass.wbWrapper.gObj.lastSentDataTime = new Date().getTime();
       if (type === 'sf') {
-        // empty the free drarwing after bulk
+        // Empty the free drarwing after bulk data sent
         virtualclass.wb[virtualclass.gObj.currWb].freeDrawingObj.chunks.length = 0;
       }
     }

@@ -23,7 +23,7 @@ class WhiteboardReplay {
         if (data.event && (data.event === 'mousedown')) {
           virtualclass.wb[wid].innerToolbarHandler(virtualclass.wbWrapper.keyMap[data.action], wid);
         }
-        evt = virtualclass.wbWrapper.util.readyMouseEvent(data.event, data.actual);
+        evt = WhiteboardUtility.readyMouseEvent(data.event, data.actual);
         evt.wId = wid;
         virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
         break;
@@ -35,10 +35,10 @@ class WhiteboardReplay {
         virtualclass.wb[data.actual].canvas.renderAll();
         break;
       case 'da': // Delete active object
-        virtualclass.wbWrapper.util.deleteActiveObject(false, wid);
+        WhiteboardUtility.deleteActiveObject(false, wid);
         break;
       case 'ot': // other setting, font size, stroke size and color
-        virtualclass.wbWrapper.util.changeToolProperty(data.tool, data.actual.value, wid);
+        WhiteboardUtility.updateToolStyle(data.tool, data.actual.value, wid);
         break;
 
       case 'tx': // Create text
@@ -47,7 +47,6 @@ class WhiteboardReplay {
         break;
       default:
         console.log('====> do nothing');
-
     }
   }
 
@@ -61,6 +60,24 @@ class WhiteboardReplay {
     if (data.length > 0) {
       virtualclass.wb[wId].vcanMainReplayObjs = data;
       this.replayInit(wId);
+    }
+  }
+
+  replayFromLocalStroage(allRepObjs, wId) {
+    if (typeof (Storage) !== 'undefined') {
+      virtualclass.wb[wId].clear(wId);
+      virtualclass.wb[wId].replayObjs = [];
+      delete virtualclass.wb[wId].strokeSize;
+      delete virtualclass.wb[wId].toolColor;
+      virtualclass.wb[wId].gObj.tempRepObjs = allRepObjs;
+      if (allRepObjs.length > 0) this.triggerReplay(allRepObjs, wId);
+    }
+  }
+
+  triggerReplay(data, wId) {
+    for (let i = 0; i < data.length; i += 1) {
+      WhiteboardUtility.storeAtMemory([data[i]], (wId));
+      this.replayData([data[i]], wId);
     }
   }
 }

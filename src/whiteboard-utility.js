@@ -153,15 +153,14 @@ class WhiteboardUtility {
     }
     this.constructor.themeColorShapes(byReload, wId);
     selectedElement.classList.add('active');
-    localStorage.activeTool = selectedElement.id;
+    // localStorage.activeTool = selectedElement.id;
   }
 
   handleActivateTool(wbId) {
     let activeWbTool = localStorage.getItem('activeTool');
     if (activeWbTool !== null && activeWbTool.indexOf(wbId) > -1) {
       this.makeActiveTool(activeWbTool, wbId);
-      let selectedTool = activeWbTool.split('_')[1];
-      if (selectedTool === 'activeall') selectedTool = 'activeAll';
+      const selectedTool = activeWbTool.split('_')[1];
       virtualclass.wb[wbId].selectedTool = selectedTool;
       if (virtualclass.wb[wbId].selectedTool !== 'activeAll') {
         virtualclass.wb[wbId].activeAllObj.disable(wbId);

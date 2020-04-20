@@ -217,11 +217,6 @@ const ioEventApi = {
         }
       }
     }
-
-    // if (virtualclass.vutil.selfJoin(virtualclass.jId)
-    //   && (roles.hasControls() || localStorage.getItem('mySession') != null)) {
-    //   virtualclass.userInteractivity.init();
-    // }
   },
 
   newmessage(e) {

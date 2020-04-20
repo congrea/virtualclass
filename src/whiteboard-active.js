@@ -23,6 +23,21 @@ class WhiteboardActiveAll {
     }
   }
 
+  makeTextUnEditable(wId) {
+    let allObjects = virtualclass.wb[wId].canvas.getObjects('i-text');
+    for (let i = 0; i < allObjects.length; i += 1) {
+      console.log('====> active all');
+      allObjects[i].set('editable', false);
+    }
+  }
+
+  makeTextEditable(wId) {
+    let allObjects = virtualclass.wb[wId].canvas.getObjects('i-text');
+    for (let i = 0; i < allObjects.length; i += 1) {
+      allObjects[i].set('editable', true);
+    }
+  }
+
   disable(wId, component) {
     const allObjects = component ? virtualclass.wb[wId].canvas.getObjects(component) : virtualclass.wb[wId].canvas.getObjects();
     for (let i = 0; i < allObjects.length; i += 1) {

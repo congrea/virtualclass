@@ -146,6 +146,12 @@ class Whiteboard {
     } else {
       this.activeAllObj.disable(wId);
     }
+
+    if (tool === 'activeAll') {
+      this.activeAllObj.makeTextUnEditable(wId);
+    } else {
+      this.activeAllObj.makeTextEditable(wId);
+    }
   }
 
   shapes() {

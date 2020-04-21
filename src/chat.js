@@ -121,7 +121,7 @@
           if (list) {
             list.classList.add('enable');
             listBtn = document.getElementById('user_list');
-            listBtn.classList.add('active');
+            // listBtn.classList.add('active');
             virtualclass.chat.chatWindow = 'private';
           }
 

@@ -168,6 +168,9 @@ class WhiteboardUtility {
     } else if (virtualclass.wb[wbId].selectedTool) {
       activeWbTool = `t_${virtualclass.wb[wbId].selectedTool}${wbId}`;
       this.makeActiveTool(activeWbTool, wbId);
+      if (virtualclass.wb[wbId].selectedTool !== 'activeAll') {
+        virtualclass.wb[wbId].activeAllObj.disable(wbId);
+      }
     }
 
     if (virtualclass.wb[wbId].selectedTool && virtualclass.wb[wbId].selectedTool === 'text') {

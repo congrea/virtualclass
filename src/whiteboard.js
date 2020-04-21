@@ -124,7 +124,7 @@ class Whiteboard {
     if (tool !== 'stroke' && tool !== 'font' && tool !== 'activeAll' && tool !== 'color') {
       if (tool === 'text') {
         WhiteboardUtility.fontSizeSelector();
-      } else {
+      } else if (tool !== 'clearAll'){
         WhiteboardUtility.strokeSizeSelector();
       }
     }

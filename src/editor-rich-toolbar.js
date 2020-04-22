@@ -46,7 +46,6 @@
         utils.elt('div', [fontSize], { class: 'vceditor-btn-group close' }),
         utils.elt('div', [color], { class: 'vceditor-btn-group close' }),
       ];
-   
       const styleGroup = utils.elt('div', null, { class: 'vceditor-btn-style-group close' });
       const styleGroupInner = utils.elt('div', [self.makeButton_('bold'), self.makeButton_('italic'), self.makeButton_('underline'), self.makeButton_('strike', 'strikethrough')], { class: 'vceditor-btn-group style-group' });
       styleGroup.appendChild(styleGroupInner);

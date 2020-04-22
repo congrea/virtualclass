@@ -734,6 +734,12 @@
               if (typeof notActive === 'undefined') {
                 studentSpeaker.className = 'active';
               }
+              if (virtualclass.settings.specificUser === true && roles.isStudent()) {
+                if (studentSpeaker.classList.contains('deactive')) {
+                  studentSpeaker.classList.remove('deactive');
+                }
+                studentSpeaker.className = 'active';
+              }
               studentSpeaker.style.opacity = '1';
               studentSpeaker.style.pointerEvents = 'visible';
             }
@@ -776,6 +782,10 @@
 
         audioDisable() {
           const mic = document.getElementById('speakerPressOnce');
+          if (mic != null && mic.classList.contains('active')) {
+            mic.classList.remove('active');
+            mic.classList.add('deactive');
+          }
           if (mic != null) {
             mic.style.opacity = '0.5';
             mic.style.pointerEvents = 'none';

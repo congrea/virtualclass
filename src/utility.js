@@ -2362,13 +2362,10 @@
     attachWhiteboardPopupHandler(wId) {
       window.addEventListener('mouseup', (ev) => {
         if (roles.hasControls()) WhiteboardUtility.closeTray();
+        virtualclass.userInteractivity.event.moreControlsCloseTray();
         //if (roles.hasControls()) virtualclass.wbWrapper.util.closeShapeContainer();
 //         const currApp = document.querySelector('#virtualclassCont').dataset.currapp;
-//         const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
-//         if (moreElemClose) {
-//           moreElemClose.classList.remove('open');
-//           moreElemClose.classList.add('close');
-//         }
+
 //         if (currApp != null && (currApp === 'Whiteboard' || currApp === 'DocumentShare') && wId) {
 //           if (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke') || Object.prototype.hasOwnProperty.call(ev.target.dataset, 'font')) {
 //             const dropDown = (Object.prototype.hasOwnProperty.call(ev.target.dataset, 'stroke')) ? document.querySelector(`#t_strk${wId} .strkSizeList`) : document.querySelector(`#t_font${wId} .fontSizeList`);
@@ -2400,12 +2397,6 @@
 //         }
       });
     },
-
-    // attachAskQuestionOptionHandler() {
-    //   window.addEventListener('mouseup', (ev) => {
-    //     virtualclass.userInteractivity.event.moreControls(ev);
-    //   });
-    // },
 
     setScreenShareDefualtColor() {
       const pvrScreenUser = virtualclass.gObj.prvRequestScreenUser;

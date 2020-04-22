@@ -1,7 +1,7 @@
 class UserInteractivityEvents { // main Part
   constructor() {
     this.values = ['edit', 'delete', 'upvote', 'markAnswer', 'moreControls', 'reply', 'navigation',
-      'createInput', 'save', 'cancel', 'more', 'less', 'clearall', 'previous', 'next'];
+      'createInput', 'save', 'cancel', 'more', 'less', 'clearall', 'previous', 'next', 'moreControlsCloseTray'];
   }
 
   reply(data) {
@@ -248,20 +248,14 @@ class UserInteractivityEvents { // main Part
       getMoreCntrl.classList.remove('open');
       getMoreCntrl.classList.add('close');
     }
-    // let elemId;
-    // let moreControlElemOpen;
-    // const moreControlElemClose = document.querySelector('#askQuestion .moreControls .item.open');
-    // if (moreControlElemClose) {
-    //   moreControlElemClose.classList.remove('open');
-    //   moreControlElemClose.classList.add('close');
-    // } else if (ev.target.firstChild && ev.target.firstChild.dataset != null) {
-    //   elemId = ev.target.firstChild.dataset.componentId;
-    //   moreControlElemOpen = document.querySelector(`#${elemId} .moreControls .item.close`);
-    //   if (moreControlElemOpen && ev.target.dataset.event === 'moreControls') {
-    //     moreControlElemOpen.classList.remove('close');
-    //     moreControlElemOpen.classList.add('open');
-    //   }
-    // }
+  }
+
+  moreControlsCloseTray() {
+    const moreElemClose = document.querySelector('#askQuestion .moreControls .item.open');
+    if (moreElemClose) {
+      moreElemClose.classList.remove('open');
+      moreElemClose.classList.add('close');
+    }
   }
 
   markAnswer(data) {

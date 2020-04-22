@@ -1024,7 +1024,6 @@
     },
 
     getSeekPoint(seekPointPercent) {
-      let obj;
       const seekVal = Math.trunc((this.totalTimeInMiliSeconds * seekPointPercent) / 100);
       this.count = Math.floor(seekVal / 5000);
       // console.log(`Seek index ${seekVal}`);
@@ -1034,7 +1033,7 @@
         for (let j = 0; j < this.masterRecordings[i].length; j++) {
           totalTimeMil += this.masterRecordings[i][j].playTime;
           if (totalTimeMil === seekVal) {
-           obj = { master: i, sub: j };
+           return { master: i, sub: j };
             // console.log(`Seek index i = ${i} j=${j} totalTime=${totalTimeMil}`);
           } if (totalTimeMil >= seekVal) {
             if (j > 0) {
@@ -1048,11 +1047,11 @@
               }
             }
             // console.log(`Seek index i = ${i} j=${j} totalTime=${totalTimeMil}`);
-            obj = { master: i, sub: j };
+            const obj = { master: i, sub: j };
+            return obj;
           }
         }
       }
-      return obj;
     },
 
 

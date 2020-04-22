@@ -1,3 +1,9 @@
+/**
+ * This class is used to handle the move object/shape using mouse down, move and up
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
+
 class WhiteboardActiveAll {
   generateData(event, whiteboard, type) {
     const pointer = whiteboard.canvas.getPointer(event, true);

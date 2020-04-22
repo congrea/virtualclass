@@ -1,3 +1,11 @@
+
+/**
+ * This class is reponsible to draw each whiteboard packet
+ * on participate side, on resizing, on page refresh and on recoding play
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
+
 class WhiteboardReplay {
   init(wid) {
     this.objs = virtualclass.wb[wid].vcanMainReplayObjs;

@@ -1,4 +1,9 @@
-
+/**
+ * This class is for all shapes eg: rect, circle, line, triangle and free drawing,
+ * it contains maxium common properties and methods for all shapes
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
 class WhiteboardCommonShape {
   constructor(shape) {
     this.name = shape;

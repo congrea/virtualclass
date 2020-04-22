@@ -1,3 +1,11 @@
+/**
+ * We minimize the whiteboard's data size that travels over the internet,
+ * to achieve this, we encode and decode the whiteboard data. For encoding,
+ * we create our custom protocol, this file handles all these protocols
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
+
 class WhiteboardProtocol {
   encode(action, data) {
     return this.constructor[action](data, 'encode');

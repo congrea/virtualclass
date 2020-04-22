@@ -1,4 +1,8 @@
-// This is responsible to create the whiteboard shape
+/**
+ * This class draws the rectangle
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
 class WhiteboardRectangle extends WhiteboardCommonShape {
   constructor(name) {
     super(name);

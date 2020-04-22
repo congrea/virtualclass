@@ -1,3 +1,8 @@
+/**
+ * This class is used to create the circle on whiteboard
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
 class WhiteboardCircle extends WhiteboardCommonShape {
   constructor(name) {
     super(name);

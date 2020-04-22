@@ -49,7 +49,7 @@ class WhiteboardProtocol {
     return result;
   }
 
-  // Active All, for Drag, Drop and Move the objects
+  // Active All, for moving the object using mouse down, move and up
   static ac(data, type, wId) {
     const newData = {};
     if (type === 'encode') {
@@ -81,6 +81,7 @@ class WhiteboardProtocol {
     return newData;
   }
 
+  // Extract the whiteboard id from given data
   static generateWhiteboardId(data, type) {
     let whiteboardId;
     if (type === 'encode') {
@@ -132,7 +133,7 @@ class WhiteboardProtocol {
     return newData;
   }
 
-  // Generating the free drawing data, which finally invokes above sp
+  // Generating the free drawing data, which finally invokes above protocol method 'sp'
   static generateFreeDrawingData(msg) {
     const result = [];
     let msgArr;
@@ -152,7 +153,8 @@ class WhiteboardProtocol {
     return result;
   }
 
-  static tx(data, type) { // Creating the text
+  // Creating the text
+  static tx(data, type) {
     let newData;
     if (type === 'encode') {
       let encData = `tx_${data.x}_${data.y}_${data.text}`;
@@ -165,13 +167,13 @@ class WhiteboardProtocol {
       if (data.fontSize) {
         encData += `_${data.fontSize}`;
       } else {
-        encData += '_0';
+        encData += '_0'; // 0 means default font size
       }
 
       if (data.fontColor) {
         encData += `_${data.fontColor}`;
       } else {
-        encData += '_0';
+        encData += '_0'; // 0 means default font color
       }
 
       newData = {
@@ -204,7 +206,8 @@ class WhiteboardProtocol {
     return newData;
   }
 
-  static ds(data, type) { // discard selection
+  // Discard selection of active object
+  static ds(data, type) {
     let newData;
     const whiteboardId = WhiteboardProtocol.generateWhiteboardId(data, type);
     if (type === 'encode') {
@@ -215,7 +218,8 @@ class WhiteboardProtocol {
     return newData;
   }
 
-  static da(data, type) { // delete active, todo, da should be merge with ds
+  // Delete active object, todo, da should be merge with ds
+  static da(data, type) {
     let newData;
     const whiteboardId = WhiteboardProtocol.generateWhiteboardId(data, type);
     if (type === 'encode') {
@@ -226,7 +230,9 @@ class WhiteboardProtocol {
     return newData;
   }
 
-  static ot(data, type) { // other data, 
+  // Other than create-shapes action,
+  // like, font color and size, and storke size
+  static ot(data, type) {
     let newData;
     if (type === 'encode') {
       newData = { wb: [`ot_${virtualclass.wbWrapper.keyMap[data.type]}_${data.value}`], cf: 'wb' };

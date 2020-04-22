@@ -171,12 +171,14 @@ var ioAdapter = {
   initSetSession(session) {
     const localSession = localStorage.getItem('mySession');
     if (localSession === null) {
-      console.log('====> hi helllo 1 set session');
+      console.log('====> congrea session 1, from server');
       localStorage.setItem('mySession', session);
       io.sessionSet = true;
     } else if (localSession !== session) {
+      console.log('====> congrea session 1, from local storage, does not respect server session');
       this.setSession(localSession);
     } else {
+      console.log('====> congrea session 1, from local storage');
       io.sessionSet = true;
     }
   },

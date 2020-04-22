@@ -78,21 +78,26 @@
         // console.log('setting prv ', prvUser.settings, ' new ', virtualclassSetting.settings);
         virtualclass.setPrvUser(); // we need to set this every time it comes from moodle
         // console.log('====> Settings previous  ', prvUser.settings, ' new ', virtualclassSetting.settings);
+      } else if (virtualclass.gObj.myConfig !== null) {
+        await this.exceedSessionTime();
       }
       console.log('Previous user ', JSON.stringify(prvUser));
     } else if (virtualclass.gObj.myConfig !== null) {
-      config = JSON.parse(virtualclass.gObj.myConfig);
-      const roomCreatedTime = config.createdDate;
-      const baseDate = new Date().getTime();
-      const totalTime = baseDate - roomCreatedTime;
-      // Session is clear after 3 hour continous session
-      // ////////////////////1sec-1min--1hr--3hr/////////
-      if (totalTime > (1000 * 60 * 60 * 3)) {
-        await virtualclass.config.endSession();
-      }
+      await this.exceedSessionTime();
     }
   };
 
+  Bootstrap.prototype.exceedSessionTime = async function () {
+    config = JSON.parse(virtualclass.gObj.myConfig);
+    const roomCreatedTime = config.createdDate;
+    const baseDate = new Date().getTime();
+    const totalTime = baseDate - roomCreatedTime;
+    // Session is clear after 3 hour continous session
+    // ////////////////////1sec-1min--1hr--3hr/////////
+    if (totalTime > (1000 * 60 * 60 * 3)) {
+      await virtualclass.config.endSession();
+    }
+  }
 
   Bootstrap.prototype.loadData = function () {
     let appIs;

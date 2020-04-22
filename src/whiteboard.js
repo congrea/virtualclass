@@ -124,7 +124,7 @@ class Whiteboard {
     if (tool !== 'stroke' && tool !== 'font' && tool !== 'activeAll' && tool !== 'color') {
       if (tool === 'text') {
         WhiteboardUtility.fontSizeSelector();
-      } else {
+      } else if (tool !== 'clearAll'){
         WhiteboardUtility.strokeSizeSelector();
       }
     }
@@ -149,7 +149,7 @@ class Whiteboard {
 
     if (tool === 'activeAll') {
       this.activeAllObj.makeTextUnEditable(wId);
-    } else {
+    } else if (tool === 'text') {
       this.activeAllObj.makeTextEditable(wId);
     }
   }

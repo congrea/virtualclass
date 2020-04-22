@@ -121,7 +121,7 @@
           if (list) {
             list.classList.add('enable');
             listBtn = document.getElementById('user_list');
-            listBtn.classList.add('active');
+            // listBtn.classList.add('active');
             virtualclass.chat.chatWindow = 'private';
           }
 
@@ -271,7 +271,8 @@
         document.cookie = 'auth_user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
         document.cookie = 'auth_pass=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
         document.cookie = 'path=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-        display_error(e.message);
+        // display_error(e.message);
+        virtualclass.ioEventApi.Unauthenticated();
       },
       makeUserListEmpty() {
         const url = `url(${window.whiteboardPath}images/offline.png)no-repeat top left`;

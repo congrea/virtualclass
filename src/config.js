@@ -7,8 +7,24 @@
 function Config() {
 }
 
-Config.prototype.setNewSession = function (session) {
-  console.log('====> hi helllo 1');
+
+Config.prototype.sessionName = () => {
+  let session = localStorage.getItem('mySession');
+  if (session === null) {
+    session = virtualclass.config.setSession();
+  }
+  return session;
+}
+
+Config.prototype.setSession = () => {
+  // const session = virtualclass.vutil.randomString(32);
+  const session = localStorage.mySession;
+  console.log('==== session 1, My session is created by setSession ', session, ' ', localStorage.mySession);
+  virtualclass.config.setNewSession(session);
+  return session;
+}
+
+Config.prototype.setNewSession = (session) => {
   localStorage.setItem('mySession', session);
   if (!virtualclass.isPlayMode) {
     if (roles.hasControls()) {
@@ -21,6 +37,41 @@ Config.prototype.setNewSession = function (session) {
     }
   }
 };
+
+ Config.prototype.verifySession = async (e) => {
+  const msg = e.message;
+  const { session } = msg;
+  const localSession = localStorage.getItem('mySession');
+  if (localSession != null) {
+    // only destroy the session when the request comes from teacher
+    if (localSession !== session && e.fromUser.role === 't') { // We are good, if same;
+      await virtualclass.config.sessionDestroy(session, e);
+    }
+  } else {
+    // console.log('==== session, start session');
+    // console.log('My session is created');
+    virtualclass.config.setNewSession(session);
+    // if (roles.isStudent()) virtualclass.userInteractivity.init();
+  }
+}
+
+/** * We delete all the data from local Storage and IndexedDB and begin a new session */
+Config.prototype.sessionDestroy = async (session, e) => {
+  if (!virtualclass.isPlayMode) {
+    // console.log('==== session, start session');
+    const uid = e.fromUser.userid;
+    localStorage.removeItem('mySession');
+    await virtualclass.config.endSession();
+    virtualclass.config.setNewSession(session);
+    ioMissingPackets.validateAllVariables(uid);
+    // console.log('REFRESH SESSION');
+  } else {
+    // console.log('==== session, end session');
+    // console.log('My session is created');
+    virtualclass.config.setNewSession('thisismyplaymode');
+  }
+}
+
 
 
 Config.prototype.endSession = async function (onlyStoredData) {

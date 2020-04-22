@@ -299,6 +299,14 @@
   pointer-events: none;
 }
 
+#virtualclassCont.congrea.withoutRefresh.connecting #congAskQuestion.askQuestionEnable,
+#virtualclassCont.congrea.withoutRefresh.connecting #virtualclassnote.notesEnable,
+#virtualclassCont.congrea.withoutRefresh.connecting #bookmark.bookmarkEnable,
+#virtualclassCont.withoutRefresh.connecting #congAskQuestion {
+  opacity: 1;
+  pointer-events: visible;
+}
+
 #virtualclassCont.congrea #askQuestion .container .footer .controls .reply {
   line-height: 1rem;
   padding: 0.125rem 0.3125rem;

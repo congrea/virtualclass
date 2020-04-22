@@ -128,6 +128,9 @@
           cf: 'cwb', diswb: true, wid, currIndex: virtualclass.gObj.currIndex,
         });
         this.identifyLastNote(wid);
+        if (wid === '_doc_0_0' && virtualclass.wb[wid]) {
+          virtualclass.wbWrapper.util.handleActivateTool(wid);
+        }
       } else {
         console.log('No element found');
       }

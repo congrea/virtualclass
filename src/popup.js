@@ -442,6 +442,8 @@ const PopUp = (function (window, undefined) {
     let time = 0;
     if (typeof pageLoad !== 'undefined') {
       time = 1300;
+    } else {
+      document.getElementById('virtualclassCont').classList.add('withoutRefresh');
     }
     setTimeout(() => {
       virtualclass.network.netWorkElementIsReady();

@@ -159,10 +159,10 @@ class WhiteboardProtocol {
     if (type === 'encode') {
       let encData = `tx_${data.x}_${data.y}_${data.text}`;
       if (data.index != null) {
-        encData += `_${data.index}`;
+        encData += `_${data.index}`; // Position of the text object
       } else {
         encData += '_-1';
-      } 
+      }
 
       if (data.fontSize) {
         encData += `_${data.fontSize}`;
@@ -188,6 +188,7 @@ class WhiteboardProtocol {
         event: 'mousedown',
         actual: { x: +data[1], y: +data[2], value: data[3] },
       };
+
       if (+data[4] !== -1) {
         const textIndex = data[4];
         newData.actual.index = textIndex;

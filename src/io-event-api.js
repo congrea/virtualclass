@@ -292,13 +292,15 @@ const ioEventApi = {
         // console.log('Error ', e.message);
       } else {
         if (typeof e.message.stack !== 'undefined') {
-          virtualclass.view.displayServerError('serverErrorCont', e.message.stack);
+          // virtualclass.view.displayServerError('serverErrorCont', e.message.stack);
+          virtualclass.view.createErrorMsg(e.message.stack, 'errorContainer', 'virtualclassAppFooterPanel');
         } else {
           // console.log(`Error message ${e.message.stack} could not display`);
         }
 
         if (typeof e.message !== 'object') {
-          display_error(e.message.stack);
+//          display_error(e.message.stack);
+          virtualclass.view.createErrorMsg(e.message.stack, 'errorContainer', 'virtualclassAppFooterPanel');
         }
       }
     } else if (typeof e.message !== 'object') {

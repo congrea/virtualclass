@@ -26,6 +26,19 @@ class WhiteboardReplay {
         evt = WhiteboardUtility.readyMouseEvent(data.event, data.actual);
         evt.wId = wid;
         virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+        if (data.event && (data.event === 'mousedown')) {
+          let eventTypePrefix = virtualclass.wb[wid].canvas._getEventPrefix();
+          fabric.util.removeListener(fabric.document, eventTypePrefix + 'move', virtualclass.wb[wid].canvas._onMouseMove, {'passive': false
+          });
+          fabric.util.removeListener(fabric.document, eventTypePrefix + 'up', virtualclass.wb[wid].canvas._onMouseUp, {'passive': false
+          });
+          fabric.util.addListener(virtualclass.wb[wid].canvas.upperCanvasEl, eventTypePrefix + 'move', virtualclass.wb[wid].canvas._onMouseMove, {'passive': false});
+
+          fabric.util.addListener(virtualclass.wb[wid].canvas.upperCanvasEl, eventTypePrefix + 'up', virtualclass.wb[wid].canvas._onMouseUp, {'passive': false});
+
+        }
+        
+        
         break;
       case 'cr': // Clear whiteboard
         virtualclass.wb[data.actual].clear();

@@ -13,7 +13,7 @@
 }
 
 #virtualclassCont.congrea #virtualclassYtsTool {
-  border-bottom: none !important;
+  border-bottom: none;
 }
 
 #virtualclassYts {
@@ -88,7 +88,7 @@
 /* } */
 
 #virtualclassCont.congrea #videoUrlContainer #videourl {
-  height: 35px;
+  height: 100%;
   font-size: 14px;
   color: #777;
 }

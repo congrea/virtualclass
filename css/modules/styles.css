@@ -190,8 +190,8 @@
 
 #virtualclassCont.congrea .con.controlCmd a {
   border: #79aa26 solid 1px;
-  padding-left: 4px !important;
-  padding-right: 4px !important;
+  padding-left: 4px;
+  padding-right: 4px;
   border-radius: 2px;
 }
 
@@ -200,8 +200,7 @@
 }
 
 #virtualclassCont.congrea .addMoreCont a:hover {
-  /* color: #727272 !important; */
-  text-decoration: none !important;
+  text-decoration: none;
 }
 
 #virtualclassCont.congrea .vceditor-dropdown-menu a:hover {
@@ -213,7 +212,7 @@
   text-decoration: none;
   padding: 11px 18px 10px;
   font-size: 25px;
-  border-right: 1px solid rgba(254, 254, 254, 0.2) !important;
+  border-right: 1px solid rgba(254, 254, 254, 0.2);
   color: #fff;
 }
 
@@ -286,73 +285,13 @@
   width: 30%;
 }
 
-/* #virtualclassCont.congrea #chat_div .ui-memblist-usr.teacher { */
-
-/* padding-top : 0; */
-
-/* } */
-
-/* #virtualclassCont.congrea #chat_div .ui-memblist-usr.student, #virtualclassCont.congrea #chat_div .ui-memblist-usr , #virtualclassCont.congrea #chat_div .ui-memblist-usr.teacher{ */
-
-/* padding-left : 4px; */
-
-/* } */
-
-/* #virtualclassCont.congrea div.ui-memblist-usr video { */
-
-/* width : 60px; */
-
-/* height : 50px; */
-
-/* margin : 0; */
-
-/* outline : 1px solid #5A5757; */
-
-/* margin-left : 2px; */
-
-/* } */
-
-/* #virtualclassCont.congrea div.ui-memblist-usr .userVideos { */
-
-/* width : 60px; */
-
-/* height : 45px; */
-
-/* margin-top : 6px; */
-
-/* outline : 1px solid #5A5757; */
-
-/* } */
-
-/* #virtualclassCont.congrea #graphCanvas { */
-
-/* top : -5px !important; */
-
-/* } */
-
-/* #virtualclassCont.congrea #chat_div .ui-memblist-usr:first-child { */
-
-/* margin-top : 0; */
-
-/* margin-bottom: 0px; */
-
-/* } */
-
-/* #virtualclassCont.congrea #chat_div .ui-memblist-usr span { */
-
-/* font-weight : normal; */
-
-/* position:relative; */
-
-/* } */
-
 #virtualclassCont.congrea .msgBoxWebRtc p,
 #virtualclassCont.congrea .msgBoxCanvas p {
   position: relative;
   background: #fff;
-  background-color: #fff !important;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2) !important;
-  border: #ccc solid 1px !important;
+  background-color: #fff;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  border: #ccc solid 1px;
   border-radius: 5px;
   color: #333;
   font-size: 13px;
@@ -591,7 +530,7 @@
 
   /* box-shadow : 0px 0px 1px #a4a4a4; */
   font-size: 0.75rem;
-  font-weight: normal !important;
+  font-weight: normal;
 }
 
 #virtualclassCont.congrea .reloadNote .congtooltip:hover::after {
@@ -603,7 +542,7 @@
 }
 
 #virtualclassCont.congrea .whiteboardContainer .commandToolsWrapper .tool .congtooltip:hover::after {
-  bottom: -30px !important;
+  bottom: -30px;
   left: 0;
 }
 
@@ -646,7 +585,7 @@
   color: #000;
   box-shadow: 0 0 1px #a4a4a4;
   font-size: 12px;
-  font-weight: normal !important;
+  font-weight: normal;
 }
 
 /* select the only id which end with contrAssignAnch */
@@ -742,7 +681,7 @@
 }
 
 #virtualclassCont.congrea.teacher.orginalTeacher .ui-memblist-usr.student[data-role="s"] a[data-title="Click to chat"] span {
-  left: 4px !important;
+  left: 4px;
 }
 
 #virtualclassCont.congrea #sentPacketsLabel span,
@@ -1108,7 +1047,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea #graphCanvas {
-  top: -5px !important;
+  top: -5px;
 }
 
 #virtualclassCont.congrea.student #vcanvas {
@@ -1127,44 +1066,6 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea #closebtn {
   width: 35px;
 }
-
-/* #virtualclassCont.congrea div.ui-memblist-usr video, #virtualclassCont.congrea div.ui-memblist-usr .userVideos { */
-
-/* border : #3c4953 solid 1px; */
-
-/* border-radius: 20%; */
-
-/* outline : none; */
-
-/* margin-bottom : 3px; */
-
-/* } */
-
-/* #virtualclassCont.congrea #chat_div .ui-memblist-usr .controls span { */
-
-/* font-size: 13px; */
-
-/* font-weight : 200; */
-
-/* float: left; */
-
-/* margin-top: 4px; */
-
-/* margin-right: 4px; */
-
-/* } */
-
-/* #virtualclassCont.congrea #chat_div .controleCont .icon-stdscreenImg { */
-
-/* margin-top:3px !important; */
-
-/* } */
-
-/* #virtualclassCont.congrea.student #chat_div .ui-memblist-usr .controls span { */
-
-/* margin-right: 10px; */
-
-/* } */
 
 #virtualclassCont.congrea #chatroom_text .icon-arrow-down,
 #virtualclassCont.congrea #chatroom_text .icon-arrow-up {
@@ -1185,7 +1086,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea .ui-icon-closethick {
-  background-position: -96px -128px !important;
+  background-position: -96px -128px;
 }
 
 #virtualclassCont.congrea .ui-chatbox {
@@ -1219,19 +1120,17 @@ div.ui-memblist-usr .userVideos {
 }
 
 .qq-gallery .qq-upload-list li {
-  margin: 0 10% !important;
+  margin: 0 10%;
 }
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li {
-  text-align: center !important;
+  text-align: center;
   display: inline-block;
   width: 2.125rem;
   border: 0.125rem solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   height: 2.125rem;
   overflow: hidden;
-
-  /* background-image: linear-gradient(to bottom, #ffffff 0%,#e6e6e6 100%) !important; */
 }
 
 #virtualclassCont.congrea.student #audioWidget #mainAudioPanel li {
@@ -1307,7 +1206,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #playControllerCont #playController button.congtooltip {
-  line-height: 1 !important;
+  line-height: 1;
 }
 
 /** microsoft edge **/
@@ -1353,7 +1252,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea #alwaysPress #speakerPressing a#speakerPressingAnch img {
-  border: none !important;
+  border: none;
 }
 
 #virtualclassCont.congrea #speakerPressingtext {
@@ -1393,9 +1292,9 @@ div.ui-memblist-usr .userVideos {
   bottom: 2em;
 }
 
-#virtualclassCont.congrea #speakerPressing .congtooltip:hover::after {
-  bottom: -40px !important;
-}
+/* #virtualclassCont.congrea #speakerPressing .congtooltip:hover::after {
+  bottom: -40px;
+} */
 
 #virtualclassCont.congrea #memlist .congtooltip:hover::after {
   bottom: -3em;
@@ -1409,7 +1308,7 @@ div.ui-memblist-usr .userVideos {
   padding: 0.3em 0.8em;
   right: auto;
   left: 52px;
-  bottom: -0.4em;
+  bottom: 2px;
 }
 
 #virtualclassCont.congrea #containerWb .tool .congtooltip:hover::after {
@@ -1444,7 +1343,7 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea .tool.active a span::before {
   text-shadow: 0 1px 11px #eee;
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea .appOptions.active a span::before {
@@ -1488,28 +1387,16 @@ div.ui-memblist-usr .userVideos {
   cursor: default;
 }
 
-/* #virtualclassCont.congrea.orginalTeacher #chat_div .controls span.enable, #virtualclassCont.congrea.orginalTeacher #chat_div .controls span.block, #virtualclassCont.congrea.teacher #chat_div .controls .icon-assignImg.enable, */
-
-/* #virtualclassCont.congrea.presenter #chat_div .controls span.assignImg.enable { */
-
-/* cursor : pointer; */
-
-/* } */
-
-/* #virtualclassCont.congrea .commandToolsWrapper .tool.active a:hover {
-  color: #000 !important;
-} */
-
 #virtualclassCont.congrea .tabs-bottom a.ui-corner-all.ui-chatbox-icon {
-  padding-top: 28px !important;
+  padding-top: 28px;
 }
 
 #virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header a.ui-corner-all.ui-chatbox-icon {
-  padding-top: 1px !important;
+  padding-top: 1px;
 }
 
 #virtualclassCont.congrea .ui-icon.ui-icon-minusthick {
-  top: 1px !important;
+  top: 1px;
 }
 
 #virtualclassCont.congrea.student .ui-memblist-usr .icon-chatImg::before {
@@ -1618,7 +1505,7 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea {
   width: 100%;
   overflow-y: hidden;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   position: relative;
 }
 
@@ -1653,23 +1540,23 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #playControllerWrapper #playProgress,
 #virtualclassCont.congrea #virtualclassAppLeftPanel #playController #playProgress .progressBar {
-  height: 5px !important;
+  height: 5px;
 }
 
 #virtualclassCont.congrea a.vceditor-btn {
-  border-bottom-width: 1px !important;
+  border-bottom-width: 1px;
 }
 
 .vceditor-btn-group > .vceditor-btn:first-child,
 #virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:last-child {
-  border-radius: 3px !important;
+  border-radius: 3px;
 }
 
 #virtualclassCont.congrea #virtualclassApp .playControllerMainCont {
   position: fixed;
   bottom: 0;
   height: 2.75rem;
-  z-index: 10000 !important;
+  z-index: 10000;
 }
 
 #virtualclassCont.congrea #playController #repTimeCont {
@@ -1696,8 +1583,8 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #playController #recPlayCont #recPlay.congtooltip:hover::after,
 #virtualclassCont.congrea #playController #recPauseCont #recPause.congtooltip:hover::after {
-  bottom: 53px !important;
-  right: 10px !important;
+  bottom: 53px;
+  right: 10px;
   padding: 0.4em 0.8em;
   letter-spacing: 1px;
 }
@@ -1887,7 +1774,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea div.playControllerMainCont {
-  background: linear-gradient(to bottom, #112126 0%, #34404c 100%) !important;
+  background: linear-gradient(to bottom, #112126 0%, #34404c 100%);
 }
 
 #virtualclassCont.congrea #playController,
@@ -1931,10 +1818,10 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea #playControllerCont #replayFromStart .icon-Replayfromstart {
   font-size: 13px;
   padding: 14px 24.5px;
-  border-right: 1px solid black !important;
+  border-right: 1px solid black;
   border: #ddd 1px solid;
   z-index: 0;
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
 #virtualclassCont.congrea #popupContainer #replayContainer.popupWindow {
@@ -1966,11 +1853,6 @@ div.ui-memblist-usr .userVideos {
   position: relative;
   color: #93b42f;
 }
-
-/* #virtualclassCont.congrea #playController .controlActive {
-  /*	pointer-events:  none;
-   background-image: radial-gradient(ellipse at center, #000000 0%,#000 100%) !important;
-} */
 
 #virtualclassCont.congrea.playMode #playController #replayFromStart.controlActive {
   box-shadow: none;
@@ -2065,7 +1947,7 @@ div.ui-memblist-usr .userVideos {
 /* border: #8f8f8f 1px solid; */
 
 #virtualclassOptionsCont .appOptions a.congtooltip:hover::after {
-  bottom: 2px !important;
+  bottom: 2px;
 }
 
 #virtualclassCont.congrea.playMode.student .writeModeBox {
@@ -2109,9 +1991,9 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea [placeholder="Insert image url"] {
   font-style: normal;
   font-family: sans-serif;
-  font-size: 18px !important;
+  font-size: 18px;
   color: #535151;
-  font-weight: lighter !important;
+  font-weight: lighter;
 }
 
 #virtualclassContuserImg.ui-memblist-usr {
@@ -2197,7 +2079,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea #virtualclassSessionEndTool.active a span {
-  color: #fff !important;
+  color: #fff;
 }
 
 /* gray color */
@@ -2295,14 +2177,12 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea .close {
-  text-shadow: none !important;
+  text-shadow: none;
 }
 
 #virtualclassCont.congrea .pollResultNotify .close {
   position: relative;
   top: -2px;
-
-  /* font-size: 14px !important; */
   float: right;
   right: -21px;
   line-height: 20px;
@@ -2318,13 +2198,13 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea .close:hover {
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea .close:hover,
 #virtualclassCont.congrea .close:active,
 #virtualclassCont.congrea .close:focus {
-  color: #000 !important;
+  color: #000;
 }
 
 #virtualclassCont.congrea #popupContainer .close {
@@ -2395,7 +2275,7 @@ div.ui-memblist-usr .userVideos {
 
 /* Play mode */
 #virtualclassCont.congrea #recordFinishedMessage {
-  color: #6a8a13 !important;
+  color: #6a8a13;
   text-align: center;
   font-weight: normal;
   font-size: 14px;
@@ -2591,7 +2471,7 @@ div.ui-memblist-usr .userVideos {
 
   /* color: #717171; */
   text-transform: uppercase;
-  margin: 0 auto 20px auto !important;
+  margin: 0 auto 20px auto;
 }
 
 #virtualclassCont.congrea .bootstrap .modal-dialog {
@@ -2600,7 +2480,7 @@ div.ui-memblist-usr .userVideos {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  margin: 0 !important;
+  margin: 0;
 }
 
 #virtualclassCont.congrea .modal {
@@ -2611,7 +2491,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea #qnPopupCont .modal {
-  background-color: rgba(0, 0, 0, 0) !important;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 #virtualclassCont.congrea #preCheckcontainer .modal {
@@ -2660,31 +2540,15 @@ div.ui-memblist-usr .userVideos {
   width: 100% !important;
 }
 
-/* #virtualclassCont.congrea .modal-body {max-height: inherit;} */
-
-/* #page-mod-congrea-classroom .close {
-  float: right !important;
-} */
-
-/*
-#virtualclassCont.congrea .close:hover,
-#virtualclassCont.congrea .close:active,
-#virtualclassCont.congrea .close:focus{
-	color: #ccc !important;
-	outline: none;
-	background: none;
-}
-*/
-
 #virtualclassCont.congrea .modal-backdrop {
   z-index: 0;
-  position: relative !important;
+  position: relative;
 }
 
 #virtualclassCont.congrea .modal-body textarea {
-  margin: 10px 0 !important;
-  min-width: 100% !important;
-  max-width: 100% !important;
+  margin: 10px 0;
+  min-width: 100%;
+  max-width: 100%;
 
   /* min-height: 50px; */
 }
@@ -2735,11 +2599,10 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea.student .vjs-volume-menu-button {
-  visibility: visible !important;
+  visibility: visible;
 }
 
 #virtualclassCont.congrea #virtualclassVideo {
-  /* margin:40px 20px!important; */
   position: relative;
 }
 
@@ -2767,7 +2630,7 @@ div.ui-memblist-usr .userVideos {
   padding-top: 10px;
   margin: 0 -10px 10px;
   border-radius: 3px 3px 0 0;
-  border-bottom: 1px solid rgba(254, 254, 254, 0.2) !important;
+  border-bottom: 1px solid rgba(254, 254, 254, 0.2);
   background: #fff;
 }
 
@@ -2815,16 +2678,16 @@ div.ui-memblist-usr .userVideos {
 
 .vjs-autoPlay-button.vjs-control.on,
 .vjs-autoPlay-button.vjs-control.on:hover {
-  color: #c7c7c7 !important;
-  background-color: #c7c7c7 !important;
+  color: #c7c7c7;
+  background-color: #c7c7c7;
   border: 1px solid #272727;
   border-radius: 0;
 }
 
 .vjs-autoPlay-button.vjs-control.off,
 .vjs-autoPlay-button.vjs-control.off:hover {
-  color: #c7c7c7 !important;
-  background-color: #c7c7c7 !important;
+  color: #c7c7c7;
+  background-color: #c7c7c7;
   border: 1px solid #272727;
   border-radius: 0;
 }
@@ -3030,16 +2893,12 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel .prechk,
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
-  border-left: 1px solid rgba(254, 254, 254, 0.2) !important;
+  border-left: 1px solid rgba(254, 254, 254, 0.2);
 }
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel .prechk,
 #virtualclassCont.congrea.student #virtualclassAppRightPanel #mainAudioPanel #vedioPacket {
   height: 50px;
-
-  /* width: 25%; */
-
-  /*	border-left:1px solid rgba(254, 254, 254, 0.2)!important; */
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #mainAudioPanel #ntkstatus {
@@ -3065,7 +2924,7 @@ div.ui-memblist-usr .userVideos {
 
 @media (min-width: 368px) {
   #virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget #mainAudioPanel {
-    float: none !important;
+    float: none;
     padding: 0;
     margin: 0;
   }
@@ -3160,27 +3019,20 @@ div.ui-memblist-usr .userVideos {
 }
 
 #dashboardnav .btn-primary {
-  background: linear-gradient(to bottom, #51a0ef 0%, #51a0ef 100%) !important;
+  background: linear-gradient(to bottom, #51a0ef 0%, #51a0ef 100%);
 }
 
 #dashboardnav i.dashboard-icon {
   font-style: normal;
 }
 
-@media (min-width: 768px) {
-  #preCheckcontainer .modal-body {
-    /*		max-height:513px; */
-  }
-}
+/* @media (min-width: 768px) {
+} */
 
 @media (min-width: 368px) {
   #preCheckcontainer .modal-content {
-    max-height: 555px !important;
+    max-height: 555px;
   }
-}
-
-#virtualclassCont.congrea .appOptions.active {
-  /* pointer-events : none; */
 }
 
 #virtualclassCont.congrea.student #speakerPressonceLabel {
@@ -3205,7 +3057,7 @@ div.ui-memblist-usr .userVideos {
 
 @media (min-height: 768px) {
   #dashboardnav {
-    top: 670px !important;
+    top: 670px;
     left: -4px;
     height: 45px;
     border: 0;
@@ -3227,7 +3079,7 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea li#appSettingCtrl,
 #virtualclassCont.congrea li#virtualclassnote {
   width: 25%;
-  text-align: center !important;
+  text-align: center;
   cursor: pointer;
 }
 
@@ -3526,12 +3378,12 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea.teacher .ui-corner-all.ui-chatbox-icon,
 #virtualclassCont.congrea.student .ui-corner-all.ui-chatbox-icon {
-  max-height: 42px !important;
+  max-height: 42px;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .mainpreview,
 #virtualclassCont.congrea #listppt .linkppt .mainpreview {
-  margin: -3px 2px 3px !important;
+  margin: -3px 2px 3px;
 }
 
 #virtualclassCont.congrea #virtualclassPreCheck #myModal {
@@ -3546,13 +3398,13 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea .user-details.media-body.congtooltip {
-  z-index: 1104 !important;
+  z-index: 1104;
 }
 
 #alleditorCodeContainer [data-action="disable"] {
-  padding: 0 !important;
+  padding: 0;
   background: linear-gradient(to bottom, #83c2b2 0%, #6cad9d 100%);
-  color: #fff !important;
+  color: #fff;
 }
 
 @media (max-width: 1175px) {
@@ -3666,20 +3518,6 @@ div.ui-memblist-usr .userVideos {
   left: -72px;
 }
 
-/* #congreaChatCont .ui-memblist-usr  .controllerRaiseH.disabled span{ */
-
-/* color: rgb(61, 74, 85); */
-
-/* } */
-
-/* #congreaChatCont .ui-memblist-usr  .controllerRaiseH.enabled span{ */
-
-/* color:green !important; */
-
-/* opacity:1; */
-
-/* } */
-
 #virtualclassCont.congrea #congAskQuestion.enable {
   width: 25%;
   cursor: pointer;
@@ -3692,20 +3530,6 @@ div.ui-memblist-usr .userVideos {
   cursor: pointer;
 }
 
-/* #virtualclassCont.congrea.playMode #congAskQuestion { */
-
-/* pointer-events: none !important; */
-
-/* opacity: 0.5; */
-
-/* } */
-
-/* #virtualclassCont.congrea .controllerRaiseH .icon-RaiseHandImg:before { */
-
-/* content: "\e962"; */
-
-/* } */
-
 #virtualclassCont.congrea #iconAskQuestion::before {
   content: "\e9b1";
   font-size: 1rem;
@@ -3716,10 +3540,10 @@ div.ui-memblist-usr .userVideos {
   color: #fd2812;
 }
 
-#virtualclassCont.congrea #iconAskQuestion::after {
-  position: absolute !important;
-  bottom: 35px !important;
-}
+/* #virtualclassCont.congrea #iconAskQuestion::after {
+  position: absolute;
+  bottom: 35px;
+} */
 
 #virtualclassCont.congrea li#virtualclassnote a,
 #virtualclassCont.congrea li#congAskQuestion a.stdAskQuestion {
@@ -3734,8 +3558,6 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea a.vceditor-btn:active {
   background-color: #28323c;
-
-  /* border: 1px solid rgba(254, 254, 254, 0.2) !important; */
   color: #fff;
 }
 
@@ -3767,11 +3589,11 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt.highlight {
   display: block;
   border-radius: 7px;
-  color: #00ff10 !important;
+  color: #00ff10;
 }
 
 #virtualclassCont.congrea .chatBarTab .hand_bt.highlight .icon-raisehand::before {
-  color: #cd1e22 !important;
+  color: #cd1e22;
 }
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt {
@@ -3779,15 +3601,13 @@ div.ui-memblist-usr .userVideos {
   bottom: 33px;
   float: right;
   padding: 3px 7px;
-  color: #fdfdff !important;
+  color: #fdfdff;
 }
 
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt,
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt:hover,
 #virtualclassCont.congrea.teacher .chatBarTab .hand_bt:focus {
-  background: none !important;
-
-  /* //border:none !important; */
+  background: none;
 }
 
 #virtualclassCont.congrea a.inner_bt.congtooltip:hover::after {
@@ -3796,8 +3616,8 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea .hand_bt.congtooltip:hover::after {
-  bottom: 2.7em !important;
-  left: -1.7em !important;
+  bottom: 2.7em;
+  left: -1.7em;
 }
 
 span#usertab_text {
@@ -3867,12 +3687,12 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea.tr_available .handRaise {
-  pointer-events: visible !important;
+  pointer-events: visible;
   opacity: 1;
 }
 
 #virtualclassPreCheck #preCheckcontainer .modal-dialog .modal-content {
-  padding: 0 !important;
+  padding: 0;
 }
 
 /** suman start **/
@@ -3935,7 +3755,7 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea #dashboardContainer .modal-header button.enable:hover {
-  background-image: linear-gradient(to bottom, #e6e6e6 0%, #e6e6e6 100%) !important;
+  background-image: linear-gradient(to bottom, #e6e6e6 0%, #e6e6e6 100%);
 }
 
 /* #virtualclassCont.congrea  #dashboardContainer .in .modal-header button{
@@ -3956,23 +3776,23 @@ span#usertab_text {
 }
 
 #VideoDashboard #videoPopup #uploadMsz .alert-dismissable.alert-success button.close {
-  border: 1px solid green !important;
-  color: green !important;
+  border: 1px solid green;
+  color: green;
 }
 
 #virtualclassCont.congrea #dashboardContainer .dashboardContainer .dbContainer #docsUploadMsz .alert-dismissable button.close {
-  color: green !important;
+  color: green;
   background-color: transparent;
   border: 1px solid green;
   padding: 2px 5px 3px 5px;
 }
 
 #virtualclassCont.congrea #dashboardContainer .dashboardContainer .dbContainer #docsUploadMsz .alert-dismissable button.close:hover {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
 #virtualclassCont.congrea #preCheckcontainer #precheckSkip .skip:hover::before {
-  color: red !important;
+  color: red;
 }
 
 #VideoDashboard #videoPopup #uploadMsz .alert-dismissable.alert-success {
@@ -3985,12 +3805,12 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea .reloadNote .congtooltip[data-title="Reload Whiteboard"]:hover::after {
-  width: 120px !important;
+  width: 120px;
 }
 
 #virtualclassCont.congrea.nowebcam .videoSwitchCont {
-  pointer-events: none !important;
-  opacity: 0.5 !important;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 #virtualclassCont.congrea #chat_room li .chat-user-icon {
@@ -4014,7 +3834,7 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea #videoHostContainer.show #chat_div {
-  max-height: calc(100vh - 383px) !important;
+  max-height: calc(100vh - 383px);
 }
 
 #virtualclassCont.congrea .user-details .usern .media-heading:hover {
@@ -4045,7 +3865,7 @@ span#usertab_text {
 
 ::-webkit-input-placeholder,
 :-moz-placeholder {
-  opacity: 0.800000011920928955078125 !important;
+  opacity: 0.800000011920928955078125;
 }
 
 :focus {
@@ -4077,7 +3897,7 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea.student #virtualclassVideo.virtualclass .vjs-control-bar button.vjs-play-control.vjs-playing {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont.congrea[data-currapp="ScreenShare"] #dashboardnav {
@@ -4118,9 +3938,9 @@ span#usertab_text {
     display: none !important;
   }
 
-  #virtualclassCont.congrea.student .icon-audioImg.enable::before {
-    font-size: 110% !important;
-  }
+  /* #virtualclassCont.congrea.student .icon-audioImg.enable::before {
+    font-size: 110%;
+  } */
 
   #virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen::before {
     font-size: 110%;
@@ -4128,7 +3948,6 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
-  margin: 20% auto;
   width: 400px;
 }
 
@@ -4190,11 +4009,11 @@ span#usertab_text {
 }
 
 .congrea #preCheckcontainer .container .modal.in {
-  display: block !important;
+  display: block;
 }
 
 .congrea.teacher #congdashboard.modal.in {
-  display: block !important;
+  display: block;
 }
 
 /* The actual popup */
@@ -4453,7 +4272,7 @@ span#usertab_text {
 
 #virtualclassCont.congrea #fullScreenButton span.congtooltip:hover::after,
 #virtualclassCont.congrea #fullScreenExitButton span.congtooltip:hover::after {
-  bottom: 47px !important;
+  bottom: 47px;
   left: -14px;
 }
 
@@ -4673,10 +4492,6 @@ span#usertab_text {
   }
 }
 
-#virtualclassCont.congrea #sessionEndMsgCont .endHeader {
-  background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
-}
-
 #virtualclassCont.congrea .canvasWrapper::-webkit-scrollbar {
   width: 6px;
 }
@@ -4714,10 +4529,6 @@ span#usertab_text {
   top: calc(50% - 25px);
   right: 0;
   cursor: pointer;
-
-  /* background-color: #fffff7; */
-
-  /* background-image: linear-gradient(to bottom, rgba(1,7,9,.8) 0%,rgba(1,7,9,.8) 100%) !important; */
   box-shadow: 0 0 4px rgb(132, 130, 130);
   border-bottom-left-radius: 15px;
   border-top-left-radius: 15px;
@@ -4840,14 +4651,6 @@ body {
     position: relative;
   }
 }
-
-/* #virtualclassCont.congrea .commandToolsWrapper .tool.active:hover .cgIcon:before {
-    color: #000;
-  } */
-
-/* #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover{
-    background-color: #e0e0e0 !important;
-  } */
 
 #virtualclassCont.congrea #userListHeader.active,
 #virtualclassCont.congrea #commonChatHeader.active,

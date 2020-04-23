@@ -561,7 +561,7 @@
 #virtualclassCont.congrea .ui-tabs .ui-tabs-nav li.ui-tabs-active {
   border-top: none;
   position: relative;
-  top: 0;
+  top: -1px;
   border-radius: 0;
   margin-right: 0;
   border-bottom: none;
@@ -827,7 +827,7 @@
 #virtualclassCont.congrea .ui-state-default .ui-tabs-anchor,
 #virtualclassCont.congrea .ui-state-default a.ui-corner-all,
 #virtualclassCont.congrea .ui-state-default .icon-minus {
-  display: none;
+  display: none !important;
 }
 
 #virtualclassCont.congrea .chat_enabled #memlist.enable {

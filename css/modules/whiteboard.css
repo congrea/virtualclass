@@ -224,7 +224,8 @@ ul.fontSizeList span {
 
 .shapesToolbox[data-currtool="line"] .shapes_icon a,
 .shapesToolbox[data-currtool="rectangle"] .shapes_icon a,
-.shapesToolbox[data-currtool="triangle"] .shapes_icon a {
+.shapesToolbox[data-currtool="triangle"] .shapes_icon a,
+#virtualclassCont.congrea .shapesToolbox[data-currtool="oval"] .shapes_icon a {
   padding: 8px 13px 9px 14px !important;
 }
 
@@ -240,12 +241,6 @@ ul.fontSizeList span {
   padding: 8px 13px 9px 14px !important;
 }
 
-/* #virtualclassCont.congrea .shapesToolbox:hover .shapesTool { */
-
-/* display:block !important; */
-
-/* } */
-
 #virtualclassCont.congrea .shapesToolbox .shapesTool {
   display: none;
   background-color: #fff;
@@ -253,10 +248,6 @@ ul.fontSizeList span {
 
   /* border-bottom-right-radius: 10px; */
 }
-
-/* #virtualclassCont.congrea .containerWb .commandToolsWrapper .shapesToolbox .shapesTool .tool a {
-  border-bottom: 0.05em solid #929292 !important;
-} */
 
 #virtualclassCont.congrea .commandToolsWrapper .shapesTool {
   position: absolute;
@@ -292,14 +283,14 @@ ul.fontSizeList span {
 #virtualclassCont.congrea .shapesToolbox[data-currtool="rectangle"] .shapes_icon a span::after,
 #virtualclassCont.congrea .shapesToolbox[data-currtool="triangle"] .shapes_icon a span::after {
   margin-left: -2px;
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea .shapesToolbox.active[data-currtool="circle"] .shapesTool .active a span::before,
 #virtualclassCont.congrea .shapesToolbox.active[data-currtool="line"] .shapesTool .active a span::before,
 #virtualclassCont.congrea .shapesToolbox.active[data-currtool="rectangle"] .shapesTool .active a span::before,
 #virtualclassCont.congrea .shapesToolbox.active[data-currtool="triangle"] .shapesTool .active a span::before {
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon::after {
@@ -323,8 +314,8 @@ ul.fontSizeList span {
   color: #fff;
 }
 
-#virtualclassCont.congrea #virtualclassWhiteboardToo.active a span {
-  color: #fff !important;
+#virtualclassCont.congrea #virtualclassWhiteboardTool.active a span {
+  color: #fff;
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a[data-title="Rectangle"] span,
@@ -414,56 +405,12 @@ ul.fontSizeList {
   color: #fff;
 }
 
-/*
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper table.open,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer table.open,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper ul.open,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer ul.open,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .show,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .show,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .shapesTool.open,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .shapesTool.open {
-  display: block !important;
-  z-index: inherit;
-}
-*/
-
-
-/* #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper table.close,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer table.close,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper ul.close,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer ul.close,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .hide,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .hide,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .strkSizeList,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .strkSizeList,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .fontSizeList,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .fontSizeList,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .shapesTool.close,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .shapesTool.close {
-  display: none !important;
-} */
-
-/* #virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper table.close,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer table.close,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper ul.close,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer ul.close,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .hide,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .hide,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .strkSizeList,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .strkSizeList,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .fontSizeList,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .fontSizeList,
-#virtualclassCont.congrea #virtualclassWhiteboard .commandToolsWrapper .shapesTool.close,
-#virtualclassCont.congrea #virtualclassDocumentShare #documentScreen #notesContainer .shapesTool.close {
-  display: none !important;
-} */
 #virtualclassCont.congrea .commandToolsWrapper .hide,
-#virtualclassCont.congrea  .commandToolsWrapper .shapesTool.close,
+#virtualclassCont.congrea .commandToolsWrapper .shapesTool.close,
 #virtualclassCont.congrea .commandToolsWrapper table.close,
-#virtualclassCont.congrea  .commandToolsWrapper .fontSizeList, 
-#virtualclassCont.congrea  .commandToolsWrapper .strkSizeList {
-  display: none !important  ;
+#virtualclassCont.congrea .commandToolsWrapper .fontSizeList,
+#virtualclassCont.congrea .commandToolsWrapper .strkSizeList {
+  display: none !important;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .openTray {
@@ -510,10 +457,6 @@ ul.fontSizeList {
 #virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li.selected:hover {
   background-color: #000;
 }
-
-/* #virtualclassCont.congrea.orginalTeacher #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="stroke"] ul.strkSizeList li:hover span {
-  background-color: #404040 !important;
-} */
 
 #virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool[data-tool="font"] ul.fontSizeList {
   background-color: #fff;

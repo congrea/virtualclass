@@ -1,5 +1,6 @@
 window.addEventListener('beforeinstallprompt', (event) => {
   console.log('👍', 'beforeinstallprompt', event);
+  document.querySelector("#installContainer").style.display= "block";
   // Prevent the mini-infobar from appearing on mobile
   event.preventDefault();
   // Stash the event so it can be triggered later.

@@ -4536,9 +4536,24 @@ body {
 #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn .warningWrapper {
   padding: 5rem;
   flex: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  width: 68%;
+}
+
+#virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn .warningWrapper {
+  transform: unset;
+  position: unset;
+  width: unset;
 }
 
 #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer {
+  display: none;
+}
+
+#virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn #installContainer {
   padding: 5rem;
 }
 

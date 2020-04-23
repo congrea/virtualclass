@@ -421,6 +421,7 @@
                 if (result.outcome === 'accepted') {
                   console.log('User accepted the install prompt');
                   divInstall.classList.toggle('hidden', true);
+                  document.querySelector(".mobileLandscapeWarn").classList.add("pwaInstalled");
                 } else {
                   console.log('User dismissed the install prompt');
                 }

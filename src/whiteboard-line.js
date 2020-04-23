@@ -1,3 +1,9 @@
+/**
+ * This class draws the line on whtieboard
+  * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
+
 class WhiteboardLine extends WhiteboardCommonShape {
   constructor(name) {
     super(name);

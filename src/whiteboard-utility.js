@@ -1,3 +1,9 @@
+/**
+ * This class contains the utility function of whiteboard
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
+
 class WhiteboardUtility {
   // earlier it waas drawInWhiteboards
   static storeAtMemory(data, wId, freeDrawing) {

@@ -1,3 +1,8 @@
+/**
+ * This class is responsible for communcating whiteboard data or packets
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
 class WhiteboardMessage {
   static send(data) {
     if (roles.hasControls()) {

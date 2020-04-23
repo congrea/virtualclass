@@ -344,6 +344,7 @@ const ioEventApi = {
   },
 
   connectionclose(e) {
+    console.log('====> close connection message ', e.message);
     if (Object.prototype.hasOwnProperty.call(virtualclass, 'recorder') && virtualclass.recorder.startUpload) {
       // console.log('During the upload process there would not any other popup box.');
     } else if (virtualclass.recorder.smallData && Object.prototype.hasOwnProperty.call(virtualclass.recorder, 'rdlength') && virtualclass.recorder.rdlength < 100000) {
@@ -352,6 +353,10 @@ const ioEventApi = {
       virtualclass.popup.waitMsg();
     }
     virtualclass.chat.makeUserListEmpty();
+    if (e.message) {
+      const errorMsg = virtualclass.lang.getString('connectionClose', [e.message]);
+      virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'virtualclassAppFooterPanel', { className: 'connectionClose' });
+    }
   },
 
   connectionopen(e) {

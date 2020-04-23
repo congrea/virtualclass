@@ -1,3 +1,9 @@
+/**
+ * This class draws the cursor on canvas for student side
+  * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
+
 class WhiteboardCursor {
   init() {
     if (!this.arrImg) {

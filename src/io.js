@@ -513,6 +513,7 @@ var ioInit = {
           type: 'connectionclose',
           message: e.data.msg,
         });
+        
         // TODO Do we need this?
         setTimeout(() => {
           // For prevent to send any packet to other during save session

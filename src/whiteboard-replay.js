@@ -1,3 +1,11 @@
+
+/**
+ * This class is reponsible to draw each whiteboard packet
+ * on participate side, on resizing, on page refresh and on recoding play
+ * @Copyright 2020  Vidya Mantra EduSystems Pvt. Ltd.
+ * @author Suman Bogati <http://www.vidyamantra.com>
+ */
+
 class WhiteboardReplay {
   init(wid) {
     this.objs = virtualclass.wb[wid].vcanMainReplayObjs;
@@ -9,6 +17,7 @@ class WhiteboardReplay {
     let eventType;
     let shape;
     let evt;
+    let fabricCanvas;
     switch (data.action) {
       case 'sp': // display/render/create shape, like, rectangle
         virtualclass.wb[wid].selectedTool = data.tool;
@@ -18,6 +27,7 @@ class WhiteboardReplay {
         virtualclass.wb[wid][shape][eventType](data.actual, virtualclass.wb[wid]);
         break;
       case 'ac': // Active all
+        fabricCanvas = virtualclass.wb[wid].canvas;
         virtualclass.wb[wid].selectedTool = data.tool;
         // todo innerMouseDown has to removed later
         if (data.event && (data.event === 'mousedown')) {
@@ -25,20 +35,14 @@ class WhiteboardReplay {
         }
         evt = WhiteboardUtility.readyMouseEvent(data.event, data.actual);
         evt.wId = wid;
-        virtualclass.wb[wid].canvas.upperCanvasEl.dispatchEvent(evt);
+        fabricCanvas.upperCanvasEl.dispatchEvent(evt);
         if (data.event && (data.event === 'mousedown')) {
-          let eventTypePrefix = virtualclass.wb[wid].canvas._getEventPrefix();
-          fabric.util.removeListener(fabric.document, eventTypePrefix + 'move', virtualclass.wb[wid].canvas._onMouseMove, {'passive': false
-          });
-          fabric.util.removeListener(fabric.document, eventTypePrefix + 'up', virtualclass.wb[wid].canvas._onMouseUp, {'passive': false
-          });
-          fabric.util.addListener(virtualclass.wb[wid].canvas.upperCanvasEl, eventTypePrefix + 'move', virtualclass.wb[wid].canvas._onMouseMove, {'passive': false});
-
-          fabric.util.addListener(virtualclass.wb[wid].canvas.upperCanvasEl, eventTypePrefix + 'up', virtualclass.wb[wid].canvas._onMouseUp, {'passive': false});
-
+          const eventPrefix = fabricCanvas._getEventPrefix();
+          fabric.util.removeListener(fabric.document, `${eventPrefix}move`, fabricCanvas._onMouseMove, {'passive': false });
+          fabric.util.removeListener(fabric.document, `${eventPrefix}up`, fabricCanvas._onMouseUp, {'passive': false });
+          fabric.util.addListener(fabricCanvas.upperCanvasEl, `${eventPrefix}move`, fabricCanvas._onMouseMove, {'passive': false});
+          fabric.util.addListener(fabricCanvas.upperCanvasEl, `${eventPrefix}up`, fabricCanvas._onMouseUp, {'passive': false});
         }
-        
-        
         break;
       case 'cr': // Clear whiteboard
         virtualclass.wb[data.actual].clear();

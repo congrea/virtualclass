@@ -4555,6 +4555,7 @@ body {
 
 #virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn #installContainer {
   padding: 5rem;
+  display: block;
 }
 
 #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer p {

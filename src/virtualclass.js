@@ -406,6 +406,7 @@
               if (!promptEvent) {
                 // The deferred prompt isn't available.
                 // divInstall.classList.toggle('hidden', true);
+                console.log("App is already added to your home screen");
                 return;
               }
               // Show the install prompt.
@@ -532,7 +533,7 @@
             }
             console.log('=====> full screen show ask hide exit');
             virtualclass.gObj.rightbarFullScreenMode = false;
-            if (!virtualclass.gObj.ignoreFullScreen) {
+            if (!virtualclass.gObj.ignoreFullScreen && !document.querySelector("html").classList.contains("pwa")) {
               virtualclass.vutil.showFullScreenButton();
             }
           }

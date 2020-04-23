@@ -65,7 +65,7 @@
         allbg.scolor = chroma(allbg.fcolor).darken().hex();
       }
 
-      const border = `0.05em solid ${allbg.fcolor}`;
+      const border = `1px solid ${allbg.fcolor}`;
       const css = `${'#virtualclassCont.congrea #virtualclassOptionsCont .appOptions '
         + '{border-top:'}${border}}`
         + '#virtualclassCont.congrea #fullScreenButton ,'
@@ -81,7 +81,7 @@
         + '#virtualclassCont.congrea li#virtualclassnote, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #appSettingCtrl, '
         + '#virtualclassCont.congrea #bookmark '
-        + `{border-left: 0.01em solid ${allbg.fcolor}}`
+        + `{border-left: 1px solid ${allbg.fcolor}}`
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab '
         + `{border-left:${border}}`
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ,'
@@ -93,9 +93,9 @@
         + '#virtualclassCont #virtualclassAppFooterPanel #precheckBtn, '
         + '#virtualclassCont #virtualclassAppFooterPanel #recording, '
         + '#virtualclassCont.congrea.playMode #fullScreenExitButton '
-        + `{border-right: 0.01em solid ${allbg.fcolor}}`
+        + `{border-right: 1px solid ${allbg.fcolor}}`
         + '#virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header'
-        + `{border: 0.02em solid ${allbg.fcolor}}`
+        + `{border: 1px solid ${allbg.fcolor}}`
         + '#virtualclassCont.congrea .btn.btn-default ,'
         + '#virtualclassCont.congrea .vceditor-toolbar, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab,'

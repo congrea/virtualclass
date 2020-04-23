@@ -262,9 +262,7 @@ ul.fontSizeList span {
 #virtualclassCont.congrea .shapesToolbox .shapesTool {
   display: none;
   background-color: #fff;
-  width: 209px;
-
-  /* border-bottom-right-radius: 10px; */
+  width: 212px;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .shapesTool {
@@ -273,12 +271,6 @@ ul.fontSizeList span {
   left: 2px;
   border-right: none;
 }
-
-/* #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon .icon-shapes.cgIcon { */
-
-/* padding: 13px 13px 14px 14px; */
-
-/* } */
 
 #virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon a.congtooltip:hover::after {
   bottom: -30px;

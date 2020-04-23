@@ -1799,6 +1799,8 @@
 
         if (errorMsg == null) {
           virtualclass.view.createErrorMsg(error, 'errorContainer', 'virtualclassAppFooterPanel');
+        } else if (typeof error === 'object') {
+          virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'virtualclassAppFooterPanel', { className: error.name });
         } else {
           virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'virtualclassAppFooterPanel');
         }

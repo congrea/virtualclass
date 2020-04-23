@@ -49,50 +49,46 @@
       if (cpuNotCompatible !== null) { // HIGH PRIORITY ERROR
         return;
       }
+
       let classes = 'error';
-      let errorCont = document.getElementById(contId);
-      let closebutton;
-      if (errorCont == null) {
-        errorCont = document.createElement('div');
-        errorCont.id = contId;
-        errorCont.innerHTML = `<span className="${classes}">${msg}</span>`;
-      } else {
-
-        if (attribute != null) {
-          if (Object.prototype.hasOwnProperty.call(attribute, 'className')) {
-            const elem = document.querySelector(`#${contId}.${attribute.className}`);
-            if (elem != null) {
-              elem.parentNode.removeChild(elem);
-            }
-            classes += ` ${attribute.className}`;
-          }
+      let errorContMain = document.getElementById(`main${contId}`);
+      if (errorContMain == null) {
+        errorContMain = document.createElement('div');
+        errorContMain.id = `main${contId}`;
+        const addBeforeElem = document.getElementById(addBefore);
+        if (addBeforeElem !== null) {
+          addBeforeElem.parentNode.insertBefore(errorContMain, addBeforeElem);
         }
-
-        const spanMsg = `<span className="${classes}">${msg}</span>`;
-
-        errorCont.innerHTML = spanMsg;
+      } else if (attribute != null && Object.prototype.hasOwnProperty.call(attribute, 'className')) {
+        const elem = document.querySelector(`#main${contId} .errorContainer.${attribute.className}`);
+        if (elem != null) elem.parentNode.removeChild(elem);
+      }
+      
+      let allErrorContainer = document.querySelectorAll('#mainerrorContainer .errorContainer');
+      while (allErrorContainer.length > 2) {
+        allErrorContainer[0].parentNode.removeChild(allErrorContainer[0]);
+        allErrorContainer = document.querySelectorAll('#mainerrorContainer .errorContainer');
       }
 
-      const msgId = 'closeMsg';
-      closebutton = document.querySelector(`#${msgId}`);
+      const errorContainer = document.createElement('div');
+      errorContainer.classList.add('errorContainer');
+      if (attribute) errorContainer.classList.add(attribute.className);
 
-      if (closebutton == null) {
-        closebutton = document.createElement('span');
-        closebutton.id = 'closeMsg';
-        closebutton.innerHTML = 'x';
-        errorCont.appendChild(closebutton);
+      const errorMsg = document.createElement('span');
+      errorMsg.className = classes;
+      errorMsg.innerHTML = msg;
+
+      const errorCloseButton = document.createElement('span');
+      errorCloseButton.className = 'close';
+      errorCloseButton.innerHTML = 'X';
+
+      errorCloseButton.onclick = (element) => {
+        element.target.parentNode.parentNode.removeChild(element.target.parentNode);
       }
+      errorContainer.appendChild(errorMsg);
+      errorContainer.appendChild(errorCloseButton);
 
-      closebutton.onclick = function () {
-        const parentelem = document.querySelector(`#${contId}`);
-        parentelem.parentNode.removeChild(parentelem);
-      };
-
-      const addBeforeElem = document.getElementById(addBefore);
-      if (addBeforeElem !== null) {
-        addBeforeElem.parentNode.insertBefore(errorCont, addBeforeElem);
-      }
-      return errorCont.id;
+      errorContMain.appendChild(errorContainer);
     },
 
     createAskQuestionMsg(msg, contId, addBefore, attribute) {

@@ -62,6 +62,7 @@
     congreainchrome: 'Your browser is compatible.',
     confirmCancel: 'No',
     confirmOk: 'Yes',
+    connectionClose: 'Connection is closed ({virtualclass1}).',
     Controls: 'Controls',
     coursePoll: 'Course level poll',
     Cpoll: 'Course poll',

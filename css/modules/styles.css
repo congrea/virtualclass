@@ -464,6 +464,12 @@
   margin-top: 2%;
 }
 
+
+#virtualclassCont.congrea .errorContainer .error {
+  border: none;
+  margin-left: 0;
+}
+
 #virtualclassCont.congrea #virtualclassPreCheck .error {
   width: 100%;
   margin-left: 0;
@@ -2148,9 +2154,15 @@ div.ui-memblist-usr .userVideos {
   clear: both;
 }
 
-#virtualclassCont.congrea #errorContainer {
+#virtualclassCont.congrea #mainerrorContainer {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translate(-50%);
+}
+#virtualclassCont.congrea .errorContainer { 
   background-color: #f0f0f0;
-  box-shadow: #ddd 0 0 5px;
+  box-shadow: #ddd 0 0 3px;
   border: #ddd 1px solid;
   padding: 22px;
   border-radius: 5px;
@@ -2160,10 +2172,8 @@ div.ui-memblist-usr .userVideos {
   width: -moz-fit-content;
   line-height: 1.5em;
   color: rgba(131, 14, 14, 0.93);
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translate(-50%);
+  position:relative;
+  margin-top: 5px;
 }
 
 #virtualclassCont.congrea.student.presenter #speakerPressing {
@@ -3238,14 +3248,14 @@ div.ui-memblist-usr .userVideos {
   width: 20%;
 }
 
-#virtualclassCont.congrea #closeMsg {
+#virtualclassCont.congrea .errorContainer .close {
   background: #717070;
   padding: 5px;
   border-radius: 20px;
   color: #fff;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: -11px;
+  right: -4px;
   font-family: sans-serif;
   cursor: pointer;
   float: right;
@@ -3433,7 +3443,7 @@ div.ui-memblist-usr .userVideos {
   background-image: none !important;
 }
 
-#virtualclassCont.congrea.playMode #virtualclassSharePresentation {
+  #virtualclassCont.congrea.playMode #virtualclassSharePresentation {
   padding-top: 0;
 }
 

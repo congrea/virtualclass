@@ -496,6 +496,11 @@
     font-size: 0.9375rem;
   }
 
+  #virtualclassCont.congrea #fullScreenButton .fullScreen,
+  #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
+    line-height: 1.15rem;
+  }
+
   html,
   body {
     font-size: 14px;

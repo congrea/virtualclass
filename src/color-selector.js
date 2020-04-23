@@ -86,6 +86,7 @@
         + `{border-left:${border}}`
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ,'
         + '#virtualclassCont.congrea .shapesToolbox ,'
+        + '#virtualclassCont.congrea #networkStatusContainer #networkLatency ,'
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab li ,'
         + '#virtualclassCont.congrea #fullScreenButton ,'
         + '#virtualclassCont.congrea #fullScreenExitButton, '

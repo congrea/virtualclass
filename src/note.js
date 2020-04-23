@@ -138,8 +138,8 @@ class Note { // Part of Note
     const textArea = document.querySelector(`#noteContainer .context[data-context="${currentContext}"] textarea.content`);
     if (!this.attachFocusHandler[currentContext]) {
       textArea.addEventListener('input', this.noteHandler.bind(this));
-      textArea.addEventListener('focus', virtualclass.vutil.inputFocusHandler.bind(this));
-      textArea.addEventListener('focusout', virtualclass.vutil.inputFocusOutHandler.bind(this));
+      // textArea.addEventListener('focus', virtualclass.vutil.inputFocusHandler.bind(this));
+      // textArea.addEventListener('focusout', virtualclass.vutil.inputFocusOutHandler.bind(this));
       this.attachFocusHandler[currentContext] = true;
     }
 

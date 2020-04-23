@@ -2437,29 +2437,29 @@
     },
 
     // text area focus input element
-    inputFocusHandler(searchUser) {
-      console.log('====> focus input');
+    // inputFocusHandler(searchUser) {
+    //   console.log('====> focus input');
 
-      if (searchUser && typeof searchUser !== 'string') {
-        if (virtualclass.isPlayMode) virtualclass.userInteractivity.triggerPause();
-      }
+    //   if (searchUser && typeof searchUser !== 'string') {
+    //     if (virtualclass.isPlayMode) virtualclass.userInteractivity.triggerPause();
+    //   }
 
-      if (window.innerWidth > window.innerHeight) { // Apply only on landscape mode
-        virtualclass.gObj.initHeight = window.innerHeight;
-        const isFocusElement = document.querySelector('#tabs .ui-state-focus');
-        if (virtualclass.system.device === 'mobTab' && isFocusElement == null
-          && virtualclass.system.mybrowser.name != 'Safari') {
-          document.getElementById('virtualclassCont').classList.add('focusInput');
-        }
-      }
-    },
+    //   if (window.innerWidth > window.innerHeight) { // Apply only on landscape mode
+    //     virtualclass.gObj.initHeight = window.innerHeight;
+    //     const isFocusElement = document.querySelector('#tabs .ui-state-focus');
+    //     if (virtualclass.system.device === 'mobTab' && isFocusElement == null
+    //       && virtualclass.system.mybrowser.name != 'Safari') {
+    //       document.getElementById('virtualclassCont').classList.add('focusInput');
+    //     }
+    //   }
+    // },
 
-    inputFocusOutHandler() {
-      console.log('====> focus output');
-      if (virtualclass.system.device === 'mobTab') {
-        document.getElementById('virtualclassCont').classList.remove('focusInput');
-      }
-    },
+    // inputFocusOutHandler() {
+    //   console.log('====> focus output');
+    //   if (virtualclass.system.device === 'mobTab') {
+    //     document.getElementById('virtualclassCont').classList.remove('focusInput');
+    //   }
+    // },
 
     checkUserRole() {
       if (virtualclass.isPlayMode) {

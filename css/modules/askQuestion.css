@@ -254,6 +254,11 @@
   background-color: #fff;
 }
 
+#virtualclassCont.congrea #askQuestion #writeContent:hover {
+  box-shadow: 0 0 3px #8cc9fd;
+  border: 1px solid #8cc9fd !important;
+}
+
 #virtualclassCont #askQuestion.tempDown #writeContent {
   pointer-events: visible;
 }

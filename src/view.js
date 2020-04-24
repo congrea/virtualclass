@@ -80,7 +80,7 @@
 
       const errorCloseButton = document.createElement('span');
       errorCloseButton.className = 'close';
-      errorCloseButton.innerHTML = 'X';
+      errorCloseButton.innerHTML = 'x';
 
       errorCloseButton.onclick = (element) => {
         element.target.parentNode.parentNode.removeChild(element.target.parentNode);

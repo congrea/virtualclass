@@ -334,13 +334,13 @@
     padding: 0.67857rem 0.8571rem 0.8571rem 0.9285rem;
   }
 
-  /* #virtualclassCont.congrea a.inner_bt {
-    padding: 0.6785rem 1rem 0.6428rem 1rem;
-  } */
+  #virtualclassCont.congrea #preCheckcontainer .modal {
+  background-color: #e4e4e4;
+}
 
-  /* #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
-    padding: 0.8125rem 0.8125rem 0.6875rem 0.8125rem;
-  } */
+  #virtualclassCont.congrea #joinClass #joinClassModal {
+    background-color: #e4e4e4 !important;
+  }
 
   #virtualclassCont.congrea li#appSettingCtrl > a {
     padding: 0.7142rem 0.8571rem 0.6428rem 0.92857rem;

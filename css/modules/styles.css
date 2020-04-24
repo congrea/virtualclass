@@ -1990,7 +1990,6 @@ div.ui-memblist-usr .userVideos {
   position: absolute;
   top: 4px;
   right: 10px;
-  z-index: 10000;
 }
 
 #virtualclassCont.congrea #mainerrorContainer .errorContainer {
@@ -2456,10 +2455,6 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #qnPopupCont .modal {
   background-color: rgba(0, 0, 0, 0);
-}
-
-#virtualclassCont.congrea #preCheckcontainer .modal {
-  background-color: #555558;
 }
 
 #virtualclassCont.congrea #virtualclassPoll #bootstrapCont #editPollModal {
@@ -3898,6 +3893,11 @@ span#usertab_text {
 
 #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
   width: 400px;
+}
+
+#virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog .modal-content {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px 0 rgba(32,33,36,0.28) !important;
 }
 
 #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog .textCont {

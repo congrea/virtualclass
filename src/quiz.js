@@ -111,7 +111,7 @@
         let isQuiz = false;
         let mszBoxQuiz;
         virtualclass.quiz.dispList('course');
-        const listcont = document.getElementById('listquizcourse');
+        // const listcont = document.getElementById('listquizcourse');
         if (Object.keys(this.coursequiz).length > 0) {
           for (const k in this.coursequiz) {
             if (Object.prototype.hasOwnProperty.call(this.coursequiz, k)) {

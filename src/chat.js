@@ -320,12 +320,12 @@
       },
 
       // TODO this function not in use
-      isTechSupportExist(uid) {
-        const techSupport = document.querySelector('#congreaSupport');
-        if (techSupport != null) {
-          return ((+techSupport.dataset.tsid) === (+uid));
-        }
-      },
+      // isTechSupportExist(uid) {
+      //   const techSupport = document.querySelector('#congreaSupport');
+      //   if (techSupport != null) {
+      //     return ((+techSupport.dataset.tsid) === (+uid));
+      //   }
+      // },
 
       removeCommonChatNodes() {
         const chatRoom = document.getElementById('chat_room');

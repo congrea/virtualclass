@@ -38,8 +38,8 @@
 
     storeCacheAll(data, serialKey) {
       const tx = this.db.transaction('cacheAll', 'readwrite');
-      serialKey[0] = parseInt(serialKey[0]);
-      serialKey[1] = parseInt(serialKey[1]);
+      serialKey[0] = (+serialKey[0]);
+      serialKey[1] = (+serialKey[1]);
 
       tx.store.put(data, serialKey);
       tx.done.then(() => {

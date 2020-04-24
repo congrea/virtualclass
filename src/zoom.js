@@ -13,7 +13,7 @@
             const zoomControler = virtualclass.getTemplate('zoomControl');
             const zoomControlerhtml = zoomControler({ hasControls: roles.hasControls() });
             parent.insertAdjacentHTML('beforeend', zoomControlerhtml);
-            this._initScaleController();
+            this.initScaleController();
             // }
 
             // var canvasScale = localStorage.getItem('wbcScale');
@@ -30,9 +30,9 @@
         }
       },
 
-      _initScaleController() {
+      initScaleController() {
         const elem = document.querySelector('.zoomControler');
-        var that = this;
+        const that = this;
         const zoomIn = elem.querySelector('.zoomIn');
         zoomIn.addEventListener('click', () => {
           virtualclass.zoom.performZoom = true;

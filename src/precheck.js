@@ -469,7 +469,8 @@ const preCheck = {
        * For safari, we need to get the new stream every time after
        * destroying the audio processor node
        */
-      // virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(virtualclass.precheck.session).then(function (stream) {
+      // virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(
+      // virtualclass.precheck.session).then(function (stream) {
       //     virtualclass.precheck.mediaStream = stream;
       //     micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
       // });

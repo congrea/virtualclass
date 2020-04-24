@@ -496,7 +496,6 @@
         }
 
         if (typeof receivemsg.pptMsg !== 'undefined') {
-
           if (receivemsg.pptMsg === 'deletePrt') {
             if (pptIframe !== null) {
               pptIframe.removeAttribute('src');
@@ -727,9 +726,6 @@
         });
 
         // virtualclass.sharePt.retrieveOrder();
-
-
-
         // console.log(videos);
         // virtualclass.videoUl.videos = videos;
 

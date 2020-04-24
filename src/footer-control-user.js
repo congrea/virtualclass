@@ -358,7 +358,7 @@
           let action;
           // If editor code is enabled
           if (msg.status) {
-            if (virtualclass.gObj.uid == msg.toUser) {
+            if (virtualclass.gObj.uid === msg.toUser) {
               if (typeof virtualclass.editorCode.cm === 'object' && !virtualclass.isPlayMode) {
                 virtualclass.editorCode.cm.setOption('readOnly', false);
               }
@@ -734,6 +734,14 @@
               if (typeof notActive === 'undefined') {
                 studentSpeaker.className = 'active';
               }
+              if (virtualclass.settings.specificUser === true && roles.isStudent()) {
+                const tag = document.getElementById('speakerPressOnce');
+                const anchor = tag.getElementsByClassName('congtooltip')[0];
+                virtualclass.media.audio.studentSpeak();
+                tag.setAttribute('data-audio-playing', 'true');
+                anchor.setAttribute('data-title', virtualclass.lang.getString('audioEnable'));
+                tag.className = 'audioTool active';
+              }
               studentSpeaker.style.opacity = '1';
               studentSpeaker.style.pointerEvents = 'visible';
             }
@@ -776,6 +784,10 @@
 
         audioDisable() {
           const mic = document.getElementById('speakerPressOnce');
+          if (mic != null && mic.classList.contains('active')) {
+            mic.classList.remove('active');
+            mic.classList.add('deactive');
+          }
           if (mic != null) {
             mic.style.opacity = '0.5';
             mic.style.pointerEvents = 'none';

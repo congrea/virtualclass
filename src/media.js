@@ -583,8 +583,8 @@
          * @return bufView Array Buffer
          */
         str2ab(str) {
-          const buf = new ArrayBuffer(str.length); // 2 bytes for each char
-          const bufView = new Int8Array(buf);
+          const arrBuf = new ArrayBuffer(str.length); // 2 bytes for each char
+          const bufView = new Int8Array(arrBuf);
           for (let i = 0, strLen = str.length; i < strLen; i++) {
             bufView[i] = str.charCodeAt(i);
           }

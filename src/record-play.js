@@ -1033,7 +1033,7 @@
         for (let j = 0; j < this.masterRecordings[i].length; j++) {
           totalTimeMil += this.masterRecordings[i][j].playTime;
           if (totalTimeMil === seekVal) {
-            return { master: i, sub: j };
+           return { master: i, sub: j };
             // console.log(`Seek index i = ${i} j=${j} totalTime=${totalTimeMil}`);
           } if (totalTimeMil >= seekVal) {
             if (j > 0) {
@@ -1197,10 +1197,10 @@
           const property = prop;
           const val = this.viewPoint.data[prop];
           for (let i = 0; i < val.length; i++) {
-            const dataProp = (parseInt(Object.keys(val[i])[0]));
+            const dataProp = (+Object.keys(val[i])[0]);
             const value = (Object.values(val[i])[0]);
             for (let j = dataProp; j < value; j++) {
-              this.recData.splice(j, 1, parseInt(property));
+              this.recData.splice(j, 1, (+property));
             }
           }
         }

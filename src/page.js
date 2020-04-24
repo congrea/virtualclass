@@ -164,16 +164,17 @@
    */
 
   page.prototype.sendStatus = function (data) {
+    const statusObj = data;
+    let ids;
     if (this.type === 'notes') {
-      const ids = this.rid.split('_');
-      data.uuid = ids[0];
-      data.page = parseInt(ids[1]);
+      ids = this.rid.split('_');
+      statusObj.uuid = ids[0];
+      statusObj.page = (+ids[1]);
     } else {
-      data.uuid = this.rid;
-      data.page = 0;
+      statusObj.uuid = this.rid;
+      statusObj.page = 0;
     }
-
-    virtualclass.xhrn.vxhrn.post(virtualclass.api.UpdateDocumentStatus, data).then((msg) => {
+    virtualclass.xhrn.vxhrn.post(virtualclass.api.UpdateDocumentStatus, statusObj).then((msg) => {
       console.log(`====> Update status  ${msg.data}`);
     });
     // this.xhrSend(data);
@@ -316,7 +317,7 @@
       }
     },
 
-    mainView(createMainCont) {
+    mainView() { // createMainCont assign as a param but never used
       const cthis = this;
       let pageScreenContainer = document.getElementById(this.parent);
 

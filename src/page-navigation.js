@@ -110,7 +110,7 @@
     } else {
       var nodes = document.querySelector('.noteIndex.shw');
       if (nodes) {
-        var shw = parseInt(nodes.getAttribute('data-set'));
+        var shw = (+nodes.getAttribute('data-set'));
       }
 
       for (let i = shw; i > currIndex; i--) {

@@ -57,6 +57,7 @@ class UserInteractivityBasicOperation {
     let parent;
     let componentId = null;
     const currentTarget = ev.target;
+   
     if ((this.event.values.includes(currentTarget.dataset.event))) {
       event = currentTarget.dataset.event;
       parent = currentTarget.parentNode;
@@ -67,6 +68,7 @@ class UserInteractivityBasicOperation {
       event = currentTarget.parentNode.parentNode.dataset.event;
       parent = currentTarget.parentNode.parentNode.parentNode;
     }
+    
 
     if (event) {
       // const data;
@@ -74,13 +76,14 @@ class UserInteractivityBasicOperation {
       let action;
       let parentId = null;
       let component = parent.dataset.component;
+      let compId = parent.dataset.componentId;
       let editElem;
       let str;
       if (parent.dataset.componentId && event !== 'save') {
-        componentId = parent.dataset.componentId;
+        componentId = compId;
         if (event === 'reply') {
           componentId = null;
-          parentId = parent.dataset.componentId;
+          parentId = compId;
         } else if (event === 'edit' || event === 'markAnswer' || event === 'delete') {
           parentId = (parent.dataset.parent) ? parent.dataset.parent : null;
         }

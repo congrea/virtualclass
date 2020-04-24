@@ -3,6 +3,7 @@
     info: {},
     user: {},
     currentTime: 0,
+    specificUser: false,
     init() { // default settings applyed from here
       const coreSettings = virtualclassSetting.settings;
       virtualclass.settings.info = virtualclass.settings.parseSettings(coreSettings);
@@ -263,6 +264,7 @@
         }
       } else {
         if (typeof msg === 'string' && roles.isStudent()) {
+          this.specificUser = userId ? true : false;
           // console.log('====> Settings received ', msg);
           const stdSettings = virtualclass.settings.parseSettings(msg);
           this.applyAttendeeSetting(stdSettings);

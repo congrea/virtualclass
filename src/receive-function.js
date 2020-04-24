@@ -360,12 +360,12 @@ const receiveFunctions = new function () {
   // no audio
   this.na = function (e) {
     virtualclass.user.control.iconAttrManupulate(e.fromUser.userid, 'icon-audioEnaOrange');
-  },
+  };
 
   // yes audio
   this.ya = function (e) {
     virtualclass.user.control.iconAttrManupulate(e.fromUser.userid, 'icon-audioEnaGreen');
-  },
+  };
 
 
   this.mem_add = function (e) {

@@ -342,6 +342,24 @@
     background-color: #e4e4e4 !important;
   }
 
+  #virtualclassCont.congrea .progressbar li.active.current::before {
+    color: unset;
+    background: -webkit-linear-gradient(#9c47fc, #356ad2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  #virtualclassCont.congrea #virtualclassPreCheck .testName {
+    font-size: 1.35rem;
+    text-align: center;
+    font-weight: 500;
+    color: #6b6b6b;
+    margin-bottom: 1.5rem;
+    background: -webkit-linear-gradient(#9c47fc, #356ad2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   #virtualclassCont.congrea li#appSettingCtrl > a {
     padding: 0.7142rem 0.8571rem 0.6428rem 0.92857rem;
   }

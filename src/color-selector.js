@@ -157,7 +157,13 @@
         + '#virtualclassCont.congrea #dashboardContainer .modal-header button.enable:hover, '
         + '#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover, '
         + '#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton:hover, '
-        + '#virtualclassCont.congrea #popupContainer #about-modal #infoMessage #infoMessageOk:hover '
+        + '#virtualclassCont.congrea #popupContainer #about-modal #infoMessage #infoMessageOk:hover, '
+        + '#virtualclassCont.congrea a.vceditor-btn:hover, '
+        + '#virtualclassCont.congrea .vceditor-dropdown-menu a:hover, '
+        + '#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-style-group:hover, '
+        + '#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-list-group:hover, '
+        + '#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-indent-group:hover, '
+        + '#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group:hover '
         + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%) !important}`
 
         + '#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,'

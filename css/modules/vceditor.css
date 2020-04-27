@@ -41,7 +41,6 @@
 #virtualclassCont.congrea .vceditor-toolbar {
   height: 2.75rem;
   line-height: 2.6875rem;
-  background-color: #fff !important;
   border-top: none;
   width: 100%;
 
@@ -223,7 +222,7 @@
   /* font-size: 16px; */
   background-color: #28323c;
   border: 0.5px solid #555;
-  border-bottom-width: 4px;
+  border-bottom-width: 1px;
   color: #535151;
 }
 
@@ -241,7 +240,7 @@
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 } */
 
-#virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:first-child {
+/* #virtualclassCont.congrea .vceditor-btn-group > .vceditor-btn:first-child {
   border-bottom-left-radius: 6px;
   border-top-left-radius: 6px;
   -webkit-border-bottom-left-radius: 6px;
@@ -249,7 +248,7 @@
   -moz-border-radius-bottomleft: 6px;
   -moz-border-radius-topleft: 6px;
   margin-left: 0;
-}
+} */
 
 #virtualclassCont.congrea .vceditor-toolbar-wrapper .undo-group .vceditor-btn {
   padding: 4px 5px 3px 5px;
@@ -501,7 +500,6 @@
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-list-group:hover,
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-indent-group:hover,
 #virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group:hover {
-  background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%) !important;
   border-color: #6f9b90;
 }
 

@@ -29,13 +29,13 @@
   width: 100%;
 }
 
-#virtualclassCont.congrea #preCheckcontainer .screen1.bandwidth::before,
+/* #virtualclassCont.congrea #preCheckcontainer .screen1.bandwidth::before,
 #virtualclassCont.congrea #preCheckcontainer .screen2.bandwidth::before,
 #virtualclassCont.congrea #preCheckcontainer .screen3.bandwidth::before,
 #virtualclassCont.congrea #preCheckcontainer .screen4.bandwidth::before,
 #virtualclassCont.congrea #preCheckcontainer .screen5.bandwidth::before {
-  /* padding-left : 40px !important; */
-}
+  padding-left : 40px !important;
+} */
 
 #virtualclassMultiVideoTool span {
   color: #fff;

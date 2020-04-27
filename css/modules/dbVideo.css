@@ -80,7 +80,7 @@
 #virtualclassCont.congrea #congdashboard.modal .modal-header {
   padding: 0.8125rem;
   border-bottom-left-radius: 5px;
-  border: none !important;
+  border: none;
   position: relative;
 }
 
@@ -186,7 +186,7 @@
   float: right;
   background: none;
   padding-top: 8px;
-  padding-left: 0 !important;
+  padding-left: 0;
 }
 
 button,
@@ -194,7 +194,7 @@ input.form-submit,
 input[type="button"],
 input[type="submit"],
 input[type="reset"] {
-  text-shadow: none !important;
+  text-shadow: none;
   display: inline-block;
   padding: 4px 12px;
   text-align: center;
@@ -248,7 +248,7 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea #listvideo {
-  z-index: 0 !important;
+  z-index: 0;
 }
 
 #virtualclassCont .uploadSuccess #listvideo,
@@ -289,7 +289,7 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea #VideoDashboard .qq-gallery .qq-thumbnail-wrapper {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont {
@@ -310,7 +310,7 @@ input[type="reset"] {
   font-size: 0;
   border-radius: 2px;
   float: left;
-  margin: -2px 2px 3px;
+  margin: -3px 2px 3px;
   height: 20px;
   padding-top: 2px;
 }
@@ -349,7 +349,7 @@ input[type="reset"] {
   /* display:none; */
 
 #virtualclassCont.congrea #VideoDashboard .controlCont.showCtr {
-  display: block !important;
+  display: block;
 }
 
 #virtualclassCont.congrea #VideoDashboard #uploadMsz .close {
@@ -425,8 +425,8 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea #VideoDashboard #videoPopup #uploadMsz .qq-upload-list-selector .qq-progress-bar-container-selector .qq-progress-bar-selector {
-  height: 7px !important;
-  margin-top: 3px !important;
+  height: 7px;
+  margin-top: 3px;
 }
 
 #virtualclassCont.congrea #VideoDashboard #uploadMsz {
@@ -442,13 +442,13 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea .linkvideo.htn {
-  border: solid #98c2ff 1px !important;
+  border: solid #98c2ff 1px;
   opacity: 1;
 }
 
 #virtualclassCont.congrea .linkvideo.dragElem {
-  background-color: #98c2ff !important;
-  border: solid #2029ff 1px !important;
+  background-color: #98c2ff;
+  border: solid #2029ff 1px;
   opacity: 1;
 }
 
@@ -536,11 +536,11 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.playDisable:hover .status::before {
-  opacity: 1 !important;
+  opacity: 1;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.playDisable:hover .delete::before {
-  opacity: 1 !important;
+  opacity: 1;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .controls:hover::before {
@@ -549,9 +549,9 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo .controls.edit a::before {
-  padding-top: 3px !important;
-  height: 20px !important;
-  margin-top: 0 !important;
+  padding-top: 3px;
+  height: 20px;
+  margin-top: 0;
 }
 
 @media (max-height: 768px) {
@@ -561,7 +561,7 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.playDisable .mainpreview::before {
-  cursor: default !important;
+  cursor: default;
 }
 
 #virtualclassCont.congrea .video-js .vjs-progress-control {
@@ -605,21 +605,21 @@ input[type="reset"] {
 
 #virtualclassCont.congrea #listvideo .linkvideo.singleVideo .controls.delete {
   pointer-events: visible;
-  opacity: 1 !important;
-  cursor: pointer !important;
+  opacity: 1;
+  cursor: pointer;
 }
 
 #virtualclassCont.congrea #listvideo .linkvideo.links .controls.delete {
   float: left;
   font-size: 0;
-  margin: -5px 1px 1px -3px;
+  margin: -6px 1px 1px -3px;
   height: 20px;
   padding-top: 4px;
 }
 
 @media (min-width: 1300px) {
   #virtualclassCont.congrea #listvideo .linkvideo.links .controlCont {
-    width: 16% !important;
+    width: 16%;
   }
 }
 

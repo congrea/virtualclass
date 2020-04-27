@@ -103,7 +103,7 @@
   font-size: 0;
   border-radius: 2px;
   float: left;
-  margin: -2px 2px 3px;
+  margin: -3px 2px 3px;
   height: 20px;
   padding-top: 2px;
 }
@@ -146,7 +146,7 @@ input.form-submit,
 input[type="button"],
 input[type="submit"],
 input[type="reset"] {
-  text-shadow: none !important;
+  text-shadow: none;
 }
 
 #virtualclassCont #urlcontainer #presentationurl {
@@ -154,14 +154,14 @@ input[type="reset"] {
 }
 
 #virtualclassCont .dashboardview #urlcontainer #presentationurl {
-  height: 70% !important;
+  height: 70%;
   width: 50%;
   font-size: 16px;
   padding: 10px;
 }
 
 #virtualclassCont.congrea #SharePresentationDashboard .controlCont.showCtr {
-  display: block !important;
+  display: block;
 }
 
 #virtualclassCont.congrea #pptListContainer {
@@ -174,13 +174,13 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea .linkppt.htn {
-  border: solid #98c2ff 1px !important;
+  border: solid #98c2ff 1px;
   opacity: 1;
 }
 
 #virtualclassCont.congrea .linkppt.dragElem {
-  background-color: #98c2ff !important;
-  border: solid #2029ff 1px !important;
+  background-color: #98c2ff;
+  border: solid #2029ff 1px;
   opacity: 1;
 }
 

@@ -980,7 +980,7 @@
 }
 
 .congrea #stdPageNo {
-  color: #000;
+  color: #555;
   font-size: 0.75rem;
 }
 
@@ -994,7 +994,7 @@
 #virtualclassCont.congrea.student #totalPages,
 #virtualclassCont.congrea.student[data-currapp='DocumentShare'] #totalPages {
   margin-right: 0.8125rem;
-  color: #000;
+  color: #555;
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .showZoom #docShareNav,
@@ -1037,7 +1037,7 @@
 }
 
 #virtualclassCont.congrea.student .pageHead {
-  color: #000;
+  color: #555;
 }
 
 #virtualclassCont.congrea #ancCont,

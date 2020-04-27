@@ -622,7 +622,7 @@
 #virtualclassCont.congrea .icon-zoonIn::before {
   content: "\e9a4";
   font-size: 0.75rem;
-  color: #464646;
+  color: #8e8e8e;
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
@@ -631,7 +631,7 @@
 #virtualclassCont.congrea .icon-zoomOut::before {
   content: "\e9a5";
   font-size: 0.75rem;
-  color: #464646;
+  color: #8e8e8e;
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
@@ -640,7 +640,7 @@
 #virtualclassCont.congrea .icon-fitScreen::before {
   content: "\e99b";
   font-size: 0.9375rem;
-  color: #464646;
+  color: #8e8e8e;
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;

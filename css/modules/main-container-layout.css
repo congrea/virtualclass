@@ -336,10 +336,12 @@
 
   #virtualclassCont.congrea #preCheckcontainer .modal {
   background-color: #e4e4e4;
+  background: linear-gradient(to right, #bdeafe 0%,#acc3fb 100%);
 }
 
   #virtualclassCont.congrea #joinClass #joinClassModal {
     background-color: #e4e4e4 !important;
+    background: linear-gradient(to right, #bdeafe 0%,#acc3fb 100%);
   }
 
   #virtualclassCont.congrea .progressbar li.active.current::before {
@@ -350,14 +352,16 @@
   }
 
   #virtualclassCont.congrea #virtualclassPreCheck .testName {
-    font-size: 1.35rem;
-    text-align: center;
     font-weight: 500;
     color: #6b6b6b;
     margin-bottom: 1.5rem;
     background: -webkit-linear-gradient(#9c47fc, #356ad2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .btn {
+    padding: 6px 12px;
   }
 
   #virtualclassCont.congrea li#appSettingCtrl > a {

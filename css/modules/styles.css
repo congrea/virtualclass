@@ -1133,6 +1133,7 @@ div.ui-memblist-usr .userVideos {
   border-radius: 20px;
   height: 2.125rem;
   overflow: hidden;
+  box-shadow: 0 2px 5px 1px #021317;
 }
 
 #virtualclassCont.congrea.student #audioWidget #mainAudioPanel li {
@@ -3641,6 +3642,7 @@ span#usertab_text {
 #virtualclassPreCheck #preCheckcontainer .modal-dialog .modal-content {
   padding: 0;
   max-height: unset;
+  box-shadow: 0 2px 10px 0 rgba(32,33,36,0.28) !important;
 }
 
 /** suman start **/

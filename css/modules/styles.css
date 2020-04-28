@@ -3644,6 +3644,7 @@ span#usertab_text {
   max-height: unset;
   box-shadow: 0 2px 10px 0 rgba(32,33,36,0.28) !important;
   border-radius: 12px;
+  max-height: unset;
 }
 
 /** suman start **/

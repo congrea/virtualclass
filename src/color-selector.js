@@ -93,6 +93,7 @@
         + '#virtualclassCont.congrea.playMode #fullScreenButton ,'
         + '#virtualclassCont #virtualclassAppFooterPanel #precheckBtn, '
         + '#virtualclassCont #virtualclassAppFooterPanel #recording, '
+        + '#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action, '
         + '#virtualclassCont.congrea.playMode #fullScreenExitButton '
         + `{border-right: 1px solid ${allbg.fcolor}}`
         + '#virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header'

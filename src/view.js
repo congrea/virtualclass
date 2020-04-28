@@ -123,7 +123,7 @@
       if (closebutton == null) {
         closebutton = document.createElement('span');
         closebutton.id = 'closeAskQuestionMsg';
-        closebutton.innerHTML = 'X';
+        closebutton.innerHTML = 'x';
         cont.appendChild(closebutton);
       }
 

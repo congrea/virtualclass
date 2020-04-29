@@ -523,6 +523,19 @@
     line-height: 1.15rem;
   }
 
+  #virtualclassCont.congrea #mainerrorContainer {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    left: unset;
+    bottom: unset;
+    transform: unset;
+  }
+
+  #virtualclassCont.congrea #mainerrorContainer .errorContainer {
+    display: block;
+  }
+
   html,
   body {
     font-size: 14px;

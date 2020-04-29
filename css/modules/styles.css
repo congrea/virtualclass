@@ -1989,8 +1989,9 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #mainerrorContainer {
   position: absolute;
-  top: 4px;
-  right: 10px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  bottom: 15px;
 }
 
 #virtualclassCont.congrea #mainerrorContainer .errorContainer {
@@ -2006,7 +2007,8 @@ div.ui-memblist-usr .userVideos {
   border-left: 5px solid #ed5a5a;
   box-shadow: 0px 3px 3px 0px #757575;
   position: relative;
-  margin: 6px 0;
+  margin: 6px;
+  display: inline-block;
 }
 
 #virtualclassCont.congrea.student.presenter #speakerPressing {
@@ -3706,20 +3708,21 @@ span#usertab_text {
   right: 10px;
 }
 
+#virtualclassCont.congrea #congdashboard .close {
+  margin: -3px 5px;
+  display: inline-block;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 5px;
+  font-size: 13px;
+  border-radius: 4px;
+  font-weight: 400;
+  letter-spacing: 1.3px;
+}
+
 #virtualclassCont.congrea #dashboardContainer .modal-header button.enable:hover {
   background-image: linear-gradient(to bottom, #e6e6e6 0%, #e6e6e6 100%);
 }
-
-/* #virtualclassCont.congrea  #dashboardContainer .in .modal-header button{
-	 display: none;
-}
-
-#virtualclassCont.congrea  #dashboardContainer .fade .modal-header button {
-
-	display: block;
-	position: absolute;
-    right: 10px;
-} */
 
 #virtualclassCont.congrea #dashboardContainer .dashboardContainer .dbContainer #docsUploadMsz .alert-dismissable {
   width: 80%;

@@ -705,9 +705,6 @@
 
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon::before {
   content: "\e994";
-}
-
-#virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon .icon-shapes.cgIcon::before {
   font-size: 21px;
 }
 

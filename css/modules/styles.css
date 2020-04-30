@@ -3700,6 +3700,7 @@ span#usertab_text {
 
 #virtualclassPreCheck #preCheckcontainer .modal-dialog .modal-content {
   padding: 0;
+  max-height: unset;
 }
 
 /** suman start **/

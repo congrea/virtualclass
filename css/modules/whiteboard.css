@@ -275,7 +275,7 @@ ul.fontSizeList span {
 .shapesToolbox[data-currtool="rectangle"] .shapes_icon .icon-shapes.cgIcon::before,
 .shapesToolbox[data-currtool="triangle"] .shapes_icon .icon-shapes.cgIcon::before,
 #virtualclassCont.congrea .shapesToolbox[data-currtool="circle"] .shapes_icon .icon-shapes.cgIcon::before {
-  font-size: 24px;
+  font-size: 21px;
 }
 
 #virtualclassCont.congrea .shapesToolbox[data-currtool="circle"] .shapes_icon a span::after,

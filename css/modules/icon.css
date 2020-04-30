@@ -708,10 +708,6 @@
   font-size: 21px;
 }
 
-#virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon .icon-shapes.cgIcon::before {
-  font-size: 21px;
-}
-
 #virtualclassCont.congrea #fullScreenButton span .icon-fullScreen::before {
   content: "\e99e";
   font-weight: 600;

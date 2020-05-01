@@ -79,6 +79,12 @@ body {
   z-index: 1000;
 }
 
+#virtualclassCont .footerCtr #congchatBarInput {
+  position: relative;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
 #virtualclassCont.playMode .footerCtr {
   z-index: 0;
 }
@@ -116,7 +122,7 @@ body {
 
 #virtualclassCont .footerCtr input[type=text],
 #virtualclassCont .footerCtr input#ta_chrm2 {
-  width: 95%;
+  width: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   box-sizing: border-box;
   border: 1px solid #d6d6d6;
@@ -125,8 +131,6 @@ body {
   background-color: white;
   padding: .4375rem;
   padding-left: 2.5rem;
-  margin-left: 2.5%;
-  margin-right: 2.5%;
   line-height: 1.25rem;
 }
 
@@ -428,6 +432,41 @@ body {
 
 #virtualclassCont #appSettingDetail #congreaVideoSettingCont[data-setting-type="video"] {
   display: block;
+}
+
+#virtualclassCont.congrea #congFooterCtr .input-icon {
+  position: absolute;
+  line-height: 1;
+  text-align: center;
+  top: 0;
+  left: 0;
+  margin: 0;
+  height: 100%;
+  width: 2.67142857em;
+  opacity: .5;
+}
+
+#virtualclassCont.congrea #congFooterCtr .input-icon::before {
+  font-weight: normal;
+  font-family: 'icomoon';
+  color: #000;
+  left: 0.625rem;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  margin-top: -.5em;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="userListHeader"] #congFooterCtr .input-icon::before {
+  content: "\e9b3";
+  font-size: 1rem;
+}
+
+#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="commonChatHeader"] #congFooterCtr .input-icon::before {
+  content: "\e9b4";
+  font-size: 0.875rem;
 }
 
 /*   n */

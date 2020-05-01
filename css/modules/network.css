@@ -6,7 +6,7 @@
 #virtualclassCont.congrea #virtualclassAppFooterPanel #proposedSpeed {
   width: 1.375rem;
   height: 1.375rem;
-  padding: 0.6875rem 0.811115rem;
+  padding: 0.687rem 0.9375rem;
 }
 
 #virtualclassCont.congrea #proposedSpeed[data-suggestion='high'] svg path.signalthree,
@@ -69,7 +69,7 @@
 
 #virtualclassCont.congrea #networkStatusContainer #connectingRoomIcon {
   float: right;
-  margin: 0.5rem 0.5625rem;
+  margin: 0.5625rem 0.78125rem;
 }
 
 #virtualclassCont.congrea #networkStatusContainer.connecting-room #connectingRoomIcon {

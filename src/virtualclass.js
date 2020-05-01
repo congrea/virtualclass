@@ -351,7 +351,7 @@
         // }
         // nirmala
         // var precheckBtn = document.getElementsByClassName('pre-check-btn');
-        var precheck = document.getElementById('networkStatusContainer');
+        const precheck = document.getElementById('precheckBtn');
         precheck.addEventListener('click', () => {
           virtualclass.gObj.precheckScrn = true;
           virtualclass.precheck.init(virtualclass.precheck);

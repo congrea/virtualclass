@@ -39,7 +39,7 @@
 
             <div id="connectingRoomIcon">
             <span class="icon-whiteboard ">
-            <svg id="svg-spinner" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48">
+            <svg id="svg-spinner" xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 48 48">
                 <circle cx="24" cy="4" r="4" fill="#fff"></circle>
                 <circle cx="12.19" cy="7.86" r="3.7" fill="#fffbf2"></circle>
                 <circle cx="5.02" cy="17.68" r="3.4" fill="#fef7e4"></circle>
@@ -54,6 +54,13 @@
             </span>
             </div>
         </div>
+        <span class="pre-check-btn congtooltip" data-title="{{getString 'appPrerequites'}}" id="precheckBtn">
+            <div id="settingPrecheck">
+            <div class="prechk" data-title="{{getString 'precheck'}}" id="precheckTest">
+                <span class="precheck cgIcon"  id="precheckSetting" ></span>
+            </div>
+            </div>
+        </span>
         {{> audioWidget}}
         <div id="fullScreenButton">
             <span class="congtooltip fullScreen" data-title="{{getString 'fullScreen'}}"><i class="icon-fullScreen cgIcon"></i></span>

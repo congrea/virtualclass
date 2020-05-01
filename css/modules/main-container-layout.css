@@ -206,12 +206,6 @@
     height: calc(100% - 3rem);
   }
 
-  #virtualclassCont.congrea #virtualclassAppFooterPanel #proposedSpeed {
-    width: 1.25rem;
-    height: 1.625rem;
-    padding: 0.5625rem 0.811115rem;
-  } 
-
   #virtualclassCont.congrea .zoomControler {
     position: absolute;
     bottom: 2.5rem;
@@ -385,6 +379,19 @@
   #virtualclassCont.congrea #askQuestion .question .container .header .lable {
     font-size: 0.75rem;
   }
+
+  /* #virtualclassCont.congrea #mainerrorContainer {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    left: unset;
+    bottom: unset;
+    transform: unset;
+  }
+
+  #virtualclassCont.congrea #mainerrorContainer .errorContainer {
+    display: block;
+  } */
 }
 
 /* To Target medium resolutions mobiles */
@@ -521,19 +528,6 @@
   #virtualclassCont.congrea #fullScreenButton .fullScreen,
   #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
     line-height: 1.15rem;
-  }
-
-  #virtualclassCont.congrea #mainerrorContainer {
-    position: absolute;
-    top: 4px;
-    right: 10px;
-    left: unset;
-    bottom: unset;
-    transform: unset;
-  }
-
-  #virtualclassCont.congrea #mainerrorContainer .errorContainer {
-    display: block;
   }
 
   html,

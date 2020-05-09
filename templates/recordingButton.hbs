@@ -1,32 +1,32 @@
 {{#if ten}}
-<div id="recording" class="show statusonly congtooltip" data-title="Recording Stopped" data-recording="off">
+<div id="recording" class="show statusonly congtooltip" data-title="{{getString 'recordingStopped'}}" data-recording="off">
   <div class="status">
     <span class="showStatus"></span>
-    <span class="recordingText">Rec</span>
+    <span class="recordingText">{{getString 'recordingText'}}</span>
   </div>
 </div>
 
 {{else if eleven}}
-<div id="recording" class="show congtooltip" data-title="Recording Stopped" data-recording="off">
+<div id="recording" class="show congtooltip" data-title="{{getString 'recordingStopped'}}" data-recording="off">
   <div class="status">
     <span class="showStatus"></span>
-    <span class="recordingText">Rec</span>
+    <span class="recordingText">{{getString 'recordingText'}}</span>
   </div>
 </div>
 
 {{else if twenty}}
-  <div id="recording" class="show statusonly congtooltip" data-title="Recording Started" data-recording="on">
+  <div id="recording" class="show statusonly congtooltip" data-title="{{getString 'recordingStarted'}}" data-recording="on">
     <div class="status">
       <span class="showStatus"></span>
-      <span class="recordingText">Rec</span>
+      <span class="recordingText">{{getString 'recordingText'}}</span>
     </div>
   </div>
 
 {{else if twentyone}}
-  <div id="recording" class="show congtooltip" data-title="Recording Started" data-recording="on">
+  <div id="recording" class="show congtooltip" data-title="{{getString 'recordingStarted'}}" data-recording="on">
     <div class="status">
       <span class="showStatus"></span>
-      <span class="recordingText">Rec</span>
+      <span class="recordingText">{{getString 'recordingText'}}</span>
     </div>
   </div>
 {{/if}}

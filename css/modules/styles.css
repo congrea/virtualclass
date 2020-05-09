@@ -4436,8 +4436,8 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea #fullScreenButton .fullScreen,
-#virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
-  padding: 0.6875rem 1.125rem 0.6875rem 1.125rem;
+#virtualclassCont.congrea #fullScreenExitButton span {
+  padding: 0.6875rem 1.125rem 0.75rem 1.125rem;
   line-height: 1.25rem;
   font-size: 1.25rem;
 }
@@ -4691,7 +4691,7 @@ span#usertab_text {
   }
 
   #virtualclassCont.congrea #fullScreenButton .fullScreen,
-  #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
+  #virtualclassCont.congrea #fullScreenExitButton span.congtooltip {
     padding: 11px 18px 11.5px 18px;
   }
 

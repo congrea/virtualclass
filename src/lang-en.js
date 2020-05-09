@@ -351,6 +351,8 @@
     colorSelector: 'Color',
     strk: 'Stroke size',
     font: 'Font size',
+    fullScreen: 'Full screen',
+    exitFullScreen: 'Exit full screen',
     black: 'black',
     'dark-gray-4': 'dark gray 4',
     'dark-gray-3': 'dark gray 3',

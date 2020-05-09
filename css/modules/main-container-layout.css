@@ -485,7 +485,7 @@
   }
 
   #virtualclassCont.congrea.Safari #fullScreenButton .fullScreen,
-  #virtualclassCont.congrea.Safari #fullScreenExitButton [data-title="Exit Full Screen"] {
+  #virtualclassCont.congrea.Safari #fullScreenExitButton span.congtooltip {
     padding: 0.75rem 1.125rem 0.75rem 1.125rem;
     line-height: 1.25rem;
     font-size: 1rem;

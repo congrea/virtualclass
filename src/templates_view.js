@@ -698,7 +698,11 @@ this["JST"]["dest_temp/templates/footerBar.hbs"] = Handlebars.template({"1":func
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"precheck",{"name":"getString","hash":{},"data":data}))
     + "\" id=\"precheckTest\"><span class=\"precheck cgIcon\" id=\"precheckSetting\"></span></div></div></span> "
     + ((stack1 = container.invokePartial(partials.audioWidget,depth0,{"name":"audioWidget","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + " <div id=\"fullScreenButton\"><span class=\"congtooltip fullScreen\" data-title=\"Full Screen\"><i class=\"icon-fullScreen cgIcon\"></i></span></div><div id=\"fullScreenExitButton\"><span class=\"congtooltip\" data-title=\"Exit Full Screen\"><i class=\"icon-exitScreen cgIcon\"></i></span></div><div id=\"bookmark\"><div class=\"container\"></div></div></div><div id=\"stickycontainer\"></div></div>";
+    + " <div id=\"fullScreenButton\"><span class=\"congtooltip fullScreen\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"fullScreen",{"name":"getString","hash":{},"data":data}))
+    + "\"><i class=\"icon-fullScreen cgIcon\"></i></span></div><div id=\"fullScreenExitButton\"><span class=\"congtooltip\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"exitFullScreen",{"name":"getString","hash":{},"data":data}))
+    + "\"><i class=\"icon-exitScreen cgIcon\"></i></span></div><div id=\"bookmark\"><div class=\"container\"></div></div></div><div id=\"stickycontainer\"></div></div>";
 },"usePartial":true,"useData":true});
 
 this["JST"]["dest_temp/templates/joinclass.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

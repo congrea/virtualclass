@@ -373,6 +373,8 @@
     colorSelector: 'Cor',
     strk: 'Tamanho do pincel',
     font: 'Tamanho da fonte',
+    fullScreen: 'Tela cheia',
+    exitFullScreen: 'Sair da tela cheia',
     black: 'preto',
     'dark-gray-4': 'cinza escuro 4',
     'dark-gray-3': 'cinza escuro 3',

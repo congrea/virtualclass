@@ -360,6 +360,13 @@
     continueText: 'Click here to continue',
     continue: 'Continue',
     moveSidebar: 'Move Sidebar',
+    // chat files string
+    online: 'Online users',
+    whos: "Who's online",
+    chatroom_header: 'Common chat',
+    error: 'Something bad happend. Sorry!',
+    wserror: 'Browser does not support WebSocket',
+    sterror: "This browser doesn't support Web Storage standard",
     black: 'black',
     'dark-gray-4': 'dark gray 4',
     'dark-gray-3': 'dark gray 3',

@@ -382,6 +382,14 @@
     continueText: 'Clique aqui para continuar',
     continue: 'Continuar',
     moveSidebar: 'Mover barra lateral',
+    /* chat files string */
+    online: 'Usuários online',
+    whos: 'Quem está online',
+    chatroom_header: 'Bate-papo comum',
+    error: 'Algo de errado ocorreu. Desculpe!',
+    wserror: 'Browser não suporta WebSocket',
+    sterror: 'Este browser não suporta o padrão de Armazenamento Web',
+    /* Colors strings */
     black: 'preto',
     'dark-gray-4': 'cinza escuro 4',
     'dark-gray-3': 'cinza escuro 3',

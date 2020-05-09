@@ -115,7 +115,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/jquery.ui.chatroom.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-boxManager.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lib.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lang.en.js"></script>
+<!-- <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lang.en.js"></script> -->
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-base64.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-ajax.js"></script>

@@ -21,7 +21,7 @@
         tabs = $('#tabs').tabs({ cache: true, activeOnAdd: true });
 
         if (browserSupportsLocalStorage() === false) { // check browser for local storage
-          alert(lang.sterror);
+          alert(virtualclass.lang.getString('sterror'));
           return;
         }
 
@@ -170,7 +170,7 @@
           id: 'chat_div',
           user: userlist,
           offset: '-1px',
-          title: lang.online,
+          title: virtualclass.lang.getString('online'),
           userSent(user) {
             console.log('====> UserList is created 1');
             const userDiv = $('#chat_div').memberlist('option', 'boxManager').addUsr(user);

@@ -40,8 +40,8 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
         // console.log(`rid ${workerIO.wsuri}`);
         this.sock = new WebSocket(workerIO.wsuri);
       } else {
-        // console.log('Browser does not support WebSocket!');
-        this.error = lang.wserror;
+        console.log('Browser does not support WebSocket!');
+        this.error = virtualclass.lang.getString('wserror');
       }
 
       const scope = this;

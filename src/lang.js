@@ -31,7 +31,7 @@ let supportedLanguages = ["en","pt-br"];
      setLang(Langtype,window);
   }
 
-  getLang("pt_Br");
+  getLang("en");
 
   const getString = function (string, words) {
     let langString = window.virtualclass.lang.message[string];

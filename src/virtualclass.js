@@ -1,4 +1,5 @@
 (function (window) {
+  window.congreaLanguages = {},
   window.virtualclass = function () {
     /** TODO, this below data should be move into config ** */
     // const dstData = null;

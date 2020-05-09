@@ -549,5 +549,6 @@
     TypeError: 'Sua Webcam não foi inicializada corretamente. Favor recarregar a página.',
     newPage: 'Inserir página',
   };
-  window.message = message;
+  // window.message = message;
+  window.congreaLanguages.pt_Br = message;
 }(window));

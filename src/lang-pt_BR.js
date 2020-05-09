@@ -378,6 +378,8 @@
     recordingText: 'gravando',
     recordingStopped: 'Gravação parada',
     recordingStarted: 'Gravação iniciada',
+    continueText: 'Clique aqui para continuar',
+    continue: 'Continuar',
     black: 'preto',
     'dark-gray-4': 'cinza escuro 4',
     'dark-gray-3': 'cinza escuro 3',

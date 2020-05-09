@@ -706,7 +706,13 @@ this["JST"]["dest_temp/templates/footerBar.hbs"] = Handlebars.template({"1":func
 },"usePartial":true,"useData":true});
 
 this["JST"]["dest_temp/templates/joinclass.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div id=\"joinClass\" class=\"bootstrap\"><div class=\"container \"><div class=\"modal fade\" id=\"joinClassModal\" role=\"dialog\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\"><div class=\"modal-body\"><div class=\"joinClasscontainer text-center\"><div class=\"textCont\">Click here to continue</div><button type=\"button\" class=\"btn btn-default\">Continue</button></div></div></div></div></div></div></div>";
+    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return "<div id=\"joinClass\" class=\"bootstrap\"><div class=\"container \"><div class=\"modal fade\" id=\"joinClassModal\" role=\"dialog\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\"><div class=\"modal-body\"><div class=\"joinClasscontainer text-center\"><div class=\"textCont\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"continueText",{"name":"getString","hash":{},"data":data}))
+    + "</div><button type=\"button\" class=\"btn btn-default\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"continue",{"name":"getString","hash":{},"data":data}))
+    + "</button></div></div></div></div></div></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/leftBar.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

@@ -356,6 +356,8 @@
     recordingText: 'Rec',
     recordingStopped: 'Recording Stopped',
     recordingStarted: 'Recording Started',
+    continueText: 'Click here to continue',
+    continue: 'Continue',
     black: 'black',
     'dark-gray-4': 'dark gray 4',
     'dark-gray-3': 'dark gray 3',

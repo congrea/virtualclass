@@ -263,6 +263,7 @@
     sessionendmsg: 'Session has been closed. You may now close your browser.',
     setting: 'Setting',
     Searchuser: 'Search user',
+    sendMessage: 'Send Message',
     share: 'Share',
     ShareVideo: 'Share video',
     shareAnotherYouTubeVideo: 'Share another YouTube video',

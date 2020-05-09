@@ -278,6 +278,7 @@
     sessionendmsg: 'Sessão foi fechada. Você pode fechar seu browser agora.',
     setting: 'Configuração',
     Searchuser: 'Buscar usuário',
+    sendMessage: 'Enviar mensagem',
     compartilhar: 'Compartilhar',
     ShareVideo: 'Compartilhar vídeo',
     shareAnotherYouTubeVideo: 'Compartilhar outro vídeo do YouTube',

@@ -31,6 +31,8 @@ let supportedLanguages = ["en","pt-br"];
      setLang(Langtype,window);
   }
 
+  /* This function will take argument from the moodle that
+  consist the language of user's moodle */
   getLang("en");
 
   const getString = function (string, words) {

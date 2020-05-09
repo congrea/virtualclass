@@ -358,6 +358,7 @@
     recordingStarted: 'Recording Started',
     continueText: 'Click here to continue',
     continue: 'Continue',
+    moveSidebar: 'Move Sidebar',
     black: 'black',
     'dark-gray-4': 'dark gray 4',
     'dark-gray-3': 'dark gray 3',

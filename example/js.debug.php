@@ -61,7 +61,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-text.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang-en.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang-pt_Br.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang-pt_br.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/system.js"></script>

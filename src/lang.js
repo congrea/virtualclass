@@ -2,34 +2,33 @@
 /** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  */
-let supportedLanguages = ["en","pt-br"];
 
 (function (window) {
   /**
    * @words expect array
    *
    */
+  
 
   //  Checking language type is present in congreaLanguages or not.
   //  if not then use default language type = "en"
-  let setLang = function(congreaLangType,window) {
-    if(window.congreaLanguages.hasOwnProperty(congreaLangType)) {
-      currentLangType = congreaLangType;
+  let setLangType = function(LangType) {
+    if(window.congreaLanguages.hasOwnProperty(LangType)) {
+      currentLangType = LangType;
     } else {
       currentLangType = "en";
     }
-      window.message = window.congreaLanguages[currentLangType];
   }
 
-  // Checking are moodle passing language type. If it is then 
-  // go for checking it is present in our congrea module or not
   const getLang = function (Langtype){
-     if(Langtype == "undefined") {
-       let userBrowserLang = window.navigator.language;
-       Langtype = userBrowserLang;
+     if(Langtype === null) { // language is not passed from the moodle
+      let userBrowserLang = window.navigator.language;
+      Langtype = userBrowserLang.toLowerCase();
      }
-     setLang(Langtype,window);
+     setLangType(Langtype);
+     window.message = window.congreaLanguages[currentLangType];
   }
+
 
   /* This function will take argument from the moodle that
   consist the language of user's moodle */

@@ -33,7 +33,7 @@ let supportedLanguages = ["en","pt-br"];
 
   /* This function will take argument from the moodle that
   consist the language of user's moodle */
-  getLang("en");
+  getLang(virtualclassSetting.language);
 
   const getString = function (string, words) {
     let langString = window.virtualclass.lang.message[string];

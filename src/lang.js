@@ -21,9 +21,10 @@
   }
 
   const getLang = function (Langtype){
-     if(Langtype === null) { // language is not passed from the moodle
+     if(typeof Langtype === "undefined") { // language is not passed from the moodle
       let userBrowserLang = window.navigator.language;
       Langtype = userBrowserLang.toLowerCase();
+      Langtype = Langtype.replace(/-/g, '_' );
      }
      setLangType(Langtype);
      window.message = window.congreaLanguages[currentLangType];

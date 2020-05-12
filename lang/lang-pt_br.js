@@ -567,5 +567,5 @@
     newPage: 'Inserir página',
   };
   // window.message = message;
-  window.congreaLanguages.pt_Br = message;
+  window.congreaLanguages.pt_br = message;
 }(window));

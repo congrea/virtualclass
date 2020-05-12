@@ -50,9 +50,6 @@
   background: rgba(0, 0, 0, 0.5);
   opacity: 0;
   display: none;
-
-  /* -webkit-transition:.4s opacity linear;
-    transition:.4s opacity linear; */
   z-index: 100000;
 }
 
@@ -64,7 +61,7 @@
 
 .rv-vanilla-modal-body {
   overflow: auto;
-  color: #3c3c3c !important;
+  color: #3c3c3c;
   padding: 23px 25px 10px;
   min-width: 400px;
 }
@@ -95,7 +92,7 @@
 }
 
 #virtualclassCont.congrea .hidden {
-  display: none !important;
+  display: none;
   visibility: hidden;
 }
 

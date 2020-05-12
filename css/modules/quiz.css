@@ -11,7 +11,7 @@
 }
 
 #virtualclassCont.congrea .bootstrap .quizNavBar {
-  border-bottom: none !important;
+  border-bottom: none;
   margin-left: 20px;
 }
 
@@ -96,7 +96,7 @@
 }
 
 #virtualclassCont.congrea #layoutQuizBody .vcQuizCont a span[data-toggle="congtooltip"]::before {
-  font-size: 18px !important;
+  font-size: 18px;
 }
 
 #virtualclassCont.congrea #layoutQuizBody .createBtnCont {
@@ -116,12 +116,12 @@
 
 #virtualclassCont.congrea label.quizLabel {
   font-size: 15px;
-  margin-bottom: 10px !important;
+  margin-bottom: 10px;
   color: #303030;
 }
 
 #virtualclassCont.congrea #stdQuizContainer {
-  margin: 70px !important;
+  margin: 70px;
 }
 
 #virtualclassCont.congrea #virtuaclassQuiz i {
@@ -273,17 +273,8 @@
   border: 1px solid #337ab7;
 }
 
-#virtualclassCont.congrea #layoutQuizBody #quizModalBody button#publishQzBt:hover {
-  background-color: #337ab7 !important;
-  color: white;
-}
-
-#virtualclassCont.congrea #layoutQuizBody #resultQzLayout.alert {
-  margin-top: 10px;
-}
-
 #virtualclassCont.congrea #resultQzLayout .alert {
-  padding: 10px !important;
+  padding: 10px;
   margin-top: 10px;
 }
 
@@ -327,7 +318,7 @@
 
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal .nav .active a {
   font-weight: bold;
-  background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
+  background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%);
   color: #fff;
 }
 
@@ -339,12 +330,6 @@
 #virtualclassCont.congrea #resultQzLayout .tab-content .tab-pane .table > thead > tr > th {
   font-size: 15px;
 }
-
-/* #virtualclassCont.congrea #virtualclassQuiz{ */
-
-/* margin-top : 5px; */
-
-/* } */
 
 .path-mod-congrea-quiz ul.answers {
   padding: 0;
@@ -359,27 +344,9 @@
   font-size: 14px;
 }
 
-/* #virtualclassCont.congrea.student #layoutQuizBody #stdQuizMszLayout {
-  background-color: #f9f9f9;
-  border: 1px solid #c8ddb8;
-  border-radius: 5px;
-  color: #3a773c;
-  margin: 0 auto;
-  padding: 30px 20px;
-  position: absolute;
-  top: 40%;
-  width: 26%;
-  text-align: center;
-  box-shadow: 0 0 8px #ddd;
-  left: 0;
-  right: 320px;
-  font-size: medium;
-} */
-
 #virtualclassCont.congrea.student #virtualclassQuiz #layoutQuiz .nav.navbar,
 #virtualclassCont.congrea.student #virtualclassPoll #layoutPoll .nav.navbar {
-  /* max-height: 48px; */
-  min-height: 2.75rem !important;
+  min-height: 2.75rem;
   max-height: 2.75rem;
   border-radius: 0;
 }
@@ -389,7 +356,7 @@
 }
 
 #virtualclassCont.congrea #layoutQuiz #headerContainer.show {
-  display: table-header-group !important;
+  display: table-header-group;
 }
 
 #virtualclassCont.congrea.teacher #layoutQuiz #mszBoxQuiz {
@@ -433,10 +400,8 @@
 
 #virtualclassCont.congrea .path-mod-congrea-quiz .navblock {
   overflow: auto;
-  margin-bottom: 0 !important;
+  margin-bottom: 0;
   max-height: 96px;
-
-  /* min-height: 70px !important; */
 }
 
 #virtualclassCont.congrea .path-mod-congrea-quiz .qnbutton {
@@ -470,7 +435,7 @@
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .reportPreview a:hover,
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .questionPreview a:hover {
   color: #fff;
-  background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%) !important;
+  background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%);
   opacity: 0.5;
 }
 
@@ -495,6 +460,10 @@
   height: calc(100vh - 336px);
 }
 
+.path-mod-congrea-quiz ul.answers #divAnswer_10 {
+  display: none;
+}
+
 /* ======== MEDIA FOR MOBILE ========== */
 @media only screen and (min-device-width: 340px) and (max-device-width: 950px) {
   #virtualclassCont.congrea #layoutQuizBody #timeText {
@@ -515,7 +484,7 @@
   }
 
   .path-mod-congrea-quiz .qnbutton.thispage {
-    line-height: 1.2em !important;
+    line-height: 1.2em;
   }
 
   #virtualclassCont.congrea #slickQuiz {
@@ -533,13 +502,13 @@
   }
 
   #virtualclassCont.congrea #virtualclassQuiz .path-mod-congrea-quiz .questions .answers span {
-    font-family: inherit !important;
+    font-family: inherit;
     font-size: 12px;
   }
 
   #virtualclassCont.congrea #virtualclassQuiz .path-mod-congrea-quiz .questions span.questext span {
-    font-family: inherit !important;
-    font-size: inherit !important;
+    font-family: inherit;
+    font-size: inherit;
   }
 
   #virtualclassCont.congrea #virtualclassQuiz #layoutQuizBody .quizResults h3 {

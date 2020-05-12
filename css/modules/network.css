@@ -103,11 +103,11 @@
 }
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel.vidShow #videoHostContainer {
-  display: block !important;
+  display: block;
 }
 
 #virtualclassCont.congrea.student #virtualclassAppRightPanel.vidHide #videoHostContainer {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont.congrea #virtualclassApp.try-to-connect #virtualclassAppLeftPanel #virtualclassAppContainer #virtualclassEditorRich #virtualclassEditorRichBody .vceditor .CodeMirror {

@@ -171,7 +171,7 @@
 }
 
 .pollList .miniTB a {
-  text-decoration: none !important;
+  text-decoration: none;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper a,
@@ -482,20 +482,6 @@
   background-repeat: no-repeat;
 }
 
-/* #virtualclassCont.congrea .selfClear:after , #virtualclassCont.congrea #chat_div .ui-memblist-usr:after{ */
-
-/* content : "."; */
-
-/* display : block; */
-
-/* height : 0; */
-
-/* clear : both; */
-
-/* visibility : hidden; */
-
-/* } */
-
 #virtualclassCont.congrea .selfClear {
   display: inline-block;
 }
@@ -505,12 +491,6 @@
   position: relative;
   font-size: 0.875rem;
 }
-
-/* #virtualclassCont.congrea .user-details .controls .congtooltip  { */
-
-/* position : static; */
-
-/* } */
 
 #virtualclassCont.congrea .congtooltip:hover::after {
   background: #fff;
@@ -661,7 +641,7 @@
 
 #virtualclassCont.congrea .ui-dialog-header span:first-child {
   font-size: 0.875rem;
-  padding-left: 3px;
+  padding-left: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -669,7 +649,7 @@
   max-height: 2rem;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  width: 11.5625rem;
+  /* width: 11.5625rem; */
 }
 
 #virtualclassCont.congrea .ui-dialog-header.ui-state-highlight span:first-child {
@@ -763,7 +743,7 @@
 #virtualclassCont.congrea .dynDiv_resizeDiv_bl,
 #virtualclassCont.congrea .dynDiv_resizeDiv_br {
   background: #faa;
-  background-color: #fff !important;
+  background-color: #fff;
   background-image: url('/virtualclass/images/resize.png') !important;
   background-position: left top;
   background-repeat: no-repeat;
@@ -1090,7 +1070,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea .ui-chatbox {
-  width: 231px !important;
+  width: 231px;
 }
 
 #virtualclassCont.congrea .ui-corner-all.ui-chatbox-icon .ui-icon-close {
@@ -1590,19 +1570,19 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea #screen-docs .pageContainer .congtooltip:hover::after {
-  bottom: -30px !important;
+  bottom: -30px;
   left: 4px;
 }
 
 #virtualclassCont.congrea #playController #replayFromStart .congtooltip:hover::after {
-  bottom: -1.9em !important;
-  right: -0.6em !important;
+  bottom: -1.9em;
+  right: -0.6em;
   padding: 0.3em 0.4em;
 }
 
 #virtualclassCont.congrea #playController #replayFromStart .congtooltip:hover {
-  background-color: transparent !important;
-  border-radius: inherit !important;
+  background-color: transparent;
+  border-radius: inherit;
 }
 
 #virtualclassCont.congrea.student #chatWidget #memlist .controleCont .congtooltip {
@@ -1613,7 +1593,7 @@ div.ui-memblist-usr .userVideos {
   position: absolute;
   top: -5px;
   right: -12px;
-  opacity: 1 !important;
+  opacity: 1;
 }
 
 #virtualclassCont.congrea #recordingClose {
@@ -2423,8 +2403,8 @@ div.ui-memblist-usr .userVideos {
 }
 
 .bootstrap .navbar {
-  border: none !important;
-  min-height: 48px !important;
+  border: none;
+  min-height: 48px;
 }
 
 #virtualclassCont.congrea #navigator,
@@ -2446,16 +2426,16 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #layoutPoll #navigator,
 #virtualclassCont.congrea #layoutQuiz .navbar {
-  border-top: none !important;
+  border-top: none;
   width: 100%;
   border-bottom-left-radius: 5px;
-  min-height: 2.75rem !important;
+  min-height: 2.75rem;
   max-height: 2.75rem;
 }
 
 #virtualclassCont.congrea.student #layoutPoll #navigator,
 #virtualclassCont.congrea.student #layoutQuiz .navbar {
-  border-top: none !important;
+  border-top: none;
   width: 100%;
 }
 
@@ -2537,7 +2517,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #page-mod-congrea-classroom #virtualclassCont.student {
-  width: 100% !important;
+  width: 100%;
 }
 
 #virtualclassCont.congrea .modal-backdrop {
@@ -3292,7 +3272,7 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea[data-currapp='Whiteboard'] .zoomControler,
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .zoomControler {
   display: block;
-  background-image: none !important;
+  background-image: none;
 }
 
   #virtualclassCont.congrea.playMode #virtualclassSharePresentation {
@@ -3560,7 +3540,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
-  border-bottom: 0 solid rgba(254, 254, 254, 0.2) !important;
+  border-bottom: 0 solid rgba(254, 254, 254, 0.2);
 }
 
 #virtualclassCont.congrea a.vceditor-btn:active {
@@ -3618,7 +3598,7 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea a.inner_bt.congtooltip:hover::after {
-  bottom: 47px !important;
+  bottom: 47px;
   left: 2px;
 }
 
@@ -3634,7 +3614,7 @@ span#usertab_text {
 /* Handle edge browser issue start **/
 
 #virtualclassCont.congrea li.vmchat_room_bt.ui-state-highlight {
-  background: none !important;
+  background: none;
 }
 
 #virtualclassCont.congrea.playMode .vceditor-toolbar-wrapper {
@@ -3672,7 +3652,7 @@ span#usertab_text {
 
 #virtualclassCont.congrea[data-currapp="ScreenShare"] .zoomCtrAdd #virtualclassScreenShare .zoomControler {
   display: block;
-  background-image: none !important;
+  background-image: none;
 }
 
 #virtualclassCont.congrea div.select {
@@ -3809,7 +3789,7 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea[data-currapp="ScreenShare"] .zoomControler .reloadNote {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont.congrea .reloadNote .congtooltip[data-title="Reload Whiteboard"]:hover::after {
@@ -3937,7 +3917,7 @@ span#usertab_text {
   }
 
   #virtualclassCont.congrea.student .path-mod-congrea-quiz .navblock::-webkit-scrollbar {
-    width: 5px !important;
+    width: 5px;
     height: 8px;
     background-color: #d9dbdc;
   }
@@ -3945,10 +3925,6 @@ span#usertab_text {
   #virtualclassCont.congrea .congtooltip:hover::after {
     display: none !important;
   }
-
-  /* #virtualclassCont.congrea.student .icon-audioImg.enable::before {
-    font-size: 110%;
-  } */
 
   #virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen::before {
     font-size: 110%;
@@ -4013,7 +3989,7 @@ span#usertab_text {
 }
 
 .congrea.teacher #virtualclassPoll .modal.in {
-  display: block !important;
+  display: block;
 }
 
 .congrea #preCheckcontainer .container .modal.in {

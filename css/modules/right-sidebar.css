@@ -216,10 +216,6 @@ body {
   background-color: #05b688;
 }
 
-#virtualclassCont.congrea #virtualclassAppFooterPanel span#videoSwitch.video.on::before {
-  color: #09b208;
-}
-
 #virtualclassCont #appSettingDetail li.disable .slider::before {
   -webkit-transform: translateX(21px);
   -ms-transform: translateX(21px);
@@ -367,20 +363,20 @@ body {
 
 #virtualclassCont #appSettingDetail .disable #usersQaMarkNotesSwitch::before {
   content: "\ea10";
-  font-weight: 400;
+  font-weight: bolder;
   font-size: 18px;
   float: left;
   font-family: 'icomoon';
-  color: #333;
+  color: #6c6c6c;
 }
 
 #virtualclassCont #appSettingDetail .enable #usersQaMarkNotesSwitch::before {
   content: "\ea0e";
-  font-weight: 400;
+  font-weight: bolder;
   font-size: 18px;
   float: left;
   font-family: 'icomoon';
-  color: #333;
+  color: #6c6c6c;
 }
 
 #virtualclassCont.congrea #congAskQuestion.askQuestionEnable,
@@ -845,11 +841,11 @@ body {
 }
 
 #virtualclassCont.congrea .nowebcam #videoSwitchCont {
-  pointer-events: none !important;
+  pointer-events: none;
 }
 
 #virtualclassCont.congrea.nowebcam.teacher #videoSwitchCont {
-  pointer-events: none !important;
+  pointer-events: none;
 }
 
 /* to verify */

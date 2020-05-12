@@ -261,7 +261,7 @@
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
-  color: #ea0000 !important;
+  color: #ea0000;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel .active #speakerPressingbtnIcon::before {
@@ -269,7 +269,7 @@
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
-  color: #08b207 !important;
+  color: #08b207;
   z-index: -1;
 }
 
@@ -290,7 +290,7 @@
   font-weight: normal;
   font-size: 20px;
   font-family: 'icomoon';
-  color: orange !important;
+  color: orange;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget #mainAudioPanel .dactive #speakerPressingbtnIcon.silenceDetect[data-silence-detect="stop"]::before {
@@ -298,7 +298,7 @@
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
-  color: white !important;
+  color: white;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-rectangle::before {
@@ -761,7 +761,7 @@
   font-family: 'icomoon';
   font-size: 1rem;
   cursor: pointer;
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #rightBarHeader .fullScreen-icon::before {
@@ -770,7 +770,7 @@
   font-family: 'icomoon';
   font-size: 0.9375rem;
   cursor: pointer;
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #rightBarHeader .exitFullScreen-icon::before {
@@ -779,7 +779,7 @@
   font-family: 'icomoon';
   font-size: 0.9375rem;
   cursor: pointer;
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .header .closed-icon::before {
@@ -983,7 +983,7 @@
 #virtualclassCont.congrea .bookmarks[data-value="1"] .icon-bookmark::before {
   content: "\e9f8";
   font-size: 1.0625rem;
-  color: #30b2ff !important;
+  color: #30b2ff;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action .cancel::before {

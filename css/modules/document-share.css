@@ -1058,17 +1058,12 @@
   right: 35px;
   left: unset;
   bottom: unset;
+  padding: 6px;
 }
 
 #virtualclassCont.congrea #pageAnc {
   color: #fff;
   font-size: 0.75rem;
-}
-
-#virtualclassCont.congrea .icon-newPage::after {
-  left: -43px;
-  padding: 6px !important;
-  bottom: 31px;
 }
 
 @-moz-document url-prefix() {

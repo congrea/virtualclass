@@ -10,30 +10,37 @@
    */
   
 
-  //  Checking language type is present in congreaLanguages or not.
-  //  if not then use default language type = "en"
   let setLangType = function(LangType) {
+    //  Check language type is present in congreaLanguages or not.
     if(window.congreaLanguages.hasOwnProperty(LangType)) {
       currentLangType = LangType;
+    } else if(LangType.length>=4) {
+      // check language by first two characters of langtype
+      LangType = LangType.substring(0,2);
+      if(window.congreaLanguages.hasOwnProperty(LangType)) {
+        currentLangType = LangType;
+      } else {
+        currentLangType = "en";
+      }
     } else {
+      // used default language
       currentLangType = "en";
     }
   }
 
   const getLang = function (Langtype){
-     if(typeof Langtype === "undefined") { // language is not passed from the moodle
+     if(typeof Langtype === "undefined") { 
+      // language is not passed from the moodle
       let userBrowserLang = window.navigator.language;
       Langtype = userBrowserLang.toLowerCase();
-      Langtype = Langtype.replace(/-/g, '_' );
+      Langtype = Langtype.replace(/-/g, '_' ); // Replacing hyphen with underscore
      }
      setLangType(Langtype);
      window.message = window.congreaLanguages[currentLangType];
   }
 
 
-  /* This function will take argument from the moodle that
-  consist the language of user's moodle */
-  getLang(wbUser.language);
+  getLang(wbUser.language); // Takes argument from the moodle (moodle's language)
 
   const getString = function (string, words) {
     let langString = window.virtualclass.lang.message[string];

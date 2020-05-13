@@ -11,6 +11,7 @@
   
 
   let setLangType = function(LangType) {
+    let currentLangType;
     //  Check language type is present in congreaLanguages or not.
     if(window.congreaLanguages.hasOwnProperty(LangType)) {
       currentLangType = LangType;
@@ -26,6 +27,7 @@
       // used default language
       currentLangType = "en";
     }
+    return currentLangType;
   }
 
   const getLang = function (Langtype){
@@ -35,8 +37,8 @@
       Langtype = userBrowserLang.toLowerCase();
       Langtype = Langtype.replace(/-/g, '_' ); // Replacing hyphen with underscore
      }
-     setLangType(Langtype);
-     window.message = window.congreaLanguages[currentLangType];
+     const congreaLang = setLangType(Langtype);
+     window.message = window.congreaLanguages[congreaLang];
   }
 
 

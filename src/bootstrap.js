@@ -17,6 +17,10 @@
     virtualclass.lang = {};
     virtualclass.lang.getString = window.getString;
     virtualclass.lang.message = window.message;
+    // To handle this string from plugin that was not currently translated to other languages
+    if(virtualclassSetting.audio_tooltip==="Unmute") {
+      virtualclassSetting.audio_tooltip = virtualclass.lang.getString('audioDisable');
+    }
     virtualclass.gObj.mobileVchOffset = vhCheck();
     virtualclass.settings = window.settings;
     virtualclass.ioEventApi = ioEventApi;

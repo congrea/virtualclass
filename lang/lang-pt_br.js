@@ -206,7 +206,7 @@
     playsessionmsg: 'Clique ‘Play’ para iniciar a sessão.',
     pleasewaitWhSynNewCont: 'Favor aguardar. Sincronizando novo conteúdo.',
     plswaitwhile: 'Favor aguardar....',
-    pool: 'Enquete',
+    poll: 'Enquete',
     pollblank: 'Questão não pode ser deixada em branco',
     pollCancel: 'Fechar',
     pollDel: 'Tem certeza que deseja deletar esta enquete?',

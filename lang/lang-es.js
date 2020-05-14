@@ -231,7 +231,7 @@ const message = {
     QClosed: 'Examen cerrado',
     Question: 'Pregunta',
     Quiz: 'Examen',
-    'Examen/página': 'Examen / página',
+    'Quiz/page': 'Examen / página',
     Quizes: 'Exámenes',
     quizmayshow: 'Prepárate para una prueba',
     quizreviewpublish: 'Revisar y publicar examen',

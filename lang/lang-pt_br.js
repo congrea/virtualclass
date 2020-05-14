@@ -244,7 +244,7 @@
     QClosed: 'Quiz fechado',
     Question: 'Questão',
     Quiz: 'Questionário',
-    'Questionário/page': 'Questionário / página',
+    'Quiz/page': 'Questionário / página',
     Quizes: 'Quizzes',
     quizmayshow: 'Prepare-se para um quiz',
     quizreviewpublish: 'Revisar e publicar quiz',

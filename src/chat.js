@@ -277,7 +277,7 @@
       makeUserListEmpty() {
         const url = `url(${window.whiteboardPath}images/offline.png)no-repeat top left`;
         $('#user_list .inner_bt #usertab_icon').css({ background: url });
-        $('#chatroom_bt .inner_bt #chatroom_text').text(`${lang.chatroom} (0)`);
+        $('#chatroom_bt .inner_bt #chatroom_text').text(`${virtualclass.lang.chatroom} (0)`);
         $('div#memlist').removeClass('enable');
       },
       removeChatHighLight(id) {

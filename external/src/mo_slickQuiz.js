@@ -226,10 +226,11 @@
                 // Count down timer
 
                 if (plugin.config.quizTime && plugin.config.quizTime > 0) {
-                    $('#timeText').html('Time remaining <span id="qztime">' + plugin.config.quizTime + '</span>');
+                    $('#timeText').html(virtualclass.lang.getString('Time remaining') + " " + '<span id="qztime">' + plugin.config.quizTime + '</span>');
                 } else {
-                    $('#timeText').html('Elapsed time <span id="qztime">00:00:00</span>');
+                    $('#timeText').html(virtualclass.lang.getString('ETime') + " " + '<span id="qztime">00:00:00</span>');
                 }
+                
                 $quizName.hide().html(plugin.config.nameTemplateText
                     .replace('%name', quizValues.info.name) ).fadeIn(1000, kN(key,1));
                 $quizHeader.hide().prepend($('<div class="quizDescription">' + quizValues.info.main + '</div>')).fadeIn(1000, kN(key,2));

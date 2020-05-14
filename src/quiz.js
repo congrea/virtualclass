@@ -706,7 +706,7 @@
           quesDiv.appendChild(quesTxtDiv);
           // no of users attempted question
           const usAtdiv = virtualclass.view.customCreateElement('div');
-          usAtdiv.innerHTML = `Users attempted : <span id='usA_${questionArr[i].qid}'>0</span>`;
+          usAtdiv.innerHTML = `${virtualclass.lang.getString('UsersAttempted')} : <span id='usA_${questionArr[i].qid}'>0</span>`;
           quesDiv.appendChild(usAtdiv);
           // progress bar
           const pbar = this.UI.createProgressBar(questionArr[i].qid, 0);
@@ -1078,7 +1078,7 @@
           const li1a = document.createElement('a');
           li1a.setAttribute('data-toggle', 'tab');
           li1a.href = '#qzOverv';
-          li1a.innerHTML = 'Questions overview';
+          li1a.innerHTML = virtualclass.lang.getString('QuestionsOverview');
 
           tbLi1.appendChild(li1a);
           tbUl.appendChild(tbLi1);
@@ -1146,10 +1146,10 @@
             let qtime = parseInt(qz.timelimit);
             if (qtime > 0) {
               order = 'desc';
-              timeHeader = 'Time remaining';
+              timeHeader = virtualclass.lang.getString('TimeRemaining');
             } else {
               order = 'asc';
-              timeHeader = 'Elapsed time';
+              timeHeader = virtualclass.lang.getString('ETime');
             }
 
             /**
@@ -1177,11 +1177,11 @@
             // elem.appendChild(leftdiv);
 
             const timeInnerdiv = virtualclass.view.customCreateElement('div', '', 'timilimit col-md-3');
-            timeInnerdiv.innerHTML = `Time limit : <span> ${virtualclass.quiz.convertSecToTime(qz.timelimit)}</span>`;
+            timeInnerdiv.innerHTML = `${virtualclass.lang.getString('timeLimit')} : <span> ${virtualclass.quiz.convertSecToTime(qz.timelimit)}</span>`;
             elem.appendChild(timeInnerdiv);
 
             const qNoInnerdiv = virtualclass.view.customCreateElement('div', '', 'col-md-3');
-            qNoInnerdiv.innerHTML = `No of questions : <span> ${qz.noOfQus}</span>`;
+            qNoInnerdiv.innerHTML = `${virtualclass.lang.getString('noOfQuestions')} : <span> ${qz.noOfQus}</span>`;
             elem.appendChild(qNoInnerdiv);
 
             // var rightdiv = virtualclass.view.customCreateElement('div', '','col-md-6');
@@ -1311,19 +1311,19 @@
           th1.innerHTML = '#';
           tr.appendChild(th1);
           const th2 = document.createElement('th');
-          th2.innerHTML = 'Name';
+          th2.innerHTML = virtualclass.lang.getString('gRname');
           tr.appendChild(th2);
           const th3 = document.createElement('th');
-          th3.innerHTML = 'Time taken';
+          th3.innerHTML = virtualclass.lang.getString('gRtimeTaken');
           tr.appendChild(th3);
           const th4 = document.createElement('th');
-          th4.innerHTML = 'Grade';
+          th4.innerHTML = virtualclass.lang.getString('gRgrade');
           tr.appendChild(th4);
           const th5 = document.createElement('th');
-          th5.innerHTML = 'Q. attempted';
+          th5.innerHTML = virtualclass.lang.getString('gRQAttempted');
           tr.appendChild(th5);
           const th6 = document.createElement('th');
-          th6.innerHTML = 'Correct';
+          th6.innerHTML = virtualclass.lang.getString('gRCorrect');
           tr.appendChild(th6);
 
           thead.appendChild(tr);

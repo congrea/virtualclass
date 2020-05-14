@@ -27,8 +27,8 @@
 
             defaults = {
                 checkAnswerText:  'Check My Answer!',
-                nextQuestionText: 'Next &raquo;',
-                backButtonText: '&laquo; Back',
+                nextQuestionText: virtualclass.lang.getString('Next') + ' &raquo;',
+                backButtonText: '&laquo;' + virtualclass.lang.getString('Back'),
                 tryAgainText: '',
                 questionCountText: 'Question %current of %total',
                 preventUnansweredText: 'You must select at least one answer.',

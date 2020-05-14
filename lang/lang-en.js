@@ -27,6 +27,7 @@
     action: 'Actions',
     audioTest: 'Your voice will be recorded and played back to you. \n Press Ok and speak something for few seconds.',
     Back: 'Back',
+    vote: 'Vote',
     bandfast: 'Optimum network connectivity',
     bandmedium: 'Slow network connectivity',
     bandslow: 'Network connectivity failure',

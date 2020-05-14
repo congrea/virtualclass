@@ -993,7 +993,9 @@ this["JST"]["dest_temp/templates/poll/pollStd.hbs"] = Handlebars.template({"1":f
     + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.question : stack1), depth0))
     + "</span></label><div id=\"stdOptionCont\"> "
     + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.poll : depth0)) != null ? stack1.options : stack1),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " </div></div><div id=\"stdContFooter\"><input id=\"btnVote\" type=\"button\" class=\"btn btn-primary\" value=\"Vote\"></div></div>";
+    + " </div></div><div id=\"stdContFooter\"><input id=\"btnVote\" type=\"button\" class=\"btn btn-primary\" value=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"vote",{"name":"getString","hash":{},"data":data}))
+    + "\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/poll/preview-modal.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

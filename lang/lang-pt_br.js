@@ -29,6 +29,7 @@
     action: 'Ações',
     audioTest: 'Sua voz será gravada e tocada de volta para você. \n Pressione Ok e fale algo por uns segundos.',
     Back: 'Voltar',
+    vote: 'Voto',
     bandfast: 'Conectividade de rede ótima',
     bandmedium: 'Conectividade de rede devagar',
     bandslow: 'Falha na conectividade de rede',

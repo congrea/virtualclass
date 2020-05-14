@@ -27,6 +27,7 @@ const message = {
     action: 'Acciones',
     audioTest: 'Su voz será grabada y reproducida para usted. \n Presione Ok y hable durante unos segundos.',
     Back: 'Atrás',
+    vote: 'Votar',
     bandfast: 'Conexión de red óptima',
     bandmedium: 'Conexión de red lenta',
     bandslow: 'Fallo en la conexión de red',

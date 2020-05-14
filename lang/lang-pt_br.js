@@ -164,6 +164,8 @@
     notePlaceholder: 'Escreva aqui a sua nota',
     page: 'Página',
     of: 'do',
+    typeQuestion: 'Digite a pergunta',
+    typeOption: 'Opção de tipo',
     nomdlroot: 'Não há url para a raíz momodle.',
     normalView: 'Visualização normal',
     noResultStd: 'Você não tem permissão para ver o resultado',

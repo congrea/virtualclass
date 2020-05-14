@@ -867,9 +867,15 @@ this["JST"]["dest_temp/templates/poll/modal.hbs"] = Handlebars.template({"compil
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"createnewpoll",{"name":"getString","hash":{},"data":data}))
     + "</div></div><div id=\"contBody\" class=\"modal-body\"><div id=\"qnTxCont\" class=\"row pollTxCont\"><label class=\"pollLabel\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
-    + " :</label><div class=\"inputWrapper clearfix clearfix\"><textarea id=\"q\" class=\"qn form-control\" rows=\"1\" placeholder=\"Type question\"></textarea></div></div><div id=\"optsTxCont\" class=\"row pollTxCont\"><label class=\"optionLabel\">"
+    + " :</label><div class=\"inputWrapper clearfix clearfix\"><textarea id=\"q\" class=\"qn form-control\" rows=\"1\" placeholder=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"typeQuestion",{"name":"getString","hash":{},"data":data}))
+    + "\"></textarea></div></div><div id=\"optsTxCont\" class=\"row pollTxCont\"><label class=\"optionLabel\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Options",{"name":"getString","hash":{},"data":data}))
-    + "</label><div class=\"inputWrapper clearfix\"><textarea id=\"1\" class=\"opt form-control\" placeholder=\"Type option\" rows=\"1\"></textarea></div><div class=\"inputWrapper clearfix\"><textarea id=\"2\" class=\"opt form-control\" rows=\"1\" placeholder=\"Type option\"></textarea></div><div id=\"addMoreCont\" class=\"addMoreCont\"><span class=\"icon-plus-circle\"></span><a href=\"#\" id=\"addMoreOption\" class=\"addMoreOption btn btn-default controls\">"
+    + "</label><div class=\"inputWrapper clearfix\"><textarea id=\"1\" class=\"opt form-control\" placeholder=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"typeOption",{"name":"getString","hash":{},"data":data}))
+    + "\" rows=\"1\"></textarea></div><div class=\"inputWrapper clearfix\"><textarea id=\"2\" class=\"opt form-control\" rows=\"1\" placeholder=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"typeOption",{"name":"getString","hash":{},"data":data}))
+    + "\"></textarea></div><div id=\"addMoreCont\" class=\"addMoreCont\"><span class=\"icon-plus-circle\"></span><a href=\"#\" id=\"addMoreOption\" class=\"addMoreOption btn btn-default controls\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Addoption",{"name":"getString","hash":{},"data":data}))
     + "</a></div></div></div><div id=\"contFooter\" class=\"modal-footer\"><div id=\"footerCtrCont\"><button id=\"reset\" class=\"btn btn-default pull-left controls\" type=\"button\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Reset",{"name":"getString","hash":{},"data":data}))
@@ -887,12 +893,14 @@ this["JST"]["dest_temp/templates/poll/optioninput.hbs"] = Handlebars.template({"
     + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.close : depth0)) != null ? stack1.index : stack1), depth0))
     + "\" class=\"close child\">×</a> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
+    var stack1, alias1=container.escapeExpression, alias2=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "<div class=\"inputWrapper clearfix\"><textarea rows=\"1\" id=\"option"
-    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.close : depth0)) != null ? stack1.index : stack1), depth0))
-    + "\" class=\"opt form-control parent\" placeholder=\"Type option\"></textarea> "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),((stack1 = (depth0 != null ? depth0.close : depth0)) != null ? stack1.closeBtn : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + alias1(container.lambda(((stack1 = (depth0 != null ? depth0.close : depth0)) != null ? stack1.index : stack1), depth0))
+    + "\" class=\"opt form-control parent\" placeholder=\""
+    + alias1((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(alias2,"typeOption",{"name":"getString","hash":{},"data":data}))
+    + "\"></textarea> "
+    + ((stack1 = helpers["if"].call(alias2,((stack1 = (depth0 != null ? depth0.close : depth0)) != null ? stack1.closeBtn : stack1),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " </div>";
 },"useData":true});
 

@@ -332,7 +332,20 @@ ul.responses li {
     border-top-width: 0;
     border-radius: 0 0 5px 5px;
 }
-#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead {padding-left: 10px 0;}
+
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead{
+    padding-left: 10px 0;
+}
+
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .quizHeadList {
+    line-height: 18px;
+    margin: 6px 5px;
+}
+
+#virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .quizHeadList span {
+    font-size:14px;
+}
+
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs > li > a:hover {border-color: #ddd !important;}
 #virtualclassCont.congrea .path-mod-congrea-quiz .qn_buttons .qnbutton {
     color: #337ab7;

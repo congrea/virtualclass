@@ -925,7 +925,9 @@ this["JST"]["dest_temp/templates/poll/pollmain.hbs"] = Handlebars.template({"1":
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Presult",{"name":"getString","hash":{},"data":data}))
     + "</a></li><li role=\"presentation\" id=\"stdPollHeader\" class=\"navListTab\" data-content=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"poll",{"name":"getString","hash":{},"data":data}))
-    + "\"> Poll </li> ";
+    + "\"> "
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"poll",{"name":"getString","hash":{},"data":data}))
+    + " </li> ";
 },"5":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
@@ -1166,12 +1168,14 @@ this["JST"]["dest_temp/templates/poll/setting-modal.hbs"] = Handlebars.template(
 },"useData":true});
 
 this["JST"]["dest_temp/templates/poll/stdResult.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.escapeExpression;
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
   return "<div id=\"resultLayout\"><div id=\"resultLayoutHead\" class=\"stdrslt container\"><div id=\"timerWrapper\"><label id=\"timerLabel\">"
-    + alias1((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Rtime",{"name":"getString","hash":{},"data":data}))
-    + "</label><div id=\"timerCont\"></div></div><div id=\"votesWrapper\" class=\"modal-header\"></div></div><div id=\"resultLayoutBody\" class=\"container stdlayout\"><label>Question : <span id=\"qnLabelCont\">"
-    + alias1(container.lambda(((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.question : stack1), depth0))
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Rtime",{"name":"getString","hash":{},"data":data}))
+    + "</label><div id=\"timerCont\"></div></div><div id=\"votesWrapper\" class=\"modal-header\"></div></div><div id=\"resultLayoutBody\" class=\"container stdlayout\"><label>"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Question",{"name":"getString","hash":{},"data":data}))
+    + " : <span id=\"qnLabelCont\">"
+    + alias3(container.lambda(((stack1 = (depth0 != null ? depth0.obj : depth0)) != null ? stack1.question : stack1), depth0))
     + "</span></label><div class=\"panel\"><div id=\"optnNonVotd\"></div></div><div id=\"chartMenuCont\" class=\"panel\"><button id=\"bar\" class=\"btn btn-default\"><a href=\"#\" id=\"barView\"><span class=\"icon-stats-bars cgIcon\"></span></a></button><button id=\"pi\" class=\"btn btn-default\"><a href=\"#\" id=\"piView\"><span class=\"icon-pie-chart cgIcon\"></span></a></button></div><div id=\"chart\" class=\"row c3\" style=\"display: none; max-height: 320px; position: relative;\"></div></div><div id=\"pollResultMsz\" class=\"pollResultMsz\"></div><div id=\"resultLayoutFooter\" class=\"row\"></div></div>";
 },"useData":true});
 

@@ -797,15 +797,19 @@ this["JST"]["dest_temp/templates/navigation/docIndex.hbs"] = Handlebars.template
 },"useData":true});
 
 this["JST"]["dest_temp/templates/navigation/navMain.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression, alias4="function";
 
-  return " <span id=\"leftNavPage\" class=\"pageNav\"></span><span class=\"navArrow\"></span><span class=\"pageHead\">Page</span><div id=\"ancCont\" class=\"noCont\"><div id=\"pageAnc\"><span id=\"currIndex\">"
-    + alias4(((helper = (helper = helpers.currIndex || (depth0 != null ? depth0.currIndex : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"currIndex","hash":{},"data":data}) : helper)))
+  return " <span id=\"leftNavPage\" class=\"pageNav\"></span><span class=\"navArrow\"></span><span class=\"pageHead\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"page",{"name":"getString","hash":{},"data":data}))
+    + "</span><div id=\"ancCont\" class=\"noCont\"><div id=\"pageAnc\"><span id=\"currIndex\">"
+    + alias3(((helper = (helper = helpers.currIndex || (depth0 != null ? depth0.currIndex : depth0)) != null ? helper : alias2),(typeof helper === alias4 ? helper.call(alias1,{"name":"currIndex","hash":{},"data":data}) : helper)))
     + "</span><span id=\"totalPages\"> of "
-    + alias4(((helper = (helper = helpers.totalPages || (depth0 != null ? depth0.totalPages : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"totalPages","hash":{},"data":data}) : helper)))
+    + alias3(((helper = (helper = helpers.totalPages || (depth0 != null ? depth0.totalPages : depth0)) != null ? helper : alias2),(typeof helper === alias4 ? helper.call(alias1,{"name":"totalPages","hash":{},"data":data}) : helper)))
     + "</span></div></div><div id=\"dcPaging\" class=\"close\"></div><span id=\"rightNavPage\" class=\"pageNav disable\"></span> ";
 },"3":function(container,depth0,helpers,partials,data) {
-    return " <span class=\"pageHead\">Page</span><div id=\"dcPaging\"><span id=\"stdPageNo\">1</span><span id=\"totalPages\" class=\"pages\"> of 1</span></div> ";
+    return " <span class=\"pageHead\">"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"page",{"name":"getString","hash":{},"data":data}))
+    + "</span><div id=\"dcPaging\"><span id=\"stdPageNo\">1</span><span id=\"totalPages\" class=\"pages\"> of 1</span></div> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 

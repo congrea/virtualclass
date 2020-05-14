@@ -58,7 +58,7 @@
   pageIndexNav.prototype.setTotalPages = function (length) {
     const cont = document.querySelector('#docShareNav #totalPages');
     if (cont) {
-      cont.innerHTML = ` of ${length}`;
+      cont.innerHTML = virtualclass.lang.getString('of') + " "+ `${length}`;
       const nav = document.querySelector('#docShareNav');
       if (!length) {
         nav.classList.add('hide');

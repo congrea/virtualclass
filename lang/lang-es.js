@@ -154,6 +154,8 @@ const message = {
     Next: 'Siguiente',
     note: 'Añadir nota',
     notePlaceholder: 'Escribe tu nota aquí',
+    page: 'Página',
+    of: 'de',
     nomdlroot: 'No hay URL para Moodle.',
     normalView: 'Vista normal',
     noResultStd: 'No tiene permiso para ver el resultado.',

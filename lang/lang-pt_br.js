@@ -162,6 +162,8 @@
     Next: 'Próximo',
     note: 'Adicionar anotação',
     notePlaceholder: 'Escreva aqui a sua nota',
+    page: 'Página',
+    of: 'do',
     nomdlroot: 'Não há url para a raíz momodle.',
     normalView: 'Visualização normal',
     noResultStd: 'Você não tem permissão para ver o resultado',

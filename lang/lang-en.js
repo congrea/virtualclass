@@ -154,6 +154,8 @@
     Next: 'Next',
     note: 'Add note',
     notePlaceholder: 'Write your note here',
+    page: 'Page',
+    of: 'of',
     nomdlroot: 'There is no url for momodle root.',
     normalView: 'Normal view',
     noResultStd: 'You are not permitted to see the result',

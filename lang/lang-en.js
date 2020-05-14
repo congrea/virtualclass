@@ -158,6 +158,7 @@
     of: 'of',
     typeQuestion: 'Type question',
     typeOption: 'Type option',
+    dropVideosHere : 'Drop videos here',
     nomdlroot: 'There is no url for momodle root.',
     normalView: 'Normal view',
     noResultStd: 'You are not permitted to see the result',

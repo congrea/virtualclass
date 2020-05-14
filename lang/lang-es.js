@@ -158,6 +158,7 @@ const message = {
     of: 'de',
     typeQuestion: 'Escriba pregunta',
     typeOption: 'Opción de tipo',
+    dropVideosHere : 'Suelta videos aquí',
     nomdlroot: 'No hay URL para Moodle.',
     normalView: 'Vista normal',
     noResultStd: 'No tiene permiso para ver el resultado.',

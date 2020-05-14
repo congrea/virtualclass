@@ -166,6 +166,7 @@
     of: 'do',
     typeQuestion: 'Digite a pergunta',
     typeOption: 'Opção de tipo',
+    dropVideosHere : 'Solte vídeos aqui',
     nomdlroot: 'Não há url para a raíz momodle.',
     normalView: 'Visualização normal',
     noResultStd: 'Você não tem permissão para ver o resultado',

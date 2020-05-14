@@ -233,11 +233,13 @@ this["JST"]["dest_temp/templates/askQuestion/input.hbs"] = Handlebars.template({
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/note-content-area.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper;
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
   return "<div class=\"context note\" data-context=\""
-    + container.escapeExpression(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"context","hash":{},"data":data}) : helper)))
-    + "\" data-component=\"note\"><textarea class='text content' placeholder=\"Write your note here\" data-event=\"save\"></textarea></div>";
+    + alias3(((helper = (helper = helpers.context || (depth0 != null ? depth0.context : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"context","hash":{},"data":data}) : helper)))
+    + "\" data-component=\"note\"><textarea class='text content' placeholder=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"notePlaceholder",{"name":"getString","hash":{},"data":data}))
+    + "\" data-event=\"save\"></textarea></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/askQuestion/note.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

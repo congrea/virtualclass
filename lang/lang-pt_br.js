@@ -161,6 +161,7 @@
     NAME: 'NOME',
     Next: 'Próximo',
     note: 'Adicionar anotação',
+    notePlaceholder: 'Escreva aqui a sua nota',
     nomdlroot: 'Não há url para a raíz momodle.',
     normalView: 'Visualização normal',
     noResultStd: 'Você não tem permissão para ver o resultado',

@@ -287,9 +287,7 @@ this["JST"]["dest_temp/templates/audioWidget.hbs"] = Handlebars.template({"compi
 
   return "<div id=\"audioWidget\"><ul class=\"nav navbar-nav\" id=\"mainAudioPanel\"><li id=\"speakerPressOnce\" class=\""
     + alias4(((helper = (helper = helpers.classes || (depth0 != null ? depth0.classes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classes","hash":{},"data":data}) : helper)))
-    + "\" data-audio-playing="
-    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"dap",{"name":"getString","hash":{},"data":data}))
-    + "><a id=\"speakerPressonce\" class=\"congtooltip\" data-title=\""
+    + "\" data-audio-playing=\"false\"><a id=\"speakerPressonce\" class=\"congtooltip\" data-title=\""
     + alias4(((helper = (helper = helpers.audio_tooltip || (depth0 != null ? depth0.audio_tooltip : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"audio_tooltip","hash":{},"data":data}) : helper)))
     + "\" data-meeting=\""
     + alias4(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))

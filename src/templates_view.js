@@ -1656,7 +1656,9 @@ this["JST"]["dest_temp/templates/whiteboard/toolbar.hbs"] = Handlebars.template(
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" class=\"tool\" data-tool=\"stroke\"><a href=\"#\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"strk",{"name":"getString","hash":{},"data":data}))
-    + "\" class=\"congtooltip\">Size ▾</a><ul class=\"strkSizeList\"><li id=\"strk-1"
+    + "\" class=\"congtooltip\">"
+    + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"size",{"name":"getString","hash":{},"data":data}))
+    + " ▾</a><ul class=\"strkSizeList\"><li id=\"strk-1"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))
     + "\" data-stroke=\"1\" class=\"selected\"><span style=\"height: 1px;\"></span></li><li id=\"strk-2"
     + alias4(((helper = (helper = helpers.cn || (depth0 != null ? depth0.cn : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cn","hash":{},"data":data}) : helper)))

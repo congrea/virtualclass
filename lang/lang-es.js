@@ -357,6 +357,7 @@ const message = {
     colorSelector: 'Color',
     strk: 'Tamaño del trazo',
     font: 'Tamaño de la fuente',
+    size: 'Talla',
     fullScreen: 'Pantalla completa',
     exitFullScreen: 'Salir de pantalla completa',
     recordingText: 'Rec',

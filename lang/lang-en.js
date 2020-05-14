@@ -358,6 +358,7 @@
     colorSelector: 'Color',
     strk: 'Stroke size',
     font: 'Font size',
+    size: 'Size',
     fullScreen: 'Full screen',
     exitFullScreen: 'Exit full screen',
     recordingText: 'Rec',

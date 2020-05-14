@@ -380,6 +380,7 @@
     colorSelector: 'Cor',
     strk: 'Tamanho do pincel',
     font: 'Tamanho da fonte',
+    size: 'Tamanho',
     fullScreen: 'Tela cheia',
     exitFullScreen: 'Sair da tela cheia',
     recordingText: 'gravando',

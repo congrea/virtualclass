@@ -1222,7 +1222,9 @@ this["JST"]["dest_temp/templates/ppt/dashboard.hbs"] = Handlebars.template({"com
     + alias3(((helper = (helper = helpers.app || (depth0 != null ? depth0.app : depth0)) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"app","hash":{},"data":data}) : helper)))
     + "\" id=\"pptDbCont\"><div id=\"pptListContainer\"><div id=\"listppt\" class=\"listPages pages list-group\"></div></div><div class=\"dashboardview\"><div id=\"pptuploadContainer\"><div id=\"urlcontainer\" style=\"display: block;\" class=\"form-group\"><input id=\"presentationurl\" placeholder=\""
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"EHTMLPresentUrl",{"name":"getString","hash":{},"data":data}))
-    + "\" class=\"form-control\"><input type=\"submit\" id=\"submitpurl\" class=\"btn-default\"value=\"Save\"></div></div></div></div>";
+    + "\" class=\"form-control\"><input type=\"submit\" id=\"submitpurl\" class=\"btn-default\"value=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Save",{"name":"getString","hash":{},"data":data}))
+    + "\"></div></div></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/ppt/linkPpt.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

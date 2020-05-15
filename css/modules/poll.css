@@ -213,18 +213,13 @@
 }
 
 #virtualclassCont.congrea #virtualclassPoll #nonVotTqn .opt,
-#virtualclassCont.congrea #virtualclassPoll #stdOptionCont .opt,
-#virtualclassCont.congrea #virtualclassPoll #editPollModal #pollCkbox {
+#virtualclassCont.congrea #virtualclassPoll #stdOptionCont .opt {
   margin: 0;
 }
 
-#virtualclassCont.congrea #addMoreCont #addMoreOption {
-  color: #757272;
-}
-
-#virtualclassCont.congrea #virtualclassPoll #addMoreOption:hover {
-  background-color: white;
-  color: black;
+#virtualclassCont.congrea #virtualclassPoll #editPollModal #pollCkbox {
+  margin-right: 10px;
+  margin-top: 2px;
 }
 
 #virtualclassCont.congrea #virtualclassPoll .stdoptn {
@@ -320,10 +315,6 @@
 #virtualclassCont.congrea #virtualclassPoll #resultLayout #closePoll,
 #virtualclassCont.congrea #virtualclassPoll #resultLayout #chartMenuCont button {
   border: 1px solid #ccc;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  background-color: #f5f5f5;
-  border-bottom-color: #b3b3b3;
-  background-image: linear-gradient(to bottom, #fff, #e6e6e6);
   background-repeat: repeat-x;
   line-height: normal;
 }
@@ -589,7 +580,7 @@
 #virtualclassCont.congrea.student #resultLayout {
   width: 100%;
   position: absolute;
-  top: 40px;
+  top: 44px;
   bottom: 16%;
   overflow: auto;
   height: 85%;

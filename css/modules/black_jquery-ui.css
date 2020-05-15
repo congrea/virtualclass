@@ -1842,10 +1842,6 @@ body .ui-tooltip {
   color: #fff;
 }
 
-.ui-widget-header {
-  border: #444 1px solid;
-}
-
 .ui-state-default.ui-corner-bottom.ui-tabs-active {
   background: none;
 }

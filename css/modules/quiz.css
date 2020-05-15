@@ -268,7 +268,6 @@
   position: absolute;
   left: 84%;
   top: 10px;
-  color: #337ab7;
   padding: 6px 12px;
   border: 1px solid #337ab7;
 }
@@ -436,7 +435,7 @@
 #virtualclassCont.congrea #layoutQuizBody #editQuizModal #resultQzLayout .nav .questionPreview a:hover {
   color: #fff;
   background-image: linear-gradient(to bottom, #021317 0%, #2c393d 100%);
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 #virtualclassCont.congrea #layoutQuizBody #quizModalBody #rsQzHead .nav-tabs li a:hover:active {

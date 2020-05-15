@@ -73,21 +73,6 @@
   margin-left: -0.1875rem;
 }
 
-/* #virtualclassCont.congrea #askQuestion .container .footer .controls div,
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .answersNavigation,
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply,
-#virtualclassCont.congrea #askQuestion .container .header .info span,
-#virtualclassCont.congrea #askQuestion .container .question .header .info .lable,
-#virtualclassCont.congrea #askQuestion .container .question .header .info .closed-icon,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .upVote,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .commentsNavigation,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .comment,
-#virtualclassCont.congrea #askQuestion .container .answer .header .info .userName,
-#virtualclassCont.congrea #askQuestion .container .answer .header .info .lable,
-#virtualclassCont.congrea #askQuestion .container .answer .header .info .acceptedAnswer {
-  display: inline-block;
-} */
-
 #virtualclassCont.congrea #askQuestion .container .header .info span.userName {
   display: inline-block;
   flex: 1;
@@ -397,32 +382,6 @@
   margin-top: 4px;
 }
 
-/* #virtualclassCont.congrea #askQuestion .question .container {
-  border-left: 2px solid red;
-} */
-
-/* #virtualclassCont.congrea #askQuestion .answers .container::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 3%;
-  width: 2px;
-  height: 91%;
-  background: #1a9e1a;
-  display: inline-block;
-} */
-
-/* #virtualclassCont.congrea #askQuestion .comments .comment .container::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 1px;
-  width: 2px;
-  height: 91%;
-  background: #0270e1;
-  display: inline-block;
-} */
-
 #virtualclassCont.congrea #askQuestion .question .container .header {
   color: #545454;
   font-weight: 600;
@@ -435,18 +394,6 @@
 #virtualclassCont.congrea #askQuestion .question .container .header .info {
   display: flex;
 }
-
-/* #virtualclassCont.congrea #askQuestion .question .container[data-type="question"] .header span.userName {
-  color: #ff3838;
-}
-
-#virtualclassCont.congrea #askQuestion .question .answers .container .header span.userName {
-  color: #1a9e1a;
-}
-
-#virtualclassCont.congrea #askQuestion .question .comments .container .header span.userName {
-  color: #0170e1;
-} */
 
 #virtualclassCont.congrea #askQuestion .question .container .header .lable {
   color: #616161;
@@ -520,14 +467,6 @@
   flex-direction: row;
 }
 
-/* #virtualclassCont.congrea #askQuestion .container .footer.show {
-  opacity: .5;
-}
-
-#virtualclassCont.congrea #askQuestion .container .question:hover .footer.show {
-  opacity :1;
-} */
-
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote .button {
   display: inline-block;
   padding: 0 0;
@@ -543,15 +482,6 @@
   display: inline-block;
   padding: 0;
 }
-
-/* #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply#virtualclassCont.congrea #askQuestion .comments .container {
-  border-left: 2px solid #1464f6;
-  margin-top: 3px;
-} .button,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .reply .#virtualclassCont.congrea #askQuestion .comments .container {
-  border-left: 2px solid #1464f6;
-  margin-top: 3px;
-}button, */
 
 #virtualclassCont.congrea #askQuestion .container .comment .footer .controls .navigation {
   margin-left: 0;
@@ -642,33 +572,10 @@
   display: block;
 }
 
-/* #virtualclassCont.congrea #askQuestion .content p #writeContent {
-  margin: 5px 4px 2px 5px;
-} */
-
-/* #virtualclassCont.congrea #askQuestion .content p #writeContent .action {
-  padding: 4px 0 6px 0;
-} */
-
 #virtualclassCont.congrea #askQuestion .container .comments .footer .controls .navigation .button {
   display: inline-block;
   padding: 0;
 }
-
-/* #virtualclassCont.congrea #askQuestion .question .container[data-type="question"]::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 3%;
-  width: 2px;
-  height: 93%;
-  background: #ff3838;
-  display: inline-block;
-} */
-
-/* #virtualclassCont.congrea #noteContainer {
-  display: none;
-} */
 
 #virtualclassCont.congrea #noteContainer .context.active {
   height: 100%;

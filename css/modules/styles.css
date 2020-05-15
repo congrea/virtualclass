@@ -2021,6 +2021,7 @@ div.ui-memblist-usr .userVideos {
   bottom: 50px;
   left: 50%;
   transform: translate(-50%);
+  z-index: 1005;
 }
 #virtualclassCont.congrea .errorContainer { 
   background-color: #f0f0f0;

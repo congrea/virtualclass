@@ -9,7 +9,7 @@
    *
    */
 
-  let setLangType = function (LangType) {
+  const setLangType = function (LangType) {
     let currentLangType;
     //  Check language type is present in congreaLanguages or not.
     if (Object.prototype.hasOwnProperty.call(window.congreaLanguages, LangType)) {
@@ -30,7 +30,7 @@
   };
 
   const getLang = function (Langtype) {
-    if (typeof Langtype === 'undefined' || !Langtype || Langtype == '0') { 
+    if (typeof Langtype === 'undefined' || !Langtype || Langtype == '0') {
       // language is not passed from the moodle
       const userBrowserLang = window.navigator.language;
       Langtype = userBrowserLang.toLowerCase();

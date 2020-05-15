@@ -6,7 +6,7 @@
  *   for particular line of language file.
  * @type type
  */
-  const message = {     
+  const message = {
     ActiveAll: 'Activar todo',
     addcontext: 'Añadir marcador',
     Addoption: 'Añadir opción',
@@ -537,7 +537,8 @@
     + 'Ir al ícono de la cámara en la esquina superior derecha de la pantalla <br /> '
     + 'Haga clic en "Permitir siempre..." y seleccione la opción de cámara <br />  '
     + 'Acepte y actualice la pantalla  </div> <div class="screenImages">'
-    + ' <figure class="chrome" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-video.png" > <figcaption>Chrome</figcaption> </figure></div>',
+    + ' <figure class="chrome" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-video.png" >'
+    + ' <figcaption>Chrome</figcaption> </figure></div>',
 
     SecurityErrorExt: '<div class="errorMsg"> Se ha bloqueado el acceso a la cámara.'
     + ' Para proporcionar acceso a la cámara web, siga los siguiente pasos <br />'
@@ -587,7 +588,7 @@
     + '<figure class="firefox" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-screnshare.png" >'
     + '<figcaption>Chrome</figcaption> </figure></div>',
     TypeError: 'Su webcam no está inicializada correctamente. Por favor recarga la página.',
-    newPage: 'Insertar página',  
+    newPage: 'Insertar página',
   };
   window.congreaLanguages.es = message;
 }(window));

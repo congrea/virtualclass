@@ -553,6 +553,5 @@
     TypeError: 'Your webcam is not initialized properly. Please reload the page.',
     newPage: 'Insert page',
   };
-  // window.message = message;
   window.congreaLanguages.en = message;
 }(window));

@@ -40,8 +40,8 @@
     ByInstructor: 'Por instructor',
     ByTimer: 'Por tiempo',
     cancel: 'Cancelar',
-    canvasDrawMsg: 'Puede hacer clic en cualquier herramienta para dibujar' + 'haga clic y mantenga presionado'
-    + ' el botón izquierdo del mouse para dibujar',
+    canvasDrawMsg: 'Puede hacer clic en cualquier herramienta para dibujar'
+    + 'haga clic y mantenga presionado el botón izquierdo del mouse para dibujar',
     canvasmissing: 'Falta el Canvas en su navegador. Actualice su navegador a la última versión.',
     chatEnable: 'Chat desactivado',
     Chatroom: 'Sala de chat',
@@ -280,8 +280,8 @@
     safariBrowserIssue: 'Su navegador Safari {virtualclass1} no es compatible. Es aconsejable usar Chrome y Firefox',
     Save: 'Grabar',
     savesession: '¿Quieres guardar la sesión actual?',
-    savesessionTechSupport: '¿Quieres guardar la sesión actual? <br /> Una vez que descargue la sesión, las actualizaciones'
-    + ' no estarán disponibles al volver a cargarla.',
+    savesessionTechSupport: '¿Quieres guardar la sesión actual? <br /> Una vez que descargue la sesión,'
+    + ' las actualizaciones no estarán disponibles al volver a cargarla.',
     screensharealready: 'La pantalla se está compartiendo.',
     ScreenShare: 'Compartir pantalla',
     screensharemsg: 'La pantalla de arriba se está compartiendo.',
@@ -322,8 +322,8 @@
     stdPublish: 'stdPublicado',
     stdscreenshare: '¿Quieres compartir tu pantalla?',
     studentAudEnable: 'Audio del alumno activado',
-    studentSafariBrowserIssue: 'Su navegador {virtualclass1} {virtualclass2} no puede compartir su webcam con otros usuarios,'
-    + ' Congrea solo es compatible con Chrome y Firefox.',
+    studentSafariBrowserIssue: 'Su navegador {virtualclass1} {virtualclass2} no puede ,'
+    + 'compartir su webcam con otros usuarios Congrea solo es compatible con Chrome y Firefox.',
     supportDesktop: 'La clase virtual no es compatible con dispositivos móviles. Es aconsejable usar un pc o portátil.',
     supportDesktopOnly: 'Lo sentimos, el modo de presentación solo es compatible con pcs o portátiles.'
     + ' Los dispositivos móviles no son totalmente compatibles.',
@@ -377,7 +377,7 @@
     watstdrespo: 'Esperando la respuesta del alumno',
     wbrtcMsgChrome: 'Puede hacer clic en el botón denegar para no compartir su micrófono y cámara con Congrea.'
     + 'o haga clic en el botón Permitir para compartirlo.',
-    wbrtcMsgFireFox: 'Puedes hacer clic en  "Compartir dispositivos seleccionados"' 
+    wbrtcMsgFireFox: 'Puedes hacer clic en  "Compartir dispositivos seleccionados"'
     + ' para compartir tu micrófono y cámara con otros usuarios.',
     webcamerainfo: 'Si el video es visible, la webcam está funcionando correctamente.',
     Whiteboard: 'Pizarra',
@@ -413,7 +413,7 @@
     error: 'Ha ocurrido un error. Lo sentimos!',
     wserror: 'Su navegador no es compatible con WebSocket',
     sterror: 'Su navegador no es compatible con el estándar de almacenamiento web',
-    
+    /* Colors strings */
     black: 'negro',
     'dark-gray-4': 'dark gray 4',
     'dark-gray-3': 'dark gray 3',
@@ -539,12 +539,13 @@
     + 'Acepte y actualice la pantalla  </div> <div class="screenImages">'
     + ' <figure class="chrome" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-video.png" > <figcaption>Chrome</figcaption> </figure></div>',
 
-    SecurityErrorExt: '<div class="errorMsg"> Se ha bloqueado el acceso a la cámara. Para proporcionar acceso a la cámara web,'
-    + ' siga los siguiente pasos <br />'
+    SecurityErrorExt: '<div class="errorMsg"> Se ha bloqueado el acceso a la cámara.'
+    + ' Para proporcionar acceso a la cámara web, siga los siguiente pasos <br />'
     + 'Ir al ícono de la cámara en la esquina superior derecha de la pantalla <br /> '
     + 'Haga clic en "Permitir siempre..." y seleccione la opción de cámara <br />  '
     + 'Acepte y actualice la pantalla  </div> <div class="screenImages">'
-    + ' <figure class="chrome" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-video.png" > <figcaption>Chrome</figcaption> </figure></div>',
+    + ' <figure class="chrome" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-video.png" >'
+    + ' <figcaption>Chrome</figcaption> </figure></div>',
 
     nopermissionExt: '<div class="errorMsg"> Se ha bloqueado el acceso a la cámara.'
     + ' Para proporcionar acceso a la cámara web, siga los siguiente pasos <br />'
@@ -555,8 +556,9 @@
     + ' <figcaption>Chrome</figcaption> </figure></div>',
 
     chromeExtMiss: "Congrea necesita el plugin'Selector de escritorio' para compartir la pantalla.<br />"
-    + "Puedes descargarlo desde <a "
-    + "href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl' target='_blank'>AQUÍ.</a>",
+    + 'Puedes descargarlo desde <a '
+    + "href='https://chrome.google.com/webstore/detail/desktop-selector/ijhofagnokdeoghaohcekchijfeffbjl'"
+    + "target='_blank'>AQUÍ.</a>",
 
 
     /* For Firefox */
@@ -585,7 +587,7 @@
     + '<figure class="firefox" > <img src="https://www.congrea.com/wp-content/uploads/2016/10/ff-screnshare.png" >'
     + '<figcaption>Chrome</figcaption> </figure></div>',
     TypeError: 'Su webcam no está inicializada correctamente. Por favor recarga la página.',
-    newPage: 'Insertar página',
-    };
-    window.congreaLanguages.es = message;
+    newPage: 'Insertar página',  
+  };
+  window.congreaLanguages.es = message;
 }(window));

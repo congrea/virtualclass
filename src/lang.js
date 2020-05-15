@@ -31,7 +31,7 @@
   }
 
   const getLang = function (Langtype){
-     if(typeof Langtype === "undefined") { 
+     if(typeof Langtype === "undefined" || Langtype === "none") { 
       // language is not passed from the moodle
       let userBrowserLang = window.navigator.language;
       Langtype = userBrowserLang.toLowerCase();

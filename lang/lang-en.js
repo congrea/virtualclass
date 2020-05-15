@@ -239,6 +239,7 @@
     Quiz: 'Quiz',
     'Quiz/page': 'Quiz / page',
     Quizes: 'Quizzes',
+    quizSubmit: 'Submit',
     quizmayshow: 'Get ready for a quiz',
     quizreviewpublish: 'Review & publish quiz',
     RaiseHandStdDisabled: 'Undo raise hand',

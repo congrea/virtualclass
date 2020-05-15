@@ -251,6 +251,7 @@
     Quiz: 'Questionário',
     'Quiz/page': 'Questionário / página',
     Quizes: 'Quizzes',
+    quizSubmit: 'Enviar',
     quizmayshow: 'Prepare-se para um quiz',
     quizreviewpublish: 'Revisar e publicar quiz',
     RaiseHandStdDisabled: 'Abaixar mão',

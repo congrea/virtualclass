@@ -238,6 +238,7 @@ const message = {
     Quiz: 'Examen',
     'Quiz/page': 'Examen / página',
     Quizes: 'Exámenes',
+    quizSubmit: 'Enviar',
     quizmayshow: 'Prepárate para una prueba',
     quizreviewpublish: 'Revisar y publicar examen',
     RaiseHandStdDisabled: 'Bajar la mano',

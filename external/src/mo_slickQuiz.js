@@ -52,7 +52,7 @@
                 //completionResponseMessaging: true,
                 displayQuestionCount: false, // Deprecate?
                 displayQuestionNumber: true, // Deprecate?
-                submitQuestionText: 'Submit',
+                submitQuestionText: virtualclass.lang.getString('quizSubmit'),
                 questionPerPage:50,
                 resultDisplayDetailed: true,
                 animationCallbacks: { // only for the methods that have jQuery animations offering callback

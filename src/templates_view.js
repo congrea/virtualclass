@@ -1419,8 +1419,12 @@ this["JST"]["dest_temp/templates/rightBarHeader.hbs"] = Handlebars.template({"1"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"teacherVideoHeader",{"name":"getString","hash":{},"data":data}))
     + "</div> ";
 },"3":function(container,depth0,helpers,partials,data) {
-    return " <label class=\"switch viewtext\" id=\"viewAllQuestion\" data-viewall=\"enable\"><span class=\"slider round icon-all-audio-disable enable congtooltip cgIcon\" data-title=\"View All\">"
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"viewall",{"name":"getString","hash":{},"data":data}))
+    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
+
+  return " <label class=\"switch viewtext\" id=\"viewAllQuestion\" data-viewall=\"enable\"><span class=\"slider round icon-all-audio-disable enable congtooltip cgIcon\" data-title=\""
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"viewall",{"name":"getString","hash":{},"data":data}))
+    + "\">"
+    + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"viewall",{"name":"getString","hash":{},"data":data}))
     + "</span></label> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;

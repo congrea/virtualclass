@@ -354,7 +354,7 @@ function messageUpdate(e) {
         virtualclass.chat.chatroombox = $('#chat_room').chatroom({
           id: 'chat_room',
           user: from,
-          title: lang.chatroom_header,
+          title: virtualclass.lang.getString('chatroom_header'),
           messageSent(user, msg) {
             const userid = user.userid || virtualclass.gObj.uid;
             $('#chat_room').chatroom('option', 'boxManager').addMsg(user.name, msg, userid);

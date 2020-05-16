@@ -1595,7 +1595,7 @@
 
         video = 'on';
         tooltip = document.querySelector('.videoSwitchCont');
-        tooltip.dataset.title = 'Video off';
+        tooltip.dataset.title = virtualclass.lang.getString('videooff');
         if (roles.hasControls()) {
           virtualclass.videoHost.gObj.videoSwitch = 1;
           // console.log('videoswitch 1');
@@ -1635,7 +1635,7 @@
         // virtualclass.videoHost.gObj.videoSwitch = 0;
         video = 'off';
         tooltip = document.querySelector('.videoSwitchCont');
-        tooltip.dataset.title = 'Video on';
+        tooltip.dataset.title = virtualclass.lang.getString('videoon');
         if (virtualclass.videoHost) {
           if (roles.hasControls()) {
             virtualclass.videoHost.gObj.videoSwitch = 0;

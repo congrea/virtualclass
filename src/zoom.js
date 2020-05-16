@@ -223,7 +223,7 @@
           if (fitScreenTooltip) {
             fitScreenTooltip.dataset.currstate = 'fittoscreen';
             const congtooltip = document.querySelector('#virtualclassAppLeftPanel .fitScreen.congtooltip');
-            congtooltip.dataset.title = 'Fit to Screen';
+            congtooltip.dataset.title = virtualclass.lang.getString('fitToScreen');
           }
 
           if (notesContainer) {

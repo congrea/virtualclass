@@ -172,11 +172,11 @@ var videoHost = {
     if (action === 'enable') {
       sw.setAttribute('data-action', 'disable');
       sw.className = 'video on';
-      swCont.setAttribute('data-title', 'Video off');
+      swCont.setAttribute('data-title', virtualclass.lang.getString('videooff'));
     } else {
       sw.setAttribute('data-action', 'enable');
       sw.className = 'video off';
-      swCont.setAttribute('data-title', 'Video on');
+      swCont.setAttribute('data-title', virtualclass.lang.getString('videoon'));
     }
   },
 

@@ -27,8 +27,8 @@
 
             defaults = {
                 checkAnswerText:  'Check My Answer!',
-                nextQuestionText: 'Next &raquo;',
-                backButtonText: '&laquo; Back',
+                nextQuestionText: virtualclass.lang.getString('Next') + ' &raquo;',
+                backButtonText: '&laquo;' + virtualclass.lang.getString('Back'),
                 tryAgainText: '',
                 questionCountText: 'Question %current of %total',
                 preventUnansweredText: 'You must select at least one answer.',
@@ -52,7 +52,7 @@
                 //completionResponseMessaging: true,
                 displayQuestionCount: false, // Deprecate?
                 displayQuestionNumber: true, // Deprecate?
-                submitQuestionText: 'Submit',
+                submitQuestionText: virtualclass.lang.getString('quizSubmit'),
                 questionPerPage:50,
                 resultDisplayDetailed: true,
                 animationCallbacks: { // only for the methods that have jQuery animations offering callback
@@ -226,10 +226,11 @@
                 // Count down timer
 
                 if (plugin.config.quizTime && plugin.config.quizTime > 0) {
-                    $('#timeText').html('Time remaining <span id="qztime">' + plugin.config.quizTime + '</span>');
+                    $('#timeText').html(virtualclass.lang.getString('Time remaining') + " " + '<span id="qztime">' + plugin.config.quizTime + '</span>');
                 } else {
-                    $('#timeText').html('Elapsed time <span id="qztime">00:00:00</span>');
+                    $('#timeText').html(virtualclass.lang.getString('ETime') + " " + '<span id="qztime">00:00:00</span>');
                 }
+                
                 $quizName.hide().html(plugin.config.nameTemplateText
                     .replace('%name', quizValues.info.name) ).fadeIn(1000, kN(key,1));
                 $quizHeader.hide().prepend($('<div class="quizDescription">' + quizValues.info.main + '</div>')).fadeIn(1000, kN(key,2));

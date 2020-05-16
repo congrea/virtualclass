@@ -95,7 +95,7 @@
           virtualclass.chat.chatroombox = $('#chat_room').chatroom({
             id: 'chat_room',
             user: { name: 'test' },
-            title: lang.chatroom_header,
+            title: virtualclass.lang.getString('chatroom_header'),
             // offset: '20px',
             messageSent(user, msg) {
               const userid = user.userid || virtualclass.gObj.uid;

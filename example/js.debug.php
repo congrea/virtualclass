@@ -60,7 +60,9 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-message.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard-text.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/whiteboard.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang-en.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>lang/lang-en.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>lang/lang-pt_br.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>lang/lang-es.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/lang.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/view.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/system.js"></script>
@@ -114,7 +116,7 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/jquery.ui.chatroom.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-boxManager.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lib.js"></script>
-<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lang.en.js"></script>
+<!-- <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/chat-lang.en.js"></script> -->
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-base64.min.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/video-ajax.js"></script>

@@ -1345,7 +1345,7 @@
           }
 
           const dropMsz = document.querySelector('#virtualclassCont.congrea #VideoDashboard .qq-uploader.qq-gallery');
-          dropMsz.setAttribute('qq-drop-area-text', 'Drop videos here');
+          dropMsz.setAttribute('qq-drop-area-text', virtualclass.lang.getString('dropVideosHere'));
 
           const uploadMesssage = document.querySelector('#uploadMsz');
           /** Creating list (li) for displaying the upload video **/

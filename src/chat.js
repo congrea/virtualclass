@@ -21,7 +21,7 @@
         tabs = $('#tabs').tabs({ cache: true, activeOnAdd: true });
 
         if (browserSupportsLocalStorage() === false) { // check browser for local storage
-          alert(lang.sterror);
+          alert(virtualclass.lang.getString('sterror'));
           return;
         }
 
@@ -170,7 +170,7 @@
           id: 'chat_div',
           user: userlist,
           offset: '-1px',
-          title: lang.online,
+          title: virtualclass.lang.getString('online'),
           userSent(user) {
             console.log('====> UserList is created 1');
             const userDiv = $('#chat_div').memberlist('option', 'boxManager').addUsr(user);
@@ -277,7 +277,7 @@
       makeUserListEmpty() {
         const url = `url(${window.whiteboardPath}images/offline.png)no-repeat top left`;
         $('#user_list .inner_bt #usertab_icon').css({ background: url });
-        $('#chatroom_bt .inner_bt #chatroom_text').text(`${lang.chatroom} (0)`);
+        $('#chatroom_bt .inner_bt #chatroom_text').text(`${virtualclass.lang.chatroom} (0)`);
         $('div#memlist').removeClass('enable');
       },
       removeChatHighLight(id) {

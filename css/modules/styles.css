@@ -3592,6 +3592,13 @@ div.ui-memblist-usr .userVideos {
   left: 28px;
 }
 
+#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenButton .fullScreen,
+#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenExitButton span {
+  padding: 0.6875rem 1.125rem 0.75rem 1.125rem;
+  line-height: 1.25rem;
+  font-size: 1.25rem;
+}
+
 #virtualclassCont.congrea.student #resultLayoutBody label,
 #virtualclassCont.congrea.student #resultLayoutBody #optnNonVotd span #virtualclassCont.congrea.student #layoutPollBody span {
   font-size: 14px;
@@ -4435,13 +4442,6 @@ span#usertab_text {
   right: 3.25rem;
 }
 
-#virtualclassCont.congrea #fullScreenButton .fullScreen,
-#virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
-  padding: 0.6875rem 1.125rem 0.6875rem 1.125rem;
-  line-height: 1.25rem;
-  font-size: 1.25rem;
-}
-
 #virtualclassCont.congrea #fullScreenExitButton {
   display: none;
 }
@@ -4691,7 +4691,7 @@ span#usertab_text {
   }
 
   #virtualclassCont.congrea #fullScreenButton .fullScreen,
-  #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
+  #virtualclassCont.congrea #fullScreenExitButton span.congtooltip {
     padding: 11px 18px 11.5px 18px;
   }
 

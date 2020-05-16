@@ -1,7 +1,7 @@
 {{#if control}}
   <span id="leftNavPage" class="pageNav"></span>
     <span class="navArrow"></span>
-    <span class="pageHead">Page</span>
+    <span class="pageHead">{{getString 'page'}}</span>
     <div id="ancCont" class="noCont">
         <div id="pageAnc">
             <span id="currIndex">{{currIndex}}</span>
@@ -12,7 +12,7 @@
     </div>
     <span id="rightNavPage" class="pageNav disable"></span>
 {{else}}
-<span class="pageHead">Page</span>
+<span class="pageHead">{{getString 'page'}}</span>
 <div id="dcPaging">
     <span id="stdPageNo">1</span>
     <span id="totalPages" class="pages"> of 1</span>

@@ -217,7 +217,7 @@
     PEdit: 'Editar enquete',
     PermissionDeniedError: 'Acesso à Webcam foi negado.',
     PERMISSION_DENIED: 'Você negou acesso à sua Webcam(câmera/microfone).',
-    Play: 'Play',
+    Play: 'Toque',
     playsessionmsg: 'Clique ‘Play’ para iniciar a sessão.',
     pleasewaitWhSynNewCont: 'Favor aguardar. Sincronizando novo conteúdo.',
     plswaitwhile: 'Favor aguardar....',

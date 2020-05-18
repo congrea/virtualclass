@@ -241,11 +241,6 @@
   cursor: pointer;
 }
 
-#virtualclassCont.congrea.student #virtualclassPoll #chartMenuCont a,
-#virtualclassCont.congrea.teacher #virtualclassPoll #resultLayout #chartMenuCont a {
-  color: #337ab7;
-}
-
 #virtualclassCont.congrea.teacher #virtualclassPoll .pollList .popover {
   width: 100%;
   height: auto;
@@ -584,4 +579,8 @@
   bottom: 16%;
   overflow: auto;
   height: 85%;
+}
+
+#virtualclassCont.congrea #virtualclassPoll #chartMenuCont a {
+  text-decoration: none;
 }

@@ -43,26 +43,12 @@ body {
   height: 100%;
 }
 
-#virtualclassCont.congrea .bottomright.active,
-#virtualclassCont.congrea[data-currapp="EditorRich"] .vmchat_bar_button.active {
-  background: #2d3741 none;
-  height: auto;
-}
-
 #virtualclassCont.congrea #rightSubContainer {
   clear: both;
   flex: 1;
   min-height: 1px;
   border-left: 1px solid #dfdfdf;
 }
-
-/* #virtualclassCont.congrea #rightSubContainer a.inner_bt, #virtualclassCont.congrea #rightSubContainer a.inner_bt:hover {
-  height: auto;
-}
-
-#virtualclassCont.congrea.student #rightSubContainer a.inner_bt, #virtualclassCont.congrea.student #rightSubContainer a.inner_bt:hover {
-  height: auto;
-} */
 
 #virtualclassCont.congrea.student #rightSubContainer a.inner_bt #chatroom_icon,
 #virtualclassCont.congrea.student #rightSubContainer a.inner_bt #chatroom_icon:hover {

@@ -26,6 +26,7 @@ Config.prototype.setSession = () => {
 
 Config.prototype.setNewSession = (session) => {
   localStorage.setItem('mySession', session);
+  virtualclass.gObj.currentSession = session;
   if (!virtualclass.isPlayMode) {
     if (roles.hasControls()) {
       const currTime = new Date().getTime();

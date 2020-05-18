@@ -208,8 +208,8 @@
   }
 
   #virtualclassCont.congrea #virtualclassAppFooterPanel #proposedSpeed {
-    width: 1.25rem !important;
-    height: 1.625rem !important;
+    width: 1.25rem;
+    height: 1.625rem;
     padding: 0.5625rem 0.811115rem;
   }
 
@@ -316,7 +316,7 @@
 
   #virtualclassCont.congrea #rightSubContainer a.inner_bt #chatroom_icon,
   #virtualclassCont.congrea #rightSubContainer a.inner_bt #chatroom_icon:hover {
-    float: unset !important;
+    float: unset;
   }
 
   #virtualclassCont.congrea.student[device="mobile"] .vmchat_bar_button,
@@ -464,7 +464,7 @@
   }
 
   #virtualclassCont.congrea #virtualclassPreCheck .result div {
-    margin-top: 0 !important;
+    margin-top: 0;
   }
 
   #virtualclassCont.congrea.Safari #bookmark .bookmarks .icon-bookmark {

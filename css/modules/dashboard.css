@@ -1,5 +1,5 @@
 #virtualclassCont #dashboardContainer .modal-dialog {
-  width: 100% !important;
+  width: 100%;
   height: 100%;
   margin-top: 0;
 }
@@ -19,10 +19,6 @@
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-#virtualclassCont.congrea .linkdocs {
-  border: 1px solid #fff !important;
 }
 
 #virtualclassCont.congrea .dbContainer .linkdocs,
@@ -66,7 +62,7 @@
 #virtualclassCont.congrea #listdocs .linkdocs[data-selected="1"],
 #virtualclassCont.congrea #listdocs .linkdocs[data-selected="1"]:hover .controls.delete::before {
   color: #464646;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #virtualclassCont.congrea #listdocs .list-group-item[data-selected="0"]:hover .controls.delete::before {
@@ -181,13 +177,6 @@
   margin: 0 auto;
 }
 
-#virtualclassCont.congrea .linkdocs:hover {
-  background-color: #fff;
-  color: black;
-  border: 1px solid #ddd !important;
-  border-radius: 4px;
-}
-
 #listdocs.listPages .links {
   color: #3585d5;
   letter-spacing: 0.02em;
@@ -196,13 +185,14 @@
 }
 
 #listdocs.listPages .links .bootstrap .list-group-item:last-child {
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 #virtualclassCont.congrea #listdocs .list-group-item {
   padding: 6px 0;
   margin-bottom: 2px;
+  border: 1px solid #fff;
 }
 
 .bootstrap #listdocs.listPages .list-group-item.links {
@@ -218,6 +208,13 @@
   background: #fff;
 }
 
+#virtualclassCont.congrea .linkdocs:hover {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ddd !important;
+  border-radius: 4px;
+}
+
 #virtualclassCont.congrea .fileSize {
   position: absolute;
   right: 111px;
@@ -226,8 +223,8 @@
 }
 
 #virtualclassCont.congrea #dashboardnav button.btn-primary {
-  height: 45px;
-  width: 57px;
+  height: 42px;
+  width: 42px;
   margin-left: 0;
   border: 0;
 }
@@ -249,15 +246,15 @@
 
 #virtualclassCont.congrea .bootstrap .modal-content,
 #virtualclassCont.congrea #congdashboard.modal {
-  box-shadow: none !important;
+  box-shadow: none;
 }
 
 #virtualclassCont #dashboardnav .btn-primary {
-  background: linear-gradient(to bottom, #495560 0%, #39434a 100%) !important;
-  height: 48px !important;
-  margin-left: 8px !important;
+  background: linear-gradient(to bottom, #495560 0%, #39434a 100%);
+  height: 48px;
+  margin-left: 8px;
   border-radius: 50%;
-  width: 48px !important;
+  width: 48px;
 }
 
 @media (max-height: 768px) {
@@ -277,8 +274,8 @@
   }
 
   #virtualclassCont #dashboardnav .btn-primary {
-    width: 42px !important;
-    height: 42px !important;
+    width: 42px;
+    height: 42px;
   }
 
   #virtualclassCont.congrea i.dashboard-icon::before {
@@ -298,15 +295,15 @@
   }
 
   #virtualclassCont.meetingmode #dashboardnav .btn-primary {
-    width: 44px !important;
-    height: 44px !important;
+    width: 44px;
+    height: 44px;
   }
 }
 
 @media (max-height: 805px) {
   #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassOptionsCont {
     position: absolute;
-    top: 60px !important;
+    top: 60px;
   }
 }
 
@@ -348,11 +345,12 @@
   max-height: none;
   padding: 0;
   height: 100%;
-  border-radius: 0 !important;
+  border-radius: 0;
 }
 
 #virtualclassCont.congrea #virtualclassAppOptionsCont #dashboardnav button.btn {
   cursor: pointer;
+  margin-left: 8px;
 }
 
 #virtualclassCont.congrea.teacher[data-currapp="DocumentShare"] #virtualclassApp.dashboard .zoomControler {

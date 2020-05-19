@@ -481,7 +481,7 @@
   #virtualclassCont.congrea.Safari .bookmarks[data-value="1"] .icon-bookmark::before {
     content: "\e9f8";
     font-size: 1rem;
-    color: #30b2ff !important;
+    color: #30b2ff;
   }
 
   #virtualclassCont.congrea.Safari #fullScreenButton .fullScreen,

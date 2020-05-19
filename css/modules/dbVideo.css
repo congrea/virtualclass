@@ -54,14 +54,7 @@
   text-align: center;
 }
 
-#virtualclassCont.congrea #listvideo .linkvideo.list-group-item:hover {
-  /* background: linear-gradient(to bottom, #515e69 0%, #34404c 100%); */
-  background: linear-gradient(to bottom, #595e63 0%, #656a6f 100%);
-  color: #fff;
-}
-
 #virtualclassCont.congrea #VideoDashboard .btn-default {
-  background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
   color: white;
   height: 99%;
 }
@@ -69,7 +62,6 @@
 #virtualclassCont.congrea #submitpurl.btn-default {
   width: 13%;
   border: 1px solid #bdbdbd;
-  background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
   border-radius: 6px;
   padding: 8px;
   color: #fff;

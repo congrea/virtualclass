@@ -63,7 +63,7 @@
 /* Interaction Cues
 ---------------------------------- */
 .ui-state-disabled {
-  cursor: default !important;
+  cursor: default;
 }
 
 /* Icons
@@ -75,9 +75,9 @@
   text-indent: -99999px;
   overflow: hidden;
   background-repeat: no-repeat;
-  width: 16px !important;
-  height: 16px !important;
-  background-image: none !important;
+  width: 16px;
+  height: 16px;
+  background-image: none;
 }
 
 .ui-icon.icon-minus,
@@ -938,7 +938,7 @@ body .ui-tooltip {
 }
 
 .ui-widget-header {
-  background-color: #d4d4d4 !important;
+  background-color: #d4d4d4;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #d4d4d4));
   background-image: -webkit-linear-gradient(#fbfbfb, #d4d4d4);
   background-image: -moz-linear-gradient(#fbfbfb, #d4d4d4);
@@ -950,7 +950,7 @@ body .ui-tooltip {
 }
 
 #chat_div.ui-widget-content {
-  box-shadow: none !important;
+  box-shadow: none;
 }
 
 /* Interaction states
@@ -1014,23 +1014,10 @@ body .ui-tooltip {
   text-decoration: none;
 }
 
-.ui-state-hover,
 .ui-widget-content .ui-state-hover,
 .ui-widget-header .ui-state-hover {
-  background-image: none !important;
-  background-color: transparent !important;
-}
-
-.ui-chatroom .ui-state-highlight {
-  background: #d8e496; /* Old browsers */
-  background: -moz-linear-gradient(top, #d8e496 0%, #d8e496 100%) !important; /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d8e496), color-stop(100%, #d8e496)) !important; /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #d8e496 0%, #d8e496 100%) !important; /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #d8e496 0%, #d8e496 100%) !important; /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #d8e496 0%, #d8e496 100%) !important; /* IE10+ */
-  background: linear-gradient(to bottom, #d8e496 0%, #d8e496 100%) !important; /* W3C */
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#d8e496', endColorstr='#d8e496', GradientType=0) !important; /* IE6-9 */
-  border: 1px solid #aaa !important;
+  background-image: none;
+  background-color: transparent;
 }
 
 .ui-state-highlight a,
@@ -1092,7 +1079,7 @@ body .ui-tooltip {
 
 .ui-widget-content .ui-icon,
 .ui-widget-header .ui-icon {
-  background-image: none !important;
+  background-image: none;
 }
 
 .ui-state-default .ui-icon {
@@ -1819,7 +1806,7 @@ body .ui-tooltip {
 }
 
 .ui-icon-minusthick {
-  background-position: -64px -128px !important;
+  background-position: -64px -128px;
 }
 
 /* Overlays */
@@ -1838,38 +1825,13 @@ body .ui-tooltip {
   border-radius: 8px /*{cornerRadiusShadow}*/;
 }
 
-.ui-state-highlight,
-.ui-widget-content .ui-state-highlight,
-.ui-widget-header .ui-state-highlight {
-  color: #000;
-  background: #d8e496; /* Old browsers */
-  background: -moz-linear-gradient(top, #d8e496 0%, #d8e496 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d8e496), color-stop(100%, #d8e496)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #d8e496 0%, #d8e496 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #d8e496 0%, #d8e496 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #d8e496 0%, #d8e496 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #53a93f 0%, #53a93f 100%) !important;
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#d8e496', endColorstr='#d8e496', GradientType=0); /* IE6-9 */
-}
-
-.ui-widget-header {
-  background: #3f4b56; /* Old browsers */
-  background: -moz-linear-gradient(top, #3f4b56 0%, #34404c 100%) !important; /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3f4b56), color-stop(100%, #34404c)) !important; /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #3f4b56 0%, #34404c 100%) !important; /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #3f4b56 0%, #34404c 100%) !important; /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #3f4b56 0%, #34404c 100%) !important; /* IE10+ */
-  background: linear-gradient(to bottom, #3f4b56 0%, #34404c 100%) !important; /* W3C */
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#3f4b56', endColorstr='#34404c', GradientType=0) !important; /* IE6-9 */
-}
-
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-active.ui-state-highlight .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close::before,
 .ui-state-default.ui-corner-bottom.ui-tabs-active.ui-state-highlight .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close::before {
   color: #333;
 }
 
 .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header .ui-corner-all.ui-chatbox-icon .ui-icon.icon-close::before {
-  color: #fff !important;
+  color: #fff;
 }
 
 .ui-widget-header a {
@@ -1880,14 +1842,7 @@ body .ui-tooltip {
   color: #fff;
 }
 
-.ui-widget-header {
-  border: #444 1px solid;
-}
-
 .ui-state-default.ui-corner-bottom.ui-tabs-active {
-  background: none !important;
+  background: none;
 }
 
-#virtualclassCont.playMode .ui-state-highlight {
-  background: linear-gradient(to bottom, #22880b 0%, #22880b 100%) !important;
-}

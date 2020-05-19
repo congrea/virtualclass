@@ -67,7 +67,7 @@
 
       const border = `0.05em solid ${allbg.fcolor}`;
       const css = `${'#virtualclassCont.congrea #virtualclassOptionsCont .appOptions '
-        + '{border-top:'}${border} !important;}`
+        + '{border-top:'}${border}}`
         + '#virtualclassCont.congrea #fullScreenButton ,'
         + '#virtualclassCont.congrea .vmchat_bar_button ,'
         + '#virtualclassCont.congrea .vmchat_room_bt.congtooltip ,'
@@ -81,9 +81,9 @@
         + '#virtualclassCont.congrea li#virtualclassnote, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #appSettingCtrl, '
         + '#virtualclassCont.congrea #bookmark '
-        + `{border-left: 0.01em solid ${allbg.fcolor}!important;}`
+        + `{border-left: 0.01em solid ${allbg.fcolor}}`
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab '
-        + `{border-left:${border} !important;}`
+        + `{border-left:${border}}`
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a ,'
         + '#virtualclassCont.congrea .shapesToolbox ,'
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab li ,'
@@ -93,9 +93,9 @@
         + '#virtualclassCont #virtualclassAppFooterPanel #precheckBtn, '
         + '#virtualclassCont #virtualclassAppFooterPanel #recording, '
         + '#virtualclassCont.congrea.playMode #fullScreenExitButton '
-        + `{border-right: 0.01em solid ${allbg.fcolor}!important;}`
+        + `{border-right: 0.01em solid ${allbg.fcolor}}`
         + '#virtualclassCont.congrea .ui-widget-header.ui-corner-top.ui-chatbox-titlebar.ui-dialog-header'
-        + `{border: 0.02em solid ${allbg.fcolor}!important;}`
+        + `{border: 0.02em solid ${allbg.fcolor}}`
         + '#virtualclassCont.congrea .btn.btn-default ,'
         + '#virtualclassCont.congrea .vceditor-toolbar, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #chatWidget .chatBarTab,'
@@ -106,7 +106,7 @@
         + '#virtualclassCont.congrea .zoomControler ,'
         + '#virtualclassCont.congrea .btn-default, '
         + '#virtualclassCont.congrea #popupContainer #about-modal #infoMessage #infoMessageOk '
-        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important;}`;
+        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%)}`
 
       this.addCss(css);
     },
@@ -126,13 +126,13 @@
         + '#virtualclassCont.congrea .commandToolsWrapper, '
         + '#virtualclassCont.congrea .shapesToolbox .shapesTool, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel '
-        + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
+        + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%)} `
 
         + '#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn '
-        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
+        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%)} `
 
         + '#virtualclassCont.congrea #virtualclassAppLeftPanel #dashboardnav .btn.clicked'
-        + `{background-image: linear-gradient(to bottom, ${active.fcolor} 0%,${active.scolor} 100%) !important} `
+        + `{background-image: linear-gradient(to bottom, ${active.fcolor} 0%,${active.scolor} 100%)} `
 
         // + '#virtualclassCont.congrea #navigator, '
         + '#virtualclassCont.congrea #sessionEndMsgCont .endHeader,'
@@ -140,16 +140,16 @@
         // + '#virtualclassCont.congrea #virtualclassAppContainer .virtualclass .commandToolsWrapper .tool ul.fontSizeList span.selected,'
         + '#virtualclassCont.congrea #playButton,'
         + '#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText'
-        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important} `
+        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%)} `
 
 
         + '#virtualclassCont.congrea #virtualclassOptionsCont:first-child '
         + `{background-image: linear-gradient(to right, ${allbg.fcolor} 0%,${allbg.scolor} 100%)} `
 
         + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active '
-        + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100%) !important;} `
+        + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100%)} `
         + '#virtualclassCont.congrea .tool.active a span:before '
-        + `{color:${frontColor}!important}`
+        + `{color:${frontColor}}`
         + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions:hover, '
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a:hover, '
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool ul.fontSizeList span:hover, '
@@ -164,47 +164,44 @@
         + '#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-list-group:hover, '
         + '#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-indent-group:hover, '
         + '#virtualclassCont.congrea #virtualclassEditorRich .vceditor-toolbar-wrapper .vceditor-btn-paragraph-group:hover '
-        + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%) !important}`
+        + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%)}`
 
         + '#virtualclassCont.congrea #confirm.popupWindow #confirmOk #confirmOkButton,'
         + '#virtualclassCont.congrea #confirm.popupWindow #confirmCancel #confirmCancelButton'
-        + `{color:${frontColor}!important}`
+        + `{color:${frontColor}}`
 
         + '#virtualclassCont.congrea .appOptions:hover .cgIcon:before'
-        + `{color:${hover.frontColor}!important}`
+        + `{color:${hover.frontColor}}`
 
         + '#virtualclassCont.congrea .active .cgIcon:before'
-        + `{color:${active.frontColor}!important}`
-
-        // + '#virtualclassCont.congrea .commandToolsWrapper .tool:hover .cgIcon:before'
-        // + `{color:${hover.frontColor}!important}`
+        + `{color:${active.frontColor}}`
 
         + '#virtualclassCont.congrea .cgIcon:before'
-        + `{color:${frontColor}!important}`
+        + `{color:${frontColor}}`
 
         + '#virtualclassCont.congrea #docShareNav .pageNav'
-        + `{color:${frontColor}!important}`
+        + `{color:${frontColor}}`
 
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a,'
         + '#virtualclassCont.congrea .containerWb .commandToolsWrapper .tool.active a:hover,'
-        + `{color:${frontColor}!important}`
+        + `{color:${frontColor}}`
 
         + '#virtualclassCont.congrea .shapesToolbox a'
-        + `{color:${frontColor}!important}`
+        + `{color:${frontColor}}`
 
 
         + '#virtualclassCont.congrea .cgText'
-        + `{color:${frontColor}!important}`
+        + `{color:${frontColor}}`
 
         + '#virtualclassCont.congrea .vchead'
-        + `{color:${frontColor}!important}`
+        + `{color:${frontColor}}`
 
         + '#virtualclassCont.congrea .icon-publish2:before'
-        + `{color:${active.fcolor}!important}`
+        + `{color:${active.fcolor}}`
 
         + '#virtualclassCont.congrea button ,'
         + '#virtualclassCont.congrea .btn-default '
-        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important } `
+        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%)} `
 
         + '#virtualclassCont.congrea #congdashboard .modal-header .close'
         + '{opacity :1;}'
@@ -212,30 +209,30 @@
         + '#virtualclassCont.congrea .modal-header .btn-default ,'
         + '#virtualclassCont.congrea .modal .btn-default ,'
         + '#virtualclassCont.congrea .precheck .btn-default '
-        + `{color :${frontColor}!important} `
+        + `{color :${frontColor}} `
 
         + '#virtualclassCont.congrea .vjs-control-bar .vjs-autoPlay-button '
-        + '{background:none !important ;}'
+        + '{background:none}'
         + '#virtualclassCont.congrea .vjs-control-bar .vjs-button '
-        + '{background:none !important ; border:none !important ;color:white!important}'
+        + '{background:none ; border:none  ;color:white}'
 
         + '#virtualclassCont.congrea  #onlineusertext:before'
-        + `{color :${frontColor}!important} `
+        + `{color :${frontColor}} `
 
         + '#virtualclassCont.congrea  #recordPlay #playButton:before'
-        + `{color :${frontColor}!important} `
+        + `{color :${frontColor}} `
 
         + '#virtualclassCont.congrea #recordingHeaderContainer  '
-        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important ;color:${frontColor}!important} `
+        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%);color:${frontColor}} `
         + '#virtualclassCont.congrea  #virtualclassApp .playControllerMainCont '
-        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important ;color:${frontColor}!important} `
+        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) ;color:${frontColor}} `
 
         + '#virtualclassCont.congrea  .dbContainer .qq-cancel-button-selector'
-        + `{color :${frontColor}!important} `
+        + `{color :${frontColor}} `
         + ' #virtualclassCont.congrea #virtualclassOptionsCont .appOptions '
-        + `{border : 1px solid${allbg.fcolor}!important} `
-        + `{background-image: linear-gradient(to bottom, ${active.fcolor} 0%,${active.scolor} 100%) !important ;color:${frontColor}!important} `
-        + `{border-left: 1px solid ${allbg.fcolor}!important}`
+        + `{border : 1px solid${allbg.fcolor}} `
+        + `{background-image: linear-gradient(to bottom, ${active.fcolor} 0%,${active.scolor} 100%) ;color:${frontColor}} `
+        + `{border-left: 1px solid ${allbg.fcolor}}`
         + '#virtualclassCont.congrea  #playController button'
         + `{background-image:none !important;color:${frontColor}!important; border-right: 1px solid ${allbg.fcolor}!important}`
         + '#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .shapesToolbox.active a.shape_anchor, '
@@ -258,9 +255,9 @@
         + `{background-color: ${active.frontColor}} `
 
         + '#virtualclassCont.congrea .commandToolsWrapper .tool.active a'
-        + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100% !important)} `
+        + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100% )} `
         + '#virtualclassCont .vceditor-dropdown-menu a:hover'
-        + `{background-color:${allbg.fcolor}!important}`;
+        + `{background-color:${allbg.fcolor}}`;
 
       this.addCss(css);
     },
@@ -269,7 +266,7 @@
     makeThemeReadyRightPanel(frontColor, allbg, active, hover) {
       const css = `${'#virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText,'
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget'
-        + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important}`
+        + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%)}`
 
         + '#virtualclassCont.congrea #stickycontainer .inner_bt:hover, '
         // + '#virtualclassCont.congrea #audioWidget a#rightCtlr:hover, '
@@ -292,7 +289,7 @@
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenExitButton:hover, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenButton:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action .addQuestion-icon:hover '
-        + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%) !important}`
+        + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%)}`
 
         + '#virtualclassCont.congrea .vmchat_support.active ,'
         + '#virtualclassCont.congrea .vmchat_room_bt.active,'
@@ -302,22 +299,22 @@
         + '#virtualclassCont.congrea li#appSettingCtrl.active, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #audioWidget .settingActive,'
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #stickycontainer .askQuestion_btn.disable'
-        + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100%) !important}`
+        + `{background-image: radial-gradient(ellipse at center, ${active.fcolor} 0%,${active.scolor} 100%)}`
 
         + '#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgIcon:before'
-        + `{color:${hover.frontColor}!important}`
+        + `{color:${hover.frontColor}}`
 
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #appSettingCtrlAnchor span'
-        + `{color:${frontColor}!important}`
+        + `{color:${frontColor}}`
 
         + '#virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgText'
-        + `{color:${hover.frontColor}!important}`
+        + `{color:${hover.frontColor}}`
 
         + '#virtualclassCont.congrea #virtualclassAppRightPanel .askQuestion_btn.enable #iconAskQuestion:before'
-        + `{color:${frontColor}!important}`
+        + `{color:${frontColor}}`
 
         + '#virtualclassCont.congrea #virtualclassAppRightPanel .pre-check-btn'
-        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) !important ;color:${frontColor}!important} `;
+        + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%) ;color:${frontColor}} `;
       this.addCss(css);
     },
 
@@ -333,15 +330,15 @@
         + '#virtualclassCont.congrea #layoutPoll #navigator, '
         + '#virtualclassCont.congrea #layoutQuiz .navbar, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget '
-        + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%) !important}`
+        + '{background-image: linear-gradient(to bottom, '}${allbg.fcolor} 0%,${allbg.scolor} 100%)}`
         + '#virtualclassCont.congrea #listvideo .linkvideo .videoTitleCont:before, '
         + '#virtualclassCont.congrea #listvideo .linkvideo .controls .editanch:before, '
-        + `#virtualclassCont.congrea #listvideo .linkvideo .controls:before{color:${iconColor}!important}`
-        + `#virtualclassCont.congrea #listvideo .linkvideo .controls:hover:before{color:${hover.fcolor}!important}`
-        + `#virtualclassCont.congrea #VideoDashboard button{color:${frontColor}!important}`
-        + `#virtualclassCont.congrea #VideoDashboard button{border:1px solid${frontColor}!important}`
-        + `{background-color: ${active.frontColor}!important} `
-        + `#virtualclassCont.congrea #listvideo .linkvideo.playing{border:solid ${allbg.fcolor} 1px!important}`;
+        + `#virtualclassCont.congrea #listvideo .linkvideo .controls:before{color:${iconColor}}`
+        + `#virtualclassCont.congrea #listvideo .linkvideo .controls:hover:before{color:${hover.fcolor}}`
+        + `#virtualclassCont.congrea #VideoDashboard button{color:${frontColor}}`
+        + `#virtualclassCont.congrea #VideoDashboard button{border:1px solid${frontColor}}`
+        + `{background-color: ${active.frontColor}} `
+        + `#virtualclassCont.congrea #listvideo .linkvideo.playing{border:solid ${allbg.fcolor} 1px}`;
       this.addCss(css);
     },
 
@@ -357,16 +354,14 @@
         + '{color:'}${frontColor};}`
         + `#virtualclassCont.congrea .bootstrap .pollNavBar > li > a {color:${frontColor} ; }`
         + '#virtualclassCont.congrea .bootstrap .navListTab:hover'
-        + `{color:${hover.frontColor}!important;}`
+        + `{color:${hover.frontColor}}`
         + '#virtualclassCont.congrea #virtualclassPoll #chartMenuCont a, '
         + '#virtualclassCont.congrea #virtualclassPoll .controlIcon:before'
-        + `{color:${iconColor}!important}`
-        + `#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:${hover.fcolor}!important}`
-        // + '#virtualclassCont.congrea #virtualclassPoll #navigator #stdPollHeader'
-        // + `{color:${frontColor}!important;}`
+        + `{color:${iconColor}}`
+        + `#virtualclassCont.congrea #virtualclassPoll .controlIcon:hover:before{color:${hover.fcolor}}`
         + '#virtualclassCont.congrea #virtualclassPoll .modal button.close ,'
         + '#virtualclassCont.congrea  .alert .close '
-        + '{background-image: none !important ;background-color:none !important}';
+        + '{background-image: none ;background-color:none}';
 
       this.addCss(css);
     },
@@ -380,16 +375,16 @@
 
 
       const css = `${'#virtualclassCont.congrea #SharePresentationDashboard .btn-default'
-        + '{color:'}${frontColor}!important;}`
+        + '{color:'}${frontColor}}`
         + '#virtualclassCont.congrea #virtualclassPoll #chartMenuCont a, '
-        + `#virtualclassCont.congrea #SharePresentationDashboard .controls:before{color:${iconColor}!important}`
-        + `#virtualclassCont.congrea #SharePresentationDashboard .controls:hover:before{color:${hover.fcolor}!important}`;
+        + `#virtualclassCont.congrea #SharePresentationDashboard .controls:before{color:${iconColor}}`
+        + `#virtualclassCont.congrea #SharePresentationDashboard .controls:hover:before{color:${hover.fcolor}}`;
       this.addCss(css);
     },
 
     makeThemeReadyDocument(frontColor, allbg, active, hover) {
       const css = `${'#virtualclassCont.congrea #DocumentShareDashboard #newDocBtn '
-        + '{color:'}${frontColor}!important; border: 1px solid ${allbg.fcolor}!important}`;
+        + '{color:'}${frontColor}; border: 1px solid ${allbg.fcolor}}`;
       this.addCss(css);
     },
 

@@ -146,7 +146,7 @@
   }
 
   #virtualclassCont.congrea.student.fullScreenMode .vidHide #chat_room {
-    height: calc(100% - 160px) !important;
+    height: calc(100% - 160px);
   }
 
   #virtualclassCont.congrea #slickQuiz .quizArea {
@@ -323,7 +323,7 @@
   #virtualclassCont.congrea.student[device="mobile"] .vmchat_room_bt,
   #virtualclassCont.congrea[device="mobile"] #congAskQuestion,
   #virtualclassCont.congrea[device="mobile"] li#virtualclassnote {
-    width: 20% !important;
+    width: 20%;
   }
 
   #virtualclassCont.congrea a.inner_bt #userlist_icon::before {
@@ -505,11 +505,11 @@
 }
 
 #virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.vidShow #videoHostContainer {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel.vidShow[data-currwindow="techVideoHeader"] #videoHostContainer {
-  display: block !important;
+  display: block;
 }
 
 #virtualclassCont.congrea[device="mobile"] #virtualclassAppRightPanel #stickycontainer .active a.inner_bt #userlist_icon::before {

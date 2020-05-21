@@ -108,7 +108,7 @@
 
 #virtualclassCont.congrea #videoMinMize,
 #virtualclassCont.congrea.student #videoMinMize {
-  background-image: url('/virtualclass/images/min.png') !important;
+  background-image: url('/virtualclass/images/min.png');
   background-position: left top;
   background-repeat: no-repeat;
   height: 16px;
@@ -129,7 +129,7 @@
 
 #virtualclassCont.congrea #videoMaxMize,
 #virtualclassCont.congrea.student #videoMaxMize {
-  background-image: url('/virtualclass/images/max.png') !important;
+  background-image: url('/virtualclass/images/max.png');
   background-position: left top;
   background-repeat: no-repeat;
 }
@@ -210,7 +210,7 @@
 
 #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {
   text-decoration: none;
-  padding: 11px 18px 10px;
+  padding: 0.5625rem 1.125rem 0.625rem;
   font-size: 25px;
   border-right: 1px solid rgba(254, 254, 254, 0.2);
   color: #fff;
@@ -744,7 +744,7 @@
 #virtualclassCont.congrea .dynDiv_resizeDiv_br {
   background: #faa;
   background-color: #fff;
-  background-image: url('/virtualclass/images/resize.png') !important;
+  background-image: url('/virtualclass/images/resize.png');
   background-position: left top;
   background-repeat: no-repeat;
   width: 10px;
@@ -1179,7 +1179,7 @@ div.ui-memblist-usr .userVideos {
 .congtooltip {
   text-decoration: none;
   outline-width: 0;
-  z-index: 1103 !important;
+  z-index: 1103;
   text-align: center;
   line-height: 1.25rem;
   display: block;
@@ -2125,9 +2125,9 @@ div.ui-memblist-usr .userVideos {
   color: #fff;
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a {
+/* #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a {
   padding: 0.5625rem 1.125rem 0.625rem;
-}
+} */
 
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool:hover,
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool:hover,
@@ -2443,7 +2443,7 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea .bootstrap .nav-tabs > li > a {
   border-radius: 6px 6px 0 0;
   padding: 6px 12px;
-  border: none !important;
+  border: none;
 }
 
 #virtualclassCont.congrea .headerContainer {
@@ -2763,9 +2763,9 @@ div.ui-memblist-usr .userVideos {
 }
 
 .bootstrap .modal-content {
-  border-top: none !important;
-  border-bottom: none !important;
-  border-left: none !important;
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
   border-color: #bbb;
 }
 
@@ -2803,8 +2803,8 @@ div.ui-memblist-usr .userVideos {
   .qq-gallery .qq-file-info .qq-file-name {
     position: relative;
     display: inline-block;
-    text-overflow: ellipsis !important;
-    width: 200px !important;
+    text-overflow: ellipsis;
+    width: 200px;
   }
 }
 
@@ -2948,11 +2948,10 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
   width: calc(100% - 10px);
-  border-left: 1px solid #dcd6d6 !important;
-  border-top: 1px solid #dcd6d6 !important;
-  border-bottom: 1px solid #dcd6d6 !important;
+  border-left: 1px solid #dcd6d6;
+  border-top: 1px solid #dcd6d6;
+  border-bottom: 1px solid #dcd6d6;
   border-radius: 4px 0 4px 0;
-  border-width: 0;
 }
 
 #virtualclassCont.congrea .modal-header h4 {
@@ -3785,8 +3784,8 @@ span#usertab_text {
 }
 
 #VideoDashboard #videoPopup #uploadMsz .alert-dismissable.alert-success {
-  width: 80% !important;
-  margin: -3px auto !important;
+  width: 80%;
+  margin: -3px auto;
 }
 
 #virtualclassCont.congrea[data-currapp="ScreenShare"] .zoomControler .reloadNote {
@@ -3924,7 +3923,7 @@ span#usertab_text {
   }
 
   #virtualclassCont.congrea .congtooltip:hover::after {
-    display: none !important;
+    display: none;
   }
 
   #virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen::before {
@@ -3957,7 +3956,7 @@ span#usertab_text {
 @media not all and (min-resolution: 0.001dpcm) {
   #virtualclassCont.congrea #videoHostSource,
   #virtualclassCont.congrea #webcamTempVideo {
-    transform: inherit !important;
+    transform: inherit;
   }
 
   #virtualclassScreenShareTool {
@@ -3968,11 +3967,11 @@ span#usertab_text {
 }
 
 #videoPlayerCont .vjs-youtube-mobile .vjs-big-play-button {
-  display: block !important;
+  display: block;
 }
 
 #videoPlayerCont .vjs-youtube-mobile.vjs-playing .vjs-big-play-button {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont.congrea #joinClass #joinClassModal {
@@ -4456,18 +4455,6 @@ span#usertab_text {
 
 #virtualclassCont.playMode #virtualclassAppFooterPanel #recording {
   display: none;
-}
-
-/* #virtualclassCont #recording.statusonly {
-  pointerl-events: none;
-} */
-
-/* ======== MEDIA FOR MOBILE ========== */
-
-@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) {
-  #virtualclassCont.congrea #preCheckcontainer.bootstrap .modal-dialog {
-    width: 870px !important;
-  }
 }
 
 #virtualclassCont.congrea .canvasWrapper::-webkit-scrollbar {

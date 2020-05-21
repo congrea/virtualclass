@@ -67,8 +67,8 @@
 .bootstrap #rsQzHead .col-md-3,
 .bootstrap #rsQzHead.col-md-12,
 .bootstrap #rsQzHead .col-md-4 {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+  padding-left: 0;
+  padding-right: 0;
   margin-top: 15px;
   margin-bottom: 15px;
 }

@@ -145,7 +145,7 @@
 
 #virtualclassCont.congrea.meetingmode.nowebcam #rightSubContainer,
 #virtualclassCont.meetingmode.nowebcam #congreaChatMainCont {
-  height: calc(100% - 48px) !important;
+  height: calc(100% - 48px);
 }
 
 #virtualclassCont.congrea.meetingmode.nowebcam #chat_div {

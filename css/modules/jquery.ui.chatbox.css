@@ -122,6 +122,11 @@
   margin-left: 6px;
 }
 
+#virtualclassCont.congrea .ui-chatbox-msg span {
+  color: #404040;
+  font-weight: 400;
+}
+
 #virtualclassCont.congrea .ui-memblist-usr a span {
   font-size: 12px;
   text-transform: capitalize;

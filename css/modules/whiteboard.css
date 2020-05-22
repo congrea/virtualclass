@@ -147,11 +147,25 @@ ul.fontSizeList span {
   z-index: 10;
 }
 
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .table {
+  position: absolute;
+  top: 50px;
+  left: 285px;
+  width: auto;
+  height: auto;
+  border: 1px solid lightgray;
+  display: none;
+  padding: 5px;
+  border-spacing: 0;
+  box-shadow: 0 0 6px rgb(96, 96, 97);
+  background-color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .containerWb .commandToolsWrapper [data-tool="color"] .table {
   display: none;
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .table,
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer .table {
   position: absolute;
   top: 50px;
@@ -524,4 +538,3 @@ ul.fontSizeList {
 #virtualclassCont .canvasWrapper .pdfs {
   z-index: -1;
 }
-

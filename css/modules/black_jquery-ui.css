@@ -53,7 +53,7 @@
   left: 0;
   position: absolute;
   opacity: 0;
-  filter: alpha(Opacity=0);
+  filter: alpha(opacity=0);
 }
 
 .ui-front {
@@ -316,7 +316,18 @@ button.ui-button::-moz-focus-inner {
 
 .ui-state-active a,
 .ui-state-hover a,
-.ui-state-focus a,
+.ui-state-focus a {
+  color: #212121 /*{fcActive}*/;
+  text-decoration: none;
+}
+
+.ui-datepicker td a {
+  display: block;
+  padding: 0.2em;
+  text-align: right;
+  text-decoration: none;
+}
+
 .ui-state-active a:link,
 .ui-state-active a:visited {
   color: #212121 /*{fcActive}*/;
@@ -344,8 +355,7 @@ button.ui-button::-moz-focus-inner {
   text-decoration: none;
 }
 
-.ui-datepicker td span,
-.ui-datepicker td a {
+.ui-datepicker td span {
   display: block;
   padding: 0.2em;
   text-align: right;
@@ -639,7 +649,7 @@ button.ui-button::-moz-focus-inner {
 .ui-widget-content .ui-state-disabled,
 .ui-widget-header .ui-state-disabled {
   opacity: 0.35;
-  filter: alpha(Opacity=35);
+  filter: alpha(opacity=35);
   background-image: none;
 }
 
@@ -1015,6 +1025,8 @@ body .ui-tooltip {
   background: #3f4b56; /* Old browsers */
   background: -moz-linear-gradient(top, #48545f 0%, #36414c 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, #48545f 0%, #36414c 100%); /* Chrome10-25,Safari5.1-6 */
+  background: -o-linear-gradient(top, #48545f 0%, #36414c 100%); /* opera */
+  background: -ms-linear-gradient(top, #48545f 0%, #36414c 100%); /* IE10+ */
   background: linear-gradient(to bottom, #48545f 0%, #36414c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#48545f', endColorstr='#36414c', GradientType=0); /* IE6-9 */
   border: #444 1px solid;
@@ -1025,20 +1037,6 @@ body .ui-tooltip {
 .ui-widget-header .ui-state-hover {
   background-image: none;
   background-color: transparent;
-}
-
-.ui-state-active,
-.ui-widget-content .ui-state-active,
-.ui-widget-header .ui-state-active {
-  border: 1px solid #aaa;
-  background: #fff  url(images/ui-bg_glass_65_ffffff_1x400.png)  50%  50%  repeat-x;
-  font-weight: normal /*{fwDefault}*/;
-  color: #212121 /*{fcActive}*/;
-  background: #3f4b56; /* Old browsers */
-  background: -moz-linear-gradient(top, #3f4b56 0%, #34404c 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #3f4b56 0%, #34404c 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #3f4b56 0%, #34404c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#3f4b56', endColorstr='#34404c', GradientType=0); /* IE6-9 */
 }
 
 .ui-widget-content .ui-state-hover,
@@ -1076,12 +1074,12 @@ body .ui-tooltip {
 .ui-widget-content .ui-priority-secondary,
 .ui-widget-header .ui-priority-secondary {
   opacity: 0.7;
-  filter: alpha(Opacity=70);
+  filter: alpha(opacity=70);
   font-weight: normal;
 }
 
 .ui-state-disabled .ui-icon {
-  filter: alpha(Opacity=35); /* For IE8 - See #6059 */
+  filter: alpha(opacity=35); /* For IE8 - See #6059 */
 }
 
 /* Icons
@@ -1822,7 +1820,7 @@ body .ui-tooltip {
   height: 100%;
   background: #aaa  url(images/ui-bg_flat_0_aaaaaa_40x100.png)  50%  50%  repeat-x;
   opacity: 0.3;
-  filter: alpha(Opacity=30) /*{opacityFilterOverlay}*/;
+  filter: alpha(opacity=30) /*{opacityFilterOverlay}*/;
 }
 
 .ui-widget-shadow {
@@ -1830,7 +1828,7 @@ body .ui-tooltip {
   padding: 8px /*{thicknessShadow}*/;
   background: #aaa  url(images/ui-bg_flat_0_aaaaaa_40x100.png)  50%  50%  repeat-x;
   opacity: 0.3;
-  filter: alpha(Opacity=30) /*{opacityFilterShadow}*/;
+  filter: alpha(opacity=30) /*{opacityFilterShadow}*/;
   border-radius: 8px /*{cornerRadiusShadow}*/;
 }
 

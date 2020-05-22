@@ -150,6 +150,7 @@
   background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(252, 252, 252, 1) 11%, rgba(228, 228, 228, 1) 50%, rgba(221, 221, 221, 1) 53%, rgba(205, 205, 205, 1) 97%, rgba(191, 191, 191, 1) 100%);
   background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(252, 252, 252, 1) 11%, rgba(228, 228, 228, 1) 50%, rgba(221, 221, 221, 1) 53%, rgba(205, 205, 205, 1) 97%, rgba(191, 191, 191, 1) 100%);
   background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(252, 252, 252, 1) 11%, rgba(228, 228, 228, 1) 50%, rgba(221, 221, 221, 1) 53%, rgba(205, 205, 205, 1) 97%, rgba(191, 191, 191, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(252, 252, 252, 1) 11%, rgba(228, 228, 228, 1) 50%, rgba(221, 221, 221, 1) 53%, rgba(205, 205, 205, 1) 97%, rgba(191, 191, 191, 1) 100%);
   border: #aaa 1px solid;
 }
 

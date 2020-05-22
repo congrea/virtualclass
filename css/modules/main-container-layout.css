@@ -28,12 +28,11 @@
   height: 100%;
 }
 
+#virtualclassCont.congrea #virtualclassEditorCodeBody,
 #virtualclassCont.congrea #virtualclassEditorRich,
 #virtualclassCont.congrea #virtualclassEditorRichBody,
-#virtualclassCont.congrea #virtualclassEditorCodeBody,
 #virtualclassCont.congrea.teacher #virtualclassEditorCodeBody,
 #virtualclassEditorCode,
-#virtualclassEditorCodeBody,
 #virtualclassCont.congrea .vceditor,
 #virtualclassCont.congrea #virtualclassDocumentShare {
   width: 100%;

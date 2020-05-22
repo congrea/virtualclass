@@ -497,18 +497,18 @@ div.ui-memblist-usr .user-details a .media-object {
   pointer-events: none;
 }
 
-:host([data-currapp="EditorRich"]) #subchat.teacher .controllereditorRich {
+#virtualclassCont.congrea #chat_div:host([data-currapp="EditorRich"]) #subchat.teacher .controllereditorRich {
   display: block;
 }
 
-:host([data-currapp="Whiteboard"]) .user-details .usern .media-heading {
+#virtualclassCont.congrea #chat_div:host([data-currapp="Whiteboard"]) .user-details .usern .media-heading {
   right: -1px;
 }
 
-:host([data-currapp="EditorRich"]) .ui-memblist-usr .user-details .usern {
+#virtualclassCont.congrea #chat_div:host([data-currapp="EditorRich"]) .ui-memblist-usr .user-details .usern {
   width: 38%;
 }
 
-:host([data-currapp="EditorRich"]) .icon-chatImg.chatImg {
+#virtualclassCont.congrea #chat_div:host([data-currapp="EditorRich"]) .icon-chatImg.chatImg {
   margin-right: 7px;
 }

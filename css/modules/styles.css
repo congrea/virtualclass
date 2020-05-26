@@ -1211,43 +1211,6 @@ div.ui-memblist-usr .userVideos {
   line-height: 1;
 }
 
-/** microsoft edge **/
-
-/* #virtualclassSessionEndTool, #virtualclassCont.congrea #virtualclassSessionEndTool { */
-
-/* padding : 10px 5px; */
-
-/* } */
-
-#virtualclassCont.congrea #speakerPressonceAnch span.attention:hover {
-  background: rgb(238, 159, 7);
-  background: -moz-linear-gradient(top, rgba(238, 159, 7, 1) 0%, rgba(240, 171, 8, 1) 45%, rgba(243, 182, 15, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(238, 159, 7, 1)), color-stop(45%, rgba(240, 171, 8, 1)), color-stop(100%, rgba(243, 182, 15, 1)));
-  background: -webkit-linear-gradient(top, rgba(238, 159, 7, 1) 0%, rgba(240, 171, 8, 1) 45%, rgba(243, 182, 15, 1) 100%);
-  background: -o-linear-gradient(top, rgba(238, 159, 7, 1) 0%, rgba(240, 171, 8, 1) 45%, rgba(243, 182, 15, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(238, 159, 7, 1) 0%, rgba(240, 171, 8, 1) 45%, rgba(243, 182, 15, 1) 100%);
-  background: linear-gradient(to bottom, rgba(238, 159, 7, 1) 0%, rgba(240, 171, 8, 1) 45%, rgba(243, 182, 15, 1) 100%);
-}
-
-#virtualclassCont.congrea #speakerPressOnce #speakerPressonceAnch span#speakerPressonceLabel {
-  background: #ea1717; /* Old browsers */
-  background: -moz-linear-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* FF3.6+ */
-  background: -webkit-gradient(radial, center center, 0, center center, 100%, color-stop(0%, #ea1717), color-stop(99%, #b50303)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* Opera 12+ */
-  background: -ms-linear-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* IE10+ */
-  background: linear-gradient(ellipse at center, #ea1717 0%, #b50303 99%); /* W3C */
-}
-
-#virtualclassCont.congrea #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel {
-  background: rgb(141, 173, 51);
-  background: -webkit-linear-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -moz-linear-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -o-linear-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -ms-linear-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: linear-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-}
-
 #virtualclassCont.congrea #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel i {
   right: 0;
   border: #aaa solid 1px;
@@ -1329,17 +1292,6 @@ div.ui-memblist-usr .userVideos {
 #contrAudioAllImg.congtooltip[data-title="Disable"]:hover::after,
 #contrAudioAllImg.congtooltip[data-title="Enable"]:hover::after {
   left: 0;
-}
-
-#virtualclassCont.congrea #speakerPressOnce i.silenceDetect[data-silence-detect="sending"] {
-  background: rgb(141, 173, 51);
-  background: -webkit-linear-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -moz-linear-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -o-linear-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -ms-linear-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: linear-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  border-radius: 3px;
-  border: rgb(119, 149, 35) 1px solid;
 }
 
 #virtualclassCont.congrea #containerWb .commandToolsWrapper .tool a::before {
@@ -1528,18 +1480,6 @@ div.ui-memblist-usr .userVideos {
   left: -6px;
   top: 15px;
   color: #fff;
-}
-
-/* New Css */
-#virtualclassCont.congrea #playControllerWrapper {
-  background: #f7f7f8; /* Old browsers */
-  background: -moz-linear-gradient(top, #f7f7f8 0%, #eeeef0 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f8), color-stop(100%, #eeeef0)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7f7f8 0%, #eeeef0 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7f7f8 0%, #eeeef0 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7f7f8 0%, #eeeef0 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #f7f7f8 0%, #eeeef0 100%); /* W3C */
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f7f7f8', endColorstr='#eeeef0', GradientType=0); /* IE6-9 */
 }
 
 #virtualclassCont.congrea #preCheckProgress .progressBar {

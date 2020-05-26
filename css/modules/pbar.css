@@ -118,61 +118,8 @@
 }
 
 @media all and (min-width: 800px) {
-  #virtualclassCont.congrea .checkout-bar li.active::after {
-    -webkit-animation: myanimation 3s 0;
-    background-size: 35px 35px;
-    background-color: #8bc53f;
-    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    background-image: -ms-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    -webkit-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-    content: "";
-    height: 15px;
-    width: 100%;
-    left: 50%;
-    position: absolute;
-    top: -50px;
-    z-index: 0;
-  }
-
   #virtualclassCont.congrea .checkout-wrap {
     margin: 80px auto;
-  }
-
-  #virtualclassCont.congrea ul.checkout-bar {
-    -webkit-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-    background-size: 35px 35px;
-    background-color: #ececec;
-    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
-    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
-    background-image: -ms-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
-    background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
-    border-radius: 15px;
-    height: 15px;
-    margin: 0 auto;
-    padding: 0;
-    position: absolute;
-    width: 100%;
-  }
-
-  #virtualclassCont.congrea ul.checkout-bar::before {
-    background-size: 35px 35px;
-    background-color: #57aed1;
-    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    background-image: -ms-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    -webkit-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    content: " ";
-    height: 15px;
-    left: 0;
-    position: absolute;
-    width: 10%;
   }
 
   #virtualclassCont.congrea ul.checkout-bar li {
@@ -195,23 +142,5 @@
 
   #virtualclassCont.congrea ul.checkout-bar li.visited {
     background: none;
-  }
-
-  #virtualclassCont.congrea ul.checkout-bar li.visited::after {
-    background-size: 35px 35px;
-    background-color: #57aed1;
-    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    background-image: -ms-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
-    -webkit-box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-    content: "";
-    height: 15px;
-    left: 50%;
-    position: absolute;
-    top: -50px;
-    width: 100%;
-    z-index: 99;
   }
 }

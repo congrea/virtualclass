@@ -1,7 +1,7 @@
 /* New Id's & Classes */
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 1px;
@@ -63,11 +63,11 @@ body {
 }
 
 #virtualclassCont.congrea.teacher.nowebcam #virtualclassAppRightPanel #videoHostSource {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont.congrea.student[device="mobile"] #virtualclassAppRightPanel.vidShow #videoHostContainer {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont .footerCtr {

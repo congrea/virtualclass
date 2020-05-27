@@ -108,7 +108,7 @@
 
 #virtualclassCont.congrea #videoMinMize,
 #virtualclassCont.congrea.student #videoMinMize {
-  background-image: url('/virtualclass/images/min.png') !important;
+  background-image: url('/virtualclass/images/min.png');
   background-position: left top;
   background-repeat: no-repeat;
   height: 16px;
@@ -129,7 +129,7 @@
 
 #virtualclassCont.congrea #videoMaxMize,
 #virtualclassCont.congrea.student #videoMaxMize {
-  background-image: url('/virtualclass/images/max.png') !important;
+  background-image: url('/virtualclass/images/max.png');
   background-position: left top;
   background-repeat: no-repeat;
 }
@@ -208,9 +208,15 @@
   border-color: #555;
 }
 
+#virtualclassCont.congrea .bootstrap .nav-tabs > li > a {
+  border-radius: 6px 6px 0 0;
+  padding: 6px 12px;
+  border: none;
+}
+
 #virtualclassCont.congrea .containerWb .commandToolsWrapper .tool a {
   text-decoration: none;
-  padding: 11px 18px 10px;
+  padding: 0.5625rem 1.125rem 0.625rem;
   font-size: 25px;
   border-right: 1px solid rgba(254, 254, 254, 0.2);
   color: #fff;
@@ -403,7 +409,6 @@
   margin-top: 2%;
 }
 
-
 #virtualclassCont.congrea .errorContainer .error {
   border: none;
   margin-left: 0;
@@ -430,6 +435,18 @@
   float: left;
   border: #ccc solid 1px;
   margin-left: 0;
+}
+
+#virtualclassCont.congrea li#appSettingCtrl > a {
+  padding: 11px 12px 11px 14px;
+  display: block;
+}
+
+#virtualclassCont.congrea li#virtualclassnote a,
+#virtualclassCont.congrea li#congAskQuestion a.stdAskQuestion {
+  font-size: 0.875rem;
+  display: block;
+  padding: 0.7812rem 0.875rem 0.7187rem 0.875rem;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper #t_connectionoff a {
@@ -649,7 +666,12 @@
   max-height: 2rem;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  /* width: 11.5625rem; */
+}
+
+#virtualclassCont.congrea .ui-state-default .ui-tabs-anchor,
+#virtualclassCont.congrea .ui-state-default a.ui-corner-all,
+#virtualclassCont.congrea .ui-state-default .icon-minus {
+  display: none;
 }
 
 #virtualclassCont.congrea .ui-dialog-header.ui-state-highlight span:first-child {
@@ -744,7 +766,7 @@
 #virtualclassCont.congrea .dynDiv_resizeDiv_br {
   background: #faa;
   background-color: #fff;
-  background-image: url('/virtualclass/images/resize.png') !important;
+  background-image: url('/virtualclass/images/resize.png');
   background-position: left top;
   background-repeat: no-repeat;
   width: 10px;
@@ -1176,10 +1198,10 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea #virtualclassOptionsCont,
-.congtooltip {
+#virtualclassCont.congrea .congtooltip {
   text-decoration: none;
   outline-width: 0;
-  z-index: 1103 !important;
+  z-index: 1103;
   text-align: center;
   line-height: 1.25rem;
   display: block;
@@ -1187,43 +1209,6 @@ div.ui-memblist-usr .userVideos {
 
 #playControllerCont #playController button.congtooltip {
   line-height: 1;
-}
-
-/** microsoft edge **/
-
-/* #virtualclassSessionEndTool, #virtualclassCont.congrea #virtualclassSessionEndTool { */
-
-/* padding : 10px 5px; */
-
-/* } */
-
-#virtualclassCont.congrea #speakerPressonceAnch span.attention:hover {
-  background: rgb(238, 159, 7);
-  background: -moz-linear-gradient(top, rgba(238, 159, 7, 1) 0%, rgba(240, 171, 8, 1) 45%, rgba(243, 182, 15, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(238, 159, 7, 1)), color-stop(45%, rgba(240, 171, 8, 1)), color-stop(100%, rgba(243, 182, 15, 1)));
-  background: -webkit-linear-gradient(top, rgba(238, 159, 7, 1) 0%, rgba(240, 171, 8, 1) 45%, rgba(243, 182, 15, 1) 100%);
-  background: -o-linear-gradient(top, rgba(238, 159, 7, 1) 0%, rgba(240, 171, 8, 1) 45%, rgba(243, 182, 15, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(238, 159, 7, 1) 0%, rgba(240, 171, 8, 1) 45%, rgba(243, 182, 15, 1) 100%);
-  background: linear-gradient(to bottom, rgba(238, 159, 7, 1) 0%, rgba(240, 171, 8, 1) 45%, rgba(243, 182, 15, 1) 100%);
-}
-
-#virtualclassCont.congrea #speakerPressOnce #speakerPressonceAnch span#speakerPressonceLabel {
-  background: #ea1717; /* Old browsers */
-  background: -moz-radial-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* FF3.6+ */
-  background: -webkit-gradient(radial, center center, 0, center center, 100%, color-stop(0%, #ea1717), color-stop(99%, #b50303)); /* Chrome,Safari4+ */
-  background: -webkit-radial-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* Chrome10+,Safari5.1+ */
-  background: -o-radial-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* Opera 12+ */
-  background: -ms-radial-gradient(center, ellipse cover, #ea1717 0%, #b50303 99%); /* IE10+ */
-  background: radial-gradient(ellipse at center, #ea1717 0%, #b50303 99%); /* W3C */
-}
-
-#virtualclassCont.congrea #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel {
-  background: rgb(141, 173, 51);
-  background: -webkit-radial-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -moz-radial-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -o-radial-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -ms-radial-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: radial-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
 }
 
 #virtualclassCont.congrea #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel i {
@@ -1284,6 +1269,13 @@ div.ui-memblist-usr .userVideos {
   padding: 0;
 }
 
+#virtualclassCont.congrea #audioWidget .congtooltip:hover::after {
+  position: fixed;
+  bottom: 63px;
+  left: 58px;
+  width: fit-content;
+}
+
 #virtualclassCont.congrea #virtualclassOptionsCont .appOptions .congtooltip:hover::after {
   padding: 0.3em 0.8em;
   right: auto;
@@ -1300,17 +1292,6 @@ div.ui-memblist-usr .userVideos {
 #contrAudioAllImg.congtooltip[data-title="Disable"]:hover::after,
 #contrAudioAllImg.congtooltip[data-title="Enable"]:hover::after {
   left: 0;
-}
-
-#virtualclassCont.congrea #speakerPressOnce i.silenceDetect[data-silence-detect="sending"] {
-  background: rgb(141, 173, 51);
-  background: -webkit-radial-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -moz-radial-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -o-radial-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: -ms-radial-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  background: radial-gradient(center, ellipse cover, rgba(141, 173, 51, 1) 0%, rgba(146, 178, 55, 1) 24%, rgba(157, 187, 64, 1) 55%, rgba(166, 194, 78, 1) 100%);
-  border-radius: 3px;
-  border: rgb(119, 149, 35) 1px solid;
 }
 
 #virtualclassCont.congrea #containerWb .commandToolsWrapper .tool a::before {
@@ -1501,18 +1482,6 @@ div.ui-memblist-usr .userVideos {
   color: #fff;
 }
 
-/* New Css */
-#virtualclassCont.congrea #playControllerWrapper {
-  background: #f7f7f8; /* Old browsers */
-  background: -moz-linear-gradient(top, #f7f7f8 0%, #eeeef0 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f8), color-stop(100%, #eeeef0)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7f7f8 0%, #eeeef0 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7f7f8 0%, #eeeef0 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7f7f8 0%, #eeeef0 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #f7f7f8 0%, #eeeef0 100%); /* W3C */
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f7f7f8', endColorstr='#eeeef0', GradientType=0); /* IE6-9 */
-}
-
 #virtualclassCont.congrea #preCheckProgress .progressBar {
   height: 0;
   width: 100%;
@@ -1542,6 +1511,7 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea #playController #repTimeCont {
   margin-right: 0;
   float: left;
+  font-weight: 400;
   color: #fff;
   font-size: 0.875rem;
   margin-top: 0.9375rem;
@@ -2023,7 +1993,8 @@ div.ui-memblist-usr .userVideos {
   transform: translate(-50%);
   z-index: 1005;
 }
-#virtualclassCont.congrea .errorContainer { 
+
+#virtualclassCont.congrea .errorContainer {
   background-color: #f0f0f0;
   box-shadow: #ddd 0 0 3px;
   border: #ddd 1px solid;
@@ -2035,7 +2006,7 @@ div.ui-memblist-usr .userVideos {
   width: -moz-fit-content;
   line-height: 1.5em;
   color: rgba(131, 14, 14, 0.93);
-  position:relative;
+  position: relative;
   margin-top: 5px;
 }
 
@@ -2125,9 +2096,9 @@ div.ui-memblist-usr .userVideos {
   color: #fff;
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a {
+/* #virtualclassCont.congrea #virtualclassAppLeftPanel .containerWb .commandToolsWrapper .tool a {
   padding: 0.5625rem 1.125rem 0.625rem;
-}
+} */
 
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassSessionEndTool:hover,
 #virtualclassCont.congrea #virtualclassOptionsCont #virtualclassEditorRichTool:hover,
@@ -2188,6 +2159,26 @@ div.ui-memblist-usr .userVideos {
   color: #000;
 }
 
+#virtualclassCont.congrea .errorContainer .close {
+  background: #717070;
+  padding: 5px;
+  border-radius: 20px;
+  color: #fff;
+  position: absolute;
+  top: -11px;
+  right: -4px;
+  font-family: sans-serif;
+  cursor: pointer;
+  float: right;
+}
+
+#virtualclassCont.congrea .bootstrap .alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: 3px;
+  color: inherit;
+}
+
 #virtualclassCont.congrea #popupContainer .close {
   cursor: pointer;
 }
@@ -2204,8 +2195,7 @@ div.ui-memblist-usr .userVideos {
   letter-spacing: 1.3px;
 }
 
-#virtualclassCont.congrea.student .bootstrap #stdPollContainer .alert-dismissable .close,
-.bootstrap .alert-dismissible .close {
+#virtualclassCont.congrea.student .bootstrap #stdPollContainer .alert-dismissable .close {
   position: relative;
   top: -2px;
   right: 3px;
@@ -2438,12 +2428,6 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea.student #layoutQuiz .navbar {
   border-top: none;
   width: 100%;
-}
-
-#virtualclassCont.congrea .bootstrap .nav-tabs > li > a {
-  border-radius: 6px 6px 0 0;
-  padding: 6px 12px;
-  border: none !important;
 }
 
 #virtualclassCont.congrea .headerContainer {
@@ -2763,9 +2747,9 @@ div.ui-memblist-usr .userVideos {
 }
 
 .bootstrap .modal-content {
-  border-top: none !important;
-  border-bottom: none !important;
-  border-left: none !important;
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
   border-color: #bbb;
 }
 
@@ -2803,8 +2787,8 @@ div.ui-memblist-usr .userVideos {
   .qq-gallery .qq-file-info .qq-file-name {
     position: relative;
     display: inline-block;
-    text-overflow: ellipsis !important;
-    width: 200px !important;
+    text-overflow: ellipsis;
+    width: 200px;
   }
 }
 
@@ -2948,11 +2932,10 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #VideoDashboard #congreaShareVideoUrlCont #videoUrlContainer #videourl {
   width: calc(100% - 10px);
-  border-left: 1px solid #dcd6d6 !important;
-  border-top: 1px solid #dcd6d6 !important;
-  border-bottom: 1px solid #dcd6d6 !important;
+  border-left: 1px solid #dcd6d6;
+  border-top: 1px solid #dcd6d6;
+  border-bottom: 1px solid #dcd6d6;
   border-radius: 4px 0 4px 0;
-  border-width: 0;
 }
 
 #virtualclassCont.congrea .modal-header h4 {
@@ -2974,11 +2957,6 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #containerWb .commandToolsWrapper .tool a {
   padding: 18px 18px 16px;
-}
-
-#virtualclassCont.congrea li#appSettingCtrl > a {
-  padding: 11px 12px 11px 14px;
-  display: block;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel .active #speakerPressingbtn {
@@ -3079,19 +3057,6 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea.meetingmode #audioWidget #mainAudioPanel li {
   width: 20%;
-}
-
-#virtualclassCont.congrea .errorContainer .close {
-  background: #717070;
-  padding: 5px;
-  border-radius: 20px;
-  color: #fff;
-  position: absolute;
-  top: -11px;
-  right: -4px;
-  font-family: sans-serif;
-  cursor: pointer;
-  float: right;
 }
 
 #virtualclassCont.congrea #errorContainer #closeMsg {
@@ -3276,7 +3241,7 @@ div.ui-memblist-usr .userVideos {
   background-image: none;
 }
 
-  #virtualclassCont.congrea.playMode #virtualclassSharePresentation {
+#virtualclassCont.congrea.playMode #virtualclassSharePresentation {
   padding-top: 0;
 }
 
@@ -3410,6 +3375,13 @@ div.ui-memblist-usr .userVideos {
   font-size: 14px;
 }
 
+#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenButton .fullScreen,
+#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenExitButton span {
+  padding: 0.625rem 1.125rem 0.75rem 1.125rem;
+  line-height: 1.25rem;
+  font-size: 1.25rem;
+}
+
 #virtualclassCont.congrea.student #resultLayout #optnNonVotd span {
   font-size: 13px;
 }
@@ -3423,13 +3395,6 @@ div.ui-memblist-usr .userVideos {
   position: absolute;
   top: 23px;
   left: 28px;
-}
-
-#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenButton .fullScreen,
-#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenExitButton span {
-  padding: 0.625rem 1.125rem 0.75rem 1.125rem;
-  line-height: 1.25rem;
-  font-size: 1.25rem;
 }
 
 #virtualclassCont.congrea.student #resultLayoutBody label,
@@ -3468,13 +3433,6 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #editQuizModal.modal {
   z-index: 1104;
-}
-
-#virtualclassCont.congrea #audioWidget .congtooltip:hover::after {
-  position: fixed;
-  bottom: 63px;
-  left: 58px;
-  width: fit-content;
 }
 
 #virtualclassCont.congrea .popover-content .viewOpt .opt {
@@ -3532,13 +3490,6 @@ div.ui-memblist-usr .userVideos {
   position: absolute;
   bottom: 35px;
 } */
-
-#virtualclassCont.congrea li#virtualclassnote a,
-#virtualclassCont.congrea li#congAskQuestion a.stdAskQuestion {
-  font-size: 0.875rem;
-  display: block;
-  padding: 0.7812rem 0.875rem 0.7187rem 0.875rem;
-}
 
 #virtualclassCont.congrea #recordPlay .rv-vanilla-modal-body #downloadPcCont #downloadSessionText {
   border-bottom: 0 solid rgba(254, 254, 254, 0.2);
@@ -3785,8 +3736,8 @@ span#usertab_text {
 }
 
 #VideoDashboard #videoPopup #uploadMsz .alert-dismissable.alert-success {
-  width: 80% !important;
-  margin: -3px auto !important;
+  width: 80%;
+  margin: -3px auto;
 }
 
 #virtualclassCont.congrea[data-currapp="ScreenShare"] .zoomControler .reloadNote {
@@ -3924,7 +3875,7 @@ span#usertab_text {
   }
 
   #virtualclassCont.congrea .congtooltip:hover::after {
-    display: none !important;
+    display: none;
   }
 
   #virtualclassCont.congrea .ui-memblist-usr .icon-audioEnaGreen::before {
@@ -3957,7 +3908,7 @@ span#usertab_text {
 @media not all and (min-resolution: 0.001dpcm) {
   #virtualclassCont.congrea #videoHostSource,
   #virtualclassCont.congrea #webcamTempVideo {
-    transform: inherit !important;
+    transform: inherit;
   }
 
   #virtualclassScreenShareTool {
@@ -3968,20 +3919,20 @@ span#usertab_text {
 }
 
 #videoPlayerCont .vjs-youtube-mobile .vjs-big-play-button {
-  display: block !important;
+  display: block;
 }
 
 #videoPlayerCont .vjs-youtube-mobile.vjs-playing .vjs-big-play-button {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont.congrea #joinClass #joinClassModal {
   z-index: 10001;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
-  #virtualclassCont.congrea.student .congtooltip:hover::after {
-    display: none !important;
+@media only screen and (min-device-width: 375px) and (max-device-width: 950px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  #virtualclassCont.congrea[device="mobile"].student .congtooltip:hover::after {
+    display: none;
   }
 }
 
@@ -4100,6 +4051,11 @@ span#usertab_text {
   bottom: 1.5625rem;
 }
 
+#virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .loading,
+#virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .askToPlay {
+  display: none;
+}
+
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay {
   box-sizing: border-box;
   display: block;
@@ -4127,9 +4083,7 @@ span#usertab_text {
   display: block;
 }
 
-#virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .loading,
-#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .loading,
-#virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .askToPlay {
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .loading {
   display: none;
 }
 
@@ -4203,6 +4157,10 @@ span#usertab_text {
     top: 1.125rem;
     left: 1.5rem;
   }
+}
+
+#virtualclassCont.congrea .canvasWrapper::-webkit-scrollbar {
+  width: 6px;
 }
 
 #virtualclassCont.recordSeeking .whiteboardContainer .canvasWrapper {
@@ -4458,22 +4416,6 @@ span#usertab_text {
   display: none;
 }
 
-/* #virtualclassCont #recording.statusonly {
-  pointerl-events: none;
-} */
-
-/* ======== MEDIA FOR MOBILE ========== */
-
-@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) {
-  #virtualclassCont.congrea #preCheckcontainer.bootstrap .modal-dialog {
-    width: 870px !important;
-  }
-}
-
-#virtualclassCont.congrea .canvasWrapper::-webkit-scrollbar {
-  width: 6px;
-}
-
 /* ======== Firefox ========== */
 
 @-moz-document url-prefix() {
@@ -4556,6 +4498,14 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+#virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-memblist.disable {
+  display: none;
+}
+
+#virtualclassCont.congrea #chatWidget #congreaChatMainCont #congreaChatCont .ui-chatroom.disable {
+  display: none !important;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel li:hover .cgText {

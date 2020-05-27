@@ -95,7 +95,6 @@
   font-family: 'icomoon';
   font-size: 18px;
   padding-top: 0;
-  color: #606060;
 }
 
 #virtualclassCont.congrea #listppt .linkppt .mainpreview {
@@ -121,7 +120,7 @@
   float: left;
   width: 26px;
   font-size: 0;
-  margin: -5px 1px 1px 0;
+  margin: -5px 1px 1px 16px;
   height: 20px;
   padding-top: 2px;
 }
@@ -135,7 +134,7 @@
 #virtualclassCont.congrea #listppt .linkppt.links .controls.delete {
   float: left;
   font-size: 0;
-  margin: -5px 1px 1px 0;
+  margin: -5px 1px 1px 16px;
   height: 20px;
   padding-top: 2px;
 }
@@ -208,7 +207,7 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea #listppt .linkppt .controlCont .controls {
-  margin-left: 16px !important;
+  margin-left: 16px;
   padding-right: 5px;
 }
 
@@ -222,7 +221,7 @@ input[type="reset"] {
 
 #virtualclassCont.congrea #listppt .linkppt .controls::before {
   font-size: 15px;
-  color: rgba(96, 96, 96, 0.81);
+  color: rgba(0, 0, 0, 0.81);
   opacity: 0.7;
 }
 

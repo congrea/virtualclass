@@ -122,9 +122,19 @@
   margin-left: 6px;
 }
 
+#virtualclassCont.congrea .ui-chatbox-msg span {
+  color: #404040;
+  font-weight: 400;
+}
+
 #virtualclassCont.congrea .ui-memblist-usr a span {
   font-size: 12px;
   text-transform: capitalize;
+}
+
+#virtualclassCont.congrea .ui-chatbox-msg .chat-user-icon span {
+  color: #fff;
+  font-size: 0.75rem;
 }
 
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon span {
@@ -255,6 +265,14 @@
   max-height: 2rem;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+}
+
+#virtualclassCont.congrea #stickybar #tabs ul li .ui-tabs-anchor {
+  display: none;
+}
+
+#virtualclassCont.congrea #stickybar #tabs ul li a .icon-minus {
+  display: none;
 }
 
 #virtualclassCont.congrea #closebtn {
@@ -824,12 +842,6 @@
   opacity: 0.4;
 }
 
-#virtualclassCont.congrea .ui-state-default .ui-tabs-anchor,
-#virtualclassCont.congrea .ui-state-default a.ui-corner-all,
-#virtualclassCont.congrea .ui-state-default .icon-minus {
-  display: none !important;
-}
-
 #virtualclassCont.congrea .chat_enabled #memlist.enable {
   display: block;
 }
@@ -862,14 +874,6 @@
 
 #virtualclassCont.congrea .chat_enabled #chatrm.enable {
   display: block;
-}
-
-#virtualclassCont.congrea #chatrm.disable {
-  display: none !important;
-}
-
-#virtualclassCont.congrea #memlist.disable {
-  display: none !important;
 }
 
 #virtualclassCont.congrea #ta_chrm2 {

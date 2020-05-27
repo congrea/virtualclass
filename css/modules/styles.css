@@ -1511,6 +1511,7 @@ div.ui-memblist-usr .userVideos {
 #virtualclassCont.congrea #playController #repTimeCont {
   margin-right: 0;
   float: left;
+  font-weight: 400;
   color: #fff;
   font-size: 0.875rem;
   margin-top: 0.9375rem;
@@ -4051,7 +4052,6 @@ span#usertab_text {
 }
 
 #virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .loading,
-#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .loading,
 #virtualclassCont.congrea.playMode #popupContainer #loadingWindowCont .askToPlay {
   display: none;
 }
@@ -4081,6 +4081,10 @@ span#usertab_text {
 #virtualclassCont.congrea.playMode #popupContainer.loading.playPopup #loadingWindowCont .askToPlay,
 #virtualclassCont.congrea.playMode #popupContainer.loading #loadingWindowCont .loading {
   display: block;
+}
+
+#virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .loading {
+  display: none;
 }
 
 #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay:hover {

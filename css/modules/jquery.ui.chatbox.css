@@ -132,6 +132,11 @@
   text-transform: capitalize;
 }
 
+#virtualclassCont.congrea .ui-chatbox-msg .chat-user-icon span {
+  color: #fff;
+  font-size: 0.75rem;
+}
+
 #virtualclassCont.congrea .ui-chatbox-msg .commonChatCon span {
   text-align: right;
   float: right;

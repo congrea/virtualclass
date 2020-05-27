@@ -166,7 +166,7 @@ ul.fontSizeList span {
   display: none;
 }
 
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #documentScreen #notesContainer .table {
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #docScreenContainer .containerWb .commandToolsWrapper [data-tool="color"] .table {
   position: absolute;
   top: 50px;
   left: 285px;
@@ -424,7 +424,9 @@ ul.fontSizeList {
 }
 
 #virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .containerWb .commandToolsWrapper [data-tool="color"] .table.openTray,
-#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .containerWb .commandToolsWrapper .openTray {
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassWhiteboard .whiteboardContainer .containerWb .commandToolsWrapper .openTray,
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #docScreenContainer .containerWb .commandToolsWrapper [data-tool="color"] .table.openTray,
+#virtualclassCont.congrea #virtualclassAppLeftPanel #virtualclassDocumentShare #docScreenContainer .containerWb .commandToolsWrapper .openTray {
   display: block;
   z-index: inherit;
 }

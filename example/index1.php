@@ -12,17 +12,17 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Congrea">
-<link rel="apple-touch-icon" href="https://live.congrea.net/mobile/virtualclass/images/Congrea192x192.png">
-<link href="https://live.congrea.net/mobile/virtualclass/images/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-<link href="https://live.congrea.net/mobile/virtualclass/images/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-<link href="https://live.congrea.net/mobile/virtualclass/images/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
-<link href="https://live.congrea.net/mobile/virtualclass/images/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
-<link href="https://live.congrea.net/mobile/virtualclass/images/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-<link href="https://live.congrea.net/mobile/virtualclass/images/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
-<link href="https://live.congrea.net/mobile/virtualclass/images/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-<link href="https://live.congrea.net/mobile/virtualclass/images/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-<link href="https://live.congrea.net/mobile/virtualclass/images/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-<link href="https://live.congrea.net/mobile/virtualclass/images/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link rel="apple-touch-icon" href="https://live.congrea.net/virtualclass/images/Congrea192x192.png">
+<link href="https://live.congrea.net/virtualclass/images/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
 <!-- CODELAB: Add description here -->
 <meta name="description" content="Congrea">
 <!-- CODELAB: Add meta theme-color -->
@@ -31,8 +31,8 @@
 <style>
 	@font-face {
 		font-family: 'icomoon';
-		src:url('https://live.congrea.net/mobile/virtualclass/resources/fonts/icomoon.eot?-jjdyd0&ver=<?php echo $version ?>');
-		src:url('https://live.congrea.net/mobile/virtualclass/resources/fonts/icomoon.eot?#iefix-jjdyd0&ver=<?php echo $version ?>') format('embedded-opentype'), url('https://live.congrea.net/mobile/virtualclass/resources/fonts/icomoon.woff?-jjdyd0&ver=<?php echo $version ?>') format('woff'), url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0&ver=<?php echo $version ?>') format('truetype'), url('https://live.congrea.net/mobile/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon&ver=<?php echo $version ?>') format('svg');
+		src:url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.eot?-jjdyd0&ver=<?php echo $version ?>');
+		src:url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.eot?#iefix-jjdyd0&ver=<?php echo $version ?>') format('embedded-opentype'), url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.woff?-jjdyd0&ver=<?php echo $version ?>') format('woff'), url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.ttf?-jjdyd0&ver=<?php echo $version ?>') format('truetype'), url('https://live.congrea.net/virtualclass/resources/fonts/icomoon.svg?-jjdyd0#icomoon&ver=<?php echo $version ?>') format('svg');
 		font-weight: normal;
 		font-style: normal;
 	}
@@ -78,7 +78,7 @@ function get_string($phrase) {
 
 //the www path for virtualclass
 
-$whiteboardpath = "https://live.congrea.net/mobile/virtualclass/";
+$whiteboardpath = "https://live.congrea.net/virtualclass/";
 
 $cont_class = 'congrea ';
 
@@ -211,11 +211,11 @@ if($info) {
 <?php
 } else {
 ?>
-	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/mobile/virtualclass/build/css/modules.min.css?ver=<?php echo $version ?>" />
-	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/mobile/virtualclass/build/css/external.min.css?ver=<?php echo $version ?>" />
-	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/mobile/virtualclass/external/css/slickQuiz.min.css?ver=<?php echo $version ?>" />
-	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/mobile/virtualclass/external/css/fine-uploader-gallery.min.css?ver=<?php echo $version ?>" />
-	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/mobile/virtualclass/css/bootstrap/css/bootstrap.min.css?ver=<?php echo $version ?>" />
+	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/virtualclass/build/css/modules.min.css?ver=<?php echo $version ?>" />
+	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/virtualclass/build/css/external.min.css?ver=<?php echo $version ?>" />
+	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/virtualclass/external/css/slickQuiz.min.css?ver=<?php echo $version ?>" />
+	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/virtualclass/external/css/fine-uploader-gallery.min.css?ver=<?php echo $version ?>" />
+	<link rel="stylesheet" type="text/css" href=  "https://live.congrea.net/virtualclass/css/bootstrap/css/bootstrap.min.css?ver=<?php echo $version ?>" />
 
   <?php
 }

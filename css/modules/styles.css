@@ -2157,6 +2157,10 @@ div.ui-memblist-usr .userVideos {
   color: #fff;
 }
 
+#virtualclassCont.congrea .modal-dialog .close:hover {
+  color: #000;
+}
+
 /* #virtualclassCont.congrea .close:hover,
 #virtualclassCont.congrea .close:active,
 #virtualclassCont.congrea .close:focus {

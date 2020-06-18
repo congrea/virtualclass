@@ -1,4 +1,4 @@
-if(window.location.search !== "null" && window.system.device=="mobTab" && window.system.mybrowser.name == "Chrome") {
+if(window.location.search !== "null") {
   // when plugin has a support of pwa
   document.querySelector("html").classList.add("pwaSupported");
   window.addEventListener('beforeinstallprompt', (event) => {

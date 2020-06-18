@@ -4716,11 +4716,11 @@ html.pwaSupported #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWar
   cursor: pointer;
 }
 
-html.pwa #virtualclassCont.congrea #fullScreenButton,
-html.pwa #virtualclassCont.congrea #fullScreenExitButton {
-  display: none;
+html.pwaRunning #virtualclassCont.congrea #fullScreenButton,
+html.pwaRunning #virtualclassCont.congrea #fullScreenExitButton {
+  display: none !important;
 }
 
-html.pwa #virtualclassCont.congrea #bookmark {
+html.pwaRunning #virtualclassCont.congrea #bookmark {
   right: 0;
 }

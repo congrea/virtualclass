@@ -4562,7 +4562,7 @@ body {
   width: 68%;
 }
 
-#virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn .warningWrapper {
+html.pwaSupported #virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn .warningWrapper {
   transform: unset;
   position: unset;
   width: unset;
@@ -4572,17 +4572,17 @@ body {
   display: none;
 }
 
-#virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn #installContainer {
+html.pwaSupported #virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn #installContainer {
   padding: 5rem;
   display: block;
 }
 
-#virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer p {
+html.pwaSupported #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer p {
   font-size: 19px;
   color: #c0c0c0;
 }
 
-#virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer button {
+html.pwaSupported #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer button {
   background-image: none !important;
   border-radius: 8px;
   background-color: transparent;

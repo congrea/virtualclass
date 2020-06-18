@@ -14,10 +14,10 @@ if(window.location.search !== "null" && window.system.device=="mobTab" && window
 window.addEventListener('load', () => {
   if (navigator.fullscreen) {
     console.log('Launched: Installed (iOS)');
-    document.querySelector("html").classList.add("pwa");
+    document.querySelector("html").classList.add("pwaRunning");
   } else if (matchMedia('(display-mode: fullscreen)').matches) {
     console.log('Launched: Installed');
-    document.querySelector("html").classList.add("pwa");
+    document.querySelector("html").classList.add("pwaRunning");
   } else {
     console.log('Launched: Browser Tab');
   }

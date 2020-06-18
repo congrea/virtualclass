@@ -533,7 +533,7 @@
             }
             console.log('=====> full screen show ask hide exit');
             virtualclass.gObj.rightbarFullScreenMode = false;
-            if (!virtualclass.gObj.ignoreFullScreen && !document.querySelector("html").classList.contains("pwa")) {
+            if (!virtualclass.gObj.ignoreFullScreen && !document.querySelector("html").classList.contains("pwaRunning")) {
               virtualclass.vutil.showFullScreenButton();
             }
           }

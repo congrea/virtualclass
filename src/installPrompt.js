@@ -1,14 +1,14 @@
 if(window.location.search !== null && window.location.search !== "") {
   // when plugin has a support of pwa
   document.querySelector("html").classList.add("pwaSupported");
-  window.addEventListener('beforeinstallprompt', (event) => {
-    console.log('👍', 'beforeinstallprompt', event);
-    // Prevent the mini-infobar from appearing on mobile
-    event.preventDefault();
-    // Stash the event so it can be triggered later.
-    window.deferredPrompt = event;
-  });
 }
+window.addEventListener('beforeinstallprompt', (event) => {
+  console.log('👍', 'beforeinstallprompt', event);
+  // Prevent the mini-infobar from appearing on mobile
+  event.preventDefault();
+  // Stash the event so it can be triggered later.
+  window.deferredPrompt = event;
+});
 
 // Track how the PWA was launched 
 window.addEventListener('load', () => {

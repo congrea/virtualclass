@@ -1,4 +1,4 @@
-if(window.location.search !== "null") {
+if(window.location.search !== null && window.location.search !== "") {
   // when plugin has a support of pwa
   document.querySelector("html").classList.add("pwaSupported");
   window.addEventListener('beforeinstallprompt', (event) => {

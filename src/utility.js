@@ -298,6 +298,36 @@
       elem.classList.remove('fullScreenMode');
     },
 
+    installPwaBtn() {
+      const divInstall = document.getElementById('installContainer');
+      console.log('👍', 'butInstall-clicked');
+        const promptEvent = window.deferredPrompt;
+        if (!promptEvent) {
+          // The deferred prompt isn't available.
+          // divInstall.classList.toggle('hidden', true);
+          console.log("App is already added to your home screen");
+          return;
+        }
+        // Show the install prompt.
+        promptEvent.prompt();
+        // Log the result
+        promptEvent.userChoice.then((result) => {
+          console.log('👍', 'userChoice', result);
+          // Reset the deferred prompt variable, since
+          // prompt() can only be called once.
+          window.deferredPrompt = null;
+          // Hide the install button.
+          // divInstall.classList.toggle('hidden', true);
+          if (result.outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+            divInstall.classList.toggle('hidden', true);
+            document.querySelector(".mobileLandscapeWarn").classList.add("pwaInstalled");
+          } else {
+            console.log('User dismissed the install prompt');
+          }
+        });
+    },
+
     closedRightbar() {
       const elem = document.getElementById('virtualclassApp');
       elem.classList.remove('openRightbar');

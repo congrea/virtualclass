@@ -328,24 +328,24 @@
     padding: 0.67857rem 0.8571rem 0.8571rem 0.9285rem;
   }
 
-  #virtualclassCont.congrea #preCheckcontainer .modal {
+  html.pwaRunning #virtualclassCont.congrea #preCheckcontainer .modal {
   background-color: #e4e4e4;
   background: linear-gradient(to right, #bdeafe 0%,#acc3fb 100%);
 }
 
-  #virtualclassCont.congrea #joinClass #joinClassModal {
+  html.pwaRunning #virtualclassCont.congrea #joinClass #joinClassModal {
     background-color: #e4e4e4 !important;
     background: linear-gradient(to right, #bdeafe 0%,#acc3fb 100%);
   }
 
-  #virtualclassCont.congrea .progressbar li.active.current::before {
+  html.pwaRunning #virtualclassCont.congrea .progressbar li.active.current::before {
     color: unset;
     background: -webkit-linear-gradient(#9c47fc, #356ad2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  #virtualclassCont.congrea #virtualclassPreCheck .testName {
+  html.pwaRunning #virtualclassCont.congrea #virtualclassPreCheck .testName {
     font-weight: 500;
     color: #6b6b6b;
     margin-bottom: 1.5rem;

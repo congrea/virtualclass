@@ -1,8 +1,15 @@
-<div id="virtualclassVideo" class="bootstrap virtualclass" style="display: block;">
+<div id="virtualclassVideo" class="bootstrap virtualclass" style="display: block;" data-currapp="normalVideo">
   {{#if control}}
+    <div id="startLiveStream" data-sharinglivestream="0" > Start Live Streaming </div>
     {{else}}
     <p id="messageLayoutVideo">{{getString 'Vwllbshrshortly'}}</p>
   {{/if}}
-  <div id="videoPlayerCont">
+  <div id="videoPlayerCont"> </div>
+  <div id="liveStreamCont"> 
+    {{#if control}}
+    <video id="liveStream" autoplay playsinline muted ></video>
+    {{else}}
+        <video id="liveStream" autoplay playsinline></video>
+  {{/if}}
   </div>
 </div>

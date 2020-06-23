@@ -306,6 +306,8 @@
     stdPublish: 'stdPublish',
     stdscreenshare: 'Do you want to share your screen ?',
     studentAudEnable: 'Student audio enabled',
+    startLiveSharing: 'Start Live Streaming',
+    stopLiveSharing: 'Stop Live Streaming',
     studentSafariBrowserIssue: 'Your browser {virtualclass1} {virtualclass2} cannot  share your webcam with other users, Congrea fully support Chrome  and Firefox.',
     supportDesktop: 'Virtual Class does not support tablets or mobiles. To present please use a desktop.',
     supportDesktopOnly: 'Sorry, presenter mode only supports desktops. Tablets and Mobile devices are not supported.',

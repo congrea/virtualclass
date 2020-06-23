@@ -622,4 +622,8 @@ const receiveFunctions = new function () {
   this.readyContext = function () {
     console.log('===> do nothing ready context');
   }
+
+  this.liveStream = function (e) {
+    virtualclass.liveStream.onMessage(e);
+  }
 }();

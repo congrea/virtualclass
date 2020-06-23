@@ -213,6 +213,10 @@ var io = {
     workerIO.postMessage({ cmd: 'sendBinary', msg });
   },
 
+  sendStream(msg) {
+    workerIO.postMessage({ cmd: 'sendStream', msg });
+  },
+
   onRecMessage(e) {
     if (e.data instanceof ArrayBuffer) {
       // this.onRecBinary(e)
@@ -396,6 +400,12 @@ var io = {
         });
         break;
 
+      case 'chvs': // Received stream
+        console.log('Case:- chvs', receivemsg.m);
+        receivemsg.message = {fileName : receivemsg.f};
+        virtualclass.liveStream.onMessage(receivemsg);
+        break;
+
       case 'setSession':
         if (roles.hasControls()) {
           ioAdapter.initSetSession(receivemsg.session);
@@ -513,7 +523,7 @@ var ioInit = {
           type: 'connectionclose',
           message: e.data.msg,
         });
-        
+
         // TODO Do we need this?
         setTimeout(() => {
           // For prevent to send any packet to other during save session

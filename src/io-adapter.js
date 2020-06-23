@@ -144,6 +144,10 @@ var ioAdapter = {
     io.sendBinary(msg);
   },
 
+  sendStream(msg) {
+    io.sendStream(msg);
+  },
+
   setRecording() {
     if (!virtualclass.isPlayMode && virtualclass.settings.info.enableRecording) {
       if (!roles.hasControls() && !virtualclass.settings.info.attendeerecording) {

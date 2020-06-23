@@ -1573,6 +1573,20 @@ this["JST"]["dest_temp/templates/videoupload/linkvideo.hbs"] = Handlebars.templa
     + "</a></div></div></div>";
 },"useData":true});
 
+this["JST"]["dest_temp/templates/videoupload/livestream.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return " ";
+},"3":function(container,depth0,helpers,partials,data) {
+    return " <p id=\"messageLayoutVideo\">"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Vwllbshrshortly",{"name":"getString","hash":{},"data":data}))
+    + "</p> ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div id=\"virtualclassVideo\" class=\"bootstrap virtualclass\" style=\"display: block;\"> "
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
+    + " <div id=\"videoPlayerCont\"></div></div>";
+},"useData":true});
+
 this["JST"]["dest_temp/templates/videoupload/popup.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
@@ -1586,17 +1600,23 @@ this["JST"]["dest_temp/templates/videoupload/popup.hbs"] = Handlebars.template({
 },"useData":true});
 
 this["JST"]["dest_temp/templates/videoupload/videoupload.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " ";
+    return " <div id=\"startLiveStream\" data-sharinglivestream=\"0\"> Start Live Streaming </div> ";
 },"3":function(container,depth0,helpers,partials,data) {
     return " <p id=\"messageLayoutVideo\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Vwllbshrshortly",{"name":"getString","hash":{},"data":data}))
     + "</p> ";
+},"5":function(container,depth0,helpers,partials,data) {
+    return " <video id=\"liveStream\" autoplay playsinline muted></video> ";
+},"7":function(container,depth0,helpers,partials,data) {
+    return " <video id=\"liveStream\" autoplay playsinline></video> ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
-  return "<div id=\"virtualclassVideo\" class=\"bootstrap virtualclass\" style=\"display: block;\"> "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + " <div id=\"videoPlayerCont\"></div></div>";
+  return "<div id=\"virtualclassVideo\" class=\"bootstrap virtualclass\" style=\"display: block;\" data-currapp=\"normalVideo\"> "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
+    + " <div id=\"videoPlayerCont\"></div><div id=\"liveStreamCont\"> "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data})) != null ? stack1 : "")
+    + " </div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/whiteboard/main.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {

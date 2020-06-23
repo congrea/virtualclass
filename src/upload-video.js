@@ -51,9 +51,12 @@
             videoLayoutMessage.style.display = 'block';
           }
         }
+        virtualclass.liveStream.init();
+        
       },
 
       reArrangeElements(order) {
+        if (Object.keys(order).length <= 0) return;
         const container = document.getElementById('listvideo');
         const tmpdiv = document.createElement('div');
         tmpdiv.id = 'listvideo';
@@ -299,6 +302,9 @@
         if (video) {
           video.addEventListener('click', () => {
             // console.log('====> VIDEO CLICK ');
+            if (virtualclass.liveStream.isLiveStreamMode()) {
+              virtualclass.liveStream.stop();
+            }
             virtualclass.videoUl.isPaused = false;
             if (vidObj.filetype === 'video_yts') {
               virtualclass.videoUl.yts = true;
@@ -510,6 +516,8 @@
           virtualclass.userInteractivity.makeReadyContext();
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'play')) {
           this.handlePlayEvent(msg, msg.videoUl.play);
+          virtualclass.gObj.videoMode = 'normalVideo';
+          console.log('normal video mode');
         } else if (Object.prototype.hasOwnProperty.call(msg.videoUl, 'order')) {
           // virtualclass.videoUl.order = msg.videoUl.order;
           virtualclass.orderList[virtualclass.videoUl.appName].ol.order = msg.videoUl.order;
@@ -588,6 +596,8 @@
         virtualclass.videoUl.player.dispose();
         delete virtualclass.videoUl.player;
         this.UI.attachPlayer = false;
+        delete virtualclass.gObj.videoMode;
+        console.log('delete normal video');
         // console.log('====> Video player is finished end <======', virtualclass.videoUl.player);
       },
 
@@ -832,7 +842,9 @@
       // },
 
       videoToStudent(videoObj) {
+        virtualclass.gObj.videoMode = 'normalVideo';
         ioAdapter.mustSend({ videoUl: videoObj, cf: 'videoUl', videoTime: virtualclass.vutil.localToUTC() });
+        console.log('normal video mode');
       },
 
       getVideoId(url) {
@@ -1059,6 +1071,7 @@
             dispVideo.setAttribute('data-setup', '{"preload": "auto"}');
             player.src({ type: 'application/x-mpegURL', withCredentials: true, src: videoUrl });
             // console.log('====> Video 1 b normal');
+            console.log('live video suman 2');
           }
 
           player.any('loadstart', () => {
@@ -1312,6 +1325,7 @@
           }
         },
         popup() {
+          
           const dropArea = document.querySelector('#congreavideoContBody');
           if (dropArea && dropArea.lastChild != null) {
             dropArea.removeChild(dropArea.lastChild);
@@ -1332,7 +1346,6 @@
           upload.requesteEndPoint = `${window.webapi}&methodname=file_save&live_class_id=${virtualclass.gObj.congCourse}&status=1&content_type_id=2&user=${virtualclass.gObj.uid}`;
           upload.wrapper = document.getElementById(elemArr[0]);
           virtualclass.fineUploader.uploaderFn(upload);
-
           if (!virtualclass.serverData.syncComplete) {
             virtualclass.serverData.syncAllData().then(() => {
               virtualclass.videoUl.UI.rawVideoList();

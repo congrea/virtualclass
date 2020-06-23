@@ -605,6 +605,12 @@
           isAutoplay: virtualclass.videoUl.autoPlayFlag,
 
         };
+		if (roles.hasControls() && !virtualclass.gObj.videoMode && virtualclass.liveStream.mediaRecorder) {
+          ioAdapter.mustSend({
+            cf: 'liveStream',
+            stop: true,
+          });
+        }
       } else if (virtualclass.currApp === 'DocumentShare') {
         // console.log(`previous app success ${virtualclass.currApp}`);
         if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {

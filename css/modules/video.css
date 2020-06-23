@@ -34,6 +34,7 @@
 #virtualclassCont.congrea #videoPlayerCont {
   height: 94vh;
   width: 102%;
+  display: none;
 }
 
 @media (max-width: 1175px) {
@@ -48,3 +49,55 @@
     display: none;
   }
 }
+
+#virtualclassCont.congrea #virtualclassVideo {
+  position: relative;
+}
+
+#virtualclassCont.congrea #virtualclassVideo #liveStreamCont{
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+#virtualclassCont.congrea #virtualclassVideo[data-currapp='normalVideo'] #videoPlayerCont {
+  display: block;
+}
+
+#virtualclassCont.congrea #virtualclassVideo[data-currapp='liveStream'] #liveStreamCont{
+  display: block;
+}
+
+#virtualclassCont.congrea #liveStream {
+  width: 100%;
+  height: 100%;
+}
+
+#virtualclassCont.congrea #startLiveStream {
+  position: absolute;
+  top: 0;
+  height: 44px;
+  background: #da2a0d;
+  color: #ffffff;
+  z-index: 100;
+  right: 0;
+  width: auto;
+  padding: 5px;
+  padding-top: 15px;
+  font-size: 0.9rem;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  cursor: pointer;
+}
+
+#virtualclassCont.congrea #messageLayoutVideo {
+  display: none;
+}
+
+#virtualclassCont.congrea #startLiveStream.disabled {
+  pointer-events: none;
+  opacity: 0.8;
+  cursor: default;
+}
+

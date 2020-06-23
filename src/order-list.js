@@ -78,4 +78,15 @@ class OrderedList {
   getCurrentPosition(id) {
     return this.ol.order.indexOf(id);
   }
+
+  getCurrent(id) {
+    return this.ol.list[id];
+  }
+
+  emptyList () {
+    console.log('====> Empty the list');
+    this.ol.order.length = 0;
+    delete this.ol.list;
+    this.ol.list = {};
+  }
 }

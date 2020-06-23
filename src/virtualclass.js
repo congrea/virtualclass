@@ -294,9 +294,10 @@
         virtualclass.network = new Network();
         virtualclass.gesture = gesture;
 
-
         this.serverData = serverData;
         this.view = window.view;
+        this.liveStream = new LiveStream();
+       
         // if (roles.hasControls()) {
         //   // this.serverData.fetchAllData(); // gets all data from server at very first
         //   virtualclass.serverData.syncAllData();
@@ -395,15 +396,14 @@
         if (askfullScreenExitBtn != null) {
           askfullScreenExitBtn.addEventListener('click', virtualclass.vutil.closeFullscreen);
         }
-
-        const butInstall = document.getElementById('butInstall');
-        const divInstall = document.getElementById('installContainer');
-        if (divInstall != null) {
-          butInstall.addEventListener('click', virtualclass.vutil.installPwaBtn);
-        }
-
-        var chat_div = document.getElementById("chat_div");
-        var rightSidebarBtn = document.getElementById("sidebarButton");
+		
+		const butInstall = document.getElementById('butInstall');
+		const divInstall = document.getElementById('installContainer');
+		if (divInstall != null) {
+			butInstall.addEventListener('click', virtualclass.vutil.installPwaBtn);
+		}
+        const chat_div = document.getElementById('chat_div');
+        const rightSidebarBtn = document.getElementById('sidebarButton');
 
         if(rightSidebarBtn != null) {
           rightSidebarBtn.addEventListener('click', function () {
@@ -505,7 +505,7 @@
             }
             console.log('=====> full screen show ask hide exit');
             virtualclass.gObj.rightbarFullScreenMode = false;
-            if (!virtualclass.gObj.ignoreFullScreen && !document.querySelector("html").classList.contains("pwaRunning")) {
+			if (!virtualclass.gObj.ignoreFullScreen && !document.querySelector("html").classList.contains("pwaRunning")) {
               virtualclass.vutil.showFullScreenButton();
             }
           }
@@ -720,6 +720,13 @@
               playingStripbar.classList.remove('playing');
             }
             virtualclass.videoUl.videoUrl = '';
+            if (virtualclass.liveStream.mediaRecorder) {
+              const startLiveStream = document.getElementById('startLiveStream');
+              if (startLiveStream != null) {
+                startLiveStream.dataset.sharinglivestream = '0';
+              }
+              virtualclass.liveStream.stop();
+            }
           }
         }
 
@@ -1555,17 +1562,4 @@
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
   };
-  // let deferredPrompt;
-
-  //   window.addEventListener('beforeinstallprompt', (e) => {
-  //     console.log("Install");
-  //     prompt();
-  //     // Prevent the mini-infobar from appearing on mobile
-  //     //e.preventDefault();
-  //     // Stash the event so it can be triggered later.
-  //     //deferredPrompt = e;
-  //     // Update UI notify the user they can install the PWA
-  //     //showInstallPromotion();
-  //   });
-
 }(window));

@@ -142,14 +142,18 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
       }
     },
 
+    sendStream (msg){
+      var msg1 = new (msg.constructor)(msg.length + 2);
+      msg1.set([msg[0], 0]);
+      msg1.set(msg, 2);
+      this.finallySend(msg1.buffer);
+      postMessage({ cmd: 'stBinary', msg: msg1 });
+    },
+
     sendBinary(msg) {
       if (this.sock.readyState && msg.length) {
-        if (msg.length <= 600000) { // Less than 600K
-          if (msg.constructor === Int8Array) {
-            var msg1 = new Int8Array(msg.length + 2);
-          } else if (msg.constructor === Uint8ClampedArray) {
-            var msg1 = new Uint8ClampedArray(msg.length + 2);
-          }
+        if (msg.length <= 600000) { // Less than 600K, NO LIMIT // TODO, ONLY IF
+          var msg1 = new (msg.constructor)(msg.length + 2);
           msg1.set([msg[0], 0]);
           msg1.set(msg, 2);
           this.finallySend(msg1.buffer);
@@ -241,7 +245,10 @@ const workerIOBlob = URL.createObjectURL(new Blob(['(', function () {
         case 'onRecBinary':
           this.onRecBinary({ data: e.data.msg });
           break;
-
+        
+        case 'sendStream':
+          this.sendStream(e.data.msg);
+          break;
         default:
           this.finallySend(e.data.msg);
       }

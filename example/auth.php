@@ -23,8 +23,8 @@ function my_curl_request($url, $post_data, $key, $secret){
 $authusername = substr(str_shuffle(MD5(microtime())), 0, 20);
 $authpassword = substr(str_shuffle(MD5(microtime())), 0, 20);
 
-$licensekey = 'VUkRDJ7L9tSW530tOPwl6pApWVpXEU3LqoR3jgup2dHkPDgr';
-$secret = 'ThNhegjCVvzm70VPurec6mfy4eQ7FsZEi1TqpyR3gbJy0OJWtfJ44hKLVMbhbreS';
+$licensekey = 'GQYjcxmCAGAeQ84dCEye2o5G9ygAKE8dkXcOmz5ltvdAMKie';
+$secret = 'bdsetzpsbOBR9hvvJbX8lv5rpttEeajJLThgnClv0mavO0L4gFsc5syeWRoZZMEB';
 
 
 $r = isset($_GET['role'] ) ? $_GET['role'] : 's';

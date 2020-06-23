@@ -254,6 +254,11 @@
   background-color: #fff;
 }
 
+#virtualclassCont.congrea #askQuestion #writeContent:hover {
+  box-shadow: 0 0 3px #8cc9fd;
+  border: 1px solid #8cc9fd !important;
+}
+
 #virtualclassCont #askQuestion.tempDown #writeContent {
   pointer-events: visible;
 }
@@ -815,33 +820,41 @@
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer {
-  background-color: #fff;
-  box-shadow: #b5b5b5 0 3px 8px;
-  padding: 0.625rem 0.125rem 0.625rem 0.625rem;
-  border-radius: 0.3125rem;
-  text-align: center;
-  z-index: 1105;
-  width: fit-content;
-  color: #9c9c9c;
-  border: 0.5px solid #e69024;
   position: absolute;
-  animation: myfirst 1s;
-  bottom: 4.5rem;
-  letter-spacing: 1.5px;
-  right: 0;
+    animation: myfirst 1s;
+    bottom: 4.5rem;
+    right: 0;
+    background-color: #ffd3b9;
+    padding: 1rem 1.5rem 1rem 1rem;
+    border-radius: 5px;
+    text-align: left;
+    z-index: 1103;
+    width: -moz-fit-content;
+    color: #4b5658;
+    border-left: 5px solid #ec7329;
+    box-shadow: 0px 3px 3px 0px #b7b7b7;
+    margin: 6px 0;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer [classname="askQuestionMsg"] {
-  font-size: 0.75rem;
-  color: #525252;
+  font-size: 0.9rem;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer #closeAskQuestionMsg {
-  background-color: unset;
-  color: #000;
-  font-size: 0.75rem;
-  padding: 0.3125rem 0.4375rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #fff;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: #ec7329;
+  border: none;
   cursor: pointer;
+  pointer-events: auto;
+  display: inline-block;
+  height: 1.25rem;
+  width: 1.25rem;
+  text-align: center;
 }
 
 @keyframes myfirst {

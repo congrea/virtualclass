@@ -481,35 +481,30 @@
   content: "\e901";
   font-family: 'icomoon';
   font-size: 2.25rem;
-  padding-top: 4px;
 }
 
 #virtualclassCont.congrea #preCheckcontainer .screen1.browser::before {
   content: "\e903";
   font-family: 'icomoon';
   font-size: 2.75rem;
-  padding-top: 4px;
 }
 
 #virtualclassCont.congrea #preCheckcontainer .screen2.bandwidth::before {
   content: "\e902";
   font-family: 'icomoon';
   font-size: 2.25rem;
-  padding-top: 4px;
 }
 
 #virtualclassCont.congrea #preCheckcontainer .screen3.webcam::before {
   content: "\e900";
   font-family: 'icomoon';
   font-size: 3.125rem;
-  padding-top: 4px;
 }
 
 #virtualclassCont.congrea #preCheckcontainer .screen4.mic::before {
   content: "\f130";
   font-family: 'icomoon';
   font-size: 2.25rem;
-  padding-top: 4px;
 }
 
 #virtualclassCont.congrea #videoList .linkvideo .mainpreview::before {
@@ -627,7 +622,7 @@
 #virtualclassCont.congrea .icon-zoonIn::before {
   content: "\e9a4";
   font-size: 0.75rem;
-  color: #464646;
+  color: #8e8e8e;
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
@@ -636,7 +631,7 @@
 #virtualclassCont.congrea .icon-zoomOut::before {
   content: "\e9a5";
   font-size: 0.75rem;
-  color: #464646;
+  color: #8e8e8e;
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
@@ -645,7 +640,7 @@
 #virtualclassCont.congrea .icon-fitScreen::before {
   content: "\e99b";
   font-size: 0.9375rem;
-  color: #464646;
+  color: #8e8e8e;
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
@@ -1007,13 +1002,4 @@
   cursor: pointer;
   text-transform: capitalize;
   color: #fff;
-}
-
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer::before {
-  content: "\e997";
-  font-weight: normal;
-  font-family: 'icomoon';
-  font-size: 0.9375rem;
-  color: #ffae48;
-  margin-right: 0.4375rem;
 }

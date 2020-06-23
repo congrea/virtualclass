@@ -723,7 +723,7 @@
   margin-bottom: 0;
   font-weight: 400;
   font-size: 0.9rem;
-  padding: 0.875rem 0 0.875rem 0.9375rem;
+  padding: 0.84375rem 0 0.84375rem 0.9375rem;
   line-height: normal;
   color: #fff;
   flex: 1;
@@ -907,7 +907,7 @@
 #virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .text {
   display: inline-block;
   color: #fff;
-  padding: 0.875rem 0 0.875rem 0.9375rem;
+  padding: 0.84375rem 0 0.84375rem 0.9375rem;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action {

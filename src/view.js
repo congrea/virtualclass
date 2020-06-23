@@ -80,7 +80,7 @@
 
       const errorCloseButton = document.createElement('span');
       errorCloseButton.className = 'close';
-      errorCloseButton.innerHTML = 'X';
+      errorCloseButton.innerHTML = 'x';
 
       errorCloseButton.onclick = (element) => {
         element.target.parentNode.parentNode.removeChild(element.target.parentNode);
@@ -123,7 +123,7 @@
       if (closebutton == null) {
         closebutton = document.createElement('span');
         closebutton.id = 'closeAskQuestionMsg';
-        closebutton.innerHTML = 'X';
+        closebutton.innerHTML = 'x';
         cont.appendChild(closebutton);
       }
 
@@ -390,26 +390,26 @@
 
     virtualclass.chat.calculateViewPortForMessageBox();
 
-    if (virtualclass.gObj.inputFocusHandler) {
-      clearTimeout(virtualclass.gObj.inputFocusHandler);
-    }
-    virtualclass.gObj.inputFocusHandler = setTimeout(() => {
-      console.log('===> triger input focus');
-      if (!virtualclass.gObj.notHandleInputFocusHandler) {
-        if (document.getElementById('virtualclassCont').dataset.currwindow === 'normal') {
-          // const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
-          if (window.innerHeight >= virtualclass.gObj.initHeight) {
-            virtualclass.vutil.inputFocusOutHandler();
-          } else {
-            virtualclass.vutil.inputFocusHandler();
-          }
-        }
-        if (window.innerWidth > window.innerHeight) { // Apply only on landscape mode
-          virtualclass.gObj.initHeight = window.innerHeight;
-        }
-      }
-      delete virtualclass.gObj.notHandleInputFocusHandler;
-    }, 1100);
+    // if (virtualclass.gObj.inputFocusHandler) {
+    //   clearTimeout(virtualclass.gObj.inputFocusHandler);
+    // }
+    // virtualclass.gObj.inputFocusHandler = setTimeout(() => {
+    //   console.log('===> triger input focus');
+    //   if (!virtualclass.gObj.notHandleInputFocusHandler) {
+    //     if (document.getElementById('virtualclassCont').dataset.currwindow === 'normal') {
+    //       // const virtualclassCont = document.querySelector('#virtualclassCont.focusInput');
+    //       if (window.innerHeight >= virtualclass.gObj.initHeight) {
+    //         virtualclass.vutil.inputFocusOutHandler();
+    //       } else {
+    //         virtualclass.vutil.inputFocusHandler();
+    //       }
+    //     }
+    //     if (window.innerWidth > window.innerHeight) { // Apply only on landscape mode
+    //       virtualclass.gObj.initHeight = window.innerHeight;
+    //     }
+    //   }
+    //   delete virtualclass.gObj.notHandleInputFocusHandler;
+    // }, 1100);
 
     // virtualclass.stickybarWidth();
     // virtualclass.chatBarTabWidth();

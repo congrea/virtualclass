@@ -1129,10 +1129,11 @@ div.ui-memblist-usr .userVideos {
   text-align: center;
   display: inline-block;
   width: 2.125rem;
-  border: 0.125rem solid rgba(255, 255, 255, 0.2);
+  border: 0.125rem solid #2c393d;
   border-radius: 20px;
   height: 2.125rem;
   overflow: hidden;
+  box-shadow: 0 2px 5px 1px #021317;
 }
 
 #virtualclassCont.congrea.student #audioWidget #mainAudioPanel li {
@@ -1597,8 +1598,8 @@ div.ui-memblist-usr .userVideos {
   padding: 0.5rem 0.625rem;
   margin-top: 0.625rem;
   border: 0.5px solid #e6e6e673;
-  background-color: #f7f7f7;
-  box-shadow: 0 3px 3px -3px #585858;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 1px #e8e8e8;
   border-radius: 50%;
   text-align: center;
   vertical-align: middle;
@@ -1988,26 +1989,29 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #mainerrorContainer {
   position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translate(-50%);
-  z-index: 1005;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    bottom: 3.25rem;
+    z-index: 1001;
 }
 
-#virtualclassCont.congrea .errorContainer {
-  background-color: #f0f0f0;
-  box-shadow: #ddd 0 0 3px;
-  border: #ddd 1px solid;
-  padding: 22px;
+#virtualclassCont.congrea #mainerrorContainer .errorContainer {
+  background-color: #ffbebe;
+  padding: 1rem 1rem 1rem 1rem;
+  padding: 1rem 1.5rem 1rem 1rem;
   border-radius: 5px;
-  text-align: center;
+  text-align: left;
   z-index: 1103;
   width: fit-content;
+  max-width: 370px;
   width: -moz-fit-content;
-  line-height: 1.5em;
-  color: rgba(131, 14, 14, 0.93);
+  color: #4b5658;
+  border-left: 5px solid #ed5a5a;
+  box-shadow: 0px 1px 3px 0px #757575;
+  /* box-shadow: 0px 0px 1px 1px #ff7e7e; */
   position: relative;
-  margin-top: 5px;
+  margin: 4px 6px;
+  display: inline-block;
 }
 
 #virtualclassCont.congrea.student.presenter #speakerPressing {
@@ -2153,7 +2157,11 @@ div.ui-memblist-usr .userVideos {
   color: #fff;
 }
 
-#virtualclassCont.congrea .close:hover,
+#virtualclassCont.congrea .modal-dialog .close:hover {
+  color: #000;
+}
+
+/* #virtualclassCont.congrea .close:hover,
 #virtualclassCont.congrea .close:active,
 #virtualclassCont.congrea .close:focus {
   color: #000;
@@ -2457,10 +2465,6 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea #qnPopupCont .modal {
   background-color: rgba(0, 0, 0, 0);
-}
-
-#virtualclassCont.congrea #preCheckcontainer .modal {
-  background-color: #555558;
 }
 
 #virtualclassCont.congrea #virtualclassPoll #bootstrapCont #editPollModal {
@@ -2881,7 +2885,7 @@ div.ui-memblist-usr .userVideos {
 
 #virtualclassCont.congrea input#congreaUserSearch::-webkit-input-placeholder,
 #virtualclassCont.congrea input#ta_chrm2::-webkit-input-placeholder {
-  text-align: center;
+  text-align: left;
   opacity: 0.9;
   letter-spacing: 0.02em;
   font-size: 15px;
@@ -3028,11 +3032,11 @@ div.ui-memblist-usr .userVideos {
 }
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li#speakerPressOnce {
-  margin: 0.4375rem 0.625rem 0.4375rem 0.9375rem;
+  margin: 0.375rem 0.625rem 0.5rem 0.9375rem;
 }
 
 #virtualclassCont.congrea #audioWidget #mainAudioPanel li.videoSwitchCont {
-  margin: 0.4375rem 0.8125rem 0.4375rem 0.75rem;
+  margin: 0.375rem 0.8125rem 0.5rem 0.75rem;
 }
 
 #virtualclassCont.congrea li#appSettingCtrl,
@@ -3059,8 +3063,22 @@ div.ui-memblist-usr .userVideos {
   width: 20%;
 }
 
-#virtualclassCont.congrea #errorContainer #closeMsg {
-  padding: 0 4px;
+#virtualclassCont.congrea .errorContainer .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #fff;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: #ed595a;
+  border: none;
+  border-radius: 0 4px;
+  cursor: pointer;
+  pointer-events: auto;
+  display: inline-block;
+  height: 1.25rem;
+  width: 1.25rem;
+  text-align: center;
 }
 
 #virtualclassCont.congrea #popupContainer .popupWindow.urlValidation {
@@ -3633,6 +3651,13 @@ span#usertab_text {
 #virtualclassPreCheck #preCheckcontainer .modal-dialog .modal-content {
   padding: 0;
   max-height: unset;
+  box-shadow: 0 2px 10px 0 rgba(32,33,36,0.28) !important;
+  border-radius: 12px;
+  max-height: unset;
+}
+
+#virtualclassPreCheck #preCheckcontainer .modal-dialog .modal-content .modal-body {
+  padding: 0.9375rem;
 }
 
 /** suman start **/
@@ -3694,20 +3719,21 @@ span#usertab_text {
   right: 10px;
 }
 
+#virtualclassCont.congrea #congdashboard .close {
+  margin: -3px 5px;
+  display: inline-block;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 5px;
+  font-size: 13px;
+  border-radius: 4px;
+  font-weight: 400;
+  letter-spacing: 1.3px;
+}
+
 #virtualclassCont.congrea #dashboardContainer .modal-header button.enable:hover {
   background-image: linear-gradient(to bottom, #e6e6e6 0%, #e6e6e6 100%);
 }
-
-/* #virtualclassCont.congrea  #dashboardContainer .in .modal-header button{
-	 display: none;
-}
-
-#virtualclassCont.congrea  #dashboardContainer .fade .modal-header button {
-
-	display: block;
-	position: absolute;
-    right: 10px;
-} */
 
 #virtualclassCont.congrea #dashboardContainer .dashboardContainer .dbContainer #docsUploadMsz .alert-dismissable {
   width: 80%;
@@ -3885,6 +3911,11 @@ span#usertab_text {
 
 #virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog {
   width: 400px;
+}
+
+#virtualclassCont.congrea #joinClass #joinClassModal .modal-dialog .modal-content {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px 0 rgba(32,33,36,0.28) !important;
 }
 
 #virtualclassCont.congrea .bootstrap #joinClassModal .modal-dialog .textCont {
@@ -4143,9 +4174,6 @@ span#usertab_text {
 /* } */
 
 @media (max-width: 1100px) {
-  #virtualclassCont.congrea #errorContainer {
-    bottom: 50px;
-  }
 
   #virtualclassCont.congrea.playMode #popupContainer.playPopup #loadingWindowCont .askToPlay {
     width: 4.375rem;
@@ -4197,6 +4225,13 @@ span#usertab_text {
   right: 3.25rem;
 }
 
+#virtualclassCont.congrea #fullScreenButton .fullScreen,
+#virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
+  padding: 0.6875rem 1.125rem 0.75rem 1.125rem;
+  line-height: 1.25rem;
+  font-size: 1.25rem;
+}
+
 #virtualclassCont.congrea #fullScreenExitButton {
   display: none;
 }
@@ -4233,7 +4268,7 @@ span#usertab_text {
   color: #fff;
   order: 1;
   z-index: 1000;
-  padding: 0.71875rem 0.9375rem 0.78125rem 0.9375rem;
+  padding: 0.71875rem 1rem 0.78125rem 1rem;
   cursor: pointer;
 }
 
@@ -4241,7 +4276,7 @@ span#usertab_text {
   color: #fff;
   order: 3;
   z-index: 1000;
-  padding: 0.6875rem 0.9375rem;
+  padding: 0.75rem 0.8125rem 0.6875rem 0.8125rem;
   cursor: pointer;
 }
 
@@ -4341,27 +4376,28 @@ span#usertab_text {
 } */
 
 #virtualclassCont #virtualclassAppFooterPanel #recording span.recordingText {
-  margin-left: 0.875rem;
+  margin-left: 0.625rem;
   line-height: 1.125rem;
-  font-size: 0.9375rem;
-  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  font-weight: 500;
 }
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 5px 0 rgba(196, 2, 2, 0.4);
+    box-shadow: 0 0 3px 0 rgba(196, 2, 2, 0.4);
   }
 
   65% {
-    box-shadow: 0 0 5px 10px rgba(173, 0, 0, 0.4);
+    box-shadow: 0 0 5px 8px rgba(173, 0, 0, 0.4);
   }
 
   70% {
-    box-shadow: 0 0 5px 10px rgba(173, 0, 0, 0.3);
+    box-shadow: 0 0 5px 8px rgba(173, 0, 0, 0.3);
   }
 
   100% {
-    box-shadow: 0 0 5px 10px rgba(173, 0, 0, 0);
+    box-shadow: 0 0 5px 8px rgba(173, 0, 0, 0);
   }
 }
 
@@ -4371,15 +4407,15 @@ span#usertab_text {
   }
 
   65% {
-    box-shadow: 0 0 5px 10px rgba(136, 88, 0, 0.4);
+    box-shadow: 0 0 5px 8px rgba(136, 88, 0, 0.4);
   }
 
   70% {
-    box-shadow: 0 0 5px 10px rgba(136, 88, 0, 0.3);
+    box-shadow: 0 0 5px 8px rgba(136, 88, 0, 0.3);
   }
 
   100% {
-    box-shadow: 0 0 5px 10px rgba(150, 98, 1, 0);
+    box-shadow: 0 0 5px 8px rgba(150, 98, 1, 0);
   }
 }
 
@@ -4517,19 +4553,47 @@ body {
 }
 
 #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn .warningWrapper {
-  position: absolute;
+  padding: 5rem;
+  flex: 1;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  text-align: center;
-  width: 70%;
+  position: absolute;
+  width: 68%;
+}
+
+html.pwaSupported #virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn .warningWrapper {
+  transform: unset;
+  position: unset;
+  width: unset;
+}
+
+#virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer {
+  display: none;
+}
+
+html.pwaSupported #virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn #installContainer {
+  padding: 5rem;
+  display: block;
+}
+
+html.pwaSupported #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer p {
+  font-size: 19px;
+  color: #c0c0c0;
+}
+
+html.pwaSupported #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer button {
+  background-image: none !important;
+  border-radius: 8px;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  font-size: 1em;
+  padding: 0.75em;
 }
 
 #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn .warningWrapper p {
   font-size: 20px;
-
-  /* font-weight: 300; */
-  margin-top: 28px;
   color: #c0c0c0;
 }
 
@@ -4563,7 +4627,8 @@ body {
 
 @media only screen and (orientation: portrait) {
   #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn {
-    display: block;
+    display: flex;
+    flex-direction: column;
     height: 100%;
     background-color: #000;
     color: #fff;
@@ -4649,4 +4714,13 @@ body {
 
 #virtualclassCont.congrea #editPollModal #pollModalBody #contBody #enTimer label select {
   cursor: pointer;
+}
+
+html.pwaRunning #virtualclassCont.congrea #fullScreenButton,
+html.pwaRunning #virtualclassCont.congrea #fullScreenExitButton {
+  display: none !important;
+}
+
+html.pwaRunning #virtualclassCont.congrea #bookmark {
+  right: 0;
 }

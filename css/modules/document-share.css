@@ -933,7 +933,7 @@
   position: absolute;
   top: 45px;
   right: 20px;
-  padding: 11px 12px 9px 12px;
+  padding: 9.5px 13px 9.5px 13px;
   border-radius: 20px;
   box-shadow: 0 2px 5px 1px #c3c3c3;
 }
@@ -980,7 +980,7 @@
 }
 
 .congrea #stdPageNo {
-  color: #000;
+  color: #555;
   font-size: 0.75rem;
 }
 
@@ -994,7 +994,7 @@
 #virtualclassCont.congrea.student #totalPages,
 #virtualclassCont.congrea.student[data-currapp='DocumentShare'] #totalPages {
   margin-right: 0.8125rem;
-  color: #000;
+  color: #555;
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .showZoom #docShareNav,
@@ -1037,7 +1037,7 @@
 }
 
 #virtualclassCont.congrea.student .pageHead {
-  color: #000;
+  color: #555;
 }
 
 #virtualclassCont.congrea #ancCont,

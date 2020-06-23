@@ -206,12 +206,6 @@
     height: calc(100% - 3rem);
   }
 
-  #virtualclassCont.congrea #virtualclassAppFooterPanel #proposedSpeed {
-    width: 1.25rem;
-    height: 1.625rem;
-    padding: 0.5625rem 0.811115rem;
-  }
-
   #virtualclassCont.congrea .zoomControler {
     position: absolute;
     bottom: 2.5rem;
@@ -334,13 +328,35 @@
     padding: 0.67857rem 0.8571rem 0.8571rem 0.9285rem;
   }
 
-  /* #virtualclassCont.congrea a.inner_bt {
-    padding: 0.6785rem 1rem 0.6428rem 1rem;
-  } */
+  html.pwaRunning #virtualclassCont.congrea #preCheckcontainer .modal {
+  background-color: #e4e4e4;
+  background: linear-gradient(to right, #bdeafe 0%,#acc3fb 100%);
+}
 
-  /* #virtualclassCont.congrea .vmchat_room_bt .inner_bt {
-    padding: 0.8125rem 0.8125rem 0.6875rem 0.8125rem;
-  } */
+  html.pwaRunning #virtualclassCont.congrea #joinClass #joinClassModal {
+    background-color: #e4e4e4 !important;
+    background: linear-gradient(to right, #bdeafe 0%,#acc3fb 100%);
+  }
+
+  html.pwaRunning #virtualclassCont.congrea .progressbar li.active.current::before {
+    color: unset;
+    background: -webkit-linear-gradient(#9c47fc, #356ad2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  html.pwaRunning #virtualclassCont.congrea #virtualclassPreCheck .testName {
+    font-weight: 500;
+    color: #6b6b6b;
+    margin-bottom: 1.5rem;
+    background: -webkit-linear-gradient(#9c47fc, #356ad2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  #virtualclassCont.congrea #virtualclassPreCheck.bootstrap .btn {
+    padding: 6px 12px;
+  }
 
   #virtualclassCont.congrea li#appSettingCtrl > a {
     padding: 0.7142rem 0.8571rem 0.6428rem 0.92857rem;
@@ -363,6 +379,19 @@
   #virtualclassCont.congrea #askQuestion .question .container .header .lable {
     font-size: 0.75rem;
   }
+
+  /* #virtualclassCont.congrea #mainerrorContainer {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    left: unset;
+    bottom: unset;
+    transform: unset;
+  }
+
+  #virtualclassCont.congrea #mainerrorContainer .errorContainer {
+    display: block;
+  } */
 }
 
 /* To Target medium resolutions mobiles */
@@ -458,8 +487,7 @@
   }
 
   #virtualclassCont.congrea[device="mobile"] #networkStatusContainer #connectingRoomIcon {
-    margin-top: 1px;
-    margin-right: 10px;
+    margin: 0.3rem 0.8rem
   }
 
   #virtualclassCont.congrea #virtualclassPreCheck .result div {
@@ -495,6 +523,11 @@
     font-weight: 600;
     font-family: 'icomoon';
     font-size: 0.9375rem;
+  }
+
+  #virtualclassCont.congrea #fullScreenButton .fullScreen,
+  #virtualclassCont.congrea #fullScreenExitButton [data-title="Exit Full Screen"] {
+    line-height: 1.15rem;
   }
 
   html,

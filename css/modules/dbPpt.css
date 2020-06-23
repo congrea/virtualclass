@@ -77,7 +77,6 @@
   width: 150px;
   border: 1px solid #bdbdbd;
   border-radius: 0;
-  background: linear-gradient(to bottom, #515e69 0%, #34404c 100%);
   border-top-left-radius: 3px;
   border-top-right-radius: 4px;
   padding: 8px;
@@ -96,14 +95,13 @@
   font-family: 'icomoon';
   font-size: 18px;
   padding-top: 0;
-  color: #606060;
 }
 
 #virtualclassCont.congrea #listppt .linkppt .mainpreview {
   font-size: 0;
   border-radius: 2px;
   float: left;
-  margin: -2px 2px 3px;
+  margin: -3px 2px 3px;
   height: 20px;
   padding-top: 2px;
 }
@@ -122,7 +120,7 @@
   float: left;
   width: 26px;
   font-size: 0;
-  margin: -5px 1px 1px 0;
+  margin: -5px 1px 1px 16px;
   height: 20px;
   padding-top: 2px;
 }
@@ -136,7 +134,7 @@
 #virtualclassCont.congrea #listppt .linkppt.links .controls.delete {
   float: left;
   font-size: 0;
-  margin: -5px 1px 1px 0;
+  margin: -5px 1px 1px 16px;
   height: 20px;
   padding-top: 2px;
 }
@@ -146,7 +144,7 @@ input.form-submit,
 input[type="button"],
 input[type="submit"],
 input[type="reset"] {
-  text-shadow: none !important;
+  text-shadow: none;
 }
 
 #virtualclassCont #urlcontainer #presentationurl {
@@ -154,14 +152,14 @@ input[type="reset"] {
 }
 
 #virtualclassCont .dashboardview #urlcontainer #presentationurl {
-  height: 70% !important;
+  height: 70%;
   width: 50%;
   font-size: 16px;
   padding: 10px;
 }
 
 #virtualclassCont.congrea #SharePresentationDashboard .controlCont.showCtr {
-  display: block !important;
+  display: block;
 }
 
 #virtualclassCont.congrea #pptListContainer {
@@ -174,13 +172,13 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea .linkppt.htn {
-  border: solid #98c2ff 1px !important;
+  border: solid #98c2ff 1px;
   opacity: 1;
 }
 
 #virtualclassCont.congrea .linkppt.dragElem {
-  background-color: #98c2ff !important;
-  border: solid #2029ff 1px !important;
+  background-color: #98c2ff;
+  border: solid #2029ff 1px;
   opacity: 1;
 }
 
@@ -209,7 +207,7 @@ input[type="reset"] {
 }
 
 #virtualclassCont.congrea #listppt .linkppt .controlCont .controls {
-  margin-left: 16px !important;
+  margin-left: 16px;
   padding-right: 5px;
 }
 
@@ -223,7 +221,7 @@ input[type="reset"] {
 
 #virtualclassCont.congrea #listppt .linkppt .controls::before {
   font-size: 15px;
-  color: rgba(96, 96, 96, 0.81);
+  color: rgba(0, 0, 0, 0.81);
   opacity: 0.7;
 }
 

@@ -33,13 +33,13 @@
 
 #virtualclassCont .icon-pencil2::before {
   content: "\f044";
-  font-size: 18px !important;
+  font-size: 18px;
   color: #717171;
 }
 
 #virtualclassCont .icon-bin22::before {
   content: "\f014";
-  font-size: 18px !important;
+  font-size: 18px;
   color: #717171;
 }
 
@@ -66,7 +66,7 @@
 
 #virtualclassCont .icon-publish2::before {
   content: "\e924";
-  font-size: 14px !important;
+  font-size: 14px;
   color: #717171;
 }
 
@@ -132,25 +132,6 @@
   font-size: 30px;
   content: "\e9b6";
   margin-left: 3px;
-}
-
-#virtualclassCont.congrea #speakerPressOnce span i {
-  position: absolute;
-  top: -3px;
-  right: 24px;
-  width: 11px; /* Changed from 16px */
-  height: 22px; /* 25px */
-  display: block;
-  border-radius: 2px;
-  -webkit-transition: all 200ms ease;
-  -moz-transition: all 200ms ease;
-  -o-transition: all 200ms ease;
-  -ms-transition: all 200ms ease;
-  transition: all 200ms ease;
-  background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(252, 252, 252, 1) 11%, rgba(228, 228, 228, 1) 50%, rgba(221, 221, 221, 1) 53%, rgba(205, 205, 205, 1) 97%, rgba(191, 191, 191, 1) 100%);
-  background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(252, 252, 252, 1) 11%, rgba(228, 228, 228, 1) 50%, rgba(221, 221, 221, 1) 53%, rgba(205, 205, 205, 1) 97%, rgba(191, 191, 191, 1) 100%);
-  background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(252, 252, 252, 1) 11%, rgba(228, 228, 228, 1) 50%, rgba(221, 221, 221, 1) 53%, rgba(205, 205, 205, 1) 97%, rgba(191, 191, 191, 1) 100%);
-  border: #aaa 1px solid;
 }
 
 #virtualclassCont.congrea #speakerPressOnce.active #speakerPressonceAnch span#speakerPressonceLabel::before {
@@ -261,7 +242,7 @@
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
-  color: #ea0000 !important;
+  color: #ea0000;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel .active #speakerPressingbtnIcon::before {
@@ -269,7 +250,7 @@
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
-  color: #08b207 !important;
+  color: #08b207;
   z-index: -1;
 }
 
@@ -290,7 +271,7 @@
   font-weight: normal;
   font-size: 20px;
   font-family: 'icomoon';
-  color: orange !important;
+  color: orange;
 }
 
 #virtualclassCont.congrea #virtualclassAppFooterPanel #audioWidget #mainAudioPanel .dactive #speakerPressingbtnIcon.silenceDetect[data-silence-detect="stop"]::before {
@@ -298,7 +279,7 @@
   font-weight: normal;
   font-size: 1.25rem;
   font-family: 'icomoon';
-  color: white !important;
+  color: white;
 }
 
 #virtualclassCont.congrea .commandToolsWrapper .icon-rectangle::before {
@@ -500,35 +481,30 @@
   content: "\e901";
   font-family: 'icomoon';
   font-size: 2.25rem;
-  padding-top: 4px;
 }
 
 #virtualclassCont.congrea #preCheckcontainer .screen1.browser::before {
   content: "\e903";
   font-family: 'icomoon';
   font-size: 2.75rem;
-  padding-top: 4px;
 }
 
 #virtualclassCont.congrea #preCheckcontainer .screen2.bandwidth::before {
   content: "\e902";
   font-family: 'icomoon';
   font-size: 2.25rem;
-  padding-top: 4px;
 }
 
 #virtualclassCont.congrea #preCheckcontainer .screen3.webcam::before {
   content: "\e900";
   font-family: 'icomoon';
   font-size: 3.125rem;
-  padding-top: 4px;
 }
 
 #virtualclassCont.congrea #preCheckcontainer .screen4.mic::before {
   content: "\f130";
   font-family: 'icomoon';
   font-size: 2.25rem;
-  padding-top: 4px;
 }
 
 #virtualclassCont.congrea #videoList .linkvideo .mainpreview::before {
@@ -609,14 +585,14 @@
   content: "\f00a";
   font-weight: normal;
   font-family: 'icomoon';
-  font-size: 23px;
+  font-size: 19px;
   color: white;
 }
 
 #virtualclassCont.congrea #virtualclassMultiVideoTool .icon-videoConfrence::before {
   content: "\f0c0";
   font-size: 18px;
-  color: #eee !important;
+  color: #eee;
   position: relative;
   top: 2px;
 }
@@ -646,7 +622,7 @@
 #virtualclassCont.congrea .icon-zoonIn::before {
   content: "\e9a4";
   font-size: 0.75rem;
-  color: #464646;
+  color: #8e8e8e;
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
@@ -655,7 +631,7 @@
 #virtualclassCont.congrea .icon-zoomOut::before {
   content: "\e9a5";
   font-size: 0.75rem;
-  color: #464646;
+  color: #8e8e8e;
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
@@ -664,7 +640,7 @@
 #virtualclassCont.congrea .icon-fitScreen::before {
   content: "\e99b";
   font-size: 0.9375rem;
-  color: #464646;
+  color: #8e8e8e;
   font-weight: 100;
   font-variant: normal;
   -webkit-font-smoothing: antialiased;
@@ -705,9 +681,6 @@
 
 #virtualclassCont.congrea .shapes_icon .icon-shapes.cgIcon::before {
   content: "\e994";
-}
-
-#virtualclassCont.congrea .shapesToolbox[data-currTool="shapes"] .shapes_icon .icon-shapes.cgIcon::before {
   font-size: 21px;
 }
 
@@ -738,7 +711,7 @@
   font-weight: normal;
   font-family: 'icomoon';
   font-size: 13px;
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassApp.collapsedRightbar .icon-sidebarButton::before {
@@ -746,7 +719,7 @@
   font-weight: normal;
   font-family: 'icomoon';
   font-size: 13px;
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #rightBarHeader #askQuestionHeader .header .addQuestion-icon::before {
@@ -758,22 +731,13 @@
   color: #fff;
 }
 
-#virtualclassCont.congrea #rightBarHeader #askQuestionHeader .header .help-icon::before {
-  content: "\f29c";
-  font-weight: normal;
-  font-family: 'icomoon';
-  font-size: 1.125rem;
-  cursor: pointer;
-  color: #fff !important;
-}
-
 #virtualclassCont.congrea #rightBarHeader #askQuestionHeader .header .fullScreen-icon.deactive::before {
   content: "\e9da";
   font-weight: normal;
   font-family: 'icomoon';
   font-size: 1rem;
   cursor: pointer;
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #rightBarHeader .fullScreen-icon::before {
@@ -782,7 +746,7 @@
   font-family: 'icomoon';
   font-size: 0.9375rem;
   cursor: pointer;
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #rightBarHeader .exitFullScreen-icon::before {
@@ -791,7 +755,7 @@
   font-family: 'icomoon';
   font-size: 0.9375rem;
   cursor: pointer;
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .header .closed-icon::before {
@@ -995,7 +959,7 @@
 #virtualclassCont.congrea .bookmarks[data-value="1"] .icon-bookmark::before {
   content: "\e9f8";
   font-size: 1.0625rem;
-  color: #30b2ff !important;
+  color: #30b2ff;
 }
 
 #virtualclassCont.congrea #askQuestion #writeContent .action .cancel::before {
@@ -1038,13 +1002,4 @@
   cursor: pointer;
   text-transform: capitalize;
   color: #fff;
-}
-
-#virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer::before {
-  content: "\e997";
-  font-weight: normal;
-  font-family: 'icomoon';
-  font-size: 0.9375rem;
-  color: #ffae48;
-  margin-right: 0.4375rem;
 }

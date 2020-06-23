@@ -224,14 +224,14 @@ let msg;
             return false;
           }
         })
-        .focusin(() => {
-          uiChatboxInputBox.addClass('ui-chatbox-input-focus');
-          virtualclass.vutil.inputFocusHandler();
-        })
-        .focusout(() => {
-          uiChatboxInputBox.removeClass('ui-chatbox-input-focus');
-          virtualclass.vutil.inputFocusOutHandler();
-        });
+        // .focusin(() => {
+        //   uiChatboxInputBox.addClass('ui-chatbox-input-focus');
+        //   virtualclass.vutil.inputFocusHandler();
+        // })
+        // .focusout(() => {
+        //   uiChatboxInputBox.removeClass('ui-chatbox-input-focus');
+        //   virtualclass.vutil.inputFocusOutHandler();
+        // });
 
       uiChatboxContent.children().click(() => {
         self.uiChatboxInputBox.focus();

@@ -6,7 +6,27 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="https://live.congrea.net/manifest.json">
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ijhofagnokdeoghaohcekchijfeffbjl">
+<!-- CODELAB: Add iOS meta tags and icons -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Congrea">
+<link rel="apple-touch-icon" href="https://live.congrea.net/virtualclass/images/Congrea192x192.png">
+<link href="https://live.congrea.net/virtualclass/images/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="https://live.congrea.net/virtualclass/images/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<!-- CODELAB: Add description here -->
+<meta name="description" content="Congrea">
+<!-- CODELAB: Add meta theme-color -->
+<meta name="theme-color" content="#fff" />
 
 <style>
 	@font-face {
@@ -178,6 +198,7 @@ if($info) {
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dashboard.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dbPpt.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/dbVideo.css" ?> />
+	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/test.css" ?> />
 
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/multivideo.css" ?> />
 	<link rel="stylesheet" type="text/css" href= <?php echo $whiteboardpath . "css/modules/right-sidebar.css" ?> />
@@ -200,7 +221,19 @@ if($info) {
 }
 ?>
 
+<script type="text/javascript"> 
+	if ('serviceWorker' in navigator) { 
+		window.addEventListener('load', ()=> {
+			navigator.serviceWorker.register('../../service-worker.js')
+				.then((reg) => {
+					console.log('Service worker registered.', reg);
+				});
+			});
+	}
+</script>
+
 <script type="text/javascript">
+	
    "user strict";
     let virtualclassSetting = {};
     virtualclassSetting.settings = "FFFFF";
@@ -229,6 +262,14 @@ if($info) {
     window.webapi = "<?php echo $whiteboardpath ."webapi.php?cmid=".$cmid; ?>";
     window.congCourse =  "<?php echo $cmid ?>";
 </script>
+<noscript>
+	<h2>JavaScript is disabled! Why you want to do so? 
+	Please enable JavaScript in your web browser!</h2>
+
+	<style type="text/css">
+		#main-content { display:none; }
+	</style>
+</noscript>
 <?php
 
 if ($info) {

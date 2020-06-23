@@ -1,6 +1,6 @@
 #virtualclassCont.congrea .screen {
   display: none;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #virtualclassCont.congrea .current {
@@ -22,8 +22,6 @@
 #virtualclassCont.congrea .page_wrapper {
   overflow: hidden;
   position: relative;
-
-  /* height: 280px; */
   top: auto;
 }
 
@@ -201,26 +199,12 @@
 }
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass.container {
-  /* width: calc(100% - 70px); */
-
-  /* height: calc(100vh - 54px) !important; */
-
-  /* padding: 20px; */
-
   text-align: center;
   float: left;
   margin: 0;
 
   /* margin-left : 60px; */
 }
-
-/* #virtualclassCont.congrea.student #virtualclassDocumentShare.virtualclass.container { */
-
-/* !*width: calc(100% - 20px) !important;*! */
-
-/* !*margin-left : 10px !important;*! */
-
-/* } */
 
 #virtualclassCont.congrea #virtualclassDocumentShare.virtualclass #documentScreen {
   width: 100%;
@@ -399,7 +383,7 @@
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links img.thumbnail {
-  border-width: 0 !important;
+  border-width: 0;
   margin: 0;
 
   /* max-width: 60px; */
@@ -546,19 +530,19 @@
 }
 
 #virtualclassCont.congrea #DocumentShareDashboard .controlCont.showCtr {
-  display: block !important;
+  display: block;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.links .controlCont.showCtr {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes:hover .controlCont.showCtr {
-  display: block !important;
+  display: block;
 }
 
 #virtualclassCont.congrea #listnotes .linknotes.currentNav:hover .controlCont.showCtr {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassDocumentShare.virtualclass #listdocs .linkdocs .controls.status[data-status="0"] {
@@ -665,7 +649,7 @@
   -webkit-box-orient: vertical;
   max-width: 80%;
   font-family: monospace;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #444;
 }
 
@@ -949,13 +933,13 @@
   position: absolute;
   top: 45px;
   right: 20px;
-  padding: 11px 12px 9px 12px;
+  padding: 9.5px 13px 9.5px 13px;
   border-radius: 20px;
   box-shadow: 0 2px 5px 1px #c3c3c3;
 }
 
 #virtualclassCont.congrea .openRightbar #docShareNav #addNewPage:hover {
-  background-image: linear-gradient(to bottom, #fdfdfd 0%, #eaeaea 100%) !important;
+  background-image: linear-gradient(to bottom, #fdfdfd 0%, #eaeaea 100%);
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'].teacher #docShareNav,
@@ -995,14 +979,8 @@
   display: none;
 }
 
-/* #virtualclassCont.congrea.playMode[data-currapp = 'DocumentShare'].student #docShareNav, #virtualclassCont.congrea.playMode[data-currapp = 'Whiteboard'].student #docShareNav {
-  right: 58px !important;
-  bottom: 3.75rem;
-  z-index: 9;
-} */
-
 .congrea #stdPageNo {
-  color: #000;
+  color: #555;
   font-size: 0.75rem;
 }
 
@@ -1016,7 +994,7 @@
 #virtualclassCont.congrea.student #totalPages,
 #virtualclassCont.congrea.student[data-currapp='DocumentShare'] #totalPages {
   margin-right: 0.8125rem;
-  color: #000;
+  color: #555;
 }
 
 #virtualclassCont.congrea[data-currapp='DocumentShare'] .showZoom #docShareNav,
@@ -1035,7 +1013,7 @@
 }
 
 #virtualclassCont[data-currapp="DocumentShare"] .canvasWrapper .whiteboards {
-  z-index: auto !important;
+  z-index: auto;
 }
 
 /* #virtualclassCont[data-currapp="DocumentShare"] #docScreenContainer .canvasWrapper .pdfs {
@@ -1043,7 +1021,7 @@
 } */
 
 #docShareNav.hide {
-  display: none !important;
+  display: none;
 }
 
 #virtualclassCont.congrea .noteIndex,
@@ -1059,7 +1037,7 @@
 }
 
 #virtualclassCont.congrea.student .pageHead {
-  color: #000;
+  color: #555;
 }
 
 #virtualclassCont.congrea #ancCont,
@@ -1077,18 +1055,13 @@
   top: -5px;
   right: 35px;
   left: unset;
-  bottom: unset !important;
+  bottom: unset;
+  padding: 6px;
 }
 
 #virtualclassCont.congrea #pageAnc {
   color: #fff;
   font-size: 0.75rem;
-}
-
-#virtualclassCont.congrea .icon-newPage::after {
-  left: -43px;
-  padding: 6px !important;
-  bottom: 31px !important;
 }
 
 @-moz-document url-prefix() {

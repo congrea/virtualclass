@@ -50,7 +50,7 @@
 }
 
 #virtualclassCont.congrea div.CodeMirror-cursors {
-  visibility: visible !important;
+  visibility: visible;
 }
 
 #virtualclassCont.congrea .block.editorRichImg {
@@ -83,17 +83,12 @@
 }
 
 #virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch {
-  /* padding: 16px 14px 14px 14px !important; */
   font-size: 14px;
-  border-radius: 0 !important;
+  border-radius: 5px;
 }
 
-/* #virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch:hover {
-  background-image: radial-gradient(ellipse at center, #2c393d 0%, #4c5a5f 100%) !important;
-} */
-
 #virtualclassCont.congrea #alleditorRichContainer.congtooltip:hover::after {
-  bottom: 45px !important;
+  bottom: 45px;
   right: -29px;
 }
 
@@ -105,7 +100,7 @@
 
 #virtualclassCont.congrea #virtualclassYtsTool,
 #virtualclassCont.congrea #virtualclassEditorCodeTool {
-  border-bottom: none !important;
+  border-bottom: none;
 }
 
 #virtualclassCont.congrea #virtualclassEditorRichBody {
@@ -126,7 +121,7 @@
 }
 
 #virtualclassCont.congrea #alleditorCodeContainer {
-  border-radius: 5px !important;
+  border-radius: 5px;
   top: 6px;
   right: 6px;
 }
@@ -272,24 +267,6 @@
 #virtualclassCont.congrea.teacher[data-currapp="ScreenShare"] .zoomControler {
   display: none;
 }
-
-/* #virtualclassCont.congrea.teacher[data-currapp="EditorRich"] .controllereditorRich, */
-
-/* #virtualclassCont.congrea.teacher[data-currapp="EditorCode"] .controllereditorCode */
-
-/* { */
-
-/* display:block !important; */
-
-/* } */
-
-/* #virtualclassCont.congrea.teacher .controllereditorRich, */
-
-/* #virtualclassCont.congrea.teacher .controllereditorCode { */
-
-/* display:none !important; */
-
-/* } */
 
 /** TODO, the code editor should be removed in proper way **/
 #virtualclassCont.congrea #virtualclassEditorCodeTool {

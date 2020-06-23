@@ -38,7 +38,7 @@
 }
 
 #virtualclassCont.congrea #popupContainer div#about-modal[data-curr-popup="chromeExt"] {
-  left: 45% !important;
+  left: 45%;
 }
 
 .rv-vanilla-modal-overlay {
@@ -50,9 +50,6 @@
   background: rgba(0, 0, 0, 0.5);
   opacity: 0;
   display: none;
-
-  /* -webkit-transition:.4s opacity linear;
-    transition:.4s opacity linear; */
   z-index: 100000;
 }
 
@@ -64,7 +61,7 @@
 
 .rv-vanilla-modal-body {
   overflow: auto;
-  color: #3c3c3c !important;
+  color: #3c3c3c;
   padding: 23px 25px 10px;
   min-width: 400px;
 }
@@ -95,7 +92,7 @@
 }
 
 #virtualclassCont.congrea .hidden {
-  display: none !important;
+  display: none;
   visibility: hidden;
 }
 
@@ -268,7 +265,7 @@
 }
 
 #virtualclassCont.congrea #totProgressCont {
-  margin-bottom: 20px !important;
+  margin-bottom: 20px;
 }
 
 #virtualclassCont.congrea #downloadProgressValue.progressValue {
@@ -361,15 +358,10 @@
   background-image: none;
 }
 
-#virtualclassCont.congrea #confirmCancel #confirmCancelButton:hover {
-  background-image: none;
-  background-color: #515e69 !important;
-}
-
 #virtualclassCont.congrea #popupContainer .rv-vanilla-modal-is-open {
   display: block;
   z-index: 100001;
-  border-width: 2px !important;
+  border-width: 2px;
   position: absolute;
   width: fit-content;
   top: 50%;
@@ -389,26 +381,14 @@
 #virtualclassCont.congrea #about-modal #recordPlay .rv-vanilla-modal-body,
 #virtualclassCont.congrea .rv-vanilla-modal,
 #virtualclassCont.congrea #confirm.popupWindow.simple-box {
-  border-radius: 13px !important;
+  border-radius: 13px;
 }
-
-/* #virtualclassCont.congrea #downloadProgress{ */
-
-/* background-color: #eee; */
-
-/* } */
-
-/* #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorRichContainer, #virtualclassCont.congrea #alleditorCodeContainer, #virtualclassCont.congrea #alleditorRichContainer:hover, #virtualclassCont.congrea #alleditorCodeContainer:hover{ */
-
-/* background-image: none; */
-
-/* } */
 
 #alleditorCodeContainer [data-action="enable"],
 #virtualclassCont.congrea #alleditorRichContainer [data-action="enable"] {
   font-weight: normal;
-  border-radius: 5px !important;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  border-radius: 5px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer [data-action="enable"]::before {
@@ -431,7 +411,7 @@
 
 #alleditorCodeContainer [data-action="disable"],
 #virtualclassCont.congrea #alleditorRichContainer [data-action="disable"] {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #virtualclassCont.congrea #alleditorRichContainer #alleditorRichContainerAnch span {

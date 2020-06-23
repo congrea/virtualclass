@@ -173,6 +173,7 @@ var ioAdapter = {
     if (localSession === null) {
       console.log('====> congrea session 1, from server');
       localStorage.setItem('mySession', session);
+      virtualclass.gObj.currentSession = session;
       io.sessionSet = true;
     } else if (localSession !== session) {
       console.log('====> congrea session 1, from local storage, does not respect server session');

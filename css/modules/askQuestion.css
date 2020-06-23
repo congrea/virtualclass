@@ -73,21 +73,6 @@
   margin-left: -0.1875rem;
 }
 
-/* #virtualclassCont.congrea #askQuestion .container .footer .controls div,
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .answersNavigation,
-#virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply,
-#virtualclassCont.congrea #askQuestion .container .header .info span,
-#virtualclassCont.congrea #askQuestion .container .question .header .info .lable,
-#virtualclassCont.congrea #askQuestion .container .question .header .info .closed-icon,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .upVote,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .commentsNavigation,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .comment,
-#virtualclassCont.congrea #askQuestion .container .answer .header .info .userName,
-#virtualclassCont.congrea #askQuestion .container .answer .header .info .lable,
-#virtualclassCont.congrea #askQuestion .container .answer .header .info .acceptedAnswer {
-  display: inline-block;
-} */
-
 #virtualclassCont.congrea #askQuestion .container .header .info span.userName {
   display: inline-block;
   flex: 1;
@@ -269,6 +254,11 @@
   background-color: #fff;
 }
 
+#virtualclassCont.congrea #askQuestion #writeContent:hover {
+  box-shadow: 0 0 3px #8cc9fd;
+  border: 1px solid #8cc9fd !important;
+}
+
 #virtualclassCont #askQuestion.tempDown #writeContent {
   pointer-events: visible;
 }
@@ -320,7 +310,7 @@
 #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"],
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .upVote,
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply {
-  pointer-events: none !important;
+  pointer-events: none;
 }
 
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote,
@@ -353,11 +343,6 @@
 #virtualclassCont.congrea #askQuestion .container .question[data-mark-answer="marked"] .container[data-type="question"] .reply {
   opacity: 0.2;
 }
-
-/* #virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"] span.button::before,
-#virtualclassCont.congrea #askQuestion .upVote[data-upvote="upvoted"] span.total {
-  color: red !important;
-} */
 
 #virtualclassCont.congrea #askQuestion .context .container {
   padding: 0;
@@ -402,32 +387,6 @@
   margin-top: 4px;
 }
 
-/* #virtualclassCont.congrea #askQuestion .question .container {
-  border-left: 2px solid red;
-} */
-
-/* #virtualclassCont.congrea #askQuestion .answers .container::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 3%;
-  width: 2px;
-  height: 91%;
-  background: #1a9e1a;
-  display: inline-block;
-} */
-
-/* #virtualclassCont.congrea #askQuestion .comments .comment .container::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 1px;
-  width: 2px;
-  height: 91%;
-  background: #0270e1;
-  display: inline-block;
-} */
-
 #virtualclassCont.congrea #askQuestion .question .container .header {
   color: #545454;
   font-weight: 600;
@@ -440,18 +399,6 @@
 #virtualclassCont.congrea #askQuestion .question .container .header .info {
   display: flex;
 }
-
-/* #virtualclassCont.congrea #askQuestion .question .container[data-type="question"] .header span.userName {
-  color: #ff3838;
-}
-
-#virtualclassCont.congrea #askQuestion .question .answers .container .header span.userName {
-  color: #1a9e1a;
-}
-
-#virtualclassCont.congrea #askQuestion .question .comments .container .header span.userName {
-  color: #0170e1;
-} */
 
 #virtualclassCont.congrea #askQuestion .question .container .header .lable {
   color: #616161;
@@ -525,14 +472,6 @@
   flex-direction: row;
 }
 
-/* #virtualclassCont.congrea #askQuestion .container .footer.show {
-  opacity: .5;
-}
-
-#virtualclassCont.congrea #askQuestion .container .question:hover .footer.show {
-  opacity :1;
-} */
-
 #virtualclassCont.congrea #askQuestion .container .footer .controls .upVote .button {
   display: inline-block;
   padding: 0 0;
@@ -548,15 +487,6 @@
   display: inline-block;
   padding: 0;
 }
-
-/* #virtualclassCont.congrea #askQuestion .container .question .footer .controls .reply#virtualclassCont.congrea #askQuestion .comments .container {
-  border-left: 2px solid #1464f6;
-  margin-top: 3px;
-} .button,
-#virtualclassCont.congrea #askQuestion .container .answer .footer .controls .reply .#virtualclassCont.congrea #askQuestion .comments .container {
-  border-left: 2px solid #1464f6;
-  margin-top: 3px;
-}button, */
 
 #virtualclassCont.congrea #askQuestion .container .comment .footer .controls .navigation {
   margin-left: 0;
@@ -647,33 +577,10 @@
   display: block;
 }
 
-/* #virtualclassCont.congrea #askQuestion .content p #writeContent {
-  margin: 5px 4px 2px 5px;
-} */
-
-/* #virtualclassCont.congrea #askQuestion .content p #writeContent .action {
-  padding: 4px 0 6px 0;
-} */
-
 #virtualclassCont.congrea #askQuestion .container .comments .footer .controls .navigation .button {
   display: inline-block;
   padding: 0;
 }
-
-/* #virtualclassCont.congrea #askQuestion .question .container[data-type="question"]::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 3%;
-  width: 2px;
-  height: 93%;
-  background: #ff3838;
-  display: inline-block;
-} */
-
-/* #virtualclassCont.congrea #noteContainer {
-  display: none;
-} */
 
 #virtualclassCont.congrea #noteContainer .context.active {
   height: 100%;
@@ -817,7 +724,7 @@
 }
 
 #virtualclassCont.congrea #bookmark .bookmarks span.congtooltip:hover::after {
-  bottom: 47px !important;
+  bottom: 47px;
   left: -25px;
 }
 
@@ -912,42 +819,42 @@
   right: -42px;
 }
 
-/* #virtualclassCont.congrea #askQuestion .container .footer .controls .navigation.disable {
-  pointer-events: none;
-} */
-
-/* #virtualclassCont.congrea #virtualclassAppFooterPanel #stickycontainer .chatBarTab .askQuestion_btn.highlight-new-question {
-  background: #53a83f !important;
-} */
-
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer {
-  background-color: #fff;
-  box-shadow: #b5b5b5 0 3px 8px;
-  padding: 0.625rem 0.125rem 0.625rem 0.625rem;
-  border-radius: 0.3125rem;
-  text-align: center;
-  z-index: 1105;
-  width: fit-content;
-  color: #9c9c9c;
-  border: 0.5px solid #e69024;
   position: absolute;
-  animation: myfirst 1s;
-  bottom: 4.5rem;
-  letter-spacing: 1.5px;
-  right: 0;
+    animation: myfirst 1s;
+    bottom: 4.5rem;
+    right: 0;
+    background-color: #ffd3b9;
+    padding: 1rem 1.5rem 1rem 1rem;
+    border-radius: 5px;
+    text-align: left;
+    z-index: 1103;
+    width: -moz-fit-content;
+    color: #4b5658;
+    border-left: 5px solid #ec7329;
+    box-shadow: 0px 3px 3px 0px #b7b7b7;
+    margin: 6px 0;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer [classname="askQuestionMsg"] {
-  font-size: 0.75rem;
-  color: #525252;
+  font-size: 0.9rem;
 }
 
 #virtualclassCont.congrea #virtualclassAppRightPanel[data-currwindow="askQuestionHeader"] #rightSubContainer #askQuestion #msgContainer #closeAskQuestionMsg {
-  background-color: unset;
-  color: #000;
-  font-size: 0.75rem;
-  padding: 0.3125rem 0.4375rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #fff;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: #ec7329;
+  border: none;
   cursor: pointer;
+  pointer-events: auto;
+  display: inline-block;
+  height: 1.25rem;
+  width: 1.25rem;
+  text-align: center;
 }
 
 @keyframes myfirst {
@@ -1020,5 +927,5 @@
 }
 
 #virtualclassCont.congrea.playMode #virtualclassAppRightPanel #askQuestionHeader .header .action {
-  border-left: unset !important;
+  border-left: unset;
 }

@@ -637,6 +637,12 @@
         formData.append('timetaken', tt);
         formData.append('qusattempted', quesAttempted);
         formData.append('currectans', correctAns);
+        if (virtualclass.gObj.currentSession) {
+          formData.append('session', virtualclass.gObj.currentSession);
+        } else   if (localStorage.mySession != null) {
+          formData.append('session', localStorage.mySession);
+        }
+        
         virtualclass.xhr.vxhr.post(`${window.webapi}&methodname=congrea_quiz_result`, formData).then((data) => {
           if (data.data !== 'ture') {
             // console.log('Quiz data not saved in congrea');

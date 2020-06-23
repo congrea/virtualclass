@@ -13,7 +13,7 @@
     "grunt-contrib-nodeunit": "^2.0.0",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "^4.0.1",
-    "grunt-contrib-watch": "~1.1.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-htmlcompressor": "~0.1.10",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0"

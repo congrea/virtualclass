@@ -298,6 +298,36 @@
       elem.classList.remove('fullScreenMode');
     },
 
+    installPwaBtn() {
+      const divInstall = document.getElementById('installContainer');
+      console.log('👍', 'butInstall-clicked');
+        const promptEvent = window.deferredPrompt;
+        if (!promptEvent) {
+          // The deferred prompt isn't available.
+          // divInstall.classList.toggle('hidden', true);
+          console.log("App is already added to your home screen");
+          return;
+        }
+        // Show the install prompt.
+        promptEvent.prompt();
+        // Log the result
+        promptEvent.userChoice.then((result) => {
+          console.log('👍', 'userChoice', result);
+          // Reset the deferred prompt variable, since
+          // prompt() can only be called once.
+          window.deferredPrompt = null;
+          // Hide the install button.
+          // divInstall.classList.toggle('hidden', true);
+          if (result.outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+            divInstall.classList.toggle('hidden', true);
+            document.querySelector(".mobileLandscapeWarn").classList.add("pwaInstalled");
+          } else {
+            console.log('User dismissed the install prompt');
+          }
+        });
+    },
+
     closedRightbar() {
       const elem = document.getElementById('virtualclassApp');
       elem.classList.remove('openRightbar');
@@ -2437,29 +2467,29 @@
     },
 
     // text area focus input element
-    inputFocusHandler(searchUser) {
-      console.log('====> focus input');
+    // inputFocusHandler(searchUser) {
+    //   console.log('====> focus input');
 
-      if (searchUser && typeof searchUser !== 'string') {
-        if (virtualclass.isPlayMode) virtualclass.userInteractivity.triggerPause();
-      }
+    //   if (searchUser && typeof searchUser !== 'string') {
+    //     if (virtualclass.isPlayMode) virtualclass.userInteractivity.triggerPause();
+    //   }
 
-      if (window.innerWidth > window.innerHeight) { // Apply only on landscape mode
-        virtualclass.gObj.initHeight = window.innerHeight;
-        const isFocusElement = document.querySelector('#tabs .ui-state-focus');
-        if (virtualclass.system.device === 'mobTab' && isFocusElement == null
-          && virtualclass.system.mybrowser.name != 'Safari') {
-          document.getElementById('virtualclassCont').classList.add('focusInput');
-        }
-      }
-    },
+    //   if (window.innerWidth > window.innerHeight) { // Apply only on landscape mode
+    //     virtualclass.gObj.initHeight = window.innerHeight;
+    //     const isFocusElement = document.querySelector('#tabs .ui-state-focus');
+    //     if (virtualclass.system.device === 'mobTab' && isFocusElement == null
+    //       && virtualclass.system.mybrowser.name != 'Safari') {
+    //       document.getElementById('virtualclassCont').classList.add('focusInput');
+    //     }
+    //   }
+    // },
 
-    inputFocusOutHandler() {
-      console.log('====> focus output');
-      if (virtualclass.system.device === 'mobTab') {
-        document.getElementById('virtualclassCont').classList.remove('focusInput');
-      }
-    },
+    // inputFocusOutHandler() {
+    //   console.log('====> focus output');
+    //   if (virtualclass.system.device === 'mobTab') {
+    //     document.getElementById('virtualclassCont').classList.remove('focusInput');
+    //   }
+    // },
 
     checkUserRole() {
       if (virtualclass.isPlayMode) {

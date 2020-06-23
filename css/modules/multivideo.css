@@ -19,22 +19,12 @@
 
 #virtualclassCont.congrea .videoCont {
   float: left;
-
-  /* width: 32%; */
 }
 
 #virtualclassCont.congrea .videoCont video {
   border: 0 solid #ddd;
   padding: 0;
   width: 100%;
-}
-
-#virtualclassCont.congrea #preCheckcontainer .screen1.bandwidth::before,
-#virtualclassCont.congrea #preCheckcontainer .screen2.bandwidth::before,
-#virtualclassCont.congrea #preCheckcontainer .screen3.bandwidth::before,
-#virtualclassCont.congrea #preCheckcontainer .screen4.bandwidth::before,
-#virtualclassCont.congrea #preCheckcontainer .screen5.bandwidth::before {
-  /* padding-left : 40px !important; */
 }
 
 #virtualclassMultiVideoTool span {
@@ -155,7 +145,7 @@
 
 #virtualclassCont.congrea.meetingmode.nowebcam #rightSubContainer,
 #virtualclassCont.meetingmode.nowebcam #congreaChatMainCont {
-  height: calc(100% - 48px) !important;
+  height: calc(100% - 48px);
 }
 
 #virtualclassCont.congrea.meetingmode.nowebcam #chat_div {
@@ -173,40 +163,6 @@
 #virtualclassCont.congrea.meetingmode[data-totaluser="one"] .vhide {
   display: none;
 }
-
-/* For Tablets */
-
-/* @media only screen
-and (min-device-width: 768px)
-and (max-device-width: 1024px) {
-  #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #chat_div {
-    height: calc(100vh - var(--vh-offset) - 372px);
-  }
-
-  #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #chat_room {
-    height: calc(100vh - var(--vh-offset) - 383px);
-  }
-
-  #virtualclassCont.congrea.meetingmode[data-totaluser="two"] #chat_div, #virtualclassCont.congrea.meetingmode[data-totaluser="four"] #chat_div, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #chat_div {
-    height: calc(100vh - var(--vh-offset) - 386px);
-  }
-
-  #virtualclassCont.congrea.meetingmode[data-totaluser="two"] #chat_room, #virtualclassCont.congrea.meetingmode[data-totaluser="four"] #chat_room, #virtualclassCont.congrea.meetingmode[data-totaluser="morethanfour"] #chat_room {
-    height: calc(100vh - var(--vh-offset) - 388px);
-  }
-
-  #virtualclassCont.congrea.meetingmode.nowebcam #chat_div {
-    height: calc(100vh - var(--vh-offset) - 148px);
-  }
-
-  #virtualclassCont.congrea.meetingmode.nowebcam #chat_room {
-    height: calc(100vh - var(--vh-offset) - 160px);
-  }
-
-  #virtualclassCont.congrea.meetingmode[data-totaluser="one"] #rightSubContainer, #virtualclassCont.meetingmode[data-totaluser="one"] #congreaChatMainCont {
-    height: calc(100% - 288px);
-  }
-} */
 
 #virtualclassCont.congrea.meetingmode .videoCont.selfVideo {
   z-index: 2000;

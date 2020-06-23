@@ -9,24 +9,12 @@
   /* height: 100%; */
 }
 
-/* #virtualclassCont.congrea #virtualclassScreenShare { */
-
-/* margin-left: 55px; */
-
-/* } */
-
-/* #virtualclassCont.congrea #virtualclassScreenShare { */
-
-/* width: 99%; */
-
-/* } */
-
 #virtualclassCont.congrea.student #virtualclassScreenShare {
   margin-left: 5px;
 }
 
 #virtualclassCont.congrea #virtualclassScreenShareTool.active a span {
-  color: #fff !important;
+  color: #fff;
 }
 
 #virtualclassCont.congrea #virtualclassScreenShareTool a img {
@@ -61,35 +49,6 @@
   background: radial-gradient(ellipse at center, #323e49 0%, #28323c 100%); /* W3C */
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#323e49', endColorstr='#28323c', GradientType=1); /* IE6-9 fallback on horizontal gradient */
 }
-
-#virtualclassCont.congrea #virtualclassOptionsCont #virtualclassScreenShareTool:hover {
-  background: #8d98a4; /* Old browsers */
-  background: -moz-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* FF3.6+ */
-  background: -webkit-gradient(radial, center center, 0, center center, 100%, color-stop(0%, #8d98a4), color-stop(100%, #646d76)); /* Chrome,Safari4+ */
-  background: -webkit-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* Opera 12+ */
-  background: -ms-radial-gradient(center, ellipse cover, #8d98a4 0%, #646d76 100%); /* IE10+ */
-  background: radial-gradient(ellipse at center, #8d98a4 0%, #646d76 100%); /* W3C */
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#8d98a4', endColorstr='#646d76', GradientType=1); /* IE6-9 fallback on horizontal gradient */
-}
-
-/* #virtualclassCont.congrea #virtualclassScreenShare { */
-
-/* height: 95vh; */
-
-/* } */
-
-/* #virtualclassCont.congrea #virtualclassScreenShareLocal  #screenShrMsg { */
-
-/* width: 250px; */
-
-/* margin-left: 10%; */
-
-/* font-weight: normal; */
-
-/* text-align: center; */
-
-/* } */
 
 #virtualclassCont.congrea.teacher #virtualclassScreenShareLocalVideo {
   position: absolute;
@@ -166,7 +125,7 @@
 }
 
 #virtualclassCont.congrea #stopScreenShare button {
-  background-image: linear-gradient(to bottom, #f7f7f7 0%, #f7f7f7 100%) !important;
+  background-image: linear-gradient(to bottom, #f7f7f7 0%, #f7f7f7 100%);
   color: #000;
   border: 0.5px solid #f2f2f2;
   cursor: pointer;
@@ -179,7 +138,7 @@
 }
 
 #virtualclassCont.congrea #screenController .share button {
-  background-image: linear-gradient(to bottom, #f7f7f7 0%, #f7f7f7 100%) !important;
+  background-image: linear-gradient(to bottom, #f7f7f7 0%, #f7f7f7 100%);
   border: 0.5px solid #f2f2f2;
   cursor: pointer;
   padding: 7.5px 8px 7.5px 8px;
@@ -195,12 +154,12 @@
 }
 
 #virtualclassCont.congrea #stopScreenShare button:hover {
-  background-image: linear-gradient(to bottom, #eaeaea 0%, #eaeaea 100%) !important;
+  background-image: linear-gradient(to bottom, #eaeaea 0%, #eaeaea 100%);
   border: 0.5px solid #e0e0e0;
 }
 
 #virtualclassCont.congrea #screenController .share button:hover {
-  background-image: linear-gradient(to bottom, #eaeaea 0%, #eaeaea 100%) !important;
+  background-image: linear-gradient(to bottom, #eaeaea 0%, #eaeaea 100%);
   border: 0.5px solid #e0e0e0;
 }
 
@@ -249,7 +208,7 @@
   }
 }
 
-.congrea #stopScreenShare {
+#virtualclassCont.congrea #stopScreenShare {
   display: none;
 }
 

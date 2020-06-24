@@ -36,11 +36,13 @@ class LiveStream {
   
   init() {
     if (!this.alreadyInit) {
-      if (localStorage.mySession != null) {
+      if (virtualclass.isPlayMode) {
+        this.prefixUrl = `${this.uploadEndPoint}/${wbUser.lkey}/${wbUser.room}/${wbUser.session}`;
+      } else if (localStorage.mySession != null) {
         this.prefixUrl = `${this.uploadEndPoint}/${wbUser.lkey}/${wbUser.room}/${localStorage.mySession}`;
       } else {
         this.prefixUrl = `${this.uploadEndPoint}/${wbUser.lkey}/${wbUser.room}/${virtualclass.gObj.currentSession}`;
-      }
+      } 
       
       if (roles.hasControls()) {
         console.log('==> attach click event ');

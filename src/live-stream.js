@@ -117,7 +117,7 @@ class LiveStream {
     this.sourceBuffer = this.mediaSource.addSourceBuffer(this.mimeType);
     this.sourceBuffer.addEventListener('error', function (e) {})
     this.sourceBuffer.addEventListener('updateend', function () {
-      console.log('append buffer ended');
+      virtualclass.liveStream.appendStarted = true;
       const next =  virtualclass.liveStream.fileList.getNextByID(virtualclass.liveStream.currentExecuted);
       console.log(' ===> actual PLAY START 2');
       if (next)  virtualclass.liveStream.playIfReady(next.id);
@@ -228,6 +228,7 @@ class LiveStream {
   }
 
   clearEveryThing() {
+    console.log('Removed live stream')
     // Stop getting stream from camera
     delete virtualclass.gObj.videoMode;
     console.log('delete normal video');
@@ -265,6 +266,8 @@ class LiveStream {
     delete this.startingPoint;
     delete this.startedAppending;
     this.fileList.emptyList();
+    delete this.lastFileRequested;
+    delete virtualclass.liveStream.appendStarted;
   }
 
   showLiveStreamHTML () {
@@ -306,7 +309,8 @@ class LiveStream {
         console.log('====> Empty the list 2');
         if (!this.firstFile) this.firstFile = e.message.url;
     
-        console.log('=====> received from socket');
+        this.lastFileRequested = e.message.url;
+        console.log('Last file request ', this.lastFileRequested);
         this.fileList.insert(e.message.url, `${this.prefixUrl}/${e.message.url}.chvs`);
         
         if (!this.startingPoint && this.fileList.ol.order.length >= this.bufferLength) {
@@ -326,7 +330,10 @@ class LiveStream {
               console.log('live stream, start from first ', this.fileList.ol.order.length);
             } else {
               this.startFromPageRefresh = true; // Play start fromw when page refresh
-              this.requestInitializePacket();
+              if (!virtualclass.liveStream.callFromSeek) {
+                this.requestInitializePacket();
+              }
+              
               console.log('live stream, start from latest', this.fileList.ol.order.length);
             }
           } else {
@@ -350,29 +357,47 @@ class LiveStream {
     }
   }
 
-  requestInitializePacket() {
-    if (this.xhrInitPacket) return; // todo, remove this;
+  requestInitializePacket(file) {
     this.stopTraditionalVideo();
     this.initPLayerForParticipaes();
-    this.xhrInitPacket = axios.create({
-      responseType: 'arraybuffer',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': wbUser.lkey,
-        'x-congrea-authuser': wbUser.auth_user,
-        'x-congrea-authpass': wbUser.auth_pass,
-        'x-congrea-room': wbUser.room,
-        get: {
-          'Accept': 'video/webm;codecs=vp8,opus',
-        }
-      },
-    });
+    if (!this.xhrInitPacket) {
+      this.xhrInitPacket = axios.create({
+        responseType: 'arraybuffer',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': wbUser.lkey,
+          'x-congrea-authuser': wbUser.auth_user,
+          'x-congrea-authpass': wbUser.auth_pass,
+          'x-congrea-room': wbUser.room,
+          get: {
+            'Accept': 'video/webm;codecs=vp8,opus',
+          }
+        },
+      });
+    }
 
-    const currentSession = localStorage.mySession != null ? localStorage.mySession : virtualclass.gObj.currentSession;  
-    const url  = `https://api.congrea.net/data/stream?session=${currentSession}`;
+    let currentSession;
+    if (virtualclass.isPlayMode) {
+      currentSession = wbUser.session;
+    } else {
+      currentSession = localStorage.mySession != null ? localStorage.mySession : virtualclass.gObj.currentSession;
+    }
+
+    let url;
+    if (file){
+      url  = `https://api.congrea.net/data/stream?session=${currentSession}&file=${file}`;
+    } else {
+      url  = `https://api.congrea.net/data/stream?session=${currentSession}`;
+    }
+    
     console.log('request url init packet ', url);
+    this.requestInitializePacketFinal(url);
+  }
+
+  requestInitializePacketFinal(url) {
     this.xhrInitPacket.get(url)
     .then(async (response) => {
+      delete virtualclass.liveStream.callFromSeek;
       this.currentFile = response.headers['x-congrea-seg'].split('.chvs')[0];
       console.log('request url live stream receive init data ', this.currentFile);
       

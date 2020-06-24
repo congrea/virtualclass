@@ -340,6 +340,7 @@ Config.prototype.endSession = async function (onlyStoredData) {
     virtualclass.chat.removeCommonChatNodes();
   }
 
+  if (virtualclass.liveStream) virtualclass.liveStream.clearEveryThing();
   // if (virtualclass.serverData != null) {
   //   virtualclass.serverData.rawData = { video: [], ppt: [], docs: [] };
   //   if (roles.hasAdmin()) {

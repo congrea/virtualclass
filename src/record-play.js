@@ -168,6 +168,7 @@
       this.tempPlayTime = this.playTime;
       const tempMasterRecordings = this.masterRecordings;
       await virtualclass.config.endSession();
+      
       virtualclass.popup.closeElem();
 
       // For disable the common chant on every replay from start
@@ -1735,6 +1736,11 @@
           // console.log('==== recording final 2');
           this.controller._play();
           this.triggerPlayVideo();
+        }
+
+        if (virtualclass.currApp === 'Video' &&  virtualclass.liveStream.lastFileRequested){
+          virtualclass.liveStream.callFromSeek = true;
+          virtualclass.liveStream.requestInitializePacket(virtualclass.liveStream.lastFileRequested);
         }
         document.getElementById('timeInHover').style.display = 'none';
       }

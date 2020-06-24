@@ -21,7 +21,7 @@ class WhiteboardReplay {
     switch (data.action) {
       case 'sp': // display/render/create shape, like, rectangle
         virtualclass.wb[wid].selectedTool = data.tool;
-        console.log('====> selected id suman for  ', wid, virtualclass.wb[wid].selectedTool);
+        // console.log('====> selected id suman for  ', wid, virtualclass.wb[wid].selectedTool);
         eventType = data.event;
         shape = `${data.shape}Obj`;
         virtualclass.wb[wid][shape][eventType](data.actual, virtualclass.wb[wid]);

@@ -249,7 +249,7 @@
 
 
       customMoustPointer(obj, tp, pos) {
-        console.log('custom mouse pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e);
+//        console.log('custom mouse pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e);
         this.scroll[tp].e = pos;
         //  e is mouse's position
         // console.log('Scroll '  + tp + ' a ' + this.scroll[tp].a);

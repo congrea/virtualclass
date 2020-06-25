@@ -41,8 +41,8 @@ class LiveStream {
         // }
 
         video: {
-          width: { ideal: 2560 },
-          height: { ideal: 1440 } 
+          width: { ideal: 4096 },
+          height: { ideal: 2160 } 
         }
 
         // width: { ideal: 4096 },
@@ -79,7 +79,16 @@ class LiveStream {
     this.xhr.get(url)
     .then(async (response) => {
       this.afterReceivedStream(response);
-    })
+    }).catch((error) => {
+      if (this.fileList.ol.order.length <= 5) {
+        this.lastFileRequested = this.firstFile;
+      } else {
+        setTimeout(() => {
+          console.log('trigger init packet with ', this.lastFileRequested);
+          this.requestInitializePacket(this.lastFileRequested);
+        }, 2000);
+      }
+    });
   }
   
   getFileName (url) {
@@ -328,7 +337,7 @@ class LiveStream {
             url: e.message.fileName
           }); 
         }
-      }, 4200);
+      }, 2500);
     } else if (e.message.stop) {
       this.clearEveryThing();
     } else if (e.message.stopVideo) { 

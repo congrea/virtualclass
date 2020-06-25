@@ -28,8 +28,25 @@ class LiveStream {
       },
 
       video: {
-        width: { ideal: 460 },
-        height: { ideal: 400 }
+        // width: { ideal: 460 },
+        // height: { ideal: 400 }
+        // video: {
+        //   width: { ideal: 1920 },
+        //   height: { ideal: 1080 } 
+        // }
+
+        // video: {
+        //   width: { ideal: 1280 },
+        //   height: { ideal: 800 } 
+        // }
+
+        video: {
+          width: { ideal: 2560 },
+          height: { ideal: 1440 } 
+        }
+
+        // width: { ideal: 4096 },
+        // height: { ideal: 2160 } 
       }
     };
   }
@@ -298,7 +315,7 @@ class LiveStream {
             url: e.message.fileName
           }); 
         }
-      }, 3000);
+      }, 4200);
     } else if (e.message.stop) {
       this.clearEveryThing();
     } else if (e.message.stopVideo) { 

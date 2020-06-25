@@ -1713,6 +1713,7 @@
     },
 
     async finalSeek(ev) {
+      if (virtualclass.liveStream) virtualclass.liveStream.clearEveryThing();
       if (!ev.offsetX) {
         ev = this.getOffset(ev);
       }
@@ -1748,7 +1749,6 @@
       const virtualclassCont = document.querySelector('#virtualclassCont');
       virtualclassCont.classList.remove('recordSeeking');
 
-
       // console.log(ev.offsetX);
       delete this.seekValueInPercentage;
       this.startSeek = false;
@@ -1757,6 +1757,7 @@
       if (congrealogo != null) {
         congrealogo.classList.remove('disbaleOnmousedown');
       }
+
     },
 
     initRecordViewHandler() {

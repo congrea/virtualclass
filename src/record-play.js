@@ -1382,6 +1382,10 @@
       virtualclass.recorder.triggerPauseVideo();
       recPause.parentNode.classList.remove('recordingPlay');
       recPause.dataset.title = virtualclass.lang.getString('Play');
+      if (virtualclass.liveStream.lastFileRequested) {
+        const liveStream = document.getElementById('liveStream');
+        if (liveStream != null) liveStream.pause();
+      }
     },
 
     initRecPlay() {
@@ -1390,6 +1394,9 @@
       this.doControlActive(recPause);
       if (virtualclass.videoUl && virtualclass.videoUl.player) {
         virtualclass.videoUl.player.play();
+      } else if (virtualclass.liveStream.lastFileRequested) {
+        const liveStream = document.getElementById('liveStream');
+        if (liveStream != null) liveStream.play();
       }
       recPause.parentNode.classList.add('recordingPlay');
       recPause.dataset.title = virtualclass.lang.getString('Pause');
@@ -1713,7 +1720,8 @@
     },
 
     async finalSeek(ev) {
-      if (virtualclass.liveStream) virtualclass.liveStream.clearEveryThing();
+      if (ev.target.id != 'recPause' && virtualclass.liveStream) virtualclass.liveStream.clearEveryThing();
+      
       if (!ev.offsetX) {
         ev = this.getOffset(ev);
       }

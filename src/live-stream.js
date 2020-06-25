@@ -497,7 +497,7 @@ class LiveStream {
       this.startedAppending = true;
       this.duringPlayFirstPacket();
       if (this.startFromPageRefresh) {
-        setTimeout(() => { document.getElementById('liveStream').currentTime = this.MAX_TIME; }, 1000);
+        setTimeout(() => { document.getElementById('liveStream').currentTime = this.MAX_TIME; }, 700);
       }
     } else  if (this.startedAppending && this.isMyTurn(file) && buffer) {
       this.onBuffer(buffer);

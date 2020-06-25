@@ -131,14 +131,19 @@ class LiveStream {
 
   mediaSourceOpen() {
     console.log('step 1');
-    this.sourceBuffer = this.mediaSource.addSourceBuffer(this.mimeType);
-    this.sourceBuffer.addEventListener('error', function (e) {})
-    this.sourceBuffer.addEventListener('updateend', function () {
-      virtualclass.liveStream.appendStarted = true;
-      const next =  virtualclass.liveStream.fileList.getNextByID(virtualclass.liveStream.currentExecuted);
-      console.log(' ===> actual PLAY START 2');
-      if (next)  virtualclass.liveStream.playIfReady(next.id);
-    });
+    if (this.mediaSource.readyState === 'open') {
+      this.sourceBuffer = this.mediaSource.addSourceBuffer(this.mimeType);
+      this.sourceBuffer.addEventListener('error', function (e) {})
+      this.sourceBuffer.addEventListener('updateend', function () {
+        // virtualclass.liveStream.appendStarted = true;
+        console.log('====> appended start: remove 2');
+        const next =  virtualclass.liveStream.fileList.getNextByID(virtualclass.liveStream.currentExecuted);
+        console.log(' ===> actual PLAY START 2');
+        if (next)  virtualclass.liveStream.playIfReady(next.id);
+      });  
+    } else {
+      console.log("MEDIA SOURCE IS NOT OPEN");
+    }
   }
 
   handlLiveStream(element) {  
@@ -267,7 +272,13 @@ class LiveStream {
         this.sourceBuffer.abort();
         console.log('Source buffer abort');
       } else {
-        this.sourceBuffer.remove(0, 300);
+        try {
+          this.sourceBuffer.remove(0, 300); // throws error when immediate calling after appendBuffer
+        } catch (e) {
+          this.sourceBuffer.abort();
+        }
+        
+        console.log('====> appended start: remove 3');
         console.log('Source buffer remove');
       }
       
@@ -284,7 +295,8 @@ class LiveStream {
     delete this.startedAppending;
     this.fileList.emptyList();
     delete this.lastFileRequested;
-    delete virtualclass.liveStream.appendStarted;
+    // delete this.appendStarted;
+    console.log('====> appended start: remove 1');
   }
 
   showLiveStreamHTML () {
@@ -412,18 +424,22 @@ class LiveStream {
   }
 
   requestInitializePacketFinal(url) {
+    this.latesRequetInitUrl = url;
+    console.log('request url live stream init data ', url);
     this.xhrInitPacket.get(url)
     .then(async (response) => {
-      delete virtualclass.liveStream.callFromSeek;
-      this.currentFile = response.headers['x-congrea-seg'].split('.chvs')[0];
-      console.log('request url live stream receive init data ', this.currentFile);
-      
-      this.startedStream = true;
-      this.listStream[this.currentFile] = response.data;
-      this.firstFile = response.headers['x-congrea-seg'].split('.chvs')[0];
-      delete this.startingPoint;
-      console.log('calculate starting point');
-      this.readyStartingPoint();
+      if (this.latesRequetInitUrl === response.config.url) {
+        delete virtualclass.liveStream.callFromSeek;
+        this.currentFile = response.headers['x-congrea-seg'].split('.chvs')[0];
+        console.log('request url live stream receive init data ', this.currentFile, response.config.url.split('?')[1]);
+        
+        this.startedStream = true;
+        this.listStream[this.currentFile] = response.data;
+        this.firstFile = response.headers['x-congrea-seg'].split('.chvs')[0];
+        delete this.startingPoint;
+        console.log('calculate starting point');
+        this.readyStartingPoint();
+      }
     })
   }
   

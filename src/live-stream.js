@@ -295,6 +295,7 @@ class LiveStream {
     delete this.startedAppending;
     this.fileList.emptyList();
     delete this.lastFileRequested;
+    delete virtualclass.liveStream.callFromSeek;
     // delete this.appendStarted;
     console.log('====> appended start: remove 1');
   }
@@ -429,7 +430,6 @@ class LiveStream {
     this.xhrInitPacket.get(url)
     .then(async (response) => {
       if (this.latesRequetInitUrl === response.config.url) {
-        delete virtualclass.liveStream.callFromSeek;
         this.currentFile = response.headers['x-congrea-seg'].split('.chvs')[0];
         console.log('request url live stream receive init data ', this.currentFile, response.config.url.split('?')[1]);
         

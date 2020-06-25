@@ -1720,12 +1720,12 @@
     },
 
     async finalSeek(ev) {
-      if (ev.target.id != 'recPause' && virtualclass.liveStream) virtualclass.liveStream.clearEveryThing();
       
       if (!ev.offsetX) {
         ev = this.getOffset(ev);
       }
       if (this.startSeek && Object.prototype.hasOwnProperty.call(this, 'seekValueInPercentage')) {
+        if (virtualclass.liveStream) virtualclass.liveStream.clearEveryThing();
         // console.log(`====Seek up ${this.seekValueInPercentage}`);
         if (this.downloadInPercentage < this.seekValueInPercentage) {
           this.seekValueInPercentage = Math.trunc(this.downloadInPercentage);

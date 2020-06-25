@@ -118,6 +118,7 @@ class LiveStream {
       const mydata = new Uint8Array(buffer);
       console.log('play start first four ', mydata[0], mydata[1], mydata[2], mydata[3])
       console.log('Append buffer actual');
+
       this.sourceBuffer.appendBuffer(buffer);
     }
   }
@@ -499,20 +500,30 @@ class LiveStream {
     const buffer = this.inStreamList(file);
     if (this.startingPoint && file === this.startingPoint && this.inStreamList(this.firstFile)) {
       const firstBuffer = this.inStreamList(this.firstFile);
-      this.onBuffer(firstBuffer);
-      delete this.listStream[this.firstFile];
-      this.currentExecuted = this.firstFile;
-      console.log(' ===> actual PLAY START 1', this.firstFile);
-      this.startedAppending = true;
-      this.duringPlayFirstPacket();
-      if (this.startFromPageRefresh) {
-        setTimeout(() => { document.getElementById('liveStream').currentTime = this.MAX_TIME; }, 700);
+      try {
+        this.onBuffer(firstBuffer);
+        this.currentExecuted = this.firstFile;
+        delete this.listStream[this.firstFile];
+        this.startedAppending = true;
+        this.duringPlayFirstPacket();
+        if (this.startFromPageRefresh) {
+          setTimeout(() => { document.getElementById('liveStream').currentTime = this.MAX_TIME; }, 700);
+        }
+      } catch (error) {
+        this.requestInitializePacket(file);
+        console.log('====> Error handlling request packet');
       }
-    } else  if (this.startedAppending && this.isMyTurn(file) && buffer) {
-      this.onBuffer(buffer);
-      delete this.listStream[file];
-      this.currentExecuted = file;
-      console.log(' ===> actual PLAY START 3', file);
+      
+    } else if (this.startedAppending && this.isMyTurn(file) && buffer) {
+      try{
+        this.onBuffer(buffer);
+        delete this.listStream[file];
+        this.currentExecuted = file;
+      } catch (error) {
+        this.requestInitializePacket(file);
+        console.log('====> Error handlling request packet');
+      }
     }
   }
+
 }

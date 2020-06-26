@@ -507,7 +507,7 @@ class LiveStream {
         this.startedAppending = true;
         this.duringPlayFirstPacket();
         if (this.startFromPageRefresh) {
-          setTimeout(() => { document.getElementById('liveStream').currentTime = this.MAX_TIME; }, 700);
+          setTimeout(() => { document.getElementById('liveStream').currentTime = this.MAX_TIME; }, 1000);
         }
       } catch (error) {
         this.requestInitializePacket(file);

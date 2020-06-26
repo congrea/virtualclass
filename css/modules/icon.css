@@ -1003,3 +1003,17 @@
   text-transform: capitalize;
   color: #fff;
 }
+
+#virtualclassCont.congrea #virtualclassVideo[data-currapp="normalVideo"] #startLiveStream .liveStream-icon::before {
+  content: "\e906";
+  font-family: 'icomoon';
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+#virtualclassCont.congrea #virtualclassVideo[data-currapp="liveStream"] #startLiveStream .liveStream-icon::before {
+  content: "\e906";
+  font-family: 'icomoon';
+  font-size: 1.2rem;
+  color: #ff0808;
+}

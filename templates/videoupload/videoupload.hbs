@@ -1,6 +1,9 @@
 <div id="virtualclassVideo" class="bootstrap virtualclass" style="display: block;" data-currapp="normalVideo">
   {{#if control}}
-    <div id="startLiveStream" data-sharinglivestream="0" > Start Live Streaming </div>
+    <div id="startLiveStream" data-sharinglivestream="0" >
+      <span class=" liveStream-icon "></span>
+      <p class="label">Live Stream </p>
+    </div>
     {{else}}
     <p id="messageLayoutVideo">{{getString 'Vwllbshrshortly'}}</p>
   {{/if}}

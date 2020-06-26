@@ -144,7 +144,8 @@
         + `{background-image: linear-gradient(to bottom, ${allbg.fcolor} 0%,${allbg.scolor} 100%)} `
 
 
-        + '#virtualclassCont.congrea #virtualclassOptionsCont:first-child '
+        + '#virtualclassCont.congrea #virtualclassOptionsCont:first-child, '
+        + '#virtualclassCont.congrea #startLiveStream '
         + `{background-image: linear-gradient(to right, ${allbg.fcolor} 0%,${allbg.scolor} 100%)} `
 
         + '#virtualclassCont.congrea #virtualclassOptionsCont .appOptions.active '
@@ -290,6 +291,7 @@
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenExitButton:hover, '
         + '#virtualclassCont.congrea #networkStatusContainer:hover, '
         + '#virtualclassCont.congrea #virtualclassAppFooterPanel #fullScreenButton:hover, '
+        + '#virtualclassCont.congrea #startLiveStream:hover, '
         + '#virtualclassCont.congrea #virtualclassAppRightPanel #askQuestionHeader .header .action .addQuestion-icon:hover '
         + `{background-image: radial-gradient(ellipse at center, ${hover.fcolor} 0%,${hover.scolor} 100%)}`
 

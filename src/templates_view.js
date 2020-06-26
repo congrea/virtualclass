@@ -1573,20 +1573,6 @@ this["JST"]["dest_temp/templates/videoupload/linkvideo.hbs"] = Handlebars.templa
     + "</a></div></div></div>";
 },"useData":true});
 
-this["JST"]["dest_temp/templates/videoupload/livestream.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " ";
-},"3":function(container,depth0,helpers,partials,data) {
-    return " <p id=\"messageLayoutVideo\">"
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Vwllbshrshortly",{"name":"getString","hash":{},"data":data}))
-    + "</p> ";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return "<div id=\"virtualclassVideo\" class=\"bootstrap virtualclass\" style=\"display: block;\"> "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + " <div id=\"videoPlayerCont\"></div></div>";
-},"useData":true});
-
 this["JST"]["dest_temp/templates/videoupload/popup.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
@@ -1600,7 +1586,7 @@ this["JST"]["dest_temp/templates/videoupload/popup.hbs"] = Handlebars.template({
 },"useData":true});
 
 this["JST"]["dest_temp/templates/videoupload/videoupload.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"startLiveStream\" data-sharinglivestream=\"0\"> Start Live Streaming </div> ";
+    return " <div id=\"startLiveStream\" data-sharinglivestream=\"0\"><span class=\" liveStream-icon \"></span><p class=\"label\">Live Stream </p></div> ";
 },"3":function(container,depth0,helpers,partials,data) {
     return " <p id=\"messageLayoutVideo\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Vwllbshrshortly",{"name":"getString","hash":{},"data":data}))

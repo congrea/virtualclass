@@ -347,13 +347,13 @@ class LiveStream {
   showLiveStreamHTML () {
     const virtualclassVideo = document.getElementById('virtualclassVideo');
     virtualclassVideo.dataset.currapp = 'liveStream';
-    document.getElementById('startLiveStream').innerHTML = virtualclass.lang.getString('stopLiveSharing');
+    document.querySelector('#startLiveStream .label').innerHTML = virtualclass.lang.getString('stopLiveSharing');
   }
 
   hideLiveStreamHTML() {
     const virtualclassVideo = document.getElementById('virtualclassVideo');
     virtualclassVideo.dataset.currapp = 'normalVideo';
-    document.getElementById('startLiveStream').innerHTML = virtualclass.lang.getString('startLiveSharing');
+    document.querySelector('#startLiveStream .label').innerHTML = virtualclass.lang.getString('startLiveSharing');
   }
 
   isLiveStreamMode() {

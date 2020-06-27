@@ -3,7 +3,7 @@
  */
 class LiveStream {
   constructor() {
-    this.mimeType = 'video/webm;codecs=vp9,opus';
+    this.mimeType = 'video/webm;codecs=vp8,opus';
     this.queue = [];
     this.MAX_TIME = 999999999999;
     this.startedStream = false;
@@ -542,7 +542,7 @@ class LiveStream {
         this.startedAppending = true;
         this.duringPlayFirstPacket();
         if (this.startFromPageRefresh) {
-          setTimeout(() => { document.getElementById('liveStream').currentTime = this.MAX_TIME; }, 1000);
+          setTimeout(() => { document.getElementById('liveStream').currentTime = this.MAX_TIME; }, 2000);
         }
       // } catch (error) {
       //   this.requestInitializePacket(file);

@@ -46,9 +46,8 @@ class LiveStream {
         echoCancellation: {exact: true}
       },
 
-      // video: this.resoluation.qga
-      video: this.resoluation.vga
-
+      video: this.resoluation.fullhd
+      
       // video: {
          // width:  460,
          // height: 400
@@ -79,8 +78,6 @@ class LiveStream {
     this.constraints.video.frameRate = { ideal: 20};
   }
 
-
-  
   init() {
     if (!this.alreadyInit) {
       if (virtualclass.isPlayMode) {
@@ -116,7 +113,7 @@ class LiveStream {
         setTimeout(() => {
           console.log('trigger init packet with ', this.lastFileRequested);
           this.requestInitializePacket(this.lastFileRequested);
-        }, 2500);
+        }, 2000);
       }
     });
   }
@@ -340,6 +337,7 @@ class LiveStream {
     this.fileList.emptyList();
     delete this.lastFileRequested;
     delete virtualclass.liveStream.callFromSeek;
+    delete this.startFromPageRefresh;
     // delete this.appendStarted;
     console.log('====> appended start: remove 1');
   }
@@ -402,7 +400,7 @@ class LiveStream {
               const firstFile = this.fileList.ol.order[0];
               this.triggerStart(firstFile);
               console.log('live stream, start from first ', this.fileList.ol.order.length);
-            } else {
+            } else if (!this.startFromPageRefresh){
               this.startFromPageRefresh = true; // Play start fromw when page refresh
               if (!virtualclass.liveStream.callFromSeek) {
                 this.requestInitializePacket();
@@ -534,7 +532,7 @@ class LiveStream {
     const buffer = this.inStreamList(file);
     if (this.startingPoint && file === this.startingPoint && this.inStreamList(this.firstFile)) {
       const firstBuffer = this.inStreamList(this.firstFile);
-  //    try {
+      try {
         this.onBuffer(firstBuffer);
         console.log('Actual append buffer ', this.firstFile);
         this.currentExecuted = this.firstFile;
@@ -542,23 +540,23 @@ class LiveStream {
         this.startedAppending = true;
         this.duringPlayFirstPacket();
         if (this.startFromPageRefresh) {
-          setTimeout(() => { document.getElementById('liveStream').currentTime = this.MAX_TIME; }, 2000);
+          setTimeout(() => { document.getElementById('liveStream').currentTime = this.MAX_TIME; }, 1600);
         }
-      // } catch (error) {
-      //   this.requestInitializePacket(file);
-      //   console.log('====> Error handlling request packet');
-      // }
+      } catch (error) {
+        this.requestInitializePacket(file);
+         console.log('====> Error handlling request packet');
+        }
       
     } else if (this.startedAppending && this.isMyTurn(file) && buffer) {
-     // try{
+      try{
         this.onBuffer(buffer);
         console.log('Actual append buffer ', file);
         delete this.listStream[file];
         this.currentExecuted = file;
-      // } catch (error) {
-      //   this.requestInitializePacket(file);
-      //   console.log('====> Error handlling request packet');
-      // }
+      } catch (error) {
+         this.requestInitializePacket(file);
+         console.log('====> Error handlling request packet');
+      }
     }
   }
 }

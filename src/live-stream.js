@@ -224,7 +224,7 @@ class LiveStream {
     console.log('current mode LIVE STREAM');
     if (!MediaRecorder.isTypeSupported(this.mimeType)) console.error(`${this.mimeType} is not supported`);
     //this.mediaRecorder = new MediaRecorder(this.stream, {mimeType: this.mimeType, videoBitsPerSecond : 500000}); // 250kbps
-    this.mediaRecorder = new MediaRecorder(this.stream, {mimeType: this.mimeType}); // 250kbps
+    this.mediaRecorder = new MediaRecorder(this.stream, {mimeType: this.mimeType, videoBitsPerSecond : 500000}); // 250kbps
     this.mediaRecorder.addEventListener('stop', this.stopHandler.bind(this))
     this.mediaRecorder.addEventListener('dataavailable', this.handleLiveStreamData.bind(this))
     this.mediaRecorder.start(1500);
@@ -371,7 +371,7 @@ class LiveStream {
             url: e.message.fileName
           }); 
         }
-      }, 2500);
+      }, 3000);
     } else if (e.message.stop) {
       this.clearEveryThing();
     } else if (e.message.stopVideo) { 

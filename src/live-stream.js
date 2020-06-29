@@ -23,7 +23,7 @@ class LiveStream {
 
       vga3:  {width: {ideal: 960}, height: {ideal: 720}},
 
-      vga3:  {width: {ideal: 1024}, height: {ideal: 768}},
+      vga4:  {width: {ideal: 1024}, height: {ideal: 768}},
 
       hd:  {width: {ideal: 1280}, height: {ideal: 720}},
       
@@ -47,33 +47,6 @@ class LiveStream {
       },
 
       video: this.resoluation.fullhd
-      
-      // video: {
-         // width:  460,
-         // height: 400
-
-      // video: {
-      //   // width: { ideal: 460 },
-      //   // height: { ideal: 400 }
-      //   // video: {
-      //   //   width: { ideal: 1920 },
-      //   //   height: { ideal: 1080 } 
-      //   // }
-
-      //   // video: {
-      //   //   width: { ideal: 1280 },
-      //   //   height: { ideal: 800 } 
-      //   // }
-
-      //   // video: {
-      //   //   width: { ideal: 4096 },
-      //   //   height: { ideal: 2160 } 
-      //   // }
-
-      //   // width: { ideal: 4096 },
-      //   // height: { ideal: 2160 } 
-      // }
-      //}
     }
     this.constraints.video.frameRate = { ideal: 20};
   }
@@ -87,10 +60,13 @@ class LiveStream {
     if (!this.alreadyInit) {
       if (virtualclass.isPlayMode) {
         this.prefixUrl = `${this.uploadEndPoint}/${wbUser.lkey}/${wbUser.room}/${wbUser.session}`;
+        console.log('Prfix url recording', this.prefixUrl);
       } else if (localStorage.mySession != null) {
         this.prefixUrl = `${this.uploadEndPoint}/${wbUser.lkey}/${wbUser.room}/${localStorage.mySession}`;
+        console.log('Prfix url localstorage', this.prefixUrl);
       } else {
         this.prefixUrl = `${this.uploadEndPoint}/${wbUser.lkey}/${wbUser.room}/${virtualclass.gObj.currentSession}`;
+        console.log('Prfix url new', virtualclass.gObj.currentSession);
       } 
       
       if (roles.hasControls()) {
@@ -199,12 +175,23 @@ class LiveStream {
     }
   }
 
+  disableLiveStreamButton() {
+    const streamElement = document.getElementById('startLiveStream');
+    if (streamElement != null) streamElement.classList.add('disabled');
+  }
+
   async startToShare() {
     this.stopTraditionalVideo();
     var startLiveStream = startLiveStream = document.getElementById('startLiveStream')
     startLiveStream.dataset.sharinglivestream = '1';
-    const stream = await navigator.mediaDevices.getUserMedia(this.constraints);
-    this.handleSuccess(stream);
+    let stream = null;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia(this.constraints);
+    } catch(error) {
+      this.disableLiveStreamButton();
+      virtualclass.media.handleUserMediaError(error);
+    }
+    if (stream) this.handleSuccess(stream);
   }
 
   handleSuccess (stream){
@@ -268,9 +255,7 @@ class LiveStream {
 
     this.hideLiveStreamHTML();
     let stopTriggerTime = 0;
-    
-    const streamElement = document.getElementById('startLiveStream');
-    if (streamElement != null) streamElement.classList.add('disabled');
+    this.disableLiveStreamButton();  
     if (roles.hasControls()) {
       ioAdapter.mustSend({
        cf: 'liveStream',

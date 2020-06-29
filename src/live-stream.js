@@ -81,7 +81,7 @@ class LiveStream {
       }
       
       if (roles.hasControls()) {
-        // console.log('==> attach click event ');
+        console.log('==> attach click event ');
         const startSharingElement = document.getElementById('startLiveStream');
         startSharingElement.addEventListener('click', this.handlLiveStream.bind(this));
       }
@@ -91,10 +91,10 @@ class LiveStream {
 
   requestStream(url) {
     if (!url || url == undefined) {
-      // console.log("Invalid URL"); return;
+      console.log("Invalid URL"); return;
     }
-    // console.log('====> remain queue length ', this.fileList.ol.order.length);
-    // console.log('request url ', url);
+    console.log('====> remain queue length ', this.fileList.ol.order.length);
+    console.log('request url ', url);
     this.xhr.get(url)
     .then(async (response) => {
       this.afterReceivedStream(response);
@@ -103,7 +103,7 @@ class LiveStream {
         this.lastFileRequested = this.firstFile;
       } else {
         setTimeout(() => {
-          // console.log('trigger init packet with ', this.lastFileRequested);
+          console.log('trigger init packet with ', this.lastFileRequested);
           this.requestInitializePacket(this.lastFileRequested);
         }, 2000);
       }
@@ -123,19 +123,19 @@ class LiveStream {
   }
 
   afterReceivedStream(response) {
-    // console.log('play start data received');
+    console.log('play start data received');
     const finalData = response.data.slice(4, response.data.length);
     const fileName = this.getFileName(response.config.url);
     this.listStream[fileName] = finalData;
-    // console.log('reponse receive at very start, Play start 0 ', fileName);
+    console.log('reponse receive at very start, Play start 0 ', fileName);
     this.playIfReady(fileName);
-    // console.log('====> response received for file ', fileName);
+    console.log('====> response received for file ', fileName);
   }
 
   onBuffer (buffer) {
     if (this.sourceBuffer) {
       const mydata = new Uint8Array(buffer);
-      // console.log('play start first four ', mydata[0], mydata[1], mydata[2], mydata[3])
+      console.log('play start first four ', mydata[0], mydata[1], mydata[2], mydata[3])
       this.sourceBuffer.appendBuffer(buffer);
     }
   }
@@ -149,7 +149,7 @@ class LiveStream {
   }
 
   initPLayerForParticipaes() {
-    // console.log('current mode LIVE STREAM');
+    console.log('current mode LIVE STREAM');
     this.mediaSource = new MediaSource();
     this.mediaSource.addEventListener('sourceopen', this.mediaSourceOpen.bind(this));
     this.readyParticipateVideo();
@@ -157,19 +157,19 @@ class LiveStream {
   }
 
   mediaSourceOpen() {
-    // console.log('step 1');
+    console.log('step 1');
     if (this.mediaSource.readyState === 'open') {
       this.sourceBuffer = this.mediaSource.addSourceBuffer(this.mimeType);
       this.sourceBuffer.addEventListener('error', function (e) {})
       this.sourceBuffer.addEventListener('updateend', function () {
         // virtualclass.liveStream.appendStarted = true;
-        // console.log('====> appended start: remove 2');
+        console.log('====> appended start: remove 2');
         const next =  virtualclass.liveStream.fileList.getNextByID(virtualclass.liveStream.currentExecuted);
-        // console.log(' ===> actual PLAY START 2');
+        console.log(' ===> actual PLAY START 2');
         if (next)  virtualclass.liveStream.playIfReady(next.id);
       });  
     } else {
-      // console.log("MEDIA SOURCE IS NOT OPEN");
+      console.log("MEDIA SOURCE IS NOT OPEN");
     }
   }
 
@@ -207,9 +207,9 @@ class LiveStream {
 
   handleSuccess (stream){
     const streamSettings  = stream.getVideoTracks()[0].getSettings();
-    // console.log('====> camera settings ', streamSettings);
+    console.log('====> camera settings ', streamSettings);
 
-    // console.log('getUserMedia() got stream:', stream);
+    console.log('getUserMedia() got stream:', stream);
     this.stream = stream;
     virtualclass.dashboard.close();
     this.showLiveStreamHTML();
@@ -221,7 +221,7 @@ class LiveStream {
   // 320 * 240  => 100kbps 
  // 640 * 480 => 200kb
   startRecorder () {
-    // console.log('current mode LIVE STREAM');
+    console.log('current mode LIVE STREAM');
     if (!MediaRecorder.isTypeSupported(this.mimeType)) console.error(`${this.mimeType} is not supported`);
     //this.mediaRecorder = new MediaRecorder(this.stream, {mimeType: this.mimeType, videoBitsPerSecond : 500000}); // 250kbps
     this.mediaRecorder = new MediaRecorder(this.stream, {mimeType: this.mimeType}); // 250kbps
@@ -231,11 +231,11 @@ class LiveStream {
   }
 
   stopHandler() {
-    // console.log("====STOP 1");
+    console.log("====STOP 1");
   }
 
   handleLiveStreamData(event) {
-    // console.log('====> triggering data ');
+    console.log('====> triggering data ');
     if (this.mediaRecorder && this.mediaRecorder.state === 'recording') this.saveToStreamServer(event.data);
   }
 
@@ -292,10 +292,10 @@ class LiveStream {
   }
 
   clearEveryThing() {
-    // console.log('Removed live stream')
+    console.log('Removed live stream')
     // Stop getting stream from camera
     delete virtualclass.gObj.videoMode;
-    // console.log('delete normal video');
+    console.log('delete normal video');
     const virtualclassVideo = document.getElementById('virtualclassVideo');
     if (virtualclassVideo != null) {
       virtualclassVideo.dataset.currapp = 'normalVideo';
@@ -312,7 +312,7 @@ class LiveStream {
     if (this.sourceBuffer) {
       if (this.sourceBuffer.updating) {
         this.sourceBuffer.abort();
-        // console.log('Source buffer abort');
+        console.log('Source buffer abort');
       } else {
         try {
           this.sourceBuffer.remove(0, 300); // throws error when immediate calling after appendBuffer
@@ -320,8 +320,8 @@ class LiveStream {
           this.sourceBuffer.abort();
         }
         
-        // console.log('====> appended start: remove 3');
-        // console.log('Source buffer remove');
+        console.log('====> appended start: remove 3');
+        console.log('Source buffer remove');
       }
       
     // virtualclass.LiveStream.sourceBuffer.abort();
@@ -332,7 +332,7 @@ class LiveStream {
     const liveStreamVideo = document.getElementById('liveStream');
     if (liveStreamVideo != null) liveStreamVideo.src = null;
     delete this.firstFile;
-    // console.log('====> Empty the list 2a');
+    console.log('====> Empty the list 2a');
     delete this.startingPoint;
     delete this.startedAppending;
     this.fileList.emptyList();
@@ -340,7 +340,7 @@ class LiveStream {
     delete virtualclass.liveStream.callFromSeek;
     delete this.startFromPageRefresh;
     // delete this.appendStarted;
-    // console.log('====> appended start: remove 1');
+    console.log('====> appended start: remove 1');
   }
 
   showLiveStreamHTML () {
@@ -362,16 +362,16 @@ class LiveStream {
 
   onMessage(e) {
     if (e.message.fileName) {
-      // console.log('Received file from server ', e.message.fileName);
+      console.log('Received file from server ', e.message.fileName);
       setTimeout(() => {
         if (virtualclass.currApp === 'Video' && this.mediaRecorder && this.mediaRecorder.state === 'recording') {
-          // console.log('====> send file ', e.message.fileName);
+          console.log('====> send file ', e.message.fileName);
           ioAdapter.mustSend({
             cf: 'liveStream',
             url: e.message.fileName
           }); 
         }
-      }, 3000);
+      }, 2500);
     } else if (e.message.stop) {
       this.clearEveryThing();
     } else if (e.message.stopVideo) { 
@@ -379,11 +379,11 @@ class LiveStream {
     } else if (e.message.url && virtualclass.currApp === 'Video') {
       if (virtualclass.gObj.hasOwnProperty('videoMode')) return;
       if (roles.isStudent()) {
-        // console.log('====> Empty the list 2');
+        console.log('====> Empty the list 2');
         if (!this.firstFile) this.firstFile = e.message.url;
     
         this.lastFileRequested = e.message.url;
-        // console.log('Last file request ', this.lastFileRequested);
+        console.log('Last file request ', this.lastFileRequested);
         this.fileList.insert(e.message.url, `${this.prefixUrl}/${e.message.url}.chvs`);
         
         if (!this.startingPoint && this.fileList.ol.order.length >= this.bufferLength) {
@@ -400,35 +400,36 @@ class LiveStream {
             if (this.fileList.ol.order.length <= 5) { // Play from first file
               const firstFile = this.fileList.ol.order[0];
               this.triggerStart(firstFile);
-              // console.log('live stream, start from first ', this.fileList.ol.order.length);
+              console.log('live stream, start from first ', this.fileList.ol.order.length);
             } else if (!this.startFromPageRefresh){
               this.startFromPageRefresh = true; // Play start fromw when page refresh
               if (!virtualclass.liveStream.callFromSeek) {
                 this.requestInitializePacket();
               }
               
-              // console.log('live stream, start from latest', this.fileList.ol.order.length);
+              console.log('live stream, start from latest', this.fileList.ol.order.length);
             }
           } else {
             this.triggerStart(e.message.url); // normal case
           }
-          // console.log('page refresh remove');
+          console.log('page refresh remove');
           this.pageRefresh = false;
           this.insertTime = false;
-          // console.log('live video suman 1');
+          console.log('live video suman 1');
         }, 100);
-        // console.log('====> live stream receive file ', e.message.url, ' queue length ', this.fileList.ol.order.length);
-      } else {
+        console.log('====> live stream receive file ', e.message.url, ' queue length ', this.fileList.ol.order.length);
+      } 
+      
+      // else {
+      //   if (this.playTime) clearTimeout(this.playTime); 
+      //   this.playTime = setTimeout(() => {
+      //     if (!virtualclass.gObj.hasOwnProperty('videoMode')) {
+      //       const startSharingElement = document.getElementById('startLiveStream');
+      //       startSharingElement.click();
+      //     }
+      //   }, 1000);
 
-        // if (this.playTime) clearTimeout(this.playTime); 
-        // this.playTime = setTimeout(() => {
-        //   if (!virtualclass.gObj.hasOwnProperty('videoMode')) {
-        //     const startSharingElement = document.getElementById('startLiveStream');
-        //     startSharingElement.click();
-        //   }
-        // }, 1000);
-
-      }
+      // }
     }
   }
 
@@ -465,31 +466,31 @@ class LiveStream {
       url  = `https://api.congrea.net/data/stream?session=${currentSession}`;
     }
     
-    // console.log('request url init packet ', url);
+    console.log('request url init packet ', url);
     this.requestInitializePacketFinal(url);
   }
 
   requestInitializePacketFinal(url) {
     this.latesRequetInitUrl = url;
-    // console.log('request url live stream init data ', url);
+    console.log('request url live stream init data ', url);
     this.xhrInitPacket.get(url)
     .then(async (response) => {
       if (this.latesRequetInitUrl === response.config.url) {
         this.currentFile = response.headers['x-congrea-seg'].split('.chvs')[0];
-        // console.log('request url live stream receive init data ', this.currentFile, response.config.url.split('?')[1]);
+        console.log('request url live stream receive init data ', this.currentFile, response.config.url.split('?')[1]);
         
         this.startedStream = true;
         this.listStream[this.currentFile] = response.data;
         this.firstFile = response.headers['x-congrea-seg'].split('.chvs')[0];
         delete this.startingPoint;
-        // console.log('calculate starting point');
+        console.log('calculate starting point');
         this.readyStartingPoint();
       }
     })
   }
   
   triggerStart(fileName) {
-    // // console.log("In order 2");
+    // console.log("In order 2");
     if (!this.startedStream) {
       // this.stopTraditionalVideo();
       this.initPLayerForParticipaes();
@@ -505,7 +506,7 @@ class LiveStream {
 
   isMyTurn(file) {
     const next = this.fileList.getNextByID(this.currentExecuted);
-    // console.log('is my turn curernt, next ', this.currentExecuted, next.id, file);
+    console.log('is my turn curernt, next ', this.currentExecuted, next.id, file);
     return (next.id === file);
   }
 
@@ -518,7 +519,7 @@ class LiveStream {
     let current = this.firstFile;
     const isFileinList = this.fileList.getCurrentPosition(current);
     if (isFileinList <= -1) {
-      // console.log('NOT FOUND ON LIST');
+      console.log('NOT FOUND ON LIST');
       return;
     }
     let next;
@@ -537,31 +538,32 @@ class LiveStream {
       const firstBuffer = this.inStreamList(this.firstFile);
       try {
         this.onBuffer(firstBuffer);
-        // console.log('Actual append buffer ', this.firstFile);
+        console.log('Actual append buffer ', this.firstFile);
         this.currentExecuted = this.firstFile;
         delete this.listStream[this.firstFile];
         this.startedAppending = true;
         this.duringPlayFirstPacket();
         if (this.startFromPageRefresh) {
+          const refreshTime = ( virtualclass.isPlayMode ) ? 700 : 1600;
           setTimeout(() => { 
             document.getElementById('liveStream').currentTime = this.MAX_TIME; 
-            // console.log('REFRESH THE SCREEN');
-          }, 1600);
+            console.log('REFRESH THE SCREEN');
+          }, refreshTime);
         }
       } catch (error) {
         this.requestInitializePacket(file);
-         // console.log('====> Error handlling request packet');
+         console.log('====> Error handlling request packet');
         }
       
     } else if (this.startedAppending && this.isMyTurn(file) && buffer) {
       try{
         this.onBuffer(buffer);
-        // console.log('Actual append buffer ', file);
+        console.log('Actual append buffer ', file);
         delete this.listStream[file];
         this.currentExecuted = file;
       } catch (error) {
          this.requestInitializePacket(file);
-         // console.log('====> Error handlling request packet');
+         console.log('====> Error handlling request packet');
       }
     }
   }

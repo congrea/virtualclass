@@ -276,7 +276,8 @@ class LiveStream {
    }
 
     setTimeout(() => {
-      streamElement.classList.remove('disabled');
+      const streamElement = document.getElementById('startLiveStream');
+      if (streamElement != null) streamElement.classList.remove('disabled');
     }, 5000);
   }
 

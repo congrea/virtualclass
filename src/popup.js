@@ -182,6 +182,9 @@ const PopUp = (function (window, undefined) {
           virtualclass.userInteractivity.triggerInitFirebaseOperation();
         }
       }
+
+      const startLiveStream = document.getElementById('startLiveStream');
+      if (startLiveStream != null) startLiveStream.classList.remove('disabled');
     }
   },
 

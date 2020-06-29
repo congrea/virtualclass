@@ -285,7 +285,7 @@
           // var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
           if (tp === 'Y') {
             this.canvasWrapper.scrollTop = this.canvasWrapper.scrollTop - scrollPos;
-            console.log('====> scroll top');
+            // console.log('====> scroll top');
           } else {
             this.canvasWrapper.scrollLeft = this.canvasWrapper.scrollLeft - scrollPos;
           }

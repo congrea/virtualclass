@@ -79,6 +79,11 @@ class LiveStream {
   }
 
   init() {
+    const roomConnecting = document.querySelector('#networkStatusContainer.connecting-room');
+    if (!roomConnecting) {
+      const startLiveStream = document.getElementById('startLiveStream');
+      if (startLiveStream != null) startLiveStream.classList.remove('disabled');
+    }
     if (!this.alreadyInit) {
       if (virtualclass.isPlayMode) {
         this.prefixUrl = `${this.uploadEndPoint}/${wbUser.lkey}/${wbUser.room}/${wbUser.session}`;
@@ -418,13 +423,15 @@ class LiveStream {
         }, 100);
         console.log('====> live stream receive file ', e.message.url, ' queue length ', this.fileList.ol.order.length);
       } else {
-        if (this.playTime) clearTimeout(this.playTime); 
-        this.playTime = setTimeout(() => {
-          if (!virtualclass.gObj.hasOwnProperty('videoMode')) {
-            const startSharingElement = document.getElementById('startLiveStream');
-            startSharingElement.click();
-          }
-        }, 1000);
+
+        // if (this.playTime) clearTimeout(this.playTime); 
+        // this.playTime = setTimeout(() => {
+        //   if (!virtualclass.gObj.hasOwnProperty('videoMode')) {
+        //     const startSharingElement = document.getElementById('startLiveStream');
+        //     startSharingElement.click();
+        //   }
+        // }, 1000);
+
       }
     }
   }
@@ -540,7 +547,10 @@ class LiveStream {
         this.startedAppending = true;
         this.duringPlayFirstPacket();
         if (this.startFromPageRefresh) {
-          setTimeout(() => { document.getElementById('liveStream').currentTime = this.MAX_TIME; }, 1600);
+          setTimeout(() => { 
+            document.getElementById('liveStream').currentTime = this.MAX_TIME; 
+            console.log('REFRESH THE SCREEN');
+          }, 1600);
         }
       } catch (error) {
         this.requestInitializePacket(file);

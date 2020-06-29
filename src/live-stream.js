@@ -215,16 +215,23 @@ class LiveStream {
     this.showLiveStreamHTML();
     const liveSreamVideoTag = document.getElementById('liveStream');
     liveSreamVideoTag.srcObject = this.stream;
-    this.startRecorder();
+    this.startRecorder(streamSettings.width);
   }
 
   // 320 * 240  => 100kbps 
  // 640 * 480 => 200kb
-  startRecorder () {
+  startRecorder (videoWidth) {
+    let videoBitsPerSecond = 300000; // 300kbs
+    if (videoWidth > 640 && videoWidth <= 1920) {
+      videoBitsPerSecond = 500000; // 500kbs
+    } else if (videoWidth > 1920) {
+      videoBitsPerSecond = 1000000; // 1 Mbs
+    }
     console.log('current mode LIVE STREAM');
+    console.log('video bit per second ', videoBitsPerSecond);
     if (!MediaRecorder.isTypeSupported(this.mimeType)) console.error(`${this.mimeType} is not supported`);
     //this.mediaRecorder = new MediaRecorder(this.stream, {mimeType: this.mimeType, videoBitsPerSecond : 500000}); // 250kbps
-    this.mediaRecorder = new MediaRecorder(this.stream, {mimeType: this.mimeType, videoBitsPerSecond : 500000}); // 250kbps
+    this.mediaRecorder = new MediaRecorder(this.stream, {mimeType: this.mimeType, videoBitsPerSecond : videoBitsPerSecond}); // 250kbps
     this.mediaRecorder.addEventListener('stop', this.stopHandler.bind(this))
     this.mediaRecorder.addEventListener('dataavailable', this.handleLiveStreamData.bind(this))
     this.mediaRecorder.start(1500);

@@ -234,7 +234,7 @@ class LiveStream {
     this.mediaRecorder = new MediaRecorder(this.stream, {mimeType: this.mimeType, videoBitsPerSecond : videoBitsPerSecond}); // 250kbps
     this.mediaRecorder.addEventListener('stop', this.stopHandler.bind(this))
     this.mediaRecorder.addEventListener('dataavailable', this.handleLiveStreamData.bind(this))
-    this.mediaRecorder.start(1500);
+    this.mediaRecorder.start(2000);
   }
 
   stopHandler() {

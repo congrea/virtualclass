@@ -71,6 +71,7 @@ module.exports = {
     WhiteboardCursor: 'writable',
     WhiteboardMessage: 'writable',
     fabric: 'writable',
+    LiveStream: 'writable',
 
   },
   parserOptions: {
@@ -81,6 +82,6 @@ module.exports = {
   },
   rules: {
     'max-len': [1, { "code": 120 }],
-    'linebreak-style': ["error", "unix"],
+    'linebreak-style': ["error", "windows"],
    },
 };

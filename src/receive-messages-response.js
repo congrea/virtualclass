@@ -14,7 +14,7 @@
     // TODO this is not used any more
     // should be deleted
     replayAll() {
-      // console.log('=JAI= ASSIGN');
+      // // console.log('=JAI= ASSIGN');
       virtualclass.wb[virtualclass.gObj.currWb].vcan.main.replayObjs = virtualclass.wb[virtualclass.gObj.currWb].gObj.replayObjs;
       virtualclass.wb[virtualclass.gObj.currWb].utility.clearAll(false, virtualclass.gObj.currWb);
 
@@ -39,7 +39,7 @@
       virtualclass.posY = (obj.mp.y);
       virtualclass.posX = (obj.mp.x);
 
-      // console.log('vm mouse cursor y=' + (virtualclass.posY));
+      // // console.log('vm mouse cursor y=' + (virtualclass.posY));
 
       virtualclass.wb[virtualclass.gObj.currWb].utility.drawArrowImg(imageElm, obj);
 
@@ -51,7 +51,7 @@
       if (virtualclass.pdfRender[wid].scroll.X != null) {
         virtualclass.pdfRender[wid].customMoustPointer({ x: virtualclass.posX }, 'X', virtualclass.posX);
       }
-      // console.log('Mouse cursor x=' + obj.mp.x  + ' y=' + obj.mp.y);
+      // // console.log('Mouse cursor x=' + obj.mp.x  + ' y=' + obj.mp.y);
     },
 
     replayObj(repObj, wId) {

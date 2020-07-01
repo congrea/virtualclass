@@ -19,7 +19,7 @@
             // var canvasScale = localStorage.getItem('wbcScale');
             // if(canvasScale != null){
             //     this.canvasScale = canvasScale;
-            //     console.log('Canvas pdf scale ' + this.canvasScale);
+            //     // console.log('Canvas pdf scale ' + this.canvasScale);
             // }
 
             const canvasDimension = localStorage.getItem('canvasDimension');
@@ -77,7 +77,7 @@
           virtualclass.studentScreen[fnName].call(virtualclass.studentScreen);
         } else {
           virtualclass.zoom.prvCanvasScale = this.canvasScale;
-          console.log('previous canvas scale ', virtualclass.zoom.prvCanvasScale);
+          // console.log('previous canvas scale ', virtualclass.zoom.prvCanvasScale);
           this[fnName].call(this);
         }
       },
@@ -94,7 +94,7 @@
 
           // this.canvasScale = this.canvasScale * virtualclass.gObj.SCALE_FACTOR;
 
-          // console.log('Canvas pdf scale ' + this.canvasScale);
+          // // console.log('Canvas pdf scale ' + this.canvasScale);
 
           // var actualWidth = virtualclass.vutil.getWidth(canvas) * virtualclass.gObj.SCALE_FACTOR;
           // var actualHeight = virtualclass.vutil.getHeight(canvas) * virtualclass.gObj.SCALE_FACTOR;
@@ -132,7 +132,7 @@
 
 
         // this.canvasScale = this.canvasScale / virtualclass.gObj.SCALE_FACTOR;
-        // console.log(`Canvas pdf scale ${this.canvasScale}`);
+        // // console.log(`Canvas pdf scale ${this.canvasScale}`);
 
 
         const actualWidth = virtualclass.zoom.canvasDimension.width * (1 / virtualclass.gObj.SCALE_FACTOR);
@@ -165,14 +165,14 @@
           // const { canvas } = virtualclass.wb[virtualclass.gObj.currWb].vcan.main;
           const canvas = virtualclass.wb[virtualclass.gObj.currWb].canvas.lowerCanvasEl;
           const wrapperWidth = document.querySelector(".canvasWrapper").offsetWidth;
-          // console.log(`==== wrapperWidth ${wrapperWidth}`);
+          // // console.log(`==== wrapperWidth ${wrapperWidth}`);
           try {
             virtualclass.pdfRender[wid]._fitToScreen.call(virtualclass.pdfRender[wid], canvas, wrapperWidth);
             if (virtualclass.currApp === 'DocumentShare') {
               this.fitToElementTooltip('fitToToPage');
             }
           } catch (error) {
-            // console.log(`Error ${error}`);
+            // // console.log(`Error ${error}`);
           }
         }
       },

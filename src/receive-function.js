@@ -62,9 +62,9 @@ const receiveFunctions = new function () {
         virtualclass.user.control.onmessage(e);
       }
     } else {
-      // console.log('editor mode editorRichWriteModeBox null');
+      // // console.log('editor mode editorRichWriteModeBox null');
     }
-    // console.log('Editor mode save');
+    // // console.log('Editor mode save');
   };
 
   this.bt = function () {
@@ -188,7 +188,7 @@ const receiveFunctions = new function () {
     virtualclass.gObj.studentSSstatus.shareToAll = false;
     const app = e.message.st;
     if (typeof virtualclass[app] === 'object') {
-      // console.log('Unshare the screen at student');
+      // // console.log('Unshare the screen at student');
       virtualclass[app].prevImageSlices = [];
       virtualclass[app].removeStream();
       virtualclass.currApp = virtualclass.gObj.defaultApp;
@@ -225,7 +225,7 @@ const receiveFunctions = new function () {
 
   // Clear All
   this.clearAll = function (e) {
-    // console.log('====> WHITEBOARD APP DATA CLEAR ALL');
+    // // console.log('====> WHITEBOARD APP DATA CLEAR ALL');
     // if (typeof virtualclass.wb !== 'object') {
     //   virtualclass.makeAppReady({ app: virtualclass.apps.wb });
     // }
@@ -279,8 +279,8 @@ const receiveFunctions = new function () {
   // documnetation sharing
   this.dts = function (e) {
     if (Object.prototype.hasOwnProperty.call(e.message.dts, 'init')) {
-      // console.log('====> final seek suman 4', e.message.dts);
-      // console.log('====> document shareing 1');
+      // // console.log('====> final seek suman 4', e.message.dts);
+      // // console.log('====> document shareing 1');
       virtualclass.gObj.screenRh = 100;
       // virtualclass.makeAppReady('DocumentShare', undefined, e.message.dts);
       virtualclass.makeAppReady({ app: 'DocumentShare', data: e.message.dts });
@@ -290,7 +290,7 @@ const receiveFunctions = new function () {
     }
   };
   this.poll = function (e) {
-    // console.log(e.message.poll.pollMsg);
+    // // console.log(e.message.poll.pollMsg);
     if (e.message.poll.pollMsg === 'init') {
       // virtualclass.makeAppReady('Poll');
       // virtualclass.makeAppReady({ app: 'Poll' });
@@ -308,7 +308,7 @@ const receiveFunctions = new function () {
   };
 
   this.quiz = function (e) {
-    // console.log(e.message.quiz.quizMsg);
+    // // console.log(e.message.quiz.quizMsg);
     if (e.message.quiz.quizMsg === 'init') {
       // virtualclass.makeAppReady('Quiz');
       virtualclass.makeAppReady({ app: 'Quiz' });
@@ -377,17 +377,17 @@ const receiveFunctions = new function () {
   };
 
   this.mvid = function (e) {
-    // console.log('multivideo, message received');
+    // // console.log('multivideo, message received');
     virtualclass.multiVideo.onmessage(e.message, e.fromUser.userid);
   };
 
   this.sc = function (e) {
-    // console.log('Recevied scroll');
+    // // console.log('Recevied scroll');
     virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
   };
 
   this.scf = function (e) {
-    // console.log('Recevied scroll first');
+    // // console.log('Recevied scroll first');
     console.dir(e.message);
     if (virtualclass.gObj.currWb != null) {
       virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition(e.message);
@@ -398,7 +398,7 @@ const receiveFunctions = new function () {
     if (Object.prototype.hasOwnProperty.call(e.message, 'diswb')) {
       const { wid } = e.message;
       virtualclass.gObj.currWb = wid;
-      console.log('====> whiteboard apply ', virtualclass.gObj.currWb);
+      // console.log('====> whiteboard apply ', virtualclass.gObj.currWb);
       const idn = wid.split('_');
       if (idn.length > 0) {
         virtualclass.gObj.currSlide = idn[idn.length - 1];
@@ -580,7 +580,7 @@ const receiveFunctions = new function () {
         }
 
         if (typeof virtualclass.videoUl.player === 'object') {
-          // console.log('====> Video player is destroyed  <======', virtualclass.videoUl.player);
+          // // console.log('====> Video player is destroyed  <======', virtualclass.videoUl.player);
           delete (virtualclass.videoUl.player);
         }
       }
@@ -620,7 +620,7 @@ const receiveFunctions = new function () {
   }
 
   this.readyContext = function () {
-    console.log('===> do nothing ready context');
+    // console.log('===> do nothing ready context');
   }
 
   this.liveStream = function (e) {

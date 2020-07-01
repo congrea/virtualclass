@@ -39,7 +39,7 @@
         //  this.fetchChatUsers();
 
 
-        // console.log('chat local storage start ');
+        // // console.log('chat local storage start ');
         /** Disable Chat * */
         // const chatEnable = localStorage.getItem('chatEnable');
         // if (chatEnable != null) {
@@ -58,7 +58,7 @@
 
       /** TODO , that should be handle properly for simple layout * */
       fetchChatUsers() {
-        // console.log('FetchUser congrea_get_enrolled_users');
+        // // console.log('FetchUser congrea_get_enrolled_users');
         const data = new FormData();
         data.append('action', 'fetchUser');
 
@@ -172,7 +172,7 @@
           offset: '-1px',
           title: virtualclass.lang.getString('online'),
           userSent(user) {
-            console.log('====> UserList is created 1');
+            // console.log('====> UserList is created 1');
             const userDiv = $('#chat_div').memberlist('option', 'boxManager').addUsr(user);
             return userDiv;
           },
@@ -253,7 +253,7 @@
         $('.ui-chatbox').remove();
         $('div#chatrm').remove();
         virtualclass.chat.chatroombox = null;
-        // console.log('Chat box is  null');
+        // // console.log('Chat box is  null');
 
         // delete open chat box
         for (const key in io.uniquesids) {

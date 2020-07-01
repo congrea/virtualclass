@@ -20,7 +20,7 @@
       sentStudentLayout: false,
       async init() {
         if (!virtualclass.orderList[this.appName]) {
-          // console.log('====> ORDER LIST IS CREATING ');
+          // // console.log('====> ORDER LIST IS CREATING ');
           virtualclass.orderList[this.appName] = new OrderedList();
         }
 
@@ -32,11 +32,11 @@
         }
         // this.indexNav = new virtualclass.pageIndexNav('documentShare');
         this.UI.container();
-        // console.log('====> DOCUMENT SHARE SUMAN 1A');
+        // // console.log('====> DOCUMENT SHARE SUMAN 1A');
         if (roles.hasControls() && virtualclass.config.makeWebSocketReady) {
-          // console.log('====> DOCUMENT SHARE SUMAN 1B');
+          // // console.log('====> DOCUMENT SHARE SUMAN 1B');
           ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
-          console.log('===> document share studentlayout');
+          // console.log('===> document share studentlayout');
           virtualclass.dts.sentStudentLayout = true;
           virtualclass.serverData.syncAllData();
         }
@@ -123,7 +123,7 @@
           if (mainContainer != null) {
             mainContainer.insertAdjacentHTML('beforeend', tempHtml);
           } else {
-            // console.log('there is no such element');
+            // // console.log('there is no such element');
           }
 
           if (!roles.hasControls()) {
@@ -207,17 +207,17 @@
        * received from LMS and localstorage
        */
       afterRequestOrder(content) {
-        // console.log('====> dts order after request ', content.length);
+        // // console.log('====> dts order after request ', content.length);
         if (content != null && content.length > 0) {
           // virtualclass.orderList[this.appName].ol.order.length = 0;
           virtualclass.orderList[this.appName].ol.order = content;
-          // console.log('====> DTS ORDER ', virtualclass.orderList[this.appName].ol.order);
+          // // console.log('====> DTS ORDER ', virtualclass.orderList[this.appName].ol.order);
 
           const doc = this.getDocId(virtualclass.orderList[this.appName].ol.order[0]);
           if (Object.prototype.hasOwnProperty.call(virtualclass.dts.allDocs, doc)) {
             const docId = `docs${doc}`;
             // var mainCont = this.pages[docId].UI.mainView.call(this.pages[docId]);
-            // console.log(`From database doc share order ${virtualclass.orderList[this.appName].ol.order.join(',')}`);
+            // // console.log(`From database doc share order ${virtualclass.orderList[this.appName].ol.order.join(',')}`);
             this.setScreenByOrder(docId);
             this.docs.currNote = virtualclass.orderList[this.appName].ol.order[0];
             this.docs.displayScreen(docId, virtualclass.orderList[this.appName].ol.order[0]);
@@ -229,7 +229,7 @@
        * this requests the order from LMS
        */
       requestOrder(cb) {
-        // console.log('====> dts order request ');
+        // // console.log('====> dts order request ');
         virtualclass.vutil.requestOrder(cb);
       },
 
@@ -237,13 +237,13 @@
         if (response != null && typeof response !== 'undefined') {
           if (response.length > 0) {
             if (response === 'Failed' || response === 'Error') {
-              // console.log('page order retrieve failed');
+              // // console.log('page order retrieve failed');
               $('#congdashboard').modal();
-              console.log('Congrea dashboard here');
-              // console.log(`dashboard length ${$('#congdashboard').length}`);
+              // console.log('Congrea dashboard here');
+              // // console.log(`dashboard length ${$('#congdashboard').length}`);
               virtualclass.dashboard.clickCloseButton();
             } else if (response && roles.hasAdmin()) {
-              // console.log('==== dts must send order');
+              // // console.log('==== dts must send order');
               ioAdapter.mustSend({ dts: { order_recived: virtualclass.orderList.DocumentShare.ol.order }, cf: 'dts' });
               if (virtualclass.currApp === 'DocumentShare') {
                 virtualclass.dts.afterRequestOrder(virtualclass.orderList.DocumentShare.ol.order);
@@ -292,7 +292,7 @@
       },
 
       afterConverted() {
-        // console.log('polling status done 2');
+        // // console.log('polling status done 2');
         virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         ioAdapter.mustSend({ dts: { fallDocs: true }, cf: 'dts' });
         this.removeNoDocsElem();
@@ -319,7 +319,7 @@
       },
 
       requestSlides(filepath) {
-        // console.log(`${virtualclass.gObj.currWb} ` + `document share : request ${filepath}`);
+        // // console.log(`${virtualclass.gObj.currWb} ` + `document share : request ${filepath}`);
 
         const relativeDocs = this.getDocs(filepath);
         if (relativeDocs != null) {
@@ -336,7 +336,7 @@
       },
 
       removePagesUI(doc) {
-        // console.log('====> Note remove UI');
+        // // console.log('====> Note remove UI');
         const notes = this.getNotes(doc);
         for (let i = 0; i < notes.length; i++) {
           this.removePageUI(notes[i].id);
@@ -350,9 +350,9 @@
       },
 
       removePageUI(noteId) {
-        // console.log('====> DOCUMENT SHARING removing node', noteId);
+        // // console.log('====> DOCUMENT SHARING removing node', noteId);
 
-        // console.log('JAI 2b');
+        // // console.log('JAI 2b');
         const orderId = virtualclass.orderList[this.appName].ol.order.indexOf(noteId);
         if (orderId >= 0) {
           virtualclass.orderList[this.appName].ol.order.splice(orderId, 1);
@@ -364,11 +364,11 @@
 
         if (typeof virtualclass.wb[`_doc_${noteId}_${noteId}`] === 'object') {
           // delete whiteboard object
-          // console.log('Delete whiteboard');
+          // // console.log('Delete whiteboard');
 
           // TODO, we need look why it is causing the problem on page refresh
           delete virtualclass.wb[`_doc_${noteId}_${noteId}`];
-          console.log('JAI 3');
+          // console.log('JAI 3');
         }
         this.removeNoteNav(noteId);
         this.reaArrangeThumbCount();
@@ -399,7 +399,7 @@
               }
               if (virtualclass.orderList[this.appName].ol.order.indexOf(slides[j].id) <= -1) {
                 virtualclass.orderList[this.appName].insert(slides[j].id);
-                // console.log('====> ORDER is generating');
+                // // console.log('====> ORDER is generating');
               }
             }
           }
@@ -417,7 +417,7 @@
           linkDoc.dataset.selected = 1;
           return true;
         }
-        // console.log('Document sharing There is no Element');
+        // // console.log('Document sharing There is no Element');
       },
 
       setLinkSelected(doc, val) {
@@ -462,7 +462,7 @@
         // var addSlide = this.toggleSlideWithOrder(doc, slides);
         if (addSlide) {
           // TODO, order is fine now, but we have to hanlde this gracefully as done in video and ppt
-          console.log('====> document share nav add ');
+          // console.log('====> document share nav add ');
           this.addPages(slides);
 
           if (typeof doc !== 'string') {
@@ -486,7 +486,7 @@
           virtualclass.vutil.hideUploadMsg('docsuploadContainer'); // file uploader container
           virtualclass.vutil.addNoteClass();
         } else {
-          // console.log('====> document share nav remove ');
+          // // console.log('====> document share nav remove ');
           // this.removePagesUI(doc);
           this.deleteNotesFromOrder(doc);
           this.removePagesUI(doc);
@@ -510,7 +510,7 @@
                 const docsContainer = document.querySelector('#docScreenContainer');
                 if (docsContainer != null) {
                   docsContainer.classList.remove('noteDisplay');
-                  console.log('====> noteDisplay removing');
+                  // console.log('====> noteDisplay removing');
                 }
                 virtualclass.gObj.currWb = null;
 
@@ -556,7 +556,7 @@
           const firstElement = document.querySelector('#notesContainer .note');
           if (firstElement != null) {
             this.docs.currNote = firstElement.dataset.slide;
-            // console.log(`Current note ${this.docs.currNote}`);
+            // // console.log(`Current note ${this.docs.currNote}`);
             this.docs.currDoc = `docs${this.getDocId(firstElement.dataset.slide)}`;
             this.docs.note.getScreen(firstElement);
           }
@@ -929,7 +929,7 @@
                 cb();
               }
             } else {
-              // console.log('There is no data');
+              // // console.log('There is no data');
             }
           } else if (typeof slide !== 'undefined') {
             // this should be removed
@@ -952,7 +952,7 @@
         },
 
         displayScreen(screen, slide) {
-          // console.log('==== prev display screen');
+          // // console.log('==== prev display screen');
           if (typeof slide !== 'undefined') {
             this.curr(screen, slide);
           } else {
@@ -978,7 +978,7 @@
           // const elem = document.querySelector(query);
           // if (elem != null) {
           //   elem.insertBefore(whiteboard, elem.firstChild);
-          //   console.log('##==jai 3b ', slide);
+          //   // console.log('##==jai 3b ', slide);
           //   virtualclass.vutil.createWhiteBoard(whiteboard.dataset.wid);
           // }
 
@@ -1029,7 +1029,7 @@
             },
 
             slideTo(note, fromReload) {
-              console.log('hello 3');
+              // console.log('hello 3');
               const noteId = note.dataset.slide;
               virtualclass.vutil.updateCurrentDoc(noteId);
 
@@ -1038,7 +1038,7 @@
               if (roles.hasControls() && typeof fromReload === 'undefined') {
                 if (!virtualclass.dts.sentStudentLayout && virtualclass.config.makeWebSocketReady) {
                   ioAdapter.mustSend({ dts: { init: 'studentlayout' }, cf: 'dts' });
-                  // console.log('====> DOCUMENT SHARE SUMAN 1B');
+                  // // console.log('====> DOCUMENT SHARE SUMAN 1B');
                   virtualclass.dts.sentStudentLayout = true;
                 }
 
@@ -1046,8 +1046,8 @@
                   dts: { slideTo: noteId, docn: virtualclass.dts.docs.currDoc },
                   cf: 'dts',
                 });
-                // console.log('====> DOCUMENT SHARE SUMAN 2');
-                // console.log(`Slide to document sharing ${noteId}`);
+                // // console.log('====> DOCUMENT SHARE SUMAN 2');
+                // // console.log(`Slide to document sharing ${noteId}`);
               }
             },
 
@@ -1099,12 +1099,12 @@
                       // by true, know the event is performed real user
                       this.getScreen(activeSlide, true);
                       cthis.docs.currNote = activeSlide.dataset.slide;
-                      // console.log(`Current note ${virtualclass.dts.docs.currNote}`);
+                      // // console.log(`Current note ${virtualclass.dts.docs.currNote}`);
                     }
                   } else {
                     this.getScreen(prevSlide, true);
                     cthis.docs.currNote = prevSlide.dataset.slide;
-                    // console.log(`Current note ${virtualclass.dts.docs.currNote}`);
+                    // // console.log(`Current note ${virtualclass.dts.docs.currNote}`);
                   }
 
                   /** to set the dimension of whiteboard during window is resized * */
@@ -1158,7 +1158,7 @@
                       } else {
                         this.getScreen(activeSlide, true);
                         cthis.docs.currNote = activeSlide.dataset.slide;
-                        // console.log(`Current note ${virtualclass.dts.docs.currNote}`);
+                        // // console.log(`Current note ${virtualclass.dts.docs.currNote}`);
                       }
                     } else {
                       this.getScreen(nextSlide, true);
@@ -1189,15 +1189,15 @@
             currentSlide(slideNum) {
               const currElem = document.querySelector(`#documentScreen #note${slideNum}`);
               if (currElem != null) {
-                // console.log(`${slideNum} ` + ' ====> init trigger');
+                // // console.log(`${slideNum} ` + ' ====> init trigger');
                 this.getScreen(currElem);
               } else {
-                // console.log(`Document-Sharing:-${slideNum} is not found `);
+                // // console.log(`Document-Sharing:-${slideNum} is not found `);
               }
               const docsContainer = document.querySelector('#docScreenContainer');
               if (docsContainer != null) {
                 docsContainer.classList.add('noteDisplay');
-                console.log('====> noteDisplay add');
+                // console.log('====> noteDisplay add');
               }
             },
 
@@ -1213,7 +1213,7 @@
              * Create the screen with Whiteboard and Current slide
              */
             getScreen(note) {
-              // console.log('====> document sharing 4d');
+              // // console.log('====> document sharing 4d');
               this.currSlide = note.dataset.slide;
               this.currNote = note.dataset.slide;
               virtualclass.dts.currDoc = this.doc;
@@ -1255,7 +1255,7 @@
         if (appWrapper != null) {
           appWrapper.parentNode.removeChild(appWrapper);
         } else {
-          // console.log('Element is null');
+          // // console.log('Element is null');
         }
         virtualclass.dts = null;
       },
@@ -1288,12 +1288,12 @@
         if (Object.prototype.hasOwnProperty.call(dts, 'docn') && dts.docn.indexOf('docs') === -1) {
           dts.docn = `docs${dts.docn}`; // incaseof missing docs prefix
         }
-        // console.log('====> DOCUMENT SHARING ', dts);
+        // // console.log('====> DOCUMENT SHARING ', dts);
 
         if (Object.prototype.hasOwnProperty.call(dts, 'fallDocs')) {
           virtualclass.dts.afterFirstRequestDocs(virtualclass.serverData.rawData.docs);
         } else if (Object.prototype.hasOwnProperty.call(dts, 'dres')) {
-          console.log('====> document share res');
+          // console.log('====> document share res');
           this.docs.studentExecuteScreen(dts);
           if (roles.hasControls() && !virtualclass.dts.noteExist()) {
             virtualclass.dashboard.open();
@@ -1301,14 +1301,14 @@
               virtualclass.vutil.triggerDashboard('DocumentShare', 'hidepopup');
             }
           }
-          // console.log('====> DOCUMENT SHARING  res ', dts);
-          // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Layout initialized');
+          // // console.log('====> DOCUMENT SHARING  res ', dts);
+          // // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Layout initialized');
         } else if (Object.prototype.hasOwnProperty.call(dts, 'slideTo')) {
-          console.log('====> document share res slideTo');
+          // console.log('====> document share res slideTo');
           if (typeof this.docs.note !== 'object') {
             const cthis = this;
             this.docs.executeScreen(dts.docn, undefined, () => {
-              // console.log('document share :- doc is not created');
+              // // console.log('document share :- doc is not created');
               cthis.docs.note.currNote = dts.slideTo;
               const note = document.querySelector(`#note${dts.slideTo}`);
               cthis.docs.note.slideTo(note);
@@ -1320,18 +1320,18 @@
             // doc and after that we need to call for next slide
           } else if (typeof this.docs.note === 'object' && dts.docn !== this.docs.num) {
             this.docs.currNote = dts.slideTo;
-            // console.log(`Current note ${this.docs.currNote}`);
+            // // console.log(`Current note ${this.docs.currNote}`);
             // this.docs.executeScreen(dts.docn, undefined);
             this.docs.note.currentSlide(dts.slideTo);
           } else {
             const note = document.querySelector(`#note${dts.slideTo}`);
             if (note != null) {
               this.docs.currNote = dts.slideTo;
-              // console.log(`Current note ${this.docs.currNote}`);
+              // // console.log(`Current note ${this.docs.currNote}`);
               // In normal case
-              // console.log(`${virtualclass.gObj.currWb} ` + ' ====> init trigger');
+              // // console.log(`${virtualclass.gObj.currWb} ` + ' ====> init trigger');
               this.docs.note.getScreen(note);
-              // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Normal Case');
+              // // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Normal Case');
             } else {
               alert(`Note is not found ${dts.slideTo}`);
             }
@@ -1340,15 +1340,15 @@
           const doc = dts.dispScreen.sc;
           virtualclass.vutil.updateCurrentDoc(doc, dts.dispScreen.sn);
           if (!virtualclass.dts.screenIsCreated(doc)) {
-            // console.log('document share :- With screen Created');
-            // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- With screen Created');
+            // // console.log('document share :- With screen Created');
+            // // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- With screen Created');
             this.docs.executeScreen(doc, undefined, undefined, dts.dispScreen.sn);
             if (typeof this.docs.note === 'object') {
               this.docs.note.getScreen(dts.dispScreen.sn); // it will get the screen if there is not already
             }
           } else {
-            // console.log('document share :- Only display screen');
-            // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Only display screen');
+            // // console.log('document share :- Only display screen');
+            // // console.log(`${virtualclass.gObj.currWb} ` + 'document share :- Only display screen');
             this.docs.displayScreen(doc);
           }
         } else if (Object.prototype.hasOwnProperty.call(dts, 'rmnote')) {
@@ -1379,7 +1379,7 @@
           }
         } else if (Object.prototype.hasOwnProperty.call(dts, 'norder')) {
           virtualclass.orderList[this.appName].ol.order = dts.norder;
-          // console.log('====> ORDER is geneartThere is no pageing ', virtualclass.orderList[this.appName].ol.order);
+          // // console.log('====> ORDER is geneartThere is no pageing ', virtualclass.orderList[this.appName].ol.order);
           virtualclass.dts.indexNav.studentDocNavigation(this.docs.currNote);
         }
       },
@@ -1389,15 +1389,15 @@
       //     const doc = virtualclass.dts.docs.currDoc;
       //     if (doc != undefined) {
       //       if (document.querySelector('#listnotes .note') != null) {
-      //         //console.log('==== dts must send ');
+      //         //// console.log('==== dts must send ');
       //         ioAdapter.mustSend({
       //           dts: { slideTo: virtualclass.dts.docs.note.currNote, docn: doc },
       //           cf: 'dts',
       //         });
-      //         // console.log(`${virtualclass.gObj.currWb} ` + 'Document share send current slide');
+      //         // // console.log(`${virtualclass.gObj.currWb} ` + 'Document share send current slide');
       //       }
       //     } else {
-      //       // console.log('Document sharing : doc number is undefined');
+      //       // // console.log('Document sharing : doc number is undefined');
       //     }
       //   }
       // },
@@ -1407,18 +1407,18 @@
         if (Object.prototype.hasOwnProperty.call(virtualclass.dts.docs, 'currDoc')) {
           if (doc != null) {
             doc = virtualclass.dts.docs.currDoc;
-            // console.log('==== dts must send ');
+            // // console.log('==== dts must send ');
             ioAdapter.mustSend({ dts: { doc: doc = virtualclass.dts.docs.currDoc }, cf: 'dts' });
-            // console.log('Document share send current doc only');
-            // console.log(`${virtualclass.gObj.currWb} ` + 'Document share send current doc only');
+            // // console.log('Document share send current doc only');
+            // // console.log(`${virtualclass.gObj.currWb} ` + 'Document share send current doc only');
           } else {
-            // console.log('Document sharing : doc number is undefined');
+            // // console.log('Document sharing : doc number is undefined');
           }
         }
       },
 
       consoleMessage(msg) {
-        // console.log(`${virtualclass.gObj.currWb} ${msg}`);
+        // // console.log(`${virtualclass.gObj.currWb} ${msg}`);
       },
 
       _rearrange(pageOrder) {
@@ -1438,7 +1438,7 @@
       },
 
       sendOrder(order) {
-        // console.log('====> virtualclass dts order 1', order);
+        // // console.log('====> virtualclass dts order 1', order);
         if (Array.isArray(order)) {
           virtualclass.vutil.sendOrder('docs', order);
         }
@@ -1502,7 +1502,7 @@
         virtualclass.orderList[this.appName].ol.order = virtualclass.orderList[this.appName].ol.order.filter((el) => {
           return !notes.includes(el.id);
         });
-        // console.log('====> DTS ORDER ', virtualclass.orderList[this.appName].ol.order);
+        // // console.log('====> DTS ORDER ', virtualclass.orderList[this.appName].ol.order);
       },
 
       deleteDocElement(id) {
@@ -1519,7 +1519,7 @@
         this.removePageUI(id, typeDoc);
         this.removePageFromStructure(id, typeDoc);
         if (roles.hasControls()) {
-          // console.log('==== dts must send ');
+          // // console.log('==== dts must send ');
           ioAdapter.mustSend({ dts: { rmsnote: id }, cf: 'dts' });
         }
 
@@ -1584,7 +1584,7 @@
             }
           }
         } else {
-          // console.log(`The note with the id ${noteid} is not available`);
+          // // console.log(`The note with the id ${noteid} is not available`);
         }
       },
 
@@ -1612,7 +1612,7 @@
           docStatus = (typeof status === 'undefined') ? (1 - (+note.dataset.status)) : status;
         } else {
           docStatus = status;
-          // console.log(`document share:- there is no element ${id}`);
+          // // console.log(`document share:- there is no element ${id}`);
         }
 
         const allNotes = this.getDocs(id);
@@ -1622,7 +1622,7 @@
           this.updatePageNavStatus(nid, docStatus);
         }
         if (roles.hasControls()) {
-          // console.log('==== dts must send ');
+          // // console.log('==== dts must send ');
           ioAdapter.mustSend({ dts: { docSt: docStatus, doc: id }, cf: 'dts' });
         }
       },
@@ -1640,7 +1640,7 @@
           childNode.dataset.status = status;
           childNode.querySelector('.statusanch').innerHTML = `status${status}`;
         } else {
-          // console.log(`${'Document share : there is no element ' + '#linknotes'}${id}`);
+          // // console.log(`${'Document share : there is no element ' + '#linknotes'}${id}`);
         }
       },
 
@@ -1659,10 +1659,10 @@
         if (roles.hasControls()) {
           const note = document.querySelector(`#note${id}`);
           if (note != null) {
-            // console.log('==== dts must send ');
+            // // console.log('==== dts must send ');
             ioAdapter.mustSend({ dts: { noteSt: note.dataset.status, note: id }, cf: 'dts' });
           } else {
-            // console.log('Element is null');
+            // // console.log('Element is null');
           }
         }
       },
@@ -1673,7 +1673,7 @@
        * @param status expect enable or disable
        */
       noteStatus(id, status) {
-        // console.log('====> note status ', id, status);
+        // // console.log('====> note status ', id, status);
         let docStatus;
         const note = document.querySelector(`#note${id}`);
         if (note != null) {
@@ -1689,7 +1689,7 @@
           noteObj.status = note.dataset.status;
           this.allNotes[id] = noteObj;
         } else {
-          // console.log(`there is no element #note${id}`);
+          // // console.log(`there is no element #note${id}`);
         }
       },
 
@@ -1709,11 +1709,11 @@
 
       // Return the pages from specific page
       getDocs(id) {
-        // console.log('--------------');
+        // // console.log('--------------');
         if (this.allDocs != null && typeof this.allDocs[id] === 'object') {
           return this.allDocs[id].notesarr;
         }
-        // console.log(`There is no document with the id ${id}`);
+        // // console.log(`There is no document with the id ${id}`);
       },
 
       /**
@@ -1793,7 +1793,7 @@
           virtualclass.vutil.makeElementDeactive(elemSelector);
           virtualclass.vutil.makeElementActive('#listnotes');
         } else {
-          // console.log('List note is null');
+          // // console.log('List note is null');
         }
       },
 
@@ -1885,7 +1885,7 @@
       },
 
       printOrderList() {
-        console.log(virtualclass.orderList.DocumentShare.ol.order);
+        // console.log(virtualclass.orderList.DocumentShare.ol.order);
       },
 
       identifyFirstAndLastNote (noteId) {

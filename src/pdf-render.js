@@ -61,7 +61,7 @@
         // this.wbId = '_doc_' + currNote + '_' + currNote;
         this.wbId = currNote;
         this.canvas = canvas;
-        // console.log('====JAI, After PDF currNote' + currNote);
+        // // // console.log('====JAI, After PDF currNote' + currNote);
         // this.canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
         this.canvasWrapper = canvas.closest('.canvasWrapper');
         const doc = {};
@@ -79,7 +79,7 @@
         pdf.wbId = this.wbId;
         this.shownPdf = pdf;
 
-        // console.log('====> shown pdf id 2 fp ', pdf.pdfInfo.fingerprint, ' wb', this.wbId);
+        // // // console.log('====> shown pdf id 2 fp ', pdf.pdfInfo.fingerprint, ' wb', this.wbId);
 
         if (virtualclass.gObj.myworker == null) {
           virtualclass.gObj.myworker = pdf.loadingTask._worker; // Contain the single pdf worker for all PDFS
@@ -103,13 +103,13 @@
       },
 
       updateScrollPosition(pos, type) {
-        // console.log('Update scroll type ' + type + ' ' + pos);
+        // // // console.log('Update scroll type ' + type + ' ' + pos);
         const tp = type;
         if (typeof this.scroll[tp] === 'object' && Object.prototype.hasOwnProperty.call(this.scroll[tp], 'b')) {
           this.scroll[tp].b = pos;
           this.scroll[tp].c = this.scroll[tp].b + this.scroll[tp].studentVPm;
         } else {
-          // console.log('Scroll b is undefined');
+          // // // console.log('Scroll b is undefined');
         }
       },
 
@@ -146,7 +146,7 @@
         if (!roles.hasControls() && typeof virtualclass.pdfRender[virtualclass.gObj.currWb] === 'object') {
           virtualclass.pdfRender[virtualclass.gObj.currWb].setScrollPosition({ scX: leftPosX, scY: topPosY });
         } else if (roles.isStudent()) {
-          console.log("Could not call scroll function for student");
+          // // console.log("Could not call scroll function for student");
         }
       },
 
@@ -154,8 +154,8 @@
         if (roles.hasControls()) {
           this.topPosY = topPosY;
           this.leftPosX = leftPosX;
-          // console.log("==== top position y " + this.topPosY);
-          // console.log("==== top position x" + this.leftPosX);
+          // // // console.log("==== top position y " + this.topPosY);
+          // // // console.log("==== top position x" + this.leftPosX);
           return this.scrollPosition(elem, type);
         }
         if (type === 'Y') {
@@ -218,7 +218,7 @@
             if (this.type === 'X') {
               this[tp].b = studentWrapper.scrollLeft;
             } else if (this.type === 'Y') {
-              // console.log('Scroll position Y ' + studentWrapper.scrollTop);
+              // // // console.log('Scroll position Y ' + studentWrapper.scrollTop);
               this[tp].b = studentWrapper.scrollTop;
             }
 
@@ -226,11 +226,11 @@
             this[tp].c = this[tp].b + this[tp].studentVPm;
           }
 
-          // console.log('Scroll custom ' + tp + ' a ' + this[tp].a);
-          // console.log('Scroll custom ' + tp + ' b ' + this[tp].b);
-          // console.log('Scroll custom ' + tp + ' c ' + this[tp].c);
-          // console.log('Scroll custom ' + tp + ' d ' + this[tp].d);
-          // console.log('Scroll custom ' + tp + ' e ' + this[tp].e);
+          // // // console.log('Scroll custom ' + tp + ' a ' + this[tp].a);
+          // // // console.log('Scroll custom ' + tp + ' b ' + this[tp].b);
+          // // // console.log('Scroll custom ' + tp + ' c ' + this[tp].c);
+          // // // console.log('Scroll custom ' + tp + ' d ' + this[tp].d);
+          // // // console.log('Scroll custom ' + tp + ' e ' + this[tp].e);
         },
 
       },
@@ -249,28 +249,28 @@
 
 
       customMoustPointer(obj, tp, pos) {
-//        console.log('custom mouse pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e);
+//        // // console.log('custom mouse pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e);
         this.scroll[tp].e = pos;
         //  e is mouse's position
-        // console.log('Scroll '  + tp + ' a ' + this.scroll[tp].a);
-        // console.log('Scroll '  + tp + ' b ' + this.scroll[tp].b);
-        // console.log('Scroll '  + tp + ' c ' + this.scroll[tp].c);
-        // console.log('Scroll '  + tp + ' d ' + this.scroll[tp].d);
-        // console.log('Scroll '  + tp + ' e ' + this.scroll[tp].e);
+        // // // console.log('Scroll '  + tp + ' a ' + this.scroll[tp].a);
+        // // // console.log('Scroll '  + tp + ' b ' + this.scroll[tp].b);
+        // // // console.log('Scroll '  + tp + ' c ' + this.scroll[tp].c);
+        // // // console.log('Scroll '  + tp + ' d ' + this.scroll[tp].d);
+        // // // console.log('Scroll '  + tp + ' e ' + this.scroll[tp].e);
 
         if (this.scroll[tp].e > this.scroll[tp].c) {
           var scrollPos = this.scroll[tp].b + (this.scroll[tp].d - this.scroll[tp].c);
           if (scrollPos > this.scroll[tp].e) {
             scrollPos = this.scroll[tp].e - ((this.scroll[tp].b + this.scroll[tp].c) / 2);
           }
-          // console.log(`custom mouse down pointer ay=${this.scroll[tp].a} by=${this.scroll[tp].b} cy=${this.scroll[tp].c} dy=${this.scroll[tp].d} ey${this.scroll[tp].e} scrollPos=${scrollPos}`);
+          // // // console.log(`custom mouse down pointer ay=${this.scroll[tp].a} by=${this.scroll[tp].b} cy=${this.scroll[tp].c} dy=${this.scroll[tp].d} ey${this.scroll[tp].e} scrollPos=${scrollPos}`);
           // var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
           if (tp == 'Y') {
             this.canvasWrapper.scrollTop = scrollPos;
-            console.log('====> scroll top');
+            // // // console.log('====> scroll top');
           } else {
             this.canvasWrapper.scrollLeft = scrollPos;
-            // console.log(`Scroll left ${this.canvasWrapper.scrollLeft}`);
+            // // // console.log(`Scroll left ${this.canvasWrapper.scrollLeft}`);
           }
 
           this.scroll[tp].b = scrollPos;
@@ -281,11 +281,11 @@
           if ((this.scroll[tp].c - scrollPos) < this.scroll[tp].e) {
             scrollPos = ((this.scroll[tp].b + this.scroll[tp].c) / 2) - this.scroll[tp].e;
           }
-          // console.log('custom mouse up pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e + ' scrollPos=' + scrollPos);
+          // // // console.log('custom mouse up pointer ay=' + this.scroll[tp].a + ' by=' + this.scroll[tp].b + ' cy=' + this.scroll[tp].c + ' dy=' + this.scroll[tp].d + ' ey' + this.scroll[tp].e + ' scrollPos=' + scrollPos);
           // var canvasWrapper = document.querySelector('#canvasWrapper' + virtualclass.gObj.currWb);
           if (tp === 'Y') {
             this.canvasWrapper.scrollTop = this.canvasWrapper.scrollTop - scrollPos;
-            // console.log('====> scroll top');
+            // // // console.log('====> scroll top');
           } else {
             this.canvasWrapper.scrollLeft = this.canvasWrapper.scrollLeft - scrollPos;
           }
@@ -329,7 +329,7 @@
         let scrollPos = {};
         if (this.currentScroll != null) {
           scrollPos = Object.assign(scrollPos, this.currentScroll);
-          // console.log(`Send scroll first time ${this.currentScroll}`);
+          // // // console.log(`Send scroll first time ${this.currentScroll}`);
           const that = this;
           that.currentScrolltoUser = toUser;
           // scrollPos.cf = 'scf';
@@ -348,8 +348,8 @@
                 scY: scrollPos.scY,
                 vpY: scrollPos.vpY,
               }, toUser);
-              // console.log(`Send scroll ${scrollPos}to user ${toUser}`);
-              // console.log(`Send scroll ${scrollPos}`);
+              // // // console.log(`Send scroll ${scrollPos}to user ${toUser}`);
+              // // // console.log(`Send scroll ${scrollPos}`);
             }, 2000,
           );
         }
@@ -401,7 +401,7 @@
         let appearanceCanvasWidth;
         if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'diffrentDocumentWidth')) {
           appearanceCanvasWidth = virtualclass.zoom.diffrentDocumentWidth;
-          console.log('==== a canvas width ', canvas.width);
+          // // // console.log('==== a canvas width ', canvas.width);
           delete virtualclass.zoom.diffrentDocumentWidth;
         } else if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
           if (canvas.parentNode.offsetWidth === 300 || canvas.parentNode.offsetWidth === 0) {
@@ -416,12 +416,12 @@
         } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'performZoom')) {
           // canvas.width = virtualclass.zoom.canvasDimension.width;
           appearanceCanvasWidth = virtualclass.zoom.canvasDimension.width;
-          console.log('==== a canvas width performZoom ', canvas.width);
+          //  // // console.log('==== a canvas width performZoom ', canvas.width);
           delete virtualclass.zoom.performZoom;
         } else if (Object.prototype.hasOwnProperty.call(virtualclass.zoom, 'canvasDimension')) {
           // canvas.width = virtualclass.zoom.canvasDimension.width;
           appearanceCanvasWidth = virtualclass.zoom.canvasDimension.width;
-          console.log('==== a canvas width  ', canvas.width);
+          // // // console.log('==== a canvas width  ', canvas.width);
         } else if (canvas.offsetWidth === 0 || canvas.offsetWidth === 300 || virtualclass.isPlayMode) {
           this.setDefaultCanvasWidth(wb, canvas);
           appearanceCanvasWidth = virtualclass.vutil.canvasDimensionFromPixel(canvas).width;
@@ -463,10 +463,10 @@
             this.firstTime = false;
             if (virtualclass.zoom.canvasScale == null || virtualclass.gObj.fitToScreen) {
               viewport = page.getViewport((appearanceCanvasWidth) / page.getViewport(1.0).width);
-              console.log('==== view port 1', viewport.width);
+              // // // console.log('==== view port 1', viewport.width);
             } else {
               viewport = page.getViewport(scale);
-              console.log('==== view port 2', viewport.width);
+              // // // console.log('==== view port 2', viewport.width);
             }
 
             // virtualclass.zoom.doOpposite = true;
@@ -474,21 +474,21 @@
           } else if (virtualclass.zoom.performFitToPage) {
             // this.fitElementToolTipChange('fitToScreen');
             viewport = this.calculateViewPort(canvas, page);
-            console.log('==== view port 3', viewport.width);
+            // // // console.log('==== view port 3', viewport.width);
             // delete virtualclass.zoom.performFitToPage;
           } else {
            // canvasDimension = virtualclass.vutil.canvasDimensionFromPixel(canvas);
             viewport = page.getViewport((appearanceCanvasWidth) / page.getViewport(1.0).width);
-            console.log('==== view port 4', viewport.width);
+            // // // console.log('==== view port 4', viewport.width);
           }
 
           // canvas.height = viewport.height;
           // canvas.width = viewport.width;
           
-          console.log('=====> whiteboard pdf suman calc canvas scale');
+          // // // console.log('=====> whiteboard pdf suman calc canvas scale');
           virtualclass.zoom.prvCanvasScale = virtualclass.zoom.canvasScale;
           virtualclass.zoom.canvasScale = viewport.scale;
-          console.log('==== a suman SCAle change ', virtualclass.zoom.canvasScale);
+          // // // console.log('==== a suman SCAle change ', virtualclass.zoom.canvasScale);
           virtualclass.zoom.prvPdfDimension = page.view;
           const pdfCanvas = document.getElementById(`${canvas.id}_pdf`);
 
@@ -501,8 +501,8 @@
           virtualclass.zoom.canvasDimension.width = viewport.width;
           virtualclass.zoom.canvasDimension.height = viewport.height;
           // as width and height change for canvas, we need to create new fabric canvas object
-         // virtualclass.wbWrapper.util.createFabricNewInstance(wb);
-         virtualclass.wbWrapper.util.createFabricNewInstance(wb, {width: viewport.width, height: viewport.height});
+          // virtualclass.wbWrapper.util.createFabricNewInstance(wb);
+          virtualclass.wbWrapper.util.createFabricNewInstance(wb, {width: viewport.width, height: viewport.height});
 
           if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'fitToScreen')) {
             const canvasWrapper = document.querySelector(`#canvasWrapper${virtualclass.gObj.currWb}`);
@@ -523,7 +523,7 @@
           // }
 
           virtualclass.wb[wb].canvas.setZoom(virtualclass.zoom.canvasScale);
-          console.log('====> canvas set zoom', virtualclass.zoom.canvasScale);
+          // // // console.log('====> canvas set zoom', virtualclass.zoom.canvasScale);
           delete virtualclass.gObj.fitToScreen;
 
           const context = pdfCanvas.getContext('2d');
@@ -543,7 +543,7 @@
             await this.initWhiteboardData(page.wbId);
             // after final load of page
             if (roles.hasControls()) {
-              console.log('====> invoke handle active tool');
+              // // // console.log('====> invoke handle active tool');
               virtualclass.wbWrapper.util.handleActivateTool(page.wbId);
             }
           }
@@ -634,7 +634,7 @@
 
       async _fitToScreen(canvas, canvasWidth) {
         const canvasHeight = canvas.height;
-        // console.log(`==== Current whiteboard id ${virtualclass.gObj.currWb}`);
+        // // // console.log(`==== Current whiteboard id ${virtualclass.gObj.currWb}`);
 
         virtualclass.vutil.setHeight(virtualclass.gObj.currWb, canvas, canvasHeight);
         virtualclass.vutil.setWidth(virtualclass.gObj.currWb, canvas, canvasWidth);
@@ -658,10 +658,10 @@
           }
 
         } else {
-          // console.log('ERROR : shown pdf is not available');
+          // // // console.log('ERROR : shown pdf is not available');
         }
         if (roles.hasControls()) {
-          console.log('====> invoke handle active tool');
+          // // // console.log('====> invoke handle active tool');
           virtualclass.wbWrapper.util.handleActivateTool(this.shownPdf.wbId);
         }
       },

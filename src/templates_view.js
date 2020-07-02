@@ -1600,7 +1600,9 @@ this["JST"]["dest_temp/templates/videoupload/popup.hbs"] = Handlebars.template({
 },"useData":true});
 
 this["JST"]["dest_temp/templates/videoupload/videoupload.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " <div id=\"startLiveStream\" data-sharinglivestream=\"0\" class=\"disabled\"><span class=\" liveStream-icon \"></span><p class=\"label\">Live Stream </p></div> ";
+    return " <div id=\"startLiveStream\" data-sharinglivestream=\"0\" class=\"disabled\"><span class=\" liveStream-icon \"></span><p class=\"label\">"
+    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"livestream",{"name":"getString","hash":{},"data":data}))
+    + " </p></div> ";
 },"3":function(container,depth0,helpers,partials,data) {
     return " <p id=\"messageLayoutVideo\">"
     + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Vwllbshrshortly",{"name":"getString","hash":{},"data":data}))

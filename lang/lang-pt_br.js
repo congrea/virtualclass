@@ -143,6 +143,7 @@
     JoinSession: 'Juntar-se à sessão',
     keymissing: 'A chave do seu software(LMS/CMS) está faltando',
     Line: 'Linha',
+    livestream: 'Transmissão ao vivo',
     lowBandWidthSpeed: 'Sua banda larga é muito baixa, nós vamos parar o vídeo.'
     + ' Você ainda poderá ouvir o áudio e ver a tela.',
     maxCommonChat: 'Mostrar janela de bate-papo',

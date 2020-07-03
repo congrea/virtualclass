@@ -69,6 +69,7 @@
     confirmCancel: 'No',
     confirmOk: 'Si',
     connectionClose: 'La conexión está cerrada ({virtualclass1}).',
+    connectionClosec310: 'El plan gratuito no admite la funcionalidad de grabación, por favor, actualice su plan o desactive la grabación.',
     Controls: 'Controles',
     coursePoll: 'Encuesta de nivel de curso',
     Cpoll: 'Encuesta del curso',

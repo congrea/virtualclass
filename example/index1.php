@@ -225,7 +225,7 @@ if($info) {
 	
    "user strict";
     let virtualclassSetting = {};
-    virtualclassSetting.settings = "FFFFF";
+    virtualclassSetting.settings = "7E01E"; // FFFFF
     virtualclassSetting.classes = "audioTool deactive";
     virtualclassSetting.audio_tooltip = '<?php echo get_string('audioEnable','congrea'); ?>';
     virtualclassSetting.meetingMode = '<?php echo ($meetingmode == '1') ? true : false ?>';

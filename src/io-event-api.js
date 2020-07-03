@@ -354,7 +354,13 @@ const ioEventApi = {
     }
     virtualclass.chat.makeUserListEmpty();
     if (e.message) {
-      const errorMsg = virtualclass.lang.getString('connectionClose', [e.message]);
+      let errorMsg;
+      if (e.message.indexOf('c310') >= 1) {
+        errorMsg = virtualclass.lang.getString('connectionClosec310');
+      } else {
+        errorMsg = virtualclass.lang.getString('connectionClose', [e.message]);
+      }
+      
       virtualclass.view.createErrorMsg(errorMsg, 'errorContainer', 'virtualclassAppFooterPanel', { className: 'connectionClose' });
     }
   },

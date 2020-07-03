@@ -64,6 +64,7 @@
     confirmCancel: 'No',
     confirmOk: 'Yes',
     connectionClose: 'Connection is closed ({virtualclass1}).',
+    connectionClosec310: 'The free plan does not support recording functionality, kindly upgrade your plan or disable the recording.',
     Controls: 'Controls',
     coursePoll: 'Course level poll',
     Cpoll: 'Course poll',

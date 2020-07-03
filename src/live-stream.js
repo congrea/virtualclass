@@ -187,10 +187,17 @@ class LiveStream {
   }
 
   handleSuccess(stream) {
-    const streamSettings  = stream.getVideoTracks()[0].getSettings();
-    console.log('====> camera settings ', streamSettings);
+    const videoTrack = stream.getVideoTracks()[0];
+    const streamSettings = videoTrack.getSettings();
+    console.dir('====> camera settings ', streamSettings);
 
-    console.log('getUserMedia() got stream:', stream);
+    const videoConstraints = videoTrack.getSettings();
+    console.log('Video constraints: media settings:', JSON.stringify(videoConstraints));
+
+    const audioTrack = stream.getAudioTracks()[0];
+    const audioConstraints = audioTrack.getSettings();
+    console.log('Audio constraints: media settings: ', JSON.stringify(audioConstraints));
+
     this.stream = stream;
     virtualclass.dashboard.close();
     this.showLiveStreamHTML();

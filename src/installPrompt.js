@@ -21,4 +21,9 @@ window.addEventListener('load', () => {
   } else {
     console.log('Launched: Browser Tab');
   }
+
+  // Track the android app running
+  if(document.referrer.includes('net.live.congrea')) {
+    document.querySelector("html").classList.add("twaRunning");
+  }
 });

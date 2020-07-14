@@ -13,10 +13,10 @@ window.addEventListener('beforeinstallprompt', (event) => {
 // Track how the PWA was launched 
 window.addEventListener('load', () => {
   if (navigator.fullscreen) {
-    console.log('Launched: Installed (iOS)');
+    console.log('Launched: pwa app from ios');
     document.querySelector("html").classList.add("pwaRunning");
   } else if (matchMedia('(display-mode: fullscreen)').matches) {
-    console.log('Launched: Installed');
+    console.log('Launched: pwa app from android');
     document.querySelector("html").classList.add("pwaRunning");
   } else {
     console.log('Launched: Browser Tab');
@@ -25,5 +25,6 @@ window.addEventListener('load', () => {
   // Track the android app running
   if(document.referrer.includes('net.live.congrea')) {
     document.querySelector("html").classList.add("twaRunning");
+    console.log('Launched: Android app');
   }
 });

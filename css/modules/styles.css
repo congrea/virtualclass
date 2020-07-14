@@ -4568,6 +4568,13 @@ html.pwaSupported #virtualclassCont.congrea[device="mobile"].Chrome .mobileLands
   width: unset;
 }
 
+html.pwaSupported.pwaRunning #virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn .warningWrapper, 
+html.pwaSupported.twaRunning #virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn .warningWrapper {
+  transform: translate(-50%, -50%);
+  position: absolute;
+  width: 68%;
+}
+
 #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer {
   display: none;
 }
@@ -4575,6 +4582,11 @@ html.pwaSupported #virtualclassCont.congrea[device="mobile"].Chrome .mobileLands
 html.pwaSupported #virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn #installContainer {
   padding: 5rem;
   display: block;
+}
+
+html.pwaSupported.pwaRunning #virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn #installContainer,
+html.pwaSupported.twaRunning #virtualclassCont.congrea[device="mobile"].Chrome .mobileLandscapeWarn #installContainer {
+  display: none;
 }
 
 html.pwaSupported #virtualclassCont.congrea[device="mobile"] .mobileLandscapeWarn #installContainer p {

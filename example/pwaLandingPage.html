@@ -2,23 +2,33 @@
 <html>
 <head>
 <title>Page Title</title>
+<link href="https://fonts.googleapis.com/css2?family=Sniglet&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
+  <div class="container my-wrapper">
     <div class="text-center">
-      <img width="300px" src="https://live.congrea.net/virtualclass/images/congrea.png">
-      <p class="congDiscription">Congrea is an open source online virtual classroom environment. It has been packaged with several value added features such as, audio-video interaction, chat, poll, quiz, collaborative editor and much more. Congrea also enhances the learning experience by allowing the users to share media, documents or even screen with their fellow participants. Its unique feature of getting integrated with other software makes it an easily acceptable and reliable product.</p>
+      <img width="70%" src="https://live.congrea.net/virtualclass/images/congrea.png">
+      <p class="congDiscription">Congrea is an open source online virtual classroom environment. It has been packaged with several value added features such as, audio-video interaction, chat, poll, quiz, collaborative editor and much more. Congrea also enhances the learning experience by allowing the users to share media, documents or even screen with their fellow participants.</p>
     </div>
-    <h2>How to use our mobile app</h2>
-    <div class="first">
-      <span><img width="35px" src="https://live.congrea.net/virtualclass/images/chrome.png"></span>
-      <span>You need to first open your moodle site from your chrome browser</span>
+    <div>
+      <h2>How to use our mobile app</h2>
+      <div class="howTo">
+        <div class="first">
+          <span class="steps">1. </span>
+        </br>
+          <span>You need to first open your moodle site from your chrome browser</span>
+        </div>
+        <div class="second">
+          <span class="steps">2. </span>
+        </br>
+          <span>Go to your course as you did before and then click on join virtual class room session button</span>
+        </div>
+      </div>
+      <div class="text-center openCongrea">
+      <a type="button" target="_blank" href="https://congrea.com">Know more about Congrea!</button>
     </div>
-    <div class="second">
-      <span><img width="35px" src="https://live.congrea.net/virtualclass/images/webinar.png"></span>
-      <span>Go to your course as you did before and then click on join virtual class room session button</span>
     </div>
-  </div>
+    </div>
 
 <style>
 
@@ -27,47 +37,78 @@
   }
 
   body {
-    background-color: #eee;
+    background-color: #fff;
     height: 100%;
     font-family: Helvetica;
+    font-size: 16px;
   }
 
   .container {
-    padding: 30px 20px;
+    padding: 5rem 1.5rem;
   }
 
   .congDiscription {
-    font-size: 18px;
+    font-size: 1.2rem;
     font-family: Helvetica;
     font-weight: 400;
-    line-height: 1.4;
-    color: #4b4b4c;
-    margin: 20px auto;
+    line-height: 1.5;
+    color: #606060;
+    margin: 5% auto;
   }
   
   .text-center {
     text-align: center;
-    width: 90%;
-    margin: 0 auto;
+    width: 95%;
+    margin: 3rem auto;
   }
 
   .container h2 {
     font-family: Helvetica;
     font-weight: 600;
-    color: #444;
-    font-size: 30px;
+    color: #3a404a;
+    font-size: 3.4rem;
+    text-align: center;
+    padding-top: 6rem;
   }
 
   .container .first, .container .second {
-    margin: 4px 10px;
-    display: flex;
+    margin: 3rem 2rem 5rem 2rem;
+  }
+
+  .container .steps {
+    font-family: 'Sniglet', cursive;
+    font-size: 6rem;
+    color: #aaa;
   }
 
   .container span {
-    font-size: 18px;
-    color: #4b4b4c;
-    line-height: 35px;
-    margin-left: 15px;
+    font-size: 1rem;
+    color: #606060;
+    margin-left: 5px;
+  }
+
+  .my-wrapper .text-center.openCongrea {
+    margin: 3rem 0;
+  }
+
+  .my-wrapper .text-center.openCongrea a {
+    font-size: 2.5rem;
+    padding: 2rem 3.5rem;
+    border-radius: 12px;
+    color: #fff;
+    background-image: linear-gradient(to right, #5472d2 0%, #00c1cf 50%,#5472d2 100%);
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    background-size: 200% 100%;
+    text-decoration: none;
+    margin: 5rem 0;
+    display: inline-block;
+  }
+
+  @media only screen and (min-device-width: 375px) and (max-device-width: 950px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    html,body {
+      font-size: 12;
+    }
   }
 </style>
 

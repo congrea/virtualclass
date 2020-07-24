@@ -224,7 +224,7 @@
         },
 
         initAudiocontext() {
-          if (!Object.prototype.hasOwnProperty.call(this, 'Html5Audio') && !virtualclass.gObj.meetingMode) {
+          if (!Object.prototype.hasOwnProperty.call(this, 'Html5Audio') && !virtualclass.gObj.meetingMode) {  
             this.Html5Audio = { audioContext: new (window.AudioContext || window.webkitAudioContext)() };
             if (virtualclass.media.audio.Html5Audio.audioContext == null) {
               alert('audio context is null');
@@ -682,19 +682,19 @@
         },
 
         initPlay() {
-          if (!Object.prototype.hasOwnProperty.call(this, 'Html5Audio') && !this.Html5Audio) {
-            this.Html5Audio = { audioContext: new (window.AudioContext || window.webkitAudioContext)() };
+          if (!Object.prototype.hasOwnProperty.call(this, 'Html5AudioRec') && !this.Html5AudioRec) {
+            this.Html5AudioRec = { audioContext: new (window.AudioContext || window.webkitAudioContext)() };
           }
 
           if (typeof workletAudioRec !== 'object') {
-            cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(workletAudioRecBlob).then(() => {
+            cthis.audio.Html5AudioRec.audioContext.audioWorklet.addModule(workletAudioRecBlob).then(() => {
               // Setup the connection: Port 1 is for worker 1
               if (typeof initchannel === 'undefined') {
-                workletAudioRec = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-rec');
-                cthis.audio.Html5Audio.MediaStreamDest = cthis.audio.Html5Audio.audioContext.createMediaStreamDestination();
-                workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                workletAudioRec = new AudioWorkletNode(cthis.audio.Html5AudioRec.audioContext, 'worklet-audio-rec');
+                cthis.audio.Html5AudioRec.MediaStreamDest = cthis.audio.Html5AudioRec.audioContext.createMediaStreamDestination();
+                workletAudioRec.connect(cthis.audio.Html5AudioRec.audioContext.destination);
 
-
+                virtualclass.gObj.workletAudioRec = workletAudioRec
                 if (virtualclass.system.mybrowser.name === 'Chrome') {
                   // console.log('==== Chrome after change');
                   cthis.audio.bug_687574_callLocalPeers();
@@ -920,6 +920,8 @@
               };
               filter.connect(workletAudioSend);
               workletAudioSend.connect(cthis.audio.Html5Audio.audioContext.destination);
+
+              virtualclass.gObj.workletAudioSend = workletAudioSend;
 
               const IOAudioSendWorker = new MessageChannel();
 

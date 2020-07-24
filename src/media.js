@@ -1046,14 +1046,14 @@
           lc2.addEventListener('connectionstatechange', e => onconnectionstatechange(lc2, e));
           lc2.addEventListener('track', gotRemoteStream);
 
-          cthis.audio.Html5Audio.MediaStreamDest.stream.getTracks().forEach(track => lc1.addTrack(track, cthis.audio.Html5Audio.MediaStreamDest.stream));
+          cthis.audio.Html5AudioRec.MediaStreamDest.stream.getTracks().forEach(track => lc1.addTrack(track, cthis.audio.Html5AudioRec.MediaStreamDest.stream));
 
           function onconnectionstatechange(pc, event) {
             if (event.currentTarget.connectionState === 'connected') {
               try { // TODO Dirty try hack
                 // console.log('PEER connected webrtc');
-                workletAudioRec.disconnect(cthis.audio.Html5Audio.audioContext.destination);
-                workletAudioRec.connect(cthis.audio.Html5Audio.MediaStreamDest);
+                workletAudioRec.disconnect(cthis.audio.Html5AudioRec.audioContext.destination);
+                workletAudioRec.connect(cthis.audio.Html5AudioRec.MediaStreamDest);
               } catch (e) {
               }
             } else if (event.currentTarget.connectionState === 'disconnected') {
@@ -1063,8 +1063,8 @@
               lc1 = null;
               lc2 = null;
               try {
-                workletAudioRec.disconnect(cthis.audio.Html5Audio.MediaStreamDest);
-                workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
+                workletAudioRec.disconnect(cthis.audio.Html5AudioRec.MediaStreamDest);
+                workletAudioRec.connect(cthis.audio.Html5AudioRec.audioContext.destination);
                 // console.log('PEER connected normal audio api');
               } catch (e) {
               }

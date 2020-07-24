@@ -665,28 +665,32 @@ const preCheck = {
     }
 
     /** Need for safari for iOS ** */
-    if ((virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Firefox'
-      || virtualclass.system.mybrowser.name === 'Safari')
-      && Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
-      && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
-      && virtualclass.media.audio.Html5Audio.audioContext != null) {
+    // if ((virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Firefox'
+    //   || virtualclass.system.mybrowser.name === 'Safari')
+    //   && Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
+    //   && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
+    //   && virtualclass.media.audio.Html5Audio.audioContext != null) {
+    //   virtualclass.media.audio.Html5Audio.audioContext.close();
+    // }
+
+    if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
+    && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
+    && virtualclass.media.audio.Html5Audio.audioContext != null) {
+      console.log('Closing context');
       virtualclass.media.audio.Html5Audio.audioContext.close();
     }
-
 
     if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')) {
       delete virtualclass.media.audio.Html5Audio;
     }
 
     // console.log('Fetching media stream');
-
-    await virtualclass.media.init();
     const videoAction = this.videoAction ? 'on' : 'off';
+    await virtualclass.media.init();
     virtualclass.vutil.videoHandler(videoAction, 'notSendStatus');
     virtualclass.media.audio.initAudiocontext();
-
     virtualclass.precheck.speaker.playTestAudio = false;
-
+    virtualclass.media.audio.studentNotSpeak();
     virtualclass.precheck.donePrecheck = false;
     if (workerAudioSend != null) {
       workerAudioSend.postMessage({ cmd: 'precheck', msg: { precheck: virtualclass.precheck.donePrecheck } });

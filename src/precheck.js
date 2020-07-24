@@ -673,20 +673,23 @@ const preCheck = {
       virtualclass.media.audio.Html5Audio.audioContext.close();
     }
 
+    if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
+    && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
+    && virtualclass.media.audio.Html5Audio.audioContext != null) {
+      virtualclass.media.audio.Html5Audio.audioContext.close();
+    }
 
     if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')) {
       delete virtualclass.media.audio.Html5Audio;
     }
 
     // console.log('Fetching media stream');
-
-    await virtualclass.media.init();
     const videoAction = this.videoAction ? 'on' : 'off';
+    await virtualclass.media.init();
     virtualclass.vutil.videoHandler(videoAction, 'notSendStatus');
     virtualclass.media.audio.initAudiocontext();
-
     virtualclass.precheck.speaker.playTestAudio = false;
-
+    virtualclass.media.audio.studentNotSpeak();
     virtualclass.precheck.donePrecheck = false;
     if (workerAudioSend != null) {
       workerAudioSend.postMessage({ cmd: 'precheck', msg: { precheck: virtualclass.precheck.donePrecheck } });

@@ -676,8 +676,9 @@ const preCheck = {
     if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
     && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
     && virtualclass.media.audio.Html5Audio.audioContext != null) {
-      console.log('Closing context');
-      virtualclass.media.audio.Html5Audio.audioContext.close();
+      // To handle the cracking sound on the side who performes precheck
+      // Html5Audio.audioContext to generate the sending audio
+      virtualclass.media.audio.Html5Audio.audioContext.close(); 
     }
 
     if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')) {
@@ -696,5 +697,4 @@ const preCheck = {
       workerAudioSend.postMessage({ cmd: 'precheck', msg: { precheck: virtualclass.precheck.donePrecheck } });
     }
   },
-
 };

@@ -665,17 +665,18 @@ const preCheck = {
     }
 
     /** Need for safari for iOS ** */
-    if ((virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Firefox'
-      || virtualclass.system.mybrowser.name === 'Safari')
-      && Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
-      && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
-      && virtualclass.media.audio.Html5Audio.audioContext != null) {
-      virtualclass.media.audio.Html5Audio.audioContext.close();
-    }
+    // if ((virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Firefox'
+    //   || virtualclass.system.mybrowser.name === 'Safari')
+    //   && Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
+    //   && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
+    //   && virtualclass.media.audio.Html5Audio.audioContext != null) {
+    //   virtualclass.media.audio.Html5Audio.audioContext.close();
+    // }
 
     if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
     && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
     && virtualclass.media.audio.Html5Audio.audioContext != null) {
+      console.log('Closing context');
       virtualclass.media.audio.Html5Audio.audioContext.close();
     }
 

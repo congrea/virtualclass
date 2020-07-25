@@ -328,6 +328,11 @@ var videoHost = {
     // this.videoHostSrc.height = this.height;
 
     // virtualclass.vhAdpt.attachMediaStream(this.videoHostSrc, stream);
+    if (this.videoHostSrc.srcObject != null) {
+      this.videoHostSrc.srcObject = null;
+    }
+    
+    
     virtualclass.adpt.attachMediaStream(this.videoHostSrc, stream);
     const that = this;
     // TODO remove setTimeout

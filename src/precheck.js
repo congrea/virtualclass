@@ -561,7 +561,8 @@ const preCheck = {
         joinSession.addEventListener('click', this.joinSession.bind(this));
       } else {
         const precheck = document.querySelector('#joinSession .precheckComplete');
-        if (precheck != null) {
+        if (precheck != null && !this.alreladyAttachedPrecheck) {
+          this.alreladyAttachedPrecheck  = true;
           precheck.removeEventListener('click', this.initHidePrecheck.bind(this));
           precheck.addEventListener('click', this.initHidePrecheck.bind(this));
         }
@@ -569,6 +570,7 @@ const preCheck = {
     },
 
     initHidePrecheck() {
+      console.log('SUMAN HIDE PRECHECK');
       const virtualclassPreCheck = document.getElementById('preCheckcontainer');
       virtualclassPreCheck.style.display = 'none';
 
@@ -693,6 +695,7 @@ const preCheck = {
     virtualclass.precheck.speaker.playTestAudio = false;
     virtualclass.media.audio.studentNotSpeak();
     virtualclass.precheck.donePrecheck = false;
+    virtualclass.media.audio.initPlay(); // ready worklet for playing audio 
     if (workerAudioSend != null) {
       workerAudioSend.postMessage({ cmd: 'precheck', msg: { precheck: virtualclass.precheck.donePrecheck } });
     }

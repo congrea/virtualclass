@@ -682,52 +682,55 @@
         },
 
         initPlay() {
-          if (!Object.prototype.hasOwnProperty.call(this, 'Html5AudioRec') && !this.Html5AudioRec) {
-            this.Html5AudioRec = { audioContext: new (window.AudioContext || window.webkitAudioContext)() };
+          console.log('audio init worklet suman');
+          if (typeof workletAudioRec !== 'undefined') {
+            console.log('audio worklet disconnect');
+            workletAudioRec.disconnect();
+          }
+          if (!Object.prototype.hasOwnProperty.call(this, 'Html5Audio') && !this.Html5Audio) {
+            this.Html5Audio = { audioContext: new (window.AudioContext || window.webkitAudioContext)() };
           }
 
-          if (typeof workletAudioRec !== 'object') {
-            cthis.audio.Html5AudioRec.audioContext.audioWorklet.addModule(workletAudioRecBlob).then(() => {
-              // Setup the connection: Port 1 is for worker 1
-              if (typeof initchannel === 'undefined') {
-                workletAudioRec = new AudioWorkletNode(cthis.audio.Html5AudioRec.audioContext, 'worklet-audio-rec');
-                cthis.audio.Html5AudioRec.MediaStreamDest = cthis.audio.Html5AudioRec.audioContext.createMediaStreamDestination();
-                workletAudioRec.connect(cthis.audio.Html5AudioRec.audioContext.destination);
 
-                virtualclass.gObj.workletAudioRec = workletAudioRec
-                if (virtualclass.system.mybrowser.name === 'Chrome') {
-                  // console.log('==== Chrome after change');
-                  cthis.audio.bug_687574_callLocalPeers();
-                }
+          cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(workletAudioRecBlob).then(() => {
+          // Setup the connection: Port 1 is for worker 1
+            workletAudioRec = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-rec');
+            cthis.audio.Html5Audio.MediaStreamDest = cthis.audio.Html5Audio.audioContext.createMediaStreamDestination();
+            workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
 
-                const audioReadyChannel = new MessageChannel();
-                workerIO.postMessage({
-                  cmd: 'workerAudioRec',
-                }, [audioReadyChannel.port1]);
+            virtualclass.gObj.workletAudioRec = workletAudioRec
+            if (virtualclass.system.mybrowser.name === 'Chrome') {
+              // console.log('==== Chrome after change');
+              cthis.audio.bug_687574_callLocalPeers();
+            }
 
-                // Setup the connection: Port 2 is for worker 2
-                workerAudioRec.postMessage({
-                  cmd: 'workerIO',
-                  sampleRate: cthis.audio.Html5Audio.audioContext.sampleRate,
-                }, [audioReadyChannel.port2]);
+            const audioReadyChannel = new MessageChannel();
+            workerIO.postMessage({
+              cmd: 'workerAudioRec',
+            }, [audioReadyChannel.port1]);
 
-                const audoPlaychannel = new MessageChannel();
+            // Setup the connection: Port 2 is for worker 2
+            workerAudioRec.postMessage({
+              cmd: 'workerIO',
+              sampleRate: cthis.audio.Html5Audio.audioContext.sampleRate,
+            }, [audioReadyChannel.port2]);
 
-                workerAudioRec.postMessage({
-                  cmd: 'workletAudioRec',
-                }, [audoPlaychannel.port1]);
+            const audoPlaychannel = new MessageChannel();
 
-                // Setup the connection: Port 2 is for worker 2
-                workletAudioRec.port.postMessage({
-                  cmd: 'workerAudioRec',
-                }, [audoPlaychannel.port2]);
-                workerAudioRec.postMessage({ cmd: 'audioWorklet', msg: true });
-                initchannel = true;
-                virtualclass.gObj.audioRecWorkerReady = true;
-              }
-              // virtualclass.gObj.workerAudio = true;
-            });
-          }
+            workerAudioRec.postMessage({
+              cmd: 'workletAudioRec',
+            }, [audoPlaychannel.port1]);
+
+            // Setup the connection: Port 2 is for worker 2
+            workletAudioRec.port.postMessage({
+              cmd: 'workerAudioRec',
+            }, [audoPlaychannel.port2]);
+            workerAudioRec.postMessage({ cmd: 'audioWorklet', msg: true });
+            initchannel = true;
+            virtualclass.gObj.audioRecWorkerReady = true;
+    
+            // virtualclass.gObj.workerAudio = true;
+          });
         },
 
         /**
@@ -1046,14 +1049,14 @@
           lc2.addEventListener('connectionstatechange', e => onconnectionstatechange(lc2, e));
           lc2.addEventListener('track', gotRemoteStream);
 
-          cthis.audio.Html5AudioRec.MediaStreamDest.stream.getTracks().forEach(track => lc1.addTrack(track, cthis.audio.Html5AudioRec.MediaStreamDest.stream));
+          cthis.audio.Html5Audio.MediaStreamDest.stream.getTracks().forEach(track => lc1.addTrack(track, cthis.audio.Html5Audio.MediaStreamDest.stream));
 
           function onconnectionstatechange(pc, event) {
             if (event.currentTarget.connectionState === 'connected') {
               try { // TODO Dirty try hack
                 // console.log('PEER connected webrtc');
-                workletAudioRec.disconnect(cthis.audio.Html5AudioRec.audioContext.destination);
-                workletAudioRec.connect(cthis.audio.Html5AudioRec.MediaStreamDest);
+                workletAudioRec.disconnect();
+                workletAudioRec.connect(cthis.audio.Html5Audio.MediaStreamDest);
               } catch (e) {
               }
             } else if (event.currentTarget.connectionState === 'disconnected') {
@@ -1063,8 +1066,8 @@
               lc1 = null;
               lc2 = null;
               try {
-                workletAudioRec.disconnect(cthis.audio.Html5AudioRec.MediaStreamDest);
-                workletAudioRec.connect(cthis.audio.Html5AudioRec.audioContext.destination);
+                workletAudioRec.disconnect();
+                workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
                 // console.log('PEER connected normal audio api');
               } catch (e) {
               }

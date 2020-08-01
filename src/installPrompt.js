@@ -23,7 +23,7 @@ window.addEventListener('load', () => {
   }
 
   // Track the android app running
-  if(document.referrer.includes('net.live.congrea')) {
+  if(document.referrer.includes('net.vidyamantra.congrea')) {
     document.querySelector("html").classList.add("twaRunning");
     console.log('Launched: Android app');
   }

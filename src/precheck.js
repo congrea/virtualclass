@@ -696,7 +696,7 @@ const preCheck = {
     virtualclass.media.audio.studentNotSpeak();
     virtualclass.precheck.donePrecheck = false;
     
-    if (virtualclass.detectAudioWorklet()) {
+    if (virtualclass.media.detectAudioWorklet()) {
       virtualclass.media.audio.initPlay(); // ready worklet for playing audio 
     } else {
       virtualclass.media.audio.initPlayWithFallback(); // ready worklet for playing audio 

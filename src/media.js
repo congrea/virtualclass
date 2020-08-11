@@ -682,6 +682,7 @@
         },
 
         initPlay() {
+          if (this.addingWorkletPending) return;
           console.log('audio init worklet suman');
           if (typeof workletAudioRec !== 'undefined') {
             console.log('audio worklet disconnect');
@@ -691,7 +692,8 @@
             this.Html5Audio = { audioContext: new (window.AudioContext || window.webkitAudioContext)() };
           }
 
-
+          
+          this.addingWorkletPending = true;
           cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(workletAudioRecBlob).then(() => {
           // Setup the connection: Port 1 is for worker 1
             workletAudioRec = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-rec');
@@ -730,6 +732,7 @@
             virtualclass.gObj.audioRecWorkerReady = true;
     
             // virtualclass.gObj.workerAudio = true;
+            delete cthis.audio.addingWorkletPending;
           }).catch((error) => {
             console.log('ERROR ', error);
           });

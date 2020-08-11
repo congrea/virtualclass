@@ -730,6 +730,8 @@
             virtualclass.gObj.audioRecWorkerReady = true;
     
             // virtualclass.gObj.workerAudio = true;
+          }).catch((error) => {
+            console.log('ERROR ', error);
           });
         },
 

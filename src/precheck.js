@@ -695,7 +695,12 @@ const preCheck = {
     virtualclass.precheck.speaker.playTestAudio = false;
     virtualclass.media.audio.studentNotSpeak();
     virtualclass.precheck.donePrecheck = false;
-    virtualclass.media.audio.initPlay(); // ready worklet for playing audio 
+    
+    if (virtualclass.media.detectAudioWorklet()) {
+      virtualclass.media.audio.initPlay(); // ready worklet for playing audio 
+    } else {
+      virtualclass.media.audio.initPlayWithFallback(); // ready worklet for playing audio 
+    }
     if (workerAudioSend != null) {
       workerAudioSend.postMessage({ cmd: 'precheck', msg: { precheck: virtualclass.precheck.donePrecheck } });
     }

@@ -356,6 +356,7 @@ class LiveStream {
 
     if (roles.hasControls() && virtualclass.media.audio.isProcessError) {
       virtualclass.precheck.afterComplete(true); // Passing true means dosen't require to get stream again
+      delete virtualclass.media.audio.isProcessError;
       
     }
   }

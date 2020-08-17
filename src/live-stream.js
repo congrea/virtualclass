@@ -353,6 +353,11 @@ class LiveStream {
     if (this.playByOgv) {
       this.destroyOGVPlayer();
     }
+
+    if (roles.hasControls() && virtualclass.media.audio.isProcessError) {
+      virtualclass.precheck.afterComplete(true); // Passing true means dosen't require to get stream again
+      
+    }
   }
 
   showLiveStreamHTML() {

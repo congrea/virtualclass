@@ -645,7 +645,7 @@ const preCheck = {
     }
   },
 
-  async afterComplete() {
+  async afterComplete(notRequiredStream) {
     if (Object.prototype.hasOwnProperty.call(virtualclass.precheck, 'mediaStream')
       && virtualclass.precheck.mediaStream != null) {
       const track = virtualclass.precheck.mediaStream.getTracks()[0]; // if only one media track
@@ -689,7 +689,7 @@ const preCheck = {
 
     // console.log('Fetching media stream');
     const videoAction = this.videoAction ? 'on' : 'off';
-    await virtualclass.media.init();
+    if (!notRequiredStream) await virtualclass.media.init();
     virtualclass.vutil.videoHandler(videoAction, 'notSendStatus');
     virtualclass.media.audio.initAudiocontext();
     virtualclass.precheck.speaker.playTestAudio = false;

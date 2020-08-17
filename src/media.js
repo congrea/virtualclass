@@ -926,7 +926,9 @@
               workletAudioSend = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-send');
 
               workletAudioSend.onprocessorerror = function (e) {
+                console.log('this is on process error');
                 cthis.audio.notifiyMuteAudio();
+                cthis.audio.isProcessError = true;
               };
               filter.connect(workletAudioSend);
               workletAudioSend.connect(cthis.audio.Html5Audio.audioContext.destination);

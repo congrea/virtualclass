@@ -48,12 +48,13 @@ class LiveStream {
   }
 
   init() {
-   
-    const roomConnecting = document.querySelector('#networkStatusContainer.connecting-room');
-    if (!roomConnecting) {
-      const startLiveStream = document.getElementById('startLiveStream');
-      if (startLiveStream != null) startLiveStream.classList.remove('disabled');
-    }
+    setTimeout(() => {
+      const roomConnecting = document.querySelector('#networkStatusContainer.connecting-room');
+      if (!roomConnecting) {
+        const startLiveStream = document.getElementById('startLiveStream');
+        if (startLiveStream != null) startLiveStream.classList.remove('disabled');
+      }
+    }, 1500);
 
     if (!this.alreadyInit) {
       if (virtualclass.isPlayMode) {
@@ -79,6 +80,7 @@ class LiveStream {
         const startSharingElement = document.getElementById('startLiveStream');
         startSharingElement.addEventListener('click', this.handlLiveStream.bind(this));
       }
+
       this.alreadyInit = true;
       var virtualclassCont = document.getElementById('virtualclassCont');
       if (virtualclassCont != null) {
@@ -89,7 +91,6 @@ class LiveStream {
     if (virtualclass.system.mybrowser.name === 'Safari') {
       this.playByOgv = true;
     }
-    
 
     if (this.playByOgv && !this.isScriptAlreadyIncluded('../build/ogv/ogv.js')) {
       this.loadFile('../build/ogv/ogv.js', 'js');

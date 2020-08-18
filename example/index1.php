@@ -261,6 +261,7 @@ if($info) {
 </noscript>
 <?php
 
+$info = 0;
 if ($info) {
     include('js.debug.php');
 } else {

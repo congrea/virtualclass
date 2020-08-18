@@ -92,8 +92,6 @@ class LiveStream {
       this.playByOgv = true;
     }
     
-    this.playByOgv = true;
-
     if (this.playByOgv && !this.isScriptAlreadyIncluded('../build/ogv/ogv.js')) {
       this.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
     }

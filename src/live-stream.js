@@ -91,9 +91,11 @@ class LiveStream {
     if (virtualclass.system.mybrowser.name === 'Safari') {
       this.playByOgv = true;
     }
+    
+    this.playByOgv = true;
 
     if (this.playByOgv && !this.isScriptAlreadyIncluded('../build/ogv/ogv.js')) {
-      this.loadFile('../build/ogv/ogv.js', 'js');
+      this.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
     }
   }
 

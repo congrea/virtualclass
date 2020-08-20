@@ -146,10 +146,12 @@ class LiveStream {
 
   initPLayerForParticipaes() {
     console.log('current mode LIVE STREAM');
-    this.mediaSource = new MediaSource();
-    this.mediaSource.addEventListener('sourceopen', this.mediaSourceOpen.bind(this));
-    this.readyParticipateVideo();
-    this.remoteVideo.src = URL.createObjectURL(this.mediaSource);
+    if (typeof MediaSource != 'undefined') {
+      this.mediaSource = new MediaSource();
+      this.mediaSource.addEventListener('sourceopen', this.mediaSourceOpen.bind(this));
+      this.readyParticipateVideo();
+      this.remoteVideo.src = URL.createObjectURL(this.mediaSource);
+    }
   }
 
   mediaSourceOpen() {

@@ -91,8 +91,10 @@ class LiveStream {
     if (virtualclass.system.mybrowser.name === 'Safari') {
       this.playByOgv = true;
     }
+
+    this.playByOgv = true;
     
-    if (this.playByOgv && !this.isScriptAlreadyIncluded('../build/ogv/ogv.js')) {
+    if (this.playByOgv && !this.isScriptAlreadyIncluded('/virtualclass/build/ogv/ogv.js')) {
       this.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
     }
   }
@@ -121,11 +123,11 @@ class LiveStream {
     const finalData = response.data.slice(4, response.data.length);
     const fileName = this.getFileName(response.config.url);
     this.listStream[fileName] = finalData;
-    console.log('request url, stream receive init data ', fileName);
+    // console.log('request url, stream receive init data ', fileName);
 
-    console.log('reponse receive at very start, Play start 0 ', fileName);
+    // console.log('reponse receive at very start, Play start 0 ', fileName);
     this.playIfReady(fileName);
-    console.log('====> response received for file ', fileName);
+    // console.log('====> response received for file ', fileName);
   }
 
   onBuffer(buffer) {
@@ -433,10 +435,10 @@ class LiveStream {
           } else {
             this.triggerStart(e.message.url); // normal case
           }
-          console.log('page refresh remove');
+          // console.log('page refresh remove');
           this.pageRefresh = false;
           this.insertTime = false;
-          console.log('live video suman 1');
+          // console.log('live video suman 1');
         }, 100);
       }
     }
@@ -632,7 +634,8 @@ class LiveStream {
 
   readyOGVInstance() {
    // if  (!this.ogvPlayer ) {
-      this.ogvPlayer = new OGVPlayer({ forceWebGL: true, debug: false, });
+      const playerOptions = { forceWebGL: true, debug: true};
+      this.ogvPlayer = new OGVPlayer(playerOptions);
       var container = document.createElement('div');
       container.id = 'ogvVideoContainer';
       container.appendChild(this.ogvPlayer);

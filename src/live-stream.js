@@ -92,7 +92,7 @@ class LiveStream {
       this.playByOgv = true;
     }
 
-    // this.playByOgv = true;
+     this.playByOgv = true;
     
     if (this.playByOgv && !this.isScriptAlreadyIncluded('/virtualclass/build/ogv/ogv.js')) {
       this.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
@@ -634,7 +634,7 @@ class LiveStream {
 
   readyOGVInstance() {
    // if  (!this.ogvPlayer ) {
-      const playerOptions = { forceWebGL: true, debug: true};
+      const playerOptions = { forceWebGL: false, debug: true};
       this.ogvPlayer = new OGVPlayer(playerOptions);
       var container = document.createElement('div');
       container.id = 'ogvVideoContainer';

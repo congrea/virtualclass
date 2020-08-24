@@ -364,6 +364,7 @@ class LiveStream {
       // virtualclass.LiveStream.sourceBuffer.abort();
       delete this.sourceBuffer;
       delete this.mediaSource;
+      delete this.startReadyFile;
     }
 
     this.startedStream = false;

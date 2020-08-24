@@ -92,7 +92,33 @@ class LiveStream {
       this.playByOgv = true;
     }
 
-    //  this.playByOgv = true;
+    // this.playByOgv = true;
+
+    if (this.playByOgv && roles.isStudent() && !this.buttonAlreadyAttached) {
+      this.buttonAlreadyAttached = true;
+      const button = document.createElement('div');
+      button.id = 'ogvButton';
+      button.style.border = "1px solid green";
+      button.style.position = "absolute";
+      button.style.top = "0px";
+      button.style.left = "0px";
+      button.style.width = "100px";
+      button.style.height = "20px";
+      button.style.background = "red";
+      button.innerHTML = "Play ogv";
+      const virtualclassCont = document.getElementById('virtualclassCont');
+      if (virtualclassCont != null) {
+        virtualclassCont.appendChild(button);
+      }
+
+      button.addEventListener('click', () => {
+        if (this.startReadyFile) {
+          this._playIfReadyOGV.call(this, this.startReadyFile);
+        } else {
+          alert('Not ready')
+        }
+      });
+    }
     
     if (this.playByOgv && !this.isScriptAlreadyIncluded('/virtualclass/build/ogv/ogv.js')) {
       this.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
@@ -584,37 +610,41 @@ class LiveStream {
   }
 
   playIfReadyOGV(file) {
-    console.log('suman ogv total file Received to play ', file);
     if (!this.ogvPlayerReady && this.inStreamList(this.firstFile) && Object.keys(this.listStream).length > 1 && virtualclass.liveStream.fileList.ol.order.length > 1) {
-      // this.ogvPlayer = new OGVPlayer({ forceWebGL: true, debug: false, });
-      // var container = document.createElement('div');
-      // container.id = 'studenVideoContainer';
-      // container.appendChild(this.ogvPlayer);
-      // document.getElementById('liveStreamCont').appendChild(container);
-      // container.style.position = 'absolute';
-      this.readyOGVInstance();
-      this.ogvPlayerReady  = true;
-      const firstBuffer = this.inStreamList(this.firstFile);
-      console.log('Actual append buffer ', this.firstFile);
-      console.log('LOADED META DATA SUMAN BOGATI init start playing');
-
-      this.ogvPlayer._loadCodec(firstBuffer, function (buf) {
-        console.log('Laxmi ogv play ', virtualclass.liveStream.firstFile);
-        virtualclass.liveStream.ogvPlayer._startProcessingVideo(buf);
-        virtualclass.liveStream.currentExecuted = virtualclass.liveStream.firstFile;
-        delete virtualclass.liveStream.listStream[virtualclass.liveStream.firstFile];
-        console.log('====> DELETE LIVE STREAM FILE ', virtualclass.liveStream.firstFile);
-        virtualclass.liveStream.startedAppending = true;
-        virtualclass.liveStream.duringPlayFirstPacket();
-
-        virtualclass.liveStream.ogvPlayerLoadedMedia = setInterval( () => {
-          if (virtualclass.liveStream.ogvPlayer && virtualclass.liveStream.ogvPlayer._codec && virtualclass.liveStream.ogvPlayer._codec.loadedAllMetadata) { // todo, this has to be improved
-            clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
-            virtualclass.liveStream.ogvPlayer.play();
-          }
-        }, 500);
-      });
+      this.startReadyFile = file;
     }
+  }
+
+  _playIfReadyOGV(file) {
+    console.log('suman ogv total file Received to play ', file);
+    // this.ogvPlayer = new OGVPlayer({ forceWebGL: true, debug: false, });
+    // var container = document.createElement('div');
+    // container.id = 'studenVideoContainer';
+    // container.appendChild(this.ogvPlayer);
+    // document.getElementById('liveStreamCont').appendChild(container);
+    // container.style.position = 'absolute';
+    this.readyOGVInstance();
+    this.ogvPlayerReady  = true;
+    const firstBuffer = this.inStreamList(this.firstFile);
+    console.log('Actual append buffer ', this.firstFile);
+    console.log('LOADED META DATA SUMAN BOGATI init start playing');
+
+    this.ogvPlayer._loadCodec(firstBuffer, function (buf) {
+      console.log('Laxmi ogv play ', virtualclass.liveStream.firstFile);
+      virtualclass.liveStream.ogvPlayer._startProcessingVideo(buf);
+      virtualclass.liveStream.currentExecuted = virtualclass.liveStream.firstFile;
+      delete virtualclass.liveStream.listStream[virtualclass.liveStream.firstFile];
+      console.log('====> DELETE LIVE STREAM FILE ', virtualclass.liveStream.firstFile);
+      virtualclass.liveStream.startedAppending = true;
+      virtualclass.liveStream.duringPlayFirstPacket();
+
+      virtualclass.liveStream.ogvPlayerLoadedMedia = setInterval( () => {
+        if (virtualclass.liveStream.ogvPlayer && virtualclass.liveStream.ogvPlayer._codec && virtualclass.liveStream.ogvPlayer._codec.loadedAllMetadata) { // todo, this has to be improved
+          clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
+          virtualclass.liveStream.ogvPlayer.play();
+        }
+      }, 500);
+    });
   }
 
   destroyOGVPlayer() {

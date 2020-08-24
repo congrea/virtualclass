@@ -92,7 +92,7 @@ class LiveStream {
       this.playByOgv = true;
     }
 
-    // this.playByOgv = true;
+//    this.playByOgv = true;
 
     if (this.playByOgv && roles.isStudent() && !this.buttonAlreadyAttached) {
       this.buttonAlreadyAttached = true;
@@ -112,11 +112,12 @@ class LiveStream {
       }
 
       button.addEventListener('click', () => {
-        if (this.startReadyFile) {
-          this._playIfReadyOGV.call(this, this.startReadyFile);
-        } else {
-          alert('Not ready')
-        }
+        // if (this.startReadyFile) {
+        //   this._playIfReadyOGVFinal.call(this, this.startReadyFile);
+        // } else {
+        //   alert('Not ready')
+        // }
+        this._playIfReadyOGVFinal.call(this, this.startReadyFile);
       });
     }
     
@@ -612,8 +613,10 @@ class LiveStream {
 
   playIfReadyOGV(file) {
     if (!this.ogvPlayerReady && this.inStreamList(this.firstFile) && Object.keys(this.listStream).length > 1 && virtualclass.liveStream.fileList.ol.order.length > 1) {
-      this.startReadyFile = file;
+      // this.startReadyFile = file;
+      this._playIfReadyOGV(file); 
     }
+    // this._playIfReadyOGV(file);
   }
 
   _playIfReadyOGV(file) {
@@ -642,11 +645,15 @@ class LiveStream {
       virtualclass.liveStream.ogvPlayerLoadedMedia = setInterval( () => {
         if (virtualclass.liveStream.ogvPlayer && virtualclass.liveStream.ogvPlayer._codec && virtualclass.liveStream.ogvPlayer._codec.loadedAllMetadata) { // todo, this has to be improved
           clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
-          virtualclass.liveStream.ogvPlayer.play();
+          // virtualclass.liveStream.ogvPlayer.play();
         }
       }, 500);
     });
   }
+  _playIfReadyOGVFinal () {
+    virtualclass.liveStream.ogvPlayer.play();
+  }
+  
 
   destroyOGVPlayer() {
     console.log('DESTROY OGV PLAYER');

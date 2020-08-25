@@ -92,8 +92,7 @@ class LiveStream {
       this.playByOgv = true;
     }
 
-//    this.playByOgv = true;
-
+    
     if (this.playByOgv && roles.isStudent() && !this.buttonAlreadyAttached) {
       this.buttonAlreadyAttached = true;
       const button = document.createElement('div');
@@ -657,7 +656,10 @@ class LiveStream {
 
   destroyOGVPlayer() {
     console.log('DESTROY OGV PLAYER');
-    if (this.ogvPlayer) this.ogvPlayer.stop();
+    if (this.ogvPlayer) {
+      this.ogvPlayer._stopPlayback();
+      this.ogvPlayer.stop();
+    }
     delete this.ogvPlayer;
     delete virtualclass.liveStream.listStream;
     virtualclass.liveStream.listStream = {};

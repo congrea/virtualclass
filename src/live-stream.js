@@ -646,7 +646,7 @@ class LiveStream {
         if (virtualclass.liveStream.ogvPlayer && virtualclass.liveStream.ogvPlayer._codec && virtualclass.liveStream.ogvPlayer._codec.loadedAllMetadata) { // todo, this has to be improved
           clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
           // virtualclass.liveStream.ogvPlayer.play();
-          virtualclass.liveStream._playIfReadyOGVFinal();
+          // virtualclass.liveStream._playIfReadyOGVFinal();
         }
       }, 500);
     });

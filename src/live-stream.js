@@ -633,9 +633,9 @@ class LiveStream {
     console.log('Actual append buffer ', this.firstFile);
     console.log('LOADED META DATA SUMAN BOGATI init start playing');
 
-    this.ogvPlayer[this.randmoString]._loadCodec(firstBuffer, function (buf) {
+    this.ogvPlayer._loadCodec(firstBuffer, function (buf) {
       console.log('Laxmi ogv play ', virtualclass.liveStream.firstFile);
-      virtualclass.liveStream.ogvPlayer[virtualclass.liveStream.randmoString]._startProcessingVideo(buf);
+      virtualclass.liveStream.ogvPlayer._startProcessingVideo(buf);
       virtualclass.liveStream.currentExecuted = virtualclass.liveStream.firstFile;
       delete virtualclass.liveStream.listStream[virtualclass.liveStream.firstFile];
       console.log('====> DELETE LIVE STREAM FILE ', virtualclass.liveStream.firstFile);
@@ -651,23 +651,22 @@ class LiveStream {
     });
   }
   _playIfReadyOGVFinal () {
-    this.ogvPlayer[this.randmoString].play();
+    virtualclass.liveStream.ogvPlayer.play();
   }
   
 
   destroyOGVPlayer() {
     console.log('DESTROY OGV PLAYER');
-    if (this.ogvPlayer && this.ogvPlayer[this.randmoString]) {
-      this.ogvPlayer[this.randmoString]._stopPlayback();
-      this.ogvPlayer[this.randmoString].stop();
+    if (this.ogvPlayer) {
+      this.ogvPlayer._stopPlayback();
+      this.ogvPlayer.stop();
     }
-    delete this.ogvPlayer[this.randmoString];
+    delete this.ogvPlayer;
     delete virtualclass.liveStream.listStream;
     virtualclass.liveStream.listStream = {};
 
-    // this.ogvPlayer[this.randmoString].stop();
+    // this.ogvPlayer.stop();
     delete this.ogvPlayerReady;
-    delete this.randmoString;
     const ogvVideoContainer = document.getElementById('ogvVideoContainer');
     if (ogvVideoContainer != null) {
       ogvVideoContainer.parentNode.removeChild(ogvVideoContainer);
@@ -675,18 +674,12 @@ class LiveStream {
   }
 
   readyOGVInstance() {
-   // if  (!this.ogvPlayer[this.randmoString] ) {
+   // if  (!this.ogvPlayer ) {
       const playerOptions = { forceWebGL: true, debug: false};
-      if (!this.ogvPlayer) {
-        this.ogvPlayer = {};
-      }
-      this.randmoString = virtualclass.vutil.randomString(10);
-      this.ogvPlayer[this.randmoString] = new OGVPlayer(playerOptions);
-      
-
+      this.ogvPlayer = new OGVPlayer(playerOptions);
       var container = document.createElement('div');
       container.id = 'ogvVideoContainer';
-      container.appendChild(this.ogvPlayer[this.randmoString]);
+      container.appendChild(this.ogvPlayer);
       document.getElementById('liveStreamCont').appendChild(container);
       // container.style.position = 'absolute';
     // }

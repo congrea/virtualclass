@@ -646,7 +646,7 @@ class LiveStream {
         if (virtualclass.liveStream.ogvPlayer && virtualclass.liveStream.ogvPlayer._codec && virtualclass.liveStream.ogvPlayer._codec.loadedAllMetadata) { // todo, this has to be improved
           clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
           // virtualclass.liveStream.ogvPlayer.play();
-          virtualclass.liveStream._playIfReadyOGVFinal();
+          // virtualclass.liveStream._playIfReadyOGVFinal();
         }
       }, 500);
     });
@@ -657,12 +657,12 @@ class LiveStream {
   
 
   destroyOGVPlayer() {
-    console.log('DESTROY OGV PLAYER');
     if (this.ogvPlayer) {
       this.ogvPlayer._stopPlayback();
       this.ogvPlayer.stop();
+      console.log('DESTROY OGV PLAYER');
     }
-    delete this.ogvPlayer;
+    // delete this.ogvPlayer;
     delete virtualclass.liveStream.listStream;
     virtualclass.liveStream.listStream = {};
 
@@ -675,15 +675,18 @@ class LiveStream {
   }
 
   readyOGVInstance() {
-   // if  (!this.ogvPlayer ) {
+    let container;
+    if  (!this.ogvPlayer ) {
       const playerOptions = { forceWebGL: true, debug: false};
       this.ogvPlayer = new OGVPlayer(playerOptions);
-      var container = document.createElement('div');
-      container.id = 'ogvVideoContainer';
-      container.appendChild(this.ogvPlayer);
-      document.getElementById('liveStreamCont').appendChild(container);
+      
       // container.style.position = 'absolute';
-    // }
+     }
+
+     container = document.createElement('div');
+     container.id = 'ogvVideoContainer';
+     container.appendChild(this.ogvPlayer);
+     document.getElementById('liveStreamCont').appendChild(container);
   }
 
   getChunkForOgvPlayer () {

@@ -678,7 +678,7 @@ class LiveStream {
 
   readyOGVInstance() {
    // if  (!this.ogvPlayer ) {
-      const playerOptions = { forceWebGL: true, debug: false};
+      const playerOptions = { forceWebGL: false, debug: false};
       this.ogvPlayer = new OGVPlayer(playerOptions);
       var container = document.createElement('div');
       container.id = 'ogvVideoContainer';

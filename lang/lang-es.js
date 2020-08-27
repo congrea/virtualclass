@@ -70,6 +70,7 @@
     confirmOk: 'Si',
     connectionClose: 'La conexión está cerrada ({virtualclass1}).',
     connectionClosec310: 'El plan gratuito no admite la funcionalidad de grabación, por favor, actualice su plan o desactive la grabación.',
+    continueToLiveStream: "Haga clic en Aceptar para continuar la transmisión en vivo",
     Controls: 'Controles',
     coursePoll: 'Encuesta de nivel de curso',
     Cpoll: 'Encuesta del curso',

@@ -59,24 +59,24 @@ class LiveStream {
     if (!this.alreadyInit) {
       if (virtualclass.isPlayMode) {
         this.prefixUrl = `${this.uploadEndPoint}/${wbUser.lkey}/${wbUser.room}/${wbUser.session}`;
-        console.log('Prefix url recording', this.prefixUrl);
+        // console.log('Prefix url recording', this.prefixUrl);
       } else if (localStorage.mySession != null) {
         this.prefixUrl = `${this.uploadEndPoint}/${wbUser.lkey}/${wbUser.room}/${localStorage.mySession}`;
-        console.log('Prefix url localstorage', this.prefixUrl);
+        // console.log('Prefix url localstorage', this.prefixUrl);
       } else if (virtualclass.gObj.currentSession) {
         this.prefixUrl = `${this.uploadEndPoint}/${wbUser.lkey}/${wbUser.room}/${virtualclass.gObj.currentSession}`;
       } 
 
       if (!this.prefixUrl) {
         setTimeout(() => {
-          console.log('Prefix was not found', this.prefixUrl);
+          // console.log('Prefix was not found', this.prefixUrl);
           this.init();
         }, 1500);
         return;
       }
 
       if (roles.hasControls()) {
-        console.log('==> attach click event ');
+        // console.log('==> attach click event ');
         const startSharingElement = document.getElementById('startLiveStream');
         startSharingElement.addEventListener('click', this.handlLiveStream.bind(this));
       }
@@ -146,7 +146,7 @@ class LiveStream {
   }
 
   afterReceivedStream(response) {
-    console.log('play start data received');
+    // console.log('play start data received');
     const finalData = response.data.slice(4, response.data.length);
     const fileName = this.getFileName(response.config.url);
     this.listStream[fileName] = finalData;
@@ -174,7 +174,7 @@ class LiveStream {
   }
 
   initPLayerForParticipaes() {
-    console.log('current mode LIVE STREAM');
+    // console.log('current mode LIVE STREAM');
     if (typeof MediaSource != 'undefined') {
       this.mediaSource = new MediaSource();
       this.mediaSource.addEventListener('sourceopen', this.mediaSourceOpen.bind(this));
@@ -411,10 +411,10 @@ class LiveStream {
 
   onMessage(e) {
     if (e.message.fileName) {
-      console.log('Received file from server ', e.message.fileName);
+      // console.log('Received file from server ', e.message.fileName);
       setTimeout(() => {
         if (virtualclass.currApp === 'Video' && this.mediaRecorder && this.mediaRecorder.state === 'recording') {
-          console.log('====> send file ', e.message.fileName);
+          // console.log('====> send file ', e.message.fileName);
           ioAdapter.mustSend({
             cf: 'liveStream',
             url: e.message.fileName,
@@ -428,16 +428,16 @@ class LiveStream {
     } else if (e.message.url && virtualclass.currApp === 'Video') {
       if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'videoMode')) return;
       if (roles.isStudent()) {
-        console.log('====> Empty the list 2');
+        // console.log('====> Empty the list 2');
         if (!this.firstFile) {
           this.firstFile = e.message.url;
           console.log('This is first file ', this.firstFile);
         }
 
         this.lastFileRequested = e.message.url;
-        console.log('Last file request ', this.lastFileRequested);
+        // console.log('Last file request ', this.lastFileRequested);
         this.fileList.insert(e.message.url, `${this.prefixUrl}/${e.message.url}.chvs`);
-        console.log('====> insert list suman ', e.message.url);
+        // console.log('====> insert list suman ', e.message.url);
         if (!this.startingPoint && this.fileList.ol.order.length >= this.bufferLength) {
           this.readyStartingPoint();
         }
@@ -452,13 +452,13 @@ class LiveStream {
             if (this.fileList.ol.order.length <= 5) { // Play from first file
               const firstFile = this.fileList.ol.order[0];
               this.triggerStart(firstFile);
-              console.log('live stream, start from first ', this.fileList.ol.order.length);
+              // console.log('live stream, start from first ', this.fileList.ol.order.length);
             } else if (!this.startFromPageRefresh) {
               this.startFromPageRefresh = true; // Play start fromw when page refresh
               if (!virtualclass.liveStream.callFromSeek) {
                 this.requestInitializePacket();
               }
-              console.log('live stream, start from latest', this.fileList.ol.order.length);
+              // console.log('live stream, start from latest', this.fileList.ol.order.length);
             }
           } else {
             this.triggerStart(e.message.url); // normal case
@@ -503,23 +503,23 @@ class LiveStream {
       url = `https://api.congrea.net/data/stream?session=${currentSession}`;
     }
 
-    console.log('request url init packet ', url);
+    // console.log('request url init packet ', url);
     this.requestInitializePacketFinal(url);
   }
 
   requestInitializePacketFinal(url) {
     this.latesRequetInitUrl = url;
-    console.log('request url live stream init data ', url);
+    // console.log('request url live stream init data ', url);
     this.xhrInitPacket.get(url).then(async (response) => {
       if (this.latesRequetInitUrl === response.config.url) {
         this.currentFile = response.headers['x-congrea-seg'].split('.chvs')[0];
-        console.log('request url, stream receive init data ', this.currentFile, response.config.url.split('?')[1]);
+        // console.log('request url, stream receive init data ', this.currentFile, response.config.url.split('?')[1]);
         this.startedStream = true;
         this.listStream[this.currentFile] = response.data;
         this.firstFile = response.headers['x-congrea-seg'].split('.chvs')[0];
-        console.log('This is first file ', this.firstFile);
+        // console.log('This is first file ', this.firstFile);
         delete this.startingPoint;
-        console.log('calculate starting point ', this.firstFile);
+        // console.log('calculate starting point ', this.firstFile);
         this.readyStartingPoint();
       }
     });
@@ -620,7 +620,7 @@ class LiveStream {
   }
 
   _playIfReadyOGV(file) {
-    console.log('suman ogv total file Received to play ', file);
+    // console.log('suman ogv total file Received to play ', file);
     // this.ogvPlayer = new OGVPlayer({ forceWebGL: true, debug: false, });
     // var container = document.createElement('div');
     // container.id = 'studenVideoContainer';
@@ -630,15 +630,15 @@ class LiveStream {
     this.readyOGVInstance();
     this.ogvPlayerReady  = true;
     const firstBuffer = this.inStreamList(this.firstFile);
-    console.log('Actual append buffer ', this.firstFile);
-    console.log('LOADED META DATA SUMAN BOGATI init start playing');
+    // console.log('Actual append buffer ', this.firstFile);
+    // console.log('LOADED META DATA SUMAN BOGATI init start playing');
 
     this.ogvPlayer._loadCodec(firstBuffer, function (buf) {
-      console.log('Laxmi ogv play ', virtualclass.liveStream.firstFile);
+      // console.log('Laxmi ogv play ', virtualclass.liveStream.firstFile);
       virtualclass.liveStream.ogvPlayer._startProcessingVideo(buf);
       virtualclass.liveStream.currentExecuted = virtualclass.liveStream.firstFile;
       delete virtualclass.liveStream.listStream[virtualclass.liveStream.firstFile];
-      console.log('====> DELETE LIVE STREAM FILE ', virtualclass.liveStream.firstFile);
+      // console.log('====> DELETE LIVE STREAM FILE ', virtualclass.liveStream.firstFile);
       virtualclass.liveStream.startedAppending = true;
       virtualclass.liveStream.duringPlayFirstPacket();
 
@@ -660,7 +660,7 @@ class LiveStream {
     if (this.ogvPlayer) {
       this.ogvPlayer._stopPlayback();
       this.ogvPlayer.stop();
-      console.log('DESTROY OGV PLAYER');
+      // console.log('DESTROY OGV PLAYER');
     }
     delete this.ogvPlayer;
     delete virtualclass.liveStream.listStream;
@@ -676,7 +676,7 @@ class LiveStream {
 
   readyOGVInstance() {
    // if  (!this.ogvPlayer ) {
-      const playerOptions = { forceWebGL: true, debug: false};
+      const playerOptions = { forceWebGL: true, debug: true};
       this.ogvPlayer = new OGVPlayer(playerOptions);
       var container = document.createElement('div');
       container.id = 'ogvVideoContainer';
@@ -697,7 +697,7 @@ class LiveStream {
       return stream;
     }
 
-    console.log('suman ogv total file execute play not');
+    // console.log('suman ogv total file execute play not');
     return false;
   }
 

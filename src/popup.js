@@ -510,7 +510,7 @@ const PopUp = (function (window, undefined) {
       });
   };
 
-  PopUp.prototype.infoMsg = function (msg) {
+  PopUp.prototype.infoMsg = function (msg, cb) {
     const element = document.getElementById('about-modal');
     virtualclass.popup.open(element);
     this.hideAllPopups();
@@ -520,11 +520,12 @@ const PopUp = (function (window, undefined) {
     msgCont.innerHTML = msg;
     const displayBtn = document.getElementById('infoMessageOk');
     displayBtn.innerHTML = 'ok';
-    const generalMessageClose = document.getElementById('infoMessageOk');
 
+    const generalMessageClose = document.getElementById('infoMessageOk');
     generalMessageClose.addEventListener('click',
       () => {
         virtualclass.popup.closeElem();
+        if (cb) cb();
       });
   };
 

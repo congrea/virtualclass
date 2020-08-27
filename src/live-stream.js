@@ -92,35 +92,6 @@ class LiveStream {
       this.playByOgv = true;
     }
 
-    // this.playByOgv = true;
-
-    if (this.playByOgv && roles.isStudent() && !this.buttonAlreadyAttached) {
-      this.buttonAlreadyAttached = true;
-      const button = document.createElement('div');
-      button.id = 'ogvButton';
-      button.style.border = "1px solid green";
-      button.style.position = "absolute";
-      button.style.top = "0px";
-      button.style.left = "0px";
-      button.style.width = "100px";
-      button.style.height = "20px";
-      button.style.background = "red";
-      button.innerHTML = "Play ogv";
-      const virtualclassCont = document.getElementById('virtualclassCont');
-      if (virtualclassCont != null) {
-        virtualclassCont.appendChild(button);
-      }
-
-      button.addEventListener('click', () => {
-        // if (this.startReadyFile) {
-        //   this._playIfReadyOGVFinal.call(this, this.startReadyFile);
-        // } else {
-        //   alert('Not ready')
-        // }
-        this._playIfReadyOGVFinal.call(this, this.startReadyFile);
-      });
-    }
-    
     if (this.playByOgv && !this.isScriptAlreadyIncluded('/virtualclass/build/ogv/ogv.js')) {
       this.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
     }
@@ -649,10 +620,12 @@ class LiveStream {
           clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
           // virtualclass.liveStream.ogvPlayer.play();
           // virtualclass.liveStream._playIfReadyOGVFinal();
+          virtualclass.popup.infoMsg('Press ok to continue live stream', virtualclass.liveStream._playIfReadyOGVFinal);
         }
       }, 500);
     });
   }
+
   _playIfReadyOGVFinal () {
     virtualclass.liveStream.ogvPlayer.play();
   }

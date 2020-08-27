@@ -635,8 +635,9 @@ class LiveStream {
 
     this.ogvPlayer._loadCodec(firstBuffer, function (buf) {
       // console.log('Laxmi ogv play ', virtualclass.liveStream.firstFile);
-      virtualclass.liveStream.ogvPlayer._startProcessingVideo(buf);
       virtualclass.liveStream.currentExecuted = virtualclass.liveStream.firstFile;
+      virtualclass.liveStream.ogvPlayer._startProcessingVideo(buf);
+      
       console.log('Current executed file input ', virtualclass.liveStream.currentExecuted);
       delete virtualclass.liveStream.listStream[virtualclass.liveStream.firstFile];
       // console.log('====> DELETE LIVE STREAM FILE ', virtualclass.liveStream.firstFile);

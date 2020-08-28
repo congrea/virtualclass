@@ -18,7 +18,7 @@ class LiveStream {
     this.bufferLength = 2;
     this.listStream = {};
     this.sharing = false;
-    this.playByOgv = false;
+    this.playByOgv = t;
     this.resoluation = {
       qga: { width: { ideal: 320 }, height: { ideal: 240 } },
 
@@ -92,7 +92,6 @@ class LiveStream {
       this.playByOgv = true;
     }
 
-    // this.playByOgv = true;
     
     if (this.playByOgv && !this.isScriptAlreadyIncluded('/virtualclass/build/ogv/ogv.js')) {
       this.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
@@ -626,7 +625,7 @@ class LiveStream {
           // virtualclass.liveStream._playIfReadyOGVFinal();
           virtualclass.popup.infoMsg('Press ok to continue live stream', virtualclass.liveStream._playIfReadyOGVFinal);
         }
-      }, 500);
+      }, 1500);
     });
   }
 

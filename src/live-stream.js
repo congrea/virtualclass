@@ -92,6 +92,8 @@ class LiveStream {
       this.playByOgv = true;
     }
 
+    // this.playByOgv = true;
+    
     if (this.playByOgv && !this.isScriptAlreadyIncluded('/virtualclass/build/ogv/ogv.js')) {
       this.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
     }
@@ -99,7 +101,9 @@ class LiveStream {
 
   requestStream(url) {
     if (!url) return;
+    console.log('====> live stream request url');
     this.xhr.get(url).then(async (response) => {
+      console.log('====> live stream got response ', url);
       this.afterReceivedStream(response);
     })
   }

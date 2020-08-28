@@ -357,7 +357,7 @@ var OGVDemuxerWebMW = (function() {
                   return !0
               },
               f: function(b, c, d, e) {
-                  console.log('====> suman packet push audio');
+                //   console.log('====> suman packet push audio');
                   a.audioPackets.push({
                       data: a.HEAPU8.buffer.slice ? a.HEAPU8.buffer.slice(b, b + c) : (new Uint8Array(new Uint8Array(a.HEAPU8.buffer,
                           b, c))).buffer,
@@ -396,7 +396,7 @@ var OGVDemuxerWebMW = (function() {
                       c)
               },
               o: function(b, c, d, e, f) {
-                 console.log('====> suman packet push video');
+                //  console.log('====> suman packet push video');
                   a.videoPackets.push({
                       data: a.HEAPU8.buffer.slice ? a.HEAPU8.buffer.slice(b, b + c) : (new Uint8Array(new Uint8Array(a.HEAPU8.buffer, b, c))).buffer,
                       timestamp: d,
@@ -604,11 +604,11 @@ var OGVDemuxerWebMW = (function() {
               var c = Z(function() {
                   return a._ogv_demuxer_process()
               });
-              console.log('===> process suman bogati', c);
+            //   console.log('===> process suman bogati', c);
               b(!!c)
           };
           a.dequeueVideoPacket = function(b) {
-              console.log('====> MEDIA dequeue video packet');
+            //   console.log('====> MEDIA dequeue video packet');
               if (a.videoPackets.length) {
                   var c = a.videoPackets.shift().data;
                   b(c)
@@ -616,7 +616,7 @@ var OGVDemuxerWebMW = (function() {
           };
           a.dequeueAudioPacket = function(b) {
              // console.log('====> suman got input, suman media hello');
-              console.log('====> MEDIA dequeue audio packet suman media hello');
+            //   console.log('====> MEDIA dequeue audio packet suman media hello');
               if (a.audioPackets.length) {
                   var c = a.audioPackets.shift();
                   b(c.data, c.discardPadding)

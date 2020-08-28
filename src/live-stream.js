@@ -18,7 +18,7 @@ class LiveStream {
     this.bufferLength = 2;
     this.listStream = {};
     this.sharing = false;
-    this.playByOgv = t;
+    this.playByOgv = false;
     this.resoluation = {
       qga: { width: { ideal: 320 }, height: { ideal: 240 } },
 

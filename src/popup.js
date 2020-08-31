@@ -5,6 +5,7 @@
  */
 // RvVanillaModal
 const PopUp = (function (window, undefined) {
+  let infoCallbackRefrence  = false;
   const confirmbox = false;
   'use strict';
   /**
@@ -509,7 +510,11 @@ const PopUp = (function (window, undefined) {
         virtualclass.popup.closeElem();
       });
   };
-
+ let infoCallBack = function(cb) {
+    virtualclass.popup.closeElem();
+    if (cb) cb();
+  }
+  
   PopUp.prototype.infoMsg = function (msg, cb) {
     const element = document.getElementById('about-modal');
     virtualclass.popup.open(element);
@@ -521,13 +526,15 @@ const PopUp = (function (window, undefined) {
     const displayBtn = document.getElementById('infoMessageOk');
     displayBtn.innerHTML = 'ok';
 
-    const generalMessageClose = document.getElementById('infoMessageOk');
-    generalMessageClose.addEventListener('click',
-      () => {
-        virtualclass.popup.closeElem();
-        if (cb) cb();
-      });
+    const infoMessageClose = document.getElementById('infoMessageOk');
+    
+    if (infoCallbackRefrence) infoMessageClose.removeEventListener('click', infoCallbackRefrence, true);
+
+    infoCallbackRefrence = infoCallBack.bind(window, cb);
+    infoMessageClose.addEventListener('click', infoCallbackRefrence, true);
   };
+
+  
 
   PopUp.prototype.generalMsgButton = function (msg) {
     const element = document.getElementById('about-modal');

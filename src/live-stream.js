@@ -92,6 +92,7 @@ class LiveStream {
       this.playByOgv = true;
     }
 
+    // this.playByOgv = true;
     
     if (this.playByOgv && !this.isScriptAlreadyIncluded('/virtualclass/build/ogv/ogv.js')) {
       this.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
@@ -617,6 +618,10 @@ class LiveStream {
       // console.log('====> DELETE LIVE STREAM FILE ', virtualclass.liveStream.firstFile);
       virtualclass.liveStream.startedAppending = true;
       virtualclass.liveStream.duringPlayFirstPacket();
+      
+      if (virtualclass.liveStream.ogvPlayerLoadedMedia) {
+        clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
+      }
 
       virtualclass.liveStream.ogvPlayerLoadedMedia = setInterval( () => {
         if (virtualclass.liveStream.ogvPlayer && virtualclass.liveStream.ogvPlayer._codec && virtualclass.liveStream.ogvPlayer._codec.loadedAllMetadata) { // todo, this has to be improved
@@ -625,7 +630,7 @@ class LiveStream {
           // virtualclass.liveStream._playIfReadyOGVFinal();
           virtualclass.popup.infoMsg('Press ok to continue live stream', virtualclass.liveStream._playIfReadyOGVFinal);
         }
-      }, 1500);
+      }, 500);
     });
   }
 

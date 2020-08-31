@@ -13,6 +13,7 @@
       this.wbRtc = {};
       this.wbRtc.className = 'webrtcCont';
       this.mybrowser = {};
+
     },
     // TODO function need to be revised
     isCanvasSupport(navigator, browserName, version) {
@@ -229,6 +230,7 @@
         virtualclass.error.push(virtualclass.lang.getString('ieBrowserIssue'));
         virtualclass.vutil.initDisableVirtualClass();
       }
+      this.mybrowser.iOS  = this.iOS();
     },
 
     mediaDevices: {
@@ -458,6 +460,19 @@
     }
     return true;
   };
+
+  system.iOS = function () {
+    return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ].includes(navigator.platform)
+    // iPad on iOS 13 detection
+    || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+  }
 
   window.system = system;
 }(window));

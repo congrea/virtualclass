@@ -19,6 +19,7 @@ class LiveStream {
     this.listStream = {};
     this.sharing = false;
     this.playByOgv = false;
+    this.iOS  = false;
     this.resoluation = {
       qga: { width: { ideal: 320 }, height: { ideal: 240 } },
 
@@ -92,7 +93,6 @@ class LiveStream {
       this.playByOgv = true;
     }
 
-    // this.playByOgv = true;
     
     if (this.playByOgv && !this.isScriptAlreadyIncluded('/virtualclass/build/ogv/ogv.js')) {
       this.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
@@ -101,9 +101,9 @@ class LiveStream {
 
   requestStream(url) {
     if (!url) return;
-    console.log('====> live stream request url');
+    // console.log('====> live stream request url');
     this.xhr.get(url).then(async (response) => {
-      console.log('====> live stream got response ', url);
+      // console.log('====> live stream got response ', url);
       this.afterReceivedStream(response);
     })
   }
@@ -628,7 +628,11 @@ class LiveStream {
           clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
           // virtualclass.liveStream.ogvPlayer.play();
           // virtualclass.liveStream._playIfReadyOGVFinal();
-          virtualclass.popup.infoMsg('Press ok to continue live stream', virtualclass.liveStream._playIfReadyOGVFinal);
+          if (virtualclass.system.mybrowser.iOS) {
+            virtualclass.popup.infoMsg(virtualclass.lang.getString('continueToLiveStream'), virtualclass.liveStream._playIfReadyOGVFinal);
+          } else {
+            virtualclass.liveStream.ogvPlayer.play();        
+          }
         }
       }, 500);
     });

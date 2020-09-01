@@ -1,10 +1,4 @@
 // This file is responsible to display presenter's live video to other participantes
-/**
- * 
- *  player._loadCodec(data, function (buf) {
-      player._startProcessingVideo(buf);
-    });
- */
 class LiveStream {
   constructor() {
     this.mimeType = 'video/webm;codecs=vp8,opus';
@@ -19,7 +13,7 @@ class LiveStream {
     this.listStream = {};
     this.sharing = false;
     this.playByOgv = false;
-    this.iOS  = false;
+    this.iOS = false;
     this.resoluation = {
       qga: { width: { ideal: 320 }, height: { ideal: 240 } },
 
@@ -83,7 +77,7 @@ class LiveStream {
       }
 
       this.alreadyInit = true;
-      var virtualclassCont = document.getElementById('virtualclassCont');
+      const virtualclassCont = document.getElementById('virtualclassCont');
       if (virtualclassCont != null) {
         virtualclassCont.classList.add('ogvPlayer');
       }
@@ -93,9 +87,8 @@ class LiveStream {
       this.playByOgv = true;
     }
 
-    
     if (this.playByOgv && !this.isScriptAlreadyIncluded('/virtualclass/build/ogv/ogv.js')) {
-      this.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
+      virtualclass.vutil.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
     }
   }
 
@@ -105,7 +98,7 @@ class LiveStream {
     this.xhr.get(url).then(async (response) => {
       // console.log('====> live stream got response ', url);
       this.afterReceivedStream(response);
-    })
+    });
   }
 
   getFileName(url) {
@@ -159,15 +152,15 @@ class LiveStream {
   }
 
   mediaSourceOpen() {
-    console.log('step 1');
+    // console.log('step 1');
     if (this.mediaSource.readyState === 'open') {
       this.sourceBuffer = this.mediaSource.addSourceBuffer(this.mimeType);
       this.sourceBuffer.addEventListener('error', (e) => { console.log(e); });
       this.sourceBuffer.addEventListener('updateend', () => {
         // virtualclass.liveStream.appendStarted = true;
-        console.log('====> appended start: remove 2');
+        // console.log('====> appended start: remove 2');
         const next = this.fileList.getNextByID(virtualclass.liveStream.currentExecuted);
-        console.log(' ===> actual PLAY START 2');
+        // console.log(' ===> actual PLAY START 2');
         if (next) this.playIfReady(next.id);
       });
     }
@@ -228,13 +221,12 @@ class LiveStream {
   // 320 * 240  => 100kbps
   // 640 * 480 => 200kb
   startRecorder(videoWidth) {
-    let videoBitsPerSecond = 300000; // 300kbs
+    let videoBitsPerSecond = 250000; // 250kbs
     if (videoWidth > 640 && videoWidth <= 1920) {
       videoBitsPerSecond = 500000; // 500kbs
     } else if (videoWidth > 1920) { // high quality video
       videoBitsPerSecond = 1000000; // 1 Mbs
     }
-    videoBitsPerSecond = 250000;
     console.log('current mode LIVE STREAM');
     console.log('video bit per second ', videoBitsPerSecond);
     if (!MediaRecorder.isTypeSupported(this.mimeType)) console.error(`${this.mimeType} is not supported`);
@@ -245,7 +237,7 @@ class LiveStream {
   }
 
   stopHandler() {
-    console.log("====STOP 1");
+    console.log('====STOP 1');
   }
 
   handleLiveStreamData(event) {
@@ -365,7 +357,6 @@ class LiveStream {
     if (roles.hasControls() && virtualclass.media.audio.isProcessError) {
       virtualclass.precheck.afterComplete(true); // Passing true means dosen't require to get stream again
       delete virtualclass.media.audio.isProcessError;
-      
     }
   }
 
@@ -586,69 +577,53 @@ class LiveStream {
     }
   }
 
-  playIfReadyOGV(file) {
-    if (!this.ogvPlayerReady && this.inStreamList(this.firstFile) && Object.keys(this.listStream).length > 1 && virtualclass.liveStream.fileList.ol.order.length > 1) {
-      // this.startReadyFile = file;
-      this._playIfReadyOGV(file); 
-    }
-    // this._playIfReadyOGV(file);
-  }
+  playIfReadyOGV() {
+    if (!this.ogvPlayerReady && this.inStreamList(this.firstFile)
+    && Object.keys(this.listStream).length > 1 && virtualclass.liveStream.fileList.ol.order.length > 1) {
+      this.readyOGVInstance();
+      this.ogvPlayerReady = true;
+      const firstBuffer = this.inStreamList(this.firstFile);
 
-  _playIfReadyOGV(file) {
-    // console.log('suman ogv total file Received to play ', file);
-    // this.ogvPlayer = new OGVPlayer({ forceWebGL: true, debug: false, });
-    // var container = document.createElement('div');
-    // container.id = 'studenVideoContainer';
-    // container.appendChild(this.ogvPlayer);
-    // document.getElementById('liveStreamCont').appendChild(container);
-    // container.style.position = 'absolute';
-    this.readyOGVInstance();
-    this.ogvPlayerReady  = true;
-    const firstBuffer = this.inStreamList(this.firstFile);
-    // console.log('Actual append buffer ', this.firstFile);
-    // console.log('LOADED META DATA SUMAN BOGATI init start playing');
-
-    this.ogvPlayer._loadCodec(firstBuffer, function (buf) {
-      // console.log('Laxmi ogv play ', virtualclass.liveStream.firstFile);
-      virtualclass.liveStream.currentExecuted = virtualclass.liveStream.firstFile;
-      virtualclass.liveStream.ogvPlayer._startProcessingVideo(buf);
-      
-      console.log('Current executed file input ', virtualclass.liveStream.currentExecuted);
-      delete virtualclass.liveStream.listStream[virtualclass.liveStream.firstFile];
-      // console.log('====> DELETE LIVE STREAM FILE ', virtualclass.liveStream.firstFile);
-      virtualclass.liveStream.startedAppending = true;
-      virtualclass.liveStream.duringPlayFirstPacket();
-      
-      if (virtualclass.liveStream.ogvPlayerLoadedMedia) {
-        clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
-      }
-
-      virtualclass.liveStream.ogvPlayerLoadedMedia = setInterval( () => {
-        if (virtualclass.liveStream.ogvPlayer && virtualclass.liveStream.ogvPlayer._codec && virtualclass.liveStream.ogvPlayer._codec.loadedAllMetadata) { // todo, this has to be improved
+      this.ogvPlayer._loadCodec(firstBuffer, function (buf) {
+        // console.log('Laxmi ogv play ', virtualclass.liveStream.firstFile);
+        virtualclass.liveStream.currentExecuted = virtualclass.liveStream.firstFile;
+        virtualclass.liveStream.ogvPlayer._startProcessingVideo(buf);
+        
+        console.log('Current executed file input ', virtualclass.liveStream.currentExecuted);
+        delete virtualclass.liveStream.listStream[virtualclass.liveStream.firstFile];
+        // console.log('====> DELETE LIVE STREAM FILE ', virtualclass.liveStream.firstFile);
+        virtualclass.liveStream.startedAppending = true;
+        virtualclass.liveStream.duringPlayFirstPacket();
+        
+        if (virtualclass.liveStream.ogvPlayerLoadedMedia) {
           clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
-          // virtualclass.liveStream.ogvPlayer.play();
-          // virtualclass.liveStream._playIfReadyOGVFinal();
-          if (virtualclass.system.mybrowser.iOS) {
-            virtualclass.popup.infoMsg(virtualclass.lang.getString('continueToLiveStream'), virtualclass.liveStream._playIfReadyOGVFinal);
-          } else {
-            virtualclass.liveStream.ogvPlayer.play();        
-          }
         }
-      }, 500);
-    });
+  
+        virtualclass.liveStream.ogvPlayerLoadedMedia = setInterval( () => {
+          if (virtualclass.liveStream.ogvPlayer && virtualclass.liveStream.ogvPlayer._codec && virtualclass.liveStream.ogvPlayer._codec.loadedAllMetadata) { // todo, this has to be improved
+            clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
+            // iOS nees user's gesture
+            if (virtualclass.system.mybrowser.iOS) {
+              virtualclass.popup.infoMsg(virtualclass.lang.getString('continueToLiveStream'), virtualclass.liveStream._playIfReadyOGVFinal);
+            } else {
+              virtualclass.liveStream.ogvPlayer.play();        
+            }
+          }
+        }, 500);
+      });
+    }
   }
 
   _playIfReadyOGVFinal () {
     virtualclass.liveStream.ogvPlayer.play();
   }
-  
 
   destroyOGVPlayer() {
     if (this.ogvPlayer) {
       this.ogvPlayer._stopPlayback();
       this.ogvPlayer.stop();
-      // console.log('DESTROY OGV PLAYER');
     }
+
     delete this.ogvPlayer;
     delete virtualclass.liveStream.listStream;
     virtualclass.liveStream.listStream = {};
@@ -662,41 +637,24 @@ class LiveStream {
   }
 
   readyOGVInstance() {
-   // if  (!this.ogvPlayer ) {
-      const playerOptions = { forceWebGL: true, debug: false};
-      this.ogvPlayer = new OGVPlayer(playerOptions);
-      var container = document.createElement('div');
-      container.id = 'ogvVideoContainer';
-      container.appendChild(this.ogvPlayer);
-      document.getElementById('liveStreamCont').appendChild(container);
-      // container.style.position = 'absolute';
-    // }
+    const playerOptions = { forceWebGL: true, debug: false };
+    this.ogvPlayer = new OGVPlayer(playerOptions);
+    const container = document.createElement('div');
+    container.id = 'ogvVideoContainer';
+    container.appendChild(this.ogvPlayer);
+    document.getElementById('liveStreamCont').appendChild(container);
   }
 
-  getChunkForOgvPlayer () {
+  getChunkForOgvPlayer() {
     const nextFile = this.fileList.getNextByID(this.currentExecuted);
     if (nextFile) {
       virtualclass.liveStream.tempFile = nextFile.id;
       const stream = this.inStreamList(nextFile.id);
-      if (stream) {
-        const stream = console.log('Laxmi ogv play 2', nextFile.id);
-      }
       return stream;
     }
 
     // console.log('suman ogv total file execute play not');
     return false;
-  }
-
-  loadFile(fileUrl, fileType) {
-    if (fileType === "js"){ //if filename is a external JavaScript file
-      var fileref = document.createElement('script')
-      fileref.setAttribute("type","text/javascript")
-      fileref.setAttribute("src", fileUrl)
-    }
-
-    if (typeof fileref != "undefined")
-      document.getElementsByTagName("head")[0].appendChild(fileref)
   }
 
   isScriptAlreadyIncluded(src){

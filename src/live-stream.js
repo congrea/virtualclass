@@ -60,7 +60,7 @@ class LiveStream {
         // console.log('Prefix url localstorage', this.prefixUrl);
       } else if (virtualclass.gObj.currentSession) {
         this.prefixUrl = `${this.uploadEndPoint}/${wbUser.lkey}/${wbUser.room}/${virtualclass.gObj.currentSession}`;
-      } 
+      }
 
       if (!this.prefixUrl) {
         setTimeout(() => {
@@ -83,9 +83,7 @@ class LiveStream {
       }
     }
 
-    if (virtualclass.system.mybrowser.name === 'Safari') {
-      this.playByOgv = true;
-    }
+    if (virtualclass.system.mybrowser.name === 'Safari') this.playByOgv = true;
 
     if (this.playByOgv && !this.isScriptAlreadyIncluded('/virtualclass/build/ogv/ogv.js')) {
       virtualclass.vutil.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
@@ -98,6 +96,8 @@ class LiveStream {
     this.xhr.get(url).then(async (response) => {
       // console.log('====> live stream got response ', url);
       this.afterReceivedStream(response);
+    }).catch((error) => {
+      console.log('ERROR:- REQUEST URL ', error);
     });
   }
 
@@ -137,7 +137,7 @@ class LiveStream {
     if (!this.remoteVideo) {
       this.remoteVideo = document.getElementById('liveStream');
       this.remoteVideo.srcObject = null;
-      this.remoteVideo.currentTime = 0
+      this.remoteVideo.currentTime = 0;
     }
   }
 
@@ -488,6 +488,8 @@ class LiveStream {
         // console.log('calculate starting point ', this.firstFile);
         this.readyStartingPoint();
       }
+    }).catch((error) => {
+      console.log('ERROR:- REQUEST STARTING PACKET ', error);
     });
   }
 
@@ -530,7 +532,7 @@ class LiveStream {
         next = this.fileList.getNextByID(current);
         if (next) current = next.id;
       }
-      if (current != this.firstFile) this.startingPoint = current;
+      if (current !== this.firstFile) this.startingPoint = current;
     }
   }
 
@@ -554,7 +556,7 @@ class LiveStream {
         this.startedAppending = true;
         this.duringPlayFirstPacket();
         if (this.startFromPageRefresh) {
-          const refreshTime = ( virtualclass.isPlayMode ) ? 700 : 1600;
+          const refreshTime = virtualclass.isPlayMode ? 700 : 1600;
           setTimeout(() => { 
             document.getElementById('liveStream').currentTime = this.MAX_TIME; 
             console.log('REFRESH THE SCREEN');
@@ -583,39 +585,41 @@ class LiveStream {
       this.readyOGVInstance();
       this.ogvPlayerReady = true;
       const firstBuffer = this.inStreamList(this.firstFile);
-
-      this.ogvPlayer._loadCodec(firstBuffer, function (buf) {
-        // console.log('Laxmi ogv play ', virtualclass.liveStream.firstFile);
-        virtualclass.liveStream.currentExecuted = virtualclass.liveStream.firstFile;
-        virtualclass.liveStream.ogvPlayer._startProcessingVideo(buf);
-        
-        console.log('Current executed file input ', virtualclass.liveStream.currentExecuted);
-        delete virtualclass.liveStream.listStream[virtualclass.liveStream.firstFile];
-        // console.log('====> DELETE LIVE STREAM FILE ', virtualclass.liveStream.firstFile);
-        virtualclass.liveStream.startedAppending = true;
-        virtualclass.liveStream.duringPlayFirstPacket();
-        
-        if (virtualclass.liveStream.ogvPlayerLoadedMedia) {
-          clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
-        }
-  
-        virtualclass.liveStream.ogvPlayerLoadedMedia = setInterval( () => {
-          if (virtualclass.liveStream.ogvPlayer && virtualclass.liveStream.ogvPlayer._codec && virtualclass.liveStream.ogvPlayer._codec.loadedAllMetadata) { // todo, this has to be improved
-            clearInterval(virtualclass.liveStream.ogvPlayerLoadedMedia)
-            // iOS nees user's gesture
-            if (virtualclass.system.mybrowser.iOS) {
-              virtualclass.popup.infoMsg(virtualclass.lang.getString('continueToLiveStream'), virtualclass.liveStream._playIfReadyOGVFinal);
-            } else {
-              virtualclass.liveStream.ogvPlayer.play();        
-            }
-          }
-        }, 500);
-      });
+      this.ogvPlayer._loadCodec(firstBuffer, (buf) => {virtualclass.liveStream.afterLoadedCodec(buf)});
     }
   }
 
-  _playIfReadyOGVFinal () {
-    virtualclass.liveStream.ogvPlayer.play();
+  afterLoadedCodec(buf) {
+    // console.log('Laxmi ogv play ', virtualclass.liveStream.firstFile);
+    this.currentExecuted = this.firstFile;
+    this.ogvPlayer._startProcessingVideo(buf);
+
+    console.log('Current executed file input ', this.currentExecuted);
+    delete this.listStream[this.firstFile];
+    // console.log('====> DELETE LIVE STREAM FILE ', this.firstFile);
+    this.startedAppending = true;
+    this.duringPlayFirstPacket();
+
+    if (this.ogvPlayerLoadedMedia) {
+      clearInterval(this.ogvPlayerLoadedMedia);
+    }
+
+    this.ogvPlayerLoadedMedia = setInterval(() => {
+      // todo, this has to be improved
+      if (this.ogvPlayer && this.ogvPlayer._codec && this.ogvPlayer._codec.loadedAllMetadata) {
+        clearInterval(this.ogvPlayerLoadedMedia);
+        // iOS nees user's gesture
+        if (virtualclass.system.mybrowser.iOS) {
+          virtualclass.popup.infoMsg(virtualclass.lang.getString('continueToLiveStream'), this.playIfReadyOGVFinal);
+        } else {
+          this.ogvPlayer.play();        
+        }
+      }
+    }, 500);
+  }
+
+  playIfReadyOGVFinal() {
+    this.ogvPlayer.play();
   }
 
   destroyOGVPlayer() {

@@ -83,7 +83,9 @@ class LiveStream {
       }
     }
 
-    if (virtualclass.system.mybrowser.name === 'Safari') this.playByOgv = true;
+    if (virtualclass.system.mybrowser.name === 'Safari') {
+      this.playByOgv = true;
+    }
 
     if (this.playByOgv && !this.isScriptAlreadyIncluded('/virtualclass/build/ogv/ogv.js')) {
       virtualclass.vutil.loadFile('/virtualclass/build/ogv/ogv.js', 'js');
@@ -610,16 +612,14 @@ class LiveStream {
         clearInterval(this.ogvPlayerLoadedMedia);
         // iOS nees user's gesture
         if (virtualclass.system.mybrowser.iOS) {
-          virtualclass.popup.infoMsg(virtualclass.lang.getString('continueToLiveStream'), this.playIfReadyOGVFinal);
+          virtualclass.popup.infoMsg(virtualclass.lang.getString('continueToLiveStream'), () => {
+            virtualclass.liveStream.ogvPlayer.play();
+          });
         } else {
-          this.ogvPlayer.play();        
+          this.ogvPlayer.play();
         }
       }
     }, 500);
-  }
-
-  playIfReadyOGVFinal() {
-    this.ogvPlayer.play();
   }
 
   destroyOGVPlayer() {

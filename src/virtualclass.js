@@ -318,7 +318,7 @@
 
         // To teacher
         virtualclass.user.readyLeftBar(virtualclass.gObj.uRole, app);
-        this.media = new window.media();
+        this.media = new (MediaWrapper(window))(); // equivaluent to new Media();
 
         // var precheck = localStorage.getItem('precheck');
         // if (precheck != null) {
